@@ -1,0 +1,5 @@
+# Related to code generation
+include/core.hpp
+
+# Compilers will place build artifacts here
+out
