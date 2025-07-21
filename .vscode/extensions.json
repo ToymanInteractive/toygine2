@@ -1,0 +1,11 @@
+{
+    "recommendations": [
+        "streetsidesoftware.code-spell-checker",
+        "yzhang.markdown-all-in-one",
+        "DavidAnson.vscode-markdownlint",
+        "bierner.markdown-mermaid",
+        "ms-vscode.cpptools",
+        "ms-vscode.makefile-tools",
+        "xaver.clang-format"
+    ]
+}
