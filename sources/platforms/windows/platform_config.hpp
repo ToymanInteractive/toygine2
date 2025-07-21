@@ -18,7 +18,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   platform_config.h
+  \file   platform_config.hpp
   \brief  additional windows platform header
 */
 
