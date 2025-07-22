@@ -1,0 +1,84 @@
+//
+// Copyright (c) 2025 by Toyman Interactive
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy of this
+// software and associated documentation files (the "Software"), to deal in the Software
+// without restriction, including without limitation the rights to use, copy, modify, merge,
+// publish, distribute, sublicense, and / or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the following conditions :
+//
+// The above copyright notice and this permission notice shall be included in all copies or
+// substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+// INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+// PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
+// FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//
+/*
+  \file   core.hpp
+  \brief  toygine core part united header
+*/
+
+#ifndef INCLUDE_CORE_HPP_
+#define INCLUDE_CORE_HPP_
+
+#include <cstdint>
+#include <cuchar>
+
+//------------------------------------------------------------------------------
+
+//==============================
+//  target OS
+//==============================
+/// Microsoft Windows Desktop xp, vista, 7, 8, 8.1 etc...
+#define OS_WINDOWS 0x1000
+
+/// GNU Linux
+#define OS_LINUX 0x2000
+
+/// Apple macOS
+#define OS_MAC_OS 0x3000
+
+/// Apple iOS
+#define OS_IOS 0x3100
+
+/// Google Android
+#define OS_ANDROID 0x4000
+
+/// Nintendo GameBoy Advance
+#define OS_GBA 0x5000
+
+/// Nintendo DS
+#define OS_NDS 0x6000
+
+/// Nintendo 3DS
+#define OS_3DS 0x7000
+
+/// Nintendo Switch
+#define OS_SWITCH 0x8000
+
+//==============================
+//  ProcessorType
+//==============================
+#define CPU_INTEL_x86 0x1020 // Intel CPU 32 bit code
+#define CPU_INTEL_x64 0x1040 // Intel CPU 64 bit code
+#define CPU_ARM_32 0x2020 // ARM CPU 32 bit code
+#define CPU_ARM_64 0x2040 // ARM CPU 64 bit code
+
+//------------------------------------------------------------------------------
+
+#undef TARGET_OS
+#undef TARGET_CPU
+
+#include "@TARGET_PLATFORM_CONFIG_HEADER@"
+
+namespace toygine
+{
+  wchar_t * utf8toWChar( wchar_t * dest, std::size_t destSize, char const * src, std::size_t srcLen );
+
+} // namespace toygine
+
+#endif // INCLUDE_CORE_HPP_

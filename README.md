@@ -1,1 +1,3 @@
-# toygine2
+# ToyGine2
+
+Game Engine
