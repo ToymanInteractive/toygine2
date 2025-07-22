@@ -82,7 +82,7 @@ SpaceBeforeParens: ControlStatements
 SpaceInEmptyParentheses: false
 SpacesBeforeTrailingComments: 1
 SpacesInCStyleCastParentheses: false
-SpacesInParentheses: true
+SpacesInParentheses: false
 SpacesInSquareBrackets: false
 Standard: c++20
 TabWidth: 2
