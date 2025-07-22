@@ -46,3 +46,8 @@ jobs:
     needs:
       - dispatcher
     uses: ./.github/workflows/code_style_check.yaml
+  build:
+    name: Build using CMake
+    needs:
+      - style
+    uses: ./.github/workflows/build_cmake.yaml

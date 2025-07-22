@@ -1,0 +1,73 @@
+name: CMake
+
+on:
+  workflow_call:
+
+permissions: {}
+
+jobs:
+  cmake:
+    strategy:
+      matrix:
+        include:
+        - name: macOS XCode
+          platform: macos-xcode-arm
+          os: macos-15
+          cmake_preset: macos-xcode
+
+        - name: macOS Ninja
+          platform: macos-ninja-arm
+          os: macos-15
+          run_test: 1
+          run_cpack: 1
+          cmake_preset: macos-ninja-release
+          cpack_type: RelWithDebInfo
+          cpack_extension: tar.gz
+
+        - name: Windows MSVC
+          platform: windows-msvc-x64
+          os: windows-2025
+          cmake_preset: windows-msvc
+
+        - name: Windows MSVC x86
+          platform: windows-msvc-x86
+          os: windows-2025
+          cmake_preset: windows-msvc-x86
+
+    name: CMake (${{ matrix.name }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    defaults:
+      run:
+        shell: bash
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+
+    - name: Prepare CI
+      run: |
+        if [[ "${{ matrix.os }}" =~ "macos" ]]; then
+          brew install ninja
+        elif [[ "${{ matrix.os }}" =~ "windows" ]]; then
+          MSVC_INSTALL_PATH=$(vswhere -latest -property installationPath)
+          echo "MSVC_INSTALL_PATH = $MSVC_INSTALL_PATH"
+
+          echo "Installed toolset versions:"
+          ls -vr "$MSVC_INSTALL_PATH/VC/Tools/MSVC"
+
+          TOOLS_DIR=$(ls -vr "$MSVC_INSTALL_PATH/VC/Tools/MSVC/" | head -1)
+          echo "TOOLS_DIR = $TOOLS_DIR"
+
+          DUMPBIN_PATH="$MSVC_INSTALL_PATH/VC/Tools/MSVC/$TOOLS_DIR/bin/Hostx64/x64/dumpbin.exe"
+          echo "DUMPBIN_PATH = $DUMPBIN_PATH"
+        fi
+
+    - name: Configure
+      run: |
+        cmake --preset ${{ matrix.cmake_preset }}
+
+    - name: Build
+      run: |
+        cmake --build --preset ${{ matrix.cmake_preset }}
