@@ -6,7 +6,9 @@ reviews:
   profile: "assertive"
   request_changes_workflow: false
   high_level_summary: true
+  high_level_summary_placeholder: "@coderabbitai summary"
   high_level_summary_in_walkthrough: true
+  auto_title_placeholder: "@coderabbitai"
   review_status: true
   commit_status: true
   collapse_walkthrough: false
@@ -19,7 +21,7 @@ reviews:
   auto_apply_labels: true
   suggested_reviewers: true
   auto_assign_reviewers: true
-  poem: true
+  poem: false
   abort_on_close: true
   disable_cache: false
   auto_review:
