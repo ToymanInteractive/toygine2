@@ -4,7 +4,9 @@
         "yzhang.markdown-all-in-one",
         "DavidAnson.vscode-markdownlint",
         "bierner.markdown-mermaid",
+        "ms-vscode.cmake-tools",
         "ms-vscode.cpptools",
+        "ms-vscode.cpptools-extension-pack",
         "ms-vscode.makefile-tools",
         "xaver.clang-format"
     ]
