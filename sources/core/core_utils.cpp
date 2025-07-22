@@ -22,43 +22,43 @@
 namespace toygine
 {
 
-    wchar_t * utf8toWChar( wchar_t * dest, std::size_t destSize, char const * src, std::size_t srcLen )
-    {
-        if ( dest == nullptr || destSize == 0 )
-            return nullptr;
+  wchar_t * utf8toWChar( wchar_t * dest, std::size_t destSize, char const * src, std::size_t srcLen )
+  {
+    if ( dest == nullptr || destSize == 0 )
+      return nullptr;
 
-        wchar_t * destPointer = dest;
-        if ( srcLen > 0 && src != nullptr ) {
-            wchar_t const * unicodeEndPos = dest + ( destSize - 1 );
-            std::size_t srcIterator = 0;
+    wchar_t * destPointer = dest;
+    if ( srcLen > 0 && src != nullptr ) {
+      wchar_t const * unicodeEndPos = dest + ( destSize - 1 );
+      std::size_t srcIterator = 0;
 
-            while ( srcIterator < srcLen && destPointer < unicodeEndPos ) {
-                std::uint8_t symbol = static_cast<std::uint8_t>( src[srcIterator++] );
-                if ( symbol <= 0x7F ) {
-                    *destPointer = symbol;
-                }
-                else {
-                    std::size_t charBytes = 0;
-                    while ( symbol & 0x80 ) {
-                        ++charBytes;
-                        symbol <<= 1;
-                    }
-
-                    wchar_t unicodeChar = static_cast<wchar_t>( symbol >> charBytes );
-                    while ( charBytes-- > 1 ) {
-                        unicodeChar <<= 6;
-                        unicodeChar |= src[srcIterator++] & 0x3F;
-                    }
-
-                    *destPointer = unicodeChar;
-                }
-                ++destPointer;
-            }
+      while ( srcIterator < srcLen && destPointer < unicodeEndPos ) {
+        std::uint8_t symbol = static_cast<std::uint8_t>( src[srcIterator++] );
+        if ( symbol <= 0x7F ) {
+          *destPointer = symbol;
         }
+        else {
+          std::size_t charBytes = 0;
+          while ( symbol & 0x80 ) {
+            ++charBytes;
+            symbol <<= 1;
+          }
 
-        *destPointer = L'\0';
+          wchar_t unicodeChar = static_cast<wchar_t>( symbol >> charBytes );
+          while ( charBytes-- > 1 ) {
+            unicodeChar <<= 6;
+            unicodeChar |= src[srcIterator++] & 0x3F;
+          }
 
-        return dest;
+          *destPointer = unicodeChar;
+        }
+        ++destPointer;
+      }
     }
+
+    *destPointer = L'\0';
+
+    return dest;
+  }
 
 } // namespace toygine

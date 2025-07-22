@@ -57,7 +57,7 @@ IncludeCategories:
   - Regex: '^"'
     Priority: 4
 IndentCaseLabels: false
-IndentWidth: 4
+IndentWidth: 2
 IndentWrappedFunctionNames: true
 JavaImportGroups:
   - "java"

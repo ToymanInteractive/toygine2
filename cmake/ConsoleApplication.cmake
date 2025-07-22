@@ -18,7 +18,7 @@
 # DEALINGS IN THE SOFTWARE.
 #-------------------------------------------------------------------------------------------
 
-cmake_minimum_required(VERSION 3.31.6 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.31.0 FATAL_ERROR)
 
 function(console_application BINARY_NAME SRC_LIST ${HDR_LIST} ${INL_LIST} ${LIB_LIST})
 
@@ -27,9 +27,9 @@ source_group("Source Files" FILES ${SRC_LIST} ${INL_LIST})
 add_executable(${BINARY_NAME} ${SRC_LIST} ${HDR_LIST} ${INL_LIST})
 
 if(DEFINED PREPROCESSOR_DEFINITIONS)
-  target_compile_definitions(${BINARY_NAME} ${PREPROCESSOR_DEFINITIONS})
+  target_compile_definitions(${BINARY_NAME} PRIVATE ${PREPROCESSOR_DEFINITIONS})
 endif(DEFINED PREPROCESSOR_DEFINITIONS)
 
-target_link_libraries(${BINARY_NAME} ${LIB_LIST})
+target_link_libraries(${BINARY_NAME} PRIVATE ${LIB_LIST})
 
 endfunction(console_application)

@@ -2,4 +2,4 @@
 include/core.hpp
 
 # Compilers will place build artifacts here
-out
+out/

@@ -30,7 +30,7 @@
     "explorer.fileNesting.expand": false,
     "explorer.fileNesting.patterns": {
         ".gitignore": ".gitattributes, .gitmodules, .gitmessage, .mailmap, .git-blame*",
-        "*.gba": "$(capture).elf",
+        "*.gba": "$(capture).elf"
     },
     "files.insertFinalNewline": true,
     "files.trimTrailingWhitespace": true,
@@ -53,12 +53,12 @@
         }
     },
     "workbench.editorAssociations": {
-        "*.md": "vscode.markdown.preview.editor",
+        "*.md": "vscode.markdown.preview.editor"
     },
     "[makefile]": {
         "editor.detectIndentation": false,
         "editor.insertSpaces": true,
-        "editor.tabSize": 4,
+        "editor.tabSize": 2
     },
     "files.associations": {
         "iostream": "cpp"

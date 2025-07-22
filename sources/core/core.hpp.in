@@ -77,7 +77,7 @@
 
 namespace toygine
 {
-    wchar_t * utf8toWChar( wchar_t * dest, std::size_t destSize, char const * src, std::size_t srcLen );
+  wchar_t * utf8toWChar( wchar_t * dest, std::size_t destSize, char const * src, std::size_t srcLen );
 
 } // namespace toygine
 

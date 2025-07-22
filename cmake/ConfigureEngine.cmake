@@ -18,7 +18,7 @@
 # DEALINGS IN THE SOFTWARE.
 #-------------------------------------------------------------------------------------------
 
-cmake_minimum_required(VERSION 3.31.6 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.31.0 FATAL_ERROR)
 
 if(NOT DEFINED TARGET_PLATFORM)
   if(CMAKE_SYSTEM_NAME MATCHES Windows)
