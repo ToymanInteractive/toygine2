@@ -31,7 +31,6 @@ set(CMAKE_DEBUG_POSTFIX "d")
 set(CMAKE_RELWITHDEBINFO_POSTFIX "rd")
 
 # Set generate relative path  ON
-set(CMAKE_USE_RELATIVE_PATHS TRUE)
 set(CMAKE_SUPPRESS_REGENERATION TRUE)
 
 #-------------------------------------------------------------------------------------------
@@ -49,15 +48,6 @@ endif()
 #-------------------------------------------------------------------------------------------
 # Compile and linking options
 #-------------------------------------------------------------------------------------------
-
-# Enable C++20 Globally
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
-
-# Enable C 17 Globally
-set(CMAKE_C_STANDARD 17)
-set(CMAKE_C_STANDARD_REQUIRED ON)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
