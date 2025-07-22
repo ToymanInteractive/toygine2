@@ -35,7 +35,7 @@ jobs:
                 }
             )) {
                 if (modifiedFiles.data.some((fileMetadata) =>
-                    [/\.c$/, /\.cpp$/, /\.h$/, /CMakeLists\.txt$/].some((pattern) => pattern.test(fileMetadata.filename))
+                    [/\.c$/, /\.cpp$/, /\.h$/, /\.hpp$/, /\.inl$/, /CMakeLists\.txt$/].some((pattern) => pattern.test(fileMetadata.filename))
                 )) {
                     core.setOutput("runCxxAnalyzers", "YES");
                     break;
