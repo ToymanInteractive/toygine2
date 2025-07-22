@@ -1,4 +1,0 @@
-* -text
-*.json linguist-language=JSON-with-Comments
-*.h linguist-language=C++
-*.cpp linguist-language=C++
