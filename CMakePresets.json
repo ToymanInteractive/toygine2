@@ -1,0 +1,115 @@
+{
+    "version": 10,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 31,
+        "patch": 0
+    },
+    "configurePresets": [
+        {
+            "name": "release-binary-dir",
+            "hidden": true,
+            "binaryDir": "${sourceDir}/out/build/${presetName}"
+        },
+        {
+            "name": "base-release",
+            "inherits": "release-binary-dir",
+            "hidden": true,
+            "generator": "Ninja",
+            "cacheVariables": {
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/${presetName}",
+                "PACKAGE_FILE_NAME": "$env{BUILD_FILE_NAME}",
+                "PACKAGE_NAME_SUFFIX": "$env{BUILD_NAME_SUFFIX}",
+                "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+                "ENABLE_TEST": "OFF",
+                "ENABLE_PUBLIC_RELEASE": "$env{ENABLE_PUBLIC_RELEASE}",
+                "ENABLE_PCH": "OFF"
+            }
+        },
+        {
+            "name": "macos-ninja-release",
+            "displayName": "macOS Ninja release",
+            "description": "ToyGine 2 MacOS Ninja",
+            "inherits": "base-release",
+            "cacheVariables": {
+                "ENABLE_TEST": "ON"
+            }
+        },
+        {
+            "name": "macos-xcode",
+            "displayName": "macOS XCode",
+            "description": "ToyGine 2 MacOS XCode",
+            "inherits": "base-release",
+            "generator": "Xcode"
+        },
+        {
+            "name": "windows-msvc",
+            "displayName": "Windows x64",
+            "description": "ToyGine 2 Windows MSVC",
+            "inherits": "base-release",
+            "generator": "Visual Studio 17 2022",
+            "architecture": {
+                "value": "x64",
+                "strategy": "set"
+            }
+        },
+        {
+            "name": "windows-msvc-x86",
+            "displayName": "Windows x86",
+            "description": "ToyGine 2 Windows MSVC x86",
+            "inherits": "base-release",
+            "generator": "Visual Studio 17 2022",
+            "architecture": {
+                "value": "Win32",
+                "strategy": "set"
+            }
+        },
+        {
+            "name": "macos-ninja-debug",
+            "displayName": "macOS Ninja debug",
+            "description": "ToyGine 2 MacOS Ninja (Debug)",
+            "inherits": "macos-ninja-release",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "ENABLE_TEST": "ON"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "default-debug",
+            "hidden": true,
+            "configuration": "Debug"
+        },
+        {
+            "name": "default-release",
+            "hidden": true,
+            "configuration": "RelWithDebInfo"
+        },
+        {
+            "name": "macos-ninja-release",
+            "configurePreset": "macos-ninja-release",
+            "inherits": "default-release"
+        },
+        {
+            "name": "macos-xcode",
+            "configurePreset": "macos-xcode",
+            "inherits": "default-release"
+        },
+        {
+            "name": "windows-msvc",
+            "configurePreset": "windows-msvc",
+            "inherits": "default-release"
+        },
+        {
+            "name": "windows-msvc-x86",
+            "configurePreset": "windows-msvc-x86",
+            "inherits": "default-release"
+        },
+        {
+            "name": "macos-ninja-debug",
+            "configurePreset": "macos-ninja-debug",
+            "inherits": "default-debug"
+        }
+    ]
+}
