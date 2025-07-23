@@ -16,3 +16,4 @@ jobs:
   build:
     name: Build using CMake
     uses: ./.github/workflows/build_cmake.yaml
+    secrets: inherit
