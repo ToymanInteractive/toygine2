@@ -3,13 +3,15 @@
     "cSpell.language": "en,ru",
     "cSpell.words": [
         "cpack",
+        "codacy",
         "devkit",
         "devkitarm",
         "msvc",
         "ndebug",
         "relwithdebinfo",
         "toygine",
-        "toyman"
+        "toyman",
+        "sarif"
     ],
     "C_Cpp.autocompleteAddParentheses": true,
     "C_Cpp.clang_format_fallbackStyle": "Google",
