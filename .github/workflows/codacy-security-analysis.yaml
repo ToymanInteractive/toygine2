@@ -1,0 +1,27 @@
+name: Codacy Security Analysis
+
+on:
+  workflow_call:
+
+jobs:
+  codacy-analysis:
+    name: Codacy Security Analysis
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4.2.2
+        with:
+          submodules: recursive
+
+      - name: Run Codacy Analysis CLI
+        uses: codacy/codacy-analysis-cli-action@v4.4.7
+        with:
+          output: results.sarif
+          format: sarif
+          gh-code-scanning-compat: true
+          max-allowed-issues: 2147483647
+
+      - name: Upload SARIF results file
+        uses: github/codeql-action/upload-sarif@2.22.1
+        with:
+          sarif_file: results.sarif
