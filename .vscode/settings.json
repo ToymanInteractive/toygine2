@@ -2,16 +2,16 @@
     "clang-format.fallbackStyle": "Google",
     "cSpell.language": "en,ru",
     "cSpell.words": [
-        "codacy",
         "cpack",
+        "codacy",
         "devkit",
         "devkitarm",
         "msvc",
         "ndebug",
         "relwithdebinfo",
-        "sarif",
         "toygine",
-        "toyman"
+        "toyman",
+        "sarif"
     ],
     "C_Cpp.autocompleteAddParentheses": true,
     "C_Cpp.clang_format_fallbackStyle": "Google",
