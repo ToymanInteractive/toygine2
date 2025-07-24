@@ -2,7 +2,7 @@ version = 1
 
 # 🔍 Common analyzer - for main source code
 [[analyzers]]
-name = "cxx"
+name = "cxx-sources"
 enabled = true
 
 [analyzers.meta]
@@ -14,7 +14,7 @@ include_patterns = [
 
 # 🔍 Second analyzer - for unit tests
 [[analyzers]]
-name = "cxx"
+name = "cxx-tests"
 enabled = true
 
 [analyzers.meta]
@@ -26,6 +26,9 @@ include_patterns = [
 [analyzers.config.rules]
 "CXX-W2009" = false
 
+test_patterns = [
+  "tests/**"
+]
 
 [[transformers]]
 name = "clang-format"
