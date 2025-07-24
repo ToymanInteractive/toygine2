@@ -11,6 +11,7 @@ concurrency:
 
 permissions:
   contents: read
+  security-events: write
 
 jobs:
   dispatcher:
@@ -60,6 +61,5 @@ jobs:
     name: Build using CMake
     needs:
       - style
-      - security_check
     uses: ./.github/workflows/build_cmake.yaml
     secrets: inherit

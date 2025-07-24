@@ -1,7 +1,17 @@
 version = 1
 
+exclude_patterns = [
+  "tests/**",
+]
+
+test_patterns = [
+  "tests/**"
+]
+
 [[analyzers]]
 name = "cxx"
+enabled = true
 
 [[transformers]]
 name = "clang-format"
+enabled = true
