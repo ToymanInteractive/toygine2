@@ -22,6 +22,7 @@ cmake_minimum_required(VERSION 3.31.0 FATAL_ERROR)
 
 project(ToyGine2 LANGUAGES CXX VERSION 1.2.3 HOMEPAGE_URL https://github.com/ToymanInteractive/toygine2)
 
+set(TOYGINE_LIBRARY_NAME toygine)
 set(TOYGINE_SOURCE_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 
 # Is top level project
@@ -87,14 +88,21 @@ set(HDR_LIST ${HDR_LIST} ${HDR_CORE_LIST})
 set(INL_LIST ${INL_LIST} ${INL_CORE_LIST})
 set(LIB_LIST ${LIB_LIST})
 
-set(LIBRARY_NAME toygine)
+add_library(${TOYGINE_LIBRARY_NAME} STATIC ${SRC_LIST} ${HDR_LIST} ${INL_LIST})
 
-add_library(${LIBRARY_NAME} STATIC ${SRC_LIST} ${HDR_LIST} ${INL_LIST})
-
-target_include_directories(${LIBRARY_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_include_directories(${TOYGINE_LIBRARY_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 if (PREPROCESSOR_DEFINITIONS)
-  target_compile_definitions(${LIBRARY_NAME} PRIVATE ${PREPROCESSOR_DEFINITIONS})
+  target_compile_definitions(${TOYGINE_LIBRARY_NAME} PRIVATE ${PREPROCESSOR_DEFINITIONS})
 endif (PREPROCESSOR_DEFINITIONS)
 
-target_link_libraries(${LIBRARY_NAME} ${LIB_LIST})
+target_link_libraries(${TOYGINE_LIBRARY_NAME} ${LIB_LIST})
+
+#-------------------------------------------------------------------------------------------
+# Unit tests
+#-------------------------------------------------------------------------------------------
+
+if (TOYGINE_BUILD_TESTS)
+  enable_testing()
+  add_subdirectory(test)
+endif (TOYGINE_BUILD_TESTS)
