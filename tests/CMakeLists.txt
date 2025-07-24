@@ -26,7 +26,7 @@ elseif (TARGET_PLATFORM STREQUAL "macOS Desktop")
 
   string(REGEX REPLACE "-Werror" "" CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS})
   string(REGEX REPLACE "-Weverything" "" CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS})
-  string(REGEX REPLACE "--pedantic-errors" "" CMAKE_C_FLAGS ${CMAKE_C_FLAGS})
+  string(REGEX REPLACE "-pedantic-errors" "" CMAKE_C_FLAGS ${CMAKE_C_FLAGS})
   set(CMAKE_CXX_FLAGS "-w ${CMAKE_CXX_FLAGS}")
 
 endif()
@@ -42,7 +42,7 @@ set(CATCH_INSTALL_DOCS OFF)
 FetchContent_Declare(Catch2 GIT_REPOSITORY https://github.com/catchorg/Catch2.git GIT_TAG v3.8.1)
 FetchContent_MakeAvailable(Catch2)
 
-list(APPEND CMAKE_MODULE_PATH ${catch2_SOURCE_DIR}/extras)
+list(APPEND CMAKE_MODULE_PATH ${Catch2_SOURCE_DIR}/extras)
 
 file(GLOB_RECURSE TEST_SRC CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp")
 

@@ -119,7 +119,8 @@
             "output": {
                 "debug": true,
                 "verbosity": "extra"
-            }
+            },
+            "configuration": "Debug"
         },
         {
             "name": "default-release",
@@ -127,7 +128,8 @@
             "output": {
                 "shortProgress": true,
                 "verbosity": "verbose"
-            }
+            },
+            "configuration": "RelWithDebInfo"
         },
         {
             "name": "macos-ninja-release",
