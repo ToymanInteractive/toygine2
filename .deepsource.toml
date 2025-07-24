@@ -1,9 +1,5 @@
 version = 1
 
-[[analyzers]]
-name = "cxx-sources"
-enabled = true
-
 exclude_patterns = [
   "tests/**",
 ]
@@ -12,5 +8,10 @@ test_patterns = [
   "tests/**"
 ]
 
+[[analyzers]]
+name = "cxx"
+enabled = true
+
 [[transformers]]
 name = "clang-format"
+enabled = true
