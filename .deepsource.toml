@@ -1,6 +1,5 @@
 version = 1
 
-# 🔍 Common analyzer - for main source code
 [[analyzers]]
 name = "cxx-sources"
 enabled = true
