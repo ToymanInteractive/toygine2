@@ -20,9 +20,9 @@
 
 cmake_minimum_required(VERSION 3.31.0 FATAL_ERROR)
 
-if(TARGET_PLATFORM STREQUAL "Windows Desktop")
+if (TARGET_PLATFORM STREQUAL "Windows Desktop")
 
-  if(MSVC)
+  if (MSVC)
     message(STATUS "Compiler: MSVC, version: " ${MSVC_VERSION})
 
     set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:Debug>")
@@ -32,7 +32,7 @@ if(TARGET_PLATFORM STREQUAL "Windows Desktop")
     set(CMAKE_C_FLAGS   "/std:c17 /nologo /Wall /WX /wd4710 /wd4711 /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /EHsc /Zc:wchar_t /Zc:forScope /Zc:inline /Zc:rvalueCast /GR- /permissive")
     set(CMAKE_CXX_FLAGS "         /nologo /Wall /WX /wd4710 /wd4711 /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /EHsc /Zc:wchar_t /Zc:forScope /Zc:inline /Zc:rvalueCast /GR- /permissive")
 
-    if(CMAKE_SIZEOF_VOID_P MATCHES "8")
+    if (CMAKE_SIZEOF_VOID_P MATCHES "8")
 
       set(CMAKE_C_FLAGS_DEBUG            "/ZI /diagnostics:caret   /sdl                     /fsanitize=fuzzer /Od /Ob0 /Oi-     /Oy-         /D_DEBUG /GF- /RTCc /D_ALLOW_RTCc_IN_STL /RTCsu /MTd /GS  /guard:cf- /Gy  /Qpar- /arch:SSE2 /fp:strict  /fp:except            /Gr")
       set(CMAKE_CXX_FLAGS_DEBUG          "/ZI /diagnostics:caret   /sdl                     /fsanitize=fuzzer /Od /Ob0 /Oi-     /Oy-         /D_DEBUG /GF- /RTCc /D_ALLOW_RTCc_IN_STL /RTCsu /MTd /GS  /guard:cf- /Gy  /Qpar- /arch:SSE2 /fp:strict  /fp:except            /Gd")
@@ -43,7 +43,7 @@ if(TARGET_PLATFORM STREQUAL "Windows Desktop")
       set(CMAKE_C_FLAGS_RELEASE          "    /diagnostics:classic /sdl-                                      /Ox /Ob3 /Oi  /Ot /Oy  /GT /GL /DNDEBUG /GF                                    /MT  /GS- /guard:cf- /Gy- /Qpar  /arch:SSE2 /fp:fast    /fp:except-           /Gr")
       set(CMAKE_CXX_FLAGS_RELEASE        "    /diagnostics:classic /sdl-                                      /Ox /Ob3 /Oi  /Ot /Oy  /GT /GL /DNDEBUG /GF                                    /MT  /GS- /guard:cf- /Gy- /Qpar  /arch:SSE2 /fp:fast    /fp:except-           /Gr")
 
-    else()
+    else ()
 
       set(CMAKE_C_FLAGS_DEBUG            "/ZI /diagnostics:caret   /sdl                     /fsanitize=fuzzer /Od /Ob0 /Oi-     /Oy-         /D_DEBUG /GF- /RTCc /D_ALLOW_RTCc_IN_STL /RTCsu /MTd /GS  /guard:cf- /Gy  /Qpar- /arch:IA32 /fp:strict  /fp:except  /hotpatch /Gd")
       set(CMAKE_CXX_FLAGS_DEBUG          "/ZI /diagnostics:caret   /sdl                     /fsanitize=fuzzer /Od /Ob0 /Oi-     /Oy-         /D_DEBUG /GF- /RTCc /D_ALLOW_RTCc_IN_STL /RTCsu /MTd /GS  /guard:cf- /Gy  /Qpar- /arch:IA32 /fp:strict  /fp:except  /hotpatch /Gd")
@@ -54,7 +54,7 @@ if(TARGET_PLATFORM STREQUAL "Windows Desktop")
       set(CMAKE_C_FLAGS_RELEASE          "    /diagnostics:classic /sdl-                                      /Ox /Ob3 /Oi  /Ot /Oy  /GT /GL /DNDEBUG /GF                                    /MT  /GS- /guard:cf- /Gy- /Qpar  /arch:SSE2 /fp:fast    /fp:except-           /Gr")
       set(CMAKE_CXX_FLAGS_RELEASE        "    /diagnostics:classic /sdl-                                      /Ox /Ob3 /Oi  /Ot /Oy  /GT /GL /DNDEBUG /GF                                    /MT  /GS- /guard:cf- /Gy- /Qpar  /arch:SSE2 /fp:fast    /fp:except-           /Gr")
 
-    endif()
+    endif ()
 
     set(CMAKE_STATIC_LINKER_FLAGS "/WX")
     set(CMAKE_EXE_LINKER_FLAGS    "/WX /MANIFEST /MANIFESTUAC:\"/level='asInvoker' /uiAccess='false'\" /ALLOWISOLATION /LARGEADDRESSAWARE /SAFESEH:NO")
@@ -66,11 +66,11 @@ if(TARGET_PLATFORM STREQUAL "Windows Desktop")
     set(CMAKE_EXE_LINKER_FLAGS_DEBUG              "/INCREMENTAL:NO /LTCG:OFF /DEBUG:FULL /ASSEMBLYDEBUG")
     set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO     "/INCREMENTAL:NO /LTCG     /DEBUG:FULL /ASSEMBLYDEBUG")
     set(CMAKE_EXE_LINKER_FLAGS_RELEASE            "/INCREMENTAL:NO /LTCG     /DEBUG:NONE /ASSEMBLYDEBUG:DISABLE")
-  endif(MSVC)
+  endif (MSVC)
 
-elseif(TARGET_PLATFORM STREQUAL "Linux Desktop")
+elseif (TARGET_PLATFORM STREQUAL "Linux Desktop")
 
-elseif(TARGET_PLATFORM STREQUAL "macOS Desktop")
+elseif (TARGET_PLATFORM STREQUAL "macOS Desktop")
 
   message(STATUS "Compiler: Xcode, version: " ${XCODE_VERSION})
 
@@ -99,23 +99,23 @@ elseif(TARGET_PLATFORM STREQUAL "macOS Desktop")
 
 # stop on https://clang.llvm.org/docs/UsersManual.html#cmdoption-f-no-save-optimization-record
 
-else()
+else ()
 
   message(FATAL_ERROR "Unsupported platform: ${TARGET_PLATFORM}")
 
-endif()
+endif ()
 
-if(TOYGINE_VERSION_MAJOR)
-  add_compile_definitions(TOYGINE_VERSION_MAJOR=${TOYGINE_VERSION_MAJOR})
-endif(TOYGINE_VERSION_MAJOR)
+if (ToyGine2_VERSION_MAJOR)
+  add_compile_definitions(TOYGINE_VERSION_MAJOR=${ToyGine2_VERSION_MAJOR})
+endif (ToyGine2_VERSION_MAJOR)
 
-if(TOYGINE_VERSION_MINOR)
-  add_compile_definitions(TOYGINE_VERSION_MINOR=${TOYGINE_VERSION_MINOR})
-endif(TOYGINE_VERSION_MINOR)
+if (ToyGine2_VERSION_MINOR)
+  add_compile_definitions(TOYGINE_VERSION_MINOR=${ToyGine2_VERSION_MINOR})
+endif (ToyGine2_VERSION_MINOR)
 
-if(TOYGINE_VERSION_MAINTENANCE)
-  add_compile_definitions(TOYGINE_VERSION_MAINTENANCE=${TOYGINE_VERSION_MAINTENANCE})
-endif(TOYGINE_VERSION_MAINTENANCE)
+if (ToyGine2_VERSION_PATCH)
+  add_compile_definitions(TOYGINE_VERSION_PATCH=${ToyGine2_VERSION_PATCH})
+endif (ToyGine2_VERSION_PATCH)
 
 message(STATUS "CMAKE_C_FLAGS=${CMAKE_C_FLAGS}")
 message(STATUS "CMAKE_C_FLAGS_DEBUG=${CMAKE_C_FLAGS_DEBUG}")
