@@ -5,26 +5,9 @@ version = 1
 name = "cxx-sources"
 enabled = true
 
-[analyzers.meta]
-include_patterns = [
-  "sources/**",
-  "include/**"
+exclude_patterns = [
+  "tests/**",
 ]
-
-
-# 🔍 Second analyzer - for unit tests
-[[analyzers]]
-name = "cxx-tests"
-enabled = true
-
-[analyzers.meta]
-include_patterns = [
-  "tests/**"
-]
-
-# Disable some lints for tests
-[analyzers.config.rules]
-"CXX-W2009" = false
 
 test_patterns = [
   "tests/**"
