@@ -1,3 +1,37 @@
+#-------------------------------------------------------------------------------------------
+if (TARGET_PLATFORM STREQUAL "Windows Desktop")
+
+  if (MSVC)
+    string(REGEX REPLACE "/Wall " "" CMAKE_C_FLAGS ${CMAKE_C_FLAGS})
+    string(REGEX REPLACE "/Wall " "" CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS})
+
+    string(REGEX REPLACE "/W. " "/W0 " CMAKE_C_FLAGS ${CMAKE_C_FLAGS})
+    string(REGEX REPLACE "/W. " "/W0 " CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS})
+
+    string(REGEX REPLACE "/sdl" "/sdl-" CMAKE_C_FLAGS_DEBUG ${CMAKE_C_FLAGS_DEBUG})
+    string(REGEX REPLACE "/sdl" "/sdl-" CMAKE_C_FLAGS_RELWITHDEBINFO ${CMAKE_C_FLAGS_RELWITHDEBINFO})
+
+    string(REGEX REPLACE "/sdl" "/sdl-" CMAKE_CXX_FLAGS_DEBUG ${CMAKE_CXX_FLAGS_DEBUG})
+    string(REGEX REPLACE "/sdl" "/sdl-" CMAKE_CXX_FLAGS_RELWITHDEBINFO ${CMAKE_CXX_FLAGS_RELWITHDEBINFO})
+  endif (MSVC)
+
+elseif (TARGET_PLATFORM STREQUAL "Linux Desktop")
+
+elseif (TARGET_PLATFORM STREQUAL "macOS Desktop")
+
+  string(REGEX REPLACE "-Werror" "" CMAKE_C_FLAGS ${CMAKE_C_FLAGS})
+  string(REGEX REPLACE "-Weverything" "" CMAKE_C_FLAGS ${CMAKE_C_FLAGS})
+  string(REGEX REPLACE "-pedantic-errors" "" CMAKE_C_FLAGS ${CMAKE_C_FLAGS})
+  set(CMAKE_C_FLAGS "-w ${CMAKE_C_FLAGS}")
+
+  string(REGEX REPLACE "-Werror" "" CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS})
+  string(REGEX REPLACE "-Weverything" "" CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS})
+  string(REGEX REPLACE "--pedantic-errors" "" CMAKE_C_FLAGS ${CMAKE_C_FLAGS})
+  set(CMAKE_CXX_FLAGS "-w ${CMAKE_CXX_FLAGS}")
+
+endif()
+#-------------------------------------------------------------------------------------------
+
 include(FetchContent)
 include(CTest)
 
