@@ -15,5 +15,6 @@ file(GLOB TEST_SRC CONFIGURE_DEPENDS *.cpp)
 include(Catch)
 
 add_executable(${PROJECT_NAME}-tests ${TEST_SRC})
+target_include_directories(${PROJECT_NAME}-tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include)
 target_link_libraries(${PROJECT_NAME}-tests PRIVATE Catch2::Catch2WithMain ${PROJECT_NAME})
 catch_discover_tests(${PROJECT_NAME}-tests)

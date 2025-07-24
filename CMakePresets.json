@@ -111,5 +111,33 @@
             "configurePreset": "macos-ninja-debug",
             "inherits": "default-debug"
         }
+    ],
+    "testPresets": [
+        {
+            "name": "default-debug",
+            "hidden": true,
+            "output": {
+                "debug": true,
+                "verbosity": "extra"
+            }
+        },
+        {
+            "name": "default-release",
+            "hidden": true,
+            "output": {
+                "shortProgress": true,
+                "verbosity": "verbose"
+            }
+        },
+        {
+            "name": "macos-ninja-release",
+            "configurePreset": "macos-ninja-release",
+            "inherits": "default-release"
+        },
+        {
+            "name": "macos-ninja-debug",
+            "configurePreset": "macos-ninja-debug",
+            "inherits": "default-debug"
+        }
     ]
 }

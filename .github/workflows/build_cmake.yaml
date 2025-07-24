@@ -69,3 +69,9 @@ jobs:
       - name: Build
         run: |
           cmake --build --preset ${{ matrix.cmake_preset }}
+
+      - name: Test
+        if: ${{ matrix.run_test }}
+        continue-on-error: true
+        run: |
+          ctest --preset ${{ matrix.cmake_preset }}
