@@ -104,5 +104,5 @@ target_link_libraries(${TOYGINE_LIBRARY_NAME} ${LIB_LIST})
 
 if (TOYGINE_BUILD_TESTS)
   enable_testing()
-  add_subdirectory(tests)
+  add_subdirectory(test)
 endif (TOYGINE_BUILD_TESTS)
