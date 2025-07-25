@@ -64,18 +64,18 @@ include(ConfigureEngine)
 include(ConfigureCompiler)
 
 if (TARGET_PLATFORM STREQUAL "Windows Desktop")
-  set(TARGET_PLATFORM_CONFIG_HEADER ${CMAKE_CURRENT_SOURCE_DIR}/sources/platforms/windows/platform_config.hpp)
+  set(TARGET_PLATFORM_CONFIG_HEADER ${CMAKE_CURRENT_SOURCE_DIR}/src/platforms/windows/platform_config.hpp)
 elseif (TARGET_PLATFORM STREQUAL "macOS Desktop")
-  set(TARGET_PLATFORM_CONFIG_HEADER ${CMAKE_CURRENT_SOURCE_DIR}/sources/platforms/macos/platform_config.hpp)
+  set(TARGET_PLATFORM_CONFIG_HEADER ${CMAKE_CURRENT_SOURCE_DIR}/src/platforms/macos/platform_config.hpp)
 else ()
   message(FATAL_ERROR "Unsupported TARGET_PLATFORM: ${TARGET_PLATFORM}")
 endif ()
 
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/sources/core/core.hpp.in ${CMAKE_CURRENT_SOURCE_DIR}/include/core.hpp @ONLY)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/core/core.hpp.in ${CMAKE_CURRENT_SOURCE_DIR}/include/core.hpp @ONLY)
 
 #-------------------------------------------------------------------------------------------
 
-set(SRC_CORE_LIST sources/core/core_utils.cpp)
+set(SRC_CORE_LIST src/core/core_utils.cpp)
 set(HDR_CORE_LIST include/core.hpp)
 set(INL_CORE_LIST include/core_inline.hpp)
 
@@ -104,5 +104,5 @@ target_link_libraries(${TOYGINE_LIBRARY_NAME} ${LIB_LIST})
 
 if (TOYGINE_BUILD_TESTS)
   enable_testing()
-  add_subdirectory(tests)
+  add_subdirectory(test)
 endif (TOYGINE_BUILD_TESTS)
