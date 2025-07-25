@@ -64,14 +64,14 @@ include(ConfigureEngine)
 include(ConfigureCompiler)
 
 if (TARGET_PLATFORM STREQUAL "Windows Desktop")
-  set(TARGET_PLATFORM_CONFIG_HEADER ${CMAKE_CURRENT_SOURCE_DIR}/sources/platforms/windows/platform_config.hpp)
+  set(TARGET_PLATFORM_CONFIG_HEADER ${CMAKE_CURRENT_SOURCE_DIR}/src/platforms/windows/platform_config.hpp)
 elseif (TARGET_PLATFORM STREQUAL "macOS Desktop")
-  set(TARGET_PLATFORM_CONFIG_HEADER ${CMAKE_CURRENT_SOURCE_DIR}/sources/platforms/macos/platform_config.hpp)
+  set(TARGET_PLATFORM_CONFIG_HEADER ${CMAKE_CURRENT_SOURCE_DIR}/src/platforms/macos/platform_config.hpp)
 else ()
   message(FATAL_ERROR "Unsupported TARGET_PLATFORM: ${TARGET_PLATFORM}")
 endif ()
 
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/sources/core/core.hpp.in ${CMAKE_CURRENT_SOURCE_DIR}/include/core.hpp @ONLY)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/core/core.hpp.in ${CMAKE_CURRENT_SOURCE_DIR}/include/core.hpp @ONLY)
 
 #-------------------------------------------------------------------------------------------
 
