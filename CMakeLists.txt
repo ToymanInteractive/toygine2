@@ -75,7 +75,7 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/core/core.hpp.in ${CMAKE_CURRENT_
 
 #-------------------------------------------------------------------------------------------
 
-set(SRC_CORE_LIST sources/core/core_utils.cpp)
+set(SRC_CORE_LIST src/core/core_utils.cpp)
 set(HDR_CORE_LIST include/core.hpp)
 set(INL_CORE_LIST include/core_inline.hpp)
 
