@@ -13,20 +13,19 @@ jobs:
           - name: Linux Ninja
             platform: linux-ninja
             os: ubuntu-latest
-            run_test: true
+            run_test: "true"
             cmake_preset: linux-ninja-release
 
           - name: macOS XCode
             platform: macos-xcode-arm
             os: macos-15
-            run_test: true
+            run_test: "true"
             cmake_preset: macos-xcode
 
           - name: macOS Ninja
             platform: macos-ninja-arm
             os: macos-15
-            run_test: true
-            run_cpack: true
+            run_test: "true"
             cmake_preset: macos-ninja-release
             cpack_type: RelWithDebInfo
             cpack_extension: tar.gz
