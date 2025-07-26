@@ -80,8 +80,11 @@ elseif (TARGET_PLATFORM STREQUAL "macOS Desktop")
     message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
   endif()
 
-  set(CMAKE_C_FLAGS   "-Werror -Weverything -pedantic-errors -Wno-missing-prototypes -Wno-c++98-compat -Wno-poison-system-directories -fshow-column -fshow-source-location -fcaret-diagnostics -fcolor-diagnostics -fdiagnostics-format=clang -fdiagnostics-show-option -fdiagnostics-show-category=id")
-  set(CMAKE_CXX_FLAGS "-Werror -Weverything -pedantic-errors -Wno-missing-prototypes -Wno-c++98-compat -Wno-poison-system-directories -fshow-column -fshow-source-location -fcaret-diagnostics -fcolor-diagnostics -fdiagnostics-format=clang -fdiagnostics-show-option -fdiagnostics-show-category=id")
+  # XCode 16.4 contains AppleClang version: 17.0.0.17000013
+  # Clang 17.0.1 documentation. https://releases.llvm.org/17.0.1/tools/clang/docs/UsersManual.html
+
+  set(CMAKE_C_FLAGS   "-Werror -Weverything -pedantic-errors -Wno-missing-prototypes                                     -Wno-poison-system-directories -fshow-column -fshow-source-location -fcaret-diagnostics -fcolor-diagnostics -fdiagnostics-format=clang -fdiagnostics-show-option -fdiagnostics-show-category=id -fdiagnostics-fixit-info -fdiagnostics-print-source-range-info")
+  set(CMAKE_CXX_FLAGS "-Werror -Weverything -pedantic-errors -Wno-missing-prototypes -Wno-c++98-compat -Wno-c++20-compat -Wno-poison-system-directories -fshow-column -fshow-source-location -fcaret-diagnostics -fcolor-diagnostics -fdiagnostics-format=clang -fdiagnostics-show-option -fdiagnostics-show-category=id -fdiagnostics-fixit-info -fdiagnostics-print-source-range-info")
 
   set(CMAKE_C_FLAGS_DEBUG            "-g -D_DEBUG")
   set(CMAKE_CXX_FLAGS_DEBUG          "-g -D_DEBUG")
@@ -103,7 +106,7 @@ elseif (TARGET_PLATFORM STREQUAL "macOS Desktop")
   set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO     "")
   set(CMAKE_EXE_LINKER_FLAGS_RELEASE            "")
 
-# stop on https://clang.llvm.org/docs/UsersManual.html#cmdoption-f-no-save-optimization-record
+# stop on https://releases.llvm.org/17.0.1/tools/clang/docs/UsersManual.html#cmdoption-fdiagnostics-parseable-fixits
 
 else ()
 
