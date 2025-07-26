@@ -70,9 +70,15 @@ if (TARGET_PLATFORM STREQUAL "Windows Desktop")
 
 elseif (TARGET_PLATFORM STREQUAL "Linux Desktop")
 
+  message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
+
 elseif (TARGET_PLATFORM STREQUAL "macOS Desktop")
 
-  message(STATUS "Compiler: Xcode, version: " ${XCODE_VERSION})
+  if (XCODE)
+    message(STATUS "Compiler: Xcode, version: " ${XCODE_VERSION})
+  else ()
+    message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
+  endif()
 
   set(CMAKE_C_FLAGS   "-Werror -Weverything -pedantic-errors -Wno-missing-prototypes -Wno-c++98-compat -Wno-poison-system-directories -fshow-column -fshow-source-location -fcaret-diagnostics -fcolor-diagnostics -fdiagnostics-format=clang -fdiagnostics-show-option -fdiagnostics-show-category=id")
   set(CMAKE_CXX_FLAGS "-Werror -Weverything -pedantic-errors -Wno-missing-prototypes -Wno-c++98-compat -Wno-poison-system-directories -fshow-column -fshow-source-location -fcaret-diagnostics -fcolor-diagnostics -fdiagnostics-format=clang -fdiagnostics-show-option -fdiagnostics-show-category=id")
