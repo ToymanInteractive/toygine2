@@ -11,6 +11,8 @@ concurrency:
 
 permissions:
   contents: read
+  issues: write
+  pull-requests: write
   security-events: write
 
 jobs:
@@ -63,3 +65,11 @@ jobs:
       - style
     uses: ./.github/workflows/build_cmake.yaml
     secrets: inherit
+
+  sonar_cloud:
+    name: SonarCloud Analyzer
+    needs:
+      - style
+    uses: ./.github/workflows/sonar_cloud.yml
+    secrets:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
