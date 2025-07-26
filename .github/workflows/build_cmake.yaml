@@ -13,6 +13,7 @@ jobs:
           - name: Linux Ninja
             platform: linux-ninja
             os: ubuntu-latest
+            run_test: true
             cmake_preset: linux-ninja-release
 
           - name: macOS XCode
