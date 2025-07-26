@@ -27,6 +27,15 @@
             }
         },
         {
+            "name": "linux-ninja-release",
+            "displayName": "Linux Ninja release",
+            "description": "ToyGine 2 Linux Ninja",
+            "inherits": "base-release",
+            "cacheVariables": {
+                "ENABLE_TEST": "ON"
+            }
+        },
+        {
             "name": "macos-ninja-release",
             "displayName": "macOS Ninja release",
             "description": "ToyGine 2 MacOS Ninja",
@@ -87,6 +96,11 @@
             "configuration": "RelWithDebInfo"
         },
         {
+            "name": "linux-ninja-release",
+            "configurePreset": "linux-ninja-release",
+            "inherits": "default-release"
+        },
+        {
             "name": "macos-ninja-release",
             "configurePreset": "macos-ninja-release",
             "inherits": "default-release"
@@ -130,6 +144,11 @@
                 "verbosity": "verbose"
             },
             "configuration": "RelWithDebInfo"
+        },
+        {
+            "name": "linux-ninja-release",
+            "configurePreset": "linux-ninja-release",
+            "inherits": "default-release"
         },
         {
             "name": "macos-ninja-release",
