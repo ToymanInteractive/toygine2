@@ -83,8 +83,8 @@ elseif (TARGET_PLATFORM STREQUAL "macOS Desktop")
   # XCode 16.4 contains AppleClang version: 17.0.0.17000013
   # Clang 17.0.1 documentation. https://releases.llvm.org/17.0.1/tools/clang/docs/UsersManual.html
 
-  set(CMAKE_C_FLAGS   "-Werror -Weverything -pedantic-errors -Wno-missing-prototypes                                     -Wno-poison-system-directories -fshow-column -fshow-source-location -fcaret-diagnostics -fcolor-diagnostics -fdiagnostics-format=clang -fdiagnostics-show-option -fdiagnostics-show-category=id -fdiagnostics-fixit-info -fdiagnostics-print-source-range-info")
-  set(CMAKE_CXX_FLAGS "-Werror -Weverything -pedantic-errors -Wno-missing-prototypes -Wno-c++98-compat -Wno-c++20-compat -Wno-poison-system-directories -fshow-column -fshow-source-location -fcaret-diagnostics -fcolor-diagnostics -fdiagnostics-format=clang -fdiagnostics-show-option -fdiagnostics-show-category=id -fdiagnostics-fixit-info -fdiagnostics-print-source-range-info")
+  set(CMAKE_C_FLAGS   "-Werror -Weverything -pedantic-errors -Wno-missing-prototypes                                     -Wno-missing-include-dirs -Wno-poison-system-directories -fshow-column -fshow-source-location -fcaret-diagnostics -fcolor-diagnostics -fdiagnostics-format=clang -fdiagnostics-show-option -fdiagnostics-show-category=id -fdiagnostics-fixit-info -fdiagnostics-print-source-range-info")
+  set(CMAKE_CXX_FLAGS "-Werror -Weverything -pedantic-errors -Wno-missing-prototypes -Wno-c++98-compat -Wno-c++20-compat -Wno-missing-include-dirs -Wno-poison-system-directories -fshow-column -fshow-source-location -fcaret-diagnostics -fcolor-diagnostics -fdiagnostics-format=clang -fdiagnostics-show-option -fdiagnostics-show-category=id -fdiagnostics-fixit-info -fdiagnostics-print-source-range-info")
 
   set(CMAKE_C_FLAGS_DEBUG            "-g -D_DEBUG")
   set(CMAKE_CXX_FLAGS_DEBUG          "-g -D_DEBUG")
