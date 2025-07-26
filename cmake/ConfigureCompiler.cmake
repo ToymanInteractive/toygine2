@@ -74,11 +74,11 @@ elseif (TARGET_PLATFORM STREQUAL "Linux Desktop")
 
 elseif (TARGET_PLATFORM STREQUAL "macOS Desktop")
 
-  if (XCODE)
+  if (CMAKE_GENERATOR STREQUAL "Xcode")
     message(STATUS "Compiler: Xcode, version: " ${XCODE_VERSION})
-  else ()
-    message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
-  endif()
+  endif(CMAKE_GENERATOR STREQUAL "Xcode")
+
+  message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
 
   # XCode 16.4 contains AppleClang version: 17.0.0.17000013
   # Clang 17.0.1 documentation. https://releases.llvm.org/17.0.1/tools/clang/docs/UsersManual.html
