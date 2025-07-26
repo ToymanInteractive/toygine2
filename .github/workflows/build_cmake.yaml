@@ -34,13 +34,11 @@ jobs:
           - name: Windows MSVC
             platform: windows-msvc-x64
             os: windows-2025
-            run_test: true
             cmake_preset: windows-msvc
 
           - name: Windows MSVC x86
             platform: windows-msvc-x86
             os: windows-2025
-            run_test: true
             cmake_preset: windows-msvc-x86
 
     name: CMake (${{ matrix.name }})
