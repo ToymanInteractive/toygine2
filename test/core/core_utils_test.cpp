@@ -20,6 +20,8 @@
 #include <catch2/catch_test_macros.hpp>
 #include <core.hpp>
 
+using namespace toygine;
+
 static const std::array<uint8_t, 119> utf8Text{0x48, 0x65, 0x6C, 0x6C, 0x6F, 0x20, 0x57, 0x6F, 0x72, 0x6C, 0x64, 0x21,
                                                0x20, 0x2F, 0x20, 0xD0, 0x9F, 0xD1, 0x80, 0xD0, 0xB8, 0xD0, 0xB2, 0xD0,
                                                0xB5, 0xD1, 0x82, 0x20, 0xD0, 0xBC, 0xD0, 0xB8, 0xD1, 0x80, 0x21, 0x20,
@@ -61,8 +63,8 @@ TEST_CASE("utf8 string converts to widechar string", "[utf8toWChar]")
 {
   wchar_t testUnicodeString[utf8Text.size()];
 
-  REQUIRE(wcscmp(unicodeText.data(), toygine::utf8toWChar(testUnicodeString, ArraySize(testUnicodeString),
-                                                          reinterpret_cast<char const *>(utf8Text.data()),
-                                                          strlen(reinterpret_cast<char const *>(utf8Text.data()))))
+  REQUIRE(wcscmp(unicodeText.data(), utf8toWChar(testUnicodeString, ArraySize(testUnicodeString),
+                                                 reinterpret_cast<char const *>(utf8Text.data()),
+                                                 strlen(reinterpret_cast<char const *>(utf8Text.data()))))
           == 0);
 }
