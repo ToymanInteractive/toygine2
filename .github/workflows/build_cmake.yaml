@@ -66,6 +66,8 @@ jobs:
 
             DUMPBIN_PATH="$MSVC_INSTALL_PATH/VC/Tools/MSVC/$TOOLS_DIR/bin/Hostx64/x64/dumpbin.exe"
             echo "DUMPBIN_PATH = $DUMPBIN_PATH"
+          elif [[ "${{ matrix.os }}" =~ "macos" ]]; then
+            sudo xcode-select -s /Applications/Xcode_16.4.app
           fi
 
       - name: Configure
