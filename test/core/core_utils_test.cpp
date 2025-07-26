@@ -42,12 +42,27 @@ static const std::array<wchar_t, 86> unicodeText{0x0048U, 0x0065U, 0x006CU, 0x00
                                                  0xC694U, 0x0021U, 0x0020U, 0x002FU, 0x0020U, 0x30CFU, 0x30EDU, 0x30FCU,
                                                  0x30EFU, 0x30FCU, 0x30EBU, 0x30C9U, 0x0021U, 0x0000};
 
+TEST_CASE("returns the size of an array", "[ArraySize]")
+{
+  const bool boolArray[] = {true, false};
+  const int intArray[] = {1, 2, 3};
+  const double doubleArray[] = {1.0, 2.0, 3.0, 4.0};
+  const char charArray[] = {'a', 'b', 'c', 'd', 'e'};
+  const char * stringArray[] = {"aaaa", "bbbb", "cccc", "dddd", "eeee", "ffff"};
+
+  REQUIRE(ArraySize(boolArray) == 2);
+  REQUIRE(ArraySize(intArray) == 3);
+  REQUIRE(ArraySize(doubleArray) == 4);
+  REQUIRE(ArraySize(charArray) == 5);
+  REQUIRE(ArraySize(stringArray) == 6);
+}
+
 TEST_CASE("utf8 string converts to widechar string", "[utf8toWChar]")
 {
-  wchar_t testUnicodeString[96];
+  wchar_t testUnicodeString[utf8Text.size()];
 
-  REQUIRE(wcscmp(unicodeText.data(),
-                 toygine::utf8toWChar(testUnicodeString, 128, reinterpret_cast<char const *>(utf8Text.data()),
-                                      strlen(reinterpret_cast<char const *>(utf8Text.data()))))
+  REQUIRE(wcscmp(unicodeText.data(), toygine::utf8toWChar(testUnicodeString, ArraySize(testUnicodeString),
+                                                          reinterpret_cast<char const *>(utf8Text.data()),
+                                                          strlen(reinterpret_cast<char const *>(utf8Text.data()))))
           == 0);
 }

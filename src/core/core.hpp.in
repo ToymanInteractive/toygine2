@@ -75,8 +75,21 @@
 
 #include "@TARGET_PLATFORM_CONFIG_HEADER@"
 
+/*!
+  \brief Returns the size of an array.
+
+  This is a compile time helper function that returns the size of an array.
+  The size of the array is inferred from the parameter type, which is a reference to an array of length N.
+*/
+template <typename T, size_t N>
+consteval size_t ArraySize(T (&)[N])
+{
+  return N;
+}
+
 namespace toygine
 {
+
   wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, char const * src, std::size_t srcLen);
 
 } // namespace toygine
