@@ -13,19 +13,19 @@ jobs:
           - name: Linux Ninja
             platform: linux-ninja
             os: ubuntu-latest
-            run_test: true
+            run_test: "true"
             cmake_preset: linux-ninja-release
 
           - name: macOS XCode
             platform: macos-xcode-arm
             os: macos-15
+            run_test: "true"
             cmake_preset: macos-xcode
 
           - name: macOS Ninja
             platform: macos-ninja-arm
             os: macos-15
-            run_test: true
-            run_cpack: true
+            run_test: "true"
             cmake_preset: macos-ninja-release
             cpack_type: RelWithDebInfo
             cpack_extension: tar.gz
@@ -66,6 +66,11 @@ jobs:
 
             DUMPBIN_PATH="$MSVC_INSTALL_PATH/VC/Tools/MSVC/$TOOLS_DIR/bin/Hostx64/x64/dumpbin.exe"
             echo "DUMPBIN_PATH = $DUMPBIN_PATH"
+          elif [[ "${{ matrix.os }}" =~ "macos" ]]; then
+            # Prefer the desired version if it exists, otherwise keep the default.
+            if [ -d "/Applications/Xcode_16.4.app" ]; then
+              sudo xcode-select -s /Applications/Xcode_16.4.app
+            fi
           fi
 
       - name: Configure
