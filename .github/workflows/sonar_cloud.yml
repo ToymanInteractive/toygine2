@@ -37,13 +37,12 @@ jobs:
         env:
           SONAR_HOST_URL: https://sonarcloud.io
 
+      - name: Prepare compile_commands.json
+        run: |
+          cmake -B build -DCMAKE_BUILD_TYPE=Debug -DCMAKE_COMPILE_WARNING_AS_ERROR=ON -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+
       - uses: SonarSource/sonarqube-scan-action@v5.3.0
         with:
           projectBaseDir: .
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-      - name: Run SonarCloud Scan
-        run: sonar-scanner
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
