@@ -65,6 +65,8 @@ include(ConfigureCompiler)
 
 if (TARGET_PLATFORM STREQUAL "Windows Desktop")
   set(TARGET_PLATFORM_CONFIG_HEADER ${CMAKE_CURRENT_SOURCE_DIR}/src/platforms/windows/platform_config.hpp)
+elseif (TARGET_PLATFORM STREQUAL "Linux Desktop")
+  set(TARGET_PLATFORM_CONFIG_HEADER ${CMAKE_CURRENT_SOURCE_DIR}/src/platforms/linux/platform_config.hpp)
 elseif (TARGET_PLATFORM STREQUAL "macOS Desktop")
   set(TARGET_PLATFORM_CONFIG_HEADER ${CMAKE_CURRENT_SOURCE_DIR}/src/platforms/macos/platform_config.hpp)
 else ()
