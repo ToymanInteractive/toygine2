@@ -29,8 +29,8 @@ if (TARGET_PLATFORM STREQUAL "Windows Desktop")
 
     # Minimum CPU Architecture select based on https://store.steampowered.com/hwsurvey/
 
-    set(CMAKE_C_FLAGS   "/std:c17 /nologo /Wall /WX /wd4710 /wd4711 /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /EHsc /Zc:wchar_t /Zc:forScope /Zc:inline /Zc:rvalueCast /GR- /permissive")
-    set(CMAKE_CXX_FLAGS "         /nologo /Wall /WX /wd4710 /wd4711 /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /EHsc /Zc:wchar_t /Zc:forScope /Zc:inline /Zc:rvalueCast /GR- /permissive")
+    set(CMAKE_C_FLAGS   "/std:c17 /nologo /Wall /WX /wd4514 /wd4710 /wd4711 /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /EHsc /Zc:wchar_t /Zc:forScope /Zc:inline /Zc:rvalueCast /GR- /permissive")
+    set(CMAKE_CXX_FLAGS "         /nologo /Wall /WX /wd4514 /wd4710 /wd4711 /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /EHsc /Zc:wchar_t /Zc:forScope /Zc:inline /Zc:rvalueCast /GR- /permissive")
 
     if (CMAKE_SIZEOF_VOID_P MATCHES "8")
 
