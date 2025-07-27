@@ -30,19 +30,13 @@
             "name": "linux-ninja-release",
             "displayName": "Linux Ninja release",
             "description": "ToyGine 2 Linux Ninja",
-            "inherits": "base-release",
-            "cacheVariables": {
-                "ENABLE_TEST": "ON"
-            }
+            "inherits": "base-release"
         },
         {
             "name": "macos-ninja-release",
             "displayName": "macOS Ninja release",
             "description": "ToyGine 2 MacOS Ninja",
-            "inherits": "base-release",
-            "cacheVariables": {
-                "ENABLE_TEST": "ON"
-            }
+            "inherits": "base-release"
         },
         {
             "name": "macos-xcode",
@@ -71,6 +65,16 @@
             "architecture": {
                 "value": "Win32",
                 "strategy": "set"
+            }
+        },
+        {
+            "name": "linux-ninja-debug",
+            "displayName": "Linux Ninja debug",
+            "description": "ToyGine 2 Linux Ninja (Debug)",
+            "inherits": "linux-ninja-release",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "ENABLE_TEST": "ON"
             }
         },
         {
@@ -121,6 +125,11 @@
             "inherits": "default-release"
         },
         {
+            "name": "linux-ninja-debug",
+            "configurePreset": "linux-ninja-debug",
+            "inherits": "default-debug"
+        },
+        {
             "name": "macos-ninja-debug",
             "configurePreset": "macos-ninja-debug",
             "inherits": "default-debug"
@@ -154,6 +163,11 @@
             "name": "macos-ninja-release",
             "configurePreset": "macos-ninja-release",
             "inherits": "default-release"
+        },
+        {
+            "name": "linux-ninja-debug",
+            "configurePreset": "linux-ninja-debug",
+            "inherits": "default-debug"
         },
         {
             "name": "macos-ninja-debug",

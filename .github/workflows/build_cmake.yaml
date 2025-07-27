@@ -15,6 +15,12 @@ jobs:
             run_test: "true"
             cmake_preset: linux-ninja-release
 
+          - name: Linux Ninja with coverage
+            os: ubuntu-latest
+            run_test: "true"
+            run_test_with_coverage: "true"
+            cmake_preset: linux-ninja-debug
+
           - name: macOS XCode
             os: macos-15
             run_test: "true"
@@ -75,7 +81,7 @@ jobs:
 
       - name: Configure
         run: |
-          cmake -DTOYGINE_BUILD_TESTS=$([ "${{ matrix.run_test }}" = "true" ] && echo ON || echo OFF) --preset ${{ matrix.cmake_preset }}
+          cmake -DTOYGINE_BUILD_TESTS=$([ "${{ matrix.run_test }}" = "true" ] && echo ON || echo OFF) -DTOYGINE_TEST_WITH_COVERAGE=$([ "${{ matrix.run_test_with_coverage }}" = "true" ] && echo ON || echo OFF) --preset ${{ matrix.cmake_preset }}
 
       - name: Build
         run: |
