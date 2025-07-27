@@ -19,14 +19,14 @@ elseif (TARGET_PLATFORM STREQUAL "Linux Desktop")
 
 elseif (TARGET_PLATFORM STREQUAL "macOS Desktop")
 
-  string(REGEX REPLACE "-Werror " "" CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
-  string(REGEX REPLACE "-Weverything " "" CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
-  string(REGEX REPLACE "-pedantic-errors " "" CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
+  string(REGEX REPLACE "-Werror" "" CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
+  string(REGEX REPLACE "-Weverything" "" CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
+  string(REGEX REPLACE "-pedantic-errors" "" CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
   set(CMAKE_C_FLAGS "-w ${CMAKE_C_FLAGS}")
 
-  string(REGEX REPLACE "-Werror " "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-  string(REGEX REPLACE "-Weverything " "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-  string(REGEX REPLACE "-pedantic-errors " "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+  string(REGEX REPLACE "-Werror" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+  string(REGEX REPLACE "-Weverything" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+  string(REGEX REPLACE "-pedantic-errors" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
   set(CMAKE_CXX_FLAGS "-w ${CMAKE_CXX_FLAGS}")
 
 endif()
