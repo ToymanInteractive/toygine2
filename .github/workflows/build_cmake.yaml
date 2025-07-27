@@ -92,3 +92,7 @@ jobs:
         continue-on-error: true
         run: |
           ctest --preset ${{ matrix.cmake_preset }}
+
+          if [[ "${{ matrix.run_test_with_coverage }}" = "true" ]]; then
+            cmake --build . --target lcov-capture --preset ${{ matrix.cmake_preset }}
+          fi
