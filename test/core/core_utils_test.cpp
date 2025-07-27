@@ -66,6 +66,8 @@ TEST_CASE("utf8 string converts to widechar string", "[utf8toWChar]") {
                                                  strlen(reinterpret_cast<char const *>(utf8Text.data()))))
           == 0);
 
+  REQUIRE(wcscmp(L"", utf8toWChar(testUnicodeString, ArraySize(testUnicodeString), nullptr, 0)) == 0);
+
   REQUIRE(wcscmp(unicodeText.data(), utf8toWChar(testUnicodeString, ArraySize(testUnicodeString),
                                                  reinterpret_cast<char const *>(utf8Text.data())))
           == 0);
