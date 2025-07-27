@@ -25,4 +25,19 @@
 #ifndef INCLUDE_CORE_INLINE_HPP_
 #define INCLUDE_CORE_INLINE_HPP_
 
+namespace toygine {
+  //------------------------------------------------------------------------------
+
+  inline wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, char const * src) {
+    return utf8toWChar(dest, destSize, src, strlen(src));
+  }
+
+  template <typename stringType>
+  inline wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, stringType const & src) {
+    return utf8toWChar(dest, destSize, src.c_str(), src.size());
+  }
+
+  //------------------------------------------------------------------------------
+}
+
 #endif // INCLUDE_CORE_INLINE_HPP_

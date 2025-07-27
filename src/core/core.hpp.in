@@ -26,6 +26,7 @@
 #define INCLUDE_CORE_HPP_
 
 #include <cstdint>
+#include <cstring>
 #include <cuchar>
 
 //------------------------------------------------------------------------------
@@ -75,8 +76,7 @@
 
 #include "@TARGET_PLATFORM_CONFIG_HEADER@"
 
-namespace toygine
-{
+namespace toygine {
   /*!
     \brief Returns the size of an array.
 
@@ -84,13 +84,58 @@ namespace toygine
     The size of the array is inferred from the parameter type, which is a reference to an array of length N.
   */
   template <typename T, size_t N>
-  consteval size_t ArraySize(T (&)[N])
-  {
+  consteval size_t ArraySize(T (&)[N]) {
     return N;
   }
 
-  wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, char const * src, std::size_t srcLen);
+  /*!
+    \brief Converts a UTF-8 encoded string to a Unicode character string.
 
+    This function translates a UTF-8 encoded source string into a unicode character string stored in the destination
+    buffer. The conversion stops when the specified number of characters have been converted or the destination buffer
+    is filled. The destination string is null-terminated.
+
+    \param dest     A pointer to the destination buffer where the converted unicode character string will be stored.
+    \param destSize The size of the destination buffer.
+    \param src      A pointer to the source UTF-8 encoded string.
+    \param count    The number of characters to convert from the source string.
+
+    \return A pointer to the destination unicode character string, or nullptr if the destination buffer is invalid.
+  */
+  wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, char const * src, std::size_t count);
+
+  /*!
+    \brief Converts a UTF-8 encoded string to a Unicode character string.
+
+    This function translates a UTF-8 encoded source string into a unicode character string stored in the destination
+    buffer. The conversion stops when the specified number of characters have been converted or the destination buffer
+    is filled. The destination string is null-terminated.
+
+    \param dest     A pointer to the destination buffer where the converted unicode character string will be stored.
+    \param destSize The size of the destination buffer.
+    \param src      A pointer to the source UTF-8 encoded string.
+
+    \return A pointer to the destination unicode character string, or nullptr if the destination buffer is invalid.
+  */
+  inline wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, char const * src);
+
+  /*!
+    \brief Converts a UTF-8 encoded string to a Unicode character string.
+
+    This function translates a UTF-8 encoded source string into a unicode character string stored in the destination
+    buffer. The conversion stops when the specified number of characters have been converted or the destination buffer
+    is filled. The destination string is null-terminated.
+
+    \param dest     A pointer to the destination buffer where the converted unicode character string will be stored.
+    \param destSize The size of the destination buffer.
+    \param src      A reference to a class with null-terminated UTF-8 encoded string.
+
+    \return A pointer to the destination unicode character string, or nullptr if the destination buffer is invalid.
+  */
+  template <typename stringType>
+  inline wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, stringType const & src);
 } // namespace toygine
+
+#include "core_inline.hpp"
 
 #endif // INCLUDE_CORE_HPP_
