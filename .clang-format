@@ -20,7 +20,7 @@ AlwaysBreakTemplateDeclarations: true
 BinPackArguments: true
 BinPackParameters: true
 BreakAfterJavaFieldAnnotations: true
-BreakBeforeBraces: Custom
+BreakBeforeBraces: Attach
 BraceWrapping:
   AfterClass: true
   AfterControlStatement: false
