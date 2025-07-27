@@ -51,28 +51,28 @@ TEST_CASE("returns the size of an array", "[ArraySize]") {
   const char charArray[] = {'a', 'b', 'c', 'd', 'e'};
   const char * stringArray[] = {"aaaa", "bbbb", "cccc", "dddd", "eeee", "ffff"};
 
-  REQUIRE(ArraySize(boolArray) == 2);
-  REQUIRE(ArraySize(intArray) == 3);
-  REQUIRE(ArraySize(doubleArray) == 4);
-  REQUIRE(ArraySize(charArray) == 5);
-  REQUIRE(ArraySize(stringArray) == 6);
+  CHECK(ArraySize(boolArray) == 2);
+  CHECK(ArraySize(intArray) == 3);
+  CHECK(ArraySize(doubleArray) == 4);
+  CHECK(ArraySize(charArray) == 5);
+  CHECK(ArraySize(stringArray) == 6);
 }
 
 TEST_CASE("utf8 string converts to widechar string", "[utf8toWChar]") {
   wchar_t testUnicodeString[utf8Text.size()];
 
-  REQUIRE(wcscmp(unicodeText.data(), utf8toWChar(testUnicodeString, ArraySize(testUnicodeString),
-                                                 reinterpret_cast<char const *>(utf8Text.data()),
-                                                 strlen(reinterpret_cast<char const *>(utf8Text.data()))))
-          == 0);
+  CHECK(wcscmp(unicodeText.data(), utf8toWChar(testUnicodeString, ArraySize(testUnicodeString),
+                                               reinterpret_cast<char const *>(utf8Text.data()),
+                                               strlen(reinterpret_cast<char const *>(utf8Text.data()))))
+        == 0);
 
-  REQUIRE(wcscmp(L"", utf8toWChar(testUnicodeString, ArraySize(testUnicodeString), nullptr, 0)) == 0);
+  CHECK(wcscmp(L"", utf8toWChar(testUnicodeString, ArraySize(testUnicodeString), nullptr, 0)) == 0);
 
-  REQUIRE(wcscmp(unicodeText.data(), utf8toWChar(testUnicodeString, ArraySize(testUnicodeString),
-                                                 reinterpret_cast<char const *>(utf8Text.data())))
-          == 0);
+  CHECK(wcscmp(unicodeText.data(), utf8toWChar(testUnicodeString, ArraySize(testUnicodeString),
+                                               reinterpret_cast<char const *>(utf8Text.data())))
+        == 0);
 
-  REQUIRE(wcscmp(unicodeText.data(), utf8toWChar(testUnicodeString, ArraySize(testUnicodeString),
-                                                 std::string(reinterpret_cast<char const *>(utf8Text.data()))))
-          == 0);
+  CHECK(wcscmp(unicodeText.data(), utf8toWChar(testUnicodeString, ArraySize(testUnicodeString),
+                                               std::string(reinterpret_cast<char const *>(utf8Text.data()))))
+        == 0);
 }
