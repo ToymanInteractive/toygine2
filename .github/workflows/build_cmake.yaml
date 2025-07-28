@@ -96,3 +96,12 @@ jobs:
           if [[ "${{ matrix.run_test_with_coverage }}" = "true" ]]; then
             cmake --build . --target lcov-capture --preset ${{ matrix.cmake_preset }}
           fi
+
+      - name: Upload code coverage
+        if: ${{ matrix.run_test }} && ${{ matrix.run_test_with_coverage }}
+        uses: codecov/codecov-action@v5.4.3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          directory: out/build/lcov/data
+          files: '*.info'
+          fail_ci_if_error: true
