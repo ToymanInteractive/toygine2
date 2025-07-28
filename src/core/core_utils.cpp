@@ -67,7 +67,7 @@ namespace toygine {
     if (src != nullptr) {
       char const * utf8EndPos = dest + (destSize - 1);
 
-      while (*src && destPointer < utf8EndPos) {
+      while (*src != L'\0' && destPointer < utf8EndPos) {
         std::uint32_t symbol = static_cast<std::uint32_t>(*src++);
         if (symbol <= 0x7F) {
           *destPointer = static_cast<char>(symbol);

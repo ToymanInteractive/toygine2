@@ -88,7 +88,7 @@ namespace toygine {
     return N;
   }
 
-  static const std::size_t wcharInUtf8MaxSize = 3;
+  static const std::size_t wcharInUtf8MaxSize = 3; /// Maximum UTF-8 bytes for BMP characters
 
   /*!
     \brief Converts a Unicode UTF-8 encoded string to a wide character string.

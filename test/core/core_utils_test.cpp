@@ -79,6 +79,13 @@ TEST_CASE("converts a Unicode UTF-8 encoded string to a wide character string", 
                                                std::string(reinterpret_cast<char const *>(utf8Text.data()))))
         == 0);
   CHECK(wcscmp(testUnicodeBuffer, unicodeText.data()) == 0);
+
+  // Test empty string
+  CHECK(wcscmp(L"", utf8toWChar(testUnicodeBuffer, ArraySize(testUnicodeBuffer), "", 0)) == 0);
+  CHECK(wcscmp(testUnicodeBuffer, L"") == 0);
+
+  // Test null inputs
+  CHECK(utf8toWChar(nullptr, 10, "test", 4) == nullptr);
 }
 
 TEST_CASE("converts a Unicode wide character string to a UTF-8 encoded string", "[wcharToUtf8]") {
@@ -88,4 +95,11 @@ TEST_CASE("converts a Unicode wide character string to a UTF-8 encoded string", 
                wcharToUtf8(testUtf8Buffer, ArraySize(testUtf8Buffer), unicodeText.data()))
         == 0);
   CHECK(strcmp(reinterpret_cast<const char *>(utf8Text.data()), testUtf8Buffer) == 0);
+
+  // Test buffer size limits
+  CHECK(strcmp("", wcharToUtf8(testUtf8Buffer, 1, L"A")) == 0);
+  CHECK(strcmp(testUtf8Buffer, "") == 0);
+
+  // Test null inputs
+  CHECK(wcharToUtf8(nullptr, 10, L"test") == nullptr);
 }

@@ -23,7 +23,7 @@
                 }
             ],
             "externalConsole": false,
-            "MIMode": "lldb",
+            "MIMode": "lldb"
         }
     ],
 }
