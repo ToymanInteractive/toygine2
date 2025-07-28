@@ -21,23 +21,6 @@
 
 namespace toygine {
 
-  /*!
-    \brief Converts a UTF-8 encoded string to a wide character string.
-
-    This function translates a UTF-8 encoded source string into a wide character string
-    stored in the destination buffer. The conversion stops when the specified number of
-    characters have been converted or the destination buffer is filled. The destination
-    string is null-terminated.
-
-    \param dest A pointer to the destination buffer where the converted wide character string will be stored.
-    \param destSize The size of the destination buffer.
-    \param src A pointer to the source UTF-8 encoded string.
-    \param count The number of characters to convert from the source string.
-
-    \return A pointer to the destination wide character string, or nullptr if the destination
-            buffer is invalid.
-  */
-
   wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, char const * src, std::size_t count) {
     if (dest == nullptr || destSize == 0)
       return nullptr;
@@ -66,11 +49,45 @@ namespace toygine {
 
           *destPointer = unicodeChar;
         }
+
         ++destPointer;
       }
     }
 
     *destPointer = L'\0';
+
+    return dest;
+  }
+
+  char * wcharToUtf8(char * dest, std::size_t destSize, wchar_t const * src) {
+    if (dest == nullptr || destSize == 0)
+      return nullptr;
+
+    char * destPointer = dest;
+    if (src != nullptr) {
+      char const * utf8EndPos = dest + (destSize - 1);
+
+      while (*src && destPointer < utf8EndPos) {
+        std::uint32_t symbol = static_cast<std::uint32_t>(*src++);
+        if (symbol <= 0x7F) {
+          *destPointer = static_cast<char>(symbol);
+        } else {
+          if (symbol <= 0x7FF) {
+            *destPointer = static_cast<char>(((symbol & 0x07C0) >> 6) | 0xC0);
+          } else {
+            *destPointer = static_cast<char>(((symbol & 0xF000) >> 12) | 0xE0);
+            ++destPointer;
+            *destPointer = static_cast<char>(((symbol & 0x0FC0) >> 6) | 0x80);
+          }
+
+          ++destPointer;
+          *destPointer = static_cast<char>((symbol & 0x003F) | 0x80);
+        }
+        ++destPointer;
+      }
+    }
+
+    *destPointer = '\0';
 
     return dest;
   }

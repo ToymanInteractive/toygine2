@@ -83,57 +83,75 @@ namespace toygine {
     This is a compile time helper function that returns the size of an array.
     The size of the array is inferred from the parameter type, which is a reference to an array of length N.
   */
-  template <typename T, size_t N>
-  consteval size_t ArraySize(T (&)[N]) {
+  template <typename T, std::size_t N>
+  consteval std::size_t ArraySize(T (&)[N]) {
     return N;
   }
 
-  /*!
-    \brief Converts a UTF-8 encoded string to a Unicode character string.
+  static const std::size_t wcharInUtf8MaxSize = 3;
 
-    This function translates a UTF-8 encoded source string into a unicode character string stored in the destination
+  /*!
+    \brief Converts a Unicode UTF-8 encoded string to a wide character string.
+
+    This function translates a UTF-8 encoded source string into a wide character string stored in the destination
     buffer. The conversion stops when the specified number of characters have been converted or the destination buffer
     is filled. The destination string is null-terminated.
 
-    \param dest     A pointer to the destination buffer where the converted unicode character string will be stored.
+    \param dest     A pointer to the destination buffer where the converted wide character string will be stored.
     \param destSize The size of the destination buffer.
     \param src      A pointer to the source UTF-8 encoded string.
     \param count    The number of characters to convert from the source string.
 
-    \return A pointer to the destination unicode character string, or nullptr if the destination buffer is invalid.
+    \return A pointer to the destination wide character string, or nullptr if the destination buffer is invalid.
   */
   wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, char const * src, std::size_t count);
 
   /*!
-    \brief Converts a UTF-8 encoded string to a Unicode character string.
+    \brief Converts a Unicode UTF-8 encoded string to a wide character string.
 
-    This function translates a UTF-8 encoded source string into a unicode character string stored in the destination
+    This function translates a UTF-8 encoded source string into a wide character string stored in the destination
     buffer. The conversion stops when the specified number of characters have been converted or the destination buffer
     is filled. The destination string is null-terminated.
 
-    \param dest     A pointer to the destination buffer where the converted unicode character string will be stored.
+    \param dest     A pointer to the destination buffer where the converted wide character string will be stored.
     \param destSize The size of the destination buffer.
     \param src      A pointer to the source UTF-8 encoded string.
 
-    \return A pointer to the destination unicode character string, or nullptr if the destination buffer is invalid.
+    \return A pointer to the destination wide character string, or nullptr if the destination buffer is invalid.
   */
   inline wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, char const * src);
 
   /*!
-    \brief Converts a UTF-8 encoded string to a Unicode character string.
+    \brief Converts a Unicode UTF-8 encoded string to a wide character string.
 
-    This function translates a UTF-8 encoded source string into a unicode character string stored in the destination
+    This function translates a UTF-8 encoded source string into a wide character string stored in the destination
     buffer. The conversion stops when the specified number of characters have been converted or the destination buffer
     is filled. The destination string is null-terminated.
 
-    \param dest     A pointer to the destination buffer where the converted unicode character string will be stored.
+    \param dest     A pointer to the destination buffer where the converted wide character string will be stored.
     \param destSize The size of the destination buffer.
     \param src      A reference to a class with null-terminated UTF-8 encoded string.
 
-    \return A pointer to the destination unicode character string, or nullptr if the destination buffer is invalid.
+    \return A pointer to the destination wide character string, or nullptr if the destination buffer is invalid.
   */
   template <typename stringType>
   inline wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, stringType const & src);
+
+  /*!
+    \brief Converts a Unicode wide character string to a UTF-8 encoded string.
+
+    This function translates a source wide character string into a UTF-8 encoded string stored in the destination
+    buffer. The conversion stops when the source string is fully converted, or the destination buffer is filled. The
+    destination string is null-terminated.
+
+  \param dest     A pointer to the destination buffer where the converted UTF-8 encoded string will be stored.
+  \param destSize The size of the destination buffer.
+  \param src      A pointer to the source wide character string.
+
+  \return A pointer to the destination UTF-8 encoded string, or nullptr if the destination buffer is invalid.
+*/
+  char * wcharToUtf8(char * dest, std::size_t destSize, wchar_t const * src);
+
 } // namespace toygine
 
 #include "core_inline.hpp"
