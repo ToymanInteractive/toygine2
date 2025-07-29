@@ -88,6 +88,34 @@ namespace toygine {
     return N;
   }
 
+#if 1
+/*!
+  \def TOY_UNUSED(identifier)
+  \brief Suppresses compiler warnings about unused variables or functions.
+
+  This macro is used to ignore identifiers that are not used in the code, but are still declared for some reason.
+
+  \param identifier The identifier to ignore.
+
+  \note This macro does not change the behavior of the program.
+  \note This macro is used to suppress compiler warnings about unused variables or functions.
+*/
+#define TOY_UNUSED(identifier)
+#else
+#define TOY_UNUSED(identifier) identifier
+#endif
+
+  //------------------------------------------------------------------------------
+
+  namespace assert {
+
+    using AssertCallback = bool (*)(const char *);
+    using StackWalkCallback = void (*)(const char *);
+
+  } // namespace assert
+
+  //------------------------------------------------------------------------------
+
   static const std::size_t wcharInUtf8MaxSize = 3; /// Maximum UTF-8 bytes for BMP characters
 
   /*!
