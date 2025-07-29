@@ -2,8 +2,8 @@
 if (TARGET_PLATFORM STREQUAL "Windows Desktop")
 
   if (MSVC)
-    string(REGEX REPLACE "/Wall " "" CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
-    string(REGEX REPLACE "/Wall " "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+    string(REGEX REPLACE "/Wall" "" CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
+    string(REGEX REPLACE "/Wall" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 
     string(REGEX REPLACE "/W." "/W0" CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
     string(REGEX REPLACE "/W." "/W0" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
