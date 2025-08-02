@@ -27,7 +27,7 @@
 
 #if defined(_MSC_VER)
 
-#define TARGET_OS OS_WINDOWS_MSVC
+#define TARGET_OS OS_WINDOWS
 
 #endif // defined(_MSC_VER)
 
