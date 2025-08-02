@@ -25,13 +25,13 @@
 #ifndef SRC_PLATFORMS_WINDOWS_PLATFORM_CONFIG_HPP_
 #define SRC_PLATFORMS_WINDOWS_PLATFORM_CONFIG_HPP_
 
-#if defined(WIN32)
+#if defined(_WIN32)
 
 #define TARGET_OS OS_WINDOWS
 
-#if defined(_M_IX86)
+#if defined(_M_IX86) || defined(__i386__)
 #define TARGET_CPU CPU_INTEL_x86
-#elif defined(_M_X64)
+#elif defined(_M_X64) || defined(__x86_64__)
 #define TARGET_CPU CPU_INTEL_x64
 #endif
 
@@ -43,15 +43,23 @@
 
 #ifdef _DEBUG
 
+#if defined(_MSC_VER)
+#define __FUNC_SIGNATURE__ __FUNCSIG__
+#elif defined(__GNUC__) || defined(__clang__)
+#define __FUNC_SIGNATURE__ __PRETTY_FUNCTION__
+#else
+#define __FUNC_SIGNATURE__ __func__
+#endif
+
 #define assert(x)                                                                                                      \
   if (!(x))                                                                                                            \
-    toygine::assertion::assertion(#x, nullptr, __FILE__, __FUNCSIG__, __LINE__);                                       \
+    toygine::assertion::assertion(#x, nullptr, __FILE__, __FUNC_SIGNATURE__, __LINE__);                                \
   else                                                                                                                 \
     ((void)0);
 
 #define assert_message(x, message)                                                                                     \
   if (!(x))                                                                                                            \
-    toygine::assertion::assertion(#x, message, __FILE__, __FUNCSIG__, __LINE__);                                       \
+    toygine::assertion::assertion(#x, message, __FILE__, __FUNC_SIGNATURE__, __LINE__);                                \
   else                                                                                                                 \
     ((void)0);
 
