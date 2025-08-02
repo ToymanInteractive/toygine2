@@ -107,12 +107,32 @@ namespace toygine {
 
   //------------------------------------------------------------------------------
 
-  namespace assert {
+  namespace assertion {
 
     using AssertCallback = bool (*)(const char *);
     using StackWalkCallback = void (*)(const char *);
 
-  } // namespace assert
+    void initialize(); //!< Initialize exception handling
+
+    void deInitialize(); //!< Shutdown exception handling
+
+    void setCallback(AssertCallback assertCallback,
+                     StackWalkCallback stackWalkCallback); //!< Set assertion callback procedure
+
+#ifdef _DEBUG
+
+    void assertion(const char * code, const char * message, const char * fileName, const char * functionName,
+                   std::size_t lineNumber); //!< Show message & raise assertion exception
+
+#else // _DEBUG
+
+    inline void assertion(const char * TOY_UNUSED(code), const char * TOY_UNUSED(message),
+                          const char * TOY_UNUSED(fileName), const char * TOY_UNUSED(functionName),
+                          std::size_t TOY_UNUSED(lineNumber)) {}
+
+#endif // _DEBUG
+
+  } // namespace assertion
 
   //------------------------------------------------------------------------------
 
