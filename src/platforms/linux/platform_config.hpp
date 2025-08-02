@@ -25,4 +25,45 @@
 #ifndef SRC_PLATFORMS_LINUX_PLATFORM_CONFIG_HPP_
 #define SRC_PLATFORMS_LINUX_PLATFORM_CONFIG_HPP_
 
+#if defined(__linux__)
+
+#define TARGET_OS OS_LINUX
+
+#if defined(__aarch64__)
+#define TARGET_CPU CPU_ARM_64
+#elif defined(__x86_64__)
+#define TARGET_CPU CPU_INTEL_x64
+#else
+#define TARGET_CPU CPU_INTEL_x86
+#endif
+
+#endif // defined(__linux__)
+
+//----------------------------------------------------------------------------------------------------------------------
+
+#undef assert
+
+#ifdef _DEBUG
+
+#define assert(x)                                                                                                      \
+  if (!(x))                                                                                                            \
+    toygine::assertion::assertion(#x, nullptr, __FILE__, __PRETTY_FUNCTION__, __LINE__);                               \
+  else                                                                                                                 \
+    ((void)0);
+
+#define assert_message(x, message)                                                                                     \
+  if (!(x))                                                                                                            \
+    toygine::assertion::assertion(#x, message, __FILE__, __PRETTY_FUNCTION__, __LINE__);                               \
+  else                                                                                                                 \
+    ((void)0);
+
+#else // _DEBUG
+
+#define assert(x) ((void)0);
+#define assert_message(x, message) ((void)0);
+
+#endif // _DEBUG
+
+//----------------------------------------------------------------------------------------------------------------------
+
 #endif // SRC_PLATFORMS_LINUX_PLATFORM_CONFIG_HPP_

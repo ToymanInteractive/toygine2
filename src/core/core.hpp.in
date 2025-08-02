@@ -29,11 +29,12 @@
 #include <cstring>
 #include <cuchar>
 
-//------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------
 
 //==============================
-//  target OS
+//  Target OS
 //==============================
+
 /// Microsoft Windows Desktop xp, vista, 7, 8, 8.1 etc...
 #define OS_WINDOWS 0x1000
 
@@ -64,12 +65,20 @@
 //==============================
 //  ProcessorType
 //==============================
-#define CPU_INTEL_x86 0x1020 // Intel CPU 32 bit code
-#define CPU_INTEL_x64 0x1040 // Intel CPU 64 bit code
-#define CPU_ARM_32 0x2020 // ARM CPU 32 bit code
-#define CPU_ARM_64 0x2040 // ARM CPU 64 bit code
 
-//------------------------------------------------------------------------------
+/// Intel CPU 32 bit code
+#define CPU_INTEL_x86 0x1020
+
+/// Intel CPU 64 bit code
+#define CPU_INTEL_x64 0x1040
+
+/// ARM CPU 32 bit code
+#define CPU_ARM_32 0x2020
+
+/// ARM CPU 64 bit code
+#define CPU_ARM_64 0x2040
+
+//----------------------------------------------------------------------------------------------------------------------
 
 #undef TARGET_OS
 #undef TARGET_CPU
@@ -105,7 +114,7 @@ namespace toygine {
 #define TOY_UNUSED(identifier) identifier
 #endif
 
-  //------------------------------------------------------------------------------
+  //--------------------------------------------------------------------------------------------------------------------
 
   namespace assertion {
 
@@ -134,7 +143,7 @@ namespace toygine {
 
   } // namespace assertion
 
-  //------------------------------------------------------------------------------
+  //--------------------------------------------------------------------------------------------------------------------
 
   static const std::size_t wcharInUtf8MaxSize = 3; /// Maximum UTF-8 bytes for BMP characters
 
