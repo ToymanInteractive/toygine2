@@ -29,6 +29,12 @@
 
 #define TARGET_OS OS_WINDOWS
 
+#if defined(_M_IX86)
+#define TARGET_CPU CPU_INTEL_x86
+#elif defined(_M_X64)
+#define TARGET_CPU CPU_INTEL_x64
+#endif
+
 #endif // defined(WIN32)
 
 //----------------------------------------------------------------------------------------------------------------------
