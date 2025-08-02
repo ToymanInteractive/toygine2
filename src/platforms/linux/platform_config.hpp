@@ -25,6 +25,8 @@
 #ifndef SRC_PLATFORMS_LINUX_PLATFORM_CONFIG_HPP_
 #define SRC_PLATFORMS_LINUX_PLATFORM_CONFIG_HPP_
 
+#if defined(__linux__)
 #define TARGET_OS OS_LINUX
+#endif // defined(__linux__)
 
 #endif // SRC_PLATFORMS_LINUX_PLATFORM_CONFIG_HPP_

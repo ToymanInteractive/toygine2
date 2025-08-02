@@ -25,10 +25,10 @@
 #ifndef SRC_PLATFORMS_WINDOWS_PLATFORM_CONFIG_HPP_
 #define SRC_PLATFORMS_WINDOWS_PLATFORM_CONFIG_HPP_
 
-#if defined(_MSC_VER)
+#if defined(_WIN32) || defined(_WIN64)
 
 #define TARGET_OS OS_WINDOWS
 
-#endif // defined(_MSC_VER)
+#endif // defined(_WIN32) || defined(_WIN64)
 
 #endif // SRC_PLATFORMS_WINDOWS_PLATFORM_CONFIG_HPP_
