@@ -29,6 +29,14 @@
 
 #define TARGET_OS OS_LINUX
 
+#if defined(__aarch64__)
+#define TARGET_CPU CPU_ARM_64
+#elif defined(__x86_64__)
+#define TARGET_CPU CPU_INTEL_x64
+#else
+#define TARGET_CPU CPU_INTEL_x86
+#endif
+
 #endif // defined(__linux__)
 
 //----------------------------------------------------------------------------------------------------------------------

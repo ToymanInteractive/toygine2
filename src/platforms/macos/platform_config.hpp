@@ -25,11 +25,19 @@
 #ifndef SRC_PLATFORMS_MACOS_PLATFORM_CONFIG_HPP_
 #define SRC_PLATFORMS_MACOS_PLATFORM_CONFIG_HPP_
 
-#if defined(TARGET_OS_MAC)
+#if defined(__APPLE__) && defined(TARGET_OS_OSX)
 
 #define TARGET_OS OS_MAC_OS
 
-#endif // defined(TARGET_OS_MAC)
+#if defined(__aarch64__)
+#define TARGET_CPU CPU_ARM_64
+#elif defined(__x86_64__)
+#define TARGET_CPU CPU_INTEL_x64
+#else
+#define TARGET_CPU CPU_INTEL_x86
+#endif
+
+#endif // defined(__APPLE__) && defined(TARGET_OS_OSX)
 
 //----------------------------------------------------------------------------------------------------------------------
 
