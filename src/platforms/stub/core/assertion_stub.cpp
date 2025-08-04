@@ -58,7 +58,7 @@ void assertion(const char * code, const char * message, const char * fileName, c
     constexpr const char * const truncationMessage = "...[TRUNCATED]";
     constexpr const auto truncationLength = std::char_traits<char>::length(truncationMessage) + 1;
 #if defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)
-    strcpy_s<truncationLength>(&assertionString[sizeof(assertionString) - truncationLength], truncationMessage);
+    strcpy_s(&assertionString[sizeof(assertionString) - truncationLength], truncationLength, truncationMessage);
 #else // defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)
     strncpy(&assertionString[sizeof(assertionString) - truncationLength], truncationMessage, truncationLength);
 #endif
