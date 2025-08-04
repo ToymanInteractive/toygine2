@@ -11,6 +11,9 @@ test_patterns = [
 [[analyzers]]
 name = "cxx"
 enabled = true
+rules = {
+  CXX-W2009 = false
+}
 
 [[transformers]]
 name = "clang-format"
