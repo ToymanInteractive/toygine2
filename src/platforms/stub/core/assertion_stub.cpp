@@ -45,10 +45,10 @@ void assertion(const char * code, const char * message, const char * fileName, c
                std::size_t lineNumber) {
   char assertionString[4096];
   if (message == nullptr)
-    snprintf(assertionString, sizeof(assertionString), "%s @ %s (%u):\r\n\r\n%s", functionName, fileName, lineNumber,
+    snprintf(assertionString, sizeof(assertionString), "%s @ %s (%zu):\r\n\r\n%s", functionName, fileName, lineNumber,
              code);
   else
-    snprintf(assertionString, sizeof(assertionString), "%s @ %s (%u):\r\n\r\n%s: %s", functionName, fileName,
+    snprintf(assertionString, sizeof(assertionString), "%s @ %s (%zu):\r\n\r\n%s: %s", functionName, fileName,
              lineNumber, message, code);
 
   static bool assertReEnter = false;
