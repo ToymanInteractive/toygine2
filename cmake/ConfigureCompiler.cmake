@@ -90,10 +90,10 @@ elseif (TARGET_PLATFORM STREQUAL "macOS Desktop")
   set(CMAKE_CXX_FLAGS_DEBUG          "-g     -D_DEBUG -fno-fast-math -fstrict-float-cast-overflow    -fmath-errno    -ftrapping-math    -ffp-contract=on   -fhonor-infinities    -fhonor-nans    -fno-approx-func -fsigned-zeros    -fno-associative-math")
 
   set(CMAKE_C_FLAGS_RELWITHDEBINFO   "-O2 -g -D_DEBUG -ffast-math    -fno-strict-float-cast-overflow -fno-math-errno -fno-trapping-math -ffp-contract=fast -fno-honor-infinities -fno-honor-nans -fapprox-func    -fno-signed-zeros -fassociative-math")
-  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g -D_DEBUG -ffast-math    -fno-strict-float-cast-overflow -fno-math-errno -fno-trapping-math -ffp-contract=fast -fno-honor-infinities -fno-honor-nans -fapprox-func.   -fno-signed-zeros -fassociative-math")
+  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g -D_DEBUG -ffast-math    -fno-strict-float-cast-overflow -fno-math-errno -fno-trapping-math -ffp-contract=fast -fno-honor-infinities -fno-honor-nans -fapprox-func    -fno-signed-zeros -fassociative-math")
 
-  set(CMAKE_C_FLAGS_RELEASE          "-O3    -DNDEBUG -ffast-math    -fno-strict-float-cast-overflow -fno-math-errno -fno-trapping-math -ffp-contract=fast -fno-honor-infinities -fno-honor-nans -fapprox-func.   -fno-signed-zeros -fassociative-math")
-  set(CMAKE_CXX_FLAGS_RELEASE        "-O3    -DNDEBUG -ffast-math    -fno-strict-float-cast-overflow -fno-math-errno -fno-trapping-math -ffp-contract=fast -fno-honor-infinities -fno-honor-nans -fapprox-func.   -fno-signed-zeros -fassociative-math")
+  set(CMAKE_C_FLAGS_RELEASE          "-O3    -DNDEBUG -ffast-math    -fno-strict-float-cast-overflow -fno-math-errno -fno-trapping-math -ffp-contract=fast -fno-honor-infinities -fno-honor-nans -fapprox-func    -fno-signed-zeros -fassociative-math")
+  set(CMAKE_CXX_FLAGS_RELEASE        "-O3    -DNDEBUG -ffast-math    -fno-strict-float-cast-overflow -fno-math-errno -fno-trapping-math -ffp-contract=fast -fno-honor-infinities -fno-honor-nans -fapprox-func    -fno-signed-zeros -fassociative-math")
 
   set(CMAKE_STATIC_LINKER_FLAGS "")
   set(CMAKE_EXE_LINKER_FLAGS    "")
