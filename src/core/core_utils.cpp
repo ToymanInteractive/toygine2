@@ -21,75 +21,75 @@
 
 namespace toygine {
 
-  wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, char const * src, std::size_t count) {
-    if (dest == nullptr || destSize == 0)
-      return nullptr;
+wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, char const * src, std::size_t count) {
+  if (dest == nullptr || destSize == 0)
+    return nullptr;
 
-    wchar_t * destPointer = dest;
-    if (count > 0 && src != nullptr) {
-      wchar_t const * unicodeEndPos = dest + (destSize - 1);
-      std::size_t srcIterator = 0;
+  wchar_t * destPointer = dest;
+  if (count > 0 && src != nullptr) {
+    wchar_t const * unicodeEndPos = dest + (destSize - 1);
+    std::size_t srcIterator = 0;
 
-      while (srcIterator < count && destPointer < unicodeEndPos) {
-        std::uint8_t symbol = static_cast<std::uint8_t>(src[srcIterator++]);
-        if (symbol <= 0x7F) {
-          *destPointer = symbol;
-        } else {
-          std::size_t charBytes = 0;
-          while (symbol & 0x80) {
-            ++charBytes;
-            symbol <<= 1;
-          }
-
-          wchar_t unicodeChar = static_cast<wchar_t>(symbol >> charBytes);
-          while (charBytes-- > 1) {
-            unicodeChar <<= 6;
-            unicodeChar |= src[srcIterator++] & 0x3F;
-          }
-
-          *destPointer = unicodeChar;
+    while (srcIterator < count && destPointer < unicodeEndPos) {
+      std::uint8_t symbol = static_cast<std::uint8_t>(src[srcIterator++]);
+      if (symbol <= 0x7F) {
+        *destPointer = symbol;
+      } else {
+        std::size_t charBytes = 0;
+        while (symbol & 0x80) {
+          ++charBytes;
+          symbol <<= 1;
         }
 
-        ++destPointer;
+        wchar_t unicodeChar = static_cast<wchar_t>(symbol >> charBytes);
+        while (charBytes-- > 1) {
+          unicodeChar <<= 6;
+          unicodeChar |= src[srcIterator++] & 0x3F;
+        }
+
+        *destPointer = unicodeChar;
       }
+
+      ++destPointer;
     }
-
-    *destPointer = L'\0';
-
-    return dest;
   }
 
-  char * wcharToUtf8(char * dest, std::size_t destSize, wchar_t const * src) {
-    if (dest == nullptr || destSize == 0)
-      return nullptr;
+  *destPointer = L'\0';
 
-    char * destPointer = dest;
-    if (src != nullptr) {
-      char const * utf8EndPos = dest + (destSize - 1);
+  return dest;
+}
 
-      while (*src != L'\0' && destPointer < utf8EndPos) {
-        std::uint32_t symbol = static_cast<std::uint32_t>(*src++);
-        if (symbol <= 0x7F) {
-          *destPointer = static_cast<char>(symbol);
+char * wcharToUtf8(char * dest, std::size_t destSize, wchar_t const * src) {
+  if (dest == nullptr || destSize == 0)
+    return nullptr;
+
+  char * destPointer = dest;
+  if (src != nullptr) {
+    char const * utf8EndPos = dest + (destSize - 1);
+
+    while (*src != L'\0' && destPointer < utf8EndPos) {
+      std::uint32_t symbol = static_cast<std::uint32_t>(*src++);
+      if (symbol <= 0x7F) {
+        *destPointer = static_cast<char>(symbol);
+      } else {
+        if (symbol <= 0x7FF) {
+          *destPointer = static_cast<char>(((symbol & 0x07C0) >> 6) | 0xC0);
         } else {
-          if (symbol <= 0x7FF) {
-            *destPointer = static_cast<char>(((symbol & 0x07C0) >> 6) | 0xC0);
-          } else {
-            *destPointer = static_cast<char>(((symbol & 0xF000) >> 12) | 0xE0);
-            ++destPointer;
-            *destPointer = static_cast<char>(((symbol & 0x0FC0) >> 6) | 0x80);
-          }
-
+          *destPointer = static_cast<char>(((symbol & 0xF000) >> 12) | 0xE0);
           ++destPointer;
-          *destPointer = static_cast<char>((symbol & 0x003F) | 0x80);
+          *destPointer = static_cast<char>(((symbol & 0x0FC0) >> 6) | 0x80);
         }
+
         ++destPointer;
+        *destPointer = static_cast<char>((symbol & 0x003F) | 0x80);
       }
+      ++destPointer;
     }
-
-    *destPointer = '\0';
-
-    return dest;
   }
+
+  *destPointer = '\0';
+
+  return dest;
+}
 
 } // namespace toygine

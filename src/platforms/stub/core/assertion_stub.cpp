@@ -18,23 +18,52 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
+#include <cstdio>
+
 #include "core.hpp"
 
 namespace toygine {
-  namespace assertion {
+namespace assertion {
 
-    void initialize() {}
+static AssertionCallback s_assertionCallback = nullptr;
 
-    void deInitialize() {}
+void initialize() {
+  s_assertionCallback = nullptr;
+}
 
-    void setCallback(AssertCallback TOY_UNUSED(assertCallback), StackWalkCallback TOY_UNUSED(stackWalkCallback)) {}
+void deInitialize() {
+  s_assertionCallback = nullptr;
+}
+
+void setCallbacks(AssertionCallback assertionCallback, StackWalkCallback TOY_UNUSED(stackWalkCallback)) {
+  s_assertionCallback = assertionCallback;
+}
 
 #ifdef _DEBUG
 
-    void assertion(char const * TOY_UNUSED(code), char const * TOY_UNUSED(message), char const * TOY_UNUSED(fileName),
-                   char const * TOY_UNUSED(functionName), std::size_t TOY_UNUSED(lineNumber)) {}
+void assertion(const char * code, const char * message, const char * fileName, const char * functionName,
+               std::uint32_t lineNumber) {
+  char assertionString[4096];
+  if (message == nullptr)
+    snprintf(assertionString, sizeof(assertionString), "%s @ %s (%u):\r\n\r\n%s", functionName, fileName, lineNumber,
+             code);
+  else
+    snprintf(assertionString, sizeof(assertionString), "%s @ %s (%u):\r\n\r\n%s: %s", functionName, fileName,
+             lineNumber, message, code);
+
+  static bool assertReEnter = false;
+  if (assertReEnter)
+    return;
+
+  assertReEnter = true;
+
+  if (s_assertionCallback != nullptr)
+    (*s_assertionCallback)(assertionString);
+
+  assertReEnter = false;
+}
 
 #endif // _DEBUG
 
-  } // namespace assertion
+} // namespace assertion
 } // namespace toygine
