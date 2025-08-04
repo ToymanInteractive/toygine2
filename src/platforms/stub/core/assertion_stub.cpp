@@ -55,10 +55,14 @@ void assertion(const char * code, const char * message, const char * fileName, c
   // Check for truncation
   if (written >= static_cast<int>(sizeof(assertionString))) {
     const char * const truncationMsg = "...[TRUNCATED]";
-    auto truncationLen = strlen(truncationMsg);
-    if (sizeof(assertionString) > truncationLen) {
-      const auto offsetIndex = truncationLen + 1;
-      strncpy(&assertionString[sizeof(assertionString) - offsetIndex], truncationMsg, offsetIndex);
+    auto truncationLength = strlen(truncationMsg);
+    if (sizeof(assertionString) > truncationLength) {
+      const auto suffixLength = truncationLength + 1;
+#if defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)
+      strcpy_s<suffixLength>(&assertionString[sizeof(assertionString) - suffixLength], truncationMsg);
+#else // defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)
+      strncpy(&assertionString[sizeof(assertionString) - suffixLength], truncationMsg, suffixLength);
+#endif
     }
   }
 
