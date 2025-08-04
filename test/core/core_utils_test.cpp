@@ -62,46 +62,68 @@ TEST_CASE("returns the size of an array", "[ArraySize]") {
 }
 
 TEST_CASE("converts a Unicode UTF-8 encoded string to a wide character string", "[utf8toWChar]") {
-  wchar_t testUnicodeBuffer[utf8Text.size()];
+  wchar_t testBuffer[utf8Text.size()];
+  constexpr auto testBufferSize = ArraySize(testBuffer);
 
-  CHECK(wcscmp(unicodeText.data(), utf8toWChar(testUnicodeBuffer, ArraySize(testUnicodeBuffer),
-                                               reinterpret_cast<char const *>(utf8Text.data()),
-                                               strlen(reinterpret_cast<char const *>(utf8Text.data()))))
-        == 0);
-  CHECK(wcscmp(testUnicodeBuffer, unicodeText.data()) == 0);
+  const char * utf8String = reinterpret_cast<const char *>(utf8Text.data());
 
-  CHECK(wcscmp(L"", utf8toWChar(testUnicodeBuffer, ArraySize(testUnicodeBuffer), nullptr, 0)) == 0);
+  // nullptr
+  CHECK(wcscmp(L"", utf8toWChar(testBuffer, testBufferSize, nullptr, 0)) == 0);
+  CHECK(wcscmp(testBuffer, L"") == 0);
 
-  CHECK(wcscmp(unicodeText.data(), utf8toWChar(testUnicodeBuffer, ArraySize(testUnicodeBuffer),
-                                               reinterpret_cast<char const *>(utf8Text.data())))
-        == 0);
-  CHECK(wcscmp(testUnicodeBuffer, unicodeText.data()) == 0);
+  // empty string
+  CHECK(wcscmp(L"", utf8toWChar(testBuffer, testBufferSize, "", 0)) == 0);
+  CHECK(wcscmp(testBuffer, L"") == 0);
 
-  CHECK(wcscmp(unicodeText.data(), utf8toWChar(testUnicodeBuffer, ArraySize(testUnicodeBuffer),
-                                               std::string(reinterpret_cast<char const *>(utf8Text.data()))))
-        == 0);
-  CHECK(wcscmp(testUnicodeBuffer, unicodeText.data()) == 0);
+  // utf8 C array
+  CHECK(wcscmp(unicodeText.data(), utf8toWChar(testBuffer, testBufferSize, utf8String, utf8Text.size())) == 0);
+  CHECK(wcscmp(testBuffer, unicodeText.data()) == 0);
 
-  // Test empty string
-  CHECK(wcscmp(L"", utf8toWChar(testUnicodeBuffer, ArraySize(testUnicodeBuffer), "", 0)) == 0);
-  CHECK(wcscmp(testUnicodeBuffer, L"") == 0);
+  // utf8 C string
+  CHECK(wcscmp(unicodeText.data(), utf8toWChar(testBuffer, testBufferSize, utf8String)) == 0);
+  CHECK(wcscmp(testBuffer, unicodeText.data()) == 0);
 
-  // Test null inputs
+  // utf8 std::string
+  CHECK(wcscmp(unicodeText.data(), utf8toWChar(testBuffer, testBufferSize, std::string(utf8String))) == 0);
+  CHECK(wcscmp(testBuffer, unicodeText.data()) == 0);
+
+  // null inputs
   CHECK(utf8toWChar(nullptr, 10, "test", 4) == nullptr);
 }
 
 TEST_CASE("converts a Unicode wide character string to a UTF-8 encoded string", "[wcharToUtf8]") {
-  char testUtf8Buffer[unicodeText.size() * wcharInUtf8MaxSize];
+  char testBuffer[unicodeText.size() * wcharInUtf8MaxSize];
+  constexpr auto testBufferSize = ArraySize(testBuffer);
 
-  CHECK(strcmp(reinterpret_cast<const char *>(utf8Text.data()),
-               wcharToUtf8(testUtf8Buffer, ArraySize(testUtf8Buffer), unicodeText.data()))
-        == 0);
-  CHECK(strcmp(reinterpret_cast<const char *>(utf8Text.data()), testUtf8Buffer) == 0);
+  const char * utf8String = reinterpret_cast<const char *>(utf8Text.data());
 
-  // Test buffer size limits
-  CHECK(strcmp("", wcharToUtf8(testUtf8Buffer, 1, L"A")) == 0);
-  CHECK(strcmp(testUtf8Buffer, "") == 0);
+  // nullptr
+  CHECK(strcmp("", wcharToUtf8(testBuffer, testBufferSize, nullptr)) == 0);
+  CHECK(strcmp(testBuffer, "") == 0);
 
-  // Test null inputs
+  // empty string
+  CHECK(strcmp("", wcharToUtf8(testBuffer, testBufferSize, L"")) == 0);
+  CHECK(strcmp(testBuffer, "") == 0);
+
+  // wchar C string
+  CHECK(strcmp(utf8String, wcharToUtf8(testBuffer, testBufferSize, unicodeText.data())) == 0);
+  CHECK(strcmp(utf8String, testBuffer) == 0);
+
+  // buffer size limits
+  CHECK(strcmp("", wcharToUtf8(testBuffer, 1, L"A")) == 0);
+  CHECK(strcmp(testBuffer, "") == 0);
+
+  // null inputs
   CHECK(wcharToUtf8(nullptr, 10, L"test") == nullptr);
+}
+
+TEST_CASE("returns the number of Unicode characters in a UTF-8 encoded string", "[utf8len]") {
+  static const char * s_utf8Text = "Hello World!";
+
+  const char * utf8String = reinterpret_cast<const char *>(utf8Text.data());
+
+  CHECK(strlen(s_utf8Text) == utf8len(s_utf8Text));
+
+  CHECK(strlen(utf8String) != utf8len(utf8String));
+  CHECK(wcslen(unicodeText.data()) == utf8len(utf8String));
 }
