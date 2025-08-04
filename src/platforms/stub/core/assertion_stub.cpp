@@ -44,12 +44,22 @@ void setCallbacks(AssertionCallback assertionCallback, StackWalkCallback TOY_UNU
 void assertion(const char * code, const char * message, const char * fileName, const char * functionName,
                std::size_t lineNumber) {
   char assertionString[4096];
+  int written;
   if (message == nullptr)
-    snprintf(assertionString, sizeof(assertionString), "%s @ %s (%zu):\r\n\r\n%s", functionName, fileName, lineNumber,
-             code);
+    written = snprintf(assertionString, sizeof(assertionString), "%s @ %s (%zu):\r\n\r\n%s", functionName, fileName,
+                       lineNumber, code);
   else
-    snprintf(assertionString, sizeof(assertionString), "%s @ %s (%zu):\r\n\r\n%s: %s", functionName, fileName,
-             lineNumber, message, code);
+    written = snprintf(assertionString, sizeof(assertionString), "%s @ %s (%zu):\r\n\r\n%s: %s", functionName, fileName,
+                       lineNumber, message, code);
+
+  // Check for truncation
+  if (written >= static_cast<int>(sizeof(assertionString))) {
+    const char * const truncationMsg = "...[TRUNCATED]";
+    auto truncationLen = strlen(truncationMsg);
+    if (sizeof(assertionString) > truncationLen) {
+      strcpy(&assertionString[sizeof(assertionString) - truncationLen - 1], truncationMsg);
+    }
+  }
 
   static bool assertReEnter = false;
   if (assertReEnter)
