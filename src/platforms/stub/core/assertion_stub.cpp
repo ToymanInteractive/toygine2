@@ -19,6 +19,7 @@
 //
 
 #include <cstdio>
+#include <string>
 
 #include "core.hpp"
 
@@ -54,16 +55,13 @@ void assertion(const char * code, const char * message, const char * fileName, c
 
   // Check for truncation
   if (written >= static_cast<int>(sizeof(assertionString))) {
-    const char * const truncationMsg = "...[TRUNCATED]";
-    auto truncationLength = strlen(truncationMsg);
-    if (sizeof(assertionString) > truncationLength) {
-      const auto suffixLength = truncationLength + 1;
+    constexpr const char * const truncationMessage = "...[TRUNCATED]";
+    constexpr const auto truncationLength = std::char_traits<char>::length(truncationMessage) + 1;
 #if defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)
-      strcpy_s<suffixLength>(&assertionString[sizeof(assertionString) - suffixLength], truncationMsg);
+    strcpy_s<truncationLength>(&assertionString[sizeof(assertionString) - truncationLength], truncationMessage);
 #else // defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)
-      strncpy(&assertionString[sizeof(assertionString) - suffixLength], truncationMsg, suffixLength);
+    strncpy(&assertionString[sizeof(assertionString) - truncationLength], truncationMessage, truncationLength);
 #endif
-    }
   }
 
   static bool assertReEnter = false;
