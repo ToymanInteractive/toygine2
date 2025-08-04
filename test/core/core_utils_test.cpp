@@ -24,28 +24,23 @@
 
 using namespace toygine;
 
-static const std::array<std::uint8_t, 119> utf8Text{0x48, 0x65, 0x6C, 0x6C, 0x6F, 0x20, 0x57, 0x6F, 0x72, 0x6C, 0x64,
-                                                    0x21, 0x20, 0x2F, 0x20, 0xD0, 0x9F, 0xD1, 0x80, 0xD0, 0xB8, 0xD0,
-                                                    0xB2, 0xD0, 0xB5, 0xD1, 0x82, 0x20, 0xD0, 0xBC, 0xD0, 0xB8, 0xD1,
-                                                    0x80, 0x21, 0x20, 0x2F, 0x20, 0x42, 0x6F, 0x6E, 0x6A, 0x6F, 0x75,
-                                                    0x72, 0x20, 0x74, 0x6F, 0x75, 0x74, 0x20, 0x6C, 0x65, 0x20, 0x6D,
-                                                    0x6F, 0x6E, 0x64, 0x65, 0x21, 0x20, 0x2F, 0x20, 0x48, 0x61, 0x6C,
-                                                    0x6C, 0x6F, 0x20, 0x57, 0x65, 0x6C, 0x74, 0x21, 0x20, 0x2F, 0x20,
-                                                    0xEC, 0x95, 0x88, 0xEB, 0x85, 0x95, 0xED, 0x95, 0x98, 0xEC, 0x84,
-                                                    0xB8, 0xEC, 0x9A, 0x94, 0x21, 0x20, 0x2F, 0x20, 0xE3, 0x83, 0x8F,
-                                                    0xE3, 0x83, 0xAD, 0xE3, 0x83, 0xBC, 0xE3, 0x83, 0xAF, 0xE3, 0x83,
-                                                    0xBC, 0xE3, 0x83, 0xAB, 0xE3, 0x83, 0x89, 0x21, 0x00};
-static const std::array<wchar_t, 86> unicodeText{0x0048U, 0x0065U, 0x006CU, 0x006CU, 0x006FU, 0x0020U, 0x0057U, 0x006FU,
-                                                 0x0072U, 0x006CU, 0x0064U, 0x0021U, 0x0020U, 0x002FU, 0x0020U, 0x041FU,
-                                                 0x0440U, 0x0438U, 0x0432U, 0x0435U, 0x0442U, 0x0020U, 0x043CU, 0x0438U,
-                                                 0x0440U, 0x0021U, 0x0020U, 0x002FU, 0x0020U, 0x0042U, 0x006FU, 0x006EU,
-                                                 0x006AU, 0x006FU, 0x0075U, 0x0072U, 0x0020U, 0x0074U, 0x006FU, 0x0075U,
-                                                 0x0074U, 0x0020U, 0x006CU, 0x0065U, 0x0020U, 0x006DU, 0x006FU, 0x006EU,
-                                                 0x0064U, 0x0065U, 0x0021U, 0x0020U, 0x002FU, 0x0020U, 0x0048U, 0x0061U,
-                                                 0x006CU, 0x006CU, 0x006FU, 0x0020U, 0x0057U, 0x0065U, 0x006CU, 0x0074U,
-                                                 0x0021U, 0x0020U, 0x002FU, 0x0020U, 0xC548U, 0xB155U, 0xD558U, 0xC138U,
-                                                 0xC694U, 0x0021U, 0x0020U, 0x002FU, 0x0020U, 0x30CFU, 0x30EDU, 0x30FCU,
-                                                 0x30EFU, 0x30FCU, 0x30EBU, 0x30C9U, 0x0021U, 0x0000};
+static const std::array<std::uint8_t, 119> utf8Text{
+  {0x48, 0x65, 0x6C, 0x6C, 0x6F, 0x20, 0x57, 0x6F, 0x72, 0x6C, 0x64, 0x21, 0x20, 0x2F, 0x20, 0xD0, 0x9F,
+   0xD1, 0x80, 0xD0, 0xB8, 0xD0, 0xB2, 0xD0, 0xB5, 0xD1, 0x82, 0x20, 0xD0, 0xBC, 0xD0, 0xB8, 0xD1, 0x80,
+   0x21, 0x20, 0x2F, 0x20, 0x42, 0x6F, 0x6E, 0x6A, 0x6F, 0x75, 0x72, 0x20, 0x74, 0x6F, 0x75, 0x74, 0x20,
+   0x6C, 0x65, 0x20, 0x6D, 0x6F, 0x6E, 0x64, 0x65, 0x21, 0x20, 0x2F, 0x20, 0x48, 0x61, 0x6C, 0x6C, 0x6F,
+   0x20, 0x57, 0x65, 0x6C, 0x74, 0x21, 0x20, 0x2F, 0x20, 0xEC, 0x95, 0x88, 0xEB, 0x85, 0x95, 0xED, 0x95,
+   0x98, 0xEC, 0x84, 0xB8, 0xEC, 0x9A, 0x94, 0x21, 0x20, 0x2F, 0x20, 0xE3, 0x83, 0x8F, 0xE3, 0x83, 0xAD,
+   0xE3, 0x83, 0xBC, 0xE3, 0x83, 0xAF, 0xE3, 0x83, 0xBC, 0xE3, 0x83, 0xAB, 0xE3, 0x83, 0x89, 0x21, 0x00}};
+
+static const std::array<wchar_t, 86> unicodeText{
+  {0x0048U, 0x0065U, 0x006CU, 0x006CU, 0x006FU, 0x0020U, 0x0057U, 0x006FU, 0x0072U, 0x006CU, 0x0064U, 0x0021U, 0x0020U,
+   0x002FU, 0x0020U, 0x041FU, 0x0440U, 0x0438U, 0x0432U, 0x0435U, 0x0442U, 0x0020U, 0x043CU, 0x0438U, 0x0440U, 0x0021U,
+   0x0020U, 0x002FU, 0x0020U, 0x0042U, 0x006FU, 0x006EU, 0x006AU, 0x006FU, 0x0075U, 0x0072U, 0x0020U, 0x0074U, 0x006FU,
+   0x0075U, 0x0074U, 0x0020U, 0x006CU, 0x0065U, 0x0020U, 0x006DU, 0x006FU, 0x006EU, 0x0064U, 0x0065U, 0x0021U, 0x0020U,
+   0x002FU, 0x0020U, 0x0048U, 0x0061U, 0x006CU, 0x006CU, 0x006FU, 0x0020U, 0x0057U, 0x0065U, 0x006CU, 0x0074U, 0x0021U,
+   0x0020U, 0x002FU, 0x0020U, 0xC548U, 0xB155U, 0xD558U, 0xC138U, 0xC694U, 0x0021U, 0x0020U, 0x002FU, 0x0020U, 0x30CFU,
+   0x30EDU, 0x30FCU, 0x30EFU, 0x30FCU, 0x30EBU, 0x30C9U, 0x0021U, 0x0000}};
 
 TEST_CASE("returns the size of an array", "[ArraySize]") {
   const bool boolArray[] = {true, false};
@@ -62,46 +57,70 @@ TEST_CASE("returns the size of an array", "[ArraySize]") {
 }
 
 TEST_CASE("converts a Unicode UTF-8 encoded string to a wide character string", "[utf8toWChar]") {
-  wchar_t testUnicodeBuffer[utf8Text.size()];
+  wchar_t testBuffer[utf8Text.size()];
+  constexpr auto testBufferSize = ArraySize(testBuffer);
 
-  CHECK(wcscmp(unicodeText.data(), utf8toWChar(testUnicodeBuffer, ArraySize(testUnicodeBuffer),
-                                               reinterpret_cast<char const *>(utf8Text.data()),
-                                               strlen(reinterpret_cast<char const *>(utf8Text.data()))))
-        == 0);
-  CHECK(wcscmp(testUnicodeBuffer, unicodeText.data()) == 0);
+  const char * utf8String = reinterpret_cast<const char *>(utf8Text.data());
 
-  CHECK(wcscmp(L"", utf8toWChar(testUnicodeBuffer, ArraySize(testUnicodeBuffer), nullptr, 0)) == 0);
+  // nullptr
+  CHECK(wcscmp(L"", utf8toWChar(testBuffer, testBufferSize, nullptr, 0)) == 0);
+  CHECK(wcscmp(testBuffer, L"") == 0);
 
-  CHECK(wcscmp(unicodeText.data(), utf8toWChar(testUnicodeBuffer, ArraySize(testUnicodeBuffer),
-                                               reinterpret_cast<char const *>(utf8Text.data())))
-        == 0);
-  CHECK(wcscmp(testUnicodeBuffer, unicodeText.data()) == 0);
+  // empty string
+  CHECK(wcscmp(L"", utf8toWChar(testBuffer, testBufferSize, "", 0)) == 0);
+  CHECK(wcscmp(testBuffer, L"") == 0);
 
-  CHECK(wcscmp(unicodeText.data(), utf8toWChar(testUnicodeBuffer, ArraySize(testUnicodeBuffer),
-                                               std::string(reinterpret_cast<char const *>(utf8Text.data()))))
-        == 0);
-  CHECK(wcscmp(testUnicodeBuffer, unicodeText.data()) == 0);
+  // utf8 C array
+  CHECK(wcscmp(unicodeText.data(), utf8toWChar(testBuffer, testBufferSize, utf8String, utf8Text.size())) == 0);
+  CHECK(wcscmp(testBuffer, unicodeText.data()) == 0);
 
-  // Test empty string
-  CHECK(wcscmp(L"", utf8toWChar(testUnicodeBuffer, ArraySize(testUnicodeBuffer), "", 0)) == 0);
-  CHECK(wcscmp(testUnicodeBuffer, L"") == 0);
+  // utf8 C string
+  CHECK(wcscmp(unicodeText.data(), utf8toWChar(testBuffer, testBufferSize, utf8String)) == 0);
+  CHECK(wcscmp(testBuffer, unicodeText.data()) == 0);
 
-  // Test null inputs
+  // utf8 std::string
+  CHECK(wcscmp(unicodeText.data(), utf8toWChar(testBuffer, testBufferSize, std::string(utf8String))) == 0);
+  CHECK(wcscmp(testBuffer, unicodeText.data()) == 0);
+
+  // null inputs
   CHECK(utf8toWChar(nullptr, 10, "test", 4) == nullptr);
 }
 
 TEST_CASE("converts a Unicode wide character string to a UTF-8 encoded string", "[wcharToUtf8]") {
-  char testUtf8Buffer[unicodeText.size() * wcharInUtf8MaxSize];
+  char testBuffer[unicodeText.size() * wcharInUtf8MaxSize];
+  constexpr auto testBufferSize = ArraySize(testBuffer);
 
-  CHECK(strcmp(reinterpret_cast<const char *>(utf8Text.data()),
-               wcharToUtf8(testUtf8Buffer, ArraySize(testUtf8Buffer), unicodeText.data()))
-        == 0);
-  CHECK(strcmp(reinterpret_cast<const char *>(utf8Text.data()), testUtf8Buffer) == 0);
+  const char * utf8String = reinterpret_cast<const char *>(utf8Text.data());
 
-  // Test buffer size limits
-  CHECK(strcmp("", wcharToUtf8(testUtf8Buffer, 1, L"A")) == 0);
-  CHECK(strcmp(testUtf8Buffer, "") == 0);
+  // nullptr
+  CHECK(strcmp("", wcharToUtf8(testBuffer, testBufferSize, nullptr)) == 0);
+  CHECK(strcmp(testBuffer, "") == 0);
 
-  // Test null inputs
+  // empty string
+  CHECK(strcmp("", wcharToUtf8(testBuffer, testBufferSize, L"")) == 0);
+  CHECK(strcmp(testBuffer, "") == 0);
+
+  // wchar C string
+  CHECK(strcmp(utf8String, wcharToUtf8(testBuffer, testBufferSize, unicodeText.data())) == 0);
+  CHECK(strcmp(utf8String, testBuffer) == 0);
+
+  // buffer size limits
+  CHECK(strcmp("", wcharToUtf8(testBuffer, 1, L"A")) == 0);
+  CHECK(strcmp(testBuffer, "") == 0);
+
+  // null inputs
   CHECK(wcharToUtf8(nullptr, 10, L"test") == nullptr);
+}
+
+TEST_CASE("returns the number of Unicode characters in a UTF-8 encoded string", "[utf8len]") {
+  static const char * s_utf8Text = "Hello World!";
+  static const char * s_emptyText = "";
+
+  const char * utf8String = reinterpret_cast<const char *>(utf8Text.data());
+
+  CHECK(strlen(s_utf8Text) == utf8len(s_utf8Text));
+  CHECK(utf8len(s_emptyText) == 0);
+
+  CHECK(strlen(utf8String) != utf8len(utf8String));
+  CHECK(wcslen(unicodeText.data()) == utf8len(utf8String));
 }

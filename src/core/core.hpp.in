@@ -230,6 +230,18 @@ inline wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, stringType co
 */
 char * wcharToUtf8(char * dest, std::size_t destSize, wchar_t const * src);
 
+/*!
+  \brief Returns the number of Unicode characters in a UTF-8 encoded string.
+
+  This function counts the number of Unicode characters in a UTF-8 encoded string. It stops counting when the null
+  character is encountered or the end of the string is reached.
+
+  \param str A pointer to the UTF-8 encoded string.
+
+  \return The number of Unicode characters in the string, or 0 if the string is invalid.
+*/
+size_t utf8len(char const * str);
+
 } // namespace toygine
 
 #include "core_inline.hpp"
