@@ -122,7 +122,9 @@ std::size_t utf8len(char const * str) {
 
   std::size_t size = 0;
   while (*str != '\0') {
-    str += sc_utf8CharSizeTable[static_cast<std::uint8_t>(*str)];
+    const auto symbolLength = sc_utf8CharSizeTable[static_cast<std::uint8_t>(*str)];
+    assert_message(symbolLength != 0, "Invalid UTF-8 symbol");
+    str += symbolLength;
     ++size;
   }
 

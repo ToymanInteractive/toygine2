@@ -114,10 +114,12 @@ TEST_CASE("converts a Unicode wide character string to a UTF-8 encoded string", 
 
 TEST_CASE("returns the number of Unicode characters in a UTF-8 encoded string", "[utf8len]") {
   static const char * s_utf8Text = "Hello World!";
+  static const char * s_emptyText = "";
 
   const char * utf8String = reinterpret_cast<const char *>(utf8Text.data());
 
   CHECK(strlen(s_utf8Text) == utf8len(s_utf8Text));
+  CHECK(utf8len(s_emptyText) == 0);
 
   CHECK(strlen(utf8String) != utf8len(utf8String));
   CHECK(wcslen(unicodeText.data()) == utf8len(utf8String));
