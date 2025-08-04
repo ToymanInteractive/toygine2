@@ -57,7 +57,8 @@ void assertion(const char * code, const char * message, const char * fileName, c
     const char * const truncationMsg = "...[TRUNCATED]";
     auto truncationLen = strlen(truncationMsg);
     if (sizeof(assertionString) > truncationLen) {
-      strcpy(&assertionString[sizeof(assertionString) - truncationLen - 1], truncationMsg);
+      const auto offsetIndex = truncationLen + 1;
+      strncpy(&assertionString[sizeof(assertionString) - offsetIndex], truncationMsg, offsetIndex);
     }
   }
 
