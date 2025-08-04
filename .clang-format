@@ -1,3 +1,4 @@
+# Documentation: https://clang.llvm.org/docs/ClangFormatStyleOptions.html#clang-format-style-options
 ---
 AccessModifierOffset: -2
 AlignAfterOpenBracket: Align
@@ -44,7 +45,7 @@ ConstructorInitializerIndentWidth: 2
 ContinuationIndentWidth: 2
 Cpp11BracedListStyle: true
 DerivePointerAlignment: false
-FixNamespaceComments: false
+FixNamespaceComments: true
 IncludeBlocks: Regroup
 IncludeCategories:
   - Regex: "^<SDL"
@@ -68,7 +69,7 @@ JavaImportGroups:
   - "com.github.stephenc"
 KeepEmptyLinesAtTheStartOfBlocks: false
 MaxEmptyLinesToKeep: 1
-NamespaceIndentation: All
+NamespaceIndentation: None
 PenaltyBreakBeforeFirstCallParameter: 19937
 PenaltyReturnTypeOnItsOwnLine: 19937
 PointerAlignment: Middle

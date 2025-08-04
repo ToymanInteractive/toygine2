@@ -18,23 +18,65 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
+#include <cstdio>
+#include <string>
+
 #include "core.hpp"
 
 namespace toygine {
-  namespace assertion {
+namespace assertion {
 
-    void initialize() {}
+static AssertionCallback s_assertionCallback = nullptr;
 
-    void deInitialize() {}
+void initialize() {
+  s_assertionCallback = nullptr;
+}
 
-    void setCallback(AssertCallback TOY_UNUSED(assertCallback), StackWalkCallback TOY_UNUSED(stackWalkCallback)) {}
+void deInitialize() {
+  s_assertionCallback = nullptr;
+}
+
+void setCallbacks(AssertionCallback assertionCallback, StackWalkCallback TOY_UNUSED(stackWalkCallback)) {
+  s_assertionCallback = assertionCallback;
+}
 
 #ifdef _DEBUG
 
-    void assertion(char const * TOY_UNUSED(code), char const * TOY_UNUSED(message), char const * TOY_UNUSED(fileName),
-                   char const * TOY_UNUSED(functionName), std::size_t TOY_UNUSED(lineNumber)) {}
+void assertion(const char * code, const char * message, const char * fileName, const char * functionName,
+               std::size_t lineNumber) {
+  char assertionString[4096];
+  int written;
+  if (message == nullptr)
+    written = snprintf(assertionString, sizeof(assertionString), "%s @ %s (%zu):\r\n\r\n%s", functionName, fileName,
+                       lineNumber, code);
+  else
+    written = snprintf(assertionString, sizeof(assertionString), "%s @ %s (%zu):\r\n\r\n%s: %s", functionName, fileName,
+                       lineNumber, message, code);
+
+  // Check for truncation
+  if (written >= static_cast<int>(sizeof(assertionString))) {
+    constexpr const char * const truncationMessage = "...[TRUNCATED]";
+    constexpr const auto truncationLength = std::char_traits<char>::length(truncationMessage) + 1;
+#if defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)
+    strcpy_s(&assertionString[sizeof(assertionString) - truncationLength], truncationLength, truncationMessage);
+#else // defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)
+    strncpy(&assertionString[sizeof(assertionString) - truncationLength], truncationMessage, truncationLength);
+#endif
+  }
+
+  static bool assertReEnter = false;
+  if (assertReEnter)
+    return;
+
+  assertReEnter = true;
+
+  if (s_assertionCallback != nullptr)
+    (*s_assertionCallback)(assertionString);
+
+  assertReEnter = false;
+}
 
 #endif // _DEBUG
 
-  } // namespace assertion
+} // namespace assertion
 } // namespace toygine
