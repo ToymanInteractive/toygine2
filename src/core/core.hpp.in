@@ -240,7 +240,20 @@ char * wcharToUtf8(char * dest, std::size_t destSize, wchar_t const * src);
 
   \return The number of Unicode characters in the string, or 0 if the string is invalid.
 */
-size_t utf8len(char const * str);
+std::size_t utf8len(const char * str);
+
+/*!
+  \brief Reverses a given string in-place.
+
+  This function will reverse a given string in-place. It can be used to reverse a string of a given length, or to
+  reverse a null-terminated string.
+
+  \param str   The string to reverse.
+  \param count The length of the string to reverse.
+
+  \return A pointer to the reversed string.
+*/
+char const * reverseString(char * str, std::size_t count = 0);
 
 } // namespace toygine
 
