@@ -83,7 +83,7 @@
 #undef TARGET_OS
 #undef TARGET_CPU
 
-#include "@TARGET_PLATFORM_CONFIG_HEADER@"
+#include "@TOYGINE_TARGET_PLATFORM_CONFIG_HEADER@"
 
 namespace toygine {
 /*!

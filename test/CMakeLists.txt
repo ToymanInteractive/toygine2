@@ -1,5 +1,5 @@
 #-------------------------------------------------------------------------------------------
-if (TARGET_PLATFORM STREQUAL "Windows Desktop")
+if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
   if (MSVC)
     string(REGEX REPLACE "/Wall " "" CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
@@ -15,9 +15,9 @@ if (TARGET_PLATFORM STREQUAL "Windows Desktop")
     string(REGEX REPLACE "/sdl" "/sdl-" CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO}")
   endif (MSVC)
 
-elseif (TARGET_PLATFORM STREQUAL "Linux Desktop")
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop")
 
-elseif (TARGET_PLATFORM STREQUAL "macOS Desktop")
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
 
   string(REGEX REPLACE "-Werror" "" CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
   string(REGEX REPLACE "-Weverything" "" CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")

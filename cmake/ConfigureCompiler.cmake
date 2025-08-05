@@ -20,7 +20,7 @@
 
 cmake_minimum_required(VERSION 3.31.0 FATAL_ERROR)
 
-if (TARGET_PLATFORM STREQUAL "Windows Desktop")
+if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
   if (MSVC)
     message(STATUS "Compiler: MSVC, version: " ${MSVC_VERSION})
@@ -68,11 +68,11 @@ if (TARGET_PLATFORM STREQUAL "Windows Desktop")
     set(CMAKE_EXE_LINKER_FLAGS_RELEASE            "/INCREMENTAL:NO /LTCG     /DEBUG:NONE /ASSEMBLYDEBUG:DISABLE")
   endif (MSVC)
 
-elseif (TARGET_PLATFORM STREQUAL "Linux Desktop")
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop")
 
   message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
 
-elseif (TARGET_PLATFORM STREQUAL "macOS Desktop")
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
 
   if (CMAKE_GENERATOR STREQUAL "Xcode")
     message(STATUS "Compiler: Xcode, version: " ${XCODE_VERSION})
@@ -110,7 +110,7 @@ elseif (TARGET_PLATFORM STREQUAL "macOS Desktop")
 
 else ()
 
-  message(FATAL_ERROR "Unsupported platform: ${TARGET_PLATFORM}")
+  message(FATAL_ERROR "Unsupported platform: ${TOYGINE_TARGET_PLATFORM}")
 
 endif ()
 
