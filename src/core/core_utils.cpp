@@ -115,7 +115,7 @@ char * wcharToUtf8(char * dest, std::size_t destSize, wchar_t const * src) {
   return dest;
 }
 
-std::size_t utf8len(char const * str) {
+std::size_t utf8len(const char * str) {
   assert(str != nullptr);
   if (str == nullptr)
     return 0;
@@ -129,6 +129,22 @@ std::size_t utf8len(char const * str) {
   }
 
   return size;
+}
+
+char * reverseString(char * str, std::size_t count) {
+  assert(str != nullptr);
+  if (str == nullptr)
+    return nullptr;
+
+  if (count == 0)
+    count = strlen(str);
+  if (count != 0) {
+    for (size_t i = 0, j = count - 1; i < j; ++i, --j) {
+      std::swap(str[i], str[j]);
+    }
+  }
+
+  return str;
 }
 
 } // namespace toygine

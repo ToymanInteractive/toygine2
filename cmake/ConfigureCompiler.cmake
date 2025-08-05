@@ -20,7 +20,7 @@
 
 cmake_minimum_required(VERSION 3.31.0 FATAL_ERROR)
 
-if (TARGET_PLATFORM STREQUAL "Windows Desktop")
+if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
   if (MSVC)
     message(STATUS "Compiler: MSVC, version: " ${MSVC_VERSION})
@@ -68,11 +68,11 @@ if (TARGET_PLATFORM STREQUAL "Windows Desktop")
     set(CMAKE_EXE_LINKER_FLAGS_RELEASE            "/INCREMENTAL:NO /LTCG     /DEBUG:NONE /ASSEMBLYDEBUG:DISABLE")
   endif (MSVC)
 
-elseif (TARGET_PLATFORM STREQUAL "Linux Desktop")
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop")
 
   message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
 
-elseif (TARGET_PLATFORM STREQUAL "macOS Desktop")
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
 
   if (CMAKE_GENERATOR STREQUAL "Xcode")
     message(STATUS "Compiler: Xcode, version: " ${XCODE_VERSION})
@@ -86,14 +86,14 @@ elseif (TARGET_PLATFORM STREQUAL "macOS Desktop")
   set(CMAKE_C_FLAGS   "-Werror -Weverything -pedantic-errors -Wno-missing-prototypes                                     -Wno-missing-include-dirs -Wno-padded -Wno-poison-system-directories -fshow-column -fshow-source-location -fcaret-diagnostics -fcolor-diagnostics -fdiagnostics-format=clang -fdiagnostics-show-option -fdiagnostics-show-category=id -fdiagnostics-fixit-info -fdiagnostics-print-source-range-info -fdiagnostics-parseable-fixits")
   set(CMAKE_CXX_FLAGS "-Werror -Weverything -pedantic-errors -Wno-missing-prototypes -Wno-c++98-compat -Wno-c++20-compat -Wno-missing-include-dirs -Wno-padded -Wno-poison-system-directories -fshow-column -fshow-source-location -fcaret-diagnostics -fcolor-diagnostics -fdiagnostics-format=clang -fdiagnostics-show-option -fdiagnostics-show-category=id -fdiagnostics-fixit-info -fdiagnostics-print-source-range-info -fdiagnostics-parseable-fixits")
 
-  set(CMAKE_C_FLAGS_DEBUG            "-g     -D_DEBUG -fno-fast-math -fstrict-float-cast-overflow    -fmath-errno    -ftrapping-math    -ffp-contract=on   -fhonor-infinities    -fhonor-nans    -fno-approx-func -fsigned-zeros    -fno-associative-math")
-  set(CMAKE_CXX_FLAGS_DEBUG          "-g     -D_DEBUG -fno-fast-math -fstrict-float-cast-overflow    -fmath-errno    -ftrapping-math    -ffp-contract=on   -fhonor-infinities    -fhonor-nans    -fno-approx-func -fsigned-zeros    -fno-associative-math")
+  set(CMAKE_C_FLAGS_DEBUG            "-g     -D_DEBUG -fno-fast-math -fstrict-float-cast-overflow    -fmath-errno    -ftrapping-math    -ffp-contract=on   -fhonor-infinities    -fhonor-nans    -fno-approx-func -fsigned-zeros    -fno-associative-math -fno-reciprocal-math -fno-unsafe-math-optimizations")
+  set(CMAKE_CXX_FLAGS_DEBUG          "-g     -D_DEBUG -fno-fast-math -fstrict-float-cast-overflow    -fmath-errno    -ftrapping-math    -ffp-contract=on   -fhonor-infinities    -fhonor-nans    -fno-approx-func -fsigned-zeros    -fno-associative-math -fno-reciprocal-math -fno-unsafe-math-optimizations")
 
-  set(CMAKE_C_FLAGS_RELWITHDEBINFO   "-O2 -g -D_DEBUG -ffast-math    -fno-strict-float-cast-overflow -fno-math-errno -fno-trapping-math -ffp-contract=fast -fno-honor-infinities -fno-honor-nans -fapprox-func    -fno-signed-zeros -fassociative-math")
-  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g -D_DEBUG -ffast-math    -fno-strict-float-cast-overflow -fno-math-errno -fno-trapping-math -ffp-contract=fast -fno-honor-infinities -fno-honor-nans -fapprox-func    -fno-signed-zeros -fassociative-math")
+  set(CMAKE_C_FLAGS_RELWITHDEBINFO   "-O2 -g -D_DEBUG -ffast-math    -fno-strict-float-cast-overflow -fno-math-errno -fno-trapping-math -ffp-contract=fast -fno-honor-infinities -fno-honor-nans -fapprox-func    -fno-signed-zeros -fassociative-math    -freciprocal-math    -funsafe-math-optimizations")
+  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g -D_DEBUG -ffast-math    -fno-strict-float-cast-overflow -fno-math-errno -fno-trapping-math -ffp-contract=fast -fno-honor-infinities -fno-honor-nans -fapprox-func    -fno-signed-zeros -fassociative-math    -freciprocal-math    -funsafe-math-optimizations")
 
-  set(CMAKE_C_FLAGS_RELEASE          "-O3    -DNDEBUG -ffast-math    -fno-strict-float-cast-overflow -fno-math-errno -fno-trapping-math -ffp-contract=fast -fno-honor-infinities -fno-honor-nans -fapprox-func    -fno-signed-zeros -fassociative-math")
-  set(CMAKE_CXX_FLAGS_RELEASE        "-O3    -DNDEBUG -ffast-math    -fno-strict-float-cast-overflow -fno-math-errno -fno-trapping-math -ffp-contract=fast -fno-honor-infinities -fno-honor-nans -fapprox-func    -fno-signed-zeros -fassociative-math")
+  set(CMAKE_C_FLAGS_RELEASE          "-O3    -DNDEBUG -ffast-math    -fno-strict-float-cast-overflow -fno-math-errno -fno-trapping-math -ffp-contract=fast -fno-honor-infinities -fno-honor-nans -fapprox-func    -fno-signed-zeros -fassociative-math    -freciprocal-math    -funsafe-math-optimizations")
+  set(CMAKE_CXX_FLAGS_RELEASE        "-O3    -DNDEBUG -ffast-math    -fno-strict-float-cast-overflow -fno-math-errno -fno-trapping-math -ffp-contract=fast -fno-honor-infinities -fno-honor-nans -fapprox-func    -fno-signed-zeros -fassociative-math    -freciprocal-math    -funsafe-math-optimizations")
 
   set(CMAKE_STATIC_LINKER_FLAGS "")
   set(CMAKE_EXE_LINKER_FLAGS    "")
@@ -106,11 +106,11 @@ elseif (TARGET_PLATFORM STREQUAL "macOS Desktop")
   set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO     "")
   set(CMAKE_EXE_LINKER_FLAGS_RELEASE            "")
 
-# stop on https://releases.llvm.org/17.0.1/tools/clang/docs/UsersManual.html#cmdoption-f-no-reciprocal-math
+# stop on https://releases.llvm.org/17.0.1/tools/clang/docs/UsersManual.html#cmdoption-f-no-finite-math-only
 
 else ()
 
-  message(FATAL_ERROR "Unsupported platform: ${TARGET_PLATFORM}")
+  message(FATAL_ERROR "Unsupported platform: ${TOYGINE_TARGET_PLATFORM}")
 
 endif ()
 
