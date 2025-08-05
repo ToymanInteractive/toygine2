@@ -131,7 +131,7 @@ std::size_t utf8len(const char * str) {
   return size;
 }
 
-const char * reverseString(char * str, std::size_t count) {
+char * reverseString(char * str, std::size_t count) {
   assert(str != nullptr);
   if (str == nullptr)
     return nullptr;

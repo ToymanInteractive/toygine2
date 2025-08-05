@@ -253,7 +253,7 @@ std::size_t utf8len(const char * str);
 
   \return A pointer to the reversed string.
 */
-char const * reverseString(char * str, std::size_t count = 0);
+char * reverseString(char * str, std::size_t count = 0);
 
 } // namespace toygine
 
