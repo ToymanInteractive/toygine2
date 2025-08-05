@@ -31,6 +31,9 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
 
 endif()
 #-------------------------------------------------------------------------------------------
+# Remove all of the extra targets
+set_property(GLOBAL PROPERTY CTEST_TARGETS_ADDED 1)
+#-------------------------------------------------------------------------------------------
 
 include(FetchContent)
 include(CTest)
