@@ -18,12 +18,12 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*
-  \file   core_inline.hpp
+  \file   core_inline.inl
   \brief  collection of core inline functions
 */
 
-#ifndef INCLUDE_CORE_INLINE_HPP_
-#define INCLUDE_CORE_INLINE_HPP_
+#ifndef INCLUDE_CORE_INLINE_INL_
+#define INCLUDE_CORE_INLINE_INL_
 
 namespace toygine {
 //------------------------------------------------------------------------------
@@ -40,4 +40,4 @@ inline wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, stringType co
 //------------------------------------------------------------------------------
 } // namespace toygine
 
-#endif // INCLUDE_CORE_INLINE_HPP_
+#endif // INCLUDE_CORE_INLINE_INL_
