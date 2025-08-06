@@ -82,7 +82,7 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/core/core.hpp.in ${CMAKE_CURRENT_
 
 set(SRC_CORE_LIST src/core/core_utils.cpp)
 set(HDR_CORE_LIST include/core.hpp)
-set(INL_CORE_LIST include/core_inline.hpp)
+set(INL_CORE_LIST include/core_inline.inl)
 
 source_group("Core" FILES ${SRC_CORE_LIST} ${HDR_CORE_LIST} ${INL_CORE_LIST})
 

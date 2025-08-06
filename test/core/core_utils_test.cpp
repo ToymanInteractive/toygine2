@@ -20,6 +20,7 @@
 
 #include <catch2/catch_test_macros.hpp>
 
+#include "../../src/core/core_utils_internal.inl"
 #include "core.hpp"
 
 using namespace toygine;
@@ -146,4 +147,23 @@ TEST_CASE("reverses a given string in-place", "[reverseString]") {
 
   reverseString(reverseBuffer);
   CHECK(strcmp(utf8String, reverseBuffer) == 0);
+}
+
+TEST_CASE("converts an integer value to a string representation in a specified base", "[integerToSymbols]") {
+  char reverseBuffer[32];
+
+  auto symbols = integerToSymbols(reverseBuffer, sizeof(reverseBuffer), 1234567890, 8);
+  reverseBuffer[symbols] = '\0';
+  CHECK(symbols == 11);
+  CHECK(strcmp(reverseBuffer, "22310454111") == 0);
+
+  symbols = integerToSymbols(reverseBuffer, sizeof(reverseBuffer), 1234567890, 10);
+  reverseBuffer[symbols] = '\0';
+  CHECK(symbols == 10);
+  CHECK(strcmp(reverseBuffer, "0987654321") == 0);
+
+  symbols = integerToSymbols(reverseBuffer, sizeof(reverseBuffer), 1234567890, 16);
+  reverseBuffer[symbols] = '\0';
+  CHECK(symbols == 8);
+  CHECK(strcmp(reverseBuffer, "2D206994") == 0);
 }
