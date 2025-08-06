@@ -19,9 +19,7 @@
 //
 #include <array>
 
-#include <core.hpp>
-
-#include "core_utils_internal.inl"
+#include "core.hpp"
 
 namespace toygine {
 
