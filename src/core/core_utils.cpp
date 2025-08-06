@@ -21,6 +21,8 @@
 
 #include <core.hpp>
 
+#include "core_utils_internal.inl"
+
 namespace toygine {
 
 static constexpr std::array<std::uint8_t, 256> sc_utf8CharSizeTable{
