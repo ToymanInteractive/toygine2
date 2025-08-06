@@ -27,6 +27,8 @@
 
 #include <array>
 
+#include "core.hpp"
+
 namespace toygine {
 
 static const std::array<char, 36> sc_ansiDigits{{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B',

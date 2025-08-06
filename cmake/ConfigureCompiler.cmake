@@ -106,7 +106,7 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
   set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO     "")
   set(CMAKE_EXE_LINKER_FLAGS_RELEASE            "")
 
-# stop on https://releases.llvm.org/17.0.1/tools/clang/docs/UsersManual.html#cmdoption-ffp-model
+# stop on https://releases.llvm.org/17.0.1/tools/clang/docs/UsersManual.html#cmdoption-ffp-exception-behavior
 
 else ()
 
