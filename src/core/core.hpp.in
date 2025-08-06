@@ -257,4 +257,6 @@ char * reverseString(char * str, std::size_t count = 0);
 
 } // namespace toygine
 
+#include "core_inline.hpp"
+
 #endif // INCLUDE_CORE_HPP_
