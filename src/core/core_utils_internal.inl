@@ -51,7 +51,6 @@ static const std::array<char, 36> sc_ansiDigits{{'0', '1', '2', '3', '4', '5', '
   \note The function assumes that the destination buffer is large enough to hold the converted string. The function does
         not null-terminate the string. The base must be between 2 and 36 inclusive.
 */
-
 template <typename type>
 constexpr inline std::size_t integerToSymbols(char * dest, std::size_t destSize, type value, unsigned base) {
   assert_msg(dest != nullptr && destSize > 0, "The destination buffer must not be null.");
