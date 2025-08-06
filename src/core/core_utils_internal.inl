@@ -22,9 +22,10 @@
   \brief  collection of core utils inline functions
 */
 
-#include <cstddef>
 #ifndef SRC_CORE_CORE_UTILS_INTERNAL_INL_
 #define SRC_CORE_CORE_UTILS_INTERNAL_INL_
+
+#include <array>
 
 namespace toygine {
 
