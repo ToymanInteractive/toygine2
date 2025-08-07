@@ -167,3 +167,13 @@ TEST_CASE("converts an integer value to a string representation in a specified b
   CHECK(symbols == 8);
   CHECK(strcmp(reverseBuffer, "2D206994") == 0);
 }
+
+TEST_CASE("converts an integer value to a string representation", "[itoaImplementation]") {
+  char buffer[32];
+
+  CHECK(strcmp(itoaImplementation(buffer, ArraySize(buffer), 1234567890), "1234567890") == 0);
+  CHECK(strcmp(itoaImplementation(buffer, ArraySize(buffer), -1234567890), "-1234567890") == 0);
+
+  CHECK(strcmp(itoaImplementation(buffer, ArraySize(buffer), 0), "0") == 0);
+  CHECK(strcmp(itoaImplementation(buffer, ArraySize(buffer), -0), "0") == 0);
+}

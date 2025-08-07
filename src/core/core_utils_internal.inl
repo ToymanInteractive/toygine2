@@ -67,6 +67,53 @@ constexpr inline std::size_t integerToSymbols(char * dest, std::size_t destSize,
   return index;
 }
 
+/*!
+  \brief Converts an integer value to a string representation.
+
+  This function converts a given integer value into its string representation, storing the result in the provided
+  destination buffer.
+
+  \tparam type    The type of the integer value to be converted.
+
+  \param dest     The destination buffer where the converted string is stored.
+  \param destSize The size of the destination buffer.
+  \param value    The integer value to be converted.
+
+  \return A pointer to the destination buffer containing the converted string.
+
+  \note The function assumes that the destination buffer is large enough to hold the converted string. If the
+        destination buffer size is 1, only a null terminator is written. The function reverses the string in-place.
+*/
+template <typename type>
+inline char * itoaImplementation(char * dest, size_t destSize, type value) {
+  assert_message(dest != nullptr && destSize > 0, "The destination buffer must not be null.");
+  if (destSize == 1) {
+    *dest = '\0';
+
+    return dest;
+  }
+
+  // decrease dest size for '\0' symbol
+  --destSize;
+
+  std::size_t symbols = 0;
+  const bool valueNegative = (value < 0);
+  if (valueNegative) {
+    using unsigned_type = std::make_unsigned_t<type>;
+    symbols = integerToSymbols(dest, destSize, static_cast<unsigned_type>(-(value + 1)) + 1, 10);
+  } else {
+    symbols = integerToSymbols(dest, destSize, value, 10);
+  }
+
+  if (valueNegative && symbols < destSize)
+    dest[symbols++] = '-';
+
+  dest[symbols] = '\0';
+  reverseString(dest, symbols);
+
+  return dest;
+}
+
 } // namespace toygine
 
 #endif // SRC_CORE_CORE_UTILS_INTERNAL_INL_

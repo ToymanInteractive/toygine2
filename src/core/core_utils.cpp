@@ -131,20 +131,4 @@ std::size_t utf8len(const char * str) {
   return size;
 }
 
-char * reverseString(char * str, std::size_t count) {
-  assert(str != nullptr);
-  if (str == nullptr)
-    return nullptr;
-
-  if (count == 0)
-    count = strlen(str);
-  if (count != 0) {
-    for (size_t i = 0, j = count - 1; i < j; ++i, --j) {
-      std::swap(str[i], str[j]);
-    }
-  }
-
-  return str;
-}
-
 } // namespace toygine
