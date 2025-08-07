@@ -41,7 +41,7 @@ static constexpr std::array<char, 36> sc_ansiDigits{{'0', '1', '2', '3', '4', '5
   This function converts a given integer value into its string representation in the specified base, storing the result
   in the provided destination buffer.
 
-  \tparam type The type of the integer value to be converted.
+  \tparam type    The type of the integer value to be converted.
 
   \param dest     The destination buffer where the converted string is stored.
   \param destSize The size of the destination buffer.
@@ -56,15 +56,15 @@ static constexpr std::array<char, 36> sc_ansiDigits{{'0', '1', '2', '3', '4', '5
 template <typename type>
 constexpr inline std::size_t integerToSymbols(char * dest, std::size_t destSize, type value, unsigned base) {
   assert_message(dest != nullptr && destSize > 0, "The destination buffer must not be null.");
-  assert_message(base >= 2 || base <= sc_ansiDigits.size(), "The base must be between 2 and 36 inclusive.");
+  assert_message(base >= 2 && base <= sc_ansiDigits.size(), "The base must be between 2 and 36 inclusive.");
 
-  std::size_t i = 0;
+  std::size_t index = 0;
 
   do {
-    dest[i++] = sc_ansiDigits[value % base];
-  } while ((value /= static_cast<type>(base)) > 0 && i < destSize);
+    dest[index++] = sc_ansiDigits[value % base];
+  } while ((value /= static_cast<type>(base)) > 0 && index < destSize);
 
-  return i;
+  return index;
 }
 
 } // namespace toygine

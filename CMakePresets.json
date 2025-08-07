@@ -156,6 +156,11 @@
             "inherits": "default-release"
         },
         {
+            "name": "macos-xcode",
+            "configurePreset": "macos-xcode",
+            "inherits": "default-release"
+        },
+        {
             "name": "macos-ninja-debug",
             "configurePreset": "macos-ninja-debug",
             "inherits": "default-debug"
