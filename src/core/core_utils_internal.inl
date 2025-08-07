@@ -94,7 +94,7 @@ inline char * itoaImplementation(char * dest, size_t destSize, type value) {
     return dest;
   }
 
-  // decrease dest size for \0 symbol
+  // decrease dest size for '\0' symbol
   --destSize;
 
   const bool valueNegative = (value < 0);
