@@ -161,6 +161,16 @@
             "inherits": "default-release"
         },
         {
+            "name": "windows-msvc",
+            "configurePreset": "windows-msvc",
+            "inherits": "default-release"
+        },
+        {
+            "name": "windows-msvc-x86",
+            "configurePreset": "windows-msvc-x86",
+            "inherits": "default-release"
+        },
+        {
             "name": "macos-ninja-debug",
             "configurePreset": "macos-ninja-debug",
             "inherits": "default-debug"
