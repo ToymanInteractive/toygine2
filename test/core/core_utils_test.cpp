@@ -188,4 +188,9 @@ TEST_CASE("converts an unsigned integer value to a string representation in a sp
   CHECK(strcmp(utoaImplementation(buffer, ArraySize(buffer), 0, 8), "0") == 0);
   CHECK(strcmp(utoaImplementation(buffer, ArraySize(buffer), 0, 10), "0") == 0);
   CHECK(strcmp(utoaImplementation(buffer, ArraySize(buffer), 0, 16), "0") == 0);
+
+  CHECK(strcmp(utoaImplementation(buffer, ArraySize(buffer), 255, 2), "11111111") == 0);
+  CHECK(strcmp(utoaImplementation(buffer, ArraySize(buffer), 35, 36), "Z") == 0);
+
+  CHECK(strcmp(utoaImplementation(buffer, ArraySize(buffer), 0xFFFFFFFFFFFFFFFF, 16), "FFFFFFFFFFFFFFFF") == 0);
 }

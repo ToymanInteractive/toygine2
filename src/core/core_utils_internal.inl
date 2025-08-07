@@ -134,6 +134,7 @@ inline char * itoaImplementation(char * dest, size_t destSize, type value) {
 */
 template <typename type>
 inline char * utoaImplementation(char * dest, std::size_t destSize, type value, unsigned base) {
+  static_assert(std::is_unsigned_v<type>, "utoaImplementation requires an unsigned integer type");
   assert_message(dest != nullptr && destSize > 0, "The destination buffer must not be null.");
   if (destSize == 1) {
     *dest = '\0';
