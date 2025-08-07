@@ -99,9 +99,10 @@ inline char * itoaImplementation(char * dest, size_t destSize, type value) {
   std::size_t symbols = 0;
   const bool valueNegative = (value < 0);
   if (valueNegative) {
+    using unsigned_type = std::make_unsigned_t<type>;
     symbols = integerToSymbols(dest, destSize, static_cast<unsigned_type>(-(value + 1)), 10);
   } else {
-    symbols = integerToSymbols(dest, destSize, valueNegative ? -value : value, 10);
+    symbols = integerToSymbols(dest, destSize, value, 10);
   }
 
   if (valueNegative && symbols < destSize)
