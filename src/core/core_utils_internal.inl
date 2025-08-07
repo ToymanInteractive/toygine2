@@ -79,11 +79,10 @@ constexpr inline std::size_t integerToSymbols(char * dest, std::size_t destSize,
   \param destSize The size of the destination buffer.
   \param value    The integer value to be converted.
 
-  \return The number of characters written to the destination buffer.
+  \return A pointer to the destination buffer containing the converted string.
 
-  \note The function assumes that the destination buffer is large enough to hold the converted string. The function does
-        not null-terminate the string if the destination buffer size is 1. The function reverses the string in-place.
-        The function does not handle overflows.
+  \note The function assumes that the destination buffer is large enough to hold the converted string. If the
+        destination buffer size is 1, only a null terminator is written. The function reverses the string in-place.
 */
 template <typename type>
 inline char * itoaImplementation(char * dest, size_t destSize, type value) {
@@ -97,8 +96,14 @@ inline char * itoaImplementation(char * dest, size_t destSize, type value) {
   // decrease dest size for '\0' symbol
   --destSize;
 
+  std::size_t symbols = 0;
   const bool valueNegative = (value < 0);
-  auto symbols = integerToSymbols(dest, destSize, valueNegative ? -value : value, 10);
+  if (valueNegative) {
+    symbols = integerToSymbols(dest, destSize, static_cast<unsigned_type>(-(value + 1)), 10);
+  } else {
+    symbols = integerToSymbols(dest, destSize, valueNegative ? -value : value, 10);
+  }
+
   if (valueNegative && symbols < destSize)
     dest[symbols++] = '-';
 
