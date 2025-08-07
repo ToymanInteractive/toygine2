@@ -56,7 +56,7 @@ static constexpr std::array<char, 36> sc_ansiDigits{{'0', '1', '2', '3', '4', '5
 template <typename type>
 constexpr inline std::size_t integerToSymbols(char * dest, std::size_t destSize, type value, unsigned base) {
   assert_message(dest != nullptr && destSize > 0, "The destination buffer must not be null.");
-  assert_message(base >= 2 || base <= sc_ansiDigits.size(), "The base must be between 2 and 36 inclusive.");
+  assert_message(base >= 2 && base <= sc_ansiDigits.size(), "The base must be between 2 and 36 inclusive.");
 
   std::size_t index = 0;
 
