@@ -181,16 +181,16 @@ TEST_CASE("converts an integer value to a string representation", "[itoaImplemen
 TEST_CASE("converts an unsigned integer value to a string representation in a specified base", "[utoaImplementation]") {
   char buffer[32];
 
-  CHECK(strcmp(utoaImplementation(buffer, ArraySize(buffer), 1234567890, 8), "11145401322") == 0);
-  CHECK(strcmp(utoaImplementation(buffer, ArraySize(buffer), 1234567890, 10), "1234567890") == 0);
-  CHECK(strcmp(utoaImplementation(buffer, ArraySize(buffer), 1234567890, 16), "499602D2") == 0);
+  CHECK(strcmp(utoaImplementation(buffer, ArraySize(buffer), 1234567890U, 8), "11145401322") == 0);
+  CHECK(strcmp(utoaImplementation(buffer, ArraySize(buffer), 1234567890U, 10), "1234567890") == 0);
+  CHECK(strcmp(utoaImplementation(buffer, ArraySize(buffer), 1234567890U, 16), "499602D2") == 0);
 
-  CHECK(strcmp(utoaImplementation(buffer, ArraySize(buffer), 0, 8), "0") == 0);
-  CHECK(strcmp(utoaImplementation(buffer, ArraySize(buffer), 0, 10), "0") == 0);
-  CHECK(strcmp(utoaImplementation(buffer, ArraySize(buffer), 0, 16), "0") == 0);
+  CHECK(strcmp(utoaImplementation(buffer, ArraySize(buffer), 0U, 8), "0") == 0);
+  CHECK(strcmp(utoaImplementation(buffer, ArraySize(buffer), 0U, 10), "0") == 0);
+  CHECK(strcmp(utoaImplementation(buffer, ArraySize(buffer), 0U, 16), "0") == 0);
 
-  CHECK(strcmp(utoaImplementation(buffer, ArraySize(buffer), 255, 2), "11111111") == 0);
-  CHECK(strcmp(utoaImplementation(buffer, ArraySize(buffer), 35, 36), "Z") == 0);
+  CHECK(strcmp(utoaImplementation(buffer, ArraySize(buffer), static_cast<std::uint8_t>(255), 2), "11111111") == 0);
+  CHECK(strcmp(utoaImplementation(buffer, ArraySize(buffer), static_cast<std::uint8_t>(35), 36), "Z") == 0);
 
   CHECK(strcmp(utoaImplementation(buffer, ArraySize(buffer), 0xFFFFFFFFFFFFFFFF, 16), "FFFFFFFFFFFFFFFF") == 0);
 }
