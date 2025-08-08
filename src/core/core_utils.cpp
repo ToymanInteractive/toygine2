@@ -169,9 +169,8 @@ char * itoa(char * dest, std::size_t destSize, std::uint64_t value, unsigned bas
 /*!
   \brief Divides a given 32-bit unsigned integer by 10 and returns the quotient and remainder.
 
-  The function uses a magic number to perform the division. The magic number is used to divide the given 32-bit unsigned
-  integer by 10, and the result is then shifted and added to itself to obtain the final quotient and remainder. The
-  function returns a struct containing the quotient and remainder.
+  The function approximates division by 10 using a sequence of shift-and-add operations to compute the quotient, then
+  derives the remainder and corrects it if needed. It returns both quotient and remainder.
 
   \param value The 32-bit unsigned integer to divide by 10.
 
