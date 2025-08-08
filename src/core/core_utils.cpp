@@ -148,4 +148,19 @@ char * itoa(char * dest, std::size_t destSize, std::int64_t value) {
   return itoaImplementation(dest, destSize, value);
 }
 
+char * itoa(char * dest, std::size_t destSize, std::uint8_t value, unsigned base) {
+  return utoaImplementation(dest, destSize, value, base);
+}
+
+char * itoa(char * dest, std::size_t destSize, std::uint16_t value, unsigned base) {
+  return utoaImplementation(dest, destSize, value, base);
+}
+
+char * itoa(char * dest, std::size_t destSize, std::uint32_t value, unsigned base) {
+  return utoaImplementation(dest, destSize, value, base);
+}
+
+char * itoa(char * dest, std::size_t destSize, std::uint64_t value, unsigned base) {
+  return utoaImplementation(dest, destSize, value, base);
+}
 } // namespace toygine
