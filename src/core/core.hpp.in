@@ -255,6 +255,146 @@ std::size_t utf8len(const char * str);
 */
 char * reverseString(char * str, std::size_t count = 0);
 
+/*!
+  \brief Converts an integer value to a string representation.
+
+  This function converts a given integer value into its string representation, storing the result in the provided
+  destination buffer.
+
+  \param dest     The destination buffer where the converted string is stored.
+  \param destSize The size of the destination buffer.
+  \param value    The integer value to be converted.
+
+  \return A pointer to the destination buffer containing the converted string.
+
+  \note The function assumes that the destination buffer is large enough to hold the converted string. If the
+        destination buffer size is 1, only a null terminator is written. The function reverses the string in-place.
+*/
+char * itoa(char * dest, std::size_t destSize, std::int8_t value);
+
+/*!
+  \brief Converts an integer value to a string representation.
+
+  This function converts a given integer value into its string representation, storing the result in the provided
+  destination buffer.
+
+  \param dest     The destination buffer where the converted string is stored.
+  \param destSize The size of the destination buffer.
+  \param value    The integer value to be converted.
+
+  \return A pointer to the destination buffer containing the converted string.
+
+  \note The function assumes that the destination buffer is large enough to hold the converted string. If the
+        destination buffer size is 1, only a null terminator is written. The function reverses the string in-place.
+*/
+char * itoa(char * dest, std::size_t destSize, std::int16_t value);
+
+/*!
+  \brief Converts an integer value to a string representation.
+
+  This function converts a given integer value into its string representation, storing the result in the provided
+  destination buffer.
+
+  \param dest     The destination buffer where the converted string is stored.
+  \param destSize The size of the destination buffer.
+  \param value    The integer value to be converted.
+
+  \return A pointer to the destination buffer containing the converted string.
+
+  \note The function assumes that the destination buffer is large enough to hold the converted string. If the
+        destination buffer size is 1, only a null terminator is written. The function reverses the string in-place.
+*/
+char * itoa(char * dest, std::size_t destSize, std::int32_t value);
+
+/*!
+  \brief Converts an integer value to a string representation.
+
+  This function converts a given integer value into its string representation, storing the result in the provided
+  destination buffer.
+
+  \param dest     The destination buffer where the converted string is stored.
+  \param destSize The size of the destination buffer.
+  \param value    The integer value to be converted.
+
+  \return A pointer to the destination buffer containing the converted string.
+
+  \note The function assumes that the destination buffer is large enough to hold the converted string. If the
+        destination buffer size is 1, only a null terminator is written. The function reverses the string in-place.
+*/
+char * itoa(char * dest, std::size_t destSize, std::int64_t value);
+
+/*!
+  \brief Converts an unsigned integer to a string representation in the specified base.
+
+  This function converts a given unsigned integer value into its string representation in the specified base,
+  storing the result in the provided destination buffer.
+
+  \param dest     The destination buffer where the converted string is stored.
+  \param destSize The size of the destination buffer.
+  \param value    The unsigned integer value to be converted.
+  \param base     The numerical base for the conversion, e.g., 10 for decimal, 16 for hexadecimal.
+
+  \return A pointer to the destination buffer containing the converted string.
+
+  \note The function assumes that the destination buffer is large enough to hold the converted string. If the
+        destination buffer size is 1, only a null terminator is written. The base must be between 2 and 36 inclusive.
+*/
+char * itoa(char * dest, std::size_t destSize, std::uint8_t value, unsigned base);
+
+/*!
+  \brief Converts an unsigned integer to a string representation in the specified base.
+
+  This function converts a given unsigned integer value into its string representation in the specified base,
+  storing the result in the provided destination buffer.
+
+  \param dest     The destination buffer where the converted string is stored.
+  \param destSize The size of the destination buffer.
+  \param value    The unsigned integer value to be converted.
+  \param base     The numerical base for the conversion, e.g., 10 for decimal, 16 for hexadecimal.
+
+  \return A pointer to the destination buffer containing the converted string.
+
+  \note The function assumes that the destination buffer is large enough to hold the converted string. If the
+        destination buffer size is 1, only a null terminator is written. The base must be between 2 and 36 inclusive.
+*/
+char * itoa(char * dest, std::size_t destSize, std::uint16_t value, unsigned base);
+
+/*!
+  \brief Converts an unsigned integer to a string representation in the specified base.
+
+  This function converts a given unsigned integer value into its string representation in the specified base,
+  storing the result in the provided destination buffer.
+
+  \param dest     The destination buffer where the converted string is stored.
+  \param destSize The size of the destination buffer.
+  \param value    The unsigned integer value to be converted.
+  \param base     The numerical base for the conversion, e.g., 10 for decimal, 16 for hexadecimal.
+
+  \return A pointer to the destination buffer containing the converted string.
+
+  \note The function assumes that the destination buffer is large enough to hold the converted string. If the
+        destination buffer size is 1, only a null terminator is written. The base must be between 2 and 36 inclusive.
+*/
+char * itoa(char * dest, std::size_t destSize, std::uint32_t value, unsigned base);
+
+/*!
+  \brief Converts an unsigned integer to a string representation in the specified base.
+
+  This function converts a given unsigned integer value into its string representation in the specified base,
+  storing the result in the provided destination buffer.
+
+  \param dest     The destination buffer where the converted string is stored.
+  \param destSize The size of the destination buffer.
+  \param value    The unsigned integer value to be converted.
+  \param base     The numerical base for the conversion, e.g., 10 for decimal, 16 for hexadecimal.
+
+  \return A pointer to the destination buffer containing the converted string.
+
+  \note The function assumes that the destination buffer is large enough to hold the converted string. If the
+        destination buffer size is 1, only a null terminator is written. The base must be between 2 and 36 inclusive.
+*/
+char * itoa(char * dest, std::size_t destSize, std::uint64_t value, unsigned base);
+
 } // namespace toygine
 
 #include "core_inline.inl"

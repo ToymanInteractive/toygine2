@@ -82,18 +82,19 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
 
   # XCode 16.4 contains AppleClang version: 17.0.0.17000013
   # Clang 17.0.1 documentation. https://releases.llvm.org/17.0.1/tools/clang/docs/UsersManual.html
+  # Clang 17.0.1 diagnostic flags. https://releases.llvm.org/17.0.1/tools/clang/docs/DiagnosticsReference.html
 
   set(CMAKE_C_FLAGS   "-Werror -Weverything -pedantic-errors -Wno-missing-prototypes                                     -Wno-missing-include-dirs -Wno-padded -Wno-poison-system-directories -fshow-column -fshow-source-location -fcaret-diagnostics -fcolor-diagnostics -fdiagnostics-format=clang -fdiagnostics-show-option -fdiagnostics-show-category=id -fdiagnostics-fixit-info -fdiagnostics-print-source-range-info -fdiagnostics-parseable-fixits -fno-rounding-math")
   set(CMAKE_CXX_FLAGS "-Werror -Weverything -pedantic-errors -Wno-missing-prototypes -Wno-c++98-compat -Wno-c++20-compat -Wno-missing-include-dirs -Wno-padded -Wno-poison-system-directories -fshow-column -fshow-source-location -fcaret-diagnostics -fcolor-diagnostics -fdiagnostics-format=clang -fdiagnostics-show-option -fdiagnostics-show-category=id -fdiagnostics-fixit-info -fdiagnostics-print-source-range-info -fdiagnostics-parseable-fixits -fno-rounding-math")
 
-  set(CMAKE_C_FLAGS_DEBUG            "-g     -D_DEBUG -fno-fast-math -fstrict-float-cast-overflow    -fmath-errno -ftrapping-math -fno-unsafe-math-optimizations -ffp-model=precise -ffp-exception-behavior=strict")
-  set(CMAKE_CXX_FLAGS_DEBUG          "-g     -D_DEBUG -fno-fast-math -fstrict-float-cast-overflow    -fmath-errno -ftrapping-math -fno-unsafe-math-optimizations -ffp-model=precise -ffp-exception-behavior=strict")
+  set(CMAKE_C_FLAGS_DEBUG            "    -g -D_DEBUG -fno-fast-math -fstrict-float-cast-overflow    -fmath-errno -fno-unsafe-math-optimizations -ffp-model=precise -ffp-exception-behavior=strict")
+  set(CMAKE_CXX_FLAGS_DEBUG          "    -g -D_DEBUG -fno-fast-math -fstrict-float-cast-overflow    -fmath-errno -fno-unsafe-math-optimizations -ffp-model=precise -ffp-exception-behavior=strict")
 
-  set(CMAKE_C_FLAGS_RELWITHDEBINFO   "-O2 -g -D_DEBUG -ffast-math    -fno-strict-float-cast-overflow                              -funsafe-math-optimizations    -ffp-model=fast    -ffp-exception-behavior=strict")
-  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g -D_DEBUG -ffast-math    -fno-strict-float-cast-overflow                              -funsafe-math-optimizations    -ffp-model=fast    -ffp-exception-behavior=strict")
+  set(CMAKE_C_FLAGS_RELWITHDEBINFO   "-O2 -g -D_DEBUG -ffast-math    -fno-strict-float-cast-overflow              -funsafe-math-optimizations    -ffp-model=fast    -ffp-exception-behavior=strict")
+  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g -D_DEBUG -ffast-math    -fno-strict-float-cast-overflow              -funsafe-math-optimizations    -ffp-model=fast    -ffp-exception-behavior=strict")
 
-  set(CMAKE_C_FLAGS_RELEASE          "-O3    -DNDEBUG -ffast-math    -fno-strict-float-cast-overflow                              -funsafe-math-optimizations    -ffp-model=fast    -ffp-exception-behavior=ignore")
-  set(CMAKE_CXX_FLAGS_RELEASE        "-O3    -DNDEBUG -ffast-math    -fno-strict-float-cast-overflow                              -funsafe-math-optimizations    -ffp-model=fast    -ffp-exception-behavior=ignore")
+  set(CMAKE_C_FLAGS_RELEASE          "-O3    -DNDEBUG -ffast-math    -fno-strict-float-cast-overflow              -funsafe-math-optimizations    -ffp-model=fast    -ffp-exception-behavior=ignore")
+  set(CMAKE_CXX_FLAGS_RELEASE        "-O3    -DNDEBUG -ffast-math    -fno-strict-float-cast-overflow              -funsafe-math-optimizations    -ffp-model=fast    -ffp-exception-behavior=ignore")
 
   set(CMAKE_STATIC_LINKER_FLAGS "")
   set(CMAKE_EXE_LINKER_FLAGS    "")

@@ -20,7 +20,6 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-#include "../../src/core/core_utils_internal.inl"
 #include "core.hpp"
 
 using namespace toygine;
@@ -149,48 +148,63 @@ TEST_CASE("reverses a given string in-place", "[reverseString]") {
   CHECK(strcmp(utf8String, reverseBuffer) == 0);
 }
 
-TEST_CASE("converts an integer value to a string representation in a specified base", "[integerToSymbols]") {
-  char reverseBuffer[32];
-
-  auto symbols = integerToSymbols(reverseBuffer, sizeof(reverseBuffer), 1234567890, 8);
-  reverseBuffer[symbols] = '\0';
-  CHECK(symbols == 11);
-  CHECK(strcmp(reverseBuffer, "22310454111") == 0);
-
-  symbols = integerToSymbols(reverseBuffer, sizeof(reverseBuffer), 1234567890, 10);
-  reverseBuffer[symbols] = '\0';
-  CHECK(symbols == 10);
-  CHECK(strcmp(reverseBuffer, "0987654321") == 0);
-
-  symbols = integerToSymbols(reverseBuffer, sizeof(reverseBuffer), 1234567890, 16);
-  reverseBuffer[symbols] = '\0';
-  CHECK(symbols == 8);
-  CHECK(strcmp(reverseBuffer, "2D206994") == 0);
-}
-
-TEST_CASE("converts an integer value to a string representation", "[itoaImplementation]") {
+TEST_CASE("converts an integer value to a string representation.", "[itoa]") {
   char buffer[32];
 
-  CHECK(strcmp(itoaImplementation(buffer, ArraySize(buffer), 1234567890), "1234567890") == 0);
-  CHECK(strcmp(itoaImplementation(buffer, ArraySize(buffer), -1234567890), "-1234567890") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::int8_t>(127)), "127") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::int8_t>(-128)), "-128") == 0);
 
-  CHECK(strcmp(itoaImplementation(buffer, ArraySize(buffer), 0), "0") == 0);
-  CHECK(strcmp(itoaImplementation(buffer, ArraySize(buffer), -0), "0") == 0);
-}
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::int16_t>(32767)), "32767") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::int16_t>(-32768)), "-32768") == 0);
 
-TEST_CASE("converts an unsigned integer value to a string representation in a specified base", "[utoaImplementation]") {
-  char buffer[32];
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::int32_t>(2147483647)), "2147483647") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::int32_t>(-2147483648)), "-2147483648") == 0);
 
-  CHECK(strcmp(utoaImplementation(buffer, ArraySize(buffer), 1234567890U, 8), "11145401322") == 0);
-  CHECK(strcmp(utoaImplementation(buffer, ArraySize(buffer), 1234567890U, 10), "1234567890") == 0);
-  CHECK(strcmp(utoaImplementation(buffer, ArraySize(buffer), 1234567890U, 16), "499602D2") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::int64_t>(9223372036854775807)), "9223372036854775807")
+        == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::int64_t>(-9223372036854775808)), "-9223372036854775808")
+        == 0);
 
-  CHECK(strcmp(utoaImplementation(buffer, ArraySize(buffer), 0U, 8), "0") == 0);
-  CHECK(strcmp(utoaImplementation(buffer, ArraySize(buffer), 0U, 10), "0") == 0);
-  CHECK(strcmp(utoaImplementation(buffer, ArraySize(buffer), 0U, 16), "0") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::uint8_t>(0), 8), "0") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::uint8_t>(0), 10), "0") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::uint8_t>(0), 16), "0") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::uint8_t>(123), 8), "173") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::uint8_t>(123), 10), "123") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::uint8_t>(123), 16), "7B") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::uint8_t>(255), 8), "377") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::uint8_t>(255), 10), "255") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::uint8_t>(255), 16), "FF") == 0);
 
-  CHECK(strcmp(utoaImplementation(buffer, ArraySize(buffer), static_cast<std::uint8_t>(255), 2), "11111111") == 0);
-  CHECK(strcmp(utoaImplementation(buffer, ArraySize(buffer), static_cast<std::uint8_t>(35), 36), "Z") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::uint16_t>(12345), 8), "30071") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::uint16_t>(12345), 10), "12345") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::uint16_t>(12345), 16), "3039") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::uint16_t>(65535), 8), "177777") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::uint16_t>(65535), 10), "65535") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::uint16_t>(65535), 16), "FFFF") == 0);
 
-  CHECK(strcmp(utoaImplementation(buffer, ArraySize(buffer), 0xFFFFFFFFFFFFFFFF, 16), "FFFFFFFFFFFFFFFF") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::uint32_t>(1234567890), 8), "11145401322") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::uint32_t>(1234567890), 10), "1234567890") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::uint32_t>(1234567890), 16), "499602D2") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::uint32_t>(4294967295), 8), "37777777777") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::uint32_t>(4294967295), 10), "4294967295") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::uint32_t>(4294967295), 16), "FFFFFFFF") == 0);
+
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::uint64_t>(12345678900987654321), 8),
+               "1255245230633431670261")
+        == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::uint64_t>(12345678900987654321), 10),
+               "12345678900987654321")
+        == 0);
+  CHECK(
+    strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::uint64_t>(12345678900987654321), 16), "AB54A98CDC6770B1")
+    == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::uint64_t>(18446744073709551615), 8),
+               "1777777777777777777777")
+        == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::uint64_t>(18446744073709551615), 10),
+               "18446744073709551615")
+        == 0);
+  CHECK(
+    strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::uint64_t>(18446744073709551615), 16), "FFFFFFFFFFFFFFFF")
+    == 0);
 }
