@@ -25,9 +25,7 @@
 #ifndef SRC_CORE_CORE_UTILS_INTERNAL_INL_
 #define SRC_CORE_CORE_UTILS_INTERNAL_INL_
 
-#include <array>
-
-#include "core.hpp"
+#include <type_traits>
 
 namespace toygine {
 
@@ -98,11 +96,11 @@ inline char * itoaImplementation(char * dest, size_t destSize, type value) {
 
   std::size_t symbols = 0;
   const bool valueNegative = (value < 0);
+  using unsigned_type = std::make_unsigned_t<type>;
   if (valueNegative) {
-    using unsigned_type = std::make_unsigned_t<type>;
-    symbols = integerToSymbols(dest, destSize, static_cast<unsigned_type>(-(value + 1)) + 1, 10);
+    symbols = integerToSymbols(dest, destSize, static_cast<unsigned_type>(-(value + 1)) + 1U, 10);
   } else {
-    symbols = integerToSymbols(dest, destSize, value, 10);
+    symbols = integerToSymbols(dest, destSize, static_cast<unsigned_type>(value), 10);
   }
 
   if (valueNegative && symbols < destSize)
@@ -134,7 +132,7 @@ inline char * itoaImplementation(char * dest, size_t destSize, type value) {
 */
 template <typename type>
 inline char * utoaImplementation(char * dest, std::size_t destSize, type value, unsigned base) {
-  static_assert(std::is_unsigned_v<type>, "utoaImplementation requires an unsigned integer type");
+  static_assert(std::is_unsigned_v<type>, "itoaImplementation requires an unsigned integer type");
   assert_message(dest != nullptr && destSize > 0, "The destination buffer must not be null.");
   if (destSize == 1) {
     *dest = '\0';

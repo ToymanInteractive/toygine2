@@ -20,6 +20,7 @@
 #include <array>
 
 #include "core.hpp"
+#include "core_utils_internal.inl"
 
 namespace toygine {
 
@@ -129,6 +130,22 @@ std::size_t utf8len(const char * str) {
   }
 
   return size;
+}
+
+char * itoa(char * dest, std::size_t destSize, std::int8_t value) {
+  return itoaImplementation(dest, destSize, value);
+}
+
+char * itoa(char * dest, std::size_t destSize, std::int16_t value) {
+  return itoaImplementation(dest, destSize, value);
+}
+
+char * itoa(char * dest, std::size_t destSize, std::int32_t value) {
+  return itoaImplementation(dest, destSize, value);
+}
+
+char * itoa(char * dest, std::size_t destSize, std::int64_t value) {
+  return itoaImplementation(dest, destSize, value);
 }
 
 } // namespace toygine
