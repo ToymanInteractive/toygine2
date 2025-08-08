@@ -395,6 +395,15 @@ char * itoa(char * dest, std::size_t destSize, std::uint32_t value, unsigned bas
 */
 char * itoa(char * dest, std::size_t destSize, std::uint64_t value, unsigned base);
 
+/// Temporary ///
+struct divmod10 {
+  std::uint32_t quot;
+  std::uint8_t rem;
+};
+
+divmod10 divModU10(std::uint32_t value) noexcept;
+/// Temporary ///
+
 } // namespace toygine
 
 #include "core_inline.inl"

@@ -160,10 +160,11 @@ TEST_CASE("converts an integer value to a string representation.", "[itoa]") {
   CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::int32_t>(2147483647)), "2147483647") == 0);
   CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::int32_t>(-2147483648)), "-2147483648") == 0);
 
-  CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::int64_t>(9223372036854775807)), "9223372036854775807")
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::int64_t>(9223372036854775807LL)), "9223372036854775807")
         == 0);
-  CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::int64_t>(-9223372036854775808)), "-9223372036854775808")
-        == 0);
+  CHECK(
+    strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::int64_t>(-9223372036854775808LL)), "-9223372036854775808")
+    == 0);
 
   CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::uint8_t>(0), 8), "0") == 0);
   CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::uint8_t>(0), 10), "0") == 0);
@@ -189,22 +190,28 @@ TEST_CASE("converts an integer value to a string representation.", "[itoa]") {
   CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::uint32_t>(4294967295), 10), "4294967295") == 0);
   CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::uint32_t>(4294967295), 16), "FFFFFFFF") == 0);
 
-  CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::uint64_t>(12345678900987654321), 8),
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::uint64_t>(12345678900987654321ULL), 8),
                "1255245230633431670261")
         == 0);
-  CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::uint64_t>(12345678900987654321), 10),
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::uint64_t>(12345678900987654321ULL), 10),
                "12345678900987654321")
         == 0);
   CHECK(
-    strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::uint64_t>(12345678900987654321), 16), "AB54A98CDC6770B1")
+    strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::uint64_t>(12345678900987654321ULL), 16), "AB54A98CDC6770B1")
     == 0);
-  CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::uint64_t>(18446744073709551615), 8),
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::uint64_t>(18446744073709551615ULL), 8),
                "1777777777777777777777")
         == 0);
-  CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::uint64_t>(18446744073709551615), 10),
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::uint64_t>(18446744073709551615ULL), 10),
                "18446744073709551615")
         == 0);
   CHECK(
-    strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::uint64_t>(18446744073709551615), 16), "FFFFFFFFFFFFFFFF")
+    strcmp(itoa(buffer, ArraySize(buffer), static_cast<std::uint64_t>(18446744073709551615ULL), 16), "FFFFFFFFFFFFFFFF")
     == 0);
+}
+
+TEST_CASE("divides a given 32-bit unsigned integer by 10 and returns the quotient and remainder", "[divModU10]") {
+  const auto result = divModU10(2147483647);
+  CHECK(result.quot == 214748364u);
+  CHECK(result.rem == 7u);
 }

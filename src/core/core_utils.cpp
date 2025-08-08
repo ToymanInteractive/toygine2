@@ -22,9 +22,8 @@
 #include "core.hpp"
 #include "core_utils_internal.inl"
 
-namespace toygine {
-
-static constexpr std::array<std::uint8_t, 256> sc_utf8CharSizeTable{
+namespace {
+constexpr std::array<std::uint8_t, 256> sc_utf8CharSizeTable{
   {0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
    0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
    0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
@@ -44,6 +43,9 @@ static constexpr std::array<std::uint8_t, 256> sc_utf8CharSizeTable{
    0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03,
 
    0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x05, 0x05, 0x05, 0x05, 0x06, 0x06, 0x07, 0x08}};
+}
+
+namespace toygine {
 
 wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, char const * src, std::size_t count) {
   if (dest == nullptr || destSize == 0)
@@ -163,4 +165,38 @@ char * itoa(char * dest, std::size_t destSize, std::uint32_t value, unsigned bas
 char * itoa(char * dest, std::size_t destSize, std::uint64_t value, unsigned base) {
   return utoaImplementation(dest, destSize, value, base);
 }
+
+/*!
+  \brief Divides a given 32-bit unsigned integer by 10 and returns the quotient and remainder.
+
+  The function uses a magic number to perform the division. The magic number is used to divide the given 32-bit unsigned
+  integer by 10, and the result is then shifted and added to itself to obtain the final quotient and remainder. The
+  function returns a struct containing the quotient and remainder.
+
+  \param value The 32-bit unsigned integer to divide by 10.
+
+  \return A struct containing the quotient and remainder of the division.
+*/
+divmod10 divModU10(std::uint32_t value) noexcept {
+  divmod10 res;
+
+  res.quot = value >> 1;
+  res.quot += res.quot >> 1;
+  res.quot += res.quot >> 4;
+  res.quot += res.quot >> 8;
+  res.quot += res.quot >> 16;
+
+  const auto qq = res.quot;
+  res.quot >>= 3;
+
+  constexpr std::uint32_t mask32 = 0xFFFFFFF8;
+  res.rem = static_cast<std::uint8_t>(value - ((res.quot << 1) + (qq & mask32)));
+  if (res.rem > 9) {
+    res.rem -= 10;
+    ++res.quot;
+  }
+
+  return res;
+}
+
 } // namespace toygine
