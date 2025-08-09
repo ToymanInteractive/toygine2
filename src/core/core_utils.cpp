@@ -400,7 +400,7 @@ std::int32_t ftoa64Engine(char * buffer, double value, std::size_t precision) no
   \note The function assumes that the destination buffer is large enough to hold the processed string. The buffer will
         contain the string representation in the form "+d.dd...e±dd" for normalized numbers.
 */
-void floatPostProcess(char * dest, char * srcBuffer, std::size_t bufferSize, std::int32_t exp10,
+void floatPostProcess(char * dest, const char * srcBuffer, std::size_t bufferSize, std::int32_t exp10,
                       std::size_t precision) {
   char const * strBegin = &srcBuffer[2];
   if (srcBuffer[1] != '0') {
@@ -408,8 +408,9 @@ void floatPostProcess(char * dest, char * srcBuffer, std::size_t bufferSize, std
     --strBegin;
   }
 
-  const auto digits = strlen(strBegin);
-  std::size_t intDigits = 0, leadingZeros = 0;
+  const auto digits = std::strlen(strBegin);
+  std::size_t intDigits = 0;
+  std::size_t leadingZeros = 0;
   if (static_cast<std::size_t>(abs(exp10)) >= precision) {
     intDigits = 1;
   } else if (exp10 >= 0) {
@@ -426,7 +427,7 @@ void floatPostProcess(char * dest, char * srcBuffer, std::size_t bufferSize, std
     *outputPointer++ = '-';
 
   std::size_t fractionDigits = digits > intDigits ? digits - intDigits : 0;
-  if (intDigits) {
+  if (intDigits > 0) {
     auto count = intDigits > digits ? digits : intDigits;
     while (count--)
       *outputPointer++ = *strBegin++;
