@@ -258,7 +258,7 @@ std::int32_t ftoa32Engine(char * buffer, float value, std::size_t precision) noe
     return 0xff;
   }
 
-  auto pointer = buffer;
+  char * pointer = buffer;
   if (uvalue & 0x80000000)
     *pointer++ = '-';
   else
