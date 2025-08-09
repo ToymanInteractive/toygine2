@@ -332,4 +332,59 @@ std::int32_t ftoa32Engine(char * buffer, float value, std::size_t precision) noe
   return exp10;
 }
 
+/*!
+  \brief Converts a 64-bit floating-point number to its string representation with specified precision. The output is
+         always sign-prefixed ('+' or '-') and normalized as "+0.<digits>" or "-0.<digits>".
+
+  This function converts a given 64-bit floating-point number into its string representation, storing the result
+  in the provided buffer. The conversion includes handling special cases such as subnormals, NaN, and infinity.
+  The output is formatted according to the specified precision.
+
+  \param buffer    The destination buffer where the converted string is stored.
+  \param value     The 64-bit floating-point number to be converted.
+  \param precision The number of decimal places to include in the representation.
+
+  \return The exponent of the converted number in the given precision. Returns 0xff for zero, subnormals (unsupported),
+          NaN, and INF.
+
+  \note The function assumes that the buffer is large enough to hold the converted string. The buffer will contain
+        the string representation in the form "+d.dd...e±dd" for normalized numbers.
+*/
+std::int32_t ftoa64Engine(char * buffer, double value, std::size_t precision) noexcept {
+  const auto uvalue = std::bit_cast<uint64_t>(value);
+  const auto exponent = static_cast<std::uint32_t>(uvalue >> 52) & 0x07FF;
+  if (exponent == 0) { // don't care about a subnormals
+    buffer[0] = '0';
+    buffer[1] = '\0';
+    return 0x7FF;
+  }
+
+  char * pointer = buffer;
+  if (uvalue & 0x8000000000000000ULL)
+    *pointer++ = '-';
+  else
+    *pointer++ = '+';
+
+  std::uint64_t const fraction = (uvalue & 0x001FFFFFFFFFFFFFULL) | 0x0010000000000000ULL;
+  if (exponent == 0x07FF) {
+    if (fraction & 0x000FFFFFFFFFFFFFULL) {
+      pointer[0] = 'N';
+      pointer[1] = 'A';
+      pointer[2] = 'N';
+    } else {
+      pointer[0] = 'I';
+      pointer[1] = 'N';
+      pointer[2] = 'F';
+    }
+
+    pointer[3] = '\0';
+
+    return 0x7FF;
+  }
+
+  *pointer++ = '0';
+
+  return ftoa32Engine(buffer, static_cast<float>(value), precision);
+}
+
 } // namespace toygine
