@@ -196,7 +196,9 @@ TEST_CASE("converts an integer value to a string representation.", "[itoa]") {
 }
 
 TEST_CASE("Converts a 32-bit unsigned integer to its decimal string representation in reverse order", "[utoaFast]") {
-  char buffer[32];
+  char buffer[16];
 
+  CHECK(strcmp(utoaFast(buffer + ArraySize(buffer) - 1, 0), "0") == 0);
   CHECK(strcmp(utoaFast(buffer + ArraySize(buffer) - 1, 2147483647), "2147483647") == 0);
+  CHECK(strcmp(utoaFast(buffer + ArraySize(buffer) - 1, std::numeric_limits<std::uint32_t>::max()), "4294967295") == 0);
 }
