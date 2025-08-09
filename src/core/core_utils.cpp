@@ -234,7 +234,8 @@ char * utoaFast(char * bufferEnd, std::uint32_t value) noexcept {
 }
 
 /*!
-  \brief Converts a floating-point number to its string representation in a specified precision.
+  \brief Converts a floating-point number to its string representation in a specified precision. The output is always
+         sign-prefixed ('+' or '-') and normalized as "+0.<digits>" or "-0.<digits>".
 
   This function converts a given floating-point number into its string representation, storing the result in the
   provided destination buffer. The function rounds the result to the given precision and stores the exponent in the
@@ -242,7 +243,7 @@ char * utoaFast(char * bufferEnd, std::uint32_t value) noexcept {
 
   \param value     The floating-point number to be converted.
   \param buffer    The destination buffer where the converted string is stored.
-  \param precision The precision of the conversion, i.e., the number of digits after the decimal point.
+  \param precision The precision (digits after the decimal point). For IEEE-754 f32, practical precision is ~7–9 digits.
 
   \return The exponent of the converted number in the given precision. Returns 0xff for zero, subnormals (unsupported),
           NaN, and INF.

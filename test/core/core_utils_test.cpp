@@ -206,7 +206,9 @@ TEST_CASE("converts a 32-bit unsigned integer to its decimal string representati
 TEST_CASE("converts a floating-point number to its string representation in a specified precision", "[ftoa32Engine]") {
   char buffer[32];
 
-  const auto a = ftoa32Engine(buffer, 3.1415926535897932384626433832795f, 8);
-  CHECK(a == 0);
+  CHECK(ftoa32Engine(buffer, 3.1415926535897932384626433832795f, 8) == 0);
   CHECK(strcmp(buffer, "+031415924") == 0);
+
+  CHECK(ftoa32Engine(buffer, -3.1415926535897932384626433832795f, 8) == 0);
+  CHECK(strcmp(buffer, "-031415924") == 0);
 }
