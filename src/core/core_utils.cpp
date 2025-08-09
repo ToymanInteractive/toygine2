@@ -400,7 +400,7 @@ std::int32_t ftoa64Engine(char * buffer, double value, std::size_t precision) no
   \note The function assumes that the destination buffer is large enough to hold the processed string. The buffer will
         contain the string representation in the form "+d.dd...e±dd" for normalized numbers.
 */
-void floatPostProcess(char * dest, const char * srcBuffer, std::size_t bufferSize, std::int32_t exp10,
+void floatPostProcess(char * dest, char * srcBuffer, std::size_t bufferSize, std::int32_t exp10,
                       std::size_t precision) {
   char const * strBegin = &srcBuffer[2];
   if (srcBuffer[1] != '0') {
@@ -441,10 +441,10 @@ void floatPostProcess(char * dest, const char * srcBuffer, std::size_t bufferSiz
 
   if (fractionDigits > 0) {
     *outputPointer++ = '.';
-    while (leadingZeros--)
+    while (leadingZeros-- > 0)
       *outputPointer++ = '0';
 
-    while (fractionDigits--)
+    while (fractionDigits-- > 0)
       *outputPointer++ = *strBegin++;
   }
 
