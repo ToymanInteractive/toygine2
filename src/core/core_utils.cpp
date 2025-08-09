@@ -412,11 +412,11 @@ void floatPostProcess(char * dest, char * srcBuffer, std::size_t bufferSize, std
   if (static_cast<std::size_t>(abs(exp10)) >= precision) {
     intDigits = 1;
   } else if (exp10 >= 0) {
-    intDigits = exp10 + 1;
+    intDigits = static_cast<std::size_t>(exp10 + 1);
     exp10 = 0;
   } else {
     intDigits = 0;
-    leadingZeros = -exp10 - 1;
+    leadingZeros = static_cast<std::size_t>(-exp10 - 1);
     exp10 = 0;
   }
 
@@ -451,10 +451,10 @@ void floatPostProcess(char * dest, char * srcBuffer, std::size_t bufferSize, std
     std::uint32_t upow10;
     if (exp10 < 0) {
       *outputPointer++ = '-';
-      upow10 = -exp10;
+      upow10 = static_cast<std::uint32_t>(-exp10);
     } else {
       *outputPointer++ = '+';
-      upow10 = exp10;
+      upow10 = static_cast<std::uint32_t>(exp10);
     }
 
     char * powPtr = utoaFast(srcBuffer + bufferSize, upow10);
