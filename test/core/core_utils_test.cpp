@@ -195,7 +195,7 @@ TEST_CASE("converts an integer value to a string representation.", "[itoa]") {
         == 0);
 }
 
-TEST_CASE("Converts a 32-bit unsigned integer to its decimal string representation in reverse order", "[utoaFast]") {
+TEST_CASE("Converts a 32-bit unsigned integer to its decimal string representation", "[utoaFast]") {
   char buffer[16];
 
   CHECK(strcmp(utoaFast(buffer + ArraySize(buffer) - 1, 0), "0") == 0);
