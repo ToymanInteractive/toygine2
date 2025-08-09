@@ -378,6 +378,9 @@ void floatPostProcess(char * dest, char * srcBuffer, std::size_t bufferSize, std
                       std::size_t precision) {
   char const * strBegin = &srcBuffer[2];
   if (srcBuffer[1] != '0') {
+    // Carry propagated into the integer position at [1] (e.g., 0.999.. -> 1.000..).
+    // Include that '1' in the mantissa by shifting strBegin left, and bump exp10 to keep
+    // the mantissa/exponent product invariant.
     ++exp10;
     --strBegin;
   }
