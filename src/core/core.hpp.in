@@ -396,12 +396,6 @@ char * itoa(char * dest, std::size_t destSize, std::uint32_t value, unsigned bas
 char * itoa(char * dest, std::size_t destSize, std::uint64_t value, unsigned base);
 
 /// Temporary ///
-struct divmod10 {
-  std::uint32_t quot;
-  std::uint8_t rem;
-};
-
-char * utoaFast(char * bufferEnd, std::uint32_t value) noexcept;
 std::int32_t ftoa32Engine(char * buffer, float value, std::size_t precision) noexcept;
 std::int32_t ftoa64Engine(char * buffer, double value, std::size_t precision) noexcept;
 /// Temporary ///

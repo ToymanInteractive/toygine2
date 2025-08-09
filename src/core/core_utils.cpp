@@ -51,6 +51,11 @@ constexpr std::array<std::uint32_t, 32> sc_exponentTable{
    0x51EB851E, 0xD1B71758, 0x35AFE535, 0x89705F41, 0x232F3302, 0x5A126E1A, 0xE69594BE, 0x3B07929F,
    0x971DA050, 0x26AF8533, 0x63090312, 0xFD87B5F2, 0x40E75996, 0xA6274BBD, 0x2A890926, 0x6CE3EE76}};
 
+struct divmod10 {
+  std::uint32_t quot;
+  std::uint8_t rem;
+};
+
 /*!
   \brief Divides a given 32-bit unsigned integer by 10 and returns the quotient and remainder.
 
@@ -61,9 +66,8 @@ constexpr std::array<std::uint32_t, 32> sc_exponentTable{
 
   \return A struct containing the quotient and remainder of the division.
 */
-
-toygine::divmod10 divModU10(std::uint32_t value) noexcept {
-  toygine::divmod10 res;
+divmod10 divModU10(std::uint32_t value) noexcept {
+  divmod10 res;
 
   res.quot = value >> 1;
   res.quot += res.quot >> 1;
@@ -82,6 +86,32 @@ toygine::divmod10 divModU10(std::uint32_t value) noexcept {
   }
 
   return res;
+}
+
+/*!
+  \brief Converts a 32-bit unsigned integer to its decimal string representation in reverse order.
+
+  This function divides the given 32-bit unsigned integer by 10 repeatedly to compute each digit of its decimal
+  representation. The digits are stored in reverse order in the provided buffer, starting from the position
+  just before the null-terminator. The buffer should be large enough to hold the entire string representation.
+
+  \param value     The 32-bit unsigned integer to be converted.
+  \param bufferEnd A pointer to the end of the buffer where the resulting string will be stored in reverse order,
+                   with a null-terminator at the end.
+
+  \return A pointer to the beginning of the string representation within the buffer.
+*/
+char * utoaFast(char * bufferEnd, std::uint32_t value) noexcept {
+  *bufferEnd = '\0';
+
+  divmod10 res;
+  res.quot = value;
+  do {
+    res = divModU10(res.quot);
+    *--bufferEnd = res.rem + '0';
+  } while (res.quot != 0);
+
+  return bufferEnd;
 }
 
 } // namespace
@@ -205,32 +235,6 @@ char * itoa(char * dest, std::size_t destSize, std::uint32_t value, unsigned bas
 
 char * itoa(char * dest, std::size_t destSize, std::uint64_t value, unsigned base) {
   return utoaImplementation(dest, destSize, value, base);
-}
-
-/*!
-  \brief Converts a 32-bit unsigned integer to its decimal string representation in reverse order.
-
-  This function divides the given 32-bit unsigned integer by 10 repeatedly to compute each digit of its decimal
-  representation. The digits are stored in reverse order in the provided buffer, starting from the position
-  just before the null-terminator. The buffer should be large enough to hold the entire string representation.
-
-  \param value     The 32-bit unsigned integer to be converted.
-  \param bufferEnd A pointer to the end of the buffer where the resulting string will be stored in reverse order,
-                   with a null-terminator at the end.
-
-  \return A pointer to the beginning of the string representation within the buffer.
-*/
-char * utoaFast(char * bufferEnd, std::uint32_t value) noexcept {
-  *bufferEnd = '\0';
-
-  divmod10 res;
-  res.quot = value;
-  do {
-    res = divModU10(res.quot);
-    *--bufferEnd = res.rem + '0';
-  } while (res.quot != 0);
-
-  return bufferEnd;
 }
 
 /*!
@@ -377,6 +381,88 @@ std::int32_t ftoa64Engine(char * buffer, double value, std::size_t precision) no
   }
 
   return ftoa32Engine(buffer, static_cast<float>(value), precision);
+}
+
+/*!
+  \brief Processes a string representation of a floating-point number, adjusting the exponent, and stripping trailing
+         zeros.
+
+  This function processes a string representation of a floating-point number, adjusting the exponent according to the
+  given precision, and stripping trailing zeros. The function also handles the case of negative zero.
+
+  \param dest       The destination buffer where the processed string is stored.
+  \param srcBuffer  The source buffer containing the string representation of a floating-point number.
+  \param bufferSize The size of the source buffer.
+  \param exp10      The exponent of the floating-point number in the given precision.
+  \param precision  The number of decimal places to include in the representation.
+
+  \note The function assumes that the destination buffer is large enough to hold the processed string. The buffer will
+        contain the string representation in the form "+d.dd...e±dd" for normalized numbers.
+*/
+void floatPostProcess(char * dest, char * srcBuffer, std::size_t bufferSize, std::int32_t exp10,
+                      std::size_t precision) {
+  char const * strBegin = &srcBuffer[2];
+  if (srcBuffer[1] != '0') {
+    ++exp10;
+    --strBegin;
+  }
+
+  const auto digits = strlen(strBegin);
+  std::size_t intDigits = 0, leadingZeros = 0;
+  if (static_cast<std::size_t>(abs(exp10)) >= precision) {
+    intDigits = 1;
+  } else if (exp10 >= 0) {
+    intDigits = exp10 + 1;
+    exp10 = 0;
+  } else {
+    intDigits = 0;
+    leadingZeros = -exp10 - 1;
+    exp10 = 0;
+  }
+
+  char * outputPointer = dest;
+  if (*srcBuffer == '-') // copy sign if negative
+    *outputPointer++ = '-';
+
+  std::size_t fractionDigits = digits > intDigits ? digits - intDigits : 0;
+  if (intDigits) {
+    auto count = intDigits > digits ? digits : intDigits;
+    while (count--)
+      *outputPointer++ = *strBegin++;
+
+    auto trailingZeros = static_cast<std::int32_t>(intDigits - digits);
+    while (trailingZeros-- > 0)
+      *outputPointer++ = '0';
+  } else {
+    *outputPointer++ = '0';
+  }
+
+  if (fractionDigits > 0) {
+    *outputPointer++ = '.';
+    while (leadingZeros--)
+      *outputPointer++ = '0';
+
+    while (fractionDigits--)
+      *outputPointer++ = *strBegin++;
+  }
+
+  if (exp10 != 0) {
+    *outputPointer++ = 'e';
+    std::uint32_t upow10;
+    if (exp10 < 0) {
+      *outputPointer++ = '-';
+      upow10 = -exp10;
+    } else {
+      *outputPointer++ = '+';
+      upow10 = exp10;
+    }
+
+    char * powPtr = utoaFast(srcBuffer + bufferSize, upow10);
+    while (powPtr < srcBuffer + bufferSize)
+      *outputPointer++ = *powPtr++;
+  }
+
+  *outputPointer = '\0';
 }
 
 } // namespace toygine
