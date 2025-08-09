@@ -29,7 +29,7 @@ namespace toygine {
 //------------------------------------------------------------------------------
 
 inline wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, char const * src) {
-  return utf8toWChar(dest, destSize, src, strlen(src));
+  return utf8toWChar(dest, destSize, src, std::strlen(src));
 }
 
 template <typename stringType>
@@ -43,7 +43,7 @@ inline char * reverseString(char * str, std::size_t count) {
     return nullptr;
 
   if (count == 0)
-    count = strlen(str);
+    count = std::strlen(str);
   if (count != 0) {
     for (std::size_t i = 0, j = count - 1; i < j; ++i, --j) {
       std::swap(str[i], str[j]);
