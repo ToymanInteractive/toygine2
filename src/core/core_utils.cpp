@@ -434,7 +434,7 @@ void floatPostProcess(char * dest, char * srcBuffer, std::size_t bufferSize, std
     }
 
     char * bufferEndPointer = srcBuffer + bufferSize - 1;
-    bufferEndPointer = '\0';
+    *bufferEndPointer = '\0';
 
     divmod10 res;
     res.quot = upow10;
