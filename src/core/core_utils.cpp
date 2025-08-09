@@ -89,32 +89,6 @@ divmod10 divModU10(std::uint32_t value) noexcept {
   return res;
 }
 
-/*!
-  \brief Converts a 32-bit unsigned integer to its decimal string representation in reverse order.
-
-  This function divides the given 32-bit unsigned integer by 10 repeatedly to compute each digit of its decimal
-  representation. The digits are stored in reverse order in the provided buffer, starting from the position
-  just before the null-terminator. The buffer should be large enough to hold the entire string representation.
-
-  \param value     The 32-bit unsigned integer to be converted.
-  \param bufferEnd A pointer to the end of the buffer where the resulting string will be stored in reverse order,
-                   with a null-terminator at the end.
-
-  \return A pointer to the beginning of the string representation within the buffer.
-*/
-char * utoaFast(char * bufferEnd, std::uint32_t value) noexcept {
-  *bufferEnd = '\0';
-
-  divmod10 res;
-  res.quot = value;
-  do {
-    res = divModU10(res.quot);
-    *--bufferEnd = res.rem + '0';
-  } while (res.quot != 0);
-
-  return bufferEnd;
-}
-
 } // namespace
 
 namespace toygine {
@@ -411,7 +385,7 @@ void floatPostProcess(char * dest, char * srcBuffer, std::size_t bufferSize, std
   const auto digits = std::strlen(strBegin);
   std::size_t intDigits = 0;
   std::size_t leadingZeros = 0;
-  if (static_cast<std::size_t>(abs(exp10)) >= precision) {
+  if (static_cast<std::size_t>(std::abs(exp10)) >= precision) {
     intDigits = 1;
   } else if (exp10 >= 0) {
     intDigits = static_cast<std::size_t>(exp10 + 1);
@@ -459,9 +433,18 @@ void floatPostProcess(char * dest, char * srcBuffer, std::size_t bufferSize, std
       upow10 = static_cast<std::uint32_t>(exp10);
     }
 
-    char * powPtr = utoaFast(srcBuffer + bufferSize, upow10);
-    while (powPtr < srcBuffer + bufferSize)
-      *outputPointer++ = *powPtr++;
+    char * bufferEndPointer = srcBuffer + bufferSize - 1;
+    bufferEndPointer = '\0';
+
+    divmod10 res;
+    res.quot = upow10;
+    do {
+      res = divModU10(res.quot);
+      *--bufferEndPointer = res.rem + '0';
+    } while (res.quot != 0);
+
+    while (bufferEndPointer < srcBuffer + bufferSize)
+      *outputPointer++ = *bufferEndPointer++;
   }
 
   *outputPointer = '\0';
