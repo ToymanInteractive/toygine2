@@ -99,8 +99,8 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
   set(CMAKE_STATIC_LINKER_FLAGS "")
   set(CMAKE_EXE_LINKER_FLAGS    "")
 
-  set(CMAKE_STATIC_LINKER_FLAGS_DEBUG           "-fsanitize=alignment -fsanitize=bool")
-  set(CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO  "-fsanitize=alignment -fsanitize=bool")
+  set(CMAKE_STATIC_LINKER_FLAGS_DEBUG           "")
+  set(CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO  "")
   set(CMAKE_STATIC_LINKER_FLAGS_RELEASE         "")
 
   set(CMAKE_EXE_LINKER_FLAGS_DEBUG              "-fsanitize=alignment -fsanitize=bool")
