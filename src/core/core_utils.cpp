@@ -19,6 +19,7 @@
 //
 #include <array>
 #include <bit>
+#include <cmath>
 
 #include "core.hpp"
 #include "core_utils_internal.inl"
