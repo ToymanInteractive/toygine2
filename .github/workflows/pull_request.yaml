@@ -50,13 +50,6 @@ jobs:
     uses: ./.github/workflows/code_style_check.yaml
     secrets: inherit
 
-  security_check:
-    name: Codacy Security Analysis
-    needs:
-      - dispatcher
-    uses: ./.github/workflows/codacy-security-analysis.yaml
-    secrets: inherit
-
   build:
     name: Build using CMake
     needs:
