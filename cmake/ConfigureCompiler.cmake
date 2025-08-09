@@ -96,7 +96,7 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
   set(CMAKE_C_FLAGS_RELEASE          "-O3    -DNDEBUG -ffast-math    -fno-strict-float-cast-overflow              -funsafe-math-optimizations    -ffp-model=fast    -ffp-exception-behavior=ignore -fno-protect-parens")
   set(CMAKE_CXX_FLAGS_RELEASE        "-O3    -DNDEBUG -ffast-math    -fno-strict-float-cast-overflow              -funsafe-math-optimizations    -ffp-model=fast    -ffp-exception-behavior=ignore -fno-protect-parens")
 
-  set(CMAKE_STATIC_LINKER_FLAGS "-fsanitize=alignment -fsanitize=bool")
+  set(CMAKE_STATIC_LINKER_FLAGS "")
   set(CMAKE_EXE_LINKER_FLAGS    "-fsanitize=alignment -fsanitize=bool")
 
   set(CMAKE_STATIC_LINKER_FLAGS_DEBUG           "")
