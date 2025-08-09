@@ -244,7 +244,8 @@ char * utoaFast(char * bufferEnd, std::uint32_t value) noexcept {
   \param buffer    The destination buffer where the converted string is stored.
   \param precision The precision of the conversion, i.e., the number of digits after the decimal point.
 
-  \return The exponent of the converted number in the given precision.
+  \return The exponent of the converted number in the given precision. Returns 0xff for zero, subnormals (unsupported),
+          NaN, and INF.
 
   \note The function assumes that the destination buffer is large enough to hold the converted string. The function does
         not support subnormals.
@@ -318,7 +319,13 @@ std::int32_t ftoa32Engine(char * buffer, float value, std::size_t precision) noe
     }
   }
 
-  while (pointer[0] == '0')
+  // If carry propagated into the integer digit ('0' at buffer[1]), adjust it and bump the exponent.
+  if (buffer[1] > '9') {
+    buffer[1] = '1';
+    ++exp10;
+  }
+
+  while (pointer > buffer + 1 && pointer[0] == '0')
     *pointer-- = '\0';
 
   return exp10;
