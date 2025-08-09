@@ -18,6 +18,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 #include <array>
+#include <bit>
 
 #include "core.hpp"
 #include "core_utils_internal.inl"
@@ -43,6 +44,12 @@ constexpr std::array<std::uint8_t, 256> sc_utf8CharSizeTable{
    0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03,
 
    0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x05, 0x05, 0x05, 0x05, 0x06, 0x06, 0x07, 0x08}};
+
+constexpr std::array<std::uint32_t, 32> sc_exponentTable{
+  {0xF0BDC21A, 0x3DA137D5, 0x9DC5ADA8, 0x2863C1F5, 0x6765C793, 0x1A784379, 0x43C33C19, 0xAD78EBC5,
+   0x2C68AF0B, 0x71AFD498, 0x1D1A94A2, 0x4A817C80, 0xBEBC2000, 0x30D40000, 0x7D000000, 0x20000000,
+   0x51EB851E, 0xD1B71758, 0x35AFE535, 0x89705F41, 0x232F3302, 0x5A126E1A, 0xE69594BE, 0x3B07929F,
+   0x971DA050, 0x26AF8533, 0x63090312, 0xFD87B5F2, 0x40E75996, 0xA6274BBD, 0x2A890926, 0x6CE3EE76}};
 
 /*!
   \brief Divides a given 32-bit unsigned integer by 10 and returns the quotient and remainder.
@@ -221,9 +228,108 @@ char * utoaFast(char * bufferEnd, std::uint32_t value) noexcept {
   do {
     res = divModU10(res.quot);
     *--bufferEnd = res.rem + '0';
-  } while (res.quot);
+  } while (res.quot != 0);
 
   return bufferEnd;
+}
+
+/*!
+  \brief Converts a floating-point number to its string representation in a specified precision. The output is always
+         sign-prefixed ('+' or '-') and normalized as "+0.<digits>" or "-0.<digits>".
+
+  This function converts a given floating-point number into its string representation, storing the result in the
+  provided destination buffer. The function rounds the result to the given precision and stores the exponent in the
+  return value.
+
+  \param value     The floating-point number to be converted.
+  \param buffer    The destination buffer where the converted string is stored.
+  \param precision The precision (digits after the decimal point). For IEEE-754 f32, practical precision is ~7–9 digits.
+
+  \return The exponent of the converted number in the given precision. Returns 0xff for zero, subnormals (unsupported),
+          NaN, and INF.
+
+  \note The function assumes that the destination buffer is large enough to hold the converted string. The function does
+        not support subnormals.
+*/
+std::int32_t ftoa32Engine(char * buffer, float value, std::size_t precision) noexcept {
+  const auto uvalue = std::bit_cast<uint32_t>(value);
+  const auto exponent = static_cast<std::uint8_t>(uvalue >> 23);
+  if (exponent == 0) { // don't care about a subnormals
+    buffer[0] = '0';
+    buffer[1] = '\0';
+    return 0xff;
+  }
+
+  char * pointer = buffer;
+  if (uvalue & 0x80000000)
+    *pointer++ = '-';
+  else
+    *pointer++ = '+';
+
+  const std::uint32_t fraction = (uvalue & 0x007FFFFF) | 0x00800000;
+  if (exponent == 0xFF) {
+    if (fraction & 0x007FFFFF) {
+      pointer[0] = 'N';
+      pointer[1] = 'A';
+      pointer[2] = 'N';
+    } else {
+      pointer[0] = 'I';
+      pointer[1] = 'N';
+      pointer[2] = 'F';
+    }
+
+    pointer[3] = '\0';
+
+    return 0xff;
+  }
+
+  *pointer++ = '0';
+
+  std::int32_t exp10 = (((exponent >> 3) * 77 + 63) >> 5) - 38;
+  std::uint32_t t
+    = static_cast<std::uint32_t>((static_cast<std::uint64_t>(fraction << 8) * sc_exponentTable[exponent / 8U]) >> 32)
+      + 1;
+  t >>= (7 - (exponent & 7));
+
+  std::uint8_t digit = t >> 28;
+  while (digit == 0) {
+    t &= 0x0fffffff;
+    t *= 10;
+    digit = t >> 28;
+    --exp10;
+  }
+
+  for (std::size_t iter = precision + 1; iter > 0; --iter) {
+    digit = t >> 28;
+    *pointer++ = digit + '0';
+    t &= 0x0fffffff;
+    t *= 10;
+  }
+
+  // roundup
+  if (buffer[precision + 2] >= '5')
+    buffer[precision + 1]++;
+
+  pointer[-1] = '\0';
+  pointer -= 2;
+
+  for (std::size_t index = precision + 1; index > 1; --index) {
+    if (buffer[index] > '9') {
+      buffer[index] -= 10;
+      ++buffer[index - 1];
+    }
+  }
+
+  // If carry propagated into the integer digit ('0' at buffer[1]), adjust it and bump the exponent.
+  if (buffer[1] > '9') {
+    buffer[1] = '1';
+    ++exp10;
+  }
+
+  while (pointer > buffer + 1 && pointer[0] == '0')
+    *pointer-- = '\0';
+
+  return exp10;
 }
 
 } // namespace toygine

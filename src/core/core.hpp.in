@@ -402,6 +402,7 @@ struct divmod10 {
 };
 
 char * utoaFast(char * bufferEnd, std::uint32_t value) noexcept;
+std::int32_t ftoa32Engine(char * buffer, float value, std::size_t precision) noexcept;
 /// Temporary ///
 
 } // namespace toygine
