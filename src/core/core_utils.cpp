@@ -43,7 +43,41 @@ constexpr std::array<std::uint8_t, 256> sc_utf8CharSizeTable{
    0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03,
 
    0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x05, 0x05, 0x05, 0x05, 0x06, 0x06, 0x07, 0x08}};
+
+/*!
+  \brief Divides a given 32-bit unsigned integer by 10 and returns the quotient and remainder.
+
+  The function approximates division by 10 using a sequence of shift-and-add operations to compute the quotient, then
+  derives the remainder and corrects it if needed. It returns both quotient and remainder.
+
+  \param value The 32-bit unsigned integer to divide by 10.
+
+  \return A struct containing the quotient and remainder of the division.
+*/
+
+toygine::divmod10 divModU10(std::uint32_t value) noexcept {
+  toygine::divmod10 res;
+
+  res.quot = value >> 1;
+  res.quot += res.quot >> 1;
+  res.quot += res.quot >> 4;
+  res.quot += res.quot >> 8;
+  res.quot += res.quot >> 16;
+
+  const auto qq = res.quot;
+  res.quot >>= 3;
+
+  constexpr std::uint32_t mask32 = 0xFFFFFFF8;
+  res.rem = static_cast<std::uint8_t>(value - ((res.quot << 1) + (qq & mask32)));
+  if (res.rem > 9) {
+    res.rem -= 10;
+    ++res.quot;
+  }
+
+  return res;
 }
+
+} // namespace
 
 namespace toygine {
 
@@ -167,35 +201,29 @@ char * itoa(char * dest, std::size_t destSize, std::uint64_t value, unsigned bas
 }
 
 /*!
-  \brief Divides a given 32-bit unsigned integer by 10 and returns the quotient and remainder.
+  \brief Converts a 32-bit unsigned integer to its decimal string representation in reverse order.
 
-  The function approximates division by 10 using a sequence of shift-and-add operations to compute the quotient, then
-  derives the remainder and corrects it if needed. It returns both quotient and remainder.
+  This function divides the given 32-bit unsigned integer by 10 repeatedly to compute each digit of its decimal
+  representation. The digits are stored in reverse order in the provided buffer, starting from the position
+  just before the null-terminator. The buffer should be large enough to hold the entire string representation.
 
-  \param value The 32-bit unsigned integer to divide by 10.
+  \param value     The 32-bit unsigned integer to be converted.
+  \param bufferEnd A pointer to the end of the buffer where the resulting string will be stored in reverse order,
+                   with a null-terminator at the end.
 
-  \return A struct containing the quotient and remainder of the division.
+  \return A pointer to the beginning of the string representation within the buffer.
 */
-divmod10 divModU10(std::uint32_t value) noexcept {
+char * utoaFast(char * bufferEnd, std::uint32_t value) noexcept {
+  *bufferEnd = '\0';
+
   divmod10 res;
+  res.quot = value;
+  do {
+    res = divModU10(res.quot);
+    *--bufferEnd = res.rem + '0';
+  } while (res.quot);
 
-  res.quot = value >> 1;
-  res.quot += res.quot >> 1;
-  res.quot += res.quot >> 4;
-  res.quot += res.quot >> 8;
-  res.quot += res.quot >> 16;
-
-  const auto qq = res.quot;
-  res.quot >>= 3;
-
-  constexpr std::uint32_t mask32 = 0xFFFFFFF8;
-  res.rem = static_cast<std::uint8_t>(value - ((res.quot << 1) + (qq & mask32)));
-  if (res.rem > 9) {
-    res.rem -= 10;
-    ++res.quot;
-  }
-
-  return res;
+  return bufferEnd;
 }
 
 } // namespace toygine

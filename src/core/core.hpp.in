@@ -401,7 +401,7 @@ struct divmod10 {
   std::uint8_t rem;
 };
 
-divmod10 divModU10(std::uint32_t value) noexcept;
+char * utoaFast(char * bufferEnd, std::uint32_t value) noexcept;
 /// Temporary ///
 
 } // namespace toygine

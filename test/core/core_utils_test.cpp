@@ -195,8 +195,8 @@ TEST_CASE("converts an integer value to a string representation.", "[itoa]") {
         == 0);
 }
 
-TEST_CASE("divides a given 32-bit unsigned integer by 10 and returns the quotient and remainder", "[divModU10]") {
-  const auto result = divModU10(2147483647);
-  CHECK(result.quot == 214748364u);
-  CHECK(result.rem == 7u);
+TEST_CASE("Converts a 32-bit unsigned integer to its decimal string representation in reverse order", "[utoaFast]") {
+  char buffer[32];
+
+  CHECK(strcmp(utoaFast(buffer + ArraySize(buffer) - 1, 2147483647), "2147483647") == 0);
 }
