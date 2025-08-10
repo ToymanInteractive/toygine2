@@ -467,11 +467,11 @@ char * ftoa(char * dest, std::size_t destSize, float value, std::size_t precisio
 
   auto exp10 = ftoa32Engine(buffer, value, precision);
   if (exp10 == 0xFF) {
-#ifdef _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES
+#if defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)
     strcpy_s(dest, destSize, buffer);
-#else
+#else // defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)
     strncpy(dest, buffer, destSize - 1);
-#endif // _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES
+#endif // defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)
   } else {
     floatPostProcess(dest, buffer, bufferSize, exp10, precision);
   }
