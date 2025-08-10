@@ -188,129 +188,6 @@ std::int32_t ftoa32Engine(char * buffer, float value, std::size_t precision) noe
   return exp10;
 }
 
-} // namespace
-
-namespace toygine {
-
-wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, char const * src, std::size_t count) {
-  if (dest == nullptr || destSize == 0)
-    return nullptr;
-
-  wchar_t * destPointer = dest;
-  if (count > 0 && src != nullptr) {
-    wchar_t const * unicodeEndPos = dest + (destSize - 1);
-    std::size_t srcIterator = 0;
-
-    while (srcIterator < count && destPointer < unicodeEndPos) {
-      std::uint8_t symbol = static_cast<std::uint8_t>(src[srcIterator++]);
-      if (symbol <= 0x7F) {
-        *destPointer = symbol;
-      } else {
-        std::size_t charBytes = 0;
-        while (symbol & 0x80) {
-          ++charBytes;
-          symbol <<= 1;
-        }
-
-        wchar_t unicodeChar = static_cast<wchar_t>(symbol >> charBytes);
-        while (charBytes-- > 1) {
-          unicodeChar <<= 6;
-          unicodeChar |= src[srcIterator++] & 0x3F;
-        }
-
-        *destPointer = unicodeChar;
-      }
-
-      ++destPointer;
-    }
-  }
-
-  *destPointer = L'\0';
-
-  return dest;
-}
-
-char * wcharToUtf8(char * dest, std::size_t destSize, wchar_t const * src) {
-  if (dest == nullptr || destSize == 0)
-    return nullptr;
-
-  char * destPointer = dest;
-  if (src != nullptr) {
-    char const * utf8EndPos = dest + (destSize - 1);
-
-    while (*src != L'\0' && destPointer < utf8EndPos) {
-      std::uint32_t symbol = static_cast<std::uint32_t>(*src++);
-      if (symbol <= 0x7F) {
-        *destPointer = static_cast<char>(symbol);
-      } else {
-        if (symbol <= 0x7FF) {
-          *destPointer = static_cast<char>(((symbol & 0x07C0) >> 6) | 0xC0);
-        } else {
-          *destPointer = static_cast<char>(((symbol & 0xF000) >> 12) | 0xE0);
-          ++destPointer;
-          *destPointer = static_cast<char>(((symbol & 0x0FC0) >> 6) | 0x80);
-        }
-
-        ++destPointer;
-        *destPointer = static_cast<char>((symbol & 0x003F) | 0x80);
-      }
-      ++destPointer;
-    }
-  }
-
-  *destPointer = '\0';
-
-  return dest;
-}
-
-std::size_t utf8len(const char * str) {
-  assert(str != nullptr);
-  if (str == nullptr)
-    return 0;
-
-  std::size_t size = 0;
-  while (*str != '\0') {
-    const auto symbolLength = sc_utf8CharSizeTable[static_cast<std::uint8_t>(*str)];
-    assert_message(symbolLength != 0, "Invalid UTF-8 symbol");
-    str += symbolLength;
-    ++size;
-  }
-
-  return size;
-}
-
-char * itoa(char * dest, std::size_t destSize, std::int8_t value) {
-  return itoaImplementation(dest, destSize, value);
-}
-
-char * itoa(char * dest, std::size_t destSize, std::int16_t value) {
-  return itoaImplementation(dest, destSize, value);
-}
-
-char * itoa(char * dest, std::size_t destSize, std::int32_t value) {
-  return itoaImplementation(dest, destSize, value);
-}
-
-char * itoa(char * dest, std::size_t destSize, std::int64_t value) {
-  return itoaImplementation(dest, destSize, value);
-}
-
-char * itoa(char * dest, std::size_t destSize, std::uint8_t value, unsigned base) {
-  return utoaImplementation(dest, destSize, value, base);
-}
-
-char * itoa(char * dest, std::size_t destSize, std::uint16_t value, unsigned base) {
-  return utoaImplementation(dest, destSize, value, base);
-}
-
-char * itoa(char * dest, std::size_t destSize, std::uint32_t value, unsigned base) {
-  return utoaImplementation(dest, destSize, value, base);
-}
-
-char * itoa(char * dest, std::size_t destSize, std::uint64_t value, unsigned base) {
-  return utoaImplementation(dest, destSize, value, base);
-}
-
 /*!
   \brief Converts a 64-bit floating-point number to its string representation with specified precision. The output is
          always sign-prefixed ('+' or '-') and normalized as "+0.<digits>" or "-0.<digits>".
@@ -453,6 +330,129 @@ void floatPostProcess(char * dest, char * srcBuffer, std::size_t bufferSize, std
   *outputPointer = '\0';
 }
 
+} // namespace
+
+namespace toygine {
+
+wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, char const * src, std::size_t count) {
+  if (dest == nullptr || destSize == 0)
+    return nullptr;
+
+  wchar_t * destPointer = dest;
+  if (count > 0 && src != nullptr) {
+    wchar_t const * unicodeEndPos = dest + (destSize - 1);
+    std::size_t srcIterator = 0;
+
+    while (srcIterator < count && destPointer < unicodeEndPos) {
+      std::uint8_t symbol = static_cast<std::uint8_t>(src[srcIterator++]);
+      if (symbol <= 0x7F) {
+        *destPointer = symbol;
+      } else {
+        std::size_t charBytes = 0;
+        while (symbol & 0x80) {
+          ++charBytes;
+          symbol <<= 1;
+        }
+
+        wchar_t unicodeChar = static_cast<wchar_t>(symbol >> charBytes);
+        while (charBytes-- > 1) {
+          unicodeChar <<= 6;
+          unicodeChar |= src[srcIterator++] & 0x3F;
+        }
+
+        *destPointer = unicodeChar;
+      }
+
+      ++destPointer;
+    }
+  }
+
+  *destPointer = L'\0';
+
+  return dest;
+}
+
+char * wcharToUtf8(char * dest, std::size_t destSize, wchar_t const * src) {
+  if (dest == nullptr || destSize == 0)
+    return nullptr;
+
+  char * destPointer = dest;
+  if (src != nullptr) {
+    char const * utf8EndPos = dest + (destSize - 1);
+
+    while (*src != L'\0' && destPointer < utf8EndPos) {
+      std::uint32_t symbol = static_cast<std::uint32_t>(*src++);
+      if (symbol <= 0x7F) {
+        *destPointer = static_cast<char>(symbol);
+      } else {
+        if (symbol <= 0x7FF) {
+          *destPointer = static_cast<char>(((symbol & 0x07C0) >> 6) | 0xC0);
+        } else {
+          *destPointer = static_cast<char>(((symbol & 0xF000) >> 12) | 0xE0);
+          ++destPointer;
+          *destPointer = static_cast<char>(((symbol & 0x0FC0) >> 6) | 0x80);
+        }
+
+        ++destPointer;
+        *destPointer = static_cast<char>((symbol & 0x003F) | 0x80);
+      }
+      ++destPointer;
+    }
+  }
+
+  *destPointer = '\0';
+
+  return dest;
+}
+
+std::size_t utf8len(const char * str) {
+  assert(str != nullptr);
+  if (str == nullptr)
+    return 0;
+
+  std::size_t size = 0;
+  while (*str != '\0') {
+    const auto symbolLength = sc_utf8CharSizeTable[static_cast<std::uint8_t>(*str)];
+    assert_message(symbolLength != 0, "Invalid UTF-8 symbol");
+    str += symbolLength;
+    ++size;
+  }
+
+  return size;
+}
+
+char * itoa(char * dest, std::size_t destSize, std::int8_t value) {
+  return itoaImplementation(dest, destSize, value);
+}
+
+char * itoa(char * dest, std::size_t destSize, std::int16_t value) {
+  return itoaImplementation(dest, destSize, value);
+}
+
+char * itoa(char * dest, std::size_t destSize, std::int32_t value) {
+  return itoaImplementation(dest, destSize, value);
+}
+
+char * itoa(char * dest, std::size_t destSize, std::int64_t value) {
+  return itoaImplementation(dest, destSize, value);
+}
+
+char * itoa(char * dest, std::size_t destSize, std::uint8_t value, unsigned base) {
+  return utoaImplementation(dest, destSize, value, base);
+}
+
+char * itoa(char * dest, std::size_t destSize, std::uint16_t value, unsigned base) {
+  return utoaImplementation(dest, destSize, value, base);
+}
+
+char * itoa(char * dest, std::size_t destSize, std::uint32_t value, unsigned base) {
+  return utoaImplementation(dest, destSize, value, base);
+}
+
+char * itoa(char * dest, std::size_t destSize, std::uint64_t value, unsigned base) {
+  return utoaImplementation(dest, destSize, value, base);
+}
+
 char * ftoa(char * dest, std::size_t destSize, float value, std::size_t precision) {
   assert_message(dest != nullptr && destSize > 0, "The destination buffer must not be null.");
   if (dest == nullptr || destSize == 0)
@@ -462,11 +462,37 @@ char * ftoa(char * dest, std::size_t destSize, float value, std::size_t precisio
   if (destSize == 1)
     return dest;
 
-  const size_t bufferSize = 128;
+  const std::size_t bufferSize = 128;
   char buffer[bufferSize + 1];
 
   auto exp10 = ftoa32Engine(buffer, value, precision);
   if (exp10 == 0xFF) {
+#if defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)
+    strcpy_s(dest, destSize, buffer);
+#else // defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)
+    strncpy(dest, buffer, destSize - 1);
+#endif // defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)
+  } else {
+    floatPostProcess(dest, buffer, bufferSize, exp10, precision);
+  }
+
+  return dest;
+}
+
+char * ftoa(char * dest, std::size_t destSize, double value, std::size_t precision) {
+  assert_message(dest != nullptr && destSize > 0, "The destination buffer must not be null.");
+  if (dest == nullptr || destSize == 0)
+    return dest;
+
+  *dest = '\0';
+  if (destSize == 1)
+    return dest;
+
+  const std::size_t bufferSize = 128;
+  char buffer[bufferSize + 1];
+
+  auto exp10 = ftoa64Engine(buffer, value, precision);
+  if (exp10 == 0x7FF) {
 #if defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)
     strcpy_s(dest, destSize, buffer);
 #else // defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)

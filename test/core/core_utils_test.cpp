@@ -149,7 +149,7 @@ TEST_CASE("reverses a given string in-place", "[reverseString]") {
 }
 
 TEST_CASE("converts an integer value to a string representation.", "[itoa]") {
-  char buffer[32];
+  char buffer[80];
 
   CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::int8_t>::max()), "127") == 0);
   CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::int8_t>::min()), "-128") == 0);
@@ -166,6 +166,7 @@ TEST_CASE("converts an integer value to a string representation.", "[itoa]") {
   CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint8_t>::min(), 8), "0") == 0);
   CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint8_t>::min(), 10), "0") == 0);
   CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint8_t>::min(), 16), "0") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint8_t>::max(), 2), "11111111") == 0);
   CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint8_t>::max(), 8), "377") == 0);
   CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint8_t>::max(), 10), "255") == 0);
   CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint8_t>::max(), 16), "FF") == 0);
@@ -173,6 +174,7 @@ TEST_CASE("converts an integer value to a string representation.", "[itoa]") {
   CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint16_t>::min(), 8), "0") == 0);
   CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint16_t>::min(), 10), "0") == 0);
   CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint16_t>::min(), 16), "0") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint16_t>::max(), 2), "1111111111111111") == 0);
   CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint16_t>::max(), 8), "177777") == 0);
   CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint16_t>::max(), 10), "65535") == 0);
   CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint16_t>::max(), 16), "FFFF") == 0);
@@ -180,6 +182,9 @@ TEST_CASE("converts an integer value to a string representation.", "[itoa]") {
   CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint32_t>::min(), 8), "0") == 0);
   CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint32_t>::min(), 10), "0") == 0);
   CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint32_t>::min(), 16), "0") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint32_t>::max(), 2),
+               "11111111111111111111111111111111")
+        == 0);
   CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint32_t>::max(), 8), "37777777777") == 0);
   CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint32_t>::max(), 10), "4294967295") == 0);
   CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint32_t>::max(), 16), "FFFFFFFF") == 0);
@@ -187,6 +192,9 @@ TEST_CASE("converts an integer value to a string representation.", "[itoa]") {
   CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint64_t>::min(), 8), "0") == 0);
   CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint64_t>::min(), 10), "0") == 0);
   CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint64_t>::min(), 16), "0") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint64_t>::max(), 2),
+               "1111111111111111111111111111111111111111111111111111111111111111")
+        == 0);
   CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint64_t>::max(), 8), "1777777777777777777777")
         == 0);
   CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint64_t>::max(), 10), "18446744073709551615")
@@ -195,23 +203,14 @@ TEST_CASE("converts an integer value to a string representation.", "[itoa]") {
         == 0);
 }
 
-TEST_CASE("converts a 64-bit floating-point number to its string representation with specified precision",
-          "[ftoa64Engine]") {
-  char buffer[32];
-
-  CHECK(ftoa64Engine(buffer, 3.1415926535897932384626433832795, 8) == 0);
-  CHECK(strcmp(buffer, "+031415924") == 0);
-
-  CHECK(ftoa64Engine(buffer, -3.1415926535897932384626433832795, 8) == 0);
-  CHECK(strcmp(buffer, "-031415924") == 0);
-}
-
 TEST_CASE("converts a floating-point number to its string representation in a specified precision", "[ftoa]") {
   char buffer[32];
 
   CHECK(strcmp(ftoa(buffer, ArraySize(buffer), 3.1415926535897932384626433832795f, 8), "3.1415924") == 0);
+  CHECK(strcmp(ftoa(buffer, ArraySize(buffer), 3.1415926535897932384626433832795, 8), "3.1415924") == 0);
 
   CHECK(strcmp(ftoa(buffer, ArraySize(buffer), -3.1415926535897932384626433832795f, 8), "-3.1415924") == 0);
+  CHECK(strcmp(ftoa(buffer, ArraySize(buffer), -3.1415926535897932384626433832795, 8), "-3.1415924") == 0);
 
   CHECK(strcmp(ftoa(buffer, ArraySize(buffer), std::numeric_limits<float>::infinity(), 8), "+INF") == 0);
   CHECK(strcmp(ftoa(buffer, ArraySize(buffer), std::numeric_limits<float>::quiet_NaN(), 8), "+NAN") == 0);
