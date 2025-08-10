@@ -47,8 +47,10 @@ inline char * reverseString(char * string, std::size_t stringLength) {
   if (stringLength == 0)
     stringLength = std::strlen(string);
 
-  if (stringLength > 1) {
-    std::reverse(string, string + stringLength);
+  if (stringLength != 0) {
+    for (std::size_t i = 0, j = stringLength - 1; i < j; ++i, --j) {
+      std::swap(string[i], string[j]);
+    }
   }
 
   return string;
