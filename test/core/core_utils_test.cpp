@@ -24,7 +24,7 @@
 
 using namespace toygine;
 
-static const std::array<std::uint8_t, 119> utf8Text{
+static constexpr std::array<std::uint8_t, 119> utf8Text{
   {0x48, 0x65, 0x6C, 0x6C, 0x6F, 0x20, 0x57, 0x6F, 0x72, 0x6C, 0x64, 0x21, 0x20, 0x2F, 0x20, 0xD0, 0x9F,
    0xD1, 0x80, 0xD0, 0xB8, 0xD0, 0xB2, 0xD0, 0xB5, 0xD1, 0x82, 0x20, 0xD0, 0xBC, 0xD0, 0xB8, 0xD1, 0x80,
    0x21, 0x20, 0x2F, 0x20, 0x42, 0x6F, 0x6E, 0x6A, 0x6F, 0x75, 0x72, 0x20, 0x74, 0x6F, 0x75, 0x74, 0x20,
@@ -33,7 +33,7 @@ static const std::array<std::uint8_t, 119> utf8Text{
    0x98, 0xEC, 0x84, 0xB8, 0xEC, 0x9A, 0x94, 0x21, 0x20, 0x2F, 0x20, 0xE3, 0x83, 0x8F, 0xE3, 0x83, 0xAD,
    0xE3, 0x83, 0xBC, 0xE3, 0x83, 0xAF, 0xE3, 0x83, 0xBC, 0xE3, 0x83, 0xAB, 0xE3, 0x83, 0x89, 0x21, 0x00}};
 
-static const std::array<wchar_t, 86> unicodeText{
+static constexpr std::array<wchar_t, 86> unicodeText{
   {0x0048U, 0x0065U, 0x006CU, 0x006CU, 0x006FU, 0x0020U, 0x0057U, 0x006FU, 0x0072U, 0x006CU, 0x0064U, 0x0021U, 0x0020U,
    0x002FU, 0x0020U, 0x041FU, 0x0440U, 0x0438U, 0x0432U, 0x0435U, 0x0442U, 0x0020U, 0x043CU, 0x0438U, 0x0440U, 0x0021U,
    0x0020U, 0x002FU, 0x0020U, 0x0042U, 0x006FU, 0x006EU, 0x006AU, 0x006FU, 0x0075U, 0x0072U, 0x0020U, 0x0074U, 0x006FU,
@@ -41,6 +41,18 @@ static const std::array<wchar_t, 86> unicodeText{
    0x002FU, 0x0020U, 0x0048U, 0x0061U, 0x006CU, 0x006CU, 0x006FU, 0x0020U, 0x0057U, 0x0065U, 0x006CU, 0x0074U, 0x0021U,
    0x0020U, 0x002FU, 0x0020U, 0xC548U, 0xB155U, 0xD558U, 0xC138U, 0xC694U, 0x0021U, 0x0020U, 0x002FU, 0x0020U, 0x30CFU,
    0x30EDU, 0x30FCU, 0x30EFU, 0x30FCU, 0x30EBU, 0x30C9U, 0x0021U, 0x0000}};
+
+static constexpr std::array<float, 16> floatArray{{0.0f, -0.0f, 10000000.0f, -10000000.0f, 100000.0f, -100000.0f,
+                                                   4200.0f, -4200.0f, 42.0f, -42.0f, 0.042f, -0.042f, 0.000042f,
+                                                   -0.000042f, 0.00000042f, -0.00000042f}};
+
+static constexpr std::array<double, 16> doubleArray{{0.0, -0.0, 10000000.0, -10000000.0, 100000.0, -100000.0, 4200.0,
+                                                     -4200.0, 42.0, -42.0, 0.042, -0.042, 0.000042, -0.000042,
+                                                     0.00000042, -0.00000042}};
+
+static constexpr std::array<const char *, 16> asciiArray{{"0", "0", "1e+7", "-1e+7", "100000", "-100000", "4200",
+                                                          "-4200", "42", "-42", "0.042", "-0.042", "0.000042",
+                                                          "-0.000042", "4.2e-7", "-4.2e-7"}};
 
 TEST_CASE("returns the size of an array", "[ArraySize]") {
   const bool boolArray[] = {true, false};
@@ -220,4 +232,12 @@ TEST_CASE("converts a floating-point number to its string representation in a sp
   CHECK(strcmp(ftoa(buffer, ArraySize(buffer), -std::numeric_limits<double>::infinity()), "-INF") == 0);
   CHECK(strcmp(ftoa(buffer, ArraySize(buffer), std::numeric_limits<double>::quiet_NaN()), "+NAN") == 0);
   CHECK(strcmp(ftoa(buffer, ArraySize(buffer), -std::numeric_limits<double>::quiet_NaN()), "-NAN") == 0);
+
+  static_assert(floatArray.size() == doubleArray.size() && floatArray.size() == asciiArray.size(),
+                "Invalid arrays size");
+
+  for (size_t index = 0; index < floatArray.size(); ++index) {
+    CHECK(strcmp(ftoa(buffer, ArraySize(buffer), floatArray[index]), asciiArray[index]) == 0);
+    CHECK(strcmp(ftoa(buffer, ArraySize(buffer), doubleArray[index], 7), asciiArray[index]) == 0);
+  }
 }
