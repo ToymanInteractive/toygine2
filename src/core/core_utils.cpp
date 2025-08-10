@@ -513,7 +513,8 @@ char * ftoa(char * dest, std::size_t destSize, double value, std::size_t precisi
 
 void formatNumberString(char * buffer, std::size_t bufferSize, char const * groupingSeparator) {
   assert_message(buffer != nullptr && bufferSize > 0, "The destination buffer must not be null.");
-  assert(groupingSeparator != nullptr && strlen(groupingSeparator) <= 8);
+  assert_message(groupingSeparator != nullptr && std::strlen(groupingSeparator) <= 8,
+                 "The grouping separator must not be null and must not exceed 8 characters.");
 
   if (*buffer == '-' || *buffer == '+') {
     ++buffer;
@@ -527,8 +528,9 @@ void formatNumberString(char * buffer, std::size_t bufferSize, char const * grou
     ++digitsCount;
 
   auto groupSeparatorsCount = (digitsCount - 1U) / 3U;
-  assert_message((ansiStringLen + groupSeparatorsCount * groupSeparatorLen) < bufferSize, "Buffer size is to low.");
-  if ((ansiStringLen + groupSeparatorsCount * groupSeparatorLen) >= bufferSize)
+  const auto requiredSize = ansiStringLen + groupSeparatorsCount * groupSeparatorLen;
+  assert_message(requiredSize < bufferSize, "Buffer size is to low.");
+  if (requiredSize >= bufferSize)
     return;
 
   buffer[ansiStringLen + groupSeparatorsCount * groupSeparatorLen] = '\0';
