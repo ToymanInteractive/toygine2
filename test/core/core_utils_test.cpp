@@ -18,6 +18,8 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
+#include <array>
+
 #include <catch2/catch_test_macros.hpp>
 
 #include "core.hpp"
