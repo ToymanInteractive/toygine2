@@ -206,12 +206,10 @@ TEST_CASE("converts a 64-bit floating-point number to its string representation 
   CHECK(strcmp(buffer, "-031415924") == 0);
 }
 
-TEST_CASE("converts a floating-point number to its string representation in a specified precision", "[ftoa32Engine]") {
+TEST_CASE("converts a floating-point number to its string representation in a specified precision", "[ftoa]") {
   char buffer[32];
 
- // CHECK(ftoa32Engine(buffer, 3.1415926535897932384626433832795f, 8) == 0);
-//  CHECK(strcmp(buffer, "+031415924") == 0);
+  CHECK(strcmp(ftoa(buffer, ArraySize(buffer), 3.1415926535897932384626433832795f, 8), "3.1415924") == 0);
 
-//  CHECK(ftoa32Engine(buffer, -3.1415926535897932384626433832795f, 8) == 0);
-//  CHECK(strcmp(buffer, "-031415924") == 0);
+  CHECK(strcmp(ftoa(buffer, ArraySize(buffer), -3.1415926535897932384626433832795f, 8), "-3.1415924") == 0);
 }
