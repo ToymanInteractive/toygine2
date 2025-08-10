@@ -29,7 +29,9 @@ namespace toygine {
 //------------------------------------------------------------------------------
 
 inline wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, char const * src) {
-  return utf8toWChar(dest, destSize, src, std::strlen(src));
+  assert_message(src != nullptr, "The source must not be null.");
+
+  return src != nullptr ? utf8toWChar(dest, destSize, src, std::strlen(src)) : nullptr;
 }
 
 template <typename stringType>
@@ -37,20 +39,21 @@ inline wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, stringType co
   return utf8toWChar(dest, destSize, src.c_str(), src.size());
 }
 
-inline char * reverseString(char * str, std::size_t count) {
-  assert(str != nullptr);
-  if (str == nullptr)
+inline char * reverseString(char * string, std::size_t stringLength) {
+  assert_message(string != nullptr, "The source string must not be null.");
+  if (string == nullptr)
     return nullptr;
 
-  if (count == 0)
-    count = std::strlen(str);
-  if (count != 0) {
-    for (std::size_t i = 0, j = count - 1; i < j; ++i, --j) {
-      std::swap(str[i], str[j]);
+  if (stringLength == 0)
+    stringLength = std::strlen(string);
+
+  if (stringLength != 0) {
+    for (std::size_t i = 0, j = stringLength - 1; i < j; ++i, --j) {
+      std::swap(string[i], string[j]);
     }
   }
 
-  return str;
+  return string;
 }
 
 //------------------------------------------------------------------------------
