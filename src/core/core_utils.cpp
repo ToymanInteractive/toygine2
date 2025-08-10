@@ -511,4 +511,42 @@ char * ftoa(char * dest, std::size_t destSize, double value, std::size_t precisi
   return dest;
 }
 
+void formatNumberString(char * buffer, std::size_t bufferSize, char const * groupingSeparator) {
+  assert_message(buffer != nullptr && bufferSize > 0, "The destination buffer must not be null.");
+  assert_message(groupingSeparator != nullptr && std::strlen(groupingSeparator) <= 8,
+                 "The grouping separator must not be null and must not exceed 8 characters.");
+
+  if (*buffer == '-' || *buffer == '+') {
+    ++buffer;
+    --bufferSize;
+  }
+
+  const auto groupSeparatorLen = std::strlen(groupingSeparator);
+  const auto ansiStringLen = std::strlen(buffer);
+  std::size_t digitsCount = 0;
+  while (buffer[digitsCount] >= '0' && buffer[digitsCount] <= '9')
+    ++digitsCount;
+
+  auto groupSeparatorsCount = (digitsCount - 1U) / 3U;
+  const auto requiredSize = ansiStringLen + groupSeparatorsCount * groupSeparatorLen;
+  assert_message(requiredSize < bufferSize, "Buffer size is to low.");
+  if (requiredSize >= bufferSize)
+    return;
+
+  buffer[ansiStringLen + groupSeparatorsCount * groupSeparatorLen] = '\0';
+
+  if (digitsCount != (ansiStringLen - 1))
+    std::memmove(buffer + (digitsCount + groupSeparatorsCount * groupSeparatorLen), buffer + digitsCount,
+                 ansiStringLen - digitsCount);
+
+  auto scanChars = digitsCount;
+  while (groupSeparatorsCount > 0) {
+    std::memmove(buffer + (scanChars + groupSeparatorsCount * groupSeparatorLen - 3), buffer + (scanChars - 3), 3);
+    const auto destBufferShift = scanChars + (groupSeparatorsCount - 1) * groupSeparatorLen - 3;
+    std::memcpy(buffer + destBufferShift, groupingSeparator, groupSeparatorLen);
+    scanChars -= 3;
+    --groupSeparatorsCount;
+  }
+}
+
 } // namespace toygine

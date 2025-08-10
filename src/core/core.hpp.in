@@ -432,6 +432,22 @@ char * ftoa(char * dest, std::size_t destSize, float value, std::size_t precisio
 */
 char * ftoa(char * dest, std::size_t destSize, double value, std::size_t precision = 15);
 
+/*!
+  \brief Format number string.
+
+  This function inserts a grouping separator (e.g., a comma or a space) into a number string. The separator is inserted
+  every three digits, starting from the right. The function assumes that the destination buffer is large enough to hold
+  the modified string.
+
+  \param buffer            The destination buffer where the modified string is stored.
+  \param bufferSize        The size of the destination buffer.
+  \param groupingSeparator The grouping separator to be inserted into the string.
+
+  \note The function does not check if the destination buffer is large enough to hold the modified string. If the buffer
+        is too small, the function will not insert any separators and will return without modifying the buffer.
+*/
+void formatNumberString(char * buffer, std::size_t bufferSize, char const * groupingSeparator);
+
 } // namespace toygine
 
 #include "core_inline.inl"

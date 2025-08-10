@@ -18,6 +18,8 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
+#include <array>
+
 #include <catch2/catch_test_macros.hpp>
 
 #include "core.hpp"
@@ -239,5 +241,28 @@ TEST_CASE("converts a floating-point number to its string representation in a sp
   for (size_t index = 0; index < floatArray.size(); ++index) {
     CHECK(strcmp(ftoa(buffer, ArraySize(buffer), floatArray[index]), asciiArray[index]) == 0);
     CHECK(strcmp(ftoa(buffer, ArraySize(buffer), doubleArray[index], 7), asciiArray[index]) == 0);
+  }
+}
+
+TEST_CASE("format number string", "[formatNumberString]") {
+  static constexpr std::array<const char *, 12> numbers{
+    {"-256192.12", "32", "4192", "+2561921.2", "1", "12", "123", "12345678", "-1234567890", "+0", "-0", "0.0"}};
+  static constexpr std::array<const char *, 12> parsedNumbers{{"-256 192.12", "32", "4 192", "+2 561 921.2", "1", "12",
+                                                               "123", "12 345 678", "-1 234 567 890", "+0", "-0",
+                                                               "0.0"}};
+
+  static_assert(numbers.size() == parsedNumbers.size(), "Invalid arrays size");
+
+  for (std::size_t index = 0; index < parsedNumbers.size(); ++index) {
+    char buffer[128];
+
+#ifdef _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES
+    strcpy_s<sizeof(buffer)>(buffer, numbers[index]);
+#else
+    strncpy(buffer, numbers[index], sizeof(buffer));
+#endif // _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES
+
+    formatNumberString(buffer, sizeof(buffer), " ");
+    CHECK(strcmp(buffer, parsedNumbers[index]) == 0);
   }
 }
