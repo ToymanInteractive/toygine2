@@ -188,6 +188,154 @@ std::int32_t ftoa32Engine(char * buffer, float value, std::size_t precision) noe
   return exp10;
 }
 
+/*!
+  \brief Converts a 64-bit floating-point number to its string representation with specified precision. The output is
+         always sign-prefixed ('+' or '-') and normalized as "+0.<digits>" or "-0.<digits>".
+
+  This function converts a given 64-bit floating-point number into its string representation, storing the result
+  in the provided buffer. The conversion includes handling special cases such as subnormals, NaN, and infinity.
+  The output is formatted according to the specified precision.
+
+  \param buffer    The destination buffer where the converted string is stored.
+  \param value     The 64-bit floating-point number to be converted.
+  \param precision The number of decimal places to include in the representation.
+
+  \return The exponent of the converted number in the given precision. Returns 0xff for zero, subnormals (unsupported),
+          NaN, and INF.
+
+  \note The function assumes that the buffer is large enough to hold the converted string. The buffer will contain
+        the string representation in the form "+d.dd...e±dd" for normalized numbers.
+*/
+std::int32_t ftoa64Engine(char * buffer, double value, std::size_t precision) noexcept {
+  const auto uvalue = std::bit_cast<uint64_t>(value);
+  const auto exponent = static_cast<std::uint32_t>(uvalue >> 52) & 0x07FF;
+  if (exponent == 0) { // don't care about a subnormals
+    buffer[0] = '0';
+    buffer[1] = '\0';
+    return 0x7FF;
+  }
+
+  if (exponent == 0x07FF) {
+    char * pointer = buffer;
+    if (uvalue & 0x8000000000000000ULL)
+      *pointer++ = '-';
+    else
+      *pointer++ = '+';
+
+    const std::uint64_t fraction = (uvalue & 0x001FFFFFFFFFFFFFULL) | 0x0010000000000000ULL;
+    if (fraction & 0x000FFFFFFFFFFFFFULL) {
+      pointer[0] = 'N';
+      pointer[1] = 'A';
+      pointer[2] = 'N';
+    } else {
+      pointer[0] = 'I';
+      pointer[1] = 'N';
+      pointer[2] = 'F';
+    }
+
+    pointer[3] = '\0';
+
+    return 0x7FF;
+  }
+
+  return ftoa32Engine(buffer, static_cast<float>(value), precision);
+}
+
+/*!
+  \brief Processes a string representation of a floating-point number, adjusting the exponent, and stripping trailing
+         zeros.
+
+  This function processes a string representation of a floating-point number, adjusting the exponent according to the
+  given precision, and stripping trailing zeros. The function also handles the case of negative zero.
+
+  \param dest       The destination buffer where the processed string is stored.
+  \param srcBuffer  The source buffer containing the string representation of a floating-point number.
+  \param bufferSize The size of the source buffer.
+  \param exp10      The exponent of the floating-point number in the given precision.
+  \param precision  The number of decimal places to include in the representation.
+
+  \note The function assumes that the destination buffer is large enough to hold the processed string. The buffer will
+        contain the string representation in the form "+d.dd...e±dd" for normalized numbers.
+*/
+void floatPostProcess(char * dest, char * srcBuffer, std::size_t bufferSize, std::int32_t exp10,
+                      std::size_t precision) {
+  char const * strBegin = &srcBuffer[2];
+  if (srcBuffer[1] != '0') {
+    // Carry propagated into the integer position at [1] (e.g., 0.999.. -> 1.000..).
+    // Include that '1' in the mantissa by shifting strBegin left, and bump exp10 to keep
+    // the mantissa/exponent product invariant.
+    ++exp10;
+    --strBegin;
+  }
+
+  const auto digits = std::strlen(strBegin);
+  std::size_t intDigits = 0;
+  std::size_t leadingZeros = 0;
+  if (static_cast<std::size_t>(std::abs(exp10)) >= precision) {
+    intDigits = 1;
+  } else if (exp10 >= 0) {
+    intDigits = static_cast<std::size_t>(exp10 + 1);
+    exp10 = 0;
+  } else {
+    intDigits = 0;
+    leadingZeros = static_cast<std::size_t>(-exp10 - 1);
+    exp10 = 0;
+  }
+
+  char * outputPointer = dest;
+  if (*srcBuffer == '-') // copy sign if negative
+    *outputPointer++ = '-';
+
+  std::size_t fractionDigits = digits > intDigits ? digits - intDigits : 0;
+  if (intDigits > 0) {
+    auto count = intDigits > digits ? digits : intDigits;
+    while (count--)
+      *outputPointer++ = *strBegin++;
+
+    auto trailingZeros = static_cast<std::int32_t>(intDigits - digits);
+    while (trailingZeros-- > 0)
+      *outputPointer++ = '0';
+  } else {
+    *outputPointer++ = '0';
+  }
+
+  if (fractionDigits > 0) {
+    *outputPointer++ = '.';
+    while (leadingZeros-- > 0)
+      *outputPointer++ = '0';
+
+    while (fractionDigits-- > 0)
+      *outputPointer++ = *strBegin++;
+  }
+
+  if (exp10 != 0) {
+    *outputPointer++ = 'e';
+    std::uint32_t upow10;
+    if (exp10 < 0) {
+      *outputPointer++ = '-';
+      upow10 = static_cast<std::uint32_t>(-exp10);
+    } else {
+      *outputPointer++ = '+';
+      upow10 = static_cast<std::uint32_t>(exp10);
+    }
+
+    char * bufferEndPointer = srcBuffer + bufferSize - 1;
+    *bufferEndPointer = '\0';
+
+    divmod10 res;
+    res.quot = upow10;
+    do {
+      res = divModU10(res.quot);
+      *--bufferEndPointer = res.rem + '0';
+    } while (res.quot != 0);
+
+    while (bufferEndPointer < srcBuffer + bufferSize)
+      *outputPointer++ = *bufferEndPointer++;
+  }
+
+  *outputPointer = '\0';
+}
+
 } // namespace
 
 namespace toygine {
@@ -311,148 +459,6 @@ char * itoa(char * dest, std::size_t destSize, std::uint64_t value, unsigned bas
   return utoaImplementation(dest, destSize, value, base);
 }
 
-/*!
-  \brief Converts a 64-bit floating-point number to its string representation with specified precision. The output is
-         always sign-prefixed ('+' or '-') and normalized as "+0.<digits>" or "-0.<digits>".
-
-  This function converts a given 64-bit floating-point number into its string representation, storing the result
-  in the provided buffer. The conversion includes handling special cases such as subnormals, NaN, and infinity.
-  The output is formatted according to the specified precision.
-
-  \param buffer    The destination buffer where the converted string is stored.
-  \param value     The 64-bit floating-point number to be converted.
-  \param precision The number of decimal places to include in the representation.
-
-  \return The exponent of the converted number in the given precision. Returns 0xff for zero, subnormals (unsupported),
-          NaN, and INF.
-
-  \note The function assumes that the buffer is large enough to hold the converted string. The buffer will contain
-        the string representation in the form "+d.dd...e±dd" for normalized numbers.
-*/
-std::int32_t ftoa64Engine(char * buffer, double value, std::size_t precision) noexcept {
-  const auto uvalue = std::bit_cast<uint64_t>(value);
-  const auto exponent = static_cast<std::uint32_t>(uvalue >> 52) & 0x07FF;
-  if (exponent == 0) { // don't care about a subnormals
-    buffer[0] = '0';
-    buffer[1] = '\0';
-    return 0x7FF;
-  }
-
-  const std::uint64_t fraction = (uvalue & 0x001FFFFFFFFFFFFFULL) | 0x0010000000000000ULL;
-  if (exponent == 0x07FF) {
-    if (fraction & 0x000FFFFFFFFFFFFFULL) {
-      buffer[0] = 'N';
-      buffer[1] = 'A';
-      buffer[2] = 'N';
-    } else {
-      buffer[0] = 'I';
-      buffer[1] = 'N';
-      buffer[2] = 'F';
-    }
-
-    buffer[3] = '\0';
-
-    return 0x7FF;
-  }
-
-  return ftoa32Engine(buffer, static_cast<float>(value), precision);
-}
-
-/*!
-  \brief Processes a string representation of a floating-point number, adjusting the exponent, and stripping trailing
-         zeros.
-
-  This function processes a string representation of a floating-point number, adjusting the exponent according to the
-  given precision, and stripping trailing zeros. The function also handles the case of negative zero.
-
-  \param dest       The destination buffer where the processed string is stored.
-  \param srcBuffer  The source buffer containing the string representation of a floating-point number.
-  \param bufferSize The size of the source buffer.
-  \param exp10      The exponent of the floating-point number in the given precision.
-  \param precision  The number of decimal places to include in the representation.
-
-  \note The function assumes that the destination buffer is large enough to hold the processed string. The buffer will
-        contain the string representation in the form "+d.dd...e±dd" for normalized numbers.
-*/
-void floatPostProcess(char * dest, char * srcBuffer, std::size_t bufferSize, std::int32_t exp10,
-                      std::size_t precision) {
-  char const * strBegin = &srcBuffer[2];
-  if (srcBuffer[1] != '0') {
-    // Carry propagated into the integer position at [1] (e.g., 0.999.. -> 1.000..).
-    // Include that '1' in the mantissa by shifting strBegin left, and bump exp10 to keep
-    // the mantissa/exponent product invariant.
-    ++exp10;
-    --strBegin;
-  }
-
-  const auto digits = std::strlen(strBegin);
-  std::size_t intDigits = 0;
-  std::size_t leadingZeros = 0;
-  if (static_cast<std::size_t>(std::abs(exp10)) >= precision) {
-    intDigits = 1;
-  } else if (exp10 >= 0) {
-    intDigits = static_cast<std::size_t>(exp10 + 1);
-    exp10 = 0;
-  } else {
-    intDigits = 0;
-    leadingZeros = static_cast<std::size_t>(-exp10 - 1);
-    exp10 = 0;
-  }
-
-  char * outputPointer = dest;
-  if (*srcBuffer == '-') // copy sign if negative
-    *outputPointer++ = '-';
-
-  std::size_t fractionDigits = digits > intDigits ? digits - intDigits : 0;
-  if (intDigits > 0) {
-    auto count = intDigits > digits ? digits : intDigits;
-    while (count--)
-      *outputPointer++ = *strBegin++;
-
-    auto trailingZeros = static_cast<std::int32_t>(intDigits - digits);
-    while (trailingZeros-- > 0)
-      *outputPointer++ = '0';
-  } else {
-    *outputPointer++ = '0';
-  }
-
-  if (fractionDigits > 0) {
-    *outputPointer++ = '.';
-    while (leadingZeros-- > 0)
-      *outputPointer++ = '0';
-
-    while (fractionDigits-- > 0)
-      *outputPointer++ = *strBegin++;
-  }
-
-  if (exp10 != 0) {
-    *outputPointer++ = 'e';
-    std::uint32_t upow10;
-    if (exp10 < 0) {
-      *outputPointer++ = '-';
-      upow10 = static_cast<std::uint32_t>(-exp10);
-    } else {
-      *outputPointer++ = '+';
-      upow10 = static_cast<std::uint32_t>(exp10);
-    }
-
-    char * bufferEndPointer = srcBuffer + bufferSize - 1;
-    *bufferEndPointer = '\0';
-
-    divmod10 res;
-    res.quot = upow10;
-    do {
-      res = divModU10(res.quot);
-      *--bufferEndPointer = res.rem + '0';
-    } while (res.quot != 0);
-
-    while (bufferEndPointer < srcBuffer + bufferSize)
-      *outputPointer++ = *bufferEndPointer++;
-  }
-
-  *outputPointer = '\0';
-}
-
 char * ftoa(char * dest, std::size_t destSize, float value, std::size_t precision) {
   assert_message(dest != nullptr && destSize > 0, "The destination buffer must not be null.");
   if (dest == nullptr || destSize == 0)
@@ -462,11 +468,37 @@ char * ftoa(char * dest, std::size_t destSize, float value, std::size_t precisio
   if (destSize == 1)
     return dest;
 
-  const size_t bufferSize = 128;
+  const std::size_t bufferSize = 128;
   char buffer[bufferSize + 1];
 
   auto exp10 = ftoa32Engine(buffer, value, precision);
   if (exp10 == 0xFF) {
+#if defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)
+    strcpy_s(dest, destSize, buffer);
+#else // defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)
+    strncpy(dest, buffer, destSize - 1);
+#endif // defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)
+  } else {
+    floatPostProcess(dest, buffer, bufferSize, exp10, precision);
+  }
+
+  return dest;
+}
+
+char * ftoa(char * dest, std::size_t destSize, double value, std::size_t precision) {
+  assert_message(dest != nullptr && destSize > 0, "The destination buffer must not be null.");
+  if (dest == nullptr || destSize == 0)
+    return dest;
+
+  *dest = '\0';
+  if (destSize == 1)
+    return dest;
+
+  const std::size_t bufferSize = 128;
+  char buffer[bufferSize + 1];
+
+  auto exp10 = ftoa64Engine(buffer, value, precision);
+  if (exp10 == 0x7FF) {
 #if defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)
     strcpy_s(dest, destSize, buffer);
 #else // defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)
