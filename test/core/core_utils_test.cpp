@@ -212,4 +212,7 @@ TEST_CASE("converts a floating-point number to its string representation in a sp
   CHECK(strcmp(ftoa(buffer, ArraySize(buffer), 3.1415926535897932384626433832795f, 8), "3.1415924") == 0);
 
   CHECK(strcmp(ftoa(buffer, ArraySize(buffer), -3.1415926535897932384626433832795f, 8), "-3.1415924") == 0);
+
+  CHECK(strcmp(ftoa(buffer, ArraySize(buffer), std::numeric_limits<float>::infinity(), 8), "+INF") == 0);
+  CHECK(strcmp(ftoa(buffer, ArraySize(buffer), std::numeric_limits<float>::quiet_NaN(), 8), "+NAN") == 0);
 }
