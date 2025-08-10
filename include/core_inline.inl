@@ -31,7 +31,7 @@ namespace toygine {
 inline wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, char const * src) {
   assert_message(src != nullptr, "The source must not be null.");
 
-  return utf8toWChar(dest, destSize, src, std::strlen(src));
+  return src != nullptr ? utf8toWChar(dest, destSize, src, std::strlen(src)) : nullptr;
 }
 
 template <typename stringType>
@@ -46,10 +46,9 @@ inline char * reverseString(char * string, std::size_t stringLength) {
 
   if (stringLength == 0)
     stringLength = std::strlen(string);
-  if (stringLength != 0) {
-    for (std::size_t i = 0, j = stringLength - 1; i < j; ++i, --j) {
-      std::swap(string[i], string[j]);
-    }
+
+  if (stringLength > 1) {
+    std::reverse(string, string + stringLength);
   }
 
   return string;
