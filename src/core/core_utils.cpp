@@ -89,6 +89,105 @@ divmod10 divModU10(std::uint32_t value) noexcept {
   return res;
 }
 
+/*!
+  \brief Converts a floating-point number to its string representation in a specified precision. The output is always
+         sign-prefixed ('+' or '-') and normalized as "+0.<digits>" or "-0.<digits>".
+
+  This function converts a given floating-point number into its string representation, storing the result in the
+  provided destination buffer. The function rounds the result to the given precision and stores the exponent in the
+  return value.
+
+  \param value     The floating-point number to be converted.
+  \param buffer    The destination buffer where the converted string is stored.
+  \param precision The precision (digits after the decimal point). For IEEE-754 f32, practical precision is ~7–9 digits.
+
+  \return The exponent of the converted number in the given precision. Returns 0xff for zero, subnormals (unsupported),
+          NaN, and INF.
+
+  \note The function assumes that the destination buffer is large enough to hold the converted string. The function does
+        not support subnormals.
+*/
+std::int32_t ftoa32Engine(char * buffer, float value, std::size_t precision) noexcept {
+  const auto uvalue = std::bit_cast<uint32_t>(value);
+  const auto exponent = static_cast<std::uint8_t>(uvalue >> 23);
+  if (exponent == 0) { // don't care about a subnormals
+    buffer[0] = '0';
+    buffer[1] = '\0';
+    return 0xff;
+  }
+
+  char * pointer = buffer;
+  if (uvalue & 0x80000000)
+    *pointer++ = '-';
+  else
+    *pointer++ = '+';
+
+  const std::uint32_t fraction = (uvalue & 0x007FFFFF) | 0x00800000;
+  if (exponent == 0xFF) {
+    if (fraction & 0x007FFFFF) {
+      pointer[0] = 'N';
+      pointer[1] = 'A';
+      pointer[2] = 'N';
+    } else {
+      pointer[0] = 'I';
+      pointer[1] = 'N';
+      pointer[2] = 'F';
+    }
+
+    pointer[3] = '\0';
+
+    return 0xff;
+  }
+
+  *pointer++ = '0';
+
+  std::int32_t exp10 = (((exponent >> 3) * 77 + 63) >> 5) - 38;
+  std::uint32_t t
+    = static_cast<std::uint32_t>((static_cast<std::uint64_t>(fraction << 8) * sc_exponentTable[exponent / 8U]) >> 32)
+      + 1;
+  t >>= (7 - (exponent & 7));
+
+  std::uint8_t digit = t >> 28;
+  while (digit == 0) {
+    t &= 0x0fffffff;
+    t *= 10;
+    digit = t >> 28;
+    --exp10;
+  }
+
+  for (std::size_t iter = precision + 1; iter > 0; --iter) {
+    digit = t >> 28;
+    *pointer++ = digit + '0';
+    t &= 0x0fffffff;
+    t *= 10;
+  }
+
+  // roundup
+  if (buffer[precision + 2] >= '5')
+    buffer[precision + 1]++;
+
+  pointer[-1] = '\0';
+  pointer -= 2;
+
+  for (std::size_t index = precision + 1; index > 1; --index) {
+    if (buffer[index] > '9') {
+      buffer[index] -= 10;
+      ++buffer[index - 1];
+    }
+  }
+
+  // If carry propagated into the integer digit ('0' at buffer[1]), adjust it and bump the exponent.
+  if (buffer[1] > '9') {
+    buffer[1] = '1';
+    ++exp10;
+  }
+
+  while (pointer > buffer + 1 && pointer[0] == '0')
+    *pointer-- = '\0';
+
+  return exp10;
+}
+
 } // namespace
 
 namespace toygine {
@@ -210,105 +309,6 @@ char * itoa(char * dest, std::size_t destSize, std::uint32_t value, unsigned bas
 
 char * itoa(char * dest, std::size_t destSize, std::uint64_t value, unsigned base) {
   return utoaImplementation(dest, destSize, value, base);
-}
-
-/*!
-  \brief Converts a floating-point number to its string representation in a specified precision. The output is always
-         sign-prefixed ('+' or '-') and normalized as "+0.<digits>" or "-0.<digits>".
-
-  This function converts a given floating-point number into its string representation, storing the result in the
-  provided destination buffer. The function rounds the result to the given precision and stores the exponent in the
-  return value.
-
-  \param value     The floating-point number to be converted.
-  \param buffer    The destination buffer where the converted string is stored.
-  \param precision The precision (digits after the decimal point). For IEEE-754 f32, practical precision is ~7–9 digits.
-
-  \return The exponent of the converted number in the given precision. Returns 0xff for zero, subnormals (unsupported),
-          NaN, and INF.
-
-  \note The function assumes that the destination buffer is large enough to hold the converted string. The function does
-        not support subnormals.
-*/
-std::int32_t ftoa32Engine(char * buffer, float value, std::size_t precision) noexcept {
-  const auto uvalue = std::bit_cast<uint32_t>(value);
-  const auto exponent = static_cast<std::uint8_t>(uvalue >> 23);
-  if (exponent == 0) { // don't care about a subnormals
-    buffer[0] = '0';
-    buffer[1] = '\0';
-    return 0xff;
-  }
-
-  char * pointer = buffer;
-  if (uvalue & 0x80000000)
-    *pointer++ = '-';
-  else
-    *pointer++ = '+';
-
-  const std::uint32_t fraction = (uvalue & 0x007FFFFF) | 0x00800000;
-  if (exponent == 0xFF) {
-    if (fraction & 0x007FFFFF) {
-      pointer[0] = 'N';
-      pointer[1] = 'A';
-      pointer[2] = 'N';
-    } else {
-      pointer[0] = 'I';
-      pointer[1] = 'N';
-      pointer[2] = 'F';
-    }
-
-    pointer[3] = '\0';
-
-    return 0xff;
-  }
-
-  *pointer++ = '0';
-
-  std::int32_t exp10 = (((exponent >> 3) * 77 + 63) >> 5) - 38;
-  std::uint32_t t
-    = static_cast<std::uint32_t>((static_cast<std::uint64_t>(fraction << 8) * sc_exponentTable[exponent / 8U]) >> 32)
-      + 1;
-  t >>= (7 - (exponent & 7));
-
-  std::uint8_t digit = t >> 28;
-  while (digit == 0) {
-    t &= 0x0fffffff;
-    t *= 10;
-    digit = t >> 28;
-    --exp10;
-  }
-
-  for (std::size_t iter = precision + 1; iter > 0; --iter) {
-    digit = t >> 28;
-    *pointer++ = digit + '0';
-    t &= 0x0fffffff;
-    t *= 10;
-  }
-
-  // roundup
-  if (buffer[precision + 2] >= '5')
-    buffer[precision + 1]++;
-
-  pointer[-1] = '\0';
-  pointer -= 2;
-
-  for (std::size_t index = precision + 1; index > 1; --index) {
-    if (buffer[index] > '9') {
-      buffer[index] -= 10;
-      ++buffer[index - 1];
-    }
-  }
-
-  // If carry propagated into the integer digit ('0' at buffer[1]), adjust it and bump the exponent.
-  if (buffer[1] > '9') {
-    buffer[1] = '1';
-    ++exp10;
-  }
-
-  while (pointer > buffer + 1 && pointer[0] == '0')
-    *pointer-- = '\0';
-
-  return exp10;
 }
 
 /*!
@@ -451,6 +451,32 @@ void floatPostProcess(char * dest, char * srcBuffer, std::size_t bufferSize, std
   }
 
   *outputPointer = '\0';
+}
+
+char * ftoa(char * dest, std::size_t destSize, float value, std::size_t precision) {
+  assert_message(dest != nullptr && destSize > 0, "The destination buffer must not be null.");
+  if (dest == nullptr || destSize == 0)
+    return dest;
+
+  *dest = '\0';
+  if (destSize == 1)
+    return dest;
+
+  const size_t bufferSize = 128;
+  char buffer[bufferSize + 1];
+
+  auto exp10 = ftoa32Engine(buffer, value, precision);
+  if (exp10 == 0xFF) {
+#ifdef _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES
+    strcpy_s(dest, destSize, buffer);
+#else
+    strncpy(dest, buffer, destSize - 1);
+#endif // _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES
+  } else {
+    floatPostProcess(dest, buffer, bufferSize, exp10, precision);
+  }
+
+  return dest;
 }
 
 } // namespace toygine

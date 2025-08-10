@@ -395,8 +395,9 @@ char * itoa(char * dest, std::size_t destSize, std::uint32_t value, unsigned bas
 */
 char * itoa(char * dest, std::size_t destSize, std::uint64_t value, unsigned base);
 
+char * ftoa(char * dest, std::size_t destSize, float value, std::size_t precision = 6);
+
 /// Temporary ///
-std::int32_t ftoa32Engine(char * buffer, float value, std::size_t precision) noexcept;
 std::int32_t ftoa64Engine(char * buffer, double value, std::size_t precision) noexcept;
 /// Temporary ///
 
