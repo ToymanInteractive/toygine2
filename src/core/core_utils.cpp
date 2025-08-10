@@ -215,19 +215,25 @@ std::int32_t ftoa64Engine(char * buffer, double value, std::size_t precision) no
     return 0x7FF;
   }
 
-  const std::uint64_t fraction = (uvalue & 0x001FFFFFFFFFFFFFULL) | 0x0010000000000000ULL;
   if (exponent == 0x07FF) {
+    char * pointer = buffer;
+    if (uvalue & 0x8000000000000000ULL)
+      *pointer++ = '-';
+    else
+      *pointer++ = '+';
+
+    const std::uint64_t fraction = (uvalue & 0x001FFFFFFFFFFFFFULL) | 0x0010000000000000ULL;
     if (fraction & 0x000FFFFFFFFFFFFFULL) {
-      buffer[0] = 'N';
-      buffer[1] = 'A';
-      buffer[2] = 'N';
+      pointer[0] = 'N';
+      pointer[1] = 'A';
+      pointer[2] = 'N';
     } else {
-      buffer[0] = 'I';
-      buffer[1] = 'N';
-      buffer[2] = 'F';
+      pointer[0] = 'I';
+      pointer[1] = 'N';
+      pointer[2] = 'F';
     }
 
-    buffer[3] = '\0';
+    pointer[3] = '\0';
 
     return 0x7FF;
   }

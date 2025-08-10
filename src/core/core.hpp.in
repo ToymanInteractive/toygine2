@@ -411,7 +411,7 @@ char * itoa(char * dest, std::size_t destSize, std::uint64_t value, unsigned bas
   \note The function assumes that the destination buffer is large enough to hold the converted string. If the
   destination buffer size is 1, only a null terminator is written. The function does not support subnormals.
 */
-char * ftoa(char * dest, std::size_t destSize, float value, std::size_t precision = 6);
+char * ftoa(char * dest, std::size_t destSize, float value, std::size_t precision = 7);
 
 /*!
   \brief Converts a floating-point number to its string representation in a specified precision.
@@ -422,14 +422,15 @@ char * ftoa(char * dest, std::size_t destSize, float value, std::size_t precisio
   \param dest      The destination buffer where the converted string is stored.
   \param destSize  The size of the destination buffer.
   \param value     The floating-point number to be converted.
-  \param precision The precision (digits after the decimal point). For IEEE-754 f32, practical precision is ~7–9 digits.
+  \param precision The precision (digits after the decimal point). For IEEE-754 f64, practical precision is ~15–17
+                   digits.
 
   \return A pointer to the destination buffer containing the converted string.
 
   \note The function assumes that the destination buffer is large enough to hold the converted string. If the
   destination buffer size is 1, only a null terminator is written. The function does not support subnormals.
 */
-char * ftoa(char * dest, std::size_t destSize, double value, std::size_t precision = 6);
+char * ftoa(char * dest, std::size_t destSize, double value, std::size_t precision = 15);
 
 } // namespace toygine
 
