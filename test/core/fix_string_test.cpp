@@ -106,3 +106,32 @@ TEST_CASE("FixString operators=", "[core][fixstring]") {
   CHECK(strcmp(testString4.c_str(), "") == 0);
   CHECK(testString4.size() == 0);
 }
+
+TEST_CASE("FixString operators+=", "[core][fixstring]") {
+  FixString<14> testString1("12");
+  FixString<14> testString2("12");
+  FixString<26> testString3("12");
+  FixString<20> testString4("12");
+  FixString<4> testString5("12");
+
+  testString1 += "test text 1";
+  testString2 += FixString<14>("test text 1");
+  testString3 += FixString<14>("test text 1");
+  testString4 += FixString<26>("test text 1");
+  testString5 += 't';
+
+  CHECK(strcmp(testString1.c_str(), "12test text 1") == 0);
+  CHECK(testString1.size() == 13);
+
+  CHECK(strcmp(testString2.c_str(), "12test text 1") == 0);
+  CHECK(testString2.size() == 13);
+
+  CHECK(strcmp(testString3.c_str(), "12test text 1") == 0);
+  CHECK(testString3.size() == 13);
+
+  CHECK(strcmp(testString4.c_str(), "12test text 1") == 0);
+  CHECK(testString4.size() == 13);
+
+  CHECK(strcmp(testString5.c_str(), "12t") == 0);
+  CHECK(testString5.size() == 3);
+}
