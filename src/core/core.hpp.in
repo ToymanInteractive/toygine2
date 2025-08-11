@@ -506,7 +506,7 @@ public:
     \post A new FixString object is created with the contents of the source FixString object.
   */
   template <std::size_t allocatedSize2>
-  constexpr inline FixString(const FixString<allocatedSize2> & string);
+  constexpr inline explicit FixString(const FixString<allocatedSize2> & string);
 
   /*!
     \brief Constructor for FixString class with a C string.
@@ -535,7 +535,7 @@ public:
 
     \post A new FixString object is created with the contents of the character repeated the given number of times.
   */
-  constexpr inline FixString(char symbol, std::size_t count = 1);
+  constexpr inline explicit FixString(char symbol, std::size_t count = 1);
 
   /*!
     \brief Return a pointer to the C string representation of this FixString object.
@@ -546,15 +546,15 @@ public:
 
     \return A pointer to the C string representation of this FixString object.
   */
-  constexpr inline const char * c_str() const;
+  constexpr inline const char * c_str() const noexcept;
 
   /*!
     \brief Returns the size of the string.
 
     \return The length of the string in characters, excluding the terminating null character.
   */
-  constexpr inline std::size_t size() const;
-
+  constexpr inline std::size_t size() const noexcept;
+private:
   char _data[allocatedSize];
   std::size_t _size;
 };

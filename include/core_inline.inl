@@ -59,19 +59,19 @@ inline char * reverseString(char * string, std::size_t stringLength) {
 //------------------------------------------------------------------------------
 
 template <std::size_t allocatedSize>
-constexpr inline FixString<allocatedSize>::FixString()
+constexpr inline FixString<allocatedSize>::FixString() noexcept
   : _size(0)
   , _data{'\0'} {
   static_assert(allocatedSize > 0, "FixString capacity must be bigger then zero.");
 }
 
 template <std::size_t allocatedSize>
-constexpr inline FixString<allocatedSize>::~FixString() {
+constexpr inline FixString<allocatedSize>::~FixString() noexcept {
   static_assert(allocatedSize > 0, "FixString capacity must be bigger then zero.");
 }
 
 template <std::size_t allocatedSize>
-constexpr inline FixString<allocatedSize>::FixString(const FixString<allocatedSize> & string)
+constexpr inline FixString<allocatedSize>::FixString(const FixString<allocatedSize> & string) noexcept
   : _size(string._size) {
   static_assert(allocatedSize > 0, "FixString capacity must be bigger then zero.");
 
@@ -80,46 +80,53 @@ constexpr inline FixString<allocatedSize>::FixString(const FixString<allocatedSi
 
 template <std::size_t allocatedSize>
 template <std::size_t allocatedSize2>
-constexpr inline FixString<allocatedSize>::FixString(const FixString<allocatedSize2> & string)
+constexpr inline FixString<allocatedSize>::FixString(const FixString<allocatedSize2> & string) noexcept
   : _size(string.size()) {
   static_assert(allocatedSize > 0, "FixString capacity must be bigger then zero.");
   static_assert(allocatedSize2 > 0, "FixString capacity must be bigger then zero.");
   assert(_size < allocatedSize);
 
-  std::memcpy(_data, string.c_str(), _size + 1);
+  if (_size >= allocatedSize)
+    _size = allocatedSize - 1;
+
+  std::memcpy(_data, string.c_str(), _size);
+  _data[_size] = '\0';
 }
 
 template <std::size_t allocatedSize>
-constexpr inline FixString<allocatedSize>::FixString(const char * string)
+constexpr inline FixString<allocatedSize>::FixString(const char * string) noexcept
   : _size(0) {
   static_assert(allocatedSize > 0, "FixString capacity must be bigger then zero.");
   assert(string != nullptr);
 
-  _size = strlen(string);
-  assert(_size < allocatedSize);
-
-  std::memcpy(_data, string, _size + 1);
+  const std::size_t inputLen = string ? std::strlen(string) : 0;
+  _size = inputLen >= allocatedSize ? allocatedSize - 1 : inputLen;
+  std::memcpy(_data, string, _size);
+  _data[_size] = '\0';
 }
 
 template <std::size_t allocatedSize>
-constexpr inline FixString<allocatedSize>::FixString(char symbol, std::size_t count)
+constexpr inline FixString<allocatedSize>::FixString(char symbol, std::size_t count) noexcept
   : _size(count) {
   static_assert(allocatedSize > 0, "FixString capacity must be bigger then zero.");
   assert(count < allocatedSize);
+
+  if (_size >= allocatedSize)
+    _size = allocatedSize - 1;
 
   std::memset(_data, symbol, _size);
   _data[_size] = '\0';
 }
 
 template <std::size_t allocatedSize>
-constexpr inline const char * FixString<allocatedSize>::c_str() const {
+constexpr inline const char * FixString<allocatedSize>::c_str() const noexcept {
   static_assert(allocatedSize > 0, "FixString capacity must be bigger then zero.");
 
   return _data;
 }
 
 template <std::size_t allocatedSize>
-constexpr inline std::size_t FixString<allocatedSize>::size() const {
+constexpr inline std::size_t FixString<allocatedSize>::size() const noexcept {
   static_assert(allocatedSize > 0, "FixString capacity must be bigger then zero.");
 
   return _size;
