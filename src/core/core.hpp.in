@@ -537,6 +537,12 @@ public:
   */
   constexpr inline explicit FixString(char symbol, std::size_t count = 1) noexcept;
 
+  constexpr inline FixString<allocatedSize> & operator=(const FixString<allocatedSize> & string) noexcept;
+  template <size_t allocatedSize2>
+  constexpr inline FixString<allocatedSize> & operator=(const FixString<allocatedSize2> & string) noexcept;
+  constexpr inline FixString<allocatedSize> & operator=(const char * string) noexcept;
+  constexpr inline FixString<allocatedSize> & operator=(char symbol) noexcept;
+
   /*!
     \brief Return a pointer to the C string representation of this FixString object.
 

@@ -50,3 +50,59 @@ TEST_CASE("FixString constructors", "[core][fixstring]") {
   CHECK(strcmp(testString6.c_str(), "tttttttttt") == 0);
   CHECK(testString6.size() == 10);
 }
+
+TEST_CASE("FixString operators=", "[core][fixstring]") {
+  FixString<12> testString1;
+  FixString<12> testString2;
+  FixString<24> testString3;
+  FixString<18> testString4;
+  FixString<2> testString5;
+
+  testString1 = "test text 1";
+  testString2 = testString1;
+  testString3 = testString2;
+  testString4 = testString3;
+  testString5 = 't';
+
+  CHECK(strcmp(testString1.c_str(), "test text 1") == 0);
+  CHECK(testString1.size() == 11);
+
+  CHECK(strcmp(testString2.c_str(), "test text 1") == 0);
+  CHECK(testString2.size() == 11);
+
+  CHECK(strcmp(testString3.c_str(), "test text 1") == 0);
+  CHECK(testString3.size() == 11);
+
+  CHECK(strcmp(testString4.c_str(), "test text 1") == 0);
+  CHECK(testString4.size() == 11);
+
+  CHECK(strcmp(testString5.c_str(), "t") == 0);
+  CHECK(testString5.size() == 1);
+
+  // Self-assignment (same capacity)
+  testString2 = testString2;
+  CHECK(strcmp(testString2.c_str(), "test text 1") == 0);
+  CHECK(testString2.size() == 11);
+
+  // Assign from own c_str() (no-op path)
+  testString3 = testString3.c_str();
+  CHECK(strcmp(testString3.c_str(), "test text 1") == 0);
+  CHECK(testString3.size() == 11);
+
+  testString1 = "";
+  testString2 = FixString<12>("");
+  testString3 = FixString<12>("");
+  testString4 = FixString<24>("");
+
+  CHECK(strcmp(testString1.c_str(), "") == 0);
+  CHECK(testString1.size() == 0);
+
+  CHECK(strcmp(testString2.c_str(), "") == 0);
+  CHECK(testString2.size() == 0);
+
+  CHECK(strcmp(testString3.c_str(), "") == 0);
+  CHECK(testString3.size() == 0);
+
+  CHECK(strcmp(testString4.c_str(), "") == 0);
+  CHECK(testString4.size() == 0);
+}
