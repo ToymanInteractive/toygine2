@@ -24,7 +24,7 @@
 
 using namespace toygine;
 
-TEST_CASE("constructors", "[FixString]") {
+TEST_CASE("FixString constructors", "[core][fixstring]") {
   FixString<12> testString1("test text 1");
   FixString<12> testString2(testString1);
   FixString<24> testString3(testString2);
