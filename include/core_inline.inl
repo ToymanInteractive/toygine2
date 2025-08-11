@@ -120,9 +120,9 @@ constexpr inline FixString<allocatedSize>::FixString(char symbol, std::size_t co
 
 template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator=(
-  const FixString<allocatedSize> & string) {
+  const FixString<allocatedSize> & string) noexcept {
   static_assert(allocatedSize > 0, "FixString capacity must be bigger then zero.");
-  if (_data == string._data)
+  if (this == &string)
     return *this;
 
   _size = string._size;
@@ -134,7 +134,7 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator=(
 template <std::size_t allocatedSize>
 template <std::size_t allocatedSize2>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator=(
-  const FixString<allocatedSize2> & string) {
+  const FixString<allocatedSize2> & string) noexcept {
   static_assert(allocatedSize > 0, "FixString capacity must be bigger then zero.");
   static_assert(allocatedSize2 > 0, "FixString capacity must be bigger then zero.");
   assert(reinterpret_cast<const void *>(this) != reinterpret_cast<const void *>(&string));
@@ -147,7 +147,7 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator=(
 }
 
 template <std::size_t allocatedSize>
-constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator=(const char * string) {
+constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator=(const char * string) noexcept {
   static_assert(allocatedSize > 0, "FixString capacity must be bigger then zero.");
   assert(string != nullptr);
   if (_data == string)
@@ -162,7 +162,7 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator=(
 }
 
 template <std::size_t allocatedSize>
-constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator=(char symbol) {
+constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator=(char symbol) noexcept {
   static_assert(allocatedSize > 0, "FixString capacity must be bigger then zero.");
 
   _size = 1;
