@@ -448,6 +448,117 @@ char * ftoa(char * dest, std::size_t destSize, double value, std::size_t precisi
 */
 void formatNumberString(char * buffer, std::size_t bufferSize, char const * groupingSeparator);
 
+//--------------------------------------------------------------------------------------------------------------------
+
+//! template string of chars, wrapper to char[]
+template <std::size_t allocatedSize>
+class FixString {
+public:
+  /*!
+    \brief Default constructor for FixString class.
+
+    This is the default constructor for the FixString class. It initializes a FixString object with a size of 0 and a
+    null character in the data array.
+
+    \pre The allocated size must be bigger than zero.
+
+    \post The size of the FixString object is set to 0 and the data array contains a null character.
+  */
+  constexpr inline FixString();
+
+  /*!
+    \brief Destructor for the FixString class.
+
+    This destructor cleans up the FixString object. Since FixString does not manage dynamic memory, no special cleanup
+    is required. The destructor ensures that any necessary invariants or assertions related to the allocatedSize are
+    enforced.
+
+    \pre The allocated size must be greater than zero.
+  */
+  constexpr inline ~FixString();
+
+  /*!
+    \brief Copy constructor for FixString class.
+
+    This is the copy constructor for the FixString class. It initializes a FixString object by copying the data from
+    another FixString object.
+
+    \param string The source FixString object to copy data from.
+
+    \pre The allocated size of both FixString objects must be greater than zero.
+
+    \post A new FixString object is created with the contents of the source FixString object.
+  */
+  constexpr inline FixString(const FixString<allocatedSize> & string);
+
+  /*!
+    \brief Constructor for FixString class with different allocated sizes.
+
+    This constructor initializes a FixString object by copying the data from another FixString object with a potentially
+    different allocated size.
+
+    \tparam allocatedSize2 The allocated size of the source FixString object.
+
+    \param string The source FixString object to copy data from.
+
+    \pre The allocated size of both FixString objects must be greater than zero.
+
+    \post A new FixString object is created with the contents of the source FixString object.
+  */
+  template <std::size_t allocatedSize2>
+  constexpr inline FixString(const FixString<allocatedSize2> & string);
+
+  /*!
+    \brief Constructor for FixString class with a C string.
+
+    This constructor initializes a FixString object with a C string.
+
+    \param string The C string to copy data from.
+
+    \pre The allocated size must be bigger than zero.
+
+    \pre The source string must not be null.
+
+    \post A new FixString object is created with the contents of the source string.
+  */
+  constexpr explicit inline FixString(const char * string);
+
+  /*!
+    \brief Constructor for FixString class with a character and a count.
+
+    This constructor initializes a FixString object with a character repeated the given number of times.
+
+    \param x     The character to repeat.
+    \param count The number of times to repeat the character.
+
+    \pre The allocated size must be bigger than zero.
+
+    \post A new FixString object is created with the contents of the character repeated the given number of times.
+  */
+  constexpr inline FixString(char symbol, std::size_t count = 1);
+
+  /*!
+    \brief Return a pointer to the C string representation of this FixString object.
+
+    This function returns a pointer to the C string representation of this FixString object. The returned pointer is
+    valid until the FixString object is modified or destroyed. The returned string is null terminated and can be used
+    with C style string functions.
+
+    \return A pointer to the C string representation of this FixString object.
+  */
+  constexpr inline const char * c_str() const;
+
+  /*!
+    \brief Returns the size of the string.
+
+    \return The length of the string in characters, excluding the terminating null character.
+  */
+  constexpr inline std::size_t size() const;
+
+  char _data[allocatedSize];
+  std::size_t _size;
+};
+
 } // namespace toygine
 
 #include "core_inline.inl"

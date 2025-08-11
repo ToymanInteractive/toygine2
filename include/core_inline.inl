@@ -57,6 +57,74 @@ inline char * reverseString(char * string, std::size_t stringLength) {
 }
 
 //------------------------------------------------------------------------------
+
+template <std::size_t allocatedSize>
+constexpr inline FixString<allocatedSize>::FixString()
+  : _size(0)
+  , _data{'\0'} {
+  static_assert(allocatedSize > 0, "FixString capacity must be bigger then zero.");
+}
+
+template <std::size_t allocatedSize>
+constexpr inline FixString<allocatedSize>::~FixString() {
+  static_assert(allocatedSize > 0, "FixString capacity must be bigger then zero.");
+}
+
+template <std::size_t allocatedSize>
+constexpr inline FixString<allocatedSize>::FixString(const FixString<allocatedSize> & string)
+  : _size(string._size) {
+  static_assert(allocatedSize > 0, "FixString capacity must be bigger then zero.");
+
+  std::memcpy(_data, string._data, _size + 1);
+}
+
+template <std::size_t allocatedSize>
+template <std::size_t allocatedSize2>
+constexpr inline FixString<allocatedSize>::FixString(const FixString<allocatedSize2> & string)
+  : _size(string.size()) {
+  static_assert(allocatedSize > 0, "FixString capacity must be bigger then zero.");
+  static_assert(allocatedSize2 > 0, "FixString capacity must be bigger then zero.");
+  assert(_size < allocatedSize);
+
+  std::memcpy(_data, string.c_str(), _size + 1);
+}
+
+template <std::size_t allocatedSize>
+constexpr inline FixString<allocatedSize>::FixString(const char * string)
+  : _size(0) {
+  static_assert(allocatedSize > 0, "FixString capacity must be bigger then zero.");
+  assert(string != nullptr);
+
+  _size = strlen(string);
+  assert(_size < allocatedSize);
+
+  std::memcpy(_data, string, _size + 1);
+}
+
+template <std::size_t allocatedSize>
+constexpr inline FixString<allocatedSize>::FixString(char x, std::size_t count)
+  : _size(count) {
+  static_assert(allocatedSize > 0, "FixString capacity must be bigger then zero.");
+  assert(count < allocatedSize);
+
+  std::memset(_data, x, _size);
+  _data[_size] = '\0';
+}
+
+template <std::size_t allocatedSize>
+constexpr inline const char * FixString<allocatedSize>::c_str() const {
+  static_assert(allocatedSize > 0, "FixString capacity must be bigger then zero.");
+
+  return _data;
+}
+
+template <std::size_t allocatedSize>
+constexpr inline std::size_t FixString<allocatedSize>::size() const {
+  static_assert(allocatedSize > 0, "FixString capacity must be bigger then zero.");
+
+  return _size;
+}
+
 } // namespace toygine
 
 #endif // INCLUDE_CORE_INLINE_INL_
