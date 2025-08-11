@@ -119,6 +119,60 @@ constexpr inline FixString<allocatedSize>::FixString(char symbol, std::size_t co
 }
 
 template <std::size_t allocatedSize>
+constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator=(
+  const FixString<allocatedSize> & string) {
+  static_assert(allocatedSize > 0, "FixString capacity must be bigger then zero.");
+  if (_data == string._data)
+    return *this;
+
+  _size = string._size;
+  std::memcpy(_data, string._data, _size + 1);
+
+  return *this;
+}
+
+template <std::size_t allocatedSize>
+template <std::size_t allocatedSize2>
+constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator=(
+  const FixString<allocatedSize2> & string) {
+  static_assert(allocatedSize > 0, "FixString capacity must be bigger then zero.");
+  static_assert(allocatedSize2 > 0, "FixString capacity must be bigger then zero.");
+  assert(reinterpret_cast<const void *>(this) != reinterpret_cast<const void *>(&string));
+  assert(string.size() < allocatedSize);
+
+  _size = string.size();
+  memcpy(_data, string.c_str(), _size + 1);
+
+  return *this;
+}
+
+template <std::size_t allocatedSize>
+constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator=(const char * string) {
+  static_assert(allocatedSize > 0, "FixString capacity must be bigger then zero.");
+  assert(string != nullptr);
+  if (_data == string)
+    return *this;
+
+  _size = std::strlen(string);
+  assert(_size < allocatedSize);
+
+  memcpy(_data, string, _size + 1);
+
+  return *this;
+}
+
+template <std::size_t allocatedSize>
+constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator=(char symbol) {
+  static_assert(allocatedSize > 0, "FixString capacity must be bigger then zero.");
+
+  _size = 1;
+  _data[0] = symbol;
+  _data[1] = '\0';
+
+  return *this;
+}
+
+template <std::size_t allocatedSize>
 constexpr inline const char * FixString<allocatedSize>::c_str() const noexcept {
   static_assert(allocatedSize > 0, "FixString capacity must be bigger then zero.");
 
