@@ -464,7 +464,7 @@ public:
 
     \post The size of the FixString object is set to 0 and the data array contains a null character.
   */
-  constexpr inline FixString();
+  constexpr inline FixString() noexcept;
 
   /*!
     \brief Destructor for the FixString class.
@@ -475,7 +475,7 @@ public:
 
     \pre The allocated size must be greater than zero.
   */
-  constexpr inline ~FixString();
+  constexpr inline ~FixString() noexcept;
 
   /*!
     \brief Copy constructor for FixString class.
@@ -489,7 +489,7 @@ public:
 
     \post A new FixString object is created with the contents of the source FixString object.
   */
-  constexpr inline FixString(const FixString<allocatedSize> & string);
+  constexpr inline FixString(const FixString<allocatedSize> & string) noexcept;
 
   /*!
     \brief Constructor for FixString class with different allocated sizes.
@@ -506,7 +506,7 @@ public:
     \post A new FixString object is created with the contents of the source FixString object.
   */
   template <std::size_t allocatedSize2>
-  constexpr inline explicit FixString(const FixString<allocatedSize2> & string);
+  constexpr inline explicit FixString(const FixString<allocatedSize2> & string) noexcept;
 
   /*!
     \brief Constructor for FixString class with a C string.
@@ -521,7 +521,7 @@ public:
 
     \post A new FixString object is created with the contents of the source string.
   */
-  constexpr explicit inline FixString(const char * string);
+  constexpr explicit inline FixString(const char * string) noexcept;
 
   /*!
     \brief Constructor for FixString class with a character and a count.
@@ -535,7 +535,7 @@ public:
 
     \post A new FixString object is created with the contents of the character repeated the given number of times.
   */
-  constexpr inline explicit FixString(char symbol, std::size_t count = 1);
+  constexpr inline explicit FixString(char symbol, std::size_t count = 1) noexcept;
 
   /*!
     \brief Return a pointer to the C string representation of this FixString object.
