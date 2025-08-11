@@ -175,7 +175,7 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator=(
 template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator+=(
   const FixString<allocatedSize> & string) noexcept {
-  static_assert(allocatedSize > 0, "FixString capacity must be greater then zero.");
+  static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");
   assert(_size + string._size < allocatedSize);
 
   std::memcpy(_data + _size, string._data, string._size + 1);
@@ -188,8 +188,8 @@ template <std::size_t allocatedSize>
 template <std::size_t allocatedSize2>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator+=(
   const FixString<allocatedSize2> & string) noexcept {
-  static_assert(allocatedSize > 0, "FixString capacity must be greater then zero.");
-  static_assert(allocatedSize2 > 0, "FixString capacity must be greater then zero.");
+  static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");
+  static_assert(allocatedSize2 > 0, "FixString capacity must be greater than zero.");
   assert(_size + string.size() < allocatedSize);
 
   std::memcpy(_data + _size, string.c_str(), string.size() + 1);
@@ -200,13 +200,13 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator+=
 
 template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator+=(const char * string) noexcept {
-  static_assert(allocatedSize > 0, "FixString capacity must be greater then zero.");
+  static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");
   assert(string != nullptr);
 
   const auto stringSize = std::strlen(string);
   assert(_size + stringSize < allocatedSize);
 
-  memcpy(_data + _size, string, stringSize + 1);
+  std::memcpy(_data + _size, string, stringSize + 1);
   _size += stringSize;
 
   return *this;
@@ -214,7 +214,7 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator+=
 
 template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator+=(char symbol) noexcept {
-  static_assert(allocatedSize > 0, "FixString capacity must be greater then zero.");
+  static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");
   assert(_size + 1 < allocatedSize);
 
   _data[_size++] = symbol;
