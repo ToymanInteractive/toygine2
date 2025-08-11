@@ -102,12 +102,12 @@ constexpr inline FixString<allocatedSize>::FixString(const char * string)
 }
 
 template <std::size_t allocatedSize>
-constexpr inline FixString<allocatedSize>::FixString(char x, std::size_t count)
+constexpr inline FixString<allocatedSize>::FixString(char symbol, std::size_t count)
   : _size(count) {
   static_assert(allocatedSize > 0, "FixString capacity must be bigger then zero.");
   assert(count < allocatedSize);
 
-  std::memset(_data, x, _size);
+  std::memset(_data, symbol, _size);
   _data[_size] = '\0';
 }
 

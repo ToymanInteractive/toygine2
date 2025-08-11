@@ -528,8 +528,8 @@ public:
 
     This constructor initializes a FixString object with a character repeated the given number of times.
 
-    \param x     The character to repeat.
-    \param count The number of times to repeat the character.
+    \param symbol The character to repeat.
+    \param count  The number of times to repeat the character.
 
     \pre The allocated size must be bigger than zero.
 
