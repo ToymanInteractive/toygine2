@@ -107,7 +107,10 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
   set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO     "-fsanitize=address -fsanitize=alignment -fsanitize=bool -fsanitize=builtin -fsanitize=bounds -fsanitize=enum -fsanitize=float-cast-overflow -fsanitize=float-divide-by-zero -fsanitize=function -fsanitize=nonnull-attribute -fsanitize=null -fsanitize=objc-cast -fsanitize=object-size -fsanitize=pointer-overflow -fsanitize=return -fsanitize=returns-nonnull-attribute -fsanitize=unsigned-shift-base -fsanitize=unreachable -fsanitize=vla-bound -fsanitize=vptr -fsanitize=integer -fsanitize=nullability")
   set(CMAKE_EXE_LINKER_FLAGS_RELEASE            "")
 
-# stop on https://releases.llvm.org/17.0.1/tools/clang/docs/UsersManual.html#cmdoption-fforce-emit-vtables
+# Index                           https://releases.llvm.org/17.0.1/tools/clang/docs/index.html
+# Command line argument reference https://releases.llvm.org/17.0.1/tools/clang/docs/ClangCommandLineReference.html
+# Diagnostic flags                https://releases.llvm.org/17.0.1/tools/clang/docs/DiagnosticsReference.html
+# Compiler User’s Manual          https://releases.llvm.org/17.0.1/tools/clang/docs/UsersManual.html
 # разобраться с sanitize
 
 else ()
