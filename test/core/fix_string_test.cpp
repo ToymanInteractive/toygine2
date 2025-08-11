@@ -79,6 +79,15 @@ TEST_CASE("FixString operators=", "[core][fixstring]") {
   CHECK(strcmp(testString5.c_str(), "t") == 0);
   CHECK(testString5.size() == 1);
 
+  // Self-assignment (same capacity)
+  testString2 = testString2;
+  CHECK(strcmp(testString2.c_str(), "test text 1") == 0);
+  CHECK(testString2.size() == 11);
+
+  // Assign from own c_str() (no-op path)
+  testString3 = testString3.c_str();
+  CHECK(strcmp(testString3.c_str(), "test text 1") == 0);
+  CHECK(testString3.size() == 11);
 
   testString1 = "";
   testString2 = FixString<12>("");
