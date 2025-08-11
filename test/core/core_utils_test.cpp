@@ -56,7 +56,7 @@ static constexpr std::array<const char *, 16> asciiArray{{"0", "0", "1e+7", "-1e
                                                           "-4200", "42", "-42", "0.042", "-0.042", "0.000042",
                                                           "-0.000042", "4.2e-7", "-4.2e-7"}};
 
-TEST_CASE("returns the size of an array", "[ArraySize]") {
+TEST_CASE("ArraySize returns the size of an array", "[core][utils]") {
   const bool boolArray[] = {true, false};
   const int intArray[] = {1, 2, 3};
   const double doubleArray[] = {1.0, 2.0, 3.0, 4.0};
@@ -70,7 +70,7 @@ TEST_CASE("returns the size of an array", "[ArraySize]") {
   CHECK(ArraySize(stringArray) == 6);
 }
 
-TEST_CASE("converts a Unicode UTF-8 encoded string to a wide character string", "[utf8toWChar]") {
+TEST_CASE("utf8toWChar converts a Unicode UTF-8 encoded string to a wide character string", "[core][utils]") {
   wchar_t testBuffer[utf8Text.size()];
   constexpr auto testBufferSize = ArraySize(testBuffer);
 
@@ -100,7 +100,7 @@ TEST_CASE("converts a Unicode UTF-8 encoded string to a wide character string", 
   CHECK(utf8toWChar(nullptr, 10, "test", 4) == nullptr);
 }
 
-TEST_CASE("converts a Unicode wide character string to a UTF-8 encoded string", "[wcharToUtf8]") {
+TEST_CASE("wcharToUtf8 converts a Unicode wide character string to a UTF-8 encoded string", "[core][utils]") {
   char testBuffer[unicodeText.size() * wcharInUtf8MaxSize];
   constexpr auto testBufferSize = ArraySize(testBuffer);
 
@@ -126,7 +126,7 @@ TEST_CASE("converts a Unicode wide character string to a UTF-8 encoded string", 
   CHECK(wcharToUtf8(nullptr, 10, L"test") == nullptr);
 }
 
-TEST_CASE("returns the number of Unicode characters in a UTF-8 encoded string", "[utf8len]") {
+TEST_CASE("utf8len returns the number of Unicode characters in a UTF-8 encoded string", "[core][utils]") {
   static const char * s_utf8Text = "Hello World!";
   static const char * s_emptyText = "";
 
@@ -139,7 +139,7 @@ TEST_CASE("returns the number of Unicode characters in a UTF-8 encoded string", 
   CHECK(wcslen(unicodeText.data()) == utf8len(utf8String));
 }
 
-TEST_CASE("reverses a given string in-place", "[reverseString]") {
+TEST_CASE("reverseString reverses a given string in-place", "[core][utils]") {
   char reverseBuffer[utf8Text.size()];
 
   const char * utf8String = reinterpret_cast<const char *>(utf8Text.data());
@@ -162,7 +162,7 @@ TEST_CASE("reverses a given string in-place", "[reverseString]") {
   CHECK(strcmp(utf8String, reverseBuffer) == 0);
 }
 
-TEST_CASE("converts an integer value to a string representation.", "[itoa]") {
+TEST_CASE("itoa converts an integer value to a string representation.", "[core][utils]") {
   char buffer[80];
 
   CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::int8_t>::max()), "127") == 0);
@@ -217,7 +217,8 @@ TEST_CASE("converts an integer value to a string representation.", "[itoa]") {
         == 0);
 }
 
-TEST_CASE("converts a floating-point number to its string representation in a specified precision", "[ftoa]") {
+TEST_CASE("ftoa converts a floating-point number to its string representation in a specified precision",
+          "[core][utils]") {
   char buffer[32];
 
   CHECK(strcmp(ftoa(buffer, ArraySize(buffer), 3.1415926535897932384626433832795f), "3.141592") == 0);
@@ -244,7 +245,7 @@ TEST_CASE("converts a floating-point number to its string representation in a sp
   }
 }
 
-TEST_CASE("format number string", "[formatNumberString]") {
+TEST_CASE("formatNumberString format number string", "[core][utils]") {
   static constexpr std::array<const char *, 12> numbers{
     {"-256192.12", "32", "4192", "+2561921.2", "1", "12", "123", "12345678", "-1234567890", "+0", "-0", "0.0"}};
   static constexpr std::array<const char *, 12> parsedNumbers{{"-256 192.12", "32", "4 192", "+2 561 921.2", "1", "12",
