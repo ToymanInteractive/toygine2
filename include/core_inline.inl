@@ -173,7 +173,7 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator=(
 }
 
 template <std::size_t allocatedSize>
-constexpr inline const FixString<allocatedSize> & FixString<allocatedSize>::assign(
+constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::assign(
   const FixString<allocatedSize> & string) noexcept {
   static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");
   if (this == &string)
@@ -187,7 +187,7 @@ constexpr inline const FixString<allocatedSize> & FixString<allocatedSize>::assi
 
 template <std::size_t allocatedSize>
 template <std::size_t allocatedSize2>
-constexpr inline const FixString<allocatedSize> & FixString<allocatedSize>::assign(
+constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::assign(
   const FixString<allocatedSize2> & string) noexcept {
   static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");
   static_assert(allocatedSize2 > 0, "FixString capacity must be greater than zero.");
@@ -201,7 +201,7 @@ constexpr inline const FixString<allocatedSize> & FixString<allocatedSize>::assi
 }
 
 template <std::size_t allocatedSize>
-constexpr inline const FixString<allocatedSize> & FixString<allocatedSize>::assign(const char * string) noexcept {
+constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::assign(const char * string) noexcept {
   static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");
   assert(string != nullptr);
   if (_data == string)
@@ -216,8 +216,7 @@ constexpr inline const FixString<allocatedSize> & FixString<allocatedSize>::assi
 }
 
 template <std::size_t allocatedSize>
-constexpr inline const FixString<allocatedSize> & FixString<allocatedSize>::assign(char symbol,
-                                                                                   std::size_t count) noexcept {
+constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::assign(char symbol, std::size_t count) noexcept {
   static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");
   assert(count < allocatedSize);
 
