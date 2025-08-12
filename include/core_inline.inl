@@ -224,6 +224,59 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator+=
 }
 
 template <std::size_t allocatedSize>
+constexpr inline FixString<allocatedSize> FixString<allocatedSize>::operator+(
+  const FixString<allocatedSize> & string) const noexcept {
+  static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");
+  assert(_size + string._size < allocatedSize);
+
+  FixString<allocatedSize> value(*this);
+
+  value += string;
+
+  return value;
+}
+
+template <std::size_t allocatedSize>
+template <std::size_t allocatedSize2>
+constexpr inline FixString<allocatedSize> FixString<allocatedSize>::operator+(
+  const FixString<allocatedSize2> & string) const noexcept {
+  static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");
+  static_assert(allocatedSize2 > 0, "FixString capacity must be greater than zero.");
+  assert(_size + string.size() < allocatedSize);
+
+  FixString<allocatedSize> value(*this);
+
+  value += string;
+
+  return value;
+}
+
+template <std::size_t allocatedSize>
+constexpr inline FixString<allocatedSize> FixString<allocatedSize>::operator+(const char * string) const noexcept {
+  static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");
+  assert(string != nullptr);
+  assert(_size + std::strlen(string) < allocatedSize);
+
+  FixString<allocatedSize> value(*this);
+
+  value += string;
+
+  return value;
+}
+
+template <std::size_t allocatedSize>
+constexpr inline FixString<allocatedSize> FixString<allocatedSize>::operator+(char symbol) const noexcept {
+  static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");
+  assert(_size + 1 < allocatedSize);
+
+  FixString<allocatedSize> value(*this);
+
+  value += symbol;
+
+  return value;
+}
+
+template <std::size_t allocatedSize>
 constexpr inline const char * FixString<allocatedSize>::c_str() const noexcept {
   static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");
 

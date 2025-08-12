@@ -550,6 +550,77 @@ public:
   constexpr inline FixString<allocatedSize> & operator+=(char symbol) noexcept;
 
   /*!
+    \brief Concatenates two FixString objects and returns the result.
+
+    This operator creates a new FixString object by concatenating the current FixString object with another provided
+    FixString object. The resulting FixString will contain the contents of both strings, and its size will be the sum of
+    the sizes of the two operands.
+
+    \param string The FixString object to concatenate with the current FixString object.
+
+    \return A new FixString object representing the concatenation of the current FixString and the provided FixString
+            object.
+
+    \pre The sum of the sizes of the two FixString objects must be less than the allocated size.
+    \pre The allocated size of both FixString objects must be greater than zero.
+
+    \post A new FixString object is created with the contents of both FixString objects.
+  */
+  constexpr inline FixString<allocatedSize> operator+(const FixString<allocatedSize> & string) const noexcept;
+
+  /*!
+    \brief Concatenates two FixString objects and returns the result.
+
+    This operator creates a new FixString object by concatenating the current FixString object with another provided
+    FixString object. The resulting FixString will contain the contents of both strings, and its size will be the sum of
+    the sizes of the two operands.
+
+    \param string The FixString object to concatenate with the current FixString object.
+
+    \return A new FixString object representing the concatenation of the current FixString and the provided FixString
+            object.
+
+    \pre The sum of the sizes of the two FixString objects must be less than the allocated size.
+    \pre The allocated size of both FixString objects must be greater than zero.
+
+    \post A new FixString object is created with the contents of both FixString objects.
+  */
+  template <std::size_t allocatedSize2>
+  constexpr inline FixString<allocatedSize> operator+(const FixString<allocatedSize2> & string) const noexcept;
+
+  /*!
+    \brief Concatenates two strings and returns the result.
+
+    This operator creates a new FixString object by concatenating the current FixString object with a C string. The
+    resulting FixString will contain the contents of both strings, and its size will be the sum of the sizes of the two
+    operands.
+
+    \param string The C string to concatenate with the current FixString object.
+
+    \return A new FixString object representing the concatenation of the current FixString and the provided C string.
+
+    \pre The sum of the sizes of the two strings must be less than the allocated size.
+    \pre The allocated size must be greater than zero.
+
+    \post A new FixString object is created with the contents of both strings.
+  */
+  constexpr inline FixString<allocatedSize> operator+(const char * string) const noexcept;
+
+  /*!
+    \brief Concatenates this FixString object with a character.
+
+    This operator adds a character to the end of the FixString object and returns the new FixString object.
+
+    \param symbol The character to add to the end of the FixString object.
+
+    \pre The allocated size of the FixString object must be greater than zero.
+    \pre The size of the FixString object plus one must be less than the allocated size.
+
+    \post A new FixString object is created with the contents of the original FixString object plus the given character.
+  */
+  constexpr inline FixString<allocatedSize> operator+(char symbol) const noexcept;
+
+  /*!
     \brief Return a pointer to the C string representation of this FixString object.
 
     This function returns a pointer to the C string representation of this FixString object. The returned pointer is
