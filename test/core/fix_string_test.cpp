@@ -180,4 +180,7 @@ TEST_CASE("FixString operators[]", "[core][fixstring]") {
 
   CHECK(testString1[1] == 'f');
   CHECK(testString2[1] == 'c');
+
+  CHECK(testString1.size() == 4);
+  CHECK(strcmp(testString2.c_str(), "dcba") == 0);
 }

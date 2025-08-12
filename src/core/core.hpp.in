@@ -633,7 +633,7 @@ public:
 
     \post The character at the specified offset is returned.
   */
-  constexpr inline char operator[](std::size_t offset) const noexcept;
+  constexpr inline const char & operator[](std::size_t offset) const noexcept;
 
   /*!
     \brief Return a pointer to the C string representation of this FixString object.
