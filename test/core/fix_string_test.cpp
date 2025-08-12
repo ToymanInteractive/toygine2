@@ -137,28 +137,25 @@ TEST_CASE("FixString operators+=", "[core][fixstring]") {
 }
 
 TEST_CASE("FixString operators+", "[core][fixstring]") {
-  FixString<14> testString1 = FixString<14>("12") + "test text 1";
-  FixString<14> testString2 = FixString<14>("12") + FixString<14>("test text 1");
-  FixString<20> testString3 = FixString<20>("12") + FixString<14>("test text 1");
-  FixString<20> testString4 = FixString<20>("12") + FixString<26>("test text 1");
-  FixString<4> testString5 = FixString<4>("12") + 't';
-  FixString<8> testString6 = FixString<8>("a") + "b" + 'c';
-  FixString<8> testString7 = testString6 + testString6;
+  const auto testString1 = FixString<14>("12") + "test text 1";
+  const auto testString2 = FixString<14>("12") + FixString<14>("test text 2");
+  const auto testString3 = FixString<20>("12") + FixString<14>("test text 3");
+  const auto testString4 = FixString<20>("12") + FixString<26>("test text 4");
+  const auto testString5 = FixString<4>("12") + 't';
+  const auto testString6 = FixString<8>("a") + "b" + 'c';
+  const auto testString7 = testString6 + testString6;
 
   CHECK(strcmp(testString1.c_str(), "12test text 1") == 0);
   CHECK(testString1.size() == 13);
 
-  CHECK(strcmp(testString2.c_str(), "12test text 1") == 0);
+  CHECK(strcmp(testString2.c_str(), "12test text 2") == 0);
   CHECK(testString2.size() == 13);
 
-  CHECK(strcmp(testString3.c_str(), "12test text 1") == 0);
+  CHECK(strcmp(testString3.c_str(), "12test text 3") == 0);
   CHECK(testString3.size() == 13);
 
-  CHECK(strcmp(testString4.c_str(), "12test text 1") == 0);
+  CHECK(strcmp(testString4.c_str(), "12test text 4") == 0);
   CHECK(testString4.size() == 13);
-
-  CHECK(strcmp(testString5.c_str(), "12t") == 0);
-  CHECK(testString5.size() == 3);
 
   CHECK(strcmp(testString5.c_str(), "12t") == 0);
   CHECK(testString5.size() == 3);
@@ -168,4 +165,48 @@ TEST_CASE("FixString operators+", "[core][fixstring]") {
 
   CHECK(strcmp(testString7.c_str(), "abcabc") == 0);
   CHECK(testString7.size() == 6);
+}
+
+TEST_CASE("FixString operators[]", "[core][fixstring]") {
+  auto testString1 = FixString<8>("abcd");
+  const auto testString2 = FixString<8>("dcba");
+
+  testString1[0] = 'e';
+  testString1[1] = 'f';
+  testString1[2] = 'g';
+  testString1[3] = 'h';
+
+  CHECK(strcmp(testString1.c_str(), "efgh") == 0);
+
+  auto & ref = testString1[2];
+  ref = 'Z';
+  CHECK(testString1[2] == 'Z');
+
+  CHECK(testString1[1] == 'f');
+  CHECK(testString2[1] == 'c');
+
+  CHECK(testString1.size() == 4);
+  CHECK(strcmp(testString2.c_str(), "dcba") == 0);
+}
+
+TEST_CASE("FixString at", "[core][fixstring]") {
+  auto testString1 = FixString<8>("abcd");
+  const auto testString2 = FixString<8>("dcba");
+
+  testString1.at(0) = 'e';
+  testString1.at(1) = 'f';
+  testString1.at(2) = 'g';
+  testString1.at(3) = 'h';
+
+  CHECK(strcmp(testString1.c_str(), "efgh") == 0);
+
+  auto & ref = testString1.at(2);
+  ref = 'Z';
+  CHECK(testString1.at(2) == 'Z');
+
+  CHECK(testString1.at(1) == 'f');
+  CHECK(testString2.at(1) == 'c');
+
+  CHECK(testString1.size() == 4);
+  CHECK(strcmp(testString2.c_str(), "dcba") == 0);
 }
