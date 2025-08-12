@@ -229,11 +229,9 @@ constexpr inline FixString<allocatedSize> FixString<allocatedSize>::operator+(
   static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");
   assert(_size + string._size < allocatedSize);
 
-  FixString<allocatedSize> value;
+  FixString<allocatedSize> value(*this);
 
-  value._size = _size + string._size;
-  std::memcpy(value._data, _data, _size);
-  std::memcpy(value._data + _size, string._data, string._size + 1);
+  value += string;
 
   return value;
 }
@@ -246,11 +244,9 @@ constexpr inline FixString<allocatedSize> FixString<allocatedSize>::operator+(
   static_assert(allocatedSize2 > 0, "FixString capacity must be greater than zero.");
   assert(_size + string.size() < allocatedSize);
 
-  FixString<allocatedSize> value;
+  FixString<allocatedSize> value(*this);
 
-  value._size = _size + string.size();
-  std::memcpy(value._data, _data, _size);
-  std::memcpy(value._data + _size, string.c_str(), string.size() + 1);
+  value += string;
 
   return value;
 }
@@ -261,11 +257,9 @@ constexpr inline FixString<allocatedSize> FixString<allocatedSize>::operator+(co
   assert(string != nullptr);
   assert(_size + std::strlen(string) < allocatedSize);
 
-  FixString<allocatedSize> value;
+  FixString<allocatedSize> value(*this);
 
-  value._size = _size + std::strlen(string);
-  std::memcpy(value._data, _data, _size);
-  std::memcpy(value._data + _size, string, value._size - _size + 1);
+  value += string;
 
   return value;
 }
@@ -275,12 +269,9 @@ constexpr inline FixString<allocatedSize> FixString<allocatedSize>::operator+(ch
   static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");
   assert(_size + 1 < allocatedSize);
 
-  FixString<allocatedSize> value;
+  FixString<allocatedSize> value(*this);
 
-  value._size = _size + 1;
-  std::memcpy(value._data, _data, _size);
-  value._data[_size] = symbol;
-  value._data[_size + 1] = '\0';
+  value += symbol;
 
   return value;
 }
