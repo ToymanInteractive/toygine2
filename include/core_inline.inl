@@ -230,9 +230,7 @@ constexpr inline FixString<allocatedSize> FixString<allocatedSize>::operator+(
   assert(_size + string._size < allocatedSize);
 
   FixString<allocatedSize> value(*this);
-
   value += string;
-
   return value;
 }
 
@@ -245,9 +243,7 @@ constexpr inline FixString<allocatedSize> FixString<allocatedSize>::operator+(
   assert(_size + string.size() < allocatedSize);
 
   FixString<allocatedSize> value(*this);
-
   value += string;
-
   return value;
 }
 
@@ -255,24 +251,18 @@ template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize> FixString<allocatedSize>::operator+(const char * string) const noexcept {
   static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");
   assert(string != nullptr);
-  assert(_size + std::strlen(string) < allocatedSize);
 
   FixString<allocatedSize> value(*this);
-
   value += string;
-
   return value;
 }
 
 template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize> FixString<allocatedSize>::operator+(char symbol) const noexcept {
   static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");
-  assert(_size + 1 < allocatedSize);
 
   FixString<allocatedSize> value(*this);
-
   value += symbol;
-
   return value;
 }
 
