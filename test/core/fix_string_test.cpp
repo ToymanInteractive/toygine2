@@ -178,8 +178,34 @@ TEST_CASE("FixString operators[]", "[core][fixstring]") {
 
   CHECK(strcmp(testString1.c_str(), "efgh") == 0);
 
+  auto & ref = testString1[2];
+  ref = 'Z';
+  CHECK(testString1[2] == 'Z');
+
   CHECK(testString1[1] == 'f');
   CHECK(testString2[1] == 'c');
+
+  CHECK(testString1.size() == 4);
+  CHECK(strcmp(testString2.c_str(), "dcba") == 0);
+}
+
+TEST_CASE("FixString at", "[core][fixstring]") {
+  auto testString1 = FixString<8>("abcd");
+  const auto testString2 = FixString<8>("dcba");
+
+  testString1.at(0) = 'e';
+  testString1.at(1) = 'f';
+  testString1.at(2) = 'g';
+  testString1.at(3) = 'h';
+
+  CHECK(strcmp(testString1.c_str(), "efgh") == 0);
+
+  auto & ref = testString1.at(2);
+  ref = 'Z';
+  CHECK(testString1.at(2) == 'Z');
+
+  CHECK(testString1.at(1) == 'f');
+  CHECK(testString2.at(1) == 'c');
 
   CHECK(testString1.size() == 4);
   CHECK(strcmp(testString2.c_str(), "dcba") == 0);

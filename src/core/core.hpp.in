@@ -635,6 +635,9 @@ public:
   */
   constexpr inline const char & operator[](std::size_t offset) const noexcept;
 
+  constexpr inline char & at(std::size_t offset) noexcept;
+  constexpr inline const char & at(std::size_t offset) const noexcept;
+
   /*!
     \brief Return a pointer to the C string representation of this FixString object.
 
