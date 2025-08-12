@@ -277,6 +277,22 @@ constexpr inline FixString<allocatedSize> FixString<allocatedSize>::operator+(ch
 }
 
 template <std::size_t allocatedSize>
+constexpr inline char & FixString<allocatedSize>::operator[](std::size_t offset) noexcept {
+  static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");
+  assert(offset < _size);
+
+  return _data[offset];
+}
+
+template <std::size_t allocatedSize>
+constexpr inline char FixString<allocatedSize>::operator[](std::size_t offset) const noexcept {
+  static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");
+  assert(offset < _size);
+
+  return _data[offset];
+}
+
+template <std::size_t allocatedSize>
 constexpr inline const char * FixString<allocatedSize>::c_str() const noexcept {
   static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");
 

@@ -620,6 +620,21 @@ public:
   */
   constexpr inline FixString<allocatedSize> operator+(char symbol) const noexcept;
 
+  constexpr inline char & operator[](std::size_t offset) noexcept;
+
+  /*!
+    \brief Access a character in the string at a given offset.
+
+    \param offset The offset of the character to access in the string.
+
+    \return The character at the specified offset.
+
+    \pre The offset must be within the bounds of the string.
+
+    \post The character at the specified offset is returned.
+  */
+  constexpr inline char operator[](std::size_t offset) const noexcept;
+
   /*!
     \brief Return a pointer to the C string representation of this FixString object.
 

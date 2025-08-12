@@ -137,13 +137,13 @@ TEST_CASE("FixString operators+=", "[core][fixstring]") {
 }
 
 TEST_CASE("FixString operators+", "[core][fixstring]") {
-  FixString<14> testString1 = FixString<14>("12") + "test text 1";
-  FixString<14> testString2 = FixString<14>("12") + FixString<14>("test text 1");
-  FixString<20> testString3 = FixString<20>("12") + FixString<14>("test text 1");
-  FixString<20> testString4 = FixString<20>("12") + FixString<26>("test text 1");
-  FixString<4> testString5 = FixString<4>("12") + 't';
-  FixString<8> testString6 = FixString<8>("a") + "b" + 'c';
-  FixString<8> testString7 = testString6 + testString6;
+  const auto testString1 = FixString<14>("12") + "test text 1";
+  const auto testString2 = FixString<14>("12") + FixString<14>("test text 1");
+  const auto testString3 = FixString<20>("12") + FixString<14>("test text 1");
+  const auto testString4 = FixString<20>("12") + FixString<26>("test text 1");
+  const auto testString5 = FixString<4>("12") + 't';
+  const auto testString6 = FixString<8>("a") + "b" + 'c';
+  const auto testString7 = testString6 + testString6;
 
   CHECK(strcmp(testString1.c_str(), "12test text 1") == 0);
   CHECK(testString1.size() == 13);
@@ -168,4 +168,19 @@ TEST_CASE("FixString operators+", "[core][fixstring]") {
 
   CHECK(strcmp(testString7.c_str(), "abcabc") == 0);
   CHECK(testString7.size() == 6);
+}
+
+TEST_CASE("FixString operators[]", "[core][fixstring]") {
+  auto testString1 = FixString<8>("abcd");
+  const auto testString2 = FixString<8>("dcba");
+
+  testString1[0] = 'e';
+  testString1[1] = 'f';
+  testString1[2] = 'g';
+  testString1[3] = 'h';
+
+  CHECK(strcmp(testString1.c_str(), "efgh") == 0);
+
+  CHECK(testString1[1] == 'f');
+  CHECK(testString2[1] == 'c');
 }
