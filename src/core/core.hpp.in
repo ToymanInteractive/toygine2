@@ -540,7 +540,8 @@ public:
   /*!
     \brief Copy assignment operator for FixString class.
 
-    This operator assigns the contents of another FixString object with the same allocated size to this FixString object.
+    This operator assigns the contents of another FixString object with the same allocated size to this FixString
+    object.
 
     \param string The source FixString object to copy data from.
 
@@ -556,7 +557,8 @@ public:
   /*!
     \brief Template assignment operator for FixString class with different allocated sizes.
 
-    This operator assigns the contents of another FixString object with a potentially different allocated size to this FixString object.
+    This operator assigns the contents of another FixString object with a potentially different allocated size to this
+    FixString object.
 
     \tparam allocatedSize2 The allocated size of the source FixString object.
 
@@ -624,7 +626,8 @@ public:
   /*!
     \brief Template assign method for FixString class with different allocated sizes.
 
-    This method assigns the contents of another FixString object with a potentially different allocated size to this FixString object.
+    This method assigns the contents of another FixString object with a potentially different allocated size to this
+    FixString object.
 
     \tparam allocatedSize2 The allocated size of the source FixString object.
 
@@ -818,8 +821,6 @@ public:
   */
   constexpr inline FixString<allocatedSize> operator+(char symbol) const noexcept;
 
-  */
-
   /*!
     \brief Return a pointer to the C string representation of this FixString object.
 
@@ -837,6 +838,7 @@ public:
     \return The length of the string in characters, excluding the terminating null character.
   */
   constexpr inline std::size_t size() const noexcept;
+
 private:
   char _data[allocatedSize];
   std::size_t _size;
