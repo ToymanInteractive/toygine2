@@ -302,6 +302,13 @@ constexpr inline std::size_t FixString<allocatedSize>::utf8Size() const noexcept
 }
 
 template <std::size_t allocatedSize>
+constexpr inline std::size_t FixString<allocatedSize>::length() const noexcept {
+  static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");
+
+  return _size;
+}
+
+template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator+=(
   const FixString<allocatedSize> & string) noexcept {
   static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");
