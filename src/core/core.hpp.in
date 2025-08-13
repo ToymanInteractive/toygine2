@@ -771,6 +771,13 @@ public:
   */
   constexpr inline std::size_t size() const noexcept;
 
+  /*!
+    \brief Returns the size of the string in UTF-8 encoded characters.
+
+    \return The number of Unicode characters in the string, excluding the terminating null character.
+  */
+  constexpr inline std::size_t utf8Size() const noexcept;
+
   constexpr inline FixString<allocatedSize> & operator+=(const FixString<allocatedSize> & string) noexcept;
   template <std::size_t allocatedSize2>
   constexpr inline FixString<allocatedSize> & operator+=(const FixString<allocatedSize2> & string) noexcept;
