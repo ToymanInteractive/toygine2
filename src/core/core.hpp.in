@@ -764,6 +764,13 @@ public:
   */
   constexpr inline bool empty() const noexcept;
 
+  /*!
+    \brief Returns the size of the string.
+
+    \return The length of the string in characters, excluding the terminating null character.
+  */
+  constexpr inline std::size_t size() const noexcept;
+
   constexpr inline FixString<allocatedSize> & operator+=(const FixString<allocatedSize> & string) noexcept;
   template <std::size_t allocatedSize2>
   constexpr inline FixString<allocatedSize> & operator+=(const FixString<allocatedSize2> & string) noexcept;
@@ -841,14 +848,6 @@ public:
   */
   constexpr inline FixString<allocatedSize> operator+(char symbol) const noexcept;
 
-  */
-
-  /*!
-    \brief Returns the size of the string.
-
-    \return The length of the string in characters, excluding the terminating null character.
-  */
-  constexpr inline std::size_t size() const noexcept;
 
 private:
   char _data[allocatedSize];

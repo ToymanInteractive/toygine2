@@ -234,6 +234,14 @@ TEST_CASE("FixString empty", "[core][fixstring]") {
   CHECK(FixString<4>("").empty());
 }
 
+TEST_CASE("FixString size", "[core][fixstring]") {
+  const auto testString1 = FixString<64>("ToyGine2 - Free 2D/3D game engine.");
+  const FixString<64> testString2;
+
+  CHECK(testString1.size() == 34);
+  CHECK(testString2.size() == 0);
+}
+
 TEST_CASE("FixString operators+=", "[core][fixstring]") {
   FixString<14> testString1("12");
   FixString<14> testString2("12");

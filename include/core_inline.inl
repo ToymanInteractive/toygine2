@@ -288,6 +288,13 @@ constexpr inline bool FixString<allocatedSize>::empty() const noexcept {
 }
 
 template <std::size_t allocatedSize>
+constexpr inline std::size_t FixString<allocatedSize>::size() const noexcept {
+  static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");
+
+  return _size;
+}
+
+template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator+=(
   const FixString<allocatedSize> & string) noexcept {
   static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");
@@ -379,13 +386,6 @@ constexpr inline FixString<allocatedSize> FixString<allocatedSize>::operator+(ch
   FixString<allocatedSize> value(*this);
   value += symbol;
   return value;
-}
-
-template <std::size_t allocatedSize>
-constexpr inline std::size_t FixString<allocatedSize>::size() const noexcept {
-  static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");
-
-  return _size;
 }
 
 } // namespace toygine
