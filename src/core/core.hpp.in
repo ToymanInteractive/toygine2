@@ -755,6 +755,15 @@ public:
   */
   constexpr inline const char * c_str() const noexcept;
 
+  /*!
+    \brief Check if the FixString object is empty.
+
+    This function checks if the FixString object is empty, i.e. its size is zero.
+
+    \return True if the FixString object is empty, false otherwise.
+  */
+  constexpr inline bool empty() const noexcept;
+
   constexpr inline FixString<allocatedSize> & operator+=(const FixString<allocatedSize> & string) noexcept;
   template <std::size_t allocatedSize2>
   constexpr inline FixString<allocatedSize> & operator+=(const FixString<allocatedSize2> & string) noexcept;

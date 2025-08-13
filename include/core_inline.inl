@@ -281,6 +281,13 @@ constexpr inline const char * FixString<allocatedSize>::c_str() const noexcept {
 }
 
 template <std::size_t allocatedSize>
+constexpr inline bool FixString<allocatedSize>::empty() const noexcept {
+  static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");
+
+  return _size == 0;
+}
+
+template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator+=(
   const FixString<allocatedSize> & string) noexcept {
   static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");

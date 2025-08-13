@@ -228,6 +228,12 @@ TEST_CASE("FixString c_str", "[core][fixstring]") {
   CHECK(strcmp(testString2.c_str(), "dcba") == 0);
 }
 
+TEST_CASE("FixString empty", "[core][fixstring]") {
+  CHECK(!FixString<16>("ToyGine2").empty());
+
+  CHECK(FixString<4>("").empty());
+}
+
 TEST_CASE("FixString operators+=", "[core][fixstring]") {
   FixString<14> testString1("12");
   FixString<14> testString2("12");
