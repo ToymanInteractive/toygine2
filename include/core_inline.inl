@@ -228,6 +228,52 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::assign(cha
 }
 
 template <std::size_t allocatedSize>
+constexpr inline char & FixString<allocatedSize>::at(std::size_t offset) noexcept {
+  static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");
+  assert(offset < _size);
+
+  return _data[offset];
+}
+
+template <std::size_t allocatedSize>
+constexpr inline const char & FixString<allocatedSize>::at(std::size_t offset) const noexcept {
+  static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");
+  assert(offset < _size);
+
+  return _data[offset];
+}
+
+template <std::size_t allocatedSize>
+constexpr inline char & FixString<allocatedSize>::operator[](std::size_t offset) noexcept {
+  static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");
+  assert(offset < _size);
+
+  return _data[offset];
+}
+
+template <std::size_t allocatedSize>
+constexpr inline const char & FixString<allocatedSize>::operator[](std::size_t offset) const noexcept {
+  static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");
+  assert(offset < _size);
+
+  return _data[offset];
+}
+
+template <std::size_t allocatedSize>
+constexpr inline char * FixString<allocatedSize>::data() noexcept {
+  static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");
+
+  return _data;
+}
+
+template <std::size_t allocatedSize>
+constexpr inline const char * FixString<allocatedSize>::data() const noexcept {
+  static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");
+
+  return _data;
+}
+
+template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator+=(
   const FixString<allocatedSize> & string) noexcept {
   static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");
@@ -319,38 +365,6 @@ constexpr inline FixString<allocatedSize> FixString<allocatedSize>::operator+(ch
   FixString<allocatedSize> value(*this);
   value += symbol;
   return value;
-}
-
-template <std::size_t allocatedSize>
-constexpr inline char & FixString<allocatedSize>::operator[](std::size_t offset) noexcept {
-  static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");
-  assert(offset < _size);
-
-  return _data[offset];
-}
-
-template <std::size_t allocatedSize>
-constexpr inline const char & FixString<allocatedSize>::operator[](std::size_t offset) const noexcept {
-  static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");
-  assert(offset < _size);
-
-  return _data[offset];
-}
-
-template <std::size_t allocatedSize>
-constexpr inline char & FixString<allocatedSize>::at(std::size_t offset) noexcept {
-  static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");
-  assert(offset < _size);
-
-  return _data[offset];
-}
-
-template <std::size_t allocatedSize>
-constexpr inline const char & FixString<allocatedSize>::at(std::size_t offset) const noexcept {
-  static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");
-  assert(offset < _size);
-
-  return _data[offset];
 }
 
 template <std::size_t allocatedSize>

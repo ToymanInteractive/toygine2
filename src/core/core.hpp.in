@@ -537,17 +537,209 @@ public:
   */
   constexpr inline explicit FixString(char symbol, std::size_t count = 1) noexcept;
 
+  /*!
+    \brief Copy assignment operator for FixString class.
+
+    This operator assigns the contents of another FixString object with the same allocated size to this FixString object.
+
+    \param string The source FixString object to copy data from.
+
+    \return A reference to this FixString object after assignment.
+
+    \pre The allocated size of both FixString objects must be greater than zero.
+    \pre The source FixString object must be valid.
+
+    \post This FixString object contains the same data as the source FixString object.
+  */
   constexpr inline FixString<allocatedSize> & operator=(const FixString<allocatedSize> & string) noexcept;
+
+  /*!
+    \brief Template assignment operator for FixString class with different allocated sizes.
+
+    This operator assigns the contents of another FixString object with a potentially different allocated size to this FixString object.
+
+    \tparam allocatedSize2 The allocated size of the source FixString object.
+
+    \param string The source FixString object to copy data from.
+
+    \return A reference to this FixString object after assignment.
+
+    \pre The allocated size of both FixString objects must be greater than zero.
+    \pre The source FixString object must be valid.
+    \pre The source string length must not exceed this object's allocated size.
+
+    \post This FixString object contains the same data as the source FixString object, truncated if necessary.
+  */
   template <std::size_t allocatedSize2>
   constexpr inline FixString<allocatedSize> & operator=(const FixString<allocatedSize2> & string) noexcept;
+
+  /*!
+    \brief C string assignment operator for FixString class.
+
+    This operator assigns the contents of a C string to this FixString object.
+
+    \param string The C string to copy data from.
+
+    \return A reference to this FixString object after assignment.
+
+    \pre The allocated size must be greater than zero.
+    \pre The source string must not be null.
+    \pre The source string length must not exceed this object's allocated size.
+
+    \post This FixString object contains the same data as the source C string, truncated if necessary.
+  */
   constexpr inline FixString<allocatedSize> & operator=(const char * string) noexcept;
+
+  /*!
+    \brief Character assignment operator for FixString class.
+
+    This operator assigns a single character to this FixString object, creating a string of length 1.
+
+    \param symbol The character to assign.
+
+    \return A reference to this FixString object after assignment.
+
+    \pre The allocated size must be greater than zero.
+
+    \post This FixString object contains only the specified character with a size of 1.
+  */
   constexpr inline FixString<allocatedSize> & operator=(char symbol) noexcept;
 
+  /*!
+    \brief Copy assign method for FixString class.
+
+    This method assigns the contents of another FixString object with the same allocated size to this FixString object.
+
+    \param string The source FixString object to copy data from.
+
+    \return A reference to this FixString object after assignment.
+
+    \pre The allocated size of both FixString objects must be greater than zero.
+    \pre The source FixString object must be valid.
+
+    \post This FixString object contains the same data as the source FixString object.
+  */
   constexpr inline FixString<allocatedSize> & assign(const FixString<allocatedSize> & string) noexcept;
+
+  /*!
+    \brief Template assign method for FixString class with different allocated sizes.
+
+    This method assigns the contents of another FixString object with a potentially different allocated size to this FixString object.
+
+    \tparam allocatedSize2 The allocated size of the source FixString object.
+
+    \param string The source FixString object to copy data from.
+
+    \return A reference to this FixString object after assignment.
+
+    \pre The allocated size of both FixString objects must be greater than zero.
+    \pre The source FixString object must be valid.
+    \pre The source string length must not exceed this object's allocated size.
+
+    \post This FixString object contains the same data as the source FixString object, truncated if necessary.
+  */
   template <std::size_t allocatedSize2>
   constexpr inline FixString<allocatedSize> & assign(const FixString<allocatedSize2> & string) noexcept;
+
+  /*!
+    \brief C string assign method for FixString class.
+
+    This method assigns the contents of a C string to this FixString object.
+
+    \param string The C string to copy data from.
+
+    \return A reference to this FixString object after assignment.
+
+    \pre The allocated size must be greater than zero.
+    \pre The source string must not be null.
+    \pre The source string length must not exceed this object's allocated size.
+
+    \post This FixString object contains the same data as the source C string, truncated if necessary.
+  */
   constexpr inline FixString<allocatedSize> & assign(const char * string) noexcept;
+
+  /*!
+    \brief Character fill assign method for FixString class.
+
+    This method assigns a character repeated the specified number of times to this FixString object.
+
+    \param symbol The character to repeat.
+    \param count The number of times to repeat the character.
+
+    \return A reference to this FixString object after assignment.
+
+    \pre The allocated size must be greater than zero.
+    \pre The count must not exceed this object's allocated size.
+
+    \post This FixString object contains the specified character repeated count times.
+  */
   constexpr inline FixString<allocatedSize> & assign(char symbol, std::size_t count) noexcept;
+
+  /*!
+    \brief Access a character in the string at a given offset.
+
+    \param offset The offset of the character to access in the string.
+
+    \return A reference to the character at the specified offset.
+
+    \pre The offset must be within the bounds of the string.
+
+    \post The character at the specified offset is returned.
+  */
+  constexpr inline char & at(std::size_t offset) noexcept;
+
+  /*!
+    \brief Access a character in the string at a given offset.
+
+    \param offset The offset of the character to access in the string.
+
+    \return A const reference to the character at the specified offset.
+
+    \pre The offset must be within the bounds of the string.
+
+    \post The character at the specified offset is returned.
+  */
+  constexpr inline const char & at(std::size_t offset) const noexcept;
+
+  /*!
+    \brief Access a character in the string at a given offset.
+
+    \param offset The offset of the character to access in the string.
+
+    \return A reference to the character at the specified offset.
+
+    \pre The offset must be within the bounds of the string.
+
+    \post The character at the specified offset is returned.
+  */
+  constexpr inline char & operator[](std::size_t offset) noexcept;
+
+  /*!
+    \brief Access a character in the string at a given offset.
+
+    \param offset The offset of the character to access in the string.
+
+    \return A const reference to the character at the specified offset.
+
+    \pre The offset must be within the bounds of the string.
+
+    \post The character at the specified offset is returned.
+  */
+  constexpr inline const char & operator[](std::size_t offset) const noexcept;
+
+  /*!
+    \brief Return a pointer to the data of the string.
+
+    \return A pointer to the data of the string.
+  */
+  constexpr inline char * data() noexcept;
+
+  /*!
+    \brief Return a pointer to the data of the string.
+
+    \return A pointer to the data of the string.
+  */
+  constexpr inline const char * data() const noexcept;
 
   constexpr inline FixString<allocatedSize> & operator+=(const FixString<allocatedSize> & string) noexcept;
   template <std::size_t allocatedSize2>
@@ -626,23 +818,7 @@ public:
   */
   constexpr inline FixString<allocatedSize> operator+(char symbol) const noexcept;
 
-  constexpr inline char & operator[](std::size_t offset) noexcept;
-
-  /*!
-    \brief Access a character in the string at a given offset.
-
-    \param offset The offset of the character to access in the string.
-
-    \return The character at the specified offset.
-
-    \pre The offset must be within the bounds of the string.
-
-    \post The character at the specified offset is returned.
   */
-  constexpr inline const char & operator[](std::size_t offset) const noexcept;
-
-  constexpr inline char & at(std::size_t offset) noexcept;
-  constexpr inline const char & at(std::size_t offset) const noexcept;
 
   /*!
     \brief Return a pointer to the C string representation of this FixString object.
