@@ -744,6 +744,17 @@ public:
   */
   constexpr inline const char * data() const noexcept;
 
+  /*!
+    \brief Return a pointer to the C string representation of this FixString object.
+
+    This function returns a pointer to the C string representation of this FixString object. The returned pointer is
+    valid until the FixString object is modified or destroyed. The returned string is null terminated and can be used
+    with C style string functions.
+
+    \return A pointer to the C string representation of this FixString object.
+  */
+  constexpr inline const char * c_str() const noexcept;
+
   constexpr inline FixString<allocatedSize> & operator+=(const FixString<allocatedSize> & string) noexcept;
   template <std::size_t allocatedSize2>
   constexpr inline FixString<allocatedSize> & operator+=(const FixString<allocatedSize2> & string) noexcept;
@@ -821,16 +832,7 @@ public:
   */
   constexpr inline FixString<allocatedSize> operator+(char symbol) const noexcept;
 
-  /*!
-    \brief Return a pointer to the C string representation of this FixString object.
-
-    This function returns a pointer to the C string representation of this FixString object. The returned pointer is
-    valid until the FixString object is modified or destroyed. The returned string is null terminated and can be used
-    with C style string functions.
-
-    \return A pointer to the C string representation of this FixString object.
   */
-  constexpr inline const char * c_str() const noexcept;
 
   /*!
     \brief Returns the size of the string.

@@ -220,6 +220,14 @@ TEST_CASE("FixString data", "[core][fixstring]") {
   CHECK(strcmp(testString2.data(), "dcba") == 0);
 }
 
+TEST_CASE("FixString c_str", "[core][fixstring]") {
+  auto testString1 = FixString<8>("abcd");
+  const auto testString2 = FixString<8>("dcba");
+
+  CHECK(strcmp(testString1.c_str(), "abcd") == 0);
+  CHECK(strcmp(testString2.c_str(), "dcba") == 0);
+}
+
 TEST_CASE("FixString operators+=", "[core][fixstring]") {
   FixString<14> testString1("12");
   FixString<14> testString2("12");
