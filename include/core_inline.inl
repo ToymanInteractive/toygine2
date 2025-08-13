@@ -173,6 +173,61 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator=(
 }
 
 template <std::size_t allocatedSize>
+constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::assign(
+  const FixString<allocatedSize> & string) noexcept {
+  static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");
+  if (this == &string)
+    return *this;
+
+  _size = string._size;
+  std::memcpy(_data, string._data, _size + 1);
+
+  return *this;
+}
+
+template <std::size_t allocatedSize>
+template <std::size_t allocatedSize2>
+constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::assign(
+  const FixString<allocatedSize2> & string) noexcept {
+  static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");
+  static_assert(allocatedSize2 > 0, "FixString capacity must be greater than zero.");
+  assert(reinterpret_cast<const void *>(this) != reinterpret_cast<const void *>(&string));
+  assert(string.size() < allocatedSize);
+
+  _size = string.size();
+  std::memcpy(_data, string.c_str(), _size + 1);
+
+  return *this;
+}
+
+template <std::size_t allocatedSize>
+constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::assign(const char * string) noexcept {
+  static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");
+  assert(string != nullptr);
+  if (_data == string)
+    return *this;
+
+  _size = std::strlen(string);
+  assert(_size < allocatedSize);
+
+  std::memcpy(_data, string, _size + 1);
+
+  return *this;
+}
+
+template <std::size_t allocatedSize>
+constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::assign(char symbol, std::size_t count) noexcept {
+  static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");
+  assert(count < allocatedSize);
+
+  _size = count;
+  std::memset(_data, symbol, _size);
+  _data[_size] = '\0';
+
+  return *this;
+}
+
+template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator+=(
   const FixString<allocatedSize> & string) noexcept {
   static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");

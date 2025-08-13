@@ -107,6 +107,62 @@ TEST_CASE("FixString operators=", "[core][fixstring]") {
   CHECK(testString4.size() == 0);
 }
 
+TEST_CASE("FixString assign", "[core][fixstring]") {
+  FixString<12> testString1;
+  FixString<12> testString2;
+  FixString<24> testString3;
+  FixString<18> testString4;
+  FixString<8> testString5;
+
+  testString1.assign("test text 1");
+  testString2.assign(testString1);
+  testString3.assign(testString2);
+  testString4.assign(testString3);
+  testString5.assign('t', 4);
+
+  CHECK(strcmp(testString1.c_str(), "test text 1") == 0);
+  CHECK(testString1.size() == 11);
+
+  CHECK(strcmp(testString2.c_str(), "test text 1") == 0);
+  CHECK(testString2.size() == 11);
+
+  CHECK(strcmp(testString3.c_str(), "test text 1") == 0);
+  CHECK(testString3.size() == 11);
+
+  CHECK(strcmp(testString4.c_str(), "test text 1") == 0);
+  CHECK(testString4.size() == 11);
+
+  CHECK(strcmp(testString5.c_str(), "tttt") == 0);
+  CHECK(testString5.size() == 4);
+
+  // Self-assignment (same capacity)
+  testString2.assign(testString2);
+  CHECK(strcmp(testString2.c_str(), "test text 1") == 0);
+  CHECK(testString2.size() == 11);
+
+  // Assign from own c_str() (no-op path)
+  testString3.assign(testString3.c_str());
+  CHECK(strcmp(testString3.c_str(), "test text 1") == 0);
+  CHECK(testString3.size() == 11);
+
+  testString1.assign("");
+  testString2.assign(FixString<12>(""));
+  testString3.assign(FixString<12>(""));
+  testString4.assign(FixString<24>(""));
+
+  CHECK(strcmp(testString1.c_str(), "") == 0);
+  CHECK(testString1.size() == 0);
+
+  CHECK(strcmp(testString2.c_str(), "") == 0);
+  CHECK(testString2.size() == 0);
+
+  CHECK(strcmp(testString3.c_str(), "") == 0);
+  CHECK(testString3.size() == 0);
+
+  CHECK(strcmp(testString4.c_str(), "") == 0);
+  CHECK(testString4.size() == 0);
+}
+
 TEST_CASE("FixString operators+=", "[core][fixstring]") {
   FixString<14> testString1("12");
   FixString<14> testString2("12");

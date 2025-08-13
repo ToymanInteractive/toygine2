@@ -543,6 +543,12 @@ public:
   constexpr inline FixString<allocatedSize> & operator=(const char * string) noexcept;
   constexpr inline FixString<allocatedSize> & operator=(char symbol) noexcept;
 
+  constexpr inline FixString<allocatedSize> & assign(const FixString<allocatedSize> & string) noexcept;
+  template <std::size_t allocatedSize2>
+  constexpr inline FixString<allocatedSize> & assign(const FixString<allocatedSize2> & string) noexcept;
+  constexpr inline FixString<allocatedSize> & assign(const char * string) noexcept;
+  constexpr inline FixString<allocatedSize> & assign(char symbol, std::size_t count) noexcept;
+
   constexpr inline FixString<allocatedSize> & operator+=(const FixString<allocatedSize> & string) noexcept;
   template <std::size_t allocatedSize2>
   constexpr inline FixString<allocatedSize> & operator+=(const FixString<allocatedSize2> & string) noexcept;
