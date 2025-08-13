@@ -864,6 +864,8 @@ public:
 
 
 private:
+  static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");
+
   char _data[allocatedSize];
   std::size_t _size;
 };
