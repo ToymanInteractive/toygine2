@@ -282,6 +282,20 @@ TEST_CASE("FixString capacity", "[core][fixstring]") {
   CHECK(FixString<16>("").capacity() == 15);
 }
 
+TEST_CASE("FixString clear", "[core][fixstring]") {
+  FixString<64> testString1("ToyGine2 - Free 2D/3D game engine.");
+  FixString<16> testString2;
+
+  CHECK(!testString1.empty());
+  CHECK(testString2.empty());
+
+  testString1.clear();
+  testString2.clear();
+
+  CHECK(testString1.empty());
+  CHECK(testString2.empty());
+}
+
 TEST_CASE("FixString operators+=", "[core][fixstring]") {
   FixString<14> testString1("12");
   FixString<14> testString2("12");
