@@ -463,7 +463,7 @@ public:
   */
   constexpr inline FixString<allocatedSize> operator+(char symbol) const noexcept;
 
-  static const size_t npos = SIZE_MAX;
+  static const std::size_t npos = SIZE_MAX;
 
 private:
   static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");

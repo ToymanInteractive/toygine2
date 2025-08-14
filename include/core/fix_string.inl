@@ -18,8 +18,8 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*
-  \file   core_inline.inl
-  \brief  collection of core inline functions
+  \file   fix_string.inl
+  \brief  Inline implementations for FixString template class
 */
 
 #ifndef INCLUDE_CORE_FIX_STRING_INL_
@@ -46,9 +46,6 @@ constexpr inline FixString<allocatedSize>::FixString(const FixString<allocatedSi
   : _size(string.size()) {
   static_assert(allocatedSize2 > 0, "FixString capacity must be greater than zero.");
   assert(_size < allocatedSize);
-
-  if (_size >= allocatedSize)
-    _size = allocatedSize - 1;
 
   std::memcpy(_data, string.c_str(), _size);
   _data[_size] = '\0';
