@@ -272,6 +272,16 @@ TEST_CASE("FixString length", "[core][fixstring]") {
   CHECK(testString2.length() == 0);
 }
 
+TEST_CASE("FixString max_size", "[core][fixstring]") {
+  CHECK(FixString<64>("ToyGine2 - Free 2D/3D game engine.").max_size() == 63);
+  CHECK(FixString<16>("").max_size() == 15);
+}
+
+TEST_CASE("FixString capacity", "[core][fixstring]") {
+  CHECK(FixString<64>("ToyGine2").capacity() == 63);
+  CHECK(FixString<16>("").capacity() == 15);
+}
+
 TEST_CASE("FixString operators+=", "[core][fixstring]") {
   FixString<14> testString1("12");
   FixString<14> testString2("12");

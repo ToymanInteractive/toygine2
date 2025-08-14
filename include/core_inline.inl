@@ -273,6 +273,16 @@ constexpr inline std::size_t FixString<allocatedSize>::length() const noexcept {
 }
 
 template <std::size_t allocatedSize>
+constexpr inline std::size_t FixString<allocatedSize>::max_size() const noexcept {
+  return allocatedSize - 1;
+}
+
+template <std::size_t allocatedSize>
+constexpr inline std::size_t FixString<allocatedSize>::capacity() const noexcept {
+  return allocatedSize - 1;
+}
+
+template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator+=(
   const FixString<allocatedSize> & string) noexcept {
   assert(_size + string._size < allocatedSize);

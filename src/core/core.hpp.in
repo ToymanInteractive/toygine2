@@ -785,6 +785,20 @@ public:
   */
   constexpr inline std::size_t length() const noexcept;
 
+  /*!
+    \brief Returns the maximum size of the string.
+
+    \return The maximum size of the string in characters, excluding the terminating null character.
+  */
+  constexpr inline std::size_t max_size() const noexcept;
+
+  /*!
+    \brief Returns the capacity of the string.
+
+    \return The maximum size of the string in characters, excluding the terminating null character.
+  */
+  constexpr inline std::size_t capacity() const noexcept;
+
   constexpr inline FixString<allocatedSize> & operator+=(const FixString<allocatedSize> & string) noexcept;
   template <std::size_t allocatedSize2>
   constexpr inline FixString<allocatedSize> & operator+=(const FixString<allocatedSize2> & string) noexcept;
