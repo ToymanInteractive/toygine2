@@ -18,6 +18,8 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
+#include <array>
+
 #include <catch2/catch_test_macros.hpp>
 
 #include "core.hpp"
@@ -218,6 +220,56 @@ TEST_CASE("FixString data", "[core][fixstring]") {
 
   CHECK(strcmp(testString1.data(), "abcd") == 0);
   CHECK(strcmp(testString2.data(), "dcba") == 0);
+}
+
+TEST_CASE("FixString c_str", "[core][fixstring]") {
+  auto testString1 = FixString<8>("abcd");
+  const auto testString2 = FixString<8>("dcba");
+
+  CHECK(strcmp(testString1.c_str(), "abcd") == 0);
+  CHECK(strcmp(testString2.c_str(), "dcba") == 0);
+}
+
+TEST_CASE("FixString empty", "[core][fixstring]") {
+  CHECK(!FixString<16>("ToyGine2").empty());
+
+  CHECK(FixString<4>("").empty());
+}
+
+TEST_CASE("FixString size", "[core][fixstring]") {
+  const auto testString1 = FixString<64>("ToyGine2 - Free 2D/3D game engine.");
+  const FixString<64> testString2;
+
+  CHECK(testString1.size() == 34);
+  CHECK(testString2.size() == 0);
+}
+
+TEST_CASE("FixString utf8Size", "[core][fixstring]") {
+  static char const ansiText[] = "ToyGine2 - Free 2D/3D game engine.";
+  // UTF8 encoding               "ToyGine2 - Бесплатный 2D/3D игровой движок.";
+
+  static constexpr std::array<std::uint8_t, 67> utf8Text{
+    {0x54, 0x6F, 0x79, 0x47, 0x69, 0x6E, 0x65, 0x32, 0x20, 0x2D, 0x20, 0xD0, 0x91, 0xD0, 0xB5, 0xD1, 0x81,
+     0xD0, 0xBF, 0xD0, 0xBB, 0xD0, 0xB0, 0xD1, 0x82, 0xD0, 0xBD, 0xD1, 0x8B, 0xD0, 0xB9, 0x20, 0x32, 0x44,
+     0x2F, 0x33, 0x44, 0x20, 0xD0, 0xB8, 0xD0, 0xB3, 0xD1, 0x80, 0xD0, 0xBE, 0xD0, 0xB2, 0xD0, 0xBE, 0xD0,
+     0xB9, 0x20, 0xD0, 0xB4, 0xD0, 0xB2, 0xD0, 0xB8, 0xD0, 0xB6, 0xD0, 0xBE, 0xD0, 0xBA, 0x2E, 0x00}};
+
+  const auto testString1 = FixString<64>(ansiText);
+  const auto testString2 = FixString<80>(reinterpret_cast<char const *>(utf8Text.data()));
+  FixString<96> const testString3;
+
+  CHECK(testString1.size() == testString1.utf8Size());
+  CHECK(testString3.size() == testString3.utf8Size());
+  CHECK(testString2.size() == 66);
+  CHECK(testString2.utf8Size() == 43);
+}
+
+TEST_CASE("FixString length", "[core][fixstring]") {
+  const auto testString1 = FixString<64>("ToyGine2 - Free 2D/3D game engine.");
+  const FixString<64> testString2;
+
+  CHECK(testString1.length() == 34);
+  CHECK(testString2.length() == 0);
 }
 
 TEST_CASE("FixString operators+=", "[core][fixstring]") {

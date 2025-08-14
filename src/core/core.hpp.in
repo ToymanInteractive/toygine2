@@ -744,6 +744,47 @@ public:
   */
   constexpr inline const char * data() const noexcept;
 
+  /*!
+    \brief Return a pointer to the C string representation of this FixString object.
+
+    This function returns a pointer to the C string representation of this FixString object. The returned pointer is
+    valid until the FixString object is modified or destroyed. The returned string is null terminated and can be used
+    with C style string functions.
+
+    \return A pointer to the C string representation of this FixString object.
+  */
+  constexpr inline const char * c_str() const noexcept;
+
+  /*!
+    \brief Check if the FixString object is empty.
+
+    This function checks if the FixString object is empty, i.e. its size is zero.
+
+    \return True if the FixString object is empty, false otherwise.
+  */
+  constexpr inline bool empty() const noexcept;
+
+  /*!
+    \brief Returns the size of the string.
+
+    \return The length of the string in characters, excluding the terminating null character.
+  */
+  constexpr inline std::size_t size() const noexcept;
+
+  /*!
+    \brief Returns the size of the string in UTF-8 encoded characters.
+
+    \return The number of Unicode characters in the string, excluding the terminating null character.
+  */
+  constexpr inline std::size_t utf8Size() const noexcept;
+
+  /*!
+    \brief Returns the size of the string.
+
+    \return The length of the string in characters, excluding the terminating null character.
+  */
+  constexpr inline std::size_t length() const noexcept;
+
   constexpr inline FixString<allocatedSize> & operator+=(const FixString<allocatedSize> & string) noexcept;
   template <std::size_t allocatedSize2>
   constexpr inline FixString<allocatedSize> & operator+=(const FixString<allocatedSize2> & string) noexcept;
@@ -821,25 +862,10 @@ public:
   */
   constexpr inline FixString<allocatedSize> operator+(char symbol) const noexcept;
 
-  /*!
-    \brief Return a pointer to the C string representation of this FixString object.
-
-    This function returns a pointer to the C string representation of this FixString object. The returned pointer is
-    valid until the FixString object is modified or destroyed. The returned string is null terminated and can be used
-    with C style string functions.
-
-    \return A pointer to the C string representation of this FixString object.
-  */
-  constexpr inline const char * c_str() const noexcept;
-
-  /*!
-    \brief Returns the size of the string.
-
-    \return The length of the string in characters, excluding the terminating null character.
-  */
-  constexpr inline std::size_t size() const noexcept;
 
 private:
+  static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");
+
   char _data[allocatedSize];
   std::size_t _size;
 };
