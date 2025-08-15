@@ -1,0 +1,7 @@
+tools:
+  - name: trivy
+    enabled: true
+    patterns:
+      - id: TRIVY-MEDIUM
+      - id: TRIVY-HIGH
+      - id: TRIVY-CRITICAL
