@@ -19,7 +19,7 @@
 //
 /*
   \file   utils_internal.inl
-  \brief  collection of core utils inline functions
+  \brief  Internal utilities: inline helpers used by the core utils implementation
 */
 
 #ifndef SRC_CORE_UTILS_INTERNAL_INL_
@@ -83,7 +83,7 @@ constexpr inline std::size_t integerToSymbols(char * dest, std::size_t destSize,
         destination buffer size is 1, only a null terminator is written. The function reverses the string in-place.
 */
 template <typename type>
-inline char * itoaImplementation(char * dest, size_t destSize, type value) {
+inline char * itoaImplementation(char * dest, std::size_t destSize, type value) {
   assert_message(dest != nullptr && destSize > 0, "The destination buffer must not be null.");
   if (destSize == 1) {
     *dest = '\0';
