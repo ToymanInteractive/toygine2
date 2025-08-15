@@ -224,7 +224,7 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>The function does not check if the destination buffer is large enough to hold the modified string. If the buffer is too small, the function will not insert any separators and will return without modifying the buffer. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The function validates available capacity and returns early without modification if the buffer is too small. The groupingSeparator must not be null and should not exceed 8 characters. </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">  514</span>                                                                                             {</div>
 <div class="line"><span class="lineno">  515</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(buffer != <span class="keyword">nullptr</span> &amp;&amp; bufferSize &gt; 0, <span class="stringliteral">&quot;The destination buffer must not be null.&quot;</span>);</div>
 <div class="line"><span class="lineno">  516</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(groupingSeparator != <span class="keyword">nullptr</span> &amp;&amp; std::strlen(groupingSeparator) &lt;= 8,</div>
@@ -492,17 +492,18 @@ template&lt;typename type &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>The number of characters written to the destination buffer.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The function assumes that the destination buffer is large enough to hold the converted string. The function does not null-terminate the string. The base must be between 2 and 36 inclusive. </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">   55</span>                                                                                                        {</div>
-<div class="line"><span class="lineno">   56</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(dest != <span class="keyword">nullptr</span> &amp;&amp; destSize &gt; 0, <span class="stringliteral">&quot;The destination buffer must not be null.&quot;</span>);</div>
-<div class="line"><span class="lineno">   57</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(base &gt;= 2 &amp;&amp; base &lt;= sc_ansiDigits.size(), <span class="stringliteral">&quot;The base must be between 2 and 36 inclusive.&quot;</span>);</div>
-<div class="line"><span class="lineno">   58</span> </div>
-<div class="line"><span class="lineno">   59</span>  std::size_t index = 0;</div>
-<div class="line"><span class="lineno">   60</span> </div>
-<div class="line"><span class="lineno">   61</span>  <span class="keywordflow">do</span> {</div>
-<div class="line"><span class="lineno">   62</span>    dest[index++] = sc_ansiDigits[value % base];</div>
-<div class="line"><span class="lineno">   63</span>  } <span class="keywordflow">while</span> ((value /= <span class="keyword">static_cast&lt;</span>type<span class="keyword">&gt;</span>(base)) &gt; 0 &amp;&amp; index &lt; destSize);</div>
-<div class="line"><span class="lineno">   64</span> </div>
-<div class="line"><span class="lineno">   65</span>  <span class="keywordflow">return</span> index;</div>
-<div class="line"><span class="lineno">   66</span>}</div>
+<div class="line"><span class="lineno">   56</span>  <span class="keyword">static_assert</span>(std::is_integral_v&lt;type&gt;, <span class="stringliteral">&quot;integerToSymbols requires an integral type&quot;</span>);</div>
+<div class="line"><span class="lineno">   57</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(dest != <span class="keyword">nullptr</span> &amp;&amp; destSize &gt; 0, <span class="stringliteral">&quot;The destination buffer must not be null.&quot;</span>);</div>
+<div class="line"><span class="lineno">   58</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(base &gt;= 2 &amp;&amp; base &lt;= sc_ansiDigits.size(), <span class="stringliteral">&quot;The base must be between 2 and 36 inclusive.&quot;</span>);</div>
+<div class="line"><span class="lineno">   59</span> </div>
+<div class="line"><span class="lineno">   60</span>  std::size_t index = 0;</div>
+<div class="line"><span class="lineno">   61</span> </div>
+<div class="line"><span class="lineno">   62</span>  <span class="keywordflow">do</span> {</div>
+<div class="line"><span class="lineno">   63</span>    dest[index++] = sc_ansiDigits[value % base];</div>
+<div class="line"><span class="lineno">   64</span>  } <span class="keywordflow">while</span> ((value /= <span class="keyword">static_cast&lt;</span>type<span class="keyword">&gt;</span>(base)) &gt; 0 &amp;&amp; index &lt; destSize);</div>
+<div class="line"><span class="lineno">   65</span> </div>
+<div class="line"><span class="lineno">   66</span>  <span class="keywordflow">return</span> index;</div>
+<div class="line"><span class="lineno">   67</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -553,7 +554,7 @@ template&lt;typename type &gt; </div>
 <div class="fragment"><div class="line"><span class="lineno">  434</span>                                                               {</div>
 <div class="line"><span class="lineno">  435</span>  <span class="keywordflow">return</span> <a class="code hl_function" href="../../d7/de6/namespacetoygine.html#af8a75c65ac8550ff63ac340e1f2572ef">itoaImplementation</a>(dest, destSize, value);</div>
 <div class="line"><span class="lineno">  436</span>}</div>
-<div class="ttc" id="anamespacetoygine_html_af8a75c65ac8550ff63ac340e1f2572ef"><div class="ttname"><a href="../../d7/de6/namespacetoygine.html#af8a75c65ac8550ff63ac340e1f2572ef">toygine::itoaImplementation</a></div><div class="ttdeci">char * itoaImplementation(char *dest, std::size_t destSize, type value)</div><div class="ttdoc">Converts an integer value to a string representation.</div><div class="ttdef"><b>Definition</b> utils_internal.inl:86</div></div>
+<div class="ttc" id="anamespacetoygine_html_af8a75c65ac8550ff63ac340e1f2572ef"><div class="ttname"><a href="../../d7/de6/namespacetoygine.html#af8a75c65ac8550ff63ac340e1f2572ef">toygine::itoaImplementation</a></div><div class="ttdeci">char * itoaImplementation(char *dest, std::size_t destSize, type value)</div><div class="ttdoc">Converts an integer value to a string representation.</div><div class="ttdef"><b>Definition</b> utils_internal.inl:87</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -761,7 +762,7 @@ template&lt;typename type &gt; </div>
 <div class="fragment"><div class="line"><span class="lineno">  450</span>                                                                               {</div>
 <div class="line"><span class="lineno">  451</span>  <span class="keywordflow">return</span> <a class="code hl_function" href="../../d7/de6/namespacetoygine.html#a0f7769364a3fa922049ef7ca0b749e12">utoaImplementation</a>(dest, destSize, value, base);</div>
 <div class="line"><span class="lineno">  452</span>}</div>
-<div class="ttc" id="anamespacetoygine_html_a0f7769364a3fa922049ef7ca0b749e12"><div class="ttname"><a href="../../d7/de6/namespacetoygine.html#a0f7769364a3fa922049ef7ca0b749e12">toygine::utoaImplementation</a></div><div class="ttdeci">char * utoaImplementation(char *dest, std::size_t destSize, type value, unsigned base)</div><div class="ttdoc">Converts an unsigned integer value to a string representation in a specified base.</div><div class="ttdef"><b>Definition</b> utils_internal.inl:134</div></div>
+<div class="ttc" id="anamespacetoygine_html_a0f7769364a3fa922049ef7ca0b749e12"><div class="ttname"><a href="../../d7/de6/namespacetoygine.html#a0f7769364a3fa922049ef7ca0b749e12">toygine::utoaImplementation</a></div><div class="ttdeci">char * utoaImplementation(char *dest, std::size_t destSize, type value, unsigned base)</div><div class="ttdoc">Converts an unsigned integer value to a string representation in a specified base.</div><div class="ttdef"><b>Definition</b> utils_internal.inl:137</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -996,34 +997,36 @@ template&lt;typename type &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A pointer to the destination buffer containing the converted string.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The function assumes that the destination buffer is large enough to hold the converted string. If the destination buffer size is 1, only a null terminator is written. The function reverses the string in-place. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">   86</span>                                                                              {</div>
-<div class="line"><span class="lineno">   87</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(dest != <span class="keyword">nullptr</span> &amp;&amp; destSize &gt; 0, <span class="stringliteral">&quot;The destination buffer must not be null.&quot;</span>);</div>
-<div class="line"><span class="lineno">   88</span>  <span class="keywordflow">if</span> (destSize == 1) {</div>
-<div class="line"><span class="lineno">   89</span>    *dest = <span class="charliteral">&#39;\0&#39;</span>;</div>
-<div class="line"><span class="lineno">   90</span> </div>
-<div class="line"><span class="lineno">   91</span>    <span class="keywordflow">return</span> dest;</div>
-<div class="line"><span class="lineno">   92</span>  }</div>
+<div class="fragment"><div class="line"><span class="lineno">   87</span>                                                                              {</div>
+<div class="line"><span class="lineno">   88</span>  <span class="keyword">static_assert</span>(std::is_integral_v&lt;type&gt; &amp;&amp; std::is_signed_v&lt;type&gt;,</div>
+<div class="line"><span class="lineno">   89</span>                <span class="stringliteral">&quot;itoaImplementation requires a signed integral type&quot;</span>);</div>
+<div class="line"><span class="lineno">   90</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(dest != <span class="keyword">nullptr</span> &amp;&amp; destSize &gt; 0, <span class="stringliteral">&quot;The destination buffer must not be null.&quot;</span>);</div>
+<div class="line"><span class="lineno">   91</span>  <span class="keywordflow">if</span> (destSize == 1) {</div>
+<div class="line"><span class="lineno">   92</span>    *dest = <span class="charliteral">&#39;\0&#39;</span>;</div>
 <div class="line"><span class="lineno">   93</span> </div>
-<div class="line"><span class="lineno">   94</span>  <span class="comment">// decrease dest size for &#39;\0&#39; symbol</span></div>
-<div class="line"><span class="lineno">   95</span>  --destSize;</div>
+<div class="line"><span class="lineno">   94</span>    <span class="keywordflow">return</span> dest;</div>
+<div class="line"><span class="lineno">   95</span>  }</div>
 <div class="line"><span class="lineno">   96</span> </div>
-<div class="line"><span class="lineno">   97</span>  std::size_t symbols = 0;</div>
-<div class="line"><span class="lineno">   98</span>  <span class="keyword">const</span> <span class="keywordtype">bool</span> valueNegative = (value &lt; 0);</div>
-<div class="line"><span class="lineno">   99</span>  <span class="keyword">using </span>unsigned_type = std::make_unsigned_t&lt;type&gt;;</div>
-<div class="line"><span class="lineno">  100</span>  <span class="keywordflow">if</span> (valueNegative) {</div>
-<div class="line"><span class="lineno">  101</span>    symbols = integerToSymbols(dest, destSize, <span class="keyword">static_cast&lt;</span>unsigned_type<span class="keyword">&gt;</span>(-(value + 1)) + 1U, 10);</div>
-<div class="line"><span class="lineno">  102</span>  } <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno">  103</span>    symbols = <a class="code hl_function" href="../../d7/de6/namespacetoygine.html#aece45bc773865fbc01013939bcfaeeb2">integerToSymbols</a>(dest, destSize, <span class="keyword">static_cast&lt;</span>unsigned_type<span class="keyword">&gt;</span>(value), 10);</div>
-<div class="line"><span class="lineno">  104</span>  }</div>
-<div class="line"><span class="lineno">  105</span> </div>
-<div class="line"><span class="lineno">  106</span>  <span class="keywordflow">if</span> (valueNegative &amp;&amp; symbols &lt; destSize)</div>
-<div class="line"><span class="lineno">  107</span>    dest[symbols++] = <span class="charliteral">&#39;-&#39;</span>;</div>
+<div class="line"><span class="lineno">   97</span>  <span class="comment">// decrease dest size for &#39;\0&#39; symbol</span></div>
+<div class="line"><span class="lineno">   98</span>  --destSize;</div>
+<div class="line"><span class="lineno">   99</span> </div>
+<div class="line"><span class="lineno">  100</span>  std::size_t symbols = 0;</div>
+<div class="line"><span class="lineno">  101</span>  <span class="keyword">const</span> <span class="keywordtype">bool</span> valueNegative = (value &lt; 0);</div>
+<div class="line"><span class="lineno">  102</span>  <span class="keyword">using </span>unsigned_type = std::make_unsigned_t&lt;type&gt;;</div>
+<div class="line"><span class="lineno">  103</span>  <span class="keywordflow">if</span> (valueNegative) {</div>
+<div class="line"><span class="lineno">  104</span>    symbols = integerToSymbols(dest, destSize, <span class="keyword">static_cast&lt;</span>unsigned_type<span class="keyword">&gt;</span>(-(value + 1)) + 1U, 10);</div>
+<div class="line"><span class="lineno">  105</span>  } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  106</span>    symbols = <a class="code hl_function" href="../../d7/de6/namespacetoygine.html#aece45bc773865fbc01013939bcfaeeb2">integerToSymbols</a>(dest, destSize, <span class="keyword">static_cast&lt;</span>unsigned_type<span class="keyword">&gt;</span>(value), 10);</div>
+<div class="line"><span class="lineno">  107</span>  }</div>
 <div class="line"><span class="lineno">  108</span> </div>
-<div class="line"><span class="lineno">  109</span>  dest[symbols] = <span class="charliteral">&#39;\0&#39;</span>;</div>
-<div class="line"><span class="lineno">  110</span>  <a class="code hl_function" href="../../d7/de6/namespacetoygine.html#a55968ac28a4437ca63b6dbc6f216b4a4">reverseString</a>(dest, symbols);</div>
+<div class="line"><span class="lineno">  109</span>  <span class="keywordflow">if</span> (valueNegative &amp;&amp; symbols &lt; destSize)</div>
+<div class="line"><span class="lineno">  110</span>    dest[symbols++] = <span class="charliteral">&#39;-&#39;</span>;</div>
 <div class="line"><span class="lineno">  111</span> </div>
-<div class="line"><span class="lineno">  112</span>  <span class="keywordflow">return</span> dest;</div>
-<div class="line"><span class="lineno">  113</span>}</div>
+<div class="line"><span class="lineno">  112</span>  dest[symbols] = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><span class="lineno">  113</span>  <a class="code hl_function" href="../../d7/de6/namespacetoygine.html#a55968ac28a4437ca63b6dbc6f216b4a4">reverseString</a>(dest, symbols);</div>
+<div class="line"><span class="lineno">  114</span> </div>
+<div class="line"><span class="lineno">  115</span>  <span class="keywordflow">return</span> dest;</div>
+<div class="line"><span class="lineno">  116</span>}</div>
 <div class="ttc" id="anamespacetoygine_html_a55968ac28a4437ca63b6dbc6f216b4a4"><div class="ttname"><a href="../../d7/de6/namespacetoygine.html#a55968ac28a4437ca63b6dbc6f216b4a4">toygine::reverseString</a></div><div class="ttdeci">char * reverseString(char *string, std::size_t stringLength)</div><div class="ttdoc">Reverses a given string in-place.</div><div class="ttdef"><b>Definition</b> utils.inl:41</div></div>
 <div class="ttc" id="anamespacetoygine_html_aece45bc773865fbc01013939bcfaeeb2"><div class="ttname"><a href="../../d7/de6/namespacetoygine.html#aece45bc773865fbc01013939bcfaeeb2">toygine::integerToSymbols</a></div><div class="ttdeci">constexpr std::size_t integerToSymbols(char *dest, std::size_t destSize, type value, unsigned base)</div><div class="ttdoc">Converts an integer value to a string representation in a specified base.</div><div class="ttdef"><b>Definition</b> utils_internal.inl:55</div></div>
 </div><!-- fragment -->
@@ -1186,6 +1189,7 @@ template&lt;typename type &gt; </div>
   </table>
   </dd>
 </dl>
+<dl class="section note"><dt>Note</dt><dd>Only BMP (≤ 0xFFFF) characters are supported by design; 4-byte UTF-8 sequences are not produced.</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>A pointer to the destination wide character string, or nullptr if the destination buffer is invalid. </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">   30</span>                                                                                   {</div>
 <div class="line"><span class="lineno">   31</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(src != <span class="keyword">nullptr</span>, <span class="stringliteral">&quot;The source must not be null.&quot;</span>);</div>
@@ -1245,6 +1249,7 @@ template&lt;typename type &gt; </div>
   </table>
   </dd>
 </dl>
+<dl class="section note"><dt>Note</dt><dd>Only BMP (≤ 0xFFFF) characters are supported by design; 4-byte UTF-8 sequences are not produced.</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>A pointer to the destination wide character string, or nullptr if the destination buffer is invalid. </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">  343</span>                                                                                             {</div>
 <div class="line"><span class="lineno">  344</span>  <span class="keywordflow">if</span> (dest == <span class="keyword">nullptr</span> || destSize == 0)</div>
@@ -1338,6 +1343,7 @@ template&lt;typename stringType &gt; </div>
   </table>
   </dd>
 </dl>
+<dl class="section note"><dt>Note</dt><dd>Only BMP (≤ 0xFFFF) characters are supported by design; 4-byte UTF-8 sequences are not produced.</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>A pointer to the destination wide character string, or nullptr if the destination buffer is invalid. </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">   37</span>                                                                                         {</div>
 <div class="line"><span class="lineno">   38</span>  <span class="keywordflow">return</span> <a class="code hl_function" href="../../d7/de6/namespacetoygine.html#aa91ac406f0e472aee86388b14a415e6a">utf8toWChar</a>(dest, destSize, src.c_str(), src.size());</div>
@@ -1412,25 +1418,25 @@ template&lt;typename type &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A pointer to the destination buffer containing the converted string.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The function assumes that the destination buffer is large enough to hold the converted string. If the destination buffer size is 1, only a null terminator is written. The base must be between 2 and 36 inclusive. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">  134</span>                                                                                             {</div>
-<div class="line"><span class="lineno">  135</span>  <span class="keyword">static_assert</span>(std::is_unsigned_v&lt;type&gt;, <span class="stringliteral">&quot;utoaImplementation requires an unsigned integer type&quot;</span>);</div>
-<div class="line"><span class="lineno">  136</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(dest != <span class="keyword">nullptr</span> &amp;&amp; destSize &gt; 0, <span class="stringliteral">&quot;The destination buffer must not be null.&quot;</span>);</div>
-<div class="line"><span class="lineno">  137</span>  <span class="keywordflow">if</span> (destSize == 1) {</div>
-<div class="line"><span class="lineno">  138</span>    *dest = <span class="charliteral">&#39;\0&#39;</span>;</div>
-<div class="line"><span class="lineno">  139</span> </div>
-<div class="line"><span class="lineno">  140</span>    <span class="keywordflow">return</span> dest;</div>
-<div class="line"><span class="lineno">  141</span>  }</div>
+<div class="fragment"><div class="line"><span class="lineno">  137</span>                                                                                             {</div>
+<div class="line"><span class="lineno">  138</span>  <span class="keyword">static_assert</span>(std::is_unsigned_v&lt;type&gt;, <span class="stringliteral">&quot;utoaImplementation requires an unsigned integer type&quot;</span>);</div>
+<div class="line"><span class="lineno">  139</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(dest != <span class="keyword">nullptr</span> &amp;&amp; destSize &gt; 0, <span class="stringliteral">&quot;The destination buffer must not be null.&quot;</span>);</div>
+<div class="line"><span class="lineno">  140</span>  <span class="keywordflow">if</span> (destSize == 1) {</div>
+<div class="line"><span class="lineno">  141</span>    *dest = <span class="charliteral">&#39;\0&#39;</span>;</div>
 <div class="line"><span class="lineno">  142</span> </div>
-<div class="line"><span class="lineno">  143</span>  <span class="comment">// decrease dest size for &#39;\0&#39; symbol</span></div>
-<div class="line"><span class="lineno">  144</span>  --destSize;</div>
+<div class="line"><span class="lineno">  143</span>    <span class="keywordflow">return</span> dest;</div>
+<div class="line"><span class="lineno">  144</span>  }</div>
 <div class="line"><span class="lineno">  145</span> </div>
-<div class="line"><span class="lineno">  146</span>  <span class="keyword">auto</span> symbols = integerToSymbols(dest, destSize, value, base);</div>
-<div class="line"><span class="lineno">  147</span> </div>
-<div class="line"><span class="lineno">  148</span>  dest[symbols] = <span class="charliteral">&#39;\0&#39;</span>;</div>
-<div class="line"><span class="lineno">  149</span>  reverseString(dest, symbols);</div>
+<div class="line"><span class="lineno">  146</span>  <span class="comment">// decrease dest size for &#39;\0&#39; symbol</span></div>
+<div class="line"><span class="lineno">  147</span>  --destSize;</div>
+<div class="line"><span class="lineno">  148</span> </div>
+<div class="line"><span class="lineno">  149</span>  <span class="keyword">auto</span> symbols = integerToSymbols(dest, destSize, value, base);</div>
 <div class="line"><span class="lineno">  150</span> </div>
-<div class="line"><span class="lineno">  151</span>  <span class="keywordflow">return</span> dest;</div>
-<div class="line"><span class="lineno">  152</span>}</div>
+<div class="line"><span class="lineno">  151</span>  dest[symbols] = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><span class="lineno">  152</span>  reverseString(dest, symbols);</div>
+<div class="line"><span class="lineno">  153</span> </div>
+<div class="line"><span class="lineno">  154</span>  <span class="keywordflow">return</span> dest;</div>
+<div class="line"><span class="lineno">  155</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
