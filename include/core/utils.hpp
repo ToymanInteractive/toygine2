@@ -42,6 +42,8 @@ inline constexpr std::size_t wcharInUtf8MaxSize = 3;
   \param src      A pointer to the source UTF-8 encoded string.
   \param count    The number of characters to convert from the source string.
 
+  \note Only BMP (≤ 0xFFFF) characters are supported by design; 4-byte UTF-8 sequences are not produced.
+
   \return A pointer to the destination wide character string, or nullptr if the destination buffer is invalid.
 */
 wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, char const * src, std::size_t count);
@@ -57,6 +59,8 @@ wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, char const * src, st
   \param destSize The size of the destination buffer.
   \param src      A pointer to the source UTF-8 encoded string.
 
+  \note Only BMP (≤ 0xFFFF) characters are supported by design; 4-byte UTF-8 sequences are not produced.
+
   \return A pointer to the destination wide character string, or nullptr if the destination buffer is invalid.
 */
 inline wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, char const * src);
@@ -71,6 +75,8 @@ inline wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, char const * 
   \param dest     A pointer to the destination buffer where the converted wide character string will be stored.
   \param destSize The size of the destination buffer.
   \param src      A reference to a class with null-terminated UTF-8 encoded string.
+
+  \note Only BMP (≤ 0xFFFF) characters are supported by design; 4-byte UTF-8 sequences are not produced.
 
   \return A pointer to the destination wide character string, or nullptr if the destination buffer is invalid.
 */
@@ -305,8 +311,8 @@ char * ftoa(char * dest, std::size_t destSize, double value, std::size_t precisi
   \param bufferSize        The size of the destination buffer.
   \param groupingSeparator The grouping separator to be inserted into the string.
 
-  \note The function does not check if the destination buffer is large enough to hold the modified string. If the buffer
-        is too small, the function will not insert any separators and will return without modifying the buffer.
+  \note The function validates available capacity and returns early without modification if the buffer is too small. The
+        groupingSeparator must not be null and should not exceed 8 characters.
 */
 void formatNumberString(char * buffer, std::size_t bufferSize, char const * groupingSeparator);
 
