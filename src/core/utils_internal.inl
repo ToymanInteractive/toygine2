@@ -18,12 +18,12 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*
-  \file   core_utils_internal.inl
-  \brief  collection of core utils inline functions
+  \file   utils_internal.inl
+  \brief  Internal utilities: inline helpers used by the core utils implementation
 */
 
-#ifndef SRC_CORE_CORE_UTILS_INTERNAL_INL_
-#define SRC_CORE_CORE_UTILS_INTERNAL_INL_
+#ifndef SRC_CORE_UTILS_INTERNAL_INL_
+#define SRC_CORE_UTILS_INTERNAL_INL_
 
 #include <type_traits>
 
@@ -53,6 +53,7 @@ static constexpr std::array<char, 36> sc_ansiDigits{{'0', '1', '2', '3', '4', '5
 */
 template <typename type>
 constexpr inline std::size_t integerToSymbols(char * dest, std::size_t destSize, type value, unsigned base) {
+  static_assert(std::is_integral_v<type>, "integerToSymbols requires an integral type");
   assert_message(dest != nullptr && destSize > 0, "The destination buffer must not be null.");
   assert_message(base >= 2 && base <= sc_ansiDigits.size(), "The base must be between 2 and 36 inclusive.");
 
@@ -83,7 +84,9 @@ constexpr inline std::size_t integerToSymbols(char * dest, std::size_t destSize,
         destination buffer size is 1, only a null terminator is written. The function reverses the string in-place.
 */
 template <typename type>
-inline char * itoaImplementation(char * dest, size_t destSize, type value) {
+inline char * itoaImplementation(char * dest, std::size_t destSize, type value) {
+  static_assert(std::is_integral_v<type> && std::is_signed_v<type>,
+                "itoaImplementation requires a signed integral type");
   assert_message(dest != nullptr && destSize > 0, "The destination buffer must not be null.");
   if (destSize == 1) {
     *dest = '\0';
@@ -153,4 +156,4 @@ inline char * utoaImplementation(char * dest, std::size_t destSize, type value, 
 
 } // namespace toygine
 
-#endif // SRC_CORE_CORE_UTILS_INTERNAL_INL_
+#endif // SRC_CORE_UTILS_INTERNAL_INL_

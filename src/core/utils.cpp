@@ -22,7 +22,7 @@
 #include <cmath>
 
 #include "core.hpp"
-#include "core_utils_internal.inl"
+#include "utils_internal.inl"
 
 namespace {
 constexpr std::array<std::uint8_t, 256> sc_utf8CharSizeTable{
