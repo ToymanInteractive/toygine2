@@ -80,9 +80,9 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/core/core.hpp.in ${CMAKE_CURRENT_
 
 #-------------------------------------------------------------------------------------------
 
-set(SRC_CORE_LIST src/core/core_utils.cpp)
-set(HDR_CORE_LIST include/core.hpp        include/core/fix_string.hpp)
-set(INL_CORE_LIST include/core_inline.inl include/core/fix_string.inl)
+set(SRC_CORE_LIST                                              src/core/utils.cpp     src/core/utils_internal.inl)
+set(HDR_CORE_LIST include/core.hpp include/core/fix_string.hpp include/core/utils.hpp)
+set(INL_CORE_LIST                  include/core/fix_string.inl include/core/utils.inl)
 
 source_group("Core" FILES ${SRC_CORE_LIST} ${HDR_CORE_LIST} ${INL_CORE_LIST})
 

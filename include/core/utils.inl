@@ -18,15 +18,14 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*
-  \file   core_inline.inl
+  \file   utils.inl
   \brief  collection of core inline functions
 */
 
-#ifndef INCLUDE_CORE_INLINE_INL_
-#define INCLUDE_CORE_INLINE_INL_
+#ifndef INCLUDE_CORE_UTILS_INL_
+#define INCLUDE_CORE_UTILS_INL_
 
 namespace toygine {
-//------------------------------------------------------------------------------
 
 inline wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, char const * src) {
   assert_message(src != nullptr, "The source must not be null.");
@@ -56,7 +55,6 @@ inline char * reverseString(char * string, std::size_t stringLength) {
   return string;
 }
 
-//------------------------------------------------------------------------------
 } // namespace toygine
 
-#endif // INCLUDE_CORE_INLINE_INL_
+#endif // INCLUDE_CORE_UTILS_INL_

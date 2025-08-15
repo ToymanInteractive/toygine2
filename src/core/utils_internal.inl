@@ -18,12 +18,12 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*
-  \file   core_utils_internal.inl
+  \file   utils_internal.inl
   \brief  collection of core utils inline functions
 */
 
-#ifndef SRC_CORE_CORE_UTILS_INTERNAL_INL_
-#define SRC_CORE_CORE_UTILS_INTERNAL_INL_
+#ifndef SRC_CORE_UTILS_INTERNAL_INL_
+#define SRC_CORE_UTILS_INTERNAL_INL_
 
 #include <type_traits>
 
@@ -153,4 +153,4 @@ inline char * utoaImplementation(char * dest, std::size_t destSize, type value, 
 
 } // namespace toygine
 
-#endif // SRC_CORE_CORE_UTILS_INTERNAL_INL_
+#endif // SRC_CORE_UTILS_INTERNAL_INL_

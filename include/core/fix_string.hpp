@@ -48,8 +48,6 @@ public:
     This destructor cleans up the FixString object. Since FixString does not manage dynamic memory, no special cleanup
     is required. The destructor ensures that any necessary invariants or assertions related to the allocatedSize are
     enforced.
-
-    \pre The allocated size must be greater than zero.
   */
   constexpr inline ~FixString() noexcept;
 
