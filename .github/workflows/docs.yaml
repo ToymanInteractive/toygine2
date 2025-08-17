@@ -28,8 +28,8 @@ jobs:
       - name: Generate Docs
         run: |
           mkdir -p ./docs/html
-          doxygen ./docs/Doxyfile.en
-          doxygen ./docs/Doxyfile.ru
+          cmake -DTOYGINE_BUILD_TESTS=OFF --preset linux-ninja-debug
+          cmake --build --preset linux-ninja-debug --target docs
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4.0.0

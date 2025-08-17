@@ -82,6 +82,16 @@
                 "CMAKE_BUILD_TYPE": "Debug",
                 "ENABLE_TEST": "ON"
             }
+        },
+        {
+            "name": "linux-ninja-debug",
+            "displayName": "Linux Ninja debug",
+            "description": "ToyGine 2 MacOS Linux (Debug)",
+            "inherits": "linux-ninja-release",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "ENABLE_TEST": "ON"
+            }
         }
     ],
     "buildPresets": [
