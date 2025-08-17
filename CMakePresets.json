@@ -134,6 +134,11 @@
             "name": "macos-ninja-debug",
             "configurePreset": "macos-ninja-debug",
             "inherits": "default-debug"
+        },
+        {
+            "name": "linux-ninja-debug",
+            "configurePreset": "linux-ninja-debug",
+            "inherits": "default-debug"
         }
     ],
     "testPresets": [
@@ -173,6 +178,11 @@
         {
             "name": "macos-ninja-debug",
             "configurePreset": "macos-ninja-debug",
+            "inherits": "default-debug"
+        },
+        {
+            "name": "linux-ninja-debug",
+            "configurePreset": "linux-ninja-debug",
             "inherits": "default-debug"
         }
     ]
