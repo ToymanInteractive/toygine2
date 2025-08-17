@@ -50,8 +50,8 @@ if (NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE "RelWithDebInfo")
 endif ()
 
-option(TOYGINE_BUILD_DOCS "Set when you want to build engine documentation" OFF)
 if (TOP_PROJECT)
+  option(TOYGINE_BUILD_DOCS "Set when you want to build engine documentation" OFF)
   option(TOYGINE_BUILD_TESTS "Set when you want to build engine unit tests" ON)
 endif ()
 
