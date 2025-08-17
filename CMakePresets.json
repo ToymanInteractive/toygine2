@@ -82,6 +82,16 @@
                 "CMAKE_BUILD_TYPE": "Debug",
                 "ENABLE_TEST": "ON"
             }
+        },
+        {
+            "name": "linux-ninja-debug",
+            "displayName": "Linux Ninja debug",
+            "description": "ToyGine 2 Linux Ninja (Debug)",
+            "inherits": "linux-ninja-release",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "ENABLE_TEST": "ON"
+            }
         }
     ],
     "buildPresets": [
@@ -124,6 +134,11 @@
             "name": "macos-ninja-debug",
             "configurePreset": "macos-ninja-debug",
             "inherits": "default-debug"
+        },
+        {
+            "name": "linux-ninja-debug",
+            "configurePreset": "linux-ninja-debug",
+            "inherits": "default-debug"
         }
     ],
     "testPresets": [
@@ -163,6 +178,11 @@
         {
             "name": "macos-ninja-debug",
             "configurePreset": "macos-ninja-debug",
+            "inherits": "default-debug"
+        },
+        {
+            "name": "linux-ninja-debug",
+            "configurePreset": "linux-ninja-debug",
             "inherits": "default-debug"
         }
     ]

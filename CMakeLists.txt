@@ -51,6 +51,7 @@ if (NOT CMAKE_BUILD_TYPE)
 endif ()
 
 if (TOP_PROJECT)
+  option(TOYGINE_BUILD_DOCS "Set when you want to build engine documentation" OFF)
   option(TOYGINE_BUILD_TESTS "Set when you want to build engine unit tests" ON)
 endif ()
 
@@ -111,3 +112,11 @@ if (TOYGINE_BUILD_TESTS)
   enable_testing()
   add_subdirectory(test)
 endif (TOYGINE_BUILD_TESTS)
+
+#-------------------------------------------------------------------------------------------
+# Documentation
+#-------------------------------------------------------------------------------------------
+
+if (TOYGINE_BUILD_DOCS)
+  add_subdirectory(docs)
+endif (TOYGINE_BUILD_DOCS)
