@@ -90,7 +90,7 @@ jobs:
         shell: bash
         run: |
           cmake -DTOYGINE_BUILD_DOCS=OFF -DTOYGINE_BUILD_TESTS=ON --preset linux-ninja-debug
-          cmake --build --preset linux-ninja-debug --target docs
+          cmake --build --preset linux-ninja-debug
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
