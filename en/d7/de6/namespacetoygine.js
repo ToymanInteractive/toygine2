@@ -1,11 +1,17 @@
 var namespacetoygine =
 [
     [ "assertion", "dd/d55/namespacetoygine_1_1assertion.html", [
+      [ "AssertionCallback", "dd/d55/namespacetoygine_1_1assertion.html#a8455648183f19f236becdbbf0e36954d", null ],
+      [ "StackWalkCallback", "dd/d55/namespacetoygine_1_1assertion.html#a785fc50cab74c1200ab076082bdafefe", null ],
+      [ "assertion", "dd/d55/namespacetoygine_1_1assertion.html#a1a95dd270b2922a341e7fea330b654c3", null ],
       [ "deInitialize", "dd/d55/namespacetoygine_1_1assertion.html#a1f4b93239704be50c6f7843c8c7e475f", null ],
       [ "initialize", "dd/d55/namespacetoygine_1_1assertion.html#a9653f4304e4fa840577c36c61fa32eac", null ],
-      [ "setCallbacks", "dd/d55/namespacetoygine_1_1assertion.html#a000691ce60af14ff6928a553ca6c00fd", null ]
+      [ "setCallbacks", "dd/d55/namespacetoygine_1_1assertion.html#a1a1d0601596ffb5c776edfdb9b534d04", null ],
+      [ "setCallbacks", "dd/d55/namespacetoygine_1_1assertion.html#a000691ce60af14ff6928a553ca6c00fd", null ],
+      [ "s_assertionCallback", "dd/d55/namespacetoygine_1_1assertion.html#af12a64b3cc004e87fb85ee25f67a5cbc", null ]
     ] ],
-    [ "FixString", "d8/db8/classtoygine_1_1FixString.html", "d8/db8/classtoygine_1_1FixString" ],
+    [ "FixString", "da/d4a/classtoygine_1_1_fix_string.html", "da/d4a/classtoygine_1_1_fix_string" ],
+    [ "ArraySize", "d7/de6/namespacetoygine.html#a0278fc86f3113fc375beb8cb2f380b02", null ],
     [ "formatNumberString", "d7/de6/namespacetoygine.html#af36eec789fd0f6ea91b7d1ec48b25b48", null ],
     [ "ftoa", "d7/de6/namespacetoygine.html#a2f65fa6e46f8a594b805986e41d4b344", null ],
     [ "ftoa", "d7/de6/namespacetoygine.html#a4aeee65facd5e81d83259a89b18e9c7c", null ],
@@ -26,5 +32,6 @@ var namespacetoygine =
     [ "utf8toWChar", "d7/de6/namespacetoygine.html#a811e04b05bc9831faa0a74301d2a9e27", null ],
     [ "utoaImplementation", "d7/de6/namespacetoygine.html#a0f7769364a3fa922049ef7ca0b749e12", null ],
     [ "wcharToUtf8", "d7/de6/namespacetoygine.html#a6173680fd5b35f1df4f1e8a818adc3e9", null ],
+    [ "sc_ansiDigits", "d7/de6/namespacetoygine.html#adf925cf307a3e0463eb4ce318cc51ed8", null ],
     [ "wcharInUtf8MaxSize", "d7/de6/namespacetoygine.html#a33eb5fc4e7682e297375d2ee2fbb7742", null ]
 ];

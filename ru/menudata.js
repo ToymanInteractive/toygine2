@@ -27,14 +27,24 @@ var menudata={children:[
 {text:"Пространства имен",url:"namespaces.html",children:[
 {text:"Пространства имен",url:"namespaces.html"},
 {text:"Члены пространств имен",url:"namespacemembers.html",children:[
-{text:"Указатель",url:"namespacemembers.html"},
+{text:"Указатель",url:"namespacemembers.html",children:[
+{text:"a",url:"namespacemembers.html#index_a"},
+{text:"d",url:"namespacemembers.html#index_d"},
+{text:"f",url:"namespacemembers.html#index_f"},
+{text:"i",url:"namespacemembers.html#index_i"},
+{text:"r",url:"namespacemembers.html#index_r"},
+{text:"s",url:"namespacemembers.html#index_s"},
+{text:"u",url:"namespacemembers.html#index_u"},
+{text:"w",url:"namespacemembers.html#index_w"}]},
 {text:"Функции",url:"namespacemembers_func.html"},
-{text:"Переменные",url:"namespacemembers_vars.html"}]}]},
+{text:"Переменные",url:"namespacemembers_vars.html"},
+{text:"Определения типов",url:"namespacemembers_type.html"}]}]},
 {text:"Классы",url:"annotated.html",children:[
 {text:"Классы",url:"annotated.html"},
 {text:"Алфавитный указатель классов",url:"classes.html"},
 {text:"Члены классов",url:"functions.html",children:[
 {text:"Указатель",url:"functions.html",children:[
+{text:"_",url:"functions.html#index__5F"},
 {text:"a",url:"functions.html#index_a"},
 {text:"c",url:"functions.html#index_c"},
 {text:"d",url:"functions.html#index_d"},
@@ -44,6 +54,8 @@ var menudata={children:[
 {text:"m",url:"functions.html#index_m"},
 {text:"n",url:"functions.html#index_n"},
 {text:"o",url:"functions.html#index_o"},
+{text:"q",url:"functions.html#index_q"},
+{text:"r",url:"functions.html#index_r"},
 {text:"s",url:"functions.html#index_s"},
 {text:"u",url:"functions.html#index_u"},
 {text:"~",url:"functions.html#index__7E"}]},

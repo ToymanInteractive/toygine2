@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['fixstring_0',['FixString',['../d8/db8/classtoygine_1_1FixString.html',1,'toygine']]]
+  ['divmod10_0',['divmod10',['../df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html',1,'anonymous_namespace{utils.cpp}']]]
 ];

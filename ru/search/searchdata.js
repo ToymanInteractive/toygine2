@@ -1,13 +1,14 @@
 var indexSectionsWithContent =
 {
-  0: "acdefilmnoprstuw~",
-  1: "f",
-  2: "t",
-  3: "afpru",
+  0: "_acdefilmnopqrstuw~",
+  1: "df",
+  2: "at",
+  3: "acfpru",
   4: "acdefilmorsuw~",
-  5: "nw",
-  6: "ais",
-  7: "t"
+  5: "_nqrsw",
+  6: "as",
+  7: "aciost",
+  8: "t"
 };
 
 var indexSectionNames =
@@ -18,8 +19,9 @@ var indexSectionNames =
   3: "files",
   4: "functions",
   5: "variables",
-  6: "defines",
-  7: "pages"
+  6: "typedefs",
+  7: "defines",
+  8: "pages"
 };
 
 var indexSectionLabels =
@@ -30,7 +32,8 @@ var indexSectionLabels =
   3: "Файлы",
   4: "Функции",
   5: "Переменные",
-  6: "Макросы",
-  7: "Страницы"
+  6: "Определения типов",
+  7: "Макросы",
+  8: "Страницы"
 };
 

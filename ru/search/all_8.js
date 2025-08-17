@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['npos_0',['npos',['../d8/db8/classtoygine_1_1FixString.html#a79044e138bb62795eaa69202361b0c1c',1,'toygine::FixString']]]
+  ['max_5fsize_0',['max_size',['../da/d4a/classtoygine_1_1_fix_string.html#af299dcadcd61fdcc3f56a550d66656a0',1,'toygine::FixString']]]
 ];

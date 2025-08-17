@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['setcallbacks_0',['setCallbacks',['../dd/d55/namespacetoygine_1_1assertion.html#a000691ce60af14ff6928a553ca6c00fd',1,'toygine::assertion']]],
-  ['size_1',['size',['../d8/db8/classtoygine_1_1FixString.html#af89cb8066041fa741f75709159b610e7',1,'toygine::FixString']]],
-  ['src_5fcore_5futils_5finternal_5finl_5f_2',['SRC_CORE_UTILS_INTERNAL_INL_',['../d4/d85/utils__internal_8inl.html#a59c5026acee935b89b5b8cf435c67831',1,'utils_internal.inl']]]
+  ['quot_0',['quot',['../df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html#a0b0e3e5fe61c7febd3ea8f9fa426760d',1,'anonymous_namespace{utils.cpp}::divmod10']]]
 ];

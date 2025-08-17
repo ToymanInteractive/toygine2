@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['wcharinutf8maxsize_0',['wcharInUtf8MaxSize',['../d7/de6/namespacetoygine.html#a33eb5fc4e7682e297375d2ee2fbb7742',1,'toygine']]],
-  ['wchartoutf8_1',['wcharToUtf8',['../d7/de6/namespacetoygine.html#a6173680fd5b35f1df4f1e8a818adc3e9',1,'toygine']]]
+  ['toy_5funused_0',['TOY_UNUSED',['../da/d47/core_8hpp.html#a6c25f2c5b6e99783e32a4eb8258eb2f6',1,'core.hpp']]],
+  ['toygine_1',['toygine',['../d7/de6/namespacetoygine.html',1,'']]],
+  ['toygine2_2',['ToyGine2',['../index.html',1,'']]],
+  ['toygine_3a_3aassertion_3',['assertion',['../dd/d55/namespacetoygine_1_1assertion.html',1,'toygine']]]
 ];

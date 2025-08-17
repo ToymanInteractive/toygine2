@@ -1,8 +1,5 @@
 var searchData=
 [
-  ['assert_0',['assert',['../dd/d9e/linux_2platform__config_8hpp.html#af576bf8ffa22a44e53018c67095ffbf0',1,'assert:&#160;platform_config.hpp'],['../d8/d80/macos_2platform__config_8hpp.html#af576bf8ffa22a44e53018c67095ffbf0',1,'assert:&#160;platform_config.hpp'],['../db/d29/windows_2platform__config_8hpp.html#af576bf8ffa22a44e53018c67095ffbf0',1,'assert:&#160;platform_config.hpp']]],
-  ['assert_5fmessage_1',['assert_message',['../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c',1,'assert_message:&#160;platform_config.hpp'],['../d8/d80/macos_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c',1,'assert_message:&#160;platform_config.hpp'],['../db/d29/windows_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c',1,'assert_message:&#160;platform_config.hpp']]],
-  ['assertion_5fstub_2ecpp_2',['assertion_stub.cpp',['../d7/d90/assertion__stub_8cpp.html',1,'']]],
-  ['assign_3',['assign',['../d8/db8/classtoygine_1_1FixString.html#a1bf2a0caa686d3229c47d268e898b25b',1,'toygine::FixString::assign(const FixString&lt; allocatedSize &gt; &amp;string) noexcept'],['../d8/db8/classtoygine_1_1FixString.html#a4bc87888bdc75f99462c71ab3487c923',1,'toygine::FixString::assign(const FixString&lt; allocatedSize2 &gt; &amp;string) noexcept'],['../d8/db8/classtoygine_1_1FixString.html#a19b33a7083145851899dd07d183d6747',1,'toygine::FixString::assign(const char *string) noexcept'],['../d8/db8/classtoygine_1_1FixString.html#a5f1faf25d6175adb034c67c526412c34',1,'toygine::FixString::assign(char symbol, std::size_t count) noexcept']]],
-  ['at_4',['at',['../d8/db8/classtoygine_1_1FixString.html#ad7791c5ec05c6614800bbc148c538ab4',1,'toygine::FixString::at(std::size_t offset) noexcept'],['../d8/db8/classtoygine_1_1FixString.html#af4abf2499de629964bd21ec6c77e92a7',1,'toygine::FixString::at(std::size_t offset) const noexcept']]]
+  ['_5fdata_0',['_data',['../da/d4a/classtoygine_1_1_fix_string.html#aefd61568e3d5a4812f208bb45358d4ff',1,'toygine::FixString']]],
+  ['_5fsize_1',['_size',['../da/d4a/classtoygine_1_1_fix_string.html#a9166a4498452706474ce05840e67e660',1,'toygine::FixString']]]
 ];
