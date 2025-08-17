@@ -77,7 +77,7 @@ jobs:
 
       - name: Configure
         run: |
-          cmake -DTOYGINE_BUILD_DOCS=OFF -DTOYGINE_BUILD_TESTS=$([ "${{ matrix.run_test }}" = "true" ] && echo ON || echo OFF) --preset ${{ matrix.cmake_preset }}
+          cmake -DTOYGINE_BUILD_TESTS=$([ "${{ matrix.run_test }}" = "true" ] && echo ON || echo OFF) --preset ${{ matrix.cmake_preset }}
 
       - name: Build
         run: |

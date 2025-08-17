@@ -18,17 +18,15 @@
 # DEALINGS IN THE SOFTWARE.
 #-------------------------------------------------------------------------------------------
 
-cmake_minimum_required(VERSION 3.31.0 FATAL_ERROR)
-
 find_package(Doxygen REQUIRED)
 
 include(FetchContent)
-FetchContent_Declare(doxygen-awesome-css https://github.com/jothepro/doxygen-awesome-css.git GIT_TAG v2.3.4)
+FetchContent_Declare(doxygen-awesome-css GIT_REPOSITORY https://github.com/jothepro/doxygen-awesome-css.git GIT_TAG v2.3.4)
 FetchContent_MakeAvailable(doxygen-awesome-css)
 
 FetchContent_GetProperties(doxygen-awesome-css SOURCE_DIR AWESOME_CSS_DIR)
 
-configure_file(${PROJECT_SOURCE_DIR}/docs/Doxyfile.in ${PROJECT_SOURCE_DIR}/Doxyfile @ONLY)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile.in ${CMAKE_CURRENT_SOURCE_DIR}/../Doxyfile @ONLY)
 
 add_custom_target(docs
     COMMAND ${DOXYGEN_EXECUTABLE} ${PROJECT_SOURCE_DIR}/docs/Doxyfile.en
