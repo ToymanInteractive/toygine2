@@ -1,8 +1,24 @@
 # ToyGine2
 
-Game Engine
+ToyGine2 is a modern C++ high level engine
 
 ![CodeRabbit Pull Request Reviews](https://img.shields.io/coderabbit/prs/github/ToymanInteractive/toygine2?utm_source=oss&utm_medium=github&utm_campaign=ToymanInteractive%2Ftoygine2&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+Reviews)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/ToymanInteractive/toygine2/push.yaml?branch=main)
 ![Codacy Badge](https://app.codacy.com/project/badge/Grade/4c8233540e7c4e5f9715aaacfa36679f)
 ![DeepSource](https://app.deepsource.com/gh/ToymanInteractive/toygine2.svg/?label=active+issues&show_trend=true&token=VnVx7Ql_HnllN1_QgIN7C8Zy)
+
+## Supported Systems
+
+- Windows
+- macOS
+- Linux
+
+## Requirements
+
+`ToyGine2` requires a C++23 compliant compiler. The following C++ compilers are supported:
+
+| Compiler                | Version                  |
+| ----------------------- | ------------------------ |
+| Microsoft Visual Studio | MSVC 2022 17.0 and above |
+| GCC                     | 14.0 and above           |
+| Xcode (Clang 17)        | 16.4 and above           |
