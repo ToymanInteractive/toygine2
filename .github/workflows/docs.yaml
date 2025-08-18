@@ -8,7 +8,7 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: macos-15
     permissions:
       contents: write
 
@@ -20,10 +20,10 @@ jobs:
 
       - name: Install dependencies
         run: |
-          sudo apt install doxygen graphviz python3
+          brew install doxygen graphviz python3
           pip install sphinx breathe sphinx_rtd_theme
 
       - name: Generate Docs
         run: |
-          cmake -DTOYGINE_BUILD_DOCS=ON -DTOYGINE_BUILD_TESTS=OFF --preset linux-ninja-debug
-          cmake --build --preset linux-ninja-debug --target docs
+          cmake -DTOYGINE_BUILD_DOCS=ON -DTOYGINE_BUILD_TESTS=OFF --preset macos-ninja-debug
+          cmake --build --preset macos-ninja-debug --target docs
