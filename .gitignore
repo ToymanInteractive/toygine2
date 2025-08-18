@@ -3,8 +3,8 @@ include/core.hpp
 
 # Related to documentation
 docs/html/
+docs/Doxyfile_awesome_css
 doxygen.log
-Doxyfile_awesome_css
 
 # Compilers will place build artifacts here
 out/
