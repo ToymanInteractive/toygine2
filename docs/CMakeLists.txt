@@ -26,6 +26,10 @@ FetchContent_Declare(doxygen_awesome_css GIT_REPOSITORY https://github.com/jothe
 FetchContent_MakeAvailable(doxygen_awesome_css)
 FetchContent_GetProperties(doxygen_awesome_css SOURCE_DIR AWESOME_CSS_DIR)
 
+FetchContent_Declare(m_css GIT_REPOSITORY https://github.com/mosra/m.css.git)
+FetchContent_MakeAvailable(m_css)
+FetchContent_GetProperties(m_css SOURCE_DIR M_CSS_DIR)
+
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile_awesome_css.in ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile_awesome_css @ONLY)
 
 add_custom_target(docs
