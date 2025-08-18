@@ -19,6 +19,7 @@
 #-------------------------------------------------------------------------------------------
 
 find_package(Doxygen REQUIRED)
+find_package(Python3 REQUIRED COMPONENTS Interpreter)
 
 include(FetchContent)
 
@@ -33,9 +34,11 @@ FetchContent_GetProperties(m_css SOURCE_DIR M_CSS_DIR)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile_awesome_css.in ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile_awesome_css @ONLY)
 
 add_custom_target(docs
+COMMENT "Generating documentation with Doxygen"
     COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile
     COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile_awesome_css
+    COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile_m_css
+    COMMAND ${Python3_EXECUTABLE} ${M_CSS_DIR}/documentation/doxygen.py --no-doxygen --templates ${M_CSS_DIR}/documentation/templates/ --output ${CMAKE_CURRENT_SOURCE_DIR}/html/m xml/index.xml
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-    COMMENT "Generating documentation with Doxygen"
     VERBATIM
 )
