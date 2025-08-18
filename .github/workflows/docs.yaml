@@ -2,8 +2,6 @@ name: Generate Doxygen Docs
 
 on:
   push:
-    branches:
-      - main
 
 permissions:
   contents: read
@@ -20,18 +18,12 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Install Doxygen
+      - name: Install dependencies
         run: |
-          sudo apt-get update -y
-          sudo apt-get install -y doxygen graphviz
+          sudo apt install doxygen graphviz python3
+          pip install sphinx breathe sphinx_rtd_theme
 
       - name: Generate Docs
         run: |
           cmake -DTOYGINE_BUILD_DOCS=ON -DTOYGINE_BUILD_TESTS=OFF --preset linux-ninja-debug
           cmake --build --preset linux-ninja-debug --target docs
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4.0.0
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs/html
