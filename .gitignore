@@ -4,7 +4,7 @@ include/core.hpp
 # Related to documentation
 docs/html/
 doxygen.log
-Doxyfile_awesome
+Doxyfile_awesome_css
 
 # Compilers will place build artifacts here
 out/

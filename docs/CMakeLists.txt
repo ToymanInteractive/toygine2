@@ -21,16 +21,16 @@
 find_package(Doxygen REQUIRED)
 
 include(FetchContent)
+
 FetchContent_Declare(doxygen-awesome-css GIT_REPOSITORY https://github.com/jothepro/doxygen-awesome-css.git GIT_TAG v2.3.4)
 FetchContent_MakeAvailable(doxygen-awesome-css)
-
 FetchContent_GetProperties(doxygen-awesome-css SOURCE_DIR AWESOME_CSS_DIR)
 
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile_awesome.in ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile_awesome @ONLY)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile_awesome_css.in ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile_awesome_css @ONLY)
 
 add_custom_target(docs
     COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile
-    COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile_awesome
+    COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile_awesome_css
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
     COMMENT "Generating documentation with Doxygen"
     VERBATIM
