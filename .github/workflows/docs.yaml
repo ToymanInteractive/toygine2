@@ -27,7 +27,6 @@ jobs:
 
       - name: Generate Docs
         run: |
-          mkdir -p ./docs/html
           cmake -DTOYGINE_BUILD_DOCS=ON -DTOYGINE_BUILD_TESTS=OFF --preset linux-ninja-debug
           cmake --build --preset linux-ninja-debug --target docs
 
