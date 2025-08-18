@@ -1,8 +1,10 @@
 # Related to code generation
 include/core.hpp
-Doxyfile
+
+# Related to documentation
+docs/html/
+docs/Doxyfile_awesome_css
+doxygen.log
 
 # Compilers will place build artifacts here
 out/
-docs/html/
-doxygen.log

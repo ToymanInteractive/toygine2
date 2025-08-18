@@ -1,3 +1,0 @@
-@INCLUDE = Doxyfile
-OUTPUT_LANGUAGE = English
-HTML_OUTPUT = html/en
