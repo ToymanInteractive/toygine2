@@ -21,7 +21,7 @@ jobs:
       - name: Install dependencies
         run: |
           brew install doxygen graphviz python3
-          pip install jinja2 pygments
+          pip3 install jinja2 Pygments
 
       - name: Generate Docs
         run: |

@@ -1,5 +1,11 @@
-@INCLUDE               = ./docs/Doxyfile
+@INCLUDE               = Doxyfile
+
+CREATE_SUBDIRS         = NO
 
 GENERATE_HTML          = NO
 
+HTML_OUTPUT            = html/m_css
+
 GENERATE_XML           = YES
+
+XML_PROGRAMLISTING     = NO
