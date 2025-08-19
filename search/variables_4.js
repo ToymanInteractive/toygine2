@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['s_5fassertioncallback_0',['s_assertionCallback',['../dd/d55/namespacetoygine_1_1assertion.html#af12a64b3cc004e87fb85ee25f67a5cbc',1,'toygine::assertion']]],
-  ['sc_5fansidigits_1',['sc_ansiDigits',['../d7/de6/namespacetoygine.html#adf925cf307a3e0463eb4ce318cc51ed8',1,'toygine']]],
-  ['sc_5fexponenttable_2',['sc_exponentTable',['../de/dcc/namespaceanonymous__namespace_02utils_8cpp_03.html#a16763e814fa75374c37a7c9b6ac4379b',1,'anonymous_namespace{utils.cpp}']]],
-  ['sc_5futf8charsizetable_3',['sc_utf8CharSizeTable',['../de/dcc/namespaceanonymous__namespace_02utils_8cpp_03.html#ae94b7cef695dd5f7f2d603cbce5ee04e',1,'anonymous_namespace{utils.cpp}']]]
+  ['enumptr_0',['enumPtr',['../d1/de2/class_javadoc___test.html#abcb36df9d8af3e69290c239ba483d6df',1,'Javadoc_Test::enumPtr'],['../da/d3e/class_q_tstyle___test.html#a973a4566c9a036f4eca508ba5fe80dcb',1,'QTstyle_Test::enumPtr']]],
+  ['enumvar_1',['enumVar',['../d1/de2/class_javadoc___test.html#afcc11e097968fb44080b82b75032e40b',1,'Javadoc_Test::enumVar'],['../da/d3e/class_q_tstyle___test.html#a241fb54f66dc0b3b03eece3a1a1bf18b',1,'QTstyle_Test::enumVar']]],
+  ['errno_2',['errno',['../d3/dd6/structcmd_8h.html#ad65a8842cc674e3ddf69355898c0ecbf',1,'structcmd.h']]]
 ];

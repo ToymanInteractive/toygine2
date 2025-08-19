@@ -1,8 +1,8 @@
 var namespacetoygine =
 [
     [ "assertion", "dd/d55/namespacetoygine_1_1assertion.html", [
-      [ "AssertionCallback", "dd/d55/namespacetoygine_1_1assertion.html#a8455648183f19f236becdbbf0e36954d", null ],
-      [ "StackWalkCallback", "dd/d55/namespacetoygine_1_1assertion.html#a785fc50cab74c1200ab076082bdafefe", null ],
+      [ "AssertionCallback", "dd/d55/namespacetoygine_1_1assertion.html#afe461df95b90f03ae48f6271c1283a9b", null ],
+      [ "StackWalkCallback", "dd/d55/namespacetoygine_1_1assertion.html#a0b2124cab86bbf34bdaa15df4f2a16ec", null ],
       [ "assertion", "dd/d55/namespacetoygine_1_1assertion.html#a1a95dd270b2922a341e7fea330b654c3", null ],
       [ "deInitialize", "dd/d55/namespacetoygine_1_1assertion.html#a1f4b93239704be50c6f7843c8c7e475f", null ],
       [ "initialize", "dd/d55/namespacetoygine_1_1assertion.html#a9653f4304e4fa840577c36c61fa32eac", null ],

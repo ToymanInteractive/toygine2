@@ -1,0 +1,9 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$d5/ded/struct_object.html" title="Base object class." alt="" coords="5,31,69,56"/>
+<area shape="rect" id="Node000001" href="$db/d49/struct_vehicle.html" title="Vehicle class." alt="" coords="117,31,187,56"/>
+<area shape="poly" id="edge6_Node000000_Node000001" title=" " alt="" coords="83,41,117,41,117,46,83,46"/>
+<area shape="rect" id="Node000002" href="$d4/d57/struct_car.html" title="Car class." alt="" coords="241,5,285,31"/>
+<area shape="poly" id="edge7_Node000001_Node000002" title=" " alt="" coords="200,30,240,20,241,25,201,35"/>
+<area shape="rect" id="Node000003" href="$da/db7/struct_truck.html" title="Truck class." alt="" coords="235,55,291,80"/>
+<area shape="poly" id="edge8_Node000001_Node000003" title=" " alt="" coords="201,51,235,59,234,64,199,56"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="Car" name="Car">
+<area shape="rect" id="Node000001" title="Car class." alt="" coords="18,152,62,177"/>
+<area shape="rect" id="Node000002" href="$db/d49/struct_vehicle.html" title="Vehicle class." alt="" coords="5,79,75,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="43,118,43,152,37,152,37,118"/>
+<area shape="rect" id="Node000003" href="$d5/ded/struct_object.html" title="Base object class." alt="" coords="8,5,72,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="43,44,43,79,37,79,37,44"/>
+</map>

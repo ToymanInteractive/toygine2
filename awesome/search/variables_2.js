@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['quot_0',['quot',['../df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html#a0b0e3e5fe61c7febd3ea8f9fa426760d',1,'anonymous_namespace{utils.cpp}::divmod10']]]
+  ['classvar_0',['classVar',['../df/d69/classpyexample_1_1_py_class.html#abd17aff54e5b0ca194020c796c733546',1,'pyexample::PyClass']]]
 ];

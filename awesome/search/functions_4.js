@@ -1,9 +1,5 @@
 var searchData=
 [
-  ['fixstring_0',['fixstring',['../da/d4a/classtoygine_1_1_fix_string.html#a374e5883fdaf67dc9ae97b9185abd8be',1,'toygine::FixString::FixString() noexcept'],['../da/d4a/classtoygine_1_1_fix_string.html#add0d88c13a24733170403eec78994a20',1,'toygine::FixString::FixString(const FixString&lt; allocatedSize &gt; &amp;string) noexcept'],['../da/d4a/classtoygine_1_1_fix_string.html#a699ffbfbd308f697b418a5cb481ada37',1,'toygine::FixString::FixString(const FixString&lt; allocatedSize2 &gt; &amp;string) noexcept'],['../da/d4a/classtoygine_1_1_fix_string.html#af620a44bcdf9ef29b647826650b520e0',1,'toygine::FixString::FixString(const char *string) noexcept'],['../da/d4a/classtoygine_1_1_fix_string.html#a7bd3123634ae293b60709430fb0a6656',1,'toygine::FixString::FixString(char symbol, std::size_t count=1) noexcept']]],
-  ['floatpostprocess_1',['floatPostProcess',['../de/dcc/namespaceanonymous__namespace_02utils_8cpp_03.html#a89269810588a727a44e99b18f6658bd0',1,'anonymous_namespace{utils.cpp}']]],
-  ['formatnumberstring_2',['formatNumberString',['../d7/de6/namespacetoygine.html#af36eec789fd0f6ea91b7d1ec48b25b48',1,'toygine']]],
-  ['ftoa_3',['ftoa',['../d7/de6/namespacetoygine.html#a4aeee65facd5e81d83259a89b18e9c7c',1,'toygine::ftoa(char *dest, std::size_t destSize, float value, std::size_t precision=7)'],['../d7/de6/namespacetoygine.html#a2f65fa6e46f8a594b805986e41d4b344',1,'toygine::ftoa(char *dest, std::size_t destSize, double value, std::size_t precision=15)']]],
-  ['ftoa32engine_4',['ftoa32Engine',['../de/dcc/namespaceanonymous__namespace_02utils_8cpp_03.html#a9eb2619dbe0ac9f1070beb2359ffd4b4',1,'anonymous_namespace{utils.cpp}']]],
-  ['ftoa64engine_5',['ftoa64Engine',['../de/dcc/namespaceanonymous__namespace_02utils_8cpp_03.html#a005dceb3814d03f8146863a615f45e1b',1,'anonymous_namespace{utils.cpp}']]]
+  ['empty_0',['empty',['../da/d4a/classtoygine_1_1_fix_string.html#a8fc3f1b01f5865271810f50e1d91e225',1,'toygine::FixString']]],
+  ['example_1',['example',['../d3/dd7/class_example___test.html#a22a62b12c65fd5e43b6eadaabb21ebb0',1,'Example_Test::example()'],['../d9/da5/class_include___test.html#aa286655e8f7f6a8ad203ef5fd8548b81',1,'Include_Test::example()'],['../d0/d57/class_tag.html#acc641ffae34e2c4c03a6edf0a513be28',1,'Tag::example()']]]
 ];
