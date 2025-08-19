@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['b_0',['B',['../d4/d76/autolink_8cpp.html#a7ddc550b157ed6f8db58e462b504ab0f',1,'autolink.cpp']]]
+  ['stackwalkcallback_0',['StackWalkCallback',['../dd/d55/namespacetoygine_1_1assertion.html#a0b2124cab86bbf34bdaa15df4f2a16ec',1,'toygine::assertion']]]
 ];

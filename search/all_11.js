@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['qtstyle_2ecpp_0',['qtstyle.cpp',['../d7/de5/qtstyle_8cpp.html',1,'']]],
-  ['qtstyle_5ftest_1',['QTstyle_Test',['../da/d3e/class_q_tstyle___test.html',1,'QTstyle_Test'],['../da/d3e/class_q_tstyle___test.html#a14a296ea4e2ad446712f2310bec60766',1,'QTstyle_Test::QTstyle_Test()']]],
-  ['quot_2',['quot',['../df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html#a0b0e3e5fe61c7febd3ea8f9fa426760d',1,'anonymous_namespace{utils.cpp}::divmod10']]]
+  ['wcharinutf8maxsize_0',['wcharInUtf8MaxSize',['../d7/de6/namespacetoygine.html#a33eb5fc4e7682e297375d2ee2fbb7742',1,'toygine']]],
+  ['wchartoutf8_1',['wcharToUtf8',['../d7/de6/namespacetoygine.html#a6173680fd5b35f1df4f1e8a818adc3e9',1,'toygine']]]
 ];

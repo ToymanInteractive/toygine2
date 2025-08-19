@@ -1,18 +1,9 @@
 var searchData=
 [
-  ['e_0',['E',['../da/d26/class_e.html',1,'']]],
-  ['empty_1',['empty',['../da/d4a/classtoygine_1_1_fix_string.html#a8fc3f1b01f5865271810f50e1d91e225',1,'toygine::FixString']]],
-  ['enum_2eh_2',['enum.h',['../d0/d9b/enum_8h.html',1,'']]],
-  ['enum_5ftest_3',['Enum_Test',['../df/d50/class_enum___test.html',1,'']]],
-  ['enumptr_4',['enumPtr',['../d1/de2/class_javadoc___test.html#abcb36df9d8af3e69290c239ba483d6df',1,'Javadoc_Test::enumPtr'],['../da/d3e/class_q_tstyle___test.html#a973a4566c9a036f4eca508ba5fe80dcb',1,'QTstyle_Test::enumPtr']]],
-  ['enumtype_5',['EnumType',['../d8/d1e/class_afterdoc___test.html#adab0cd7ad3b4875e245ca8f6238a388a',1,'Afterdoc_Test']]],
-  ['enumvar_6',['enumVar',['../d1/de2/class_javadoc___test.html#afcc11e097968fb44080b82b75032e40b',1,'Javadoc_Test::enumVar'],['../da/d3e/class_q_tstyle___test.html#a241fb54f66dc0b3b03eece3a1a1bf18b',1,'QTstyle_Test::enumVar']]],
-  ['errno_7',['errno',['../d3/dd6/structcmd_8h.html#ad65a8842cc674e3ddf69355898c0ecbf',1,'structcmd.h']]],
-  ['etype_8',['EType',['../d5/def/class_autolink___test.html#aeb611627c332d067bded1806b1bb45c2',1,'Autolink_Test']]],
-  ['eval1_9',['EVal1',['../d8/d1e/class_afterdoc___test.html#adab0cd7ad3b4875e245ca8f6238a388aae054276790e35692ad0abe10c5b75da4',1,'Afterdoc_Test']]],
-  ['eval2_10',['EVal2',['../d8/d1e/class_afterdoc___test.html#adab0cd7ad3b4875e245ca8f6238a388aac849f37624d8d2d68ca72c4a8df9cf99',1,'Afterdoc_Test']]],
-  ['example_11',['example',['../d3/dd7/class_example___test.html#a22a62b12c65fd5e43b6eadaabb21ebb0',1,'Example_Test::example()'],['../d9/da5/class_include___test.html#aa286655e8f7f6a8ad203ef5fd8548b81',1,'Include_Test::example()'],['../d0/d57/class_tag.html#acc641ffae34e2c4c03a6edf0a513be28',1,'Tag::example()']]],
-  ['example_2ecpp_12',['example.cpp',['../d4/d31/example_8cpp.html',1,'']]],
-  ['example_5ftest_13',['Example_Test',['../d3/dd7/class_example___test.html',1,'']]],
-  ['example_5ftest_2ecpp_14',['example_test.cpp',['../d1/dad/example__test_8cpp.html',1,'']]]
+  ['include_5fcore_5ffix_5fstring_5finl_5f_0',['INCLUDE_CORE_FIX_STRING_INL_',['../db/d84/fix__string_8inl.html#a062531aea03af0eb63664b1ec25c6afd',1,'fix_string.inl']]],
+  ['include_5fcore_5futils_5finl_5f_1',['INCLUDE_CORE_UTILS_INL_',['../df/d7d/utils_8inl.html#a995406da11fa8e7f38b9a5743a7afee7',1,'utils.inl']]],
+  ['initialize_2',['initialize',['../dd/d55/namespacetoygine_1_1assertion.html#a9653f4304e4fa840577c36c61fa32eac',1,'toygine::assertion']]],
+  ['integertosymbols_3',['integerToSymbols',['../d7/de6/namespacetoygine.html#aece45bc773865fbc01013939bcfaeeb2',1,'toygine']]],
+  ['itoa_4',['itoa',['../d7/de6/namespacetoygine.html#a4de05ddfe7a0c7944b525afd5a8bd7a6',1,'toygine::itoa(char *dest, std::size_t destSize, std::int8_t value)'],['../d7/de6/namespacetoygine.html#af3d3283bae4c448a285a24612546c757',1,'toygine::itoa(char *dest, std::size_t destSize, std::int16_t value)'],['../d7/de6/namespacetoygine.html#aff7862134d3413778cda2e84ca0f51ea',1,'toygine::itoa(char *dest, std::size_t destSize, std::int32_t value)'],['../d7/de6/namespacetoygine.html#a5daba732dac1d55a5d62dd6c9094acce',1,'toygine::itoa(char *dest, std::size_t destSize, std::int64_t value)'],['../d7/de6/namespacetoygine.html#a11c6df1cb36b16151cfbdf33778146f4',1,'toygine::itoa(char *dest, std::size_t destSize, std::uint8_t value, unsigned base)'],['../d7/de6/namespacetoygine.html#a62367f074b5177b48bfd418eff5633b3',1,'toygine::itoa(char *dest, std::size_t destSize, std::uint16_t value, unsigned base)'],['../d7/de6/namespacetoygine.html#a83414059f4d06a2cbf91449b61f529eb',1,'toygine::itoa(char *dest, std::size_t destSize, std::uint32_t value, unsigned base)'],['../d7/de6/namespacetoygine.html#aa7ba2bb019bcd4337d37b5842bdf6c7b',1,'toygine::itoa(char *dest, std::size_t destSize, std::uint64_t value, unsigned base)']]],
+  ['itoaimplementation_5',['itoaImplementation',['../d7/de6/namespacetoygine.html#af8a75c65ac8550ff63ac340e1f2572ef',1,'toygine']]]
 ];

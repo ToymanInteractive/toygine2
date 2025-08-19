@@ -1,7 +1,12 @@
 var searchData=
 [
-  ['_5f_5finit_5f_5f_0',['__init__',['../de/d20/classdocstring_1_1_py_class.html#a03342ef04e3b83b2df9dec57a10f62c4',1,'docstring.PyClass.__init__()'],['../df/d69/classpyexample_1_1_py_class.html#ac453f98ee6fbd41496b5c864bda1af21',1,'pyexample.PyClass.__init__()']]],
-  ['_5fdata_1',['_data',['../da/d4a/classtoygine_1_1_fix_string.html#aefd61568e3d5a4812f208bb45358d4ff',1,'toygine::FixString']]],
-  ['_5fmemvar_2',['_memVar',['../de/d20/classdocstring_1_1_py_class.html#a385fae8c170c39bc7ef9a6336bc64fb1',1,'docstring.PyClass._memVar'],['../df/d69/classpyexample_1_1_py_class.html#a52fff5f5883084b3930be400ae4495a0',1,'pyexample.PyClass._memVar']]],
-  ['_5fsize_3',['_size',['../da/d4a/classtoygine_1_1_fix_string.html#a9166a4498452706474ce05840e67e660',1,'toygine::FixString']]]
+  ['anonymous_5fnamespace_7butils_2ecpp_7d_0',['anonymous_namespace{utils.cpp}',['../de/dcc/namespaceanonymous__namespace_02utils_8cpp_03.html',1,'']]],
+  ['arraysize_1',['ArraySize',['../d7/de6/namespacetoygine.html#a0278fc86f3113fc375beb8cb2f380b02',1,'toygine']]],
+  ['assert_2',['assert',['../dd/d9e/linux_2platform__config_8hpp.html#af576bf8ffa22a44e53018c67095ffbf0',1,'assert:&#160;platform_config.hpp'],['../d8/d80/macos_2platform__config_8hpp.html#af576bf8ffa22a44e53018c67095ffbf0',1,'assert:&#160;platform_config.hpp'],['../db/d29/windows_2platform__config_8hpp.html#af576bf8ffa22a44e53018c67095ffbf0',1,'assert:&#160;platform_config.hpp']]],
+  ['assert_5fmessage_3',['assert_message',['../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c',1,'assert_message:&#160;platform_config.hpp'],['../d8/d80/macos_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c',1,'assert_message:&#160;platform_config.hpp'],['../db/d29/windows_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c',1,'assert_message:&#160;platform_config.hpp']]],
+  ['assertion_4',['assertion',['../dd/d55/namespacetoygine_1_1assertion.html#a1a95dd270b2922a341e7fea330b654c3',1,'toygine::assertion']]],
+  ['assertion_5fstub_2ecpp_5',['assertion_stub.cpp',['../d7/d90/assertion__stub_8cpp.html',1,'']]],
+  ['assertioncallback_6',['AssertionCallback',['../dd/d55/namespacetoygine_1_1assertion.html#afe461df95b90f03ae48f6271c1283a9b',1,'toygine::assertion']]],
+  ['assign_7',['assign',['../da/d4a/classtoygine_1_1_fix_string.html#a1bf2a0caa686d3229c47d268e898b25b',1,'toygine::FixString::assign(const FixString&lt; allocatedSize &gt; &amp;string) noexcept'],['../da/d4a/classtoygine_1_1_fix_string.html#a4bc87888bdc75f99462c71ab3487c923',1,'toygine::FixString::assign(const FixString&lt; allocatedSize2 &gt; &amp;string) noexcept'],['../da/d4a/classtoygine_1_1_fix_string.html#a19b33a7083145851899dd07d183d6747',1,'toygine::FixString::assign(const char *string) noexcept'],['../da/d4a/classtoygine_1_1_fix_string.html#a5f1faf25d6175adb034c67c526412c34',1,'toygine::FixString::assign(char symbol, std::size_t count) noexcept']]],
+  ['at_8',['at',['../da/d4a/classtoygine_1_1_fix_string.html#ad7791c5ec05c6614800bbc148c538ab4',1,'toygine::FixString::at(std::size_t offset) noexcept'],['../da/d4a/classtoygine_1_1_fix_string.html#af4abf2499de629964bd21ec6c77e92a7',1,'toygine::FixString::at(std::size_t offset) const noexcept']]]
 ];

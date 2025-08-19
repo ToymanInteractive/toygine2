@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['cpu_5farm_5f32_0',['CPU_ARM_32',['../da/d47/core_8hpp.html#a014b03e21ccae2451f28ca938128f998',1,'core.hpp']]],
-  ['cpu_5farm_5f64_1',['CPU_ARM_64',['../da/d47/core_8hpp.html#a20e457ee1318b901b1c44dd6390ca1a1',1,'core.hpp']]],
-  ['cpu_5fintel_5fx64_2',['CPU_INTEL_x64',['../da/d47/core_8hpp.html#a1e1898e441784683649af6bb189cb75d',1,'core.hpp']]],
-  ['cpu_5fintel_5fx86_3',['CPU_INTEL_x86',['../da/d47/core_8hpp.html#ad4c61321e672d6faf976329f76c5cc1a',1,'core.hpp']]]
+  ['include_5fcore_5ffix_5fstring_5finl_5f_0',['INCLUDE_CORE_FIX_STRING_INL_',['../db/d84/fix__string_8inl.html#a062531aea03af0eb63664b1ec25c6afd',1,'fix_string.inl']]],
+  ['include_5fcore_5futils_5finl_5f_1',['INCLUDE_CORE_UTILS_INL_',['../df/d7d/utils_8inl.html#a995406da11fa8e7f38b9a5743a7afee7',1,'utils.inl']]]
 ];
