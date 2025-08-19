@@ -29,8 +29,8 @@ FetchContent_GetProperties(doxygen_awesome_css SOURCE_DIR AWESOME_CSS_DIR)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile_awesome_css.in ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile_awesome_css @ONLY)
 
 add_custom_target(docs
-    COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile
     COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile_awesome_css
+    COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
     COMMENT "Generating documentation with Doxygen"
     VERBATIM
