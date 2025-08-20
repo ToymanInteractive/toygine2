@@ -1,42 +1,99 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- HTML header for doxygen 1.14.0-->
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
-<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.12.0"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ToyGine2: include/core.hpp Source File</title>
-<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="../../jquery.js"></script>
-<script type="text/javascript" src="../../dynsections.js"></script>
-<script type="text/javascript" src="../../clipboard.js"></script>
-<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+  <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=11" />
+  <meta name="generator" content="Doxygen 1.12.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ToyGine2: include/core.hpp Source File</title>
+  <link href="../../tabs.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="../../jquery.js"></script>
+  <script type="text/javascript" src="../../dynsections.js"></script>
+  <script type="text/javascript" src="../../clipboard.js"></script>
+  <link href="../../navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../navtreedata.js"></script>
 <script type="text/javascript" src="../../navtree.js"></script>
 <script type="text/javascript" src="../../resize.js"></script>
 <script type="text/javascript" src="../../cookie.js"></script>
-<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+  <link href="../../search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../search/searchdata.js"></script>
 <script type="text/javascript" src="../../search/search.js"></script>
-<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+  <link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+  <link href="../../doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="../../doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="../../doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+  <script type="text/javascript" src="../../doxygen-awesome-darkmode-toggle.js"></script>
+  <script type="text/javascript" src="../../doxygen-awesome-paragraph-link.js"></script>
+  <script type="text/javascript" src="../../doxygen-awesome-interactive-toc.js"></script>
+  <script type="text/javascript" src="../../doxygen-awesome-tabs.js"></script>
+  <script type="text/javascript">
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+  </script>
 </head>
 <body>
-<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
-<div id="titlearea">
-<table cellspacing="0" cellpadding="0">
- <tbody>
- <tr id="projectrow">
-  <td id="projectlogo"><img alt="Logo" src="../../logo.webp" height="55"/></td>
-  <td id="projectalign">
-   <div id="projectname">ToyGine2<span id="projectnumber">&#160;0.0.0</span>
-   </div>
-   <div id="projectbrief">Game Engine for retro consoles</div>
-  </td>
- </tr>
- </tbody>
-</table>
-</div>
-<!-- end header part -->
+    <!-- https://tholman.com/github-corners/ -->
+    <a href="https://github.com/ToymanInteractive/toygine2" class="github-corner" title="View source on GitHub"
+      target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 250 250" width="40" height="40"
+        style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path
+          d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+          fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path
+          d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+          fill="currentColor" class="octo-body"></path>
+      </svg>
+    </a>
+    <style>
+      .github-corner:hover .octo-arm {
+        animation: octocat-wave 560ms ease-in-out
+      }
+      @keyframes octocat-wave {
+        0%,
+        100% {
+          transform: rotate(0)
+        }
+        20%,
+        60% {
+          transform: rotate(-25deg)
+        }
+        40%,
+        80% {
+          transform: rotate(10deg)
+        }
+      }
+      @media (max-width:500px) {
+        .github-corner:hover .octo-arm {
+          animation: none
+        }
+        .github-corner .octo-arm {
+          animation: octocat-wave 560ms ease-in-out
+        }
+      }
+    </style>
+    <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+      <div id="titlearea">
+        <table cellspacing="0" cellpadding="0">
+          <tbody>
+            <tr id="projectrow">
+              <td id="projectlogo"><img alt="Logo" src="../../logo.webp"  height="52" /></td>
+              <td id="projectalign">
+                <div id="projectname">ToyGine2<span
+                    id="projectnumber">&#160;0.0.0</span>
+                </div>
+                <div id="projectbrief">Game Engine for retro consoles</div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- end header part -->
 <!-- Generated by Doxygen 1.12.0 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
@@ -188,102 +245,104 @@ $(function(){initNavTree('da/d47/core_8hpp_source.html','../../'); initResizable
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&quot;/home/runner/work/toygine2/toygine2/src/platforms/linux/platform_config.hpp&quot;</span></div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="keyword">namespace</span> <a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">toygine</a> {</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="comment">/*!</span></div>
-<div class="line"><span class="lineno">   90</span><span class="comment">  \brief Returns the size of an array.</span></div>
-<div class="line"><span class="lineno">   91</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   92</span><span class="comment">  This is a compile time helper function that returns the size of an array. The size of the array is inferred from the</span></div>
-<div class="line"><span class="lineno">   93</span><span class="comment">  parameter type, which is a reference to an array of length N.</span></div>
-<div class="line"><span class="lineno">   94</span><span class="comment">*/</span></div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, std::size_t N&gt;</div>
-<div class="foldopen" id="foldopen00096" data-start="{" data-end="}">
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno"><a class="line" href="../../d7/de6/namespacetoygine.html#a0278fc86f3113fc375beb8cb2f380b02">   96</a></span>consteval std::size_t <a class="code hl_function" href="../../d7/de6/namespacetoygine.html#a0278fc86f3113fc375beb8cb2f380b02">ArraySize</a>(<a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">T</a> (&amp;)[<a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">N</a>]) {</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>  <span class="keywordflow">return</span> <a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">N</a>;</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>}</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="comment">/// @brief Main engine namespace</span></div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="keyword">namespace</span> <a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">toygine</a> {</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">   91</span><span class="comment">  \brief Returns the size of an array.</span></div>
+<div class="line"><span class="lineno">   92</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   93</span><span class="comment">  This is a compile time helper function that returns the size of an array. The size of the array is inferred from the</span></div>
+<div class="line"><span class="lineno">   94</span><span class="comment">  parameter type, which is a reference to an array of length N.</span></div>
+<div class="line"><span class="lineno">   95</span><span class="comment">*/</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, std::size_t N&gt;</div>
+<div class="foldopen" id="foldopen00097" data-start="{" data-end="}">
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="../../d7/de6/namespacetoygine.html#a0278fc86f3113fc375beb8cb2f380b02">   97</a></span>consteval std::size_t <a class="code hl_function" href="../../d7/de6/namespacetoygine.html#a0278fc86f3113fc375beb8cb2f380b02">ArraySize</a>(<a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">T</a> (&amp;)[<a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">N</a>]) {</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>  <span class="keywordflow">return</span> <a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">N</a>;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>}</div>
 </div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="preprocessor">#</span><span class="preprocessor">if</span> 1</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="comment">/*!</span></div>
-<div class="line"><span class="lineno">  102</span><span class="comment">  \def TOY_UNUSED(identifier)</span></div>
-<div class="line"><span class="lineno">  103</span><span class="comment">  \brief Suppresses compiler warnings about unused variables or functions.</span></div>
-<div class="line"><span class="lineno">  104</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  105</span><span class="comment">  This macro is used to ignore identifiers that are not used in the code, but are still declared for some reason.</span></div>
-<div class="line"><span class="lineno">  106</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  107</span><span class="comment">  \param identifier The identifier to ignore.</span></div>
-<div class="line"><span class="lineno">  108</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  109</span><span class="comment">  \note This macro does not change the behavior of the program.</span></div>
-<div class="line"><span class="lineno">  110</span><span class="comment">  \note This macro is used to suppress compiler warnings about unused variables or functions.</span></div>
-<div class="line"><span class="lineno">  111</span><span class="comment">*/</span></div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno"><a class="line" href="../../da/d47/core_8hpp.html#a6c25f2c5b6e99783e32a4eb8258eb2f6">  112</a></span><span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">TOY_UNUSED</span><span class="preprocessor">(</span><span class="preprocessor">identifier</span><span class="preprocessor">)</span></div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="preprocessor">#</span><span class="preprocessor">else</span></div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">TOY_UNUSED</span><span class="preprocessor">(</span><span class="preprocessor">identifier</span><span class="preprocessor">)</span> <span class="preprocessor">identifier</span></div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span><span class="comment">//--------------------------------------------------------------------------------------------------------------------</span></div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
-<div class="foldopen" id="foldopen00119" data-start="{" data-end="}">
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="../../dd/d55/namespacetoygine_1_1assertion.html">  119</a></span><span class="keyword">namespace</span> <a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">assertion</a> {</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno"><a class="line" href="../../dd/d55/namespacetoygine_1_1assertion.html#afe461df95b90f03ae48f6271c1283a9b">  121</a></span><span class="keyword">using</span> <a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">AssertionCallback</a> = <span class="keywordtype">bool</span> (*)(<span class="keyword">const</span> <span class="keywordtype">char</span> *);</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno"><a class="line" href="../../dd/d55/namespacetoygine_1_1assertion.html#a0b2124cab86bbf34bdaa15df4f2a16ec">  122</a></span><span class="keyword">using</span> <a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">StackWalkCallback</a> = <span class="keywordtype">void</span> (*)(<span class="keyword">const</span> <span class="keywordtype">char</span> *);</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span><span class="comment">/*!</span></div>
-<div class="line"><span class="lineno">  125</span><span class="comment">  \brief Initializes the assertion system.</span></div>
-<div class="line"><span class="lineno">  126</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  127</span><span class="comment">  \sa deinitialize()</span></div>
-<div class="line"><span class="lineno">  128</span><span class="comment">*/</span></div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span><span class="keywordtype">void</span> <a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">initialize</a>();</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span><span class="comment">/*!</span></div>
-<div class="line"><span class="lineno">  132</span><span class="comment">  \brief Shutdown the assertion system.</span></div>
-<div class="line"><span class="lineno">  133</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  134</span><span class="comment">  \sa initialize()</span></div>
-<div class="line"><span class="lineno">  135</span><span class="comment">*/</span></div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span><span class="keywordtype">void</span> <a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">deInitialize</a>();</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span> </div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span><span class="comment">/*!</span></div>
-<div class="line"><span class="lineno">  139</span><span class="comment">  \brief Sets the assertion and stack walk callbacks.</span></div>
-<div class="line"><span class="lineno">  140</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  141</span><span class="comment">  The assertion callback is called when an assertion is triggered. The callback is passed the assertion string and</span></div>
-<div class="line"><span class="lineno">  142</span><span class="comment">  should return true if the assertion should be ignored, false otherwise.</span></div>
-<div class="line"><span class="lineno">  143</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  144</span><span class="comment">  The stack walk callback is called to print the stack trace. The callback is passed the constructed string.</span></div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="preprocessor">#</span><span class="preprocessor">if</span> 1</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  103</span><span class="comment">  \def TOY_UNUSED(identifier)</span></div>
+<div class="line"><span class="lineno">  104</span><span class="comment">  \brief Suppresses compiler warnings about unused variables or functions.</span></div>
+<div class="line"><span class="lineno">  105</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  106</span><span class="comment">  This macro is used to ignore identifiers that are not used in the code, but are still declared for some reason.</span></div>
+<div class="line"><span class="lineno">  107</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  108</span><span class="comment">  \param identifier The identifier to ignore.</span></div>
+<div class="line"><span class="lineno">  109</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  110</span><span class="comment">  \note This macro does not change the behavior of the program.</span></div>
+<div class="line"><span class="lineno">  111</span><span class="comment">  \note This macro is used to suppress compiler warnings about unused variables or functions.</span></div>
+<div class="line"><span class="lineno">  112</span><span class="comment">*/</span></div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno"><a class="line" href="../../da/d47/core_8hpp.html#a6c25f2c5b6e99783e32a4eb8258eb2f6">  113</a></span><span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">TOY_UNUSED</span><span class="preprocessor">(</span><span class="preprocessor">identifier</span><span class="preprocessor">)</span></div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="preprocessor">#</span><span class="preprocessor">else</span></div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">TOY_UNUSED</span><span class="preprocessor">(</span><span class="preprocessor">identifier</span><span class="preprocessor">)</span> <span class="preprocessor">identifier</span></div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span><span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span><span class="comment">//--------------------------------------------------------------------------------------------------------------------</span></div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span><span class="comment">/// @brief Assertion related functions.</span></div>
+<div class="foldopen" id="foldopen00121" data-start="{" data-end="}">
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno"><a class="line" href="../../dd/d55/namespacetoygine_1_1assertion.html">  121</a></span><span class="keyword">namespace</span> <a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">assertion</a> {</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno"><a class="line" href="../../dd/d55/namespacetoygine_1_1assertion.html#afe461df95b90f03ae48f6271c1283a9b">  123</a></span><span class="keyword">using</span> <a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">AssertionCallback</a> = <span class="keywordtype">bool</span> (*)(<span class="keyword">const</span> <span class="keywordtype">char</span> *);</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno"><a class="line" href="../../dd/d55/namespacetoygine_1_1assertion.html#a0b2124cab86bbf34bdaa15df4f2a16ec">  124</a></span><span class="keyword">using</span> <a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">StackWalkCallback</a> = <span class="keywordtype">void</span> (*)(<span class="keyword">const</span> <span class="keywordtype">char</span> *);</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span><span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  127</span><span class="comment">  \brief Initializes the assertion system.</span></div>
+<div class="line"><span class="lineno">  128</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  129</span><span class="comment">  \sa deinitialize()</span></div>
+<div class="line"><span class="lineno">  130</span><span class="comment">*/</span></div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span><span class="keywordtype">void</span> <a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">initialize</a>();</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span><span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  134</span><span class="comment">  \brief Shutdown the assertion system.</span></div>
+<div class="line"><span class="lineno">  135</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  136</span><span class="comment">  \sa initialize()</span></div>
+<div class="line"><span class="lineno">  137</span><span class="comment">*/</span></div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span><span class="keywordtype">void</span> <a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">deInitialize</a>();</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span> </div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span><span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  141</span><span class="comment">  \brief Sets the assertion and stack walk callbacks.</span></div>
+<div class="line"><span class="lineno">  142</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  143</span><span class="comment">  The assertion callback is called when an assertion is triggered. The callback is passed the assertion string and</span></div>
+<div class="line"><span class="lineno">  144</span><span class="comment">  should return true if the assertion should be ignored, false otherwise.</span></div>
 <div class="line"><span class="lineno">  145</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  146</span><span class="comment">  \param assertionCallback The assertion callback.</span></div>
-<div class="line"><span class="lineno">  147</span><span class="comment">  \param stackWalkCallback The stack walk callback.</span></div>
-<div class="line"><span class="lineno">  148</span><span class="comment">*/</span></div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno"><a class="line" href="../../dd/d55/namespacetoygine_1_1assertion.html#a1a1d0601596ffb5c776edfdb9b534d04">  149</a></span><span class="keywordtype">void</span> <a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">setCallbacks</a>(<a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">AssertionCallback</a> <a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">assertionCallback</a>, <a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">StackWalkCallback</a> <a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">stackWalkCallback</a>);</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span> </div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span><span class="preprocessor">#</span><span class="preprocessor">ifdef</span> <span class="preprocessor">_DEBUG</span></div>
+<div class="line"><span class="lineno">  146</span><span class="comment">  The stack walk callback is called to print the stack trace. The callback is passed the constructed string.</span></div>
+<div class="line"><span class="lineno">  147</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  148</span><span class="comment">  \param assertionCallback The assertion callback.</span></div>
+<div class="line"><span class="lineno">  149</span><span class="comment">  \param stackWalkCallback The stack walk callback.</span></div>
+<div class="line"><span class="lineno">  150</span><span class="comment">*/</span></div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno"><a class="line" href="../../dd/d55/namespacetoygine_1_1assertion.html#a1a1d0601596ffb5c776edfdb9b534d04">  151</a></span><span class="keywordtype">void</span> <a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">setCallbacks</a>(<a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">AssertionCallback</a> <a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">assertionCallback</a>, <a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">StackWalkCallback</a> <a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">stackWalkCallback</a>);</div>
 <div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span> </div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span><span class="keywordtype">void</span> <a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">assertion</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> * <a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">code</a>, <span class="keyword">const</span> <span class="keywordtype">char</span> * <a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">message</a>, <span class="keyword">const</span> <span class="keywordtype">char</span> * <a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">fileName</a>, <span class="keyword">const</span> <span class="keywordtype">char</span> * <a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">functionName</a>,</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>               <a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">std</a>::<a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">size_t</a> <a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">lineNumber</a>);</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span> </div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span><span class="preprocessor">#</span><span class="preprocessor">else</span> <span class="comment">// _DEBUG</span></div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span><span class="preprocessor">#</span><span class="preprocessor">ifdef</span> <span class="preprocessor">_DEBUG</span></div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span> </div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span><span class="keywordtype">void</span> <a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">assertion</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> * <a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">code</a>, <span class="keyword">const</span> <span class="keywordtype">char</span> * <a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">message</a>, <span class="keyword">const</span> <span class="keywordtype">char</span> * <a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">fileName</a>, <span class="keyword">const</span> <span class="keywordtype">char</span> * <a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">functionName</a>,</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>               <a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">std</a>::<a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">size_t</a> <a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">lineNumber</a>);</div>
 <div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span> </div>
-<div class="foldopen" id="foldopen00158" data-start="{" data-end="}">
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno"><a class="line" href="../../dd/d55/namespacetoygine_1_1assertion.html#a1a95dd270b2922a341e7fea330b654c3">  158</a></span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">assertion</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> * <a class="code hl_define" href="../../da/d47/core_8hpp.html#a6c25f2c5b6e99783e32a4eb8258eb2f6">TOY_UNUSED</a>(code), <span class="keyword">const</span> <span class="keywordtype">char</span> * <a class="code hl_define" href="../../da/d47/core_8hpp.html#a6c25f2c5b6e99783e32a4eb8258eb2f6">TOY_UNUSED</a>(message),</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>                      <span class="keyword">const</span> <span class="keywordtype">char</span> * <a class="code hl_define" href="../../da/d47/core_8hpp.html#a6c25f2c5b6e99783e32a4eb8258eb2f6">TOY_UNUSED</a>(fileName), <span class="keyword">const</span> <span class="keywordtype">char</span> * <a class="code hl_define" href="../../da/d47/core_8hpp.html#a6c25f2c5b6e99783e32a4eb8258eb2f6">TOY_UNUSED</a>(functionName),</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>                      <a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">std</a>::<a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">size_t</a> <a class="code hl_define" href="../../da/d47/core_8hpp.html#a6c25f2c5b6e99783e32a4eb8258eb2f6">TOY_UNUSED</a>(lineNumber)) {}</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span><span class="preprocessor">#</span><span class="preprocessor">else</span> <span class="comment">// _DEBUG</span></div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span> </div>
+<div class="foldopen" id="foldopen00160" data-start="{" data-end="}">
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno"><a class="line" href="../../dd/d55/namespacetoygine_1_1assertion.html#a1a95dd270b2922a341e7fea330b654c3">  160</a></span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">assertion</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> * <a class="code hl_define" href="../../da/d47/core_8hpp.html#a6c25f2c5b6e99783e32a4eb8258eb2f6">TOY_UNUSED</a>(code), <span class="keyword">const</span> <span class="keywordtype">char</span> * <a class="code hl_define" href="../../da/d47/core_8hpp.html#a6c25f2c5b6e99783e32a4eb8258eb2f6">TOY_UNUSED</a>(message),</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>                      <span class="keyword">const</span> <span class="keywordtype">char</span> * <a class="code hl_define" href="../../da/d47/core_8hpp.html#a6c25f2c5b6e99783e32a4eb8258eb2f6">TOY_UNUSED</a>(fileName), <span class="keyword">const</span> <span class="keywordtype">char</span> * <a class="code hl_define" href="../../da/d47/core_8hpp.html#a6c25f2c5b6e99783e32a4eb8258eb2f6">TOY_UNUSED</a>(functionName),</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>                      <a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">std</a>::<a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">size_t</a> <a class="code hl_define" href="../../da/d47/core_8hpp.html#a6c25f2c5b6e99783e32a4eb8258eb2f6">TOY_UNUSED</a>(lineNumber)) {}</div>
 </div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span> </div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span><span class="preprocessor">#</span><span class="preprocessor">endif</span> <span class="comment">// _DEBUG</span></div>
 <div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>} <span class="comment">// namespace assertion</span></div>
-</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span><span class="preprocessor">#</span><span class="preprocessor">endif</span> <span class="comment">// _DEBUG</span></div>
 <div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span> </div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>} <span class="comment">// namespace toygine</span></div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>} <span class="comment">// namespace assertion</span></div>
+</div>
 <div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span> </div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span><span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&quot;core/fix_string.hpp&quot;</span></div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span><span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&quot;core/utils.hpp&quot;</span></div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span> </div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span><span class="comment">//----------------------------------------------------------------------------------------------------------------------</span></div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>} <span class="comment">// namespace toygine</span></div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span> </div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span><span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&quot;core/fix_string.hpp&quot;</span></div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span><span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&quot;core/utils.hpp&quot;</span></div>
 <div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span> </div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span><span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&quot;core/fix_string.inl&quot;</span></div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span><span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&quot;core/utils.inl&quot;</span></div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span> </div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span><span class="preprocessor">#</span><span class="preprocessor">endif</span> <span class="comment">// INCLUDE_CORE_HPP_</span></div>
-<div class="ttc" id="acore_8hpp_html_a6c25f2c5b6e99783e32a4eb8258eb2f6"><div class="ttname"><a href="../../da/d47/core_8hpp.html#a6c25f2c5b6e99783e32a4eb8258eb2f6">TOY_UNUSED</a></div><div class="ttdeci">#define TOY_UNUSED(identifier)</div><div class="ttdoc">Suppresses compiler warnings about unused variables or functions.</div><div class="ttdef"><b>Definition</b> core.hpp:112</div></div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span><span class="comment">//----------------------------------------------------------------------------------------------------------------------</span></div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span> </div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span><span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&quot;core/fix_string.inl&quot;</span></div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span><span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&quot;core/utils.inl&quot;</span></div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span> </div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span><span class="preprocessor">#</span><span class="preprocessor">endif</span> <span class="comment">// INCLUDE_CORE_HPP_</span></div>
+<div class="ttc" id="acore_8hpp_html_a6c25f2c5b6e99783e32a4eb8258eb2f6"><div class="ttname"><a href="../../da/d47/core_8hpp.html#a6c25f2c5b6e99783e32a4eb8258eb2f6">TOY_UNUSED</a></div><div class="ttdeci">#define TOY_UNUSED(identifier)</div><div class="ttdoc">Suppresses compiler warnings about unused variables or functions.</div><div class="ttdef"><b>Definition</b> core.hpp:113</div></div>
 <div class="ttc" id="alinux_2platform__config_8hpp_html_ae03d9a55f6cbc55ebd9d6b25c2e8889c"><div class="ttname"><a href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a></div><div class="ttdeci">#define assert_message(x, message)</div><div class="ttdef"><b>Definition</b> platform_config.hpp:63</div></div>
 <div class="ttc" id="alinux_2platform__config_8hpp_html_af576bf8ffa22a44e53018c67095ffbf0"><div class="ttname"><a href="../../dd/d9e/linux_2platform__config_8hpp.html#af576bf8ffa22a44e53018c67095ffbf0">assert</a></div><div class="ttdeci">#define assert(x)</div><div class="ttdef"><b>Definition</b> platform_config.hpp:62</div></div>
 <div class="ttc" id="anamespaceanonymous__namespace_02utils_8cpp_03_html_a005dceb3814d03f8146863a615f45e1b"><div class="ttname"><a href="../../de/dcc/namespaceanonymous__namespace_02utils_8cpp_03.html#a005dceb3814d03f8146863a615f45e1b">anonymous_namespace{utils.cpp}::ftoa64Engine</a></div><div class="ttdeci">std::int32_t ftoa64Engine(char *buffer, double value, std::size_t precision) noexcept</div><div class="ttdoc">Converts a 64-bit floating-point number to its string representation with specified precision.</div><div class="ttdef"><b>Definition</b> utils.cpp:209</div></div>
@@ -292,8 +351,8 @@ $(function(){initNavTree('da/d47/core_8hpp_source.html','../../'); initResizable
 <div class="ttc" id="anamespaceanonymous__namespace_02utils_8cpp_03_html_a9eb2619dbe0ac9f1070beb2359ffd4b4"><div class="ttname"><a href="../../de/dcc/namespaceanonymous__namespace_02utils_8cpp_03.html#a9eb2619dbe0ac9f1070beb2359ffd4b4">anonymous_namespace{utils.cpp}::ftoa32Engine</a></div><div class="ttdeci">std::int32_t ftoa32Engine(char *buffer, float value, std::size_t precision) noexcept</div><div class="ttdoc">Converts a floating-point number to its string representation in a specified precision.</div><div class="ttdef"><b>Definition</b> utils.cpp:110</div></div>
 <div class="ttc" id="anamespaceanonymous__namespace_02utils_8cpp_03_html_a9f55ddcf14ea01f258bae2024b11b44e"><div class="ttname"><a href="../../de/dcc/namespaceanonymous__namespace_02utils_8cpp_03.html#a9f55ddcf14ea01f258bae2024b11b44e">anonymous_namespace{utils.cpp}::divModU10</a></div><div class="ttdeci">divmod10 divModU10(std::uint32_t value) noexcept</div><div class="ttdoc">Divides a given 32-bit unsigned integer by 10 and returns the quotient and remainder.</div><div class="ttdef"><b>Definition</b> utils.cpp:70</div></div>
 <div class="ttc" id="anamespaceanonymous__namespace_02utils_8cpp_03_html_ae94b7cef695dd5f7f2d603cbce5ee04e"><div class="ttname"><a href="../../de/dcc/namespaceanonymous__namespace_02utils_8cpp_03.html#ae94b7cef695dd5f7f2d603cbce5ee04e">anonymous_namespace{utils.cpp}::sc_utf8CharSizeTable</a></div><div class="ttdeci">constexpr std::array&lt; std::uint8_t, 256 &gt; sc_utf8CharSizeTable</div><div class="ttdef"><b>Definition</b> utils.cpp:28</div></div>
-<div class="ttc" id="anamespacetoygine_html"><div class="ttname"><a href="../../d7/de6/namespacetoygine.html">toygine</a></div><div class="ttdef"><b>Definition</b> fix_string.inl:28</div></div>
-<div class="ttc" id="anamespacetoygine_html_a0278fc86f3113fc375beb8cb2f380b02"><div class="ttname"><a href="../../d7/de6/namespacetoygine.html#a0278fc86f3113fc375beb8cb2f380b02">toygine::ArraySize</a></div><div class="ttdeci">consteval std::size_t ArraySize(T(&amp;)[N])</div><div class="ttdoc">Returns the size of an array.</div><div class="ttdef"><b>Definition</b> core.hpp:96</div></div>
+<div class="ttc" id="anamespacetoygine_html"><div class="ttname"><a href="../../d7/de6/namespacetoygine.html">toygine</a></div><div class="ttdoc">Main engine namespace.</div><div class="ttdef"><b>Definition</b> fix_string.inl:28</div></div>
+<div class="ttc" id="anamespacetoygine_html_a0278fc86f3113fc375beb8cb2f380b02"><div class="ttname"><a href="../../d7/de6/namespacetoygine.html#a0278fc86f3113fc375beb8cb2f380b02">toygine::ArraySize</a></div><div class="ttdeci">consteval std::size_t ArraySize(T(&amp;)[N])</div><div class="ttdoc">Returns the size of an array.</div><div class="ttdef"><b>Definition</b> core.hpp:97</div></div>
 <div class="ttc" id="anamespacetoygine_html_a11c6df1cb36b16151cfbdf33778146f4"><div class="ttname"><a href="../../d7/de6/namespacetoygine.html#a11c6df1cb36b16151cfbdf33778146f4">toygine::itoa</a></div><div class="ttdeci">char * itoa(char *dest, std::size_t destSize, std::uint8_t value, unsigned base)</div><div class="ttdoc">Converts an unsigned integer to a string representation in the specified base.</div><div class="ttdef"><b>Definition</b> utils.cpp:446</div></div>
 <div class="ttc" id="anamespacetoygine_html_a2f65fa6e46f8a594b805986e41d4b344"><div class="ttname"><a href="../../d7/de6/namespacetoygine.html#a2f65fa6e46f8a594b805986e41d4b344">toygine::ftoa</a></div><div class="ttdeci">char * ftoa(char *dest, std::size_t destSize, double value, std::size_t precision)</div><div class="ttdoc">Converts a floating-point number to its string representation in a specified precision.</div><div class="ttdef"><b>Definition</b> utils.cpp:488</div></div>
 <div class="ttc" id="anamespacetoygine_html_a48637673e063354265967ce84b7031a1"><div class="ttname"><a href="../../d7/de6/namespacetoygine.html#a48637673e063354265967ce84b7031a1">toygine::utf8toWChar</a></div><div class="ttdeci">wchar_t * utf8toWChar(wchar_t *dest, std::size_t destSize, char const *src, std::size_t count)</div><div class="ttdoc">Converts a Unicode UTF-8 encoded string to a wide character string.</div><div class="ttdef"><b>Definition</b> utils.cpp:343</div></div>
@@ -317,7 +376,7 @@ $(function(){initNavTree('da/d47/core_8hpp_source.html','../../'); initResizable
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="../../da/d47/core_8hpp.html">core.hpp</a></li>
-    <li class="footer">Generated on Tue Aug 19 2025 for ToyGine2 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generated on Wed Aug 20 2025 for ToyGine2 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>

@@ -1,42 +1,99 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- HTML header for doxygen 1.14.0-->
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
-<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.12.0"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ToyGine2: include/core/fix_string.hpp Source File</title>
-<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="../../jquery.js"></script>
-<script type="text/javascript" src="../../dynsections.js"></script>
-<script type="text/javascript" src="../../clipboard.js"></script>
-<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+  <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=11" />
+  <meta name="generator" content="Doxygen 1.12.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ToyGine2: include/core/fix_string.hpp Source File</title>
+  <link href="../../tabs.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="../../jquery.js"></script>
+  <script type="text/javascript" src="../../dynsections.js"></script>
+  <script type="text/javascript" src="../../clipboard.js"></script>
+  <link href="../../navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../navtreedata.js"></script>
 <script type="text/javascript" src="../../navtree.js"></script>
 <script type="text/javascript" src="../../resize.js"></script>
 <script type="text/javascript" src="../../cookie.js"></script>
-<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+  <link href="../../search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../search/searchdata.js"></script>
 <script type="text/javascript" src="../../search/search.js"></script>
-<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+  <link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+  <link href="../../doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="../../doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="../../doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+  <script type="text/javascript" src="../../doxygen-awesome-darkmode-toggle.js"></script>
+  <script type="text/javascript" src="../../doxygen-awesome-paragraph-link.js"></script>
+  <script type="text/javascript" src="../../doxygen-awesome-interactive-toc.js"></script>
+  <script type="text/javascript" src="../../doxygen-awesome-tabs.js"></script>
+  <script type="text/javascript">
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+  </script>
 </head>
 <body>
-<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
-<div id="titlearea">
-<table cellspacing="0" cellpadding="0">
- <tbody>
- <tr id="projectrow">
-  <td id="projectlogo"><img alt="Logo" src="../../logo.webp" height="55"/></td>
-  <td id="projectalign">
-   <div id="projectname">ToyGine2<span id="projectnumber">&#160;0.0.0</span>
-   </div>
-   <div id="projectbrief">Game Engine for retro consoles</div>
-  </td>
- </tr>
- </tbody>
-</table>
-</div>
-<!-- end header part -->
+    <!-- https://tholman.com/github-corners/ -->
+    <a href="https://github.com/ToymanInteractive/toygine2" class="github-corner" title="View source on GitHub"
+      target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 250 250" width="40" height="40"
+        style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path
+          d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+          fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path
+          d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+          fill="currentColor" class="octo-body"></path>
+      </svg>
+    </a>
+    <style>
+      .github-corner:hover .octo-arm {
+        animation: octocat-wave 560ms ease-in-out
+      }
+      @keyframes octocat-wave {
+        0%,
+        100% {
+          transform: rotate(0)
+        }
+        20%,
+        60% {
+          transform: rotate(-25deg)
+        }
+        40%,
+        80% {
+          transform: rotate(10deg)
+        }
+      }
+      @media (max-width:500px) {
+        .github-corner:hover .octo-arm {
+          animation: none
+        }
+        .github-corner .octo-arm {
+          animation: octocat-wave 560ms ease-in-out
+        }
+      }
+    </style>
+    <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+      <div id="titlearea">
+        <table cellspacing="0" cellpadding="0">
+          <tbody>
+            <tr id="projectrow">
+              <td id="projectlogo"><img alt="Logo" src="../../logo.webp"  height="52" /></td>
+              <td id="projectalign">
+                <div id="projectname">ToyGine2<span
+                    id="projectnumber">&#160;0.0.0</span>
+                </div>
+                <div id="projectbrief">Game Engine for retro consoles</div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- end header part -->
 <!-- Generated by Doxygen 1.12.0 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
@@ -619,7 +676,7 @@ $(function(){initNavTree('d0/d46/fix__string_8hpp_source.html','../../'); initRe
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_af620a44bcdf9ef29b647826650b520e0"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#af620a44bcdf9ef29b647826650b520e0">toygine::FixString::FixString</a></div><div class="ttdeci">constexpr FixString(const char *string) noexcept</div><div class="ttdoc">Constructor for FixString class with a C string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:55</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_af89cb8066041fa741f75709159b610e7"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#af89cb8066041fa741f75709159b610e7">toygine::FixString::size</a></div><div class="ttdeci">constexpr std::size_t size() const noexcept</div><div class="ttdoc">Returns the size of the string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:226</div></div>
 <div class="ttc" id="acore_8hpp_html_a1e1898e441784683649af6bb189cb75d"><div class="ttname"><a href="../../da/d47/core_8hpp.html#a1e1898e441784683649af6bb189cb75d">CPU_INTEL_x64</a></div><div class="ttdeci">#define CPU_INTEL_x64</div><div class="ttdoc">Intel CPU 64 bit code.</div><div class="ttdef"><b>Definition</b> core.hpp:73</div></div>
-<div class="ttc" id="acore_8hpp_html_a6c25f2c5b6e99783e32a4eb8258eb2f6"><div class="ttname"><a href="../../da/d47/core_8hpp.html#a6c25f2c5b6e99783e32a4eb8258eb2f6">TOY_UNUSED</a></div><div class="ttdeci">#define TOY_UNUSED(identifier)</div><div class="ttdoc">Suppresses compiler warnings about unused variables or functions.</div><div class="ttdef"><b>Definition</b> core.hpp:112</div></div>
+<div class="ttc" id="acore_8hpp_html_a6c25f2c5b6e99783e32a4eb8258eb2f6"><div class="ttname"><a href="../../da/d47/core_8hpp.html#a6c25f2c5b6e99783e32a4eb8258eb2f6">TOY_UNUSED</a></div><div class="ttdeci">#define TOY_UNUSED(identifier)</div><div class="ttdoc">Suppresses compiler warnings about unused variables or functions.</div><div class="ttdef"><b>Definition</b> core.hpp:113</div></div>
 <div class="ttc" id="acore_8hpp_html_ae273c7db78098028c7a6b6b230ac0503"><div class="ttname"><a href="../../da/d47/core_8hpp.html#ae273c7db78098028c7a6b6b230ac0503">OS_LINUX</a></div><div class="ttdeci">#define OS_LINUX</div><div class="ttdoc">GNU Linux.</div><div class="ttdef"><b>Definition</b> core.hpp:42</div></div>
 <div class="ttc" id="alinux_2platform__config_8hpp_html_ae03d9a55f6cbc55ebd9d6b25c2e8889c"><div class="ttname"><a href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a></div><div class="ttdeci">#define assert_message(x, message)</div><div class="ttdef"><b>Definition</b> platform_config.hpp:63</div></div>
 <div class="ttc" id="alinux_2platform__config_8hpp_html_af576bf8ffa22a44e53018c67095ffbf0"><div class="ttname"><a href="../../dd/d9e/linux_2platform__config_8hpp.html#af576bf8ffa22a44e53018c67095ffbf0">assert</a></div><div class="ttdeci">#define assert(x)</div><div class="ttdef"><b>Definition</b> platform_config.hpp:62</div></div>
@@ -629,8 +686,8 @@ $(function(){initNavTree('d0/d46/fix__string_8hpp_source.html','../../'); initRe
 <div class="ttc" id="anamespaceanonymous__namespace_02utils_8cpp_03_html_a9eb2619dbe0ac9f1070beb2359ffd4b4"><div class="ttname"><a href="../../de/dcc/namespaceanonymous__namespace_02utils_8cpp_03.html#a9eb2619dbe0ac9f1070beb2359ffd4b4">anonymous_namespace{utils.cpp}::ftoa32Engine</a></div><div class="ttdeci">std::int32_t ftoa32Engine(char *buffer, float value, std::size_t precision) noexcept</div><div class="ttdoc">Converts a floating-point number to its string representation in a specified precision.</div><div class="ttdef"><b>Definition</b> utils.cpp:110</div></div>
 <div class="ttc" id="anamespaceanonymous__namespace_02utils_8cpp_03_html_a9f55ddcf14ea01f258bae2024b11b44e"><div class="ttname"><a href="../../de/dcc/namespaceanonymous__namespace_02utils_8cpp_03.html#a9f55ddcf14ea01f258bae2024b11b44e">anonymous_namespace{utils.cpp}::divModU10</a></div><div class="ttdeci">divmod10 divModU10(std::uint32_t value) noexcept</div><div class="ttdoc">Divides a given 32-bit unsigned integer by 10 and returns the quotient and remainder.</div><div class="ttdef"><b>Definition</b> utils.cpp:70</div></div>
 <div class="ttc" id="anamespaceanonymous__namespace_02utils_8cpp_03_html_ae94b7cef695dd5f7f2d603cbce5ee04e"><div class="ttname"><a href="../../de/dcc/namespaceanonymous__namespace_02utils_8cpp_03.html#ae94b7cef695dd5f7f2d603cbce5ee04e">anonymous_namespace{utils.cpp}::sc_utf8CharSizeTable</a></div><div class="ttdeci">constexpr std::array&lt; std::uint8_t, 256 &gt; sc_utf8CharSizeTable</div><div class="ttdef"><b>Definition</b> utils.cpp:28</div></div>
-<div class="ttc" id="anamespacetoygine_html"><div class="ttname"><a href="../../d7/de6/namespacetoygine.html">toygine</a></div><div class="ttdef"><b>Definition</b> fix_string.inl:28</div></div>
-<div class="ttc" id="anamespacetoygine_html_a0278fc86f3113fc375beb8cb2f380b02"><div class="ttname"><a href="../../d7/de6/namespacetoygine.html#a0278fc86f3113fc375beb8cb2f380b02">toygine::ArraySize</a></div><div class="ttdeci">consteval std::size_t ArraySize(T(&amp;)[N])</div><div class="ttdoc">Returns the size of an array.</div><div class="ttdef"><b>Definition</b> core.hpp:96</div></div>
+<div class="ttc" id="anamespacetoygine_html"><div class="ttname"><a href="../../d7/de6/namespacetoygine.html">toygine</a></div><div class="ttdoc">Main engine namespace.</div><div class="ttdef"><b>Definition</b> fix_string.inl:28</div></div>
+<div class="ttc" id="anamespacetoygine_html_a0278fc86f3113fc375beb8cb2f380b02"><div class="ttname"><a href="../../d7/de6/namespacetoygine.html#a0278fc86f3113fc375beb8cb2f380b02">toygine::ArraySize</a></div><div class="ttdeci">consteval std::size_t ArraySize(T(&amp;)[N])</div><div class="ttdoc">Returns the size of an array.</div><div class="ttdef"><b>Definition</b> core.hpp:97</div></div>
 <div class="ttc" id="anamespacetoygine_html_a11c6df1cb36b16151cfbdf33778146f4"><div class="ttname"><a href="../../d7/de6/namespacetoygine.html#a11c6df1cb36b16151cfbdf33778146f4">toygine::itoa</a></div><div class="ttdeci">char * itoa(char *dest, std::size_t destSize, std::uint8_t value, unsigned base)</div><div class="ttdoc">Converts an unsigned integer to a string representation in the specified base.</div><div class="ttdef"><b>Definition</b> utils.cpp:446</div></div>
 <div class="ttc" id="anamespacetoygine_html_a2f65fa6e46f8a594b805986e41d4b344"><div class="ttname"><a href="../../d7/de6/namespacetoygine.html#a2f65fa6e46f8a594b805986e41d4b344">toygine::ftoa</a></div><div class="ttdeci">char * ftoa(char *dest, std::size_t destSize, double value, std::size_t precision)</div><div class="ttdoc">Converts a floating-point number to its string representation in a specified precision.</div><div class="ttdef"><b>Definition</b> utils.cpp:488</div></div>
 <div class="ttc" id="anamespacetoygine_html_a48637673e063354265967ce84b7031a1"><div class="ttname"><a href="../../d7/de6/namespacetoygine.html#a48637673e063354265967ce84b7031a1">toygine::utf8toWChar</a></div><div class="ttdeci">wchar_t * utf8toWChar(wchar_t *dest, std::size_t destSize, char const *src, std::size_t count)</div><div class="ttdoc">Converts a Unicode UTF-8 encoded string to a wide character string.</div><div class="ttdef"><b>Definition</b> utils.cpp:343</div></div>
@@ -654,7 +711,7 @@ $(function(){initNavTree('d0/d46/fix__string_8hpp_source.html','../../'); initRe
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="../../dir_3d69f64eaf81436fe2b22361382717e5.html">core</a></li><li class="navelem"><a class="el" href="../../d0/d46/fix__string_8hpp.html">fix_string.hpp</a></li>
-    <li class="footer">Generated on Tue Aug 19 2025 for ToyGine2 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generated on Wed Aug 20 2025 for ToyGine2 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>
