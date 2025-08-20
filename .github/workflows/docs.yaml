@@ -2,8 +2,6 @@ name: Generate Doxygen Docs
 
 on:
   push:
-    branches:
-      - main
 
 permissions:
   contents: read
@@ -24,6 +22,7 @@ jobs:
         run: |
           sudo apt-get update -y
           sudo apt-get install -y graphviz
+          pip3 install coverxygen
           curl -L https://github.com/doxygen/doxygen/releases/download/Release_1_12_0/doxygen-1.12.0.linux.bin.tar.gz -o doxygen.tar.gz || { echo "Failed to download Doxygen"; exit 1; }
           tar -xzf doxygen.tar.gz || { echo "Failed to extract Doxygen"; exit 1; }
           cd doxygen-*
@@ -39,6 +38,18 @@ jobs:
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4.0.0
+        if: ${{ github.ref_name == 'main' }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs/html
+
+      - name: Collect docs coverage
+        run: |
+          python3 -m coverxygen --xml-dir ./docs/xml --src-dir . --output ./docs/xml/doc.lcov --format lcov
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5.5.0
+        with:
+          files: ./docs/xml/doc.lcov
+          flags: documentation
+          token: ${{ secrets.CODECOV_TOKEN }}
