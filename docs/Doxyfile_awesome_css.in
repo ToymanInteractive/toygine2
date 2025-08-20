@@ -9,3 +9,5 @@ HTML_EXTRA_STYLESHEET  = @AWESOME_CSS_DIR@/doxygen-awesome.css ./docs/awesome_cs
 HTML_EXTRA_FILES       = @AWESOME_CSS_DIR@/doxygen-awesome-darkmode-toggle.js @AWESOME_CSS_DIR@/doxygen-awesome-paragraph-link.js @AWESOME_CSS_DIR@/doxygen-awesome-interactive-toc.js @AWESOME_CSS_DIR@/doxygen-awesome-tabs.js
 
 HTML_COLORSTYLE        = LIGHT
+
+GENERATE_XML           = NO
