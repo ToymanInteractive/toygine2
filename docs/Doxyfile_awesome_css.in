@@ -1,6 +1,6 @@
 @INCLUDE               = ./docs/Doxyfile
 
-HTML_OUTPUT            = html/awesome
+HTML_OUTPUT            = html
 
 HTML_HEADER            = ./docs/header_awesome.html
 
