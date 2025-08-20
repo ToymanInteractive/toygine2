@@ -29,4 +29,4 @@ ToyGine2 is a modern C++ high level engine.
 ### Tools
 
 - CMake 3.31 or newer
-- Doxygen 1.14+ and Graphviz (for documentation)
+- Doxygen 1.12+ and Graphviz (for documentation)
