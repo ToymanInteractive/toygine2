@@ -1,4 +1,4 @@
-# Documentation: https://clang.llvm.org/docs/ClangFormatStyleOptions.html#clang-format-style-options
+# Documentation: https://releases.llvm.org/17.0.1/tools/clang/docs/ClangFormatStyleOptions.html
 ---
 AccessModifierOffset: -2
 AlignAfterOpenBracket: Align
@@ -85,7 +85,7 @@ SpacesBeforeTrailingComments: 1
 SpacesInCStyleCastParentheses: false
 SpacesInParentheses: false
 SpacesInSquareBrackets: false
-Standard: Cpp23
+Standard: c++20
 TabWidth: 2
 UseTab: Never
 ---
