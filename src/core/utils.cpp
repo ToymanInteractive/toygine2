@@ -288,11 +288,11 @@ void floatPostProcess(char * dest, char * srcBuffer, std::size_t bufferSize, std
 
   std::size_t fractionDigits = digits > intDigits ? digits - intDigits : 0;
   if (intDigits > 0) {
-    auto count = intDigits > digits ? digits : intDigits;
+    auto count = std::min(intDigits, digits);
     while (count--)
       *outputPointer++ = *strBegin++;
 
-    auto trailingZeros = static_cast<std::int32_t>(intDigits - digits);
+    auto trailingZeros = static_cast<std::int32_t>(intDigits) - static_cast<std::int32_t>(digits);
     while (trailingZeros-- > 0)
       *outputPointer++ = '0';
   } else {
@@ -346,11 +346,11 @@ wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, char const * src, st
 
   wchar_t * destPointer = dest;
   if (count > 0 && src != nullptr) {
-    wchar_t const * unicodeEndPos = dest + (destSize - 1);
+    const wchar_t * unicodeEndPos = dest + (destSize - 1);
     std::size_t srcIterator = 0;
 
     while (srcIterator < count && destPointer < unicodeEndPos) {
-      std::uint8_t symbol = static_cast<std::uint8_t>(src[srcIterator++]);
+      auto symbol = static_cast<std::uint8_t>(src[srcIterator++]);
       if (symbol <= 0x7F) {
         *destPointer = symbol;
       } else {
@@ -360,7 +360,7 @@ wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, char const * src, st
           symbol <<= 1;
         }
 
-        wchar_t unicodeChar = static_cast<wchar_t>(symbol >> charBytes);
+        auto unicodeChar = static_cast<wchar_t>(symbol >> charBytes);
         while (charBytes-- > 1) {
           unicodeChar <<= 6;
           unicodeChar |= src[srcIterator++] & 0x3F;
@@ -387,7 +387,7 @@ char * wcharToUtf8(char * dest, std::size_t destSize, wchar_t const * src) {
     char const * utf8EndPos = dest + (destSize - 1);
 
     while (*src != L'\0' && destPointer < utf8EndPos) {
-      std::uint32_t symbol = static_cast<std::uint32_t>(*src++);
+      auto symbol = static_cast<std::uint32_t>(*src++);
       if (symbol <= 0x7F) {
         *destPointer = static_cast<char>(symbol);
       } else {
