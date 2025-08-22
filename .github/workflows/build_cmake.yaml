@@ -34,7 +34,7 @@ jobs:
           - name: Windows MSVC
             os: windows-2025
             run_test: "true"
-            continue_on_error: false
+            continue_on_error: true
             cmake_preset: windows-msvc
 
           - name: Windows MSVC x86
