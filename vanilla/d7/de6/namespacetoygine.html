@@ -1180,24 +1180,24 @@ template&lt;typename type &gt; </div>
 <div class="line"><span class="lineno">  346</span> </div>
 <div class="line"><span class="lineno">  347</span>  <span class="keywordtype">wchar_t</span> * destPointer = dest;</div>
 <div class="line"><span class="lineno">  348</span>  <span class="keywordflow">if</span> (count &gt; 0 &amp;&amp; src != <span class="keyword">nullptr</span>) {</div>
-<div class="line"><span class="lineno">  349</span>    <span class="keywordtype">wchar_t</span> <span class="keyword">const</span> * unicodeEndPos = dest + (destSize - 1);</div>
+<div class="line"><span class="lineno">  349</span>    <span class="keyword">const</span> <span class="keywordtype">wchar_t</span> * unicodeEndPos = dest + (destSize - 1);</div>
 <div class="line"><span class="lineno">  350</span>    std::size_t srcIterator = 0;</div>
 <div class="line"><span class="lineno">  351</span> </div>
 <div class="line"><span class="lineno">  352</span>    <span class="keywordflow">while</span> (srcIterator &lt; count &amp;&amp; destPointer &lt; unicodeEndPos) {</div>
-<div class="line"><span class="lineno">  353</span>      std::uint8_t symbol = <span class="keyword">static_cast&lt;</span>std::uint8_t<span class="keyword">&gt;</span>(src[srcIterator++]);</div>
+<div class="line"><span class="lineno">  353</span>      <span class="keyword">auto</span> symbol = <span class="keyword">static_cast&lt;</span>std::uint8_t<span class="keyword">&gt;</span>(src[srcIterator++]);</div>
 <div class="line"><span class="lineno">  354</span>      <span class="keywordflow">if</span> (symbol &lt;= 0x7F) {</div>
 <div class="line"><span class="lineno">  355</span>        *destPointer = symbol;</div>
 <div class="line"><span class="lineno">  356</span>      } <span class="keywordflow">else</span> {</div>
 <div class="line"><span class="lineno">  357</span>        std::size_t charBytes = 0;</div>
-<div class="line"><span class="lineno">  358</span>        <span class="keywordflow">while</span> (symbol &amp; 0x80) {</div>
+<div class="line"><span class="lineno">  358</span>        <span class="keywordflow">while</span> ((symbol &amp; 0x80) != 0) {</div>
 <div class="line"><span class="lineno">  359</span>          ++charBytes;</div>
 <div class="line"><span class="lineno">  360</span>          symbol &lt;&lt;= 1;</div>
 <div class="line"><span class="lineno">  361</span>        }</div>
 <div class="line"><span class="lineno">  362</span> </div>
-<div class="line"><span class="lineno">  363</span>        <span class="keywordtype">wchar_t</span> unicodeChar = <span class="keyword">static_cast&lt;</span><span class="keywordtype">wchar_t</span><span class="keyword">&gt;</span>(symbol &gt;&gt; charBytes);</div>
+<div class="line"><span class="lineno">  363</span>        <span class="keyword">auto</span> unicodeChar = <span class="keyword">static_cast&lt;</span><span class="keywordtype">wchar_t</span><span class="keyword">&gt;</span>(symbol &gt;&gt; charBytes);</div>
 <div class="line"><span class="lineno">  364</span>        <span class="keywordflow">while</span> (charBytes-- &gt; 1) {</div>
 <div class="line"><span class="lineno">  365</span>          unicodeChar &lt;&lt;= 6;</div>
-<div class="line"><span class="lineno">  366</span>          unicodeChar |= src[srcIterator++] &amp; 0x3F;</div>
+<div class="line"><span class="lineno">  366</span>          unicodeChar |= <span class="keyword">static_cast&lt;</span>std::uint8_t<span class="keyword">&gt;</span>(src[srcIterator++]) &amp; 0x3F;</div>
 <div class="line"><span class="lineno">  367</span>        }</div>
 <div class="line"><span class="lineno">  368</span> </div>
 <div class="line"><span class="lineno">  369</span>        *destPointer = unicodeChar;</div>
@@ -1387,10 +1387,10 @@ template&lt;typename type &gt; </div>
 <div class="line"><span class="lineno">  384</span> </div>
 <div class="line"><span class="lineno">  385</span>  <span class="keywordtype">char</span> * destPointer = dest;</div>
 <div class="line"><span class="lineno">  386</span>  <span class="keywordflow">if</span> (src != <span class="keyword">nullptr</span>) {</div>
-<div class="line"><span class="lineno">  387</span>    <span class="keywordtype">char</span> <span class="keyword">const</span> * utf8EndPos = dest + (destSize - 1);</div>
+<div class="line"><span class="lineno">  387</span>    <span class="keyword">const</span> <span class="keywordtype">char</span> * <span class="keyword">const</span> utf8EndPos = dest + (destSize - 1);</div>
 <div class="line"><span class="lineno">  388</span> </div>
 <div class="line"><span class="lineno">  389</span>    <span class="keywordflow">while</span> (*src != L<span class="charliteral">&#39;\0&#39;</span> &amp;&amp; destPointer &lt; utf8EndPos) {</div>
-<div class="line"><span class="lineno">  390</span>      std::uint32_t symbol = <span class="keyword">static_cast&lt;</span>std::uint32_t<span class="keyword">&gt;</span>(*src++);</div>
+<div class="line"><span class="lineno">  390</span>      <span class="keyword">auto</span> symbol = <span class="keyword">static_cast&lt;</span>std::uint32_t<span class="keyword">&gt;</span>(*src++);</div>
 <div class="line"><span class="lineno">  391</span>      <span class="keywordflow">if</span> (symbol &lt;= 0x7F) {</div>
 <div class="line"><span class="lineno">  392</span>        *destPointer = <span class="keyword">static_cast&lt;</span><span class="keywordtype">char</span><span class="keyword">&gt;</span>(symbol);</div>
 <div class="line"><span class="lineno">  393</span>      } <span class="keywordflow">else</span> {</div>
@@ -1475,7 +1475,7 @@ template&lt;typename type &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../d7/de6/namespacetoygine.html">toygine</a></li>
-    <li class="footer">Generated on Wed Aug 20 2025 for ToyGine2 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generated on Fri Aug 22 2025 for ToyGine2 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>

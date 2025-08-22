@@ -292,11 +292,11 @@ Variables</h2></td></tr>
 <div class="line"><span class="lineno">  288</span> </div>
 <div class="line"><span class="lineno">  289</span>  std::size_t fractionDigits = digits &gt; intDigits ? digits - intDigits : 0;</div>
 <div class="line"><span class="lineno">  290</span>  <span class="keywordflow">if</span> (intDigits &gt; 0) {</div>
-<div class="line"><span class="lineno">  291</span>    <span class="keyword">auto</span> count = intDigits &gt; digits ? digits : intDigits;</div>
+<div class="line"><span class="lineno">  291</span>    <span class="keyword">auto</span> count = std::min(intDigits, digits);</div>
 <div class="line"><span class="lineno">  292</span>    <span class="keywordflow">while</span> (count--)</div>
 <div class="line"><span class="lineno">  293</span>      *outputPointer++ = *strBegin++;</div>
 <div class="line"><span class="lineno">  294</span> </div>
-<div class="line"><span class="lineno">  295</span>    <span class="keyword">auto</span> trailingZeros = <span class="keyword">static_cast&lt;</span>std::int32_t<span class="keyword">&gt;</span>(intDigits - digits);</div>
+<div class="line"><span class="lineno">  295</span>    <span class="keyword">auto</span> trailingZeros = <span class="keyword">static_cast&lt;</span>std::int32_t<span class="keyword">&gt;</span>(intDigits) - <span class="keyword">static_cast&lt;</span>std::int32_t<span class="keyword">&gt;</span>(digits);</div>
 <div class="line"><span class="lineno">  296</span>    <span class="keywordflow">while</span> (trailingZeros-- &gt; 0)</div>
 <div class="line"><span class="lineno">  297</span>      *outputPointer++ = <span class="charliteral">&#39;0&#39;</span>;</div>
 <div class="line"><span class="lineno">  298</span>  } <span class="keywordflow">else</span> {</div>
@@ -388,7 +388,7 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The exponent of the converted number in the given precision. Returns 0xff for zero, subnormals (unsupported), NaN, and INF.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The exponent of the converted number in the given precision. Returns 0xFF for zero, subnormals (unsupported), NaN, and INF.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The function assumes that the destination buffer is large enough to hold the converted string. The function does not support subnormals. </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">  110</span>                                                                                  {</div>
 <div class="line"><span class="lineno">  111</span>  <span class="keyword">const</span> <span class="keyword">auto</span> uvalue = std::bit_cast&lt;uint32_t&gt;(value);</div>
@@ -396,7 +396,7 @@ Variables</h2></td></tr>
 <div class="line"><span class="lineno">  113</span>  <span class="keywordflow">if</span> (exponent == 0) { <span class="comment">// don&#39;t care about a subnormals</span></div>
 <div class="line"><span class="lineno">  114</span>    buffer[0] = <span class="charliteral">&#39;0&#39;</span>;</div>
 <div class="line"><span class="lineno">  115</span>    buffer[1] = <span class="charliteral">&#39;\0&#39;</span>;</div>
-<div class="line"><span class="lineno">  116</span>    <span class="keywordflow">return</span> 0xff;</div>
+<div class="line"><span class="lineno">  116</span>    <span class="keywordflow">return</span> 0xFF;</div>
 <div class="line"><span class="lineno">  117</span>  }</div>
 <div class="line"><span class="lineno">  118</span> </div>
 <div class="line"><span class="lineno">  119</span>  <span class="keywordtype">char</span> * pointer = buffer;</div>
@@ -419,7 +419,7 @@ Variables</h2></td></tr>
 <div class="line"><span class="lineno">  136</span> </div>
 <div class="line"><span class="lineno">  137</span>    pointer[3] = <span class="charliteral">&#39;\0&#39;</span>;</div>
 <div class="line"><span class="lineno">  138</span> </div>
-<div class="line"><span class="lineno">  139</span>    <span class="keywordflow">return</span> 0xff;</div>
+<div class="line"><span class="lineno">  139</span>    <span class="keywordflow">return</span> 0xFF;</div>
 <div class="line"><span class="lineno">  140</span>  }</div>
 <div class="line"><span class="lineno">  141</span> </div>
 <div class="line"><span class="lineno">  142</span>  *pointer++ = <span class="charliteral">&#39;0&#39;</span>;</div>
@@ -519,7 +519,7 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The exponent of the converted number in the given precision. Returns 0xff for zero, subnormals (unsupported), NaN, and INF.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The exponent of the converted number in the given precision. Returns 0x7FF for zero, subnormals (unsupported), NaN, and INF.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The function assumes that the buffer is large enough to hold the converted string. The buffer will contain the string representation in the form "+d.dd...e±dd" for normalized numbers. </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">  209</span>                                                                                   {</div>
 <div class="line"><span class="lineno">  210</span>  <span class="keyword">const</span> <span class="keyword">auto</span> uvalue = std::bit_cast&lt;uint64_t&gt;(value);</div>
@@ -662,7 +662,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../de/dcc/namespaceanonymous__namespace_02utils_8cpp_03.html">anonymous_namespace{utils.cpp}</a></li>
-    <li class="footer">Generated on Wed Aug 20 2025 for ToyGine2 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generated on Fri Aug 22 2025 for ToyGine2 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>
