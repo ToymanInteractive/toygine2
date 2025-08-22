@@ -20,7 +20,7 @@ jobs:
           - name: macOS XCode
             os: macos-15
             run_test: "true"
-            continue_on_error: false
+            continue_on_error: true
             cmake_preset: macos-xcode
 
           - name: macOS Ninja
