@@ -69,7 +69,17 @@ file(GLOB_RECURSE TEST_SRC CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp"
 
 include(Catch)
 
+set(CATCH_REPORTER compact)
+
+if (TOYGINE_TEST_WITH_COVERAGE)
+  set(TEST_RESULTS_DIR ${CMAKE_BINARY_DIR}/test-results)
+  file(MAKE_DIRECTORY ${TEST_RESULTS_DIR})
+  set(CATCH_REPORTER JUnit::out=${TEST_RESULTS_DIR}/junit-${TOYGINE_LIBRARY_NAME}.xml)
+endif (TOYGINE_TEST_WITH_COVERAGE)
+
+set(CTEST_OUTPUT_ON_FAILURE ON)
+
 add_executable(${TOYGINE_LIBRARY_NAME}-tests ${TEST_SRC})
 target_include_directories(${TOYGINE_LIBRARY_NAME}-tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include)
 target_link_libraries(${TOYGINE_LIBRARY_NAME}-tests PRIVATE Catch2::Catch2 ${TOYGINE_LIBRARY_NAME})
-catch_discover_tests(${TOYGINE_LIBRARY_NAME}-tests)
+catch_discover_tests(${TOYGINE_LIBRARY_NAME}-tests REPORTER ${CATCH_REPORTER})

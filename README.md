@@ -2,11 +2,12 @@
 
 ToyGine2 is a modern C++ high level engine.
 
-![CodeRabbit Pull Request Reviews](https://img.shields.io/coderabbit/prs/github/ToymanInteractive/toygine2?utm_source=oss&utm_medium=github&utm_campaign=ToymanInteractive%2Ftoygine2&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+Reviews)
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/ToymanInteractive/toygine2/push.yaml?branch=main)
-![GitHub License](https://img.shields.io/github/license/ToymanInteractive/toygine2)
-![Codacy Badge](https://app.codacy.com/project/badge/Grade/4c8233540e7c4e5f9715aaacfa36679f)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/ToymanInteractive/toygine2/push.yaml?branch=main&logo=github&logoColor=fff&label=Build)
+![GitHub License](https://img.shields.io/github/license/ToymanInteractive/toygine2?logo=github&logoColor=fff&label=License)
+![Codacy grade](https://img.shields.io/codacy/grade/4c8233540e7c4e5f9715aaacfa36679f?logo=codacy&logoColor=fff&label=Code%20Quality)
 ![DeepSource](https://app.deepsource.com/gh/ToymanInteractive/toygine2.svg/?label=active+issues&show_trend=true&token=VnVx7Ql_HnllN1_QgIN7C8Zy)
+[![Codecov](https://img.shields.io/codecov/c/github/ToymanInteractive/toygine2?logo=codecov&logoColor=fff&flag=documentation&label=Doxygen%20Coverage)](https://codecov.io/gh/ToymanInteractive/toygine2)
+![CodeRabbit Pull Request Reviews](https://img.shields.io/coderabbit/prs/github/ToymanInteractive/toygine2?logo=coderabbit&logoColor=fff&label=CodeRabbit%20Reviews)
 
 ## Supported Systems
 
