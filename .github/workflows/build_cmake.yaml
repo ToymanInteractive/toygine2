@@ -69,6 +69,14 @@ jobs:
             if [ -d "/Applications/Xcode_16.4.app" ]; then
               sudo xcode-select -s /Applications/Xcode_16.4.app
             fi
+
+            CERT_NAME="ToymanSelfSigned"
+            security create-keychain -p password build.keychain
+            security default-keychain -s build.keychain
+            security unlock-keychain -p password build.keychain
+            security set-keychain-settings build.keychain
+            security -q create-certificate -n $CERT_NAME -k build.keychain -p password -t rsa -s 2048 -v 365
+            echo "Certificate created: $CERT_NAME"
           elif [[ "${{ matrix.os }}" =~ "ubuntu" ]]; then
             sudo apt-get update -qq
             sudo apt-get install -y gcc-14 g++-14
