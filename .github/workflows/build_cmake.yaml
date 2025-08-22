@@ -78,7 +78,10 @@ jobs:
 
       - name: Configure
         run: |
-          cmake -DTOYGINE_BUILD_TESTS=$([ "${{ matrix.run_test }}" = "true" ] && echo ON || echo OFF) -DTOYGINE_TEST_WITH_COVERAGE=$([ "${{ matrix.run_test_with_coverage }}" = "true" ] && echo ON || echo OFF) --preset ${{ matrix.cmake_preset }}
+          cmake \
+            -DTOYGINE_BUILD_TESTS=$([ "${{ matrix.run_test }}" = "true" ] && echo ON || echo OFF) \
+            -DTOYGINE_TEST_WITH_COVERAGE=$([ "${{ matrix.run_test_with_coverage }}" = "true" ] && echo ON || echo OFF) \
+            --preset ${{ matrix.cmake_preset }}
 
       - name: Build
         run: |
@@ -91,9 +94,9 @@ jobs:
           ctest --preset ${{ matrix.cmake_preset }}
 
       - name: Upload test results to Codecov
-        if: ${{ !cancelled() && matrix.run_test_with_coverage }}
+        if: ${{ !cancelled() && matrix.run_test && matrix.run_test_with_coverage }}
         uses: codecov/test-results-action@v1.1.1
         with:
-          files: /out/build/${{ matrix.cmake_preset }}/result-junit.xml
+          files: out/build/${{ matrix.cmake_preset }}/test-results/junit-toygine.xml
           flags: units
           token: ${{ secrets.CODECOV_TOKEN }}

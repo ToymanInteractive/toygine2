@@ -72,9 +72,12 @@ include(Catch)
 set(CATCH_REPORTER compact)
 
 if (TOYGINE_TEST_WITH_COVERAGE)
-  set(CATCH_REPORTER JUnit::out=${CMAKE_BINARY_DIR}/result-junit.xml)
+  set(TEST_RESULTS_DIR ${CMAKE_BINARY_DIR}/test-results)
+  file(MAKE_DIRECTORY ${TEST_RESULTS_DIR})
+  set(CATCH_REPORTER JUnit::out=${TEST_RESULTS_DIR}/junit-${TOYGINE_LIBRARY_NAME}.xml)
 endif (TOYGINE_TEST_WITH_COVERAGE)
 
+set(CTEST_OUTPUT_ON_FAILURE ON)
 
 add_executable(${TOYGINE_LIBRARY_NAME}-tests ${TEST_SRC})
 target_include_directories(${TOYGINE_LIBRARY_NAME}-tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include)
