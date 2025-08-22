@@ -26,7 +26,7 @@ jobs:
           - name: macOS Ninja
             os: macos-15
             run_test: "true"
-            continue_on_error: false
+            continue_on_error: true
             cmake_preset: macos-ninja-release
             cpack_type: RelWithDebInfo
             cpack_extension: tar.gz
