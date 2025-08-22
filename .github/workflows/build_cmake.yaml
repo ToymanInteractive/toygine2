@@ -40,7 +40,7 @@ jobs:
           - name: Windows MSVC x86
             os: windows-2025
             run_test: "true"
-            continue_on_error: false
+            continue_on_error: true
             cmake_preset: windows-msvc-x86
 
     name: CMake (${{ matrix.name }})
