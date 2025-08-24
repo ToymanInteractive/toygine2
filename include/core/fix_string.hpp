@@ -576,6 +576,7 @@ public:
     \post The string size is reduced by the number of erased characters.
 
     \note If count is npos, all characters from offset to the end are removed.
+    \note If count is 0, the operation is a no-op.
     \note Erasing from an empty string has no effect.
   */
   constexpr inline FixString<allocatedSize> & erase(std::size_t offset, std::size_t count = npos) noexcept;
