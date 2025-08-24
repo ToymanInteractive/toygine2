@@ -333,6 +333,14 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::erase(std:
 }
 
 template <std::size_t allocatedSize>
+constexpr inline void FixString<allocatedSize>::push_back(char symbol) noexcept {
+  assert(_size + 1 < allocatedSize);
+
+  _data[_size++] = symbol;
+  _data[_size] = '\0';
+}
+
+template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator+=(
   const FixString<allocatedSize> & string) noexcept {
   assert(_size + string._size < allocatedSize);
