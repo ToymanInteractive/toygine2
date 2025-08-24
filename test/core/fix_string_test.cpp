@@ -416,3 +416,45 @@ TEST_CASE("FixString operators+", "[core][fixstring]") {
   CHECK(strcmp(testString7.c_str(), "abcabc") == 0);
   CHECK(testString7.size() == 6);
 }
+
+TEST_CASE("FixString erase methods", "[core][fixstring]") {
+  FixString<32> testString1("Hello World");
+
+  // Erase first 5 characters
+  testString1.erase(0, 5);
+  CHECK(strcmp(testString1.c_str(), " World") == 0);
+  CHECK(testString1.size() == 6);
+
+  // Erase remaining characters
+  testString1.erase(0);
+  CHECK(strcmp(testString1.c_str(), "") == 0);
+  CHECK(testString1.size() == 0);
+
+  FixString<32> testString2("Hello Beautiful World");
+
+  // Erase middle word
+  testString2.erase(6, 10);
+  CHECK(strcmp(testString2.c_str(), "Hello World") == 0);
+  CHECK(testString2.size() == 11);
+
+  // Erase part of remaining text
+  testString2.erase(5, 1);
+  CHECK(strcmp(testString2.c_str(), "HelloWorld") == 0);
+  CHECK(testString2.size() == 10);
+
+  FixString<32> testString3("Hello World!");
+
+  // Erase last character
+  testString3.erase(11, 1);
+  CHECK(strcmp(testString3.c_str(), "Hello World") == 0);
+  CHECK(testString3.size() == 11);
+
+  // Erase last word
+  testString3.erase(6);
+  CHECK(strcmp(testString3.c_str(), "Hello ") == 0);
+  CHECK(testString3.size() == 6);
+
+  // Erase everything from position 0
+  testString3.erase(0);
+  CHECK(testString3.empty());
+}

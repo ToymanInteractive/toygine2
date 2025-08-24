@@ -314,6 +314,25 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::insert(std
 }
 
 template <std::size_t allocatedSize>
+constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::erase(std::size_t offset,
+                                                                            std::size_t count) noexcept {
+  assert(offset <= _size);
+
+  if (count == npos)
+    count = _size - offset;
+
+  if (count == 0)
+    return *this;
+
+  assert(offset + count <= _size);
+
+  _size -= count;
+  std::memmove(_data + offset, _data + offset + count, _size - offset + 1);
+
+  return *this;
+}
+
+template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator+=(
   const FixString<allocatedSize> & string) noexcept {
   assert(_size + string._size < allocatedSize);
