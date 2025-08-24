@@ -18,6 +18,7 @@ var classtoygine_1_1_fix_string =
     [ "data", "da/d4a/classtoygine_1_1_fix_string.html#a71ee1e32e3f5bf646c061818be5897ed", null ],
     [ "data", "da/d4a/classtoygine_1_1_fix_string.html#adac1b68ceb1076b81ad092fd629ed3ff", null ],
     [ "empty", "da/d4a/classtoygine_1_1_fix_string.html#a8fc3f1b01f5865271810f50e1d91e225", null ],
+    [ "erase", "da/d4a/classtoygine_1_1_fix_string.html#a6b17bc52d968a5fb590f7c8a7902576c", null ],
     [ "insert", "da/d4a/classtoygine_1_1_fix_string.html#a308f2b23a658ee14879050148efeb3e9", null ],
     [ "insert", "da/d4a/classtoygine_1_1_fix_string.html#a04800c975b675cf647fa2382e072cb84", null ],
     [ "insert", "da/d4a/classtoygine_1_1_fix_string.html#a393b09ba7551a3dcfa43363f1079cd05", null ],

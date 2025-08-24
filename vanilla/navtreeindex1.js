@@ -1,5 +1,7 @@
 var NAVTREEINDEX1 =
 {
+"functions_vars.html":[3,2,2],
+"globals.html":[4,1,0],
 "globals_defs.html":[4,1,1],
 "index.html":[],
 "index.html#requirements":[1],

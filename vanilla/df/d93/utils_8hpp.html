@@ -105,6 +105,9 @@ $(function(){initNavTree('df/d93/utils_8hpp.html','../../'); initResizable(true)
   <div class="headertitle"><div class="title">utils.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Core utility functions for string manipulation, encoding conversion, and number formatting.  
+<a href="#details">More...</a></p>
 <div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> This graph shows which files directly or indirectly include this file:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -112,7 +115,7 @@ $(function(){initNavTree('df/d93/utils_8hpp.html','../../'); initResizable(true)
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d8/dfa/utils_8hpp__dep__incl.png" border="0" usemap="#ainclude_2core_2utils_8hppdep" alt=""/></div>
 <map name="ainclude_2core_2utils_8hppdep" id="ainclude_2core_2utils_8hppdep">
-<area shape="rect" title=" " alt="" coords="80,5,241,31"/>
+<area shape="rect" title="Core utility functions for string manipulation, encoding conversion, and number formatting." alt="" coords="80,5,241,31"/>
 <area shape="rect" href="../../da/d47/core_8hpp.html" title=" " alt="" coords="96,79,225,104"/>
 <area shape="poly" title=" " alt="" coords="163,44,163,79,158,79,158,44"/>
 <area shape="rect" href="../../de/d06/utils_8cpp.html" title=" " alt="" coords="5,159,137,185"/>
@@ -132,12 +135,12 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a48637673e063354265967ce84b7031a1" id="r_a48637673e063354265967ce84b7031a1"><td class="memItemLeft" align="right" valign="top">wchar_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/de6/namespacetoygine.html#a48637673e063354265967ce84b7031a1">toygine::utf8toWChar</a> (wchar_t *dest, std::size_t destSize, char const *src, std::size_t count)</td></tr>
-<tr class="memdesc:a48637673e063354265967ce84b7031a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a Unicode UTF-8 encoded string to a wide character string.  <br /></td></tr>
-<tr class="separator:a48637673e063354265967ce84b7031a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa91ac406f0e472aee86388b14a415e6a" id="r_aa91ac406f0e472aee86388b14a415e6a"><td class="memItemLeft" align="right" valign="top">wchar_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/de6/namespacetoygine.html#aa91ac406f0e472aee86388b14a415e6a">toygine::utf8toWChar</a> (wchar_t *dest, std::size_t destSize, char const *src)</td></tr>
-<tr class="memdesc:aa91ac406f0e472aee86388b14a415e6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a Unicode UTF-8 encoded string to a wide character string.  <br /></td></tr>
-<tr class="separator:aa91ac406f0e472aee86388b14a415e6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af00e3af9442f250a294972d0542b0299" id="r_af00e3af9442f250a294972d0542b0299"><td class="memItemLeft" align="right" valign="top">wchar_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/de6/namespacetoygine.html#af00e3af9442f250a294972d0542b0299">toygine::utf8toWChar</a> (wchar_t *dest, std::size_t destSize, const char *const src, std::size_t count)</td></tr>
+<tr class="memdesc:af00e3af9442f250a294972d0542b0299"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a Unicode UTF-8 encoded string to a wide character string with character count limit.  <br /></td></tr>
+<tr class="separator:af00e3af9442f250a294972d0542b0299"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab12e48c5cbe5e1a4ff5673bc0c73050d" id="r_ab12e48c5cbe5e1a4ff5673bc0c73050d"><td class="memItemLeft" align="right" valign="top">wchar_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/de6/namespacetoygine.html#ab12e48c5cbe5e1a4ff5673bc0c73050d">toygine::utf8toWChar</a> (wchar_t *dest, std::size_t destSize, const char *const src)</td></tr>
+<tr class="memdesc:ab12e48c5cbe5e1a4ff5673bc0c73050d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a Unicode UTF-8 encoded string to a wide character string.  <br /></td></tr>
+<tr class="separator:ab12e48c5cbe5e1a4ff5673bc0c73050d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a811e04b05bc9831faa0a74301d2a9e27" id="r_a811e04b05bc9831faa0a74301d2a9e27"><td class="memTemplParams" colspan="2">template&lt;typename stringType &gt; </td></tr>
 <tr class="memitem:a811e04b05bc9831faa0a74301d2a9e27"><td class="memTemplItemLeft" align="right" valign="top">wchar_t *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d7/de6/namespacetoygine.html#a811e04b05bc9831faa0a74301d2a9e27">toygine::utf8toWChar</a> (wchar_t *dest, std::size_t destSize, stringType const &amp;src)</td></tr>
 <tr class="memdesc:a811e04b05bc9831faa0a74301d2a9e27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a Unicode UTF-8 encoded string to a wide character string.  <br /></td></tr>
@@ -188,10 +191,12 @@ Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:a33eb5fc4e7682e297375d2ee2fbb7742" id="r_a33eb5fc4e7682e297375d2ee2fbb7742"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/de6/namespacetoygine.html#a33eb5fc4e7682e297375d2ee2fbb7742">toygine::wcharInUtf8MaxSize</a> = 3</td></tr>
-<tr class="memdesc:a33eb5fc4e7682e297375d2ee2fbb7742"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum UTF-8 bytes for BMP characters (only BMP supported by design)  <br /></td></tr>
+<tr class="memdesc:a33eb5fc4e7682e297375d2ee2fbb7742"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum UTF-8 bytes required for BMP characters.  <br /></td></tr>
 <tr class="separator:a33eb5fc4e7682e297375d2ee2fbb7742"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Core utility functions for string manipulation, encoding conversion, and number formatting. </p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
