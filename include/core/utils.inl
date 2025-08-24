@@ -17,7 +17,7 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 //
-/*
+/*!
   \file   utils.inl
   \brief  collection of core inline functions
 */
@@ -27,7 +27,7 @@
 
 namespace toygine {
 
-inline wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, char const * src) {
+inline wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, const char * const src) {
   assert_message(src != nullptr, "The source must not be null.");
 
   return src != nullptr ? utf8toWChar(dest, destSize, src, std::strlen(src)) : nullptr;
