@@ -20,7 +20,7 @@
 
 cmake_minimum_required(VERSION 3.31.0 FATAL_ERROR)
 
-if (TARGET_PLATFORM STREQUAL "Windows Desktop")
+if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
   if (MSVC)
     message(STATUS "Compiler: MSVC, version: " ${MSVC_VERSION})
@@ -29,8 +29,8 @@ if (TARGET_PLATFORM STREQUAL "Windows Desktop")
 
     # Minimum CPU Architecture select based on https://store.steampowered.com/hwsurvey/
 
-    set(CMAKE_C_FLAGS   "/std:c17 /nologo /Wall /WX /wd4710 /wd4711 /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /EHsc /Zc:wchar_t /Zc:forScope /Zc:inline /Zc:rvalueCast /GR- /permissive")
-    set(CMAKE_CXX_FLAGS "         /nologo /Wall /WX /wd4710 /wd4711 /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /EHsc /Zc:wchar_t /Zc:forScope /Zc:inline /Zc:rvalueCast /GR- /permissive")
+    set(CMAKE_C_FLAGS   "/nologo /Wall /WX /wd4514 /wd4710 /wd4711 /wd4820 /wd5045 /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /EHsc /Zc:wchar_t /Zc:forScope /Zc:inline /Zc:rvalueCast /GR- /permissive-")
+    set(CMAKE_CXX_FLAGS "/nologo /Wall /WX /wd4514 /wd4710 /wd4711 /wd4820 /wd5045 /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /EHsc /Zc:wchar_t /Zc:forScope /Zc:inline /Zc:rvalueCast /GR- /permissive-")
 
     if (CMAKE_SIZEOF_VOID_P MATCHES "8")
 
@@ -68,23 +68,33 @@ if (TARGET_PLATFORM STREQUAL "Windows Desktop")
     set(CMAKE_EXE_LINKER_FLAGS_RELEASE            "/INCREMENTAL:NO /LTCG     /DEBUG:NONE /ASSEMBLYDEBUG:DISABLE")
   endif (MSVC)
 
-elseif (TARGET_PLATFORM STREQUAL "Linux Desktop")
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop")
 
-elseif (TARGET_PLATFORM STREQUAL "macOS Desktop")
+  message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
 
-  message(STATUS "Compiler: Xcode, version: " ${XCODE_VERSION})
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
 
-  set(CMAKE_C_FLAGS   "-Werror -Weverything -pedantic-errors -Wno-missing-prototypes -Wno-c++98-compat -Wno-poison-system-directories -fshow-column -fshow-source-location -fcaret-diagnostics -fcolor-diagnostics -fdiagnostics-format=clang -fdiagnostics-show-option -fdiagnostics-show-category=id")
-  set(CMAKE_CXX_FLAGS "-Werror -Weverything -pedantic-errors -Wno-missing-prototypes -Wno-c++98-compat -Wno-poison-system-directories -fshow-column -fshow-source-location -fcaret-diagnostics -fcolor-diagnostics -fdiagnostics-format=clang -fdiagnostics-show-option -fdiagnostics-show-category=id")
+  if (CMAKE_GENERATOR STREQUAL "Xcode")
+    message(STATUS "Compiler: Xcode, version: " ${XCODE_VERSION})
+  endif(CMAKE_GENERATOR STREQUAL "Xcode")
 
-  set(CMAKE_C_FLAGS_DEBUG            "-g -D_DEBUG")
-  set(CMAKE_CXX_FLAGS_DEBUG          "-g -D_DEBUG")
+  message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
 
-  set(CMAKE_C_FLAGS_RELWITHDEBINFO   "-O2 -g -D_DEBUG")
-  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g -D_DEBUG")
+  # XCode 16.4 contains AppleClang version: 17.0.0.17000013
+  # Clang 17.0.1 documentation. https://releases.llvm.org/17.0.1/tools/clang/docs/UsersManual.html
+  # Clang 17.0.1 diagnostic flags. https://releases.llvm.org/17.0.1/tools/clang/docs/DiagnosticsReference.html
 
-  set(CMAKE_C_FLAGS_RELEASE          "-O3 -DNDEBUG")
-  set(CMAKE_CXX_FLAGS_RELEASE        "-O3 -DNDEBUG")
+  set(CMAKE_C_FLAGS   "-Werror -Weverything -pedantic-errors -Wno-missing-prototypes                                                                -Wno-missing-include-dirs -Wno-padded -Wno-poison-system-directories -fshow-column -fshow-source-location -fcaret-diagnostics -fcolor-diagnostics -fdiagnostics-format=clang -fdiagnostics-show-option -fdiagnostics-show-category=id -fdiagnostics-fixit-info -fdiagnostics-print-source-range-info -fdiagnostics-parseable-fixits -fno-rounding-math -fexcess-precision=standard")
+  set(CMAKE_CXX_FLAGS "-Werror -Weverything -pedantic-errors -Wno-missing-prototypes -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-c++20-compat -Wno-missing-include-dirs -Wno-padded -Wno-poison-system-directories -fshow-column -fshow-source-location -fcaret-diagnostics -fcolor-diagnostics -fdiagnostics-format=clang -fdiagnostics-show-option -fdiagnostics-show-category=id -fdiagnostics-fixit-info -fdiagnostics-print-source-range-info -fdiagnostics-parseable-fixits -fno-rounding-math -fexcess-precision=standard")
+
+  set(CMAKE_C_FLAGS_DEBUG            "    -g -D_DEBUG -fno-fast-math -fstrict-float-cast-overflow    -fmath-errno -fno-unsafe-math-optimizations -ffp-model=precise -ffp-exception-behavior=strict -fprotect-parens                                                                            -fsanitize=address -fsanitize=alignment -fsanitize=bool -fsanitize=builtin -fsanitize=bounds -fsanitize=enum -fsanitize=float-cast-overflow -fsanitize=float-divide-by-zero -fsanitize=function -fsanitize=nonnull-attribute -fsanitize=null -fsanitize=objc-cast                        -fsanitize=pointer-overflow -fsanitize=return -fsanitize=returns-nonnull-attribute -fsanitize=unsigned-shift-base -fsanitize=unreachable -fsanitize=vla-bound -fsanitize=vptr -fsanitize=integer -fsanitize=nullability")
+  set(CMAKE_CXX_FLAGS_DEBUG          "    -g -D_DEBUG -fno-fast-math -fstrict-float-cast-overflow    -fmath-errno -fno-unsafe-math-optimizations -ffp-model=precise -ffp-exception-behavior=strict -fprotect-parens                                                                            -fsanitize=address -fsanitize=alignment -fsanitize=bool -fsanitize=builtin -fsanitize=bounds -fsanitize=enum -fsanitize=float-cast-overflow -fsanitize=float-divide-by-zero -fsanitize=function -fsanitize=nonnull-attribute -fsanitize=null -fsanitize=objc-cast                        -fsanitize=pointer-overflow -fsanitize=return -fsanitize=returns-nonnull-attribute -fsanitize=unsigned-shift-base -fsanitize=unreachable -fsanitize=vla-bound -fsanitize=vptr -fsanitize=integer -fsanitize=nullability")
+
+  set(CMAKE_C_FLAGS_RELWITHDEBINFO   "-O2 -g -D_DEBUG -ffast-math    -fno-strict-float-cast-overflow              -funsafe-math-optimizations    -ffp-model=fast    -ffp-exception-behavior=strict -fno-protect-parens -fstrict-vtable-pointers -fwhole-program-vtables -fsplit-lto-unit -flto -fsanitize=address -fsanitize=alignment -fsanitize=bool -fsanitize=builtin -fsanitize=bounds -fsanitize=enum -fsanitize=float-cast-overflow -fsanitize=float-divide-by-zero -fsanitize=function -fsanitize=nonnull-attribute -fsanitize=null -fsanitize=objc-cast -fsanitize=object-size -fsanitize=pointer-overflow -fsanitize=return -fsanitize=returns-nonnull-attribute -fsanitize=unsigned-shift-base -fsanitize=unreachable -fsanitize=vla-bound -fsanitize=vptr -fsanitize=integer -fsanitize=nullability")
+  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g -D_DEBUG -ffast-math    -fno-strict-float-cast-overflow              -funsafe-math-optimizations    -ffp-model=fast    -ffp-exception-behavior=strict -fno-protect-parens -fstrict-vtable-pointers -fwhole-program-vtables -fsplit-lto-unit -flto -fsanitize=address -fsanitize=alignment -fsanitize=bool -fsanitize=builtin -fsanitize=bounds -fsanitize=enum -fsanitize=float-cast-overflow -fsanitize=float-divide-by-zero -fsanitize=function -fsanitize=nonnull-attribute -fsanitize=null -fsanitize=objc-cast -fsanitize=object-size -fsanitize=pointer-overflow -fsanitize=return -fsanitize=returns-nonnull-attribute -fsanitize=unsigned-shift-base -fsanitize=unreachable -fsanitize=vla-bound -fsanitize=vptr -fsanitize=integer -fsanitize=nullability")
+
+  set(CMAKE_C_FLAGS_RELEASE          "-O3    -DNDEBUG -ffast-math    -fno-strict-float-cast-overflow              -funsafe-math-optimizations    -ffp-model=fast    -ffp-exception-behavior=ignore -fno-protect-parens -fstrict-vtable-pointers -fwhole-program-vtables -fsplit-lto-unit -flto")
+  set(CMAKE_CXX_FLAGS_RELEASE        "-O3    -DNDEBUG -ffast-math    -fno-strict-float-cast-overflow              -funsafe-math-optimizations    -ffp-model=fast    -ffp-exception-behavior=ignore -fno-protect-parens -fstrict-vtable-pointers -fwhole-program-vtables -fsplit-lto-unit -flto")
 
   set(CMAKE_STATIC_LINKER_FLAGS "")
   set(CMAKE_EXE_LINKER_FLAGS    "")
@@ -93,15 +103,19 @@ elseif (TARGET_PLATFORM STREQUAL "macOS Desktop")
   set(CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO  "")
   set(CMAKE_STATIC_LINKER_FLAGS_RELEASE         "")
 
-  set(CMAKE_EXE_LINKER_FLAGS_DEBUG              "")
-  set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO     "")
+  set(CMAKE_EXE_LINKER_FLAGS_DEBUG              "-fsanitize=address -fsanitize=alignment -fsanitize=bool -fsanitize=builtin -fsanitize=bounds -fsanitize=enum -fsanitize=float-cast-overflow -fsanitize=float-divide-by-zero -fsanitize=function -fsanitize=nonnull-attribute -fsanitize=null -fsanitize=objc-cast                        -fsanitize=pointer-overflow -fsanitize=return -fsanitize=returns-nonnull-attribute -fsanitize=unsigned-shift-base -fsanitize=unreachable -fsanitize=vla-bound -fsanitize=vptr -fsanitize=integer -fsanitize=nullability")
+  set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO     "-fsanitize=address -fsanitize=alignment -fsanitize=bool -fsanitize=builtin -fsanitize=bounds -fsanitize=enum -fsanitize=float-cast-overflow -fsanitize=float-divide-by-zero -fsanitize=function -fsanitize=nonnull-attribute -fsanitize=null -fsanitize=objc-cast -fsanitize=object-size -fsanitize=pointer-overflow -fsanitize=return -fsanitize=returns-nonnull-attribute -fsanitize=unsigned-shift-base -fsanitize=unreachable -fsanitize=vla-bound -fsanitize=vptr -fsanitize=integer -fsanitize=nullability")
   set(CMAKE_EXE_LINKER_FLAGS_RELEASE            "")
 
-# stop on https://clang.llvm.org/docs/UsersManual.html#cmdoption-f-no-save-optimization-record
+# Index                           https://releases.llvm.org/17.0.1/tools/clang/docs/index.html
+# Command line argument reference https://releases.llvm.org/17.0.1/tools/clang/docs/ClangCommandLineReference.html
+# Diagnostic flags                https://releases.llvm.org/17.0.1/tools/clang/docs/DiagnosticsReference.html
+# Compiler User’s Manual          https://releases.llvm.org/17.0.1/tools/clang/docs/UsersManual.html
+# разобраться с sanitize
 
 else ()
 
-  message(FATAL_ERROR "Unsupported platform: ${TARGET_PLATFORM}")
+  message(FATAL_ERROR "Unsupported platform: ${TOYGINE_TARGET_PLATFORM}")
 
 endif ()
 

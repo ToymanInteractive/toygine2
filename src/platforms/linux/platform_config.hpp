@@ -19,23 +19,25 @@
 //
 /*!
   \file   platform_config.hpp
-  \brief  additional windows platform header
+  \brief  additional linux platform header
 */
 
-#ifndef SRC_PLATFORMS_WINDOWS_PLATFORM_CONFIG_HPP_
-#define SRC_PLATFORMS_WINDOWS_PLATFORM_CONFIG_HPP_
+#ifndef SRC_PLATFORMS_LINUX_PLATFORM_CONFIG_HPP_
+#define SRC_PLATFORMS_LINUX_PLATFORM_CONFIG_HPP_
 
-#if defined(_WIN32)
+#if defined(__linux__)
 
-#define TARGET_OS OS_WINDOWS
+#define TARGET_OS OS_LINUX
 
-#if defined(_M_IX86) || defined(__i386__)
-#define TARGET_CPU CPU_INTEL_x86
-#elif defined(_M_X64) || defined(__x86_64__)
+#if defined(__aarch64__)
+#define TARGET_CPU CPU_ARM_64
+#elif defined(__x86_64__)
 #define TARGET_CPU CPU_INTEL_x64
+#else
+#define TARGET_CPU CPU_INTEL_x86
 #endif
 
-#endif // defined(_WIN32)
+#endif // defined(__linux__)
 
 //----------------------------------------------------------------------------------------------------------------------
 
@@ -43,23 +45,15 @@
 
 #ifdef _DEBUG
 
-#if defined(_MSC_VER)
-#define __FUNC_SIGNATURE__ __FUNCSIG__
-#elif defined(__GNUC__) || defined(__clang__)
-#define __FUNC_SIGNATURE__ __PRETTY_FUNCTION__
-#else
-#define __FUNC_SIGNATURE__ __func__
-#endif
-
 #define assert(x)                                                                                                      \
   if (!(x))                                                                                                            \
-    toygine::assertion::assertion(#x, nullptr, __FILE__, __FUNC_SIGNATURE__, __LINE__);                                \
+    toygine::assertion::assertion(#x, nullptr, __FILE__, __PRETTY_FUNCTION__, __LINE__);                               \
   else                                                                                                                 \
     ((void)0);
 
 #define assert_message(x, message)                                                                                     \
   if (!(x))                                                                                                            \
-    toygine::assertion::assertion(#x, message, __FILE__, __FUNC_SIGNATURE__, __LINE__);                                \
+    toygine::assertion::assertion(#x, message, __FILE__, __PRETTY_FUNCTION__, __LINE__);                               \
   else                                                                                                                 \
     ((void)0);
 
@@ -72,4 +66,4 @@
 
 //----------------------------------------------------------------------------------------------------------------------
 
-#endif // SRC_PLATFORMS_WINDOWS_PLATFORM_CONFIG_HPP_
+#endif // SRC_PLATFORMS_LINUX_PLATFORM_CONFIG_HPP_

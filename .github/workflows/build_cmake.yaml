@@ -10,28 +10,37 @@ jobs:
     strategy:
       matrix:
         include:
+          - name: Linux Ninja
+            os: ubuntu-latest
+            run_test: "true"
+            run_test_with_coverage: "true"
+            continue_on_error: false
+            cmake_preset: linux-ninja-release
+
           - name: macOS XCode
-            platform: macos-xcode-arm
             os: macos-15
+            run_test: "true"
+            continue_on_error: true
             cmake_preset: macos-xcode
 
           - name: macOS Ninja
-            platform: macos-ninja-arm
             os: macos-15
-            run_test: true
-            run_cpack: true
+            run_test: "true"
+            continue_on_error: true
             cmake_preset: macos-ninja-release
             cpack_type: RelWithDebInfo
             cpack_extension: tar.gz
 
           - name: Windows MSVC
-            platform: windows-msvc-x64
             os: windows-2025
+            run_test: "true"
+            continue_on_error: true
             cmake_preset: windows-msvc
 
           - name: Windows MSVC x86
-            platform: windows-msvc-x86
             os: windows-2025
+            run_test: "true"
+            continue_on_error: true
             cmake_preset: windows-msvc-x86
 
     name: CMake (${{ matrix.name }})
@@ -42,7 +51,7 @@ jobs:
         shell: bash
     steps:
       - name: Checkout
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v5.0.0
         with:
           submodules: recursive
 
@@ -60,11 +69,24 @@ jobs:
 
             DUMPBIN_PATH="$MSVC_INSTALL_PATH/VC/Tools/MSVC/$TOOLS_DIR/bin/Hostx64/x64/dumpbin.exe"
             echo "DUMPBIN_PATH = $DUMPBIN_PATH"
+          elif [[ "${{ matrix.os }}" =~ "macos" ]]; then
+            # Prefer the desired version if it exists, otherwise keep the default.
+            if [ -d "/Applications/Xcode_16.4.app" ]; then
+              sudo xcode-select -s /Applications/Xcode_16.4.app
+            fi
+          elif [[ "${{ matrix.os }}" =~ "ubuntu" ]]; then
+            sudo apt-get update -qq
+            sudo apt-get install -y gcc-14 g++-14
+            sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-14 100
+            sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-14 100
           fi
 
       - name: Configure
         run: |
-          cmake -DTOYGINE_BUILD_TESTS=$([ "${{ matrix.run_test }}" = "true" ] && echo ON || echo OFF) --preset ${{ matrix.cmake_preset }}
+          cmake \
+            -DTOYGINE_BUILD_TESTS=$([ "${{ matrix.run_test }}" = "true" ] && echo ON || echo OFF) \
+            -DTOYGINE_TEST_WITH_COVERAGE=$([ "${{ matrix.run_test_with_coverage }}" = "true" ] && echo ON || echo OFF) \
+            --preset ${{ matrix.cmake_preset }}
 
       - name: Build
         run: |
@@ -72,6 +94,14 @@ jobs:
 
       - name: Test
         if: ${{ matrix.run_test }}
-        continue-on-error: true
+        continue-on-error: ${{ matrix.continue_on_error }}
         run: |
           ctest --preset ${{ matrix.cmake_preset }}
+
+      - name: Upload test results to Codecov
+        if: ${{ !cancelled() && matrix.run_test && matrix.run_test_with_coverage }}
+        uses: codecov/test-results-action@v1.1.1
+        with:
+          files: out/build/${{ matrix.cmake_preset }}/test-results/junit-toygine.xml
+          flags: units
+          token: ${{ secrets.CODECOV_TOKEN }}

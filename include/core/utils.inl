@@ -18,11 +18,43 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*
-  \file   core_inline.hpp
+  \file   utils.inl
   \brief  collection of core inline functions
 */
 
-#ifndef INCLUDE_CORE_INLINE_HPP_
-#define INCLUDE_CORE_INLINE_HPP_
+#ifndef INCLUDE_CORE_UTILS_INL_
+#define INCLUDE_CORE_UTILS_INL_
 
-#endif // INCLUDE_CORE_INLINE_HPP_
+namespace toygine {
+
+inline wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, char const * src) {
+  assert_message(src != nullptr, "The source must not be null.");
+
+  return src != nullptr ? utf8toWChar(dest, destSize, src, std::strlen(src)) : nullptr;
+}
+
+template <typename stringType>
+inline wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, stringType const & src) {
+  return utf8toWChar(dest, destSize, src.c_str(), src.size());
+}
+
+inline char * reverseString(char * string, std::size_t stringLength) {
+  assert_message(string != nullptr, "The source string must not be null.");
+  if (string == nullptr)
+    return nullptr;
+
+  if (stringLength == 0)
+    stringLength = std::strlen(string);
+
+  if (stringLength != 0) {
+    for (std::size_t i = 0, j = stringLength - 1; i < j; ++i, --j) {
+      std::swap(string[i], string[j]);
+    }
+  }
+
+  return string;
+}
+
+} // namespace toygine
+
+#endif // INCLUDE_CORE_UTILS_INL_

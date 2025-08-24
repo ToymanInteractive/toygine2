@@ -26,13 +26,15 @@
 #define INCLUDE_CORE_HPP_
 
 #include <cstdint>
+#include <cstring>
 #include <cuchar>
 
-//------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------
 
 //==============================
-//  target OS
+//  Target OS
 //==============================
+
 /// Microsoft Windows Desktop xp, vista, 7, 8, 8.1 etc...
 #define OS_WINDOWS 0x1000
 
@@ -63,22 +65,114 @@
 //==============================
 //  ProcessorType
 //==============================
-#define CPU_INTEL_x86 0x1020 // Intel CPU 32 bit code
-#define CPU_INTEL_x64 0x1040 // Intel CPU 64 bit code
-#define CPU_ARM_32 0x2020 // ARM CPU 32 bit code
-#define CPU_ARM_64 0x2040 // ARM CPU 64 bit code
 
-//------------------------------------------------------------------------------
+/// Intel CPU 32 bit code
+#define CPU_INTEL_x86 0x1020
+
+/// Intel CPU 64 bit code
+#define CPU_INTEL_x64 0x1040
+
+/// ARM CPU 32 bit code
+#define CPU_ARM_32 0x2020
+
+/// ARM CPU 64 bit code
+#define CPU_ARM_64 0x2040
+
+//----------------------------------------------------------------------------------------------------------------------
 
 #undef TARGET_OS
 #undef TARGET_CPU
 
-#include "@TARGET_PLATFORM_CONFIG_HEADER@"
+#include "@TOYGINE_TARGET_PLATFORM_CONFIG_HEADER@"
 
-namespace toygine
-{
-  wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, char const * src, std::size_t srcLen);
+/// @brief Main engine namespace
+namespace toygine {
+/*!
+  \brief Returns the size of an array.
+
+  This is a compile time helper function that returns the size of an array. The size of the array is inferred from the
+  parameter type, which is a reference to an array of length N.
+*/
+template <typename T, std::size_t N>
+consteval std::size_t ArraySize(T (&)[N]) {
+  return N;
+}
+
+#if 1
+/*!
+  \def TOY_UNUSED(identifier)
+  \brief Suppresses compiler warnings about unused variables or functions.
+
+  This macro is used to ignore identifiers that are not used in the code, but are still declared for some reason.
+
+  \param identifier The identifier to ignore.
+
+  \note This macro does not change the behavior of the program.
+  \note This macro is used to suppress compiler warnings about unused variables or functions.
+*/
+#define TOY_UNUSED(identifier)
+#else
+#define TOY_UNUSED(identifier) identifier
+#endif
+
+//--------------------------------------------------------------------------------------------------------------------
+
+/// @brief Assertion related functions.
+namespace assertion {
+
+using AssertionCallback = bool (*)(const char *);
+using StackWalkCallback = void (*)(const char *);
+
+/*!
+  \brief Initializes the assertion system.
+
+  \sa deinitialize()
+*/
+void initialize();
+
+/*!
+  \brief Shutdown the assertion system.
+
+  \sa initialize()
+*/
+void deInitialize();
+
+/*!
+  \brief Sets the assertion and stack walk callbacks.
+
+  The assertion callback is called when an assertion is triggered. The callback is passed the assertion string and
+  should return true if the assertion should be ignored, false otherwise.
+
+  The stack walk callback is called to print the stack trace. The callback is passed the constructed string.
+
+  \param assertionCallback The assertion callback.
+  \param stackWalkCallback The stack walk callback.
+*/
+void setCallbacks(AssertionCallback assertionCallback, StackWalkCallback stackWalkCallback);
+
+#ifdef _DEBUG
+
+void assertion(const char * code, const char * message, const char * fileName, const char * functionName,
+               std::size_t lineNumber);
+
+#else // _DEBUG
+
+inline void assertion(const char * TOY_UNUSED(code), const char * TOY_UNUSED(message),
+                      const char * TOY_UNUSED(fileName), const char * TOY_UNUSED(functionName),
+                      std::size_t TOY_UNUSED(lineNumber)) {}
+
+#endif // _DEBUG
+
+} // namespace assertion
 
 } // namespace toygine
+
+#include "core/fix_string.hpp"
+#include "core/utils.hpp"
+
+//----------------------------------------------------------------------------------------------------------------------
+
+#include "core/fix_string.inl"
+#include "core/utils.inl"
 
 #endif // INCLUDE_CORE_HPP_
