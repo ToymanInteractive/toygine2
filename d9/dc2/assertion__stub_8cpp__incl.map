@@ -14,11 +14,11 @@
 <area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="440,120,344,144,265,169,250,177,248,172,263,164,343,139,438,114"/>
 <area shape="rect" id="Node000008" href="$dd/d9e/linux_2platform__config_8hpp.html" title="additional linux platform header" alt="" coords="277,167,483,221"/>
 <area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="467,121,422,160,419,156,464,117"/>
-<area shape="rect" id="Node000009" href="$d0/d46/fix__string_8hpp.html" title=" " alt="" coords="507,181,650,207"/>
+<area shape="rect" id="Node000009" href="$d0/d46/fix__string_8hpp.html" title="Template string of chars, wrapper to char[]." alt="" coords="507,181,650,207"/>
 <area shape="poly" id="edge8_Node000004_Node000009" title=" " alt="" coords="494,117,556,170,552,174,490,121"/>
 <area shape="rect" id="Node000010" href="$df/d93/utils_8hpp.html" title=" " alt="" coords="674,181,785,207"/>
 <area shape="poly" id="edge9_Node000004_Node000010" title=" " alt="" coords="517,116,664,164,689,174,687,179,662,169,515,121"/>
-<area shape="rect" id="Node000011" href="$db/d84/fix__string_8inl.html" title=" " alt="" coords="809,181,943,207"/>
+<area shape="rect" id="Node000011" href="$db/d84/fix__string_8inl.html" title="Inline implementations for FixString template class." alt="" coords="809,181,943,207"/>
 <area shape="poly" id="edge10_Node000004_Node000011" title=" " alt="" coords="519,110,644,131,798,164,833,174,831,180,797,169,643,136,518,116"/>
 <area shape="rect" id="Node000012" href="$df/d7d/utils_8inl.html" title=" " alt="" coords="967,181,1070,207"/>
 <area shape="poly" id="edge11_Node000004_Node000012" title=" " alt="" coords="518,106,599,111,709,121,833,138,957,164,983,173,982,178,955,169,832,143,708,126,599,116,518,111"/>
