@@ -283,7 +283,7 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::insert(
 template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::insert(std::size_t index,
                                                                              const char * string) noexcept {
-  assert(_data != &string);
+  assert(_data != string);
   assert(string != nullptr);
   assert(index <= _size);
 
