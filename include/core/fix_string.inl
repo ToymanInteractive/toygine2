@@ -255,7 +255,7 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::insert(
   std::size_t index, const FixString<allocatedSize> & string) noexcept {
   assert(this != &string);
   assert(index <= _size);
-  assert(_size + string._size <= allocatedSize);
+  assert(_size + string._size < allocatedSize);
 
   std::memmove(_data + index + string._size, _data + index, _size - index + 1);
   std::memcpy(_data + index, string._data, string._size);
@@ -270,7 +270,7 @@ template <std::size_t allocatedSize2>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::insert(
   std::size_t index, const FixString<allocatedSize2> & string) noexcept {
   assert(index <= _size);
-  assert(_size + string.size() <= allocatedSize);
+  assert(_size + string._size < allocatedSize);
 
   std::memmove(_data + index + string.size(), _data + index, _size - index + 1);
   std::memcpy(_data + index, string.c_str(), string.size());
@@ -303,7 +303,7 @@ template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::insert(std::size_t index, char symbol,
                                                                              std::size_t count) noexcept {
   assert(index <= _size);
-  assert(_size + count <= allocatedSize);
+  assert(_size + count < allocatedSize);
 
   std::memmove(_data + index + count, _data + index, _size - index + 1);
   std::memset(_data + index, symbol, count);
