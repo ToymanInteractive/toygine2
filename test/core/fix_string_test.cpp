@@ -296,6 +296,67 @@ TEST_CASE("FixString clear", "[core][fixstring]") {
   CHECK(testString2.empty());
 }
 
+TEST_CASE("FixString insert methods", "[core][fixstring]") {
+  FixString<32> testString1("Hello World");
+  FixString<32> testString2("Hello World");
+  FixString<32> testString3("Hello World");
+
+  // Insert at beginning
+  testString1.insert(0, FixString<32>("Hi "));
+  testString2.insert(0, FixString<16>("Hi "));
+  testString3.insert(0, "Hi ");
+  CHECK(strcmp(testString1.c_str(), "Hi Hello World") == 0);
+  CHECK(strcmp(testString2.c_str(), "Hi Hello World") == 0);
+  CHECK(strcmp(testString3.c_str(), "Hi Hello World") == 0);
+  CHECK(testString1.size() == 14);
+  CHECK(testString2.size() == 14);
+  CHECK(testString3.size() == 14);
+
+  // Insert in middle
+  testString1.insert(9, FixString<32>("Beautiful "));
+  testString2.insert(9, FixString<64>("Beautiful "));
+  testString3.insert(9, "Beautiful ");
+  CHECK(strcmp(testString1.c_str(), "Hi Hello Beautiful World") == 0);
+  CHECK(strcmp(testString2.c_str(), "Hi Hello Beautiful World") == 0);
+  CHECK(strcmp(testString3.c_str(), "Hi Hello Beautiful World") == 0);
+  CHECK(testString1.size() == 24);
+  CHECK(testString2.size() == 24);
+  CHECK(testString3.size() == 24);
+
+  // Insert at end
+  testString1.insert(24, FixString<32>("!"));
+  testString2.insert(24, FixString<8>("!"));
+  testString3.insert(24, "!");
+  CHECK(strcmp(testString1.c_str(), "Hi Hello Beautiful World!") == 0);
+  CHECK(strcmp(testString2.c_str(), "Hi Hello Beautiful World!") == 0);
+  CHECK(strcmp(testString3.c_str(), "Hi Hello Beautiful World!") == 0);
+  CHECK(testString1.size() == 25);
+  CHECK(testString2.size() == 25);
+  CHECK(testString3.size() == 25);
+
+  FixString<32> testString4("Hello World");
+
+  // Insert single character
+  testString4.insert(5, ' ');
+  CHECK(strcmp(testString4.c_str(), "Hello  World") == 0);
+  CHECK(testString4.size() == 12);
+
+  // Insert multiple characters
+  testString4.insert(0, '*', 3);
+  CHECK(strcmp(testString4.c_str(), "***Hello  World") == 0);
+  CHECK(testString4.size() == 15);
+
+  // Insert at end
+  testString4.insert(15, '!', 2);
+  CHECK(strcmp(testString4.c_str(), "***Hello  World!!") == 0);
+  CHECK(testString4.size() == 17);
+
+  // Insert zero characters
+  testString4.insert(0, 'X', 0);
+  CHECK(strcmp(testString4.c_str(), "***Hello  World!!") == 0);
+  CHECK(testString4.size() == 17);
+}
+
 TEST_CASE("FixString operators+=", "[core][fixstring]") {
   FixString<14> testString1("12");
   FixString<14> testString2("12");
