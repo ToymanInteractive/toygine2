@@ -18,29 +18,20 @@
 # DEALINGS IN THE SOFTWARE.
 #-------------------------------------------------------------------------------------------
 
-cmake_minimum_required(VERSION 3.31.0 FATAL_ERROR)
+find_package(Doxygen REQUIRED)
 
-# Enable C++23 Globally
-set(CMAKE_CXX_STANDARD 23)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
+include(FetchContent)
 
-if (NOT DEFINED TOYGINE_TARGET_PLATFORM)
-  if (CMAKE_SYSTEM_NAME MATCHES Windows)
+FetchContent_Declare(doxygen_awesome_css GIT_REPOSITORY https://github.com/jothepro/doxygen-awesome-css.git GIT_TAG v2.3.4)
+FetchContent_MakeAvailable(doxygen_awesome_css)
+FetchContent_GetProperties(doxygen_awesome_css SOURCE_DIR AWESOME_CSS_DIR)
 
-    set(AVAILABLE_PLATFORMS "Windows Desktop")
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile_awesome_css.in ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile_awesome_css @ONLY)
 
-  elseif (UNIX AND NOT APPLE)
-
-    set(AVAILABLE_PLATFORMS "Linux Desktop")
-
-  elseif (APPLE)
-
-    set(AVAILABLE_PLATFORMS "macOS Desktop")
-
-  endif ()
-
-  list(GET AVAILABLE_PLATFORMS 0 FIRST_PLATFORM)
-  set(TOYGINE_TARGET_PLATFORM ${FIRST_PLATFORM} CACHE STRING "Select destination TOYGINE_TARGET_PLATFORM for build")
-  set_property(CACHE TOYGINE_TARGET_PLATFORM PROPERTY STRINGS ${AVAILABLE_PLATFORMS})
-endif ()
+add_custom_target(docs
+    COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile_awesome_css
+    COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+    COMMENT "Generating documentation with Doxygen"
+    VERBATIM
+)

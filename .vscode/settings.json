@@ -9,6 +9,7 @@
         "demangling",
         "devkit",
         "devkitarm",
+        "doxyfile",
         "msvc",
         "ndebug",
         "relwithdebinfo",

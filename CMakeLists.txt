@@ -51,6 +51,7 @@ if (NOT CMAKE_BUILD_TYPE)
 endif ()
 
 if (TOP_PROJECT)
+  option(TOYGINE_BUILD_DOCS "Set when you want to build engine documentation" OFF)
   option(TOYGINE_BUILD_TESTS "Set when you want to build engine unit tests" ON)
 endif ()
 
@@ -63,26 +64,26 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 include(ConfigureEngine)
 include(ConfigureCompiler)
 
-if (TARGET_PLATFORM STREQUAL "Windows Desktop")
+if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
   include(${CMAKE_CURRENT_SOURCE_DIR}/src/platforms/windows/CMakeLists.txt)
-  set(TARGET_PLATFORM_CONFIG_HEADER ${CMAKE_CURRENT_SOURCE_DIR}/src/platforms/windows/platform_config.hpp)
-elseif (TARGET_PLATFORM STREQUAL "Linux Desktop")
+  set(TOYGINE_TARGET_PLATFORM_CONFIG_HEADER ${CMAKE_CURRENT_SOURCE_DIR}/src/platforms/windows/platform_config.hpp)
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop")
   include(${CMAKE_CURRENT_SOURCE_DIR}/src/platforms/linux/CMakeLists.txt)
-  set(TARGET_PLATFORM_CONFIG_HEADER ${CMAKE_CURRENT_SOURCE_DIR}/src/platforms/linux/platform_config.hpp)
-elseif (TARGET_PLATFORM STREQUAL "macOS Desktop")
+  set(TOYGINE_TARGET_PLATFORM_CONFIG_HEADER ${CMAKE_CURRENT_SOURCE_DIR}/src/platforms/linux/platform_config.hpp)
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
   include(${CMAKE_CURRENT_SOURCE_DIR}/src/platforms/macos/CMakeLists.txt)
-  set(TARGET_PLATFORM_CONFIG_HEADER ${CMAKE_CURRENT_SOURCE_DIR}/src/platforms/macos/platform_config.hpp)
+  set(TOYGINE_TARGET_PLATFORM_CONFIG_HEADER ${CMAKE_CURRENT_SOURCE_DIR}/src/platforms/macos/platform_config.hpp)
 else ()
-  message(FATAL_ERROR "Unsupported TARGET_PLATFORM: ${TARGET_PLATFORM}")
+  message(FATAL_ERROR "Unsupported TOYGINE_TARGET_PLATFORM: ${TOYGINE_TARGET_PLATFORM}")
 endif ()
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/core/core.hpp.in ${CMAKE_CURRENT_SOURCE_DIR}/include/core.hpp @ONLY)
 
 #-------------------------------------------------------------------------------------------
 
-set(SRC_CORE_LIST src/core/core_utils.cpp)
-set(HDR_CORE_LIST include/core.hpp)
-set(INL_CORE_LIST include/core_inline.hpp)
+set(SRC_CORE_LIST                                              src/core/utils.cpp     src/core/utils_internal.inl)
+set(HDR_CORE_LIST include/core.hpp include/core/fix_string.hpp include/core/utils.hpp)
+set(INL_CORE_LIST                  include/core/fix_string.inl include/core/utils.inl)
 
 source_group("Core" FILES ${SRC_CORE_LIST} ${HDR_CORE_LIST} ${INL_CORE_LIST})
 
@@ -111,3 +112,11 @@ if (TOYGINE_BUILD_TESTS)
   enable_testing()
   add_subdirectory(test)
 endif (TOYGINE_BUILD_TESTS)
+
+#-------------------------------------------------------------------------------------------
+# Documentation
+#-------------------------------------------------------------------------------------------
+
+if (TOYGINE_BUILD_DOCS)
+  add_subdirectory(docs)
+endif (TOYGINE_BUILD_DOCS)

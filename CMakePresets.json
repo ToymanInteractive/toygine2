@@ -49,7 +49,10 @@
             "displayName": "macOS XCode",
             "description": "ToyGine 2 MacOS XCode",
             "inherits": "base-release",
-            "generator": "Xcode"
+            "generator": "Xcode",
+            "cacheVariables": {
+                "ENABLE_TEST": "ON"
+            }
         },
         {
             "name": "windows-msvc",
@@ -60,6 +63,9 @@
             "architecture": {
                 "value": "x64",
                 "strategy": "set"
+            },
+            "cacheVariables": {
+                "ENABLE_TEST": "ON"
             }
         },
         {
@@ -71,6 +77,9 @@
             "architecture": {
                 "value": "Win32",
                 "strategy": "set"
+            },
+            "cacheVariables": {
+                "ENABLE_TEST": "ON"
             }
         },
         {
@@ -78,6 +87,16 @@
             "displayName": "macOS Ninja debug",
             "description": "ToyGine 2 MacOS Ninja (Debug)",
             "inherits": "macos-ninja-release",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "ENABLE_TEST": "ON"
+            }
+        },
+        {
+            "name": "linux-ninja-debug",
+            "displayName": "Linux Ninja debug",
+            "description": "ToyGine 2 Linux Ninja (Debug)",
+            "inherits": "linux-ninja-release",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug",
                 "ENABLE_TEST": "ON"
@@ -124,6 +143,11 @@
             "name": "macos-ninja-debug",
             "configurePreset": "macos-ninja-debug",
             "inherits": "default-debug"
+        },
+        {
+            "name": "linux-ninja-debug",
+            "configurePreset": "linux-ninja-debug",
+            "inherits": "default-debug"
         }
     ],
     "testPresets": [
@@ -156,8 +180,28 @@
             "inherits": "default-release"
         },
         {
+            "name": "macos-xcode",
+            "configurePreset": "macos-xcode",
+            "inherits": "default-release"
+        },
+        {
+            "name": "windows-msvc",
+            "configurePreset": "windows-msvc",
+            "inherits": "default-release"
+        },
+        {
+            "name": "windows-msvc-x86",
+            "configurePreset": "windows-msvc-x86",
+            "inherits": "default-release"
+        },
+        {
             "name": "macos-ninja-debug",
             "configurePreset": "macos-ninja-debug",
+            "inherits": "default-debug"
+        },
+        {
+            "name": "linux-ninja-debug",
+            "configurePreset": "linux-ninja-debug",
             "inherits": "default-debug"
         }
     ]

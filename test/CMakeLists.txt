@@ -1,5 +1,23 @@
 #-------------------------------------------------------------------------------------------
-if (TARGET_PLATFORM STREQUAL "Windows Desktop")
+# Copyright (c) 2025 by Toyman Interactive
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy of this
+# software and associated documentation files (the "Software"), to deal in the Software
+# without restriction, including without limitation the rights to use, copy, modify, merge,
+# publish, distribute, sublicense, and / or sell copies of the Software, and to permit
+# persons to whom the Software is furnished to do so, subject to the following conditions :
+#
+# The above copyright notice and this permission notice shall be included in all copies or
+# substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+# INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+# PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
+# FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+# OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+# DEALINGS IN THE SOFTWARE.
+#-------------------------------------------------------------------------------------------
+if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
   if (MSVC)
     string(REGEX REPLACE "/Wall " "" CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
@@ -15,9 +33,9 @@ if (TARGET_PLATFORM STREQUAL "Windows Desktop")
     string(REGEX REPLACE "/sdl" "/sdl-" CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO}")
   endif (MSVC)
 
-elseif (TARGET_PLATFORM STREQUAL "Linux Desktop")
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop")
 
-elseif (TARGET_PLATFORM STREQUAL "macOS Desktop")
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
 
   string(REGEX REPLACE "-Werror" "" CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
   string(REGEX REPLACE "-Weverything" "" CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
@@ -31,6 +49,9 @@ elseif (TARGET_PLATFORM STREQUAL "macOS Desktop")
 
 endif()
 #-------------------------------------------------------------------------------------------
+# Remove all of the extra targets
+set_property(GLOBAL PROPERTY CTEST_TARGETS_ADDED 1)
+#-------------------------------------------------------------------------------------------
 
 include(FetchContent)
 include(CTest)
@@ -39,7 +60,7 @@ set(CATCH_INSTALL_HELPERS OFF)
 set(CATCH_BUILD_TESTING OFF)
 set(CATCH_INSTALL_DOCS OFF)
 
-FetchContent_Declare(Catch2 GIT_REPOSITORY https://github.com/catchorg/Catch2.git GIT_TAG v3.9.0)
+FetchContent_Declare(Catch2 GIT_REPOSITORY https://github.com/catchorg/Catch2.git GIT_TAG v3.9.1)
 FetchContent_MakeAvailable(Catch2)
 
 list(APPEND CMAKE_MODULE_PATH ${Catch2_SOURCE_DIR}/extras)
@@ -48,7 +69,17 @@ file(GLOB_RECURSE TEST_SRC CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp"
 
 include(Catch)
 
+set(CATCH_REPORTER compact)
+
+if (TOYGINE_TEST_WITH_COVERAGE)
+  set(TEST_RESULTS_DIR ${CMAKE_BINARY_DIR}/test-results)
+  file(MAKE_DIRECTORY ${TEST_RESULTS_DIR})
+  set(CATCH_REPORTER JUnit::out=${TEST_RESULTS_DIR}/junit-${TOYGINE_LIBRARY_NAME}.xml)
+endif (TOYGINE_TEST_WITH_COVERAGE)
+
+set(CTEST_OUTPUT_ON_FAILURE ON)
+
 add_executable(${TOYGINE_LIBRARY_NAME}-tests ${TEST_SRC})
 target_include_directories(${TOYGINE_LIBRARY_NAME}-tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include)
-target_link_libraries(${TOYGINE_LIBRARY_NAME}-tests PRIVATE Catch2::Catch2WithMain ${TOYGINE_LIBRARY_NAME})
-catch_discover_tests(${TOYGINE_LIBRARY_NAME}-tests)
+target_link_libraries(${TOYGINE_LIBRARY_NAME}-tests PRIVATE Catch2::Catch2 ${TOYGINE_LIBRARY_NAME})
+catch_discover_tests(${TOYGINE_LIBRARY_NAME}-tests REPORTER ${CATCH_REPORTER})
