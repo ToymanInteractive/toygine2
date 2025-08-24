@@ -14,16 +14,19 @@ jobs:
             os: ubuntu-latest
             run_test: "true"
             run_test_with_coverage: "true"
+            continue_on_error: false
             cmake_preset: linux-ninja-release
 
           - name: macOS XCode
             os: macos-15
             run_test: "true"
+            continue_on_error: true
             cmake_preset: macos-xcode
 
           - name: macOS Ninja
             os: macos-15
             run_test: "true"
+            continue_on_error: true
             cmake_preset: macos-ninja-release
             cpack_type: RelWithDebInfo
             cpack_extension: tar.gz
@@ -31,11 +34,13 @@ jobs:
           - name: Windows MSVC
             os: windows-2025
             run_test: "true"
+            continue_on_error: true
             cmake_preset: windows-msvc
 
           - name: Windows MSVC x86
             os: windows-2025
             run_test: "true"
+            continue_on_error: true
             cmake_preset: windows-msvc-x86
 
     name: CMake (${{ matrix.name }})
@@ -89,7 +94,7 @@ jobs:
 
       - name: Test
         if: ${{ matrix.run_test }}
-        continue-on-error: true
+        continue-on-error: ${{ matrix.continue_on_error }}
         run: |
           ctest --preset ${{ matrix.cmake_preset }}
 
