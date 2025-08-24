@@ -297,180 +297,180 @@ TEST_CASE("FixString clear", "[core][fixstring]") {
 }
 
 TEST_CASE("FixString insert methods", "[core][fixstring]") {
+  SECTION("Insert FixString at index") {
+    FixString<32> testString("Hello World");
+
+    // Insert at beginning
+    testString.insert(0, FixString<16>("Hi "));
+    CHECK(strcmp(testString.c_str(), "Hi Hello World") == 0);
+    CHECK(testString.size() == 14);
+
+    // Insert in middle
+    testString.insert(6, FixString<8>("Beautiful "));
+    CHECK(strcmp(testString.c_str(), "Hi Hello Beautiful World") == 0);
+    CHECK(testString.size() == 25);
+
+    // Insert at end
+    testString.insert(25, FixString<8>("!"));
+    CHECK(strcmp(testString.c_str(), "Hi Hello Beautiful World!") == 0);
+    CHECK(testString.size() == 26);
+  }
+
+  SECTION("Insert FixString with different allocated size") {
+    FixString<32> testString("Hello World");
+
+    // Insert smaller string
+    testString.insert(6, FixString<8>("Beautiful "));
+    CHECK(strcmp(testString.c_str(), "Hello Beautiful World") == 0);
+    CHECK(testString.size() == 22);
+
+    // Insert larger string (should be truncated)
+    testString.insert(0, FixString<64>("Very Long Prefix That Should Be Truncated "));
+    CHECK(strcmp(testString.c_str(), "Very Long Prefix That Should Be Truncated Hello Beautiful World") == 0);
+    CHECK(testString.size() == 31); // Max capacity - 1
+  }
+
+  SECTION("Insert C string at index") {
+    FixString<32> testString("Hello World");
+
+    // Insert at beginning
+    testString.insert(0, "Hi ");
+    CHECK(strcmp(testString.c_str(), "Hi Hello World") == 0);
+    CHECK(testString.size() == 14);
+
+    // Insert in middle
+    testString.insert(6, "Beautiful ");
+    CHECK(strcmp(testString.c_str(), "Hi Hello Beautiful World") == 0);
+    CHECK(testString.size() == 25);
+
+    // Insert at end
+    testString.insert(25, "!");
+    CHECK(strcmp(testString.c_str(), "Hi Hello Beautiful World!") == 0);
+    CHECK(testString.size() == 26);
+
+    // Insert empty string
+    testString.insert(0, "");
+    CHECK(strcmp(testString.c_str(), "Hi Hello Beautiful World!") == 0);
+    CHECK(testString.size() == 26);
+  }
+
+  SECTION("Insert character repeated count times") {
+    FixString<32> testString("Hello World");
+
+    // Insert single character
+    testString.insert(5, ' ', 1);
+    CHECK(strcmp(testString.c_str(), "Hello  World") == 0);
+    CHECK(testString.size() == 12);
+
+    // Insert multiple characters
+    testString.insert(0, '*', 3);
+    CHECK(strcmp(testString.c_str(), "***Hello  World") == 0);
+    CHECK(testString.size() == 15);
+
+    // Insert at end
+    testString.insert(15, '!', 2);
+    CHECK(strcmp(testString.c_str(), "***Hello  World!!") == 0);
+    CHECK(testString.size() == 17);
+
+    // Insert zero characters
+    testString.insert(0, 'X', 0);
+    CHECK(strcmp(testString.c_str(), "***Hello  World!!") == 0);
+    CHECK(testString.size() == 17);
+  }
   /*
-    SECTION("Insert FixString at index") {
-      FixString<32> testString("Hello World");
 
-      // Insert at beginning
-      testString.insert(0, FixString<16>("Hi "));
-      CHECK(strcmp(testString.c_str(), "Hi Hello World") == 0);
-      CHECK(testString.size() == 14);
+SECTION("Insert with bounds checking") {
+FixString<16> testString("Hello");
 
-      // Insert in middle
-      testString.insert(6, FixString<8>("Beautiful "));
-      CHECK(strcmp(testString.c_str(), "Hi Hello Beautiful World") == 0);
-      CHECK(testString.size() == 25);
+// Insert at valid index
+testString.insert(5, " World");
+CHECK(strcmp(testString.c_str(), "Hello World") == 0);
+CHECK(testString.size() == 11);
 
-      // Insert at end
-      testString.insert(25, FixString<8>("!"));
-      CHECK(strcmp(testString.c_str(), "Hi Hello Beautiful World!") == 0);
-      CHECK(testString.size() == 26);
-    }
+// Insert at end
+testString.insert(11, "!");
+CHECK(strcmp(testString.c_str(), "Hello World!") == 0);
+CHECK(testString.size() == 12);
 
-    SECTION("Insert FixString with different allocated size") {
-      FixString<32> testString("Hello World");
+// Insert at index 0
+testString.insert(0, "Hi ");
+CHECK(strcmp(testString.c_str(), "Hi Hello World!") == 0);
+CHECK(testString.size() == 15);
+}
 
-      // Insert smaller string
-      testString.insert(6, FixString<8>("Beautiful "));
-      CHECK(strcmp(testString.c_str(), "Hello Beautiful World") == 0);
-      CHECK(testString.size() == 22);
+SECTION("Insert with capacity limits") {
+FixString<12> testString("Hello");
 
-      // Insert larger string (should be truncated)
-      testString.insert(0, FixString<64>("Very Long Prefix That Should Be Truncated "));
-      CHECK(strcmp(testString.c_str(), "Very Long Prefix That Should Be Truncated Hello Beautiful World") == 0);
-      CHECK(testString.size() == 31); // Max capacity - 1
-    }
+// Insert within capacity
+testString.insert(5, " World");
+CHECK(strcmp(testString.c_str(), "Hello World") == 0);
+CHECK(testString.size() == 11);
 
-    SECTION("Insert C string at index") {
-      FixString<32> testString("Hello World");
+// Try to insert beyond capacity (should be truncated)
+testString.insert(0, "Very Long Prefix ");
+CHECK(strcmp(testString.c_str(), "Very Long Prefix Hello World") == 0);
+CHECK(testString.size() == 11); // Max capacity - 1
+}
 
-      // Insert at beginning
-      testString.insert(0, "Hi ");
-      CHECK(strcmp(testString.c_str(), "Hi Hello World") == 0);
-      CHECK(testString.size() == 14);
+SECTION("Insert edge cases") {
+FixString<20> testString;
 
-      // Insert in middle
-      testString.insert(6, "Beautiful ");
-      CHECK(strcmp(testString.c_str(), "Hi Hello Beautiful World") == 0);
-      CHECK(testString.size() == 25);
+// Insert into empty string
+testString.insert(0, "Hello");
+CHECK(strcmp(testString.c_str(), "Hello") == 0);
+CHECK(testString.size() == 5);
 
-      // Insert at end
-      testString.insert(25, "!");
-      CHECK(strcmp(testString.c_str(), "Hi Hello Beautiful World!") == 0);
-      CHECK(testString.size() == 26);
+// Insert at index 0 of non-empty string
+testString.insert(0, "Hi ");
+CHECK(strcmp(testString.c_str(), "Hi Hello") == 0);
+CHECK(testString.size() == 8);
 
-      // Insert empty string
-      testString.insert(0, "");
-      CHECK(strcmp(testString.c_str(), "Hi Hello Beautiful World!") == 0);
-      CHECK(testString.size() == 26);
-    }
+// Insert at current size position
+testString.insert(8, " World");
+CHECK(strcmp(testString.c_str(), "Hi Hello World") == 0);
+CHECK(testString.size() == 14);
+}
 
-    SECTION("Insert character repeated count times") {
-      FixString<32> testString("Hello World");
+SECTION("Insert with special characters") {
+FixString<32> testString("Hello");
 
-      // Insert single character
-      testString.insert(5, ' ', 1);
-      CHECK(strcmp(testString.c_str(), "Hello  World") == 0);
-      CHECK(testString.size() == 12);
+// Insert with spaces
+testString.insert(5, "   ");
+CHECK(strcmp(testString.c_str(), "Hello   ") == 0);
+CHECK(testString.size() == 8);
 
-      // Insert multiple characters
-      testString.insert(0, '*', 3);
-      CHECK(strcmp(testString.c_str(), "***Hello  World") == 0);
-      CHECK(testString.size() == 15);
+// Insert with newlines
+testString.insert(0, "\n");
+CHECK(strcmp(testString.c_str(), "\nHello   ") == 0);
+CHECK(testString.size() == 9);
 
-      // Insert at end
-      testString.insert(15, '!', 2);
-      CHECK(strcmp(testString.c_str(), "***Hello  World!!") == 0);
-      CHECK(testString.size() == 17);
+// Insert with tabs
+testString.insert(9, "\tWorld");
+CHECK(strcmp(testString.c_str(), "\nHello   \tWorld") == 0);
+CHECK(testString.size() == 15);
+}
 
-      // Insert zero characters
-      testString.insert(0, 'X', 0);
-      CHECK(strcmp(testString.c_str(), "***Hello  World!!") == 0);
-      CHECK(testString.size() == 17);
-    }
+SECTION("Insert performance and correctness") {
+FixString<64> testString("Start");
 
-    SECTION("Insert with bounds checking") {
-      FixString<16> testString("Hello");
+// Multiple insertions
+testString.insert(5, " Middle");
+CHECK(strcmp(testString.c_str(), "Start Middle") == 0);
 
-      // Insert at valid index
-      testString.insert(5, " World");
-      CHECK(strcmp(testString.c_str(), "Hello World") == 0);
-      CHECK(testString.size() == 11);
+testString.insert(0, "Very ");
+CHECK(strcmp(testString.c_str(), "Very Start Middle") == 0);
 
-      // Insert at end
-      testString.insert(11, "!");
-      CHECK(strcmp(testString.c_str(), "Hello World!") == 0);
-      CHECK(testString.size() == 12);
+testString.insert(15, " End");
+CHECK(strcmp(testString.c_str(), "Very Start Middle End") == 0);
 
-      // Insert at index 0
-      testString.insert(0, "Hi ");
-      CHECK(strcmp(testString.c_str(), "Hi Hello World!") == 0);
-      CHECK(testString.size() == 15);
-    }
+testString.insert(5, "Long ");
+CHECK(strcmp(testString.c_str(), "Very Long Start Middle End") == 0);
 
-    SECTION("Insert with capacity limits") {
-      FixString<12> testString("Hello");
-
-      // Insert within capacity
-      testString.insert(5, " World");
-      CHECK(strcmp(testString.c_str(), "Hello World") == 0);
-      CHECK(testString.size() == 11);
-
-      // Try to insert beyond capacity (should be truncated)
-      testString.insert(0, "Very Long Prefix ");
-      CHECK(strcmp(testString.c_str(), "Very Long Prefix Hello World") == 0);
-      CHECK(testString.size() == 11); // Max capacity - 1
-    }
-
-    SECTION("Insert edge cases") {
-      FixString<20> testString;
-
-      // Insert into empty string
-      testString.insert(0, "Hello");
-      CHECK(strcmp(testString.c_str(), "Hello") == 0);
-      CHECK(testString.size() == 5);
-
-      // Insert at index 0 of non-empty string
-      testString.insert(0, "Hi ");
-      CHECK(strcmp(testString.c_str(), "Hi Hello") == 0);
-      CHECK(testString.size() == 8);
-
-      // Insert at current size position
-      testString.insert(8, " World");
-      CHECK(strcmp(testString.c_str(), "Hi Hello World") == 0);
-      CHECK(testString.size() == 14);
-    }
-
-    SECTION("Insert with special characters") {
-      FixString<32> testString("Hello");
-
-      // Insert with spaces
-      testString.insert(5, "   ");
-      CHECK(strcmp(testString.c_str(), "Hello   ") == 0);
-      CHECK(testString.size() == 8);
-
-      // Insert with newlines
-      testString.insert(0, "\n");
-      CHECK(strcmp(testString.c_str(), "\nHello   ") == 0);
-      CHECK(testString.size() == 9);
-
-      // Insert with tabs
-      testString.insert(9, "\tWorld");
-      CHECK(strcmp(testString.c_str(), "\nHello   \tWorld") == 0);
-      CHECK(testString.size() == 15);
-    }
-
-    SECTION("Insert performance and correctness") {
-      FixString<64> testString("Start");
-
-      // Multiple insertions
-      testString.insert(5, " Middle");
-      CHECK(strcmp(testString.c_str(), "Start Middle") == 0);
-
-      testString.insert(0, "Very ");
-      CHECK(strcmp(testString.c_str(), "Very Start Middle") == 0);
-
-      testString.insert(15, " End");
-      CHECK(strcmp(testString.c_str(), "Very Start Middle End") == 0);
-
-      testString.insert(5, "Long ");
-      CHECK(strcmp(testString.c_str(), "Very Long Start Middle End") == 0);
-
-      // Verify final result
-      CHECK(testString.size() == 29);
-      CHECK(strcmp(testString.c_str(), "Very Long Start Middle End") == 0);
-    }
-  */
+// Verify final result
+CHECK(testString.size() == 29);
+CHECK(strcmp(testString.c_str(), "Very Long Start Middle End") == 0);
+}
+*/
 }
 
 TEST_CASE("FixString operators+=", "[core][fixstring]") {

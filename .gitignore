@@ -3,6 +3,7 @@ include/core.hpp
 
 # Related to documentation
 docs/html/
+docs/xml/
 docs/Doxyfile_awesome_css
 doxygen.log
 

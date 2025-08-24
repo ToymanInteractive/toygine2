@@ -36,8 +36,8 @@ constexpr inline FixString<allocatedSize>::~FixString() noexcept {}
 
 template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize>::FixString(const FixString<allocatedSize> & string) noexcept
-  : _size(string._size) {
-  std::memcpy(_data, string._data, _size + 1);
+  : _size(string.size()) {
+  std::memcpy(_data, string.data(), _size + 1);
 }
 
 template <std::size_t allocatedSize>
@@ -75,8 +75,8 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator=(
   if (this == &string)
     return *this;
 
-  _size = string._size;
-  std::memcpy(_data, string._data, _size + 1);
+  _size = string.size();
+  std::memcpy(_data, string.data(), _size + 1);
 
   return *this;
 }
@@ -126,8 +126,8 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::assign(
   if (this == &string)
     return *this;
 
-  _size = string._size;
-  std::memcpy(_data, string._data, _size + 1);
+  _size = string.size();
+  std::memcpy(_data, string.data(), _size + 1);
 
   return *this;
 }
@@ -255,12 +255,12 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::insert(
   std::size_t index, const FixString<allocatedSize> & string) noexcept {
   assert(this != &string);
   assert(index <= _size);
-  assert(_size + string._size < allocatedSize);
+  assert(_size + string.size() < allocatedSize);
 
-  std::memmove(_data + index + string._size, _data + index, _size - index + 1);
-  std::memcpy(_data + index, string._data, string._size);
+  std::memmove(_data + index + string.size(), _data + index, _size - index + 1);
+  std::memcpy(_data + index, string.data(), string.size());
 
-  _size += string._size;
+  _size += string.size();
 
   return *this;
 }
@@ -270,7 +270,7 @@ template <std::size_t allocatedSize2>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::insert(
   std::size_t index, const FixString<allocatedSize2> & string) noexcept {
   assert(index <= _size);
-  assert(_size + string._size < allocatedSize);
+  assert(_size + string.size() < allocatedSize);
 
   std::memmove(_data + index + string.size(), _data + index, _size - index + 1);
   std::memcpy(_data + index, string.c_str(), string.size());
@@ -289,7 +289,7 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::insert(std
 
   const auto stringSize = std::strlen(string);
 
-  assert(_size + stringSize <= allocatedSize);
+  assert(_size + stringSize < allocatedSize);
 
   std::memmove(_data + index + stringSize, _data + index, _size - index + 1);
   std::memcpy(_data + index, string, stringSize);
