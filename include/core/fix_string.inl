@@ -17,7 +17,7 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 //
-/*
+/*!
   \file   fix_string.inl
   \brief  Inline implementations for FixString template class
 */
@@ -248,6 +248,69 @@ template <std::size_t allocatedSize>
 constexpr inline void FixString<allocatedSize>::clear() noexcept {
   _size = 0;
   *_data = '\0';
+}
+
+template <std::size_t allocatedSize>
+constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::insert(
+  std::size_t index, const FixString<allocatedSize> & string) noexcept {
+  assert(this != &string);
+  assert(index <= _size);
+  assert(_size + string._size <= allocatedSize);
+
+  std::memmove(_data + index + string._size, _data + index, _size - index + 1);
+  std::memcpy(_data + index, string._data, string._size);
+
+  _size += string._size;
+
+  return *this;
+}
+
+template <std::size_t allocatedSize>
+template <std::size_t allocatedSize2>
+constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::insert(
+  std::size_t index, const FixString<allocatedSize2> & string) noexcept {
+  assert(index <= _size);
+  assert(_size + string.size() <= allocatedSize);
+
+  std::memmove(_data + index + string.size(), _data + index, _size - index + 1);
+  std::memcpy(_data + index, string.c_str(), string.size());
+
+  _size += string.size();
+
+  return *this;
+}
+
+template <std::size_t allocatedSize>
+constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::insert(std::size_t index,
+                                                                             const char * string) noexcept {
+  assert(_data != &string);
+  assert(string != nullptr);
+  assert(index <= _size);
+
+  const auto stringSize = std::strlen(string);
+
+  assert(_size + stringSize <= allocatedSize);
+
+  std::memmove(_data + index + stringSize, _data + index, _size - index + 1);
+  std::memcpy(_data + index, string, stringSize);
+
+  _size += stringSize;
+
+  return *this;
+}
+
+template <std::size_t allocatedSize>
+constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::insert(std::size_t index, char symbol,
+                                                                             std::size_t count) noexcept {
+  assert(index <= _size);
+  assert(_size + count <= allocatedSize);
+
+  std::memmove(_data + index + count, _data + index, _size - index + 1);
+  std::memset(_data + index, symbol, count);
+
+  _size += count;
+
+  return *this;
 }
 
 template <std::size_t allocatedSize>
