@@ -556,6 +556,31 @@ public:
   */
   constexpr inline FixString<allocatedSize> & insert(std::size_t index, char symbol, std::size_t count = 1) noexcept;
 
+  /*!
+    \brief Erases characters from the string starting at the specified offset.
+
+    This method removes characters from the string starting at the specified offset. The method can remove a specific
+    number of characters or all characters from the offset to the end of the string. The remaining characters are
+    shifted left to fill the gap, and the string size is updated accordingly.
+
+    \param offset The starting position for erasing characters.
+    \param count  The number of characters to erase. If count is `npos` or equal to the remaining length, all characters
+                  from offset to the end are removed.
+
+    \return A reference to this FixString object after erasing.
+
+    \pre The offset must be within the bounds of the current string.
+    \pre The sum of offset and count must be less than or equal to the current string size.
+
+    \post Characters are removed from the specified position.
+    \post The string size is reduced by the number of erased characters.
+
+    \note If count is npos, all characters from offset to the end are removed.
+    \note If count is 0, the operation is a no-op.
+    \note Erasing from an empty string has no effect.
+  */
+  constexpr inline FixString<allocatedSize> & erase(std::size_t offset, std::size_t count = npos) noexcept;
+
   constexpr inline FixString<allocatedSize> & operator+=(const FixString<allocatedSize> & string) noexcept;
   template <std::size_t allocatedSize2>
   constexpr inline FixString<allocatedSize> & operator+=(const FixString<allocatedSize2> & string) noexcept;

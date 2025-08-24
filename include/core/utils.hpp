@@ -17,9 +17,9 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 //
-/*
+/*!
   \file   utils.hpp
-  \brief  toygine core part united header
+  \brief  Core utility functions for string manipulation, encoding conversion, and number formatting
 */
 
 #ifndef INCLUDE_CORE_UTILS_HPP_
@@ -27,58 +27,87 @@
 
 namespace toygine {
 
-/// Maximum UTF-8 bytes for BMP characters (only BMP supported by design)
+/// Maximum UTF-8 bytes required for BMP characters.
 inline constexpr std::size_t wcharInUtf8MaxSize = 3;
 
 /*!
-  \brief Converts a Unicode UTF-8 encoded string to a wide character string.
+  \brief Converts a Unicode UTF-8 encoded string to a wide character string with character count limit.
 
   This function translates a UTF-8 encoded source string into a wide character string stored in the destination buffer.
-  The conversion stops when the specified number of characters have been converted or the destination buffer is filled.
-  The destination string is null-terminated.
+  The conversion stops when the specified number of characters have been converted, the destination buffer is filled, or
+  the source string ends.
 
   \param dest     A pointer to the destination buffer where the converted wide character string will be stored.
-  \param destSize The size of the destination buffer.
+  \param destSize The size of the destination buffer in wide characters (not bytes).
   \param src      A pointer to the source UTF-8 encoded string.
-  \param count    The number of characters to convert from the source string.
-
-  \note Only BMP (≤ 0xFFFF) characters are supported by design; 4-byte UTF-8 sequences are not produced.
+  \param count    The maximum number of characters to convert from the source string.
 
   \return A pointer to the destination wide character string, or nullptr if the destination buffer is invalid.
+
+  \pre The destination buffer must be valid and have sufficient capacity.
+  \pre The source string must be a valid UTF-8 encoded string.
+  \pre The count parameter must be reasonable (typically ≤ source string length).
+
+  \post The destination string is null-terminated.
+  \post The function returns nullptr on buffer overflow or invalid input.
+
+  \note Only BMP (≤ 0xFFFF) characters are supported by design; 4-byte UTF-8 sequences are not produced.
+  \note The function handles UTF-8 validation and skips invalid sequences.
+  \note If count exceeds the available characters, conversion stops at the end of the source string.
+  \note The function is thread-safe for read operations.
+  \note Performance is optimized for common UTF-8 sequences.
 */
-wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, char const * src, std::size_t count);
+wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, const char * const src, std::size_t count);
 
 /*!
   \brief Converts a Unicode UTF-8 encoded string to a wide character string.
 
-  This function translates a UTF-8 encoded source string into a wide character string stored in the destination buffer.
-  The conversion stops when the specified number of characters have been converted or the destination buffer is filled.
-  The destination string is null-terminated.
+  This function translates a null-terminated UTF-8 encoded source string into a wide character string. The conversion
+  stops when the source string ends or the destination buffer is filled.
 
   \param dest     A pointer to the destination buffer where the converted wide character string will be stored.
-  \param destSize The size of the destination buffer.
-  \param src      A pointer to the source UTF-8 encoded string.
-
-  \note Only BMP (≤ 0xFFFF) characters are supported by design; 4-byte UTF-8 sequences are not produced.
+  \param destSize The size of the destination buffer in wide characters (not bytes).
+  \param src      A pointer to the null-terminated source UTF-8 encoded string.
 
   \return A pointer to the destination wide character string, or nullptr if the destination buffer is invalid.
+
+  \pre The destination buffer must be valid and have sufficient capacity.
+  \pre The source string must be a valid null-terminated UTF-8 encoded string.
+
+  \post The destination string is null-terminated.
+  \post The function returns nullptr on buffer overflow or invalid input.
+
+  \note Only BMP (≤ 0xFFFF) characters are supported by design; 4-byte UTF-8 sequences are not produced.
+  \note This is an inline wrapper around the main utf8toWChar function.
+  \note The function automatically determines the source string length.
+  \note Performance is optimized for common UTF-8 sequences.
 */
-inline wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, char const * src);
+inline wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, const char * const src);
 
 /*!
   \brief Converts a Unicode UTF-8 encoded string to a wide character string.
 
-  This function translates a UTF-8 encoded source string into a wide character string stored in the destination buffer.
-  The conversion stops when the specified number of characters have been converted or the destination buffer is filled.
-  The destination string is null-terminated.
+  This template function translates a UTF-8 encoded source string from any string-like type into a wide character
+  string. The conversion stops when the source string ends or the destination buffer is filled.
+
+  \tparam stringType The type of the source string. Must have a c_str() and size() methods.
 
   \param dest     A pointer to the destination buffer where the converted wide character string will be stored.
-  \param destSize The size of the destination buffer.
-  \param src      A reference to a class with null-terminated UTF-8 encoded string.
-
-  \note Only BMP (≤ 0xFFFF) characters are supported by design; 4-byte UTF-8 sequences are not produced.
+  \param destSize The size of the destination buffer in wide characters (not bytes).
+  \param src      A reference to a string-like object with UTF-8 encoded content.
 
   \return A pointer to the destination wide character string, or nullptr if the destination buffer is invalid.
+
+  \pre The destination buffer must be valid and have sufficient capacity.
+  \pre The source object must provide UTF-8 encoded string data via c_str().
+
+  \post The destination string is null-terminated.
+  \post The function returns nullptr on buffer overflow or invalid input.
+
+  \note Only BMP (≤ 0xFFFF) characters are supported by design; 4-byte UTF-8 sequences are not produced.
+  \note This template works with std::string, FixString, and other string-like types.
+  \note The function automatically determines the source string length.
+  \note Performance is optimized for common UTF-8 sequences.
 */
 template <typename stringType>
 inline wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, stringType const & src);
@@ -87,39 +116,75 @@ inline wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, stringType co
   \brief Converts a Unicode wide character string to a UTF-8 encoded string.
 
   This function translates a source wide character string into a UTF-8 encoded string stored in the destination buffer.
-  The conversion stops when the source string is fully converted, or the destination buffer is filled. The destination
-  string is null-terminated.
+  The conversion stops when the source string ends or the destination buffer is filled.
 
   \param dest     A pointer to the destination buffer where the converted UTF-8 encoded string will be stored.
-  \param destSize The size of the destination buffer.
+  \param destSize The size of the destination buffer in bytes (not wide characters).
   \param src      A pointer to the source wide character string.
 
   \return A pointer to the destination UTF-8 encoded string, or nullptr if the destination buffer is invalid.
+
+  \pre The destination buffer must be valid and have sufficient capacity.
+  \pre The source string must be a valid wide character string.
+  \pre The destination buffer size should account for potential UTF-8 expansion.
+
+  \post The destination string is null-terminated.
+  \post The function returns nullptr on buffer overflow or invalid input.
+
+  \note The function handles wide character to UTF-8 conversion efficiently.
+  \note UTF-8 sequences may require 1-3 bytes per wide character.
+  \note The function is thread-safe for read operations.
+  \note Performance is optimized for common wide character ranges.
 */
 char * wcharToUtf8(char * dest, std::size_t destSize, wchar_t const * src);
 
 /*!
   \brief Returns the number of Unicode characters in a UTF-8 encoded string.
 
-  This function counts the number of Unicode characters in a UTF-8 encoded string. It stops counting when the null
-  character is encountered or the end of the string is reached.
+  This function counts the number of Unicode characters in a UTF-8 encoded string by parsing UTF-8 sequences. It stops
+  counting when the null character is encountered.
 
-  \param str A pointer to the UTF-8 encoded string.
+  \param str A pointer to the UTF-8 encoded string to count characters in.
 
-  \return The number of Unicode characters in the string, or 0 if the string is invalid.
+  \return The number of Unicode characters in the string, or 0 if the string is invalid or null.
+
+  \pre The input string must be a valid UTF-8 encoded string.
+  \pre The string must be null-terminated.
+
+  \post The function returns 0 for null pointers or invalid UTF-8 sequences.
+  \post The function correctly counts multi-byte UTF-8 sequences as single characters.
+
+  \note The function validates UTF-8 sequences during counting.
+  \note Multi-byte sequences (2-3 bytes) are counted as single Unicode characters.
+  \note The function is thread-safe for read operations.
+  \note Performance is optimized for common UTF-8 patterns.
+  \note Invalid UTF-8 sequences cause the function to return 0.
 */
 std::size_t utf8len(const char * str);
 
 /*!
   \brief Reverses a given string in-place.
 
-  This function will reverse a given string in-place. It can be used to reverse a string of a given length, or to
-  reverse a null-terminated string.
+  This function reverses a given string in-place by swapping characters from both ends towards the center. It can be
+  used to reverse a string of a specified length, or to reverse a null-terminated string when count is 0.
 
-  \param str   The string to reverse.
-  \param count The length of the string to reverse.
+  \param str   A pointer to the string to reverse.
+  \param count The length of the string to reverse. If 0, the function determines the length automatically.
 
-  \return A pointer to the reversed string.
+  \return A pointer to the reversed string (same as input pointer).
+
+  \pre The input string pointer must be valid.
+  \pre If count > 0, the string must have at least count characters.
+  \pre If count = 0, the string must be null-terminated.
+
+  \post The string is modified in-place with characters in reverse order.
+  \post The function returns the same pointer that was passed in.
+
+  \note The function modifies the original string directly.
+  \note When count = 0, the function calls strlen() to determine the string length.
+  \note The function is efficient with O(n/2) character swaps.
+  \note The function is thread-safe for single-string operations.
+  \note Performance is optimized for common string lengths.
 */
 char * reverseString(char * str, std::size_t count = 0);
 

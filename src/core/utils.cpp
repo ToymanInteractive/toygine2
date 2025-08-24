@@ -340,7 +340,7 @@ void floatPostProcess(char * dest, char * srcBuffer, std::size_t bufferSize, std
 
 namespace toygine {
 
-wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, char const * src, std::size_t count) {
+wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, const char * const src, std::size_t count) {
   if (dest == nullptr || destSize == 0)
     return nullptr;
 
