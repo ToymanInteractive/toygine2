@@ -143,16 +143,16 @@ Functions</h2></td></tr>
 <tr class="memdesc:a5eddb55e8f5eb1c4035cfd8a2de1896f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of Unicode characters in a UTF-8 encoded string.  <br /></td></tr>
 <tr class="separator:a5eddb55e8f5eb1c4035cfd8a2de1896f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4de05ddfe7a0c7944b525afd5a8bd7a6" id="r_a4de05ddfe7a0c7944b525afd5a8bd7a6"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4de05ddfe7a0c7944b525afd5a8bd7a6">itoa</a> (char *dest, std::size_t destSize, std::int8_t value)</td></tr>
-<tr class="memdesc:a4de05ddfe7a0c7944b525afd5a8bd7a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an integer value to a string representation.  <br /></td></tr>
+<tr class="memdesc:a4de05ddfe7a0c7944b525afd5a8bd7a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an 8-bit signed integer value to a string representation.  <br /></td></tr>
 <tr class="separator:a4de05ddfe7a0c7944b525afd5a8bd7a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af3d3283bae4c448a285a24612546c757" id="r_af3d3283bae4c448a285a24612546c757"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af3d3283bae4c448a285a24612546c757">itoa</a> (char *dest, std::size_t destSize, std::int16_t value)</td></tr>
-<tr class="memdesc:af3d3283bae4c448a285a24612546c757"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an integer value to a string representation.  <br /></td></tr>
+<tr class="memdesc:af3d3283bae4c448a285a24612546c757"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a 16-bit signed integer value to a string representation.  <br /></td></tr>
 <tr class="separator:af3d3283bae4c448a285a24612546c757"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aff7862134d3413778cda2e84ca0f51ea" id="r_aff7862134d3413778cda2e84ca0f51ea"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aff7862134d3413778cda2e84ca0f51ea">itoa</a> (char *dest, std::size_t destSize, std::int32_t value)</td></tr>
-<tr class="memdesc:aff7862134d3413778cda2e84ca0f51ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an integer value to a string representation.  <br /></td></tr>
+<tr class="memdesc:aff7862134d3413778cda2e84ca0f51ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a 32-bit signed integer value to a string representation.  <br /></td></tr>
 <tr class="separator:aff7862134d3413778cda2e84ca0f51ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5daba732dac1d55a5d62dd6c9094acce" id="r_a5daba732dac1d55a5d62dd6c9094acce"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5daba732dac1d55a5d62dd6c9094acce">itoa</a> (char *dest, std::size_t destSize, std::int64_t value)</td></tr>
-<tr class="memdesc:a5daba732dac1d55a5d62dd6c9094acce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an integer value to a string representation.  <br /></td></tr>
+<tr class="memdesc:a5daba732dac1d55a5d62dd6c9094acce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a 64-bit signed integer value to a string representation.  <br /></td></tr>
 <tr class="separator:a5daba732dac1d55a5d62dd6c9094acce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11c6df1cb36b16151cfbdf33778146f4" id="r_a11c6df1cb36b16151cfbdf33778146f4"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a11c6df1cb36b16151cfbdf33778146f4">itoa</a> (char *dest, std::size_t destSize, std::uint8_t value, unsigned base)</td></tr>
 <tr class="memdesc:a11c6df1cb36b16151cfbdf33778146f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an unsigned integer to a string representation in the specified base.  <br /></td></tr>
@@ -271,43 +271,43 @@ template&lt;typename T , std::size_t N&gt; </div>
   </dd>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>The function validates available capacity and returns early without modification if the buffer is too small. The groupingSeparator must not be null and should not exceed 8 characters. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">  514</span>                                                                                             {</div>
-<div class="line"><span class="lineno">  515</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(buffer != <span class="keyword">nullptr</span> &amp;&amp; bufferSize &gt; 0, <span class="stringliteral">&quot;The destination buffer must not be null.&quot;</span>);</div>
-<div class="line"><span class="lineno">  516</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(groupingSeparator != <span class="keyword">nullptr</span> &amp;&amp; std::strlen(groupingSeparator) &lt;= 8,</div>
-<div class="line"><span class="lineno">  517</span>                 <span class="stringliteral">&quot;The grouping separator must not be null and must not exceed 8 characters.&quot;</span>);</div>
-<div class="line"><span class="lineno">  518</span> </div>
-<div class="line"><span class="lineno">  519</span>  <span class="keywordflow">if</span> (*buffer == <span class="charliteral">&#39;-&#39;</span> || *buffer == <span class="charliteral">&#39;+&#39;</span>) {</div>
-<div class="line"><span class="lineno">  520</span>    ++buffer;</div>
-<div class="line"><span class="lineno">  521</span>    --bufferSize;</div>
-<div class="line"><span class="lineno">  522</span>  }</div>
-<div class="line"><span class="lineno">  523</span> </div>
-<div class="line"><span class="lineno">  524</span>  <span class="keyword">const</span> <span class="keyword">auto</span> groupSeparatorLen = std::strlen(groupingSeparator);</div>
-<div class="line"><span class="lineno">  525</span>  <span class="keyword">const</span> <span class="keyword">auto</span> ansiStringLen = std::strlen(buffer);</div>
-<div class="line"><span class="lineno">  526</span>  std::size_t digitsCount = 0;</div>
-<div class="line"><span class="lineno">  527</span>  <span class="keywordflow">while</span> (buffer[digitsCount] &gt;= <span class="charliteral">&#39;0&#39;</span> &amp;&amp; buffer[digitsCount] &lt;= <span class="charliteral">&#39;9&#39;</span>)</div>
-<div class="line"><span class="lineno">  528</span>    ++digitsCount;</div>
-<div class="line"><span class="lineno">  529</span> </div>
-<div class="line"><span class="lineno">  530</span>  <span class="keyword">auto</span> groupSeparatorsCount = (digitsCount - 1U) / 3U;</div>
-<div class="line"><span class="lineno">  531</span>  <span class="keyword">const</span> <span class="keyword">auto</span> requiredSize = ansiStringLen + groupSeparatorsCount * groupSeparatorLen;</div>
-<div class="line"><span class="lineno">  532</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(requiredSize &lt; bufferSize, <span class="stringliteral">&quot;Buffer size is to low.&quot;</span>);</div>
-<div class="line"><span class="lineno">  533</span>  <span class="keywordflow">if</span> (requiredSize &gt;= bufferSize)</div>
-<div class="line"><span class="lineno">  534</span>    <span class="keywordflow">return</span>;</div>
-<div class="line"><span class="lineno">  535</span> </div>
-<div class="line"><span class="lineno">  536</span>  buffer[ansiStringLen + groupSeparatorsCount * groupSeparatorLen] = <span class="charliteral">&#39;\0&#39;</span>;</div>
-<div class="line"><span class="lineno">  537</span> </div>
-<div class="line"><span class="lineno">  538</span>  <span class="keywordflow">if</span> (digitsCount != (ansiStringLen - 1))</div>
-<div class="line"><span class="lineno">  539</span>    std::memmove(buffer + (digitsCount + groupSeparatorsCount * groupSeparatorLen), buffer + digitsCount,</div>
-<div class="line"><span class="lineno">  540</span>                 ansiStringLen - digitsCount);</div>
-<div class="line"><span class="lineno">  541</span> </div>
-<div class="line"><span class="lineno">  542</span>  <span class="keyword">auto</span> scanChars = digitsCount;</div>
-<div class="line"><span class="lineno">  543</span>  <span class="keywordflow">while</span> (groupSeparatorsCount &gt; 0) {</div>
-<div class="line"><span class="lineno">  544</span>    std::memmove(buffer + (scanChars + groupSeparatorsCount * groupSeparatorLen - 3), buffer + (scanChars - 3), 3);</div>
-<div class="line"><span class="lineno">  545</span>    <span class="keyword">const</span> <span class="keyword">auto</span> destBufferShift = scanChars + (groupSeparatorsCount - 1) * groupSeparatorLen - 3;</div>
-<div class="line"><span class="lineno">  546</span>    std::memcpy(buffer + destBufferShift, groupingSeparator, groupSeparatorLen);</div>
-<div class="line"><span class="lineno">  547</span>    scanChars -= 3;</div>
-<div class="line"><span class="lineno">  548</span>    --groupSeparatorsCount;</div>
-<div class="line"><span class="lineno">  549</span>  }</div>
-<div class="line"><span class="lineno">  550</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">  527</span>                                                                                             {</div>
+<div class="line"><span class="lineno">  528</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(buffer != <span class="keyword">nullptr</span> &amp;&amp; bufferSize &gt; 0, <span class="stringliteral">&quot;The destination buffer must not be null.&quot;</span>);</div>
+<div class="line"><span class="lineno">  529</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(groupingSeparator != <span class="keyword">nullptr</span> &amp;&amp; std::strlen(groupingSeparator) &lt;= 8,</div>
+<div class="line"><span class="lineno">  530</span>                 <span class="stringliteral">&quot;The grouping separator must not be null and must not exceed 8 characters.&quot;</span>);</div>
+<div class="line"><span class="lineno">  531</span> </div>
+<div class="line"><span class="lineno">  532</span>  <span class="keywordflow">if</span> (*buffer == <span class="charliteral">&#39;-&#39;</span> || *buffer == <span class="charliteral">&#39;+&#39;</span>) {</div>
+<div class="line"><span class="lineno">  533</span>    ++buffer;</div>
+<div class="line"><span class="lineno">  534</span>    --bufferSize;</div>
+<div class="line"><span class="lineno">  535</span>  }</div>
+<div class="line"><span class="lineno">  536</span> </div>
+<div class="line"><span class="lineno">  537</span>  <span class="keyword">const</span> <span class="keyword">auto</span> groupSeparatorLen = std::strlen(groupingSeparator);</div>
+<div class="line"><span class="lineno">  538</span>  <span class="keyword">const</span> <span class="keyword">auto</span> ansiStringLen = std::strlen(buffer);</div>
+<div class="line"><span class="lineno">  539</span>  std::size_t digitsCount = 0;</div>
+<div class="line"><span class="lineno">  540</span>  <span class="keywordflow">while</span> (buffer[digitsCount] &gt;= <span class="charliteral">&#39;0&#39;</span> &amp;&amp; buffer[digitsCount] &lt;= <span class="charliteral">&#39;9&#39;</span>)</div>
+<div class="line"><span class="lineno">  541</span>    ++digitsCount;</div>
+<div class="line"><span class="lineno">  542</span> </div>
+<div class="line"><span class="lineno">  543</span>  <span class="keyword">auto</span> groupSeparatorsCount = (digitsCount - 1U) / 3U;</div>
+<div class="line"><span class="lineno">  544</span>  <span class="keyword">const</span> <span class="keyword">auto</span> requiredSize = ansiStringLen + groupSeparatorsCount * groupSeparatorLen;</div>
+<div class="line"><span class="lineno">  545</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(requiredSize &lt; bufferSize, <span class="stringliteral">&quot;Buffer size is too low.&quot;</span>);</div>
+<div class="line"><span class="lineno">  546</span>  <span class="keywordflow">if</span> (requiredSize &gt;= bufferSize)</div>
+<div class="line"><span class="lineno">  547</span>    <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  548</span> </div>
+<div class="line"><span class="lineno">  549</span>  buffer[ansiStringLen + groupSeparatorsCount * groupSeparatorLen] = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><span class="lineno">  550</span> </div>
+<div class="line"><span class="lineno">  551</span>  <span class="keywordflow">if</span> (digitsCount != (ansiStringLen - 1))</div>
+<div class="line"><span class="lineno">  552</span>    std::memmove(buffer + (digitsCount + groupSeparatorsCount * groupSeparatorLen), buffer + digitsCount,</div>
+<div class="line"><span class="lineno">  553</span>                 ansiStringLen - digitsCount);</div>
+<div class="line"><span class="lineno">  554</span> </div>
+<div class="line"><span class="lineno">  555</span>  <span class="keyword">auto</span> scanChars = digitsCount;</div>
+<div class="line"><span class="lineno">  556</span>  <span class="keywordflow">while</span> (groupSeparatorsCount &gt; 0) {</div>
+<div class="line"><span class="lineno">  557</span>    std::memmove(buffer + (scanChars + groupSeparatorsCount * groupSeparatorLen - 3), buffer + (scanChars - 3), 3);</div>
+<div class="line"><span class="lineno">  558</span>    <span class="keyword">const</span> <span class="keyword">auto</span> destBufferShift = scanChars + (groupSeparatorsCount - 1) * groupSeparatorLen - 3;</div>
+<div class="line"><span class="lineno">  559</span>    std::memcpy(buffer + destBufferShift, groupingSeparator, groupSeparatorLen);</div>
+<div class="line"><span class="lineno">  560</span>    scanChars -= 3;</div>
+<div class="line"><span class="lineno">  561</span>    --groupSeparatorsCount;</div>
+<div class="line"><span class="lineno">  562</span>  }</div>
+<div class="line"><span class="lineno">  563</span>}</div>
 <div class="ttc" id="alinux_2platform__config_8hpp_html_ae03d9a55f6cbc55ebd9d6b25c2e8889c"><div class="ttname"><a href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a></div><div class="ttdeci">#define assert_message(x, message)</div><div class="ttdef"><b>Definition</b> platform_config.hpp:63</div></div>
 </div><!-- fragment -->
 </div>
@@ -354,31 +354,31 @@ template&lt;typename T , std::size_t N&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A pointer to the destination buffer containing the converted string.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The function assumes that the destination buffer is large enough to hold the converted string. If the destination buffer size is 1, only a null terminator is written. The function does not support subnormals. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">  488</span>                                                                                {</div>
-<div class="line"><span class="lineno">  489</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(dest != <span class="keyword">nullptr</span> &amp;&amp; destSize &gt; 0, <span class="stringliteral">&quot;The destination buffer must not be null.&quot;</span>);</div>
-<div class="line"><span class="lineno">  490</span>  <span class="keywordflow">if</span> (dest == <span class="keyword">nullptr</span> || destSize == 0)</div>
-<div class="line"><span class="lineno">  491</span>    <span class="keywordflow">return</span> dest;</div>
-<div class="line"><span class="lineno">  492</span> </div>
-<div class="line"><span class="lineno">  493</span>  *dest = <span class="charliteral">&#39;\0&#39;</span>;</div>
-<div class="line"><span class="lineno">  494</span>  <span class="keywordflow">if</span> (destSize == 1)</div>
-<div class="line"><span class="lineno">  495</span>    <span class="keywordflow">return</span> dest;</div>
-<div class="line"><span class="lineno">  496</span> </div>
-<div class="line"><span class="lineno">  497</span>  <span class="keyword">const</span> std::size_t bufferSize = 128;</div>
-<div class="line"><span class="lineno">  498</span>  <span class="keywordtype">char</span> buffer[bufferSize + 1];</div>
-<div class="line"><span class="lineno">  499</span> </div>
-<div class="line"><span class="lineno">  500</span>  <span class="keyword">auto</span> exp10 = <a class="code hl_function" href="../../de/dcc/namespaceanonymous__namespace_02utils_8cpp_03.html#a005dceb3814d03f8146863a615f45e1b">ftoa64Engine</a>(buffer, value, precision);</div>
-<div class="line"><span class="lineno">  501</span>  <span class="keywordflow">if</span> (exp10 == 0x7FF) {</div>
-<div class="line"><span class="lineno">  502</span><span class="preprocessor">#if defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)</span></div>
-<div class="line"><span class="lineno">  503</span>    strcpy_s(dest, destSize, buffer);</div>
-<div class="line"><span class="lineno">  504</span><span class="preprocessor">#else </span><span class="comment">// defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)</span></div>
-<div class="line"><span class="lineno">  505</span>    strncpy(dest, buffer, destSize - 1);</div>
-<div class="line"><span class="lineno">  506</span><span class="preprocessor">#endif </span><span class="comment">// defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)</span></div>
-<div class="line"><span class="lineno">  507</span>  } <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno">  508</span>    <a class="code hl_function" href="../../de/dcc/namespaceanonymous__namespace_02utils_8cpp_03.html#a89269810588a727a44e99b18f6658bd0">floatPostProcess</a>(dest, buffer, bufferSize, exp10, precision);</div>
-<div class="line"><span class="lineno">  509</span>  }</div>
-<div class="line"><span class="lineno">  510</span> </div>
-<div class="line"><span class="lineno">  511</span>  <span class="keywordflow">return</span> dest;</div>
-<div class="line"><span class="lineno">  512</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">  501</span>                                                                                {</div>
+<div class="line"><span class="lineno">  502</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(dest != <span class="keyword">nullptr</span> &amp;&amp; destSize &gt; 0, <span class="stringliteral">&quot;The destination buffer must not be null.&quot;</span>);</div>
+<div class="line"><span class="lineno">  503</span>  <span class="keywordflow">if</span> (dest == <span class="keyword">nullptr</span> || destSize == 0)</div>
+<div class="line"><span class="lineno">  504</span>    <span class="keywordflow">return</span> dest;</div>
+<div class="line"><span class="lineno">  505</span> </div>
+<div class="line"><span class="lineno">  506</span>  *dest = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><span class="lineno">  507</span>  <span class="keywordflow">if</span> (destSize == 1)</div>
+<div class="line"><span class="lineno">  508</span>    <span class="keywordflow">return</span> dest;</div>
+<div class="line"><span class="lineno">  509</span> </div>
+<div class="line"><span class="lineno">  510</span>  <span class="keyword">const</span> std::size_t bufferSize = 128;</div>
+<div class="line"><span class="lineno">  511</span>  <span class="keywordtype">char</span> buffer[bufferSize + 1];</div>
+<div class="line"><span class="lineno">  512</span> </div>
+<div class="line"><span class="lineno">  513</span>  <span class="keyword">auto</span> exp10 = <a class="code hl_function" href="../../de/dcc/namespaceanonymous__namespace_02utils_8cpp_03.html#a005dceb3814d03f8146863a615f45e1b">ftoa64Engine</a>(buffer, value, precision);</div>
+<div class="line"><span class="lineno">  514</span>  <span class="keywordflow">if</span> (exp10 == 0x7FF) {</div>
+<div class="line"><span class="lineno">  515</span><span class="preprocessor">#if defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)</span></div>
+<div class="line"><span class="lineno">  516</span>    strcpy_s(dest, destSize, buffer);</div>
+<div class="line"><span class="lineno">  517</span><span class="preprocessor">#else </span><span class="comment">// defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)</span></div>
+<div class="line"><span class="lineno">  518</span>    strncpy(dest, buffer, destSize - 1);</div>
+<div class="line"><span class="lineno">  519</span><span class="preprocessor">#endif </span><span class="comment">// defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)</span></div>
+<div class="line"><span class="lineno">  520</span>  } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  521</span>    <a class="code hl_function" href="../../de/dcc/namespaceanonymous__namespace_02utils_8cpp_03.html#a89269810588a727a44e99b18f6658bd0">floatPostProcess</a>(dest, buffer, bufferSize, exp10, precision);</div>
+<div class="line"><span class="lineno">  522</span>  }</div>
+<div class="line"><span class="lineno">  523</span> </div>
+<div class="line"><span class="lineno">  524</span>  <span class="keywordflow">return</span> dest;</div>
+<div class="line"><span class="lineno">  525</span>}</div>
 <div class="ttc" id="anamespaceanonymous__namespace_02utils_8cpp_03_html_a005dceb3814d03f8146863a615f45e1b"><div class="ttname"><a href="../../de/dcc/namespaceanonymous__namespace_02utils_8cpp_03.html#a005dceb3814d03f8146863a615f45e1b">anonymous_namespace{utils.cpp}::ftoa64Engine</a></div><div class="ttdeci">std::int32_t ftoa64Engine(char *buffer, double value, std::size_t precision) noexcept</div><div class="ttdoc">Converts a 64-bit floating-point number to its string representation with specified precision.</div><div class="ttdef"><b>Definition</b> utils.cpp:209</div></div>
 <div class="ttc" id="anamespaceanonymous__namespace_02utils_8cpp_03_html_a89269810588a727a44e99b18f6658bd0"><div class="ttname"><a href="../../de/dcc/namespaceanonymous__namespace_02utils_8cpp_03.html#a89269810588a727a44e99b18f6658bd0">anonymous_namespace{utils.cpp}::floatPostProcess</a></div><div class="ttdeci">void floatPostProcess(char *dest, char *srcBuffer, std::size_t bufferSize, std::int32_t exp10, std::size_t precision)</div><div class="ttdoc">Processes a string representation of a floating-point number, adjusting the exponent,...</div><div class="ttdef"><b>Definition</b> utils.cpp:260</div></div>
 </div><!-- fragment -->
@@ -426,31 +426,31 @@ template&lt;typename T , std::size_t N&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A pointer to the destination buffer containing the converted string.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The function assumes that the destination buffer is large enough to hold the converted string. If the destination buffer size is 1, only a null terminator is written. The function does not support subnormals. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">  462</span>                                                                               {</div>
-<div class="line"><span class="lineno">  463</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(dest != <span class="keyword">nullptr</span> &amp;&amp; destSize &gt; 0, <span class="stringliteral">&quot;The destination buffer must not be null.&quot;</span>);</div>
-<div class="line"><span class="lineno">  464</span>  <span class="keywordflow">if</span> (dest == <span class="keyword">nullptr</span> || destSize == 0)</div>
-<div class="line"><span class="lineno">  465</span>    <span class="keywordflow">return</span> dest;</div>
-<div class="line"><span class="lineno">  466</span> </div>
-<div class="line"><span class="lineno">  467</span>  *dest = <span class="charliteral">&#39;\0&#39;</span>;</div>
-<div class="line"><span class="lineno">  468</span>  <span class="keywordflow">if</span> (destSize == 1)</div>
-<div class="line"><span class="lineno">  469</span>    <span class="keywordflow">return</span> dest;</div>
-<div class="line"><span class="lineno">  470</span> </div>
-<div class="line"><span class="lineno">  471</span>  <span class="keyword">const</span> std::size_t bufferSize = 128;</div>
-<div class="line"><span class="lineno">  472</span>  <span class="keywordtype">char</span> buffer[bufferSize + 1];</div>
-<div class="line"><span class="lineno">  473</span> </div>
-<div class="line"><span class="lineno">  474</span>  <span class="keyword">auto</span> exp10 = <a class="code hl_function" href="../../de/dcc/namespaceanonymous__namespace_02utils_8cpp_03.html#a9eb2619dbe0ac9f1070beb2359ffd4b4">ftoa32Engine</a>(buffer, value, precision);</div>
-<div class="line"><span class="lineno">  475</span>  <span class="keywordflow">if</span> (exp10 == 0xFF) {</div>
-<div class="line"><span class="lineno">  476</span><span class="preprocessor">#if defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)</span></div>
-<div class="line"><span class="lineno">  477</span>    strcpy_s(dest, destSize, buffer);</div>
-<div class="line"><span class="lineno">  478</span><span class="preprocessor">#else </span><span class="comment">// defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)</span></div>
-<div class="line"><span class="lineno">  479</span>    strncpy(dest, buffer, destSize - 1);</div>
-<div class="line"><span class="lineno">  480</span><span class="preprocessor">#endif </span><span class="comment">// defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)</span></div>
-<div class="line"><span class="lineno">  481</span>  } <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno">  482</span>    <a class="code hl_function" href="../../de/dcc/namespaceanonymous__namespace_02utils_8cpp_03.html#a89269810588a727a44e99b18f6658bd0">floatPostProcess</a>(dest, buffer, bufferSize, exp10, precision);</div>
-<div class="line"><span class="lineno">  483</span>  }</div>
-<div class="line"><span class="lineno">  484</span> </div>
-<div class="line"><span class="lineno">  485</span>  <span class="keywordflow">return</span> dest;</div>
-<div class="line"><span class="lineno">  486</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">  475</span>                                                                               {</div>
+<div class="line"><span class="lineno">  476</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(dest != <span class="keyword">nullptr</span> &amp;&amp; destSize &gt; 0, <span class="stringliteral">&quot;The destination buffer must not be null.&quot;</span>);</div>
+<div class="line"><span class="lineno">  477</span>  <span class="keywordflow">if</span> (dest == <span class="keyword">nullptr</span> || destSize == 0)</div>
+<div class="line"><span class="lineno">  478</span>    <span class="keywordflow">return</span> dest;</div>
+<div class="line"><span class="lineno">  479</span> </div>
+<div class="line"><span class="lineno">  480</span>  *dest = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><span class="lineno">  481</span>  <span class="keywordflow">if</span> (destSize == 1)</div>
+<div class="line"><span class="lineno">  482</span>    <span class="keywordflow">return</span> dest;</div>
+<div class="line"><span class="lineno">  483</span> </div>
+<div class="line"><span class="lineno">  484</span>  <span class="keyword">const</span> std::size_t bufferSize = 128;</div>
+<div class="line"><span class="lineno">  485</span>  <span class="keywordtype">char</span> buffer[bufferSize + 1];</div>
+<div class="line"><span class="lineno">  486</span> </div>
+<div class="line"><span class="lineno">  487</span>  <span class="keyword">auto</span> exp10 = <a class="code hl_function" href="../../de/dcc/namespaceanonymous__namespace_02utils_8cpp_03.html#a9eb2619dbe0ac9f1070beb2359ffd4b4">ftoa32Engine</a>(buffer, value, precision);</div>
+<div class="line"><span class="lineno">  488</span>  <span class="keywordflow">if</span> (exp10 == 0xFF) {</div>
+<div class="line"><span class="lineno">  489</span><span class="preprocessor">#if defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)</span></div>
+<div class="line"><span class="lineno">  490</span>    strcpy_s(dest, destSize, buffer);</div>
+<div class="line"><span class="lineno">  491</span><span class="preprocessor">#else </span><span class="comment">// defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)</span></div>
+<div class="line"><span class="lineno">  492</span>    strncpy(dest, buffer, destSize - 1);</div>
+<div class="line"><span class="lineno">  493</span><span class="preprocessor">#endif </span><span class="comment">// defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)</span></div>
+<div class="line"><span class="lineno">  494</span>  } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  495</span>    <a class="code hl_function" href="../../de/dcc/namespaceanonymous__namespace_02utils_8cpp_03.html#a89269810588a727a44e99b18f6658bd0">floatPostProcess</a>(dest, buffer, bufferSize, exp10, precision);</div>
+<div class="line"><span class="lineno">  496</span>  }</div>
+<div class="line"><span class="lineno">  497</span> </div>
+<div class="line"><span class="lineno">  498</span>  <span class="keywordflow">return</span> dest;</div>
+<div class="line"><span class="lineno">  499</span>}</div>
 <div class="ttc" id="anamespaceanonymous__namespace_02utils_8cpp_03_html_a9eb2619dbe0ac9f1070beb2359ffd4b4"><div class="ttname"><a href="../../de/dcc/namespaceanonymous__namespace_02utils_8cpp_03.html#a9eb2619dbe0ac9f1070beb2359ffd4b4">anonymous_namespace{utils.cpp}::ftoa32Engine</a></div><div class="ttdeci">std::int32_t ftoa32Engine(char *buffer, float value, std::size_t precision) noexcept</div><div class="ttdoc">Converts a floating-point number to its string representation in a specified precision.</div><div class="ttdef"><b>Definition</b> utils.cpp:110</div></div>
 </div><!-- fragment -->
 </div>
@@ -554,21 +554,33 @@ template&lt;typename type &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Converts an integer value to a string representation. </p>
-<p>This function converts a given integer value into its string representation, storing the result in the provided destination buffer.</p>
+<p>Converts a 16-bit signed integer value to a string representation. </p>
+<p>This function converts a given 16-bit signed integer value into its decimal string representation, storing the result in the provided destination buffer.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">dest</td><td>The destination buffer where the converted string is stored. </td></tr>
-    <tr><td class="paramname">destSize</td><td>The size of the destination buffer. </td></tr>
-    <tr><td class="paramname">value</td><td>The integer value to be converted.</td></tr>
+    <tr><td class="paramname">dest</td><td>A pointer to the destination buffer where the converted string is stored. </td></tr>
+    <tr><td class="paramname">destSize</td><td>The size of the destination buffer in characters. </td></tr>
+    <tr><td class="paramname">value</td><td>The 16-bit signed integer value to be converted.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A pointer to the destination buffer containing the converted string.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The function assumes that the destination buffer is large enough to hold the converted string. If the destination buffer size is 1, only a null terminator is written. The function reverses the string in-place. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">  434</span>                                                               {</div>
-<div class="line"><span class="lineno">  435</span>  <span class="keywordflow">return</span> <a class="code hl_function" href="#af8a75c65ac8550ff63ac340e1f2572ef">itoaImplementation</a>(dest, destSize, value);</div>
-<div class="line"><span class="lineno">  436</span>}</div>
+<dl class="section pre"><dt>Precondition</dt><dd>The destination buffer must be valid and have sufficient capacity (at least 7 characters for worst case -32768). </dd>
+<dd>
+The buffer should account for the sign, digits, and null terminator.</dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>The destination string is null-terminated. </dd>
+<dd>
+Negative values are properly prefixed with a minus sign.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The function handles negative values correctly. </dd>
+<dd>
+The function is thread-safe for single-buffer operations. </dd>
+<dd>
+Performance is optimized for common integer ranges. </dd></dl>
+<div class="fragment"><div class="line"><span class="lineno">  439</span>                                                               {</div>
+<div class="line"><span class="lineno">  440</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(destSize &gt;= 7, <span class="stringliteral">&quot;The destination buffer size must be at least 7 characters for worst case -32768&quot;</span>);</div>
+<div class="line"><span class="lineno">  441</span> </div>
+<div class="line"><span class="lineno">  442</span>  <span class="keywordflow">return</span> <a class="code hl_function" href="#af8a75c65ac8550ff63ac340e1f2572ef">itoaImplementation</a>(dest, destSize, value);</div>
+<div class="line"><span class="lineno">  443</span>}</div>
 <div class="ttc" id="anamespacetoygine_html_af8a75c65ac8550ff63ac340e1f2572ef"><div class="ttname"><a href="#af8a75c65ac8550ff63ac340e1f2572ef">toygine::itoaImplementation</a></div><div class="ttdeci">char * itoaImplementation(char *dest, std::size_t destSize, type value)</div><div class="ttdoc">Converts an integer value to a string representation.</div><div class="ttdef"><b>Definition</b> utils_internal.inl:87</div></div>
 </div><!-- fragment -->
 </div>
@@ -597,21 +609,34 @@ template&lt;typename type &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Converts an integer value to a string representation. </p>
-<p>This function converts a given integer value into its string representation, storing the result in the provided destination buffer.</p>
+<p>Converts a 32-bit signed integer value to a string representation. </p>
+<p>This function converts a given 32-bit signed integer value into its decimal string representation, storing the result in the provided destination buffer.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">dest</td><td>The destination buffer where the converted string is stored. </td></tr>
-    <tr><td class="paramname">destSize</td><td>The size of the destination buffer. </td></tr>
-    <tr><td class="paramname">value</td><td>The integer value to be converted.</td></tr>
+    <tr><td class="paramname">dest</td><td>A pointer to the destination buffer where the converted string is stored. </td></tr>
+    <tr><td class="paramname">destSize</td><td>The size of the destination buffer in characters. </td></tr>
+    <tr><td class="paramname">value</td><td>The 32-bit signed integer value to be converted.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A pointer to the destination buffer containing the converted string.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The function assumes that the destination buffer is large enough to hold the converted string. If the destination buffer size is 1, only a null terminator is written. The function reverses the string in-place. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">  438</span>                                                               {</div>
-<div class="line"><span class="lineno">  439</span>  <span class="keywordflow">return</span> <a class="code hl_function" href="#af8a75c65ac8550ff63ac340e1f2572ef">itoaImplementation</a>(dest, destSize, value);</div>
-<div class="line"><span class="lineno">  440</span>}</div>
+<dl class="section pre"><dt>Precondition</dt><dd>The destination buffer must be valid and have sufficient capacity (at least 12 characters for worst case -2147483648). </dd>
+<dd>
+The buffer should account for the sign, digits, and null terminator.</dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>The destination string is null-terminated. </dd>
+<dd>
+Negative values are properly prefixed with a minus sign.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The function handles negative values correctly. </dd>
+<dd>
+The function is thread-safe for single-buffer operations. </dd>
+<dd>
+Performance is optimized for common integer ranges. </dd></dl>
+<div class="fragment"><div class="line"><span class="lineno">  445</span>                                                               {</div>
+<div class="line"><span class="lineno">  446</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(destSize &gt;= 12,</div>
+<div class="line"><span class="lineno">  447</span>                 <span class="stringliteral">&quot;The destination buffer size must be at least 12 characters for worst case -2147483648&quot;</span>);</div>
+<div class="line"><span class="lineno">  448</span> </div>
+<div class="line"><span class="lineno">  449</span>  <span class="keywordflow">return</span> <a class="code hl_function" href="#af8a75c65ac8550ff63ac340e1f2572ef">itoaImplementation</a>(dest, destSize, value);</div>
+<div class="line"><span class="lineno">  450</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -639,21 +664,34 @@ template&lt;typename type &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Converts an integer value to a string representation. </p>
-<p>This function converts a given integer value into its string representation, storing the result in the provided destination buffer.</p>
+<p>Converts a 64-bit signed integer value to a string representation. </p>
+<p>This function converts a given 64-bit signed integer value into its decimal string representation, storing the result in the provided destination buffer.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">dest</td><td>The destination buffer where the converted string is stored. </td></tr>
-    <tr><td class="paramname">destSize</td><td>The size of the destination buffer. </td></tr>
-    <tr><td class="paramname">value</td><td>The integer value to be converted.</td></tr>
+    <tr><td class="paramname">dest</td><td>A pointer to the destination buffer where the converted string is stored. </td></tr>
+    <tr><td class="paramname">destSize</td><td>The size of the destination buffer in characters. </td></tr>
+    <tr><td class="paramname">value</td><td>The 64-bit signed integer value to be converted.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A pointer to the destination buffer containing the converted string.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The function assumes that the destination buffer is large enough to hold the converted string. If the destination buffer size is 1, only a null terminator is written. The function reverses the string in-place. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">  442</span>                                                               {</div>
-<div class="line"><span class="lineno">  443</span>  <span class="keywordflow">return</span> <a class="code hl_function" href="#af8a75c65ac8550ff63ac340e1f2572ef">itoaImplementation</a>(dest, destSize, value);</div>
-<div class="line"><span class="lineno">  444</span>}</div>
+<dl class="section pre"><dt>Precondition</dt><dd>The destination buffer must be valid and have sufficient capacity (at least 21 characters for worst case -9223372036854775808). </dd>
+<dd>
+The buffer should account for the sign, digits, and null terminator.</dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>The destination string is null-terminated. </dd>
+<dd>
+Negative values are properly prefixed with a minus sign.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The function handles negative values correctly. </dd>
+<dd>
+The function is thread-safe for single-buffer operations. </dd>
+<dd>
+Performance is optimized for common integer ranges. </dd></dl>
+<div class="fragment"><div class="line"><span class="lineno">  452</span>                                                               {</div>
+<div class="line"><span class="lineno">  453</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(destSize &gt;= 21,</div>
+<div class="line"><span class="lineno">  454</span>                 <span class="stringliteral">&quot;The destination buffer size must be at least 21 characters for worst case -9223372036854775808&quot;</span>);</div>
+<div class="line"><span class="lineno">  455</span> </div>
+<div class="line"><span class="lineno">  456</span>  <span class="keywordflow">return</span> <a class="code hl_function" href="#af8a75c65ac8550ff63ac340e1f2572ef">itoaImplementation</a>(dest, destSize, value);</div>
+<div class="line"><span class="lineno">  457</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -681,21 +719,33 @@ template&lt;typename type &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Converts an integer value to a string representation. </p>
-<p>This function converts a given integer value into its string representation, storing the result in the provided destination buffer.</p>
+<p>Converts an 8-bit signed integer value to a string representation. </p>
+<p>This function converts a given 8-bit signed integer value into its decimal string representation, storing the result in the provided destination buffer.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">dest</td><td>The destination buffer where the converted string is stored. </td></tr>
-    <tr><td class="paramname">destSize</td><td>The size of the destination buffer. </td></tr>
-    <tr><td class="paramname">value</td><td>The integer value to be converted.</td></tr>
+    <tr><td class="paramname">dest</td><td>A pointer to the destination buffer where the converted string is stored. </td></tr>
+    <tr><td class="paramname">destSize</td><td>The size of the destination buffer in characters. </td></tr>
+    <tr><td class="paramname">value</td><td>The 8-bit signed integer value to be converted.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A pointer to the destination buffer containing the converted string.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The function assumes that the destination buffer is large enough to hold the converted string. If the destination buffer size is 1, only a null terminator is written. The function reverses the string in-place. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">  430</span>                                                              {</div>
-<div class="line"><span class="lineno">  431</span>  <span class="keywordflow">return</span> <a class="code hl_function" href="#af8a75c65ac8550ff63ac340e1f2572ef">itoaImplementation</a>(dest, destSize, value);</div>
-<div class="line"><span class="lineno">  432</span>}</div>
+<dl class="section pre"><dt>Precondition</dt><dd>The destination buffer must be valid and have sufficient capacity (at least 5 characters for worst case -128). </dd>
+<dd>
+The buffer should account for the sign, digits, and null terminator.</dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>The destination string is null-terminated. </dd>
+<dd>
+Negative values are properly prefixed with a minus sign.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The function handles negative values correctly. </dd>
+<dd>
+The function is thread-safe for single-buffer operations. </dd>
+<dd>
+Performance is optimized for common integer ranges. </dd></dl>
+<div class="fragment"><div class="line"><span class="lineno">  433</span>                                                              {</div>
+<div class="line"><span class="lineno">  434</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(destSize &gt;= 5, <span class="stringliteral">&quot;The destination buffer size must be at least 5 characters for worst case -128&quot;</span>);</div>
+<div class="line"><span class="lineno">  435</span> </div>
+<div class="line"><span class="lineno">  436</span>  <span class="keywordflow">return</span> <a class="code hl_function" href="#af8a75c65ac8550ff63ac340e1f2572ef">itoaImplementation</a>(dest, destSize, value);</div>
+<div class="line"><span class="lineno">  437</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -741,9 +791,9 @@ template&lt;typename type &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A pointer to the destination buffer containing the converted string.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The function assumes that the destination buffer is large enough to hold the converted string. If the destination buffer size is 1, only a null terminator is written. The base must be between 2 and 36 inclusive. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">  450</span>                                                                               {</div>
-<div class="line"><span class="lineno">  451</span>  <span class="keywordflow">return</span> <a class="code hl_function" href="#a0f7769364a3fa922049ef7ca0b749e12">utoaImplementation</a>(dest, destSize, value, base);</div>
-<div class="line"><span class="lineno">  452</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">  463</span>                                                                               {</div>
+<div class="line"><span class="lineno">  464</span>  <span class="keywordflow">return</span> <a class="code hl_function" href="#a0f7769364a3fa922049ef7ca0b749e12">utoaImplementation</a>(dest, destSize, value, base);</div>
+<div class="line"><span class="lineno">  465</span>}</div>
 <div class="ttc" id="anamespacetoygine_html_a0f7769364a3fa922049ef7ca0b749e12"><div class="ttname"><a href="#a0f7769364a3fa922049ef7ca0b749e12">toygine::utoaImplementation</a></div><div class="ttdeci">char * utoaImplementation(char *dest, std::size_t destSize, type value, unsigned base)</div><div class="ttdoc">Converts an unsigned integer value to a string representation in a specified base.</div><div class="ttdef"><b>Definition</b> utils_internal.inl:137</div></div>
 </div><!-- fragment -->
 </div>
@@ -790,9 +840,9 @@ template&lt;typename type &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A pointer to the destination buffer containing the converted string.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The function assumes that the destination buffer is large enough to hold the converted string. If the destination buffer size is 1, only a null terminator is written. The base must be between 2 and 36 inclusive. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">  454</span>                                                                               {</div>
-<div class="line"><span class="lineno">  455</span>  <span class="keywordflow">return</span> <a class="code hl_function" href="#a0f7769364a3fa922049ef7ca0b749e12">utoaImplementation</a>(dest, destSize, value, base);</div>
-<div class="line"><span class="lineno">  456</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">  467</span>                                                                               {</div>
+<div class="line"><span class="lineno">  468</span>  <span class="keywordflow">return</span> <a class="code hl_function" href="#a0f7769364a3fa922049ef7ca0b749e12">utoaImplementation</a>(dest, destSize, value, base);</div>
+<div class="line"><span class="lineno">  469</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -838,9 +888,9 @@ template&lt;typename type &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A pointer to the destination buffer containing the converted string.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The function assumes that the destination buffer is large enough to hold the converted string. If the destination buffer size is 1, only a null terminator is written. The base must be between 2 and 36 inclusive. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">  458</span>                                                                               {</div>
-<div class="line"><span class="lineno">  459</span>  <span class="keywordflow">return</span> <a class="code hl_function" href="#a0f7769364a3fa922049ef7ca0b749e12">utoaImplementation</a>(dest, destSize, value, base);</div>
-<div class="line"><span class="lineno">  460</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">  471</span>                                                                               {</div>
+<div class="line"><span class="lineno">  472</span>  <span class="keywordflow">return</span> <a class="code hl_function" href="#a0f7769364a3fa922049ef7ca0b749e12">utoaImplementation</a>(dest, destSize, value, base);</div>
+<div class="line"><span class="lineno">  473</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -886,9 +936,9 @@ template&lt;typename type &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A pointer to the destination buffer containing the converted string.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The function assumes that the destination buffer is large enough to hold the converted string. If the destination buffer size is 1, only a null terminator is written. The base must be between 2 and 36 inclusive. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">  446</span>                                                                              {</div>
-<div class="line"><span class="lineno">  447</span>  <span class="keywordflow">return</span> <a class="code hl_function" href="#a0f7769364a3fa922049ef7ca0b749e12">utoaImplementation</a>(dest, destSize, value, base);</div>
-<div class="line"><span class="lineno">  448</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">  459</span>                                                                              {</div>
+<div class="line"><span class="lineno">  460</span>  <span class="keywordflow">return</span> <a class="code hl_function" href="#a0f7769364a3fa922049ef7ca0b749e12">utoaImplementation</a>(dest, destSize, value, base);</div>
+<div class="line"><span class="lineno">  461</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1091,22 +1141,24 @@ The function is thread-safe for read operations. </dd>
 Performance is optimized for common UTF-8 patterns. </dd>
 <dd>
 Invalid UTF-8 sequences cause the function to return 0. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">  414</span>                                    {</div>
-<div class="line"><span class="lineno">  415</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#af576bf8ffa22a44e53018c67095ffbf0">assert</a>(str != <span class="keyword">nullptr</span>);</div>
-<div class="line"><span class="lineno">  416</span>  <span class="keywordflow">if</span> (str == <span class="keyword">nullptr</span>)</div>
+<div class="fragment"><div class="line"><span class="lineno">  414</span>                                       {</div>
+<div class="line"><span class="lineno">  415</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(<span class="keywordtype">string</span> != <span class="keyword">nullptr</span>, <span class="stringliteral">&quot;String pointer must not be null&quot;</span>);</div>
+<div class="line"><span class="lineno">  416</span>  <span class="keywordflow">if</span> (<span class="keywordtype">string</span> == <span class="keyword">nullptr</span>)</div>
 <div class="line"><span class="lineno">  417</span>    <span class="keywordflow">return</span> 0;</div>
 <div class="line"><span class="lineno">  418</span> </div>
 <div class="line"><span class="lineno">  419</span>  std::size_t size = 0;</div>
-<div class="line"><span class="lineno">  420</span>  <span class="keywordflow">while</span> (*str != <span class="charliteral">&#39;\0&#39;</span>) {</div>
-<div class="line"><span class="lineno">  421</span>    <span class="keyword">const</span> <span class="keyword">auto</span> symbolLength = <a class="code hl_variable" href="../../de/dcc/namespaceanonymous__namespace_02utils_8cpp_03.html#ae94b7cef695dd5f7f2d603cbce5ee04e">sc_utf8CharSizeTable</a>[<span class="keyword">static_cast&lt;</span>std::uint8_t<span class="keyword">&gt;</span>(*str)];</div>
+<div class="line"><span class="lineno">  420</span>  <span class="keywordflow">while</span> (*<span class="keywordtype">string</span> != <span class="charliteral">&#39;\0&#39;</span>) {</div>
+<div class="line"><span class="lineno">  421</span>    <span class="keyword">const</span> <span class="keyword">auto</span> symbolLength = <a class="code hl_variable" href="../../de/dcc/namespaceanonymous__namespace_02utils_8cpp_03.html#ae94b7cef695dd5f7f2d603cbce5ee04e">sc_utf8CharSizeTable</a>[<span class="keyword">static_cast&lt;</span>std::uint8_t<span class="keyword">&gt;</span>(*string)];</div>
 <div class="line"><span class="lineno">  422</span>    <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(symbolLength != 0, <span class="stringliteral">&quot;Invalid UTF-8 symbol&quot;</span>);</div>
-<div class="line"><span class="lineno">  423</span>    str += symbolLength;</div>
-<div class="line"><span class="lineno">  424</span>    ++size;</div>
-<div class="line"><span class="lineno">  425</span>  }</div>
-<div class="line"><span class="lineno">  426</span> </div>
-<div class="line"><span class="lineno">  427</span>  <span class="keywordflow">return</span> size;</div>
-<div class="line"><span class="lineno">  428</span>}</div>
-<div class="ttc" id="alinux_2platform__config_8hpp_html_af576bf8ffa22a44e53018c67095ffbf0"><div class="ttname"><a href="../../dd/d9e/linux_2platform__config_8hpp.html#af576bf8ffa22a44e53018c67095ffbf0">assert</a></div><div class="ttdeci">#define assert(x)</div><div class="ttdef"><b>Definition</b> platform_config.hpp:62</div></div>
+<div class="line"><span class="lineno">  423</span>    <span class="keywordflow">if</span> (symbolLength == 0)</div>
+<div class="line"><span class="lineno">  424</span>      <span class="keywordflow">return</span> 0;</div>
+<div class="line"><span class="lineno">  425</span> </div>
+<div class="line"><span class="lineno">  426</span>    <span class="keywordtype">string</span> += symbolLength;</div>
+<div class="line"><span class="lineno">  427</span>    ++size;</div>
+<div class="line"><span class="lineno">  428</span>  }</div>
+<div class="line"><span class="lineno">  429</span> </div>
+<div class="line"><span class="lineno">  430</span>  <span class="keywordflow">return</span> size;</div>
+<div class="line"><span class="lineno">  431</span>}</div>
 <div class="ttc" id="anamespaceanonymous__namespace_02utils_8cpp_03_html_ae94b7cef695dd5f7f2d603cbce5ee04e"><div class="ttname"><a href="../../de/dcc/namespaceanonymous__namespace_02utils_8cpp_03.html#ae94b7cef695dd5f7f2d603cbce5ee04e">anonymous_namespace{utils.cpp}::sc_utf8CharSizeTable</a></div><div class="ttdeci">constexpr std::array&lt; std::uint8_t, 256 &gt; sc_utf8CharSizeTable</div><div class="ttdef"><b>Definition</b> utils.cpp:28</div></div>
 </div><!-- fragment -->
 </div>
