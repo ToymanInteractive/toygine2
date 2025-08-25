@@ -296,7 +296,7 @@ TEST_CASE("FixString clear", "[core][fixstring]") {
   CHECK(testString2.empty());
 }
 
-TEST_CASE("FixString insert methods", "[core][fixstring]") {
+TEST_CASE("FixString insert", "[core][fixstring]") {
   FixString<32> testString1("Hello World");
   FixString<32> testString2("Hello World");
   FixString<32> testString3("Hello World");
@@ -357,7 +357,7 @@ TEST_CASE("FixString insert methods", "[core][fixstring]") {
   CHECK(testString4.size() == 17);
 }
 
-TEST_CASE("FixString erase methods", "[core][fixstring]") {
+TEST_CASE("FixString erase", "[core][fixstring]") {
   FixString<32> testString1("Hello World");
 
   // Erase first 5 characters
@@ -402,6 +402,21 @@ TEST_CASE("FixString erase methods", "[core][fixstring]") {
   // Erase everything from position 0
   testString3.erase(0);
   CHECK(testString3.empty());
+}
+
+TEST_CASE("FixString push_back", "[core][fixstring]") {
+  FixString<32> testString1("Hello");
+
+  // Use push_back
+  testString1.push_back(' ');
+  testString1.push_back('W');
+  testString1.push_back('o');
+  testString1.push_back('r');
+  testString1.push_back('l');
+  testString1.push_back('d');
+
+  CHECK(strcmp(testString1.c_str(), "Hello World") == 0);
+  CHECK(testString1.size() == 11);
 }
 
 TEST_CASE("FixString operators+=", "[core][fixstring]") {

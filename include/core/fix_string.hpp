@@ -581,6 +581,24 @@ public:
   */
   constexpr inline FixString<allocatedSize> & erase(std::size_t offset, std::size_t count = npos) noexcept;
 
+  /*!
+    \brief Appends a single character to the end of the string.
+
+    This method appends a single character to the end of the current string, increasing its size by one. The character
+    is added after the last existing character, and the string remains null-terminated.
+
+    \param symbol The character to append.
+
+    \pre The current string size plus one must be strictly less than the allocated size (i.e., size() < capacity()).
+
+    \post The string size is increased by one.
+    \post The new character is added at the end of the string.
+    \post The string remains null-terminated.
+
+    \note This method is equivalent to operator+=(char) but more explicit in intent.
+  */
+  constexpr inline void push_back(char symbol) noexcept;
+
   constexpr inline FixString<allocatedSize> & operator+=(const FixString<allocatedSize> & string) noexcept;
   template <std::size_t allocatedSize2>
   constexpr inline FixString<allocatedSize> & operator+=(const FixString<allocatedSize2> & string) noexcept;
