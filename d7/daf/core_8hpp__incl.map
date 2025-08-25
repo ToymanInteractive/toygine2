@@ -14,6 +14,6 @@
 <area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="517,28,664,76,689,86,687,91,662,81,515,33"/>
 <area shape="rect" id="Node000008" href="$db/d84/fix__string_8inl.html" title="Inline implementations for FixString template class." alt="" coords="809,93,943,119"/>
 <area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="544,26,663,47,798,76,833,86,831,92,797,81,662,52,543,31"/>
-<area shape="rect" id="Node000009" href="$df/d7d/utils_8inl.html" title="collection of core inline functions" alt="" coords="967,93,1070,119"/>
+<area shape="rect" id="Node000009" href="$df/d7d/utils_8inl.html" title="Inline implementations of core utility functions for string manipulation and encoding conversion." alt="" coords="967,93,1070,119"/>
 <area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="544,19,731,35,844,52,957,76,983,85,982,90,955,81,843,57,730,40,543,25"/>
 </map>

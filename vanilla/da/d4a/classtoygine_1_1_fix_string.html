@@ -212,6 +212,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a6b17bc52d968a5fb590f7c8a7902576c" id="r_a6b17bc52d968a5fb590f7c8a7902576c"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt; allocatedSize &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6b17bc52d968a5fb590f7c8a7902576c">erase</a> (std::size_t offset, std::size_t count=<a class="el" href="#a79044e138bb62795eaa69202361b0c1c">npos</a>) noexcept</td></tr>
 <tr class="memdesc:a6b17bc52d968a5fb590f7c8a7902576c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erases characters from the string starting at the specified offset.  <br /></td></tr>
 <tr class="separator:a6b17bc52d968a5fb590f7c8a7902576c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6dfbde220ebfadc1ab286ca7019e0f65" id="r_a6dfbde220ebfadc1ab286ca7019e0f65"><td class="memItemLeft" align="right" valign="top">constexpr void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6dfbde220ebfadc1ab286ca7019e0f65">push_back</a> (char symbol) noexcept</td></tr>
+<tr class="memdesc:a6dfbde220ebfadc1ab286ca7019e0f65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends a single character to the end of the string.  <br /></td></tr>
+<tr class="separator:a6dfbde220ebfadc1ab286ca7019e0f65"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad91e3750e33c31eb172e866df6a225e9" id="r_ad91e3750e33c31eb172e866df6a225e9"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt; allocatedSize &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad91e3750e33c31eb172e866df6a225e9">operator+=</a> (const <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt; allocatedSize &gt; &amp;string) noexcept</td></tr>
 <tr class="separator:ad91e3750e33c31eb172e866df6a225e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8389491d39ca4cb90845561649da1be9" id="r_a8389491d39ca4cb90845561649da1be9"><td class="memTemplParams" colspan="2">template&lt;std::size_t allocatedSize2&gt; </td></tr>
@@ -278,8 +281,8 @@ template&lt;std::size_t allocatedSize&gt; </div>
 <dl class="section post"><dt>Postcondition</dt><dd>The string is empty and ready for use. </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">   31</span>  : <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a>(0)</div>
 <div class="line"><span class="lineno">   32</span>  , <a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a>{<span class="charliteral">&#39;\0&#39;</span>} {}</div>
-<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a9166a4498452706474ce05840e67e660"><div class="ttname"><a href="#a9166a4498452706474ce05840e67e660">toygine::FixString::_size</a></div><div class="ttdeci">std::size_t _size</div><div class="ttdef"><b>Definition</b> fix_string.hpp:667</div></div>
-<div class="ttc" id="aclasstoygine_1_1_fix_string_html_aefd61568e3d5a4812f208bb45358d4ff"><div class="ttname"><a href="#aefd61568e3d5a4812f208bb45358d4ff">toygine::FixString::_data</a></div><div class="ttdeci">char _data[allocatedSize]</div><div class="ttdef"><b>Definition</b> fix_string.hpp:666</div></div>
+<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a9166a4498452706474ce05840e67e660"><div class="ttname"><a href="#a9166a4498452706474ce05840e67e660">toygine::FixString::_size</a></div><div class="ttdeci">std::size_t _size</div><div class="ttdef"><b>Definition</b> fix_string.hpp:685</div></div>
+<div class="ttc" id="aclasstoygine_1_1_fix_string_html_aefd61568e3d5a4812f208bb45358d4ff"><div class="ttname"><a href="#aefd61568e3d5a4812f208bb45358d4ff">toygine::FixString::_data</a></div><div class="ttdeci">char _data[allocatedSize]</div><div class="ttdef"><b>Definition</b> fix_string.hpp:684</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1130,7 +1133,7 @@ Erasing from an empty string has no effect. </dd></dl>
 <div class="line"><span class="lineno">  331</span> </div>
 <div class="line"><span class="lineno">  332</span>  <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
 <div class="line"><span class="lineno">  333</span>}</div>
-<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a79044e138bb62795eaa69202361b0c1c"><div class="ttname"><a href="#a79044e138bb62795eaa69202361b0c1c">toygine::FixString::npos</a></div><div class="ttdeci">static const std::size_t npos</div><div class="ttdef"><b>Definition</b> fix_string.hpp:661</div></div>
+<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a79044e138bb62795eaa69202361b0c1c"><div class="ttname"><a href="#a79044e138bb62795eaa69202361b0c1c">toygine::FixString::npos</a></div><div class="ttdeci">static const std::size_t npos</div><div class="ttdef"><b>Definition</b> fix_string.hpp:679</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1501,11 +1504,11 @@ template&lt;std::size_t allocatedSize&gt; </div>
 <dd>
 The size of the <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a> object plus one must be less than the allocated size.</dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>A new <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a> object is created with the contents of the original <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a> object plus the given character. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">  414</span>                                                                                                        {</div>
-<div class="line"><span class="lineno">  415</span>  <a class="code hl_function" href="#a374e5883fdaf67dc9ae97b9185abd8be">FixString&lt;allocatedSize&gt;</a> value(*<span class="keyword">this</span>);</div>
-<div class="line"><span class="lineno">  416</span>  value += symbol;</div>
-<div class="line"><span class="lineno">  417</span>  <span class="keywordflow">return</span> value;</div>
-<div class="line"><span class="lineno">  418</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">  422</span>                                                                                                        {</div>
+<div class="line"><span class="lineno">  423</span>  <a class="code hl_function" href="#a374e5883fdaf67dc9ae97b9185abd8be">FixString&lt;allocatedSize&gt;</a> value(*<span class="keyword">this</span>);</div>
+<div class="line"><span class="lineno">  424</span>  value += symbol;</div>
+<div class="line"><span class="lineno">  425</span>  <span class="keywordflow">return</span> value;</div>
+<div class="line"><span class="lineno">  426</span>}</div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_a374e5883fdaf67dc9ae97b9185abd8be"><div class="ttname"><a href="#a374e5883fdaf67dc9ae97b9185abd8be">toygine::FixString::FixString</a></div><div class="ttdeci">constexpr FixString() noexcept</div><div class="ttdoc">Default constructor for FixString class.</div><div class="ttdef"><b>Definition</b> fix_string.inl:30</div></div>
 </div><!-- fragment -->
 </div>
@@ -1548,13 +1551,13 @@ template&lt;std::size_t allocatedSize&gt; </div>
 <dd>
 The allocated size must be greater than zero.</dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>A new <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a> object is created with the contents of both strings. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">  405</span>                                                                                                                {</div>
-<div class="line"><span class="lineno">  406</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#af576bf8ffa22a44e53018c67095ffbf0">assert</a>(<span class="keywordtype">string</span> != <span class="keyword">nullptr</span>);</div>
-<div class="line"><span class="lineno">  407</span> </div>
-<div class="line"><span class="lineno">  408</span>  <a class="code hl_function" href="#a374e5883fdaf67dc9ae97b9185abd8be">FixString&lt;allocatedSize&gt;</a> value(*<span class="keyword">this</span>);</div>
-<div class="line"><span class="lineno">  409</span>  value += string;</div>
-<div class="line"><span class="lineno">  410</span>  <span class="keywordflow">return</span> value;</div>
-<div class="line"><span class="lineno">  411</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">  413</span>                                                                                                                {</div>
+<div class="line"><span class="lineno">  414</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#af576bf8ffa22a44e53018c67095ffbf0">assert</a>(<span class="keywordtype">string</span> != <span class="keyword">nullptr</span>);</div>
+<div class="line"><span class="lineno">  415</span> </div>
+<div class="line"><span class="lineno">  416</span>  <a class="code hl_function" href="#a374e5883fdaf67dc9ae97b9185abd8be">FixString&lt;allocatedSize&gt;</a> value(*<span class="keyword">this</span>);</div>
+<div class="line"><span class="lineno">  417</span>  value += string;</div>
+<div class="line"><span class="lineno">  418</span>  <span class="keywordflow">return</span> value;</div>
+<div class="line"><span class="lineno">  419</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1596,13 +1599,13 @@ template&lt;std::size_t allocatedSize&gt; </div>
 <dd>
 The allocated size of both <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a> objects must be greater than zero.</dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>A new <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a> object is created with the contents of both <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a> objects. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">  384</span>                                                          {</div>
-<div class="line"><span class="lineno">  385</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#af576bf8ffa22a44e53018c67095ffbf0">assert</a>(<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> + <span class="keywordtype">string</span>.<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> &lt; allocatedSize);</div>
-<div class="line"><span class="lineno">  386</span> </div>
-<div class="line"><span class="lineno">  387</span>  <a class="code hl_function" href="#a374e5883fdaf67dc9ae97b9185abd8be">FixString&lt;allocatedSize&gt;</a> value(*<span class="keyword">this</span>);</div>
-<div class="line"><span class="lineno">  388</span>  value += string;</div>
-<div class="line"><span class="lineno">  389</span>  <span class="keywordflow">return</span> value;</div>
-<div class="line"><span class="lineno">  390</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">  392</span>                                                          {</div>
+<div class="line"><span class="lineno">  393</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#af576bf8ffa22a44e53018c67095ffbf0">assert</a>(<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> + <span class="keywordtype">string</span>.<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> &lt; allocatedSize);</div>
+<div class="line"><span class="lineno">  394</span> </div>
+<div class="line"><span class="lineno">  395</span>  <a class="code hl_function" href="#a374e5883fdaf67dc9ae97b9185abd8be">FixString&lt;allocatedSize&gt;</a> value(*<span class="keyword">this</span>);</div>
+<div class="line"><span class="lineno">  396</span>  value += string;</div>
+<div class="line"><span class="lineno">  397</span>  <span class="keywordflow">return</span> value;</div>
+<div class="line"><span class="lineno">  398</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1646,14 +1649,14 @@ template&lt;std::size_t allocatedSize2&gt; </div>
 <dd>
 The allocated size of both <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a> objects must be greater than zero.</dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>A new <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a> object is created with the contents of both <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a> objects. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">  395</span>                                                           {</div>
-<div class="line"><span class="lineno">  396</span>  <span class="keyword">static_assert</span>(allocatedSize2 &gt; 0, <span class="stringliteral">&quot;FixString capacity must be greater than zero.&quot;</span>);</div>
-<div class="line"><span class="lineno">  397</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#af576bf8ffa22a44e53018c67095ffbf0">assert</a>(<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> + <span class="keywordtype">string</span>.<a class="code hl_function" href="#af89cb8066041fa741f75709159b610e7">size</a>() &lt; allocatedSize);</div>
-<div class="line"><span class="lineno">  398</span> </div>
-<div class="line"><span class="lineno">  399</span>  <a class="code hl_function" href="#a374e5883fdaf67dc9ae97b9185abd8be">FixString&lt;allocatedSize&gt;</a> value(*<span class="keyword">this</span>);</div>
-<div class="line"><span class="lineno">  400</span>  value += string;</div>
-<div class="line"><span class="lineno">  401</span>  <span class="keywordflow">return</span> value;</div>
-<div class="line"><span class="lineno">  402</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">  403</span>                                                           {</div>
+<div class="line"><span class="lineno">  404</span>  <span class="keyword">static_assert</span>(allocatedSize2 &gt; 0, <span class="stringliteral">&quot;FixString capacity must be greater than zero.&quot;</span>);</div>
+<div class="line"><span class="lineno">  405</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#af576bf8ffa22a44e53018c67095ffbf0">assert</a>(<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> + <span class="keywordtype">string</span>.<a class="code hl_function" href="#af89cb8066041fa741f75709159b610e7">size</a>() &lt; allocatedSize);</div>
+<div class="line"><span class="lineno">  406</span> </div>
+<div class="line"><span class="lineno">  407</span>  <a class="code hl_function" href="#a374e5883fdaf67dc9ae97b9185abd8be">FixString&lt;allocatedSize&gt;</a> value(*<span class="keyword">this</span>);</div>
+<div class="line"><span class="lineno">  408</span>  value += string;</div>
+<div class="line"><span class="lineno">  409</span>  <span class="keywordflow">return</span> value;</div>
+<div class="line"><span class="lineno">  410</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1681,14 +1684,14 @@ template&lt;std::size_t allocatedSize&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  373</span>                                                                                                     {</div>
-<div class="line"><span class="lineno">  374</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#af576bf8ffa22a44e53018c67095ffbf0">assert</a>(<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> + 1 &lt; allocatedSize);</div>
-<div class="line"><span class="lineno">  375</span> </div>
-<div class="line"><span class="lineno">  376</span>  <a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a>[<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a>++] = symbol;</div>
-<div class="line"><span class="lineno">  377</span>  <a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a>[<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a>] = <span class="charliteral">&#39;\0&#39;</span>;</div>
-<div class="line"><span class="lineno">  378</span> </div>
-<div class="line"><span class="lineno">  379</span>  <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><span class="lineno">  380</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">  381</span>                                                                                                     {</div>
+<div class="line"><span class="lineno">  382</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#af576bf8ffa22a44e53018c67095ffbf0">assert</a>(<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> + 1 &lt; allocatedSize);</div>
+<div class="line"><span class="lineno">  383</span> </div>
+<div class="line"><span class="lineno">  384</span>  <a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a>[<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a>++] = symbol;</div>
+<div class="line"><span class="lineno">  385</span>  <a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a>[<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a>] = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><span class="lineno">  386</span> </div>
+<div class="line"><span class="lineno">  387</span>  <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><span class="lineno">  388</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1716,17 +1719,17 @@ template&lt;std::size_t allocatedSize&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  360</span>                                                                                                             {</div>
-<div class="line"><span class="lineno">  361</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#af576bf8ffa22a44e53018c67095ffbf0">assert</a>(<span class="keywordtype">string</span> != <span class="keyword">nullptr</span>);</div>
-<div class="line"><span class="lineno">  362</span> </div>
-<div class="line"><span class="lineno">  363</span>  <span class="keyword">const</span> <span class="keyword">auto</span> stringSize = std::strlen(<span class="keywordtype">string</span>);</div>
-<div class="line"><span class="lineno">  364</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#af576bf8ffa22a44e53018c67095ffbf0">assert</a>(<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> + stringSize &lt; allocatedSize);</div>
-<div class="line"><span class="lineno">  365</span> </div>
-<div class="line"><span class="lineno">  366</span>  std::memcpy(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> + <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a>, <span class="keywordtype">string</span>, stringSize + 1);</div>
-<div class="line"><span class="lineno">  367</span>  <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> += stringSize;</div>
-<div class="line"><span class="lineno">  368</span> </div>
-<div class="line"><span class="lineno">  369</span>  <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><span class="lineno">  370</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">  368</span>                                                                                                             {</div>
+<div class="line"><span class="lineno">  369</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#af576bf8ffa22a44e53018c67095ffbf0">assert</a>(<span class="keywordtype">string</span> != <span class="keyword">nullptr</span>);</div>
+<div class="line"><span class="lineno">  370</span> </div>
+<div class="line"><span class="lineno">  371</span>  <span class="keyword">const</span> <span class="keyword">auto</span> stringSize = std::strlen(<span class="keywordtype">string</span>);</div>
+<div class="line"><span class="lineno">  372</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#af576bf8ffa22a44e53018c67095ffbf0">assert</a>(<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> + stringSize &lt; allocatedSize);</div>
+<div class="line"><span class="lineno">  373</span> </div>
+<div class="line"><span class="lineno">  374</span>  std::memcpy(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> + <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a>, <span class="keywordtype">string</span>, stringSize + 1);</div>
+<div class="line"><span class="lineno">  375</span>  <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> += stringSize;</div>
+<div class="line"><span class="lineno">  376</span> </div>
+<div class="line"><span class="lineno">  377</span>  <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><span class="lineno">  378</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1754,14 +1757,14 @@ template&lt;std::size_t allocatedSize&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  337</span>                                                    {</div>
-<div class="line"><span class="lineno">  338</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#af576bf8ffa22a44e53018c67095ffbf0">assert</a>(<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> + <span class="keywordtype">string</span>.<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> &lt; allocatedSize);</div>
-<div class="line"><span class="lineno">  339</span> </div>
-<div class="line"><span class="lineno">  340</span>  std::memcpy(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> + <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a>, <span class="keywordtype">string</span>.<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a>, <span class="keywordtype">string</span>.<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> + 1);</div>
-<div class="line"><span class="lineno">  341</span>  <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> += <span class="keywordtype">string</span>._size;</div>
-<div class="line"><span class="lineno">  342</span> </div>
-<div class="line"><span class="lineno">  343</span>  <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><span class="lineno">  344</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">  345</span>                                                    {</div>
+<div class="line"><span class="lineno">  346</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#af576bf8ffa22a44e53018c67095ffbf0">assert</a>(<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> + <span class="keywordtype">string</span>.<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> &lt; allocatedSize);</div>
+<div class="line"><span class="lineno">  347</span> </div>
+<div class="line"><span class="lineno">  348</span>  std::memcpy(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> + <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a>, <span class="keywordtype">string</span>.<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a>, <span class="keywordtype">string</span>.<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> + 1);</div>
+<div class="line"><span class="lineno">  349</span>  <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> += <span class="keywordtype">string</span>._size;</div>
+<div class="line"><span class="lineno">  350</span> </div>
+<div class="line"><span class="lineno">  351</span>  <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><span class="lineno">  352</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1791,15 +1794,15 @@ template&lt;std::size_t allocatedSize2&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  349</span>                                                     {</div>
-<div class="line"><span class="lineno">  350</span>  <span class="keyword">static_assert</span>(allocatedSize2 &gt; 0, <span class="stringliteral">&quot;FixString capacity must be greater than zero.&quot;</span>);</div>
-<div class="line"><span class="lineno">  351</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#af576bf8ffa22a44e53018c67095ffbf0">assert</a>(<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> + <span class="keywordtype">string</span>.<a class="code hl_function" href="#af89cb8066041fa741f75709159b610e7">size</a>() &lt; allocatedSize);</div>
-<div class="line"><span class="lineno">  352</span> </div>
-<div class="line"><span class="lineno">  353</span>  std::memcpy(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> + <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a>, <span class="keywordtype">string</span>.<a class="code hl_function" href="#a88e33e0b5110f442408c0b506c2953a6">c_str</a>(), <span class="keywordtype">string</span>.<a class="code hl_function" href="#af89cb8066041fa741f75709159b610e7">size</a>() + 1);</div>
-<div class="line"><span class="lineno">  354</span>  <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> += <span class="keywordtype">string</span>.size();</div>
-<div class="line"><span class="lineno">  355</span> </div>
-<div class="line"><span class="lineno">  356</span>  <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><span class="lineno">  357</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">  357</span>                                                     {</div>
+<div class="line"><span class="lineno">  358</span>  <span class="keyword">static_assert</span>(allocatedSize2 &gt; 0, <span class="stringliteral">&quot;FixString capacity must be greater than zero.&quot;</span>);</div>
+<div class="line"><span class="lineno">  359</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#af576bf8ffa22a44e53018c67095ffbf0">assert</a>(<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> + <span class="keywordtype">string</span>.<a class="code hl_function" href="#af89cb8066041fa741f75709159b610e7">size</a>() &lt; allocatedSize);</div>
+<div class="line"><span class="lineno">  360</span> </div>
+<div class="line"><span class="lineno">  361</span>  std::memcpy(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> + <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a>, <span class="keywordtype">string</span>.<a class="code hl_function" href="#a88e33e0b5110f442408c0b506c2953a6">c_str</a>(), <span class="keywordtype">string</span>.<a class="code hl_function" href="#af89cb8066041fa741f75709159b610e7">size</a>() + 1);</div>
+<div class="line"><span class="lineno">  362</span>  <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> += <span class="keywordtype">string</span>.size();</div>
+<div class="line"><span class="lineno">  363</span> </div>
+<div class="line"><span class="lineno">  364</span>  <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><span class="lineno">  365</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -2112,6 +2115,55 @@ Use const version for read-only access. </dd></dl>
 </div><!-- fragment -->
 </div>
 </div>
+<a id="a6dfbde220ebfadc1ab286ca7019e0f65" name="a6dfbde220ebfadc1ab286ca7019e0f65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6dfbde220ebfadc1ab286ca7019e0f65">&#9670;&#160;</a></span>push_back()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;std::size_t allocatedSize&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">toygine::FixString</a>&lt; allocatedSize &gt;::push_back </td>
+          <td>(</td>
+          <td class="paramtype">char</td>          <td class="paramname"><span class="paramname"><em>symbol</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Appends a single character to the end of the string. </p>
+<p>This method appends a single character to the end of the current string, increasing its size by one. The character is added after the last existing character, and the string remains null-terminated.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">symbol</td><td>The character to append.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The current string size plus one must be strictly less than the allocated size (i.e., <a class="el" href="#af89cb8066041fa741f75709159b610e7" title="Returns the size of the string.">size()</a> &lt; <a class="el" href="#a7572daaca96aea5fa957eaf396b08e97" title="Returns the capacity of the string.">capacity()</a>).</dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>The string size is increased by one. </dd>
+<dd>
+The new character is added at the end of the string. </dd>
+<dd>
+The string remains null-terminated.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This method is equivalent to <a class="el" href="#a187b81bf9c39cdd411b59b6b91497f38">operator+=(char)</a> but more explicit in intent. </dd></dl>
+<div class="fragment"><div class="line"><span class="lineno">  336</span>                                                                              {</div>
+<div class="line"><span class="lineno">  337</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#af576bf8ffa22a44e53018c67095ffbf0">assert</a>(<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> + 1 &lt; allocatedSize);</div>
+<div class="line"><span class="lineno">  338</span> </div>
+<div class="line"><span class="lineno">  339</span>  <a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a>[<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a>++] = symbol;</div>
+<div class="line"><span class="lineno">  340</span>  <a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a>[<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a>] = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><span class="lineno">  341</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
 <a id="af89cb8066041fa741f75709159b610e7" name="af89cb8066041fa741f75709159b610e7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af89cb8066041fa741f75709159b610e7">&#9670;&#160;</a></span>size()</h2>
 
@@ -2274,7 +2326,7 @@ template&lt;std::size_t allocatedSize&gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../d7/de6/namespacetoygine.html">toygine</a></li><li class="navelem"><a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a></li>
-    <li class="footer">Generated on Sun Aug 24 2025 for ToyGine2 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generated on Mon Aug 25 2025 for ToyGine2 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>

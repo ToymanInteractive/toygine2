@@ -20,6 +20,6 @@
 <area shape="poly" id="edge9_Node000004_Node000010" title=" " alt="" coords="517,116,664,164,689,174,687,179,662,169,515,121"/>
 <area shape="rect" id="Node000011" href="$db/d84/fix__string_8inl.html" title="Inline implementations for FixString template class." alt="" coords="809,181,943,207"/>
 <area shape="poly" id="edge10_Node000004_Node000011" title=" " alt="" coords="519,110,644,131,798,164,833,174,831,180,797,169,643,136,518,116"/>
-<area shape="rect" id="Node000012" href="$df/d7d/utils_8inl.html" title="collection of core inline functions" alt="" coords="967,181,1070,207"/>
+<area shape="rect" id="Node000012" href="$df/d7d/utils_8inl.html" title="Inline implementations of core utility functions for string manipulation and encoding conversion." alt="" coords="967,181,1070,207"/>
 <area shape="poly" id="edge11_Node000004_Node000012" title=" " alt="" coords="518,106,599,111,709,121,833,138,957,164,983,173,982,178,955,169,832,143,708,126,599,116,518,111"/>
 </map>
