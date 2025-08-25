@@ -19,7 +19,7 @@
 //
 /*!
   \file   utils.inl
-  \brief  collection of core inline functions
+  \brief  Inline implementations of core utility functions for string manipulation and encoding conversion
 */
 
 #ifndef INCLUDE_CORE_UTILS_INL_

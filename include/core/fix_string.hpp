@@ -589,7 +589,7 @@ public:
 
     \param symbol The character to append.
 
-    \pre The current string size plus one must not exceed the allocated size.
+    \pre The current string size plus one must be strictly less than the allocated size (i.e., size() < capacity()).
 
     \post The string size is increased by one.
     \post The new character is added at the end of the string.

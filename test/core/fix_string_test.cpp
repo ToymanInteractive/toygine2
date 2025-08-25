@@ -416,6 +416,7 @@ TEST_CASE("FixString push_back", "[core][fixstring]") {
   testString1.push_back('d');
 
   CHECK(strcmp(testString1.c_str(), "Hello World") == 0);
+  CHECK(testString1.size() == 11);
 }
 
 TEST_CASE("FixString operators+=", "[core][fixstring]") {
