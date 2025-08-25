@@ -32,7 +32,7 @@ constexpr inline FixString<allocatedSize>::FixString() noexcept
   , _data{'\0'} {}
 
 template <std::size_t allocatedSize>
-constexpr inline FixString<allocatedSize>::~FixString() noexcept {}
+inline FixString<allocatedSize>::~FixString() noexcept {}
 
 template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize>::FixString(const FixString<allocatedSize> & string) noexcept
@@ -41,8 +41,8 @@ constexpr inline FixString<allocatedSize>::FixString(const FixString<allocatedSi
 }
 
 template <std::size_t allocatedSize>
-template <std::size_t allocatedSize2>
-constexpr inline FixString<allocatedSize>::FixString(const FixString<allocatedSize2> & string) noexcept
+template <typename stringType>
+constexpr inline FixString<allocatedSize>::FixString(const stringType & string) noexcept
   : _size(string.size()) {
   assert_message(string.size() < allocatedSize, "String size must not exceed capacity");
 
@@ -82,9 +82,8 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator=(
 }
 
 template <std::size_t allocatedSize>
-template <std::size_t allocatedSize2>
-constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator=(
-  const FixString<allocatedSize2> & string) noexcept {
+template <typename stringType>
+constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator=(const stringType & string) noexcept {
   assert_message(string.size() < allocatedSize, "String size must not exceed capacity");
 
   _size = string.size();
@@ -133,9 +132,8 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::assign(
 }
 
 template <std::size_t allocatedSize>
-template <std::size_t allocatedSize2>
-constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::assign(
-  const FixString<allocatedSize2> & string) noexcept {
+template <typename stringType>
+constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::assign(const stringType & string) noexcept {
   assert_message(string.size() < allocatedSize, "String size must not exceed capacity");
 
   _size = string.size();
@@ -266,9 +264,9 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::insert(
 }
 
 template <std::size_t allocatedSize>
-template <std::size_t allocatedSize2>
-constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::insert(
-  std::size_t index, const FixString<allocatedSize2> & string) noexcept {
+template <typename stringType>
+constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::insert(std::size_t index,
+                                                                             const stringType & string) noexcept {
   assert_message(index <= _size, "Index must not exceed string size");
   assert_message(_size + string.size() < allocatedSize, "Inserted string must fit in capacity");
 
