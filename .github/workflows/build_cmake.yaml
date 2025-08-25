@@ -74,6 +74,22 @@ jobs:
             if [ -d "/Applications/Xcode_16.4.app" ]; then
               sudo xcode-select -s /Applications/Xcode_16.4.app
             fi
+
+            CERT_NAME="ToymanSelfSigned"
+            openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 \
+              -subj "/CN=$CERT_NAME" \
+              -keyout selfsigned.key -out selfsigned.crt
+
+            # Объединяем ключ и сертификат в p12
+            openssl pkcs12 -export -out selfsigned.p12 \
+              -inkey selfsigned.key -in selfsigned.crt \
+              -password pass:password
+
+            # Добавляем в keychain
+            security create-keychain -p password build.keychain
+            security default-keychain -s build.keychain
+            security unlock-keychain -p password build.keychain
+            security import selfsigned.p12 -k build.keychain -P password -T /usr/bin/codesign
           elif [[ "${{ matrix.os }}" =~ "ubuntu" ]]; then
             sudo apt-get update -qq
             sudo apt-get install -y gcc-14 g++-14

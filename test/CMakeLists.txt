@@ -83,3 +83,11 @@ add_executable(${TOYGINE_LIBRARY_NAME}-tests ${TEST_SRC})
 target_include_directories(${TOYGINE_LIBRARY_NAME}-tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include)
 target_link_libraries(${TOYGINE_LIBRARY_NAME}-tests PRIVATE Catch2::Catch2 ${TOYGINE_LIBRARY_NAME})
 catch_discover_tests(${TOYGINE_LIBRARY_NAME}-tests REPORTER ${CATCH_REPORTER})
+
+if (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
+  add_custom_command(
+    TARGET ${TOYGINE_LIBRARY_NAME}-tests
+    POST_BUILD
+    COMMAND codesign --force --verbose --sign "ToymanSelfSigned" $<TARGET_FILE:${TOYGINE_LIBRARY_NAME}-tests>
+  )
+endif()
