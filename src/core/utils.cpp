@@ -420,6 +420,9 @@ std::size_t utf8len(const char * string) {
   while (*string != '\0') {
     const auto symbolLength = sc_utf8CharSizeTable[static_cast<std::uint8_t>(*string)];
     assert_message(symbolLength != 0, "Invalid UTF-8 symbol");
+    if (symbolLength == 0)
+      return 0;
+
     string += symbolLength;
     ++size;
   }
@@ -448,7 +451,7 @@ char * itoa(char * dest, std::size_t destSize, std::int32_t value) {
 
 char * itoa(char * dest, std::size_t destSize, std::int64_t value) {
   assert_message(destSize >= 21,
-                 "The destination buffer size must be at least 12 characters for worst case -9223372036854775808");
+                 "The destination buffer size must be at least 21 characters for worst case -9223372036854775808");
 
   return itoaImplementation(dest, destSize, value);
 }
@@ -539,7 +542,7 @@ void formatNumberString(char * buffer, std::size_t bufferSize, char const * grou
 
   auto groupSeparatorsCount = (digitsCount - 1U) / 3U;
   const auto requiredSize = ansiStringLen + groupSeparatorsCount * groupSeparatorLen;
-  assert_message(requiredSize < bufferSize, "Buffer size is to low.");
+  assert_message(requiredSize < bufferSize, "Buffer size is too low.");
   if (requiredSize >= bufferSize)
     return;
 

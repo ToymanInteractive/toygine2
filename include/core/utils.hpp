@@ -207,14 +207,13 @@ char * reverseString(char * str, std::size_t count = 0);
   \post Negative values are properly prefixed with a minus sign.
 
   \note The function handles negative values correctly.
-  \note If destSize = 1, only a null terminator is written.
   \note The function is thread-safe for single-buffer operations.
   \note Performance is optimized for common integer ranges.
 */
 char * itoa(char * dest, std::size_t destSize, std::int8_t value);
 
 /*!
-  \brief Converts an 16-bit signed integer value to a string representation.
+  \brief Converts a 16-bit signed integer value to a string representation.
 
   This function converts a given 16-bit signed integer value into its decimal string representation, storing the result
   in the provided destination buffer.
@@ -232,14 +231,13 @@ char * itoa(char * dest, std::size_t destSize, std::int8_t value);
   \post Negative values are properly prefixed with a minus sign.
 
   \note The function handles negative values correctly.
-  \note If destSize = 1, only a null terminator is written.
   \note The function is thread-safe for single-buffer operations.
   \note Performance is optimized for common integer ranges.
 */
 char * itoa(char * dest, std::size_t destSize, std::int16_t value);
 
 /*!
-  \brief Converts an 32-bit signed integer value to a string representation.
+  \brief Converts a 32-bit signed integer value to a string representation.
 
   This function converts a given 32-bit signed integer value into its decimal string representation, storing the result
   in the provided destination buffer.
@@ -258,14 +256,13 @@ char * itoa(char * dest, std::size_t destSize, std::int16_t value);
   \post Negative values are properly prefixed with a minus sign.
 
   \note The function handles negative values correctly.
-  \note If destSize = 1, only a null terminator is written.
   \note The function is thread-safe for single-buffer operations.
   \note Performance is optimized for common integer ranges.
 */
 char * itoa(char * dest, std::size_t destSize, std::int32_t value);
 
 /*!
-  \brief Converts an 64-bit signed integer value to a string representation.
+  \brief Converts a 64-bit signed integer value to a string representation.
 
   This function converts a given 64-bit signed integer value into its decimal string representation, storing the result
   in the provided destination buffer.
@@ -284,7 +281,6 @@ char * itoa(char * dest, std::size_t destSize, std::int32_t value);
   \post Negative values are properly prefixed with a minus sign.
 
   \note The function handles negative values correctly.
-  \note If destSize = 1, only a null terminator is written.
   \note The function is thread-safe for single-buffer operations.
   \note Performance is optimized for common integer ranges.
 */
