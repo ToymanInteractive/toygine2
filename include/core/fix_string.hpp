@@ -34,8 +34,6 @@ namespace toygine {
   have a size() method that returns a value convertible to std::size_t, and a c_str() method that returns a value
   convertible to const char*.
 
-  \tparam T The type to check for string-like properties.
-
   \note Types satisfying this concept can be used with FixString template methods that accept generic string types, such
         as constructors, assignment operators, and various string manipulation methods.
 
