@@ -47,7 +47,7 @@ public:
     is required. The destructor ensures that any necessary invariants or assertions related to the allocatedSize are
     enforced.
   */
-  constexpr inline ~FixString() noexcept;
+  inline ~FixString() noexcept;
 
   /*!
     \brief Copy constructor for FixString class.
@@ -69,7 +69,7 @@ public:
     This constructor initializes a FixString object by copying the data from another FixString object with a potentially
     different allocated size.
 
-    \tparam allocatedSize2 The allocated size of the source FixString object.
+    \tparam stringType The type of the source string. Must have a c_str() and size() methods.
 
     \param string The source FixString object to copy data from.
 
@@ -77,8 +77,8 @@ public:
 
     \post A new FixString object is created with the contents of the source FixString object.
   */
-  template <std::size_t allocatedSize2>
-  constexpr inline explicit FixString(const FixString<allocatedSize2> & string) noexcept;
+  template <typename stringType>
+  constexpr inline explicit FixString(const stringType & string) noexcept;
 
   /*!
     \brief Constructor for FixString class with a C string.
@@ -137,7 +137,7 @@ public:
     This operator assigns the contents of another FixString object with a potentially different allocated size to this
     FixString object. The assignment operation performs a deep copy of the string data and updates the size accordingly.
 
-    \tparam allocatedSize2 The allocated size of the source FixString object.
+    \tparam stringType The type of the source string. Must have a c_str() and size() methods.
 
     \param string The source FixString object to copy data from.
 
@@ -149,8 +149,8 @@ public:
     \post This FixString object contains the same data as the source FixString object.
     \post The size of this object equals the size of the source object.
   */
-  template <std::size_t allocatedSize2>
-  constexpr inline FixString<allocatedSize> & operator=(const FixString<allocatedSize2> & string) noexcept;
+  template <typename stringType>
+  constexpr inline FixString<allocatedSize> & operator=(const stringType & string) noexcept;
 
   /*!
     \brief C string assignment operator for FixString class.
@@ -214,7 +214,7 @@ public:
     This method assigns the contents of another FixString object with a potentially different allocated size to this
     FixString object. The method performs a deep copy of the string data and updates the size accordingly.
 
-    \tparam allocatedSize2 The allocated size of the source FixString object.
+    \tparam stringType The type of the source string. Must have a c_str() and size() methods.
 
     \param string The source FixString object to copy data from.
 
@@ -228,8 +228,8 @@ public:
 
     \note This method is equivalent to the copy assignment operator.
   */
-  template <std::size_t allocatedSize2>
-  constexpr inline FixString<allocatedSize> & assign(const FixString<allocatedSize2> & string) noexcept;
+  template <typename stringType>
+  constexpr inline FixString<allocatedSize> & assign(const stringType & string) noexcept;
 
   /*!
     \brief C string assign method for FixString class.
@@ -502,7 +502,7 @@ public:
     This method inserts the contents of another FixString object with potentially different allocated size at the
     specified position. The insertion shifts existing characters to the right to make room for the new content.
 
-    \tparam allocatedSize2 The allocated size of the source FixString object.
+    \tparam stringType The type of the source string. Must have a c_str() and size() methods.
 
     \param index  The position where the string should be inserted.
     \param string The FixString object to insert.
@@ -514,9 +514,8 @@ public:
 
     \post The string is modified with the inserted content at the specified position.
   */
-  template <std::size_t allocatedSize2>
-  constexpr inline FixString<allocatedSize> & insert(std::size_t index,
-                                                     const FixString<allocatedSize2> & string) noexcept;
+  template <typename stringType>
+  constexpr inline FixString<allocatedSize> & insert(std::size_t index, const stringType & string) noexcept;
 
   /*!
     \brief Inserts a C string at the specified index.

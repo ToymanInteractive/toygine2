@@ -110,7 +110,7 @@ inline wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, const char * 
   \note Performance is optimized for common UTF-8 sequences.
 */
 template <typename stringType>
-inline wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, stringType const & src);
+inline wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, const stringType & src);
 
 /*!
   \brief Converts a Unicode wide character string to a UTF-8 encoded string.
@@ -287,74 +287,98 @@ char * itoa(char * dest, std::size_t destSize, std::int32_t value);
 char * itoa(char * dest, std::size_t destSize, std::int64_t value);
 
 /*!
-  \brief Converts an unsigned integer to a string representation in the specified base.
+  \brief Converts an 8-bit unsigned integer to a string representation in the specified base.
 
-  This function converts a given unsigned integer value into its string representation in the specified base,
-  storing the result in the provided destination buffer.
+  This function converts a given 8-bit unsigned integer value into its string representation in the specified numerical
+  base, storing the result in the provided destination buffer. Supports bases from 2 to 36.
 
-  \param dest     The destination buffer where the converted string is stored.
-  \param destSize The size of the destination buffer.
-  \param value    The unsigned integer value to be converted.
-  \param base     The numerical base for the conversion, e.g., 10 for decimal, 16 for hexadecimal.
+  \param dest     A pointer to the destination buffer where the converted string is stored.
+  \param destSize The size of the destination buffer in characters.
+  \param value    The 8-bit unsigned integer value to be converted.
+  \param base     The numerical base for the conversion (2-36). Common values: 2 (binary), 10 (decimal), 16 (hex).
 
   \return A pointer to the destination buffer containing the converted string.
 
-  \note The function assumes that the destination buffer is large enough to hold the converted string. If the
-        destination buffer size is 1, only a null terminator is written. The base must be between 2 and 36 inclusive.
+  \pre The destination buffer must be valid and have sufficient capacity.
+  \pre The base must be between 2 and 36 inclusive.
+
+  \post The destination string is null-terminated.
+  \post Hexadecimal values use uppercase letters (A-F).
+
+  \note The function supports bases 2-36 with digits 0-9 and letters A-Z.
+  \note The function is thread-safe for single-buffer operations.
 */
 char * itoa(char * dest, std::size_t destSize, std::uint8_t value, unsigned base);
 
 /*!
-  \brief Converts an unsigned integer to a string representation in the specified base.
+  \brief Converts a 16-bit unsigned integer to a string representation in the specified base.
 
-  This function converts a given unsigned integer value into its string representation in the specified base,
-  storing the result in the provided destination buffer.
+  This function converts a given 16-bit unsigned integer value into its string representation in the specified numerical
+  base, storing the result in the provided destination buffer. Supports bases from 2 to 36.
 
-  \param dest     The destination buffer where the converted string is stored.
-  \param destSize The size of the destination buffer.
-  \param value    The unsigned integer value to be converted.
-  \param base     The numerical base for the conversion, e.g., 10 for decimal, 16 for hexadecimal.
+  \param dest     A pointer to the destination buffer where the converted string is stored.
+  \param destSize The size of the destination buffer in characters.
+  \param value    The 16-bit unsigned integer value to be converted.
+  \param base     The numerical base for the conversion (2-36). Common values: 2 (binary), 10 (decimal), 16 (hex).
 
   \return A pointer to the destination buffer containing the converted string.
 
-  \note The function assumes that the destination buffer is large enough to hold the converted string. If the
-        destination buffer size is 1, only a null terminator is written. The base must be between 2 and 36 inclusive.
+  \pre The destination buffer must be valid and have sufficient capacity.
+  \pre The base must be between 2 and 36 inclusive.
+
+  \post The destination string is null-terminated.
+  \post Hexadecimal values use uppercase letters (A-F).
+
+  \note The function supports bases 2-36 with digits 0-9 and letters A-Z.
+  \note The function is thread-safe for single-buffer operations.
 */
 char * itoa(char * dest, std::size_t destSize, std::uint16_t value, unsigned base);
 
 /*!
-  \brief Converts an unsigned integer to a string representation in the specified base.
+  \brief Converts a 32-bit unsigned integer to a string representation in the specified base.
 
-  This function converts a given unsigned integer value into its string representation in the specified base,
-  storing the result in the provided destination buffer.
+  This function converts a given 32-bit unsigned integer value into its string representation in the specified numerical
+  base, storing the result in the provided destination buffer. Supports bases from 2 to 36.
 
-  \param dest     The destination buffer where the converted string is stored.
-  \param destSize The size of the destination buffer.
-  \param value    The unsigned integer value to be converted.
-  \param base     The numerical base for the conversion, e.g., 10 for decimal, 16 for hexadecimal.
+  \param dest     A pointer to the destination buffer where the converted string is stored.
+  \param destSize The size of the destination buffer in characters.
+  \param value    The 32-bit unsigned integer value to be converted.
+  \param base     The numerical base for the conversion (2-36). Common values: 2 (binary), 10 (decimal), 16 (hex).
 
   \return A pointer to the destination buffer containing the converted string.
 
-  \note The function assumes that the destination buffer is large enough to hold the converted string. If the
-        destination buffer size is 1, only a null terminator is written. The base must be between 2 and 36 inclusive.
+  \pre The destination buffer must be valid and have sufficient capacity.
+  \pre The base must be between 2 and 36 inclusive.
+
+  \post The destination string is null-terminated.
+  \post Hexadecimal values use uppercase letters (A-F).
+
+  \note The function supports bases 2-36 with digits 0-9 and letters A-Z.
+  \note The function is thread-safe for single-buffer operations.
 */
 char * itoa(char * dest, std::size_t destSize, std::uint32_t value, unsigned base);
 
 /*!
-  \brief Converts an unsigned integer to a string representation in the specified base.
+  \brief Converts a 64-bit unsigned integer to a string representation in the specified base.
 
-  This function converts a given unsigned integer value into its string representation in the specified base,
-  storing the result in the provided destination buffer.
+  This function converts a given 64-bit unsigned integer value into its string representation in the specified numerical
+  base, storing the result in the provided destination buffer. Supports bases from 2 to 36.
 
-  \param dest     The destination buffer where the converted string is stored.
-  \param destSize The size of the destination buffer.
-  \param value    The unsigned integer value to be converted.
-  \param base     The numerical base for the conversion, e.g., 10 for decimal, 16 for hexadecimal.
+  \param dest     A pointer to the destination buffer where the converted string is stored.
+  \param destSize The size of the destination buffer in characters.
+  \param value    The 64-bit unsigned integer value to be converted.
+  \param base     The numerical base for the conversion (2-36). Common values: 2 (binary), 10 (decimal), 16 (hex).
 
   \return A pointer to the destination buffer containing the converted string.
 
-  \note The function assumes that the destination buffer is large enough to hold the converted string. If the
-        destination buffer size is 1, only a null terminator is written. The base must be between 2 and 36 inclusive.
+  \pre The destination buffer must be valid and have sufficient capacity.
+  \pre The base must be between 2 and 36 inclusive.
+
+  \post The destination string is null-terminated.
+  \post Hexadecimal values use uppercase letters (A-F).
+
+  \note The function supports bases 2-36 with digits 0-9 and letters A-Z.
+  \note The function is thread-safe for single-buffer operations.
 */
 char * itoa(char * dest, std::size_t destSize, std::uint64_t value, unsigned base);
 
