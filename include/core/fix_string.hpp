@@ -612,6 +612,68 @@ public:
   */
   constexpr inline void pop_back() noexcept;
 
+  /*!
+    \brief Appends a string to the end of this string.
+
+    This method appends the contents of another FixString object to the end of this string.
+
+    \param string The FixString object to append.
+
+    \return A reference to this FixString object after appending.
+
+    \pre The combined length after appending must not exceed the allocated size.
+
+    \post The string is extended with the appended content.
+  */
+  constexpr inline FixString<allocatedSize> & append(const FixString<allocatedSize> & string) noexcept;
+
+  /*!
+    \brief Appends a template string type to the end of this string.
+
+    This method appends the contents of a template string object to the end of this string.
+
+    \param string The FixString object to append.
+
+    \return A reference to this FixString object after appending.
+
+    \pre The combined length after appending must not exceed the allocated size.
+
+    \post The string is extended with the appended content.
+  */
+  template <typename stringType>
+  constexpr inline FixString<allocatedSize> & append(const stringType & string) noexcept;
+
+  /*!
+    \brief Appends a C string to the end of this string.
+
+    This method appends the contents of a C string to the end of this string.
+
+    \param string The FixString object to append.
+
+    \return A reference to this FixString object after appending.
+
+    \pre The combined length after appending must not exceed the allocated size.
+
+    \post The string is extended with the appended content.
+  */
+  constexpr inline FixString<allocatedSize> & append(const char * string) noexcept;
+
+  /*!
+    \brief Appends a character repeated the given number of times to the end of this string.
+
+    This method appends the contents of a character repeated the given number of times to the end of this string.
+
+    \param symbol The character to append.
+    \param count  The number of times to repeat the character.
+
+    \return A reference to this FixString object after appending.
+
+    \pre The combined length after appending must not exceed the allocated size.
+
+    \post The string is extended with the appended content.
+  */
+  constexpr inline FixString<allocatedSize> & append(char symbol, std::size_t count = 1) noexcept;
+
   constexpr inline FixString<allocatedSize> & operator+=(const FixString<allocatedSize> & string) noexcept;
   template <std::size_t allocatedSize2>
   constexpr inline FixString<allocatedSize> & operator+=(const FixString<allocatedSize2> & string) noexcept;

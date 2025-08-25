@@ -430,6 +430,19 @@ TEST_CASE("FixString pop_back", "[core][fixstring]") {
   CHECK(testString.size() == 0);
 }
 
+TEST_CASE("FixString append", "[core][fixstring]") {
+  FixString<32> testString("");
+
+  testString.append(FixString<16>("Nothing"))
+    .append(FixString<8>(" else"))
+    .append(std::string(" really"))
+    .append(std::string(" matters"))
+    .append('.', 3);
+
+  CHECK(strcmp(testString.c_str(), "Nothing else really matters...") == 0);
+  CHECK(testString.size() == 30);
+}
+
 TEST_CASE("FixString operators+=", "[core][fixstring]") {
   FixString<14> testString1("12");
   FixString<14> testString2("12");

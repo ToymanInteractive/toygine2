@@ -347,6 +347,52 @@ constexpr inline void FixString<allocatedSize>::pop_back() noexcept {
 }
 
 template <std::size_t allocatedSize>
+constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::append(
+  const FixString<allocatedSize> & string) noexcept {
+  assert_message(_size + string._size < allocatedSize, "Appended string must fit in capacity");
+
+  std::memcpy(_data + _size, string._data, string._size + 1);
+  _size += string._size;
+
+  return *this;
+}
+
+template <std::size_t allocatedSize>
+template <typename stringType>
+constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::append(const stringType & string) noexcept {
+  assert_message(_size + string.size() < allocatedSize, "Appended string must fit in capacity");
+
+  std::memcpy(_data + _size, string.c_str(), string.size() + 1);
+  _size += string.size();
+
+  return *this;
+}
+
+template <std::size_t allocatedSize>
+constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::append(const char * string) noexcept {
+  assert_message(string != nullptr, "String pointer must not be null");
+
+  const auto stringSize = std::strlen(string);
+  assert_message(_size + stringSize < allocatedSize, "Appended string must fit in capacity");
+
+  std::memcpy(_data + _size, string, stringSize + 1);
+  _size += stringSize;
+
+  return *this;
+}
+
+template <std::size_t allocatedSize>
+constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::append(char symbol, std::size_t count) noexcept {
+  assert_message(_size + count < allocatedSize, "Appended string must fit in capacity");
+
+  std::memset(_data + _size, symbol, count);
+  _size += count;
+  _data[_size] = '\0';
+
+  return *this;
+}
+
+template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator+=(
   const FixString<allocatedSize> & string) noexcept {
   assert(_size + string._size < allocatedSize);
