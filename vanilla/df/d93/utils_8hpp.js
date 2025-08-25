@@ -15,7 +15,7 @@ var utils_8hpp =
     [ "utf8len", "df/d93/utils_8hpp.html#a5eddb55e8f5eb1c4035cfd8a2de1896f", null ],
     [ "utf8toWChar", "df/d93/utils_8hpp.html#ab12e48c5cbe5e1a4ff5673bc0c73050d", null ],
     [ "utf8toWChar", "df/d93/utils_8hpp.html#af00e3af9442f250a294972d0542b0299", null ],
-    [ "utf8toWChar", "df/d93/utils_8hpp.html#a811e04b05bc9831faa0a74301d2a9e27", null ],
+    [ "utf8toWChar", "df/d93/utils_8hpp.html#aa024548b30aa50fd370e5898317b99a0", null ],
     [ "wcharToUtf8", "df/d93/utils_8hpp.html#a6173680fd5b35f1df4f1e8a818adc3e9", null ],
     [ "wcharInUtf8MaxSize", "df/d93/utils_8hpp.html#a33eb5fc4e7682e297375d2ee2fbb7742", null ]
 ];

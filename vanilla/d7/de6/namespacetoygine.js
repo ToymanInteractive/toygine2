@@ -29,7 +29,7 @@ var namespacetoygine =
     [ "utf8len", "d7/de6/namespacetoygine.html#a5eddb55e8f5eb1c4035cfd8a2de1896f", null ],
     [ "utf8toWChar", "d7/de6/namespacetoygine.html#ab12e48c5cbe5e1a4ff5673bc0c73050d", null ],
     [ "utf8toWChar", "d7/de6/namespacetoygine.html#af00e3af9442f250a294972d0542b0299", null ],
-    [ "utf8toWChar", "d7/de6/namespacetoygine.html#a811e04b05bc9831faa0a74301d2a9e27", null ],
+    [ "utf8toWChar", "d7/de6/namespacetoygine.html#aa024548b30aa50fd370e5898317b99a0", null ],
     [ "utoaImplementation", "d7/de6/namespacetoygine.html#a0f7769364a3fa922049ef7ca0b749e12", null ],
     [ "wcharToUtf8", "d7/de6/namespacetoygine.html#a6173680fd5b35f1df4f1e8a818adc3e9", null ],
     [ "sc_ansiDigits", "d7/de6/namespacetoygine.html#adf925cf307a3e0463eb4ce318cc51ed8", null ],
