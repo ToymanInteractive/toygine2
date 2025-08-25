@@ -436,7 +436,7 @@ TEST_CASE("FixString append", "[core][fixstring]") {
   testString.append(FixString<16>("Nothing"))
     .append(FixString<8>(" else"))
     .append(std::string(" really"))
-    .append(std::string(" matters"))
+    .append(" matters")
     .append('.', 3);
 
   CHECK(strcmp(testString.c_str(), "Nothing else really matters...") == 0);

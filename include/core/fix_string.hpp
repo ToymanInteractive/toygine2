@@ -43,7 +43,7 @@ namespace toygine {
         compatible types.
 */
 template <typename T>
-concept StringLikeForFixStringForFixString = requires(const T & s) {
+concept StringLikeForFixString = requires(const T & s) {
   { s.size() } -> std::convertible_to<std::size_t>;
   { s.c_str() } -> std::convertible_to<const char *>;
 };
