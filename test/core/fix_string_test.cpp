@@ -405,9 +405,8 @@ TEST_CASE("FixString erase", "[core][fixstring]") {
 }
 
 TEST_CASE("FixString push_back", "[core][fixstring]") {
-  FixString<32> testString1("Hello");
+  FixString<16> testString1("Hello");
 
-  // Use push_back
   testString1.push_back(' ');
   testString1.push_back('W');
   testString1.push_back('o');
@@ -417,6 +416,18 @@ TEST_CASE("FixString push_back", "[core][fixstring]") {
 
   CHECK(strcmp(testString1.c_str(), "Hello World") == 0);
   CHECK(testString1.size() == 11);
+}
+
+TEST_CASE("FixString pop_back", "[core][fixstring]") {
+  FixString<16> testString("Hi");
+
+  testString.pop_back();
+  CHECK(strcmp(testString.c_str(), "H") == 0);
+  CHECK(testString.size() == 1);
+
+  testString.pop_back();
+  CHECK(strcmp(testString.c_str(), "") == 0);
+  CHECK(testString.size() == 0);
 }
 
 TEST_CASE("FixString operators+=", "[core][fixstring]") {

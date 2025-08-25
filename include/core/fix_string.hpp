@@ -584,8 +584,7 @@ public:
   /*!
     \brief Appends a single character to the end of the string.
 
-    This method appends a single character to the end of the current string, increasing its size by one. The character
-    is added after the last existing character, and the string remains null-terminated.
+    This method appends a single character to the end of the current string, increasing its size by one.
 
     \param symbol The character to append.
 
@@ -598,6 +597,21 @@ public:
     \note This method is equivalent to operator+=(char) but more explicit in intent.
   */
   constexpr inline void push_back(char symbol) noexcept;
+
+  /*!
+    \brief Removes the last character from the string.
+
+    This method removes the last character from the current string, decreasing its size by one.
+
+    \pre The string must not be empty.
+
+    \post The string size is decreased by one.
+    \post The last character is removed from the string.
+    \post The string remains null-terminated.
+
+    \note If the string is empty, the behavior is undefined.
+  */
+  constexpr inline void pop_back() noexcept;
 
   constexpr inline FixString<allocatedSize> & operator+=(const FixString<allocatedSize> & string) noexcept;
   template <std::size_t allocatedSize2>

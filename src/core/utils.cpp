@@ -411,16 +411,16 @@ char * wcharToUtf8(char * dest, std::size_t destSize, wchar_t const * src) {
   return dest;
 }
 
-std::size_t utf8len(const char * str) {
-  assert(str != nullptr);
-  if (str == nullptr)
+std::size_t utf8len(const char * string) {
+  assert_message(string != nullptr, "String pointer must not be null");
+  if (string == nullptr)
     return 0;
 
   std::size_t size = 0;
-  while (*str != '\0') {
-    const auto symbolLength = sc_utf8CharSizeTable[static_cast<std::uint8_t>(*str)];
+  while (*string != '\0') {
+    const auto symbolLength = sc_utf8CharSizeTable[static_cast<std::uint8_t>(*string)];
     assert_message(symbolLength != 0, "Invalid UTF-8 symbol");
-    str += symbolLength;
+    string += symbolLength;
     ++size;
   }
 
@@ -428,18 +428,28 @@ std::size_t utf8len(const char * str) {
 }
 
 char * itoa(char * dest, std::size_t destSize, std::int8_t value) {
+  assert_message(destSize >= 5, "The destination buffer size must be at least 5 characters for worst case -128");
+
   return itoaImplementation(dest, destSize, value);
 }
 
 char * itoa(char * dest, std::size_t destSize, std::int16_t value) {
+  assert_message(destSize >= 7, "The destination buffer size must be at least 7 characters for worst case -32768");
+
   return itoaImplementation(dest, destSize, value);
 }
 
 char * itoa(char * dest, std::size_t destSize, std::int32_t value) {
+  assert_message(destSize >= 12,
+                 "The destination buffer size must be at least 12 characters for worst case -2147483648");
+
   return itoaImplementation(dest, destSize, value);
 }
 
 char * itoa(char * dest, std::size_t destSize, std::int64_t value) {
+  assert_message(destSize >= 21,
+                 "The destination buffer size must be at least 12 characters for worst case -9223372036854775808");
+
   return itoaImplementation(dest, destSize, value);
 }
 

@@ -44,7 +44,7 @@ template <std::size_t allocatedSize>
 template <std::size_t allocatedSize2>
 constexpr inline FixString<allocatedSize>::FixString(const FixString<allocatedSize2> & string) noexcept
   : _size(string.size()) {
-  assert(_size < allocatedSize);
+  assert_message(string.size() < allocatedSize, "String size must not exceed capacity");
 
   std::memcpy(_data, string.c_str(), _size + 1);
 }
@@ -52,10 +52,10 @@ constexpr inline FixString<allocatedSize>::FixString(const FixString<allocatedSi
 template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize>::FixString(const char * string) noexcept
   : _size(0) {
-  assert(string != nullptr);
+  assert_message(string != nullptr, "String pointer must not be null");
 
   _size = std::strlen(string);
-  assert(_size < allocatedSize);
+  assert_message(_size < allocatedSize, "String length must not exceed capacity");
 
   std::memcpy(_data, string, _size + 1);
 }
@@ -63,7 +63,7 @@ constexpr inline FixString<allocatedSize>::FixString(const char * string) noexce
 template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize>::FixString(char symbol, std::size_t count) noexcept
   : _size(count) {
-  assert(count < allocatedSize);
+  assert_message(count < allocatedSize, "Count must not exceed capacity");
 
   std::memset(_data, symbol, _size);
   _data[_size] = '\0';
@@ -85,7 +85,7 @@ template <std::size_t allocatedSize>
 template <std::size_t allocatedSize2>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator=(
   const FixString<allocatedSize2> & string) noexcept {
-  assert(string.size() < allocatedSize);
+  assert_message(string.size() < allocatedSize, "String size must not exceed capacity");
 
   _size = string.size();
   std::memcpy(_data, string.c_str(), _size + 1);
@@ -98,11 +98,11 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator=(
   if (_data == string)
     return *this;
 
-  assert(string != nullptr);
+  assert_message(string != nullptr, "String pointer must not be null");
 
   _size = std::strlen(string);
 
-  assert(_size < allocatedSize);
+  assert_message(_size < allocatedSize, "String length must not exceed capacity");
 
   std::memcpy(_data, string, _size + 1);
 
@@ -136,7 +136,7 @@ template <std::size_t allocatedSize>
 template <std::size_t allocatedSize2>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::assign(
   const FixString<allocatedSize2> & string) noexcept {
-  assert(string.size() < allocatedSize);
+  assert_message(string.size() < allocatedSize, "String size must not exceed capacity");
 
   _size = string.size();
   std::memcpy(_data, string.c_str(), _size + 1);
@@ -149,11 +149,11 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::assign(con
   if (_data == string)
     return *this;
 
-  assert(string != nullptr);
+  assert_message(string != nullptr, "String pointer must not be null");
 
   _size = std::strlen(string);
 
-  assert(_size < allocatedSize);
+  assert_message(_size < allocatedSize, "String length must not exceed capacity");
 
   std::memcpy(_data, string, _size + 1);
 
@@ -162,7 +162,7 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::assign(con
 
 template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::assign(char symbol, std::size_t count) noexcept {
-  assert(count < allocatedSize);
+  assert_message(count < allocatedSize, "Count must not exceed capacity");
 
   _size = count;
   std::memset(_data, symbol, _size);
@@ -173,28 +173,28 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::assign(cha
 
 template <std::size_t allocatedSize>
 constexpr inline char & FixString<allocatedSize>::at(std::size_t offset) noexcept {
-  assert(offset < _size);
+  assert_message(offset < _size, "Offset must be within bounds");
 
   return _data[offset];
 }
 
 template <std::size_t allocatedSize>
 constexpr inline const char & FixString<allocatedSize>::at(std::size_t offset) const noexcept {
-  assert(offset < _size);
+  assert_message(offset < _size, "Offset must be within bounds");
 
   return _data[offset];
 }
 
 template <std::size_t allocatedSize>
 constexpr inline char & FixString<allocatedSize>::operator[](std::size_t offset) noexcept {
-  assert(offset < _size);
+  assert_message(offset < _size, "Offset must be within bounds");
 
   return _data[offset];
 }
 
 template <std::size_t allocatedSize>
 constexpr inline const char & FixString<allocatedSize>::operator[](std::size_t offset) const noexcept {
-  assert(offset < _size);
+  assert_message(offset < _size, "Offset must be within bounds");
 
   return _data[offset];
 }
@@ -253,9 +253,9 @@ constexpr inline void FixString<allocatedSize>::clear() noexcept {
 template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::insert(
   std::size_t index, const FixString<allocatedSize> & string) noexcept {
-  assert(this != &string);
-  assert(index <= _size);
-  assert(_size + string.size() < allocatedSize);
+  assert_message(this != &string, "Cannot insert string into itself");
+  assert_message(index <= _size, "Index must not exceed string size");
+  assert_message(_size + string.size() < allocatedSize, "Inserted string must fit in capacity");
 
   std::memmove(_data + index + string.size(), _data + index, _size - index + 1);
   std::memcpy(_data + index, string.data(), string.size());
@@ -269,8 +269,8 @@ template <std::size_t allocatedSize>
 template <std::size_t allocatedSize2>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::insert(
   std::size_t index, const FixString<allocatedSize2> & string) noexcept {
-  assert(index <= _size);
-  assert(_size + string.size() < allocatedSize);
+  assert_message(index <= _size, "Index must not exceed string size");
+  assert_message(_size + string.size() < allocatedSize, "Inserted string must fit in capacity");
 
   std::memmove(_data + index + string.size(), _data + index, _size - index + 1);
   std::memcpy(_data + index, string.c_str(), string.size());
@@ -283,13 +283,13 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::insert(
 template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::insert(std::size_t index,
                                                                              const char * string) noexcept {
-  assert(_data != string);
-  assert(string != nullptr);
-  assert(index <= _size);
+  assert_message(_data != string, "Cannot insert string into itself");
+  assert_message(string != nullptr, "String pointer must not be null");
+  assert_message(index <= _size, "Index must not exceed string size");
 
   const auto stringSize = std::strlen(string);
 
-  assert(_size + stringSize < allocatedSize);
+  assert_message(_size + stringSize < allocatedSize, "Inserted string must fit in capacity");
 
   std::memmove(_data + index + stringSize, _data + index, _size - index + 1);
   std::memcpy(_data + index, string, stringSize);
@@ -302,8 +302,8 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::insert(std
 template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::insert(std::size_t index, char symbol,
                                                                              std::size_t count) noexcept {
-  assert(index <= _size);
-  assert(_size + count < allocatedSize);
+  assert_message(index <= _size, "Index must not exceed string size");
+  assert_message(_size + count < allocatedSize, "Inserted characters must fit in capacity");
 
   std::memmove(_data + index + count, _data + index, _size - index + 1);
   std::memset(_data + index, symbol, count);
@@ -316,7 +316,7 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::insert(std
 template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::erase(std::size_t offset,
                                                                             std::size_t count) noexcept {
-  assert(offset <= _size);
+  assert_message(offset <= _size, "Offset must not exceed string size");
 
   if (count == npos)
     count = _size - offset;
@@ -324,7 +324,7 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::erase(std:
   if (count == 0)
     return *this;
 
-  assert(offset + count <= _size);
+  assert_message(offset + count <= _size, "Erase range must be within string bounds");
 
   _size -= count;
   std::memmove(_data + offset, _data + offset + count, _size - offset + 1);
@@ -334,10 +334,18 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::erase(std:
 
 template <std::size_t allocatedSize>
 constexpr inline void FixString<allocatedSize>::push_back(char symbol) noexcept {
-  assert(_size + 1 < allocatedSize);
+  assert_message(_size + 1 < allocatedSize, "String must have space for new character");
 
   _data[_size++] = symbol;
   _data[_size] = '\0';
+}
+
+template <std::size_t allocatedSize>
+constexpr inline void FixString<allocatedSize>::pop_back() noexcept {
+  assert_message(_size > 0, "String must not be empty for pop_back");
+
+  if (_size > 0)
+    _data[--_size] = '\0';
 }
 
 template <std::size_t allocatedSize>
