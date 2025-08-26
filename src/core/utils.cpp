@@ -490,6 +490,7 @@ char * ftoa(char * dest, std::size_t destSize, float value, std::size_t precisio
     strcpy_s(dest, destSize, buffer);
 #else // defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)
     strncpy(dest, buffer, destSize - 1);
+    dest[destSize - 1] = '\0';
 #endif // defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)
   } else {
     floatPostProcess(dest, buffer, bufferSize, exp10, precision);
@@ -516,6 +517,7 @@ char * ftoa(char * dest, std::size_t destSize, double value, std::size_t precisi
     strcpy_s(dest, destSize, buffer);
 #else // defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)
     strncpy(dest, buffer, destSize - 1);
+    dest[destSize - 1] = '\0';
 #endif // defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)
   } else {
     floatPostProcess(dest, buffer, bufferSize, exp10, precision);

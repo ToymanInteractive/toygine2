@@ -25,11 +25,13 @@
 #ifndef INCLUDE_CORE_HPP_
 #define INCLUDE_CORE_HPP_
 
+#include <algorithm>
 #include <concepts>
 #include <cstddef>
 #include <cstdint>
 #include <cstring>
 #include <cuchar>
+#include <utility>
 
 //----------------------------------------------------------------------------------------------------------------------
 
