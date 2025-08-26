@@ -1,5 +1,6 @@
 var core_8hpp =
 [
+    [ "toygine::StringLike", "d8/db7/concepttoygine_1_1_string_like.html", null ],
     [ "CPU_ARM_32", "da/d47/core_8hpp.html#a014b03e21ccae2451f28ca938128f998", null ],
     [ "CPU_ARM_64", "da/d47/core_8hpp.html#a20e457ee1318b901b1c44dd6390ca1a1", null ],
     [ "CPU_INTEL_x64", "da/d47/core_8hpp.html#a1e1898e441784683649af6bb189cb75d", null ],

@@ -120,15 +120,20 @@ $(function(){initNavTree('da/d47/core_8hpp.html','../../'); initResizable(true);
 <div class="header">
   <div class="summary">
 <a href="#namespaces">Namespaces</a> &#124;
+<a href="#concepts">Concepts</a> &#124;
 <a href="#define-members">Macros</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">core.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
+<div class="textblock"><code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;concepts&gt;</code><br />
+<code>#include &lt;cstddef&gt;</code><br />
+<code>#include &lt;cstdint&gt;</code><br />
 <code>#include &lt;cstring&gt;</code><br />
 <code>#include &lt;cuchar&gt;</code><br />
+<code>#include &lt;utility&gt;</code><br />
 <code>#include &quot;<a class="el" href="../../dd/d9e/linux_2platform__config_8hpp_source.html">/home/runner/work/toygine2/toygine2/src/platforms/linux/platform_config.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d0/d46/fix__string_8hpp_source.html">core/fix_string.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../df/d93/utils_8hpp_source.html">core/utils.hpp</a>&quot;</code><br />
@@ -141,28 +146,31 @@ $(function(){initNavTree('da/d47/core_8hpp.html','../../'); initResizable(true);
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d7/daf/core_8hpp__incl.png" border="0" usemap="#ainclude_2core_8hpp" alt=""/></div>
 <map name="ainclude_2core_8hpp" id="ainclude_2core_8hpp">
-<area shape="rect" title=" " alt="" coords="454,5,583,31"/>
-<area shape="rect" title=" " alt="" coords="5,93,72,119"/>
-<area shape="poly" title=" " alt="" coords="454,23,378,28,284,37,184,54,85,81,68,89,66,84,83,76,182,49,284,32,377,22,454,18"/>
-<area shape="rect" title=" " alt="" coords="344,181,411,207"/>
-<area shape="poly" title=" " alt="" coords="532,29,549,50,565,77,573,106,572,121,565,135,535,162,499,180,460,190,425,195,424,190,459,185,497,175,532,158,561,132,566,120,568,107,560,79,545,53,528,33"/>
-<area shape="rect" title=" " alt="" coords="255,93,321,119"/>
-<area shape="poly" title=" " alt="" coords="474,33,406,53,333,81,318,89,316,84,331,76,405,48,472,28"/>
-<area shape="rect" href="../../dd/d9e/linux_2platform__config_8hpp.html" title="additional linux platform header" alt="" coords="345,79,551,133"/>
-<area shape="poly" title=" " alt="" coords="511,33,480,70,476,66,507,29"/>
-<area shape="rect" href="../../d0/d46/fix__string_8hpp.html" title="Template string of chars, wrapper to char[]." alt="" coords="762,93,905,119"/>
-<area shape="poly" title=" " alt="" coords="566,28,750,76,786,87,784,92,749,81,565,33"/>
-<area shape="rect" href="../../df/d93/utils_8hpp.html" title="Core utility functions for string manipulation, encoding conversion, and number formatting." alt="" coords="627,93,738,119"/>
-<area shape="poly" title=" " alt="" coords="542,28,650,84,647,89,540,33"/>
-<area shape="rect" href="../../db/d84/fix__string_8inl.html" title="Inline implementations for FixString template class." alt="" coords="97,93,231,119"/>
-<area shape="poly" title=" " alt="" coords="457,33,356,54,243,81,210,91,208,86,242,76,355,49,456,28"/>
-<area shape="rect" href="../../df/d7d/utils_8inl.html" title="Inline implementations of core utility functions for string manipulation and encoding conversion." alt="" coords="929,93,1031,119"/>
-<area shape="poly" title=" " alt="" coords="584,22,737,40,827,55,917,76,944,85,942,90,915,81,826,61,736,45,583,27"/>
-<area shape="rect" title=" " alt="" coords="843,181,923,207"/>
-<area shape="poly" title=" " alt="" coords="842,118,871,168,867,170,838,120"/>
-<area shape="rect" title=" " alt="" coords="747,181,818,207"/>
-<area shape="poly" title=" " alt="" coords="829,120,799,170,794,168,824,117"/>
-<area shape="poly" title=" " alt="" coords="194,116,337,174,335,179,192,121"/>
+<area shape="rect" title=" " alt="" coords="507,5,637,31"/>
+<area shape="rect" title=" " alt="" coords="5,93,91,119"/>
+<area shape="poly" title=" " alt="" coords="507,24,425,29,324,39,213,55,103,81,81,90,79,85,102,76,212,50,323,33,425,23,507,18"/>
+<area shape="rect" title=" " alt="" coords="115,93,195,119"/>
+<area shape="poly" title=" " alt="" coords="508,27,368,44,287,60,208,81,187,89,185,84,206,76,286,55,367,39,507,21"/>
+<area shape="rect" title=" " alt="" coords="219,93,290,119"/>
+<area shape="poly" title=" " alt="" coords="507,31,410,50,304,81,286,89,284,84,302,76,409,45,506,26"/>
+<area shape="rect" title=" " alt="" coords="315,93,381,119"/>
+<area shape="poly" title=" " alt="" coords="531,33,466,54,394,81,379,89,377,84,392,76,464,49,529,28"/>
+<area shape="rect" title=" " alt="" coords="405,93,472,119"/>
+<area shape="poly" title=" " alt="" coords="555,33,470,88,467,83,553,29"/>
+<area shape="rect" title=" " alt="" coords="497,93,562,119"/>
+<area shape="poly" title=" " alt="" coords="569,32,544,82,539,79,564,30"/>
+<area shape="rect" title=" " alt="" coords="586,93,646,119"/>
+<area shape="poly" title=" " alt="" coords="580,30,606,80,601,82,576,32"/>
+<area shape="rect" href="../../dd/d9e/linux_2platform__config_8hpp.html" title="additional linux platform header" alt="" coords="670,79,877,133"/>
+<area shape="poly" title=" " alt="" coords="600,28,700,71,698,76,598,33"/>
+<area shape="rect" href="../../d0/d46/fix__string_8hpp.html" title="Template string of chars, wrapper to char[]." alt="" coords="901,93,1043,119"/>
+<area shape="poly" title=" " alt="" coords="637,27,755,47,890,76,927,87,925,92,889,81,754,52,636,32"/>
+<area shape="rect" href="../../df/d93/utils_8hpp.html" title="Core utility functions for string manipulation, encoding conversion, and number formatting." alt="" coords="1067,93,1178,119"/>
+<area shape="poly" title=" " alt="" coords="637,19,827,36,942,52,1057,76,1086,86,1084,91,1055,81,941,58,826,41,637,25"/>
+<area shape="rect" href="../../db/d84/fix__string_8inl.html" title="Inline implementations for FixString template class." alt="" coords="1202,93,1337,119"/>
+<area shape="poly" title=" " alt="" coords="637,18,743,23,882,33,1036,50,1191,76,1228,86,1227,91,1190,81,1036,55,881,38,743,28,637,23"/>
+<area shape="rect" href="../../df/d7d/utils_8inl.html" title="Inline implementations of core utility functions for string manipulation and encoding conversion." alt="" coords="1361,93,1463,119"/>
+<area shape="poly" title=" " alt="" coords="637,19,1003,38,1204,54,1287,65,1350,76,1378,85,1376,90,1349,81,1286,70,1204,60,1003,43,637,24"/>
 </map>
 </div>
 </div><div class="textblock"><div id="dynsection-1" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -189,6 +197,12 @@ Namespaces</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d55/namespacetoygine_1_1assertion.html">toygine::assertion</a></td></tr>
 <tr class="memdesc:dd/d55/namespacetoygine_1_1assertion"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assertion related functions. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="concepts" name="concepts"></a>
+Concepts</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">concept &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/db7/concepttoygine_1_1_string_like.html">toygine::StringLike</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concept defining the requirements for string-like types. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
