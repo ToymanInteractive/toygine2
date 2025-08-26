@@ -246,11 +246,12 @@ TEST_CASE("ftoa converts a floating-point number to its string representation in
 }
 
 TEST_CASE("formatNumberString format number string", "[core][utils]") {
-  static constexpr std::array<const char *, 12> numbers{
-    {"-256192.12", "32", "4192", "+2561921.2", "1", "12", "123", "12345678", "-1234567890", "+0", "-0", "0.0"}};
-  static constexpr std::array<const char *, 12> parsedNumbers{{"-256 192.12", "32", "4 192", "+2 561 921.2", "1", "12",
-                                                               "123", "12 345 678", "-1 234 567 890", "+0", "-0",
-                                                               "0.0"}};
+  static constexpr std::array<const char *, 14> numbers{{"", "Hello World", "-256192.12", "32", "4192", "+2561921.2",
+                                                         "1", "12", "123", "12345678", "-1234567890", "+0", "-0",
+                                                         "0.0"}};
+  static constexpr std::array<const char *, 14> parsedNumbers{{"", "Hello World", "-256 192.12", "32", "4 192",
+                                                               "+2 561 921.2", "1", "12", "123", "12 345 678",
+                                                               "-1 234 567 890", "+0", "-0", "0.0"}};
 
   static_assert(numbers.size() == parsedNumbers.size(), "Invalid arrays size");
 

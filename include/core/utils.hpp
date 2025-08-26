@@ -383,57 +383,89 @@ char * itoa(char * dest, std::size_t destSize, std::uint32_t value, unsigned bas
 char * itoa(char * dest, std::size_t destSize, std::uint64_t value, unsigned base);
 
 /*!
-  \brief Converts a floating-point number to its string representation in a specified precision.
+  \brief Converts a 32-bit floating-point number to its string representation with specified precision.
 
-  This function converts a given floating-point number into its string representation, storing the result in the
-  provided destination buffer.
+  This function converts a given 32-bit floating-point number into its decimal string representation, storing the result
+  in the provided destination buffer. The conversion supports configurable precision and handles special values.
 
-  \param dest      The destination buffer where the converted string is stored.
-  \param destSize  The size of the destination buffer.
-  \param value     The floating-point number to be converted.
-  \param precision The precision (digits after the decimal point). For IEEE-754 f32, practical precision is ~7–9 digits.
+  \param dest      A pointer to the destination buffer where the converted string is stored.
+  \param destSize  The size of the destination buffer in characters.
+  \param value     The 32-bit floating-point number to be converted.
+  \param precision The precision (digits after the decimal point). Default is 7, practical limit is ~7-9 digits.
 
   \return A pointer to the destination buffer containing the converted string.
 
-  \note The function assumes that the destination buffer is large enough to hold the converted string. If the
-  destination buffer size is 1, only a null terminator is written. The function does not support subnormals.
+  \pre The destination buffer must be valid and have sufficient capacity.
+  \pre The precision should be reasonable (typically ≤ 9 for float).
+
+  \post The destination string is null-terminated.
+  \post Special values (inf, -inf, nan) are properly represented.
+  \post The result uses fixed-point notation (not scientific).
+
+  \note The function handles special IEEE-754 values (infinity, NaN).
+  \note The function does not support subnormal numbers.
+  \note Precision beyond ~7-9 digits may not be meaningful for float.
+  \note The function uses efficient bit manipulation for conversion.
+  \note The function is thread-safe for single-buffer operations.
 */
 char * ftoa(char * dest, std::size_t destSize, float value, std::size_t precision = 7);
 
 /*!
-  \brief Converts a floating-point number to its string representation in a specified precision.
+  \brief Converts a 64-bit floating-point number to its string representation with specified precision.
 
-  This function converts a given floating-point number into its string representation, storing the result in the
-  provided destination buffer.
+  This function converts a given 64-bit floating-point number into its decimal string representation, storing the result
+  in the provided destination buffer. The conversion supports configurable precision and handles special values.
 
-  \param dest      The destination buffer where the converted string is stored.
-  \param destSize  The size of the destination buffer.
-  \param value     The floating-point number to be converted.
-  \param precision The precision (digits after the decimal point). For IEEE-754 f64, practical precision is ~15–17
-                   digits.
+  \param dest      A pointer to the destination buffer where the converted string is stored.
+  \param destSize  The size of the destination buffer in characters.
+  \param value     The 64-bit floating-point number to be converted.
+  \param precision The precision (digits after the decimal point). Default is 15, practical limit is ~15–17 digits.
 
   \return A pointer to the destination buffer containing the converted string.
 
-  \note The function assumes that the destination buffer is large enough to hold the converted string. If the
-  destination buffer size is 1, only a null terminator is written. The function does not support subnormals.
+  \pre The destination buffer must be valid and have sufficient capacity.
+  \pre The precision should be reasonable (typically ≤ 17 for double).
+
+  \post The destination string is null-terminated.
+  \post Special values (inf, -inf, nan) are properly represented.
+  \post The result uses fixed-point notation (not scientific).
+
+  \note The function handles special IEEE-754 values (infinity, NaN).
+  \note The function does not support subnormal numbers.
+  \note Precision beyond ~15–17 digits may not be meaningful for float.
+  \note The function uses efficient bit manipulation for conversion.
+  \note The function is thread-safe for single-buffer operations.
 */
 char * ftoa(char * dest, std::size_t destSize, double value, std::size_t precision = 15);
 
 /*!
-  \brief Format number string.
+  \brief Formats a number string by inserting grouping separators.
 
-  This function inserts a grouping separator (e.g., a comma or a space) into a number string. The separator is inserted
-  every three digits, starting from the right. The function assumes that the destination buffer is large enough to hold
-  the modified string.
+  This function inserts a grouping separator (e.g., comma, space, or dot) into a number string every three digits,
+  starting from the right. This is commonly used for formatting large numbers to improve readability (e.g.,
+  "1,234,567").
 
-  \param buffer            The destination buffer where the modified string is stored.
-  \param bufferSize        The size of the destination buffer.
-  \param groupingSeparator The grouping separator to be inserted into the string.
+  \param buffer     A pointer to the buffer where the formatted string is stored.
+  \param bufferSize The size of the buffer in characters.
+  \param separator  A pointer to the grouping separator C string to insert (e.g., ",", " ", ".").
 
-  \note The function validates available capacity and returns early without modification if the buffer is too small. The
-        groupingSeparator must not be null and should not exceed 8 characters.
+  \pre The buffer must be valid and contain a null-terminated number string.
+  \pre The bufferSize must be sufficient to accommodate the formatted result.
+  \pre The separator must not be null and should be reasonable in length (≤ 8 characters).
+  \pre The input string should contain only digits (no decimal points, signs, or other characters).
+
+  \post The buffer contains the formatted number string with grouping separators.
+  \post The function modifies the buffer in-place.
+  \post The function returns early if the buffer is too small for the result.
+
+  \note The function validates available capacity before modification.
+  \note Grouping separators are inserted every three digits from the right.
+  \note The function handles edge cases gracefully (empty string, single digits, etc.).
+  \note The function is thread-safe for single-buffer operations.
+  \note Performance is optimized for common number string lengths.
+  \note The function does not validate that the input is purely numeric.
 */
-void formatNumberString(char * buffer, std::size_t bufferSize, char const * groupingSeparator);
+void formatNumberString(char * buffer, std::size_t bufferSize, const char * separator);
 
 } // namespace toygine
 

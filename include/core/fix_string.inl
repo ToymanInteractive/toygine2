@@ -25,6 +25,8 @@
 #ifndef INCLUDE_CORE_FIX_STRING_INL_
 #define INCLUDE_CORE_FIX_STRING_INL_
 
+#include <cstring>
+
 namespace toygine {
 template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize>::FixString() noexcept
@@ -41,10 +43,10 @@ constexpr inline FixString<allocatedSize>::FixString(const FixString<allocatedSi
 }
 
 template <std::size_t allocatedSize>
-template <typename stringType>
+template <StringLikeForFixString stringType>
 constexpr inline FixString<allocatedSize>::FixString(const stringType & string) noexcept
   : _size(string.size()) {
-  assert_message(string.size() < allocatedSize, "String size must not exceed capacity");
+  assert_message(_size < allocatedSize, "String size must not exceed capacity");
 
   std::memcpy(_data, string.c_str(), _size + 1);
 }
@@ -82,7 +84,7 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator=(
 }
 
 template <std::size_t allocatedSize>
-template <typename stringType>
+template <StringLikeForFixString stringType>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator=(const stringType & string) noexcept {
   assert_message(string.size() < allocatedSize, "String size must not exceed capacity");
 
@@ -132,7 +134,7 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::assign(
 }
 
 template <std::size_t allocatedSize>
-template <typename stringType>
+template <StringLikeForFixString stringType>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::assign(const stringType & string) noexcept {
   assert_message(string.size() < allocatedSize, "String size must not exceed capacity");
 
@@ -264,9 +266,10 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::insert(
 }
 
 template <std::size_t allocatedSize>
-template <typename stringType>
+template <StringLikeForFixString stringType>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::insert(std::size_t index,
                                                                              const stringType & string) noexcept {
+  assert_message(_data != string.c_str(), "Cannot insert string into itself");
   assert_message(index <= _size, "Index must not exceed string size");
   assert_message(_size + string.size() < allocatedSize, "Inserted string must fit in capacity");
 
@@ -344,6 +347,57 @@ constexpr inline void FixString<allocatedSize>::pop_back() noexcept {
 
   if (_size > 0)
     _data[--_size] = '\0';
+}
+
+template <std::size_t allocatedSize>
+constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::append(
+  const FixString<allocatedSize> & string) noexcept {
+  assert_message(this != &string, "Cannot append string into itself");
+  assert_message(_size + string._size < allocatedSize, "Appended string must fit in capacity");
+
+  std::memcpy(_data + _size, string._data, string._size + 1);
+  _size += string._size;
+
+  return *this;
+}
+
+template <std::size_t allocatedSize>
+template <StringLikeForFixString stringType>
+constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::append(const stringType & string) noexcept {
+  const auto sourceSize = string.size();
+
+  assert_message(_data != string.c_str(), "Cannot append string into itself");
+  assert_message(_size + sourceSize < allocatedSize, "Appended string must fit in capacity");
+
+  std::memcpy(_data + _size, string.c_str(), sourceSize + 1);
+  _size += sourceSize;
+
+  return *this;
+}
+
+template <std::size_t allocatedSize>
+constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::append(const char * string) noexcept {
+  assert_message(_data != string, "Cannot append string into itself");
+  assert_message(string != nullptr, "String pointer must not be null");
+
+  const auto stringSize = std::strlen(string);
+  assert_message(_size + stringSize < allocatedSize, "Appended string must fit in capacity");
+
+  std::memcpy(_data + _size, string, stringSize + 1);
+  _size += stringSize;
+
+  return *this;
+}
+
+template <std::size_t allocatedSize>
+constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::append(char symbol, std::size_t count) noexcept {
+  assert_message(_size + count < allocatedSize, "Appended string must fit in capacity");
+
+  std::memset(_data + _size, symbol, count);
+  _size += count;
+  _data[_size] = '\0';
+
+  return *this;
 }
 
 template <std::size_t allocatedSize>
