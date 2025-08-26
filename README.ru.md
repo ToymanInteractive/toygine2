@@ -2,7 +2,7 @@
 
 [English](README.md) | [Русский](README.ru.md)
 
-ToyGine2 современный высокоуровневый движок на C++.
+ToyGine2 — современный высокоуровневый движок на C++.
 
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/ToymanInteractive/toygine2/push.yaml?branch=main&logo=github&logoColor=fff&label=Build)
 ![GitHub License](https://img.shields.io/github/license/ToymanInteractive/toygine2?logo=github&logoColor=fff&label=License)
@@ -23,7 +23,7 @@ ToyGine2 современный высокоуровневый движок на
 
 ### Поддерживаемые компиляторы C++
 
-| OS      | Toolchain               | Version                       |
+| OS      | Компилятор              | Версия                        |
 | ------- | ----------------------- | ----------------------------- |
 | Windows | Microsoft Visual Studio | MSVC 2022 17.4 и выше         |
 | macOS   | Xcode                   | 16.4 и выше (Apple Clang 17+) |
@@ -32,4 +32,4 @@ ToyGine2 современный высокоуровневый движок на
 ### Утилиты
 
 - CMake 3.31 или выше
-- Doxygen 1.12+ and Graphviz (для документации)
+- Doxygen 1.12+ и Graphviz (для документации)
