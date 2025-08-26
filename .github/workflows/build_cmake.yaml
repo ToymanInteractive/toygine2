@@ -13,7 +13,7 @@ jobs:
           - name: Linux Ninja
             os: ubuntu-latest
             run_test: "true"
-            run_test_with_coverage: "true"
+            run_test_with_results: "true"
             continue_on_error: false
             cmake_preset: linux-ninja-release
 
@@ -85,7 +85,7 @@ jobs:
         run: |
           cmake \
             -DTOYGINE_BUILD_TESTS=$([ "${{ matrix.run_test }}" = "true" ] && echo ON || echo OFF) \
-            -DTOYGINE_TEST_WITH_COVERAGE=$([ "${{ matrix.run_test_with_coverage }}" = "true" ] && echo ON || echo OFF) \
+            -DTOYGINE_TEST_WITH_RESULT=$([ "${{ matrix.run_test_with_results }}" = "true" ] && echo ON || echo OFF) \
             --preset ${{ matrix.cmake_preset }}
 
       - name: Build
@@ -99,7 +99,7 @@ jobs:
           ctest --preset ${{ matrix.cmake_preset }}
 
       - name: Upload test results to Codecov
-        if: ${{ !cancelled() && matrix.run_test && matrix.run_test_with_coverage }}
+        if: ${{ !cancelled() && matrix.run_test && matrix.run_test_with_results }}
         uses: codecov/test-results-action@v1.1.1
         with:
           files: out/junit/${{ matrix.cmake_preset }}.xml
