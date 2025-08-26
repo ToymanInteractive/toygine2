@@ -529,18 +529,26 @@ void formatNumberString(char * buffer, std::size_t bufferSize, const char * sepa
   assert_message(separator != nullptr && std::strlen(separator) <= 8,
                  "The grouping separator must not be null and must not exceed 8 characters.");
 
+  constexpr std::size_t groupSize = 3;
+
   if (*buffer == '-' || *buffer == '+') {
     ++buffer;
     --bufferSize;
   }
 
-  const auto separatorLen = std::strlen(separator);
-  const auto ansiStringLen = std::strlen(buffer);
   std::size_t digitsCount = 0;
   while (buffer[digitsCount] >= '0' && buffer[digitsCount] <= '9')
     ++digitsCount;
 
-  auto groupSeparatorsCount = (digitsCount - 1U) / 3U;
+  if (digitsCount <= groupSize) // Nothing to format.
+    return;
+
+  const auto separatorLen = std::strlen(separator);
+  if (separatorLen == 0)
+    return;
+
+  const auto ansiStringLen = std::strlen(buffer);
+  auto groupSeparatorsCount = (digitsCount - 1U) / groupSize;
   const auto requiredSize = ansiStringLen + groupSeparatorsCount * separatorLen;
   assert_message(requiredSize < bufferSize, "Buffer size is too low.");
   if (requiredSize >= bufferSize)
@@ -554,10 +562,11 @@ void formatNumberString(char * buffer, std::size_t bufferSize, const char * sepa
 
   auto scanChars = digitsCount;
   while (groupSeparatorsCount > 0) {
-    std::memmove(buffer + (scanChars + groupSeparatorsCount * separatorLen - 3), buffer + (scanChars - 3), 3);
-    const auto destBufferShift = scanChars + (groupSeparatorsCount - 1) * separatorLen - 3;
+    std::memmove(buffer + (scanChars + groupSeparatorsCount * separatorLen - groupSize),
+                 buffer + (scanChars - groupSize), groupSize);
+    const auto destBufferShift = scanChars + (groupSeparatorsCount - 1) * separatorLen - groupSize;
     std::memcpy(buffer + destBufferShift, separator, separatorLen);
-    scanChars -= 3;
+    scanChars -= groupSize;
     --groupSeparatorsCount;
   }
 }

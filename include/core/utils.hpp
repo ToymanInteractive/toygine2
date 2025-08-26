@@ -424,7 +424,7 @@ char * ftoa(char * dest, std::size_t destSize, float value, std::size_t precisio
   \return A pointer to the destination buffer containing the converted string.
 
   \pre The destination buffer must be valid and have sufficient capacity.
-  \pre The precision should be reasonable (typically ≤ 9 for float).
+  \pre The precision should be reasonable (typically ≤ 17 for double).
 
   \post The destination string is null-terminated.
   \post Special values (inf, -inf, nan) are properly represented.

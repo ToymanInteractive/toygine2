@@ -25,6 +25,9 @@
 #ifndef INCLUDE_CORE_FIX_STRING_HPP_
 #define INCLUDE_CORE_FIX_STRING_HPP_
 
+#include <concepts>
+#include <cstddef>
+
 namespace toygine {
 
 /*!
@@ -33,6 +36,8 @@ namespace toygine {
   This concept defines the interface that any type must satisfy to be considered string-like. It requires the type to
   have a size() method that returns a value convertible to std::size_t, and a c_str() method that returns a value
   convertible to const char*.
+
+  (Template parameter T is the type to check for string-like properties.)
 
   \note Types satisfying this concept can be used with FixString template methods that accept generic string types, such
         as constructors, assignment operators, and various string manipulation methods.
@@ -156,7 +161,7 @@ public:
     This operator assigns the contents of another FixString object with a potentially different allocated size to this
     FixString object. The assignment operation performs a deep copy of the string data and updates the size accordingly.
 
-    \tparam stringType The type of the source string. Must have a c_str() and size() methods.
+    \tparam stringType The type of the source string. Must satisfy the StringLikeForFixString concept.
 
     \param string The source FixString object to copy data from.
 
@@ -669,7 +674,7 @@ public:
 
     This method appends the contents of a C string to the end of this string.
 
-    \param string The FixString object to append.
+    \param string The C string to append.
 
     \return A reference to this FixString object after appending.
 
