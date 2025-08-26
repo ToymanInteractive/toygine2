@@ -25,31 +25,7 @@
 #ifndef INCLUDE_CORE_FIX_STRING_HPP_
 #define INCLUDE_CORE_FIX_STRING_HPP_
 
-#include <concepts>
-#include <cstddef>
-
 namespace toygine {
-
-/*!
-  \brief Concept defining the requirements for string-like types.
-
-  This concept defines the interface that any type must satisfy to be considered string-like. It requires the type to
-  have a size() method that returns a value convertible to std::size_t, and a c_str() method that returns a value
-  convertible to const char*.
-
-  (Template parameter T is the type to check for string-like properties.)
-
-  \note Types satisfying this concept can be used with FixString template methods that accept generic string types, such
-        as constructors, assignment operators, and various string manipulation methods.
-
-  \note The concept ensures type safety and provides a compile-time guarantee that the required methods exist and return
-        compatible types.
-*/
-template <typename T>
-concept StringLikeForFixString = requires(const T & s) {
-  { s.size() } -> std::convertible_to<std::size_t>;
-  { s.c_str() } -> std::convertible_to<const char *>;
-};
 
 template <std::size_t allocatedSize>
 class FixString {
@@ -92,7 +68,7 @@ public:
 
     This constructor initializes a FixString object by copying the data from another string object.
 
-    \tparam stringType The type of the source string. Must satisfy the StringLikeForFixString concept.
+    \tparam stringType The type of the source string. Must satisfy the StringLike concept.
 
     \param string The source string object to copy data from.
 
@@ -101,7 +77,7 @@ public:
 
     \post A new FixString object is created with the contents of the source string object.
   */
-  template <StringLikeForFixString stringType>
+  template <StringLike stringType>
   constexpr inline explicit FixString(const stringType & string) noexcept;
 
   /*!
@@ -161,7 +137,7 @@ public:
     This operator assigns the contents of another FixString object with a potentially different allocated size to this
     FixString object. The assignment operation performs a deep copy of the string data and updates the size accordingly.
 
-    \tparam stringType The type of the source string. Must satisfy the StringLikeForFixString concept.
+    \tparam stringType The type of the source string. Must satisfy the StringLike concept.
 
     \param string The source FixString object to copy data from.
 
@@ -173,7 +149,7 @@ public:
     \post This FixString object contains the same data as the source FixString object.
     \post The size of this object equals the size of the source object.
   */
-  template <StringLikeForFixString stringType>
+  template <StringLike stringType>
   constexpr inline FixString<allocatedSize> & operator=(const stringType & string) noexcept;
 
   /*!
@@ -238,7 +214,7 @@ public:
     This method assigns the contents of another string object to this FixString object. The method performs a deep copy
     of the string data and updates the size accordingly.
 
-    \tparam stringType The type of the source string. Must satisfy the StringLikeForFixString concept.
+    \tparam stringType The type of the source string. Must satisfy the StringLike concept.
 
     \param string The source string object to copy data from.
 
@@ -252,7 +228,7 @@ public:
 
     \note This method is equivalent to the copy assignment operator.
   */
-  template <StringLikeForFixString stringType>
+  template <StringLike stringType>
   constexpr inline FixString<allocatedSize> & assign(const stringType & string) noexcept;
 
   /*!
@@ -526,7 +502,7 @@ public:
     This method inserts the contents of another string object at the specified position. The insertion shifts existing
     characters to the right to make room for the new content.
 
-    \tparam stringType The type of the source string. Must satisfy the StringLikeForFixString concept.
+    \tparam stringType The type of the source string. Must satisfy the StringLike concept.
 
     \param index  The position where the string should be inserted.
     \param string The string object to insert.
@@ -538,7 +514,7 @@ public:
 
     \post The string is modified with the inserted content at the specified position.
   */
-  template <StringLikeForFixString stringType>
+  template <StringLike stringType>
   constexpr inline FixString<allocatedSize> & insert(std::size_t index, const stringType & string) noexcept;
 
   /*!
@@ -656,7 +632,7 @@ public:
 
     This method appends the contents of a string object to the end of this string.
 
-    \tparam stringType The type of the source string. Must satisfy the StringLikeForFixString concept.
+    \tparam stringType The type of the source string. Must satisfy the StringLike concept.
 
     \param string The string object to append.
 
@@ -666,7 +642,7 @@ public:
 
     \post The string is extended with the appended content.
   */
-  template <StringLikeForFixString stringType>
+  template <StringLike stringType>
   constexpr inline FixString<allocatedSize> & append(const stringType & string) noexcept;
 
   /*!
@@ -712,7 +688,6 @@ public:
     \pre The combined length after appending must not exceed the allocated size.
 
     \post The string is extended with the appended content.
-
   */
   constexpr inline FixString<allocatedSize> & operator+=(const FixString<allocatedSize> & string) noexcept;
 
@@ -721,7 +696,7 @@ public:
 
     This operator appends the contents of a string object to the end of this string.
 
-    \tparam stringType The type of the source string. Must satisfy the StringLikeForFixString concept.
+    \tparam stringType The type of the source string. Must satisfy the StringLike concept.
 
     \param string The string object to append.
 
@@ -730,9 +705,8 @@ public:
     \pre The combined length after appending must not exceed the allocated size.
 
     \post The string is extended with the appended content.
-
   */
-  template <StringLikeForFixString stringType>
+  template <StringLike stringType>
   constexpr inline FixString<allocatedSize> & operator+=(const stringType & string) noexcept;
 
   /*!

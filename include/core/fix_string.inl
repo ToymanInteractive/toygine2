@@ -25,8 +25,6 @@
 #ifndef INCLUDE_CORE_FIX_STRING_INL_
 #define INCLUDE_CORE_FIX_STRING_INL_
 
-#include <cstring>
-
 namespace toygine {
 template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize>::FixString() noexcept
@@ -43,7 +41,7 @@ constexpr inline FixString<allocatedSize>::FixString(const FixString<allocatedSi
 }
 
 template <std::size_t allocatedSize>
-template <StringLikeForFixString stringType>
+template <StringLike stringType>
 constexpr inline FixString<allocatedSize>::FixString(const stringType & string) noexcept
   : _size(string.size()) {
   assert_message(_size < allocatedSize, "String size must not exceed capacity");
@@ -84,7 +82,7 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator=(
 }
 
 template <std::size_t allocatedSize>
-template <StringLikeForFixString stringType>
+template <StringLike stringType>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator=(const stringType & string) noexcept {
   assert_message(string.size() < allocatedSize, "String size must not exceed capacity");
 
@@ -134,7 +132,7 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::assign(
 }
 
 template <std::size_t allocatedSize>
-template <StringLikeForFixString stringType>
+template <StringLike stringType>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::assign(const stringType & string) noexcept {
   assert_message(string.size() < allocatedSize, "String size must not exceed capacity");
 
@@ -266,7 +264,7 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::insert(
 }
 
 template <std::size_t allocatedSize>
-template <StringLikeForFixString stringType>
+template <StringLike stringType>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::insert(std::size_t index,
                                                                              const stringType & string) noexcept {
   assert_message(_data != string.c_str(), "Cannot insert string into itself");
@@ -362,7 +360,7 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::append(
 }
 
 template <std::size_t allocatedSize>
-template <StringLikeForFixString stringType>
+template <StringLike stringType>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::append(const stringType & string) noexcept {
   assert_message(_data != string.c_str(), "Cannot append string into itself");
 
@@ -414,7 +412,7 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator+=
 }
 
 template <std::size_t allocatedSize>
-template <StringLikeForFixString stringType>
+template <StringLike stringType>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator+=(const stringType & string) noexcept {
   assert_message(_data != string.c_str(), "Cannot append string into itself");
 

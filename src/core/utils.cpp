@@ -67,7 +67,7 @@ struct divmod10 {
 
   \return A struct containing the quotient and remainder of the division.
 */
-divmod10 divModU10(std::uint32_t value) noexcept {
+constexpr divmod10 divModU10(std::uint32_t value) noexcept {
   divmod10 res;
 
   res.quot = value >> 1;
@@ -107,7 +107,7 @@ divmod10 divModU10(std::uint32_t value) noexcept {
   \note The function assumes that the destination buffer is large enough to hold the converted string. The function does
         not support subnormals.
 */
-std::int32_t ftoa32Engine(char * buffer, float value, std::size_t precision) noexcept {
+constexpr std::int32_t ftoa32Engine(char * buffer, float value, std::size_t precision) noexcept {
   const auto uvalue = std::bit_cast<uint32_t>(value);
   const auto exponent = static_cast<std::uint8_t>(uvalue >> 23);
   if (exponent == 0) { // don't care about a subnormals
@@ -206,7 +206,7 @@ std::int32_t ftoa32Engine(char * buffer, float value, std::size_t precision) noe
   \note The function assumes that the buffer is large enough to hold the converted string. The buffer will contain
         the string representation in the form "+d.dd...e±dd" for normalized numbers.
 */
-std::int32_t ftoa64Engine(char * buffer, double value, std::size_t precision) noexcept {
+constexpr std::int32_t ftoa64Engine(char * buffer, double value, std::size_t precision) noexcept {
   const auto uvalue = std::bit_cast<uint64_t>(value);
   const auto exponent = static_cast<std::uint32_t>(uvalue >> 52) & 0x07FF;
   if (exponent == 0) { // don't care about a subnormals
@@ -257,8 +257,8 @@ std::int32_t ftoa64Engine(char * buffer, double value, std::size_t precision) no
   \note The function assumes that the destination buffer is large enough to hold the processed string. The buffer will
         contain the string representation in the form "+d.dd...e±dd" for normalized numbers.
 */
-void floatPostProcess(char * dest, char * srcBuffer, std::size_t bufferSize, std::int32_t exp10,
-                      std::size_t precision) {
+constexpr void floatPostProcess(char * dest, char * srcBuffer, std::size_t bufferSize, std::int32_t exp10,
+                                std::size_t precision) noexcept {
   char const * strBegin = &srcBuffer[2];
   if (srcBuffer[1] != '0') {
     // Carry propagated into the integer position at [1] (e.g., 0.999.. -> 1.000..).
@@ -340,7 +340,7 @@ void floatPostProcess(char * dest, char * srcBuffer, std::size_t bufferSize, std
 
 namespace toygine {
 
-wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, const char * const src, std::size_t count) {
+wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, const char * const src, std::size_t count) noexcept {
   if (dest == nullptr || destSize == 0)
     return nullptr;
 
@@ -378,7 +378,7 @@ wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, const char * const s
   return dest;
 }
 
-char * wcharToUtf8(char * dest, std::size_t destSize, wchar_t const * src) {
+char * wcharToUtf8(char * dest, std::size_t destSize, const wchar_t * src) noexcept {
   if (dest == nullptr || destSize == 0)
     return nullptr;
 
@@ -411,7 +411,7 @@ char * wcharToUtf8(char * dest, std::size_t destSize, wchar_t const * src) {
   return dest;
 }
 
-std::size_t utf8len(const char * string) {
+std::size_t utf8len(const char * string) noexcept {
   assert_message(string != nullptr, "String pointer must not be null");
   if (string == nullptr)
     return 0;
@@ -430,49 +430,49 @@ std::size_t utf8len(const char * string) {
   return size;
 }
 
-char * itoa(char * dest, std::size_t destSize, std::int8_t value) {
+char * itoa(char * dest, std::size_t destSize, std::int8_t value) noexcept {
   assert_message(destSize >= 5, "The destination buffer size must be at least 5 characters for worst case -128");
 
   return itoaImplementation(dest, destSize, value);
 }
 
-char * itoa(char * dest, std::size_t destSize, std::int16_t value) {
+char * itoa(char * dest, std::size_t destSize, std::int16_t value) noexcept {
   assert_message(destSize >= 7, "The destination buffer size must be at least 7 characters for worst case -32768");
 
   return itoaImplementation(dest, destSize, value);
 }
 
-char * itoa(char * dest, std::size_t destSize, std::int32_t value) {
+char * itoa(char * dest, std::size_t destSize, std::int32_t value) noexcept {
   assert_message(destSize >= 12,
                  "The destination buffer size must be at least 12 characters for worst case -2147483648");
 
   return itoaImplementation(dest, destSize, value);
 }
 
-char * itoa(char * dest, std::size_t destSize, std::int64_t value) {
+char * itoa(char * dest, std::size_t destSize, std::int64_t value) noexcept {
   assert_message(destSize >= 21,
                  "The destination buffer size must be at least 21 characters for worst case -9223372036854775808");
 
   return itoaImplementation(dest, destSize, value);
 }
 
-char * itoa(char * dest, std::size_t destSize, std::uint8_t value, unsigned base) {
+char * itoa(char * dest, std::size_t destSize, std::uint8_t value, unsigned base) noexcept {
   return utoaImplementation(dest, destSize, value, base);
 }
 
-char * itoa(char * dest, std::size_t destSize, std::uint16_t value, unsigned base) {
+char * itoa(char * dest, std::size_t destSize, std::uint16_t value, unsigned base) noexcept {
   return utoaImplementation(dest, destSize, value, base);
 }
 
-char * itoa(char * dest, std::size_t destSize, std::uint32_t value, unsigned base) {
+char * itoa(char * dest, std::size_t destSize, std::uint32_t value, unsigned base) noexcept {
   return utoaImplementation(dest, destSize, value, base);
 }
 
-char * itoa(char * dest, std::size_t destSize, std::uint64_t value, unsigned base) {
+char * itoa(char * dest, std::size_t destSize, std::uint64_t value, unsigned base) noexcept {
   return utoaImplementation(dest, destSize, value, base);
 }
 
-char * ftoa(char * dest, std::size_t destSize, float value, std::size_t precision) {
+char * ftoa(char * dest, std::size_t destSize, float value, std::size_t precision) noexcept {
   assert_message(dest != nullptr && destSize > 0, "The destination buffer must not be null.");
   if (dest == nullptr || destSize == 0)
     return dest;
@@ -498,7 +498,7 @@ char * ftoa(char * dest, std::size_t destSize, float value, std::size_t precisio
   return dest;
 }
 
-char * ftoa(char * dest, std::size_t destSize, double value, std::size_t precision) {
+char * ftoa(char * dest, std::size_t destSize, double value, std::size_t precision) noexcept {
   assert_message(dest != nullptr && destSize > 0, "The destination buffer must not be null.");
   if (dest == nullptr || destSize == 0)
     return dest;
@@ -524,7 +524,7 @@ char * ftoa(char * dest, std::size_t destSize, double value, std::size_t precisi
   return dest;
 }
 
-void formatNumberString(char * buffer, std::size_t bufferSize, const char * separator) {
+void formatNumberString(char * buffer, std::size_t bufferSize, const char * separator) noexcept {
   assert_message(buffer != nullptr && bufferSize > 0, "The destination buffer must not be null.");
   assert_message(separator != nullptr && std::strlen(separator) <= 8,
                  "The grouping separator must not be null and must not exceed 8 characters.");
