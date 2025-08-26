@@ -1,6 +1,6 @@
 var indexSectionsWithContent =
 {
-  0: "_acdefilmnopqrstuw~",
+  0: "_acdefilmnopqrstuw~кпсту",
   1: "df",
   2: "at",
   3: "acfpru",
