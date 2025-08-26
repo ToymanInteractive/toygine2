@@ -73,3 +73,15 @@ add_executable(${TOYGINE_LIBRARY_NAME}-tests ${TEST_SRC})
 target_include_directories(${TOYGINE_LIBRARY_NAME}-tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include)
 target_link_libraries(${TOYGINE_LIBRARY_NAME}-tests PRIVATE Catch2::Catch2 ${TOYGINE_LIBRARY_NAME})
 catch_discover_tests(${TOYGINE_LIBRARY_NAME}-tests)
+
+if (TOYGINE_TEST_WITH_RESULTS)
+  FetchContent_Declare(CMake-Codecov GIT_REPOSITORY https://github.com/RWTH-HPC/CMake-codecov.git)
+  FetchContent_MakeAvailable(CMake-Codecov)
+  FetchContent_GetProperties(CMake-Codecov SOURCE_DIR CMAKE-CODECOV_DIR)
+
+  list(APPEND CMAKE_MODULE_PATH "${CMAKE-CODECOV_DIR}/cmake")
+
+  find_package(codecov REQUIRED)
+  add_coverage(${TOYGINE_LIBRARY_NAME}-tests)
+  coverage_evaluate()
+endif (TOYGINE_TEST_WITH_RESULTS)
