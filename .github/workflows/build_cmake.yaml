@@ -102,6 +102,6 @@ jobs:
         if: ${{ !cancelled() && matrix.run_test && matrix.run_test_with_coverage }}
         uses: codecov/test-results-action@v1.1.1
         with:
-          files: out/build/junit/${{ matrix.cmake_preset }}.xml
+          files: out/junit/${{ matrix.cmake_preset }}.xml
           flags: units
           token: ${{ secrets.CODECOV_TOKEN }}
