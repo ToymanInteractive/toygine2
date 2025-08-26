@@ -11,8 +11,9 @@ var namespacetoygine =
       [ "s_assertionCallback", "dd/d55/namespacetoygine_1_1assertion.html#af12a64b3cc004e87fb85ee25f67a5cbc", null ]
     ] ],
     [ "FixString", "da/d4a/classtoygine_1_1_fix_string.html", "da/d4a/classtoygine_1_1_fix_string" ],
+    [ "StringLikeForFixString", "d0/de0/concepttoygine_1_1_string_like_for_fix_string.html", null ],
     [ "ArraySize", "d7/de6/namespacetoygine.html#a0278fc86f3113fc375beb8cb2f380b02", null ],
-    [ "formatNumberString", "d7/de6/namespacetoygine.html#af36eec789fd0f6ea91b7d1ec48b25b48", null ],
+    [ "formatNumberString", "d7/de6/namespacetoygine.html#aef4e32750b5b77b60b2038769687ad13", null ],
     [ "ftoa", "d7/de6/namespacetoygine.html#a2f65fa6e46f8a594b805986e41d4b344", null ],
     [ "ftoa", "d7/de6/namespacetoygine.html#a4aeee65facd5e81d83259a89b18e9c7c", null ],
     [ "integerToSymbols", "d7/de6/namespacetoygine.html#aece45bc773865fbc01013939bcfaeeb2", null ],

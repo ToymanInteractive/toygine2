@@ -121,6 +121,7 @@ $(function(){initNavTree('d7/de6/namespacetoygine.html','../../'); initResizable
   <div class="summary">
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#nested-classes">Classes</a> &#124;
+<a href="#concepts">Concepts</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">toygine Namespace Reference</div></div>
@@ -139,6 +140,12 @@ Namespaces</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="concepts" name="concepts"></a>
+Concepts</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">concept &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/de0/concepttoygine_1_1_string_like_for_fix_string.html">StringLikeForFixString</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concept defining the requirements for string-like types. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
@@ -187,14 +194,14 @@ Functions</h2></td></tr>
 <tr class="memdesc:aa7ba2bb019bcd4337d37b5842bdf6c7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a 64-bit unsigned integer to a string representation in the specified base.  <br /></td></tr>
 <tr class="separator:aa7ba2bb019bcd4337d37b5842bdf6c7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4aeee65facd5e81d83259a89b18e9c7c" id="r_a4aeee65facd5e81d83259a89b18e9c7c"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4aeee65facd5e81d83259a89b18e9c7c">ftoa</a> (char *dest, std::size_t destSize, float value, std::size_t precision=7)</td></tr>
-<tr class="memdesc:a4aeee65facd5e81d83259a89b18e9c7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a floating-point number to its string representation in a specified precision.  <br /></td></tr>
+<tr class="memdesc:a4aeee65facd5e81d83259a89b18e9c7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a 32-bit floating-point number to its string representation with specified precision.  <br /></td></tr>
 <tr class="separator:a4aeee65facd5e81d83259a89b18e9c7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2f65fa6e46f8a594b805986e41d4b344" id="r_a2f65fa6e46f8a594b805986e41d4b344"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2f65fa6e46f8a594b805986e41d4b344">ftoa</a> (char *dest, std::size_t destSize, double value, std::size_t precision=15)</td></tr>
-<tr class="memdesc:a2f65fa6e46f8a594b805986e41d4b344"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a floating-point number to its string representation in a specified precision.  <br /></td></tr>
+<tr class="memdesc:a2f65fa6e46f8a594b805986e41d4b344"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a 64-bit floating-point number to its string representation with specified precision.  <br /></td></tr>
 <tr class="separator:a2f65fa6e46f8a594b805986e41d4b344"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af36eec789fd0f6ea91b7d1ec48b25b48" id="r_af36eec789fd0f6ea91b7d1ec48b25b48"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af36eec789fd0f6ea91b7d1ec48b25b48">formatNumberString</a> (char *buffer, std::size_t bufferSize, char const *groupingSeparator)</td></tr>
-<tr class="memdesc:af36eec789fd0f6ea91b7d1ec48b25b48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Format number string.  <br /></td></tr>
-<tr class="separator:af36eec789fd0f6ea91b7d1ec48b25b48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef4e32750b5b77b60b2038769687ad13" id="r_aef4e32750b5b77b60b2038769687ad13"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aef4e32750b5b77b60b2038769687ad13">formatNumberString</a> (char *buffer, std::size_t bufferSize, const char *separator)</td></tr>
+<tr class="memdesc:aef4e32750b5b77b60b2038769687ad13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Formats a number string by inserting grouping separators.  <br /></td></tr>
+<tr class="separator:aef4e32750b5b77b60b2038769687ad13"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0278fc86f3113fc375beb8cb2f380b02" id="r_a0278fc86f3113fc375beb8cb2f380b02"><td class="memTemplParams" colspan="2">template&lt;typename T , std::size_t N&gt; </td></tr>
 <tr class="memitem:a0278fc86f3113fc375beb8cb2f380b02"><td class="memTemplItemLeft" align="right" valign="top">consteval std::size_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a0278fc86f3113fc375beb8cb2f380b02">ArraySize</a> (T(&amp;)[N])</td></tr>
 <tr class="memdesc:a0278fc86f3113fc375beb8cb2f380b02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the size of an array.  <br /></td></tr>
@@ -256,8 +263,8 @@ template&lt;typename T , std::size_t N&gt; </div>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="af36eec789fd0f6ea91b7d1ec48b25b48" name="af36eec789fd0f6ea91b7d1ec48b25b48"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af36eec789fd0f6ea91b7d1ec48b25b48">&#9670;&#160;</a></span>formatNumberString()</h2>
+<a id="aef4e32750b5b77b60b2038769687ad13" name="aef4e32750b5b77b60b2038769687ad13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef4e32750b5b77b60b2038769687ad13">&#9670;&#160;</a></span>formatNumberString()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -275,59 +282,90 @@ template&lt;typename T , std::size_t N&gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">char const *</td>          <td class="paramname"><span class="paramname"><em>groupingSeparator</em></span>&#160;)</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>separator</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Format number string. </p>
-<p>This function inserts a grouping separator (e.g., a comma or a space) into a number string. The separator is inserted every three digits, starting from the right. The function assumes that the destination buffer is large enough to hold the modified string.</p>
+<p>Formats a number string by inserting grouping separators. </p>
+<p>This function inserts a grouping separator (e.g., comma, space, or dot) into a number string every three digits, starting from the right. This is commonly used for formatting large numbers to improve readability (e.g., "1,234,567").</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">buffer</td><td>The destination buffer where the modified string is stored. </td></tr>
-    <tr><td class="paramname">bufferSize</td><td>The size of the destination buffer. </td></tr>
-    <tr><td class="paramname">groupingSeparator</td><td>The grouping separator to be inserted into the string.</td></tr>
+    <tr><td class="paramname">buffer</td><td>A pointer to the buffer where the formatted string is stored. </td></tr>
+    <tr><td class="paramname">bufferSize</td><td>The size of the buffer in characters. </td></tr>
+    <tr><td class="paramname">separator</td><td>A pointer to the grouping separator C string to insert (e.g., ",", " ", ".").</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>The function validates available capacity and returns early without modification if the buffer is too small. The groupingSeparator must not be null and should not exceed 8 characters. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">  527</span>                                                                                             {</div>
+<dl class="section pre"><dt>Precondition</dt><dd>The buffer must be valid and contain a null-terminated number string. </dd>
+<dd>
+The bufferSize must be sufficient to accommodate the formatted result. </dd>
+<dd>
+The separator must not be null and should be reasonable in length (≤ 8 characters). </dd>
+<dd>
+The input string should contain only digits (no decimal points, signs, or other characters).</dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>The buffer contains the formatted number string with grouping separators. </dd>
+<dd>
+The function modifies the buffer in-place. </dd>
+<dd>
+The function returns early if the buffer is too small for the result.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The function validates available capacity before modification. </dd>
+<dd>
+Grouping separators are inserted every three digits from the right. </dd>
+<dd>
+The function handles edge cases gracefully (empty string, single digits, etc.). </dd>
+<dd>
+The function is thread-safe for single-buffer operations. </dd>
+<dd>
+Performance is optimized for common number string lengths. </dd>
+<dd>
+The function does not validate that the input is purely numeric. </dd></dl>
+<div class="fragment"><div class="line"><span class="lineno">  527</span>                                                                                     {</div>
 <div class="line"><span class="lineno">  528</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(buffer != <span class="keyword">nullptr</span> &amp;&amp; bufferSize &gt; 0, <span class="stringliteral">&quot;The destination buffer must not be null.&quot;</span>);</div>
-<div class="line"><span class="lineno">  529</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(groupingSeparator != <span class="keyword">nullptr</span> &amp;&amp; std::strlen(groupingSeparator) &lt;= 8,</div>
+<div class="line"><span class="lineno">  529</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(separator != <span class="keyword">nullptr</span> &amp;&amp; std::strlen(separator) &lt;= 8,</div>
 <div class="line"><span class="lineno">  530</span>                 <span class="stringliteral">&quot;The grouping separator must not be null and must not exceed 8 characters.&quot;</span>);</div>
 <div class="line"><span class="lineno">  531</span> </div>
-<div class="line"><span class="lineno">  532</span>  <span class="keywordflow">if</span> (*buffer == <span class="charliteral">&#39;-&#39;</span> || *buffer == <span class="charliteral">&#39;+&#39;</span>) {</div>
-<div class="line"><span class="lineno">  533</span>    ++buffer;</div>
-<div class="line"><span class="lineno">  534</span>    --bufferSize;</div>
-<div class="line"><span class="lineno">  535</span>  }</div>
-<div class="line"><span class="lineno">  536</span> </div>
-<div class="line"><span class="lineno">  537</span>  <span class="keyword">const</span> <span class="keyword">auto</span> groupSeparatorLen = std::strlen(groupingSeparator);</div>
-<div class="line"><span class="lineno">  538</span>  <span class="keyword">const</span> <span class="keyword">auto</span> ansiStringLen = std::strlen(buffer);</div>
+<div class="line"><span class="lineno">  532</span>  <span class="keyword">constexpr</span> std::size_t groupSize = 3;</div>
+<div class="line"><span class="lineno">  533</span> </div>
+<div class="line"><span class="lineno">  534</span>  <span class="keywordflow">if</span> (*buffer == <span class="charliteral">&#39;-&#39;</span> || *buffer == <span class="charliteral">&#39;+&#39;</span>) {</div>
+<div class="line"><span class="lineno">  535</span>    ++buffer;</div>
+<div class="line"><span class="lineno">  536</span>    --bufferSize;</div>
+<div class="line"><span class="lineno">  537</span>  }</div>
+<div class="line"><span class="lineno">  538</span> </div>
 <div class="line"><span class="lineno">  539</span>  std::size_t digitsCount = 0;</div>
 <div class="line"><span class="lineno">  540</span>  <span class="keywordflow">while</span> (buffer[digitsCount] &gt;= <span class="charliteral">&#39;0&#39;</span> &amp;&amp; buffer[digitsCount] &lt;= <span class="charliteral">&#39;9&#39;</span>)</div>
 <div class="line"><span class="lineno">  541</span>    ++digitsCount;</div>
 <div class="line"><span class="lineno">  542</span> </div>
-<div class="line"><span class="lineno">  543</span>  <span class="keyword">auto</span> groupSeparatorsCount = (digitsCount - 1U) / 3U;</div>
-<div class="line"><span class="lineno">  544</span>  <span class="keyword">const</span> <span class="keyword">auto</span> requiredSize = ansiStringLen + groupSeparatorsCount * groupSeparatorLen;</div>
-<div class="line"><span class="lineno">  545</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(requiredSize &lt; bufferSize, <span class="stringliteral">&quot;Buffer size is too low.&quot;</span>);</div>
-<div class="line"><span class="lineno">  546</span>  <span class="keywordflow">if</span> (requiredSize &gt;= bufferSize)</div>
-<div class="line"><span class="lineno">  547</span>    <span class="keywordflow">return</span>;</div>
-<div class="line"><span class="lineno">  548</span> </div>
-<div class="line"><span class="lineno">  549</span>  buffer[ansiStringLen + groupSeparatorsCount * groupSeparatorLen] = <span class="charliteral">&#39;\0&#39;</span>;</div>
-<div class="line"><span class="lineno">  550</span> </div>
-<div class="line"><span class="lineno">  551</span>  <span class="keywordflow">if</span> (digitsCount != (ansiStringLen - 1))</div>
-<div class="line"><span class="lineno">  552</span>    std::memmove(buffer + (digitsCount + groupSeparatorsCount * groupSeparatorLen), buffer + digitsCount,</div>
-<div class="line"><span class="lineno">  553</span>                 ansiStringLen - digitsCount);</div>
-<div class="line"><span class="lineno">  554</span> </div>
-<div class="line"><span class="lineno">  555</span>  <span class="keyword">auto</span> scanChars = digitsCount;</div>
-<div class="line"><span class="lineno">  556</span>  <span class="keywordflow">while</span> (groupSeparatorsCount &gt; 0) {</div>
-<div class="line"><span class="lineno">  557</span>    std::memmove(buffer + (scanChars + groupSeparatorsCount * groupSeparatorLen - 3), buffer + (scanChars - 3), 3);</div>
-<div class="line"><span class="lineno">  558</span>    <span class="keyword">const</span> <span class="keyword">auto</span> destBufferShift = scanChars + (groupSeparatorsCount - 1) * groupSeparatorLen - 3;</div>
-<div class="line"><span class="lineno">  559</span>    std::memcpy(buffer + destBufferShift, groupingSeparator, groupSeparatorLen);</div>
-<div class="line"><span class="lineno">  560</span>    scanChars -= 3;</div>
-<div class="line"><span class="lineno">  561</span>    --groupSeparatorsCount;</div>
-<div class="line"><span class="lineno">  562</span>  }</div>
-<div class="line"><span class="lineno">  563</span>}</div>
+<div class="line"><span class="lineno">  543</span>  <span class="keywordflow">if</span> (digitsCount &lt;= groupSize) <span class="comment">// Nothing to format.</span></div>
+<div class="line"><span class="lineno">  544</span>    <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  545</span> </div>
+<div class="line"><span class="lineno">  546</span>  <span class="keyword">const</span> <span class="keyword">auto</span> separatorLen = std::strlen(separator);</div>
+<div class="line"><span class="lineno">  547</span>  <span class="keywordflow">if</span> (separatorLen == 0)</div>
+<div class="line"><span class="lineno">  548</span>    <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  549</span> </div>
+<div class="line"><span class="lineno">  550</span>  <span class="keyword">const</span> <span class="keyword">auto</span> ansiStringLen = std::strlen(buffer);</div>
+<div class="line"><span class="lineno">  551</span>  <span class="keyword">auto</span> groupSeparatorsCount = (digitsCount - 1U) / groupSize;</div>
+<div class="line"><span class="lineno">  552</span>  <span class="keyword">const</span> <span class="keyword">auto</span> requiredSize = ansiStringLen + groupSeparatorsCount * separatorLen;</div>
+<div class="line"><span class="lineno">  553</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(requiredSize &lt; bufferSize, <span class="stringliteral">&quot;Buffer size is too low.&quot;</span>);</div>
+<div class="line"><span class="lineno">  554</span>  <span class="keywordflow">if</span> (requiredSize &gt;= bufferSize)</div>
+<div class="line"><span class="lineno">  555</span>    <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  556</span> </div>
+<div class="line"><span class="lineno">  557</span>  buffer[ansiStringLen + groupSeparatorsCount * separatorLen] = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><span class="lineno">  558</span> </div>
+<div class="line"><span class="lineno">  559</span>  <span class="keywordflow">if</span> (digitsCount != (ansiStringLen - 1))</div>
+<div class="line"><span class="lineno">  560</span>    std::memmove(buffer + (digitsCount + groupSeparatorsCount * separatorLen), buffer + digitsCount,</div>
+<div class="line"><span class="lineno">  561</span>                 ansiStringLen - digitsCount);</div>
+<div class="line"><span class="lineno">  562</span> </div>
+<div class="line"><span class="lineno">  563</span>  <span class="keyword">auto</span> scanChars = digitsCount;</div>
+<div class="line"><span class="lineno">  564</span>  <span class="keywordflow">while</span> (groupSeparatorsCount &gt; 0) {</div>
+<div class="line"><span class="lineno">  565</span>    std::memmove(buffer + (scanChars + groupSeparatorsCount * separatorLen - groupSize),</div>
+<div class="line"><span class="lineno">  566</span>                 buffer + (scanChars - groupSize), groupSize);</div>
+<div class="line"><span class="lineno">  567</span>    <span class="keyword">const</span> <span class="keyword">auto</span> destBufferShift = scanChars + (groupSeparatorsCount - 1) * separatorLen - groupSize;</div>
+<div class="line"><span class="lineno">  568</span>    std::memcpy(buffer + destBufferShift, separator, separatorLen);</div>
+<div class="line"><span class="lineno">  569</span>    scanChars -= groupSize;</div>
+<div class="line"><span class="lineno">  570</span>    --groupSeparatorsCount;</div>
+<div class="line"><span class="lineno">  571</span>  }</div>
+<div class="line"><span class="lineno">  572</span>}</div>
 <div class="ttc" id="alinux_2platform__config_8hpp_html_ae03d9a55f6cbc55ebd9d6b25c2e8889c"><div class="ttname"><a href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a></div><div class="ttdeci">#define assert_message(x, message)</div><div class="ttdef"><b>Definition</b> platform_config.hpp:63</div></div>
 </div><!-- fragment -->
 </div>
@@ -361,19 +399,35 @@ template&lt;typename T , std::size_t N&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Converts a floating-point number to its string representation in a specified precision. </p>
-<p>This function converts a given floating-point number into its string representation, storing the result in the provided destination buffer.</p>
+<p>Converts a 64-bit floating-point number to its string representation with specified precision. </p>
+<p>This function converts a given 64-bit floating-point number into its decimal string representation, storing the result in the provided destination buffer. The conversion supports configurable precision and handles special values.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">dest</td><td>The destination buffer where the converted string is stored. </td></tr>
-    <tr><td class="paramname">destSize</td><td>The size of the destination buffer. </td></tr>
-    <tr><td class="paramname">value</td><td>The floating-point number to be converted. </td></tr>
-    <tr><td class="paramname">precision</td><td>The precision (digits after the decimal point). For IEEE-754 f64, practical precision is ~15–17 digits.</td></tr>
+    <tr><td class="paramname">dest</td><td>A pointer to the destination buffer where the converted string is stored. </td></tr>
+    <tr><td class="paramname">destSize</td><td>The size of the destination buffer in characters. </td></tr>
+    <tr><td class="paramname">value</td><td>The 64-bit floating-point number to be converted. </td></tr>
+    <tr><td class="paramname">precision</td><td>The precision (digits after the decimal point). Default is 15, practical limit is ~15–17 digits.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A pointer to the destination buffer containing the converted string.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The function assumes that the destination buffer is large enough to hold the converted string. If the destination buffer size is 1, only a null terminator is written. The function does not support subnormals. </dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The destination buffer must be valid and have sufficient capacity. </dd>
+<dd>
+The precision should be reasonable (typically ≤ 17 for double).</dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>The destination string is null-terminated. </dd>
+<dd>
+Special values (inf, -inf, nan) are properly represented. </dd>
+<dd>
+The result uses fixed-point notation (not scientific).</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The function handles special IEEE-754 values (infinity, NaN). </dd>
+<dd>
+The function does not support subnormal numbers. </dd>
+<dd>
+Precision beyond ~15–17 digits may not be meaningful for float. </dd>
+<dd>
+The function uses efficient bit manipulation for conversion. </dd>
+<dd>
+The function is thread-safe for single-buffer operations. </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">  501</span>                                                                                {</div>
 <div class="line"><span class="lineno">  502</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(dest != <span class="keyword">nullptr</span> &amp;&amp; destSize &gt; 0, <span class="stringliteral">&quot;The destination buffer must not be null.&quot;</span>);</div>
 <div class="line"><span class="lineno">  503</span>  <span class="keywordflow">if</span> (dest == <span class="keyword">nullptr</span> || destSize == 0)</div>
@@ -433,19 +487,35 @@ template&lt;typename T , std::size_t N&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Converts a floating-point number to its string representation in a specified precision. </p>
-<p>This function converts a given floating-point number into its string representation, storing the result in the provided destination buffer.</p>
+<p>Converts a 32-bit floating-point number to its string representation with specified precision. </p>
+<p>This function converts a given 32-bit floating-point number into its decimal string representation, storing the result in the provided destination buffer. The conversion supports configurable precision and handles special values.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">dest</td><td>The destination buffer where the converted string is stored. </td></tr>
-    <tr><td class="paramname">destSize</td><td>The size of the destination buffer. </td></tr>
-    <tr><td class="paramname">value</td><td>The floating-point number to be converted. </td></tr>
-    <tr><td class="paramname">precision</td><td>The precision (digits after the decimal point). For IEEE-754 f32, practical precision is ~7–9 digits.</td></tr>
+    <tr><td class="paramname">dest</td><td>A pointer to the destination buffer where the converted string is stored. </td></tr>
+    <tr><td class="paramname">destSize</td><td>The size of the destination buffer in characters. </td></tr>
+    <tr><td class="paramname">value</td><td>The 32-bit floating-point number to be converted. </td></tr>
+    <tr><td class="paramname">precision</td><td>The precision (digits after the decimal point). Default is 7, practical limit is ~7-9 digits.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A pointer to the destination buffer containing the converted string.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The function assumes that the destination buffer is large enough to hold the converted string. If the destination buffer size is 1, only a null terminator is written. The function does not support subnormals. </dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The destination buffer must be valid and have sufficient capacity. </dd>
+<dd>
+The precision should be reasonable (typically ≤ 9 for float).</dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>The destination string is null-terminated. </dd>
+<dd>
+Special values (inf, -inf, nan) are properly represented. </dd>
+<dd>
+The result uses fixed-point notation (not scientific).</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The function handles special IEEE-754 values (infinity, NaN). </dd>
+<dd>
+The function does not support subnormal numbers. </dd>
+<dd>
+Precision beyond ~7-9 digits may not be meaningful for float. </dd>
+<dd>
+The function uses efficient bit manipulation for conversion. </dd>
+<dd>
+The function is thread-safe for single-buffer operations. </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">  475</span>                                                                               {</div>
 <div class="line"><span class="lineno">  476</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(dest != <span class="keyword">nullptr</span> &amp;&amp; destSize &gt; 0, <span class="stringliteral">&quot;The destination buffer must not be null.&quot;</span>);</div>
 <div class="line"><span class="lineno">  477</span>  <span class="keywordflow">if</span> (dest == <span class="keyword">nullptr</span> || destSize == 0)</div>
@@ -1672,7 +1742,7 @@ Performance is optimized for common wide character ranges. </dd></dl>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../d7/de6/namespacetoygine.html">toygine</a></li>
-    <li class="footer">Generated on Mon Aug 25 2025 for ToyGine2 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generated on Tue Aug 26 2025 for ToyGine2 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>

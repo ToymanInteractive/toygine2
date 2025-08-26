@@ -39,6 +39,7 @@ var NAVTREE =
         [ "Typedefs", "namespacemembers_type.html", null ]
       ] ]
     ] ],
+    [ "Concepts", "concepts.html", "concepts" ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
@@ -61,7 +62,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"dir_dbd2f83f65a97e35fcbceb75bafbe0f9.html"
+"df/d93/utils_8hpp.html#aff7862134d3413778cda2e84ca0f51ea"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
