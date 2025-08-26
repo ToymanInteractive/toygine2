@@ -75,13 +75,7 @@ target_link_libraries(${TOYGINE_LIBRARY_NAME}-tests PRIVATE Catch2::Catch2 ${TOY
 catch_discover_tests(${TOYGINE_LIBRARY_NAME}-tests)
 
 if (TOYGINE_TEST_WITH_RESULTS)
-  FetchContent_Declare(CMakeCodecov GIT_REPOSITORY https://github.com/RWTH-HPC/CMake-codecov.git)
-  FetchContent_MakeAvailable(CMakeCodecov)
-
-  list(APPEND CMAKE_MODULE_PATH "${CMakeCodecov_SOURCE_DIR}/cmake")
-
   set(ENABLE_COVERAGE ON CACHE BOOL "Enable coverage build." FORCE)
-  
   find_package(codecov REQUIRED)
   add_coverage(${TOYGINE_LIBRARY_NAME}-tests)
   coverage_evaluate()
