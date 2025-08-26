@@ -60,7 +60,7 @@ set(CATCH_INSTALL_HELPERS OFF)
 set(CATCH_BUILD_TESTING OFF)
 set(CATCH_INSTALL_DOCS OFF)
 
-FetchContent_Declare(Catch2 GIT_REPOSITORY https://github.com/catchorg/Catch2.git GIT_TAG v3.9.1)
+FetchContent_Declare(Catch2 GIT_REPOSITORY https://github.com/catchorg/Catch2.git GIT_TAG v3.10.0)
 FetchContent_MakeAvailable(Catch2)
 
 list(APPEND CMAKE_MODULE_PATH ${Catch2_SOURCE_DIR}/extras)
@@ -69,17 +69,7 @@ file(GLOB_RECURSE TEST_SRC CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp"
 
 include(Catch)
 
-set(CATCH_REPORTER compact)
-
-if (TOYGINE_TEST_WITH_COVERAGE)
-  set(TEST_RESULTS_DIR ${CMAKE_BINARY_DIR}/test-results)
-  file(MAKE_DIRECTORY ${TEST_RESULTS_DIR})
-  set(CATCH_REPORTER JUnit::out=${TEST_RESULTS_DIR}/junit-${TOYGINE_LIBRARY_NAME}.xml)
-endif (TOYGINE_TEST_WITH_COVERAGE)
-
-set(CTEST_OUTPUT_ON_FAILURE ON)
-
 add_executable(${TOYGINE_LIBRARY_NAME}-tests ${TEST_SRC})
 target_include_directories(${TOYGINE_LIBRARY_NAME}-tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include)
 target_link_libraries(${TOYGINE_LIBRARY_NAME}-tests PRIVATE Catch2::Catch2 ${TOYGINE_LIBRARY_NAME})
-catch_discover_tests(${TOYGINE_LIBRARY_NAME}-tests REPORTER ${CATCH_REPORTER})
+catch_discover_tests(${TOYGINE_LIBRARY_NAME}-tests)

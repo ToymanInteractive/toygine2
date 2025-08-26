@@ -156,7 +156,8 @@
             "hidden": true,
             "output": {
                 "debug": true,
-                "verbosity": "extra"
+                "verbosity": "extra",
+                "outputJUnitFile": "${sourceDir}/out/junit/${presetName}.xml"
             },
             "configuration": "Debug"
         },
@@ -165,7 +166,8 @@
             "hidden": true,
             "output": {
                 "shortProgress": true,
-                "verbosity": "verbose"
+                "verbosity": "verbose",
+                "outputJUnitFile": "${sourceDir}/out/junit/${presetName}.xml"
             },
             "configuration": "RelWithDebInfo"
         },

@@ -2,7 +2,7 @@
 
 [English](README.md) | [Русский](README.ru.md)
 
-ToyGine2 is a modern C++ high‑level engine.
+ToyGine2 — современный высокоуровневый движок на C++.
 
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/ToymanInteractive/toygine2/push.yaml?branch=main&logo=github&logoColor=fff&label=Build)
 ![GitHub License](https://img.shields.io/github/license/ToymanInteractive/toygine2?logo=github&logoColor=fff&label=License)
@@ -11,25 +11,25 @@ ToyGine2 is a modern C++ high‑level engine.
 [![Codecov](https://img.shields.io/codecov/c/github/ToymanInteractive/toygine2?logo=codecov&logoColor=fff&flag=documentation&label=Doxygen%20Coverage)](https://codecov.io/gh/ToymanInteractive/toygine2)
 ![CodeRabbit Pull Request Reviews](https://img.shields.io/coderabbit/prs/github/ToymanInteractive/toygine2?logo=coderabbit&logoColor=fff&label=CodeRabbit%20Reviews)
 
-## Supported Systems
+## Поддерживаемые системы
 
 - Windows
 - macOS
 - Linux
 
-## Requirements
+## Требования
 
-`ToyGine2` requires a C++23-compliant compiler. The following tools and compilers are supported:
+Для `ToyGine2` требуется компилятор, совместимый с C++23. Ниже перечислены поддерживаемые компиляторы и вспомогательные утилиты:
 
-### Supported C++ compilers
+### Поддерживаемые компиляторы C++
 
-| OS      | Toolchain               | Version                          |
-| ------- | ----------------------- | -------------------------------- |
-| Windows | Microsoft Visual Studio | MSVC 2022 17.4 and above         |
-| macOS   | Xcode                   | 16.4 and above (Apple Clang 17+) |
-| Linux   | GCC                     | 14.0 and above                   |
+| OS      | Компилятор              | Версия                        |
+| ------- | ----------------------- | ----------------------------- |
+| Windows | Microsoft Visual Studio | MSVC 2022 17.4 и выше         |
+| macOS   | Xcode                   | 16.4 и выше (Apple Clang 17+) |
+| Linux   | GCC                     | 14.0 и выше                   |
 
-### Tools
+### Утилиты
 
-- CMake 3.31 or newer
-- Doxygen 1.12+ and Graphviz (for documentation)
+- CMake 3.31 или выше
+- Doxygen 1.12 или выше и Graphviz (для документации)
