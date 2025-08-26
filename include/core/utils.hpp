@@ -28,7 +28,7 @@
 namespace toygine {
 
 /// Maximum UTF-8 bytes required for BMP characters.
-inline constexpr std::size_t wcharInUtf8MaxSize = 3;
+constexpr inline std::size_t wcharInUtf8MaxSize = 3;
 
 /*!
   \brief Converts a Unicode UTF-8 encoded string to a wide character string with character count limit.
@@ -57,7 +57,7 @@ inline constexpr std::size_t wcharInUtf8MaxSize = 3;
   \note The function is thread-safe for read operations.
   \note Performance is optimized for common UTF-8 sequences.
 */
-wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, const char * const src, std::size_t count);
+wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, const char * const src, std::size_t count) noexcept;
 
 /*!
   \brief Converts a Unicode UTF-8 encoded string to a wide character string.
@@ -82,7 +82,7 @@ wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, const char * const s
   \note The function automatically determines the source string length.
   \note Performance is optimized for common UTF-8 sequences.
 */
-inline wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, const char * const src);
+constexpr inline wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, const char * const src) noexcept;
 
 /*!
   \brief Converts a Unicode UTF-8 encoded string to a wide character string.
@@ -90,7 +90,7 @@ inline wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, const char * 
   This template function translates a UTF-8 encoded source string from any string-like type into a wide character
   string. The conversion stops when the source string ends or the destination buffer is filled.
 
-  \tparam stringType The type of the source string. Must have a c_str() and size() methods.
+  \tparam stringType The type of the source string. Must satisfy the StringLike concept.
 
   \param dest     A pointer to the destination buffer where the converted wide character string will be stored.
   \param destSize The size of the destination buffer in wide characters (not bytes).
@@ -109,8 +109,8 @@ inline wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, const char * 
   \note The function automatically determines the source string length.
   \note Performance is optimized for common UTF-8 sequences.
 */
-template <typename stringType>
-inline wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, const stringType & src);
+template <StringLike stringType>
+constexpr inline wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, const stringType & src) noexcept;
 
 /*!
   \brief Converts a Unicode wide character string to a UTF-8 encoded string.
@@ -136,7 +136,7 @@ inline wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, const stringT
   \note The function is thread-safe for read operations.
   \note Performance is optimized for common wide character ranges.
 */
-char * wcharToUtf8(char * dest, std::size_t destSize, wchar_t const * src);
+char * wcharToUtf8(char * dest, std::size_t destSize, const wchar_t * src) noexcept;
 
 /*!
   \brief Returns the number of Unicode characters in a UTF-8 encoded string.
@@ -160,7 +160,7 @@ char * wcharToUtf8(char * dest, std::size_t destSize, wchar_t const * src);
   \note Performance is optimized for common UTF-8 patterns.
   \note Invalid UTF-8 sequences cause the function to return 0.
 */
-std::size_t utf8len(const char * str);
+std::size_t utf8len(const char * str) noexcept;
 
 /*!
   \brief Reverses a given string in-place.
@@ -186,7 +186,7 @@ std::size_t utf8len(const char * str);
   \note The function is thread-safe for single-string operations.
   \note Performance is optimized for common string lengths.
 */
-char * reverseString(char * str, std::size_t count = 0);
+constexpr inline char * reverseString(char * str, std::size_t count = 0) noexcept;
 
 /*!
   \brief Converts an 8-bit signed integer value to a string representation.
@@ -210,7 +210,7 @@ char * reverseString(char * str, std::size_t count = 0);
   \note The function is thread-safe for single-buffer operations.
   \note Performance is optimized for common integer ranges.
 */
-char * itoa(char * dest, std::size_t destSize, std::int8_t value);
+char * itoa(char * dest, std::size_t destSize, std::int8_t value) noexcept;
 
 /*!
   \brief Converts a 16-bit signed integer value to a string representation.
@@ -234,7 +234,7 @@ char * itoa(char * dest, std::size_t destSize, std::int8_t value);
   \note The function is thread-safe for single-buffer operations.
   \note Performance is optimized for common integer ranges.
 */
-char * itoa(char * dest, std::size_t destSize, std::int16_t value);
+char * itoa(char * dest, std::size_t destSize, std::int16_t value) noexcept;
 
 /*!
   \brief Converts a 32-bit signed integer value to a string representation.
@@ -259,7 +259,7 @@ char * itoa(char * dest, std::size_t destSize, std::int16_t value);
   \note The function is thread-safe for single-buffer operations.
   \note Performance is optimized for common integer ranges.
 */
-char * itoa(char * dest, std::size_t destSize, std::int32_t value);
+char * itoa(char * dest, std::size_t destSize, std::int32_t value) noexcept;
 
 /*!
   \brief Converts a 64-bit signed integer value to a string representation.
@@ -284,7 +284,7 @@ char * itoa(char * dest, std::size_t destSize, std::int32_t value);
   \note The function is thread-safe for single-buffer operations.
   \note Performance is optimized for common integer ranges.
 */
-char * itoa(char * dest, std::size_t destSize, std::int64_t value);
+char * itoa(char * dest, std::size_t destSize, std::int64_t value) noexcept;
 
 /*!
   \brief Converts an 8-bit unsigned integer to a string representation in the specified base.
@@ -308,7 +308,7 @@ char * itoa(char * dest, std::size_t destSize, std::int64_t value);
   \note The function supports bases 2-36 with digits 0-9 and letters A-Z.
   \note The function is thread-safe for single-buffer operations.
 */
-char * itoa(char * dest, std::size_t destSize, std::uint8_t value, unsigned base);
+char * itoa(char * dest, std::size_t destSize, std::uint8_t value, unsigned base) noexcept;
 
 /*!
   \brief Converts a 16-bit unsigned integer to a string representation in the specified base.
@@ -332,7 +332,7 @@ char * itoa(char * dest, std::size_t destSize, std::uint8_t value, unsigned base
   \note The function supports bases 2-36 with digits 0-9 and letters A-Z.
   \note The function is thread-safe for single-buffer operations.
 */
-char * itoa(char * dest, std::size_t destSize, std::uint16_t value, unsigned base);
+char * itoa(char * dest, std::size_t destSize, std::uint16_t value, unsigned base) noexcept;
 
 /*!
   \brief Converts a 32-bit unsigned integer to a string representation in the specified base.
@@ -356,7 +356,7 @@ char * itoa(char * dest, std::size_t destSize, std::uint16_t value, unsigned bas
   \note The function supports bases 2-36 with digits 0-9 and letters A-Z.
   \note The function is thread-safe for single-buffer operations.
 */
-char * itoa(char * dest, std::size_t destSize, std::uint32_t value, unsigned base);
+char * itoa(char * dest, std::size_t destSize, std::uint32_t value, unsigned base) noexcept;
 
 /*!
   \brief Converts a 64-bit unsigned integer to a string representation in the specified base.
@@ -380,7 +380,7 @@ char * itoa(char * dest, std::size_t destSize, std::uint32_t value, unsigned bas
   \note The function supports bases 2-36 with digits 0-9 and letters A-Z.
   \note The function is thread-safe for single-buffer operations.
 */
-char * itoa(char * dest, std::size_t destSize, std::uint64_t value, unsigned base);
+char * itoa(char * dest, std::size_t destSize, std::uint64_t value, unsigned base) noexcept;
 
 /*!
   \brief Converts a 32-bit floating-point number to its string representation with specified precision.
@@ -408,7 +408,7 @@ char * itoa(char * dest, std::size_t destSize, std::uint64_t value, unsigned bas
   \note The function uses efficient bit manipulation for conversion.
   \note The function is thread-safe for single-buffer operations.
 */
-char * ftoa(char * dest, std::size_t destSize, float value, std::size_t precision = 7);
+char * ftoa(char * dest, std::size_t destSize, float value, std::size_t precision = 7) noexcept;
 
 /*!
   \brief Converts a 64-bit floating-point number to its string representation with specified precision.
@@ -436,7 +436,7 @@ char * ftoa(char * dest, std::size_t destSize, float value, std::size_t precisio
   \note The function uses efficient bit manipulation for conversion.
   \note The function is thread-safe for single-buffer operations.
 */
-char * ftoa(char * dest, std::size_t destSize, double value, std::size_t precision = 15);
+char * ftoa(char * dest, std::size_t destSize, double value, std::size_t precision = 15) noexcept;
 
 /*!
   \brief Formats a number string by inserting grouping separators.
@@ -465,7 +465,7 @@ char * ftoa(char * dest, std::size_t destSize, double value, std::size_t precisi
   \note Performance is optimized for common number string lengths.
   \note The function does not validate that the input is purely numeric.
 */
-void formatNumberString(char * buffer, std::size_t bufferSize, const char * separator);
+void formatNumberString(char * buffer, std::size_t bufferSize, const char * separator) noexcept;
 
 } // namespace toygine
 

@@ -25,9 +25,13 @@
 #ifndef INCLUDE_CORE_HPP_
 #define INCLUDE_CORE_HPP_
 
+#include <algorithm>
+#include <concepts>
+#include <cstddef>
 #include <cstdint>
 #include <cstring>
 #include <cuchar>
+#include <utility>
 
 //----------------------------------------------------------------------------------------------------------------------
 
@@ -97,6 +101,27 @@ template <typename T, std::size_t N>
 consteval std::size_t ArraySize(T (&)[N]) {
   return N;
 }
+
+/*!
+  \brief Concept defining the requirements for string-like types.
+
+  This concept defines the interface that any type must satisfy to be considered string-like. It requires the type to
+  have a size() method that returns a value convertible to std::size_t, and a c_str() method that returns a value
+  convertible to const char*.
+
+  (Template parameter T is the type to check for string-like properties.)
+
+  \note Types satisfying this concept can be used with FixString template methods that accept generic string types, such
+        as constructors, assignment operators, and various string manipulation methods.
+
+  \note The concept ensures type safety and provides a compile-time guarantee that the required methods exist and return
+        compatible types.
+*/
+template <typename T>
+concept StringLike = requires(const T & s) {
+  { s.size() } -> std::convertible_to<std::size_t>;
+  { s.c_str() } -> std::convertible_to<const char *>;
+};
 
 #if 1
 /*!

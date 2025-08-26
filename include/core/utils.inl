@@ -27,18 +27,18 @@
 
 namespace toygine {
 
-inline wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, const char * const src) {
+constexpr inline wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, const char * const src) noexcept {
   assert_message(src != nullptr, "The source must not be null.");
 
   return src != nullptr ? utf8toWChar(dest, destSize, src, std::strlen(src)) : nullptr;
 }
 
-template <typename stringType>
-inline wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, const stringType & src) {
+template <StringLike stringType>
+constexpr inline wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, const stringType & src) noexcept {
   return utf8toWChar(dest, destSize, src.c_str(), src.size());
 }
 
-inline char * reverseString(char * string, std::size_t stringLength) {
+constexpr inline char * reverseString(char * string, std::size_t stringLength) noexcept {
   assert_message(string != nullptr, "The source string must not be null.");
   if (string == nullptr)
     return nullptr;
