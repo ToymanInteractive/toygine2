@@ -700,10 +700,69 @@ public:
   */
   constexpr inline FixString<allocatedSize> & append(char symbol, std::size_t count = 1) noexcept;
 
+  /*!
+    \brief Appends a string to this string.
+
+    This operator appends the contents of another FixString object to the end of this string.
+
+    \param string The FixString object to append.
+
+    \return A reference to this FixString object after appending.
+
+    \pre The combined length after appending must not exceed the allocated size.
+
+    \post The string is extended with the appended content.
+
+  */
   constexpr inline FixString<allocatedSize> & operator+=(const FixString<allocatedSize> & string) noexcept;
-  template <std::size_t allocatedSize2>
-  constexpr inline FixString<allocatedSize> & operator+=(const FixString<allocatedSize2> & string) noexcept;
+
+  /*!
+    \brief Appends a string object to the end of this string.
+
+    This operator appends the contents of a string object to the end of this string.
+
+    \tparam stringType The type of the source string. Must satisfy the StringLikeForFixString concept.
+
+    \param string The string object to append.
+
+    \return A reference to this FixString object after appending.
+
+    \pre The combined length after appending must not exceed the allocated size.
+
+    \post The string is extended with the appended content.
+
+  */
+  template <StringLikeForFixString stringType>
+  constexpr inline FixString<allocatedSize> & operator+=(const stringType & string) noexcept;
+
+  /*!
+    \brief Appends a C string to the end of this string.
+
+    This operator appends the contents of a C string to the end of this string.
+
+    \param string The C string to append.
+
+    \return A reference to this FixString object after appending.
+
+    \pre The combined length after appending must not exceed the allocated size.
+
+    \post The string is extended with the appended content.
+  */
   constexpr inline FixString<allocatedSize> & operator+=(const char * string) noexcept;
+
+  /*!
+    \brief Appends a character to the end of this string.
+
+    This operator appends the contents of a character to the end of this string.
+
+    \param symbol The character to append.
+
+    \return A reference to this FixString object after appending.
+
+    \pre The combined length after appending must not exceed the allocated size.
+
+    \post The string is extended with the appended content.
+  */
   constexpr inline FixString<allocatedSize> & operator+=(char symbol) noexcept;
 
   /*!
