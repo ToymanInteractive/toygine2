@@ -109,7 +109,7 @@ constexpr divmod10 divModU10(std::uint32_t value) noexcept {
 */
 constexpr std::int32_t ftoa32Engine(char * buffer, float value, std::size_t precision) noexcept {
   const auto uvalue = std::bit_cast<uint32_t>(value);
-  const auto exponent = static_cast<std::uint8_t>(uvalue >> 23);
+  const auto exponent = static_cast<std::uint8_t>((uvalue >> 23) & 0xFF);
   if (exponent == 0) { // don't care about a subnormals
     buffer[0] = '0';
     buffer[1] = '\0';
