@@ -7,9 +7,6 @@ permissions: {}
 
 jobs:
   build:
-    concurrency:
-      group: build-${{ github.workflow }}-${{ github.ref }}-${{ github.event.number || 'push' }}
-      cancel-in-progress: true
     strategy:
       fail-fast: false
       matrix:
