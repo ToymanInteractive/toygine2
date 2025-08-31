@@ -82,16 +82,10 @@ jobs:
           fi
 
       - name: Setup MSVC dev command prompt
-        if: ${{ matrix.name == 'Windows MSVC' }}
+        if: ${{ startsWith(matrix.name, 'Windows MSVC') }}
         uses: TheMrMilchmann/setup-msvc-dev@v3.0.1
         with:
-          arch: x64
-
-      - name: Setup MSVC x86 dev command prompt
-        if: ${{ matrix.name == 'Windows MSVC x86' }}
-        uses: TheMrMilchmann/setup-msvc-dev@v3.0.1
-        with:
-          arch: x86
+          arch: ${{ contais(matrix.name, 'x86') && 'x86' || 'x64' }}
 
       - name: Configure
         run: |
