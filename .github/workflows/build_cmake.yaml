@@ -34,13 +34,13 @@ jobs:
           - name: Windows MSVC
             os: windows-2025
             run_test: "true"
-            continue_on_error: true
+            continue_on_error: false
             cmake_preset: windows-msvc
 
           - name: Windows MSVC x86
             os: windows-2025
             run_test: "true"
-            continue_on_error: true
+            continue_on_error: false
             cmake_preset: windows-msvc-x86
 
     name: CMake (${{ matrix.name }})
@@ -80,6 +80,12 @@ jobs:
             sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-14 100
             sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-14 100
           fi
+
+      - name: Setup MSVC dev command prompt
+        if: ${{ startsWith(matrix.name, 'Windows MSVC') }}
+        uses: TheMrMilchmann/setup-msvc-dev@v3.0.1
+        with:
+          arch: ${{ contains(matrix.name, 'x86') && 'x86' || 'x64' }}
 
       - name: Configure
         run: |
