@@ -85,7 +85,7 @@ jobs:
         if: ${{ startsWith(matrix.name, 'Windows MSVC') }}
         uses: TheMrMilchmann/setup-msvc-dev@v3.0.1
         with:
-          arch: ${{ contais(matrix.name, 'x86') && 'x86' || 'x64' }}
+          arch: ${{ contains(matrix.name, 'x86') && 'x86' || 'x64' }}
 
       - name: Configure
         run: |
