@@ -6,8 +6,12 @@ on:
 permissions: {}
 
 jobs:
-  cmake:
+  build:
+    concurrency:
+      group: build-${{ github.workflow }}-${{ github.ref }}-${{ github.event.number || 'push' }}
+      cancel-in-progress: true
     strategy:
+      fail-fast: false
       matrix:
         include:
           - name: Linux Ninja
@@ -43,12 +47,13 @@ jobs:
             continue_on_error: false
             cmake_preset: windows-msvc-x86
 
-    name: CMake (${{ matrix.name }})
+    name: ${{ matrix.name }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
     defaults:
       run:
         shell: bash
+
     steps:
       - name: Checkout
         uses: actions/checkout@v5.0.0
@@ -82,10 +87,10 @@ jobs:
           fi
 
       - name: Setup MSVC dev command prompt
-        if: ${{ startsWith(matrix.name, 'Windows MSVC') }}
+        if: ${{ contains(matrix.cmake_preset, 'msvc') }}
         uses: TheMrMilchmann/setup-msvc-dev@v3.0.1
         with:
-          arch: ${{ contains(matrix.name, 'x86') && 'x86' || 'x64' }}
+          arch: ${{ contains(matrix.cmake_preset, 'x86') && 'x86' || 'x64' }}
 
       - name: Configure
         run: |
