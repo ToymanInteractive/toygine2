@@ -86,7 +86,7 @@ public:
     This constructor initializes a string by copying the content from the C \a string. The constructor automatically
     determines the length of the source string and copies the content up to the allocated capacity.
 
-    \param string The C string to copy content from.
+    \param string The source C string to copy content from.
 
     \pre The source \a string must not be null.
 
@@ -264,7 +264,7 @@ public:
   /*!
     \brief Character fill assign method for the string.
 
-    This method assigns the \a character repeated the specified \a count of times to this string.
+    This method assigns a \a character repeated the given \a count of times to this string.
 
     \param character The character to repeat.
     \param count     The number of times to repeat the character.
@@ -358,7 +358,7 @@ public:
 
     \return A pointer to the internal character array.
 
-    \note The returned pointer points to a null-terminated data.
+    \note The returned pointer points to a null-terminated character array.
     \note The returned pointer allows modification of the string contents.
     \note Use const version for read-only access.
   */
@@ -372,7 +372,7 @@ public:
 
     \return A constant pointer to the internal character array.
 
-    \note The returned pointer points to a null-terminated data.
+    \note The returned pointer points to a null-terminated character array.
     \note The returned pointer is read-only and cannot modify the string contents.
     \note Use non-const version for allows modification.
   */
@@ -400,7 +400,7 @@ public:
 
     \return True if the string is empty, false otherwise.
 
-    \note An empty string has size is zero.
+    \note An empty string has size zero.
     \note An empty string still contains a null terminator.
     \note This method is equivalent to the expression: ```size() == 0```.
   */
@@ -475,107 +475,98 @@ public:
   /*!
     \brief Clears the contents of the string.
 
-    This method resets the size of the string to zero and effectively clear the string.
+    This method resets the size of the string to zero and effectively clears the string.
 
     \note The string object is cleared, and its size is set to zero.
   */
   constexpr inline void clear() noexcept;
 
   /*!
-    \brief Inserts a string at the specified index.
+    \brief Inserts other \a string at the specified index.
 
-    This method inserts the contents of another FixString object at the specified position. The insertion shifts
-    existing characters to the right to make room for the new content.
+    This method inserts the contents from another \a string at the specified position. The insertion shifts existing
+    characters to the right to make room for the new content.
 
     \param index  The position where the string should be inserted.
-    \param string The FixString object to insert.
+    \param string The source string to insert content from.
 
-    \return A reference to this FixString object after insertion.
+    \return A reference to this string after insertion.
 
     \pre The index must be within the bounds of the current string.
     \pre The combined length after insertion must not exceed the allocated size.
-
-    \post The string is modified with the inserted content at the specified position.
   */
   constexpr inline FixString<allocatedSize> & insert(std::size_t index,
                                                      const FixString<allocatedSize> & string) noexcept;
 
   /*!
-    \brief Inserts a string object at the specified index.
+    \brief Inserts a StringLike object at the specified index.
 
-    This method inserts the contents of another string object at the specified position. The insertion shifts existing
+    This method inserts the contents from a StringLike object at the specified position. The insertion shifts existing
     characters to the right to make room for the new content.
 
     \tparam stringType The type of the source string. Must satisfy the StringLike concept.
 
-    \param index  The position where the string should be inserted.
-    \param string The string object to insert.
+    \param index  The position where the StringLike object should be inserted.
+    \param string The source StringLike object to insert content from.
 
-    \return A reference to this FixString object after insertion.
+    \return A reference to this string after insertion.
 
     \pre The index must be within the bounds of the current string.
     \pre The combined length after insertion must not exceed the allocated size.
-
-    \post The string is modified with the inserted content at the specified position.
   */
   template <StringLike stringType>
   constexpr inline FixString<allocatedSize> & insert(std::size_t index, const stringType & string) noexcept;
 
   /*!
-    \brief Inserts a C string at the specified index.
+    \brief Inserts the C \a string at the specified index.
 
-    This method inserts the contents of a C string at the specified position. The insertion shifts existing characters
-    to the right to make room for the new content.
+    This method inserts the contents of the C \a string at the specified position. The insertion shifts existing
+    characters to the right to make room for the new content.
 
-    \param index  The position where the string should be inserted.
-    \param string The C string to insert.
+    \param index  The position where the C \a string should be inserted.
+    \param string The source C string to insert content from.
 
-    \return A reference to this FixString object after insertion.
+    \return A reference to this string after insertion.
 
     \pre The index must be within the bounds of the current string.
     \pre The combined length after insertion must not exceed the allocated size.
-    \pre The source string must not be null.
-
-    \post The string is modified with the inserted content at the specified position.
+    \pre The source C string must not be null.
   */
   constexpr inline FixString<allocatedSize> & insert(std::size_t index, const char * string) noexcept;
 
   /*!
-    \brief Inserts a character repeated count times at the specified index.
+    \brief Inserts a \a character repeated the given \a count times at the specified index.
 
-    This method inserts a character repeated the specified number of times at the specified position. The insertion
+    This method inserts a \a character repeated the given \a count of times at the specified position. The insertion
     shifts existing characters to the right to make room for the new content.
 
-    \param index  The position where the character should be inserted.
-    \param symbol The character to insert.
-    \param count  The number of times to repeat the character.
+    \param index     The position where the characters should be inserted.
+    \param character The character to insert.
+    \param count     The number of times to repeat the character.
 
-    \return A reference to this FixString object after insertion.
+    \return A reference to this string after insertion.
 
     \pre The index must be within the bounds of the current string.
     \pre The combined length after insertion must not exceed the allocated size.
-
-    \post The string is modified with the inserted characters at the specified position.
   */
-  constexpr inline FixString<allocatedSize> & insert(std::size_t index, char symbol, std::size_t count = 1) noexcept;
+  constexpr inline FixString<allocatedSize> & insert(std::size_t index, char character, std::size_t count = 1) noexcept;
 
   /*!
-    \brief Erases characters from the string starting at the specified offset.
+    \brief Erases characters from the string starting at the specified \a offset.
 
-    This method removes characters from the string starting at the specified offset. The method can remove a specific
-    number of characters or all characters from the offset to the end of the string. The remaining characters are
+    This method removes characters from the string starting at the specified \a offset. The method can remove a specific
+    number of characters or all characters from the \a offset to the end of the string. The remaining characters are
     shifted left to fill the gap, and the string size is updated accordingly.
 
     \param offset The starting position for erasing characters.
-    \param count  The number of characters to erase. If count is `npos` or equal to the remaining length, all characters
-                  from offset to the end are removed.
+    \param count  The number of characters to erase. If count is \ref npos or equal to the remaining length, then all
+                  characters from offset to the end are removed.
 
-    \return A reference to this FixString object after erasing.
+    \return A reference to this string after erasing.
 
     \pre The offset must be within the bounds of the current string.
     \pre The sum of offset and count must be less than or equal to the current string size.
 
-    \post Characters are removed from the specified position.
     \post The string size is reduced by the number of erased characters.
 
     \note If count is npos, all characters from offset to the end are removed.
@@ -585,21 +576,19 @@ public:
   constexpr inline FixString<allocatedSize> & erase(std::size_t offset, std::size_t count = npos) noexcept;
 
   /*!
-    \brief Appends a single character to the end of the string.
+    \brief Appends a single \a character to the end of the string.
 
-    This method appends a single character to the end of the current string, increasing its size by one.
+    This method appends a single \a character to the end of the current string, increasing its size by one.
 
-    \param symbol The character to append.
+    \param character The character to append.
 
-    \pre The current string size plus one must be strictly less than the allocated size (i.e., size() < capacity()).
+    \pre The combined length after append must not exceed the allocated size.
 
-    \post The string size is increased by one.
-    \post The new character is added at the end of the string.
-    \post The string remains null-terminated.
+    \note This method is equivalent to addition assignment operator but more explicit in intent.
 
-    \note This method is equivalent to operator+=(char) but more explicit in intent.
+    \see operator+=(char)
   */
-  constexpr inline void push_back(char symbol) noexcept;
+  constexpr inline void push_back(char character) noexcept;
 
   /*!
     \brief Removes the last character from the string.
@@ -609,85 +598,96 @@ public:
     \pre The string must not be empty.
 
     \post The string size is decreased by one.
-    \post The last character is removed from the string.
-    \post The string remains null-terminated.
 
     \note If the string is empty, the behavior is undefined.
   */
   constexpr inline void pop_back() noexcept;
 
   /*!
-    \brief Appends a string to the end of this string.
+    \brief Appends other \a string to the end of this string.
 
-    This method appends the contents of another FixString object to the end of this string.
+    This method appends the contents of another \a string to the end of this string.
 
-    \param string The FixString object to append.
+    \param string The source string to append content from.
 
-    \return A reference to this FixString object after appending.
+    \return A reference to this string after appending.
 
     \pre The combined length after appending must not exceed the allocated size.
 
     \post The string is extended with the appended content.
+
+    \note This method is equivalent to addition assignment operator.
+
+    \see operator+=(const FixString<allocatedSize> &)
   */
   constexpr inline FixString<allocatedSize> & append(const FixString<allocatedSize> & string) noexcept;
 
   /*!
-    \brief Appends a string object to the end of this string.
+    \brief Appends a StringLike object to the end of this string.
 
-    This method appends the contents of a string object to the end of this string.
+    This method appends the contents of a StringLike object to the end of this string.
 
     \tparam stringType The type of the source string. Must satisfy the StringLike concept.
 
-    \param string The string object to append.
+    \param string The source StringLike object to append content from.
 
-    \return A reference to this FixString object after appending.
+    \return A reference to this string after appending.
 
     \pre The combined length after appending must not exceed the allocated size.
 
     \post The string is extended with the appended content.
+
+    \note This method is equivalent to addition assignment operator.
+
+    \see operator+=(const stringType &)
   */
   template <StringLike stringType>
   constexpr inline FixString<allocatedSize> & append(const stringType & string) noexcept;
 
   /*!
-    \brief Appends a C string to the end of this string.
+    \brief Appends the C \a string to the end of this string.
 
-    This method appends the contents of a C string to the end of this string.
+    This method appends the contents of the C \a string to the end of this string.
 
-    \param string The C string to append.
+    \param string The source C string to append content from.
 
-    \return A reference to this FixString object after appending.
+    \return A reference to this string after appending.
 
     \pre The combined length after appending must not exceed the allocated size.
+    \pre The source C string must not be null.
 
     \post The string is extended with the appended content.
+
+    \note This method is equivalent to addition assignment operator.
+
+    \see operator+=(const char *)
   */
   constexpr inline FixString<allocatedSize> & append(const char * string) noexcept;
 
   /*!
-    \brief Appends a character repeated the given number of times to the end of this string.
+    \brief Appends a \a character repeated the given \a count times to the end of this string.
 
-    This method appends the contents of a character repeated the given number of times to the end of this string.
+    This method appends a \a character repeated the given \a count of times to the end of this string.
 
-    \param symbol The character to append.
-    \param count  The number of times to repeat the character.
+    \param character The character to append.
+    \param count     The number of times to repeat the character.
 
-    \return A reference to this FixString object after appending.
+    \return A reference to this string after appending.
 
     \pre The combined length after appending must not exceed the allocated size.
 
     \post The string is extended with the appended content.
   */
-  constexpr inline FixString<allocatedSize> & append(char symbol, std::size_t count = 1) noexcept;
+  constexpr inline FixString<allocatedSize> & append(char character, std::size_t count = 1) noexcept;
 
   /*!
-    \brief Appends a string to this string.
+    \brief Appends other \a string to the end of this string.
 
-    This operator appends the contents of another FixString object to the end of this string.
+    This operator appends the contents of another \a string to the end of this string.
 
-    \param string The FixString object to append.
+    \param string The source string to append content from.
 
-    \return A reference to this FixString object after appending.
+    \return A reference to this string after appending.
 
     \pre The combined length after appending must not exceed the allocated size.
 
@@ -696,15 +696,15 @@ public:
   constexpr inline FixString<allocatedSize> & operator+=(const FixString<allocatedSize> & string) noexcept;
 
   /*!
-    \brief Appends a string object to the end of this string.
+    \brief Appends a StringLike object to the end of this string.
 
-    This operator appends the contents of a string object to the end of this string.
+    This operator appends the contents of a StringLike object to the end of this string.
 
     \tparam stringType The type of the source string. Must satisfy the StringLike concept.
 
-    \param string The string object to append.
+    \param string The source StringLike object to append content from.
 
-    \return A reference to this FixString object after appending.
+    \return A reference to this string after appending.
 
     \pre The combined length after appending must not exceed the allocated size.
 
@@ -714,34 +714,35 @@ public:
   constexpr inline FixString<allocatedSize> & operator+=(const stringType & string) noexcept;
 
   /*!
-    \brief Appends a C string to the end of this string.
+    \brief Appends the C \a string to the end of this string.
 
-    This operator appends the contents of a C string to the end of this string.
+    This operator appends the contents of the C \a string to the end of this string.
 
-    \param string The C string to append.
+    \param string The source C string to append content from.
 
-    \return A reference to this FixString object after appending.
+    \return A reference to this string after appending.
 
     \pre The combined length after appending must not exceed the allocated size.
+    \pre The source C string must not be null.
 
     \post The string is extended with the appended content.
   */
   constexpr inline FixString<allocatedSize> & operator+=(const char * string) noexcept;
 
   /*!
-    \brief Appends a character to the end of this string.
+    \brief Appends a \a character to the end of this string.
 
-    This operator appends the contents of a character to the end of this string.
+    This operator appends a \a character to the end of this string.
 
-    \param symbol The character to append.
+    \param character The character to append.
 
-    \return A reference to this FixString object after appending.
+    \return A reference to this string after appending.
 
     \pre The combined length after appending must not exceed the allocated size.
 
     \post The string is extended with the appended content.
   */
-  constexpr inline FixString<allocatedSize> & operator+=(char symbol) noexcept;
+  constexpr inline FixString<allocatedSize> & operator+=(char character) noexcept;
 
   /*!
     \brief Concatenates two FixString objects and returns the result.

@@ -308,13 +308,13 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::insert(std
 }
 
 template <std::size_t allocatedSize>
-constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::insert(std::size_t index, char symbol,
+constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::insert(std::size_t index, char character,
                                                                              std::size_t count) noexcept {
   assert_message(index <= _size, "Index must not exceed string size");
   assert_message(_size + count < allocatedSize, "Inserted characters must fit in capacity");
 
   std::memmove(_data + index + count, _data + index, _size - index + 1);
-  std::memset(_data + index, symbol, count);
+  std::memset(_data + index, character, count);
 
   _size += count;
 
@@ -341,10 +341,10 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::erase(std:
 }
 
 template <std::size_t allocatedSize>
-constexpr inline void FixString<allocatedSize>::push_back(char symbol) noexcept {
+constexpr inline void FixString<allocatedSize>::push_back(char character) noexcept {
   assert_message(_size + 1 < allocatedSize, "String must have space for new character");
 
-  _data[_size++] = symbol;
+  _data[_size++] = character;
   _data[_size] = '\0';
 }
 
@@ -398,10 +398,11 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::append(con
 }
 
 template <std::size_t allocatedSize>
-constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::append(char symbol, std::size_t count) noexcept {
+constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::append(char character,
+                                                                             std::size_t count) noexcept {
   assert_message(_size + count < allocatedSize, "Appended string must fit in capacity");
 
-  std::memset(_data + _size, symbol, count);
+  std::memset(_data + _size, character, count);
   _size += count;
   _data[_size] = '\0';
 
@@ -450,10 +451,10 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator+=
 }
 
 template <std::size_t allocatedSize>
-constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator+=(char symbol) noexcept {
+constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator+=(char character) noexcept {
   assert_message(_size + 1 < allocatedSize, "Appended string must fit in capacity");
 
-  _data[_size++] = symbol;
+  _data[_size++] = character;
   _data[_size] = '\0';
 
   return *this;
