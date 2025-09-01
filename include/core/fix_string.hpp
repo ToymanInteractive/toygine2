@@ -31,13 +31,9 @@ template <std::size_t allocatedSize>
 class FixString {
 public:
   /*!
-    \brief Default constructor for the string.
-
-    This is the default constructor for the string.
+    \brief Default constructor.
 
     \post The string is empty and ready for use.
-
-    \post The string has a size of 0 and a null character in the data array.
   */
   constexpr inline FixString() noexcept;
 
@@ -311,7 +307,7 @@ public:
     \pre The \a offset should be less than the current string size.
 
     \note The returned reference is read-only and cannot modify the character.
-    \note Use non-const version for allows modification.
+    \note Use the non-const overload to allow modification.
     \note This method is equivalent to the subscript operator.
 
     \see operator[](std::size_t offset) const
@@ -346,7 +342,7 @@ public:
     \pre The \a offset should be less than the current string size.
 
     \note The returned reference is read-only and cannot modify the character.
-    \note Use non-const version for allows modification.
+    \note Use the non-const overload to allow modification.
   */
   constexpr inline const char & operator[](std::size_t offset) const noexcept;
 
@@ -374,7 +370,7 @@ public:
 
     \note The returned pointer points to a null-terminated character array.
     \note The returned pointer is read-only and cannot modify the string contents.
-    \note Use non-const version for allows modification.
+    \note Use the non-const overload to allow modification.
   */
   constexpr inline const char * data() const noexcept;
 
@@ -584,7 +580,7 @@ public:
 
     \pre The combined length after append must not exceed the allocated size.
 
-    \note This method is equivalent to addition assignment operator but more explicit in intent.
+    \note This method is equivalent to the addition assignment operator but more explicit in intent.
 
     \see operator+=(char)
   */
@@ -616,7 +612,7 @@ public:
 
     \post The string is extended with the appended content.
 
-    \note This method is equivalent to addition assignment operator.
+    \note This method is equivalent to the addition assignment operator.
 
     \see operator+=(const FixString<allocatedSize> &)
   */
@@ -637,7 +633,7 @@ public:
 
     \post The string is extended with the appended content.
 
-    \note This method is equivalent to addition assignment operator.
+    \note This method is equivalent to the addition assignment operator.
 
     \see operator+=(const stringType &)
   */
@@ -658,7 +654,7 @@ public:
 
     \post The string is extended with the appended content.
 
-    \note This method is equivalent to addition assignment operator.
+    \note This method is equivalent to the addition assignment operator.
 
     \see operator+=(const char *)
   */
