@@ -84,6 +84,9 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator=(
 template <std::size_t allocatedSize>
 template <StringLike stringType>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator=(const stringType & string) noexcept {
+  if (_data == string.c_str())
+    return *this;
+
   assert_message(string.size() < allocatedSize, "String size must not exceed capacity");
 
   _size = string.size();
@@ -134,6 +137,9 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::assign(
 template <std::size_t allocatedSize>
 template <StringLike stringType>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::assign(const stringType & string) noexcept {
+  if (_data == string.c_str())
+    return *this;
+
   assert_message(string.size() < allocatedSize, "String size must not exceed capacity");
 
   _size = string.size();
