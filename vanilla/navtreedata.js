@@ -30,13 +30,6 @@ var NAVTREE =
       [ "Supported C++ compilers", "index.html#supported-c-compilers", null ],
       [ "Tools", "index.html#tools", null ]
     ] ],
-    [ "ToyGine2", "da/d28/md__r_e_a_d_m_e_8ru.html", [
-      [ "Поддерживаемые системы", "da/d28/md__r_e_a_d_m_e_8ru.html#поддерживаемые-системы", null ],
-      [ "Требования", "da/d28/md__r_e_a_d_m_e_8ru.html#требования", [
-        [ "Поддерживаемые компиляторы C++", "da/d28/md__r_e_a_d_m_e_8ru.html#поддерживаемые-компиляторы-c", null ],
-        [ "Утилиты", "da/d28/md__r_e_a_d_m_e_8ru.html#утилиты", null ]
-      ] ]
-    ] ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [
@@ -69,7 +62,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"df/d93/utils_8hpp.html#ac153d6bb41a1474b9827d2bd9ed0bc95"
+"df/d93/utils_8hpp.html#affdb6875d17aaa1db906010940f7ce7f"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -26,7 +26,7 @@
 <area shape="poly" id="edge11_Node000005_Node000012" title=" " alt="" coords="619,104,619,152,613,152,613,104"/>
 <area shape="rect" id="Node000013" href="$dd/d9e/linux_2platform__config_8hpp.html" title="additional linux platform header" alt="" coords="670,152,877,207"/>
 <area shape="poly" id="edge12_Node000005_Node000013" title=" " alt="" coords="638,102,715,143,712,148,636,107"/>
-<area shape="rect" id="Node000014" href="$d0/d46/fix__string_8hpp.html" title="Template string of chars, wrapper to char[]." alt="" coords="901,167,1043,192"/>
+<area shape="rect" id="Node000014" href="$d0/d46/fix__string_8hpp.html" title="Template string class with fixed&#45;size character buffer, wrapper to char[]." alt="" coords="901,167,1043,192"/>
 <area shape="poly" id="edge13_Node000005_Node000014" title=" " alt="" coords="656,98,761,119,889,149,925,160,924,165,887,155,760,124,655,103"/>
 <area shape="rect" id="Node000015" href="$df/d93/utils_8hpp.html" title="Core utility functions for string manipulation, encoding conversion, and number formatting." alt="" coords="1067,167,1178,192"/>
 <area shape="poly" id="edge14_Node000005_Node000015" title=" " alt="" coords="656,92,831,109,943,126,1055,149,1084,159,1083,164,1054,155,942,131,830,114,656,98"/>
