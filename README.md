@@ -1,7 +1,5 @@
 # ToyGine2
 
-[English](README.md) | [Русский](README.ru.md)
-
 ToyGine2 is a modern C++ high‑level engine.
 
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/ToymanInteractive/toygine2/push.yaml?branch=main&logo=github&logoColor=fff&label=Build)
