@@ -61,11 +61,11 @@ constexpr inline FixString<allocatedSize>::FixString(const char * string) noexce
 }
 
 template <std::size_t allocatedSize>
-constexpr inline FixString<allocatedSize>::FixString(char symbol, std::size_t count) noexcept
+constexpr inline FixString<allocatedSize>::FixString(char character, std::size_t count) noexcept
   : _size(count) {
   assert_message(count < allocatedSize, "Count must not exceed capacity");
 
-  std::memset(_data, symbol, _size);
+  std::memset(_data, character, _size);
   _data[_size] = '\0';
 }
 
@@ -112,11 +112,11 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator=(
 }
 
 template <std::size_t allocatedSize>
-constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator=(char symbol) noexcept {
+constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator=(char character) noexcept {
   static_assert(allocatedSize > 1, "FixString capacity must be greater than one.");
 
   _size = 1;
-  _data[0] = symbol;
+  _data[0] = character;
   _data[1] = '\0';
 
   return *this;
@@ -137,8 +137,10 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::assign(
 template <std::size_t allocatedSize>
 template <StringLike stringType>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::assign(const stringType & string) noexcept {
-  if (_data == string.c_str())
+  if (_data == string.c_str()) {
+    assert_message(_size == string.size(), "Aliased assign requires matching sizes");
     return *this;
+  }
 
   assert_message(string.size() < allocatedSize, "String size must not exceed capacity");
 
@@ -165,11 +167,12 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::assign(con
 }
 
 template <std::size_t allocatedSize>
-constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::assign(char symbol, std::size_t count) noexcept {
+constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::assign(char character,
+                                                                             std::size_t count) noexcept {
   assert_message(count < allocatedSize, "Count must not exceed capacity");
 
   _size = count;
-  std::memset(_data, symbol, _size);
+  std::memset(_data, character, _size);
   _data[_size] = '\0';
 
   return *this;

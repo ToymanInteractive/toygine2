@@ -46,7 +46,7 @@ public:
 
     This destructor cleans up the string.
 
-    \note: Since the FixString does not manage dynamic memory, no special cleanup is required.
+    \note Since the FixString does not manage dynamic memory, no special cleanup is required.
   */
   inline ~FixString() noexcept;
 
@@ -66,7 +66,7 @@ public:
   /*!
     \brief Constructs a string initialized with a StringLike object.
 
-    This constructor initializes a string by copying the content from StringLike object.
+    This constructor initializes a string by copying the content from a StringLike object.
 
     \tparam stringType The type of the source string. Must satisfy the StringLike concept.
 
@@ -95,12 +95,12 @@ public:
   constexpr explicit inline FixString(const char * string) noexcept;
 
   /*!
-    \brief Constructs a string of the given \a count of symbol.
+    \brief Constructs a string of the given \a count of \a character.
 
-    This constructor initializes a string with a character repeated the given number of times.
+    This constructor initializes a string with a \a character repeated the given \a count of times.
 
-    \param symbol The character to repeat.
-    \param count  The number of times to repeat the character.
+    \param character The character to repeat.
+    \param count     The number of times to repeat the character.
 
     \pre The \a count must not exceed the allocated size.
 
@@ -109,7 +109,7 @@ public:
 
     \note This is useful for creating strings with repeated patterns or filling strings with specific characters.
   */
-  constexpr inline explicit FixString(char symbol, std::size_t count = 1) noexcept;
+  constexpr inline explicit FixString(char character, std::size_t count = 1) noexcept;
 
   /*!
     \brief Copy assigns other \a string to this string.
@@ -133,7 +133,7 @@ public:
   /*!
     \brief Copy assigns a StringLike object to this string.
 
-    This operator assigns the content from StringLike object to this string. The assignment operation performs a deep
+    This operator assigns the content from a StringLike object to this string. The assignment operation performs a deep
     copy of the string data and updates the size accordingly.
 
     \tparam stringType The type of the source string. Must satisfy the StringLike concept.
@@ -177,16 +177,17 @@ public:
   /*!
     \brief Character assignment to this string.
 
-    This operator assigns a single character to this string, creating a string of length 1. This is useful for
-    resetting a string to contain only a single character.
+    This operator assigns a single \a character to this string, creating a string of length 1.
 
-    \param symbol The character to assign.
+    \param character The character to assign.
 
     \return A reference to this string after assignment.
 
-    \post This string contains only one specified character.
+    \post This string contains only one specified \a character.
+
+    \note This is useful for resetting a string to contain only a single character.
   */
-  constexpr inline FixString<allocatedSize> & operator=(char symbol) noexcept;
+  constexpr inline FixString<allocatedSize> & operator=(char character) noexcept;
 
   /*!
     \brief Copy assigns other \a string to this string.
@@ -213,8 +214,8 @@ public:
   /*!
     \brief Copy assigns a StringLike object to this string.
 
-    This method assigns the content from StringLike object to this string. The assignment operation performs a deep copy
-    of the string data and updates the size accordingly.
+    This method assigns the content from a StringLike object to this string. The assignment operation performs a deep
+    copy of the string data and updates the size accordingly.
 
     \tparam stringType The type of the source string. Must satisfy the StringLike concept.
 
@@ -253,9 +254,6 @@ public:
     \post This string contains the same content as the source C string.
     \post The size of this string equals the size of the source C string.
 
-    \note The method automatically handles string length calculation.
-    \note This method is equivalent to the C string assignment operator.
-
     \note Self-assignment is handled correctly and safely.
     \note This method is equivalent to the copy assignment operator.
 
@@ -264,22 +262,23 @@ public:
   constexpr inline FixString<allocatedSize> & assign(const char * string) noexcept;
 
   /*!
-    \brief Character fill assign method for the string class.
+    \brief Character fill assign method for the string.
 
-    This method assigns a character repeated the specified number of times to this string. This is useful for
-    creating strings with repeated patterns or filling strings with specific characters.
+    This method assigns the \a character repeated the specified \a count of times to this string.
 
-    \param symbol The character to repeat.
-    \param count  The number of times to repeat the character.
+    \param character The character to repeat.
+    \param count     The number of times to repeat the character.
 
     \return A reference to this string after assignment.
 
     \pre The count must not exceed this object's allocated size.
 
-    \post This string object contains the specified character repeated count times.
+    \post This string object contains the specified \a character repeated \a count times.
     \post The string size equals the count parameter.
+
+    \note This is useful for creating strings with repeated patterns or filling strings with specific characters.
   */
-  constexpr inline FixString<allocatedSize> & assign(char symbol, std::size_t count = 1) noexcept;
+  constexpr inline FixString<allocatedSize> & assign(char character, std::size_t count = 1) noexcept;
 
   /*!
     \brief Access a character in the string at a given \a offset.
@@ -359,7 +358,7 @@ public:
 
     \return A pointer to the internal character array.
 
-    \note The returned pointer points to a null-terminated string.
+    \note The returned pointer points to a null-terminated data.
     \note The returned pointer allows modification of the string contents.
     \note Use const version for read-only access.
   */
@@ -373,7 +372,7 @@ public:
 
     \return A constant pointer to the internal character array.
 
-    \note The returned pointer points to a null-terminated string.
+    \note The returned pointer points to a null-terminated data.
     \note The returned pointer is read-only and cannot modify the string contents.
     \note Use non-const version for allows modification.
   */
@@ -396,12 +395,12 @@ public:
   /*!
     \brief Checks if the string is empty.
 
-    This method checks if the string is empty, i.e. its size is zero. An empty string contains no characters
-    and has a length of 0.
+    This method checks if the string is empty, i.e. its size is zero. An empty string contains no characters and has a
+    length of zero.
 
     \return True if the string is empty, false otherwise.
 
-    \note An empty string has size() == 0.
+    \note An empty string has size is zero.
     \note An empty string still contains a null terminator.
     \note This method is equivalent to the expression: ```size() == 0```.
   */
@@ -413,10 +412,8 @@ public:
     This method returns the current number of characters in the string, excluding the terminating null character. The
     size represents the actual length of the string content.
 
-    \return The number of the characters in the string, excluding the terminating null character.
+    \return The number of characters in the string, excluding the terminating null character.
 
-    \note The size is always less than allocatedSize.
-    \note The size represents the actual string content length.
     \note This method is equivalent to length() method.
   */
   constexpr inline std::size_t size() const noexcept;
@@ -424,9 +421,9 @@ public:
   /*!
     \brief Returns the size of the Unicode string in UTF-8 encoding.
 
-    This method returns the number of Unicode characters in the string, excluding the terminating null character.
-    For ASCII strings, this value equals the size() method. For UTF-8 encoded strings, this method counts the
-    actual Unicode characters rather than bytes.
+    This method returns the number of Unicode characters in the UTF-8 encoded string, excluding the terminating null
+    character. For ASCII strings, this value equals the size() method. For UTF-8 encoded strings, this method counts the
+    number of Unicode characters rather than bytes.
 
     \return The number of Unicode characters in the string, excluding the terminating null character.
 
@@ -441,10 +438,8 @@ public:
     This method returns the current number of characters in the string, excluding the terminating null character. The
     length represents the actual length of the string content.
 
-    \return The number of the characters in the string, excluding the terminating null character.
+    \return The number of characters in the string, excluding the terminating null character.
 
-    \note The length is always less than allocatedSize.
-    \note The length represents the actual string content length.
     \note This method is equivalent to size() method.
 
     \see size()
@@ -454,10 +449,10 @@ public:
   /*!
     \brief Returns the maximum size of the string.
 
-    This method returns the maximum possible size of the string, which is determined by the template parameter
-    allocatedSize. The maximum size represents the capacity of the string buffer.
+    This method returns the maximum possible size for the string, which is determined by the template parameter
+    allocatedSize. The maximum size represents the size of the allocated buffer.
 
-    \return The maximum number of the characters in the string, excluding the terminating null character.
+    \return The maximum number of characters in the string, excluding the terminating null character.
 
     \note The maximum size is determined at compile time.
     \note This method is equivalent to capacity() method.
@@ -467,24 +462,22 @@ public:
   /*!
     \brief Returns the capacity of the string.
 
-    This method returns the maximum number of characters that can be stored in the string, which is determined by
-    the template parameter allocatedSize. The capacity represents the size of the allocated buffer.
+    This method returns the capacity of the allocated buffer for the string, which is determined by the template
+    parameter allocatedSize.
 
-    \return The maximum size of the string in characters, excluding the terminating null character.
+    \return The capacity of the string in characters, excluding the terminating null character.
 
-    \note The capacity is always greater than 0.
     \note The capacity is determined at compile time.
     \note This method is equivalent to max_size() method.
-    \note The capacity cannot be changed after object creation.
   */
   constexpr inline std::size_t capacity() const noexcept;
 
   /*!
-    \brief Clears the contents of the FixString object.
+    \brief Clears the contents of the string.
 
-    This method resets the size of the string object to zero and effectively clear the string.
+    This method resets the size of the string to zero and effectively clear the string.
 
-    \post The FixString object is cleared, and its size is set to zero.
+    \note The string object is cleared, and its size is set to zero.
   */
   constexpr inline void clear() noexcept;
 
