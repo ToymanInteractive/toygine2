@@ -10,5 +10,6 @@ var searchData=
   ['stackwalkcallback_7',['StackWalkCallback',['../dd/d55/namespacetoygine_1_1assertion.html#a0b2124cab86bbf34bdaa15df4f2a16ec',1,'toygine::assertion']]],
   ['supported_20c_20compilers_8',['Supported C++ compilers',['../index.html#supported-c-compilers',1,'']]],
   ['supported_20systems_9',['Supported Systems',['../index.html#supported-systems',1,'']]],
-  ['systems_10',['Supported Systems',['../index.html#supported-systems',1,'']]]
+  ['swap_10',['swap',['../da/d4a/classtoygine_1_1_fix_string.html#a5d50ca47d782fc6a678859d77ee83248',1,'toygine::FixString']]],
+  ['systems_11',['Supported Systems',['../index.html#supported-systems',1,'']]]
 ];
