@@ -819,6 +819,29 @@ public:
                                                       std::size_t charactersCount = 1) noexcept;
 
   /*!
+    \brief Copies characters from the string to a destination buffer.
+
+    This method copies up to \a count characters from the string starting at position \a pos to the destination buffer.
+    The method returns the actual number of characters copied, which may be less than \a count if the end of the string
+    is reached.
+
+    \param dest  The destination buffer to copy characters to.
+    \param count The maximum number of characters to copy.
+    \param pos   The starting position in the string to copy from (default: 0).
+
+    \return The actual number of characters copied.
+
+    \pre The \a pos must be within the bounds of the current string.
+    \pre The \a dest pointer must not be null.
+    \pre The \a dest buffer must not overlap this string's internal storage.
+    \pre The \a dest buffer must have sufficient space for the copied characters.
+
+    \note If \a count is \ref npos or exceeds the remaining characters from \a pos, all remaining characters are copied.
+    \note The destination buffer is not null-terminated by this method.
+  */
+  constexpr inline std::size_t copy(char * dest, std::size_t count, std::size_t pos = 0) const noexcept;
+
+  /*!
     \brief Concatenates two FixString objects and returns the result.
 
     This operator creates a new FixString object by concatenating the current FixString object with another provided
