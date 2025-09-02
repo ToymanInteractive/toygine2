@@ -632,7 +632,7 @@ TEST_CASE("FixString replace", "[core][fixstring]") {
   SECTION("Replace with FixString of different capacity") {
     FixString<32> testString("Hello World");
 
-    testString.replace(6, 5, FixString<10>("Universe"));
+    testString.replace(6, 5, FixString<12>("Universe"));
 
     CHECK(strcmp(testString.c_str(), "Hello Universe") == 0);
     CHECK(testString.size() == 14);
@@ -649,7 +649,7 @@ TEST_CASE("FixString replace", "[core][fixstring]") {
 
   SECTION("Replace with array") {
     FixString<32> testString("Hello World");
-    std::array<char, 9> arr = {'U', 'n', 'i', 'v', 'e', 'r', 's', 'e', '\0'};
+    constexpr std::array<char, 9> arr = {'U', 'n', 'i', 'v', 'e', 'r', 's', 'e', '\0'};
 
     testString.replace(6, 5, arr.data());
 
@@ -673,6 +673,155 @@ TEST_CASE("FixString replace", "[core][fixstring]") {
 
     CHECK(strcmp(testString.c_str(), "Hello World!") == 0);
     CHECK(testString.size() == 12);
+  }
+}
+
+TEST_CASE("FixString copy", "[core][fixstring]") {
+  SECTION("Copy entire string") {
+    FixString<16> testString("Hello World");
+    char buffer[16] = {0};
+
+    const auto copied = testString.copy(buffer, 11);
+
+    CHECK(copied == 11);
+    CHECK(strncmp(buffer, "Hello World", 11) == 0);
+  }
+
+  SECTION("Copy partial string from beginning") {
+    FixString<16> testString("Hello World");
+    char buffer[16] = {0};
+
+    const auto copied = testString.copy(buffer, 5);
+
+    CHECK(copied == 5);
+    CHECK(strncmp(buffer, "Hello", 5) == 0);
+  }
+
+  SECTION("Copy partial string from middle") {
+    FixString<16> testString("Hello World");
+    char buffer[16] = {0};
+
+    const auto copied = testString.copy(buffer, 5, 6);
+
+    CHECK(copied == 5);
+    CHECK(strncmp(buffer, "World", 5) == 0);
+  }
+
+  SECTION("Copy with npos count") {
+    FixString<16> testString("Hello World");
+    char buffer[16] = {0};
+
+    const auto copied = testString.copy(buffer, FixString<16>::npos);
+
+    CHECK(copied == 11);
+    CHECK(strncmp(buffer, "Hello World", 11) == 0);
+  }
+
+  SECTION("Copy with count exceeding remaining characters") {
+    FixString<16> testString("Hello World");
+    char buffer[16] = {0};
+
+    const auto copied = testString.copy(buffer, 20, 6);
+
+    CHECK(copied == 5);
+    CHECK(strncmp(buffer, "World", 5) == 0);
+  }
+
+  SECTION("Copy from position 0") {
+    FixString<16> testString("Hello World");
+    char buffer[16] = {0};
+
+    const auto copied = testString.copy(buffer, 5, 0);
+
+    CHECK(copied == 5);
+    CHECK(strncmp(buffer, "Hello", 5) == 0);
+  }
+
+  SECTION("Copy single character") {
+    FixString<16> testString("Hello World");
+    char buffer[16] = {0};
+
+    const auto copied = testString.copy(buffer, 1, 6);
+
+    CHECK(copied == 1);
+    CHECK(buffer[0] == 'W');
+  }
+
+  SECTION("Copy from end position") {
+    FixString<16> testString("Hello World");
+    char buffer[16] = {0};
+
+    const auto copied = testString.copy(buffer, 1, 10);
+
+    CHECK(copied == 1);
+    CHECK(buffer[0] == 'd');
+  }
+
+  SECTION("Copy with zero count") {
+    FixString<16> testString("Hello World");
+    char buffer[16] = {0};
+
+    const auto copied = testString.copy(buffer, 0);
+
+    CHECK(copied == 0);
+  }
+
+  SECTION("Copy from empty string") {
+    FixString<16> testString("");
+    char buffer[16] = {0};
+
+    const auto copied = testString.copy(buffer, 5);
+
+    CHECK(copied == 0);
+  }
+
+  SECTION("Copy to small buffer") {
+    FixString<16> testString("Hello World");
+    char buffer[3] = {0};
+
+    const auto copied = testString.copy(buffer, 2);
+
+    CHECK(copied == 2);
+    CHECK(strncmp(buffer, "He", 2) == 0);
+  }
+
+  SECTION("Copy with position at end") {
+    FixString<16> testString("Hello World");
+    char buffer[16] = {0};
+
+    const auto copied = testString.copy(buffer, 5, 11);
+
+    CHECK(copied == 0);
+  }
+
+  SECTION("Copy with npos from middle") {
+    FixString<16> testString("Hello World");
+    char buffer[16] = {0};
+
+    std::size_t copied = testString.copy(buffer, FixString<16>::npos, 6);
+
+    CHECK(copied == 5);
+    CHECK(strncmp(buffer, "World", 5) == 0);
+  }
+
+  SECTION("Copy with exact remaining characters") {
+    FixString<16> testString("Hello World");
+    char buffer[16] = {0};
+
+    std::size_t copied = testString.copy(buffer, 5, 6);
+
+    CHECK(copied == 5);
+    CHECK(strncmp(buffer, "World", 5) == 0);
+  }
+
+  SECTION("Copy with count larger than string size") {
+    FixString<16> testString("Hi");
+    char buffer[16] = {0};
+
+    std::size_t copied = testString.copy(buffer, 10);
+
+    CHECK(copied == 2);
+    CHECK(strncmp(buffer, "Hi", 2) == 0);
   }
 }
 

@@ -548,6 +548,19 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::replace(st
 }
 
 template <std::size_t allocatedSize>
+constexpr inline std::size_t FixString<allocatedSize>::copy(char * dest, std::size_t count,
+                                                            std::size_t pos) const noexcept {
+  assert_message(pos <= _size, "Position must be within string bounds");
+
+  if (count == npos || pos + count > _size)
+    count = _size - pos;
+
+  std::memcpy(dest, _data + pos, count);
+
+  return count;
+}
+
+template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize> FixString<allocatedSize>::operator+(
   const FixString<allocatedSize> & string) const noexcept {
   assert(_size + string._size < allocatedSize);
