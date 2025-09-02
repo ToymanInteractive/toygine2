@@ -508,7 +508,8 @@ template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::replace(std::size_t pos, std::size_t count,
                                                                               const char * string) noexcept {
   assert_message(string != nullptr, "String pointer must not be null");
-  assert_message(_data != string, "Cannot replace string into itself");
+  assert_message((string < _data) || (string >= (_data + _size + 1)),
+                 "Source pointer must not point into _data buffer");
   assert_message(pos <= _size, "Position must be within string bounds");
   assert_message(pos + count <= _size, "Replacement range must be within string bounds");
 
