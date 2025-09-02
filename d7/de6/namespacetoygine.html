@@ -202,10 +202,10 @@ Functions</h2></td></tr>
 <tr class="memitem:a1ffae6f9d9a5c63abe48edd50cd7f016" id="r_a1ffae6f9d9a5c63abe48edd50cd7f016"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1ffae6f9d9a5c63abe48edd50cd7f016">formatNumberString</a> (char *buffer, std::size_t bufferSize, const char *separator) noexcept</td></tr>
 <tr class="memdesc:a1ffae6f9d9a5c63abe48edd50cd7f016"><td class="mdescLeft">&#160;</td><td class="mdescRight">Formats a number string by inserting grouping separators.  <br /></td></tr>
 <tr class="separator:a1ffae6f9d9a5c63abe48edd50cd7f016"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0278fc86f3113fc375beb8cb2f380b02" id="r_a0278fc86f3113fc375beb8cb2f380b02"><td class="memTemplParams" colspan="2">template&lt;typename T , std::size_t N&gt; </td></tr>
-<tr class="memitem:a0278fc86f3113fc375beb8cb2f380b02"><td class="memTemplItemLeft" align="right" valign="top">consteval std::size_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a0278fc86f3113fc375beb8cb2f380b02">ArraySize</a> (T(&amp;)[N])</td></tr>
-<tr class="memdesc:a0278fc86f3113fc375beb8cb2f380b02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the size of an array.  <br /></td></tr>
-<tr class="separator:a0278fc86f3113fc375beb8cb2f380b02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae81918baef6e45b67a21c152cdfadaf0" id="r_ae81918baef6e45b67a21c152cdfadaf0"><td class="memTemplParams" colspan="2">template&lt;typename T , std::size_t N&gt; </td></tr>
+<tr class="memitem:ae81918baef6e45b67a21c152cdfadaf0"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ae81918baef6e45b67a21c152cdfadaf0">ArraySize</a> (T(&amp;)[N])</td></tr>
+<tr class="memdesc:ae81918baef6e45b67a21c152cdfadaf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the size of an array.  <br /></td></tr>
+<tr class="separator:ae81918baef6e45b67a21c152cdfadaf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aece45bc773865fbc01013939bcfaeeb2" id="r_aece45bc773865fbc01013939bcfaeeb2"><td class="memTemplParams" colspan="2">template&lt;typename type &gt; </td></tr>
 <tr class="memitem:aece45bc773865fbc01013939bcfaeeb2"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#aece45bc773865fbc01013939bcfaeeb2">integerToSymbols</a> (char *dest, std::size_t destSize, type value, unsigned base)</td></tr>
 <tr class="memdesc:aece45bc773865fbc01013939bcfaeeb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an integer value to a string representation in a specified base.  <br /></td></tr>
@@ -230,8 +230,8 @@ Variables</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Main engine namespace. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="a0278fc86f3113fc375beb8cb2f380b02" name="a0278fc86f3113fc375beb8cb2f380b02"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0278fc86f3113fc375beb8cb2f380b02">&#9670;&#160;</a></span>ArraySize()</h2>
+<a id="ae81918baef6e45b67a21c152cdfadaf0" name="ae81918baef6e45b67a21c152cdfadaf0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae81918baef6e45b67a21c152cdfadaf0">&#9670;&#160;</a></span>ArraySize()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -250,7 +250,7 @@ template&lt;typename T , std::size_t N&gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">consteval</span></span>  </td>
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">

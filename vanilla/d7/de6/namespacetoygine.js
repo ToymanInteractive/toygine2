@@ -12,7 +12,7 @@ var namespacetoygine =
     ] ],
     [ "FixString", "da/d4a/classtoygine_1_1_fix_string.html", "da/d4a/classtoygine_1_1_fix_string" ],
     [ "StringLike", "d8/db7/concepttoygine_1_1_string_like.html", null ],
-    [ "ArraySize", "d7/de6/namespacetoygine.html#a0278fc86f3113fc375beb8cb2f380b02", null ],
+    [ "ArraySize", "d7/de6/namespacetoygine.html#ae81918baef6e45b67a21c152cdfadaf0", null ],
     [ "formatNumberString", "d7/de6/namespacetoygine.html#a1ffae6f9d9a5c63abe48edd50cd7f016", null ],
     [ "ftoa", "d7/de6/namespacetoygine.html#af7d6996d5d592d01988772546b56666e", null ],
     [ "ftoa", "d7/de6/namespacetoygine.html#affdb6875d17aaa1db906010940f7ce7f", null ],

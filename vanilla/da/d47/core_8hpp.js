@@ -17,7 +17,7 @@ var core_8hpp =
     [ "TOY_UNUSED", "da/d47/core_8hpp.html#a6c25f2c5b6e99783e32a4eb8258eb2f6", null ],
     [ "AssertionCallback", "da/d47/core_8hpp.html#afe461df95b90f03ae48f6271c1283a9b", null ],
     [ "StackWalkCallback", "da/d47/core_8hpp.html#a0b2124cab86bbf34bdaa15df4f2a16ec", null ],
-    [ "ArraySize", "da/d47/core_8hpp.html#a0278fc86f3113fc375beb8cb2f380b02", null ],
+    [ "ArraySize", "da/d47/core_8hpp.html#ae81918baef6e45b67a21c152cdfadaf0", null ],
     [ "assertion", "da/d47/core_8hpp.html#a1a95dd270b2922a341e7fea330b654c3", null ],
     [ "deInitialize", "da/d47/core_8hpp.html#a1f4b93239704be50c6f7843c8c7e475f", null ],
     [ "initialize", "da/d47/core_8hpp.html#a9653f4304e4fa840577c36c61fa32eac", null ],
