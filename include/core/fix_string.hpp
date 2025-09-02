@@ -842,6 +842,22 @@ public:
   constexpr inline std::size_t copy(char * dest, std::size_t count, std::size_t pos = 0) const noexcept;
 
   /*!
+    \brief Swaps the contents of this string with another \a string.
+
+    This method exchanges the contents of this string with another \a string of the same type. Both strings must have
+    the same allocated size. The operation is performed efficiently by swapping the internal data and size information.
+
+    \param string The string to swap contents with.
+
+    \post This string contains the contents that were in other \a string.
+    \post The other \a string contains the contents that were in this string.
+    \post The sizes of both strings are exchanged.
+
+    \note Self-swap is handled correctly and safely (no-op).
+  */
+  constexpr inline void swap(FixString<allocatedSize> & string) noexcept;
+
+  /*!
     \brief Concatenates two FixString objects and returns the result.
 
     This operator creates a new FixString object by concatenating the current FixString object with another provided

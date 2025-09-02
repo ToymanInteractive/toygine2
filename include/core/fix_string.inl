@@ -564,6 +564,19 @@ constexpr inline std::size_t FixString<allocatedSize>::copy(char * dest, std::si
 }
 
 template <std::size_t allocatedSize>
+constexpr inline void FixString<allocatedSize>::swap(FixString<allocatedSize> & string) noexcept {
+  if (this == &string)
+    return;
+
+  char tempData[allocatedSize];
+  std::memcpy(tempData, _data, _size + 1);
+  std::memcpy(_data, string._data, string._size + 1);
+  std::memcpy(string._data, tempData, _size + 1);
+
+  std::swap(_size, string._size);
+}
+
+template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize> FixString<allocatedSize>::operator+(
   const FixString<allocatedSize> & string) const noexcept {
   assert(_size + string._size < allocatedSize);

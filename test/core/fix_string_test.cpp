@@ -825,6 +825,118 @@ TEST_CASE("FixString copy", "[core][fixstring]") {
   }
 }
 
+TEST_CASE("FixString swap", "[core][fixstring]") {
+  SECTION("Swap two different strings") {
+    FixString<16> string1("Hello");
+    FixString<16> string2("World");
+
+    string1.swap(string2);
+
+    CHECK(strcmp(string1.c_str(), "World") == 0);
+    CHECK(string1.size() == 5);
+    CHECK(strcmp(string2.c_str(), "Hello") == 0);
+    CHECK(string2.size() == 5);
+  }
+
+  SECTION("Swap strings of different lengths") {
+    FixString<32> string1("Short");
+    FixString<32> string2("This is a much longer string");
+
+    string1.swap(string2);
+
+    CHECK(strcmp(string1.c_str(), "This is a much longer string") == 0);
+    CHECK(string1.size() == 28);
+    CHECK(strcmp(string2.c_str(), "Short") == 0);
+    CHECK(string2.size() == 5);
+  }
+
+  SECTION("Swap with empty string") {
+    FixString<16> string1("Hello World");
+    FixString<16> string2("");
+
+    string1.swap(string2);
+
+    CHECK(strcmp(string1.c_str(), "") == 0);
+    CHECK(string1.size() == 0);
+    CHECK(strcmp(string2.c_str(), "Hello World") == 0);
+    CHECK(string2.size() == 11);
+  }
+
+  SECTION("Swap two empty strings") {
+    FixString<16> string1("");
+    FixString<16> string2("");
+
+    string1.swap(string2);
+
+    CHECK(strcmp(string1.c_str(), "") == 0);
+    CHECK(string1.size() == 0);
+    CHECK(strcmp(string2.c_str(), "") == 0);
+    CHECK(string2.size() == 0);
+  }
+
+  SECTION("Self-swap (no-op)") {
+    FixString<16> string1("Hello World");
+
+    string1.swap(string1);
+
+    CHECK(strcmp(string1.c_str(), "Hello World") == 0);
+    CHECK(string1.size() == 11);
+  }
+
+  SECTION("Swap with single character strings") {
+    FixString<8> string1("A");
+    FixString<8> string2("B");
+
+    string1.swap(string2);
+
+    CHECK(strcmp(string1.c_str(), "B") == 0);
+    CHECK(string1.size() == 1);
+    CHECK(strcmp(string2.c_str(), "A") == 0);
+    CHECK(string2.size() == 1);
+  }
+
+  SECTION("Swap with maximum length strings") {
+    FixString<16> string1("123456789012345"); // 15 characters (max for size 16)
+    FixString<16> string2("ABCDEFGHIJKLMNO"); // 15 characters (max for size 16)
+
+    string1.swap(string2);
+
+    CHECK(strcmp(string1.c_str(), "ABCDEFGHIJKLMNO") == 0);
+    CHECK(string1.size() == 15);
+    CHECK(strcmp(string2.c_str(), "123456789012345") == 0);
+    CHECK(string2.size() == 15);
+  }
+
+  SECTION("Chained swap operations") {
+    FixString<16> string1("First");
+    FixString<16> string2("Second");
+    FixString<16> string3("Third");
+
+    string3.swap(string2);
+    string2.swap(string1);
+    string1.swap(string3);
+
+    CHECK(strcmp(string1.c_str(), "Second") == 0);
+    CHECK(string1.size() == 6);
+    CHECK(strcmp(string2.c_str(), "First") == 0);
+    CHECK(string2.size() == 5);
+    CHECK(strcmp(string3.c_str(), "Third") == 0);
+    CHECK(string3.size() == 5);
+  }
+
+  SECTION("Swap with repeated characters") {
+    FixString<20> string1("AAA");
+    FixString<20> string2("BBB");
+
+    string1.swap(string2);
+
+    CHECK(strcmp(string1.c_str(), "BBB") == 0);
+    CHECK(string1.size() == 3);
+    CHECK(strcmp(string2.c_str(), "AAA") == 0);
+    CHECK(string2.size() == 3);
+  }
+}
+
 TEST_CASE("FixString operators+", "[core][fixstring]") {
   const auto testString1 = FixString<14>("12") + "test text 1";
   const auto testString2 = FixString<14>("12") + FixString<14>("test text 2");
