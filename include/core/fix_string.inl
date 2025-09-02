@@ -139,6 +139,7 @@ template <StringLike stringType>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::assign(const stringType & string) noexcept {
   if (_data == string.c_str()) {
     assert_message(_size == string.size(), "Aliased assign requires matching sizes");
+
     return *this;
   }
 
@@ -456,6 +457,91 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator+=
 
   _data[_size++] = character;
   _data[_size] = '\0';
+
+  return *this;
+}
+
+template <std::size_t allocatedSize>
+constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::replace(
+  std::size_t pos, std::size_t count, const FixString<allocatedSize> & string) noexcept {
+  assert_message(this != &string, "Cannot replace string into itself");
+  assert_message(pos <= _size, "Position must be within string bounds");
+  assert_message(pos + count <= _size, "Replacement range must be within string bounds");
+
+  const auto newSize = _size - count + string._size;
+
+  assert_message(newSize < allocatedSize, "Replacement result must fit in capacity");
+
+  if (count != string._size)
+    std::memmove(_data + pos + string._size, _data + pos + count, _size - pos - count + 1);
+
+  std::memcpy(_data + pos, string._data, string._size);
+
+  _size = newSize;
+
+  return *this;
+}
+
+template <std::size_t allocatedSize>
+template <StringLike stringType>
+constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::replace(std::size_t pos, std::size_t count,
+                                                                              const stringType & string) noexcept {
+  assert_message(_data != string.c_str(), "Cannot replace string into itself");
+  assert_message(pos <= _size, "Position must be within string bounds");
+  assert_message(pos + count <= _size, "Replacement range must be within string bounds");
+
+  const auto replaceSize = string.size();
+  const auto newSize = _size - count + replaceSize;
+
+  assert_message(newSize < allocatedSize, "Replacement result must fit in capacity");
+
+  if (count != replaceSize)
+    std::memmove(_data + pos + replaceSize, _data + pos + count, _size - pos - count + 1);
+
+  std::memcpy(_data + pos, string.c_str(), replaceSize);
+  _size = newSize;
+
+  return *this;
+}
+
+template <std::size_t allocatedSize>
+constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::replace(std::size_t pos, std::size_t count,
+                                                                              const char * string) noexcept {
+  assert_message(string != nullptr, "String pointer must not be null");
+  assert_message(_data != string, "Cannot replace string into itself");
+  assert_message(pos <= _size, "Position must be within string bounds");
+  assert_message(pos + count <= _size, "Replacement range must be within string bounds");
+
+  const auto replaceSize = std::strlen(string);
+  const auto newSize = _size - count + replaceSize;
+
+  assert_message(newSize < allocatedSize, "Replacement result must fit in capacity");
+
+  if (count != replaceSize)
+    std::memmove(_data + pos + replaceSize, _data + pos + count, _size - pos - count + 1);
+
+  std::memcpy(_data + pos, string, replaceSize);
+  _size = newSize;
+
+  return *this;
+}
+
+template <std::size_t allocatedSize>
+constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::replace(std::size_t pos, std::size_t count,
+                                                                              char character,
+                                                                              std::size_t charactersCount) noexcept {
+  assert_message(pos <= _size, "Position must be within string bounds");
+  assert_message(pos + count <= _size, "Replacement range must be within string bounds");
+
+  const auto newSize = _size - count + charactersCount;
+
+  assert_message(newSize < allocatedSize, "Replacement result must fit in capacity");
+
+  if (count != charactersCount)
+    std::memmove(_data + pos + charactersCount, _data + pos + count, _size - pos - count + 1);
+
+  std::memset(_data + pos, character, charactersCount);
+  _size = newSize;
 
   return *this;
 }
