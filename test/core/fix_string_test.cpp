@@ -456,6 +456,226 @@ TEST_CASE("FixString operators+=", "[core][fixstring]") {
   CHECK(testString.size() == 28);
 }
 
+TEST_CASE("FixString replace", "[core][fixstring]") {
+  SECTION("Replace with FixString") {
+    FixString<32> testString("Hello World");
+
+    testString.replace(6, 5, FixString<16>("Universe"));
+
+    CHECK(strcmp(testString.c_str(), "Hello Universe") == 0);
+    CHECK(testString.size() == 14);
+  }
+
+  SECTION("Replace with string-like object") {
+    FixString<32> testString("Hello World");
+
+    testString.replace(6, 5, std::string("Universe"));
+
+    CHECK(strcmp(testString.c_str(), "Hello Universe") == 0);
+    CHECK(testString.size() == 14);
+  }
+
+  SECTION("Replace with C string") {
+    FixString<32> testString("Hello World");
+
+    testString.replace(6, 5, "Universe");
+
+    CHECK(strcmp(testString.c_str(), "Hello Universe") == 0);
+    CHECK(testString.size() == 14);
+  }
+
+  SECTION("Replace with repeated characters") {
+    FixString<32> testString("Hello World");
+
+    testString.replace(6, 5, '*', 3);
+
+    CHECK(strcmp(testString.c_str(), "Hello ***") == 0);
+    CHECK(testString.size() == 9);
+  }
+
+  SECTION("Replace at beginning") {
+    FixString<32> testString("Hello World");
+
+    testString.replace(0, 5, "Hi");
+
+    CHECK(strcmp(testString.c_str(), "Hi World") == 0);
+    CHECK(testString.size() == 8);
+  }
+
+  SECTION("Replace at end") {
+    FixString<32> testString("Hello World");
+
+    testString.replace(6, 5, "Universe!");
+
+    CHECK(strcmp(testString.c_str(), "Hello Universe!") == 0);
+    CHECK(testString.size() == 15);
+  }
+
+  SECTION("Replace with empty string") {
+    FixString<32> testString("Hello World");
+
+    testString.replace(5, 1, "");
+
+    CHECK(strcmp(testString.c_str(), "HelloWorld") == 0);
+    CHECK(testString.size() == 10);
+  }
+
+  SECTION("Replace with longer string") {
+    FixString<32> testString("Hi");
+
+    testString.replace(0, 2, "Hello World");
+
+    CHECK(strcmp(testString.c_str(), "Hello World") == 0);
+    CHECK(testString.size() == 11);
+  }
+
+  SECTION("Replace with shorter string") {
+    FixString<32> testString("Hello World");
+
+    testString.replace(0, 5, "Hi");
+
+    CHECK(strcmp(testString.c_str(), "Hi World") == 0);
+    CHECK(testString.size() == 8);
+  }
+
+  SECTION("Replace single character") {
+    FixString<32> testString("Hello World");
+
+    testString.replace(0, 1, "h");
+
+    CHECK(strcmp(testString.c_str(), "hello World") == 0);
+    CHECK(testString.size() == 11);
+  }
+
+  SECTION("Replace multiple characters with single character") {
+    FixString<32> testString("Hello World");
+
+    testString.replace(0, 5, "H");
+
+    CHECK(strcmp(testString.c_str(), "H World") == 0);
+    CHECK(testString.size() == 7);
+  }
+
+  SECTION("Replace with repeated characters at different positions") {
+    FixString<32> testString("Hello World");
+
+    testString.replace(0, 1, '*', 2);
+    testString.replace(8, 2, '#', 3);
+
+    CHECK(strcmp(testString.c_str(), "**ello W###ld") == 0);
+    CHECK(testString.size() == 13);
+  }
+
+  SECTION("Replace entire string") {
+    FixString<32> testString("Hello World");
+
+    testString.replace(0, 11, "Goodbye Universe");
+
+    CHECK(strcmp(testString.c_str(), "Goodbye Universe") == 0);
+    CHECK(testString.size() == 16);
+  }
+
+  SECTION("Replace with zero count") {
+    FixString<32> testString("Hello World");
+
+    testString.replace(6, 0, "Beautiful ");
+
+    CHECK(strcmp(testString.c_str(), "Hello Beautiful World") == 0);
+    CHECK(testString.size() == 21);
+  }
+
+  SECTION("Replace with single character count") {
+    FixString<32> testString("Hello World");
+
+    testString.replace(6, 5, '!', 1);
+
+    CHECK(strcmp(testString.c_str(), "Hello !") == 0);
+    CHECK(testString.size() == 7);
+  }
+
+  SECTION("Replace with multiple character count") {
+    FixString<32> testString("Hello World");
+
+    testString.replace(6, 5, '=', 4);
+
+    CHECK(strcmp(testString.c_str(), "Hello ====") == 0);
+    CHECK(testString.size() == 10);
+  }
+
+  SECTION("Replace with zero character count") {
+    FixString<32> testString("Hello World");
+
+    testString.replace(6, 5, 'X', 0);
+
+    CHECK(strcmp(testString.c_str(), "Hello ") == 0);
+    CHECK(testString.size() == 6);
+  }
+
+  SECTION("Replace middle portion") {
+    FixString<32> testString("Hello Beautiful World");
+
+    testString.replace(6, 9, "Amazing");
+
+    CHECK(strcmp(testString.c_str(), "Hello Amazing World") == 0);
+    CHECK(testString.size() == 19);
+  }
+
+  SECTION("Replace with same length string") {
+    FixString<32> testString("Hello World");
+
+    testString.replace(0, 5, "Greet");
+
+    CHECK(strcmp(testString.c_str(), "Greet World") == 0);
+    CHECK(testString.size() == 11);
+  }
+
+  SECTION("Replace with FixString of different capacity") {
+    FixString<32> testString("Hello World");
+
+    testString.replace(6, 5, FixString<10>("Universe"));
+
+    CHECK(strcmp(testString.c_str(), "Hello Universe") == 0);
+    CHECK(testString.size() == 14);
+  }
+
+  SECTION("Replace with std::string") {
+    FixString<32> testString("Hello World");
+
+    testString.replace(6, 5, std::string("Universe"));
+
+    CHECK(strcmp(testString.c_str(), "Hello Universe") == 0);
+    CHECK(testString.size() == 14);
+  }
+
+  SECTION("Replace with array") {
+    FixString<32> testString("Hello World");
+    std::array<char, 9> arr = {'U', 'n', 'i', 'v', 'e', 'r', 's', 'e', '\0'};
+
+    testString.replace(6, 5, arr.data());
+
+    CHECK(strcmp(testString.c_str(), "Hello Universe") == 0);
+    CHECK(testString.size() == 14);
+  }
+
+  SECTION("Replace at position 0 with zero count") {
+    FixString<32> testString("Hello World");
+
+    testString.replace(0, 0, "Hi ");
+
+    CHECK(strcmp(testString.c_str(), "Hi Hello World") == 0);
+    CHECK(testString.size() == 14);
+  }
+
+  SECTION("Replace at end with zero count") {
+    FixString<32> testString("Hello World");
+
+    testString.replace(11, 0, "!");
+
+    CHECK(strcmp(testString.c_str(), "Hello World!") == 0);
+    CHECK(testString.size() == 12);
+  }
+}
+
 TEST_CASE("FixString operators+", "[core][fixstring]") {
   const auto testString1 = FixString<14>("12") + "test text 1";
   const auto testString2 = FixString<14>("12") + FixString<14>("test text 2");

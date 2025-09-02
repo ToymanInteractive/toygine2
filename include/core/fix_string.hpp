@@ -96,11 +96,11 @@ public:
     This constructor initializes a string with a \a character repeated the given \a count of times.
 
     \param character The character to repeat.
-    \param count     The number of times to repeat the character.
+    \param count     The number of times to repeat the \a character (default: 1).
 
     \pre The \a count must not exceed the allocated size.
 
-    \post The new string is created with the contents of the character repeated the given number of times.
+    \post The new string is created with the contents of the \a character repeated the given \a count of times.
     \post The string size equals the \a count.
 
     \note This is useful for creating strings with repeated patterns or filling strings with specific characters.
@@ -117,7 +117,7 @@ public:
 
     \return A reference to this string after assignment.
 
-    \pre The source string must be valid and properly initialized.
+    \pre The source \a string must be valid and properly initialized.
 
     \post This string contains the same content as the source \a string.
     \post The size of this string equals the size of the source \a string.
@@ -160,11 +160,11 @@ public:
 
     \return A reference to this string after assignment.
 
-    \pre The source C string must not be null.
-    \pre The source C string size must not exceed the allocated capacity.
+    \pre The source C \a string must not be null.
+    \pre The source C \a string size must not exceed the allocated capacity.
 
-    \post This string contains the same content as the source C string.
-    \post The size of this string equals the size of the source C string.
+    \post This string contains the same content as the source C \a string.
+    \post The size of this string equals the size of the source C \a string.
 
     \note Self-assignment is handled correctly and safely.
   */
@@ -195,7 +195,7 @@ public:
 
     \return A reference to this string after assignment.
 
-    \pre The source string must be valid and properly initialized.
+    \pre The source \a string must be valid and properly initialized.
 
     \post This string contains the same content as the source \a string.
     \post The size of this string equals the size of the source \a string.
@@ -244,11 +244,11 @@ public:
 
     \return A reference to this string after assignment.
 
-    \pre The source C string must not be null.
-    \pre The source C string size must not exceed the allocated capacity.
+    \pre The source C \a string must not be null.
+    \pre The source C \a string size must not exceed the allocated capacity.
 
-    \post This string contains the same content as the source C string.
-    \post The size of this string equals the size of the source C string.
+    \post This string contains the same content as the source C \a string.
+    \post The size of this string equals the size of the source C \a string.
 
     \note Self-assignment is handled correctly and safely.
     \note This method is equivalent to the copy assignment operator.
@@ -263,14 +263,14 @@ public:
     This method assigns a \a character repeated the given \a count of times to this string.
 
     \param character The character to repeat.
-    \param count     The number of times to repeat the character.
+    \param count     The number of times to repeat the \a character (default: 1).
 
     \return A reference to this string after assignment.
 
-    \pre The count must not exceed this object's allocated size.
+    \pre The \a count must not exceed this object's allocated size.
 
-    \post This string object contains the specified \a character repeated \a count times.
-    \post The string size equals the count parameter.
+    \post This string object contains the specified \a character repeated \a count of times.
+    \post The string size equals the \a count parameter.
 
     \note This is useful for creating strings with repeated patterns or filling strings with specific characters.
   */
@@ -478,24 +478,24 @@ public:
   constexpr inline void clear() noexcept;
 
   /*!
-    \brief Inserts other \a string at the specified index.
+    \brief Inserts other \a string at the specified \a index.
 
     This method inserts the contents from another \a string at the specified position. The insertion shifts existing
     characters to the right to make room for the new content.
 
-    \param index  The position where the string should be inserted.
+    \param index  The position where the \a string should be inserted.
     \param string The source string to insert content from.
 
     \return A reference to this string after insertion.
 
-    \pre The index must be within the bounds of the current string.
+    \pre The \a index must be within the bounds of the current string.
     \pre The combined length after insertion must not exceed the allocated size.
   */
   constexpr inline FixString<allocatedSize> & insert(std::size_t index,
                                                      const FixString<allocatedSize> & string) noexcept;
 
   /*!
-    \brief Inserts a StringLike object at the specified index.
+    \brief Inserts a StringLike object at the specified \a index.
 
     This method inserts the contents from a StringLike object at the specified position. The insertion shifts existing
     characters to the right to make room for the new content.
@@ -507,14 +507,14 @@ public:
 
     \return A reference to this string after insertion.
 
-    \pre The index must be within the bounds of the current string.
+    \pre The \a index must be within the bounds of the current string.
     \pre The combined length after insertion must not exceed the allocated size.
   */
   template <StringLike stringType>
   constexpr inline FixString<allocatedSize> & insert(std::size_t index, const stringType & string) noexcept;
 
   /*!
-    \brief Inserts the C \a string at the specified index.
+    \brief Inserts the C \a string at the specified \a index.
 
     This method inserts the contents of the C \a string at the specified position. The insertion shifts existing
     characters to the right to make room for the new content.
@@ -524,25 +524,25 @@ public:
 
     \return A reference to this string after insertion.
 
-    \pre The index must be within the bounds of the current string.
+    \pre The \a index must be within the bounds of the current string.
     \pre The combined length after insertion must not exceed the allocated size.
-    \pre The source C string must not be null.
+    \pre The source C \a string must not be null.
   */
   constexpr inline FixString<allocatedSize> & insert(std::size_t index, const char * string) noexcept;
 
   /*!
-    \brief Inserts a \a character repeated the given \a count times at the specified index.
+    \brief Inserts a \a character repeated the given \a count times at the specified \a index.
 
     This method inserts a \a character repeated the given \a count of times at the specified position. The insertion
     shifts existing characters to the right to make room for the new content.
 
     \param index     The position where the characters should be inserted.
     \param character The character to insert.
-    \param count     The number of times to repeat the character.
+    \param count     The number of times to repeat the \a character (default: 1).
 
     \return A reference to this string after insertion.
 
-    \pre The index must be within the bounds of the current string.
+    \pre The \a index must be within the bounds of the current string.
     \pre The combined length after insertion must not exceed the allocated size.
   */
   constexpr inline FixString<allocatedSize> & insert(std::size_t index, char character, std::size_t count = 1) noexcept;
@@ -556,17 +556,15 @@ public:
 
     \param offset The starting position for erasing characters.
     \param count  The number of characters to erase. If count is \ref npos or equal to the remaining length, then all
-                  characters from offset to the end are removed.
+                  characters from \a offset to the end are removed.
 
     \return A reference to this string after erasing.
 
-    \pre The offset must be within the bounds of the current string.
-    \pre The sum of offset and count must be less than or equal to the current string size.
+    \pre The \a offset must be within the bounds of the current string.
+    \pre The sum of \a offset and \a count must be less than or equal to the current string size.
 
-    \post The string size is reduced by the number of erased characters.
-
-    \note If count is npos, all characters from offset to the end are removed.
-    \note If count is 0, the operation is a no-op.
+    \note If \a count is npos, all characters from \a offset to the end are removed.
+    \note If \a count is 0, the operation is a no-op.
     \note Erasing from an empty string has no effect.
   */
   constexpr inline FixString<allocatedSize> & erase(std::size_t offset, std::size_t count = npos) noexcept;
@@ -650,7 +648,7 @@ public:
     \return A reference to this string after appending.
 
     \pre The combined length after appending must not exceed the allocated size.
-    \pre The source C string must not be null.
+    \pre The source C \a string must not be null.
 
     \post The string is extended with the appended content.
 
@@ -666,7 +664,7 @@ public:
     This method appends a \a character repeated the given \a count of times to the end of this string.
 
     \param character The character to append.
-    \param count     The number of times to repeat the character.
+    \param count     The number of times to repeat the \a character (default: 1).
 
     \return A reference to this string after appending.
 
@@ -719,7 +717,7 @@ public:
     \return A reference to this string after appending.
 
     \pre The combined length after appending must not exceed the allocated size.
-    \pre The source C string must not be null.
+    \pre The source C \a string must not be null.
 
     \post The string is extended with the appended content.
   */
@@ -739,6 +737,86 @@ public:
     \post The string is extended with the appended content.
   */
   constexpr inline FixString<allocatedSize> & operator+=(char character) noexcept;
+
+  /*!
+    \brief Replaces a portion of the string with another \a string.
+
+    This method replaces a specified range of characters in the current string with the contents of another \a string.
+    The replacement operation shifts existing characters as needed to accommodate the new content.
+
+    \param pos    The starting position for the replacement.
+    \param count  The number of characters to replace.
+    \param string The source string to replace content from.
+
+    \return A reference to this string after replacement.
+
+    \pre The \a pos must be within the bounds of the current string.
+    \pre The replacement range ( \a pos + \a count ) must be within the string bounds.
+    \pre The resulting string size must not exceed the allocated capacity.
+  */
+  constexpr inline FixString<allocatedSize> & replace(std::size_t pos, std::size_t count,
+                                                      const FixString<allocatedSize> & string) noexcept;
+
+  /*!
+    \brief Replaces a portion of the string with a StringLike object.
+
+    This method replaces a specified range of characters in the current string with the contents of a StringLike object.
+    The replacement operation shifts existing characters as needed to accommodate the new content.
+
+    \tparam stringType The type of the source string. Must satisfy the StringLike concept.
+
+    \param pos    The starting position for the replacement.
+    \param count  The number of characters to replace.
+    \param string The source StringLike object to replace content from.
+
+    \return A reference to this string after replacement.
+
+    \pre The \a pos must be within the bounds of the current string.
+    \pre The replacement range ( \a pos + \a count ) must be within the string bounds.
+    \pre The resulting string size must not exceed the allocated capacity.
+  */
+  template <StringLike stringType>
+  constexpr inline FixString<allocatedSize> & replace(std::size_t pos, std::size_t count,
+                                                      const stringType & string) noexcept;
+
+  /*!
+    \brief Replaces a portion of the string with the C \a string.
+
+    This method replaces a specified range of characters in the current string with the contents of the C \a string. The
+    replacement operation shifts existing characters as needed to accommodate the new content.
+
+    \param pos    The starting position for the replacement.
+    \param count  The number of characters to replace.
+    \param string The source C string to replace content from.
+
+    \return A reference to this string after replacement.
+
+    \pre The \a pos must be within the bounds of the current string.
+    \pre The replacement range ( \a pos + \a count ) must be within the string bounds.
+    \pre The source C \a string must not be null.
+    \pre The resulting string size must not exceed the allocated capacity.
+  */
+  constexpr inline FixString<allocatedSize> & replace(std::size_t pos, std::size_t count, const char * string) noexcept;
+
+  /*!
+    \brief Replaces a portion of the string with a \a character repeated the given \a count of times.
+
+    This method replaces a specified range of characters in the current string with a \a character repeated the given \a
+    count of times. The replacement operation shifts existing characters as needed to accommodate the new content.
+
+    \param pos             The starting position for the replacement.
+    \param count           The number of characters to replace.
+    \param character       The character to replace.
+    \param charactersCount The number of times to repeat the \a character (default: 1).
+
+    \return A reference to this string after replacement.
+
+    \pre The \a pos must be within the bounds of the current string.
+    \pre The replacement range ( \a pos + \a count ) must be within the string bounds.
+    \pre The resulting string size must not exceed the allocated capacity.
+  */
+  constexpr inline FixString<allocatedSize> & replace(std::size_t pos, std::size_t count, char character,
+                                                      std::size_t charactersCount = 1) noexcept;
 
   /*!
     \brief Concatenates two FixString objects and returns the result.
