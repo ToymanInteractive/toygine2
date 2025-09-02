@@ -832,6 +832,8 @@ public:
     \return The actual number of characters copied.
 
     \pre The \a pos must be within the bounds of the current string.
+    \pre The \a dest pointer must not be null.
+    \pre The \a dest buffer must not overlap this string's internal storage.
     \pre The \a dest buffer must have sufficient space for the copied characters.
 
     \note If \a count is \ref npos or exceeds the remaining characters from \a pos, all remaining characters are copied.

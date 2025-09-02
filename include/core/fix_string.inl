@@ -508,7 +508,7 @@ template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::replace(std::size_t pos, std::size_t count,
                                                                               const char * string) noexcept {
   assert_message(string != nullptr, "String pointer must not be null");
-  assert_message((string < _data) || (string >= (_data + _size + 1)),
+  assert_message((string < _data) || (string >= (_data + ArraySize(_data))),
                  "Source pointer must not point into _data buffer");
   assert_message(pos <= _size, "Position must be within string bounds");
   assert_message(pos + count <= _size, "Replacement range must be within string bounds");
@@ -551,6 +551,9 @@ template <std::size_t allocatedSize>
 constexpr inline std::size_t FixString<allocatedSize>::copy(char * dest, std::size_t count,
                                                             std::size_t pos) const noexcept {
   assert_message(pos <= _size, "Position must be within string bounds");
+  assert_message(dest != nullptr, "Destination pointer must not be null");
+  assert_message((dest < _data) || (dest >= (_data + ArraySize(_data))),
+                 "Destination buffer must not overlap internal storage");
 
   if (count == npos || pos + count > _size)
     count = _size - pos;
