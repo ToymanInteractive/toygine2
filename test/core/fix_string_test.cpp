@@ -1026,6 +1026,155 @@ TEST_CASE("FixString swap", "[core][fixstring]") {
   }
 }
 
+TEST_CASE("FixString find", "[core][fixstring]") {
+  SECTION("Find FixString substring") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.find(FixString<16>("World")) == 6);
+    CHECK(testString.find(FixString<16>("Hello")) == 0);
+    CHECK(testString.find(FixString<16>("lo Wo")) == 3);
+    CHECK(testString.find(FixString<16>("xyz")) == FixString<32>::npos);
+  }
+
+  SECTION("Find StringLike substring") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.find(std::string("World")) == 6);
+    CHECK(testString.find(std::string("Hello")) == 0);
+    CHECK(testString.find(std::string("lo Wo")) == 3);
+    CHECK(testString.find(std::string("xyz")) == FixString<32>::npos);
+  }
+
+  SECTION("Find C string substring") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.find("World") == 6);
+    CHECK(testString.find("Hello") == 0);
+    CHECK(testString.find("lo Wo") == 3);
+    CHECK(testString.find("xyz") == FixString<32>::npos);
+  }
+
+  SECTION("Find character") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.find('H') == 0);
+    CHECK(testString.find('l') == 2);
+    CHECK(testString.find('o') == 4);
+    CHECK(testString.find('W') == 6);
+    CHECK(testString.find('d') == 10);
+    CHECK(testString.find('x') == FixString<32>::npos);
+  }
+
+  SECTION("Find with position parameter") {
+    FixString<32> testString("Hello World Hello");
+
+    CHECK(testString.find("Hello", 0) == 0);
+    CHECK(testString.find("Hello", 1) == 12);
+    CHECK(testString.find("Hello", 13) == FixString<32>::npos);
+    CHECK(testString.find('l', 0) == 2);
+    CHECK(testString.find('l', 3) == 3);
+    CHECK(testString.find('l', 4) == 9);
+    CHECK(testString.find('l', 10) == 14);
+  }
+
+  SECTION("Find empty substring") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.find(FixString<16>("")) == 0);
+    CHECK(testString.find(std::string("")) == 0);
+    CHECK(testString.find("") == 0);
+    CHECK(testString.find("", 5) == 5);
+    CHECK(testString.find("", 11) == FixString<32>::npos);
+  }
+
+  SECTION("Find in empty string") {
+    FixString<32> testString("");
+
+    CHECK(testString.find(FixString<16>("Hello")) == FixString<32>::npos);
+    CHECK(testString.find(std::string("Hello")) == FixString<32>::npos);
+    CHECK(testString.find("Hello") == FixString<32>::npos);
+    CHECK(testString.find('H') == FixString<32>::npos);
+    CHECK(testString.find("") == FixString<32>::npos);
+  }
+
+  SECTION("Find with position beyond string size") {
+    FixString<32> testString("Hello");
+
+    CHECK(testString.find("World", 10) == FixString<32>::npos);
+    CHECK(testString.find('H', 10) == FixString<32>::npos);
+    CHECK(testString.find("", 10) == FixString<32>::npos);
+  }
+
+  SECTION("Find substring at end") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.find("World") == 6);
+    CHECK(testString.find("d") == 10);
+    CHECK(testString.find("ld") == 9);
+  }
+
+  SECTION("Find substring at beginning") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.find("Hello") == 0);
+    CHECK(testString.find("H") == 0);
+    CHECK(testString.find("He") == 0);
+  }
+
+  SECTION("Find overlapping substrings") {
+    FixString<32> testString("ababab");
+
+    CHECK(testString.find("ab") == 0);
+    CHECK(testString.find("ab", 1) == 2);
+    CHECK(testString.find("ab", 3) == 4);
+    CHECK(testString.find("ab", 5) == FixString<32>::npos);
+  }
+
+  SECTION("Find with repeated characters") {
+    FixString<32> testString("aaaaa");
+
+    CHECK(testString.find("aa") == 0);
+    CHECK(testString.find("aa", 1) == 1);
+    CHECK(testString.find("aa", 2) == 2);
+    CHECK(testString.find("aa", 3) == 3);
+    CHECK(testString.find("aa", 4) == FixString<32>::npos);
+  }
+
+  SECTION("Find case sensitivity") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.find("hello") == FixString<32>::npos);
+    CHECK(testString.find("WORLD") == FixString<32>::npos);
+    CHECK(testString.find("Hello") == 0);
+    CHECK(testString.find("World") == 6);
+  }
+
+  SECTION("Find with different FixString capacities") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.find(FixString<8>("World")) == 6);
+    CHECK(testString.find(FixString<16>("World")) == 6);
+    CHECK(testString.find(FixString<64>("World")) == 6);
+  }
+
+  SECTION("Find with exact match") {
+    FixString<32> testString("Hello");
+
+    CHECK(testString.find("Hello") == 0);
+    CHECK(testString.find("Hello", 0) == 0);
+    CHECK(testString.find("Hello", 1) == FixString<32>::npos);
+  }
+
+  SECTION("Find with single character string") {
+    FixString<32> testString("A");
+
+    CHECK(testString.find("A") == 0);
+    CHECK(testString.find('A') == 0);
+    CHECK(testString.find("B") == FixString<32>::npos);
+    CHECK(testString.find('B') == FixString<32>::npos);
+  }
+}
+
 TEST_CASE("FixString operators+", "[core][fixstring]") {
   const auto testString1 = FixString<14>("12") + "test text 1";
   const auto testString2 = FixString<14>("12") + FixString<14>("test text 2");
