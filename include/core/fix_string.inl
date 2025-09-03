@@ -363,12 +363,10 @@ constexpr inline void FixString<allocatedSize>::utf8_pop_back() noexcept {
 
   while (_size > 0) {
     --_size;
-    if ((_data[_size] & 0xC0) == 0x80)
-      _data[_size] = '\0';
-    else {
-      _data[_size] = '\0';
+    const auto byte = static_cast<unsigned char>(_data[_size]);
+    _data[_size] = '\0';
+    if ((byte & 0xC0) != 0x80)
       break;
-    }
   }
 }
 

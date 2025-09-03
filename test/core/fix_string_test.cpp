@@ -438,6 +438,7 @@ TEST_CASE("FixString utf8_pop_back", "[core][fixstring]") {
 
     CHECK(strcmp(testString.c_str(), "Hell") == 0);
     CHECK(testString.size() == 4);
+    CHECK(testString.utf8_size() == 4);
   }
 
   SECTION("Pop back multiple ASCII characters") {
@@ -449,6 +450,7 @@ TEST_CASE("FixString utf8_pop_back", "[core][fixstring]") {
 
     CHECK(strcmp(testString.c_str(), "He") == 0);
     CHECK(testString.size() == 2);
+    CHECK(testString.utf8_size() == 2);
   }
 
   SECTION("Pop back UTF-8 character (2 bytes)") {
@@ -460,6 +462,7 @@ TEST_CASE("FixString utf8_pop_back", "[core][fixstring]") {
 
     CHECK(strcmp(testString.c_str(), "Hello \xD0\xBF\xD1\x80\xD0\xB8\xD0\xB2\xD0\xB5") == 0);
     CHECK(testString.size() == 16); // "Hello приве" (5 + 1 + 5*2 = 15 bytes, but we removed 2 bytes)
+    CHECK(testString.utf8_size() == 11);
   }
 
   SECTION("Pop back multiple UTF-8 characters") {
@@ -473,6 +476,7 @@ TEST_CASE("FixString utf8_pop_back", "[core][fixstring]") {
 
     CHECK(strcmp(testString.c_str(), "Hello \xD0\xBF\xD1\x80\xD0\xB8") == 0);
     CHECK(testString.size() == 12); // "Hello при" (5 + 1 + 3*2 = 12 bytes, but we removed 6 bytes)
+    CHECK(testString.utf8_size() == 9);
   }
 
   SECTION("Pop back mixed ASCII and UTF-8") {
@@ -489,6 +493,7 @@ TEST_CASE("FixString utf8_pop_back", "[core][fixstring]") {
 
     CHECK(strcmp(testString.c_str(), "Hello ") == 0);
     CHECK(testString.size() == 6);
+    CHECK(testString.utf8_size() == 6);
   }
 
   SECTION("Pop back from single character string") {
@@ -498,6 +503,7 @@ TEST_CASE("FixString utf8_pop_back", "[core][fixstring]") {
 
     CHECK(strcmp(testString.c_str(), "") == 0);
     CHECK(testString.size() == 0);
+    CHECK(testString.utf8_size() == 0);
   }
 
   SECTION("Pop back from single UTF-8 character string") {
@@ -509,6 +515,7 @@ TEST_CASE("FixString utf8_pop_back", "[core][fixstring]") {
 
     CHECK(strcmp(testString.c_str(), "") == 0);
     CHECK(testString.size() == 0);
+    CHECK(testString.utf8_size() == 0);
   }
 }
 

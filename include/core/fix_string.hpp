@@ -598,7 +598,7 @@ public:
   constexpr inline void pop_back() noexcept;
 
   /*!
-    \brief Removes the last UTF-8 encoding character from the string.
+    \brief Removes the last UTF-8 encoded character from the string.
 
     This method removes the last UTF-8 encoded character from the current string. Unlike \ref pop_back() which removes a
     single character, this method removes the complete UTF-8 encoded character, which may consist of multiple bytes.
