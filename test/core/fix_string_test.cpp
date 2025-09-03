@@ -461,7 +461,7 @@ TEST_CASE("FixString utf8_pop_back", "[core][fixstring]") {
     testString.utf8_pop_back(); // Remove 'т' (2 bytes)
 
     CHECK(strcmp(testString.c_str(), "Hello \xD0\xBF\xD1\x80\xD0\xB8\xD0\xB2\xD0\xB5") == 0);
-    CHECK(testString.size() == 16); // "Hello приве" (5 + 1 + 5*2 = 15 bytes, but we removed 2 bytes)
+    CHECK(testString.size() == 16); // "Hello приве" (5 + 1 + 5*2 = 16 bytes)
     CHECK(testString.utf8_size() == 11);
   }
 
@@ -475,7 +475,7 @@ TEST_CASE("FixString utf8_pop_back", "[core][fixstring]") {
     testString.utf8_pop_back(); // Remove 'в'
 
     CHECK(strcmp(testString.c_str(), "Hello \xD0\xBF\xD1\x80\xD0\xB8") == 0);
-    CHECK(testString.size() == 12); // "Hello при" (5 + 1 + 3*2 = 12 bytes, but we removed 6 bytes)
+    CHECK(testString.size() == 12); // "Hello при" (5 + 1 + 3*2 = 12 bytes)
     CHECK(testString.utf8_size() == 9);
   }
 
