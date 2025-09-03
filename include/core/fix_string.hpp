@@ -875,6 +875,78 @@ public:
   constexpr inline void swap(FixString<allocatedSize> & string) noexcept;
 
   /*!
+    \brief Finds the first occurrence of other \a string in the string.
+
+    This method searches for the first occurrence of the specified \a string within this string, starting from the given
+    \a position.
+
+    \param string   The source string to search for.
+    \param position The position to start searching from (default: 0).
+
+    \return The position of the first occurrence of other \a string, or \ref npos if not found.
+
+    \pre The \a position must be less than or equal to the string size.
+
+    \note The search is case-sensitive.
+  */
+  constexpr inline std::size_t find(const FixString<allocatedSize> & string, std::size_t position = 0) const noexcept;
+
+  /*!
+    \brief Finds the first occurrence of a StringLike object in the string.
+
+    This method searches for the first occurrence of a StringLike object within this string, starting from the given \a
+    position.
+
+    \tparam stringType The type of the source string. Must satisfy the StringLike concept.
+
+    \param string   The source StringLike object to search for.
+    \param position The position to start searching from (default: 0).
+
+    \return The position of the first occurrence of a StringLike object, or \ref npos if not found.
+
+    \pre The \a position must be less than or equal to the string size.
+
+    \note The search is case-sensitive.
+  */
+  template <StringLike stringType>
+  constexpr inline std::size_t find(const stringType & string, std::size_t position = 0) const noexcept;
+
+  /*!
+    \brief Finds the first occurrence of the C \a string in the string.
+
+    This method searches for the first occurrence of the C \a string within this string, starting from the given \a
+    position.
+
+    \param string   The source C string to search for.
+    \param position The position to start searching from (default: 0).
+
+    \return The position of the first occurrence of the C \a string, or \ref npos if not found.
+
+    \pre The \a position must be less than or equal to the string size.
+    \pre The \a string must not be null.
+
+    \note The search is case-sensitive.
+  */
+  constexpr inline std::size_t find(const char * string, std::size_t position = 0) const noexcept;
+
+  /*!
+    \brief Finds the first occurrence of a \a character in the string.
+
+    This method searches for the first occurrence of the specified \a character within this string, starting from the
+    given \a position.
+
+    \param character The character to search for.
+    \param position  The position to start searching from (default: 0).
+
+    \return The position of the first occurrence of the \a character, or \ref npos if not found.
+
+    \pre The \a position must be less than or equal to the string size.
+
+    \note The search is case-sensitive.
+  */
+  constexpr inline std::size_t find(char character, std::size_t position = 0) const noexcept;
+
+  /*!
     \brief Concatenates two FixString objects and returns the result.
 
     This operator creates a new FixString object by concatenating the current FixString object with another provided
