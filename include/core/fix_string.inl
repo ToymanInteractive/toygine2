@@ -233,7 +233,7 @@ constexpr inline std::size_t FixString<allocatedSize>::size() const noexcept {
 }
 
 template <std::size_t allocatedSize>
-constexpr inline std::size_t FixString<allocatedSize>::utf8Size() const noexcept {
+constexpr inline std::size_t FixString<allocatedSize>::utf8_size() const noexcept {
   return utf8len(_data);
 }
 
@@ -355,6 +355,19 @@ constexpr inline void FixString<allocatedSize>::pop_back() noexcept {
 
   if (_size > 0)
     _data[--_size] = '\0';
+}
+
+template <std::size_t allocatedSize>
+constexpr inline void FixString<allocatedSize>::utf8_pop_back() noexcept {
+  assert_message(_size > 0, "String must not be empty for utf8_pop_back");
+
+  while (_size > 0) {
+    --_size;
+    const auto byte = static_cast<unsigned char>(_data[_size]);
+    _data[_size] = '\0';
+    if ((byte & 0xC0) != 0x80)
+      break;
+  }
 }
 
 template <std::size_t allocatedSize>

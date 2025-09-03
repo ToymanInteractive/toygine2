@@ -244,7 +244,7 @@ TEST_CASE("FixString size", "[core][fixstring]") {
   CHECK(testString2.size() == 0);
 }
 
-TEST_CASE("FixString utf8Size", "[core][fixstring]") {
+TEST_CASE("FixString utf8_size", "[core][fixstring]") {
   static char const ansiText[] = "ToyGine2 - Free 2D/3D game engine.";
   // UTF8 encoding               "ToyGine2 - Бесплатный 2D/3D игровой движок.";
 
@@ -258,10 +258,10 @@ TEST_CASE("FixString utf8Size", "[core][fixstring]") {
   const auto testString2 = FixString<80>(reinterpret_cast<char const *>(utf8Text.data()));
   FixString<96> const testString3;
 
-  CHECK(testString1.size() == testString1.utf8Size());
-  CHECK(testString3.size() == testString3.utf8Size());
+  CHECK(testString1.size() == testString1.utf8_size());
+  CHECK(testString3.size() == testString3.utf8_size());
   CHECK(testString2.size() == 66);
-  CHECK(testString2.utf8Size() == 43);
+  CHECK(testString2.utf8_size() == 43);
 }
 
 TEST_CASE("FixString length", "[core][fixstring]") {
@@ -428,6 +428,95 @@ TEST_CASE("FixString pop_back", "[core][fixstring]") {
   testString.pop_back();
   CHECK(strcmp(testString.c_str(), "") == 0);
   CHECK(testString.size() == 0);
+}
+
+TEST_CASE("FixString utf8_pop_back", "[core][fixstring]") {
+  SECTION("Pop back single ASCII character") {
+    FixString<16> testString("Hello");
+
+    testString.utf8_pop_back();
+
+    CHECK(strcmp(testString.c_str(), "Hell") == 0);
+    CHECK(testString.size() == 4);
+    CHECK(testString.utf8_size() == 4);
+  }
+
+  SECTION("Pop back multiple ASCII characters") {
+    FixString<16> testString("Hello");
+
+    testString.utf8_pop_back();
+    testString.utf8_pop_back();
+    testString.utf8_pop_back();
+
+    CHECK(strcmp(testString.c_str(), "He") == 0);
+    CHECK(testString.size() == 2);
+    CHECK(testString.utf8_size() == 2);
+  }
+
+  SECTION("Pop back UTF-8 character (2 bytes)") {
+    // "Hello привет" - "привет" contains 6 Cyrillic characters, each 2 bytes in UTF-8
+    const char * utf8Text = "Hello \xD0\xBF\xD1\x80\xD0\xB8\xD0\xB2\xD0\xB5\xD1\x82";
+    FixString<32> testString(utf8Text);
+
+    testString.utf8_pop_back(); // Remove 'т' (2 bytes)
+
+    CHECK(strcmp(testString.c_str(), "Hello \xD0\xBF\xD1\x80\xD0\xB8\xD0\xB2\xD0\xB5") == 0);
+    CHECK(testString.size() == 16); // "Hello приве" (5 + 1 + 5*2 = 16 bytes)
+    CHECK(testString.utf8_size() == 11);
+  }
+
+  SECTION("Pop back multiple UTF-8 characters") {
+    // "Hello привет" - "привет" contains 6 Cyrillic characters
+    const char * utf8Text = "Hello \xD0\xBF\xD1\x80\xD0\xB8\xD0\xB2\xD0\xB5\xD1\x82";
+    FixString<32> testString(utf8Text);
+
+    testString.utf8_pop_back(); // Remove 'т'
+    testString.utf8_pop_back(); // Remove 'е'
+    testString.utf8_pop_back(); // Remove 'в'
+
+    CHECK(strcmp(testString.c_str(), "Hello \xD0\xBF\xD1\x80\xD0\xB8") == 0);
+    CHECK(testString.size() == 12); // "Hello при" (5 + 1 + 3*2 = 12 bytes)
+    CHECK(testString.utf8_size() == 9);
+  }
+
+  SECTION("Pop back mixed ASCII and UTF-8") {
+    // "Hello привет" - mix of ASCII and Cyrillic
+    const char * utf8Text = "Hello \xD0\xBF\xD1\x80\xD0\xB8\xD0\xB2\xD0\xB5\xD1\x82";
+    FixString<32> testString(utf8Text);
+
+    testString.utf8_pop_back(); // Remove 'т'
+    testString.utf8_pop_back(); // Remove 'е'
+    testString.utf8_pop_back(); // Remove 'в'
+    testString.utf8_pop_back(); // Remove 'и'
+    testString.utf8_pop_back(); // Remove 'р'
+    testString.utf8_pop_back(); // Remove 'п'
+
+    CHECK(strcmp(testString.c_str(), "Hello ") == 0);
+    CHECK(testString.size() == 6);
+    CHECK(testString.utf8_size() == 6);
+  }
+
+  SECTION("Pop back from single character string") {
+    FixString<8> testString("A");
+
+    testString.utf8_pop_back();
+
+    CHECK(strcmp(testString.c_str(), "") == 0);
+    CHECK(testString.size() == 0);
+    CHECK(testString.utf8_size() == 0);
+  }
+
+  SECTION("Pop back from single UTF-8 character string") {
+    // Single Cyrillic character 'п'
+    const char * utf8Text = "\xD0\xBF";
+    FixString<8> testString(utf8Text);
+
+    testString.utf8_pop_back();
+
+    CHECK(strcmp(testString.c_str(), "") == 0);
+    CHECK(testString.size() == 0);
+    CHECK(testString.utf8_size() == 0);
+  }
 }
 
 TEST_CASE("FixString append", "[core][fixstring]") {

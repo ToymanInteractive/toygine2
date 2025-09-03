@@ -423,10 +423,10 @@ public:
 
     \return The number of Unicode characters in the string, excluding the terminating null character.
 
-    \note For ASCII strings, utf8Size() equals size().
-    \note For UTF-8 strings, utf8Size() may be less than size().
+    \note For ASCII strings, utf8_size() equals size().
+    \note For UTF-8 strings, utf8_size() may be less than size().
   */
-  constexpr inline std::size_t utf8Size() const noexcept;
+  constexpr inline std::size_t utf8_size() const noexcept;
 
   /*!
     \brief Returns the size of the string.
@@ -596,6 +596,23 @@ public:
     \note If the string is empty, the behavior is undefined.
   */
   constexpr inline void pop_back() noexcept;
+
+  /*!
+    \brief Removes the last UTF-8 encoded character from the string.
+
+    This method removes the last UTF-8 encoded character from the current string. Unlike \ref pop_back() which removes a
+    single character, this method removes the complete UTF-8 encoded character, which may consist of multiple bytes.
+
+    \pre The string must not be empty.
+    \pre The string must contain valid UTF-8 encoded text.
+
+    \post The string size is decreased by the number of bytes that constituted the last UTF-8 encoded character.
+
+    \note If the string is empty, the behavior is undefined.
+    \note For ASCII strings, this method behaves identically to pop_back().
+    \note This method is useful when working with internationalized text that may contain non-ASCII characters.
+  */
+  constexpr inline void utf8_pop_back() noexcept;
 
   /*!
     \brief Appends other \a string to the end of this string.
