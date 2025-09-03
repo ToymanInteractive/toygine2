@@ -592,6 +592,13 @@ constexpr inline void FixString<allocatedSize>::swap(FixString<allocatedSize> & 
 template <std::size_t allocatedSize>
 constexpr inline std::size_t FixString<allocatedSize>::find(const FixString<allocatedSize> & string,
                                                             std::size_t position) const noexcept {
+  if (position > _size)
+    return npos;
+  if (string._size == 0)
+    return position;
+  if (string._size > _size - position)
+    return npos;
+
   return find(string._data, position);
 }
 
@@ -599,6 +606,15 @@ template <std::size_t allocatedSize>
 template <StringLike stringType>
 constexpr inline std::size_t FixString<allocatedSize>::find(const stringType & string,
                                                             std::size_t position) const noexcept {
+  if (position > _size)
+    return npos;
+
+  const auto needleSize = string.size();
+  if (needleSize == 0)
+    return position;
+  if (needleSize > _size - position)
+    return npos;
+
   return find(string.c_str(), position);
 }
 
