@@ -705,7 +705,7 @@ constexpr inline std::size_t FixString<allocatedSize>::rfind(const char * string
   else if (position + needleSize > _size)
     return npos;
 
-  for (auto i = 0U; i < position; ++i) {
+  for (auto i = 0U; i <= position; ++i) {
     const auto offset = position - i;
     if (std::memcmp(_data + offset, string, needleSize) == 0)
       return offset;
@@ -723,7 +723,7 @@ constexpr inline std::size_t FixString<allocatedSize>::rfind(char character, std
   else if (position + 1 > _size)
     return npos;
 
-  for (auto i = 0U; i < position; ++i) {
+  for (auto i = 0U; i <= position; ++i) {
     const auto offset = position - i;
     if (_data[offset] == character)
       return offset;
