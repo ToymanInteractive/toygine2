@@ -1218,154 +1218,134 @@ TEST_CASE("FixString rfind", "[core][fixstring]") {
     FixString<32> testString("Hello World Hello");
 
     CHECK(testString.rfind("Hello", 12) == 12);
-//    CHECK(testString.rfind("Hello", 11) == 0);
-    //    CHECK(testString.rfind("Hello", 0) == 0);
-    //    CHECK(testString.rfind('l', 16) == 14);
-    //    CHECK(testString.rfind('l', 13) == 9);
-    //    CHECK(testString.rfind('l', 8) == 3);
-    //    CHECK(testString.rfind('l', 2) == 2);
+    CHECK(testString.rfind("Hello", 11) == 0);
+    CHECK(testString.rfind("Hello", 0) == 0);
+    CHECK(testString.rfind('l', 16) == 15);
+    CHECK(testString.rfind('l', 13) == 9);
+    CHECK(testString.rfind('l', 8) == 3);
+    CHECK(testString.rfind('l', 2) == 2);
   }
-  /*
 
-SECTION("Rfind empty substring") {
-FixString<32> testString("Hello World");
+  SECTION("Rfind empty substring") {
+    FixString<32> testString("Hello World");
 
-CHECK(testString.rfind(FixString<16>("")) == 11);
-CHECK(testString.rfind(std::string("")) == 11);
-CHECK(testString.rfind("") == 11);
-CHECK(testString.rfind("", 5) == 5);
-CHECK(testString.rfind("", 0) == 0);
-}
+    CHECK(testString.rfind(FixString<16>("")) == 11);
+    CHECK(testString.rfind(std::string("")) == 11);
+    CHECK(testString.rfind("") == 11);
+    CHECK(testString.rfind("", 5) == 5);
+    CHECK(testString.rfind("", 0) == 0);
+  }
 
-SECTION("Rfind in empty string") {
-FixString<32> testString("");
+  SECTION("Rfind in empty string") {
+    FixString<32> testString("");
 
-CHECK(testString.rfind(FixString<16>("Hello")) == FixString<32>::npos);
-CHECK(testString.rfind(std::string("Hello")) == FixString<32>::npos);
-CHECK(testString.rfind("Hello") == FixString<32>::npos);
-CHECK(testString.rfind('H') == FixString<32>::npos);
-CHECK(testString.rfind("") == 0);
-}
+    CHECK(testString.rfind(FixString<16>("Hello")) == FixString<32>::npos);
+    CHECK(testString.rfind(std::string("Hello")) == FixString<32>::npos);
+    CHECK(testString.rfind("Hello") == FixString<32>::npos);
+    CHECK(testString.rfind('H') == FixString<32>::npos);
+    CHECK(testString.rfind("") == 0);
+  }
 
-SECTION("Rfind with position beyond string size") {
-FixString<32> testString("Hello");
+  SECTION("Rfind substring at end") {
+    FixString<32> testString("Hello World");
 
-CHECK(testString.rfind("World", 10) == FixString<32>::npos);
-CHECK(testString.rfind('H', 10) == 0);
-CHECK(testString.rfind("", 10) == 5);
-}
+    CHECK(testString.rfind("World") == 6);
+    CHECK(testString.rfind("d") == 10);
+    CHECK(testString.rfind("ld") == 9);
+  }
 
-SECTION("Rfind substring at end") {
-FixString<32> testString("Hello World");
+  SECTION("Rfind substring at beginning") {
+    FixString<32> testString("Hello World Hello");
 
-CHECK(testString.rfind("World") == 6);
-CHECK(testString.rfind("d") == 10);
-CHECK(testString.rfind("ld") == 9);
-}
+    CHECK(testString.rfind("Hello") == 12);
+    CHECK(testString.rfind("H") == 12);
+    CHECK(testString.rfind("He") == 12);
+  }
 
-SECTION("Rfind substring at beginning") {
-FixString<32> testString("Hello World Hello");
+  SECTION("Rfind overlapping substrings") {
+    FixString<32> testString("ababab");
 
-CHECK(testString.rfind("Hello") == 12);
-CHECK(testString.rfind("H") == 12);
-CHECK(testString.rfind("He") == 12);
-}
+    CHECK(testString.rfind("ab") == 4);
+    CHECK(testString.rfind("ab", 3) == 2);
+    CHECK(testString.rfind("ab", 1) == 0);
+    CHECK(testString.rfind("ab", 0) == 0);
+  }
 
-SECTION("Rfind overlapping substrings") {
-FixString<32> testString("ababab");
+  SECTION("Rfind with repeated characters") {
+    FixString<32> testString("aaaaa");
 
-CHECK(testString.rfind("ab") == 4);
-CHECK(testString.rfind("ab", 3) == 2);
-CHECK(testString.rfind("ab", 1) == 0);
-CHECK(testString.rfind("ab", 0) == 0);
-}
+    CHECK(testString.rfind("aa") == 3);
+    CHECK(testString.rfind("aa", 2) == 2);
+    CHECK(testString.rfind("aa", 1) == 1);
+    CHECK(testString.rfind("aa", 0) == 0);
+  }
 
-SECTION("Rfind with repeated characters") {
-FixString<32> testString("aaaaa");
+  SECTION("Rfind case sensitivity") {
+    FixString<32> testString("Hello World Hello");
 
-CHECK(testString.rfind("aa") == 3);
-CHECK(testString.rfind("aa", 2) == 2);
-CHECK(testString.rfind("aa", 1) == 1);
-CHECK(testString.rfind("aa", 0) == 0);
-}
+    CHECK(testString.rfind("hello") == FixString<32>::npos);
+    CHECK(testString.rfind("WORLD") == FixString<32>::npos);
+    CHECK(testString.rfind("Hello") == 12);
+    CHECK(testString.rfind("World") == 6);
+  }
 
-SECTION("Rfind case sensitivity") {
-FixString<32> testString("Hello World Hello");
+  SECTION("Rfind with different FixString capacities") {
+    FixString<32> testString("Hello World Hello");
 
-CHECK(testString.rfind("hello") == FixString<32>::npos);
-CHECK(testString.rfind("WORLD") == FixString<32>::npos);
-CHECK(testString.rfind("Hello") == 12);
-CHECK(testString.rfind("World") == 6);
-}
+    CHECK(testString.rfind(FixString<8>("Hello")) == 12);
+    CHECK(testString.rfind(FixString<16>("Hello")) == 12);
+    CHECK(testString.rfind(FixString<64>("Hello")) == 12);
+  }
 
-SECTION("Rfind with different FixString capacities") {
-FixString<32> testString("Hello World Hello");
+  SECTION("Rfind with exact match") {
+    FixString<32> testString("Hello");
 
-CHECK(testString.rfind(FixString<8>("Hello")) == 12);
-CHECK(testString.rfind(FixString<16>("Hello")) == 12);
-CHECK(testString.rfind(FixString<64>("Hello")) == 12);
-}
+    CHECK(testString.rfind("Hello") == 0);
+    CHECK(testString.rfind("Hello", 0) == 0);
+  }
 
-SECTION("Rfind with exact match") {
-FixString<32> testString("Hello");
+  SECTION("Rfind with single character string") {
+    FixString<32> testString("A");
 
-CHECK(testString.rfind("Hello") == 0);
-CHECK(testString.rfind("Hello", 4) == 0);
-CHECK(testString.rfind("Hello", 0) == 0);
-}
+    CHECK(testString.rfind("A") == 0);
+    CHECK(testString.rfind('A') == 0);
+    CHECK(testString.rfind("B") == FixString<32>::npos);
+    CHECK(testString.rfind('B') == FixString<32>::npos);
+  }
 
-SECTION("Rfind with single character string") {
-FixString<32> testString("A");
+  SECTION("Rfind with position 0") {
+    FixString<32> testString("Hello World");
 
-CHECK(testString.rfind("A") == 0);
-CHECK(testString.rfind('A') == 0);
-CHECK(testString.rfind("B") == FixString<32>::npos);
-CHECK(testString.rfind('B') == FixString<32>::npos);
-}
+    CHECK(testString.rfind("Hello", 0) == 0);
+    CHECK(testString.rfind("World", 0) == FixString<32>::npos);
+    CHECK(testString.rfind('H', 0) == 0);
+    CHECK(testString.rfind('W', 0) == FixString<32>::npos);
+  }
 
-SECTION("Rfind with position 0") {
-FixString<32> testString("Hello World");
+  SECTION("Rfind with substring longer than string") {
+    FixString<32> testString("Hello");
 
-CHECK(testString.rfind("Hello", 0) == 0);
-CHECK(testString.rfind("World", 0) == FixString<32>::npos);
-CHECK(testString.rfind('H', 0) == 0);
-CHECK(testString.rfind('W', 0) == FixString<32>::npos);
-}
+    CHECK(testString.rfind("Hello World") == FixString<32>::npos);
+    CHECK(testString.rfind("Hello World", 10) == FixString<32>::npos);
+  }
 
-SECTION("Rfind with position at string size") {
-FixString<32> testString("Hello World");
+  SECTION("Rfind with multiple occurrences") {
+    FixString<32> testString("abababab");
 
-CHECK(testString.rfind("Hello", 11) == 0);
-CHECK(testString.rfind("World", 11) == 6);
-CHECK(testString.rfind('d', 11) == 10);
-CHECK(testString.rfind('H', 11) == 0);
-}
+    CHECK(testString.rfind("ab") == 6);
+    CHECK(testString.rfind("ab", 5) == 4);
+    CHECK(testString.rfind("ab", 3) == 2);
+    CHECK(testString.rfind("ab", 1) == 0);
+  }
 
-SECTION("Rfind with substring longer than string") {
-FixString<32> testString("Hello");
+  SECTION("Rfind with position in middle") {
+    FixString<32> testString("Hello World Hello");
 
-CHECK(testString.rfind("Hello World") == FixString<32>::npos);
-CHECK(testString.rfind("Hello World", 10) == FixString<32>::npos);
-}
-
-SECTION("Rfind with multiple occurrences") {
-FixString<32> testString("abababab");
-
-CHECK(testString.rfind("ab") == 6);
-CHECK(testString.rfind("ab", 5) == 4);
-CHECK(testString.rfind("ab", 3) == 2);
-CHECK(testString.rfind("ab", 1) == 0);
-}
-
-SECTION("Rfind with position in middle") {
-FixString<32> testString("Hello World Hello");
-
-CHECK(testString.rfind("Hello", 8) == 0);
-CHECK(testString.rfind("Hello", 15) == 12);
-CHECK(testString.rfind('l', 8) == 3);
-CHECK(testString.rfind('l', 15) == 14);
-}
-*/
+    CHECK(testString.rfind("Hello", 8) == 0);
+    CHECK(testString.rfind("Hello", 12) == 12);
+    CHECK(testString.rfind('l', 8) == 3);
+    CHECK(testString.rfind('l', 15) == 15);
+  }
 }
 
 TEST_CASE("FixString operators+", "[core][fixstring]") {
