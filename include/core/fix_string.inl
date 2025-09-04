@@ -594,7 +594,7 @@ constexpr inline std::size_t FixString<allocatedSize>::find(const FixString<allo
                                                             std::size_t position) const noexcept {
   if (position > _size)
     return npos;
-  if (string._size == 0)
+  if (string.empty())
     return position;
   if (string._size > _size - position)
     return npos;
@@ -640,6 +640,94 @@ constexpr inline std::size_t FixString<allocatedSize>::find(char character, std:
   auto occurrence = std::strchr(_data + position, character);
   if (occurrence != nullptr)
     return occurrence - _data;
+
+  return npos;
+}
+
+template <std::size_t allocatedSize>
+constexpr inline std::size_t FixString<allocatedSize>::rfind(const FixString<allocatedSize> & string,
+                                                             std::size_t position) const noexcept {
+  if (string.empty())
+    return position <= _size ? position : _size;
+
+  if (string._size > _size)
+    return npos;
+  if (position == npos)
+    position = _size - string._size;
+  else if (position + string._size > _size)
+    return npos;
+
+  for (auto i = 0U; i < position; ++i) {
+    const auto offset = position - i;
+    if (std::memcmp(_data + offset, string._data, string._size) == 0)
+      return offset;
+  }
+
+  return npos;
+}
+
+template <std::size_t allocatedSize>
+template <StringLike stringType>
+constexpr inline std::size_t FixString<allocatedSize>::rfind(const stringType & string,
+                                                             std::size_t position) const noexcept {
+  const auto needleSize = string.size();
+  if (needleSize == 0)
+    return position <= _size ? position : _size;
+
+  if (needleSize > _size)
+    return npos;
+  if (position == npos)
+    position = _size - needleSize;
+  else if (position + needleSize > _size)
+    return npos;
+
+  for (auto i = 0U; i < position; ++i) {
+    const auto offset = position - i;
+    if (std::memcmp(_data + offset, string.c_str(), needleSize) == 0)
+      return offset;
+  }
+
+  return npos;
+}
+
+template <std::size_t allocatedSize>
+constexpr inline std::size_t FixString<allocatedSize>::rfind(const char * string, std::size_t position) const noexcept {
+  assert_message(string != nullptr, "String pointer must not be null");
+
+  const auto needleSize = std::strlen(string);
+  if (needleSize == 0)
+    return position <= _size ? position : _size;
+
+  if (needleSize > _size)
+    return npos;
+  if (position == npos)
+    position = _size - needleSize;
+  else if (position + needleSize > _size)
+    return npos;
+
+  for (auto i = 0U; i < position; ++i) {
+    const auto offset = position - i;
+    if (std::memcmp(_data + offset, string, needleSize) == 0)
+      return offset;
+  }
+
+  return npos;
+}
+
+template <std::size_t allocatedSize>
+constexpr inline std::size_t FixString<allocatedSize>::rfind(char character, std::size_t position) const noexcept {
+  if (1 > _size)
+    return npos;
+  if (position == npos)
+    position = _size - 1;
+  else if (position + 1 > _size)
+    return npos;
+
+  for (auto i = 0U; i < position; ++i) {
+    const auto offset = position - i;
+    if (_data[offset] == character)
+      return offset;
+  }
 
   return npos;
 }

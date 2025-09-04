@@ -947,6 +947,80 @@ public:
   constexpr inline std::size_t find(char character, std::size_t position = 0) const noexcept;
 
   /*!
+    \brief Finds the last occurrence of other \a string in the string.
+
+    This method searches for the last occurrence of the specified \a string within this string, starting from the given
+    \a position and searching backwards.
+
+    \param string   The source string to search for.
+    \param position The position to start searching from (default: \ref npos).
+
+    \return The position of the last occurrence of other \a string, or \ref npos if not found.
+
+    \pre The \a position must be less than or equal to the string size.
+
+    \note The search is case-sensitive.
+  */
+  constexpr inline std::size_t rfind(const FixString<allocatedSize> & string,
+                                     std::size_t position = npos) const noexcept;
+
+  /*!
+    \brief Finds the last occurrence of a StringLike object in the string.
+
+    This method searches for the last occurrence of a StringLike object within this string, starting from the given \a
+    position and searching backwards.
+
+    \tparam stringType The type of the source string. Must satisfy the StringLike concept.
+
+    \param string   The source StringLike object to search for.
+    \param position The position to start searching from (default: \ref npos).
+
+    \return The position of the last occurrence of a StringLike object, or \ref npos if not found.
+
+    \pre The \a position must be less than or equal to the string size.
+
+    \note The search is case-sensitive.
+  */
+  template <StringLike stringType>
+  constexpr inline std::size_t rfind(const stringType & string, std::size_t position = npos) const noexcept;
+
+  /*!
+    \brief Finds the last occurrence of the C \a string in the string.
+
+    This method searches for the last occurrence of the C \a string within this string, starting from the given \a
+    position and searching backwards.
+
+    \param string   The source C string to search for.
+    \param position The position to start searching from (default: \ref npos).
+
+    \return The position of the last occurrence of the C \a string, or \ref npos if not found.
+
+    \pre The \a position must be less than or equal to the string size.
+    \pre The \a string must not be null.
+
+    \note The search is case-sensitive.
+  */
+  constexpr inline std::size_t rfind(const char * string, std::size_t position = npos) const noexcept;
+
+  /*!
+    \brief Finds the last occurrence of a \a character in the string.
+
+    This method searches for the last occurrence of the specified \a character within this string, starting from the
+    given \a position and searching backwards.
+
+    \param character The character to search for.
+    \param position  The position to start searching from (default: \ref npos).
+
+    \return The position of the last occurrence of the \a character, or \ref npos if not found.
+
+    \pre The \a position must be less than or equal to the string size.
+
+    \note The search is case-sensitive.
+  */
+  constexpr inline std::size_t rfind(char character, std::size_t position = npos) const noexcept;
+
+
+  /*!
     \brief Concatenates two FixString objects and returns the result.
 
     This operator creates a new FixString object by concatenating the current FixString object with another provided
