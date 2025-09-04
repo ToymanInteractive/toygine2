@@ -1019,7 +1019,6 @@ public:
   */
   constexpr inline std::size_t rfind(char character, std::size_t position = npos) const noexcept;
 
-
   /*!
     \brief Concatenates two FixString objects and returns the result.
 
