@@ -689,25 +689,27 @@ constexpr inline int FixString<allocatedSize>::compare(const char * string) cons
 
 template <std::size_t allocatedSize>
 constexpr inline bool FixString<allocatedSize>::starts_with(const FixString<allocatedSize> & string) const noexcept {
-  return memcmp(_data, string._data, string._size) == 0;
+  return _size >= string._size && memcmp(_data, string._data, string._size) == 0;
 }
 
 template <std::size_t allocatedSize>
 template <StringLike stringType>
 constexpr inline bool FixString<allocatedSize>::starts_with(const stringType & string) const noexcept {
-  return memcmp(_data, string.c_str(), string.size()) == 0;
+  return _size >= string.size() && memcmp(_data, string.c_str(), string.size()) == 0;
 }
 
 template <std::size_t allocatedSize>
 constexpr inline bool FixString<allocatedSize>::starts_with(const char * string) const noexcept {
   assert_message(string != nullptr, "String pointer must not be null");
 
-  return memcmp(_data, string, std::strlen(string)) == 0;
+  const auto needleSize = std::strlen(string);
+
+  return _size >= needleSize && memcmp(_data, string, needleSize) == 0;
 }
 
 template <std::size_t allocatedSize>
 constexpr inline bool FixString<allocatedSize>::starts_with(char character) const noexcept {
-  return !empty() && _data[0] == character;
+  return _size > 0 && _data[0] == character;
 }
 
 template <std::size_t allocatedSize>
