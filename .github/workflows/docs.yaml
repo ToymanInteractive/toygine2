@@ -48,7 +48,7 @@ jobs:
           python3 -m coverxygen --xml-dir ./docs/xml --src-dir . --output ./docs/xml/doc.lcov --format lcov --exclude README.md
 
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v5.5.0
+        uses: codecov/codecov-action@v5.5.1
         with:
           files: ./docs/xml/doc.lcov
           flags: documentation
