@@ -1378,7 +1378,6 @@ TEST_CASE("FixString compare", "[core][fixstring]") {
 
   SECTION("Compare identical strings") {
     FixString<32> testString1("Hello World");
-    ;
 
     CHECK(testString1.compare(FixString<32>("Hello World")) == 0);
     CHECK(testString1.compare(std::string("Hello World")) == 0);

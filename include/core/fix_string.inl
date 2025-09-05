@@ -682,6 +682,8 @@ constexpr inline int FixString<allocatedSize>::compare(const stringType & string
 
 template <std::size_t allocatedSize>
 constexpr inline int FixString<allocatedSize>::compare(const char * string) const noexcept {
+  assert_message(string != nullptr, "String pointer must not be null");
+
   return std::strcmp(_data, string);
 }
 
