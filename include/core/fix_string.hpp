@@ -1085,6 +1085,74 @@ public:
   constexpr inline int compare(const char * string) const noexcept;
 
   /*!
+    \brief Checks if the string starts with the specified \a string.
+
+    This method checks if the current string starts with the specified \a string. The comparison is performed character
+    by character from the beginning of the string.
+
+    \param string The string to check if this string starts with.
+
+    \return True if this string starts with the specified \a string, false otherwise.
+
+    \note The comparison is case-sensitive.
+    \note If the specified \a string is empty, this method returns true.
+    \note If the specified \a string is longer than this string, this method returns false.
+  */
+  constexpr inline bool starts_with(const FixString<allocatedSize> & string) const noexcept;
+
+  /*!
+    \brief Checks if the string starts with a StringLike object.
+
+    This method checks if the current string starts with a StringLike object. The comparison is performed character by
+    character from the beginning of the string.
+
+    \tparam stringType The type of the source string. Must satisfy the StringLike concept.
+
+    \param string The StringLike object to check if this string starts with.
+
+    \return True if this string starts with a StringLike object, false otherwise.
+
+    \note The comparison is case-sensitive.
+    \note If a StringLike object is empty, this method returns true.
+    \note If a StringLike object is longer than this string, this method returns false.
+  */
+  template <StringLike stringType>
+  constexpr inline bool starts_with(const stringType & string) const noexcept;
+
+  /*!
+    \brief Checks if the string starts with the specified C \a string.
+
+    This method checks if the current string starts with the C \a string. The comparison is performed character by
+    character from the beginning of the string.
+
+    \param string The C string to check if this string starts with.
+
+    \return True if this string starts with the C \a string, false otherwise.
+
+    \pre The C \a string must not be null.
+
+    \note The comparison is case-sensitive.
+    \note If the C \a string is empty, this method returns true.
+    \note If the C \a string is longer than this string, this method returns false.
+  */
+  constexpr inline bool starts_with(const char * string) const noexcept;
+
+  /*!
+    \brief Checks if the string starts with the specified \a character.
+
+    This method checks if the current string starts with the specified \a character. The comparison is performed on the
+    first character of the string.
+
+    \param character The character to check if this string starts with.
+
+    \return True if this string starts with the specified \a character, false otherwise.
+
+    \note The comparison is case-sensitive.
+    \note If the string is empty, this method returns false.
+  */
+  constexpr inline bool starts_with(char character) const noexcept;
+
+  /*!
     \brief Concatenates two FixString objects and returns the result.
 
     This operator creates a new FixString object by concatenating the current FixString object with another provided
