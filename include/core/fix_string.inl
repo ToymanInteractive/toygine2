@@ -689,13 +689,13 @@ constexpr inline int FixString<allocatedSize>::compare(const char * string) cons
 
 template <std::size_t allocatedSize>
 constexpr inline bool FixString<allocatedSize>::starts_with(const FixString<allocatedSize> & string) const noexcept {
-  return _size >= string._size && memcmp(_data, string._data, string._size) == 0;
+  return _size >= string._size && std::memcmp(_data, string._data, string._size) == 0;
 }
 
 template <std::size_t allocatedSize>
 template <StringLike stringType>
 constexpr inline bool FixString<allocatedSize>::starts_with(const stringType & string) const noexcept {
-  return _size >= string.size() && memcmp(_data, string.c_str(), string.size()) == 0;
+  return _size >= string.size() && std::memcmp(_data, string.c_str(), string.size()) == 0;
 }
 
 template <std::size_t allocatedSize>
@@ -704,7 +704,7 @@ constexpr inline bool FixString<allocatedSize>::starts_with(const char * string)
 
   const auto needleSize = std::strlen(string);
 
-  return _size >= needleSize && memcmp(_data, string, needleSize) == 0;
+  return _size >= needleSize && std::memcmp(_data, string, needleSize) == 0;
 }
 
 template <std::size_t allocatedSize>
@@ -714,13 +714,13 @@ constexpr inline bool FixString<allocatedSize>::starts_with(char character) cons
 
 template <std::size_t allocatedSize>
 constexpr inline bool FixString<allocatedSize>::ends_with(const FixString<allocatedSize> & string) const noexcept {
-  return _size >= string._size && memcmp(_data + (_size - string._size), string._data, string._size) == 0;
+  return _size >= string._size && std::memcmp(_data + (_size - string._size), string._data, string._size) == 0;
 }
 
 template <std::size_t allocatedSize>
 template <StringLike stringType>
 constexpr inline bool FixString<allocatedSize>::ends_with(const stringType & string) const noexcept {
-  return _size >= string.size() && memcmp(_data + (_size - string.size()), string.c_str(), string.size()) == 0;
+  return _size >= string.size() && std::memcmp(_data + (_size - string.size()), string.c_str(), string.size()) == 0;
 }
 
 template <std::size_t allocatedSize>
@@ -729,7 +729,7 @@ constexpr inline bool FixString<allocatedSize>::ends_with(const char * string) c
 
   const auto needleSize = std::strlen(string);
 
-  return _size >= needleSize && memcmp(_data + (_size - needleSize), string, needleSize) == 0;
+  return _size >= needleSize && std::memcmp(_data + (_size - needleSize), string, needleSize) == 0;
 }
 
 template <std::size_t allocatedSize>
