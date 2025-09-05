@@ -1348,6 +1348,199 @@ TEST_CASE("FixString rfind", "[core][fixstring]") {
   }
 }
 
+TEST_CASE("FixString compare", "[core][fixstring]") {
+  SECTION("Compare FixString with FixString") {
+    FixString<32> testString1("Hello");
+    FixString<32> testString2("Hello");
+    FixString<32> testString3("World");
+    FixString<32> testString4("Hell");
+
+    CHECK(testString1.compare(testString2) == 0);
+    CHECK(testString1.compare(testString3) < 0);
+    CHECK(testString1.compare(testString4) > 0);
+  }
+
+  SECTION("Compare FixString with StringLike") {
+    FixString<32> testString("Hello");
+
+    CHECK(testString.compare(std::string("Hello")) == 0);
+    CHECK(testString.compare(std::string("World")) < 0);
+    CHECK(testString.compare(std::string("Hell")) > 0);
+  }
+
+  SECTION("Compare FixString with C string") {
+    FixString<32> testString("Hello");
+
+    CHECK(testString.compare("Hello") == 0);
+    CHECK(testString.compare("World") < 0);
+    CHECK(testString.compare("Hell") > 0);
+  }
+
+  SECTION("Compare identical strings") {
+    FixString<32> testString1("Hello World");
+
+    CHECK(testString1.compare(FixString<32>("Hello World")) == 0);
+    CHECK(testString1.compare(std::string("Hello World")) == 0);
+    CHECK(testString1.compare("Hello World") == 0);
+  }
+
+  SECTION("Compare with empty strings") {
+    FixString<32> testString1("");
+    FixString<32> testString2("Hello");
+
+    CHECK(testString1.compare(testString2) < 0);
+    CHECK(testString2.compare(testString1) > 0);
+    CHECK(testString1.compare("") == 0);
+    CHECK(testString1.compare(std::string("")) == 0);
+  }
+
+  SECTION("Compare strings with different lengths") {
+    FixString<32> testString1("Hello");
+    FixString<32> testString2("Hello World");
+
+    CHECK(testString1.compare(testString2) < 0);
+    CHECK(testString2.compare(testString1) > 0);
+  }
+
+  SECTION("Compare strings with same prefix") {
+    FixString<32> testString1("Hello");
+    FixString<32> testString2("Hell");
+
+    CHECK(testString1.compare(testString2) > 0);
+    CHECK(testString2.compare(testString1) < 0);
+  }
+
+  SECTION("Compare strings with different first character") {
+    FixString<32> testString1("Apple");
+    FixString<32> testString2("Banana");
+
+    CHECK(testString1.compare(testString2) < 0);
+    CHECK(testString2.compare(testString1) > 0);
+  }
+
+  SECTION("Compare strings with different middle character") {
+    FixString<32> testString1("Hello");
+    FixString<32> testString2("Hallo");
+
+    CHECK(testString1.compare(testString2) > 0);
+    CHECK(testString2.compare(testString1) < 0);
+  }
+
+  SECTION("Compare strings with different last character") {
+    FixString<32> testString1("Hello");
+    FixString<32> testString2("Hellp");
+
+    CHECK(testString1.compare(testString2) < 0);
+    CHECK(testString2.compare(testString1) > 0);
+  }
+
+  SECTION("Compare case sensitivity") {
+    FixString<32> testString("Hello");
+
+    CHECK(testString.compare("hello") < 0);
+    CHECK(testString.compare("HELLO") > 0);
+    CHECK(testString.compare("Hello") == 0);
+  }
+
+  SECTION("Compare with different FixString capacities") {
+    FixString<32> testString("Hello");
+
+    CHECK(testString.compare(FixString<8>("Hello")) == 0);
+    CHECK(testString.compare(FixString<16>("Hello")) == 0);
+    CHECK(testString.compare(FixString<64>("Hello")) == 0);
+    CHECK(testString.compare(FixString<8>("World")) < 0);
+    CHECK(testString.compare(FixString<16>("Hell")) > 0);
+  }
+
+  SECTION("Compare with single character strings") {
+    FixString<32> testString1("A");
+    FixString<32> testString2("B");
+
+    CHECK(testString1.compare(testString2) < 0);
+    CHECK(testString2.compare(testString1) > 0);
+    CHECK(testString1.compare("A") == 0);
+    CHECK(testString1.compare("B") < 0);
+  }
+
+  SECTION("Compare with repeated characters") {
+    FixString<32> testString1("aaa");
+    FixString<32> testString2("aa");
+
+    CHECK(testString1.compare(testString2) > 0);
+    CHECK(testString2.compare(testString1) < 0);
+    CHECK(testString1.compare("aaa") == 0);
+    CHECK(testString1.compare("aa") > 0);
+  }
+
+  SECTION("Compare with special characters") {
+    FixString<32> testString1("Hello!");
+    FixString<32> testString2("Hello");
+
+    CHECK(testString1.compare(testString2) > 0);
+    CHECK(testString2.compare(testString1) < 0);
+    CHECK(testString1.compare("Hello!") == 0);
+    CHECK(testString1.compare("Hello") > 0);
+  }
+
+  SECTION("Compare with numbers") {
+    FixString<32> testString1("123");
+    FixString<32> testString2("456");
+
+    CHECK(testString1.compare(testString2) < 0);
+    CHECK(testString2.compare(testString1) > 0);
+    CHECK(testString1.compare("123") == 0);
+    CHECK(testString1.compare("456") < 0);
+  }
+
+  SECTION("Compare with mixed content") {
+    FixString<32> testString1("Hello123");
+    FixString<32> testString2("Hello456");
+
+    CHECK(testString1.compare(testString2) < 0);
+    CHECK(testString2.compare(testString1) > 0);
+    CHECK(testString1.compare("Hello123") == 0);
+    CHECK(testString1.compare("Hello456") < 0);
+  }
+
+  SECTION("Compare with maximum length strings") {
+    FixString<16> testString1("123456789012345"); // 15 characters
+    FixString<16> testString2("123456789012346"); // 15 characters
+
+    CHECK(testString1.compare(testString2) < 0);
+    CHECK(testString2.compare(testString1) > 0);
+    CHECK(testString1.compare("123456789012345") == 0);
+    CHECK(testString1.compare("123456789012346") < 0);
+  }
+
+  SECTION("Compare with std::string") {
+    FixString<32> testString("Hello World");
+    std::string stdString("Hello World");
+
+    CHECK(testString.compare(stdString) == 0);
+    CHECK(testString.compare(std::string("Hello")) > 0);
+    CHECK(testString.compare(std::string("World")) < 0);
+  }
+
+  SECTION("Compare with array") {
+    FixString<32> testString("Hello");
+    constexpr std::array<char, 6> arr = {'H', 'e', 'l', 'l', 'o', '\0'};
+
+    CHECK(testString.compare(arr.data()) == 0);
+    CHECK(testString.compare("Hello") == 0);
+  }
+
+  SECTION("Compare edge cases") {
+    FixString<32> testString("Hello");
+
+    // Compare with null-terminated string
+    CHECK(testString.compare("Hello\0World") == 0);
+
+    // Compare with string containing null character
+    FixString<32> testStringWithNull("Hello\0World");
+    CHECK(testString.compare(testStringWithNull) == 0);
+  }
+}
+
 TEST_CASE("FixString operators+", "[core][fixstring]") {
   const auto testString1 = FixString<14>("12") + "test text 1";
   const auto testString2 = FixString<14>("12") + FixString<14>("test text 2");

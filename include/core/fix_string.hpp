@@ -957,8 +957,8 @@ public:
 
     \return The position of the last occurrence of other \a string, or \ref npos if not found.
 
-    \pre If \a position is not \ref npos, the sum of \a position and the size of \a string must not exceed the string
-         size.
+    \pre If \a position is not \ref npos, it must be less than or equal to the maximum valid start index: the string
+         size minus the size of \a string.
 
     \note The search is case-sensitive.
     \note If \a string is empty, the method returns \a position if it's within bounds, otherwise returns the string
@@ -980,8 +980,8 @@ public:
 
     \return The position of the last occurrence of a StringLike object, or \ref npos if not found.
 
-    \pre If \a position is not \ref npos, the sum of \a position and the size of a StringLike object must not exceed the
-         string size.
+    \pre If \a position is not \ref npos, it must be less than or equal to the maximum valid start index: the string
+         size minus the size of a StringLike object.
 
     \note The search is case-sensitive.
     \note If a StringLike object is empty, the method returns \a position if it's within bounds, otherwise returns the
@@ -1001,8 +1001,8 @@ public:
 
     \return The position of the last occurrence of the C \a string, or \ref npos if not found.
 
-    \pre If \a position is not \ref npos, the sum of \a position and the size of the C \a string must not exceed the
-         string size.
+    \pre If \a position is not \ref npos, it must be less than or equal to the maximum valid start index: the string
+         size minus the size of the C \a string.
     \pre The \a string must not be null.
 
     \note The search is case-sensitive.
@@ -1027,6 +1027,62 @@ public:
     \note The search is case-sensitive.
   */
   constexpr inline std::size_t rfind(char character, std::size_t position = npos) const noexcept;
+
+  /*!
+    \brief Compares this string with another \a string lexicographically.
+
+    This method performs a lexicographic comparison between this string and another \a string. The comparison is
+    performed character by character using the character's numeric value.
+
+    \param string The string to compare with this string.
+
+    \return A negative value if this string is lexicographically less than \a string, zero if they are equal, or a
+            positive value if this string is lexicographically greater than \a string.
+
+    \note The comparison is case-sensitive.
+    \note The comparison stops at the first character that differs between the strings.
+    \note If one string is a prefix of another, the shorter string is considered lexicographically smaller.
+  */
+  constexpr inline int compare(const FixString<allocatedSize> & string) const noexcept;
+
+  /*!
+    \brief Compares this string with a StringLike object lexicographically.
+
+    This method performs a lexicographic comparison between this string and a StringLike object. The comparison is
+    performed character by character using the character's numeric value.
+
+    \tparam stringType The type of the source string. Must satisfy the StringLike concept.
+
+    \param string The StringLike object to compare with this string.
+
+    \return A negative value if this string is lexicographically less than a StringLike object, zero if they are equal,
+            or a positive value if this string is lexicographically greater than a StringLike object.
+
+    \note The comparison is case-sensitive.
+    \note The comparison stops at the first character that differs between the strings.
+    \note If one string is a prefix of another, the shorter string is considered lexicographically smaller.
+  */
+  template <StringLike stringType>
+  constexpr inline int compare(const stringType & string) const noexcept;
+
+  /*!
+    \brief Compares this string with the C \a string lexicographically.
+
+    This method performs a lexicographic comparison between this string and the C \a string. The comparison is
+    performed character by character using the character's numeric value.
+
+    \param string The C string to compare with this string.
+
+    \return A negative value if this string is lexicographically less than C \a string, zero if they are equal, or a
+            positive value if this string is lexicographically greater than C \a string.
+
+    \pre The C \a string must not be null.
+
+    \note The comparison is case-sensitive.
+    \note The comparison stops at the first character that differs between the strings.
+    \note If one string is a prefix of another, the shorter string is considered lexicographically smaller.
+  */
+  constexpr inline int compare(const char * string) const noexcept;
 
   /*!
     \brief Concatenates two FixString objects and returns the result.
