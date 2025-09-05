@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['replace_0',['replace',['../da/d4a/classtoygine_1_1_fix_string.html#ad1d27e5fc61f32f9a182a32f5c1ce2be',1,'toygine::FixString::replace(std::size_t pos, std::size_t count, const FixString&lt; allocatedSize &gt; &amp;string) noexcept'],['../da/d4a/classtoygine_1_1_fix_string.html#a0b6b382330a95a58dd34355003fcb695',1,'toygine::FixString::replace(std::size_t pos, std::size_t count, const stringType &amp;string) noexcept'],['../da/d4a/classtoygine_1_1_fix_string.html#a84f8cacf726e6e25770de748a025bfab',1,'toygine::FixString::replace(std::size_t pos, std::size_t count, const char *string) noexcept'],['../da/d4a/classtoygine_1_1_fix_string.html#a4359ccf084f121a120a990edc2449ee5',1,'toygine::FixString::replace(std::size_t pos, std::size_t count, char character, std::size_t charactersCount=1) noexcept']]],
-  ['reversestring_1',['reverseString',['../d7/de6/namespacetoygine.html#ae0b3c2c192d1b637ebb114c86bf263b6',1,'toygine']]]
+  ['pop_5fback_0',['pop_back',['../da/d4a/classtoygine_1_1_fix_string.html#a059bec2e7a47960f231005a1c17da11a',1,'toygine::FixString']]],
+  ['push_5fback_1',['push_back',['../da/d4a/classtoygine_1_1_fix_string.html#ac0007484a4e11553c44240259f4acef0',1,'toygine::FixString']]]
 ];
