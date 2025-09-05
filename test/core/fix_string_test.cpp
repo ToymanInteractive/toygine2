@@ -1541,6 +1541,197 @@ TEST_CASE("FixString compare", "[core][fixstring]") {
   }
 }
 
+TEST_CASE("FixString starts_with", "[core][fixstring]") {
+  SECTION("Starts with FixString") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.starts_with(FixString<16>("Hello")) == true);
+    CHECK(testString.starts_with(FixString<16>("Hello World")) == true);
+    CHECK(testString.starts_with(FixString<16>("H")) == true);
+    CHECK(testString.starts_with(FixString<16>("World")) == false);
+    CHECK(testString.starts_with(FixString<16>("xyz")) == false);
+    CHECK(testString.starts_with(FixString<16>("")) == true);
+  }
+
+  SECTION("Starts with StringLike") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.starts_with(std::string("Hello")) == true);
+    CHECK(testString.starts_with(std::string("Hello World")) == true);
+    CHECK(testString.starts_with(std::string("H")) == true);
+    CHECK(testString.starts_with(std::string("World")) == false);
+    CHECK(testString.starts_with(std::string("xyz")) == false);
+    CHECK(testString.starts_with(std::string("")) == true);
+  }
+
+  SECTION("Starts with C string") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.starts_with("Hello") == true);
+    CHECK(testString.starts_with("Hello World") == true);
+    CHECK(testString.starts_with("H") == true);
+    CHECK(testString.starts_with("World") == false);
+    CHECK(testString.starts_with("xyz") == false);
+    CHECK(testString.starts_with("") == true);
+  }
+
+  SECTION("Starts with character") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.starts_with('H') == true);
+    CHECK(testString.starts_with('h') == false);
+    CHECK(testString.starts_with('W') == false);
+    CHECK(testString.starts_with('x') == false);
+  }
+
+  SECTION("Starts with empty string") {
+    FixString<32> testString("");
+
+    CHECK(testString.starts_with(FixString<16>("Hello")) == false);
+    CHECK(testString.starts_with(std::string("Hello")) == false);
+    CHECK(testString.starts_with("Hello") == false);
+    CHECK(testString.starts_with('H') == false);
+    CHECK(testString.starts_with("") == true);
+  }
+
+  SECTION("Starts with single character string") {
+    FixString<32> testString("A");
+
+    CHECK(testString.starts_with("A") == true);
+    CHECK(testString.starts_with('A') == true);
+    CHECK(testString.starts_with("B") == false);
+    CHECK(testString.starts_with('B') == false);
+    CHECK(testString.starts_with("") == true);
+  }
+
+  SECTION("Starts with longer prefix") {
+    FixString<32> testString("Hello");
+
+    CHECK(testString.starts_with("Hello World") == false);
+    CHECK(testString.starts_with("Hello Universe") == false);
+    CHECK(testString.starts_with("Hello") == true);
+    CHECK(testString.starts_with("Hell") == true);
+  }
+
+  SECTION("Starts with case sensitivity") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.starts_with("hello") == false);
+    CHECK(testString.starts_with("HELLO") == false);
+    CHECK(testString.starts_with("Hello") == true);
+    CHECK(testString.starts_with('h') == false);
+    CHECK(testString.starts_with('H') == true);
+  }
+
+  SECTION("Starts with different FixString capacities") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.starts_with(FixString<8>("Hello")) == true);
+    CHECK(testString.starts_with(FixString<16>("Hello")) == true);
+    CHECK(testString.starts_with(FixString<64>("Hello")) == true);
+    CHECK(testString.starts_with(FixString<8>("World")) == false);
+  }
+
+  SECTION("Starts with repeated characters") {
+    FixString<32> testString("aaaab");
+
+    CHECK(testString.starts_with("aaa") == true);
+    CHECK(testString.starts_with("aaaa") == true);
+    CHECK(testString.starts_with("aaaab") == true);
+    CHECK(testString.starts_with("aaab") == false);
+    CHECK(testString.starts_with('a') == true);
+    CHECK(testString.starts_with('b') == false);
+  }
+
+  SECTION("Starts with special characters") {
+    FixString<32> testString("!@#$%");
+
+    CHECK(testString.starts_with("!@#") == true);
+    CHECK(testString.starts_with("!@#$%") == true);
+    CHECK(testString.starts_with("!@#$%^") == false);
+    CHECK(testString.starts_with('!') == true);
+    CHECK(testString.starts_with('@') == false);
+  }
+
+  SECTION("Starts with numbers") {
+    FixString<32> testString("12345");
+
+    CHECK(testString.starts_with("123") == true);
+    CHECK(testString.starts_with("12345") == true);
+    CHECK(testString.starts_with("123456") == false);
+    CHECK(testString.starts_with('1') == true);
+    CHECK(testString.starts_with('2') == false);
+  }
+
+  SECTION("Starts with mixed content") {
+    FixString<32> testString("Hello123");
+
+    CHECK(testString.starts_with("Hello") == true);
+    CHECK(testString.starts_with("Hello1") == true);
+    CHECK(testString.starts_with("Hello123") == true);
+    CHECK(testString.starts_with("Hello1234") == false);
+    CHECK(testString.starts_with('H') == true);
+    CHECK(testString.starts_with('1') == false);
+  }
+
+  SECTION("Starts with maximum length strings") {
+    FixString<16> testString("123456789012345"); // 15 characters
+
+    CHECK(testString.starts_with("123456789012345") == true);
+    CHECK(testString.starts_with("12345678901234") == true);
+    CHECK(testString.starts_with("1234567890123456") == false);
+    CHECK(testString.starts_with('1') == true);
+    CHECK(testString.starts_with('5') == false);
+  }
+
+  SECTION("Starts with std::string") {
+    FixString<32> testString("Hello World");
+    std::string stdString("Hello");
+
+    CHECK(testString.starts_with(stdString) == true);
+    CHECK(testString.starts_with(std::string("Hello World")) == true);
+    CHECK(testString.starts_with(std::string("World")) == false);
+  }
+
+  SECTION("Starts with array") {
+    FixString<32> testString("Hello");
+    constexpr std::array<char, 4> arr = {'H', 'e', 'l', '\0'};
+
+    CHECK(testString.starts_with(arr.data()) == true);
+    CHECK(testString.starts_with("Hel") == true);
+  }
+
+  SECTION("Starts with edge cases") {
+    FixString<32> testString("Hello");
+
+    // Test with null-terminated string
+    CHECK(testString.starts_with("Hello\0World") == true);
+
+    // Test with string containing null character
+    FixString<32> testStringWithNull("Hello\0World");
+    CHECK(testStringWithNull.starts_with("Hello") == true);
+  }
+
+  SECTION("Starts with whitespace") {
+    FixString<32> testString(" Hello World");
+
+    CHECK(testString.starts_with(" ") == true);
+    CHECK(testString.starts_with(" Hello") == true);
+    CHECK(testString.starts_with("Hello") == false);
+    CHECK(testString.starts_with(' ') == true);
+    CHECK(testString.starts_with('H') == false);
+  }
+
+  SECTION("Starts with exact match") {
+    FixString<32> testString("Hello");
+
+    CHECK(testString.starts_with("Hello") == true);
+    CHECK(testString.starts_with("Hell") == true);
+    CHECK(testString.starts_with("H") == true);
+    CHECK(testString.starts_with("") == true);
+  }
+}
+
 TEST_CASE("FixString operators+", "[core][fixstring]") {
   const auto testString1 = FixString<14>("12") + "test text 1";
   const auto testString2 = FixString<14>("12") + FixString<14>("test text 2");
