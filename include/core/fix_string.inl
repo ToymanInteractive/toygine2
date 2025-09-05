@@ -670,6 +670,22 @@ constexpr inline std::size_t FixString<allocatedSize>::rfind(char character, std
 }
 
 template <std::size_t allocatedSize>
+constexpr inline int FixString<allocatedSize>::compare(const FixString<allocatedSize> & string) const noexcept {
+  return std::strcmp(_data, string._data);
+}
+
+template <std::size_t allocatedSize>
+template <StringLike stringType>
+constexpr inline int FixString<allocatedSize>::compare(const stringType & string) const noexcept {
+  return std::strcmp(_data, string.c_str());
+}
+
+template <std::size_t allocatedSize>
+constexpr inline int FixString<allocatedSize>::compare(const char * string) const noexcept {
+  return std::strcmp(_data, string);
+}
+
+template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize> FixString<allocatedSize>::operator+(
   const FixString<allocatedSize> & string) const noexcept {
   assert(_size + string._size < allocatedSize);
