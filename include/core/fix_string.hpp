@@ -1104,7 +1104,7 @@ public:
 private:
   static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");
 
-  constexpr inline std::size_t _rfind_raw(const char * needl, size_t len, size_t pos) const noexcept;
+  constexpr inline std::size_t _rfind_raw(const char * needle, size_t len, size_t pos) const noexcept;
 
   char _data[allocatedSize];
   std::size_t _size;

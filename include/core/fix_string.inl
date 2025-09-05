@@ -666,20 +666,7 @@ constexpr inline std::size_t FixString<allocatedSize>::rfind(const char * string
 
 template <std::size_t allocatedSize>
 constexpr inline std::size_t FixString<allocatedSize>::rfind(char character, std::size_t position) const noexcept {
-  if (1 > _size)
-    return npos;
-  if (position == npos)
-    position = _size - 1;
-  else if (position + 1 > _size)
-    return npos;
-
-  for (auto i = 0U; i <= position; ++i) {
-    const auto offset = position - i;
-    if (_data[offset] == character)
-      return offset;
-  }
-
-  return npos;
+  return _rfind_raw(&character, 1, position);
 }
 
 template <std::size_t allocatedSize>
@@ -730,7 +717,7 @@ constexpr inline std::size_t FixString<allocatedSize>::_rfind_raw(const char * n
     return npos;
   if (position == npos)
     position = _size - needleSize;
-  else if (position + needleSize > _size)
+  else if (position > _size - needleSize)
     return npos;
 
   for (auto i = 0U; i <= position; ++i) {
