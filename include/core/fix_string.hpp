@@ -953,13 +953,16 @@ public:
     \a position and searching backwards.
 
     \param string   The source string to search for.
-    \param position The position to start searching from (default: \ref npos).
+    \param position The position to start searching from (default: \ref npos). If \ref npos, searches from the end.
 
     \return The position of the last occurrence of other \a string, or \ref npos if not found.
 
-    \pre The \a position must be less than or equal to the string size.
+    \pre If \a position is not \ref npos, the sum of \a position and the size of \a string must not exceed the string
+         size.
 
     \note The search is case-sensitive.
+    \note If \a string is empty, the method returns \a position if it's within bounds, otherwise returns the string
+          size.
   */
   constexpr inline std::size_t rfind(const FixString<allocatedSize> & string,
                                      std::size_t position = npos) const noexcept;
@@ -973,13 +976,16 @@ public:
     \tparam stringType The type of the source string. Must satisfy the StringLike concept.
 
     \param string   The source StringLike object to search for.
-    \param position The position to start searching from (default: \ref npos).
+    \param position The position to start searching from (default: \ref npos). If \ref npos, searches from the end.
 
     \return The position of the last occurrence of a StringLike object, or \ref npos if not found.
 
-    \pre The \a position must be less than or equal to the string size.
+    \pre If \a position is not \ref npos, the sum of \a position and the size of a StringLike object must not exceed the
+         string size.
 
     \note The search is case-sensitive.
+    \note If a StringLike object is empty, the method returns \a position if it's within bounds, otherwise returns the
+          string size.
   */
   template <StringLike stringType>
   constexpr inline std::size_t rfind(const stringType & string, std::size_t position = npos) const noexcept;
@@ -991,14 +997,17 @@ public:
     position and searching backwards.
 
     \param string   The source C string to search for.
-    \param position The position to start searching from (default: \ref npos).
+    \param position The position to start searching from (default: \ref npos). If \ref npos, searches from the end.
 
     \return The position of the last occurrence of the C \a string, or \ref npos if not found.
 
-    \pre The \a position must be less than or equal to the string size.
+    \pre If \a position is not \ref npos, the sum of \a position and the size of the C \a string must not exceed the
+         string size.
     \pre The \a string must not be null.
 
     \note The search is case-sensitive.
+    \note If the C \a string is empty, the method returns \a position if it's within bounds, otherwise returns the
+          string size.
   */
   constexpr inline std::size_t rfind(const char * string, std::size_t position = npos) const noexcept;
 
@@ -1009,11 +1018,11 @@ public:
     given \a position and searching backwards.
 
     \param character The character to search for.
-    \param position  The position to start searching from (default: \ref npos).
+    \param position  The position to start searching from (default: \ref npos). If \ref npos, searches from the end.
 
     \return The position of the last occurrence of the \a character, or \ref npos if not found.
 
-    \pre The \a position must be less than or equal to the string size.
+    \pre The \a position must be less than the string size.
 
     \note The search is case-sensitive.
   */
@@ -1094,6 +1103,8 @@ public:
 
 private:
   static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");
+
+  constexpr inline std::size_t _rfind_raw(const char * needl, size_t len, size_t pos) const noexcept;
 
   char _data[allocatedSize];
   std::size_t _size;
