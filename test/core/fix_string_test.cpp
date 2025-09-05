@@ -1732,6 +1732,218 @@ TEST_CASE("FixString starts_with", "[core][fixstring]") {
   }
 }
 
+TEST_CASE("FixString ends_with", "[core][fixstring]") {
+  SECTION("Ends with FixString") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.ends_with(FixString<16>("World")) == true);
+    CHECK(testString.ends_with(FixString<16>("Hello World")) == true);
+    CHECK(testString.ends_with(FixString<16>("d")) == true);
+    CHECK(testString.ends_with(FixString<16>("Hello")) == false);
+    CHECK(testString.ends_with(FixString<16>("xyz")) == false);
+    CHECK(testString.ends_with(FixString<16>("")) == true);
+  }
+
+  SECTION("Ends with StringLike") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.ends_with(std::string("World")) == true);
+    CHECK(testString.ends_with(std::string("Hello World")) == true);
+    CHECK(testString.ends_with(std::string("d")) == true);
+    CHECK(testString.ends_with(std::string("Hello")) == false);
+    CHECK(testString.ends_with(std::string("xyz")) == false);
+    CHECK(testString.ends_with(std::string("")) == true);
+  }
+
+  SECTION("Ends with C string") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.ends_with("World") == true);
+    CHECK(testString.ends_with("Hello World") == true);
+    CHECK(testString.ends_with("d") == true);
+    CHECK(testString.ends_with("Hello") == false);
+    CHECK(testString.ends_with("xyz") == false);
+    CHECK(testString.ends_with("") == true);
+  }
+
+  SECTION("Ends with character") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.ends_with('d') == true);
+    CHECK(testString.ends_with('D') == false);
+    CHECK(testString.ends_with('H') == false);
+    CHECK(testString.ends_with('x') == false);
+  }
+
+  SECTION("Ends with empty string") {
+    FixString<32> testString("");
+
+    CHECK(testString.ends_with(FixString<16>("Hello")) == false);
+    CHECK(testString.ends_with(std::string("Hello")) == false);
+    CHECK(testString.ends_with("Hello") == false);
+    CHECK(testString.ends_with('H') == false);
+    CHECK(testString.ends_with("") == true);
+  }
+
+  SECTION("Ends with single character string") {
+    FixString<32> testString("A");
+
+    CHECK(testString.ends_with("A") == true);
+    CHECK(testString.ends_with('A') == true);
+    CHECK(testString.ends_with("B") == false);
+    CHECK(testString.ends_with('B') == false);
+    CHECK(testString.ends_with("") == true);
+  }
+
+  SECTION("Ends with longer suffix") {
+    FixString<32> testString("Hello");
+
+    CHECK(testString.ends_with("Hello World") == false);
+    CHECK(testString.ends_with("Hello Universe") == false);
+    CHECK(testString.ends_with("Hello") == true);
+    CHECK(testString.ends_with("llo") == true);
+  }
+
+  SECTION("Ends with case sensitivity") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.ends_with("world") == false);
+    CHECK(testString.ends_with("WORLD") == false);
+    CHECK(testString.ends_with("World") == true);
+    CHECK(testString.ends_with('d') == true);
+    CHECK(testString.ends_with('D') == false);
+  }
+
+  SECTION("Ends with different FixString capacities") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.ends_with(FixString<8>("World")) == true);
+    CHECK(testString.ends_with(FixString<16>("World")) == true);
+    CHECK(testString.ends_with(FixString<64>("World")) == true);
+    CHECK(testString.ends_with(FixString<8>("Hello")) == false);
+  }
+
+  SECTION("Ends with repeated characters") {
+    FixString<32> testString("baaaa");
+
+    CHECK(testString.ends_with("aaa") == true);
+    CHECK(testString.ends_with("aaaa") == true);
+    CHECK(testString.ends_with("baaaa") == true);
+    CHECK(testString.ends_with("aaaaa") == false);
+    CHECK(testString.ends_with('a') == true);
+    CHECK(testString.ends_with('b') == false);
+  }
+
+  SECTION("Ends with special characters") {
+    FixString<32> testString("%$#@!");
+
+    CHECK(testString.ends_with("@!") == true);
+    CHECK(testString.ends_with("%$#@!") == true);
+    CHECK(testString.ends_with("^%$#@!") == false);
+    CHECK(testString.ends_with('!') == true);
+    CHECK(testString.ends_with('@') == false);
+  }
+
+  SECTION("Ends with numbers") {
+    FixString<32> testString("54321");
+
+    CHECK(testString.ends_with("321") == true);
+    CHECK(testString.ends_with("54321") == true);
+    CHECK(testString.ends_with("654321") == false);
+    CHECK(testString.ends_with('1') == true);
+    CHECK(testString.ends_with('2') == false);
+  }
+
+  SECTION("Ends with mixed content") {
+    FixString<32> testString("123Hello");
+
+    CHECK(testString.ends_with("Hello") == true);
+    CHECK(testString.ends_with("3Hello") == true);
+    CHECK(testString.ends_with("123Hello") == true);
+    CHECK(testString.ends_with("0123Hello") == false);
+    CHECK(testString.ends_with('o') == true);
+    CHECK(testString.ends_with('1') == false);
+  }
+
+  SECTION("Ends with maximum length strings") {
+    FixString<16> testString("123456789012345"); // 15 characters
+
+    CHECK(testString.ends_with("123456789012345") == true);
+    CHECK(testString.ends_with("23456789012345") == true);
+    CHECK(testString.ends_with("0123456789012345") == false);
+    CHECK(testString.ends_with('5') == true);
+    CHECK(testString.ends_with('1') == false);
+  }
+
+  SECTION("Ends with std::string") {
+    FixString<32> testString("Hello World");
+    std::string stdString("World");
+
+    CHECK(testString.ends_with(stdString) == true);
+    CHECK(testString.ends_with(std::string("Hello World")) == true);
+    CHECK(testString.ends_with(std::string("Hello")) == false);
+  }
+
+  SECTION("Ends with array") {
+    FixString<32> testString("Hello");
+    constexpr std::array<char, 4> arr = {'l', 'l', 'o', '\0'};
+
+    CHECK(testString.ends_with(arr.data()) == true);
+    CHECK(testString.ends_with("llo") == true);
+  }
+
+  SECTION("Ends with edge cases") {
+    FixString<32> testString("Hello");
+
+    // Test with null-terminated string
+    CHECK(testString.ends_with("Hello\0World") == true);
+
+    // Test with string containing null character
+    FixString<32> testStringWithNull("Hello\0World");
+    CHECK(testStringWithNull.ends_with("World") == false);
+  }
+
+  SECTION("Ends with whitespace") {
+    FixString<32> testString("Hello World ");
+
+    CHECK(testString.ends_with(" ") == true);
+    CHECK(testString.ends_with("World ") == true);
+    CHECK(testString.ends_with("World") == false);
+    CHECK(testString.ends_with(' ') == true);
+    CHECK(testString.ends_with('d') == false);
+  }
+
+  SECTION("Ends with exact match") {
+    FixString<32> testString("Hello");
+
+    CHECK(testString.ends_with("Hello") == true);
+    CHECK(testString.ends_with("llo") == true);
+    CHECK(testString.ends_with("o") == true);
+    CHECK(testString.ends_with("") == true);
+  }
+
+  SECTION("Ends with overlapping patterns") {
+    FixString<32> testString("ababab");
+
+    CHECK(testString.ends_with("ab") == true);
+    CHECK(testString.ends_with("bab") == true);
+    CHECK(testString.ends_with("abab") == true);
+    CHECK(testString.ends_with("babab") == true);
+    CHECK(testString.ends_with("ababab") == true);
+    CHECK(testString.ends_with("bababab") == false);
+  }
+
+  SECTION("Ends with multiple occurrences") {
+    FixString<32> testString("abababab");
+
+    CHECK(testString.ends_with("ab") == true);
+    CHECK(testString.ends_with("bab") == true);
+    CHECK(testString.ends_with("abab") == true);
+    CHECK(testString.ends_with("ababab") == true);
+    CHECK(testString.ends_with("abababab") == true);
+  }
+}
+
 TEST_CASE("FixString operators+", "[core][fixstring]") {
   const auto testString1 = FixString<14>("12") + "test text 1";
   const auto testString2 = FixString<14>("12") + FixString<14>("test text 2");
