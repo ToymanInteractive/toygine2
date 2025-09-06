@@ -322,8 +322,8 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::insert(std
   assert_message(index <= _size, "Index must not exceed string size");
   assert_message(_size + count < allocatedSize, "Inserted characters must fit in capacity");
 
+  // if inserting at the end, just append
   if (index == _size) {
-    // if inserting at the end, just append
     std::memset(_data + index, character, count);
     _size += count;
     _data[_size] = '\0';
@@ -510,19 +510,16 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::replace(st
 
   assert_message(newSize < allocatedSize, "Replacement result must fit in capacity");
 
+  // If sizes are equal, no need to shift data
   if (count == charactersCount) {
-    // Optimize: if sizes are equal, no need to shift data
     std::memset(_data + pos, character, charactersCount);
   } else {
+    // If replacing at the end, no need to shift
     if (pos + count == _size) {
-      // Optimize: if replacing at the end, no need to shift
       std::memset(_data + pos, character, charactersCount);
       _data[pos + charactersCount] = '\0';
     } else {
-      // General case: need to shift data
-      if (count != charactersCount)
-        std::memmove(_data + pos + charactersCount, _data + pos + count, _size - pos - count + 1);
-
+      std::memmove(_data + pos + charactersCount, _data + pos + count, _size - pos - count + 1);
       std::memset(_data + pos, character, charactersCount);
     }
 
@@ -759,8 +756,8 @@ constexpr inline void FixString<allocatedSize>::_insert_raw(std::size_t position
   assert_message(position <= _size, "Index must not exceed string size");
   assert_message(_size + dataSize < allocatedSize, "Inserted string must fit in capacity");
 
+  // If inserting at the end, just append
   if (position == _size) {
-    // If inserting at the end, just append
     std::memcpy(_data + _size, data, dataSize + 1);
   } else {
     std::memmove(_data + position + dataSize, _data + position, _size - position + 1);
@@ -795,22 +792,19 @@ constexpr inline void FixString<allocatedSize>::_replace_raw(std::size_t positio
   assert_message(position <= _size, "Position must be within string bounds");
   assert_message(position + oldCount <= _size, "Replacement range must be within string bounds");
 
+  // If sizes are equal, no need to shift data
   if (oldCount == dataSize) {
-    // Optimize: if sizes are equal, no need to shift data
     std::memcpy(_data + position, data, dataSize);
     return;
   }
 
   assert_message((_size - oldCount + dataSize) < allocatedSize, "Replacement result must fit in capacity");
 
+  // If replacing at the end, no need to shift
   if (position + oldCount == _size) {
-    // Optimize: if replacing at the end, no need to shift
     std::memcpy(_data + position, data, dataSize + 1);
   } else {
-    // General case: need to shift data
-    if (oldCount != dataSize)
-      std::memmove(_data + position + dataSize, _data + position + oldCount, _size - position - oldCount + 1);
-
+    std::memmove(_data + position + dataSize, _data + position + oldCount, _size - position - oldCount + 1);
     std::memcpy(_data + position, data, dataSize);
   }
 
