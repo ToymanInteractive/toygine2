@@ -609,6 +609,33 @@ constexpr inline std::size_t FixString<allocatedSize>::rfind(char character, std
 }
 
 template <std::size_t allocatedSize>
+constexpr inline std::size_t FixString<allocatedSize>::find_first_of(const FixString<allocatedSize> & string,
+                                                                     std::size_t position) const noexcept {
+  return _find_first_of_raw(position, string._data, string._size);
+}
+
+template <std::size_t allocatedSize>
+template <StringLike stringType>
+constexpr inline std::size_t FixString<allocatedSize>::find_first_of(const stringType & string,
+                                                                     std::size_t position) const noexcept {
+  return _find_first_of_raw(position, string.c_str(), string.size());
+}
+
+template <std::size_t allocatedSize>
+constexpr inline std::size_t FixString<allocatedSize>::find_first_of(const char * string,
+                                                                     std::size_t position) const noexcept {
+  assert_message(string != nullptr, "String pointer must not be null");
+
+  return _find_first_of_raw(position, string, std::strlen(string));
+}
+
+template <std::size_t allocatedSize>
+constexpr inline std::size_t FixString<allocatedSize>::find_first_of(char character,
+                                                                     std::size_t position) const noexcept {
+  return _find_raw(position, &character, 1);
+}
+
+template <std::size_t allocatedSize>
 constexpr inline int FixString<allocatedSize>::compare(const FixString<allocatedSize> & string) const noexcept {
   return std::strcmp(_data, string._data);
 }
@@ -817,6 +844,27 @@ constexpr inline std::size_t FixString<allocatedSize>::_rfind_raw(std::size_t po
   }
 
   return npos;
+}
+
+template <std::size_t allocatedSize>
+constexpr inline std::size_t FixString<allocatedSize>::_find_first_of_raw(std::size_t position, const char * data,
+                                                                          std::size_t dataSize) const noexcept {
+  if (position > _size || dataSize == 0)
+    return npos;
+
+  if (dataSize == 1) {
+    const auto target = data[0];
+    for (auto i = position; i < _size; ++i) {
+      if (_data[i] == target)
+        return i;
+    }
+
+    return npos;
+  }
+
+  const auto occurrence = std::strpbrk(_data + position, data);
+
+  return occurrence != nullptr ? occurrence - _data : npos;
 }
 
 } // namespace toygine
