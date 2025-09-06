@@ -472,8 +472,6 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator+=
 template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::replace(
   std::size_t pos, std::size_t count, const FixString<allocatedSize> & string) noexcept {
-  assert_message(this != &string, "Cannot replace string into itself");
-
   _replace_raw(pos, count, string._data, string._size);
 
   return *this;
@@ -483,8 +481,6 @@ template <std::size_t allocatedSize>
 template <StringLike stringType>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::replace(std::size_t pos, std::size_t count,
                                                                               const stringType & string) noexcept {
-  assert_message(_data != string.c_str(), "Cannot replace string into itself");
-
   _replace_raw(pos, count, string.c_str(), string.size());
 
   return *this;
@@ -494,8 +490,6 @@ template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::replace(std::size_t pos, std::size_t count,
                                                                               const char * string) noexcept {
   assert_message(string != nullptr, "String pointer must not be null");
-  assert_message((string < _data) || (string >= (_data + allocatedSize)),
-                 "Source pointer must not point into _data buffer");
 
   _replace_raw(pos, count, string, std::strlen(string));
 
@@ -754,26 +748,26 @@ constexpr inline FixString<allocatedSize> FixString<allocatedSize>::operator+(ch
 }
 
 template <std::size_t allocatedSize>
-constexpr inline void FixString<allocatedSize>::_insert_raw(std::size_t position, const char * insertion,
-                                                            std::size_t insertionSize) noexcept {
-  if (insertionSize == 0)
+constexpr inline void FixString<allocatedSize>::_insert_raw(std::size_t position, const char * data,
+                                                            std::size_t dataSize) noexcept {
+  if (dataSize == 0)
     return;
 
-  assert_message(((insertion + insertionSize) < _data) || (insertion >= (_data + allocatedSize)),
-                 "Source pointer must not point into _data buffer");
+  assert_message(((data + dataSize) < _data) || (data >= (_data + allocatedSize)),
+                 "Source data pointer must not point into _data buffer");
 
   assert_message(position <= _size, "Index must not exceed string size");
-  assert_message(_size + insertionSize < allocatedSize, "Inserted string must fit in capacity");
+  assert_message(_size + dataSize < allocatedSize, "Inserted string must fit in capacity");
 
   if (position == _size) {
     // If inserting at the end, just append
-    std::memcpy(_data + _size, insertion, insertionSize + 1);
+    std::memcpy(_data + _size, data, dataSize + 1);
   } else {
-    std::memmove(_data + position + insertionSize, _data + position, _size - position + 1);
-    std::memcpy(_data + position, insertion, insertionSize);
+    std::memmove(_data + position + dataSize, _data + position, _size - position + 1);
+    std::memcpy(_data + position, data, dataSize);
   }
 
-  _size += insertionSize;
+  _size += dataSize;
 }
 
 template <std::size_t allocatedSize>
@@ -782,7 +776,7 @@ constexpr inline void FixString<allocatedSize>::_append_raw(const char * data, s
     return;
 
   assert_message(((data + dataSize) < _data) || (data >= (_data + allocatedSize)),
-                 "Source pointer must not point into _data buffer");
+                 "Source data pointer must not point into _data buffer");
   assert_message(_size + dataSize < allocatedSize, "Appended data must fit in capacity");
 
   std::memcpy(_data + _size, data, dataSize + 1);
@@ -794,6 +788,9 @@ constexpr inline void FixString<allocatedSize>::_replace_raw(std::size_t positio
                                                              const char * data, std::size_t dataSize) noexcept {
   if (oldCount == 0 && dataSize == 0)
     return;
+
+  assert_message(((data + dataSize) < _data) || (data >= (_data + allocatedSize)),
+                 "Source data pointer must not point into _data buffer");
 
   assert_message(position <= _size, "Position must be within string bounds");
   assert_message(position + oldCount <= _size, "Replacement range must be within string bounds");
