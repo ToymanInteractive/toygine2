@@ -1071,8 +1071,8 @@ TEST_CASE("FixString swap", "[core][fixstring]") {
   }
 
   SECTION("Swap with maximum length strings") {
-    FixString<16> string1("123456789012345"); // 15 characters (max for size 16)
-    FixString<16> string2("ABCDEFGHIJKLMNO"); // 15 characters (max for size 16)
+    FixString<16> string1("123456789012345");
+    FixString<16> string2("ABCDEFGHIJKLMNO");
 
     string1.swap(string2);
 
@@ -1169,8 +1169,8 @@ TEST_CASE("FixString find", "[core][fixstring]") {
     CHECK(testString.find(FixString<16>("")) == 0);
     CHECK(testString.find(std::string("")) == 0);
     CHECK(testString.find("") == 0);
-    CHECK(testString.find("", 11) == 11);
-    CHECK(testString.find("", 12) == FixString<32>::npos);
+    CHECK(testString.find("", 5) == 5);
+    CHECK(testString.find("", 11) == FixString<32>::npos);
   }
 
   SECTION("Find in empty string") {
@@ -1180,7 +1180,7 @@ TEST_CASE("FixString find", "[core][fixstring]") {
     CHECK(testString.find(std::string("Hello")) == FixString<32>::npos);
     CHECK(testString.find("Hello") == FixString<32>::npos);
     CHECK(testString.find('H') == FixString<32>::npos);
-    CHECK(testString.find("") == 0);
+    CHECK(testString.find("") == FixString<32>::npos);
   }
 
   SECTION("Find with position beyond string size") {
@@ -1434,6 +1434,173 @@ TEST_CASE("FixString rfind", "[core][fixstring]") {
   }
 }
 
+TEST_CASE("FixString find_first_of", "[core][fixstring]") {
+  SECTION("Find first of FixString characters") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.find_first_of(FixString<16>("aeiou")) == 1); // 'e' at position 1
+    CHECK(testString.find_first_of(FixString<16>("H")) == 0);
+    CHECK(testString.find_first_of(FixString<16>("d")) == 10);
+    CHECK(testString.find_first_of(FixString<16>("xyz")) == FixString<32>::npos);
+  }
+
+  SECTION("Find first of StringLike characters") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.find_first_of(std::string("aeiou")) == 1);
+    CHECK(testString.find_first_of(std::string("H")) == 0);
+    CHECK(testString.find_first_of(std::string("d")) == 10);
+    CHECK(testString.find_first_of(std::string("xyz")) == FixString<32>::npos);
+  }
+
+  SECTION("Find first of C string characters") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.find_first_of("aeiou") == 1);
+    CHECK(testString.find_first_of("H") == 0);
+    CHECK(testString.find_first_of("d") == 10);
+    CHECK(testString.find_first_of("xyz") == FixString<32>::npos);
+  }
+
+  SECTION("Find first of single character") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.find_first_of('H') == 0);
+    CHECK(testString.find_first_of('e') == 1);
+    CHECK(testString.find_first_of('l') == 2);
+    CHECK(testString.find_first_of('o') == 4);
+    CHECK(testString.find_first_of('W') == 6);
+    CHECK(testString.find_first_of('d') == 10);
+    CHECK(testString.find_first_of('x') == FixString<32>::npos);
+  }
+
+  SECTION("Find first of with position parameter") {
+    FixString<32> testString("Hello World Hello");
+
+    CHECK(testString.find_first_of("aeiou", 0) == 1);
+    CHECK(testString.find_first_of("aeiou", 2) == 4);
+    CHECK(testString.find_first_of("aeiou", 5) == 7);
+    CHECK(testString.find_first_of("aeiou", 8) == 13);
+    CHECK(testString.find_first_of("aeiou", 14) == 16);
+    CHECK(testString.find_first_of("aeiou", 17) == FixString<32>::npos);
+  }
+
+  SECTION("Find first of empty character set") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.find_first_of(FixString<16>("")) == FixString<32>::npos);
+    CHECK(testString.find_first_of(std::string("")) == FixString<32>::npos);
+    CHECK(testString.find_first_of("") == FixString<32>::npos);
+  }
+
+  SECTION("Find first of in empty string") {
+    FixString<32> testString("");
+
+    CHECK(testString.find_first_of(FixString<16>("aeiou")) == FixString<32>::npos);
+    CHECK(testString.find_first_of(std::string("aeiou")) == FixString<32>::npos);
+    CHECK(testString.find_first_of("aeiou") == FixString<32>::npos);
+    CHECK(testString.find_first_of('a') == FixString<32>::npos);
+  }
+
+  SECTION("Find first of with position beyond string size") {
+    FixString<32> testString("Hello");
+
+    CHECK(testString.find_first_of("aeiou", 10) == FixString<32>::npos);
+    CHECK(testString.find_first_of('a', 10) == FixString<32>::npos);
+  }
+
+  SECTION("Find first of with repeated characters") {
+    FixString<32> testString("aaaaa");
+
+    CHECK(testString.find_first_of("a") == 0);
+    CHECK(testString.find_first_of("ab") == 0);
+    CHECK(testString.find_first_of("b") == FixString<32>::npos);
+  }
+
+  SECTION("Find first of with multiple character sets") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.find_first_of("Hl") == 0); // 'H' at position 0
+    CHECK(testString.find_first_of("lo") == 2); // 'l' at position 2
+    CHECK(testString.find_first_of("Wr") == 6); // 'W' at position 6
+    CHECK(testString.find_first_of("dl") == 2); // 'l' at position 2
+  }
+
+  SECTION("Find first of case sensitivity") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.find_first_of("h") == FixString<32>::npos);
+    CHECK(testString.find_first_of("H") == 0);
+    CHECK(testString.find_first_of("w") == FixString<32>::npos);
+    CHECK(testString.find_first_of("W") == 6);
+  }
+
+  SECTION("Find first of with special characters") {
+    FixString<32> testString("Hello, World!");
+
+    CHECK(testString.find_first_of("!,") == 5); // ',' at position 5
+    CHECK(testString.find_first_of("!") == 12); // '!' at position 12
+    CHECK(testString.find_first_of(".,!") == 5); // ',' at position 5
+  }
+
+  SECTION("Find first of with numbers") {
+    FixString<32> testString("Hello123World");
+
+    CHECK(testString.find_first_of("0123456789") == 5); // '1' at position 5
+    CHECK(testString.find_first_of("123") == 5); // '1' at position 5
+    CHECK(testString.find_first_of("456") == FixString<32>::npos);
+  }
+
+  SECTION("Find first of with whitespace") {
+    FixString<32> testString("Hello World\t\n");
+
+    CHECK(testString.find_first_of(" \t\n") == 5); // ' ' at position 5
+    CHECK(testString.find_first_of("\t") == 11);
+    CHECK(testString.find_first_of("\n") == 12);
+  }
+
+  SECTION("Find first of with different FixString capacities") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.find_first_of(FixString<8>("aeiou")) == 1);
+    CHECK(testString.find_first_of(FixString<16>("aeiou")) == 1);
+    CHECK(testString.find_first_of(FixString<64>("aeiou")) == 1);
+  }
+
+  SECTION("Find first of with single character string") {
+    FixString<32> testString("A");
+
+    CHECK(testString.find_first_of("A") == 0);
+    CHECK(testString.find_first_of('A') == 0);
+    CHECK(testString.find_first_of("B") == FixString<32>::npos);
+    CHECK(testString.find_first_of('B') == FixString<32>::npos);
+  }
+
+  SECTION("Find first of with position 0") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.find_first_of("aeiou", 0) == 1);
+    CHECK(testString.find_first_of("H", 0) == 0);
+    CHECK(testString.find_first_of("xyz", 0) == FixString<32>::npos);
+  }
+
+  SECTION("Find first of with all characters found") {
+    FixString<32> testString("abcdefghijklmnopqrstuvwxyz");
+
+    CHECK(testString.find_first_of("aeiou") == 0);
+    CHECK(testString.find_first_of("xyz") == 23);
+    CHECK(testString.find_first_of("z") == 25);
+  }
+
+  SECTION("Find first of with no characters found") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.find_first_of("0123456789") == FixString<32>::npos);
+    CHECK(testString.find_first_of("!@#$%^&*()") == FixString<32>::npos);
+    CHECK(testString.find_first_of("[]{}|\\:;\"'<>?/") == FixString<32>::npos);
+  }
+}
+
 TEST_CASE("FixString compare", "[core][fixstring]") {
   SECTION("Compare FixString with FixString") {
     FixString<32> testString1("Hello");
@@ -1589,8 +1756,8 @@ TEST_CASE("FixString compare", "[core][fixstring]") {
   }
 
   SECTION("Compare with maximum length strings") {
-    FixString<16> testString1("123456789012345"); // 15 characters
-    FixString<16> testString2("123456789012346"); // 15 characters
+    FixString<16> testString1("123456789012345");
+    FixString<16> testString2("123456789012346");
 
     CHECK(testString1.compare(testString2) < 0);
     CHECK(testString2.compare(testString1) > 0);
@@ -1761,7 +1928,7 @@ TEST_CASE("FixString starts_with", "[core][fixstring]") {
   }
 
   SECTION("Starts with maximum length strings") {
-    FixString<16> testString("123456789012345"); // 15 characters
+    FixString<16> testString("123456789012345");
 
     CHECK(testString.starts_with("123456789012345") == true);
     CHECK(testString.starts_with("12345678901234") == true);
@@ -1952,7 +2119,7 @@ TEST_CASE("FixString ends_with", "[core][fixstring]") {
   }
 
   SECTION("Ends with maximum length strings") {
-    FixString<16> testString("123456789012345"); // 15 characters
+    FixString<16> testString("123456789012345");
 
     CHECK(testString.ends_with("123456789012345") == true);
     CHECK(testString.ends_with("23456789012345") == true);
