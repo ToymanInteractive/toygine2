@@ -1352,8 +1352,6 @@ public:
 private:
   static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");
 
-  constexpr inline std::size_t _rfind_raw(const char * needle, size_t len, size_t pos) const noexcept;
-
   /*!
     \brief Helper method for inserting \a data at a specific \a position.
 
@@ -1402,6 +1400,40 @@ private:
   */
   constexpr inline void _replace_raw(std::size_t position, std::size_t oldCount, const char * data,
                                      std::size_t dataSize) noexcept;
+
+  /*!
+    \brief Helper method for finding \a data in the string.
+
+    This private method performs the common search logic used by all find methods. It searches for the specified \a data
+    starting from the given \a position.
+
+    \param position The position to start searching from.
+    \param data     The data to search for.
+    \param dataSize The size of the data to search for.
+
+    \return The position of the first occurrence of \a data, or \ref npos if not found.
+
+    \pre The \a position must be less than or equal to the string size.
+    \pre The \a data must not be null.
+  */
+  constexpr inline std::size_t _find_raw(std::size_t position, const char * data, std::size_t dataSize) const noexcept;
+
+  /*!
+    \brief Helper method for finding \a data in the string backwards.
+
+    This private method performs the common reverse search logic used by all rfind methods. It searches for the
+    specified \a data starting from the given \a position and searching backwards.
+
+    \param position The position to start searching from.
+    \param data     The data to search for.
+    \param dataSize The size of the data to search for.
+
+    \return The position of the last occurrence of \a data, or \ref npos if not found.
+
+    \pre If \a position is not \ref npos, it must be less than or equal to the string size.
+    \pre The \a data must not be null.
+  */
+  constexpr inline std::size_t _rfind_raw(std::size_t position, const char * data, std::size_t dataSize) const noexcept;
 
   char _data[allocatedSize];
   std::size_t _size;
