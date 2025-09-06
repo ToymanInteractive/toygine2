@@ -625,7 +625,7 @@ constexpr inline std::size_t FixString<allocatedSize>::find(const char * string,
   if (position >= _size)
     return npos;
 
-  auto occurrence = std::strstr(_data + position, string);
+  const auto occurrence = std::strstr(_data + position, string);
   if (occurrence != nullptr)
     return occurrence - _data;
 
