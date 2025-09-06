@@ -1,5 +1,15 @@
 var NAVTREEINDEX1 =
 {
+"da/d4a/classtoygine_1_1_fix_string.html#afad1dff28b91a6cb838d0e895c2b5cf0":[2,0,1,1,59],
+"da/d4a/classtoygine_1_1_fix_string.html#afad1dff28b91a6cb838d0e895c2b5cf0":[4,0,1,0,59],
+"db/d29/windows_2platform__config_8hpp.html":[5,0,1,1,3,0],
+"db/d29/windows_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c":[5,0,1,1,3,0,1],
+"db/d29/windows_2platform__config_8hpp.html#af576bf8ffa22a44e53018c67095ffbf0":[5,0,1,1,3,0,0],
+"db/d29/windows_2platform__config_8hpp_source.html":[5,0,1,1,3,0],
+"db/d84/fix__string_8inl.html":[5,0,0,0,1],
+"db/d84/fix__string_8inl.html#a062531aea03af0eb63664b1ec25c6afd":[5,0,0,0,1,0],
+"db/d84/fix__string_8inl_source.html":[5,0,0,0,1],
+"dd/d55/namespacetoygine_1_1assertion.html":[2,0,1,0],
 "dd/d55/namespacetoygine_1_1assertion.html#a000691ce60af14ff6928a553ca6c00fd":[2,0,1,0,6],
 "dd/d55/namespacetoygine_1_1assertion.html#a0b2124cab86bbf34bdaa15df4f2a16ec":[2,0,1,0,1],
 "dd/d55/namespacetoygine_1_1assertion.html#a1a1d0601596ffb5c776edfdb9b534d04":[2,0,1,0,5],

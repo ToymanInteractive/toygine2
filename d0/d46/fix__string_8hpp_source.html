@@ -1209,395 +1209,492 @@ $(function(){initNavTree('d0/d46/fix__string_8hpp_source.html','../../'); initRe
 <div class="line"><a id="l01085" name="l01085"></a><span class="lineno"> 1085</span>  <span class="keyword">constexpr</span> <span class="keyword">inline</span> std::size_t <a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#acfce0ad741362a8c4436bb98710e424c">rfind</a>(<span class="keywordtype">char</span> character, std::size_t position = <a class="code hl_variable" href="../../da/d4a/classtoygine_1_1_fix_string.html#a79044e138bb62795eaa69202361b0c1c">npos</a>) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
 <div class="line"><a id="l01086" name="l01086"></a><span class="lineno"> 1086</span> </div>
 <div class="line"><a id="l01087" name="l01087"></a><span class="lineno"> 1087</span>  <span class="comment">/*!</span></div>
-<div class="line"><span class="lineno"> 1088</span><span class="comment">    \brief Compares this string with another \a string lexicographically.</span></div>
+<div class="line"><span class="lineno"> 1088</span><span class="comment">    \brief Finds the first occurrence of any character from the specified \a string.</span></div>
 <div class="line"><span class="lineno"> 1089</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1090</span><span class="comment">    This method performs a lexicographic comparison between this string and another \a string. The comparison is</span></div>
-<div class="line"><span class="lineno"> 1091</span><span class="comment">    performed character by character using the character&#39;s numeric value.</span></div>
+<div class="line"><span class="lineno"> 1090</span><span class="comment">    This method searches for the first occurrence of any character from the specified \a string within this string,</span></div>
+<div class="line"><span class="lineno"> 1091</span><span class="comment">    starting from the given \a position.</span></div>
 <div class="line"><span class="lineno"> 1092</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1093</span><span class="comment">    \param string The string to compare with this string.</span></div>
-<div class="line"><span class="lineno"> 1094</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1095</span><span class="comment">    \return A negative value if this string is lexicographically less than \a string, zero if they are equal, or a</span></div>
-<div class="line"><span class="lineno"> 1096</span><span class="comment">            positive value if this string is lexicographically greater than \a string.</span></div>
+<div class="line"><span class="lineno"> 1093</span><span class="comment">    \param string   The string containing characters to search for.</span></div>
+<div class="line"><span class="lineno"> 1094</span><span class="comment">    \param position The position to start searching from (default: 0).</span></div>
+<div class="line"><span class="lineno"> 1095</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1096</span><span class="comment">    \return The position of the first occurrence of any character from \a string, or \ref npos if not found.</span></div>
 <div class="line"><span class="lineno"> 1097</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1098</span><span class="comment">    \note The comparison is case-sensitive.</span></div>
-<div class="line"><span class="lineno"> 1099</span><span class="comment">    \note The comparison stops at the first character that differs between the strings.</span></div>
-<div class="line"><span class="lineno"> 1100</span><span class="comment">    \note If one string is a prefix of another, the shorter string is considered lexicographically smaller.</span></div>
-<div class="line"><span class="lineno"> 1101</span><span class="comment">  */</span></div>
-<div class="line"><a id="l01102" name="l01102"></a><span class="lineno"> 1102</span>  <span class="keyword">constexpr</span> <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a9f67beed78ca7d3e24e654ae6f35a7c4">compare</a>(<span class="keyword">const</span> <a class="code hl_class" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt;allocatedSize&gt; &amp; string) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l01103" name="l01103"></a><span class="lineno"> 1103</span> </div>
-<div class="line"><a id="l01104" name="l01104"></a><span class="lineno"> 1104</span>  <span class="comment">/*!</span></div>
-<div class="line"><span class="lineno"> 1105</span><span class="comment">    \brief Compares this string with a StringLike object lexicographically.</span></div>
-<div class="line"><span class="lineno"> 1106</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1107</span><span class="comment">    This method performs a lexicographic comparison between this string and a StringLike object. The comparison is</span></div>
-<div class="line"><span class="lineno"> 1108</span><span class="comment">    performed character by character using the character&#39;s numeric value.</span></div>
-<div class="line"><span class="lineno"> 1109</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1110</span><span class="comment">    \tparam stringType The type of the source string. Must satisfy the StringLike concept.</span></div>
+<div class="line"><span class="lineno"> 1098</span><span class="comment">    \pre The \a position must be less than or equal to the string size.</span></div>
+<div class="line"><span class="lineno"> 1099</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1100</span><span class="comment">    \note The search is case-sensitive.</span></div>
+<div class="line"><span class="lineno"> 1101</span><span class="comment">    \note If \a string is empty, this method returns \ref npos.</span></div>
+<div class="line"><span class="lineno"> 1102</span><span class="comment">  */</span></div>
+<div class="line"><a id="l01103" name="l01103"></a><span class="lineno"> 1103</span>  <span class="keyword">constexpr</span> <span class="keyword">inline</span> std::size_t <a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#ac04eb3afe55c846105dd5e7aa642871d">find_first_of</a>(<span class="keyword">const</span> <a class="code hl_class" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt;allocatedSize&gt; &amp; string,</div>
+<div class="line"><a id="l01104" name="l01104"></a><span class="lineno"> 1104</span>                                             std::size_t position = 0) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l01105" name="l01105"></a><span class="lineno"> 1105</span> </div>
+<div class="line"><a id="l01106" name="l01106"></a><span class="lineno"> 1106</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno"> 1107</span><span class="comment">    \brief Finds the first occurrence of any character from a StringLike object.</span></div>
+<div class="line"><span class="lineno"> 1108</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1109</span><span class="comment">    This method searches for the first occurrence of any character from a StringLike object within this string, starting</span></div>
+<div class="line"><span class="lineno"> 1110</span><span class="comment">    from the given \a position.</span></div>
 <div class="line"><span class="lineno"> 1111</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1112</span><span class="comment">    \param string The StringLike object to compare with this string.</span></div>
+<div class="line"><span class="lineno"> 1112</span><span class="comment">    \tparam stringType The type of the source string. Must satisfy the StringLike concept.</span></div>
 <div class="line"><span class="lineno"> 1113</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1114</span><span class="comment">    \return A negative value if this string is lexicographically less than a StringLike object, zero if they are equal,</span></div>
-<div class="line"><span class="lineno"> 1115</span><span class="comment">            or a positive value if this string is lexicographically greater than a StringLike object.</span></div>
+<div class="line"><span class="lineno"> 1114</span><span class="comment">    \param string   The StringLike object containing characters to search for.</span></div>
+<div class="line"><span class="lineno"> 1115</span><span class="comment">    \param position The position to start searching from (default: 0).</span></div>
 <div class="line"><span class="lineno"> 1116</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1117</span><span class="comment">    \note The comparison is case-sensitive.</span></div>
-<div class="line"><span class="lineno"> 1118</span><span class="comment">    \note The comparison stops at the first character that differs between the strings.</span></div>
-<div class="line"><span class="lineno"> 1119</span><span class="comment">    \note If one string is a prefix of another, the shorter string is considered lexicographically smaller.</span></div>
-<div class="line"><span class="lineno"> 1120</span><span class="comment">  */</span></div>
-<div class="line"><a id="l01121" name="l01121"></a><span class="lineno"> 1121</span>  <span class="keyword">template</span> &lt;StringLike stringType&gt;</div>
-<div class="line"><a id="l01122" name="l01122"></a><span class="lineno"> 1122</span>  <span class="keyword">constexpr</span> <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#af20c21592a3580039099806bfab8d583">compare</a>(<span class="keyword">const</span> stringType &amp; string) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l01123" name="l01123"></a><span class="lineno"> 1123</span> </div>
-<div class="line"><a id="l01124" name="l01124"></a><span class="lineno"> 1124</span>  <span class="comment">/*!</span></div>
-<div class="line"><span class="lineno"> 1125</span><span class="comment">    \brief Compares this string with the C \a string lexicographically.</span></div>
-<div class="line"><span class="lineno"> 1126</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1127</span><span class="comment">    This method performs a lexicographic comparison between this string and the C \a string. The comparison is</span></div>
-<div class="line"><span class="lineno"> 1128</span><span class="comment">    performed character by character using the character&#39;s numeric value.</span></div>
+<div class="line"><span class="lineno"> 1117</span><span class="comment">    \return The position of the first occurrence of any character from a StringLike object, or \ref npos if not found.</span></div>
+<div class="line"><span class="lineno"> 1118</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1119</span><span class="comment">    \pre The \a position must be less than or equal to the string size.</span></div>
+<div class="line"><span class="lineno"> 1120</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1121</span><span class="comment">    \note The search is case-sensitive.</span></div>
+<div class="line"><span class="lineno"> 1122</span><span class="comment">    \note If a StringLike object is empty, this method returns \ref npos.</span></div>
+<div class="line"><span class="lineno"> 1123</span><span class="comment">  */</span></div>
+<div class="line"><a id="l01124" name="l01124"></a><span class="lineno"> 1124</span>  <span class="keyword">template</span> &lt;StringLike stringType&gt;</div>
+<div class="line"><a id="l01125" name="l01125"></a><span class="lineno"> 1125</span>  <span class="keyword">constexpr</span> <span class="keyword">inline</span> std::size_t <a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#ad53f35c6954f65c3fa9bd08d51532ce0">find_first_of</a>(<span class="keyword">const</span> stringType &amp; string, std::size_t position = 0) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l01126" name="l01126"></a><span class="lineno"> 1126</span> </div>
+<div class="line"><a id="l01127" name="l01127"></a><span class="lineno"> 1127</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno"> 1128</span><span class="comment">    \brief Finds the first occurrence of any character from the C \a string.</span></div>
 <div class="line"><span class="lineno"> 1129</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1130</span><span class="comment">    \param string The C string to compare with this string.</span></div>
-<div class="line"><span class="lineno"> 1131</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1132</span><span class="comment">    \return A negative value if this string is lexicographically less than C \a string, zero if they are equal, or a</span></div>
-<div class="line"><span class="lineno"> 1133</span><span class="comment">            positive value if this string is lexicographically greater than C \a string.</span></div>
-<div class="line"><span class="lineno"> 1134</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1135</span><span class="comment">    \pre The C \a string must not be null.</span></div>
-<div class="line"><span class="lineno"> 1136</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1137</span><span class="comment">    \note The comparison is case-sensitive.</span></div>
-<div class="line"><span class="lineno"> 1138</span><span class="comment">    \note The comparison stops at the first character that differs between the strings.</span></div>
-<div class="line"><span class="lineno"> 1139</span><span class="comment">    \note If one string is a prefix of another, the shorter string is considered lexicographically smaller.</span></div>
-<div class="line"><span class="lineno"> 1140</span><span class="comment">  */</span></div>
-<div class="line"><a id="l01141" name="l01141"></a><span class="lineno"> 1141</span>  <span class="keyword">constexpr</span> <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a293a69e4ef19a7b3b23a885c9d827fa7">compare</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> * string) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l01142" name="l01142"></a><span class="lineno"> 1142</span> </div>
-<div class="line"><a id="l01143" name="l01143"></a><span class="lineno"> 1143</span>  <span class="comment">/*!</span></div>
-<div class="line"><span class="lineno"> 1144</span><span class="comment">    \brief Checks if the string starts with the specified \a string.</span></div>
-<div class="line"><span class="lineno"> 1145</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1146</span><span class="comment">    This method checks if the current string starts with the specified \a string. The comparison is performed character</span></div>
-<div class="line"><span class="lineno"> 1147</span><span class="comment">    by character from the beginning of the string.</span></div>
+<div class="line"><span class="lineno"> 1130</span><span class="comment">    This method searches for the first occurrence of any character from the C \a string within this string, starting</span></div>
+<div class="line"><span class="lineno"> 1131</span><span class="comment">    from the given \a position.</span></div>
+<div class="line"><span class="lineno"> 1132</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1133</span><span class="comment">    \param string   The C string containing characters to search for.</span></div>
+<div class="line"><span class="lineno"> 1134</span><span class="comment">    \param position The position to start searching from (default: 0).</span></div>
+<div class="line"><span class="lineno"> 1135</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1136</span><span class="comment">    \return The position of the first occurrence of any character from the C \a string, or \ref npos if not found.</span></div>
+<div class="line"><span class="lineno"> 1137</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1138</span><span class="comment">    \pre The \a position must be less than or equal to the string size.</span></div>
+<div class="line"><span class="lineno"> 1139</span><span class="comment">    \pre The \a string must not be null.</span></div>
+<div class="line"><span class="lineno"> 1140</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1141</span><span class="comment">    \note The search is case-sensitive.</span></div>
+<div class="line"><span class="lineno"> 1142</span><span class="comment">    \note If the C \a string is empty, this method returns \ref npos.</span></div>
+<div class="line"><span class="lineno"> 1143</span><span class="comment">  */</span></div>
+<div class="line"><a id="l01144" name="l01144"></a><span class="lineno"> 1144</span>  <span class="keyword">constexpr</span> <span class="keyword">inline</span> std::size_t <a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a65a1d1215088d1e4c8a358c5590a2c5a">find_first_of</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> * string, std::size_t position = 0) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l01145" name="l01145"></a><span class="lineno"> 1145</span> </div>
+<div class="line"><a id="l01146" name="l01146"></a><span class="lineno"> 1146</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno"> 1147</span><span class="comment">    \brief Finds the first occurrence of the specified \a character.</span></div>
 <div class="line"><span class="lineno"> 1148</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1149</span><span class="comment">    \param string The string to check if this string starts with.</span></div>
-<div class="line"><span class="lineno"> 1150</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1151</span><span class="comment">    \return True if this string starts with the specified \a string, false otherwise.</span></div>
-<div class="line"><span class="lineno"> 1152</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1153</span><span class="comment">    \note The comparison is case-sensitive.</span></div>
-<div class="line"><span class="lineno"> 1154</span><span class="comment">    \note If the specified \a string is empty, this method returns true.</span></div>
-<div class="line"><span class="lineno"> 1155</span><span class="comment">    \note If the specified \a string is longer than this string, this method returns false.</span></div>
-<div class="line"><span class="lineno"> 1156</span><span class="comment">  */</span></div>
-<div class="line"><a id="l01157" name="l01157"></a><span class="lineno"> 1157</span>  <span class="keyword">constexpr</span> <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a7a46a3251062357d8fcef9578785cdcf">starts_with</a>(<span class="keyword">const</span> <a class="code hl_class" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt;allocatedSize&gt; &amp; string) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l01158" name="l01158"></a><span class="lineno"> 1158</span> </div>
-<div class="line"><a id="l01159" name="l01159"></a><span class="lineno"> 1159</span>  <span class="comment">/*!</span></div>
-<div class="line"><span class="lineno"> 1160</span><span class="comment">    \brief Checks if the string starts with a StringLike object.</span></div>
-<div class="line"><span class="lineno"> 1161</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1162</span><span class="comment">    This method checks if the current string starts with a StringLike object. The comparison is performed character by</span></div>
-<div class="line"><span class="lineno"> 1163</span><span class="comment">    character from the beginning of the string.</span></div>
-<div class="line"><span class="lineno"> 1164</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1165</span><span class="comment">    \tparam stringType The type of the source string. Must satisfy the StringLike concept.</span></div>
+<div class="line"><span class="lineno"> 1149</span><span class="comment">    This method searches for the first occurrence of the specified \a character within this string, starting from the</span></div>
+<div class="line"><span class="lineno"> 1150</span><span class="comment">    given \a position.</span></div>
+<div class="line"><span class="lineno"> 1151</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1152</span><span class="comment">    \param character The character to search for.</span></div>
+<div class="line"><span class="lineno"> 1153</span><span class="comment">    \param position  The position to start searching from (default: 0).</span></div>
+<div class="line"><span class="lineno"> 1154</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1155</span><span class="comment">    \return The position of the first occurrence of the \a character, or \ref npos if not found.</span></div>
+<div class="line"><span class="lineno"> 1156</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1157</span><span class="comment">    \pre The \a position must be less than or equal to the string size.</span></div>
+<div class="line"><span class="lineno"> 1158</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1159</span><span class="comment">    \note The search is case-sensitive.</span></div>
+<div class="line"><span class="lineno"> 1160</span><span class="comment">    \note This method is equivalent to find(character, position).</span></div>
+<div class="line"><span class="lineno"> 1161</span><span class="comment">  */</span></div>
+<div class="line"><a id="l01162" name="l01162"></a><span class="lineno"> 1162</span>  <span class="keyword">constexpr</span> <span class="keyword">inline</span> std::size_t <a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#abee80e1f5bd70f4567ec681f3aea9985">find_first_of</a>(<span class="keywordtype">char</span> character, std::size_t position = 0) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l01163" name="l01163"></a><span class="lineno"> 1163</span> </div>
+<div class="line"><a id="l01164" name="l01164"></a><span class="lineno"> 1164</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno"> 1165</span><span class="comment">    \brief Compares this string with another \a string lexicographically.</span></div>
 <div class="line"><span class="lineno"> 1166</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1167</span><span class="comment">    \param string The StringLike object to check if this string starts with.</span></div>
-<div class="line"><span class="lineno"> 1168</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1169</span><span class="comment">    \return True if this string starts with a StringLike object, false otherwise.</span></div>
-<div class="line"><span class="lineno"> 1170</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1171</span><span class="comment">    \note The comparison is case-sensitive.</span></div>
-<div class="line"><span class="lineno"> 1172</span><span class="comment">    \note If a StringLike object is empty, this method returns true.</span></div>
-<div class="line"><span class="lineno"> 1173</span><span class="comment">    \note If a StringLike object is longer than this string, this method returns false.</span></div>
-<div class="line"><span class="lineno"> 1174</span><span class="comment">  */</span></div>
-<div class="line"><a id="l01175" name="l01175"></a><span class="lineno"> 1175</span>  <span class="keyword">template</span> &lt;StringLike stringType&gt;</div>
-<div class="line"><a id="l01176" name="l01176"></a><span class="lineno"> 1176</span>  <span class="keyword">constexpr</span> <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#ae461dc559fa326874eeef4bc4cd4fe04">starts_with</a>(<span class="keyword">const</span> stringType &amp; string) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l01177" name="l01177"></a><span class="lineno"> 1177</span> </div>
-<div class="line"><a id="l01178" name="l01178"></a><span class="lineno"> 1178</span>  <span class="comment">/*!</span></div>
-<div class="line"><span class="lineno"> 1179</span><span class="comment">    \brief Checks if the string starts with the specified C \a string.</span></div>
-<div class="line"><span class="lineno"> 1180</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1181</span><span class="comment">    This method checks if the current string starts with the C \a string. The comparison is performed character by</span></div>
-<div class="line"><span class="lineno"> 1182</span><span class="comment">    character from the beginning of the string.</span></div>
+<div class="line"><span class="lineno"> 1167</span><span class="comment">    This method performs a lexicographic comparison between this string and another \a string. The comparison is</span></div>
+<div class="line"><span class="lineno"> 1168</span><span class="comment">    performed character by character using the character&#39;s numeric value.</span></div>
+<div class="line"><span class="lineno"> 1169</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1170</span><span class="comment">    \param string The string to compare with this string.</span></div>
+<div class="line"><span class="lineno"> 1171</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1172</span><span class="comment">    \return A negative value if this string is lexicographically less than \a string, zero if they are equal, or a</span></div>
+<div class="line"><span class="lineno"> 1173</span><span class="comment">            positive value if this string is lexicographically greater than \a string.</span></div>
+<div class="line"><span class="lineno"> 1174</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1175</span><span class="comment">    \note The comparison is case-sensitive.</span></div>
+<div class="line"><span class="lineno"> 1176</span><span class="comment">    \note The comparison stops at the first character that differs between the strings.</span></div>
+<div class="line"><span class="lineno"> 1177</span><span class="comment">    \note If one string is a prefix of another, the shorter string is considered lexicographically smaller.</span></div>
+<div class="line"><span class="lineno"> 1178</span><span class="comment">  */</span></div>
+<div class="line"><a id="l01179" name="l01179"></a><span class="lineno"> 1179</span>  <span class="keyword">constexpr</span> <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a9f67beed78ca7d3e24e654ae6f35a7c4">compare</a>(<span class="keyword">const</span> <a class="code hl_class" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt;allocatedSize&gt; &amp; string) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l01180" name="l01180"></a><span class="lineno"> 1180</span> </div>
+<div class="line"><a id="l01181" name="l01181"></a><span class="lineno"> 1181</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno"> 1182</span><span class="comment">    \brief Compares this string with a StringLike object lexicographically.</span></div>
 <div class="line"><span class="lineno"> 1183</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1184</span><span class="comment">    \param string The C string to check if this string starts with.</span></div>
-<div class="line"><span class="lineno"> 1185</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1186</span><span class="comment">    \return True if this string starts with the C \a string, false otherwise.</span></div>
-<div class="line"><span class="lineno"> 1187</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1188</span><span class="comment">    \pre The C \a string must not be null.</span></div>
-<div class="line"><span class="lineno"> 1189</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1190</span><span class="comment">    \note The comparison is case-sensitive.</span></div>
-<div class="line"><span class="lineno"> 1191</span><span class="comment">    \note If the C \a string is empty, this method returns true.</span></div>
-<div class="line"><span class="lineno"> 1192</span><span class="comment">    \note If the C \a string is longer than this string, this method returns false.</span></div>
-<div class="line"><span class="lineno"> 1193</span><span class="comment">  */</span></div>
-<div class="line"><a id="l01194" name="l01194"></a><span class="lineno"> 1194</span>  <span class="keyword">constexpr</span> <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a4d186283e857b472d2e025964aacb1b6">starts_with</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> * string) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l01195" name="l01195"></a><span class="lineno"> 1195</span> </div>
-<div class="line"><a id="l01196" name="l01196"></a><span class="lineno"> 1196</span>  <span class="comment">/*!</span></div>
-<div class="line"><span class="lineno"> 1197</span><span class="comment">    \brief Checks if the string starts with the specified \a character.</span></div>
-<div class="line"><span class="lineno"> 1198</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1199</span><span class="comment">    This method checks if the current string starts with the specified \a character. The comparison is performed on the</span></div>
-<div class="line"><span class="lineno"> 1200</span><span class="comment">    first character of the string.</span></div>
-<div class="line"><span class="lineno"> 1201</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1202</span><span class="comment">    \param character The character to check if this string starts with.</span></div>
+<div class="line"><span class="lineno"> 1184</span><span class="comment">    This method performs a lexicographic comparison between this string and a StringLike object. The comparison is</span></div>
+<div class="line"><span class="lineno"> 1185</span><span class="comment">    performed character by character using the character&#39;s numeric value.</span></div>
+<div class="line"><span class="lineno"> 1186</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1187</span><span class="comment">    \tparam stringType The type of the source string. Must satisfy the StringLike concept.</span></div>
+<div class="line"><span class="lineno"> 1188</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1189</span><span class="comment">    \param string The StringLike object to compare with this string.</span></div>
+<div class="line"><span class="lineno"> 1190</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1191</span><span class="comment">    \return A negative value if this string is lexicographically less than a StringLike object, zero if they are equal,</span></div>
+<div class="line"><span class="lineno"> 1192</span><span class="comment">            or a positive value if this string is lexicographically greater than a StringLike object.</span></div>
+<div class="line"><span class="lineno"> 1193</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1194</span><span class="comment">    \note The comparison is case-sensitive.</span></div>
+<div class="line"><span class="lineno"> 1195</span><span class="comment">    \note The comparison stops at the first character that differs between the strings.</span></div>
+<div class="line"><span class="lineno"> 1196</span><span class="comment">    \note If one string is a prefix of another, the shorter string is considered lexicographically smaller.</span></div>
+<div class="line"><span class="lineno"> 1197</span><span class="comment">  */</span></div>
+<div class="line"><a id="l01198" name="l01198"></a><span class="lineno"> 1198</span>  <span class="keyword">template</span> &lt;StringLike stringType&gt;</div>
+<div class="line"><a id="l01199" name="l01199"></a><span class="lineno"> 1199</span>  <span class="keyword">constexpr</span> <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#af20c21592a3580039099806bfab8d583">compare</a>(<span class="keyword">const</span> stringType &amp; string) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l01200" name="l01200"></a><span class="lineno"> 1200</span> </div>
+<div class="line"><a id="l01201" name="l01201"></a><span class="lineno"> 1201</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno"> 1202</span><span class="comment">    \brief Compares this string with the C \a string lexicographically.</span></div>
 <div class="line"><span class="lineno"> 1203</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1204</span><span class="comment">    \return True if this string starts with the specified \a character, false otherwise.</span></div>
-<div class="line"><span class="lineno"> 1205</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1206</span><span class="comment">    \note The comparison is case-sensitive.</span></div>
-<div class="line"><span class="lineno"> 1207</span><span class="comment">    \note If the string is empty, this method returns false.</span></div>
-<div class="line"><span class="lineno"> 1208</span><span class="comment">  */</span></div>
-<div class="line"><a id="l01209" name="l01209"></a><span class="lineno"> 1209</span>  <span class="keyword">constexpr</span> <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a481a6eeab7d7a08448d8e34586d9f132">starts_with</a>(<span class="keywordtype">char</span> character) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l01210" name="l01210"></a><span class="lineno"> 1210</span> </div>
-<div class="line"><a id="l01211" name="l01211"></a><span class="lineno"> 1211</span>  <span class="comment">/*!</span></div>
-<div class="line"><span class="lineno"> 1212</span><span class="comment">    \brief Checks if the string ends with the specified \a string.</span></div>
+<div class="line"><span class="lineno"> 1204</span><span class="comment">    This method performs a lexicographic comparison between this string and the C \a string. The comparison is</span></div>
+<div class="line"><span class="lineno"> 1205</span><span class="comment">    performed character by character using the character&#39;s numeric value.</span></div>
+<div class="line"><span class="lineno"> 1206</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1207</span><span class="comment">    \param string The C string to compare with this string.</span></div>
+<div class="line"><span class="lineno"> 1208</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1209</span><span class="comment">    \return A negative value if this string is lexicographically less than C \a string, zero if they are equal, or a</span></div>
+<div class="line"><span class="lineno"> 1210</span><span class="comment">            positive value if this string is lexicographically greater than C \a string.</span></div>
+<div class="line"><span class="lineno"> 1211</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1212</span><span class="comment">    \pre The C \a string must not be null.</span></div>
 <div class="line"><span class="lineno"> 1213</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1214</span><span class="comment">    This method checks if the current string ends with the specified \a string. The comparison is performed character by</span></div>
-<div class="line"><span class="lineno"> 1215</span><span class="comment">    character from the end of the string.</span></div>
-<div class="line"><span class="lineno"> 1216</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1217</span><span class="comment">    \param string The string to check if this string ends with.</span></div>
-<div class="line"><span class="lineno"> 1218</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1219</span><span class="comment">    \return True if this string ends with the specified \a string, false otherwise.</span></div>
-<div class="line"><span class="lineno"> 1220</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1221</span><span class="comment">    \note The comparison is case-sensitive.</span></div>
-<div class="line"><span class="lineno"> 1222</span><span class="comment">    \note If the specified \a string is empty, this method returns true.</span></div>
-<div class="line"><span class="lineno"> 1223</span><span class="comment">    \note If the specified \a string is longer than this string, this method returns false.</span></div>
-<div class="line"><span class="lineno"> 1224</span><span class="comment">  */</span></div>
-<div class="line"><a id="l01225" name="l01225"></a><span class="lineno"> 1225</span>  <span class="keyword">constexpr</span> <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a325d58976041ad713f27dbc5ac77de86">ends_with</a>(<span class="keyword">const</span> <a class="code hl_class" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt;allocatedSize&gt; &amp; string) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l01226" name="l01226"></a><span class="lineno"> 1226</span> </div>
-<div class="line"><a id="l01227" name="l01227"></a><span class="lineno"> 1227</span>  <span class="comment">/*!</span></div>
-<div class="line"><span class="lineno"> 1228</span><span class="comment">    \brief Checks if the string ends with a StringLike object.</span></div>
+<div class="line"><span class="lineno"> 1214</span><span class="comment">    \note The comparison is case-sensitive.</span></div>
+<div class="line"><span class="lineno"> 1215</span><span class="comment">    \note The comparison stops at the first character that differs between the strings.</span></div>
+<div class="line"><span class="lineno"> 1216</span><span class="comment">    \note If one string is a prefix of another, the shorter string is considered lexicographically smaller.</span></div>
+<div class="line"><span class="lineno"> 1217</span><span class="comment">  */</span></div>
+<div class="line"><a id="l01218" name="l01218"></a><span class="lineno"> 1218</span>  <span class="keyword">constexpr</span> <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a293a69e4ef19a7b3b23a885c9d827fa7">compare</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> * string) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l01219" name="l01219"></a><span class="lineno"> 1219</span> </div>
+<div class="line"><a id="l01220" name="l01220"></a><span class="lineno"> 1220</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno"> 1221</span><span class="comment">    \brief Checks if the string starts with the specified \a string.</span></div>
+<div class="line"><span class="lineno"> 1222</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1223</span><span class="comment">    This method checks if the current string starts with the specified \a string. The comparison is performed character</span></div>
+<div class="line"><span class="lineno"> 1224</span><span class="comment">    by character from the beginning of the string.</span></div>
+<div class="line"><span class="lineno"> 1225</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1226</span><span class="comment">    \param string The string to check if this string starts with.</span></div>
+<div class="line"><span class="lineno"> 1227</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1228</span><span class="comment">    \return True if this string starts with the specified \a string, false otherwise.</span></div>
 <div class="line"><span class="lineno"> 1229</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1230</span><span class="comment">    This method checks if the current string ends with a StringLike object. The comparison is performed character by</span></div>
-<div class="line"><span class="lineno"> 1231</span><span class="comment">    character from the end of the string.</span></div>
-<div class="line"><span class="lineno"> 1232</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1233</span><span class="comment">    \tparam stringType The type of the source string. Must satisfy the StringLike concept.</span></div>
-<div class="line"><span class="lineno"> 1234</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1235</span><span class="comment">    \param string The StringLike object to check if this string ends with.</span></div>
-<div class="line"><span class="lineno"> 1236</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1237</span><span class="comment">    \return True if this string ends with a StringLike object, false otherwise.</span></div>
+<div class="line"><span class="lineno"> 1230</span><span class="comment">    \note The comparison is case-sensitive.</span></div>
+<div class="line"><span class="lineno"> 1231</span><span class="comment">    \note If the specified \a string is empty, this method returns true.</span></div>
+<div class="line"><span class="lineno"> 1232</span><span class="comment">    \note If the specified \a string is longer than this string, this method returns false.</span></div>
+<div class="line"><span class="lineno"> 1233</span><span class="comment">  */</span></div>
+<div class="line"><a id="l01234" name="l01234"></a><span class="lineno"> 1234</span>  <span class="keyword">constexpr</span> <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a7a46a3251062357d8fcef9578785cdcf">starts_with</a>(<span class="keyword">const</span> <a class="code hl_class" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt;allocatedSize&gt; &amp; string) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l01235" name="l01235"></a><span class="lineno"> 1235</span> </div>
+<div class="line"><a id="l01236" name="l01236"></a><span class="lineno"> 1236</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno"> 1237</span><span class="comment">    \brief Checks if the string starts with a StringLike object.</span></div>
 <div class="line"><span class="lineno"> 1238</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1239</span><span class="comment">    \note The comparison is case-sensitive.</span></div>
-<div class="line"><span class="lineno"> 1240</span><span class="comment">    \note If a StringLike object is empty, this method returns true.</span></div>
-<div class="line"><span class="lineno"> 1241</span><span class="comment">    \note If a StringLike object is longer than this string, this method returns false.</span></div>
-<div class="line"><span class="lineno"> 1242</span><span class="comment">  */</span></div>
-<div class="line"><a id="l01243" name="l01243"></a><span class="lineno"> 1243</span>  <span class="keyword">template</span> &lt;StringLike stringType&gt;</div>
-<div class="line"><a id="l01244" name="l01244"></a><span class="lineno"> 1244</span>  <span class="keyword">constexpr</span> <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a5b62df7ec9066a5d6a9539f5f0060c27">ends_with</a>(<span class="keyword">const</span> stringType &amp; string) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l01245" name="l01245"></a><span class="lineno"> 1245</span> </div>
-<div class="line"><a id="l01246" name="l01246"></a><span class="lineno"> 1246</span>  <span class="comment">/*!</span></div>
-<div class="line"><span class="lineno"> 1247</span><span class="comment">    \brief Checks if the string ends with the C \a string.</span></div>
-<div class="line"><span class="lineno"> 1248</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1249</span><span class="comment">    This method checks if the current string ends with the C \a string. The comparison is performed character by</span></div>
-<div class="line"><span class="lineno"> 1250</span><span class="comment">    character from the end of the string.</span></div>
-<div class="line"><span class="lineno"> 1251</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1252</span><span class="comment">    \param string The C string to check if this string ends with.</span></div>
-<div class="line"><span class="lineno"> 1253</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1254</span><span class="comment">    \return True if this string ends with the C \a string, false otherwise.</span></div>
-<div class="line"><span class="lineno"> 1255</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1256</span><span class="comment">    \pre The C \a string must not be null.</span></div>
+<div class="line"><span class="lineno"> 1239</span><span class="comment">    This method checks if the current string starts with a StringLike object. The comparison is performed character by</span></div>
+<div class="line"><span class="lineno"> 1240</span><span class="comment">    character from the beginning of the string.</span></div>
+<div class="line"><span class="lineno"> 1241</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1242</span><span class="comment">    \tparam stringType The type of the source string. Must satisfy the StringLike concept.</span></div>
+<div class="line"><span class="lineno"> 1243</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1244</span><span class="comment">    \param string The StringLike object to check if this string starts with.</span></div>
+<div class="line"><span class="lineno"> 1245</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1246</span><span class="comment">    \return True if this string starts with a StringLike object, false otherwise.</span></div>
+<div class="line"><span class="lineno"> 1247</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1248</span><span class="comment">    \note The comparison is case-sensitive.</span></div>
+<div class="line"><span class="lineno"> 1249</span><span class="comment">    \note If a StringLike object is empty, this method returns true.</span></div>
+<div class="line"><span class="lineno"> 1250</span><span class="comment">    \note If a StringLike object is longer than this string, this method returns false.</span></div>
+<div class="line"><span class="lineno"> 1251</span><span class="comment">  */</span></div>
+<div class="line"><a id="l01252" name="l01252"></a><span class="lineno"> 1252</span>  <span class="keyword">template</span> &lt;StringLike stringType&gt;</div>
+<div class="line"><a id="l01253" name="l01253"></a><span class="lineno"> 1253</span>  <span class="keyword">constexpr</span> <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#ae461dc559fa326874eeef4bc4cd4fe04">starts_with</a>(<span class="keyword">const</span> stringType &amp; string) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l01254" name="l01254"></a><span class="lineno"> 1254</span> </div>
+<div class="line"><a id="l01255" name="l01255"></a><span class="lineno"> 1255</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno"> 1256</span><span class="comment">    \brief Checks if the string starts with the specified C \a string.</span></div>
 <div class="line"><span class="lineno"> 1257</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1258</span><span class="comment">    \note The comparison is case-sensitive.</span></div>
-<div class="line"><span class="lineno"> 1259</span><span class="comment">    \note If the C \a string is empty, this method returns true.</span></div>
-<div class="line"><span class="lineno"> 1260</span><span class="comment">    \note If the C \a string is longer than this string, this method returns false.</span></div>
-<div class="line"><span class="lineno"> 1261</span><span class="comment">  */</span></div>
-<div class="line"><a id="l01262" name="l01262"></a><span class="lineno"> 1262</span>  <span class="keyword">constexpr</span> <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a293882f4c66471c2e6fac318e849619d">ends_with</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> * string) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l01263" name="l01263"></a><span class="lineno"> 1263</span> </div>
-<div class="line"><a id="l01264" name="l01264"></a><span class="lineno"> 1264</span>  <span class="comment">/*!</span></div>
-<div class="line"><span class="lineno"> 1265</span><span class="comment">    \brief Checks if the string ends with the specified \a character.</span></div>
+<div class="line"><span class="lineno"> 1258</span><span class="comment">    This method checks if the current string starts with the C \a string. The comparison is performed character by</span></div>
+<div class="line"><span class="lineno"> 1259</span><span class="comment">    character from the beginning of the string.</span></div>
+<div class="line"><span class="lineno"> 1260</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1261</span><span class="comment">    \param string The C string to check if this string starts with.</span></div>
+<div class="line"><span class="lineno"> 1262</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1263</span><span class="comment">    \return True if this string starts with the C \a string, false otherwise.</span></div>
+<div class="line"><span class="lineno"> 1264</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1265</span><span class="comment">    \pre The C \a string must not be null.</span></div>
 <div class="line"><span class="lineno"> 1266</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1267</span><span class="comment">    This method checks if the current string ends with the specified \a character. The comparison is performed on the</span></div>
-<div class="line"><span class="lineno"> 1268</span><span class="comment">    last character of the string.</span></div>
-<div class="line"><span class="lineno"> 1269</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1270</span><span class="comment">    \param character The character to check if this string ends with.</span></div>
-<div class="line"><span class="lineno"> 1271</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1272</span><span class="comment">    \return True if this string ends with the specified \a character, false otherwise.</span></div>
-<div class="line"><span class="lineno"> 1273</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1274</span><span class="comment">    \note The comparison is case-sensitive.</span></div>
-<div class="line"><span class="lineno"> 1275</span><span class="comment">    \note If the string is empty, this method returns false.</span></div>
-<div class="line"><span class="lineno"> 1276</span><span class="comment">  */</span></div>
-<div class="line"><a id="l01277" name="l01277"></a><span class="lineno"> 1277</span>  <span class="keyword">constexpr</span> <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#ae0819aec779232ba5b2ed1de2fdab6c6">ends_with</a>(<span class="keywordtype">char</span> character) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l01278" name="l01278"></a><span class="lineno"> 1278</span> </div>
-<div class="line"><a id="l01279" name="l01279"></a><span class="lineno"> 1279</span>  <span class="comment">/*!</span></div>
-<div class="line"><span class="lineno"> 1280</span><span class="comment">    \brief Concatenates two FixString objects and returns the result.</span></div>
-<div class="line"><span class="lineno"> 1281</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1282</span><span class="comment">    This operator creates a new FixString object by concatenating the current FixString object with another provided</span></div>
-<div class="line"><span class="lineno"> 1283</span><span class="comment">    FixString object. The resulting FixString will contain the contents of both strings, and its size will be the sum of</span></div>
-<div class="line"><span class="lineno"> 1284</span><span class="comment">    the sizes of the two operands.</span></div>
-<div class="line"><span class="lineno"> 1285</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1286</span><span class="comment">    \param string The FixString object to concatenate with the current FixString object.</span></div>
-<div class="line"><span class="lineno"> 1287</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1288</span><span class="comment">    \return A new FixString object representing the concatenation of the current FixString and the provided FixString</span></div>
-<div class="line"><span class="lineno"> 1289</span><span class="comment">            object.</span></div>
+<div class="line"><span class="lineno"> 1267</span><span class="comment">    \note The comparison is case-sensitive.</span></div>
+<div class="line"><span class="lineno"> 1268</span><span class="comment">    \note If the C \a string is empty, this method returns true.</span></div>
+<div class="line"><span class="lineno"> 1269</span><span class="comment">    \note If the C \a string is longer than this string, this method returns false.</span></div>
+<div class="line"><span class="lineno"> 1270</span><span class="comment">  */</span></div>
+<div class="line"><a id="l01271" name="l01271"></a><span class="lineno"> 1271</span>  <span class="keyword">constexpr</span> <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a4d186283e857b472d2e025964aacb1b6">starts_with</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> * string) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l01272" name="l01272"></a><span class="lineno"> 1272</span> </div>
+<div class="line"><a id="l01273" name="l01273"></a><span class="lineno"> 1273</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno"> 1274</span><span class="comment">    \brief Checks if the string starts with the specified \a character.</span></div>
+<div class="line"><span class="lineno"> 1275</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1276</span><span class="comment">    This method checks if the current string starts with the specified \a character. The comparison is performed on the</span></div>
+<div class="line"><span class="lineno"> 1277</span><span class="comment">    first character of the string.</span></div>
+<div class="line"><span class="lineno"> 1278</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1279</span><span class="comment">    \param character The character to check if this string starts with.</span></div>
+<div class="line"><span class="lineno"> 1280</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1281</span><span class="comment">    \return True if this string starts with the specified \a character, false otherwise.</span></div>
+<div class="line"><span class="lineno"> 1282</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1283</span><span class="comment">    \note The comparison is case-sensitive.</span></div>
+<div class="line"><span class="lineno"> 1284</span><span class="comment">    \note If the string is empty, this method returns false.</span></div>
+<div class="line"><span class="lineno"> 1285</span><span class="comment">  */</span></div>
+<div class="line"><a id="l01286" name="l01286"></a><span class="lineno"> 1286</span>  <span class="keyword">constexpr</span> <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a481a6eeab7d7a08448d8e34586d9f132">starts_with</a>(<span class="keywordtype">char</span> character) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l01287" name="l01287"></a><span class="lineno"> 1287</span> </div>
+<div class="line"><a id="l01288" name="l01288"></a><span class="lineno"> 1288</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno"> 1289</span><span class="comment">    \brief Checks if the string ends with the specified \a string.</span></div>
 <div class="line"><span class="lineno"> 1290</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1291</span><span class="comment">    \pre The sum of the sizes of the two FixString objects must be less than the allocated size.</span></div>
-<div class="line"><span class="lineno"> 1292</span><span class="comment">    \pre The allocated size of both FixString objects must be greater than zero.</span></div>
+<div class="line"><span class="lineno"> 1291</span><span class="comment">    This method checks if the current string ends with the specified \a string. The comparison is performed character by</span></div>
+<div class="line"><span class="lineno"> 1292</span><span class="comment">    character from the end of the string.</span></div>
 <div class="line"><span class="lineno"> 1293</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1294</span><span class="comment">    \post A new FixString object is created with the contents of both FixString objects.</span></div>
-<div class="line"><span class="lineno"> 1295</span><span class="comment">  */</span></div>
-<div class="line"><a id="l01296" name="l01296"></a><span class="lineno"> 1296</span>  <span class="keyword">constexpr</span> <span class="keyword">inline</span> <a class="code hl_class" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt;allocatedSize&gt; <a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a8b38d8c05801c3049546deca624603f6">operator</a>+(<span class="keyword">const</span> <a class="code hl_class" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt;allocatedSize&gt; &amp; string) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l01297" name="l01297"></a><span class="lineno"> 1297</span> </div>
-<div class="line"><a id="l01298" name="l01298"></a><span class="lineno"> 1298</span>  <span class="comment">/*!</span></div>
-<div class="line"><span class="lineno"> 1299</span><span class="comment">    \brief Concatenates two FixString objects and returns the result.</span></div>
-<div class="line"><span class="lineno"> 1300</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1301</span><span class="comment">    This operator creates a new FixString object by concatenating the current FixString object with another provided</span></div>
-<div class="line"><span class="lineno"> 1302</span><span class="comment">    FixString object. The resulting FixString will contain the contents of both strings, and its size will be the sum of</span></div>
-<div class="line"><span class="lineno"> 1303</span><span class="comment">    the sizes of the two operands.</span></div>
-<div class="line"><span class="lineno"> 1304</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1305</span><span class="comment">    \param string The FixString object to concatenate with the current FixString object.</span></div>
+<div class="line"><span class="lineno"> 1294</span><span class="comment">    \param string The string to check if this string ends with.</span></div>
+<div class="line"><span class="lineno"> 1295</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1296</span><span class="comment">    \return True if this string ends with the specified \a string, false otherwise.</span></div>
+<div class="line"><span class="lineno"> 1297</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1298</span><span class="comment">    \note The comparison is case-sensitive.</span></div>
+<div class="line"><span class="lineno"> 1299</span><span class="comment">    \note If the specified \a string is empty, this method returns true.</span></div>
+<div class="line"><span class="lineno"> 1300</span><span class="comment">    \note If the specified \a string is longer than this string, this method returns false.</span></div>
+<div class="line"><span class="lineno"> 1301</span><span class="comment">  */</span></div>
+<div class="line"><a id="l01302" name="l01302"></a><span class="lineno"> 1302</span>  <span class="keyword">constexpr</span> <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a325d58976041ad713f27dbc5ac77de86">ends_with</a>(<span class="keyword">const</span> <a class="code hl_class" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt;allocatedSize&gt; &amp; string) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l01303" name="l01303"></a><span class="lineno"> 1303</span> </div>
+<div class="line"><a id="l01304" name="l01304"></a><span class="lineno"> 1304</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno"> 1305</span><span class="comment">    \brief Checks if the string ends with a StringLike object.</span></div>
 <div class="line"><span class="lineno"> 1306</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1307</span><span class="comment">    \return A new FixString object representing the concatenation of the current FixString and the provided FixString</span></div>
-<div class="line"><span class="lineno"> 1308</span><span class="comment">            object.</span></div>
+<div class="line"><span class="lineno"> 1307</span><span class="comment">    This method checks if the current string ends with a StringLike object. The comparison is performed character by</span></div>
+<div class="line"><span class="lineno"> 1308</span><span class="comment">    character from the end of the string.</span></div>
 <div class="line"><span class="lineno"> 1309</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1310</span><span class="comment">    \pre The sum of the sizes of the two FixString objects must be less than the allocated size.</span></div>
-<div class="line"><span class="lineno"> 1311</span><span class="comment">    \pre The allocated size of both FixString objects must be greater than zero.</span></div>
-<div class="line"><span class="lineno"> 1312</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1313</span><span class="comment">    \post A new FixString object is created with the contents of both FixString objects.</span></div>
-<div class="line"><span class="lineno"> 1314</span><span class="comment">  */</span></div>
-<div class="line"><a id="l01315" name="l01315"></a><span class="lineno"> 1315</span>  <span class="keyword">template</span> &lt;std::size_t allocatedSize2&gt;</div>
-<div class="line"><a id="l01316" name="l01316"></a><span class="lineno"> 1316</span>  <span class="keyword">constexpr</span> <span class="keyword">inline</span> <a class="code hl_class" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt;allocatedSize&gt; <a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#acfd87c7f6691db88371226fada149007">operator</a>+(<span class="keyword">const</span> <a class="code hl_class" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt;allocatedSize2&gt; &amp; string) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l01317" name="l01317"></a><span class="lineno"> 1317</span> </div>
-<div class="line"><a id="l01318" name="l01318"></a><span class="lineno"> 1318</span>  <span class="comment">/*!</span></div>
-<div class="line"><span class="lineno"> 1319</span><span class="comment">    \brief Concatenates two strings and returns the result.</span></div>
-<div class="line"><span class="lineno"> 1320</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1321</span><span class="comment">    This operator creates a new FixString object by concatenating the current FixString object with a C string. The</span></div>
-<div class="line"><span class="lineno"> 1322</span><span class="comment">    resulting FixString will contain the contents of both strings, and its size will be the sum of the sizes of the two</span></div>
-<div class="line"><span class="lineno"> 1323</span><span class="comment">    operands.</span></div>
-<div class="line"><span class="lineno"> 1324</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1325</span><span class="comment">    \param string The C string to concatenate with the current FixString object.</span></div>
-<div class="line"><span class="lineno"> 1326</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1327</span><span class="comment">    \return A new FixString object representing the concatenation of the current FixString and the provided C string.</span></div>
+<div class="line"><span class="lineno"> 1310</span><span class="comment">    \tparam stringType The type of the source string. Must satisfy the StringLike concept.</span></div>
+<div class="line"><span class="lineno"> 1311</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1312</span><span class="comment">    \param string The StringLike object to check if this string ends with.</span></div>
+<div class="line"><span class="lineno"> 1313</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1314</span><span class="comment">    \return True if this string ends with a StringLike object, false otherwise.</span></div>
+<div class="line"><span class="lineno"> 1315</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1316</span><span class="comment">    \note The comparison is case-sensitive.</span></div>
+<div class="line"><span class="lineno"> 1317</span><span class="comment">    \note If a StringLike object is empty, this method returns true.</span></div>
+<div class="line"><span class="lineno"> 1318</span><span class="comment">    \note If a StringLike object is longer than this string, this method returns false.</span></div>
+<div class="line"><span class="lineno"> 1319</span><span class="comment">  */</span></div>
+<div class="line"><a id="l01320" name="l01320"></a><span class="lineno"> 1320</span>  <span class="keyword">template</span> &lt;StringLike stringType&gt;</div>
+<div class="line"><a id="l01321" name="l01321"></a><span class="lineno"> 1321</span>  <span class="keyword">constexpr</span> <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a5b62df7ec9066a5d6a9539f5f0060c27">ends_with</a>(<span class="keyword">const</span> stringType &amp; string) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l01322" name="l01322"></a><span class="lineno"> 1322</span> </div>
+<div class="line"><a id="l01323" name="l01323"></a><span class="lineno"> 1323</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno"> 1324</span><span class="comment">    \brief Checks if the string ends with the C \a string.</span></div>
+<div class="line"><span class="lineno"> 1325</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1326</span><span class="comment">    This method checks if the current string ends with the C \a string. The comparison is performed character by</span></div>
+<div class="line"><span class="lineno"> 1327</span><span class="comment">    character from the end of the string.</span></div>
 <div class="line"><span class="lineno"> 1328</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1329</span><span class="comment">    \pre The sum of the sizes of the two strings must be less than the allocated size.</span></div>
-<div class="line"><span class="lineno"> 1330</span><span class="comment">    \pre The allocated size must be greater than zero.</span></div>
-<div class="line"><span class="lineno"> 1331</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1332</span><span class="comment">    \post A new FixString object is created with the contents of both strings.</span></div>
-<div class="line"><span class="lineno"> 1333</span><span class="comment">  */</span></div>
-<div class="line"><a id="l01334" name="l01334"></a><span class="lineno"> 1334</span>  <span class="keyword">constexpr</span> <span class="keyword">inline</span> <a class="code hl_class" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt;allocatedSize&gt; <a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a787e3bf69bb88b9900559ee6696dd92d">operator</a>+(<span class="keyword">const</span> <span class="keywordtype">char</span> * string) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l01335" name="l01335"></a><span class="lineno"> 1335</span> </div>
-<div class="line"><a id="l01336" name="l01336"></a><span class="lineno"> 1336</span>  <span class="comment">/*!</span></div>
-<div class="line"><span class="lineno"> 1337</span><span class="comment">    \brief Concatenates this FixString object with a character.</span></div>
-<div class="line"><span class="lineno"> 1338</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1339</span><span class="comment">    This operator adds a character to the end of the FixString object and returns the new FixString object.</span></div>
-<div class="line"><span class="lineno"> 1340</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1341</span><span class="comment">    \param symbol The character to add to the end of the FixString object.</span></div>
-<div class="line"><span class="lineno"> 1342</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1343</span><span class="comment">    \pre The allocated size of the FixString object must be greater than zero.</span></div>
-<div class="line"><span class="lineno"> 1344</span><span class="comment">    \pre The size of the FixString object plus one must be less than the allocated size.</span></div>
-<div class="line"><span class="lineno"> 1345</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1346</span><span class="comment">    \post A new FixString object is created with the contents of the original FixString object plus the given character.</span></div>
-<div class="line"><span class="lineno"> 1347</span><span class="comment">  */</span></div>
-<div class="line"><a id="l01348" name="l01348"></a><span class="lineno"> 1348</span>  <span class="keyword">constexpr</span> <span class="keyword">inline</span> <a class="code hl_class" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt;allocatedSize&gt; <a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a685dae072f1fee75fd2e0a2fb629a299">operator</a>+(<span class="keywordtype">char</span> symbol) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l01349" name="l01349"></a><span class="lineno"> 1349</span> </div>
-<div class="line"><a id="l01350" name="l01350"></a><span class="lineno"><a class="line" href="../../da/d4a/classtoygine_1_1_fix_string.html#a79044e138bb62795eaa69202361b0c1c"> 1350</a></span>  <span class="keyword">static</span> <span class="keyword">const</span> std::size_t <a class="code hl_variable" href="../../da/d4a/classtoygine_1_1_fix_string.html#a79044e138bb62795eaa69202361b0c1c">npos</a> = SIZE_MAX;</div>
-<div class="line"><a id="l01351" name="l01351"></a><span class="lineno"> 1351</span> </div>
-<div class="line"><a id="l01352" name="l01352"></a><span class="lineno"> 1352</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l01353" name="l01353"></a><span class="lineno"> 1353</span>  <span class="keyword">static_assert</span>(allocatedSize &gt; 0, <span class="stringliteral">&quot;FixString capacity must be greater than zero.&quot;</span>);</div>
-<div class="line"><a id="l01354" name="l01354"></a><span class="lineno"> 1354</span> </div>
-<div class="line"><a id="l01355" name="l01355"></a><span class="lineno"> 1355</span>  <span class="comment">/*!</span></div>
-<div class="line"><span class="lineno"> 1356</span><span class="comment">    \brief Helper method for inserting \a data at a specific \a position.</span></div>
-<div class="line"><span class="lineno"> 1357</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1358</span><span class="comment">    This private method performs the common insertion logic used by all insert methods. It shifts existing data to the</span></div>
-<div class="line"><span class="lineno"> 1359</span><span class="comment">    right and inserts new \a data at the specified position.</span></div>
-<div class="line"><span class="lineno"> 1360</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1361</span><span class="comment">    \param position The position where to insert the data.</span></div>
-<div class="line"><span class="lineno"> 1362</span><span class="comment">    \param data     The data to insert.</span></div>
-<div class="line"><span class="lineno"> 1363</span><span class="comment">    \param dataSize The size of the data to insert.</span></div>
+<div class="line"><span class="lineno"> 1329</span><span class="comment">    \param string The C string to check if this string ends with.</span></div>
+<div class="line"><span class="lineno"> 1330</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1331</span><span class="comment">    \return True if this string ends with the C \a string, false otherwise.</span></div>
+<div class="line"><span class="lineno"> 1332</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1333</span><span class="comment">    \pre The C \a string must not be null.</span></div>
+<div class="line"><span class="lineno"> 1334</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1335</span><span class="comment">    \note The comparison is case-sensitive.</span></div>
+<div class="line"><span class="lineno"> 1336</span><span class="comment">    \note If the C \a string is empty, this method returns true.</span></div>
+<div class="line"><span class="lineno"> 1337</span><span class="comment">    \note If the C \a string is longer than this string, this method returns false.</span></div>
+<div class="line"><span class="lineno"> 1338</span><span class="comment">  */</span></div>
+<div class="line"><a id="l01339" name="l01339"></a><span class="lineno"> 1339</span>  <span class="keyword">constexpr</span> <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a293882f4c66471c2e6fac318e849619d">ends_with</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> * string) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l01340" name="l01340"></a><span class="lineno"> 1340</span> </div>
+<div class="line"><a id="l01341" name="l01341"></a><span class="lineno"> 1341</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno"> 1342</span><span class="comment">    \brief Checks if the string ends with the specified \a character.</span></div>
+<div class="line"><span class="lineno"> 1343</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1344</span><span class="comment">    This method checks if the current string ends with the specified \a character. The comparison is performed on the</span></div>
+<div class="line"><span class="lineno"> 1345</span><span class="comment">    last character of the string.</span></div>
+<div class="line"><span class="lineno"> 1346</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1347</span><span class="comment">    \param character The character to check if this string ends with.</span></div>
+<div class="line"><span class="lineno"> 1348</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1349</span><span class="comment">    \return True if this string ends with the specified \a character, false otherwise.</span></div>
+<div class="line"><span class="lineno"> 1350</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1351</span><span class="comment">    \note The comparison is case-sensitive.</span></div>
+<div class="line"><span class="lineno"> 1352</span><span class="comment">    \note If the string is empty, this method returns false.</span></div>
+<div class="line"><span class="lineno"> 1353</span><span class="comment">  */</span></div>
+<div class="line"><a id="l01354" name="l01354"></a><span class="lineno"> 1354</span>  <span class="keyword">constexpr</span> <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#ae0819aec779232ba5b2ed1de2fdab6c6">ends_with</a>(<span class="keywordtype">char</span> character) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l01355" name="l01355"></a><span class="lineno"> 1355</span> </div>
+<div class="line"><a id="l01356" name="l01356"></a><span class="lineno"> 1356</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno"> 1357</span><span class="comment">    \brief Concatenates two FixString objects and returns the result.</span></div>
+<div class="line"><span class="lineno"> 1358</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1359</span><span class="comment">    This operator creates a new FixString object by concatenating the current FixString object with another provided</span></div>
+<div class="line"><span class="lineno"> 1360</span><span class="comment">    FixString object. The resulting FixString will contain the contents of both strings, and its size will be the sum of</span></div>
+<div class="line"><span class="lineno"> 1361</span><span class="comment">    the sizes of the two operands.</span></div>
+<div class="line"><span class="lineno"> 1362</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1363</span><span class="comment">    \param string The FixString object to concatenate with the current FixString object.</span></div>
 <div class="line"><span class="lineno"> 1364</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1365</span><span class="comment">    \pre The \a position must be within the bounds of the current string.</span></div>
-<div class="line"><span class="lineno"> 1366</span><span class="comment">    \pre The \a data must not be null.</span></div>
-<div class="line"><span class="lineno"> 1367</span><span class="comment">    \pre The combined length after insertion must not exceed the allocated capacity.</span></div>
-<div class="line"><span class="lineno"> 1368</span><span class="comment">  */</span></div>
-<div class="line"><a id="l01369" name="l01369"></a><span class="lineno"> 1369</span>  <span class="keyword">constexpr</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a4c5050096754ce8ef390dac52954cf10">_insert_raw</a>(std::size_t position, <span class="keyword">const</span> <span class="keywordtype">char</span> * data, std::size_t dataSize) <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l01370" name="l01370"></a><span class="lineno"> 1370</span> </div>
-<div class="line"><a id="l01371" name="l01371"></a><span class="lineno"> 1371</span>  <span class="comment">/*!</span></div>
-<div class="line"><span class="lineno"> 1372</span><span class="comment">    \brief Helper method for appending \a data to the end of the string.</span></div>
-<div class="line"><span class="lineno"> 1373</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1374</span><span class="comment">    This private method performs the common append logic used by all append methods. It copies new \a data to the end of</span></div>
-<div class="line"><span class="lineno"> 1375</span><span class="comment">    the string and updates the size accordingly.</span></div>
-<div class="line"><span class="lineno"> 1376</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1377</span><span class="comment">    \param data     The data to append.</span></div>
-<div class="line"><span class="lineno"> 1378</span><span class="comment">    \param dataSize The size of the data to append.</span></div>
-<div class="line"><span class="lineno"> 1379</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1380</span><span class="comment">    \pre The \a data must not be null.</span></div>
-<div class="line"><span class="lineno"> 1381</span><span class="comment">    \pre The combined length after appending must not exceed the allocated capacity.</span></div>
-<div class="line"><span class="lineno"> 1382</span><span class="comment">  */</span></div>
-<div class="line"><a id="l01383" name="l01383"></a><span class="lineno"> 1383</span>  <span class="keyword">constexpr</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a57a1732395b1798291e591261c9643a6">_append_raw</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> * data, std::size_t dataSize) <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l01384" name="l01384"></a><span class="lineno"> 1384</span> </div>
-<div class="line"><a id="l01385" name="l01385"></a><span class="lineno"> 1385</span>  <span class="comment">/*!</span></div>
-<div class="line"><span class="lineno"> 1386</span><span class="comment">    \brief Helper method for replacing data at a specific \a position.</span></div>
-<div class="line"><span class="lineno"> 1387</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1388</span><span class="comment">    This private method performs the common replacement logic used by all replace methods. It handles the shifting of</span></div>
-<div class="line"><span class="lineno"> 1389</span><span class="comment">    existing data and insertion of new \a data at the specified \a position.</span></div>
-<div class="line"><span class="lineno"> 1390</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1391</span><span class="comment">    \param position The position where to replace the data.</span></div>
-<div class="line"><span class="lineno"> 1392</span><span class="comment">    \param oldCount The number of characters to replace.</span></div>
-<div class="line"><span class="lineno"> 1393</span><span class="comment">    \param data     The new data to insert.</span></div>
-<div class="line"><span class="lineno"> 1394</span><span class="comment">    \param dataSize The size of the new data.</span></div>
-<div class="line"><span class="lineno"> 1395</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1396</span><span class="comment">    \pre The \a position must be within the bounds of the current string.</span></div>
-<div class="line"><span class="lineno"> 1397</span><span class="comment">    \pre The \a data must not be null.</span></div>
-<div class="line"><span class="lineno"> 1398</span><span class="comment">    \pre The replacement range must be within string bounds.</span></div>
-<div class="line"><span class="lineno"> 1399</span><span class="comment">    \pre The resulting string size must not exceed the allocated capacity.</span></div>
-<div class="line"><span class="lineno"> 1400</span><span class="comment">  */</span></div>
-<div class="line"><a id="l01401" name="l01401"></a><span class="lineno"> 1401</span>  <span class="keyword">constexpr</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#ae3a7d0bb6fcd3144e99ccc75c1604231">_replace_raw</a>(std::size_t position, std::size_t oldCount, <span class="keyword">const</span> <span class="keywordtype">char</span> * data,</div>
-<div class="line"><a id="l01402" name="l01402"></a><span class="lineno"> 1402</span>                                     std::size_t dataSize) <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l01403" name="l01403"></a><span class="lineno"> 1403</span> </div>
-<div class="line"><a id="l01404" name="l01404"></a><span class="lineno"> 1404</span>  <span class="comment">/*!</span></div>
-<div class="line"><span class="lineno"> 1405</span><span class="comment">    \brief Helper method for finding \a data in the string.</span></div>
-<div class="line"><span class="lineno"> 1406</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1407</span><span class="comment">    This private method performs the common search logic used by all find methods. It searches for the specified \a data</span></div>
-<div class="line"><span class="lineno"> 1408</span><span class="comment">    starting from the given \a position.</span></div>
-<div class="line"><span class="lineno"> 1409</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1410</span><span class="comment">    \param position The position to start searching from.</span></div>
-<div class="line"><span class="lineno"> 1411</span><span class="comment">    \param data     The data to search for.</span></div>
-<div class="line"><span class="lineno"> 1412</span><span class="comment">    \param dataSize The size of the data to search for.</span></div>
-<div class="line"><span class="lineno"> 1413</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1414</span><span class="comment">    \return The position of the first occurrence of \a data, or \ref npos if not found.</span></div>
+<div class="line"><span class="lineno"> 1365</span><span class="comment">    \return A new FixString object representing the concatenation of the current FixString and the provided FixString</span></div>
+<div class="line"><span class="lineno"> 1366</span><span class="comment">            object.</span></div>
+<div class="line"><span class="lineno"> 1367</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1368</span><span class="comment">    \pre The sum of the sizes of the two FixString objects must be less than the allocated size.</span></div>
+<div class="line"><span class="lineno"> 1369</span><span class="comment">    \pre The allocated size of both FixString objects must be greater than zero.</span></div>
+<div class="line"><span class="lineno"> 1370</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1371</span><span class="comment">    \post A new FixString object is created with the contents of both FixString objects.</span></div>
+<div class="line"><span class="lineno"> 1372</span><span class="comment">  */</span></div>
+<div class="line"><a id="l01373" name="l01373"></a><span class="lineno"> 1373</span>  <span class="keyword">constexpr</span> <span class="keyword">inline</span> <a class="code hl_class" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt;allocatedSize&gt; <a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a8b38d8c05801c3049546deca624603f6">operator</a>+(<span class="keyword">const</span> <a class="code hl_class" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt;allocatedSize&gt; &amp; string) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l01374" name="l01374"></a><span class="lineno"> 1374</span> </div>
+<div class="line"><a id="l01375" name="l01375"></a><span class="lineno"> 1375</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno"> 1376</span><span class="comment">    \brief Concatenates two FixString objects and returns the result.</span></div>
+<div class="line"><span class="lineno"> 1377</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1378</span><span class="comment">    This operator creates a new FixString object by concatenating the current FixString object with another provided</span></div>
+<div class="line"><span class="lineno"> 1379</span><span class="comment">    FixString object. The resulting FixString will contain the contents of both strings, and its size will be the sum of</span></div>
+<div class="line"><span class="lineno"> 1380</span><span class="comment">    the sizes of the two operands.</span></div>
+<div class="line"><span class="lineno"> 1381</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1382</span><span class="comment">    \param string The FixString object to concatenate with the current FixString object.</span></div>
+<div class="line"><span class="lineno"> 1383</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1384</span><span class="comment">    \return A new FixString object representing the concatenation of the current FixString and the provided FixString</span></div>
+<div class="line"><span class="lineno"> 1385</span><span class="comment">            object.</span></div>
+<div class="line"><span class="lineno"> 1386</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1387</span><span class="comment">    \pre The sum of the sizes of the two FixString objects must be less than the allocated size.</span></div>
+<div class="line"><span class="lineno"> 1388</span><span class="comment">    \pre The allocated size of both FixString objects must be greater than zero.</span></div>
+<div class="line"><span class="lineno"> 1389</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1390</span><span class="comment">    \post A new FixString object is created with the contents of both FixString objects.</span></div>
+<div class="line"><span class="lineno"> 1391</span><span class="comment">  */</span></div>
+<div class="line"><a id="l01392" name="l01392"></a><span class="lineno"> 1392</span>  <span class="keyword">template</span> &lt;std::size_t allocatedSize2&gt;</div>
+<div class="line"><a id="l01393" name="l01393"></a><span class="lineno"> 1393</span>  <span class="keyword">constexpr</span> <span class="keyword">inline</span> <a class="code hl_class" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt;allocatedSize&gt; <a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#acfd87c7f6691db88371226fada149007">operator</a>+(<span class="keyword">const</span> <a class="code hl_class" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt;allocatedSize2&gt; &amp; string) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l01394" name="l01394"></a><span class="lineno"> 1394</span> </div>
+<div class="line"><a id="l01395" name="l01395"></a><span class="lineno"> 1395</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno"> 1396</span><span class="comment">    \brief Concatenates two strings and returns the result.</span></div>
+<div class="line"><span class="lineno"> 1397</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1398</span><span class="comment">    This operator creates a new FixString object by concatenating the current FixString object with a C string. The</span></div>
+<div class="line"><span class="lineno"> 1399</span><span class="comment">    resulting FixString will contain the contents of both strings, and its size will be the sum of the sizes of the two</span></div>
+<div class="line"><span class="lineno"> 1400</span><span class="comment">    operands.</span></div>
+<div class="line"><span class="lineno"> 1401</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1402</span><span class="comment">    \param string The C string to concatenate with the current FixString object.</span></div>
+<div class="line"><span class="lineno"> 1403</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1404</span><span class="comment">    \return A new FixString object representing the concatenation of the current FixString and the provided C string.</span></div>
+<div class="line"><span class="lineno"> 1405</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1406</span><span class="comment">    \pre The sum of the sizes of the two strings must be less than the allocated size.</span></div>
+<div class="line"><span class="lineno"> 1407</span><span class="comment">    \pre The allocated size must be greater than zero.</span></div>
+<div class="line"><span class="lineno"> 1408</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1409</span><span class="comment">    \post A new FixString object is created with the contents of both strings.</span></div>
+<div class="line"><span class="lineno"> 1410</span><span class="comment">  */</span></div>
+<div class="line"><a id="l01411" name="l01411"></a><span class="lineno"> 1411</span>  <span class="keyword">constexpr</span> <span class="keyword">inline</span> <a class="code hl_class" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt;allocatedSize&gt; <a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a787e3bf69bb88b9900559ee6696dd92d">operator</a>+(<span class="keyword">const</span> <span class="keywordtype">char</span> * string) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l01412" name="l01412"></a><span class="lineno"> 1412</span> </div>
+<div class="line"><a id="l01413" name="l01413"></a><span class="lineno"> 1413</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno"> 1414</span><span class="comment">    \brief Concatenates this FixString object with a character.</span></div>
 <div class="line"><span class="lineno"> 1415</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1416</span><span class="comment">    \pre The \a position must be less than or equal to the string size.</span></div>
-<div class="line"><span class="lineno"> 1417</span><span class="comment">    \pre The \a data must not be null.</span></div>
-<div class="line"><span class="lineno"> 1418</span><span class="comment">  */</span></div>
-<div class="line"><a id="l01419" name="l01419"></a><span class="lineno"> 1419</span>  <span class="keyword">constexpr</span> <span class="keyword">inline</span> std::size_t <a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a295de4ea0b396231c18e1b973b8d77e4">_find_raw</a>(std::size_t position, <span class="keyword">const</span> <span class="keywordtype">char</span> * data, std::size_t dataSize) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l01420" name="l01420"></a><span class="lineno"> 1420</span> </div>
-<div class="line"><a id="l01421" name="l01421"></a><span class="lineno"> 1421</span>  <span class="comment">/*!</span></div>
-<div class="line"><span class="lineno"> 1422</span><span class="comment">    \brief Helper method for finding \a data in the string backwards.</span></div>
-<div class="line"><span class="lineno"> 1423</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1424</span><span class="comment">    This private method performs the common reverse search logic used by all rfind methods. It searches for the</span></div>
-<div class="line"><span class="lineno"> 1425</span><span class="comment">    specified \a data starting from the given \a position and searching backwards.</span></div>
-<div class="line"><span class="lineno"> 1426</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1427</span><span class="comment">    \param position The position to start searching from.</span></div>
-<div class="line"><span class="lineno"> 1428</span><span class="comment">    \param data     The data to search for.</span></div>
-<div class="line"><span class="lineno"> 1429</span><span class="comment">    \param dataSize The size of the data to search for.</span></div>
-<div class="line"><span class="lineno"> 1430</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1431</span><span class="comment">    \return The position of the last occurrence of \a data, or \ref npos if not found.</span></div>
-<div class="line"><span class="lineno"> 1432</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 1433</span><span class="comment">    \pre If \a position is not \ref npos, it must be less than or equal to the string size.</span></div>
-<div class="line"><span class="lineno"> 1434</span><span class="comment">    \pre The \a data must not be null.</span></div>
-<div class="line"><span class="lineno"> 1435</span><span class="comment">  */</span></div>
-<div class="line"><a id="l01436" name="l01436"></a><span class="lineno"> 1436</span>  <span class="keyword">constexpr</span> <span class="keyword">inline</span> std::size_t <a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a0e7c5e776b5e9f13efd49b23378cc5f6">_rfind_raw</a>(std::size_t position, <span class="keyword">const</span> <span class="keywordtype">char</span> * data, std::size_t dataSize) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l01437" name="l01437"></a><span class="lineno"> 1437</span> </div>
-<div class="line"><a id="l01438" name="l01438"></a><span class="lineno"><a class="line" href="../../da/d4a/classtoygine_1_1_fix_string.html#aefd61568e3d5a4812f208bb45358d4ff"> 1438</a></span>  <span class="keywordtype">char</span> <a class="code hl_variable" href="../../da/d4a/classtoygine_1_1_fix_string.html#aefd61568e3d5a4812f208bb45358d4ff">_data</a>[allocatedSize];</div>
-<div class="line"><a id="l01439" name="l01439"></a><span class="lineno"><a class="line" href="../../da/d4a/classtoygine_1_1_fix_string.html#a9166a4498452706474ce05840e67e660"> 1439</a></span>  std::size_t <a class="code hl_variable" href="../../da/d4a/classtoygine_1_1_fix_string.html#a9166a4498452706474ce05840e67e660">_size</a>;</div>
-<div class="line"><a id="l01440" name="l01440"></a><span class="lineno"> 1440</span>};</div>
+<div class="line"><span class="lineno"> 1416</span><span class="comment">    This operator adds a character to the end of the FixString object and returns the new FixString object.</span></div>
+<div class="line"><span class="lineno"> 1417</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1418</span><span class="comment">    \param symbol The character to add to the end of the FixString object.</span></div>
+<div class="line"><span class="lineno"> 1419</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1420</span><span class="comment">    \pre The allocated size of the FixString object must be greater than zero.</span></div>
+<div class="line"><span class="lineno"> 1421</span><span class="comment">    \pre The size of the FixString object plus one must be less than the allocated size.</span></div>
+<div class="line"><span class="lineno"> 1422</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1423</span><span class="comment">    \post A new FixString object is created with the contents of the original FixString object plus the given character.</span></div>
+<div class="line"><span class="lineno"> 1424</span><span class="comment">  */</span></div>
+<div class="line"><a id="l01425" name="l01425"></a><span class="lineno"> 1425</span>  <span class="keyword">constexpr</span> <span class="keyword">inline</span> <a class="code hl_class" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt;allocatedSize&gt; <a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a685dae072f1fee75fd2e0a2fb629a299">operator</a>+(<span class="keywordtype">char</span> symbol) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l01426" name="l01426"></a><span class="lineno"> 1426</span> </div>
+<div class="line"><a id="l01427" name="l01427"></a><span class="lineno"><a class="line" href="../../da/d4a/classtoygine_1_1_fix_string.html#a79044e138bb62795eaa69202361b0c1c"> 1427</a></span>  <span class="keyword">static</span> <span class="keyword">const</span> std::size_t <a class="code hl_variable" href="../../da/d4a/classtoygine_1_1_fix_string.html#a79044e138bb62795eaa69202361b0c1c">npos</a> = SIZE_MAX;</div>
+<div class="line"><a id="l01428" name="l01428"></a><span class="lineno"> 1428</span> </div>
+<div class="line"><a id="l01429" name="l01429"></a><span class="lineno"> 1429</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l01430" name="l01430"></a><span class="lineno"> 1430</span>  <span class="keyword">static_assert</span>(allocatedSize &gt; 0, <span class="stringliteral">&quot;FixString capacity must be greater than zero.&quot;</span>);</div>
+<div class="line"><a id="l01431" name="l01431"></a><span class="lineno"> 1431</span> </div>
+<div class="line"><a id="l01432" name="l01432"></a><span class="lineno"> 1432</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno"> 1433</span><span class="comment">    \brief Helper method for inserting \a data at a specific \a position.</span></div>
+<div class="line"><span class="lineno"> 1434</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1435</span><span class="comment">    This private method performs the common insertion logic used by all insert methods. It shifts existing data to the</span></div>
+<div class="line"><span class="lineno"> 1436</span><span class="comment">    right and inserts new \a data at the specified position.</span></div>
+<div class="line"><span class="lineno"> 1437</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1438</span><span class="comment">    \param position The position where to insert the data.</span></div>
+<div class="line"><span class="lineno"> 1439</span><span class="comment">    \param data     The data to insert.</span></div>
+<div class="line"><span class="lineno"> 1440</span><span class="comment">    \param dataSize The size of the data to insert.</span></div>
+<div class="line"><span class="lineno"> 1441</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1442</span><span class="comment">    \pre The \a position must be within the bounds of the current string.</span></div>
+<div class="line"><span class="lineno"> 1443</span><span class="comment">    \pre The \a data must not be null.</span></div>
+<div class="line"><span class="lineno"> 1444</span><span class="comment">    \pre The combined length after insertion must not exceed the allocated capacity.</span></div>
+<div class="line"><span class="lineno"> 1445</span><span class="comment">  */</span></div>
+<div class="line"><a id="l01446" name="l01446"></a><span class="lineno"> 1446</span>  <span class="keyword">constexpr</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a4c5050096754ce8ef390dac52954cf10">_insert_raw</a>(std::size_t position, <span class="keyword">const</span> <span class="keywordtype">char</span> * data, std::size_t dataSize) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l01447" name="l01447"></a><span class="lineno"> 1447</span> </div>
+<div class="line"><a id="l01448" name="l01448"></a><span class="lineno"> 1448</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno"> 1449</span><span class="comment">    \brief Helper method for appending \a data to the end of the string.</span></div>
+<div class="line"><span class="lineno"> 1450</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1451</span><span class="comment">    This private method performs the common append logic used by all append methods. It copies new \a data to the end of</span></div>
+<div class="line"><span class="lineno"> 1452</span><span class="comment">    the string and updates the size accordingly.</span></div>
+<div class="line"><span class="lineno"> 1453</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1454</span><span class="comment">    \param data     The data to append.</span></div>
+<div class="line"><span class="lineno"> 1455</span><span class="comment">    \param dataSize The size of the data to append.</span></div>
+<div class="line"><span class="lineno"> 1456</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1457</span><span class="comment">    \pre The \a data must not be null.</span></div>
+<div class="line"><span class="lineno"> 1458</span><span class="comment">    \pre The combined length after appending must not exceed the allocated capacity.</span></div>
+<div class="line"><span class="lineno"> 1459</span><span class="comment">  */</span></div>
+<div class="line"><a id="l01460" name="l01460"></a><span class="lineno"> 1460</span>  <span class="keyword">constexpr</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a57a1732395b1798291e591261c9643a6">_append_raw</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> * data, std::size_t dataSize) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l01461" name="l01461"></a><span class="lineno"> 1461</span> </div>
+<div class="line"><a id="l01462" name="l01462"></a><span class="lineno"> 1462</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno"> 1463</span><span class="comment">    \brief Helper method for replacing data at a specific \a position.</span></div>
+<div class="line"><span class="lineno"> 1464</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1465</span><span class="comment">    This private method performs the common replacement logic used by all replace methods. It handles the shifting of</span></div>
+<div class="line"><span class="lineno"> 1466</span><span class="comment">    existing data and insertion of new \a data at the specified \a position.</span></div>
+<div class="line"><span class="lineno"> 1467</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1468</span><span class="comment">    \param position The position where to replace the data.</span></div>
+<div class="line"><span class="lineno"> 1469</span><span class="comment">    \param oldCount The number of characters to replace.</span></div>
+<div class="line"><span class="lineno"> 1470</span><span class="comment">    \param data     The new data to insert.</span></div>
+<div class="line"><span class="lineno"> 1471</span><span class="comment">    \param dataSize The size of the new data.</span></div>
+<div class="line"><span class="lineno"> 1472</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1473</span><span class="comment">    \pre The \a position must be within the bounds of the current string.</span></div>
+<div class="line"><span class="lineno"> 1474</span><span class="comment">    \pre The \a data must not be null.</span></div>
+<div class="line"><span class="lineno"> 1475</span><span class="comment">    \pre The replacement range must be within string bounds.</span></div>
+<div class="line"><span class="lineno"> 1476</span><span class="comment">    \pre The resulting string size must not exceed the allocated capacity.</span></div>
+<div class="line"><span class="lineno"> 1477</span><span class="comment">  */</span></div>
+<div class="line"><a id="l01478" name="l01478"></a><span class="lineno"> 1478</span>  <span class="keyword">constexpr</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#ae3a7d0bb6fcd3144e99ccc75c1604231">_replace_raw</a>(std::size_t position, std::size_t oldCount, <span class="keyword">const</span> <span class="keywordtype">char</span> * data,</div>
+<div class="line"><a id="l01479" name="l01479"></a><span class="lineno"> 1479</span>                                     std::size_t dataSize) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l01480" name="l01480"></a><span class="lineno"> 1480</span> </div>
+<div class="line"><a id="l01481" name="l01481"></a><span class="lineno"> 1481</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno"> 1482</span><span class="comment">    \brief Helper method for finding \a data in the string.</span></div>
+<div class="line"><span class="lineno"> 1483</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1484</span><span class="comment">    This private method performs the common search logic used by all find methods. It searches for the specified \a data</span></div>
+<div class="line"><span class="lineno"> 1485</span><span class="comment">    starting from the given \a position.</span></div>
+<div class="line"><span class="lineno"> 1486</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1487</span><span class="comment">    \param position The position to start searching from.</span></div>
+<div class="line"><span class="lineno"> 1488</span><span class="comment">    \param data     The data to search for.</span></div>
+<div class="line"><span class="lineno"> 1489</span><span class="comment">    \param dataSize The size of the data to search for.</span></div>
+<div class="line"><span class="lineno"> 1490</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1491</span><span class="comment">    \return The position of the first occurrence of \a data, or \ref npos if not found.</span></div>
+<div class="line"><span class="lineno"> 1492</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1493</span><span class="comment">    \pre The \a position must be less than or equal to the string size.</span></div>
+<div class="line"><span class="lineno"> 1494</span><span class="comment">    \pre The \a data must not be null.</span></div>
+<div class="line"><span class="lineno"> 1495</span><span class="comment">  */</span></div>
+<div class="line"><a id="l01496" name="l01496"></a><span class="lineno"> 1496</span>  <span class="keyword">constexpr</span> <span class="keyword">inline</span> std::size_t <a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a295de4ea0b396231c18e1b973b8d77e4">_find_raw</a>(std::size_t position, <span class="keyword">const</span> <span class="keywordtype">char</span> * data, std::size_t dataSize) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l01497" name="l01497"></a><span class="lineno"> 1497</span> </div>
+<div class="line"><a id="l01498" name="l01498"></a><span class="lineno"> 1498</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno"> 1499</span><span class="comment">    \brief Helper method for finding \a data in the string backwards.</span></div>
+<div class="line"><span class="lineno"> 1500</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1501</span><span class="comment">    This private method performs the common reverse search logic used by all rfind methods. It searches for the</span></div>
+<div class="line"><span class="lineno"> 1502</span><span class="comment">    specified \a data starting from the given \a position and searching backwards.</span></div>
+<div class="line"><span class="lineno"> 1503</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1504</span><span class="comment">    \param position The position to start searching from.</span></div>
+<div class="line"><span class="lineno"> 1505</span><span class="comment">    \param data     The data to search for.</span></div>
+<div class="line"><span class="lineno"> 1506</span><span class="comment">    \param dataSize The size of the data to search for.</span></div>
+<div class="line"><span class="lineno"> 1507</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1508</span><span class="comment">    \return The position of the last occurrence of \a data, or \ref npos if not found.</span></div>
+<div class="line"><span class="lineno"> 1509</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1510</span><span class="comment">    \pre If \a position is not \ref npos, it must be less than or equal to the string size.</span></div>
+<div class="line"><span class="lineno"> 1511</span><span class="comment">    \pre The \a data must not be null.</span></div>
+<div class="line"><span class="lineno"> 1512</span><span class="comment">  */</span></div>
+<div class="line"><a id="l01513" name="l01513"></a><span class="lineno"> 1513</span>  <span class="keyword">constexpr</span> <span class="keyword">inline</span> std::size_t <a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a0e7c5e776b5e9f13efd49b23378cc5f6">_rfind_raw</a>(std::size_t position, <span class="keyword">const</span> <span class="keywordtype">char</span> * data, std::size_t dataSize) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l01514" name="l01514"></a><span class="lineno"> 1514</span> </div>
+<div class="line"><a id="l01515" name="l01515"></a><span class="lineno"> 1515</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno"> 1516</span><span class="comment">    \brief Helper method for finding the first occurrence of any character from \a data.</span></div>
+<div class="line"><span class="lineno"> 1517</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1518</span><span class="comment">    This private method performs the common search logic used by all find_first_of methods. It searches for the first</span></div>
+<div class="line"><span class="lineno"> 1519</span><span class="comment">    occurrence of any character from the specified \a data starting from the given \a position.</span></div>
+<div class="line"><span class="lineno"> 1520</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1521</span><span class="comment">    \param position The position to start searching from.</span></div>
+<div class="line"><span class="lineno"> 1522</span><span class="comment">    \param data     The data containing characters to search for.</span></div>
+<div class="line"><span class="lineno"> 1523</span><span class="comment">    \param dataSize The size of the data containing characters to search for.</span></div>
+<div class="line"><span class="lineno"> 1524</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1525</span><span class="comment">    \return The position of the first occurrence of any character from \a data, or \ref npos if not found.</span></div>
+<div class="line"><span class="lineno"> 1526</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 1527</span><span class="comment">    \pre The \a position must be less than or equal to the string size.</span></div>
+<div class="line"><span class="lineno"> 1528</span><span class="comment">    \pre The \a data must not be null.</span></div>
+<div class="line"><span class="lineno"> 1529</span><span class="comment">  */</span></div>
+<div class="line"><a id="l01530" name="l01530"></a><span class="lineno"> 1530</span>  <span class="keyword">constexpr</span> <span class="keyword">inline</span> std::size_t <a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a18578857b44d0ac8ac7b5d6ed988c3ad">_find_first_of_raw</a>(std::size_t position, <span class="keyword">const</span> <span class="keywordtype">char</span> * data,</div>
+<div class="line"><a id="l01531" name="l01531"></a><span class="lineno"> 1531</span>                                                  std::size_t dataSize) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l01532" name="l01532"></a><span class="lineno"> 1532</span> </div>
+<div class="line"><a id="l01533" name="l01533"></a><span class="lineno"><a class="line" href="../../da/d4a/classtoygine_1_1_fix_string.html#aefd61568e3d5a4812f208bb45358d4ff"> 1533</a></span>  <span class="keywordtype">char</span> <a class="code hl_variable" href="../../da/d4a/classtoygine_1_1_fix_string.html#aefd61568e3d5a4812f208bb45358d4ff">_data</a>[allocatedSize];</div>
+<div class="line"><a id="l01534" name="l01534"></a><span class="lineno"><a class="line" href="../../da/d4a/classtoygine_1_1_fix_string.html#a9166a4498452706474ce05840e67e660"> 1534</a></span>  std::size_t <a class="code hl_variable" href="../../da/d4a/classtoygine_1_1_fix_string.html#a9166a4498452706474ce05840e67e660">_size</a>;</div>
+<div class="line"><a id="l01535" name="l01535"></a><span class="lineno"> 1535</span>};</div>
 </div>
-<div class="line"><a id="l01441" name="l01441"></a><span class="lineno"> 1441</span> </div>
-<div class="line"><a id="l01442" name="l01442"></a><span class="lineno"> 1442</span>} <span class="comment">// namespace toygine</span></div>
-<div class="line"><a id="l01443" name="l01443"></a><span class="lineno"> 1443</span> </div>
-<div class="line"><a id="l01444" name="l01444"></a><span class="lineno"> 1444</span><span class="preprocessor">#</span><span class="preprocessor">endif</span> <span class="comment">// INCLUDE_CORE_FIX_STRING_HPP_</span></div>
+<div class="line"><a id="l01536" name="l01536"></a><span class="lineno"> 1536</span> </div>
+<div class="line"><a id="l01537" name="l01537"></a><span class="lineno"> 1537</span>} <span class="comment">// namespace toygine</span></div>
+<div class="line"><a id="l01538" name="l01538"></a><span class="lineno"> 1538</span> </div>
+<div class="line"><a id="l01539" name="l01539"></a><span class="lineno"> 1539</span><span class="preprocessor">#</span><span class="preprocessor">endif</span> <span class="comment">// INCLUDE_CORE_FIX_STRING_HPP_</span></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html">toygine::FixString</a></div><div class="ttdef"><b>Definition</b> fix_string.hpp:31</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_a04800c975b675cf647fa2382e072cb84"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a04800c975b675cf647fa2382e072cb84">toygine::FixString::insert</a></div><div class="ttdeci">constexpr FixString&lt; allocatedSize &gt; &amp; insert(std::size_t index, const char *string) noexcept</div><div class="ttdoc">Inserts the C string at the specified index.</div><div class="ttdef"><b>Definition</b> fix_string.inl:307</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_a059bec2e7a47960f231005a1c17da11a"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a059bec2e7a47960f231005a1c17da11a">toygine::FixString::pop_back</a></div><div class="ttdeci">constexpr void pop_back() noexcept</div><div class="ttdoc">Removes the last character from the string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:367</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_a064ab40f2c33f7e509f02080ddb110d2"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a064ab40f2c33f7e509f02080ddb110d2">toygine::FixString::insert</a></div><div class="ttdeci">constexpr FixString&lt; allocatedSize &gt; &amp; insert(std::size_t index, char character, std::size_t count=1) noexcept</div><div class="ttdoc">Inserts a character repeated the given count times at the specified index.</div><div class="ttdef"><b>Definition</b> fix_string.inl:317</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_a0b6b382330a95a58dd34355003fcb695"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a0b6b382330a95a58dd34355003fcb695">toygine::FixString::replace</a></div><div class="ttdeci">constexpr FixString&lt; allocatedSize &gt; &amp; replace(std::size_t pos, std::size_t count, const stringType &amp;string) noexcept</div><div class="ttdoc">Replaces a portion of the string with a StringLike object.</div><div class="ttdef"><b>Definition</b> fix_string.inl:482</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_a0df68e69ed62e422e5545e4d3504588f"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a0df68e69ed62e422e5545e4d3504588f">toygine::FixString::utf8_pop_back</a></div><div class="ttdeci">constexpr void utf8_pop_back() noexcept</div><div class="ttdoc">Removes the last UTF-8 encoded character from the string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:375</div></div>
-<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a0e7c5e776b5e9f13efd49b23378cc5f6"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a0e7c5e776b5e9f13efd49b23378cc5f6">toygine::FixString::_rfind_raw</a></div><div class="ttdeci">constexpr std::size_t _rfind_raw(std::size_t position, const char *data, std::size_t dataSize) const noexcept</div><div class="ttdoc">Helper method for finding data in the string backwards.</div><div class="ttdef"><b>Definition</b> fix_string.inl:801</div></div>
+<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a0e7c5e776b5e9f13efd49b23378cc5f6"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a0e7c5e776b5e9f13efd49b23378cc5f6">toygine::FixString::_rfind_raw</a></div><div class="ttdeci">constexpr std::size_t _rfind_raw(std::size_t position, const char *data, std::size_t dataSize) const noexcept</div><div class="ttdoc">Helper method for finding data in the string backwards.</div><div class="ttdef"><b>Definition</b> fix_string.inl:828</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_a143c96670a065101ee3c32ba341a129d"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a143c96670a065101ee3c32ba341a129d">toygine::FixString::utf8_size</a></div><div class="ttdeci">constexpr std::size_t utf8_size() const noexcept</div><div class="ttdoc">Returns the size of the Unicode string in UTF-8 encoding.</div><div class="ttdef"><b>Definition</b> fix_string.inl:264</div></div>
+<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a18578857b44d0ac8ac7b5d6ed988c3ad"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a18578857b44d0ac8ac7b5d6ed988c3ad">toygine::FixString::_find_first_of_raw</a></div><div class="ttdeci">constexpr std::size_t _find_first_of_raw(std::size_t position, const char *data, std::size_t dataSize) const noexcept</div><div class="ttdoc">Helper method for finding the first occurrence of any character from data.</div><div class="ttdef"><b>Definition</b> fix_string.inl:850</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_a19b33a7083145851899dd07d183d6747"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a19b33a7083145851899dd07d183d6747">toygine::FixString::assign</a></div><div class="ttdeci">constexpr FixString&lt; allocatedSize &gt; &amp; assign(const char *string) noexcept</div><div class="ttdoc">Copy assigns the C string to this string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:155</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_a1bf2a0caa686d3229c47d268e898b25b"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a1bf2a0caa686d3229c47d268e898b25b">toygine::FixString::assign</a></div><div class="ttdeci">constexpr FixString&lt; allocatedSize &gt; &amp; assign(const FixString&lt; allocatedSize &gt; &amp;string) noexcept</div><div class="ttdoc">Copy assigns other string to this string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:126</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_a2178464b91a302a8e2bcd40644ae377e"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a2178464b91a302a8e2bcd40644ae377e">toygine::FixString::operator+=</a></div><div class="ttdeci">constexpr FixString&lt; allocatedSize &gt; &amp; operator+=(const char *string) noexcept</div><div class="ttdoc">Appends the C string to the end of this string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:453</div></div>
-<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a293882f4c66471c2e6fac318e849619d"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a293882f4c66471c2e6fac318e849619d">toygine::FixString::ends_with</a></div><div class="ttdeci">constexpr bool ends_with(const char *string) const noexcept</div><div class="ttdoc">Checks if the string ends with the C string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:666</div></div>
-<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a293a69e4ef19a7b3b23a885c9d827fa7"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a293a69e4ef19a7b3b23a885c9d827fa7">toygine::FixString::compare</a></div><div class="ttdeci">constexpr int compare(const char *string) const noexcept</div><div class="ttdoc">Compares this string with the C string lexicographically.</div><div class="ttdef"><b>Definition</b> fix_string.inl:623</div></div>
-<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a295de4ea0b396231c18e1b973b8d77e4"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a295de4ea0b396231c18e1b973b8d77e4">toygine::FixString::_find_raw</a></div><div class="ttdeci">constexpr std::size_t _find_raw(std::size_t position, const char *data, std::size_t dataSize) const noexcept</div><div class="ttdoc">Helper method for finding data in the string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:785</div></div>
-<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a325d58976041ad713f27dbc5ac77de86"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a325d58976041ad713f27dbc5ac77de86">toygine::FixString::ends_with</a></div><div class="ttdeci">constexpr bool ends_with(const FixString&lt; allocatedSize &gt; &amp;string) const noexcept</div><div class="ttdoc">Checks if the string ends with the specified string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:655</div></div>
+<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a293882f4c66471c2e6fac318e849619d"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a293882f4c66471c2e6fac318e849619d">toygine::FixString::ends_with</a></div><div class="ttdeci">constexpr bool ends_with(const char *string) const noexcept</div><div class="ttdoc">Checks if the string ends with the C string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:693</div></div>
+<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a293a69e4ef19a7b3b23a885c9d827fa7"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a293a69e4ef19a7b3b23a885c9d827fa7">toygine::FixString::compare</a></div><div class="ttdeci">constexpr int compare(const char *string) const noexcept</div><div class="ttdoc">Compares this string with the C string lexicographically.</div><div class="ttdef"><b>Definition</b> fix_string.inl:650</div></div>
+<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a295de4ea0b396231c18e1b973b8d77e4"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a295de4ea0b396231c18e1b973b8d77e4">toygine::FixString::_find_raw</a></div><div class="ttdeci">constexpr std::size_t _find_raw(std::size_t position, const char *data, std::size_t dataSize) const noexcept</div><div class="ttdoc">Helper method for finding data in the string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:812</div></div>
+<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a325d58976041ad713f27dbc5ac77de86"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a325d58976041ad713f27dbc5ac77de86">toygine::FixString::ends_with</a></div><div class="ttdeci">constexpr bool ends_with(const FixString&lt; allocatedSize &gt; &amp;string) const noexcept</div><div class="ttdoc">Checks if the string ends with the specified string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:682</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_a332c2ea1b05da7bbed29030d8aaa91f7"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a332c2ea1b05da7bbed29030d8aaa91f7">toygine::FixString::operator=</a></div><div class="ttdeci">constexpr FixString&lt; allocatedSize &gt; &amp; operator=(const char *string) noexcept</div><div class="ttdoc">Copy assigns the C string to this string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:99</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_a36ed81932875424fcdcb56e3682aa430"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a36ed81932875424fcdcb56e3682aa430">toygine::FixString::find</a></div><div class="ttdeci">constexpr std::size_t find(const char *string, std::size_t position=0) const noexcept</div><div class="ttdoc">Finds the first occurrence of the C string in the string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:575</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_a374e5883fdaf67dc9ae97b9185abd8be"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a374e5883fdaf67dc9ae97b9185abd8be">toygine::FixString::FixString</a></div><div class="ttdeci">constexpr FixString() noexcept</div><div class="ttdoc">Default constructor.</div><div class="ttdef"><b>Definition</b> fix_string.inl:30</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_a393b09ba7551a3dcfa43363f1079cd05"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a393b09ba7551a3dcfa43363f1079cd05">toygine::FixString::insert</a></div><div class="ttdeci">constexpr FixString&lt; allocatedSize &gt; &amp; insert(std::size_t index, const FixString&lt; allocatedSize &gt; &amp;string) noexcept</div><div class="ttdoc">Inserts other string at the specified index.</div><div class="ttdef"><b>Definition</b> fix_string.inl:290</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_a40df88e6213a3b7efa2ca9f486736100"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a40df88e6213a3b7efa2ca9f486736100">toygine::FixString::rfind</a></div><div class="ttdeci">constexpr std::size_t rfind(const char *string, std::size_t position=npos) const noexcept</div><div class="ttdoc">Finds the last occurrence of the C string in the string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:600</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_a4359ccf084f121a120a990edc2449ee5"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a4359ccf084f121a120a990edc2449ee5">toygine::FixString::replace</a></div><div class="ttdeci">constexpr FixString&lt; allocatedSize &gt; &amp; replace(std::size_t pos, std::size_t count, char character, std::size_t charactersCount=1) noexcept</div><div class="ttdoc">Replaces a portion of the string with a character repeated the given count of times.</div><div class="ttdef"><b>Definition</b> fix_string.inl:500</div></div>
-<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a481a6eeab7d7a08448d8e34586d9f132"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a481a6eeab7d7a08448d8e34586d9f132">toygine::FixString::starts_with</a></div><div class="ttdeci">constexpr bool starts_with(char character) const noexcept</div><div class="ttdoc">Checks if the string starts with the specified character.</div><div class="ttdef"><b>Definition</b> fix_string.inl:650</div></div>
+<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a481a6eeab7d7a08448d8e34586d9f132"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a481a6eeab7d7a08448d8e34586d9f132">toygine::FixString::starts_with</a></div><div class="ttdeci">constexpr bool starts_with(char character) const noexcept</div><div class="ttdoc">Checks if the string starts with the specified character.</div><div class="ttdef"><b>Definition</b> fix_string.inl:677</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_a4bfb46d0dff96f8a9ddef792f0e89945"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a4bfb46d0dff96f8a9ddef792f0e89945">toygine::FixString::front</a></div><div class="ttdeci">constexpr const char &amp; front() const noexcept</div><div class="ttdoc">Returns a const reference to the first character of the string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:218</div></div>
-<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a4c5050096754ce8ef390dac52954cf10"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a4c5050096754ce8ef390dac52954cf10">toygine::FixString::_insert_raw</a></div><div class="ttdeci">constexpr void _insert_raw(std::size_t position, const char *data, std::size_t dataSize) noexcept</div><div class="ttdoc">Helper method for inserting data at a specific position.</div><div class="ttdef"><b>Definition</b> fix_string.inl:718</div></div>
-<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a4d186283e857b472d2e025964aacb1b6"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a4d186283e857b472d2e025964aacb1b6">toygine::FixString::starts_with</a></div><div class="ttdeci">constexpr bool starts_with(const char *string) const noexcept</div><div class="ttdoc">Checks if the string starts with the specified C string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:641</div></div>
-<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a57a1732395b1798291e591261c9643a6"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a57a1732395b1798291e591261c9643a6">toygine::FixString::_append_raw</a></div><div class="ttdeci">constexpr void _append_raw(const char *data, std::size_t dataSize) noexcept</div><div class="ttdoc">Helper method for appending data to the end of the string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:741</div></div>
+<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a4c5050096754ce8ef390dac52954cf10"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a4c5050096754ce8ef390dac52954cf10">toygine::FixString::_insert_raw</a></div><div class="ttdeci">constexpr void _insert_raw(std::size_t position, const char *data, std::size_t dataSize) noexcept</div><div class="ttdoc">Helper method for inserting data at a specific position.</div><div class="ttdef"><b>Definition</b> fix_string.inl:745</div></div>
+<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a4d186283e857b472d2e025964aacb1b6"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a4d186283e857b472d2e025964aacb1b6">toygine::FixString::starts_with</a></div><div class="ttdeci">constexpr bool starts_with(const char *string) const noexcept</div><div class="ttdoc">Checks if the string starts with the specified C string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:668</div></div>
+<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a57a1732395b1798291e591261c9643a6"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a57a1732395b1798291e591261c9643a6">toygine::FixString::_append_raw</a></div><div class="ttdeci">constexpr void _append_raw(const char *data, std::size_t dataSize) noexcept</div><div class="ttdoc">Helper method for appending data to the end of the string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:768</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_a5aa575e5c7aae6e2f2be299e387ad261"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a5aa575e5c7aae6e2f2be299e387ad261">toygine::FixString::back</a></div><div class="ttdeci">constexpr const char &amp; back() const noexcept</div><div class="ttdoc">Returns a const reference to the last character of the string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:232</div></div>
-<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a5b62df7ec9066a5d6a9539f5f0060c27"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a5b62df7ec9066a5d6a9539f5f0060c27">toygine::FixString::ends_with</a></div><div class="ttdeci">constexpr bool ends_with(const stringType &amp;string) const noexcept</div><div class="ttdoc">Checks if the string ends with a StringLike object.</div><div class="ttdef"><b>Definition</b> fix_string.inl:661</div></div>
+<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a5b62df7ec9066a5d6a9539f5f0060c27"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a5b62df7ec9066a5d6a9539f5f0060c27">toygine::FixString::ends_with</a></div><div class="ttdeci">constexpr bool ends_with(const stringType &amp;string) const noexcept</div><div class="ttdoc">Checks if the string ends with a StringLike object.</div><div class="ttdef"><b>Definition</b> fix_string.inl:688</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_a5c4bb16ccd66d9c2e1d2d5c7ac01571d"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a5c4bb16ccd66d9c2e1d2d5c7ac01571d">toygine::FixString::clear</a></div><div class="ttdeci">constexpr void clear() noexcept</div><div class="ttdoc">Clears the contents of the string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:284</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_a5d50ca47d782fc6a678859d77ee83248"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a5d50ca47d782fc6a678859d77ee83248">toygine::FixString::swap</a></div><div class="ttdeci">constexpr void swap(FixString&lt; allocatedSize &gt; &amp;string) noexcept</div><div class="ttdoc">Swaps the contents of this string with another string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:549</div></div>
-<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a685dae072f1fee75fd2e0a2fb629a299"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a685dae072f1fee75fd2e0a2fb629a299">toygine::FixString::operator+</a></div><div class="ttdeci">constexpr FixString&lt; allocatedSize &gt; operator+(char symbol) const noexcept</div><div class="ttdoc">Concatenates this FixString object with a character.</div><div class="ttdef"><b>Definition</b> fix_string.inl:711</div></div>
+<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a65a1d1215088d1e4c8a358c5590a2c5a"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a65a1d1215088d1e4c8a358c5590a2c5a">toygine::FixString::find_first_of</a></div><div class="ttdeci">constexpr std::size_t find_first_of(const char *string, std::size_t position=0) const noexcept</div><div class="ttdoc">Finds the first occurrence of any character from the C string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:625</div></div>
+<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a685dae072f1fee75fd2e0a2fb629a299"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a685dae072f1fee75fd2e0a2fb629a299">toygine::FixString::operator+</a></div><div class="ttdeci">constexpr FixString&lt; allocatedSize &gt; operator+(char symbol) const noexcept</div><div class="ttdoc">Concatenates this FixString object with a character.</div><div class="ttdef"><b>Definition</b> fix_string.inl:738</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_a6ad63ec3d9c555a7ea871d984e6fe3ae"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a6ad63ec3d9c555a7ea871d984e6fe3ae">toygine::FixString::~FixString</a></div><div class="ttdeci">~FixString() noexcept</div><div class="ttdoc">Destructor for the string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:35</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_a6b17bc52d968a5fb590f7c8a7902576c"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a6b17bc52d968a5fb590f7c8a7902576c">toygine::FixString::erase</a></div><div class="ttdeci">constexpr FixString&lt; allocatedSize &gt; &amp; erase(std::size_t offset, std::size_t count=npos) noexcept</div><div class="ttdoc">Erases characters from the string starting at the specified offset.</div><div class="ttdef"><b>Definition</b> fix_string.inl:340</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_a6b37b55b996754fce48a4acaf1b02006"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a6b37b55b996754fce48a4acaf1b02006">toygine::FixString::rfind</a></div><div class="ttdeci">constexpr std::size_t rfind(const FixString&lt; allocatedSize &gt; &amp;string, std::size_t position=npos) const noexcept</div><div class="ttdoc">Finds the last occurrence of other string in the string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:587</div></div>
@@ -1606,46 +1703,49 @@ $(function(){initNavTree('d0/d46/fix__string_8hpp_source.html','../../'); initRe
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_a7148d4da7b2e6bb4ed337f4ac887acc3"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a7148d4da7b2e6bb4ed337f4ac887acc3">toygine::FixString::assign</a></div><div class="ttdeci">constexpr FixString&lt; allocatedSize &gt; &amp; assign(char character, std::size_t count=1) noexcept</div><div class="ttdoc">Character fill assign method for the string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:171</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_a71ee1e32e3f5bf646c061818be5897ed"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a71ee1e32e3f5bf646c061818be5897ed">toygine::FixString::data</a></div><div class="ttdeci">constexpr const char * data() const noexcept</div><div class="ttdoc">Returns a constant pointer to the data of the string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:244</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_a7572daaca96aea5fa957eaf396b08e97"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a7572daaca96aea5fa957eaf396b08e97">toygine::FixString::capacity</a></div><div class="ttdeci">constexpr std::size_t capacity() const noexcept</div><div class="ttdoc">Returns the capacity of the string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:279</div></div>
-<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a787e3bf69bb88b9900559ee6696dd92d"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a787e3bf69bb88b9900559ee6696dd92d">toygine::FixString::operator+</a></div><div class="ttdeci">constexpr FixString&lt; allocatedSize &gt; operator+(const char *string) const noexcept</div><div class="ttdoc">Concatenates two strings and returns the result.</div><div class="ttdef"><b>Definition</b> fix_string.inl:702</div></div>
-<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a79044e138bb62795eaa69202361b0c1c"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a79044e138bb62795eaa69202361b0c1c">toygine::FixString::npos</a></div><div class="ttdeci">static const std::size_t npos</div><div class="ttdef"><b>Definition</b> fix_string.hpp:1350</div></div>
-<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a7a46a3251062357d8fcef9578785cdcf"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a7a46a3251062357d8fcef9578785cdcf">toygine::FixString::starts_with</a></div><div class="ttdeci">constexpr bool starts_with(const FixString&lt; allocatedSize &gt; &amp;string) const noexcept</div><div class="ttdoc">Checks if the string starts with the specified string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:630</div></div>
+<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a787e3bf69bb88b9900559ee6696dd92d"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a787e3bf69bb88b9900559ee6696dd92d">toygine::FixString::operator+</a></div><div class="ttdeci">constexpr FixString&lt; allocatedSize &gt; operator+(const char *string) const noexcept</div><div class="ttdoc">Concatenates two strings and returns the result.</div><div class="ttdef"><b>Definition</b> fix_string.inl:729</div></div>
+<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a79044e138bb62795eaa69202361b0c1c"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a79044e138bb62795eaa69202361b0c1c">toygine::FixString::npos</a></div><div class="ttdeci">static const std::size_t npos</div><div class="ttdef"><b>Definition</b> fix_string.hpp:1427</div></div>
+<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a7a46a3251062357d8fcef9578785cdcf"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a7a46a3251062357d8fcef9578785cdcf">toygine::FixString::starts_with</a></div><div class="ttdeci">constexpr bool starts_with(const FixString&lt; allocatedSize &gt; &amp;string) const noexcept</div><div class="ttdoc">Checks if the string starts with the specified string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:657</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_a7b3bee37b95cefebb50a655c30cadf70"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a7b3bee37b95cefebb50a655c30cadf70">toygine::FixString::length</a></div><div class="ttdeci">constexpr std::size_t length() const noexcept</div><div class="ttdoc">Returns the size of the string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:269</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_a84f8cacf726e6e25770de748a025bfab"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a84f8cacf726e6e25770de748a025bfab">toygine::FixString::replace</a></div><div class="ttdeci">constexpr FixString&lt; allocatedSize &gt; &amp; replace(std::size_t pos, std::size_t count, const char *string) noexcept</div><div class="ttdoc">Replaces a portion of the string with the C string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:490</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_a86991f7aa084db54ed7c9cba37726ba8"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a86991f7aa084db54ed7c9cba37726ba8">toygine::FixString::operator=</a></div><div class="ttdeci">constexpr FixString&lt; allocatedSize &gt; &amp; operator=(const FixString&lt; allocatedSize &gt; &amp;string) noexcept</div><div class="ttdoc">Copy assigns other string to this string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:73</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_a8829e7646108cb8bdfccf4aeb8a207f2"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a8829e7646108cb8bdfccf4aeb8a207f2">toygine::FixString::operator[]</a></div><div class="ttdeci">constexpr const char &amp; operator[](std::size_t offset) const noexcept</div><div class="ttdoc">Access a character in the string at a given offset.</div><div class="ttdef"><b>Definition</b> fix_string.inl:204</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_a88e33e0b5110f442408c0b506c2953a6"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a88e33e0b5110f442408c0b506c2953a6">toygine::FixString::c_str</a></div><div class="ttdeci">constexpr const char * c_str() const noexcept</div><div class="ttdoc">Returns a constant pointer to the C string representation of this string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:249</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_a8b36c51e682ee1eaa2bcc45dcf9a00bc"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a8b36c51e682ee1eaa2bcc45dcf9a00bc">toygine::FixString::operator[]</a></div><div class="ttdeci">constexpr char &amp; operator[](std::size_t offset) noexcept</div><div class="ttdoc">Access a character in the string at a given offset.</div><div class="ttdef"><b>Definition</b> fix_string.inl:197</div></div>
-<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a8b38d8c05801c3049546deca624603f6"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a8b38d8c05801c3049546deca624603f6">toygine::FixString::operator+</a></div><div class="ttdeci">constexpr FixString&lt; allocatedSize &gt; operator+(const FixString&lt; allocatedSize &gt; &amp;string) const noexcept</div><div class="ttdoc">Concatenates two FixString objects and returns the result.</div><div class="ttdef"><b>Definition</b> fix_string.inl:680</div></div>
+<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a8b38d8c05801c3049546deca624603f6"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a8b38d8c05801c3049546deca624603f6">toygine::FixString::operator+</a></div><div class="ttdeci">constexpr FixString&lt; allocatedSize &gt; operator+(const FixString&lt; allocatedSize &gt; &amp;string) const noexcept</div><div class="ttdoc">Concatenates two FixString objects and returns the result.</div><div class="ttdef"><b>Definition</b> fix_string.inl:707</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_a8fc3f1b01f5865271810f50e1d91e225"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a8fc3f1b01f5865271810f50e1d91e225">toygine::FixString::empty</a></div><div class="ttdeci">constexpr bool empty() const noexcept</div><div class="ttdoc">Checks if the string is empty.</div><div class="ttdef"><b>Definition</b> fix_string.inl:254</div></div>
-<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a9166a4498452706474ce05840e67e660"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a9166a4498452706474ce05840e67e660">toygine::FixString::_size</a></div><div class="ttdeci">std::size_t _size</div><div class="ttdef"><b>Definition</b> fix_string.hpp:1439</div></div>
+<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a9166a4498452706474ce05840e67e660"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a9166a4498452706474ce05840e67e660">toygine::FixString::_size</a></div><div class="ttdeci">std::size_t _size</div><div class="ttdef"><b>Definition</b> fix_string.hpp:1534</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_a9664029faab1f57f4bcb1f168ccea8c6"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a9664029faab1f57f4bcb1f168ccea8c6">toygine::FixString::FixString</a></div><div class="ttdeci">constexpr FixString(const stringType &amp;string) noexcept</div><div class="ttdoc">Constructs a string initialized with a StringLike object.</div><div class="ttdef"><b>Definition</b> fix_string.inl:45</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_a9bd1f0dfe4f7de55b4091e992845e6ca"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a9bd1f0dfe4f7de55b4091e992845e6ca">toygine::FixString::append</a></div><div class="ttdeci">constexpr FixString&lt; allocatedSize &gt; &amp; append(char character, std::size_t count=1) noexcept</div><div class="ttdoc">Appends a character repeated the given count times to the end of this string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:418</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_a9ebfe3be31be5414b83968bd5ed9bb51"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a9ebfe3be31be5414b83968bd5ed9bb51">toygine::FixString::FixString</a></div><div class="ttdeci">constexpr FixString(char character, std::size_t count=1) noexcept</div><div class="ttdoc">Constructs a string of the given count of character.</div><div class="ttdef"><b>Definition</b> fix_string.inl:64</div></div>
-<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a9f67beed78ca7d3e24e654ae6f35a7c4"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a9f67beed78ca7d3e24e654ae6f35a7c4">toygine::FixString::compare</a></div><div class="ttdeci">constexpr int compare(const FixString&lt; allocatedSize &gt; &amp;string) const noexcept</div><div class="ttdoc">Compares this string with another string lexicographically.</div><div class="ttdef"><b>Definition</b> fix_string.inl:612</div></div>
+<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a9f67beed78ca7d3e24e654ae6f35a7c4"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a9f67beed78ca7d3e24e654ae6f35a7c4">toygine::FixString::compare</a></div><div class="ttdeci">constexpr int compare(const FixString&lt; allocatedSize &gt; &amp;string) const noexcept</div><div class="ttdoc">Compares this string with another string lexicographically.</div><div class="ttdef"><b>Definition</b> fix_string.inl:639</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_aa12ba2d16d5cddebf8cf4b71c5cc96e5"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#aa12ba2d16d5cddebf8cf4b71c5cc96e5">toygine::FixString::append</a></div><div class="ttdeci">constexpr FixString&lt; allocatedSize &gt; &amp; append(const stringType &amp;string) noexcept</div><div class="ttdoc">Appends a StringLike object to the end of this string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:399</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_aa391f631df4ba36f282fb46e6b73b3bd"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#aa391f631df4ba36f282fb46e6b73b3bd">toygine::FixString::copy</a></div><div class="ttdeci">constexpr std::size_t copy(char *dest, std::size_t count, std::size_t pos=0) const noexcept</div><div class="ttdoc">Copies characters from the string to a destination buffer.</div><div class="ttdef"><b>Definition</b> fix_string.inl:533</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_aaa9facfa3cf0a009b0684836f4dbfcc3"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#aaa9facfa3cf0a009b0684836f4dbfcc3">toygine::FixString::operator+=</a></div><div class="ttdeci">constexpr FixString&lt; allocatedSize &gt; &amp; operator+=(const stringType &amp;string) noexcept</div><div class="ttdoc">Appends a StringLike object to the end of this string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:444</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_aac727199b3a80397b42b9e49b6f8dcc3"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#aac727199b3a80397b42b9e49b6f8dcc3">toygine::FixString::find</a></div><div class="ttdeci">constexpr std::size_t find(const FixString&lt; allocatedSize &gt; &amp;string, std::size_t position=0) const noexcept</div><div class="ttdoc">Finds the first occurrence of other string in the string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:562</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_aba163d0bf3b8913c6bfc7f2872957b3f"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#aba163d0bf3b8913c6bfc7f2872957b3f">toygine::FixString::front</a></div><div class="ttdeci">constexpr char &amp; front() noexcept</div><div class="ttdoc">Returns a reference to the first character of the string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:211</div></div>
+<div class="ttc" id="aclasstoygine_1_1_fix_string_html_abee80e1f5bd70f4567ec681f3aea9985"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#abee80e1f5bd70f4567ec681f3aea9985">toygine::FixString::find_first_of</a></div><div class="ttdeci">constexpr std::size_t find_first_of(char character, std::size_t position=0) const noexcept</div><div class="ttdoc">Finds the first occurrence of the specified character.</div><div class="ttdef"><b>Definition</b> fix_string.inl:633</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_ac0007484a4e11553c44240259f4acef0"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#ac0007484a4e11553c44240259f4acef0">toygine::FixString::push_back</a></div><div class="ttdeci">constexpr void push_back(char character) noexcept</div><div class="ttdoc">Appends a single character to the end of the string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:359</div></div>
+<div class="ttc" id="aclasstoygine_1_1_fix_string_html_ac04eb3afe55c846105dd5e7aa642871d"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#ac04eb3afe55c846105dd5e7aa642871d">toygine::FixString::find_first_of</a></div><div class="ttdeci">constexpr std::size_t find_first_of(const FixString&lt; allocatedSize &gt; &amp;string, std::size_t position=0) const noexcept</div><div class="ttdoc">Finds the first occurrence of any character from the specified string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:612</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_acfce0ad741362a8c4436bb98710e424c"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#acfce0ad741362a8c4436bb98710e424c">toygine::FixString::rfind</a></div><div class="ttdeci">constexpr std::size_t rfind(char character, std::size_t position=npos) const noexcept</div><div class="ttdoc">Finds the last occurrence of a character in the string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:607</div></div>
-<div class="ttc" id="aclasstoygine_1_1_fix_string_html_acfd87c7f6691db88371226fada149007"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#acfd87c7f6691db88371226fada149007">toygine::FixString::operator+</a></div><div class="ttdeci">constexpr FixString&lt; allocatedSize &gt; operator+(const FixString&lt; allocatedSize2 &gt; &amp;string) const noexcept</div><div class="ttdoc">Concatenates two FixString objects and returns the result.</div><div class="ttdef"><b>Definition</b> fix_string.inl:691</div></div>
+<div class="ttc" id="aclasstoygine_1_1_fix_string_html_acfd87c7f6691db88371226fada149007"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#acfd87c7f6691db88371226fada149007">toygine::FixString::operator+</a></div><div class="ttdeci">constexpr FixString&lt; allocatedSize &gt; operator+(const FixString&lt; allocatedSize2 &gt; &amp;string) const noexcept</div><div class="ttdoc">Concatenates two FixString objects and returns the result.</div><div class="ttdef"><b>Definition</b> fix_string.inl:718</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_ad171d957f2a1cc6fd658e29b00c20038"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#ad171d957f2a1cc6fd658e29b00c20038">toygine::FixString::back</a></div><div class="ttdeci">constexpr char &amp; back() noexcept</div><div class="ttdoc">Returns a reference to the last character of the string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:225</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_ad1d27e5fc61f32f9a182a32f5c1ce2be"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#ad1d27e5fc61f32f9a182a32f5c1ce2be">toygine::FixString::replace</a></div><div class="ttdeci">constexpr FixString&lt; allocatedSize &gt; &amp; replace(std::size_t pos, std::size_t count, const FixString&lt; allocatedSize &gt; &amp;string) noexcept</div><div class="ttdoc">Replaces a portion of the string with another string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:473</div></div>
+<div class="ttc" id="aclasstoygine_1_1_fix_string_html_ad53f35c6954f65c3fa9bd08d51532ce0"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#ad53f35c6954f65c3fa9bd08d51532ce0">toygine::FixString::find_first_of</a></div><div class="ttdeci">constexpr std::size_t find_first_of(const stringType &amp;string, std::size_t position=0) const noexcept</div><div class="ttdoc">Finds the first occurrence of any character from a StringLike object.</div><div class="ttdef"><b>Definition</b> fix_string.inl:619</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_ad7791c5ec05c6614800bbc148c538ab4"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#ad7791c5ec05c6614800bbc148c538ab4">toygine::FixString::at</a></div><div class="ttdeci">constexpr char &amp; at(std::size_t offset) noexcept</div><div class="ttdoc">Access a character in the string at a given offset.</div><div class="ttdef"><b>Definition</b> fix_string.inl:183</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_ad91e3750e33c31eb172e866df6a225e9"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#ad91e3750e33c31eb172e866df6a225e9">toygine::FixString::operator+=</a></div><div class="ttdeci">constexpr FixString&lt; allocatedSize &gt; &amp; operator+=(const FixString&lt; allocatedSize &gt; &amp;string) noexcept</div><div class="ttdoc">Appends other string to the end of this string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:433</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_adac1b68ceb1076b81ad092fd629ed3ff"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#adac1b68ceb1076b81ad092fd629ed3ff">toygine::FixString::data</a></div><div class="ttdeci">constexpr char * data() noexcept</div><div class="ttdoc">Returns a pointer to the data of the string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:239</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_adc8777364816ec91878e297b343a0e91"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#adc8777364816ec91878e297b343a0e91">toygine::FixString::operator=</a></div><div class="ttdeci">constexpr FixString&lt; allocatedSize &gt; &amp; operator=(const stringType &amp;string) noexcept</div><div class="ttdoc">Copy assigns a StringLike object to this string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:86</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_add0d88c13a24733170403eec78994a20"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#add0d88c13a24733170403eec78994a20">toygine::FixString::FixString</a></div><div class="ttdeci">constexpr FixString(const FixString&lt; allocatedSize &gt; &amp;string) noexcept</div><div class="ttdoc">Constructs a copy of string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:38</div></div>
-<div class="ttc" id="aclasstoygine_1_1_fix_string_html_ae0819aec779232ba5b2ed1de2fdab6c6"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#ae0819aec779232ba5b2ed1de2fdab6c6">toygine::FixString::ends_with</a></div><div class="ttdeci">constexpr bool ends_with(char character) const noexcept</div><div class="ttdoc">Checks if the string ends with the specified character.</div><div class="ttdef"><b>Definition</b> fix_string.inl:675</div></div>
+<div class="ttc" id="aclasstoygine_1_1_fix_string_html_ae0819aec779232ba5b2ed1de2fdab6c6"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#ae0819aec779232ba5b2ed1de2fdab6c6">toygine::FixString::ends_with</a></div><div class="ttdeci">constexpr bool ends_with(char character) const noexcept</div><div class="ttdoc">Checks if the string ends with the specified character.</div><div class="ttdef"><b>Definition</b> fix_string.inl:702</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_ae29e0fd486b1b5bd966a10fddb2e30d0"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#ae29e0fd486b1b5bd966a10fddb2e30d0">toygine::FixString::append</a></div><div class="ttdeci">constexpr FixString&lt; allocatedSize &gt; &amp; append(const char *string) noexcept</div><div class="ttdoc">Appends the C string to the end of this string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:408</div></div>
-<div class="ttc" id="aclasstoygine_1_1_fix_string_html_ae3a7d0bb6fcd3144e99ccc75c1604231"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#ae3a7d0bb6fcd3144e99ccc75c1604231">toygine::FixString::_replace_raw</a></div><div class="ttdeci">constexpr void _replace_raw(std::size_t position, std::size_t oldCount, const char *data, std::size_t dataSize) noexcept</div><div class="ttdoc">Helper method for replacing data at a specific position.</div><div class="ttdef"><b>Definition</b> fix_string.inl:754</div></div>
+<div class="ttc" id="aclasstoygine_1_1_fix_string_html_ae3a7d0bb6fcd3144e99ccc75c1604231"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#ae3a7d0bb6fcd3144e99ccc75c1604231">toygine::FixString::_replace_raw</a></div><div class="ttdeci">constexpr void _replace_raw(std::size_t position, std::size_t oldCount, const char *data, std::size_t dataSize) noexcept</div><div class="ttdoc">Helper method for replacing data at a specific position.</div><div class="ttdef"><b>Definition</b> fix_string.inl:781</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_ae3ff8a7716370b0df4a349a03f1226da"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#ae3ff8a7716370b0df4a349a03f1226da">toygine::FixString::find</a></div><div class="ttdeci">constexpr std::size_t find(const stringType &amp;string, std::size_t position=0) const noexcept</div><div class="ttdoc">Finds the first occurrence of a StringLike object in the string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:569</div></div>
-<div class="ttc" id="aclasstoygine_1_1_fix_string_html_ae461dc559fa326874eeef4bc4cd4fe04"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#ae461dc559fa326874eeef4bc4cd4fe04">toygine::FixString::starts_with</a></div><div class="ttdeci">constexpr bool starts_with(const stringType &amp;string) const noexcept</div><div class="ttdoc">Checks if the string starts with a StringLike object.</div><div class="ttdef"><b>Definition</b> fix_string.inl:636</div></div>
-<div class="ttc" id="aclasstoygine_1_1_fix_string_html_aefd61568e3d5a4812f208bb45358d4ff"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#aefd61568e3d5a4812f208bb45358d4ff">toygine::FixString::_data</a></div><div class="ttdeci">char _data[allocatedSize]</div><div class="ttdef"><b>Definition</b> fix_string.hpp:1438</div></div>
+<div class="ttc" id="aclasstoygine_1_1_fix_string_html_ae461dc559fa326874eeef4bc4cd4fe04"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#ae461dc559fa326874eeef4bc4cd4fe04">toygine::FixString::starts_with</a></div><div class="ttdeci">constexpr bool starts_with(const stringType &amp;string) const noexcept</div><div class="ttdoc">Checks if the string starts with a StringLike object.</div><div class="ttdef"><b>Definition</b> fix_string.inl:663</div></div>
+<div class="ttc" id="aclasstoygine_1_1_fix_string_html_aefd61568e3d5a4812f208bb45358d4ff"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#aefd61568e3d5a4812f208bb45358d4ff">toygine::FixString::_data</a></div><div class="ttdeci">char _data[allocatedSize]</div><div class="ttdef"><b>Definition</b> fix_string.hpp:1533</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_af15ea79c5cfc6bef0f404796560883cb"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#af15ea79c5cfc6bef0f404796560883cb">toygine::FixString::assign</a></div><div class="ttdeci">constexpr FixString&lt; allocatedSize &gt; &amp; assign(const stringType &amp;string) noexcept</div><div class="ttdoc">Copy assigns a StringLike object to this string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:139</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_af1b8abfdd14659e028955f6ae6968cf3"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#af1b8abfdd14659e028955f6ae6968cf3">toygine::FixString::insert</a></div><div class="ttdeci">constexpr FixString&lt; allocatedSize &gt; &amp; insert(std::size_t index, const stringType &amp;string) noexcept</div><div class="ttdoc">Inserts a StringLike object at the specified index.</div><div class="ttdef"><b>Definition</b> fix_string.inl:299</div></div>
-<div class="ttc" id="aclasstoygine_1_1_fix_string_html_af20c21592a3580039099806bfab8d583"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#af20c21592a3580039099806bfab8d583">toygine::FixString::compare</a></div><div class="ttdeci">constexpr int compare(const stringType &amp;string) const noexcept</div><div class="ttdoc">Compares this string with a StringLike object lexicographically.</div><div class="ttdef"><b>Definition</b> fix_string.inl:618</div></div>
+<div class="ttc" id="aclasstoygine_1_1_fix_string_html_af20c21592a3580039099806bfab8d583"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#af20c21592a3580039099806bfab8d583">toygine::FixString::compare</a></div><div class="ttdeci">constexpr int compare(const stringType &amp;string) const noexcept</div><div class="ttdoc">Compares this string with a StringLike object lexicographically.</div><div class="ttdef"><b>Definition</b> fix_string.inl:645</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_af299dcadcd61fdcc3f56a550d66656a0"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#af299dcadcd61fdcc3f56a550d66656a0">toygine::FixString::max_size</a></div><div class="ttdeci">constexpr std::size_t max_size() const noexcept</div><div class="ttdoc">Returns the maximum size of the string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:274</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_af2fc791dae78541c1803cf4ef665c91d"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#af2fc791dae78541c1803cf4ef665c91d">toygine::FixString::append</a></div><div class="ttdeci">constexpr FixString&lt; allocatedSize &gt; &amp; append(const FixString&lt; allocatedSize &gt; &amp;string) noexcept</div><div class="ttdoc">Appends other string to the end of this string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:388</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_af4abf2499de629964bd21ec6c77e92a7"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#af4abf2499de629964bd21ec6c77e92a7">toygine::FixString::at</a></div><div class="ttdeci">constexpr const char &amp; at(std::size_t offset) const noexcept</div><div class="ttdoc">Access a character in the string at a given offset.</div><div class="ttdef"><b>Definition</b> fix_string.inl:190</div></div>
