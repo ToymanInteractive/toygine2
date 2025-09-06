@@ -289,7 +289,7 @@ constexpr inline void FixString<allocatedSize>::clear() noexcept {
 template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::insert(
   std::size_t index, const FixString<allocatedSize> & string) noexcept {
-  _insert_raw(string.data(), string.size(), index);
+  _insert_raw(index, string.data(), string.size());
 
   return *this;
 }
@@ -298,7 +298,7 @@ template <std::size_t allocatedSize>
 template <StringLike stringType>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::insert(std::size_t index,
                                                                              const stringType & string) noexcept {
-  _insert_raw(string.c_str(), string.size(), index);
+  _insert_raw(index, string.c_str(), string.size());
 
   return *this;
 }
@@ -308,7 +308,7 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::insert(std
                                                                              const char * string) noexcept {
   assert_message(string != nullptr, "String pointer must not be null");
 
-  _insert_raw(string, std::strlen(string), index);
+  _insert_raw(index, string, std::strlen(string));
 
   return *this;
 }
@@ -322,8 +322,8 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::insert(std
   assert_message(index <= _size, "Index must not exceed string size");
   assert_message(_size + count < allocatedSize, "Inserted characters must fit in capacity");
 
+  // if inserting at the end, just append
   if (index == _size) {
-    // if inserting at the end, just append
     std::memset(_data + index, character, count);
     _size += count;
     _data[_size] = '\0';
@@ -472,20 +472,7 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator+=
 template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::replace(
   std::size_t pos, std::size_t count, const FixString<allocatedSize> & string) noexcept {
-  assert_message(this != &string, "Cannot replace string into itself");
-  assert_message(pos <= _size, "Position must be within string bounds");
-  assert_message(pos + count <= _size, "Replacement range must be within string bounds");
-
-  const auto newSize = _size - count + string._size;
-
-  assert_message(newSize < allocatedSize, "Replacement result must fit in capacity");
-
-  if (count != string._size)
-    std::memmove(_data + pos + string._size, _data + pos + count, _size - pos - count + 1);
-
-  std::memcpy(_data + pos, string._data, string._size);
-
-  _size = newSize;
+  _replace_raw(pos, count, string._data, string._size);
 
   return *this;
 }
@@ -494,20 +481,7 @@ template <std::size_t allocatedSize>
 template <StringLike stringType>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::replace(std::size_t pos, std::size_t count,
                                                                               const stringType & string) noexcept {
-  assert_message(_data != string.c_str(), "Cannot replace string into itself");
-  assert_message(pos <= _size, "Position must be within string bounds");
-  assert_message(pos + count <= _size, "Replacement range must be within string bounds");
-
-  const auto replaceSize = string.size();
-  const auto newSize = _size - count + replaceSize;
-
-  assert_message(newSize < allocatedSize, "Replacement result must fit in capacity");
-
-  if (count != replaceSize)
-    std::memmove(_data + pos + replaceSize, _data + pos + count, _size - pos - count + 1);
-
-  std::memcpy(_data + pos, string.c_str(), replaceSize);
-  _size = newSize;
+  _replace_raw(pos, count, string.c_str(), string.size());
 
   return *this;
 }
@@ -516,21 +490,8 @@ template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::replace(std::size_t pos, std::size_t count,
                                                                               const char * string) noexcept {
   assert_message(string != nullptr, "String pointer must not be null");
-  assert_message((string < _data) || (string >= (_data + allocatedSize)),
-                 "Source pointer must not point into _data buffer");
-  assert_message(pos <= _size, "Position must be within string bounds");
-  assert_message(pos + count <= _size, "Replacement range must be within string bounds");
 
-  const auto replaceSize = std::strlen(string);
-  const auto newSize = _size - count + replaceSize;
-
-  assert_message(newSize < allocatedSize, "Replacement result must fit in capacity");
-
-  if (count != replaceSize)
-    std::memmove(_data + pos + replaceSize, _data + pos + count, _size - pos - count + 1);
-
-  std::memcpy(_data + pos, string, replaceSize);
-  _size = newSize;
+  _replace_raw(pos, count, string, std::strlen(string));
 
   return *this;
 }
@@ -539,6 +500,9 @@ template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::replace(std::size_t pos, std::size_t count,
                                                                               char character,
                                                                               std::size_t charactersCount) noexcept {
+  if (count == 0 && charactersCount == 0)
+    return *this;
+
   assert_message(pos <= _size, "Position must be within string bounds");
   assert_message(pos + count <= _size, "Replacement range must be within string bounds");
 
@@ -546,11 +510,21 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::replace(st
 
   assert_message(newSize < allocatedSize, "Replacement result must fit in capacity");
 
-  if (count != charactersCount)
-    std::memmove(_data + pos + charactersCount, _data + pos + count, _size - pos - count + 1);
+  // If sizes are equal, no need to shift data
+  if (count == charactersCount) {
+    std::memset(_data + pos, character, charactersCount);
+  } else {
+    // If replacing at the end, no need to shift
+    if (pos + count == _size) {
+      std::memset(_data + pos, character, charactersCount);
+      _data[pos + charactersCount] = '\0';
+    } else {
+      std::memmove(_data + pos + charactersCount, _data + pos + count, _size - pos - count + 1);
+      std::memset(_data + pos, character, charactersCount);
+    }
 
-  std::memset(_data + pos, character, charactersCount);
-  _size = newSize;
+    _size = newSize;
+  }
 
   return *this;
 }
@@ -771,26 +745,26 @@ constexpr inline FixString<allocatedSize> FixString<allocatedSize>::operator+(ch
 }
 
 template <std::size_t allocatedSize>
-constexpr inline void FixString<allocatedSize>::_insert_raw(const char * insertion, std::size_t insertionSize,
-                                                            std::size_t position) noexcept {
-  if (insertionSize == 0)
+constexpr inline void FixString<allocatedSize>::_insert_raw(std::size_t position, const char * data,
+                                                            std::size_t dataSize) noexcept {
+  if (dataSize == 0)
     return;
 
-  assert_message(((insertion + insertionSize) < _data) || (insertion >= (_data + allocatedSize)),
-                 "Source pointer must not point into _data buffer");
+  assert_message(((data + dataSize) < _data) || (data >= (_data + allocatedSize)),
+                 "Source data pointer must not point into _data buffer");
 
   assert_message(position <= _size, "Index must not exceed string size");
-  assert_message(_size + insertionSize < allocatedSize, "Inserted string must fit in capacity");
+  assert_message(_size + dataSize < allocatedSize, "Inserted string must fit in capacity");
 
+  // If inserting at the end, just append
   if (position == _size) {
-    // If inserting at the end, just append
-    std::memcpy(_data + _size, insertion, insertionSize + 1);
+    std::memcpy(_data + _size, data, dataSize + 1);
   } else {
-    std::memmove(_data + position + insertionSize, _data + position, _size - position + 1);
-    std::memcpy(_data + position, insertion, insertionSize);
+    std::memmove(_data + position + dataSize, _data + position, _size - position + 1);
+    std::memcpy(_data + position, data, dataSize);
   }
 
-  _size += insertionSize;
+  _size += dataSize;
 }
 
 template <std::size_t allocatedSize>
@@ -799,11 +773,42 @@ constexpr inline void FixString<allocatedSize>::_append_raw(const char * data, s
     return;
 
   assert_message(((data + dataSize) < _data) || (data >= (_data + allocatedSize)),
-                 "Source pointer must not point into _data buffer");
+                 "Source data pointer must not point into _data buffer");
   assert_message(_size + dataSize < allocatedSize, "Appended data must fit in capacity");
 
   std::memcpy(_data + _size, data, dataSize + 1);
   _size += dataSize;
+}
+
+template <std::size_t allocatedSize>
+constexpr inline void FixString<allocatedSize>::_replace_raw(std::size_t position, std::size_t oldCount,
+                                                             const char * data, std::size_t dataSize) noexcept {
+  if (oldCount == 0 && dataSize == 0)
+    return;
+
+  assert_message(((data + dataSize) < _data) || (data >= (_data + allocatedSize)),
+                 "Source data pointer must not point into _data buffer");
+
+  assert_message(position <= _size, "Position must be within string bounds");
+  assert_message(position + oldCount <= _size, "Replacement range must be within string bounds");
+
+  // If sizes are equal, no need to shift data
+  if (oldCount == dataSize) {
+    std::memcpy(_data + position, data, dataSize);
+    return;
+  }
+
+  assert_message((_size - oldCount + dataSize) < allocatedSize, "Replacement result must fit in capacity");
+
+  // If replacing at the end, no need to shift
+  if (position + oldCount == _size) {
+    std::memcpy(_data + position, data, dataSize + 1);
+  } else {
+    std::memmove(_data + position + dataSize, _data + position + oldCount, _size - position - oldCount + 1);
+    std::memcpy(_data + position, data, dataSize);
+  }
+
+  _size = _size - oldCount + dataSize;
 }
 
 template <std::size_t allocatedSize>

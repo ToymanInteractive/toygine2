@@ -1355,25 +1355,25 @@ private:
   constexpr inline std::size_t _rfind_raw(const char * needle, size_t len, size_t pos) const noexcept;
 
   /*!
-    \brief Helper method for inserting data at a specific \a position.
+    \brief Helper method for inserting \a data at a specific \a position.
 
     This private method performs the common insertion logic used by all insert methods. It shifts existing data to the
-    right and inserts new data at the specified position.
+    right and inserts new \a data at the specified position.
 
-    \param insertion     The data to insert.
-    \param insertionSize The size of the data to insert.
-    \param position      The position where to insert the data.
+    \param position The position where to insert the data.
+    \param data     The data to insert.
+    \param dataSize The size of the data to insert.
 
     \pre The \a position must be within the bounds of the current string.
-    \pre The \a insertion must not be null.
+    \pre The \a data must not be null.
     \pre The combined length after insertion must not exceed the allocated capacity.
   */
-  constexpr inline void _insert_raw(const char * insertion, std::size_t insertionSize, std::size_t position) noexcept;
+  constexpr inline void _insert_raw(std::size_t position, const char * data, std::size_t dataSize) noexcept;
 
   /*!
-    \brief Helper method for appending data to the end of the string.
+    \brief Helper method for appending \a data to the end of the string.
 
-    This private method performs the common append logic used by all append methods. It copies new data to the end of
+    This private method performs the common append logic used by all append methods. It copies new \a data to the end of
     the string and updates the size accordingly.
 
     \param data     The data to append.
@@ -1383,6 +1383,25 @@ private:
     \pre The combined length after appending must not exceed the allocated capacity.
   */
   constexpr inline void _append_raw(const char * data, std::size_t dataSize) noexcept;
+
+  /*!
+    \brief Helper method for replacing data at a specific \a position.
+
+    This private method performs the common replacement logic used by all replace methods. It handles the shifting of
+    existing data and insertion of new \a data at the specified \a position.
+
+    \param position The position where to replace the data.
+    \param oldCount The number of characters to replace.
+    \param data     The new data to insert.
+    \param dataSize The size of the new data.
+
+    \pre The \a position must be within the bounds of the current string.
+    \pre The \a data must not be null.
+    \pre The replacement range must be within string bounds.
+    \pre The resulting string size must not exceed the allocated capacity.
+  */
+  constexpr inline void _replace_raw(std::size_t position, std::size_t oldCount, const char * data,
+                                     std::size_t dataSize) noexcept;
 
   char _data[allocatedSize];
   std::size_t _size;
