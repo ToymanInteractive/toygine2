@@ -535,7 +535,7 @@ template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::replace(std::size_t pos, std::size_t count,
                                                                               const char * string) noexcept {
   assert_message(string != nullptr, "String pointer must not be null");
-  assert_message((string < _data) || (string >= (_data + sizeof(*this))),
+  assert_message((string < _data) || (string >= (_data + allocatedSize)),
                  "Source pointer must not point into _data buffer");
   assert_message(pos <= _size, "Position must be within string bounds");
   assert_message(pos + count <= _size, "Replacement range must be within string bounds");
@@ -579,7 +579,7 @@ constexpr inline std::size_t FixString<allocatedSize>::copy(char * dest, std::si
                                                             std::size_t pos) const noexcept {
   assert_message(pos <= _size, "Position must be within string bounds");
   assert_message(dest != nullptr, "Destination pointer must not be null");
-  assert_message((dest < _data) || (dest >= (_data + ArraySize(_data))),
+  assert_message((dest < _data) || (dest >= (_data + allocatedSize)),
                  "Destination buffer must not overlap internal storage");
 
   if (count == npos || pos + count > _size)
@@ -795,7 +795,7 @@ constexpr inline void FixString<allocatedSize>::_insert_raw(const char * inserti
   if (insertionSize == 0)
     return;
 
-  assert_message(((insertion + insertionSize) < _data) || (insertion >= (_data + sizeof(*this))),
+  assert_message(((insertion + insertionSize) < _data) || (insertion >= (_data + allocatedSize)),
                  "Source pointer must not point into _data buffer");
 
   assert_message(position <= _size, "Index must not exceed string size");

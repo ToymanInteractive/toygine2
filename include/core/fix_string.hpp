@@ -1355,18 +1355,18 @@ private:
   constexpr inline std::size_t _rfind_raw(const char * needle, size_t len, size_t pos) const noexcept;
 
   /*!
-    \brief Helper method for inserting data at a specific position.
+    \brief Helper method for inserting data at a specific \a position.
 
-    This private method performs the common insertion logic used by all insert methods.
-    It shifts existing data to the right and inserts new data at the specified position.
+    This private method performs the common insertion logic used by all insert methods. It shifts existing data to the
+    right and inserts new data at the specified position.
 
     \param insertion     The data to insert.
     \param insertionSize The size of the data to insert.
     \param position      The position where to insert the data.
 
-    \pre The \a index must be within the bounds of the current string.
-    \pre The \a data must not be null.
-    \pre The combined length after insertion must not exceed the allocated capacity.
+    \pre The \a position must be within the bounds of the current string.
+    \pre The \a insertion must not be null.
+    \pre The combined size after insertion must not exceed the allocated capacity.
   */
   constexpr inline void _insert_raw(const char * insertion, std::size_t insertionSize, std::size_t position) noexcept;
 
