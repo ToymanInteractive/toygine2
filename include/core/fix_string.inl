@@ -625,7 +625,7 @@ constexpr inline std::size_t FixString<allocatedSize>::find(const char * string,
   if (position >= _size)
     return npos;
 
-  auto occurrence = std::strstr(_data + position, string);
+  const auto occurrence = std::strstr(_data + position, string);
   if (occurrence != nullptr)
     return occurrence - _data;
 
@@ -735,6 +735,29 @@ constexpr inline bool FixString<allocatedSize>::ends_with(const char * string) c
 template <std::size_t allocatedSize>
 constexpr inline bool FixString<allocatedSize>::ends_with(char character) const noexcept {
   return _size > 0 && _data[_size - 1] == character;
+}
+
+template <std::size_t allocatedSize>
+constexpr inline bool FixString<allocatedSize>::contains(const FixString<allocatedSize> & string) const noexcept {
+  return string._size <= _size && std::strstr(_data, string._data) != nullptr;
+}
+
+template <std::size_t allocatedSize>
+template <StringLike stringType>
+constexpr inline bool FixString<allocatedSize>::contains(const stringType & string) const noexcept {
+  return string.size() <= _size && std::strstr(_data, string.c_str()) != nullptr;
+}
+
+template <std::size_t allocatedSize>
+constexpr inline bool FixString<allocatedSize>::contains(const char * string) const noexcept {
+  assert_message(string != nullptr, "String pointer must not be null");
+
+  return std::strstr(_data, string) != nullptr;
+}
+
+template <std::size_t allocatedSize>
+constexpr inline bool FixString<allocatedSize>::contains(char character) const noexcept {
+  return _size > 0 && std::strchr(_data, character) != nullptr;
 }
 
 template <std::size_t allocatedSize>
