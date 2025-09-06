@@ -561,81 +561,51 @@ constexpr inline void FixString<allocatedSize>::swap(FixString<allocatedSize> & 
 template <std::size_t allocatedSize>
 constexpr inline std::size_t FixString<allocatedSize>::find(const FixString<allocatedSize> & string,
                                                             std::size_t position) const noexcept {
-  if (position > _size)
-    return npos;
-  if (string.empty())
-    return position;
-  if (string._size > _size - position)
-    return npos;
-
-  return find(string._data, position);
+  return _find_raw(position, string._data, string._size);
 }
 
 template <std::size_t allocatedSize>
 template <StringLike stringType>
 constexpr inline std::size_t FixString<allocatedSize>::find(const stringType & string,
                                                             std::size_t position) const noexcept {
-  if (position > _size)
-    return npos;
-
-  const auto needleSize = string.size();
-  if (needleSize == 0)
-    return position;
-  if (needleSize > _size - position)
-    return npos;
-
-  return find(string.c_str(), position);
+  return _find_raw(position, string.c_str(), string.size());
 }
 
 template <std::size_t allocatedSize>
 constexpr inline std::size_t FixString<allocatedSize>::find(const char * string, std::size_t position) const noexcept {
   assert_message(string != nullptr, "String pointer must not be null");
 
-  if (position >= _size)
-    return npos;
-
-  auto occurrence = std::strstr(_data + position, string);
-  if (occurrence != nullptr)
-    return occurrence - _data;
-
-  return npos;
+  return _find_raw(position, string, std::strlen(string));
 }
 
 template <std::size_t allocatedSize>
 constexpr inline std::size_t FixString<allocatedSize>::find(char character, std::size_t position) const noexcept {
-  if (position >= _size)
-    return npos;
-
-  auto occurrence = std::strchr(_data + position, character);
-  if (occurrence != nullptr)
-    return occurrence - _data;
-
-  return npos;
+  return _find_raw(position, &character, 1);
 }
 
 template <std::size_t allocatedSize>
 constexpr inline std::size_t FixString<allocatedSize>::rfind(const FixString<allocatedSize> & string,
                                                              std::size_t position) const noexcept {
-  return _rfind_raw(string._data, string._size, position);
+  return _rfind_raw(position, string._data, string._size);
 }
 
 template <std::size_t allocatedSize>
 template <StringLike stringType>
 constexpr inline std::size_t FixString<allocatedSize>::rfind(const stringType & string,
                                                              std::size_t position) const noexcept {
-  return _rfind_raw(string.c_str(), string.size(), position);
+  return _rfind_raw(position, string.c_str(), string.size());
 }
 
 template <std::size_t allocatedSize>
 constexpr inline std::size_t FixString<allocatedSize>::rfind(const char * string, std::size_t position) const noexcept {
   assert_message(string != nullptr, "String pointer must not be null");
 
-  return _rfind_raw(string, std::strlen(string), position);
+  return _rfind_raw(position, string, std::strlen(string));
 }
 
 template <std::size_t allocatedSize>
 constexpr inline std::size_t FixString<allocatedSize>::rfind(char character, std::size_t position) const noexcept {
-  return _rfind_raw(&character, 1, position);
+  return _rfind_raw(position, &character, 1);
 }
 
 template <std::size_t allocatedSize>
@@ -812,21 +782,37 @@ constexpr inline void FixString<allocatedSize>::_replace_raw(std::size_t positio
 }
 
 template <std::size_t allocatedSize>
-constexpr inline std::size_t FixString<allocatedSize>::_rfind_raw(const char * needle, std::size_t needleSize,
-                                                                  std::size_t position) const noexcept {
-  if (needleSize == 0)
-    return position <= _size ? position : _size;
-
-  if (needleSize > _size)
+constexpr inline std::size_t FixString<allocatedSize>::_find_raw(std::size_t position, const char * data,
+                                                                 std::size_t dataSize) const noexcept {
+  if (position > _size)
     return npos;
+
+  if (dataSize == 0)
+    return position;
+  else if (dataSize > _size - position)
+    return npos;
+
+  const auto occurrence = dataSize == 1 ? std::strchr(_data + position, data[0]) : std::strstr(_data + position, data);
+
+  return occurrence != nullptr ? occurrence - _data : npos;
+}
+
+template <std::size_t allocatedSize>
+constexpr inline std::size_t FixString<allocatedSize>::_rfind_raw(std::size_t position, const char * data,
+                                                                  std::size_t dataSize) const noexcept {
+  if (dataSize == 0)
+    return std::min(position, _size);
+  else if (dataSize > _size)
+    return npos;
+
   if (position == npos)
-    position = _size - needleSize;
-  else if (position > _size - needleSize)
+    position = _size - dataSize;
+  else if (position > _size - dataSize)
     return npos;
 
   for (auto i = 0U; i <= position; ++i) {
     const auto offset = position - i;
-    if (std::memcmp(_data + offset, needle, needleSize) == 0)
+    if (std::memcmp(_data + offset, data, dataSize) == 0)
       return offset;
   }
 
