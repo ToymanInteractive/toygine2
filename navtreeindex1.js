@@ -1,5 +1,7 @@
 var NAVTREEINDEX1 =
 {
+"dd/d55/namespacetoygine_1_1assertion.html#af12a64b3cc004e87fb85ee25f67a5cbc":[2,0,1,0,7],
+"dd/d55/namespacetoygine_1_1assertion.html#afe461df95b90f03ae48f6271c1283a9b":[2,0,1,0,0],
 "dd/d9e/linux_2platform__config_8hpp.html":[5,0,1,1,0,0],
 "dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c":[5,0,1,1,0,0,1],
 "dd/d9e/linux_2platform__config_8hpp.html#af576bf8ffa22a44e53018c67095ffbf0":[5,0,1,1,0,0,0],

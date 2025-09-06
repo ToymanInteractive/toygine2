@@ -6,6 +6,7 @@ var classtoygine_1_1_fix_string =
     [ "FixString", "da/d4a/classtoygine_1_1_fix_string.html#a9664029faab1f57f4bcb1f168ccea8c6", null ],
     [ "FixString", "da/d4a/classtoygine_1_1_fix_string.html#af620a44bcdf9ef29b647826650b520e0", null ],
     [ "FixString", "da/d4a/classtoygine_1_1_fix_string.html#a9ebfe3be31be5414b83968bd5ed9bb51", null ],
+    [ "_insert_raw", "da/d4a/classtoygine_1_1_fix_string.html#a0042a1b7851a0a1af700adf83d4aa0be", null ],
     [ "_rfind_raw", "da/d4a/classtoygine_1_1_fix_string.html#afceed4a7aa34abe43dddcc0f6eff5960", null ],
     [ "append", "da/d4a/classtoygine_1_1_fix_string.html#a9bd1f0dfe4f7de55b4091e992845e6ca", null ],
     [ "append", "da/d4a/classtoygine_1_1_fix_string.html#ae29e0fd486b1b5bd966a10fddb2e30d0", null ],
