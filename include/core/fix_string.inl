@@ -738,6 +738,29 @@ constexpr inline bool FixString<allocatedSize>::ends_with(char character) const 
 }
 
 template <std::size_t allocatedSize>
+constexpr inline bool FixString<allocatedSize>::contains(const FixString<allocatedSize> & string) const noexcept {
+  return string._size <= _size && std::strstr(_data, string._data) != nullptr;
+}
+
+template <std::size_t allocatedSize>
+template <StringLike stringType>
+constexpr inline bool FixString<allocatedSize>::contains(const stringType & string) const noexcept {
+  return string.size() <= _size && std::strstr(_data, string.c_str()) != nullptr;
+}
+
+template <std::size_t allocatedSize>
+constexpr inline bool FixString<allocatedSize>::contains(const char * string) const noexcept {
+  assert_message(string != nullptr, "String pointer must not be null");
+
+  return std::strstr(_data, string) != nullptr;
+}
+
+template <std::size_t allocatedSize>
+constexpr inline bool FixString<allocatedSize>::contains(char character) const noexcept {
+  return _size > 0 && std::strchr(_data, character) != nullptr;
+}
+
+template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize> FixString<allocatedSize>::operator+(
   const FixString<allocatedSize> & string) const noexcept {
   assert(_size + string._size < allocatedSize);

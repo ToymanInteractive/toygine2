@@ -24,7 +24,7 @@ parsers:
       macro: no
 
 ignore:
-  - "README.md"
+  - "*.md"
 
 comment:
   layout: "reach,diff,flags,tree"
