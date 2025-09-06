@@ -347,6 +347,62 @@ public:
   constexpr inline const char & operator[](std::size_t offset) const noexcept;
 
   /*!
+    \brief Returns a reference to the first character of the string.
+
+    This method provides direct access to the first character of the string.
+
+    \return A reference to the first character of the string.
+
+    \pre The string must not be empty.
+
+    \note The returned reference allows modification of the character.
+    \note Use const version for read-only access.
+  */
+  constexpr inline char & front() noexcept;
+
+  /*!
+    \brief Returns a const reference to the first character of the string.
+
+    This method provides read-only access to the first character of the string.
+
+    \return A const reference to the first character of the string.
+
+    \pre The string must not be empty.
+
+    \note The returned reference is read-only and cannot modify the character.
+    \note Use the non-const overload to allow modification.
+  */
+  constexpr inline const char & front() const noexcept;
+
+  /*!
+    \brief Returns a reference to the last character of the string.
+
+    This method provides direct access to the last character of the string.
+
+    \return A reference to the last character of the string.
+
+    \pre The string must not be empty.
+
+    \note The returned reference allows modification of the character.
+    \note Use const version for read-only access.
+  */
+  constexpr inline char & back() noexcept;
+
+  /*!
+    \brief Returns a const reference to the last character of the string.
+
+    This method provides read-only access to the last character of the string.
+
+    \return A const reference to the last character of the string.
+
+    \pre The string must not be empty.
+
+    \note The returned reference is read-only and cannot modify the character.
+    \note Use the non-const overload to allow modification.
+  */
+  constexpr inline const char & back() const noexcept;
+
+  /*!
     \brief Returns a pointer to the data of the string.
 
     This method returns a pointer to the internal character array that stores the string data. The returned pointer

@@ -214,6 +214,92 @@ TEST_CASE("FixString operators[]", "[core][fixstring]") {
   CHECK(strcmp(testString2.c_str(), "dcba") == 0);
 }
 
+TEST_CASE("FixString front and back", "[core][fixstring]") {
+  SECTION("Front method") {
+    FixString<16> testString("Hello World");
+
+    CHECK(testString.front() == 'H');
+    CHECK(testString[0] == 'H');
+
+    // Test modification
+    testString.front() = 'h';
+    CHECK(testString.front() == 'h');
+    CHECK(testString[0] == 'h');
+  }
+
+  SECTION("Front const method") {
+    const FixString<12> testString("Hello World");
+
+    CHECK(testString.front() == 'H');
+    CHECK(testString[0] == 'H');
+  }
+
+  SECTION("Back method") {
+    FixString<16> testString("Hello World");
+
+    CHECK(testString.back() == 'd');
+    CHECK(testString[testString.size() - 1] == 'd');
+
+    // Test modification
+    testString.back() = 'D';
+    CHECK(testString.back() == 'D');
+    CHECK(testString[testString.size() - 1] == 'D');
+  }
+
+  SECTION("Back const method") {
+    const FixString<12> testString("Hello World");
+
+    CHECK(testString.back() == 'd');
+    CHECK(testString[testString.size() - 1] == 'd');
+  }
+
+  SECTION("Single character string") {
+    FixString<2> testString("A");
+
+    CHECK(testString.front() == 'A');
+    CHECK(testString.back() == 'A');
+    CHECK(testString.front() == testString.back());
+
+    // Test modification
+    testString.front() = 'B';
+    CHECK(testString.front() == 'B');
+    CHECK(testString.back() == 'B');
+
+    testString.back() = 'C';
+    CHECK(testString.front() == 'C');
+    CHECK(testString.back() == 'C');
+  }
+
+  SECTION("Modification through references") {
+    FixString<32> testString("Hello World");
+
+    // Modify through front reference
+    char & frontRef = testString.front();
+    frontRef = 'X';
+    CHECK(testString.front() == 'X');
+    CHECK(testString[0] == 'X');
+
+    // Modify through back reference
+    char & backRef = testString.back();
+    backRef = 'Y';
+    CHECK(testString.back() == 'Y');
+    CHECK(testString[testString.size() - 1] == 'Y');
+  }
+
+  SECTION("Const references") {
+    const FixString<32> testString("Hello World");
+
+    // Get const references
+    const char & frontRef = testString.front();
+    const char & backRef = testString.back();
+
+    CHECK(frontRef == 'H');
+    CHECK(backRef == 'd');
+    CHECK(frontRef == testString[0]);
+    CHECK(backRef == testString[testString.size() - 1]);
+  }
+}
+
 TEST_CASE("FixString data", "[core][fixstring]") {
   auto testString1 = FixString<8>("abcd");
   const auto testString2 = FixString<8>("dcba");
