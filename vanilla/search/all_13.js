@@ -1,4 +1,11 @@
 var searchData=
 [
-  ['_7efixstring_0',['~FixString',['../da/d4a/classtoygine_1_1_fix_string.html#a6ad63ec3d9c555a7ea871d984e6fe3ae',1,'toygine::FixString']]]
+  ['readme_2emd_0',['README.md',['../d9/dd6/_r_e_a_d_m_e_8md.html',1,'']]],
+  ['rem_1',['rem',['../df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html#addb5fa391e32e0505d76bfc30202efe0',1,'anonymous_namespace{utils.cpp}::divmod10']]],
+  ['replace_2',['replace',['../da/d4a/classtoygine_1_1_fix_string.html#ad1d27e5fc61f32f9a182a32f5c1ce2be',1,'toygine::FixString::replace(std::size_t pos, std::size_t count, const FixString&lt; allocatedSize &gt; &amp;string) noexcept'],['../da/d4a/classtoygine_1_1_fix_string.html#a0b6b382330a95a58dd34355003fcb695',1,'toygine::FixString::replace(std::size_t pos, std::size_t count, const stringType &amp;string) noexcept'],['../da/d4a/classtoygine_1_1_fix_string.html#a84f8cacf726e6e25770de748a025bfab',1,'toygine::FixString::replace(std::size_t pos, std::size_t count, const char *string) noexcept'],['../da/d4a/classtoygine_1_1_fix_string.html#a4359ccf084f121a120a990edc2449ee5',1,'toygine::FixString::replace(std::size_t pos, std::size_t count, char character, std::size_t charactersCount=1) noexcept']]],
+  ['reporting_20a_20vulnerability_3',['Reporting a Vulnerability',['../d7/d88/md__s_e_c_u_r_i_t_y.html#reporting-a-vulnerability',1,'']]],
+  ['requirements_4',['Requirements',['../index.html#requirements',1,'']]],
+  ['responsibilities_5',['Enforcement Responsibilities',['../d3/dd7/md__c_o_d_e___o_f___c_o_n_d_u_c_t.html#enforcement-responsibilities',1,'']]],
+  ['reversestring_6',['reverseString',['../d7/de6/namespacetoygine.html#ae0b3c2c192d1b637ebb114c86bf263b6',1,'toygine']]],
+  ['rfind_7',['rfind',['../da/d4a/classtoygine_1_1_fix_string.html#a6b37b55b996754fce48a4acaf1b02006',1,'toygine::FixString::rfind(const FixString&lt; allocatedSize &gt; &amp;string, std::size_t position=npos) const noexcept'],['../da/d4a/classtoygine_1_1_fix_string.html#a6c442f1c53813ca5a0235415eda24e4e',1,'toygine::FixString::rfind(const stringType &amp;string, std::size_t position=npos) const noexcept'],['../da/d4a/classtoygine_1_1_fix_string.html#a40df88e6213a3b7efa2ca9f486736100',1,'toygine::FixString::rfind(const char *string, std::size_t position=npos) const noexcept'],['../da/d4a/classtoygine_1_1_fix_string.html#acfce0ad741362a8c4436bb98710e424c',1,'toygine::FixString::rfind(char character, std::size_t position=npos) const noexcept']]]
 ];

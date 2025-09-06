@@ -30,6 +30,20 @@ var NAVTREE =
       [ "Supported C++ compilers", "index.html#supported-c-compilers", null ],
       [ "Tools", "index.html#tools", null ]
     ] ],
+    [ "Contributor Covenant Code of Conduct", "d3/dd7/md__c_o_d_e___o_f___c_o_n_d_u_c_t.html", [
+      [ "Our Pledge", "d3/dd7/md__c_o_d_e___o_f___c_o_n_d_u_c_t.html#our-pledge", null ],
+      [ "Our Standards", "d3/dd7/md__c_o_d_e___o_f___c_o_n_d_u_c_t.html#our-standards", null ],
+      [ "Enforcement Responsibilities", "d3/dd7/md__c_o_d_e___o_f___c_o_n_d_u_c_t.html#enforcement-responsibilities", null ],
+      [ "Scope", "d3/dd7/md__c_o_d_e___o_f___c_o_n_d_u_c_t.html#scope", null ],
+      [ "Enforcement", "d3/dd7/md__c_o_d_e___o_f___c_o_n_d_u_c_t.html#enforcement", null ],
+      [ "Enforcement Guidelines", "d3/dd7/md__c_o_d_e___o_f___c_o_n_d_u_c_t.html#enforcement-guidelines", [
+        [ "Correction", "d3/dd7/md__c_o_d_e___o_f___c_o_n_d_u_c_t.html#autotoc_md1-correction", null ],
+        [ "Warning", "d3/dd7/md__c_o_d_e___o_f___c_o_n_d_u_c_t.html#autotoc_md2-warning", null ],
+        [ "Temporary Ban", "d3/dd7/md__c_o_d_e___o_f___c_o_n_d_u_c_t.html#autotoc_md3-temporary-ban", null ],
+        [ "Permanent Ban", "d3/dd7/md__c_o_d_e___o_f___c_o_n_d_u_c_t.html#autotoc_md4-permanent-ban", null ]
+      ] ],
+      [ "Attribution", "d3/dd7/md__c_o_d_e___o_f___c_o_n_d_u_c_t.html#attribution", null ]
+    ] ],
     [ "Security Policy", "d7/d88/md__s_e_c_u_r_i_t_y.html", [
       [ "Reporting a Vulnerability", "d7/d88/md__s_e_c_u_r_i_t_y.html#reporting-a-vulnerability", null ]
     ] ],
@@ -65,7 +79,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"de/d06/utils_8cpp.html#a0fea47d296dd636e54771d79a799cf51"
+"dd/d55/namespacetoygine_1_1assertion.html#a1a1d0601596ffb5c776edfdb9b534d04"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
