@@ -388,10 +388,8 @@ template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::append(
   const FixString<allocatedSize> & string) noexcept {
   assert_message(this != &string, "Cannot append string into itself");
-  assert_message(_size + string._size < allocatedSize, "Appended string must fit in capacity");
 
-  std::memcpy(_data + _size, string._data, string._size + 1);
-  _size += string._size;
+  _append_raw(string._data, string._size);
 
   return *this;
 }
@@ -401,12 +399,7 @@ template <StringLike stringType>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::append(const stringType & string) noexcept {
   assert_message(_data != string.c_str(), "Cannot append string into itself");
 
-  const auto sourceSize = string.size();
-
-  assert_message(_size + sourceSize < allocatedSize, "Appended string must fit in capacity");
-
-  std::memcpy(_data + _size, string.c_str(), sourceSize + 1);
-  _size += sourceSize;
+  _append_raw(string.c_str(), string.size());
 
   return *this;
 }
@@ -416,11 +409,7 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::append(con
   assert_message(_data != string, "Cannot append string into itself");
   assert_message(string != nullptr, "String pointer must not be null");
 
-  const auto stringSize = std::strlen(string);
-  assert_message(_size + stringSize < allocatedSize, "Appended string must fit in capacity");
-
-  std::memcpy(_data + _size, string, stringSize + 1);
-  _size += stringSize;
+  _append_raw(string, std::strlen(string));
 
   return *this;
 }
@@ -428,6 +417,9 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::append(con
 template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::append(char character,
                                                                              std::size_t count) noexcept {
+  if (count == 0)
+    return *this;
+
   assert_message(_size + count < allocatedSize, "Appended string must fit in capacity");
 
   std::memset(_data + _size, character, count);
@@ -441,10 +433,8 @@ template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator+=(
   const FixString<allocatedSize> & string) noexcept {
   assert_message(this != &string, "Cannot append string into itself");
-  assert_message(_size + string._size < allocatedSize, "Appended string must fit in capacity");
 
-  std::memcpy(_data + _size, string._data, string._size + 1);
-  _size += string._size;
+  _append_raw(string._data, string._size);
 
   return *this;
 }
@@ -454,12 +444,7 @@ template <StringLike stringType>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator+=(const stringType & string) noexcept {
   assert_message(_data != string.c_str(), "Cannot append string into itself");
 
-  const auto sourceSize = string.size();
-
-  assert_message(_size + sourceSize < allocatedSize, "Appended string must fit in capacity");
-
-  std::memcpy(_data + _size, string.c_str(), sourceSize + 1);
-  _size += sourceSize;
+  _append_raw(string.c_str(), string.size());
 
   return *this;
 }
@@ -469,11 +454,7 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator+=
   assert_message(_data != string, "Cannot append string into itself");
   assert_message(string != nullptr, "String pointer must not be null");
 
-  const auto stringSize = std::strlen(string);
-  assert_message(_size + stringSize < allocatedSize, "Appended string must fit in capacity");
-
-  std::memcpy(_data + _size, string, stringSize + 1);
-  _size += stringSize;
+  _append_raw(string, std::strlen(string));
 
   return *this;
 }
@@ -810,6 +791,19 @@ constexpr inline void FixString<allocatedSize>::_insert_raw(const char * inserti
   }
 
   _size += insertionSize;
+}
+
+template <std::size_t allocatedSize>
+constexpr inline void FixString<allocatedSize>::_append_raw(const char * data, std::size_t dataSize) noexcept {
+  if (dataSize == 0)
+    return;
+
+  assert_message(((data + dataSize) < _data) || (data >= (_data + allocatedSize)),
+                 "Source pointer must not point into _data buffer");
+  assert_message(_size + dataSize < allocatedSize, "Appended data must fit in capacity");
+
+  std::memcpy(_data + _size, data, dataSize + 1);
+  _size += dataSize;
 }
 
 template <std::size_t allocatedSize>

@@ -1366,9 +1366,23 @@ private:
 
     \pre The \a position must be within the bounds of the current string.
     \pre The \a insertion must not be null.
-    \pre The combined size after insertion must not exceed the allocated capacity.
+    \pre The combined length after insertion must not exceed the allocated capacity.
   */
   constexpr inline void _insert_raw(const char * insertion, std::size_t insertionSize, std::size_t position) noexcept;
+
+  /*!
+    \brief Helper method for appending data to the end of the string.
+
+    This private method performs the common append logic used by all append methods. It copies new data to the end of
+    the string and updates the size accordingly.
+
+    \param data     The data to append.
+    \param dataSize The size of the data to append.
+
+    \pre The \a data must not be null.
+    \pre The combined length after appending must not exceed the allocated capacity.
+  */
+  constexpr inline void _append_raw(const char * data, std::size_t dataSize) noexcept;
 
   char _data[allocatedSize];
   std::size_t _size;
