@@ -1169,7 +1169,7 @@ TEST_CASE("FixString find", "[core][fixstring]") {
     CHECK(testString.find(FixString<16>("")) == 0);
     CHECK(testString.find(std::string("")) == 0);
     CHECK(testString.find("") == 0);
-    CHECK(testString.find("", 5) == 5);
+    CHECK(testString.find("", 11) == 11);
     CHECK(testString.find("", 12) == FixString<32>::npos);
   }
 
