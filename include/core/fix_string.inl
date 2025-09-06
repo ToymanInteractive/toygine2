@@ -208,6 +208,34 @@ constexpr inline const char & FixString<allocatedSize>::operator[](std::size_t o
 }
 
 template <std::size_t allocatedSize>
+constexpr inline char & FixString<allocatedSize>::front() noexcept {
+  assert_message(_size > 0, "String must not be empty");
+
+  return _data[0];
+}
+
+template <std::size_t allocatedSize>
+constexpr inline const char & FixString<allocatedSize>::front() const noexcept {
+  assert_message(_size > 0, "String must not be empty");
+
+  return _data[0];
+}
+
+template <std::size_t allocatedSize>
+constexpr inline char & FixString<allocatedSize>::back() noexcept {
+  assert_message(_size > 0, "String must not be empty");
+
+  return _data[_size - 1];
+}
+
+template <std::size_t allocatedSize>
+constexpr inline const char & FixString<allocatedSize>::back() const noexcept {
+  assert_message(_size > 0, "String must not be empty");
+
+  return _data[_size - 1];
+}
+
+template <std::size_t allocatedSize>
 constexpr inline char * FixString<allocatedSize>::data() noexcept {
   return _data;
 }
