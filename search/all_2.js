@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['3_20temporary_20ban_0',['3. Temporary Ban',['../d3/dd7/md__c_o_d_e___o_f___c_o_n_d_u_c_t.html#autotoc_md3-temporary-ban',1,'']]]
+  ['back_0',['back',['../da/d4a/classtoygine_1_1_fix_string.html#ad171d957f2a1cc6fd658e29b00c20038',1,'toygine::FixString::back() noexcept'],['../da/d4a/classtoygine_1_1_fix_string.html#a5aa575e5c7aae6e2f2be299e387ad261',1,'toygine::FixString::back() const noexcept']]]
 ];

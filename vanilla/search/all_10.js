@@ -1,19 +1,9 @@
 var searchData=
 [
-  ['of_20conduct_0',['Contributor Covenant Code of Conduct',['../d3/dd7/md__c_o_d_e___o_f___c_o_n_d_u_c_t.html',1,'']]],
-  ['operator_2b_1',['operator+',['../da/d4a/classtoygine_1_1_fix_string.html#a8b38d8c05801c3049546deca624603f6',1,'toygine::FixString::operator+(const FixString&lt; allocatedSize &gt; &amp;string) const noexcept'],['../da/d4a/classtoygine_1_1_fix_string.html#acfd87c7f6691db88371226fada149007',1,'toygine::FixString::operator+(const FixString&lt; allocatedSize2 &gt; &amp;string) const noexcept'],['../da/d4a/classtoygine_1_1_fix_string.html#a787e3bf69bb88b9900559ee6696dd92d',1,'toygine::FixString::operator+(const char *string) const noexcept'],['../da/d4a/classtoygine_1_1_fix_string.html#a685dae072f1fee75fd2e0a2fb629a299',1,'toygine::FixString::operator+(char symbol) const noexcept']]],
-  ['operator_2b_3d_2',['operator+=',['../da/d4a/classtoygine_1_1_fix_string.html#ad91e3750e33c31eb172e866df6a225e9',1,'toygine::FixString::operator+=(const FixString&lt; allocatedSize &gt; &amp;string) noexcept'],['../da/d4a/classtoygine_1_1_fix_string.html#aaa9facfa3cf0a009b0684836f4dbfcc3',1,'toygine::FixString::operator+=(const stringType &amp;string) noexcept'],['../da/d4a/classtoygine_1_1_fix_string.html#a2178464b91a302a8e2bcd40644ae377e',1,'toygine::FixString::operator+=(const char *string) noexcept'],['../da/d4a/classtoygine_1_1_fix_string.html#afad1dff28b91a6cb838d0e895c2b5cf0',1,'toygine::FixString::operator+=(char character) noexcept']]],
-  ['operator_3d_3',['operator=',['../da/d4a/classtoygine_1_1_fix_string.html#a86991f7aa084db54ed7c9cba37726ba8',1,'toygine::FixString::operator=(const FixString&lt; allocatedSize &gt; &amp;string) noexcept'],['../da/d4a/classtoygine_1_1_fix_string.html#adc8777364816ec91878e297b343a0e91',1,'toygine::FixString::operator=(const stringType &amp;string) noexcept'],['../da/d4a/classtoygine_1_1_fix_string.html#a332c2ea1b05da7bbed29030d8aaa91f7',1,'toygine::FixString::operator=(const char *string) noexcept'],['../da/d4a/classtoygine_1_1_fix_string.html#af7a9b73c6b1f959601c4df6fa1629e8b',1,'toygine::FixString::operator=(char character) noexcept']]],
-  ['operator_5b_5d_4',['operator[]',['../da/d4a/classtoygine_1_1_fix_string.html#a8b36c51e682ee1eaa2bcc45dcf9a00bc',1,'toygine::FixString::operator[](std::size_t offset) noexcept'],['../da/d4a/classtoygine_1_1_fix_string.html#a8829e7646108cb8bdfccf4aeb8a207f2',1,'toygine::FixString::operator[](std::size_t offset) const noexcept']]],
-  ['os_5f3ds_5',['OS_3DS',['../da/d47/core_8hpp.html#a781f7e8960fd1f2fc208a7faa2c09294',1,'core.hpp']]],
-  ['os_5fandroid_6',['OS_ANDROID',['../da/d47/core_8hpp.html#af40f1979db579acb318b57e24b4c7d5a',1,'core.hpp']]],
-  ['os_5fgba_7',['OS_GBA',['../da/d47/core_8hpp.html#a3478544d2b40792195ffa4687e52330d',1,'core.hpp']]],
-  ['os_5fios_8',['OS_IOS',['../da/d47/core_8hpp.html#a567e55d90fcd4316396a60025c74f833',1,'core.hpp']]],
-  ['os_5flinux_9',['OS_LINUX',['../da/d47/core_8hpp.html#ae273c7db78098028c7a6b6b230ac0503',1,'core.hpp']]],
-  ['os_5fmac_5fos_10',['OS_MAC_OS',['../da/d47/core_8hpp.html#a72ae484bb7b2be09d16f948cd48debf3',1,'core.hpp']]],
-  ['os_5fnds_11',['OS_NDS',['../da/d47/core_8hpp.html#a0e250bd096d82c22870ec5fe2aa01fc7',1,'core.hpp']]],
-  ['os_5fswitch_12',['OS_SWITCH',['../da/d47/core_8hpp.html#add26e12ca77c27fd24f25f0192305cc0',1,'core.hpp']]],
-  ['os_5fwindows_13',['OS_WINDOWS',['../da/d47/core_8hpp.html#a6aadf1cbdc6ed6b61b4b0bdffb62e727',1,'core.hpp']]],
-  ['our_20pledge_14',['Our Pledge',['../d3/dd7/md__c_o_d_e___o_f___c_o_n_d_u_c_t.html#our-pledge',1,'']]],
-  ['our_20standards_15',['Our Standards',['../d3/dd7/md__c_o_d_e___o_f___c_o_n_d_u_c_t.html#our-standards',1,'']]]
+  ['tools_0',['Tools',['../index.html#tools',1,'']]],
+  ['toy_5funused_1',['TOY_UNUSED',['../da/d47/core_8hpp.html#a6c25f2c5b6e99783e32a4eb8258eb2f6',1,'core.hpp']]],
+  ['toygine_2',['toygine',['../d7/de6/namespacetoygine.html',1,'']]],
+  ['toygine2_3',['ToyGine2',['../index.html',1,'']]],
+  ['toygine_3a_3aassertion_4',['assertion',['../dd/d55/namespacetoygine_1_1assertion.html',1,'toygine']]],
+  ['toygine_3a_3astringlike_5',['StringLike',['../d8/db7/concepttoygine_1_1_string_like.html',1,'toygine']]]
 ];

@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['_5fdata_0',['_data',['../da/d4a/classtoygine_1_1_fix_string.html#aefd61568e3d5a4812f208bb45358d4ff',1,'toygine::FixString']]],
-  ['_5frfind_5fraw_1',['_rfind_raw',['../da/d4a/classtoygine_1_1_fix_string.html#afceed4a7aa34abe43dddcc0f6eff5960',1,'toygine::FixString']]],
-  ['_5fsize_2',['_size',['../da/d4a/classtoygine_1_1_fix_string.html#a9166a4498452706474ce05840e67e660',1,'toygine::FixString']]]
+  ['data_0',['data',['../da/d4a/classtoygine_1_1_fix_string.html#adac1b68ceb1076b81ad092fd629ed3ff',1,'toygine::FixString::data() noexcept'],['../da/d4a/classtoygine_1_1_fix_string.html#a71ee1e32e3f5bf646c061818be5897ed',1,'toygine::FixString::data() const noexcept']]],
+  ['deinitialize_1',['deInitialize',['../dd/d55/namespacetoygine_1_1assertion.html#a1f4b93239704be50c6f7843c8c7e475f',1,'toygine::assertion']]],
+  ['divmod10_2',['divmod10',['../df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html',1,'anonymous_namespace{utils.cpp}']]],
+  ['divmodu10_3',['divModU10',['../de/dcc/namespaceanonymous__namespace_02utils_8cpp_03.html#ac67999e0431f5b52904efa1cb01a2ad6',1,'anonymous_namespace{utils.cpp}']]]
 ];

@@ -1,9 +1,12 @@
 var searchData=
 [
-  ['permanent_20ban_0',['4. Permanent Ban',['../d3/dd7/md__c_o_d_e___o_f___c_o_n_d_u_c_t.html#autotoc_md4-permanent-ban',1,'']]],
-  ['platform_5fconfig_2ehpp_1',['platform_config.hpp',['../dd/d9e/linux_2platform__config_8hpp.html',1,'(Global Namespace)'],['../d8/d80/macos_2platform__config_8hpp.html',1,'(Global Namespace)'],['../db/d29/windows_2platform__config_8hpp.html',1,'(Global Namespace)']]],
-  ['pledge_2',['Our Pledge',['../d3/dd7/md__c_o_d_e___o_f___c_o_n_d_u_c_t.html#our-pledge',1,'']]],
-  ['policy_3',['Security Policy',['../d7/d88/md__s_e_c_u_r_i_t_y.html',1,'']]],
-  ['pop_5fback_4',['pop_back',['../da/d4a/classtoygine_1_1_fix_string.html#a059bec2e7a47960f231005a1c17da11a',1,'toygine::FixString']]],
-  ['push_5fback_5',['push_back',['../da/d4a/classtoygine_1_1_fix_string.html#ac0007484a4e11553c44240259f4acef0',1,'toygine::FixString']]]
+  ['utf8_5fpop_5fback_0',['utf8_pop_back',['../da/d4a/classtoygine_1_1_fix_string.html#a0df68e69ed62e422e5545e4d3504588f',1,'toygine::FixString']]],
+  ['utf8_5fsize_1',['utf8_size',['../da/d4a/classtoygine_1_1_fix_string.html#a143c96670a065101ee3c32ba341a129d',1,'toygine::FixString']]],
+  ['utf8len_2',['utf8len',['../d7/de6/namespacetoygine.html#a0375e819e616c3617a91adb6d358e334',1,'toygine']]],
+  ['utf8towchar_3',['utf8toWChar',['../d7/de6/namespacetoygine.html#a32bb0f5af188400927e12558fd6527a9',1,'toygine::utf8toWChar(wchar_t *dest, std::size_t destSize, const char *const src) noexcept'],['../d7/de6/namespacetoygine.html#a2bd2dd9c0216904835795ce5b3661f47',1,'toygine::utf8toWChar(wchar_t *dest, std::size_t destSize, const stringType &amp;src) noexcept'],['../d7/de6/namespacetoygine.html#a89f32ddda04ad4d5383e3e307e1597fb',1,'toygine::utf8toWChar(wchar_t *dest, std::size_t destSize, const char *const src, std::size_t count) noexcept']]],
+  ['utils_2ecpp_4',['utils.cpp',['../de/d06/utils_8cpp.html',1,'']]],
+  ['utils_2ehpp_5',['utils.hpp',['../df/d93/utils_8hpp.html',1,'']]],
+  ['utils_2einl_6',['utils.inl',['../df/d7d/utils_8inl.html',1,'']]],
+  ['utils_5finternal_2einl_7',['utils_internal.inl',['../d4/d85/utils__internal_8inl.html',1,'']]],
+  ['utoaimplementation_8',['utoaImplementation',['../d7/de6/namespacetoygine.html#a0f7769364a3fa922049ef7ca0b749e12',1,'toygine']]]
 ];
