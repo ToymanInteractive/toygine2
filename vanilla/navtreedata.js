@@ -30,6 +30,9 @@ var NAVTREE =
       [ "Supported C++ compilers", "index.html#supported-c-compilers", null ],
       [ "Tools", "index.html#tools", null ]
     ] ],
+    [ "Security Policy", "d7/d88/md__s_e_c_u_r_i_t_y.html", [
+      [ "Reporting a Vulnerability", "d7/d88/md__s_e_c_u_r_i_t_y.html#reporting-a-vulnerability", null ]
+    ] ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [
@@ -62,7 +65,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"de/d06/utils_8cpp.html#a1ffae6f9d9a5c63abe48edd50cd7f016"
+"de/d06/utils_8cpp.html#a0fea47d296dd636e54771d79a799cf51"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
