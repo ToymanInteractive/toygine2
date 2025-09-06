@@ -632,7 +632,7 @@ constexpr inline std::size_t FixString<allocatedSize>::find_first_of(const char 
 template <std::size_t allocatedSize>
 constexpr inline std::size_t FixString<allocatedSize>::find_first_of(char character,
                                                                      std::size_t position) const noexcept {
-  return _find_raw(position, &character, 1);
+  return _find_first_of_raw(position, &character, 1);
 }
 
 template <std::size_t allocatedSize>
@@ -811,7 +811,7 @@ constexpr inline void FixString<allocatedSize>::_replace_raw(std::size_t positio
 template <std::size_t allocatedSize>
 constexpr inline std::size_t FixString<allocatedSize>::_find_raw(std::size_t position, const char * data,
                                                                  std::size_t dataSize) const noexcept {
-  if (position > _size)
+  if (position >= _size)
     return npos;
 
   if (dataSize == 0)
@@ -849,20 +849,10 @@ constexpr inline std::size_t FixString<allocatedSize>::_rfind_raw(std::size_t po
 template <std::size_t allocatedSize>
 constexpr inline std::size_t FixString<allocatedSize>::_find_first_of_raw(std::size_t position, const char * data,
                                                                           std::size_t dataSize) const noexcept {
-  if (position > _size || dataSize == 0)
+  if (position >= _size || dataSize == 0)
     return npos;
 
-  if (dataSize == 1) {
-    const auto target = data[0];
-    for (auto i = position; i < _size; ++i) {
-      if (_data[i] == target)
-        return i;
-    }
-
-    return npos;
-  }
-
-  const auto occurrence = std::strpbrk(_data + position, data);
+  const auto occurrence = dataSize == 1 ? std::strchr(_data + position, data[0]) : std::strpbrk(_data + position, data);
 
   return occurrence != nullptr ? occurrence - _data : npos;
 }
