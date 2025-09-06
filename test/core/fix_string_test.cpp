@@ -1170,7 +1170,7 @@ TEST_CASE("FixString find", "[core][fixstring]") {
     CHECK(testString.find(std::string("")) == 0);
     CHECK(testString.find("") == 0);
     CHECK(testString.find("", 5) == 5);
-    CHECK(testString.find("", 11) == FixString<32>::npos);
+    CHECK(testString.find("", 12) == FixString<32>::npos);
   }
 
   SECTION("Find in empty string") {
@@ -1180,7 +1180,7 @@ TEST_CASE("FixString find", "[core][fixstring]") {
     CHECK(testString.find(std::string("Hello")) == FixString<32>::npos);
     CHECK(testString.find("Hello") == FixString<32>::npos);
     CHECK(testString.find('H') == FixString<32>::npos);
-    CHECK(testString.find("") == FixString<32>::npos);
+    CHECK(testString.find("") == 0);
   }
 
   SECTION("Find with position beyond string size") {

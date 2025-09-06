@@ -784,7 +784,7 @@ constexpr inline void FixString<allocatedSize>::_replace_raw(std::size_t positio
 template <std::size_t allocatedSize>
 constexpr inline std::size_t FixString<allocatedSize>::_find_raw(std::size_t position, const char * data,
                                                                  std::size_t dataSize) const noexcept {
-  if (position >= _size)
+  if (position > _size)
     return npos;
 
   if (dataSize == 0)
@@ -792,7 +792,8 @@ constexpr inline std::size_t FixString<allocatedSize>::_find_raw(std::size_t pos
   else if (dataSize > _size - position)
     return npos;
 
-  const auto occurrence = dataSize == 1 ? std::strchr(_data + position, data[0]) : std ::strstr(_data + position, data);
+  const auto occurrence = dataSize == 1 ? std::strchr(_data + position, data[0]) : std::strstr(_data + position, data);
+
   return occurrence != nullptr ? occurrence - _data : npos;
 }
 
@@ -800,7 +801,7 @@ template <std::size_t allocatedSize>
 constexpr inline std::size_t FixString<allocatedSize>::_rfind_raw(std::size_t position, const char * data,
                                                                   std::size_t dataSize) const noexcept {
   if (dataSize == 0)
-    return position <= _size ? position : _size;
+    return std::min(position, _size);
   else if (dataSize > _size)
     return npos;
 
