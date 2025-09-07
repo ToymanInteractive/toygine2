@@ -2964,6 +2964,240 @@ TEST_CASE("FixString contains", "[core][fixstring]") {
   }
 }
 
+TEST_CASE("FixString substr", "[core][fixstring]") {
+  SECTION("Substr basic functionality") {
+    FixString<32> testString("Hello World");
+
+    CHECK(strcmp(testString.substr(0).c_str(), "Hello World") == 0);
+    CHECK(strcmp(testString.substr(0, 5).c_str(), "Hello") == 0);
+    CHECK(strcmp(testString.substr(6).c_str(), "World") == 0);
+    CHECK(strcmp(testString.substr(6, 5).c_str(), "World") == 0);
+    CHECK(strcmp(testString.substr(6, 3).c_str(), "Wor") == 0);
+    CHECK(strcmp(testString.substr(0, 0).c_str(), "") == 0);
+  }
+
+  SECTION("Substr with default parameters") {
+    FixString<32> testString("Hello World");
+
+    CHECK(strcmp(testString.substr().c_str(), "Hello World") == 0);
+    CHECK(strcmp(testString.substr(0).c_str(), "Hello World") == 0);
+    CHECK(strcmp(testString.substr(6).c_str(), "World") == 0);
+  }
+
+  SECTION("Substr with count parameter") {
+    FixString<32> testString("Hello World");
+
+    CHECK(strcmp(testString.substr(0, 1).c_str(), "H") == 0);
+    CHECK(strcmp(testString.substr(0, 2).c_str(), "He") == 0);
+    CHECK(strcmp(testString.substr(0, 3).c_str(), "Hel") == 0);
+    CHECK(strcmp(testString.substr(0, 4).c_str(), "Hell") == 0);
+    CHECK(strcmp(testString.substr(0, 5).c_str(), "Hello") == 0);
+    CHECK(strcmp(testString.substr(6, 1).c_str(), "W") == 0);
+    CHECK(strcmp(testString.substr(6, 2).c_str(), "Wo") == 0);
+    CHECK(strcmp(testString.substr(6, 3).c_str(), "Wor") == 0);
+    CHECK(strcmp(testString.substr(6, 4).c_str(), "Worl") == 0);
+    CHECK(strcmp(testString.substr(6, 5).c_str(), "World") == 0);
+  }
+
+  SECTION("Substr with npos count") {
+    FixString<32> testString("Hello World");
+
+    CHECK(strcmp(testString.substr(0, FixString<32>::npos).c_str(), "Hello World") == 0);
+    CHECK(strcmp(testString.substr(6, FixString<32>::npos).c_str(), "World") == 0);
+    CHECK(strcmp(testString.substr(10, FixString<32>::npos).c_str(), "d") == 0);
+  }
+
+  SECTION("Substr with position at end") {
+    FixString<32> testString("Hello World");
+
+    CHECK(strcmp(testString.substr(11).c_str(), "") == 0);
+    CHECK(strcmp(testString.substr(11, 0).c_str(), "") == 0);
+    CHECK(strcmp(testString.substr(11, 5).c_str(), "") == 0);
+  }
+
+  SECTION("Substr from empty string") {
+    FixString<32> testString("");
+
+    CHECK(strcmp(testString.substr(0).c_str(), "") == 0);
+    CHECK(strcmp(testString.substr(0, 0).c_str(), "") == 0);
+    CHECK(strcmp(testString.substr(0, 5).c_str(), "") == 0);
+  }
+
+  SECTION("Substr single character") {
+    FixString<32> testString("A");
+
+    CHECK(strcmp(testString.substr(0).c_str(), "A") == 0);
+    CHECK(strcmp(testString.substr(0, 1).c_str(), "A") == 0);
+    CHECK(strcmp(testString.substr(0, 0).c_str(), "") == 0);
+    CHECK(strcmp(testString.substr(1).c_str(), "") == 0);
+    CHECK(strcmp(testString.substr(1, 1).c_str(), "") == 0);
+  }
+
+  SECTION("Substr with repeated characters") {
+    FixString<32> testString("aaaaa");
+
+    CHECK(strcmp(testString.substr(0).c_str(), "aaaaa") == 0);
+    CHECK(strcmp(testString.substr(0, 1).c_str(), "a") == 0);
+    CHECK(strcmp(testString.substr(0, 2).c_str(), "aa") == 0);
+    CHECK(strcmp(testString.substr(0, 3).c_str(), "aaa") == 0);
+    CHECK(strcmp(testString.substr(0, 4).c_str(), "aaaa") == 0);
+    CHECK(strcmp(testString.substr(0, 5).c_str(), "aaaaa") == 0);
+    CHECK(strcmp(testString.substr(1).c_str(), "aaaa") == 0);
+    CHECK(strcmp(testString.substr(2).c_str(), "aaa") == 0);
+    CHECK(strcmp(testString.substr(3).c_str(), "aa") == 0);
+    CHECK(strcmp(testString.substr(4).c_str(), "a") == 0);
+    CHECK(strcmp(testString.substr(5).c_str(), "") == 0);
+  }
+
+  SECTION("Substr with special characters") {
+    FixString<32> testString("Hello, World!");
+
+    CHECK(strcmp(testString.substr(5).c_str(), ", World!") == 0);
+    CHECK(strcmp(testString.substr(5, 1).c_str(), ",") == 0);
+    CHECK(strcmp(testString.substr(5, 2).c_str(), ", ") == 0);
+    CHECK(strcmp(testString.substr(12).c_str(), "!") == 0);
+    CHECK(strcmp(testString.substr(12, 1).c_str(), "!") == 0);
+  }
+
+  SECTION("Substr with numbers") {
+    FixString<32> testString("12345");
+
+    CHECK(strcmp(testString.substr(0).c_str(), "12345") == 0);
+    CHECK(strcmp(testString.substr(0, 1).c_str(), "1") == 0);
+    CHECK(strcmp(testString.substr(0, 2).c_str(), "12") == 0);
+    CHECK(strcmp(testString.substr(0, 3).c_str(), "123") == 0);
+    CHECK(strcmp(testString.substr(0, 4).c_str(), "1234") == 0);
+    CHECK(strcmp(testString.substr(0, 5).c_str(), "12345") == 0);
+    CHECK(strcmp(testString.substr(1).c_str(), "2345") == 0);
+    CHECK(strcmp(testString.substr(2).c_str(), "345") == 0);
+    CHECK(strcmp(testString.substr(3).c_str(), "45") == 0);
+    CHECK(strcmp(testString.substr(4).c_str(), "5") == 0);
+    CHECK(strcmp(testString.substr(5).c_str(), "") == 0);
+  }
+
+  SECTION("Substr with whitespace") {
+    FixString<32> testString("Hello World");
+
+    CHECK(strcmp(testString.substr(5).c_str(), " World") == 0);
+    CHECK(strcmp(testString.substr(5, 1).c_str(), " ") == 0);
+    CHECK(strcmp(testString.substr(5, 2).c_str(), " W") == 0);
+    CHECK(strcmp(testString.substr(5, 3).c_str(), " Wo") == 0);
+  }
+
+  SECTION("Substr with newlines") {
+    FixString<32> testString("Hello\nWorld");
+
+    CHECK(strcmp(testString.substr(5).c_str(), "\nWorld") == 0);
+    CHECK(strcmp(testString.substr(5, 1).c_str(), "\n") == 0);
+    CHECK(strcmp(testString.substr(5, 2).c_str(), "\nW") == 0);
+    CHECK(strcmp(testString.substr(6).c_str(), "World") == 0);
+  }
+
+  SECTION("Substr with tabs") {
+    FixString<32> testString("Hello\tWorld");
+
+    CHECK(strcmp(testString.substr(5).c_str(), "\tWorld") == 0);
+    CHECK(strcmp(testString.substr(5, 1).c_str(), "\t") == 0);
+    CHECK(strcmp(testString.substr(5, 2).c_str(), "\tW") == 0);
+    CHECK(strcmp(testString.substr(6).c_str(), "World") == 0);
+  }
+
+  SECTION("Substr maximum length") {
+    FixString<16> testString("123456789012345"); // 15 characters
+
+    CHECK(strcmp(testString.substr(0).c_str(), "123456789012345") == 0);
+    CHECK(strcmp(testString.substr(0, 15).c_str(), "123456789012345") == 0);
+    CHECK(strcmp(testString.substr(0, 16).c_str(), "123456789012345") == 0);
+    CHECK(strcmp(testString.substr(14).c_str(), "5") == 0);
+    CHECK(strcmp(testString.substr(14, 1).c_str(), "5") == 0);
+    CHECK(strcmp(testString.substr(15).c_str(), "") == 0);
+  }
+
+  SECTION("Substr with mixed content") {
+    FixString<32> testString("123Hello");
+
+    CHECK(strcmp(testString.substr(0).c_str(), "123Hello") == 0);
+    CHECK(strcmp(testString.substr(0, 3).c_str(), "123") == 0);
+    CHECK(strcmp(testString.substr(3).c_str(), "Hello") == 0);
+    CHECK(strcmp(testString.substr(3, 5).c_str(), "Hello") == 0);
+    CHECK(strcmp(testString.substr(2, 4).c_str(), "3Hel") == 0);
+  }
+
+  SECTION("Substr with overlapping ranges") {
+    FixString<32> testString("abcdef");
+
+    CHECK(strcmp(testString.substr(0, 1).c_str(), "a") == 0);
+    CHECK(strcmp(testString.substr(1, 1).c_str(), "b") == 0);
+    CHECK(strcmp(testString.substr(2, 1).c_str(), "c") == 0);
+    CHECK(strcmp(testString.substr(3, 1).c_str(), "d") == 0);
+    CHECK(strcmp(testString.substr(4, 1).c_str(), "e") == 0);
+    CHECK(strcmp(testString.substr(5, 1).c_str(), "f") == 0);
+    CHECK(strcmp(testString.substr(0, 2).c_str(), "ab") == 0);
+    CHECK(strcmp(testString.substr(1, 2).c_str(), "bc") == 0);
+    CHECK(strcmp(testString.substr(2, 2).c_str(), "cd") == 0);
+    CHECK(strcmp(testString.substr(3, 2).c_str(), "de") == 0);
+    CHECK(strcmp(testString.substr(4, 2).c_str(), "ef") == 0);
+  }
+
+  SECTION("Substr with exact string length") {
+    FixString<32> testString("Hello");
+
+    CHECK(strcmp(testString.substr(0, 5).c_str(), "Hello") == 0);
+    CHECK(strcmp(testString.substr(0, 6).c_str(), "Hello") == 0);
+    CHECK(strcmp(testString.substr(1, 4).c_str(), "ello") == 0);
+    CHECK(strcmp(testString.substr(2, 3).c_str(), "llo") == 0);
+    CHECK(strcmp(testString.substr(3, 2).c_str(), "lo") == 0);
+    CHECK(strcmp(testString.substr(4, 1).c_str(), "o") == 0);
+  }
+
+  SECTION("Substr with zero count") {
+    FixString<32> testString("Hello World");
+
+    CHECK(strcmp(testString.substr(0, 0).c_str(), "") == 0);
+    CHECK(strcmp(testString.substr(5, 0).c_str(), "") == 0);
+    CHECK(strcmp(testString.substr(10, 0).c_str(), "") == 0);
+    CHECK(strcmp(testString.substr(11, 0).c_str(), "") == 0);
+  }
+
+  SECTION("Substr with position at string size") {
+    FixString<32> testString("Hello");
+
+    CHECK(strcmp(testString.substr(5).c_str(), "") == 0);
+    CHECK(strcmp(testString.substr(5, 0).c_str(), "") == 0);
+    CHECK(strcmp(testString.substr(5, 1).c_str(), "") == 0);
+  }
+
+  SECTION("Substr with different FixString capacities") {
+    FixString<8> smallString("Hello");
+    FixString<16> mediumString("Hello World");
+    FixString<32> largeString("Hello World Universe");
+
+    CHECK(strcmp(smallString.substr(0, 3).c_str(), "Hel") == 0);
+    CHECK(strcmp(mediumString.substr(0, 5).c_str(), "Hello") == 0);
+    CHECK(strcmp(largeString.substr(0, 5).c_str(), "Hello") == 0);
+    CHECK(strcmp(smallString.substr(2).c_str(), "llo") == 0);
+    CHECK(strcmp(mediumString.substr(6).c_str(), "World") == 0);
+    CHECK(strcmp(largeString.substr(12).c_str(), "Universe") == 0);
+  }
+
+  SECTION("Substr with punctuation") {
+    FixString<32> testString("Hello, World!");
+
+    CHECK(strcmp(testString.substr(5, 1).c_str(), ",") == 0);
+    CHECK(strcmp(testString.substr(6, 1).c_str(), " ") == 0);
+    CHECK(strcmp(testString.substr(12, 1).c_str(), "!") == 0);
+    CHECK(strcmp(testString.substr(5, 3).c_str(), ", W") == 0);
+    CHECK(strcmp(testString.substr(11, 2).c_str(), "d!") == 0);
+  }
+
+  SECTION("Substr with unicode-like content") {
+    FixString<32> testString("Hello 世界");
+
+    CHECK(strcmp(testString.substr(0, 6).c_str(), "Hello ") == 0);
+    CHECK(strcmp(testString.substr(6).c_str(), "世界") == 0);
+  }
+}
+
 TEST_CASE("FixString operators+", "[core][fixstring]") {
   const auto testString1 = FixString<14>("12") + "test text 1";
   const auto testString2 = FixString<14>("12") + FixString<14>("test text 2");

@@ -1653,6 +1653,26 @@ public:
   constexpr inline bool contains(char character) const noexcept;
 
   /*!
+    \brief Returns a substring of this string.
+
+    This method creates and returns a new FixString object containing a substring of this string, starting at the
+    specified \a position and containing up to \a count characters.
+
+    \param position The starting position of the substring (default: 0).
+    \param count    The maximum number of characters to include in the substring (default: \ref npos). If \ref npos or
+                    exceeds the remaining characters, all characters from \a position to the end are included.
+
+    \return A new FixString object containing the specified substring.
+
+    \pre The \a position must be less than or equal to the string size.
+
+    \note If \a position is equal to the string size, an empty string is returned.
+    \note If \a count is \ref npos or exceeds the remaining characters from \a position, all remaining characters are
+          included.
+  */
+  constexpr inline FixString<allocatedSize> substr(std::size_t position = 0, std::size_t count = npos) const noexcept;
+
+  /*!
     \brief Concatenates two FixString objects and returns the result.
 
     This operator creates a new FixString object by concatenating the current FixString object with another provided
