@@ -103,6 +103,7 @@ var classtoygine_1_1_fix_string =
     [ "starts_with", "da/d4a/classtoygine_1_1_fix_string.html#a4d186283e857b472d2e025964aacb1b6", null ],
     [ "starts_with", "da/d4a/classtoygine_1_1_fix_string.html#a7a46a3251062357d8fcef9578785cdcf", null ],
     [ "starts_with", "da/d4a/classtoygine_1_1_fix_string.html#ae461dc559fa326874eeef4bc4cd4fe04", null ],
+    [ "substr", "da/d4a/classtoygine_1_1_fix_string.html#a6535ff8b2b533244d5d203c99f1b2555", null ],
     [ "swap", "da/d4a/classtoygine_1_1_fix_string.html#a5d50ca47d782fc6a678859d77ee83248", null ],
     [ "utf8_pop_back", "da/d4a/classtoygine_1_1_fix_string.html#a0df68e69ed62e422e5545e4d3504588f", null ],
     [ "utf8_size", "da/d4a/classtoygine_1_1_fix_string.html#a143c96670a065101ee3c32ba341a129d", null ],

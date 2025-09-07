@@ -9,8 +9,9 @@ var searchData=
   ['src_5fcore_5futils_5finternal_5finl_5f_6',['SRC_CORE_UTILS_INTERNAL_INL_',['../d4/d85/utils__internal_8inl.html#a59c5026acee935b89b5b8cf435c67831',1,'utils_internal.inl']]],
   ['stackwalkcallback_7',['StackWalkCallback',['../dd/d55/namespacetoygine_1_1assertion.html#a0b2124cab86bbf34bdaa15df4f2a16ec',1,'toygine::assertion']]],
   ['starts_5fwith_8',['starts_with',['../da/d4a/classtoygine_1_1_fix_string.html#a7a46a3251062357d8fcef9578785cdcf',1,'toygine::FixString::starts_with(const FixString&lt; allocatedSize &gt; &amp;string) const noexcept'],['../da/d4a/classtoygine_1_1_fix_string.html#ae461dc559fa326874eeef4bc4cd4fe04',1,'toygine::FixString::starts_with(const stringType &amp;string) const noexcept'],['../da/d4a/classtoygine_1_1_fix_string.html#a4d186283e857b472d2e025964aacb1b6',1,'toygine::FixString::starts_with(const char *string) const noexcept'],['../da/d4a/classtoygine_1_1_fix_string.html#a481a6eeab7d7a08448d8e34586d9f132',1,'toygine::FixString::starts_with(char character) const noexcept']]],
-  ['supported_20c_20compilers_9',['Supported C++ compilers',['../index.html#supported-c-compilers',1,'']]],
-  ['supported_20systems_10',['Supported Systems',['../index.html#supported-systems',1,'']]],
-  ['swap_11',['swap',['../da/d4a/classtoygine_1_1_fix_string.html#a5d50ca47d782fc6a678859d77ee83248',1,'toygine::FixString']]],
-  ['systems_12',['Supported Systems',['../index.html#supported-systems',1,'']]]
+  ['substr_9',['substr',['../da/d4a/classtoygine_1_1_fix_string.html#a6535ff8b2b533244d5d203c99f1b2555',1,'toygine::FixString']]],
+  ['supported_20c_20compilers_10',['Supported C++ compilers',['../index.html#supported-c-compilers',1,'']]],
+  ['supported_20systems_11',['Supported Systems',['../index.html#supported-systems',1,'']]],
+  ['swap_12',['swap',['../da/d4a/classtoygine_1_1_fix_string.html#a5d50ca47d782fc6a678859d77ee83248',1,'toygine::FixString']]],
+  ['systems_13',['Supported Systems',['../index.html#supported-systems',1,'']]]
 ];
