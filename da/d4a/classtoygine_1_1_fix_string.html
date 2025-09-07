@@ -338,6 +338,19 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:abee80e1f5bd70f4567ec681f3aea9985" id="r_abee80e1f5bd70f4567ec681f3aea9985"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abee80e1f5bd70f4567ec681f3aea9985">find_first_of</a> (char character, std::size_t position=0) const noexcept</td></tr>
 <tr class="memdesc:abee80e1f5bd70f4567ec681f3aea9985"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the first occurrence of the specified <em>character</em>.  <br /></td></tr>
 <tr class="separator:abee80e1f5bd70f4567ec681f3aea9985"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c18e644c176e3c003ac73e2b87089e7" id="r_a7c18e644c176e3c003ac73e2b87089e7"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7c18e644c176e3c003ac73e2b87089e7">find_first_not_of</a> (const <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt; allocatedSize &gt; &amp;string, std::size_t position=0) const noexcept</td></tr>
+<tr class="memdesc:a7c18e644c176e3c003ac73e2b87089e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the first occurrence of any character not from the specified <em>string</em>.  <br /></td></tr>
+<tr class="separator:a7c18e644c176e3c003ac73e2b87089e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7ebcb2d444dba9e533e0faea2dde814" id="r_af7ebcb2d444dba9e533e0faea2dde814"><td class="memTemplParams" colspan="2">template&lt;StringLike stringType&gt; </td></tr>
+<tr class="memitem:af7ebcb2d444dba9e533e0faea2dde814"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#af7ebcb2d444dba9e533e0faea2dde814">find_first_not_of</a> (const stringType &amp;string, std::size_t position=0) const noexcept</td></tr>
+<tr class="memdesc:af7ebcb2d444dba9e533e0faea2dde814"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the first occurrence of any character not from a <a class="el" href="../../d8/db7/concepttoygine_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object.  <br /></td></tr>
+<tr class="separator:af7ebcb2d444dba9e533e0faea2dde814"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade093cad930526f423034b53f07d5c47" id="r_ade093cad930526f423034b53f07d5c47"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ade093cad930526f423034b53f07d5c47">find_first_not_of</a> (const char *string, std::size_t position=0) const noexcept</td></tr>
+<tr class="memdesc:ade093cad930526f423034b53f07d5c47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the first occurrence of any character not from the C <em>string</em>.  <br /></td></tr>
+<tr class="separator:ade093cad930526f423034b53f07d5c47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78701682b8795081ec7cd9ea6b91dd79" id="r_a78701682b8795081ec7cd9ea6b91dd79"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a78701682b8795081ec7cd9ea6b91dd79">find_first_not_of</a> (char character, std::size_t position=0) const noexcept</td></tr>
+<tr class="memdesc:a78701682b8795081ec7cd9ea6b91dd79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the first occurrence of any character not equal to the specified <em>character</em>.  <br /></td></tr>
+<tr class="separator:a78701682b8795081ec7cd9ea6b91dd79"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9f67beed78ca7d3e24e654ae6f35a7c4" id="r_a9f67beed78ca7d3e24e654ae6f35a7c4"><td class="memItemLeft" align="right" valign="top">constexpr int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9f67beed78ca7d3e24e654ae6f35a7c4">compare</a> (const <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt; allocatedSize &gt; &amp;string) const noexcept</td></tr>
 <tr class="memdesc:a9f67beed78ca7d3e24e654ae6f35a7c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares this string with another <em>string</em> lexicographically.  <br /></td></tr>
 <tr class="separator:a9f67beed78ca7d3e24e654ae6f35a7c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -413,6 +426,9 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:a18578857b44d0ac8ac7b5d6ed988c3ad" id="r_a18578857b44d0ac8ac7b5d6ed988c3ad"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a18578857b44d0ac8ac7b5d6ed988c3ad">_find_first_of_raw</a> (std::size_t position, const char *<a class="el" href="#adac1b68ceb1076b81ad092fd629ed3ff">data</a>, std::size_t dataSize) const noexcept</td></tr>
 <tr class="memdesc:a18578857b44d0ac8ac7b5d6ed988c3ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method for finding the first occurrence of any character from <em>data</em>.  <br /></td></tr>
 <tr class="separator:a18578857b44d0ac8ac7b5d6ed988c3ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aefab9c8ba84e16e22a98d4cb101c42d7" id="r_aefab9c8ba84e16e22a98d4cb101c42d7"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aefab9c8ba84e16e22a98d4cb101c42d7">_find_first_not_of_raw</a> (std::size_t position, const char *<a class="el" href="#adac1b68ceb1076b81ad092fd629ed3ff">data</a>, std::size_t dataSize) const noexcept</td></tr>
+<tr class="memdesc:aefab9c8ba84e16e22a98d4cb101c42d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method for finding the first occurrence of any character not from <em>data</em>.  <br /></td></tr>
+<tr class="separator:aefab9c8ba84e16e22a98d4cb101c42d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -451,8 +467,8 @@ template&lt;std::size_t allocatedSize&gt; </div>
 <dl class="section post"><dt>Postcondition</dt><dd>The string is empty and ready for use. </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">   31</span>  : <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a>(0)</div>
 <div class="line"><span class="lineno">   32</span>  , <a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a>{<span class="charliteral">&#39;\0&#39;</span>} {}</div>
-<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a9166a4498452706474ce05840e67e660"><div class="ttname"><a href="#a9166a4498452706474ce05840e67e660">toygine::FixString::_size</a></div><div class="ttdeci">std::size_t _size</div><div class="ttdef"><b>Definition</b> fix_string.hpp:1534</div></div>
-<div class="ttc" id="aclasstoygine_1_1_fix_string_html_aefd61568e3d5a4812f208bb45358d4ff"><div class="ttname"><a href="#aefd61568e3d5a4812f208bb45358d4ff">toygine::FixString::_data</a></div><div class="ttdeci">char _data[allocatedSize]</div><div class="ttdef"><b>Definition</b> fix_string.hpp:1533</div></div>
+<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a9166a4498452706474ce05840e67e660"><div class="ttname"><a href="#a9166a4498452706474ce05840e67e660">toygine::FixString::_size</a></div><div class="ttdeci">std::size_t _size</div><div class="ttdef"><b>Definition</b> fix_string.hpp:1631</div></div>
+<div class="ttc" id="aclasstoygine_1_1_fix_string_html_aefd61568e3d5a4812f208bb45358d4ff"><div class="ttname"><a href="#aefd61568e3d5a4812f208bb45358d4ff">toygine::FixString::_data</a></div><div class="ttdeci">char _data[allocatedSize]</div><div class="ttdef"><b>Definition</b> fix_string.hpp:1630</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -726,17 +742,99 @@ template&lt;std::size_t allocatedSize&gt; </div>
 <dl class="section pre"><dt>Precondition</dt><dd>The <em>data</em> must not be null. </dd>
 <dd>
 The combined length after appending must not exceed the allocated capacity. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">  768</span>                                                                                                          {</div>
-<div class="line"><span class="lineno">  769</span>  <span class="keywordflow">if</span> (dataSize == 0)</div>
-<div class="line"><span class="lineno">  770</span>    <span class="keywordflow">return</span>;</div>
-<div class="line"><span class="lineno">  771</span> </div>
-<div class="line"><span class="lineno">  772</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(((<a class="code hl_function" href="#adac1b68ceb1076b81ad092fd629ed3ff">data</a> + dataSize) &lt; <a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a>) || (<a class="code hl_function" href="#adac1b68ceb1076b81ad092fd629ed3ff">data</a> &gt;= (<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> + allocatedSize)),</div>
-<div class="line"><span class="lineno">  773</span>                 <span class="stringliteral">&quot;Source data pointer must not point into _data buffer&quot;</span>);</div>
-<div class="line"><span class="lineno">  774</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> + dataSize &lt; allocatedSize, <span class="stringliteral">&quot;Appended data must fit in capacity&quot;</span>);</div>
-<div class="line"><span class="lineno">  775</span> </div>
-<div class="line"><span class="lineno">  776</span>  std::memcpy(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> + <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a>, <a class="code hl_function" href="#adac1b68ceb1076b81ad092fd629ed3ff">data</a>, dataSize + 1);</div>
-<div class="line"><span class="lineno">  777</span>  <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> += dataSize;</div>
-<div class="line"><span class="lineno">  778</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">  795</span>                                                                                                          {</div>
+<div class="line"><span class="lineno">  796</span>  <span class="keywordflow">if</span> (dataSize == 0)</div>
+<div class="line"><span class="lineno">  797</span>    <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  798</span> </div>
+<div class="line"><span class="lineno">  799</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(((<a class="code hl_function" href="#adac1b68ceb1076b81ad092fd629ed3ff">data</a> + dataSize) &lt; <a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a>) || (<a class="code hl_function" href="#adac1b68ceb1076b81ad092fd629ed3ff">data</a> &gt;= (<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> + allocatedSize)),</div>
+<div class="line"><span class="lineno">  800</span>                 <span class="stringliteral">&quot;Source data pointer must not point into _data buffer&quot;</span>);</div>
+<div class="line"><span class="lineno">  801</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> + dataSize &lt; allocatedSize, <span class="stringliteral">&quot;Appended data must fit in capacity&quot;</span>);</div>
+<div class="line"><span class="lineno">  802</span> </div>
+<div class="line"><span class="lineno">  803</span>  std::memcpy(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> + <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a>, <a class="code hl_function" href="#adac1b68ceb1076b81ad092fd629ed3ff">data</a>, dataSize + 1);</div>
+<div class="line"><span class="lineno">  804</span>  <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> += dataSize;</div>
+<div class="line"><span class="lineno">  805</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="aefab9c8ba84e16e22a98d4cb101c42d7" name="aefab9c8ba84e16e22a98d4cb101c42d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aefab9c8ba84e16e22a98d4cb101c42d7">&#9670;&#160;</a></span>_find_first_not_of_raw()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;std::size_t allocatedSize&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">toygine::FixString</a>&lt; allocatedSize &gt;::_find_first_not_of_raw </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>data</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>dataSize</em></span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">private</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Helper method for finding the first occurrence of any character not from <em>data</em>. </p>
+<p>This private method performs the common search logic used by all find_first_not_of methods. It searches for the first occurrence of any character that is not present in the specified <em>data</em> starting from the given <em>position</em>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">position</td><td>The position to start searching from. </td></tr>
+    <tr><td class="paramname">data</td><td>The data containing characters to exclude from search. </td></tr>
+    <tr><td class="paramname">dataSize</td><td>The size of the data containing characters to exclude from search.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The position of the first occurrence of any character not from <em>data</em>, or <a class="el" href="#a79044e138bb62795eaa69202361b0c1c">npos</a> if not found.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The <em>position</em> must be less than the string size. </dd>
+<dd>
+The <em>data</em> must not be null. </dd></dl>
+<div class="fragment"><div class="line"><span class="lineno">  889</span>                                                                                                                 {</div>
+<div class="line"><span class="lineno">  890</span>  <span class="keywordflow">if</span> (position &gt;= <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a>)</div>
+<div class="line"><span class="lineno">  891</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="#a79044e138bb62795eaa69202361b0c1c">npos</a>;</div>
+<div class="line"><span class="lineno">  892</span> </div>
+<div class="line"><span class="lineno">  893</span>  <span class="keywordflow">if</span> (dataSize == 0)</div>
+<div class="line"><span class="lineno">  894</span>    <span class="keywordflow">return</span> position;</div>
+<div class="line"><span class="lineno">  895</span> </div>
+<div class="line"><span class="lineno">  896</span>  <span class="keywordflow">if</span> (dataSize == 1) {</div>
+<div class="line"><span class="lineno">  897</span>    <span class="keyword">const</span> <span class="keyword">auto</span> exclude = <a class="code hl_function" href="#adac1b68ceb1076b81ad092fd629ed3ff">data</a>[0];</div>
+<div class="line"><span class="lineno">  898</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> i = position; i &lt; <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a>; ++i) {</div>
+<div class="line"><span class="lineno">  899</span>      <span class="keywordflow">if</span> (<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a>[i] != exclude)</div>
+<div class="line"><span class="lineno">  900</span>        <span class="keywordflow">return</span> i;</div>
+<div class="line"><span class="lineno">  901</span>    }</div>
+<div class="line"><span class="lineno">  902</span> </div>
+<div class="line"><span class="lineno">  903</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="#a79044e138bb62795eaa69202361b0c1c">npos</a>;</div>
+<div class="line"><span class="lineno">  904</span>  }</div>
+<div class="line"><span class="lineno">  905</span> </div>
+<div class="line"><span class="lineno">  906</span>  std::array&lt;bool, 256&gt; excludedChars{};</div>
+<div class="line"><span class="lineno">  907</span> </div>
+<div class="line"><span class="lineno">  908</span>  <span class="keywordflow">for</span> (std::size_t i = 0; i &lt; dataSize; ++i) {</div>
+<div class="line"><span class="lineno">  909</span>    excludedChars[<span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span><span class="keyword">&gt;</span>(<a class="code hl_function" href="#adac1b68ceb1076b81ad092fd629ed3ff">data</a>[i])] = <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  910</span>  }</div>
+<div class="line"><span class="lineno">  911</span> </div>
+<div class="line"><span class="lineno">  912</span>  <span class="keywordflow">for</span> (<span class="keyword">auto</span> i = position; i &lt; <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a>; ++i) {</div>
+<div class="line"><span class="lineno">  913</span>    <span class="keywordflow">if</span> (!excludedChars[<span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span><span class="keyword">&gt;</span>(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a>[i])])</div>
+<div class="line"><span class="lineno">  914</span>      <span class="keywordflow">return</span> i;</div>
+<div class="line"><span class="lineno">  915</span>  }</div>
+<div class="line"><span class="lineno">  916</span> </div>
+<div class="line"><span class="lineno">  917</span>  <span class="keywordflow">return</span> <a class="code hl_variable" href="#a79044e138bb62795eaa69202361b0c1c">npos</a>;</div>
+<div class="line"><span class="lineno">  918</span>}</div>
+<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a79044e138bb62795eaa69202361b0c1c"><div class="ttname"><a href="#a79044e138bb62795eaa69202361b0c1c">toygine::FixString::npos</a></div><div class="ttdeci">static const std::size_t npos</div><div class="ttdef"><b>Definition</b> fix_string.hpp:1506</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -785,18 +883,17 @@ template&lt;std::size_t allocatedSize&gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The position of the first occurrence of any character from <em>data</em>, or <a class="el" href="#a79044e138bb62795eaa69202361b0c1c">npos</a> if not found.</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd>The <em>position</em> must be less than or equal to the string size. </dd>
+<dl class="section pre"><dt>Precondition</dt><dd>The <em>position</em> must be less than the string size. </dd>
 <dd>
 The <em>data</em> must not be null. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">  851</span>                                                                                                             {</div>
-<div class="line"><span class="lineno">  852</span>  <span class="keywordflow">if</span> (position &gt;= <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> || dataSize == 0)</div>
-<div class="line"><span class="lineno">  853</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="#a79044e138bb62795eaa69202361b0c1c">npos</a>;</div>
-<div class="line"><span class="lineno">  854</span> </div>
-<div class="line"><span class="lineno">  855</span>  <span class="keyword">const</span> <span class="keyword">auto</span> occurrence = dataSize == 1 ? std::strchr(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> + position, <a class="code hl_function" href="#adac1b68ceb1076b81ad092fd629ed3ff">data</a>[0]) : std::strpbrk(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> + position, <a class="code hl_function" href="#adac1b68ceb1076b81ad092fd629ed3ff">data</a>);</div>
-<div class="line"><span class="lineno">  856</span> </div>
-<div class="line"><span class="lineno">  857</span>  <span class="keywordflow">return</span> occurrence != <span class="keyword">nullptr</span> ? occurrence - <a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> : <a class="code hl_variable" href="#a79044e138bb62795eaa69202361b0c1c">npos</a>;</div>
-<div class="line"><span class="lineno">  858</span>}</div>
-<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a79044e138bb62795eaa69202361b0c1c"><div class="ttname"><a href="#a79044e138bb62795eaa69202361b0c1c">toygine::FixString::npos</a></div><div class="ttdeci">static const std::size_t npos</div><div class="ttdef"><b>Definition</b> fix_string.hpp:1427</div></div>
+<div class="fragment"><div class="line"><span class="lineno">  878</span>                                                                                                             {</div>
+<div class="line"><span class="lineno">  879</span>  <span class="keywordflow">if</span> (position &gt;= <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> || dataSize == 0)</div>
+<div class="line"><span class="lineno">  880</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="#a79044e138bb62795eaa69202361b0c1c">npos</a>;</div>
+<div class="line"><span class="lineno">  881</span> </div>
+<div class="line"><span class="lineno">  882</span>  <span class="keyword">const</span> <span class="keyword">auto</span> occurrence = dataSize == 1 ? std::strchr(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> + position, <a class="code hl_function" href="#adac1b68ceb1076b81ad092fd629ed3ff">data</a>[0]) : std::strpbrk(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> + position, <a class="code hl_function" href="#adac1b68ceb1076b81ad092fd629ed3ff">data</a>);</div>
+<div class="line"><span class="lineno">  883</span> </div>
+<div class="line"><span class="lineno">  884</span>  <span class="keywordflow">return</span> occurrence != <span class="keyword">nullptr</span> ? occurrence - <a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> : <a class="code hl_variable" href="#a79044e138bb62795eaa69202361b0c1c">npos</a>;</div>
+<div class="line"><span class="lineno">  885</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -848,19 +945,19 @@ template&lt;std::size_t allocatedSize&gt; </div>
 <dl class="section pre"><dt>Precondition</dt><dd>The <em>position</em> must be less than or equal to the string size. </dd>
 <dd>
 The <em>data</em> must not be null. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">  813</span>                                                                                                    {</div>
-<div class="line"><span class="lineno">  814</span>  <span class="keywordflow">if</span> (position &gt;= <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a>)</div>
-<div class="line"><span class="lineno">  815</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="#a79044e138bb62795eaa69202361b0c1c">npos</a>;</div>
-<div class="line"><span class="lineno">  816</span> </div>
-<div class="line"><span class="lineno">  817</span>  <span class="keywordflow">if</span> (dataSize == 0)</div>
-<div class="line"><span class="lineno">  818</span>    <span class="keywordflow">return</span> position;</div>
-<div class="line"><span class="lineno">  819</span>  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (dataSize &gt; <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> - position)</div>
-<div class="line"><span class="lineno">  820</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="#a79044e138bb62795eaa69202361b0c1c">npos</a>;</div>
-<div class="line"><span class="lineno">  821</span> </div>
-<div class="line"><span class="lineno">  822</span>  <span class="keyword">const</span> <span class="keyword">auto</span> occurrence = dataSize == 1 ? std::strchr(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> + position, <a class="code hl_function" href="#adac1b68ceb1076b81ad092fd629ed3ff">data</a>[0]) : std::strstr(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> + position, <a class="code hl_function" href="#adac1b68ceb1076b81ad092fd629ed3ff">data</a>);</div>
-<div class="line"><span class="lineno">  823</span> </div>
-<div class="line"><span class="lineno">  824</span>  <span class="keywordflow">return</span> occurrence != <span class="keyword">nullptr</span> ? occurrence - <a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> : <a class="code hl_variable" href="#a79044e138bb62795eaa69202361b0c1c">npos</a>;</div>
-<div class="line"><span class="lineno">  825</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">  840</span>                                                                                                    {</div>
+<div class="line"><span class="lineno">  841</span>  <span class="keywordflow">if</span> (position &gt;= <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a>)</div>
+<div class="line"><span class="lineno">  842</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="#a79044e138bb62795eaa69202361b0c1c">npos</a>;</div>
+<div class="line"><span class="lineno">  843</span> </div>
+<div class="line"><span class="lineno">  844</span>  <span class="keywordflow">if</span> (dataSize == 0)</div>
+<div class="line"><span class="lineno">  845</span>    <span class="keywordflow">return</span> position;</div>
+<div class="line"><span class="lineno">  846</span>  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (dataSize &gt; <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> - position)</div>
+<div class="line"><span class="lineno">  847</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="#a79044e138bb62795eaa69202361b0c1c">npos</a>;</div>
+<div class="line"><span class="lineno">  848</span> </div>
+<div class="line"><span class="lineno">  849</span>  <span class="keyword">const</span> <span class="keyword">auto</span> occurrence = dataSize == 1 ? std::strchr(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> + position, <a class="code hl_function" href="#adac1b68ceb1076b81ad092fd629ed3ff">data</a>[0]) : std::strstr(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> + position, <a class="code hl_function" href="#adac1b68ceb1076b81ad092fd629ed3ff">data</a>);</div>
+<div class="line"><span class="lineno">  850</span> </div>
+<div class="line"><span class="lineno">  851</span>  <span class="keywordflow">return</span> occurrence != <span class="keyword">nullptr</span> ? occurrence - <a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> : <a class="code hl_variable" href="#a79044e138bb62795eaa69202361b0c1c">npos</a>;</div>
+<div class="line"><span class="lineno">  852</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -913,26 +1010,26 @@ template&lt;std::size_t allocatedSize&gt; </div>
 The <em>data</em> must not be null. </dd>
 <dd>
 The combined length after insertion must not exceed the allocated capacity. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">  746</span>                                                                                         {</div>
-<div class="line"><span class="lineno">  747</span>  <span class="keywordflow">if</span> (dataSize == 0)</div>
-<div class="line"><span class="lineno">  748</span>    <span class="keywordflow">return</span>;</div>
-<div class="line"><span class="lineno">  749</span> </div>
-<div class="line"><span class="lineno">  750</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(((<a class="code hl_function" href="#adac1b68ceb1076b81ad092fd629ed3ff">data</a> + dataSize) &lt; <a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a>) || (<a class="code hl_function" href="#adac1b68ceb1076b81ad092fd629ed3ff">data</a> &gt;= (<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> + allocatedSize)),</div>
-<div class="line"><span class="lineno">  751</span>                 <span class="stringliteral">&quot;Source data pointer must not point into _data buffer&quot;</span>);</div>
-<div class="line"><span class="lineno">  752</span> </div>
-<div class="line"><span class="lineno">  753</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(position &lt;= <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a>, <span class="stringliteral">&quot;Index must not exceed string size&quot;</span>);</div>
-<div class="line"><span class="lineno">  754</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> + dataSize &lt; allocatedSize, <span class="stringliteral">&quot;Inserted string must fit in capacity&quot;</span>);</div>
-<div class="line"><span class="lineno">  755</span> </div>
-<div class="line"><span class="lineno">  756</span>  <span class="comment">// If inserting at the end, just append</span></div>
-<div class="line"><span class="lineno">  757</span>  <span class="keywordflow">if</span> (position == <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a>) {</div>
-<div class="line"><span class="lineno">  758</span>    std::memcpy(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> + <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a>, <a class="code hl_function" href="#adac1b68ceb1076b81ad092fd629ed3ff">data</a>, dataSize + 1);</div>
-<div class="line"><span class="lineno">  759</span>  } <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno">  760</span>    std::memmove(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> + position + dataSize, <a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> + position, <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> - position + 1);</div>
-<div class="line"><span class="lineno">  761</span>    std::memcpy(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> + position, <a class="code hl_function" href="#adac1b68ceb1076b81ad092fd629ed3ff">data</a>, dataSize);</div>
-<div class="line"><span class="lineno">  762</span>  }</div>
-<div class="line"><span class="lineno">  763</span> </div>
-<div class="line"><span class="lineno">  764</span>  <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> += dataSize;</div>
-<div class="line"><span class="lineno">  765</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">  773</span>                                                                                         {</div>
+<div class="line"><span class="lineno">  774</span>  <span class="keywordflow">if</span> (dataSize == 0)</div>
+<div class="line"><span class="lineno">  775</span>    <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  776</span> </div>
+<div class="line"><span class="lineno">  777</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(((<a class="code hl_function" href="#adac1b68ceb1076b81ad092fd629ed3ff">data</a> + dataSize) &lt; <a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a>) || (<a class="code hl_function" href="#adac1b68ceb1076b81ad092fd629ed3ff">data</a> &gt;= (<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> + allocatedSize)),</div>
+<div class="line"><span class="lineno">  778</span>                 <span class="stringliteral">&quot;Source data pointer must not point into _data buffer&quot;</span>);</div>
+<div class="line"><span class="lineno">  779</span> </div>
+<div class="line"><span class="lineno">  780</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(position &lt;= <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a>, <span class="stringliteral">&quot;Index must not exceed string size&quot;</span>);</div>
+<div class="line"><span class="lineno">  781</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> + dataSize &lt; allocatedSize, <span class="stringliteral">&quot;Inserted string must fit in capacity&quot;</span>);</div>
+<div class="line"><span class="lineno">  782</span> </div>
+<div class="line"><span class="lineno">  783</span>  <span class="comment">// If inserting at the end, just append</span></div>
+<div class="line"><span class="lineno">  784</span>  <span class="keywordflow">if</span> (position == <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a>) {</div>
+<div class="line"><span class="lineno">  785</span>    std::memcpy(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> + <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a>, <a class="code hl_function" href="#adac1b68ceb1076b81ad092fd629ed3ff">data</a>, dataSize + 1);</div>
+<div class="line"><span class="lineno">  786</span>  } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  787</span>    std::memmove(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> + position + dataSize, <a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> + position, <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> - position + 1);</div>
+<div class="line"><span class="lineno">  788</span>    std::memcpy(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> + position, <a class="code hl_function" href="#adac1b68ceb1076b81ad092fd629ed3ff">data</a>, dataSize);</div>
+<div class="line"><span class="lineno">  789</span>  }</div>
+<div class="line"><span class="lineno">  790</span> </div>
+<div class="line"><span class="lineno">  791</span>  <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> += dataSize;</div>
+<div class="line"><span class="lineno">  792</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -993,34 +1090,34 @@ The <em>data</em> must not be null. </dd>
 The replacement range must be within string bounds. </dd>
 <dd>
 The resulting string size must not exceed the allocated capacity. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">  782</span>                                                                                                             {</div>
-<div class="line"><span class="lineno">  783</span>  <span class="keywordflow">if</span> (oldCount == 0 &amp;&amp; dataSize == 0)</div>
-<div class="line"><span class="lineno">  784</span>    <span class="keywordflow">return</span>;</div>
-<div class="line"><span class="lineno">  785</span> </div>
-<div class="line"><span class="lineno">  786</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(((<a class="code hl_function" href="#adac1b68ceb1076b81ad092fd629ed3ff">data</a> + dataSize) &lt; <a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a>) || (<a class="code hl_function" href="#adac1b68ceb1076b81ad092fd629ed3ff">data</a> &gt;= (<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> + allocatedSize)),</div>
-<div class="line"><span class="lineno">  787</span>                 <span class="stringliteral">&quot;Source data pointer must not point into _data buffer&quot;</span>);</div>
-<div class="line"><span class="lineno">  788</span> </div>
-<div class="line"><span class="lineno">  789</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(position &lt;= <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a>, <span class="stringliteral">&quot;Position must be within string bounds&quot;</span>);</div>
-<div class="line"><span class="lineno">  790</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(position + oldCount &lt;= <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a>, <span class="stringliteral">&quot;Replacement range must be within string bounds&quot;</span>);</div>
-<div class="line"><span class="lineno">  791</span> </div>
-<div class="line"><span class="lineno">  792</span>  <span class="comment">// If sizes are equal, no need to shift data</span></div>
-<div class="line"><span class="lineno">  793</span>  <span class="keywordflow">if</span> (oldCount == dataSize) {</div>
-<div class="line"><span class="lineno">  794</span>    std::memcpy(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> + position, <a class="code hl_function" href="#adac1b68ceb1076b81ad092fd629ed3ff">data</a>, dataSize);</div>
-<div class="line"><span class="lineno">  795</span>    <span class="keywordflow">return</span>;</div>
-<div class="line"><span class="lineno">  796</span>  }</div>
-<div class="line"><span class="lineno">  797</span> </div>
-<div class="line"><span class="lineno">  798</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>((<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> - oldCount + dataSize) &lt; allocatedSize, <span class="stringliteral">&quot;Replacement result must fit in capacity&quot;</span>);</div>
-<div class="line"><span class="lineno">  799</span> </div>
-<div class="line"><span class="lineno">  800</span>  <span class="comment">// If replacing at the end, no need to shift</span></div>
-<div class="line"><span class="lineno">  801</span>  <span class="keywordflow">if</span> (position + oldCount == <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a>) {</div>
-<div class="line"><span class="lineno">  802</span>    std::memcpy(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> + position, <a class="code hl_function" href="#adac1b68ceb1076b81ad092fd629ed3ff">data</a>, dataSize + 1);</div>
-<div class="line"><span class="lineno">  803</span>  } <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno">  804</span>    std::memmove(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> + position + dataSize, <a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> + position + oldCount, <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> - position - oldCount + 1);</div>
-<div class="line"><span class="lineno">  805</span>    std::memcpy(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> + position, <a class="code hl_function" href="#adac1b68ceb1076b81ad092fd629ed3ff">data</a>, dataSize);</div>
-<div class="line"><span class="lineno">  806</span>  }</div>
-<div class="line"><span class="lineno">  807</span> </div>
-<div class="line"><span class="lineno">  808</span>  <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> = <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> - oldCount + dataSize;</div>
-<div class="line"><span class="lineno">  809</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">  809</span>                                                                                                             {</div>
+<div class="line"><span class="lineno">  810</span>  <span class="keywordflow">if</span> (oldCount == 0 &amp;&amp; dataSize == 0)</div>
+<div class="line"><span class="lineno">  811</span>    <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  812</span> </div>
+<div class="line"><span class="lineno">  813</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(((<a class="code hl_function" href="#adac1b68ceb1076b81ad092fd629ed3ff">data</a> + dataSize) &lt; <a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a>) || (<a class="code hl_function" href="#adac1b68ceb1076b81ad092fd629ed3ff">data</a> &gt;= (<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> + allocatedSize)),</div>
+<div class="line"><span class="lineno">  814</span>                 <span class="stringliteral">&quot;Source data pointer must not point into _data buffer&quot;</span>);</div>
+<div class="line"><span class="lineno">  815</span> </div>
+<div class="line"><span class="lineno">  816</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(position &lt;= <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a>, <span class="stringliteral">&quot;Position must be within string bounds&quot;</span>);</div>
+<div class="line"><span class="lineno">  817</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(position + oldCount &lt;= <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a>, <span class="stringliteral">&quot;Replacement range must be within string bounds&quot;</span>);</div>
+<div class="line"><span class="lineno">  818</span> </div>
+<div class="line"><span class="lineno">  819</span>  <span class="comment">// If sizes are equal, no need to shift data</span></div>
+<div class="line"><span class="lineno">  820</span>  <span class="keywordflow">if</span> (oldCount == dataSize) {</div>
+<div class="line"><span class="lineno">  821</span>    std::memcpy(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> + position, <a class="code hl_function" href="#adac1b68ceb1076b81ad092fd629ed3ff">data</a>, dataSize);</div>
+<div class="line"><span class="lineno">  822</span>    <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  823</span>  }</div>
+<div class="line"><span class="lineno">  824</span> </div>
+<div class="line"><span class="lineno">  825</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>((<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> - oldCount + dataSize) &lt; allocatedSize, <span class="stringliteral">&quot;Replacement result must fit in capacity&quot;</span>);</div>
+<div class="line"><span class="lineno">  826</span> </div>
+<div class="line"><span class="lineno">  827</span>  <span class="comment">// If replacing at the end, no need to shift</span></div>
+<div class="line"><span class="lineno">  828</span>  <span class="keywordflow">if</span> (position + oldCount == <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a>) {</div>
+<div class="line"><span class="lineno">  829</span>    std::memcpy(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> + position, <a class="code hl_function" href="#adac1b68ceb1076b81ad092fd629ed3ff">data</a>, dataSize + 1);</div>
+<div class="line"><span class="lineno">  830</span>  } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  831</span>    std::memmove(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> + position + dataSize, <a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> + position + oldCount, <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> - position - oldCount + 1);</div>
+<div class="line"><span class="lineno">  832</span>    std::memcpy(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> + position, <a class="code hl_function" href="#adac1b68ceb1076b81ad092fd629ed3ff">data</a>, dataSize);</div>
+<div class="line"><span class="lineno">  833</span>  }</div>
+<div class="line"><span class="lineno">  834</span> </div>
+<div class="line"><span class="lineno">  835</span>  <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> = <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> - oldCount + dataSize;</div>
+<div class="line"><span class="lineno">  836</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1072,25 +1169,25 @@ template&lt;std::size_t allocatedSize&gt; </div>
 <dl class="section pre"><dt>Precondition</dt><dd>If <em>position</em> is not <a class="el" href="#a79044e138bb62795eaa69202361b0c1c">npos</a>, it must be less than or equal to the string size. </dd>
 <dd>
 The <em>data</em> must not be null. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">  829</span>                                                                                                     {</div>
-<div class="line"><span class="lineno">  830</span>  <span class="keywordflow">if</span> (dataSize == 0)</div>
-<div class="line"><span class="lineno">  831</span>    <span class="keywordflow">return</span> std::min(position, <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a>);</div>
-<div class="line"><span class="lineno">  832</span>  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (dataSize &gt; <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a>)</div>
-<div class="line"><span class="lineno">  833</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="#a79044e138bb62795eaa69202361b0c1c">npos</a>;</div>
-<div class="line"><span class="lineno">  834</span> </div>
-<div class="line"><span class="lineno">  835</span>  <span class="keywordflow">if</span> (position == <a class="code hl_variable" href="#a79044e138bb62795eaa69202361b0c1c">npos</a>)</div>
-<div class="line"><span class="lineno">  836</span>    position = <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> - dataSize;</div>
-<div class="line"><span class="lineno">  837</span>  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (position &gt; <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> - dataSize)</div>
-<div class="line"><span class="lineno">  838</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="#a79044e138bb62795eaa69202361b0c1c">npos</a>;</div>
-<div class="line"><span class="lineno">  839</span> </div>
-<div class="line"><span class="lineno">  840</span>  <span class="keywordflow">for</span> (<span class="keyword">auto</span> i = 0U; i &lt;= position; ++i) {</div>
-<div class="line"><span class="lineno">  841</span>    <span class="keyword">const</span> <span class="keyword">auto</span> offset = position - i;</div>
-<div class="line"><span class="lineno">  842</span>    <span class="keywordflow">if</span> (std::memcmp(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> + offset, <a class="code hl_function" href="#adac1b68ceb1076b81ad092fd629ed3ff">data</a>, dataSize) == 0)</div>
-<div class="line"><span class="lineno">  843</span>      <span class="keywordflow">return</span> offset;</div>
-<div class="line"><span class="lineno">  844</span>  }</div>
-<div class="line"><span class="lineno">  845</span> </div>
-<div class="line"><span class="lineno">  846</span>  <span class="keywordflow">return</span> <a class="code hl_variable" href="#a79044e138bb62795eaa69202361b0c1c">npos</a>;</div>
-<div class="line"><span class="lineno">  847</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">  856</span>                                                                                                     {</div>
+<div class="line"><span class="lineno">  857</span>  <span class="keywordflow">if</span> (dataSize == 0)</div>
+<div class="line"><span class="lineno">  858</span>    <span class="keywordflow">return</span> std::min(position, <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a>);</div>
+<div class="line"><span class="lineno">  859</span>  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (dataSize &gt; <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a>)</div>
+<div class="line"><span class="lineno">  860</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="#a79044e138bb62795eaa69202361b0c1c">npos</a>;</div>
+<div class="line"><span class="lineno">  861</span> </div>
+<div class="line"><span class="lineno">  862</span>  <span class="keywordflow">if</span> (position == <a class="code hl_variable" href="#a79044e138bb62795eaa69202361b0c1c">npos</a>)</div>
+<div class="line"><span class="lineno">  863</span>    position = <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> - dataSize;</div>
+<div class="line"><span class="lineno">  864</span>  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (position &gt; <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> - dataSize)</div>
+<div class="line"><span class="lineno">  865</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="#a79044e138bb62795eaa69202361b0c1c">npos</a>;</div>
+<div class="line"><span class="lineno">  866</span> </div>
+<div class="line"><span class="lineno">  867</span>  <span class="keywordflow">for</span> (<span class="keyword">auto</span> i = 0U; i &lt;= position; ++i) {</div>
+<div class="line"><span class="lineno">  868</span>    <span class="keyword">const</span> <span class="keyword">auto</span> offset = position - i;</div>
+<div class="line"><span class="lineno">  869</span>    <span class="keywordflow">if</span> (std::memcmp(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> + offset, <a class="code hl_function" href="#adac1b68ceb1076b81ad092fd629ed3ff">data</a>, dataSize) == 0)</div>
+<div class="line"><span class="lineno">  870</span>      <span class="keywordflow">return</span> offset;</div>
+<div class="line"><span class="lineno">  871</span>  }</div>
+<div class="line"><span class="lineno">  872</span> </div>
+<div class="line"><span class="lineno">  873</span>  <span class="keywordflow">return</span> <a class="code hl_variable" href="#a79044e138bb62795eaa69202361b0c1c">npos</a>;</div>
+<div class="line"><span class="lineno">  874</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1198,7 +1295,7 @@ The source C <em>string</em> must not be null.</dd></dl>
 <div class="line"><span class="lineno">  413</span> </div>
 <div class="line"><span class="lineno">  414</span>  <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
 <div class="line"><span class="lineno">  415</span>}</div>
-<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a57a1732395b1798291e591261c9643a6"><div class="ttname"><a href="#a57a1732395b1798291e591261c9643a6">toygine::FixString::_append_raw</a></div><div class="ttdeci">constexpr void _append_raw(const char *data, std::size_t dataSize) noexcept</div><div class="ttdoc">Helper method for appending data to the end of the string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:768</div></div>
+<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a57a1732395b1798291e591261c9643a6"><div class="ttname"><a href="#a57a1732395b1798291e591261c9643a6">toygine::FixString::_append_raw</a></div><div class="ttdeci">constexpr void _append_raw(const char *data, std::size_t dataSize) noexcept</div><div class="ttdoc">Helper method for appending data to the end of the string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:795</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1875,11 +1972,11 @@ template&lt;std::size_t allocatedSize&gt; </div>
 The comparison stops at the first character that differs between the strings. </dd>
 <dd>
 If one string is a prefix of another, the shorter string is considered lexicographically smaller. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">  650</span>                                                                                         {</div>
-<div class="line"><span class="lineno">  651</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(<span class="keywordtype">string</span> != <span class="keyword">nullptr</span>, <span class="stringliteral">&quot;String pointer must not be null&quot;</span>);</div>
-<div class="line"><span class="lineno">  652</span> </div>
-<div class="line"><span class="lineno">  653</span>  <span class="keywordflow">return</span> std::strcmp(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a>, <span class="keywordtype">string</span>);</div>
-<div class="line"><span class="lineno">  654</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">  677</span>                                                                                         {</div>
+<div class="line"><span class="lineno">  678</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(<span class="keywordtype">string</span> != <span class="keyword">nullptr</span>, <span class="stringliteral">&quot;String pointer must not be null&quot;</span>);</div>
+<div class="line"><span class="lineno">  679</span> </div>
+<div class="line"><span class="lineno">  680</span>  <span class="keywordflow">return</span> std::strcmp(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a>, <span class="keywordtype">string</span>);</div>
+<div class="line"><span class="lineno">  681</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1922,9 +2019,9 @@ template&lt;std::size_t allocatedSize&gt; </div>
 The comparison stops at the first character that differs between the strings. </dd>
 <dd>
 If one string is a prefix of another, the shorter string is considered lexicographically smaller. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">  639</span>                                                                                                             {</div>
-<div class="line"><span class="lineno">  640</span>  <span class="keywordflow">return</span> std::strcmp(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a>, <span class="keywordtype">string</span>.<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a>);</div>
-<div class="line"><span class="lineno">  641</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">  666</span>                                                                                                             {</div>
+<div class="line"><span class="lineno">  667</span>  <span class="keywordflow">return</span> std::strcmp(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a>, <span class="keywordtype">string</span>.<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a>);</div>
+<div class="line"><span class="lineno">  668</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1975,9 +2072,9 @@ template&lt;StringLike stringType&gt; </div>
 The comparison stops at the first character that differs between the strings. </dd>
 <dd>
 If one string is a prefix of another, the shorter string is considered lexicographically smaller. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">  645</span>                                                                                               {</div>
-<div class="line"><span class="lineno">  646</span>  <span class="keywordflow">return</span> std::strcmp(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a>, <span class="keywordtype">string</span>.<a class="code hl_function" href="#a88e33e0b5110f442408c0b506c2953a6">c_str</a>());</div>
-<div class="line"><span class="lineno">  647</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">  672</span>                                                                                               {</div>
+<div class="line"><span class="lineno">  673</span>  <span class="keywordflow">return</span> std::strcmp(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a>, <span class="keywordtype">string</span>.<a class="code hl_function" href="#a88e33e0b5110f442408c0b506c2953a6">c_str</a>());</div>
+<div class="line"><span class="lineno">  674</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -2206,9 +2303,9 @@ template&lt;std::size_t allocatedSize&gt; </div>
 <dl class="section note"><dt>Note</dt><dd>The comparison is case-sensitive. </dd>
 <dd>
 If the string is empty, this method returns false. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">  702</span>                                                                                       {</div>
-<div class="line"><span class="lineno">  703</span>  <span class="keywordflow">return</span> <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> &gt; 0 &amp;&amp; <a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a>[<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> - 1] == character;</div>
-<div class="line"><span class="lineno">  704</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">  729</span>                                                                                       {</div>
+<div class="line"><span class="lineno">  730</span>  <span class="keywordflow">return</span> <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> &gt; 0 &amp;&amp; <a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a>[<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> - 1] == character;</div>
+<div class="line"><span class="lineno">  731</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -2252,13 +2349,13 @@ template&lt;std::size_t allocatedSize&gt; </div>
 If the C <em>string</em> is empty, this method returns true. </dd>
 <dd>
 If the C <em>string</em> is longer than this string, this method returns false. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">  693</span>                                                                                            {</div>
-<div class="line"><span class="lineno">  694</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(<span class="keywordtype">string</span> != <span class="keyword">nullptr</span>, <span class="stringliteral">&quot;String pointer must not be null&quot;</span>);</div>
-<div class="line"><span class="lineno">  695</span> </div>
-<div class="line"><span class="lineno">  696</span>  <span class="keyword">const</span> <span class="keyword">auto</span> needleSize = std::strlen(<span class="keywordtype">string</span>);</div>
-<div class="line"><span class="lineno">  697</span> </div>
-<div class="line"><span class="lineno">  698</span>  <span class="keywordflow">return</span> <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> &gt;= needleSize &amp;&amp; std::memcmp(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> + (<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> - needleSize), <span class="keywordtype">string</span>, needleSize) == 0;</div>
-<div class="line"><span class="lineno">  699</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">  720</span>                                                                                            {</div>
+<div class="line"><span class="lineno">  721</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(<span class="keywordtype">string</span> != <span class="keyword">nullptr</span>, <span class="stringliteral">&quot;String pointer must not be null&quot;</span>);</div>
+<div class="line"><span class="lineno">  722</span> </div>
+<div class="line"><span class="lineno">  723</span>  <span class="keyword">const</span> <span class="keyword">auto</span> needleSize = std::strlen(<span class="keywordtype">string</span>);</div>
+<div class="line"><span class="lineno">  724</span> </div>
+<div class="line"><span class="lineno">  725</span>  <span class="keywordflow">return</span> <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> &gt;= needleSize &amp;&amp; std::memcmp(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> + (<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> - needleSize), <span class="keywordtype">string</span>, needleSize) == 0;</div>
+<div class="line"><span class="lineno">  726</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -2301,9 +2398,9 @@ template&lt;std::size_t allocatedSize&gt; </div>
 If the specified <em>string</em> is empty, this method returns true. </dd>
 <dd>
 If the specified <em>string</em> is longer than this string, this method returns false. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">  682</span>                                                                                                                {</div>
-<div class="line"><span class="lineno">  683</span>  <span class="keywordflow">return</span> <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> &gt;= <span class="keywordtype">string</span>._size &amp;&amp; std::memcmp(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> + (<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> - <span class="keywordtype">string</span>.<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a>), <span class="keywordtype">string</span>.<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a>, <span class="keywordtype">string</span>.<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a>) == 0;</div>
-<div class="line"><span class="lineno">  684</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">  709</span>                                                                                                                {</div>
+<div class="line"><span class="lineno">  710</span>  <span class="keywordflow">return</span> <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> &gt;= <span class="keywordtype">string</span>._size &amp;&amp; std::memcmp(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> + (<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> - <span class="keywordtype">string</span>.<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a>), <span class="keywordtype">string</span>.<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a>, <span class="keywordtype">string</span>.<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a>) == 0;</div>
+<div class="line"><span class="lineno">  711</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -2354,9 +2451,9 @@ template&lt;StringLike stringType&gt; </div>
 If a <a class="el" href="../../d8/db7/concepttoygine_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object is empty, this method returns true. </dd>
 <dd>
 If a <a class="el" href="../../d8/db7/concepttoygine_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object is longer than this string, this method returns false. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">  688</span>                                                                                                  {</div>
-<div class="line"><span class="lineno">  689</span>  <span class="keywordflow">return</span> <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> &gt;= <span class="keywordtype">string</span>.size() &amp;&amp; std::memcmp(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> + (<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> - <span class="keywordtype">string</span>.<a class="code hl_function" href="#af89cb8066041fa741f75709159b610e7">size</a>()), <span class="keywordtype">string</span>.<a class="code hl_function" href="#a88e33e0b5110f442408c0b506c2953a6">c_str</a>(), <span class="keywordtype">string</span>.<a class="code hl_function" href="#af89cb8066041fa741f75709159b610e7">size</a>()) == 0;</div>
-<div class="line"><span class="lineno">  690</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">  715</span>                                                                                                  {</div>
+<div class="line"><span class="lineno">  716</span>  <span class="keywordflow">return</span> <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> &gt;= <span class="keywordtype">string</span>.size() &amp;&amp; std::memcmp(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> + (<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> - <span class="keywordtype">string</span>.<a class="code hl_function" href="#af89cb8066041fa741f75709159b610e7">size</a>()), <span class="keywordtype">string</span>.<a class="code hl_function" href="#a88e33e0b5110f442408c0b506c2953a6">c_str</a>(), <span class="keywordtype">string</span>.<a class="code hl_function" href="#af89cb8066041fa741f75709159b610e7">size</a>()) == 0;</div>
+<div class="line"><span class="lineno">  717</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -2465,12 +2562,12 @@ template&lt;std::size_t allocatedSize&gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The position of the first occurrence of the <em>character</em>, or <a class="el" href="#a79044e138bb62795eaa69202361b0c1c">npos</a> if not found.</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd>The <em>position</em> must be less than or equal to the string size.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The <em>position</em> must be less than the string size.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">  582</span>                                                                                                           {</div>
 <div class="line"><span class="lineno">  583</span>  <span class="keywordflow">return</span> <a class="code hl_function" href="#a295de4ea0b396231c18e1b973b8d77e4">_find_raw</a>(position, &amp;character, 1);</div>
 <div class="line"><span class="lineno">  584</span>}</div>
-<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a295de4ea0b396231c18e1b973b8d77e4"><div class="ttname"><a href="#a295de4ea0b396231c18e1b973b8d77e4">toygine::FixString::_find_raw</a></div><div class="ttdeci">constexpr std::size_t _find_raw(std::size_t position, const char *data, std::size_t dataSize) const noexcept</div><div class="ttdoc">Helper method for finding data in the string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:812</div></div>
+<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a295de4ea0b396231c18e1b973b8d77e4"><div class="ttname"><a href="#a295de4ea0b396231c18e1b973b8d77e4">toygine::FixString::_find_raw</a></div><div class="ttdeci">constexpr std::size_t _find_raw(std::size_t position, const char *data, std::size_t dataSize) const noexcept</div><div class="ttdoc">Helper method for finding data in the string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:839</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -2513,7 +2610,7 @@ template&lt;std::size_t allocatedSize&gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The position of the first occurrence of the C <em>string</em>, or <a class="el" href="#a79044e138bb62795eaa69202361b0c1c">npos</a> if not found.</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd>The <em>position</em> must be less than or equal to the string size. </dd>
+<dl class="section pre"><dt>Precondition</dt><dd>The <em>position</em> must be less than the string size. </dd>
 <dd>
 The <em>string</em> must not be null.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd></dl>
@@ -2564,7 +2661,7 @@ template&lt;std::size_t allocatedSize&gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The position of the first occurrence of other <em>string</em>, or <a class="el" href="#a79044e138bb62795eaa69202361b0c1c">npos</a> if not found.</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd>The <em>position</em> must be less than or equal to the string size.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The <em>position</em> must be less than the string size.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">  563</span>                                                                                               {</div>
 <div class="line"><span class="lineno">  564</span>  <span class="keywordflow">return</span> <a class="code hl_function" href="#a295de4ea0b396231c18e1b973b8d77e4">_find_raw</a>(position, <span class="keywordtype">string</span>.<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a>, <span class="keywordtype">string</span>.<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a>);</div>
@@ -2619,11 +2716,218 @@ template&lt;StringLike stringType&gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The position of the first occurrence of a <a class="el" href="../../d8/db7/concepttoygine_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object, or <a class="el" href="#a79044e138bb62795eaa69202361b0c1c">npos</a> if not found.</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd>The <em>position</em> must be less than or equal to the string size.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The <em>position</em> must be less than the string size.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">  570</span>                                                                                               {</div>
 <div class="line"><span class="lineno">  571</span>  <span class="keywordflow">return</span> <a class="code hl_function" href="#a295de4ea0b396231c18e1b973b8d77e4">_find_raw</a>(position, <span class="keywordtype">string</span>.<a class="code hl_function" href="#a88e33e0b5110f442408c0b506c2953a6">c_str</a>(), <span class="keywordtype">string</span>.<a class="code hl_function" href="#af89cb8066041fa741f75709159b610e7">size</a>());</div>
 <div class="line"><span class="lineno">  572</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a78701682b8795081ec7cd9ea6b91dd79" name="a78701682b8795081ec7cd9ea6b91dd79"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a78701682b8795081ec7cd9ea6b91dd79">&#9670;&#160;</a></span>find_first_not_of() <span class="overload">[1/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;std::size_t allocatedSize&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">toygine::FixString</a>&lt; allocatedSize &gt;::find_first_not_of </td>
+          <td>(</td>
+          <td class="paramtype">char</td>          <td class="paramname"><span class="paramname"><em>character</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Finds the first occurrence of any character not equal to the specified <em>character</em>. </p>
+<p>This method searches for the first occurrence of any character that is not equal to the specified <em>character</em> within this string, starting from the given <em>position</em>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">character</td><td>The character to exclude from search. </td></tr>
+    <tr><td class="paramname">position</td><td>The position to start searching from (default: 0).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The position of the first occurrence of any character not equal to <em>character</em>, or <a class="el" href="#a79044e138bb62795eaa69202361b0c1c">npos</a> if not found.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The <em>position</em> must be less than the string size.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd></dl>
+<div class="fragment"><div class="line"><span class="lineno">  661</span>                                                                                                            {</div>
+<div class="line"><span class="lineno">  662</span>  <span class="keywordflow">return</span> <a class="code hl_function" href="#aefab9c8ba84e16e22a98d4cb101c42d7">_find_first_not_of_raw</a>(position, &amp;character, 1);</div>
+<div class="line"><span class="lineno">  663</span>}</div>
+<div class="ttc" id="aclasstoygine_1_1_fix_string_html_aefab9c8ba84e16e22a98d4cb101c42d7"><div class="ttname"><a href="#aefab9c8ba84e16e22a98d4cb101c42d7">toygine::FixString::_find_first_not_of_raw</a></div><div class="ttdeci">constexpr std::size_t _find_first_not_of_raw(std::size_t position, const char *data, std::size_t dataSize) const noexcept</div><div class="ttdoc">Helper method for finding the first occurrence of any character not from data.</div><div class="ttdef"><b>Definition</b> fix_string.inl:888</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ade093cad930526f423034b53f07d5c47" name="ade093cad930526f423034b53f07d5c47"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade093cad930526f423034b53f07d5c47">&#9670;&#160;</a></span>find_first_not_of() <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;std::size_t allocatedSize&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">toygine::FixString</a>&lt; allocatedSize &gt;::find_first_not_of </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>string</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Finds the first occurrence of any character not from the C <em>string</em>. </p>
+<p>This method searches for the first occurrence of any character that is not present in the C <em>string</em> within this string, starting from the given <em>position</em>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">string</td><td>The C string containing characters to exclude from search. </td></tr>
+    <tr><td class="paramname">position</td><td>The position to start searching from (default: 0).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The position of the first occurrence of any character not from the C <em>string</em>, or <a class="el" href="#a79044e138bb62795eaa69202361b0c1c">npos</a> if not found.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The <em>position</em> must be less than the string size. </dd>
+<dd>
+The <em>string</em> must not be null.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd>
+<dd>
+If the C <em>string</em> is empty, this method returns <em>position</em> if it's within bounds, otherwise returns <a class="el" href="#a79044e138bb62795eaa69202361b0c1c">npos</a>. </dd></dl>
+<div class="fragment"><div class="line"><span class="lineno">  653</span>                                                                                                            {</div>
+<div class="line"><span class="lineno">  654</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(<span class="keywordtype">string</span> != <span class="keyword">nullptr</span>, <span class="stringliteral">&quot;String pointer must not be null&quot;</span>);</div>
+<div class="line"><span class="lineno">  655</span> </div>
+<div class="line"><span class="lineno">  656</span>  <span class="keywordflow">return</span> <a class="code hl_function" href="#aefab9c8ba84e16e22a98d4cb101c42d7">_find_first_not_of_raw</a>(position, <span class="keywordtype">string</span>, std::strlen(<span class="keywordtype">string</span>));</div>
+<div class="line"><span class="lineno">  657</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a7c18e644c176e3c003ac73e2b87089e7" name="a7c18e644c176e3c003ac73e2b87089e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c18e644c176e3c003ac73e2b87089e7">&#9670;&#160;</a></span>find_first_not_of() <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;std::size_t allocatedSize&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">toygine::FixString</a>&lt; allocatedSize &gt;::find_first_not_of </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt; allocatedSize &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>string</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Finds the first occurrence of any character not from the specified <em>string</em>. </p>
+<p>This method searches for the first occurrence of any character that is not present in the specified <em>string</em> within this string, starting from the given <em>position</em>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">string</td><td>The string containing characters to exclude from search. </td></tr>
+    <tr><td class="paramname">position</td><td>The position to start searching from (default: 0).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The position of the first occurrence of any character not from <em>string</em>, or <a class="el" href="#a79044e138bb62795eaa69202361b0c1c">npos</a> if not found.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The <em>position</em> must be less than the string size.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd>
+<dd>
+If <em>string</em> is empty, this method returns <em>position</em> if it's within bounds, otherwise returns <a class="el" href="#a79044e138bb62795eaa69202361b0c1c">npos</a>. </dd></dl>
+<div class="fragment"><div class="line"><span class="lineno">  640</span>                                                                                                            {</div>
+<div class="line"><span class="lineno">  641</span>  <span class="keywordflow">return</span> <a class="code hl_function" href="#aefab9c8ba84e16e22a98d4cb101c42d7">_find_first_not_of_raw</a>(position, <span class="keywordtype">string</span>.<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a>, <span class="keywordtype">string</span>.<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a>);</div>
+<div class="line"><span class="lineno">  642</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="af7ebcb2d444dba9e533e0faea2dde814" name="af7ebcb2d444dba9e533e0faea2dde814"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af7ebcb2d444dba9e533e0faea2dde814">&#9670;&#160;</a></span>find_first_not_of() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;std::size_t allocatedSize&gt; </div>
+<div class="memtemplate">
+template&lt;StringLike stringType&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">toygine::FixString</a>&lt; allocatedSize &gt;::find_first_not_of </td>
+          <td>(</td>
+          <td class="paramtype">const stringType &amp;</td>          <td class="paramname"><span class="paramname"><em>string</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Finds the first occurrence of any character not from a <a class="el" href="../../d8/db7/concepttoygine_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object. </p>
+<p>This method searches for the first occurrence of any character that is not present in a <a class="el" href="../../d8/db7/concepttoygine_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object within this string, starting from the given <em>position</em>.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">stringType</td><td>The type of the source string. Must satisfy the <a class="el" href="../../d8/db7/concepttoygine_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> concept.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">string</td><td>The <a class="el" href="../../d8/db7/concepttoygine_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object containing characters to exclude from search. </td></tr>
+    <tr><td class="paramname">position</td><td>The position to start searching from (default: 0).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The position of the first occurrence of any character not from a <a class="el" href="../../d8/db7/concepttoygine_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object, or <a class="el" href="#a79044e138bb62795eaa69202361b0c1c">npos</a> if not found.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The <em>position</em> must be less than the string size.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd>
+<dd>
+If a <a class="el" href="../../d8/db7/concepttoygine_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object is empty, this method returns <em>position</em> if it's within bounds, otherwise returns <a class="el" href="#a79044e138bb62795eaa69202361b0c1c">npos</a>. </dd></dl>
+<div class="fragment"><div class="line"><span class="lineno">  647</span>                                                                                                            {</div>
+<div class="line"><span class="lineno">  648</span>  <span class="keywordflow">return</span> <a class="code hl_function" href="#aefab9c8ba84e16e22a98d4cb101c42d7">_find_first_not_of_raw</a>(position, <span class="keywordtype">string</span>.<a class="code hl_function" href="#a88e33e0b5110f442408c0b506c2953a6">c_str</a>(), <span class="keywordtype">string</span>.<a class="code hl_function" href="#af89cb8066041fa741f75709159b610e7">size</a>());</div>
+<div class="line"><span class="lineno">  649</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -2666,14 +2970,14 @@ template&lt;std::size_t allocatedSize&gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The position of the first occurrence of the <em>character</em>, or <a class="el" href="#a79044e138bb62795eaa69202361b0c1c">npos</a> if not found.</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd>The <em>position</em> must be less than or equal to the string size.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The <em>position</em> must be less than the string size.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd>
 <dd>
 This method is equivalent to find(character, position). </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">  634</span>                                                                                                        {</div>
 <div class="line"><span class="lineno">  635</span>  <span class="keywordflow">return</span> <a class="code hl_function" href="#a18578857b44d0ac8ac7b5d6ed988c3ad">_find_first_of_raw</a>(position, &amp;character, 1);</div>
 <div class="line"><span class="lineno">  636</span>}</div>
-<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a18578857b44d0ac8ac7b5d6ed988c3ad"><div class="ttname"><a href="#a18578857b44d0ac8ac7b5d6ed988c3ad">toygine::FixString::_find_first_of_raw</a></div><div class="ttdeci">constexpr std::size_t _find_first_of_raw(std::size_t position, const char *data, std::size_t dataSize) const noexcept</div><div class="ttdoc">Helper method for finding the first occurrence of any character from data.</div><div class="ttdef"><b>Definition</b> fix_string.inl:850</div></div>
+<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a18578857b44d0ac8ac7b5d6ed988c3ad"><div class="ttname"><a href="#a18578857b44d0ac8ac7b5d6ed988c3ad">toygine::FixString::_find_first_of_raw</a></div><div class="ttdeci">constexpr std::size_t _find_first_of_raw(std::size_t position, const char *data, std::size_t dataSize) const noexcept</div><div class="ttdoc">Helper method for finding the first occurrence of any character from data.</div><div class="ttdef"><b>Definition</b> fix_string.inl:877</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -2716,7 +3020,7 @@ template&lt;std::size_t allocatedSize&gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The position of the first occurrence of any character from the C <em>string</em>, or <a class="el" href="#a79044e138bb62795eaa69202361b0c1c">npos</a> if not found.</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd>The <em>position</em> must be less than or equal to the string size. </dd>
+<dl class="section pre"><dt>Precondition</dt><dd>The <em>position</em> must be less than the string size. </dd>
 <dd>
 The <em>string</em> must not be null.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd>
@@ -2769,7 +3073,7 @@ template&lt;std::size_t allocatedSize&gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The position of the first occurrence of any character from <em>string</em>, or <a class="el" href="#a79044e138bb62795eaa69202361b0c1c">npos</a> if not found.</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd>The <em>position</em> must be less than or equal to the string size.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The <em>position</em> must be less than the string size.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd>
 <dd>
 If <em>string</em> is empty, this method returns <a class="el" href="#a79044e138bb62795eaa69202361b0c1c">npos</a>. </dd></dl>
@@ -2826,7 +3130,7 @@ template&lt;StringLike stringType&gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The position of the first occurrence of any character from a <a class="el" href="../../d8/db7/concepttoygine_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object, or <a class="el" href="#a79044e138bb62795eaa69202361b0c1c">npos</a> if not found.</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd>The <em>position</em> must be less than or equal to the string size.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The <em>position</em> must be less than the string size.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd>
 <dd>
 If a <a class="el" href="../../d8/db7/concepttoygine_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object is empty, this method returns <a class="el" href="#a79044e138bb62795eaa69202361b0c1c">npos</a>. </dd></dl>
@@ -3038,7 +3342,7 @@ The source C <em>string</em> must not be null. </dd></dl>
 <div class="line"><span class="lineno">  312</span> </div>
 <div class="line"><span class="lineno">  313</span>  <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
 <div class="line"><span class="lineno">  314</span>}</div>
-<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a4c5050096754ce8ef390dac52954cf10"><div class="ttname"><a href="#a4c5050096754ce8ef390dac52954cf10">toygine::FixString::_insert_raw</a></div><div class="ttdeci">constexpr void _insert_raw(std::size_t position, const char *data, std::size_t dataSize) noexcept</div><div class="ttdoc">Helper method for inserting data at a specific position.</div><div class="ttdef"><b>Definition</b> fix_string.inl:745</div></div>
+<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a4c5050096754ce8ef390dac52954cf10"><div class="ttname"><a href="#a4c5050096754ce8ef390dac52954cf10">toygine::FixString::_insert_raw</a></div><div class="ttdeci">constexpr void _insert_raw(std::size_t position, const char *data, std::size_t dataSize) noexcept</div><div class="ttdoc">Helper method for inserting data at a specific position.</div><div class="ttdef"><b>Definition</b> fix_string.inl:772</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -3260,11 +3564,11 @@ template&lt;std::size_t allocatedSize&gt; </div>
 <dd>
 The size of the <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a> object plus one must be less than the allocated size.</dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>A new <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a> object is created with the contents of the original <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a> object plus the given character. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">  738</span>                                                                                                        {</div>
-<div class="line"><span class="lineno">  739</span>  <a class="code hl_function" href="#a374e5883fdaf67dc9ae97b9185abd8be">FixString&lt;allocatedSize&gt;</a> value(*<span class="keyword">this</span>);</div>
-<div class="line"><span class="lineno">  740</span>  value += symbol;</div>
-<div class="line"><span class="lineno">  741</span>  <span class="keywordflow">return</span> value;</div>
-<div class="line"><span class="lineno">  742</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">  765</span>                                                                                                        {</div>
+<div class="line"><span class="lineno">  766</span>  <a class="code hl_function" href="#a374e5883fdaf67dc9ae97b9185abd8be">FixString&lt;allocatedSize&gt;</a> value(*<span class="keyword">this</span>);</div>
+<div class="line"><span class="lineno">  767</span>  value += symbol;</div>
+<div class="line"><span class="lineno">  768</span>  <span class="keywordflow">return</span> value;</div>
+<div class="line"><span class="lineno">  769</span>}</div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_a374e5883fdaf67dc9ae97b9185abd8be"><div class="ttname"><a href="#a374e5883fdaf67dc9ae97b9185abd8be">toygine::FixString::FixString</a></div><div class="ttdeci">constexpr FixString() noexcept</div><div class="ttdoc">Default constructor.</div><div class="ttdef"><b>Definition</b> fix_string.inl:30</div></div>
 </div><!-- fragment -->
 </div>
@@ -3307,13 +3611,13 @@ template&lt;std::size_t allocatedSize&gt; </div>
 <dd>
 The allocated size must be greater than zero.</dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>A new <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a> object is created with the contents of both strings. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">  729</span>                                                                                                                {</div>
-<div class="line"><span class="lineno">  730</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#af576bf8ffa22a44e53018c67095ffbf0">assert</a>(<span class="keywordtype">string</span> != <span class="keyword">nullptr</span>);</div>
-<div class="line"><span class="lineno">  731</span> </div>
-<div class="line"><span class="lineno">  732</span>  <a class="code hl_function" href="#a374e5883fdaf67dc9ae97b9185abd8be">FixString&lt;allocatedSize&gt;</a> value(*<span class="keyword">this</span>);</div>
-<div class="line"><span class="lineno">  733</span>  value += string;</div>
-<div class="line"><span class="lineno">  734</span>  <span class="keywordflow">return</span> value;</div>
-<div class="line"><span class="lineno">  735</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">  756</span>                                                                                                                {</div>
+<div class="line"><span class="lineno">  757</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#af576bf8ffa22a44e53018c67095ffbf0">assert</a>(<span class="keywordtype">string</span> != <span class="keyword">nullptr</span>);</div>
+<div class="line"><span class="lineno">  758</span> </div>
+<div class="line"><span class="lineno">  759</span>  <a class="code hl_function" href="#a374e5883fdaf67dc9ae97b9185abd8be">FixString&lt;allocatedSize&gt;</a> value(*<span class="keyword">this</span>);</div>
+<div class="line"><span class="lineno">  760</span>  value += string;</div>
+<div class="line"><span class="lineno">  761</span>  <span class="keywordflow">return</span> value;</div>
+<div class="line"><span class="lineno">  762</span>}</div>
 <div class="ttc" id="alinux_2platform__config_8hpp_html_af576bf8ffa22a44e53018c67095ffbf0"><div class="ttname"><a href="../../dd/d9e/linux_2platform__config_8hpp.html#af576bf8ffa22a44e53018c67095ffbf0">assert</a></div><div class="ttdeci">#define assert(x)</div><div class="ttdef"><b>Definition</b> platform_config.hpp:62</div></div>
 </div><!-- fragment -->
 </div>
@@ -3356,13 +3660,13 @@ template&lt;std::size_t allocatedSize&gt; </div>
 <dd>
 The allocated size of both <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a> objects must be greater than zero.</dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>A new <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a> object is created with the contents of both <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a> objects. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">  708</span>                                                          {</div>
-<div class="line"><span class="lineno">  709</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#af576bf8ffa22a44e53018c67095ffbf0">assert</a>(<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> + <span class="keywordtype">string</span>.<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> &lt; allocatedSize);</div>
-<div class="line"><span class="lineno">  710</span> </div>
-<div class="line"><span class="lineno">  711</span>  <a class="code hl_function" href="#a374e5883fdaf67dc9ae97b9185abd8be">FixString&lt;allocatedSize&gt;</a> value(*<span class="keyword">this</span>);</div>
-<div class="line"><span class="lineno">  712</span>  value += string;</div>
-<div class="line"><span class="lineno">  713</span>  <span class="keywordflow">return</span> value;</div>
-<div class="line"><span class="lineno">  714</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">  735</span>                                                          {</div>
+<div class="line"><span class="lineno">  736</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#af576bf8ffa22a44e53018c67095ffbf0">assert</a>(<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> + <span class="keywordtype">string</span>.<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> &lt; allocatedSize);</div>
+<div class="line"><span class="lineno">  737</span> </div>
+<div class="line"><span class="lineno">  738</span>  <a class="code hl_function" href="#a374e5883fdaf67dc9ae97b9185abd8be">FixString&lt;allocatedSize&gt;</a> value(*<span class="keyword">this</span>);</div>
+<div class="line"><span class="lineno">  739</span>  value += string;</div>
+<div class="line"><span class="lineno">  740</span>  <span class="keywordflow">return</span> value;</div>
+<div class="line"><span class="lineno">  741</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -3406,14 +3710,14 @@ template&lt;std::size_t allocatedSize2&gt; </div>
 <dd>
 The allocated size of both <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a> objects must be greater than zero.</dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>A new <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a> object is created with the contents of both <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a> objects. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">  719</span>                                                           {</div>
-<div class="line"><span class="lineno">  720</span>  <span class="keyword">static_assert</span>(allocatedSize2 &gt; 0, <span class="stringliteral">&quot;FixString capacity must be greater than zero.&quot;</span>);</div>
-<div class="line"><span class="lineno">  721</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#af576bf8ffa22a44e53018c67095ffbf0">assert</a>(<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> + <span class="keywordtype">string</span>.<a class="code hl_function" href="#af89cb8066041fa741f75709159b610e7">size</a>() &lt; allocatedSize);</div>
-<div class="line"><span class="lineno">  722</span> </div>
-<div class="line"><span class="lineno">  723</span>  <a class="code hl_function" href="#a374e5883fdaf67dc9ae97b9185abd8be">FixString&lt;allocatedSize&gt;</a> value(*<span class="keyword">this</span>);</div>
-<div class="line"><span class="lineno">  724</span>  value += string;</div>
-<div class="line"><span class="lineno">  725</span>  <span class="keywordflow">return</span> value;</div>
-<div class="line"><span class="lineno">  726</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">  746</span>                                                           {</div>
+<div class="line"><span class="lineno">  747</span>  <span class="keyword">static_assert</span>(allocatedSize2 &gt; 0, <span class="stringliteral">&quot;FixString capacity must be greater than zero.&quot;</span>);</div>
+<div class="line"><span class="lineno">  748</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#af576bf8ffa22a44e53018c67095ffbf0">assert</a>(<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> + <span class="keywordtype">string</span>.<a class="code hl_function" href="#af89cb8066041fa741f75709159b610e7">size</a>() &lt; allocatedSize);</div>
+<div class="line"><span class="lineno">  749</span> </div>
+<div class="line"><span class="lineno">  750</span>  <a class="code hl_function" href="#a374e5883fdaf67dc9ae97b9185abd8be">FixString&lt;allocatedSize&gt;</a> value(*<span class="keyword">this</span>);</div>
+<div class="line"><span class="lineno">  751</span>  value += string;</div>
+<div class="line"><span class="lineno">  752</span>  <span class="keywordflow">return</span> value;</div>
+<div class="line"><span class="lineno">  753</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -4156,7 +4460,7 @@ The resulting string size must not exceed the allocated capacity. </dd></dl>
 <div class="line"><span class="lineno">  495</span> </div>
 <div class="line"><span class="lineno">  496</span>  <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
 <div class="line"><span class="lineno">  497</span>}</div>
-<div class="ttc" id="aclasstoygine_1_1_fix_string_html_ae3a7d0bb6fcd3144e99ccc75c1604231"><div class="ttname"><a href="#ae3a7d0bb6fcd3144e99ccc75c1604231">toygine::FixString::_replace_raw</a></div><div class="ttdeci">constexpr void _replace_raw(std::size_t position, std::size_t oldCount, const char *data, std::size_t dataSize) noexcept</div><div class="ttdoc">Helper method for replacing data at a specific position.</div><div class="ttdef"><b>Definition</b> fix_string.inl:781</div></div>
+<div class="ttc" id="aclasstoygine_1_1_fix_string_html_ae3a7d0bb6fcd3144e99ccc75c1604231"><div class="ttname"><a href="#ae3a7d0bb6fcd3144e99ccc75c1604231">toygine::FixString::_replace_raw</a></div><div class="ttdeci">constexpr void _replace_raw(std::size_t position, std::size_t oldCount, const char *data, std::size_t dataSize) noexcept</div><div class="ttdoc">Helper method for replacing data at a specific position.</div><div class="ttdef"><b>Definition</b> fix_string.inl:808</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -4328,7 +4632,7 @@ template&lt;std::size_t allocatedSize&gt; </div>
 <div class="fragment"><div class="line"><span class="lineno">  607</span>                                                                                                            {</div>
 <div class="line"><span class="lineno">  608</span>  <span class="keywordflow">return</span> <a class="code hl_function" href="#a0e7c5e776b5e9f13efd49b23378cc5f6">_rfind_raw</a>(position, &amp;character, 1);</div>
 <div class="line"><span class="lineno">  609</span>}</div>
-<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a0e7c5e776b5e9f13efd49b23378cc5f6"><div class="ttname"><a href="#a0e7c5e776b5e9f13efd49b23378cc5f6">toygine::FixString::_rfind_raw</a></div><div class="ttdeci">constexpr std::size_t _rfind_raw(std::size_t position, const char *data, std::size_t dataSize) const noexcept</div><div class="ttdoc">Helper method for finding data in the string backwards.</div><div class="ttdef"><b>Definition</b> fix_string.inl:828</div></div>
+<div class="ttc" id="aclasstoygine_1_1_fix_string_html_a0e7c5e776b5e9f13efd49b23378cc5f6"><div class="ttname"><a href="#a0e7c5e776b5e9f13efd49b23378cc5f6">toygine::FixString::_rfind_raw</a></div><div class="ttdeci">constexpr std::size_t _rfind_raw(std::size_t position, const char *data, std::size_t dataSize) const noexcept</div><div class="ttdoc">Helper method for finding data in the string backwards.</div><div class="ttdef"><b>Definition</b> fix_string.inl:855</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -4563,9 +4867,9 @@ template&lt;std::size_t allocatedSize&gt; </div>
 <dl class="section note"><dt>Note</dt><dd>The comparison is case-sensitive. </dd>
 <dd>
 If the string is empty, this method returns false. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">  677</span>                                                                                         {</div>
-<div class="line"><span class="lineno">  678</span>  <span class="keywordflow">return</span> <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> &gt; 0 &amp;&amp; <a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a>[0] == character;</div>
-<div class="line"><span class="lineno">  679</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">  704</span>                                                                                         {</div>
+<div class="line"><span class="lineno">  705</span>  <span class="keywordflow">return</span> <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> &gt; 0 &amp;&amp; <a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a>[0] == character;</div>
+<div class="line"><span class="lineno">  706</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -4609,13 +4913,13 @@ template&lt;std::size_t allocatedSize&gt; </div>
 If the C <em>string</em> is empty, this method returns true. </dd>
 <dd>
 If the C <em>string</em> is longer than this string, this method returns false. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">  668</span>                                                                                              {</div>
-<div class="line"><span class="lineno">  669</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(<span class="keywordtype">string</span> != <span class="keyword">nullptr</span>, <span class="stringliteral">&quot;String pointer must not be null&quot;</span>);</div>
-<div class="line"><span class="lineno">  670</span> </div>
-<div class="line"><span class="lineno">  671</span>  <span class="keyword">const</span> <span class="keyword">auto</span> needleSize = std::strlen(<span class="keywordtype">string</span>);</div>
-<div class="line"><span class="lineno">  672</span> </div>
-<div class="line"><span class="lineno">  673</span>  <span class="keywordflow">return</span> <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> &gt;= needleSize &amp;&amp; std::memcmp(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a>, <span class="keywordtype">string</span>, needleSize) == 0;</div>
-<div class="line"><span class="lineno">  674</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">  695</span>                                                                                              {</div>
+<div class="line"><span class="lineno">  696</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c">assert_message</a>(<span class="keywordtype">string</span> != <span class="keyword">nullptr</span>, <span class="stringliteral">&quot;String pointer must not be null&quot;</span>);</div>
+<div class="line"><span class="lineno">  697</span> </div>
+<div class="line"><span class="lineno">  698</span>  <span class="keyword">const</span> <span class="keyword">auto</span> needleSize = std::strlen(<span class="keywordtype">string</span>);</div>
+<div class="line"><span class="lineno">  699</span> </div>
+<div class="line"><span class="lineno">  700</span>  <span class="keywordflow">return</span> <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> &gt;= needleSize &amp;&amp; std::memcmp(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a>, <span class="keywordtype">string</span>, needleSize) == 0;</div>
+<div class="line"><span class="lineno">  701</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -4658,9 +4962,9 @@ template&lt;std::size_t allocatedSize&gt; </div>
 If the specified <em>string</em> is empty, this method returns true. </dd>
 <dd>
 If the specified <em>string</em> is longer than this string, this method returns false. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">  657</span>                                                                                                                  {</div>
-<div class="line"><span class="lineno">  658</span>  <span class="keywordflow">return</span> <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> &gt;= <span class="keywordtype">string</span>._size &amp;&amp; std::memcmp(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a>, <span class="keywordtype">string</span>.<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a>, <span class="keywordtype">string</span>.<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a>) == 0;</div>
-<div class="line"><span class="lineno">  659</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">  684</span>                                                                                                                  {</div>
+<div class="line"><span class="lineno">  685</span>  <span class="keywordflow">return</span> <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> &gt;= <span class="keywordtype">string</span>._size &amp;&amp; std::memcmp(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a>, <span class="keywordtype">string</span>.<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a>, <span class="keywordtype">string</span>.<a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a>) == 0;</div>
+<div class="line"><span class="lineno">  686</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -4711,9 +5015,9 @@ template&lt;StringLike stringType&gt; </div>
 If a <a class="el" href="../../d8/db7/concepttoygine_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object is empty, this method returns true. </dd>
 <dd>
 If a <a class="el" href="../../d8/db7/concepttoygine_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object is longer than this string, this method returns false. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">  663</span>                                                                                                    {</div>
-<div class="line"><span class="lineno">  664</span>  <span class="keywordflow">return</span> <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> &gt;= <span class="keywordtype">string</span>.size() &amp;&amp; std::memcmp(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a>, <span class="keywordtype">string</span>.<a class="code hl_function" href="#a88e33e0b5110f442408c0b506c2953a6">c_str</a>(), <span class="keywordtype">string</span>.<a class="code hl_function" href="#af89cb8066041fa741f75709159b610e7">size</a>()) == 0;</div>
-<div class="line"><span class="lineno">  665</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">  690</span>                                                                                                    {</div>
+<div class="line"><span class="lineno">  691</span>  <span class="keywordflow">return</span> <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> &gt;= <span class="keywordtype">string</span>.size() &amp;&amp; std::memcmp(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a>, <span class="keywordtype">string</span>.<a class="code hl_function" href="#a88e33e0b5110f442408c0b506c2953a6">c_str</a>(), <span class="keywordtype">string</span>.<a class="code hl_function" href="#af89cb8066041fa741f75709159b610e7">size</a>()) == 0;</div>
+<div class="line"><span class="lineno">  692</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -4854,7 +5158,7 @@ For UTF-8 strings, <a class="el" href="#a143c96670a065101ee3c32ba341a129d" title
 <div class="fragment"><div class="line"><span class="lineno">  264</span>                                                                              {</div>
 <div class="line"><span class="lineno">  265</span>  <span class="keywordflow">return</span> <a class="code hl_function" href="../../d7/de6/namespacetoygine.html#a0375e819e616c3617a91adb6d358e334">utf8len</a>(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a>);</div>
 <div class="line"><span class="lineno">  266</span>}</div>
-<div class="ttc" id="anamespacetoygine_html_a0375e819e616c3617a91adb6d358e334"><div class="ttname"><a href="../../d7/de6/namespacetoygine.html#a0375e819e616c3617a91adb6d358e334">toygine::utf8len</a></div><div class="ttdeci">std::size_t utf8len(const char *string) noexcept</div><div class="ttdoc">Returns the number of Unicode characters in a UTF-8 encoded string.</div><div class="ttdef"><b>Definition</b> utils.cpp:414</div></div>
+<div class="ttc" id="anamespacetoygine_html_a0375e819e616c3617a91adb6d358e334"><div class="ttname"><a href="../../d7/de6/namespacetoygine.html#a0375e819e616c3617a91adb6d358e334">toygine::utf8len</a></div><div class="ttdeci">std::size_t utf8len(const char *string) noexcept</div><div class="ttdoc">Returns the number of Unicode characters in a UTF-8 encoded string.</div><div class="ttdef"><b>Definition</b> utils.cpp:413</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -4941,7 +5245,7 @@ template&lt;std::size_t allocatedSize&gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../d7/de6/namespacetoygine.html">toygine</a></li><li class="navelem"><a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 for ToyGine2 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generated on Sun Sep 7 2025 for ToyGine2 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>

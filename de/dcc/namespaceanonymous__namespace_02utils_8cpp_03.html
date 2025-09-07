@@ -186,30 +186,30 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A struct containing the quotient and remainder of the division. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">   70</span>                                                         {</div>
-<div class="line"><span class="lineno">   71</span>  <a class="code hl_struct" href="../../df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html">divmod10</a> res;</div>
-<div class="line"><span class="lineno">   72</span> </div>
-<div class="line"><span class="lineno">   73</span>  res.<a class="code hl_variable" href="../../df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html#a0b0e3e5fe61c7febd3ea8f9fa426760d">quot</a> = value &gt;&gt; 1;</div>
-<div class="line"><span class="lineno">   74</span>  res.<a class="code hl_variable" href="../../df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html#a0b0e3e5fe61c7febd3ea8f9fa426760d">quot</a> += res.<a class="code hl_variable" href="../../df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html#a0b0e3e5fe61c7febd3ea8f9fa426760d">quot</a> &gt;&gt; 1;</div>
-<div class="line"><span class="lineno">   75</span>  res.<a class="code hl_variable" href="../../df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html#a0b0e3e5fe61c7febd3ea8f9fa426760d">quot</a> += res.<a class="code hl_variable" href="../../df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html#a0b0e3e5fe61c7febd3ea8f9fa426760d">quot</a> &gt;&gt; 4;</div>
-<div class="line"><span class="lineno">   76</span>  res.<a class="code hl_variable" href="../../df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html#a0b0e3e5fe61c7febd3ea8f9fa426760d">quot</a> += res.<a class="code hl_variable" href="../../df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html#a0b0e3e5fe61c7febd3ea8f9fa426760d">quot</a> &gt;&gt; 8;</div>
-<div class="line"><span class="lineno">   77</span>  res.<a class="code hl_variable" href="../../df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html#a0b0e3e5fe61c7febd3ea8f9fa426760d">quot</a> += res.<a class="code hl_variable" href="../../df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html#a0b0e3e5fe61c7febd3ea8f9fa426760d">quot</a> &gt;&gt; 16;</div>
-<div class="line"><span class="lineno">   78</span> </div>
-<div class="line"><span class="lineno">   79</span>  <span class="keyword">const</span> <span class="keyword">auto</span> qq = res.<a class="code hl_variable" href="../../df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html#a0b0e3e5fe61c7febd3ea8f9fa426760d">quot</a>;</div>
-<div class="line"><span class="lineno">   80</span>  res.<a class="code hl_variable" href="../../df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html#a0b0e3e5fe61c7febd3ea8f9fa426760d">quot</a> &gt;&gt;= 3;</div>
-<div class="line"><span class="lineno">   81</span> </div>
-<div class="line"><span class="lineno">   82</span>  <span class="keyword">constexpr</span> std::uint32_t mask32 = 0xFFFFFFF8;</div>
-<div class="line"><span class="lineno">   83</span>  res.<a class="code hl_variable" href="../../df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html#addb5fa391e32e0505d76bfc30202efe0">rem</a> = <span class="keyword">static_cast&lt;</span>std::uint8_t<span class="keyword">&gt;</span>(value - ((res.<a class="code hl_variable" href="../../df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html#a0b0e3e5fe61c7febd3ea8f9fa426760d">quot</a> &lt;&lt; 1) + (qq &amp; mask32)));</div>
-<div class="line"><span class="lineno">   84</span>  <span class="keywordflow">if</span> (res.<a class="code hl_variable" href="../../df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html#addb5fa391e32e0505d76bfc30202efe0">rem</a> &gt; 9) {</div>
-<div class="line"><span class="lineno">   85</span>    res.<a class="code hl_variable" href="../../df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html#addb5fa391e32e0505d76bfc30202efe0">rem</a> -= 10;</div>
-<div class="line"><span class="lineno">   86</span>    ++res.<a class="code hl_variable" href="../../df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html#a0b0e3e5fe61c7febd3ea8f9fa426760d">quot</a>;</div>
-<div class="line"><span class="lineno">   87</span>  }</div>
-<div class="line"><span class="lineno">   88</span> </div>
-<div class="line"><span class="lineno">   89</span>  <span class="keywordflow">return</span> res;</div>
-<div class="line"><span class="lineno">   90</span>}</div>
-<div class="ttc" id="astructanonymous__namespace_02utils_8cpp_03_1_1divmod10_html"><div class="ttname"><a href="../../df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html">anonymous_namespace{utils.cpp}::divmod10</a></div><div class="ttdef"><b>Definition</b> utils.cpp:55</div></div>
-<div class="ttc" id="astructanonymous__namespace_02utils_8cpp_03_1_1divmod10_html_a0b0e3e5fe61c7febd3ea8f9fa426760d"><div class="ttname"><a href="../../df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html#a0b0e3e5fe61c7febd3ea8f9fa426760d">anonymous_namespace{utils.cpp}::divmod10::quot</a></div><div class="ttdeci">std::uint32_t quot</div><div class="ttdef"><b>Definition</b> utils.cpp:56</div></div>
-<div class="ttc" id="astructanonymous__namespace_02utils_8cpp_03_1_1divmod10_html_addb5fa391e32e0505d76bfc30202efe0"><div class="ttname"><a href="../../df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html#addb5fa391e32e0505d76bfc30202efe0">anonymous_namespace{utils.cpp}::divmod10::rem</a></div><div class="ttdeci">std::uint8_t rem</div><div class="ttdef"><b>Definition</b> utils.cpp:57</div></div>
+<div class="fragment"><div class="line"><span class="lineno">   69</span>                                                         {</div>
+<div class="line"><span class="lineno">   70</span>  <a class="code hl_struct" href="../../df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html">divmod10</a> res;</div>
+<div class="line"><span class="lineno">   71</span> </div>
+<div class="line"><span class="lineno">   72</span>  res.<a class="code hl_variable" href="../../df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html#a0b0e3e5fe61c7febd3ea8f9fa426760d">quot</a> = value &gt;&gt; 1;</div>
+<div class="line"><span class="lineno">   73</span>  res.<a class="code hl_variable" href="../../df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html#a0b0e3e5fe61c7febd3ea8f9fa426760d">quot</a> += res.<a class="code hl_variable" href="../../df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html#a0b0e3e5fe61c7febd3ea8f9fa426760d">quot</a> &gt;&gt; 1;</div>
+<div class="line"><span class="lineno">   74</span>  res.<a class="code hl_variable" href="../../df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html#a0b0e3e5fe61c7febd3ea8f9fa426760d">quot</a> += res.<a class="code hl_variable" href="../../df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html#a0b0e3e5fe61c7febd3ea8f9fa426760d">quot</a> &gt;&gt; 4;</div>
+<div class="line"><span class="lineno">   75</span>  res.<a class="code hl_variable" href="../../df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html#a0b0e3e5fe61c7febd3ea8f9fa426760d">quot</a> += res.<a class="code hl_variable" href="../../df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html#a0b0e3e5fe61c7febd3ea8f9fa426760d">quot</a> &gt;&gt; 8;</div>
+<div class="line"><span class="lineno">   76</span>  res.<a class="code hl_variable" href="../../df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html#a0b0e3e5fe61c7febd3ea8f9fa426760d">quot</a> += res.<a class="code hl_variable" href="../../df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html#a0b0e3e5fe61c7febd3ea8f9fa426760d">quot</a> &gt;&gt; 16;</div>
+<div class="line"><span class="lineno">   77</span> </div>
+<div class="line"><span class="lineno">   78</span>  <span class="keyword">const</span> <span class="keyword">auto</span> qq = res.<a class="code hl_variable" href="../../df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html#a0b0e3e5fe61c7febd3ea8f9fa426760d">quot</a>;</div>
+<div class="line"><span class="lineno">   79</span>  res.<a class="code hl_variable" href="../../df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html#a0b0e3e5fe61c7febd3ea8f9fa426760d">quot</a> &gt;&gt;= 3;</div>
+<div class="line"><span class="lineno">   80</span> </div>
+<div class="line"><span class="lineno">   81</span>  <span class="keyword">constexpr</span> std::uint32_t mask32 = 0xFFFFFFF8;</div>
+<div class="line"><span class="lineno">   82</span>  res.<a class="code hl_variable" href="../../df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html#addb5fa391e32e0505d76bfc30202efe0">rem</a> = <span class="keyword">static_cast&lt;</span>std::uint8_t<span class="keyword">&gt;</span>(value - ((res.<a class="code hl_variable" href="../../df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html#a0b0e3e5fe61c7febd3ea8f9fa426760d">quot</a> &lt;&lt; 1) + (qq &amp; mask32)));</div>
+<div class="line"><span class="lineno">   83</span>  <span class="keywordflow">if</span> (res.<a class="code hl_variable" href="../../df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html#addb5fa391e32e0505d76bfc30202efe0">rem</a> &gt; 9) {</div>
+<div class="line"><span class="lineno">   84</span>    res.<a class="code hl_variable" href="../../df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html#addb5fa391e32e0505d76bfc30202efe0">rem</a> -= 10;</div>
+<div class="line"><span class="lineno">   85</span>    ++res.<a class="code hl_variable" href="../../df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html#a0b0e3e5fe61c7febd3ea8f9fa426760d">quot</a>;</div>
+<div class="line"><span class="lineno">   86</span>  }</div>
+<div class="line"><span class="lineno">   87</span> </div>
+<div class="line"><span class="lineno">   88</span>  <span class="keywordflow">return</span> res;</div>
+<div class="line"><span class="lineno">   89</span>}</div>
+<div class="ttc" id="astructanonymous__namespace_02utils_8cpp_03_1_1divmod10_html"><div class="ttname"><a href="../../df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html">anonymous_namespace{utils.cpp}::divmod10</a></div><div class="ttdef"><b>Definition</b> utils.cpp:54</div></div>
+<div class="ttc" id="astructanonymous__namespace_02utils_8cpp_03_1_1divmod10_html_a0b0e3e5fe61c7febd3ea8f9fa426760d"><div class="ttname"><a href="../../df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html#a0b0e3e5fe61c7febd3ea8f9fa426760d">anonymous_namespace{utils.cpp}::divmod10::quot</a></div><div class="ttdeci">std::uint32_t quot</div><div class="ttdef"><b>Definition</b> utils.cpp:55</div></div>
+<div class="ttc" id="astructanonymous__namespace_02utils_8cpp_03_1_1divmod10_html_addb5fa391e32e0505d76bfc30202efe0"><div class="ttname"><a href="../../df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html#addb5fa391e32e0505d76bfc30202efe0">anonymous_namespace{utils.cpp}::divmod10::rem</a></div><div class="ttdeci">std::uint8_t rem</div><div class="ttdef"><b>Definition</b> utils.cpp:56</div></div>
 </div><!-- fragment -->
 <p class="reference">Referenced by <a class="el" href="#a0fea47d296dd636e54771d79a799cf51">floatPostProcess()</a>.</p>
 
@@ -270,84 +270,84 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>The function assumes that the destination buffer is large enough to hold the processed string. The buffer will contain the string representation in the form "+d.dd...e±dd" for normalized numbers. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">  261</span>                                                    {</div>
-<div class="line"><span class="lineno">  262</span>  <span class="keywordtype">char</span> <span class="keyword">const</span> * strBegin = &amp;srcBuffer[2];</div>
-<div class="line"><span class="lineno">  263</span>  <span class="keywordflow">if</span> (srcBuffer[1] != <span class="charliteral">&#39;0&#39;</span>) {</div>
-<div class="line"><span class="lineno">  264</span>    <span class="comment">// Carry propagated into the integer position at [1] (e.g., 0.999.. -&gt; 1.000..).</span></div>
-<div class="line"><span class="lineno">  265</span>    <span class="comment">// Include that &#39;1&#39; in the mantissa by shifting strBegin left, and bump exp10 to keep</span></div>
-<div class="line"><span class="lineno">  266</span>    <span class="comment">// the mantissa/exponent product invariant.</span></div>
-<div class="line"><span class="lineno">  267</span>    ++exp10;</div>
-<div class="line"><span class="lineno">  268</span>    --strBegin;</div>
-<div class="line"><span class="lineno">  269</span>  }</div>
-<div class="line"><span class="lineno">  270</span> </div>
-<div class="line"><span class="lineno">  271</span>  <span class="keyword">const</span> <span class="keyword">auto</span> digits = std::strlen(strBegin);</div>
-<div class="line"><span class="lineno">  272</span>  std::size_t intDigits = 0;</div>
-<div class="line"><span class="lineno">  273</span>  std::size_t leadingZeros = 0;</div>
-<div class="line"><span class="lineno">  274</span>  <span class="keywordflow">if</span> (<span class="keyword">static_cast&lt;</span>std::size_t<span class="keyword">&gt;</span>(std::abs(exp10)) &gt;= precision) {</div>
-<div class="line"><span class="lineno">  275</span>    intDigits = 1;</div>
-<div class="line"><span class="lineno">  276</span>  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (exp10 &gt;= 0) {</div>
-<div class="line"><span class="lineno">  277</span>    intDigits = <span class="keyword">static_cast&lt;</span>std::size_t<span class="keyword">&gt;</span>(exp10 + 1);</div>
-<div class="line"><span class="lineno">  278</span>    exp10 = 0;</div>
-<div class="line"><span class="lineno">  279</span>  } <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno">  280</span>    intDigits = 0;</div>
-<div class="line"><span class="lineno">  281</span>    leadingZeros = <span class="keyword">static_cast&lt;</span>std::size_t<span class="keyword">&gt;</span>(-exp10 - 1);</div>
-<div class="line"><span class="lineno">  282</span>    exp10 = 0;</div>
-<div class="line"><span class="lineno">  283</span>  }</div>
-<div class="line"><span class="lineno">  284</span> </div>
-<div class="line"><span class="lineno">  285</span>  <span class="keywordtype">char</span> * outputPointer = dest;</div>
-<div class="line"><span class="lineno">  286</span>  <span class="keywordflow">if</span> (*srcBuffer == <span class="charliteral">&#39;-&#39;</span>) <span class="comment">// copy sign if negative</span></div>
-<div class="line"><span class="lineno">  287</span>    *outputPointer++ = <span class="charliteral">&#39;-&#39;</span>;</div>
-<div class="line"><span class="lineno">  288</span> </div>
-<div class="line"><span class="lineno">  289</span>  std::size_t fractionDigits = digits &gt; intDigits ? digits - intDigits : 0;</div>
-<div class="line"><span class="lineno">  290</span>  <span class="keywordflow">if</span> (intDigits &gt; 0) {</div>
-<div class="line"><span class="lineno">  291</span>    <span class="keyword">auto</span> count = std::min(intDigits, digits);</div>
-<div class="line"><span class="lineno">  292</span>    <span class="keywordflow">while</span> (count--)</div>
-<div class="line"><span class="lineno">  293</span>      *outputPointer++ = *strBegin++;</div>
-<div class="line"><span class="lineno">  294</span> </div>
-<div class="line"><span class="lineno">  295</span>    <span class="keyword">auto</span> trailingZeros = <span class="keyword">static_cast&lt;</span>std::int32_t<span class="keyword">&gt;</span>(intDigits) - <span class="keyword">static_cast&lt;</span>std::int32_t<span class="keyword">&gt;</span>(digits);</div>
-<div class="line"><span class="lineno">  296</span>    <span class="keywordflow">while</span> (trailingZeros-- &gt; 0)</div>
-<div class="line"><span class="lineno">  297</span>      *outputPointer++ = <span class="charliteral">&#39;0&#39;</span>;</div>
-<div class="line"><span class="lineno">  298</span>  } <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno">  299</span>    *outputPointer++ = <span class="charliteral">&#39;0&#39;</span>;</div>
-<div class="line"><span class="lineno">  300</span>  }</div>
-<div class="line"><span class="lineno">  301</span> </div>
-<div class="line"><span class="lineno">  302</span>  <span class="keywordflow">if</span> (fractionDigits &gt; 0) {</div>
-<div class="line"><span class="lineno">  303</span>    *outputPointer++ = <span class="charliteral">&#39;.&#39;</span>;</div>
-<div class="line"><span class="lineno">  304</span>    <span class="keywordflow">while</span> (leadingZeros-- &gt; 0)</div>
-<div class="line"><span class="lineno">  305</span>      *outputPointer++ = <span class="charliteral">&#39;0&#39;</span>;</div>
-<div class="line"><span class="lineno">  306</span> </div>
-<div class="line"><span class="lineno">  307</span>    <span class="keywordflow">while</span> (fractionDigits-- &gt; 0)</div>
-<div class="line"><span class="lineno">  308</span>      *outputPointer++ = *strBegin++;</div>
-<div class="line"><span class="lineno">  309</span>  }</div>
-<div class="line"><span class="lineno">  310</span> </div>
-<div class="line"><span class="lineno">  311</span>  <span class="keywordflow">if</span> (exp10 != 0) {</div>
-<div class="line"><span class="lineno">  312</span>    *outputPointer++ = <span class="charliteral">&#39;e&#39;</span>;</div>
-<div class="line"><span class="lineno">  313</span>    std::uint32_t upow10;</div>
-<div class="line"><span class="lineno">  314</span>    <span class="keywordflow">if</span> (exp10 &lt; 0) {</div>
-<div class="line"><span class="lineno">  315</span>      *outputPointer++ = <span class="charliteral">&#39;-&#39;</span>;</div>
-<div class="line"><span class="lineno">  316</span>      upow10 = <span class="keyword">static_cast&lt;</span>std::uint32_t<span class="keyword">&gt;</span>(-exp10);</div>
-<div class="line"><span class="lineno">  317</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno">  318</span>      *outputPointer++ = <span class="charliteral">&#39;+&#39;</span>;</div>
-<div class="line"><span class="lineno">  319</span>      upow10 = <span class="keyword">static_cast&lt;</span>std::uint32_t<span class="keyword">&gt;</span>(exp10);</div>
-<div class="line"><span class="lineno">  320</span>    }</div>
-<div class="line"><span class="lineno">  321</span> </div>
-<div class="line"><span class="lineno">  322</span>    <span class="keywordtype">char</span> * bufferEndPointer = srcBuffer + bufferSize - 1;</div>
-<div class="line"><span class="lineno">  323</span>    *bufferEndPointer = <span class="charliteral">&#39;\0&#39;</span>;</div>
-<div class="line"><span class="lineno">  324</span> </div>
-<div class="line"><span class="lineno">  325</span>    divmod10 res;</div>
-<div class="line"><span class="lineno">  326</span>    res.quot = upow10;</div>
-<div class="line"><span class="lineno">  327</span>    <span class="keywordflow">do</span> {</div>
-<div class="line"><span class="lineno">  328</span>      res = <a class="code hl_function" href="#ac67999e0431f5b52904efa1cb01a2ad6">divModU10</a>(res.quot);</div>
-<div class="line"><span class="lineno">  329</span>      *--bufferEndPointer = res.rem + <span class="charliteral">&#39;0&#39;</span>;</div>
-<div class="line"><span class="lineno">  330</span>    } <span class="keywordflow">while</span> (res.quot != 0);</div>
-<div class="line"><span class="lineno">  331</span> </div>
-<div class="line"><span class="lineno">  332</span>    <span class="keywordflow">while</span> (bufferEndPointer &lt; srcBuffer + bufferSize)</div>
-<div class="line"><span class="lineno">  333</span>      *outputPointer++ = *bufferEndPointer++;</div>
-<div class="line"><span class="lineno">  334</span>  }</div>
-<div class="line"><span class="lineno">  335</span> </div>
-<div class="line"><span class="lineno">  336</span>  *outputPointer = <span class="charliteral">&#39;\0&#39;</span>;</div>
-<div class="line"><span class="lineno">  337</span>}</div>
-<div class="ttc" id="anamespaceanonymous__namespace_02utils_8cpp_03_html_ac67999e0431f5b52904efa1cb01a2ad6"><div class="ttname"><a href="#ac67999e0431f5b52904efa1cb01a2ad6">anonymous_namespace{utils.cpp}::divModU10</a></div><div class="ttdeci">constexpr divmod10 divModU10(std::uint32_t value) noexcept</div><div class="ttdoc">Divides a given 32-bit unsigned integer by 10 and returns the quotient and remainder.</div><div class="ttdef"><b>Definition</b> utils.cpp:70</div></div>
+<div class="fragment"><div class="line"><span class="lineno">  260</span>                                                    {</div>
+<div class="line"><span class="lineno">  261</span>  <span class="keywordtype">char</span> <span class="keyword">const</span> * strBegin = &amp;srcBuffer[2];</div>
+<div class="line"><span class="lineno">  262</span>  <span class="keywordflow">if</span> (srcBuffer[1] != <span class="charliteral">&#39;0&#39;</span>) {</div>
+<div class="line"><span class="lineno">  263</span>    <span class="comment">// Carry propagated into the integer position at [1] (e.g., 0.999.. -&gt; 1.000..).</span></div>
+<div class="line"><span class="lineno">  264</span>    <span class="comment">// Include that &#39;1&#39; in the mantissa by shifting strBegin left, and bump exp10 to keep</span></div>
+<div class="line"><span class="lineno">  265</span>    <span class="comment">// the mantissa/exponent product invariant.</span></div>
+<div class="line"><span class="lineno">  266</span>    ++exp10;</div>
+<div class="line"><span class="lineno">  267</span>    --strBegin;</div>
+<div class="line"><span class="lineno">  268</span>  }</div>
+<div class="line"><span class="lineno">  269</span> </div>
+<div class="line"><span class="lineno">  270</span>  <span class="keyword">const</span> <span class="keyword">auto</span> digits = std::strlen(strBegin);</div>
+<div class="line"><span class="lineno">  271</span>  std::size_t intDigits = 0;</div>
+<div class="line"><span class="lineno">  272</span>  std::size_t leadingZeros = 0;</div>
+<div class="line"><span class="lineno">  273</span>  <span class="keywordflow">if</span> (<span class="keyword">static_cast&lt;</span>std::size_t<span class="keyword">&gt;</span>(std::abs(exp10)) &gt;= precision) {</div>
+<div class="line"><span class="lineno">  274</span>    intDigits = 1;</div>
+<div class="line"><span class="lineno">  275</span>  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (exp10 &gt;= 0) {</div>
+<div class="line"><span class="lineno">  276</span>    intDigits = <span class="keyword">static_cast&lt;</span>std::size_t<span class="keyword">&gt;</span>(exp10 + 1);</div>
+<div class="line"><span class="lineno">  277</span>    exp10 = 0;</div>
+<div class="line"><span class="lineno">  278</span>  } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  279</span>    intDigits = 0;</div>
+<div class="line"><span class="lineno">  280</span>    leadingZeros = <span class="keyword">static_cast&lt;</span>std::size_t<span class="keyword">&gt;</span>(-exp10 - 1);</div>
+<div class="line"><span class="lineno">  281</span>    exp10 = 0;</div>
+<div class="line"><span class="lineno">  282</span>  }</div>
+<div class="line"><span class="lineno">  283</span> </div>
+<div class="line"><span class="lineno">  284</span>  <span class="keywordtype">char</span> * outputPointer = dest;</div>
+<div class="line"><span class="lineno">  285</span>  <span class="keywordflow">if</span> (*srcBuffer == <span class="charliteral">&#39;-&#39;</span>) <span class="comment">// copy sign if negative</span></div>
+<div class="line"><span class="lineno">  286</span>    *outputPointer++ = <span class="charliteral">&#39;-&#39;</span>;</div>
+<div class="line"><span class="lineno">  287</span> </div>
+<div class="line"><span class="lineno">  288</span>  std::size_t fractionDigits = digits &gt; intDigits ? digits - intDigits : 0;</div>
+<div class="line"><span class="lineno">  289</span>  <span class="keywordflow">if</span> (intDigits &gt; 0) {</div>
+<div class="line"><span class="lineno">  290</span>    <span class="keyword">auto</span> count = std::min(intDigits, digits);</div>
+<div class="line"><span class="lineno">  291</span>    <span class="keywordflow">while</span> (count--)</div>
+<div class="line"><span class="lineno">  292</span>      *outputPointer++ = *strBegin++;</div>
+<div class="line"><span class="lineno">  293</span> </div>
+<div class="line"><span class="lineno">  294</span>    <span class="keyword">auto</span> trailingZeros = <span class="keyword">static_cast&lt;</span>std::int32_t<span class="keyword">&gt;</span>(intDigits) - <span class="keyword">static_cast&lt;</span>std::int32_t<span class="keyword">&gt;</span>(digits);</div>
+<div class="line"><span class="lineno">  295</span>    <span class="keywordflow">while</span> (trailingZeros-- &gt; 0)</div>
+<div class="line"><span class="lineno">  296</span>      *outputPointer++ = <span class="charliteral">&#39;0&#39;</span>;</div>
+<div class="line"><span class="lineno">  297</span>  } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  298</span>    *outputPointer++ = <span class="charliteral">&#39;0&#39;</span>;</div>
+<div class="line"><span class="lineno">  299</span>  }</div>
+<div class="line"><span class="lineno">  300</span> </div>
+<div class="line"><span class="lineno">  301</span>  <span class="keywordflow">if</span> (fractionDigits &gt; 0) {</div>
+<div class="line"><span class="lineno">  302</span>    *outputPointer++ = <span class="charliteral">&#39;.&#39;</span>;</div>
+<div class="line"><span class="lineno">  303</span>    <span class="keywordflow">while</span> (leadingZeros-- &gt; 0)</div>
+<div class="line"><span class="lineno">  304</span>      *outputPointer++ = <span class="charliteral">&#39;0&#39;</span>;</div>
+<div class="line"><span class="lineno">  305</span> </div>
+<div class="line"><span class="lineno">  306</span>    <span class="keywordflow">while</span> (fractionDigits-- &gt; 0)</div>
+<div class="line"><span class="lineno">  307</span>      *outputPointer++ = *strBegin++;</div>
+<div class="line"><span class="lineno">  308</span>  }</div>
+<div class="line"><span class="lineno">  309</span> </div>
+<div class="line"><span class="lineno">  310</span>  <span class="keywordflow">if</span> (exp10 != 0) {</div>
+<div class="line"><span class="lineno">  311</span>    *outputPointer++ = <span class="charliteral">&#39;e&#39;</span>;</div>
+<div class="line"><span class="lineno">  312</span>    std::uint32_t upow10;</div>
+<div class="line"><span class="lineno">  313</span>    <span class="keywordflow">if</span> (exp10 &lt; 0) {</div>
+<div class="line"><span class="lineno">  314</span>      *outputPointer++ = <span class="charliteral">&#39;-&#39;</span>;</div>
+<div class="line"><span class="lineno">  315</span>      upow10 = <span class="keyword">static_cast&lt;</span>std::uint32_t<span class="keyword">&gt;</span>(-exp10);</div>
+<div class="line"><span class="lineno">  316</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  317</span>      *outputPointer++ = <span class="charliteral">&#39;+&#39;</span>;</div>
+<div class="line"><span class="lineno">  318</span>      upow10 = <span class="keyword">static_cast&lt;</span>std::uint32_t<span class="keyword">&gt;</span>(exp10);</div>
+<div class="line"><span class="lineno">  319</span>    }</div>
+<div class="line"><span class="lineno">  320</span> </div>
+<div class="line"><span class="lineno">  321</span>    <span class="keywordtype">char</span> * bufferEndPointer = srcBuffer + bufferSize - 1;</div>
+<div class="line"><span class="lineno">  322</span>    *bufferEndPointer = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><span class="lineno">  323</span> </div>
+<div class="line"><span class="lineno">  324</span>    divmod10 res;</div>
+<div class="line"><span class="lineno">  325</span>    res.quot = upow10;</div>
+<div class="line"><span class="lineno">  326</span>    <span class="keywordflow">do</span> {</div>
+<div class="line"><span class="lineno">  327</span>      res = <a class="code hl_function" href="#ac67999e0431f5b52904efa1cb01a2ad6">divModU10</a>(res.quot);</div>
+<div class="line"><span class="lineno">  328</span>      *--bufferEndPointer = res.rem + <span class="charliteral">&#39;0&#39;</span>;</div>
+<div class="line"><span class="lineno">  329</span>    } <span class="keywordflow">while</span> (res.quot != 0);</div>
+<div class="line"><span class="lineno">  330</span> </div>
+<div class="line"><span class="lineno">  331</span>    <span class="keywordflow">while</span> (bufferEndPointer &lt; srcBuffer + bufferSize)</div>
+<div class="line"><span class="lineno">  332</span>      *outputPointer++ = *bufferEndPointer++;</div>
+<div class="line"><span class="lineno">  333</span>  }</div>
+<div class="line"><span class="lineno">  334</span> </div>
+<div class="line"><span class="lineno">  335</span>  *outputPointer = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><span class="lineno">  336</span>}</div>
+<div class="ttc" id="anamespaceanonymous__namespace_02utils_8cpp_03_html_ac67999e0431f5b52904efa1cb01a2ad6"><div class="ttname"><a href="#ac67999e0431f5b52904efa1cb01a2ad6">anonymous_namespace{utils.cpp}::divModU10</a></div><div class="ttdeci">constexpr divmod10 divModU10(std::uint32_t value) noexcept</div><div class="ttdoc">Divides a given 32-bit unsigned integer by 10 and returns the quotient and remainder.</div><div class="ttdef"><b>Definition</b> utils.cpp:69</div></div>
 </div><!-- fragment -->
 <p class="reference">Referenced by <a class="el" href="../../d7/de6/namespacetoygine.html#af7d6996d5d592d01988772546b56666e">toygine::ftoa()</a>, and <a class="el" href="../../d7/de6/namespacetoygine.html#affdb6875d17aaa1db906010940f7ce7f">toygine::ftoa()</a>.</p>
 
@@ -398,87 +398,87 @@ Variables</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The exponent of the converted number in the given precision. Returns 0xFF for zero, subnormals (unsupported), NaN, and INF.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The function assumes that the destination buffer is large enough to hold the converted string. The function does not support subnormals. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">  110</span>                                                                                            {</div>
-<div class="line"><span class="lineno">  111</span>  <span class="keyword">const</span> <span class="keyword">auto</span> uvalue = std::bit_cast&lt;uint32_t&gt;(value);</div>
-<div class="line"><span class="lineno">  112</span>  <span class="keyword">const</span> <span class="keyword">auto</span> exponent = <span class="keyword">static_cast&lt;</span>std::uint8_t<span class="keyword">&gt;</span>(uvalue &gt;&gt; 23);</div>
-<div class="line"><span class="lineno">  113</span>  <span class="keywordflow">if</span> (exponent == 0) { <span class="comment">// don&#39;t care about a subnormals</span></div>
-<div class="line"><span class="lineno">  114</span>    buffer[0] = <span class="charliteral">&#39;0&#39;</span>;</div>
-<div class="line"><span class="lineno">  115</span>    buffer[1] = <span class="charliteral">&#39;\0&#39;</span>;</div>
-<div class="line"><span class="lineno">  116</span>    <span class="keywordflow">return</span> 0xFF;</div>
-<div class="line"><span class="lineno">  117</span>  }</div>
-<div class="line"><span class="lineno">  118</span> </div>
-<div class="line"><span class="lineno">  119</span>  <span class="keywordtype">char</span> * pointer = buffer;</div>
-<div class="line"><span class="lineno">  120</span>  <span class="keywordflow">if</span> (uvalue &amp; 0x80000000)</div>
-<div class="line"><span class="lineno">  121</span>    *pointer++ = <span class="charliteral">&#39;-&#39;</span>;</div>
-<div class="line"><span class="lineno">  122</span>  <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">  123</span>    *pointer++ = <span class="charliteral">&#39;+&#39;</span>;</div>
-<div class="line"><span class="lineno">  124</span> </div>
-<div class="line"><span class="lineno">  125</span>  <span class="keyword">const</span> std::uint32_t fraction = (uvalue &amp; 0x007FFFFF) | 0x00800000;</div>
-<div class="line"><span class="lineno">  126</span>  <span class="keywordflow">if</span> (exponent == 0xFF) {</div>
-<div class="line"><span class="lineno">  127</span>    <span class="keywordflow">if</span> (fraction &amp; 0x007FFFFF) {</div>
-<div class="line"><span class="lineno">  128</span>      pointer[0] = <span class="charliteral">&#39;N&#39;</span>;</div>
-<div class="line"><span class="lineno">  129</span>      pointer[1] = <span class="charliteral">&#39;A&#39;</span>;</div>
-<div class="line"><span class="lineno">  130</span>      pointer[2] = <span class="charliteral">&#39;N&#39;</span>;</div>
-<div class="line"><span class="lineno">  131</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno">  132</span>      pointer[0] = <span class="charliteral">&#39;I&#39;</span>;</div>
-<div class="line"><span class="lineno">  133</span>      pointer[1] = <span class="charliteral">&#39;N&#39;</span>;</div>
-<div class="line"><span class="lineno">  134</span>      pointer[2] = <span class="charliteral">&#39;F&#39;</span>;</div>
-<div class="line"><span class="lineno">  135</span>    }</div>
-<div class="line"><span class="lineno">  136</span> </div>
-<div class="line"><span class="lineno">  137</span>    pointer[3] = <span class="charliteral">&#39;\0&#39;</span>;</div>
-<div class="line"><span class="lineno">  138</span> </div>
-<div class="line"><span class="lineno">  139</span>    <span class="keywordflow">return</span> 0xFF;</div>
-<div class="line"><span class="lineno">  140</span>  }</div>
-<div class="line"><span class="lineno">  141</span> </div>
-<div class="line"><span class="lineno">  142</span>  *pointer++ = <span class="charliteral">&#39;0&#39;</span>;</div>
-<div class="line"><span class="lineno">  143</span> </div>
-<div class="line"><span class="lineno">  144</span>  std::int32_t exp10 = (((exponent &gt;&gt; 3) * 77 + 63) &gt;&gt; 5) - 38;</div>
-<div class="line"><span class="lineno">  145</span>  std::uint32_t t</div>
-<div class="line"><span class="lineno">  146</span>    = <span class="keyword">static_cast&lt;</span>std::uint32_t<span class="keyword">&gt;</span>((<span class="keyword">static_cast&lt;</span>std::uint64_t<span class="keyword">&gt;</span>(fraction &lt;&lt; 8) * <a class="code hl_variable" href="#a16763e814fa75374c37a7c9b6ac4379b">sc_exponentTable</a>[exponent / 8U]) &gt;&gt; 32)</div>
-<div class="line"><span class="lineno">  147</span>      + 1;</div>
-<div class="line"><span class="lineno">  148</span>  t &gt;&gt;= (7 - (exponent &amp; 7));</div>
-<div class="line"><span class="lineno">  149</span> </div>
-<div class="line"><span class="lineno">  150</span>  std::uint8_t digit = t &gt;&gt; 28;</div>
-<div class="line"><span class="lineno">  151</span>  <span class="keywordflow">while</span> (digit == 0) {</div>
-<div class="line"><span class="lineno">  152</span>    t &amp;= 0x0fffffff;</div>
-<div class="line"><span class="lineno">  153</span>    t *= 10;</div>
-<div class="line"><span class="lineno">  154</span>    digit = t &gt;&gt; 28;</div>
-<div class="line"><span class="lineno">  155</span>    --exp10;</div>
-<div class="line"><span class="lineno">  156</span>  }</div>
-<div class="line"><span class="lineno">  157</span> </div>
-<div class="line"><span class="lineno">  158</span>  <span class="keywordflow">for</span> (std::size_t iter = precision + 1; iter &gt; 0; --iter) {</div>
-<div class="line"><span class="lineno">  159</span>    digit = t &gt;&gt; 28;</div>
-<div class="line"><span class="lineno">  160</span>    *pointer++ = digit + <span class="charliteral">&#39;0&#39;</span>;</div>
-<div class="line"><span class="lineno">  161</span>    t &amp;= 0x0fffffff;</div>
-<div class="line"><span class="lineno">  162</span>    t *= 10;</div>
-<div class="line"><span class="lineno">  163</span>  }</div>
-<div class="line"><span class="lineno">  164</span> </div>
-<div class="line"><span class="lineno">  165</span>  <span class="comment">// roundup</span></div>
-<div class="line"><span class="lineno">  166</span>  <span class="keywordflow">if</span> (buffer[precision + 2] &gt;= <span class="charliteral">&#39;5&#39;</span>)</div>
-<div class="line"><span class="lineno">  167</span>    buffer[precision + 1]++;</div>
-<div class="line"><span class="lineno">  168</span> </div>
-<div class="line"><span class="lineno">  169</span>  pointer[-1] = <span class="charliteral">&#39;\0&#39;</span>;</div>
-<div class="line"><span class="lineno">  170</span>  pointer -= 2;</div>
-<div class="line"><span class="lineno">  171</span> </div>
-<div class="line"><span class="lineno">  172</span>  <span class="keywordflow">for</span> (std::size_t index = precision + 1; index &gt; 1; --index) {</div>
-<div class="line"><span class="lineno">  173</span>    <span class="keywordflow">if</span> (buffer[index] &gt; <span class="charliteral">&#39;9&#39;</span>) {</div>
-<div class="line"><span class="lineno">  174</span>      buffer[index] -= 10;</div>
-<div class="line"><span class="lineno">  175</span>      ++buffer[index - 1];</div>
-<div class="line"><span class="lineno">  176</span>    }</div>
-<div class="line"><span class="lineno">  177</span>  }</div>
-<div class="line"><span class="lineno">  178</span> </div>
-<div class="line"><span class="lineno">  179</span>  <span class="comment">// If carry propagated into the integer digit (&#39;0&#39; at buffer[1]), adjust it and bump the exponent.</span></div>
-<div class="line"><span class="lineno">  180</span>  <span class="keywordflow">if</span> (buffer[1] &gt; <span class="charliteral">&#39;9&#39;</span>) {</div>
-<div class="line"><span class="lineno">  181</span>    buffer[1] = <span class="charliteral">&#39;1&#39;</span>;</div>
-<div class="line"><span class="lineno">  182</span>    ++exp10;</div>
-<div class="line"><span class="lineno">  183</span>  }</div>
-<div class="line"><span class="lineno">  184</span> </div>
-<div class="line"><span class="lineno">  185</span>  <span class="keywordflow">while</span> (pointer &gt; buffer + 1 &amp;&amp; pointer[0] == <span class="charliteral">&#39;0&#39;</span>)</div>
-<div class="line"><span class="lineno">  186</span>    *pointer-- = <span class="charliteral">&#39;\0&#39;</span>;</div>
-<div class="line"><span class="lineno">  187</span> </div>
-<div class="line"><span class="lineno">  188</span>  <span class="keywordflow">return</span> exp10;</div>
-<div class="line"><span class="lineno">  189</span>}</div>
-<div class="ttc" id="anamespaceanonymous__namespace_02utils_8cpp_03_html_a16763e814fa75374c37a7c9b6ac4379b"><div class="ttname"><a href="#a16763e814fa75374c37a7c9b6ac4379b">anonymous_namespace{utils.cpp}::sc_exponentTable</a></div><div class="ttdeci">constexpr std::array&lt; std::uint32_t, 32 &gt; sc_exponentTable</div><div class="ttdef"><b>Definition</b> utils.cpp:49</div></div>
+<div class="fragment"><div class="line"><span class="lineno">  109</span>                                                                                            {</div>
+<div class="line"><span class="lineno">  110</span>  <span class="keyword">const</span> <span class="keyword">auto</span> uvalue = std::bit_cast&lt;uint32_t&gt;(value);</div>
+<div class="line"><span class="lineno">  111</span>  <span class="keyword">const</span> <span class="keyword">auto</span> exponent = <span class="keyword">static_cast&lt;</span>std::uint8_t<span class="keyword">&gt;</span>(uvalue &gt;&gt; 23);</div>
+<div class="line"><span class="lineno">  112</span>  <span class="keywordflow">if</span> (exponent == 0) { <span class="comment">// don&#39;t care about a subnormals</span></div>
+<div class="line"><span class="lineno">  113</span>    buffer[0] = <span class="charliteral">&#39;0&#39;</span>;</div>
+<div class="line"><span class="lineno">  114</span>    buffer[1] = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><span class="lineno">  115</span>    <span class="keywordflow">return</span> 0xFF;</div>
+<div class="line"><span class="lineno">  116</span>  }</div>
+<div class="line"><span class="lineno">  117</span> </div>
+<div class="line"><span class="lineno">  118</span>  <span class="keywordtype">char</span> * pointer = buffer;</div>
+<div class="line"><span class="lineno">  119</span>  <span class="keywordflow">if</span> (uvalue &amp; 0x80000000)</div>
+<div class="line"><span class="lineno">  120</span>    *pointer++ = <span class="charliteral">&#39;-&#39;</span>;</div>
+<div class="line"><span class="lineno">  121</span>  <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  122</span>    *pointer++ = <span class="charliteral">&#39;+&#39;</span>;</div>
+<div class="line"><span class="lineno">  123</span> </div>
+<div class="line"><span class="lineno">  124</span>  <span class="keyword">const</span> std::uint32_t fraction = (uvalue &amp; 0x007FFFFF) | 0x00800000;</div>
+<div class="line"><span class="lineno">  125</span>  <span class="keywordflow">if</span> (exponent == 0xFF) {</div>
+<div class="line"><span class="lineno">  126</span>    <span class="keywordflow">if</span> (fraction &amp; 0x007FFFFF) {</div>
+<div class="line"><span class="lineno">  127</span>      pointer[0] = <span class="charliteral">&#39;N&#39;</span>;</div>
+<div class="line"><span class="lineno">  128</span>      pointer[1] = <span class="charliteral">&#39;A&#39;</span>;</div>
+<div class="line"><span class="lineno">  129</span>      pointer[2] = <span class="charliteral">&#39;N&#39;</span>;</div>
+<div class="line"><span class="lineno">  130</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  131</span>      pointer[0] = <span class="charliteral">&#39;I&#39;</span>;</div>
+<div class="line"><span class="lineno">  132</span>      pointer[1] = <span class="charliteral">&#39;N&#39;</span>;</div>
+<div class="line"><span class="lineno">  133</span>      pointer[2] = <span class="charliteral">&#39;F&#39;</span>;</div>
+<div class="line"><span class="lineno">  134</span>    }</div>
+<div class="line"><span class="lineno">  135</span> </div>
+<div class="line"><span class="lineno">  136</span>    pointer[3] = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><span class="lineno">  137</span> </div>
+<div class="line"><span class="lineno">  138</span>    <span class="keywordflow">return</span> 0xFF;</div>
+<div class="line"><span class="lineno">  139</span>  }</div>
+<div class="line"><span class="lineno">  140</span> </div>
+<div class="line"><span class="lineno">  141</span>  *pointer++ = <span class="charliteral">&#39;0&#39;</span>;</div>
+<div class="line"><span class="lineno">  142</span> </div>
+<div class="line"><span class="lineno">  143</span>  std::int32_t exp10 = (((exponent &gt;&gt; 3) * 77 + 63) &gt;&gt; 5) - 38;</div>
+<div class="line"><span class="lineno">  144</span>  std::uint32_t t</div>
+<div class="line"><span class="lineno">  145</span>    = <span class="keyword">static_cast&lt;</span>std::uint32_t<span class="keyword">&gt;</span>((<span class="keyword">static_cast&lt;</span>std::uint64_t<span class="keyword">&gt;</span>(fraction &lt;&lt; 8) * <a class="code hl_variable" href="#a16763e814fa75374c37a7c9b6ac4379b">sc_exponentTable</a>[exponent / 8U]) &gt;&gt; 32)</div>
+<div class="line"><span class="lineno">  146</span>      + 1;</div>
+<div class="line"><span class="lineno">  147</span>  t &gt;&gt;= (7 - (exponent &amp; 7));</div>
+<div class="line"><span class="lineno">  148</span> </div>
+<div class="line"><span class="lineno">  149</span>  std::uint8_t digit = t &gt;&gt; 28;</div>
+<div class="line"><span class="lineno">  150</span>  <span class="keywordflow">while</span> (digit == 0) {</div>
+<div class="line"><span class="lineno">  151</span>    t &amp;= 0x0fffffff;</div>
+<div class="line"><span class="lineno">  152</span>    t *= 10;</div>
+<div class="line"><span class="lineno">  153</span>    digit = t &gt;&gt; 28;</div>
+<div class="line"><span class="lineno">  154</span>    --exp10;</div>
+<div class="line"><span class="lineno">  155</span>  }</div>
+<div class="line"><span class="lineno">  156</span> </div>
+<div class="line"><span class="lineno">  157</span>  <span class="keywordflow">for</span> (std::size_t iter = precision + 1; iter &gt; 0; --iter) {</div>
+<div class="line"><span class="lineno">  158</span>    digit = t &gt;&gt; 28;</div>
+<div class="line"><span class="lineno">  159</span>    *pointer++ = digit + <span class="charliteral">&#39;0&#39;</span>;</div>
+<div class="line"><span class="lineno">  160</span>    t &amp;= 0x0fffffff;</div>
+<div class="line"><span class="lineno">  161</span>    t *= 10;</div>
+<div class="line"><span class="lineno">  162</span>  }</div>
+<div class="line"><span class="lineno">  163</span> </div>
+<div class="line"><span class="lineno">  164</span>  <span class="comment">// roundup</span></div>
+<div class="line"><span class="lineno">  165</span>  <span class="keywordflow">if</span> (buffer[precision + 2] &gt;= <span class="charliteral">&#39;5&#39;</span>)</div>
+<div class="line"><span class="lineno">  166</span>    buffer[precision + 1]++;</div>
+<div class="line"><span class="lineno">  167</span> </div>
+<div class="line"><span class="lineno">  168</span>  pointer[-1] = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><span class="lineno">  169</span>  pointer -= 2;</div>
+<div class="line"><span class="lineno">  170</span> </div>
+<div class="line"><span class="lineno">  171</span>  <span class="keywordflow">for</span> (std::size_t index = precision + 1; index &gt; 1; --index) {</div>
+<div class="line"><span class="lineno">  172</span>    <span class="keywordflow">if</span> (buffer[index] &gt; <span class="charliteral">&#39;9&#39;</span>) {</div>
+<div class="line"><span class="lineno">  173</span>      buffer[index] -= 10;</div>
+<div class="line"><span class="lineno">  174</span>      ++buffer[index - 1];</div>
+<div class="line"><span class="lineno">  175</span>    }</div>
+<div class="line"><span class="lineno">  176</span>  }</div>
+<div class="line"><span class="lineno">  177</span> </div>
+<div class="line"><span class="lineno">  178</span>  <span class="comment">// If carry propagated into the integer digit (&#39;0&#39; at buffer[1]), adjust it and bump the exponent.</span></div>
+<div class="line"><span class="lineno">  179</span>  <span class="keywordflow">if</span> (buffer[1] &gt; <span class="charliteral">&#39;9&#39;</span>) {</div>
+<div class="line"><span class="lineno">  180</span>    buffer[1] = <span class="charliteral">&#39;1&#39;</span>;</div>
+<div class="line"><span class="lineno">  181</span>    ++exp10;</div>
+<div class="line"><span class="lineno">  182</span>  }</div>
+<div class="line"><span class="lineno">  183</span> </div>
+<div class="line"><span class="lineno">  184</span>  <span class="keywordflow">while</span> (pointer &gt; buffer + 1 &amp;&amp; pointer[0] == <span class="charliteral">&#39;0&#39;</span>)</div>
+<div class="line"><span class="lineno">  185</span>    *pointer-- = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><span class="lineno">  186</span> </div>
+<div class="line"><span class="lineno">  187</span>  <span class="keywordflow">return</span> exp10;</div>
+<div class="line"><span class="lineno">  188</span>}</div>
+<div class="ttc" id="anamespaceanonymous__namespace_02utils_8cpp_03_html_a16763e814fa75374c37a7c9b6ac4379b"><div class="ttname"><a href="#a16763e814fa75374c37a7c9b6ac4379b">anonymous_namespace{utils.cpp}::sc_exponentTable</a></div><div class="ttdeci">constexpr std::array&lt; std::uint32_t, 32 &gt; sc_exponentTable</div><div class="ttdef"><b>Definition</b> utils.cpp:48</div></div>
 </div><!-- fragment -->
 <p class="reference">Referenced by <a class="el" href="../../d7/de6/namespacetoygine.html#affdb6875d17aaa1db906010940f7ce7f">toygine::ftoa()</a>, and <a class="el" href="#a7c44b3e0618a319725ceaf2a69863932">ftoa64Engine()</a>.</p>
 
@@ -529,41 +529,41 @@ Variables</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The exponent of the converted number in the given precision. Returns 0x7FF for zero, subnormals (unsupported), NaN, and INF.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The function assumes that the buffer is large enough to hold the converted string. The buffer will contain the string representation in the form "+d.dd...e±dd" for normalized numbers. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">  209</span>                                                                                             {</div>
-<div class="line"><span class="lineno">  210</span>  <span class="keyword">const</span> <span class="keyword">auto</span> uvalue = std::bit_cast&lt;uint64_t&gt;(value);</div>
-<div class="line"><span class="lineno">  211</span>  <span class="keyword">const</span> <span class="keyword">auto</span> exponent = <span class="keyword">static_cast&lt;</span>std::uint32_t<span class="keyword">&gt;</span>(uvalue &gt;&gt; 52) &amp; 0x07FF;</div>
-<div class="line"><span class="lineno">  212</span>  <span class="keywordflow">if</span> (exponent == 0) { <span class="comment">// don&#39;t care about a subnormals</span></div>
-<div class="line"><span class="lineno">  213</span>    buffer[0] = <span class="charliteral">&#39;0&#39;</span>;</div>
-<div class="line"><span class="lineno">  214</span>    buffer[1] = <span class="charliteral">&#39;\0&#39;</span>;</div>
-<div class="line"><span class="lineno">  215</span>    <span class="keywordflow">return</span> 0x7FF;</div>
-<div class="line"><span class="lineno">  216</span>  }</div>
-<div class="line"><span class="lineno">  217</span> </div>
-<div class="line"><span class="lineno">  218</span>  <span class="keywordflow">if</span> (exponent == 0x07FF) {</div>
-<div class="line"><span class="lineno">  219</span>    <span class="keywordtype">char</span> * pointer = buffer;</div>
-<div class="line"><span class="lineno">  220</span>    <span class="keywordflow">if</span> (uvalue &amp; 0x8000000000000000ULL)</div>
-<div class="line"><span class="lineno">  221</span>      *pointer++ = <span class="charliteral">&#39;-&#39;</span>;</div>
-<div class="line"><span class="lineno">  222</span>    <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">  223</span>      *pointer++ = <span class="charliteral">&#39;+&#39;</span>;</div>
-<div class="line"><span class="lineno">  224</span> </div>
-<div class="line"><span class="lineno">  225</span>    <span class="keyword">const</span> std::uint64_t fraction = (uvalue &amp; 0x001FFFFFFFFFFFFFULL) | 0x0010000000000000ULL;</div>
-<div class="line"><span class="lineno">  226</span>    <span class="keywordflow">if</span> (fraction &amp; 0x000FFFFFFFFFFFFFULL) {</div>
-<div class="line"><span class="lineno">  227</span>      pointer[0] = <span class="charliteral">&#39;N&#39;</span>;</div>
-<div class="line"><span class="lineno">  228</span>      pointer[1] = <span class="charliteral">&#39;A&#39;</span>;</div>
-<div class="line"><span class="lineno">  229</span>      pointer[2] = <span class="charliteral">&#39;N&#39;</span>;</div>
-<div class="line"><span class="lineno">  230</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno">  231</span>      pointer[0] = <span class="charliteral">&#39;I&#39;</span>;</div>
-<div class="line"><span class="lineno">  232</span>      pointer[1] = <span class="charliteral">&#39;N&#39;</span>;</div>
-<div class="line"><span class="lineno">  233</span>      pointer[2] = <span class="charliteral">&#39;F&#39;</span>;</div>
-<div class="line"><span class="lineno">  234</span>    }</div>
-<div class="line"><span class="lineno">  235</span> </div>
-<div class="line"><span class="lineno">  236</span>    pointer[3] = <span class="charliteral">&#39;\0&#39;</span>;</div>
-<div class="line"><span class="lineno">  237</span> </div>
-<div class="line"><span class="lineno">  238</span>    <span class="keywordflow">return</span> 0x7FF;</div>
-<div class="line"><span class="lineno">  239</span>  }</div>
-<div class="line"><span class="lineno">  240</span> </div>
-<div class="line"><span class="lineno">  241</span>  <span class="keywordflow">return</span> <a class="code hl_function" href="#ac8bbfa80e5690622da0cafe80428735a">ftoa32Engine</a>(buffer, <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(value), precision);</div>
-<div class="line"><span class="lineno">  242</span>}</div>
-<div class="ttc" id="anamespaceanonymous__namespace_02utils_8cpp_03_html_ac8bbfa80e5690622da0cafe80428735a"><div class="ttname"><a href="#ac8bbfa80e5690622da0cafe80428735a">anonymous_namespace{utils.cpp}::ftoa32Engine</a></div><div class="ttdeci">constexpr std::int32_t ftoa32Engine(char *buffer, float value, std::size_t precision) noexcept</div><div class="ttdoc">Converts a floating-point number to its string representation in a specified precision.</div><div class="ttdef"><b>Definition</b> utils.cpp:110</div></div>
+<div class="fragment"><div class="line"><span class="lineno">  208</span>                                                                                             {</div>
+<div class="line"><span class="lineno">  209</span>  <span class="keyword">const</span> <span class="keyword">auto</span> uvalue = std::bit_cast&lt;uint64_t&gt;(value);</div>
+<div class="line"><span class="lineno">  210</span>  <span class="keyword">const</span> <span class="keyword">auto</span> exponent = <span class="keyword">static_cast&lt;</span>std::uint32_t<span class="keyword">&gt;</span>(uvalue &gt;&gt; 52) &amp; 0x07FF;</div>
+<div class="line"><span class="lineno">  211</span>  <span class="keywordflow">if</span> (exponent == 0) { <span class="comment">// don&#39;t care about a subnormals</span></div>
+<div class="line"><span class="lineno">  212</span>    buffer[0] = <span class="charliteral">&#39;0&#39;</span>;</div>
+<div class="line"><span class="lineno">  213</span>    buffer[1] = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><span class="lineno">  214</span>    <span class="keywordflow">return</span> 0x7FF;</div>
+<div class="line"><span class="lineno">  215</span>  }</div>
+<div class="line"><span class="lineno">  216</span> </div>
+<div class="line"><span class="lineno">  217</span>  <span class="keywordflow">if</span> (exponent == 0x07FF) {</div>
+<div class="line"><span class="lineno">  218</span>    <span class="keywordtype">char</span> * pointer = buffer;</div>
+<div class="line"><span class="lineno">  219</span>    <span class="keywordflow">if</span> (uvalue &amp; 0x8000000000000000ULL)</div>
+<div class="line"><span class="lineno">  220</span>      *pointer++ = <span class="charliteral">&#39;-&#39;</span>;</div>
+<div class="line"><span class="lineno">  221</span>    <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  222</span>      *pointer++ = <span class="charliteral">&#39;+&#39;</span>;</div>
+<div class="line"><span class="lineno">  223</span> </div>
+<div class="line"><span class="lineno">  224</span>    <span class="keyword">const</span> std::uint64_t fraction = (uvalue &amp; 0x001FFFFFFFFFFFFFULL) | 0x0010000000000000ULL;</div>
+<div class="line"><span class="lineno">  225</span>    <span class="keywordflow">if</span> (fraction &amp; 0x000FFFFFFFFFFFFFULL) {</div>
+<div class="line"><span class="lineno">  226</span>      pointer[0] = <span class="charliteral">&#39;N&#39;</span>;</div>
+<div class="line"><span class="lineno">  227</span>      pointer[1] = <span class="charliteral">&#39;A&#39;</span>;</div>
+<div class="line"><span class="lineno">  228</span>      pointer[2] = <span class="charliteral">&#39;N&#39;</span>;</div>
+<div class="line"><span class="lineno">  229</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  230</span>      pointer[0] = <span class="charliteral">&#39;I&#39;</span>;</div>
+<div class="line"><span class="lineno">  231</span>      pointer[1] = <span class="charliteral">&#39;N&#39;</span>;</div>
+<div class="line"><span class="lineno">  232</span>      pointer[2] = <span class="charliteral">&#39;F&#39;</span>;</div>
+<div class="line"><span class="lineno">  233</span>    }</div>
+<div class="line"><span class="lineno">  234</span> </div>
+<div class="line"><span class="lineno">  235</span>    pointer[3] = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><span class="lineno">  236</span> </div>
+<div class="line"><span class="lineno">  237</span>    <span class="keywordflow">return</span> 0x7FF;</div>
+<div class="line"><span class="lineno">  238</span>  }</div>
+<div class="line"><span class="lineno">  239</span> </div>
+<div class="line"><span class="lineno">  240</span>  <span class="keywordflow">return</span> <a class="code hl_function" href="#ac8bbfa80e5690622da0cafe80428735a">ftoa32Engine</a>(buffer, <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(value), precision);</div>
+<div class="line"><span class="lineno">  241</span>}</div>
+<div class="ttc" id="anamespaceanonymous__namespace_02utils_8cpp_03_html_ac8bbfa80e5690622da0cafe80428735a"><div class="ttname"><a href="#ac8bbfa80e5690622da0cafe80428735a">anonymous_namespace{utils.cpp}::ftoa32Engine</a></div><div class="ttdeci">constexpr std::int32_t ftoa32Engine(char *buffer, float value, std::size_t precision) noexcept</div><div class="ttdoc">Converts a floating-point number to its string representation in a specified precision.</div><div class="ttdef"><b>Definition</b> utils.cpp:109</div></div>
 </div><!-- fragment -->
 <p class="reference">Referenced by <a class="el" href="../../d7/de6/namespacetoygine.html#af7d6996d5d592d01988772546b56666e">toygine::ftoa()</a>.</p>
 
@@ -594,11 +594,11 @@ Variables</h2></td></tr>
 <div class="line">   0x2C68AF0B, 0x71AFD498, 0x1D1A94A2, 0x4A817C80, 0xBEBC2000, 0x30D40000, 0x7D000000, 0x20000000,</div>
 <div class="line">   0x51EB851E, 0xD1B71758, 0x35AFE535, 0x89705F41, 0x232F3302, 0x5A126E1A, 0xE69594BE, 0x3B07929F,</div>
 <div class="line">   0x971DA050, 0x26AF8533, 0x63090312, 0xFD87B5F2, 0x40E75996, 0xA6274BBD, 0x2A890926, 0x6CE3EE76}}</div>
-</div><!-- fragment --><div class="fragment"><div class="line"><span class="lineno">   49</span>                                                    {</div>
-<div class="line"><span class="lineno">   50</span>  {0xF0BDC21A, 0x3DA137D5, 0x9DC5ADA8, 0x2863C1F5, 0x6765C793, 0x1A784379, 0x43C33C19, 0xAD78EBC5,</div>
-<div class="line"><span class="lineno">   51</span>   0x2C68AF0B, 0x71AFD498, 0x1D1A94A2, 0x4A817C80, 0xBEBC2000, 0x30D40000, 0x7D000000, 0x20000000,</div>
-<div class="line"><span class="lineno">   52</span>   0x51EB851E, 0xD1B71758, 0x35AFE535, 0x89705F41, 0x232F3302, 0x5A126E1A, 0xE69594BE, 0x3B07929F,</div>
-<div class="line"><span class="lineno">   53</span>   0x971DA050, 0x26AF8533, 0x63090312, 0xFD87B5F2, 0x40E75996, 0xA6274BBD, 0x2A890926, 0x6CE3EE76}};</div>
+</div><!-- fragment --><div class="fragment"><div class="line"><span class="lineno">   48</span>                                                    {</div>
+<div class="line"><span class="lineno">   49</span>  {0xF0BDC21A, 0x3DA137D5, 0x9DC5ADA8, 0x2863C1F5, 0x6765C793, 0x1A784379, 0x43C33C19, 0xAD78EBC5,</div>
+<div class="line"><span class="lineno">   50</span>   0x2C68AF0B, 0x71AFD498, 0x1D1A94A2, 0x4A817C80, 0xBEBC2000, 0x30D40000, 0x7D000000, 0x20000000,</div>
+<div class="line"><span class="lineno">   51</span>   0x51EB851E, 0xD1B71758, 0x35AFE535, 0x89705F41, 0x232F3302, 0x5A126E1A, 0xE69594BE, 0x3B07929F,</div>
+<div class="line"><span class="lineno">   52</span>   0x971DA050, 0x26AF8533, 0x63090312, 0xFD87B5F2, 0x40E75996, 0xA6274BBD, 0x2A890926, 0x6CE3EE76}};</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -641,26 +641,26 @@ Variables</h2></td></tr>
 <div class="line">   0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03,</div>
 <div class="line"> </div>
 <div class="line">   0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x05, 0x05, 0x05, 0x05, 0x06, 0x06, 0x07, 0x08}}</div>
-</div><!-- fragment --><div class="fragment"><div class="line"><span class="lineno">   28</span>                                                        {</div>
-<div class="line"><span class="lineno">   29</span>  {0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,</div>
+</div><!-- fragment --><div class="fragment"><div class="line"><span class="lineno">   27</span>                                                        {</div>
+<div class="line"><span class="lineno">   28</span>  {0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,</div>
+<div class="line"><span class="lineno">   29</span>   0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,</div>
 <div class="line"><span class="lineno">   30</span>   0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,</div>
 <div class="line"><span class="lineno">   31</span>   0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,</div>
 <div class="line"><span class="lineno">   32</span>   0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,</div>
 <div class="line"><span class="lineno">   33</span>   0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,</div>
-<div class="line"><span class="lineno">   34</span>   0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,</div>
-<div class="line"><span class="lineno">   35</span>   0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,</div>
-<div class="line"><span class="lineno">   36</span> </div>
+<div class="line"><span class="lineno">   34</span>   0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,</div>
+<div class="line"><span class="lineno">   35</span> </div>
+<div class="line"><span class="lineno">   36</span>   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,</div>
 <div class="line"><span class="lineno">   37</span>   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,</div>
 <div class="line"><span class="lineno">   38</span>   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,</div>
-<div class="line"><span class="lineno">   39</span>   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,</div>
-<div class="line"><span class="lineno">   40</span>   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,</div>
-<div class="line"><span class="lineno">   41</span> </div>
-<div class="line"><span class="lineno">   42</span>   0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02,</div>
-<div class="line"><span class="lineno">   43</span>   0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02,</div>
-<div class="line"><span class="lineno">   44</span> </div>
-<div class="line"><span class="lineno">   45</span>   0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03,</div>
-<div class="line"><span class="lineno">   46</span> </div>
-<div class="line"><span class="lineno">   47</span>   0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x05, 0x05, 0x05, 0x05, 0x06, 0x06, 0x07, 0x08}};</div>
+<div class="line"><span class="lineno">   39</span>   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,</div>
+<div class="line"><span class="lineno">   40</span> </div>
+<div class="line"><span class="lineno">   41</span>   0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02,</div>
+<div class="line"><span class="lineno">   42</span>   0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02,</div>
+<div class="line"><span class="lineno">   43</span> </div>
+<div class="line"><span class="lineno">   44</span>   0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03,</div>
+<div class="line"><span class="lineno">   45</span> </div>
+<div class="line"><span class="lineno">   46</span>   0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x05, 0x05, 0x05, 0x05, 0x06, 0x06, 0x07, 0x08}};</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -670,7 +670,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../de/dcc/namespaceanonymous__namespace_02utils_8cpp_03.html">anonymous_namespace{utils.cpp}</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 for ToyGine2 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generated on Sun Sep 7 2025 for ToyGine2 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>
