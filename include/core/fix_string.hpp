@@ -1660,7 +1660,7 @@ public:
 
     \param position The starting position of the substring (default: 0).
     \param count    The maximum number of characters to include in the substring (default: \ref npos). If \ref npos or
-                    exceeds the remaining characters, all characters from \a pos to the end are included.
+                    exceeds the remaining characters, all characters from \a position to the end are included.
 
     \return A new FixString object containing the specified substring.
 

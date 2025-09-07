@@ -817,7 +817,7 @@ constexpr inline FixString<allocatedSize> FixString<allocatedSize>::substr(std::
   if (count == npos)
     count = _size - position;
 
-  assert((position + count) <= _size);
+  assert_message((position + count) <= _size, "Position and count must not exceed string bounds");
 
   FixString<allocatedSize> result;
 
