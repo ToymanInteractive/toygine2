@@ -2692,6 +2692,278 @@ TEST_CASE("FixString ends_with", "[core][fixstring]") {
   }
 }
 
+TEST_CASE("FixString contains", "[core][fixstring]") {
+  SECTION("Contains FixString") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.contains(FixString<16>("World")) == true);
+    CHECK(testString.contains(FixString<16>("Hello")) == true);
+    CHECK(testString.contains(FixString<16>("lo Wo")) == true);
+    CHECK(testString.contains(FixString<16>("Hello World")) == true);
+    CHECK(testString.contains(FixString<16>("xyz")) == false);
+    CHECK(testString.contains(FixString<16>("")) == true);
+  }
+
+  SECTION("Contains StringLike") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.contains(std::string("World")) == true);
+    CHECK(testString.contains(std::string("Hello")) == true);
+    CHECK(testString.contains(std::string("lo Wo")) == true);
+    CHECK(testString.contains(std::string("Hello World")) == true);
+    CHECK(testString.contains(std::string("xyz")) == false);
+    CHECK(testString.contains(std::string("")) == true);
+  }
+
+  SECTION("Contains C string") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.contains("World") == true);
+    CHECK(testString.contains("Hello") == true);
+    CHECK(testString.contains("lo Wo") == true);
+    CHECK(testString.contains("Hello World") == true);
+    CHECK(testString.contains("xyz") == false);
+    CHECK(testString.contains("") == true);
+  }
+
+  SECTION("Contains character") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.contains('H') == true);
+    CHECK(testString.contains('o') == true);
+    CHECK(testString.contains('l') == true);
+    CHECK(testString.contains(' ') == true);
+    CHECK(testString.contains('x') == false);
+    CHECK(testString.contains('Z') == false);
+  }
+
+  SECTION("Contains in empty string") {
+    FixString<32> testString("");
+
+    CHECK(testString.contains(FixString<16>("Hello")) == false);
+    CHECK(testString.contains(std::string("Hello")) == false);
+    CHECK(testString.contains("Hello") == false);
+    CHECK(testString.contains('H') == false);
+    CHECK(testString.contains("") == true);
+  }
+
+  SECTION("Contains in single character string") {
+    FixString<32> testString("A");
+
+    CHECK(testString.contains("A") == true);
+    CHECK(testString.contains('A') == true);
+    CHECK(testString.contains("B") == false);
+    CHECK(testString.contains('B') == false);
+    CHECK(testString.contains("") == true);
+  }
+
+  SECTION("Contains longer substring") {
+    FixString<32> testString("Hello");
+
+    CHECK(testString.contains("Hello World") == false);
+    CHECK(testString.contains("Hello Universe") == false);
+    CHECK(testString.contains("Hello") == true);
+    CHECK(testString.contains("llo") == true);
+    CHECK(testString.contains("ell") == true);
+  }
+
+  SECTION("Contains case sensitivity") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.contains("world") == false);
+    CHECK(testString.contains("WORLD") == false);
+    CHECK(testString.contains("World") == true);
+    CHECK(testString.contains('h') == false);
+    CHECK(testString.contains('H') == true);
+  }
+
+  SECTION("Contains different FixString capacities") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.contains(FixString<8>("World")) == true);
+    CHECK(testString.contains(FixString<16>("World")) == true);
+    CHECK(testString.contains(FixString<64>("World")) == true);
+    CHECK(testString.contains(FixString<8>("Hello")) == true);
+  }
+
+  SECTION("Contains repeated characters") {
+    FixString<32> testString("baaaa");
+
+    CHECK(testString.contains("aaa") == true);
+    CHECK(testString.contains("aaaa") == true);
+    CHECK(testString.contains("baaaa") == true);
+    CHECK(testString.contains("aaaaa") == false);
+    CHECK(testString.contains('a') == true);
+    CHECK(testString.contains('b') == true);
+  }
+
+  SECTION("Contains special characters") {
+    FixString<32> testString("%$#@!");
+
+    CHECK(testString.contains("@!") == true);
+    CHECK(testString.contains("%$#@!") == true);
+    CHECK(testString.contains("^%$#@!") == false);
+    CHECK(testString.contains('!') == true);
+    CHECK(testString.contains('@') == true);
+    CHECK(testString.contains('$') == true);
+  }
+
+  SECTION("Contains numbers") {
+    FixString<32> testString("54321");
+
+    CHECK(testString.contains("321") == true);
+    CHECK(testString.contains("54321") == true);
+    CHECK(testString.contains("654321") == false);
+    CHECK(testString.contains('1') == true);
+    CHECK(testString.contains('2') == true);
+    CHECK(testString.contains('5') == true);
+  }
+
+  SECTION("Contains mixed content") {
+    FixString<32> testString("123Hello");
+
+    CHECK(testString.contains("Hello") == true);
+    CHECK(testString.contains("3Hello") == true);
+    CHECK(testString.contains("123Hello") == true);
+    CHECK(testString.contains("0123Hello") == false);
+    CHECK(testString.contains('o') == true);
+    CHECK(testString.contains('1') == true);
+    CHECK(testString.contains('3') == true);
+  }
+
+  SECTION("Contains maximum length strings") {
+    FixString<16> testString("123456789012345"); // 15 characters
+
+    CHECK(testString.contains("123456789012345") == true);
+    CHECK(testString.contains("23456789012345") == true);
+    CHECK(testString.contains("0123456789012345") == false);
+    CHECK(testString.contains('5') == true);
+    CHECK(testString.contains('1') == true);
+  }
+
+  SECTION("Contains std::string") {
+    FixString<32> testString("Hello World");
+    std::string stdString("World");
+
+    CHECK(testString.contains(stdString) == true);
+    CHECK(testString.contains(std::string("Hello World")) == true);
+    CHECK(testString.contains(std::string("Hello")) == true);
+  }
+
+  SECTION("Contains array") {
+    FixString<32> testString("Hello");
+    constexpr std::array<char, 4> arr = {'l', 'l', 'o', '\0'};
+
+    CHECK(testString.contains(arr.data()) == true);
+    CHECK(testString.contains("llo") == true);
+  }
+
+  SECTION("Contains whitespace") {
+    FixString<32> testString("Hello World ");
+
+    CHECK(testString.contains(" ") == true);
+    CHECK(testString.contains("World ") == true);
+    CHECK(testString.contains("World") == true);
+    CHECK(testString.contains(' ') == true);
+    CHECK(testString.contains('d') == true);
+  }
+
+  SECTION("Contains exact match") {
+    FixString<32> testString("Hello");
+
+    CHECK(testString.contains("Hello") == true);
+    CHECK(testString.contains("llo") == true);
+    CHECK(testString.contains("o") == true);
+    CHECK(testString.contains("") == true);
+  }
+
+  SECTION("Contains overlapping patterns") {
+    FixString<32> testString("ababab");
+
+    CHECK(testString.contains("ab") == true);
+    CHECK(testString.contains("bab") == true);
+    CHECK(testString.contains("abab") == true);
+    CHECK(testString.contains("ababab") == true);
+    CHECK(testString.contains("babab") == true);
+  }
+
+  SECTION("Contains multiple occurrences") {
+    FixString<32> testString("abababab");
+
+    CHECK(testString.contains("ab") == true);
+    CHECK(testString.contains("bab") == true);
+    CHECK(testString.contains("abab") == true);
+    CHECK(testString.contains("ababab") == true);
+    CHECK(testString.contains("abababab") == true);
+  }
+
+  SECTION("Contains at beginning") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.contains("H") == true);
+    CHECK(testString.contains("He") == true);
+    CHECK(testString.contains("Hel") == true);
+    CHECK(testString.contains("Hello") == true);
+  }
+
+  SECTION("Contains at end") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.contains("d") == true);
+    CHECK(testString.contains("ld") == true);
+    CHECK(testString.contains("rld") == true);
+    CHECK(testString.contains("World") == true);
+  }
+
+  SECTION("Contains in middle") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.contains("l") == true);
+    CHECK(testString.contains("ll") == true);
+    CHECK(testString.contains("lo") == true);
+    CHECK(testString.contains("lo W") == true);
+  }
+
+  SECTION("Contains single character multiple times") {
+    FixString<32> testString("aaaaa");
+
+    CHECK(testString.contains("a") == true);
+    CHECK(testString.contains("aa") == true);
+    CHECK(testString.contains("aaa") == true);
+    CHECK(testString.contains("aaaa") == true);
+    CHECK(testString.contains("aaaaa") == true);
+    CHECK(testString.contains("aaaaaa") == false);
+  }
+
+  SECTION("Contains with punctuation") {
+    FixString<32> testString("Hello, World!");
+
+    CHECK(testString.contains(",") == true);
+    CHECK(testString.contains("!") == true);
+    CHECK(testString.contains(", ") == true);
+    CHECK(testString.contains("World!") == true);
+    CHECK(testString.contains("Hello,") == true);
+  }
+
+  SECTION("Contains with newlines") {
+    FixString<32> testString("Hello\nWorld");
+
+    CHECK(testString.contains("\n") == true);
+    CHECK(testString.contains("Hello\n") == true);
+    CHECK(testString.contains("\nWorld") == true);
+    CHECK(testString.contains("Hello\nWorld") == true);
+  }
+
+  SECTION("Contains with tabs") {
+    FixString<32> testString("Hello\tWorld");
+
+    CHECK(testString.contains("\t") == true);
+    CHECK(testString.contains("Hello\t") == true);
+    CHECK(testString.contains("\tWorld") == true);
+    CHECK(testString.contains("Hello\tWorld") == true);
+  }
+}
+
 TEST_CASE("FixString operators+", "[core][fixstring]") {
   const auto testString1 = FixString<14>("12") + "test text 1";
   const auto testString2 = FixString<14>("12") + FixString<14>("test text 2");
