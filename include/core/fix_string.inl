@@ -952,11 +952,11 @@ constexpr inline std::size_t FixString<allocatedSize>::_find_last_of_raw(std::si
 
   if (position == npos)
     position = _size - 1;
-  else if (position > _size)
+  else if (position >= _size)
     return npos;
 
   if (dataSize == 1) {
-    const char target = data[0];
+    const auto target = data[0];
     for (auto i = 0u; i <= position; ++i) {
       const auto scanIndex = position - i;
       if (_data[scanIndex] == target)
