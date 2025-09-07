@@ -1603,7 +1603,7 @@ private:
 
     \return The position of the first occurrence of any character from \a data, or \ref npos if not found.
 
-    \pre The \a position must be less than or equal to the string size.
+    \pre The \a position must be less than the string size.
     \pre The \a data must not be null.
   */
   constexpr inline std::size_t _find_first_of_raw(std::size_t position, const char * data,
@@ -1621,7 +1621,7 @@ private:
 
     \return The position of the first occurrence of any character not from \a data, or \ref npos if not found.
 
-    \pre The \a position must be less than or equal to the string size.
+    \pre The \a position must be less than the string size.
     \pre The \a data must not be null.
   */
   constexpr inline std::size_t _find_first_not_of_raw(std::size_t position, const char * data,

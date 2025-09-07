@@ -903,15 +903,14 @@ constexpr inline std::size_t FixString<allocatedSize>::_find_first_not_of_raw(st
     return npos;
   }
 
-  std::array<bool, 256> lookup{};
-  lookup.fill(true);
+  std::array<bool, 256> excludedChars{};
 
   for (std::size_t i = 0; i < dataSize; ++i) {
-    lookup[static_cast<unsigned char>(data[i])] = false;
+    excludedChars[static_cast<unsigned char>(data[i])] = true;
   }
 
   for (auto i = position; i < _size; ++i) {
-    if (lookup[static_cast<unsigned char>(_data[i])])
+    if (!excludedChars[static_cast<unsigned char>(_data[i])])
       return i;
   }
 

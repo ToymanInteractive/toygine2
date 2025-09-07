@@ -1698,7 +1698,6 @@ TEST_CASE("FixString find_first_not_of", "[core][fixstring]") {
 
     CHECK(testString.find_first_not_of("Helo, Wrd!") == FixString<32>::npos);
     CHECK(testString.find_first_not_of("Helo, Wrd") == 12); // '!' at position 12
-    CHECK(testString.find_first_not_of("Helo, Wrd!") == FixString<32>::npos);
   }
 
   SECTION("Find first not of with numbers") {
