@@ -1711,7 +1711,7 @@ private:
     last occurrence of any character from the specified \a data starting from the given \a position and searching
     backwards.
 
-    \param position The position to start searching from (default: \ref npos). If \ref npos, searches from the end.
+    \param position The position to start searching from. If \ref npos, searches from the end.
     \param data     The data containing characters to search for.
     \param dataSize The size of the data containing characters to search for.
 

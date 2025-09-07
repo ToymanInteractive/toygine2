@@ -947,11 +947,11 @@ constexpr inline std::size_t FixString<allocatedSize>::_find_first_not_of_raw(st
 template <std::size_t allocatedSize>
 constexpr inline std::size_t FixString<allocatedSize>::_find_last_of_raw(std::size_t position, const char * data,
                                                                          std::size_t dataSize) const noexcept {
-  if (dataSize == 0)
+  if (dataSize == 0 || _size == 0)
     return npos;
 
   if (position == npos)
-    position = _size;
+    position = _size - 1;
   else if (position > _size)
     return npos;
 
@@ -965,7 +965,7 @@ constexpr inline std::size_t FixString<allocatedSize>::_find_last_of_raw(std::si
   } else {
     std::array<bool, 256> targetChars{};
 
-    for (auto i = 0; i < dataSize; ++i) {
+    for (auto i = 0u; i < dataSize; ++i) {
       targetChars[static_cast<unsigned char>(data[i])] = true;
     }
 
