@@ -1979,7 +1979,7 @@ TEST_CASE("FixString find_last_not_of", "[core][fixstring]") {
   SECTION("Find last not of with position parameter") {
     FixString<32> testString("Hello World Hello");
 
-    CHECK(testString.find_last_not_of("Hel", 8) == 8); // 'r' at position 7
+    CHECK(testString.find_last_not_of("Hel", 8) == 8); // 'r' at position 8
     CHECK(testString.find_last_not_of("Hel", 4) == 4); // 'o' at position 4
     CHECK(testString.find_last_not_of("Hel", 2) == FixString<32>::npos);
     CHECK(testString.find_last_not_of("Hel", 1) == FixString<32>::npos);

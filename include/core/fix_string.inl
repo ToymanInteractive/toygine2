@@ -918,7 +918,7 @@ constexpr inline std::size_t FixString<allocatedSize>::_rfind_raw(std::size_t po
   else if (position > _size - dataSize)
     return npos;
 
-  for (auto i = 0U; i <= position; ++i) {
+  for (std::size_t i = 0; i <= position; ++i) {
     const auto offset = position - i;
     if (std::memcmp(_data + offset, data, dataSize) == 0)
       return offset;
@@ -984,7 +984,7 @@ constexpr inline std::size_t FixString<allocatedSize>::_find_last_of_raw(std::si
 
   if (dataSize == 1) {
     const auto target = data[0];
-    for (auto i = 0u; i <= position; ++i) {
+    for (std::size_t i = 0; i <= position; ++i) {
       const auto scanIndex = position - i;
       if (_data[scanIndex] == target)
         return scanIndex;
@@ -992,11 +992,11 @@ constexpr inline std::size_t FixString<allocatedSize>::_find_last_of_raw(std::si
   } else {
     std::array<bool, 256> targetChars{};
 
-    for (auto i = 0u; i < dataSize; ++i) {
+    for (std::size_t i = 0; i < dataSize; ++i) {
       targetChars[static_cast<unsigned char>(data[i])] = true;
     }
 
-    for (auto i = 0u; i <= position; ++i) {
+    for (std::size_t i = 0; i <= position; ++i) {
       const auto scanIndex = position - i;
       if (targetChars[static_cast<unsigned char>(_data[scanIndex])])
         return scanIndex;
@@ -1022,7 +1022,7 @@ constexpr inline std::size_t FixString<allocatedSize>::_find_last_not_of_raw(std
 
   if (dataSize == 1) {
     const auto exclude = data[0];
-    for (auto i = 0u; i <= position; ++i) {
+    for (std::size_t i = 0; i <= position; ++i) {
       const auto scanIndex = position - i;
       if (_data[scanIndex] != exclude)
         return scanIndex;
@@ -1030,11 +1030,11 @@ constexpr inline std::size_t FixString<allocatedSize>::_find_last_not_of_raw(std
   } else {
     std::array<bool, 256> excludedChars{};
 
-    for (auto i = 0u; i < dataSize; ++i) {
+    for (std::size_t i = 0; i < dataSize; ++i) {
       excludedChars[static_cast<unsigned char>(data[i])] = true;
     }
 
-    for (auto i = 0u; i <= position; ++i) {
+    for (std::size_t i = 0; i <= position; ++i) {
       const auto scanIndex = position - i;
       if (!excludedChars[static_cast<unsigned char>(_data[scanIndex])])
         return scanIndex;
