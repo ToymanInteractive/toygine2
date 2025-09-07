@@ -690,6 +690,33 @@ constexpr inline std::size_t FixString<allocatedSize>::find_last_of(char charact
 }
 
 template <std::size_t allocatedSize>
+constexpr inline std::size_t FixString<allocatedSize>::find_last_not_of(const FixString<allocatedSize> & string,
+                                                                        std::size_t position) const noexcept {
+  return _find_last_not_of_raw(position, string._data, string._size);
+}
+
+template <std::size_t allocatedSize>
+template <StringLike stringType>
+constexpr inline std::size_t FixString<allocatedSize>::find_last_not_of(const stringType & string,
+                                                                        std::size_t position) const noexcept {
+  return _find_last_not_of_raw(position, string.c_str(), string.size());
+}
+
+template <std::size_t allocatedSize>
+constexpr inline std::size_t FixString<allocatedSize>::find_last_not_of(const char * string,
+                                                                        std::size_t position) const noexcept {
+  assert_message(string != nullptr, "String pointer must not be null");
+
+  return _find_last_not_of_raw(position, string, std::strlen(string));
+}
+
+template <std::size_t allocatedSize>
+constexpr inline std::size_t FixString<allocatedSize>::find_last_not_of(char character,
+                                                                        std::size_t position) const noexcept {
+  return _find_last_not_of_raw(position, &character, 1);
+}
+
+template <std::size_t allocatedSize>
 constexpr inline int FixString<allocatedSize>::compare(const FixString<allocatedSize> & string) const noexcept {
   return std::strcmp(_data, string._data);
 }
@@ -972,6 +999,44 @@ constexpr inline std::size_t FixString<allocatedSize>::_find_last_of_raw(std::si
     for (auto i = 0u; i <= position; ++i) {
       const auto scanIndex = position - i;
       if (targetChars[static_cast<unsigned char>(_data[scanIndex])])
+        return scanIndex;
+    }
+  }
+
+  return npos;
+}
+
+template <std::size_t allocatedSize>
+constexpr inline std::size_t FixString<allocatedSize>::_find_last_not_of_raw(std::size_t position, const char * data,
+                                                                             std::size_t dataSize) const noexcept {
+  if (_size == 0)
+    return npos;
+
+  if (position == npos)
+    position = _size - 1;
+  else if (position >= _size)
+    return npos;
+
+  if (dataSize == 0)
+    return position;
+
+  if (dataSize == 1) {
+    const auto exclude = data[0];
+    for (auto i = 0u; i <= position; ++i) {
+      const auto scanIndex = position - i;
+      if (_data[scanIndex] != exclude)
+        return scanIndex;
+    }
+  } else {
+    std::array<bool, 256> excludedChars{};
+
+    for (auto i = 0u; i < dataSize; ++i) {
+      excludedChars[static_cast<unsigned char>(data[i])] = true;
+    }
+
+    for (auto i = 0u; i <= position; ++i) {
+      const auto scanIndex = position - i;
+      if (!excludedChars[static_cast<unsigned char>(_data[scanIndex])])
         return scanIndex;
     }
   }

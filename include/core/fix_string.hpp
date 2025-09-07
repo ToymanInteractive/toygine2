@@ -1318,6 +1318,85 @@ public:
   constexpr inline std::size_t find_last_of(char character, std::size_t position = npos) const noexcept;
 
   /*!
+    \brief Finds the last occurrence of any character not from the specified \a string.
+
+    This method searches for the last occurrence of any character that is not present in the specified \a string within
+    this string, starting from the given \a position and searching backwards.
+
+    \param string   The string containing characters to exclude from search.
+    \param position The position to start searching from (default: \ref npos). If \ref npos, searches from the end.
+
+    \return The position of the last occurrence of any character not from \a string, or \ref npos if not found.
+
+    \pre If \a position is not \ref npos, it must be less than the string size.
+
+    \note The search is case-sensitive.
+    \note If \a string is empty, this method returns \a position if it's within bounds, otherwise returns \ref npos.
+  */
+  constexpr inline std::size_t find_last_not_of(const FixString<allocatedSize> & string,
+                                                std::size_t position = npos) const noexcept;
+
+  /*!
+    \brief Finds the last occurrence of any character not from a StringLike object.
+
+    This method searches for the last occurrence of any character that is not present in a StringLike object within this
+    string, starting from the given \a position and searching backwards.
+
+    \tparam stringType The type of the source string. Must satisfy the StringLike concept.
+
+    \param string   The StringLike object containing characters to exclude from search.
+    \param position The position to start searching from (default: \ref npos). If \ref npos, searches from the end.
+
+    \return The position of the last occurrence of any character not from a StringLike object, or \ref npos if not
+            found.
+
+    \pre If \a position is not \ref npos, it must be less than the string size.
+
+    \note The search is case-sensitive.
+    \note If a StringLike object is empty, this method returns \a position if it's within bounds, otherwise returns \ref
+          npos.
+  */
+  template <StringLike stringType>
+  constexpr inline std::size_t find_last_not_of(const stringType & string, std::size_t position = npos) const noexcept;
+
+  /*!
+    \brief Finds the last occurrence of any character not from the C \a string.
+
+    This method searches for the last occurrence of any character that is not present in the C \a string within this
+    string, starting from the given \a position and searching backwards.
+
+    \param string   The C string containing characters to exclude from search.
+    \param position The position to start searching from (default: \ref npos). If \ref npos, searches from the end.
+
+    \return The position of the last occurrence of any character not from the C \a string, or \ref npos if not found.
+
+    \pre If \a position is not \ref npos, it must be less than the string size.
+    \pre The \a string must not be null.
+
+    \note The search is case-sensitive.
+    \note If the C \a string is empty, this method returns \a position if it's within bounds, otherwise returns \ref
+          npos.
+  */
+  constexpr inline std::size_t find_last_not_of(const char * string, std::size_t position = npos) const noexcept;
+
+  /*!
+    \brief Finds the last occurrence of any character not equal to the specified \a character.
+
+    This method searches for the last occurrence of any character that is not equal to the specified \a character within
+    this string, starting from the given \a position and searching backwards.
+
+    \param character The character to exclude from search.
+    \param position  The position to start searching from (default: \ref npos). If \ref npos, searches from the end.
+
+    \return The position of the last occurrence of any character not equal to \a character, or \ref npos if not found.
+
+    \pre If \a position is not \ref npos, it must be less than the string size.
+
+    \note The search is case-sensitive.
+  */
+  constexpr inline std::size_t find_last_not_of(char character, std::size_t position = npos) const noexcept;
+
+  /*!
     \brief Compares this string with another \a string lexicographically.
 
     This method performs a lexicographic comparison between this string and another \a string. The comparison is
@@ -1722,6 +1801,25 @@ private:
   */
   constexpr inline std::size_t _find_last_of_raw(std::size_t position, const char * data,
                                                  std::size_t dataSize) const noexcept;
+
+  /*!
+    \brief Helper method for finding the last occurrence of any character not from \a data.
+
+    This private method performs the common reverse search logic used by all find_last_not_of methods. It searches for
+    the last occurrence of any character that is not present in the specified \a data starting from the given \a
+    position and searching backwards.
+
+    \param position The position to start searching from. If \ref npos, searches from the end.
+    \param data     The data containing characters to exclude from search.
+    \param dataSize The size of the data containing characters to exclude from search.
+
+    \return The position of the last occurrence of any character not from \a data, or \ref npos if not found.
+
+    \pre If \a position is not \ref npos, it must be less than the string size.
+    \pre The \a data must not be null.
+  */
+  constexpr inline std::size_t _find_last_not_of_raw(std::size_t position, const char * data,
+                                                     std::size_t dataSize) const noexcept;
 
   char _data[allocatedSize];
   std::size_t _size;
