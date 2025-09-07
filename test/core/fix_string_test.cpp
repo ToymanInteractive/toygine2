@@ -1939,6 +1939,163 @@ TEST_CASE("FixString find_last_of", "[core][fixstring]") {
   }
 }
 
+TEST_CASE("FixString find_last_not_of", "[core][fixstring]") {
+  SECTION("Find last not of FixString characters") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.find_last_not_of(FixString<16>("d")) == 9); // 'l' at position 9
+    CHECK(testString.find_last_not_of(FixString<16>("ld")) == 8); // 'r' at position 8
+    CHECK(testString.find_last_not_of(FixString<16>("rld")) == 7); // 'o' at position 7
+    CHECK(testString.find_last_not_of(FixString<16>("World")) == 5); // ' ' at position 5
+  }
+
+  SECTION("Find last not of StringLike characters") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.find_last_not_of(std::string("d")) == 9); // 'l' at position 9
+    CHECK(testString.find_last_not_of(std::string("ld")) == 8); // 'r' at position 8
+    CHECK(testString.find_last_not_of(std::string("rld")) == 7); // 'o' at position 7
+    CHECK(testString.find_last_not_of(std::string("World")) == 5); // ' ' at position 5
+  }
+
+  SECTION("Find last not of C string characters") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.find_last_not_of("d") == 9); // 'l' at position 9
+    CHECK(testString.find_last_not_of("ld") == 8); // 'r' at position 8
+    CHECK(testString.find_last_not_of("rld") == 7); // 'o' at position 7
+    CHECK(testString.find_last_not_of("World") == 5); // ' ' at position 5
+  }
+
+  SECTION("Find last not of single character") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.find_last_not_of('d') == 9); // 'l' at position 9
+    CHECK(testString.find_last_not_of('l') == 10); // 'd' at position 10
+    CHECK(testString.find_last_not_of('o') == 10); // 'd' at position 10
+    CHECK(testString.find_last_not_of('H') == 10); // 'd' at position 10
+  }
+
+  SECTION("Find last not of with position parameter") {
+    FixString<32> testString("Hello World Hello");
+
+    CHECK(testString.find_last_not_of("Hel", 8) == 8); // 'r' at position 8
+    CHECK(testString.find_last_not_of("Hel", 4) == 4); // 'o' at position 4
+    CHECK(testString.find_last_not_of("Hel", 2) == FixString<32>::npos);
+    CHECK(testString.find_last_not_of("Hel", 1) == FixString<32>::npos);
+    CHECK(testString.find_last_not_of("Hel", 0) == FixString<32>::npos);
+  }
+
+  SECTION("Find last not of empty character set") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.find_last_not_of(FixString<16>("")) == 10); // 'd' at position 10
+    CHECK(testString.find_last_not_of(std::string("")) == 10); // 'd' at position 10
+    CHECK(testString.find_last_not_of("") == 10); // 'd' at position 10
+    CHECK(testString.find_last_not_of("", 5) == 5); // ' ' at position 5
+  }
+
+  SECTION("Find last not of with all characters excluded") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.find_last_not_of("Helo Wrd") == FixString<32>::npos);
+    CHECK(testString.find_last_not_of("Helo Wr") == 10); // 'd' at position 10
+    CHECK(testString.find_last_not_of("Helo W") == 10); // 'd' at position 10
+  }
+
+  SECTION("Find last not of with multiple character sets") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.find_last_not_of("Hl") == 10); // 'd' at position 10
+    CHECK(testString.find_last_not_of("Hel") == 10); // 'd' at position 10
+    CHECK(testString.find_last_not_of("Helo") == 10); // 'd' at position 10
+    CHECK(testString.find_last_not_of("Helo ") == 10); // 'd' at position 10
+  }
+
+  SECTION("Find last not of case sensitivity") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.find_last_not_of("h") == 10); // 'd' at position 10
+    CHECK(testString.find_last_not_of("H") == 10); // 'd' at position 10
+    CHECK(testString.find_last_not_of("w") == 10); // 'd' at position 10
+    CHECK(testString.find_last_not_of("W") == 10); // 'd' at position 10
+  }
+
+  SECTION("Find last not of with special characters") {
+    FixString<32> testString("Hello, World!");
+
+    CHECK(testString.find_last_not_of("Helo, Wrd!") == FixString<32>::npos);
+    CHECK(testString.find_last_not_of("Helo, Wrd") == 12); // '!' at position 12
+    CHECK(testString.find_last_not_of("Helo, Wr") == 12); // '!' at position 12
+  }
+
+  SECTION("Find last not of with numbers") {
+    FixString<32> testString("Hello123World");
+
+    CHECK(testString.find_last_not_of("0123456789") == 12); // 'd' at position 12
+    CHECK(testString.find_last_not_of("Helo123Wrd") == FixString<32>::npos);
+    CHECK(testString.find_last_not_of("Helo123Wr") == 12); // 'd' at position 12
+  }
+
+  SECTION("Find last not of with whitespace") {
+    FixString<32> testString("Hello World\t\n");
+
+    CHECK(testString.find_last_not_of(" \t\n") == 10); // 'd' at position 10
+    CHECK(testString.find_last_not_of("Helo Wrd\t\n") == FixString<32>::npos);
+    CHECK(testString.find_last_not_of("Helo Wrd") == 12); // '\n' at position 12
+  }
+
+  SECTION("Find last not of with repeated characters") {
+    FixString<32> testString("aaaaab");
+
+    CHECK(testString.find_last_not_of('a') == 5); // 'b' at position 5
+    CHECK(testString.find_last_not_of('b') == 4); // 'a' at position 4
+    CHECK(testString.find_last_not_of('x') == 5); // 'b' at position 5
+  }
+
+  SECTION("Find last not of with single character string") {
+    FixString<32> testString("AAAAA");
+
+    CHECK(testString.find_last_not_of("A") == FixString<32>::npos);
+    CHECK(testString.find_last_not_of('A') == FixString<32>::npos);
+    CHECK(testString.find_last_not_of("B") == 4); // 'A' at position 4
+    CHECK(testString.find_last_not_of('B') == 4); // 'A' at position 4
+  }
+
+  SECTION("Find last not of with alphabet") {
+    FixString<32> testString("abcdefghijklmnopqrstuvwxyz");
+
+    CHECK(testString.find_last_not_of("abcdefghijklmnopqrstuvwxyz") == FixString<32>::npos);
+    CHECK(testString.find_last_not_of("abcdefghijklmnopqrstuvwxy") == 25); // 'z' at position 25
+    CHECK(testString.find_last_not_of("abcdefghijklmnopqrstuvwx") == 25); // 'z' at position 25
+  }
+
+  SECTION("Find last not of with no characters excluded") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.find_last_not_of("xyz") == 10); // 'd' at position 10
+    CHECK(testString.find_last_not_of("0123456789") == 10); // 'd' at position 10
+    CHECK(testString.find_last_not_of("!@#$%^&*()") == 10); // 'd' at position 10
+  }
+
+  SECTION("Find last not of with position in middle") {
+    FixString<32> testString("Hello World Hello");
+
+    CHECK(testString.find_last_not_of("Hel", 8) == 8); // 'r' at position 8
+    CHECK(testString.find_last_not_of("Hel", 4) == 4); // 'o' at position 4
+    CHECK(testString.find_last_not_of("Hel", 2) == FixString<32>::npos);
+    CHECK(testString.find_last_not_of("Hel", 1) == FixString<32>::npos);
+  }
+
+  SECTION("Find last not of with exact match") {
+    FixString<32> testString("Hello");
+
+    CHECK(testString.find_last_not_of("Hello") == FixString<32>::npos);
+    CHECK(testString.find_last_not_of("Hell") == 4); // 'o' at position 4
+    CHECK(testString.find_last_not_of("Hel") == 4); // 'o' at position 4
+  }
+}
+
 TEST_CASE("FixString compare", "[core][fixstring]") {
   SECTION("Compare FixString with FixString") {
     FixString<32> testString1("Hello");
