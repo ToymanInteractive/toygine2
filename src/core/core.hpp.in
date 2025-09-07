@@ -26,6 +26,7 @@
 #define INCLUDE_CORE_HPP_
 
 #include <algorithm>
+#include <array>
 #include <concepts>
 #include <cstddef>
 #include <cstdint>
