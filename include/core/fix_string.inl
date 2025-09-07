@@ -810,6 +810,25 @@ constexpr inline bool FixString<allocatedSize>::contains(char character) const n
 }
 
 template <std::size_t allocatedSize>
+constexpr inline FixString<allocatedSize> FixString<allocatedSize>::substr(std::size_t position,
+                                                                           std::size_t count) const noexcept {
+  assert_message(position <= _size, "Position must not exceed string size");
+
+  if (count == npos)
+    count = _size - position;
+
+  assert((position + count) <= _size);
+
+  FixString<allocatedSize> result;
+
+  result._size = count;
+  std::memcpy(result._data, _data + position, count);
+  result._data[count] = '\0';
+
+  return result;
+}
+
+template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize> FixString<allocatedSize>::operator+(
   const FixString<allocatedSize> & string) const noexcept {
   assert(_size + string._size < allocatedSize);
