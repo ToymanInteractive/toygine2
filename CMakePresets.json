@@ -199,7 +199,10 @@
         {
             "name": "macos-ninja-debug",
             "configurePreset": "macos-ninja-debug",
-            "inherits": "default-debug"
+            "inherits": "default-debug",
+            "execution": {
+                "stopOnFailure": true
+            }
         },
         {
             "name": "linux-ninja-debug",

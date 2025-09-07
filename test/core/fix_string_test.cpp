@@ -18,8 +18,6 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-#include <array>
-
 #include <catch2/catch_test_macros.hpp>
 
 #include "core.hpp"
@@ -1598,6 +1596,191 @@ TEST_CASE("FixString find_first_of", "[core][fixstring]") {
     CHECK(testString.find_first_of("0123456789") == FixString<32>::npos);
     CHECK(testString.find_first_of("!@#$%^&*()") == FixString<32>::npos);
     CHECK(testString.find_first_of("[]{}|\\:;\"'<>?/") == FixString<32>::npos);
+  }
+}
+
+TEST_CASE("FixString find_first_not_of", "[core][fixstring]") {
+  SECTION("Find first not of FixString characters") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.find_first_not_of(FixString<16>("H")) == 1); // 'e' at position 1
+    CHECK(testString.find_first_not_of(FixString<16>("Hel")) == 4); // 'o' at position 4
+    CHECK(testString.find_first_not_of(FixString<16>("Helo Wrd")) == FixString<32>::npos);
+  }
+
+  SECTION("Find first not of StringLike characters") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.find_first_not_of(std::string("H")) == 1); // 'e' at position 1
+    CHECK(testString.find_first_not_of(std::string("Hel")) == 4); // 'o' at position 4
+    CHECK(testString.find_first_not_of(std::string("Helo Wrd")) == FixString<32>::npos);
+  }
+
+  SECTION("Find first not of C string characters") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.find_first_not_of("H") == 1); // 'e' at position 1
+    CHECK(testString.find_first_not_of("Hel") == 4); // 'o' at position 4
+    CHECK(testString.find_first_not_of("Helo Wrd") == FixString<32>::npos);
+  }
+
+  SECTION("Find first not of single character") {
+    FixString<32> testString("aaaaab");
+
+    CHECK(testString.find_first_not_of('a') == 5); // 'b' at position 5
+    CHECK(testString.find_first_not_of('b') == 0); // 'a' at position 0
+    CHECK(testString.find_first_not_of('x') == 0); // 'a' at position 0
+  }
+
+  SECTION("Find first not of with position parameter") {
+    FixString<32> testString("Hello World Hello");
+
+    CHECK(testString.find_first_not_of("Hel", 0) == 4); // 'o' at position 4
+    CHECK(testString.find_first_not_of("Hel", 4) == 4); // 'o' at position 4
+    CHECK(testString.find_first_not_of("Hel", 5) == 5); // ' ' at position 5
+    CHECK(testString.find_first_not_of("Hel", 6) == 6); // 'W' at position 6
+    CHECK(testString.find_first_not_of("Hel", 7) == 7); // 'o' at position 7
+  }
+
+  SECTION("Find first not of empty character set") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.find_first_not_of(FixString<16>("")) == 0); // 'H' at position 0
+    CHECK(testString.find_first_not_of(std::string("")) == 0); // 'H' at position 0
+    CHECK(testString.find_first_not_of("") == 0); // 'H' at position 0
+    CHECK(testString.find_first_not_of("", 5) == 5); // ' ' at position 5
+  }
+
+  SECTION("Find first not of in empty string") {
+    FixString<32> testString("");
+
+    CHECK(testString.find_first_not_of(FixString<16>("aeiou")) == FixString<32>::npos);
+    CHECK(testString.find_first_not_of(std::string("aeiou")) == FixString<32>::npos);
+    CHECK(testString.find_first_not_of("aeiou") == FixString<32>::npos);
+    CHECK(testString.find_first_not_of('a') == FixString<32>::npos);
+  }
+
+  SECTION("Find first not of with position beyond string size") {
+    FixString<32> testString("Hello");
+
+    CHECK(testString.find_first_not_of("aeiou", 10) == FixString<32>::npos);
+    CHECK(testString.find_first_not_of('a', 10) == FixString<32>::npos);
+  }
+
+  SECTION("Find first not of with repeated characters") {
+    FixString<32> testString("aaaaa");
+
+    CHECK(testString.find_first_not_of("a") == FixString<32>::npos);
+    CHECK(testString.find_first_not_of("ab") == FixString<32>::npos);
+    CHECK(testString.find_first_not_of("b") == 0); // 'a' at position 0
+  }
+
+  SECTION("Find first not of with multiple character sets") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.find_first_not_of("Hl") == 1); // 'e' at position 1
+    CHECK(testString.find_first_not_of("Hel") == 4); // 'o' at position 4
+    CHECK(testString.find_first_not_of("Helo") == 5); // ' ' at position 5
+    CHECK(testString.find_first_not_of("Helo ") == 6); // 'W' at position 6
+  }
+
+  SECTION("Find first not of case sensitivity") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.find_first_not_of("h") == 0); // 'H' at position 0
+    CHECK(testString.find_first_not_of("H") == 1); // 'e' at position 1
+    CHECK(testString.find_first_not_of("w") == 0); // 'H' at position 0
+    CHECK(testString.find_first_not_of("W") == 0); // 'H' at position 0
+  }
+
+  SECTION("Find first not of with special characters") {
+    FixString<32> testString("Hello, World!");
+
+    CHECK(testString.find_first_not_of("Helo, Wrd!") == FixString<32>::npos);
+    CHECK(testString.find_first_not_of("Helo, Wrd") == 12); // '!' at position 12
+    CHECK(testString.find_first_not_of("Helo, Wrd!") == FixString<32>::npos);
+  }
+
+  SECTION("Find first not of with numbers") {
+    FixString<32> testString("Hello123World");
+
+    CHECK(testString.find_first_not_of("0123456789") == 0); // 'H' at position 0
+    CHECK(testString.find_first_not_of("Helo123Wrd") == FixString<32>::npos);
+    CHECK(testString.find_first_not_of("Helo123Wr") == 12); // 'd' at position 12
+  }
+
+  SECTION("Find first not of with whitespace") {
+    FixString<32> testString("Hello World\t\n");
+
+    CHECK(testString.find_first_not_of(" \t\n") == 0); // 'H' at position 0
+    CHECK(testString.find_first_not_of("Helo Wrd\t\n") == FixString<32>::npos);
+    CHECK(testString.find_first_not_of("Helo Wrd") == 11); // '\t' at position 11
+  }
+
+  SECTION("Find first not of with different FixString capacities") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.find_first_not_of(FixString<8>("H")) == 1);
+    CHECK(testString.find_first_not_of(FixString<16>("H")) == 1);
+    CHECK(testString.find_first_not_of(FixString<64>("H")) == 1);
+  }
+
+  SECTION("Find first not of with single character string") {
+    FixString<32> testString("A");
+
+    CHECK(testString.find_first_not_of("A") == FixString<32>::npos);
+    CHECK(testString.find_first_not_of('A') == FixString<32>::npos);
+    CHECK(testString.find_first_not_of("B") == 0); // 'A' at position 0
+    CHECK(testString.find_first_not_of('B') == 0); // 'A' at position 0
+  }
+
+  SECTION("Find first not of with position 0") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.find_first_not_of("H", 0) == 1);
+    CHECK(testString.find_first_not_of("Hel", 0) == 4);
+    CHECK(testString.find_first_not_of("Helo Wrd", 0) == FixString<32>::npos);
+  }
+
+  SECTION("Find first not of with all characters excluded") {
+    FixString<32> testString("abcdefghijklmnopqrstuvwxyz");
+
+    CHECK(testString.find_first_not_of("abcdefghijklmnopqrstuvwxyz") == FixString<32>::npos);
+    CHECK(testString.find_first_not_of("abcdefghijklmnopqrstuvwxy") == 25); // 'z' at position 25
+    CHECK(testString.find_first_not_of("abcdefghijklmnopqrstuvwx") == 24); // 'y' at position 24
+  }
+
+  SECTION("Find first not of with no characters excluded") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.find_first_not_of("xyz") == 0); // 'H' at position 0
+    CHECK(testString.find_first_not_of("0123456789") == 0); // 'H' at position 0
+    CHECK(testString.find_first_not_of("!@#$%^&*()") == 0); // 'H' at position 0
+  }
+
+  SECTION("Find first not of with mixed content") {
+    FixString<32> testString("Hello123World");
+
+    CHECK(testString.find_first_not_of("Helo123Wrd") == FixString<32>::npos);
+    CHECK(testString.find_first_not_of("Helo123Wr") == 12); // 'd' at position 12
+    CHECK(testString.find_first_not_of("Helo123Wd") == 10); // 'r' at position 10
+  }
+
+  SECTION("Find first not of with position in middle") {
+    FixString<32> testString("Hello World Hello");
+
+    CHECK(testString.find_first_not_of("Hel", 4) == 4); // 'o' at position 4
+    CHECK(testString.find_first_not_of("Hel", 5) == 5); // ' ' at position 5
+    CHECK(testString.find_first_not_of("Hel", 6) == 6); // 'W' at position 6
+    CHECK(testString.find_first_not_of("Hel", 7) == 7); // 'o' at position 7
+  }
+
+  SECTION("Find first not of with exact match") {
+    FixString<32> testString("Hello");
+
+    CHECK(testString.find_first_not_of("Hello") == FixString<32>::npos);
+    CHECK(testString.find_first_not_of("Hell") == 4); // 'o' at position 4
+    CHECK(testString.find_first_not_of("Hel") == 4); // 'o' at position 4
   }
 }
 
