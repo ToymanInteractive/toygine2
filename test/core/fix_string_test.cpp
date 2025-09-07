@@ -1783,6 +1783,162 @@ TEST_CASE("FixString find_first_not_of", "[core][fixstring]") {
   }
 }
 
+TEST_CASE("FixString find_last_of", "[core][fixstring]") {
+  SECTION("Find last of FixString characters") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.find_last_of(FixString<16>("aeiou")) == 7); // 'o' at position 7
+    CHECK(testString.find_last_of(FixString<16>("l")) == 9); // 'l' at position 9
+    CHECK(testString.find_last_of(FixString<16>("H")) == 0); // 'H' at position 0
+    CHECK(testString.find_last_of(FixString<16>("d")) == 10); // 'd' at position 10
+  }
+
+  SECTION("Find last of StringLike characters") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.find_last_of(std::string("aeiou")) == 7); // 'o' at position 7
+    CHECK(testString.find_last_of(std::string("l")) == 9); // 'l' at position 9
+    CHECK(testString.find_last_of(std::string("H")) == 0); // 'H' at position 0
+    CHECK(testString.find_last_of(std::string("d")) == 10); // 'd' at position 10
+  }
+
+  SECTION("Find last of C string characters") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.find_last_of("aeiou") == 7); // 'o' at position 7
+    CHECK(testString.find_last_of("l") == 9); // 'l' at position 9
+    CHECK(testString.find_last_of("H") == 0); // 'H' at position 0
+    CHECK(testString.find_last_of("d") == 10); // 'd' at position 10
+  }
+
+  SECTION("Find last of single character") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.find_last_of('l') == 9); // 'l' at position 9
+    CHECK(testString.find_last_of('o') == 7); // 'o' at position 7
+    CHECK(testString.find_last_of('H') == 0); // 'H' at position 0
+    CHECK(testString.find_last_of('d') == 10); // 'd' at position 10
+  }
+
+  SECTION("Find last of with position parameter") {
+    FixString<32> testString("Hello World Hello");
+
+    CHECK(testString.find_last_of("Hel", 8) == 3); // 'l' at position 3
+    CHECK(testString.find_last_of("Hel", 4) == 3); // 'l' at position 3
+    CHECK(testString.find_last_of("Hel", 2) == 2); // 'l' at position 2
+    CHECK(testString.find_last_of("Hel", 1) == 1); // 'e' at position 1
+    CHECK(testString.find_last_of("Hel", 0) == 0); // 'H' at position 0
+  }
+
+  SECTION("Find last of empty character set") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.find_last_of(FixString<16>("")) == FixString<32>::npos);
+    CHECK(testString.find_last_of(std::string("")) == FixString<32>::npos);
+    CHECK(testString.find_last_of("") == FixString<32>::npos);
+  }
+
+  SECTION("Find last of with no characters found") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.find_last_of("0123456789") == FixString<32>::npos);
+    CHECK(testString.find_last_of("!@#$%^&*()") == FixString<32>::npos);
+    CHECK(testString.find_last_of("[]{}|\\:;\"'<>?/") == FixString<32>::npos);
+  }
+
+  SECTION("Find last of with multiple character sets") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.find_last_of("Hl") == 9); // 'l' at position 9
+    CHECK(testString.find_last_of("Hel") == 9); // 'l' at position 9
+    CHECK(testString.find_last_of("Helo") == 9); // 'l' at position 9
+    CHECK(testString.find_last_of("Helo ") == 9); // 'l' at position 9
+  }
+
+  SECTION("Find last of case sensitivity") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.find_last_of("h") == FixString<32>::npos);
+    CHECK(testString.find_last_of("H") == 0); // 'H' at position 0
+    CHECK(testString.find_last_of("w") == FixString<32>::npos);
+    CHECK(testString.find_last_of("W") == 6); // 'W' at position 6
+  }
+
+  SECTION("Find last of with special characters") {
+    FixString<32> testString("Hello, World!");
+
+    CHECK(testString.find_last_of("Helo, Wrd!") == 12); // '!' at position 12
+    CHECK(testString.find_last_of("Helo, Wrd") == 11); // 'd' at position 11
+    CHECK(testString.find_last_of("Helo, Wr") == 10); // 'l' at position 10
+  }
+
+  SECTION("Find last of with numbers") {
+    FixString<32> testString("Hello123World");
+
+    CHECK(testString.find_last_of("0123456789") == 7); // '3' at position 7
+    CHECK(testString.find_last_of("Helo123Wrd") == 12); // 'd' at position 12
+    CHECK(testString.find_last_of("Helo123Wr") == 11); // 'l' at position 11
+  }
+
+  SECTION("Find last of with whitespace") {
+    FixString<32> testString("Hello World\t\n");
+
+    CHECK(testString.find_last_of(" \t\n") == 12); // '\n' at position 12
+    CHECK(testString.find_last_of("Helo Wrd\t\n") == 12); // '\n' at position 12
+    CHECK(testString.find_last_of("Helo Wrd") == 10); // 'd' at position 10
+  }
+
+  SECTION("Find last of with repeated characters") {
+    FixString<32> testString("aaaaab");
+
+    CHECK(testString.find_last_of('a') == 4); // 'a' at position 4
+    CHECK(testString.find_last_of('b') == 5); // 'b' at position 5
+    CHECK(testString.find_last_of('x') == FixString<32>::npos);
+  }
+
+  SECTION("Find last of with single character string") {
+    FixString<32> testString("AAAAA");
+
+    CHECK(testString.find_last_of("A") == 4); // 'A' at position 4
+    CHECK(testString.find_last_of('A') == 4); // 'A' at position 4
+    CHECK(testString.find_last_of("B") == FixString<32>::npos);
+    CHECK(testString.find_last_of('B') == FixString<32>::npos);
+  }
+
+  SECTION("Find last of with alphabet") {
+    FixString<32> testString("abcdefghijklmnopqrstuvwxyz");
+
+    CHECK(testString.find_last_of("abcdefghijklmnopqrstuvwxyz") == 25); // 'z' at position 25
+    CHECK(testString.find_last_of("abcdefghijklmnopqrstuvwxy") == 24); // 'y' at position 24
+    CHECK(testString.find_last_of("abcdefghijklmnopqrstuvwx") == 23); // 'x' at position 23
+  }
+
+  SECTION("Find last of with all characters found") {
+    FixString<32> testString("Hello World");
+
+    CHECK(testString.find_last_of("Helo Wrd") == 10); // 'd' at position 10
+    CHECK(testString.find_last_of("Helo Wr") == 9); // 'l' at position 9
+    CHECK(testString.find_last_of("Helo W") == 9); // 'l' at position 9
+  }
+
+  SECTION("Find last of with position in middle") {
+    FixString<32> testString("Hello World Hello");
+
+    CHECK(testString.find_last_of("Hel", 8) == 3); // 'l' at position 3
+    CHECK(testString.find_last_of("Hel", 4) == 3); // 'l' at position 3
+    CHECK(testString.find_last_of("Hel", 2) == 2); // 'l' at position 2
+    CHECK(testString.find_last_of("Hel", 1) == 1); // 'e' at position 1
+  }
+
+  SECTION("Find last of with exact match") {
+    FixString<32> testString("Hello");
+
+    CHECK(testString.find_last_of("Hello") == 4); // 'o' at position 4
+    CHECK(testString.find_last_of("Hell") == 3); // 'l' at position 3
+    CHECK(testString.find_last_of("Hel") == 3); // 'l' at position 3
+  }
+}
+
 TEST_CASE("FixString compare", "[core][fixstring]") {
   SECTION("Compare FixString with FixString") {
     FixString<32> testString1("Hello");
