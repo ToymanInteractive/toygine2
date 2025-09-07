@@ -814,10 +814,11 @@ constexpr inline FixString<allocatedSize> FixString<allocatedSize>::substr(std::
                                                                            std::size_t count) const noexcept {
   assert_message(position <= _size, "Position must not exceed string size");
 
-  if (count == npos)
-    count = _size - position;
+  const auto remaining = _size - position;
+  if (count == npos || count > remaining)
+    count = remaining;
 
-  assert_message((position + count) <= _size, "Position and count must not exceed string bounds");
+  assert_message(count <= remaining, "Substring range must be within string bounds");
 
   FixString<allocatedSize> result;
 
