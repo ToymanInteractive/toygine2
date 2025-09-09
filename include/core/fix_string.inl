@@ -33,7 +33,8 @@ constexpr inline FixString<allocatedSize>::FixString() noexcept
 
 template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize>::FixString(const FixString<allocatedSize> & string) noexcept
-  : _size(string.size()) {
+  : _size(string.size())
+  , _data{} {
   if consteval {
     std::copy_n(string.data(), _size + 1, _data);
   } else {
@@ -44,7 +45,8 @@ constexpr inline FixString<allocatedSize>::FixString(const FixString<allocatedSi
 template <std::size_t allocatedSize>
 template <StringLike stringType>
 constexpr inline FixString<allocatedSize>::FixString(const stringType & string) noexcept
-  : _size(string.size()) {
+  : _size(string.size())
+  , _data{} {
   assert_message(_size < allocatedSize, "String size must not exceed capacity");
 
   if consteval {
@@ -56,7 +58,8 @@ constexpr inline FixString<allocatedSize>::FixString(const stringType & string) 
 
 template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize>::FixString(const char * string) noexcept
-  : _size(0) {
+  : _size(0)
+  , _data{} {
   assert_message(string != nullptr, "String pointer must not be null");
 
   if consteval {
@@ -76,7 +79,8 @@ constexpr inline FixString<allocatedSize>::FixString(const char * string) noexce
 
 template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize>::FixString(char character, std::size_t count) noexcept
-  : _size(count) {
+  : _size(count)
+  , _data{} {
   assert_message(count < allocatedSize, "Count must not exceed capacity");
 
   if consteval {
@@ -872,20 +876,32 @@ constexpr inline std::size_t FixString<allocatedSize>::find_last_not_of(char cha
 
 template <std::size_t allocatedSize>
 constexpr inline int FixString<allocatedSize>::compare(const FixString<allocatedSize> & string) const noexcept {
-  return std::strcmp(_data, string._data);
+  if consteval {
+    return cstrcmp(_data, string._data);
+  } else {
+    return std::strcmp(_data, string._data);
+  }
 }
 
 template <std::size_t allocatedSize>
 template <StringLike stringType>
 constexpr inline int FixString<allocatedSize>::compare(const stringType & string) const noexcept {
-  return std::strcmp(_data, string.c_str());
+  if consteval {
+    return cstrcmp(_data, string.c_str());
+  } else {
+    return std::strcmp(_data, string.c_str());
+  }
 }
 
 template <std::size_t allocatedSize>
 constexpr inline int FixString<allocatedSize>::compare(const char * string) const noexcept {
   assert_message(string != nullptr, "String pointer must not be null");
 
-  return std::strcmp(_data, string);
+  if consteval {
+    return cstrcmp(_data, string);
+  } else {
+    return std::strcmp(_data, string);
+  }
 }
 
 template <std::size_t allocatedSize>
@@ -1289,6 +1305,17 @@ constexpr inline std::size_t FixString<allocatedSize>::_find_last_not_of_raw(std
   }
 
   return npos;
+}
+
+constexpr inline int cstrcmp(const char * lhs, const char * rhs) noexcept {
+  while (*lhs && (*lhs == *rhs)) {
+    ++lhs;
+    ++rhs;
+  }
+
+  if (*lhs == *rhs)
+    return 0;
+  return (*lhs < *rhs) ? -1 : 1;
 }
 
 } // namespace toygine

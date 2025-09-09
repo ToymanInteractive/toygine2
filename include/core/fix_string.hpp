@@ -1757,7 +1757,8 @@ public:
   */
   [[nodiscard]] constexpr inline FixString<allocatedSize> operator+(char symbol) const noexcept;
 
-  static const std::size_t npos = SIZE_MAX;
+  /// The special value, its exact meaning depends on the context
+  static constexpr std::size_t npos = std::size_t(-1);
 
 private:
   static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");
@@ -1925,6 +1926,8 @@ private:
   /// Current number of characters in the string (excluding null terminator)
   std::size_t _size;
 };
+
+[[nodiscard]] constexpr inline int cstrcmp(const char * lhs, const char * rhs) noexcept;
 
 } // namespace toygine
 
