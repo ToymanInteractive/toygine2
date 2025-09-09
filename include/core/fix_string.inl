@@ -32,9 +32,6 @@ constexpr inline FixString<allocatedSize>::FixString() noexcept
   , _data{'\0'} {}
 
 template <std::size_t allocatedSize>
-constexpr inline FixString<allocatedSize>::~FixString() noexcept {}
-
-template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize>::FixString(const FixString<allocatedSize> & string) noexcept
   : _size(string.size()) {
   if consteval {

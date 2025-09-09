@@ -44,7 +44,7 @@ public:
 
     \note Since the FixString does not manage dynamic memory, no special cleanup is required.
   */
-  constexpr inline ~FixString() noexcept;
+  constexpr inline ~FixString() noexcept = default;
 
   /*!
     \brief Constructs a copy of \a string.
@@ -293,7 +293,7 @@ public:
 
     \see operator[](std::size_t offset)
   */
-  [[nodiscard]] constexpr inline char & at(std::size_t offset) noexcept;
+  constexpr inline char & at(std::size_t offset) noexcept;
 
   /*!
     \brief Access a character in the string at a given \a offset.
@@ -328,7 +328,7 @@ public:
     \note The returned reference allows modification of the character.
     \note Use const version for read-only access.
   */
-  [[nodiscard]] constexpr inline char & operator[](std::size_t offset) noexcept;
+  constexpr inline char & operator[](std::size_t offset) noexcept;
 
   /*!
     \brief Access a character in the string at a given \a offset.
@@ -358,7 +358,7 @@ public:
     \note The returned reference allows modification of the character.
     \note Use const version for read-only access.
   */
-  [[nodiscard]] constexpr inline char & front() noexcept;
+  constexpr inline char & front() noexcept;
 
   /*!
     \brief Returns a const reference to the first character of the string.
@@ -386,7 +386,7 @@ public:
     \note The returned reference allows modification of the character.
     \note Use const version for read-only access.
   */
-  [[nodiscard]] constexpr inline char & back() noexcept;
+  constexpr inline char & back() noexcept;
 
   /*!
     \brief Returns a const reference to the last character of the string.
@@ -414,7 +414,7 @@ public:
     \note The returned pointer allows modification of the string contents.
     \note Use const version for read-only access.
   */
-  [[nodiscard]] constexpr inline char * data() noexcept;
+  constexpr inline char * data() noexcept;
 
   /*!
     \brief Returns a constant pointer to the data of the string.
