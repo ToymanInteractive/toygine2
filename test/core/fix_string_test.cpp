@@ -25,12 +25,12 @@
 using namespace toygine;
 
 TEST_CASE("FixString constructors", "[core][fixstring]") {
-  FixString<12> testString1("test text 1");
-  FixString<12> testString2(testString1);
+  constexpr FixString<12> testString1("test text 1");
+  constexpr FixString<12> testString2(testString1);
   FixString<24> testString3(testString2);
   FixString<18> testString4(testString3);
   FixString<12> testString5;
-  FixString<11> testString6('t', 10);
+  constexpr FixString<11> testString6('t', 10);
 
   CHECK(strcmp(testString1.c_str(), "test text 1") == 0);
   CHECK(testString1.size() == 11);
@@ -226,7 +226,7 @@ TEST_CASE("FixString front and back", "[core][fixstring]") {
   }
 
   SECTION("Front const method") {
-    const FixString<12> testString("Hello World");
+    constexpr FixString<12> testString("Hello World");
 
     CHECK(testString.front() == 'H');
     CHECK(testString[0] == 'H');
@@ -245,7 +245,7 @@ TEST_CASE("FixString front and back", "[core][fixstring]") {
   }
 
   SECTION("Back const method") {
-    const FixString<12> testString("Hello World");
+    constexpr FixString<12> testString("Hello World");
 
     CHECK(testString.back() == 'd');
     CHECK(testString[testString.size() - 1] == 'd');
@@ -299,7 +299,7 @@ TEST_CASE("FixString front and back", "[core][fixstring]") {
 }
 
 TEST_CASE("FixString data", "[core][fixstring]") {
-  auto testString1 = FixString<8>("abcd");
+  const auto testString1 = FixString<8>("abcd");
   const auto testString2 = FixString<8>("dcba");
 
   CHECK(strcmp(testString1.data(), "abcd") == 0);
@@ -307,7 +307,7 @@ TEST_CASE("FixString data", "[core][fixstring]") {
 }
 
 TEST_CASE("FixString c_str", "[core][fixstring]") {
-  auto testString1 = FixString<8>("abcd");
+  const auto testString1 = FixString<8>("abcd");
   const auto testString2 = FixString<8>("dcba");
 
   CHECK(strcmp(testString1.c_str(), "abcd") == 0);
@@ -315,22 +315,24 @@ TEST_CASE("FixString c_str", "[core][fixstring]") {
 }
 
 TEST_CASE("FixString empty", "[core][fixstring]") {
-  CHECK(!FixString<16>("ToyGine2").empty());
+  const auto testString1 = FixString<16>("ToyGine2");
+  const auto testString2 = FixString<4>("");
 
-  CHECK(FixString<4>("").empty());
+  CHECK(!testString1.empty());
+  CHECK(testString2.empty());
 }
 
 TEST_CASE("FixString size", "[core][fixstring]") {
   const auto testString1 = FixString<64>("ToyGine2 - Free 2D/3D game engine.");
-  const FixString<64> testString2;
+  constexpr FixString<64> testString2;
 
   CHECK(testString1.size() == 34);
   CHECK(testString2.size() == 0);
 }
 
 TEST_CASE("FixString utf8_size", "[core][fixstring]") {
-  static char const ansiText[] = "ToyGine2 - Free 2D/3D game engine.";
-  // UTF8 encoding               "ToyGine2 - Бесплатный 2D/3D игровой движок.";
+  static char constexpr ansiText[] = "ToyGine2 - Free 2D/3D game engine.";
+  // UTF8 encoding                   "ToyGine2 - Бесплатный 2D/3D игровой движок.";
 
   static constexpr std::array<std::uint8_t, 67> utf8Text{
     {0x54, 0x6F, 0x79, 0x47, 0x69, 0x6E, 0x65, 0x32, 0x20, 0x2D, 0x20, 0xD0, 0x91, 0xD0, 0xB5, 0xD1, 0x81,
@@ -350,20 +352,26 @@ TEST_CASE("FixString utf8_size", "[core][fixstring]") {
 
 TEST_CASE("FixString length", "[core][fixstring]") {
   const auto testString1 = FixString<64>("ToyGine2 - Free 2D/3D game engine.");
-  const FixString<64> testString2;
+  constexpr FixString<64> testString2;
 
   CHECK(testString1.length() == 34);
   CHECK(testString2.length() == 0);
 }
 
 TEST_CASE("FixString max_size", "[core][fixstring]") {
-  CHECK(FixString<64>("ToyGine2 - Free 2D/3D game engine.").max_size() == 63);
-  CHECK(FixString<16>("").max_size() == 15);
+  const auto testString1 = FixString<64>("ToyGine2 - Free 2D/3D game engine.");
+  const auto testString2 = FixString<16>("");
+
+  CHECK(testString1.max_size() == 63);
+  CHECK(testString2.max_size() == 15);
 }
 
 TEST_CASE("FixString capacity", "[core][fixstring]") {
-  CHECK(FixString<64>("ToyGine2").capacity() == 63);
-  CHECK(FixString<16>("").capacity() == 15);
+  const auto testString1 = FixString<64>("ToyGine2");
+  const auto testString2 = FixString<16>("");
+
+  CHECK(testString1.capacity() == 63);
+  CHECK(testString2.capacity() == 15);
 }
 
 TEST_CASE("FixString clear", "[core][fixstring]") {
@@ -2098,10 +2106,10 @@ TEST_CASE("FixString find_last_not_of", "[core][fixstring]") {
 
 TEST_CASE("FixString compare", "[core][fixstring]") {
   SECTION("Compare FixString with FixString") {
-    FixString<32> testString1("Hello");
-    FixString<32> testString2("Hello");
-    FixString<32> testString3("World");
-    FixString<32> testString4("Hell");
+    const auto testString1 = FixString<32>("Hello");
+    const auto testString2 = FixString<32>("Hello");
+    const auto testString3 = FixString<32>("World");
+    const auto testString4 = FixString<32>("Hell");
 
     CHECK(testString1.compare(testString2) == 0);
     CHECK(testString1.compare(testString3) < 0);
@@ -2109,7 +2117,7 @@ TEST_CASE("FixString compare", "[core][fixstring]") {
   }
 
   SECTION("Compare FixString with StringLike") {
-    FixString<32> testString("Hello");
+    const auto testString = FixString<32>("Hello");
 
     CHECK(testString.compare(std::string("Hello")) == 0);
     CHECK(testString.compare(std::string("World")) < 0);
@@ -2117,7 +2125,7 @@ TEST_CASE("FixString compare", "[core][fixstring]") {
   }
 
   SECTION("Compare FixString with C string") {
-    FixString<32> testString("Hello");
+    const auto testString = FixString<32>("Hello");
 
     CHECK(testString.compare("Hello") == 0);
     CHECK(testString.compare("World") < 0);
@@ -2291,7 +2299,7 @@ TEST_CASE("FixString compare", "[core][fixstring]") {
 
 TEST_CASE("FixString starts_with", "[core][fixstring]") {
   SECTION("Starts with FixString") {
-    FixString<32> testString("Hello World");
+    const auto testString = FixString<32>("Hello World");
 
     CHECK(testString.starts_with(FixString<16>("Hello")) == true);
     CHECK(testString.starts_with(FixString<16>("Hello World")) == true);
@@ -2302,7 +2310,7 @@ TEST_CASE("FixString starts_with", "[core][fixstring]") {
   }
 
   SECTION("Starts with StringLike") {
-    FixString<32> testString("Hello World");
+    const auto testString = FixString<32>("Hello World");
 
     CHECK(testString.starts_with(std::string("Hello")) == true);
     CHECK(testString.starts_with(std::string("Hello World")) == true);
@@ -2313,7 +2321,7 @@ TEST_CASE("FixString starts_with", "[core][fixstring]") {
   }
 
   SECTION("Starts with C string") {
-    FixString<32> testString("Hello World");
+    const auto testString = FixString<32>("Hello World");
 
     CHECK(testString.starts_with("Hello") == true);
     CHECK(testString.starts_with("Hello World") == true);
@@ -2324,7 +2332,7 @@ TEST_CASE("FixString starts_with", "[core][fixstring]") {
   }
 
   SECTION("Starts with character") {
-    FixString<32> testString("Hello World");
+    const auto testString = FixString<32>("Hello World");
 
     CHECK(testString.starts_with('H') == true);
     CHECK(testString.starts_with('h') == false);
@@ -2343,7 +2351,7 @@ TEST_CASE("FixString starts_with", "[core][fixstring]") {
   }
 
   SECTION("Starts with single character string") {
-    FixString<32> testString("A");
+    const auto testString = FixString<32>("A");
 
     CHECK(testString.starts_with("A") == true);
     CHECK(testString.starts_with('A') == true);
@@ -2381,7 +2389,7 @@ TEST_CASE("FixString starts_with", "[core][fixstring]") {
   }
 
   SECTION("Starts with repeated characters") {
-    FixString<32> testString("aaaab");
+    const auto testString = FixString<32>("aaaab");
 
     CHECK(testString.starts_with("aaa") == true);
     CHECK(testString.starts_with("aaaa") == true);
@@ -2392,7 +2400,7 @@ TEST_CASE("FixString starts_with", "[core][fixstring]") {
   }
 
   SECTION("Starts with special characters") {
-    FixString<32> testString("!@#$%");
+    const auto testString = FixString<32>("!@#$%");
 
     CHECK(testString.starts_with("!@#") == true);
     CHECK(testString.starts_with("!@#$%") == true);
@@ -2482,7 +2490,7 @@ TEST_CASE("FixString starts_with", "[core][fixstring]") {
 
 TEST_CASE("FixString ends_with", "[core][fixstring]") {
   SECTION("Ends with FixString") {
-    FixString<32> testString("Hello World");
+    const auto testString = FixString<32>("Hello World");
 
     CHECK(testString.ends_with(FixString<16>("World")) == true);
     CHECK(testString.ends_with(FixString<16>("Hello World")) == true);
@@ -2493,7 +2501,7 @@ TEST_CASE("FixString ends_with", "[core][fixstring]") {
   }
 
   SECTION("Ends with StringLike") {
-    FixString<32> testString("Hello World");
+    const auto testString = FixString<32>("Hello World");
 
     CHECK(testString.ends_with(std::string("World")) == true);
     CHECK(testString.ends_with(std::string("Hello World")) == true);
@@ -2966,7 +2974,7 @@ TEST_CASE("FixString contains", "[core][fixstring]") {
 
 TEST_CASE("FixString substr", "[core][fixstring]") {
   SECTION("Substr basic functionality") {
-    FixString<32> testString("Hello World");
+    const auto testString = FixString<32>("Hello World");
 
     CHECK(strcmp(testString.substr(0).c_str(), "Hello World") == 0);
     CHECK(strcmp(testString.substr(0, 5).c_str(), "Hello") == 0);

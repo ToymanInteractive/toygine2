@@ -37,7 +37,11 @@ constexpr inline FixString<allocatedSize>::~FixString() noexcept {}
 template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize>::FixString(const FixString<allocatedSize> & string) noexcept
   : _size(string.size()) {
-  std::memcpy(_data, string.data(), _size + 1);
+  if consteval {
+    std::copy_n(string.data(), _size + 1, _data);
+  } else {
+    std::memcpy(_data, string.data(), _size + 1);
+  }
 }
 
 template <std::size_t allocatedSize>
@@ -46,7 +50,11 @@ constexpr inline FixString<allocatedSize>::FixString(const stringType & string) 
   : _size(string.size()) {
   assert_message(_size < allocatedSize, "String size must not exceed capacity");
 
-  std::memcpy(_data, string.c_str(), _size + 1);
+  if consteval {
+    std::copy_n(string.c_str(), _size + 1, _data);
+  } else {
+    std::memcpy(_data, string.c_str(), _size + 1);
+  }
 }
 
 template <std::size_t allocatedSize>
@@ -54,10 +62,19 @@ constexpr inline FixString<allocatedSize>::FixString(const char * string) noexce
   : _size(0) {
   assert_message(string != nullptr, "String pointer must not be null");
 
-  _size = std::strlen(string);
+  if consteval {
+    _size = std::char_traits<char>::length(string);
+  } else {
+    _size = std::strlen(string);
+  }
+
   assert_message(_size < allocatedSize, "String length must not exceed capacity");
 
-  std::memcpy(_data, string, _size + 1);
+  if consteval {
+    std::copy_n(string, _size + 1, _data);
+  } else {
+    std::memcpy(_data, string, _size + 1);
+  }
 }
 
 template <std::size_t allocatedSize>
@@ -65,7 +82,11 @@ constexpr inline FixString<allocatedSize>::FixString(char character, std::size_t
   : _size(count) {
   assert_message(count < allocatedSize, "Count must not exceed capacity");
 
-  std::memset(_data, character, _size);
+  if consteval {
+    std::fill_n(_data, _size, character);
+  } else {
+    std::memset(_data, character, _size);
+  }
   _data[_size] = '\0';
 }
 
@@ -76,7 +97,11 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator=(
     return *this;
 
   _size = string.size();
-  std::memcpy(_data, string.data(), _size + 1);
+  if consteval {
+    std::copy_n(string.data(), _size + 1, _data);
+  } else {
+    std::memcpy(_data, string.data(), _size + 1);
+  }
 
   return *this;
 }
@@ -90,7 +115,11 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator=(
   assert_message(string.size() < allocatedSize, "String size must not exceed capacity");
 
   _size = string.size();
-  std::memcpy(_data, string.c_str(), _size + 1);
+  if consteval {
+    std::copy_n(string.c_str(), _size + 1, _data);
+  } else {
+    std::memcpy(_data, string.c_str(), _size + 1);
+  }
 
   return *this;
 }
@@ -102,11 +131,19 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator=(
 
   assert_message(string != nullptr, "String pointer must not be null");
 
-  _size = std::strlen(string);
+  if consteval {
+    _size = std::char_traits<char>::length(string);
+  } else {
+    _size = std::strlen(string);
+  }
 
   assert_message(_size < allocatedSize, "String length must not exceed capacity");
 
-  std::memcpy(_data, string, _size + 1);
+  if consteval {
+    std::copy_n(string, _size + 1, _data);
+  } else {
+    std::memcpy(_data, string, _size + 1);
+  }
 
   return *this;
 }
@@ -129,7 +166,11 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::assign(
     return *this;
 
   _size = string.size();
-  std::memcpy(_data, string.data(), _size + 1);
+  if consteval {
+    std::copy_n(string.data(), _size + 1, _data);
+  } else {
+    std::memcpy(_data, string.data(), _size + 1);
+  }
 
   return *this;
 }
@@ -146,7 +187,11 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::assign(con
   assert_message(string.size() < allocatedSize, "String size must not exceed capacity");
 
   _size = string.size();
-  std::memcpy(_data, string.c_str(), _size + 1);
+  if consteval {
+    std::copy_n(string.c_str(), _size + 1, _data);
+  } else {
+    std::memcpy(_data, string.c_str(), _size + 1);
+  }
 
   return *this;
 }
@@ -158,11 +203,19 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::assign(con
 
   assert_message(string != nullptr, "String pointer must not be null");
 
-  _size = std::strlen(string);
+  if consteval {
+    _size = std::char_traits<char>::length(string);
+  } else {
+    _size = std::strlen(string);
+  }
 
   assert_message(_size < allocatedSize, "String length must not exceed capacity");
 
-  std::memcpy(_data, string, _size + 1);
+  if consteval {
+    std::copy_n(string, _size + 1, _data);
+  } else {
+    std::memcpy(_data, string, _size + 1);
+  }
 
   return *this;
 }
@@ -173,7 +226,11 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::assign(cha
   assert_message(count < allocatedSize, "Count must not exceed capacity");
 
   _size = count;
-  std::memset(_data, character, _size);
+  if consteval {
+    std::fill_n(_data, _size, character);
+  } else {
+    std::memset(_data, character, _size);
+  }
   _data[_size] = '\0';
 
   return *this;
@@ -308,7 +365,13 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::insert(std
                                                                              const char * string) noexcept {
   assert_message(string != nullptr, "String pointer must not be null");
 
-  _insert_raw(index, string, std::strlen(string));
+  std::size_t stringLen;
+  if consteval {
+    stringLen = std::char_traits<char>::length(string);
+  } else {
+    stringLen = std::strlen(string);
+  }
+  _insert_raw(index, string, stringLen);
 
   return *this;
 }
@@ -324,12 +387,20 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::insert(std
 
   // if inserting at the end, just append
   if (index == _size) {
-    std::memset(_data + index, character, count);
+    if consteval {
+      std::fill_n(_data + index, count, character);
+    } else {
+      std::memset(_data + index, character, count);
+    }
     _size += count;
     _data[_size] = '\0';
   } else {
     std::memmove(_data + index + count, _data + index, _size - index + 1);
-    std::memset(_data + index, character, count);
+    if consteval {
+      std::fill_n(_data + index, count, character);
+    } else {
+      std::memset(_data + index, character, count);
+    }
     _size += count;
   }
 
@@ -409,7 +480,13 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::append(con
   assert_message(_data != string, "Cannot append string into itself");
   assert_message(string != nullptr, "String pointer must not be null");
 
-  _append_raw(string, std::strlen(string));
+  std::size_t stringLen;
+  if consteval {
+    stringLen = std::char_traits<char>::length(string);
+  } else {
+    stringLen = std::strlen(string);
+  }
+  _append_raw(string, stringLen);
 
   return *this;
 }
@@ -422,7 +499,11 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::append(cha
 
   assert_message(_size + count < allocatedSize, "Appended string must fit in capacity");
 
-  std::memset(_data + _size, character, count);
+  if consteval {
+    std::fill_n(_data + _size, count, character);
+  } else {
+    std::memset(_data + _size, character, count);
+  }
   _size += count;
   _data[_size] = '\0';
 
@@ -454,7 +535,13 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator+=
   assert_message(_data != string, "Cannot append string into itself");
   assert_message(string != nullptr, "String pointer must not be null");
 
-  _append_raw(string, std::strlen(string));
+  std::size_t stringLen;
+  if consteval {
+    stringLen = std::char_traits<char>::length(string);
+  } else {
+    stringLen = std::strlen(string);
+  }
+  _append_raw(string, stringLen);
 
   return *this;
 }
@@ -491,7 +578,13 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::replace(st
                                                                               const char * string) noexcept {
   assert_message(string != nullptr, "String pointer must not be null");
 
-  _replace_raw(pos, count, string, std::strlen(string));
+  std::size_t stringLen;
+  if consteval {
+    stringLen = std::char_traits<char>::length(string);
+  } else {
+    stringLen = std::strlen(string);
+  }
+  _replace_raw(pos, count, string, stringLen);
 
   return *this;
 }
@@ -512,15 +605,27 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::replace(st
 
   // If sizes are equal, no need to shift data
   if (count == charactersCount) {
-    std::memset(_data + pos, character, charactersCount);
+    if consteval {
+      std::fill_n(_data + pos, charactersCount, character);
+    } else {
+      std::memset(_data + pos, character, charactersCount);
+    }
   } else {
     // If replacing at the end, no need to shift
     if (pos + count == _size) {
-      std::memset(_data + pos, character, charactersCount);
+      if consteval {
+        std::fill_n(_data + pos, charactersCount, character);
+      } else {
+        std::memset(_data + pos, character, charactersCount);
+      }
       _data[pos + charactersCount] = '\0';
     } else {
       std::memmove(_data + pos + charactersCount, _data + pos + count, _size - pos - count + 1);
-      std::memset(_data + pos, character, charactersCount);
+      if consteval {
+        std::fill_n(_data + pos, charactersCount, character);
+      } else {
+        std::memset(_data + pos, character, charactersCount);
+      }
     }
 
     _size = newSize;
@@ -540,7 +645,11 @@ constexpr inline std::size_t FixString<allocatedSize>::copy(char * dest, std::si
   if (count == npos || pos + count > _size)
     count = _size - pos;
 
-  std::memcpy(dest, _data + pos, count);
+  if consteval {
+    std::copy_n(_data + pos, count, dest);
+  } else {
+    std::memcpy(dest, _data + pos, count);
+  }
 
   return count;
 }
@@ -551,9 +660,15 @@ constexpr inline void FixString<allocatedSize>::swap(FixString<allocatedSize> & 
     return;
 
   char tempData[allocatedSize];
-  std::memcpy(tempData, _data, _size + 1);
-  std::memcpy(_data, string._data, string._size + 1);
-  std::memcpy(string._data, tempData, _size + 1);
+  if consteval {
+    std::copy_n(_data, _size + 1, tempData);
+    std::copy_n(string._data, string._size + 1, _data);
+    std::copy_n(tempData, _size + 1, string._data);
+  } else {
+    std::memcpy(tempData, _data, _size + 1);
+    std::memcpy(_data, string._data, string._size + 1);
+    std::memcpy(string._data, tempData, _size + 1);
+  }
 
   std::swap(_size, string._size);
 }
@@ -575,7 +690,14 @@ template <std::size_t allocatedSize>
 constexpr inline std::size_t FixString<allocatedSize>::find(const char * string, std::size_t position) const noexcept {
   assert_message(string != nullptr, "String pointer must not be null");
 
-  return _find_raw(position, string, std::strlen(string));
+  std::size_t stringLen;
+  if consteval {
+    stringLen = std::char_traits<char>::length(string);
+  } else {
+    stringLen = std::strlen(string);
+  }
+
+  return _find_raw(position, string, stringLen);
 }
 
 template <std::size_t allocatedSize>
@@ -600,7 +722,14 @@ template <std::size_t allocatedSize>
 constexpr inline std::size_t FixString<allocatedSize>::rfind(const char * string, std::size_t position) const noexcept {
   assert_message(string != nullptr, "String pointer must not be null");
 
-  return _rfind_raw(position, string, std::strlen(string));
+  std::size_t stringLen;
+  if consteval {
+    stringLen = std::char_traits<char>::length(string);
+  } else {
+    stringLen = std::strlen(string);
+  }
+
+  return _rfind_raw(position, string, stringLen);
 }
 
 template <std::size_t allocatedSize>
@@ -626,7 +755,14 @@ constexpr inline std::size_t FixString<allocatedSize>::find_first_of(const char 
                                                                      std::size_t position) const noexcept {
   assert_message(string != nullptr, "String pointer must not be null");
 
-  return _find_first_of_raw(position, string, std::strlen(string));
+  std::size_t stringLen;
+  if consteval {
+    stringLen = std::char_traits<char>::length(string);
+  } else {
+    stringLen = std::strlen(string);
+  }
+
+  return _find_first_of_raw(position, string, stringLen);
 }
 
 template <std::size_t allocatedSize>
@@ -653,7 +789,14 @@ constexpr inline std::size_t FixString<allocatedSize>::find_first_not_of(const c
                                                                          std::size_t position) const noexcept {
   assert_message(string != nullptr, "String pointer must not be null");
 
-  return _find_first_not_of_raw(position, string, std::strlen(string));
+  std::size_t stringLen;
+  if consteval {
+    stringLen = std::char_traits<char>::length(string);
+  } else {
+    stringLen = std::strlen(string);
+  }
+
+  return _find_first_not_of_raw(position, string, stringLen);
 }
 
 template <std::size_t allocatedSize>
@@ -680,7 +823,14 @@ constexpr inline std::size_t FixString<allocatedSize>::find_last_of(const char *
                                                                     std::size_t position) const noexcept {
   assert_message(string != nullptr, "String pointer must not be null");
 
-  return _find_last_of_raw(position, string, std::strlen(string));
+  std::size_t stringLen;
+  if consteval {
+    stringLen = std::char_traits<char>::length(string);
+  } else {
+    stringLen = std::strlen(string);
+  }
+
+  return _find_last_of_raw(position, string, stringLen);
 }
 
 template <std::size_t allocatedSize>
@@ -707,7 +857,14 @@ constexpr inline std::size_t FixString<allocatedSize>::find_last_not_of(const ch
                                                                         std::size_t position) const noexcept {
   assert_message(string != nullptr, "String pointer must not be null");
 
-  return _find_last_not_of_raw(position, string, std::strlen(string));
+  std::size_t stringLen;
+  if consteval {
+    stringLen = std::char_traits<char>::length(string);
+  } else {
+    stringLen = std::strlen(string);
+  }
+
+  return _find_last_not_of_raw(position, string, stringLen);
 }
 
 template <std::size_t allocatedSize>
@@ -749,7 +906,12 @@ template <std::size_t allocatedSize>
 constexpr inline bool FixString<allocatedSize>::starts_with(const char * string) const noexcept {
   assert_message(string != nullptr, "String pointer must not be null");
 
-  const auto needleSize = std::strlen(string);
+  std::size_t needleSize;
+  if consteval {
+    needleSize = std::char_traits<char>::length(string);
+  } else {
+    needleSize = std::strlen(string);
+  }
 
   return _size >= needleSize && std::memcmp(_data, string, needleSize) == 0;
 }
@@ -774,7 +936,12 @@ template <std::size_t allocatedSize>
 constexpr inline bool FixString<allocatedSize>::ends_with(const char * string) const noexcept {
   assert_message(string != nullptr, "String pointer must not be null");
 
-  const auto needleSize = std::strlen(string);
+  std::size_t needleSize;
+  if consteval {
+    needleSize = std::char_traits<char>::length(string);
+  } else {
+    needleSize = std::strlen(string);
+  }
 
   return _size >= needleSize && std::memcmp(_data + (_size - needleSize), string, needleSize) == 0;
 }
@@ -799,7 +966,12 @@ template <std::size_t allocatedSize>
 constexpr inline bool FixString<allocatedSize>::contains(const char * string) const noexcept {
   assert_message(string != nullptr, "String pointer must not be null");
 
-  const auto needleSize = std::strlen(string);
+  std::size_t needleSize;
+  if consteval {
+    needleSize = std::char_traits<char>::length(string);
+  } else {
+    needleSize = std::strlen(string);
+  }
 
   return _size >= needleSize && std::strstr(_data, string) != nullptr;
 }
@@ -823,7 +995,11 @@ constexpr inline FixString<allocatedSize> FixString<allocatedSize>::substr(std::
   FixString<allocatedSize> result;
 
   result._size = count;
-  std::memcpy(result._data, _data + position, count);
+  if consteval {
+    std::copy_n(_data + position, count, result._data);
+  } else {
+    std::memcpy(result._data, _data + position, count);
+  }
   result._data[count] = '\0';
 
   return result;
@@ -836,6 +1012,7 @@ constexpr inline FixString<allocatedSize> FixString<allocatedSize>::operator+(
 
   FixString<allocatedSize> value(*this);
   value += string;
+
   return value;
 }
 
@@ -848,6 +1025,7 @@ constexpr inline FixString<allocatedSize> FixString<allocatedSize>::operator+(
 
   FixString<allocatedSize> value(*this);
   value += string;
+
   return value;
 }
 
@@ -857,6 +1035,7 @@ constexpr inline FixString<allocatedSize> FixString<allocatedSize>::operator+(co
 
   FixString<allocatedSize> value(*this);
   value += string;
+
   return value;
 }
 
@@ -864,6 +1043,7 @@ template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize> FixString<allocatedSize>::operator+(char symbol) const noexcept {
   FixString<allocatedSize> value(*this);
   value += symbol;
+
   return value;
 }
 
@@ -881,10 +1061,18 @@ constexpr inline void FixString<allocatedSize>::_insert_raw(std::size_t position
 
   // If inserting at the end, just append
   if (position == _size) {
-    std::memcpy(_data + _size, data, dataSize + 1);
+    if consteval {
+      std::copy_n(data, dataSize + 1, _data + _size);
+    } else {
+      std::memcpy(_data + _size, data, dataSize + 1);
+    }
   } else {
     std::memmove(_data + position + dataSize, _data + position, _size - position + 1);
-    std::memcpy(_data + position, data, dataSize);
+    if consteval {
+      std::copy_n(data, dataSize, _data + position);
+    } else {
+      std::memcpy(_data + position, data, dataSize);
+    }
   }
 
   _size += dataSize;
@@ -899,7 +1087,11 @@ constexpr inline void FixString<allocatedSize>::_append_raw(const char * data, s
                  "Source data pointer must not point into _data buffer");
   assert_message(_size + dataSize < allocatedSize, "Appended data must fit in capacity");
 
-  std::memcpy(_data + _size, data, dataSize + 1);
+  if consteval {
+    std::copy_n(data, dataSize + 1, _data + _size);
+  } else {
+    std::memcpy(_data + _size, data, dataSize + 1);
+  }
   _size += dataSize;
 }
 
@@ -917,7 +1109,12 @@ constexpr inline void FixString<allocatedSize>::_replace_raw(std::size_t positio
 
   // If sizes are equal, no need to shift data
   if (oldCount == dataSize) {
-    std::memcpy(_data + position, data, dataSize);
+    if consteval {
+      std::copy_n(data, dataSize, _data + position);
+    } else {
+      std::memcpy(_data + position, data, dataSize);
+    }
+
     return;
   }
 
@@ -925,10 +1122,18 @@ constexpr inline void FixString<allocatedSize>::_replace_raw(std::size_t positio
 
   // If replacing at the end, no need to shift
   if (position + oldCount == _size) {
-    std::memcpy(_data + position, data, dataSize + 1);
+    if consteval {
+      std::copy_n(data, dataSize + 1, _data + position);
+    } else {
+      std::memcpy(_data + position, data, dataSize + 1);
+    }
   } else {
     std::memmove(_data + position + dataSize, _data + position + oldCount, _size - position - oldCount + 1);
-    std::memcpy(_data + position, data, dataSize);
+    if consteval {
+      std::copy_n(data, dataSize, _data + position);
+    } else {
+      std::memcpy(_data + position, data, dataSize);
+    }
   }
 
   _size = _size - oldCount + dataSize;
