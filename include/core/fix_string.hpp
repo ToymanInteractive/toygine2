@@ -78,8 +78,8 @@ namespace toygine {
 
   \section safety Safety Guarantees
 
-  - 🛡️ **Buffer Overflow Protection**: All operations check bounds and capacity
-  - 🔒 **Null Pointer Safety**: All C-string operations validate pointers
+  - 🛡️ **Contracts & Debug Checks**: Bounds/capacity are asserted in debug; in production, violating preconditions is UB
+  - 🔒 **Null Pointer Safety**: All C-string operations validate pointers via assertions in debug
   - 📐 **Type Safety**: Template parameters and concepts prevent invalid usage
   - ⚠️ **Exception Safety**: All operations are noexcept, no exceptions thrown
 
@@ -174,7 +174,7 @@ public:
 
     \note This is useful for creating strings with repeated patterns or filling strings with specific characters.
   */
-  constexpr inline FixString(char character, std::size_t count = 1) noexcept;
+  constexpr constexpr inline FixString(char character, std::size_t count = 1) noexcept;
 
   /*!
     \brief Copy assigns other \a string to this string.
