@@ -19,7 +19,7 @@
 //
 /*!
   \file   fix_string.hpp
-  \brief  Template string class with fixed-size character buffer, wrapper to char[]
+  \brief  Template string class with fixed-size character buffer.
 */
 
 #ifndef INCLUDE_CORE_FIX_STRING_HPP_
@@ -27,6 +27,75 @@
 
 namespace toygine {
 
+/*!
+  \class FixString
+  \brief Template string class with fixed-size character buffer.
+
+  FixString is a lightweight, high-performance string class that uses a fixed-size character buffer allocated on the
+  stack. It provides a std::string-like interface while avoiding dynamic memory allocation, making it suitable for
+  embedded systems, real-time applications, and performance-critical code where memory allocation overhead must be
+  minimized.
+
+  \tparam allocatedSize The size of the internal character buffer, including space for the null terminator.
+                        Must be greater than zero.
+
+  \section features Key Features
+
+  - ⚙️ **Zero Dynamic Allocation**: All memory is allocated on the stack at compile time
+  - 🔧 **constexpr Support**: Most operations can be evaluated at compile time
+  - 🛡️ **Exception Safety**: All operations are noexcept
+  - 🔗 **STL Compatibility**: Provides std::string-like interface
+  - 🌍 **UTF-8 Support**: Built-in UTF-8 character counting and manipulation
+  - 🧬 **Template Metaprogramming**: Uses C++20 concepts for type safety
+
+  \section usage Usage Example
+
+  \code
+  #include "fix_string.hpp"
+
+  // Create a string with 32-character capacity
+  toygine::FixString<32> str("Hello, World!");
+
+  // Append more content
+  str += " This is a test.";
+
+  // Use in constexpr context
+  constexpr auto greeting = toygine::FixString<16>("Hello");
+  constexpr auto world = toygine::FixString<16>("World");
+  constexpr auto combined = greeting + " " + world;
+  \endcode
+
+  \section performance Performance Characteristics
+
+  - ⚙️ **Construction**: O(n) where n is the length of the source string
+  - 📝 **Assignment**: O(n) where n is the length of the source string
+  - 🔗 **Concatenation**: O(n) where n is the length of the appended string
+  - 🔍 **Search Operations**: O(n*m) where n is the string length and m is the pattern length
+  - 💾 **Memory Usage**: Fixed at compile time, no heap allocation
+  - ⚡ **Cache Performance**: Excellent due to stack allocation and contiguous memory layout
+  - 📋 **Copy Performance**: Fast due to memcpy/memmove optimizations
+  - 🎯 **String Operations**: Optimized for common cases (single character, empty strings)
+
+  \section safety Safety Guarantees
+
+  - 🛡️ **Contracts & Debug Checks**: Bounds/capacity are asserted in debug; in production, violating preconditions is UB
+  - 🔒 **Null Pointer Safety**: All C-string operations validate pointers via assertions in debug
+  - 📐 **Type Safety**: Template parameters and concepts prevent invalid usage
+  - ⚠️ **Exception Safety**: All operations are noexcept, no exceptions thrown
+
+  \section compatibility Compatibility
+
+  - 🆕 **C++23**: Requires C++23 or later for full functionality
+  - 🔗 **STL Integration**: Compatible with STL algorithms and containers
+  - 🌐 **Cross-Platform**: Works on all platforms supported by the compiler
+  - 🔧 **Embedded Systems**: Suitable for resource-constrained environments
+
+  \note The internal buffer size is allocatedSize, but the maximum string length is allocatedSize - 1 to account for the
+        null terminator.
+
+  \see std::string
+  \see StringLike
+*/
 template <std::size_t allocatedSize>
 class FixString {
 public:
@@ -88,7 +157,7 @@ public:
 
     \post The new string is created with the contents of the source C \a string.
   */
-  constexpr explicit inline FixString(const char * string) noexcept;
+  constexpr inline FixString(const char * string) noexcept;
 
   /*!
     \brief Constructs a string of the given \a count of \a character.
@@ -475,12 +544,15 @@ public:
 
     This method returns the number of Unicode characters in the UTF-8 encoded string, excluding the terminating null
     character. For ASCII strings, this value equals the size() method. For UTF-8 encoded strings, this method counts the
-    number of Unicode characters rather than bytes.
+    number of Unicode characters rather than bytes. The method validates UTF-8 encoding and counts only complete,
+    well-formed Unicode characters.
 
     \return The number of Unicode characters in the string, excluding the terminating null character.
 
     \note For ASCII strings, utf8_size() equals size().
     \note For UTF-8 strings, utf8_size() may be less than size().
+    \note Invalid UTF-8 sequences are handled gracefully and may affect the count.
+    \note This method is useful for internationalization and text processing applications.
   */
   [[nodiscard]] constexpr inline std::size_t utf8_size() const noexcept;
 
@@ -1757,7 +1829,8 @@ public:
   */
   [[nodiscard]] constexpr inline FixString<allocatedSize> operator+(char symbol) const noexcept;
 
-  static const std::size_t npos = SIZE_MAX;
+  /// The special value, its exact meaning depends on the context
+  static constexpr std::size_t npos = std::size_t(-1);
 
 private:
   static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");
@@ -1925,6 +1998,30 @@ private:
   /// Current number of characters in the string (excluding null terminator)
   std::size_t _size;
 };
+
+/*!
+  \brief Compares two C strings lexicographically.
+
+  This function performs a lexicographic comparison between two C strings. The comparison is performed character by
+  character using the character's numeric value. This function is designed to be constexpr-compatible and provides the
+  same behavior as std::strcmp but can be evaluated at compile time.
+
+  \param lhs The left-hand side C string to compare.
+  \param rhs The right-hand side C string to compare.
+
+  \return A negative value if \a lhs is lexicographically less than \a rhs, zero if they are equal,
+          or a positive value if \a lhs is lexicographically greater than \a rhs.
+
+  \pre The \a lhs pointer must not be null.
+  \pre The \a rhs pointer must not be null.
+
+  \note The comparison is case-sensitive.
+  \note The comparison stops at the first character that differs between the strings.
+  \note If one string is a prefix of another, the shorter string is considered lexicographically smaller.
+
+  \see std::strcmp
+*/
+[[nodiscard]] constexpr inline int cstrcmp(const char * lhs, const char * rhs) noexcept;
 
 } // namespace toygine
 
