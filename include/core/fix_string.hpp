@@ -174,7 +174,7 @@ public:
 
     \note This is useful for creating strings with repeated patterns or filling strings with specific characters.
   */
-  constexpr constexpr inline FixString(char character, std::size_t count = 1) noexcept;
+  constexpr inline explicit FixString(char character, std::size_t count = 1) noexcept;
 
   /*!
     \brief Copy assigns other \a string to this string.
