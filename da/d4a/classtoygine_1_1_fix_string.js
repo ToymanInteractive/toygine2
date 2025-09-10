@@ -109,5 +109,5 @@ var classtoygine_1_1_fix_string =
     [ "utf8_size", "da/d4a/classtoygine_1_1_fix_string.html#a143c96670a065101ee3c32ba341a129d", null ],
     [ "_data", "da/d4a/classtoygine_1_1_fix_string.html#aefd61568e3d5a4812f208bb45358d4ff", null ],
     [ "_size", "da/d4a/classtoygine_1_1_fix_string.html#a9166a4498452706474ce05840e67e660", null ],
-    [ "npos", "da/d4a/classtoygine_1_1_fix_string.html#a79044e138bb62795eaa69202361b0c1c", null ]
+    [ "npos", "da/d4a/classtoygine_1_1_fix_string.html#ae3b46625bc04aa9774b788aad318d7b6", null ]
 ];
