@@ -597,8 +597,7 @@ TEST_CASE("FixString utf8_pop_back", "[core][fixstring]") {
 
   SECTION("Pop back from single UTF-8 character string") {
     // Single Cyrillic character 'п'
-    constexpr char * utf8Text = "\xD0\xBF";
-    FixString<8> testString(utf8Text);
+    FixString<8> testString("\xD0\xBF");
 
     testString.utf8_pop_back();
 
@@ -2267,9 +2266,8 @@ TEST_CASE("FixString compare", "[core][fixstring]") {
 
   SECTION("Compare with std::string") {
     constexpr FixString<32> testString("Hello World");
-    constexpr std::string stdString("Hello World");
 
-    CHECK(testString.compare(stdString) == 0);
+    CHECK(testString.compare(std::string("Hello World")) == 0);
     CHECK(testString.compare(std::string("Hello")) > 0);
     CHECK(testString.compare(std::string("World")) < 0);
   }
@@ -2439,9 +2437,8 @@ TEST_CASE("FixString starts_with", "[core][fixstring]") {
 
   SECTION("Starts with std::string") {
     constexpr FixString<32> testString("Hello World");
-    constexpr std::string stdString("Hello");
 
-    CHECK(testString.starts_with(stdString) == true);
+    CHECK(testString.starts_with(std::string("Hello")) == true);
     CHECK(testString.starts_with(std::string("Hello World")) == true);
     CHECK(testString.starts_with(std::string("World")) == false);
   }
@@ -2630,9 +2627,8 @@ TEST_CASE("FixString ends_with", "[core][fixstring]") {
 
   SECTION("Ends with std::string") {
     constexpr FixString<32> testString("Hello World");
-    constexpr std::string stdString("World");
 
-    CHECK(testString.ends_with(stdString) == true);
+    CHECK(testString.ends_with(std::string("World")) == true);
     CHECK(testString.ends_with(std::string("Hello World")) == true);
     CHECK(testString.ends_with(std::string("Hello")) == false);
   }
@@ -2848,9 +2844,8 @@ TEST_CASE("FixString contains", "[core][fixstring]") {
 
   SECTION("Contains std::string") {
     constexpr FixString<32> testString("Hello World");
-    constexpr std::string stdString("World");
 
-    CHECK(testString.contains(stdString) == true);
+    CHECK(testString.contains(std::string("World")) == true);
     CHECK(testString.contains(std::string("Hello World")) == true);
     CHECK(testString.contains(std::string("Hello")) == true);
   }
