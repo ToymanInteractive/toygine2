@@ -169,8 +169,8 @@ TEST_CASE("FixString assign", "[core][fixstring]") {
 }
 
 TEST_CASE("FixString at", "[core][fixstring]") {
-  auto testString1 = FixString<8>("abcd");
-  constexpr auto testString2 = FixString<8>("dcba");
+  FixString<8> testString1("abcd");
+  constexpr FixString<8> testString2("dcba");
 
   testString1.at(0) = 'e';
   testString1.at(1) = 'f';
@@ -191,8 +191,8 @@ TEST_CASE("FixString at", "[core][fixstring]") {
 }
 
 TEST_CASE("FixString operators[]", "[core][fixstring]") {
-  auto testString1 = FixString<8>("abcd");
-  constexpr auto testString2 = FixString<8>("dcba");
+  FixString<8> testString1("abcd");
+  constexpr FixString<8> testString2("dcba");
 
   testString1[0] = 'e';
   testString1[1] = 'f';
@@ -287,9 +287,9 @@ TEST_CASE("FixString front and back", "[core][fixstring]") {
   SECTION("Const references") {
     constexpr FixString<32> testString("Hello World");
 
-    // Get const references
-    const char & frontRef = testString.front();
-    const char & backRef = testString.back();
+    // Get constexpr references
+    const auto & frontRef = testString.front();
+    const auto & backRef = testString.back();
 
     CHECK(frontRef == 'H');
     CHECK(backRef == 'd');
@@ -299,31 +299,31 @@ TEST_CASE("FixString front and back", "[core][fixstring]") {
 }
 
 TEST_CASE("FixString data", "[core][fixstring]") {
-  constexpr auto testString1 = FixString<8>("abcd");
-  constexpr auto testString2 = FixString<8>("dcba");
+  constexpr FixString<8> testString1("abcd");
+  constexpr FixString<8> testString2("dcba");
 
   CHECK(strcmp(testString1.data(), "abcd") == 0);
   CHECK(strcmp(testString2.data(), "dcba") == 0);
 }
 
 TEST_CASE("FixString c_str", "[core][fixstring]") {
-  constexpr auto testString1 = FixString<8>("abcd");
-  constexpr auto testString2 = FixString<8>("dcba");
+  constexpr FixString<8> testString1("abcd");
+  constexpr FixString<8> testString2("dcba");
 
   CHECK(strcmp(testString1.c_str(), "abcd") == 0);
   CHECK(strcmp(testString2.c_str(), "dcba") == 0);
 }
 
 TEST_CASE("FixString empty", "[core][fixstring]") {
-  constexpr auto testString1 = FixString<16>("ToyGine2");
-  constexpr auto testString2 = FixString<4>("");
+  constexpr FixString<16> testString1("ToyGine2");
+  constexpr FixString<4> testString2("");
 
   CHECK(!testString1.empty());
   CHECK(testString2.empty());
 }
 
 TEST_CASE("FixString size", "[core][fixstring]") {
-  constexpr auto testString1 = FixString<64>("ToyGine2 - Free 2D/3D game engine.");
+  constexpr FixString<64> testString1("ToyGine2 - Free 2D/3D game engine.");
   constexpr FixString<64> testString2;
 
   CHECK(testString1.size() == 34);
@@ -331,17 +331,21 @@ TEST_CASE("FixString size", "[core][fixstring]") {
 }
 
 TEST_CASE("FixString utf8_size", "[core][fixstring]") {
-  static char constexpr ansiText[] = "ToyGine2 - Free 2D/3D game engine.";
+  static constexpr char ansiText[] = "ToyGine2 - Free 2D/3D game engine.";
   // UTF8 encoding                   "ToyGine2 - Бесплатный 2D/3D игровой движок.";
 
-  static constexpr std::array<std::uint8_t, 67> utf8Text{
-    {0x54, 0x6F, 0x79, 0x47, 0x69, 0x6E, 0x65, 0x32, 0x20, 0x2D, 0x20, 0xD0, 0x91, 0xD0, 0xB5, 0xD1, 0x81,
-     0xD0, 0xBF, 0xD0, 0xBB, 0xD0, 0xB0, 0xD1, 0x82, 0xD0, 0xBD, 0xD1, 0x8B, 0xD0, 0xB9, 0x20, 0x32, 0x44,
-     0x2F, 0x33, 0x44, 0x20, 0xD0, 0xB8, 0xD0, 0xB3, 0xD1, 0x80, 0xD0, 0xBE, 0xD0, 0xB2, 0xD0, 0xBE, 0xD0,
-     0xB9, 0x20, 0xD0, 0xB4, 0xD0, 0xB2, 0xD0, 0xB8, 0xD0, 0xB6, 0xD0, 0xBE, 0xD0, 0xBA, 0x2E, 0x00}};
+  static constexpr std::array<char, 67> utf8Text{
+    {char(0x54), char(0x6F), char(0x79), char(0x47), char(0x69), char(0x6E), char(0x65), char(0x32), char(0x20),
+     char(0x2D), char(0x20), char(0xD0), char(0x91), char(0xD0), char(0xB5), char(0xD1), char(0x81), char(0xD0),
+     char(0xBF), char(0xD0), char(0xBB), char(0xD0), char(0xB0), char(0xD1), char(0x82), char(0xD0), char(0xBD),
+     char(0xD1), char(0x8B), char(0xD0), char(0xB9), char(0x20), char(0x32), char(0x44), char(0x2F), char(0x33),
+     char(0x44), char(0x20), char(0xD0), char(0xB8), char(0xD0), char(0xB3), char(0xD1), char(0x80), char(0xD0),
+     char(0xBE), char(0xD0), char(0xB2), char(0xD0), char(0xBE), char(0xD0), char(0xB9), char(0x20), char(0xD0),
+     char(0xB4), char(0xD0), char(0xB2), char(0xD0), char(0xB8), char(0xD0), char(0xB6), char(0xD0), char(0xBE),
+     char(0xD0), char(0xBA), char(0x2E), char(0x00)}};
 
-  constexpr auto testString1 = FixString<64>(ansiText);
-  auto testString2 = FixString<80>(reinterpret_cast<const char const *>(utf8Text.data()));
+  constexpr FixString<64> testString1(ansiText);
+  constexpr FixString<80> testString2(utf8Text.data());
   constexpr FixString<96> testString3;
 
   CHECK(testString1.size() == testString1.utf8_size());
@@ -351,7 +355,7 @@ TEST_CASE("FixString utf8_size", "[core][fixstring]") {
 }
 
 TEST_CASE("FixString length", "[core][fixstring]") {
-  constexpr auto testString1 = FixString<64>("ToyGine2 - Free 2D/3D game engine.");
+  constexpr FixString<64> testString1("ToyGine2 - Free 2D/3D game engine.");
   constexpr FixString<64> testString2;
 
   CHECK(testString1.length() == 34);
@@ -359,16 +363,16 @@ TEST_CASE("FixString length", "[core][fixstring]") {
 }
 
 TEST_CASE("FixString max_size", "[core][fixstring]") {
-  constexpr auto testString1 = FixString<64>("ToyGine2 - Free 2D/3D game engine.");
-  constexpr auto testString2 = FixString<16>("");
+  constexpr FixString<64> testString1("ToyGine2 - Free 2D/3D game engine.");
+  constexpr FixString<16> testString2("");
 
   CHECK(testString1.max_size() == 63);
   CHECK(testString2.max_size() == 15);
 }
 
 TEST_CASE("FixString capacity", "[core][fixstring]") {
-  constexpr auto testString1 = FixString<64>("ToyGine2");
-  constexpr auto testString2 = FixString<16>("");
+  constexpr FixString<64> testString1("ToyGine2");
+  constexpr FixString<16> testString2("");
 
   CHECK(testString1.capacity() == 63);
   CHECK(testString2.capacity() == 15);
@@ -858,9 +862,7 @@ TEST_CASE("FixString copy", "[core][fixstring]") {
     constexpr FixString<16> testString("Hello World");
     char buffer[16] = {0};
 
-    const auto copied = testString.copy(buffer, 11);
-
-    CHECK(copied == 11);
+    CHECK(testString.copy(buffer, 11) == 11);
     CHECK(strncmp(buffer, "Hello World", 11) == 0);
   }
 
@@ -868,9 +870,7 @@ TEST_CASE("FixString copy", "[core][fixstring]") {
     constexpr FixString<16> testString("Hello World");
     char buffer[16] = {0};
 
-    const auto copied = testString.copy(buffer, 5);
-
-    CHECK(copied == 5);
+    CHECK(testString.copy(buffer, 5) == 5);
     CHECK(strncmp(buffer, "Hello", 5) == 0);
   }
 
@@ -878,9 +878,7 @@ TEST_CASE("FixString copy", "[core][fixstring]") {
     constexpr FixString<16> testString("Hello World");
     char buffer[16] = {0};
 
-    const auto copied = testString.copy(buffer, 5, 6);
-
-    CHECK(copied == 5);
+    CHECK(testString.copy(buffer, 5, 6) == 5);
     CHECK(strncmp(buffer, "World", 5) == 0);
   }
 
@@ -888,9 +886,7 @@ TEST_CASE("FixString copy", "[core][fixstring]") {
     constexpr FixString<16> testString("Hello World");
     char buffer[16] = {0};
 
-    const auto copied = testString.copy(buffer, FixString<16>::npos);
-
-    CHECK(copied == 11);
+    CHECK(testString.copy(buffer, FixString<16>::npos) == 11);
     CHECK(strncmp(buffer, "Hello World", 11) == 0);
   }
 
@@ -898,9 +894,7 @@ TEST_CASE("FixString copy", "[core][fixstring]") {
     constexpr FixString<16> testString("Hello World");
     char buffer[16] = {0};
 
-    const auto copied = testString.copy(buffer, 20, 6);
-
-    CHECK(copied == 5);
+    CHECK(testString.copy(buffer, 20, 6) == 5);
     CHECK(strncmp(buffer, "World", 5) == 0);
   }
 
@@ -908,9 +902,7 @@ TEST_CASE("FixString copy", "[core][fixstring]") {
     constexpr FixString<16> testString("Hello World");
     char buffer[16] = {0};
 
-    const auto copied = testString.copy(buffer, 5, 0);
-
-    CHECK(copied == 5);
+    CHECK(testString.copy(buffer, 5, 0) == 5);
     CHECK(strncmp(buffer, "Hello", 5) == 0);
   }
 
@@ -918,9 +910,7 @@ TEST_CASE("FixString copy", "[core][fixstring]") {
     constexpr FixString<16> testString("Hello World");
     char buffer[16] = {0};
 
-    const auto copied = testString.copy(buffer, 1, 6);
-
-    CHECK(copied == 1);
+    CHECK(testString.copy(buffer, 1, 6) == 1);
     CHECK(buffer[0] == 'W');
   }
 
@@ -928,9 +918,7 @@ TEST_CASE("FixString copy", "[core][fixstring]") {
     constexpr FixString<16> testString("Hello World");
     char buffer[16] = {0};
 
-    const auto copied = testString.copy(buffer, 1, 10);
-
-    CHECK(copied == 1);
+    CHECK(testString.copy(buffer, 1, 10) == 1);
     CHECK(buffer[0] == 'd');
   }
 
@@ -938,27 +926,21 @@ TEST_CASE("FixString copy", "[core][fixstring]") {
     constexpr FixString<16> testString("Hello World");
     char buffer[16] = {0};
 
-    const auto copied = testString.copy(buffer, 0);
-
-    CHECK(copied == 0);
+    CHECK(testString.copy(buffer, 0) == 0);
   }
 
   SECTION("Copy from empty string") {
     constexpr FixString<16> testString("");
     char buffer[16] = {0};
 
-    const auto copied = testString.copy(buffer, 5);
-
-    CHECK(copied == 0);
+    CHECK(testString.copy(buffer, 5) == 0);
   }
 
   SECTION("Copy to small buffer") {
     constexpr FixString<16> testString("Hello World");
     char buffer[3] = {0};
 
-    const auto copied = testString.copy(buffer, 2);
-
-    CHECK(copied == 2);
+    CHECK(testString.copy(buffer, 2) == 2);
     CHECK(strncmp(buffer, "He", 2) == 0);
   }
 
@@ -966,18 +948,14 @@ TEST_CASE("FixString copy", "[core][fixstring]") {
     constexpr FixString<16> testString("Hello World");
     char buffer[16] = {0};
 
-    const auto copied = testString.copy(buffer, 5, 11);
-
-    CHECK(copied == 0);
+    CHECK(testString.copy(buffer, 5, 11) == 0);
   }
 
   SECTION("Copy with npos from middle") {
     constexpr FixString<16> testString("Hello World");
     char buffer[16] = {0};
 
-    const auto copied = testString.copy(buffer, FixString<16>::npos, 6);
-
-    CHECK(copied == 5);
+    CHECK(testString.copy(buffer, FixString<16>::npos, 6) == 5);
     CHECK(strncmp(buffer, "World", 5) == 0);
   }
 
@@ -985,9 +963,7 @@ TEST_CASE("FixString copy", "[core][fixstring]") {
     constexpr FixString<16> testString("Hello World");
     char buffer[16] = {0};
 
-    const auto copied = testString.copy(buffer, 5, 6);
-
-    CHECK(copied == 5);
+    CHECK(testString.copy(buffer, 5, 6) == 5);
     CHECK(strncmp(buffer, "World", 5) == 0);
   }
 
@@ -995,9 +971,7 @@ TEST_CASE("FixString copy", "[core][fixstring]") {
     constexpr FixString<16> testString("Hi");
     char buffer[16] = {0};
 
-    const auto copied = testString.copy(buffer, 10);
-
-    CHECK(copied == 2);
+    CHECK(testString.copy(buffer, 10) == 2);
     CHECK(strncmp(buffer, "Hi", 2) == 0);
   }
 }
@@ -1116,7 +1090,7 @@ TEST_CASE("FixString swap", "[core][fixstring]") {
 
 TEST_CASE("FixString find", "[core][fixstring]") {
   SECTION("Find FixString substring") {
-    constexpr auto testString = FixString<32>("Hello World");
+    constexpr FixString<32> testString("Hello World");
 
     CHECK(testString.find(FixString<16>("World")) == 6);
     CHECK(testString.find(FixString<16>("Hello")) == 0);
@@ -1265,7 +1239,7 @@ TEST_CASE("FixString find", "[core][fixstring]") {
 
 TEST_CASE("FixString rfind", "[core][fixstring]") {
   SECTION("Rfind FixString substring") {
-    constexpr auto testString = FixString<32>("Hello World Hello");
+    constexpr FixString<32> testString("Hello World Hello");
 
     CHECK(testString.rfind(FixString<16>("Hello")) == 12);
     CHECK(testString.rfind(FixString<16>("World")) == 6);
@@ -1438,7 +1412,7 @@ TEST_CASE("FixString rfind", "[core][fixstring]") {
 
 TEST_CASE("FixString find_first_of", "[core][fixstring]") {
   SECTION("Find first of FixString characters") {
-    constexpr auto testString = FixString<32>("Hello World");
+    constexpr FixString<32> testString("Hello World");
 
     CHECK(testString.find_first_of(FixString<16>("aeiou")) == 1); // 'e' at position 1
     CHECK(testString.find_first_of(FixString<16>("H")) == 0);
@@ -1605,7 +1579,7 @@ TEST_CASE("FixString find_first_of", "[core][fixstring]") {
 
 TEST_CASE("FixString find_first_not_of", "[core][fixstring]") {
   SECTION("Find first not of FixString characters") {
-    constexpr auto testString = FixString<32>("Hello World");
+    constexpr FixString<32> testString("Hello World");
 
     CHECK(testString.find_first_not_of(FixString<16>("H")) == 1); // 'e' at position 1
     CHECK(testString.find_first_not_of(FixString<16>("Hel")) == 4); // 'o' at position 4
@@ -1789,7 +1763,7 @@ TEST_CASE("FixString find_first_not_of", "[core][fixstring]") {
 
 TEST_CASE("FixString find_last_of", "[core][fixstring]") {
   SECTION("Find last of FixString characters") {
-    constexpr auto testString = FixString<32>("Hello World");
+    constexpr FixString<32> testString("Hello World");
 
     CHECK(testString.find_last_of(FixString<16>("aeiou")) == 7); // 'o' at position 7
     CHECK(testString.find_last_of(FixString<16>("l")) == 9); // 'l' at position 9
@@ -1945,7 +1919,7 @@ TEST_CASE("FixString find_last_of", "[core][fixstring]") {
 
 TEST_CASE("FixString find_last_not_of", "[core][fixstring]") {
   SECTION("Find last not of FixString characters") {
-    constexpr auto testString = FixString<32>("Hello World");
+    constexpr FixString<32> testString("Hello World");
 
     CHECK(testString.find_last_not_of(FixString<16>("d")) == 9); // 'l' at position 9
     CHECK(testString.find_last_not_of(FixString<16>("ld")) == 8); // 'r' at position 8
