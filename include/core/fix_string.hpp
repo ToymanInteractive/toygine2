@@ -41,12 +41,12 @@ namespace toygine {
 
   \section features Key Features
 
-  - **Zero Dynamic Allocation**: All memory is allocated on the stack at compile time
-  - **constexpr Support**: Most operations can be evaluated at compile time
-  - **Exception Safety**: All operations are noexcept
-  - **STL Compatibility**: Provides std::string-like interface
-  - **UTF-8 Support**: Built-in UTF-8 character counting and manipulation
-  - **Template Metaprogramming**: Uses C++20 concepts for type safety
+  - ⚙️ **Zero Dynamic Allocation**: All memory is allocated on the stack at compile time
+  - 🔧 **constexpr Support**: Most operations can be evaluated at compile time
+  - 🛡️ **Exception Safety**: All operations are noexcept
+  - 🔗 **STL Compatibility**: Provides std::string-like interface
+  - 🌍 **UTF-8 Support**: Built-in UTF-8 character counting and manipulation
+  - 🧬 **Template Metaprogramming**: Uses C++20 concepts for type safety
 
   \section usage Usage Example
 
@@ -67,28 +67,28 @@ namespace toygine {
 
   \section performance Performance Characteristics
 
-  - **Construction**: O(n) where n is the length of the source string
-  - **Assignment**: O(n) where n is the length of the source string
-  - **Concatenation**: O(n) where n is the length of the appended string
-  - **Search Operations**: O(n*m) where n is the string length and m is the pattern length
-  - **Memory Usage**: Fixed at compile time, no heap allocation
-  - **Cache Performance**: Excellent due to stack allocation and contiguous memory layout
-  - **Copy Performance**: Fast due to memcpy/memmove optimizations
-  - **String Operations**: Optimized for common cases (single character, empty strings)
+  - ⚙️ **Construction**: O(n) where n is the length of the source string
+  - 📝 **Assignment**: O(n) where n is the length of the source string
+  - 🔗 **Concatenation**: O(n) where n is the length of the appended string
+  - 🔍 **Search Operations**: O(n*m) where n is the string length and m is the pattern length
+  - 💾 **Memory Usage**: Fixed at compile time, no heap allocation
+  - ⚡ **Cache Performance**: Excellent due to stack allocation and contiguous memory layout
+  - 📋 **Copy Performance**: Fast due to memcpy/memmove optimizations
+  - 🎯 **String Operations**: Optimized for common cases (single character, empty strings)
 
   \section safety Safety Guarantees
 
-  - **Buffer Overflow Protection**: All operations check bounds and capacity
-  - **Null Pointer Safety**: All C-string operations validate pointers
-  - **Type Safety**: Template parameters and concepts prevent invalid usage
-  - **Exception Safety**: All operations are noexcept, no exceptions thrown
+  - 🛡️ **Buffer Overflow Protection**: All operations check bounds and capacity
+  - 🔒 **Null Pointer Safety**: All C-string operations validate pointers
+  - 📐 **Type Safety**: Template parameters and concepts prevent invalid usage
+  - ⚠️ **Exception Safety**: All operations are noexcept, no exceptions thrown
 
   \section compatibility Compatibility
 
-  - **C++23**: Requires C++23 or later for full functionality
-  - **STL Integration**: Compatible with STL algorithms and containers
-  - **Cross-Platform**: Works on all platforms supported by the compiler
-  - **Embedded Systems**: Suitable for resource-constrained environments
+  - 🆕 **C++23**: Requires C++23 or later for full functionality
+  - 🔗 **STL Integration**: Compatible with STL algorithms and containers
+  - 🌐 **Cross-Platform**: Works on all platforms supported by the compiler
+  - 🔧 **Embedded Systems**: Suitable for resource-constrained environments
 
   \note The internal buffer size is allocatedSize, but the maximum string length is allocatedSize - 1 to account for the
         null terminator.
