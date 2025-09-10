@@ -157,7 +157,7 @@ public:
 
     \post The new string is created with the contents of the source C \a string.
   */
-  constexpr explicit inline FixString(const char * string) noexcept;
+  constexpr inline FixString(const char * string) noexcept;
 
   /*!
     \brief Constructs a string of the given \a count of \a character.
@@ -174,7 +174,7 @@ public:
 
     \note This is useful for creating strings with repeated patterns or filling strings with specific characters.
   */
-  constexpr inline explicit FixString(char character, std::size_t count = 1) noexcept;
+  constexpr inline FixString(char character, std::size_t count = 1) noexcept;
 
   /*!
     \brief Copy assigns other \a string to this string.
