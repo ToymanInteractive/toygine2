@@ -28,13 +28,13 @@
 namespace toygine {
 template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize>::FixString() noexcept
-  : _size(0)
-  , _data{'\0'} {}
+  : _data{'\0'}
+  , _size(0) {}
 
 template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize>::FixString(const FixString<allocatedSize> & string) noexcept
-  : _size(string.size())
-  , _data{} {
+  : _data{}
+  , _size(string.size()) {
   if consteval {
     std::copy_n(string.data(), _size + 1, _data);
   } else {
@@ -45,8 +45,8 @@ constexpr inline FixString<allocatedSize>::FixString(const FixString<allocatedSi
 template <std::size_t allocatedSize>
 template <StringLike stringType>
 constexpr inline FixString<allocatedSize>::FixString(const stringType & string) noexcept
-  : _size(string.size())
-  , _data{} {
+  : _data{}
+  , _size(string.size()) {
   assert_message(_size < allocatedSize, "String size must not exceed capacity");
 
   if consteval {
@@ -58,8 +58,8 @@ constexpr inline FixString<allocatedSize>::FixString(const stringType & string) 
 
 template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize>::FixString(const char * string) noexcept
-  : _size(0)
-  , _data{} {
+  : _data{}
+  , _size(0) {
   assert_message(string != nullptr, "String pointer must not be null");
 
   if consteval {
@@ -79,8 +79,8 @@ constexpr inline FixString<allocatedSize>::FixString(const char * string) noexce
 
 template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize>::FixString(char character, std::size_t count) noexcept
-  : _size(count)
-  , _data{} {
+  : _data{}
+  , _size(count) {
   assert_message(count < allocatedSize, "Count must not exceed capacity");
 
   if consteval {
@@ -1307,15 +1307,13 @@ constexpr inline std::size_t FixString<allocatedSize>::_find_last_not_of_raw(std
   return npos;
 }
 
-constexpr inline int cstrcmp(const char * lhs, const char * rhs) noexcept {
-  while (*lhs && (*lhs == *rhs)) {
+[[nodiscard]] constexpr inline int cstrcmp(const char * lhs, const char * rhs) noexcept {
+  while (*lhs && (static_cast<unsigned char>(*lhs) == static_cast<unsigned char>(*rhs))) {
     ++lhs;
     ++rhs;
   }
 
-  if (*lhs == *rhs)
-    return 0;
-  return (*lhs < *rhs) ? -1 : 1;
+  return static_cast<unsigned char>(*lhs) - static_cast<unsigned char>(*rhs);
 }
 
 } // namespace toygine

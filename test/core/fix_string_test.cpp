@@ -287,7 +287,7 @@ TEST_CASE("FixString front and back", "[core][fixstring]") {
   SECTION("Const references") {
     constexpr FixString<32> testString("Hello World");
 
-    // Get constexpr references
+    // Get const references
     const auto & frontRef = testString.front();
     const auto & backRef = testString.back();
 
