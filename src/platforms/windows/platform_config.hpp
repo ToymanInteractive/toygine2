@@ -51,22 +51,22 @@
 #define __FUNC_SIGNATURE__ __func__
 #endif
 
-#define assert(x)                                                                                                      \
-  if (!(x))                                                                                                            \
-    toygine::assertion::assertion(#x, nullptr, __FILE__, __FUNC_SIGNATURE__, __LINE__);                                \
+#define assert(condition)                                                                                              \
+  if (!(condition)) [[unlikely]]                                                                                       \
+    toygine::assertion::assertion(#condition, nullptr, __FILE__, __FUNC_SIGNATURE__, __LINE__);                        \
   else                                                                                                                 \
     ((void)0);
 
-#define assert_message(x, message)                                                                                     \
-  if (!(x))                                                                                                            \
-    toygine::assertion::assertion(#x, message, __FILE__, __FUNC_SIGNATURE__, __LINE__);                                \
+#define assert_message(condition, message)                                                                             \
+  if (!(condition)) [[unlikely]]                                                                                       \
+    toygine::assertion::assertion(#condition, message, __FILE__, __FUNC_SIGNATURE__, __LINE__);                        \
   else                                                                                                                 \
     ((void)0);
 
 #else // _DEBUG
 
-#define assert(x) ((void)0);
-#define assert_message(x, message) ((void)0);
+#define assert(condition) ((void)0);
+#define assert_message(condition, message) ((void)0);
 
 #endif // _DEBUG
 
