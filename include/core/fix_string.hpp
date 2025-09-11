@@ -143,7 +143,7 @@ public:
     \post The new string is created with the contents of the source StringLike object.
   */
   template <StringLike stringType>
-  constexpr inline explicit FixString(const stringType & string) noexcept;
+  constexpr inline FixString(const stringType & string) noexcept;
 
   /*!
     \brief Constructs a string initialized with the C \a string.

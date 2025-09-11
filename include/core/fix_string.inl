@@ -97,12 +97,8 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator=(
   if (this == &string)
     return *this;
 
-  _size = string.size();
-  if consteval {
-    std::copy_n(string.data(), _size + 1, _data);
-  } else {
-    std::memcpy(_data, string.data(), _size + 1);
-  }
+  _size = string._size;
+  std::memcpy(_data, string._data, _size + 1);
 
   return *this;
 }
