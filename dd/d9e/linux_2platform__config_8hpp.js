@@ -1,5 +1,5 @@
 var linux_2platform__config_8hpp =
 [
-    [ "assert", "dd/d9e/linux_2platform__config_8hpp.html#af576bf8ffa22a44e53018c67095ffbf0", null ],
-    [ "assert_message", "dd/d9e/linux_2platform__config_8hpp.html#ae03d9a55f6cbc55ebd9d6b25c2e8889c", null ]
+    [ "assert", "dd/d9e/linux_2platform__config_8hpp.html#acdcc5aaebf3f273c1762f24a6ece2e5e", null ],
+    [ "assert_message", "dd/d9e/linux_2platform__config_8hpp.html#acee011a673448baf706197935ace44c7", null ]
 ];
