@@ -194,6 +194,7 @@ inline void assertion(const char * TOY_UNUSED(code), const char * TOY_UNUSED(mes
 
 } // namespace toygine
 
+#include "core/constexpr_utils.hpp"
 #include "core/fix_string.hpp"
 #include "core/utils.hpp"
 

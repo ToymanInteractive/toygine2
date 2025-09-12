@@ -2098,30 +2098,6 @@ template <std::size_t allocatedSize>
 template <std::size_t allocatedSize>
 [[nodiscard]] constexpr inline bool operator==(const char * lhs, const FixString<allocatedSize> & rhs) noexcept;
 
-/*!
-  \brief Compares two C strings lexicographically.
-
-  This function performs a lexicographic comparison between two C strings. The comparison is performed character by
-  character using the character's numeric value. This function is designed to be constexpr-compatible and provides the
-  same behavior as std::strcmp but can be evaluated at compile time.
-
-  \param lhs The left-hand side C string to compare.
-  \param rhs The right-hand side C string to compare.
-
-  \return A negative value if \a lhs is lexicographically less than \a rhs, zero if they are equal,
-          or a positive value if \a lhs is lexicographically greater than \a rhs.
-
-  \pre The \a lhs pointer must not be null.
-  \pre The \a rhs pointer must not be null.
-
-  \note The comparison is case-sensitive.
-  \note The comparison stops at the first character that differs between the strings.
-  \note If one string is a prefix of another, the shorter string is considered lexicographically smaller.
-
-  \see std::strcmp
-*/
-[[nodiscard]] constexpr inline int cstrcmp(const char * lhs, const char * rhs) noexcept;
-
 } // namespace toygine
 
 #endif // INCLUDE_CORE_FIX_STRING_HPP_
