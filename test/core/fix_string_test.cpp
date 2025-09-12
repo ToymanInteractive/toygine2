@@ -120,19 +120,16 @@ TEST_CASE("FixString constructors", "[core][fixstring]") {
   }
 
   SECTION("StringLike constructor") {
-    constexpr std::string stdStr("StringLike");
-    constexpr FixString<16> fromStd(stdStr);
-    constexpr FixString<32> fromFix(fromStd);
+    std::string stdStr("StringLike");
+    FixString<16> fromStd(stdStr);
+    FixString<32> fromFix(fromStd);
 
     REQUIRE(fromStd.size() == 10);
     REQUIRE(strcmp(fromStd.c_str(), "StringLike") == 0);
     REQUIRE(fromFix.size() == 10);
     REQUIRE(strcmp(fromFix.c_str(), "StringLike") == 0);
 
-    STATIC_REQUIRE(fromStd.size() == 10);
-    STATIC_REQUIRE(cstrcmp(fromStd.c_str(), "StringLike") == 0);
-    STATIC_REQUIRE(fromFix.size() == 10);
-    STATIC_REQUIRE(cstrcmp(fromFix.c_str(), "StringLike") == 0);
+    // std::string can't be a constant expression
   }
 
   SECTION("Edge cases") {
