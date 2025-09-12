@@ -26,6 +26,7 @@
 #define INCLUDE_CORE_FIX_STRING_INL_
 
 namespace toygine {
+
 template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize>::FixString() noexcept
   : _data{'\0'}
@@ -1361,15 +1362,6 @@ template <std::size_t allocatedSize>
 template <std::size_t allocatedSize>
 [[nodiscard]] constexpr inline bool operator==(const char * lhs, const FixString<allocatedSize> & rhs) noexcept {
   return rhs == lhs;
-}
-
-[[nodiscard]] constexpr inline int cstrcmp(const char * lhs, const char * rhs) noexcept {
-  while (*lhs && (static_cast<unsigned char>(*lhs) == static_cast<unsigned char>(*rhs))) {
-    ++lhs;
-    ++rhs;
-  }
-
-  return static_cast<unsigned char>(*lhs) - static_cast<unsigned char>(*rhs);
 }
 
 } // namespace toygine

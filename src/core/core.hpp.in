@@ -194,11 +194,13 @@ inline void assertion(const char * TOY_UNUSED(code), const char * TOY_UNUSED(mes
 
 } // namespace toygine
 
+#include "core/constexpr_utils.hpp"
 #include "core/fix_string.hpp"
 #include "core/utils.hpp"
 
 //----------------------------------------------------------------------------------------------------------------------
 
+#include "core/constexpr_utils.inl"
 #include "core/fix_string.inl"
 #include "core/utils.inl"
 

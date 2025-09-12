@@ -20,7 +20,7 @@
 
 cmake_minimum_required(VERSION 3.31.0 FATAL_ERROR)
 
-project(ToyGine2 LANGUAGES CXX VERSION 1.2.3 HOMEPAGE_URL https://github.com/ToymanInteractive/toygine2)
+project(ToyGine2 LANGUAGES CXX VERSION 0.0.1 HOMEPAGE_URL https://github.com/ToymanInteractive/toygine2)
 
 set(TOYGINE_LIBRARY_NAME toygine)
 set(TOYGINE_SOURCE_PATH ${CMAKE_CURRENT_SOURCE_DIR})
@@ -81,9 +81,9 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/core/core.hpp.in ${CMAKE_CURRENT_
 
 #-------------------------------------------------------------------------------------------
 
-set(SRC_CORE_LIST                                              src/core/utils.cpp     src/core/utils_internal.inl)
-set(HDR_CORE_LIST include/core.hpp include/core/fix_string.hpp include/core/utils.hpp)
-set(INL_CORE_LIST                  include/core/fix_string.inl include/core/utils.inl)
+set(SRC_CORE_LIST                                                                               src/core/utils.cpp     src/core/utils_internal.inl)
+set(HDR_CORE_LIST include/core.hpp include/core/constexpr_utils.hpp include/core/fix_string.hpp include/core/utils.hpp)
+set(INL_CORE_LIST                  include/core/constexpr_utils.inl include/core/fix_string.inl include/core/utils.inl)
 
 source_group("Core" FILES ${SRC_CORE_LIST} ${HDR_CORE_LIST} ${INL_CORE_LIST})
 
