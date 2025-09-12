@@ -25,29 +25,179 @@
 using namespace toygine;
 
 TEST_CASE("FixString constructors", "[core][fixstring]") {
-  constexpr FixString<12> testString1;
-  constexpr FixString<12> testString2("test text");
-  constexpr FixString<12> testString3(testString2);
-  constexpr FixString<24> testString4(testString3);
-  constexpr FixString<18> testString5(testString4);
-  constexpr FixString<11> testString6('t', 9);
+  SECTION("Default constructor") {
+    constexpr FixString<32> emptyStr;
 
-  SECTION("Compile time") {
-    STATIC_REQUIRE(cstrcmp(testString1.c_str(), "") == 0);
-    STATIC_REQUIRE(cstrcmp(testString2.c_str(), "test text") == 0);
-    STATIC_REQUIRE(cstrcmp(testString3.c_str(), "test text") == 0);
-    STATIC_REQUIRE(cstrcmp(testString4.c_str(), "test text") == 0);
-    STATIC_REQUIRE(cstrcmp(testString5.c_str(), "test text") == 0);
-    STATIC_REQUIRE(cstrcmp(testString6.c_str(), "ttttttttt") == 0);
+    REQUIRE(emptyStr.size() == 0);
+    REQUIRE(strcmp(emptyStr.c_str(), "") == 0);
+    REQUIRE(emptyStr.capacity() == 31);
+    REQUIRE(emptyStr.max_size() == 31);
+
+    STATIC_REQUIRE(emptyStr.size() == 0);
+    STATIC_REQUIRE(cstrcmp(emptyStr.c_str(), "") == 0);
+    STATIC_REQUIRE(emptyStr.capacity() == 31);
+    STATIC_REQUIRE(emptyStr.max_size() == 31);
   }
 
-  SECTION("Run time") {
-    REQUIRE(strcmp(testString1.c_str(), "") == 0);
-    REQUIRE(strcmp(testString2.c_str(), "test text") == 0);
-    REQUIRE(strcmp(testString3.c_str(), "test text") == 0);
-    REQUIRE(strcmp(testString4.c_str(), "test text") == 0);
-    REQUIRE(strcmp(testString5.c_str(), "test text") == 0);
-    REQUIRE(strcmp(testString6.c_str(), "ttttttttt") == 0);
+  SECTION("C string constructor") {
+    constexpr FixString<16> str1("Hello");
+    constexpr FixString<32> str2("World");
+    constexpr FixString<8> str3("Test");
+    constexpr FixString<64> str4("This is a longer string for testing");
+
+    REQUIRE(str1.size() == 5);
+    REQUIRE(strcmp(str1.c_str(), "Hello") == 0);
+    REQUIRE(str2.size() == 5);
+    REQUIRE(strcmp(str2.c_str(), "World") == 0);
+    REQUIRE(str3.size() == 4);
+    REQUIRE(strcmp(str3.c_str(), "Test") == 0);
+    REQUIRE(str4.size() == 35);
+    REQUIRE(strcmp(str4.c_str(), "This is a longer string for testing") == 0);
+
+    STATIC_REQUIRE(str1.size() == 5);
+    STATIC_REQUIRE(cstrcmp(str1.c_str(), "Hello") == 0);
+    STATIC_REQUIRE(str2.size() == 5);
+    STATIC_REQUIRE(cstrcmp(str2.c_str(), "World") == 0);
+    STATIC_REQUIRE(str3.size() == 4);
+    STATIC_REQUIRE(cstrcmp(str3.c_str(), "Test") == 0);
+    STATIC_REQUIRE(str4.size() == 35);
+    STATIC_REQUIRE(cstrcmp(str4.c_str(), "This is a longer string for testing") == 0);
+  }
+
+  SECTION("Copy constructor") {
+    constexpr FixString<16> original("CopyTest");
+    constexpr FixString<16> copy1(original);
+    constexpr FixString<32> copy2(original);
+    constexpr FixString<12> copy3(original);
+
+    REQUIRE(copy1.size() == 8);
+    REQUIRE(strcmp(copy1.c_str(), "CopyTest") == 0);
+    REQUIRE(copy2.size() == 8);
+    REQUIRE(strcmp(copy2.c_str(), "CopyTest") == 0);
+    REQUIRE(copy3.size() == 8);
+    REQUIRE(strcmp(copy3.c_str(), "CopyTest") == 0);
+
+    STATIC_REQUIRE(copy1.size() == 8);
+    STATIC_REQUIRE(cstrcmp(copy1.c_str(), "CopyTest") == 0);
+    STATIC_REQUIRE(copy2.size() == 8);
+    STATIC_REQUIRE(cstrcmp(copy2.c_str(), "CopyTest") == 0);
+    STATIC_REQUIRE(copy3.size() == 8);
+    STATIC_REQUIRE(cstrcmp(copy3.c_str(), "CopyTest") == 0);
+
+    // Verify independence
+    REQUIRE(copy1 == original);
+    REQUIRE(copy2 == original);
+    REQUIRE(copy3 == original);
+
+    STATIC_REQUIRE(copy1 == original);
+    STATIC_REQUIRE(copy2 == original);
+    STATIC_REQUIRE(copy3 == original);
+  }
+
+  SECTION("Character constructor") {
+    constexpr FixString<16> single('A');
+    constexpr FixString<32> multiple('B', 5);
+    constexpr FixString<8> many('C', 7);
+    constexpr FixString<64> empty('D', 0);
+
+    REQUIRE(single.size() == 1);
+    REQUIRE(strcmp(single.c_str(), "A") == 0);
+    REQUIRE(multiple.size() == 5);
+    REQUIRE(strcmp(multiple.c_str(), "BBBBB") == 0);
+    REQUIRE(many.size() == 7);
+    REQUIRE(strcmp(many.c_str(), "CCCCCCC") == 0);
+    REQUIRE(empty.size() == 0);
+    REQUIRE(strcmp(empty.c_str(), "") == 0);
+
+    STATIC_REQUIRE(single.size() == 1);
+    STATIC_REQUIRE(cstrcmp(single.c_str(), "A") == 0);
+    STATIC_REQUIRE(multiple.size() == 5);
+    STATIC_REQUIRE(cstrcmp(multiple.c_str(), "BBBBB") == 0);
+    STATIC_REQUIRE(many.size() == 7);
+    STATIC_REQUIRE(cstrcmp(many.c_str(), "CCCCCCC") == 0);
+    STATIC_REQUIRE(empty.size() == 0);
+    STATIC_REQUIRE(cstrcmp(empty.c_str(), "") == 0);
+  }
+
+  SECTION("StringLike constructor") {
+    constexpr std::string stdStr("StringLike");
+    constexpr FixString<16> fromStd(stdStr);
+    constexpr FixString<32> fromFix(fromStd);
+
+    REQUIRE(fromStd.size() == 10);
+    REQUIRE(strcmp(fromStd.c_str(), "StringLike") == 0);
+    REQUIRE(fromFix.size() == 10);
+    REQUIRE(strcmp(fromFix.c_str(), "StringLike") == 0);
+
+    STATIC_REQUIRE(fromStd.size() == 10);
+    STATIC_REQUIRE(cstrcmp(fromStd.c_str(), "StringLike") == 0);
+    STATIC_REQUIRE(fromFix.size() == 10);
+    STATIC_REQUIRE(cstrcmp(fromFix.c_str(), "StringLike") == 0);
+  }
+
+  SECTION("Edge cases") {
+    // Empty string
+    constexpr FixString<16> empty1("");
+    constexpr FixString<32> empty2("");
+
+    REQUIRE(empty1.size() == 0);
+    REQUIRE(empty2.size() == 0);
+
+    STATIC_REQUIRE(empty1.size() == 0);
+    STATIC_REQUIRE(empty2.size() == 0);
+
+    // Single character
+    constexpr FixString<8> single("X");
+
+    REQUIRE(single.size() == 1);
+    REQUIRE(strcmp(single.c_str(), "X") == 0);
+
+    STATIC_REQUIRE(single.size() == 1);
+    STATIC_REQUIRE(cstrcmp(single.c_str(), "X") == 0);
+
+    // Maximum length
+    constexpr FixString<5> maxLen("Test");
+
+    REQUIRE(maxLen.size() == 4);
+    REQUIRE(strcmp(maxLen.c_str(), "Test") == 0);
+
+    STATIC_REQUIRE(maxLen.size() == 4);
+    STATIC_REQUIRE(cstrcmp(maxLen.c_str(), "Test") == 0);
+  }
+
+  SECTION("Special characters") {
+    constexpr FixString<32> newline("Line1\nLine2");
+    constexpr FixString<32> tab("Col1\tCol2");
+    constexpr FixString<32> mixed("Mix\t\nEnd");
+
+    REQUIRE(newline.size() == 11);
+    REQUIRE(strcmp(newline.c_str(), "Line1\nLine2") == 0);
+    REQUIRE(tab.size() == 9);
+    REQUIRE(strcmp(tab.c_str(), "Col1\tCol2") == 0);
+    REQUIRE(mixed.size() == 8);
+    REQUIRE(strcmp(mixed.c_str(), "Mix\t\nEnd") == 0);
+
+    STATIC_REQUIRE(newline.size() == 11);
+    STATIC_REQUIRE(cstrcmp(newline.c_str(), "Line1\nLine2") == 0);
+    STATIC_REQUIRE(tab.size() == 9);
+    STATIC_REQUIRE(cstrcmp(tab.c_str(), "Col1\tCol2") == 0);
+    STATIC_REQUIRE(mixed.size() == 8);
+    STATIC_REQUIRE(cstrcmp(mixed.c_str(), "Mix\t\nEnd") == 0);
+  }
+
+  SECTION("Unicode content") {
+    constexpr FixString<64> unicode("Привет мир");
+    constexpr FixString<32> emoji("Hello 🌍");
+
+    REQUIRE(unicode.size() == 19); // UTF-8 bytes
+    REQUIRE(strcmp(unicode.c_str(), "Привет мир") == 0);
+    REQUIRE(emoji.size() == 10); // UTF-8 bytes
+    REQUIRE(strcmp(emoji.c_str(), "Hello 🌍") == 0);
+
+    STATIC_REQUIRE(unicode.size() == 19);
+    STATIC_REQUIRE(cstrcmp(unicode.c_str(), "Привет мир") == 0);
+    STATIC_REQUIRE(emoji.size() == 10);
+    STATIC_REQUIRE(cstrcmp(emoji.c_str(), "Hello 🌍") == 0);
   }
 }
 
@@ -3239,4 +3389,209 @@ TEST_CASE("FixString operators+", "[core][fixstring]") {
 
   REQUIRE(strcmp(testString7.c_str(), "abcabc") == 0);
   REQUIRE(testString7.size() == 6);
+}
+
+// after refactor
+
+TEST_CASE("FixString operator==", "[core][fixstring]") {
+  SECTION("FixString == FixString") {
+    constexpr FixString<16> str1("Hello");
+    constexpr FixString<32> str2("Hello");
+    constexpr FixString<16> str3("World");
+    constexpr FixString<8> str4("Hello");
+    constexpr FixString<16> empty1;
+    constexpr FixString<32> empty2;
+
+    REQUIRE(str1 == str2);
+    REQUIRE(str2 == str1);
+    REQUIRE(str1 == str4);
+    REQUIRE(str4 == str1);
+    REQUIRE(!(str1 == str3));
+    REQUIRE(!(str3 == str1));
+    REQUIRE(empty1 == empty2);
+    REQUIRE(empty2 == empty1);
+    REQUIRE(!(str1 == empty1));
+    REQUIRE(!(empty1 == str1));
+
+    STATIC_REQUIRE(str1 == str2);
+    STATIC_REQUIRE(str2 == str1);
+    STATIC_REQUIRE(str1 == str4);
+    STATIC_REQUIRE(str4 == str1);
+    STATIC_REQUIRE(!(str1 == str3));
+    STATIC_REQUIRE(!(str3 == str1));
+    STATIC_REQUIRE(empty1 == empty2);
+    STATIC_REQUIRE(empty2 == empty1);
+    STATIC_REQUIRE(!(str1 == empty1));
+    STATIC_REQUIRE(!(empty1 == str1));
+  }
+
+  SECTION("FixString == StringLike") {
+    constexpr FixString<16> str1("Hello");
+    constexpr std::string str2("Hello");
+    constexpr std::string str3("World");
+    constexpr std::string empty;
+
+    REQUIRE(str1 == str2);
+    REQUIRE(str2 == str1);
+    REQUIRE(!(str1 == str3));
+    REQUIRE(!(str3 == str1));
+    REQUIRE(!(str1 == empty));
+    REQUIRE(!(empty == str1));
+
+    STATIC_REQUIRE(str1 == str2);
+    STATIC_REQUIRE(str2 == str1);
+    STATIC_REQUIRE(!(str1 == str3));
+    STATIC_REQUIRE(!(str3 == str1));
+    STATIC_REQUIRE(!(str1 == empty));
+    STATIC_REQUIRE(!(empty == str1));
+  }
+
+  SECTION("FixString == C string") {
+    constexpr FixString<16> str1("Hello");
+    constexpr FixString<16> empty;
+
+    REQUIRE(str1 == "Hello");
+    REQUIRE("Hello" == str1);
+    REQUIRE(!(str1 == "World"));
+    REQUIRE(!("World" == str1));
+    REQUIRE(empty == "");
+    REQUIRE("" == empty);
+    REQUIRE(!(str1 == ""));
+    REQUIRE(!("" == str1));
+
+    STATIC_REQUIRE(str1 == "Hello");
+    STATIC_REQUIRE("Hello" == str1);
+    STATIC_REQUIRE(!(str1 == "World"));
+    STATIC_REQUIRE(!("World" == str1));
+    STATIC_REQUIRE(empty == "");
+    STATIC_REQUIRE("" == empty);
+    STATIC_REQUIRE(!(str1 == ""));
+    STATIC_REQUIRE(!("" == str1));
+  }
+
+  SECTION("Edge cases") {
+    constexpr FixString<16> str1("A");
+    constexpr FixString<16> str2("B");
+    constexpr FixString<16> empty1;
+    constexpr FixString<32> empty2;
+
+    // Single character comparison
+    REQUIRE(str1 == "A");
+    REQUIRE("A" == str1);
+    REQUIRE(!(str1 == "B"));
+    REQUIRE(!("B" == str1));
+
+    STATIC_REQUIRE(str1 == "A");
+    STATIC_REQUIRE("A" == str1);
+    STATIC_REQUIRE(!(str1 == "B"));
+    STATIC_REQUIRE(!("B" == str1));
+
+    // Empty string comparisons
+    REQUIRE(empty1 == empty2);
+    REQUIRE(empty2 == empty1);
+    REQUIRE(empty1 == "");
+    REQUIRE("" == empty1);
+
+    STATIC_REQUIRE(empty1 == empty2);
+    STATIC_REQUIRE(empty2 == empty1);
+    STATIC_REQUIRE(empty1 == "");
+    STATIC_REQUIRE("" == empty1);
+
+    // Different sizes with same content
+    constexpr FixString<8> small("Hi");
+    constexpr FixString<16> large("Hi");
+
+    REQUIRE(small == large);
+    REQUIRE(large == small);
+
+    STATIC_REQUIRE(small == large);
+    STATIC_REQUIRE(large == small);
+  }
+
+  SECTION("Special characters") {
+    constexpr FixString<16> str1("Hello\nWorld");
+    constexpr FixString<16> str2("Hello\tWorld");
+    constexpr FixString<16> str3("Hello World");
+
+    REQUIRE(str1 == "Hello\nWorld");
+    REQUIRE("Hello\nWorld" == str1);
+    REQUIRE(str2 == "Hello\tWorld");
+    REQUIRE("Hello\tWorld" == str2);
+    REQUIRE(!(str1 == str2));
+    REQUIRE(!(str2 == str1));
+    REQUIRE(!(str1 == str3));
+    REQUIRE(!(str3 == str1));
+
+    STATIC_REQUIRE(str1 == "Hello\nWorld");
+    STATIC_REQUIRE("Hello\nWorld" == str1);
+    STATIC_REQUIRE(str2 == "Hello\tWorld");
+    STATIC_REQUIRE("Hello\tWorld" == str2);
+    STATIC_REQUIRE(!(str1 == str2));
+    STATIC_REQUIRE(!(str2 == str1));
+    STATIC_REQUIRE(!(str1 == str3));
+    STATIC_REQUIRE(!(str3 == str1));
+  }
+
+  SECTION("Unicode content") {
+    constexpr FixString<32> str1("Привет");
+    constexpr FixString<32> str2("Мир");
+    constexpr FixString<32> str3("Привет");
+
+    REQUIRE(str1 == "Привет");
+    REQUIRE("Привет" == str1);
+    REQUIRE(str1 == str3);
+    REQUIRE(str3 == str1);
+    REQUIRE(!(str1 == str2));
+    REQUIRE(!(str2 == str1));
+
+    STATIC_REQUIRE(str1 == "Привет");
+    STATIC_REQUIRE("Привет" == str1);
+    STATIC_REQUIRE(str1 == str3);
+    STATIC_REQUIRE(str3 == str1);
+    STATIC_REQUIRE(!(str1 == str2));
+    STATIC_REQUIRE(!(str2 == str1));
+  }
+
+  SECTION("Performance test") {
+    constexpr FixString<64> str1("This is a longer string for performance testing");
+    constexpr FixString<64> str2("This is a longer string for performance testing");
+    constexpr FixString<64> str3("This is a different string for performance testing");
+
+    REQUIRE(str1 == str2);
+    REQUIRE(str2 == str1);
+    REQUIRE(!(str1 == str3));
+    REQUIRE(!(str3 == str1));
+
+    STATIC_REQUIRE(str1 == str2);
+    STATIC_REQUIRE(str2 == str1);
+    STATIC_REQUIRE(!(str1 == str3));
+    STATIC_REQUIRE(!(str3 == str1));
+  }
+
+  SECTION("Constexpr operations") {
+    constexpr FixString<16> str1("Test");
+    constexpr FixString<16> str2("Test");
+    constexpr FixString<16> str3("Different");
+
+    constexpr bool eq1 = str1 == str2;
+    constexpr bool eq2 = str1 == str3;
+    constexpr bool eq3 = str1 == "Test";
+    constexpr bool eq4 = "Test" == str1;
+    constexpr bool eq5 = str1 == "Different";
+    constexpr bool eq6 = "Different" == str1;
+
+    REQUIRE(eq1);
+    REQUIRE(!eq2);
+    REQUIRE(eq3);
+    REQUIRE(eq4);
+    REQUIRE(!eq5);
+    REQUIRE(!eq6);
+
+    STATIC_REQUIRE(eq1);
+    STATIC_REQUIRE(!eq2);
+    STATIC_REQUIRE(eq3);
+    STATIC_REQUIRE(eq4);
+    STATIC_REQUIRE(!eq5);
+    STATIC_REQUIRE(!eq6);
+  }
 }
