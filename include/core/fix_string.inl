@@ -94,7 +94,7 @@ constexpr inline FixString<allocatedSize>::FixString(char character, std::size_t
 template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator=(
   const FixString<allocatedSize> & string) noexcept {
-  if (this == &string)
+  if (this == std::addressof(string))
     return *this;
 
   _size = string._size;
@@ -159,7 +159,7 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator=(
 template <std::size_t allocatedSize>
 constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::assign(
   const FixString<allocatedSize> & string) noexcept {
-  if (this == &string)
+  if (this == std::addressof(string))
     return *this;
 
   _size = string.size();
@@ -653,7 +653,7 @@ constexpr inline std::size_t FixString<allocatedSize>::copy(char * dest, std::si
 
 template <std::size_t allocatedSize>
 constexpr inline void FixString<allocatedSize>::swap(FixString<allocatedSize> & string) noexcept {
-  if (this == &string)
+  if (this == std::addressof(string))
     return;
 
   char tempData[allocatedSize];
@@ -1306,6 +1306,11 @@ constexpr inline std::size_t FixString<allocatedSize>::_find_last_not_of_raw(std
 template <std::size_t allocatedSize1, std::size_t allocatedSize2>
 [[nodiscard]] constexpr inline bool operator==(const FixString<allocatedSize1> & lhs,
                                                const FixString<allocatedSize2> & rhs) noexcept {
+  if constexpr (allocatedSize1 == allocatedSize2) {
+    if (std::addressof(lhs) == std::addressof(rhs))
+      return true;
+  }
+
   if (lhs.size() != rhs.size())
     return false;
   else if (lhs.empty())
@@ -1349,7 +1354,7 @@ template <std::size_t allocatedSize>
   if consteval {
     return lhs.size() == std::char_traits<char>::length(rhs) && std::equal(lhs.c_str(), lhs.c_str() + lhs.size(), rhs);
   } else {
-    return lhs.size() == std::strlen(rhs) && std::memcmp(lhs.c_str(), rhs, lhs.size()) == 0 && rhs[lhs.size()] == '\0';
+    return lhs.size() == std::strlen(rhs) && std::memcmp(lhs.c_str(), rhs, lhs.size()) == 0;
   }
 }
 
