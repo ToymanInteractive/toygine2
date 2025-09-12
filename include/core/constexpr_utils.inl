@@ -18,43 +18,24 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   utils.inl
-  \brief  Inline implementations of core utility functions for string manipulation and encoding conversion
+  \file   constexpr_utils.inl
+  \brief  Inline implementations for constexpr utility functions.
 */
 
-#ifndef INCLUDE_CORE_UTILS_INL_
-#define INCLUDE_CORE_UTILS_INL_
+#ifndef INCLUDE_CORE_CONSTEXPR_UTILS_INL_
+#define INCLUDE_CORE_CONSTEXPR_UTILS_INL_
 
 namespace toygine {
 
-constexpr wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, const char * const src) noexcept {
-  assert_message(src != nullptr, "The source must not be null.");
-
-  return src != nullptr ? utf8toWChar(dest, destSize, src, std::strlen(src)) : nullptr;
-}
-
-template <StringLike stringType>
-constexpr wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, const stringType & src) noexcept {
-  return utf8toWChar(dest, destSize, src.c_str(), src.size());
-}
-
-constexpr char * reverseString(char * string, std::size_t stringLength) noexcept {
-  assert_message(string != nullptr, "The source string must not be null.");
-  if (string == nullptr)
-    return nullptr;
-
-  if (stringLength == 0)
-    stringLength = std::strlen(string);
-
-  if (stringLength != 0) {
-    for (std::size_t i = 0, j = stringLength - 1; i < j; ++i, --j) {
-      std::swap(string[i], string[j]);
-    }
+[[nodiscard]] constexpr int cstrcmp(const char * lhs, const char * rhs) noexcept {
+  while (*lhs && (static_cast<unsigned char>(*lhs) == static_cast<unsigned char>(*rhs))) {
+    ++lhs;
+    ++rhs;
   }
 
-  return string;
+  return static_cast<unsigned char>(*lhs) - static_cast<unsigned char>(*rhs);
 }
 
 } // namespace toygine
 
-#endif // INCLUDE_CORE_UTILS_INL_
+#endif // INCLUDE_CORE_CONSTEXPR_UTILS_INL_

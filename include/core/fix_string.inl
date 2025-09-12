@@ -19,7 +19,7 @@
 //
 /*!
   \file   fix_string.inl
-  \brief  Inline implementations for FixString template class
+  \brief  Inline implementations for FixString template class.
 */
 
 #ifndef INCLUDE_CORE_FIX_STRING_INL_
@@ -28,12 +28,12 @@
 namespace toygine {
 
 template <std::size_t allocatedSize>
-constexpr inline FixString<allocatedSize>::FixString() noexcept
+constexpr FixString<allocatedSize>::FixString() noexcept
   : _data{'\0'}
   , _size(0) {}
 
 template <std::size_t allocatedSize>
-constexpr inline FixString<allocatedSize>::FixString(const FixString<allocatedSize> & string) noexcept
+constexpr FixString<allocatedSize>::FixString(const FixString<allocatedSize> & string) noexcept
   : _data{}
   , _size(string.size()) {
   if consteval {
@@ -45,7 +45,7 @@ constexpr inline FixString<allocatedSize>::FixString(const FixString<allocatedSi
 
 template <std::size_t allocatedSize>
 template <StringLike stringType>
-constexpr inline FixString<allocatedSize>::FixString(const stringType & string) noexcept
+constexpr FixString<allocatedSize>::FixString(const stringType & string) noexcept
   : _data{}
   , _size(string.size()) {
   assert_message(_size < allocatedSize, "String size must not exceed capacity");
@@ -58,7 +58,7 @@ constexpr inline FixString<allocatedSize>::FixString(const stringType & string) 
 }
 
 template <std::size_t allocatedSize>
-constexpr inline FixString<allocatedSize>::FixString(const char * string) noexcept
+constexpr FixString<allocatedSize>::FixString(const char * string) noexcept
   : _data{}
   , _size(0) {
   assert_message(string != nullptr, "String pointer must not be null");
@@ -79,7 +79,7 @@ constexpr inline FixString<allocatedSize>::FixString(const char * string) noexce
 }
 
 template <std::size_t allocatedSize>
-constexpr inline FixString<allocatedSize>::FixString(char character, std::size_t count) noexcept
+constexpr FixString<allocatedSize>::FixString(char character, std::size_t count) noexcept
   : _data{}
   , _size(count) {
   assert_message(count < allocatedSize, "Count must not exceed capacity");
@@ -93,7 +93,7 @@ constexpr inline FixString<allocatedSize>::FixString(char character, std::size_t
 }
 
 template <std::size_t allocatedSize>
-constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator=(
+constexpr FixString<allocatedSize> & FixString<allocatedSize>::operator=(
   const FixString<allocatedSize> & string) noexcept {
   if (this == std::addressof(string))
     return *this;
@@ -106,7 +106,7 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator=(
 
 template <std::size_t allocatedSize>
 template <StringLike stringType>
-constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator=(const stringType & string) noexcept {
+constexpr FixString<allocatedSize> & FixString<allocatedSize>::operator=(const stringType & string) noexcept {
   if (_data == string.c_str())
     return *this;
 
@@ -123,7 +123,7 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator=(
 }
 
 template <std::size_t allocatedSize>
-constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator=(const char * string) noexcept {
+constexpr FixString<allocatedSize> & FixString<allocatedSize>::operator=(const char * string) noexcept {
   if (_data == string)
     return *this;
 
@@ -147,7 +147,7 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator=(
 }
 
 template <std::size_t allocatedSize>
-constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator=(char character) noexcept {
+constexpr FixString<allocatedSize> & FixString<allocatedSize>::operator=(char character) noexcept {
   static_assert(allocatedSize > 1, "FixString capacity must be greater than one.");
 
   _size = 1;
@@ -158,7 +158,7 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator=(
 }
 
 template <std::size_t allocatedSize>
-constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::assign(
+constexpr FixString<allocatedSize> & FixString<allocatedSize>::assign(
   const FixString<allocatedSize> & string) noexcept {
   if (this == std::addressof(string))
     return *this;
@@ -175,7 +175,7 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::assign(
 
 template <std::size_t allocatedSize>
 template <StringLike stringType>
-constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::assign(const stringType & string) noexcept {
+constexpr FixString<allocatedSize> & FixString<allocatedSize>::assign(const stringType & string) noexcept {
   if (_data == string.c_str()) {
     assert_message(_size == string.size(), "Aliased assign requires matching sizes");
 
@@ -195,7 +195,7 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::assign(con
 }
 
 template <std::size_t allocatedSize>
-constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::assign(const char * string) noexcept {
+constexpr FixString<allocatedSize> & FixString<allocatedSize>::assign(const char * string) noexcept {
   if (_data == string)
     return *this;
 
@@ -219,8 +219,7 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::assign(con
 }
 
 template <std::size_t allocatedSize>
-constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::assign(char character,
-                                                                             std::size_t count) noexcept {
+constexpr FixString<allocatedSize> & FixString<allocatedSize>::assign(char character, std::size_t count) noexcept {
   assert_message(count < allocatedSize, "Count must not exceed capacity");
 
   _size = count;
@@ -235,114 +234,114 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::assign(cha
 }
 
 template <std::size_t allocatedSize>
-constexpr inline char & FixString<allocatedSize>::at(std::size_t offset) noexcept {
+constexpr char & FixString<allocatedSize>::at(std::size_t offset) noexcept {
   assert_message(offset < _size, "Offset must be within bounds");
 
   return _data[offset];
 }
 
 template <std::size_t allocatedSize>
-constexpr inline const char & FixString<allocatedSize>::at(std::size_t offset) const noexcept {
+constexpr const char & FixString<allocatedSize>::at(std::size_t offset) const noexcept {
   assert_message(offset < _size, "Offset must be within bounds");
 
   return _data[offset];
 }
 
 template <std::size_t allocatedSize>
-constexpr inline char & FixString<allocatedSize>::operator[](std::size_t offset) noexcept {
+constexpr char & FixString<allocatedSize>::operator[](std::size_t offset) noexcept {
   assert_message(offset < _size, "Offset must be within bounds");
 
   return _data[offset];
 }
 
 template <std::size_t allocatedSize>
-constexpr inline const char & FixString<allocatedSize>::operator[](std::size_t offset) const noexcept {
+constexpr const char & FixString<allocatedSize>::operator[](std::size_t offset) const noexcept {
   assert_message(offset < _size, "Offset must be within bounds");
 
   return _data[offset];
 }
 
 template <std::size_t allocatedSize>
-constexpr inline char & FixString<allocatedSize>::front() noexcept {
+constexpr char & FixString<allocatedSize>::front() noexcept {
   assert_message(_size > 0, "String must not be empty");
 
   return _data[0];
 }
 
 template <std::size_t allocatedSize>
-constexpr inline const char & FixString<allocatedSize>::front() const noexcept {
+constexpr const char & FixString<allocatedSize>::front() const noexcept {
   assert_message(_size > 0, "String must not be empty");
 
   return _data[0];
 }
 
 template <std::size_t allocatedSize>
-constexpr inline char & FixString<allocatedSize>::back() noexcept {
+constexpr char & FixString<allocatedSize>::back() noexcept {
   assert_message(_size > 0, "String must not be empty");
 
   return _data[_size - 1];
 }
 
 template <std::size_t allocatedSize>
-constexpr inline const char & FixString<allocatedSize>::back() const noexcept {
+constexpr const char & FixString<allocatedSize>::back() const noexcept {
   assert_message(_size > 0, "String must not be empty");
 
   return _data[_size - 1];
 }
 
 template <std::size_t allocatedSize>
-constexpr inline char * FixString<allocatedSize>::data() noexcept {
+constexpr char * FixString<allocatedSize>::data() noexcept {
   return _data;
 }
 
 template <std::size_t allocatedSize>
-constexpr inline const char * FixString<allocatedSize>::data() const noexcept {
+constexpr const char * FixString<allocatedSize>::data() const noexcept {
   return _data;
 }
 
 template <std::size_t allocatedSize>
-constexpr inline const char * FixString<allocatedSize>::c_str() const noexcept {
+constexpr const char * FixString<allocatedSize>::c_str() const noexcept {
   return _data;
 }
 
 template <std::size_t allocatedSize>
-constexpr inline bool FixString<allocatedSize>::empty() const noexcept {
+constexpr bool FixString<allocatedSize>::empty() const noexcept {
   return _size == 0;
 }
 
 template <std::size_t allocatedSize>
-constexpr inline std::size_t FixString<allocatedSize>::size() const noexcept {
+constexpr std::size_t FixString<allocatedSize>::size() const noexcept {
   return _size;
 }
 
 template <std::size_t allocatedSize>
-constexpr inline std::size_t FixString<allocatedSize>::utf8_size() const noexcept {
+constexpr std::size_t FixString<allocatedSize>::utf8_size() const noexcept {
   return utf8len(_data);
 }
 
 template <std::size_t allocatedSize>
-constexpr inline std::size_t FixString<allocatedSize>::length() const noexcept {
+constexpr std::size_t FixString<allocatedSize>::length() const noexcept {
   return _size;
 }
 
 template <std::size_t allocatedSize>
-constexpr inline std::size_t FixString<allocatedSize>::max_size() const noexcept {
+constexpr std::size_t FixString<allocatedSize>::max_size() const noexcept {
   return allocatedSize - 1;
 }
 
 template <std::size_t allocatedSize>
-constexpr inline std::size_t FixString<allocatedSize>::capacity() const noexcept {
+constexpr std::size_t FixString<allocatedSize>::capacity() const noexcept {
   return allocatedSize - 1;
 }
 
 template <std::size_t allocatedSize>
-constexpr inline void FixString<allocatedSize>::clear() noexcept {
+constexpr void FixString<allocatedSize>::clear() noexcept {
   _size = 0;
   *_data = '\0';
 }
 
 template <std::size_t allocatedSize>
-constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::insert(
+constexpr FixString<allocatedSize> & FixString<allocatedSize>::insert(
   std::size_t index, const FixString<allocatedSize> & string) noexcept {
   _insert_raw(index, string.data(), string.size());
 
@@ -351,16 +350,15 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::insert(
 
 template <std::size_t allocatedSize>
 template <StringLike stringType>
-constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::insert(std::size_t index,
-                                                                             const stringType & string) noexcept {
+constexpr FixString<allocatedSize> & FixString<allocatedSize>::insert(std::size_t index,
+                                                                      const stringType & string) noexcept {
   _insert_raw(index, string.c_str(), string.size());
 
   return *this;
 }
 
 template <std::size_t allocatedSize>
-constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::insert(std::size_t index,
-                                                                             const char * string) noexcept {
+constexpr FixString<allocatedSize> & FixString<allocatedSize>::insert(std::size_t index, const char * string) noexcept {
   assert_message(string != nullptr, "String pointer must not be null");
 
   std::size_t stringLen;
@@ -375,8 +373,8 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::insert(std
 }
 
 template <std::size_t allocatedSize>
-constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::insert(std::size_t index, char character,
-                                                                             std::size_t count) noexcept {
+constexpr FixString<allocatedSize> & FixString<allocatedSize>::insert(std::size_t index, char character,
+                                                                      std::size_t count) noexcept {
   if (count == 0)
     return *this;
 
@@ -406,8 +404,7 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::insert(std
 }
 
 template <std::size_t allocatedSize>
-constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::erase(std::size_t offset,
-                                                                            std::size_t count) noexcept {
+constexpr FixString<allocatedSize> & FixString<allocatedSize>::erase(std::size_t offset, std::size_t count) noexcept {
   assert_message(offset <= _size, "Offset must not exceed string size");
 
   if (count == npos)
@@ -425,7 +422,7 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::erase(std:
 }
 
 template <std::size_t allocatedSize>
-constexpr inline void FixString<allocatedSize>::push_back(char character) noexcept {
+constexpr void FixString<allocatedSize>::push_back(char character) noexcept {
   assert_message(_size + 1 < allocatedSize, "String must have space for new character");
 
   _data[_size++] = character;
@@ -433,7 +430,7 @@ constexpr inline void FixString<allocatedSize>::push_back(char character) noexce
 }
 
 template <std::size_t allocatedSize>
-constexpr inline void FixString<allocatedSize>::pop_back() noexcept {
+constexpr void FixString<allocatedSize>::pop_back() noexcept {
   assert_message(_size > 0, "String must not be empty for pop_back");
 
   if (_size > 0)
@@ -441,7 +438,7 @@ constexpr inline void FixString<allocatedSize>::pop_back() noexcept {
 }
 
 template <std::size_t allocatedSize>
-constexpr inline void FixString<allocatedSize>::utf8_pop_back() noexcept {
+constexpr void FixString<allocatedSize>::utf8_pop_back() noexcept {
   assert_message(_size > 0, "String must not be empty for utf8_pop_back");
 
   while (_size > 0) {
@@ -454,7 +451,7 @@ constexpr inline void FixString<allocatedSize>::utf8_pop_back() noexcept {
 }
 
 template <std::size_t allocatedSize>
-constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::append(
+constexpr FixString<allocatedSize> & FixString<allocatedSize>::append(
   const FixString<allocatedSize> & string) noexcept {
   assert_message(this != &string, "Cannot append string into itself");
 
@@ -465,7 +462,7 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::append(
 
 template <std::size_t allocatedSize>
 template <StringLike stringType>
-constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::append(const stringType & string) noexcept {
+constexpr FixString<allocatedSize> & FixString<allocatedSize>::append(const stringType & string) noexcept {
   assert_message(_data != string.c_str(), "Cannot append string into itself");
 
   _append_raw(string.c_str(), string.size());
@@ -474,7 +471,7 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::append(con
 }
 
 template <std::size_t allocatedSize>
-constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::append(const char * string) noexcept {
+constexpr FixString<allocatedSize> & FixString<allocatedSize>::append(const char * string) noexcept {
   assert_message(_data != string, "Cannot append string into itself");
   assert_message(string != nullptr, "String pointer must not be null");
 
@@ -490,8 +487,7 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::append(con
 }
 
 template <std::size_t allocatedSize>
-constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::append(char character,
-                                                                             std::size_t count) noexcept {
+constexpr FixString<allocatedSize> & FixString<allocatedSize>::append(char character, std::size_t count) noexcept {
   if (count == 0)
     return *this;
 
@@ -509,7 +505,7 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::append(cha
 }
 
 template <std::size_t allocatedSize>
-constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator+=(
+constexpr FixString<allocatedSize> & FixString<allocatedSize>::operator+=(
   const FixString<allocatedSize> & string) noexcept {
   assert_message(this != &string, "Cannot append string into itself");
 
@@ -520,7 +516,7 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator+=
 
 template <std::size_t allocatedSize>
 template <StringLike stringType>
-constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator+=(const stringType & string) noexcept {
+constexpr FixString<allocatedSize> & FixString<allocatedSize>::operator+=(const stringType & string) noexcept {
   assert_message(_data != string.c_str(), "Cannot append string into itself");
 
   _append_raw(string.c_str(), string.size());
@@ -529,7 +525,7 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator+=
 }
 
 template <std::size_t allocatedSize>
-constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator+=(const char * string) noexcept {
+constexpr FixString<allocatedSize> & FixString<allocatedSize>::operator+=(const char * string) noexcept {
   assert_message(_data != string, "Cannot append string into itself");
   assert_message(string != nullptr, "String pointer must not be null");
 
@@ -545,7 +541,7 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator+=
 }
 
 template <std::size_t allocatedSize>
-constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator+=(char character) noexcept {
+constexpr FixString<allocatedSize> & FixString<allocatedSize>::operator+=(char character) noexcept {
   assert_message(_size + 1 < allocatedSize, "Appended string must fit in capacity");
 
   _data[_size++] = character;
@@ -555,7 +551,7 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::operator+=
 }
 
 template <std::size_t allocatedSize>
-constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::replace(
+constexpr FixString<allocatedSize> & FixString<allocatedSize>::replace(
   std::size_t pos, std::size_t count, const FixString<allocatedSize> & string) noexcept {
   _replace_raw(pos, count, string._data, string._size);
 
@@ -564,16 +560,16 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::replace(
 
 template <std::size_t allocatedSize>
 template <StringLike stringType>
-constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::replace(std::size_t pos, std::size_t count,
-                                                                              const stringType & string) noexcept {
+constexpr FixString<allocatedSize> & FixString<allocatedSize>::replace(std::size_t pos, std::size_t count,
+                                                                       const stringType & string) noexcept {
   _replace_raw(pos, count, string.c_str(), string.size());
 
   return *this;
 }
 
 template <std::size_t allocatedSize>
-constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::replace(std::size_t pos, std::size_t count,
-                                                                              const char * string) noexcept {
+constexpr FixString<allocatedSize> & FixString<allocatedSize>::replace(std::size_t pos, std::size_t count,
+                                                                       const char * string) noexcept {
   assert_message(string != nullptr, "String pointer must not be null");
 
   std::size_t stringLen;
@@ -588,9 +584,9 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::replace(st
 }
 
 template <std::size_t allocatedSize>
-constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::replace(std::size_t pos, std::size_t count,
-                                                                              char character,
-                                                                              std::size_t charactersCount) noexcept {
+constexpr FixString<allocatedSize> & FixString<allocatedSize>::replace(std::size_t pos, std::size_t count,
+                                                                       char character,
+                                                                       std::size_t charactersCount) noexcept {
   if (count == 0 && charactersCount == 0)
     return *this;
 
@@ -633,8 +629,7 @@ constexpr inline FixString<allocatedSize> & FixString<allocatedSize>::replace(st
 }
 
 template <std::size_t allocatedSize>
-constexpr inline std::size_t FixString<allocatedSize>::copy(char * dest, std::size_t count,
-                                                            std::size_t pos) const noexcept {
+constexpr std::size_t FixString<allocatedSize>::copy(char * dest, std::size_t count, std::size_t pos) const noexcept {
   assert_message(pos <= _size, "Position must be within string bounds");
   assert_message(dest != nullptr, "Destination pointer must not be null");
   assert_message((dest < _data) || (dest >= (_data + allocatedSize)),
@@ -653,7 +648,7 @@ constexpr inline std::size_t FixString<allocatedSize>::copy(char * dest, std::si
 }
 
 template <std::size_t allocatedSize>
-constexpr inline void FixString<allocatedSize>::swap(FixString<allocatedSize> & string) noexcept {
+constexpr void FixString<allocatedSize>::swap(FixString<allocatedSize> & string) noexcept {
   if (this == std::addressof(string))
     return;
 
@@ -672,20 +667,19 @@ constexpr inline void FixString<allocatedSize>::swap(FixString<allocatedSize> & 
 }
 
 template <std::size_t allocatedSize>
-constexpr inline std::size_t FixString<allocatedSize>::find(const FixString<allocatedSize> & string,
-                                                            std::size_t position) const noexcept {
+constexpr std::size_t FixString<allocatedSize>::find(const FixString<allocatedSize> & string,
+                                                     std::size_t position) const noexcept {
   return _find_raw(position, string._data, string._size);
 }
 
 template <std::size_t allocatedSize>
 template <StringLike stringType>
-constexpr inline std::size_t FixString<allocatedSize>::find(const stringType & string,
-                                                            std::size_t position) const noexcept {
+constexpr std::size_t FixString<allocatedSize>::find(const stringType & string, std::size_t position) const noexcept {
   return _find_raw(position, string.c_str(), string.size());
 }
 
 template <std::size_t allocatedSize>
-constexpr inline std::size_t FixString<allocatedSize>::find(const char * string, std::size_t position) const noexcept {
+constexpr std::size_t FixString<allocatedSize>::find(const char * string, std::size_t position) const noexcept {
   assert_message(string != nullptr, "String pointer must not be null");
 
   std::size_t stringLen;
@@ -699,25 +693,24 @@ constexpr inline std::size_t FixString<allocatedSize>::find(const char * string,
 }
 
 template <std::size_t allocatedSize>
-constexpr inline std::size_t FixString<allocatedSize>::find(char character, std::size_t position) const noexcept {
+constexpr std::size_t FixString<allocatedSize>::find(char character, std::size_t position) const noexcept {
   return _find_raw(position, &character, 1);
 }
 
 template <std::size_t allocatedSize>
-constexpr inline std::size_t FixString<allocatedSize>::rfind(const FixString<allocatedSize> & string,
-                                                             std::size_t position) const noexcept {
+constexpr std::size_t FixString<allocatedSize>::rfind(const FixString<allocatedSize> & string,
+                                                      std::size_t position) const noexcept {
   return _rfind_raw(position, string._data, string._size);
 }
 
 template <std::size_t allocatedSize>
 template <StringLike stringType>
-constexpr inline std::size_t FixString<allocatedSize>::rfind(const stringType & string,
-                                                             std::size_t position) const noexcept {
+constexpr std::size_t FixString<allocatedSize>::rfind(const stringType & string, std::size_t position) const noexcept {
   return _rfind_raw(position, string.c_str(), string.size());
 }
 
 template <std::size_t allocatedSize>
-constexpr inline std::size_t FixString<allocatedSize>::rfind(const char * string, std::size_t position) const noexcept {
+constexpr std::size_t FixString<allocatedSize>::rfind(const char * string, std::size_t position) const noexcept {
   assert_message(string != nullptr, "String pointer must not be null");
 
   std::size_t stringLen;
@@ -731,26 +724,26 @@ constexpr inline std::size_t FixString<allocatedSize>::rfind(const char * string
 }
 
 template <std::size_t allocatedSize>
-constexpr inline std::size_t FixString<allocatedSize>::rfind(char character, std::size_t position) const noexcept {
+constexpr std::size_t FixString<allocatedSize>::rfind(char character, std::size_t position) const noexcept {
   return _rfind_raw(position, &character, 1);
 }
 
 template <std::size_t allocatedSize>
-constexpr inline std::size_t FixString<allocatedSize>::find_first_of(const FixString<allocatedSize> & string,
-                                                                     std::size_t position) const noexcept {
+constexpr std::size_t FixString<allocatedSize>::find_first_of(const FixString<allocatedSize> & string,
+                                                              std::size_t position) const noexcept {
   return _find_first_of_raw(position, string._data, string._size);
 }
 
 template <std::size_t allocatedSize>
 template <StringLike stringType>
-constexpr inline std::size_t FixString<allocatedSize>::find_first_of(const stringType & string,
-                                                                     std::size_t position) const noexcept {
+constexpr std::size_t FixString<allocatedSize>::find_first_of(const stringType & string,
+                                                              std::size_t position) const noexcept {
   return _find_first_of_raw(position, string.c_str(), string.size());
 }
 
 template <std::size_t allocatedSize>
-constexpr inline std::size_t FixString<allocatedSize>::find_first_of(const char * string,
-                                                                     std::size_t position) const noexcept {
+constexpr std::size_t FixString<allocatedSize>::find_first_of(const char * string,
+                                                              std::size_t position) const noexcept {
   assert_message(string != nullptr, "String pointer must not be null");
 
   std::size_t stringLen;
@@ -764,27 +757,26 @@ constexpr inline std::size_t FixString<allocatedSize>::find_first_of(const char 
 }
 
 template <std::size_t allocatedSize>
-constexpr inline std::size_t FixString<allocatedSize>::find_first_of(char character,
-                                                                     std::size_t position) const noexcept {
+constexpr std::size_t FixString<allocatedSize>::find_first_of(char character, std::size_t position) const noexcept {
   return _find_first_of_raw(position, &character, 1);
 }
 
 template <std::size_t allocatedSize>
-constexpr inline std::size_t FixString<allocatedSize>::find_first_not_of(const FixString<allocatedSize> & string,
-                                                                         std::size_t position) const noexcept {
+constexpr std::size_t FixString<allocatedSize>::find_first_not_of(const FixString<allocatedSize> & string,
+                                                                  std::size_t position) const noexcept {
   return _find_first_not_of_raw(position, string._data, string._size);
 }
 
 template <std::size_t allocatedSize>
 template <StringLike stringType>
-constexpr inline std::size_t FixString<allocatedSize>::find_first_not_of(const stringType & string,
-                                                                         std::size_t position) const noexcept {
+constexpr std::size_t FixString<allocatedSize>::find_first_not_of(const stringType & string,
+                                                                  std::size_t position) const noexcept {
   return _find_first_not_of_raw(position, string.c_str(), string.size());
 }
 
 template <std::size_t allocatedSize>
-constexpr inline std::size_t FixString<allocatedSize>::find_first_not_of(const char * string,
-                                                                         std::size_t position) const noexcept {
+constexpr std::size_t FixString<allocatedSize>::find_first_not_of(const char * string,
+                                                                  std::size_t position) const noexcept {
   assert_message(string != nullptr, "String pointer must not be null");
 
   std::size_t stringLen;
@@ -798,27 +790,25 @@ constexpr inline std::size_t FixString<allocatedSize>::find_first_not_of(const c
 }
 
 template <std::size_t allocatedSize>
-constexpr inline std::size_t FixString<allocatedSize>::find_first_not_of(char character,
-                                                                         std::size_t position) const noexcept {
+constexpr std::size_t FixString<allocatedSize>::find_first_not_of(char character, std::size_t position) const noexcept {
   return _find_first_not_of_raw(position, &character, 1);
 }
 
 template <std::size_t allocatedSize>
-constexpr inline std::size_t FixString<allocatedSize>::find_last_of(const FixString<allocatedSize> & string,
-                                                                    std::size_t position) const noexcept {
+constexpr std::size_t FixString<allocatedSize>::find_last_of(const FixString<allocatedSize> & string,
+                                                             std::size_t position) const noexcept {
   return _find_last_of_raw(position, string._data, string._size);
 }
 
 template <std::size_t allocatedSize>
 template <StringLike stringType>
-constexpr inline std::size_t FixString<allocatedSize>::find_last_of(const stringType & string,
-                                                                    std::size_t position) const noexcept {
+constexpr std::size_t FixString<allocatedSize>::find_last_of(const stringType & string,
+                                                             std::size_t position) const noexcept {
   return _find_last_of_raw(position, string.c_str(), string.size());
 }
 
 template <std::size_t allocatedSize>
-constexpr inline std::size_t FixString<allocatedSize>::find_last_of(const char * string,
-                                                                    std::size_t position) const noexcept {
+constexpr std::size_t FixString<allocatedSize>::find_last_of(const char * string, std::size_t position) const noexcept {
   assert_message(string != nullptr, "String pointer must not be null");
 
   std::size_t stringLen;
@@ -832,27 +822,26 @@ constexpr inline std::size_t FixString<allocatedSize>::find_last_of(const char *
 }
 
 template <std::size_t allocatedSize>
-constexpr inline std::size_t FixString<allocatedSize>::find_last_of(char character,
-                                                                    std::size_t position) const noexcept {
+constexpr std::size_t FixString<allocatedSize>::find_last_of(char character, std::size_t position) const noexcept {
   return _find_last_of_raw(position, &character, 1);
 }
 
 template <std::size_t allocatedSize>
-constexpr inline std::size_t FixString<allocatedSize>::find_last_not_of(const FixString<allocatedSize> & string,
-                                                                        std::size_t position) const noexcept {
+constexpr std::size_t FixString<allocatedSize>::find_last_not_of(const FixString<allocatedSize> & string,
+                                                                 std::size_t position) const noexcept {
   return _find_last_not_of_raw(position, string._data, string._size);
 }
 
 template <std::size_t allocatedSize>
 template <StringLike stringType>
-constexpr inline std::size_t FixString<allocatedSize>::find_last_not_of(const stringType & string,
-                                                                        std::size_t position) const noexcept {
+constexpr std::size_t FixString<allocatedSize>::find_last_not_of(const stringType & string,
+                                                                 std::size_t position) const noexcept {
   return _find_last_not_of_raw(position, string.c_str(), string.size());
 }
 
 template <std::size_t allocatedSize>
-constexpr inline std::size_t FixString<allocatedSize>::find_last_not_of(const char * string,
-                                                                        std::size_t position) const noexcept {
+constexpr std::size_t FixString<allocatedSize>::find_last_not_of(const char * string,
+                                                                 std::size_t position) const noexcept {
   assert_message(string != nullptr, "String pointer must not be null");
 
   std::size_t stringLen;
@@ -866,13 +855,12 @@ constexpr inline std::size_t FixString<allocatedSize>::find_last_not_of(const ch
 }
 
 template <std::size_t allocatedSize>
-constexpr inline std::size_t FixString<allocatedSize>::find_last_not_of(char character,
-                                                                        std::size_t position) const noexcept {
+constexpr std::size_t FixString<allocatedSize>::find_last_not_of(char character, std::size_t position) const noexcept {
   return _find_last_not_of_raw(position, &character, 1);
 }
 
 template <std::size_t allocatedSize>
-constexpr inline int FixString<allocatedSize>::compare(const FixString<allocatedSize> & string) const noexcept {
+constexpr int FixString<allocatedSize>::compare(const FixString<allocatedSize> & string) const noexcept {
   if consteval {
     return cstrcmp(_data, string._data);
   } else {
@@ -882,7 +870,7 @@ constexpr inline int FixString<allocatedSize>::compare(const FixString<allocated
 
 template <std::size_t allocatedSize>
 template <StringLike stringType>
-constexpr inline int FixString<allocatedSize>::compare(const stringType & string) const noexcept {
+constexpr int FixString<allocatedSize>::compare(const stringType & string) const noexcept {
   if consteval {
     return cstrcmp(_data, string.c_str());
   } else {
@@ -891,7 +879,7 @@ constexpr inline int FixString<allocatedSize>::compare(const stringType & string
 }
 
 template <std::size_t allocatedSize>
-constexpr inline int FixString<allocatedSize>::compare(const char * string) const noexcept {
+constexpr int FixString<allocatedSize>::compare(const char * string) const noexcept {
   assert_message(string != nullptr, "String pointer must not be null");
 
   if consteval {
@@ -902,18 +890,18 @@ constexpr inline int FixString<allocatedSize>::compare(const char * string) cons
 }
 
 template <std::size_t allocatedSize>
-constexpr inline bool FixString<allocatedSize>::starts_with(const FixString<allocatedSize> & string) const noexcept {
+constexpr bool FixString<allocatedSize>::starts_with(const FixString<allocatedSize> & string) const noexcept {
   return _size >= string._size && std::memcmp(_data, string._data, string._size) == 0;
 }
 
 template <std::size_t allocatedSize>
 template <StringLike stringType>
-constexpr inline bool FixString<allocatedSize>::starts_with(const stringType & string) const noexcept {
+constexpr bool FixString<allocatedSize>::starts_with(const stringType & string) const noexcept {
   return _size >= string.size() && std::memcmp(_data, string.c_str(), string.size()) == 0;
 }
 
 template <std::size_t allocatedSize>
-constexpr inline bool FixString<allocatedSize>::starts_with(const char * string) const noexcept {
+constexpr bool FixString<allocatedSize>::starts_with(const char * string) const noexcept {
   assert_message(string != nullptr, "String pointer must not be null");
 
   std::size_t needleSize;
@@ -927,23 +915,23 @@ constexpr inline bool FixString<allocatedSize>::starts_with(const char * string)
 }
 
 template <std::size_t allocatedSize>
-constexpr inline bool FixString<allocatedSize>::starts_with(char character) const noexcept {
+constexpr bool FixString<allocatedSize>::starts_with(char character) const noexcept {
   return _size > 0 && _data[0] == character;
 }
 
 template <std::size_t allocatedSize>
-constexpr inline bool FixString<allocatedSize>::ends_with(const FixString<allocatedSize> & string) const noexcept {
+constexpr bool FixString<allocatedSize>::ends_with(const FixString<allocatedSize> & string) const noexcept {
   return _size >= string._size && std::memcmp(_data + (_size - string._size), string._data, string._size) == 0;
 }
 
 template <std::size_t allocatedSize>
 template <StringLike stringType>
-constexpr inline bool FixString<allocatedSize>::ends_with(const stringType & string) const noexcept {
+constexpr bool FixString<allocatedSize>::ends_with(const stringType & string) const noexcept {
   return _size >= string.size() && std::memcmp(_data + (_size - string.size()), string.c_str(), string.size()) == 0;
 }
 
 template <std::size_t allocatedSize>
-constexpr inline bool FixString<allocatedSize>::ends_with(const char * string) const noexcept {
+constexpr bool FixString<allocatedSize>::ends_with(const char * string) const noexcept {
   assert_message(string != nullptr, "String pointer must not be null");
 
   std::size_t needleSize;
@@ -957,23 +945,23 @@ constexpr inline bool FixString<allocatedSize>::ends_with(const char * string) c
 }
 
 template <std::size_t allocatedSize>
-constexpr inline bool FixString<allocatedSize>::ends_with(char character) const noexcept {
+constexpr bool FixString<allocatedSize>::ends_with(char character) const noexcept {
   return _size > 0 && _data[_size - 1] == character;
 }
 
 template <std::size_t allocatedSize>
-constexpr inline bool FixString<allocatedSize>::contains(const FixString<allocatedSize> & string) const noexcept {
+constexpr bool FixString<allocatedSize>::contains(const FixString<allocatedSize> & string) const noexcept {
   return _size >= string._size && std::strstr(_data, string._data) != nullptr;
 }
 
 template <std::size_t allocatedSize>
 template <StringLike stringType>
-constexpr inline bool FixString<allocatedSize>::contains(const stringType & string) const noexcept {
+constexpr bool FixString<allocatedSize>::contains(const stringType & string) const noexcept {
   return _size >= string.size() && std::strstr(_data, string.c_str()) != nullptr;
 }
 
 template <std::size_t allocatedSize>
-constexpr inline bool FixString<allocatedSize>::contains(const char * string) const noexcept {
+constexpr bool FixString<allocatedSize>::contains(const char * string) const noexcept {
   assert_message(string != nullptr, "String pointer must not be null");
 
   std::size_t needleSize;
@@ -987,13 +975,13 @@ constexpr inline bool FixString<allocatedSize>::contains(const char * string) co
 }
 
 template <std::size_t allocatedSize>
-constexpr inline bool FixString<allocatedSize>::contains(char character) const noexcept {
+constexpr bool FixString<allocatedSize>::contains(char character) const noexcept {
   return _size > 0 && std::strchr(_data, character) != nullptr;
 }
 
 template <std::size_t allocatedSize>
-constexpr inline FixString<allocatedSize> FixString<allocatedSize>::substr(std::size_t position,
-                                                                           std::size_t count) const noexcept {
+constexpr FixString<allocatedSize> FixString<allocatedSize>::substr(std::size_t position,
+                                                                    std::size_t count) const noexcept {
   assert_message(position <= _size, "Position must not exceed string size");
 
   const auto remaining = _size - position;
@@ -1016,9 +1004,9 @@ constexpr inline FixString<allocatedSize> FixString<allocatedSize>::substr(std::
 }
 
 template <std::size_t allocatedSize>
-constexpr inline FixString<allocatedSize> FixString<allocatedSize>::operator+(
+constexpr FixString<allocatedSize> FixString<allocatedSize>::operator+(
   const FixString<allocatedSize> & string) const noexcept {
-  assert(_size + string._size < allocatedSize);
+  assert_message(_size + string._size < allocatedSize, "Concatenation must fit in capacity");
 
   FixString<allocatedSize> value(*this);
   value += string;
@@ -1028,10 +1016,10 @@ constexpr inline FixString<allocatedSize> FixString<allocatedSize>::operator+(
 
 template <std::size_t allocatedSize>
 template <std::size_t allocatedSize2>
-constexpr inline FixString<allocatedSize> FixString<allocatedSize>::operator+(
+constexpr FixString<allocatedSize> FixString<allocatedSize>::operator+(
   const FixString<allocatedSize2> & string) const noexcept {
   static_assert(allocatedSize2 > 0, "FixString capacity must be greater than zero.");
-  assert(_size + string.size() < allocatedSize);
+  assert_message(_size + string.size() < allocatedSize, "Concatenation must fit in capacity");
 
   FixString<allocatedSize> value(*this);
   value += string;
@@ -1040,8 +1028,8 @@ constexpr inline FixString<allocatedSize> FixString<allocatedSize>::operator+(
 }
 
 template <std::size_t allocatedSize>
-constexpr inline FixString<allocatedSize> FixString<allocatedSize>::operator+(const char * string) const noexcept {
-  assert(string != nullptr);
+constexpr FixString<allocatedSize> FixString<allocatedSize>::operator+(const char * string) const noexcept {
+  assert_message(string != nullptr, "String pointer must not be null");
 
   FixString<allocatedSize> value(*this);
   value += string;
@@ -1050,7 +1038,7 @@ constexpr inline FixString<allocatedSize> FixString<allocatedSize>::operator+(co
 }
 
 template <std::size_t allocatedSize>
-constexpr inline FixString<allocatedSize> FixString<allocatedSize>::operator+(char symbol) const noexcept {
+constexpr FixString<allocatedSize> FixString<allocatedSize>::operator+(char symbol) const noexcept {
   FixString<allocatedSize> value(*this);
   value += symbol;
 
@@ -1058,8 +1046,8 @@ constexpr inline FixString<allocatedSize> FixString<allocatedSize>::operator+(ch
 }
 
 template <std::size_t allocatedSize>
-constexpr inline void FixString<allocatedSize>::_insert_raw(std::size_t position, const char * data,
-                                                            std::size_t dataSize) noexcept {
+constexpr void FixString<allocatedSize>::_insert_raw(std::size_t position, const char * data,
+                                                     std::size_t dataSize) noexcept {
   if (dataSize == 0)
     return;
 
@@ -1089,7 +1077,7 @@ constexpr inline void FixString<allocatedSize>::_insert_raw(std::size_t position
 }
 
 template <std::size_t allocatedSize>
-constexpr inline void FixString<allocatedSize>::_append_raw(const char * data, std::size_t dataSize) noexcept {
+constexpr void FixString<allocatedSize>::_append_raw(const char * data, std::size_t dataSize) noexcept {
   if (dataSize == 0)
     return;
 
@@ -1106,8 +1094,8 @@ constexpr inline void FixString<allocatedSize>::_append_raw(const char * data, s
 }
 
 template <std::size_t allocatedSize>
-constexpr inline void FixString<allocatedSize>::_replace_raw(std::size_t position, std::size_t oldCount,
-                                                             const char * data, std::size_t dataSize) noexcept {
+constexpr void FixString<allocatedSize>::_replace_raw(std::size_t position, std::size_t oldCount, const char * data,
+                                                      std::size_t dataSize) noexcept {
   if (oldCount == 0 && dataSize == 0)
     return;
 
@@ -1150,8 +1138,8 @@ constexpr inline void FixString<allocatedSize>::_replace_raw(std::size_t positio
 }
 
 template <std::size_t allocatedSize>
-constexpr inline std::size_t FixString<allocatedSize>::_find_raw(std::size_t position, const char * data,
-                                                                 std::size_t dataSize) const noexcept {
+constexpr std::size_t FixString<allocatedSize>::_find_raw(std::size_t position, const char * data,
+                                                          std::size_t dataSize) const noexcept {
   if (position >= _size)
     return npos;
 
@@ -1166,8 +1154,8 @@ constexpr inline std::size_t FixString<allocatedSize>::_find_raw(std::size_t pos
 }
 
 template <std::size_t allocatedSize>
-constexpr inline std::size_t FixString<allocatedSize>::_rfind_raw(std::size_t position, const char * data,
-                                                                  std::size_t dataSize) const noexcept {
+constexpr std::size_t FixString<allocatedSize>::_rfind_raw(std::size_t position, const char * data,
+                                                           std::size_t dataSize) const noexcept {
   if (dataSize == 0)
     return std::min(position, _size);
   else if (dataSize > _size)
@@ -1188,8 +1176,8 @@ constexpr inline std::size_t FixString<allocatedSize>::_rfind_raw(std::size_t po
 }
 
 template <std::size_t allocatedSize>
-constexpr inline std::size_t FixString<allocatedSize>::_find_first_of_raw(std::size_t position, const char * data,
-                                                                          std::size_t dataSize) const noexcept {
+constexpr std::size_t FixString<allocatedSize>::_find_first_of_raw(std::size_t position, const char * data,
+                                                                   std::size_t dataSize) const noexcept {
   if (position >= _size || dataSize == 0)
     return npos;
 
@@ -1199,8 +1187,8 @@ constexpr inline std::size_t FixString<allocatedSize>::_find_first_of_raw(std::s
 }
 
 template <std::size_t allocatedSize>
-constexpr inline std::size_t FixString<allocatedSize>::_find_first_not_of_raw(std::size_t position, const char * data,
-                                                                              std::size_t dataSize) const noexcept {
+constexpr std::size_t FixString<allocatedSize>::_find_first_not_of_raw(std::size_t position, const char * data,
+                                                                       std::size_t dataSize) const noexcept {
   if (position >= _size)
     return npos;
 
@@ -1232,8 +1220,8 @@ constexpr inline std::size_t FixString<allocatedSize>::_find_first_not_of_raw(st
 }
 
 template <std::size_t allocatedSize>
-constexpr inline std::size_t FixString<allocatedSize>::_find_last_of_raw(std::size_t position, const char * data,
-                                                                         std::size_t dataSize) const noexcept {
+constexpr std::size_t FixString<allocatedSize>::_find_last_of_raw(std::size_t position, const char * data,
+                                                                  std::size_t dataSize) const noexcept {
   if (dataSize == 0 || _size == 0)
     return npos;
 
@@ -1267,8 +1255,8 @@ constexpr inline std::size_t FixString<allocatedSize>::_find_last_of_raw(std::si
 }
 
 template <std::size_t allocatedSize>
-constexpr inline std::size_t FixString<allocatedSize>::_find_last_not_of_raw(std::size_t position, const char * data,
-                                                                             std::size_t dataSize) const noexcept {
+constexpr std::size_t FixString<allocatedSize>::_find_last_not_of_raw(std::size_t position, const char * data,
+                                                                      std::size_t dataSize) const noexcept {
   if (_size == 0)
     return npos;
 
@@ -1305,8 +1293,8 @@ constexpr inline std::size_t FixString<allocatedSize>::_find_last_not_of_raw(std
 }
 
 template <std::size_t allocatedSize1, std::size_t allocatedSize2>
-[[nodiscard]] constexpr inline bool operator==(const FixString<allocatedSize1> & lhs,
-                                               const FixString<allocatedSize2> & rhs) noexcept {
+[[nodiscard]] constexpr bool operator==(const FixString<allocatedSize1> & lhs,
+                                        const FixString<allocatedSize2> & rhs) noexcept {
   if constexpr (allocatedSize1 == allocatedSize2) {
     if (std::addressof(lhs) == std::addressof(rhs))
       return true;
@@ -1327,7 +1315,7 @@ template <std::size_t allocatedSize1, std::size_t allocatedSize2>
 // Equality comparison operators
 
 template <std::size_t allocatedSize, StringLike stringType>
-[[nodiscard]] constexpr inline bool operator==(const FixString<allocatedSize> & lhs, const stringType & rhs) noexcept {
+[[nodiscard]] constexpr bool operator==(const FixString<allocatedSize> & lhs, const stringType & rhs) noexcept {
   if (lhs.size() != rhs.size())
     return false;
   else if (lhs.empty())
@@ -1341,12 +1329,12 @@ template <std::size_t allocatedSize, StringLike stringType>
 }
 
 template <StringLike stringType, std::size_t allocatedSize>
-[[nodiscard]] constexpr inline bool operator==(const stringType & lhs, const FixString<allocatedSize> & rhs) noexcept {
+[[nodiscard]] constexpr bool operator==(const stringType & lhs, const FixString<allocatedSize> & rhs) noexcept {
   return rhs == lhs;
 }
 
 template <std::size_t allocatedSize>
-[[nodiscard]] constexpr inline bool operator==(const FixString<allocatedSize> & lhs, const char * rhs) noexcept {
+[[nodiscard]] constexpr bool operator==(const FixString<allocatedSize> & lhs, const char * rhs) noexcept {
   assert_message(rhs != nullptr, "C string pointer must not be null");
 
   if (lhs.empty())
@@ -1360,7 +1348,7 @@ template <std::size_t allocatedSize>
 }
 
 template <std::size_t allocatedSize>
-[[nodiscard]] constexpr inline bool operator==(const char * lhs, const FixString<allocatedSize> & rhs) noexcept {
+[[nodiscard]] constexpr bool operator==(const char * lhs, const FixString<allocatedSize> & rhs) noexcept {
   return rhs == lhs;
 }
 

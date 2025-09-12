@@ -200,6 +200,7 @@ inline void assertion(const char * TOY_UNUSED(code), const char * TOY_UNUSED(mes
 
 //----------------------------------------------------------------------------------------------------------------------
 
+#include "core/constexpr_utils.inl"
 #include "core/fix_string.inl"
 #include "core/utils.inl"
 
