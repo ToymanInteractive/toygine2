@@ -27,6 +27,8 @@
 
 namespace toygine {
 
+/// \cond INLINE IMPLEMENTATION
+
 [[nodiscard]] constexpr inline int cstrcmp(const char * lhs, const char * rhs) noexcept {
   while (*lhs && (static_cast<unsigned char>(*lhs) == static_cast<unsigned char>(*rhs))) {
     ++lhs;
@@ -35,6 +37,8 @@ namespace toygine {
 
   return static_cast<unsigned char>(*lhs) - static_cast<unsigned char>(*rhs);
 }
+
+/// \endcond INLINE IMPLEMENTATION
 
 } // namespace toygine
 
