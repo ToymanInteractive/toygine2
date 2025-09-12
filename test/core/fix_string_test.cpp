@@ -120,9 +120,9 @@ TEST_CASE("FixString constructors", "[core][fixstring]") {
   }
 
   SECTION("StringLike constructor") {
-    std::string stdStr("StringLike");
-    FixString<16> fromStd(stdStr);
-    FixString<32> fromFix(fromStd);
+    const std::string stdStr("StringLike");
+    const FixString<16> fromStd(stdStr);
+    const FixString<32> fromFix(fromStd);
 
     REQUIRE(fromStd.size() == 10);
     REQUIRE(strcmp(fromStd.c_str(), "StringLike") == 0);
@@ -3424,9 +3424,9 @@ TEST_CASE("FixString operator==", "[core][fixstring]") {
 
   SECTION("FixString == StringLike") {
     constexpr FixString<16> str1("Hello");
-    constexpr std::string str2("Hello");
-    constexpr std::string str3("World");
-    constexpr std::string empty;
+    const std::string str2("Hello");
+    const std::string str3("World");
+    const std::string empty;
 
     REQUIRE(str1 == str2);
     REQUIRE(str2 == str1);
@@ -3435,12 +3435,7 @@ TEST_CASE("FixString operator==", "[core][fixstring]") {
     REQUIRE(!(str1 == empty));
     REQUIRE(!(empty == str1));
 
-    STATIC_REQUIRE(str1 == str2);
-    STATIC_REQUIRE(str2 == str1);
-    STATIC_REQUIRE(!(str1 == str3));
-    STATIC_REQUIRE(!(str3 == str1));
-    STATIC_REQUIRE(!(str1 == empty));
-    STATIC_REQUIRE(!(empty == str1));
+    // std::string can't be a constant expression
   }
 
   SECTION("FixString == C string") {
