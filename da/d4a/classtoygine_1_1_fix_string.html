@@ -1925,7 +1925,7 @@ The size of this string equals the size of the source <em>string</em>.</dd></dl>
 This method is equivalent to the copy assignment operator.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#a86991f7aa084db54ed7c9cba37726ba8" title="Copy assigns other string to this string.">operator=(const FixString&lt;allocatedSize&gt; &amp; string)</a> </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">  161</span>                                                    {</div>
-<div class="line"><span class="lineno">  162</span>  <span class="keywordflow">if</span> (<span class="keyword">this</span> == &amp;<span class="keywordtype">string</span>)</div>
+<div class="line"><span class="lineno">  162</span>  <span class="keywordflow">if</span> (<span class="keyword">this</span> == std::addressof(<span class="keywordtype">string</span>))</div>
 <div class="line"><span class="lineno">  163</span>    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
 <div class="line"><span class="lineno">  164</span> </div>
 <div class="line"><span class="lineno">  165</span>  <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> = <span class="keywordtype">string</span>.size();</div>
@@ -2351,7 +2351,7 @@ If one string is a prefix of another, the shorter string is considered lexicogra
 <div class="line"><span class="lineno">  899</span>    <span class="keywordflow">return</span> std::strcmp(<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a>, <span class="keywordtype">string</span>);</div>
 <div class="line"><span class="lineno">  900</span>  }</div>
 <div class="line"><span class="lineno">  901</span>}</div>
-<div class="ttc" id="anamespacetoygine_html_ab3622986659a41d3545895ebdd549a34"><div class="ttname"><a href="../../d7/de6/namespacetoygine.html#ab3622986659a41d3545895ebdd549a34">toygine::cstrcmp</a></div><div class="ttdeci">constexpr int cstrcmp(const char *lhs, const char *rhs) noexcept</div><div class="ttdoc">Compares two C strings lexicographically.</div><div class="ttdef"><b>Definition</b> fix_string.inl:1306</div></div>
+<div class="ttc" id="anamespacetoygine_html_ab3622986659a41d3545895ebdd549a34"><div class="ttname"><a href="../../d7/de6/namespacetoygine.html#ab3622986659a41d3545895ebdd549a34">toygine::cstrcmp</a></div><div class="ttdeci">constexpr int cstrcmp(const char *lhs, const char *rhs) noexcept</div><div class="ttdoc">Compares two C strings lexicographically.</div><div class="ttdef"><b>Definition</b> fix_string.inl:1366</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -5134,7 +5134,7 @@ template&lt;std::size_t allocatedSize&gt; </div>
 The size of this string equals the size of the source <em>string</em>.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Self-assignment is handled correctly and safely. </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">   96</span>                                                    {</div>
-<div class="line"><span class="lineno">   97</span>  <span class="keywordflow">if</span> (<span class="keyword">this</span> == &amp;<span class="keywordtype">string</span>)</div>
+<div class="line"><span class="lineno">   97</span>  <span class="keywordflow">if</span> (<span class="keyword">this</span> == std::addressof(<span class="keywordtype">string</span>))</div>
 <div class="line"><span class="lineno">   98</span>    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
 <div class="line"><span class="lineno">   99</span> </div>
 <div class="line"><span class="lineno">  100</span>  <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> = <span class="keywordtype">string</span>._size;</div>
@@ -6233,7 +6233,7 @@ The other <em>string</em> contains the contents that were in this string. </dd>
 The sizes of both strings are exchanged.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Self-swap is handled correctly and safely (no-op). </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">  655</span>                                                                                               {</div>
-<div class="line"><span class="lineno">  656</span>  <span class="keywordflow">if</span> (<span class="keyword">this</span> == &amp;<span class="keywordtype">string</span>)</div>
+<div class="line"><span class="lineno">  656</span>  <span class="keywordflow">if</span> (<span class="keyword">this</span> == std::addressof(<span class="keywordtype">string</span>))</div>
 <div class="line"><span class="lineno">  657</span>    <span class="keywordflow">return</span>;</div>
 <div class="line"><span class="lineno">  658</span> </div>
 <div class="line"><span class="lineno">  659</span>  <span class="keywordtype">char</span> tempData[allocatedSize];</div>
@@ -6433,7 +6433,7 @@ template&lt;std::size_t allocatedSize&gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../d7/de6/namespacetoygine.html">toygine</a></li><li class="navelem"><a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a></li>
-    <li class="footer">Generated on Thu Sep 11 2025 for ToyGine2 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generated on Fri Sep 12 2025 for ToyGine2 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>

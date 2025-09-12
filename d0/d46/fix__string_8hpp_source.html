@@ -2125,32 +2125,131 @@ $(function(){initNavTree('d0/d46/fix__string_8hpp_source.html','../../'); initRe
 </div>
 <div class="line"><a id="l02001" name="l02001"></a><span class="lineno"> 2001</span> </div>
 <div class="line"><a id="l02002" name="l02002"></a><span class="lineno"> 2002</span><span class="comment">/*!</span></div>
-<div class="line"><span class="lineno"> 2003</span><span class="comment">  \brief Compares two C strings lexicographically.</span></div>
+<div class="line"><span class="lineno"> 2003</span><span class="comment">  \brief Equality comparison operator for two FixString objects.</span></div>
 <div class="line"><span class="lineno"> 2004</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 2005</span><span class="comment">  This function performs a lexicographic comparison between two C strings. The comparison is performed character by</span></div>
-<div class="line"><span class="lineno"> 2006</span><span class="comment">  character using the character&#39;s numeric value. This function is designed to be constexpr-compatible and provides the</span></div>
-<div class="line"><span class="lineno"> 2007</span><span class="comment">  same behavior as std::strcmp but can be evaluated at compile time.</span></div>
-<div class="line"><span class="lineno"> 2008</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 2009</span><span class="comment">  \param lhs The left-hand side C string to compare.</span></div>
-<div class="line"><span class="lineno"> 2010</span><span class="comment">  \param rhs The right-hand side C string to compare.</span></div>
-<div class="line"><span class="lineno"> 2011</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 2012</span><span class="comment">  \return A negative value if \a lhs is lexicographically less than \a rhs, zero if they are equal,</span></div>
-<div class="line"><span class="lineno"> 2013</span><span class="comment">          or a positive value if \a lhs is lexicographically greater than \a rhs.</span></div>
+<div class="line"><span class="lineno"> 2005</span><span class="comment">  This operator compares two FixString objects for equality. The comparison is performed character by character.</span></div>
+<div class="line"><span class="lineno"> 2006</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 2007</span><span class="comment">  \tparam allocatedSize1 The size of the first FixString&#39;s internal buffer.</span></div>
+<div class="line"><span class="lineno"> 2008</span><span class="comment">  \tparam allocatedSize2 The size of the second FixString&#39;s internal buffer.</span></div>
+<div class="line"><span class="lineno"> 2009</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 2010</span><span class="comment">  \param lhs The left-hand side FixString object.</span></div>
+<div class="line"><span class="lineno"> 2011</span><span class="comment">  \param rhs The right-hand side FixString object.</span></div>
+<div class="line"><span class="lineno"> 2012</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 2013</span><span class="comment">  \return True if both strings have the same content, false otherwise.</span></div>
 <div class="line"><span class="lineno"> 2014</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 2015</span><span class="comment">  \pre The \a lhs pointer must not be null.</span></div>
-<div class="line"><span class="lineno"> 2016</span><span class="comment">  \pre The \a rhs pointer must not be null.</span></div>
-<div class="line"><span class="lineno"> 2017</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 2018</span><span class="comment">  \note The comparison is case-sensitive.</span></div>
-<div class="line"><span class="lineno"> 2019</span><span class="comment">  \note The comparison stops at the first character that differs between the strings.</span></div>
-<div class="line"><span class="lineno"> 2020</span><span class="comment">  \note If one string is a prefix of another, the shorter string is considered lexicographically smaller.</span></div>
-<div class="line"><span class="lineno"> 2021</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno"> 2022</span><span class="comment">  \see std::strcmp</span></div>
-<div class="line"><span class="lineno"> 2023</span><span class="comment">*/</span></div>
-<div class="line"><a id="l02024" name="l02024"></a><span class="lineno"> 2024</span>[[<a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">nodiscard</a>]] <span class="keyword">constexpr</span> <span class="keyword">inline</span> <span class="keywordtype">int</span> cstrcmp(<span class="keyword">const</span> <span class="keywordtype">char</span> * lhs, <span class="keyword">const</span> <span class="keywordtype">char</span> * rhs) <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l02025" name="l02025"></a><span class="lineno"> 2025</span> </div>
-<div class="line"><a id="l02026" name="l02026"></a><span class="lineno"> 2026</span>} <span class="comment">// namespace toygine</span></div>
-<div class="line"><a id="l02027" name="l02027"></a><span class="lineno"> 2027</span> </div>
-<div class="line"><a id="l02028" name="l02028"></a><span class="lineno"> 2028</span><span class="preprocessor">#</span><span class="preprocessor">endif</span> <span class="comment">// INCLUDE_CORE_FIX_STRING_HPP_</span></div>
+<div class="line"><span class="lineno"> 2015</span><span class="comment">  \note The comparison is case-sensitive.</span></div>
+<div class="line"><span class="lineno"> 2016</span><span class="comment">  \note Empty strings are considered equal.</span></div>
+<div class="line"><span class="lineno"> 2017</span><span class="comment">  \note The comparison is performed on the actual string content, not the buffer sizes.</span></div>
+<div class="line"><span class="lineno"> 2018</span><span class="comment">*/</span></div>
+<div class="line"><a id="l02019" name="l02019"></a><span class="lineno"> 2019</span><span class="keyword">template</span> &lt;std::size_t allocatedSize1, std::size_t allocatedSize2&gt;</div>
+<div class="line"><a id="l02020" name="l02020"></a><span class="lineno"> 2020</span>[[nodiscard]] <span class="keyword">constexpr</span> <span class="keyword">inline</span> <span class="keywordtype">bool</span> operator==(<span class="keyword">const</span> <a class="code hl_class" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt;allocatedSize1&gt; &amp; lhs,</div>
+<div class="line"><a id="l02021" name="l02021"></a><span class="lineno"> 2021</span>                                               <span class="keyword">const</span> <a class="code hl_class" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt;allocatedSize2&gt; &amp; rhs) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l02022" name="l02022"></a><span class="lineno"> 2022</span> </div>
+<div class="line"><a id="l02023" name="l02023"></a><span class="lineno"> 2023</span><span class="comment">/*!</span></div>
+<div class="line"><span class="lineno"> 2024</span><span class="comment">  \brief Equality comparison operator for FixString and StringLike object.</span></div>
+<div class="line"><span class="lineno"> 2025</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 2026</span><span class="comment">  This operator compares a FixString object with a StringLike object for equality.</span></div>
+<div class="line"><span class="lineno"> 2027</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 2028</span><span class="comment">  \tparam allocatedSize The size of the FixString&#39;s internal buffer.</span></div>
+<div class="line"><span class="lineno"> 2029</span><span class="comment">  \tparam stringType The type of the StringLike object. Must satisfy the StringLike concept.</span></div>
+<div class="line"><span class="lineno"> 2030</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 2031</span><span class="comment">  \param lhs The FixString object.</span></div>
+<div class="line"><span class="lineno"> 2032</span><span class="comment">  \param rhs The StringLike object.</span></div>
+<div class="line"><span class="lineno"> 2033</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 2034</span><span class="comment">  \return True if both strings have the same content, false otherwise.</span></div>
+<div class="line"><span class="lineno"> 2035</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 2036</span><span class="comment">  \note The comparison is case-sensitive.</span></div>
+<div class="line"><span class="lineno"> 2037</span><span class="comment">  \note Empty strings are considered equal.</span></div>
+<div class="line"><span class="lineno"> 2038</span><span class="comment">*/</span></div>
+<div class="line"><a id="l02039" name="l02039"></a><span class="lineno"> 2039</span><span class="keyword">template</span> &lt;std::size_t allocatedSize, StringLike stringType&gt;</div>
+<div class="line"><a id="l02040" name="l02040"></a><span class="lineno"> 2040</span>[[nodiscard]] <span class="keyword">constexpr</span> <span class="keyword">inline</span> <span class="keywordtype">bool</span> operator==(<span class="keyword">const</span> <a class="code hl_class" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt;allocatedSize&gt; &amp; lhs, <span class="keyword">const</span> stringType &amp; rhs) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l02041" name="l02041"></a><span class="lineno"> 2041</span> </div>
+<div class="line"><a id="l02042" name="l02042"></a><span class="lineno"> 2042</span><span class="comment">/*!</span></div>
+<div class="line"><span class="lineno"> 2043</span><span class="comment">  \brief Equality comparison operator for StringLike object and FixString.</span></div>
+<div class="line"><span class="lineno"> 2044</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 2045</span><span class="comment">  This operator compares a StringLike object with a FixString object for equality.</span></div>
+<div class="line"><span class="lineno"> 2046</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 2047</span><span class="comment">  \tparam stringType The type of the StringLike object. Must satisfy the StringLike concept.</span></div>
+<div class="line"><span class="lineno"> 2048</span><span class="comment">  \tparam allocatedSize The size of the FixString&#39;s internal buffer.</span></div>
+<div class="line"><span class="lineno"> 2049</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 2050</span><span class="comment">  \param lhs The StringLike object.</span></div>
+<div class="line"><span class="lineno"> 2051</span><span class="comment">  \param rhs The FixString object.</span></div>
+<div class="line"><span class="lineno"> 2052</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 2053</span><span class="comment">  \return True if both strings have the same content, false otherwise.</span></div>
+<div class="line"><span class="lineno"> 2054</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 2055</span><span class="comment">  \note The comparison is case-sensitive.</span></div>
+<div class="line"><span class="lineno"> 2056</span><span class="comment">  \note Empty strings are considered equal.</span></div>
+<div class="line"><span class="lineno"> 2057</span><span class="comment">*/</span></div>
+<div class="line"><a id="l02058" name="l02058"></a><span class="lineno"> 2058</span><span class="keyword">template</span> &lt;StringLike stringType, std::size_t allocatedSize&gt;</div>
+<div class="line"><a id="l02059" name="l02059"></a><span class="lineno"> 2059</span>[[nodiscard]] <span class="keyword">constexpr</span> <span class="keyword">inline</span> <span class="keywordtype">bool</span> operator==(<span class="keyword">const</span> stringType &amp; lhs, <span class="keyword">const</span> <a class="code hl_class" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt;allocatedSize&gt; &amp; rhs) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l02060" name="l02060"></a><span class="lineno"> 2060</span> </div>
+<div class="line"><a id="l02061" name="l02061"></a><span class="lineno"> 2061</span><span class="comment">/*!</span></div>
+<div class="line"><span class="lineno"> 2062</span><span class="comment">  \brief Equality comparison operator for FixString and C string.</span></div>
+<div class="line"><span class="lineno"> 2063</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 2064</span><span class="comment">  This operator compares a FixString object with a C string for equality.</span></div>
+<div class="line"><span class="lineno"> 2065</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 2066</span><span class="comment">  \tparam allocatedSize The size of the FixString&#39;s internal buffer.</span></div>
+<div class="line"><span class="lineno"> 2067</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 2068</span><span class="comment">  \param lhs The FixString object.</span></div>
+<div class="line"><span class="lineno"> 2069</span><span class="comment">  \param rhs The C string.</span></div>
+<div class="line"><span class="lineno"> 2070</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 2071</span><span class="comment">  \return True if both strings have the same content, false otherwise.</span></div>
+<div class="line"><span class="lineno"> 2072</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 2073</span><span class="comment">  \pre The \a rhs pointer must not be null.</span></div>
+<div class="line"><span class="lineno"> 2074</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 2075</span><span class="comment">  \note The comparison is case-sensitive.</span></div>
+<div class="line"><span class="lineno"> 2076</span><span class="comment">  \note Empty strings are considered equal.</span></div>
+<div class="line"><span class="lineno"> 2077</span><span class="comment">*/</span></div>
+<div class="line"><a id="l02078" name="l02078"></a><span class="lineno"> 2078</span><span class="keyword">template</span> &lt;std::size_t allocatedSize&gt;</div>
+<div class="line"><a id="l02079" name="l02079"></a><span class="lineno"> 2079</span>[[nodiscard]] <span class="keyword">constexpr</span> <span class="keyword">inline</span> <span class="keywordtype">bool</span> operator==(<span class="keyword">const</span> <a class="code hl_class" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt;allocatedSize&gt; &amp; lhs, <span class="keyword">const</span> <span class="keywordtype">char</span> * rhs) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l02080" name="l02080"></a><span class="lineno"> 2080</span> </div>
+<div class="line"><a id="l02081" name="l02081"></a><span class="lineno"> 2081</span><span class="comment">/*!</span></div>
+<div class="line"><span class="lineno"> 2082</span><span class="comment">  \brief Equality comparison operator for C string and FixString.</span></div>
+<div class="line"><span class="lineno"> 2083</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 2084</span><span class="comment">  This operator compares a C string with a FixString object for equality.</span></div>
+<div class="line"><span class="lineno"> 2085</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 2086</span><span class="comment">  \tparam allocatedSize The size of the FixString&#39;s internal buffer.</span></div>
+<div class="line"><span class="lineno"> 2087</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 2088</span><span class="comment">  \param lhs The C string.</span></div>
+<div class="line"><span class="lineno"> 2089</span><span class="comment">  \param rhs The FixString object.</span></div>
+<div class="line"><span class="lineno"> 2090</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 2091</span><span class="comment">  \return True if both strings have the same content, false otherwise.</span></div>
+<div class="line"><span class="lineno"> 2092</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 2093</span><span class="comment">  \pre The \a lhs pointer must not be null.</span></div>
+<div class="line"><span class="lineno"> 2094</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 2095</span><span class="comment">  \note The comparison is case-sensitive.</span></div>
+<div class="line"><span class="lineno"> 2096</span><span class="comment">  \note Empty strings are considered equal.</span></div>
+<div class="line"><span class="lineno"> 2097</span><span class="comment">*/</span></div>
+<div class="line"><a id="l02098" name="l02098"></a><span class="lineno"> 2098</span><span class="keyword">template</span> &lt;std::size_t allocatedSize&gt;</div>
+<div class="line"><a id="l02099" name="l02099"></a><span class="lineno"> 2099</span>[[nodiscard]] <span class="keyword">constexpr</span> <span class="keyword">inline</span> <span class="keywordtype">bool</span> operator==(<span class="keyword">const</span> <span class="keywordtype">char</span> * lhs, <span class="keyword">const</span> <a class="code hl_class" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt;allocatedSize&gt; &amp; rhs) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l02100" name="l02100"></a><span class="lineno"> 2100</span> </div>
+<div class="line"><a id="l02101" name="l02101"></a><span class="lineno"> 2101</span><span class="comment">/*!</span></div>
+<div class="line"><span class="lineno"> 2102</span><span class="comment">  \brief Compares two C strings lexicographically.</span></div>
+<div class="line"><span class="lineno"> 2103</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 2104</span><span class="comment">  This function performs a lexicographic comparison between two C strings. The comparison is performed character by</span></div>
+<div class="line"><span class="lineno"> 2105</span><span class="comment">  character using the character&#39;s numeric value. This function is designed to be constexpr-compatible and provides the</span></div>
+<div class="line"><span class="lineno"> 2106</span><span class="comment">  same behavior as std::strcmp but can be evaluated at compile time.</span></div>
+<div class="line"><span class="lineno"> 2107</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 2108</span><span class="comment">  \param lhs The left-hand side C string to compare.</span></div>
+<div class="line"><span class="lineno"> 2109</span><span class="comment">  \param rhs The right-hand side C string to compare.</span></div>
+<div class="line"><span class="lineno"> 2110</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 2111</span><span class="comment">  \return A negative value if \a lhs is lexicographically less than \a rhs, zero if they are equal,</span></div>
+<div class="line"><span class="lineno"> 2112</span><span class="comment">          or a positive value if \a lhs is lexicographically greater than \a rhs.</span></div>
+<div class="line"><span class="lineno"> 2113</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 2114</span><span class="comment">  \pre The \a lhs pointer must not be null.</span></div>
+<div class="line"><span class="lineno"> 2115</span><span class="comment">  \pre The \a rhs pointer must not be null.</span></div>
+<div class="line"><span class="lineno"> 2116</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 2117</span><span class="comment">  \note The comparison is case-sensitive.</span></div>
+<div class="line"><span class="lineno"> 2118</span><span class="comment">  \note The comparison stops at the first character that differs between the strings.</span></div>
+<div class="line"><span class="lineno"> 2119</span><span class="comment">  \note If one string is a prefix of another, the shorter string is considered lexicographically smaller.</span></div>
+<div class="line"><span class="lineno"> 2120</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 2121</span><span class="comment">  \see std::strcmp</span></div>
+<div class="line"><span class="lineno"> 2122</span><span class="comment">*/</span></div>
+<div class="line"><a id="l02123" name="l02123"></a><span class="lineno"> 2123</span>[[<a class="code hl_namespace" href="../../d7/de6/namespacetoygine.html">nodiscard</a>]] <span class="keyword">constexpr</span> <span class="keyword">inline</span> <span class="keywordtype">int</span> cstrcmp(<span class="keyword">const</span> <span class="keywordtype">char</span> * lhs, <span class="keyword">const</span> <span class="keywordtype">char</span> * rhs) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l02124" name="l02124"></a><span class="lineno"> 2124</span> </div>
+<div class="line"><a id="l02125" name="l02125"></a><span class="lineno"> 2125</span>} <span class="comment">// namespace toygine</span></div>
+<div class="line"><a id="l02126" name="l02126"></a><span class="lineno"> 2126</span> </div>
+<div class="line"><a id="l02127" name="l02127"></a><span class="lineno"> 2127</span><span class="preprocessor">#</span><span class="preprocessor">endif</span> <span class="comment">// INCLUDE_CORE_FIX_STRING_HPP_</span></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html">toygine::FixString</a></div><div class="ttdoc">Template string class with fixed-size character buffer.</div><div class="ttdef"><b>Definition</b> fix_string.hpp:100</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_a04800c975b675cf647fa2382e072cb84"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a04800c975b675cf647fa2382e072cb84">toygine::FixString::insert</a></div><div class="ttdeci">constexpr FixString&lt; allocatedSize &gt; &amp; insert(std::size_t index, const char *string) noexcept</div><div class="ttdoc">Inserts the C string at the specified index.</div><div class="ttdef"><b>Definition</b> fix_string.inl:361</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_a059bec2e7a47960f231005a1c17da11a"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a059bec2e7a47960f231005a1c17da11a">toygine::FixString::pop_back</a></div><div class="ttdeci">constexpr void pop_back() noexcept</div><div class="ttdoc">Removes the last character from the string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:435</div></div>
@@ -2302,7 +2401,7 @@ $(function(){initNavTree('d0/d46/fix__string_8hpp_source.html','../../'); initRe
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="../../dir_3d69f64eaf81436fe2b22361382717e5.html">core</a></li><li class="navelem"><a class="el" href="../../d0/d46/fix__string_8hpp.html">fix_string.hpp</a></li>
-    <li class="footer">Generated on Thu Sep 11 2025 for ToyGine2 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generated on Fri Sep 12 2025 for ToyGine2 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>
