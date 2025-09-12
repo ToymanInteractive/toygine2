@@ -27,7 +27,7 @@
 
 namespace toygine {
 
-constexpr inline int cstrcmp(const char * lhs, const char * rhs) noexcept {
+constexpr int cstrcmp(const char * lhs, const char * rhs) noexcept {
   while (*lhs && (static_cast<unsigned char>(*lhs) == static_cast<unsigned char>(*rhs))) {
     ++lhs;
     ++rhs;

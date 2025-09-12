@@ -58,7 +58,7 @@ namespace toygine {
 
   \see std::strcmp
 */
-[[nodiscard]] constexpr inline int cstrcmp(const char * lhs, const char * rhs) noexcept;
+[[nodiscard]] constexpr int cstrcmp(const char * lhs, const char * rhs) noexcept;
 
 } // namespace toygine
 
