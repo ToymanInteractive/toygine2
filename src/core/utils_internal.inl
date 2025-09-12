@@ -52,7 +52,7 @@ static constexpr std::array<char, 36> sc_ansiDigits{{'0', '1', '2', '3', '4', '5
         not null-terminate the string. The base must be between 2 and 36 inclusive.
 */
 template <typename type>
-constexpr std::size_t integerToSymbols(char * dest, std::size_t destSize, type value, unsigned base) {
+constexpr inline std::size_t integerToSymbols(char * dest, std::size_t destSize, type value, unsigned base) {
   static_assert(std::is_integral_v<type>, "integerToSymbols requires an integral type");
   assert_message(dest != nullptr && destSize > 0, "The destination buffer must not be null.");
   assert_message(base >= 2 && base <= sc_ansiDigits.size(), "The base must be between 2 and 36 inclusive.");

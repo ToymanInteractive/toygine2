@@ -28,7 +28,7 @@
 namespace toygine {
 
 /// Maximum UTF-8 bytes required for BMP characters.
-constexpr std::size_t wcharInUtf8MaxSize = 3;
+constexpr inline std::size_t wcharInUtf8MaxSize = 3;
 
 /*!
   \brief Converts a Unicode UTF-8 encoded string to a wide character string with character count limit.
@@ -82,7 +82,7 @@ wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, const char * const s
   \note The function automatically determines the source string length.
   \note Performance is optimized for common UTF-8 sequences.
 */
-constexpr wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, const char * const src) noexcept;
+constexpr inline wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, const char * const src) noexcept;
 
 /*!
   \brief Converts a Unicode UTF-8 encoded string to a wide character string.
@@ -110,7 +110,7 @@ constexpr wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, const char
   \note Performance is optimized for common UTF-8 sequences.
 */
 template <StringLike stringType>
-constexpr wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, const stringType & src) noexcept;
+constexpr inline wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, const stringType & src) noexcept;
 
 /*!
   \brief Converts a Unicode wide character string to a UTF-8 encoded string.
@@ -186,7 +186,7 @@ std::size_t utf8len(const char * str) noexcept;
   \note The function is thread-safe for single-string operations.
   \note Performance is optimized for common string lengths.
 */
-constexpr char * reverseString(char * str, std::size_t count = 0) noexcept;
+constexpr inline char * reverseString(char * str, std::size_t count = 0) noexcept;
 
 /*!
   \brief Converts an 8-bit signed integer value to a string representation.
