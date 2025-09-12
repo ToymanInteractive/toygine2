@@ -22,7 +22,7 @@ jobs:
         run: |
           sudo apt-get update -y
           sudo apt-get install -y graphviz
-          pip3 install coverxygen sphinx breathe sphinx-rtd-theme
+          pip3 install coverxygen
           curl -L https://github.com/doxygen/doxygen/releases/download/Release_1_12_0/doxygen-1.12.0.linux.bin.tar.gz -o doxygen.tar.gz || { echo "Failed to download Doxygen"; exit 1; }
           tar -xzf doxygen.tar.gz || { echo "Failed to extract Doxygen"; exit 1; }
           cd doxygen-*

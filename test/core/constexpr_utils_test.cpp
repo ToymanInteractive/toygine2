@@ -45,8 +45,8 @@ TEST_CASE("cstrcmp function", "[core][constexpr_utils]") {
 
     STATIC_REQUIRE(cstrcmp(str1, str2) < 0); // "Hello" < "World"
     STATIC_REQUIRE(cstrcmp(str2, str1) > 0); // "World" > "Hello"
-    STATIC_REQUIRE(cstrcmp(str1, str3) < 0); // "Hello" > "Hi"
-    STATIC_REQUIRE(cstrcmp(str3, str1) > 0); // "Hi" < "Hello"
+    STATIC_REQUIRE(cstrcmp(str1, str3) < 0); // "Hello" < "Hi"
+    STATIC_REQUIRE(cstrcmp(str3, str1) > 0); // "Hi" > "Hello"
     STATIC_REQUIRE(cstrcmp(str1, str4) < 0); // "Hello" < "Hello World"
     STATIC_REQUIRE(cstrcmp(str4, str1) > 0); // "Hello World" > "Hello"
   }
@@ -166,7 +166,7 @@ TEST_CASE("cstrcmp function", "[core][constexpr_utils]") {
     STATIC_REQUIRE(gt > 0);
   }
 
-  SECTION("Performance test") {
+  SECTION("Long strings") {
     constexpr const char * long1 = "This is a very long string for performance testing";
     constexpr const char * long2 = "This is a very long string for performance testing";
     constexpr const char * long3 = "This is a very long string for performance testing!";
