@@ -1305,8 +1305,8 @@ constexpr inline std::size_t FixString<allocatedSize>::_find_last_not_of_raw(std
 }
 
 template <std::size_t allocatedSize1, std::size_t allocatedSize2>
-[[nodiscard]] constexpr inline bool operator==(const FixString<allocatedSize1> & lhs,
-                                               const FixString<allocatedSize2> & rhs) noexcept {
+constexpr inline bool operator==(const FixString<allocatedSize1> & lhs,
+                                 const FixString<allocatedSize2> & rhs) noexcept {
   if constexpr (allocatedSize1 == allocatedSize2) {
     if (std::addressof(lhs) == std::addressof(rhs))
       return true;
@@ -1327,7 +1327,7 @@ template <std::size_t allocatedSize1, std::size_t allocatedSize2>
 // Equality comparison operators
 
 template <std::size_t allocatedSize, StringLike stringType>
-[[nodiscard]] constexpr inline bool operator==(const FixString<allocatedSize> & lhs, const stringType & rhs) noexcept {
+constexpr inline bool operator==(const FixString<allocatedSize> & lhs, const stringType & rhs) noexcept {
   if (lhs.size() != rhs.size())
     return false;
   else if (lhs.empty())
@@ -1341,12 +1341,12 @@ template <std::size_t allocatedSize, StringLike stringType>
 }
 
 template <StringLike stringType, std::size_t allocatedSize>
-[[nodiscard]] constexpr inline bool operator==(const stringType & lhs, const FixString<allocatedSize> & rhs) noexcept {
+constexpr inline bool operator==(const stringType & lhs, const FixString<allocatedSize> & rhs) noexcept {
   return rhs == lhs;
 }
 
 template <std::size_t allocatedSize>
-[[nodiscard]] constexpr inline bool operator==(const FixString<allocatedSize> & lhs, const char * rhs) noexcept {
+constexpr inline bool operator==(const FixString<allocatedSize> & lhs, const char * rhs) noexcept {
   assert_message(rhs != nullptr, "C string pointer must not be null");
 
   if (lhs.empty())
@@ -1360,7 +1360,7 @@ template <std::size_t allocatedSize>
 }
 
 template <std::size_t allocatedSize>
-[[nodiscard]] constexpr inline bool operator==(const char * lhs, const FixString<allocatedSize> & rhs) noexcept {
+constexpr inline bool operator==(const char * lhs, const FixString<allocatedSize> & rhs) noexcept {
   return rhs == lhs;
 }
 
