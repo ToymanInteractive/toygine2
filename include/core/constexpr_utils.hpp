@@ -48,17 +48,9 @@ namespace toygine {
   \note If one string is a prefix of another, the shorter string is considered lexicographically smaller.
   \note This function is constexpr-compatible and can be used in compile-time contexts.
 
-  \example
-  \code
-  constexpr const char* str1 = "Hello";
-  constexpr const char* str2 = "World";
-  constexpr int result = cstrcmp(str1, str2);  // result < 0
-  constexpr int equal = cstrcmp("Test", "Test");  // equal == 0
-  \endcode
-
   \see std::strcmp
 */
-[[nodiscard]] constexpr inline int cstrcmp(const char * lhs, const char * rhs) noexcept;
+[[nodiscard]] constexpr int cstrcmp(const char * lhs, const char * rhs) noexcept;
 
 } // namespace toygine
 
