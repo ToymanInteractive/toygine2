@@ -55,15 +55,14 @@ var NAVTREE =
         [ "All", "globals.html", null ],
         [ "Macros", "globals_defs.html", null ]
       ] ]
-    ] ],
-    [ "Examples", "examples.html", "examples" ]
+    ] ]
   ] ]
 ];
 
 var NAVTREEINDEX =
 [
 "annotated.html",
-"da/d4a/classtoygine_1_1_fix_string.html#ad1d27e5fc61f32f9a182a32f5c1ce2be"
+"da/d4a/classtoygine_1_1_fix_string.html#add0d88c13a24733170403eec78994a20"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

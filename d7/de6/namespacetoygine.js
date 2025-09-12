@@ -17,7 +17,6 @@ var namespacetoygine =
     [ "formatNumberString", "d7/de6/namespacetoygine.html#a1ffae6f9d9a5c63abe48edd50cd7f016", null ],
     [ "ftoa", "d7/de6/namespacetoygine.html#af7d6996d5d592d01988772546b56666e", null ],
     [ "ftoa", "d7/de6/namespacetoygine.html#affdb6875d17aaa1db906010940f7ce7f", null ],
-    [ "integerToSymbols", "d7/de6/namespacetoygine.html#aece45bc773865fbc01013939bcfaeeb2", null ],
     [ "itoa", "d7/de6/namespacetoygine.html#af85d23d77de5c0a7a76b9dc89719a919", null ],
     [ "itoa", "d7/de6/namespacetoygine.html#ade51b24351f3bebea8628b8a70e9ede7", null ],
     [ "itoa", "d7/de6/namespacetoygine.html#a58ca06ce96f0c6438374e1aa4d3d1975", null ],
@@ -26,7 +25,6 @@ var namespacetoygine =
     [ "itoa", "d7/de6/namespacetoygine.html#a48a99d88633f50f8b46a175d914af295", null ],
     [ "itoa", "d7/de6/namespacetoygine.html#a954d9c02c401db57e47222acf2351f36", null ],
     [ "itoa", "d7/de6/namespacetoygine.html#abdc1ec7f229b6a9ced24dd403b0b7516", null ],
-    [ "itoaImplementation", "d7/de6/namespacetoygine.html#af8a75c65ac8550ff63ac340e1f2572ef", null ],
     [ "operator==", "d7/de6/namespacetoygine.html#a0841480945cedf8574e2df43d85743a5", null ],
     [ "operator==", "d7/de6/namespacetoygine.html#ac7f3d576dd162f8c2a37fddaaea6f9fd", null ],
     [ "operator==", "d7/de6/namespacetoygine.html#ad428030e3e34446aef2131f77e2d1040", null ],
@@ -37,8 +35,6 @@ var namespacetoygine =
     [ "utf8toWChar", "d7/de6/namespacetoygine.html#a32bb0f5af188400927e12558fd6527a9", null ],
     [ "utf8toWChar", "d7/de6/namespacetoygine.html#a89f32ddda04ad4d5383e3e307e1597fb", null ],
     [ "utf8toWChar", "d7/de6/namespacetoygine.html#a2bd2dd9c0216904835795ce5b3661f47", null ],
-    [ "utoaImplementation", "d7/de6/namespacetoygine.html#a0f7769364a3fa922049ef7ca0b749e12", null ],
     [ "wcharToUtf8", "d7/de6/namespacetoygine.html#ac153d6bb41a1474b9827d2bd9ed0bc95", null ],
-    [ "sc_ansiDigits", "d7/de6/namespacetoygine.html#adf925cf307a3e0463eb4ce318cc51ed8", null ],
     [ "wcharInUtf8MaxSize", "d7/de6/namespacetoygine.html#a33eb5fc4e7682e297375d2ee2fbb7742", null ]
 ];
