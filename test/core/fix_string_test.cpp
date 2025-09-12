@@ -209,21 +209,21 @@ TEST_CASE("FixString operators=", "[core][fixstring]") {
     str3 = "Test";
 
     REQUIRE(str1.size() == 5);
-    REQUIRE(cstrcmp(str1.c_str(), "Hello") == 0);
+    REQUIRE(std::strcmp(str1.c_str(), "Hello") == 0);
     REQUIRE(str2.size() == 5);
-    REQUIRE(cstrcmp(str2.c_str(), "World") == 0);
+    REQUIRE(std::strcmp(str2.c_str(), "World") == 0);
     REQUIRE(str3.size() == 4);
-    REQUIRE(cstrcmp(str3.c_str(), "Test") == 0);
+    REQUIRE(std::strcmp(str3.c_str(), "Test") == 0);
 
     // Empty string assignment
     str1 = "";
     REQUIRE(str1.size() == 0);
-    REQUIRE(cstrcmp(str1.c_str(), "") == 0);
+    REQUIRE(std::strcmp(str1.c_str(), "") == 0);
 
     // Long string assignment
     str2 = "This is a longer string";
     REQUIRE(str2.size() == 23);
-    REQUIRE(cstrcmp(str2.c_str(), "This is a longer string") == 0);
+    REQUIRE(std::strcmp(str2.c_str(), "This is a longer string") == 0);
   }
 
   SECTION("FixString assignment (same capacity)") {
@@ -233,16 +233,16 @@ TEST_CASE("FixString operators=", "[core][fixstring]") {
 
     str2 = str1;
     REQUIRE(str2.size() == 5);
-    REQUIRE(cstrcmp(str2.c_str(), "Hello") == 0);
+    REQUIRE(std::strcmp(str2.c_str(), "Hello") == 0);
 
     str3 = str2;
     REQUIRE(str3.size() == 5);
-    REQUIRE(cstrcmp(str3.c_str(), "Hello") == 0);
+    REQUIRE(std::strcmp(str3.c_str(), "Hello") == 0);
 
     // Self-assignment
     str1 = str1;
     REQUIRE(str1.size() == 5);
-    REQUIRE(cstrcmp(str1.c_str(), "Hello") == 0);
+    REQUIRE(std::strcmp(str1.c_str(), "Hello") == 0);
   }
 
   SECTION("FixString assignment (different capacities)") {
@@ -252,16 +252,16 @@ TEST_CASE("FixString operators=", "[core][fixstring]") {
 
     str2 = str1;
     REQUIRE(str2.size() == 4);
-    REQUIRE(cstrcmp(str2.c_str(), "Test") == 0);
+    REQUIRE(std::strcmp(str2.c_str(), "Test") == 0);
 
     str3 = str2;
     REQUIRE(str3.size() == 4);
-    REQUIRE(cstrcmp(str3.c_str(), "Test") == 0);
+    REQUIRE(std::strcmp(str3.c_str(), "Test") == 0);
 
     // Reverse assignment
     str1 = str3;
     REQUIRE(str1.size() == 4);
-    REQUIRE(cstrcmp(str1.c_str(), "Test") == 0);
+    REQUIRE(std::strcmp(str1.c_str(), "Test") == 0);
   }
 
   SECTION("StringLike assignment") {
@@ -273,11 +273,11 @@ TEST_CASE("FixString operators=", "[core][fixstring]") {
 
     str1 = stdStr;
     REQUIRE(str1.size() == 11);
-    REQUIRE(cstrcmp(str1.c_str(), "Hello World") == 0);
+    REQUIRE(std::strcmp(str1.c_str(), "Hello World") == 0);
 
     str2 = fixStr;
     REQUIRE(str2.size() == 11);
-    REQUIRE(cstrcmp(str2.c_str(), "Test String") == 0);
+    REQUIRE(std::strcmp(str2.c_str(), "Test String") == 0);
   }
 
   SECTION("Character assignment") {
@@ -287,46 +287,46 @@ TEST_CASE("FixString operators=", "[core][fixstring]") {
 
     str1 = 'A';
     REQUIRE(str1.size() == 1);
-    REQUIRE(cstrcmp(str1.c_str(), "A") == 0);
+    REQUIRE(std::strcmp(str1.c_str(), "A") == 0);
 
     str2 = 'B';
     REQUIRE(str2.size() == 1);
-    REQUIRE(cstrcmp(str2.c_str(), "B") == 0);
+    REQUIRE(std::strcmp(str2.c_str(), "B") == 0);
 
     str3 = 'Z';
     REQUIRE(str3.size() == 1);
-    REQUIRE(cstrcmp(str3.c_str(), "Z") == 0);
+    REQUIRE(std::strcmp(str3.c_str(), "Z") == 0);
 
     // Special characters
     str1 = '\n';
     REQUIRE(str1.size() == 1);
-    REQUIRE(cstrcmp(str1.c_str(), "\n") == 0);
+    REQUIRE(std::strcmp(str1.c_str(), "\n") == 0);
 
     str2 = '\t';
     REQUIRE(str2.size() == 1);
-    REQUIRE(cstrcmp(str2.c_str(), "\t") == 0);
+    REQUIRE(std::strcmp(str2.c_str(), "\t") == 0);
   }
 
   SECTION("Edge cases") {
-    FixString<4> str1;
+    FixString<6> str1;
     FixString<8> str2;
 
     // Maximum length assignment
     str1 = "ABC"; // 3 chars + null terminator = 4 total
     REQUIRE(str1.size() == 3);
-    REQUIRE(cstrcmp(str1.c_str(), "ABC") == 0);
+    REQUIRE(std::strcmp(str1.c_str(), "ABC") == 0);
 
     // Empty to non-empty
     str2 = "Test";
     str1 = str2;
     REQUIRE(str1.size() == 4);
-    REQUIRE(cstrcmp(str1.c_str(), "Test") == 0);
+    REQUIRE(std::strcmp(str1.c_str(), "Test") == 0);
 
     // Non-empty to empty
     str2 = "";
     str1 = str2;
     REQUIRE(str1.size() == 0);
-    REQUIRE(cstrcmp(str1.c_str(), "") == 0);
+    REQUIRE(std::strcmp(str1.c_str(), "") == 0);
   }
 
   SECTION("Special characters") {
@@ -335,16 +335,16 @@ TEST_CASE("FixString operators=", "[core][fixstring]") {
 
     str1 = "Line1\nLine2";
     REQUIRE(str1.size() == 11);
-    REQUIRE(cstrcmp(str1.c_str(), "Line1\nLine2") == 0);
+    REQUIRE(std::strcmp(str1.c_str(), "Line1\nLine2") == 0);
 
     str2 = "Col1\tCol2";
     REQUIRE(str2.size() == 9);
-    REQUIRE(cstrcmp(str2.c_str(), "Col1\tCol2") == 0);
+    REQUIRE(std::strcmp(str2.c_str(), "Col1\tCol2") == 0);
 
     // Mixed special characters
     str1 = "Mix\t\nEnd";
     REQUIRE(str1.size() == 8);
-    REQUIRE(cstrcmp(str1.c_str(), "Mix\t\nEnd") == 0);
+    REQUIRE(std::strcmp(str1.c_str(), "Mix\t\nEnd") == 0);
   }
 
   SECTION("Unicode content") {
@@ -353,16 +353,16 @@ TEST_CASE("FixString operators=", "[core][fixstring]") {
 
     str1 = "Привет";
     REQUIRE(str1.size() == 12); // UTF-8 encoding
-    REQUIRE(cstrcmp(str1.c_str(), "Привет") == 0);
+    REQUIRE(std::strcmp(str1.c_str(), "Привет") == 0);
 
     str2 = "Hello 🌍";
     REQUIRE(str2.size() == 10); // UTF-8 encoding
-    REQUIRE(cstrcmp(str2.c_str(), "Hello 🌍") == 0);
+    REQUIRE(std::strcmp(str2.c_str(), "Hello 🌍") == 0);
 
     // Assignment between Unicode strings
     str1 = str2;
     REQUIRE(str1.size() == 10);
-    REQUIRE(cstrcmp(str1.c_str(), "Hello 🌍") == 0);
+    REQUIRE(std::strcmp(str1.c_str(), "Hello 🌍") == 0);
   }
 
   SECTION("Constexpr operations") {
@@ -372,13 +372,13 @@ TEST_CASE("FixString operators=", "[core][fixstring]") {
     constexpr FixString<32> str4 = "";
 
     REQUIRE(str1.size() == 4);
-    REQUIRE(cstrcmp(str1.c_str(), "Test") == 0);
+    REQUIRE(std::strcmp(str1.c_str(), "Test") == 0);
     REQUIRE(str2.size() == 4);
-    REQUIRE(cstrcmp(str2.c_str(), "Test") == 0);
+    REQUIRE(std::strcmp(str2.c_str(), "Test") == 0);
     REQUIRE(str3.size() == 4);
-    REQUIRE(cstrcmp(str3.c_str(), "Test") == 0);
+    REQUIRE(std::strcmp(str3.c_str(), "Test") == 0);
     REQUIRE(str4.size() == 0);
-    REQUIRE(cstrcmp(str4.c_str(), "") == 0);
+    REQUIRE(std::strcmp(str4.c_str(), "") == 0);
 
     STATIC_REQUIRE(str1.size() == 4);
     STATIC_REQUIRE(cstrcmp(str1.c_str(), "Test") == 0);

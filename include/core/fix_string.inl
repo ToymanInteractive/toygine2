@@ -1006,7 +1006,7 @@ constexpr FixString<allocatedSize> FixString<allocatedSize>::substr(std::size_t 
 template <std::size_t allocatedSize>
 constexpr FixString<allocatedSize> FixString<allocatedSize>::operator+(
   const FixString<allocatedSize> & string) const noexcept {
-  assert(_size + string._size < allocatedSize);
+  assert_message(_size + string._size < allocatedSize, "Concatenation must fit in capacity");
 
   FixString<allocatedSize> value(*this);
   value += string;
@@ -1019,7 +1019,7 @@ template <std::size_t allocatedSize2>
 constexpr FixString<allocatedSize> FixString<allocatedSize>::operator+(
   const FixString<allocatedSize2> & string) const noexcept {
   static_assert(allocatedSize2 > 0, "FixString capacity must be greater than zero.");
-  assert(_size + string.size() < allocatedSize);
+  assert_message(_size + string.size() < allocatedSize, "Concatenation must fit in capacity");
 
   FixString<allocatedSize> value(*this);
   value += string;
@@ -1029,7 +1029,7 @@ constexpr FixString<allocatedSize> FixString<allocatedSize>::operator+(
 
 template <std::size_t allocatedSize>
 constexpr FixString<allocatedSize> FixString<allocatedSize>::operator+(const char * string) const noexcept {
-  assert(string != nullptr);
+  assert_message(string != nullptr, "String pointer must not be null");
 
   FixString<allocatedSize> value(*this);
   value += string;
