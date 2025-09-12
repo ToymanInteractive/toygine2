@@ -2000,6 +2000,105 @@ private:
 };
 
 /*!
+  \brief Equality comparison operator for two FixString objects.
+
+  This operator compares two FixString objects for equality. The comparison is performed character by character.
+
+  \tparam allocatedSize1 The size of the first FixString's internal buffer.
+  \tparam allocatedSize2 The size of the second FixString's internal buffer.
+
+  \param lhs The left-hand side FixString object.
+  \param rhs The right-hand side FixString object.
+
+  \return True if both strings have the same content, false otherwise.
+
+  \note The comparison is case-sensitive.
+  \note Empty strings are considered equal.
+  \note The comparison is performed on the actual string content, not the buffer sizes.
+*/
+template <std::size_t allocatedSize1, std::size_t allocatedSize2>
+[[nodiscard]] constexpr inline bool operator==(const FixString<allocatedSize1> & lhs,
+                                               const FixString<allocatedSize2> & rhs) noexcept;
+
+/*!
+  \brief Equality comparison operator for FixString and StringLike object.
+
+  This operator compares a FixString object with a StringLike object for equality.
+
+  \tparam allocatedSize The size of the FixString's internal buffer.
+  \tparam stringType The type of the StringLike object. Must satisfy the StringLike concept.
+
+  \param lhs The FixString object.
+  \param rhs The StringLike object.
+
+  \return True if both strings have the same content, false otherwise.
+
+  \note The comparison is case-sensitive.
+  \note Empty strings are considered equal.
+*/
+template <std::size_t allocatedSize, StringLike stringType>
+[[nodiscard]] constexpr inline bool operator==(const FixString<allocatedSize> & lhs, const stringType & rhs) noexcept;
+
+/*!
+  \brief Equality comparison operator for StringLike object and FixString.
+
+  This operator compares a StringLike object with a FixString object for equality.
+
+  \tparam stringType The type of the StringLike object. Must satisfy the StringLike concept.
+  \tparam allocatedSize The size of the FixString's internal buffer.
+
+  \param lhs The StringLike object.
+  \param rhs The FixString object.
+
+  \return True if both strings have the same content, false otherwise.
+
+  \note The comparison is case-sensitive.
+  \note Empty strings are considered equal.
+*/
+template <StringLike stringType, std::size_t allocatedSize>
+[[nodiscard]] constexpr inline bool operator==(const stringType & lhs, const FixString<allocatedSize> & rhs) noexcept;
+
+/*!
+  \brief Equality comparison operator for FixString and C string.
+
+  This operator compares a FixString object with a C string for equality.
+
+  \tparam allocatedSize The size of the FixString's internal buffer.
+
+  \param lhs The FixString object.
+  \param rhs The C string.
+
+  \return True if both strings have the same content, false otherwise.
+
+  \pre The \a rhs pointer must not be null.
+
+  \note The comparison is case-sensitive.
+  \note Empty strings are considered equal.
+*/
+template <std::size_t allocatedSize>
+[[nodiscard]] constexpr inline bool operator==(const FixString<allocatedSize> & lhs, const char * rhs) noexcept;
+
+/*!
+  \brief Equality comparison operator for C string and FixString.
+
+  This operator compares a C string with a FixString object for equality.
+
+  \tparam allocatedSize The size of the FixString's internal buffer.
+
+  \param lhs The C string.
+  \param rhs The FixString object.
+
+  \return True if both strings have the same content, false otherwise.
+
+  \pre The \a lhs pointer must not be null.
+
+  \note The comparison is case-sensitive.
+  \note Empty strings are considered equal.
+*/
+template <std::size_t allocatedSize>
+[[nodiscard]] constexpr inline bool operator==(const char * lhs, const FixString<allocatedSize> & rhs) noexcept;
+
+/*!
   \brief Compares two C strings lexicographically.
 
   This function performs a lexicographic comparison between two C strings. The comparison is performed character by

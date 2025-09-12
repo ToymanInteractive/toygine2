@@ -1303,6 +1303,61 @@ constexpr inline std::size_t FixString<allocatedSize>::_find_last_not_of_raw(std
   return npos;
 }
 
+template <std::size_t allocatedSize1, std::size_t allocatedSize2>
+[[nodiscard]] constexpr inline bool operator==(const FixString<allocatedSize1> & lhs,
+                                               const FixString<allocatedSize2> & rhs) noexcept {
+  if (lhs.size() != rhs.size())
+    return false;
+  else if (lhs.empty())
+    return true;
+
+  if consteval {
+    return std::equal(lhs.c_str(), lhs.c_str() + lhs.size(), rhs.c_str());
+  } else {
+    return std::memcmp(lhs.c_str(), rhs.c_str(), lhs.size()) == 0;
+  }
+}
+
+// Equality comparison operators
+
+template <std::size_t allocatedSize, StringLike stringType>
+[[nodiscard]] constexpr inline bool operator==(const FixString<allocatedSize> & lhs, const stringType & rhs) noexcept {
+  if (lhs.size() != rhs.size())
+    return false;
+  else if (lhs.empty())
+    return true;
+
+  if consteval {
+    return std::equal(lhs.c_str(), lhs.c_str() + lhs.size(), rhs.c_str());
+  } else {
+    return std::memcmp(lhs.c_str(), rhs.c_str(), lhs.size()) == 0;
+  }
+}
+
+template <StringLike stringType, std::size_t allocatedSize>
+[[nodiscard]] constexpr inline bool operator==(const stringType & lhs, const FixString<allocatedSize> & rhs) noexcept {
+  return rhs == lhs;
+}
+
+template <std::size_t allocatedSize>
+[[nodiscard]] constexpr inline bool operator==(const FixString<allocatedSize> & lhs, const char * rhs) noexcept {
+  assert_message(rhs != nullptr, "C string pointer must not be null");
+
+  if (lhs.empty())
+    return *rhs == '\0';
+
+  if consteval {
+    return lhs.size() == std::char_traits<char>::length(rhs) && std::equal(lhs.c_str(), lhs.c_str() + lhs.size(), rhs);
+  } else {
+    return lhs.size() == std::strlen(rhs) && std::memcmp(lhs.c_str(), rhs, lhs.size()) == 0 && rhs[lhs.size()] == '\0';
+  }
+}
+
+template <std::size_t allocatedSize>
+[[nodiscard]] constexpr inline bool operator==(const char * lhs, const FixString<allocatedSize> & rhs) noexcept {
+  return rhs == lhs;
+}
+
 [[nodiscard]] constexpr inline int cstrcmp(const char * lhs, const char * rhs) noexcept {
   while (*lhs && (static_cast<unsigned char>(*lhs) == static_cast<unsigned char>(*rhs))) {
     ++lhs;
