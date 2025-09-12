@@ -19,7 +19,7 @@
 //
 /*!
   \file   fix_string.inl
-  \brief  Inline implementations for FixString template class
+  \brief  Inline implementations for FixString template class.
 */
 
 #ifndef INCLUDE_CORE_FIX_STRING_INL_

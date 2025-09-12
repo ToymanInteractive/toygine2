@@ -58,14 +58,7 @@ namespace toygine {
 
   \see std::strcmp
 */
-[[nodiscard]] constexpr inline int cstrcmp(const char * lhs, const char * rhs) noexcept {
-  while (*lhs && (static_cast<unsigned char>(*lhs) == static_cast<unsigned char>(*rhs))) {
-    ++lhs;
-    ++rhs;
-  }
-
-  return static_cast<unsigned char>(*lhs) - static_cast<unsigned char>(*rhs);
-}
+[[nodiscard]] constexpr inline int cstrcmp(const char * lhs, const char * rhs) noexcept;
 
 } // namespace toygine
 
