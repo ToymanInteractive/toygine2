@@ -16,7 +16,7 @@ reviews:
   sequence_diagrams: true
   assess_linked_issues: true
   related_issues: true
-  related_prs: true
+  related_prs: false
   suggested_labels: true
   auto_apply_labels: true
   suggested_reviewers: true

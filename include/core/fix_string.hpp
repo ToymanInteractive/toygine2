@@ -2214,7 +2214,7 @@ template <std::size_t allocatedSize>
   \return std::strong_ordering::less if \a lhs is lexicographically less than \a rhs, std::strong_ordering::equal if
           they are equal, or std::strong_ordering::greater if \a lhs is lexicographically greater than \a rhs.
 
-  \pre The \a rhs pointer must not be null.
+  \pre The \a lhs pointer must not be null.
 
   \note The comparison is case-sensitive.
   \note The comparison is performed lexicographically character by character.
