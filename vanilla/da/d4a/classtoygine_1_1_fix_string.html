@@ -1838,14 +1838,14 @@ The size of this string equals the size of the source C <em>string</em>.</dd></d
 This method is equivalent to the copy assignment operator.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#a332c2ea1b05da7bbed29030d8aaa91f7" title="Copy assigns the C string to this string.">operator=(const char * string)</a> </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">  198</span>                                                                                                  {</div>
-<div class="line"><span class="lineno">  199</span>  <span class="keywordflow">if</span> (<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> == <span class="keywordtype">string</span>)</div>
-<div class="line"><span class="lineno">  200</span>    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><span class="lineno">  201</span> </div>
-<div class="line"><span class="lineno">  202</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#acee011a673448baf706197935ace44c7">assert_message</a>(<span class="keywordtype">string</span> != <span class="keyword">nullptr</span>, <span class="stringliteral">&quot;String pointer must not be null&quot;</span>);</div>
-<div class="line"><span class="lineno">  203</span> </div>
-<div class="line"><span class="lineno">  204</span>  <span class="keywordflow">if</span> <span class="keyword">consteval</span> {</div>
-<div class="line"><span class="lineno">  205</span>    <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> = std::char_traits&lt;char&gt;::length(<span class="keywordtype">string</span>);</div>
-<div class="line"><span class="lineno">  206</span>  } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  199</span>  <span class="keywordflow">if</span> <span class="keyword">consteval</span> {</div>
+<div class="line"><span class="lineno">  200</span>    <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> = std::char_traits&lt;char&gt;::length(<span class="keywordtype">string</span>);</div>
+<div class="line"><span class="lineno">  201</span>  } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  202</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="#aefd61568e3d5a4812f208bb45358d4ff">_data</a> == <span class="keywordtype">string</span>)</div>
+<div class="line"><span class="lineno">  203</span>      <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><span class="lineno">  204</span> </div>
+<div class="line"><span class="lineno">  205</span>    <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#acee011a673448baf706197935ace44c7">assert_message</a>(<span class="keywordtype">string</span> != <span class="keyword">nullptr</span>, <span class="stringliteral">&quot;String pointer must not be null&quot;</span>);</div>
+<div class="line"><span class="lineno">  206</span> </div>
 <div class="line"><span class="lineno">  207</span>    <a class="code hl_variable" href="#a9166a4498452706474ce05840e67e660">_size</a> = std::strlen(<span class="keywordtype">string</span>);</div>
 <div class="line"><span class="lineno">  208</span>  }</div>
 <div class="line"><span class="lineno">  209</span> </div>
