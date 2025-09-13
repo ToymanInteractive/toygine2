@@ -2002,7 +2002,8 @@ private:
 
   \note The comparison is case-sensitive.
   \note Empty strings are considered equal.
-  \note The comparison is performed on the actual string content, not the buffer sizes.
+
+  \see operator<=>(const FixString<allocatedSize1> &, const FixString<allocatedSize2> &)
 */
 template <std::size_t allocatedSize1, std::size_t allocatedSize2>
 [[nodiscard]] constexpr bool operator==(const FixString<allocatedSize1> & lhs,
@@ -2023,6 +2024,8 @@ template <std::size_t allocatedSize1, std::size_t allocatedSize2>
 
   \note The comparison is case-sensitive.
   \note Empty strings are considered equal.
+
+  \see operator<=>(const FixString<allocatedSize> &, const stringType &)
 */
 template <std::size_t allocatedSize, StringLike stringType>
 [[nodiscard]] constexpr bool operator==(const FixString<allocatedSize> & lhs, const stringType & rhs) noexcept;
@@ -2042,6 +2045,8 @@ template <std::size_t allocatedSize, StringLike stringType>
 
   \note The comparison is case-sensitive.
   \note Empty strings are considered equal.
+
+  \see operator<=>(const stringType &, const FixString<allocatedSize> &)
 */
 template <StringLike stringType, std::size_t allocatedSize>
 [[nodiscard]] constexpr bool operator==(const stringType & lhs, const FixString<allocatedSize> & rhs) noexcept;
@@ -2062,6 +2067,8 @@ template <StringLike stringType, std::size_t allocatedSize>
 
   \note The comparison is case-sensitive.
   \note Empty strings are considered equal.
+
+  \see operator<=>(const FixString<allocatedSize> &, const char *)
 */
 template <std::size_t allocatedSize>
 [[nodiscard]] constexpr bool operator==(const FixString<allocatedSize> & lhs, const char * rhs) noexcept;
@@ -2082,9 +2089,143 @@ template <std::size_t allocatedSize>
 
   \note The comparison is case-sensitive.
   \note Empty strings are considered equal.
+
+  \see operator<=>(const char *, const FixString<allocatedSize> &)
 */
 template <std::size_t allocatedSize>
 [[nodiscard]] constexpr bool operator==(const char * lhs, const FixString<allocatedSize> & rhs) noexcept;
+
+/*!
+  \brief Three-way comparison operator for FixString objects.
+
+  This operator provides a three-way comparison between two FixString objects. It returns a std::strong_ordering value
+  that indicates the relationship between the strings.
+
+  \tparam allocatedSize1 The size of the first FixString's internal buffer.
+  \tparam allocatedSize2 The size of the second FixString's internal buffer.
+
+  \param lhs The left-hand side FixString object to compare.
+  \param rhs The right-hand side FixString object to compare.
+
+  \return std::strong_ordering::less if \a lhs is lexicographically less than \a rhs, std::strong_ordering::equal if
+          they are equal, or std::strong_ordering::greater if \a lhs is lexicographically greater than \a rhs.
+
+  \note The comparison is case-sensitive.
+  \note The comparison is performed lexicographically character by character.
+  \note Empty strings are considered equal.
+
+  \see std::strong_ordering
+  \see operator==(const FixString<allocatedSize1> &, const FixString<allocatedSize2> &)
+*/
+template <std::size_t allocatedSize1, std::size_t allocatedSize2>
+[[nodiscard]] constexpr std::strong_ordering operator<=>(const FixString<allocatedSize1> & lhs,
+                                                         const FixString<allocatedSize2> & rhs) noexcept;
+
+/*!
+  \brief Three-way comparison operator for FixString and StringLike object.
+
+  This operator provides a three-way comparison between a FixString object and a StringLike object. It returns a
+  std::strong_ordering value that indicates the relationship between the strings.
+
+  \tparam allocatedSize The size of the FixString's internal buffer.
+  \tparam stringType The type of the StringLike object. Must satisfy the StringLike concept.
+
+  \param lhs The FixString object to compare.
+  \param rhs The StringLike object to compare.
+
+  \return std::strong_ordering::less if \a lhs is lexicographically less than \a rhs, std::strong_ordering::equal if
+          they are equal, or std::strong_ordering::greater if \a lhs is lexicographically greater than \a rhs.
+
+  \note The comparison is case-sensitive.
+  \note The comparison is performed lexicographically character by character.
+  \note Empty strings are considered equal.
+
+  \see std::strong_ordering
+  \see operator==(const FixString<allocatedSize> &, const stringType &)
+*/
+template <std::size_t allocatedSize, StringLike stringType>
+[[nodiscard]] constexpr std::strong_ordering operator<=>(const FixString<allocatedSize> & lhs,
+                                                         const stringType & rhs) noexcept;
+
+/*!
+  \brief Three-way comparison operator for StringLike object and FixString.
+
+  This operator provides a three-way comparison between a StringLike object and a FixString object. It returns a
+  std::strong_ordering value that indicates the relationship between the strings.
+
+  \tparam stringType The type of the StringLike object. Must satisfy the StringLike concept.
+  \tparam allocatedSize The size of the FixString's internal buffer.
+
+  \param lhs The StringLike object to compare.
+  \param rhs The FixString object to compare.
+
+  \return std::strong_ordering::less if \a lhs is lexicographically less than \a rhs, std::strong_ordering::equal if
+          they are equal, or std::strong_ordering::greater if \a lhs is lexicographically greater than \a rhs.
+
+  \note The comparison is case-sensitive.
+  \note The comparison is performed lexicographically character by character.
+  \note Empty strings are considered equal.
+
+  \see std::strong_ordering
+  \see operator==(const stringType &, const FixString<allocatedSize> &)
+*/
+template <StringLike stringType, std::size_t allocatedSize>
+[[nodiscard]] constexpr std::strong_ordering operator<=>(const stringType & lhs,
+                                                         const FixString<allocatedSize> & rhs) noexcept;
+
+/*!
+  \brief Three-way comparison operator for FixString and C string.
+
+  This operator provides a three-way comparison between a FixString object and a C string. It returns a
+  std::strong_ordering value that indicates the relationship between the strings.
+
+  \tparam allocatedSize The size of the FixString's internal buffer.
+
+  \param lhs The FixString object to compare.
+  \param rhs The C string to compare.
+
+  \return std::strong_ordering::less if \a lhs is lexicographically less than \a rhs, std::strong_ordering::equal if
+          they are equal, or std::strong_ordering::greater if \a lhs is lexicographically greater than \a rhs.
+
+  \pre The \a rhs pointer must not be null.
+
+  \note The comparison is case-sensitive.
+  \note The comparison is performed lexicographically character by character.
+  \note Empty strings are considered equal.
+
+  \see std::strong_ordering
+  \see operator==(const FixString<allocatedSize> &, const char *)
+*/
+template <std::size_t allocatedSize>
+[[nodiscard]] constexpr std::strong_ordering operator<=>(const FixString<allocatedSize> & lhs,
+                                                         const char * rhs) noexcept;
+
+/*!
+  \brief Three-way comparison operator for C string and FixString.
+
+  This operator provides a three-way comparison between a C string and a FixString object. It returns a
+  std::strong_ordering value that indicates the relationship between the strings.
+
+  \tparam allocatedSize The size of the FixString's internal buffer.
+
+  \param lhs The C string to compare.
+  \param rhs The FixString object to compare.
+
+  \return std::strong_ordering::less if \a lhs is lexicographically less than \a rhs, std::strong_ordering::equal if
+          they are equal, or std::strong_ordering::greater if \a lhs is lexicographically greater than \a rhs.
+
+  \pre The \a lhs pointer must not be null.
+
+  \note The comparison is case-sensitive.
+  \note The comparison is performed lexicographically character by character.
+  \note Empty strings are considered equal.
+
+  \see std::strong_ordering
+  \see operator==(const char *, const FixString<allocatedSize> &)
+*/
+template <std::size_t allocatedSize>
+[[nodiscard]] constexpr std::strong_ordering operator<=>(const char * lhs,
+                                                         const FixString<allocatedSize> & rhs) noexcept;
 
 } // namespace toygine
 
