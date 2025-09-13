@@ -4255,101 +4255,101 @@ TEST_CASE("FixString std::swap", "[core][fixstring]") {
     FixString<32> str1("Hello");
     FixString<32> str2("World");
 
-    REQUIRE(strcmp(str1.c_str(), "Hello") == 0);
-    REQUIRE(strcmp(str2.c_str(), "World") == 0);
+    REQUIRE(std::strcmp(str1.c_str(), "Hello") == 0);
+    REQUIRE(std::strcmp(str2.c_str(), "World") == 0);
 
     std::swap(str1, str2);
 
-    REQUIRE(strcmp(str1.c_str(), "World") == 0);
-    REQUIRE(strcmp(str2.c_str(), "Hello") == 0);
+    REQUIRE(std::strcmp(str1.c_str(), "World") == 0);
+    REQUIRE(std::strcmp(str2.c_str(), "Hello") == 0);
   }
 
   SECTION("Swap with empty strings") {
     FixString<32> str1("Hello");
     FixString<32> str2("");
 
-    REQUIRE(strcmp(str1.c_str(), "Hello") == 0);
-    REQUIRE(strcmp(str2.c_str(), "") == 0);
+    REQUIRE(std::strcmp(str1.c_str(), "Hello") == 0);
+    REQUIRE(std::strcmp(str2.c_str(), "") == 0);
 
     std::swap(str1, str2);
 
-    REQUIRE(strcmp(str1.c_str(), "") == 0);
-    REQUIRE(strcmp(str2.c_str(), "Hello") == 0);
+    REQUIRE(std::strcmp(str1.c_str(), "") == 0);
+    REQUIRE(std::strcmp(str2.c_str(), "Hello") == 0);
   }
 
   SECTION("Swap two empty strings") {
     FixString<32> str1("");
     FixString<32> str2("");
 
-    REQUIRE(strcmp(str1.c_str(), "") == 0);
-    REQUIRE(strcmp(str2.c_str(), "") == 0);
+    REQUIRE(std::strcmp(str1.c_str(), "") == 0);
+    REQUIRE(std::strcmp(str2.c_str(), "") == 0);
 
     std::swap(str1, str2);
 
-    REQUIRE(strcmp(str1.c_str(), "") == 0);
-    REQUIRE(strcmp(str2.c_str(), "") == 0);
+    REQUIRE(std::strcmp(str1.c_str(), "") == 0);
+    REQUIRE(std::strcmp(str2.c_str(), "") == 0);
   }
 
   SECTION("Self-swap") {
     FixString<32> str1("Hello");
 
-    REQUIRE(strcmp(str1.c_str(), "Hello") == 0);
+    REQUIRE(std::strcmp(str1.c_str(), "Hello") == 0);
 
     std::swap(str1, str1);
 
-    REQUIRE(strcmp(str1.c_str(), "Hello") == 0);
+    REQUIRE(std::strcmp(str1.c_str(), "Hello") == 0);
   }
 
   SECTION("Swap with different sizes") {
     FixString<32> str1("Hi");
     FixString<32> str2("VeryLongString");
 
-    REQUIRE(strcmp(str1.c_str(), "Hi") == 0);
-    REQUIRE(strcmp(str2.c_str(), "VeryLongString") == 0);
+    REQUIRE(std::strcmp(str1.c_str(), "Hi") == 0);
+    REQUIRE(std::strcmp(str2.c_str(), "VeryLongString") == 0);
 
     std::swap(str1, str2);
 
-    REQUIRE(strcmp(str1.c_str(), "VeryLongString") == 0);
-    REQUIRE(strcmp(str2.c_str(), "Hi") == 0);
+    REQUIRE(std::strcmp(str1.c_str(), "VeryLongString") == 0);
+    REQUIRE(std::strcmp(str2.c_str(), "Hi") == 0);
   }
 
   SECTION("Swap with maximum length strings") {
     FixString<16> str1("123456789012345"); // 15 chars
     FixString<16> str2("ABCDEFGHIJKLMNO"); // 15 chars
 
-    REQUIRE(strcmp(str1.c_str(), "123456789012345") == 0);
-    REQUIRE(strcmp(str2.c_str(), "ABCDEFGHIJKLMNO") == 0);
+    REQUIRE(std::strcmp(str1.c_str(), "123456789012345") == 0);
+    REQUIRE(std::strcmp(str2.c_str(), "ABCDEFGHIJKLMNO") == 0);
 
     std::swap(str1, str2);
 
-    REQUIRE(strcmp(str1.c_str(), "ABCDEFGHIJKLMNO") == 0);
-    REQUIRE(strcmp(str2.c_str(), "123456789012345") == 0);
+    REQUIRE(std::strcmp(str1.c_str(), "ABCDEFGHIJKLMNO") == 0);
+    REQUIRE(std::strcmp(str2.c_str(), "123456789012345") == 0);
   }
 
   SECTION("Swap with special characters") {
     FixString<32> str1("Hello,\n\t!");
     FixString<32> str2("World,\r\n?");
 
-    REQUIRE(strcmp(str1.c_str(), "Hello,\n\t!") == 0);
-    REQUIRE(strcmp(str2.c_str(), "World,\r\n?") == 0);
+    REQUIRE(std::strcmp(str1.c_str(), "Hello,\n\t!") == 0);
+    REQUIRE(std::strcmp(str2.c_str(), "World,\r\n?") == 0);
 
     std::swap(str1, str2);
 
-    REQUIRE(strcmp(str1.c_str(), "World,\r\n?") == 0);
-    REQUIRE(strcmp(str2.c_str(), "Hello,\n\t!") == 0);
+    REQUIRE(std::strcmp(str1.c_str(), "World,\r\n?") == 0);
+    REQUIRE(std::strcmp(str2.c_str(), "Hello,\n\t!") == 0);
   }
 
   SECTION("Swap with Unicode content") {
     FixString<32> str1("Hello 世界");
     FixString<32> str2("World 宇宙");
 
-    REQUIRE(strcmp(str1.c_str(), "Hello 世界") == 0);
-    REQUIRE(strcmp(str2.c_str(), "World 宇宙") == 0);
+    REQUIRE(std::strcmp(str1.c_str(), "Hello 世界") == 0);
+    REQUIRE(std::strcmp(str2.c_str(), "World 宇宙") == 0);
 
     std::swap(str1, str2);
 
-    REQUIRE(strcmp(str1.c_str(), "World 宇宙") == 0);
-    REQUIRE(strcmp(str2.c_str(), "Hello 世界") == 0);
+    REQUIRE(std::strcmp(str1.c_str(), "World 宇宙") == 0);
+    REQUIRE(std::strcmp(str2.c_str(), "Hello 世界") == 0);
   }
 
   SECTION("Multiple swaps") {
@@ -4357,21 +4357,21 @@ TEST_CASE("FixString std::swap", "[core][fixstring]") {
     FixString<32> str2("Second");
     FixString<32> str3("Third");
 
-    REQUIRE(strcmp(str1.c_str(), "First") == 0);
-    REQUIRE(strcmp(str2.c_str(), "Second") == 0);
-    REQUIRE(strcmp(str3.c_str(), "Third") == 0);
+    REQUIRE(std::strcmp(str1.c_str(), "First") == 0);
+    REQUIRE(std::strcmp(str2.c_str(), "Second") == 0);
+    REQUIRE(std::strcmp(str3.c_str(), "Third") == 0);
 
     std::swap(str1, str2);
-    REQUIRE(strcmp(str1.c_str(), "Second") == 0);
-    REQUIRE(strcmp(str2.c_str(), "First") == 0);
+    REQUIRE(std::strcmp(str1.c_str(), "Second") == 0);
+    REQUIRE(std::strcmp(str2.c_str(), "First") == 0);
 
     std::swap(str2, str3);
-    REQUIRE(strcmp(str2.c_str(), "Third") == 0);
-    REQUIRE(strcmp(str3.c_str(), "First") == 0);
+    REQUIRE(std::strcmp(str2.c_str(), "Third") == 0);
+    REQUIRE(std::strcmp(str3.c_str(), "First") == 0);
 
     std::swap(str1, str3);
-    REQUIRE(strcmp(str1.c_str(), "First") == 0);
-    REQUIRE(strcmp(str3.c_str(), "Second") == 0);
+    REQUIRE(std::strcmp(str1.c_str(), "First") == 0);
+    REQUIRE(std::strcmp(str3.c_str(), "Second") == 0);
   }
 
   SECTION("Performance test with large strings") {
@@ -4380,20 +4380,20 @@ TEST_CASE("FixString std::swap", "[core][fixstring]") {
 
     std::swap(str1, str2);
 
-    REQUIRE(strcmp(str1.c_str(), "Another very long string for performance testing") == 0);
-    REQUIRE(strcmp(str2.c_str(), "This is a very long string that tests swap performance") == 0);
+    REQUIRE(std::strcmp(str1.c_str(), "Another very long string for performance testing") == 0);
+    REQUIRE(std::strcmp(str2.c_str(), "This is a very long string that tests swap performance") == 0);
   }
 
   SECTION("Swap with single character strings") {
     FixString<8> str1("A");
     FixString<8> str2("B");
 
-    REQUIRE(strcmp(str1.c_str(), "A") == 0);
-    REQUIRE(strcmp(str2.c_str(), "B") == 0);
+    REQUIRE(std::strcmp(str1.c_str(), "A") == 0);
+    REQUIRE(std::strcmp(str2.c_str(), "B") == 0);
 
     std::swap(str1, str2);
 
-    REQUIRE(strcmp(str1.c_str(), "B") == 0);
-    REQUIRE(strcmp(str2.c_str(), "A") == 0);
+    REQUIRE(std::strcmp(str1.c_str(), "B") == 0);
+    REQUIRE(std::strcmp(str2.c_str(), "A") == 0);
   }
 }
