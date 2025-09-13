@@ -1352,6 +1352,145 @@ template <std::size_t allocatedSize>
   return rhs == lhs;
 }
 
+template <std::size_t allocatedSize1, std::size_t allocatedSize2>
+[[nodiscard]] constexpr std::strong_ordering operator<=>(const FixString<allocatedSize1> & lhs,
+                                                         const FixString<allocatedSize2> & rhs) noexcept {
+  if constexpr (allocatedSize1 == allocatedSize2) {
+    if (std::addressof(lhs) == std::addressof(rhs))
+      return std::strong_ordering::equal;
+  }
+
+  if (lhs.empty() && rhs.empty())
+    return std::strong_ordering::equal;
+  else if (lhs.empty())
+    return std::strong_ordering::less;
+  else if (rhs.empty())
+    return std::strong_ordering::greater;
+
+  if consteval {
+    const int result = cstrcmp(lhs.c_str(), rhs.c_str());
+    if (result < 0)
+      return std::strong_ordering::less;
+    else if (result > 0)
+      return std::strong_ordering::greater;
+    else
+      return std::strong_ordering::equal;
+  } else {
+    const int result = std::memcmp(lhs.c_str(), rhs.c_str(), std::min(lhs.size(), rhs.size()));
+    if (result < 0)
+      return std::strong_ordering::less;
+    else if (result > 0)
+      return std::strong_ordering::greater;
+    else {
+      if (lhs.size() < rhs.size())
+        return std::strong_ordering::less;
+      else if (lhs.size() > rhs.size())
+        return std::strong_ordering::greater;
+      else
+        return std::strong_ordering::equal;
+    }
+  }
+}
+
+template <std::size_t allocatedSize, StringLike stringType>
+[[nodiscard]] constexpr std::strong_ordering operator<=>(const FixString<allocatedSize> & lhs,
+                                                         const stringType & rhs) noexcept {
+  if (lhs.empty() && rhs.size() == 0)
+    return std::strong_ordering::equal;
+  else if (lhs.empty())
+    return std::strong_ordering::less;
+  else if (rhs.size() == 0)
+    return std::strong_ordering::greater;
+
+  if consteval {
+    const int result = cstrcmp(lhs.c_str(), rhs.c_str());
+    if (result < 0)
+      return std::strong_ordering::less;
+    else if (result > 0)
+      return std::strong_ordering::greater;
+    else
+      return std::strong_ordering::equal;
+  } else {
+    const int result = std::memcmp(lhs.c_str(), rhs.c_str(), std::min(lhs.size(), rhs.size()));
+    if (result < 0)
+      return std::strong_ordering::less;
+    else if (result > 0)
+      return std::strong_ordering::greater;
+    else {
+      if (lhs.size() < rhs.size())
+        return std::strong_ordering::less;
+      else if (lhs.size() > rhs.size())
+        return std::strong_ordering::greater;
+      else
+        return std::strong_ordering::equal;
+    }
+  }
+}
+
+template <StringLike stringType, std::size_t allocatedSize>
+[[nodiscard]] constexpr std::strong_ordering operator<=>(const stringType & lhs,
+                                                         const FixString<allocatedSize> & rhs) noexcept {
+  const auto result = rhs <=> lhs;
+  if (result == std::strong_ordering::less)
+    return std::strong_ordering::greater;
+  else if (result == std::strong_ordering::greater)
+    return std::strong_ordering::less;
+  else
+    return std::strong_ordering::equal;
+}
+
+template <std::size_t allocatedSize>
+[[nodiscard]] constexpr std::strong_ordering operator<=>(const FixString<allocatedSize> & lhs,
+                                                         const char * rhs) noexcept {
+  assert_message(rhs != nullptr, "C string pointer must not be null");
+
+  if (lhs.empty() && *rhs == '\0')
+    return std::strong_ordering::equal;
+  else if (lhs.empty())
+    return std::strong_ordering::less;
+  else if (*rhs == '\0')
+    return std::strong_ordering::greater;
+
+  if consteval {
+    const int result = cstrcmp(lhs.c_str(), rhs);
+    if (result < 0)
+      return std::strong_ordering::less;
+    else if (result > 0)
+      return std::strong_ordering::greater;
+    else
+      return std::strong_ordering::equal;
+  } else {
+    const auto rhsLen = std::strlen(rhs);
+    const int result = std::memcmp(lhs.c_str(), rhs, std::min(lhs.size(), rhsLen));
+    if (result < 0)
+      return std::strong_ordering::less;
+    else if (result > 0)
+      return std::strong_ordering::greater;
+    else {
+      if (lhs.size() < rhsLen)
+        return std::strong_ordering::less;
+      else if (lhs.size() > rhsLen)
+        return std::strong_ordering::greater;
+      else
+        return std::strong_ordering::equal;
+    }
+  }
+}
+
+template <std::size_t allocatedSize>
+[[nodiscard]] constexpr std::strong_ordering operator<=>(const char * lhs,
+                                                         const FixString<allocatedSize> & rhs) noexcept {
+  assert_message(lhs != nullptr, "C string pointer must not be null");
+
+  const auto result = rhs <=> lhs;
+  if (result == std::strong_ordering::less)
+    return std::strong_ordering::greater;
+  else if (result == std::strong_ordering::greater)
+    return std::strong_ordering::less;
+  else
+    return std::strong_ordering::equal;
+}
+
 } // namespace toygine
 
 #endif // INCLUDE_CORE_FIX_STRING_INL_

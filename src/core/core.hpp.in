@@ -120,9 +120,9 @@ constexpr std::size_t ArraySize(T (&)[N]) {
         compatible types.
 */
 template <typename T>
-concept StringLike = requires(const T & s) {
-  { s.size() } -> std::convertible_to<std::size_t>;
-  { s.c_str() } -> std::convertible_to<const char *>;
+concept StringLike = requires(const T & str) {
+  { str.size() } -> std::same_as<std::size_t>;
+  { str.c_str() } -> std::convertible_to<const char *>;
 };
 
 #if 1
