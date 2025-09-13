@@ -391,57 +391,240 @@ TEST_CASE("FixString operators=", "[core][fixstring]") {
   }
 }
 
-// to refactor
-
 TEST_CASE("FixString assign", "[core][fixstring]") {
-  FixString<12> testString1;
-  FixString<12> testString2;
-  FixString<24> testString3;
-  FixString<18> testString4;
-  FixString<8> testString5;
+  SECTION("C string assignment") {
+    FixString<16> str1;
+    FixString<32> str2;
+    FixString<8> str3;
 
-  testString1.assign("test text 1");
-  testString2.assign(testString1);
-  testString3.assign(testString2);
-  testString4.assign(testString3);
-  testString5.assign('t', 4);
+    // Basic assignment
+    str1.assign("Hello");
+    REQUIRE(std::strcmp(str1.c_str(), "Hello") == 0);
 
-  REQUIRE(std::strcmp(testString1.c_str(), "test text 1") == 0);
-  REQUIRE(std::strcmp(testString2.c_str(), "test text 1") == 0);
-  REQUIRE(std::strcmp(testString3.c_str(), "test text 1") == 0);
-  REQUIRE(std::strcmp(testString4.c_str(), "test text 1") == 0);
-  REQUIRE(std::strcmp(testString5.c_str(), "tttt") == 0);
+    str2.assign("World");
+    REQUIRE(std::strcmp(str2.c_str(), "World") == 0);
 
-  // Self-assignment (same capacity)
-  testString2.assign(testString2);
-  REQUIRE(std::strcmp(testString2.c_str(), "test text 1") == 0);
+    // Empty string assignment
+    str1.assign("");
+    REQUIRE(std::strcmp(str1.c_str(), "") == 0);
 
-  // Assign from own c_str() (no-op path)
-  testString3.assign(testString3.c_str());
-  REQUIRE(std::strcmp(testString3.c_str(), "test text 1") == 0);
+    // Long string assignment
+    str2.assign("VeryLongString");
+    REQUIRE(std::strcmp(str2.c_str(), "VeryLongString") == 0);
 
-  testString1.assign("");
-  testString2.assign(FixString<12>(""));
-  testString3.assign(FixString<12>(""));
-  testString4.assign(FixString<24>(""));
+    // Single character
+    str3.assign("A");
+    REQUIRE(std::strcmp(str3.c_str(), "A") == 0);
 
-  REQUIRE(std::strcmp(testString1.c_str(), "") == 0);
-  REQUIRE(testString1.size() == 0);
+    // Compile-time checks
+    constexpr FixString<16> constStr1 = FixString<16>().assign("Hello");
+    constexpr FixString<32> constStr2 = FixString<32>("World").assign("VeryLongString");
+    constexpr FixString<16> constStr3 = FixString<16>("A").assign("");
+    STATIC_REQUIRE(cstrcmp(constStr1.c_str(), "Hello") == 0);
+    STATIC_REQUIRE(cstrcmp(constStr2.c_str(), "VeryLongString") == 0);
+    STATIC_REQUIRE(cstrcmp(constStr3.c_str(), "") == 0);
+  }
 
-  REQUIRE(std::strcmp(testString2.c_str(), "") == 0);
-  REQUIRE(testString2.size() == 0);
+  SECTION("FixString assignment (same capacity)") {
+    FixString<16> str1("Hello");
+    FixString<16> str2("World");
+    FixString<16> str3;
 
-  REQUIRE(std::strcmp(testString3.c_str(), "") == 0);
-  REQUIRE(testString3.size() == 0);
+    // Basic assignment
+    str3.assign(str1);
+    REQUIRE(std::strcmp(str3.c_str(), "Hello") == 0);
 
-  REQUIRE(std::strcmp(testString4.c_str(), "") == 0);
-  REQUIRE(testString4.size() == 0);
+    // Assignment from another string
+    str2.assign(str1);
+    REQUIRE(std::strcmp(str2.c_str(), "Hello") == 0);
 
-  // Chaining assign (after return type becomes non-const and count has default)
-  testString1.assign("a").assign("b");
-  REQUIRE(std::strcmp(testString1.c_str(), "b") == 0);
-  REQUIRE(testString1.size() == 1);
+    // Self-assignment
+    str1.assign(str1);
+    REQUIRE(std::strcmp(str1.c_str(), "Hello") == 0);
+
+    // Empty string assignment
+    FixString<16> emptyStr("");
+    str1.assign(emptyStr);
+    REQUIRE(std::strcmp(str1.c_str(), "") == 0);
+
+    // Compile-time checks
+    constexpr FixString<16> constStr1("Hello");
+    constexpr FixString<16> constStr2();
+    constexpr FixString<16> constStr3 = FixString<16>("World").assign(constStr1);
+    constexpr FixString<16> constStr4 = FixString<16>().assign(constStr3);
+    STATIC_REQUIRE(cstrcmp(constStr3.c_str(), "Hello") == 0);
+    STATIC_REQUIRE(cstrcmp(constStr4.c_str(), "Hello") == 0);
+  }
+
+  SECTION("FixString assignment (different capacities)") {
+    FixString<8> str1("Hi");
+    FixString<16> str2("Hello");
+
+    // Assign from smaller to larger
+    str2.assign(str1);
+    REQUIRE(std::strcmp(str2.c_str(), "Hi") == 0);
+
+    // Assign from larger to smaller
+    str1.assign(str2);
+    REQUIRE(std::strcmp(str1.c_str(), "Hi") == 0);
+
+    // Compile-time checks
+    constexpr FixString<8> constStr1("Hi");
+    constexpr FixString<16> constStr2("Hello");
+    constexpr FixString<16> constStr3 = FixString<8>("Hi").assign(constStr2);
+    constexpr FixString<8> constStr4 = FixString<16>("Hello").assign(constStr1);
+    STATIC_REQUIRE(cstrcmp(constStr3.c_str(), "Hello") == 0);
+    STATIC_REQUIRE(cstrcmp(constStr4.c_str(), "Hi") == 0);
+  }
+
+  SECTION("StringLike assignment") {
+    FixString<16> str1;
+    std::string str2("Hello");
+    std::string str3("World");
+
+    // Assign from std::string
+    str1.assign(str2);
+    REQUIRE(std::strcmp(str1.c_str(), "Hello") == 0);
+
+    // Assign from another std::string
+    str1.assign(str3);
+    REQUIRE(std::strcmp(str1.c_str(), "World") == 0);
+
+    // Assign from empty std::string
+    std::string emptyStr("");
+    str1.assign(emptyStr);
+    REQUIRE(std::strcmp(str1.c_str(), "") == 0);
+  }
+
+  SECTION("Character assignment") {
+    FixString<16> str1;
+    FixString<8> str2;
+
+    // Single character assignment
+    str1.assign('A');
+    REQUIRE(std::strcmp(str1.c_str(), "A") == 0);
+
+    // Multiple character assignment
+    str2.assign('B', 3);
+    REQUIRE(std::strcmp(str2.c_str(), "BBB") == 0);
+
+    // Zero count assignment
+    str1.assign('C', 0);
+    REQUIRE(std::strcmp(str1.c_str(), "") == 0);
+
+    // Large count assignment
+    str2.assign('D', 5);
+    REQUIRE(std::strcmp(str2.c_str(), "DDDDD") == 0);
+
+    // Compile-time checks
+    constexpr FixString<8> constStr1 = FixString<8>().assign('A');
+    constexpr FixString<8> constStr2 = FixString<8>().assign('B', 3);
+    STATIC_REQUIRE(cstrcmp(constStr1.c_str(), "A") == 0);
+    STATIC_REQUIRE(cstrcmp(constStr2.c_str(), "BBB") == 0);
+  }
+
+  SECTION("Edge cases") {
+    FixString<4> str1("ABC");
+    FixString<8> str2("ABC");
+    FixString<16> str3("ABCD");
+
+    // Assign to maximum capacity
+    str1.assign("XYZ");
+    REQUIRE(std::strcmp(str1.c_str(), "XYZ") == 0);
+
+    // Assign from own c_str() (no-op path)
+    str2.assign(str2.c_str());
+    REQUIRE(std::strcmp(str2.c_str(), "ABC") == 0);
+
+    // Assign empty string
+    str3.assign("");
+    REQUIRE(std::strcmp(str3.c_str(), "") == 0);
+
+    // Compile-time checks
+    constexpr FixString<4> constStr1 = FixString<4>("ABC").assign("XYZ");
+    constexpr FixString<8> constStr2 = FixString<8>("ABCD").assign("");
+    STATIC_REQUIRE(cstrcmp(constStr1.c_str(), "XYZ") == 0);
+    STATIC_REQUIRE(cstrcmp(constStr2.c_str(), "") == 0);
+  }
+
+  SECTION("Special characters") {
+    FixString<32> str1;
+    FixString<16> str2;
+
+    // Newline and tab
+    str1.assign("Hello\n\tWorld");
+    REQUIRE(std::strcmp(str1.c_str(), "Hello\n\tWorld") == 0);
+
+    // Special characters
+    str2.assign("!@#$%^&*()");
+    REQUIRE(std::strcmp(str2.c_str(), "!@#$%^&*()") == 0);
+
+    // Compile-time checks
+    constexpr FixString<32> constStr1 = FixString<32>().assign("Hello\n\tWorld");
+    constexpr FixString<16> constStr2 = FixString<16>().assign("!@#$%^&*()");
+    STATIC_REQUIRE(cstrcmp(constStr1.c_str(), "Hello\n\tWorld") == 0);
+    STATIC_REQUIRE(cstrcmp(constStr2.c_str(), "!@#$%^&*()") == 0);
+  }
+
+  SECTION("Unicode content") {
+    FixString<32> str1;
+    FixString<16> str2;
+
+    // Unicode characters
+    str1.assign("Hello 世界");
+    REQUIRE(std::strcmp(str1.c_str(), "Hello 世界") == 0);
+
+    // Mixed ASCII and Unicode
+    str2.assign("Test 🌍");
+    REQUIRE(std::strcmp(str2.c_str(), "Test 🌍") == 0);
+
+    // Compile-time checks
+    constexpr FixString<32> constStr1 = FixString<32>().assign("Hello 世界");
+    constexpr FixString<16> constStr2 = FixString<16>().assign("Test 🌍");
+    STATIC_REQUIRE(cstrcmp(constStr1.c_str(), "Hello 世界") == 0);
+    STATIC_REQUIRE(cstrcmp(constStr2.c_str(), "Test 🌍") == 0);
+  }
+
+  SECTION("Chaining assign") {
+    FixString<16> str1;
+
+    // Chaining assign operations
+    str1.assign("a").assign("b");
+    REQUIRE(std::strcmp(str1.c_str(), "b") == 0);
+
+    // Multiple chaining
+    str1.assign("Hello").assign("World").assign("Test");
+    REQUIRE(std::strcmp(str1.c_str(), "Test") == 0);
+
+    // Chaining with different types
+    std::string str2("Chained");
+    str1.assign("Initial").assign(str2);
+    REQUIRE(std::strcmp(str1.c_str(), "Chained") == 0);
+
+    // Compile-time checks
+    constexpr FixString<16> constStr1 = FixString<16>("a").assign("b");
+    constexpr FixString<16> constStr2 = FixString<16>("Hello").assign("Test");
+    STATIC_REQUIRE(cstrcmp(constStr1.c_str(), "b") == 0);
+    STATIC_REQUIRE(cstrcmp(constStr2.c_str(), "Test") == 0);
+  }
+
+  SECTION("Performance test") {
+    FixString<64> str1;
+    FixString<32> str2;
+    std::string str3("PerformanceTest");
+
+    // Multiple assignments
+    for (int i = 0; i < 100; ++i) {
+      str1.assign("Test").assign(str3).assign("Another");
+      str2.assign(str1);
+    }
+
+    REQUIRE(std::strcmp(str1.c_str(), "Another") == 0);
+    REQUIRE(std::strcmp(str2.c_str(), "Another") == 0);
+  }
 }
+
+// to refactor
 
 TEST_CASE("FixString at", "[core][fixstring]") {
   FixString<8> testString1("abcd");
@@ -4064,5 +4247,153 @@ TEST_CASE("FixString operator<=>", "[core][fixstring]") {
     STATIC_REQUIRE((str2 <=> str1) == std::strong_ordering::equal);
     STATIC_REQUIRE((str1 <=> str3) == std::strong_ordering::less);
     STATIC_REQUIRE((str3 <=> str1) == std::strong_ordering::greater);
+  }
+}
+
+TEST_CASE("FixString std::swap", "[core][fixstring]") {
+  SECTION("Basic swap functionality") {
+    FixString<32> str1("Hello");
+    FixString<32> str2("World");
+
+    CHECK(strcmp(str1.c_str(), "Hello") == 0);
+    CHECK(strcmp(str2.c_str(), "World") == 0);
+
+    std::swap(str1, str2);
+
+    CHECK(strcmp(str1.c_str(), "World") == 0);
+    CHECK(strcmp(str2.c_str(), "Hello") == 0);
+  }
+
+  SECTION("Swap with empty strings") {
+    FixString<32> str1("Hello");
+    FixString<32> str2("");
+
+    CHECK(strcmp(str1.c_str(), "Hello") == 0);
+    CHECK(strcmp(str2.c_str(), "") == 0);
+
+    std::swap(str1, str2);
+
+    CHECK(strcmp(str1.c_str(), "") == 0);
+    CHECK(strcmp(str2.c_str(), "Hello") == 0);
+  }
+
+  SECTION("Swap two empty strings") {
+    FixString<32> str1("");
+    FixString<32> str2("");
+
+    CHECK(strcmp(str1.c_str(), "") == 0);
+    CHECK(strcmp(str2.c_str(), "") == 0);
+
+    std::swap(str1, str2);
+
+    CHECK(strcmp(str1.c_str(), "") == 0);
+    CHECK(strcmp(str2.c_str(), "") == 0);
+  }
+
+  SECTION("Self-swap") {
+    FixString<32> str1("Hello");
+
+    CHECK(strcmp(str1.c_str(), "Hello") == 0);
+
+    std::swap(str1, str1);
+
+    CHECK(strcmp(str1.c_str(), "Hello") == 0);
+  }
+
+  SECTION("Swap with different sizes") {
+    FixString<32> str1("Hi");
+    FixString<32> str2("VeryLongString");
+
+    CHECK(strcmp(str1.c_str(), "Hi") == 0);
+    CHECK(strcmp(str2.c_str(), "VeryLongString") == 0);
+
+    std::swap(str1, str2);
+
+    CHECK(strcmp(str1.c_str(), "VeryLongString") == 0);
+    CHECK(strcmp(str2.c_str(), "Hi") == 0);
+  }
+
+  SECTION("Swap with maximum length strings") {
+    FixString<16> str1("123456789012345"); // 15 chars
+    FixString<16> str2("ABCDEFGHIJKLMNO"); // 15 chars
+
+    CHECK(strcmp(str1.c_str(), "123456789012345") == 0);
+    CHECK(strcmp(str2.c_str(), "ABCDEFGHIJKLMNO") == 0);
+
+    std::swap(str1, str2);
+
+    CHECK(strcmp(str1.c_str(), "ABCDEFGHIJKLMNO") == 0);
+    CHECK(strcmp(str2.c_str(), "123456789012345") == 0);
+  }
+
+  SECTION("Swap with special characters") {
+    FixString<32> str1("Hello,\n\t!");
+    FixString<32> str2("World,\r\n?");
+
+    CHECK(strcmp(str1.c_str(), "Hello,\n\t!") == 0);
+    CHECK(strcmp(str2.c_str(), "World,\r\n?") == 0);
+
+    std::swap(str1, str2);
+
+    CHECK(strcmp(str1.c_str(), "World,\r\n?") == 0);
+    CHECK(strcmp(str2.c_str(), "Hello,\n\t!") == 0);
+  }
+
+  SECTION("Swap with Unicode content") {
+    FixString<32> str1("Hello 世界");
+    FixString<32> str2("World 宇宙");
+
+    CHECK(strcmp(str1.c_str(), "Hello 世界") == 0);
+    CHECK(strcmp(str2.c_str(), "World 宇宙") == 0);
+
+    std::swap(str1, str2);
+
+    CHECK(strcmp(str1.c_str(), "World 宇宙") == 0);
+    CHECK(strcmp(str2.c_str(), "Hello 世界") == 0);
+  }
+
+  SECTION("Multiple swaps") {
+    FixString<32> str1("First");
+    FixString<32> str2("Second");
+    FixString<32> str3("Third");
+
+    CHECK(strcmp(str1.c_str(), "First") == 0);
+    CHECK(strcmp(str2.c_str(), "Second") == 0);
+    CHECK(strcmp(str3.c_str(), "Third") == 0);
+
+    std::swap(str1, str2);
+    CHECK(strcmp(str1.c_str(), "Second") == 0);
+    CHECK(strcmp(str2.c_str(), "First") == 0);
+
+    std::swap(str2, str3);
+    CHECK(strcmp(str2.c_str(), "Third") == 0);
+    CHECK(strcmp(str3.c_str(), "First") == 0);
+
+    std::swap(str1, str3);
+    CHECK(strcmp(str1.c_str(), "First") == 0);
+    CHECK(strcmp(str3.c_str(), "Second") == 0);
+  }
+
+  SECTION("Performance test with large strings") {
+    FixString<64> str1("This is a very long string that tests swap performance");
+    FixString<64> str2("Another very long string for performance testing");
+
+    std::swap(str1, str2);
+
+    CHECK(strcmp(str1.c_str(), "Another very long string for performance testing") == 0);
+    CHECK(strcmp(str2.c_str(), "This is a very long string that tests swap performance") == 0);
+  }
+
+  SECTION("Swap with single character strings") {
+    FixString<8> str1("A");
+    FixString<8> str2("B");
+
+    CHECK(strcmp(str1.c_str(), "A") == 0);
+    CHECK(strcmp(str2.c_str(), "B") == 0);
+
+    std::swap(str1, str2);
+
+    CHECK(strcmp(str1.c_str(), "B") == 0);
+    CHECK(strcmp(str2.c_str(), "A") == 0);
   }
 }

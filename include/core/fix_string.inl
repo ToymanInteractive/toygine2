@@ -196,14 +196,14 @@ constexpr FixString<allocatedSize> & FixString<allocatedSize>::assign(const stri
 
 template <std::size_t allocatedSize>
 constexpr FixString<allocatedSize> & FixString<allocatedSize>::assign(const char * string) noexcept {
-  if (_data == string)
-    return *this;
-
-  assert_message(string != nullptr, "String pointer must not be null");
-
   if consteval {
     _size = std::char_traits<char>::length(string);
   } else {
+    if (_data == string)
+      return *this;
+
+    assert_message(string != nullptr, "String pointer must not be null");
+
     _size = std::strlen(string);
   }
 
