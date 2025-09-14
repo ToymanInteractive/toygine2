@@ -28,12 +28,37 @@
 namespace toy {
 
 [[nodiscard]] constexpr int cstrcmp(const char * lhs, const char * rhs) noexcept {
-  while (*lhs && (static_cast<unsigned char>(*lhs) == static_cast<unsigned char>(*rhs))) {
+  while (*lhs && (*lhs == *rhs)) {
     ++lhs;
     ++rhs;
   }
 
-  return static_cast<unsigned char>(*lhs) - static_cast<unsigned char>(*rhs);
+  if (*lhs == *rhs)
+    return 0;
+
+  return (static_cast<unsigned char>(*lhs) < static_cast<unsigned char>(*rhs)) ? -1 : 1;
+}
+
+[[nodiscard]] constexpr const char * cstrstr(const char * haystack, const char * needle) noexcept {
+  if (!*needle) {
+    return haystack;
+  }
+
+  for (const char * h = haystack; *h; ++h) {
+    const char * h_it = h;
+    const char * n_it = needle;
+
+    while (*h_it && *n_it && *h_it == *n_it) {
+      ++h_it;
+      ++n_it;
+    }
+
+    if (!*n_it) {
+      return h;
+    }
+  }
+
+  return nullptr;
 }
 
 } // namespace toy
