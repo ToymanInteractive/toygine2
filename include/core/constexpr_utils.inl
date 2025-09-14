@@ -39,10 +39,18 @@ namespace toy {
   return (static_cast<unsigned char>(*lhs) < static_cast<unsigned char>(*rhs)) ? -1 : 1;
 }
 
-[[nodiscard]] constexpr const char * cstrstr(const char * haystack, const char * needle) noexcept {
-  if (!*needle) {
-    return haystack;
+[[nodiscard]] constexpr const char * cstrchr(const char * str, char ch) noexcept {
+  for (; *str; ++str) {
+    if (*str == ch)
+      return str;
   }
+
+  return *str == ch ? str : nullptr;
+}
+
+[[nodiscard]] constexpr const char * cstrstr(const char * haystack, const char * needle) noexcept {
+  if (!*needle)
+    return haystack;
 
   for (const char * h = haystack; *h; ++h) {
     const char * h_it = h;
@@ -53,9 +61,8 @@ namespace toy {
       ++n_it;
     }
 
-    if (!*n_it) {
+    if (!*n_it)
       return h;
-    }
   }
 
   return nullptr;

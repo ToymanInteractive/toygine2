@@ -263,6 +263,281 @@ TEST_CASE("cstrcmp function", "[core][constexpr_utils]") {
   }
 }
 
+TEST_CASE("cstrchr function", "[core][constexpr_utils]") {
+  SECTION("Basic character search") {
+    constexpr const char * str = "Hello World";
+    constexpr char ch1 = 'H';
+    constexpr char ch2 = 'o';
+    constexpr char ch3 = 'l';
+    constexpr char ch4 = 'd';
+    constexpr char ch5 = 'z';
+
+    STATIC_REQUIRE(cstrchr(str, ch1) == str); // "H" at position 0
+    STATIC_REQUIRE(cstrchr(str, ch2) == str + 4); // "o" at position 4
+    STATIC_REQUIRE(cstrchr(str, ch3) == str + 2); // "l" at position 2 (first occurrence)
+    STATIC_REQUIRE(cstrchr(str, ch4) == str + 10); // "d" at position 10
+    STATIC_REQUIRE(cstrchr(str, ch5) == nullptr);
+
+    // Compare with std::strchr
+    REQUIRE(cstrchr(str, ch1) == std::strchr(str, ch1));
+    REQUIRE(cstrchr(str, ch2) == std::strchr(str, ch2));
+    REQUIRE(cstrchr(str, ch3) == std::strchr(str, ch3));
+    REQUIRE(cstrchr(str, ch4) == std::strchr(str, ch4));
+    REQUIRE(cstrchr(str, ch5) == std::strchr(str, ch5));
+  }
+
+  SECTION("Character not found") {
+    constexpr const char * str = "Hello World";
+    constexpr char ch1 = 'x';
+    constexpr char ch2 = 'Z';
+    constexpr char ch3 = '9';
+    constexpr char ch4 = '@';
+
+    STATIC_REQUIRE(cstrchr(str, ch1) == nullptr);
+    STATIC_REQUIRE(cstrchr(str, ch2) == nullptr);
+    STATIC_REQUIRE(cstrchr(str, ch3) == nullptr);
+    STATIC_REQUIRE(cstrchr(str, ch4) == nullptr);
+
+    // Compare with std::strchr
+    REQUIRE(cstrchr(str, ch1) == std::strchr(str, ch1));
+    REQUIRE(cstrchr(str, ch2) == std::strchr(str, ch2));
+    REQUIRE(cstrchr(str, ch3) == std::strchr(str, ch3));
+    REQUIRE(cstrchr(str, ch4) == std::strchr(str, ch4));
+  }
+
+  SECTION("Empty string") {
+    constexpr const char * emptyStr = "";
+    constexpr char ch1 = 'a';
+    constexpr char ch2 = '\0';
+
+    STATIC_REQUIRE(cstrchr(emptyStr, ch1) == nullptr);
+    STATIC_REQUIRE(cstrchr(emptyStr, ch2) == emptyStr);
+
+    // Compare with std::strchr
+    REQUIRE(cstrchr(emptyStr, ch1) == std::strchr(emptyStr, ch1));
+    REQUIRE(cstrchr(emptyStr, ch2) == std::strchr(emptyStr, ch2));
+  }
+
+  SECTION("Single character string") {
+    constexpr const char * singleChar = "A";
+    constexpr char ch1 = 'A';
+    constexpr char ch2 = 'B';
+    constexpr char ch3 = 'a';
+
+    STATIC_REQUIRE(cstrchr(singleChar, ch1) == singleChar);
+    STATIC_REQUIRE(cstrchr(singleChar, ch2) == nullptr);
+    STATIC_REQUIRE(cstrchr(singleChar, ch3) == nullptr);
+
+    // Compare with std::strchr
+    REQUIRE(cstrchr(singleChar, ch1) == std::strchr(singleChar, ch1));
+    REQUIRE(cstrchr(singleChar, ch2) == std::strchr(singleChar, ch2));
+    REQUIRE(cstrchr(singleChar, ch3) == std::strchr(singleChar, ch3));
+  }
+
+  SECTION("Case sensitivity") {
+    constexpr const char * str = "Hello World";
+    constexpr char ch1 = 'h'; // lowercase
+    constexpr char ch2 = 'H'; // uppercase
+    constexpr char ch3 = 'w'; // lowercase
+    constexpr char ch4 = 'W'; // uppercase
+
+    STATIC_REQUIRE(cstrchr(str, ch1) == nullptr); // Case sensitive
+    STATIC_REQUIRE(cstrchr(str, ch2) == str); // Exact match
+    STATIC_REQUIRE(cstrchr(str, ch3) == nullptr); // Case sensitive
+    STATIC_REQUIRE(cstrchr(str, ch4) == str + 6); // Exact match
+
+    // Compare with std::strchr
+    REQUIRE(cstrchr(str, ch1) == std::strchr(str, ch1));
+    REQUIRE(cstrchr(str, ch2) == std::strchr(str, ch2));
+    REQUIRE(cstrchr(str, ch3) == std::strchr(str, ch3));
+    REQUIRE(cstrchr(str, ch4) == std::strchr(str, ch4));
+  }
+
+  SECTION("Repeated characters") {
+    constexpr const char * str = "ababab";
+    constexpr char ch1 = 'a';
+    constexpr char ch2 = 'b';
+    constexpr char ch3 = 'c';
+
+    STATIC_REQUIRE(cstrchr(str, ch1) == str); // First 'a' at position 0
+    STATIC_REQUIRE(cstrchr(str, ch2) == str + 1); // First 'b' at position 1
+    STATIC_REQUIRE(cstrchr(str, ch3) == nullptr); // 'c' not found
+
+    // Compare with std::strchr
+    REQUIRE(cstrchr(str, ch1) == std::strchr(str, ch1));
+    REQUIRE(cstrchr(str, ch2) == std::strchr(str, ch2));
+    REQUIRE(cstrchr(str, ch3) == std::strchr(str, ch3));
+  }
+
+  SECTION("Special characters") {
+    constexpr const char * str = "Hello\n\tWorld!";
+    constexpr char ch1 = '\n';
+    constexpr char ch2 = '\t';
+    constexpr char ch3 = '!';
+    constexpr char ch4 = ' ';
+
+    STATIC_REQUIRE(cstrchr(str, ch1) == str + 5); // "\n" at position 5
+    STATIC_REQUIRE(cstrchr(str, ch2) == str + 6); // "\t" at position 6
+    STATIC_REQUIRE(cstrchr(str, ch3) == str + 12); // "!" at position 12
+    STATIC_REQUIRE(cstrchr(str, ch4) == nullptr);
+
+    // Compare with std::strchr
+    REQUIRE(cstrchr(str, ch1) == std::strchr(str, ch1));
+    REQUIRE(cstrchr(str, ch2) == std::strchr(str, ch2));
+    REQUIRE(cstrchr(str, ch3) == std::strchr(str, ch3));
+    REQUIRE(cstrchr(str, ch4) == std::strchr(str, ch4));
+  }
+
+  SECTION("Unicode content") {
+    constexpr const char * str = "Hello 世界";
+    constexpr char ch1 = 'H';
+    constexpr char ch2 = 'z';
+
+    STATIC_REQUIRE(cstrchr(str, ch1) == str); // "H" at position 0
+    STATIC_REQUIRE(cstrchr(str, ch2) == nullptr); // "z" not found
+
+    // Compare with std::strchr
+    REQUIRE(cstrchr(str, ch1) == std::strchr(str, ch1));
+    REQUIRE(cstrchr(str, ch2) == std::strchr(str, ch2));
+  }
+
+  SECTION("Numeric content") {
+    constexpr const char * str = "12345";
+    constexpr char ch1 = '1';
+    constexpr char ch2 = '3';
+    constexpr char ch3 = '5';
+    constexpr char ch4 = '6';
+
+    STATIC_REQUIRE(cstrchr(str, ch1) == str); // "1" at position 0
+    STATIC_REQUIRE(cstrchr(str, ch2) == str + 2); // "3" at position 2
+    STATIC_REQUIRE(cstrchr(str, ch3) == str + 4); // "5" at position 4
+    STATIC_REQUIRE(cstrchr(str, ch4) == nullptr); // "6" not found
+
+    // Compare with std::strchr
+    REQUIRE(cstrchr(str, ch1) == std::strchr(str, ch1));
+    REQUIRE(cstrchr(str, ch2) == std::strchr(str, ch2));
+    REQUIRE(cstrchr(str, ch3) == std::strchr(str, ch3));
+    REQUIRE(cstrchr(str, ch4) == std::strchr(str, ch4));
+  }
+
+  SECTION("Mixed content") {
+    constexpr const char * str = "123Hello456";
+    constexpr char ch1 = '1';
+    constexpr char ch2 = 'H';
+    constexpr char ch3 = 'o';
+    constexpr char ch4 = '6';
+    constexpr char ch5 = 'z';
+
+    STATIC_REQUIRE(cstrchr(str, ch1) == str); // "1" at position 0
+    STATIC_REQUIRE(cstrchr(str, ch2) == str + 3); // "H" at position 3
+    STATIC_REQUIRE(cstrchr(str, ch3) == str + 7); // "o" at position 7
+    STATIC_REQUIRE(cstrchr(str, ch4) == str + 10); // "6" at position 10
+    STATIC_REQUIRE(cstrchr(str, ch5) == nullptr); // "z" not found
+
+    // Compare with std::strchr
+    REQUIRE(cstrchr(str, ch1) == std::strchr(str, ch1));
+    REQUIRE(cstrchr(str, ch2) == std::strchr(str, ch2));
+    REQUIRE(cstrchr(str, ch3) == std::strchr(str, ch3));
+    REQUIRE(cstrchr(str, ch4) == std::strchr(str, ch4));
+    REQUIRE(cstrchr(str, ch5) == std::strchr(str, ch5));
+  }
+
+  SECTION("Position-specific search") {
+    constexpr const char * str = "Hello World";
+
+    // Beginning
+    STATIC_REQUIRE(cstrchr(str, 'H') == str);
+    STATIC_REQUIRE(cstrchr(str, 'e') == str + 1);
+
+    // Middle
+    STATIC_REQUIRE(cstrchr(str, 'l') == str + 2); // First "l" at position 2
+    STATIC_REQUIRE(cstrchr(str, 'o') == str + 4); // First "o" at position 4
+
+    // End
+    STATIC_REQUIRE(cstrchr(str, 'd') == str + 10);
+    STATIC_REQUIRE(cstrchr(str, 'l') == str + 2); // First "l", not the last one
+
+    // Compare with std::strchr
+    REQUIRE(cstrchr(str, 'H') == std::strchr(str, 'H'));
+    REQUIRE(cstrchr(str, 'e') == std::strchr(str, 'e'));
+    REQUIRE(cstrchr(str, 'l') == std::strchr(str, 'l'));
+    REQUIRE(cstrchr(str, 'o') == std::strchr(str, 'o'));
+    REQUIRE(cstrchr(str, 'd') == std::strchr(str, 'd'));
+  }
+
+  SECTION("Edge cases") {
+    // Null terminator
+    STATIC_REQUIRE(cstrchr("", '\0') != nullptr);
+    STATIC_REQUIRE(cstrchr("a", '\0') != nullptr);
+
+    // Single character match
+    STATIC_REQUIRE(cstrchr("a", 'a') != nullptr);
+    STATIC_REQUIRE(cstrchr("a", 'b') == nullptr);
+
+    // Compare with std::strchr
+    REQUIRE(cstrchr("", '\0') == std::strchr("", '\0'));
+    REQUIRE(cstrchr("a", '\0') == std::strchr("a", '\0'));
+
+    REQUIRE(cstrchr("a", 'a') == std::strchr("a", 'a'));
+    REQUIRE(cstrchr("a", 'b') == std::strchr("a", 'b'));
+  }
+
+  SECTION("Constexpr operations") {
+    constexpr const char * str = "Hello World";
+    constexpr char ch1 = 'o';
+    constexpr char ch2 = 'z';
+
+    constexpr const char * result1 = cstrchr(str, ch1);
+    constexpr const char * result2 = cstrchr(str, ch2);
+    constexpr const char * result3 = cstrchr("Test", 'e');
+    constexpr const char * result4 = cstrchr("ABC", 'B');
+
+    STATIC_REQUIRE(result1 != nullptr);
+    STATIC_REQUIRE(result2 == nullptr);
+    STATIC_REQUIRE(result3 != nullptr);
+    STATIC_REQUIRE(result4 != nullptr);
+
+    // Complex compile-time checks
+    STATIC_REQUIRE(cstrchr("Hello World", 'H') != nullptr);
+    STATIC_REQUIRE(cstrchr("Hello World", 'z') == nullptr);
+    STATIC_REQUIRE(cstrchr("Test", 'T') != nullptr);
+    STATIC_REQUIRE(cstrchr("Test", 'Z') == nullptr);
+    STATIC_REQUIRE(cstrchr("ABC", 'A') != nullptr);
+    STATIC_REQUIRE(cstrchr("ABC", 'Z') == nullptr);
+
+    // Compare with std::strchr
+    REQUIRE(result1 == std::strchr(str, ch1));
+    REQUIRE(result2 == std::strchr(str, ch2));
+    REQUIRE(result3 == std::strchr("Test", 'e'));
+    REQUIRE(result4 == std::strchr("ABC", 'B'));
+    REQUIRE(cstrchr("Hello World", 'H') == std::strchr("Hello World", 'H'));
+    REQUIRE(cstrchr("Hello World", 'z') == std::strchr("Hello World", 'z'));
+    REQUIRE(cstrchr("Test", 'T') == std::strchr("Test", 'T'));
+    REQUIRE(cstrchr("Test", 'Z') == std::strchr("Test", 'Z'));
+    REQUIRE(cstrchr("ABC", 'A') == std::strchr("ABC", 'A'));
+    REQUIRE(cstrchr("ABC", 'Z') == std::strchr("ABC", 'Z'));
+  }
+
+  SECTION("Long strings") {
+    constexpr const char * longStr = "This is a very long string for performance testing";
+    constexpr char ch1 = 'v';
+    constexpr char ch2 = 'p';
+    constexpr char ch3 = 't';
+    constexpr char ch4 = 'z';
+
+    STATIC_REQUIRE(cstrchr(longStr, ch1) != nullptr);
+    STATIC_REQUIRE(cstrchr(longStr, ch2) != nullptr);
+    STATIC_REQUIRE(cstrchr(longStr, ch3) != nullptr);
+    STATIC_REQUIRE(cstrchr(longStr, ch4) == nullptr);
+
+    // Compare with std::strchr
+    REQUIRE(cstrchr(longStr, ch1) == std::strchr(longStr, ch1));
+    REQUIRE(cstrchr(longStr, ch2) == std::strchr(longStr, ch2));
+    REQUIRE(cstrchr(longStr, ch3) == std::strchr(longStr, ch3));
+    REQUIRE(cstrchr(longStr, ch4) == std::strchr(longStr, ch4));
+  }
+}
+
 TEST_CASE("cstrstr function", "[core][constexpr_utils]") {
   SECTION("Basic substring search") {
     constexpr const char * haystack = "Hello World";
@@ -578,7 +853,7 @@ TEST_CASE("cstrstr function", "[core][constexpr_utils]") {
     REQUIRE(result2 == std::strstr(haystack, needle2));
     REQUIRE(result3 == std::strstr("Test", "es"));
     REQUIRE(result4 == std::strstr("ABC", "B"));
-    
+
     REQUIRE(cstrstr("Hello World", "Hello") == std::strstr("Hello World", "Hello"));
     REQUIRE(cstrstr("Hello World", "xyz") == std::strstr("Hello World", "xyz"));
     REQUIRE(cstrstr("Test", "Test") == std::strstr("Test", "Test"));
