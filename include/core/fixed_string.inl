@@ -957,32 +957,41 @@ constexpr bool FixedString<allocatedSize>::ends_with(char character) const noexc
 
 template <std::size_t allocatedSize>
 constexpr bool FixedString<allocatedSize>::contains(const FixedString<allocatedSize> & string) const noexcept {
-  return _size >= string._size && std::strstr(_data, string._data) != nullptr;
+  if consteval {
+    return _size >= string._size && cstrstr(_data, string.c_str()) != nullptr;
+  } else {
+    return _size >= string._size && std::strstr(_data, string.c_str()) != nullptr;
+  }
 }
 
 template <std::size_t allocatedSize>
 template <StringLike stringType>
 constexpr bool FixedString<allocatedSize>::contains(const stringType & string) const noexcept {
-  return _size >= string.size() && std::strstr(_data, string.c_str()) != nullptr;
+  if consteval {
+    return _size >= string.size() && cstrstr(_data, string.c_str()) != nullptr;
+  } else {
+    return _size >= string.size() && std::strstr(_data, string.c_str()) != nullptr;
+  }
 }
 
 template <std::size_t allocatedSize>
 constexpr bool FixedString<allocatedSize>::contains(const char * string) const noexcept {
   assert_message(string != nullptr, "String pointer must not be null");
 
-  std::size_t needleSize;
   if consteval {
-    needleSize = std::char_traits<char>::length(string);
+    return _size >= std::char_traits<char>::length(string) && cstrstr(_data, string) != nullptr;
   } else {
-    needleSize = std::strlen(string);
+    return _size >= std::strlen(string) && std::strstr(_data, string) != nullptr;
   }
-
-  return _size >= needleSize && std::strstr(_data, string) != nullptr;
 }
 
 template <std::size_t allocatedSize>
 constexpr bool FixedString<allocatedSize>::contains(char character) const noexcept {
-  return _size > 0 && std::strchr(_data, character) != nullptr;
+  if consteval {
+    return _size > 0 && cstrchr(_data, character) != nullptr;
+  } else {
+    return _size > 0 && std::strchr(_data, character) != nullptr;
+  }
 }
 
 template <std::size_t allocatedSize>

@@ -203,7 +203,7 @@ TEST_CASE("FixedString constructors", "[core][fixed_string]") {
   }
 }
 
-TEST_CASE("FixedString operators=", "[core][FixedString]") {
+TEST_CASE("FixedString operators=", "[core][fixed_string]") {
   SECTION("C string assignment") {
     FixedString<12> str1;
     FixedString<24> str2;
@@ -391,7 +391,7 @@ TEST_CASE("FixedString operators=", "[core][FixedString]") {
   }
 }
 
-TEST_CASE("FixedString assign", "[core][FixedString]") {
+TEST_CASE("FixedString assign", "[core][fixed_string]") {
   SECTION("C string assignment") {
     FixedString<16> str1;
     FixedString<32> str2;
@@ -670,7 +670,7 @@ TEST_CASE("FixedString assign", "[core][FixedString]") {
   }
 }
 
-TEST_CASE("FixedString at", "[core][FixedString]") {
+TEST_CASE("FixedString at", "[core][fixed_string]") {
   SECTION("Basic at() functionality") {
     FixedString<8> str("Hello");
 
@@ -827,39 +827,252 @@ TEST_CASE("FixedString at", "[core][FixedString]") {
   }
 }
 
-// to refactor
+TEST_CASE("FixedString operator[]", "[core][fixed_string]") {
+  SECTION("Non-const operator[] - basic access") {
+    FixedString<16> str("Hello");
+    constexpr FixedString<16> constStr("World");
 
-TEST_CASE("FixedString operators[]", "[core][FixedString]") {
-  FixedString<8> testString1("abcd");
-  constexpr FixedString<8> testString2("dcba");
+    // Basic access
+    REQUIRE(str[0] == 'H');
+    REQUIRE(str[1] == 'e');
+    REQUIRE(str[2] == 'l');
+    REQUIRE(str[3] == 'l');
+    REQUIRE(str[4] == 'o');
 
-  testString1[0] = 'e';
-  testString1[1] = 'f';
-  testString1[2] = 'g';
-  testString1[3] = 'h';
+    // Compile-time checks
+    STATIC_REQUIRE(constStr[0] == 'W');
+    STATIC_REQUIRE(constStr[1] == 'o');
+    STATIC_REQUIRE(constStr[2] == 'r');
+    STATIC_REQUIRE(constStr[3] == 'l');
+    STATIC_REQUIRE(constStr[4] == 'd');
+  }
 
-  REQUIRE(std::strcmp(testString1.c_str(), "efgh") == 0);
+  SECTION("Non-const operator[] - modification") {
+    FixedString<16> str("Hello");
 
-  auto & ref = testString1[2];
-  ref = 'Z';
-  REQUIRE(testString1[2] == 'Z');
+    // Direct modification
+    str[0] = 'h';
+    str[1] = 'E';
+    str[2] = 'L';
+    str[3] = 'L';
+    str[4] = 'O';
 
-  REQUIRE(testString1[1] == 'f');
-  REQUIRE(testString2[1] == 'c');
+    REQUIRE(std::strcmp(str.c_str(), "hELLO") == 0);
 
-  REQUIRE(testString1.size() == 4);
-  REQUIRE(std::strcmp(testString2.c_str(), "dcba") == 0);
+    REQUIRE(str[0] == 'h');
+    REQUIRE(str[1] == 'E');
+    REQUIRE(str[2] == 'L');
+    REQUIRE(str[3] == 'L');
+    REQUIRE(str[4] == 'O');
+  }
 
-  // Compile-time checks with STATIC_REQUIRE
-  // STATIC_REQUIRE(testString2[0] == 'd');
-  // STATIC_REQUIRE(testString2[1] == 'c');
-  // STATIC_REQUIRE(testString2[2] == 'b');
-  // STATIC_REQUIRE(testString2[3] == 'a');
-  // STATIC_REQUIRE(std::strcmp(testString2.c_str(), "dcba") == 0);
-  // STATIC_REQUIRE(testString2.size() == 4);
+  SECTION("Non-const operator[] - reference modification") {
+    FixedString<16> str("Hello");
+
+    // Modification through reference
+    auto & ref1 = str[0];
+    auto & ref2 = str[1];
+    auto & ref3 = str[2];
+
+    ref1 = 'X';
+    ref2 = 'Y';
+    ref3 = 'Z';
+
+    REQUIRE(std::strcmp(str.c_str(), "XYZlo") == 0);
+
+    REQUIRE(str[0] == 'X');
+    REQUIRE(str[1] == 'Y');
+    REQUIRE(str[2] == 'Z');
+    REQUIRE(str[3] == 'l');
+    REQUIRE(str[4] == 'o');
+  }
+
+  SECTION("Const operator[] - read-only access") {
+    constexpr FixedString<16> str("Hello");
+    constexpr FixedString<32> longStr("VeryLongString");
+
+    // Read-only access
+    REQUIRE(str[0] == 'H');
+    REQUIRE(str[1] == 'e');
+    REQUIRE(str[2] == 'l');
+    REQUIRE(str[3] == 'l');
+    REQUIRE(str[4] == 'o');
+
+    REQUIRE(longStr[0] == 'V');
+    REQUIRE(longStr[1] == 'e');
+    REQUIRE(longStr[2] == 'r');
+    REQUIRE(longStr[3] == 'y');
+    REQUIRE(longStr[4] == 'L');
+
+    // Compile-time checks
+    STATIC_REQUIRE(str[0] == 'H');
+    STATIC_REQUIRE(str[1] == 'e');
+    STATIC_REQUIRE(str[2] == 'l');
+    STATIC_REQUIRE(str[3] == 'l');
+    STATIC_REQUIRE(str[4] == 'o');
+
+    STATIC_REQUIRE(longStr[0] == 'V');
+    STATIC_REQUIRE(longStr[1] == 'e');
+    STATIC_REQUIRE(longStr[2] == 'r');
+    STATIC_REQUIRE(longStr[3] == 'y');
+    STATIC_REQUIRE(longStr[4] == 'L');
+  }
+
+  SECTION("Single character strings") {
+    FixedString<8> str("A");
+    constexpr FixedString<8> constStr("B");
+
+    // Non-const access
+    REQUIRE(str[0] == 'A');
+    str[0] = 'X';
+    REQUIRE(str[0] == 'X');
+    REQUIRE(std::strcmp(str.c_str(), "X") == 0);
+
+    // Const access
+    REQUIRE(constStr[0] == 'B');
+
+    // Compile-time checks
+    STATIC_REQUIRE(constStr[0] == 'B');
+  }
+
+  SECTION("Special characters") {
+    FixedString<32> str("Hello\n\tWorld");
+    constexpr FixedString<32> constStr("Test!@#$%");
+
+    // Special characters
+    REQUIRE(str[5] == '\n');
+    REQUIRE(str[6] == '\t');
+    REQUIRE(str[7] == 'W');
+
+    REQUIRE(constStr[4] == '!');
+    REQUIRE(constStr[5] == '@');
+    REQUIRE(constStr[6] == '#');
+    REQUIRE(constStr[7] == '$');
+    REQUIRE(constStr[8] == '%');
+
+    // Compile-time checks
+    STATIC_REQUIRE(constStr[4] == '!');
+    STATIC_REQUIRE(constStr[5] == '@');
+    STATIC_REQUIRE(constStr[6] == '#');
+    STATIC_REQUIRE(constStr[7] == '$');
+    STATIC_REQUIRE(constStr[8] == '%');
+  }
+
+  SECTION("Unicode content") {
+    FixedString<32> str("Hello 世界");
+    constexpr FixedString<32> constStr("Test 🌍");
+
+    // Unicode characters (byte-level access)
+    REQUIRE(str[5] == ' '); // Space
+    REQUIRE(str[6] == '\xE4'); // First byte of 世
+    REQUIRE(str[7] == '\xB8'); // Second byte of 世
+    REQUIRE(str[8] == '\x96'); // Third byte of 世
+
+    REQUIRE(constStr[4] == ' '); // Space
+    REQUIRE(constStr[5] == '\xF0'); // First byte of 🌍
+    REQUIRE(constStr[6] == '\x9F'); // Second byte of 🌍
+    REQUIRE(constStr[7] == '\x8C'); // Third byte of 🌍
+
+    // Compile-time checks
+    STATIC_REQUIRE(constStr[4] == ' ');
+    STATIC_REQUIRE(constStr[5] == '\xF0');
+    STATIC_REQUIRE(constStr[6] == '\x9F');
+    STATIC_REQUIRE(constStr[7] == '\x8C');
+  }
+
+  SECTION("Edge cases") {
+    FixedString<4> str("ABC"); // Maximum length for capacity 4
+    constexpr FixedString<4> constStr("XYZ");
+
+    // Access to last character
+    REQUIRE(str[2] == 'C');
+    REQUIRE(constStr[2] == 'Z');
+
+    // Modification of last character
+    str[2] = 'D';
+    REQUIRE(str[2] == 'D');
+    REQUIRE(std::strcmp(str.c_str(), "ABD") == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(constStr[0] == 'X');
+    STATIC_REQUIRE(constStr[1] == 'Y');
+    STATIC_REQUIRE(constStr[2] == 'Z');
+  }
+
+  SECTION("Reference semantics") {
+    FixedString<16> str("Hello");
+
+    // Get references to multiple elements
+    auto & ref0 = str[0];
+    auto & ref1 = str[1];
+    auto & ref2 = str[2];
+
+    // Modify through references
+    ref0 = 'A';
+    ref1 = 'B';
+    ref2 = 'C';
+
+    // Verify changes
+    REQUIRE(str[0] == 'A');
+    REQUIRE(str[1] == 'B');
+    REQUIRE(str[2] == 'C');
+
+    REQUIRE(std::strcmp(str.c_str(), "ABClo") == 0);
+
+    // References should still be valid
+    REQUIRE(ref0 == 'A');
+    REQUIRE(ref1 == 'B');
+    REQUIRE(ref2 == 'C');
+  }
+
+  SECTION("Constexpr operations") {
+    constexpr FixedString<16> str1("Hello");
+    constexpr FixedString<32> str2("World");
+    constexpr FixedString<8> str3("Test");
+
+    // Compile-time access
+    constexpr char c1 = str1[0];
+    constexpr char c2 = str2[1];
+    constexpr char c3 = str3[2];
+
+    STATIC_REQUIRE(c1 == 'H');
+    STATIC_REQUIRE(c2 == 'o');
+    STATIC_REQUIRE(c3 == 's');
+
+    // Compile-time comparisons
+    STATIC_REQUIRE(str1[0] == 'H');
+    STATIC_REQUIRE(str1[1] == 'e');
+    STATIC_REQUIRE(str1[2] == 'l');
+    STATIC_REQUIRE(str1[3] == 'l');
+    STATIC_REQUIRE(str1[4] == 'o');
+
+    STATIC_REQUIRE(str2[0] == 'W');
+    STATIC_REQUIRE(str2[1] == 'o');
+    STATIC_REQUIRE(str2[2] == 'r');
+    STATIC_REQUIRE(str2[3] == 'l');
+    STATIC_REQUIRE(str2[4] == 'd');
+  }
+
+  SECTION("Performance test") {
+    FixedString<64> str("PerformanceTestString");
+
+    // Multiple accesses
+    for (int i = 0; i < 1000; ++i) {
+      char c = str[i % str.size()];
+      REQUIRE(c == str[i % str.size()]);
+    }
+
+    // Multiple modifications
+    for (int i = 0; i < 100; ++i) {
+      str[0] = 'A' + (i % 26);
+      REQUIRE(str[0] == 'A' + (i % 26));
+    }
+  }
 }
 
-TEST_CASE("FixedString front and back", "[core][FixedString]") {
+// to refactor 3558 - 1073 = 2485
+
+TEST_CASE("FixedString front and back", "[core][fixed_string]") {
   SECTION("Front method") {
     FixedString<16> testString("Hello World");
 
@@ -945,7 +1158,7 @@ TEST_CASE("FixedString front and back", "[core][FixedString]") {
   }
 }
 
-TEST_CASE("FixedString data", "[core][FixedString]") {
+TEST_CASE("FixedString data", "[core][fixed_string]") {
   constexpr FixedString<8> testString1("abcd");
   constexpr FixedString<8> testString2("dcba");
 
@@ -961,7 +1174,7 @@ TEST_CASE("FixedString data", "[core][FixedString]") {
   // STATIC_REQUIRE(testString2.data()[1] == 'c');
 }
 
-TEST_CASE("FixedString c_str", "[core][FixedString]") {
+TEST_CASE("FixedString c_str", "[core][fixed_string]") {
   constexpr FixedString<8> testString1("abcd");
   constexpr FixedString<8> testString2("dcba");
 
@@ -977,7 +1190,7 @@ TEST_CASE("FixedString c_str", "[core][FixedString]") {
   // STATIC_REQUIRE(testString2.c_str()[1] == 'c');
 }
 
-TEST_CASE("FixedString empty", "[core][FixedString]") {
+TEST_CASE("FixedString empty", "[core][fixed_string]") {
   constexpr FixedString<16> testString1("ToyGine2");
   constexpr FixedString<4> testString2("");
 
@@ -991,7 +1204,7 @@ TEST_CASE("FixedString empty", "[core][FixedString]") {
   // STATIC_REQUIRE(testString2.size() == 0);
 }
 
-TEST_CASE("FixedString size", "[core][FixedString]") {
+TEST_CASE("FixedString size", "[core][fixed_string]") {
   constexpr FixedString<64> testString1("ToyGine2 - Free 2D/3D game engine.");
   constexpr FixedString<64> testString2;
 
@@ -1005,7 +1218,7 @@ TEST_CASE("FixedString size", "[core][FixedString]") {
   // STATIC_REQUIRE(testString2.length() == 0);
 }
 
-TEST_CASE("FixedString utf8_size", "[core][FixedString]") {
+TEST_CASE("FixedString utf8_size", "[core][fixed_string]") {
   static constexpr char ansiText[] = "ToyGine2 - Free 2D/3D game engine.";
   // UTF8 encoding                   "ToyGine2 - Бесплатный 2D/3D игровой движок.";
 
@@ -1029,7 +1242,7 @@ TEST_CASE("FixedString utf8_size", "[core][FixedString]") {
   REQUIRE(testString2.utf8_size() == 43);
 }
 
-TEST_CASE("FixedString length", "[core][FixedString]") {
+TEST_CASE("FixedString length", "[core][fixed_string]") {
   constexpr FixedString<64> testString1("ToyGine2 - Free 2D/3D game engine.");
   constexpr FixedString<64> testString2;
 
@@ -1037,7 +1250,7 @@ TEST_CASE("FixedString length", "[core][FixedString]") {
   REQUIRE(testString2.length() == 0);
 }
 
-TEST_CASE("FixedString max_size", "[core][FixedString]") {
+TEST_CASE("FixedString max_size", "[core][fixed_string]") {
   constexpr FixedString<64> testString1("ToyGine2 - Free 2D/3D game engine.");
   constexpr FixedString<16> testString2("");
 
@@ -1045,7 +1258,7 @@ TEST_CASE("FixedString max_size", "[core][FixedString]") {
   REQUIRE(testString2.max_size() == 15);
 }
 
-TEST_CASE("FixedString capacity", "[core][FixedString]") {
+TEST_CASE("FixedString capacity", "[core][fixed_string]") {
   constexpr FixedString<64> testString1("ToyGine2");
   constexpr FixedString<16> testString2("");
 
@@ -1053,7 +1266,7 @@ TEST_CASE("FixedString capacity", "[core][FixedString]") {
   REQUIRE(testString2.capacity() == 15);
 }
 
-TEST_CASE("FixedString clear", "[core][FixedString]") {
+TEST_CASE("FixedString clear", "[core][fixed_string]") {
   FixedString<64> testString1("ToyGine2 - Free 2D/3D game engine.");
   FixedString<16> testString2;
 
@@ -1067,7 +1280,7 @@ TEST_CASE("FixedString clear", "[core][FixedString]") {
   REQUIRE(testString2.empty());
 }
 
-TEST_CASE("FixedString insert", "[core][FixedString]") {
+TEST_CASE("FixedString insert", "[core][fixed_string]") {
   FixedString<32> testString1("Hello World");
   FixedString<32> testString2("Hello World");
   FixedString<32> testString3("Hello World");
@@ -1128,7 +1341,7 @@ TEST_CASE("FixedString insert", "[core][FixedString]") {
   REQUIRE(testString4.size() == 17);
 }
 
-TEST_CASE("FixedString erase", "[core][FixedString]") {
+TEST_CASE("FixedString erase", "[core][fixed_string]") {
   FixedString<32> testString1("Hello World");
 
   // Erase first 5 characters
@@ -1175,7 +1388,7 @@ TEST_CASE("FixedString erase", "[core][FixedString]") {
   REQUIRE(testString3.empty());
 }
 
-TEST_CASE("FixedString push_back", "[core][FixedString]") {
+TEST_CASE("FixedString push_back", "[core][fixed_string]") {
   FixedString<16> testString1("Hello");
 
   testString1.push_back(' ');
@@ -1189,7 +1402,7 @@ TEST_CASE("FixedString push_back", "[core][FixedString]") {
   REQUIRE(testString1.size() == 11);
 }
 
-TEST_CASE("FixedString pop_back", "[core][FixedString]") {
+TEST_CASE("FixedString pop_back", "[core][fixed_string]") {
   FixedString<16> testString("Hi");
 
   testString.pop_back();
@@ -1201,7 +1414,7 @@ TEST_CASE("FixedString pop_back", "[core][FixedString]") {
   REQUIRE(testString.size() == 0);
 }
 
-TEST_CASE("FixedString utf8_pop_back", "[core][FixedString]") {
+TEST_CASE("FixedString utf8_pop_back", "[core][fixed_string]") {
   SECTION("Pop back single ASCII character") {
     FixedString<16> testString("Hello");
 
@@ -1286,7 +1499,7 @@ TEST_CASE("FixedString utf8_pop_back", "[core][FixedString]") {
   }
 }
 
-TEST_CASE("FixedString append", "[core][FixedString]") {
+TEST_CASE("FixedString append", "[core][fixed_string]") {
   FixedString<32> testString("");
 
   testString.append(FixedString<16>("Nothing"))
@@ -1299,7 +1512,7 @@ TEST_CASE("FixedString append", "[core][FixedString]") {
   REQUIRE(testString.size() == 30);
 }
 
-TEST_CASE("FixedString operators+=", "[core][FixedString]") {
+TEST_CASE("FixedString operators+=", "[core][fixed_string]") {
   FixedString<32> testString("");
 
   testString += FixedString<16>("Nothing");
@@ -1312,7 +1525,7 @@ TEST_CASE("FixedString operators+=", "[core][FixedString]") {
   REQUIRE(testString.size() == 28);
 }
 
-TEST_CASE("FixedString replace", "[core][FixedString]") {
+TEST_CASE("FixedString replace", "[core][fixed_string]") {
   SECTION("Replace with FixedString") {
     FixedString<32> testString("Hello World");
 
@@ -1532,7 +1745,7 @@ TEST_CASE("FixedString replace", "[core][FixedString]") {
   }
 }
 
-TEST_CASE("FixedString copy", "[core][FixedString]") {
+TEST_CASE("FixedString copy", "[core][fixed_string]") {
   SECTION("Copy entire string") {
     constexpr FixedString<16> testString("Hello World");
     char buffer[16] = {0};
@@ -1651,7 +1864,7 @@ TEST_CASE("FixedString copy", "[core][FixedString]") {
   }
 }
 
-TEST_CASE("FixedString swap", "[core][FixedString]") {
+TEST_CASE("FixedString swap", "[core][fixed_string]") {
   SECTION("Swap two different strings") {
     FixedString<16> string1("Hello");
     FixedString<16> string2("World");
@@ -1763,7 +1976,7 @@ TEST_CASE("FixedString swap", "[core][FixedString]") {
   }
 }
 
-TEST_CASE("FixedString find", "[core][FixedString]") {
+TEST_CASE("FixedString find", "[core][fixed_string]") {
   SECTION("Find FixedString substring") {
     constexpr FixedString<32> testString("Hello World");
 
@@ -1912,7 +2125,7 @@ TEST_CASE("FixedString find", "[core][FixedString]") {
   }
 }
 
-TEST_CASE("FixedString rfind", "[core][FixedString]") {
+TEST_CASE("FixedString rfind", "[core][fixed_string]") {
   SECTION("Rfind FixedString substring") {
     constexpr FixedString<32> testString("Hello World Hello");
 
@@ -2085,7 +2298,7 @@ TEST_CASE("FixedString rfind", "[core][FixedString]") {
   }
 }
 
-TEST_CASE("FixedString find_first_of", "[core][FixedString]") {
+TEST_CASE("FixedString find_first_of", "[core][fixed_string]") {
   SECTION("Find first of FixedString characters") {
     constexpr FixedString<32> testString("Hello World");
 
@@ -2252,7 +2465,7 @@ TEST_CASE("FixedString find_first_of", "[core][FixedString]") {
   }
 }
 
-TEST_CASE("FixedString find_first_not_of", "[core][FixedString]") {
+TEST_CASE("FixedString find_first_not_of", "[core][fixed_string]") {
   SECTION("Find first not of FixedString characters") {
     constexpr FixedString<32> testString("Hello World");
 
@@ -2436,7 +2649,7 @@ TEST_CASE("FixedString find_first_not_of", "[core][FixedString]") {
   }
 }
 
-TEST_CASE("FixedString find_last_of", "[core][FixedString]") {
+TEST_CASE("FixedString find_last_of", "[core][fixed_string]") {
   SECTION("Find last of FixedString characters") {
     constexpr FixedString<32> testString("Hello World");
 
@@ -2592,7 +2805,7 @@ TEST_CASE("FixedString find_last_of", "[core][FixedString]") {
   }
 }
 
-TEST_CASE("FixedString find_last_not_of", "[core][FixedString]") {
+TEST_CASE("FixedString find_last_not_of", "[core][fixed_string]") {
   SECTION("Find last not of FixedString characters") {
     constexpr FixedString<32> testString("Hello World");
 
@@ -2749,7 +2962,7 @@ TEST_CASE("FixedString find_last_not_of", "[core][FixedString]") {
   }
 }
 
-TEST_CASE("FixedString compare", "[core][FixedString]") {
+TEST_CASE("FixedString compare", "[core][fixed_string]") {
   SECTION("Compare FixedString with FixedString") {
     constexpr FixedString<32> testString1("Hello");
     constexpr FixedString<32> testString2("Hello");
@@ -2941,7 +3154,7 @@ TEST_CASE("FixedString compare", "[core][FixedString]") {
   }
 }
 
-TEST_CASE("FixedString starts_with", "[core][FixedString]") {
+TEST_CASE("FixedString starts_with", "[core][fixed_string]") {
   SECTION("Starts with FixedString") {
     constexpr FixedString<32> testString("Hello World");
 
@@ -3131,7 +3344,7 @@ TEST_CASE("FixedString starts_with", "[core][FixedString]") {
   }
 }
 
-TEST_CASE("FixedString ends_with", "[core][FixedString]") {
+TEST_CASE("FixedString ends_with", "[core][fixed_string]") {
   SECTION("Ends with FixedString") {
     constexpr FixedString<32> testString("Hello World");
 
@@ -3342,280 +3555,297 @@ TEST_CASE("FixedString ends_with", "[core][FixedString]") {
   }
 }
 
-TEST_CASE("FixedString contains", "[core][FixedString]") {
-  SECTION("Contains FixedString") {
-    constexpr FixedString<32> testString("Hello World");
+// after refactor
 
-    REQUIRE(testString.contains(FixedString<16>("World")) == true);
-    REQUIRE(testString.contains(FixedString<16>("Hello")) == true);
-    REQUIRE(testString.contains(FixedString<16>("lo Wo")) == true);
-    REQUIRE(testString.contains(FixedString<16>("Hello World")) == true);
-    REQUIRE(testString.contains(FixedString<16>("xyz")) == false);
-    REQUIRE(testString.contains(FixedString<16>("")) == true);
+TEST_CASE("FixedString contains", "[core][fixed_string]") {
+  SECTION("C string contains") {
+    constexpr FixedString<32> str("Hello World");
+
+    // Basic contains
+    REQUIRE(str.contains("World") == true);
+    REQUIRE(str.contains("Hello") == true);
+    REQUIRE(str.contains("lo Wo") == true);
+    REQUIRE(str.contains("Hello World") == true);
+    REQUIRE(str.contains("xyz") == false);
+    REQUIRE(str.contains("") == true);
+
+    // Compile-time checks
+    STATIC_REQUIRE(str.contains("World") == true);
+    STATIC_REQUIRE(str.contains("Hello") == true);
+    STATIC_REQUIRE(str.contains("lo Wo") == true);
+    STATIC_REQUIRE(str.contains("Hello World") == true);
+    STATIC_REQUIRE(str.contains("xyz") == false);
+    STATIC_REQUIRE(str.contains("") == true);
   }
 
-  SECTION("Contains StringLike") {
-    constexpr FixedString<32> testString("Hello World");
+  SECTION("FixedString contains") {
+    constexpr FixedString<16> str("Hello World");
 
-    REQUIRE(testString.contains(std::string("World")) == true);
-    REQUIRE(testString.contains(std::string("Hello")) == true);
-    REQUIRE(testString.contains(std::string("lo Wo")) == true);
-    REQUIRE(testString.contains(std::string("Hello World")) == true);
-    REQUIRE(testString.contains(std::string("xyz")) == false);
-    REQUIRE(testString.contains(std::string("")) == true);
+    // Basic contains with FixedString
+    REQUIRE(str.contains(FixedString<16>("World")) == true);
+    REQUIRE(str.contains(FixedString<16>("Hello")) == true);
+    REQUIRE(str.contains(FixedString<16>("lo Wo")) == true);
+    REQUIRE(str.contains(FixedString<16>("Hello World")) == true);
+    REQUIRE(str.contains(FixedString<16>("xyz")) == false);
+    REQUIRE(str.contains(FixedString<16>("")) == true);
+
+    // Different capacities
+    REQUIRE(str.contains(FixedString<8>("World")) == true);
+    REQUIRE(str.contains(FixedString<64>("World")) == true);
+
+    // Compile-time checks
+    STATIC_REQUIRE(str.contains(FixedString<16>("World")) == true);
+    STATIC_REQUIRE(str.contains(FixedString<16>("Hello")) == true);
+    STATIC_REQUIRE(str.contains(FixedString<16>("lo Wo")) == true);
+    STATIC_REQUIRE(str.contains(FixedString<16>("Hello World")) == true);
+    STATIC_REQUIRE(str.contains(FixedString<16>("xyz")) == false);
+    STATIC_REQUIRE(str.contains(FixedString<16>("")) == true);
+
+    STATIC_REQUIRE(str.contains(FixedString<8>("World")) == true);
+    STATIC_REQUIRE(str.contains(FixedString<64>("World")) == true);
   }
 
-  SECTION("Contains C string") {
-    constexpr FixedString<32> testString("Hello World");
+  SECTION("StringLike contains") {
+    FixedString<32> str("Hello World");
 
-    REQUIRE(testString.contains("World") == true);
-    REQUIRE(testString.contains("Hello") == true);
-    REQUIRE(testString.contains("lo Wo") == true);
-    REQUIRE(testString.contains("Hello World") == true);
-    REQUIRE(testString.contains("xyz") == false);
-    REQUIRE(testString.contains("") == true);
+    // std::string contains
+    REQUIRE(str.contains(std::string("World")) == true);
+    REQUIRE(str.contains(std::string("Hello")) == true);
+    REQUIRE(str.contains(std::string("lo Wo")) == true);
+    REQUIRE(str.contains(std::string("Hello World")) == true);
+    REQUIRE(str.contains(std::string("xyz")) == false);
+    REQUIRE(str.contains(std::string("")) == true);
   }
 
-  SECTION("Contains character") {
-    constexpr FixedString<32> testString("Hello World");
+  SECTION("Character contains") {
+    constexpr FixedString<32> str("Hello World");
 
-    REQUIRE(testString.contains('H') == true);
-    REQUIRE(testString.contains('o') == true);
-    REQUIRE(testString.contains('l') == true);
-    REQUIRE(testString.contains(' ') == true);
-    REQUIRE(testString.contains('x') == false);
-    REQUIRE(testString.contains('Z') == false);
+    // Character contains
+    REQUIRE(str.contains('H') == true);
+    REQUIRE(str.contains('o') == true);
+    REQUIRE(str.contains('l') == true);
+    REQUIRE(str.contains(' ') == true);
+    REQUIRE(str.contains('x') == false);
+    REQUIRE(str.contains('Z') == false);
+
+    // Compile-time checks
+    STATIC_REQUIRE(str.contains('H') == true);
+    STATIC_REQUIRE(str.contains('o') == true);
+    STATIC_REQUIRE(str.contains('l') == true);
+    STATIC_REQUIRE(str.contains(' ') == true);
+    STATIC_REQUIRE(str.contains('x') == false);
+    STATIC_REQUIRE(str.contains('Z') == false);
   }
 
-  SECTION("Contains in empty string") {
-    constexpr FixedString<32> testString("");
+  SECTION("Empty string contains") {
+    constexpr FixedString<32> str("");
 
-    REQUIRE(testString.contains(FixedString<16>("Hello")) == false);
-    REQUIRE(testString.contains(std::string("Hello")) == false);
-    REQUIRE(testString.contains("Hello") == false);
-    REQUIRE(testString.contains('H') == false);
-    REQUIRE(testString.contains("") == true);
+    // Empty string contains
+    REQUIRE(str.contains(FixedString<16>("Hello")) == false);
+    REQUIRE(str.contains(std::string("Hello")) == false);
+    REQUIRE(str.contains("Hello") == false);
+    REQUIRE(str.contains('H') == false);
+    REQUIRE(str.contains("") == true);
+
+    // Compile-time checks
+    STATIC_REQUIRE(str.contains(FixedString<16>("Hello")) == false);
+    STATIC_REQUIRE(str.contains("Hello") == false);
+    STATIC_REQUIRE(str.contains('H') == false);
+    STATIC_REQUIRE(str.contains("") == true);
   }
 
-  SECTION("Contains in single character string") {
-    constexpr FixedString<32> testString("A");
+  SECTION("Single character string contains") {
+    constexpr FixedString<8> str("A");
 
-    REQUIRE(testString.contains("A") == true);
-    REQUIRE(testString.contains('A') == true);
-    REQUIRE(testString.contains("B") == false);
-    REQUIRE(testString.contains('B') == false);
-    REQUIRE(testString.contains("") == true);
+    // Single character contains
+    REQUIRE(str.contains("A") == true);
+    REQUIRE(str.contains('A') == true);
+    REQUIRE(str.contains("B") == false);
+    REQUIRE(str.contains('B') == false);
+    REQUIRE(str.contains("") == true);
+
+    // Compile-time checks
+    STATIC_REQUIRE(str.contains("A") == true);
+    STATIC_REQUIRE(str.contains('A') == true);
+    STATIC_REQUIRE(str.contains("B") == false);
+    STATIC_REQUIRE(str.contains('B') == false);
+    STATIC_REQUIRE(str.contains("") == true);
   }
 
-  SECTION("Contains longer substring") {
-    constexpr FixedString<32> testString("Hello");
+  SECTION("Case sensitivity") {
+    constexpr FixedString<32> str("Hello World");
 
-    REQUIRE(testString.contains("Hello World") == false);
-    REQUIRE(testString.contains("Hello Universe") == false);
-    REQUIRE(testString.contains("Hello") == true);
-    REQUIRE(testString.contains("llo") == true);
-    REQUIRE(testString.contains("ell") == true);
+    // Case sensitive contains
+    REQUIRE(str.contains("world") == false);
+    REQUIRE(str.contains("WORLD") == false);
+    REQUIRE(str.contains("World") == true);
+    REQUIRE(str.contains('h') == false);
+    REQUIRE(str.contains('H') == true);
+
+    // Compile-time checks
+    STATIC_REQUIRE(str.contains("world") == false);
+    STATIC_REQUIRE(str.contains("WORLD") == false);
+    STATIC_REQUIRE(str.contains("World") == true);
+    STATIC_REQUIRE(str.contains('h') == false);
+    STATIC_REQUIRE(str.contains('H') == true);
   }
 
-  SECTION("Contains case sensitivity") {
-    constexpr FixedString<32> testString("Hello World");
+  SECTION("Edge cases") {
+    constexpr FixedString<16> str("Hello");
 
-    REQUIRE(testString.contains("world") == false);
-    REQUIRE(testString.contains("WORLD") == false);
-    REQUIRE(testString.contains("World") == true);
-    REQUIRE(testString.contains('h') == false);
-    REQUIRE(testString.contains('H') == true);
+    // Longer substring than string
+    REQUIRE(str.contains("Hello World") == false);
+    REQUIRE(str.contains("Hello Universe") == false);
+
+    // Exact match
+    REQUIRE(str.contains("Hello") == true);
+
+    // Substrings
+    REQUIRE(str.contains("llo") == true);
+    REQUIRE(str.contains("ell") == true);
+
+    // Compile-time checks
+    STATIC_REQUIRE(str.contains("Hello World") == false);
+    STATIC_REQUIRE(str.contains("Hello Universe") == false);
+    STATIC_REQUIRE(str.contains("Hello") == true);
+    STATIC_REQUIRE(str.contains("llo") == true);
+    STATIC_REQUIRE(str.contains("ell") == true);
   }
 
-  SECTION("Contains different FixedString capacities") {
-    constexpr FixedString<32> testString("Hello World");
+  SECTION("Special characters") {
+    constexpr FixedString<32> str("Hello\n\tWorld!");
 
-    REQUIRE(testString.contains(FixedString<8>("World")) == true);
-    REQUIRE(testString.contains(FixedString<16>("World")) == true);
-    REQUIRE(testString.contains(FixedString<64>("World")) == true);
-    REQUIRE(testString.contains(FixedString<8>("Hello")) == true);
+    // Special characters
+    REQUIRE(str.contains("\n") == true);
+    REQUIRE(str.contains("\t") == true);
+    REQUIRE(str.contains("!") == true);
+    REQUIRE(str.contains("Hello\n") == true);
+    REQUIRE(str.contains("\tWorld") == true);
+    REQUIRE(str.contains("World!") == true);
+
+    // Compile-time checks
+    STATIC_REQUIRE(str.contains("\n") == true);
+    STATIC_REQUIRE(str.contains("\t") == true);
+    STATIC_REQUIRE(str.contains("!") == true);
+    STATIC_REQUIRE(str.contains("Hello\n") == true);
+    STATIC_REQUIRE(str.contains("\tWorld") == true);
+    STATIC_REQUIRE(str.contains("World!") == true);
   }
 
-  SECTION("Contains repeated characters") {
-    constexpr FixedString<32> testString("baaaa");
+  SECTION("Unicode content") {
+    constexpr FixedString<32> str("Hello 世界");
 
-    REQUIRE(testString.contains("aaa") == true);
-    REQUIRE(testString.contains("aaaa") == true);
-    REQUIRE(testString.contains("baaaa") == true);
-    REQUIRE(testString.contains("aaaaa") == false);
-    REQUIRE(testString.contains('a') == true);
-    REQUIRE(testString.contains('b') == true);
+    // Unicode contains
+    REQUIRE(str.contains("世界") == true);
+    REQUIRE(str.contains("Hello 世") == true);
+    REQUIRE(str.contains("界") == true);
+    REQUIRE(str.contains("世") == true);
+    REQUIRE(str.contains("宇宙") == false);
+
+    // Compile-time checks
+    STATIC_REQUIRE(str.contains("世界") == true);
+    STATIC_REQUIRE(str.contains("Hello 世") == true);
+    STATIC_REQUIRE(str.contains("界") == true);
+    STATIC_REQUIRE(str.contains("世") == true);
+    STATIC_REQUIRE(str.contains("宇宙") == false);
   }
 
-  SECTION("Contains special characters") {
-    constexpr FixedString<32> testString("%$#@!");
+  SECTION("Repeated patterns") {
+    constexpr FixedString<32> str("ababab");
 
-    REQUIRE(testString.contains("@!") == true);
-    REQUIRE(testString.contains("%$#@!") == true);
-    REQUIRE(testString.contains("^%$#@!") == false);
-    REQUIRE(testString.contains('!') == true);
-    REQUIRE(testString.contains('@') == true);
-    REQUIRE(testString.contains('$') == true);
+    // Overlapping patterns
+    REQUIRE(str.contains("ab") == true);
+    REQUIRE(str.contains("bab") == true);
+    REQUIRE(str.contains("abab") == true);
+    REQUIRE(str.contains("ababab") == true);
+    REQUIRE(str.contains("babab") == true);
+    REQUIRE(str.contains("abababa") == false);
+
+    // Compile-time checks
+    STATIC_REQUIRE(str.contains("ab") == true);
+    STATIC_REQUIRE(str.contains("bab") == true);
+    STATIC_REQUIRE(str.contains("abab") == true);
+    STATIC_REQUIRE(str.contains("ababab") == true);
+    STATIC_REQUIRE(str.contains("babab") == true);
+    STATIC_REQUIRE(str.contains("abababa") == false);
   }
 
-  SECTION("Contains numbers") {
-    constexpr FixedString<32> testString("54321");
+  SECTION("Numeric content") {
+    constexpr FixedString<32> str("12345");
 
-    REQUIRE(testString.contains("321") == true);
-    REQUIRE(testString.contains("54321") == true);
-    REQUIRE(testString.contains("654321") == false);
-    REQUIRE(testString.contains('1') == true);
-    REQUIRE(testString.contains('2') == true);
-    REQUIRE(testString.contains('5') == true);
+    // Numeric contains
+    REQUIRE(str.contains("123") == true);
+    REQUIRE(str.contains("345") == true);
+    REQUIRE(str.contains("234") == true);
+    REQUIRE(str.contains("12345") == true);
+    REQUIRE(str.contains("678") == false);
+    REQUIRE(str.contains('1') == true);
+    REQUIRE(str.contains('5') == true);
+    REQUIRE(str.contains('9') == false);
+
+    // Compile-time checks
+    STATIC_REQUIRE(str.contains("123") == true);
+    STATIC_REQUIRE(str.contains("345") == true);
+    STATIC_REQUIRE(str.contains("234") == true);
+    STATIC_REQUIRE(str.contains("12345") == true);
+    STATIC_REQUIRE(str.contains("678") == false);
+    STATIC_REQUIRE(str.contains('1') == true);
+    STATIC_REQUIRE(str.contains('5') == true);
+    STATIC_REQUIRE(str.contains('9') == false);
   }
 
-  SECTION("Contains mixed content") {
-    constexpr FixedString<32> testString("123Hello");
+  SECTION("Mixed content") {
+    constexpr FixedString<32> str("123Hello456");
 
-    REQUIRE(testString.contains("Hello") == true);
-    REQUIRE(testString.contains("3Hello") == true);
-    REQUIRE(testString.contains("123Hello") == true);
-    REQUIRE(testString.contains("0123Hello") == false);
-    REQUIRE(testString.contains('o') == true);
-    REQUIRE(testString.contains('1') == true);
-    REQUIRE(testString.contains('3') == true);
+    // Mixed alphanumeric contains
+    REQUIRE(str.contains("123") == true);
+    REQUIRE(str.contains("Hello") == true);
+    REQUIRE(str.contains("456") == true);
+    REQUIRE(str.contains("3Hello4") == true);
+    REQUIRE(str.contains("123Hello456") == true);
+    REQUIRE(str.contains("789") == false);
+
+    // Compile-time checks
+    STATIC_REQUIRE(str.contains("123") == true);
+    STATIC_REQUIRE(str.contains("Hello") == true);
+    STATIC_REQUIRE(str.contains("456") == true);
+    STATIC_REQUIRE(str.contains("3Hello4") == true);
+    STATIC_REQUIRE(str.contains("123Hello456") == true);
+    STATIC_REQUIRE(str.contains("789") == false);
   }
 
-  SECTION("Contains maximum length strings") {
-    constexpr FixedString<16> testString("123456789012345"); // 15 characters
+  SECTION("Position-specific contains") {
+    constexpr FixedString<32> str("Hello World");
 
-    REQUIRE(testString.contains("123456789012345") == true);
-    REQUIRE(testString.contains("23456789012345") == true);
-    REQUIRE(testString.contains("0123456789012345") == false);
-    REQUIRE(testString.contains('5') == true);
-    REQUIRE(testString.contains('1') == true);
-  }
+    // Beginning
+    REQUIRE(str.contains("H") == true);
+    REQUIRE(str.contains("He") == true);
+    REQUIRE(str.contains("Hello") == true);
 
-  SECTION("Contains std::string") {
-    constexpr FixedString<32> testString("Hello World");
+    // Middle
+    REQUIRE(str.contains("l") == true);
+    REQUIRE(str.contains("ll") == true);
+    REQUIRE(str.contains("lo W") == true);
 
-    REQUIRE(testString.contains(std::string("World")) == true);
-    REQUIRE(testString.contains(std::string("Hello World")) == true);
-    REQUIRE(testString.contains(std::string("Hello")) == true);
-  }
+    // End
+    REQUIRE(str.contains("d") == true);
+    REQUIRE(str.contains("ld") == true);
+    REQUIRE(str.contains("World") == true);
 
-  SECTION("Contains array") {
-    constexpr FixedString<32> testString("Hello");
-    constexpr std::array<char, 4> arr = {'l', 'l', 'o', '\0'};
-
-    REQUIRE(testString.contains(arr.data()) == true);
-    REQUIRE(testString.contains("llo") == true);
-  }
-
-  SECTION("Contains whitespace") {
-    constexpr FixedString<32> testString("Hello World ");
-
-    REQUIRE(testString.contains(" ") == true);
-    REQUIRE(testString.contains("World ") == true);
-    REQUIRE(testString.contains("World") == true);
-    REQUIRE(testString.contains(' ') == true);
-    REQUIRE(testString.contains('d') == true);
-  }
-
-  SECTION("Contains exact match") {
-    constexpr FixedString<32> testString("Hello");
-
-    REQUIRE(testString.contains("Hello") == true);
-    REQUIRE(testString.contains("llo") == true);
-    REQUIRE(testString.contains("o") == true);
-    REQUIRE(testString.contains("") == true);
-  }
-
-  SECTION("Contains overlapping patterns") {
-    constexpr FixedString<32> testString("ababab");
-
-    REQUIRE(testString.contains("ab") == true);
-    REQUIRE(testString.contains("bab") == true);
-    REQUIRE(testString.contains("abab") == true);
-    REQUIRE(testString.contains("ababab") == true);
-    REQUIRE(testString.contains("babab") == true);
-  }
-
-  SECTION("Contains multiple occurrences") {
-    constexpr FixedString<32> testString("abababab");
-
-    REQUIRE(testString.contains("ab") == true);
-    REQUIRE(testString.contains("bab") == true);
-    REQUIRE(testString.contains("abab") == true);
-    REQUIRE(testString.contains("ababab") == true);
-    REQUIRE(testString.contains("abababab") == true);
-  }
-
-  SECTION("Contains at beginning") {
-    constexpr FixedString<32> testString("Hello World");
-
-    REQUIRE(testString.contains("H") == true);
-    REQUIRE(testString.contains("He") == true);
-    REQUIRE(testString.contains("Hel") == true);
-    REQUIRE(testString.contains("Hello") == true);
-  }
-
-  SECTION("Contains at end") {
-    constexpr FixedString<32> testString("Hello World");
-
-    REQUIRE(testString.contains("d") == true);
-    REQUIRE(testString.contains("ld") == true);
-    REQUIRE(testString.contains("rld") == true);
-    REQUIRE(testString.contains("World") == true);
-  }
-
-  SECTION("Contains in middle") {
-    constexpr FixedString<32> testString("Hello World");
-
-    REQUIRE(testString.contains("l") == true);
-    REQUIRE(testString.contains("ll") == true);
-    REQUIRE(testString.contains("lo") == true);
-    REQUIRE(testString.contains("lo W") == true);
-  }
-
-  SECTION("Contains single character multiple times") {
-    constexpr FixedString<32> testString("aaaaa");
-
-    REQUIRE(testString.contains("a") == true);
-    REQUIRE(testString.contains("aa") == true);
-    REQUIRE(testString.contains("aaa") == true);
-    REQUIRE(testString.contains("aaaa") == true);
-    REQUIRE(testString.contains("aaaaa") == true);
-    REQUIRE(testString.contains("aaaaaa") == false);
-  }
-
-  SECTION("Contains with punctuation") {
-    constexpr FixedString<32> testString("Hello, World!");
-
-    REQUIRE(testString.contains(",") == true);
-    REQUIRE(testString.contains("!") == true);
-    REQUIRE(testString.contains(", ") == true);
-    REQUIRE(testString.contains("World!") == true);
-    REQUIRE(testString.contains("Hello,") == true);
-  }
-
-  SECTION("Contains with newlines") {
-    constexpr FixedString<32> testString("Hello\nWorld");
-
-    REQUIRE(testString.contains("\n") == true);
-    REQUIRE(testString.contains("Hello\n") == true);
-    REQUIRE(testString.contains("\nWorld") == true);
-    REQUIRE(testString.contains("Hello\nWorld") == true);
-  }
-
-  SECTION("Contains with tabs") {
-    constexpr FixedString<32> testString("Hello\tWorld");
-
-    REQUIRE(testString.contains("\t") == true);
-    REQUIRE(testString.contains("Hello\t") == true);
-    REQUIRE(testString.contains("\tWorld") == true);
-    REQUIRE(testString.contains("Hello\tWorld") == true);
+    // Compile-time checks
+    STATIC_REQUIRE(str.contains("H") == true);
+    STATIC_REQUIRE(str.contains("He") == true);
+    STATIC_REQUIRE(str.contains("Hello") == true);
+    STATIC_REQUIRE(str.contains("l") == true);
+    STATIC_REQUIRE(str.contains("ll") == true);
+    STATIC_REQUIRE(str.contains("lo W") == true);
+    STATIC_REQUIRE(str.contains("d") == true);
+    STATIC_REQUIRE(str.contains("ld") == true);
+    STATIC_REQUIRE(str.contains("World") == true);
   }
 }
 
-// after refactor
-
-TEST_CASE("FixedString substr", "[core][FixedString]") {
+TEST_CASE("FixedString substr", "[core][fixed_string]") {
   SECTION("Substr basic functionality") {
     constexpr FixedString<32> testString("Hello World");
 
@@ -4300,7 +4530,7 @@ TEST_CASE("FixedString substr", "[core][FixedString]") {
   }
 }
 
-TEST_CASE("FixedString operators+", "[core][FixedString]") {
+TEST_CASE("FixedString operators+", "[core][fixed_string]") {
   SECTION("Basic concatenation tests") {
     constexpr auto testString1 = FixedString<14>("12") + "test text 1";
     constexpr auto testString2 = FixedString<14>("23") + FixedString<14>("test text 2");
@@ -4621,7 +4851,7 @@ TEST_CASE("FixedString operators+", "[core][FixedString]") {
   }
 }
 
-TEST_CASE("FixedString operator==", "[core][FixedString]") {
+TEST_CASE("FixedString operator==", "[core][fixed_string]") {
   SECTION("FixedString == FixedString") {
     constexpr FixedString<16> str1("Hello");
     constexpr FixedString<32> str2("Hello");
@@ -4817,7 +5047,7 @@ TEST_CASE("FixedString operator==", "[core][FixedString]") {
   }
 }
 
-TEST_CASE("FixedString operator<=>", "[core][FixedString]") {
+TEST_CASE("FixedString operator<=>", "[core][fixed_string]") {
   SECTION("FixedString <=> FixedString") {
     constexpr FixedString<16> str1("Hello");
     constexpr FixedString<32> str2("Hello");
@@ -5162,7 +5392,7 @@ TEST_CASE("FixedString operator<=>", "[core][FixedString]") {
   }
 }
 
-TEST_CASE("FixedString std::swap", "[core][FixedString]") {
+TEST_CASE("FixedString std::swap", "[core][fixed_string]") {
   SECTION("Basic swap functionality") {
     FixedString<32> str1("Hello");
     FixedString<32> str2("World");
