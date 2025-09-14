@@ -671,37 +671,164 @@ TEST_CASE("FixString assign", "[core][fixstring]") {
   }
 }
 
-// to refactor
-
 TEST_CASE("FixString at", "[core][fixstring]") {
-  FixString<8> testString1("abcd");
-  constexpr FixString<8> testString2("dcba");
+  SECTION("Basic at() functionality") {
+    FixString<8> str("Hello");
 
-  testString1.at(0) = 'e';
-  testString1.at(1) = 'f';
-  testString1.at(2) = 'g';
-  testString1.at(3) = 'h';
+    REQUIRE(str.at(0) == 'H');
+    REQUIRE(str.at(1) == 'e');
+    REQUIRE(str.at(2) == 'l');
+    REQUIRE(str.at(3) == 'l');
+    REQUIRE(str.at(4) == 'o');
 
-  REQUIRE(std::strcmp(testString1.c_str(), "efgh") == 0);
+    // Modify characters using at()
+    str.at(0) = 'h';
+    str.at(4) = '!';
 
-  auto & ref = testString1.at(2);
-  ref = 'Z';
-  REQUIRE(testString1.at(2) == 'Z');
+    REQUIRE(str.at(0) == 'h');
+    REQUIRE(str.at(4) == '!');
 
-  REQUIRE(testString1.at(1) == 'f');
-  REQUIRE(testString2.at(1) == 'c');
+    REQUIRE(str.size() == 5);
+    REQUIRE(std::strcmp(str.c_str(), "hell!") == 0);
+  }
 
-  REQUIRE(testString1.size() == 4);
-  REQUIRE(std::strcmp(testString2.c_str(), "dcba") == 0);
+  SECTION("Const at() access") {
+    constexpr FixString<8> str("World");
 
-  // Compile-time checks with STATIC_REQUIRE
-  STATIC_REQUIRE(testString2.at(0) == 'd');
-  STATIC_REQUIRE(testString2.at(1) == 'c');
-  STATIC_REQUIRE(testString2.at(2) == 'b');
-  STATIC_REQUIRE(testString2.at(3) == 'a');
-  STATIC_REQUIRE(cstrcmp(testString2.c_str(), "dcba") == 0);
-  STATIC_REQUIRE(testString2.size() == 4);
+    REQUIRE(str.at(0) == 'W');
+    REQUIRE(str.at(1) == 'o');
+    REQUIRE(str.at(2) == 'r');
+    REQUIRE(str.at(3) == 'l');
+    REQUIRE(str.at(4) == 'd');
+
+    // Compile-time checks
+    STATIC_REQUIRE(str.at(0) == 'W');
+    STATIC_REQUIRE(str.at(1) == 'o');
+    STATIC_REQUIRE(str.at(2) == 'r');
+    STATIC_REQUIRE(str.at(3) == 'l');
+    STATIC_REQUIRE(str.at(4) == 'd');
+  }
+
+  SECTION("Reference modification") {
+    FixString<8> str("Test");
+
+    REQUIRE(str.at(0) == 'T');
+
+    // Get reference and modify
+    auto & ref = str.at(0);
+    ref = 'B';
+
+    REQUIRE(str.at(0) == 'B');
+
+    REQUIRE(str.size() == 4);
+    REQUIRE(std::strcmp(str.c_str(), "Best") == 0);
+  }
+
+  SECTION("Sequential modifications") {
+    FixString<8> str("abcd");
+
+    // Modify all characters
+    str.at(0) = 'e';
+    str.at(1) = 'f';
+    str.at(2) = 'g';
+    str.at(3) = 'h';
+
+    REQUIRE(str.at(0) == 'e');
+    REQUIRE(str.at(1) == 'f');
+    REQUIRE(str.at(2) == 'g');
+    REQUIRE(str.at(3) == 'h');
+
+    REQUIRE(str.size() == 4);
+    REQUIRE(std::strcmp(str.c_str(), "efgh") == 0);
+  }
+
+  SECTION("Single character string") {
+    FixString<8> str("A");
+
+    REQUIRE(str.at(0) == 'A');
+
+    str.at(0) = 'B';
+
+    REQUIRE(str.at(0) == 'B');
+
+    REQUIRE(str.size() == 1);
+    REQUIRE(std::strcmp(str.c_str(), "B") == 0);
+  }
+
+  SECTION("Special characters") {
+    FixString<8> str("A\nB\tC");
+
+    REQUIRE(str.at(0) == 'A');
+    REQUIRE(str.at(1) == '\n');
+    REQUIRE(str.at(2) == 'B');
+    REQUIRE(str.at(3) == '\t');
+    REQUIRE(str.at(4) == 'C');
+
+    str.at(1) = ' ';
+    str.at(3) = ' ';
+
+    REQUIRE(str.at(1) == ' ');
+    REQUIRE(str.at(3) == ' ');
+
+    REQUIRE(str.size() == 5);
+    REQUIRE(std::strcmp(str.c_str(), "A B C") == 0);
+  }
+
+  SECTION("Unicode content") {
+    FixString<16> str("Привет");
+
+    // Access individual bytes (not characters)
+    REQUIRE(str.at(0) == static_cast<char>(0xD0)); // First byte of 'П'
+    REQUIRE(str.at(1) == static_cast<char>(0x9F)); // Second byte of 'П'
+
+    // Modify bytes
+    str.at(0) = 'A';
+    str.at(1) = 'B';
+
+    REQUIRE(str.at(0) == 'A');
+    REQUIRE(str.at(1) == 'B');
+
+    REQUIRE(str.size() == 12);
+    REQUIRE(std::strcmp(str.c_str(), "ABривет") == 0);
+  }
+
+  SECTION("Maximum length string") {
+    FixString<8> str("1234567"); // 7 characters, capacity 7
+
+    REQUIRE(str.at(0) == '1');
+    REQUIRE(str.at(6) == '7');
+
+    str.at(0) = 'A';
+    str.at(6) = 'Z';
+
+    REQUIRE(str.at(0) == 'A');
+    REQUIRE(str.at(6) == 'Z');
+
+    REQUIRE(str.size() == 7);
+    REQUIRE(std::strcmp(str.c_str(), "A23456Z") == 0);
+  }
+
+  SECTION("Constexpr operations") {
+    constexpr FixString<8> str("Test");
+
+    constexpr char c0 = str.at(0);
+    constexpr char c1 = str.at(1);
+    constexpr char c2 = str.at(2);
+    constexpr char c3 = str.at(3);
+
+    REQUIRE(c0 == 'T');
+    REQUIRE(c1 == 'e');
+    REQUIRE(c2 == 's');
+    REQUIRE(c3 == 't');
+
+    STATIC_REQUIRE(c0 == 'T');
+    STATIC_REQUIRE(c1 == 'e');
+    STATIC_REQUIRE(c2 == 's');
+    STATIC_REQUIRE(c3 == 't');
+  }
 }
+
+// to refactor
 
 TEST_CASE("FixString operators[]", "[core][fixstring]") {
   FixString<8> testString1("abcd");
@@ -3487,206 +3614,315 @@ TEST_CASE("FixString contains", "[core][fixstring]") {
   }
 }
 
+// after refactor
+
 TEST_CASE("FixString substr", "[core][fixstring]") {
   SECTION("Substr basic functionality") {
     constexpr FixString<32> testString("Hello World");
 
+    REQUIRE(testString.substr(0).size() == 11);
     REQUIRE(std::strcmp(testString.substr(0).c_str(), "Hello World") == 0);
+    REQUIRE(testString.substr(0, 5).size() == 5);
     REQUIRE(std::strcmp(testString.substr(0, 5).c_str(), "Hello") == 0);
+    REQUIRE(testString.substr(6).size() == 5);
     REQUIRE(std::strcmp(testString.substr(6).c_str(), "World") == 0);
+    REQUIRE(testString.substr(6, 5).size() == 5);
     REQUIRE(std::strcmp(testString.substr(6, 5).c_str(), "World") == 0);
+    REQUIRE(testString.substr(6, 3).size() == 3);
     REQUIRE(std::strcmp(testString.substr(6, 3).c_str(), "Wor") == 0);
+    REQUIRE(testString.substr(0, 0).size() == 0);
     REQUIRE(std::strcmp(testString.substr(0, 0).c_str(), "") == 0);
   }
 
   SECTION("Substr with default parameters") {
     constexpr FixString<32> testString("Hello World");
 
+    REQUIRE(testString.substr().size() == 11);
     REQUIRE(std::strcmp(testString.substr().c_str(), "Hello World") == 0);
+    REQUIRE(testString.substr(0).size() == 11);
     REQUIRE(std::strcmp(testString.substr(0).c_str(), "Hello World") == 0);
+    REQUIRE(testString.substr(6).size() == 5);
     REQUIRE(std::strcmp(testString.substr(6).c_str(), "World") == 0);
   }
 
   SECTION("Substr with count parameter") {
     constexpr FixString<32> testString("Hello World");
 
+    REQUIRE(testString.substr(0, 1).size() == 1);
     REQUIRE(std::strcmp(testString.substr(0, 1).c_str(), "H") == 0);
+    REQUIRE(testString.substr(0, 2).size() == 2);
     REQUIRE(std::strcmp(testString.substr(0, 2).c_str(), "He") == 0);
+    REQUIRE(testString.substr(0, 3).size() == 3);
     REQUIRE(std::strcmp(testString.substr(0, 3).c_str(), "Hel") == 0);
+    REQUIRE(testString.substr(0, 4).size() == 4);
     REQUIRE(std::strcmp(testString.substr(0, 4).c_str(), "Hell") == 0);
+    REQUIRE(testString.substr(0, 5).size() == 5);
     REQUIRE(std::strcmp(testString.substr(0, 5).c_str(), "Hello") == 0);
+    REQUIRE(testString.substr(6, 1).size() == 1);
     REQUIRE(std::strcmp(testString.substr(6, 1).c_str(), "W") == 0);
+    REQUIRE(testString.substr(6, 2).size() == 2);
     REQUIRE(std::strcmp(testString.substr(6, 2).c_str(), "Wo") == 0);
+    REQUIRE(testString.substr(6, 3).size() == 3);
     REQUIRE(std::strcmp(testString.substr(6, 3).c_str(), "Wor") == 0);
+    REQUIRE(testString.substr(6, 4).size() == 4);
     REQUIRE(std::strcmp(testString.substr(6, 4).c_str(), "Worl") == 0);
+    REQUIRE(testString.substr(6, 5).size() == 5);
     REQUIRE(std::strcmp(testString.substr(6, 5).c_str(), "World") == 0);
   }
 
   SECTION("Substr with npos count") {
     constexpr FixString<32> testString("Hello World");
 
+    REQUIRE(testString.substr(0, FixString<32>::npos).size() == 11);
     REQUIRE(std::strcmp(testString.substr(0, FixString<32>::npos).c_str(), "Hello World") == 0);
+    REQUIRE(testString.substr(6, FixString<32>::npos).size() == 5);
     REQUIRE(std::strcmp(testString.substr(6, FixString<32>::npos).c_str(), "World") == 0);
+    REQUIRE(testString.substr(10, FixString<32>::npos).size() == 1);
     REQUIRE(std::strcmp(testString.substr(10, FixString<32>::npos).c_str(), "d") == 0);
   }
 
   SECTION("Substr with position at end") {
     constexpr FixString<32> testString("Hello World");
 
+    REQUIRE(testString.substr(11).size() == 0);
     REQUIRE(std::strcmp(testString.substr(11).c_str(), "") == 0);
+    REQUIRE(testString.substr(11, 0).size() == 0);
     REQUIRE(std::strcmp(testString.substr(11, 0).c_str(), "") == 0);
+    REQUIRE(testString.substr(11, 5).size() == 0);
     REQUIRE(std::strcmp(testString.substr(11, 5).c_str(), "") == 0);
   }
 
   SECTION("Substr from empty string") {
     constexpr FixString<32> testString("");
 
+    REQUIRE(testString.substr(0).size() == 0);
     REQUIRE(std::strcmp(testString.substr(0).c_str(), "") == 0);
+    REQUIRE(testString.substr(0, 0).size() == 0);
     REQUIRE(std::strcmp(testString.substr(0, 0).c_str(), "") == 0);
+    REQUIRE(testString.substr(0, 5).size() == 0);
     REQUIRE(std::strcmp(testString.substr(0, 5).c_str(), "") == 0);
   }
 
   SECTION("Substr single character") {
     constexpr FixString<32> testString("A");
 
+    REQUIRE(testString.substr(0).size() == 1);
     REQUIRE(std::strcmp(testString.substr(0).c_str(), "A") == 0);
+    REQUIRE(testString.substr(0, 1).size() == 1);
     REQUIRE(std::strcmp(testString.substr(0, 1).c_str(), "A") == 0);
+    REQUIRE(testString.substr(0, 0).size() == 0);
     REQUIRE(std::strcmp(testString.substr(0, 0).c_str(), "") == 0);
+    REQUIRE(testString.substr(1).size() == 0);
     REQUIRE(std::strcmp(testString.substr(1).c_str(), "") == 0);
+    REQUIRE(testString.substr(1, 1).size() == 0);
     REQUIRE(std::strcmp(testString.substr(1, 1).c_str(), "") == 0);
   }
 
   SECTION("Substr with repeated characters") {
     constexpr FixString<32> testString("aaaaa");
 
+    REQUIRE(testString.substr(0).size() == 5);
     REQUIRE(std::strcmp(testString.substr(0).c_str(), "aaaaa") == 0);
+    REQUIRE(testString.substr(0, 1).size() == 1);
     REQUIRE(std::strcmp(testString.substr(0, 1).c_str(), "a") == 0);
+    REQUIRE(testString.substr(0, 2).size() == 2);
     REQUIRE(std::strcmp(testString.substr(0, 2).c_str(), "aa") == 0);
+    REQUIRE(testString.substr(0, 3).size() == 3);
     REQUIRE(std::strcmp(testString.substr(0, 3).c_str(), "aaa") == 0);
+    REQUIRE(testString.substr(0, 4).size() == 4);
     REQUIRE(std::strcmp(testString.substr(0, 4).c_str(), "aaaa") == 0);
+    REQUIRE(testString.substr(0, 5).size() == 5);
     REQUIRE(std::strcmp(testString.substr(0, 5).c_str(), "aaaaa") == 0);
+    REQUIRE(testString.substr(1).size() == 4);
     REQUIRE(std::strcmp(testString.substr(1).c_str(), "aaaa") == 0);
+    REQUIRE(testString.substr(2).size() == 3);
     REQUIRE(std::strcmp(testString.substr(2).c_str(), "aaa") == 0);
+    REQUIRE(testString.substr(3).size() == 2);
     REQUIRE(std::strcmp(testString.substr(3).c_str(), "aa") == 0);
+    REQUIRE(testString.substr(4).size() == 1);
     REQUIRE(std::strcmp(testString.substr(4).c_str(), "a") == 0);
+    REQUIRE(testString.substr(5).size() == 0);
     REQUIRE(std::strcmp(testString.substr(5).c_str(), "") == 0);
   }
 
   SECTION("Substr with special characters") {
     constexpr FixString<32> testString("Hello, World!");
 
+    REQUIRE(testString.substr(5).size() == 8);
     REQUIRE(std::strcmp(testString.substr(5).c_str(), ", World!") == 0);
+    REQUIRE(testString.substr(5, 1).size() == 1);
     REQUIRE(std::strcmp(testString.substr(5, 1).c_str(), ",") == 0);
+    REQUIRE(testString.substr(5, 2).size() == 2);
     REQUIRE(std::strcmp(testString.substr(5, 2).c_str(), ", ") == 0);
+    REQUIRE(testString.substr(12).size() == 1);
     REQUIRE(std::strcmp(testString.substr(12).c_str(), "!") == 0);
+    REQUIRE(testString.substr(12, 1).size() == 1);
     REQUIRE(std::strcmp(testString.substr(12, 1).c_str(), "!") == 0);
   }
 
   SECTION("Substr with numbers") {
     constexpr FixString<32> testString("12345");
 
+    REQUIRE(testString.substr(0).size() == 5);
     REQUIRE(std::strcmp(testString.substr(0).c_str(), "12345") == 0);
+    REQUIRE(testString.substr(0, 1).size() == 1);
     REQUIRE(std::strcmp(testString.substr(0, 1).c_str(), "1") == 0);
+    REQUIRE(testString.substr(0, 2).size() == 2);
     REQUIRE(std::strcmp(testString.substr(0, 2).c_str(), "12") == 0);
+    REQUIRE(testString.substr(0, 3).size() == 3);
     REQUIRE(std::strcmp(testString.substr(0, 3).c_str(), "123") == 0);
+    REQUIRE(testString.substr(0, 4).size() == 4);
     REQUIRE(std::strcmp(testString.substr(0, 4).c_str(), "1234") == 0);
+    REQUIRE(testString.substr(0, 5).size() == 5);
     REQUIRE(std::strcmp(testString.substr(0, 5).c_str(), "12345") == 0);
+    REQUIRE(testString.substr(1).size() == 4);
     REQUIRE(std::strcmp(testString.substr(1).c_str(), "2345") == 0);
+    REQUIRE(testString.substr(2).size() == 3);
     REQUIRE(std::strcmp(testString.substr(2).c_str(), "345") == 0);
+    REQUIRE(testString.substr(3).size() == 2);
     REQUIRE(std::strcmp(testString.substr(3).c_str(), "45") == 0);
+    REQUIRE(testString.substr(4).size() == 1);
     REQUIRE(std::strcmp(testString.substr(4).c_str(), "5") == 0);
+    REQUIRE(testString.substr(5).size() == 0);
     REQUIRE(std::strcmp(testString.substr(5).c_str(), "") == 0);
   }
 
   SECTION("Substr with whitespace") {
     constexpr FixString<32> testString("Hello World");
 
+    REQUIRE(testString.substr(5).size() == 6);
     REQUIRE(std::strcmp(testString.substr(5).c_str(), " World") == 0);
+    REQUIRE(testString.substr(5, 1).size() == 1);
     REQUIRE(std::strcmp(testString.substr(5, 1).c_str(), " ") == 0);
+    REQUIRE(testString.substr(5, 2).size() == 2);
     REQUIRE(std::strcmp(testString.substr(5, 2).c_str(), " W") == 0);
+    REQUIRE(testString.substr(5, 3).size() == 3);
     REQUIRE(std::strcmp(testString.substr(5, 3).c_str(), " Wo") == 0);
   }
 
   SECTION("Substr with newlines") {
     constexpr FixString<32> testString("Hello\nWorld");
 
+    REQUIRE(testString.substr(5).size() == 6);
     REQUIRE(std::strcmp(testString.substr(5).c_str(), "\nWorld") == 0);
+    REQUIRE(testString.substr(5, 1).size() == 1);
     REQUIRE(std::strcmp(testString.substr(5, 1).c_str(), "\n") == 0);
+    REQUIRE(testString.substr(5, 2).size() == 2);
     REQUIRE(std::strcmp(testString.substr(5, 2).c_str(), "\nW") == 0);
+    REQUIRE(testString.substr(6).size() == 5);
     REQUIRE(std::strcmp(testString.substr(6).c_str(), "World") == 0);
   }
 
   SECTION("Substr with tabs") {
     constexpr FixString<32> testString("Hello\tWorld");
 
+    REQUIRE(testString.substr(5).size() == 6);
     REQUIRE(std::strcmp(testString.substr(5).c_str(), "\tWorld") == 0);
+    REQUIRE(testString.substr(5, 1).size() == 1);
     REQUIRE(std::strcmp(testString.substr(5, 1).c_str(), "\t") == 0);
+    REQUIRE(testString.substr(5, 2).size() == 2);
     REQUIRE(std::strcmp(testString.substr(5, 2).c_str(), "\tW") == 0);
+    REQUIRE(testString.substr(6).size() == 5);
     REQUIRE(std::strcmp(testString.substr(6).c_str(), "World") == 0);
   }
 
   SECTION("Substr maximum length") {
     constexpr FixString<16> testString("123456789012345"); // 15 characters
 
+    REQUIRE(testString.substr(0).size() == 15);
     REQUIRE(std::strcmp(testString.substr(0).c_str(), "123456789012345") == 0);
+    REQUIRE(testString.substr(0, 15).size() == 15);
     REQUIRE(std::strcmp(testString.substr(0, 15).c_str(), "123456789012345") == 0);
+    REQUIRE(testString.substr(0, 16).size() == 15);
     REQUIRE(std::strcmp(testString.substr(0, 16).c_str(), "123456789012345") == 0);
+    REQUIRE(testString.substr(14).size() == 1);
     REQUIRE(std::strcmp(testString.substr(14).c_str(), "5") == 0);
+    REQUIRE(testString.substr(14, 1).size() == 1);
     REQUIRE(std::strcmp(testString.substr(14, 1).c_str(), "5") == 0);
+    REQUIRE(testString.substr(15).size() == 0);
     REQUIRE(std::strcmp(testString.substr(15).c_str(), "") == 0);
   }
 
   SECTION("Substr with mixed content") {
     constexpr FixString<32> testString("123Hello");
 
+    REQUIRE(testString.substr(0).size() == 8);
     REQUIRE(std::strcmp(testString.substr(0).c_str(), "123Hello") == 0);
+    REQUIRE(testString.substr(0, 3).size() == 3);
     REQUIRE(std::strcmp(testString.substr(0, 3).c_str(), "123") == 0);
+    REQUIRE(testString.substr(3).size() == 5);
     REQUIRE(std::strcmp(testString.substr(3).c_str(), "Hello") == 0);
+    REQUIRE(testString.substr(3, 5).size() == 5);
     REQUIRE(std::strcmp(testString.substr(3, 5).c_str(), "Hello") == 0);
+    REQUIRE(testString.substr(2, 4).size() == 4);
     REQUIRE(std::strcmp(testString.substr(2, 4).c_str(), "3Hel") == 0);
   }
 
   SECTION("Substr with overlapping ranges") {
     constexpr FixString<32> testString("abcdef");
 
+    REQUIRE(testString.substr(0, 1).size() == 1);
     REQUIRE(std::strcmp(testString.substr(0, 1).c_str(), "a") == 0);
+    REQUIRE(testString.substr(1, 1).size() == 1);
     REQUIRE(std::strcmp(testString.substr(1, 1).c_str(), "b") == 0);
+    REQUIRE(testString.substr(2, 1).size() == 1);
     REQUIRE(std::strcmp(testString.substr(2, 1).c_str(), "c") == 0);
+    REQUIRE(testString.substr(3, 1).size() == 1);
     REQUIRE(std::strcmp(testString.substr(3, 1).c_str(), "d") == 0);
+    REQUIRE(testString.substr(4, 1).size() == 1);
     REQUIRE(std::strcmp(testString.substr(4, 1).c_str(), "e") == 0);
+    REQUIRE(testString.substr(5, 1).size() == 1);
     REQUIRE(std::strcmp(testString.substr(5, 1).c_str(), "f") == 0);
+    REQUIRE(testString.substr(0, 2).size() == 2);
     REQUIRE(std::strcmp(testString.substr(0, 2).c_str(), "ab") == 0);
+    REQUIRE(testString.substr(1, 2).size() == 2);
     REQUIRE(std::strcmp(testString.substr(1, 2).c_str(), "bc") == 0);
+    REQUIRE(testString.substr(2, 2).size() == 2);
     REQUIRE(std::strcmp(testString.substr(2, 2).c_str(), "cd") == 0);
+    REQUIRE(testString.substr(3, 2).size() == 2);
     REQUIRE(std::strcmp(testString.substr(3, 2).c_str(), "de") == 0);
+    REQUIRE(testString.substr(4, 2).size() == 2);
     REQUIRE(std::strcmp(testString.substr(4, 2).c_str(), "ef") == 0);
   }
 
   SECTION("Substr with exact string length") {
     constexpr FixString<32> testString("Hello");
 
+    REQUIRE(testString.substr(0, 5).size() == 5);
     REQUIRE(std::strcmp(testString.substr(0, 5).c_str(), "Hello") == 0);
+    REQUIRE(testString.substr(0, 6).size() == 5);
     REQUIRE(std::strcmp(testString.substr(0, 6).c_str(), "Hello") == 0);
+    REQUIRE(testString.substr(1, 4).size() == 4);
     REQUIRE(std::strcmp(testString.substr(1, 4).c_str(), "ello") == 0);
+    REQUIRE(testString.substr(2, 3).size() == 3);
     REQUIRE(std::strcmp(testString.substr(2, 3).c_str(), "llo") == 0);
+    REQUIRE(testString.substr(3, 2).size() == 2);
     REQUIRE(std::strcmp(testString.substr(3, 2).c_str(), "lo") == 0);
+    REQUIRE(testString.substr(4, 1).size() == 1);
     REQUIRE(std::strcmp(testString.substr(4, 1).c_str(), "o") == 0);
   }
 
   SECTION("Substr with zero count") {
     constexpr FixString<32> testString("Hello World");
 
+    REQUIRE(testString.substr(0, 0).size() == 0);
     REQUIRE(std::strcmp(testString.substr(0, 0).c_str(), "") == 0);
+    REQUIRE(testString.substr(5, 0).size() == 0);
     REQUIRE(std::strcmp(testString.substr(5, 0).c_str(), "") == 0);
+    REQUIRE(testString.substr(10, 0).size() == 0);
     REQUIRE(std::strcmp(testString.substr(10, 0).c_str(), "") == 0);
+    REQUIRE(testString.substr(11, 0).size() == 0);
     REQUIRE(std::strcmp(testString.substr(11, 0).c_str(), "") == 0);
   }
 
   SECTION("Substr with position at string size") {
     constexpr FixString<32> testString("Hello");
 
+    REQUIRE(testString.substr(5).size() == 0);
     REQUIRE(std::strcmp(testString.substr(5).c_str(), "") == 0);
+    REQUIRE(testString.substr(5, 0).size() == 0);
     REQUIRE(std::strcmp(testString.substr(5, 0).c_str(), "") == 0);
+    REQUIRE(testString.substr(5, 1).size() == 0);
     REQUIRE(std::strcmp(testString.substr(5, 1).c_str(), "") == 0);
   }
 
@@ -3695,33 +3931,375 @@ TEST_CASE("FixString substr", "[core][fixstring]") {
     constexpr FixString<16> mediumString("Hello World");
     constexpr FixString<32> largeString("Hello World Universe");
 
+    REQUIRE(smallString.substr(0, 3).size() == 3);
     REQUIRE(std::strcmp(smallString.substr(0, 3).c_str(), "Hel") == 0);
+    REQUIRE(mediumString.substr(0, 5).size() == 5);
     REQUIRE(std::strcmp(mediumString.substr(0, 5).c_str(), "Hello") == 0);
+    REQUIRE(largeString.substr(0, 5).size() == 5);
     REQUIRE(std::strcmp(largeString.substr(0, 5).c_str(), "Hello") == 0);
+    REQUIRE(smallString.substr(2).size() == 3);
     REQUIRE(std::strcmp(smallString.substr(2).c_str(), "llo") == 0);
+    REQUIRE(mediumString.substr(6).size() == 5);
     REQUIRE(std::strcmp(mediumString.substr(6).c_str(), "World") == 0);
+    REQUIRE(largeString.substr(12).size() == 8);
     REQUIRE(std::strcmp(largeString.substr(12).c_str(), "Universe") == 0);
   }
 
   SECTION("Substr with punctuation") {
     constexpr FixString<32> testString("Hello, World!");
 
+    REQUIRE(testString.substr(5, 1).size() == 1);
     REQUIRE(std::strcmp(testString.substr(5, 1).c_str(), ",") == 0);
+    REQUIRE(testString.substr(6, 1).size() == 1);
     REQUIRE(std::strcmp(testString.substr(6, 1).c_str(), " ") == 0);
+    REQUIRE(testString.substr(12, 1).size() == 1);
     REQUIRE(std::strcmp(testString.substr(12, 1).c_str(), "!") == 0);
+    REQUIRE(testString.substr(5, 3).size() == 3);
     REQUIRE(std::strcmp(testString.substr(5, 3).c_str(), ", W") == 0);
+    REQUIRE(testString.substr(11, 2).size() == 2);
     REQUIRE(std::strcmp(testString.substr(11, 2).c_str(), "d!") == 0);
   }
 
   SECTION("Substr with unicode-like content") {
     constexpr FixString<32> testString("Hello 世界");
 
+    REQUIRE(testString.substr(0, 6).size() == 6);
     REQUIRE(std::strcmp(testString.substr(0, 6).c_str(), "Hello ") == 0);
+    REQUIRE(testString.substr(6).size() == 6);
     REQUIRE(std::strcmp(testString.substr(6).c_str(), "世界") == 0);
   }
-}
 
-// after refactor
+  SECTION("Constexpr substr operations") {
+    constexpr FixString<32> testString("Hello World");
+
+    // Basic constexpr substr operations
+    constexpr auto substr1 = testString.substr(0);
+    constexpr auto substr2 = testString.substr(0, 5);
+    constexpr auto substr3 = testString.substr(6);
+    constexpr auto substr4 = testString.substr(6, 5);
+    constexpr auto substr5 = testString.substr(6, 3);
+    constexpr auto substr6 = testString.substr(0, 0);
+
+    STATIC_REQUIRE(substr1.size() == 11);
+    STATIC_REQUIRE(cstrcmp(substr1.c_str(), "Hello World") == 0);
+    STATIC_REQUIRE(substr2.size() == 5);
+    STATIC_REQUIRE(cstrcmp(substr2.c_str(), "Hello") == 0);
+    STATIC_REQUIRE(substr3.size() == 5);
+    STATIC_REQUIRE(cstrcmp(substr3.c_str(), "World") == 0);
+    STATIC_REQUIRE(substr4.size() == 5);
+    STATIC_REQUIRE(cstrcmp(substr4.c_str(), "World") == 0);
+    STATIC_REQUIRE(substr5.size() == 3);
+    STATIC_REQUIRE(cstrcmp(substr5.c_str(), "Wor") == 0);
+    STATIC_REQUIRE(substr6.size() == 0);
+    STATIC_REQUIRE(cstrcmp(substr6.c_str(), "") == 0);
+  }
+
+  SECTION("Constexpr substr with default parameters") {
+    constexpr FixString<32> testString("Hello World");
+
+    constexpr auto substr1 = testString.substr();
+    constexpr auto substr2 = testString.substr(0);
+    constexpr auto substr3 = testString.substr(6);
+
+    STATIC_REQUIRE(substr1.size() == 11);
+    STATIC_REQUIRE(cstrcmp(substr1.c_str(), "Hello World") == 0);
+    STATIC_REQUIRE(substr2.size() == 11);
+    STATIC_REQUIRE(cstrcmp(substr2.c_str(), "Hello World") == 0);
+    STATIC_REQUIRE(substr3.size() == 5);
+    STATIC_REQUIRE(cstrcmp(substr3.c_str(), "World") == 0);
+  }
+
+  SECTION("Constexpr substr with count parameter") {
+    constexpr FixString<32> testString("Hello World");
+
+    constexpr auto substr1 = testString.substr(0, 1);
+    constexpr auto substr2 = testString.substr(0, 2);
+    constexpr auto substr3 = testString.substr(0, 3);
+    constexpr auto substr4 = testString.substr(0, 4);
+    constexpr auto substr5 = testString.substr(0, 5);
+    constexpr auto substr6 = testString.substr(6, 1);
+    constexpr auto substr7 = testString.substr(6, 2);
+    constexpr auto substr8 = testString.substr(6, 3);
+    constexpr auto substr9 = testString.substr(6, 4);
+    constexpr auto substr10 = testString.substr(6, 5);
+
+    STATIC_REQUIRE(substr1.size() == 1);
+    STATIC_REQUIRE(cstrcmp(substr1.c_str(), "H") == 0);
+    STATIC_REQUIRE(substr2.size() == 2);
+    STATIC_REQUIRE(cstrcmp(substr2.c_str(), "He") == 0);
+    STATIC_REQUIRE(substr3.size() == 3);
+    STATIC_REQUIRE(cstrcmp(substr3.c_str(), "Hel") == 0);
+    STATIC_REQUIRE(substr4.size() == 4);
+    STATIC_REQUIRE(cstrcmp(substr4.c_str(), "Hell") == 0);
+    STATIC_REQUIRE(substr5.size() == 5);
+    STATIC_REQUIRE(cstrcmp(substr5.c_str(), "Hello") == 0);
+    STATIC_REQUIRE(substr6.size() == 1);
+    STATIC_REQUIRE(cstrcmp(substr6.c_str(), "W") == 0);
+    STATIC_REQUIRE(substr7.size() == 2);
+    STATIC_REQUIRE(cstrcmp(substr7.c_str(), "Wo") == 0);
+    STATIC_REQUIRE(substr8.size() == 3);
+    STATIC_REQUIRE(cstrcmp(substr8.c_str(), "Wor") == 0);
+    STATIC_REQUIRE(substr9.size() == 4);
+    STATIC_REQUIRE(cstrcmp(substr9.c_str(), "Worl") == 0);
+    STATIC_REQUIRE(substr10.size() == 5);
+    STATIC_REQUIRE(cstrcmp(substr10.c_str(), "World") == 0);
+  }
+
+  SECTION("Constexpr substr with npos count") {
+    constexpr FixString<32> testString("Hello World");
+
+    constexpr auto substr1 = testString.substr(0, FixString<32>::npos);
+    constexpr auto substr2 = testString.substr(6, FixString<32>::npos);
+    constexpr auto substr3 = testString.substr(10, FixString<32>::npos);
+
+    STATIC_REQUIRE(substr1.size() == 11);
+    STATIC_REQUIRE(cstrcmp(substr1.c_str(), "Hello World") == 0);
+    STATIC_REQUIRE(substr2.size() == 5);
+    STATIC_REQUIRE(cstrcmp(substr2.c_str(), "World") == 0);
+    STATIC_REQUIRE(substr3.size() == 1);
+    STATIC_REQUIRE(cstrcmp(substr3.c_str(), "d") == 0);
+  }
+
+  SECTION("Constexpr substr with position at end") {
+    constexpr FixString<32> testString("Hello World");
+
+    constexpr auto substr1 = testString.substr(11);
+    constexpr auto substr2 = testString.substr(11, 0);
+    constexpr auto substr3 = testString.substr(11, 5);
+
+    STATIC_REQUIRE(substr1.size() == 0);
+    STATIC_REQUIRE(cstrcmp(substr1.c_str(), "") == 0);
+    STATIC_REQUIRE(substr2.size() == 0);
+    STATIC_REQUIRE(cstrcmp(substr2.c_str(), "") == 0);
+    STATIC_REQUIRE(substr3.size() == 0);
+    STATIC_REQUIRE(cstrcmp(substr3.c_str(), "") == 0);
+  }
+
+  SECTION("Constexpr substr from empty string") {
+    constexpr FixString<32> testString("");
+
+    constexpr auto substr1 = testString.substr(0);
+    constexpr auto substr2 = testString.substr(0, 0);
+    constexpr auto substr3 = testString.substr(0, 5);
+
+    STATIC_REQUIRE(substr1.size() == 0);
+    STATIC_REQUIRE(cstrcmp(substr1.c_str(), "") == 0);
+    STATIC_REQUIRE(substr2.size() == 0);
+    STATIC_REQUIRE(cstrcmp(substr2.c_str(), "") == 0);
+    STATIC_REQUIRE(substr3.size() == 0);
+    STATIC_REQUIRE(cstrcmp(substr3.c_str(), "") == 0);
+  }
+
+  SECTION("Constexpr substr single character") {
+    constexpr FixString<32> testString("A");
+
+    constexpr auto substr1 = testString.substr(0);
+    constexpr auto substr2 = testString.substr(0, 1);
+    constexpr auto substr3 = testString.substr(0, 0);
+    constexpr auto substr4 = testString.substr(1);
+    constexpr auto substr5 = testString.substr(1, 1);
+
+    STATIC_REQUIRE(substr1.size() == 1);
+    STATIC_REQUIRE(cstrcmp(substr1.c_str(), "A") == 0);
+    STATIC_REQUIRE(substr2.size() == 1);
+    STATIC_REQUIRE(cstrcmp(substr2.c_str(), "A") == 0);
+    STATIC_REQUIRE(substr3.size() == 0);
+    STATIC_REQUIRE(cstrcmp(substr3.c_str(), "") == 0);
+    STATIC_REQUIRE(substr4.size() == 0);
+    STATIC_REQUIRE(cstrcmp(substr4.c_str(), "") == 0);
+    STATIC_REQUIRE(substr5.size() == 0);
+    STATIC_REQUIRE(cstrcmp(substr5.c_str(), "") == 0);
+  }
+
+  SECTION("Constexpr substr with repeated characters") {
+    constexpr FixString<32> testString("aaaaa");
+
+    constexpr auto substr1 = testString.substr(0);
+    constexpr auto substr2 = testString.substr(0, 1);
+    constexpr auto substr3 = testString.substr(0, 2);
+    constexpr auto substr4 = testString.substr(0, 3);
+    constexpr auto substr5 = testString.substr(0, 4);
+    constexpr auto substr6 = testString.substr(0, 5);
+    constexpr auto substr7 = testString.substr(1);
+    constexpr auto substr8 = testString.substr(2);
+    constexpr auto substr9 = testString.substr(3);
+    constexpr auto substr10 = testString.substr(4);
+    constexpr auto substr11 = testString.substr(5);
+
+    STATIC_REQUIRE(substr1.size() == 5);
+    STATIC_REQUIRE(cstrcmp(substr1.c_str(), "aaaaa") == 0);
+    STATIC_REQUIRE(substr2.size() == 1);
+    STATIC_REQUIRE(cstrcmp(substr2.c_str(), "a") == 0);
+    STATIC_REQUIRE(substr3.size() == 2);
+    STATIC_REQUIRE(cstrcmp(substr3.c_str(), "aa") == 0);
+    STATIC_REQUIRE(substr4.size() == 3);
+    STATIC_REQUIRE(cstrcmp(substr4.c_str(), "aaa") == 0);
+    STATIC_REQUIRE(substr5.size() == 4);
+    STATIC_REQUIRE(cstrcmp(substr5.c_str(), "aaaa") == 0);
+    STATIC_REQUIRE(substr6.size() == 5);
+    STATIC_REQUIRE(cstrcmp(substr6.c_str(), "aaaaa") == 0);
+    STATIC_REQUIRE(substr7.size() == 4);
+    STATIC_REQUIRE(cstrcmp(substr7.c_str(), "aaaa") == 0);
+    STATIC_REQUIRE(substr8.size() == 3);
+    STATIC_REQUIRE(cstrcmp(substr8.c_str(), "aaa") == 0);
+    STATIC_REQUIRE(substr9.size() == 2);
+    STATIC_REQUIRE(cstrcmp(substr9.c_str(), "aa") == 0);
+    STATIC_REQUIRE(substr10.size() == 1);
+    STATIC_REQUIRE(cstrcmp(substr10.c_str(), "a") == 0);
+    STATIC_REQUIRE(substr11.size() == 0);
+    STATIC_REQUIRE(cstrcmp(substr11.c_str(), "") == 0);
+  }
+
+  SECTION("Constexpr substr with special characters") {
+    constexpr FixString<32> testString("Hello, World!");
+
+    constexpr auto substr1 = testString.substr(5);
+    constexpr auto substr2 = testString.substr(5, 1);
+    constexpr auto substr3 = testString.substr(5, 2);
+    constexpr auto substr4 = testString.substr(12);
+    constexpr auto substr5 = testString.substr(12, 1);
+
+    STATIC_REQUIRE(substr1.size() == 8);
+    STATIC_REQUIRE(cstrcmp(substr1.c_str(), ", World!") == 0);
+    STATIC_REQUIRE(substr2.size() == 1);
+    STATIC_REQUIRE(cstrcmp(substr2.c_str(), ",") == 0);
+    STATIC_REQUIRE(substr3.size() == 2);
+    STATIC_REQUIRE(cstrcmp(substr3.c_str(), ", ") == 0);
+    STATIC_REQUIRE(substr4.size() == 1);
+    STATIC_REQUIRE(cstrcmp(substr4.c_str(), "!") == 0);
+    STATIC_REQUIRE(substr5.size() == 1);
+    STATIC_REQUIRE(cstrcmp(substr5.c_str(), "!") == 0);
+  }
+
+  SECTION("Constexpr substr with numbers") {
+    constexpr FixString<32> testString("12345");
+
+    constexpr auto substr1 = testString.substr(0);
+    constexpr auto substr2 = testString.substr(0, 1);
+    constexpr auto substr3 = testString.substr(0, 2);
+    constexpr auto substr4 = testString.substr(0, 3);
+    constexpr auto substr5 = testString.substr(0, 4);
+    constexpr auto substr6 = testString.substr(0, 5);
+    constexpr auto substr7 = testString.substr(1);
+    constexpr auto substr8 = testString.substr(2);
+    constexpr auto substr9 = testString.substr(3);
+    constexpr auto substr10 = testString.substr(4);
+    constexpr auto substr11 = testString.substr(5);
+
+    STATIC_REQUIRE(substr1.size() == 5);
+    STATIC_REQUIRE(cstrcmp(substr1.c_str(), "12345") == 0);
+    STATIC_REQUIRE(substr2.size() == 1);
+    STATIC_REQUIRE(cstrcmp(substr2.c_str(), "1") == 0);
+    STATIC_REQUIRE(substr3.size() == 2);
+    STATIC_REQUIRE(cstrcmp(substr3.c_str(), "12") == 0);
+    STATIC_REQUIRE(substr4.size() == 3);
+    STATIC_REQUIRE(cstrcmp(substr4.c_str(), "123") == 0);
+    STATIC_REQUIRE(substr5.size() == 4);
+    STATIC_REQUIRE(cstrcmp(substr5.c_str(), "1234") == 0);
+    STATIC_REQUIRE(substr6.size() == 5);
+    STATIC_REQUIRE(cstrcmp(substr6.c_str(), "12345") == 0);
+    STATIC_REQUIRE(substr7.size() == 4);
+    STATIC_REQUIRE(cstrcmp(substr7.c_str(), "2345") == 0);
+    STATIC_REQUIRE(substr8.size() == 3);
+    STATIC_REQUIRE(cstrcmp(substr8.c_str(), "345") == 0);
+    STATIC_REQUIRE(substr9.size() == 2);
+    STATIC_REQUIRE(cstrcmp(substr9.c_str(), "45") == 0);
+    STATIC_REQUIRE(substr10.size() == 1);
+    STATIC_REQUIRE(cstrcmp(substr10.c_str(), "5") == 0);
+    STATIC_REQUIRE(substr11.size() == 0);
+    STATIC_REQUIRE(cstrcmp(substr11.c_str(), "") == 0);
+  }
+
+  SECTION("Constexpr substr with whitespace") {
+    constexpr FixString<32> testString("Hello World");
+
+    constexpr auto substr1 = testString.substr(5);
+    constexpr auto substr2 = testString.substr(5, 1);
+    constexpr auto substr3 = testString.substr(5, 2);
+    constexpr auto substr4 = testString.substr(5, 3);
+
+    STATIC_REQUIRE(substr1.size() == 6);
+    STATIC_REQUIRE(cstrcmp(substr1.c_str(), " World") == 0);
+    STATIC_REQUIRE(substr2.size() == 1);
+    STATIC_REQUIRE(cstrcmp(substr2.c_str(), " ") == 0);
+    STATIC_REQUIRE(substr3.size() == 2);
+    STATIC_REQUIRE(cstrcmp(substr3.c_str(), " W") == 0);
+    STATIC_REQUIRE(substr4.size() == 3);
+    STATIC_REQUIRE(cstrcmp(substr4.c_str(), " Wo") == 0);
+  }
+
+  SECTION("Constexpr substr with newlines") {
+    constexpr FixString<32> testString("Hello\nWorld");
+
+    constexpr auto substr1 = testString.substr(5);
+    constexpr auto substr2 = testString.substr(5, 1);
+    constexpr auto substr3 = testString.substr(5, 2);
+    constexpr auto substr4 = testString.substr(6);
+
+    STATIC_REQUIRE(substr1.size() == 6);
+    STATIC_REQUIRE(cstrcmp(substr1.c_str(), "\nWorld") == 0);
+    STATIC_REQUIRE(substr2.size() == 1);
+    STATIC_REQUIRE(cstrcmp(substr2.c_str(), "\n") == 0);
+    STATIC_REQUIRE(substr3.size() == 2);
+    STATIC_REQUIRE(cstrcmp(substr3.c_str(), "\nW") == 0);
+    STATIC_REQUIRE(substr4.size() == 5);
+    STATIC_REQUIRE(cstrcmp(substr4.c_str(), "World") == 0);
+  }
+
+  SECTION("Constexpr substr with tabs") {
+    constexpr FixString<32> testString("Hello\tWorld");
+
+    constexpr auto substr1 = testString.substr(5);
+    constexpr auto substr2 = testString.substr(5, 1);
+    constexpr auto substr3 = testString.substr(5, 2);
+    constexpr auto substr4 = testString.substr(6);
+
+    STATIC_REQUIRE(substr1.size() == 6);
+    STATIC_REQUIRE(cstrcmp(substr1.c_str(), "\tWorld") == 0);
+    STATIC_REQUIRE(substr2.size() == 1);
+    STATIC_REQUIRE(cstrcmp(substr2.c_str(), "\t") == 0);
+    STATIC_REQUIRE(substr3.size() == 2);
+    STATIC_REQUIRE(cstrcmp(substr3.c_str(), "\tW") == 0);
+    STATIC_REQUIRE(substr4.size() == 5);
+    STATIC_REQUIRE(cstrcmp(substr4.c_str(), "World") == 0);
+  }
+
+  SECTION("Constexpr substr maximum length") {
+    constexpr FixString<16> testString("123456789012345"); // 15 characters
+
+    constexpr auto substr1 = testString.substr(0);
+    constexpr auto substr2 = testString.substr(0, 15);
+    constexpr auto substr3 = testString.substr(0, 16);
+    constexpr auto substr4 = testString.substr(14);
+    constexpr auto substr5 = testString.substr(14, 1);
+    constexpr auto substr6 = testString.substr(15);
+
+    STATIC_REQUIRE(substr1.size() == 15);
+    STATIC_REQUIRE(cstrcmp(substr1.c_str(), "123456789012345") == 0);
+    STATIC_REQUIRE(substr2.size() == 15);
+    STATIC_REQUIRE(cstrcmp(substr2.c_str(), "123456789012345") == 0);
+    STATIC_REQUIRE(substr3.size() == 15);
+    STATIC_REQUIRE(cstrcmp(substr3.c_str(), "123456789012345") == 0);
+    STATIC_REQUIRE(substr4.size() == 1);
+    STATIC_REQUIRE(cstrcmp(substr4.c_str(), "5") == 0);
+    STATIC_REQUIRE(substr5.size() == 1);
+    STATIC_REQUIRE(cstrcmp(substr5.c_str(), "5") == 0);
+    STATIC_REQUIRE(substr6.size() == 0);
+    STATIC_REQUIRE(cstrcmp(substr6.c_str(), "") == 0);
+  }
+
+  SECTION("Constexpr substr with unicode-like content") {
+    constexpr FixString<32> testString("Hello 世界");
+
+    constexpr auto substr1 = testString.substr(0, 6);
+    constexpr auto substr2 = testString.substr(6);
+
+    STATIC_REQUIRE(substr1.size() == 6);
+    STATIC_REQUIRE(cstrcmp(substr1.c_str(), "Hello ") == 0);
+    STATIC_REQUIRE(substr2.size() == 6); // 2 characters * 3 bytes each
+    STATIC_REQUIRE(cstrcmp(substr2.c_str(), "世界") == 0);
+  }
+}
 
 TEST_CASE("FixString operators+", "[core][fixstring]") {
   SECTION("Basic concatenation tests") {
