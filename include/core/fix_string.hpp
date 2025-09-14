@@ -1747,77 +1747,6 @@ public:
   [[nodiscard]] constexpr FixString<allocatedSize> substr(std::size_t position = 0,
                                                           std::size_t count = npos) const noexcept;
 
-  /*!
-    \brief Concatenates two FixString objects and returns the result.
-
-    This operator creates a new FixString object by concatenating the current FixString object with another provided
-    FixString object. The resulting FixString will contain the contents of both strings, and its size will be the sum of
-    the sizes of the two operands.
-
-    \param string The FixString object to concatenate with the current FixString object.
-
-    \return A new FixString object representing the concatenation of the current FixString and the provided FixString
-            object.
-
-    \pre The sum of the sizes of the two FixString objects must be less than the allocated size.
-    \pre The allocated size of both FixString objects must be greater than zero.
-
-    \post A new FixString object is created with the contents of both FixString objects.
-  */
-  [[nodiscard]] constexpr FixString<allocatedSize> operator+(const FixString<allocatedSize> & string) const noexcept;
-
-  /*!
-    \brief Concatenates two FixString objects and returns the result.
-
-    This operator creates a new FixString object by concatenating the current FixString object with another provided
-    FixString object. The resulting FixString will contain the contents of both strings, and its size will be the sum of
-    the sizes of the two operands.
-
-    \param string The FixString object to concatenate with the current FixString object.
-
-    \return A new FixString object representing the concatenation of the current FixString and the provided FixString
-            object.
-
-    \pre The sum of the sizes of the two FixString objects must be less than the allocated size.
-    \pre The allocated size of both FixString objects must be greater than zero.
-
-    \post A new FixString object is created with the contents of both FixString objects.
-  */
-  template <std::size_t allocatedSize2>
-  [[nodiscard]] constexpr FixString<allocatedSize> operator+(const FixString<allocatedSize2> & string) const noexcept;
-
-  /*!
-    \brief Concatenates two strings and returns the result.
-
-    This operator creates a new FixString object by concatenating the current FixString object with a C string. The
-    resulting FixString will contain the contents of both strings, and its size will be the sum of the sizes of the two
-    operands.
-
-    \param string The C string to concatenate with the current FixString object.
-
-    \return A new FixString object representing the concatenation of the current FixString and the provided C string.
-
-    \pre The sum of the sizes of the two strings must be less than the allocated size.
-    \pre The allocated size must be greater than zero.
-
-    \post A new FixString object is created with the contents of both strings.
-  */
-  [[nodiscard]] constexpr FixString<allocatedSize> operator+(const char * string) const noexcept;
-
-  /*!
-    \brief Concatenates this FixString object with a character.
-
-    This operator adds a character to the end of the FixString object and returns the new FixString object.
-
-    \param symbol The character to add to the end of the FixString object.
-
-    \pre The allocated size of the FixString object must be greater than zero.
-    \pre The size of the FixString object plus one must be less than the allocated size.
-
-    \post A new FixString object is created with the contents of the original FixString object plus the given character.
-  */
-  [[nodiscard]] constexpr FixString<allocatedSize> operator+(char symbol) const noexcept;
-
   /// The special value, its exact meaning depends on the context
   static constexpr std::size_t npos = std::size_t(-1);
 
@@ -1986,6 +1915,138 @@ private:
   /// Current number of characters in the string (excluding null terminator)
   std::size_t _size;
 };
+
+/*!
+  \brief Concatenation operator for two FixString objects.
+
+  This operator creates a new FixString object by concatenating the contents of two FixString objects. The result will
+  contain the characters from the left-hand side followed by the characters from the right-hand side.
+
+  \tparam allocatedSize1 The size of the first FixString's internal buffer.
+  \tparam allocatedSize2 The size of the second FixString's internal buffer.
+
+  \param lhs The left-hand side FixString object.
+  \param rhs The right-hand side FixString object.
+
+  \return A new FixString object containing the concatenated result.
+
+  \note The result size will be the sum of both input sizes, must not exceed the allocated size.
+*/
+template <std::size_t allocatedSize1, std::size_t allocatedSize2>
+[[nodiscard]] constexpr FixString<allocatedSize1> operator+(const FixString<allocatedSize1> & lhs,
+                                                            const FixString<allocatedSize2> & rhs) noexcept;
+
+/*!
+  \brief Concatenation operator for FixString and StringLike object.
+
+  This operator creates a new FixString object by concatenating a FixString with any StringLike object. The result will
+  contain the characters from the left-hand side followed by the characters from the right-hand side.
+
+  \tparam allocatedSize The size of the FixString's internal buffer.
+  \tparam stringType The type of the StringLike object. Must satisfy the StringLike concept.
+
+  \param lhs The left-hand side FixString object.
+  \param rhs The right-hand side StringLike object.
+
+  \return A new FixString object containing the concatenated result.
+
+  \note The result size will be the sum of both input sizes, must not exceed the allocated size.
+*/
+template <std::size_t allocatedSize, StringLike stringType>
+[[nodiscard]] constexpr FixString<allocatedSize> operator+(const FixString<allocatedSize> & lhs,
+                                                           const stringType & rhs) noexcept;
+
+/*!
+  \brief Concatenation operator for StringLike object and FixString.
+
+  This operator creates a new FixString object by concatenating any StringLike object with a FixString. The result will
+  contain the characters from the left-hand side followed by the characters from the right-hand side.
+
+  \tparam stringType The type of the StringLike object. Must satisfy the StringLike concept.
+  \tparam allocatedSize The size of the FixString's internal buffer.
+
+  \param lhs The left-hand side StringLike object.
+  \param rhs The right-hand side FixString object.
+
+  \return A new FixString object containing the concatenated result.
+
+  \note The result size will be the sum of both input sizes, must not exceed the allocated size.
+*/
+template <StringLike stringType, std::size_t allocatedSize>
+[[nodiscard]] constexpr FixString<allocatedSize> operator+(const stringType & lhs,
+                                                           const FixString<allocatedSize> & rhs) noexcept;
+
+/*!
+  \brief Concatenation operator for FixString and C-string.
+
+  This operator creates a new FixString object by concatenating a FixString with a C-string. The result will contain the
+  characters from the left-hand side followed by the characters from the right-hand side.
+
+  \tparam allocatedSize The size of the FixString's internal buffer.
+
+  \param lhs The left-hand side FixString object.
+  \param rhs The right-hand side C-string (null-terminated).
+
+  \return A new FixString object containing the concatenated result.
+
+  \note The result size will be the sum of both input sizes, must not exceed the allocated size.
+  \note The C-string must be null-terminated.
+*/
+template <std::size_t allocatedSize>
+[[nodiscard]] constexpr FixString<allocatedSize> operator+(const FixString<allocatedSize> & lhs,
+                                                           const char * rhs) noexcept;
+
+/*!
+  \brief Concatenation operator for C-string and FixString.
+
+  This operator creates a new FixString object by concatenating a C-string with a FixString. The result will contain the
+  characters from the left-hand side followed by the characters from the right-hand side.
+
+  \tparam allocatedSize The size of the FixString's internal buffer.
+
+  \param lhs The left-hand side C-string (null-terminated).
+  \param rhs The right-hand side FixString object.
+
+  \return A new FixString object containing the concatenated result.
+
+  \note The result size will be the sum of both input sizes, must not exceed the allocated size.
+  \note The C-string must be null-terminated.
+*/
+template <std::size_t allocatedSize>
+[[nodiscard]] constexpr FixString<allocatedSize> operator+(const char * lhs,
+                                                           const FixString<allocatedSize> & rhs) noexcept;
+
+/*!
+  \brief Concatenation operator for FixString and character.
+
+  This operator creates a new FixString object by concatenating a FixString with a single character. The result will
+  contain the characters from the left-hand side followed by the character from the right-hand side.
+
+  \param lhs The left-hand side FixString object.
+  \param rhs The right-hand side character.
+
+  \return A new FixString object containing the concatenated result.
+
+  \note The result size will be the sum of both input sizes, must not exceed the allocated size.
+*/
+template <std::size_t allocatedSize>
+[[nodiscard]] constexpr FixString<allocatedSize> operator+(const FixString<allocatedSize> & lhs, char rhs) noexcept;
+
+/*!
+  \brief Concatenation operator for character and FixString.
+
+  This operator creates a new FixString object by concatenating a single character with a FixString. The result will
+  contain the character from the left-hand side followed by the characters from the right-hand side.
+
+  \param lhs The character to prepend to the FixString.
+  \param rhs The right-hand side FixString object.
+
+  \return A new FixString object containing the concatenated result.
+
+  \note The result size will be the sum of both input sizes, must not exceed the allocated size.
+*/
+template <std::size_t allocatedSize>
+[[nodiscard]] constexpr FixString<allocatedSize> operator+(char lhs, const FixString<allocatedSize> & rhs) noexcept;
 
 /*!
   \brief Equality comparison operator for two FixString objects.
