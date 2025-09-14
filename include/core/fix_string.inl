@@ -526,13 +526,13 @@ constexpr FixString<allocatedSize> & FixString<allocatedSize>::operator+=(const 
 
 template <std::size_t allocatedSize>
 constexpr FixString<allocatedSize> & FixString<allocatedSize>::operator+=(const char * string) noexcept {
-  assert_message(_data != string, "Cannot append string into itself");
-  assert_message(string != nullptr, "String pointer must not be null");
-
   std::size_t stringLen;
   if consteval {
     stringLen = std::char_traits<char>::length(string);
   } else {
+    assert_message(_data != string, "Cannot append string into itself");
+    assert_message(string != nullptr, "String pointer must not be null");
+
     stringLen = std::strlen(string);
   }
   _append_raw(string, stringLen);
@@ -1004,48 +1004,6 @@ constexpr FixString<allocatedSize> FixString<allocatedSize>::substr(std::size_t 
 }
 
 template <std::size_t allocatedSize>
-constexpr FixString<allocatedSize> FixString<allocatedSize>::operator+(
-  const FixString<allocatedSize> & string) const noexcept {
-  assert_message(_size + string._size < allocatedSize, "Concatenation must fit in capacity");
-
-  FixString<allocatedSize> value(*this);
-  value += string;
-
-  return value;
-}
-
-template <std::size_t allocatedSize>
-template <std::size_t allocatedSize2>
-constexpr FixString<allocatedSize> FixString<allocatedSize>::operator+(
-  const FixString<allocatedSize2> & string) const noexcept {
-  static_assert(allocatedSize2 > 0, "FixString capacity must be greater than zero.");
-  assert_message(_size + string.size() < allocatedSize, "Concatenation must fit in capacity");
-
-  FixString<allocatedSize> value(*this);
-  value += string;
-
-  return value;
-}
-
-template <std::size_t allocatedSize>
-constexpr FixString<allocatedSize> FixString<allocatedSize>::operator+(const char * string) const noexcept {
-  assert_message(string != nullptr, "String pointer must not be null");
-
-  FixString<allocatedSize> value(*this);
-  value += string;
-
-  return value;
-}
-
-template <std::size_t allocatedSize>
-constexpr FixString<allocatedSize> FixString<allocatedSize>::operator+(char symbol) const noexcept {
-  FixString<allocatedSize> value(*this);
-  value += symbol;
-
-  return value;
-}
-
-template <std::size_t allocatedSize>
 constexpr void FixString<allocatedSize>::_insert_raw(std::size_t position, const char * data,
                                                      std::size_t dataSize) noexcept {
   if (dataSize == 0)
@@ -1081,13 +1039,14 @@ constexpr void FixString<allocatedSize>::_append_raw(const char * data, std::siz
   if (dataSize == 0)
     return;
 
-  assert_message(((data + dataSize) < _data) || (data >= (_data + allocatedSize)),
-                 "Source data pointer must not point into _data buffer");
   assert_message(_size + dataSize < allocatedSize, "Appended data must fit in capacity");
 
   if consteval {
     std::copy_n(data, dataSize + 1, _data + _size);
   } else {
+    assert_message(((data + dataSize) < _data) || (data >= (_data + allocatedSize)),
+                   "Source data pointer must not point into _data buffer");
+
     std::memcpy(_data + _size, data, dataSize + 1);
   }
   _size += dataSize;
@@ -1293,6 +1252,46 @@ constexpr std::size_t FixString<allocatedSize>::_find_last_not_of_raw(std::size_
 }
 
 template <std::size_t allocatedSize1, std::size_t allocatedSize2>
+[[nodiscard]] constexpr FixString<allocatedSize1> operator+(const FixString<allocatedSize1> & lhs,
+                                                            const FixString<allocatedSize2> & rhs) noexcept {
+  FixString<allocatedSize1> result(lhs);
+  result += rhs;
+  return result;
+}
+
+template <std::size_t allocatedSize, StringLike stringType>
+[[nodiscard]] constexpr FixString<allocatedSize> operator+(const FixString<allocatedSize> & lhs,
+                                                           const stringType & rhs) noexcept {
+  FixString<allocatedSize> result(lhs);
+  result += rhs;
+  return result;
+}
+
+template <StringLike stringType, std::size_t allocatedSize>
+[[nodiscard]] constexpr FixString<allocatedSize> operator+(const stringType & lhs,
+                                                           const FixString<allocatedSize> & rhs) noexcept {
+  FixString<allocatedSize> result(lhs.c_str());
+  result += rhs;
+  return result;
+}
+
+template <std::size_t allocatedSize>
+[[nodiscard]] constexpr FixString<allocatedSize> operator+(const FixString<allocatedSize> & lhs,
+                                                           const char * rhs) noexcept {
+  FixString<allocatedSize> result(lhs);
+  result += rhs;
+  return result;
+}
+
+template <std::size_t allocatedSize>
+[[nodiscard]] constexpr FixString<allocatedSize> operator+(const char * lhs,
+                                                           const FixString<allocatedSize> & rhs) noexcept {
+  FixString<allocatedSize> result(lhs);
+  result += rhs;
+  return result;
+}
+
+template <std::size_t allocatedSize1, std::size_t allocatedSize2>
 [[nodiscard]] constexpr bool operator==(const FixString<allocatedSize1> & lhs,
                                         const FixString<allocatedSize2> & rhs) noexcept {
   if constexpr (allocatedSize1 == allocatedSize2) {
@@ -1311,8 +1310,6 @@ template <std::size_t allocatedSize1, std::size_t allocatedSize2>
     return std::memcmp(lhs.c_str(), rhs.c_str(), lhs.size()) == 0;
   }
 }
-
-// Equality comparison operators
 
 template <std::size_t allocatedSize, StringLike stringType>
 [[nodiscard]] constexpr bool operator==(const FixString<allocatedSize> & lhs, const stringType & rhs) noexcept {
