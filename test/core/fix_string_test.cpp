@@ -461,13 +461,12 @@ TEST_CASE("FixString assign", "[core][fixstring]") {
 
     // Compile-time checks
     constexpr FixString<16> constStr1("Hello");
-    constexpr FixString<16> constStr2();
-    constexpr auto constStr3 = FixString<16>("World").assign(constStr1);
-    constexpr auto constStr4 = FixString<16>().assign(constStr3);
+    constexpr auto constStr2 = FixString<16>("World").assign(constStr1);
+    constexpr auto constStr3 = FixString<16>().assign(constStr2);
+    STATIC_REQUIRE(constStr2.size() == 5);
+    STATIC_REQUIRE(cstrcmp(constStr2.c_str(), "Hello") == 0);
     STATIC_REQUIRE(constStr3.size() == 5);
     STATIC_REQUIRE(cstrcmp(constStr3.c_str(), "Hello") == 0);
-    STATIC_REQUIRE(constStr4.size() == 5);
-    STATIC_REQUIRE(cstrcmp(constStr4.c_str(), "Hello") == 0);
   }
 
   SECTION("FixString assignment (different capacities)") {
