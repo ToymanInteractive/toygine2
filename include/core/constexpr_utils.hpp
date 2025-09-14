@@ -46,6 +46,8 @@ namespace toy {
   \note The comparison is case-sensitive.
   \note The comparison stops at the first character that differs between the strings.
   \note If one string is a prefix of another, the shorter string is considered lexicographically smaller.
+  \note The returned value equals the difference between the first non-matching characters, interpreted as unsigned char
+        and promoted to int, i.e., identical to std::strcmp.
   \note This function is constexpr-compatible and can be used in compile-time contexts.
 
   \see std::strcmp

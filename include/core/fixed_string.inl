@@ -196,13 +196,13 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::assign(const 
 
 template <std::size_t allocatedSize>
 constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::assign(const char * string) noexcept {
+  assert_message(string != nullptr, "String pointer must not be null");
+
   if consteval {
     _size = std::char_traits<char>::length(string);
   } else {
     if (_data == string)
       return *this;
-
-    assert_message(string != nullptr, "String pointer must not be null");
 
     _size = std::strlen(string);
   }
@@ -1317,7 +1317,7 @@ template <std::size_t allocatedSize>
 template <std::size_t allocatedSize>
 [[nodiscard]] constexpr FixedString<allocatedSize> operator+(char lhs,
                                                              const FixedString<allocatedSize> & rhs) noexcept {
-  FixedString<allocatedSize> result(lhs);
+  FixedString<allocatedSize> result(lhs, 1);
   result += rhs;
   return result;
 }

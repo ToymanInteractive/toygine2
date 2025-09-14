@@ -154,7 +154,7 @@ using StackWalkCallback = void (*)(const char *);
 /*!
   \brief Initializes the assertion system.
 
-  \sa deinitialize()
+  \sa deInitialize()
 */
 void initialize();
 
