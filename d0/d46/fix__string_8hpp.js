@@ -1,6 +1,13 @@
 var fix__string_8hpp =
 [
     [ "toygine::FixString< allocatedSize >", "da/d4a/classtoygine_1_1_fix_string.html", "da/d4a/classtoygine_1_1_fix_string" ],
+    [ "operator+", "d0/d46/fix__string_8hpp.html#aaf8f5d2d0bebe38dcdd72f630bb546db", null ],
+    [ "operator+", "d0/d46/fix__string_8hpp.html#ab26e1bc9cd0b47e7d0c726fd6aaaf6f9", null ],
+    [ "operator+", "d0/d46/fix__string_8hpp.html#a734e6da9558863e592d824eaaa9bec16", null ],
+    [ "operator+", "d0/d46/fix__string_8hpp.html#a789a18c77dfa08dbfc5e840c73035d29", null ],
+    [ "operator+", "d0/d46/fix__string_8hpp.html#a1253e0e2b619ba2c2c2e4087b2a96972", null ],
+    [ "operator+", "d0/d46/fix__string_8hpp.html#ac169f3906de638015234e7f3a764d864", null ],
+    [ "operator+", "d0/d46/fix__string_8hpp.html#a648c39f10bf0bec93d38a8d3c0aacad9", null ],
     [ "operator<=>", "d0/d46/fix__string_8hpp.html#a06f8534cbbb3c240c932fc6e87970ae3", null ],
     [ "operator<=>", "d0/d46/fix__string_8hpp.html#a82d2c8279d4b3f1757ad832fffc3ff40", null ],
     [ "operator<=>", "d0/d46/fix__string_8hpp.html#a3fe8cfbf45d223ab72564ce327a3ba53", null ],

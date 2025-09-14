@@ -154,6 +154,34 @@ Functions</h2></td></tr>
 <tr class="memitem:ab3622986659a41d3545895ebdd549a34" id="r_ab3622986659a41d3545895ebdd549a34"><td class="memItemLeft" align="right" valign="top">constexpr int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab3622986659a41d3545895ebdd549a34">cstrcmp</a> (const char *lhs, const char *rhs) noexcept</td></tr>
 <tr class="memdesc:ab3622986659a41d3545895ebdd549a34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares two C strings lexicographically.  <br /></td></tr>
 <tr class="separator:ab3622986659a41d3545895ebdd549a34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac169f3906de638015234e7f3a764d864" id="r_ac169f3906de638015234e7f3a764d864"><td class="memTemplParams" colspan="2">template&lt;std::size_t allocatedSize1, std::size_t allocatedSize2&gt; </td></tr>
+<tr class="memitem:ac169f3906de638015234e7f3a764d864"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt; allocatedSize1 &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ac169f3906de638015234e7f3a764d864">operator+</a> (const <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt; allocatedSize1 &gt; &amp;lhs, const <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt; allocatedSize2 &gt; &amp;rhs) noexcept</td></tr>
+<tr class="memdesc:ac169f3906de638015234e7f3a764d864"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concatenation operator for two <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a> objects.  <br /></td></tr>
+<tr class="separator:ac169f3906de638015234e7f3a764d864"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1253e0e2b619ba2c2c2e4087b2a96972" id="r_a1253e0e2b619ba2c2c2e4087b2a96972"><td class="memTemplParams" colspan="2">template&lt;std::size_t allocatedSize, StringLike stringType&gt; </td></tr>
+<tr class="memitem:a1253e0e2b619ba2c2c2e4087b2a96972"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt; allocatedSize &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a1253e0e2b619ba2c2c2e4087b2a96972">operator+</a> (const <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt; allocatedSize &gt; &amp;lhs, const stringType &amp;rhs) noexcept</td></tr>
+<tr class="memdesc:a1253e0e2b619ba2c2c2e4087b2a96972"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concatenation operator for <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a> and <a class="el" href="../../d8/db7/concepttoygine_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object.  <br /></td></tr>
+<tr class="separator:a1253e0e2b619ba2c2c2e4087b2a96972"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a648c39f10bf0bec93d38a8d3c0aacad9" id="r_a648c39f10bf0bec93d38a8d3c0aacad9"><td class="memTemplParams" colspan="2">template&lt;StringLike stringType, std::size_t allocatedSize&gt; </td></tr>
+<tr class="memitem:a648c39f10bf0bec93d38a8d3c0aacad9"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt; allocatedSize &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a648c39f10bf0bec93d38a8d3c0aacad9">operator+</a> (const stringType &amp;lhs, const <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt; allocatedSize &gt; &amp;rhs) noexcept</td></tr>
+<tr class="memdesc:a648c39f10bf0bec93d38a8d3c0aacad9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concatenation operator for <a class="el" href="../../d8/db7/concepttoygine_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object and <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a>.  <br /></td></tr>
+<tr class="separator:a648c39f10bf0bec93d38a8d3c0aacad9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a789a18c77dfa08dbfc5e840c73035d29" id="r_a789a18c77dfa08dbfc5e840c73035d29"><td class="memTemplParams" colspan="2">template&lt;std::size_t allocatedSize&gt; </td></tr>
+<tr class="memitem:a789a18c77dfa08dbfc5e840c73035d29"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt; allocatedSize &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a789a18c77dfa08dbfc5e840c73035d29">operator+</a> (const <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt; allocatedSize &gt; &amp;lhs, const char *rhs) noexcept</td></tr>
+<tr class="memdesc:a789a18c77dfa08dbfc5e840c73035d29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concatenation operator for <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a> and C-string.  <br /></td></tr>
+<tr class="separator:a789a18c77dfa08dbfc5e840c73035d29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab26e1bc9cd0b47e7d0c726fd6aaaf6f9" id="r_ab26e1bc9cd0b47e7d0c726fd6aaaf6f9"><td class="memTemplParams" colspan="2">template&lt;std::size_t allocatedSize&gt; </td></tr>
+<tr class="memitem:ab26e1bc9cd0b47e7d0c726fd6aaaf6f9"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt; allocatedSize &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ab26e1bc9cd0b47e7d0c726fd6aaaf6f9">operator+</a> (const char *lhs, const <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt; allocatedSize &gt; &amp;rhs) noexcept</td></tr>
+<tr class="memdesc:ab26e1bc9cd0b47e7d0c726fd6aaaf6f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concatenation operator for C-string and <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a>.  <br /></td></tr>
+<tr class="separator:ab26e1bc9cd0b47e7d0c726fd6aaaf6f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a734e6da9558863e592d824eaaa9bec16" id="r_a734e6da9558863e592d824eaaa9bec16"><td class="memTemplParams" colspan="2">template&lt;std::size_t allocatedSize&gt; </td></tr>
+<tr class="memitem:a734e6da9558863e592d824eaaa9bec16"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt; allocatedSize &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a734e6da9558863e592d824eaaa9bec16">operator+</a> (const <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt; allocatedSize &gt; &amp;lhs, char rhs) noexcept</td></tr>
+<tr class="memdesc:a734e6da9558863e592d824eaaa9bec16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concatenation operator for <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a> and character.  <br /></td></tr>
+<tr class="separator:a734e6da9558863e592d824eaaa9bec16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf8f5d2d0bebe38dcdd72f630bb546db" id="r_aaf8f5d2d0bebe38dcdd72f630bb546db"><td class="memTemplParams" colspan="2">template&lt;std::size_t allocatedSize&gt; </td></tr>
+<tr class="memitem:aaf8f5d2d0bebe38dcdd72f630bb546db"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt; allocatedSize &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#aaf8f5d2d0bebe38dcdd72f630bb546db">operator+</a> (char lhs, const <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt; allocatedSize &gt; &amp;rhs) noexcept</td></tr>
+<tr class="memdesc:aaf8f5d2d0bebe38dcdd72f630bb546db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concatenation operator for character and <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a>.  <br /></td></tr>
+<tr class="separator:aaf8f5d2d0bebe38dcdd72f630bb546db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4613f28bf15f4b9be755d7b62f9e9149" id="r_a4613f28bf15f4b9be755d7b62f9e9149"><td class="memTemplParams" colspan="2">template&lt;std::size_t allocatedSize1, std::size_t allocatedSize2&gt; </td></tr>
 <tr class="memitem:a4613f28bf15f4b9be755d7b62f9e9149"><td class="memTemplItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a4613f28bf15f4b9be755d7b62f9e9149">operator==</a> (const <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt; allocatedSize1 &gt; &amp;lhs, const <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt; allocatedSize2 &gt; &amp;rhs) noexcept</td></tr>
 <tr class="memdesc:a4613f28bf15f4b9be755d7b62f9e9149"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equality comparison operator for two <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a> objects.  <br /></td></tr>
@@ -1358,6 +1386,380 @@ template&lt;typename type &gt; </div>
 </div><!-- fragment -->
 </div>
 </div>
+<a id="aaf8f5d2d0bebe38dcdd72f630bb546db" name="aaf8f5d2d0bebe38dcdd72f630bb546db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf8f5d2d0bebe38dcdd72f630bb546db">&#9670;&#160;</a></span>operator+() <span class="overload">[1/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;std::size_t allocatedSize&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt; allocatedSize &gt; toygine::operator+ </td>
+          <td>(</td>
+          <td class="paramtype">char</td>          <td class="paramname"><span class="paramname"><em>lhs</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt; allocatedSize &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>rhs</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">nodiscard</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Concatenation operator for character and <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a>. </p>
+<p>This operator creates a new <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a> object by concatenating a single character with a <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a>. The result will contain the character from the left-hand side followed by the characters from the right-hand side.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lhs</td><td>The character to prepend to the <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a>. </td></tr>
+    <tr><td class="paramname">rhs</td><td>The right-hand side <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a> object.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A new <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a> object containing the concatenated result.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The result size will be the sum of both input sizes, must not exceed the allocated size. </dd></dl>
+<div class="fragment"><div class="line"><span class="lineno"> 1302</span>                                                                                                                    {</div>
+<div class="line"><span class="lineno"> 1303</span>  <a class="code hl_class" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString&lt;allocatedSize&gt;</a> result(lhs);</div>
+<div class="line"><span class="lineno"> 1304</span>  result += rhs;</div>
+<div class="line"><span class="lineno"> 1305</span>  <span class="keywordflow">return</span> result;</div>
+<div class="line"><span class="lineno"> 1306</span>}</div>
+<div class="ttc" id="aclasstoygine_1_1_fix_string_html"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html">toygine::FixString</a></div><div class="ttdoc">Template string class with fixed-size character buffer.</div><div class="ttdef"><b>Definition</b> fix_string.hpp:100</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ab26e1bc9cd0b47e7d0c726fd6aaaf6f9" name="ab26e1bc9cd0b47e7d0c726fd6aaaf6f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab26e1bc9cd0b47e7d0c726fd6aaaf6f9">&#9670;&#160;</a></span>operator+() <span class="overload">[2/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;std::size_t allocatedSize&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt; allocatedSize &gt; toygine::operator+ </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>lhs</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt; allocatedSize &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>rhs</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">nodiscard</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Concatenation operator for C-string and <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a>. </p>
+<p>This operator creates a new <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a> object by concatenating a C-string with a <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a>. The result will contain the characters from the left-hand side followed by the characters from the right-hand side.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">allocatedSize</td><td>The size of the <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a>'s internal buffer.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lhs</td><td>The left-hand side C-string (null-terminated). </td></tr>
+    <tr><td class="paramname">rhs</td><td>The right-hand side <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a> object.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A new <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a> object containing the concatenated result.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The result size will be the sum of both input sizes, must not exceed the allocated size. </dd>
+<dd>
+The C-string must be null-terminated. </dd></dl>
+<div class="fragment"><div class="line"><span class="lineno"> 1288</span>                                                                                                          {</div>
+<div class="line"><span class="lineno"> 1289</span>  <a class="code hl_class" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString&lt;allocatedSize&gt;</a> result(lhs);</div>
+<div class="line"><span class="lineno"> 1290</span>  result += rhs;</div>
+<div class="line"><span class="lineno"> 1291</span>  <span class="keywordflow">return</span> result;</div>
+<div class="line"><span class="lineno"> 1292</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a734e6da9558863e592d824eaaa9bec16" name="a734e6da9558863e592d824eaaa9bec16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a734e6da9558863e592d824eaaa9bec16">&#9670;&#160;</a></span>operator+() <span class="overload">[3/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;std::size_t allocatedSize&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt; allocatedSize &gt; toygine::operator+ </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt; allocatedSize &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>lhs</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char</td>          <td class="paramname"><span class="paramname"><em>rhs</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">nodiscard</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Concatenation operator for <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a> and character. </p>
+<p>This operator creates a new <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a> object by concatenating a <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a> with a single character. The result will contain the characters from the left-hand side followed by the character from the right-hand side.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lhs</td><td>The left-hand side <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a> object. </td></tr>
+    <tr><td class="paramname">rhs</td><td>The right-hand side character.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A new <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a> object containing the concatenated result.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The result size will be the sum of both input sizes, must not exceed the allocated size. </dd></dl>
+<div class="fragment"><div class="line"><span class="lineno"> 1295</span>                                                                                                                    {</div>
+<div class="line"><span class="lineno"> 1296</span>  <a class="code hl_class" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString&lt;allocatedSize&gt;</a> result(lhs);</div>
+<div class="line"><span class="lineno"> 1297</span>  result += rhs;</div>
+<div class="line"><span class="lineno"> 1298</span>  <span class="keywordflow">return</span> result;</div>
+<div class="line"><span class="lineno"> 1299</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a789a18c77dfa08dbfc5e840c73035d29" name="a789a18c77dfa08dbfc5e840c73035d29"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a789a18c77dfa08dbfc5e840c73035d29">&#9670;&#160;</a></span>operator+() <span class="overload">[4/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;std::size_t allocatedSize&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt; allocatedSize &gt; toygine::operator+ </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt; allocatedSize &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>lhs</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>rhs</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">nodiscard</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Concatenation operator for <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a> and C-string. </p>
+<p>This operator creates a new <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a> object by concatenating a <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a> with a C-string. The result will contain the characters from the left-hand side followed by the characters from the right-hand side.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">allocatedSize</td><td>The size of the <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a>'s internal buffer.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lhs</td><td>The left-hand side <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a> object. </td></tr>
+    <tr><td class="paramname">rhs</td><td>The right-hand side C-string (null-terminated).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A new <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a> object containing the concatenated result.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The result size will be the sum of both input sizes, must not exceed the allocated size. </dd>
+<dd>
+The C-string must be null-terminated. </dd></dl>
+<div class="fragment"><div class="line"><span class="lineno"> 1280</span>                                                                                      {</div>
+<div class="line"><span class="lineno"> 1281</span>  <a class="code hl_class" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString&lt;allocatedSize&gt;</a> result(lhs);</div>
+<div class="line"><span class="lineno"> 1282</span>  result += rhs;</div>
+<div class="line"><span class="lineno"> 1283</span>  <span class="keywordflow">return</span> result;</div>
+<div class="line"><span class="lineno"> 1284</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a1253e0e2b619ba2c2c2e4087b2a96972" name="a1253e0e2b619ba2c2c2e4087b2a96972"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1253e0e2b619ba2c2c2e4087b2a96972">&#9670;&#160;</a></span>operator+() <span class="overload">[5/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;std::size_t allocatedSize, StringLike stringType&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt; allocatedSize &gt; toygine::operator+ </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt; allocatedSize &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>lhs</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const stringType &amp;</td>          <td class="paramname"><span class="paramname"><em>rhs</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">nodiscard</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Concatenation operator for <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a> and <a class="el" href="../../d8/db7/concepttoygine_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object. </p>
+<p>This operator creates a new <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a> object by concatenating a <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a> with any <a class="el" href="../../d8/db7/concepttoygine_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object. The result will contain the characters from the left-hand side followed by the characters from the right-hand side.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">allocatedSize</td><td>The size of the <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a>'s internal buffer. </td></tr>
+    <tr><td class="paramname">stringType</td><td>The type of the <a class="el" href="../../d8/db7/concepttoygine_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object. Must satisfy the <a class="el" href="../../d8/db7/concepttoygine_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> concept.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lhs</td><td>The left-hand side <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a> object. </td></tr>
+    <tr><td class="paramname">rhs</td><td>The right-hand side <a class="el" href="../../d8/db7/concepttoygine_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A new <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a> object containing the concatenated result.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The result size will be the sum of both input sizes, must not exceed the allocated size. </dd></dl>
+<div class="fragment"><div class="line"><span class="lineno"> 1264</span>                                                                                            {</div>
+<div class="line"><span class="lineno"> 1265</span>  <a class="code hl_class" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString&lt;allocatedSize&gt;</a> result(lhs);</div>
+<div class="line"><span class="lineno"> 1266</span>  result += rhs;</div>
+<div class="line"><span class="lineno"> 1267</span>  <span class="keywordflow">return</span> result;</div>
+<div class="line"><span class="lineno"> 1268</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ac169f3906de638015234e7f3a764d864" name="ac169f3906de638015234e7f3a764d864"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac169f3906de638015234e7f3a764d864">&#9670;&#160;</a></span>operator+() <span class="overload">[6/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;std::size_t allocatedSize1, std::size_t allocatedSize2&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt; allocatedSize1 &gt; toygine::operator+ </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt; allocatedSize1 &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>lhs</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt; allocatedSize2 &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>rhs</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">nodiscard</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Concatenation operator for two <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a> objects. </p>
+<p>This operator creates a new <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a> object by concatenating the contents of two <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a> objects. The result will contain the characters from the left-hand side followed by the characters from the right-hand side.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">allocatedSize1</td><td>The size of the first <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a>'s internal buffer. </td></tr>
+    <tr><td class="paramname">allocatedSize2</td><td>The size of the second <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a>'s internal buffer.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lhs</td><td>The left-hand side <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a> object. </td></tr>
+    <tr><td class="paramname">rhs</td><td>The right-hand side <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a> object.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A new <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a> object containing the concatenated result.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The result size will be the sum of both input sizes, must not exceed the allocated size. </dd></dl>
+<div class="fragment"><div class="line"><span class="lineno"> 1256</span>                                                                                                            {</div>
+<div class="line"><span class="lineno"> 1257</span>  <a class="code hl_class" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString&lt;allocatedSize1&gt;</a> result(lhs);</div>
+<div class="line"><span class="lineno"> 1258</span>  result += rhs;</div>
+<div class="line"><span class="lineno"> 1259</span>  <span class="keywordflow">return</span> result;</div>
+<div class="line"><span class="lineno"> 1260</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a648c39f10bf0bec93d38a8d3c0aacad9" name="a648c39f10bf0bec93d38a8d3c0aacad9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a648c39f10bf0bec93d38a8d3c0aacad9">&#9670;&#160;</a></span>operator+() <span class="overload">[7/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;StringLike stringType, std::size_t allocatedSize&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt; allocatedSize &gt; toygine::operator+ </td>
+          <td>(</td>
+          <td class="paramtype">const stringType &amp;</td>          <td class="paramname"><span class="paramname"><em>lhs</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString</a>&lt; allocatedSize &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>rhs</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">nodiscard</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Concatenation operator for <a class="el" href="../../d8/db7/concepttoygine_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object and <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a>. </p>
+<p>This operator creates a new <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a> object by concatenating any <a class="el" href="../../d8/db7/concepttoygine_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object with a <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a>. The result will contain the characters from the left-hand side followed by the characters from the right-hand side.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">stringType</td><td>The type of the <a class="el" href="../../d8/db7/concepttoygine_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object. Must satisfy the <a class="el" href="../../d8/db7/concepttoygine_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> concept. </td></tr>
+    <tr><td class="paramname">allocatedSize</td><td>The size of the <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a>'s internal buffer.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lhs</td><td>The left-hand side <a class="el" href="../../d8/db7/concepttoygine_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object. </td></tr>
+    <tr><td class="paramname">rhs</td><td>The right-hand side <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a> object.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A new <a class="el" href="../../da/d4a/classtoygine_1_1_fix_string.html" title="Template string class with fixed-size character buffer.">FixString</a> object containing the concatenated result.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The result size will be the sum of both input sizes, must not exceed the allocated size. </dd></dl>
+<div class="fragment"><div class="line"><span class="lineno"> 1272</span>                                                                                                          {</div>
+<div class="line"><span class="lineno"> 1273</span>  <a class="code hl_class" href="../../da/d4a/classtoygine_1_1_fix_string.html">FixString&lt;allocatedSize&gt;</a> result(lhs);</div>
+<div class="line"><span class="lineno"> 1274</span>  result += rhs;</div>
+<div class="line"><span class="lineno"> 1275</span>  <span class="keywordflow">return</span> result;</div>
+<div class="line"><span class="lineno"> 1276</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
 <a id="a06f8534cbbb3c240c932fc6e87970ae3" name="a06f8534cbbb3c240c932fc6e87970ae3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a06f8534cbbb3c240c932fc6e87970ae3">&#9670;&#160;</a></span>operator&lt;=&gt;() <span class="overload">[1/5]</span></h2>
 
@@ -1412,17 +1814,17 @@ Empty strings are considered equal.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd>std::strong_ordering </dd>
 <dd>
 <a class="el" href="#a0841480945cedf8574e2df43d85743a5" title="Equality comparison operator for C string and FixString.">operator==(const char *, const FixString&lt;allocatedSize&gt; &amp;)</a> </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno"> 1482</span>                                                                                                        {</div>
-<div class="line"><span class="lineno"> 1483</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#acee011a673448baf706197935ace44c7">assert_message</a>(lhs != <span class="keyword">nullptr</span>, <span class="stringliteral">&quot;C string pointer must not be null&quot;</span>);</div>
-<div class="line"><span class="lineno"> 1484</span> </div>
-<div class="line"><span class="lineno"> 1485</span>  <span class="keyword">const</span> <span class="keyword">auto</span> result = rhs &lt;=&gt; lhs;</div>
-<div class="line"><span class="lineno"> 1486</span>  <span class="keywordflow">if</span> (result == std::strong_ordering::less)</div>
-<div class="line"><span class="lineno"> 1487</span>    <span class="keywordflow">return</span> std::strong_ordering::greater;</div>
-<div class="line"><span class="lineno"> 1488</span>  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (result == std::strong_ordering::greater)</div>
-<div class="line"><span class="lineno"> 1489</span>    <span class="keywordflow">return</span> std::strong_ordering::less;</div>
-<div class="line"><span class="lineno"> 1490</span>  <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 1491</span>    <span class="keywordflow">return</span> std::strong_ordering::equal;</div>
-<div class="line"><span class="lineno"> 1492</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno"> 1493</span>                                                                                                        {</div>
+<div class="line"><span class="lineno"> 1494</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#acee011a673448baf706197935ace44c7">assert_message</a>(lhs != <span class="keyword">nullptr</span>, <span class="stringliteral">&quot;C string pointer must not be null&quot;</span>);</div>
+<div class="line"><span class="lineno"> 1495</span> </div>
+<div class="line"><span class="lineno"> 1496</span>  <span class="keyword">const</span> <span class="keyword">auto</span> result = rhs &lt;=&gt; lhs;</div>
+<div class="line"><span class="lineno"> 1497</span>  <span class="keywordflow">if</span> (result == std::strong_ordering::less)</div>
+<div class="line"><span class="lineno"> 1498</span>    <span class="keywordflow">return</span> std::strong_ordering::greater;</div>
+<div class="line"><span class="lineno"> 1499</span>  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (result == std::strong_ordering::greater)</div>
+<div class="line"><span class="lineno"> 1500</span>    <span class="keywordflow">return</span> std::strong_ordering::less;</div>
+<div class="line"><span class="lineno"> 1501</span>  <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 1502</span>    <span class="keywordflow">return</span> std::strong_ordering::equal;</div>
+<div class="line"><span class="lineno"> 1503</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1480,41 +1882,41 @@ Empty strings are considered equal.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd>std::strong_ordering </dd>
 <dd>
 <a class="el" href="#ac7f3d576dd162f8c2a37fddaaea6f9fd" title="Equality comparison operator for FixString and C string.">operator==(const FixString&lt;allocatedSize&gt; &amp;, const char *)</a> </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno"> 1444</span>                                                                                    {</div>
-<div class="line"><span class="lineno"> 1445</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#acee011a673448baf706197935ace44c7">assert_message</a>(rhs != <span class="keyword">nullptr</span>, <span class="stringliteral">&quot;C string pointer must not be null&quot;</span>);</div>
-<div class="line"><span class="lineno"> 1446</span> </div>
-<div class="line"><span class="lineno"> 1447</span>  <span class="keywordflow">if</span> (lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a8fc3f1b01f5865271810f50e1d91e225">empty</a>() &amp;&amp; *rhs == <span class="charliteral">&#39;\0&#39;</span>)</div>
-<div class="line"><span class="lineno"> 1448</span>    <span class="keywordflow">return</span> std::strong_ordering::equal;</div>
-<div class="line"><span class="lineno"> 1449</span>  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a8fc3f1b01f5865271810f50e1d91e225">empty</a>())</div>
-<div class="line"><span class="lineno"> 1450</span>    <span class="keywordflow">return</span> std::strong_ordering::less;</div>
-<div class="line"><span class="lineno"> 1451</span>  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (*rhs == <span class="charliteral">&#39;\0&#39;</span>)</div>
-<div class="line"><span class="lineno"> 1452</span>    <span class="keywordflow">return</span> std::strong_ordering::greater;</div>
-<div class="line"><span class="lineno"> 1453</span> </div>
-<div class="line"><span class="lineno"> 1454</span>  <span class="keywordflow">if</span> <span class="keyword">consteval</span> {</div>
-<div class="line"><span class="lineno"> 1455</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> result = <a class="code hl_function" href="#ab3622986659a41d3545895ebdd549a34">cstrcmp</a>(lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a88e33e0b5110f442408c0b506c2953a6">c_str</a>(), rhs);</div>
-<div class="line"><span class="lineno"> 1456</span>    <span class="keywordflow">if</span> (result &lt; 0)</div>
-<div class="line"><span class="lineno"> 1457</span>      <span class="keywordflow">return</span> std::strong_ordering::less;</div>
-<div class="line"><span class="lineno"> 1458</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (result &gt; 0)</div>
-<div class="line"><span class="lineno"> 1459</span>      <span class="keywordflow">return</span> std::strong_ordering::greater;</div>
-<div class="line"><span class="lineno"> 1460</span>    <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 1461</span>      <span class="keywordflow">return</span> std::strong_ordering::equal;</div>
-<div class="line"><span class="lineno"> 1462</span>  } <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno"> 1463</span>    <span class="keyword">const</span> <span class="keyword">auto</span> rhsLen = std::strlen(rhs);</div>
-<div class="line"><span class="lineno"> 1464</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> result = std::memcmp(lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a88e33e0b5110f442408c0b506c2953a6">c_str</a>(), rhs, std::min(lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#af89cb8066041fa741f75709159b610e7">size</a>(), rhsLen));</div>
-<div class="line"><span class="lineno"> 1465</span>    <span class="keywordflow">if</span> (result &lt; 0)</div>
-<div class="line"><span class="lineno"> 1466</span>      <span class="keywordflow">return</span> std::strong_ordering::less;</div>
-<div class="line"><span class="lineno"> 1467</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (result &gt; 0)</div>
-<div class="line"><span class="lineno"> 1468</span>      <span class="keywordflow">return</span> std::strong_ordering::greater;</div>
-<div class="line"><span class="lineno"> 1469</span>    <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno"> 1470</span>      <span class="keywordflow">if</span> (lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#af89cb8066041fa741f75709159b610e7">size</a>() &lt; rhsLen)</div>
-<div class="line"><span class="lineno"> 1471</span>        <span class="keywordflow">return</span> std::strong_ordering::less;</div>
-<div class="line"><span class="lineno"> 1472</span>      <span class="keywordflow">else</span> <span class="keywordflow">if</span> (lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#af89cb8066041fa741f75709159b610e7">size</a>() &gt; rhsLen)</div>
-<div class="line"><span class="lineno"> 1473</span>        <span class="keywordflow">return</span> std::strong_ordering::greater;</div>
-<div class="line"><span class="lineno"> 1474</span>      <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 1475</span>        <span class="keywordflow">return</span> std::strong_ordering::equal;</div>
-<div class="line"><span class="lineno"> 1476</span>    }</div>
-<div class="line"><span class="lineno"> 1477</span>  }</div>
-<div class="line"><span class="lineno"> 1478</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno"> 1455</span>                                                                                    {</div>
+<div class="line"><span class="lineno"> 1456</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#acee011a673448baf706197935ace44c7">assert_message</a>(rhs != <span class="keyword">nullptr</span>, <span class="stringliteral">&quot;C string pointer must not be null&quot;</span>);</div>
+<div class="line"><span class="lineno"> 1457</span> </div>
+<div class="line"><span class="lineno"> 1458</span>  <span class="keywordflow">if</span> (lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a8fc3f1b01f5865271810f50e1d91e225">empty</a>() &amp;&amp; *rhs == <span class="charliteral">&#39;\0&#39;</span>)</div>
+<div class="line"><span class="lineno"> 1459</span>    <span class="keywordflow">return</span> std::strong_ordering::equal;</div>
+<div class="line"><span class="lineno"> 1460</span>  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a8fc3f1b01f5865271810f50e1d91e225">empty</a>())</div>
+<div class="line"><span class="lineno"> 1461</span>    <span class="keywordflow">return</span> std::strong_ordering::less;</div>
+<div class="line"><span class="lineno"> 1462</span>  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (*rhs == <span class="charliteral">&#39;\0&#39;</span>)</div>
+<div class="line"><span class="lineno"> 1463</span>    <span class="keywordflow">return</span> std::strong_ordering::greater;</div>
+<div class="line"><span class="lineno"> 1464</span> </div>
+<div class="line"><span class="lineno"> 1465</span>  <span class="keywordflow">if</span> <span class="keyword">consteval</span> {</div>
+<div class="line"><span class="lineno"> 1466</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> result = <a class="code hl_function" href="#ab3622986659a41d3545895ebdd549a34">cstrcmp</a>(lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a88e33e0b5110f442408c0b506c2953a6">c_str</a>(), rhs);</div>
+<div class="line"><span class="lineno"> 1467</span>    <span class="keywordflow">if</span> (result &lt; 0)</div>
+<div class="line"><span class="lineno"> 1468</span>      <span class="keywordflow">return</span> std::strong_ordering::less;</div>
+<div class="line"><span class="lineno"> 1469</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (result &gt; 0)</div>
+<div class="line"><span class="lineno"> 1470</span>      <span class="keywordflow">return</span> std::strong_ordering::greater;</div>
+<div class="line"><span class="lineno"> 1471</span>    <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 1472</span>      <span class="keywordflow">return</span> std::strong_ordering::equal;</div>
+<div class="line"><span class="lineno"> 1473</span>  } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno"> 1474</span>    <span class="keyword">const</span> <span class="keyword">auto</span> rhsLen = std::strlen(rhs);</div>
+<div class="line"><span class="lineno"> 1475</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> result = std::memcmp(lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a88e33e0b5110f442408c0b506c2953a6">c_str</a>(), rhs, std::min(lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#af89cb8066041fa741f75709159b610e7">size</a>(), rhsLen));</div>
+<div class="line"><span class="lineno"> 1476</span>    <span class="keywordflow">if</span> (result &lt; 0)</div>
+<div class="line"><span class="lineno"> 1477</span>      <span class="keywordflow">return</span> std::strong_ordering::less;</div>
+<div class="line"><span class="lineno"> 1478</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (result &gt; 0)</div>
+<div class="line"><span class="lineno"> 1479</span>      <span class="keywordflow">return</span> std::strong_ordering::greater;</div>
+<div class="line"><span class="lineno"> 1480</span>    <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno"> 1481</span>      <span class="keywordflow">if</span> (lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#af89cb8066041fa741f75709159b610e7">size</a>() &lt; rhsLen)</div>
+<div class="line"><span class="lineno"> 1482</span>        <span class="keywordflow">return</span> std::strong_ordering::less;</div>
+<div class="line"><span class="lineno"> 1483</span>      <span class="keywordflow">else</span> <span class="keywordflow">if</span> (lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#af89cb8066041fa741f75709159b610e7">size</a>() &gt; rhsLen)</div>
+<div class="line"><span class="lineno"> 1484</span>        <span class="keywordflow">return</span> std::strong_ordering::greater;</div>
+<div class="line"><span class="lineno"> 1485</span>      <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 1486</span>        <span class="keywordflow">return</span> std::strong_ordering::equal;</div>
+<div class="line"><span class="lineno"> 1487</span>    }</div>
+<div class="line"><span class="lineno"> 1488</span>  }</div>
+<div class="line"><span class="lineno"> 1489</span>}</div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_a88e33e0b5110f442408c0b506c2953a6"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a88e33e0b5110f442408c0b506c2953a6">toygine::FixString::c_str</a></div><div class="ttdeci">constexpr const char * c_str() const noexcept</div><div class="ttdoc">Returns a constant pointer to the C string representation of this string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:303</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_a8fc3f1b01f5865271810f50e1d91e225"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#a8fc3f1b01f5865271810f50e1d91e225">toygine::FixString::empty</a></div><div class="ttdeci">constexpr bool empty() const noexcept</div><div class="ttdoc">Checks if the string is empty.</div><div class="ttdef"><b>Definition</b> fix_string.inl:308</div></div>
 <div class="ttc" id="aclasstoygine_1_1_fix_string_html_af89cb8066041fa741f75709159b610e7"><div class="ttname"><a href="../../da/d4a/classtoygine_1_1_fix_string.html#af89cb8066041fa741f75709159b610e7">toygine::FixString::size</a></div><div class="ttdeci">constexpr std::size_t size() const noexcept</div><div class="ttdoc">Returns the size of the string.</div><div class="ttdef"><b>Definition</b> fix_string.inl:313</div></div>
@@ -1576,38 +1978,38 @@ Empty strings are considered equal.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd>std::strong_ordering </dd>
 <dd>
 <a class="el" href="#ad428030e3e34446aef2131f77e2d1040" title="Equality comparison operator for FixString and StringLike object.">operator==(const FixString&lt;allocatedSize&gt; &amp;, const stringType &amp;)</a> </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno"> 1397</span>                                                                                          {</div>
-<div class="line"><span class="lineno"> 1398</span>  <span class="keywordflow">if</span> (lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a8fc3f1b01f5865271810f50e1d91e225">empty</a>() &amp;&amp; rhs.size() == 0)</div>
-<div class="line"><span class="lineno"> 1399</span>    <span class="keywordflow">return</span> std::strong_ordering::equal;</div>
-<div class="line"><span class="lineno"> 1400</span>  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a8fc3f1b01f5865271810f50e1d91e225">empty</a>())</div>
-<div class="line"><span class="lineno"> 1401</span>    <span class="keywordflow">return</span> std::strong_ordering::less;</div>
-<div class="line"><span class="lineno"> 1402</span>  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (rhs.size() == 0)</div>
-<div class="line"><span class="lineno"> 1403</span>    <span class="keywordflow">return</span> std::strong_ordering::greater;</div>
-<div class="line"><span class="lineno"> 1404</span> </div>
-<div class="line"><span class="lineno"> 1405</span>  <span class="keywordflow">if</span> <span class="keyword">consteval</span> {</div>
-<div class="line"><span class="lineno"> 1406</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> result = <a class="code hl_function" href="#ab3622986659a41d3545895ebdd549a34">cstrcmp</a>(lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a88e33e0b5110f442408c0b506c2953a6">c_str</a>(), rhs.c_str());</div>
-<div class="line"><span class="lineno"> 1407</span>    <span class="keywordflow">if</span> (result &lt; 0)</div>
-<div class="line"><span class="lineno"> 1408</span>      <span class="keywordflow">return</span> std::strong_ordering::less;</div>
-<div class="line"><span class="lineno"> 1409</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (result &gt; 0)</div>
-<div class="line"><span class="lineno"> 1410</span>      <span class="keywordflow">return</span> std::strong_ordering::greater;</div>
-<div class="line"><span class="lineno"> 1411</span>    <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 1412</span>      <span class="keywordflow">return</span> std::strong_ordering::equal;</div>
-<div class="line"><span class="lineno"> 1413</span>  } <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno"> 1414</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> result = std::memcmp(lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a88e33e0b5110f442408c0b506c2953a6">c_str</a>(), rhs.c_str(), std::min(lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#af89cb8066041fa741f75709159b610e7">size</a>(), rhs.size()));</div>
-<div class="line"><span class="lineno"> 1415</span>    <span class="keywordflow">if</span> (result &lt; 0)</div>
-<div class="line"><span class="lineno"> 1416</span>      <span class="keywordflow">return</span> std::strong_ordering::less;</div>
-<div class="line"><span class="lineno"> 1417</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (result &gt; 0)</div>
-<div class="line"><span class="lineno"> 1418</span>      <span class="keywordflow">return</span> std::strong_ordering::greater;</div>
-<div class="line"><span class="lineno"> 1419</span>    <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno"> 1420</span>      <span class="keywordflow">if</span> (lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#af89cb8066041fa741f75709159b610e7">size</a>() &lt; rhs.size())</div>
-<div class="line"><span class="lineno"> 1421</span>        <span class="keywordflow">return</span> std::strong_ordering::less;</div>
-<div class="line"><span class="lineno"> 1422</span>      <span class="keywordflow">else</span> <span class="keywordflow">if</span> (lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#af89cb8066041fa741f75709159b610e7">size</a>() &gt; rhs.size())</div>
-<div class="line"><span class="lineno"> 1423</span>        <span class="keywordflow">return</span> std::strong_ordering::greater;</div>
-<div class="line"><span class="lineno"> 1424</span>      <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 1425</span>        <span class="keywordflow">return</span> std::strong_ordering::equal;</div>
-<div class="line"><span class="lineno"> 1426</span>    }</div>
-<div class="line"><span class="lineno"> 1427</span>  }</div>
-<div class="line"><span class="lineno"> 1428</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno"> 1408</span>                                                                                          {</div>
+<div class="line"><span class="lineno"> 1409</span>  <span class="keywordflow">if</span> (lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a8fc3f1b01f5865271810f50e1d91e225">empty</a>() &amp;&amp; rhs.size() == 0)</div>
+<div class="line"><span class="lineno"> 1410</span>    <span class="keywordflow">return</span> std::strong_ordering::equal;</div>
+<div class="line"><span class="lineno"> 1411</span>  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a8fc3f1b01f5865271810f50e1d91e225">empty</a>())</div>
+<div class="line"><span class="lineno"> 1412</span>    <span class="keywordflow">return</span> std::strong_ordering::less;</div>
+<div class="line"><span class="lineno"> 1413</span>  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (rhs.size() == 0)</div>
+<div class="line"><span class="lineno"> 1414</span>    <span class="keywordflow">return</span> std::strong_ordering::greater;</div>
+<div class="line"><span class="lineno"> 1415</span> </div>
+<div class="line"><span class="lineno"> 1416</span>  <span class="keywordflow">if</span> <span class="keyword">consteval</span> {</div>
+<div class="line"><span class="lineno"> 1417</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> result = <a class="code hl_function" href="#ab3622986659a41d3545895ebdd549a34">cstrcmp</a>(lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a88e33e0b5110f442408c0b506c2953a6">c_str</a>(), rhs.c_str());</div>
+<div class="line"><span class="lineno"> 1418</span>    <span class="keywordflow">if</span> (result &lt; 0)</div>
+<div class="line"><span class="lineno"> 1419</span>      <span class="keywordflow">return</span> std::strong_ordering::less;</div>
+<div class="line"><span class="lineno"> 1420</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (result &gt; 0)</div>
+<div class="line"><span class="lineno"> 1421</span>      <span class="keywordflow">return</span> std::strong_ordering::greater;</div>
+<div class="line"><span class="lineno"> 1422</span>    <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 1423</span>      <span class="keywordflow">return</span> std::strong_ordering::equal;</div>
+<div class="line"><span class="lineno"> 1424</span>  } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno"> 1425</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> result = std::memcmp(lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a88e33e0b5110f442408c0b506c2953a6">c_str</a>(), rhs.c_str(), std::min(lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#af89cb8066041fa741f75709159b610e7">size</a>(), rhs.size()));</div>
+<div class="line"><span class="lineno"> 1426</span>    <span class="keywordflow">if</span> (result &lt; 0)</div>
+<div class="line"><span class="lineno"> 1427</span>      <span class="keywordflow">return</span> std::strong_ordering::less;</div>
+<div class="line"><span class="lineno"> 1428</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (result &gt; 0)</div>
+<div class="line"><span class="lineno"> 1429</span>      <span class="keywordflow">return</span> std::strong_ordering::greater;</div>
+<div class="line"><span class="lineno"> 1430</span>    <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno"> 1431</span>      <span class="keywordflow">if</span> (lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#af89cb8066041fa741f75709159b610e7">size</a>() &lt; rhs.size())</div>
+<div class="line"><span class="lineno"> 1432</span>        <span class="keywordflow">return</span> std::strong_ordering::less;</div>
+<div class="line"><span class="lineno"> 1433</span>      <span class="keywordflow">else</span> <span class="keywordflow">if</span> (lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#af89cb8066041fa741f75709159b610e7">size</a>() &gt; rhs.size())</div>
+<div class="line"><span class="lineno"> 1434</span>        <span class="keywordflow">return</span> std::strong_ordering::greater;</div>
+<div class="line"><span class="lineno"> 1435</span>      <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 1436</span>        <span class="keywordflow">return</span> std::strong_ordering::equal;</div>
+<div class="line"><span class="lineno"> 1437</span>    }</div>
+<div class="line"><span class="lineno"> 1438</span>  }</div>
+<div class="line"><span class="lineno"> 1439</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1665,43 +2067,43 @@ Empty strings are considered equal.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd>std::strong_ordering </dd>
 <dd>
 <a class="el" href="#a4613f28bf15f4b9be755d7b62f9e9149" title="Equality comparison operator for two FixString objects.">operator==(const FixString&lt;allocatedSize1&gt; &amp;, const FixString&lt;allocatedSize2&gt; &amp;)</a> </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno"> 1357</span>                                                                                                         {</div>
-<div class="line"><span class="lineno"> 1358</span>  <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (allocatedSize1 == allocatedSize2) {</div>
-<div class="line"><span class="lineno"> 1359</span>    <span class="keywordflow">if</span> (std::addressof(lhs) == std::addressof(rhs))</div>
-<div class="line"><span class="lineno"> 1360</span>      <span class="keywordflow">return</span> std::strong_ordering::equal;</div>
-<div class="line"><span class="lineno"> 1361</span>  }</div>
-<div class="line"><span class="lineno"> 1362</span> </div>
-<div class="line"><span class="lineno"> 1363</span>  <span class="keywordflow">if</span> (lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a8fc3f1b01f5865271810f50e1d91e225">empty</a>() &amp;&amp; rhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a8fc3f1b01f5865271810f50e1d91e225">empty</a>())</div>
-<div class="line"><span class="lineno"> 1364</span>    <span class="keywordflow">return</span> std::strong_ordering::equal;</div>
-<div class="line"><span class="lineno"> 1365</span>  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a8fc3f1b01f5865271810f50e1d91e225">empty</a>())</div>
-<div class="line"><span class="lineno"> 1366</span>    <span class="keywordflow">return</span> std::strong_ordering::less;</div>
-<div class="line"><span class="lineno"> 1367</span>  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (rhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a8fc3f1b01f5865271810f50e1d91e225">empty</a>())</div>
-<div class="line"><span class="lineno"> 1368</span>    <span class="keywordflow">return</span> std::strong_ordering::greater;</div>
-<div class="line"><span class="lineno"> 1369</span> </div>
-<div class="line"><span class="lineno"> 1370</span>  <span class="keywordflow">if</span> <span class="keyword">consteval</span> {</div>
-<div class="line"><span class="lineno"> 1371</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> result = cstrcmp(lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a88e33e0b5110f442408c0b506c2953a6">c_str</a>(), rhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a88e33e0b5110f442408c0b506c2953a6">c_str</a>());</div>
-<div class="line"><span class="lineno"> 1372</span>    <span class="keywordflow">if</span> (result &lt; 0)</div>
-<div class="line"><span class="lineno"> 1373</span>      <span class="keywordflow">return</span> std::strong_ordering::less;</div>
-<div class="line"><span class="lineno"> 1374</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (result &gt; 0)</div>
-<div class="line"><span class="lineno"> 1375</span>      <span class="keywordflow">return</span> std::strong_ordering::greater;</div>
-<div class="line"><span class="lineno"> 1376</span>    <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 1377</span>      <span class="keywordflow">return</span> std::strong_ordering::equal;</div>
-<div class="line"><span class="lineno"> 1378</span>  } <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno"> 1379</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> result = std::memcmp(lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a88e33e0b5110f442408c0b506c2953a6">c_str</a>(), rhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a88e33e0b5110f442408c0b506c2953a6">c_str</a>(), std::min(lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#af89cb8066041fa741f75709159b610e7">size</a>(), rhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#af89cb8066041fa741f75709159b610e7">size</a>()));</div>
-<div class="line"><span class="lineno"> 1380</span>    <span class="keywordflow">if</span> (result &lt; 0)</div>
-<div class="line"><span class="lineno"> 1381</span>      <span class="keywordflow">return</span> std::strong_ordering::less;</div>
-<div class="line"><span class="lineno"> 1382</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (result &gt; 0)</div>
-<div class="line"><span class="lineno"> 1383</span>      <span class="keywordflow">return</span> std::strong_ordering::greater;</div>
-<div class="line"><span class="lineno"> 1384</span>    <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno"> 1385</span>      <span class="keywordflow">if</span> (lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#af89cb8066041fa741f75709159b610e7">size</a>() &lt; rhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#af89cb8066041fa741f75709159b610e7">size</a>())</div>
-<div class="line"><span class="lineno"> 1386</span>        <span class="keywordflow">return</span> std::strong_ordering::less;</div>
-<div class="line"><span class="lineno"> 1387</span>      <span class="keywordflow">else</span> <span class="keywordflow">if</span> (lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#af89cb8066041fa741f75709159b610e7">size</a>() &gt; rhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#af89cb8066041fa741f75709159b610e7">size</a>())</div>
-<div class="line"><span class="lineno"> 1388</span>        <span class="keywordflow">return</span> std::strong_ordering::greater;</div>
-<div class="line"><span class="lineno"> 1389</span>      <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 1390</span>        <span class="keywordflow">return</span> std::strong_ordering::equal;</div>
-<div class="line"><span class="lineno"> 1391</span>    }</div>
-<div class="line"><span class="lineno"> 1392</span>  }</div>
-<div class="line"><span class="lineno"> 1393</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno"> 1368</span>                                                                                                         {</div>
+<div class="line"><span class="lineno"> 1369</span>  <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (allocatedSize1 == allocatedSize2) {</div>
+<div class="line"><span class="lineno"> 1370</span>    <span class="keywordflow">if</span> (std::addressof(lhs) == std::addressof(rhs))</div>
+<div class="line"><span class="lineno"> 1371</span>      <span class="keywordflow">return</span> std::strong_ordering::equal;</div>
+<div class="line"><span class="lineno"> 1372</span>  }</div>
+<div class="line"><span class="lineno"> 1373</span> </div>
+<div class="line"><span class="lineno"> 1374</span>  <span class="keywordflow">if</span> (lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a8fc3f1b01f5865271810f50e1d91e225">empty</a>() &amp;&amp; rhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a8fc3f1b01f5865271810f50e1d91e225">empty</a>())</div>
+<div class="line"><span class="lineno"> 1375</span>    <span class="keywordflow">return</span> std::strong_ordering::equal;</div>
+<div class="line"><span class="lineno"> 1376</span>  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a8fc3f1b01f5865271810f50e1d91e225">empty</a>())</div>
+<div class="line"><span class="lineno"> 1377</span>    <span class="keywordflow">return</span> std::strong_ordering::less;</div>
+<div class="line"><span class="lineno"> 1378</span>  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (rhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a8fc3f1b01f5865271810f50e1d91e225">empty</a>())</div>
+<div class="line"><span class="lineno"> 1379</span>    <span class="keywordflow">return</span> std::strong_ordering::greater;</div>
+<div class="line"><span class="lineno"> 1380</span> </div>
+<div class="line"><span class="lineno"> 1381</span>  <span class="keywordflow">if</span> <span class="keyword">consteval</span> {</div>
+<div class="line"><span class="lineno"> 1382</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> result = cstrcmp(lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a88e33e0b5110f442408c0b506c2953a6">c_str</a>(), rhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a88e33e0b5110f442408c0b506c2953a6">c_str</a>());</div>
+<div class="line"><span class="lineno"> 1383</span>    <span class="keywordflow">if</span> (result &lt; 0)</div>
+<div class="line"><span class="lineno"> 1384</span>      <span class="keywordflow">return</span> std::strong_ordering::less;</div>
+<div class="line"><span class="lineno"> 1385</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (result &gt; 0)</div>
+<div class="line"><span class="lineno"> 1386</span>      <span class="keywordflow">return</span> std::strong_ordering::greater;</div>
+<div class="line"><span class="lineno"> 1387</span>    <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 1388</span>      <span class="keywordflow">return</span> std::strong_ordering::equal;</div>
+<div class="line"><span class="lineno"> 1389</span>  } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno"> 1390</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> result = std::memcmp(lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a88e33e0b5110f442408c0b506c2953a6">c_str</a>(), rhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a88e33e0b5110f442408c0b506c2953a6">c_str</a>(), std::min(lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#af89cb8066041fa741f75709159b610e7">size</a>(), rhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#af89cb8066041fa741f75709159b610e7">size</a>()));</div>
+<div class="line"><span class="lineno"> 1391</span>    <span class="keywordflow">if</span> (result &lt; 0)</div>
+<div class="line"><span class="lineno"> 1392</span>      <span class="keywordflow">return</span> std::strong_ordering::less;</div>
+<div class="line"><span class="lineno"> 1393</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (result &gt; 0)</div>
+<div class="line"><span class="lineno"> 1394</span>      <span class="keywordflow">return</span> std::strong_ordering::greater;</div>
+<div class="line"><span class="lineno"> 1395</span>    <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno"> 1396</span>      <span class="keywordflow">if</span> (lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#af89cb8066041fa741f75709159b610e7">size</a>() &lt; rhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#af89cb8066041fa741f75709159b610e7">size</a>())</div>
+<div class="line"><span class="lineno"> 1397</span>        <span class="keywordflow">return</span> std::strong_ordering::less;</div>
+<div class="line"><span class="lineno"> 1398</span>      <span class="keywordflow">else</span> <span class="keywordflow">if</span> (lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#af89cb8066041fa741f75709159b610e7">size</a>() &gt; rhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#af89cb8066041fa741f75709159b610e7">size</a>())</div>
+<div class="line"><span class="lineno"> 1399</span>        <span class="keywordflow">return</span> std::strong_ordering::greater;</div>
+<div class="line"><span class="lineno"> 1400</span>      <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 1401</span>        <span class="keywordflow">return</span> std::strong_ordering::equal;</div>
+<div class="line"><span class="lineno"> 1402</span>    }</div>
+<div class="line"><span class="lineno"> 1403</span>  }</div>
+<div class="line"><span class="lineno"> 1404</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1759,15 +2161,15 @@ Empty strings are considered equal.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd>std::strong_ordering </dd>
 <dd>
 <a class="el" href="#a4a303130d0f60c247088678ae7179f0b" title="Equality comparison operator for StringLike object and FixString.">operator==(const stringType &amp;, const FixString&lt;allocatedSize&gt; &amp;)</a> </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno"> 1432</span>                                                                                                        {</div>
-<div class="line"><span class="lineno"> 1433</span>  <span class="keyword">const</span> <span class="keyword">auto</span> result = rhs &lt;=&gt; lhs;</div>
-<div class="line"><span class="lineno"> 1434</span>  <span class="keywordflow">if</span> (result == std::strong_ordering::less)</div>
-<div class="line"><span class="lineno"> 1435</span>    <span class="keywordflow">return</span> std::strong_ordering::greater;</div>
-<div class="line"><span class="lineno"> 1436</span>  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (result == std::strong_ordering::greater)</div>
-<div class="line"><span class="lineno"> 1437</span>    <span class="keywordflow">return</span> std::strong_ordering::less;</div>
-<div class="line"><span class="lineno"> 1438</span>  <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 1439</span>    <span class="keywordflow">return</span> std::strong_ordering::equal;</div>
-<div class="line"><span class="lineno"> 1440</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno"> 1443</span>                                                                                                        {</div>
+<div class="line"><span class="lineno"> 1444</span>  <span class="keyword">const</span> <span class="keyword">auto</span> result = rhs &lt;=&gt; lhs;</div>
+<div class="line"><span class="lineno"> 1445</span>  <span class="keywordflow">if</span> (result == std::strong_ordering::less)</div>
+<div class="line"><span class="lineno"> 1446</span>    <span class="keywordflow">return</span> std::strong_ordering::greater;</div>
+<div class="line"><span class="lineno"> 1447</span>  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (result == std::strong_ordering::greater)</div>
+<div class="line"><span class="lineno"> 1448</span>    <span class="keywordflow">return</span> std::strong_ordering::less;</div>
+<div class="line"><span class="lineno"> 1449</span>  <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 1450</span>    <span class="keywordflow">return</span> std::strong_ordering::equal;</div>
+<div class="line"><span class="lineno"> 1451</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1821,9 +2223,9 @@ template&lt;std::size_t allocatedSize&gt; </div>
 <dd>
 Empty strings are considered equal.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#a06f8534cbbb3c240c932fc6e87970ae3" title="Three-way comparison operator for C string and FixString.">operator&lt;=&gt;(const char *, const FixString&lt;allocatedSize&gt; &amp;)</a> </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno"> 1351</span>                                                                                                         {</div>
-<div class="line"><span class="lineno"> 1352</span>  <span class="keywordflow">return</span> rhs == lhs;</div>
-<div class="line"><span class="lineno"> 1353</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno"> 1362</span>                                                                                                         {</div>
+<div class="line"><span class="lineno"> 1363</span>  <span class="keywordflow">return</span> rhs == lhs;</div>
+<div class="line"><span class="lineno"> 1364</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1877,18 +2279,18 @@ template&lt;std::size_t allocatedSize&gt; </div>
 <dd>
 Empty strings are considered equal.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#a82d2c8279d4b3f1757ad832fffc3ff40" title="Three-way comparison operator for FixString and C string.">operator&lt;=&gt;(const FixString&lt;allocatedSize&gt; &amp;, const char *)</a> </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno"> 1337</span>                                                                                                         {</div>
-<div class="line"><span class="lineno"> 1338</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#acee011a673448baf706197935ace44c7">assert_message</a>(rhs != <span class="keyword">nullptr</span>, <span class="stringliteral">&quot;C string pointer must not be null&quot;</span>);</div>
-<div class="line"><span class="lineno"> 1339</span> </div>
-<div class="line"><span class="lineno"> 1340</span>  <span class="keywordflow">if</span> (lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a8fc3f1b01f5865271810f50e1d91e225">empty</a>())</div>
-<div class="line"><span class="lineno"> 1341</span>    <span class="keywordflow">return</span> *rhs == <span class="charliteral">&#39;\0&#39;</span>;</div>
-<div class="line"><span class="lineno"> 1342</span> </div>
-<div class="line"><span class="lineno"> 1343</span>  <span class="keywordflow">if</span> <span class="keyword">consteval</span> {</div>
-<div class="line"><span class="lineno"> 1344</span>    <span class="keywordflow">return</span> lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#af89cb8066041fa741f75709159b610e7">size</a>() == std::char_traits&lt;char&gt;::length(rhs) &amp;&amp; std::equal(lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a88e33e0b5110f442408c0b506c2953a6">c_str</a>(), lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a88e33e0b5110f442408c0b506c2953a6">c_str</a>() + lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#af89cb8066041fa741f75709159b610e7">size</a>(), rhs);</div>
-<div class="line"><span class="lineno"> 1345</span>  } <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno"> 1346</span>    <span class="keywordflow">return</span> lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#af89cb8066041fa741f75709159b610e7">size</a>() == std::strlen(rhs) &amp;&amp; std::memcmp(lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a88e33e0b5110f442408c0b506c2953a6">c_str</a>(), rhs, lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#af89cb8066041fa741f75709159b610e7">size</a>()) == 0;</div>
-<div class="line"><span class="lineno"> 1347</span>  }</div>
-<div class="line"><span class="lineno"> 1348</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno"> 1348</span>                                                                                                         {</div>
+<div class="line"><span class="lineno"> 1349</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#acee011a673448baf706197935ace44c7">assert_message</a>(rhs != <span class="keyword">nullptr</span>, <span class="stringliteral">&quot;C string pointer must not be null&quot;</span>);</div>
+<div class="line"><span class="lineno"> 1350</span> </div>
+<div class="line"><span class="lineno"> 1351</span>  <span class="keywordflow">if</span> (lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a8fc3f1b01f5865271810f50e1d91e225">empty</a>())</div>
+<div class="line"><span class="lineno"> 1352</span>    <span class="keywordflow">return</span> *rhs == <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><span class="lineno"> 1353</span> </div>
+<div class="line"><span class="lineno"> 1354</span>  <span class="keywordflow">if</span> <span class="keyword">consteval</span> {</div>
+<div class="line"><span class="lineno"> 1355</span>    <span class="keywordflow">return</span> lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#af89cb8066041fa741f75709159b610e7">size</a>() == std::char_traits&lt;char&gt;::length(rhs) &amp;&amp; std::equal(lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a88e33e0b5110f442408c0b506c2953a6">c_str</a>(), lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a88e33e0b5110f442408c0b506c2953a6">c_str</a>() + lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#af89cb8066041fa741f75709159b610e7">size</a>(), rhs);</div>
+<div class="line"><span class="lineno"> 1356</span>  } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno"> 1357</span>    <span class="keywordflow">return</span> lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#af89cb8066041fa741f75709159b610e7">size</a>() == std::strlen(rhs) &amp;&amp; std::memcmp(lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a88e33e0b5110f442408c0b506c2953a6">c_str</a>(), rhs, lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#af89cb8066041fa741f75709159b610e7">size</a>()) == 0;</div>
+<div class="line"><span class="lineno"> 1358</span>  }</div>
+<div class="line"><span class="lineno"> 1359</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1942,18 +2344,18 @@ template&lt;std::size_t allocatedSize, StringLike stringType&gt; </div>
 <dd>
 Empty strings are considered equal.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#a3fe8cfbf45d223ab72564ce327a3ba53" title="Three-way comparison operator for FixString and StringLike object.">operator&lt;=&gt;(const FixString&lt;allocatedSize&gt; &amp;, const stringType &amp;)</a> </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno"> 1318</span>                                                                                                               {</div>
-<div class="line"><span class="lineno"> 1319</span>  <span class="keywordflow">if</span> (lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#af89cb8066041fa741f75709159b610e7">size</a>() != rhs.size())</div>
-<div class="line"><span class="lineno"> 1320</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno"> 1321</span>  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a8fc3f1b01f5865271810f50e1d91e225">empty</a>())</div>
-<div class="line"><span class="lineno"> 1322</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno"> 1323</span> </div>
-<div class="line"><span class="lineno"> 1324</span>  <span class="keywordflow">if</span> <span class="keyword">consteval</span> {</div>
-<div class="line"><span class="lineno"> 1325</span>    <span class="keywordflow">return</span> std::equal(lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a88e33e0b5110f442408c0b506c2953a6">c_str</a>(), lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a88e33e0b5110f442408c0b506c2953a6">c_str</a>() + lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#af89cb8066041fa741f75709159b610e7">size</a>(), rhs.c_str());</div>
-<div class="line"><span class="lineno"> 1326</span>  } <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno"> 1327</span>    <span class="keywordflow">return</span> std::memcmp(lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a88e33e0b5110f442408c0b506c2953a6">c_str</a>(), rhs.c_str(), lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#af89cb8066041fa741f75709159b610e7">size</a>()) == 0;</div>
-<div class="line"><span class="lineno"> 1328</span>  }</div>
-<div class="line"><span class="lineno"> 1329</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno"> 1329</span>                                                                                                               {</div>
+<div class="line"><span class="lineno"> 1330</span>  <span class="keywordflow">if</span> (lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#af89cb8066041fa741f75709159b610e7">size</a>() != rhs.size())</div>
+<div class="line"><span class="lineno"> 1331</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno"> 1332</span>  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a8fc3f1b01f5865271810f50e1d91e225">empty</a>())</div>
+<div class="line"><span class="lineno"> 1333</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno"> 1334</span> </div>
+<div class="line"><span class="lineno"> 1335</span>  <span class="keywordflow">if</span> <span class="keyword">consteval</span> {</div>
+<div class="line"><span class="lineno"> 1336</span>    <span class="keywordflow">return</span> std::equal(lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a88e33e0b5110f442408c0b506c2953a6">c_str</a>(), lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a88e33e0b5110f442408c0b506c2953a6">c_str</a>() + lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#af89cb8066041fa741f75709159b610e7">size</a>(), rhs.c_str());</div>
+<div class="line"><span class="lineno"> 1337</span>  } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno"> 1338</span>    <span class="keywordflow">return</span> std::memcmp(lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a88e33e0b5110f442408c0b506c2953a6">c_str</a>(), rhs.c_str(), lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#af89cb8066041fa741f75709159b610e7">size</a>()) == 0;</div>
+<div class="line"><span class="lineno"> 1339</span>  }</div>
+<div class="line"><span class="lineno"> 1340</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -2007,23 +2409,23 @@ template&lt;std::size_t allocatedSize1, std::size_t allocatedSize2&gt; </div>
 <dd>
 Empty strings are considered equal.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#a80bc2248987a033216567d805945f39e" title="Three-way comparison operator for FixString objects.">operator&lt;=&gt;(const FixString&lt;allocatedSize1&gt; &amp;, const FixString&lt;allocatedSize2&gt; &amp;)</a> </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno"> 1297</span>                                                                                        {</div>
-<div class="line"><span class="lineno"> 1298</span>  <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (allocatedSize1 == allocatedSize2) {</div>
-<div class="line"><span class="lineno"> 1299</span>    <span class="keywordflow">if</span> (std::addressof(lhs) == std::addressof(rhs))</div>
-<div class="line"><span class="lineno"> 1300</span>      <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno"> 1301</span>  }</div>
-<div class="line"><span class="lineno"> 1302</span> </div>
-<div class="line"><span class="lineno"> 1303</span>  <span class="keywordflow">if</span> (lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#af89cb8066041fa741f75709159b610e7">size</a>() != rhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#af89cb8066041fa741f75709159b610e7">size</a>())</div>
-<div class="line"><span class="lineno"> 1304</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno"> 1305</span>  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a8fc3f1b01f5865271810f50e1d91e225">empty</a>())</div>
-<div class="line"><span class="lineno"> 1306</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno"> 1307</span> </div>
-<div class="line"><span class="lineno"> 1308</span>  <span class="keywordflow">if</span> <span class="keyword">consteval</span> {</div>
-<div class="line"><span class="lineno"> 1309</span>    <span class="keywordflow">return</span> std::equal(lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a88e33e0b5110f442408c0b506c2953a6">c_str</a>(), lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a88e33e0b5110f442408c0b506c2953a6">c_str</a>() + lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#af89cb8066041fa741f75709159b610e7">size</a>(), rhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a88e33e0b5110f442408c0b506c2953a6">c_str</a>());</div>
-<div class="line"><span class="lineno"> 1310</span>  } <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno"> 1311</span>    <span class="keywordflow">return</span> std::memcmp(lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a88e33e0b5110f442408c0b506c2953a6">c_str</a>(), rhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a88e33e0b5110f442408c0b506c2953a6">c_str</a>(), lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#af89cb8066041fa741f75709159b610e7">size</a>()) == 0;</div>
-<div class="line"><span class="lineno"> 1312</span>  }</div>
-<div class="line"><span class="lineno"> 1313</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno"> 1310</span>                                                                                        {</div>
+<div class="line"><span class="lineno"> 1311</span>  <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (allocatedSize1 == allocatedSize2) {</div>
+<div class="line"><span class="lineno"> 1312</span>    <span class="keywordflow">if</span> (std::addressof(lhs) == std::addressof(rhs))</div>
+<div class="line"><span class="lineno"> 1313</span>      <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno"> 1314</span>  }</div>
+<div class="line"><span class="lineno"> 1315</span> </div>
+<div class="line"><span class="lineno"> 1316</span>  <span class="keywordflow">if</span> (lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#af89cb8066041fa741f75709159b610e7">size</a>() != rhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#af89cb8066041fa741f75709159b610e7">size</a>())</div>
+<div class="line"><span class="lineno"> 1317</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno"> 1318</span>  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a8fc3f1b01f5865271810f50e1d91e225">empty</a>())</div>
+<div class="line"><span class="lineno"> 1319</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno"> 1320</span> </div>
+<div class="line"><span class="lineno"> 1321</span>  <span class="keywordflow">if</span> <span class="keyword">consteval</span> {</div>
+<div class="line"><span class="lineno"> 1322</span>    <span class="keywordflow">return</span> std::equal(lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a88e33e0b5110f442408c0b506c2953a6">c_str</a>(), lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a88e33e0b5110f442408c0b506c2953a6">c_str</a>() + lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#af89cb8066041fa741f75709159b610e7">size</a>(), rhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a88e33e0b5110f442408c0b506c2953a6">c_str</a>());</div>
+<div class="line"><span class="lineno"> 1323</span>  } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno"> 1324</span>    <span class="keywordflow">return</span> std::memcmp(lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a88e33e0b5110f442408c0b506c2953a6">c_str</a>(), rhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#a88e33e0b5110f442408c0b506c2953a6">c_str</a>(), lhs.<a class="code hl_function" href="../../da/d4a/classtoygine_1_1_fix_string.html#af89cb8066041fa741f75709159b610e7">size</a>()) == 0;</div>
+<div class="line"><span class="lineno"> 1325</span>  }</div>
+<div class="line"><span class="lineno"> 1326</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -2077,9 +2479,9 @@ template&lt;StringLike stringType, std::size_t allocatedSize&gt; </div>
 <dd>
 Empty strings are considered equal.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#a3241fa63db119d2e40da1af04a884ac3" title="Three-way comparison operator for StringLike object and FixString.">operator&lt;=&gt;(const stringType &amp;, const FixString&lt;allocatedSize&gt; &amp;)</a> </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno"> 1332</span>                                                                                                               {</div>
-<div class="line"><span class="lineno"> 1333</span>  <span class="keywordflow">return</span> rhs == lhs;</div>
-<div class="line"><span class="lineno"> 1334</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno"> 1343</span>                                                                                                               {</div>
+<div class="line"><span class="lineno"> 1344</span>  <span class="keywordflow">return</span> rhs == lhs;</div>
+<div class="line"><span class="lineno"> 1345</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -2698,7 +3100,7 @@ Performance is optimized for common wide character ranges. </dd></dl>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../d7/de6/namespacetoygine.html">toygine</a></li>
-    <li class="footer">Generated on Sat Sep 13 2025 for ToyGine2 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generated on Sun Sep 14 2025 for ToyGine2 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>
