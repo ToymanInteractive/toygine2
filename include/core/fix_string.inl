@@ -1270,7 +1270,7 @@ template <std::size_t allocatedSize, StringLike stringType>
 template <StringLike stringType, std::size_t allocatedSize>
 [[nodiscard]] constexpr FixString<allocatedSize> operator+(const stringType & lhs,
                                                            const FixString<allocatedSize> & rhs) noexcept {
-  FixString<allocatedSize> result(lhs.c_str());
+  FixString<allocatedSize> result(lhs);
   result += rhs;
   return result;
 }
@@ -1286,6 +1286,20 @@ template <std::size_t allocatedSize>
 template <std::size_t allocatedSize>
 [[nodiscard]] constexpr FixString<allocatedSize> operator+(const char * lhs,
                                                            const FixString<allocatedSize> & rhs) noexcept {
+  FixString<allocatedSize> result(lhs);
+  result += rhs;
+  return result;
+}
+
+template <std::size_t allocatedSize>
+[[nodiscard]] constexpr FixString<allocatedSize> operator+(const FixString<allocatedSize> & lhs, char rhs) noexcept {
+  FixString<allocatedSize> result(lhs);
+  result += rhs;
+  return result;
+}
+
+template <std::size_t allocatedSize>
+[[nodiscard]] constexpr FixString<allocatedSize> operator+(char lhs, const FixString<allocatedSize> & rhs) noexcept {
   FixString<allocatedSize> result(lhs);
   result += rhs;
   return result;

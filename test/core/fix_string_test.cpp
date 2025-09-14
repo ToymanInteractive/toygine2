@@ -4457,6 +4457,169 @@ TEST_CASE("FixString operators+", "[core][fixstring]") {
     STATIC_REQUIRE(result.size() == 2);
     STATIC_REQUIRE(cstrcmp(result.c_str(), "AB") == 0);
   }
+
+  SECTION("FixString + char") {
+    constexpr auto result = FixString<20>("Hello") + '!';
+
+    REQUIRE(result.size() == 6);
+    REQUIRE(std::strcmp(result.c_str(), "Hello!") == 0);
+    STATIC_REQUIRE(result.size() == 6);
+    STATIC_REQUIRE(cstrcmp(result.c_str(), "Hello!") == 0);
+  }
+
+  SECTION("char + FixString") {
+    constexpr auto result = '!' + FixString<20>("Hello");
+
+    REQUIRE(result.size() == 6);
+    REQUIRE(std::strcmp(result.c_str(), "!Hello") == 0);
+    STATIC_REQUIRE(result.size() == 6);
+    STATIC_REQUIRE(cstrcmp(result.c_str(), "!Hello") == 0);
+  }
+
+  SECTION("FixString + char (empty string)") {
+    constexpr auto result = FixString<20>("") + 'A';
+
+    REQUIRE(result.size() == 1);
+    REQUIRE(std::strcmp(result.c_str(), "A") == 0);
+    STATIC_REQUIRE(result.size() == 1);
+    STATIC_REQUIRE(cstrcmp(result.c_str(), "A") == 0);
+  }
+
+  SECTION("char + FixString (empty string)") {
+    constexpr auto result = 'A' + FixString<20>("");
+
+    REQUIRE(result.size() == 1);
+    REQUIRE(std::strcmp(result.c_str(), "A") == 0);
+    STATIC_REQUIRE(result.size() == 1);
+    STATIC_REQUIRE(cstrcmp(result.c_str(), "A") == 0);
+  }
+
+  SECTION("FixString + char (special characters)") {
+    constexpr auto result1 = FixString<20>("Test") + '\n';
+    constexpr auto result2 = FixString<20>("Test") + '\t';
+    constexpr auto result3 = FixString<20>("Test") + ' ';
+
+    REQUIRE(result1.size() == 5);
+    REQUIRE(std::strcmp(result1.c_str(), "Test\n") == 0);
+    STATIC_REQUIRE(result1.size() == 5);
+    STATIC_REQUIRE(cstrcmp(result1.c_str(), "Test\n") == 0);
+
+    REQUIRE(result2.size() == 5);
+    REQUIRE(std::strcmp(result2.c_str(), "Test\t") == 0);
+    STATIC_REQUIRE(result2.size() == 5);
+    STATIC_REQUIRE(cstrcmp(result2.c_str(), "Test\t") == 0);
+
+    REQUIRE(result3.size() == 5);
+    REQUIRE(std::strcmp(result3.c_str(), "Test ") == 0);
+    STATIC_REQUIRE(result3.size() == 5);
+    STATIC_REQUIRE(cstrcmp(result3.c_str(), "Test ") == 0);
+  }
+
+  SECTION("char + FixString (special characters)") {
+    constexpr auto result1 = '\n' + FixString<20>("Test");
+    constexpr auto result2 = '\t' + FixString<20>("Test");
+    constexpr auto result3 = ' ' + FixString<20>("Test");
+
+    REQUIRE(result1.size() == 5);
+    REQUIRE(std::strcmp(result1.c_str(), "\nTest") == 0);
+    STATIC_REQUIRE(result1.size() == 5);
+    STATIC_REQUIRE(cstrcmp(result1.c_str(), "\nTest") == 0);
+
+    REQUIRE(result2.size() == 5);
+    REQUIRE(std::strcmp(result2.c_str(), "\tTest") == 0);
+    STATIC_REQUIRE(result2.size() == 5);
+    STATIC_REQUIRE(cstrcmp(result2.c_str(), "\tTest") == 0);
+
+    REQUIRE(result3.size() == 5);
+    REQUIRE(std::strcmp(result3.c_str(), " Test") == 0);
+    STATIC_REQUIRE(result3.size() == 5);
+    STATIC_REQUIRE(cstrcmp(result3.c_str(), " Test") == 0);
+  }
+
+  SECTION("FixString + char (numeric characters)") {
+    constexpr auto result = FixString<20>("Number") + '1';
+
+    REQUIRE(result.size() == 7);
+    REQUIRE(std::strcmp(result.c_str(), "Number1") == 0);
+    STATIC_REQUIRE(result.size() == 7);
+    STATIC_REQUIRE(cstrcmp(result.c_str(), "Number1") == 0);
+  }
+
+  SECTION("char + FixString (numeric characters)") {
+    constexpr auto result = '1' + FixString<20>("Number");
+
+    REQUIRE(result.size() == 7);
+    REQUIRE(std::strcmp(result.c_str(), "1Number") == 0);
+    STATIC_REQUIRE(result.size() == 7);
+    STATIC_REQUIRE(cstrcmp(result.c_str(), "1Number") == 0);
+  }
+
+  SECTION("FixString + char (punctuation)") {
+    constexpr auto result = FixString<20>("Hello") + ',';
+
+    REQUIRE(result.size() == 6);
+    REQUIRE(std::strcmp(result.c_str(), "Hello,") == 0);
+    STATIC_REQUIRE(result.size() == 6);
+    STATIC_REQUIRE(cstrcmp(result.c_str(), "Hello,") == 0);
+  }
+
+  SECTION("char + FixString (punctuation)") {
+    constexpr auto result = ',' + FixString<20>("Hello");
+
+    REQUIRE(result.size() == 6);
+    REQUIRE(std::strcmp(result.c_str(), ",Hello") == 0);
+    STATIC_REQUIRE(result.size() == 6);
+    STATIC_REQUIRE(cstrcmp(result.c_str(), ",Hello") == 0);
+  }
+
+  SECTION("FixString + char (chained operations)") {
+    constexpr auto result = FixString<20>("A") + 'B' + 'C';
+
+    REQUIRE(result.size() == 3);
+    REQUIRE(std::strcmp(result.c_str(), "ABC") == 0);
+    STATIC_REQUIRE(result.size() == 3);
+    STATIC_REQUIRE(cstrcmp(result.c_str(), "ABC") == 0);
+  }
+
+  SECTION("FixString + char (maximum capacity)") {
+    constexpr auto result = FixString<6>("ABCD") + 'E';
+
+    REQUIRE(result.size() == 5);
+    REQUIRE(std::strcmp(result.c_str(), "ABCDE") == 0);
+    STATIC_REQUIRE(result.size() == 5);
+    STATIC_REQUIRE(cstrcmp(result.c_str(), "ABCDE") == 0);
+  }
+
+  SECTION("char + FixString (maximum capacity)") {
+    constexpr auto result = 'A' + FixString<6>("BCDE");
+
+    REQUIRE(result.size() == 5);
+    REQUIRE(std::strcmp(result.c_str(), "ABCDE") == 0);
+    STATIC_REQUIRE(result.size() == 5);
+    STATIC_REQUIRE(cstrcmp(result.c_str(), "ABCDE") == 0);
+  }
+
+  SECTION("FixString + char (constexpr operations)") {
+    constexpr FixString<20> str("Hello");
+    constexpr char ch = '!';
+    constexpr auto result = str + ch;
+
+    REQUIRE(result.size() == 6);
+    REQUIRE(result == "Hello!");
+    STATIC_REQUIRE(result.size() == 6);
+    STATIC_REQUIRE(cstrcmp(result.c_str(), "Hello!") == 0);
+  }
+
+  SECTION("char + FixString (constexpr operations)") {
+    constexpr char ch = '!';
+    constexpr FixString<20> str("Hello");
+    constexpr auto result = ch + str;
+
+    REQUIRE(result.size() == 6);
+    REQUIRE(result == "!Hello");
+    STATIC_REQUIRE(result.size() == 6);
+    STATIC_REQUIRE(cstrcmp(result.c_str(), "!Hello") == 0);
+  }
 }
 
 TEST_CASE("FixString operator==", "[core][fixstring]") {
