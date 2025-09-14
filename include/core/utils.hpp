@@ -25,7 +25,7 @@
 #ifndef INCLUDE_CORE_UTILS_HPP_
 #define INCLUDE_CORE_UTILS_HPP_
 
-namespace toygine {
+namespace toy {
 
 /// Maximum UTF-8 bytes required for BMP characters.
 constexpr std::size_t wcharInUtf8MaxSize = 3;
@@ -467,6 +467,6 @@ char * ftoa(char * dest, std::size_t destSize, double value, std::size_t precisi
 */
 void formatNumberString(char * buffer, std::size_t bufferSize, const char * separator) noexcept;
 
-} // namespace toygine
+} // namespace toy
 
 #endif // INCLUDE_CORE_UTILS_HPP_

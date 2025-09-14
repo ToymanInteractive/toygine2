@@ -25,7 +25,7 @@
 #ifndef INCLUDE_CORE_CONSTEXPR_UTILS_HPP_
 #define INCLUDE_CORE_CONSTEXPR_UTILS_HPP_
 
-namespace toygine {
+namespace toy {
 
 /*!
   \brief Compares two C strings lexicographically.
@@ -52,6 +52,6 @@ namespace toygine {
 */
 [[nodiscard]] constexpr int cstrcmp(const char * lhs, const char * rhs) noexcept;
 
-} // namespace toygine
+} // namespace toy
 
 #endif // INCLUDE_CORE_CONSTEXPR_UTILS_HPP_

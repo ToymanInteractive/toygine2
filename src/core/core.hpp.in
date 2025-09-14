@@ -19,7 +19,7 @@
 //
 /*
   \file   core.hpp
-  \brief  toygine core part united header
+  \brief  engine core part united header
 */
 
 #ifndef INCLUDE_CORE_HPP_
@@ -93,11 +93,11 @@
 #include "@TOYGINE_TARGET_PLATFORM_CONFIG_HEADER@"
 
 /// @brief Main engine namespace
-namespace toygine {
+namespace toy {
 /*!
-  \brief Returns the size of an array.
+  \brief Returns the size of an array at compile-time.
 
-  This is a compile time helper function that returns the size of an array. The size of the array is inferred from the
+  This is a compile-time helper function that returns the size of an array. The size of the array is inferred from the
   parameter type, which is a reference to an array of length N.
 */
 template <typename T, std::size_t N>
@@ -193,7 +193,7 @@ inline void assertion(const char * TOY_UNUSED(code), const char * TOY_UNUSED(mes
 
 } // namespace assertion
 
-} // namespace toygine
+} // namespace toy
 
 #include "core/constexpr_utils.hpp"
 #include "core/fix_string.hpp"

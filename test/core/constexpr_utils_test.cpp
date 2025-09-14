@@ -22,7 +22,7 @@
 
 #include "core.hpp"
 
-using namespace toygine;
+using namespace toy;
 
 TEST_CASE("cstrcmp function", "[core][constexpr_utils]") {
   SECTION("Equal strings") {

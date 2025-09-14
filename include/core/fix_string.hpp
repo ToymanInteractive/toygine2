@@ -25,7 +25,7 @@
 #ifndef INCLUDE_CORE_FIX_STRING_HPP_
 #define INCLUDE_CORE_FIX_STRING_HPP_
 
-namespace toygine {
+namespace toy {
 
 /*!
   \class FixString
@@ -54,14 +54,14 @@ namespace toygine {
   #include "fix_string.hpp"
 
   // Create a string with 32-character capacity
-  toygine::FixString<32> str("Hello, World!");
+  toy::FixString<32> str("Hello, World!");
 
   // Append more content
   str += " This is a test.";
 
   // Use in constexpr context
-  constexpr auto greeting = toygine::FixString<16>("Hello");
-  constexpr auto world = toygine::FixString<16>("World");
+  constexpr auto greeting = toy::FixString<16>("Hello");
+  constexpr auto world = toy::FixString<16>("World");
   constexpr auto combined = greeting + " " + world;
   \endcode
 
@@ -2288,6 +2288,6 @@ template <std::size_t allocatedSize>
 [[nodiscard]] constexpr std::strong_ordering operator<=>(const char * lhs,
                                                          const FixString<allocatedSize> & rhs) noexcept;
 
-} // namespace toygine
+} // namespace toy
 
 #endif // INCLUDE_CORE_FIX_STRING_HPP_

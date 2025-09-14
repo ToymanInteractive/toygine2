@@ -25,7 +25,7 @@
 #ifndef INCLUDE_CORE_CONSTEXPR_UTILS_INL_
 #define INCLUDE_CORE_CONSTEXPR_UTILS_INL_
 
-namespace toygine {
+namespace toy {
 
 [[nodiscard]] constexpr int cstrcmp(const char * lhs, const char * rhs) noexcept {
   while (*lhs && (static_cast<unsigned char>(*lhs) == static_cast<unsigned char>(*rhs))) {
@@ -36,6 +36,6 @@ namespace toygine {
   return static_cast<unsigned char>(*lhs) - static_cast<unsigned char>(*rhs);
 }
 
-} // namespace toygine
+} // namespace toy
 
 #endif // INCLUDE_CORE_CONSTEXPR_UTILS_INL_

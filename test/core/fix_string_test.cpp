@@ -22,7 +22,7 @@
 
 #include "core.hpp"
 
-using namespace toygine;
+using namespace toy;
 
 TEST_CASE("FixString constructors", "[core][fixstring]") {
   SECTION("Default constructor") {

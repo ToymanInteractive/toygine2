@@ -25,7 +25,7 @@
 #ifndef INCLUDE_CORE_FIX_STRING_INL_
 #define INCLUDE_CORE_FIX_STRING_INL_
 
-namespace toygine {
+namespace toy {
 
 template <std::size_t allocatedSize>
 constexpr FixString<allocatedSize>::FixString() noexcept
@@ -1502,6 +1502,6 @@ template <std::size_t allocatedSize>
     return std::strong_ordering::equal;
 }
 
-} // namespace toygine
+} // namespace toy
 
 #endif // INCLUDE_CORE_FIX_STRING_INL_
