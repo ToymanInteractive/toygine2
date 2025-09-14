@@ -105,7 +105,7 @@ constexpr wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, const char
   \post The function returns nullptr on buffer overflow or invalid input.
 
   \note Only BMP (≤ 0xFFFF) characters are supported by design; 4-byte UTF-8 sequences are not produced.
-  \note This template works with std::string, FixString, and other string-like types.
+  \note This template works with std::string, FixedString, and other string-like types.
   \note The function automatically determines the source string length.
   \note Performance is optimized for common UTF-8 sequences.
 */

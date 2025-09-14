@@ -18,20 +18,20 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   fix_string.hpp
+  \file   fixed_string.hpp
   \brief  Template string class with fixed-size character buffer.
 */
 
-#ifndef INCLUDE_CORE_FIX_STRING_HPP_
-#define INCLUDE_CORE_FIX_STRING_HPP_
+#ifndef INCLUDE_CORE_FIXED_STRING_HPP_
+#define INCLUDE_CORE_FIXED_STRING_HPP_
 
 namespace toy {
 
 /*!
-  \class FixString
+  \class FixedString
   \brief Template string class with fixed-size character buffer.
 
-  FixString is a lightweight, high-performance string class that uses a fixed-size character buffer allocated on the
+  FixedString is a lightweight, high-performance string class that uses a fixed-size character buffer allocated on the
   stack. It provides a std::string-like interface while avoiding dynamic memory allocation, making it suitable for
   embedded systems, real-time applications, and performance-critical code where memory allocation overhead must be
   minimized.
@@ -51,17 +51,17 @@ namespace toy {
   \section usage Usage Example
 
   \code
-  #include "fix_string.hpp"
+  #include "fixed_string.hpp"
 
   // Create a string with 32-character capacity
-  toy::FixString<32> str("Hello, World!");
+  toy::FixedString<32> str("Hello, World!");
 
   // Append more content
   str += " This is a test.";
 
   // Use in constexpr context
-  constexpr auto greeting = toy::FixString<16>("Hello");
-  constexpr auto world = toy::FixString<16>("World");
+  constexpr auto greeting = toy::FixedString<16>("Hello");
+  constexpr auto world = toy::FixedString<16>("World");
   constexpr auto combined = greeting + " " + world;
   \endcode
 
@@ -97,23 +97,23 @@ namespace toy {
   \see StringLike
 */
 template <std::size_t allocatedSize>
-class FixString {
+class FixedString {
 public:
   /*!
     \brief Default constructor.
 
     \post The string is empty and ready for use.
   */
-  constexpr FixString() noexcept;
+  constexpr FixedString() noexcept;
 
   /*!
     \brief Destructor for the string.
 
     This destructor cleans up the string.
 
-    \note Since the FixString does not manage dynamic memory, no special cleanup is required.
+    \note Since the FixedString does not manage dynamic memory, no special cleanup is required.
   */
-  constexpr ~FixString() noexcept = default;
+  constexpr ~FixedString() noexcept = default;
 
   /*!
     \brief Constructs a copy of \a string.
@@ -126,7 +126,7 @@ public:
 
     \post The new string has the same size as the source \a string.
   */
-  constexpr FixString(const FixString<allocatedSize> & string) noexcept;
+  constexpr FixedString(const FixedString<allocatedSize> & string) noexcept;
 
   /*!
     \brief Constructs a string initialized with a StringLike object.
@@ -143,7 +143,7 @@ public:
     \post The new string is created with the contents of the source StringLike object.
   */
   template <StringLike stringType>
-  constexpr FixString(const stringType & string) noexcept;
+  constexpr FixedString(const stringType & string) noexcept;
 
   /*!
     \brief Constructs a string initialized with the C \a string.
@@ -157,7 +157,7 @@ public:
 
     \post The new string is created with the contents of the source C \a string.
   */
-  constexpr FixString(const char * string) noexcept;
+  constexpr FixedString(const char * string) noexcept;
 
   /*!
     \brief Constructs a string of the given \a count of \a character.
@@ -174,7 +174,7 @@ public:
 
     \note This is useful for creating strings with repeated patterns or filling strings with specific characters.
   */
-  constexpr explicit FixString(char character, std::size_t count = 1) noexcept;
+  constexpr explicit FixedString(char character, std::size_t count = 1) noexcept;
 
   /*!
     \brief Copy assigns other \a string to this string.
@@ -193,7 +193,7 @@ public:
 
     \note Self-assignment is handled correctly and safely.
   */
-  constexpr FixString<allocatedSize> & operator=(const FixString<allocatedSize> & string) noexcept;
+  constexpr FixedString<allocatedSize> & operator=(const FixedString<allocatedSize> & string) noexcept;
 
   /*!
     \brief Copy assigns a StringLike object to this string.
@@ -216,7 +216,7 @@ public:
     \note Self-assignment is handled correctly and safely.
   */
   template <StringLike stringType>
-  constexpr FixString<allocatedSize> & operator=(const stringType & string) noexcept;
+  constexpr FixedString<allocatedSize> & operator=(const stringType & string) noexcept;
 
   /*!
     \brief Copy assigns the C \a string to this string.
@@ -237,7 +237,7 @@ public:
 
     \note Self-assignment is handled correctly and safely.
   */
-  constexpr FixString<allocatedSize> & operator=(const char * string) noexcept;
+  constexpr FixedString<allocatedSize> & operator=(const char * string) noexcept;
 
   /*!
     \brief Character assignment to this string.
@@ -252,7 +252,7 @@ public:
 
     \note This is useful for resetting a string to contain only a single character.
   */
-  constexpr FixString<allocatedSize> & operator=(char character) noexcept;
+  constexpr FixedString<allocatedSize> & operator=(char character) noexcept;
 
   /*!
     \brief Copy assigns other \a string to this string.
@@ -272,9 +272,9 @@ public:
     \note Self-assignment is handled correctly and safely.
     \note This method is equivalent to the copy assignment operator.
 
-    \see operator=(const FixString<allocatedSize> & string)
+    \see operator=(const FixedString<allocatedSize> & string)
   */
-  constexpr FixString<allocatedSize> & assign(const FixString<allocatedSize> & string) noexcept;
+  constexpr FixedString<allocatedSize> & assign(const FixedString<allocatedSize> & string) noexcept;
 
   /*!
     \brief Copy assigns a StringLike object to this string.
@@ -300,7 +300,7 @@ public:
     \see operator=(const stringType & string)
   */
   template <StringLike stringType>
-  constexpr FixString<allocatedSize> & assign(const stringType & string) noexcept;
+  constexpr FixedString<allocatedSize> & assign(const stringType & string) noexcept;
 
   /*!
     \brief Copy assigns the C \a string to this string.
@@ -324,7 +324,7 @@ public:
 
     \see operator=(const char * string)
   */
-  constexpr FixString<allocatedSize> & assign(const char * string) noexcept;
+  constexpr FixedString<allocatedSize> & assign(const char * string) noexcept;
 
   /*!
     \brief Character fill assign method for the string.
@@ -343,7 +343,7 @@ public:
 
     \note This is useful for creating strings with repeated patterns or filling strings with specific characters.
   */
-  constexpr FixString<allocatedSize> & assign(char character, std::size_t count = 1) noexcept;
+  constexpr FixedString<allocatedSize> & assign(char character, std::size_t count = 1) noexcept;
 
   /*!
     \brief Access a character in the string at a given \a offset.
@@ -619,7 +619,7 @@ public:
     \pre The \a index must be within the bounds of the current string.
     \pre The combined length after insertion must not exceed the allocated size.
   */
-  constexpr FixString<allocatedSize> & insert(std::size_t index, const FixString<allocatedSize> & string) noexcept;
+  constexpr FixedString<allocatedSize> & insert(std::size_t index, const FixedString<allocatedSize> & string) noexcept;
 
   /*!
     \brief Inserts a StringLike object at the specified \a index.
@@ -638,7 +638,7 @@ public:
     \pre The combined length after insertion must not exceed the allocated size.
   */
   template <StringLike stringType>
-  constexpr FixString<allocatedSize> & insert(std::size_t index, const stringType & string) noexcept;
+  constexpr FixedString<allocatedSize> & insert(std::size_t index, const stringType & string) noexcept;
 
   /*!
     \brief Inserts the C \a string at the specified \a index.
@@ -655,7 +655,7 @@ public:
     \pre The combined length after insertion must not exceed the allocated size.
     \pre The source C \a string must not be null.
   */
-  constexpr FixString<allocatedSize> & insert(std::size_t index, const char * string) noexcept;
+  constexpr FixedString<allocatedSize> & insert(std::size_t index, const char * string) noexcept;
 
   /*!
     \brief Inserts a \a character repeated the given \a count times at the specified \a index.
@@ -672,7 +672,7 @@ public:
     \pre The \a index must be within the bounds of the current string.
     \pre The combined length after insertion must not exceed the allocated size.
   */
-  constexpr FixString<allocatedSize> & insert(std::size_t index, char character, std::size_t count = 1) noexcept;
+  constexpr FixedString<allocatedSize> & insert(std::size_t index, char character, std::size_t count = 1) noexcept;
 
   /*!
     \brief Erases characters from the string starting at the specified \a offset.
@@ -694,7 +694,7 @@ public:
     \note If \a count is 0, the operation is a no-op.
     \note Erasing from an empty string has no effect.
   */
-  constexpr FixString<allocatedSize> & erase(std::size_t offset, std::size_t count = npos) noexcept;
+  constexpr FixedString<allocatedSize> & erase(std::size_t offset, std::size_t count = npos) noexcept;
 
   /*!
     \brief Appends a single \a character to the end of the string.
@@ -756,9 +756,9 @@ public:
 
     \note This method is equivalent to the addition assignment operator.
 
-    \see operator+=(const FixString<allocatedSize> &)
+    \see operator+=(const FixedString<allocatedSize> &)
   */
-  constexpr FixString<allocatedSize> & append(const FixString<allocatedSize> & string) noexcept;
+  constexpr FixedString<allocatedSize> & append(const FixedString<allocatedSize> & string) noexcept;
 
   /*!
     \brief Appends a StringLike object to the end of this string.
@@ -780,7 +780,7 @@ public:
     \see operator+=(const stringType &)
   */
   template <StringLike stringType>
-  constexpr FixString<allocatedSize> & append(const stringType & string) noexcept;
+  constexpr FixedString<allocatedSize> & append(const stringType & string) noexcept;
 
   /*!
     \brief Appends the C \a string to the end of this string.
@@ -800,7 +800,7 @@ public:
 
     \see operator+=(const char *)
   */
-  constexpr FixString<allocatedSize> & append(const char * string) noexcept;
+  constexpr FixedString<allocatedSize> & append(const char * string) noexcept;
 
   /*!
     \brief Appends a \a character repeated the given \a count times to the end of this string.
@@ -816,7 +816,7 @@ public:
 
     \post The string is extended with the appended content.
   */
-  constexpr FixString<allocatedSize> & append(char character, std::size_t count = 1) noexcept;
+  constexpr FixedString<allocatedSize> & append(char character, std::size_t count = 1) noexcept;
 
   /*!
     \brief Appends other \a string to the end of this string.
@@ -831,7 +831,7 @@ public:
 
     \post The string is extended with the appended content.
   */
-  constexpr FixString<allocatedSize> & operator+=(const FixString<allocatedSize> & string) noexcept;
+  constexpr FixedString<allocatedSize> & operator+=(const FixedString<allocatedSize> & string) noexcept;
 
   /*!
     \brief Appends a StringLike object to the end of this string.
@@ -849,7 +849,7 @@ public:
     \post The string is extended with the appended content.
   */
   template <StringLike stringType>
-  constexpr FixString<allocatedSize> & operator+=(const stringType & string) noexcept;
+  constexpr FixedString<allocatedSize> & operator+=(const stringType & string) noexcept;
 
   /*!
     \brief Appends the C \a string to the end of this string.
@@ -865,7 +865,7 @@ public:
 
     \post The string is extended with the appended content.
   */
-  constexpr FixString<allocatedSize> & operator+=(const char * string) noexcept;
+  constexpr FixedString<allocatedSize> & operator+=(const char * string) noexcept;
 
   /*!
     \brief Appends a \a character to the end of this string.
@@ -880,7 +880,7 @@ public:
 
     \post The string is extended with the appended content.
   */
-  constexpr FixString<allocatedSize> & operator+=(char character) noexcept;
+  constexpr FixedString<allocatedSize> & operator+=(char character) noexcept;
 
   /*!
     \brief Replaces a portion of the string with another \a string.
@@ -898,8 +898,8 @@ public:
     \pre The replacement range ( \a pos + \a count ) must be within the string bounds.
     \pre The resulting string size must not exceed the allocated capacity.
   */
-  constexpr FixString<allocatedSize> & replace(std::size_t pos, std::size_t count,
-                                               const FixString<allocatedSize> & string) noexcept;
+  constexpr FixedString<allocatedSize> & replace(std::size_t pos, std::size_t count,
+                                                 const FixedString<allocatedSize> & string) noexcept;
 
   /*!
     \brief Replaces a portion of the string with a StringLike object.
@@ -920,7 +920,8 @@ public:
     \pre The resulting string size must not exceed the allocated capacity.
   */
   template <StringLike stringType>
-  constexpr FixString<allocatedSize> & replace(std::size_t pos, std::size_t count, const stringType & string) noexcept;
+  constexpr FixedString<allocatedSize> & replace(std::size_t pos, std::size_t count,
+                                                 const stringType & string) noexcept;
 
   /*!
     \brief Replaces a portion of the string with the C \a string.
@@ -939,7 +940,7 @@ public:
     \pre The source C \a string must not be null.
     \pre The resulting string size must not exceed the allocated capacity.
   */
-  constexpr FixString<allocatedSize> & replace(std::size_t pos, std::size_t count, const char * string) noexcept;
+  constexpr FixedString<allocatedSize> & replace(std::size_t pos, std::size_t count, const char * string) noexcept;
 
   /*!
     \brief Replaces a portion of the string with a \a character repeated the given \a count of times.
@@ -958,8 +959,8 @@ public:
     \pre The replacement range ( \a pos + \a count ) must be within the string bounds.
     \pre The resulting string size must not exceed the allocated capacity.
   */
-  constexpr FixString<allocatedSize> & replace(std::size_t pos, std::size_t count, char character,
-                                               std::size_t charactersCount = 1) noexcept;
+  constexpr FixedString<allocatedSize> & replace(std::size_t pos, std::size_t count, char character,
+                                                 std::size_t charactersCount = 1) noexcept;
 
   /*!
     \brief Copies characters from the string to a destination buffer.
@@ -998,7 +999,7 @@ public:
 
     \note Self-swap is handled correctly and safely (no-op).
   */
-  constexpr void swap(FixString<allocatedSize> & string) noexcept;
+  constexpr void swap(FixedString<allocatedSize> & string) noexcept;
 
   /*!
     \brief Finds the first occurrence of other \a string in the string.
@@ -1015,7 +1016,7 @@ public:
 
     \note The search is case-sensitive.
   */
-  [[nodiscard]] constexpr std::size_t find(const FixString<allocatedSize> & string,
+  [[nodiscard]] constexpr std::size_t find(const FixedString<allocatedSize> & string,
                                            std::size_t position = 0) const noexcept;
 
   /*!
@@ -1091,7 +1092,7 @@ public:
     \note If \a string is empty, the method returns \a position if it's within bounds, otherwise returns the string
           size.
   */
-  [[nodiscard]] constexpr std::size_t rfind(const FixString<allocatedSize> & string,
+  [[nodiscard]] constexpr std::size_t rfind(const FixedString<allocatedSize> & string,
                                             std::size_t position = npos) const noexcept;
 
   /*!
@@ -1171,7 +1172,7 @@ public:
     \note The search is case-sensitive.
     \note If \a string is empty, this method returns \ref npos.
   */
-  [[nodiscard]] constexpr std::size_t find_first_of(const FixString<allocatedSize> & string,
+  [[nodiscard]] constexpr std::size_t find_first_of(const FixedString<allocatedSize> & string,
                                                     std::size_t position = 0) const noexcept;
 
   /*!
@@ -1248,7 +1249,7 @@ public:
     \note The search is case-sensitive.
     \note If \a string is empty, this method returns \a position if it's within bounds, otherwise returns \ref npos.
   */
-  [[nodiscard]] constexpr std::size_t find_first_not_of(const FixString<allocatedSize> & string,
+  [[nodiscard]] constexpr std::size_t find_first_not_of(const FixedString<allocatedSize> & string,
                                                         std::size_t position = 0) const noexcept;
 
   /*!
@@ -1328,7 +1329,7 @@ public:
     \note The search is case-sensitive.
     \note If \a string is empty, this method returns \ref npos.
   */
-  [[nodiscard]] constexpr std::size_t find_last_of(const FixString<allocatedSize> & string,
+  [[nodiscard]] constexpr std::size_t find_last_of(const FixedString<allocatedSize> & string,
                                                    std::size_t position = npos) const noexcept;
 
   /*!
@@ -1406,7 +1407,7 @@ public:
     \note The search is case-sensitive.
     \note If \a string is empty, this method returns \a position if it's within bounds, otherwise returns \ref npos.
   */
-  [[nodiscard]] constexpr std::size_t find_last_not_of(const FixString<allocatedSize> & string,
+  [[nodiscard]] constexpr std::size_t find_last_not_of(const FixedString<allocatedSize> & string,
                                                        std::size_t position = npos) const noexcept;
 
   /*!
@@ -1485,7 +1486,7 @@ public:
     \note The comparison stops at the first character that differs between the strings.
     \note If one string is a prefix of another, the shorter string is considered lexicographically smaller.
   */
-  [[nodiscard]] constexpr int compare(const FixString<allocatedSize> & string) const noexcept;
+  [[nodiscard]] constexpr int compare(const FixedString<allocatedSize> & string) const noexcept;
 
   /*!
     \brief Compares this string with a StringLike object lexicographically.
@@ -1540,7 +1541,7 @@ public:
     \note If the specified \a string is empty, this method returns true.
     \note If the specified \a string is longer than this string, this method returns false.
   */
-  [[nodiscard]] constexpr bool starts_with(const FixString<allocatedSize> & string) const noexcept;
+  [[nodiscard]] constexpr bool starts_with(const FixedString<allocatedSize> & string) const noexcept;
 
   /*!
     \brief Checks if the string starts with a StringLike object.
@@ -1608,7 +1609,7 @@ public:
     \note If the specified \a string is empty, this method returns true.
     \note If the specified \a string is longer than this string, this method returns false.
   */
-  [[nodiscard]] constexpr bool ends_with(const FixString<allocatedSize> & string) const noexcept;
+  [[nodiscard]] constexpr bool ends_with(const FixedString<allocatedSize> & string) const noexcept;
 
   /*!
     \brief Checks if the string ends with a StringLike object.
@@ -1675,7 +1676,7 @@ public:
     \note If the specified \a string is empty, this method returns true.
     \note If the specified \a string is longer than this string, this method returns false.
   */
-  [[nodiscard]] constexpr bool contains(const FixString<allocatedSize> & string) const noexcept;
+  [[nodiscard]] constexpr bool contains(const FixedString<allocatedSize> & string) const noexcept;
 
   /*!
     \brief Checks if the string contains a StringLike object.
@@ -1729,14 +1730,14 @@ public:
   /*!
     \brief Returns a substring of this string.
 
-    This method creates and returns a new FixString object containing a substring of this string, starting at the
+    This method creates and returns a new FixedString object containing a substring of this string, starting at the
     specified \a position and containing up to \a count characters.
 
     \param position The starting position of the substring (default: 0).
     \param count    The maximum number of characters to include in the substring (default: \ref npos). If \ref npos or
                     exceeds the remaining characters, all characters from \a position to the end are included.
 
-    \return A new FixString object containing the specified substring.
+    \return A new FixedString object containing the specified substring.
 
     \pre The \a position must be less than or equal to the string size.
 
@@ -1744,14 +1745,14 @@ public:
     \note If \a count is \ref npos or exceeds the remaining characters from \a position, all remaining characters are
           included.
   */
-  [[nodiscard]] constexpr FixString<allocatedSize> substr(std::size_t position = 0,
-                                                          std::size_t count = npos) const noexcept;
+  [[nodiscard]] constexpr FixedString<allocatedSize> substr(std::size_t position = 0,
+                                                            std::size_t count = npos) const noexcept;
 
   /// The special value, its exact meaning depends on the context
   static constexpr std::size_t npos = std::size_t(-1);
 
 private:
-  static_assert(allocatedSize > 0, "FixString capacity must be greater than zero.");
+  static_assert(allocatedSize > 0, "FixedString capacity must be greater than zero.");
 
   /*!
     \brief Helper method for inserting \a data at a specific \a position.
@@ -1917,168 +1918,168 @@ private:
 };
 
 /*!
-  \brief Concatenation operator for two FixString objects.
+  \brief Concatenation operator for two FixedString objects.
 
-  This operator creates a new FixString object by concatenating the contents of two FixString objects. The result will
-  contain the characters from the left-hand side followed by the characters from the right-hand side.
+  This operator creates a new FixedString object by concatenating the contents of two FixedString objects. The result
+  will contain the characters from the left-hand side followed by the characters from the right-hand side.
 
-  \tparam allocatedSize1 The size of the first FixString's internal buffer.
-  \tparam allocatedSize2 The size of the second FixString's internal buffer.
+  \tparam allocatedSize1 The size of the first FixedString's internal buffer.
+  \tparam allocatedSize2 The size of the second FixedString's internal buffer.
 
-  \param lhs The left-hand side FixString object.
-  \param rhs The right-hand side FixString object.
+  \param lhs The left-hand side FixedString object.
+  \param rhs The right-hand side FixedString object.
 
-  \return A new FixString object containing the concatenated result.
+  \return A new FixedString object containing the concatenated result.
 
   \note The result size will be the sum of both input sizes, must not exceed the allocated size.
 */
 template <std::size_t allocatedSize1, std::size_t allocatedSize2>
-[[nodiscard]] constexpr FixString<allocatedSize1> operator+(const FixString<allocatedSize1> & lhs,
-                                                            const FixString<allocatedSize2> & rhs) noexcept;
+[[nodiscard]] constexpr FixedString<allocatedSize1> operator+(const FixedString<allocatedSize1> & lhs,
+                                                              const FixedString<allocatedSize2> & rhs) noexcept;
 
 /*!
-  \brief Concatenation operator for FixString and StringLike object.
+  \brief Concatenation operator for FixedString and StringLike object.
 
-  This operator creates a new FixString object by concatenating a FixString with any StringLike object. The result will
-  contain the characters from the left-hand side followed by the characters from the right-hand side.
+  This operator creates a new FixedString object by concatenating a FixedString with any StringLike object. The result
+  will contain the characters from the left-hand side followed by the characters from the right-hand side.
 
-  \tparam allocatedSize The size of the FixString's internal buffer.
+  \tparam allocatedSize The size of the FixedString's internal buffer.
   \tparam stringType The type of the StringLike object. Must satisfy the StringLike concept.
 
-  \param lhs The left-hand side FixString object.
+  \param lhs The left-hand side FixedString object.
   \param rhs The right-hand side StringLike object.
 
-  \return A new FixString object containing the concatenated result.
+  \return A new FixedString object containing the concatenated result.
 
   \note The result size will be the sum of both input sizes, must not exceed the allocated size.
 */
 template <std::size_t allocatedSize, StringLike stringType>
-[[nodiscard]] constexpr FixString<allocatedSize> operator+(const FixString<allocatedSize> & lhs,
-                                                           const stringType & rhs) noexcept;
+[[nodiscard]] constexpr FixedString<allocatedSize> operator+(const FixedString<allocatedSize> & lhs,
+                                                             const stringType & rhs) noexcept;
 
 /*!
-  \brief Concatenation operator for StringLike object and FixString.
+  \brief Concatenation operator for StringLike object and FixedString.
 
-  This operator creates a new FixString object by concatenating any StringLike object with a FixString. The result will
-  contain the characters from the left-hand side followed by the characters from the right-hand side.
+  This operator creates a new FixedString object by concatenating any StringLike object with a FixedString. The result
+  will contain the characters from the left-hand side followed by the characters from the right-hand side.
 
   \tparam stringType The type of the StringLike object. Must satisfy the StringLike concept.
-  \tparam allocatedSize The size of the FixString's internal buffer.
+  \tparam allocatedSize The size of the FixedString's internal buffer.
 
   \param lhs The left-hand side StringLike object.
-  \param rhs The right-hand side FixString object.
+  \param rhs The right-hand side FixedString object.
 
-  \return A new FixString object containing the concatenated result.
+  \return A new FixedString object containing the concatenated result.
 
   \note The result size will be the sum of both input sizes, must not exceed the allocated size.
 */
 template <StringLike stringType, std::size_t allocatedSize>
-[[nodiscard]] constexpr FixString<allocatedSize> operator+(const stringType & lhs,
-                                                           const FixString<allocatedSize> & rhs) noexcept;
+[[nodiscard]] constexpr FixedString<allocatedSize> operator+(const stringType & lhs,
+                                                             const FixedString<allocatedSize> & rhs) noexcept;
 
 /*!
-  \brief Concatenation operator for FixString and C-string.
+  \brief Concatenation operator for FixedString and C-string.
 
-  This operator creates a new FixString object by concatenating a FixString with a C-string. The result will contain the
-  characters from the left-hand side followed by the characters from the right-hand side.
+  This operator creates a new FixedString object by concatenating a FixedString with a C-string. The result will contain
+  the characters from the left-hand side followed by the characters from the right-hand side.
 
-  \tparam allocatedSize The size of the FixString's internal buffer.
+  \tparam allocatedSize The size of the FixedString's internal buffer.
 
-  \param lhs The left-hand side FixString object.
+  \param lhs The left-hand side FixedString object.
   \param rhs The right-hand side C-string (null-terminated).
 
-  \return A new FixString object containing the concatenated result.
+  \return A new FixedString object containing the concatenated result.
 
   \note The result size will be the sum of both input sizes, must not exceed the allocated size.
   \note The C-string must be null-terminated.
 */
 template <std::size_t allocatedSize>
-[[nodiscard]] constexpr FixString<allocatedSize> operator+(const FixString<allocatedSize> & lhs,
-                                                           const char * rhs) noexcept;
+[[nodiscard]] constexpr FixedString<allocatedSize> operator+(const FixedString<allocatedSize> & lhs,
+                                                             const char * rhs) noexcept;
 
 /*!
-  \brief Concatenation operator for C-string and FixString.
+  \brief Concatenation operator for C-string and FixedString.
 
-  This operator creates a new FixString object by concatenating a C-string with a FixString. The result will contain the
-  characters from the left-hand side followed by the characters from the right-hand side.
+  This operator creates a new FixedString object by concatenating a C-string with a FixedString. The result will contain
+  the characters from the left-hand side followed by the characters from the right-hand side.
 
-  \tparam allocatedSize The size of the FixString's internal buffer.
+  \tparam allocatedSize The size of the FixedString's internal buffer.
 
   \param lhs The left-hand side C-string (null-terminated).
-  \param rhs The right-hand side FixString object.
+  \param rhs The right-hand side FixedString object.
 
-  \return A new FixString object containing the concatenated result.
+  \return A new FixedString object containing the concatenated result.
 
   \note The result size will be the sum of both input sizes, must not exceed the allocated size.
   \note The C-string must be null-terminated.
 */
 template <std::size_t allocatedSize>
-[[nodiscard]] constexpr FixString<allocatedSize> operator+(const char * lhs,
-                                                           const FixString<allocatedSize> & rhs) noexcept;
+[[nodiscard]] constexpr FixedString<allocatedSize> operator+(const char * lhs,
+                                                             const FixedString<allocatedSize> & rhs) noexcept;
 
 /*!
-  \brief Concatenation operator for FixString and character.
+  \brief Concatenation operator for FixedString and character.
 
-  This operator creates a new FixString object by concatenating a FixString with a single character. The result will
+  This operator creates a new FixedString object by concatenating a FixedString with a single character. The result will
   contain the characters from the left-hand side followed by the character from the right-hand side.
 
-  \param lhs The left-hand side FixString object.
+  \param lhs The left-hand side FixedString object.
   \param rhs The right-hand side character.
 
-  \return A new FixString object containing the concatenated result.
+  \return A new FixedString object containing the concatenated result.
 
   \note The result size will be the sum of both input sizes, must not exceed the allocated size.
 */
 template <std::size_t allocatedSize>
-[[nodiscard]] constexpr FixString<allocatedSize> operator+(const FixString<allocatedSize> & lhs, char rhs) noexcept;
+[[nodiscard]] constexpr FixedString<allocatedSize> operator+(const FixedString<allocatedSize> & lhs, char rhs) noexcept;
 
 /*!
-  \brief Concatenation operator for character and FixString.
+  \brief Concatenation operator for character and FixedString.
 
-  This operator creates a new FixString object by concatenating a single character with a FixString. The result will
+  This operator creates a new FixedString object by concatenating a single character with a FixedString. The result will
   contain the character from the left-hand side followed by the characters from the right-hand side.
 
-  \param lhs The character to prepend to the FixString.
-  \param rhs The right-hand side FixString object.
+  \param lhs The character to prepend to the FixedString.
+  \param rhs The right-hand side FixedString object.
 
-  \return A new FixString object containing the concatenated result.
+  \return A new FixedString object containing the concatenated result.
 
   \note The result size will be the sum of both input sizes, must not exceed the allocated size.
 */
 template <std::size_t allocatedSize>
-[[nodiscard]] constexpr FixString<allocatedSize> operator+(char lhs, const FixString<allocatedSize> & rhs) noexcept;
+[[nodiscard]] constexpr FixedString<allocatedSize> operator+(char lhs, const FixedString<allocatedSize> & rhs) noexcept;
 
 /*!
-  \brief Equality comparison operator for two FixString objects.
+  \brief Equality comparison operator for two FixedString objects.
 
-  This operator compares two FixString objects for equality. The comparison is performed character by character.
+  This operator compares two FixedString objects for equality. The comparison is performed character by character.
 
-  \tparam allocatedSize1 The size of the first FixString's internal buffer.
-  \tparam allocatedSize2 The size of the second FixString's internal buffer.
+  \tparam allocatedSize1 The size of the first FixedString's internal buffer.
+  \tparam allocatedSize2 The size of the second FixedString's internal buffer.
 
-  \param lhs The left-hand side FixString object.
-  \param rhs The right-hand side FixString object.
+  \param lhs The left-hand side FixedString object.
+  \param rhs The right-hand side FixedString object.
 
   \return True if both strings have the same content, false otherwise.
 
   \note The comparison is case-sensitive.
   \note Empty strings are considered equal.
 
-  \see operator<=>(const FixString<allocatedSize1> &, const FixString<allocatedSize2> &)
+  \see operator<=>(const FixedString<allocatedSize1> &, const FixedString<allocatedSize2> &)
 */
 template <std::size_t allocatedSize1, std::size_t allocatedSize2>
-[[nodiscard]] constexpr bool operator==(const FixString<allocatedSize1> & lhs,
-                                        const FixString<allocatedSize2> & rhs) noexcept;
+[[nodiscard]] constexpr bool operator==(const FixedString<allocatedSize1> & lhs,
+                                        const FixedString<allocatedSize2> & rhs) noexcept;
 
 /*!
-  \brief Equality comparison operator for FixString and StringLike object.
+  \brief Equality comparison operator for FixedString and StringLike object.
 
-  This operator compares a FixString object with a StringLike object for equality.
+  This operator compares a FixedString object with a StringLike object for equality.
 
-  \tparam allocatedSize The size of the FixString's internal buffer.
+  \tparam allocatedSize The size of the FixedString's internal buffer.
   \tparam stringType The type of the StringLike object. Must satisfy the StringLike concept.
 
-  \param lhs The FixString object.
+  \param lhs The FixedString object.
   \param rhs The StringLike object.
 
   \return True if both strings have the same content, false otherwise.
@@ -2086,40 +2087,40 @@ template <std::size_t allocatedSize1, std::size_t allocatedSize2>
   \note The comparison is case-sensitive.
   \note Empty strings are considered equal.
 
-  \see operator<=>(const FixString<allocatedSize> &, const stringType &)
+  \see operator<=>(const FixedString<allocatedSize> &, const stringType &)
 */
 template <std::size_t allocatedSize, StringLike stringType>
-[[nodiscard]] constexpr bool operator==(const FixString<allocatedSize> & lhs, const stringType & rhs) noexcept;
+[[nodiscard]] constexpr bool operator==(const FixedString<allocatedSize> & lhs, const stringType & rhs) noexcept;
 
 /*!
-  \brief Equality comparison operator for StringLike object and FixString.
+  \brief Equality comparison operator for StringLike object and FixedString.
 
-  This operator compares a StringLike object with a FixString object for equality.
+  This operator compares a StringLike object with a FixedString object for equality.
 
   \tparam stringType The type of the StringLike object. Must satisfy the StringLike concept.
-  \tparam allocatedSize The size of the FixString's internal buffer.
+  \tparam allocatedSize The size of the FixedString's internal buffer.
 
   \param lhs The StringLike object.
-  \param rhs The FixString object.
+  \param rhs The FixedString object.
 
   \return True if both strings have the same content, false otherwise.
 
   \note The comparison is case-sensitive.
   \note Empty strings are considered equal.
 
-  \see operator<=>(const stringType &, const FixString<allocatedSize> &)
+  \see operator<=>(const stringType &, const FixedString<allocatedSize> &)
 */
 template <StringLike stringType, std::size_t allocatedSize>
-[[nodiscard]] constexpr bool operator==(const stringType & lhs, const FixString<allocatedSize> & rhs) noexcept;
+[[nodiscard]] constexpr bool operator==(const stringType & lhs, const FixedString<allocatedSize> & rhs) noexcept;
 
 /*!
-  \brief Equality comparison operator for FixString and C string.
+  \brief Equality comparison operator for FixedString and C string.
 
-  This operator compares a FixString object with a C string for equality.
+  This operator compares a FixedString object with a C string for equality.
 
-  \tparam allocatedSize The size of the FixString's internal buffer.
+  \tparam allocatedSize The size of the FixedString's internal buffer.
 
-  \param lhs The FixString object.
+  \param lhs The FixedString object.
   \param rhs The C string.
 
   \return True if both strings have the same content, false otherwise.
@@ -2129,20 +2130,20 @@ template <StringLike stringType, std::size_t allocatedSize>
   \note The comparison is case-sensitive.
   \note Empty strings are considered equal.
 
-  \see operator<=>(const FixString<allocatedSize> &, const char *)
+  \see operator<=>(const FixedString<allocatedSize> &, const char *)
 */
 template <std::size_t allocatedSize>
-[[nodiscard]] constexpr bool operator==(const FixString<allocatedSize> & lhs, const char * rhs) noexcept;
+[[nodiscard]] constexpr bool operator==(const FixedString<allocatedSize> & lhs, const char * rhs) noexcept;
 
 /*!
-  \brief Equality comparison operator for C string and FixString.
+  \brief Equality comparison operator for C string and FixedString.
 
-  This operator compares a C string with a FixString object for equality.
+  This operator compares a C string with a FixedString object for equality.
 
-  \tparam allocatedSize The size of the FixString's internal buffer.
+  \tparam allocatedSize The size of the FixedString's internal buffer.
 
   \param lhs The C string.
-  \param rhs The FixString object.
+  \param rhs The FixedString object.
 
   \return True if both strings have the same content, false otherwise.
 
@@ -2151,22 +2152,22 @@ template <std::size_t allocatedSize>
   \note The comparison is case-sensitive.
   \note Empty strings are considered equal.
 
-  \see operator<=>(const char *, const FixString<allocatedSize> &)
+  \see operator<=>(const char *, const FixedString<allocatedSize> &)
 */
 template <std::size_t allocatedSize>
-[[nodiscard]] constexpr bool operator==(const char * lhs, const FixString<allocatedSize> & rhs) noexcept;
+[[nodiscard]] constexpr bool operator==(const char * lhs, const FixedString<allocatedSize> & rhs) noexcept;
 
 /*!
-  \brief Three-way comparison operator for FixString objects.
+  \brief Three-way comparison operator for FixedString objects.
 
-  This operator provides a three-way comparison between two FixString objects. It returns a std::strong_ordering value
+  This operator provides a three-way comparison between two FixedString objects. It returns a std::strong_ordering value
   that indicates the relationship between the strings.
 
-  \tparam allocatedSize1 The size of the first FixString's internal buffer.
-  \tparam allocatedSize2 The size of the second FixString's internal buffer.
+  \tparam allocatedSize1 The size of the first FixedString's internal buffer.
+  \tparam allocatedSize2 The size of the second FixedString's internal buffer.
 
-  \param lhs The left-hand side FixString object to compare.
-  \param rhs The right-hand side FixString object to compare.
+  \param lhs The left-hand side FixedString object to compare.
+  \param rhs The right-hand side FixedString object to compare.
 
   \return std::strong_ordering::less if \a lhs is lexicographically less than \a rhs, std::strong_ordering::equal if
           they are equal, or std::strong_ordering::greater if \a lhs is lexicographically greater than \a rhs.
@@ -2176,22 +2177,22 @@ template <std::size_t allocatedSize>
   \note Empty strings are considered equal.
 
   \see std::strong_ordering
-  \see operator==(const FixString<allocatedSize1> &, const FixString<allocatedSize2> &)
+  \see operator==(const FixedString<allocatedSize1> &, const FixedString<allocatedSize2> &)
 */
 template <std::size_t allocatedSize1, std::size_t allocatedSize2>
-[[nodiscard]] constexpr std::strong_ordering operator<=>(const FixString<allocatedSize1> & lhs,
-                                                         const FixString<allocatedSize2> & rhs) noexcept;
+[[nodiscard]] constexpr std::strong_ordering operator<=>(const FixedString<allocatedSize1> & lhs,
+                                                         const FixedString<allocatedSize2> & rhs) noexcept;
 
 /*!
-  \brief Three-way comparison operator for FixString and StringLike object.
+  \brief Three-way comparison operator for FixedString and StringLike object.
 
-  This operator provides a three-way comparison between a FixString object and a StringLike object. It returns a
+  This operator provides a three-way comparison between a FixedString object and a StringLike object. It returns a
   std::strong_ordering value that indicates the relationship between the strings.
 
-  \tparam allocatedSize The size of the FixString's internal buffer.
+  \tparam allocatedSize The size of the FixedString's internal buffer.
   \tparam stringType The type of the StringLike object. Must satisfy the StringLike concept.
 
-  \param lhs The FixString object to compare.
+  \param lhs The FixedString object to compare.
   \param rhs The StringLike object to compare.
 
   \return std::strong_ordering::less if \a lhs is lexicographically less than \a rhs, std::strong_ordering::equal if
@@ -2202,23 +2203,23 @@ template <std::size_t allocatedSize1, std::size_t allocatedSize2>
   \note Empty strings are considered equal.
 
   \see std::strong_ordering
-  \see operator==(const FixString<allocatedSize> &, const stringType &)
+  \see operator==(const FixedString<allocatedSize> &, const stringType &)
 */
 template <std::size_t allocatedSize, StringLike stringType>
-[[nodiscard]] constexpr std::strong_ordering operator<=>(const FixString<allocatedSize> & lhs,
+[[nodiscard]] constexpr std::strong_ordering operator<=>(const FixedString<allocatedSize> & lhs,
                                                          const stringType & rhs) noexcept;
 
 /*!
-  \brief Three-way comparison operator for StringLike object and FixString.
+  \brief Three-way comparison operator for StringLike object and FixedString.
 
-  This operator provides a three-way comparison between a StringLike object and a FixString object. It returns a
+  This operator provides a three-way comparison between a StringLike object and a FixedString object. It returns a
   std::strong_ordering value that indicates the relationship between the strings.
 
   \tparam stringType The type of the StringLike object. Must satisfy the StringLike concept.
-  \tparam allocatedSize The size of the FixString's internal buffer.
+  \tparam allocatedSize The size of the FixedString's internal buffer.
 
   \param lhs The StringLike object to compare.
-  \param rhs The FixString object to compare.
+  \param rhs The FixedString object to compare.
 
   \return std::strong_ordering::less if \a lhs is lexicographically less than \a rhs, std::strong_ordering::equal if
           they are equal, or std::strong_ordering::greater if \a lhs is lexicographically greater than \a rhs.
@@ -2228,21 +2229,21 @@ template <std::size_t allocatedSize, StringLike stringType>
   \note Empty strings are considered equal.
 
   \see std::strong_ordering
-  \see operator==(const stringType &, const FixString<allocatedSize> &)
+  \see operator==(const stringType &, const FixedString<allocatedSize> &)
 */
 template <StringLike stringType, std::size_t allocatedSize>
 [[nodiscard]] constexpr std::strong_ordering operator<=>(const stringType & lhs,
-                                                         const FixString<allocatedSize> & rhs) noexcept;
+                                                         const FixedString<allocatedSize> & rhs) noexcept;
 
 /*!
-  \brief Three-way comparison operator for FixString and C string.
+  \brief Three-way comparison operator for FixedString and C string.
 
-  This operator provides a three-way comparison between a FixString object and a C string. It returns a
+  This operator provides a three-way comparison between a FixedString object and a C string. It returns a
   std::strong_ordering value that indicates the relationship between the strings.
 
-  \tparam allocatedSize The size of the FixString's internal buffer.
+  \tparam allocatedSize The size of the FixedString's internal buffer.
 
-  \param lhs The FixString object to compare.
+  \param lhs The FixedString object to compare.
   \param rhs The C string to compare.
 
   \return std::strong_ordering::less if \a lhs is lexicographically less than \a rhs, std::strong_ordering::equal if
@@ -2255,22 +2256,22 @@ template <StringLike stringType, std::size_t allocatedSize>
   \note Empty strings are considered equal.
 
   \see std::strong_ordering
-  \see operator==(const FixString<allocatedSize> &, const char *)
+  \see operator==(const FixedString<allocatedSize> &, const char *)
 */
 template <std::size_t allocatedSize>
-[[nodiscard]] constexpr std::strong_ordering operator<=>(const FixString<allocatedSize> & lhs,
+[[nodiscard]] constexpr std::strong_ordering operator<=>(const FixedString<allocatedSize> & lhs,
                                                          const char * rhs) noexcept;
 
 /*!
-  \brief Three-way comparison operator for C string and FixString.
+  \brief Three-way comparison operator for C string and FixedString.
 
-  This operator provides a three-way comparison between a C string and a FixString object. It returns a
+  This operator provides a three-way comparison between a C string and a FixedString object. It returns a
   std::strong_ordering value that indicates the relationship between the strings.
 
-  \tparam allocatedSize The size of the FixString's internal buffer.
+  \tparam allocatedSize The size of the FixedString's internal buffer.
 
   \param lhs The C string to compare.
-  \param rhs The FixString object to compare.
+  \param rhs The FixedString object to compare.
 
   \return std::strong_ordering::less if \a lhs is lexicographically less than \a rhs, std::strong_ordering::equal if
           they are equal, or std::strong_ordering::greater if \a lhs is lexicographically greater than \a rhs.
@@ -2282,12 +2283,12 @@ template <std::size_t allocatedSize>
   \note Empty strings are considered equal.
 
   \see std::strong_ordering
-  \see operator==(const char *, const FixString<allocatedSize> &)
+  \see operator==(const char *, const FixedString<allocatedSize> &)
 */
 template <std::size_t allocatedSize>
 [[nodiscard]] constexpr std::strong_ordering operator<=>(const char * lhs,
-                                                         const FixString<allocatedSize> & rhs) noexcept;
+                                                         const FixedString<allocatedSize> & rhs) noexcept;
 
 } // namespace toy
 
-#endif // INCLUDE_CORE_FIX_STRING_HPP_
+#endif // INCLUDE_CORE_FIXED_STRING_HPP_

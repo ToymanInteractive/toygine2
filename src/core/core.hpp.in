@@ -114,8 +114,8 @@ constexpr std::size_t ArraySize(T (&)[N]) {
 
   (Template parameter T is the type to check for string-like properties.)
 
-  \note Types satisfying this concept can be used with FixString template methods that accept generic string types, such
-        as constructors, assignment operators, and various string manipulation methods.
+  \note Types satisfying this concept can be used with FixedString template methods that accept generic string types,
+        such as constructors, assignment operators, and various string manipulation methods.
 
   \note The concept ensures type safety and provides a compile-time guarantee that the required methods exist and return
         compatible types.
@@ -196,13 +196,13 @@ inline void assertion(const char * TOY_UNUSED(code), const char * TOY_UNUSED(mes
 } // namespace toy
 
 #include "core/constexpr_utils.hpp"
-#include "core/fix_string.hpp"
+#include "core/fixed_string.hpp"
 #include "core/utils.hpp"
 
 //----------------------------------------------------------------------------------------------------------------------
 
 #include "core/constexpr_utils.inl"
-#include "core/fix_string.inl"
+#include "core/fixed_string.inl"
 #include "core/utils.inl"
 
 #endif // INCLUDE_CORE_HPP_

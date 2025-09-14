@@ -24,9 +24,9 @@
 
 using namespace toy;
 
-TEST_CASE("FixString constructors", "[core][fixstring]") {
+TEST_CASE("FixedString constructors", "[core][fixed_string]") {
   SECTION("Default constructor") {
-    constexpr FixString<32> emptyStr;
+    constexpr FixedString<32> emptyStr;
 
     REQUIRE(emptyStr.size() == 0);
     REQUIRE(std::strcmp(emptyStr.c_str(), "") == 0);
@@ -41,10 +41,10 @@ TEST_CASE("FixString constructors", "[core][fixstring]") {
   }
 
   SECTION("C string constructor") {
-    constexpr FixString<16> str1("Hello");
-    constexpr FixString<32> str2("World");
-    constexpr FixString<8> str3("Test");
-    constexpr FixString<64> str4("This is a longer string for testing");
+    constexpr FixedString<16> str1("Hello");
+    constexpr FixedString<32> str2("World");
+    constexpr FixedString<8> str3("Test");
+    constexpr FixedString<64> str4("This is a longer string for testing");
 
     REQUIRE(str1.size() == 5);
     REQUIRE(std::strcmp(str1.c_str(), "Hello") == 0);
@@ -67,10 +67,10 @@ TEST_CASE("FixString constructors", "[core][fixstring]") {
   }
 
   SECTION("Copy constructor") {
-    constexpr FixString<16> original("CopyTest");
-    constexpr FixString<16> copy1(original);
-    constexpr FixString<32> copy2(original);
-    constexpr FixString<12> copy3(original);
+    constexpr FixedString<16> original("CopyTest");
+    constexpr FixedString<16> copy1(original);
+    constexpr FixedString<32> copy2(original);
+    constexpr FixedString<12> copy3(original);
 
     REQUIRE(copy1.size() == 8);
     REQUIRE(std::strcmp(copy1.c_str(), "CopyTest") == 0);
@@ -98,10 +98,10 @@ TEST_CASE("FixString constructors", "[core][fixstring]") {
   }
 
   SECTION("Character constructor") {
-    constexpr FixString<16> single('A');
-    constexpr FixString<32> multiple('B', 5);
-    constexpr FixString<8> many('C', 7);
-    constexpr FixString<64> empty('D', 0);
+    constexpr FixedString<16> single('A');
+    constexpr FixedString<32> multiple('B', 5);
+    constexpr FixedString<8> many('C', 7);
+    constexpr FixedString<64> empty('D', 0);
 
     REQUIRE(single.size() == 1);
     REQUIRE(std::strcmp(single.c_str(), "A") == 0);
@@ -125,8 +125,8 @@ TEST_CASE("FixString constructors", "[core][fixstring]") {
 
   SECTION("StringLike constructor") {
     const std::string stdStr("StringLike");
-    const FixString<16> fromStd(stdStr);
-    const FixString<32> fromFix(fromStd);
+    const FixedString<16> fromStd(stdStr);
+    const FixedString<32> fromFix(fromStd);
 
     REQUIRE(fromStd.size() == 10);
     REQUIRE(std::strcmp(fromStd.c_str(), "StringLike") == 0);
@@ -136,8 +136,8 @@ TEST_CASE("FixString constructors", "[core][fixstring]") {
 
   SECTION("Edge cases") {
     // Empty string
-    constexpr FixString<16> empty1("");
-    constexpr FixString<32> empty2("");
+    constexpr FixedString<16> empty1("");
+    constexpr FixedString<32> empty2("");
 
     REQUIRE(empty1.size() == 0);
     REQUIRE(empty2.size() == 0);
@@ -146,7 +146,7 @@ TEST_CASE("FixString constructors", "[core][fixstring]") {
     STATIC_REQUIRE(empty2.size() == 0);
 
     // Single character
-    constexpr FixString<8> single("X");
+    constexpr FixedString<8> single("X");
 
     REQUIRE(single.size() == 1);
     REQUIRE(std::strcmp(single.c_str(), "X") == 0);
@@ -155,7 +155,7 @@ TEST_CASE("FixString constructors", "[core][fixstring]") {
     STATIC_REQUIRE(cstrcmp(single.c_str(), "X") == 0);
 
     // Maximum length
-    constexpr FixString<5> maxLen("Test");
+    constexpr FixedString<5> maxLen("Test");
 
     REQUIRE(maxLen.size() == 4);
     REQUIRE(std::strcmp(maxLen.c_str(), "Test") == 0);
@@ -166,9 +166,9 @@ TEST_CASE("FixString constructors", "[core][fixstring]") {
   }
 
   SECTION("Special characters") {
-    constexpr FixString<32> newline("Line1\nLine2");
-    constexpr FixString<32> tab("Col1\tCol2");
-    constexpr FixString<32> mixed("Mix\t\nEnd");
+    constexpr FixedString<32> newline("Line1\nLine2");
+    constexpr FixedString<32> tab("Col1\tCol2");
+    constexpr FixedString<32> mixed("Mix\t\nEnd");
 
     REQUIRE(newline.size() == 11);
     REQUIRE(std::strcmp(newline.c_str(), "Line1\nLine2") == 0);
@@ -187,8 +187,8 @@ TEST_CASE("FixString constructors", "[core][fixstring]") {
   }
 
   SECTION("Unicode content") {
-    constexpr FixString<64> unicode("Привет мир");
-    constexpr FixString<32> emoji("Hello 🌍");
+    constexpr FixedString<64> unicode("Привет мир");
+    constexpr FixedString<32> emoji("Hello 🌍");
 
     REQUIRE(unicode.size() == 19); // UTF-8 bytes
     REQUIRE(std::strcmp(unicode.c_str(), "Привет мир") == 0);
@@ -203,11 +203,11 @@ TEST_CASE("FixString constructors", "[core][fixstring]") {
   }
 }
 
-TEST_CASE("FixString operators=", "[core][fixstring]") {
+TEST_CASE("FixedString operators=", "[core][FixedString]") {
   SECTION("C string assignment") {
-    FixString<12> str1;
-    FixString<24> str2;
-    FixString<8> str3;
+    FixedString<12> str1;
+    FixedString<24> str2;
+    FixedString<8> str3;
 
     str1 = "Hello";
     str2 = "World";
@@ -231,15 +231,15 @@ TEST_CASE("FixString operators=", "[core][fixstring]") {
     REQUIRE(std::strcmp(str2.c_str(), "This is a longer string") == 0);
 
     // Compile-time checks
-    constexpr FixString<24> constStr1 = "This is a longer string";
+    constexpr FixedString<24> constStr1 = "This is a longer string";
     STATIC_REQUIRE(constStr1.size() == 23);
     STATIC_REQUIRE(cstrcmp(constStr1.c_str(), "This is a longer string") == 0);
   }
 
-  SECTION("FixString assignment (same capacity)") {
-    FixString<12> str1("Hello");
-    FixString<12> str2;
-    FixString<12> str3("World");
+  SECTION("FixedString assignment (same capacity)") {
+    FixedString<12> str1("Hello");
+    FixedString<12> str2;
+    FixedString<12> str3("World");
 
     str2 = str1;
     REQUIRE(str2.size() == 5);
@@ -255,16 +255,16 @@ TEST_CASE("FixString operators=", "[core][fixstring]") {
     REQUIRE(std::strcmp(str1.c_str(), "Hello") == 0);
 
     // Compile-time checks
-    constexpr FixString<24> constStr1("Hello");
-    constexpr FixString<24> constStr2 = constStr1;
+    constexpr FixedString<24> constStr1("Hello");
+    constexpr FixedString<24> constStr2 = constStr1;
     STATIC_REQUIRE(constStr2.size() == 5);
     STATIC_REQUIRE(cstrcmp(constStr2.c_str(), "Hello") == 0);
   }
 
-  SECTION("FixString assignment (different capacities)") {
-    FixString<8> str1("Test");
-    FixString<16> str2;
-    FixString<32> str3;
+  SECTION("FixedString assignment (different capacities)") {
+    FixedString<8> str1("Test");
+    FixedString<16> str2;
+    FixedString<32> str3;
 
     str2 = str1;
     REQUIRE(str2.size() == 4);
@@ -280,9 +280,9 @@ TEST_CASE("FixString operators=", "[core][fixstring]") {
     REQUIRE(std::strcmp(str1.c_str(), "Test") == 0);
 
     // Compile-time checks
-    constexpr FixString<8> constStr1("Test");
-    constexpr FixString<32> constStr2 = constStr1;
-    constexpr FixString<16> constStr3 = constStr2;
+    constexpr FixedString<8> constStr1("Test");
+    constexpr FixedString<32> constStr2 = constStr1;
+    constexpr FixedString<16> constStr3 = constStr2;
     STATIC_REQUIRE(constStr2.size() == 4);
     STATIC_REQUIRE(cstrcmp(constStr2.c_str(), "Test") == 0);
     STATIC_REQUIRE(constStr3.size() == 4);
@@ -290,11 +290,11 @@ TEST_CASE("FixString operators=", "[core][fixstring]") {
   }
 
   SECTION("StringLike assignment") {
-    FixString<12> str1;
-    FixString<24> str2;
+    FixedString<12> str1;
+    FixedString<24> str2;
 
     const std::string stdStr("Hello World");
-    const FixString<16> fixStr("Test String");
+    const FixedString<16> fixStr("Test String");
 
     str1 = stdStr;
     REQUIRE(str1.size() == 11);
@@ -306,9 +306,9 @@ TEST_CASE("FixString operators=", "[core][fixstring]") {
   }
 
   SECTION("Character assignment") {
-    FixString<8> str1;
-    FixString<16> str2;
-    FixString<32> str3;
+    FixedString<8> str1;
+    FixedString<16> str2;
+    FixedString<32> str3;
 
     str1 = 'A';
     REQUIRE(str1.size() == 1);
@@ -333,8 +333,8 @@ TEST_CASE("FixString operators=", "[core][fixstring]") {
   }
 
   SECTION("Edge cases") {
-    FixString<6> str1;
-    FixString<8> str2;
+    FixedString<6> str1;
+    FixedString<8> str2;
 
     // Maximum length assignment
     str1 = "ABC"; // 3 chars + null terminator = 4 total
@@ -355,8 +355,8 @@ TEST_CASE("FixString operators=", "[core][fixstring]") {
   }
 
   SECTION("Special characters") {
-    FixString<16> str1;
-    FixString<24> str2;
+    FixedString<16> str1;
+    FixedString<24> str2;
 
     str1 = "Line1\nLine2";
     REQUIRE(str1.size() == 11);
@@ -373,8 +373,8 @@ TEST_CASE("FixString operators=", "[core][fixstring]") {
   }
 
   SECTION("Unicode content") {
-    FixString<32> str1;
-    FixString<48> str2;
+    FixedString<32> str1;
+    FixedString<48> str2;
 
     str1 = "Привет";
     REQUIRE(str1.size() == 12); // UTF-8 encoding
@@ -391,11 +391,11 @@ TEST_CASE("FixString operators=", "[core][fixstring]") {
   }
 }
 
-TEST_CASE("FixString assign", "[core][fixstring]") {
+TEST_CASE("FixedString assign", "[core][FixedString]") {
   SECTION("C string assignment") {
-    FixString<16> str1;
-    FixString<32> str2;
-    FixString<8> str3;
+    FixedString<16> str1;
+    FixedString<32> str2;
+    FixedString<8> str3;
 
     // Basic assignment
     str1.assign("Hello");
@@ -422,9 +422,9 @@ TEST_CASE("FixString assign", "[core][fixstring]") {
     REQUIRE(std::strcmp(str3.c_str(), "A") == 0);
 
     // Compile-time checks
-    constexpr auto constStr1 = FixString<16>().assign("Hello");
-    constexpr auto constStr2 = FixString<32>("World").assign("VeryLongString");
-    constexpr auto constStr3 = FixString<16>("A").assign("");
+    constexpr auto constStr1 = FixedString<16>().assign("Hello");
+    constexpr auto constStr2 = FixedString<32>("World").assign("VeryLongString");
+    constexpr auto constStr3 = FixedString<16>("A").assign("");
     STATIC_REQUIRE(constStr1.size() == 5);
     STATIC_REQUIRE(cstrcmp(constStr1.c_str(), "Hello") == 0);
     STATIC_REQUIRE(constStr2.size() == 14);
@@ -433,10 +433,10 @@ TEST_CASE("FixString assign", "[core][fixstring]") {
     STATIC_REQUIRE(cstrcmp(constStr3.c_str(), "") == 0);
   }
 
-  SECTION("FixString assignment (same capacity)") {
-    FixString<16> str1("Hello");
-    FixString<16> str2("World");
-    FixString<16> str3;
+  SECTION("FixedString assignment (same capacity)") {
+    FixedString<16> str1("Hello");
+    FixedString<16> str2("World");
+    FixedString<16> str3;
 
     // Basic assignment
     str3.assign(str1);
@@ -454,24 +454,24 @@ TEST_CASE("FixString assign", "[core][fixstring]") {
     REQUIRE(std::strcmp(str1.c_str(), "Hello") == 0);
 
     // Empty string assignment
-    FixString<16> emptyStr("");
+    FixedString<16> emptyStr("");
     str1.assign(emptyStr);
     REQUIRE(str1.size() == 0);
     REQUIRE(std::strcmp(str1.c_str(), "") == 0);
 
     // Compile-time checks
-    constexpr FixString<16> constStr1("Hello");
-    constexpr auto constStr2 = FixString<16>("World").assign(constStr1);
-    constexpr auto constStr3 = FixString<16>().assign(constStr2);
+    constexpr FixedString<16> constStr1("Hello");
+    constexpr auto constStr2 = FixedString<16>("World").assign(constStr1);
+    constexpr auto constStr3 = FixedString<16>().assign(constStr2);
     STATIC_REQUIRE(constStr2.size() == 5);
     STATIC_REQUIRE(cstrcmp(constStr2.c_str(), "Hello") == 0);
     STATIC_REQUIRE(constStr3.size() == 5);
     STATIC_REQUIRE(cstrcmp(constStr3.c_str(), "Hello") == 0);
   }
 
-  SECTION("FixString assignment (different capacities)") {
-    FixString<8> str1("Hi");
-    FixString<16> str2("Hello");
+  SECTION("FixedString assignment (different capacities)") {
+    FixedString<8> str1("Hi");
+    FixedString<16> str2("Hello");
 
     // Assign from smaller to larger
     str2.assign(str1);
@@ -484,10 +484,10 @@ TEST_CASE("FixString assign", "[core][fixstring]") {
     REQUIRE(std::strcmp(str1.c_str(), "Hi") == 0);
 
     // Compile-time checks
-    constexpr FixString<8> constStr1("Hi");
-    constexpr FixString<16> constStr2("Hello");
-    constexpr auto constStr3 = FixString<8>("Hi").assign(constStr2);
-    constexpr auto constStr4 = FixString<16>("Hello").assign(constStr1);
+    constexpr FixedString<8> constStr1("Hi");
+    constexpr FixedString<16> constStr2("Hello");
+    constexpr auto constStr3 = FixedString<8>("Hi").assign(constStr2);
+    constexpr auto constStr4 = FixedString<16>("Hello").assign(constStr1);
     STATIC_REQUIRE(constStr3.size() == 5);
     STATIC_REQUIRE(cstrcmp(constStr3.c_str(), "Hello") == 0);
     STATIC_REQUIRE(constStr4.size() == 2);
@@ -495,7 +495,7 @@ TEST_CASE("FixString assign", "[core][fixstring]") {
   }
 
   SECTION("StringLike assignment") {
-    FixString<16> str1;
+    FixedString<16> str1;
     std::string str2("Hello");
     std::string str3("World");
 
@@ -517,8 +517,8 @@ TEST_CASE("FixString assign", "[core][fixstring]") {
   }
 
   SECTION("Character assignment") {
-    FixString<16> str1;
-    FixString<8> str2;
+    FixedString<16> str1;
+    FixedString<8> str2;
 
     // Single character assignment
     str1.assign('A');
@@ -541,8 +541,8 @@ TEST_CASE("FixString assign", "[core][fixstring]") {
     REQUIRE(std::strcmp(str2.c_str(), "DDDDD") == 0);
 
     // Compile-time checks
-    constexpr auto constStr1 = FixString<8>().assign('A');
-    constexpr auto constStr2 = FixString<8>().assign('B', 3);
+    constexpr auto constStr1 = FixedString<8>().assign('A');
+    constexpr auto constStr2 = FixedString<8>().assign('B', 3);
     STATIC_REQUIRE(constStr1.size() == 1);
     STATIC_REQUIRE(cstrcmp(constStr1.c_str(), "A") == 0);
     STATIC_REQUIRE(constStr2.size() == 3);
@@ -550,9 +550,9 @@ TEST_CASE("FixString assign", "[core][fixstring]") {
   }
 
   SECTION("Edge cases") {
-    FixString<4> str1("ABC");
-    FixString<8> str2("ABC");
-    FixString<16> str3("ABCD");
+    FixedString<4> str1("ABC");
+    FixedString<8> str2("ABC");
+    FixedString<16> str3("ABCD");
 
     // Assign to maximum capacity
     str1.assign("XYZ");
@@ -570,8 +570,8 @@ TEST_CASE("FixString assign", "[core][fixstring]") {
     REQUIRE(std::strcmp(str3.c_str(), "") == 0);
 
     // Compile-time checks
-    constexpr auto constStr1 = FixString<4>("ABC").assign("XYZ");
-    constexpr auto constStr2 = FixString<8>("ABCD").assign("");
+    constexpr auto constStr1 = FixedString<4>("ABC").assign("XYZ");
+    constexpr auto constStr2 = FixedString<8>("ABCD").assign("");
     STATIC_REQUIRE(constStr1.size() == 3);
     STATIC_REQUIRE(cstrcmp(constStr1.c_str(), "XYZ") == 0);
     STATIC_REQUIRE(constStr2.size() == 0);
@@ -579,8 +579,8 @@ TEST_CASE("FixString assign", "[core][fixstring]") {
   }
 
   SECTION("Special characters") {
-    FixString<32> str1;
-    FixString<16> str2;
+    FixedString<32> str1;
+    FixedString<16> str2;
 
     // Newline and tab
     str1.assign("Hello\n\tWorld");
@@ -593,8 +593,8 @@ TEST_CASE("FixString assign", "[core][fixstring]") {
     REQUIRE(std::strcmp(str2.c_str(), "!@#$%^&*()") == 0);
 
     // Compile-time checks
-    constexpr auto constStr1 = FixString<32>().assign("Hello\n\tWorld");
-    constexpr auto constStr2 = FixString<16>().assign("!@#$%^&*()");
+    constexpr auto constStr1 = FixedString<32>().assign("Hello\n\tWorld");
+    constexpr auto constStr2 = FixedString<16>().assign("!@#$%^&*()");
     STATIC_REQUIRE(constStr1.size() == 12);
     STATIC_REQUIRE(cstrcmp(constStr1.c_str(), "Hello\n\tWorld") == 0);
     STATIC_REQUIRE(constStr2.size() == 10);
@@ -602,8 +602,8 @@ TEST_CASE("FixString assign", "[core][fixstring]") {
   }
 
   SECTION("Unicode content") {
-    FixString<32> str1;
-    FixString<16> str2;
+    FixedString<32> str1;
+    FixedString<16> str2;
 
     // Unicode characters
     str1.assign("Hello 世界");
@@ -616,8 +616,8 @@ TEST_CASE("FixString assign", "[core][fixstring]") {
     REQUIRE(std::strcmp(str2.c_str(), "Test 🌍") == 0);
 
     // Compile-time checks
-    constexpr auto constStr1 = FixString<32>().assign("Hello 世界");
-    constexpr auto constStr2 = FixString<16>().assign("Test 🌍");
+    constexpr auto constStr1 = FixedString<32>().assign("Hello 世界");
+    constexpr auto constStr2 = FixedString<16>().assign("Test 🌍");
     STATIC_REQUIRE(constStr1.size() == 12);
     STATIC_REQUIRE(cstrcmp(constStr1.c_str(), "Hello 世界") == 0);
     STATIC_REQUIRE(constStr2.size() == 9);
@@ -625,7 +625,7 @@ TEST_CASE("FixString assign", "[core][fixstring]") {
   }
 
   SECTION("Chaining assign") {
-    FixString<16> str1;
+    FixedString<16> str1;
 
     // Chaining assign operations
     str1.assign("a").assign("b");
@@ -644,8 +644,8 @@ TEST_CASE("FixString assign", "[core][fixstring]") {
     REQUIRE(std::strcmp(str1.c_str(), "Chained") == 0);
 
     // Compile-time checks
-    constexpr auto constStr1 = FixString<16>("a").assign("b");
-    constexpr auto constStr2 = FixString<16>("Hello").assign("Test");
+    constexpr auto constStr1 = FixedString<16>("a").assign("b");
+    constexpr auto constStr2 = FixedString<16>("Hello").assign("Test");
     STATIC_REQUIRE(constStr1.size() == 1);
     STATIC_REQUIRE(cstrcmp(constStr1.c_str(), "b") == 0);
     STATIC_REQUIRE(constStr2.size() == 4);
@@ -653,8 +653,8 @@ TEST_CASE("FixString assign", "[core][fixstring]") {
   }
 
   SECTION("Performance test") {
-    FixString<64> str1;
-    FixString<32> str2;
+    FixedString<64> str1;
+    FixedString<32> str2;
     std::string str3("PerformanceTest");
 
     // Multiple assignments
@@ -670,9 +670,9 @@ TEST_CASE("FixString assign", "[core][fixstring]") {
   }
 }
 
-TEST_CASE("FixString at", "[core][fixstring]") {
+TEST_CASE("FixedString at", "[core][FixedString]") {
   SECTION("Basic at() functionality") {
-    FixString<8> str("Hello");
+    FixedString<8> str("Hello");
 
     REQUIRE(str.at(0) == 'H');
     REQUIRE(str.at(1) == 'e');
@@ -692,7 +692,7 @@ TEST_CASE("FixString at", "[core][fixstring]") {
   }
 
   SECTION("Const at() access") {
-    constexpr FixString<8> str("World");
+    constexpr FixedString<8> str("World");
 
     REQUIRE(str.at(0) == 'W');
     REQUIRE(str.at(1) == 'o');
@@ -709,7 +709,7 @@ TEST_CASE("FixString at", "[core][fixstring]") {
   }
 
   SECTION("Reference modification") {
-    FixString<8> str("Test");
+    FixedString<8> str("Test");
 
     REQUIRE(str.at(0) == 'T');
 
@@ -724,7 +724,7 @@ TEST_CASE("FixString at", "[core][fixstring]") {
   }
 
   SECTION("Sequential modifications") {
-    FixString<8> str("abcd");
+    FixedString<8> str("abcd");
 
     // Modify all characters
     str.at(0) = 'e';
@@ -742,7 +742,7 @@ TEST_CASE("FixString at", "[core][fixstring]") {
   }
 
   SECTION("Single character string") {
-    FixString<8> str("A");
+    FixedString<8> str("A");
 
     REQUIRE(str.at(0) == 'A');
 
@@ -755,7 +755,7 @@ TEST_CASE("FixString at", "[core][fixstring]") {
   }
 
   SECTION("Special characters") {
-    FixString<8> str("A\nB\tC");
+    FixedString<8> str("A\nB\tC");
 
     REQUIRE(str.at(0) == 'A');
     REQUIRE(str.at(1) == '\n');
@@ -774,7 +774,7 @@ TEST_CASE("FixString at", "[core][fixstring]") {
   }
 
   SECTION("Unicode content") {
-    FixString<16> str("Привет");
+    FixedString<16> str("Привет");
 
     // Access individual bytes (not characters)
     REQUIRE(str.at(0) == static_cast<char>(0xD0)); // First byte of 'П'
@@ -792,7 +792,7 @@ TEST_CASE("FixString at", "[core][fixstring]") {
   }
 
   SECTION("Maximum length string") {
-    FixString<8> str("1234567"); // 7 characters, capacity 7
+    FixedString<8> str("1234567"); // 7 characters, capacity 7
 
     REQUIRE(str.at(0) == '1');
     REQUIRE(str.at(6) == '7');
@@ -808,7 +808,7 @@ TEST_CASE("FixString at", "[core][fixstring]") {
   }
 
   SECTION("Constexpr operations") {
-    constexpr FixString<8> str("Test");
+    constexpr FixedString<8> str("Test");
 
     constexpr char c0 = str.at(0);
     constexpr char c1 = str.at(1);
@@ -829,9 +829,9 @@ TEST_CASE("FixString at", "[core][fixstring]") {
 
 // to refactor
 
-TEST_CASE("FixString operators[]", "[core][fixstring]") {
-  FixString<8> testString1("abcd");
-  constexpr FixString<8> testString2("dcba");
+TEST_CASE("FixedString operators[]", "[core][FixedString]") {
+  FixedString<8> testString1("abcd");
+  constexpr FixedString<8> testString2("dcba");
 
   testString1[0] = 'e';
   testString1[1] = 'f';
@@ -859,9 +859,9 @@ TEST_CASE("FixString operators[]", "[core][fixstring]") {
   // STATIC_REQUIRE(testString2.size() == 4);
 }
 
-TEST_CASE("FixString front and back", "[core][fixstring]") {
+TEST_CASE("FixedString front and back", "[core][FixedString]") {
   SECTION("Front method") {
-    FixString<16> testString("Hello World");
+    FixedString<16> testString("Hello World");
 
     REQUIRE(testString.front() == 'H');
     REQUIRE(testString[0] == 'H');
@@ -873,14 +873,14 @@ TEST_CASE("FixString front and back", "[core][fixstring]") {
   }
 
   SECTION("Front const method") {
-    constexpr FixString<12> testString("Hello World");
+    constexpr FixedString<12> testString("Hello World");
 
     REQUIRE(testString.front() == 'H');
     REQUIRE(testString[0] == 'H');
   }
 
   SECTION("Back method") {
-    FixString<16> testString("Hello World");
+    FixedString<16> testString("Hello World");
 
     REQUIRE(testString.back() == 'd');
     REQUIRE(testString[testString.size() - 1] == 'd');
@@ -892,14 +892,14 @@ TEST_CASE("FixString front and back", "[core][fixstring]") {
   }
 
   SECTION("Back const method") {
-    constexpr FixString<12> testString("Hello World");
+    constexpr FixedString<12> testString("Hello World");
 
     REQUIRE(testString.back() == 'd');
     REQUIRE(testString[testString.size() - 1] == 'd');
   }
 
   SECTION("Single character string") {
-    FixString<2> testString("A");
+    FixedString<2> testString("A");
 
     REQUIRE(testString.front() == 'A');
     REQUIRE(testString.back() == 'A');
@@ -916,7 +916,7 @@ TEST_CASE("FixString front and back", "[core][fixstring]") {
   }
 
   SECTION("Modification through references") {
-    FixString<32> testString("Hello World");
+    FixedString<32> testString("Hello World");
 
     // Modify through front reference
     char & frontRef = testString.front();
@@ -932,7 +932,7 @@ TEST_CASE("FixString front and back", "[core][fixstring]") {
   }
 
   SECTION("Const references") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     // Get const references
     const auto & frontRef = testString.front();
@@ -945,9 +945,9 @@ TEST_CASE("FixString front and back", "[core][fixstring]") {
   }
 }
 
-TEST_CASE("FixString data", "[core][fixstring]") {
-  constexpr FixString<8> testString1("abcd");
-  constexpr FixString<8> testString2("dcba");
+TEST_CASE("FixedString data", "[core][FixedString]") {
+  constexpr FixedString<8> testString1("abcd");
+  constexpr FixedString<8> testString2("dcba");
 
   REQUIRE(std::strcmp(testString1.data(), "abcd") == 0);
   REQUIRE(std::strcmp(testString2.data(), "dcba") == 0);
@@ -961,9 +961,9 @@ TEST_CASE("FixString data", "[core][fixstring]") {
   // STATIC_REQUIRE(testString2.data()[1] == 'c');
 }
 
-TEST_CASE("FixString c_str", "[core][fixstring]") {
-  constexpr FixString<8> testString1("abcd");
-  constexpr FixString<8> testString2("dcba");
+TEST_CASE("FixedString c_str", "[core][FixedString]") {
+  constexpr FixedString<8> testString1("abcd");
+  constexpr FixedString<8> testString2("dcba");
 
   REQUIRE(std::strcmp(testString1.c_str(), "abcd") == 0);
   REQUIRE(std::strcmp(testString2.c_str(), "dcba") == 0);
@@ -977,9 +977,9 @@ TEST_CASE("FixString c_str", "[core][fixstring]") {
   // STATIC_REQUIRE(testString2.c_str()[1] == 'c');
 }
 
-TEST_CASE("FixString empty", "[core][fixstring]") {
-  constexpr FixString<16> testString1("ToyGine2");
-  constexpr FixString<4> testString2("");
+TEST_CASE("FixedString empty", "[core][FixedString]") {
+  constexpr FixedString<16> testString1("ToyGine2");
+  constexpr FixedString<4> testString2("");
 
   REQUIRE_FALSE(testString1.empty());
   REQUIRE(testString2.empty());
@@ -991,9 +991,9 @@ TEST_CASE("FixString empty", "[core][fixstring]") {
   // STATIC_REQUIRE(testString2.size() == 0);
 }
 
-TEST_CASE("FixString size", "[core][fixstring]") {
-  constexpr FixString<64> testString1("ToyGine2 - Free 2D/3D game engine.");
-  constexpr FixString<64> testString2;
+TEST_CASE("FixedString size", "[core][FixedString]") {
+  constexpr FixedString<64> testString1("ToyGine2 - Free 2D/3D game engine.");
+  constexpr FixedString<64> testString2;
 
   REQUIRE(testString1.size() == 34);
   REQUIRE(testString2.size() == 0);
@@ -1005,7 +1005,7 @@ TEST_CASE("FixString size", "[core][fixstring]") {
   // STATIC_REQUIRE(testString2.length() == 0);
 }
 
-TEST_CASE("FixString utf8_size", "[core][fixstring]") {
+TEST_CASE("FixedString utf8_size", "[core][FixedString]") {
   static constexpr char ansiText[] = "ToyGine2 - Free 2D/3D game engine.";
   // UTF8 encoding                   "ToyGine2 - Бесплатный 2D/3D игровой движок.";
 
@@ -1019,9 +1019,9 @@ TEST_CASE("FixString utf8_size", "[core][fixstring]") {
      char(0xB4), char(0xD0), char(0xB2), char(0xD0), char(0xB8), char(0xD0), char(0xB6), char(0xD0), char(0xBE),
      char(0xD0), char(0xBA), char(0x2E), char(0x00)}};
 
-  constexpr FixString<64> testString1(ansiText);
-  constexpr FixString<80> testString2(utf8Text.data());
-  constexpr FixString<96> testString3;
+  constexpr FixedString<64> testString1(ansiText);
+  constexpr FixedString<80> testString2(utf8Text.data());
+  constexpr FixedString<96> testString3;
 
   REQUIRE(testString1.size() == testString1.utf8_size());
   REQUIRE(testString3.size() == testString3.utf8_size());
@@ -1029,33 +1029,33 @@ TEST_CASE("FixString utf8_size", "[core][fixstring]") {
   REQUIRE(testString2.utf8_size() == 43);
 }
 
-TEST_CASE("FixString length", "[core][fixstring]") {
-  constexpr FixString<64> testString1("ToyGine2 - Free 2D/3D game engine.");
-  constexpr FixString<64> testString2;
+TEST_CASE("FixedString length", "[core][FixedString]") {
+  constexpr FixedString<64> testString1("ToyGine2 - Free 2D/3D game engine.");
+  constexpr FixedString<64> testString2;
 
   REQUIRE(testString1.length() == 34);
   REQUIRE(testString2.length() == 0);
 }
 
-TEST_CASE("FixString max_size", "[core][fixstring]") {
-  constexpr FixString<64> testString1("ToyGine2 - Free 2D/3D game engine.");
-  constexpr FixString<16> testString2("");
+TEST_CASE("FixedString max_size", "[core][FixedString]") {
+  constexpr FixedString<64> testString1("ToyGine2 - Free 2D/3D game engine.");
+  constexpr FixedString<16> testString2("");
 
   REQUIRE(testString1.max_size() == 63);
   REQUIRE(testString2.max_size() == 15);
 }
 
-TEST_CASE("FixString capacity", "[core][fixstring]") {
-  constexpr FixString<64> testString1("ToyGine2");
-  constexpr FixString<16> testString2("");
+TEST_CASE("FixedString capacity", "[core][FixedString]") {
+  constexpr FixedString<64> testString1("ToyGine2");
+  constexpr FixedString<16> testString2("");
 
   REQUIRE(testString1.capacity() == 63);
   REQUIRE(testString2.capacity() == 15);
 }
 
-TEST_CASE("FixString clear", "[core][fixstring]") {
-  FixString<64> testString1("ToyGine2 - Free 2D/3D game engine.");
-  FixString<16> testString2;
+TEST_CASE("FixedString clear", "[core][FixedString]") {
+  FixedString<64> testString1("ToyGine2 - Free 2D/3D game engine.");
+  FixedString<16> testString2;
 
   REQUIRE_FALSE(testString1.empty());
   REQUIRE(testString2.empty());
@@ -1067,14 +1067,14 @@ TEST_CASE("FixString clear", "[core][fixstring]") {
   REQUIRE(testString2.empty());
 }
 
-TEST_CASE("FixString insert", "[core][fixstring]") {
-  FixString<32> testString1("Hello World");
-  FixString<32> testString2("Hello World");
-  FixString<32> testString3("Hello World");
+TEST_CASE("FixedString insert", "[core][FixedString]") {
+  FixedString<32> testString1("Hello World");
+  FixedString<32> testString2("Hello World");
+  FixedString<32> testString3("Hello World");
 
   // Insert at beginning
-  testString1.insert(0, FixString<32>("Hi "));
-  testString2.insert(0, FixString<16>("Hi "));
+  testString1.insert(0, FixedString<32>("Hi "));
+  testString2.insert(0, FixedString<16>("Hi "));
   testString3.insert(0, "Hi ");
   REQUIRE(std::strcmp(testString1.c_str(), "Hi Hello World") == 0);
   REQUIRE(std::strcmp(testString2.c_str(), "Hi Hello World") == 0);
@@ -1084,8 +1084,8 @@ TEST_CASE("FixString insert", "[core][fixstring]") {
   REQUIRE(testString3.size() == 14);
 
   // Insert in middle
-  testString1.insert(9, FixString<32>("Beautiful "));
-  testString2.insert(9, FixString<64>("Beautiful "));
+  testString1.insert(9, FixedString<32>("Beautiful "));
+  testString2.insert(9, FixedString<64>("Beautiful "));
   testString3.insert(9, "Beautiful ");
   REQUIRE(std::strcmp(testString1.c_str(), "Hi Hello Beautiful World") == 0);
   REQUIRE(std::strcmp(testString2.c_str(), "Hi Hello Beautiful World") == 0);
@@ -1095,8 +1095,8 @@ TEST_CASE("FixString insert", "[core][fixstring]") {
   REQUIRE(testString3.size() == 24);
 
   // Insert at end
-  testString1.insert(24, FixString<32>("!"));
-  testString2.insert(24, FixString<8>("!"));
+  testString1.insert(24, FixedString<32>("!"));
+  testString2.insert(24, FixedString<8>("!"));
   testString3.insert(24, "!");
   REQUIRE(std::strcmp(testString1.c_str(), "Hi Hello Beautiful World!") == 0);
   REQUIRE(std::strcmp(testString2.c_str(), "Hi Hello Beautiful World!") == 0);
@@ -1105,7 +1105,7 @@ TEST_CASE("FixString insert", "[core][fixstring]") {
   REQUIRE(testString2.size() == 25);
   REQUIRE(testString3.size() == 25);
 
-  FixString<32> testString4("Hello World");
+  FixedString<32> testString4("Hello World");
 
   // Insert single character
   testString4.insert(5, ' ');
@@ -1128,8 +1128,8 @@ TEST_CASE("FixString insert", "[core][fixstring]") {
   REQUIRE(testString4.size() == 17);
 }
 
-TEST_CASE("FixString erase", "[core][fixstring]") {
-  FixString<32> testString1("Hello World");
+TEST_CASE("FixedString erase", "[core][FixedString]") {
+  FixedString<32> testString1("Hello World");
 
   // Erase first 5 characters
   testString1.erase(0, 5);
@@ -1141,7 +1141,7 @@ TEST_CASE("FixString erase", "[core][fixstring]") {
   REQUIRE(std::strcmp(testString1.c_str(), "") == 0);
   REQUIRE(testString1.size() == 0);
 
-  FixString<32> testString2("Hello Beautiful World");
+  FixedString<32> testString2("Hello Beautiful World");
 
   // Erase middle word
   testString2.erase(6, 10);
@@ -1153,7 +1153,7 @@ TEST_CASE("FixString erase", "[core][fixstring]") {
   REQUIRE(std::strcmp(testString2.c_str(), "HelloWorld") == 0);
   REQUIRE(testString2.size() == 10);
 
-  FixString<32> testString3("Hello World!");
+  FixedString<32> testString3("Hello World!");
 
   // Erase last character
   testString3.erase(11, 1);
@@ -1175,8 +1175,8 @@ TEST_CASE("FixString erase", "[core][fixstring]") {
   REQUIRE(testString3.empty());
 }
 
-TEST_CASE("FixString push_back", "[core][fixstring]") {
-  FixString<16> testString1("Hello");
+TEST_CASE("FixedString push_back", "[core][FixedString]") {
+  FixedString<16> testString1("Hello");
 
   testString1.push_back(' ');
   testString1.push_back('W');
@@ -1189,8 +1189,8 @@ TEST_CASE("FixString push_back", "[core][fixstring]") {
   REQUIRE(testString1.size() == 11);
 }
 
-TEST_CASE("FixString pop_back", "[core][fixstring]") {
-  FixString<16> testString("Hi");
+TEST_CASE("FixedString pop_back", "[core][FixedString]") {
+  FixedString<16> testString("Hi");
 
   testString.pop_back();
   REQUIRE(std::strcmp(testString.c_str(), "H") == 0);
@@ -1201,9 +1201,9 @@ TEST_CASE("FixString pop_back", "[core][fixstring]") {
   REQUIRE(testString.size() == 0);
 }
 
-TEST_CASE("FixString utf8_pop_back", "[core][fixstring]") {
+TEST_CASE("FixedString utf8_pop_back", "[core][FixedString]") {
   SECTION("Pop back single ASCII character") {
-    FixString<16> testString("Hello");
+    FixedString<16> testString("Hello");
 
     testString.utf8_pop_back();
 
@@ -1213,7 +1213,7 @@ TEST_CASE("FixString utf8_pop_back", "[core][fixstring]") {
   }
 
   SECTION("Pop back multiple ASCII characters") {
-    FixString<16> testString("Hello");
+    FixedString<16> testString("Hello");
 
     testString.utf8_pop_back();
     testString.utf8_pop_back();
@@ -1226,7 +1226,7 @@ TEST_CASE("FixString utf8_pop_back", "[core][fixstring]") {
 
   SECTION("Pop back UTF-8 character (2 bytes)") {
     // "Hello привет" - "привет" contains 6 Cyrillic characters, each 2 bytes in UTF-8
-    FixString<32> testString("Hello \xD0\xBF\xD1\x80\xD0\xB8\xD0\xB2\xD0\xB5\xD1\x82");
+    FixedString<32> testString("Hello \xD0\xBF\xD1\x80\xD0\xB8\xD0\xB2\xD0\xB5\xD1\x82");
 
     testString.utf8_pop_back(); // Remove 'т' (2 bytes)
 
@@ -1237,7 +1237,7 @@ TEST_CASE("FixString utf8_pop_back", "[core][fixstring]") {
 
   SECTION("Pop back multiple UTF-8 characters") {
     // "Hello привет" - "привет" contains 6 Cyrillic characters
-    FixString<32> testString("Hello \xD0\xBF\xD1\x80\xD0\xB8\xD0\xB2\xD0\xB5\xD1\x82");
+    FixedString<32> testString("Hello \xD0\xBF\xD1\x80\xD0\xB8\xD0\xB2\xD0\xB5\xD1\x82");
 
     testString.utf8_pop_back(); // Remove 'т'
     testString.utf8_pop_back(); // Remove 'е'
@@ -1250,7 +1250,7 @@ TEST_CASE("FixString utf8_pop_back", "[core][fixstring]") {
 
   SECTION("Pop back mixed ASCII and UTF-8") {
     // "Hello привет" - mix of ASCII and Cyrillic
-    FixString<32> testString("Hello \xD0\xBF\xD1\x80\xD0\xB8\xD0\xB2\xD0\xB5\xD1\x82");
+    FixedString<32> testString("Hello \xD0\xBF\xD1\x80\xD0\xB8\xD0\xB2\xD0\xB5\xD1\x82");
 
     testString.utf8_pop_back(); // Remove 'т'
     testString.utf8_pop_back(); // Remove 'е'
@@ -1265,7 +1265,7 @@ TEST_CASE("FixString utf8_pop_back", "[core][fixstring]") {
   }
 
   SECTION("Pop back from single character string") {
-    FixString<8> testString("A");
+    FixedString<8> testString("A");
 
     testString.utf8_pop_back();
 
@@ -1276,7 +1276,7 @@ TEST_CASE("FixString utf8_pop_back", "[core][fixstring]") {
 
   SECTION("Pop back from single UTF-8 character string") {
     // Single Cyrillic character 'п'
-    FixString<8> testString("\xD0\xBF");
+    FixedString<8> testString("\xD0\xBF");
 
     testString.utf8_pop_back();
 
@@ -1286,11 +1286,11 @@ TEST_CASE("FixString utf8_pop_back", "[core][fixstring]") {
   }
 }
 
-TEST_CASE("FixString append", "[core][fixstring]") {
-  FixString<32> testString("");
+TEST_CASE("FixedString append", "[core][FixedString]") {
+  FixedString<32> testString("");
 
-  testString.append(FixString<16>("Nothing"))
-    .append(FixString<8>(" else"))
+  testString.append(FixedString<16>("Nothing"))
+    .append(FixedString<8>(" else"))
     .append(std::string(" really"))
     .append(" matters")
     .append('.', 3);
@@ -1299,11 +1299,11 @@ TEST_CASE("FixString append", "[core][fixstring]") {
   REQUIRE(testString.size() == 30);
 }
 
-TEST_CASE("FixString operators+=", "[core][fixstring]") {
-  FixString<32> testString("");
+TEST_CASE("FixedString operators+=", "[core][FixedString]") {
+  FixedString<32> testString("");
 
-  testString += FixString<16>("Nothing");
-  testString += FixString<8>(" else");
+  testString += FixedString<16>("Nothing");
+  testString += FixedString<8>(" else");
   testString += std::string(" really");
   testString += " matters";
   testString += '.';
@@ -1312,18 +1312,18 @@ TEST_CASE("FixString operators+=", "[core][fixstring]") {
   REQUIRE(testString.size() == 28);
 }
 
-TEST_CASE("FixString replace", "[core][fixstring]") {
-  SECTION("Replace with FixString") {
-    FixString<32> testString("Hello World");
+TEST_CASE("FixedString replace", "[core][FixedString]") {
+  SECTION("Replace with FixedString") {
+    FixedString<32> testString("Hello World");
 
-    testString.replace(6, 5, FixString<16>("Universe"));
+    testString.replace(6, 5, FixedString<16>("Universe"));
 
     REQUIRE(std::strcmp(testString.c_str(), "Hello Universe") == 0);
     REQUIRE(testString.size() == 14);
   }
 
   SECTION("Replace with string-like object") {
-    FixString<32> testString("Hello World");
+    FixedString<32> testString("Hello World");
 
     testString.replace(6, 5, std::string("Universe"));
 
@@ -1332,7 +1332,7 @@ TEST_CASE("FixString replace", "[core][fixstring]") {
   }
 
   SECTION("Replace with C string") {
-    FixString<32> testString("Hello World");
+    FixedString<32> testString("Hello World");
 
     testString.replace(6, 5, "Universe");
 
@@ -1341,7 +1341,7 @@ TEST_CASE("FixString replace", "[core][fixstring]") {
   }
 
   SECTION("Replace with repeated characters") {
-    FixString<32> testString("Hello World");
+    FixedString<32> testString("Hello World");
 
     testString.replace(6, 5, '*', 3);
 
@@ -1350,7 +1350,7 @@ TEST_CASE("FixString replace", "[core][fixstring]") {
   }
 
   SECTION("Replace at beginning") {
-    FixString<32> testString("Hello World");
+    FixedString<32> testString("Hello World");
 
     testString.replace(0, 5, "Hi");
 
@@ -1359,7 +1359,7 @@ TEST_CASE("FixString replace", "[core][fixstring]") {
   }
 
   SECTION("Replace at end") {
-    FixString<32> testString("Hello World");
+    FixedString<32> testString("Hello World");
 
     testString.replace(6, 5, "Universe!");
 
@@ -1368,7 +1368,7 @@ TEST_CASE("FixString replace", "[core][fixstring]") {
   }
 
   SECTION("Replace with empty string") {
-    FixString<32> testString("Hello World");
+    FixedString<32> testString("Hello World");
 
     testString.replace(5, 1, "");
 
@@ -1377,7 +1377,7 @@ TEST_CASE("FixString replace", "[core][fixstring]") {
   }
 
   SECTION("Replace with longer string") {
-    FixString<32> testString("Hi");
+    FixedString<32> testString("Hi");
 
     testString.replace(0, 2, "Hello World");
 
@@ -1386,7 +1386,7 @@ TEST_CASE("FixString replace", "[core][fixstring]") {
   }
 
   SECTION("Replace with shorter string") {
-    FixString<32> testString("Hello World");
+    FixedString<32> testString("Hello World");
 
     testString.replace(0, 5, "Hi");
 
@@ -1395,7 +1395,7 @@ TEST_CASE("FixString replace", "[core][fixstring]") {
   }
 
   SECTION("Replace single character") {
-    FixString<32> testString("Hello World");
+    FixedString<32> testString("Hello World");
 
     testString.replace(0, 1, "h");
 
@@ -1404,7 +1404,7 @@ TEST_CASE("FixString replace", "[core][fixstring]") {
   }
 
   SECTION("Replace multiple characters with single character") {
-    FixString<32> testString("Hello World");
+    FixedString<32> testString("Hello World");
 
     testString.replace(0, 5, "H");
 
@@ -1413,7 +1413,7 @@ TEST_CASE("FixString replace", "[core][fixstring]") {
   }
 
   SECTION("Replace with repeated characters at different positions") {
-    FixString<32> testString("Hello World");
+    FixedString<32> testString("Hello World");
 
     testString.replace(0, 1, '*', 2);
     testString.replace(8, 2, '#', 3);
@@ -1423,7 +1423,7 @@ TEST_CASE("FixString replace", "[core][fixstring]") {
   }
 
   SECTION("Replace entire string") {
-    FixString<32> testString("Hello World");
+    FixedString<32> testString("Hello World");
 
     testString.replace(0, 11, "Goodbye Universe");
 
@@ -1432,7 +1432,7 @@ TEST_CASE("FixString replace", "[core][fixstring]") {
   }
 
   SECTION("Replace with zero count") {
-    FixString<32> testString("Hello World");
+    FixedString<32> testString("Hello World");
 
     testString.replace(6, 0, "Beautiful ");
 
@@ -1441,7 +1441,7 @@ TEST_CASE("FixString replace", "[core][fixstring]") {
   }
 
   SECTION("Replace with single character count") {
-    FixString<32> testString("Hello World");
+    FixedString<32> testString("Hello World");
 
     testString.replace(6, 5, '!', 1);
 
@@ -1450,7 +1450,7 @@ TEST_CASE("FixString replace", "[core][fixstring]") {
   }
 
   SECTION("Replace with multiple character count") {
-    FixString<32> testString("Hello World");
+    FixedString<32> testString("Hello World");
 
     testString.replace(6, 5, '=', 4);
 
@@ -1459,7 +1459,7 @@ TEST_CASE("FixString replace", "[core][fixstring]") {
   }
 
   SECTION("Replace with zero character count") {
-    FixString<32> testString("Hello World");
+    FixedString<32> testString("Hello World");
 
     testString.replace(6, 5, 'X', 0);
 
@@ -1468,7 +1468,7 @@ TEST_CASE("FixString replace", "[core][fixstring]") {
   }
 
   SECTION("Replace middle portion") {
-    FixString<32> testString("Hello Beautiful World");
+    FixedString<32> testString("Hello Beautiful World");
 
     testString.replace(6, 9, "Amazing");
 
@@ -1477,7 +1477,7 @@ TEST_CASE("FixString replace", "[core][fixstring]") {
   }
 
   SECTION("Replace with same length string") {
-    FixString<32> testString("Hello World");
+    FixedString<32> testString("Hello World");
 
     testString.replace(0, 5, "Greet");
 
@@ -1485,17 +1485,17 @@ TEST_CASE("FixString replace", "[core][fixstring]") {
     REQUIRE(testString.size() == 11);
   }
 
-  SECTION("Replace with FixString of different capacity") {
-    FixString<32> testString("Hello World");
+  SECTION("Replace with FixedString of different capacity") {
+    FixedString<32> testString("Hello World");
 
-    testString.replace(6, 5, FixString<12>("Universe"));
+    testString.replace(6, 5, FixedString<12>("Universe"));
 
     REQUIRE(std::strcmp(testString.c_str(), "Hello Universe") == 0);
     REQUIRE(testString.size() == 14);
   }
 
   SECTION("Replace with std::string") {
-    FixString<32> testString("Hello World");
+    FixedString<32> testString("Hello World");
 
     testString.replace(6, 5, std::string("Universe"));
 
@@ -1504,7 +1504,7 @@ TEST_CASE("FixString replace", "[core][fixstring]") {
   }
 
   SECTION("Replace with array") {
-    FixString<32> testString("Hello World");
+    FixedString<32> testString("Hello World");
     constexpr std::array<char, 9> arr = {'U', 'n', 'i', 'v', 'e', 'r', 's', 'e', '\0'};
 
     testString.replace(6, 5, arr.data());
@@ -1514,7 +1514,7 @@ TEST_CASE("FixString replace", "[core][fixstring]") {
   }
 
   SECTION("Replace at position 0 with zero count") {
-    FixString<32> testString("Hello World");
+    FixedString<32> testString("Hello World");
 
     testString.replace(0, 0, "Hi ");
 
@@ -1523,7 +1523,7 @@ TEST_CASE("FixString replace", "[core][fixstring]") {
   }
 
   SECTION("Replace at end with zero count") {
-    FixString<32> testString("Hello World");
+    FixedString<32> testString("Hello World");
 
     testString.replace(11, 0, "!");
 
@@ -1532,9 +1532,9 @@ TEST_CASE("FixString replace", "[core][fixstring]") {
   }
 }
 
-TEST_CASE("FixString copy", "[core][fixstring]") {
+TEST_CASE("FixedString copy", "[core][FixedString]") {
   SECTION("Copy entire string") {
-    constexpr FixString<16> testString("Hello World");
+    constexpr FixedString<16> testString("Hello World");
     char buffer[16] = {0};
 
     REQUIRE(testString.copy(buffer, 11) == 11);
@@ -1542,7 +1542,7 @@ TEST_CASE("FixString copy", "[core][fixstring]") {
   }
 
   SECTION("Copy partial string from beginning") {
-    constexpr FixString<16> testString("Hello World");
+    constexpr FixedString<16> testString("Hello World");
     char buffer[16] = {0};
 
     REQUIRE(testString.copy(buffer, 5) == 5);
@@ -1550,7 +1550,7 @@ TEST_CASE("FixString copy", "[core][fixstring]") {
   }
 
   SECTION("Copy partial string from middle") {
-    constexpr FixString<16> testString("Hello World");
+    constexpr FixedString<16> testString("Hello World");
     char buffer[16] = {0};
 
     REQUIRE(testString.copy(buffer, 5, 6) == 5);
@@ -1558,15 +1558,15 @@ TEST_CASE("FixString copy", "[core][fixstring]") {
   }
 
   SECTION("Copy with npos count") {
-    constexpr FixString<16> testString("Hello World");
+    constexpr FixedString<16> testString("Hello World");
     char buffer[16] = {0};
 
-    REQUIRE(testString.copy(buffer, FixString<16>::npos) == 11);
+    REQUIRE(testString.copy(buffer, FixedString<16>::npos) == 11);
     REQUIRE(strncmp(buffer, "Hello World", 11) == 0);
   }
 
   SECTION("Copy with count exceeding remaining characters") {
-    constexpr FixString<16> testString("Hello World");
+    constexpr FixedString<16> testString("Hello World");
     char buffer[16] = {0};
 
     REQUIRE(testString.copy(buffer, 20, 6) == 5);
@@ -1574,7 +1574,7 @@ TEST_CASE("FixString copy", "[core][fixstring]") {
   }
 
   SECTION("Copy from position 0") {
-    constexpr FixString<16> testString("Hello World");
+    constexpr FixedString<16> testString("Hello World");
     char buffer[16] = {0};
 
     REQUIRE(testString.copy(buffer, 5, 0) == 5);
@@ -1582,7 +1582,7 @@ TEST_CASE("FixString copy", "[core][fixstring]") {
   }
 
   SECTION("Copy single character") {
-    constexpr FixString<16> testString("Hello World");
+    constexpr FixedString<16> testString("Hello World");
     char buffer[16] = {0};
 
     REQUIRE(testString.copy(buffer, 1, 6) == 1);
@@ -1590,7 +1590,7 @@ TEST_CASE("FixString copy", "[core][fixstring]") {
   }
 
   SECTION("Copy from end position") {
-    constexpr FixString<16> testString("Hello World");
+    constexpr FixedString<16> testString("Hello World");
     char buffer[16] = {0};
 
     REQUIRE(testString.copy(buffer, 1, 10) == 1);
@@ -1598,21 +1598,21 @@ TEST_CASE("FixString copy", "[core][fixstring]") {
   }
 
   SECTION("Copy with zero count") {
-    constexpr FixString<16> testString("Hello World");
+    constexpr FixedString<16> testString("Hello World");
     char buffer[16] = {0};
 
     REQUIRE(testString.copy(buffer, 0) == 0);
   }
 
   SECTION("Copy from empty string") {
-    constexpr FixString<16> testString("");
+    constexpr FixedString<16> testString("");
     char buffer[16] = {0};
 
     REQUIRE(testString.copy(buffer, 5) == 0);
   }
 
   SECTION("Copy to small buffer") {
-    constexpr FixString<16> testString("Hello World");
+    constexpr FixedString<16> testString("Hello World");
     char buffer[3] = {0};
 
     REQUIRE(testString.copy(buffer, 2) == 2);
@@ -1620,22 +1620,22 @@ TEST_CASE("FixString copy", "[core][fixstring]") {
   }
 
   SECTION("Copy with position at end") {
-    constexpr FixString<16> testString("Hello World");
+    constexpr FixedString<16> testString("Hello World");
     char buffer[16] = {0};
 
     REQUIRE(testString.copy(buffer, 5, 11) == 0);
   }
 
   SECTION("Copy with npos from middle") {
-    constexpr FixString<16> testString("Hello World");
+    constexpr FixedString<16> testString("Hello World");
     char buffer[16] = {0};
 
-    REQUIRE(testString.copy(buffer, FixString<16>::npos, 6) == 5);
+    REQUIRE(testString.copy(buffer, FixedString<16>::npos, 6) == 5);
     REQUIRE(strncmp(buffer, "World", 5) == 0);
   }
 
   SECTION("Copy with exact remaining characters") {
-    constexpr FixString<16> testString("Hello World");
+    constexpr FixedString<16> testString("Hello World");
     char buffer[16] = {0};
 
     REQUIRE(testString.copy(buffer, 5, 6) == 5);
@@ -1643,7 +1643,7 @@ TEST_CASE("FixString copy", "[core][fixstring]") {
   }
 
   SECTION("Copy with count larger than string size") {
-    constexpr FixString<16> testString("Hi");
+    constexpr FixedString<16> testString("Hi");
     char buffer[16] = {0};
 
     REQUIRE(testString.copy(buffer, 10) == 2);
@@ -1651,10 +1651,10 @@ TEST_CASE("FixString copy", "[core][fixstring]") {
   }
 }
 
-TEST_CASE("FixString swap", "[core][fixstring]") {
+TEST_CASE("FixedString swap", "[core][FixedString]") {
   SECTION("Swap two different strings") {
-    FixString<16> string1("Hello");
-    FixString<16> string2("World");
+    FixedString<16> string1("Hello");
+    FixedString<16> string2("World");
 
     string1.swap(string2);
 
@@ -1665,8 +1665,8 @@ TEST_CASE("FixString swap", "[core][fixstring]") {
   }
 
   SECTION("Swap strings of different lengths") {
-    FixString<32> string1("Short");
-    FixString<32> string2("This is a much longer string");
+    FixedString<32> string1("Short");
+    FixedString<32> string2("This is a much longer string");
 
     string1.swap(string2);
 
@@ -1677,8 +1677,8 @@ TEST_CASE("FixString swap", "[core][fixstring]") {
   }
 
   SECTION("Swap with empty string") {
-    FixString<16> string1("Hello World");
-    FixString<16> string2("");
+    FixedString<16> string1("Hello World");
+    FixedString<16> string2("");
 
     string1.swap(string2);
 
@@ -1689,8 +1689,8 @@ TEST_CASE("FixString swap", "[core][fixstring]") {
   }
 
   SECTION("Swap two empty strings") {
-    FixString<16> string1("");
-    FixString<16> string2("");
+    FixedString<16> string1("");
+    FixedString<16> string2("");
 
     string1.swap(string2);
 
@@ -1701,7 +1701,7 @@ TEST_CASE("FixString swap", "[core][fixstring]") {
   }
 
   SECTION("Self-swap (no-op)") {
-    FixString<16> string1("Hello World");
+    FixedString<16> string1("Hello World");
 
     string1.swap(string1);
 
@@ -1710,8 +1710,8 @@ TEST_CASE("FixString swap", "[core][fixstring]") {
   }
 
   SECTION("Swap with single character strings") {
-    FixString<8> string1("A");
-    FixString<8> string2("B");
+    FixedString<8> string1("A");
+    FixedString<8> string2("B");
 
     string1.swap(string2);
 
@@ -1722,8 +1722,8 @@ TEST_CASE("FixString swap", "[core][fixstring]") {
   }
 
   SECTION("Swap with maximum length strings") {
-    FixString<16> string1("123456789012345");
-    FixString<16> string2("ABCDEFGHIJKLMNO");
+    FixedString<16> string1("123456789012345");
+    FixedString<16> string2("ABCDEFGHIJKLMNO");
 
     string1.swap(string2);
 
@@ -1734,9 +1734,9 @@ TEST_CASE("FixString swap", "[core][fixstring]") {
   }
 
   SECTION("Chained swap operations") {
-    FixString<16> string1("First");
-    FixString<16> string2("Second");
-    FixString<16> string3("Third");
+    FixedString<16> string1("First");
+    FixedString<16> string2("Second");
+    FixedString<16> string3("Third");
 
     string3.swap(string2);
     string2.swap(string1);
@@ -1751,8 +1751,8 @@ TEST_CASE("FixString swap", "[core][fixstring]") {
   }
 
   SECTION("Swap with repeated characters") {
-    FixString<20> string1("AAA");
-    FixString<20> string2("BBB");
+    FixedString<20> string1("AAA");
+    FixedString<20> string2("BBB");
 
     string1.swap(string2);
 
@@ -1763,51 +1763,51 @@ TEST_CASE("FixString swap", "[core][fixstring]") {
   }
 }
 
-TEST_CASE("FixString find", "[core][fixstring]") {
-  SECTION("Find FixString substring") {
-    constexpr FixString<32> testString("Hello World");
+TEST_CASE("FixedString find", "[core][FixedString]") {
+  SECTION("Find FixedString substring") {
+    constexpr FixedString<32> testString("Hello World");
 
-    REQUIRE(testString.find(FixString<16>("World")) == 6);
-    REQUIRE(testString.find(FixString<16>("Hello")) == 0);
-    REQUIRE(testString.find(FixString<16>("lo Wo")) == 3);
-    REQUIRE(testString.find(FixString<16>("xyz")) == FixString<32>::npos);
+    REQUIRE(testString.find(FixedString<16>("World")) == 6);
+    REQUIRE(testString.find(FixedString<16>("Hello")) == 0);
+    REQUIRE(testString.find(FixedString<16>("lo Wo")) == 3);
+    REQUIRE(testString.find(FixedString<16>("xyz")) == FixedString<32>::npos);
   }
 
   SECTION("Find StringLike substring") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.find(std::string("World")) == 6);
     REQUIRE(testString.find(std::string("Hello")) == 0);
     REQUIRE(testString.find(std::string("lo Wo")) == 3);
-    REQUIRE(testString.find(std::string("xyz")) == FixString<32>::npos);
+    REQUIRE(testString.find(std::string("xyz")) == FixedString<32>::npos);
   }
 
   SECTION("Find C string substring") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.find("World") == 6);
     REQUIRE(testString.find("Hello") == 0);
     REQUIRE(testString.find("lo Wo") == 3);
-    REQUIRE(testString.find("xyz") == FixString<32>::npos);
+    REQUIRE(testString.find("xyz") == FixedString<32>::npos);
   }
 
   SECTION("Find character") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.find('H') == 0);
     REQUIRE(testString.find('l') == 2);
     REQUIRE(testString.find('o') == 4);
     REQUIRE(testString.find('W') == 6);
     REQUIRE(testString.find('d') == 10);
-    REQUIRE(testString.find('x') == FixString<32>::npos);
+    REQUIRE(testString.find('x') == FixedString<32>::npos);
   }
 
   SECTION("Find with position parameter") {
-    constexpr FixString<32> testString("Hello World Hello");
+    constexpr FixedString<32> testString("Hello World Hello");
 
     REQUIRE(testString.find("Hello", 0) == 0);
     REQUIRE(testString.find("Hello", 1) == 12);
-    REQUIRE(testString.find("Hello", 13) == FixString<32>::npos);
+    REQUIRE(testString.find("Hello", 13) == FixedString<32>::npos);
     REQUIRE(testString.find('l', 0) == 2);
     REQUIRE(testString.find('l', 3) == 3);
     REQUIRE(testString.find('l', 4) == 9);
@@ -1815,35 +1815,35 @@ TEST_CASE("FixString find", "[core][fixstring]") {
   }
 
   SECTION("Find empty substring") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
-    REQUIRE(testString.find(FixString<16>("")) == 0);
+    REQUIRE(testString.find(FixedString<16>("")) == 0);
     REQUIRE(testString.find(std::string("")) == 0);
     REQUIRE(testString.find("") == 0);
     REQUIRE(testString.find("", 5) == 5);
-    REQUIRE(testString.find("", 11) == FixString<32>::npos);
+    REQUIRE(testString.find("", 11) == FixedString<32>::npos);
   }
 
   SECTION("Find in empty string") {
-    constexpr FixString<32> testString("");
+    constexpr FixedString<32> testString("");
 
-    REQUIRE(testString.find(FixString<16>("Hello")) == FixString<32>::npos);
-    REQUIRE(testString.find(std::string("Hello")) == FixString<32>::npos);
-    REQUIRE(testString.find("Hello") == FixString<32>::npos);
-    REQUIRE(testString.find('H') == FixString<32>::npos);
-    REQUIRE(testString.find("") == FixString<32>::npos);
+    REQUIRE(testString.find(FixedString<16>("Hello")) == FixedString<32>::npos);
+    REQUIRE(testString.find(std::string("Hello")) == FixedString<32>::npos);
+    REQUIRE(testString.find("Hello") == FixedString<32>::npos);
+    REQUIRE(testString.find('H') == FixedString<32>::npos);
+    REQUIRE(testString.find("") == FixedString<32>::npos);
   }
 
   SECTION("Find with position beyond string size") {
-    constexpr FixString<32> testString("Hello");
+    constexpr FixedString<32> testString("Hello");
 
-    REQUIRE(testString.find("World", 10) == FixString<32>::npos);
-    REQUIRE(testString.find('H', 10) == FixString<32>::npos);
-    REQUIRE(testString.find("", 10) == FixString<32>::npos);
+    REQUIRE(testString.find("World", 10) == FixedString<32>::npos);
+    REQUIRE(testString.find('H', 10) == FixedString<32>::npos);
+    REQUIRE(testString.find("", 10) == FixedString<32>::npos);
   }
 
   SECTION("Find substring at end") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.find("World") == 6);
     REQUIRE(testString.find("d") == 10);
@@ -1851,7 +1851,7 @@ TEST_CASE("FixString find", "[core][fixstring]") {
   }
 
   SECTION("Find substring at beginning") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.find("Hello") == 0);
     REQUIRE(testString.find("H") == 0);
@@ -1859,100 +1859,100 @@ TEST_CASE("FixString find", "[core][fixstring]") {
   }
 
   SECTION("Find overlapping substrings") {
-    constexpr FixString<32> testString("ababab");
+    constexpr FixedString<32> testString("ababab");
 
     REQUIRE(testString.find("ab") == 0);
     REQUIRE(testString.find("ab", 1) == 2);
     REQUIRE(testString.find("ab", 3) == 4);
-    REQUIRE(testString.find("ab", 5) == FixString<32>::npos);
+    REQUIRE(testString.find("ab", 5) == FixedString<32>::npos);
   }
 
   SECTION("Find with repeated characters") {
-    constexpr FixString<32> testString("aaaaa");
+    constexpr FixedString<32> testString("aaaaa");
 
     REQUIRE(testString.find("aa") == 0);
     REQUIRE(testString.find("aa", 1) == 1);
     REQUIRE(testString.find("aa", 2) == 2);
     REQUIRE(testString.find("aa", 3) == 3);
-    REQUIRE(testString.find("aa", 4) == FixString<32>::npos);
+    REQUIRE(testString.find("aa", 4) == FixedString<32>::npos);
   }
 
   SECTION("Find case sensitivity") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
-    REQUIRE(testString.find("hello") == FixString<32>::npos);
-    REQUIRE(testString.find("WORLD") == FixString<32>::npos);
+    REQUIRE(testString.find("hello") == FixedString<32>::npos);
+    REQUIRE(testString.find("WORLD") == FixedString<32>::npos);
     REQUIRE(testString.find("Hello") == 0);
     REQUIRE(testString.find("World") == 6);
   }
 
-  SECTION("Find with different FixString capacities") {
-    constexpr FixString<32> testString("Hello World");
+  SECTION("Find with different FixedString capacities") {
+    constexpr FixedString<32> testString("Hello World");
 
-    REQUIRE(testString.find(FixString<8>("World")) == 6);
-    REQUIRE(testString.find(FixString<16>("World")) == 6);
-    REQUIRE(testString.find(FixString<64>("World")) == 6);
+    REQUIRE(testString.find(FixedString<8>("World")) == 6);
+    REQUIRE(testString.find(FixedString<16>("World")) == 6);
+    REQUIRE(testString.find(FixedString<64>("World")) == 6);
   }
 
   SECTION("Find with exact match") {
-    constexpr FixString<32> testString("Hello");
+    constexpr FixedString<32> testString("Hello");
 
     REQUIRE(testString.find("Hello") == 0);
     REQUIRE(testString.find("Hello", 0) == 0);
-    REQUIRE(testString.find("Hello", 1) == FixString<32>::npos);
+    REQUIRE(testString.find("Hello", 1) == FixedString<32>::npos);
   }
 
   SECTION("Find with single character string") {
-    constexpr FixString<32> testString("A");
+    constexpr FixedString<32> testString("A");
 
     REQUIRE(testString.find("A") == 0);
     REQUIRE(testString.find('A') == 0);
-    REQUIRE(testString.find("B") == FixString<32>::npos);
-    REQUIRE(testString.find('B') == FixString<32>::npos);
+    REQUIRE(testString.find("B") == FixedString<32>::npos);
+    REQUIRE(testString.find('B') == FixedString<32>::npos);
   }
 }
 
-TEST_CASE("FixString rfind", "[core][fixstring]") {
-  SECTION("Rfind FixString substring") {
-    constexpr FixString<32> testString("Hello World Hello");
+TEST_CASE("FixedString rfind", "[core][FixedString]") {
+  SECTION("Rfind FixedString substring") {
+    constexpr FixedString<32> testString("Hello World Hello");
 
-    REQUIRE(testString.rfind(FixString<16>("Hello")) == 12);
-    REQUIRE(testString.rfind(FixString<16>("World")) == 6);
-    REQUIRE(testString.rfind(FixString<16>("lo")) == 15);
-    REQUIRE(testString.rfind(FixString<16>("xyz")) == FixString<32>::npos);
+    REQUIRE(testString.rfind(FixedString<16>("Hello")) == 12);
+    REQUIRE(testString.rfind(FixedString<16>("World")) == 6);
+    REQUIRE(testString.rfind(FixedString<16>("lo")) == 15);
+    REQUIRE(testString.rfind(FixedString<16>("xyz")) == FixedString<32>::npos);
   }
 
   SECTION("Rfind StringLike substring") {
-    constexpr FixString<32> testString("Hello World Hello");
+    constexpr FixedString<32> testString("Hello World Hello");
 
     REQUIRE(testString.rfind(std::string("Hello")) == 12);
     REQUIRE(testString.rfind(std::string("World")) == 6);
     REQUIRE(testString.rfind(std::string("lo")) == 15);
-    REQUIRE(testString.rfind(std::string("xyz")) == FixString<32>::npos);
+    REQUIRE(testString.rfind(std::string("xyz")) == FixedString<32>::npos);
   }
 
   SECTION("Rfind C string substring") {
-    constexpr FixString<32> testString("Hello World Hello");
+    constexpr FixedString<32> testString("Hello World Hello");
 
     REQUIRE(testString.rfind("Hello") == 12);
     REQUIRE(testString.rfind("World") == 6);
     REQUIRE(testString.rfind("lo") == 15);
-    REQUIRE(testString.rfind("xyz") == FixString<32>::npos);
+    REQUIRE(testString.rfind("xyz") == FixedString<32>::npos);
   }
 
   SECTION("Rfind character") {
-    constexpr FixString<32> testString("Hello World Hello");
+    constexpr FixedString<32> testString("Hello World Hello");
 
     REQUIRE(testString.rfind('H') == 12);
     REQUIRE(testString.rfind('l') == 15);
     REQUIRE(testString.rfind('o') == 16);
     REQUIRE(testString.rfind('W') == 6);
     REQUIRE(testString.rfind('d') == 10);
-    REQUIRE(testString.rfind('x') == FixString<32>::npos);
+    REQUIRE(testString.rfind('x') == FixedString<32>::npos);
   }
 
   SECTION("Rfind with position parameter") {
-    constexpr FixString<32> testString("Hello World Hello");
+    constexpr FixedString<32> testString("Hello World Hello");
 
     REQUIRE(testString.rfind("Hello", 12) == 12);
     REQUIRE(testString.rfind("Hello", 11) == 0);
@@ -1964,9 +1964,9 @@ TEST_CASE("FixString rfind", "[core][fixstring]") {
   }
 
   SECTION("Rfind empty substring") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
-    REQUIRE(testString.rfind(FixString<16>("")) == 11);
+    REQUIRE(testString.rfind(FixedString<16>("")) == 11);
     REQUIRE(testString.rfind(std::string("")) == 11);
     REQUIRE(testString.rfind("") == 11);
     REQUIRE(testString.rfind("", 5) == 5);
@@ -1974,17 +1974,17 @@ TEST_CASE("FixString rfind", "[core][fixstring]") {
   }
 
   SECTION("Rfind in empty string") {
-    constexpr FixString<32> testString("");
+    constexpr FixedString<32> testString("");
 
-    REQUIRE(testString.rfind(FixString<16>("Hello")) == FixString<32>::npos);
-    REQUIRE(testString.rfind(std::string("Hello")) == FixString<32>::npos);
-    REQUIRE(testString.rfind("Hello") == FixString<32>::npos);
-    REQUIRE(testString.rfind('H') == FixString<32>::npos);
+    REQUIRE(testString.rfind(FixedString<16>("Hello")) == FixedString<32>::npos);
+    REQUIRE(testString.rfind(std::string("Hello")) == FixedString<32>::npos);
+    REQUIRE(testString.rfind("Hello") == FixedString<32>::npos);
+    REQUIRE(testString.rfind('H') == FixedString<32>::npos);
     REQUIRE(testString.rfind("") == 0);
   }
 
   SECTION("Rfind substring at end") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.rfind("World") == 6);
     REQUIRE(testString.rfind("d") == 10);
@@ -1992,7 +1992,7 @@ TEST_CASE("FixString rfind", "[core][fixstring]") {
   }
 
   SECTION("Rfind substring at beginning") {
-    constexpr FixString<32> testString("Hello World Hello");
+    constexpr FixedString<32> testString("Hello World Hello");
 
     REQUIRE(testString.rfind("Hello") == 12);
     REQUIRE(testString.rfind("H") == 12);
@@ -2000,7 +2000,7 @@ TEST_CASE("FixString rfind", "[core][fixstring]") {
   }
 
   SECTION("Rfind overlapping substrings") {
-    constexpr FixString<32> testString("ababab");
+    constexpr FixedString<32> testString("ababab");
 
     REQUIRE(testString.rfind("ab") == 4);
     REQUIRE(testString.rfind("ab", 3) == 2);
@@ -2009,7 +2009,7 @@ TEST_CASE("FixString rfind", "[core][fixstring]") {
   }
 
   SECTION("Rfind with repeated characters") {
-    constexpr FixString<32> testString("aaaaa");
+    constexpr FixedString<32> testString("aaaaa");
 
     REQUIRE(testString.rfind("aa") == 3);
     REQUIRE(testString.rfind("aa", 2) == 2);
@@ -2018,56 +2018,56 @@ TEST_CASE("FixString rfind", "[core][fixstring]") {
   }
 
   SECTION("Rfind case sensitivity") {
-    constexpr FixString<32> testString("Hello World Hello");
+    constexpr FixedString<32> testString("Hello World Hello");
 
-    REQUIRE(testString.rfind("hello") == FixString<32>::npos);
-    REQUIRE(testString.rfind("WORLD") == FixString<32>::npos);
+    REQUIRE(testString.rfind("hello") == FixedString<32>::npos);
+    REQUIRE(testString.rfind("WORLD") == FixedString<32>::npos);
     REQUIRE(testString.rfind("Hello") == 12);
     REQUIRE(testString.rfind("World") == 6);
   }
 
-  SECTION("Rfind with different FixString capacities") {
-    constexpr FixString<32> testString("Hello World Hello");
+  SECTION("Rfind with different FixedString capacities") {
+    constexpr FixedString<32> testString("Hello World Hello");
 
-    REQUIRE(testString.rfind(FixString<8>("Hello")) == 12);
-    REQUIRE(testString.rfind(FixString<16>("Hello")) == 12);
-    REQUIRE(testString.rfind(FixString<64>("Hello")) == 12);
+    REQUIRE(testString.rfind(FixedString<8>("Hello")) == 12);
+    REQUIRE(testString.rfind(FixedString<16>("Hello")) == 12);
+    REQUIRE(testString.rfind(FixedString<64>("Hello")) == 12);
   }
 
   SECTION("Rfind with exact match") {
-    constexpr FixString<32> testString("Hello");
+    constexpr FixedString<32> testString("Hello");
 
     REQUIRE(testString.rfind("Hello") == 0);
     REQUIRE(testString.rfind("Hello", 0) == 0);
   }
 
   SECTION("Rfind with single character string") {
-    constexpr FixString<32> testString("A");
+    constexpr FixedString<32> testString("A");
 
     REQUIRE(testString.rfind("A") == 0);
     REQUIRE(testString.rfind('A') == 0);
-    REQUIRE(testString.rfind("B") == FixString<32>::npos);
-    REQUIRE(testString.rfind('B') == FixString<32>::npos);
+    REQUIRE(testString.rfind("B") == FixedString<32>::npos);
+    REQUIRE(testString.rfind('B') == FixedString<32>::npos);
   }
 
   SECTION("Rfind with position 0") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.rfind("Hello", 0) == 0);
-    REQUIRE(testString.rfind("World", 0) == FixString<32>::npos);
+    REQUIRE(testString.rfind("World", 0) == FixedString<32>::npos);
     REQUIRE(testString.rfind('H', 0) == 0);
-    REQUIRE(testString.rfind('W', 0) == FixString<32>::npos);
+    REQUIRE(testString.rfind('W', 0) == FixedString<32>::npos);
   }
 
   SECTION("Rfind with substring longer than string") {
-    constexpr FixString<32> testString("Hello");
+    constexpr FixedString<32> testString("Hello");
 
-    REQUIRE(testString.rfind("Hello World") == FixString<32>::npos);
-    REQUIRE(testString.rfind("Hello World", 10) == FixString<32>::npos);
+    REQUIRE(testString.rfind("Hello World") == FixedString<32>::npos);
+    REQUIRE(testString.rfind("Hello World", 10) == FixedString<32>::npos);
   }
 
   SECTION("Rfind with multiple occurrences") {
-    constexpr FixString<32> testString("abababab");
+    constexpr FixedString<32> testString("abababab");
 
     REQUIRE(testString.rfind("ab") == 6);
     REQUIRE(testString.rfind("ab", 5) == 4);
@@ -2076,7 +2076,7 @@ TEST_CASE("FixString rfind", "[core][fixstring]") {
   }
 
   SECTION("Rfind with position in middle") {
-    constexpr FixString<32> testString("Hello World Hello");
+    constexpr FixedString<32> testString("Hello World Hello");
 
     REQUIRE(testString.rfind("Hello", 8) == 0);
     REQUIRE(testString.rfind("Hello", 12) == 12);
@@ -2085,36 +2085,36 @@ TEST_CASE("FixString rfind", "[core][fixstring]") {
   }
 }
 
-TEST_CASE("FixString find_first_of", "[core][fixstring]") {
-  SECTION("Find first of FixString characters") {
-    constexpr FixString<32> testString("Hello World");
+TEST_CASE("FixedString find_first_of", "[core][FixedString]") {
+  SECTION("Find first of FixedString characters") {
+    constexpr FixedString<32> testString("Hello World");
 
-    REQUIRE(testString.find_first_of(FixString<16>("aeiou")) == 1); // 'e' at position 1
-    REQUIRE(testString.find_first_of(FixString<16>("H")) == 0);
-    REQUIRE(testString.find_first_of(FixString<16>("d")) == 10);
-    REQUIRE(testString.find_first_of(FixString<16>("xyz")) == FixString<32>::npos);
+    REQUIRE(testString.find_first_of(FixedString<16>("aeiou")) == 1); // 'e' at position 1
+    REQUIRE(testString.find_first_of(FixedString<16>("H")) == 0);
+    REQUIRE(testString.find_first_of(FixedString<16>("d")) == 10);
+    REQUIRE(testString.find_first_of(FixedString<16>("xyz")) == FixedString<32>::npos);
   }
 
   SECTION("Find first of StringLike characters") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.find_first_of(std::string("aeiou")) == 1);
     REQUIRE(testString.find_first_of(std::string("H")) == 0);
     REQUIRE(testString.find_first_of(std::string("d")) == 10);
-    REQUIRE(testString.find_first_of(std::string("xyz")) == FixString<32>::npos);
+    REQUIRE(testString.find_first_of(std::string("xyz")) == FixedString<32>::npos);
   }
 
   SECTION("Find first of C string characters") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.find_first_of("aeiou") == 1);
     REQUIRE(testString.find_first_of("H") == 0);
     REQUIRE(testString.find_first_of("d") == 10);
-    REQUIRE(testString.find_first_of("xyz") == FixString<32>::npos);
+    REQUIRE(testString.find_first_of("xyz") == FixedString<32>::npos);
   }
 
   SECTION("Find first of single character") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.find_first_of('H') == 0);
     REQUIRE(testString.find_first_of('e') == 1);
@@ -2122,54 +2122,54 @@ TEST_CASE("FixString find_first_of", "[core][fixstring]") {
     REQUIRE(testString.find_first_of('o') == 4);
     REQUIRE(testString.find_first_of('W') == 6);
     REQUIRE(testString.find_first_of('d') == 10);
-    REQUIRE(testString.find_first_of('x') == FixString<32>::npos);
+    REQUIRE(testString.find_first_of('x') == FixedString<32>::npos);
   }
 
   SECTION("Find first of with position parameter") {
-    constexpr FixString<32> testString("Hello World Hello");
+    constexpr FixedString<32> testString("Hello World Hello");
 
     REQUIRE(testString.find_first_of("aeiou", 0) == 1);
     REQUIRE(testString.find_first_of("aeiou", 2) == 4);
     REQUIRE(testString.find_first_of("aeiou", 5) == 7);
     REQUIRE(testString.find_first_of("aeiou", 8) == 13);
     REQUIRE(testString.find_first_of("aeiou", 14) == 16);
-    REQUIRE(testString.find_first_of("aeiou", 17) == FixString<32>::npos);
+    REQUIRE(testString.find_first_of("aeiou", 17) == FixedString<32>::npos);
   }
 
   SECTION("Find first of empty character set") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
-    REQUIRE(testString.find_first_of(FixString<16>("")) == FixString<32>::npos);
-    REQUIRE(testString.find_first_of(std::string("")) == FixString<32>::npos);
-    REQUIRE(testString.find_first_of("") == FixString<32>::npos);
+    REQUIRE(testString.find_first_of(FixedString<16>("")) == FixedString<32>::npos);
+    REQUIRE(testString.find_first_of(std::string("")) == FixedString<32>::npos);
+    REQUIRE(testString.find_first_of("") == FixedString<32>::npos);
   }
 
   SECTION("Find first of in empty string") {
-    constexpr FixString<32> testString("");
+    constexpr FixedString<32> testString("");
 
-    REQUIRE(testString.find_first_of(FixString<16>("aeiou")) == FixString<32>::npos);
-    REQUIRE(testString.find_first_of(std::string("aeiou")) == FixString<32>::npos);
-    REQUIRE(testString.find_first_of("aeiou") == FixString<32>::npos);
-    REQUIRE(testString.find_first_of('a') == FixString<32>::npos);
+    REQUIRE(testString.find_first_of(FixedString<16>("aeiou")) == FixedString<32>::npos);
+    REQUIRE(testString.find_first_of(std::string("aeiou")) == FixedString<32>::npos);
+    REQUIRE(testString.find_first_of("aeiou") == FixedString<32>::npos);
+    REQUIRE(testString.find_first_of('a') == FixedString<32>::npos);
   }
 
   SECTION("Find first of with position beyond string size") {
-    constexpr FixString<32> testString("Hello");
+    constexpr FixedString<32> testString("Hello");
 
-    REQUIRE(testString.find_first_of("aeiou", 10) == FixString<32>::npos);
-    REQUIRE(testString.find_first_of('a', 10) == FixString<32>::npos);
+    REQUIRE(testString.find_first_of("aeiou", 10) == FixedString<32>::npos);
+    REQUIRE(testString.find_first_of('a', 10) == FixedString<32>::npos);
   }
 
   SECTION("Find first of with repeated characters") {
-    constexpr FixString<32> testString("aaaaa");
+    constexpr FixedString<32> testString("aaaaa");
 
     REQUIRE(testString.find_first_of("a") == 0);
     REQUIRE(testString.find_first_of("ab") == 0);
-    REQUIRE(testString.find_first_of("b") == FixString<32>::npos);
+    REQUIRE(testString.find_first_of("b") == FixedString<32>::npos);
   }
 
   SECTION("Find first of with multiple character sets") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.find_first_of("Hl") == 0); // 'H' at position 0
     REQUIRE(testString.find_first_of("lo") == 2); // 'l' at position 2
@@ -2178,16 +2178,16 @@ TEST_CASE("FixString find_first_of", "[core][fixstring]") {
   }
 
   SECTION("Find first of case sensitivity") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
-    REQUIRE(testString.find_first_of("h") == FixString<32>::npos);
+    REQUIRE(testString.find_first_of("h") == FixedString<32>::npos);
     REQUIRE(testString.find_first_of("H") == 0);
-    REQUIRE(testString.find_first_of("w") == FixString<32>::npos);
+    REQUIRE(testString.find_first_of("w") == FixedString<32>::npos);
     REQUIRE(testString.find_first_of("W") == 6);
   }
 
   SECTION("Find first of with special characters") {
-    constexpr FixString<32> testString("Hello, World!");
+    constexpr FixedString<32> testString("Hello, World!");
 
     REQUIRE(testString.find_first_of("!,") == 5); // ',' at position 5
     REQUIRE(testString.find_first_of("!") == 12); // '!' at position 12
@@ -2195,48 +2195,48 @@ TEST_CASE("FixString find_first_of", "[core][fixstring]") {
   }
 
   SECTION("Find first of with numbers") {
-    constexpr FixString<32> testString("Hello123World");
+    constexpr FixedString<32> testString("Hello123World");
 
     REQUIRE(testString.find_first_of("0123456789") == 5); // '1' at position 5
     REQUIRE(testString.find_first_of("123") == 5); // '1' at position 5
-    REQUIRE(testString.find_first_of("456") == FixString<32>::npos);
+    REQUIRE(testString.find_first_of("456") == FixedString<32>::npos);
   }
 
   SECTION("Find first of with whitespace") {
-    constexpr FixString<32> testString("Hello World\t\n");
+    constexpr FixedString<32> testString("Hello World\t\n");
 
     REQUIRE(testString.find_first_of(" \t\n") == 5); // ' ' at position 5
     REQUIRE(testString.find_first_of("\t") == 11);
     REQUIRE(testString.find_first_of("\n") == 12);
   }
 
-  SECTION("Find first of with different FixString capacities") {
-    constexpr FixString<32> testString("Hello World");
+  SECTION("Find first of with different FixedString capacities") {
+    constexpr FixedString<32> testString("Hello World");
 
-    REQUIRE(testString.find_first_of(FixString<8>("aeiou")) == 1);
-    REQUIRE(testString.find_first_of(FixString<16>("aeiou")) == 1);
-    REQUIRE(testString.find_first_of(FixString<64>("aeiou")) == 1);
+    REQUIRE(testString.find_first_of(FixedString<8>("aeiou")) == 1);
+    REQUIRE(testString.find_first_of(FixedString<16>("aeiou")) == 1);
+    REQUIRE(testString.find_first_of(FixedString<64>("aeiou")) == 1);
   }
 
   SECTION("Find first of with single character string") {
-    constexpr FixString<32> testString("A");
+    constexpr FixedString<32> testString("A");
 
     REQUIRE(testString.find_first_of("A") == 0);
     REQUIRE(testString.find_first_of('A') == 0);
-    REQUIRE(testString.find_first_of("B") == FixString<32>::npos);
-    REQUIRE(testString.find_first_of('B') == FixString<32>::npos);
+    REQUIRE(testString.find_first_of("B") == FixedString<32>::npos);
+    REQUIRE(testString.find_first_of('B') == FixedString<32>::npos);
   }
 
   SECTION("Find first of with position 0") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.find_first_of("aeiou", 0) == 1);
     REQUIRE(testString.find_first_of("H", 0) == 0);
-    REQUIRE(testString.find_first_of("xyz", 0) == FixString<32>::npos);
+    REQUIRE(testString.find_first_of("xyz", 0) == FixedString<32>::npos);
   }
 
   SECTION("Find first of with all characters found") {
-    constexpr FixString<32> testString("abcdefghijklmnopqrstuvwxyz");
+    constexpr FixedString<32> testString("abcdefghijklmnopqrstuvwxyz");
 
     REQUIRE(testString.find_first_of("aeiou") == 0);
     REQUIRE(testString.find_first_of("xyz") == 23);
@@ -2244,41 +2244,41 @@ TEST_CASE("FixString find_first_of", "[core][fixstring]") {
   }
 
   SECTION("Find first of with no characters found") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
-    REQUIRE(testString.find_first_of("0123456789") == FixString<32>::npos);
-    REQUIRE(testString.find_first_of("!@#$%^&*()") == FixString<32>::npos);
-    REQUIRE(testString.find_first_of("[]{}|\\:;\"'<>?/") == FixString<32>::npos);
+    REQUIRE(testString.find_first_of("0123456789") == FixedString<32>::npos);
+    REQUIRE(testString.find_first_of("!@#$%^&*()") == FixedString<32>::npos);
+    REQUIRE(testString.find_first_of("[]{}|\\:;\"'<>?/") == FixedString<32>::npos);
   }
 }
 
-TEST_CASE("FixString find_first_not_of", "[core][fixstring]") {
-  SECTION("Find first not of FixString characters") {
-    constexpr FixString<32> testString("Hello World");
+TEST_CASE("FixedString find_first_not_of", "[core][FixedString]") {
+  SECTION("Find first not of FixedString characters") {
+    constexpr FixedString<32> testString("Hello World");
 
-    REQUIRE(testString.find_first_not_of(FixString<16>("H")) == 1); // 'e' at position 1
-    REQUIRE(testString.find_first_not_of(FixString<16>("Hel")) == 4); // 'o' at position 4
-    REQUIRE(testString.find_first_not_of(FixString<16>("Helo Wrd")) == FixString<32>::npos);
+    REQUIRE(testString.find_first_not_of(FixedString<16>("H")) == 1); // 'e' at position 1
+    REQUIRE(testString.find_first_not_of(FixedString<16>("Hel")) == 4); // 'o' at position 4
+    REQUIRE(testString.find_first_not_of(FixedString<16>("Helo Wrd")) == FixedString<32>::npos);
   }
 
   SECTION("Find first not of StringLike characters") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.find_first_not_of(std::string("H")) == 1); // 'e' at position 1
     REQUIRE(testString.find_first_not_of(std::string("Hel")) == 4); // 'o' at position 4
-    REQUIRE(testString.find_first_not_of(std::string("Helo Wrd")) == FixString<32>::npos);
+    REQUIRE(testString.find_first_not_of(std::string("Helo Wrd")) == FixedString<32>::npos);
   }
 
   SECTION("Find first not of C string characters") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.find_first_not_of("H") == 1); // 'e' at position 1
     REQUIRE(testString.find_first_not_of("Hel") == 4); // 'o' at position 4
-    REQUIRE(testString.find_first_not_of("Helo Wrd") == FixString<32>::npos);
+    REQUIRE(testString.find_first_not_of("Helo Wrd") == FixedString<32>::npos);
   }
 
   SECTION("Find first not of single character") {
-    constexpr FixString<32> testString("aaaaab");
+    constexpr FixedString<32> testString("aaaaab");
 
     REQUIRE(testString.find_first_not_of('a') == 5); // 'b' at position 5
     REQUIRE(testString.find_first_not_of('b') == 0); // 'a' at position 0
@@ -2286,7 +2286,7 @@ TEST_CASE("FixString find_first_not_of", "[core][fixstring]") {
   }
 
   SECTION("Find first not of with position parameter") {
-    constexpr FixString<32> testString("Hello World Hello");
+    constexpr FixedString<32> testString("Hello World Hello");
 
     REQUIRE(testString.find_first_not_of("Hel", 0) == 4); // 'o' at position 4
     REQUIRE(testString.find_first_not_of("Hel", 4) == 4); // 'o' at position 4
@@ -2296,40 +2296,40 @@ TEST_CASE("FixString find_first_not_of", "[core][fixstring]") {
   }
 
   SECTION("Find first not of empty character set") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
-    REQUIRE(testString.find_first_not_of(FixString<16>("")) == 0); // 'H' at position 0
+    REQUIRE(testString.find_first_not_of(FixedString<16>("")) == 0); // 'H' at position 0
     REQUIRE(testString.find_first_not_of(std::string("")) == 0); // 'H' at position 0
     REQUIRE(testString.find_first_not_of("") == 0); // 'H' at position 0
     REQUIRE(testString.find_first_not_of("", 5) == 5); // ' ' at position 5
   }
 
   SECTION("Find first not of in empty string") {
-    constexpr FixString<32> testString("");
+    constexpr FixedString<32> testString("");
 
-    REQUIRE(testString.find_first_not_of(FixString<16>("aeiou")) == FixString<32>::npos);
-    REQUIRE(testString.find_first_not_of(std::string("aeiou")) == FixString<32>::npos);
-    REQUIRE(testString.find_first_not_of("aeiou") == FixString<32>::npos);
-    REQUIRE(testString.find_first_not_of('a') == FixString<32>::npos);
+    REQUIRE(testString.find_first_not_of(FixedString<16>("aeiou")) == FixedString<32>::npos);
+    REQUIRE(testString.find_first_not_of(std::string("aeiou")) == FixedString<32>::npos);
+    REQUIRE(testString.find_first_not_of("aeiou") == FixedString<32>::npos);
+    REQUIRE(testString.find_first_not_of('a') == FixedString<32>::npos);
   }
 
   SECTION("Find first not of with position beyond string size") {
-    constexpr FixString<32> testString("Hello");
+    constexpr FixedString<32> testString("Hello");
 
-    REQUIRE(testString.find_first_not_of("aeiou", 10) == FixString<32>::npos);
-    REQUIRE(testString.find_first_not_of('a', 10) == FixString<32>::npos);
+    REQUIRE(testString.find_first_not_of("aeiou", 10) == FixedString<32>::npos);
+    REQUIRE(testString.find_first_not_of('a', 10) == FixedString<32>::npos);
   }
 
   SECTION("Find first not of with repeated characters") {
-    constexpr FixString<32> testString("aaaaa");
+    constexpr FixedString<32> testString("aaaaa");
 
-    REQUIRE(testString.find_first_not_of("a") == FixString<32>::npos);
-    REQUIRE(testString.find_first_not_of("ab") == FixString<32>::npos);
+    REQUIRE(testString.find_first_not_of("a") == FixedString<32>::npos);
+    REQUIRE(testString.find_first_not_of("ab") == FixedString<32>::npos);
     REQUIRE(testString.find_first_not_of("b") == 0); // 'a' at position 0
   }
 
   SECTION("Find first not of with multiple character sets") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.find_first_not_of("Hl") == 1); // 'e' at position 1
     REQUIRE(testString.find_first_not_of("Hel") == 4); // 'o' at position 4
@@ -2338,7 +2338,7 @@ TEST_CASE("FixString find_first_not_of", "[core][fixstring]") {
   }
 
   SECTION("Find first not of case sensitivity") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.find_first_not_of("h") == 0); // 'H' at position 0
     REQUIRE(testString.find_first_not_of("H") == 1); // 'e' at position 1
@@ -2347,63 +2347,63 @@ TEST_CASE("FixString find_first_not_of", "[core][fixstring]") {
   }
 
   SECTION("Find first not of with special characters") {
-    constexpr FixString<32> testString("Hello, World!");
+    constexpr FixedString<32> testString("Hello, World!");
 
-    REQUIRE(testString.find_first_not_of("Helo, Wrd!") == FixString<32>::npos);
+    REQUIRE(testString.find_first_not_of("Helo, Wrd!") == FixedString<32>::npos);
     REQUIRE(testString.find_first_not_of("Helo, Wrd") == 12); // '!' at position 12
   }
 
   SECTION("Find first not of with numbers") {
-    constexpr FixString<32> testString("Hello123World");
+    constexpr FixedString<32> testString("Hello123World");
 
     REQUIRE(testString.find_first_not_of("0123456789") == 0); // 'H' at position 0
-    REQUIRE(testString.find_first_not_of("Helo123Wrd") == FixString<32>::npos);
+    REQUIRE(testString.find_first_not_of("Helo123Wrd") == FixedString<32>::npos);
     REQUIRE(testString.find_first_not_of("Helo123Wr") == 12); // 'd' at position 12
   }
 
   SECTION("Find first not of with whitespace") {
-    constexpr FixString<32> testString("Hello World\t\n");
+    constexpr FixedString<32> testString("Hello World\t\n");
 
     REQUIRE(testString.find_first_not_of(" \t\n") == 0); // 'H' at position 0
-    REQUIRE(testString.find_first_not_of("Helo Wrd\t\n") == FixString<32>::npos);
+    REQUIRE(testString.find_first_not_of("Helo Wrd\t\n") == FixedString<32>::npos);
     REQUIRE(testString.find_first_not_of("Helo Wrd") == 11); // '\t' at position 11
   }
 
-  SECTION("Find first not of with different FixString capacities") {
-    constexpr FixString<32> testString("Hello World");
+  SECTION("Find first not of with different FixedString capacities") {
+    constexpr FixedString<32> testString("Hello World");
 
-    REQUIRE(testString.find_first_not_of(FixString<8>("H")) == 1);
-    REQUIRE(testString.find_first_not_of(FixString<16>("H")) == 1);
-    REQUIRE(testString.find_first_not_of(FixString<64>("H")) == 1);
+    REQUIRE(testString.find_first_not_of(FixedString<8>("H")) == 1);
+    REQUIRE(testString.find_first_not_of(FixedString<16>("H")) == 1);
+    REQUIRE(testString.find_first_not_of(FixedString<64>("H")) == 1);
   }
 
   SECTION("Find first not of with single character string") {
-    constexpr FixString<32> testString("A");
+    constexpr FixedString<32> testString("A");
 
-    REQUIRE(testString.find_first_not_of("A") == FixString<32>::npos);
-    REQUIRE(testString.find_first_not_of('A') == FixString<32>::npos);
+    REQUIRE(testString.find_first_not_of("A") == FixedString<32>::npos);
+    REQUIRE(testString.find_first_not_of('A') == FixedString<32>::npos);
     REQUIRE(testString.find_first_not_of("B") == 0); // 'A' at position 0
     REQUIRE(testString.find_first_not_of('B') == 0); // 'A' at position 0
   }
 
   SECTION("Find first not of with position 0") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.find_first_not_of("H", 0) == 1);
     REQUIRE(testString.find_first_not_of("Hel", 0) == 4);
-    REQUIRE(testString.find_first_not_of("Helo Wrd", 0) == FixString<32>::npos);
+    REQUIRE(testString.find_first_not_of("Helo Wrd", 0) == FixedString<32>::npos);
   }
 
   SECTION("Find first not of with all characters excluded") {
-    constexpr FixString<32> testString("abcdefghijklmnopqrstuvwxyz");
+    constexpr FixedString<32> testString("abcdefghijklmnopqrstuvwxyz");
 
-    REQUIRE(testString.find_first_not_of("abcdefghijklmnopqrstuvwxyz") == FixString<32>::npos);
+    REQUIRE(testString.find_first_not_of("abcdefghijklmnopqrstuvwxyz") == FixedString<32>::npos);
     REQUIRE(testString.find_first_not_of("abcdefghijklmnopqrstuvwxy") == 25); // 'z' at position 25
     REQUIRE(testString.find_first_not_of("abcdefghijklmnopqrstuvwx") == 24); // 'y' at position 24
   }
 
   SECTION("Find first not of with no characters excluded") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.find_first_not_of("xyz") == 0); // 'H' at position 0
     REQUIRE(testString.find_first_not_of("0123456789") == 0); // 'H' at position 0
@@ -2411,15 +2411,15 @@ TEST_CASE("FixString find_first_not_of", "[core][fixstring]") {
   }
 
   SECTION("Find first not of with mixed content") {
-    constexpr FixString<32> testString("Hello123World");
+    constexpr FixedString<32> testString("Hello123World");
 
-    REQUIRE(testString.find_first_not_of("Helo123Wrd") == FixString<32>::npos);
+    REQUIRE(testString.find_first_not_of("Helo123Wrd") == FixedString<32>::npos);
     REQUIRE(testString.find_first_not_of("Helo123Wr") == 12); // 'd' at position 12
     REQUIRE(testString.find_first_not_of("Helo123Wd") == 10); // 'r' at position 10
   }
 
   SECTION("Find first not of with position in middle") {
-    constexpr FixString<32> testString("Hello World Hello");
+    constexpr FixedString<32> testString("Hello World Hello");
 
     REQUIRE(testString.find_first_not_of("Hel", 4) == 4); // 'o' at position 4
     REQUIRE(testString.find_first_not_of("Hel", 5) == 5); // ' ' at position 5
@@ -2428,26 +2428,26 @@ TEST_CASE("FixString find_first_not_of", "[core][fixstring]") {
   }
 
   SECTION("Find first not of with exact match") {
-    constexpr FixString<32> testString("Hello");
+    constexpr FixedString<32> testString("Hello");
 
-    REQUIRE(testString.find_first_not_of("Hello") == FixString<32>::npos);
+    REQUIRE(testString.find_first_not_of("Hello") == FixedString<32>::npos);
     REQUIRE(testString.find_first_not_of("Hell") == 4); // 'o' at position 4
     REQUIRE(testString.find_first_not_of("Hel") == 4); // 'o' at position 4
   }
 }
 
-TEST_CASE("FixString find_last_of", "[core][fixstring]") {
-  SECTION("Find last of FixString characters") {
-    constexpr FixString<32> testString("Hello World");
+TEST_CASE("FixedString find_last_of", "[core][FixedString]") {
+  SECTION("Find last of FixedString characters") {
+    constexpr FixedString<32> testString("Hello World");
 
-    REQUIRE(testString.find_last_of(FixString<16>("aeiou")) == 7); // 'o' at position 7
-    REQUIRE(testString.find_last_of(FixString<16>("l")) == 9); // 'l' at position 9
-    REQUIRE(testString.find_last_of(FixString<16>("H")) == 0); // 'H' at position 0
-    REQUIRE(testString.find_last_of(FixString<16>("d")) == 10); // 'd' at position 10
+    REQUIRE(testString.find_last_of(FixedString<16>("aeiou")) == 7); // 'o' at position 7
+    REQUIRE(testString.find_last_of(FixedString<16>("l")) == 9); // 'l' at position 9
+    REQUIRE(testString.find_last_of(FixedString<16>("H")) == 0); // 'H' at position 0
+    REQUIRE(testString.find_last_of(FixedString<16>("d")) == 10); // 'd' at position 10
   }
 
   SECTION("Find last of StringLike characters") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.find_last_of(std::string("aeiou")) == 7); // 'o' at position 7
     REQUIRE(testString.find_last_of(std::string("l")) == 9); // 'l' at position 9
@@ -2456,7 +2456,7 @@ TEST_CASE("FixString find_last_of", "[core][fixstring]") {
   }
 
   SECTION("Find last of C string characters") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.find_last_of("aeiou") == 7); // 'o' at position 7
     REQUIRE(testString.find_last_of("l") == 9); // 'l' at position 9
@@ -2465,7 +2465,7 @@ TEST_CASE("FixString find_last_of", "[core][fixstring]") {
   }
 
   SECTION("Find last of single character") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.find_last_of('l') == 9); // 'l' at position 9
     REQUIRE(testString.find_last_of('o') == 7); // 'o' at position 7
@@ -2474,7 +2474,7 @@ TEST_CASE("FixString find_last_of", "[core][fixstring]") {
   }
 
   SECTION("Find last of with position parameter") {
-    constexpr FixString<32> testString("Hello World Hello");
+    constexpr FixedString<32> testString("Hello World Hello");
 
     REQUIRE(testString.find_last_of("Hel", 8) == 3); // 'l' at position 3
     REQUIRE(testString.find_last_of("Hel", 4) == 3); // 'l' at position 3
@@ -2484,23 +2484,23 @@ TEST_CASE("FixString find_last_of", "[core][fixstring]") {
   }
 
   SECTION("Find last of empty character set") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
-    REQUIRE(testString.find_last_of(FixString<16>("")) == FixString<32>::npos);
-    REQUIRE(testString.find_last_of(std::string("")) == FixString<32>::npos);
-    REQUIRE(testString.find_last_of("") == FixString<32>::npos);
+    REQUIRE(testString.find_last_of(FixedString<16>("")) == FixedString<32>::npos);
+    REQUIRE(testString.find_last_of(std::string("")) == FixedString<32>::npos);
+    REQUIRE(testString.find_last_of("") == FixedString<32>::npos);
   }
 
   SECTION("Find last of with no characters found") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
-    REQUIRE(testString.find_last_of("0123456789") == FixString<32>::npos);
-    REQUIRE(testString.find_last_of("!@#$%^&*()") == FixString<32>::npos);
-    REQUIRE(testString.find_last_of("[]{}|\\:;\"'<>?/") == FixString<32>::npos);
+    REQUIRE(testString.find_last_of("0123456789") == FixedString<32>::npos);
+    REQUIRE(testString.find_last_of("!@#$%^&*()") == FixedString<32>::npos);
+    REQUIRE(testString.find_last_of("[]{}|\\:;\"'<>?/") == FixedString<32>::npos);
   }
 
   SECTION("Find last of with multiple character sets") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.find_last_of("Hl") == 9); // 'l' at position 9
     REQUIRE(testString.find_last_of("Hel") == 9); // 'l' at position 9
@@ -2509,16 +2509,16 @@ TEST_CASE("FixString find_last_of", "[core][fixstring]") {
   }
 
   SECTION("Find last of case sensitivity") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
-    REQUIRE(testString.find_last_of("h") == FixString<32>::npos);
+    REQUIRE(testString.find_last_of("h") == FixedString<32>::npos);
     REQUIRE(testString.find_last_of("H") == 0); // 'H' at position 0
-    REQUIRE(testString.find_last_of("w") == FixString<32>::npos);
+    REQUIRE(testString.find_last_of("w") == FixedString<32>::npos);
     REQUIRE(testString.find_last_of("W") == 6); // 'W' at position 6
   }
 
   SECTION("Find last of with special characters") {
-    constexpr FixString<32> testString("Hello, World!");
+    constexpr FixedString<32> testString("Hello, World!");
 
     REQUIRE(testString.find_last_of("Helo, Wrd!") == 12); // '!' at position 12
     REQUIRE(testString.find_last_of("Helo, Wrd") == 11); // 'd' at position 11
@@ -2526,7 +2526,7 @@ TEST_CASE("FixString find_last_of", "[core][fixstring]") {
   }
 
   SECTION("Find last of with numbers") {
-    constexpr FixString<32> testString("Hello123World");
+    constexpr FixedString<32> testString("Hello123World");
 
     REQUIRE(testString.find_last_of("0123456789") == 7); // '3' at position 7
     REQUIRE(testString.find_last_of("Helo123Wrd") == 12); // 'd' at position 12
@@ -2534,7 +2534,7 @@ TEST_CASE("FixString find_last_of", "[core][fixstring]") {
   }
 
   SECTION("Find last of with whitespace") {
-    constexpr FixString<32> testString("Hello World\t\n");
+    constexpr FixedString<32> testString("Hello World\t\n");
 
     REQUIRE(testString.find_last_of(" \t\n") == 12); // '\n' at position 12
     REQUIRE(testString.find_last_of("Helo Wrd\t\n") == 12); // '\n' at position 12
@@ -2542,24 +2542,24 @@ TEST_CASE("FixString find_last_of", "[core][fixstring]") {
   }
 
   SECTION("Find last of with repeated characters") {
-    constexpr FixString<32> testString("aaaaab");
+    constexpr FixedString<32> testString("aaaaab");
 
     REQUIRE(testString.find_last_of('a') == 4); // 'a' at position 4
     REQUIRE(testString.find_last_of('b') == 5); // 'b' at position 5
-    REQUIRE(testString.find_last_of('x') == FixString<32>::npos);
+    REQUIRE(testString.find_last_of('x') == FixedString<32>::npos);
   }
 
   SECTION("Find last of with single character string") {
-    constexpr FixString<32> testString("AAAAA");
+    constexpr FixedString<32> testString("AAAAA");
 
     REQUIRE(testString.find_last_of("A") == 4); // 'A' at position 4
     REQUIRE(testString.find_last_of('A') == 4); // 'A' at position 4
-    REQUIRE(testString.find_last_of("B") == FixString<32>::npos);
-    REQUIRE(testString.find_last_of('B') == FixString<32>::npos);
+    REQUIRE(testString.find_last_of("B") == FixedString<32>::npos);
+    REQUIRE(testString.find_last_of('B') == FixedString<32>::npos);
   }
 
   SECTION("Find last of with alphabet") {
-    constexpr FixString<32> testString("abcdefghijklmnopqrstuvwxyz");
+    constexpr FixedString<32> testString("abcdefghijklmnopqrstuvwxyz");
 
     REQUIRE(testString.find_last_of("abcdefghijklmnopqrstuvwxyz") == 25); // 'z' at position 25
     REQUIRE(testString.find_last_of("abcdefghijklmnopqrstuvwxy") == 24); // 'y' at position 24
@@ -2567,7 +2567,7 @@ TEST_CASE("FixString find_last_of", "[core][fixstring]") {
   }
 
   SECTION("Find last of with all characters found") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.find_last_of("Helo Wrd") == 10); // 'd' at position 10
     REQUIRE(testString.find_last_of("Helo Wr") == 9); // 'l' at position 9
@@ -2575,7 +2575,7 @@ TEST_CASE("FixString find_last_of", "[core][fixstring]") {
   }
 
   SECTION("Find last of with position in middle") {
-    constexpr FixString<32> testString("Hello World Hello");
+    constexpr FixedString<32> testString("Hello World Hello");
 
     REQUIRE(testString.find_last_of("Hel", 8) == 3); // 'l' at position 3
     REQUIRE(testString.find_last_of("Hel", 4) == 3); // 'l' at position 3
@@ -2584,7 +2584,7 @@ TEST_CASE("FixString find_last_of", "[core][fixstring]") {
   }
 
   SECTION("Find last of with exact match") {
-    constexpr FixString<32> testString("Hello");
+    constexpr FixedString<32> testString("Hello");
 
     REQUIRE(testString.find_last_of("Hello") == 4); // 'o' at position 4
     REQUIRE(testString.find_last_of("Hell") == 3); // 'l' at position 3
@@ -2592,18 +2592,18 @@ TEST_CASE("FixString find_last_of", "[core][fixstring]") {
   }
 }
 
-TEST_CASE("FixString find_last_not_of", "[core][fixstring]") {
-  SECTION("Find last not of FixString characters") {
-    constexpr FixString<32> testString("Hello World");
+TEST_CASE("FixedString find_last_not_of", "[core][FixedString]") {
+  SECTION("Find last not of FixedString characters") {
+    constexpr FixedString<32> testString("Hello World");
 
-    REQUIRE(testString.find_last_not_of(FixString<16>("d")) == 9); // 'l' at position 9
-    REQUIRE(testString.find_last_not_of(FixString<16>("ld")) == 8); // 'r' at position 8
-    REQUIRE(testString.find_last_not_of(FixString<16>("rld")) == 7); // 'o' at position 7
-    REQUIRE(testString.find_last_not_of(FixString<16>("World")) == 5); // ' ' at position 5
+    REQUIRE(testString.find_last_not_of(FixedString<16>("d")) == 9); // 'l' at position 9
+    REQUIRE(testString.find_last_not_of(FixedString<16>("ld")) == 8); // 'r' at position 8
+    REQUIRE(testString.find_last_not_of(FixedString<16>("rld")) == 7); // 'o' at position 7
+    REQUIRE(testString.find_last_not_of(FixedString<16>("World")) == 5); // ' ' at position 5
   }
 
   SECTION("Find last not of StringLike characters") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.find_last_not_of(std::string("d")) == 9); // 'l' at position 9
     REQUIRE(testString.find_last_not_of(std::string("ld")) == 8); // 'r' at position 8
@@ -2612,7 +2612,7 @@ TEST_CASE("FixString find_last_not_of", "[core][fixstring]") {
   }
 
   SECTION("Find last not of C string characters") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.find_last_not_of("d") == 9); // 'l' at position 9
     REQUIRE(testString.find_last_not_of("ld") == 8); // 'r' at position 8
@@ -2621,7 +2621,7 @@ TEST_CASE("FixString find_last_not_of", "[core][fixstring]") {
   }
 
   SECTION("Find last not of single character") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.find_last_not_of('d') == 9); // 'l' at position 9
     REQUIRE(testString.find_last_not_of('l') == 10); // 'd' at position 10
@@ -2630,34 +2630,34 @@ TEST_CASE("FixString find_last_not_of", "[core][fixstring]") {
   }
 
   SECTION("Find last not of with position parameter") {
-    constexpr FixString<32> testString("Hello World Hello");
+    constexpr FixedString<32> testString("Hello World Hello");
 
     REQUIRE(testString.find_last_not_of("Hel", 8) == 8); // 'r' at position 8
     REQUIRE(testString.find_last_not_of("Hel", 4) == 4); // 'o' at position 4
-    REQUIRE(testString.find_last_not_of("Hel", 2) == FixString<32>::npos);
-    REQUIRE(testString.find_last_not_of("Hel", 1) == FixString<32>::npos);
-    REQUIRE(testString.find_last_not_of("Hel", 0) == FixString<32>::npos);
+    REQUIRE(testString.find_last_not_of("Hel", 2) == FixedString<32>::npos);
+    REQUIRE(testString.find_last_not_of("Hel", 1) == FixedString<32>::npos);
+    REQUIRE(testString.find_last_not_of("Hel", 0) == FixedString<32>::npos);
   }
 
   SECTION("Find last not of empty character set") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
-    REQUIRE(testString.find_last_not_of(FixString<16>("")) == 10); // 'd' at position 10
+    REQUIRE(testString.find_last_not_of(FixedString<16>("")) == 10); // 'd' at position 10
     REQUIRE(testString.find_last_not_of(std::string("")) == 10); // 'd' at position 10
     REQUIRE(testString.find_last_not_of("") == 10); // 'd' at position 10
     REQUIRE(testString.find_last_not_of("", 5) == 5); // ' ' at position 5
   }
 
   SECTION("Find last not of with all characters excluded") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
-    REQUIRE(testString.find_last_not_of("Helo Wrd") == FixString<32>::npos);
+    REQUIRE(testString.find_last_not_of("Helo Wrd") == FixedString<32>::npos);
     REQUIRE(testString.find_last_not_of("Helo Wr") == 10); // 'd' at position 10
     REQUIRE(testString.find_last_not_of("Helo W") == 10); // 'd' at position 10
   }
 
   SECTION("Find last not of with multiple character sets") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.find_last_not_of("Hl") == 10); // 'd' at position 10
     REQUIRE(testString.find_last_not_of("Hel") == 10); // 'd' at position 10
@@ -2666,7 +2666,7 @@ TEST_CASE("FixString find_last_not_of", "[core][fixstring]") {
   }
 
   SECTION("Find last not of case sensitivity") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.find_last_not_of("h") == 10); // 'd' at position 10
     REQUIRE(testString.find_last_not_of("H") == 10); // 'd' at position 10
@@ -2675,31 +2675,31 @@ TEST_CASE("FixString find_last_not_of", "[core][fixstring]") {
   }
 
   SECTION("Find last not of with special characters") {
-    constexpr FixString<32> testString("Hello, World!");
+    constexpr FixedString<32> testString("Hello, World!");
 
-    REQUIRE(testString.find_last_not_of("Helo, Wrd!") == FixString<32>::npos);
+    REQUIRE(testString.find_last_not_of("Helo, Wrd!") == FixedString<32>::npos);
     REQUIRE(testString.find_last_not_of("Helo, Wrd") == 12); // '!' at position 12
     REQUIRE(testString.find_last_not_of("Helo, Wr") == 12); // '!' at position 12
   }
 
   SECTION("Find last not of with numbers") {
-    constexpr FixString<32> testString("Hello123World");
+    constexpr FixedString<32> testString("Hello123World");
 
     REQUIRE(testString.find_last_not_of("0123456789") == 12); // 'd' at position 12
-    REQUIRE(testString.find_last_not_of("Helo123Wrd") == FixString<32>::npos);
+    REQUIRE(testString.find_last_not_of("Helo123Wrd") == FixedString<32>::npos);
     REQUIRE(testString.find_last_not_of("Helo123Wr") == 12); // 'd' at position 12
   }
 
   SECTION("Find last not of with whitespace") {
-    constexpr FixString<32> testString("Hello World\t\n");
+    constexpr FixedString<32> testString("Hello World\t\n");
 
     REQUIRE(testString.find_last_not_of(" \t\n") == 10); // 'd' at position 10
-    REQUIRE(testString.find_last_not_of("Helo Wrd\t\n") == FixString<32>::npos);
+    REQUIRE(testString.find_last_not_of("Helo Wrd\t\n") == FixedString<32>::npos);
     REQUIRE(testString.find_last_not_of("Helo Wrd") == 12); // '\n' at position 12
   }
 
   SECTION("Find last not of with repeated characters") {
-    constexpr FixString<32> testString("aaaaab");
+    constexpr FixedString<32> testString("aaaaab");
 
     REQUIRE(testString.find_last_not_of('a') == 5); // 'b' at position 5
     REQUIRE(testString.find_last_not_of('b') == 4); // 'a' at position 4
@@ -2707,24 +2707,24 @@ TEST_CASE("FixString find_last_not_of", "[core][fixstring]") {
   }
 
   SECTION("Find last not of with single character string") {
-    constexpr FixString<32> testString("AAAAA");
+    constexpr FixedString<32> testString("AAAAA");
 
-    REQUIRE(testString.find_last_not_of("A") == FixString<32>::npos);
-    REQUIRE(testString.find_last_not_of('A') == FixString<32>::npos);
+    REQUIRE(testString.find_last_not_of("A") == FixedString<32>::npos);
+    REQUIRE(testString.find_last_not_of('A') == FixedString<32>::npos);
     REQUIRE(testString.find_last_not_of("B") == 4); // 'A' at position 4
     REQUIRE(testString.find_last_not_of('B') == 4); // 'A' at position 4
   }
 
   SECTION("Find last not of with alphabet") {
-    constexpr FixString<32> testString("abcdefghijklmnopqrstuvwxyz");
+    constexpr FixedString<32> testString("abcdefghijklmnopqrstuvwxyz");
 
-    REQUIRE(testString.find_last_not_of("abcdefghijklmnopqrstuvwxyz") == FixString<32>::npos);
+    REQUIRE(testString.find_last_not_of("abcdefghijklmnopqrstuvwxyz") == FixedString<32>::npos);
     REQUIRE(testString.find_last_not_of("abcdefghijklmnopqrstuvwxy") == 25); // 'z' at position 25
     REQUIRE(testString.find_last_not_of("abcdefghijklmnopqrstuvwx") == 25); // 'z' at position 25
   }
 
   SECTION("Find last not of with no characters excluded") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.find_last_not_of("xyz") == 10); // 'd' at position 10
     REQUIRE(testString.find_last_not_of("0123456789") == 10); // 'd' at position 10
@@ -2732,45 +2732,45 @@ TEST_CASE("FixString find_last_not_of", "[core][fixstring]") {
   }
 
   SECTION("Find last not of with position in middle") {
-    constexpr FixString<32> testString("Hello World Hello");
+    constexpr FixedString<32> testString("Hello World Hello");
 
     REQUIRE(testString.find_last_not_of("Hel", 8) == 8); // 'r' at position 8
     REQUIRE(testString.find_last_not_of("Hel", 4) == 4); // 'o' at position 4
-    REQUIRE(testString.find_last_not_of("Hel", 2) == FixString<32>::npos);
-    REQUIRE(testString.find_last_not_of("Hel", 1) == FixString<32>::npos);
+    REQUIRE(testString.find_last_not_of("Hel", 2) == FixedString<32>::npos);
+    REQUIRE(testString.find_last_not_of("Hel", 1) == FixedString<32>::npos);
   }
 
   SECTION("Find last not of with exact match") {
-    constexpr FixString<32> testString("Hello");
+    constexpr FixedString<32> testString("Hello");
 
-    REQUIRE(testString.find_last_not_of("Hello") == FixString<32>::npos);
+    REQUIRE(testString.find_last_not_of("Hello") == FixedString<32>::npos);
     REQUIRE(testString.find_last_not_of("Hell") == 4); // 'o' at position 4
     REQUIRE(testString.find_last_not_of("Hel") == 4); // 'o' at position 4
   }
 }
 
-TEST_CASE("FixString compare", "[core][fixstring]") {
-  SECTION("Compare FixString with FixString") {
-    constexpr FixString<32> testString1("Hello");
-    constexpr FixString<32> testString2("Hello");
-    constexpr FixString<32> testString3("World");
-    constexpr FixString<32> testString4("Hell");
+TEST_CASE("FixedString compare", "[core][FixedString]") {
+  SECTION("Compare FixedString with FixedString") {
+    constexpr FixedString<32> testString1("Hello");
+    constexpr FixedString<32> testString2("Hello");
+    constexpr FixedString<32> testString3("World");
+    constexpr FixedString<32> testString4("Hell");
 
     REQUIRE(testString1.compare(testString2) == 0);
     REQUIRE(testString1.compare(testString3) < 0);
     REQUIRE(testString1.compare(testString4) > 0);
   }
 
-  SECTION("Compare FixString with StringLike") {
-    constexpr FixString<32> testString("Hello");
+  SECTION("Compare FixedString with StringLike") {
+    constexpr FixedString<32> testString("Hello");
 
     REQUIRE(testString.compare(std::string("Hello")) == 0);
     REQUIRE(testString.compare(std::string("World")) < 0);
     REQUIRE(testString.compare(std::string("Hell")) > 0);
   }
 
-  SECTION("Compare FixString with C string") {
-    constexpr FixString<32> testString("Hello");
+  SECTION("Compare FixedString with C string") {
+    constexpr FixedString<32> testString("Hello");
 
     REQUIRE(testString.compare("Hello") == 0);
     REQUIRE(testString.compare("World") < 0);
@@ -2778,16 +2778,16 @@ TEST_CASE("FixString compare", "[core][fixstring]") {
   }
 
   SECTION("Compare identical strings") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
-    REQUIRE(testString.compare(FixString<32>("Hello World")) == 0);
+    REQUIRE(testString.compare(FixedString<32>("Hello World")) == 0);
     REQUIRE(testString.compare(std::string("Hello World")) == 0);
     REQUIRE(testString.compare("Hello World") == 0);
   }
 
   SECTION("Compare with empty strings") {
-    constexpr FixString<32> testString1("");
-    constexpr FixString<32> testString2("Hello");
+    constexpr FixedString<32> testString1("");
+    constexpr FixedString<32> testString2("Hello");
 
     REQUIRE(testString1.compare(testString2) < 0);
     REQUIRE(testString2.compare(testString1) > 0);
@@ -2796,66 +2796,66 @@ TEST_CASE("FixString compare", "[core][fixstring]") {
   }
 
   SECTION("Compare strings with different lengths") {
-    constexpr FixString<32> testString1("Hello");
-    constexpr FixString<32> testString2("Hello World");
+    constexpr FixedString<32> testString1("Hello");
+    constexpr FixedString<32> testString2("Hello World");
 
     REQUIRE(testString1.compare(testString2) < 0);
     REQUIRE(testString2.compare(testString1) > 0);
   }
 
   SECTION("Compare strings with same prefix") {
-    constexpr FixString<32> testString1("Hello");
-    constexpr FixString<32> testString2("Hell");
+    constexpr FixedString<32> testString1("Hello");
+    constexpr FixedString<32> testString2("Hell");
 
     REQUIRE(testString1.compare(testString2) > 0);
     REQUIRE(testString2.compare(testString1) < 0);
   }
 
   SECTION("Compare strings with different first character") {
-    constexpr FixString<32> testString1("Apple");
-    constexpr FixString<32> testString2("Banana");
+    constexpr FixedString<32> testString1("Apple");
+    constexpr FixedString<32> testString2("Banana");
 
     REQUIRE(testString1.compare(testString2) < 0);
     REQUIRE(testString2.compare(testString1) > 0);
   }
 
   SECTION("Compare strings with different middle character") {
-    constexpr FixString<32> testString1("Hello");
-    constexpr FixString<32> testString2("Hallo");
+    constexpr FixedString<32> testString1("Hello");
+    constexpr FixedString<32> testString2("Hallo");
 
     REQUIRE(testString1.compare(testString2) > 0);
     REQUIRE(testString2.compare(testString1) < 0);
   }
 
   SECTION("Compare strings with different last character") {
-    constexpr FixString<32> testString1("Hello");
-    constexpr FixString<32> testString2("Hellp");
+    constexpr FixedString<32> testString1("Hello");
+    constexpr FixedString<32> testString2("Hellp");
 
     REQUIRE(testString1.compare(testString2) < 0);
     REQUIRE(testString2.compare(testString1) > 0);
   }
 
   SECTION("Compare case sensitivity") {
-    constexpr FixString<32> testString("Hello");
+    constexpr FixedString<32> testString("Hello");
 
     REQUIRE(testString.compare("hello") < 0);
     REQUIRE(testString.compare("HELLO") > 0);
     REQUIRE(testString.compare("Hello") == 0);
   }
 
-  SECTION("Compare with different FixString capacities") {
-    constexpr FixString<32> testString("Hello");
+  SECTION("Compare with different FixedString capacities") {
+    constexpr FixedString<32> testString("Hello");
 
-    REQUIRE(testString.compare(FixString<8>("Hello")) == 0);
-    REQUIRE(testString.compare(FixString<16>("Hello")) == 0);
-    REQUIRE(testString.compare(FixString<64>("Hello")) == 0);
-    REQUIRE(testString.compare(FixString<8>("World")) < 0);
-    REQUIRE(testString.compare(FixString<16>("Hell")) > 0);
+    REQUIRE(testString.compare(FixedString<8>("Hello")) == 0);
+    REQUIRE(testString.compare(FixedString<16>("Hello")) == 0);
+    REQUIRE(testString.compare(FixedString<64>("Hello")) == 0);
+    REQUIRE(testString.compare(FixedString<8>("World")) < 0);
+    REQUIRE(testString.compare(FixedString<16>("Hell")) > 0);
   }
 
   SECTION("Compare with single character strings") {
-    constexpr FixString<32> testString1("A");
-    constexpr FixString<32> testString2("B");
+    constexpr FixedString<32> testString1("A");
+    constexpr FixedString<32> testString2("B");
 
     REQUIRE(testString1.compare(testString2) < 0);
     REQUIRE(testString2.compare(testString1) > 0);
@@ -2864,8 +2864,8 @@ TEST_CASE("FixString compare", "[core][fixstring]") {
   }
 
   SECTION("Compare with repeated characters") {
-    constexpr FixString<32> testString1("aaa");
-    constexpr FixString<32> testString2("aa");
+    constexpr FixedString<32> testString1("aaa");
+    constexpr FixedString<32> testString2("aa");
 
     REQUIRE(testString1.compare(testString2) > 0);
     REQUIRE(testString2.compare(testString1) < 0);
@@ -2874,8 +2874,8 @@ TEST_CASE("FixString compare", "[core][fixstring]") {
   }
 
   SECTION("Compare with special characters") {
-    constexpr FixString<32> testString1("Hello!");
-    constexpr FixString<32> testString2("Hello");
+    constexpr FixedString<32> testString1("Hello!");
+    constexpr FixedString<32> testString2("Hello");
 
     REQUIRE(testString1.compare(testString2) > 0);
     REQUIRE(testString2.compare(testString1) < 0);
@@ -2884,8 +2884,8 @@ TEST_CASE("FixString compare", "[core][fixstring]") {
   }
 
   SECTION("Compare with numbers") {
-    constexpr FixString<32> testString1("123");
-    constexpr FixString<32> testString2("456");
+    constexpr FixedString<32> testString1("123");
+    constexpr FixedString<32> testString2("456");
 
     REQUIRE(testString1.compare(testString2) < 0);
     REQUIRE(testString2.compare(testString1) > 0);
@@ -2894,8 +2894,8 @@ TEST_CASE("FixString compare", "[core][fixstring]") {
   }
 
   SECTION("Compare with mixed content") {
-    constexpr FixString<32> testString1("Hello123");
-    constexpr FixString<32> testString2("Hello456");
+    constexpr FixedString<32> testString1("Hello123");
+    constexpr FixedString<32> testString2("Hello456");
 
     REQUIRE(testString1.compare(testString2) < 0);
     REQUIRE(testString2.compare(testString1) > 0);
@@ -2904,8 +2904,8 @@ TEST_CASE("FixString compare", "[core][fixstring]") {
   }
 
   SECTION("Compare with maximum length strings") {
-    constexpr FixString<16> testString1("123456789012345");
-    constexpr FixString<16> testString2("123456789012346");
+    constexpr FixedString<16> testString1("123456789012345");
+    constexpr FixedString<16> testString2("123456789012346");
 
     REQUIRE(testString1.compare(testString2) < 0);
     REQUIRE(testString2.compare(testString1) > 0);
@@ -2914,7 +2914,7 @@ TEST_CASE("FixString compare", "[core][fixstring]") {
   }
 
   SECTION("Compare with std::string") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.compare(std::string("Hello World")) == 0);
     REQUIRE(testString.compare(std::string("Hello")) > 0);
@@ -2922,7 +2922,7 @@ TEST_CASE("FixString compare", "[core][fixstring]") {
   }
 
   SECTION("Compare with array") {
-    constexpr FixString<32> testString("Hello");
+    constexpr FixedString<32> testString("Hello");
     constexpr std::array<char, 6> arr = {'H', 'e', 'l', 'l', 'o', '\0'};
 
     REQUIRE(testString.compare(arr.data()) == 0);
@@ -2930,31 +2930,31 @@ TEST_CASE("FixString compare", "[core][fixstring]") {
   }
 
   SECTION("Compare edge cases") {
-    constexpr FixString<32> testString("Hello");
+    constexpr FixedString<32> testString("Hello");
 
     // Compare with null-terminated string
     REQUIRE(testString.compare("Hello\0World") == 0);
 
     // Compare with string containing null character
-    constexpr FixString<32> testStringWithNull("Hello\0World");
+    constexpr FixedString<32> testStringWithNull("Hello\0World");
     REQUIRE(testString.compare(testStringWithNull) == 0);
   }
 }
 
-TEST_CASE("FixString starts_with", "[core][fixstring]") {
-  SECTION("Starts with FixString") {
-    constexpr FixString<32> testString("Hello World");
+TEST_CASE("FixedString starts_with", "[core][FixedString]") {
+  SECTION("Starts with FixedString") {
+    constexpr FixedString<32> testString("Hello World");
 
-    REQUIRE(testString.starts_with(FixString<16>("Hello")) == true);
-    REQUIRE(testString.starts_with(FixString<16>("Hello World")) == true);
-    REQUIRE(testString.starts_with(FixString<16>("H")) == true);
-    REQUIRE(testString.starts_with(FixString<16>("World")) == false);
-    REQUIRE(testString.starts_with(FixString<16>("xyz")) == false);
-    REQUIRE(testString.starts_with(FixString<16>("")) == true);
+    REQUIRE(testString.starts_with(FixedString<16>("Hello")) == true);
+    REQUIRE(testString.starts_with(FixedString<16>("Hello World")) == true);
+    REQUIRE(testString.starts_with(FixedString<16>("H")) == true);
+    REQUIRE(testString.starts_with(FixedString<16>("World")) == false);
+    REQUIRE(testString.starts_with(FixedString<16>("xyz")) == false);
+    REQUIRE(testString.starts_with(FixedString<16>("")) == true);
   }
 
   SECTION("Starts with StringLike") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.starts_with(std::string("Hello")) == true);
     REQUIRE(testString.starts_with(std::string("Hello World")) == true);
@@ -2965,7 +2965,7 @@ TEST_CASE("FixString starts_with", "[core][fixstring]") {
   }
 
   SECTION("Starts with C string") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.starts_with("Hello") == true);
     REQUIRE(testString.starts_with("Hello World") == true);
@@ -2976,7 +2976,7 @@ TEST_CASE("FixString starts_with", "[core][fixstring]") {
   }
 
   SECTION("Starts with character") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.starts_with('H') == true);
     REQUIRE(testString.starts_with('h') == false);
@@ -2985,9 +2985,9 @@ TEST_CASE("FixString starts_with", "[core][fixstring]") {
   }
 
   SECTION("Starts with empty string") {
-    constexpr FixString<32> testString("");
+    constexpr FixedString<32> testString("");
 
-    REQUIRE(testString.starts_with(FixString<16>("Hello")) == false);
+    REQUIRE(testString.starts_with(FixedString<16>("Hello")) == false);
     REQUIRE(testString.starts_with(std::string("Hello")) == false);
     REQUIRE(testString.starts_with("Hello") == false);
     REQUIRE(testString.starts_with('H') == false);
@@ -2995,7 +2995,7 @@ TEST_CASE("FixString starts_with", "[core][fixstring]") {
   }
 
   SECTION("Starts with single character string") {
-    constexpr FixString<32> testString("A");
+    constexpr FixedString<32> testString("A");
 
     REQUIRE(testString.starts_with("A") == true);
     REQUIRE(testString.starts_with('A') == true);
@@ -3005,7 +3005,7 @@ TEST_CASE("FixString starts_with", "[core][fixstring]") {
   }
 
   SECTION("Starts with longer prefix") {
-    constexpr FixString<32> testString("Hello");
+    constexpr FixedString<32> testString("Hello");
 
     REQUIRE(testString.starts_with("Hello World") == false);
     REQUIRE(testString.starts_with("Hello Universe") == false);
@@ -3014,7 +3014,7 @@ TEST_CASE("FixString starts_with", "[core][fixstring]") {
   }
 
   SECTION("Starts with case sensitivity") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.starts_with("hello") == false);
     REQUIRE(testString.starts_with("HELLO") == false);
@@ -3023,17 +3023,17 @@ TEST_CASE("FixString starts_with", "[core][fixstring]") {
     REQUIRE(testString.starts_with('H') == true);
   }
 
-  SECTION("Starts with different FixString capacities") {
-    constexpr FixString<32> testString("Hello World");
+  SECTION("Starts with different FixedString capacities") {
+    constexpr FixedString<32> testString("Hello World");
 
-    REQUIRE(testString.starts_with(FixString<8>("Hello")) == true);
-    REQUIRE(testString.starts_with(FixString<16>("Hello")) == true);
-    REQUIRE(testString.starts_with(FixString<64>("Hello")) == true);
-    REQUIRE(testString.starts_with(FixString<8>("World")) == false);
+    REQUIRE(testString.starts_with(FixedString<8>("Hello")) == true);
+    REQUIRE(testString.starts_with(FixedString<16>("Hello")) == true);
+    REQUIRE(testString.starts_with(FixedString<64>("Hello")) == true);
+    REQUIRE(testString.starts_with(FixedString<8>("World")) == false);
   }
 
   SECTION("Starts with repeated characters") {
-    constexpr FixString<32> testString("aaaab");
+    constexpr FixedString<32> testString("aaaab");
 
     REQUIRE(testString.starts_with("aaa") == true);
     REQUIRE(testString.starts_with("aaaa") == true);
@@ -3044,7 +3044,7 @@ TEST_CASE("FixString starts_with", "[core][fixstring]") {
   }
 
   SECTION("Starts with special characters") {
-    constexpr FixString<32> testString("!@#$%");
+    constexpr FixedString<32> testString("!@#$%");
 
     REQUIRE(testString.starts_with("!@#") == true);
     REQUIRE(testString.starts_with("!@#$%") == true);
@@ -3054,7 +3054,7 @@ TEST_CASE("FixString starts_with", "[core][fixstring]") {
   }
 
   SECTION("Starts with numbers") {
-    constexpr FixString<32> testString("12345");
+    constexpr FixedString<32> testString("12345");
 
     REQUIRE(testString.starts_with("123") == true);
     REQUIRE(testString.starts_with("12345") == true);
@@ -3064,7 +3064,7 @@ TEST_CASE("FixString starts_with", "[core][fixstring]") {
   }
 
   SECTION("Starts with mixed content") {
-    constexpr FixString<32> testString("Hello123");
+    constexpr FixedString<32> testString("Hello123");
 
     REQUIRE(testString.starts_with("Hello") == true);
     REQUIRE(testString.starts_with("Hello1") == true);
@@ -3075,7 +3075,7 @@ TEST_CASE("FixString starts_with", "[core][fixstring]") {
   }
 
   SECTION("Starts with maximum length strings") {
-    constexpr FixString<16> testString("123456789012345");
+    constexpr FixedString<16> testString("123456789012345");
 
     REQUIRE(testString.starts_with("123456789012345") == true);
     REQUIRE(testString.starts_with("12345678901234") == true);
@@ -3085,7 +3085,7 @@ TEST_CASE("FixString starts_with", "[core][fixstring]") {
   }
 
   SECTION("Starts with std::string") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.starts_with(std::string("Hello")) == true);
     REQUIRE(testString.starts_with(std::string("Hello World")) == true);
@@ -3093,7 +3093,7 @@ TEST_CASE("FixString starts_with", "[core][fixstring]") {
   }
 
   SECTION("Starts with array") {
-    constexpr FixString<32> testString("Hello");
+    constexpr FixedString<32> testString("Hello");
     constexpr std::array<char, 4> arr = {'H', 'e', 'l', '\0'};
 
     REQUIRE(testString.starts_with(arr.data()) == true);
@@ -3101,18 +3101,18 @@ TEST_CASE("FixString starts_with", "[core][fixstring]") {
   }
 
   SECTION("Starts with edge cases") {
-    constexpr FixString<32> testString("Hello");
+    constexpr FixedString<32> testString("Hello");
 
     // Test with null-terminated string
     REQUIRE(testString.starts_with("Hello\0World") == true);
 
     // Test with string containing null character
-    constexpr FixString<32> testStringWithNull("Hello\0World");
+    constexpr FixedString<32> testStringWithNull("Hello\0World");
     REQUIRE(testStringWithNull.starts_with("Hello") == true);
   }
 
   SECTION("Starts with whitespace") {
-    constexpr FixString<32> testString(" Hello World");
+    constexpr FixedString<32> testString(" Hello World");
 
     REQUIRE(testString.starts_with(" ") == true);
     REQUIRE(testString.starts_with(" Hello") == true);
@@ -3122,7 +3122,7 @@ TEST_CASE("FixString starts_with", "[core][fixstring]") {
   }
 
   SECTION("Starts with exact match") {
-    constexpr FixString<32> testString("Hello");
+    constexpr FixedString<32> testString("Hello");
 
     REQUIRE(testString.starts_with("Hello") == true);
     REQUIRE(testString.starts_with("Hell") == true);
@@ -3131,20 +3131,20 @@ TEST_CASE("FixString starts_with", "[core][fixstring]") {
   }
 }
 
-TEST_CASE("FixString ends_with", "[core][fixstring]") {
-  SECTION("Ends with FixString") {
-    constexpr FixString<32> testString("Hello World");
+TEST_CASE("FixedString ends_with", "[core][FixedString]") {
+  SECTION("Ends with FixedString") {
+    constexpr FixedString<32> testString("Hello World");
 
-    REQUIRE(testString.ends_with(FixString<16>("World")) == true);
-    REQUIRE(testString.ends_with(FixString<16>("Hello World")) == true);
-    REQUIRE(testString.ends_with(FixString<16>("d")) == true);
-    REQUIRE(testString.ends_with(FixString<16>("Hello")) == false);
-    REQUIRE(testString.ends_with(FixString<16>("xyz")) == false);
-    REQUIRE(testString.ends_with(FixString<16>("")) == true);
+    REQUIRE(testString.ends_with(FixedString<16>("World")) == true);
+    REQUIRE(testString.ends_with(FixedString<16>("Hello World")) == true);
+    REQUIRE(testString.ends_with(FixedString<16>("d")) == true);
+    REQUIRE(testString.ends_with(FixedString<16>("Hello")) == false);
+    REQUIRE(testString.ends_with(FixedString<16>("xyz")) == false);
+    REQUIRE(testString.ends_with(FixedString<16>("")) == true);
   }
 
   SECTION("Ends with StringLike") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.ends_with(std::string("World")) == true);
     REQUIRE(testString.ends_with(std::string("Hello World")) == true);
@@ -3155,7 +3155,7 @@ TEST_CASE("FixString ends_with", "[core][fixstring]") {
   }
 
   SECTION("Ends with C string") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.ends_with("World") == true);
     REQUIRE(testString.ends_with("Hello World") == true);
@@ -3166,7 +3166,7 @@ TEST_CASE("FixString ends_with", "[core][fixstring]") {
   }
 
   SECTION("Ends with character") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.ends_with('d') == true);
     REQUIRE(testString.ends_with('D') == false);
@@ -3175,9 +3175,9 @@ TEST_CASE("FixString ends_with", "[core][fixstring]") {
   }
 
   SECTION("Ends with empty string") {
-    constexpr FixString<32> testString("");
+    constexpr FixedString<32> testString("");
 
-    REQUIRE(testString.ends_with(FixString<16>("Hello")) == false);
+    REQUIRE(testString.ends_with(FixedString<16>("Hello")) == false);
     REQUIRE(testString.ends_with(std::string("Hello")) == false);
     REQUIRE(testString.ends_with("Hello") == false);
     REQUIRE(testString.ends_with('H') == false);
@@ -3185,7 +3185,7 @@ TEST_CASE("FixString ends_with", "[core][fixstring]") {
   }
 
   SECTION("Ends with single character string") {
-    constexpr FixString<32> testString("A");
+    constexpr FixedString<32> testString("A");
 
     REQUIRE(testString.ends_with("A") == true);
     REQUIRE(testString.ends_with('A') == true);
@@ -3195,7 +3195,7 @@ TEST_CASE("FixString ends_with", "[core][fixstring]") {
   }
 
   SECTION("Ends with longer suffix") {
-    constexpr FixString<32> testString("Hello");
+    constexpr FixedString<32> testString("Hello");
 
     REQUIRE(testString.ends_with("Hello World") == false);
     REQUIRE(testString.ends_with("Hello Universe") == false);
@@ -3204,7 +3204,7 @@ TEST_CASE("FixString ends_with", "[core][fixstring]") {
   }
 
   SECTION("Ends with case sensitivity") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.ends_with("world") == false);
     REQUIRE(testString.ends_with("WORLD") == false);
@@ -3213,17 +3213,17 @@ TEST_CASE("FixString ends_with", "[core][fixstring]") {
     REQUIRE(testString.ends_with('D') == false);
   }
 
-  SECTION("Ends with different FixString capacities") {
-    constexpr FixString<32> testString("Hello World");
+  SECTION("Ends with different FixedString capacities") {
+    constexpr FixedString<32> testString("Hello World");
 
-    REQUIRE(testString.ends_with(FixString<8>("World")) == true);
-    REQUIRE(testString.ends_with(FixString<16>("World")) == true);
-    REQUIRE(testString.ends_with(FixString<64>("World")) == true);
-    REQUIRE(testString.ends_with(FixString<8>("Hello")) == false);
+    REQUIRE(testString.ends_with(FixedString<8>("World")) == true);
+    REQUIRE(testString.ends_with(FixedString<16>("World")) == true);
+    REQUIRE(testString.ends_with(FixedString<64>("World")) == true);
+    REQUIRE(testString.ends_with(FixedString<8>("Hello")) == false);
   }
 
   SECTION("Ends with repeated characters") {
-    constexpr FixString<32> testString("baaaa");
+    constexpr FixedString<32> testString("baaaa");
 
     REQUIRE(testString.ends_with("aaa") == true);
     REQUIRE(testString.ends_with("aaaa") == true);
@@ -3234,7 +3234,7 @@ TEST_CASE("FixString ends_with", "[core][fixstring]") {
   }
 
   SECTION("Ends with special characters") {
-    constexpr FixString<32> testString("%$#@!");
+    constexpr FixedString<32> testString("%$#@!");
 
     REQUIRE(testString.ends_with("@!") == true);
     REQUIRE(testString.ends_with("%$#@!") == true);
@@ -3244,7 +3244,7 @@ TEST_CASE("FixString ends_with", "[core][fixstring]") {
   }
 
   SECTION("Ends with numbers") {
-    constexpr FixString<32> testString("54321");
+    constexpr FixedString<32> testString("54321");
 
     REQUIRE(testString.ends_with("321") == true);
     REQUIRE(testString.ends_with("54321") == true);
@@ -3254,7 +3254,7 @@ TEST_CASE("FixString ends_with", "[core][fixstring]") {
   }
 
   SECTION("Ends with mixed content") {
-    constexpr FixString<32> testString("123Hello");
+    constexpr FixedString<32> testString("123Hello");
 
     REQUIRE(testString.ends_with("Hello") == true);
     REQUIRE(testString.ends_with("3Hello") == true);
@@ -3265,7 +3265,7 @@ TEST_CASE("FixString ends_with", "[core][fixstring]") {
   }
 
   SECTION("Ends with maximum length strings") {
-    constexpr FixString<16> testString("123456789012345");
+    constexpr FixedString<16> testString("123456789012345");
 
     REQUIRE(testString.ends_with("123456789012345") == true);
     REQUIRE(testString.ends_with("23456789012345") == true);
@@ -3275,7 +3275,7 @@ TEST_CASE("FixString ends_with", "[core][fixstring]") {
   }
 
   SECTION("Ends with std::string") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.ends_with(std::string("World")) == true);
     REQUIRE(testString.ends_with(std::string("Hello World")) == true);
@@ -3283,7 +3283,7 @@ TEST_CASE("FixString ends_with", "[core][fixstring]") {
   }
 
   SECTION("Ends with array") {
-    constexpr FixString<32> testString("Hello");
+    constexpr FixedString<32> testString("Hello");
     constexpr std::array<char, 4> arr = {'l', 'l', 'o', '\0'};
 
     REQUIRE(testString.ends_with(arr.data()) == true);
@@ -3291,18 +3291,18 @@ TEST_CASE("FixString ends_with", "[core][fixstring]") {
   }
 
   SECTION("Ends with edge cases") {
-    constexpr FixString<32> testString("Hello");
+    constexpr FixedString<32> testString("Hello");
 
     // Test with null-terminated string
     REQUIRE(testString.ends_with("Hello\0World") == true);
 
     // Test with string containing null character
-    constexpr FixString<32> testStringWithNull("Hello\0World");
+    constexpr FixedString<32> testStringWithNull("Hello\0World");
     REQUIRE(testStringWithNull.ends_with("World") == false);
   }
 
   SECTION("Ends with whitespace") {
-    constexpr FixString<32> testString("Hello World ");
+    constexpr FixedString<32> testString("Hello World ");
 
     REQUIRE(testString.ends_with(" ") == true);
     REQUIRE(testString.ends_with("World ") == true);
@@ -3312,7 +3312,7 @@ TEST_CASE("FixString ends_with", "[core][fixstring]") {
   }
 
   SECTION("Ends with exact match") {
-    constexpr FixString<32> testString("Hello");
+    constexpr FixedString<32> testString("Hello");
 
     REQUIRE(testString.ends_with("Hello") == true);
     REQUIRE(testString.ends_with("llo") == true);
@@ -3321,7 +3321,7 @@ TEST_CASE("FixString ends_with", "[core][fixstring]") {
   }
 
   SECTION("Ends with overlapping patterns") {
-    constexpr FixString<32> testString("ababab");
+    constexpr FixedString<32> testString("ababab");
 
     REQUIRE(testString.ends_with("ab") == true);
     REQUIRE(testString.ends_with("bab") == true);
@@ -3332,7 +3332,7 @@ TEST_CASE("FixString ends_with", "[core][fixstring]") {
   }
 
   SECTION("Ends with multiple occurrences") {
-    constexpr FixString<32> testString("abababab");
+    constexpr FixedString<32> testString("abababab");
 
     REQUIRE(testString.ends_with("ab") == true);
     REQUIRE(testString.ends_with("bab") == true);
@@ -3342,20 +3342,20 @@ TEST_CASE("FixString ends_with", "[core][fixstring]") {
   }
 }
 
-TEST_CASE("FixString contains", "[core][fixstring]") {
-  SECTION("Contains FixString") {
-    constexpr FixString<32> testString("Hello World");
+TEST_CASE("FixedString contains", "[core][FixedString]") {
+  SECTION("Contains FixedString") {
+    constexpr FixedString<32> testString("Hello World");
 
-    REQUIRE(testString.contains(FixString<16>("World")) == true);
-    REQUIRE(testString.contains(FixString<16>("Hello")) == true);
-    REQUIRE(testString.contains(FixString<16>("lo Wo")) == true);
-    REQUIRE(testString.contains(FixString<16>("Hello World")) == true);
-    REQUIRE(testString.contains(FixString<16>("xyz")) == false);
-    REQUIRE(testString.contains(FixString<16>("")) == true);
+    REQUIRE(testString.contains(FixedString<16>("World")) == true);
+    REQUIRE(testString.contains(FixedString<16>("Hello")) == true);
+    REQUIRE(testString.contains(FixedString<16>("lo Wo")) == true);
+    REQUIRE(testString.contains(FixedString<16>("Hello World")) == true);
+    REQUIRE(testString.contains(FixedString<16>("xyz")) == false);
+    REQUIRE(testString.contains(FixedString<16>("")) == true);
   }
 
   SECTION("Contains StringLike") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.contains(std::string("World")) == true);
     REQUIRE(testString.contains(std::string("Hello")) == true);
@@ -3366,7 +3366,7 @@ TEST_CASE("FixString contains", "[core][fixstring]") {
   }
 
   SECTION("Contains C string") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.contains("World") == true);
     REQUIRE(testString.contains("Hello") == true);
@@ -3377,7 +3377,7 @@ TEST_CASE("FixString contains", "[core][fixstring]") {
   }
 
   SECTION("Contains character") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.contains('H') == true);
     REQUIRE(testString.contains('o') == true);
@@ -3388,9 +3388,9 @@ TEST_CASE("FixString contains", "[core][fixstring]") {
   }
 
   SECTION("Contains in empty string") {
-    constexpr FixString<32> testString("");
+    constexpr FixedString<32> testString("");
 
-    REQUIRE(testString.contains(FixString<16>("Hello")) == false);
+    REQUIRE(testString.contains(FixedString<16>("Hello")) == false);
     REQUIRE(testString.contains(std::string("Hello")) == false);
     REQUIRE(testString.contains("Hello") == false);
     REQUIRE(testString.contains('H') == false);
@@ -3398,7 +3398,7 @@ TEST_CASE("FixString contains", "[core][fixstring]") {
   }
 
   SECTION("Contains in single character string") {
-    constexpr FixString<32> testString("A");
+    constexpr FixedString<32> testString("A");
 
     REQUIRE(testString.contains("A") == true);
     REQUIRE(testString.contains('A') == true);
@@ -3408,7 +3408,7 @@ TEST_CASE("FixString contains", "[core][fixstring]") {
   }
 
   SECTION("Contains longer substring") {
-    constexpr FixString<32> testString("Hello");
+    constexpr FixedString<32> testString("Hello");
 
     REQUIRE(testString.contains("Hello World") == false);
     REQUIRE(testString.contains("Hello Universe") == false);
@@ -3418,7 +3418,7 @@ TEST_CASE("FixString contains", "[core][fixstring]") {
   }
 
   SECTION("Contains case sensitivity") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.contains("world") == false);
     REQUIRE(testString.contains("WORLD") == false);
@@ -3427,17 +3427,17 @@ TEST_CASE("FixString contains", "[core][fixstring]") {
     REQUIRE(testString.contains('H') == true);
   }
 
-  SECTION("Contains different FixString capacities") {
-    constexpr FixString<32> testString("Hello World");
+  SECTION("Contains different FixedString capacities") {
+    constexpr FixedString<32> testString("Hello World");
 
-    REQUIRE(testString.contains(FixString<8>("World")) == true);
-    REQUIRE(testString.contains(FixString<16>("World")) == true);
-    REQUIRE(testString.contains(FixString<64>("World")) == true);
-    REQUIRE(testString.contains(FixString<8>("Hello")) == true);
+    REQUIRE(testString.contains(FixedString<8>("World")) == true);
+    REQUIRE(testString.contains(FixedString<16>("World")) == true);
+    REQUIRE(testString.contains(FixedString<64>("World")) == true);
+    REQUIRE(testString.contains(FixedString<8>("Hello")) == true);
   }
 
   SECTION("Contains repeated characters") {
-    constexpr FixString<32> testString("baaaa");
+    constexpr FixedString<32> testString("baaaa");
 
     REQUIRE(testString.contains("aaa") == true);
     REQUIRE(testString.contains("aaaa") == true);
@@ -3448,7 +3448,7 @@ TEST_CASE("FixString contains", "[core][fixstring]") {
   }
 
   SECTION("Contains special characters") {
-    constexpr FixString<32> testString("%$#@!");
+    constexpr FixedString<32> testString("%$#@!");
 
     REQUIRE(testString.contains("@!") == true);
     REQUIRE(testString.contains("%$#@!") == true);
@@ -3459,7 +3459,7 @@ TEST_CASE("FixString contains", "[core][fixstring]") {
   }
 
   SECTION("Contains numbers") {
-    constexpr FixString<32> testString("54321");
+    constexpr FixedString<32> testString("54321");
 
     REQUIRE(testString.contains("321") == true);
     REQUIRE(testString.contains("54321") == true);
@@ -3470,7 +3470,7 @@ TEST_CASE("FixString contains", "[core][fixstring]") {
   }
 
   SECTION("Contains mixed content") {
-    constexpr FixString<32> testString("123Hello");
+    constexpr FixedString<32> testString("123Hello");
 
     REQUIRE(testString.contains("Hello") == true);
     REQUIRE(testString.contains("3Hello") == true);
@@ -3482,7 +3482,7 @@ TEST_CASE("FixString contains", "[core][fixstring]") {
   }
 
   SECTION("Contains maximum length strings") {
-    constexpr FixString<16> testString("123456789012345"); // 15 characters
+    constexpr FixedString<16> testString("123456789012345"); // 15 characters
 
     REQUIRE(testString.contains("123456789012345") == true);
     REQUIRE(testString.contains("23456789012345") == true);
@@ -3492,7 +3492,7 @@ TEST_CASE("FixString contains", "[core][fixstring]") {
   }
 
   SECTION("Contains std::string") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.contains(std::string("World")) == true);
     REQUIRE(testString.contains(std::string("Hello World")) == true);
@@ -3500,7 +3500,7 @@ TEST_CASE("FixString contains", "[core][fixstring]") {
   }
 
   SECTION("Contains array") {
-    constexpr FixString<32> testString("Hello");
+    constexpr FixedString<32> testString("Hello");
     constexpr std::array<char, 4> arr = {'l', 'l', 'o', '\0'};
 
     REQUIRE(testString.contains(arr.data()) == true);
@@ -3508,7 +3508,7 @@ TEST_CASE("FixString contains", "[core][fixstring]") {
   }
 
   SECTION("Contains whitespace") {
-    constexpr FixString<32> testString("Hello World ");
+    constexpr FixedString<32> testString("Hello World ");
 
     REQUIRE(testString.contains(" ") == true);
     REQUIRE(testString.contains("World ") == true);
@@ -3518,7 +3518,7 @@ TEST_CASE("FixString contains", "[core][fixstring]") {
   }
 
   SECTION("Contains exact match") {
-    constexpr FixString<32> testString("Hello");
+    constexpr FixedString<32> testString("Hello");
 
     REQUIRE(testString.contains("Hello") == true);
     REQUIRE(testString.contains("llo") == true);
@@ -3527,7 +3527,7 @@ TEST_CASE("FixString contains", "[core][fixstring]") {
   }
 
   SECTION("Contains overlapping patterns") {
-    constexpr FixString<32> testString("ababab");
+    constexpr FixedString<32> testString("ababab");
 
     REQUIRE(testString.contains("ab") == true);
     REQUIRE(testString.contains("bab") == true);
@@ -3537,7 +3537,7 @@ TEST_CASE("FixString contains", "[core][fixstring]") {
   }
 
   SECTION("Contains multiple occurrences") {
-    constexpr FixString<32> testString("abababab");
+    constexpr FixedString<32> testString("abababab");
 
     REQUIRE(testString.contains("ab") == true);
     REQUIRE(testString.contains("bab") == true);
@@ -3547,7 +3547,7 @@ TEST_CASE("FixString contains", "[core][fixstring]") {
   }
 
   SECTION("Contains at beginning") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.contains("H") == true);
     REQUIRE(testString.contains("He") == true);
@@ -3556,7 +3556,7 @@ TEST_CASE("FixString contains", "[core][fixstring]") {
   }
 
   SECTION("Contains at end") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.contains("d") == true);
     REQUIRE(testString.contains("ld") == true);
@@ -3565,7 +3565,7 @@ TEST_CASE("FixString contains", "[core][fixstring]") {
   }
 
   SECTION("Contains in middle") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.contains("l") == true);
     REQUIRE(testString.contains("ll") == true);
@@ -3574,7 +3574,7 @@ TEST_CASE("FixString contains", "[core][fixstring]") {
   }
 
   SECTION("Contains single character multiple times") {
-    constexpr FixString<32> testString("aaaaa");
+    constexpr FixedString<32> testString("aaaaa");
 
     REQUIRE(testString.contains("a") == true);
     REQUIRE(testString.contains("aa") == true);
@@ -3585,7 +3585,7 @@ TEST_CASE("FixString contains", "[core][fixstring]") {
   }
 
   SECTION("Contains with punctuation") {
-    constexpr FixString<32> testString("Hello, World!");
+    constexpr FixedString<32> testString("Hello, World!");
 
     REQUIRE(testString.contains(",") == true);
     REQUIRE(testString.contains("!") == true);
@@ -3595,7 +3595,7 @@ TEST_CASE("FixString contains", "[core][fixstring]") {
   }
 
   SECTION("Contains with newlines") {
-    constexpr FixString<32> testString("Hello\nWorld");
+    constexpr FixedString<32> testString("Hello\nWorld");
 
     REQUIRE(testString.contains("\n") == true);
     REQUIRE(testString.contains("Hello\n") == true);
@@ -3604,7 +3604,7 @@ TEST_CASE("FixString contains", "[core][fixstring]") {
   }
 
   SECTION("Contains with tabs") {
-    constexpr FixString<32> testString("Hello\tWorld");
+    constexpr FixedString<32> testString("Hello\tWorld");
 
     REQUIRE(testString.contains("\t") == true);
     REQUIRE(testString.contains("Hello\t") == true);
@@ -3615,9 +3615,9 @@ TEST_CASE("FixString contains", "[core][fixstring]") {
 
 // after refactor
 
-TEST_CASE("FixString substr", "[core][fixstring]") {
+TEST_CASE("FixedString substr", "[core][FixedString]") {
   SECTION("Substr basic functionality") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.substr(0).size() == 11);
     REQUIRE(std::strcmp(testString.substr(0).c_str(), "Hello World") == 0);
@@ -3634,7 +3634,7 @@ TEST_CASE("FixString substr", "[core][fixstring]") {
   }
 
   SECTION("Substr with default parameters") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.substr().size() == 11);
     REQUIRE(std::strcmp(testString.substr().c_str(), "Hello World") == 0);
@@ -3645,7 +3645,7 @@ TEST_CASE("FixString substr", "[core][fixstring]") {
   }
 
   SECTION("Substr with count parameter") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.substr(0, 1).size() == 1);
     REQUIRE(std::strcmp(testString.substr(0, 1).c_str(), "H") == 0);
@@ -3670,18 +3670,18 @@ TEST_CASE("FixString substr", "[core][fixstring]") {
   }
 
   SECTION("Substr with npos count") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
-    REQUIRE(testString.substr(0, FixString<32>::npos).size() == 11);
-    REQUIRE(std::strcmp(testString.substr(0, FixString<32>::npos).c_str(), "Hello World") == 0);
-    REQUIRE(testString.substr(6, FixString<32>::npos).size() == 5);
-    REQUIRE(std::strcmp(testString.substr(6, FixString<32>::npos).c_str(), "World") == 0);
-    REQUIRE(testString.substr(10, FixString<32>::npos).size() == 1);
-    REQUIRE(std::strcmp(testString.substr(10, FixString<32>::npos).c_str(), "d") == 0);
+    REQUIRE(testString.substr(0, FixedString<32>::npos).size() == 11);
+    REQUIRE(std::strcmp(testString.substr(0, FixedString<32>::npos).c_str(), "Hello World") == 0);
+    REQUIRE(testString.substr(6, FixedString<32>::npos).size() == 5);
+    REQUIRE(std::strcmp(testString.substr(6, FixedString<32>::npos).c_str(), "World") == 0);
+    REQUIRE(testString.substr(10, FixedString<32>::npos).size() == 1);
+    REQUIRE(std::strcmp(testString.substr(10, FixedString<32>::npos).c_str(), "d") == 0);
   }
 
   SECTION("Substr with position at end") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.substr(11).size() == 0);
     REQUIRE(std::strcmp(testString.substr(11).c_str(), "") == 0);
@@ -3692,7 +3692,7 @@ TEST_CASE("FixString substr", "[core][fixstring]") {
   }
 
   SECTION("Substr from empty string") {
-    constexpr FixString<32> testString("");
+    constexpr FixedString<32> testString("");
 
     REQUIRE(testString.substr(0).size() == 0);
     REQUIRE(std::strcmp(testString.substr(0).c_str(), "") == 0);
@@ -3703,7 +3703,7 @@ TEST_CASE("FixString substr", "[core][fixstring]") {
   }
 
   SECTION("Substr single character") {
-    constexpr FixString<32> testString("A");
+    constexpr FixedString<32> testString("A");
 
     REQUIRE(testString.substr(0).size() == 1);
     REQUIRE(std::strcmp(testString.substr(0).c_str(), "A") == 0);
@@ -3718,7 +3718,7 @@ TEST_CASE("FixString substr", "[core][fixstring]") {
   }
 
   SECTION("Substr with repeated characters") {
-    constexpr FixString<32> testString("aaaaa");
+    constexpr FixedString<32> testString("aaaaa");
 
     REQUIRE(testString.substr(0).size() == 5);
     REQUIRE(std::strcmp(testString.substr(0).c_str(), "aaaaa") == 0);
@@ -3745,7 +3745,7 @@ TEST_CASE("FixString substr", "[core][fixstring]") {
   }
 
   SECTION("Substr with special characters") {
-    constexpr FixString<32> testString("Hello, World!");
+    constexpr FixedString<32> testString("Hello, World!");
 
     REQUIRE(testString.substr(5).size() == 8);
     REQUIRE(std::strcmp(testString.substr(5).c_str(), ", World!") == 0);
@@ -3760,7 +3760,7 @@ TEST_CASE("FixString substr", "[core][fixstring]") {
   }
 
   SECTION("Substr with numbers") {
-    constexpr FixString<32> testString("12345");
+    constexpr FixedString<32> testString("12345");
 
     REQUIRE(testString.substr(0).size() == 5);
     REQUIRE(std::strcmp(testString.substr(0).c_str(), "12345") == 0);
@@ -3787,7 +3787,7 @@ TEST_CASE("FixString substr", "[core][fixstring]") {
   }
 
   SECTION("Substr with whitespace") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.substr(5).size() == 6);
     REQUIRE(std::strcmp(testString.substr(5).c_str(), " World") == 0);
@@ -3800,7 +3800,7 @@ TEST_CASE("FixString substr", "[core][fixstring]") {
   }
 
   SECTION("Substr with newlines") {
-    constexpr FixString<32> testString("Hello\nWorld");
+    constexpr FixedString<32> testString("Hello\nWorld");
 
     REQUIRE(testString.substr(5).size() == 6);
     REQUIRE(std::strcmp(testString.substr(5).c_str(), "\nWorld") == 0);
@@ -3813,7 +3813,7 @@ TEST_CASE("FixString substr", "[core][fixstring]") {
   }
 
   SECTION("Substr with tabs") {
-    constexpr FixString<32> testString("Hello\tWorld");
+    constexpr FixedString<32> testString("Hello\tWorld");
 
     REQUIRE(testString.substr(5).size() == 6);
     REQUIRE(std::strcmp(testString.substr(5).c_str(), "\tWorld") == 0);
@@ -3826,7 +3826,7 @@ TEST_CASE("FixString substr", "[core][fixstring]") {
   }
 
   SECTION("Substr maximum length") {
-    constexpr FixString<16> testString("123456789012345"); // 15 characters
+    constexpr FixedString<16> testString("123456789012345"); // 15 characters
 
     REQUIRE(testString.substr(0).size() == 15);
     REQUIRE(std::strcmp(testString.substr(0).c_str(), "123456789012345") == 0);
@@ -3843,7 +3843,7 @@ TEST_CASE("FixString substr", "[core][fixstring]") {
   }
 
   SECTION("Substr with mixed content") {
-    constexpr FixString<32> testString("123Hello");
+    constexpr FixedString<32> testString("123Hello");
 
     REQUIRE(testString.substr(0).size() == 8);
     REQUIRE(std::strcmp(testString.substr(0).c_str(), "123Hello") == 0);
@@ -3858,7 +3858,7 @@ TEST_CASE("FixString substr", "[core][fixstring]") {
   }
 
   SECTION("Substr with overlapping ranges") {
-    constexpr FixString<32> testString("abcdef");
+    constexpr FixedString<32> testString("abcdef");
 
     REQUIRE(testString.substr(0, 1).size() == 1);
     REQUIRE(std::strcmp(testString.substr(0, 1).c_str(), "a") == 0);
@@ -3885,7 +3885,7 @@ TEST_CASE("FixString substr", "[core][fixstring]") {
   }
 
   SECTION("Substr with exact string length") {
-    constexpr FixString<32> testString("Hello");
+    constexpr FixedString<32> testString("Hello");
 
     REQUIRE(testString.substr(0, 5).size() == 5);
     REQUIRE(std::strcmp(testString.substr(0, 5).c_str(), "Hello") == 0);
@@ -3902,7 +3902,7 @@ TEST_CASE("FixString substr", "[core][fixstring]") {
   }
 
   SECTION("Substr with zero count") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.substr(0, 0).size() == 0);
     REQUIRE(std::strcmp(testString.substr(0, 0).c_str(), "") == 0);
@@ -3915,7 +3915,7 @@ TEST_CASE("FixString substr", "[core][fixstring]") {
   }
 
   SECTION("Substr with position at string size") {
-    constexpr FixString<32> testString("Hello");
+    constexpr FixedString<32> testString("Hello");
 
     REQUIRE(testString.substr(5).size() == 0);
     REQUIRE(std::strcmp(testString.substr(5).c_str(), "") == 0);
@@ -3925,10 +3925,10 @@ TEST_CASE("FixString substr", "[core][fixstring]") {
     REQUIRE(std::strcmp(testString.substr(5, 1).c_str(), "") == 0);
   }
 
-  SECTION("Substr with different FixString capacities") {
-    constexpr FixString<8> smallString("Hello");
-    constexpr FixString<16> mediumString("Hello World");
-    constexpr FixString<32> largeString("Hello World Universe");
+  SECTION("Substr with different FixedString capacities") {
+    constexpr FixedString<8> smallString("Hello");
+    constexpr FixedString<16> mediumString("Hello World");
+    constexpr FixedString<32> largeString("Hello World Universe");
 
     REQUIRE(smallString.substr(0, 3).size() == 3);
     REQUIRE(std::strcmp(smallString.substr(0, 3).c_str(), "Hel") == 0);
@@ -3945,7 +3945,7 @@ TEST_CASE("FixString substr", "[core][fixstring]") {
   }
 
   SECTION("Substr with punctuation") {
-    constexpr FixString<32> testString("Hello, World!");
+    constexpr FixedString<32> testString("Hello, World!");
 
     REQUIRE(testString.substr(5, 1).size() == 1);
     REQUIRE(std::strcmp(testString.substr(5, 1).c_str(), ",") == 0);
@@ -3960,7 +3960,7 @@ TEST_CASE("FixString substr", "[core][fixstring]") {
   }
 
   SECTION("Substr with unicode-like content") {
-    constexpr FixString<32> testString("Hello 世界");
+    constexpr FixedString<32> testString("Hello 世界");
 
     REQUIRE(testString.substr(0, 6).size() == 6);
     REQUIRE(std::strcmp(testString.substr(0, 6).c_str(), "Hello ") == 0);
@@ -3969,7 +3969,7 @@ TEST_CASE("FixString substr", "[core][fixstring]") {
   }
 
   SECTION("Constexpr substr operations") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     // Basic constexpr substr operations
     constexpr auto substr1 = testString.substr(0);
@@ -3994,7 +3994,7 @@ TEST_CASE("FixString substr", "[core][fixstring]") {
   }
 
   SECTION("Constexpr substr with default parameters") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     constexpr auto substr1 = testString.substr();
     constexpr auto substr2 = testString.substr(0);
@@ -4009,7 +4009,7 @@ TEST_CASE("FixString substr", "[core][fixstring]") {
   }
 
   SECTION("Constexpr substr with count parameter") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     constexpr auto substr1 = testString.substr(0, 1);
     constexpr auto substr2 = testString.substr(0, 2);
@@ -4045,11 +4045,11 @@ TEST_CASE("FixString substr", "[core][fixstring]") {
   }
 
   SECTION("Constexpr substr with npos count") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
-    constexpr auto substr1 = testString.substr(0, FixString<32>::npos);
-    constexpr auto substr2 = testString.substr(6, FixString<32>::npos);
-    constexpr auto substr3 = testString.substr(10, FixString<32>::npos);
+    constexpr auto substr1 = testString.substr(0, FixedString<32>::npos);
+    constexpr auto substr2 = testString.substr(6, FixedString<32>::npos);
+    constexpr auto substr3 = testString.substr(10, FixedString<32>::npos);
 
     STATIC_REQUIRE(substr1.size() == 11);
     STATIC_REQUIRE(cstrcmp(substr1.c_str(), "Hello World") == 0);
@@ -4060,7 +4060,7 @@ TEST_CASE("FixString substr", "[core][fixstring]") {
   }
 
   SECTION("Constexpr substr with position at end") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     constexpr auto substr1 = testString.substr(11);
     constexpr auto substr2 = testString.substr(11, 0);
@@ -4075,7 +4075,7 @@ TEST_CASE("FixString substr", "[core][fixstring]") {
   }
 
   SECTION("Constexpr substr from empty string") {
-    constexpr FixString<32> testString("");
+    constexpr FixedString<32> testString("");
 
     constexpr auto substr1 = testString.substr(0);
     constexpr auto substr2 = testString.substr(0, 0);
@@ -4090,7 +4090,7 @@ TEST_CASE("FixString substr", "[core][fixstring]") {
   }
 
   SECTION("Constexpr substr single character") {
-    constexpr FixString<32> testString("A");
+    constexpr FixedString<32> testString("A");
 
     constexpr auto substr1 = testString.substr(0);
     constexpr auto substr2 = testString.substr(0, 1);
@@ -4111,7 +4111,7 @@ TEST_CASE("FixString substr", "[core][fixstring]") {
   }
 
   SECTION("Constexpr substr with repeated characters") {
-    constexpr FixString<32> testString("aaaaa");
+    constexpr FixedString<32> testString("aaaaa");
 
     constexpr auto substr1 = testString.substr(0);
     constexpr auto substr2 = testString.substr(0, 1);
@@ -4150,7 +4150,7 @@ TEST_CASE("FixString substr", "[core][fixstring]") {
   }
 
   SECTION("Constexpr substr with special characters") {
-    constexpr FixString<32> testString("Hello, World!");
+    constexpr FixedString<32> testString("Hello, World!");
 
     constexpr auto substr1 = testString.substr(5);
     constexpr auto substr2 = testString.substr(5, 1);
@@ -4171,7 +4171,7 @@ TEST_CASE("FixString substr", "[core][fixstring]") {
   }
 
   SECTION("Constexpr substr with numbers") {
-    constexpr FixString<32> testString("12345");
+    constexpr FixedString<32> testString("12345");
 
     constexpr auto substr1 = testString.substr(0);
     constexpr auto substr2 = testString.substr(0, 1);
@@ -4210,7 +4210,7 @@ TEST_CASE("FixString substr", "[core][fixstring]") {
   }
 
   SECTION("Constexpr substr with whitespace") {
-    constexpr FixString<32> testString("Hello World");
+    constexpr FixedString<32> testString("Hello World");
 
     constexpr auto substr1 = testString.substr(5);
     constexpr auto substr2 = testString.substr(5, 1);
@@ -4228,7 +4228,7 @@ TEST_CASE("FixString substr", "[core][fixstring]") {
   }
 
   SECTION("Constexpr substr with newlines") {
-    constexpr FixString<32> testString("Hello\nWorld");
+    constexpr FixedString<32> testString("Hello\nWorld");
 
     constexpr auto substr1 = testString.substr(5);
     constexpr auto substr2 = testString.substr(5, 1);
@@ -4246,7 +4246,7 @@ TEST_CASE("FixString substr", "[core][fixstring]") {
   }
 
   SECTION("Constexpr substr with tabs") {
-    constexpr FixString<32> testString("Hello\tWorld");
+    constexpr FixedString<32> testString("Hello\tWorld");
 
     constexpr auto substr1 = testString.substr(5);
     constexpr auto substr2 = testString.substr(5, 1);
@@ -4264,7 +4264,7 @@ TEST_CASE("FixString substr", "[core][fixstring]") {
   }
 
   SECTION("Constexpr substr maximum length") {
-    constexpr FixString<16> testString("123456789012345"); // 15 characters
+    constexpr FixedString<16> testString("123456789012345"); // 15 characters
 
     constexpr auto substr1 = testString.substr(0);
     constexpr auto substr2 = testString.substr(0, 15);
@@ -4288,7 +4288,7 @@ TEST_CASE("FixString substr", "[core][fixstring]") {
   }
 
   SECTION("Constexpr substr with unicode-like content") {
-    constexpr FixString<32> testString("Hello 世界");
+    constexpr FixedString<32> testString("Hello 世界");
 
     constexpr auto substr1 = testString.substr(0, 6);
     constexpr auto substr2 = testString.substr(6);
@@ -4300,13 +4300,13 @@ TEST_CASE("FixString substr", "[core][fixstring]") {
   }
 }
 
-TEST_CASE("FixString operators+", "[core][fixstring]") {
+TEST_CASE("FixedString operators+", "[core][FixedString]") {
   SECTION("Basic concatenation tests") {
-    constexpr auto testString1 = FixString<14>("12") + "test text 1";
-    constexpr auto testString2 = FixString<14>("23") + FixString<14>("test text 2");
-    constexpr auto testString3 = FixString<20>("34") + FixString<14>("test text 3");
-    constexpr auto testString4 = FixString<20>("45") + FixString<26>("test text 4");
-    constexpr auto testString5 = FixString<8>("a") + "b";
+    constexpr auto testString1 = FixedString<14>("12") + "test text 1";
+    constexpr auto testString2 = FixedString<14>("23") + FixedString<14>("test text 2");
+    constexpr auto testString3 = FixedString<20>("34") + FixedString<14>("test text 3");
+    constexpr auto testString4 = FixedString<20>("45") + FixedString<26>("test text 4");
+    constexpr auto testString5 = FixedString<8>("a") + "b";
     constexpr auto testString6 = testString5 + testString5;
 
     REQUIRE(testString1.size() == 13);
@@ -4340,8 +4340,8 @@ TEST_CASE("FixString operators+", "[core][fixstring]") {
     STATIC_REQUIRE(cstrcmp(testString6.c_str(), "abab") == 0);
   }
 
-  SECTION("FixString + FixString (same size)") {
-    constexpr auto result = FixString<20>("Hello") + FixString<20>("World");
+  SECTION("FixedString + FixedString (same size)") {
+    constexpr auto result = FixedString<20>("Hello") + FixedString<20>("World");
 
     REQUIRE(result.size() == 10);
     REQUIRE(std::strcmp(result.c_str(), "HelloWorld") == 0);
@@ -4349,8 +4349,8 @@ TEST_CASE("FixString operators+", "[core][fixstring]") {
     STATIC_REQUIRE(cstrcmp(result.c_str(), "HelloWorld") == 0);
   }
 
-  SECTION("FixString + FixString (different sizes)") {
-    constexpr auto result = FixString<20>("Hello") + FixString<10>("World");
+  SECTION("FixedString + FixedString (different sizes)") {
+    constexpr auto result = FixedString<20>("Hello") + FixedString<10>("World");
 
     REQUIRE(result.size() == 10);
     REQUIRE(std::strcmp(result.c_str(), "HelloWorld") == 0);
@@ -4358,8 +4358,8 @@ TEST_CASE("FixString operators+", "[core][fixstring]") {
     STATIC_REQUIRE(cstrcmp(result.c_str(), "HelloWorld") == 0);
   }
 
-  SECTION("FixString + C-string") {
-    constexpr auto result = FixString<20>("Hello") + "World";
+  SECTION("FixedString + C-string") {
+    constexpr auto result = FixedString<20>("Hello") + "World";
 
     REQUIRE(result.size() == 10);
     REQUIRE(std::strcmp(result.c_str(), "HelloWorld") == 0);
@@ -4367,8 +4367,8 @@ TEST_CASE("FixString operators+", "[core][fixstring]") {
     STATIC_REQUIRE(cstrcmp(result.c_str(), "HelloWorld") == 0);
   }
 
-  SECTION("C-string + FixString") {
-    constexpr auto result = "Hello" + FixString<20>("World");
+  SECTION("C-string + FixedString") {
+    constexpr auto result = "Hello" + FixedString<20>("World");
 
     REQUIRE(result.size() == 10);
     REQUIRE(std::strcmp(result.c_str(), "HelloWorld") == 0);
@@ -4376,8 +4376,8 @@ TEST_CASE("FixString operators+", "[core][fixstring]") {
     STATIC_REQUIRE(cstrcmp(result.c_str(), "HelloWorld") == 0);
   }
 
-  SECTION("FixString + std::string (StringLike)") {
-    constexpr auto result = FixString<20>("Hello") + std::string("World");
+  SECTION("FixedString + std::string (StringLike)") {
+    constexpr auto result = FixedString<20>("Hello") + std::string("World");
 
     REQUIRE(result.size() == 10);
     REQUIRE(std::strcmp(result.c_str(), "HelloWorld") == 0);
@@ -4385,8 +4385,8 @@ TEST_CASE("FixString operators+", "[core][fixstring]") {
     STATIC_REQUIRE(cstrcmp(result.c_str(), "HelloWorld") == 0);
   }
 
-  SECTION("std::string + FixString (StringLike)") {
-    constexpr auto result = std::string("Hello") + FixString<20>("World");
+  SECTION("std::string + FixedString (StringLike)") {
+    constexpr auto result = std::string("Hello") + FixedString<20>("World");
 
     REQUIRE(result.size() == 10);
     REQUIRE(std::strcmp(result.c_str(), "HelloWorld") == 0);
@@ -4395,7 +4395,7 @@ TEST_CASE("FixString operators+", "[core][fixstring]") {
   }
 
   SECTION("Empty string concatenation") {
-    constexpr auto result = FixString<20>("") + FixString<20>("");
+    constexpr auto result = FixedString<20>("") + FixedString<20>("");
 
     REQUIRE(result.size() == 0);
     REQUIRE(std::strcmp(result.c_str(), "") == 0);
@@ -4404,8 +4404,8 @@ TEST_CASE("FixString operators+", "[core][fixstring]") {
   }
 
   SECTION("One empty string concatenation") {
-    constexpr FixString<20> str1("Hello");
-    constexpr FixString<20> str2("");
+    constexpr FixedString<20> str1("Hello");
+    constexpr FixedString<20> str2("");
     constexpr auto result1 = str1 + str2;
     constexpr auto result2 = str2 + str1;
 
@@ -4420,7 +4420,7 @@ TEST_CASE("FixString operators+", "[core][fixstring]") {
   }
 
   SECTION("Chained concatenation") {
-    constexpr auto result = FixString<20>("A") + FixString<20>("B") + FixString<20>("C");
+    constexpr auto result = FixedString<20>("A") + FixedString<20>("B") + FixedString<20>("C");
 
     REQUIRE(result.size() == 3);
     REQUIRE(std::strcmp(result.c_str(), "ABC") == 0);
@@ -4429,8 +4429,8 @@ TEST_CASE("FixString operators+", "[core][fixstring]") {
   }
 
   SECTION("Constexpr concatenation") {
-    constexpr FixString<20> str1("Hello");
-    constexpr FixString<20> str2("World");
+    constexpr FixedString<20> str1("Hello");
+    constexpr FixedString<20> str2("World");
     constexpr auto result = str1 + str2;
 
     REQUIRE(result.size() == 10);
@@ -4440,7 +4440,7 @@ TEST_CASE("FixString operators+", "[core][fixstring]") {
   }
 
   SECTION("Edge case: maximum capacity") {
-    constexpr auto result = FixString<5>("AB") + FixString<5>("CD");
+    constexpr auto result = FixedString<5>("AB") + FixedString<5>("CD");
 
     REQUIRE(result.size() == 4);
     REQUIRE(std::strcmp(result.c_str(), "ABCD") == 0);
@@ -4449,7 +4449,7 @@ TEST_CASE("FixString operators+", "[core][fixstring]") {
   }
 
   SECTION("Edge case: single character") {
-    constexpr auto result = FixString<20>("A") + FixString<20>("B");
+    constexpr auto result = FixedString<20>("A") + FixedString<20>("B");
 
     REQUIRE(result.size() == 2);
     REQUIRE(std::strcmp(result.c_str(), "AB") == 0);
@@ -4457,8 +4457,8 @@ TEST_CASE("FixString operators+", "[core][fixstring]") {
     STATIC_REQUIRE(cstrcmp(result.c_str(), "AB") == 0);
   }
 
-  SECTION("FixString + char") {
-    constexpr auto result = FixString<20>("Hello") + '!';
+  SECTION("FixedString + char") {
+    constexpr auto result = FixedString<20>("Hello") + '!';
 
     REQUIRE(result.size() == 6);
     REQUIRE(std::strcmp(result.c_str(), "Hello!") == 0);
@@ -4466,8 +4466,8 @@ TEST_CASE("FixString operators+", "[core][fixstring]") {
     STATIC_REQUIRE(cstrcmp(result.c_str(), "Hello!") == 0);
   }
 
-  SECTION("char + FixString") {
-    constexpr auto result = '!' + FixString<20>("Hello");
+  SECTION("char + FixedString") {
+    constexpr auto result = '!' + FixedString<20>("Hello");
 
     REQUIRE(result.size() == 6);
     REQUIRE(std::strcmp(result.c_str(), "!Hello") == 0);
@@ -4475,8 +4475,8 @@ TEST_CASE("FixString operators+", "[core][fixstring]") {
     STATIC_REQUIRE(cstrcmp(result.c_str(), "!Hello") == 0);
   }
 
-  SECTION("FixString + char (empty string)") {
-    constexpr auto result = FixString<20>("") + 'A';
+  SECTION("FixedString + char (empty string)") {
+    constexpr auto result = FixedString<20>("") + 'A';
 
     REQUIRE(result.size() == 1);
     REQUIRE(std::strcmp(result.c_str(), "A") == 0);
@@ -4484,8 +4484,8 @@ TEST_CASE("FixString operators+", "[core][fixstring]") {
     STATIC_REQUIRE(cstrcmp(result.c_str(), "A") == 0);
   }
 
-  SECTION("char + FixString (empty string)") {
-    constexpr auto result = 'A' + FixString<20>("");
+  SECTION("char + FixedString (empty string)") {
+    constexpr auto result = 'A' + FixedString<20>("");
 
     REQUIRE(result.size() == 1);
     REQUIRE(std::strcmp(result.c_str(), "A") == 0);
@@ -4493,10 +4493,10 @@ TEST_CASE("FixString operators+", "[core][fixstring]") {
     STATIC_REQUIRE(cstrcmp(result.c_str(), "A") == 0);
   }
 
-  SECTION("FixString + char (special characters)") {
-    constexpr auto result1 = FixString<20>("Test") + '\n';
-    constexpr auto result2 = FixString<20>("Test") + '\t';
-    constexpr auto result3 = FixString<20>("Test") + ' ';
+  SECTION("FixedString + char (special characters)") {
+    constexpr auto result1 = FixedString<20>("Test") + '\n';
+    constexpr auto result2 = FixedString<20>("Test") + '\t';
+    constexpr auto result3 = FixedString<20>("Test") + ' ';
 
     REQUIRE(result1.size() == 5);
     REQUIRE(std::strcmp(result1.c_str(), "Test\n") == 0);
@@ -4514,10 +4514,10 @@ TEST_CASE("FixString operators+", "[core][fixstring]") {
     STATIC_REQUIRE(cstrcmp(result3.c_str(), "Test ") == 0);
   }
 
-  SECTION("char + FixString (special characters)") {
-    constexpr auto result1 = '\n' + FixString<20>("Test");
-    constexpr auto result2 = '\t' + FixString<20>("Test");
-    constexpr auto result3 = ' ' + FixString<20>("Test");
+  SECTION("char + FixedString (special characters)") {
+    constexpr auto result1 = '\n' + FixedString<20>("Test");
+    constexpr auto result2 = '\t' + FixedString<20>("Test");
+    constexpr auto result3 = ' ' + FixedString<20>("Test");
 
     REQUIRE(result1.size() == 5);
     REQUIRE(std::strcmp(result1.c_str(), "\nTest") == 0);
@@ -4535,8 +4535,8 @@ TEST_CASE("FixString operators+", "[core][fixstring]") {
     STATIC_REQUIRE(cstrcmp(result3.c_str(), " Test") == 0);
   }
 
-  SECTION("FixString + char (numeric characters)") {
-    constexpr auto result = FixString<20>("Number") + '1';
+  SECTION("FixedString + char (numeric characters)") {
+    constexpr auto result = FixedString<20>("Number") + '1';
 
     REQUIRE(result.size() == 7);
     REQUIRE(std::strcmp(result.c_str(), "Number1") == 0);
@@ -4544,8 +4544,8 @@ TEST_CASE("FixString operators+", "[core][fixstring]") {
     STATIC_REQUIRE(cstrcmp(result.c_str(), "Number1") == 0);
   }
 
-  SECTION("char + FixString (numeric characters)") {
-    constexpr auto result = '1' + FixString<20>("Number");
+  SECTION("char + FixedString (numeric characters)") {
+    constexpr auto result = '1' + FixedString<20>("Number");
 
     REQUIRE(result.size() == 7);
     REQUIRE(std::strcmp(result.c_str(), "1Number") == 0);
@@ -4553,8 +4553,8 @@ TEST_CASE("FixString operators+", "[core][fixstring]") {
     STATIC_REQUIRE(cstrcmp(result.c_str(), "1Number") == 0);
   }
 
-  SECTION("FixString + char (punctuation)") {
-    constexpr auto result = FixString<20>("Hello") + ',';
+  SECTION("FixedString + char (punctuation)") {
+    constexpr auto result = FixedString<20>("Hello") + ',';
 
     REQUIRE(result.size() == 6);
     REQUIRE(std::strcmp(result.c_str(), "Hello,") == 0);
@@ -4562,8 +4562,8 @@ TEST_CASE("FixString operators+", "[core][fixstring]") {
     STATIC_REQUIRE(cstrcmp(result.c_str(), "Hello,") == 0);
   }
 
-  SECTION("char + FixString (punctuation)") {
-    constexpr auto result = ',' + FixString<20>("Hello");
+  SECTION("char + FixedString (punctuation)") {
+    constexpr auto result = ',' + FixedString<20>("Hello");
 
     REQUIRE(result.size() == 6);
     REQUIRE(std::strcmp(result.c_str(), ",Hello") == 0);
@@ -4571,8 +4571,8 @@ TEST_CASE("FixString operators+", "[core][fixstring]") {
     STATIC_REQUIRE(cstrcmp(result.c_str(), ",Hello") == 0);
   }
 
-  SECTION("FixString + char (chained operations)") {
-    constexpr auto result = FixString<20>("A") + 'B' + 'C';
+  SECTION("FixedString + char (chained operations)") {
+    constexpr auto result = FixedString<20>("A") + 'B' + 'C';
 
     REQUIRE(result.size() == 3);
     REQUIRE(std::strcmp(result.c_str(), "ABC") == 0);
@@ -4580,8 +4580,8 @@ TEST_CASE("FixString operators+", "[core][fixstring]") {
     STATIC_REQUIRE(cstrcmp(result.c_str(), "ABC") == 0);
   }
 
-  SECTION("FixString + char (maximum capacity)") {
-    constexpr auto result = FixString<6>("ABCD") + 'E';
+  SECTION("FixedString + char (maximum capacity)") {
+    constexpr auto result = FixedString<6>("ABCD") + 'E';
 
     REQUIRE(result.size() == 5);
     REQUIRE(std::strcmp(result.c_str(), "ABCDE") == 0);
@@ -4589,8 +4589,8 @@ TEST_CASE("FixString operators+", "[core][fixstring]") {
     STATIC_REQUIRE(cstrcmp(result.c_str(), "ABCDE") == 0);
   }
 
-  SECTION("char + FixString (maximum capacity)") {
-    constexpr auto result = 'A' + FixString<6>("BCDE");
+  SECTION("char + FixedString (maximum capacity)") {
+    constexpr auto result = 'A' + FixedString<6>("BCDE");
 
     REQUIRE(result.size() == 5);
     REQUIRE(std::strcmp(result.c_str(), "ABCDE") == 0);
@@ -4598,8 +4598,8 @@ TEST_CASE("FixString operators+", "[core][fixstring]") {
     STATIC_REQUIRE(cstrcmp(result.c_str(), "ABCDE") == 0);
   }
 
-  SECTION("FixString + char (constexpr operations)") {
-    constexpr FixString<20> str("Hello");
+  SECTION("FixedString + char (constexpr operations)") {
+    constexpr FixedString<20> str("Hello");
     constexpr char ch = '!';
     constexpr auto result = str + ch;
 
@@ -4609,9 +4609,9 @@ TEST_CASE("FixString operators+", "[core][fixstring]") {
     STATIC_REQUIRE(cstrcmp(result.c_str(), "Hello!") == 0);
   }
 
-  SECTION("char + FixString (constexpr operations)") {
+  SECTION("char + FixedString (constexpr operations)") {
     constexpr char ch = '!';
-    constexpr FixString<20> str("Hello");
+    constexpr FixedString<20> str("Hello");
     constexpr auto result = ch + str;
 
     REQUIRE(result.size() == 6);
@@ -4621,14 +4621,14 @@ TEST_CASE("FixString operators+", "[core][fixstring]") {
   }
 }
 
-TEST_CASE("FixString operator==", "[core][fixstring]") {
-  SECTION("FixString == FixString") {
-    constexpr FixString<16> str1("Hello");
-    constexpr FixString<32> str2("Hello");
-    constexpr FixString<16> str3("World");
-    constexpr FixString<8> str4("Hello");
-    constexpr FixString<16> empty1;
-    constexpr FixString<32> empty2;
+TEST_CASE("FixedString operator==", "[core][FixedString]") {
+  SECTION("FixedString == FixedString") {
+    constexpr FixedString<16> str1("Hello");
+    constexpr FixedString<32> str2("Hello");
+    constexpr FixedString<16> str3("World");
+    constexpr FixedString<8> str4("Hello");
+    constexpr FixedString<16> empty1;
+    constexpr FixedString<32> empty2;
 
     REQUIRE(str1 == str2);
     REQUIRE(str2 == str1);
@@ -4653,8 +4653,8 @@ TEST_CASE("FixString operator==", "[core][fixstring]") {
     STATIC_REQUIRE_FALSE((empty1 == str1));
   }
 
-  SECTION("FixString == StringLike") {
-    constexpr FixString<16> str1("Hello");
+  SECTION("FixedString == StringLike") {
+    constexpr FixedString<16> str1("Hello");
     const std::string str2("Hello");
     const std::string str3("World");
     const std::string empty;
@@ -4667,9 +4667,9 @@ TEST_CASE("FixString operator==", "[core][fixstring]") {
     REQUIRE_FALSE((empty == str1));
   }
 
-  SECTION("FixString == C string") {
-    constexpr FixString<16> str1("Hello");
-    constexpr FixString<16> empty;
+  SECTION("FixedString == C string") {
+    constexpr FixedString<16> str1("Hello");
+    constexpr FixedString<16> empty;
 
     REQUIRE(str1 == "Hello");
     REQUIRE("Hello" == str1);
@@ -4691,10 +4691,10 @@ TEST_CASE("FixString operator==", "[core][fixstring]") {
   }
 
   SECTION("Edge cases") {
-    constexpr FixString<16> str1("A");
-    constexpr FixString<16> str2("B");
-    constexpr FixString<16> empty1;
-    constexpr FixString<32> empty2;
+    constexpr FixedString<16> str1("A");
+    constexpr FixedString<16> str2("B");
+    constexpr FixedString<16> empty1;
+    constexpr FixedString<32> empty2;
 
     // Single character comparison
     REQUIRE(str1 == "A");
@@ -4719,8 +4719,8 @@ TEST_CASE("FixString operator==", "[core][fixstring]") {
     STATIC_REQUIRE("" == empty1);
 
     // Different sizes with same content
-    constexpr FixString<8> small("Hi");
-    constexpr FixString<16> large("Hi");
+    constexpr FixedString<8> small("Hi");
+    constexpr FixedString<16> large("Hi");
 
     REQUIRE(small == large);
     REQUIRE(large == small);
@@ -4730,9 +4730,9 @@ TEST_CASE("FixString operator==", "[core][fixstring]") {
   }
 
   SECTION("Special characters") {
-    constexpr FixString<16> str1("Hello\nWorld");
-    constexpr FixString<16> str2("Hello\tWorld");
-    constexpr FixString<16> str3("Hello World");
+    constexpr FixedString<16> str1("Hello\nWorld");
+    constexpr FixedString<16> str2("Hello\tWorld");
+    constexpr FixedString<16> str3("Hello World");
 
     REQUIRE(str1 == "Hello\nWorld");
     REQUIRE("Hello\nWorld" == str1);
@@ -4754,9 +4754,9 @@ TEST_CASE("FixString operator==", "[core][fixstring]") {
   }
 
   SECTION("Unicode content") {
-    constexpr FixString<32> str1("Привет");
-    constexpr FixString<32> str2("Мир");
-    constexpr FixString<32> str3("Привет");
+    constexpr FixedString<32> str1("Привет");
+    constexpr FixedString<32> str2("Мир");
+    constexpr FixedString<32> str3("Привет");
 
     REQUIRE(str1 == "Привет");
     REQUIRE("Привет" == str1);
@@ -4774,9 +4774,9 @@ TEST_CASE("FixString operator==", "[core][fixstring]") {
   }
 
   SECTION("Performance test") {
-    constexpr FixString<64> str1("This is a longer string for performance testing");
-    constexpr FixString<64> str2("This is a longer string for performance testing");
-    constexpr FixString<64> str3("This is a different string for performance testing");
+    constexpr FixedString<64> str1("This is a longer string for performance testing");
+    constexpr FixedString<64> str2("This is a longer string for performance testing");
+    constexpr FixedString<64> str3("This is a different string for performance testing");
 
     REQUIRE(str1 == str2);
     REQUIRE(str2 == str1);
@@ -4790,9 +4790,9 @@ TEST_CASE("FixString operator==", "[core][fixstring]") {
   }
 
   SECTION("Constexpr operations") {
-    constexpr FixString<16> str1("Test");
-    constexpr FixString<16> str2("Test");
-    constexpr FixString<16> str3("Different");
+    constexpr FixedString<16> str1("Test");
+    constexpr FixedString<16> str2("Test");
+    constexpr FixedString<16> str3("Different");
 
     constexpr bool eq1 = str1 == str2;
     constexpr bool eq2 = str1 == str3;
@@ -4817,14 +4817,14 @@ TEST_CASE("FixString operator==", "[core][fixstring]") {
   }
 }
 
-TEST_CASE("FixString operator<=>", "[core][fixstring]") {
-  SECTION("FixString <=> FixString") {
-    constexpr FixString<16> str1("Hello");
-    constexpr FixString<32> str2("Hello");
-    constexpr FixString<16> str3("World");
-    constexpr FixString<8> str4("Hello");
-    constexpr FixString<16> str5("Hi");
-    constexpr FixString<16> str6("Hell");
+TEST_CASE("FixedString operator<=>", "[core][FixedString]") {
+  SECTION("FixedString <=> FixedString") {
+    constexpr FixedString<16> str1("Hello");
+    constexpr FixedString<32> str2("Hello");
+    constexpr FixedString<16> str3("World");
+    constexpr FixedString<8> str4("Hello");
+    constexpr FixedString<16> str5("Hi");
+    constexpr FixedString<16> str6("Hell");
 
     // Equal strings
     REQUIRE((str1 <=> str2) == std::strong_ordering::equal);
@@ -4853,8 +4853,8 @@ TEST_CASE("FixString operator<=>", "[core][fixstring]") {
     STATIC_REQUIRE((str6 <=> str1) == std::strong_ordering::less);
   }
 
-  SECTION("FixString <=> StringLike") {
-    constexpr FixString<16> str1("Hello");
+  SECTION("FixedString <=> StringLike") {
+    constexpr FixedString<16> str1("Hello");
     const std::string str2("Hello");
     const std::string str3("World");
 
@@ -4867,8 +4867,8 @@ TEST_CASE("FixString operator<=>", "[core][fixstring]") {
     REQUIRE((str3 <=> str1) == std::strong_ordering::greater);
   }
 
-  SECTION("FixString <=> C string") {
-    constexpr FixString<16> str1("Hello");
+  SECTION("FixedString <=> C string") {
+    constexpr FixedString<16> str1("Hello");
     constexpr const char * str2 = "Hello";
     constexpr const char * str3 = "World";
     constexpr const char * str4 = "Hi";
@@ -4899,9 +4899,9 @@ TEST_CASE("FixString operator<=>", "[core][fixstring]") {
   }
 
   SECTION("Empty string comparisons") {
-    constexpr FixString<16> empty1("");
-    constexpr FixString<32> empty2("");
-    constexpr FixString<16> nonEmpty("Test");
+    constexpr FixedString<16> empty1("");
+    constexpr FixedString<32> empty2("");
+    constexpr FixedString<16> nonEmpty("Test");
     constexpr const char * emptyCStr = "";
     constexpr const char * nonEmptyCStr = "Test";
 
@@ -4929,10 +4929,10 @@ TEST_CASE("FixString operator<=>", "[core][fixstring]") {
   }
 
   SECTION("Single character strings") {
-    constexpr FixString<8> str1("A");
-    constexpr FixString<8> str2("B");
-    constexpr FixString<8> str3("A");
-    constexpr FixString<8> str4("Z");
+    constexpr FixedString<8> str1("A");
+    constexpr FixedString<8> str2("B");
+    constexpr FixedString<8> str3("A");
+    constexpr FixedString<8> str4("Z");
 
     // Equal single characters
     REQUIRE((str1 <=> str3) == std::strong_ordering::equal);
@@ -4958,9 +4958,9 @@ TEST_CASE("FixString operator<=>", "[core][fixstring]") {
   }
 
   SECTION("Case sensitivity") {
-    constexpr FixString<16> lower("hello");
-    constexpr FixString<16> upper("HELLO");
-    constexpr FixString<16> mixed("Hello");
+    constexpr FixedString<16> lower("hello");
+    constexpr FixedString<16> upper("HELLO");
+    constexpr FixedString<16> mixed("Hello");
 
     // Case-sensitive comparisons
     REQUIRE((lower <=> upper) == std::strong_ordering::greater); // 'h' > 'H' in ASCII
@@ -4979,10 +4979,10 @@ TEST_CASE("FixString operator<=>", "[core][fixstring]") {
   }
 
   SECTION("Prefix comparisons") {
-    constexpr FixString<16> str1("Hello");
-    constexpr FixString<16> str2("HelloWorld");
-    constexpr FixString<16> str3("Hell");
-    constexpr FixString<16> str4("Hello");
+    constexpr FixedString<16> str1("Hello");
+    constexpr FixedString<16> str2("HelloWorld");
+    constexpr FixedString<16> str3("Hell");
+    constexpr FixedString<16> str4("Hello");
 
     // One string is prefix of another
     REQUIRE((str1 <=> str2) == std::strong_ordering::less); // "Hello" < "HelloWorld"
@@ -5004,10 +5004,10 @@ TEST_CASE("FixString operator<=>", "[core][fixstring]") {
   }
 
   SECTION("Special characters") {
-    constexpr FixString<32> str1("Hello\nWorld");
-    constexpr FixString<32> str2("Hello\tWorld");
-    constexpr FixString<32> str3("Hello World");
-    constexpr FixString<32> str4("Hello\nWorld");
+    constexpr FixedString<32> str1("Hello\nWorld");
+    constexpr FixedString<32> str2("Hello\tWorld");
+    constexpr FixedString<32> str3("Hello World");
+    constexpr FixedString<32> str4("Hello\nWorld");
 
     // Equal strings with special characters
     REQUIRE((str1 <=> str4) == std::strong_ordering::equal);
@@ -5033,10 +5033,10 @@ TEST_CASE("FixString operator<=>", "[core][fixstring]") {
   }
 
   SECTION("Unicode content") {
-    constexpr FixString<32> str1("Привет");
-    constexpr FixString<32> str2("Мир");
-    constexpr FixString<32> str3("Привет");
-    constexpr FixString<32> str4("Hello 🌍");
+    constexpr FixedString<32> str1("Привет");
+    constexpr FixedString<32> str2("Мир");
+    constexpr FixedString<32> str3("Привет");
+    constexpr FixedString<32> str4("Hello 🌍");
 
     // Equal Unicode strings
     REQUIRE((str1 <=> str3) == std::strong_ordering::equal);
@@ -5058,11 +5058,11 @@ TEST_CASE("FixString operator<=>", "[core][fixstring]") {
   }
 
   SECTION("Numeric strings") {
-    constexpr FixString<16> str1("123");
-    constexpr FixString<16> str2("456");
-    constexpr FixString<16> str3("123");
-    constexpr FixString<16> str4("12");
-    constexpr FixString<16> str5("1234");
+    constexpr FixedString<16> str1("123");
+    constexpr FixedString<16> str2("456");
+    constexpr FixedString<16> str3("123");
+    constexpr FixedString<16> str4("12");
+    constexpr FixedString<16> str5("1234");
 
     // Equal numeric strings
     REQUIRE((str1 <=> str3) == std::strong_ordering::equal);
@@ -5088,9 +5088,9 @@ TEST_CASE("FixString operator<=>", "[core][fixstring]") {
   }
 
   SECTION("Edge cases") {
-    constexpr FixString<4> str1("ABC"); // Maximum length for capacity 4
-    constexpr FixString<8> str2("ABC");
-    constexpr FixString<16> str3("ABCD");
+    constexpr FixedString<4> str1("ABC"); // Maximum length for capacity 4
+    constexpr FixedString<8> str2("ABC");
+    constexpr FixedString<16> str3("ABCD");
 
     // Same content, different capacities
     REQUIRE((str1 <=> str2) == std::strong_ordering::equal);
@@ -5108,10 +5108,10 @@ TEST_CASE("FixString operator<=>", "[core][fixstring]") {
   }
 
   SECTION("Constexpr operations") {
-    constexpr FixString<16> str1("Test");
-    constexpr FixString<16> str2("Test");
-    constexpr FixString<16> str3("Different");
-    constexpr FixString<16> str4("Test");
+    constexpr FixedString<16> str1("Test");
+    constexpr FixedString<16> str2("Test");
+    constexpr FixedString<16> str3("Different");
+    constexpr FixedString<16> str4("Test");
     constexpr const char * str5 = "Test";
     constexpr const char * str6 = "Different";
 
@@ -5139,10 +5139,10 @@ TEST_CASE("FixString operator<=>", "[core][fixstring]") {
   }
 
   SECTION("Performance test") {
-    constexpr FixString<64> str1("This is a very long string for performance testing");
-    constexpr FixString<64> str2("This is a very long string for performance testing");
-    constexpr FixString<64> str3("This is a very long string for performance testing!");
-    constexpr FixString<64> str4("This is a different string for performance testing");
+    constexpr FixedString<64> str1("This is a very long string for performance testing");
+    constexpr FixedString<64> str2("This is a very long string for performance testing");
+    constexpr FixedString<64> str3("This is a very long string for performance testing!");
+    constexpr FixedString<64> str4("This is a different string for performance testing");
 
     // Equal long strings
     REQUIRE((str1 <=> str2) == std::strong_ordering::equal);
@@ -5162,10 +5162,10 @@ TEST_CASE("FixString operator<=>", "[core][fixstring]") {
   }
 }
 
-TEST_CASE("FixString std::swap", "[core][fixstring]") {
+TEST_CASE("FixedString std::swap", "[core][FixedString]") {
   SECTION("Basic swap functionality") {
-    FixString<32> str1("Hello");
-    FixString<32> str2("World");
+    FixedString<32> str1("Hello");
+    FixedString<32> str2("World");
 
     std::swap(str1, str2);
 
@@ -5176,8 +5176,8 @@ TEST_CASE("FixString std::swap", "[core][fixstring]") {
   }
 
   SECTION("Swap with empty strings") {
-    FixString<32> str1("Hello");
-    FixString<32> str2("");
+    FixedString<32> str1("Hello");
+    FixedString<32> str2("");
 
     std::swap(str1, str2);
 
@@ -5188,8 +5188,8 @@ TEST_CASE("FixString std::swap", "[core][fixstring]") {
   }
 
   SECTION("Swap two empty strings") {
-    FixString<32> str1("");
-    FixString<32> str2("");
+    FixedString<32> str1("");
+    FixedString<32> str2("");
 
     std::swap(str1, str2);
 
@@ -5200,7 +5200,7 @@ TEST_CASE("FixString std::swap", "[core][fixstring]") {
   }
 
   SECTION("Self-swap") {
-    FixString<32> str1("Hello");
+    FixedString<32> str1("Hello");
 
     std::swap(str1, str1);
 
@@ -5209,8 +5209,8 @@ TEST_CASE("FixString std::swap", "[core][fixstring]") {
   }
 
   SECTION("Swap with different sizes") {
-    FixString<32> str1("Hi");
-    FixString<32> str2("VeryLongString");
+    FixedString<32> str1("Hi");
+    FixedString<32> str2("VeryLongString");
 
     std::swap(str1, str2);
 
@@ -5221,8 +5221,8 @@ TEST_CASE("FixString std::swap", "[core][fixstring]") {
   }
 
   SECTION("Swap with maximum length strings") {
-    FixString<16> str1("123456789012345"); // 15 chars
-    FixString<16> str2("ABCDEFGHIJKLMNO"); // 15 chars
+    FixedString<16> str1("123456789012345"); // 15 chars
+    FixedString<16> str2("ABCDEFGHIJKLMNO"); // 15 chars
 
     std::swap(str1, str2);
 
@@ -5233,8 +5233,8 @@ TEST_CASE("FixString std::swap", "[core][fixstring]") {
   }
 
   SECTION("Swap with special characters") {
-    FixString<32> str1("Hello,\n\t!");
-    FixString<32> str2("World,\r\n?");
+    FixedString<32> str1("Hello,\n\t!");
+    FixedString<32> str2("World,\r\n?");
 
     std::swap(str1, str2);
 
@@ -5245,8 +5245,8 @@ TEST_CASE("FixString std::swap", "[core][fixstring]") {
   }
 
   SECTION("Swap with Unicode content") {
-    FixString<32> str1("Hello 世界");
-    FixString<32> str2("World 宇宙");
+    FixedString<32> str1("Hello 世界");
+    FixedString<32> str2("World 宇宙");
 
     std::swap(str1, str2);
 
@@ -5257,9 +5257,9 @@ TEST_CASE("FixString std::swap", "[core][fixstring]") {
   }
 
   SECTION("Multiple swaps") {
-    FixString<32> str1("First");
-    FixString<32> str2("Second");
-    FixString<32> str3("Third");
+    FixedString<32> str1("First");
+    FixedString<32> str2("Second");
+    FixedString<32> str3("Third");
 
     std::swap(str1, str2);
 
@@ -5284,8 +5284,8 @@ TEST_CASE("FixString std::swap", "[core][fixstring]") {
   }
 
   SECTION("Performance test with large strings") {
-    FixString<64> str1("This is a very long string that tests swap performance");
-    FixString<64> str2("Another very long string for performance testing");
+    FixedString<64> str1("This is a very long string that tests swap performance");
+    FixedString<64> str2("Another very long string for performance testing");
 
     std::swap(str1, str2);
 
@@ -5296,8 +5296,8 @@ TEST_CASE("FixString std::swap", "[core][fixstring]") {
   }
 
   SECTION("Swap with single character strings") {
-    FixString<8> str1("A");
-    FixString<8> str2("B");
+    FixedString<8> str1("A");
+    FixedString<8> str2("B");
 
     std::swap(str1, str2);
 
