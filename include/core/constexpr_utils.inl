@@ -40,19 +40,25 @@ namespace toy {
 }
 
 [[nodiscard]] constexpr const char * cstrchr(const char * str, int ch) noexcept {
+  const char target = static_cast<char>(ch);
+
   for (; *str; ++str) {
-    if (*str == ch)
+    if (*str == target)
       return str;
   }
 
-  return *str == ch ? str : nullptr;
+  return (*str == target) ? str : nullptr;
 }
 
 [[nodiscard]] constexpr const char * cstrstr(const char * haystack, const char * needle) noexcept {
   if (!*needle)
     return haystack;
 
+  const char first = *needle;
   for (const char * h = haystack; *h; ++h) {
+    if (*h != first)
+      continue;
+
     const char * h_it = h;
     const char * n_it = needle;
 
