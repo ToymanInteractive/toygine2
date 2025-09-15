@@ -23,7 +23,7 @@
 
 #include "core.hpp"
 
-namespace toygine {
+namespace toy {
 namespace assertion {
 
 static AssertionCallback s_assertionCallback = nullptr;
@@ -79,4 +79,4 @@ void assertion(const char * code, const char * message, const char * fileName, c
 #endif // _DEBUG
 
 } // namespace assertion
-} // namespace toygine
+} // namespace toy

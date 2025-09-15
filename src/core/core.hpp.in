@@ -19,7 +19,7 @@
 //
 /*
   \file   core.hpp
-  \brief  toygine core part united header
+  \brief  engine core part united header
 */
 
 #ifndef INCLUDE_CORE_HPP_
@@ -93,11 +93,11 @@
 #include "@TOYGINE_TARGET_PLATFORM_CONFIG_HEADER@"
 
 /// @brief Main engine namespace
-namespace toygine {
+namespace toy {
 /*!
-  \brief Returns the size of an array.
+  \brief Returns the size of an array at compile-time.
 
-  This is a compile time helper function that returns the size of an array. The size of the array is inferred from the
+  This is a compile-time helper function that returns the size of an array. The size of the array is inferred from the
   parameter type, which is a reference to an array of length N.
 */
 template <typename T, std::size_t N>
@@ -114,8 +114,8 @@ constexpr std::size_t ArraySize(T (&)[N]) {
 
   (Template parameter T is the type to check for string-like properties.)
 
-  \note Types satisfying this concept can be used with FixString template methods that accept generic string types, such
-        as constructors, assignment operators, and various string manipulation methods.
+  \note Types satisfying this concept can be used with FixedString template methods that accept generic string types,
+        such as constructors, assignment operators, and various string manipulation methods.
 
   \note The concept ensures type safety and provides a compile-time guarantee that the required methods exist and return
         compatible types.
@@ -154,7 +154,7 @@ using StackWalkCallback = void (*)(const char *);
 /*!
   \brief Initializes the assertion system.
 
-  \sa deinitialize()
+  \sa deInitialize()
 */
 void initialize();
 
@@ -193,16 +193,16 @@ inline void assertion(const char * TOY_UNUSED(code), const char * TOY_UNUSED(mes
 
 } // namespace assertion
 
-} // namespace toygine
+} // namespace toy
 
 #include "core/constexpr_utils.hpp"
-#include "core/fix_string.hpp"
+#include "core/fixed_string.hpp"
 #include "core/utils.hpp"
 
 //----------------------------------------------------------------------------------------------------------------------
 
 #include "core/constexpr_utils.inl"
-#include "core/fix_string.inl"
+#include "core/fixed_string.inl"
 #include "core/utils.inl"
 
 #endif // INCLUDE_CORE_HPP_

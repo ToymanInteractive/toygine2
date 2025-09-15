@@ -25,7 +25,7 @@
 #ifndef INCLUDE_CORE_UTILS_INL_
 #define INCLUDE_CORE_UTILS_INL_
 
-namespace toygine {
+namespace toy {
 
 constexpr wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, const char * const src) noexcept {
   assert_message(src != nullptr, "The source must not be null.");
@@ -55,6 +55,6 @@ constexpr char * reverseString(char * string, std::size_t stringLength) noexcept
   return string;
 }
 
-} // namespace toygine
+} // namespace toy
 
 #endif // INCLUDE_CORE_UTILS_INL_

@@ -25,7 +25,7 @@
 #ifndef INCLUDE_CORE_CONSTEXPR_UTILS_HPP_
 #define INCLUDE_CORE_CONSTEXPR_UTILS_HPP_
 
-namespace toygine {
+namespace toy {
 
 /*!
   \brief Compares two C strings lexicographically.
@@ -46,12 +46,63 @@ namespace toygine {
   \note The comparison is case-sensitive.
   \note The comparison stops at the first character that differs between the strings.
   \note If one string is a prefix of another, the shorter string is considered lexicographically smaller.
+  \note Return values are -1, 0, or 1 based on lexicographic order using unsigned char comparison; this differs from
+        std::strcmp, which returns the arithmetic difference.
   \note This function is constexpr-compatible and can be used in compile-time contexts.
 
   \see std::strcmp
 */
 [[nodiscard]] constexpr int cstrcmp(const char * lhs, const char * rhs) noexcept;
 
-} // namespace toygine
+/*!
+  \brief Finds the first occurrence of a character in a C string.
+
+  This function searches for the first occurrence of the character \a ch within the string \a str. The search is
+  performed character by character from the beginning of the string and returns a pointer to the first occurrence, or
+  nullptr if the character is not found. This function is designed to be constexpr-compatible and provides the same
+  behavior as std::strchr but can be evaluated at compile time.
+
+  \param str The C string to search in.
+  \param ch  The character to search for.
+
+  \return A pointer to the first occurrence of \a ch in \a str, or nullptr if not found.
+
+  \pre The \a str pointer must not be null.
+
+  \note The search is case-sensitive.
+  \note The function searches from the beginning of \a str and returns the first match.
+  \note This function is constexpr-compatible and can be used in compile-time contexts.
+
+  \see std::strchr
+*/
+[[nodiscard]] constexpr const char * cstrchr(const char * str, int ch) noexcept;
+
+/*!
+  \brief Finds the first occurrence of a substring in a C string.
+
+  This function searches for the first occurrence of the \a needle string within the \a haystack string. The search is
+  performed character by character from the beginning and returns a pointer to the beginning of the first occurrence, or
+  nullptr if the substring is not found. This function is designed to be constexpr-compatible and provides the same
+  behavior as std::strstr but can be evaluated at compile time.
+
+  \param haystack The C string to search in.
+  \param needle   The C string to search for.
+
+  \return A pointer to the first occurrence of \a needle in \a haystack, or nullptr if not found. If \a needle is an
+          empty string, returns \a haystack.
+
+  \pre The \a haystack pointer must not be null.
+  \pre The \a needle pointer must not be null.
+
+  \note The search is case-sensitive.
+  \note If \a needle is an empty string, the function returns \a haystack immediately.
+  \note The function searches from the beginning of \a haystack and returns the first match.
+  \note This function is constexpr-compatible and can be used in compile-time contexts.
+
+  \see std::strstr
+*/
+[[nodiscard]] constexpr const char * cstrstr(const char * haystack, const char * needle) noexcept;
+
+} // namespace toy
 
 #endif // INCLUDE_CORE_CONSTEXPR_UTILS_HPP_

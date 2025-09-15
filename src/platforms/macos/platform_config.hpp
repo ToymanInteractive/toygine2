@@ -47,13 +47,13 @@
 
 #define assert(condition)                                                                                              \
   if (!(condition)) [[unlikely]]                                                                                       \
-    toygine::assertion::assertion(#condition, nullptr, __FILE__, __PRETTY_FUNCTION__, __LINE__);                       \
+    toy::assertion::assertion(#condition, nullptr, __FILE__, __PRETTY_FUNCTION__, __LINE__);                           \
   else                                                                                                                 \
     ((void)0);
 
 #define assert_message(condition, message)                                                                             \
   if (!(condition)) [[unlikely]]                                                                                       \
-    toygine::assertion::assertion(#condition, message, __FILE__, __PRETTY_FUNCTION__, __LINE__);                       \
+    toy::assertion::assertion(#condition, message, __FILE__, __PRETTY_FUNCTION__, __LINE__);                           \
   else                                                                                                                 \
     ((void)0);
 

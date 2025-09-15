@@ -337,7 +337,7 @@ void floatPostProcess(char * dest, char * srcBuffer, std::size_t bufferSize, std
 
 } // namespace
 
-namespace toygine {
+namespace toy {
 
 wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, const char * const src, std::size_t count) noexcept {
   if (dest == nullptr || destSize == 0)
@@ -572,4 +572,4 @@ void formatNumberString(char * buffer, std::size_t bufferSize, const char * sepa
   }
 }
 
-} // namespace toygine
+} // namespace toy

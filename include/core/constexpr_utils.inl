@@ -25,17 +25,55 @@
 #ifndef INCLUDE_CORE_CONSTEXPR_UTILS_INL_
 #define INCLUDE_CORE_CONSTEXPR_UTILS_INL_
 
-namespace toygine {
+namespace toy {
 
 [[nodiscard]] constexpr int cstrcmp(const char * lhs, const char * rhs) noexcept {
-  while (*lhs && (static_cast<unsigned char>(*lhs) == static_cast<unsigned char>(*rhs))) {
+  while (*lhs && (*lhs == *rhs)) {
     ++lhs;
     ++rhs;
   }
 
-  return static_cast<unsigned char>(*lhs) - static_cast<unsigned char>(*rhs);
+  if (*lhs == *rhs)
+    return 0;
+
+  return (static_cast<unsigned char>(*lhs) < static_cast<unsigned char>(*rhs)) ? -1 : 1;
 }
 
-} // namespace toygine
+[[nodiscard]] constexpr const char * cstrchr(const char * str, int ch) noexcept {
+  const auto target = static_cast<unsigned char>(ch);
+
+  for (; *str; ++str) {
+    if (static_cast<unsigned char>(*str) == target)
+      return str;
+  }
+
+  return (static_cast<unsigned char>(*str) == target) ? str : nullptr;
+}
+
+[[nodiscard]] constexpr const char * cstrstr(const char * haystack, const char * needle) noexcept {
+  if (!*needle)
+    return haystack;
+
+  const char first = *needle;
+  for (const char * h = haystack; *h; ++h) {
+    if (*h != first)
+      continue;
+
+    const char * h_it = h;
+    const char * n_it = needle;
+
+    while (*h_it && *n_it && *h_it == *n_it) {
+      ++h_it;
+      ++n_it;
+    }
+
+    if (!*n_it)
+      return h;
+  }
+
+  return nullptr;
+}
+
+} // namespace toy
 
 #endif // INCLUDE_CORE_CONSTEXPR_UTILS_INL_
