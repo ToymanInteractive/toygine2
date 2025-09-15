@@ -1,6 +1,6 @@
 var concepts =
 [
-    [ "toygine", "d7/de6/namespacetoygine.html", [
-      [ "StringLike", "d8/db7/concepttoygine_1_1_string_like.html", null ]
+    [ "toy", "d4/da9/namespacetoy.html", [
+      [ "StringLike", "df/d77/concepttoy_1_1_string_like.html", null ]
     ] ]
 ];

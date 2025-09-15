@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['stackwalkcallback_0',['StackWalkCallback',['../dd/d55/namespacetoygine_1_1assertion.html#a0b2124cab86bbf34bdaa15df4f2a16ec',1,'toygine::assertion']]]
+  ['stackwalkcallback_0',['StackWalkCallback',['../d2/da2/namespacetoy_1_1assertion.html#a77be860c404126249c99fb34089c497a',1,'toy::assertion']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['wcharinutf8maxsize_0',['wcharInUtf8MaxSize',['../d7/de6/namespacetoygine.html#a33eb5fc4e7682e297375d2ee2fbb7742',1,'toygine']]]
+  ['wcharinutf8maxsize_0',['wcharInUtf8MaxSize',['../d4/da9/namespacetoy.html#aaba2640627e0f36ead0a3844fd35c6a9',1,'toy']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['length_0',['length',['../da/d4a/classtoygine_1_1_fix_string.html#a7b3bee37b95cefebb50a655c30cadf70',1,'toygine::FixString']]]
+  ['length_0',['length',['../d3/d7a/classtoy_1_1_fixed_string.html#a19f848072d9c2acba06dd646981ecf95',1,'toy::FixedString']]]
 ];

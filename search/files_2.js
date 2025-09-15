@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['fix_5fstring_2ehpp_0',['fix_string.hpp',['../d0/d46/fix__string_8hpp.html',1,'']]],
-  ['fix_5fstring_2einl_1',['fix_string.inl',['../db/d84/fix__string_8inl.html',1,'']]]
+  ['fixed_5fstring_2ehpp_0',['fixed_string.hpp',['../d7/d7f/fixed__string_8hpp.html',1,'']]],
+  ['fixed_5fstring_2einl_1',['fixed_string.inl',['../d7/d40/fixed__string_8inl.html',1,'']]]
 ];

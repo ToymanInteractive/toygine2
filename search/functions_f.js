@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['wchartoutf8_0',['wcharToUtf8',['../d7/de6/namespacetoygine.html#ac153d6bb41a1474b9827d2bd9ed0bc95',1,'toygine']]]
+  ['wchartoutf8_0',['wcharToUtf8',['../d4/da9/namespacetoy.html#af6f23b1a42f8357ca5341bbe33902d99',1,'toy']]]
 ];

@@ -1,6 +1,6 @@
 var core_8hpp =
 [
-    [ "toygine::StringLike", "d8/db7/concepttoygine_1_1_string_like.html", null ],
+    [ "toy::StringLike", "df/d77/concepttoy_1_1_string_like.html", null ],
     [ "CPU_ARM_32", "da/d47/core_8hpp.html#a014b03e21ccae2451f28ca938128f998", null ],
     [ "CPU_ARM_64", "da/d47/core_8hpp.html#a20e457ee1318b901b1c44dd6390ca1a1", null ],
     [ "CPU_INTEL_x64", "da/d47/core_8hpp.html#a1e1898e441784683649af6bb189cb75d", null ],
@@ -15,11 +15,11 @@ var core_8hpp =
     [ "OS_SWITCH", "da/d47/core_8hpp.html#add26e12ca77c27fd24f25f0192305cc0", null ],
     [ "OS_WINDOWS", "da/d47/core_8hpp.html#a6aadf1cbdc6ed6b61b4b0bdffb62e727", null ],
     [ "TOY_UNUSED", "da/d47/core_8hpp.html#a6c25f2c5b6e99783e32a4eb8258eb2f6", null ],
-    [ "AssertionCallback", "da/d47/core_8hpp.html#afe461df95b90f03ae48f6271c1283a9b", null ],
-    [ "StackWalkCallback", "da/d47/core_8hpp.html#a0b2124cab86bbf34bdaa15df4f2a16ec", null ],
-    [ "ArraySize", "da/d47/core_8hpp.html#ae81918baef6e45b67a21c152cdfadaf0", null ],
-    [ "assertion", "da/d47/core_8hpp.html#a1a95dd270b2922a341e7fea330b654c3", null ],
-    [ "deInitialize", "da/d47/core_8hpp.html#a1f4b93239704be50c6f7843c8c7e475f", null ],
-    [ "initialize", "da/d47/core_8hpp.html#a9653f4304e4fa840577c36c61fa32eac", null ],
-    [ "setCallbacks", "da/d47/core_8hpp.html#a1a1d0601596ffb5c776edfdb9b534d04", null ]
+    [ "AssertionCallback", "da/d47/core_8hpp.html#ac9b5b813ecfe0701aa24d2e005f82c8a", null ],
+    [ "StackWalkCallback", "da/d47/core_8hpp.html#a77be860c404126249c99fb34089c497a", null ],
+    [ "ArraySize", "da/d47/core_8hpp.html#a63f823f1d5e638248b10d02d8a1666ba", null ],
+    [ "assertion", "da/d47/core_8hpp.html#a8cb98bf993f962142a0c6a40769e7224", null ],
+    [ "deInitialize", "da/d47/core_8hpp.html#a82b42cf518871245c19337431cfe63e5", null ],
+    [ "initialize", "da/d47/core_8hpp.html#a1586eee3b9f8e4fc0b659ff2d402e28a", null ],
+    [ "setCallbacks", "da/d47/core_8hpp.html#ab92066b98ab69bcf7db8e1089ea4f755", null ]
 ];

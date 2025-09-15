@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['empty_0',['empty',['../da/d4a/classtoygine_1_1_fix_string.html#a8fc3f1b01f5865271810f50e1d91e225',1,'toygine::FixString']]],
-  ['ends_5fwith_1',['ends_with',['../da/d4a/classtoygine_1_1_fix_string.html#a325d58976041ad713f27dbc5ac77de86',1,'toygine::FixString::ends_with(const FixString&lt; allocatedSize &gt; &amp;string) const noexcept'],['../da/d4a/classtoygine_1_1_fix_string.html#a5b62df7ec9066a5d6a9539f5f0060c27',1,'toygine::FixString::ends_with(const stringType &amp;string) const noexcept'],['../da/d4a/classtoygine_1_1_fix_string.html#a293882f4c66471c2e6fac318e849619d',1,'toygine::FixString::ends_with(const char *string) const noexcept'],['../da/d4a/classtoygine_1_1_fix_string.html#ae0819aec779232ba5b2ed1de2fdab6c6',1,'toygine::FixString::ends_with(char character) const noexcept']]],
-  ['erase_2',['erase',['../da/d4a/classtoygine_1_1_fix_string.html#a6b17bc52d968a5fb590f7c8a7902576c',1,'toygine::FixString']]]
+  ['empty_0',['empty',['../d3/d7a/classtoy_1_1_fixed_string.html#a58766d349db9bcadf7ec2d9139dc7594',1,'toy::FixedString']]],
+  ['ends_5fwith_1',['ends_with',['../d3/d7a/classtoy_1_1_fixed_string.html#af1f2e4cb204c51f42ebb4f28aae503dd',1,'toy::FixedString::ends_with(const FixedString&lt; allocatedSize &gt; &amp;string) const noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#a9d20e0bb28a32c00d70cf2535049bd73',1,'toy::FixedString::ends_with(const stringType &amp;string) const noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#aa442f696f1a0a91c15d1f1db45a41abb',1,'toy::FixedString::ends_with(const char *string) const noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#af64adc29fcb11a107fa96ddb55e091a6',1,'toy::FixedString::ends_with(char character) const noexcept']]],
+  ['erase_2',['erase',['../d3/d7a/classtoy_1_1_fixed_string.html#a3e8f26f969a7af4bf0eacaff93ca1462',1,'toy::FixedString']]]
 ];

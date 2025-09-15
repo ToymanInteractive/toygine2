@@ -1,21 +1,23 @@
 var searchData=
 [
   ['c_20compilers_0',['Supported C++ compilers',['../index.html#supported-c-compilers',1,'']]],
-  ['c_5fstr_1',['c_str',['../da/d4a/classtoygine_1_1_fix_string.html#a88e33e0b5110f442408c0b506c2953a6',1,'toygine::FixString']]],
-  ['capacity_2',['capacity',['../da/d4a/classtoygine_1_1_fix_string.html#a7572daaca96aea5fa957eaf396b08e97',1,'toygine::FixString']]],
-  ['characteristics_3',['Performance Characteristics',['../da/d4a/classtoygine_1_1_fix_string.html#performance',1,'']]],
-  ['clear_4',['clear',['../da/d4a/classtoygine_1_1_fix_string.html#a5c4bb16ccd66d9c2e1d2d5c7ac01571d',1,'toygine::FixString']]],
-  ['compare_5',['compare',['../da/d4a/classtoygine_1_1_fix_string.html#a9f67beed78ca7d3e24e654ae6f35a7c4',1,'toygine::FixString::compare(const FixString&lt; allocatedSize &gt; &amp;string) const noexcept'],['../da/d4a/classtoygine_1_1_fix_string.html#af20c21592a3580039099806bfab8d583',1,'toygine::FixString::compare(const stringType &amp;string) const noexcept'],['../da/d4a/classtoygine_1_1_fix_string.html#a293a69e4ef19a7b3b23a885c9d827fa7',1,'toygine::FixString::compare(const char *string) const noexcept']]],
-  ['compatibility_6',['Compatibility',['../da/d4a/classtoygine_1_1_fix_string.html#compatibility',1,'']]],
+  ['c_5fstr_1',['c_str',['../d3/d7a/classtoy_1_1_fixed_string.html#a9bc4221a5a20d3a2a43f2e3ab011dace',1,'toy::FixedString']]],
+  ['capacity_2',['capacity',['../d3/d7a/classtoy_1_1_fixed_string.html#a5e64cab76d22b7aee800286444d5f492',1,'toy::FixedString']]],
+  ['characteristics_3',['Performance Characteristics',['../d3/d7a/classtoy_1_1_fixed_string.html#performance',1,'']]],
+  ['clear_4',['clear',['../d3/d7a/classtoy_1_1_fixed_string.html#a0cb810c6305e7a27fed5d6d0fe910f5e',1,'toy::FixedString']]],
+  ['compare_5',['compare',['../d3/d7a/classtoy_1_1_fixed_string.html#a69aee2b7f8e6dc96497d8a9e64462344',1,'toy::FixedString::compare(const FixedString&lt; allocatedSize &gt; &amp;string) const noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#a8448018a58c82d61cb461e98b6f80a40',1,'toy::FixedString::compare(const stringType &amp;string) const noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#ac508cd66afefabd2c181ba1987896449',1,'toy::FixedString::compare(const char *string) const noexcept']]],
+  ['compatibility_6',['Compatibility',['../d3/d7a/classtoy_1_1_fixed_string.html#compatibility',1,'']]],
   ['compilers_7',['Supported C++ compilers',['../index.html#supported-c-compilers',1,'']]],
   ['constexpr_5futils_2ehpp_8',['constexpr_utils.hpp',['../d4/dc0/constexpr__utils_8hpp.html',1,'']]],
   ['constexpr_5futils_2einl_9',['constexpr_utils.inl',['../dc/d28/constexpr__utils_8inl.html',1,'']]],
-  ['contains_10',['contains',['../da/d4a/classtoygine_1_1_fix_string.html#a83b91a9a0df57ca0c214d22030c6dff0',1,'toygine::FixString::contains(const FixString&lt; allocatedSize &gt; &amp;string) const noexcept'],['../da/d4a/classtoygine_1_1_fix_string.html#a685f395bb5455acc8d2ec99853291993',1,'toygine::FixString::contains(const stringType &amp;string) const noexcept'],['../da/d4a/classtoygine_1_1_fix_string.html#a822b381b7c12fb918f39d496eded9dd3',1,'toygine::FixString::contains(const char *string) const noexcept'],['../da/d4a/classtoygine_1_1_fix_string.html#a48da1058305960da08345f73880441e9',1,'toygine::FixString::contains(char character) const noexcept']]],
-  ['copy_11',['copy',['../da/d4a/classtoygine_1_1_fix_string.html#aa391f631df4ba36f282fb46e6b73b3bd',1,'toygine::FixString']]],
+  ['contains_10',['contains',['../d3/d7a/classtoy_1_1_fixed_string.html#a42dfaefbea97e55ff3f91a9563e47344',1,'toy::FixedString::contains(const FixedString&lt; allocatedSize &gt; &amp;string) const noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#ada1d0c20637884df171e63012e7dcbc0',1,'toy::FixedString::contains(const stringType &amp;string) const noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#afad7817c5f37198671e098cd67ade423',1,'toy::FixedString::contains(const char *string) const noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#aa4b86510c375d714170f043387bea09c',1,'toy::FixedString::contains(char character) const noexcept']]],
+  ['copy_11',['copy',['../d3/d7a/classtoy_1_1_fixed_string.html#a8b0d432f50dc52b93352e8fd942cf572',1,'toy::FixedString']]],
   ['core_2ehpp_12',['core.hpp',['../da/d47/core_8hpp.html',1,'']]],
   ['cpu_5farm_5f32_13',['CPU_ARM_32',['../da/d47/core_8hpp.html#a014b03e21ccae2451f28ca938128f998',1,'core.hpp']]],
   ['cpu_5farm_5f64_14',['CPU_ARM_64',['../da/d47/core_8hpp.html#a20e457ee1318b901b1c44dd6390ca1a1',1,'core.hpp']]],
   ['cpu_5fintel_5fx64_15',['CPU_INTEL_x64',['../da/d47/core_8hpp.html#a1e1898e441784683649af6bb189cb75d',1,'core.hpp']]],
   ['cpu_5fintel_5fx86_16',['CPU_INTEL_x86',['../da/d47/core_8hpp.html#ad4c61321e672d6faf976329f76c5cc1a',1,'core.hpp']]],
-  ['cstrcmp_17',['cstrcmp',['../d7/de6/namespacetoygine.html#ab3622986659a41d3545895ebdd549a34',1,'toygine']]]
+  ['cstrchr_17',['cstrchr',['../d4/da9/namespacetoy.html#a591ce52797bb53b8d8ce64a31cabba6b',1,'toy']]],
+  ['cstrcmp_18',['cstrcmp',['../d4/da9/namespacetoy.html#a28fad381ee4d8415699e790432777471',1,'toy']]],
+  ['cstrstr_19',['cstrstr',['../d4/da9/namespacetoy.html#a58d00a4a7bbd87ef48d346903b5a8c78',1,'toy']]]
 ];

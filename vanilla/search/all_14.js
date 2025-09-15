@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['wcharinutf8maxsize_0',['wcharInUtf8MaxSize',['../d7/de6/namespacetoygine.html#a33eb5fc4e7682e297375d2ee2fbb7742',1,'toygine']]],
-  ['wchartoutf8_1',['wcharToUtf8',['../d7/de6/namespacetoygine.html#ac153d6bb41a1474b9827d2bd9ed0bc95',1,'toygine']]]
+  ['wcharinutf8maxsize_0',['wcharInUtf8MaxSize',['../d4/da9/namespacetoy.html#aaba2640627e0f36ead0a3844fd35c6a9',1,'toy']]],
+  ['wchartoutf8_1',['wcharToUtf8',['../d4/da9/namespacetoy.html#af6f23b1a42f8357ca5341bbe33902d99',1,'toy']]]
 ];

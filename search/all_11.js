@@ -1,18 +1,18 @@
 var searchData=
 [
-  ['s_5fassertioncallback_0',['s_assertionCallback',['../dd/d55/namespacetoygine_1_1assertion.html#af12a64b3cc004e87fb85ee25f67a5cbc',1,'toygine::assertion']]],
-  ['safety_20guarantees_1',['Safety Guarantees',['../da/d4a/classtoygine_1_1_fix_string.html#safety',1,'']]],
-  ['sc_5fansidigits_2',['sc_ansiDigits',['../d7/de6/namespacetoygine.html#adf925cf307a3e0463eb4ce318cc51ed8',1,'toygine']]],
+  ['s_5fassertioncallback_0',['s_assertionCallback',['../d2/da2/namespacetoy_1_1assertion.html#abf0c95a6d0312b84decc08fc040187c9',1,'toy::assertion']]],
+  ['safety_20guarantees_1',['Safety Guarantees',['../d3/d7a/classtoy_1_1_fixed_string.html#safety',1,'']]],
+  ['sc_5fansidigits_2',['sc_ansiDigits',['../d4/da9/namespacetoy.html#a1b86c01d1136abd02c4b403630ed222f',1,'toy']]],
   ['sc_5fexponenttable_3',['sc_exponentTable',['../de/dcc/namespaceanonymous__namespace_02utils_8cpp_03.html#a16763e814fa75374c37a7c9b6ac4379b',1,'anonymous_namespace{utils.cpp}']]],
   ['sc_5futf8charsizetable_4',['sc_utf8CharSizeTable',['../de/dcc/namespaceanonymous__namespace_02utils_8cpp_03.html#ae94b7cef695dd5f7f2d603cbce5ee04e',1,'anonymous_namespace{utils.cpp}']]],
-  ['setcallbacks_5',['setCallbacks',['../dd/d55/namespacetoygine_1_1assertion.html#a1a1d0601596ffb5c776edfdb9b534d04',1,'toygine::assertion::setCallbacks(AssertionCallback assertionCallback, StackWalkCallback stackWalkCallback)'],['../dd/d55/namespacetoygine_1_1assertion.html#a000691ce60af14ff6928a553ca6c00fd',1,'toygine::assertion::setCallbacks(AssertionCallback assertionCallback, StackWalkCallback TOY_UNUSED(stackWalkCallback))']]],
-  ['size_6',['size',['../da/d4a/classtoygine_1_1_fix_string.html#af89cb8066041fa741f75709159b610e7',1,'toygine::FixString']]],
+  ['setcallbacks_5',['setCallbacks',['../d2/da2/namespacetoy_1_1assertion.html#ab92066b98ab69bcf7db8e1089ea4f755',1,'toy::assertion::setCallbacks(AssertionCallback assertionCallback, StackWalkCallback stackWalkCallback)'],['../d2/da2/namespacetoy_1_1assertion.html#a110a4b7692805ebe9ffdaddcf1cab402',1,'toy::assertion::setCallbacks(AssertionCallback assertionCallback, StackWalkCallback TOY_UNUSED(stackWalkCallback))']]],
+  ['size_6',['size',['../d3/d7a/classtoy_1_1_fixed_string.html#a224bd4611e4b21cca0d29dcac02bd745',1,'toy::FixedString']]],
   ['src_5fcore_5futils_5finternal_5finl_5f_7',['SRC_CORE_UTILS_INTERNAL_INL_',['../d4/d85/utils__internal_8inl.html#a59c5026acee935b89b5b8cf435c67831',1,'utils_internal.inl']]],
-  ['stackwalkcallback_8',['StackWalkCallback',['../dd/d55/namespacetoygine_1_1assertion.html#a0b2124cab86bbf34bdaa15df4f2a16ec',1,'toygine::assertion']]],
-  ['starts_5fwith_9',['starts_with',['../da/d4a/classtoygine_1_1_fix_string.html#a7a46a3251062357d8fcef9578785cdcf',1,'toygine::FixString::starts_with(const FixString&lt; allocatedSize &gt; &amp;string) const noexcept'],['../da/d4a/classtoygine_1_1_fix_string.html#ae461dc559fa326874eeef4bc4cd4fe04',1,'toygine::FixString::starts_with(const stringType &amp;string) const noexcept'],['../da/d4a/classtoygine_1_1_fix_string.html#a4d186283e857b472d2e025964aacb1b6',1,'toygine::FixString::starts_with(const char *string) const noexcept'],['../da/d4a/classtoygine_1_1_fix_string.html#a481a6eeab7d7a08448d8e34586d9f132',1,'toygine::FixString::starts_with(char character) const noexcept']]],
-  ['substr_10',['substr',['../da/d4a/classtoygine_1_1_fix_string.html#a6535ff8b2b533244d5d203c99f1b2555',1,'toygine::FixString']]],
+  ['stackwalkcallback_8',['StackWalkCallback',['../d2/da2/namespacetoy_1_1assertion.html#a77be860c404126249c99fb34089c497a',1,'toy::assertion']]],
+  ['starts_5fwith_9',['starts_with',['../d3/d7a/classtoy_1_1_fixed_string.html#a616ed816856ff2ca07bb80da0199fc95',1,'toy::FixedString::starts_with(const FixedString&lt; allocatedSize &gt; &amp;string) const noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#ae2773eb44a0dcd5301f41dc1b0f776af',1,'toy::FixedString::starts_with(const stringType &amp;string) const noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#ac1fa1fe5dd1b7b4a923886b0544f4250',1,'toy::FixedString::starts_with(const char *string) const noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#a50f3a0981ef8977421e7ca9b26716799',1,'toy::FixedString::starts_with(char character) const noexcept']]],
+  ['substr_10',['substr',['../d3/d7a/classtoy_1_1_fixed_string.html#a13a412da8d19cfa2d2b8686abbcea689',1,'toy::FixedString']]],
   ['supported_20c_20compilers_11',['Supported C++ compilers',['../index.html#supported-c-compilers',1,'']]],
   ['supported_20systems_12',['Supported Systems',['../index.html#supported-systems',1,'']]],
-  ['swap_13',['swap',['../da/d4a/classtoygine_1_1_fix_string.html#a5d50ca47d782fc6a678859d77ee83248',1,'toygine::FixString']]],
+  ['swap_13',['swap',['../d3/d7a/classtoy_1_1_fixed_string.html#a0d6b3d27deeefe85c8422cff605adcbc',1,'toy::FixedString']]],
   ['systems_14',['Supported Systems',['../index.html#supported-systems',1,'']]]
 ];
