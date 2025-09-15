@@ -39,7 +39,7 @@ namespace toy {
   return (static_cast<unsigned char>(*lhs) < static_cast<unsigned char>(*rhs)) ? -1 : 1;
 }
 
-[[nodiscard]] constexpr const char * cstrchr(const char * str, char ch) noexcept {
+[[nodiscard]] constexpr const char * cstrchr(const char * str, int ch) noexcept {
   for (; *str; ++str) {
     if (*str == ch)
       return str;

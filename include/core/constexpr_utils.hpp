@@ -46,8 +46,8 @@ namespace toy {
   \note The comparison is case-sensitive.
   \note The comparison stops at the first character that differs between the strings.
   \note If one string is a prefix of another, the shorter string is considered lexicographically smaller.
-  \note The returned value equals the difference between the first non-matching characters, interpreted as unsigned char
-        and promoted to int, i.e., identical to std::strcmp.
+  \note Return values are -1, 0, or 1 based on lexicographic order using unsigned char comparison; this differs from
+        std::strcmp, which returns the arithmetic difference.
   \note This function is constexpr-compatible and can be used in compile-time contexts.
 
   \see std::strcmp
@@ -75,7 +75,7 @@ namespace toy {
 
   \see std::strchr
 */
-[[nodiscard]] constexpr const char * cstrchr(const char * str, char ch) noexcept;
+[[nodiscard]] constexpr const char * cstrchr(const char * str, int ch) noexcept;
 
 /*!
   \brief Finds the first occurrence of a substring in a C string.
