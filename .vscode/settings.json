@@ -3,6 +3,7 @@
     "cSpell.language": "en,ru",
     "cSpell.words": [
         "codacy",
+        "constexpr",
         "cpack",
         "devkit",
         "devkitarm",
