@@ -18,7 +18,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   с_string.inl
+  \file   c_string.inl
   \brief  TODO
 */
 

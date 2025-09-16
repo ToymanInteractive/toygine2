@@ -132,6 +132,7 @@ private:
   /// Pointer to the wrapped C-style string
   const char * _data;
 
+  /// Static empty string used as default value for null pointers
   static constexpr char _emptyString[]{'\0'};
 };
 
