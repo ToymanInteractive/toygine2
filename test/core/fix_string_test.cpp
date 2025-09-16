@@ -342,10 +342,10 @@ TEST_CASE("FixedString operators=", "[core][fixed_string]") {
     REQUIRE(std::strcmp(str1.c_str(), "ABC") == 0);
 
     // Non-empty to empty
-    str2 = "Test";
+    str2 = "XYZ";
     str1 = str2;
-    REQUIRE(str1.size() == 4);
-    REQUIRE(std::strcmp(str1.c_str(), "Test") == 0);
+    REQUIRE(str1.size() == 3);
+    REQUIRE(std::strcmp(str1.c_str(), "XYZ") == 0);
 
     // Empty to non-empty
     str2 = "";
