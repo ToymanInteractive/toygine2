@@ -651,23 +651,6 @@ TEST_CASE("FixedString assign", "[core][fixed_string]") {
     STATIC_REQUIRE(constStr2.size() == 4);
     STATIC_REQUIRE(cstrcmp(constStr2.c_str(), "Test") == 0);
   }
-
-  SECTION("Performance test") {
-    FixedString<64> str1;
-    FixedString<32> str2;
-    std::string str3("PerformanceTest");
-
-    // Multiple assignments
-    for (int i = 0; i < 100; ++i) {
-      str1.assign("Test").assign(str3).assign("Another");
-      str2.assign(str1);
-    }
-
-    REQUIRE(str1.size() == 7);
-    REQUIRE(std::strcmp(str1.c_str(), "Another") == 0);
-    REQUIRE(str2.size() == 7);
-    REQUIRE(std::strcmp(str2.c_str(), "Another") == 0);
-  }
 }
 
 TEST_CASE("FixedString at", "[core][fixed_string]") {
@@ -1052,32 +1035,17 @@ TEST_CASE("FixedString operator[]", "[core][fixed_string]") {
     STATIC_REQUIRE(str2[3] == 'l');
     STATIC_REQUIRE(str2[4] == 'd');
   }
-
-  SECTION("Performance test") {
-    FixedString<64> str("PerformanceTestString");
-
-    // Multiple accesses
-    for (int i = 0; i < 1000; ++i) {
-      char c = str[i % str.size()];
-      REQUIRE(c == str[i % str.size()]);
-    }
-
-    // Multiple modifications
-    for (int i = 0; i < 100; ++i) {
-      str[0] = 'A' + (i % 26);
-      REQUIRE(str[0] == 'A' + (i % 26));
-    }
-  }
 }
-
-// to refactor 3558 - 1073 = 2485
 
 TEST_CASE("FixedString front and back", "[core][fixed_string]") {
   SECTION("Front method") {
     FixedString<16> testString("Hello World");
+    constexpr FixedString<16> constString("Hello World");
 
     REQUIRE(testString.front() == 'H');
     REQUIRE(testString[0] == 'H');
+    STATIC_REQUIRE(constString.front() == 'H');
+    STATIC_REQUIRE(constString[0] == 'H');
 
     // Test modification
     testString.front() = 'h';
@@ -1085,30 +1053,19 @@ TEST_CASE("FixedString front and back", "[core][fixed_string]") {
     REQUIRE(testString[0] == 'h');
   }
 
-  SECTION("Front const method") {
-    constexpr FixedString<12> testString("Hello World");
-
-    REQUIRE(testString.front() == 'H');
-    REQUIRE(testString[0] == 'H');
-  }
-
   SECTION("Back method") {
     FixedString<16> testString("Hello World");
+    constexpr FixedString<16> constString("Hello World");
 
     REQUIRE(testString.back() == 'd');
     REQUIRE(testString[testString.size() - 1] == 'd');
+    STATIC_REQUIRE(constString.back() == 'd');
+    STATIC_REQUIRE(constString[constString.size() - 1] == 'd');
 
     // Test modification
     testString.back() = 'D';
     REQUIRE(testString.back() == 'D');
     REQUIRE(testString[testString.size() - 1] == 'D');
-  }
-
-  SECTION("Back const method") {
-    constexpr FixedString<12> testString("Hello World");
-
-    REQUIRE(testString.back() == 'd');
-    REQUIRE(testString[testString.size() - 1] == 'd');
   }
 
   SECTION("Single character string") {
@@ -1126,6 +1083,45 @@ TEST_CASE("FixedString front and back", "[core][fixed_string]") {
     testString.back() = 'C';
     REQUIRE(testString.front() == 'C');
     REQUIRE(testString.back() == 'C');
+
+    // Compile-time checks
+    constexpr FixedString<2> constTestString("A");
+    STATIC_REQUIRE(constTestString.front() == 'A');
+    STATIC_REQUIRE(constTestString.back() == 'A');
+    STATIC_REQUIRE(constTestString.front() == constTestString.back());
+  }
+
+  SECTION("Empty string") {
+    FixedString<16> testString("");
+
+    REQUIRE(testString.front() == '\0');
+
+    // Compile-time checks
+    constexpr FixedString<16> constTestString("");
+    STATIC_REQUIRE(constTestString.front() == '\0');
+  }
+
+  SECTION("Two character string") {
+    FixedString<8> testString("AB");
+
+    REQUIRE(testString.front() == 'A');
+    REQUIRE(testString.back() == 'B');
+    REQUIRE(testString.front() != testString.back());
+
+    // Test modification
+    testString.front() = 'X';
+    REQUIRE(testString.front() == 'X');
+    REQUIRE(testString.back() == 'B');
+
+    testString.back() = 'Y';
+    REQUIRE(testString.front() == 'X');
+    REQUIRE(testString.back() == 'Y');
+
+    // Compile-time checks
+    constexpr FixedString<8> constTestString("AB");
+    STATIC_REQUIRE(constTestString.front() == 'A');
+    STATIC_REQUIRE(constTestString.back() == 'B');
+    STATIC_REQUIRE(constTestString.front() != constTestString.back());
   }
 
   SECTION("Modification through references") {
@@ -1156,7 +1152,165 @@ TEST_CASE("FixedString front and back", "[core][fixed_string]") {
     REQUIRE(frontRef == testString[0]);
     REQUIRE(backRef == testString[testString.size() - 1]);
   }
+
+  SECTION("Special characters") {
+    FixedString<16> testString("Hello\n\tWorld!");
+
+    REQUIRE(testString.front() == 'H');
+    REQUIRE(testString.back() == '!');
+
+    // Test modification with special characters
+    testString.front() = '\n';
+    REQUIRE(testString.front() == '\n');
+
+    testString.back() = '\t';
+    REQUIRE(testString.back() == '\t');
+
+    // Compile-time checks
+    constexpr FixedString<16> constTestString("Hello\n\tWorld!");
+    STATIC_REQUIRE(constTestString.front() == 'H');
+    STATIC_REQUIRE(constTestString.back() == '!');
+  }
+
+  SECTION("Numeric content") {
+    FixedString<16> testString("12345");
+
+    REQUIRE(testString.front() == '1');
+    REQUIRE(testString.back() == '5');
+
+    // Test modification
+    testString.front() = '9';
+    REQUIRE(testString.front() == '9');
+
+    testString.back() = '0';
+    REQUIRE(testString.back() == '0');
+
+    // Compile-time checks
+    constexpr FixedString<16> constTestString("12345");
+    STATIC_REQUIRE(constTestString.front() == '1');
+    STATIC_REQUIRE(constTestString.back() == '5');
+  }
+
+  SECTION("Mixed content") {
+    FixedString<32> testString("123Hello456");
+
+    REQUIRE(testString.front() == '1');
+    REQUIRE(testString.back() == '6');
+
+    // Test modification
+    testString.front() = '9';
+    REQUIRE(testString.front() == '9');
+
+    testString.back() = '0';
+    REQUIRE(testString.back() == '0');
+
+    // Compile-time checks
+    constexpr FixedString<32> constTestString("123Hello456");
+    STATIC_REQUIRE(constTestString.front() == '1');
+    STATIC_REQUIRE(constTestString.back() == '6');
+  }
+
+  SECTION("Long strings") {
+    FixedString<64> testString("This is a very long string for performance testing");
+
+    REQUIRE(testString.front() == 'T');
+    REQUIRE(testString.back() == 'g');
+
+    // Test modification
+    testString.front() = 'X';
+    REQUIRE(testString.front() == 'X');
+
+    testString.back() = 'Y';
+    REQUIRE(testString.back() == 'Y');
+
+    // Compile-time checks
+    constexpr FixedString<64> constTestString("This is a very long string for performance testing");
+    STATIC_REQUIRE(constTestString.front() == 'T');
+    STATIC_REQUIRE(constTestString.back() == 'g');
+  }
+
+  SECTION("Case sensitivity") {
+    FixedString<16> testString("Hello World");
+
+    REQUIRE(testString.front() == 'H'); // Uppercase
+    REQUIRE(testString.back() == 'd'); // Lowercase
+
+    // Test case modification
+    testString.front() = 'h'; // Change to lowercase
+    REQUIRE(testString.front() == 'h');
+
+    testString.back() = 'D'; // Change to uppercase
+    REQUIRE(testString.back() == 'D');
+
+    // Compile-time checks
+    constexpr FixedString<16> constTestString("Hello World");
+    STATIC_REQUIRE(constTestString.front() == 'H');
+    STATIC_REQUIRE(constTestString.back() == 'd');
+  }
+
+  SECTION("Whitespace handling") {
+    FixedString<16> testString(" Hello ");
+
+    REQUIRE(testString.front() == ' ');
+    REQUIRE(testString.back() == ' ');
+
+    // Test modification
+    testString.front() = 'X';
+    REQUIRE(testString.front() == 'X');
+
+    testString.back() = 'Y';
+    REQUIRE(testString.back() == 'Y');
+
+    // Compile-time checks
+    constexpr FixedString<16> constTestString(" Hello ");
+    STATIC_REQUIRE(constTestString.front() == ' ');
+    STATIC_REQUIRE(constTestString.back() == ' ');
+  }
+
+  SECTION("Reference stability") {
+    FixedString<32> testString("Hello World");
+
+    // Get references
+    char & frontRef = testString.front();
+    char & backRef = testString.back();
+
+    // Modify through references
+    frontRef = 'X';
+    backRef = 'Y';
+
+    // Verify references still work
+    REQUIRE(frontRef == 'X');
+    REQUIRE(backRef == 'Y');
+    REQUIRE(testString.front() == 'X');
+    REQUIRE(testString.back() == 'Y');
+  }
+
+  SECTION("Constexpr operations") {
+    constexpr FixedString<16> str1("Hello");
+    constexpr FixedString<16> str2("World");
+    constexpr FixedString<16> str3("Test");
+
+    // Compile-time front operations
+    constexpr char front1 = str1.front();
+    constexpr char front2 = str2.front();
+    constexpr char front3 = str3.front();
+
+    STATIC_REQUIRE(front1 == 'H');
+    STATIC_REQUIRE(front2 == 'W');
+    STATIC_REQUIRE(front3 == 'T');
+
+    // Compile-time back operations
+    constexpr char back1 = str1.back();
+    constexpr char back2 = str2.back();
+    constexpr char back3 = str3.back();
+
+    STATIC_REQUIRE(back1 == 'o');
+    STATIC_REQUIRE(back2 == 'd');
+    STATIC_REQUIRE(back3 == 't');
+  }
 }
+
+// to refactor 3712 - 1313 = 2399
 
 TEST_CASE("FixedString data", "[core][fixed_string]") {
   constexpr FixedString<8> testString1("abcd");

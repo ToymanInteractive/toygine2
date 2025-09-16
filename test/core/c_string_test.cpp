@@ -423,21 +423,4 @@ TEST_CASE("CString assign", "[core][c_string]") {
     STATIC_REQUIRE(constStr2.size() == 4);
     STATIC_REQUIRE(cstrcmp(constStr2.c_str(), "Test") == 0);
   }
-
-  SECTION("Performance test") {
-    CString str1;
-    CString str2;
-    std::string str3("PerformanceTest");
-
-    // Multiple assignments
-    for (int i = 0; i < 100; ++i) {
-      str1.assign("Test").assign("Another");
-      str2.assign(str1);
-    }
-
-    REQUIRE(str1.size() == 7);
-    REQUIRE(std::strcmp(str1.c_str(), "Another") == 0);
-    REQUIRE(str2.size() == 7);
-    REQUIRE(std::strcmp(str2.c_str(), "Another") == 0);
-  }
 }

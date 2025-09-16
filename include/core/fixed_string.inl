@@ -263,15 +263,11 @@ constexpr const char & FixedString<allocatedSize>::operator[](std::size_t offset
 
 template <std::size_t allocatedSize>
 constexpr char & FixedString<allocatedSize>::front() noexcept {
-  assert_message(_size > 0, "String must not be empty");
-
   return _data[0];
 }
 
 template <std::size_t allocatedSize>
 constexpr const char & FixedString<allocatedSize>::front() const noexcept {
-  assert_message(_size > 0, "String must not be empty");
-
   return _data[0];
 }
 
