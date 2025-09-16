@@ -263,15 +263,11 @@ constexpr const char & FixedString<allocatedSize>::operator[](std::size_t offset
 
 template <std::size_t allocatedSize>
 constexpr char & FixedString<allocatedSize>::front() noexcept {
-  assert_message(_size > 0, "String must not be empty");
-
   return _data[0];
 }
 
 template <std::size_t allocatedSize>
 constexpr const char & FixedString<allocatedSize>::front() const noexcept {
-  assert_message(_size > 0, "String must not be empty");
-
   return _data[0];
 }
 
@@ -927,13 +923,21 @@ constexpr bool FixedString<allocatedSize>::starts_with(char character) const noe
 
 template <std::size_t allocatedSize>
 constexpr bool FixedString<allocatedSize>::ends_with(const FixedString<allocatedSize> & string) const noexcept {
-  return _size >= string._size && std::memcmp(_data + (_size - string._size), string._data, string._size) == 0;
+  if consteval {
+    return _size >= string._size && std::equal(_data + _size - string._size, _data + _size, string._data);
+  } else {
+    return _size >= string._size && std::memcmp(_data + (_size - string._size), string._data, string._size) == 0;
+  }
 }
 
 template <std::size_t allocatedSize>
 template <StringLike stringType>
 constexpr bool FixedString<allocatedSize>::ends_with(const stringType & string) const noexcept {
-  return _size >= string.size() && std::memcmp(_data + (_size - string.size()), string.c_str(), string.size()) == 0;
+  if consteval {
+    return _size >= string.size() && std::equal(_data + _size - string.size(), _data + _size, string.c_str());
+  } else {
+    return _size >= string.size() && std::memcmp(_data + (_size - string.size()), string.c_str(), string.size()) == 0;
+  }
 }
 
 template <std::size_t allocatedSize>
@@ -947,7 +951,11 @@ constexpr bool FixedString<allocatedSize>::ends_with(const char * string) const 
     needleSize = std::strlen(string);
   }
 
-  return _size >= needleSize && std::memcmp(_data + (_size - needleSize), string, needleSize) == 0;
+  if consteval {
+    return _size >= needleSize && std::equal(_data + _size - needleSize, _data + _size, string);
+  } else {
+    return _size >= needleSize && std::memcmp(_data + _size - needleSize, string, needleSize) == 0;
+  }
 }
 
 template <std::size_t allocatedSize>

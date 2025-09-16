@@ -195,12 +195,14 @@ inline void assertion(const char * TOY_UNUSED(code), const char * TOY_UNUSED(mes
 
 } // namespace toy
 
+#include "core/c_string.hpp"
 #include "core/constexpr_utils.hpp"
 #include "core/fixed_string.hpp"
 #include "core/utils.hpp"
 
 //----------------------------------------------------------------------------------------------------------------------
 
+#include "core/c_string.inl"
 #include "core/constexpr_utils.inl"
 #include "core/fixed_string.inl"
 #include "core/utils.inl"

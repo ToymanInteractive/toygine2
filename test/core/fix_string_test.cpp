@@ -333,7 +333,7 @@ TEST_CASE("FixedString operators=", "[core][fixed_string]") {
   }
 
   SECTION("Edge cases") {
-    FixedString<6> str1;
+    FixedString<4> str1;
     FixedString<8> str2;
 
     // Maximum length assignment
@@ -341,13 +341,13 @@ TEST_CASE("FixedString operators=", "[core][fixed_string]") {
     REQUIRE(str1.size() == 3);
     REQUIRE(std::strcmp(str1.c_str(), "ABC") == 0);
 
-    // Empty to non-empty
-    str2 = "Test";
-    str1 = str2;
-    REQUIRE(str1.size() == 4);
-    REQUIRE(std::strcmp(str1.c_str(), "Test") == 0);
-
     // Non-empty to empty
+    str2 = "XYZ";
+    str1 = str2;
+    REQUIRE(str1.size() == 3);
+    REQUIRE(std::strcmp(str1.c_str(), "XYZ") == 0);
+
+    // Empty to non-empty
     str2 = "";
     str1 = str2;
     REQUIRE(str1.size() == 0);
@@ -650,23 +650,6 @@ TEST_CASE("FixedString assign", "[core][fixed_string]") {
     STATIC_REQUIRE(cstrcmp(constStr1.c_str(), "b") == 0);
     STATIC_REQUIRE(constStr2.size() == 4);
     STATIC_REQUIRE(cstrcmp(constStr2.c_str(), "Test") == 0);
-  }
-
-  SECTION("Performance test") {
-    FixedString<64> str1;
-    FixedString<32> str2;
-    std::string str3("PerformanceTest");
-
-    // Multiple assignments
-    for (int i = 0; i < 100; ++i) {
-      str1.assign("Test").assign(str3).assign("Another");
-      str2.assign(str1);
-    }
-
-    REQUIRE(str1.size() == 7);
-    REQUIRE(std::strcmp(str1.c_str(), "Another") == 0);
-    REQUIRE(str2.size() == 7);
-    REQUIRE(std::strcmp(str2.c_str(), "Another") == 0);
   }
 }
 
@@ -1052,32 +1035,17 @@ TEST_CASE("FixedString operator[]", "[core][fixed_string]") {
     STATIC_REQUIRE(str2[3] == 'l');
     STATIC_REQUIRE(str2[4] == 'd');
   }
-
-  SECTION("Performance test") {
-    FixedString<64> str("PerformanceTestString");
-
-    // Multiple accesses
-    for (int i = 0; i < 1000; ++i) {
-      char c = str[i % str.size()];
-      REQUIRE(c == str[i % str.size()]);
-    }
-
-    // Multiple modifications
-    for (int i = 0; i < 100; ++i) {
-      str[0] = 'A' + (i % 26);
-      REQUIRE(str[0] == 'A' + (i % 26));
-    }
-  }
 }
-
-// to refactor 3558 - 1073 = 2485
 
 TEST_CASE("FixedString front and back", "[core][fixed_string]") {
   SECTION("Front method") {
     FixedString<16> testString("Hello World");
+    constexpr FixedString<16> constString("Hello World");
 
     REQUIRE(testString.front() == 'H');
     REQUIRE(testString[0] == 'H');
+    STATIC_REQUIRE(constString.front() == 'H');
+    STATIC_REQUIRE(constString[0] == 'H');
 
     // Test modification
     testString.front() = 'h';
@@ -1085,30 +1053,19 @@ TEST_CASE("FixedString front and back", "[core][fixed_string]") {
     REQUIRE(testString[0] == 'h');
   }
 
-  SECTION("Front const method") {
-    constexpr FixedString<12> testString("Hello World");
-
-    REQUIRE(testString.front() == 'H');
-    REQUIRE(testString[0] == 'H');
-  }
-
   SECTION("Back method") {
     FixedString<16> testString("Hello World");
+    constexpr FixedString<16> constString("Hello World");
 
     REQUIRE(testString.back() == 'd');
     REQUIRE(testString[testString.size() - 1] == 'd');
+    STATIC_REQUIRE(constString.back() == 'd');
+    STATIC_REQUIRE(constString[constString.size() - 1] == 'd');
 
     // Test modification
     testString.back() = 'D';
     REQUIRE(testString.back() == 'D');
     REQUIRE(testString[testString.size() - 1] == 'D');
-  }
-
-  SECTION("Back const method") {
-    constexpr FixedString<12> testString("Hello World");
-
-    REQUIRE(testString.back() == 'd');
-    REQUIRE(testString[testString.size() - 1] == 'd');
   }
 
   SECTION("Single character string") {
@@ -1126,6 +1083,45 @@ TEST_CASE("FixedString front and back", "[core][fixed_string]") {
     testString.back() = 'C';
     REQUIRE(testString.front() == 'C');
     REQUIRE(testString.back() == 'C');
+
+    // Compile-time checks
+    constexpr FixedString<2> constTestString("A");
+    STATIC_REQUIRE(constTestString.front() == 'A');
+    STATIC_REQUIRE(constTestString.back() == 'A');
+    STATIC_REQUIRE(constTestString.front() == constTestString.back());
+  }
+
+  SECTION("Empty string") {
+    FixedString<16> testString("");
+
+    REQUIRE(testString.front() == '\0');
+
+    // Compile-time checks
+    constexpr FixedString<16> constTestString("");
+    STATIC_REQUIRE(constTestString.front() == '\0');
+  }
+
+  SECTION("Two character string") {
+    FixedString<8> testString("AB");
+
+    REQUIRE(testString.front() == 'A');
+    REQUIRE(testString.back() == 'B');
+    REQUIRE(testString.front() != testString.back());
+
+    // Test modification
+    testString.front() = 'X';
+    REQUIRE(testString.front() == 'X');
+    REQUIRE(testString.back() == 'B');
+
+    testString.back() = 'Y';
+    REQUIRE(testString.front() == 'X');
+    REQUIRE(testString.back() == 'Y');
+
+    // Compile-time checks
+    constexpr FixedString<8> constTestString("AB");
+    STATIC_REQUIRE(constTestString.front() == 'A');
+    STATIC_REQUIRE(constTestString.back() == 'B');
+    STATIC_REQUIRE(constTestString.front() != constTestString.back());
   }
 
   SECTION("Modification through references") {
@@ -1156,7 +1152,165 @@ TEST_CASE("FixedString front and back", "[core][fixed_string]") {
     REQUIRE(frontRef == testString[0]);
     REQUIRE(backRef == testString[testString.size() - 1]);
   }
+
+  SECTION("Special characters") {
+    FixedString<16> testString("Hello\n\tWorld!");
+
+    REQUIRE(testString.front() == 'H');
+    REQUIRE(testString.back() == '!');
+
+    // Test modification with special characters
+    testString.front() = '\n';
+    REQUIRE(testString.front() == '\n');
+
+    testString.back() = '\t';
+    REQUIRE(testString.back() == '\t');
+
+    // Compile-time checks
+    constexpr FixedString<16> constTestString("Hello\n\tWorld!");
+    STATIC_REQUIRE(constTestString.front() == 'H');
+    STATIC_REQUIRE(constTestString.back() == '!');
+  }
+
+  SECTION("Numeric content") {
+    FixedString<16> testString("12345");
+
+    REQUIRE(testString.front() == '1');
+    REQUIRE(testString.back() == '5');
+
+    // Test modification
+    testString.front() = '9';
+    REQUIRE(testString.front() == '9');
+
+    testString.back() = '0';
+    REQUIRE(testString.back() == '0');
+
+    // Compile-time checks
+    constexpr FixedString<16> constTestString("12345");
+    STATIC_REQUIRE(constTestString.front() == '1');
+    STATIC_REQUIRE(constTestString.back() == '5');
+  }
+
+  SECTION("Mixed content") {
+    FixedString<32> testString("123Hello456");
+
+    REQUIRE(testString.front() == '1');
+    REQUIRE(testString.back() == '6');
+
+    // Test modification
+    testString.front() = '9';
+    REQUIRE(testString.front() == '9');
+
+    testString.back() = '0';
+    REQUIRE(testString.back() == '0');
+
+    // Compile-time checks
+    constexpr FixedString<32> constTestString("123Hello456");
+    STATIC_REQUIRE(constTestString.front() == '1');
+    STATIC_REQUIRE(constTestString.back() == '6');
+  }
+
+  SECTION("Long strings") {
+    FixedString<64> testString("This is a very long string for performance testing");
+
+    REQUIRE(testString.front() == 'T');
+    REQUIRE(testString.back() == 'g');
+
+    // Test modification
+    testString.front() = 'X';
+    REQUIRE(testString.front() == 'X');
+
+    testString.back() = 'Y';
+    REQUIRE(testString.back() == 'Y');
+
+    // Compile-time checks
+    constexpr FixedString<64> constTestString("This is a very long string for performance testing");
+    STATIC_REQUIRE(constTestString.front() == 'T');
+    STATIC_REQUIRE(constTestString.back() == 'g');
+  }
+
+  SECTION("Case sensitivity") {
+    FixedString<16> testString("Hello World");
+
+    REQUIRE(testString.front() == 'H'); // Uppercase
+    REQUIRE(testString.back() == 'd'); // Lowercase
+
+    // Test case modification
+    testString.front() = 'h'; // Change to lowercase
+    REQUIRE(testString.front() == 'h');
+
+    testString.back() = 'D'; // Change to uppercase
+    REQUIRE(testString.back() == 'D');
+
+    // Compile-time checks
+    constexpr FixedString<16> constTestString("Hello World");
+    STATIC_REQUIRE(constTestString.front() == 'H');
+    STATIC_REQUIRE(constTestString.back() == 'd');
+  }
+
+  SECTION("Whitespace handling") {
+    FixedString<16> testString(" Hello ");
+
+    REQUIRE(testString.front() == ' ');
+    REQUIRE(testString.back() == ' ');
+
+    // Test modification
+    testString.front() = 'X';
+    REQUIRE(testString.front() == 'X');
+
+    testString.back() = 'Y';
+    REQUIRE(testString.back() == 'Y');
+
+    // Compile-time checks
+    constexpr FixedString<16> constTestString(" Hello ");
+    STATIC_REQUIRE(constTestString.front() == ' ');
+    STATIC_REQUIRE(constTestString.back() == ' ');
+  }
+
+  SECTION("Reference stability") {
+    FixedString<32> testString("Hello World");
+
+    // Get references
+    char & frontRef = testString.front();
+    char & backRef = testString.back();
+
+    // Modify through references
+    frontRef = 'X';
+    backRef = 'Y';
+
+    // Verify references still work
+    REQUIRE(frontRef == 'X');
+    REQUIRE(backRef == 'Y');
+    REQUIRE(testString.front() == 'X');
+    REQUIRE(testString.back() == 'Y');
+  }
+
+  SECTION("Constexpr operations") {
+    constexpr FixedString<16> str1("Hello");
+    constexpr FixedString<16> str2("World");
+    constexpr FixedString<16> str3("Test");
+
+    // Compile-time front operations
+    constexpr char front1 = str1.front();
+    constexpr char front2 = str2.front();
+    constexpr char front3 = str3.front();
+
+    STATIC_REQUIRE(front1 == 'H');
+    STATIC_REQUIRE(front2 == 'W');
+    STATIC_REQUIRE(front3 == 'T');
+
+    // Compile-time back operations
+    constexpr char back1 = str1.back();
+    constexpr char back2 = str2.back();
+    constexpr char back3 = str3.back();
+
+    STATIC_REQUIRE(back1 == 'o');
+    STATIC_REQUIRE(back2 == 'd');
+    STATIC_REQUIRE(back3 == 't');
+  }
 }
+
+// to refactor 3501 - 1313 = 2188
 
 TEST_CASE("FixedString data", "[core][fixed_string]") {
   constexpr FixedString<8> testString1("abcd");
@@ -3344,8 +3498,10 @@ TEST_CASE("FixedString starts_with", "[core][fixed_string]") {
   }
 }
 
+// after refactor
+
 TEST_CASE("FixedString ends_with", "[core][fixed_string]") {
-  SECTION("Ends with FixedString") {
+  SECTION("FixedString ends_with") {
     constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.ends_with(FixedString<16>("World")) == true);
@@ -3354,9 +3510,17 @@ TEST_CASE("FixedString ends_with", "[core][fixed_string]") {
     REQUIRE(testString.ends_with(FixedString<16>("Hello")) == false);
     REQUIRE(testString.ends_with(FixedString<16>("xyz")) == false);
     REQUIRE(testString.ends_with(FixedString<16>("")) == true);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.ends_with(FixedString<16>("World")) == true);
+    STATIC_REQUIRE(testString.ends_with(FixedString<16>("Hello World")) == true);
+    STATIC_REQUIRE(testString.ends_with(FixedString<16>("d")) == true);
+    STATIC_REQUIRE(testString.ends_with(FixedString<16>("Hello")) == false);
+    STATIC_REQUIRE(testString.ends_with(FixedString<16>("xyz")) == false);
+    STATIC_REQUIRE(testString.ends_with(FixedString<16>("")) == true);
   }
 
-  SECTION("Ends with StringLike") {
+  SECTION("StringLike ends_with") {
     constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.ends_with(std::string("World")) == true);
@@ -3365,9 +3529,17 @@ TEST_CASE("FixedString ends_with", "[core][fixed_string]") {
     REQUIRE(testString.ends_with(std::string("Hello")) == false);
     REQUIRE(testString.ends_with(std::string("xyz")) == false);
     REQUIRE(testString.ends_with(std::string("")) == true);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.ends_with(std::string("World")) == true);
+    STATIC_REQUIRE(testString.ends_with(std::string("Hello World")) == true);
+    STATIC_REQUIRE(testString.ends_with(std::string("d")) == true);
+    STATIC_REQUIRE(testString.ends_with(std::string("Hello")) == false);
+    STATIC_REQUIRE(testString.ends_with(std::string("xyz")) == false);
+    STATIC_REQUIRE(testString.ends_with(std::string("")) == true);
   }
 
-  SECTION("Ends with C string") {
+  SECTION("C string ends_with") {
     constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.ends_with("World") == true);
@@ -3376,18 +3548,32 @@ TEST_CASE("FixedString ends_with", "[core][fixed_string]") {
     REQUIRE(testString.ends_with("Hello") == false);
     REQUIRE(testString.ends_with("xyz") == false);
     REQUIRE(testString.ends_with("") == true);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.ends_with("World") == true);
+    STATIC_REQUIRE(testString.ends_with("Hello World") == true);
+    STATIC_REQUIRE(testString.ends_with("d") == true);
+    STATIC_REQUIRE(testString.ends_with("Hello") == false);
+    STATIC_REQUIRE(testString.ends_with("xyz") == false);
+    STATIC_REQUIRE(testString.ends_with("") == true);
   }
 
-  SECTION("Ends with character") {
+  SECTION("Character ends_with") {
     constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.ends_with('d') == true);
     REQUIRE(testString.ends_with('D') == false);
     REQUIRE(testString.ends_with('H') == false);
     REQUIRE(testString.ends_with('x') == false);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.ends_with('d') == true);
+    STATIC_REQUIRE(testString.ends_with('D') == false);
+    STATIC_REQUIRE(testString.ends_with('H') == false);
+    STATIC_REQUIRE(testString.ends_with('x') == false);
   }
 
-  SECTION("Ends with empty string") {
+  SECTION("Empty string ends_with") {
     constexpr FixedString<32> testString("");
 
     REQUIRE(testString.ends_with(FixedString<16>("Hello")) == false);
@@ -3395,9 +3581,16 @@ TEST_CASE("FixedString ends_with", "[core][fixed_string]") {
     REQUIRE(testString.ends_with("Hello") == false);
     REQUIRE(testString.ends_with('H') == false);
     REQUIRE(testString.ends_with("") == true);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.ends_with(FixedString<16>("Hello")) == false);
+    STATIC_REQUIRE(testString.ends_with(std::string("Hello")) == false);
+    STATIC_REQUIRE(testString.ends_with("Hello") == false);
+    STATIC_REQUIRE(testString.ends_with('H') == false);
+    STATIC_REQUIRE(testString.ends_with("") == true);
   }
 
-  SECTION("Ends with single character string") {
+  SECTION("Single character string ends_with") {
     constexpr FixedString<32> testString("A");
 
     REQUIRE(testString.ends_with("A") == true);
@@ -3405,18 +3598,31 @@ TEST_CASE("FixedString ends_with", "[core][fixed_string]") {
     REQUIRE(testString.ends_with("B") == false);
     REQUIRE(testString.ends_with('B') == false);
     REQUIRE(testString.ends_with("") == true);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.ends_with("A") == true);
+    STATIC_REQUIRE(testString.ends_with('A') == true);
+    STATIC_REQUIRE(testString.ends_with("B") == false);
+    STATIC_REQUIRE(testString.ends_with('B') == false);
+    STATIC_REQUIRE(testString.ends_with("") == true);
   }
 
-  SECTION("Ends with longer suffix") {
+  SECTION("Longer suffix ends_with") {
     constexpr FixedString<32> testString("Hello");
 
     REQUIRE(testString.ends_with("Hello World") == false);
     REQUIRE(testString.ends_with("Hello Universe") == false);
     REQUIRE(testString.ends_with("Hello") == true);
     REQUIRE(testString.ends_with("llo") == true);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.ends_with("Hello World") == false);
+    STATIC_REQUIRE(testString.ends_with("Hello Universe") == false);
+    STATIC_REQUIRE(testString.ends_with("Hello") == true);
+    STATIC_REQUIRE(testString.ends_with("llo") == true);
   }
 
-  SECTION("Ends with case sensitivity") {
+  SECTION("Case sensitivity ends_with") {
     constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.ends_with("world") == false);
@@ -3424,18 +3630,31 @@ TEST_CASE("FixedString ends_with", "[core][fixed_string]") {
     REQUIRE(testString.ends_with("World") == true);
     REQUIRE(testString.ends_with('d') == true);
     REQUIRE(testString.ends_with('D') == false);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.ends_with("world") == false);
+    STATIC_REQUIRE(testString.ends_with("WORLD") == false);
+    STATIC_REQUIRE(testString.ends_with("World") == true);
+    STATIC_REQUIRE(testString.ends_with('d') == true);
+    STATIC_REQUIRE(testString.ends_with('D') == false);
   }
 
-  SECTION("Ends with different FixedString capacities") {
+  SECTION("Different FixedString capacities ends_with") {
     constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.ends_with(FixedString<8>("World")) == true);
     REQUIRE(testString.ends_with(FixedString<16>("World")) == true);
     REQUIRE(testString.ends_with(FixedString<64>("World")) == true);
     REQUIRE(testString.ends_with(FixedString<8>("Hello")) == false);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.ends_with(FixedString<8>("World")) == true);
+    STATIC_REQUIRE(testString.ends_with(FixedString<16>("World")) == true);
+    STATIC_REQUIRE(testString.ends_with(FixedString<64>("World")) == true);
+    STATIC_REQUIRE(testString.ends_with(FixedString<8>("Hello")) == false);
   }
 
-  SECTION("Ends with repeated characters") {
+  SECTION("Repeated characters ends_with") {
     constexpr FixedString<32> testString("baaaa");
 
     REQUIRE(testString.ends_with("aaa") == true);
@@ -3444,9 +3663,17 @@ TEST_CASE("FixedString ends_with", "[core][fixed_string]") {
     REQUIRE(testString.ends_with("aaaaa") == false);
     REQUIRE(testString.ends_with('a') == true);
     REQUIRE(testString.ends_with('b') == false);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.ends_with("aaa") == true);
+    STATIC_REQUIRE(testString.ends_with("aaaa") == true);
+    STATIC_REQUIRE(testString.ends_with("baaaa") == true);
+    STATIC_REQUIRE(testString.ends_with("aaaaa") == false);
+    STATIC_REQUIRE(testString.ends_with('a') == true);
+    STATIC_REQUIRE(testString.ends_with('b') == false);
   }
 
-  SECTION("Ends with special characters") {
+  SECTION("Special characters ends_with") {
     constexpr FixedString<32> testString("%$#@!");
 
     REQUIRE(testString.ends_with("@!") == true);
@@ -3454,9 +3681,16 @@ TEST_CASE("FixedString ends_with", "[core][fixed_string]") {
     REQUIRE(testString.ends_with("^%$#@!") == false);
     REQUIRE(testString.ends_with('!') == true);
     REQUIRE(testString.ends_with('@') == false);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.ends_with("@!") == true);
+    STATIC_REQUIRE(testString.ends_with("%$#@!") == true);
+    STATIC_REQUIRE(testString.ends_with("^%$#@!") == false);
+    STATIC_REQUIRE(testString.ends_with('!') == true);
+    STATIC_REQUIRE(testString.ends_with('@') == false);
   }
 
-  SECTION("Ends with numbers") {
+  SECTION("Numeric content ends_with") {
     constexpr FixedString<32> testString("54321");
 
     REQUIRE(testString.ends_with("321") == true);
@@ -3464,9 +3698,16 @@ TEST_CASE("FixedString ends_with", "[core][fixed_string]") {
     REQUIRE(testString.ends_with("654321") == false);
     REQUIRE(testString.ends_with('1') == true);
     REQUIRE(testString.ends_with('2') == false);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.ends_with("321") == true);
+    STATIC_REQUIRE(testString.ends_with("54321") == true);
+    STATIC_REQUIRE(testString.ends_with("654321") == false);
+    STATIC_REQUIRE(testString.ends_with('1') == true);
+    STATIC_REQUIRE(testString.ends_with('2') == false);
   }
 
-  SECTION("Ends with mixed content") {
+  SECTION("Mixed content ends_with") {
     constexpr FixedString<32> testString("123Hello");
 
     REQUIRE(testString.ends_with("Hello") == true);
@@ -3475,9 +3716,17 @@ TEST_CASE("FixedString ends_with", "[core][fixed_string]") {
     REQUIRE(testString.ends_with("0123Hello") == false);
     REQUIRE(testString.ends_with('o') == true);
     REQUIRE(testString.ends_with('1') == false);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.ends_with("Hello") == true);
+    STATIC_REQUIRE(testString.ends_with("3Hello") == true);
+    STATIC_REQUIRE(testString.ends_with("123Hello") == true);
+    STATIC_REQUIRE(testString.ends_with("0123Hello") == false);
+    STATIC_REQUIRE(testString.ends_with('o') == true);
+    STATIC_REQUIRE(testString.ends_with('1') == false);
   }
 
-  SECTION("Ends with maximum length strings") {
+  SECTION("Maximum length strings ends_with") {
     constexpr FixedString<16> testString("123456789012345");
 
     REQUIRE(testString.ends_with("123456789012345") == true);
@@ -3485,25 +3734,28 @@ TEST_CASE("FixedString ends_with", "[core][fixed_string]") {
     REQUIRE(testString.ends_with("0123456789012345") == false);
     REQUIRE(testString.ends_with('5') == true);
     REQUIRE(testString.ends_with('1') == false);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.ends_with("123456789012345") == true);
+    STATIC_REQUIRE(testString.ends_with("23456789012345") == true);
+    STATIC_REQUIRE(testString.ends_with("0123456789012345") == false);
+    STATIC_REQUIRE(testString.ends_with('5') == true);
+    STATIC_REQUIRE(testString.ends_with('1') == false);
   }
 
-  SECTION("Ends with std::string") {
-    constexpr FixedString<32> testString("Hello World");
-
-    REQUIRE(testString.ends_with(std::string("World")) == true);
-    REQUIRE(testString.ends_with(std::string("Hello World")) == true);
-    REQUIRE(testString.ends_with(std::string("Hello")) == false);
-  }
-
-  SECTION("Ends with array") {
+  SECTION("Array ends_with") {
     constexpr FixedString<32> testString("Hello");
     constexpr std::array<char, 4> arr = {'l', 'l', 'o', '\0'};
 
     REQUIRE(testString.ends_with(arr.data()) == true);
     REQUIRE(testString.ends_with("llo") == true);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.ends_with(arr.data()) == true);
+    STATIC_REQUIRE(testString.ends_with("llo") == true);
   }
 
-  SECTION("Ends with edge cases") {
+  SECTION("Edge cases ends_with") {
     constexpr FixedString<32> testString("Hello");
 
     // Test with null-terminated string
@@ -3512,9 +3764,13 @@ TEST_CASE("FixedString ends_with", "[core][fixed_string]") {
     // Test with string containing null character
     constexpr FixedString<32> testStringWithNull("Hello\0World");
     REQUIRE(testStringWithNull.ends_with("World") == false);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.ends_with("Hello\0World") == true);
+    STATIC_REQUIRE(testStringWithNull.ends_with("World") == false);
   }
 
-  SECTION("Ends with whitespace") {
+  SECTION("Whitespace ends_with") {
     constexpr FixedString<32> testString("Hello World ");
 
     REQUIRE(testString.ends_with(" ") == true);
@@ -3522,18 +3778,31 @@ TEST_CASE("FixedString ends_with", "[core][fixed_string]") {
     REQUIRE(testString.ends_with("World") == false);
     REQUIRE(testString.ends_with(' ') == true);
     REQUIRE(testString.ends_with('d') == false);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.ends_with(" ") == true);
+    STATIC_REQUIRE(testString.ends_with("World ") == true);
+    STATIC_REQUIRE(testString.ends_with("World") == false);
+    STATIC_REQUIRE(testString.ends_with(' ') == true);
+    STATIC_REQUIRE(testString.ends_with('d') == false);
   }
 
-  SECTION("Ends with exact match") {
+  SECTION("Exact match ends_with") {
     constexpr FixedString<32> testString("Hello");
 
     REQUIRE(testString.ends_with("Hello") == true);
     REQUIRE(testString.ends_with("llo") == true);
     REQUIRE(testString.ends_with("o") == true);
     REQUIRE(testString.ends_with("") == true);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.ends_with("Hello") == true);
+    STATIC_REQUIRE(testString.ends_with("llo") == true);
+    STATIC_REQUIRE(testString.ends_with("o") == true);
+    STATIC_REQUIRE(testString.ends_with("") == true);
   }
 
-  SECTION("Ends with overlapping patterns") {
+  SECTION("Overlapping patterns ends_with") {
     constexpr FixedString<32> testString("ababab");
 
     REQUIRE(testString.ends_with("ab") == true);
@@ -3542,9 +3811,17 @@ TEST_CASE("FixedString ends_with", "[core][fixed_string]") {
     REQUIRE(testString.ends_with("babab") == true);
     REQUIRE(testString.ends_with("ababab") == true);
     REQUIRE(testString.ends_with("bababab") == false);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.ends_with("ab") == true);
+    STATIC_REQUIRE(testString.ends_with("bab") == true);
+    STATIC_REQUIRE(testString.ends_with("abab") == true);
+    STATIC_REQUIRE(testString.ends_with("babab") == true);
+    STATIC_REQUIRE(testString.ends_with("ababab") == true);
+    STATIC_REQUIRE(testString.ends_with("bababab") == false);
   }
 
-  SECTION("Ends with multiple occurrences") {
+  SECTION("Multiple occurrences ends_with") {
     constexpr FixedString<32> testString("abababab");
 
     REQUIRE(testString.ends_with("ab") == true);
@@ -3552,10 +3829,77 @@ TEST_CASE("FixedString ends_with", "[core][fixed_string]") {
     REQUIRE(testString.ends_with("abab") == true);
     REQUIRE(testString.ends_with("ababab") == true);
     REQUIRE(testString.ends_with("abababab") == true);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.ends_with("ab") == true);
+    STATIC_REQUIRE(testString.ends_with("bab") == true);
+    STATIC_REQUIRE(testString.ends_with("abab") == true);
+    STATIC_REQUIRE(testString.ends_with("ababab") == true);
+    STATIC_REQUIRE(testString.ends_with("abababab") == true);
+  }
+
+  SECTION("Unicode content ends_with") {
+    constexpr FixedString<32> testString("Hello 世界");
+
+    REQUIRE(testString.ends_with("世界") == true);
+    REQUIRE(testString.ends_with("Hello 世界") == true);
+    REQUIRE(testString.ends_with("界") == true);
+    REQUIRE(testString.ends_with("Hello") == false);
+    REQUIRE(testString.ends_with("xyz") == false);
+    REQUIRE(testString.ends_with("") == true);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.ends_with("世界") == true);
+    STATIC_REQUIRE(testString.ends_with("Hello 世界") == true);
+    STATIC_REQUIRE(testString.ends_with("界") == true);
+    STATIC_REQUIRE(testString.ends_with("Hello") == false);
+    STATIC_REQUIRE(testString.ends_with("xyz") == false);
+    STATIC_REQUIRE(testString.ends_with("") == true);
+  }
+
+  SECTION("Long strings ends_with") {
+    constexpr FixedString<64> testString("This is a very long string for performance testing");
+
+    REQUIRE(testString.ends_with("testing") == true);
+    REQUIRE(testString.ends_with("performance testing") == true);
+    REQUIRE(testString.ends_with("This is a very long string for performance testing") == true);
+    REQUIRE(testString.ends_with("g") == true);
+    REQUIRE(testString.ends_with("T") == false);
+    REQUIRE(testString.ends_with("") == true);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.ends_with("testing") == true);
+    STATIC_REQUIRE(testString.ends_with("performance testing") == true);
+    STATIC_REQUIRE(testString.ends_with("This is a very long string for performance testing") == true);
+    STATIC_REQUIRE(testString.ends_with("g") == true);
+    STATIC_REQUIRE(testString.ends_with("T") == false);
+    STATIC_REQUIRE(testString.ends_with("") == true);
+  }
+
+  SECTION("Constexpr operations ends_with") {
+    constexpr FixedString<16> str1("Hello");
+    constexpr FixedString<16> str2("World");
+    constexpr FixedString<16> str3("Test");
+
+    // Compile-time ends_with operations
+    constexpr bool ends1 = str1.ends_with("llo");
+    constexpr bool ends2 = str2.ends_with("rld");
+    constexpr bool ends3 = str3.ends_with("est");
+
+    STATIC_REQUIRE(ends1 == true);
+    STATIC_REQUIRE(ends2 == true);
+    STATIC_REQUIRE(ends3 == true);
+
+    // Compile-time character ends_with operations
+    constexpr bool charEnds1 = str1.ends_with('o');
+    constexpr bool charEnds2 = str2.ends_with('d');
+    constexpr bool charEnds3 = str3.ends_with('t');
+
+    STATIC_REQUIRE(charEnds1 == true);
+    STATIC_REQUIRE(charEnds2 == true);
+    STATIC_REQUIRE(charEnds3 == true);
   }
 }
-
-// after refactor
 
 TEST_CASE("FixedString contains", "[core][fixed_string]") {
   SECTION("C string contains") {

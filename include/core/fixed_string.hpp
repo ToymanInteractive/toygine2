@@ -230,6 +230,7 @@ public:
     \return A reference to this string after assignment.
 
     \pre The source C \a string must not be null.
+    \pre The source C \a string must be null-terminated.
     \pre The source C \a string size must not exceed the allocated capacity.
 
     \post This string contains the same content as the source C \a string.
