@@ -124,9 +124,91 @@ public:
   */
   constexpr CString & assign(const char * string) noexcept;
 
-  [[nodiscard]] constexpr std::size_t size() const noexcept;
+  /*!
+    \brief Access a character in the string at a given \a offset.
 
+    This method provides read-only access to a character at the specified \a offset within the string.
+
+    \param offset The offset of the character to access in the string.
+
+    \return A const reference to the character at the specified \a offset.
+
+    \pre The \a offset should be less than the current string size.
+
+    \note The returned reference is read-only and cannot modify the character.
+    \note This method is equivalent to the subscript operator.
+
+    \see operator[](std::size_t offset) const
+  */
+  [[nodiscard]] constexpr const char & at(std::size_t offset) const noexcept;
+
+  /*!
+    \brief Access a character in the string at a given \a offset.
+
+    This operator provides read-only access to a character at the specified \a offset within the string.
+
+    \param offset The offset of the character to access in the string.
+
+    \return A const reference to the character at the specified \a offset.
+
+    \pre The \a offset should be less than the current string size.
+
+    \note The returned reference is read-only and cannot modify the character.
+  */
+  [[nodiscard]] constexpr const char & operator[](std::size_t offset) const noexcept;
+
+  /*!
+    \brief Returns a const reference to the first character of the string.
+
+    This method provides read-only access to the first character of the string.
+
+    \return A const reference to the first character of the string.
+
+    \note The returned reference is read-only and cannot modify the character.
+  */
+  [[nodiscard]] constexpr const char & front() const noexcept;
+
+  /*!
+    \brief Returns a const reference to the last character of the string.
+
+    This method provides read-only access to the last character of the string.
+
+    \return A const reference to the last character of the string.
+
+    \pre The string must not be empty.
+
+    \note The returned reference is read-only and cannot modify the character.
+  */
+  [[nodiscard]] constexpr const char & back() const noexcept;
+
+  /*!
+    \brief Returns a constant pointer to the data of the string.
+
+    This method returns a constant pointer to the internal character array that stores the string data. The returned
+    pointer provides read-only access to the string contents and can be used for low-level operations.
+
+    \return A constant pointer to the internal character array.
+
+    \note The returned pointer points to a null-terminated character array.
+    \note The returned pointer is read-only and cannot modify the string contents.
+  */
+  [[nodiscard]] constexpr const char * data() const noexcept;
+
+  /*!
+    \brief Returns a constant pointer to the C string representation of this string.
+
+    This method returns a constant pointer to the C string representation of this string. The returned pointer provides
+    read-only access to the string contents and can be used with C functions that require a char pointer.
+
+    \return A constant pointer to the C string representation of this string.
+
+    \note The returned pointer points to a null-terminated string.
+    \note The returned pointer is read-only and cannot modify the string contents.
+    \note This method is equivalent to data() const method.
+  */
   [[nodiscard]] constexpr const char * c_str() const noexcept;
+
+  [[nodiscard]] constexpr std::size_t size() const noexcept;
 
 private:
   /// Pointer to the wrapped C-style string

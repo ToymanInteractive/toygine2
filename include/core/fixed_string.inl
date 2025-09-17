@@ -242,7 +242,7 @@ constexpr char & FixedString<allocatedSize>::at(std::size_t offset) noexcept {
 
 template <std::size_t allocatedSize>
 constexpr const char & FixedString<allocatedSize>::at(std::size_t offset) const noexcept {
-  assert_message(offset < _size, "Offset must be within bounds");
+  assert_message(offset < _size || (offset == 0 && _size == 0), "Offset must be within bounds");
 
   return _data[offset];
 }
@@ -256,7 +256,7 @@ constexpr char & FixedString<allocatedSize>::operator[](std::size_t offset) noex
 
 template <std::size_t allocatedSize>
 constexpr const char & FixedString<allocatedSize>::operator[](std::size_t offset) const noexcept {
-  assert_message(offset < _size, "Offset must be within bounds");
+  assert_message(offset < _size || (offset == 0 && _size == 0), "Offset must be within bounds");
 
   return _data[offset];
 }
