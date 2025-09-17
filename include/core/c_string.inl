@@ -66,6 +66,34 @@ constexpr CString & CString::assign(const char * string) noexcept {
   return *this;
 }
 
+constexpr const char & CString::at(std::size_t offset) const noexcept {
+  assert_message(offset <= size(), "Offset must be within bounds");
+
+  return _data[offset];
+}
+
+constexpr const char & CString::operator[](std::size_t offset) const noexcept {
+  assert_message(offset <= size(), "Offset must be within bounds");
+
+  return _data[offset];
+}
+
+constexpr const char & CString::front() const noexcept {
+  return _data[0];
+}
+
+constexpr const char & CString::back() const noexcept {
+  const auto dataSize = size();
+
+  assert_message(dataSize > 0, "String must not be empty");
+
+  return _data[dataSize - 1];
+}
+
+constexpr const char * CString::data() const noexcept {
+  return _data;
+}
+
 constexpr std::size_t CString::size() const noexcept {
   if consteval {
     return std::char_traits<char>::length(_data);
