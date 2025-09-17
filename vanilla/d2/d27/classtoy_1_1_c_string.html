@@ -133,10 +133,26 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a5111b4a225eb6abf5222b05ef7f87564" id="r_a5111b4a225eb6abf5222b05ef7f87564"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="../../d2/d27/classtoy_1_1_c_string.html">CString</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5111b4a225eb6abf5222b05ef7f87564">assign</a> (const char *string) noexcept</td></tr>
 <tr class="memdesc:a5111b4a225eb6abf5222b05ef7f87564"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy assigns the C <em>string</em> to this string.  <br /></td></tr>
 <tr class="separator:a5111b4a225eb6abf5222b05ef7f87564"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e992f3bbc0d079910238b42354a274b" id="r_a4e992f3bbc0d079910238b42354a274b"><td class="memItemLeft" align="right" valign="top">constexpr const char &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4e992f3bbc0d079910238b42354a274b">at</a> (std::size_t offset) const noexcept</td></tr>
+<tr class="memdesc:a4e992f3bbc0d079910238b42354a274b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access a character in the string at a given <em>offset</em>.  <br /></td></tr>
+<tr class="separator:a4e992f3bbc0d079910238b42354a274b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a697c5074e841fb173fb079d6f4a00d28" id="r_a697c5074e841fb173fb079d6f4a00d28"><td class="memItemLeft" align="right" valign="top">constexpr const char &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a697c5074e841fb173fb079d6f4a00d28">operator[]</a> (std::size_t offset) const noexcept</td></tr>
+<tr class="memdesc:a697c5074e841fb173fb079d6f4a00d28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access a character in the string at a given <em>offset</em>.  <br /></td></tr>
+<tr class="separator:a697c5074e841fb173fb079d6f4a00d28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f12c4d9737dc04cbcb351bc376ca550" id="r_a1f12c4d9737dc04cbcb351bc376ca550"><td class="memItemLeft" align="right" valign="top">constexpr const char &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1f12c4d9737dc04cbcb351bc376ca550">front</a> () const noexcept</td></tr>
+<tr class="memdesc:a1f12c4d9737dc04cbcb351bc376ca550"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a const reference to the first character of the string.  <br /></td></tr>
+<tr class="separator:a1f12c4d9737dc04cbcb351bc376ca550"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a06ffeede09a3633a852904509ae9774f" id="r_a06ffeede09a3633a852904509ae9774f"><td class="memItemLeft" align="right" valign="top">constexpr const char &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a06ffeede09a3633a852904509ae9774f">back</a> () const noexcept</td></tr>
+<tr class="memdesc:a06ffeede09a3633a852904509ae9774f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a const reference to the last character of the string.  <br /></td></tr>
+<tr class="separator:a06ffeede09a3633a852904509ae9774f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aedda59db7117de6beb6a48d311b79ccc" id="r_aedda59db7117de6beb6a48d311b79ccc"><td class="memItemLeft" align="right" valign="top">constexpr const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aedda59db7117de6beb6a48d311b79ccc">data</a> () const noexcept</td></tr>
+<tr class="memdesc:aedda59db7117de6beb6a48d311b79ccc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a constant pointer to the data of the string.  <br /></td></tr>
+<tr class="separator:aedda59db7117de6beb6a48d311b79ccc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6bf883c855640b4e135e9cc8e75ab5e" id="r_ab6bf883c855640b4e135e9cc8e75ab5e"><td class="memItemLeft" align="right" valign="top">constexpr const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab6bf883c855640b4e135e9cc8e75ab5e">c_str</a> () const noexcept</td></tr>
+<tr class="memdesc:ab6bf883c855640b4e135e9cc8e75ab5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a constant pointer to the C string representation of this string.  <br /></td></tr>
+<tr class="separator:ab6bf883c855640b4e135e9cc8e75ab5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad8c97598e8e98c04b3e9472a5bc6f47f" id="r_ad8c97598e8e98c04b3e9472a5bc6f47f"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad8c97598e8e98c04b3e9472a5bc6f47f">size</a> () const noexcept</td></tr>
 <tr class="separator:ad8c97598e8e98c04b3e9472a5bc6f47f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab6bf883c855640b4e135e9cc8e75ab5e" id="r_ab6bf883c855640b4e135e9cc8e75ab5e"><td class="memItemLeft" align="right" valign="top">constexpr const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab6bf883c855640b4e135e9cc8e75ab5e">c_str</a> () const noexcept</td></tr>
-<tr class="separator:ab6bf883c855640b4e135e9cc8e75ab5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -177,8 +193,8 @@ Static Private Attributes</h2></td></tr>
 <p>Default constructor. </p>
 <dl class="section post"><dt>Postcondition</dt><dd>The string is empty and ready for use. </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">   31</span>  : <a class="code hl_variable" href="#ae69623a04ffce98d175e9eceaf29a949">_data</a>(<a class="code hl_variable" href="#a5cefb5f4f595abb1edc77c6100357719">_emptyString</a>) {};</div>
-<div class="ttc" id="aclasstoy_1_1_c_string_html_a5cefb5f4f595abb1edc77c6100357719"><div class="ttname"><a href="#a5cefb5f4f595abb1edc77c6100357719">toy::CString::_emptyString</a></div><div class="ttdeci">static constexpr char _emptyString[]</div><div class="ttdoc">Static empty string used as default value for null pointers.</div><div class="ttdef"><b>Definition</b> c_string.hpp:136</div></div>
-<div class="ttc" id="aclasstoy_1_1_c_string_html_ae69623a04ffce98d175e9eceaf29a949"><div class="ttname"><a href="#ae69623a04ffce98d175e9eceaf29a949">toy::CString::_data</a></div><div class="ttdeci">const char * _data</div><div class="ttdoc">Pointer to the wrapped C-style string.</div><div class="ttdef"><b>Definition</b> c_string.hpp:133</div></div>
+<div class="ttc" id="aclasstoy_1_1_c_string_html_a5cefb5f4f595abb1edc77c6100357719"><div class="ttname"><a href="#a5cefb5f4f595abb1edc77c6100357719">toy::CString::_emptyString</a></div><div class="ttdeci">static constexpr char _emptyString[]</div><div class="ttdoc">Static empty string used as default value for null pointers.</div><div class="ttdef"><b>Definition</b> c_string.hpp:218</div></div>
+<div class="ttc" id="aclasstoy_1_1_c_string_html_ae69623a04ffce98d175e9eceaf29a949"><div class="ttname"><a href="#ae69623a04ffce98d175e9eceaf29a949">toy::CString::_data</a></div><div class="ttdeci">const char * _data</div><div class="ttdoc">Pointer to the wrapped C-style string.</div><div class="ttdef"><b>Definition</b> c_string.hpp:215</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -377,6 +393,90 @@ The source C <em>string</em> must be null-terminated.</dd></dl>
 </div><!-- fragment -->
 </div>
 </div>
+<a id="a4e992f3bbc0d079910238b42354a274b" name="a4e992f3bbc0d079910238b42354a274b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e992f3bbc0d079910238b42354a274b">&#9670;&#160;</a></span>at()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char &amp; toy::CString::at </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>offset</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">nodiscard</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Access a character in the string at a given <em>offset</em>. </p>
+<p>This method provides read-only access to a character at the specified <em>offset</em> within the string.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">offset</td><td>The offset of the character to access in the string.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A const reference to the character at the specified <em>offset</em>.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The <em>offset</em> should be less than the current string size.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The returned reference is read-only and cannot modify the character. </dd>
+<dd>
+This method is equivalent to the subscript operator.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a697c5074e841fb173fb079d6f4a00d28" title="Access a character in the string at a given offset.">operator[](std::size_t offset) const</a> </dd></dl>
+<div class="fragment"><div class="line"><span class="lineno">   69</span>                                                                  {</div>
+<div class="line"><span class="lineno">   70</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#acee011a673448baf706197935ace44c7">assert_message</a>(offset &lt; <a class="code hl_function" href="#ad8c97598e8e98c04b3e9472a5bc6f47f">size</a>() || (offset == 0 &amp;&amp; <a class="code hl_function" href="#ad8c97598e8e98c04b3e9472a5bc6f47f">size</a>() == 0), <span class="stringliteral">&quot;Offset must be within bounds&quot;</span>);</div>
+<div class="line"><span class="lineno">   71</span> </div>
+<div class="line"><span class="lineno">   72</span>  <span class="keywordflow">return</span> <a class="code hl_variable" href="#ae69623a04ffce98d175e9eceaf29a949">_data</a>[offset];</div>
+<div class="line"><span class="lineno">   73</span>}</div>
+<div class="ttc" id="aclasstoy_1_1_c_string_html_ad8c97598e8e98c04b3e9472a5bc6f47f"><div class="ttname"><a href="#ad8c97598e8e98c04b3e9472a5bc6f47f">toy::CString::size</a></div><div class="ttdeci">constexpr std::size_t size() const noexcept</div><div class="ttdef"><b>Definition</b> c_string.inl:101</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a06ffeede09a3633a852904509ae9774f" name="a06ffeede09a3633a852904509ae9774f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a06ffeede09a3633a852904509ae9774f">&#9670;&#160;</a></span>back()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char &amp; toy::CString::back </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">nodiscard</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a const reference to the last character of the string. </p>
+<p>This method provides read-only access to the last character of the string.</p>
+<dl class="section return"><dt>Returns</dt><dd>A const reference to the last character of the string.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The string must not be empty.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The returned reference is read-only and cannot modify the character. </dd></dl>
+<div class="fragment"><div class="line"><span class="lineno">   85</span>                                                    {</div>
+<div class="line"><span class="lineno">   86</span>  <span class="keyword">const</span> <span class="keyword">auto</span> dataSize = <a class="code hl_function" href="#ad8c97598e8e98c04b3e9472a5bc6f47f">size</a>();</div>
+<div class="line"><span class="lineno">   87</span> </div>
+<div class="line"><span class="lineno">   88</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#acee011a673448baf706197935ace44c7">assert_message</a>(dataSize &gt; 0, <span class="stringliteral">&quot;String must not be empty&quot;</span>);</div>
+<div class="line"><span class="lineno">   89</span> </div>
+<div class="line"><span class="lineno">   90</span>  <span class="keywordflow">return</span> <a class="code hl_variable" href="#ae69623a04ffce98d175e9eceaf29a949">_data</a>[dataSize - 1];</div>
+<div class="line"><span class="lineno">   91</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
 <a id="ab6bf883c855640b4e135e9cc8e75ab5e" name="ab6bf883c855640b4e135e9cc8e75ab5e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab6bf883c855640b4e135e9cc8e75ab5e">&#9670;&#160;</a></span>c_str()</h2>
 
@@ -399,9 +499,86 @@ The source C <em>string</em> must be null-terminated.</dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">   77</span>                                                     {</div>
-<div class="line"><span class="lineno">   78</span>  <span class="keywordflow">return</span> <a class="code hl_variable" href="#ae69623a04ffce98d175e9eceaf29a949">_data</a>;</div>
-<div class="line"><span class="lineno">   79</span>}</div>
+
+<p>Returns a constant pointer to the C string representation of this string. </p>
+<p>This method returns a constant pointer to the C string representation of this string. The returned pointer provides read-only access to the string contents and can be used with C functions that require a char pointer.</p>
+<dl class="section return"><dt>Returns</dt><dd>A constant pointer to the C string representation of this string.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The returned pointer points to a null-terminated string. </dd>
+<dd>
+The returned pointer is read-only and cannot modify the string contents. </dd>
+<dd>
+This method is equivalent to <a class="el" href="#aedda59db7117de6beb6a48d311b79ccc" title="Returns a constant pointer to the data of the string.">data() const </a>method. </dd></dl>
+<div class="fragment"><div class="line"><span class="lineno">   97</span>                                                     {</div>
+<div class="line"><span class="lineno">   98</span>  <span class="keywordflow">return</span> <a class="code hl_variable" href="#ae69623a04ffce98d175e9eceaf29a949">_data</a>;</div>
+<div class="line"><span class="lineno">   99</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="aedda59db7117de6beb6a48d311b79ccc" name="aedda59db7117de6beb6a48d311b79ccc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aedda59db7117de6beb6a48d311b79ccc">&#9670;&#160;</a></span>data()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char * toy::CString::data </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">nodiscard</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a constant pointer to the data of the string. </p>
+<p>This method returns a constant pointer to the internal character array that stores the string data. The returned pointer provides read-only access to the string contents and can be used for low-level operations.</p>
+<dl class="section return"><dt>Returns</dt><dd>A constant pointer to the internal character array.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The returned pointer points to a null-terminated character array. </dd>
+<dd>
+The returned pointer is read-only and cannot modify the string contents. </dd></dl>
+<div class="fragment"><div class="line"><span class="lineno">   93</span>                                                    {</div>
+<div class="line"><span class="lineno">   94</span>  <span class="keywordflow">return</span> <a class="code hl_variable" href="#ae69623a04ffce98d175e9eceaf29a949">_data</a>;</div>
+<div class="line"><span class="lineno">   95</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a1f12c4d9737dc04cbcb351bc376ca550" name="a1f12c4d9737dc04cbcb351bc376ca550"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f12c4d9737dc04cbcb351bc376ca550">&#9670;&#160;</a></span>front()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char &amp; toy::CString::front </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">nodiscard</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a const reference to the first character of the string. </p>
+<p>This method provides read-only access to the first character of the string.</p>
+<dl class="section return"><dt>Returns</dt><dd>A const reference to the first character of the string.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The returned reference is read-only and cannot modify the character. </dd></dl>
+<div class="fragment"><div class="line"><span class="lineno">   81</span>                                                     {</div>
+<div class="line"><span class="lineno">   82</span>  <span class="keywordflow">return</span> <a class="code hl_variable" href="#ae69623a04ffce98d175e9eceaf29a949">_data</a>[0];</div>
+<div class="line"><span class="lineno">   83</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -490,6 +667,48 @@ The source C <em>string</em> must be null-terminated. </dd></dl>
 </div><!-- fragment -->
 </div>
 </div>
+<a id="a697c5074e841fb173fb079d6f4a00d28" name="a697c5074e841fb173fb079d6f4a00d28"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a697c5074e841fb173fb079d6f4a00d28">&#9670;&#160;</a></span>operator[]()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char &amp; toy::CString::operator[] </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>offset</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">nodiscard</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Access a character in the string at a given <em>offset</em>. </p>
+<p>This operator provides read-only access to a character at the specified <em>offset</em> within the string.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">offset</td><td>The offset of the character to access in the string.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A const reference to the character at the specified <em>offset</em>.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The <em>offset</em> should be less than the current string size.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The returned reference is read-only and cannot modify the character. </dd></dl>
+<div class="fragment"><div class="line"><span class="lineno">   75</span>                                                                          {</div>
+<div class="line"><span class="lineno">   76</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#acee011a673448baf706197935ace44c7">assert_message</a>(offset &lt; <a class="code hl_function" href="#ad8c97598e8e98c04b3e9472a5bc6f47f">size</a>() || (offset == 0 &amp;&amp; <a class="code hl_function" href="#ad8c97598e8e98c04b3e9472a5bc6f47f">size</a>() == 0), <span class="stringliteral">&quot;Offset must be within bounds&quot;</span>);</div>
+<div class="line"><span class="lineno">   77</span> </div>
+<div class="line"><span class="lineno">   78</span>  <span class="keywordflow">return</span> <a class="code hl_variable" href="#ae69623a04ffce98d175e9eceaf29a949">_data</a>[offset];</div>
+<div class="line"><span class="lineno">   79</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
 <a id="ad8c97598e8e98c04b3e9472a5bc6f47f" name="ad8c97598e8e98c04b3e9472a5bc6f47f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad8c97598e8e98c04b3e9472a5bc6f47f">&#9670;&#160;</a></span>size()</h2>
 
@@ -512,13 +731,13 @@ The source C <em>string</em> must be null-terminated. </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">   69</span>                                                 {</div>
-<div class="line"><span class="lineno">   70</span>  <span class="keywordflow">if</span> <span class="keyword">consteval</span> {</div>
-<div class="line"><span class="lineno">   71</span>    <span class="keywordflow">return</span> std::char_traits&lt;char&gt;::length(<a class="code hl_variable" href="#ae69623a04ffce98d175e9eceaf29a949">_data</a>);</div>
-<div class="line"><span class="lineno">   72</span>  } <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno">   73</span>    <span class="keywordflow">return</span> std::strlen(<a class="code hl_variable" href="#ae69623a04ffce98d175e9eceaf29a949">_data</a>);</div>
-<div class="line"><span class="lineno">   74</span>  }</div>
-<div class="line"><span class="lineno">   75</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">  101</span>                                                 {</div>
+<div class="line"><span class="lineno">  102</span>  <span class="keywordflow">if</span> <span class="keyword">consteval</span> {</div>
+<div class="line"><span class="lineno">  103</span>    <span class="keywordflow">return</span> std::char_traits&lt;char&gt;::length(<a class="code hl_variable" href="#ae69623a04ffce98d175e9eceaf29a949">_data</a>);</div>
+<div class="line"><span class="lineno">  104</span>  } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  105</span>    <span class="keywordflow">return</span> std::strlen(<a class="code hl_variable" href="#ae69623a04ffce98d175e9eceaf29a949">_data</a>);</div>
+<div class="line"><span class="lineno">  106</span>  }</div>
+<div class="line"><span class="lineno">  107</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -568,7 +787,7 @@ The source C <em>string</em> must be null-terminated. </dd></dl>
 </div><div class="memdoc">
 
 <p>Static empty string used as default value for null pointers. </p>
-<div class="fragment"><div class="line"><span class="lineno">  136</span>{<span class="charliteral">&#39;\0&#39;</span>};</div>
+<div class="fragment"><div class="line"><span class="lineno">  218</span>{<span class="charliteral">&#39;\0&#39;</span>};</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -582,7 +801,7 @@ The source C <em>string</em> must be null-terminated. </dd></dl>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../d4/da9/namespacetoy.html">toy</a></li><li class="navelem"><a class="el" href="../../d2/d27/classtoy_1_1_c_string.html">CString</a></li>
-    <li class="footer">Generated on Tue Sep 16 2025 for ToyGine2 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generated on Wed Sep 17 2025 for ToyGine2 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>

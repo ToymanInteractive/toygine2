@@ -2043,7 +2043,7 @@ Use the non-const overload to allow modification. </dd>
 This method is equivalent to the subscript operator.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#af40586928d04991636e25097a6c7776b" title="Access a character in the string at a given offset.">operator[](std::size_t offset) const</a> </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">  244</span>                                                                                     {</div>
-<div class="line"><span class="lineno">  245</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#acee011a673448baf706197935ace44c7">assert_message</a>(offset &lt; <a class="code hl_variable" href="#a67e4f0a023d0c3804589c8f2aee20c33">_size</a>, <span class="stringliteral">&quot;Offset must be within bounds&quot;</span>);</div>
+<div class="line"><span class="lineno">  245</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#acee011a673448baf706197935ace44c7">assert_message</a>(offset &lt; <a class="code hl_variable" href="#a67e4f0a023d0c3804589c8f2aee20c33">_size</a> || (offset == 0 &amp;&amp; <a class="code hl_variable" href="#a67e4f0a023d0c3804589c8f2aee20c33">_size</a> == 0), <span class="stringliteral">&quot;Offset must be within bounds&quot;</span>);</div>
 <div class="line"><span class="lineno">  246</span> </div>
 <div class="line"><span class="lineno">  247</span>  <span class="keywordflow">return</span> <a class="code hl_variable" href="#ab15c6d6e2602f732ee7feb05cd7bb5d1">_data</a>[offset];</div>
 <div class="line"><span class="lineno">  248</span>}</div>
@@ -5062,7 +5062,7 @@ template&lt;std::size_t allocatedSize&gt; </div>
 <dd>
 Use the non-const overload to allow modification. </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">  258</span>                                                                                             {</div>
-<div class="line"><span class="lineno">  259</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#acee011a673448baf706197935ace44c7">assert_message</a>(offset &lt; <a class="code hl_variable" href="#a67e4f0a023d0c3804589c8f2aee20c33">_size</a>, <span class="stringliteral">&quot;Offset must be within bounds&quot;</span>);</div>
+<div class="line"><span class="lineno">  259</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#acee011a673448baf706197935ace44c7">assert_message</a>(offset &lt; <a class="code hl_variable" href="#a67e4f0a023d0c3804589c8f2aee20c33">_size</a> || (offset == 0 &amp;&amp; <a class="code hl_variable" href="#a67e4f0a023d0c3804589c8f2aee20c33">_size</a> == 0), <span class="stringliteral">&quot;Offset must be within bounds&quot;</span>);</div>
 <div class="line"><span class="lineno">  260</span> </div>
 <div class="line"><span class="lineno">  261</span>  <span class="keywordflow">return</span> <a class="code hl_variable" href="#ab15c6d6e2602f732ee7feb05cd7bb5d1">_data</a>[offset];</div>
 <div class="line"><span class="lineno">  262</span>}</div>
@@ -6245,7 +6245,7 @@ template&lt;std::size_t allocatedSize&gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../d4/da9/namespacetoy.html">toy</a></li><li class="navelem"><a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html">FixedString</a></li>
-    <li class="footer">Generated on Tue Sep 16 2025 for ToyGine2 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generated on Wed Sep 17 2025 for ToyGine2 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>
