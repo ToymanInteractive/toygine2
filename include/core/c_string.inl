@@ -94,16 +94,16 @@ constexpr const char * CString::data() const noexcept {
   return _data;
 }
 
+constexpr const char * CString::c_str() const noexcept {
+  return _data;
+}
+
 constexpr std::size_t CString::size() const noexcept {
   if consteval {
     return std::char_traits<char>::length(_data);
   } else {
     return std::strlen(_data);
   }
-}
-
-constexpr const char * CString::c_str() const noexcept {
-  return _data;
 }
 
 } // namespace toy
