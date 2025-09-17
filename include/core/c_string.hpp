@@ -191,7 +191,6 @@ public:
 
     \note The returned pointer points to a null-terminated character array.
     \note The returned pointer is read-only and cannot modify the string contents.
-    \note Use the non-const overload to allow modification.
   */
   [[nodiscard]] constexpr const char * data() const noexcept;
 

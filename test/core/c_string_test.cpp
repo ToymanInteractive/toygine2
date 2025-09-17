@@ -480,14 +480,13 @@ TEST_CASE("CString operator[]", "[core][c_string]") {
     STATIC_REQUIRE(str[2] == 'l');
     STATIC_REQUIRE(str[3] == 'l');
     STATIC_REQUIRE(str[4] == 'o');
-    STATIC_REQUIRE(str[5] == '\0');
 
     STATIC_REQUIRE(longStr[0] == 'V');
     STATIC_REQUIRE(longStr[1] == 'e');
     STATIC_REQUIRE(longStr[2] == 'r');
     STATIC_REQUIRE(longStr[3] == 'y');
     STATIC_REQUIRE(longStr[4] == 'L');
-    STATIC_REQUIRE(longStr[14] == '\0');
+    STATIC_REQUIRE(longStr[13] == 'g');
   }
 
   SECTION("empty string") {

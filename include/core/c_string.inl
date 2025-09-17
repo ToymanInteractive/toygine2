@@ -67,13 +67,13 @@ constexpr CString & CString::assign(const char * string) noexcept {
 }
 
 constexpr const char & CString::at(std::size_t offset) const noexcept {
-  assert_message(offset <= size(), "Offset must be within bounds");
+  assert_message(offset < size() || (offset == 0 && size() == 0), "Offset must be within bounds");
 
   return _data[offset];
 }
 
 constexpr const char & CString::operator[](std::size_t offset) const noexcept {
-  assert_message(offset <= size(), "Offset must be within bounds");
+  assert_message(offset < size() || (offset == 0 && size() == 0), "Offset must be within bounds");
 
   return _data[offset];
 }

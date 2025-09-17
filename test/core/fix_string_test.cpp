@@ -682,7 +682,6 @@ TEST_CASE("FixedString at", "[core][fixed_string]") {
     REQUIRE(str.at(2) == 'r');
     REQUIRE(str.at(3) == 'l');
     REQUIRE(str.at(4) == 'd');
-    REQUIRE(str.at(5) == '\0');
 
     // Compile-time checks
     STATIC_REQUIRE(str.at(0) == 'W');
@@ -690,7 +689,6 @@ TEST_CASE("FixedString at", "[core][fixed_string]") {
     STATIC_REQUIRE(str.at(2) == 'r');
     STATIC_REQUIRE(str.at(3) == 'l');
     STATIC_REQUIRE(str.at(4) == 'd');
-    STATIC_REQUIRE(str.at(5) == '\0');
   }
 
   SECTION("empty string") {
