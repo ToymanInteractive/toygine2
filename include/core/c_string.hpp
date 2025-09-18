@@ -234,6 +234,23 @@ public:
   */
   [[nodiscard]] constexpr std::size_t size() const noexcept;
 
+  /*!
+    \brief Returns the size of the Unicode string in UTF-8 encoding.
+
+    This method returns the number of Unicode characters in the UTF-8 encoded string, excluding the terminating null
+    character. For ASCII strings, this value equals the size() method. For UTF-8 encoded strings, this method counts the
+    number of Unicode characters rather than bytes. The method validates UTF-8 encoding and counts only complete,
+    well-formed Unicode characters.
+
+    \return The number of Unicode characters in the string, excluding the terminating null character.
+
+    \note For ASCII strings, utf8_size() equals size().
+    \note For UTF-8 strings, utf8_size() may be less than size().
+    \note Invalid UTF-8 sequences are handled gracefully and may affect the count.
+    \note This method is useful for internationalization and text processing applications.
+  */
+  [[nodiscard]] inline std::size_t utf8_size() const noexcept;
+
 private:
   /// Pointer to the wrapped C-style string
   const char * _data;

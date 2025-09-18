@@ -1079,3 +1079,102 @@ TEST_CASE("CString size method", "[core][c_string]") {
     STATIC_REQUIRE(defaultString.size() == 0);
   }
 }
+
+TEST_CASE("CString utf8_size", "[core][c_string]") {
+  SECTION("ASCII strings") {
+    constexpr const CString asciiString("Hello World");
+    constexpr const CString emptyString("");
+    constexpr const CString singleChar("A");
+
+    REQUIRE(asciiString.utf8_size() == 11);
+    REQUIRE(emptyString.utf8_size() == 0);
+    REQUIRE(singleChar.utf8_size() == 1);
+
+    // For ASCII strings, utf8_size should equal size
+    REQUIRE(asciiString.utf8_size() == asciiString.size());
+    REQUIRE(emptyString.utf8_size() == emptyString.size());
+    REQUIRE(singleChar.utf8_size() == singleChar.size());
+  }
+
+  SECTION("UTF-8 Cyrillic text") {
+    // "Привет мир" in UTF-8
+    static constexpr std::array<char, 20> cyrillicText{{char(0xD0), char(0x9F), char(0xD1), char(0x80), char(0xD0),
+                                                        char(0xB8), char(0xD0), char(0xB2), char(0xD0), char(0xB5),
+                                                        char(0xD1), char(0x82), char(0x20), char(0xD0), char(0xBC),
+                                                        char(0xD0), char(0xB8), char(0xD1), char(0x80), char(0x00)}};
+
+    constexpr const CString cyrillicString(cyrillicText.data());
+
+    REQUIRE(cyrillicString.size() == 19);
+    REQUIRE(cyrillicString.utf8_size() == 10);
+  }
+
+  SECTION("Mixed ASCII and UTF-8") {
+    // "Hello 世界" in UTF-8
+    static constexpr std::array<char, 13> mixedText{{char(0x48), char(0x65), char(0x6C), char(0x6C), char(0x6F),
+                                                     char(0x20), char(0xE4), char(0xB8), char(0x96), char(0xE7),
+                                                     char(0x95), char(0x8C), char(0x00)}};
+
+    constexpr const CString mixedString(mixedText.data());
+
+    REQUIRE(mixedString.size() == 12);
+    REQUIRE(mixedString.utf8_size() == 8); // 6 ASCII + 2 Chinese characters
+  }
+
+  SECTION("Emoji characters") {
+    // "Hello 🌍" in UTF-8
+    static constexpr std::array<char, 11> emojiText{{char(0x48), char(0x65), char(0x6C), char(0x6C), char(0x6F),
+                                                     char(0x20), char(0xF0), char(0x9F), char(0x8C), char(0x8D),
+                                                     char(0x00)}};
+
+    constexpr const CString emojiString(emojiText.data());
+
+    REQUIRE(emojiString.size() == 10);
+    REQUIRE(emojiString.utf8_size() == 7); // 6 ASCII + 1 emoji
+  }
+
+  SECTION("Special characters") {
+    constexpr const CString specialString("!@#$%^&*()");
+    constexpr const CString numericString("1234567890");
+    constexpr const CString punctuationString(".,;:!?");
+
+    REQUIRE(specialString.utf8_size() == 10);
+    REQUIRE(numericString.utf8_size() == 10);
+    REQUIRE(punctuationString.utf8_size() == 6);
+
+    // Special characters are ASCII, so utf8_size equals size
+    REQUIRE(specialString.utf8_size() == specialString.size());
+    REQUIRE(numericString.utf8_size() == numericString.size());
+    REQUIRE(punctuationString.utf8_size() == punctuationString.size());
+  }
+
+  SECTION("Edge cases") {
+    constexpr const CString singleByte("A");
+    constexpr const CString twoByte("А"); // Cyrillic A
+    constexpr const CString threeByte("中"); // Chinese character
+    constexpr const CString fourByte("🌍"); // Emoji
+
+    REQUIRE(singleByte.utf8_size() == 1);
+    REQUIRE(twoByte.utf8_size() == 1);
+    REQUIRE(threeByte.utf8_size() == 1);
+    REQUIRE(fourByte.utf8_size() == 1);
+  }
+
+  SECTION("Long UTF-8 text") {
+    // "ToyGine2 - Бесплатный 2D/3D игровой движок." in UTF-8
+    static constexpr std::array<char, 67> longUtf8Text{
+      {char(0x54), char(0x6F), char(0x79), char(0x47), char(0x69), char(0x6E), char(0x65), char(0x32), char(0x20),
+       char(0x2D), char(0x20), char(0xD0), char(0x91), char(0xD0), char(0xB5), char(0xD1), char(0x81), char(0xD0),
+       char(0xBF), char(0xD0), char(0xBB), char(0xD0), char(0xB0), char(0xD1), char(0x82), char(0xD0), char(0xBD),
+       char(0xD1), char(0x8B), char(0xD0), char(0xB9), char(0x20), char(0x32), char(0x44), char(0x2F), char(0x33),
+       char(0x44), char(0x20), char(0xD0), char(0xB8), char(0xD0), char(0xB3), char(0xD1), char(0x80), char(0xD0),
+       char(0xBE), char(0xD0), char(0xB2), char(0xD0), char(0xBE), char(0xD0), char(0xB9), char(0x20), char(0xD0),
+       char(0xB4), char(0xD0), char(0xB2), char(0xD0), char(0xB8), char(0xD0), char(0xB6), char(0xD0), char(0xBE),
+       char(0xD0), char(0xBA), char(0x2E), char(0x00)}};
+
+    constexpr const CString longString(longUtf8Text.data());
+
+    REQUIRE(longString.size() == 66); // 66 bytes
+    REQUIRE(longString.utf8_size() == 43); // 43 characters
+  }
+}
