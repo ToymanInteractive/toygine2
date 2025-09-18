@@ -2280,21 +2280,211 @@ TEST_CASE("FixedString capacity", "[core][fixed_string]") {
   }
 }
 
-// to refactor 4363 - 2283 = 2080
-
 TEST_CASE("FixedString clear", "[core][fixed_string]") {
-  FixedString<64> testString1("ToyGine2 - Free 2D/3D game engine.");
-  FixedString<16> testString2;
+  SECTION("Basic clear functionality") {
+    FixedString<32> testString("Hello World");
 
-  REQUIRE_FALSE(testString1.empty());
-  REQUIRE(testString2.empty());
+    REQUIRE_FALSE(testString.empty());
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
 
-  testString1.clear();
-  testString2.clear();
+    testString.clear();
 
-  REQUIRE(testString1.empty());
-  REQUIRE(testString2.empty());
+    REQUIRE(testString.empty());
+    REQUIRE(testString.size() == 0);
+    REQUIRE(std::strcmp(testString.c_str(), "") == 0);
+  }
+
+  SECTION("Clear empty string") {
+    FixedString<16> emptyString("");
+
+    REQUIRE(emptyString.empty());
+    REQUIRE(emptyString.size() == 0);
+
+    emptyString.clear();
+
+    REQUIRE(emptyString.empty());
+    REQUIRE(emptyString.size() == 0);
+    REQUIRE(std::strcmp(emptyString.c_str(), "") == 0);
+  }
+
+  SECTION("Clear default constructed string") {
+    FixedString<8> defaultString;
+
+    REQUIRE(defaultString.empty());
+    REQUIRE(defaultString.size() == 0);
+
+    defaultString.clear();
+
+    REQUIRE(defaultString.empty());
+    REQUIRE(defaultString.size() == 0);
+    REQUIRE(std::strcmp(defaultString.c_str(), "") == 0);
+  }
+
+  SECTION("Clear single character string") {
+    FixedString<16> singleChar("A");
+
+    REQUIRE_FALSE(singleChar.empty());
+    REQUIRE(singleChar.size() == 1);
+    REQUIRE(std::strcmp(singleChar.c_str(), "A") == 0);
+
+    singleChar.clear();
+
+    REQUIRE(singleChar.empty());
+    REQUIRE(singleChar.size() == 0);
+    REQUIRE(std::strcmp(singleChar.c_str(), "") == 0);
+  }
+
+  SECTION("Clear maximum length string") {
+    FixedString<8> maxString("1234567"); // 7 characters (max for capacity 8)
+
+    REQUIRE_FALSE(maxString.empty());
+    REQUIRE(maxString.size() == 7);
+    REQUIRE(std::strcmp(maxString.c_str(), "1234567") == 0);
+
+    maxString.clear();
+
+    REQUIRE(maxString.empty());
+    REQUIRE(maxString.size() == 0);
+    REQUIRE(std::strcmp(maxString.c_str(), "") == 0);
+  }
+
+  SECTION("Clear different capacities") {
+    FixedString<8> smallString("Hi");
+    FixedString<16> mediumString("Hello World");
+    FixedString<32> largeString("This is a longer string");
+    FixedString<64> extraLargeString("This is an even longer string for testing");
+
+    // Before clear
+    REQUIRE_FALSE(smallString.empty());
+    REQUIRE_FALSE(mediumString.empty());
+    REQUIRE_FALSE(largeString.empty());
+    REQUIRE_FALSE(extraLargeString.empty());
+
+    // Clear all
+    smallString.clear();
+    mediumString.clear();
+    largeString.clear();
+    extraLargeString.clear();
+
+    // After clear
+    REQUIRE(smallString.empty());
+    REQUIRE(mediumString.empty());
+    REQUIRE(largeString.empty());
+    REQUIRE(extraLargeString.empty());
+
+    REQUIRE(smallString.size() == 0);
+    REQUIRE(mediumString.size() == 0);
+    REQUIRE(largeString.size() == 0);
+    REQUIRE(extraLargeString.size() == 0);
+  }
+
+  SECTION("Clear special characters") {
+    FixedString<32> newlineString("Hello\nWorld");
+    FixedString<32> tabString("Hello\tWorld");
+    FixedString<32> specialString("!@#$%^&*()");
+
+    REQUIRE_FALSE(newlineString.empty());
+    REQUIRE_FALSE(tabString.empty());
+    REQUIRE_FALSE(specialString.empty());
+
+    newlineString.clear();
+    tabString.clear();
+    specialString.clear();
+
+    REQUIRE(newlineString.empty());
+    REQUIRE(tabString.empty());
+    REQUIRE(specialString.empty());
+
+    REQUIRE(std::strcmp(newlineString.c_str(), "") == 0);
+    REQUIRE(std::strcmp(tabString.c_str(), "") == 0);
+    REQUIRE(std::strcmp(specialString.c_str(), "") == 0);
+  }
+
+  SECTION("Clear Unicode content") {
+    FixedString<64> unicodeString("Привет мир");
+    FixedString<64> emojiString("Hello 🌍 World");
+    FixedString<64> mixedString("Hello 世界");
+
+    REQUIRE_FALSE(unicodeString.empty());
+    REQUIRE_FALSE(emojiString.empty());
+    REQUIRE_FALSE(mixedString.empty());
+
+    unicodeString.clear();
+    emojiString.clear();
+    mixedString.clear();
+
+    REQUIRE(unicodeString.empty());
+    REQUIRE(emojiString.empty());
+    REQUIRE(mixedString.empty());
+
+    REQUIRE(std::strcmp(unicodeString.c_str(), "") == 0);
+    REQUIRE(std::strcmp(emojiString.c_str(), "") == 0);
+    REQUIRE(std::strcmp(mixedString.c_str(), "") == 0);
+  }
+
+  SECTION("Clear and capacity preservation") {
+    FixedString<16> testString("Hello World");
+
+    const auto originalCapacity = testString.capacity();
+    const auto originalMaxSize = testString.max_size();
+
+    REQUIRE_FALSE(testString.empty());
+    REQUIRE(testString.size() == 11);
+
+    testString.clear();
+
+    REQUIRE(testString.empty());
+    REQUIRE(testString.size() == 0);
+    REQUIRE(testString.capacity() == originalCapacity);
+    REQUIRE(testString.max_size() == originalMaxSize);
+  }
+
+  SECTION("Clear and reassignment") {
+    FixedString<32> testString("Original");
+
+    REQUIRE_FALSE(testString.empty());
+    REQUIRE(std::strcmp(testString.c_str(), "Original") == 0);
+
+    testString.clear();
+
+    REQUIRE(testString.empty());
+    REQUIRE(std::strcmp(testString.c_str(), "") == 0);
+
+    // Reassign after clear
+    testString = "New content";
+
+    REQUIRE_FALSE(testString.empty());
+    REQUIRE(std::strcmp(testString.c_str(), "New content") == 0);
+    REQUIRE(testString.size() == 11);
+  }
+
+  SECTION("Multiple clear operations") {
+    FixedString<16> testString("Test");
+
+    // First clear
+    testString.clear();
+    REQUIRE(testString.empty());
+    REQUIRE(testString.size() == 0);
+
+    // Assign new content
+    testString = "New";
+    REQUIRE_FALSE(testString.empty());
+    REQUIRE(testString.size() == 3);
+
+    // Second clear
+    testString.clear();
+    REQUIRE(testString.empty());
+    REQUIRE(testString.size() == 0);
+
+    // Third clear (should be idempotent)
+    testString.clear();
+    REQUIRE(testString.empty());
+    REQUIRE(testString.size() == 0);
+  }
 }
+
+// to refactor 4553 - 2487 = 2066
 
 TEST_CASE("FixedString insert", "[core][fixed_string]") {
   FixedString<32> testString1("Hello World");

@@ -288,6 +288,15 @@ public:
   */
   [[nodiscard]] constexpr std::size_t capacity() const noexcept;
 
+  /*!
+    \brief Clears the contents of the string.
+
+    This method resets the size of the string to zero and effectively clears the string.
+
+    \note The string object is cleared, and its size is set to zero.
+  */
+  constexpr void clear() noexcept;
+
 private:
   /// Pointer to the wrapped C-style string
   const char * _data;
