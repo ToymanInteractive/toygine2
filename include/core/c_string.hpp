@@ -251,6 +251,20 @@ public:
   */
   [[nodiscard]] inline std::size_t utf8_size() const noexcept;
 
+  /*!
+    \brief Returns the size of the string.
+
+    This method returns the current number of characters in the string, excluding the terminating null character. The
+    length represents the actual length of the string content.
+
+    \return The number of characters in the string, excluding the terminating null character.
+
+    \note This method is equivalent to size() method.
+
+    \see size()
+  */
+  [[nodiscard]] constexpr std::size_t length() const noexcept;
+
 private:
   /// Pointer to the wrapped C-style string
   const char * _data;

@@ -114,6 +114,10 @@ inline std::size_t CString::utf8_size() const noexcept {
   return utf8Len(_data);
 }
 
+constexpr std::size_t CString::length() const noexcept {
+  return size();
+}
+
 } // namespace toy
 
 #endif // INCLUDE_CORE_C_STRING_INL_

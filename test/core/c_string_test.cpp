@@ -1178,3 +1178,163 @@ TEST_CASE("CString utf8_size", "[core][c_string]") {
     REQUIRE(longString.utf8_size() == 43); // 43 characters
   }
 }
+
+TEST_CASE("CString length", "[core][c_string]") {
+  SECTION("Basic length check") {
+    constexpr const CString testString("Hello World");
+    constexpr const CString emptyString("");
+    constexpr const CString singleChar("A");
+
+    REQUIRE(testString.length() == 11);
+    REQUIRE(emptyString.length() == 0);
+    REQUIRE(singleChar.length() == 1);
+
+    // length() should equal size() for all strings
+    REQUIRE(testString.length() == testString.size());
+    REQUIRE(emptyString.length() == emptyString.size());
+    REQUIRE(singleChar.length() == singleChar.size());
+
+    STATIC_REQUIRE(testString.length() == 11);
+    STATIC_REQUIRE(emptyString.length() == 0);
+    STATIC_REQUIRE(singleChar.length() == 1);
+  }
+
+  SECTION("Different capacities") {
+    constexpr const CString smallString("Hi");
+    constexpr const CString mediumString("Hello World");
+    constexpr const CString largeString("This is a longer string");
+    constexpr const CString emptySmall("");
+    constexpr const CString emptyMedium("");
+    constexpr const CString emptyLarge("");
+
+    REQUIRE(smallString.length() == 2);
+    REQUIRE(mediumString.length() == 11);
+    REQUIRE(largeString.length() == 23);
+    REQUIRE(emptySmall.length() == 0);
+    REQUIRE(emptyMedium.length() == 0);
+    REQUIRE(emptyLarge.length() == 0);
+
+    // length() should equal size() for all strings
+    REQUIRE(smallString.length() == smallString.size());
+    REQUIRE(mediumString.length() == mediumString.size());
+    REQUIRE(largeString.length() == largeString.size());
+    REQUIRE(emptySmall.length() == emptySmall.size());
+    REQUIRE(emptyMedium.length() == emptyMedium.size());
+    REQUIRE(emptyLarge.length() == emptyLarge.size());
+
+    STATIC_REQUIRE(smallString.length() == 2);
+    STATIC_REQUIRE(mediumString.length() == 11);
+    STATIC_REQUIRE(largeString.length() == 23);
+  }
+
+  SECTION("Special characters") {
+    constexpr const CString newlineString("Hello\nWorld");
+    constexpr const CString tabString("Hello\tWorld");
+    constexpr const CString specialString("!@#$%^&*()");
+    constexpr const CString emptyString("");
+
+    REQUIRE(newlineString.length() == 11);
+    REQUIRE(tabString.length() == 11);
+    REQUIRE(specialString.length() == 10);
+    REQUIRE(emptyString.length() == 0);
+
+    // length() should equal size() for all strings
+    REQUIRE(newlineString.length() == newlineString.size());
+    REQUIRE(tabString.length() == tabString.size());
+    REQUIRE(specialString.length() == specialString.size());
+    REQUIRE(emptyString.length() == emptyString.size());
+
+    STATIC_REQUIRE(newlineString.length() == 11);
+    STATIC_REQUIRE(tabString.length() == 11);
+    STATIC_REQUIRE(specialString.length() == 10);
+  }
+
+  SECTION("Unicode content") {
+    constexpr const CString unicodeString("Привет мир");
+    constexpr const CString emojiString("Hello 🌍 World");
+    constexpr const CString mixedString("Hello 世界");
+    constexpr const CString emptyString("");
+
+    REQUIRE(unicodeString.length() == 19);
+    REQUIRE(emojiString.length() == 16);
+    REQUIRE(mixedString.length() == 12);
+    REQUIRE(emptyString.length() == 0);
+
+    // length() should equal size() for all strings
+    REQUIRE(unicodeString.length() == unicodeString.size());
+    REQUIRE(emojiString.length() == emojiString.size());
+    REQUIRE(mixedString.length() == mixedString.size());
+    REQUIRE(emptyString.length() == emptyString.size());
+
+    STATIC_REQUIRE(unicodeString.length() == 19);
+    STATIC_REQUIRE(emojiString.length() == 16);
+    STATIC_REQUIRE(mixedString.length() == 12);
+  }
+
+  SECTION("Numeric content") {
+    constexpr const CString numericString("12345");
+    constexpr const CString floatString("3.14159");
+    constexpr const CString hexString("0xABCD");
+    constexpr const CString emptyString("");
+
+    REQUIRE(numericString.length() == 5);
+    REQUIRE(floatString.length() == 7);
+    REQUIRE(hexString.length() == 6);
+    REQUIRE(emptyString.length() == 0);
+
+    // length() should equal size() for all strings
+    REQUIRE(numericString.length() == numericString.size());
+    REQUIRE(floatString.length() == floatString.size());
+    REQUIRE(hexString.length() == hexString.size());
+    REQUIRE(emptyString.length() == emptyString.size());
+
+    STATIC_REQUIRE(numericString.length() == 5);
+    STATIC_REQUIRE(floatString.length() == 7);
+    STATIC_REQUIRE(hexString.length() == 6);
+  }
+
+  SECTION("Mixed content") {
+    constexpr const CString mixedString("Hello123World!@#");
+    constexpr const CString complexString("Test\n123\t!@#");
+    constexpr const CString longString("This is a very long string with mixed content 123!@#");
+    constexpr const CString emptyString("");
+
+    REQUIRE(mixedString.length() == 16);
+    REQUIRE(complexString.length() == 12);
+    REQUIRE(longString.length() == 52);
+    REQUIRE(emptyString.length() == 0);
+
+    // length() should equal size() for all strings
+    REQUIRE(mixedString.length() == mixedString.size());
+    REQUIRE(complexString.length() == complexString.size());
+    REQUIRE(longString.length() == longString.size());
+    REQUIRE(emptyString.length() == emptyString.size());
+
+    STATIC_REQUIRE(mixedString.length() == 16);
+    STATIC_REQUIRE(complexString.length() == 12);
+    STATIC_REQUIRE(longString.length() == 52);
+  }
+
+  SECTION("Edge cases") {
+    constexpr const CString singleChar("A");
+    constexpr const CString twoChars("AB");
+    constexpr const CString emptyString("");
+    constexpr const CString defaultString;
+
+    REQUIRE(singleChar.length() == 1);
+    REQUIRE(twoChars.length() == 2);
+    REQUIRE(emptyString.length() == 0);
+    REQUIRE(defaultString.length() == 0);
+
+    // length() should equal size() for all strings
+    REQUIRE(singleChar.length() == singleChar.size());
+    REQUIRE(twoChars.length() == twoChars.size());
+    REQUIRE(emptyString.length() == emptyString.size());
+    REQUIRE(defaultString.length() == defaultString.size());
+
+    STATIC_REQUIRE(singleChar.length() == 1);
+    STATIC_REQUIRE(twoChars.length() == 2);
+    STATIC_REQUIRE(emptyString.length() == 0);
+    STATIC_REQUIRE(defaultString.length() == 0);
+  }
+}
