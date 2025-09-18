@@ -1,12 +1,14 @@
+#include <stdexcept>
+
 #include <catch2/catch_session.hpp>
 
 #include "core.hpp"
 
-bool _assertionCallback(const char * message) {
+[[noreturn]] bool _assertionCallback(const char * message) {
   throw std::runtime_error(message);
 }
 
-void _stackWalkCallback(const char * info) {}
+void _stackWalkCallback(const char * TOY_UNUSED(info)) {}
 
 int main(int argc, char * argv[]) {
   toy::assertion::initialize();
