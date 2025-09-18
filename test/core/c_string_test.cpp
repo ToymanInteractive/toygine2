@@ -749,3 +749,172 @@ TEST_CASE("CString c_str method", "[core][c_string]") {
     STATIC_REQUIRE(defaultString.c_str() == defaultString.data());
   }
 }
+
+TEST_CASE("CString empty method", "[core][c_string]") {
+  SECTION("Basic empty check") {
+    constexpr const CString nonEmptyString("Hello World");
+    constexpr const CString emptyString("");
+    constexpr const CString defaultString;
+
+    REQUIRE_FALSE(nonEmptyString.empty());
+    REQUIRE(emptyString.empty());
+    REQUIRE(defaultString.empty());
+
+    // Compile-time checks
+    STATIC_REQUIRE_FALSE(nonEmptyString.empty());
+    STATIC_REQUIRE(emptyString.empty());
+    STATIC_REQUIRE(defaultString.empty());
+  }
+
+  SECTION("Single character strings") {
+    constexpr const CString singleChar("A");
+    constexpr const CString emptyString("");
+
+    REQUIRE_FALSE(singleChar.empty());
+    REQUIRE(emptyString.empty());
+
+    // Compile-time checks
+    STATIC_REQUIRE_FALSE(singleChar.empty());
+    STATIC_REQUIRE(emptyString.empty());
+  }
+
+  SECTION("Different capacities") {
+    constexpr const CString smallString("Hi");
+    constexpr const CString mediumString("Hello World");
+    constexpr const CString largeString("This is a longer string");
+    constexpr const CString emptySmall("");
+    constexpr const CString emptyMedium("");
+    constexpr const CString emptyLarge("");
+
+    REQUIRE_FALSE(smallString.empty());
+    REQUIRE_FALSE(mediumString.empty());
+    REQUIRE_FALSE(largeString.empty());
+    REQUIRE(emptySmall.empty());
+    REQUIRE(emptyMedium.empty());
+    REQUIRE(emptyLarge.empty());
+
+    // Compile-time checks
+    STATIC_REQUIRE_FALSE(smallString.empty());
+    STATIC_REQUIRE_FALSE(mediumString.empty());
+    STATIC_REQUIRE_FALSE(largeString.empty());
+    STATIC_REQUIRE(emptySmall.empty());
+    STATIC_REQUIRE(emptyMedium.empty());
+    STATIC_REQUIRE(emptyLarge.empty());
+  }
+
+  SECTION("Special characters") {
+    constexpr const CString newlineString("Hello\nWorld");
+    constexpr const CString tabString("Hello\tWorld");
+    constexpr const CString specialString("!@#$%^&*()");
+    constexpr const CString emptyString("");
+
+    REQUIRE_FALSE(newlineString.empty());
+    REQUIRE_FALSE(tabString.empty());
+    REQUIRE_FALSE(specialString.empty());
+    REQUIRE(emptyString.empty());
+
+    // Compile-time checks
+    STATIC_REQUIRE_FALSE(newlineString.empty());
+    STATIC_REQUIRE_FALSE(tabString.empty());
+    STATIC_REQUIRE_FALSE(specialString.empty());
+    STATIC_REQUIRE(emptyString.empty());
+  }
+
+  SECTION("Unicode content") {
+    constexpr const CString unicodeString("Привет мир");
+    constexpr const CString emojiString("Hello 🌍 World");
+    constexpr const CString mixedString("Hello 世界");
+    constexpr const CString emptyString("");
+
+    REQUIRE_FALSE(unicodeString.empty());
+    REQUIRE_FALSE(emojiString.empty());
+    REQUIRE_FALSE(mixedString.empty());
+    REQUIRE(emptyString.empty());
+
+    // Compile-time checks
+    STATIC_REQUIRE_FALSE(unicodeString.empty());
+    STATIC_REQUIRE_FALSE(emojiString.empty());
+    STATIC_REQUIRE_FALSE(mixedString.empty());
+    STATIC_REQUIRE(emptyString.empty());
+  }
+
+  SECTION("Numeric content") {
+    constexpr const CString numericString("12345");
+    constexpr const CString floatString("3.14159");
+    constexpr const CString hexString("0xABCD");
+    constexpr const CString emptyString("");
+
+    REQUIRE_FALSE(numericString.empty());
+    REQUIRE_FALSE(floatString.empty());
+    REQUIRE_FALSE(hexString.empty());
+    REQUIRE(emptyString.empty());
+
+    // Compile-time checks
+    STATIC_REQUIRE_FALSE(numericString.empty());
+    STATIC_REQUIRE_FALSE(floatString.empty());
+    STATIC_REQUIRE_FALSE(hexString.empty());
+    STATIC_REQUIRE(emptyString.empty());
+  }
+
+  SECTION("Mixed content") {
+    constexpr const CString mixedString("Hello123World!@#");
+    constexpr const CString complexString("Test\n123\t!@#");
+    constexpr const CString longString("This is a very long string with mixed content 123!@#");
+    constexpr const CString emptyString("");
+
+    REQUIRE_FALSE(mixedString.empty());
+    REQUIRE_FALSE(complexString.empty());
+    REQUIRE_FALSE(longString.empty());
+    REQUIRE(emptyString.empty());
+
+    // Compile-time checks
+    STATIC_REQUIRE_FALSE(mixedString.empty());
+    STATIC_REQUIRE_FALSE(complexString.empty());
+    STATIC_REQUIRE_FALSE(longString.empty());
+    STATIC_REQUIRE(emptyString.empty());
+  }
+
+  SECTION("Maximum length strings") {
+    constexpr const CString maxString("123456789012345"); // 15 characters
+    constexpr const CString maxSmall("1234567"); // 7 characters
+    constexpr const CString maxTiny("123"); // 3 characters
+    constexpr const CString emptyString("");
+
+    REQUIRE_FALSE(maxString.empty());
+    REQUIRE_FALSE(maxSmall.empty());
+    REQUIRE_FALSE(maxTiny.empty());
+    REQUIRE(emptyString.empty());
+
+    // Compile-time checks
+    STATIC_REQUIRE_FALSE(maxString.empty());
+    STATIC_REQUIRE_FALSE(maxSmall.empty());
+    STATIC_REQUIRE_FALSE(maxTiny.empty());
+    STATIC_REQUIRE(emptyString.empty());
+  }
+
+  SECTION("Edge cases") {
+    constexpr const CString singleChar("A");
+    constexpr const CString twoChars("AB");
+    constexpr const CString emptyString("");
+    constexpr const CString defaultString;
+
+    REQUIRE_FALSE(singleChar.empty());
+    REQUIRE_FALSE(twoChars.empty());
+    REQUIRE(emptyString.empty());
+    REQUIRE(defaultString.empty());
+    REQUIRE(singleChar.size() == 1);
+    REQUIRE(twoChars.size() == 2);
+    REQUIRE(emptyString.size() == 0);
+    REQUIRE(defaultString.size() == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE_FALSE(singleChar.empty());
+    STATIC_REQUIRE_FALSE(twoChars.empty());
+    STATIC_REQUIRE(emptyString.empty());
+    STATIC_REQUIRE(defaultString.empty());
+    STATIC_REQUIRE(singleChar.size() == 1);
+    STATIC_REQUIRE(twoChars.size() == 2);
+    STATIC_REQUIRE(emptyString.size() == 0);
+    STATIC_REQUIRE(defaultString.size() == 0);
+  }
+}

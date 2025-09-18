@@ -208,6 +208,20 @@ public:
   */
   [[nodiscard]] constexpr const char * c_str() const noexcept;
 
+  /*!
+    \brief Checks if the string is empty.
+
+    This method checks if the string is empty, i.e. its size is zero. An empty string contains no characters and has a
+    length of zero.
+
+    \return True if the string is empty, false otherwise.
+
+    \note An empty string has size zero.
+    \note An empty string still contains a null terminator.
+    \note This method is equivalent to the expression: ```size() == 0```.
+  */
+  [[nodiscard]] constexpr bool empty() const noexcept;
+
   [[nodiscard]] constexpr std::size_t size() const noexcept;
 
 private:
