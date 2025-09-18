@@ -160,7 +160,7 @@ char * wcharToUtf8(char * dest, std::size_t destSize, const wchar_t * src) noexc
   \note Performance is optimized for common UTF-8 patterns.
   \note Invalid UTF-8 sequences cause the function to return 0.
 */
-std::size_t utf8len(const char * str) noexcept;
+std::size_t utf8Len(const char * str) noexcept;
 
 /*!
   \brief Reverses a given string in-place.

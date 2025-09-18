@@ -60,7 +60,7 @@ void assertion(const char * code, const char * message, const char * fileName, c
 #if defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)
     strcpy_s(&assertionString[sizeof(assertionString) - truncationLength], truncationLength, truncationMessage);
 #else // defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)
-    strncpy(&assertionString[sizeof(assertionString) - truncationLength], truncationMessage, truncationLength);
+    std::strncpy(&assertionString[sizeof(assertionString) - truncationLength], truncationMessage, truncationLength);
 #endif
   }
 
