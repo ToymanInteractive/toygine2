@@ -1114,14 +1114,8 @@ TEST_CASE("FixedString front and back", "[core][fixed_string]") {
   SECTION("Const references") {
     constexpr const FixedString<32> testString("Hello World");
 
-    // Get const references
-    const auto & frontRef = testString.front();
-    const auto & backRef = testString.back();
-
-    REQUIRE(frontRef == 'H');
-    REQUIRE(backRef == 'd');
-    REQUIRE(frontRef == testString[0]);
-    REQUIRE(backRef == testString[testString.size() - 1]);
+    STATIC_REQUIRE(testString.front() == 'H');
+    STATIC_REQUIRE(testString.back() == 'd');
   }
 
   SECTION("Special characters") {
@@ -1262,22 +1256,14 @@ TEST_CASE("FixedString front and back", "[core][fixed_string]") {
     constexpr const FixedString<16> str3("Test");
 
     // Compile-time front operations
-    constexpr const char front1 = str1.front();
-    constexpr const char front2 = str2.front();
-    constexpr const char front3 = str3.front();
-
-    STATIC_REQUIRE(front1 == 'H');
-    STATIC_REQUIRE(front2 == 'W');
-    STATIC_REQUIRE(front3 == 'T');
+    STATIC_REQUIRE(str1.front() == 'H');
+    STATIC_REQUIRE(str2.front() == 'W');
+    STATIC_REQUIRE(str3.front() == 'T');
 
     // Compile-time back operations
-    constexpr const char back1 = str1.back();
-    constexpr const char back2 = str2.back();
-    constexpr const char back3 = str3.back();
-
-    STATIC_REQUIRE(back1 == 'o');
-    STATIC_REQUIRE(back2 == 'd');
-    STATIC_REQUIRE(back3 == 't');
+    STATIC_REQUIRE(str1.back() == 'o');
+    STATIC_REQUIRE(str2.back() == 'd');
+    STATIC_REQUIRE(str3.back() == 't');
   }
 }
 
@@ -1402,35 +1388,337 @@ TEST_CASE("FixedString c_str method", "[core][fixed_string]") {
   }
 }
 
-// to refactor 3563 - 1407 = 2156
+TEST_CASE("FixedString empty method", "[core][fixed_string]") {
+  SECTION("Basic empty check") {
+    constexpr const FixedString<16> nonEmptyString("Hello World");
+    constexpr const FixedString<8> emptyString("");
+    constexpr const FixedString<4> defaultString;
 
-TEST_CASE("FixedString empty", "[core][fixed_string]") {
-  constexpr const FixedString<16> testString1("ToyGine2");
-  constexpr const FixedString<4> testString2("");
+    REQUIRE_FALSE(nonEmptyString.empty());
+    REQUIRE(emptyString.empty());
+    REQUIRE(defaultString.empty());
 
-  REQUIRE_FALSE(testString1.empty());
-  REQUIRE(testString2.empty());
+    // Compile-time checks
+    STATIC_REQUIRE_FALSE(nonEmptyString.empty());
+    STATIC_REQUIRE(emptyString.empty());
+    STATIC_REQUIRE(defaultString.empty());
+  }
 
-  // Compile-time checks with STATIC_REQUIRE
-  // STATIC_REQUIRE_FALSE(testString1.empty());
-  // STATIC_REQUIRE(testString2.empty());
-  // STATIC_REQUIRE(testString1.size() > 0);
-  // STATIC_REQUIRE(testString2.size() == 0);
+  SECTION("Single character strings") {
+    constexpr const FixedString<8> singleChar("A");
+    constexpr const FixedString<4> emptyString("");
+
+    REQUIRE_FALSE(singleChar.empty());
+    REQUIRE(emptyString.empty());
+
+    // Compile-time checks
+    STATIC_REQUIRE_FALSE(singleChar.empty());
+    STATIC_REQUIRE(emptyString.empty());
+  }
+
+  SECTION("Different capacities") {
+    constexpr const FixedString<8> smallString("Hi");
+    constexpr const FixedString<16> mediumString("Hello World");
+    constexpr const FixedString<32> largeString("This is a longer string");
+    constexpr const FixedString<8> emptySmall("");
+    constexpr const FixedString<16> emptyMedium("");
+    constexpr const FixedString<32> emptyLarge("");
+
+    REQUIRE_FALSE(smallString.empty());
+    REQUIRE_FALSE(mediumString.empty());
+    REQUIRE_FALSE(largeString.empty());
+    REQUIRE(emptySmall.empty());
+    REQUIRE(emptyMedium.empty());
+    REQUIRE(emptyLarge.empty());
+
+    // Compile-time checks
+    STATIC_REQUIRE_FALSE(smallString.empty());
+    STATIC_REQUIRE_FALSE(mediumString.empty());
+    STATIC_REQUIRE_FALSE(largeString.empty());
+    STATIC_REQUIRE(emptySmall.empty());
+    STATIC_REQUIRE(emptyMedium.empty());
+    STATIC_REQUIRE(emptyLarge.empty());
+  }
+
+  SECTION("Special characters") {
+    constexpr const FixedString<32> newlineString("Hello\nWorld");
+    constexpr const FixedString<32> tabString("Hello\tWorld");
+    constexpr const FixedString<32> specialString("!@#$%^&*()");
+    constexpr const FixedString<32> emptyString("");
+
+    REQUIRE_FALSE(newlineString.empty());
+    REQUIRE_FALSE(tabString.empty());
+    REQUIRE_FALSE(specialString.empty());
+    REQUIRE(emptyString.empty());
+
+    // Compile-time checks
+    STATIC_REQUIRE_FALSE(newlineString.empty());
+    STATIC_REQUIRE_FALSE(tabString.empty());
+    STATIC_REQUIRE_FALSE(specialString.empty());
+    STATIC_REQUIRE(emptyString.empty());
+  }
+
+  SECTION("Unicode content") {
+    constexpr const FixedString<64> unicodeString("Привет мир");
+    constexpr const FixedString<64> emojiString("Hello 🌍 World");
+    constexpr const FixedString<64> mixedString("Hello 世界");
+    constexpr const FixedString<64> emptyString("");
+
+    REQUIRE_FALSE(unicodeString.empty());
+    REQUIRE_FALSE(emojiString.empty());
+    REQUIRE_FALSE(mixedString.empty());
+    REQUIRE(emptyString.empty());
+
+    // Compile-time checks
+    STATIC_REQUIRE_FALSE(unicodeString.empty());
+    STATIC_REQUIRE_FALSE(emojiString.empty());
+    STATIC_REQUIRE_FALSE(mixedString.empty());
+    STATIC_REQUIRE(emptyString.empty());
+  }
+
+  SECTION("Numeric content") {
+    constexpr const FixedString<16> numericString("12345");
+    constexpr const FixedString<16> floatString("3.14159");
+    constexpr const FixedString<16> hexString("0xABCD");
+    constexpr const FixedString<16> emptyString("");
+
+    REQUIRE_FALSE(numericString.empty());
+    REQUIRE_FALSE(floatString.empty());
+    REQUIRE_FALSE(hexString.empty());
+    REQUIRE(emptyString.empty());
+
+    // Compile-time checks
+    STATIC_REQUIRE_FALSE(numericString.empty());
+    STATIC_REQUIRE_FALSE(floatString.empty());
+    STATIC_REQUIRE_FALSE(hexString.empty());
+    STATIC_REQUIRE(emptyString.empty());
+  }
+
+  SECTION("Mixed content") {
+    constexpr const FixedString<32> mixedString("Hello123World!@#");
+    constexpr const FixedString<32> complexString("Test\n123\t!@#");
+    constexpr const FixedString<64> longString("This is a very long string with mixed content 123!@#");
+    constexpr const FixedString<32> emptyString("");
+
+    REQUIRE_FALSE(mixedString.empty());
+    REQUIRE_FALSE(complexString.empty());
+    REQUIRE_FALSE(longString.empty());
+    REQUIRE(emptyString.empty());
+
+    // Compile-time checks
+    STATIC_REQUIRE_FALSE(mixedString.empty());
+    STATIC_REQUIRE_FALSE(complexString.empty());
+    STATIC_REQUIRE_FALSE(longString.empty());
+    STATIC_REQUIRE(emptyString.empty());
+  }
+
+  SECTION("Maximum length strings") {
+    constexpr const FixedString<16> maxString("123456789012345"); // 15 characters
+    constexpr const FixedString<8> maxSmall("1234567"); // 7 characters
+    constexpr const FixedString<4> maxTiny("123"); // 3 characters
+    constexpr const FixedString<16> emptyString("");
+
+    REQUIRE_FALSE(maxString.empty());
+    REQUIRE_FALSE(maxSmall.empty());
+    REQUIRE_FALSE(maxTiny.empty());
+    REQUIRE(emptyString.empty());
+
+    // Compile-time checks
+    STATIC_REQUIRE_FALSE(maxString.empty());
+    STATIC_REQUIRE_FALSE(maxSmall.empty());
+    STATIC_REQUIRE_FALSE(maxTiny.empty());
+    STATIC_REQUIRE(emptyString.empty());
+  }
+
+  SECTION("Edge cases") {
+    constexpr const FixedString<8> singleChar("A");
+    constexpr const FixedString<8> twoChars("AB");
+    constexpr const FixedString<8> emptyString("");
+    constexpr const FixedString<8> defaultString;
+
+    REQUIRE_FALSE(singleChar.empty());
+    REQUIRE_FALSE(twoChars.empty());
+    REQUIRE(emptyString.empty());
+    REQUIRE(defaultString.empty());
+    REQUIRE(singleChar.size() == 1);
+    REQUIRE(twoChars.size() == 2);
+    REQUIRE(emptyString.size() == 0);
+    REQUIRE(defaultString.size() == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE_FALSE(singleChar.empty());
+    STATIC_REQUIRE_FALSE(twoChars.empty());
+    STATIC_REQUIRE(emptyString.empty());
+    STATIC_REQUIRE(defaultString.empty());
+    STATIC_REQUIRE(singleChar.size() == 1);
+    STATIC_REQUIRE(twoChars.size() == 2);
+    STATIC_REQUIRE(emptyString.size() == 0);
+    STATIC_REQUIRE(defaultString.size() == 0);
+  }
 }
 
-TEST_CASE("FixedString size", "[core][fixed_string]") {
-  constexpr const FixedString<64> testString1("ToyGine2 - Free 2D/3D game engine.");
-  constexpr const FixedString<64> testString2;
+TEST_CASE("FixedString size method", "[core][fixed_string]") {
+  SECTION("Basic size check") {
+    constexpr const FixedString<16> testString("Hello World");
+    constexpr const FixedString<8> emptyString("");
+    constexpr const FixedString<4> defaultString;
 
-  REQUIRE(testString1.size() == 34);
-  REQUIRE(testString2.size() == 0);
+    REQUIRE(testString.size() == 11);
+    REQUIRE(emptyString.size() == 0);
+    REQUIRE(defaultString.size() == 0);
 
-  // Compile-time checks with STATIC_REQUIRE
-  // STATIC_REQUIRE(testString1.size() == 34);
-  // STATIC_REQUIRE(testString2.size() == 0);
-  // STATIC_REQUIRE(testString1.length() == 34);
-  // STATIC_REQUIRE(testString2.length() == 0);
+    // Compile-time checks
+    STATIC_REQUIRE(testString.size() == 11);
+    STATIC_REQUIRE(emptyString.size() == 0);
+    STATIC_REQUIRE(defaultString.size() == 0);
+  }
+
+  SECTION("Single character strings") {
+    constexpr const FixedString<8> singleChar("A");
+    constexpr const FixedString<4> emptyString("");
+
+    REQUIRE(singleChar.size() == 1);
+    REQUIRE(emptyString.size() == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(singleChar.size() == 1);
+    STATIC_REQUIRE(emptyString.size() == 0);
+  }
+
+  SECTION("Different capacities") {
+    constexpr const FixedString<8> smallString("Hi");
+    constexpr const FixedString<16> mediumString("Hello World");
+    constexpr const FixedString<32> largeString("This is a longer string");
+    constexpr const FixedString<8> emptySmall("");
+    constexpr const FixedString<16> emptyMedium("");
+    constexpr const FixedString<32> emptyLarge("");
+
+    REQUIRE(smallString.size() == 2);
+    REQUIRE(mediumString.size() == 11);
+    REQUIRE(largeString.size() == 23);
+    REQUIRE(emptySmall.size() == 0);
+    REQUIRE(emptyMedium.size() == 0);
+    REQUIRE(emptyLarge.size() == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(smallString.size() == 2);
+    STATIC_REQUIRE(mediumString.size() == 11);
+    STATIC_REQUIRE(largeString.size() == 23);
+    STATIC_REQUIRE(emptySmall.size() == 0);
+    STATIC_REQUIRE(emptyMedium.size() == 0);
+    STATIC_REQUIRE(emptyLarge.size() == 0);
+  }
+
+  SECTION("Special characters") {
+    constexpr const FixedString<32> newlineString("Hello\nWorld");
+    constexpr const FixedString<32> tabString("Hello\tWorld");
+    constexpr const FixedString<32> specialString("!@#$%^&*()");
+    constexpr const FixedString<32> emptyString("");
+
+    REQUIRE(newlineString.size() == 11);
+    REQUIRE(tabString.size() == 11);
+    REQUIRE(specialString.size() == 10);
+    REQUIRE(emptyString.size() == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(newlineString.size() == 11);
+    STATIC_REQUIRE(tabString.size() == 11);
+    STATIC_REQUIRE(specialString.size() == 10);
+    STATIC_REQUIRE(emptyString.size() == 0);
+  }
+
+  SECTION("Unicode content") {
+    constexpr const FixedString<64> unicodeString("Привет мир");
+    constexpr const FixedString<64> emojiString("Hello 🌍 World");
+    constexpr const FixedString<64> mixedString("Hello 世界");
+    constexpr const FixedString<64> emptyString("");
+
+    REQUIRE(unicodeString.size() == 19);
+    REQUIRE(emojiString.size() == 16);
+    REQUIRE(mixedString.size() == 12);
+    REQUIRE(emptyString.size() == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(unicodeString.size() == 19);
+    STATIC_REQUIRE(emojiString.size() == 16);
+    STATIC_REQUIRE(mixedString.size() == 12);
+    STATIC_REQUIRE(emptyString.size() == 0);
+  }
+
+  SECTION("Numeric content") {
+    constexpr const FixedString<16> numericString("12345");
+    constexpr const FixedString<16> floatString("3.14159");
+    constexpr const FixedString<16> hexString("0xABCD");
+    constexpr const FixedString<16> emptyString("");
+
+    REQUIRE(numericString.size() == 5);
+    REQUIRE(floatString.size() == 7);
+    REQUIRE(hexString.size() == 6);
+    REQUIRE(emptyString.size() == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(numericString.size() == 5);
+    STATIC_REQUIRE(floatString.size() == 7);
+    STATIC_REQUIRE(hexString.size() == 6);
+    STATIC_REQUIRE(emptyString.size() == 0);
+  }
+
+  SECTION("Mixed content") {
+    constexpr const FixedString<32> mixedString("Hello123World!@#");
+    constexpr const FixedString<32> complexString("Test\n123\t!@#");
+    constexpr const FixedString<64> longString("This is a very long string with mixed content 123!@#");
+    constexpr const FixedString<32> emptyString("");
+
+    REQUIRE(mixedString.size() == 16);
+    REQUIRE(complexString.size() == 12);
+    REQUIRE(longString.size() == 52);
+    REQUIRE(emptyString.size() == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(mixedString.size() == 16);
+    STATIC_REQUIRE(complexString.size() == 12);
+    STATIC_REQUIRE(longString.size() == 52);
+    STATIC_REQUIRE(emptyString.size() == 0);
+  }
+
+  SECTION("Maximum length strings") {
+    constexpr const FixedString<16> maxString("123456789012345"); // 15 characters
+    constexpr const FixedString<8> maxSmall("1234567"); // 7 characters
+    constexpr const FixedString<4> maxTiny("123"); // 3 characters
+    constexpr const FixedString<16> emptyString("");
+
+    REQUIRE(maxString.size() == 15);
+    REQUIRE(maxSmall.size() == 7);
+    REQUIRE(maxTiny.size() == 3);
+    REQUIRE(emptyString.size() == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(maxString.size() == 15);
+    STATIC_REQUIRE(maxSmall.size() == 7);
+    STATIC_REQUIRE(maxTiny.size() == 3);
+    STATIC_REQUIRE(emptyString.size() == 0);
+  }
+
+  SECTION("Edge cases") {
+    constexpr const FixedString<8> singleChar("A");
+    constexpr const FixedString<8> twoChars("AB");
+    constexpr const FixedString<8> emptyString("");
+    constexpr const FixedString<8> defaultString;
+
+    REQUIRE(singleChar.size() == 1);
+    REQUIRE(twoChars.size() == 2);
+    REQUIRE(emptyString.size() == 0);
+    REQUIRE(defaultString.size() == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(singleChar.size() == 1);
+    STATIC_REQUIRE(twoChars.size() == 2);
+    STATIC_REQUIRE(emptyString.size() == 0);
+    STATIC_REQUIRE(defaultString.size() == 0);
+  }
 }
+
+// to refactor 3849 - 1721 = 2128
 
 TEST_CASE("FixedString utf8_size", "[core][fixed_string]") {
   static constexpr char ansiText[] = "ToyGine2 - Free 2D/3D game engine.";

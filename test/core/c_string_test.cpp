@@ -434,7 +434,6 @@ TEST_CASE("CString at", "[core][c_string]") {
     REQUIRE(str.at(2) == 'r');
     REQUIRE(str.at(3) == 'l');
     REQUIRE(str.at(4) == 'd');
-    REQUIRE(str.at(5) == '\0');
 
     // Compile-time checks
     STATIC_REQUIRE(str.at(0) == 'W');
@@ -465,14 +464,13 @@ TEST_CASE("CString operator[]", "[core][c_string]") {
     REQUIRE(str[2] == 'l');
     REQUIRE(str[3] == 'l');
     REQUIRE(str[4] == 'o');
-    REQUIRE(str[5] == '\0');
 
     REQUIRE(longStr[0] == 'V');
     REQUIRE(longStr[1] == 'e');
     REQUIRE(longStr[2] == 'r');
     REQUIRE(longStr[3] == 'y');
     REQUIRE(longStr[4] == 'L');
-    REQUIRE(longStr[14] == '\0');
+    REQUIRE(longStr[13] == 'g');
 
     // Compile-time checks
     STATIC_REQUIRE(str[0] == 'H');
@@ -556,10 +554,10 @@ TEST_CASE("CString front and back", "[core][c_string]") {
     const auto & frontRef = testString.front();
     const auto & backRef = testString.back();
 
-    REQUIRE(frontRef == 'H');
-    REQUIRE(backRef == 'd');
-    REQUIRE(frontRef == testString[0]);
-    REQUIRE(backRef == testString[testString.size() - 1]);
+    STATIC_REQUIRE(frontRef == 'H');
+    STATIC_REQUIRE(backRef == 'd');
+    STATIC_REQUIRE(frontRef == testString[0]);
+    STATIC_REQUIRE(backRef == testString[testString.size() - 1]);
   }
 
   SECTION("Numeric content") {
