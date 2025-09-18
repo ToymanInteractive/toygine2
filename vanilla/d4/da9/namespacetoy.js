@@ -48,7 +48,7 @@ var namespacetoy =
     [ "operator==", "d4/da9/namespacetoy.html#acf758a094d8de5ef108ef3e984c37cf1", null ],
     [ "operator==", "d4/da9/namespacetoy.html#a300e65bc1fbafecbcf63f47317198ec4", null ],
     [ "reverseString", "d4/da9/namespacetoy.html#a08e2e765a94dee108e646fd69fe7b535", null ],
-    [ "utf8len", "d4/da9/namespacetoy.html#ab41beccd1bdd9b97fe8adae3fd294d93", null ],
+    [ "utf8Len", "d4/da9/namespacetoy.html#a4d645acb64c01923ca7a9ab11c0ae7f0", null ],
     [ "utf8toWChar", "d4/da9/namespacetoy.html#a9dbda78acf36cc3d5cf3f59eb80232bc", null ],
     [ "utf8toWChar", "d4/da9/namespacetoy.html#aff93fe11056b42f3c929e4739bbad1bf", null ],
     [ "utf8toWChar", "d4/da9/namespacetoy.html#ad81a8970ee6596253140bc264ef6e441", null ],

@@ -16,7 +16,7 @@ var utils_8cpp =
     [ "itoa", "de/d06/utils_8cpp.html#a4ae4e6c5cad6d6db25d552a6254b362d", null ],
     [ "itoa", "de/d06/utils_8cpp.html#a85d2dc4a41dd3f21c08bc7565ca499b2", null ],
     [ "itoa", "de/d06/utils_8cpp.html#a23fc801de24bb0daa8db0b2eec615c4d", null ],
-    [ "utf8len", "de/d06/utils_8cpp.html#ab41beccd1bdd9b97fe8adae3fd294d93", null ],
+    [ "utf8Len", "de/d06/utils_8cpp.html#a4d645acb64c01923ca7a9ab11c0ae7f0", null ],
     [ "utf8toWChar", "de/d06/utils_8cpp.html#aff93fe11056b42f3c929e4739bbad1bf", null ],
     [ "wcharToUtf8", "de/d06/utils_8cpp.html#af6f23b1a42f8357ca5341bbe33902d99", null ],
     [ "sc_exponentTable", "de/d06/utils_8cpp.html#a16763e814fa75374c37a7c9b6ac4379b", null ],

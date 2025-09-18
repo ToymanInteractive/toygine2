@@ -197,9 +197,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a224bd4611e4b21cca0d29dcac02bd745" id="r_a224bd4611e4b21cca0d29dcac02bd745"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a224bd4611e4b21cca0d29dcac02bd745">size</a> () const noexcept</td></tr>
 <tr class="memdesc:a224bd4611e4b21cca0d29dcac02bd745"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the size of the string.  <br /></td></tr>
 <tr class="separator:a224bd4611e4b21cca0d29dcac02bd745"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9891528d1f242d02c83e38cf270b397a" id="r_a9891528d1f242d02c83e38cf270b397a"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9891528d1f242d02c83e38cf270b397a">utf8_size</a> () const noexcept</td></tr>
-<tr class="memdesc:a9891528d1f242d02c83e38cf270b397a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the size of the Unicode string in UTF-8 encoding.  <br /></td></tr>
-<tr class="separator:a9891528d1f242d02c83e38cf270b397a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad23a132e4628fa6d3630ce63f77b8c19" id="r_ad23a132e4628fa6d3630ce63f77b8c19"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad23a132e4628fa6d3630ce63f77b8c19">utf8_size</a> () const noexcept</td></tr>
+<tr class="memdesc:ad23a132e4628fa6d3630ce63f77b8c19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the size of the Unicode string in UTF-8 encoding.  <br /></td></tr>
+<tr class="separator:ad23a132e4628fa6d3630ce63f77b8c19"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a19f848072d9c2acba06dd646981ecf95" id="r_a19f848072d9c2acba06dd646981ecf95"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a19f848072d9c2acba06dd646981ecf95">length</a> () const noexcept</td></tr>
 <tr class="memdesc:a19f848072d9c2acba06dd646981ecf95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the size of the string.  <br /></td></tr>
 <tr class="separator:a19f848072d9c2acba06dd646981ecf95"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1064,7 +1064,7 @@ template&lt;std::size_t allocatedSize&gt; </div>
 <dd>
 The <em>data</em> must not be null. </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno"> 1241</span>                                                                                                           {</div>
-<div class="line"><span class="lineno"> 1242</span>  <span class="keywordflow">if</span> (<a class="code hl_variable" href="#a67e4f0a023d0c3804589c8f2aee20c33">_size</a> == 0)</div>
+<div class="line"><span class="lineno"> 1242</span>  <span class="keywordflow">if</span> (<a class="code hl_function" href="#a58766d349db9bcadf7ec2d9139dc7594">empty</a>())</div>
 <div class="line"><span class="lineno"> 1243</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="#a4f5ecd1ba2214f334b80182dd0581bbb">npos</a>;</div>
 <div class="line"><span class="lineno"> 1244</span> </div>
 <div class="line"><span class="lineno"> 1245</span>  <span class="keywordflow">if</span> (position == <a class="code hl_variable" href="#a4f5ecd1ba2214f334b80182dd0581bbb">npos</a>)</div>
@@ -1098,6 +1098,7 @@ The <em>data</em> must not be null. </dd></dl>
 <div class="line"><span class="lineno"> 1273</span> </div>
 <div class="line"><span class="lineno"> 1274</span>  <span class="keywordflow">return</span> <a class="code hl_variable" href="#a4f5ecd1ba2214f334b80182dd0581bbb">npos</a>;</div>
 <div class="line"><span class="lineno"> 1275</span>}</div>
+<div class="ttc" id="aclasstoy_1_1_fixed_string_html_a58766d349db9bcadf7ec2d9139dc7594"><div class="ttname"><a href="#a58766d349db9bcadf7ec2d9139dc7594">toy::FixedString::empty</a></div><div class="ttdeci">constexpr bool empty() const noexcept</div><div class="ttdoc">Checks if the string is empty.</div><div class="ttdef"><b>Definition</b> fixed_string.inl:304</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1150,7 +1151,7 @@ template&lt;std::size_t allocatedSize&gt; </div>
 <dd>
 The <em>data</em> must not be null. </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno"> 1206</span>                                                                                                       {</div>
-<div class="line"><span class="lineno"> 1207</span>  <span class="keywordflow">if</span> (dataSize == 0 || <a class="code hl_variable" href="#a67e4f0a023d0c3804589c8f2aee20c33">_size</a> == 0)</div>
+<div class="line"><span class="lineno"> 1207</span>  <span class="keywordflow">if</span> (dataSize == 0 || <a class="code hl_function" href="#a58766d349db9bcadf7ec2d9139dc7594">empty</a>())</div>
 <div class="line"><span class="lineno"> 1208</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="#a4f5ecd1ba2214f334b80182dd0581bbb">npos</a>;</div>
 <div class="line"><span class="lineno"> 1209</span> </div>
 <div class="line"><span class="lineno"> 1210</span>  <span class="keywordflow">if</span> (position == <a class="code hl_variable" href="#a4f5ecd1ba2214f334b80182dd0581bbb">npos</a>)</div>
@@ -2023,7 +2024,7 @@ Use the non-const overload to allow modification. </dd>
 This method is equivalent to the subscript operator.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#af40586928d04991636e25097a6c7776b" title="Access a character in the string at a given offset.">operator[](std::size_t offset) const</a> </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">  244</span>                                                                                     {</div>
-<div class="line"><span class="lineno">  245</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#acee011a673448baf706197935ace44c7">assert_message</a>(offset &lt; <a class="code hl_variable" href="#a67e4f0a023d0c3804589c8f2aee20c33">_size</a> || (offset == 0 &amp;&amp; <a class="code hl_variable" href="#a67e4f0a023d0c3804589c8f2aee20c33">_size</a> == 0), <span class="stringliteral">&quot;Offset must be within bounds&quot;</span>);</div>
+<div class="line"><span class="lineno">  245</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#acee011a673448baf706197935ace44c7">assert_message</a>(offset &lt; <a class="code hl_variable" href="#a67e4f0a023d0c3804589c8f2aee20c33">_size</a> || (offset == 0 &amp;&amp; <a class="code hl_function" href="#a58766d349db9bcadf7ec2d9139dc7594">empty</a>()), <span class="stringliteral">&quot;Offset must be within bounds&quot;</span>);</div>
 <div class="line"><span class="lineno">  246</span> </div>
 <div class="line"><span class="lineno">  247</span>  <span class="keywordflow">return</span> <a class="code hl_variable" href="#ab15c6d6e2602f732ee7feb05cd7bb5d1">_data</a>[offset];</div>
 <div class="line"><span class="lineno">  248</span>}</div>
@@ -5042,7 +5043,7 @@ template&lt;std::size_t allocatedSize&gt; </div>
 <dd>
 Use the non-const overload to allow modification. </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">  258</span>                                                                                             {</div>
-<div class="line"><span class="lineno">  259</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#acee011a673448baf706197935ace44c7">assert_message</a>(offset &lt; <a class="code hl_variable" href="#a67e4f0a023d0c3804589c8f2aee20c33">_size</a> || (offset == 0 &amp;&amp; <a class="code hl_variable" href="#a67e4f0a023d0c3804589c8f2aee20c33">_size</a> == 0), <span class="stringliteral">&quot;Offset must be within bounds&quot;</span>);</div>
+<div class="line"><span class="lineno">  259</span>  <a class="code hl_define" href="../../dd/d9e/linux_2platform__config_8hpp.html#acee011a673448baf706197935ace44c7">assert_message</a>(offset &lt; <a class="code hl_variable" href="#a67e4f0a023d0c3804589c8f2aee20c33">_size</a> || (offset == 0 &amp;&amp; <a class="code hl_function" href="#a58766d349db9bcadf7ec2d9139dc7594">empty</a>()), <span class="stringliteral">&quot;Offset must be within bounds&quot;</span>);</div>
 <div class="line"><span class="lineno">  260</span> </div>
 <div class="line"><span class="lineno">  261</span>  <span class="keywordflow">return</span> <a class="code hl_variable" href="#ab15c6d6e2602f732ee7feb05cd7bb5d1">_data</a>[offset];</div>
 <div class="line"><span class="lineno">  262</span>}</div>
@@ -6094,8 +6095,8 @@ This method is useful when working with internationalized text that may contain 
 </div><!-- fragment -->
 </div>
 </div>
-<a id="a9891528d1f242d02c83e38cf270b397a" name="a9891528d1f242d02c83e38cf270b397a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9891528d1f242d02c83e38cf270b397a">&#9670;&#160;</a></span>utf8_size()</h2>
+<a id="ad23a132e4628fa6d3630ce63f77b8c19" name="ad23a132e4628fa6d3630ce63f77b8c19"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad23a132e4628fa6d3630ce63f77b8c19">&#9670;&#160;</a></span>utf8_size()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -6114,7 +6115,7 @@ template&lt;std::size_t allocatedSize&gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">nodiscard</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">nodiscard</span><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -6122,17 +6123,17 @@ template&lt;std::size_t allocatedSize&gt; </div>
 <p>Returns the size of the Unicode string in UTF-8 encoding. </p>
 <p>This method returns the number of Unicode characters in the UTF-8 encoded string, excluding the terminating null character. For ASCII strings, this value equals the <a class="el" href="#a224bd4611e4b21cca0d29dcac02bd745" title="Returns the size of the string.">size()</a> method. For UTF-8 encoded strings, this method counts the number of Unicode characters rather than bytes. The method validates UTF-8 encoding and counts only complete, well-formed Unicode characters.</p>
 <dl class="section return"><dt>Returns</dt><dd>The number of Unicode characters in the string, excluding the terminating null character.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>For ASCII strings, <a class="el" href="#a9891528d1f242d02c83e38cf270b397a" title="Returns the size of the Unicode string in UTF-8 encoding.">utf8_size()</a> equals <a class="el" href="#a224bd4611e4b21cca0d29dcac02bd745" title="Returns the size of the string.">size()</a>. </dd>
+<dl class="section note"><dt>Note</dt><dd>For ASCII strings, <a class="el" href="#ad23a132e4628fa6d3630ce63f77b8c19" title="Returns the size of the Unicode string in UTF-8 encoding.">utf8_size()</a> equals <a class="el" href="#a224bd4611e4b21cca0d29dcac02bd745" title="Returns the size of the string.">size()</a>. </dd>
 <dd>
-For UTF-8 strings, <a class="el" href="#a9891528d1f242d02c83e38cf270b397a" title="Returns the size of the Unicode string in UTF-8 encoding.">utf8_size()</a> may be less than <a class="el" href="#a224bd4611e4b21cca0d29dcac02bd745" title="Returns the size of the string.">size()</a>. </dd>
+For UTF-8 strings, <a class="el" href="#ad23a132e4628fa6d3630ce63f77b8c19" title="Returns the size of the Unicode string in UTF-8 encoding.">utf8_size()</a> may be less than <a class="el" href="#a224bd4611e4b21cca0d29dcac02bd745" title="Returns the size of the string.">size()</a>. </dd>
 <dd>
 Invalid UTF-8 sequences are handled gracefully and may affect the count. </dd>
 <dd>
 This method is useful for internationalization and text processing applications. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">  314</span>                                                                         {</div>
-<div class="line"><span class="lineno">  315</span>  <span class="keywordflow">return</span> <a class="code hl_function" href="../../d4/da9/namespacetoy.html#ab41beccd1bdd9b97fe8adae3fd294d93">utf8len</a>(<a class="code hl_variable" href="#ab15c6d6e2602f732ee7feb05cd7bb5d1">_data</a>);</div>
+<div class="fragment"><div class="line"><span class="lineno">  314</span>                                                                      {</div>
+<div class="line"><span class="lineno">  315</span>  <span class="keywordflow">return</span> <a class="code hl_function" href="../../d4/da9/namespacetoy.html#a4d645acb64c01923ca7a9ab11c0ae7f0">utf8Len</a>(<a class="code hl_variable" href="#ab15c6d6e2602f732ee7feb05cd7bb5d1">_data</a>);</div>
 <div class="line"><span class="lineno">  316</span>}</div>
-<div class="ttc" id="anamespacetoy_html_ab41beccd1bdd9b97fe8adae3fd294d93"><div class="ttname"><a href="../../d4/da9/namespacetoy.html#ab41beccd1bdd9b97fe8adae3fd294d93">toy::utf8len</a></div><div class="ttdeci">std::size_t utf8len(const char *string) noexcept</div><div class="ttdoc">Returns the number of Unicode characters in a UTF-8 encoded string.</div><div class="ttdef"><b>Definition</b> utils.cpp:413</div></div>
+<div class="ttc" id="anamespacetoy_html_a4d645acb64c01923ca7a9ab11c0ae7f0"><div class="ttname"><a href="../../d4/da9/namespacetoy.html#a4d645acb64c01923ca7a9ab11c0ae7f0">toy::utf8Len</a></div><div class="ttdeci">std::size_t utf8Len(const char *string) noexcept</div><div class="ttdoc">Returns the number of Unicode characters in a UTF-8 encoded string.</div><div class="ttdef"><b>Definition</b> utils.cpp:413</div></div>
 </div><!-- fragment -->
 </div>
 </div>

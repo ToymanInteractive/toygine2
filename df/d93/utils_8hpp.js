@@ -12,7 +12,7 @@ var utils_8hpp =
     [ "itoa", "df/d93/utils_8hpp.html#a85d2dc4a41dd3f21c08bc7565ca499b2", null ],
     [ "itoa", "df/d93/utils_8hpp.html#a23fc801de24bb0daa8db0b2eec615c4d", null ],
     [ "reverseString", "df/d93/utils_8hpp.html#a08e2e765a94dee108e646fd69fe7b535", null ],
-    [ "utf8len", "df/d93/utils_8hpp.html#ab41beccd1bdd9b97fe8adae3fd294d93", null ],
+    [ "utf8Len", "df/d93/utils_8hpp.html#a4d645acb64c01923ca7a9ab11c0ae7f0", null ],
     [ "utf8toWChar", "df/d93/utils_8hpp.html#a9dbda78acf36cc3d5cf3f59eb80232bc", null ],
     [ "utf8toWChar", "df/d93/utils_8hpp.html#aff93fe11056b42f3c929e4739bbad1bf", null ],
     [ "utf8toWChar", "df/d93/utils_8hpp.html#ad81a8970ee6596253140bc264ef6e441", null ],
