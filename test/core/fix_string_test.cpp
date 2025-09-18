@@ -1977,23 +1977,310 @@ TEST_CASE("FixedString length", "[core][fixed_string]") {
   }
 }
 
-// to refactor 4076 - 1980 = 2096
-
 TEST_CASE("FixedString max_size", "[core][fixed_string]") {
-  constexpr const FixedString<64> testString1("ToyGine2 - Free 2D/3D game engine.");
-  constexpr const FixedString<16> testString2("");
+  SECTION("Basic max_size check") {
+    constexpr const FixedString<8> smallString("Hi");
+    constexpr const FixedString<16> mediumString("Hello World");
+    constexpr const FixedString<32> largeString("This is a longer string");
+    constexpr const FixedString<64> extraLargeString("This is an even longer string for testing");
 
-  REQUIRE(testString1.max_size() == 63);
-  REQUIRE(testString2.max_size() == 15);
+    REQUIRE(smallString.max_size() == 7);
+    REQUIRE(mediumString.max_size() == 15);
+    REQUIRE(largeString.max_size() == 31);
+    REQUIRE(extraLargeString.max_size() == 63);
+
+    STATIC_REQUIRE(smallString.max_size() == 7);
+    STATIC_REQUIRE(mediumString.max_size() == 15);
+    STATIC_REQUIRE(largeString.max_size() == 31);
+    STATIC_REQUIRE(extraLargeString.max_size() == 63);
+  }
+
+  SECTION("Empty strings") {
+    constexpr const FixedString<8> emptySmall("");
+    constexpr const FixedString<16> emptyMedium("");
+    constexpr const FixedString<32> emptyLarge("");
+    constexpr const FixedString<64> emptyExtraLarge("");
+
+    REQUIRE(emptySmall.max_size() == 7);
+    REQUIRE(emptyMedium.max_size() == 15);
+    REQUIRE(emptyLarge.max_size() == 31);
+    REQUIRE(emptyExtraLarge.max_size() == 63);
+
+    STATIC_REQUIRE(emptySmall.max_size() == 7);
+    STATIC_REQUIRE(emptyMedium.max_size() == 15);
+    STATIC_REQUIRE(emptyLarge.max_size() == 31);
+    STATIC_REQUIRE(emptyExtraLarge.max_size() == 63);
+  }
+
+  SECTION("Default constructed strings") {
+    constexpr const FixedString<8> defaultSmall;
+    constexpr const FixedString<16> defaultMedium;
+    constexpr const FixedString<32> defaultLarge;
+    constexpr const FixedString<64> defaultExtraLarge;
+
+    REQUIRE(defaultSmall.max_size() == 7);
+    REQUIRE(defaultMedium.max_size() == 15);
+    REQUIRE(defaultLarge.max_size() == 31);
+    REQUIRE(defaultExtraLarge.max_size() == 63);
+
+    STATIC_REQUIRE(defaultSmall.max_size() == 7);
+    STATIC_REQUIRE(defaultMedium.max_size() == 15);
+    STATIC_REQUIRE(defaultLarge.max_size() == 31);
+    STATIC_REQUIRE(defaultExtraLarge.max_size() == 63);
+  }
+
+  SECTION("Single character strings") {
+    constexpr const FixedString<8> singleSmall("A");
+    constexpr const FixedString<16> singleMedium("B");
+    constexpr const FixedString<32> singleLarge("C");
+    constexpr const FixedString<64> singleExtraLarge("D");
+
+    REQUIRE(singleSmall.max_size() == 7);
+    REQUIRE(singleMedium.max_size() == 15);
+    REQUIRE(singleLarge.max_size() == 31);
+    REQUIRE(singleExtraLarge.max_size() == 63);
+
+    STATIC_REQUIRE(singleSmall.max_size() == 7);
+    STATIC_REQUIRE(singleMedium.max_size() == 15);
+    STATIC_REQUIRE(singleLarge.max_size() == 31);
+    STATIC_REQUIRE(singleExtraLarge.max_size() == 63);
+  }
+
+  SECTION("Maximum length strings") {
+    constexpr const FixedString<8> maxSmall("1234567"); // 7 characters (max for capacity 8)
+    constexpr const FixedString<16> maxMedium("123456789012345"); // 15 characters (max for capacity 16)
+    constexpr const FixedString<32> maxLarge("1234567890123456789012345678901"); // 31 characters (max for capacity 32)
+    constexpr const FixedString<64> maxExtraLarge(
+      "123456789012345678901234567890123456789012345678901234567890123"); // 63 characters (max for capacity 64)
+
+    REQUIRE(maxSmall.max_size() == 7);
+    REQUIRE(maxMedium.max_size() == 15);
+    REQUIRE(maxLarge.max_size() == 31);
+    REQUIRE(maxExtraLarge.max_size() == 63);
+
+    STATIC_REQUIRE(maxSmall.max_size() == 7);
+    STATIC_REQUIRE(maxMedium.max_size() == 15);
+    STATIC_REQUIRE(maxLarge.max_size() == 31);
+    STATIC_REQUIRE(maxExtraLarge.max_size() == 63);
+  }
+
+  SECTION("Different template parameters") {
+    constexpr const FixedString<4> tinyString("Hi");
+    constexpr const FixedString<8> smallString("Hello");
+    constexpr const FixedString<16> mediumString("Hello World");
+    constexpr const FixedString<32> largeString("This is a longer string");
+    constexpr const FixedString<64> extraLargeString("This is an even longer string for testing");
+    constexpr const FixedString<128> hugeString(
+      "This is a very long string that tests the maximum capacity of a large FixedString buffer");
+
+    REQUIRE(tinyString.max_size() == 3);
+    REQUIRE(smallString.max_size() == 7);
+    REQUIRE(mediumString.max_size() == 15);
+    REQUIRE(largeString.max_size() == 31);
+    REQUIRE(extraLargeString.max_size() == 63);
+    REQUIRE(hugeString.max_size() == 127);
+
+    STATIC_REQUIRE(tinyString.max_size() == 3);
+    STATIC_REQUIRE(smallString.max_size() == 7);
+    STATIC_REQUIRE(mediumString.max_size() == 15);
+    STATIC_REQUIRE(largeString.max_size() == 31);
+    STATIC_REQUIRE(extraLargeString.max_size() == 63);
+    STATIC_REQUIRE(hugeString.max_size() == 127);
+  }
+
+  SECTION("Edge cases") {
+    constexpr const FixedString<1> minimalString; // Should have max_size() == 0
+    constexpr const FixedString<2> twoCharString("A");
+    constexpr const FixedString<3> threeCharString("AB");
+
+    REQUIRE(minimalString.max_size() == 0);
+    REQUIRE(twoCharString.max_size() == 1);
+    REQUIRE(threeCharString.max_size() == 2);
+
+    STATIC_REQUIRE(minimalString.max_size() == 0);
+    STATIC_REQUIRE(twoCharString.max_size() == 1);
+    STATIC_REQUIRE(threeCharString.max_size() == 2);
+  }
+
+  SECTION("Consistency with capacity") {
+    constexpr const FixedString<8> testString1("Hello");
+    constexpr const FixedString<16> testString2("World");
+    constexpr const FixedString<32> testString3("Test");
+
+    // max_size() should equal capacity() for all FixedString instances
+    REQUIRE(testString1.max_size() == testString1.capacity());
+    REQUIRE(testString2.max_size() == testString2.capacity());
+    REQUIRE(testString3.max_size() == testString3.capacity());
+
+    STATIC_REQUIRE(testString1.max_size() == testString1.capacity());
+    STATIC_REQUIRE(testString2.max_size() == testString2.capacity());
+    STATIC_REQUIRE(testString3.max_size() == testString3.capacity());
+  }
 }
 
 TEST_CASE("FixedString capacity", "[core][fixed_string]") {
-  constexpr const FixedString<64> testString1("ToyGine2");
-  constexpr const FixedString<16> testString2("");
+  SECTION("Basic capacity check") {
+    constexpr const FixedString<8> smallString("Hi");
+    constexpr const FixedString<16> mediumString("Hello World");
+    constexpr const FixedString<32> largeString("This is a longer string");
+    constexpr const FixedString<64> extraLargeString("This is an even longer string for testing");
 
-  REQUIRE(testString1.capacity() == 63);
-  REQUIRE(testString2.capacity() == 15);
+    REQUIRE(smallString.capacity() == 7);
+    REQUIRE(mediumString.capacity() == 15);
+    REQUIRE(largeString.capacity() == 31);
+    REQUIRE(extraLargeString.capacity() == 63);
+
+    STATIC_REQUIRE(smallString.capacity() == 7);
+    STATIC_REQUIRE(mediumString.capacity() == 15);
+    STATIC_REQUIRE(largeString.capacity() == 31);
+    STATIC_REQUIRE(extraLargeString.capacity() == 63);
+  }
+
+  SECTION("Empty strings") {
+    constexpr const FixedString<8> emptySmall("");
+    constexpr const FixedString<16> emptyMedium("");
+    constexpr const FixedString<32> emptyLarge("");
+    constexpr const FixedString<64> emptyExtraLarge("");
+
+    REQUIRE(emptySmall.capacity() == 7);
+    REQUIRE(emptyMedium.capacity() == 15);
+    REQUIRE(emptyLarge.capacity() == 31);
+    REQUIRE(emptyExtraLarge.capacity() == 63);
+
+    STATIC_REQUIRE(emptySmall.capacity() == 7);
+    STATIC_REQUIRE(emptyMedium.capacity() == 15);
+    STATIC_REQUIRE(emptyLarge.capacity() == 31);
+    STATIC_REQUIRE(emptyExtraLarge.capacity() == 63);
+  }
+
+  SECTION("Default constructed strings") {
+    constexpr const FixedString<8> defaultSmall;
+    constexpr const FixedString<16> defaultMedium;
+    constexpr const FixedString<32> defaultLarge;
+    constexpr const FixedString<64> defaultExtraLarge;
+
+    REQUIRE(defaultSmall.capacity() == 7);
+    REQUIRE(defaultMedium.capacity() == 15);
+    REQUIRE(defaultLarge.capacity() == 31);
+    REQUIRE(defaultExtraLarge.capacity() == 63);
+
+    STATIC_REQUIRE(defaultSmall.capacity() == 7);
+    STATIC_REQUIRE(defaultMedium.capacity() == 15);
+    STATIC_REQUIRE(defaultLarge.capacity() == 31);
+    STATIC_REQUIRE(defaultExtraLarge.capacity() == 63);
+  }
+
+  SECTION("Single character strings") {
+    constexpr const FixedString<8> singleSmall("A");
+    constexpr const FixedString<16> singleMedium("B");
+    constexpr const FixedString<32> singleLarge("C");
+    constexpr const FixedString<64> singleExtraLarge("D");
+
+    REQUIRE(singleSmall.capacity() == 7);
+    REQUIRE(singleMedium.capacity() == 15);
+    REQUIRE(singleLarge.capacity() == 31);
+    REQUIRE(singleExtraLarge.capacity() == 63);
+
+    STATIC_REQUIRE(singleSmall.capacity() == 7);
+    STATIC_REQUIRE(singleMedium.capacity() == 15);
+    STATIC_REQUIRE(singleLarge.capacity() == 31);
+    STATIC_REQUIRE(singleExtraLarge.capacity() == 63);
+  }
+
+  SECTION("Maximum length strings") {
+    constexpr const FixedString<8> maxSmall("1234567"); // 7 characters (max for capacity 8)
+    constexpr const FixedString<16> maxMedium("123456789012345"); // 15 characters (max for capacity 16)
+    constexpr const FixedString<32> maxLarge("1234567890123456789012345678901"); // 31 characters (max for capacity 32)
+    constexpr const FixedString<64> maxExtraLarge(
+      "123456789012345678901234567890123456789012345678901234567890123"); // 63 characters (max for capacity 64)
+
+    REQUIRE(maxSmall.capacity() == 7);
+    REQUIRE(maxMedium.capacity() == 15);
+    REQUIRE(maxLarge.capacity() == 31);
+    REQUIRE(maxExtraLarge.capacity() == 63);
+
+    STATIC_REQUIRE(maxSmall.capacity() == 7);
+    STATIC_REQUIRE(maxMedium.capacity() == 15);
+    STATIC_REQUIRE(maxLarge.capacity() == 31);
+    STATIC_REQUIRE(maxExtraLarge.capacity() == 63);
+  }
+
+  SECTION("Different template parameters") {
+    constexpr const FixedString<4> tinyString("Hi");
+    constexpr const FixedString<8> smallString("Hello");
+    constexpr const FixedString<16> mediumString("Hello World");
+    constexpr const FixedString<32> largeString("This is a longer string");
+    constexpr const FixedString<64> extraLargeString("This is an even longer string for testing");
+    constexpr const FixedString<128> hugeString(
+      "This is a very long string that tests the maximum capacity of a large FixedString buffer");
+
+    REQUIRE(tinyString.capacity() == 3);
+    REQUIRE(smallString.capacity() == 7);
+    REQUIRE(mediumString.capacity() == 15);
+    REQUIRE(largeString.capacity() == 31);
+    REQUIRE(extraLargeString.capacity() == 63);
+    REQUIRE(hugeString.capacity() == 127);
+
+    STATIC_REQUIRE(tinyString.capacity() == 3);
+    STATIC_REQUIRE(smallString.capacity() == 7);
+    STATIC_REQUIRE(mediumString.capacity() == 15);
+    STATIC_REQUIRE(largeString.capacity() == 31);
+    STATIC_REQUIRE(extraLargeString.capacity() == 63);
+    STATIC_REQUIRE(hugeString.capacity() == 127);
+  }
+
+  SECTION("Edge cases") {
+    constexpr const FixedString<1> minimalString; // Should have capacity() == 0
+    constexpr const FixedString<2> twoCharString("A");
+    constexpr const FixedString<3> threeCharString("AB");
+
+    REQUIRE(minimalString.capacity() == 0);
+    REQUIRE(twoCharString.capacity() == 1);
+    REQUIRE(threeCharString.capacity() == 2);
+
+    STATIC_REQUIRE(minimalString.capacity() == 0);
+    STATIC_REQUIRE(twoCharString.capacity() == 1);
+    STATIC_REQUIRE(threeCharString.capacity() == 2);
+  }
+
+  SECTION("Consistency with max_size") {
+    constexpr const FixedString<8> testString1("Hello");
+    constexpr const FixedString<16> testString2("World");
+    constexpr const FixedString<32> testString3("Test");
+
+    // capacity() should equal max_size() for all FixedString instances
+    REQUIRE(testString1.capacity() == testString1.max_size());
+    REQUIRE(testString2.capacity() == testString2.max_size());
+    REQUIRE(testString3.capacity() == testString3.max_size());
+
+    STATIC_REQUIRE(testString1.capacity() == testString1.max_size());
+    STATIC_REQUIRE(testString2.capacity() == testString2.max_size());
+    STATIC_REQUIRE(testString3.capacity() == testString3.max_size());
+  }
+
+  SECTION("Capacity formula validation") {
+    // Test the formula: capacity = N - 1 (where N is the template parameter)
+    constexpr const FixedString<4> test4("Hi");
+    constexpr const FixedString<8> test8("Hello");
+    constexpr const FixedString<16> test16("Hello World");
+    constexpr const FixedString<32> test32("This is a longer string");
+    constexpr const FixedString<64> test64("This is an even longer string for testing");
+
+    REQUIRE(test4.capacity() == 3); // 4 - 1 = 3
+    REQUIRE(test8.capacity() == 7); // 8 - 1 = 7
+    REQUIRE(test16.capacity() == 15); // 16 - 1 = 15
+    REQUIRE(test32.capacity() == 31); // 32 - 1 = 31
+    REQUIRE(test64.capacity() == 63); // 64 - 1 = 63
+
+    STATIC_REQUIRE(test4.capacity() == 3);
+    STATIC_REQUIRE(test8.capacity() == 7);
+    STATIC_REQUIRE(test16.capacity() == 15);
+    STATIC_REQUIRE(test32.capacity() == 31);
+    STATIC_REQUIRE(test64.capacity() == 63);
+  }
 }
+
+// to refactor 4363 - 2283 = 2080
 
 TEST_CASE("FixedString clear", "[core][fixed_string]") {
   FixedString<64> testString1("ToyGine2 - Free 2D/3D game engine.");

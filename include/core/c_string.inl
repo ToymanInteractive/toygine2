@@ -67,13 +67,13 @@ constexpr CString & CString::assign(const char * string) noexcept {
 }
 
 constexpr const char & CString::at(std::size_t offset) const noexcept {
-  assert_message(offset < size() || (offset == 0 && size() == 0), "Offset must be within bounds");
+  assert_message(offset < size() || (offset == 0 && empty()), "Offset must be within bounds");
 
   return _data[offset];
 }
 
 constexpr const char & CString::operator[](std::size_t offset) const noexcept {
-  assert_message(offset < size() || (offset == 0 && size() == 0), "Offset must be within bounds");
+  assert_message(offset < size() || (offset == 0 && empty()), "Offset must be within bounds");
 
   return _data[offset];
 }
@@ -98,12 +98,32 @@ constexpr const char * CString::c_str() const noexcept {
   return _data;
 }
 
+constexpr bool CString::empty() const noexcept {
+  return *_data == '\0';
+}
+
 constexpr std::size_t CString::size() const noexcept {
   if consteval {
     return std::char_traits<char>::length(_data);
   } else {
     return std::strlen(_data);
   }
+}
+
+inline std::size_t CString::utf8_size() const noexcept {
+  return utf8Len(_data);
+}
+
+constexpr std::size_t CString::length() const noexcept {
+  return size();
+}
+
+constexpr std::size_t CString::max_size() const noexcept {
+  return size();
+}
+
+constexpr std::size_t CString::capacity() const noexcept {
+  return size();
 }
 
 } // namespace toy

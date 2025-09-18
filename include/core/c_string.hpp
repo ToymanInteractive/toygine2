@@ -208,7 +208,85 @@ public:
   */
   [[nodiscard]] constexpr const char * c_str() const noexcept;
 
+  /*!
+    \brief Checks if the string is empty.
+
+    This method checks if the string is empty, i.e. its size is zero. An empty string contains no characters and has a
+    length of zero.
+
+    \return True if the string is empty, false otherwise.
+
+    \note An empty string has size zero.
+    \note An empty string still contains a null terminator.
+    \note This method is equivalent to the expression: ```size() == 0```.
+  */
+  [[nodiscard]] constexpr bool empty() const noexcept;
+
+  /*!
+    \brief Returns the size of the string.
+
+    This method returns the current number of characters in the string, excluding the terminating null character. The
+    size represents the actual length of the string content.
+
+    \return The number of characters in the string, excluding the terminating null character.
+
+    \note This method is equivalent to length() method.
+  */
   [[nodiscard]] constexpr std::size_t size() const noexcept;
+
+  /*!
+    \brief Returns the size of the Unicode string in UTF-8 encoding.
+
+    This method returns the number of Unicode characters in the UTF-8 encoded string, excluding the terminating null
+    character. For ASCII strings, this value equals the size() method. For UTF-8 encoded strings, this method counts the
+    number of Unicode characters rather than bytes. The method validates UTF-8 encoding and counts only complete,
+    well-formed Unicode characters.
+
+    \return The number of Unicode characters in the string, excluding the terminating null character.
+
+    \note For ASCII strings, utf8_size() equals size().
+    \note For UTF-8 strings, utf8_size() may be less than size().
+    \note Invalid UTF-8 sequences are handled gracefully and may affect the count.
+    \note This method is useful for internationalization and text processing applications.
+  */
+  [[nodiscard]] inline std::size_t utf8_size() const noexcept;
+
+  /*!
+    \brief Returns the size of the string.
+
+    This method returns the current number of characters in the string, excluding the terminating null character. The
+    length represents the actual length of the string content.
+
+    \return The number of characters in the string, excluding the terminating null character.
+
+    \note This method is equivalent to size() method.
+
+    \see size()
+  */
+  [[nodiscard]] constexpr std::size_t length() const noexcept;
+
+  /*!
+    \brief Returns the maximum size of the string.
+
+    This method returns the maximum possible size for the string. The maximum size represents the size of the allocated
+    buffer.
+
+    \return The maximum number of characters in the string, excluding the terminating null character.
+
+    \note This method is equivalent to capacity() method.
+  */
+  [[nodiscard]] constexpr std::size_t max_size() const noexcept;
+
+  /*!
+    \brief Returns the capacity of the string.
+
+    This method returns the capacity of the allocated buffer for the string.
+
+    \return The capacity of the string in characters, excluding the terminating null character.
+
+    \note This method is equivalent to max_size() method.
+  */
+  [[nodiscard]] constexpr std::size_t capacity() const noexcept;
 
 private:
   /// Pointer to the wrapped C-style string
