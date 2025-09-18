@@ -1381,3 +1381,46 @@ TEST_CASE("CString max_size", "[core][c_string]") {
     STATIC_REQUIRE(single.max_size() == 1);
   }
 }
+
+TEST_CASE("CString capacity", "[core][c_string]") {
+  SECTION("Basic capacity check") {
+    constexpr const CString smallString("Hi");
+    constexpr const CString mediumString("Hello World");
+    constexpr const CString largeString("This is a longer string");
+    constexpr const CString extraLargeString("This is an even longer string for testing");
+
+    REQUIRE(smallString.capacity() == 2);
+    REQUIRE(mediumString.capacity() == 11);
+    REQUIRE(largeString.capacity() == 23);
+    REQUIRE(extraLargeString.capacity() == 41);
+
+    STATIC_REQUIRE(smallString.capacity() == 2);
+    STATIC_REQUIRE(mediumString.capacity() == 11);
+    STATIC_REQUIRE(largeString.capacity() == 23);
+    STATIC_REQUIRE(extraLargeString.capacity() == 41);
+  }
+
+  SECTION("Empty string") {
+    constexpr const CString empty("");
+
+    REQUIRE(empty.capacity() == 0);
+
+    STATIC_REQUIRE(empty.capacity() == 0);
+  }
+
+  SECTION("Default constructed string") {
+    constexpr const CString defaultString;
+
+    REQUIRE(defaultString.capacity() == 0);
+
+    STATIC_REQUIRE(defaultString.capacity() == 0);
+  }
+
+  SECTION("Single character string") {
+    constexpr const CString single("A");
+
+    REQUIRE(single.capacity() == 1);
+
+    STATIC_REQUIRE(single.capacity() == 1);
+  }
+}

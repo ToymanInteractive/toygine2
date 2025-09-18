@@ -277,6 +277,17 @@ public:
   */
   [[nodiscard]] constexpr std::size_t max_size() const noexcept;
 
+  /*!
+    \brief Returns the capacity of the string.
+
+    This method returns the capacity of the allocated buffer for the string.
+
+    \return The capacity of the string in characters, excluding the terminating null character.
+
+    \note This method is equivalent to max_size() method.
+  */
+  [[nodiscard]] constexpr std::size_t capacity() const noexcept;
+
 private:
   /// Pointer to the wrapped C-style string
   const char * _data;
