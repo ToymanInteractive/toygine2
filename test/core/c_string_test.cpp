@@ -1338,3 +1338,46 @@ TEST_CASE("CString length", "[core][c_string]") {
     STATIC_REQUIRE(defaultString.length() == 0);
   }
 }
+
+TEST_CASE("CString max_size", "[core][c_string]") {
+  SECTION("Basic max_size check") {
+    constexpr const CString smallString("Hi");
+    constexpr const CString mediumString("Hello World");
+    constexpr const CString largeString("This is a longer string");
+    constexpr const CString extraLargeString("This is an even longer string for testing");
+
+    REQUIRE(smallString.max_size() == 2);
+    REQUIRE(mediumString.max_size() == 11);
+    REQUIRE(largeString.max_size() == 23);
+    REQUIRE(extraLargeString.max_size() == 41);
+
+    STATIC_REQUIRE(smallString.max_size() == 2);
+    STATIC_REQUIRE(mediumString.max_size() == 11);
+    STATIC_REQUIRE(largeString.max_size() == 23);
+    STATIC_REQUIRE(extraLargeString.max_size() == 41);
+  }
+
+  SECTION("Empty string") {
+    constexpr const CString empty("");
+
+    REQUIRE(empty.max_size() == 0);
+
+    STATIC_REQUIRE(empty.max_size() == 0);
+  }
+
+  SECTION("Default constructed string") {
+    constexpr const CString defaultString;
+
+    REQUIRE(defaultString.max_size() == 0);
+
+    STATIC_REQUIRE(defaultString.max_size() == 0);
+  }
+
+  SECTION("Single character string") {
+    constexpr const CString single("A");
+
+    REQUIRE(single.max_size() == 1);
+
+    STATIC_REQUIRE(single.max_size() == 1);
+  }
+}

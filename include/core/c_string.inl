@@ -118,6 +118,10 @@ constexpr std::size_t CString::length() const noexcept {
   return size();
 }
 
+constexpr std::size_t CString::max_size() const noexcept {
+  return size();
+}
+
 } // namespace toy
 
 #endif // INCLUDE_CORE_C_STRING_INL_
