@@ -124,17 +124,17 @@ TEST_CASE("wcharToUtf8 converts a Unicode wide character string to a UTF-8 encod
   CHECK(wcharToUtf8(nullptr, 10, L"test") == nullptr);
 }
 
-TEST_CASE("utf8len returns the number of Unicode characters in a UTF-8 encoded string", "[core][utils]") {
+TEST_CASE("utf8Len returns the number of Unicode characters in a UTF-8 encoded string", "[core][utils]") {
   static const char * s_utf8Text = "Hello World!";
   static const char * s_emptyText = "";
 
   const char * utf8String = reinterpret_cast<const char *>(utf8Text.data());
 
-  CHECK(std::strlen(s_utf8Text) == utf8len(s_utf8Text));
-  CHECK(utf8len(s_emptyText) == 0);
+  CHECK(std::strlen(s_utf8Text) == utf8Len(s_utf8Text));
+  CHECK(utf8Len(s_emptyText) == 0);
 
-  CHECK(std::strlen(utf8String) != utf8len(utf8String));
-  CHECK(wcslen(unicodeText.data()) == utf8len(utf8String));
+  CHECK(std::strlen(utf8String) != utf8Len(utf8String));
+  CHECK(wcslen(unicodeText.data()) == utf8Len(utf8String));
 }
 
 TEST_CASE("reverseString reverses a given string in-place", "[core][utils]") {

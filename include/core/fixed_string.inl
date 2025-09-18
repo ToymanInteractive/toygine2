@@ -242,7 +242,7 @@ constexpr char & FixedString<allocatedSize>::at(std::size_t offset) noexcept {
 
 template <std::size_t allocatedSize>
 constexpr const char & FixedString<allocatedSize>::at(std::size_t offset) const noexcept {
-  assert_message(offset < _size || (offset == 0 && _size == 0), "Offset must be within bounds");
+  assert_message(offset < _size || (offset == 0 && empty()), "Offset must be within bounds");
 
   return _data[offset];
 }
@@ -256,7 +256,7 @@ constexpr char & FixedString<allocatedSize>::operator[](std::size_t offset) noex
 
 template <std::size_t allocatedSize>
 constexpr const char & FixedString<allocatedSize>::operator[](std::size_t offset) const noexcept {
-  assert_message(offset < _size || (offset == 0 && _size == 0), "Offset must be within bounds");
+  assert_message(offset < _size || (offset == 0 && empty()), "Offset must be within bounds");
 
   return _data[offset];
 }
@@ -311,8 +311,8 @@ constexpr std::size_t FixedString<allocatedSize>::size() const noexcept {
 }
 
 template <std::size_t allocatedSize>
-constexpr std::size_t FixedString<allocatedSize>::utf8_size() const noexcept {
-  return utf8len(_data);
+inline std::size_t FixedString<allocatedSize>::utf8_size() const noexcept {
+  return utf8Len(_data);
 }
 
 template <std::size_t allocatedSize>
@@ -1204,7 +1204,7 @@ constexpr std::size_t FixedString<allocatedSize>::_find_first_not_of_raw(std::si
 template <std::size_t allocatedSize>
 constexpr std::size_t FixedString<allocatedSize>::_find_last_of_raw(std::size_t position, const char * data,
                                                                     std::size_t dataSize) const noexcept {
-  if (dataSize == 0 || _size == 0)
+  if (dataSize == 0 || empty())
     return npos;
 
   if (position == npos)
@@ -1239,7 +1239,7 @@ constexpr std::size_t FixedString<allocatedSize>::_find_last_of_raw(std::size_t 
 template <std::size_t allocatedSize>
 constexpr std::size_t FixedString<allocatedSize>::_find_last_not_of_raw(std::size_t position, const char * data,
                                                                         std::size_t dataSize) const noexcept {
-  if (_size == 0)
+  if (empty())
     return npos;
 
   if (position == npos)
