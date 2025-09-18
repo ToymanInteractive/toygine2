@@ -222,6 +222,16 @@ public:
   */
   [[nodiscard]] constexpr bool empty() const noexcept;
 
+  /*!
+    \brief Returns the size of the string.
+
+    This method returns the current number of characters in the string, excluding the terminating null character. The
+    size represents the actual length of the string content.
+
+    \return The number of characters in the string, excluding the terminating null character.
+
+    \note This method is equivalent to length() method.
+  */
   [[nodiscard]] constexpr std::size_t size() const noexcept;
 
 private:
