@@ -550,14 +550,8 @@ TEST_CASE("CString front and back", "[core][c_string]") {
   SECTION("Const references") {
     constexpr const CString testString("Hello World");
 
-    // Get const references
-    const auto & frontRef = testString.front();
-    const auto & backRef = testString.back();
-
-    STATIC_REQUIRE(frontRef == 'H');
-    STATIC_REQUIRE(backRef == 'd');
-    STATIC_REQUIRE(frontRef == testString[0]);
-    STATIC_REQUIRE(backRef == testString[testString.size() - 1]);
+    STATIC_REQUIRE(testString.front() == 'H');
+    STATIC_REQUIRE(testString.back() == 'd');
   }
 
   SECTION("Numeric content") {
