@@ -839,18 +839,18 @@ TEST_CASE("CStringView empty method", "[core][c_string_view]") {
   }
 
   SECTION("Numeric content") {
-    constexpr CStringView numeriCStringView("12345");
+    constexpr CStringView numericStringView("12345");
     constexpr CStringView floatString("3.14159");
     constexpr CStringView hexString("0xABCD");
     constexpr CStringView emptyString("");
 
-    REQUIRE_FALSE(numeriCStringView.empty());
+    REQUIRE_FALSE(numericStringView.empty());
     REQUIRE_FALSE(floatString.empty());
     REQUIRE_FALSE(hexString.empty());
     REQUIRE(emptyString.empty());
 
     // Compile-time checks
-    STATIC_REQUIRE_FALSE(numeriCStringView.empty());
+    STATIC_REQUIRE_FALSE(numericStringView.empty());
     STATIC_REQUIRE_FALSE(floatString.empty());
     STATIC_REQUIRE_FALSE(hexString.empty());
     STATIC_REQUIRE(emptyString.empty());
@@ -1008,18 +1008,18 @@ TEST_CASE("CStringView size method", "[core][c_string_view]") {
   }
 
   SECTION("Numeric content") {
-    constexpr CStringView numeriCStringView("12345");
+    constexpr CStringView numericStringView("12345");
     constexpr CStringView floatString("3.14159");
     constexpr CStringView hexString("0xABCD");
     constexpr CStringView emptyString("");
 
-    REQUIRE(numeriCStringView.size() == 5);
+    REQUIRE(numericStringView.size() == 5);
     REQUIRE(floatString.size() == 7);
     REQUIRE(hexString.size() == 6);
     REQUIRE(emptyString.size() == 0);
 
     // Compile-time checks
-    STATIC_REQUIRE(numeriCStringView.size() == 5);
+    STATIC_REQUIRE(numericStringView.size() == 5);
     STATIC_REQUIRE(floatString.size() == 7);
     STATIC_REQUIRE(hexString.size() == 6);
     STATIC_REQUIRE(emptyString.size() == 0);
@@ -1103,10 +1103,10 @@ TEST_CASE("CStringView utf8_size", "[core][c_string_view]") {
                                                         char(0xD1), char(0x82), char(0x20), char(0xD0), char(0xBC),
                                                         char(0xD0), char(0xB8), char(0xD1), char(0x80), char(0x00)}};
 
-    constexpr CStringView cyrilliCStringView(cyrillicText.data());
+    constexpr CStringView cyrillicStringView(cyrillicText.data());
 
-    REQUIRE(cyrilliCStringView.size() == 19);
-    REQUIRE(cyrilliCStringView.utf8_size() == 10);
+    REQUIRE(cyrillicStringView.size() == 19);
+    REQUIRE(cyrillicStringView.utf8_size() == 10);
   }
 
   SECTION("Mixed ASCII and UTF-8") {
@@ -1135,16 +1135,16 @@ TEST_CASE("CStringView utf8_size", "[core][c_string_view]") {
 
   SECTION("Special characters") {
     constexpr CStringView specialString("!@#$%^&*()");
-    constexpr CStringView numeriCStringView("1234567890");
+    constexpr CStringView numericStringView("1234567890");
     constexpr CStringView punctuationString(".,;:!?");
 
     REQUIRE(specialString.utf8_size() == 10);
-    REQUIRE(numeriCStringView.utf8_size() == 10);
+    REQUIRE(numericStringView.utf8_size() == 10);
     REQUIRE(punctuationString.utf8_size() == 6);
 
     // Special characters are ASCII, so utf8_size equals size
     REQUIRE(specialString.utf8_size() == specialString.size());
-    REQUIRE(numeriCStringView.utf8_size() == numeriCStringView.size());
+    REQUIRE(numericStringView.utf8_size() == numericStringView.size());
     REQUIRE(punctuationString.utf8_size() == punctuationString.size());
   }
 
@@ -1272,23 +1272,23 @@ TEST_CASE("CStringView length", "[core][c_string_view]") {
   }
 
   SECTION("Numeric content") {
-    constexpr CStringView numeriCStringView("12345");
+    constexpr CStringView numericStringView("12345");
     constexpr CStringView floatString("3.14159");
     constexpr CStringView hexString("0xABCD");
     constexpr CStringView emptyString("");
 
-    REQUIRE(numeriCStringView.length() == 5);
+    REQUIRE(numericStringView.length() == 5);
     REQUIRE(floatString.length() == 7);
     REQUIRE(hexString.length() == 6);
     REQUIRE(emptyString.length() == 0);
 
     // length() should equal size() for all strings
-    REQUIRE(numeriCStringView.length() == numeriCStringView.size());
+    REQUIRE(numericStringView.length() == numericStringView.size());
     REQUIRE(floatString.length() == floatString.size());
     REQUIRE(hexString.length() == hexString.size());
     REQUIRE(emptyString.length() == emptyString.size());
 
-    STATIC_REQUIRE(numeriCStringView.length() == 5);
+    STATIC_REQUIRE(numericStringView.length() == 5);
     STATIC_REQUIRE(floatString.length() == 7);
     STATIC_REQUIRE(hexString.length() == 6);
   }
