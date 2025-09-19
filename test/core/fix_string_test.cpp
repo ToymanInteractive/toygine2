@@ -3983,227 +3983,299 @@ TEST_CASE("FixedString operators+=", "[core][fixed_string]") {
   }
 }
 
-// to refactor 5807 - 3986 = 1821
-
 TEST_CASE("FixedString replace", "[core][fixed_string]") {
   SECTION("Replace with FixedString") {
     FixedString<32> testString("Hello World");
 
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+
     testString.replace(6, 5, FixedString<16>("Universe"));
 
-    REQUIRE(std::strcmp(testString.c_str(), "Hello Universe") == 0);
     REQUIRE(testString.size() == 14);
-  }
-
-  SECTION("Replace with string-like object") {
-    FixedString<32> testString("Hello World");
-
-    testString.replace(6, 5, std::string("Universe"));
-
     REQUIRE(std::strcmp(testString.c_str(), "Hello Universe") == 0);
-    REQUIRE(testString.size() == 14);
-  }
-
-  SECTION("Replace with C string") {
-    FixedString<32> testString("Hello World");
-
-    testString.replace(6, 5, "Universe");
-
-    REQUIRE(std::strcmp(testString.c_str(), "Hello Universe") == 0);
-    REQUIRE(testString.size() == 14);
-  }
-
-  SECTION("Replace with repeated characters") {
-    FixedString<32> testString("Hello World");
-
-    testString.replace(6, 5, '*', 3);
-
-    REQUIRE(std::strcmp(testString.c_str(), "Hello ***") == 0);
-    REQUIRE(testString.size() == 9);
-  }
-
-  SECTION("Replace at beginning") {
-    FixedString<32> testString("Hello World");
-
-    testString.replace(0, 5, "Hi");
-
-    REQUIRE(std::strcmp(testString.c_str(), "Hi World") == 0);
-    REQUIRE(testString.size() == 8);
-  }
-
-  SECTION("Replace at end") {
-    FixedString<32> testString("Hello World");
-
-    testString.replace(6, 5, "Universe!");
-
-    REQUIRE(std::strcmp(testString.c_str(), "Hello Universe!") == 0);
-    REQUIRE(testString.size() == 15);
-  }
-
-  SECTION("Replace with empty string") {
-    FixedString<32> testString("Hello World");
-
-    testString.replace(5, 1, "");
-
-    REQUIRE(std::strcmp(testString.c_str(), "HelloWorld") == 0);
-    REQUIRE(testString.size() == 10);
-  }
-
-  SECTION("Replace with longer string") {
-    FixedString<32> testString("Hi");
-
-    testString.replace(0, 2, "Hello World");
-
-    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
-    REQUIRE(testString.size() == 11);
-  }
-
-  SECTION("Replace with shorter string") {
-    FixedString<32> testString("Hello World");
-
-    testString.replace(0, 5, "Hi");
-
-    REQUIRE(std::strcmp(testString.c_str(), "Hi World") == 0);
-    REQUIRE(testString.size() == 8);
-  }
-
-  SECTION("Replace single character") {
-    FixedString<32> testString("Hello World");
-
-    testString.replace(0, 1, "h");
-
-    REQUIRE(std::strcmp(testString.c_str(), "hello World") == 0);
-    REQUIRE(testString.size() == 11);
-  }
-
-  SECTION("Replace multiple characters with single character") {
-    FixedString<32> testString("Hello World");
-
-    testString.replace(0, 5, "H");
-
-    REQUIRE(std::strcmp(testString.c_str(), "H World") == 0);
-    REQUIRE(testString.size() == 7);
-  }
-
-  SECTION("Replace with repeated characters at different positions") {
-    FixedString<32> testString("Hello World");
-
-    testString.replace(0, 1, '*', 2);
-    testString.replace(8, 2, '#', 3);
-
-    REQUIRE(std::strcmp(testString.c_str(), "**ello W###ld") == 0);
-    REQUIRE(testString.size() == 13);
-  }
-
-  SECTION("Replace entire string") {
-    FixedString<32> testString("Hello World");
-
-    testString.replace(0, 11, "Goodbye Universe");
-
-    REQUIRE(std::strcmp(testString.c_str(), "Goodbye Universe") == 0);
-    REQUIRE(testString.size() == 16);
-  }
-
-  SECTION("Replace with zero count") {
-    FixedString<32> testString("Hello World");
-
-    testString.replace(6, 0, "Beautiful ");
-
-    REQUIRE(std::strcmp(testString.c_str(), "Hello Beautiful World") == 0);
-    REQUIRE(testString.size() == 21);
-  }
-
-  SECTION("Replace with single character count") {
-    FixedString<32> testString("Hello World");
-
-    testString.replace(6, 5, '!', 1);
-
-    REQUIRE(std::strcmp(testString.c_str(), "Hello !") == 0);
-    REQUIRE(testString.size() == 7);
-  }
-
-  SECTION("Replace with multiple character count") {
-    FixedString<32> testString("Hello World");
-
-    testString.replace(6, 5, '=', 4);
-
-    REQUIRE(std::strcmp(testString.c_str(), "Hello ====") == 0);
-    REQUIRE(testString.size() == 10);
-  }
-
-  SECTION("Replace with zero character count") {
-    FixedString<32> testString("Hello World");
-
-    testString.replace(6, 5, 'X', 0);
-
-    REQUIRE(std::strcmp(testString.c_str(), "Hello ") == 0);
-    REQUIRE(testString.size() == 6);
-  }
-
-  SECTION("Replace middle portion") {
-    FixedString<32> testString("Hello Beautiful World");
-
-    testString.replace(6, 9, "Amazing");
-
-    REQUIRE(std::strcmp(testString.c_str(), "Hello Amazing World") == 0);
-    REQUIRE(testString.size() == 19);
-  }
-
-  SECTION("Replace with same length string") {
-    FixedString<32> testString("Hello World");
-
-    testString.replace(0, 5, "Greet");
-
-    REQUIRE(std::strcmp(testString.c_str(), "Greet World") == 0);
-    REQUIRE(testString.size() == 11);
-  }
-
-  SECTION("Replace with FixedString of different capacity") {
-    FixedString<32> testString("Hello World");
-
-    testString.replace(6, 5, FixedString<12>("Universe"));
-
-    REQUIRE(std::strcmp(testString.c_str(), "Hello Universe") == 0);
-    REQUIRE(testString.size() == 14);
   }
 
   SECTION("Replace with std::string") {
     FixedString<32> testString("Hello World");
 
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+
     testString.replace(6, 5, std::string("Universe"));
 
-    REQUIRE(std::strcmp(testString.c_str(), "Hello Universe") == 0);
     REQUIRE(testString.size() == 14);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello Universe") == 0);
+  }
+
+  SECTION("Replace with C-string") {
+    FixedString<32> testString("Hello World");
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+
+    testString.replace(6, 5, "Universe");
+
+    REQUIRE(testString.size() == 14);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello Universe") == 0);
+  }
+
+  SECTION("Replace with repeated characters") {
+    FixedString<32> testString("Hello World");
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+
+    testString.replace(6, 5, '*', 3);
+
+    REQUIRE(testString.size() == 9);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello ***") == 0);
+  }
+
+  SECTION("Replace at beginning") {
+    FixedString<32> testString("Hello World");
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+
+    testString.replace(0, 5, "Hi");
+
+    REQUIRE(testString.size() == 8);
+    REQUIRE(std::strcmp(testString.c_str(), "Hi World") == 0);
+  }
+
+  SECTION("Replace at end") {
+    FixedString<32> testString("Hello World");
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+
+    testString.replace(6, 5, "Universe!");
+
+    REQUIRE(testString.size() == 15);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello Universe!") == 0);
+  }
+
+  SECTION("Replace with empty string") {
+    FixedString<32> testString("Hello World");
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+
+    testString.replace(5, 1, "");
+
+    REQUIRE(testString.size() == 10);
+    REQUIRE(std::strcmp(testString.c_str(), "HelloWorld") == 0);
+  }
+
+  SECTION("Replace with longer string") {
+    FixedString<32> testString("Hi");
+
+    REQUIRE(testString.size() == 2);
+    REQUIRE(std::strcmp(testString.c_str(), "Hi") == 0);
+
+    testString.replace(0, 2, "Hello World");
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+  }
+
+  SECTION("Replace with shorter string") {
+    FixedString<32> testString("Hello World");
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+
+    testString.replace(0, 5, "Hi");
+
+    REQUIRE(testString.size() == 8);
+    REQUIRE(std::strcmp(testString.c_str(), "Hi World") == 0);
+  }
+
+  SECTION("Replace single character") {
+    FixedString<32> testString("Hello World");
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+
+    testString.replace(0, 1, "h");
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "hello World") == 0);
+  }
+
+  SECTION("Replace multiple characters with single character") {
+    FixedString<32> testString("Hello World");
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+
+    testString.replace(0, 5, "H");
+
+    REQUIRE(testString.size() == 7);
+    REQUIRE(std::strcmp(testString.c_str(), "H World") == 0);
+  }
+
+  SECTION("Replace with repeated characters at different positions") {
+    FixedString<32> testString("Hello World");
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+
+    testString.replace(0, 1, '*', 2);
+    testString.replace(8, 2, '#', 3);
+
+    REQUIRE(testString.size() == 13);
+    REQUIRE(std::strcmp(testString.c_str(), "**ello W###ld") == 0);
+  }
+
+  SECTION("Replace entire string") {
+    FixedString<32> testString("Hello World");
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+
+    testString.replace(0, 11, "Goodbye Universe");
+
+    REQUIRE(testString.size() == 16);
+    REQUIRE(std::strcmp(testString.c_str(), "Goodbye Universe") == 0);
+  }
+
+  SECTION("Replace with zero count") {
+    FixedString<32> testString("Hello World");
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+
+    testString.replace(6, 0, "Beautiful ");
+
+    REQUIRE(testString.size() == 21);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello Beautiful World") == 0);
+  }
+
+  SECTION("Replace with single character count") {
+    FixedString<32> testString("Hello World");
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+
+    testString.replace(6, 5, '!', 1);
+
+    REQUIRE(testString.size() == 7);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello !") == 0);
+  }
+
+  SECTION("Replace with multiple character count") {
+    FixedString<32> testString("Hello World");
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+
+    testString.replace(6, 5, '=', 4);
+
+    REQUIRE(testString.size() == 10);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello ====") == 0);
+  }
+
+  SECTION("Replace with zero character count") {
+    FixedString<32> testString("Hello World");
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+
+    testString.replace(6, 5, 'X', 0);
+
+    REQUIRE(testString.size() == 6);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello ") == 0);
+  }
+
+  SECTION("Replace middle portion") {
+    FixedString<32> testString("Hello Beautiful World");
+
+    REQUIRE(testString.size() == 21);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello Beautiful World") == 0);
+
+    testString.replace(6, 9, "Amazing");
+
+    REQUIRE(testString.size() == 19);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello Amazing World") == 0);
+  }
+
+  SECTION("Replace with same length string") {
+    FixedString<32> testString("Hello World");
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+
+    testString.replace(0, 5, "Greet");
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Greet World") == 0);
+  }
+
+  SECTION("Replace with FixedString of different capacity") {
+    FixedString<32> testString("Hello World");
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+
+    testString.replace(6, 5, FixedString<12>("Universe"));
+
+    REQUIRE(testString.size() == 14);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello Universe") == 0);
+  }
+
+  SECTION("Replace with std::string") {
+    FixedString<32> testString("Hello World");
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+
+    testString.replace(6, 5, std::string("Universe"));
+
+    REQUIRE(testString.size() == 14);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello Universe") == 0);
   }
 
   SECTION("Replace with array") {
     FixedString<32> testString("Hello World");
     constexpr std::array<char, 9> arr = {'U', 'n', 'i', 'v', 'e', 'r', 's', 'e', '\0'};
 
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+
     testString.replace(6, 5, arr.data());
 
-    REQUIRE(std::strcmp(testString.c_str(), "Hello Universe") == 0);
     REQUIRE(testString.size() == 14);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello Universe") == 0);
   }
 
   SECTION("Replace at position 0 with zero count") {
     FixedString<32> testString("Hello World");
 
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+
     testString.replace(0, 0, "Hi ");
 
-    REQUIRE(std::strcmp(testString.c_str(), "Hi Hello World") == 0);
     REQUIRE(testString.size() == 14);
+    REQUIRE(std::strcmp(testString.c_str(), "Hi Hello World") == 0);
   }
 
   SECTION("Replace at end with zero count") {
     FixedString<32> testString("Hello World");
 
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+
     testString.replace(11, 0, "!");
 
-    REQUIRE(std::strcmp(testString.c_str(), "Hello World!") == 0);
     REQUIRE(testString.size() == 12);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World!") == 0);
   }
 }
+
+// to refactor 5879 - 4278 = 1601
 
 TEST_CASE("FixedString copy", "[core][fixed_string]") {
   SECTION("Copy entire string") {
