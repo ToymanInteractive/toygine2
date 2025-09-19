@@ -3743,20 +3743,247 @@ TEST_CASE("FixedString append", "[core][fixed_string]") {
   }
 }
 
-// to refactor 5580 - 3746 = 1834
-
 TEST_CASE("FixedString operators+=", "[core][fixed_string]") {
-  FixedString<32> testString("");
+  SECTION("Operator += with FixedString") {
+    FixedString<32> testString("Hello");
 
-  testString += FixedString<16>("Nothing");
-  testString += FixedString<8>(" else");
-  testString += std::string(" really");
-  testString += " matters";
-  testString += '.';
+    REQUIRE(testString.size() == 5);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello") == 0);
 
-  REQUIRE(std::strcmp(testString.c_str(), "Nothing else really matters.") == 0);
-  REQUIRE(testString.size() == 28);
+    testString += FixedString<16>(" World");
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+  }
+
+  SECTION("Operator += with C-string") {
+    FixedString<32> testString("Hello");
+
+    REQUIRE(testString.size() == 5);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello") == 0);
+
+    testString += " World";
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+  }
+
+  SECTION("Operator += with std::string") {
+    FixedString<32> testString("Hello");
+
+    REQUIRE(testString.size() == 5);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello") == 0);
+
+    testString += std::string(" World");
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+  }
+
+  SECTION("Operator += with single character") {
+    FixedString<32> testString("Hello");
+
+    REQUIRE(testString.size() == 5);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello") == 0);
+
+    testString += '!';
+
+    REQUIRE(testString.size() == 6);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello!") == 0);
+  }
+
+  SECTION("Operator += to empty string") {
+    FixedString<32> emptyString;
+
+    REQUIRE(emptyString.empty());
+    REQUIRE(emptyString.size() == 0);
+
+    emptyString += "Hello";
+
+    REQUIRE_FALSE(emptyString.empty());
+    REQUIRE(emptyString.size() == 5);
+    REQUIRE(std::strcmp(emptyString.c_str(), "Hello") == 0);
+  }
+
+  SECTION("Operator += with special characters") {
+    FixedString<32> testString("Hello");
+
+    REQUIRE(testString.size() == 5);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello") == 0);
+
+    testString += '\n';
+    testString += '\t';
+    testString += '!';
+
+    REQUIRE(testString.size() == 8);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello\n\t!") == 0);
+  }
+
+  SECTION("Operator += with Unicode content") {
+    FixedString<64> testString("Hello");
+
+    REQUIRE(testString.size() == 5);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello") == 0);
+
+    testString += " 世界";
+
+    REQUIRE(testString.size() == 12);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello 世界") == 0);
+  }
+
+  SECTION("Operator += with different capacities") {
+    FixedString<8> smallString("Hi");
+    FixedString<16> mediumString("Hello");
+    FixedString<32> largeString("Hello World");
+
+    smallString += "!";
+    mediumString += " World";
+    largeString += "!";
+
+    REQUIRE(std::strcmp(smallString.c_str(), "Hi!") == 0);
+    REQUIRE(std::strcmp(mediumString.c_str(), "Hello World") == 0);
+    REQUIRE(std::strcmp(largeString.c_str(), "Hello World!") == 0);
+
+    REQUIRE(smallString.size() == 3);
+    REQUIRE(mediumString.size() == 11);
+    REQUIRE(largeString.size() == 12);
+  }
+
+  SECTION("Operator += numeric content") {
+    FixedString<16> testString("123");
+
+    REQUIRE(testString.size() == 3);
+    REQUIRE(std::strcmp(testString.c_str(), "123") == 0);
+
+    testString += "456";
+
+    REQUIRE(testString.size() == 6);
+    REQUIRE(std::strcmp(testString.c_str(), "123456") == 0);
+  }
+
+  SECTION("Operator += mixed content") {
+    FixedString<32> testString("Test");
+
+    REQUIRE(testString.size() == 4);
+    REQUIRE(std::strcmp(testString.c_str(), "Test") == 0);
+
+    testString += " 123!";
+
+    REQUIRE(testString.size() == 9);
+    REQUIRE(std::strcmp(testString.c_str(), "Test 123!") == 0);
+  }
+
+  SECTION("Operator += edge cases") {
+    FixedString<16> testString("A");
+
+    REQUIRE(testString.size() == 1);
+    REQUIRE(std::strcmp(testString.c_str(), "A") == 0);
+
+    testString += "BC";
+
+    REQUIRE(testString.size() == 3);
+    REQUIRE(std::strcmp(testString.c_str(), "ABC") == 0);
+  }
+
+  SECTION("Operator += and size consistency") {
+    FixedString<16> testString;
+
+    REQUIRE(testString.empty());
+    REQUIRE(testString.size() == 0);
+
+    testString += "A";
+    REQUIRE(testString.size() == 1);
+
+    testString += "B";
+    REQUIRE(testString.size() == 2);
+
+    testString += "C";
+    REQUIRE(testString.size() == 3);
+
+    REQUIRE(std::strcmp(testString.c_str(), "ABC") == 0);
+  }
+
+  SECTION("Operator += chaining") {
+    FixedString<32> testString("");
+
+    REQUIRE(testString.empty());
+    REQUIRE(testString.size() == 0);
+
+    testString += FixedString<16>("Nothing");
+    testString += FixedString<8>(" else");
+    testString += std::string(" really");
+    testString += " matters";
+    testString += '.';
+
+    REQUIRE(testString.size() == 28);
+    REQUIRE(std::strcmp(testString.c_str(), "Nothing else really matters.") == 0);
+  }
+
+  SECTION("Operator += and reassignment") {
+    FixedString<18> testString("Original");
+
+    REQUIRE(testString.size() == 8);
+    REQUIRE(std::strcmp(testString.c_str(), "Original") == 0);
+
+    testString += " content";
+
+    REQUIRE(testString.size() == 16);
+    REQUIRE(std::strcmp(testString.c_str(), "Original content") == 0);
+
+    // Reassign after +=
+    testString = "New";
+
+    REQUIRE(testString.size() == 3);
+    REQUIRE(std::strcmp(testString.c_str(), "New") == 0);
+  }
+
+  SECTION("Operator += with capacity preservation") {
+    FixedString<16> testString("Hello");
+
+    const auto originalCapacity = testString.capacity();
+    const auto originalMaxSize = testString.max_size();
+
+    REQUIRE(testString.size() == 5);
+
+    testString += " World";
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(testString.capacity() == originalCapacity);
+    REQUIRE(testString.max_size() == originalMaxSize);
+  }
+
+  SECTION("Operator += with different types") {
+    FixedString<32> testString("Hello");
+
+    REQUIRE(testString.size() == 5);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello") == 0);
+
+    testString += FixedString<8>(" ");
+    testString += "World";
+    testString += std::string("!");
+    testString += ' ';
+    testString += '2';
+
+    REQUIRE(testString.size() == 14);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World! 2") == 0);
+  }
+
+  SECTION("Operator += with empty operands") {
+    FixedString<16> testString("Hello");
+
+    REQUIRE(testString.size() == 5);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello") == 0);
+
+    testString += FixedString<8>("");
+    testString += "";
+    testString += std::string("");
+
+    REQUIRE(testString.size() == 5);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello") == 0);
+  }
 }
+
+// to refactor 5807 - 3986 = 1821
 
 TEST_CASE("FixedString replace", "[core][fixed_string]") {
   SECTION("Replace with FixedString") {
