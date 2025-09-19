@@ -289,11 +289,12 @@ public:
   [[nodiscard]] constexpr std::size_t capacity() const noexcept;
 
   /*!
-    \brief Clears the contents of the string.
+    \brief Clears the contents by detaching from the current C string.
 
-    This method resets the size of the string to zero and effectively clears the string.
+    This method resets this view to point at the internal empty sentinel. The previously referenced character buffer is
+    not modified or freed.
 
-    \note The string object is cleared, and its size is set to zero.
+    \note No allocation or deallocation occurs.
   */
   constexpr void clear() noexcept;
 

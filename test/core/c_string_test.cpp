@@ -1474,7 +1474,7 @@ TEST_CASE("CString clear", "[core][c_string]") {
     REQUIRE(std::strcmp(singleChar.c_str(), "") == 0);
   }
 
-  SECTION("Clear maximum length string") {
+  SECTION("Clear longer string") {
     CString maxString("1234567890");
 
     REQUIRE_FALSE(maxString.empty());
@@ -1509,6 +1509,10 @@ TEST_CASE("CString clear", "[core][c_string]") {
     REQUIRE(mediumString.empty());
     REQUIRE(largeString.empty());
     REQUIRE(extraLargeString.empty());
+    REQUIRE(std::strcmp(smallString.c_str(), "") == 0);
+    REQUIRE(std::strcmp(mediumString.c_str(), "") == 0);
+    REQUIRE(std::strcmp(largeString.c_str(), "") == 0);
+    REQUIRE(std::strcmp(extraLargeString.c_str(), "") == 0);
   }
 
   SECTION("Clear special characters") {
@@ -1527,6 +1531,9 @@ TEST_CASE("CString clear", "[core][c_string]") {
     REQUIRE(newlineString.empty());
     REQUIRE(tabString.empty());
     REQUIRE(specialString.empty());
+    REQUIRE(std::strcmp(newlineString.c_str(), "") == 0);
+    REQUIRE(std::strcmp(tabString.c_str(), "") == 0);
+    REQUIRE(std::strcmp(specialString.c_str(), "") == 0);
   }
 
   SECTION("Clear Unicode content") {
@@ -1545,6 +1552,9 @@ TEST_CASE("CString clear", "[core][c_string]") {
     REQUIRE(unicodeString.empty());
     REQUIRE(emojiString.empty());
     REQUIRE(mixedString.empty());
+    REQUIRE(std::strcmp(unicodeString.c_str(), "") == 0);
+    REQUIRE(std::strcmp(emojiString.c_str(), "") == 0);
+    REQUIRE(std::strcmp(mixedString.c_str(), "") == 0);
   }
 
   SECTION("Clear and reassignment") {
@@ -1573,6 +1583,7 @@ TEST_CASE("CString clear", "[core][c_string]") {
     testString.clear();
     REQUIRE(testString.empty());
     REQUIRE(testString.size() == 0);
+    REQUIRE(std::strcmp(testString.c_str(), "") == 0);
 
     // Assign new content
     testString = "New";
@@ -1583,10 +1594,12 @@ TEST_CASE("CString clear", "[core][c_string]") {
     testString.clear();
     REQUIRE(testString.empty());
     REQUIRE(testString.size() == 0);
+    REQUIRE(std::strcmp(testString.c_str(), "") == 0);
 
     // Third clear (should be idempotent)
     testString.clear();
     REQUIRE(testString.empty());
     REQUIRE(testString.size() == 0);
+    REQUIRE(std::strcmp(testString.c_str(), "") == 0);
   }
 }
