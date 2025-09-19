@@ -10,6 +10,7 @@ var classtoy_1_1_c_string =
     [ "back", "d2/d27/classtoy_1_1_c_string.html#a06ffeede09a3633a852904509ae9774f", null ],
     [ "c_str", "d2/d27/classtoy_1_1_c_string.html#ab6bf883c855640b4e135e9cc8e75ab5e", null ],
     [ "capacity", "d2/d27/classtoy_1_1_c_string.html#ac4a7706ee97edaa85b8f70c3fcc691e9", null ],
+    [ "clear", "d2/d27/classtoy_1_1_c_string.html#ae9b95b4c521adeddf256ddd340f880bf", null ],
     [ "data", "d2/d27/classtoy_1_1_c_string.html#aedda59db7117de6beb6a48d311b79ccc", null ],
     [ "empty", "d2/d27/classtoy_1_1_c_string.html#a168404d0c0a5ba7791466ad61fc6a683", null ],
     [ "front", "d2/d27/classtoy_1_1_c_string.html#a1f12c4d9737dc04cbcb351bc376ca550", null ],

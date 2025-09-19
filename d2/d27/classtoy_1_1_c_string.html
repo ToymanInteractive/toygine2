@@ -189,6 +189,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac4a7706ee97edaa85b8f70c3fcc691e9" id="r_ac4a7706ee97edaa85b8f70c3fcc691e9"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac4a7706ee97edaa85b8f70c3fcc691e9">capacity</a> () const noexcept</td></tr>
 <tr class="memdesc:ac4a7706ee97edaa85b8f70c3fcc691e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the capacity of the string.  <br /></td></tr>
 <tr class="separator:ac4a7706ee97edaa85b8f70c3fcc691e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9b95b4c521adeddf256ddd340f880bf" id="r_ae9b95b4c521adeddf256ddd340f880bf"><td class="memItemLeft" align="right" valign="top">constexpr void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae9b95b4c521adeddf256ddd340f880bf">clear</a> () noexcept</td></tr>
+<tr class="memdesc:ae9b95b4c521adeddf256ddd340f880bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the contents by detaching from the current C string.  <br /></td></tr>
+<tr class="separator:ae9b95b4c521adeddf256ddd340f880bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -541,6 +544,35 @@ This method is equivalent to <a class="el" href="#aedda59db7117de6beb6a48d311b79
 <p>This method returns the capacity of the allocated buffer for the string.</p>
 <dl class="section return"><dt>Returns</dt><dd>The capacity of the string in characters, excluding the terminating null character.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This method is equivalent to <a class="el" href="#a73a379df1709b0e12382d411d2fa0241" title="Returns the maximum size of the string.">max_size()</a> method. </dd></dl>
+
+</div>
+</div>
+<a id="ae9b95b4c521adeddf256ddd340f880bf" name="ae9b95b4c521adeddf256ddd340f880bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9b95b4c521adeddf256ddd340f880bf">&#9670;&#160;</a></span>clear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void toy::CString::clear </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Clears the contents by detaching from the current C string. </p>
+<p>This method resets this view to point at the internal empty sentinel. The previously referenced character buffer is not modified or freed.</p>
+<dl class="section note"><dt>Note</dt><dd>No allocation or deallocation occurs. </dd></dl>
 
 </div>
 </div>
@@ -936,7 +968,7 @@ This method is useful for internationalization and text processing applications.
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../d4/da9/namespacetoy.html">toy</a></li><li class="navelem"><a class="el" href="../../d2/d27/classtoy_1_1_c_string.html">CString</a></li>
-    <li class="footer">Generated on Thu Sep 18 2025 for ToyGine2 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generated on Fri Sep 19 2025 for ToyGine2 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>

@@ -1,5 +1,7 @@
 var NAVTREEINDEX1 =
 {
+"d3/d7a/classtoy_1_1_fixed_string.html#ae2773eb44a0dcd5301f41dc1b0f776af":[2,0,1,2,98],
+"d3/d7a/classtoy_1_1_fixed_string.html#ae2773eb44a0dcd5301f41dc1b0f776af":[4,0,1,1,98],
 "d3/d7a/classtoy_1_1_fixed_string.html#af17d624c0acb3117078c5769baad740e":[2,0,1,2,87],
 "d3/d7a/classtoy_1_1_fixed_string.html#af17d624c0acb3117078c5769baad740e":[4,0,1,1,87],
 "d3/d7a/classtoy_1_1_fixed_string.html#af1f2e4cb204c51f42ebb4f28aae503dd":[2,0,1,2,43],
@@ -247,7 +249,5 @@ var NAVTREEINDEX1 =
 "index.html#supported-c-compilers":[1,0],
 "index.html#supported-systems":[0],
 "index.html#tools":[1,1],
-"namespacemembers.html":[2,1,0],
-"namespacemembers_func.html":[2,1,1],
-"namespacemembers_type.html":[2,1,3]
+"namespacemembers.html":[2,1,0]
 };
