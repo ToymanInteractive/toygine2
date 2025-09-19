@@ -39,20 +39,20 @@ public:
   /*!
     \brief Constructs a copy of \a string view.
 
-    This constructor initializes a string view by copying the C-style string pointer from another \a string view.
+    This constructor initializes a string view by copying the C string pointer from another \a string view.
 
-    \param string The source string view to copy C-style string pointer from.
+    \param string The source string view to copy C string pointer from.
 
     \pre The source \a string view must be valid and properly initialized.
   */
-  constexpr CStringView(const CStringView & string) noexcept;
+  constexpr CStringView(const CStringView & string) noexcept = default;
 
   /*!
-    \brief Constructs a string view from a C-style \a string view.
+    \brief Constructs a string view from a C \a string.
 
-    Creates a new CStringView object that wraps the provided C-style \a string pointer.
+    Creates a new string view that wraps the provided C \a string pointer.
 
-    \param string The C-style string to wrap.
+    \param string The C string to wrap.
 
     \pre The source C \a string must not be null.
     \pre The source C \a string must be null-terminated.
@@ -69,20 +69,20 @@ public:
   /*!
     \brief Copy assigns other \a string view to this string view.
 
-    This operator assigns the C-style string pointer of another \a string view to this string view.
+    This operator assigns the C string pointer of another \a string view to this string view.
 
-    \param string The source string view to copy C-style string pointer from.
+    \param string The source string view to copy C string pointer from.
 
     \return A reference to this string view after assignment.
   */
-  constexpr CStringView & operator=(const CStringView & string) noexcept;
+  constexpr CStringView & operator=(const CStringView & string) noexcept = default;
 
   /*!
     \brief Copy assigns the C \a string to this string view.
 
     This operator assigns a new C \a string to this string view.
 
-    \param string The C-style string to assign.
+    \param string The C string to assign.
 
     \return A reference to this string view after assignment.
 
@@ -94,9 +94,9 @@ public:
   /*!
     \brief Copy assigns other \a string view to this string view.
 
-    This method assigns the C-style string pointer of another \a string view to this string view.
+    This method assigns the C string pointer of another \a string view to this string view.
 
-    \param string The source string view to copy C-style string pointer from.
+    \param string The source string view to copy C string pointer from.
 
     \return A reference to this string view after assignment.
 
@@ -111,7 +111,7 @@ public:
 
     This method assigns a new C \a string to this string view.
 
-    \param string The C-style string to assign.
+    \param string The C string to assign.
 
     \return A reference to this string view after assignment.
 
@@ -299,10 +299,10 @@ public:
   constexpr void clear() noexcept;
 
 private:
-  /// Pointer to the wrapped C-style string
+  /// Pointer to the wrapped C string
   const char * _data;
 
-  /// Static empty C-style string used as default value for null pointers
+  /// Static empty C string used as default value for null pointers
   static constexpr char _emptyString[]{'\0'};
 };
 

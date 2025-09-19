@@ -30,18 +30,9 @@ namespace toy {
 constexpr CStringView::CStringView() noexcept
   : _data(_emptyString) {};
 
-constexpr CStringView::CStringView(const CStringView & string) noexcept
-  : _data(string._data) {}
-
 constexpr CStringView::CStringView(const char * string) noexcept
   : _data(string) {
   assert_message(string != nullptr, "String pointer must not be null");
-}
-
-constexpr CStringView & CStringView::operator=(const CStringView & string) noexcept {
-  _data = string._data;
-
-  return *this;
 }
 
 constexpr CStringView & CStringView::operator=(const char * string) noexcept {
