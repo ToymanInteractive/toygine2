@@ -1,0 +1,48 @@
+name: SonarCloud Analyzer
+
+on:
+  workflow_call:
+    secrets:
+      SONAR_TOKEN:
+        required: true
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  sonar_cloud:
+    name: SonarCloud Analyzer
+    # This job should be run only for the original repo (either pushes or pull requests originating from the same repo), forks are not allowed.
+    # Workflows initiated by Dependabot do not have access to repo secrets, so this job should not be run in this case.
+    if: >-
+      ${{
+          github.repository == 'ToymanInteractive/toygine2'
+          && ( github.event_name == 'push' || ( github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository ) )
+          && github.actor != 'dependabot[bot]'
+       }}
+    runs-on: macos-15
+    timeout-minutes: 60
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4.2.2
+        with:
+          fetch-depth: 0
+          submodules: recursive
+
+      - uses: SonarSource/sonarqube-scan-action/install-build-wrapper@v5.3.0
+        env:
+          SONAR_HOST_URL: https://sonarcloud.io
+
+      - name: Prepare compile_commands.json
+        run: |
+          cmake -B build -DCMAKE_BUILD_TYPE=Debug -DCMAKE_COMPILE_WARNING_AS_ERROR=ON -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+
+      - uses: SonarSource/sonarqube-scan-action@v5.3.0
+        with:
+          projectBaseDir: .
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
