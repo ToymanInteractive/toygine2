@@ -18,23 +18,23 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   c_string.hpp
+  \file   c_string_view.hpp
   \brief  TODO
 */
 
-#ifndef INCLUDE_CORE_C_STRING_HPP_
-#define INCLUDE_CORE_C_STRING_HPP_
+#ifndef INCLUDE_CORE_C_STRING_VIEW_HPP_
+#define INCLUDE_CORE_C_STRING_VIEW_HPP_
 
 namespace toy {
 
-class CString {
+class CStringView {
 public:
   /*!
     \brief Default constructor.
 
     \post The string is empty and ready for use.
   */
-  constexpr CString() noexcept;
+  constexpr CStringView() noexcept;
 
   /*!
     \brief Constructs a copy of \a string.
@@ -45,26 +45,26 @@ public:
 
     \pre The source \a string must be valid and properly initialized.
   */
-  constexpr CString(const CString & string) noexcept;
+  constexpr CStringView(const CStringView & string) noexcept;
 
   /*!
-    \brief Constructs a CString from a C-style \a string.
+    \brief Constructs a CStringView from a C-style \a string.
 
-    Creates a new CString object that wraps the provided C-style \a string pointer.
+    Creates a new CStringView object that wraps the provided C-style \a string pointer.
 
     \param string The C-style string to wrap.
 
     \pre The source C \a string must not be null.
     \pre The source C \a string must be null-terminated.
   */
-  constexpr CString(const char * string) noexcept;
+  constexpr CStringView(const char * string) noexcept;
 
   /*!
     \brief Destructor for the string.
 
     \note Since the Destructor does not manage dynamic memory, no special cleanup is required.
   */
-  constexpr ~CString() noexcept = default;
+  constexpr ~CStringView() noexcept = default;
 
   /*!
     \brief Copy assigns other \a string to this string.
@@ -75,7 +75,7 @@ public:
 
     \return A reference to this string after assignment.
   */
-  constexpr CString & operator=(const CString & string) noexcept;
+  constexpr CStringView & operator=(const CStringView & string) noexcept;
 
   /*!
     \brief Copy assigns the C \a string to this string.
@@ -89,7 +89,7 @@ public:
     \pre The source C \a string must not be null.
     \pre The source C \a string must be null-terminated.
   */
-  constexpr CString & operator=(const char * string) noexcept;
+  constexpr CStringView & operator=(const char * string) noexcept;
 
   /*!
     \brief Copy assigns other \a string to this string.
@@ -102,9 +102,9 @@ public:
 
     \note This method is equivalent to the copy assignment operator.
 
-    \see operator=(const CString & string)
+    \see operator=(const CStringView & string)
   */
-  constexpr CString & assign(const CString & string) noexcept;
+  constexpr CStringView & assign(const CStringView & string) noexcept;
 
   /*!
     \brief Copy assigns the C \a string to this string.
@@ -122,7 +122,7 @@ public:
 
     \see operator=(const char * string)
   */
-  constexpr CString & assign(const char * string) noexcept;
+  constexpr CStringView & assign(const char * string) noexcept;
 
   /*!
     \brief Access a character in the string at a given \a offset.
@@ -308,4 +308,4 @@ private:
 
 } // namespace toy
 
-#endif // INCLUDE_CORE_C_STRING_HPP_
+#endif // INCLUDE_CORE_C_STRING_VIEW_HPP_

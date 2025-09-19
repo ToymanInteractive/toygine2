@@ -18,33 +18,33 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   c_string.inl
+  \file   c_string_view.inl
   \brief  TODO
 */
 
-#ifndef INCLUDE_CORE_C_STRING_INL_
-#define INCLUDE_CORE_C_STRING_INL_
+#ifndef INCLUDE_CORE_C_STRING_VIEW_INL_
+#define INCLUDE_CORE_C_STRING_VIEW_INL_
 
 namespace toy {
 
-constexpr CString::CString() noexcept
+constexpr CStringView::CStringView() noexcept
   : _data(_emptyString) {};
 
-constexpr CString::CString(const CString & string) noexcept
+constexpr CStringView::CStringView(const CStringView & string) noexcept
   : _data(string._data) {}
 
-constexpr CString::CString(const char * string) noexcept
+constexpr CStringView::CStringView(const char * string) noexcept
   : _data(string) {
   assert_message(string != nullptr, "String pointer must not be null");
 }
 
-constexpr CString & CString::operator=(const CString & string) noexcept {
+constexpr CStringView & CStringView::operator=(const CStringView & string) noexcept {
   _data = string._data;
 
   return *this;
 }
 
-constexpr CString & CString::operator=(const char * string) noexcept {
+constexpr CStringView & CStringView::operator=(const char * string) noexcept {
   assert_message(string != nullptr, "String pointer must not be null");
 
   _data = string;
@@ -52,13 +52,13 @@ constexpr CString & CString::operator=(const char * string) noexcept {
   return *this;
 }
 
-constexpr CString & CString::assign(const CString & string) noexcept {
+constexpr CStringView & CStringView::assign(const CStringView & string) noexcept {
   _data = string._data;
 
   return *this;
 }
 
-constexpr CString & CString::assign(const char * string) noexcept {
+constexpr CStringView & CStringView::assign(const char * string) noexcept {
   assert_message(string != nullptr, "String pointer must not be null");
 
   _data = string;
@@ -66,23 +66,23 @@ constexpr CString & CString::assign(const char * string) noexcept {
   return *this;
 }
 
-constexpr const char & CString::at(std::size_t offset) const noexcept {
+constexpr const char & CStringView::at(std::size_t offset) const noexcept {
   assert_message(offset < size() || (offset == 0 && empty()), "Offset must be within bounds");
 
   return _data[offset];
 }
 
-constexpr const char & CString::operator[](std::size_t offset) const noexcept {
+constexpr const char & CStringView::operator[](std::size_t offset) const noexcept {
   assert_message(offset < size() || (offset == 0 && empty()), "Offset must be within bounds");
 
   return _data[offset];
 }
 
-constexpr const char & CString::front() const noexcept {
+constexpr const char & CStringView::front() const noexcept {
   return _data[0];
 }
 
-constexpr const char & CString::back() const noexcept {
+constexpr const char & CStringView::back() const noexcept {
   const auto dataSize = size();
 
   assert_message(dataSize > 0, "String must not be empty");
@@ -90,19 +90,19 @@ constexpr const char & CString::back() const noexcept {
   return _data[dataSize - 1];
 }
 
-constexpr const char * CString::data() const noexcept {
+constexpr const char * CStringView::data() const noexcept {
   return _data;
 }
 
-constexpr const char * CString::c_str() const noexcept {
+constexpr const char * CStringView::c_str() const noexcept {
   return _data;
 }
 
-constexpr bool CString::empty() const noexcept {
+constexpr bool CStringView::empty() const noexcept {
   return *_data == '\0';
 }
 
-constexpr std::size_t CString::size() const noexcept {
+constexpr std::size_t CStringView::size() const noexcept {
   if consteval {
     return std::char_traits<char>::length(_data);
   } else {
@@ -110,26 +110,26 @@ constexpr std::size_t CString::size() const noexcept {
   }
 }
 
-inline std::size_t CString::utf8_size() const noexcept {
+inline std::size_t CStringView::utf8_size() const noexcept {
   return utf8Len(_data);
 }
 
-constexpr std::size_t CString::length() const noexcept {
+constexpr std::size_t CStringView::length() const noexcept {
   return size();
 }
 
-constexpr std::size_t CString::max_size() const noexcept {
+constexpr std::size_t CStringView::max_size() const noexcept {
   return size();
 }
 
-constexpr std::size_t CString::capacity() const noexcept {
+constexpr std::size_t CStringView::capacity() const noexcept {
   return size();
 }
 
-constexpr void CString::clear() noexcept {
+constexpr void CStringView::clear() noexcept {
   _data = _emptyString;
 }
 
 } // namespace toy
 
-#endif // INCLUDE_CORE_C_STRING_INL_
+#endif // INCLUDE_CORE_C_STRING_VIEW_INL_

@@ -24,9 +24,9 @@
 
 using namespace toy;
 
-TEST_CASE("CString constructors", "[core][c_string]") {
+TEST_CASE("CStringView constructors", "[core][c_string_view]") {
   SECTION("Default constructor") {
-    constexpr const CString emptyStr;
+    constexpr const CStringView emptyStr;
 
     REQUIRE(emptyStr.size() == 0);
     REQUIRE(std::strcmp(emptyStr.c_str(), "") == 0);
@@ -37,10 +37,10 @@ TEST_CASE("CString constructors", "[core][c_string]") {
   }
 
   SECTION("Copy constructor") {
-    constexpr const CString original("CopyTest");
-    constexpr const CString copy1(original);
-    constexpr const CString copy2(original);
-    constexpr const CString copy3(original);
+    constexpr const CStringView original("CopyTest");
+    constexpr const CStringView copy1(original);
+    constexpr const CStringView copy2(original);
+    constexpr const CStringView copy3(original);
 
     REQUIRE(copy1.size() == 8);
     REQUIRE(std::strcmp(copy1.c_str(), "CopyTest") == 0);
@@ -58,10 +58,10 @@ TEST_CASE("CString constructors", "[core][c_string]") {
   }
 
   SECTION("C string constructor") {
-    constexpr const CString str1("Hello");
-    constexpr const CString str2("World");
-    constexpr const CString str3("Test");
-    constexpr const CString str4("This is a longer string for testing");
+    constexpr const CStringView str1("Hello");
+    constexpr const CStringView str2("World");
+    constexpr const CStringView str3("Test");
+    constexpr const CStringView str4("This is a longer string for testing");
 
     REQUIRE(str1.size() == 5);
     REQUIRE(std::strcmp(str1.c_str(), "Hello") == 0);
@@ -85,8 +85,8 @@ TEST_CASE("CString constructors", "[core][c_string]") {
 
   SECTION("Edge cases") {
     // Empty string
-    constexpr const CString empty1("");
-    constexpr const CString empty2("");
+    constexpr const CStringView empty1("");
+    constexpr const CStringView empty2("");
 
     REQUIRE(empty1.size() == 0);
     REQUIRE(empty2.size() == 0);
@@ -95,7 +95,7 @@ TEST_CASE("CString constructors", "[core][c_string]") {
     STATIC_REQUIRE(empty2.size() == 0);
 
     // Single character
-    constexpr const CString single("X");
+    constexpr const CStringView single("X");
 
     REQUIRE(single.size() == 1);
     REQUIRE(std::strcmp(single.c_str(), "X") == 0);
@@ -105,9 +105,9 @@ TEST_CASE("CString constructors", "[core][c_string]") {
   }
 
   SECTION("Special characters") {
-    constexpr const CString newline("Line1\nLine2");
-    constexpr const CString tab("Col1\tCol2");
-    constexpr const CString mixed("Mix\t\nEnd");
+    constexpr const CStringView newline("Line1\nLine2");
+    constexpr const CStringView tab("Col1\tCol2");
+    constexpr const CStringView mixed("Mix\t\nEnd");
 
     REQUIRE(newline.size() == 11);
     REQUIRE(std::strcmp(newline.c_str(), "Line1\nLine2") == 0);
@@ -126,8 +126,8 @@ TEST_CASE("CString constructors", "[core][c_string]") {
   }
 
   SECTION("Unicode content") {
-    constexpr const CString unicode("Привет мир");
-    constexpr const CString emoji("Hello 🌍");
+    constexpr const CStringView unicode("Привет мир");
+    constexpr const CStringView emoji("Hello 🌍");
 
     REQUIRE(unicode.size() == 19); // UTF-8 bytes
     REQUIRE(std::strcmp(unicode.c_str(), "Привет мир") == 0);
@@ -142,11 +142,11 @@ TEST_CASE("CString constructors", "[core][c_string]") {
   }
 }
 
-TEST_CASE("CString operators=", "[core][c_string]") {
+TEST_CASE("CStringView operators=", "[core][c_string_view]") {
   SECTION("C string assignment") {
-    CString str1;
-    CString str2;
-    CString str3;
+    CStringView str1;
+    CStringView str2;
+    CStringView str3;
 
     str1 = "Hello";
     str2 = "World";
@@ -170,15 +170,15 @@ TEST_CASE("CString operators=", "[core][c_string]") {
     REQUIRE(std::strcmp(str2.c_str(), "This is a longer string") == 0);
 
     // Compile-time checks
-    constexpr const CString constStr1 = "This is a longer string";
+    constexpr const CStringView constStr1 = "This is a longer string";
     STATIC_REQUIRE(constStr1.size() == 23);
     STATIC_REQUIRE(cstrcmp(constStr1.c_str(), "This is a longer string") == 0);
   }
 
-  SECTION("CString assignment") {
-    CString str1("Hello");
-    CString str2;
-    CString str3("World");
+  SECTION("CStringView assignment") {
+    CStringView str1("Hello");
+    CStringView str2;
+    CStringView str3("World");
 
     str2 = str1;
     REQUIRE(str2.size() == 5);
@@ -194,15 +194,15 @@ TEST_CASE("CString operators=", "[core][c_string]") {
     REQUIRE(std::strcmp(str1.c_str(), "Hello") == 0);
 
     // Compile-time checks
-    constexpr const CString constStr1("Hello");
-    constexpr const CString constStr2 = constStr1;
+    constexpr const CStringView constStr1("Hello");
+    constexpr const CStringView constStr2 = constStr1;
     STATIC_REQUIRE(constStr2.size() == 5);
     STATIC_REQUIRE(cstrcmp(constStr2.c_str(), "Hello") == 0);
   }
 
   SECTION("Edge cases") {
-    CString str1;
-    CString str2;
+    CStringView str1;
+    CStringView str2;
 
     // Non-empty to empty
     str2 = "Test";
@@ -218,8 +218,8 @@ TEST_CASE("CString operators=", "[core][c_string]") {
   }
 
   SECTION("Special characters") {
-    CString str1;
-    CString str2;
+    CStringView str1;
+    CStringView str2;
 
     str1 = "Line1\nLine2";
     REQUIRE(str1.size() == 11);
@@ -236,8 +236,8 @@ TEST_CASE("CString operators=", "[core][c_string]") {
   }
 
   SECTION("Unicode content") {
-    CString str1;
-    CString str2;
+    CStringView str1;
+    CStringView str2;
 
     str1 = "Привет";
     REQUIRE(str1.size() == 12); // UTF-8 encoding
@@ -254,11 +254,11 @@ TEST_CASE("CString operators=", "[core][c_string]") {
   }
 }
 
-TEST_CASE("CString assign", "[core][c_string]") {
+TEST_CASE("CStringView assign", "[core][c_string_view]") {
   SECTION("C string assignment") {
-    CString str1;
-    CString str2;
-    CString str3;
+    CStringView str1;
+    CStringView str2;
+    CStringView str3;
 
     // Basic assignment
     str1.assign("Hello");
@@ -285,9 +285,9 @@ TEST_CASE("CString assign", "[core][c_string]") {
     REQUIRE(std::strcmp(str3.c_str(), "A") == 0);
 
     // Compile-time checks
-    constexpr auto constStr1 = CString().assign("Hello");
-    constexpr auto constStr2 = CString("World").assign("VeryLongString");
-    constexpr auto constStr3 = CString("A").assign("");
+    constexpr auto constStr1 = CStringView().assign("Hello");
+    constexpr auto constStr2 = CStringView("World").assign("VeryLongString");
+    constexpr auto constStr3 = CStringView("A").assign("");
     STATIC_REQUIRE(constStr1.size() == 5);
     STATIC_REQUIRE(cstrcmp(constStr1.c_str(), "Hello") == 0);
     STATIC_REQUIRE(constStr2.size() == 14);
@@ -296,10 +296,10 @@ TEST_CASE("CString assign", "[core][c_string]") {
     STATIC_REQUIRE(cstrcmp(constStr3.c_str(), "") == 0);
   }
 
-  SECTION("CString assignment") {
-    CString str1("Hello");
-    CString str2("World");
-    CString str3;
+  SECTION("CStringView assignment") {
+    CStringView str1("Hello");
+    CStringView str2("World");
+    CStringView str3;
 
     // Basic assignment
     str3.assign(str1);
@@ -317,15 +317,15 @@ TEST_CASE("CString assign", "[core][c_string]") {
     REQUIRE(std::strcmp(str1.c_str(), "Hello") == 0);
 
     // Empty string assignment
-    CString emptyStr("");
+    CStringView emptyStr("");
     str1.assign(emptyStr);
     REQUIRE(str1.size() == 0);
     REQUIRE(std::strcmp(str1.c_str(), "") == 0);
 
     // Compile-time checks
-    constexpr const CString constStr1("Hello");
-    constexpr auto constStr2 = CString("World").assign(constStr1);
-    constexpr auto constStr3 = CString().assign(constStr2);
+    constexpr const CStringView constStr1("Hello");
+    constexpr auto constStr2 = CStringView("World").assign(constStr1);
+    constexpr auto constStr3 = CStringView().assign(constStr2);
     STATIC_REQUIRE(constStr2.size() == 5);
     STATIC_REQUIRE(cstrcmp(constStr2.c_str(), "Hello") == 0);
     STATIC_REQUIRE(constStr3.size() == 5);
@@ -333,9 +333,9 @@ TEST_CASE("CString assign", "[core][c_string]") {
   }
 
   SECTION("Edge cases") {
-    CString str1("ABC");
-    CString str2("ABC");
-    CString str3("ABCD");
+    CStringView str1("ABC");
+    CStringView str2("ABC");
+    CStringView str3("ABCD");
 
     // Assign from own c_str() (no-op path)
     str2.assign(str2.c_str());
@@ -348,8 +348,8 @@ TEST_CASE("CString assign", "[core][c_string]") {
     REQUIRE(std::strcmp(str3.c_str(), "") == 0);
 
     // Compile-time checks
-    constexpr auto constStr1 = CString("ABC").assign("XYZ");
-    constexpr auto constStr2 = CString("ABCD").assign("");
+    constexpr auto constStr1 = CStringView("ABC").assign("XYZ");
+    constexpr auto constStr2 = CStringView("ABCD").assign("");
     STATIC_REQUIRE(constStr1.size() == 3);
     STATIC_REQUIRE(cstrcmp(constStr1.c_str(), "XYZ") == 0);
     STATIC_REQUIRE(constStr2.size() == 0);
@@ -357,8 +357,8 @@ TEST_CASE("CString assign", "[core][c_string]") {
   }
 
   SECTION("Special characters") {
-    CString str1;
-    CString str2;
+    CStringView str1;
+    CStringView str2;
 
     // Newline and tab
     str1.assign("Hello\n\tWorld");
@@ -371,8 +371,8 @@ TEST_CASE("CString assign", "[core][c_string]") {
     REQUIRE(std::strcmp(str2.c_str(), "!@#$%^&*()") == 0);
 
     // Compile-time checks
-    constexpr auto constStr1 = CString().assign("Hello\n\tWorld");
-    constexpr auto constStr2 = CString().assign("!@#$%^&*()");
+    constexpr auto constStr1 = CStringView().assign("Hello\n\tWorld");
+    constexpr auto constStr2 = CStringView().assign("!@#$%^&*()");
     STATIC_REQUIRE(constStr1.size() == 12);
     STATIC_REQUIRE(cstrcmp(constStr1.c_str(), "Hello\n\tWorld") == 0);
     STATIC_REQUIRE(constStr2.size() == 10);
@@ -380,8 +380,8 @@ TEST_CASE("CString assign", "[core][c_string]") {
   }
 
   SECTION("Unicode content") {
-    CString str1;
-    CString str2;
+    CStringView str1;
+    CStringView str2;
 
     // Unicode characters
     str1.assign("Hello 世界");
@@ -394,8 +394,8 @@ TEST_CASE("CString assign", "[core][c_string]") {
     REQUIRE(std::strcmp(str2.c_str(), "Test 🌍") == 0);
 
     // Compile-time checks
-    constexpr auto constStr1 = CString().assign("Hello 世界");
-    constexpr auto constStr2 = CString().assign("Test 🌍");
+    constexpr auto constStr1 = CStringView().assign("Hello 世界");
+    constexpr auto constStr2 = CStringView().assign("Test 🌍");
     STATIC_REQUIRE(constStr1.size() == 12);
     STATIC_REQUIRE(cstrcmp(constStr1.c_str(), "Hello 世界") == 0);
     STATIC_REQUIRE(constStr2.size() == 9);
@@ -403,7 +403,7 @@ TEST_CASE("CString assign", "[core][c_string]") {
   }
 
   SECTION("Chaining assign") {
-    CString str1;
+    CStringView str1;
 
     // Chaining assign operations
     str1.assign("a").assign("b");
@@ -416,8 +416,8 @@ TEST_CASE("CString assign", "[core][c_string]") {
     REQUIRE(std::strcmp(str1.c_str(), "Test") == 0);
 
     // Compile-time checks
-    constexpr auto constStr1 = CString("a").assign("b");
-    constexpr auto constStr2 = CString("Hello").assign("Test");
+    constexpr auto constStr1 = CStringView("a").assign("b");
+    constexpr auto constStr2 = CStringView("Hello").assign("Test");
     STATIC_REQUIRE(constStr1.size() == 1);
     STATIC_REQUIRE(cstrcmp(constStr1.c_str(), "b") == 0);
     STATIC_REQUIRE(constStr2.size() == 4);
@@ -425,9 +425,9 @@ TEST_CASE("CString assign", "[core][c_string]") {
   }
 }
 
-TEST_CASE("CString at", "[core][c_string]") {
+TEST_CASE("CStringView at", "[core][c_string_view]") {
   SECTION("at() access") {
-    constexpr const CString str("World");
+    constexpr const CStringView str("World");
 
     REQUIRE(str.at(0) == 'W');
     REQUIRE(str.at(1) == 'o');
@@ -444,7 +444,7 @@ TEST_CASE("CString at", "[core][c_string]") {
   }
 
   SECTION("empty string") {
-    constexpr const CString str;
+    constexpr const CStringView str;
 
     REQUIRE(str.at(0) == '\0');
 
@@ -453,10 +453,10 @@ TEST_CASE("CString at", "[core][c_string]") {
   }
 }
 
-TEST_CASE("CString operator[]", "[core][c_string]") {
+TEST_CASE("CStringView operator[]", "[core][c_string_view]") {
   SECTION("[] access") {
-    constexpr const CString str("Hello");
-    constexpr const CString longStr("VeryLongString");
+    constexpr const CStringView str("Hello");
+    constexpr const CStringView longStr("VeryLongString");
 
     // Read-only access
     REQUIRE(str[0] == 'H');
@@ -488,7 +488,7 @@ TEST_CASE("CString operator[]", "[core][c_string]") {
   }
 
   SECTION("empty string") {
-    constexpr const CString str;
+    constexpr const CStringView str;
 
     REQUIRE(str[0] == '\0');
 
@@ -497,9 +497,9 @@ TEST_CASE("CString operator[]", "[core][c_string]") {
   }
 }
 
-TEST_CASE("CString front and back", "[core][c_string]") {
+TEST_CASE("CStringView front and back", "[core][c_string_view]") {
   SECTION("Front method") {
-    constexpr const CString testString("Hello World");
+    constexpr const CStringView testString("Hello World");
 
     REQUIRE(testString.front() == 'H');
     REQUIRE(testString[0] == 'H');
@@ -508,7 +508,7 @@ TEST_CASE("CString front and back", "[core][c_string]") {
   }
 
   SECTION("Back method") {
-    constexpr const CString testString("Hello World");
+    constexpr const CStringView testString("Hello World");
 
     REQUIRE(testString.back() == 'd');
     REQUIRE(testString[testString.size() - 1] == 'd');
@@ -517,7 +517,7 @@ TEST_CASE("CString front and back", "[core][c_string]") {
   }
 
   SECTION("Single character string") {
-    constexpr const CString testString("A");
+    constexpr const CStringView testString("A");
 
     REQUIRE(testString.front() == 'A');
     REQUIRE(testString.back() == 'A');
@@ -529,14 +529,14 @@ TEST_CASE("CString front and back", "[core][c_string]") {
   }
 
   SECTION("Empty string") {
-    constexpr const CString testString;
+    constexpr const CStringView testString;
 
     REQUIRE(testString.front() == '\0');
     STATIC_REQUIRE(testString.front() == '\0');
   }
 
   SECTION("Two character string") {
-    constexpr const CString testString("AB");
+    constexpr const CStringView testString("AB");
 
     REQUIRE(testString.front() == 'A');
     REQUIRE(testString.back() == 'B');
@@ -548,14 +548,14 @@ TEST_CASE("CString front and back", "[core][c_string]") {
   }
 
   SECTION("Const references") {
-    constexpr const CString testString("Hello World");
+    constexpr const CStringView testString("Hello World");
 
     STATIC_REQUIRE(testString.front() == 'H');
     STATIC_REQUIRE(testString.back() == 'd');
   }
 
   SECTION("Numeric content") {
-    constexpr const CString testString("12345");
+    constexpr const CStringView testString("12345");
 
     REQUIRE(testString.front() == '1');
     REQUIRE(testString.back() == '5');
@@ -565,7 +565,7 @@ TEST_CASE("CString front and back", "[core][c_string]") {
   }
 
   SECTION("Mixed content") {
-    constexpr const CString testString("123Hello456");
+    constexpr const CStringView testString("123Hello456");
 
     REQUIRE(testString.front() == '1');
     REQUIRE(testString.back() == '6');
@@ -575,7 +575,7 @@ TEST_CASE("CString front and back", "[core][c_string]") {
   }
 
   SECTION("Long strings") {
-    constexpr const CString testString("This is a very long string for performance testing");
+    constexpr const CStringView testString("This is a very long string for performance testing");
 
     REQUIRE(testString.front() == 'T');
     REQUIRE(testString.back() == 'g');
@@ -585,7 +585,7 @@ TEST_CASE("CString front and back", "[core][c_string]") {
   }
 
   SECTION("Case sensitivity") {
-    constexpr const CString testString("Hello World");
+    constexpr const CStringView testString("Hello World");
 
     REQUIRE(testString.front() == 'H'); // Uppercase
     REQUIRE(testString.back() == 'd'); // Lowercase
@@ -595,7 +595,7 @@ TEST_CASE("CString front and back", "[core][c_string]") {
   }
 
   SECTION("Whitespace handling") {
-    constexpr const CString testString(" Hello ");
+    constexpr const CStringView testString(" Hello ");
 
     REQUIRE(testString.front() == ' ');
     REQUIRE(testString.back() == ' ');
@@ -605,9 +605,9 @@ TEST_CASE("CString front and back", "[core][c_string]") {
   }
 
   SECTION("Constexpr operations") {
-    constexpr const CString str1("Hello");
-    constexpr const CString str2("World");
-    constexpr const CString str3("Test");
+    constexpr const CStringView str1("Hello");
+    constexpr const CStringView str2("World");
+    constexpr const CStringView str3("Test");
 
     // Compile-time front operations
     constexpr const char & front1 = str1.front();
@@ -629,11 +629,11 @@ TEST_CASE("CString front and back", "[core][c_string]") {
   }
 }
 
-TEST_CASE("CString data", "[core][c_string]") {
+TEST_CASE("CStringView data", "[core][c_string_view]") {
   SECTION("Basic data access") {
-    constexpr const CString testString("Hello World");
-    constexpr const CString emptyString("");
-    constexpr const CString singleChar("A");
+    constexpr const CStringView testString("Hello World");
+    constexpr const CStringView emptyString("");
+    constexpr const CStringView singleChar("A");
 
     // Test that data() points to null-terminated string
     REQUIRE(std::strcmp(testString.data(), "Hello World") == 0);
@@ -647,9 +647,9 @@ TEST_CASE("CString data", "[core][c_string]") {
   }
 
   SECTION("Data pointer stability") {
-    constexpr const CString testString("Stability Test");
-    constexpr const CString copy1(testString);
-    constexpr const CString copy2(testString);
+    constexpr const CStringView testString("Stability Test");
+    constexpr const CStringView copy1(testString);
+    constexpr const CStringView copy2(testString);
 
     // Test that data() returns consistent pointers
     REQUIRE(testString.data() == testString.data());
@@ -672,8 +672,8 @@ TEST_CASE("CString data", "[core][c_string]") {
   }
 
   SECTION("Empty string") {
-    constexpr const CString emptyString("");
-    constexpr const CString defaultString;
+    constexpr const CStringView emptyString("");
+    constexpr const CStringView defaultString;
 
     // Test data() with empty strings
     REQUIRE(std::strcmp(emptyString.data(), "") == 0);
@@ -685,11 +685,11 @@ TEST_CASE("CString data", "[core][c_string]") {
   }
 }
 
-TEST_CASE("CString c_str method", "[core][c_string]") {
+TEST_CASE("CStringView c_str method", "[core][c_string_view]") {
   SECTION("Basic c_str access") {
-    constexpr const CString testString("Hello World");
-    constexpr const CString emptyString("");
-    constexpr const CString singleChar("A");
+    constexpr const CStringView testString("Hello World");
+    constexpr const CStringView emptyString("");
+    constexpr const CStringView singleChar("A");
 
     // Test that c_str() returns the same as data()
     REQUIRE(testString.c_str() == testString.data());
@@ -712,9 +712,9 @@ TEST_CASE("CString c_str method", "[core][c_string]") {
   }
 
   SECTION("C string pointer stability") {
-    constexpr const CString testString("Stability Test");
-    constexpr const CString copy1(testString);
-    constexpr const CString copy2(testString);
+    constexpr const CStringView testString("Stability Test");
+    constexpr const CStringView copy1(testString);
+    constexpr const CStringView copy2(testString);
 
     // Test that c_str() returns consistent pointers
     REQUIRE(testString.c_str() == testString.c_str());
@@ -737,8 +737,8 @@ TEST_CASE("CString c_str method", "[core][c_string]") {
   }
 
   SECTION("Empty string") {
-    constexpr const CString emptyString("");
-    constexpr const CString defaultString;
+    constexpr const CStringView emptyString("");
+    constexpr const CStringView defaultString;
 
     // Test c_str() with empty strings
     REQUIRE(std::strcmp(emptyString.c_str(), "") == 0);
@@ -750,11 +750,11 @@ TEST_CASE("CString c_str method", "[core][c_string]") {
   }
 }
 
-TEST_CASE("CString empty method", "[core][c_string]") {
+TEST_CASE("CStringView empty method", "[core][c_string_view]") {
   SECTION("Basic empty check") {
-    constexpr const CString nonEmptyString("Hello World");
-    constexpr const CString emptyString("");
-    constexpr const CString defaultString;
+    constexpr const CStringView nonEmptyString("Hello World");
+    constexpr const CStringView emptyString("");
+    constexpr const CStringView defaultString;
 
     REQUIRE_FALSE(nonEmptyString.empty());
     REQUIRE(emptyString.empty());
@@ -767,8 +767,8 @@ TEST_CASE("CString empty method", "[core][c_string]") {
   }
 
   SECTION("Single character strings") {
-    constexpr const CString singleChar("A");
-    constexpr const CString emptyString("");
+    constexpr const CStringView singleChar("A");
+    constexpr const CStringView emptyString("");
 
     REQUIRE_FALSE(singleChar.empty());
     REQUIRE(emptyString.empty());
@@ -779,12 +779,12 @@ TEST_CASE("CString empty method", "[core][c_string]") {
   }
 
   SECTION("Different capacities") {
-    constexpr const CString smallString("Hi");
-    constexpr const CString mediumString("Hello World");
-    constexpr const CString largeString("This is a longer string");
-    constexpr const CString emptySmall("");
-    constexpr const CString emptyMedium("");
-    constexpr const CString emptyLarge("");
+    constexpr const CStringView smallString("Hi");
+    constexpr const CStringView mediumString("Hello World");
+    constexpr const CStringView largeString("This is a longer string");
+    constexpr const CStringView emptySmall("");
+    constexpr const CStringView emptyMedium("");
+    constexpr const CStringView emptyLarge("");
 
     REQUIRE_FALSE(smallString.empty());
     REQUIRE_FALSE(mediumString.empty());
@@ -803,10 +803,10 @@ TEST_CASE("CString empty method", "[core][c_string]") {
   }
 
   SECTION("Special characters") {
-    constexpr const CString newlineString("Hello\nWorld");
-    constexpr const CString tabString("Hello\tWorld");
-    constexpr const CString specialString("!@#$%^&*()");
-    constexpr const CString emptyString("");
+    constexpr const CStringView newlineString("Hello\nWorld");
+    constexpr const CStringView tabString("Hello\tWorld");
+    constexpr const CStringView specialString("!@#$%^&*()");
+    constexpr const CStringView emptyString("");
 
     REQUIRE_FALSE(newlineString.empty());
     REQUIRE_FALSE(tabString.empty());
@@ -821,10 +821,10 @@ TEST_CASE("CString empty method", "[core][c_string]") {
   }
 
   SECTION("Unicode content") {
-    constexpr const CString unicodeString("Привет мир");
-    constexpr const CString emojiString("Hello 🌍 World");
-    constexpr const CString mixedString("Hello 世界");
-    constexpr const CString emptyString("");
+    constexpr const CStringView unicodeString("Привет мир");
+    constexpr const CStringView emojiString("Hello 🌍 World");
+    constexpr const CStringView mixedString("Hello 世界");
+    constexpr const CStringView emptyString("");
 
     REQUIRE_FALSE(unicodeString.empty());
     REQUIRE_FALSE(emojiString.empty());
@@ -839,28 +839,28 @@ TEST_CASE("CString empty method", "[core][c_string]") {
   }
 
   SECTION("Numeric content") {
-    constexpr const CString numericString("12345");
-    constexpr const CString floatString("3.14159");
-    constexpr const CString hexString("0xABCD");
-    constexpr const CString emptyString("");
+    constexpr const CStringView numeriCStringView("12345");
+    constexpr const CStringView floatString("3.14159");
+    constexpr const CStringView hexString("0xABCD");
+    constexpr const CStringView emptyString("");
 
-    REQUIRE_FALSE(numericString.empty());
+    REQUIRE_FALSE(numeriCStringView.empty());
     REQUIRE_FALSE(floatString.empty());
     REQUIRE_FALSE(hexString.empty());
     REQUIRE(emptyString.empty());
 
     // Compile-time checks
-    STATIC_REQUIRE_FALSE(numericString.empty());
+    STATIC_REQUIRE_FALSE(numeriCStringView.empty());
     STATIC_REQUIRE_FALSE(floatString.empty());
     STATIC_REQUIRE_FALSE(hexString.empty());
     STATIC_REQUIRE(emptyString.empty());
   }
 
   SECTION("Mixed content") {
-    constexpr const CString mixedString("Hello123World!@#");
-    constexpr const CString complexString("Test\n123\t!@#");
-    constexpr const CString longString("This is a very long string with mixed content 123!@#");
-    constexpr const CString emptyString("");
+    constexpr const CStringView mixedString("Hello123World!@#");
+    constexpr const CStringView complexString("Test\n123\t!@#");
+    constexpr const CStringView longString("This is a very long string with mixed content 123!@#");
+    constexpr const CStringView emptyString("");
 
     REQUIRE_FALSE(mixedString.empty());
     REQUIRE_FALSE(complexString.empty());
@@ -875,10 +875,10 @@ TEST_CASE("CString empty method", "[core][c_string]") {
   }
 
   SECTION("Maximum length strings") {
-    constexpr const CString maxString("123456789012345"); // 15 characters
-    constexpr const CString maxSmall("1234567"); // 7 characters
-    constexpr const CString maxTiny("123"); // 3 characters
-    constexpr const CString emptyString("");
+    constexpr const CStringView maxString("123456789012345"); // 15 characters
+    constexpr const CStringView maxSmall("1234567"); // 7 characters
+    constexpr const CStringView maxTiny("123"); // 3 characters
+    constexpr const CStringView emptyString("");
 
     REQUIRE_FALSE(maxString.empty());
     REQUIRE_FALSE(maxSmall.empty());
@@ -893,10 +893,10 @@ TEST_CASE("CString empty method", "[core][c_string]") {
   }
 
   SECTION("Edge cases") {
-    constexpr const CString singleChar("A");
-    constexpr const CString twoChars("AB");
-    constexpr const CString emptyString("");
-    constexpr const CString defaultString;
+    constexpr const CStringView singleChar("A");
+    constexpr const CStringView twoChars("AB");
+    constexpr const CStringView emptyString("");
+    constexpr const CStringView defaultString;
 
     REQUIRE_FALSE(singleChar.empty());
     REQUIRE_FALSE(twoChars.empty());
@@ -919,11 +919,11 @@ TEST_CASE("CString empty method", "[core][c_string]") {
   }
 }
 
-TEST_CASE("CString size method", "[core][c_string]") {
+TEST_CASE("CStringView size method", "[core][c_string_view]") {
   SECTION("Basic size check") {
-    constexpr const CString testString("Hello World");
-    constexpr const CString emptyString("");
-    constexpr const CString defaultString;
+    constexpr const CStringView testString("Hello World");
+    constexpr const CStringView emptyString("");
+    constexpr const CStringView defaultString;
 
     REQUIRE(testString.size() == 11);
     REQUIRE(emptyString.size() == 0);
@@ -936,8 +936,8 @@ TEST_CASE("CString size method", "[core][c_string]") {
   }
 
   SECTION("Single character strings") {
-    constexpr const CString singleChar("A");
-    constexpr const CString emptyString("");
+    constexpr const CStringView singleChar("A");
+    constexpr const CStringView emptyString("");
 
     REQUIRE(singleChar.size() == 1);
     REQUIRE(emptyString.size() == 0);
@@ -948,12 +948,12 @@ TEST_CASE("CString size method", "[core][c_string]") {
   }
 
   SECTION("Different capacities") {
-    constexpr const CString smallString("Hi");
-    constexpr const CString mediumString("Hello World");
-    constexpr const CString largeString("This is a longer string");
-    constexpr const CString emptySmall("");
-    constexpr const CString emptyMedium("");
-    constexpr const CString emptyLarge("");
+    constexpr const CStringView smallString("Hi");
+    constexpr const CStringView mediumString("Hello World");
+    constexpr const CStringView largeString("This is a longer string");
+    constexpr const CStringView emptySmall("");
+    constexpr const CStringView emptyMedium("");
+    constexpr const CStringView emptyLarge("");
 
     REQUIRE(smallString.size() == 2);
     REQUIRE(mediumString.size() == 11);
@@ -972,10 +972,10 @@ TEST_CASE("CString size method", "[core][c_string]") {
   }
 
   SECTION("Special characters") {
-    constexpr const CString newlineString("Hello\nWorld");
-    constexpr const CString tabString("Hello\tWorld");
-    constexpr const CString specialString("!@#$%^&*()");
-    constexpr const CString emptyString("");
+    constexpr const CStringView newlineString("Hello\nWorld");
+    constexpr const CStringView tabString("Hello\tWorld");
+    constexpr const CStringView specialString("!@#$%^&*()");
+    constexpr const CStringView emptyString("");
 
     REQUIRE(newlineString.size() == 11);
     REQUIRE(tabString.size() == 11);
@@ -990,10 +990,10 @@ TEST_CASE("CString size method", "[core][c_string]") {
   }
 
   SECTION("Unicode content") {
-    constexpr const CString unicodeString("Привет мир");
-    constexpr const CString emojiString("Hello 🌍 World");
-    constexpr const CString mixedString("Hello 世界");
-    constexpr const CString emptyString("");
+    constexpr const CStringView unicodeString("Привет мир");
+    constexpr const CStringView emojiString("Hello 🌍 World");
+    constexpr const CStringView mixedString("Hello 世界");
+    constexpr const CStringView emptyString("");
 
     REQUIRE(unicodeString.size() == 19);
     REQUIRE(emojiString.size() == 16);
@@ -1008,28 +1008,28 @@ TEST_CASE("CString size method", "[core][c_string]") {
   }
 
   SECTION("Numeric content") {
-    constexpr const CString numericString("12345");
-    constexpr const CString floatString("3.14159");
-    constexpr const CString hexString("0xABCD");
-    constexpr const CString emptyString("");
+    constexpr const CStringView numeriCStringView("12345");
+    constexpr const CStringView floatString("3.14159");
+    constexpr const CStringView hexString("0xABCD");
+    constexpr const CStringView emptyString("");
 
-    REQUIRE(numericString.size() == 5);
+    REQUIRE(numeriCStringView.size() == 5);
     REQUIRE(floatString.size() == 7);
     REQUIRE(hexString.size() == 6);
     REQUIRE(emptyString.size() == 0);
 
     // Compile-time checks
-    STATIC_REQUIRE(numericString.size() == 5);
+    STATIC_REQUIRE(numeriCStringView.size() == 5);
     STATIC_REQUIRE(floatString.size() == 7);
     STATIC_REQUIRE(hexString.size() == 6);
     STATIC_REQUIRE(emptyString.size() == 0);
   }
 
   SECTION("Mixed content") {
-    constexpr const CString mixedString("Hello123World!@#");
-    constexpr const CString complexString("Test\n123\t!@#");
-    constexpr const CString longString("This is a very long string with mixed content 123!@#");
-    constexpr const CString emptyString("");
+    constexpr const CStringView mixedString("Hello123World!@#");
+    constexpr const CStringView complexString("Test\n123\t!@#");
+    constexpr const CStringView longString("This is a very long string with mixed content 123!@#");
+    constexpr const CStringView emptyString("");
 
     REQUIRE(mixedString.size() == 16);
     REQUIRE(complexString.size() == 12);
@@ -1044,10 +1044,10 @@ TEST_CASE("CString size method", "[core][c_string]") {
   }
 
   SECTION("Maximum length strings") {
-    constexpr const CString maxString("123456789012345"); // 15 characters
-    constexpr const CString maxSmall("1234567"); // 7 characters
-    constexpr const CString maxTiny("123"); // 3 characters
-    constexpr const CString emptyString("");
+    constexpr const CStringView maxString("123456789012345"); // 15 characters
+    constexpr const CStringView maxSmall("1234567"); // 7 characters
+    constexpr const CStringView maxTiny("123"); // 3 characters
+    constexpr const CStringView emptyString("");
 
     REQUIRE(maxString.size() == 15);
     REQUIRE(maxSmall.size() == 7);
@@ -1062,10 +1062,10 @@ TEST_CASE("CString size method", "[core][c_string]") {
   }
 
   SECTION("Edge cases") {
-    constexpr const CString singleChar("A");
-    constexpr const CString twoChars("AB");
-    constexpr const CString emptyString("");
-    constexpr const CString defaultString;
+    constexpr const CStringView singleChar("A");
+    constexpr const CStringView twoChars("AB");
+    constexpr const CStringView emptyString("");
+    constexpr const CStringView defaultString;
 
     REQUIRE(singleChar.size() == 1);
     REQUIRE(twoChars.size() == 2);
@@ -1080,11 +1080,11 @@ TEST_CASE("CString size method", "[core][c_string]") {
   }
 }
 
-TEST_CASE("CString utf8_size", "[core][c_string]") {
+TEST_CASE("CStringView utf8_size", "[core][c_string_view]") {
   SECTION("ASCII strings") {
-    constexpr const CString asciiString("Hello World");
-    constexpr const CString emptyString("");
-    constexpr const CString singleChar("A");
+    constexpr const CStringView asciiString("Hello World");
+    constexpr const CStringView emptyString("");
+    constexpr const CStringView singleChar("A");
 
     REQUIRE(asciiString.utf8_size() == 11);
     REQUIRE(emptyString.utf8_size() == 0);
@@ -1103,10 +1103,10 @@ TEST_CASE("CString utf8_size", "[core][c_string]") {
                                                         char(0xD1), char(0x82), char(0x20), char(0xD0), char(0xBC),
                                                         char(0xD0), char(0xB8), char(0xD1), char(0x80), char(0x00)}};
 
-    constexpr const CString cyrillicString(cyrillicText.data());
+    constexpr const CStringView cyrilliCStringView(cyrillicText.data());
 
-    REQUIRE(cyrillicString.size() == 19);
-    REQUIRE(cyrillicString.utf8_size() == 10);
+    REQUIRE(cyrilliCStringView.size() == 19);
+    REQUIRE(cyrilliCStringView.utf8_size() == 10);
   }
 
   SECTION("Mixed ASCII and UTF-8") {
@@ -1115,7 +1115,7 @@ TEST_CASE("CString utf8_size", "[core][c_string]") {
                                                      char(0x20), char(0xE4), char(0xB8), char(0x96), char(0xE7),
                                                      char(0x95), char(0x8C), char(0x00)}};
 
-    constexpr const CString mixedString(mixedText.data());
+    constexpr const CStringView mixedString(mixedText.data());
 
     REQUIRE(mixedString.size() == 12);
     REQUIRE(mixedString.utf8_size() == 8); // 6 ASCII + 2 Chinese characters
@@ -1127,32 +1127,32 @@ TEST_CASE("CString utf8_size", "[core][c_string]") {
                                                      char(0x20), char(0xF0), char(0x9F), char(0x8C), char(0x8D),
                                                      char(0x00)}};
 
-    constexpr const CString emojiString(emojiText.data());
+    constexpr const CStringView emojiString(emojiText.data());
 
     REQUIRE(emojiString.size() == 10);
     REQUIRE(emojiString.utf8_size() == 7); // 6 ASCII + 1 emoji
   }
 
   SECTION("Special characters") {
-    constexpr const CString specialString("!@#$%^&*()");
-    constexpr const CString numericString("1234567890");
-    constexpr const CString punctuationString(".,;:!?");
+    constexpr const CStringView specialString("!@#$%^&*()");
+    constexpr const CStringView numeriCStringView("1234567890");
+    constexpr const CStringView punctuationString(".,;:!?");
 
     REQUIRE(specialString.utf8_size() == 10);
-    REQUIRE(numericString.utf8_size() == 10);
+    REQUIRE(numeriCStringView.utf8_size() == 10);
     REQUIRE(punctuationString.utf8_size() == 6);
 
     // Special characters are ASCII, so utf8_size equals size
     REQUIRE(specialString.utf8_size() == specialString.size());
-    REQUIRE(numericString.utf8_size() == numericString.size());
+    REQUIRE(numeriCStringView.utf8_size() == numeriCStringView.size());
     REQUIRE(punctuationString.utf8_size() == punctuationString.size());
   }
 
   SECTION("Edge cases") {
-    constexpr const CString singleByte("A");
-    constexpr const CString twoByte("А"); // Cyrillic A
-    constexpr const CString threeByte("中"); // Chinese character
-    constexpr const CString fourByte("🌍"); // Emoji
+    constexpr const CStringView singleByte("A");
+    constexpr const CStringView twoByte("А"); // Cyrillic A
+    constexpr const CStringView threeByte("中"); // Chinese character
+    constexpr const CStringView fourByte("🌍"); // Emoji
 
     REQUIRE(singleByte.utf8_size() == 1);
     REQUIRE(twoByte.utf8_size() == 1);
@@ -1172,18 +1172,18 @@ TEST_CASE("CString utf8_size", "[core][c_string]") {
        char(0xB4), char(0xD0), char(0xB2), char(0xD0), char(0xB8), char(0xD0), char(0xB6), char(0xD0), char(0xBE),
        char(0xD0), char(0xBA), char(0x2E), char(0x00)}};
 
-    constexpr const CString longString(longUtf8Text.data());
+    constexpr const CStringView longString(longUtf8Text.data());
 
     REQUIRE(longString.size() == 66); // 66 bytes
     REQUIRE(longString.utf8_size() == 43); // 43 characters
   }
 }
 
-TEST_CASE("CString length", "[core][c_string]") {
+TEST_CASE("CStringView length", "[core][c_string_view]") {
   SECTION("Basic length check") {
-    constexpr const CString testString("Hello World");
-    constexpr const CString emptyString("");
-    constexpr const CString singleChar("A");
+    constexpr const CStringView testString("Hello World");
+    constexpr const CStringView emptyString("");
+    constexpr const CStringView singleChar("A");
 
     REQUIRE(testString.length() == 11);
     REQUIRE(emptyString.length() == 0);
@@ -1200,12 +1200,12 @@ TEST_CASE("CString length", "[core][c_string]") {
   }
 
   SECTION("Different capacities") {
-    constexpr const CString smallString("Hi");
-    constexpr const CString mediumString("Hello World");
-    constexpr const CString largeString("This is a longer string");
-    constexpr const CString emptySmall("");
-    constexpr const CString emptyMedium("");
-    constexpr const CString emptyLarge("");
+    constexpr const CStringView smallString("Hi");
+    constexpr const CStringView mediumString("Hello World");
+    constexpr const CStringView largeString("This is a longer string");
+    constexpr const CStringView emptySmall("");
+    constexpr const CStringView emptyMedium("");
+    constexpr const CStringView emptyLarge("");
 
     REQUIRE(smallString.length() == 2);
     REQUIRE(mediumString.length() == 11);
@@ -1228,10 +1228,10 @@ TEST_CASE("CString length", "[core][c_string]") {
   }
 
   SECTION("Special characters") {
-    constexpr const CString newlineString("Hello\nWorld");
-    constexpr const CString tabString("Hello\tWorld");
-    constexpr const CString specialString("!@#$%^&*()");
-    constexpr const CString emptyString("");
+    constexpr const CStringView newlineString("Hello\nWorld");
+    constexpr const CStringView tabString("Hello\tWorld");
+    constexpr const CStringView specialString("!@#$%^&*()");
+    constexpr const CStringView emptyString("");
 
     REQUIRE(newlineString.length() == 11);
     REQUIRE(tabString.length() == 11);
@@ -1250,10 +1250,10 @@ TEST_CASE("CString length", "[core][c_string]") {
   }
 
   SECTION("Unicode content") {
-    constexpr const CString unicodeString("Привет мир");
-    constexpr const CString emojiString("Hello 🌍 World");
-    constexpr const CString mixedString("Hello 世界");
-    constexpr const CString emptyString("");
+    constexpr const CStringView unicodeString("Привет мир");
+    constexpr const CStringView emojiString("Hello 🌍 World");
+    constexpr const CStringView mixedString("Hello 世界");
+    constexpr const CStringView emptyString("");
 
     REQUIRE(unicodeString.length() == 19);
     REQUIRE(emojiString.length() == 16);
@@ -1272,32 +1272,32 @@ TEST_CASE("CString length", "[core][c_string]") {
   }
 
   SECTION("Numeric content") {
-    constexpr const CString numericString("12345");
-    constexpr const CString floatString("3.14159");
-    constexpr const CString hexString("0xABCD");
-    constexpr const CString emptyString("");
+    constexpr const CStringView numeriCStringView("12345");
+    constexpr const CStringView floatString("3.14159");
+    constexpr const CStringView hexString("0xABCD");
+    constexpr const CStringView emptyString("");
 
-    REQUIRE(numericString.length() == 5);
+    REQUIRE(numeriCStringView.length() == 5);
     REQUIRE(floatString.length() == 7);
     REQUIRE(hexString.length() == 6);
     REQUIRE(emptyString.length() == 0);
 
     // length() should equal size() for all strings
-    REQUIRE(numericString.length() == numericString.size());
+    REQUIRE(numeriCStringView.length() == numeriCStringView.size());
     REQUIRE(floatString.length() == floatString.size());
     REQUIRE(hexString.length() == hexString.size());
     REQUIRE(emptyString.length() == emptyString.size());
 
-    STATIC_REQUIRE(numericString.length() == 5);
+    STATIC_REQUIRE(numeriCStringView.length() == 5);
     STATIC_REQUIRE(floatString.length() == 7);
     STATIC_REQUIRE(hexString.length() == 6);
   }
 
   SECTION("Mixed content") {
-    constexpr const CString mixedString("Hello123World!@#");
-    constexpr const CString complexString("Test\n123\t!@#");
-    constexpr const CString longString("This is a very long string with mixed content 123!@#");
-    constexpr const CString emptyString("");
+    constexpr const CStringView mixedString("Hello123World!@#");
+    constexpr const CStringView complexString("Test\n123\t!@#");
+    constexpr const CStringView longString("This is a very long string with mixed content 123!@#");
+    constexpr const CStringView emptyString("");
 
     REQUIRE(mixedString.length() == 16);
     REQUIRE(complexString.length() == 12);
@@ -1316,10 +1316,10 @@ TEST_CASE("CString length", "[core][c_string]") {
   }
 
   SECTION("Edge cases") {
-    constexpr const CString singleChar("A");
-    constexpr const CString twoChars("AB");
-    constexpr const CString emptyString("");
-    constexpr const CString defaultString;
+    constexpr const CStringView singleChar("A");
+    constexpr const CStringView twoChars("AB");
+    constexpr const CStringView emptyString("");
+    constexpr const CStringView defaultString;
 
     REQUIRE(singleChar.length() == 1);
     REQUIRE(twoChars.length() == 2);
@@ -1339,12 +1339,12 @@ TEST_CASE("CString length", "[core][c_string]") {
   }
 }
 
-TEST_CASE("CString max_size", "[core][c_string]") {
+TEST_CASE("CStringView max_size", "[core][c_string_view]") {
   SECTION("Basic max_size check") {
-    constexpr const CString smallString("Hi");
-    constexpr const CString mediumString("Hello World");
-    constexpr const CString largeString("This is a longer string");
-    constexpr const CString extraLargeString("This is an even longer string for testing");
+    constexpr const CStringView smallString("Hi");
+    constexpr const CStringView mediumString("Hello World");
+    constexpr const CStringView largeString("This is a longer string");
+    constexpr const CStringView extraLargeString("This is an even longer string for testing");
 
     REQUIRE(smallString.max_size() == 2);
     REQUIRE(mediumString.max_size() == 11);
@@ -1358,7 +1358,7 @@ TEST_CASE("CString max_size", "[core][c_string]") {
   }
 
   SECTION("Empty string") {
-    constexpr const CString empty("");
+    constexpr const CStringView empty("");
 
     REQUIRE(empty.max_size() == 0);
 
@@ -1366,7 +1366,7 @@ TEST_CASE("CString max_size", "[core][c_string]") {
   }
 
   SECTION("Default constructed string") {
-    constexpr const CString defaultString;
+    constexpr const CStringView defaultString;
 
     REQUIRE(defaultString.max_size() == 0);
 
@@ -1374,7 +1374,7 @@ TEST_CASE("CString max_size", "[core][c_string]") {
   }
 
   SECTION("Single character string") {
-    constexpr const CString single("A");
+    constexpr const CStringView single("A");
 
     REQUIRE(single.max_size() == 1);
 
@@ -1382,12 +1382,12 @@ TEST_CASE("CString max_size", "[core][c_string]") {
   }
 }
 
-TEST_CASE("CString capacity", "[core][c_string]") {
+TEST_CASE("CStringView capacity", "[core][c_string_view]") {
   SECTION("Basic capacity check") {
-    constexpr const CString smallString("Hi");
-    constexpr const CString mediumString("Hello World");
-    constexpr const CString largeString("This is a longer string");
-    constexpr const CString extraLargeString("This is an even longer string for testing");
+    constexpr const CStringView smallString("Hi");
+    constexpr const CStringView mediumString("Hello World");
+    constexpr const CStringView largeString("This is a longer string");
+    constexpr const CStringView extraLargeString("This is an even longer string for testing");
 
     REQUIRE(smallString.capacity() == 2);
     REQUIRE(mediumString.capacity() == 11);
@@ -1401,7 +1401,7 @@ TEST_CASE("CString capacity", "[core][c_string]") {
   }
 
   SECTION("Empty string") {
-    constexpr const CString empty("");
+    constexpr const CStringView empty("");
 
     REQUIRE(empty.capacity() == 0);
 
@@ -1409,7 +1409,7 @@ TEST_CASE("CString capacity", "[core][c_string]") {
   }
 
   SECTION("Default constructed string") {
-    constexpr const CString defaultString;
+    constexpr const CStringView defaultString;
 
     REQUIRE(defaultString.capacity() == 0);
 
@@ -1417,7 +1417,7 @@ TEST_CASE("CString capacity", "[core][c_string]") {
   }
 
   SECTION("Single character string") {
-    constexpr const CString single("A");
+    constexpr const CStringView single("A");
 
     REQUIRE(single.capacity() == 1);
 
@@ -1425,9 +1425,9 @@ TEST_CASE("CString capacity", "[core][c_string]") {
   }
 }
 
-TEST_CASE("CString clear", "[core][c_string]") {
+TEST_CASE("CStringView clear", "[core][c_string_view]") {
   SECTION("Basic clear functionality") {
-    CString testString("Hello World");
+    CStringView testString("Hello World");
 
     REQUIRE_FALSE(testString.empty());
     REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
@@ -1439,7 +1439,7 @@ TEST_CASE("CString clear", "[core][c_string]") {
   }
 
   SECTION("Clear empty string") {
-    CString emptyString("");
+    CStringView emptyString("");
 
     REQUIRE(emptyString.empty());
     REQUIRE(std::strcmp(emptyString.c_str(), "") == 0);
@@ -1451,7 +1451,7 @@ TEST_CASE("CString clear", "[core][c_string]") {
   }
 
   SECTION("Clear default constructed string") {
-    CString defaultString;
+    CStringView defaultString;
 
     REQUIRE(defaultString.empty());
     REQUIRE(std::strcmp(defaultString.c_str(), "") == 0);
@@ -1463,7 +1463,7 @@ TEST_CASE("CString clear", "[core][c_string]") {
   }
 
   SECTION("Clear single character string") {
-    CString singleChar("A");
+    CStringView singleChar("A");
 
     REQUIRE_FALSE(singleChar.empty());
     REQUIRE(std::strcmp(singleChar.c_str(), "A") == 0);
@@ -1475,7 +1475,7 @@ TEST_CASE("CString clear", "[core][c_string]") {
   }
 
   SECTION("Clear longer string") {
-    CString maxString("1234567890");
+    CStringView maxString("1234567890");
 
     REQUIRE_FALSE(maxString.empty());
     REQUIRE(std::strcmp(maxString.c_str(), "1234567890") == 0);
@@ -1487,10 +1487,10 @@ TEST_CASE("CString clear", "[core][c_string]") {
   }
 
   SECTION("Clear different capacities") {
-    CString smallString("Hi");
-    CString mediumString("Hello World");
-    CString largeString("This is a longer string");
-    CString extraLargeString("This is an even longer string for testing");
+    CStringView smallString("Hi");
+    CStringView mediumString("Hello World");
+    CStringView largeString("This is a longer string");
+    CStringView extraLargeString("This is an even longer string for testing");
 
     // Before clear
     REQUIRE_FALSE(smallString.empty());
@@ -1516,9 +1516,9 @@ TEST_CASE("CString clear", "[core][c_string]") {
   }
 
   SECTION("Clear special characters") {
-    CString newlineString("Hello\nWorld");
-    CString tabString("Hello\tWorld");
-    CString specialString("!@#$%^&*()");
+    CStringView newlineString("Hello\nWorld");
+    CStringView tabString("Hello\tWorld");
+    CStringView specialString("!@#$%^&*()");
 
     REQUIRE_FALSE(newlineString.empty());
     REQUIRE_FALSE(tabString.empty());
@@ -1537,9 +1537,9 @@ TEST_CASE("CString clear", "[core][c_string]") {
   }
 
   SECTION("Clear Unicode content") {
-    CString unicodeString("Привет мир");
-    CString emojiString("Hello 🌍 World");
-    CString mixedString("Hello 世界");
+    CStringView unicodeString("Привет мир");
+    CStringView emojiString("Hello 🌍 World");
+    CStringView mixedString("Hello 世界");
 
     REQUIRE_FALSE(unicodeString.empty());
     REQUIRE_FALSE(emojiString.empty());
@@ -1558,7 +1558,7 @@ TEST_CASE("CString clear", "[core][c_string]") {
   }
 
   SECTION("Clear and reassignment") {
-    CString testString("Original");
+    CStringView testString("Original");
 
     REQUIRE_FALSE(testString.empty());
     REQUIRE(std::strcmp(testString.c_str(), "Original") == 0);
@@ -1577,7 +1577,7 @@ TEST_CASE("CString clear", "[core][c_string]") {
   }
 
   SECTION("Multiple clear operations") {
-    CString testString("Test");
+    CStringView testString("Test");
 
     // First clear
     testString.clear();
