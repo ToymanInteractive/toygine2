@@ -22,20 +22,20 @@
 <area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="887,31,887,79,881,79,881,31"/>
 <area shape="rect" id="Node000012" href="$dd/d9e/linux_2platform__config_8hpp.html" title="additional linux platform header" alt="" coords="938,79,1145,133"/>
 <area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="906,28,983,70,980,74,904,33"/>
-<area shape="rect" id="Node000013" href="$d1/d7f/c__string_8hpp.html" title="TODO." alt="" coords="1169,93,1303,119"/>
-<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="946,28,1046,49,1158,76,1192,86,1190,91,1157,81,1045,54,945,33"/>
-<area shape="rect" id="Node000014" href="$d4/dc0/constexpr__utils_8hpp.html" title="Constexpr utility functions for compile&#45;time operations." alt="" coords="1327,93,1508,119"/>
-<area shape="poly" id="edge13_Node000001_Node000014" title=" " alt="" coords="949,23,1116,44,1315,76,1364,87,1363,92,1314,81,1115,49,949,29"/>
-<area shape="rect" id="Node000015" href="$d7/d7f/fixed__string_8hpp.html" title="Template string class with fixed&#45;size character buffer." alt="" coords="1532,93,1689,119"/>
-<area shape="poly" id="edge14_Node000001_Node000015" title=" " alt="" coords="949,19,1201,35,1360,51,1521,76,1564,87,1563,92,1519,81,1360,57,1200,40,949,24"/>
-<area shape="rect" id="Node000016" href="$df/d93/utils_8hpp.html" title="Core utility functions for string manipulation, encoding conversion, and number formatting." alt="" coords="1714,93,1825,119"/>
-<area shape="poly" id="edge15_Node000001_Node000016" title=" " alt="" coords="949,19,1334,38,1547,55,1635,65,1702,76,1733,86,1731,91,1701,81,1634,70,1547,60,1334,43,949,24"/>
-<area shape="rect" id="Node000017" href="$d2/d19/c__string_8inl.html" title="TODO." alt="" coords="1849,93,1975,119"/>
-<area shape="poly" id="edge16_Node000001_Node000017" title=" " alt="" coords="949,18,1399,36,1653,53,1758,64,1838,76,1873,86,1871,91,1837,81,1757,69,1652,59,1399,42,949,24"/>
-<area shape="rect" id="Node000018" href="$dc/d28/constexpr__utils_8inl.html" title="Inline implementations for constexpr utility functions." alt="" coords="1999,93,2172,119"/>
-<area shape="poly" id="edge17_Node000001_Node000018" title=" " alt="" coords="949,18,1469,37,1768,54,1893,65,1987,76,2037,87,2035,92,1986,81,1892,70,1768,60,1469,43,949,24"/>
-<area shape="rect" id="Node000019" href="$d7/d40/fixed__string_8inl.html" title="Inline implementations for FixedString template class." alt="" coords="2196,93,2345,119"/>
-<area shape="poly" id="edge18_Node000001_Node000019" title=" " alt="" coords="949,18,1204,22,1562,33,1921,50,2071,62,2184,76,2227,87,2226,92,2184,81,2071,67,1921,55,1561,38,1204,28,949,23"/>
-<area shape="rect" id="Node000020" href="$df/d7d/utils_8inl.html" title="Inline implementations of core utility functions for string manipulation and encoding conversion." alt="" coords="2370,93,2473,119"/>
-<area shape="poly" id="edge19_Node000001_Node000020" title=" " alt="" coords="949,16,1235,17,1643,24,1857,31,2057,42,2229,56,2358,76,2387,85,2385,90,2357,81,2228,62,2056,47,1856,36,1643,29,1235,22,949,22"/>
+<area shape="rect" id="Node000013" href="$dd/ded/c__string__view_8hpp.html" title="TODO." alt="" coords="1169,93,1340,119"/>
+<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="941,28,1158,76,1201,87,1200,92,1157,81,940,33"/>
+<area shape="rect" id="Node000014" href="$d4/dc0/constexpr__utils_8hpp.html" title="Constexpr utility functions for compile&#45;time operations." alt="" coords="1364,93,1545,119"/>
+<area shape="poly" id="edge13_Node000001_Node000014" title=" " alt="" coords="949,22,1131,42,1352,76,1402,87,1401,92,1352,81,1130,48,948,28"/>
+<area shape="rect" id="Node000015" href="$d7/d7f/fixed__string_8hpp.html" title="Template string class with fixed&#45;size character buffer." alt="" coords="1569,93,1727,119"/>
+<area shape="poly" id="edge14_Node000001_Node000015" title=" " alt="" coords="949,18,1064,23,1216,33,1387,50,1558,76,1602,87,1600,92,1557,81,1386,56,1216,39,1064,28,949,24"/>
+<area shape="rect" id="Node000016" href="$df/d93/utils_8hpp.html" title="Core utility functions for string manipulation, encoding conversion, and number formatting." alt="" coords="1751,93,1862,119"/>
+<area shape="poly" id="edge15_Node000001_Node000016" title=" " alt="" coords="949,19,1352,37,1576,54,1669,64,1739,76,1770,86,1769,91,1738,81,1668,70,1576,59,1352,42,949,24"/>
+<area shape="rect" id="Node000017" href="$df/d4a/c__string__view_8inl.html" title="TODO." alt="" coords="1887,93,2049,119"/>
+<area shape="poly" id="edge16_Node000001_Node000017" title=" " alt="" coords="949,16,1112,17,1342,24,1607,42,1743,57,1875,76,1922,87,1920,92,1874,81,1742,62,1606,47,1342,29,1112,22,949,21"/>
+<area shape="rect" id="Node000018" href="$dc/d28/constexpr__utils_8inl.html" title="Inline implementations for constexpr utility functions." alt="" coords="2073,93,2247,119"/>
+<area shape="poly" id="edge17_Node000001_Node000018" title=" " alt="" coords="949,18,1504,36,1826,53,1960,64,2062,76,2111,87,2110,92,2061,81,1960,69,1826,59,1504,42,949,23"/>
+<area shape="rect" id="Node000019" href="$d7/d40/fixed__string_8inl.html" title="Inline implementations for FixedString template class." alt="" coords="2271,93,2420,119"/>
+<area shape="poly" id="edge18_Node000001_Node000019" title=" " alt="" coords="949,17,1217,22,1596,31,1979,49,2139,61,2259,76,2302,87,2301,92,2258,81,2138,66,1979,54,1596,37,1217,27,949,23"/>
+<area shape="rect" id="Node000020" href="$df/d7d/utils_8inl.html" title="Inline implementations of core utility functions for string manipulation and encoding conversion." alt="" coords="2445,93,2547,119"/>
+<area shape="poly" id="edge19_Node000001_Node000020" title=" " alt="" coords="949,16,1248,16,1678,22,1903,29,2114,40,2296,55,2433,76,2462,85,2460,90,2431,81,2295,61,2114,45,1903,35,1677,27,1248,21,949,22"/>
 </map>

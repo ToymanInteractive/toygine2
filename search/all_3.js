@@ -1,12 +1,12 @@
 var searchData=
 [
   ['c_20compilers_0',['Supported C++ compilers',['../index.html#supported-c-compilers',1,'']]],
-  ['c_5fstr_1',['c_str',['../d2/d27/classtoy_1_1_c_string.html#ab6bf883c855640b4e135e9cc8e75ab5e',1,'toy::CString::c_str()'],['../d3/d7a/classtoy_1_1_fixed_string.html#a9bc4221a5a20d3a2a43f2e3ab011dace',1,'toy::FixedString::c_str()']]],
-  ['c_5fstring_2ehpp_2',['c_string.hpp',['../d1/d7f/c__string_8hpp.html',1,'']]],
-  ['c_5fstring_2einl_3',['c_string.inl',['../d2/d19/c__string_8inl.html',1,'']]],
-  ['capacity_4',['capacity',['../d2/d27/classtoy_1_1_c_string.html#ac4a7706ee97edaa85b8f70c3fcc691e9',1,'toy::CString::capacity()'],['../d3/d7a/classtoy_1_1_fixed_string.html#a5e64cab76d22b7aee800286444d5f492',1,'toy::FixedString::capacity()']]],
+  ['c_5fstr_1',['c_str',['../d5/d03/classtoy_1_1_c_string_view.html#adb54f0951dc63d5cc1466ae61e941df5',1,'toy::CStringView::c_str()'],['../d3/d7a/classtoy_1_1_fixed_string.html#a9bc4221a5a20d3a2a43f2e3ab011dace',1,'toy::FixedString::c_str()']]],
+  ['c_5fstring_5fview_2ehpp_2',['c_string_view.hpp',['../dd/ded/c__string__view_8hpp.html',1,'']]],
+  ['c_5fstring_5fview_2einl_3',['c_string_view.inl',['../df/d4a/c__string__view_8inl.html',1,'']]],
+  ['capacity_4',['capacity',['../d5/d03/classtoy_1_1_c_string_view.html#a2089895f2989348b9311ae5196020a8e',1,'toy::CStringView::capacity()'],['../d3/d7a/classtoy_1_1_fixed_string.html#a5e64cab76d22b7aee800286444d5f492',1,'toy::FixedString::capacity()']]],
   ['characteristics_5',['Performance Characteristics',['../d3/d7a/classtoy_1_1_fixed_string.html#performance',1,'']]],
-  ['clear_6',['clear',['../d2/d27/classtoy_1_1_c_string.html#ae9b95b4c521adeddf256ddd340f880bf',1,'toy::CString::clear()'],['../d3/d7a/classtoy_1_1_fixed_string.html#a0cb810c6305e7a27fed5d6d0fe910f5e',1,'toy::FixedString::clear() noexcept']]],
+  ['clear_6',['clear',['../d5/d03/classtoy_1_1_c_string_view.html#a267bbe14a77506bb0b9479faade6c7fc',1,'toy::CStringView::clear()'],['../d3/d7a/classtoy_1_1_fixed_string.html#a0cb810c6305e7a27fed5d6d0fe910f5e',1,'toy::FixedString::clear() noexcept']]],
   ['compare_7',['compare',['../d3/d7a/classtoy_1_1_fixed_string.html#a69aee2b7f8e6dc96497d8a9e64462344',1,'toy::FixedString::compare(const FixedString&lt; allocatedSize &gt; &amp;string) const noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#a8448018a58c82d61cb461e98b6f80a40',1,'toy::FixedString::compare(const stringType &amp;string) const noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#ac508cd66afefabd2c181ba1987896449',1,'toy::FixedString::compare(const char *string) const noexcept']]],
   ['compatibility_8',['Compatibility',['../d3/d7a/classtoy_1_1_fixed_string.html#compatibility',1,'']]],
   ['compilers_9',['Supported C++ compilers',['../index.html#supported-c-compilers',1,'']]],
@@ -21,6 +21,6 @@ var searchData=
   ['cpu_5fintel_5fx86_18',['CPU_INTEL_x86',['../da/d47/core_8hpp.html#ad4c61321e672d6faf976329f76c5cc1a',1,'core.hpp']]],
   ['cstrchr_19',['cstrchr',['../d4/da9/namespacetoy.html#a591ce52797bb53b8d8ce64a31cabba6b',1,'toy']]],
   ['cstrcmp_20',['cstrcmp',['../d4/da9/namespacetoy.html#a28fad381ee4d8415699e790432777471',1,'toy']]],
-  ['cstring_21',['CString',['../d2/d27/classtoy_1_1_c_string.html',1,'toy::CString'],['../d2/d27/classtoy_1_1_c_string.html#a7784e702ee2706c73c84d3310b1daf38',1,'toy::CString::CString() noexcept'],['../d2/d27/classtoy_1_1_c_string.html#ab7af9f672392098be112fb1e7f189446',1,'toy::CString::CString(const CString &amp;string) noexcept'],['../d2/d27/classtoy_1_1_c_string.html#a791efc8c610d4c71bd6e8b508c483442',1,'toy::CString::CString(const char *string) noexcept']]],
+  ['cstringview_21',['CStringView',['../d5/d03/classtoy_1_1_c_string_view.html',1,'toy::CStringView'],['../d5/d03/classtoy_1_1_c_string_view.html#af79d918dedd06e2c2b99fe920962d64d',1,'toy::CStringView::CStringView() noexcept'],['../d5/d03/classtoy_1_1_c_string_view.html#a4d340df93b6bca657f7244c64057c175',1,'toy::CStringView::CStringView(const CStringView &amp;string) noexcept'],['../d5/d03/classtoy_1_1_c_string_view.html#af5ec20956a3cecd987fc33ff3bdd6540',1,'toy::CStringView::CStringView(const char *string) noexcept']]],
   ['cstrstr_22',['cstrstr',['../d4/da9/namespacetoy.html#a58d00a4a7bbd87ef48d346903b5a8c78',1,'toy']]]
 ];

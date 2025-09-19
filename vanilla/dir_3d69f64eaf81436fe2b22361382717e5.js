@@ -1,7 +1,7 @@
 var dir_3d69f64eaf81436fe2b22361382717e5 =
 [
-    [ "c_string.hpp", "d1/d7f/c__string_8hpp.html", "d1/d7f/c__string_8hpp" ],
-    [ "c_string.inl", "d2/d19/c__string_8inl.html", null ],
+    [ "c_string_view.hpp", "dd/ded/c__string__view_8hpp.html", "dd/ded/c__string__view_8hpp" ],
+    [ "c_string_view.inl", "df/d4a/c__string__view_8inl.html", null ],
     [ "constexpr_utils.hpp", "d4/dc0/constexpr__utils_8hpp.html", "d4/dc0/constexpr__utils_8hpp" ],
     [ "constexpr_utils.inl", "dc/d28/constexpr__utils_8inl.html", "dc/d28/constexpr__utils_8inl" ],
     [ "fixed_string.hpp", "d7/d7f/fixed__string_8hpp.html", "d7/d7f/fixed__string_8hpp" ],

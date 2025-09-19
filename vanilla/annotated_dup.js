@@ -4,7 +4,7 @@ var annotated_dup =
       [ "divmod10", "df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html", "df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10" ]
     ] ],
     [ "toy", "d4/da9/namespacetoy.html", [
-      [ "CString", "d2/d27/classtoy_1_1_c_string.html", "d2/d27/classtoy_1_1_c_string" ],
+      [ "CStringView", "d5/d03/classtoy_1_1_c_string_view.html", "d5/d03/classtoy_1_1_c_string_view" ],
       [ "FixedString", "d3/d7a/classtoy_1_1_fixed_string.html", "d3/d7a/classtoy_1_1_fixed_string" ]
     ] ]
 ];

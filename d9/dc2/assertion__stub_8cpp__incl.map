@@ -27,20 +27,20 @@
 <area shape="poly" id="edge13_Node000004_Node000013" title=" " alt="" coords="847,118,873,168,868,170,842,120"/>
 <area shape="rect" id="Node000014" href="$dd/d9e/linux_2platform__config_8hpp.html" title="additional linux platform header" alt="" coords="937,167,1143,221"/>
 <area shape="poly" id="edge14_Node000004_Node000014" title=" " alt="" coords="867,116,967,159,965,164,865,121"/>
-<area shape="rect" id="Node000015" href="$d1/d7f/c__string_8hpp.html" title="TODO." alt="" coords="1168,181,1301,207"/>
-<area shape="poly" id="edge15_Node000004_Node000015" title=" " alt="" coords="879,110,1003,131,1157,164,1192,174,1190,180,1155,169,1002,136,878,116"/>
-<area shape="rect" id="Node000016" href="$d4/dc0/constexpr__utils_8hpp.html" title="Constexpr utility functions for compile&#45;time operations." alt="" coords="1325,181,1507,207"/>
-<area shape="poly" id="edge16_Node000004_Node000016" title=" " alt="" coords="879,108,1067,127,1190,144,1314,164,1363,175,1362,180,1313,169,1189,149,1066,133,878,113"/>
-<area shape="rect" id="Node000017" href="$d7/d7f/fixed__string_8hpp.html" title="Template string class with fixed&#45;size character buffer." alt="" coords="1531,181,1688,207"/>
-<area shape="poly" id="edge17_Node000004_Node000017" title=" " alt="" coords="878,105,989,109,1148,119,1332,136,1519,164,1563,175,1562,180,1518,169,1332,142,1147,124,989,115,878,111"/>
-<area shape="rect" id="Node000018" href="$df/d93/utils_8hpp.html" title="Core utility functions for string manipulation, encoding conversion, and number formatting." alt="" coords="1713,181,1823,207"/>
-<area shape="poly" id="edge18_Node000004_Node000018" title=" " alt="" coords="879,106,1285,123,1525,141,1625,152,1701,164,1731,174,1730,179,1699,169,1624,157,1525,146,1284,129,878,111"/>
-<area shape="rect" id="Node000019" href="$d2/d19/c__string_8inl.html" title="TODO." alt="" coords="1848,181,1973,207"/>
-<area shape="poly" id="edge19_Node000004_Node000019" title=" " alt="" coords="879,106,1347,122,1630,140,1748,151,1837,164,1872,174,1871,179,1835,169,1747,156,1630,145,1347,127,878,111"/>
-<area shape="rect" id="Node000020" href="$dc/d28/constexpr__utils_8inl.html" title="Inline implementations for constexpr utility functions." alt="" coords="1997,181,2171,207"/>
-<area shape="poly" id="edge20_Node000004_Node000020" title=" " alt="" coords="878,106,1415,124,1744,141,1882,152,1986,164,2035,175,2034,180,1985,169,1881,157,1744,146,1415,129,878,111"/>
-<area shape="rect" id="Node000021" href="$d7/d40/fixed__string_8inl.html" title="Inline implementations for FixedString template class." alt="" coords="2195,181,2344,207"/>
-<area shape="poly" id="edge21_Node000004_Node000021" title=" " alt="" coords="878,105,1127,109,1506,119,1896,137,2060,149,2183,164,2226,175,2225,180,2182,169,2060,154,1896,142,1505,124,1127,114,878,110"/>
-<area shape="rect" id="Node000022" href="$df/d7d/utils_8inl.html" title="Inline implementations of core utility functions for string manipulation and encoding conversion." alt="" coords="2369,181,2471,207"/>
-<area shape="poly" id="edge22_Node000004_Node000022" title=" " alt="" coords="878,104,1156,104,1585,110,1814,117,2031,128,2217,143,2357,164,2386,173,2384,178,2355,169,2216,148,2030,133,1814,122,1585,115,1156,110,878,110"/>
+<area shape="rect" id="Node000015" href="$dd/ded/c__string__view_8hpp.html" title="TODO." alt="" coords="1168,181,1339,207"/>
+<area shape="poly" id="edge15_Node000004_Node000015" title=" " alt="" coords="879,111,1003,133,1157,164,1201,175,1199,180,1155,169,1002,138,878,116"/>
+<area shape="rect" id="Node000016" href="$d4/dc0/constexpr__utils_8hpp.html" title="Constexpr utility functions for compile&#45;time operations." alt="" coords="1363,181,1544,207"/>
+<area shape="poly" id="edge16_Node000004_Node000016" title=" " alt="" coords="878,107,1082,126,1216,143,1351,164,1401,175,1400,181,1350,169,1215,148,1081,131,878,113"/>
+<area shape="rect" id="Node000017" href="$d7/d7f/fixed__string_8hpp.html" title="Template string class with fixed&#45;size character buffer." alt="" coords="1568,181,1725,207"/>
+<area shape="poly" id="edge17_Node000004_Node000017" title=" " alt="" coords="878,105,994,109,1162,118,1358,135,1557,164,1601,175,1599,180,1555,169,1357,141,1162,123,994,114,878,111"/>
+<area shape="rect" id="Node000018" href="$df/d93/utils_8hpp.html" title="Core utility functions for string manipulation, encoding conversion, and number formatting." alt="" coords="1750,181,1861,207"/>
+<area shape="poly" id="edge18_Node000004_Node000018" title=" " alt="" coords="878,106,1302,123,1554,140,1659,151,1738,164,1769,174,1767,179,1737,169,1658,156,1553,145,1301,128,878,111"/>
+<area shape="rect" id="Node000019" href="$df/d4a/c__string__view_8inl.html" title="TODO." alt="" coords="1885,181,2048,207"/>
+<area shape="poly" id="edge19_Node000004_Node000019" title=" " alt="" coords="878,106,1364,124,1658,142,1781,152,1874,164,1920,175,1919,180,1873,169,1780,158,1658,147,1364,130,878,111"/>
+<area shape="rect" id="Node000020" href="$dc/d28/constexpr__utils_8inl.html" title="Inline implementations for constexpr utility functions." alt="" coords="2072,181,2245,207"/>
+<area shape="poly" id="edge20_Node000004_Node000020" title=" " alt="" coords="878,105,1449,123,1802,140,1949,151,2060,164,2110,175,2109,180,2060,169,1949,157,1801,145,1449,128,878,111"/>
+<area shape="rect" id="Node000021" href="$d7/d40/fixed__string_8inl.html" title="Inline implementations for FixedString template class." alt="" coords="2269,181,2419,207"/>
+<area shape="poly" id="edge21_Node000004_Node000021" title=" " alt="" coords="879,105,1140,108,1540,118,1954,135,2127,148,2258,164,2300,175,2299,180,2257,169,2127,154,1954,141,1540,123,1140,114,879,110"/>
+<area shape="rect" id="Node000022" href="$df/d7d/utils_8inl.html" title="Inline implementations of core utility functions for string manipulation and encoding conversion." alt="" coords="2443,181,2546,207"/>
+<area shape="poly" id="edge22_Node000004_Node000022" title=" " alt="" coords="878,104,1168,104,1619,109,1860,115,2088,126,2284,142,2431,164,2460,173,2459,178,2430,169,2284,148,2088,132,1860,121,1619,114,1168,109,878,110"/>
 </map>

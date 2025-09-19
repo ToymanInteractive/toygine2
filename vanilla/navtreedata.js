@@ -62,7 +62,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"d3/d7a/classtoy_1_1_fixed_string.html#ae2773eb44a0dcd5301f41dc1b0f776af",
+"d4/da9/namespacetoy.html#a4ae4e6c5cad6d6db25d552a6254b362d",
 "namespacemembers_func.html"
 ];
 
