@@ -126,6 +126,10 @@ constexpr std::size_t CString::capacity() const noexcept {
   return size();
 }
 
+constexpr void CString::clear() noexcept {
+  _data = _emptyString;
+}
+
 } // namespace toy
 
 #endif // INCLUDE_CORE_C_STRING_INL_

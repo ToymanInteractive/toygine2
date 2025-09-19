@@ -2280,129 +2280,620 @@ TEST_CASE("FixedString capacity", "[core][fixed_string]") {
   }
 }
 
-// to refactor 4363 - 2283 = 2080
-
 TEST_CASE("FixedString clear", "[core][fixed_string]") {
-  FixedString<64> testString1("ToyGine2 - Free 2D/3D game engine.");
-  FixedString<16> testString2;
+  SECTION("Basic clear functionality") {
+    FixedString<32> testString("Hello World");
 
-  REQUIRE_FALSE(testString1.empty());
-  REQUIRE(testString2.empty());
+    REQUIRE_FALSE(testString.empty());
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
 
-  testString1.clear();
-  testString2.clear();
+    testString.clear();
 
-  REQUIRE(testString1.empty());
-  REQUIRE(testString2.empty());
+    REQUIRE(testString.empty());
+    REQUIRE(testString.size() == 0);
+    REQUIRE(std::strcmp(testString.c_str(), "") == 0);
+  }
+
+  SECTION("Clear empty string") {
+    FixedString<16> emptyString("");
+
+    REQUIRE(emptyString.empty());
+    REQUIRE(emptyString.size() == 0);
+
+    emptyString.clear();
+
+    REQUIRE(emptyString.empty());
+    REQUIRE(emptyString.size() == 0);
+    REQUIRE(std::strcmp(emptyString.c_str(), "") == 0);
+  }
+
+  SECTION("Clear default constructed string") {
+    FixedString<8> defaultString;
+
+    REQUIRE(defaultString.empty());
+    REQUIRE(defaultString.size() == 0);
+
+    defaultString.clear();
+
+    REQUIRE(defaultString.empty());
+    REQUIRE(defaultString.size() == 0);
+    REQUIRE(std::strcmp(defaultString.c_str(), "") == 0);
+  }
+
+  SECTION("Clear single character string") {
+    FixedString<16> singleChar("A");
+
+    REQUIRE_FALSE(singleChar.empty());
+    REQUIRE(singleChar.size() == 1);
+    REQUIRE(std::strcmp(singleChar.c_str(), "A") == 0);
+
+    singleChar.clear();
+
+    REQUIRE(singleChar.empty());
+    REQUIRE(singleChar.size() == 0);
+    REQUIRE(std::strcmp(singleChar.c_str(), "") == 0);
+  }
+
+  SECTION("Clear maximum length string") {
+    FixedString<8> maxString("1234567"); // 7 characters (max for capacity 8)
+
+    REQUIRE_FALSE(maxString.empty());
+    REQUIRE(maxString.size() == 7);
+    REQUIRE(std::strcmp(maxString.c_str(), "1234567") == 0);
+
+    maxString.clear();
+
+    REQUIRE(maxString.empty());
+    REQUIRE(maxString.size() == 0);
+    REQUIRE(std::strcmp(maxString.c_str(), "") == 0);
+  }
+
+  SECTION("Clear different capacities") {
+    FixedString<8> smallString("Hi");
+    FixedString<16> mediumString("Hello World");
+    FixedString<32> largeString("This is a longer string");
+    FixedString<64> extraLargeString("This is an even longer string for testing");
+
+    // Before clear
+    REQUIRE_FALSE(smallString.empty());
+    REQUIRE_FALSE(mediumString.empty());
+    REQUIRE_FALSE(largeString.empty());
+    REQUIRE_FALSE(extraLargeString.empty());
+
+    // Clear all
+    smallString.clear();
+    mediumString.clear();
+    largeString.clear();
+    extraLargeString.clear();
+
+    // After clear
+    REQUIRE(smallString.empty());
+    REQUIRE(mediumString.empty());
+    REQUIRE(largeString.empty());
+    REQUIRE(extraLargeString.empty());
+
+    REQUIRE(smallString.size() == 0);
+    REQUIRE(mediumString.size() == 0);
+    REQUIRE(largeString.size() == 0);
+    REQUIRE(extraLargeString.size() == 0);
+  }
+
+  SECTION("Clear special characters") {
+    FixedString<32> newlineString("Hello\nWorld");
+    FixedString<32> tabString("Hello\tWorld");
+    FixedString<32> specialString("!@#$%^&*()");
+
+    REQUIRE_FALSE(newlineString.empty());
+    REQUIRE_FALSE(tabString.empty());
+    REQUIRE_FALSE(specialString.empty());
+
+    newlineString.clear();
+    tabString.clear();
+    specialString.clear();
+
+    REQUIRE(newlineString.empty());
+    REQUIRE(tabString.empty());
+    REQUIRE(specialString.empty());
+
+    REQUIRE(std::strcmp(newlineString.c_str(), "") == 0);
+    REQUIRE(std::strcmp(tabString.c_str(), "") == 0);
+    REQUIRE(std::strcmp(specialString.c_str(), "") == 0);
+  }
+
+  SECTION("Clear Unicode content") {
+    FixedString<64> unicodeString("Привет мир");
+    FixedString<64> emojiString("Hello 🌍 World");
+    FixedString<64> mixedString("Hello 世界");
+
+    REQUIRE_FALSE(unicodeString.empty());
+    REQUIRE_FALSE(emojiString.empty());
+    REQUIRE_FALSE(mixedString.empty());
+
+    unicodeString.clear();
+    emojiString.clear();
+    mixedString.clear();
+
+    REQUIRE(unicodeString.empty());
+    REQUIRE(emojiString.empty());
+    REQUIRE(mixedString.empty());
+
+    REQUIRE(std::strcmp(unicodeString.c_str(), "") == 0);
+    REQUIRE(std::strcmp(emojiString.c_str(), "") == 0);
+    REQUIRE(std::strcmp(mixedString.c_str(), "") == 0);
+  }
+
+  SECTION("Clear and capacity preservation") {
+    FixedString<16> testString("Hello World");
+
+    const auto originalCapacity = testString.capacity();
+    const auto originalMaxSize = testString.max_size();
+
+    REQUIRE_FALSE(testString.empty());
+    REQUIRE(testString.size() == 11);
+
+    testString.clear();
+
+    REQUIRE(testString.empty());
+    REQUIRE(testString.size() == 0);
+    REQUIRE(testString.capacity() == originalCapacity);
+    REQUIRE(testString.max_size() == originalMaxSize);
+  }
+
+  SECTION("Clear and reassignment") {
+    FixedString<32> testString("Original");
+
+    REQUIRE_FALSE(testString.empty());
+    REQUIRE(std::strcmp(testString.c_str(), "Original") == 0);
+
+    testString.clear();
+
+    REQUIRE(testString.empty());
+    REQUIRE(std::strcmp(testString.c_str(), "") == 0);
+
+    // Reassign after clear
+    testString = "New content";
+
+    REQUIRE_FALSE(testString.empty());
+    REQUIRE(std::strcmp(testString.c_str(), "New content") == 0);
+    REQUIRE(testString.size() == 11);
+  }
+
+  SECTION("Multiple clear operations") {
+    FixedString<16> testString("Test");
+
+    // First clear
+    testString.clear();
+    REQUIRE(testString.empty());
+    REQUIRE(testString.size() == 0);
+
+    // Assign new content
+    testString = "New";
+    REQUIRE_FALSE(testString.empty());
+    REQUIRE(testString.size() == 3);
+
+    // Second clear
+    testString.clear();
+    REQUIRE(testString.empty());
+    REQUIRE(testString.size() == 0);
+
+    // Third clear (should be idempotent)
+    testString.clear();
+    REQUIRE(testString.empty());
+    REQUIRE(testString.size() == 0);
+  }
 }
 
 TEST_CASE("FixedString insert", "[core][fixed_string]") {
-  FixedString<32> testString1("Hello World");
-  FixedString<32> testString2("Hello World");
-  FixedString<32> testString3("Hello World");
+  SECTION("Insert FixedString at beginning") {
+    FixedString<32> testString("Hello World");
 
-  // Insert at beginning
-  testString1.insert(0, FixedString<32>("Hi "));
-  testString2.insert(0, FixedString<16>("Hi "));
-  testString3.insert(0, "Hi ");
-  REQUIRE(std::strcmp(testString1.c_str(), "Hi Hello World") == 0);
-  REQUIRE(std::strcmp(testString2.c_str(), "Hi Hello World") == 0);
-  REQUIRE(std::strcmp(testString3.c_str(), "Hi Hello World") == 0);
-  REQUIRE(testString1.size() == 14);
-  REQUIRE(testString2.size() == 14);
-  REQUIRE(testString3.size() == 14);
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
 
-  // Insert in middle
-  testString1.insert(9, FixedString<32>("Beautiful "));
-  testString2.insert(9, FixedString<64>("Beautiful "));
-  testString3.insert(9, "Beautiful ");
-  REQUIRE(std::strcmp(testString1.c_str(), "Hi Hello Beautiful World") == 0);
-  REQUIRE(std::strcmp(testString2.c_str(), "Hi Hello Beautiful World") == 0);
-  REQUIRE(std::strcmp(testString3.c_str(), "Hi Hello Beautiful World") == 0);
-  REQUIRE(testString1.size() == 24);
-  REQUIRE(testString2.size() == 24);
-  REQUIRE(testString3.size() == 24);
+    testString.insert(0, FixedString<16>("Hi "));
 
-  // Insert at end
-  testString1.insert(24, FixedString<32>("!"));
-  testString2.insert(24, FixedString<8>("!"));
-  testString3.insert(24, "!");
-  REQUIRE(std::strcmp(testString1.c_str(), "Hi Hello Beautiful World!") == 0);
-  REQUIRE(std::strcmp(testString2.c_str(), "Hi Hello Beautiful World!") == 0);
-  REQUIRE(std::strcmp(testString3.c_str(), "Hi Hello Beautiful World!") == 0);
-  REQUIRE(testString1.size() == 25);
-  REQUIRE(testString2.size() == 25);
-  REQUIRE(testString3.size() == 25);
+    REQUIRE(testString.size() == 14);
+    REQUIRE(std::strcmp(testString.c_str(), "Hi Hello World") == 0);
+  }
 
-  FixedString<32> testString4("Hello World");
+  SECTION("Insert FixedString in middle") {
+    FixedString<32> testString("Hello World");
 
-  // Insert single character
-  testString4.insert(5, ' ');
-  REQUIRE(std::strcmp(testString4.c_str(), "Hello  World") == 0);
-  REQUIRE(testString4.size() == 12);
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
 
-  // Insert multiple characters
-  testString4.insert(0, '*', 3);
-  REQUIRE(std::strcmp(testString4.c_str(), "***Hello  World") == 0);
-  REQUIRE(testString4.size() == 15);
+    testString.insert(6, FixedString<16>("Beautiful "));
 
-  // Insert at end
-  testString4.insert(15, '!', 2);
-  REQUIRE(std::strcmp(testString4.c_str(), "***Hello  World!!") == 0);
-  REQUIRE(testString4.size() == 17);
+    REQUIRE(testString.size() == 21);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello Beautiful World") == 0);
+  }
 
-  // Insert zero characters
-  testString4.insert(0, 'X', 0);
-  REQUIRE(std::strcmp(testString4.c_str(), "***Hello  World!!") == 0);
-  REQUIRE(testString4.size() == 17);
+  SECTION("Insert FixedString at end") {
+    FixedString<32> testString("Hello World");
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+
+    testString.insert(11, FixedString<8>("!"));
+
+    REQUIRE(testString.size() == 12);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World!") == 0);
+  }
+
+  SECTION("Insert C-string at beginning") {
+    FixedString<32> testString("Hello World");
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+
+    testString.insert(0, "Hi ");
+
+    REQUIRE(testString.size() == 14);
+    REQUIRE(std::strcmp(testString.c_str(), "Hi Hello World") == 0);
+  }
+
+  SECTION("Insert C-string in middle") {
+    FixedString<32> testString("Hello World");
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+
+    testString.insert(6, "Beautiful ");
+
+    REQUIRE(testString.size() == 21);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello Beautiful World") == 0);
+  }
+
+  SECTION("Insert C-string at end") {
+    FixedString<32> testString("Hello World");
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+
+    testString.insert(11, "!");
+
+    REQUIRE(testString.size() == 12);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World!") == 0);
+  }
+
+  SECTION("Insert single character") {
+    FixedString<32> testString("Hello World");
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+
+    testString.insert(5, ' ');
+
+    REQUIRE(testString.size() == 12);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello  World") == 0);
+  }
+
+  SECTION("Insert multiple characters") {
+    FixedString<32> testString("Hello World");
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+
+    testString.insert(0, '*', 3);
+
+    REQUIRE(testString.size() == 14);
+    REQUIRE(std::strcmp(testString.c_str(), "***Hello World") == 0);
+  }
+
+  SECTION("Insert zero characters") {
+    FixedString<32> testString("Hello World");
+
+    const auto originalSize = testString.size();
+    const auto originalContent = std::string(testString.c_str());
+
+    testString.insert(0, 'X', 0);
+
+    REQUIRE(testString.size() == originalSize);
+    REQUIRE(std::strcmp(testString.c_str(), originalContent.c_str()) == 0);
+  }
+
+  SECTION("Insert into empty string") {
+    FixedString<32> emptyString;
+
+    REQUIRE(emptyString.empty());
+    REQUIRE(emptyString.size() == 0);
+
+    emptyString.insert(0, "Hello");
+
+    REQUIRE_FALSE(emptyString.empty());
+    REQUIRE(emptyString.size() == 5);
+    REQUIRE(std::strcmp(emptyString.c_str(), "Hello") == 0);
+  }
+
+  SECTION("Insert at position 0") {
+    FixedString<32> testString("World");
+
+    REQUIRE(testString.size() == 5);
+    REQUIRE(std::strcmp(testString.c_str(), "World") == 0);
+
+    testString.insert(0, "Hello ");
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+  }
+
+  SECTION("Insert at end position") {
+    FixedString<32> testString("Hello");
+
+    REQUIRE(testString.size() == 5);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello") == 0);
+
+    testString.insert(5, " World");
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+  }
+
+  SECTION("Insert special characters") {
+    FixedString<32> testString("Hello World");
+
+    testString.insert(5, '\n');
+    REQUIRE(std::strcmp(testString.c_str(), "Hello\n World") == 0);
+    REQUIRE(testString.size() == 12);
+
+    testString.insert(0, '\t');
+    REQUIRE(std::strcmp(testString.c_str(), "\tHello\n World") == 0);
+    REQUIRE(testString.size() == 13);
+  }
+
+  SECTION("Insert Unicode content") {
+    FixedString<64> testString("Hello");
+
+    testString.insert(5, " 世界");
+    REQUIRE(std::strcmp(testString.c_str(), "Hello 世界") == 0);
+    REQUIRE(testString.size() == 12);
+
+    testString.insert(0, "Привет ");
+    REQUIRE(std::strcmp(testString.c_str(), "Привет Hello 世界") == 0);
+    REQUIRE(testString.size() == 25);
+  }
+
+  SECTION("Insert with different capacities") {
+    FixedString<8> smallString("Hi");
+    FixedString<16> mediumString("Hello");
+    FixedString<32> largeString("Hello World");
+
+    smallString.insert(2, "!");
+    mediumString.insert(5, " World");
+    largeString.insert(11, "!");
+
+    REQUIRE(std::strcmp(smallString.c_str(), "Hi!") == 0);
+    REQUIRE(std::strcmp(mediumString.c_str(), "Hello World") == 0);
+    REQUIRE(std::strcmp(largeString.c_str(), "Hello World!") == 0);
+
+    REQUIRE(smallString.size() == 3);
+    REQUIRE(mediumString.size() == 11);
+    REQUIRE(largeString.size() == 12);
+  }
+
+  SECTION("Multiple insert operations") {
+    FixedString<32> testString("Hello");
+
+    // First insert
+    testString.insert(5, " World");
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+    REQUIRE(testString.size() == 11);
+
+    // Second insert
+    testString.insert(0, "Hi ");
+    REQUIRE(std::strcmp(testString.c_str(), "Hi Hello World") == 0);
+    REQUIRE(testString.size() == 14);
+
+    // Third insert
+    testString.insert(14, "!");
+    REQUIRE(std::strcmp(testString.c_str(), "Hi Hello World!") == 0);
+    REQUIRE(testString.size() == 15);
+  }
+
+  SECTION("Insert character at various positions") {
+    FixedString<32> testString("ABCD");
+
+    testString.insert(0, 'X');
+    REQUIRE(std::strcmp(testString.c_str(), "XABCD") == 0);
+    REQUIRE(testString.size() == 5);
+
+    testString.insert(3, 'Y');
+    REQUIRE(std::strcmp(testString.c_str(), "XABYCD") == 0);
+    REQUIRE(testString.size() == 6);
+
+    testString.insert(6, 'Z');
+    REQUIRE(std::strcmp(testString.c_str(), "XABYCDZ") == 0);
+    REQUIRE(testString.size() == 7);
+  }
 }
 
 TEST_CASE("FixedString erase", "[core][fixed_string]") {
-  FixedString<32> testString1("Hello World");
+  SECTION("Erase from beginning") {
+    FixedString<32> testString("Hello World");
 
-  // Erase first 5 characters
-  testString1.erase(0, 5);
-  REQUIRE(std::strcmp(testString1.c_str(), " World") == 0);
-  REQUIRE(testString1.size() == 6);
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
 
-  // Erase remaining characters
-  testString1.erase(0);
-  REQUIRE(std::strcmp(testString1.c_str(), "") == 0);
-  REQUIRE(testString1.size() == 0);
+    testString.erase(0, 5);
 
-  FixedString<32> testString2("Hello Beautiful World");
+    REQUIRE(testString.size() == 6);
+    REQUIRE(std::strcmp(testString.c_str(), " World") == 0);
+  }
 
-  // Erase middle word
-  testString2.erase(6, 10);
-  REQUIRE(std::strcmp(testString2.c_str(), "Hello World") == 0);
-  REQUIRE(testString2.size() == 11);
+  SECTION("Erase from middle") {
+    FixedString<32> testString("Hello Beautiful World");
 
-  // Erase part of remaining text
-  testString2.erase(5, 1);
-  REQUIRE(std::strcmp(testString2.c_str(), "HelloWorld") == 0);
-  REQUIRE(testString2.size() == 10);
+    REQUIRE(testString.size() == 21);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello Beautiful World") == 0);
 
-  FixedString<32> testString3("Hello World!");
+    testString.erase(6, 10);
 
-  // Erase last character
-  testString3.erase(11, 1);
-  REQUIRE(std::strcmp(testString3.c_str(), "Hello World") == 0);
-  REQUIRE(testString3.size() == 11);
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+  }
 
-  // No-op: erase with count == 0
-  testString3.erase(5, 0);
-  REQUIRE(std::strcmp(testString3.c_str(), "Hello World") == 0);
-  REQUIRE(testString3.size() == 11);
+  SECTION("Erase from end") {
+    FixedString<32> testString("Hello World!");
 
-  // Erase last word
-  testString3.erase(6);
-  REQUIRE(std::strcmp(testString3.c_str(), "Hello ") == 0);
-  REQUIRE(testString3.size() == 6);
+    REQUIRE(testString.size() == 12);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World!") == 0);
 
-  // Erase everything from position 0
-  testString3.erase(0);
-  REQUIRE(testString3.empty());
+    testString.erase(11, 1);
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+  }
+
+  SECTION("Erase single character") {
+    FixedString<32> testString("Hello World");
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+
+    testString.erase(5, 1);
+
+    REQUIRE(testString.size() == 10);
+    REQUIRE(std::strcmp(testString.c_str(), "HelloWorld") == 0);
+  }
+
+  SECTION("Erase zero characters") {
+    FixedString<32> testString("Hello World");
+
+    const auto originalSize = testString.size();
+    const auto originalContent = std::string(testString.c_str());
+
+    testString.erase(5, 0);
+
+    REQUIRE(testString.size() == originalSize);
+    REQUIRE(std::strcmp(testString.c_str(), originalContent.c_str()) == 0);
+  }
+
+  SECTION("Erase from position to end") {
+    FixedString<32> testString("Hello World");
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+
+    testString.erase(6);
+
+    REQUIRE(testString.size() == 6);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello ") == 0);
+  }
+
+  SECTION("Erase everything") {
+    FixedString<32> testString("Hello World");
+
+    REQUIRE_FALSE(testString.empty());
+    REQUIRE(testString.size() == 11);
+
+    testString.erase(0);
+
+    REQUIRE(testString.empty());
+    REQUIRE(testString.size() == 0);
+    REQUIRE(std::strcmp(testString.c_str(), "") == 0);
+  }
+
+  SECTION("Erase special characters") {
+    FixedString<32> testString("Hello\nWorld\t!");
+
+    REQUIRE(testString.size() == 13);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello\nWorld\t!") == 0);
+
+    testString.erase(5, 1); // Erase newline
+
+    REQUIRE(testString.size() == 12);
+    REQUIRE(std::strcmp(testString.c_str(), "HelloWorld\t!") == 0);
+
+    testString.erase(10, 1); // Erase tab
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "HelloWorld!") == 0);
+  }
+
+  SECTION("Erase Unicode content") {
+    FixedString<64> testString("Hello 世界 World");
+
+    REQUIRE(testString.size() == 18);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello 世界 World") == 0);
+
+    testString.erase(6, 3); // Erase Chinese characters
+
+    REQUIRE(testString.size() == 15);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello 界 World") == 0);
+  }
+
+  SECTION("Erase with different capacities") {
+    FixedString<8> smallString("Hi!");
+    FixedString<16> mediumString("Hello World");
+    FixedString<32> largeString("This is a longer string");
+
+    smallString.erase(2, 1);
+    mediumString.erase(5, 1);
+    largeString.erase(4, 3);
+
+    REQUIRE(std::strcmp(smallString.c_str(), "Hi") == 0);
+    REQUIRE(std::strcmp(mediumString.c_str(), "HelloWorld") == 0);
+    REQUIRE(std::strcmp(largeString.c_str(), "This a longer string") == 0);
+
+    REQUIRE(smallString.size() == 2);
+    REQUIRE(mediumString.size() == 10);
+    REQUIRE(largeString.size() == 20);
+  }
+
+  SECTION("Multiple erase operations") {
+    FixedString<32> testString("Hello Beautiful World!");
+
+    // First erase
+    testString.erase(6, 10);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World!") == 0);
+    REQUIRE(testString.size() == 12);
+
+    // Second erase
+    testString.erase(5, 1);
+    REQUIRE(std::strcmp(testString.c_str(), "HelloWorld!") == 0);
+    REQUIRE(testString.size() == 11);
+
+    // Third erase
+    testString.erase(10, 1);
+    REQUIRE(std::strcmp(testString.c_str(), "HelloWorld") == 0);
+    REQUIRE(testString.size() == 10);
+  }
+
+  SECTION("Erase at various positions") {
+    FixedString<32> testString("ABCDEFGH");
+
+    testString.erase(0, 1); // Erase 'A'
+    REQUIRE(std::strcmp(testString.c_str(), "BCDEFGH") == 0);
+    REQUIRE(testString.size() == 7);
+
+    testString.erase(3, 1); // Erase 'E'
+    REQUIRE(std::strcmp(testString.c_str(), "BCDFGH") == 0);
+    REQUIRE(testString.size() == 6);
+
+    testString.erase(5, 1); // Erase 'H'
+    REQUIRE(std::strcmp(testString.c_str(), "BCDFG") == 0);
+    REQUIRE(testString.size() == 5);
+  }
+
+  SECTION("Erase entire words") {
+    FixedString<32> testString("The quick brown fox");
+
+    testString.erase(0, 4); // Erase "The "
+    REQUIRE(std::strcmp(testString.c_str(), "quick brown fox") == 0);
+    REQUIRE(testString.size() == 15);
+
+    testString.erase(6, 6); // Erase "brown "
+    REQUIRE(std::strcmp(testString.c_str(), "quick fox") == 0);
+    REQUIRE(testString.size() == 9);
+
+    testString.erase(6); // Erase "fox"
+    REQUIRE(std::strcmp(testString.c_str(), "quick ") == 0);
+    REQUIRE(testString.size() == 6);
+  }
 }
+
+// to refactor 4854 - 2896 = 1958
 
 TEST_CASE("FixedString push_back", "[core][fixed_string]") {
   FixedString<16> testString1("Hello");

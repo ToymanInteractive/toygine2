@@ -288,6 +288,16 @@ public:
   */
   [[nodiscard]] constexpr std::size_t capacity() const noexcept;
 
+  /*!
+    \brief Clears the contents by detaching from the current C string.
+
+    This method resets this view to point at the internal empty sentinel. The previously referenced character buffer is
+    not modified or freed.
+
+    \note No allocation or deallocation occurs.
+  */
+  constexpr void clear() noexcept;
+
 private:
   /// Pointer to the wrapped C-style string
   const char * _data;

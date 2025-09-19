@@ -1424,3 +1424,182 @@ TEST_CASE("CString capacity", "[core][c_string]") {
     STATIC_REQUIRE(single.capacity() == 1);
   }
 }
+
+TEST_CASE("CString clear", "[core][c_string]") {
+  SECTION("Basic clear functionality") {
+    CString testString("Hello World");
+
+    REQUIRE_FALSE(testString.empty());
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+
+    testString.clear();
+
+    REQUIRE(testString.empty());
+    REQUIRE(std::strcmp(testString.c_str(), "") == 0);
+  }
+
+  SECTION("Clear empty string") {
+    CString emptyString("");
+
+    REQUIRE(emptyString.empty());
+    REQUIRE(std::strcmp(emptyString.c_str(), "") == 0);
+
+    emptyString.clear();
+
+    REQUIRE(emptyString.empty());
+    REQUIRE(std::strcmp(emptyString.c_str(), "") == 0);
+  }
+
+  SECTION("Clear default constructed string") {
+    CString defaultString;
+
+    REQUIRE(defaultString.empty());
+    REQUIRE(std::strcmp(defaultString.c_str(), "") == 0);
+
+    defaultString.clear();
+
+    REQUIRE(defaultString.empty());
+    REQUIRE(std::strcmp(defaultString.c_str(), "") == 0);
+  }
+
+  SECTION("Clear single character string") {
+    CString singleChar("A");
+
+    REQUIRE_FALSE(singleChar.empty());
+    REQUIRE(std::strcmp(singleChar.c_str(), "A") == 0);
+
+    singleChar.clear();
+
+    REQUIRE(singleChar.empty());
+    REQUIRE(std::strcmp(singleChar.c_str(), "") == 0);
+  }
+
+  SECTION("Clear longer string") {
+    CString maxString("1234567890");
+
+    REQUIRE_FALSE(maxString.empty());
+    REQUIRE(std::strcmp(maxString.c_str(), "1234567890") == 0);
+
+    maxString.clear();
+
+    REQUIRE(maxString.empty());
+    REQUIRE(std::strcmp(maxString.c_str(), "") == 0);
+  }
+
+  SECTION("Clear different capacities") {
+    CString smallString("Hi");
+    CString mediumString("Hello World");
+    CString largeString("This is a longer string");
+    CString extraLargeString("This is an even longer string for testing");
+
+    // Before clear
+    REQUIRE_FALSE(smallString.empty());
+    REQUIRE_FALSE(mediumString.empty());
+    REQUIRE_FALSE(largeString.empty());
+    REQUIRE_FALSE(extraLargeString.empty());
+
+    // Clear all
+    smallString.clear();
+    mediumString.clear();
+    largeString.clear();
+    extraLargeString.clear();
+
+    // After clear
+    REQUIRE(smallString.empty());
+    REQUIRE(mediumString.empty());
+    REQUIRE(largeString.empty());
+    REQUIRE(extraLargeString.empty());
+    REQUIRE(std::strcmp(smallString.c_str(), "") == 0);
+    REQUIRE(std::strcmp(mediumString.c_str(), "") == 0);
+    REQUIRE(std::strcmp(largeString.c_str(), "") == 0);
+    REQUIRE(std::strcmp(extraLargeString.c_str(), "") == 0);
+  }
+
+  SECTION("Clear special characters") {
+    CString newlineString("Hello\nWorld");
+    CString tabString("Hello\tWorld");
+    CString specialString("!@#$%^&*()");
+
+    REQUIRE_FALSE(newlineString.empty());
+    REQUIRE_FALSE(tabString.empty());
+    REQUIRE_FALSE(specialString.empty());
+
+    newlineString.clear();
+    tabString.clear();
+    specialString.clear();
+
+    REQUIRE(newlineString.empty());
+    REQUIRE(tabString.empty());
+    REQUIRE(specialString.empty());
+    REQUIRE(std::strcmp(newlineString.c_str(), "") == 0);
+    REQUIRE(std::strcmp(tabString.c_str(), "") == 0);
+    REQUIRE(std::strcmp(specialString.c_str(), "") == 0);
+  }
+
+  SECTION("Clear Unicode content") {
+    CString unicodeString("Привет мир");
+    CString emojiString("Hello 🌍 World");
+    CString mixedString("Hello 世界");
+
+    REQUIRE_FALSE(unicodeString.empty());
+    REQUIRE_FALSE(emojiString.empty());
+    REQUIRE_FALSE(mixedString.empty());
+
+    unicodeString.clear();
+    emojiString.clear();
+    mixedString.clear();
+
+    REQUIRE(unicodeString.empty());
+    REQUIRE(emojiString.empty());
+    REQUIRE(mixedString.empty());
+    REQUIRE(std::strcmp(unicodeString.c_str(), "") == 0);
+    REQUIRE(std::strcmp(emojiString.c_str(), "") == 0);
+    REQUIRE(std::strcmp(mixedString.c_str(), "") == 0);
+  }
+
+  SECTION("Clear and reassignment") {
+    CString testString("Original");
+
+    REQUIRE_FALSE(testString.empty());
+    REQUIRE(std::strcmp(testString.c_str(), "Original") == 0);
+
+    testString.clear();
+
+    REQUIRE(testString.empty());
+    REQUIRE(std::strcmp(testString.c_str(), "") == 0);
+
+    // Reassign after clear
+    testString = "New content";
+
+    REQUIRE_FALSE(testString.empty());
+    REQUIRE(std::strcmp(testString.c_str(), "New content") == 0);
+    REQUIRE(testString.size() == 11);
+  }
+
+  SECTION("Multiple clear operations") {
+    CString testString("Test");
+
+    // First clear
+    testString.clear();
+    REQUIRE(testString.empty());
+    REQUIRE(testString.size() == 0);
+    REQUIRE(std::strcmp(testString.c_str(), "") == 0);
+
+    // Assign new content
+    testString = "New";
+    REQUIRE_FALSE(testString.empty());
+    REQUIRE(testString.size() == 3);
+
+    // Second clear
+    testString.clear();
+    REQUIRE(testString.empty());
+    REQUIRE(testString.size() == 0);
+    REQUIRE(std::strcmp(testString.c_str(), "") == 0);
+
+    // Third clear (should be idempotent)
+    testString.clear();
+    REQUIRE(testString.empty());
+    REQUIRE(testString.size() == 0);
+    REQUIRE(std::strcmp(testString.c_str(), "") == 0);
+  }
+}
