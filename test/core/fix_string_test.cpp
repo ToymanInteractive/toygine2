@@ -2893,84 +2893,436 @@ TEST_CASE("FixedString erase", "[core][fixed_string]") {
   }
 }
 
-// to refactor 4854 - 2896 = 1958
-
 TEST_CASE("FixedString push_back", "[core][fixed_string]") {
-  FixedString<16> testString1("Hello");
+  SECTION("Push back single character") {
+    FixedString<16> testString("Hello");
 
-  testString1.push_back(' ');
-  testString1.push_back('W');
-  testString1.push_back('o');
-  testString1.push_back('r');
-  testString1.push_back('l');
-  testString1.push_back('d');
+    REQUIRE(testString.size() == 5);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello") == 0);
 
-  REQUIRE(std::strcmp(testString1.c_str(), "Hello World") == 0);
-  REQUIRE(testString1.size() == 11);
+    testString.push_back('!');
+
+    REQUIRE(testString.size() == 6);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello!") == 0);
+  }
+
+  SECTION("Push back multiple characters") {
+    FixedString<16> testString("Hello");
+
+    REQUIRE(testString.size() == 5);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello") == 0);
+
+    testString.push_back(' ');
+    testString.push_back('W');
+    testString.push_back('o');
+    testString.push_back('r');
+    testString.push_back('l');
+    testString.push_back('d');
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+  }
+
+  SECTION("Push back to empty string") {
+    FixedString<16> emptyString;
+
+    REQUIRE(emptyString.empty());
+    REQUIRE(emptyString.size() == 0);
+
+    emptyString.push_back('A');
+
+    REQUIRE_FALSE(emptyString.empty());
+    REQUIRE(emptyString.size() == 1);
+    REQUIRE(std::strcmp(emptyString.c_str(), "A") == 0);
+  }
+
+  SECTION("Push back special characters") {
+    FixedString<16> testString("Hello");
+
+    REQUIRE(testString.size() == 5);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello") == 0);
+
+    testString.push_back('\n');
+    testString.push_back('\t');
+    testString.push_back('\0');
+
+    REQUIRE(testString.size() == 8);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello\n\t") == 0);
+  }
+
+  SECTION("Push back with different capacities") {
+    FixedString<8> smallString("Hi");
+    FixedString<16> mediumString("Hello");
+    FixedString<32> largeString("Hello World");
+
+    smallString.push_back('!');
+    mediumString.push_back(' ');
+    mediumString.push_back('W');
+    largeString.push_back('!');
+
+    REQUIRE(std::strcmp(smallString.c_str(), "Hi!") == 0);
+    REQUIRE(std::strcmp(mediumString.c_str(), "Hello W") == 0);
+    REQUIRE(std::strcmp(largeString.c_str(), "Hello World!") == 0);
+
+    REQUIRE(smallString.size() == 3);
+    REQUIRE(mediumString.size() == 7);
+    REQUIRE(largeString.size() == 12);
+  }
+
+  SECTION("Push back numeric characters") {
+    FixedString<16> testString("123");
+
+    REQUIRE(testString.size() == 3);
+    REQUIRE(std::strcmp(testString.c_str(), "123") == 0);
+
+    testString.push_back('4');
+    testString.push_back('5');
+    testString.push_back('6');
+
+    REQUIRE(testString.size() == 6);
+    REQUIRE(std::strcmp(testString.c_str(), "123456") == 0);
+  }
+
+  SECTION("Push back mixed content") {
+    FixedString<32> testString("Test");
+
+    REQUIRE(testString.size() == 4);
+    REQUIRE(std::strcmp(testString.c_str(), "Test") == 0);
+
+    testString.push_back(' ');
+    testString.push_back('1');
+    testString.push_back('2');
+    testString.push_back('3');
+    testString.push_back('!');
+
+    REQUIRE(testString.size() == 9);
+    REQUIRE(std::strcmp(testString.c_str(), "Test 123!") == 0);
+  }
+
+  SECTION("Push back edge cases") {
+    FixedString<16> testString("A");
+
+    REQUIRE(testString.size() == 1);
+    REQUIRE(std::strcmp(testString.c_str(), "A") == 0);
+
+    testString.push_back('B');
+    testString.push_back('C');
+    testString.push_back('D');
+
+    REQUIRE(testString.size() == 4);
+    REQUIRE(std::strcmp(testString.c_str(), "ABCD") == 0);
+  }
+
+  SECTION("Push back and size consistency") {
+    FixedString<16> testString;
+
+    REQUIRE(testString.empty());
+    REQUIRE(testString.size() == 0);
+
+    for (int i = 0; i < 5; ++i) {
+      testString.push_back('A' + i);
+      REQUIRE(testString.size() == i + 1);
+    }
+
+    REQUIRE(std::strcmp(testString.c_str(), "ABCDE") == 0);
+    REQUIRE(testString.size() == 5);
+  }
+
+  SECTION("Push back with different character types") {
+    FixedString<16> testString("Hello");
+
+    REQUIRE(testString.size() == 5);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello") == 0);
+
+    testString.push_back(' ');
+    testString.push_back('W');
+    testString.push_back('o');
+    testString.push_back('r');
+    testString.push_back('l');
+    testString.push_back('d');
+    testString.push_back('!');
+
+    REQUIRE(testString.size() == 12);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World!") == 0);
+  }
 }
 
 TEST_CASE("FixedString pop_back", "[core][fixed_string]") {
-  FixedString<16> testString("Hi");
+  SECTION("Pop back single character") {
+    FixedString<16> testString("Hello");
 
-  testString.pop_back();
-  REQUIRE(std::strcmp(testString.c_str(), "H") == 0);
-  REQUIRE(testString.size() == 1);
+    REQUIRE(testString.size() == 5);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello") == 0);
 
-  testString.pop_back();
-  REQUIRE(std::strcmp(testString.c_str(), "") == 0);
-  REQUIRE(testString.size() == 0);
+    testString.pop_back();
+
+    REQUIRE(testString.size() == 4);
+    REQUIRE(std::strcmp(testString.c_str(), "Hell") == 0);
+  }
+
+  SECTION("Pop back multiple characters") {
+    FixedString<16> testString("Hello World");
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+
+    testString.pop_back();
+    testString.pop_back();
+    testString.pop_back();
+    testString.pop_back();
+    testString.pop_back();
+    testString.pop_back();
+
+    REQUIRE(testString.size() == 5);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello") == 0);
+  }
+
+  SECTION("Pop back from single character string") {
+    FixedString<16> testString("A");
+
+    REQUIRE(testString.size() == 1);
+    REQUIRE(std::strcmp(testString.c_str(), "A") == 0);
+
+    testString.pop_back();
+
+    REQUIRE(testString.empty());
+    REQUIRE(testString.size() == 0);
+    REQUIRE(std::strcmp(testString.c_str(), "") == 0);
+  }
+
+  SECTION("Pop back special characters") {
+    FixedString<16> testString("Hello\n\t!");
+
+    REQUIRE(testString.size() == 8);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello\n\t!") == 0);
+
+    testString.pop_back(); // Remove '!'
+    REQUIRE(testString.size() == 7);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello\n\t") == 0);
+
+    testString.pop_back(); // Remove '\t'
+    REQUIRE(testString.size() == 6);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello\n") == 0);
+
+    testString.pop_back(); // Remove '\n'
+    REQUIRE(testString.size() == 5);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello") == 0);
+  }
+
+  SECTION("Pop back with different capacities") {
+    FixedString<8> smallString("Hi!");
+    FixedString<16> mediumString("Hello World");
+    FixedString<32> largeString("This is a longer string");
+
+    smallString.pop_back();
+    mediumString.pop_back();
+    largeString.pop_back();
+
+    REQUIRE(std::strcmp(smallString.c_str(), "Hi") == 0);
+    REQUIRE(std::strcmp(mediumString.c_str(), "Hello Worl") == 0);
+    REQUIRE(std::strcmp(largeString.c_str(), "This is a longer strin") == 0);
+
+    REQUIRE(smallString.size() == 2);
+    REQUIRE(mediumString.size() == 10);
+    REQUIRE(largeString.size() == 22);
+  }
+
+  SECTION("Pop back numeric characters") {
+    FixedString<16> testString("123456");
+
+    REQUIRE(testString.size() == 6);
+    REQUIRE(std::strcmp(testString.c_str(), "123456") == 0);
+
+    testString.pop_back();
+    testString.pop_back();
+    testString.pop_back();
+
+    REQUIRE(testString.size() == 3);
+    REQUIRE(std::strcmp(testString.c_str(), "123") == 0);
+  }
+
+  SECTION("Pop back mixed content") {
+    FixedString<32> testString("Test 123!");
+
+    REQUIRE(testString.size() == 9);
+    REQUIRE(std::strcmp(testString.c_str(), "Test 123!") == 0);
+
+    testString.pop_back(); // Remove '!'
+    REQUIRE(testString.size() == 8);
+    REQUIRE(std::strcmp(testString.c_str(), "Test 123") == 0);
+
+    testString.pop_back(); // Remove '3'
+    REQUIRE(testString.size() == 7);
+    REQUIRE(std::strcmp(testString.c_str(), "Test 12") == 0);
+
+    testString.pop_back(); // Remove '2'
+    REQUIRE(testString.size() == 6);
+    REQUIRE(std::strcmp(testString.c_str(), "Test 1") == 0);
+  }
+
+  SECTION("Pop back edge cases") {
+    FixedString<16> testString("ABCD");
+
+    REQUIRE(testString.size() == 4);
+    REQUIRE(std::strcmp(testString.c_str(), "ABCD") == 0);
+
+    testString.pop_back(); // Remove 'D'
+    REQUIRE(testString.size() == 3);
+    REQUIRE(std::strcmp(testString.c_str(), "ABC") == 0);
+
+    testString.pop_back(); // Remove 'C'
+    REQUIRE(testString.size() == 2);
+    REQUIRE(std::strcmp(testString.c_str(), "AB") == 0);
+
+    testString.pop_back(); // Remove 'B'
+    REQUIRE(testString.size() == 1);
+    REQUIRE(std::strcmp(testString.c_str(), "A") == 0);
+
+    testString.pop_back(); // Remove 'A'
+    REQUIRE(testString.empty());
+    REQUIRE(testString.size() == 0);
+    REQUIRE(std::strcmp(testString.c_str(), "") == 0);
+  }
+
+  SECTION("Pop back and size consistency") {
+    FixedString<16> testString("ABCDE");
+
+    REQUIRE(testString.size() == 5);
+    REQUIRE(std::strcmp(testString.c_str(), "ABCDE") == 0);
+
+    for (int i = 4; i >= 0; --i) {
+      testString.pop_back();
+      REQUIRE(testString.size() == i);
+    }
+
+    REQUIRE(testString.empty());
+    REQUIRE(std::strcmp(testString.c_str(), "") == 0);
+  }
+
+  SECTION("Pop back with different character types") {
+    FixedString<16> testString("Hello World!");
+
+    REQUIRE(testString.size() == 12);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World!") == 0);
+
+    testString.pop_back(); // Remove '!'
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+
+    testString.pop_back(); // Remove 'd'
+    REQUIRE(testString.size() == 10);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello Worl") == 0);
+
+    testString.pop_back(); // Remove 'l'
+    REQUIRE(testString.size() == 9);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello Wor") == 0);
+  }
+
+  SECTION("Pop back and reassignment") {
+    FixedString<16> testString("Original");
+
+    REQUIRE(testString.size() == 8);
+    REQUIRE(std::strcmp(testString.c_str(), "Original") == 0);
+
+    testString.pop_back();
+    testString.pop_back();
+    testString.pop_back();
+
+    REQUIRE(testString.size() == 5);
+    REQUIRE(std::strcmp(testString.c_str(), "Origi") == 0);
+
+    // Reassign after pop_back
+    testString = "New content";
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "New content") == 0);
+  }
+
+  SECTION("Pop back with capacity preservation") {
+    FixedString<16> testString("Hello World");
+
+    const auto originalCapacity = testString.capacity();
+    const auto originalMaxSize = testString.max_size();
+
+    REQUIRE(testString.size() == 11);
+
+    testString.pop_back();
+    testString.pop_back();
+    testString.pop_back();
+
+    REQUIRE(testString.size() == 8);
+    REQUIRE(testString.capacity() == originalCapacity);
+    REQUIRE(testString.max_size() == originalMaxSize);
+  }
 }
 
 TEST_CASE("FixedString utf8_pop_back", "[core][fixed_string]") {
   SECTION("Pop back single ASCII character") {
     FixedString<16> testString("Hello");
 
+    REQUIRE(testString.size() == 5);
+    REQUIRE(testString.utf8_size() == 5);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello") == 0);
+
     testString.utf8_pop_back();
 
-    REQUIRE(std::strcmp(testString.c_str(), "Hell") == 0);
     REQUIRE(testString.size() == 4);
     REQUIRE(testString.utf8_size() == 4);
+    REQUIRE(std::strcmp(testString.c_str(), "Hell") == 0);
   }
 
   SECTION("Pop back multiple ASCII characters") {
-    FixedString<16> testString("Hello");
+    FixedString<16> testString("Hello World");
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(testString.utf8_size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
 
     testString.utf8_pop_back();
     testString.utf8_pop_back();
     testString.utf8_pop_back();
 
-    REQUIRE(std::strcmp(testString.c_str(), "He") == 0);
-    REQUIRE(testString.size() == 2);
-    REQUIRE(testString.utf8_size() == 2);
+    REQUIRE(testString.size() == 8);
+    REQUIRE(testString.utf8_size() == 8);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello Wo") == 0);
   }
 
-  SECTION("Pop back UTF-8 character (2 bytes)") {
-    // "Hello привет" - "привет" contains 6 Cyrillic characters, each 2 bytes in UTF-8
-    FixedString<32> testString("Hello \xD0\xBF\xD1\x80\xD0\xB8\xD0\xB2\xD0\xB5\xD1\x82");
+  SECTION("Pop back UTF-8 Cyrillic characters") {
+    FixedString<32> testString("Hello привет");
 
-    testString.utf8_pop_back(); // Remove 'т' (2 bytes)
+    REQUIRE(testString.size() == 18);
+    REQUIRE(testString.utf8_size() == 12);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello привет") == 0);
 
-    REQUIRE(std::strcmp(testString.c_str(), "Hello \xD0\xBF\xD1\x80\xD0\xB8\xD0\xB2\xD0\xB5") == 0);
-    REQUIRE(testString.size() == 16); // "Hello приве" (5 + 1 + 5*2 = 16 bytes)
+    testString.utf8_pop_back(); // Remove 'т'
+
+    REQUIRE(testString.size() == 16);
     REQUIRE(testString.utf8_size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello приве") == 0);
   }
 
   SECTION("Pop back multiple UTF-8 characters") {
-    // "Hello привет" - "привет" contains 6 Cyrillic characters
-    FixedString<32> testString("Hello \xD0\xBF\xD1\x80\xD0\xB8\xD0\xB2\xD0\xB5\xD1\x82");
+    FixedString<32> testString("Hello привет");
+
+    REQUIRE(testString.size() == 18);
+    REQUIRE(testString.utf8_size() == 12);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello привет") == 0);
 
     testString.utf8_pop_back(); // Remove 'т'
     testString.utf8_pop_back(); // Remove 'е'
     testString.utf8_pop_back(); // Remove 'в'
 
-    REQUIRE(std::strcmp(testString.c_str(), "Hello \xD0\xBF\xD1\x80\xD0\xB8") == 0);
-    REQUIRE(testString.size() == 12); // "Hello при" (5 + 1 + 3*2 = 12 bytes)
+    REQUIRE(testString.size() == 12);
     REQUIRE(testString.utf8_size() == 9);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello при") == 0);
   }
 
   SECTION("Pop back mixed ASCII and UTF-8") {
-    // "Hello привет" - mix of ASCII and Cyrillic
-    FixedString<32> testString("Hello \xD0\xBF\xD1\x80\xD0\xB8\xD0\xB2\xD0\xB5\xD1\x82");
+    FixedString<32> testString("Hello привет");
+
+    REQUIRE(testString.size() == 18);
+    REQUIRE(testString.utf8_size() == 12);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello привет") == 0);
 
     testString.utf8_pop_back(); // Remove 'т'
     testString.utf8_pop_back(); // Remove 'е'
@@ -2979,45 +3331,419 @@ TEST_CASE("FixedString utf8_pop_back", "[core][fixed_string]") {
     testString.utf8_pop_back(); // Remove 'р'
     testString.utf8_pop_back(); // Remove 'п'
 
-    REQUIRE(std::strcmp(testString.c_str(), "Hello ") == 0);
     REQUIRE(testString.size() == 6);
     REQUIRE(testString.utf8_size() == 6);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello ") == 0);
   }
 
-  SECTION("Pop back from single character string") {
+  SECTION("Pop back from single ASCII character") {
     FixedString<8> testString("A");
 
+    REQUIRE(testString.size() == 1);
+    REQUIRE(testString.utf8_size() == 1);
+    REQUIRE(std::strcmp(testString.c_str(), "A") == 0);
+
     testString.utf8_pop_back();
 
-    REQUIRE(std::strcmp(testString.c_str(), "") == 0);
+    REQUIRE(testString.empty());
     REQUIRE(testString.size() == 0);
     REQUIRE(testString.utf8_size() == 0);
+    REQUIRE(std::strcmp(testString.c_str(), "") == 0);
   }
 
-  SECTION("Pop back from single UTF-8 character string") {
-    // Single Cyrillic character 'п'
-    FixedString<8> testString("\xD0\xBF");
+  SECTION("Pop back from single UTF-8 character") {
+    FixedString<8> testString("п");
+
+    REQUIRE(testString.size() == 2);
+    REQUIRE(testString.utf8_size() == 1);
+    REQUIRE(std::strcmp(testString.c_str(), "п") == 0);
 
     testString.utf8_pop_back();
 
-    REQUIRE(std::strcmp(testString.c_str(), "") == 0);
+    REQUIRE(testString.empty());
     REQUIRE(testString.size() == 0);
     REQUIRE(testString.utf8_size() == 0);
+    REQUIRE(std::strcmp(testString.c_str(), "") == 0);
+  }
+
+  SECTION("Pop back UTF-8 emoji characters") {
+    FixedString<32> testString("Hello 🌍 World");
+
+    REQUIRE(testString.size() == 16);
+    REQUIRE(testString.utf8_size() == 13);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello 🌍 World") == 0);
+
+    testString.utf8_pop_back(); // Remove 'd'
+    testString.utf8_pop_back(); // Remove 'l'
+    testString.utf8_pop_back(); // Remove 'r'
+    testString.utf8_pop_back(); // Remove 'o'
+    testString.utf8_pop_back(); // Remove 'W'
+    testString.utf8_pop_back(); // Remove ' '
+    testString.utf8_pop_back(); // Remove '🌍'
+    testString.utf8_pop_back(); // Remove ' '
+
+    REQUIRE(testString.size() == 5);
+    REQUIRE(testString.utf8_size() == 5);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello") == 0);
+  }
+
+  SECTION("Pop back with different capacities") {
+    FixedString<8> smallString("Hi");
+    FixedString<16> mediumString("Hello 世界");
+    FixedString<32> largeString("Hello привет мир");
+
+    smallString.utf8_pop_back();
+    mediumString.utf8_pop_back();
+    largeString.utf8_pop_back();
+
+    REQUIRE(std::strcmp(smallString.c_str(), "H") == 0);
+    REQUIRE(std::strcmp(mediumString.c_str(), "Hello 世") == 0);
+    REQUIRE(std::strcmp(largeString.c_str(), "Hello привет ми") == 0);
+
+    REQUIRE(smallString.size() == 1);
+    REQUIRE(mediumString.size() == 9);
+    REQUIRE(largeString.size() == 23);
+
+    REQUIRE(smallString.utf8_size() == 1);
+    REQUIRE(mediumString.utf8_size() == 7);
+    REQUIRE(largeString.utf8_size() == 15);
+  }
+
+  SECTION("Pop back numeric and special characters") {
+    FixedString<16> testString("123!@#");
+
+    REQUIRE(testString.size() == 6);
+    REQUIRE(testString.utf8_size() == 6);
+    REQUIRE(std::strcmp(testString.c_str(), "123!@#") == 0);
+
+    testString.utf8_pop_back(); // Remove '#'
+    testString.utf8_pop_back(); // Remove '@'
+    testString.utf8_pop_back(); // Remove '!'
+
+    REQUIRE(testString.size() == 3);
+    REQUIRE(testString.utf8_size() == 3);
+    REQUIRE(std::strcmp(testString.c_str(), "123") == 0);
+  }
+
+  SECTION("Pop back edge cases") {
+    FixedString<16> testString("ABC");
+
+    REQUIRE(testString.size() == 3);
+    REQUIRE(testString.utf8_size() == 3);
+    REQUIRE(std::strcmp(testString.c_str(), "ABC") == 0);
+
+    testString.utf8_pop_back(); // Remove 'C'
+    REQUIRE(testString.size() == 2);
+    REQUIRE(testString.utf8_size() == 2);
+    REQUIRE(std::strcmp(testString.c_str(), "AB") == 0);
+
+    testString.utf8_pop_back(); // Remove 'B'
+    REQUIRE(testString.size() == 1);
+    REQUIRE(testString.utf8_size() == 1);
+    REQUIRE(std::strcmp(testString.c_str(), "A") == 0);
+
+    testString.utf8_pop_back(); // Remove 'A'
+    REQUIRE(testString.empty());
+    REQUIRE(testString.size() == 0);
+    REQUIRE(testString.utf8_size() == 0);
+    REQUIRE(std::strcmp(testString.c_str(), "") == 0);
+  }
+
+  SECTION("Pop back and size consistency") {
+    FixedString<16> testString("ABCDE");
+
+    REQUIRE(testString.size() == 5);
+    REQUIRE(testString.utf8_size() == 5);
+    REQUIRE(std::strcmp(testString.c_str(), "ABCDE") == 0);
+
+    for (int i = 4; i >= 0; --i) {
+      testString.utf8_pop_back();
+      REQUIRE(testString.size() == i);
+      REQUIRE(testString.utf8_size() == i);
+    }
+
+    REQUIRE(testString.empty());
+    REQUIRE(std::strcmp(testString.c_str(), "") == 0);
+  }
+
+  SECTION("Pop back with capacity preservation") {
+    FixedString<20> testString("Hello привет");
+
+    const auto originalCapacity = testString.capacity();
+    const auto originalMaxSize = testString.max_size();
+
+    REQUIRE(testString.size() == 18);
+    REQUIRE(testString.utf8_size() == 12);
+
+    testString.utf8_pop_back();
+    testString.utf8_pop_back();
+    testString.utf8_pop_back();
+
+    REQUIRE(testString.size() == 12);
+    REQUIRE(testString.utf8_size() == 9);
+    REQUIRE(testString.capacity() == originalCapacity);
+    REQUIRE(testString.max_size() == originalMaxSize);
+  }
+
+  SECTION("Pop back and reassignment") {
+    FixedString<16> testString("Original");
+
+    REQUIRE(testString.size() == 8);
+    REQUIRE(testString.utf8_size() == 8);
+    REQUIRE(std::strcmp(testString.c_str(), "Original") == 0);
+
+    testString.utf8_pop_back();
+    testString.utf8_pop_back();
+    testString.utf8_pop_back();
+
+    REQUIRE(testString.size() == 5);
+    REQUIRE(testString.utf8_size() == 5);
+    REQUIRE(std::strcmp(testString.c_str(), "Origi") == 0);
+
+    // Reassign after utf8_pop_back
+    testString = "New content";
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(testString.utf8_size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "New content") == 0);
   }
 }
 
 TEST_CASE("FixedString append", "[core][fixed_string]") {
-  FixedString<32> testString("");
+  SECTION("Append FixedString") {
+    FixedString<32> testString("Hello");
 
-  testString.append(FixedString<16>("Nothing"))
-    .append(FixedString<8>(" else"))
-    .append(std::string(" really"))
-    .append(" matters")
-    .append('.', 3);
+    REQUIRE(testString.size() == 5);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello") == 0);
 
-  REQUIRE(std::strcmp(testString.c_str(), "Nothing else really matters...") == 0);
-  REQUIRE(testString.size() == 30);
+    testString.append(FixedString<16>(" World"));
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+  }
+
+  SECTION("Append C-string") {
+    FixedString<32> testString("Hello");
+
+    REQUIRE(testString.size() == 5);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello") == 0);
+
+    testString.append(" World");
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+  }
+
+  SECTION("Append std::string") {
+    FixedString<32> testString("Hello");
+
+    REQUIRE(testString.size() == 5);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello") == 0);
+
+    testString.append(std::string(" World"));
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+  }
+
+  SECTION("Append single character") {
+    FixedString<32> testString("Hello");
+
+    REQUIRE(testString.size() == 5);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello") == 0);
+
+    testString.append('!');
+
+    REQUIRE(testString.size() == 6);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello!") == 0);
+  }
+
+  SECTION("Append multiple characters") {
+    FixedString<32> testString("Hello");
+
+    REQUIRE(testString.size() == 5);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello") == 0);
+
+    testString.append(' ', 3);
+
+    REQUIRE(testString.size() == 8);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello   ") == 0);
+  }
+
+  SECTION("Append to empty string") {
+    FixedString<32> emptyString;
+
+    REQUIRE(emptyString.empty());
+    REQUIRE(emptyString.size() == 0);
+
+    emptyString.append("Hello");
+
+    REQUIRE_FALSE(emptyString.empty());
+    REQUIRE(emptyString.size() == 5);
+    REQUIRE(std::strcmp(emptyString.c_str(), "Hello") == 0);
+  }
+
+  SECTION("Append zero characters") {
+    FixedString<32> testString("Hello");
+
+    const auto originalSize = testString.size();
+    const auto originalContent = std::string(testString.c_str());
+
+    testString.append('X', 0);
+
+    REQUIRE(testString.size() == originalSize);
+    REQUIRE(std::strcmp(testString.c_str(), originalContent.c_str()) == 0);
+  }
+
+  SECTION("Append special characters") {
+    FixedString<32> testString("Hello");
+
+    REQUIRE(testString.size() == 5);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello") == 0);
+
+    testString.append('\n');
+    testString.append('\t');
+    testString.append('!');
+
+    REQUIRE(testString.size() == 8);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello\n\t!") == 0);
+  }
+
+  SECTION("Append Unicode content") {
+    FixedString<64> testString("Hello");
+
+    REQUIRE(testString.size() == 5);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello") == 0);
+
+    testString.append(" 世界");
+
+    REQUIRE(testString.size() == 12);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello 世界") == 0);
+  }
+
+  SECTION("Append with different capacities") {
+    FixedString<8> smallString("Hi");
+    FixedString<16> mediumString("Hello");
+    FixedString<32> largeString("Hello World");
+
+    smallString.append("!");
+    mediumString.append(" World");
+    largeString.append("!");
+
+    REQUIRE(std::strcmp(smallString.c_str(), "Hi!") == 0);
+    REQUIRE(std::strcmp(mediumString.c_str(), "Hello World") == 0);
+    REQUIRE(std::strcmp(largeString.c_str(), "Hello World!") == 0);
+
+    REQUIRE(smallString.size() == 3);
+    REQUIRE(mediumString.size() == 11);
+    REQUIRE(largeString.size() == 12);
+  }
+
+  SECTION("Append numeric content") {
+    FixedString<16> testString("123");
+
+    REQUIRE(testString.size() == 3);
+    REQUIRE(std::strcmp(testString.c_str(), "123") == 0);
+
+    testString.append("456");
+
+    REQUIRE(testString.size() == 6);
+    REQUIRE(std::strcmp(testString.c_str(), "123456") == 0);
+  }
+
+  SECTION("Append mixed content") {
+    FixedString<32> testString("Test");
+
+    REQUIRE(testString.size() == 4);
+    REQUIRE(std::strcmp(testString.c_str(), "Test") == 0);
+
+    testString.append(" 123!");
+
+    REQUIRE(testString.size() == 9);
+    REQUIRE(std::strcmp(testString.c_str(), "Test 123!") == 0);
+  }
+
+  SECTION("Append edge cases") {
+    FixedString<16> testString("A");
+
+    REQUIRE(testString.size() == 1);
+    REQUIRE(std::strcmp(testString.c_str(), "A") == 0);
+
+    testString.append("BC");
+
+    REQUIRE(testString.size() == 3);
+    REQUIRE(std::strcmp(testString.c_str(), "ABC") == 0);
+  }
+
+  SECTION("Append and size consistency") {
+    FixedString<16> testString;
+
+    REQUIRE(testString.empty());
+    REQUIRE(testString.size() == 0);
+
+    testString.append("A");
+    REQUIRE(testString.size() == 1);
+
+    testString.append("B");
+    REQUIRE(testString.size() == 2);
+
+    testString.append("C");
+    REQUIRE(testString.size() == 3);
+
+    REQUIRE(std::strcmp(testString.c_str(), "ABC") == 0);
+  }
+
+  SECTION("Append chaining") {
+    FixedString<32> testString("");
+
+    REQUIRE(testString.empty());
+    REQUIRE(testString.size() == 0);
+
+    testString.append(FixedString<16>("Nothing"))
+      .append(FixedString<8>(" else"))
+      .append(std::string(" really"))
+      .append(" matters")
+      .append('.', 3);
+
+    REQUIRE(testString.size() == 30);
+    REQUIRE(std::strcmp(testString.c_str(), "Nothing else really matters...") == 0);
+  }
+
+  SECTION("Append and reassignment") {
+    FixedString<18> testString("Original");
+
+    REQUIRE(testString.size() == 8);
+    REQUIRE(std::strcmp(testString.c_str(), "Original") == 0);
+
+    testString.append(" content");
+
+    REQUIRE(testString.size() == 16);
+    REQUIRE(std::strcmp(testString.c_str(), "Original content") == 0);
+
+    // Reassign after append
+    testString = "New";
+
+    REQUIRE(testString.size() == 3);
+    REQUIRE(std::strcmp(testString.c_str(), "New") == 0);
+  }
+
+  SECTION("Append with capacity preservation") {
+    FixedString<16> testString("Hello");
+
+    const auto originalCapacity = testString.capacity();
+    const auto originalMaxSize = testString.max_size();
+
+    REQUIRE(testString.size() == 5);
+
+    testString.append(" World");
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(testString.capacity() == originalCapacity);
+    REQUIRE(testString.max_size() == originalMaxSize);
+  }
 }
+
+// to refactor 5580 - 3746 = 1834
 
 TEST_CASE("FixedString operators+=", "[core][fixed_string]") {
   FixedString<32> testString("");
