@@ -3509,20 +3509,241 @@ TEST_CASE("FixedString utf8_pop_back", "[core][fixed_string]") {
   }
 }
 
-// to refactor 5359 - 3512 = 1847
-
 TEST_CASE("FixedString append", "[core][fixed_string]") {
-  FixedString<32> testString("");
+  SECTION("Append FixedString") {
+    FixedString<32> testString("Hello");
 
-  testString.append(FixedString<16>("Nothing"))
-    .append(FixedString<8>(" else"))
-    .append(std::string(" really"))
-    .append(" matters")
-    .append('.', 3);
+    REQUIRE(testString.size() == 5);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello") == 0);
 
-  REQUIRE(std::strcmp(testString.c_str(), "Nothing else really matters...") == 0);
-  REQUIRE(testString.size() == 30);
+    testString.append(FixedString<16>(" World"));
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+  }
+
+  SECTION("Append C-string") {
+    FixedString<32> testString("Hello");
+
+    REQUIRE(testString.size() == 5);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello") == 0);
+
+    testString.append(" World");
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+  }
+
+  SECTION("Append std::string") {
+    FixedString<32> testString("Hello");
+
+    REQUIRE(testString.size() == 5);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello") == 0);
+
+    testString.append(std::string(" World"));
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+  }
+
+  SECTION("Append single character") {
+    FixedString<32> testString("Hello");
+
+    REQUIRE(testString.size() == 5);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello") == 0);
+
+    testString.append('!');
+
+    REQUIRE(testString.size() == 6);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello!") == 0);
+  }
+
+  SECTION("Append multiple characters") {
+    FixedString<32> testString("Hello");
+
+    REQUIRE(testString.size() == 5);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello") == 0);
+
+    testString.append(' ', 3);
+
+    REQUIRE(testString.size() == 8);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello   ") == 0);
+  }
+
+  SECTION("Append to empty string") {
+    FixedString<32> emptyString;
+
+    REQUIRE(emptyString.empty());
+    REQUIRE(emptyString.size() == 0);
+
+    emptyString.append("Hello");
+
+    REQUIRE_FALSE(emptyString.empty());
+    REQUIRE(emptyString.size() == 5);
+    REQUIRE(std::strcmp(emptyString.c_str(), "Hello") == 0);
+  }
+
+  SECTION("Append zero characters") {
+    FixedString<32> testString("Hello");
+
+    const auto originalSize = testString.size();
+    const auto originalContent = std::string(testString.c_str());
+
+    testString.append('X', 0);
+
+    REQUIRE(testString.size() == originalSize);
+    REQUIRE(std::strcmp(testString.c_str(), originalContent.c_str()) == 0);
+  }
+
+  SECTION("Append special characters") {
+    FixedString<32> testString("Hello");
+
+    REQUIRE(testString.size() == 5);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello") == 0);
+
+    testString.append('\n');
+    testString.append('\t');
+    testString.append('!');
+
+    REQUIRE(testString.size() == 8);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello\n\t!") == 0);
+  }
+
+  SECTION("Append Unicode content") {
+    FixedString<64> testString("Hello");
+
+    REQUIRE(testString.size() == 5);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello") == 0);
+
+    testString.append(" 世界");
+
+    REQUIRE(testString.size() == 12);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello 世界") == 0);
+  }
+
+  SECTION("Append with different capacities") {
+    FixedString<8> smallString("Hi");
+    FixedString<16> mediumString("Hello");
+    FixedString<32> largeString("Hello World");
+
+    smallString.append("!");
+    mediumString.append(" World");
+    largeString.append("!");
+
+    REQUIRE(std::strcmp(smallString.c_str(), "Hi!") == 0);
+    REQUIRE(std::strcmp(mediumString.c_str(), "Hello World") == 0);
+    REQUIRE(std::strcmp(largeString.c_str(), "Hello World!") == 0);
+
+    REQUIRE(smallString.size() == 3);
+    REQUIRE(mediumString.size() == 11);
+    REQUIRE(largeString.size() == 12);
+  }
+
+  SECTION("Append numeric content") {
+    FixedString<16> testString("123");
+
+    REQUIRE(testString.size() == 3);
+    REQUIRE(std::strcmp(testString.c_str(), "123") == 0);
+
+    testString.append("456");
+
+    REQUIRE(testString.size() == 6);
+    REQUIRE(std::strcmp(testString.c_str(), "123456") == 0);
+  }
+
+  SECTION("Append mixed content") {
+    FixedString<32> testString("Test");
+
+    REQUIRE(testString.size() == 4);
+    REQUIRE(std::strcmp(testString.c_str(), "Test") == 0);
+
+    testString.append(" 123!");
+
+    REQUIRE(testString.size() == 9);
+    REQUIRE(std::strcmp(testString.c_str(), "Test 123!") == 0);
+  }
+
+  SECTION("Append edge cases") {
+    FixedString<16> testString("A");
+
+    REQUIRE(testString.size() == 1);
+    REQUIRE(std::strcmp(testString.c_str(), "A") == 0);
+
+    testString.append("BC");
+
+    REQUIRE(testString.size() == 3);
+    REQUIRE(std::strcmp(testString.c_str(), "ABC") == 0);
+  }
+
+  SECTION("Append and size consistency") {
+    FixedString<16> testString;
+
+    REQUIRE(testString.empty());
+    REQUIRE(testString.size() == 0);
+
+    testString.append("A");
+    REQUIRE(testString.size() == 1);
+
+    testString.append("B");
+    REQUIRE(testString.size() == 2);
+
+    testString.append("C");
+    REQUIRE(testString.size() == 3);
+
+    REQUIRE(std::strcmp(testString.c_str(), "ABC") == 0);
+  }
+
+  SECTION("Append chaining") {
+    FixedString<32> testString("");
+
+    REQUIRE(testString.empty());
+    REQUIRE(testString.size() == 0);
+
+    testString.append(FixedString<16>("Nothing"))
+      .append(FixedString<8>(" else"))
+      .append(std::string(" really"))
+      .append(" matters")
+      .append('.', 3);
+
+    REQUIRE(testString.size() == 30);
+    REQUIRE(std::strcmp(testString.c_str(), "Nothing else really matters...") == 0);
+  }
+
+  SECTION("Append and reassignment") {
+    FixedString<18> testString("Original");
+
+    REQUIRE(testString.size() == 8);
+    REQUIRE(std::strcmp(testString.c_str(), "Original") == 0);
+
+    testString.append(" content");
+
+    REQUIRE(testString.size() == 16);
+    REQUIRE(std::strcmp(testString.c_str(), "Original content") == 0);
+
+    // Reassign after append
+    testString = "New";
+
+    REQUIRE(testString.size() == 3);
+    REQUIRE(std::strcmp(testString.c_str(), "New") == 0);
+  }
+
+  SECTION("Append with capacity preservation") {
+    FixedString<16> testString("Hello");
+
+    const auto originalCapacity = testString.capacity();
+    const auto originalMaxSize = testString.max_size();
+
+    REQUIRE(testString.size() == 5);
+
+    testString.append(" World");
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(testString.capacity() == originalCapacity);
+    REQUIRE(testString.max_size() == originalMaxSize);
+  }
 }
+
+// to refactor 5580 - 3746 = 1834
 
 TEST_CASE("FixedString operators+=", "[core][fixed_string]") {
   FixedString<32> testString("");
