@@ -172,6 +172,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a267bbe14a77506bb0b9479faade6c7fc" id="r_a267bbe14a77506bb0b9479faade6c7fc"><td class="memItemLeft" align="right" valign="top">constexpr void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a267bbe14a77506bb0b9479faade6c7fc">clear</a> () noexcept</td></tr>
 <tr class="memdesc:a267bbe14a77506bb0b9479faade6c7fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the contents by detaching from the current C string.  <br /></td></tr>
 <tr class="separator:a267bbe14a77506bb0b9479faade6c7fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61dbfbf58ac6f2ab042774a2c3e81e6b" id="r_a61dbfbf58ac6f2ab042774a2c3e81e6b"><td class="memItemLeft" align="right" valign="top">constexpr void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a61dbfbf58ac6f2ab042774a2c3e81e6b">swap</a> (<a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a> &amp;string) noexcept</td></tr>
+<tr class="memdesc:a61dbfbf58ac6f2ab042774a2c3e81e6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Swaps the contents of this string view with another <em>string</em> view.  <br /></td></tr>
+<tr class="separator:a61dbfbf58ac6f2ab042774a2c3e81e6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -850,6 +853,44 @@ The source C <em>string</em> must be null-terminated. </dd></dl>
 <p>This method returns the current number of characters in the string view, excluding the terminating null character. The size represents the actual length of the string view content.</p>
 <dl class="section return"><dt>Returns</dt><dd>The number of characters in the string view, excluding the terminating null character.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This method is equivalent to <a class="el" href="#a53bd50e64d92a36d07a8d4f240c73147" title="Returns the size of the string view.">length()</a> method. </dd></dl>
+
+</div>
+</div>
+<a id="a61dbfbf58ac6f2ab042774a2c3e81e6b" name="a61dbfbf58ac6f2ab042774a2c3e81e6b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a61dbfbf58ac6f2ab042774a2c3e81e6b">&#9670;&#160;</a></span>swap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void toy::CStringView::swap </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>string</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Swaps the contents of this string view with another <em>string</em> view. </p>
+<p>This method exchanges the contents of this string view with another <em>string</em> view of the same type. The operation is performed efficiently by swapping the internal data information.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">string</td><td>The string view to swap contents with.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section post"><dt>Postcondition</dt><dd>This string view contains the contents that were in other <em>string</em>. </dd>
+<dd>
+The other <em>string</em> view contains the contents that were in this string.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Self-swap is handled correctly and safely (no-op). </dd></dl>
 
 </div>
 </div>

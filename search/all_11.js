@@ -13,6 +13,6 @@ var searchData=
   ['substr_10',['substr',['../d3/d7a/classtoy_1_1_fixed_string.html#a13a412da8d19cfa2d2b8686abbcea689',1,'toy::FixedString']]],
   ['supported_20c_20compilers_11',['Supported C++ compilers',['../index.html#supported-c-compilers',1,'']]],
   ['supported_20systems_12',['Supported Systems',['../index.html#supported-systems',1,'']]],
-  ['swap_13',['swap',['../d3/d7a/classtoy_1_1_fixed_string.html#a0d6b3d27deeefe85c8422cff605adcbc',1,'toy::FixedString']]],
+  ['swap_13',['swap',['../d5/d03/classtoy_1_1_c_string_view.html#a61dbfbf58ac6f2ab042774a2c3e81e6b',1,'toy::CStringView::swap()'],['../d3/d7a/classtoy_1_1_fixed_string.html#a0d6b3d27deeefe85c8422cff605adcbc',1,'toy::FixedString::swap()']]],
   ['systems_14',['Supported Systems',['../index.html#supported-systems',1,'']]]
 ];

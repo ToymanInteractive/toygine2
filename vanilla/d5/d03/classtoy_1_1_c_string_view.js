@@ -20,6 +20,7 @@ var classtoy_1_1_c_string_view =
     [ "operator=", "d5/d03/classtoy_1_1_c_string_view.html#a9c1ebb999ea758881cb9a9ce85dd7246", null ],
     [ "operator[]", "d5/d03/classtoy_1_1_c_string_view.html#a9b598d47988cd3fb3862800f6ec9be65", null ],
     [ "size", "d5/d03/classtoy_1_1_c_string_view.html#abd1a5cceb264d3d595bdbf9d415ffb74", null ],
+    [ "swap", "d5/d03/classtoy_1_1_c_string_view.html#a61dbfbf58ac6f2ab042774a2c3e81e6b", null ],
     [ "utf8_size", "d5/d03/classtoy_1_1_c_string_view.html#af55492c22e19b5ac015367834546a386", null ],
     [ "_data", "d5/d03/classtoy_1_1_c_string_view.html#a3fd727898d1fd0d4261e894033c3396b", null ],
     [ "_emptyString", "d5/d03/classtoy_1_1_c_string_view.html#a44d0080af17ac18934fd248105aa1f3a", null ]
