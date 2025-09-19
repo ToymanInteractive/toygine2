@@ -121,6 +121,11 @@ constexpr void CStringView::clear() noexcept {
   _data = _emptyString;
 }
 
+constexpr void CStringView::swap(CStringView & string) noexcept {
+  if (this != std::addressof(string))
+    std::swap(_data, string._data);
+}
+
 } // namespace toy
 
 #endif // INCLUDE_CORE_C_STRING_VIEW_INL_

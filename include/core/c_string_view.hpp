@@ -298,6 +298,21 @@ public:
   */
   constexpr void clear() noexcept;
 
+  /*!
+    \brief Swaps the contents of this string view with another \a string view.
+
+    This method exchanges the contents of this string view with another \a string view of the same type. The operation
+    is performed efficiently by swapping the internal data information.
+
+    \param string The string view to swap contents with.
+
+    \post This string view contains the contents that were in other \a string.
+    \post The other \a string view contains the contents that were in this string.
+
+    \note Self-swap is handled correctly and safely (no-op).
+  */
+  constexpr void swap(CStringView & string) noexcept;
+
 private:
   /// Pointer to the wrapped C string
   const char * _data;

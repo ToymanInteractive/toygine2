@@ -1603,3 +1603,214 @@ TEST_CASE("CStringView clear", "[core][c_string_view]") {
     REQUIRE(std::strcmp(testString.c_str(), "") == 0);
   }
 }
+
+TEST_CASE("CStringView swap", "[core][c_string_view]") {
+  SECTION("Swap two different strings") {
+    CStringView string1("Hello");
+    CStringView string2("World");
+
+    REQUIRE(string1.size() == 5);
+    REQUIRE(std::strcmp(string1.c_str(), "Hello") == 0);
+    REQUIRE(string2.size() == 5);
+    REQUIRE(std::strcmp(string2.c_str(), "World") == 0);
+
+    string1.swap(string2);
+
+    REQUIRE(std::strcmp(string1.c_str(), "World") == 0);
+    REQUIRE(string1.size() == 5);
+    REQUIRE(std::strcmp(string2.c_str(), "Hello") == 0);
+    REQUIRE(string2.size() == 5);
+  }
+
+  SECTION("Swap strings of different lengths") {
+    CStringView string1("Short");
+    CStringView string2("This is a much longer string");
+
+    REQUIRE(string1.size() == 5);
+    REQUIRE(std::strcmp(string1.c_str(), "Short") == 0);
+    REQUIRE(string2.size() == 28);
+    REQUIRE(std::strcmp(string2.c_str(), "This is a much longer string") == 0);
+
+    string1.swap(string2);
+
+    REQUIRE(std::strcmp(string1.c_str(), "This is a much longer string") == 0);
+    REQUIRE(string1.size() == 28);
+    REQUIRE(std::strcmp(string2.c_str(), "Short") == 0);
+    REQUIRE(string2.size() == 5);
+  }
+
+  SECTION("Swap with empty string") {
+    CStringView string1("Hello World");
+    CStringView string2("");
+
+    REQUIRE(string1.size() == 11);
+    REQUIRE(std::strcmp(string1.c_str(), "Hello World") == 0);
+    REQUIRE(string2.empty());
+    REQUIRE(string2.size() == 0);
+
+    string1.swap(string2);
+
+    REQUIRE(std::strcmp(string1.c_str(), "") == 0);
+    REQUIRE(string1.empty());
+    REQUIRE(string1.size() == 0);
+    REQUIRE(std::strcmp(string2.c_str(), "Hello World") == 0);
+    REQUIRE(string2.size() == 11);
+  }
+
+  SECTION("Swap two empty strings") {
+    CStringView string1("");
+    CStringView string2("");
+
+    REQUIRE(string1.empty());
+    REQUIRE(string1.size() == 0);
+    REQUIRE(string2.empty());
+    REQUIRE(string2.size() == 0);
+
+    string1.swap(string2);
+
+    REQUIRE(std::strcmp(string1.c_str(), "") == 0);
+    REQUIRE(string1.empty());
+    REQUIRE(string1.size() == 0);
+    REQUIRE(std::strcmp(string2.c_str(), "") == 0);
+    REQUIRE(string2.empty());
+    REQUIRE(string2.size() == 0);
+  }
+
+  SECTION("Self-swap (no-op)") {
+    CStringView string1("Hello World");
+
+    REQUIRE(string1.size() == 11);
+    REQUIRE(std::strcmp(string1.c_str(), "Hello World") == 0);
+
+    string1.swap(string1);
+
+    REQUIRE(std::strcmp(string1.c_str(), "Hello World") == 0);
+    REQUIRE(string1.size() == 11);
+  }
+
+  SECTION("Swap with single character strings") {
+    CStringView string1("A");
+    CStringView string2("B");
+
+    REQUIRE(string1.size() == 1);
+    REQUIRE(std::strcmp(string1.c_str(), "A") == 0);
+    REQUIRE(string2.size() == 1);
+    REQUIRE(std::strcmp(string2.c_str(), "B") == 0);
+
+    string1.swap(string2);
+
+    REQUIRE(std::strcmp(string1.c_str(), "B") == 0);
+    REQUIRE(string1.size() == 1);
+    REQUIRE(std::strcmp(string2.c_str(), "A") == 0);
+    REQUIRE(string2.size() == 1);
+  }
+
+  SECTION("Chained swap operations") {
+    CStringView string1("First");
+    CStringView string2("Second");
+    CStringView string3("Third");
+
+    REQUIRE(string1.size() == 5);
+    REQUIRE(std::strcmp(string1.c_str(), "First") == 0);
+    REQUIRE(string2.size() == 6);
+    REQUIRE(std::strcmp(string2.c_str(), "Second") == 0);
+    REQUIRE(string3.size() == 5);
+    REQUIRE(std::strcmp(string3.c_str(), "Third") == 0);
+
+    string3.swap(string2);
+    string2.swap(string1);
+    string1.swap(string3);
+
+    REQUIRE(std::strcmp(string1.c_str(), "Second") == 0);
+    REQUIRE(string1.size() == 6);
+    REQUIRE(std::strcmp(string2.c_str(), "First") == 0);
+    REQUIRE(string2.size() == 5);
+    REQUIRE(std::strcmp(string3.c_str(), "Third") == 0);
+    REQUIRE(string3.size() == 5);
+  }
+
+  SECTION("Swap with repeated characters") {
+    CStringView string1("AAA");
+    CStringView string2("BBB");
+
+    REQUIRE(string1.size() == 3);
+    REQUIRE(std::strcmp(string1.c_str(), "AAA") == 0);
+    REQUIRE(string2.size() == 3);
+    REQUIRE(std::strcmp(string2.c_str(), "BBB") == 0);
+
+    string1.swap(string2);
+
+    REQUIRE(std::strcmp(string1.c_str(), "BBB") == 0);
+    REQUIRE(string1.size() == 3);
+    REQUIRE(std::strcmp(string2.c_str(), "AAA") == 0);
+    REQUIRE(string2.size() == 3);
+  }
+
+  SECTION("Swap with special characters") {
+    CStringView string1("Hello\n\tWorld!");
+    CStringView string2("Test!@#$%^&*()");
+
+    REQUIRE(string1.size() == 13);
+    REQUIRE(std::strcmp(string1.c_str(), "Hello\n\tWorld!") == 0);
+    REQUIRE(string2.size() == 14);
+    REQUIRE(std::strcmp(string2.c_str(), "Test!@#$%^&*()") == 0);
+
+    string1.swap(string2);
+
+    REQUIRE(std::strcmp(string1.c_str(), "Test!@#$%^&*()") == 0);
+    REQUIRE(string1.size() == 14);
+    REQUIRE(std::strcmp(string2.c_str(), "Hello\n\tWorld!") == 0);
+    REQUIRE(string2.size() == 13);
+  }
+
+  SECTION("Swap with Unicode content") {
+    CStringView string1("Hello 世界");
+    CStringView string2("Привет мир");
+
+    REQUIRE(string1.size() == 12);
+    REQUIRE(std::strcmp(string1.c_str(), "Hello 世界") == 0);
+    REQUIRE(string2.size() == 19);
+    REQUIRE(std::strcmp(string2.c_str(), "Привет мир") == 0);
+
+    string1.swap(string2);
+
+    REQUIRE(std::strcmp(string1.c_str(), "Привет мир") == 0);
+    REQUIRE(string1.size() == 19);
+    REQUIRE(std::strcmp(string2.c_str(), "Hello 世界") == 0);
+    REQUIRE(string2.size() == 12);
+  }
+
+  SECTION("Swap with numeric content") {
+    CStringView string1("12345");
+    CStringView string2("67890");
+
+    REQUIRE(string1.size() == 5);
+    REQUIRE(std::strcmp(string1.c_str(), "12345") == 0);
+    REQUIRE(string2.size() == 5);
+    REQUIRE(std::strcmp(string2.c_str(), "67890") == 0);
+
+    string1.swap(string2);
+
+    REQUIRE(std::strcmp(string1.c_str(), "67890") == 0);
+    REQUIRE(string1.size() == 5);
+    REQUIRE(std::strcmp(string2.c_str(), "12345") == 0);
+    REQUIRE(string2.size() == 5);
+  }
+
+  SECTION("Swap with mixed content") {
+    CStringView string1("Hello123World!@#");
+    CStringView string2("Test\n456\t!@#$");
+
+    REQUIRE(string1.size() == 16);
+    REQUIRE(std::strcmp(string1.c_str(), "Hello123World!@#") == 0);
+    REQUIRE(string2.size() == 13);
+    REQUIRE(std::strcmp(string2.c_str(), "Test\n456\t!@#$") == 0);
+
+    string1.swap(string2);
+
+    REQUIRE(std::strcmp(string1.c_str(), "Test\n456\t!@#$") == 0);
+    REQUIRE(string1.size() == 13);
+    REQUIRE(std::strcmp(string2.c_str(), "Hello123World!@#") == 0);
+    REQUIRE(string2.size() == 16);
+  }
+}
