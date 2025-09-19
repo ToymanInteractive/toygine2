@@ -4439,12 +4439,15 @@ TEST_CASE("FixedString copy", "[core][fixed_string]") {
   }
 }
 
-// to refactor 5924 - 4442 = 1482
-
 TEST_CASE("FixedString swap", "[core][fixed_string]") {
   SECTION("Swap two different strings") {
     FixedString<16> string1("Hello");
     FixedString<16> string2("World");
+
+    REQUIRE(string1.size() == 5);
+    REQUIRE(std::strcmp(string1.c_str(), "Hello") == 0);
+    REQUIRE(string2.size() == 5);
+    REQUIRE(std::strcmp(string2.c_str(), "World") == 0);
 
     string1.swap(string2);
 
@@ -4458,6 +4461,11 @@ TEST_CASE("FixedString swap", "[core][fixed_string]") {
     FixedString<32> string1("Short");
     FixedString<32> string2("This is a much longer string");
 
+    REQUIRE(string1.size() == 5);
+    REQUIRE(std::strcmp(string1.c_str(), "Short") == 0);
+    REQUIRE(string2.size() == 28);
+    REQUIRE(std::strcmp(string2.c_str(), "This is a much longer string") == 0);
+
     string1.swap(string2);
 
     REQUIRE(std::strcmp(string1.c_str(), "This is a much longer string") == 0);
@@ -4470,9 +4478,15 @@ TEST_CASE("FixedString swap", "[core][fixed_string]") {
     FixedString<16> string1("Hello World");
     FixedString<16> string2("");
 
+    REQUIRE(string1.size() == 11);
+    REQUIRE(std::strcmp(string1.c_str(), "Hello World") == 0);
+    REQUIRE(string2.empty());
+    REQUIRE(string2.size() == 0);
+
     string1.swap(string2);
 
     REQUIRE(std::strcmp(string1.c_str(), "") == 0);
+    REQUIRE(string1.empty());
     REQUIRE(string1.size() == 0);
     REQUIRE(std::strcmp(string2.c_str(), "Hello World") == 0);
     REQUIRE(string2.size() == 11);
@@ -4482,16 +4496,26 @@ TEST_CASE("FixedString swap", "[core][fixed_string]") {
     FixedString<16> string1("");
     FixedString<16> string2("");
 
+    REQUIRE(string1.empty());
+    REQUIRE(string1.size() == 0);
+    REQUIRE(string2.empty());
+    REQUIRE(string2.size() == 0);
+
     string1.swap(string2);
 
     REQUIRE(std::strcmp(string1.c_str(), "") == 0);
+    REQUIRE(string1.empty());
     REQUIRE(string1.size() == 0);
     REQUIRE(std::strcmp(string2.c_str(), "") == 0);
+    REQUIRE(string2.empty());
     REQUIRE(string2.size() == 0);
   }
 
   SECTION("Self-swap (no-op)") {
     FixedString<16> string1("Hello World");
+
+    REQUIRE(string1.size() == 11);
+    REQUIRE(std::strcmp(string1.c_str(), "Hello World") == 0);
 
     string1.swap(string1);
 
@@ -4502,6 +4526,11 @@ TEST_CASE("FixedString swap", "[core][fixed_string]") {
   SECTION("Swap with single character strings") {
     FixedString<8> string1("A");
     FixedString<8> string2("B");
+
+    REQUIRE(string1.size() == 1);
+    REQUIRE(std::strcmp(string1.c_str(), "A") == 0);
+    REQUIRE(string2.size() == 1);
+    REQUIRE(std::strcmp(string2.c_str(), "B") == 0);
 
     string1.swap(string2);
 
@@ -4515,6 +4544,11 @@ TEST_CASE("FixedString swap", "[core][fixed_string]") {
     FixedString<16> string1("123456789012345");
     FixedString<16> string2("ABCDEFGHIJKLMNO");
 
+    REQUIRE(string1.size() == 15);
+    REQUIRE(std::strcmp(string1.c_str(), "123456789012345") == 0);
+    REQUIRE(string2.size() == 15);
+    REQUIRE(std::strcmp(string2.c_str(), "ABCDEFGHIJKLMNO") == 0);
+
     string1.swap(string2);
 
     REQUIRE(std::strcmp(string1.c_str(), "ABCDEFGHIJKLMNO") == 0);
@@ -4527,6 +4561,13 @@ TEST_CASE("FixedString swap", "[core][fixed_string]") {
     FixedString<16> string1("First");
     FixedString<16> string2("Second");
     FixedString<16> string3("Third");
+
+    REQUIRE(string1.size() == 5);
+    REQUIRE(std::strcmp(string1.c_str(), "First") == 0);
+    REQUIRE(string2.size() == 6);
+    REQUIRE(std::strcmp(string2.c_str(), "Second") == 0);
+    REQUIRE(string3.size() == 5);
+    REQUIRE(std::strcmp(string3.c_str(), "Third") == 0);
 
     string3.swap(string2);
     string2.swap(string1);
@@ -4544,6 +4585,11 @@ TEST_CASE("FixedString swap", "[core][fixed_string]") {
     FixedString<20> string1("AAA");
     FixedString<20> string2("BBB");
 
+    REQUIRE(string1.size() == 3);
+    REQUIRE(std::strcmp(string1.c_str(), "AAA") == 0);
+    REQUIRE(string2.size() == 3);
+    REQUIRE(std::strcmp(string2.c_str(), "BBB") == 0);
+
     string1.swap(string2);
 
     REQUIRE(std::strcmp(string1.c_str(), "BBB") == 0);
@@ -4551,7 +4597,77 @@ TEST_CASE("FixedString swap", "[core][fixed_string]") {
     REQUIRE(std::strcmp(string2.c_str(), "AAA") == 0);
     REQUIRE(string2.size() == 3);
   }
+
+  SECTION("Swap with special characters") {
+    FixedString<32> string1("Hello\n\tWorld!");
+    FixedString<32> string2("Test!@#$%^&*()");
+
+    REQUIRE(string1.size() == 13);
+    REQUIRE(std::strcmp(string1.c_str(), "Hello\n\tWorld!") == 0);
+    REQUIRE(string2.size() == 14);
+    REQUIRE(std::strcmp(string2.c_str(), "Test!@#$%^&*()") == 0);
+
+    string1.swap(string2);
+
+    REQUIRE(std::strcmp(string1.c_str(), "Test!@#$%^&*()") == 0);
+    REQUIRE(string1.size() == 14);
+    REQUIRE(std::strcmp(string2.c_str(), "Hello\n\tWorld!") == 0);
+    REQUIRE(string2.size() == 13);
+  }
+
+  SECTION("Swap with Unicode content") {
+    FixedString<64> string1("Hello 世界");
+    FixedString<64> string2("Привет мир");
+
+    REQUIRE(string1.size() == 12);
+    REQUIRE(std::strcmp(string1.c_str(), "Hello 世界") == 0);
+    REQUIRE(string2.size() == 19);
+    REQUIRE(std::strcmp(string2.c_str(), "Привет мир") == 0);
+
+    string1.swap(string2);
+
+    REQUIRE(std::strcmp(string1.c_str(), "Привет мир") == 0);
+    REQUIRE(string1.size() == 19);
+    REQUIRE(std::strcmp(string2.c_str(), "Hello 世界") == 0);
+    REQUIRE(string2.size() == 12);
+  }
+
+  SECTION("Swap with numeric content") {
+    FixedString<16> string1("12345");
+    FixedString<16> string2("67890");
+
+    REQUIRE(string1.size() == 5);
+    REQUIRE(std::strcmp(string1.c_str(), "12345") == 0);
+    REQUIRE(string2.size() == 5);
+    REQUIRE(std::strcmp(string2.c_str(), "67890") == 0);
+
+    string1.swap(string2);
+
+    REQUIRE(std::strcmp(string1.c_str(), "67890") == 0);
+    REQUIRE(string1.size() == 5);
+    REQUIRE(std::strcmp(string2.c_str(), "12345") == 0);
+    REQUIRE(string2.size() == 5);
+  }
+
+  SECTION("Swap with mixed content") {
+    FixedString<32> string1("Hello123World!@#");
+    FixedString<32> string2("Test\n456\t!@#$");
+
+    REQUIRE(string1.size() == 16);
+    REQUIRE(std::strcmp(string1.c_str(), "Hello123World!@#") == 0);
+    REQUIRE(string2.size() == 13);
+    REQUIRE(std::strcmp(string2.c_str(), "Test\n456\t!@#$") == 0);
+
+    string1.swap(string2);
+
+    REQUIRE(std::strcmp(string1.c_str(), "Test\n456\t!@#$") == 0);
+    REQUIRE(string1.size() == 13);
+    REQUIRE(std::strcmp(string2.c_str(), "Hello123World!@#") == 0);
+    REQUIRE(string2.size() == 16);
+  }
 }
+
+// to refactor 6040 - 4670 = 1370
 
 TEST_CASE("FixedString find", "[core][fixed_string]") {
   SECTION("Find FixedString substring") {
