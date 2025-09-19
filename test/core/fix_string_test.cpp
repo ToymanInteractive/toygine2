@@ -2708,54 +2708,192 @@ TEST_CASE("FixedString insert", "[core][fixed_string]") {
   }
 }
 
-// to refactor 4716 - 2711 = 2005
-
 TEST_CASE("FixedString erase", "[core][fixed_string]") {
-  FixedString<32> testString1("Hello World");
+  SECTION("Erase from beginning") {
+    FixedString<32> testString("Hello World");
 
-  // Erase first 5 characters
-  testString1.erase(0, 5);
-  REQUIRE(std::strcmp(testString1.c_str(), " World") == 0);
-  REQUIRE(testString1.size() == 6);
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
 
-  // Erase remaining characters
-  testString1.erase(0);
-  REQUIRE(std::strcmp(testString1.c_str(), "") == 0);
-  REQUIRE(testString1.size() == 0);
+    testString.erase(0, 5);
 
-  FixedString<32> testString2("Hello Beautiful World");
+    REQUIRE(testString.size() == 6);
+    REQUIRE(std::strcmp(testString.c_str(), " World") == 0);
+  }
 
-  // Erase middle word
-  testString2.erase(6, 10);
-  REQUIRE(std::strcmp(testString2.c_str(), "Hello World") == 0);
-  REQUIRE(testString2.size() == 11);
+  SECTION("Erase from middle") {
+    FixedString<32> testString("Hello Beautiful World");
 
-  // Erase part of remaining text
-  testString2.erase(5, 1);
-  REQUIRE(std::strcmp(testString2.c_str(), "HelloWorld") == 0);
-  REQUIRE(testString2.size() == 10);
+    REQUIRE(testString.size() == 21);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello Beautiful World") == 0);
 
-  FixedString<32> testString3("Hello World!");
+    testString.erase(6, 10);
 
-  // Erase last character
-  testString3.erase(11, 1);
-  REQUIRE(std::strcmp(testString3.c_str(), "Hello World") == 0);
-  REQUIRE(testString3.size() == 11);
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+  }
 
-  // No-op: erase with count == 0
-  testString3.erase(5, 0);
-  REQUIRE(std::strcmp(testString3.c_str(), "Hello World") == 0);
-  REQUIRE(testString3.size() == 11);
+  SECTION("Erase from end") {
+    FixedString<32> testString("Hello World!");
 
-  // Erase last word
-  testString3.erase(6);
-  REQUIRE(std::strcmp(testString3.c_str(), "Hello ") == 0);
-  REQUIRE(testString3.size() == 6);
+    REQUIRE(testString.size() == 12);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World!") == 0);
 
-  // Erase everything from position 0
-  testString3.erase(0);
-  REQUIRE(testString3.empty());
+    testString.erase(11, 1);
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+  }
+
+  SECTION("Erase single character") {
+    FixedString<32> testString("Hello World");
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+
+    testString.erase(5, 1);
+
+    REQUIRE(testString.size() == 10);
+    REQUIRE(std::strcmp(testString.c_str(), "HelloWorld") == 0);
+  }
+
+  SECTION("Erase zero characters") {
+    FixedString<32> testString("Hello World");
+
+    const auto originalSize = testString.size();
+    const auto originalContent = std::string(testString.c_str());
+
+    testString.erase(5, 0);
+
+    REQUIRE(testString.size() == originalSize);
+    REQUIRE(std::strcmp(testString.c_str(), originalContent.c_str()) == 0);
+  }
+
+  SECTION("Erase from position to end") {
+    FixedString<32> testString("Hello World");
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+
+    testString.erase(6);
+
+    REQUIRE(testString.size() == 6);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello ") == 0);
+  }
+
+  SECTION("Erase everything") {
+    FixedString<32> testString("Hello World");
+
+    REQUIRE_FALSE(testString.empty());
+    REQUIRE(testString.size() == 11);
+
+    testString.erase(0);
+
+    REQUIRE(testString.empty());
+    REQUIRE(testString.size() == 0);
+    REQUIRE(std::strcmp(testString.c_str(), "") == 0);
+  }
+
+  SECTION("Erase special characters") {
+    FixedString<32> testString("Hello\nWorld\t!");
+
+    REQUIRE(testString.size() == 13);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello\nWorld\t!") == 0);
+
+    testString.erase(5, 1); // Erase newline
+
+    REQUIRE(testString.size() == 12);
+    REQUIRE(std::strcmp(testString.c_str(), "HelloWorld\t!") == 0);
+
+    testString.erase(10, 1); // Erase tab
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "HelloWorld!") == 0);
+  }
+
+  SECTION("Erase Unicode content") {
+    FixedString<64> testString("Hello 世界 World");
+
+    REQUIRE(testString.size() == 18);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello 世界 World") == 0);
+
+    testString.erase(6, 3); // Erase Chinese characters
+
+    REQUIRE(testString.size() == 15);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello 界 World") == 0);
+  }
+
+  SECTION("Erase with different capacities") {
+    FixedString<8> smallString("Hi!");
+    FixedString<16> mediumString("Hello World");
+    FixedString<32> largeString("This is a longer string");
+
+    smallString.erase(2, 1);
+    mediumString.erase(5, 1);
+    largeString.erase(4, 3);
+
+    REQUIRE(std::strcmp(smallString.c_str(), "Hi") == 0);
+    REQUIRE(std::strcmp(mediumString.c_str(), "HelloWorld") == 0);
+    REQUIRE(std::strcmp(largeString.c_str(), "This a longer string") == 0);
+
+    REQUIRE(smallString.size() == 2);
+    REQUIRE(mediumString.size() == 10);
+    REQUIRE(largeString.size() == 20);
+  }
+
+  SECTION("Multiple erase operations") {
+    FixedString<32> testString("Hello Beautiful World!");
+
+    // First erase
+    testString.erase(6, 10);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World!") == 0);
+    REQUIRE(testString.size() == 12);
+
+    // Second erase
+    testString.erase(5, 1);
+    REQUIRE(std::strcmp(testString.c_str(), "HelloWorld!") == 0);
+    REQUIRE(testString.size() == 11);
+
+    // Third erase
+    testString.erase(10, 1);
+    REQUIRE(std::strcmp(testString.c_str(), "HelloWorld") == 0);
+    REQUIRE(testString.size() == 10);
+  }
+
+  SECTION("Erase at various positions") {
+    FixedString<32> testString("ABCDEFGH");
+
+    testString.erase(0, 1); // Erase 'A'
+    REQUIRE(std::strcmp(testString.c_str(), "BCDEFGH") == 0);
+    REQUIRE(testString.size() == 7);
+
+    testString.erase(3, 1); // Erase 'E'
+    REQUIRE(std::strcmp(testString.c_str(), "BCDFGH") == 0);
+    REQUIRE(testString.size() == 6);
+
+    testString.erase(5, 1); // Erase 'H'
+    REQUIRE(std::strcmp(testString.c_str(), "BCDFG") == 0);
+    REQUIRE(testString.size() == 5);
+  }
+
+  SECTION("Erase entire words") {
+    FixedString<32> testString("The quick brown fox");
+
+    testString.erase(0, 4); // Erase "The "
+    REQUIRE(std::strcmp(testString.c_str(), "quick brown fox") == 0);
+    REQUIRE(testString.size() == 15);
+
+    testString.erase(6, 6); // Erase "brown "
+    REQUIRE(std::strcmp(testString.c_str(), "quick fox") == 0);
+    REQUIRE(testString.size() == 9);
+
+    testString.erase(6); // Erase "fox"
+    REQUIRE(std::strcmp(testString.c_str(), "quick ") == 0);
+    REQUIRE(testString.size() == 6);
+  }
 }
+
+// to refactor 4854 - 2896 = 1958
 
 TEST_CASE("FixedString push_back", "[core][fixed_string]") {
   FixedString<16> testString1("Hello");
