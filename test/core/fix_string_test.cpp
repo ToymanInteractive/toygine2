@@ -7866,10 +7866,10 @@ TEST_CASE("FixedString operator<=>", "[core][fixed_string]") {
 
   SECTION("FixedString <=> C string") {
     constexpr FixedString<16> str1("Hello");
-    constexpr char * str2 = "Hello";
-    constexpr char * str3 = "World";
-    constexpr char * str4 = "Hi";
-    constexpr char * str5 = "Hell";
+    constexpr const char * str2 = "Hello";
+    constexpr const char * str3 = "World";
+    constexpr const char * str4 = "Hi";
+    constexpr const char * str5 = "Hell";
 
     // Equal strings
     REQUIRE((str1 <=> str2) == std::strong_ordering::equal);
@@ -7899,8 +7899,8 @@ TEST_CASE("FixedString operator<=>", "[core][fixed_string]") {
     constexpr FixedString<16> empty1("");
     constexpr FixedString<32> empty2("");
     constexpr FixedString<16> nonEmpty("Test");
-    constexpr char * emptyCStr = "";
-    constexpr char * nonEmptyCStr = "Test";
+    constexpr const char * emptyCStr = "";
+    constexpr const char * nonEmptyCStr = "Test";
 
     // Empty vs empty
     REQUIRE((empty1 <=> empty2) == std::strong_ordering::equal);
@@ -8109,8 +8109,8 @@ TEST_CASE("FixedString operator<=>", "[core][fixed_string]") {
     constexpr FixedString<16> str2("Test");
     constexpr FixedString<16> str3("Different");
     constexpr FixedString<16> str4("Test");
-    constexpr char * str5 = "Test";
-    constexpr char * str6 = "Different";
+    constexpr const char * str5 = "Test";
+    constexpr const char * str6 = "Different";
 
     constexpr auto eq1 = str1 <=> str2;
     constexpr auto eq2 = str1 <=> str3;
