@@ -5305,8 +5305,6 @@ TEST_CASE("FixedString rfind", "[core][fixed_string]") {
   }
 }
 
-// to refactor 6357 - 5309 = 1048
-
 TEST_CASE("FixedString find_first_of", "[core][fixed_string]") {
   SECTION("Find first of FixedString characters") {
     constexpr FixedString<32> testString("Hello World");
@@ -5315,6 +5313,12 @@ TEST_CASE("FixedString find_first_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_of(FixedString<16>("H")) == 0);
     REQUIRE(testString.find_first_of(FixedString<16>("d")) == 10);
     REQUIRE(testString.find_first_of(FixedString<16>("xyz")) == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of(FixedString<16>("aeiou")) == 1);
+    STATIC_REQUIRE(testString.find_first_of(FixedString<16>("H")) == 0);
+    STATIC_REQUIRE(testString.find_first_of(FixedString<16>("d")) == 10);
+    STATIC_REQUIRE(testString.find_first_of(FixedString<16>("xyz")) == FixedString<32>::npos);
   }
 
   SECTION("Find first of StringLike characters") {
@@ -5324,6 +5328,12 @@ TEST_CASE("FixedString find_first_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_of(std::string("H")) == 0);
     REQUIRE(testString.find_first_of(std::string("d")) == 10);
     REQUIRE(testString.find_first_of(std::string("xyz")) == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of(CStringView("aeiou")) == 1);
+    STATIC_REQUIRE(testString.find_first_of(CStringView("H")) == 0);
+    STATIC_REQUIRE(testString.find_first_of(CStringView("d")) == 10);
+    STATIC_REQUIRE(testString.find_first_of(CStringView("xyz")) == FixedString<32>::npos);
   }
 
   SECTION("Find first of C string characters") {
@@ -5333,6 +5343,12 @@ TEST_CASE("FixedString find_first_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_of("H") == 0);
     REQUIRE(testString.find_first_of("d") == 10);
     REQUIRE(testString.find_first_of("xyz") == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of("aeiou") == 1);
+    STATIC_REQUIRE(testString.find_first_of("H") == 0);
+    STATIC_REQUIRE(testString.find_first_of("d") == 10);
+    STATIC_REQUIRE(testString.find_first_of("xyz") == FixedString<32>::npos);
   }
 
   SECTION("Find first of single character") {
@@ -5345,6 +5361,15 @@ TEST_CASE("FixedString find_first_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_of('W') == 6);
     REQUIRE(testString.find_first_of('d') == 10);
     REQUIRE(testString.find_first_of('x') == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of('H') == 0);
+    STATIC_REQUIRE(testString.find_first_of('e') == 1);
+    STATIC_REQUIRE(testString.find_first_of('l') == 2);
+    STATIC_REQUIRE(testString.find_first_of('o') == 4);
+    STATIC_REQUIRE(testString.find_first_of('W') == 6);
+    STATIC_REQUIRE(testString.find_first_of('d') == 10);
+    STATIC_REQUIRE(testString.find_first_of('x') == FixedString<32>::npos);
   }
 
   SECTION("Find first of with position parameter") {
@@ -5356,6 +5381,14 @@ TEST_CASE("FixedString find_first_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_of("aeiou", 8) == 13);
     REQUIRE(testString.find_first_of("aeiou", 14) == 16);
     REQUIRE(testString.find_first_of("aeiou", 17) == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of("aeiou", 0) == 1);
+    STATIC_REQUIRE(testString.find_first_of("aeiou", 2) == 4);
+    STATIC_REQUIRE(testString.find_first_of("aeiou", 5) == 7);
+    STATIC_REQUIRE(testString.find_first_of("aeiou", 8) == 13);
+    STATIC_REQUIRE(testString.find_first_of("aeiou", 14) == 16);
+    STATIC_REQUIRE(testString.find_first_of("aeiou", 17) == FixedString<32>::npos);
   }
 
   SECTION("Find first of empty character set") {
@@ -5364,6 +5397,11 @@ TEST_CASE("FixedString find_first_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_of(FixedString<16>("")) == FixedString<32>::npos);
     REQUIRE(testString.find_first_of(std::string("")) == FixedString<32>::npos);
     REQUIRE(testString.find_first_of("") == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of(FixedString<16>("")) == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find_first_of(CStringView("")) == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find_first_of("") == FixedString<32>::npos);
   }
 
   SECTION("Find first of in empty string") {
@@ -5373,6 +5411,12 @@ TEST_CASE("FixedString find_first_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_of(std::string("aeiou")) == FixedString<32>::npos);
     REQUIRE(testString.find_first_of("aeiou") == FixedString<32>::npos);
     REQUIRE(testString.find_first_of('a') == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of(FixedString<16>("aeiou")) == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find_first_of(CStringView("aeiou")) == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find_first_of("aeiou") == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find_first_of('a') == FixedString<32>::npos);
   }
 
   SECTION("Find first of with position beyond string size") {
@@ -5380,6 +5424,10 @@ TEST_CASE("FixedString find_first_of", "[core][fixed_string]") {
 
     REQUIRE(testString.find_first_of("aeiou", 10) == FixedString<32>::npos);
     REQUIRE(testString.find_first_of('a', 10) == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of("aeiou", 10) == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find_first_of('a', 10) == FixedString<32>::npos);
   }
 
   SECTION("Find first of with repeated characters") {
@@ -5388,6 +5436,11 @@ TEST_CASE("FixedString find_first_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_of("a") == 0);
     REQUIRE(testString.find_first_of("ab") == 0);
     REQUIRE(testString.find_first_of("b") == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of("a") == 0);
+    STATIC_REQUIRE(testString.find_first_of("ab") == 0);
+    STATIC_REQUIRE(testString.find_first_of("b") == FixedString<32>::npos);
   }
 
   SECTION("Find first of with multiple character sets") {
@@ -5397,6 +5450,12 @@ TEST_CASE("FixedString find_first_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_of("lo") == 2); // 'l' at position 2
     REQUIRE(testString.find_first_of("Wr") == 6); // 'W' at position 6
     REQUIRE(testString.find_first_of("dl") == 2); // 'l' at position 2
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of("Hl") == 0);
+    STATIC_REQUIRE(testString.find_first_of("lo") == 2);
+    STATIC_REQUIRE(testString.find_first_of("Wr") == 6);
+    STATIC_REQUIRE(testString.find_first_of("dl") == 2);
   }
 
   SECTION("Find first of case sensitivity") {
@@ -5406,6 +5465,12 @@ TEST_CASE("FixedString find_first_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_of("H") == 0);
     REQUIRE(testString.find_first_of("w") == FixedString<32>::npos);
     REQUIRE(testString.find_first_of("W") == 6);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of("h") == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find_first_of("H") == 0);
+    STATIC_REQUIRE(testString.find_first_of("w") == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find_first_of("W") == 6);
   }
 
   SECTION("Find first of with special characters") {
@@ -5414,6 +5479,11 @@ TEST_CASE("FixedString find_first_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_of("!,") == 5); // ',' at position 5
     REQUIRE(testString.find_first_of("!") == 12); // '!' at position 12
     REQUIRE(testString.find_first_of(".,!") == 5); // ',' at position 5
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of("!,") == 5);
+    STATIC_REQUIRE(testString.find_first_of("!") == 12);
+    STATIC_REQUIRE(testString.find_first_of(".,!") == 5);
   }
 
   SECTION("Find first of with numbers") {
@@ -5422,6 +5492,11 @@ TEST_CASE("FixedString find_first_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_of("0123456789") == 5); // '1' at position 5
     REQUIRE(testString.find_first_of("123") == 5); // '1' at position 5
     REQUIRE(testString.find_first_of("456") == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of("0123456789") == 5);
+    STATIC_REQUIRE(testString.find_first_of("123") == 5);
+    STATIC_REQUIRE(testString.find_first_of("456") == FixedString<32>::npos);
   }
 
   SECTION("Find first of with whitespace") {
@@ -5430,6 +5505,11 @@ TEST_CASE("FixedString find_first_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_of(" \t\n") == 5); // ' ' at position 5
     REQUIRE(testString.find_first_of("\t") == 11);
     REQUIRE(testString.find_first_of("\n") == 12);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of(" \t\n") == 5);
+    STATIC_REQUIRE(testString.find_first_of("\t") == 11);
+    STATIC_REQUIRE(testString.find_first_of("\n") == 12);
   }
 
   SECTION("Find first of with different FixedString capacities") {
@@ -5438,6 +5518,11 @@ TEST_CASE("FixedString find_first_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_of(FixedString<8>("aeiou")) == 1);
     REQUIRE(testString.find_first_of(FixedString<16>("aeiou")) == 1);
     REQUIRE(testString.find_first_of(FixedString<64>("aeiou")) == 1);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of(FixedString<8>("aeiou")) == 1);
+    STATIC_REQUIRE(testString.find_first_of(FixedString<16>("aeiou")) == 1);
+    STATIC_REQUIRE(testString.find_first_of(FixedString<64>("aeiou")) == 1);
   }
 
   SECTION("Find first of with single character string") {
@@ -5447,6 +5532,12 @@ TEST_CASE("FixedString find_first_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_of('A') == 0);
     REQUIRE(testString.find_first_of("B") == FixedString<32>::npos);
     REQUIRE(testString.find_first_of('B') == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of("A") == 0);
+    STATIC_REQUIRE(testString.find_first_of('A') == 0);
+    STATIC_REQUIRE(testString.find_first_of("B") == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find_first_of('B') == FixedString<32>::npos);
   }
 
   SECTION("Find first of with position 0") {
@@ -5455,6 +5546,11 @@ TEST_CASE("FixedString find_first_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_of("aeiou", 0) == 1);
     REQUIRE(testString.find_first_of("H", 0) == 0);
     REQUIRE(testString.find_first_of("xyz", 0) == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of("aeiou", 0) == 1);
+    STATIC_REQUIRE(testString.find_first_of("H", 0) == 0);
+    STATIC_REQUIRE(testString.find_first_of("xyz", 0) == FixedString<32>::npos);
   }
 
   SECTION("Find first of with all characters found") {
@@ -5463,6 +5559,11 @@ TEST_CASE("FixedString find_first_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_of("aeiou") == 0);
     REQUIRE(testString.find_first_of("xyz") == 23);
     REQUIRE(testString.find_first_of("z") == 25);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of("aeiou") == 0);
+    STATIC_REQUIRE(testString.find_first_of("xyz") == 23);
+    STATIC_REQUIRE(testString.find_first_of("z") == 25);
   }
 
   SECTION("Find first of with no characters found") {
@@ -5471,8 +5572,15 @@ TEST_CASE("FixedString find_first_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_of("0123456789") == FixedString<32>::npos);
     REQUIRE(testString.find_first_of("!@#$%^&*()") == FixedString<32>::npos);
     REQUIRE(testString.find_first_of("[]{}|\\:;\"'<>?/") == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of("0123456789") == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find_first_of("!@#$%^&*()") == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find_first_of("[]{}|\\:;\"'<>?/") == FixedString<32>::npos);
   }
 }
+
+// to refactor 6465 - 5584 = 881
 
 TEST_CASE("FixedString find_first_not_of", "[core][fixed_string]") {
   SECTION("Find first not of FixedString characters") {

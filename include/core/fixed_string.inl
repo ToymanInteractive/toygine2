@@ -1158,6 +1158,7 @@ constexpr std::size_t FixedString<allocatedSize>::_rfind_raw(std::size_t positio
     const auto offset = position - i;
 
     bool found;
+
     if consteval {
       found = std::equal(_data + offset, _data + offset + dataSize, data);
     } else {
@@ -1177,7 +1178,13 @@ constexpr std::size_t FixedString<allocatedSize>::_find_first_of_raw(std::size_t
   if (position >= _size || dataSize == 0)
     return npos;
 
-  const auto occurrence = dataSize == 1 ? std::strchr(_data + position, data[0]) : std::strpbrk(_data + position, data);
+  const char * occurrence;
+
+  if consteval {
+    occurrence = dataSize == 1 ? cstrchr(_data + position, data[0]) : cstrpbrk(_data + position, data);
+  } else {
+    occurrence = dataSize == 1 ? std::strchr(_data + position, data[0]) : std::strpbrk(_data + position, data);
+  }
 
   return occurrence != nullptr ? occurrence - _data : npos;
 }

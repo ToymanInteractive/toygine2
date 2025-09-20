@@ -152,6 +152,19 @@ constexpr std::size_t CStringView::rfind(char character, std::size_t position) c
   return _rfind_raw(position, &character, 1);
 }
 
+template <StringLike stringType>
+constexpr std::size_t CStringView::find_first_of(const stringType & string, std::size_t position) const noexcept {
+  return _find_first_of_raw(position, string.c_str(), string.size());
+}
+
+constexpr std::size_t CStringView::find_first_of(const char * string, std::size_t position) const noexcept {
+  return find_first_of(CStringView(string), position);
+}
+
+constexpr std::size_t CStringView::find_first_of(char character, std::size_t position) const noexcept {
+  return _find_first_of_raw(position, &character, 1);
+}
+
 constexpr std::size_t CStringView::_find_raw(std::size_t position, const char * data,
                                              std::size_t dataSize) const noexcept {
   const auto stringViewSize = size();
@@ -205,6 +218,24 @@ constexpr std::size_t CStringView::_rfind_raw(std::size_t position, const char *
   }
 
   return npos;
+}
+
+constexpr std::size_t CStringView::_find_first_of_raw(std::size_t position, const char * data,
+                                                      std::size_t dataSize) const noexcept {
+  const auto stringViewSize = size();
+
+  if (position >= stringViewSize || dataSize == 0)
+    return npos;
+
+  const char * occurrence;
+
+  if consteval {
+    occurrence = dataSize == 1 ? cstrchr(_data + position, data[0]) : cstrpbrk(_data + position, data);
+  } else {
+    occurrence = dataSize == 1 ? std::strchr(_data + position, data[0]) : std::strpbrk(_data + position, data);
+  }
+
+  return occurrence != nullptr ? static_cast<std::size_t>(occurrence - _data) : npos;
 }
 
 } // namespace toy
