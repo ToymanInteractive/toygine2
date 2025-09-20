@@ -50,6 +50,20 @@ constexpr const char * cstrchr(const char * str, int ch) noexcept {
   return (static_cast<unsigned char>(*str) == target) ? str : nullptr;
 }
 
+constexpr const char * cstrpbrk(const char * str, const char * accept) noexcept {
+  if (!str || !accept)
+    return nullptr;
+
+  for (; *str != '\0'; ++str) {
+    for (const char * a = accept; *a != '\0'; ++a) {
+      if (*str == *a)
+        return str;
+    }
+  }
+
+  return nullptr;
+}
+
 constexpr const char * cstrstr(const char * haystack, const char * needle) noexcept {
   if (!*needle)
     return haystack;
