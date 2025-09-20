@@ -5018,8 +5018,6 @@ TEST_CASE("FixedString find", "[core][fixed_string]") {
   }
 }
 
-// to refactor 6243 - 5022 = 1221
-
 TEST_CASE("FixedString rfind", "[core][fixed_string]") {
   SECTION("Rfind FixedString substring") {
     constexpr FixedString<32> testString("Hello World Hello");
@@ -5028,6 +5026,12 @@ TEST_CASE("FixedString rfind", "[core][fixed_string]") {
     REQUIRE(testString.rfind(FixedString<16>("World")) == 6);
     REQUIRE(testString.rfind(FixedString<16>("lo")) == 15);
     REQUIRE(testString.rfind(FixedString<16>("xyz")) == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind(FixedString<16>("Hello")) == 12);
+    STATIC_REQUIRE(testString.rfind(FixedString<16>("World")) == 6);
+    STATIC_REQUIRE(testString.rfind(FixedString<16>("lo")) == 15);
+    STATIC_REQUIRE(testString.rfind(FixedString<16>("xyz")) == FixedString<32>::npos);
   }
 
   SECTION("Rfind StringLike substring") {
@@ -5037,6 +5041,12 @@ TEST_CASE("FixedString rfind", "[core][fixed_string]") {
     REQUIRE(testString.rfind(std::string("World")) == 6);
     REQUIRE(testString.rfind(std::string("lo")) == 15);
     REQUIRE(testString.rfind(std::string("xyz")) == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind(CStringView("Hello")) == 12);
+    STATIC_REQUIRE(testString.rfind(CStringView("World")) == 6);
+    STATIC_REQUIRE(testString.rfind(CStringView("lo")) == 15);
+    STATIC_REQUIRE(testString.rfind(CStringView("xyz")) == FixedString<32>::npos);
   }
 
   SECTION("Rfind C string substring") {
@@ -5046,6 +5056,12 @@ TEST_CASE("FixedString rfind", "[core][fixed_string]") {
     REQUIRE(testString.rfind("World") == 6);
     REQUIRE(testString.rfind("lo") == 15);
     REQUIRE(testString.rfind("xyz") == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind("Hello") == 12);
+    STATIC_REQUIRE(testString.rfind("World") == 6);
+    STATIC_REQUIRE(testString.rfind("lo") == 15);
+    STATIC_REQUIRE(testString.rfind("xyz") == FixedString<32>::npos);
   }
 
   SECTION("Rfind character") {
@@ -5057,6 +5073,14 @@ TEST_CASE("FixedString rfind", "[core][fixed_string]") {
     REQUIRE(testString.rfind('W') == 6);
     REQUIRE(testString.rfind('d') == 10);
     REQUIRE(testString.rfind('x') == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind('H') == 12);
+    STATIC_REQUIRE(testString.rfind('l') == 15);
+    STATIC_REQUIRE(testString.rfind('o') == 16);
+    STATIC_REQUIRE(testString.rfind('W') == 6);
+    STATIC_REQUIRE(testString.rfind('d') == 10);
+    STATIC_REQUIRE(testString.rfind('x') == FixedString<32>::npos);
   }
 
   SECTION("Rfind with position parameter") {
@@ -5069,6 +5093,15 @@ TEST_CASE("FixedString rfind", "[core][fixed_string]") {
     REQUIRE(testString.rfind('l', 13) == 9);
     REQUIRE(testString.rfind('l', 8) == 3);
     REQUIRE(testString.rfind('l', 2) == 2);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind("Hello", 12) == 12);
+    STATIC_REQUIRE(testString.rfind("Hello", 11) == 0);
+    STATIC_REQUIRE(testString.rfind("Hello", 0) == 0);
+    STATIC_REQUIRE(testString.rfind('l', 16) == 15);
+    STATIC_REQUIRE(testString.rfind('l', 13) == 9);
+    STATIC_REQUIRE(testString.rfind('l', 8) == 3);
+    STATIC_REQUIRE(testString.rfind('l', 2) == 2);
   }
 
   SECTION("Rfind empty substring") {
@@ -5079,6 +5112,13 @@ TEST_CASE("FixedString rfind", "[core][fixed_string]") {
     REQUIRE(testString.rfind("") == 11);
     REQUIRE(testString.rfind("", 5) == 5);
     REQUIRE(testString.rfind("", 0) == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind(FixedString<16>("")) == 11);
+    STATIC_REQUIRE(testString.rfind(CStringView("")) == 11);
+    STATIC_REQUIRE(testString.rfind("") == 11);
+    STATIC_REQUIRE(testString.rfind("", 5) == 5);
+    STATIC_REQUIRE(testString.rfind("", 0) == 0);
   }
 
   SECTION("Rfind in empty string") {
@@ -5089,6 +5129,13 @@ TEST_CASE("FixedString rfind", "[core][fixed_string]") {
     REQUIRE(testString.rfind("Hello") == FixedString<32>::npos);
     REQUIRE(testString.rfind('H') == FixedString<32>::npos);
     REQUIRE(testString.rfind("") == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind(FixedString<16>("Hello")) == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.rfind(CStringView("Hello")) == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.rfind("Hello") == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.rfind('H') == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.rfind("") == 0);
   }
 
   SECTION("Rfind substring at end") {
@@ -5097,6 +5144,11 @@ TEST_CASE("FixedString rfind", "[core][fixed_string]") {
     REQUIRE(testString.rfind("World") == 6);
     REQUIRE(testString.rfind("d") == 10);
     REQUIRE(testString.rfind("ld") == 9);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind("World") == 6);
+    STATIC_REQUIRE(testString.rfind("d") == 10);
+    STATIC_REQUIRE(testString.rfind("ld") == 9);
   }
 
   SECTION("Rfind substring at beginning") {
@@ -5105,6 +5157,11 @@ TEST_CASE("FixedString rfind", "[core][fixed_string]") {
     REQUIRE(testString.rfind("Hello") == 12);
     REQUIRE(testString.rfind("H") == 12);
     REQUIRE(testString.rfind("He") == 12);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind("Hello") == 12);
+    STATIC_REQUIRE(testString.rfind("H") == 12);
+    STATIC_REQUIRE(testString.rfind("He") == 12);
   }
 
   SECTION("Rfind overlapping substrings") {
@@ -5114,6 +5171,12 @@ TEST_CASE("FixedString rfind", "[core][fixed_string]") {
     REQUIRE(testString.rfind("ab", 3) == 2);
     REQUIRE(testString.rfind("ab", 1) == 0);
     REQUIRE(testString.rfind("ab", 0) == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind("ab") == 4);
+    STATIC_REQUIRE(testString.rfind("ab", 3) == 2);
+    STATIC_REQUIRE(testString.rfind("ab", 1) == 0);
+    STATIC_REQUIRE(testString.rfind("ab", 0) == 0);
   }
 
   SECTION("Rfind with repeated characters") {
@@ -5123,6 +5186,12 @@ TEST_CASE("FixedString rfind", "[core][fixed_string]") {
     REQUIRE(testString.rfind("aa", 2) == 2);
     REQUIRE(testString.rfind("aa", 1) == 1);
     REQUIRE(testString.rfind("aa", 0) == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind("aa") == 3);
+    STATIC_REQUIRE(testString.rfind("aa", 2) == 2);
+    STATIC_REQUIRE(testString.rfind("aa", 1) == 1);
+    STATIC_REQUIRE(testString.rfind("aa", 0) == 0);
   }
 
   SECTION("Rfind case sensitivity") {
@@ -5132,6 +5201,12 @@ TEST_CASE("FixedString rfind", "[core][fixed_string]") {
     REQUIRE(testString.rfind("WORLD") == FixedString<32>::npos);
     REQUIRE(testString.rfind("Hello") == 12);
     REQUIRE(testString.rfind("World") == 6);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind("hello") == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.rfind("WORLD") == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.rfind("Hello") == 12);
+    STATIC_REQUIRE(testString.rfind("World") == 6);
   }
 
   SECTION("Rfind with different FixedString capacities") {
@@ -5140,6 +5215,11 @@ TEST_CASE("FixedString rfind", "[core][fixed_string]") {
     REQUIRE(testString.rfind(FixedString<8>("Hello")) == 12);
     REQUIRE(testString.rfind(FixedString<16>("Hello")) == 12);
     REQUIRE(testString.rfind(FixedString<64>("Hello")) == 12);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind(FixedString<8>("Hello")) == 12);
+    STATIC_REQUIRE(testString.rfind(FixedString<16>("Hello")) == 12);
+    STATIC_REQUIRE(testString.rfind(FixedString<64>("Hello")) == 12);
   }
 
   SECTION("Rfind with exact match") {
@@ -5147,6 +5227,10 @@ TEST_CASE("FixedString rfind", "[core][fixed_string]") {
 
     REQUIRE(testString.rfind("Hello") == 0);
     REQUIRE(testString.rfind("Hello", 0) == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind("Hello") == 0);
+    STATIC_REQUIRE(testString.rfind("Hello", 0) == 0);
   }
 
   SECTION("Rfind with single character string") {
@@ -5156,6 +5240,12 @@ TEST_CASE("FixedString rfind", "[core][fixed_string]") {
     REQUIRE(testString.rfind('A') == 0);
     REQUIRE(testString.rfind("B") == FixedString<32>::npos);
     REQUIRE(testString.rfind('B') == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind("A") == 0);
+    STATIC_REQUIRE(testString.rfind('A') == 0);
+    STATIC_REQUIRE(testString.rfind("B") == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.rfind('B') == FixedString<32>::npos);
   }
 
   SECTION("Rfind with position 0") {
@@ -5165,6 +5255,12 @@ TEST_CASE("FixedString rfind", "[core][fixed_string]") {
     REQUIRE(testString.rfind("World", 0) == FixedString<32>::npos);
     REQUIRE(testString.rfind('H', 0) == 0);
     REQUIRE(testString.rfind('W', 0) == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind("Hello", 0) == 0);
+    STATIC_REQUIRE(testString.rfind("World", 0) == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.rfind('H', 0) == 0);
+    STATIC_REQUIRE(testString.rfind('W', 0) == FixedString<32>::npos);
   }
 
   SECTION("Rfind with substring longer than string") {
@@ -5172,6 +5268,10 @@ TEST_CASE("FixedString rfind", "[core][fixed_string]") {
 
     REQUIRE(testString.rfind("Hello World") == FixedString<32>::npos);
     REQUIRE(testString.rfind("Hello World", 10) == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind("Hello World") == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.rfind("Hello World", 10) == FixedString<32>::npos);
   }
 
   SECTION("Rfind with multiple occurrences") {
@@ -5181,6 +5281,12 @@ TEST_CASE("FixedString rfind", "[core][fixed_string]") {
     REQUIRE(testString.rfind("ab", 5) == 4);
     REQUIRE(testString.rfind("ab", 3) == 2);
     REQUIRE(testString.rfind("ab", 1) == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind("ab") == 6);
+    STATIC_REQUIRE(testString.rfind("ab", 5) == 4);
+    STATIC_REQUIRE(testString.rfind("ab", 3) == 2);
+    STATIC_REQUIRE(testString.rfind("ab", 1) == 0);
   }
 
   SECTION("Rfind with position in middle") {
@@ -5190,8 +5296,16 @@ TEST_CASE("FixedString rfind", "[core][fixed_string]") {
     REQUIRE(testString.rfind("Hello", 12) == 12);
     REQUIRE(testString.rfind('l', 8) == 3);
     REQUIRE(testString.rfind('l', 15) == 15);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind("Hello", 8) == 0);
+    STATIC_REQUIRE(testString.rfind("Hello", 12) == 12);
+    STATIC_REQUIRE(testString.rfind('l', 8) == 3);
+    STATIC_REQUIRE(testString.rfind('l', 15) == 15);
   }
 }
+
+// to refactor 6357 - 5309 = 1048
 
 TEST_CASE("FixedString find_first_of", "[core][fixed_string]") {
   SECTION("Find first of FixedString characters") {

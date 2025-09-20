@@ -139,6 +139,19 @@ constexpr std::size_t CStringView::find(char character, std::size_t position) co
   return _find_raw(position, &character, 1);
 }
 
+template <StringLike stringType>
+constexpr std::size_t CStringView::rfind(const stringType & string, std::size_t position) const noexcept {
+  return _rfind_raw(position, string.c_str(), string.size());
+}
+
+constexpr std::size_t CStringView::rfind(const char * string, std::size_t position) const noexcept {
+  return rfind(CStringView(string), position);
+}
+
+constexpr std::size_t CStringView::rfind(char character, std::size_t position) const noexcept {
+  return _rfind_raw(position, &character, 1);
+}
+
 constexpr std::size_t CStringView::_find_raw(std::size_t position, const char * data,
                                              std::size_t dataSize) const noexcept {
   const auto stringViewSize = size();
@@ -160,6 +173,38 @@ constexpr std::size_t CStringView::_find_raw(std::size_t position, const char * 
   }
 
   return occurrence != nullptr ? static_cast<std::size_t>(occurrence - _data) : npos;
+}
+
+constexpr std::size_t CStringView::_rfind_raw(std::size_t position, const char * data,
+                                              std::size_t dataSize) const noexcept {
+  const auto stringViewSize = size();
+
+  if (dataSize == 0)
+    return std::min(position, stringViewSize);
+  else if (dataSize > stringViewSize)
+    return npos;
+
+  if (position == npos)
+    position = stringViewSize - dataSize;
+  else if (position > stringViewSize - dataSize)
+    return npos;
+
+  for (std::size_t i = 0; i <= position; ++i) {
+    const auto offset = position - i;
+
+    bool found;
+
+    if consteval {
+      found = std::equal(_data + offset, _data + offset + dataSize, data);
+    } else {
+      found = std::memcmp(_data + offset, data, dataSize) == 0;
+    }
+
+    if (found)
+      return offset;
+  }
+
+  return npos;
 }
 
 } // namespace toy

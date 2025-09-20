@@ -926,7 +926,7 @@ constexpr bool FixedString<allocatedSize>::ends_with(const FixedString<allocated
   if consteval {
     return _size >= string._size && std::equal(_data + _size - string._size, _data + _size, string._data);
   } else {
-    return _size >= string._size && std::memcmp(_data + (_size - string._size), string._data, string._size) == 0;
+    return _size >= string._size && std::memcmp(_data + _size - string._size, string._data, string._size) == 0;
   }
 }
 
@@ -936,7 +936,7 @@ constexpr bool FixedString<allocatedSize>::ends_with(const stringType & string) 
   if consteval {
     return _size >= string.size() && std::equal(_data + _size - string.size(), _data + _size, string.c_str());
   } else {
-    return _size >= string.size() && std::memcmp(_data + (_size - string.size()), string.c_str(), string.size()) == 0;
+    return _size >= string.size() && std::memcmp(_data + _size - string.size(), string.c_str(), string.size()) == 0;
   }
 }
 
@@ -1156,7 +1156,15 @@ constexpr std::size_t FixedString<allocatedSize>::_rfind_raw(std::size_t positio
 
   for (std::size_t i = 0; i <= position; ++i) {
     const auto offset = position - i;
-    if (std::memcmp(_data + offset, data, dataSize) == 0)
+
+    bool found;
+    if consteval {
+      found = std::equal(_data + offset, _data + offset + dataSize, data);
+    } else {
+      found = std::memcmp(_data + offset, data, dataSize) == 0;
+    }
+
+    if (found)
       return offset;
   }
 

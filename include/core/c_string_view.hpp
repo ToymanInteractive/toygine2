@@ -368,6 +368,67 @@ public:
   */
   [[nodiscard]] constexpr std::size_t find(char character, std::size_t position = 0) const noexcept;
 
+  /*!
+    \brief Finds the last occurrence of a StringLike object in the string view.
+
+    This method searches for the last occurrence of a StringLike object within this string view, starting from the given
+    \a position and searching backwards.
+
+    \tparam stringType The type of the source string. Must satisfy the StringLike concept.
+
+    \param string   The source StringLike object to search for.
+    \param position The position to start searching from (default: \ref npos). If \ref npos, searches from the end.
+
+    \return The position of the last occurrence of a StringLike object, or \ref npos if not found.
+
+    \pre If \a position is not \ref npos, it must be less than or equal to the maximum valid start index: the string
+    view size minus the size of a StringLike object.
+
+    \note The search is case-sensitive.
+    \note If a StringLike object is empty, the method returns \a position if it's within bounds, otherwise returns the
+          string view size.
+  */
+  template <StringLike stringType>
+  [[nodiscard]] constexpr std::size_t rfind(const stringType & string, std::size_t position = npos) const noexcept;
+
+  /*!
+    \brief Finds the last occurrence of the C \a string in the string view.
+
+    This method searches for the last occurrence of the C \a string within this string view, starting from the given \a
+    position and searching backwards.
+
+    \param string   The source C string to search for.
+    \param position The position to start searching from (default: \ref npos). If \ref npos, searches from the end.
+
+    \return The position of the last occurrence of the C \a string, or \ref npos if not found.
+
+    \pre If \a position is not \ref npos, it must be less than or equal to the maximum valid start index: the string
+         view size minus the size of the C \a string.
+    \pre The \a string must not be null.
+
+    \note The search is case-sensitive.
+    \note If the C \a string is empty, the method returns \a position if it's within bounds, otherwise returns the
+          string view size.
+  */
+  [[nodiscard]] constexpr std::size_t rfind(const char * string, std::size_t position = npos) const noexcept;
+
+  /*!
+    \brief Finds the last occurrence of a \a character in the string view.
+
+    This method searches for the last occurrence of the specified \a character within this string view, starting from
+    the given \a position and searching backwards.
+
+    \param character The character to search for.
+    \param position  The position to start searching from (default: \ref npos). If \ref npos, searches from the end.
+
+    \return The position of the last occurrence of the \a character, or \ref npos if not found.
+
+    \pre The \a position must be less than the string view size.
+
+    \note The search is case-sensitive.
+  */
+  [[nodiscard]] constexpr std::size_t rfind(char character, std::size_t position = npos) const noexcept;
+
   /// The special value, its exact meaning depends on the context
   static constexpr std::size_t npos = std::size_t(-1);
 
@@ -394,6 +455,23 @@ private:
     \pre The \a data must not be null.
   */
   constexpr std::size_t _find_raw(std::size_t position, const char * data, std::size_t dataSize) const noexcept;
+
+  /*!
+    \brief Helper method for finding \a data in the string view backwards.
+
+    This private method performs the common reverse search logic used by all rfind methods. It searches for the
+    specified \a data starting from the given \a position and searching backwards.
+
+    \param position The position to start searching from.
+    \param data     The data to search for.
+    \param dataSize The size of the data to search for.
+
+    \return The position of the last occurrence of \a data, or \ref npos if not found.
+
+    \pre If \a position is not \ref npos, it must be less than or equal to the string view size.
+    \pre The \a data must not be null.
+  */
+  constexpr std::size_t _rfind_raw(std::size_t position, const char * data, std::size_t dataSize) const noexcept;
 };
 
 } // namespace toy
