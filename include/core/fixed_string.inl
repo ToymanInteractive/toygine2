@@ -1130,7 +1130,13 @@ constexpr std::size_t FixedString<allocatedSize>::_find_raw(std::size_t position
   else if (dataSize > _size - position)
     return npos;
 
-  const auto occurrence = dataSize == 1 ? std::strchr(_data + position, data[0]) : std::strstr(_data + position, data);
+  const char * occurrence;
+
+  if consteval {
+    occurrence = dataSize == 1 ? cstrchr(_data + position, data[0]) : cstrstr(_data + position, data);
+  } else {
+    occurrence = dataSize == 1 ? std::strchr(_data + position, data[0]) : std::strstr(_data + position, data);
+  }
 
   return occurrence != nullptr ? occurrence - _data : npos;
 }

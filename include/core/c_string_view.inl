@@ -126,6 +126,42 @@ constexpr void CStringView::swap(CStringView & string) noexcept {
     std::swap(_data, string._data);
 }
 
+template <StringLike stringType>
+constexpr std::size_t CStringView::find(const stringType & string, std::size_t position) const noexcept {
+  return _find_raw(position, string.c_str(), string.size());
+}
+
+constexpr std::size_t CStringView::find(const char * string, std::size_t position) const noexcept {
+  return find(CStringView(string), position);
+}
+
+constexpr std::size_t CStringView::find(char character, std::size_t position) const noexcept {
+  return _find_raw(position, &character, 1);
+}
+
+constexpr std::size_t CStringView::_find_raw(std::size_t position, const char * data,
+                                             std::size_t dataSize) const noexcept {
+  const auto stringViewSize = size();
+
+  if (position >= stringViewSize)
+    return npos;
+
+  if (dataSize == 0)
+    return position;
+  else if (dataSize > stringViewSize - position)
+    return npos;
+
+  const char * occurrence;
+
+  if consteval {
+    occurrence = dataSize == 1 ? cstrchr(_data + position, data[0]) : cstrstr(_data + position, data);
+  } else {
+    occurrence = dataSize == 1 ? std::strchr(_data + position, data[0]) : std::strstr(_data + position, data);
+  }
+
+  return occurrence != nullptr ? static_cast<std::size_t>(occurrence - _data) : npos;
+}
+
 } // namespace toy
 
 #endif // INCLUDE_CORE_C_STRING_VIEW_INL_

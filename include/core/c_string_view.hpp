@@ -313,12 +313,87 @@ public:
   */
   constexpr void swap(CStringView & string) noexcept;
 
+  /*!
+    \brief Finds the first occurrence of a StringLike object in the string view.
+
+    This method searches for the first occurrence of a StringLike object within this string view, starting from the
+    given \a position.
+
+    \tparam stringType The type of the source string. Must satisfy the StringLike concept.
+
+    \param string   The source StringLike object to search for.
+    \param position The position to start searching from (default: 0).
+
+    \return The position of the first occurrence of a StringLike object, or \ref npos if not found.
+
+    \pre The \a position must be less than the string view size.
+
+    \note The search is case-sensitive.
+  */
+  template <StringLike stringType>
+  [[nodiscard]] constexpr std::size_t find(const stringType & string, std::size_t position = 0) const noexcept;
+
+  /*!
+    \brief Finds the first occurrence of the C \a string in the string view.
+
+    This method searches for the first occurrence of the C \a string within this string view, starting from the given \a
+    position.
+
+    \param string   The source C string to search for.
+    \param position The position to start searching from (default: 0).
+
+    \return The position of the first occurrence of the C \a string, or \ref npos if not found.
+
+    \pre The \a position must be less than the string view size.
+    \pre The \a string must not be null.
+
+    \note The search is case-sensitive.
+  */
+  [[nodiscard]] constexpr std::size_t find(const char * string, std::size_t position = 0) const noexcept;
+
+  /*!
+    \brief Finds the first occurrence of a \a character in the string view.
+
+    This method searches for the first occurrence of the specified \a character within this string view, starting from
+    the given \a position.
+
+    \param character The character to search for.
+    \param position  The position to start searching from (default: 0).
+
+    \return The position of the first occurrence of the \a character, or \ref npos if not found.
+
+    \pre The \a position must be less than the string view size.
+
+    \note The search is case-sensitive.
+  */
+  [[nodiscard]] constexpr std::size_t find(char character, std::size_t position = 0) const noexcept;
+
+  /// The special value, its exact meaning depends on the context
+  static constexpr std::size_t npos = std::size_t(-1);
+
 private:
   /// Pointer to the wrapped C string
   const char * _data;
 
   /// Static empty C string used as default value for null pointers
   static constexpr char _emptyString[]{'\0'};
+
+  /*!
+    \brief Helper method for finding \a data in the string view.
+
+    This private method performs the common search logic used by all find methods. It searches for the specified \a data
+    starting from the given \a position.
+
+    \param position The position to start searching from.
+    \param data     The data to search for.
+    \param dataSize The size of the data to search for.
+
+    \return The position of the first occurrence of \a data, or \ref npos if not found.
+
+    \pre The \a position must be less than the string view size.
+    \pre The \a data must not be null.
+  */
+  constexpr std::size_t _find_raw(std::size_t position, const char * data, std::size_t dataSize) const noexcept;
 };
 
 } // namespace toy
