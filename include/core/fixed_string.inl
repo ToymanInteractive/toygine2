@@ -1193,7 +1193,7 @@ constexpr std::size_t FixedString<allocatedSize>::_find_first_of_raw(std::size_t
 template <std::size_t allocatedSize>
 constexpr std::size_t FixedString<allocatedSize>::_find_first_not_of_raw(std::size_t position, const char * data,
                                                                          std::size_t dataSize) const noexcept {
-  if (position > _size)
+  if (position >= _size)
     return npos;
 
   if (dataSize == 0)

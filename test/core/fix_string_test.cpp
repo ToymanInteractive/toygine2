@@ -5884,8 +5884,6 @@ TEST_CASE("FixedString find_first_not_of", "[core][fixed_string]") {
   }
 }
 
-// to refactor 6584 - 5887 = 697
-
 TEST_CASE("FixedString find_last_of", "[core][fixed_string]") {
   SECTION("Find last of FixedString characters") {
     constexpr FixedString<32> testString("Hello World");
@@ -5894,6 +5892,12 @@ TEST_CASE("FixedString find_last_of", "[core][fixed_string]") {
     REQUIRE(testString.find_last_of(FixedString<16>("l")) == 9); // 'l' at position 9
     REQUIRE(testString.find_last_of(FixedString<16>("H")) == 0); // 'H' at position 0
     REQUIRE(testString.find_last_of(FixedString<16>("d")) == 10); // 'd' at position 10
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_last_of(FixedString<16>("aeiou")) == 7);
+    STATIC_REQUIRE(testString.find_last_of(FixedString<16>("l")) == 9);
+    STATIC_REQUIRE(testString.find_last_of(FixedString<16>("H")) == 0);
+    STATIC_REQUIRE(testString.find_last_of(FixedString<16>("d")) == 10);
   }
 
   SECTION("Find last of StringLike characters") {
@@ -5903,6 +5907,12 @@ TEST_CASE("FixedString find_last_of", "[core][fixed_string]") {
     REQUIRE(testString.find_last_of(std::string("l")) == 9); // 'l' at position 9
     REQUIRE(testString.find_last_of(std::string("H")) == 0); // 'H' at position 0
     REQUIRE(testString.find_last_of(std::string("d")) == 10); // 'd' at position 10
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_last_of(CStringView("aeiou")) == 7);
+    STATIC_REQUIRE(testString.find_last_of(CStringView("l")) == 9);
+    STATIC_REQUIRE(testString.find_last_of(CStringView("H")) == 0);
+    STATIC_REQUIRE(testString.find_last_of(CStringView("d")) == 10);
   }
 
   SECTION("Find last of C string characters") {
@@ -5912,6 +5922,12 @@ TEST_CASE("FixedString find_last_of", "[core][fixed_string]") {
     REQUIRE(testString.find_last_of("l") == 9); // 'l' at position 9
     REQUIRE(testString.find_last_of("H") == 0); // 'H' at position 0
     REQUIRE(testString.find_last_of("d") == 10); // 'd' at position 10
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_last_of("aeiou") == 7);
+    STATIC_REQUIRE(testString.find_last_of("l") == 9);
+    STATIC_REQUIRE(testString.find_last_of("H") == 0);
+    STATIC_REQUIRE(testString.find_last_of("d") == 10);
   }
 
   SECTION("Find last of single character") {
@@ -5921,6 +5937,12 @@ TEST_CASE("FixedString find_last_of", "[core][fixed_string]") {
     REQUIRE(testString.find_last_of('o') == 7); // 'o' at position 7
     REQUIRE(testString.find_last_of('H') == 0); // 'H' at position 0
     REQUIRE(testString.find_last_of('d') == 10); // 'd' at position 10
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_last_of('l') == 9);
+    STATIC_REQUIRE(testString.find_last_of('o') == 7);
+    STATIC_REQUIRE(testString.find_last_of('H') == 0);
+    STATIC_REQUIRE(testString.find_last_of('d') == 10);
   }
 
   SECTION("Find last of with position parameter") {
@@ -5931,6 +5953,13 @@ TEST_CASE("FixedString find_last_of", "[core][fixed_string]") {
     REQUIRE(testString.find_last_of("Hel", 2) == 2); // 'l' at position 2
     REQUIRE(testString.find_last_of("Hel", 1) == 1); // 'e' at position 1
     REQUIRE(testString.find_last_of("Hel", 0) == 0); // 'H' at position 0
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_last_of("Hel", 8) == 3);
+    STATIC_REQUIRE(testString.find_last_of("Hel", 4) == 3);
+    STATIC_REQUIRE(testString.find_last_of("Hel", 2) == 2);
+    STATIC_REQUIRE(testString.find_last_of("Hel", 1) == 1);
+    STATIC_REQUIRE(testString.find_last_of("Hel", 0) == 0);
   }
 
   SECTION("Find last of empty character set") {
@@ -5939,6 +5968,11 @@ TEST_CASE("FixedString find_last_of", "[core][fixed_string]") {
     REQUIRE(testString.find_last_of(FixedString<16>("")) == FixedString<32>::npos);
     REQUIRE(testString.find_last_of(std::string("")) == FixedString<32>::npos);
     REQUIRE(testString.find_last_of("") == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_last_of(FixedString<16>("")) == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find_last_of(CStringView("")) == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find_last_of("") == FixedString<32>::npos);
   }
 
   SECTION("Find last of with no characters found") {
@@ -5947,6 +5981,11 @@ TEST_CASE("FixedString find_last_of", "[core][fixed_string]") {
     REQUIRE(testString.find_last_of("0123456789") == FixedString<32>::npos);
     REQUIRE(testString.find_last_of("!@#$%^&*()") == FixedString<32>::npos);
     REQUIRE(testString.find_last_of("[]{}|\\:;\"'<>?/") == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_last_of("0123456789") == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find_last_of("!@#$%^&*()") == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find_last_of("[]{}|\\:;\"'<>?/") == FixedString<32>::npos);
   }
 
   SECTION("Find last of with multiple character sets") {
@@ -5956,6 +5995,12 @@ TEST_CASE("FixedString find_last_of", "[core][fixed_string]") {
     REQUIRE(testString.find_last_of("Hel") == 9); // 'l' at position 9
     REQUIRE(testString.find_last_of("Helo") == 9); // 'l' at position 9
     REQUIRE(testString.find_last_of("Helo ") == 9); // 'l' at position 9
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_last_of("Hl") == 9);
+    STATIC_REQUIRE(testString.find_last_of("Hel") == 9);
+    STATIC_REQUIRE(testString.find_last_of("Helo") == 9);
+    STATIC_REQUIRE(testString.find_last_of("Helo ") == 9);
   }
 
   SECTION("Find last of case sensitivity") {
@@ -5965,6 +6010,12 @@ TEST_CASE("FixedString find_last_of", "[core][fixed_string]") {
     REQUIRE(testString.find_last_of("H") == 0); // 'H' at position 0
     REQUIRE(testString.find_last_of("w") == FixedString<32>::npos);
     REQUIRE(testString.find_last_of("W") == 6); // 'W' at position 6
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_last_of("h") == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find_last_of("H") == 0);
+    STATIC_REQUIRE(testString.find_last_of("w") == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find_last_of("W") == 6);
   }
 
   SECTION("Find last of with special characters") {
@@ -5973,6 +6024,11 @@ TEST_CASE("FixedString find_last_of", "[core][fixed_string]") {
     REQUIRE(testString.find_last_of("Helo, Wrd!") == 12); // '!' at position 12
     REQUIRE(testString.find_last_of("Helo, Wrd") == 11); // 'd' at position 11
     REQUIRE(testString.find_last_of("Helo, Wr") == 10); // 'l' at position 10
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_last_of("Helo, Wrd!") == 12);
+    STATIC_REQUIRE(testString.find_last_of("Helo, Wrd") == 11);
+    STATIC_REQUIRE(testString.find_last_of("Helo, Wr") == 10);
   }
 
   SECTION("Find last of with numbers") {
@@ -5981,6 +6037,11 @@ TEST_CASE("FixedString find_last_of", "[core][fixed_string]") {
     REQUIRE(testString.find_last_of("0123456789") == 7); // '3' at position 7
     REQUIRE(testString.find_last_of("Helo123Wrd") == 12); // 'd' at position 12
     REQUIRE(testString.find_last_of("Helo123Wr") == 11); // 'l' at position 11
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_last_of("0123456789") == 7);
+    STATIC_REQUIRE(testString.find_last_of("Helo123Wrd") == 12);
+    STATIC_REQUIRE(testString.find_last_of("Helo123Wr") == 11);
   }
 
   SECTION("Find last of with whitespace") {
@@ -5989,6 +6050,11 @@ TEST_CASE("FixedString find_last_of", "[core][fixed_string]") {
     REQUIRE(testString.find_last_of(" \t\n") == 12); // '\n' at position 12
     REQUIRE(testString.find_last_of("Helo Wrd\t\n") == 12); // '\n' at position 12
     REQUIRE(testString.find_last_of("Helo Wrd") == 10); // 'd' at position 10
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_last_of(" \t\n") == 12);
+    STATIC_REQUIRE(testString.find_last_of("Helo Wrd\t\n") == 12);
+    STATIC_REQUIRE(testString.find_last_of("Helo Wrd") == 10);
   }
 
   SECTION("Find last of with repeated characters") {
@@ -5997,6 +6063,11 @@ TEST_CASE("FixedString find_last_of", "[core][fixed_string]") {
     REQUIRE(testString.find_last_of('a') == 4); // 'a' at position 4
     REQUIRE(testString.find_last_of('b') == 5); // 'b' at position 5
     REQUIRE(testString.find_last_of('x') == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_last_of('a') == 4);
+    STATIC_REQUIRE(testString.find_last_of('b') == 5);
+    STATIC_REQUIRE(testString.find_last_of('x') == FixedString<32>::npos);
   }
 
   SECTION("Find last of with single character string") {
@@ -6006,6 +6077,12 @@ TEST_CASE("FixedString find_last_of", "[core][fixed_string]") {
     REQUIRE(testString.find_last_of('A') == 4); // 'A' at position 4
     REQUIRE(testString.find_last_of("B") == FixedString<32>::npos);
     REQUIRE(testString.find_last_of('B') == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_last_of("A") == 4);
+    STATIC_REQUIRE(testString.find_last_of('A') == 4);
+    STATIC_REQUIRE(testString.find_last_of("B") == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find_last_of('B') == FixedString<32>::npos);
   }
 
   SECTION("Find last of with alphabet") {
@@ -6014,6 +6091,11 @@ TEST_CASE("FixedString find_last_of", "[core][fixed_string]") {
     REQUIRE(testString.find_last_of("abcdefghijklmnopqrstuvwxyz") == 25); // 'z' at position 25
     REQUIRE(testString.find_last_of("abcdefghijklmnopqrstuvwxy") == 24); // 'y' at position 24
     REQUIRE(testString.find_last_of("abcdefghijklmnopqrstuvwx") == 23); // 'x' at position 23
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_last_of("abcdefghijklmnopqrstuvwxyz") == 25);
+    STATIC_REQUIRE(testString.find_last_of("abcdefghijklmnopqrstuvwxy") == 24);
+    STATIC_REQUIRE(testString.find_last_of("abcdefghijklmnopqrstuvwx") == 23);
   }
 
   SECTION("Find last of with all characters found") {
@@ -6022,6 +6104,11 @@ TEST_CASE("FixedString find_last_of", "[core][fixed_string]") {
     REQUIRE(testString.find_last_of("Helo Wrd") == 10); // 'd' at position 10
     REQUIRE(testString.find_last_of("Helo Wr") == 9); // 'l' at position 9
     REQUIRE(testString.find_last_of("Helo W") == 9); // 'l' at position 9
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_last_of("Helo Wrd") == 10);
+    STATIC_REQUIRE(testString.find_last_of("Helo Wr") == 9);
+    STATIC_REQUIRE(testString.find_last_of("Helo W") == 9);
   }
 
   SECTION("Find last of with position in middle") {
@@ -6031,6 +6118,12 @@ TEST_CASE("FixedString find_last_of", "[core][fixed_string]") {
     REQUIRE(testString.find_last_of("Hel", 4) == 3); // 'l' at position 3
     REQUIRE(testString.find_last_of("Hel", 2) == 2); // 'l' at position 2
     REQUIRE(testString.find_last_of("Hel", 1) == 1); // 'e' at position 1
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_last_of("Hel", 8) == 3);
+    STATIC_REQUIRE(testString.find_last_of("Hel", 4) == 3);
+    STATIC_REQUIRE(testString.find_last_of("Hel", 2) == 2);
+    STATIC_REQUIRE(testString.find_last_of("Hel", 1) == 1);
   }
 
   SECTION("Find last of with exact match") {
@@ -6039,8 +6132,15 @@ TEST_CASE("FixedString find_last_of", "[core][fixed_string]") {
     REQUIRE(testString.find_last_of("Hello") == 4); // 'o' at position 4
     REQUIRE(testString.find_last_of("Hell") == 3); // 'l' at position 3
     REQUIRE(testString.find_last_of("Hel") == 3); // 'l' at position 3
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_last_of("Hello") == 4);
+    STATIC_REQUIRE(testString.find_last_of("Hell") == 3);
+    STATIC_REQUIRE(testString.find_last_of("Hel") == 3);
   }
 }
+
+// to refactor 6684 - 6143 = 541
 
 TEST_CASE("FixedString find_last_not_of", "[core][fixed_string]") {
   SECTION("Find last not of FixedString characters") {
