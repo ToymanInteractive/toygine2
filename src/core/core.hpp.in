@@ -33,6 +33,7 @@
 #include <cstdint>
 #include <cstring>
 #include <cuchar>
+#include <memory>
 #include <string>
 #include <utility>
 
