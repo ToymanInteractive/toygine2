@@ -671,6 +671,45 @@ public:
   */
   [[nodiscard]] constexpr std::size_t find_last_not_of(char character, std::size_t position = npos) const noexcept;
 
+  /*!
+    \brief Compares this string view with a StringLike object lexicographically.
+
+    This method performs a lexicographic comparison between this string view and a StringLike object. The comparison is
+    performed character by character using the character's numeric value.
+
+    \tparam stringType The type of the source string. Must satisfy the StringLike concept.
+
+    \param string The StringLike object to compare with this string.
+
+    \return A negative value if this string view is lexicographically less than a StringLike object, zero if they are
+    equal, or a positive value if this string view is lexicographically greater than a StringLike object.
+
+    \note The comparison is case-sensitive.
+    \note The comparison stops at the first character that differs between the strings.
+    \note If one string is a prefix of another, the shorter string is considered lexicographically smaller.
+  */
+  template <StringLike stringType>
+  [[nodiscard]] constexpr int compare(const stringType & string) const noexcept;
+
+  /*!
+    \brief Compares this string view with the C \a string lexicographically.
+
+    This method performs a lexicographic comparison between this string view and the C \a string. The comparison is
+    performed character by character using the character's numeric value.
+
+    \param string The C string to compare with this string.
+
+    \return A negative value if this string view is lexicographically less than C \a string, zero if they are equal, or
+    a positive value if this string view is lexicographically greater than C \a string.
+
+    \pre The C \a string must not be null.
+
+    \note The comparison is case-sensitive.
+    \note The comparison stops at the first character that differs between the strings.
+    \note If one string is a prefix of another, the shorter string is considered lexicographically smaller.
+  */
+  [[nodiscard]] constexpr int compare(const char * string) const noexcept;
+
 private:
   /// Pointer to the wrapped C string
   const char * _data;

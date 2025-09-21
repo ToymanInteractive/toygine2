@@ -3476,3 +3476,285 @@ TEST_CASE("CStringView find_last_not_of", "[core][c_string_view]") {
     STATIC_REQUIRE(testString.find_last_not_of("Hel") == 4);
   }
 }
+
+TEST_CASE("CStringView compare", "[core][c_string_view]") {
+  SECTION("Compare CStringView with CStringView") {
+    constexpr CStringView testString1("Hello");
+    constexpr CStringView testString2("Hello");
+    constexpr CStringView testString3("World");
+    constexpr CStringView testString4("Hell");
+
+    REQUIRE(testString1.compare(testString2) == 0);
+    REQUIRE(testString1.compare(testString3) < 0);
+    REQUIRE(testString1.compare(testString4) > 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString1.compare(testString2) == 0);
+    STATIC_REQUIRE(testString1.compare(testString3) < 0);
+    STATIC_REQUIRE(testString1.compare(testString4) > 0);
+  }
+
+  SECTION("Compare CStringView with StringLike") {
+    constexpr CStringView testString("Hello");
+
+    REQUIRE(testString.compare(std::string("Hello")) == 0);
+    REQUIRE(testString.compare(std::string("World")) < 0);
+    REQUIRE(testString.compare(std::string("Hell")) > 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.compare(FixedString<16>("Hello")) == 0);
+    STATIC_REQUIRE(testString.compare(FixedString<16>("World")) < 0);
+    STATIC_REQUIRE(testString.compare(FixedString<16>("Hell")) > 0);
+  }
+
+  SECTION("Compare CStringView with C string") {
+    constexpr CStringView testString("Hello");
+
+    REQUIRE(testString.compare("Hello") == 0);
+    REQUIRE(testString.compare("World") < 0);
+    REQUIRE(testString.compare("Hell") > 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.compare("Hello") == 0);
+    STATIC_REQUIRE(testString.compare("World") < 0);
+    STATIC_REQUIRE(testString.compare("Hell") > 0);
+  }
+
+  SECTION("Compare identical strings") {
+    constexpr CStringView testString("Hello World");
+
+    REQUIRE(testString.compare(CStringView("Hello World")) == 0);
+    REQUIRE(testString.compare(std::string("Hello World")) == 0);
+    REQUIRE(testString.compare("Hello World") == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.compare(CStringView("Hello World")) == 0);
+    STATIC_REQUIRE(testString.compare(FixedString<16>("Hello World")) == 0);
+    STATIC_REQUIRE(testString.compare("Hello World") == 0);
+  }
+
+  SECTION("Compare with empty strings") {
+    constexpr CStringView testString1("");
+    constexpr CStringView testString2("Hello");
+
+    REQUIRE(testString1.compare(testString2) < 0);
+    REQUIRE(testString2.compare(testString1) > 0);
+    REQUIRE(testString1.compare("") == 0);
+    REQUIRE(testString1.compare(std::string("")) == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString1.compare(testString2) < 0);
+    STATIC_REQUIRE(testString2.compare(testString1) > 0);
+    STATIC_REQUIRE(testString1.compare("") == 0);
+    STATIC_REQUIRE(testString1.compare(FixedString<16>("")) == 0);
+  }
+
+  SECTION("Compare strings with different lengths") {
+    constexpr CStringView testString1("Hello");
+    constexpr CStringView testString2("Hello World");
+
+    REQUIRE(testString1.compare(testString2) < 0);
+    REQUIRE(testString2.compare(testString1) > 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString1.compare(testString2) < 0);
+    STATIC_REQUIRE(testString2.compare(testString1) > 0);
+  }
+
+  SECTION("Compare strings with same prefix") {
+    constexpr CStringView testString1("Hello");
+    constexpr CStringView testString2("Hell");
+
+    REQUIRE(testString1.compare(testString2) > 0);
+    REQUIRE(testString2.compare(testString1) < 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString1.compare(testString2) > 0);
+    STATIC_REQUIRE(testString2.compare(testString1) < 0);
+  }
+
+  SECTION("Compare strings with different first character") {
+    constexpr CStringView testString1("Apple");
+    constexpr CStringView testString2("Banana");
+
+    REQUIRE(testString1.compare(testString2) < 0);
+    REQUIRE(testString2.compare(testString1) > 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString1.compare(testString2) < 0);
+    STATIC_REQUIRE(testString2.compare(testString1) > 0);
+  }
+
+  SECTION("Compare strings with different middle character") {
+    constexpr CStringView testString1("Hello");
+    constexpr CStringView testString2("Hallo");
+
+    REQUIRE(testString1.compare(testString2) > 0);
+    REQUIRE(testString2.compare(testString1) < 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString1.compare(testString2) > 0);
+    STATIC_REQUIRE(testString2.compare(testString1) < 0);
+  }
+
+  SECTION("Compare strings with different last character") {
+    constexpr CStringView testString1("Hello");
+    constexpr CStringView testString2("Hellp");
+
+    REQUIRE(testString1.compare(testString2) < 0);
+    REQUIRE(testString2.compare(testString1) > 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString1.compare(testString2) < 0);
+    STATIC_REQUIRE(testString2.compare(testString1) > 0);
+  }
+
+  SECTION("Compare case sensitivity") {
+    constexpr CStringView testString("Hello");
+
+    REQUIRE(testString.compare("hello") < 0);
+    REQUIRE(testString.compare("HELLO") > 0);
+    REQUIRE(testString.compare("Hello") == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.compare("hello") < 0);
+    STATIC_REQUIRE(testString.compare("HELLO") > 0);
+    STATIC_REQUIRE(testString.compare("Hello") == 0);
+  }
+
+  SECTION("Compare with single character strings") {
+    constexpr CStringView testString1("A");
+    constexpr CStringView testString2("B");
+
+    REQUIRE(testString1.compare(testString2) < 0);
+    REQUIRE(testString2.compare(testString1) > 0);
+    REQUIRE(testString1.compare("A") == 0);
+    REQUIRE(testString1.compare("B") < 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString1.compare(testString2) < 0);
+    STATIC_REQUIRE(testString2.compare(testString1) > 0);
+    STATIC_REQUIRE(testString1.compare("A") == 0);
+    STATIC_REQUIRE(testString1.compare("B") < 0);
+  }
+
+  SECTION("Compare with repeated characters") {
+    constexpr CStringView testString1("aaa");
+    constexpr CStringView testString2("aa");
+
+    REQUIRE(testString1.compare(testString2) > 0);
+    REQUIRE(testString2.compare(testString1) < 0);
+    REQUIRE(testString1.compare("aaa") == 0);
+    REQUIRE(testString1.compare("aa") > 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString1.compare(testString2) > 0);
+    STATIC_REQUIRE(testString2.compare(testString1) < 0);
+    STATIC_REQUIRE(testString1.compare("aaa") == 0);
+    STATIC_REQUIRE(testString1.compare("aa") > 0);
+  }
+
+  SECTION("Compare with special characters") {
+    constexpr CStringView testString1("Hello!");
+    constexpr CStringView testString2("Hello");
+
+    REQUIRE(testString1.compare(testString2) > 0);
+    REQUIRE(testString2.compare(testString1) < 0);
+    REQUIRE(testString1.compare("Hello!") == 0);
+    REQUIRE(testString1.compare("Hello") > 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString1.compare(testString2) > 0);
+    STATIC_REQUIRE(testString2.compare(testString1) < 0);
+    STATIC_REQUIRE(testString1.compare("Hello!") == 0);
+    STATIC_REQUIRE(testString1.compare("Hello") > 0);
+  }
+
+  SECTION("Compare with numbers") {
+    constexpr CStringView testString1("123");
+    constexpr CStringView testString2("456");
+
+    REQUIRE(testString1.compare(testString2) < 0);
+    REQUIRE(testString2.compare(testString1) > 0);
+    REQUIRE(testString1.compare("123") == 0);
+    REQUIRE(testString1.compare("456") < 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString1.compare(testString2) < 0);
+    STATIC_REQUIRE(testString2.compare(testString1) > 0);
+    STATIC_REQUIRE(testString1.compare("123") == 0);
+    STATIC_REQUIRE(testString1.compare("456") < 0);
+  }
+
+  SECTION("Compare with mixed content") {
+    constexpr CStringView testString1("Hello123");
+    constexpr CStringView testString2("Hello456");
+
+    REQUIRE(testString1.compare(testString2) < 0);
+    REQUIRE(testString2.compare(testString1) > 0);
+    REQUIRE(testString1.compare("Hello123") == 0);
+    REQUIRE(testString1.compare("Hello456") < 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString1.compare(testString2) < 0);
+    STATIC_REQUIRE(testString2.compare(testString1) > 0);
+    STATIC_REQUIRE(testString1.compare("Hello123") == 0);
+    STATIC_REQUIRE(testString1.compare("Hello456") < 0);
+  }
+
+  SECTION("Compare with maximum length strings") {
+    constexpr CStringView testString1("123456789012345");
+    constexpr CStringView testString2("123456789012346");
+
+    REQUIRE(testString1.compare(testString2) < 0);
+    REQUIRE(testString2.compare(testString1) > 0);
+    REQUIRE(testString1.compare("123456789012345") == 0);
+    REQUIRE(testString1.compare("123456789012346") < 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString1.compare(testString2) < 0);
+    STATIC_REQUIRE(testString2.compare(testString1) > 0);
+    STATIC_REQUIRE(testString1.compare("123456789012345") == 0);
+    STATIC_REQUIRE(testString1.compare("123456789012346") < 0);
+  }
+
+  SECTION("Compare with StringLike") {
+    constexpr CStringView testString("Hello World");
+
+    REQUIRE(testString.compare(std::string("Hello World")) == 0);
+    REQUIRE(testString.compare(std::string("Hello")) > 0);
+    REQUIRE(testString.compare(std::string("World")) < 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.compare(FixedString<16>("Hello World")) == 0);
+    STATIC_REQUIRE(testString.compare(FixedString<16>("Hello")) > 0);
+    STATIC_REQUIRE(testString.compare(FixedString<16>("World")) < 0);
+  }
+
+  SECTION("Compare with array") {
+    constexpr CStringView testString("Hello");
+    constexpr std::array<char, 6> arr = {'H', 'e', 'l', 'l', 'o', '\0'};
+
+    REQUIRE(testString.compare(arr.data()) == 0);
+    REQUIRE(testString.compare("Hello") == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.compare(arr.data()) == 0);
+    STATIC_REQUIRE(testString.compare("Hello") == 0);
+  }
+
+  SECTION("Compare edge cases") {
+    constexpr CStringView testString("Hello");
+
+    // Compare with null-terminated string
+    REQUIRE(testString.compare("Hello\0World") == 0);
+
+    // Compare with string containing null character
+    constexpr CStringView testStringWithNull("Hello\0World");
+    REQUIRE(testString.compare(testStringWithNull) == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.compare("Hello\0World") == 0);
+    STATIC_REQUIRE(testString.compare(testStringWithNull) == 0);
+  }
+}

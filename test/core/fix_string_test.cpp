@@ -6398,8 +6398,6 @@ TEST_CASE("FixedString find_last_not_of", "[core][fixed_string]") {
   }
 }
 
-// to refactor 6785 - 6401 = 384
-
 TEST_CASE("FixedString compare", "[core][fixed_string]") {
   SECTION("Compare FixedString with FixedString") {
     constexpr FixedString<32> testString1("Hello");
@@ -6410,6 +6408,11 @@ TEST_CASE("FixedString compare", "[core][fixed_string]") {
     REQUIRE(testString1.compare(testString2) == 0);
     REQUIRE(testString1.compare(testString3) < 0);
     REQUIRE(testString1.compare(testString4) > 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString1.compare(testString2) == 0);
+    STATIC_REQUIRE(testString1.compare(testString3) < 0);
+    STATIC_REQUIRE(testString1.compare(testString4) > 0);
   }
 
   SECTION("Compare FixedString with StringLike") {
@@ -6418,6 +6421,11 @@ TEST_CASE("FixedString compare", "[core][fixed_string]") {
     REQUIRE(testString.compare(std::string("Hello")) == 0);
     REQUIRE(testString.compare(std::string("World")) < 0);
     REQUIRE(testString.compare(std::string("Hell")) > 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.compare(CStringView("Hello")) == 0);
+    STATIC_REQUIRE(testString.compare(CStringView("World")) < 0);
+    STATIC_REQUIRE(testString.compare(CStringView("Hell")) > 0);
   }
 
   SECTION("Compare FixedString with C string") {
@@ -6426,6 +6434,11 @@ TEST_CASE("FixedString compare", "[core][fixed_string]") {
     REQUIRE(testString.compare("Hello") == 0);
     REQUIRE(testString.compare("World") < 0);
     REQUIRE(testString.compare("Hell") > 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.compare("Hello") == 0);
+    STATIC_REQUIRE(testString.compare("World") < 0);
+    STATIC_REQUIRE(testString.compare("Hell") > 0);
   }
 
   SECTION("Compare identical strings") {
@@ -6434,6 +6447,11 @@ TEST_CASE("FixedString compare", "[core][fixed_string]") {
     REQUIRE(testString.compare(FixedString<32>("Hello World")) == 0);
     REQUIRE(testString.compare(std::string("Hello World")) == 0);
     REQUIRE(testString.compare("Hello World") == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.compare(FixedString<32>("Hello World")) == 0);
+    STATIC_REQUIRE(testString.compare(CStringView("Hello World")) == 0);
+    STATIC_REQUIRE(testString.compare("Hello World") == 0);
   }
 
   SECTION("Compare with empty strings") {
@@ -6444,6 +6462,12 @@ TEST_CASE("FixedString compare", "[core][fixed_string]") {
     REQUIRE(testString2.compare(testString1) > 0);
     REQUIRE(testString1.compare("") == 0);
     REQUIRE(testString1.compare(std::string("")) == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString1.compare(testString2) < 0);
+    STATIC_REQUIRE(testString2.compare(testString1) > 0);
+    STATIC_REQUIRE(testString1.compare("") == 0);
+    STATIC_REQUIRE(testString1.compare(CStringView("")) == 0);
   }
 
   SECTION("Compare strings with different lengths") {
@@ -6452,6 +6476,10 @@ TEST_CASE("FixedString compare", "[core][fixed_string]") {
 
     REQUIRE(testString1.compare(testString2) < 0);
     REQUIRE(testString2.compare(testString1) > 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString1.compare(testString2) < 0);
+    STATIC_REQUIRE(testString2.compare(testString1) > 0);
   }
 
   SECTION("Compare strings with same prefix") {
@@ -6460,6 +6488,10 @@ TEST_CASE("FixedString compare", "[core][fixed_string]") {
 
     REQUIRE(testString1.compare(testString2) > 0);
     REQUIRE(testString2.compare(testString1) < 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString1.compare(testString2) > 0);
+    STATIC_REQUIRE(testString2.compare(testString1) < 0);
   }
 
   SECTION("Compare strings with different first character") {
@@ -6468,6 +6500,10 @@ TEST_CASE("FixedString compare", "[core][fixed_string]") {
 
     REQUIRE(testString1.compare(testString2) < 0);
     REQUIRE(testString2.compare(testString1) > 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString1.compare(testString2) < 0);
+    STATIC_REQUIRE(testString2.compare(testString1) > 0);
   }
 
   SECTION("Compare strings with different middle character") {
@@ -6476,6 +6512,10 @@ TEST_CASE("FixedString compare", "[core][fixed_string]") {
 
     REQUIRE(testString1.compare(testString2) > 0);
     REQUIRE(testString2.compare(testString1) < 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString1.compare(testString2) > 0);
+    STATIC_REQUIRE(testString2.compare(testString1) < 0);
   }
 
   SECTION("Compare strings with different last character") {
@@ -6484,6 +6524,10 @@ TEST_CASE("FixedString compare", "[core][fixed_string]") {
 
     REQUIRE(testString1.compare(testString2) < 0);
     REQUIRE(testString2.compare(testString1) > 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString1.compare(testString2) < 0);
+    STATIC_REQUIRE(testString2.compare(testString1) > 0);
   }
 
   SECTION("Compare case sensitivity") {
@@ -6492,6 +6536,11 @@ TEST_CASE("FixedString compare", "[core][fixed_string]") {
     REQUIRE(testString.compare("hello") < 0);
     REQUIRE(testString.compare("HELLO") > 0);
     REQUIRE(testString.compare("Hello") == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.compare("hello") < 0);
+    STATIC_REQUIRE(testString.compare("HELLO") > 0);
+    STATIC_REQUIRE(testString.compare("Hello") == 0);
   }
 
   SECTION("Compare with different FixedString capacities") {
@@ -6502,6 +6551,13 @@ TEST_CASE("FixedString compare", "[core][fixed_string]") {
     REQUIRE(testString.compare(FixedString<64>("Hello")) == 0);
     REQUIRE(testString.compare(FixedString<8>("World")) < 0);
     REQUIRE(testString.compare(FixedString<16>("Hell")) > 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.compare(FixedString<8>("Hello")) == 0);
+    STATIC_REQUIRE(testString.compare(FixedString<16>("Hello")) == 0);
+    STATIC_REQUIRE(testString.compare(FixedString<64>("Hello")) == 0);
+    STATIC_REQUIRE(testString.compare(FixedString<8>("World")) < 0);
+    STATIC_REQUIRE(testString.compare(FixedString<16>("Hell")) > 0);
   }
 
   SECTION("Compare with single character strings") {
@@ -6512,6 +6568,12 @@ TEST_CASE("FixedString compare", "[core][fixed_string]") {
     REQUIRE(testString2.compare(testString1) > 0);
     REQUIRE(testString1.compare("A") == 0);
     REQUIRE(testString1.compare("B") < 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString1.compare(testString2) < 0);
+    STATIC_REQUIRE(testString2.compare(testString1) > 0);
+    STATIC_REQUIRE(testString1.compare("A") == 0);
+    STATIC_REQUIRE(testString1.compare("B") < 0);
   }
 
   SECTION("Compare with repeated characters") {
@@ -6522,6 +6584,12 @@ TEST_CASE("FixedString compare", "[core][fixed_string]") {
     REQUIRE(testString2.compare(testString1) < 0);
     REQUIRE(testString1.compare("aaa") == 0);
     REQUIRE(testString1.compare("aa") > 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString1.compare(testString2) > 0);
+    STATIC_REQUIRE(testString2.compare(testString1) < 0);
+    STATIC_REQUIRE(testString1.compare("aaa") == 0);
+    STATIC_REQUIRE(testString1.compare("aa") > 0);
   }
 
   SECTION("Compare with special characters") {
@@ -6532,6 +6600,12 @@ TEST_CASE("FixedString compare", "[core][fixed_string]") {
     REQUIRE(testString2.compare(testString1) < 0);
     REQUIRE(testString1.compare("Hello!") == 0);
     REQUIRE(testString1.compare("Hello") > 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString1.compare(testString2) > 0);
+    STATIC_REQUIRE(testString2.compare(testString1) < 0);
+    STATIC_REQUIRE(testString1.compare("Hello!") == 0);
+    STATIC_REQUIRE(testString1.compare("Hello") > 0);
   }
 
   SECTION("Compare with numbers") {
@@ -6542,6 +6616,12 @@ TEST_CASE("FixedString compare", "[core][fixed_string]") {
     REQUIRE(testString2.compare(testString1) > 0);
     REQUIRE(testString1.compare("123") == 0);
     REQUIRE(testString1.compare("456") < 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString1.compare(testString2) < 0);
+    STATIC_REQUIRE(testString2.compare(testString1) > 0);
+    STATIC_REQUIRE(testString1.compare("123") == 0);
+    STATIC_REQUIRE(testString1.compare("456") < 0);
   }
 
   SECTION("Compare with mixed content") {
@@ -6552,6 +6632,12 @@ TEST_CASE("FixedString compare", "[core][fixed_string]") {
     REQUIRE(testString2.compare(testString1) > 0);
     REQUIRE(testString1.compare("Hello123") == 0);
     REQUIRE(testString1.compare("Hello456") < 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString1.compare(testString2) < 0);
+    STATIC_REQUIRE(testString2.compare(testString1) > 0);
+    STATIC_REQUIRE(testString1.compare("Hello123") == 0);
+    STATIC_REQUIRE(testString1.compare("Hello456") < 0);
   }
 
   SECTION("Compare with maximum length strings") {
@@ -6562,6 +6648,12 @@ TEST_CASE("FixedString compare", "[core][fixed_string]") {
     REQUIRE(testString2.compare(testString1) > 0);
     REQUIRE(testString1.compare("123456789012345") == 0);
     REQUIRE(testString1.compare("123456789012346") < 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString1.compare(testString2) < 0);
+    STATIC_REQUIRE(testString2.compare(testString1) > 0);
+    STATIC_REQUIRE(testString1.compare("123456789012345") == 0);
+    STATIC_REQUIRE(testString1.compare("123456789012346") < 0);
   }
 
   SECTION("Compare with std::string") {
@@ -6570,6 +6662,11 @@ TEST_CASE("FixedString compare", "[core][fixed_string]") {
     REQUIRE(testString.compare(std::string("Hello World")) == 0);
     REQUIRE(testString.compare(std::string("Hello")) > 0);
     REQUIRE(testString.compare(std::string("World")) < 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.compare(CStringView("Hello World")) == 0);
+    STATIC_REQUIRE(testString.compare(CStringView("Hello")) > 0);
+    STATIC_REQUIRE(testString.compare(CStringView("World")) < 0);
   }
 
   SECTION("Compare with array") {
@@ -6578,6 +6675,10 @@ TEST_CASE("FixedString compare", "[core][fixed_string]") {
 
     REQUIRE(testString.compare(arr.data()) == 0);
     REQUIRE(testString.compare("Hello") == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.compare(arr.data()) == 0);
+    STATIC_REQUIRE(testString.compare("Hello") == 0);
   }
 
   SECTION("Compare edge cases") {
@@ -6589,8 +6690,14 @@ TEST_CASE("FixedString compare", "[core][fixed_string]") {
     // Compare with string containing null character
     constexpr FixedString<32> testStringWithNull("Hello\0World");
     REQUIRE(testString.compare(testStringWithNull) == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.compare("Hello\0World") == 0);
+    STATIC_REQUIRE(testString.compare(testStringWithNull) == 0);
   }
 }
+
+// to refactor 6892 - 6700 = 192
 
 TEST_CASE("FixedString starts_with", "[core][fixed_string]") {
   SECTION("Starts with FixedString") {

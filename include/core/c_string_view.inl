@@ -204,6 +204,19 @@ constexpr std::size_t CStringView::find_last_not_of(char character, std::size_t 
   return _find_last_not_of_raw(position, &character, 1);
 }
 
+template <StringLike stringType>
+constexpr int CStringView::compare(const stringType & string) const noexcept {
+  if consteval {
+    return cstrcmp(_data, string.c_str());
+  } else {
+    return std::strcmp(_data, string.c_str());
+  }
+}
+
+constexpr int CStringView::compare(const char * string) const noexcept {
+  return compare(CStringView(string));
+}
+
 constexpr std::size_t CStringView::_find_raw(std::size_t position, const char * data,
                                              std::size_t dataSize) const noexcept {
   const auto stringViewSize = size();
