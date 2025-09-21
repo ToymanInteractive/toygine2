@@ -1138,7 +1138,7 @@ constexpr std::size_t FixedString<allocatedSize>::_find_raw(std::size_t position
     occurrence = dataSize == 1 ? static_cast<const char *>(std::memchr(_data + position, data[0], _size - position))
                                : std::strstr(_data + position, data);
   }
- 
+
   return occurrence != nullptr ? occurrence - _data : npos;
 }
 
@@ -1193,7 +1193,7 @@ constexpr std::size_t FixedString<allocatedSize>::_find_first_of_raw(std::size_t
 template <std::size_t allocatedSize>
 constexpr std::size_t FixedString<allocatedSize>::_find_first_not_of_raw(std::size_t position, const char * data,
                                                                          std::size_t dataSize) const noexcept {
-  if (position >= _size)
+  if (position > _size)
     return npos;
 
   if (dataSize == 0)
@@ -1205,19 +1205,17 @@ constexpr std::size_t FixedString<allocatedSize>::_find_first_not_of_raw(std::si
       if (_data[i] != exclude)
         return i;
     }
+  } else {
+    std::array<bool, 256> excludedChars{};
 
-    return npos;
-  }
+    for (std::size_t i = 0; i < dataSize; ++i) {
+      excludedChars[static_cast<unsigned char>(data[i])] = true;
+    }
 
-  std::array<bool, 256> excludedChars{};
-
-  for (std::size_t i = 0; i < dataSize; ++i) {
-    excludedChars[static_cast<unsigned char>(data[i])] = true;
-  }
-
-  for (auto i = position; i < _size; ++i) {
-    if (!excludedChars[static_cast<unsigned char>(_data[i])])
-      return i;
+    for (auto i = position; i < _size; ++i) {
+      if (!excludedChars[static_cast<unsigned char>(_data[i])])
+        return i;
+    }
   }
 
   return npos;

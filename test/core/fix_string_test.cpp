@@ -5584,8 +5584,6 @@ TEST_CASE("FixedString find_first_of", "[core][fixed_string]") {
   }
 }
 
-// to refactor 6465 - 5584 = 881
-
 TEST_CASE("FixedString find_first_not_of", "[core][fixed_string]") {
   SECTION("Find first not of FixedString characters") {
     constexpr FixedString<32> testString("Hello World");
@@ -5593,6 +5591,11 @@ TEST_CASE("FixedString find_first_not_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_not_of(FixedString<16>("H")) == 1); // 'e' at position 1
     REQUIRE(testString.find_first_not_of(FixedString<16>("Hel")) == 4); // 'o' at position 4
     REQUIRE(testString.find_first_not_of(FixedString<16>("Helo Wrd")) == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_not_of(FixedString<16>("H")) == 1);
+    STATIC_REQUIRE(testString.find_first_not_of(FixedString<16>("Hel")) == 4);
+    STATIC_REQUIRE(testString.find_first_not_of(FixedString<16>("Helo Wrd")) == FixedString<32>::npos);
   }
 
   SECTION("Find first not of StringLike characters") {
@@ -5601,6 +5604,11 @@ TEST_CASE("FixedString find_first_not_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_not_of(std::string("H")) == 1); // 'e' at position 1
     REQUIRE(testString.find_first_not_of(std::string("Hel")) == 4); // 'o' at position 4
     REQUIRE(testString.find_first_not_of(std::string("Helo Wrd")) == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_not_of(CStringView("H")) == 1);
+    STATIC_REQUIRE(testString.find_first_not_of(CStringView("Hel")) == 4);
+    STATIC_REQUIRE(testString.find_first_not_of(CStringView("Helo Wrd")) == FixedString<32>::npos);
   }
 
   SECTION("Find first not of C string characters") {
@@ -5609,6 +5617,11 @@ TEST_CASE("FixedString find_first_not_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_not_of("H") == 1); // 'e' at position 1
     REQUIRE(testString.find_first_not_of("Hel") == 4); // 'o' at position 4
     REQUIRE(testString.find_first_not_of("Helo Wrd") == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_not_of("H") == 1);
+    STATIC_REQUIRE(testString.find_first_not_of("Hel") == 4);
+    STATIC_REQUIRE(testString.find_first_not_of("Helo Wrd") == FixedString<32>::npos);
   }
 
   SECTION("Find first not of single character") {
@@ -5617,6 +5630,11 @@ TEST_CASE("FixedString find_first_not_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_not_of('a') == 5); // 'b' at position 5
     REQUIRE(testString.find_first_not_of('b') == 0); // 'a' at position 0
     REQUIRE(testString.find_first_not_of('x') == 0); // 'a' at position 0
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_not_of('a') == 5);
+    STATIC_REQUIRE(testString.find_first_not_of('b') == 0);
+    STATIC_REQUIRE(testString.find_first_not_of('x') == 0);
   }
 
   SECTION("Find first not of with position parameter") {
@@ -5627,6 +5645,13 @@ TEST_CASE("FixedString find_first_not_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_not_of("Hel", 5) == 5); // ' ' at position 5
     REQUIRE(testString.find_first_not_of("Hel", 6) == 6); // 'W' at position 6
     REQUIRE(testString.find_first_not_of("Hel", 7) == 7); // 'o' at position 7
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_not_of("Hel", 0) == 4);
+    STATIC_REQUIRE(testString.find_first_not_of("Hel", 4) == 4);
+    STATIC_REQUIRE(testString.find_first_not_of("Hel", 5) == 5);
+    STATIC_REQUIRE(testString.find_first_not_of("Hel", 6) == 6);
+    STATIC_REQUIRE(testString.find_first_not_of("Hel", 7) == 7);
   }
 
   SECTION("Find first not of empty character set") {
@@ -5636,6 +5661,12 @@ TEST_CASE("FixedString find_first_not_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_not_of(std::string("")) == 0); // 'H' at position 0
     REQUIRE(testString.find_first_not_of("") == 0); // 'H' at position 0
     REQUIRE(testString.find_first_not_of("", 5) == 5); // ' ' at position 5
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_not_of(FixedString<16>("")) == 0);
+    STATIC_REQUIRE(testString.find_first_not_of(CStringView("")) == 0);
+    STATIC_REQUIRE(testString.find_first_not_of("") == 0);
+    STATIC_REQUIRE(testString.find_first_not_of("", 5) == 5);
   }
 
   SECTION("Find first not of in empty string") {
@@ -5645,6 +5676,12 @@ TEST_CASE("FixedString find_first_not_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_not_of(std::string("aeiou")) == FixedString<32>::npos);
     REQUIRE(testString.find_first_not_of("aeiou") == FixedString<32>::npos);
     REQUIRE(testString.find_first_not_of('a') == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_not_of(FixedString<16>("aeiou")) == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find_first_not_of(CStringView("aeiou")) == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find_first_not_of("aeiou") == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find_first_not_of('a') == FixedString<32>::npos);
   }
 
   SECTION("Find first not of with position beyond string size") {
@@ -5652,6 +5689,10 @@ TEST_CASE("FixedString find_first_not_of", "[core][fixed_string]") {
 
     REQUIRE(testString.find_first_not_of("aeiou", 10) == FixedString<32>::npos);
     REQUIRE(testString.find_first_not_of('a', 10) == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_not_of("aeiou", 10) == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find_first_not_of('a', 10) == FixedString<32>::npos);
   }
 
   SECTION("Find first not of with repeated characters") {
@@ -5660,6 +5701,11 @@ TEST_CASE("FixedString find_first_not_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_not_of("a") == FixedString<32>::npos);
     REQUIRE(testString.find_first_not_of("ab") == FixedString<32>::npos);
     REQUIRE(testString.find_first_not_of("b") == 0); // 'a' at position 0
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_not_of("a") == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find_first_not_of("ab") == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find_first_not_of("b") == 0);
   }
 
   SECTION("Find first not of with multiple character sets") {
@@ -5669,6 +5715,12 @@ TEST_CASE("FixedString find_first_not_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_not_of("Hel") == 4); // 'o' at position 4
     REQUIRE(testString.find_first_not_of("Helo") == 5); // ' ' at position 5
     REQUIRE(testString.find_first_not_of("Helo ") == 6); // 'W' at position 6
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_not_of("Hl") == 1);
+    STATIC_REQUIRE(testString.find_first_not_of("Hel") == 4);
+    STATIC_REQUIRE(testString.find_first_not_of("Helo") == 5);
+    STATIC_REQUIRE(testString.find_first_not_of("Helo ") == 6);
   }
 
   SECTION("Find first not of case sensitivity") {
@@ -5678,6 +5730,12 @@ TEST_CASE("FixedString find_first_not_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_not_of("H") == 1); // 'e' at position 1
     REQUIRE(testString.find_first_not_of("w") == 0); // 'H' at position 0
     REQUIRE(testString.find_first_not_of("W") == 0); // 'H' at position 0
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_not_of("h") == 0);
+    STATIC_REQUIRE(testString.find_first_not_of("H") == 1);
+    STATIC_REQUIRE(testString.find_first_not_of("w") == 0);
+    STATIC_REQUIRE(testString.find_first_not_of("W") == 0);
   }
 
   SECTION("Find first not of with special characters") {
@@ -5685,6 +5743,10 @@ TEST_CASE("FixedString find_first_not_of", "[core][fixed_string]") {
 
     REQUIRE(testString.find_first_not_of("Helo, Wrd!") == FixedString<32>::npos);
     REQUIRE(testString.find_first_not_of("Helo, Wrd") == 12); // '!' at position 12
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_not_of("Helo, Wrd!") == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find_first_not_of("Helo, Wrd") == 12);
   }
 
   SECTION("Find first not of with numbers") {
@@ -5693,6 +5755,11 @@ TEST_CASE("FixedString find_first_not_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_not_of("0123456789") == 0); // 'H' at position 0
     REQUIRE(testString.find_first_not_of("Helo123Wrd") == FixedString<32>::npos);
     REQUIRE(testString.find_first_not_of("Helo123Wr") == 12); // 'd' at position 12
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_not_of("0123456789") == 0);
+    STATIC_REQUIRE(testString.find_first_not_of("Helo123Wrd") == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find_first_not_of("Helo123Wr") == 12);
   }
 
   SECTION("Find first not of with whitespace") {
@@ -5701,6 +5768,11 @@ TEST_CASE("FixedString find_first_not_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_not_of(" \t\n") == 0); // 'H' at position 0
     REQUIRE(testString.find_first_not_of("Helo Wrd\t\n") == FixedString<32>::npos);
     REQUIRE(testString.find_first_not_of("Helo Wrd") == 11); // '\t' at position 11
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_not_of(" \t\n") == 0);
+    STATIC_REQUIRE(testString.find_first_not_of("Helo Wrd\t\n") == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find_first_not_of("Helo Wrd") == 11);
   }
 
   SECTION("Find first not of with different FixedString capacities") {
@@ -5709,6 +5781,11 @@ TEST_CASE("FixedString find_first_not_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_not_of(FixedString<8>("H")) == 1);
     REQUIRE(testString.find_first_not_of(FixedString<16>("H")) == 1);
     REQUIRE(testString.find_first_not_of(FixedString<64>("H")) == 1);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_not_of(FixedString<8>("H")) == 1);
+    STATIC_REQUIRE(testString.find_first_not_of(FixedString<16>("H")) == 1);
+    STATIC_REQUIRE(testString.find_first_not_of(FixedString<64>("H")) == 1);
   }
 
   SECTION("Find first not of with single character string") {
@@ -5718,6 +5795,12 @@ TEST_CASE("FixedString find_first_not_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_not_of('A') == FixedString<32>::npos);
     REQUIRE(testString.find_first_not_of("B") == 0); // 'A' at position 0
     REQUIRE(testString.find_first_not_of('B') == 0); // 'A' at position 0
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_not_of("A") == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find_first_not_of('A') == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find_first_not_of("B") == 0);
+    STATIC_REQUIRE(testString.find_first_not_of('B') == 0);
   }
 
   SECTION("Find first not of with position 0") {
@@ -5726,6 +5809,11 @@ TEST_CASE("FixedString find_first_not_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_not_of("H", 0) == 1);
     REQUIRE(testString.find_first_not_of("Hel", 0) == 4);
     REQUIRE(testString.find_first_not_of("Helo Wrd", 0) == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_not_of("H", 0) == 1);
+    STATIC_REQUIRE(testString.find_first_not_of("Hel", 0) == 4);
+    STATIC_REQUIRE(testString.find_first_not_of("Helo Wrd", 0) == FixedString<32>::npos);
   }
 
   SECTION("Find first not of with all characters excluded") {
@@ -5734,6 +5822,11 @@ TEST_CASE("FixedString find_first_not_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_not_of("abcdefghijklmnopqrstuvwxyz") == FixedString<32>::npos);
     REQUIRE(testString.find_first_not_of("abcdefghijklmnopqrstuvwxy") == 25); // 'z' at position 25
     REQUIRE(testString.find_first_not_of("abcdefghijklmnopqrstuvwx") == 24); // 'y' at position 24
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_not_of("abcdefghijklmnopqrstuvwxyz") == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find_first_not_of("abcdefghijklmnopqrstuvwxy") == 25);
+    STATIC_REQUIRE(testString.find_first_not_of("abcdefghijklmnopqrstuvwx") == 24);
   }
 
   SECTION("Find first not of with no characters excluded") {
@@ -5742,6 +5835,11 @@ TEST_CASE("FixedString find_first_not_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_not_of("xyz") == 0); // 'H' at position 0
     REQUIRE(testString.find_first_not_of("0123456789") == 0); // 'H' at position 0
     REQUIRE(testString.find_first_not_of("!@#$%^&*()") == 0); // 'H' at position 0
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_not_of("xyz") == 0);
+    STATIC_REQUIRE(testString.find_first_not_of("0123456789") == 0);
+    STATIC_REQUIRE(testString.find_first_not_of("!@#$%^&*()") == 0);
   }
 
   SECTION("Find first not of with mixed content") {
@@ -5750,6 +5848,11 @@ TEST_CASE("FixedString find_first_not_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_not_of("Helo123Wrd") == FixedString<32>::npos);
     REQUIRE(testString.find_first_not_of("Helo123Wr") == 12); // 'd' at position 12
     REQUIRE(testString.find_first_not_of("Helo123Wd") == 10); // 'r' at position 10
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_not_of("Helo123Wrd") == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find_first_not_of("Helo123Wr") == 12);
+    STATIC_REQUIRE(testString.find_first_not_of("Helo123Wd") == 10);
   }
 
   SECTION("Find first not of with position in middle") {
@@ -5759,6 +5862,12 @@ TEST_CASE("FixedString find_first_not_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_not_of("Hel", 5) == 5); // ' ' at position 5
     REQUIRE(testString.find_first_not_of("Hel", 6) == 6); // 'W' at position 6
     REQUIRE(testString.find_first_not_of("Hel", 7) == 7); // 'o' at position 7
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_not_of("Hel", 4) == 4);
+    STATIC_REQUIRE(testString.find_first_not_of("Hel", 5) == 5);
+    STATIC_REQUIRE(testString.find_first_not_of("Hel", 6) == 6);
+    STATIC_REQUIRE(testString.find_first_not_of("Hel", 7) == 7);
   }
 
   SECTION("Find first not of with exact match") {
@@ -5767,8 +5876,15 @@ TEST_CASE("FixedString find_first_not_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_not_of("Hello") == FixedString<32>::npos);
     REQUIRE(testString.find_first_not_of("Hell") == 4); // 'o' at position 4
     REQUIRE(testString.find_first_not_of("Hel") == 4); // 'o' at position 4
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_not_of("Hello") == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find_first_not_of("Hell") == 4);
+    STATIC_REQUIRE(testString.find_first_not_of("Hel") == 4);
   }
 }
+
+// to refactor 6584 - 5887 = 697
 
 TEST_CASE("FixedString find_last_of", "[core][fixed_string]") {
   SECTION("Find last of FixedString characters") {
