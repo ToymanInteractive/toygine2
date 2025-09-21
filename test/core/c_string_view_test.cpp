@@ -4059,3 +4059,678 @@ TEST_CASE("CStringView starts_with", "[core][c_string_view]") {
     STATIC_REQUIRE(testString.starts_with("") == true);
   }
 }
+
+TEST_CASE("CStringView ends_with", "[core][c_string_view]") {
+  SECTION("CStringView ends_with") {
+    constexpr CStringView testString("Hello World");
+
+    REQUIRE(testString.ends_with(CStringView("World")) == true);
+    REQUIRE(testString.ends_with(CStringView("Hello World")) == true);
+    REQUIRE(testString.ends_with(CStringView("d")) == true);
+    REQUIRE(testString.ends_with(CStringView("Hello")) == false);
+    REQUIRE(testString.ends_with(CStringView("xyz")) == false);
+    REQUIRE(testString.ends_with(CStringView("")) == true);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.ends_with(CStringView("World")) == true);
+    STATIC_REQUIRE(testString.ends_with(CStringView("Hello World")) == true);
+    STATIC_REQUIRE(testString.ends_with(CStringView("d")) == true);
+    STATIC_REQUIRE(testString.ends_with(CStringView("Hello")) == false);
+    STATIC_REQUIRE(testString.ends_with(CStringView("xyz")) == false);
+    STATIC_REQUIRE(testString.ends_with(CStringView("")) == true);
+  }
+
+  SECTION("StringLike ends_with") {
+    constexpr CStringView testString("Hello World");
+
+    REQUIRE(testString.ends_with(std::string("World")) == true);
+    REQUIRE(testString.ends_with(std::string("Hello World")) == true);
+    REQUIRE(testString.ends_with(std::string("d")) == true);
+    REQUIRE(testString.ends_with(std::string("Hello")) == false);
+    REQUIRE(testString.ends_with(std::string("xyz")) == false);
+    REQUIRE(testString.ends_with(std::string("")) == true);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.ends_with(FixedString<16>("World")) == true);
+    STATIC_REQUIRE(testString.ends_with(FixedString<16>("Hello World")) == true);
+    STATIC_REQUIRE(testString.ends_with(FixedString<16>("d")) == true);
+    STATIC_REQUIRE(testString.ends_with(FixedString<16>("Hello")) == false);
+    STATIC_REQUIRE(testString.ends_with(FixedString<16>("xyz")) == false);
+    STATIC_REQUIRE(testString.ends_with(FixedString<16>("")) == true);
+  }
+
+  SECTION("C string ends_with") {
+    constexpr CStringView testString("Hello World");
+
+    REQUIRE(testString.ends_with("World") == true);
+    REQUIRE(testString.ends_with("Hello World") == true);
+    REQUIRE(testString.ends_with("d") == true);
+    REQUIRE(testString.ends_with("Hello") == false);
+    REQUIRE(testString.ends_with("xyz") == false);
+    REQUIRE(testString.ends_with("") == true);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.ends_with("World") == true);
+    STATIC_REQUIRE(testString.ends_with("Hello World") == true);
+    STATIC_REQUIRE(testString.ends_with("d") == true);
+    STATIC_REQUIRE(testString.ends_with("Hello") == false);
+    STATIC_REQUIRE(testString.ends_with("xyz") == false);
+    STATIC_REQUIRE(testString.ends_with("") == true);
+  }
+
+  SECTION("Character ends_with") {
+    constexpr CStringView testString("Hello World");
+
+    REQUIRE(testString.ends_with('d') == true);
+    REQUIRE(testString.ends_with('D') == false);
+    REQUIRE(testString.ends_with('H') == false);
+    REQUIRE(testString.ends_with('x') == false);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.ends_with('d') == true);
+    STATIC_REQUIRE(testString.ends_with('D') == false);
+    STATIC_REQUIRE(testString.ends_with('H') == false);
+    STATIC_REQUIRE(testString.ends_with('x') == false);
+  }
+
+  SECTION("Empty string ends_with") {
+    constexpr CStringView testString("");
+
+    REQUIRE(testString.ends_with(CStringView("Hello")) == false);
+    REQUIRE(testString.ends_with(std::string("Hello")) == false);
+    REQUIRE(testString.ends_with("Hello") == false);
+    REQUIRE(testString.ends_with('H') == false);
+    REQUIRE(testString.ends_with("") == true);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.ends_with(CStringView("Hello")) == false);
+    STATIC_REQUIRE(testString.ends_with(FixedString<8>("Hello")) == false);
+    STATIC_REQUIRE(testString.ends_with("Hello") == false);
+    STATIC_REQUIRE(testString.ends_with('H') == false);
+    STATIC_REQUIRE(testString.ends_with("") == true);
+  }
+
+  SECTION("Single character string ends_with") {
+    constexpr CStringView testString("A");
+
+    REQUIRE(testString.ends_with("A") == true);
+    REQUIRE(testString.ends_with('A') == true);
+    REQUIRE(testString.ends_with("B") == false);
+    REQUIRE(testString.ends_with('B') == false);
+    REQUIRE(testString.ends_with("") == true);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.ends_with("A") == true);
+    STATIC_REQUIRE(testString.ends_with('A') == true);
+    STATIC_REQUIRE(testString.ends_with("B") == false);
+    STATIC_REQUIRE(testString.ends_with('B') == false);
+    STATIC_REQUIRE(testString.ends_with("") == true);
+  }
+
+  SECTION("Longer suffix ends_with") {
+    constexpr CStringView testString("Hello");
+
+    REQUIRE(testString.ends_with("Hello World") == false);
+    REQUIRE(testString.ends_with("Hello Universe") == false);
+    REQUIRE(testString.ends_with("Hello") == true);
+    REQUIRE(testString.ends_with("llo") == true);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.ends_with("Hello World") == false);
+    STATIC_REQUIRE(testString.ends_with("Hello Universe") == false);
+    STATIC_REQUIRE(testString.ends_with("Hello") == true);
+    STATIC_REQUIRE(testString.ends_with("llo") == true);
+  }
+
+  SECTION("Case sensitivity ends_with") {
+    constexpr CStringView testString("Hello World");
+
+    REQUIRE(testString.ends_with("world") == false);
+    REQUIRE(testString.ends_with("WORLD") == false);
+    REQUIRE(testString.ends_with("World") == true);
+    REQUIRE(testString.ends_with('d') == true);
+    REQUIRE(testString.ends_with('D') == false);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.ends_with("world") == false);
+    STATIC_REQUIRE(testString.ends_with("WORLD") == false);
+    STATIC_REQUIRE(testString.ends_with("World") == true);
+    STATIC_REQUIRE(testString.ends_with('d') == true);
+    STATIC_REQUIRE(testString.ends_with('D') == false);
+  }
+
+  SECTION("Repeated characters ends_with") {
+    constexpr CStringView testString("baaaa");
+
+    REQUIRE(testString.ends_with("aaa") == true);
+    REQUIRE(testString.ends_with("aaaa") == true);
+    REQUIRE(testString.ends_with("baaaa") == true);
+    REQUIRE(testString.ends_with("aaaaa") == false);
+    REQUIRE(testString.ends_with('a') == true);
+    REQUIRE(testString.ends_with('b') == false);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.ends_with("aaa") == true);
+    STATIC_REQUIRE(testString.ends_with("aaaa") == true);
+    STATIC_REQUIRE(testString.ends_with("baaaa") == true);
+    STATIC_REQUIRE(testString.ends_with("aaaaa") == false);
+    STATIC_REQUIRE(testString.ends_with('a') == true);
+    STATIC_REQUIRE(testString.ends_with('b') == false);
+  }
+
+  SECTION("Special characters ends_with") {
+    constexpr CStringView testString("%$#@!");
+
+    REQUIRE(testString.ends_with("@!") == true);
+    REQUIRE(testString.ends_with("%$#@!") == true);
+    REQUIRE(testString.ends_with("^%$#@!") == false);
+    REQUIRE(testString.ends_with('!') == true);
+    REQUIRE(testString.ends_with('@') == false);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.ends_with("@!") == true);
+    STATIC_REQUIRE(testString.ends_with("%$#@!") == true);
+    STATIC_REQUIRE(testString.ends_with("^%$#@!") == false);
+    STATIC_REQUIRE(testString.ends_with('!') == true);
+    STATIC_REQUIRE(testString.ends_with('@') == false);
+  }
+
+  SECTION("Numeric content ends_with") {
+    constexpr CStringView testString("54321");
+
+    REQUIRE(testString.ends_with("321") == true);
+    REQUIRE(testString.ends_with("54321") == true);
+    REQUIRE(testString.ends_with("654321") == false);
+    REQUIRE(testString.ends_with('1') == true);
+    REQUIRE(testString.ends_with('2') == false);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.ends_with("321") == true);
+    STATIC_REQUIRE(testString.ends_with("54321") == true);
+    STATIC_REQUIRE(testString.ends_with("654321") == false);
+    STATIC_REQUIRE(testString.ends_with('1') == true);
+    STATIC_REQUIRE(testString.ends_with('2') == false);
+  }
+
+  SECTION("Mixed content ends_with") {
+    constexpr CStringView testString("123Hello");
+
+    REQUIRE(testString.ends_with("Hello") == true);
+    REQUIRE(testString.ends_with("3Hello") == true);
+    REQUIRE(testString.ends_with("123Hello") == true);
+    REQUIRE(testString.ends_with("0123Hello") == false);
+    REQUIRE(testString.ends_with('o') == true);
+    REQUIRE(testString.ends_with('1') == false);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.ends_with("Hello") == true);
+    STATIC_REQUIRE(testString.ends_with("3Hello") == true);
+    STATIC_REQUIRE(testString.ends_with("123Hello") == true);
+    STATIC_REQUIRE(testString.ends_with("0123Hello") == false);
+    STATIC_REQUIRE(testString.ends_with('o') == true);
+    STATIC_REQUIRE(testString.ends_with('1') == false);
+  }
+
+  SECTION("Maximum length strings ends_with") {
+    constexpr CStringView testString("123456789012345");
+
+    REQUIRE(testString.ends_with("123456789012345") == true);
+    REQUIRE(testString.ends_with("23456789012345") == true);
+    REQUIRE(testString.ends_with("0123456789012345") == false);
+    REQUIRE(testString.ends_with('5') == true);
+    REQUIRE(testString.ends_with('1') == false);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.ends_with("123456789012345") == true);
+    STATIC_REQUIRE(testString.ends_with("23456789012345") == true);
+    STATIC_REQUIRE(testString.ends_with("0123456789012345") == false);
+    STATIC_REQUIRE(testString.ends_with('5') == true);
+    STATIC_REQUIRE(testString.ends_with('1') == false);
+  }
+
+  SECTION("Array ends_with") {
+    constexpr CStringView testString("Hello");
+    constexpr std::array<char, 4> arr = {'l', 'l', 'o', '\0'};
+
+    REQUIRE(testString.ends_with(arr.data()) == true);
+    REQUIRE(testString.ends_with("llo") == true);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.ends_with(arr.data()) == true);
+    STATIC_REQUIRE(testString.ends_with("llo") == true);
+  }
+
+  SECTION("Edge cases ends_with") {
+    constexpr CStringView testString("Hello");
+
+    // Test with null-terminated string
+    REQUIRE(testString.ends_with("Hello\0World") == true);
+
+    // Test with string containing null character
+    constexpr CStringView testStringWithNull("Hello\0World");
+    REQUIRE(testStringWithNull.ends_with("World") == false);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.ends_with("Hello\0World") == true);
+    STATIC_REQUIRE(testStringWithNull.ends_with("World") == false);
+  }
+
+  SECTION("Whitespace ends_with") {
+    constexpr CStringView testString("Hello World ");
+
+    REQUIRE(testString.ends_with(" ") == true);
+    REQUIRE(testString.ends_with("World ") == true);
+    REQUIRE(testString.ends_with("World") == false);
+    REQUIRE(testString.ends_with(' ') == true);
+    REQUIRE(testString.ends_with('d') == false);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.ends_with(" ") == true);
+    STATIC_REQUIRE(testString.ends_with("World ") == true);
+    STATIC_REQUIRE(testString.ends_with("World") == false);
+    STATIC_REQUIRE(testString.ends_with(' ') == true);
+    STATIC_REQUIRE(testString.ends_with('d') == false);
+  }
+
+  SECTION("Exact match ends_with") {
+    constexpr CStringView testString("Hello");
+
+    REQUIRE(testString.ends_with("Hello") == true);
+    REQUIRE(testString.ends_with("llo") == true);
+    REQUIRE(testString.ends_with("o") == true);
+    REQUIRE(testString.ends_with("") == true);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.ends_with("Hello") == true);
+    STATIC_REQUIRE(testString.ends_with("llo") == true);
+    STATIC_REQUIRE(testString.ends_with("o") == true);
+    STATIC_REQUIRE(testString.ends_with("") == true);
+  }
+
+  SECTION("Overlapping patterns ends_with") {
+    constexpr CStringView testString("ababab");
+
+    REQUIRE(testString.ends_with("ab") == true);
+    REQUIRE(testString.ends_with("bab") == true);
+    REQUIRE(testString.ends_with("abab") == true);
+    REQUIRE(testString.ends_with("babab") == true);
+    REQUIRE(testString.ends_with("ababab") == true);
+    REQUIRE(testString.ends_with("bababab") == false);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.ends_with("ab") == true);
+    STATIC_REQUIRE(testString.ends_with("bab") == true);
+    STATIC_REQUIRE(testString.ends_with("abab") == true);
+    STATIC_REQUIRE(testString.ends_with("babab") == true);
+    STATIC_REQUIRE(testString.ends_with("ababab") == true);
+    STATIC_REQUIRE(testString.ends_with("bababab") == false);
+  }
+
+  SECTION("Multiple occurrences ends_with") {
+    constexpr CStringView testString("abababab");
+
+    REQUIRE(testString.ends_with("ab") == true);
+    REQUIRE(testString.ends_with("bab") == true);
+    REQUIRE(testString.ends_with("abab") == true);
+    REQUIRE(testString.ends_with("ababab") == true);
+    REQUIRE(testString.ends_with("abababab") == true);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.ends_with("ab") == true);
+    STATIC_REQUIRE(testString.ends_with("bab") == true);
+    STATIC_REQUIRE(testString.ends_with("abab") == true);
+    STATIC_REQUIRE(testString.ends_with("ababab") == true);
+    STATIC_REQUIRE(testString.ends_with("abababab") == true);
+  }
+
+  SECTION("Unicode content ends_with") {
+    constexpr CStringView testString("Hello 世界");
+
+    REQUIRE(testString.ends_with("世界") == true);
+    REQUIRE(testString.ends_with("Hello 世界") == true);
+    REQUIRE(testString.ends_with("界") == true);
+    REQUIRE(testString.ends_with("Hello") == false);
+    REQUIRE(testString.ends_with("xyz") == false);
+    REQUIRE(testString.ends_with("") == true);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.ends_with("世界") == true);
+    STATIC_REQUIRE(testString.ends_with("Hello 世界") == true);
+    STATIC_REQUIRE(testString.ends_with("界") == true);
+    STATIC_REQUIRE(testString.ends_with("Hello") == false);
+    STATIC_REQUIRE(testString.ends_with("xyz") == false);
+    STATIC_REQUIRE(testString.ends_with("") == true);
+  }
+
+  SECTION("Long strings ends_with") {
+    constexpr CStringView testString("This is a very long string for performance testing");
+
+    REQUIRE(testString.ends_with("testing") == true);
+    REQUIRE(testString.ends_with("performance testing") == true);
+    REQUIRE(testString.ends_with("This is a very long string for performance testing") == true);
+    REQUIRE(testString.ends_with("g") == true);
+    REQUIRE(testString.ends_with("T") == false);
+    REQUIRE(testString.ends_with("") == true);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.ends_with("testing") == true);
+    STATIC_REQUIRE(testString.ends_with("performance testing") == true);
+    STATIC_REQUIRE(testString.ends_with("This is a very long string for performance testing") == true);
+    STATIC_REQUIRE(testString.ends_with("g") == true);
+    STATIC_REQUIRE(testString.ends_with("T") == false);
+    STATIC_REQUIRE(testString.ends_with("") == true);
+  }
+
+  SECTION("Constexpr operations ends_with") {
+    constexpr CStringView str1("Hello");
+    constexpr CStringView str2("World");
+    constexpr CStringView str3("Test");
+
+    // Compile-time ends_with operations
+    constexpr bool ends1 = str1.ends_with("llo");
+    constexpr bool ends2 = str2.ends_with("rld");
+    constexpr bool ends3 = str3.ends_with("est");
+
+    STATIC_REQUIRE(ends1 == true);
+    STATIC_REQUIRE(ends2 == true);
+    STATIC_REQUIRE(ends3 == true);
+
+    // Compile-time character ends_with operations
+    constexpr bool charEnds1 = str1.ends_with('o');
+    constexpr bool charEnds2 = str2.ends_with('d');
+    constexpr bool charEnds3 = str3.ends_with('t');
+
+    STATIC_REQUIRE(charEnds1 == true);
+    STATIC_REQUIRE(charEnds2 == true);
+    STATIC_REQUIRE(charEnds3 == true);
+  }
+}
+
+TEST_CASE("CStringView contains", "[core][c_string_view]") {
+  SECTION("C string contains") {
+    constexpr CStringView str("Hello World");
+
+    // Basic contains
+    REQUIRE(str.contains("World") == true);
+    REQUIRE(str.contains("Hello") == true);
+    REQUIRE(str.contains("lo Wo") == true);
+    REQUIRE(str.contains("Hello World") == true);
+    REQUIRE(str.contains("xyz") == false);
+    REQUIRE(str.contains("") == true);
+
+    // Compile-time checks
+    STATIC_REQUIRE(str.contains("World") == true);
+    STATIC_REQUIRE(str.contains("Hello") == true);
+    STATIC_REQUIRE(str.contains("lo Wo") == true);
+    STATIC_REQUIRE(str.contains("Hello World") == true);
+    STATIC_REQUIRE(str.contains("xyz") == false);
+    STATIC_REQUIRE(str.contains("") == true);
+  }
+
+  SECTION("CStringView contains") {
+    constexpr CStringView str("Hello World");
+
+    // Basic contains with CStringView
+    REQUIRE(str.contains(CStringView("World")) == true);
+    REQUIRE(str.contains(CStringView("Hello")) == true);
+    REQUIRE(str.contains(CStringView("lo Wo")) == true);
+    REQUIRE(str.contains(CStringView("Hello World")) == true);
+    REQUIRE(str.contains(CStringView("xyz")) == false);
+    REQUIRE(str.contains(CStringView("")) == true);
+
+    // Compile-time checks
+    STATIC_REQUIRE(str.contains(CStringView("World")) == true);
+    STATIC_REQUIRE(str.contains(CStringView("Hello")) == true);
+    STATIC_REQUIRE(str.contains(CStringView("lo Wo")) == true);
+    STATIC_REQUIRE(str.contains(CStringView("Hello World")) == true);
+    STATIC_REQUIRE(str.contains(CStringView("xyz")) == false);
+    STATIC_REQUIRE(str.contains(CStringView("")) == true);
+  }
+
+  SECTION("StringLike contains") {
+    constexpr CStringView str("Hello World");
+
+    REQUIRE(str.contains(std::string("World")) == true);
+    REQUIRE(str.contains(std::string("Hello")) == true);
+    REQUIRE(str.contains(std::string("lo Wo")) == true);
+    REQUIRE(str.contains(std::string("Hello World")) == true);
+    REQUIRE(str.contains(std::string("xyz")) == false);
+    REQUIRE(str.contains(std::string("")) == true);
+
+    // Compile-time checks
+    STATIC_REQUIRE(str.contains(FixedString<16>("World")) == true);
+    STATIC_REQUIRE(str.contains(FixedString<16>("Hello")) == true);
+    STATIC_REQUIRE(str.contains(FixedString<16>("lo Wo")) == true);
+    STATIC_REQUIRE(str.contains(FixedString<16>("Hello World")) == true);
+    STATIC_REQUIRE(str.contains(FixedString<16>("xyz")) == false);
+    STATIC_REQUIRE(str.contains(FixedString<16>("")) == true);
+  }
+
+  SECTION("Character contains") {
+    constexpr CStringView str("Hello World");
+
+    // Character contains
+    REQUIRE(str.contains('H') == true);
+    REQUIRE(str.contains('o') == true);
+    REQUIRE(str.contains('l') == true);
+    REQUIRE(str.contains(' ') == true);
+    REQUIRE(str.contains('x') == false);
+    REQUIRE(str.contains('Z') == false);
+
+    // Compile-time checks
+    STATIC_REQUIRE(str.contains('H') == true);
+    STATIC_REQUIRE(str.contains('o') == true);
+    STATIC_REQUIRE(str.contains('l') == true);
+    STATIC_REQUIRE(str.contains(' ') == true);
+    STATIC_REQUIRE(str.contains('x') == false);
+    STATIC_REQUIRE(str.contains('Z') == false);
+  }
+
+  SECTION("Empty string contains") {
+    constexpr CStringView str("");
+
+    // Empty string contains
+    REQUIRE(str.contains(CStringView("Hello")) == false);
+    REQUIRE(str.contains(std::string("Hello")) == false);
+    REQUIRE(str.contains("Hello") == false);
+    REQUIRE(str.contains('H') == false);
+    REQUIRE(str.contains("") == true);
+
+    // Compile-time checks
+    STATIC_REQUIRE(str.contains(CStringView("Hello")) == false);
+    STATIC_REQUIRE(str.contains(FixedString<8>("Hello")) == false);
+    STATIC_REQUIRE(str.contains("Hello") == false);
+    STATIC_REQUIRE(str.contains('H') == false);
+    STATIC_REQUIRE(str.contains("") == true);
+  }
+
+  SECTION("Single character string contains") {
+    constexpr CStringView str("A");
+
+    // Single character contains
+    REQUIRE(str.contains("A") == true);
+    REQUIRE(str.contains('A') == true);
+    REQUIRE(str.contains("B") == false);
+    REQUIRE(str.contains('B') == false);
+    REQUIRE(str.contains("") == true);
+
+    // Compile-time checks
+    STATIC_REQUIRE(str.contains("A") == true);
+    STATIC_REQUIRE(str.contains('A') == true);
+    STATIC_REQUIRE(str.contains("B") == false);
+    STATIC_REQUIRE(str.contains('B') == false);
+    STATIC_REQUIRE(str.contains("") == true);
+  }
+
+  SECTION("Case sensitivity") {
+    constexpr CStringView str("Hello World");
+
+    // Case sensitive contains
+    REQUIRE(str.contains("world") == false);
+    REQUIRE(str.contains("WORLD") == false);
+    REQUIRE(str.contains("World") == true);
+    REQUIRE(str.contains('h') == false);
+    REQUIRE(str.contains('H') == true);
+
+    // Compile-time checks
+    STATIC_REQUIRE(str.contains("world") == false);
+    STATIC_REQUIRE(str.contains("WORLD") == false);
+    STATIC_REQUIRE(str.contains("World") == true);
+    STATIC_REQUIRE(str.contains('h') == false);
+    STATIC_REQUIRE(str.contains('H') == true);
+  }
+
+  SECTION("Edge cases") {
+    constexpr CStringView str("Hello");
+
+    // Longer substring than string
+    REQUIRE(str.contains("Hello World") == false);
+    REQUIRE(str.contains("Hello Universe") == false);
+
+    // Exact match
+    REQUIRE(str.contains("Hello") == true);
+
+    // Substrings
+    REQUIRE(str.contains("llo") == true);
+    REQUIRE(str.contains("ell") == true);
+
+    // Compile-time checks
+    STATIC_REQUIRE(str.contains("Hello World") == false);
+    STATIC_REQUIRE(str.contains("Hello Universe") == false);
+    STATIC_REQUIRE(str.contains("Hello") == true);
+    STATIC_REQUIRE(str.contains("llo") == true);
+    STATIC_REQUIRE(str.contains("ell") == true);
+  }
+
+  SECTION("Special characters") {
+    constexpr CStringView str("Hello\n\tWorld!");
+
+    // Special characters
+    REQUIRE(str.contains("\n") == true);
+    REQUIRE(str.contains("\t") == true);
+    REQUIRE(str.contains("!") == true);
+    REQUIRE(str.contains("Hello\n") == true);
+    REQUIRE(str.contains("\tWorld") == true);
+    REQUIRE(str.contains("World!") == true);
+
+    // Compile-time checks
+    STATIC_REQUIRE(str.contains("\n") == true);
+    STATIC_REQUIRE(str.contains("\t") == true);
+    STATIC_REQUIRE(str.contains("!") == true);
+    STATIC_REQUIRE(str.contains("Hello\n") == true);
+    STATIC_REQUIRE(str.contains("\tWorld") == true);
+    STATIC_REQUIRE(str.contains("World!") == true);
+  }
+
+  SECTION("Unicode content") {
+    constexpr CStringView str("Hello 世界");
+
+    // Unicode contains
+    REQUIRE(str.contains("世界") == true);
+    REQUIRE(str.contains("Hello 世") == true);
+    REQUIRE(str.contains("界") == true);
+    REQUIRE(str.contains("世") == true);
+    REQUIRE(str.contains("宇宙") == false);
+
+    // Compile-time checks
+    STATIC_REQUIRE(str.contains("世界") == true);
+    STATIC_REQUIRE(str.contains("Hello 世") == true);
+    STATIC_REQUIRE(str.contains("界") == true);
+    STATIC_REQUIRE(str.contains("世") == true);
+    STATIC_REQUIRE(str.contains("宇宙") == false);
+  }
+
+  SECTION("Repeated patterns") {
+    constexpr CStringView str("ababab");
+
+    // Overlapping patterns
+    REQUIRE(str.contains("ab") == true);
+    REQUIRE(str.contains("bab") == true);
+    REQUIRE(str.contains("abab") == true);
+    REQUIRE(str.contains("ababab") == true);
+    REQUIRE(str.contains("babab") == true);
+    REQUIRE(str.contains("abababa") == false);
+
+    // Compile-time checks
+    STATIC_REQUIRE(str.contains("ab") == true);
+    STATIC_REQUIRE(str.contains("bab") == true);
+    STATIC_REQUIRE(str.contains("abab") == true);
+    STATIC_REQUIRE(str.contains("ababab") == true);
+    STATIC_REQUIRE(str.contains("babab") == true);
+    STATIC_REQUIRE(str.contains("abababa") == false);
+  }
+
+  SECTION("Numeric content") {
+    constexpr CStringView str("12345");
+
+    // Numeric contains
+    REQUIRE(str.contains("123") == true);
+    REQUIRE(str.contains("345") == true);
+    REQUIRE(str.contains("234") == true);
+    REQUIRE(str.contains("12345") == true);
+    REQUIRE(str.contains("678") == false);
+    REQUIRE(str.contains('1') == true);
+    REQUIRE(str.contains('5') == true);
+    REQUIRE(str.contains('9') == false);
+
+    // Compile-time checks
+    STATIC_REQUIRE(str.contains("123") == true);
+    STATIC_REQUIRE(str.contains("345") == true);
+    STATIC_REQUIRE(str.contains("234") == true);
+    STATIC_REQUIRE(str.contains("12345") == true);
+    STATIC_REQUIRE(str.contains("678") == false);
+    STATIC_REQUIRE(str.contains('1') == true);
+    STATIC_REQUIRE(str.contains('5') == true);
+    STATIC_REQUIRE(str.contains('9') == false);
+  }
+
+  SECTION("Mixed content") {
+    constexpr CStringView str("123Hello456");
+
+    // Mixed alphanumeric contains
+    REQUIRE(str.contains("123") == true);
+    REQUIRE(str.contains("Hello") == true);
+    REQUIRE(str.contains("456") == true);
+    REQUIRE(str.contains("3Hello4") == true);
+    REQUIRE(str.contains("123Hello456") == true);
+    REQUIRE(str.contains("789") == false);
+
+    // Compile-time checks
+    STATIC_REQUIRE(str.contains("123") == true);
+    STATIC_REQUIRE(str.contains("Hello") == true);
+    STATIC_REQUIRE(str.contains("456") == true);
+    STATIC_REQUIRE(str.contains("3Hello4") == true);
+    STATIC_REQUIRE(str.contains("123Hello456") == true);
+    STATIC_REQUIRE(str.contains("789") == false);
+  }
+
+  SECTION("Position-specific contains") {
+    constexpr CStringView str("Hello World");
+
+    // Beginning
+    REQUIRE(str.contains("H") == true);
+    REQUIRE(str.contains("He") == true);
+    REQUIRE(str.contains("Hello") == true);
+
+    // Middle
+    REQUIRE(str.contains("l") == true);
+    REQUIRE(str.contains("ll") == true);
+    REQUIRE(str.contains("lo W") == true);
+
+    // End
+    REQUIRE(str.contains("d") == true);
+    REQUIRE(str.contains("ld") == true);
+    REQUIRE(str.contains("World") == true);
+
+    // Compile-time checks
+    STATIC_REQUIRE(str.contains("H") == true);
+    STATIC_REQUIRE(str.contains("He") == true);
+    STATIC_REQUIRE(str.contains("Hello") == true);
+    STATIC_REQUIRE(str.contains("l") == true);
+    STATIC_REQUIRE(str.contains("ll") == true);
+    STATIC_REQUIRE(str.contains("lo W") == true);
+    STATIC_REQUIRE(str.contains("d") == true);
+    STATIC_REQUIRE(str.contains("ld") == true);
+    STATIC_REQUIRE(str.contains("World") == true);
+  }
+}
