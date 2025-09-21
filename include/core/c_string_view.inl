@@ -191,6 +191,19 @@ constexpr std::size_t CStringView::find_last_of(char character, std::size_t posi
   return _find_last_of_raw(position, &character, 1);
 }
 
+template <StringLike stringType>
+constexpr std::size_t CStringView::find_last_not_of(const stringType & string, std::size_t position) const noexcept {
+  return _find_last_not_of_raw(position, string.c_str(), string.size());
+}
+
+constexpr std::size_t CStringView::find_last_not_of(const char * string, std::size_t position) const noexcept {
+  return find_last_not_of(CStringView(string), position);
+}
+
+constexpr std::size_t CStringView::find_last_not_of(char character, std::size_t position) const noexcept {
+  return _find_last_not_of_raw(position, &character, 1);
+}
+
 constexpr std::size_t CStringView::_find_raw(std::size_t position, const char * data,
                                              std::size_t dataSize) const noexcept {
   const auto stringViewSize = size();
@@ -326,6 +339,45 @@ constexpr std::size_t CStringView::_find_last_of_raw(std::size_t position, const
     for (std::size_t i = 0; i <= position; ++i) {
       const auto scanIndex = position - i;
       if (targetChars[static_cast<unsigned char>(_data[scanIndex])])
+        return scanIndex;
+    }
+  }
+
+  return npos;
+}
+
+constexpr std::size_t CStringView::_find_last_not_of_raw(std::size_t position, const char * data,
+                                                         std::size_t dataSize) const noexcept {
+  if (empty())
+    return npos;
+
+  const auto stringViewSize = size();
+
+  if (position == npos)
+    position = stringViewSize - 1;
+  else if (position >= stringViewSize)
+    return npos;
+
+  if (dataSize == 0)
+    return position;
+
+  if (dataSize == 1) {
+    const auto exclude = data[0];
+    for (std::size_t i = 0; i <= position; ++i) {
+      const auto scanIndex = position - i;
+      if (_data[scanIndex] != exclude)
+        return scanIndex;
+    }
+  } else {
+    std::array<bool, 256> excludedChars{};
+
+    for (std::size_t i = 0; i < dataSize; ++i) {
+      excludedChars[static_cast<unsigned char>(data[i])] = true;
+    }
+
+    for (std::size_t i = 0; i <= position; ++i) {
+      const auto scanIndex = position - i;
+      if (!excludedChars[static_cast<unsigned char>(_data[scanIndex])])
         return scanIndex;
     }
   }

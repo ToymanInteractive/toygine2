@@ -2988,10 +2988,10 @@ TEST_CASE("CStringView find_last_of", "[core][c_string_view]") {
     REQUIRE(testString.find_last_of(std::string("d")) == 10); // 'd' at position 10
 
     // Compile-time checks
-    STATIC_REQUIRE(testString.find_last_of(FixedString<16>("aeiou")) == 7);
-    STATIC_REQUIRE(testString.find_last_of(FixedString<16>("l")) == 9);
-    STATIC_REQUIRE(testString.find_last_of(FixedString<16>("H")) == 0);
-    STATIC_REQUIRE(testString.find_last_of(FixedString<16>("d")) == 10);
+    STATIC_REQUIRE(testString.find_last_of(CStringView("aeiou")) == 7);
+    STATIC_REQUIRE(testString.find_last_of(CStringView("l")) == 9);
+    STATIC_REQUIRE(testString.find_last_of(CStringView("H")) == 0);
+    STATIC_REQUIRE(testString.find_last_of(CStringView("d")) == 10);
   }
 
   SECTION("Find last of C string characters") {
@@ -3216,5 +3216,263 @@ TEST_CASE("CStringView find_last_of", "[core][c_string_view]") {
     STATIC_REQUIRE(testString.find_last_of("Hello") == 4);
     STATIC_REQUIRE(testString.find_last_of("Hell") == 3);
     STATIC_REQUIRE(testString.find_last_of("Hel") == 3);
+  }
+}
+
+TEST_CASE("CStringView find_last_not_of", "[core][c_string_view]") {
+  SECTION("Find last not of CStringView characters") {
+    constexpr CStringView testString("Hello World");
+
+    REQUIRE(testString.find_last_not_of(CStringView("d")) == 9); // 'l' at position 9
+    REQUIRE(testString.find_last_not_of(CStringView("ld")) == 8); // 'r' at position 8
+    REQUIRE(testString.find_last_not_of(CStringView("rld")) == 7); // 'o' at position 7
+    REQUIRE(testString.find_last_not_of(CStringView("World")) == 5); // ' ' at position 5
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_last_not_of(CStringView("d")) == 9);
+    STATIC_REQUIRE(testString.find_last_not_of(CStringView("ld")) == 8);
+    STATIC_REQUIRE(testString.find_last_not_of(CStringView("rld")) == 7);
+    STATIC_REQUIRE(testString.find_last_not_of(CStringView("World")) == 5);
+  }
+
+  SECTION("Find last not of StringLike characters") {
+    constexpr CStringView testString("Hello World");
+
+    REQUIRE(testString.find_last_not_of(std::string("d")) == 9); // 'l' at position 9
+    REQUIRE(testString.find_last_not_of(std::string("ld")) == 8); // 'r' at position 8
+    REQUIRE(testString.find_last_not_of(std::string("rld")) == 7); // 'o' at position 7
+    REQUIRE(testString.find_last_not_of(std::string("World")) == 5); // ' ' at position 5
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_last_not_of(FixedString<16>("d")) == 9);
+    STATIC_REQUIRE(testString.find_last_not_of(FixedString<16>("ld")) == 8);
+    STATIC_REQUIRE(testString.find_last_not_of(FixedString<16>("rld")) == 7);
+    STATIC_REQUIRE(testString.find_last_not_of(FixedString<16>("World")) == 5);
+  }
+
+  SECTION("Find last not of C string characters") {
+    constexpr CStringView testString("Hello World");
+
+    REQUIRE(testString.find_last_not_of("d") == 9); // 'l' at position 9
+    REQUIRE(testString.find_last_not_of("ld") == 8); // 'r' at position 8
+    REQUIRE(testString.find_last_not_of("rld") == 7); // 'o' at position 7
+    REQUIRE(testString.find_last_not_of("World") == 5); // ' ' at position 5
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_last_not_of("d") == 9);
+    STATIC_REQUIRE(testString.find_last_not_of("ld") == 8);
+    STATIC_REQUIRE(testString.find_last_not_of("rld") == 7);
+    STATIC_REQUIRE(testString.find_last_not_of("World") == 5);
+  }
+
+  SECTION("Find last not of single character") {
+    constexpr CStringView testString("Hello World");
+
+    REQUIRE(testString.find_last_not_of('d') == 9); // 'l' at position 9
+    REQUIRE(testString.find_last_not_of('l') == 10); // 'd' at position 10
+    REQUIRE(testString.find_last_not_of('o') == 10); // 'd' at position 10
+    REQUIRE(testString.find_last_not_of('H') == 10); // 'd' at position 10
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_last_not_of('d') == 9);
+    STATIC_REQUIRE(testString.find_last_not_of('l') == 10);
+    STATIC_REQUIRE(testString.find_last_not_of('o') == 10);
+    STATIC_REQUIRE(testString.find_last_not_of('H') == 10);
+  }
+
+  SECTION("Find last not of with position parameter") {
+    constexpr CStringView testString("Hello World Hello");
+
+    REQUIRE(testString.find_last_not_of("Hel", 8) == 8); // 'r' at position 8
+    REQUIRE(testString.find_last_not_of("Hel", 4) == 4); // 'o' at position 4
+    REQUIRE(testString.find_last_not_of("Hel", 2) == CStringView::npos);
+    REQUIRE(testString.find_last_not_of("Hel", 1) == CStringView::npos);
+    REQUIRE(testString.find_last_not_of("Hel", 0) == CStringView::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_last_not_of("Hel", 8) == 8);
+    STATIC_REQUIRE(testString.find_last_not_of("Hel", 4) == 4);
+    STATIC_REQUIRE(testString.find_last_not_of("Hel", 2) == CStringView::npos);
+    STATIC_REQUIRE(testString.find_last_not_of("Hel", 1) == CStringView::npos);
+    STATIC_REQUIRE(testString.find_last_not_of("Hel", 0) == CStringView::npos);
+  }
+
+  SECTION("Find last not of empty character set") {
+    constexpr CStringView testString("Hello World");
+
+    REQUIRE(testString.find_last_not_of(CStringView("")) == 10); // 'd' at position 10
+    REQUIRE(testString.find_last_not_of(std::string("")) == 10); // 'd' at position 10
+    REQUIRE(testString.find_last_not_of("") == 10); // 'd' at position 10
+    REQUIRE(testString.find_last_not_of("", 5) == 5); // ' ' at position 5
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_last_not_of(CStringView("")) == 10);
+    STATIC_REQUIRE(testString.find_last_not_of(FixedString<16>("")) == 10);
+    STATIC_REQUIRE(testString.find_last_not_of("") == 10);
+    STATIC_REQUIRE(testString.find_last_not_of("", 5) == 5);
+  }
+
+  SECTION("Find last not of with all characters excluded") {
+    constexpr CStringView testString("Hello World");
+
+    REQUIRE(testString.find_last_not_of("Helo Wrd") == CStringView::npos);
+    REQUIRE(testString.find_last_not_of("Helo Wr") == 10); // 'd' at position 10
+    REQUIRE(testString.find_last_not_of("Helo W") == 10); // 'd' at position 10
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_last_not_of("Helo Wrd") == CStringView::npos);
+    STATIC_REQUIRE(testString.find_last_not_of("Helo Wr") == 10);
+    STATIC_REQUIRE(testString.find_last_not_of("Helo W") == 10);
+  }
+
+  SECTION("Find last not of with multiple character sets") {
+    constexpr CStringView testString("Hello World");
+
+    REQUIRE(testString.find_last_not_of("Hl") == 10); // 'd' at position 10
+    REQUIRE(testString.find_last_not_of("Hel") == 10); // 'd' at position 10
+    REQUIRE(testString.find_last_not_of("Helo") == 10); // 'd' at position 10
+    REQUIRE(testString.find_last_not_of("Helo ") == 10); // 'd' at position 10
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_last_not_of("Hl") == 10);
+    STATIC_REQUIRE(testString.find_last_not_of("Hel") == 10);
+    STATIC_REQUIRE(testString.find_last_not_of("Helo") == 10);
+    STATIC_REQUIRE(testString.find_last_not_of("Helo ") == 10);
+  }
+
+  SECTION("Find last not of case sensitivity") {
+    constexpr CStringView testString("Hello World");
+
+    REQUIRE(testString.find_last_not_of("h") == 10); // 'd' at position 10
+    REQUIRE(testString.find_last_not_of("H") == 10); // 'd' at position 10
+    REQUIRE(testString.find_last_not_of("w") == 10); // 'd' at position 10
+    REQUIRE(testString.find_last_not_of("W") == 10); // 'd' at position 10
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_last_not_of("h") == 10);
+    STATIC_REQUIRE(testString.find_last_not_of("H") == 10);
+    STATIC_REQUIRE(testString.find_last_not_of("w") == 10);
+    STATIC_REQUIRE(testString.find_last_not_of("W") == 10);
+  }
+
+  SECTION("Find last not of with special characters") {
+    constexpr CStringView testString("Hello, World!");
+
+    REQUIRE(testString.find_last_not_of("Helo, Wrd!") == CStringView::npos);
+    REQUIRE(testString.find_last_not_of("Helo, Wrd") == 12); // '!' at position 12
+    REQUIRE(testString.find_last_not_of("Helo, Wr") == 12); // '!' at position 12
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_last_not_of("Helo, Wrd!") == CStringView::npos);
+    STATIC_REQUIRE(testString.find_last_not_of("Helo, Wrd") == 12);
+    STATIC_REQUIRE(testString.find_last_not_of("Helo, Wr") == 12);
+  }
+
+  SECTION("Find last not of with numbers") {
+    constexpr CStringView testString("Hello123World");
+
+    REQUIRE(testString.find_last_not_of("0123456789") == 12); // 'd' at position 12
+    REQUIRE(testString.find_last_not_of("Helo123Wrd") == CStringView::npos);
+    REQUIRE(testString.find_last_not_of("Helo123Wr") == 12); // 'd' at position 12
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_last_not_of("0123456789") == 12);
+    STATIC_REQUIRE(testString.find_last_not_of("Helo123Wrd") == CStringView::npos);
+    STATIC_REQUIRE(testString.find_last_not_of("Helo123Wr") == 12);
+  }
+
+  SECTION("Find last not of with whitespace") {
+    constexpr CStringView testString("Hello World\t\n");
+
+    REQUIRE(testString.find_last_not_of(" \t\n") == 10); // 'd' at position 10
+    REQUIRE(testString.find_last_not_of("Helo Wrd\t\n") == CStringView::npos);
+    REQUIRE(testString.find_last_not_of("Helo Wrd") == 12); // '\n' at position 12
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_last_not_of(" \t\n") == 10);
+    STATIC_REQUIRE(testString.find_last_not_of("Helo Wrd\t\n") == CStringView::npos);
+    STATIC_REQUIRE(testString.find_last_not_of("Helo Wrd") == 12);
+  }
+
+  SECTION("Find last not of with repeated characters") {
+    constexpr CStringView testString("aaaaab");
+
+    REQUIRE(testString.find_last_not_of('a') == 5); // 'b' at position 5
+    REQUIRE(testString.find_last_not_of('b') == 4); // 'a' at position 4
+    REQUIRE(testString.find_last_not_of('x') == 5); // 'b' at position 5
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_last_not_of('a') == 5);
+    STATIC_REQUIRE(testString.find_last_not_of('b') == 4);
+    STATIC_REQUIRE(testString.find_last_not_of('x') == 5);
+  }
+
+  SECTION("Find last not of with single character string") {
+    constexpr CStringView testString("AAAAA");
+
+    REQUIRE(testString.find_last_not_of("A") == CStringView::npos);
+    REQUIRE(testString.find_last_not_of('A') == CStringView::npos);
+    REQUIRE(testString.find_last_not_of("B") == 4); // 'A' at position 4
+    REQUIRE(testString.find_last_not_of('B') == 4); // 'A' at position 4
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_last_not_of("A") == CStringView::npos);
+    STATIC_REQUIRE(testString.find_last_not_of('A') == CStringView::npos);
+    STATIC_REQUIRE(testString.find_last_not_of("B") == 4);
+    STATIC_REQUIRE(testString.find_last_not_of('B') == 4);
+  }
+
+  SECTION("Find last not of with alphabet") {
+    constexpr CStringView testString("abcdefghijklmnopqrstuvwxyz");
+
+    REQUIRE(testString.find_last_not_of("abcdefghijklmnopqrstuvwxyz") == CStringView::npos);
+    REQUIRE(testString.find_last_not_of("abcdefghijklmnopqrstuvwxy") == 25); // 'z' at position 25
+    REQUIRE(testString.find_last_not_of("abcdefghijklmnopqrstuvwx") == 25); // 'z' at position 25
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_last_not_of("abcdefghijklmnopqrstuvwxyz") == CStringView::npos);
+    STATIC_REQUIRE(testString.find_last_not_of("abcdefghijklmnopqrstuvwxy") == 25);
+    STATIC_REQUIRE(testString.find_last_not_of("abcdefghijklmnopqrstuvwx") == 25);
+  }
+
+  SECTION("Find last not of with no characters excluded") {
+    constexpr CStringView testString("Hello World");
+
+    REQUIRE(testString.find_last_not_of("xyz") == 10); // 'd' at position 10
+    REQUIRE(testString.find_last_not_of("0123456789") == 10); // 'd' at position 10
+    REQUIRE(testString.find_last_not_of("!@#$%^&*()") == 10); // 'd' at position 10
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_last_not_of("xyz") == 10);
+    STATIC_REQUIRE(testString.find_last_not_of("0123456789") == 10);
+    STATIC_REQUIRE(testString.find_last_not_of("!@#$%^&*()") == 10);
+  }
+
+  SECTION("Find last not of with position in middle") {
+    constexpr CStringView testString("Hello World Hello");
+
+    REQUIRE(testString.find_last_not_of("Hel", 8) == 8); // 'r' at position 8
+    REQUIRE(testString.find_last_not_of("Hel", 4) == 4); // 'o' at position 4
+    REQUIRE(testString.find_last_not_of("Hel", 2) == CStringView::npos);
+    REQUIRE(testString.find_last_not_of("Hel", 1) == CStringView::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_last_not_of("Hel", 8) == 8);
+    STATIC_REQUIRE(testString.find_last_not_of("Hel", 4) == 4);
+    STATIC_REQUIRE(testString.find_last_not_of("Hel", 2) == CStringView::npos);
+    STATIC_REQUIRE(testString.find_last_not_of("Hel", 1) == CStringView::npos);
+  }
+
+  SECTION("Find last not of with exact match") {
+    constexpr CStringView testString("Hello");
+
+    REQUIRE(testString.find_last_not_of("Hello") == CStringView::npos);
+    REQUIRE(testString.find_last_not_of("Hell") == 4); // 'o' at position 4
+    REQUIRE(testString.find_last_not_of("Hel") == 4); // 'o' at position 4
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_last_not_of("Hello") == CStringView::npos);
+    STATIC_REQUIRE(testString.find_last_not_of("Hell") == 4);
+    STATIC_REQUIRE(testString.find_last_not_of("Hel") == 4);
   }
 }
