@@ -217,10 +217,14 @@ constexpr int CStringView::compare(const char * string) const noexcept {
 
 template <StringLike stringType>
 constexpr bool CStringView::starts_with(const stringType & string) const noexcept {
+  const auto stringSize = string.size();
+  if (size() < stringSize)
+    return false;
+
   if consteval {
-    return size() >= string.size() && std::equal(_data, _data + string.size(), string.c_str());
+    return std::equal(_data, _data + stringSize, string.c_str());
   } else {
-    return size() >= string.size() && std::memcmp(_data, string.c_str(), string.size()) == 0;
+    return std::memcmp(_data, string.c_str(), stringSize) == 0;
   }
 }
 
@@ -229,7 +233,7 @@ constexpr bool CStringView::starts_with(const char * string) const noexcept {
 }
 
 constexpr bool CStringView::starts_with(char character) const noexcept {
-  return _data[0] == character;
+  return !empty() && _data[0] == character;
 }
 
 constexpr std::size_t CStringView::_find_raw(std::size_t position, const char * data,

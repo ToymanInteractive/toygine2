@@ -1913,7 +1913,7 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
 
     // Compile-time checks
     STATIC_REQUIRE(testString.find(CStringView("")) == 0);
-    STATIC_REQUIRE(testString.find(CStringView("")) == 0);
+    STATIC_REQUIRE(testString.find(FixedString<8>("")) == 0);
     STATIC_REQUIRE(testString.find("") == 0);
     STATIC_REQUIRE(testString.find("", 5) == 5);
     STATIC_REQUIRE(testString.find("", 11) == 11);
@@ -1931,7 +1931,7 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
 
     // Compile-time checks
     STATIC_REQUIRE(testString.find(CStringView("Hello")) == CStringView::npos);
-    STATIC_REQUIRE(testString.find(CStringView("Hello")) == CStringView::npos);
+    STATIC_REQUIRE(testString.find(FixedString<8>("Hello")) == CStringView::npos);
     STATIC_REQUIRE(testString.find("Hello") == CStringView::npos);
     STATIC_REQUIRE(testString.find('H') == CStringView::npos);
     STATIC_REQUIRE(testString.find("") == 0);
@@ -3529,7 +3529,7 @@ TEST_CASE("CStringView compare", "[core][c_string_view]") {
 
     // Compile-time checks
     STATIC_REQUIRE(testString.compare(CStringView("Hello World")) == 0);
-    STATIC_REQUIRE(testString.compare(CStringView("Hello World")) == 0);
+    STATIC_REQUIRE(testString.compare(FixedString<16>("Hello World")) == 0);
     STATIC_REQUIRE(testString.compare("Hello World") == 0);
   }
 
@@ -3726,9 +3726,9 @@ TEST_CASE("CStringView compare", "[core][c_string_view]") {
     REQUIRE(testString.compare(std::string("World")) < 0);
 
     // Compile-time checks
-    STATIC_REQUIRE(testString.compare(CStringView("Hello World")) == 0);
-    STATIC_REQUIRE(testString.compare(CStringView("Hello")) > 0);
-    STATIC_REQUIRE(testString.compare(CStringView("World")) < 0);
+    STATIC_REQUIRE(testString.compare(FixedString<16>("Hello World")) == 0);
+    STATIC_REQUIRE(testString.compare(FixedString<16>("Hello")) > 0);
+    STATIC_REQUIRE(testString.compare(FixedString<16>("World")) < 0);
   }
 
   SECTION("Compare with array") {

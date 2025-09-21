@@ -930,7 +930,7 @@ constexpr bool FixedString<allocatedSize>::starts_with(const char * string) cons
 
 template <std::size_t allocatedSize>
 constexpr bool FixedString<allocatedSize>::starts_with(char character) const noexcept {
-  return _data[0] == character;
+  return !empty() && _data[0] == character;
 }
 
 template <std::size_t allocatedSize>
