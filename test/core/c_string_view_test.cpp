@@ -2523,7 +2523,7 @@ TEST_CASE("CStringView find_first_of", "[core][c_string_view]") {
 
     // Compile-time checks
     STATIC_REQUIRE(testString.find_first_of(CStringView("aeiou")) == CStringView::npos);
-    STATIC_REQUIRE(testString.find_first_of(CStringView("aeiou")) == CStringView::npos);
+    STATIC_REQUIRE(testString.find_first_of(FixedString<8>("aeiou")) == CStringView::npos);
     STATIC_REQUIRE(testString.find_first_of("aeiou") == CStringView::npos);
     STATIC_REQUIRE(testString.find_first_of('a') == CStringView::npos);
   }
@@ -2756,7 +2756,7 @@ TEST_CASE("CStringView find_first_not_of", "[core][c_string_view]") {
 
     // Compile-time checks
     STATIC_REQUIRE(testString.find_first_not_of(CStringView("")) == 0);
-    STATIC_REQUIRE(testString.find_first_not_of(CStringView("")) == 0);
+    STATIC_REQUIRE(testString.find_first_not_of(FixedString<4>("")) == 0);
     STATIC_REQUIRE(testString.find_first_not_of("") == 0);
     STATIC_REQUIRE(testString.find_first_not_of("", 5) == 5);
   }
@@ -2771,7 +2771,7 @@ TEST_CASE("CStringView find_first_not_of", "[core][c_string_view]") {
 
     // Compile-time checks
     STATIC_REQUIRE(testString.find_first_not_of(CStringView("aeiou")) == CStringView::npos);
-    STATIC_REQUIRE(testString.find_first_not_of(CStringView("aeiou")) == CStringView::npos);
+    STATIC_REQUIRE(testString.find_first_not_of(FixedString<8>("aeiou")) == CStringView::npos);
     STATIC_REQUIRE(testString.find_first_not_of("aeiou") == CStringView::npos);
     STATIC_REQUIRE(testString.find_first_not_of('a') == CStringView::npos);
   }
