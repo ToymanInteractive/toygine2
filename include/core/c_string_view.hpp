@@ -762,6 +762,58 @@ public:
   */
   [[nodiscard]] constexpr bool starts_with(char character) const noexcept;
 
+  /*!
+    \brief Checks if the string view ends with a StringLike object.
+
+    This method checks if the current string view ends with a StringLike object. The comparison is performed character
+    by character from the end of the string view.
+
+    \tparam stringType The type of the source string. Must satisfy the StringLike concept.
+
+    \param string The StringLike object to check if this string view ends with.
+
+    \return True if this string view ends with a StringLike object, false otherwise.
+
+    \note The comparison is case-sensitive.
+    \note If a StringLike object is empty, this method returns true.
+    \note If a StringLike object is longer than this string view, this method returns false.
+  */
+  template <StringLike stringType>
+  [[nodiscard]] constexpr bool ends_with(const stringType & string) const noexcept;
+
+  /*!
+    \brief Checks if the string view ends with the C \a string.
+
+    This method checks if the current string view ends with the C \a string. The comparison is performed character by
+    character from the end of the string view.
+
+    \param string The C string to check if this string view ends with.
+
+    \return True if this string view ends with the C \a string, false otherwise.
+
+    \pre The C \a string must not be null.
+
+    \note The comparison is case-sensitive.
+    \note If the C \a string is empty, this method returns true.
+    \note If the C \a string is longer than this string view, this method returns false.
+  */
+  [[nodiscard]] constexpr bool ends_with(const char * string) const noexcept;
+
+  /*!
+    \brief Checks if the string view ends with the specified \a character.
+
+    This method checks if the current string view ends with the specified \a character. The comparison is performed on
+    the last character of the string view.
+
+    \param character The character to check if this string view ends with.
+
+    \return True if this string view ends with the specified \a character, false otherwise.
+
+    \note The comparison is case-sensitive.
+    \note If the string view is empty, this method returns false.
+  */
+  [[nodiscard]] constexpr bool ends_with(char character) const noexcept;
+
 private:
   /// Pointer to the wrapped C string
   const char * _data;

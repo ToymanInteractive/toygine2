@@ -236,6 +236,28 @@ constexpr bool CStringView::starts_with(char character) const noexcept {
   return !empty() && _data[0] == character;
 }
 
+template <StringLike stringType>
+constexpr bool CStringView::ends_with(const stringType & string) const noexcept {
+  const auto stringSize = string.size();
+  const auto thisSize = size();
+  if (thisSize < stringSize)
+    return false;
+
+  if consteval {
+    return std::equal(_data + thisSize - stringSize, _data + thisSize, string.c_str());
+  } else {
+    return std::memcmp(_data + thisSize - stringSize, string.c_str(), stringSize) == 0;
+  }
+}
+
+constexpr bool CStringView::ends_with(const char * string) const noexcept {
+  return ends_with(CStringView(string));
+}
+
+constexpr bool CStringView::ends_with(char character) const noexcept {
+  return !empty() && _data[size() - 1] == character;
+}
+
 constexpr std::size_t CStringView::_find_raw(std::size_t position, const char * data,
                                              std::size_t dataSize) const noexcept {
   const auto stringViewSize = size();
