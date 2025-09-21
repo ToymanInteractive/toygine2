@@ -1122,7 +1122,7 @@ constexpr void FixedString<allocatedSize>::_replace_raw(std::size_t position, st
 template <std::size_t allocatedSize>
 constexpr std::size_t FixedString<allocatedSize>::_find_raw(std::size_t position, const char * data,
                                                             std::size_t dataSize) const noexcept {
-  if (position >= _size)
+  if (position > _size)
     return npos;
 
   if (dataSize == 0)
@@ -1135,9 +1135,10 @@ constexpr std::size_t FixedString<allocatedSize>::_find_raw(std::size_t position
   if consteval {
     occurrence = dataSize == 1 ? cstrchr(_data + position, data[0]) : cstrstr(_data + position, data);
   } else {
-    occurrence = dataSize == 1 ? std::strchr(_data + position, data[0]) : std::strstr(_data + position, data);
+    occurrence = dataSize == 1 ? static_cast<const char *>(std::memchr(_data + position, data[0], _size - position))
+                               : std::strstr(_data + position, data);
   }
-
+ 
   return occurrence != nullptr ? occurrence - _data : npos;
 }
 

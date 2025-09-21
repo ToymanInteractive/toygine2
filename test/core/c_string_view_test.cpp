@@ -1908,14 +1908,16 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
     REQUIRE(testString.find(std::string("")) == 0);
     REQUIRE(testString.find("") == 0);
     REQUIRE(testString.find("", 5) == 5);
-    REQUIRE(testString.find("", 11) == CStringView::npos);
+    REQUIRE(testString.find("", 11) == 11);
+    REQUIRE(testString.find("", 12) == CStringView::npos);
 
     // Compile-time checks
     STATIC_REQUIRE(testString.find(CStringView("")) == 0);
-    STATIC_REQUIRE(testString.find(CStringView("")) == 0);
+    STATIC_REQUIRE(testString.find(FixedString<32>("")) == 0);
     STATIC_REQUIRE(testString.find("") == 0);
     STATIC_REQUIRE(testString.find("", 5) == 5);
-    STATIC_REQUIRE(testString.find("", 11) == CStringView::npos);
+    STATIC_REQUIRE(testString.find("", 11) == 11);
+    STATIC_REQUIRE(testString.find("", 12) == CStringView::npos);
   }
 
   SECTION("Find in empty string") {
@@ -1925,14 +1927,14 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
     REQUIRE(testString.find(std::string("Hello")) == CStringView::npos);
     REQUIRE(testString.find("Hello") == CStringView::npos);
     REQUIRE(testString.find('H') == CStringView::npos);
-    REQUIRE(testString.find("") == CStringView::npos);
+    REQUIRE(testString.find("") == 0);
 
     // Compile-time checks
     STATIC_REQUIRE(testString.find(CStringView("Hello")) == CStringView::npos);
-    STATIC_REQUIRE(testString.find(CStringView("Hello")) == CStringView::npos);
+    STATIC_REQUIRE(testString.find(FixedString<32>("Hello")) == CStringView::npos);
     STATIC_REQUIRE(testString.find("Hello") == CStringView::npos);
     STATIC_REQUIRE(testString.find('H') == CStringView::npos);
-    STATIC_REQUIRE(testString.find("") == CStringView::npos);
+    STATIC_REQUIRE(testString.find("") == 0);
   }
 
   SECTION("Find with position beyond string size") {
@@ -2124,7 +2126,8 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
     REQUIRE(testString.find("World", 6) == 6);
     REQUIRE(testString.find("World", 7) == CStringView::npos);
     REQUIRE(testString.find("", 0) == 0);
-    REQUIRE(testString.find("", 11) == CStringView::npos);
+    REQUIRE(testString.find("", 11) == 11);
+    REQUIRE(testString.find("", 12) == CStringView::npos);
 
     // Compile-time checks
     STATIC_REQUIRE(testString.find("Hello", 0) == 0);
@@ -2132,7 +2135,8 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
     STATIC_REQUIRE(testString.find("World", 6) == 6);
     STATIC_REQUIRE(testString.find("World", 7) == CStringView::npos);
     STATIC_REQUIRE(testString.find("", 0) == 0);
-    STATIC_REQUIRE(testString.find("", 11) == CStringView::npos);
+    STATIC_REQUIRE(testString.find("", 11) == 11);
+    STATIC_REQUIRE(testString.find("", 12) == CStringView::npos);
   }
 }
 

@@ -169,7 +169,7 @@ constexpr std::size_t CStringView::_find_raw(std::size_t position, const char * 
                                              std::size_t dataSize) const noexcept {
   const auto stringViewSize = size();
 
-  if (position >= stringViewSize)
+  if (position > stringViewSize)
     return npos;
 
   if (dataSize == 0)
@@ -182,7 +182,9 @@ constexpr std::size_t CStringView::_find_raw(std::size_t position, const char * 
   if consteval {
     occurrence = dataSize == 1 ? cstrchr(_data + position, data[0]) : cstrstr(_data + position, data);
   } else {
-    occurrence = dataSize == 1 ? std::strchr(_data + position, data[0]) : std::strstr(_data + position, data);
+    occurrence = dataSize == 1
+                   ? static_cast<const char *>(std::memchr(_data + position, data[0], stringViewSize - position))
+                   : std::strstr(_data + position, data);
   }
 
   return occurrence != nullptr ? static_cast<std::size_t>(occurrence - _data) : npos;

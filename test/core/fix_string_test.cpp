@@ -4786,14 +4786,16 @@ TEST_CASE("FixedString find", "[core][fixed_string]") {
     REQUIRE(testString.find(std::string("")) == 0);
     REQUIRE(testString.find("") == 0);
     REQUIRE(testString.find("", 5) == 5);
-    REQUIRE(testString.find("", 11) == FixedString<32>::npos);
+    REQUIRE(testString.find("", 11) == 11);
+    REQUIRE(testString.find("", 12) == FixedString<32>::npos);
 
     // Compile-time checks
     STATIC_REQUIRE(testString.find(FixedString<16>("")) == 0);
     STATIC_REQUIRE(testString.find(CStringView("")) == 0);
     STATIC_REQUIRE(testString.find("") == 0);
     STATIC_REQUIRE(testString.find("", 5) == 5);
-    STATIC_REQUIRE(testString.find("", 11) == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find("", 11) == 11);
+    STATIC_REQUIRE(testString.find("", 12) == FixedString<32>::npos);
   }
 
   SECTION("Find in empty string") {
@@ -4803,14 +4805,14 @@ TEST_CASE("FixedString find", "[core][fixed_string]") {
     REQUIRE(testString.find(std::string("Hello")) == FixedString<32>::npos);
     REQUIRE(testString.find("Hello") == FixedString<32>::npos);
     REQUIRE(testString.find('H') == FixedString<32>::npos);
-    REQUIRE(testString.find("") == FixedString<32>::npos);
+    REQUIRE(testString.find("") == 0);
 
     // Compile-time checks
     STATIC_REQUIRE(testString.find(FixedString<16>("Hello")) == FixedString<32>::npos);
     STATIC_REQUIRE(testString.find(CStringView("Hello")) == FixedString<32>::npos);
     STATIC_REQUIRE(testString.find("Hello") == FixedString<32>::npos);
     STATIC_REQUIRE(testString.find('H') == FixedString<32>::npos);
-    STATIC_REQUIRE(testString.find("") == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find("") == 0);
   }
 
   SECTION("Find with position beyond string size") {
@@ -5006,7 +5008,8 @@ TEST_CASE("FixedString find", "[core][fixed_string]") {
     REQUIRE(testString.find("World", 6) == 6);
     REQUIRE(testString.find("World", 7) == FixedString<32>::npos);
     REQUIRE(testString.find("", 0) == 0);
-    REQUIRE(testString.find("", 11) == FixedString<32>::npos);
+    REQUIRE(testString.find("", 11) == 11);
+    REQUIRE(testString.find("", 12) == FixedString<32>::npos);
 
     // Compile-time checks
     STATIC_REQUIRE(testString.find("Hello", 0) == 0);
@@ -5014,7 +5017,8 @@ TEST_CASE("FixedString find", "[core][fixed_string]") {
     STATIC_REQUIRE(testString.find("World", 6) == 6);
     STATIC_REQUIRE(testString.find("World", 7) == FixedString<32>::npos);
     STATIC_REQUIRE(testString.find("", 0) == 0);
-    STATIC_REQUIRE(testString.find("", 11) == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find("", 11) == 11);
+    STATIC_REQUIRE(testString.find("", 12) == FixedString<32>::npos);
   }
 }
 
