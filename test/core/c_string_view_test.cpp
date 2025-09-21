@@ -1840,10 +1840,10 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
     REQUIRE(testString.find(std::string("xyz")) == CStringView::npos);
 
     // Compile-time checks
-    STATIC_REQUIRE(testString.find(CStringView("World")) == 6);
-    STATIC_REQUIRE(testString.find(CStringView("Hello")) == 0);
-    STATIC_REQUIRE(testString.find(CStringView("lo Wo")) == 3);
-    STATIC_REQUIRE(testString.find(CStringView("xyz")) == CStringView::npos);
+    STATIC_REQUIRE(testString.find(FixedString<16>("World")) == 6);
+    STATIC_REQUIRE(testString.find(FixedString<16>("Hello")) == 0);
+    STATIC_REQUIRE(testString.find(FixedString<16>("lo Wo")) == 3);
+    STATIC_REQUIRE(testString.find(FixedString<16>("xyz")) == CStringView::npos);
   }
 
   SECTION("Find C string substring") {
@@ -1913,7 +1913,7 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
 
     // Compile-time checks
     STATIC_REQUIRE(testString.find(CStringView("")) == 0);
-    STATIC_REQUIRE(testString.find(CStringView("")) == 0);
+    STATIC_REQUIRE(testString.find(FixedString<16>("")) == 0);
     STATIC_REQUIRE(testString.find("") == 0);
     STATIC_REQUIRE(testString.find("", 5) == 5);
     STATIC_REQUIRE(testString.find("", 11) == 11);
@@ -1931,7 +1931,7 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
 
     // Compile-time checks
     STATIC_REQUIRE(testString.find(CStringView("Hello")) == CStringView::npos);
-    STATIC_REQUIRE(testString.find(CStringView("Hello")) == CStringView::npos);
+    STATIC_REQUIRE(testString.find(FixedString<16>("Hello")) == CStringView::npos);
     STATIC_REQUIRE(testString.find("Hello") == CStringView::npos);
     STATIC_REQUIRE(testString.find('H') == CStringView::npos);
     STATIC_REQUIRE(testString.find("") == 0);
@@ -2165,10 +2165,10 @@ TEST_CASE("CStringView rfind", "[core][c_string_view]") {
     REQUIRE(testString.rfind(std::string("xyz")) == CStringView::npos);
 
     // Compile-time checks
-    STATIC_REQUIRE(testString.rfind(CStringView("Hello")) == 12);
-    STATIC_REQUIRE(testString.rfind(CStringView("World")) == 6);
-    STATIC_REQUIRE(testString.rfind(CStringView("lo")) == 15);
-    STATIC_REQUIRE(testString.rfind(CStringView("xyz")) == CStringView::npos);
+    STATIC_REQUIRE(testString.rfind(FixedString<16>("Hello")) == 12);
+    STATIC_REQUIRE(testString.rfind(FixedString<16>("World")) == 6);
+    STATIC_REQUIRE(testString.rfind(FixedString<16>("lo")) == 15);
+    STATIC_REQUIRE(testString.rfind(FixedString<16>("xyz")) == CStringView::npos);
   }
 
   SECTION("Rfind C string substring") {
@@ -2237,7 +2237,7 @@ TEST_CASE("CStringView rfind", "[core][c_string_view]") {
 
     // Compile-time checks
     STATIC_REQUIRE(testString.rfind(CStringView("")) == 11);
-    STATIC_REQUIRE(testString.rfind(CStringView("")) == 11);
+    STATIC_REQUIRE(testString.rfind(FixedString<16>("")) == 11);
     STATIC_REQUIRE(testString.rfind("") == 11);
     STATIC_REQUIRE(testString.rfind("", 5) == 5);
     STATIC_REQUIRE(testString.rfind("", 0) == 0);
@@ -2254,7 +2254,7 @@ TEST_CASE("CStringView rfind", "[core][c_string_view]") {
 
     // Compile-time checks
     STATIC_REQUIRE(testString.rfind(CStringView("Hello")) == CStringView::npos);
-    STATIC_REQUIRE(testString.rfind(CStringView("Hello")) == CStringView::npos);
+    STATIC_REQUIRE(testString.rfind(FixedString<16>("Hello")) == CStringView::npos);
     STATIC_REQUIRE(testString.rfind("Hello") == CStringView::npos);
     STATIC_REQUIRE(testString.rfind('H') == CStringView::npos);
     STATIC_REQUIRE(testString.rfind("") == 0);
@@ -2439,10 +2439,10 @@ TEST_CASE("CStringView find_first_of", "[core][c_string_view]") {
     REQUIRE(testString.find_first_of(std::string("xyz")) == CStringView::npos);
 
     // Compile-time checks
-    STATIC_REQUIRE(testString.find_first_of(CStringView("aeiou")) == 1);
-    STATIC_REQUIRE(testString.find_first_of(CStringView("H")) == 0);
-    STATIC_REQUIRE(testString.find_first_of(CStringView("d")) == 10);
-    STATIC_REQUIRE(testString.find_first_of(CStringView("xyz")) == CStringView::npos);
+    STATIC_REQUIRE(testString.find_first_of(FixedString<16>("aeiou")) == 1);
+    STATIC_REQUIRE(testString.find_first_of(FixedString<16>("H")) == 0);
+    STATIC_REQUIRE(testString.find_first_of(FixedString<16>("d")) == 10);
+    STATIC_REQUIRE(testString.find_first_of(FixedString<16>("xyz")) == CStringView::npos);
   }
 
   SECTION("Find first of C string characters") {
@@ -2509,7 +2509,7 @@ TEST_CASE("CStringView find_first_of", "[core][c_string_view]") {
 
     // Compile-time checks
     STATIC_REQUIRE(testString.find_first_of(CStringView("")) == CStringView::npos);
-    STATIC_REQUIRE(testString.find_first_of(CStringView("")) == CStringView::npos);
+    STATIC_REQUIRE(testString.find_first_of(FixedString<16>("")) == CStringView::npos);
     STATIC_REQUIRE(testString.find_first_of("") == CStringView::npos);
   }
 
@@ -2523,7 +2523,7 @@ TEST_CASE("CStringView find_first_of", "[core][c_string_view]") {
 
     // Compile-time checks
     STATIC_REQUIRE(testString.find_first_of(CStringView("aeiou")) == CStringView::npos);
-    STATIC_REQUIRE(testString.find_first_of(CStringView("aeiou")) == CStringView::npos);
+    STATIC_REQUIRE(testString.find_first_of(FixedString<16>("aeiou")) == CStringView::npos);
     STATIC_REQUIRE(testString.find_first_of("aeiou") == CStringView::npos);
     STATIC_REQUIRE(testString.find_first_of('a') == CStringView::npos);
   }
@@ -2698,9 +2698,9 @@ TEST_CASE("CStringView find_first_not_of", "[core][c_string_view]") {
     REQUIRE(testString.find_first_not_of(std::string("Helo Wrd")) == CStringView::npos);
 
     // Compile-time checks
-    STATIC_REQUIRE(testString.find_first_not_of(CStringView("H")) == 1);
-    STATIC_REQUIRE(testString.find_first_not_of(CStringView("Hel")) == 4);
-    STATIC_REQUIRE(testString.find_first_not_of(CStringView("Helo Wrd")) == CStringView::npos);
+    STATIC_REQUIRE(testString.find_first_not_of(FixedString<16>("H")) == 1);
+    STATIC_REQUIRE(testString.find_first_not_of(FixedString<16>("Hel")) == 4);
+    STATIC_REQUIRE(testString.find_first_not_of(FixedString<16>("Helo Wrd")) == CStringView::npos);
   }
 
   SECTION("Find first not of C string characters") {
@@ -2756,7 +2756,7 @@ TEST_CASE("CStringView find_first_not_of", "[core][c_string_view]") {
 
     // Compile-time checks
     STATIC_REQUIRE(testString.find_first_not_of(CStringView("")) == 0);
-    STATIC_REQUIRE(testString.find_first_not_of(CStringView("")) == 0);
+    STATIC_REQUIRE(testString.find_first_not_of(FixedString<16>("")) == 0);
     STATIC_REQUIRE(testString.find_first_not_of("") == 0);
     STATIC_REQUIRE(testString.find_first_not_of("", 5) == 5);
   }
@@ -2771,7 +2771,7 @@ TEST_CASE("CStringView find_first_not_of", "[core][c_string_view]") {
 
     // Compile-time checks
     STATIC_REQUIRE(testString.find_first_not_of(CStringView("aeiou")) == CStringView::npos);
-    STATIC_REQUIRE(testString.find_first_not_of(CStringView("aeiou")) == CStringView::npos);
+    STATIC_REQUIRE(testString.find_first_not_of(FixedString<16>("aeiou")) == CStringView::npos);
     STATIC_REQUIRE(testString.find_first_not_of("aeiou") == CStringView::npos);
     STATIC_REQUIRE(testString.find_first_not_of('a') == CStringView::npos);
   }
@@ -2988,10 +2988,10 @@ TEST_CASE("CStringView find_last_of", "[core][c_string_view]") {
     REQUIRE(testString.find_last_of(std::string("d")) == 10); // 'd' at position 10
 
     // Compile-time checks
-    STATIC_REQUIRE(testString.find_last_of(CStringView("aeiou")) == 7);
-    STATIC_REQUIRE(testString.find_last_of(CStringView("l")) == 9);
-    STATIC_REQUIRE(testString.find_last_of(CStringView("H")) == 0);
-    STATIC_REQUIRE(testString.find_last_of(CStringView("d")) == 10);
+    STATIC_REQUIRE(testString.find_last_of(FixedString<16>("aeiou")) == 7);
+    STATIC_REQUIRE(testString.find_last_of(FixedString<16>("l")) == 9);
+    STATIC_REQUIRE(testString.find_last_of(FixedString<16>("H")) == 0);
+    STATIC_REQUIRE(testString.find_last_of(FixedString<16>("d")) == 10);
   }
 
   SECTION("Find last of C string characters") {
@@ -3050,7 +3050,7 @@ TEST_CASE("CStringView find_last_of", "[core][c_string_view]") {
 
     // Compile-time checks
     STATIC_REQUIRE(testString.find_last_of(CStringView("")) == CStringView::npos);
-    STATIC_REQUIRE(testString.find_last_of(CStringView("")) == CStringView::npos);
+    STATIC_REQUIRE(testString.find_last_of(FixedString<16>("")) == CStringView::npos);
     STATIC_REQUIRE(testString.find_last_of("") == CStringView::npos);
   }
 
