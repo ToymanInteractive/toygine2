@@ -903,10 +903,14 @@ constexpr bool FixedString<allocatedSize>::starts_with(const FixedString<allocat
 template <std::size_t allocatedSize>
 template <StringLike stringType>
 constexpr bool FixedString<allocatedSize>::starts_with(const stringType & string) const noexcept {
+  const auto stringSize = string.size();
+  if (size() < stringSize)
+    return false;
+
   if consteval {
-    return _size >= string.size() && std::equal(_data, _data + string.size(), string.c_str());
+    return std::equal(_data, _data + stringSize, string.c_str());
   } else {
-    return _size >= string.size() && std::memcmp(_data, string.c_str(), string.size()) == 0;
+    return std::memcmp(_data, string.c_str(), stringSize) == 0;
   }
 }
 
@@ -1007,10 +1011,13 @@ constexpr bool FixedString<allocatedSize>::contains(const char * string) const n
 
 template <std::size_t allocatedSize>
 constexpr bool FixedString<allocatedSize>::contains(char character) const noexcept {
+  if (empty())
+    return false;
+
   if consteval {
-    return !empty() && cstrchr(_data, character) != nullptr;
+    return cstrchr(_data, character) != nullptr;
   } else {
-    return !empty() && std::strchr(_data, character) != nullptr;
+    return std::strchr(_data, character) != nullptr;
   }
 }
 

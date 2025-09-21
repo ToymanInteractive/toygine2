@@ -2237,7 +2237,7 @@ TEST_CASE("CStringView rfind", "[core][c_string_view]") {
 
     // Compile-time checks
     STATIC_REQUIRE(testString.rfind(CStringView("")) == 11);
-    STATIC_REQUIRE(testString.rfind(CStringView("")) == 11);
+    STATIC_REQUIRE(testString.rfind(FixedString<4>("")) == 11);
     STATIC_REQUIRE(testString.rfind("") == 11);
     STATIC_REQUIRE(testString.rfind("", 5) == 5);
     STATIC_REQUIRE(testString.rfind("", 0) == 0);
@@ -2254,7 +2254,7 @@ TEST_CASE("CStringView rfind", "[core][c_string_view]") {
 
     // Compile-time checks
     STATIC_REQUIRE(testString.rfind(CStringView("Hello")) == CStringView::npos);
-    STATIC_REQUIRE(testString.rfind(CStringView("Hello")) == CStringView::npos);
+    STATIC_REQUIRE(testString.rfind(FixedString<8>("Hello")) == CStringView::npos);
     STATIC_REQUIRE(testString.rfind("Hello") == CStringView::npos);
     STATIC_REQUIRE(testString.rfind('H') == CStringView::npos);
     STATIC_REQUIRE(testString.rfind("") == 0);
@@ -2509,7 +2509,7 @@ TEST_CASE("CStringView find_first_of", "[core][c_string_view]") {
 
     // Compile-time checks
     STATIC_REQUIRE(testString.find_first_of(CStringView("")) == CStringView::npos);
-    STATIC_REQUIRE(testString.find_first_of(CStringView("")) == CStringView::npos);
+    STATIC_REQUIRE(testString.find_first_of(FixedString<4>("")) == CStringView::npos);
     STATIC_REQUIRE(testString.find_first_of("") == CStringView::npos);
   }
 
@@ -3050,7 +3050,7 @@ TEST_CASE("CStringView find_last_of", "[core][c_string_view]") {
 
     // Compile-time checks
     STATIC_REQUIRE(testString.find_last_of(CStringView("")) == CStringView::npos);
-    STATIC_REQUIRE(testString.find_last_of(CStringView("")) == CStringView::npos);
+    STATIC_REQUIRE(testString.find_last_of(FixedString<4>("")) == CStringView::npos);
     STATIC_REQUIRE(testString.find_last_of("") == CStringView::npos);
   }
 
@@ -3307,7 +3307,7 @@ TEST_CASE("CStringView find_last_not_of", "[core][c_string_view]") {
 
     // Compile-time checks
     STATIC_REQUIRE(testString.find_last_not_of(CStringView("")) == 10);
-    STATIC_REQUIRE(testString.find_last_not_of(CStringView("")) == 10);
+    STATIC_REQUIRE(testString.find_last_not_of(FixedString<10>("")) == 10);
     STATIC_REQUIRE(testString.find_last_not_of("") == 10);
     STATIC_REQUIRE(testString.find_last_not_of("", 5) == 5);
   }
