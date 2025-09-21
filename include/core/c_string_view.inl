@@ -74,11 +74,9 @@ constexpr const char & CStringView::front() const noexcept {
 }
 
 constexpr const char & CStringView::back() const noexcept {
-  const auto dataSize = size();
+  assert_message(!empty(), "String view must not be empty");
 
-  assert_message(dataSize > 0, "String must not be empty");
-
-  return _data[dataSize - 1];
+  return _data[size() - 1];
 }
 
 constexpr const char * CStringView::data() const noexcept {
@@ -215,6 +213,23 @@ constexpr int CStringView::compare(const stringType & string) const noexcept {
 
 constexpr int CStringView::compare(const char * string) const noexcept {
   return compare(CStringView(string));
+}
+
+template <StringLike stringType>
+constexpr bool CStringView::starts_with(const stringType & string) const noexcept {
+  if consteval {
+    return size() >= string.size() && std::equal(_data, _data + string.size(), string.c_str());
+  } else {
+    return size() >= string.size() && std::memcmp(_data, string.c_str(), string.size()) == 0;
+  }
+}
+
+constexpr bool CStringView::starts_with(const char * string) const noexcept {
+  return starts_with(CStringView(string));
+}
+
+constexpr bool CStringView::starts_with(char character) const noexcept {
+  return _data[0] == character;
 }
 
 constexpr std::size_t CStringView::_find_raw(std::size_t position, const char * data,
