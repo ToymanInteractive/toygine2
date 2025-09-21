@@ -260,9 +260,6 @@ constexpr bool CStringView::ends_with(char character) const noexcept {
 
 template <StringLike stringType>
 constexpr bool CStringView::contains(const stringType & string) const noexcept {
-  if (size() < string.size())
-    return false;
-
   if consteval {
     return cstrstr(_data, string.c_str()) != nullptr;
   } else {
@@ -271,7 +268,13 @@ constexpr bool CStringView::contains(const stringType & string) const noexcept {
 }
 
 constexpr bool CStringView::contains(const char * string) const noexcept {
-  return contains(CStringView(string));
+  assert_message(string != nullptr, "String pointer must not be null");
+
+  if consteval {
+    return cstrstr(_data, string) != nullptr;
+  } else {
+    return std::strstr(_data, string) != nullptr;
+  }
 }
 
 constexpr bool CStringView::contains(char character) const noexcept {

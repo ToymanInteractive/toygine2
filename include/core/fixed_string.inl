@@ -950,13 +950,13 @@ template <std::size_t allocatedSize>
 template <StringLike stringType>
 constexpr bool FixedString<allocatedSize>::ends_with(const stringType & string) const noexcept {
   const auto stringSize = string.size();
-  if (size() < stringSize)
+  if (_size < stringSize)
     return false;
 
   if consteval {
-    return _size >= stringSize && std::equal(_data + _size - stringSize, _data + _size, string.c_str());
+    return std::equal(_data + _size - stringSize, _data + _size, string.c_str());
   } else {
-    return _size >= stringSize && std::memcmp(_data + _size - stringSize, string.c_str(), stringSize) == 0;
+    return std::memcmp(_data + _size - stringSize, string.c_str(), stringSize) == 0;
   }
 }
 
@@ -971,10 +971,13 @@ constexpr bool FixedString<allocatedSize>::ends_with(const char * string) const 
     needleSize = std::strlen(string);
   }
 
+  if (_size < needleSize)
+    return false;
+
   if consteval {
-    return _size >= needleSize && std::equal(_data + _size - needleSize, _data + _size, string);
+    return std::equal(_data + _size - needleSize, _data + _size, string);
   } else {
-    return _size >= needleSize && std::memcmp(_data + _size - needleSize, string, needleSize) == 0;
+    return std::memcmp(_data + _size - needleSize, string, needleSize) == 0;
   }
 }
 
@@ -996,9 +999,9 @@ template <std::size_t allocatedSize>
 template <StringLike stringType>
 constexpr bool FixedString<allocatedSize>::contains(const stringType & string) const noexcept {
   if consteval {
-    return _size >= string.size() && cstrstr(_data, string.c_str()) != nullptr;
+    return cstrstr(_data, string.c_str()) != nullptr;
   } else {
-    return _size >= string.size() && std::strstr(_data, string.c_str()) != nullptr;
+    return std::strstr(_data, string.c_str()) != nullptr;
   }
 }
 
@@ -1007,9 +1010,9 @@ constexpr bool FixedString<allocatedSize>::contains(const char * string) const n
   assert_message(string != nullptr, "String pointer must not be null");
 
   if consteval {
-    return _size >= std::char_traits<char>::length(string) && cstrstr(_data, string) != nullptr;
+    return cstrstr(_data, string) != nullptr;
   } else {
-    return _size >= std::strlen(string) && std::strstr(_data, string) != nullptr;
+    return std::strstr(_data, string) != nullptr;
   }
 }
 
@@ -1021,7 +1024,7 @@ constexpr bool FixedString<allocatedSize>::contains(char character) const noexce
   if consteval {
     return cstrchr(_data, character) != nullptr;
   } else {
-    return std::strchr(_data, character) != nullptr;
+    return std::memchr(_data, character, _size) != nullptr;
   }
 }
 
