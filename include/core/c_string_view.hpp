@@ -814,6 +814,55 @@ public:
   */
   [[nodiscard]] constexpr bool ends_with(char character) const noexcept;
 
+  /*!
+    \brief Checks if the string view contains a StringLike object.
+
+    This method checks if the current string view contains a StringLike object anywhere within it.
+
+    \tparam stringType The type of the source string. Must satisfy the StringLike concept.
+
+    \param string The StringLike object to search for within this string.
+
+    \return True if this string view contains a StringLike object, false otherwise.
+
+    \note The search is case-sensitive.
+    \note If a StringLike object is empty, this method returns true.
+    \note If a StringLike object is longer than this string view, this method returns false.
+  */
+  template <StringLike stringType>
+  [[nodiscard]] constexpr bool contains(const stringType & string) const noexcept;
+
+  /*!
+    \brief Checks if the string view contains the C \a string.
+
+    This method checks if the current string view contains the C \a string anywhere within it.
+
+    \param string The C string to search for within this string.
+
+    \return True if this string view contains the C \a string, false otherwise.
+
+    \pre The C \a string must not be null.
+
+    \note The search is case-sensitive.
+    \note If the C \a string is empty, this method returns true.
+    \note If the C \a string is longer than this string view, this method returns false.
+  */
+  [[nodiscard]] constexpr bool contains(const char * string) const noexcept;
+
+  /*!
+    \brief Checks if the string view contains the specified \a character.
+
+    This method checks if the current string view contains the specified \a character anywhere within it.
+
+    \param character The character to search for within this string view.
+
+    \return True if this string view contains the specified \a character, false otherwise.
+
+    \note The search is case-sensitive.
+    \note If the string view is empty, this method returns false.
+  */
+  [[nodiscard]] constexpr bool contains(char character) const noexcept;
+
 private:
   /// Pointer to the wrapped C string
   const char * _data;

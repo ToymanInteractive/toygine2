@@ -258,6 +258,33 @@ constexpr bool CStringView::ends_with(char character) const noexcept {
   return !empty() && _data[size() - 1] == character;
 }
 
+template <StringLike stringType>
+constexpr bool CStringView::contains(const stringType & string) const noexcept {
+  if (size() < string.size())
+    return false;
+
+  if consteval {
+    return cstrstr(_data, string.c_str()) != nullptr;
+  } else {
+    return std::strstr(_data, string.c_str()) != nullptr;
+  }
+}
+
+constexpr bool CStringView::contains(const char * string) const noexcept {
+  return contains(CStringView(string));
+}
+
+constexpr bool CStringView::contains(char character) const noexcept {
+  if (empty())
+    return false;
+
+  if consteval {
+    return cstrchr(_data, character) != nullptr;
+  } else {
+    return std::strchr(_data, character) != nullptr;
+  }
+}
+
 constexpr std::size_t CStringView::_find_raw(std::size_t position, const char * data,
                                              std::size_t dataSize) const noexcept {
   const auto stringViewSize = size();
