@@ -257,6 +257,23 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a43203e8e0d660cfc02ce84b1a6f80747" id="r_a43203e8e0d660cfc02ce84b1a6f80747"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a43203e8e0d660cfc02ce84b1a6f80747">find_last_not_of</a> (char character, std::size_t position=<a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>) const noexcept</td></tr>
 <tr class="memdesc:a43203e8e0d660cfc02ce84b1a6f80747"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the last occurrence of any character not equal to the specified <em>character</em>.  <br /></td></tr>
 <tr class="separator:a43203e8e0d660cfc02ce84b1a6f80747"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae69e623d93e4bd89a026dcfea4bffeeb" id="r_ae69e623d93e4bd89a026dcfea4bffeeb"><td class="memTemplParams" colspan="2">template&lt;StringLike stringType&gt; </td></tr>
+<tr class="memitem:ae69e623d93e4bd89a026dcfea4bffeeb"><td class="memTemplItemLeft" align="right" valign="top">constexpr int&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ae69e623d93e4bd89a026dcfea4bffeeb">compare</a> (const stringType &amp;string) const noexcept</td></tr>
+<tr class="memdesc:ae69e623d93e4bd89a026dcfea4bffeeb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares this string view with a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object lexicographically.  <br /></td></tr>
+<tr class="separator:ae69e623d93e4bd89a026dcfea4bffeeb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab53650610cda4e34ef495396d81c846e" id="r_ab53650610cda4e34ef495396d81c846e"><td class="memItemLeft" align="right" valign="top">constexpr int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab53650610cda4e34ef495396d81c846e">compare</a> (const char *string) const noexcept</td></tr>
+<tr class="memdesc:ab53650610cda4e34ef495396d81c846e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares this string view with the C <em>string</em> lexicographically.  <br /></td></tr>
+<tr class="separator:ab53650610cda4e34ef495396d81c846e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a690dc08abeb1cd6ffc0a81e14d5703f2" id="r_a690dc08abeb1cd6ffc0a81e14d5703f2"><td class="memTemplParams" colspan="2">template&lt;StringLike stringType&gt; </td></tr>
+<tr class="memitem:a690dc08abeb1cd6ffc0a81e14d5703f2"><td class="memTemplItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a690dc08abeb1cd6ffc0a81e14d5703f2">starts_with</a> (const stringType &amp;string) const noexcept</td></tr>
+<tr class="memdesc:a690dc08abeb1cd6ffc0a81e14d5703f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the string view starts with a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object.  <br /></td></tr>
+<tr class="separator:a690dc08abeb1cd6ffc0a81e14d5703f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeeaf609b797459bacd751dd62a314392" id="r_aeeaf609b797459bacd751dd62a314392"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeeaf609b797459bacd751dd62a314392">starts_with</a> (const char *string) const noexcept</td></tr>
+<tr class="memdesc:aeeaf609b797459bacd751dd62a314392"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the string view starts with the specified C <em>string</em>.  <br /></td></tr>
+<tr class="separator:aeeaf609b797459bacd751dd62a314392"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af13ff57be547b364b7d255eebe7de185" id="r_af13ff57be547b364b7d255eebe7de185"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af13ff57be547b364b7d255eebe7de185">starts_with</a> (char character) const noexcept</td></tr>
+<tr class="memdesc:af13ff57be547b364b7d255eebe7de185"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the string view starts with the specified <em>character</em>.  <br /></td></tr>
+<tr class="separator:af13ff57be547b364b7d255eebe7de185"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -959,6 +976,95 @@ This method is equivalent to <a class="el" href="#a5e1b02dbf7df4f6950577cf34e032
 <p>Clears the contents by detaching from the current C string. </p>
 <p>This method resets this view to point at the internal empty sentinel. The previously referenced character buffer is not modified or freed.</p>
 <dl class="section note"><dt>Note</dt><dd>No allocation or deallocation occurs. </dd></dl>
+
+</div>
+</div>
+<a id="ab53650610cda4e34ef495396d81c846e" name="ab53650610cda4e34ef495396d81c846e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab53650610cda4e34ef495396d81c846e">&#9670;&#160;</a></span>compare() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int toy::CStringView::compare </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>string</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">nodiscard</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Compares this string view with the C <em>string</em> lexicographically. </p>
+<p>This method performs a lexicographic comparison between this string view and the C <em>string</em>. The comparison is performed character by character using the character's numeric value.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">string</td><td>The C string to compare with this string.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A negative value if this string view is lexicographically less than C <em>string</em>, zero if they are equal, or a positive value if this string view is lexicographically greater than C <em>string</em>.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The C <em>string</em> must not be null.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The comparison is case-sensitive. </dd>
+<dd>
+The comparison stops at the first character that differs between the strings. </dd>
+<dd>
+If one string is a prefix of another, the shorter string is considered lexicographically smaller. </dd></dl>
+
+</div>
+</div>
+<a id="ae69e623d93e4bd89a026dcfea4bffeeb" name="ae69e623d93e4bd89a026dcfea4bffeeb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae69e623d93e4bd89a026dcfea4bffeeb">&#9670;&#160;</a></span>compare() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;StringLike stringType&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int toy::CStringView::compare </td>
+          <td>(</td>
+          <td class="paramtype">const stringType &amp;</td>          <td class="paramname"><span class="paramname"><em>string</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">nodiscard</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Compares this string view with a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object lexicographically. </p>
+<p>This method performs a lexicographic comparison between this string view and a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object. The comparison is performed character by character using the character's numeric value.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">stringType</td><td>The type of the source string. Must satisfy the <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> concept.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">string</td><td>The <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object to compare with this string.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A negative value if this string view is lexicographically less than a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object, zero if they are equal, or a positive value if this string view is lexicographically greater than a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The comparison is case-sensitive. </dd>
+<dd>
+The comparison stops at the first character that differs between the strings. </dd>
+<dd>
+If one string is a prefix of another, the shorter string is considered lexicographically smaller. </dd></dl>
 
 </div>
 </div>
@@ -2096,6 +2202,133 @@ If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Co
 <p>This method returns the current number of characters in the string view, excluding the terminating null character. The size represents the actual length of the string view content.</p>
 <dl class="section return"><dt>Returns</dt><dd>The number of characters in the string view, excluding the terminating null character.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This method is equivalent to <a class="el" href="#a53bd50e64d92a36d07a8d4f240c73147" title="Returns the size of the string view.">length()</a> method. </dd></dl>
+
+</div>
+</div>
+<a id="af13ff57be547b364b7d255eebe7de185" name="af13ff57be547b364b7d255eebe7de185"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af13ff57be547b364b7d255eebe7de185">&#9670;&#160;</a></span>starts_with() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool toy::CStringView::starts_with </td>
+          <td>(</td>
+          <td class="paramtype">char</td>          <td class="paramname"><span class="paramname"><em>character</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">nodiscard</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Checks if the string view starts with the specified <em>character</em>. </p>
+<p>This method checks if the current string view starts with the specified <em>character</em>. The comparison is performed on the first character of the string view.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">character</td><td>The character to check if this string view starts with.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if this string view starts with the specified <em>character</em>, false otherwise.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The comparison is case-sensitive. </dd>
+<dd>
+If the string view is empty, this method returns false. </dd></dl>
+
+</div>
+</div>
+<a id="aeeaf609b797459bacd751dd62a314392" name="aeeaf609b797459bacd751dd62a314392"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeeaf609b797459bacd751dd62a314392">&#9670;&#160;</a></span>starts_with() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool toy::CStringView::starts_with </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>string</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">nodiscard</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Checks if the string view starts with the specified C <em>string</em>. </p>
+<p>This method checks if the current string view starts with the C <em>string</em>. The comparison is performed character by character from the beginning of the string view.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">string</td><td>The C string to check if this string starts with.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if this string view starts with the C <em>string</em>, false otherwise.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The C <em>string</em> must not be null.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The comparison is case-sensitive. </dd>
+<dd>
+If the C <em>string</em> is empty, this method returns true. </dd>
+<dd>
+If the C <em>string</em> is longer than this string view, this method returns false. </dd></dl>
+
+</div>
+</div>
+<a id="a690dc08abeb1cd6ffc0a81e14d5703f2" name="a690dc08abeb1cd6ffc0a81e14d5703f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a690dc08abeb1cd6ffc0a81e14d5703f2">&#9670;&#160;</a></span>starts_with() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;StringLike stringType&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool toy::CStringView::starts_with </td>
+          <td>(</td>
+          <td class="paramtype">const stringType &amp;</td>          <td class="paramname"><span class="paramname"><em>string</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">nodiscard</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Checks if the string view starts with a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object. </p>
+<p>This method checks if the current string view starts with a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object. The comparison is performed character by character from the beginning of the string view.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">stringType</td><td>The type of the source string. Must satisfy the <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> concept.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">string</td><td>The <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object to check if this string starts with.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if this string view starts with a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object, false otherwise.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The comparison is case-sensitive. </dd>
+<dd>
+If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object is empty, this method returns true. </dd>
+<dd>
+If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object is longer than this string view, this method returns false. </dd></dl>
 
 </div>
 </div>
