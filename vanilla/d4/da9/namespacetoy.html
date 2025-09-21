@@ -139,6 +139,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a591ce52797bb53b8d8ce64a31cabba6b" id="r_a591ce52797bb53b8d8ce64a31cabba6b"><td class="memItemLeft" align="right" valign="top">constexpr const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a591ce52797bb53b8d8ce64a31cabba6b">cstrchr</a> (const char *str, int ch) noexcept</td></tr>
 <tr class="memdesc:a591ce52797bb53b8d8ce64a31cabba6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the first occurrence of a character in a C string.  <br /></td></tr>
 <tr class="separator:a591ce52797bb53b8d8ce64a31cabba6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adaa16f254dc6bc99679971d96bd87a66" id="r_adaa16f254dc6bc99679971d96bd87a66"><td class="memItemLeft" align="right" valign="top">constexpr const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adaa16f254dc6bc99679971d96bd87a66">cstrpbrk</a> (const char *str, const char *accept) noexcept</td></tr>
+<tr class="memdesc:adaa16f254dc6bc99679971d96bd87a66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the first occurrence of any character from a set in a C string.  <br /></td></tr>
+<tr class="separator:adaa16f254dc6bc99679971d96bd87a66"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a58d00a4a7bbd87ef48d346903b5a8c78" id="r_a58d00a4a7bbd87ef48d346903b5a8c78"><td class="memItemLeft" align="right" valign="top">constexpr const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a58d00a4a7bbd87ef48d346903b5a8c78">cstrstr</a> (const char *haystack, const char *needle) noexcept</td></tr>
 <tr class="memdesc:a58d00a4a7bbd87ef48d346903b5a8c78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the first occurrence of a substring in a C string.  <br /></td></tr>
 <tr class="separator:a58d00a4a7bbd87ef48d346903b5a8c78"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -417,6 +420,55 @@ Return values are -1, 0, or 1 based on lexicographic order using unsigned char c
 <dd>
 This function is constexpr-compatible and can be used in compile-time contexts.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd>std::strcmp </dd></dl>
+
+</div>
+</div>
+<a id="adaa16f254dc6bc99679971d96bd87a66" name="adaa16f254dc6bc99679971d96bd87a66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adaa16f254dc6bc99679971d96bd87a66">&#9670;&#160;</a></span>cstrpbrk()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char * toy::cstrpbrk </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>str</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>accept</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">nodiscard</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Finds the first occurrence of any character from a set in a C string. </p>
+<p>This function searches for the first occurrence of any character from the <em>accept</em> string within the <em>str</em> string. The search is performed character by character from the beginning and returns a pointer to the first character found that matches any character in the accept set, or nullptr if no character from the accept set is found. This function is designed to be constexpr-compatible and provides the same behavior as std::strpbrk but can be evaluated at compile time.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>The C string to search in. Must be null-terminated. </td></tr>
+    <tr><td class="paramname">accept</td><td>The C string containing the set of characters to search for. Must be null-terminated.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A pointer to the first character in <em>str</em> that matches any character in <em>accept</em>, or nullptr if no character from the accept set is found.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The <em>str</em> pointer must not be null. </dd>
+<dd>
+The <em>accept</em> pointer must not be null.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd>
+<dd>
+The function searches from the beginning of <em>str</em> and returns the first match. </dd>
+<dd>
+This function is constexpr-compatible and can be used in compile-time contexts.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd>std::strpbrk </dd></dl>
 
 </div>
 </div>
@@ -2647,7 +2699,7 @@ Performance is optimized for common wide character ranges. </dd></dl>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../d4/da9/namespacetoy.html">toy</a></li>
-    <li class="footer">Generated on Fri Sep 19 2025 for ToyGine2 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generated on Sun Sep 21 2025 for ToyGine2 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>

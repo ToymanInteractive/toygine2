@@ -437,39 +437,281 @@ $(function(){initNavTree('dd/ded/c__string__view_8hpp_source.html','../../'); in
 <div class="line"><span class="lineno">  313</span><span class="comment">  */</span></div>
 <div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>  <span class="keyword">constexpr</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d5/d03/classtoy_1_1_c_string_view.html#a61dbfbf58ac6f2ab042774a2c3e81e6b">swap</a>(<a class="code hl_class" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a> &amp; string) <span class="keyword">noexcept</span>;</div>
 <div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span> </div>
-<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>  <span class="comment">/// Pointer to the wrapped C string</span></div>
-<div class="line"><a id="l00318" name="l00318"></a><span class="lineno"><a class="line" href="../../d5/d03/classtoy_1_1_c_string_view.html#a3fd727898d1fd0d4261e894033c3396b">  318</a></span>  <span class="keyword">const</span> <span class="keywordtype">char</span> * <a class="code hl_variable" href="../../d5/d03/classtoy_1_1_c_string_view.html#a3fd727898d1fd0d4261e894033c3396b">_data</a>;</div>
-<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span> </div>
-<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>  <span class="comment">/// Static empty C string used as default value for null pointers</span></div>
-<div class="line"><a id="l00321" name="l00321"></a><span class="lineno"><a class="line" href="../../d5/d03/classtoy_1_1_c_string_view.html#a44d0080af17ac18934fd248105aa1f3a">  321</a></span>  <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">char</span> <a class="code hl_variable" href="../../d5/d03/classtoy_1_1_c_string_view.html#a44d0080af17ac18934fd248105aa1f3a">_emptyString</a>[]{<span class="stringliteral">&#39;\0&#39;</span>};</div>
-<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>};</div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  317</span><span class="comment">    \brief Finds the first occurrence of a StringLike object in the string view.</span></div>
+<div class="line"><span class="lineno">  318</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  319</span><span class="comment">    This method searches for the first occurrence of a StringLike object within this string view, starting from the</span></div>
+<div class="line"><span class="lineno">  320</span><span class="comment">    given \a position.</span></div>
+<div class="line"><span class="lineno">  321</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  322</span><span class="comment">    \tparam stringType The type of the source string. Must satisfy the StringLike concept.</span></div>
+<div class="line"><span class="lineno">  323</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  324</span><span class="comment">    \param string   The source StringLike object to search for.</span></div>
+<div class="line"><span class="lineno">  325</span><span class="comment">    \param position The position to start searching from (default: 0).</span></div>
+<div class="line"><span class="lineno">  326</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  327</span><span class="comment">    \return The position of the first occurrence of a StringLike object, or \ref npos if not found.</span></div>
+<div class="line"><span class="lineno">  328</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  329</span><span class="comment">    \pre The \a position must be less than the string view size.</span></div>
+<div class="line"><span class="lineno">  330</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  331</span><span class="comment">    \note The search is case-sensitive.</span></div>
+<div class="line"><span class="lineno">  332</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>  <span class="keyword">template</span> &lt;StringLike stringType&gt;</div>
+<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>  [[nodiscard]] <span class="keyword">constexpr</span> std::size_t <a class="code hl_function" href="../../d5/d03/classtoy_1_1_c_string_view.html#a51e64c69c9b0a9ed965ea15b40e1128a">find</a>(<span class="keyword">const</span> stringType &amp; string, std::size_t position = 0) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span> </div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  337</span><span class="comment">    \brief Finds the first occurrence of the C \a string in the string view.</span></div>
+<div class="line"><span class="lineno">  338</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  339</span><span class="comment">    This method searches for the first occurrence of the C \a string within this string view, starting from the given \a</span></div>
+<div class="line"><span class="lineno">  340</span><span class="comment">    position.</span></div>
+<div class="line"><span class="lineno">  341</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  342</span><span class="comment">    \param string   The source C string to search for.</span></div>
+<div class="line"><span class="lineno">  343</span><span class="comment">    \param position The position to start searching from (default: 0).</span></div>
+<div class="line"><span class="lineno">  344</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  345</span><span class="comment">    \return The position of the first occurrence of the C \a string, or \ref npos if not found.</span></div>
+<div class="line"><span class="lineno">  346</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  347</span><span class="comment">    \pre The \a position must be less than the string view size.</span></div>
+<div class="line"><span class="lineno">  348</span><span class="comment">    \pre The \a string must not be null.</span></div>
+<div class="line"><span class="lineno">  349</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  350</span><span class="comment">    \note The search is case-sensitive.</span></div>
+<div class="line"><span class="lineno">  351</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>  [[<a class="code hl_class" href="../../d5/d03/classtoy_1_1_c_string_view.html">nodiscard</a>]] <span class="keyword">constexpr</span> std::size_t <a class="code hl_function" href="../../d5/d03/classtoy_1_1_c_string_view.html#a658906675b5aa3a95cc0b071bf0286e8">find</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> * string, std::size_t position = 0) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span> </div>
+<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  355</span><span class="comment">    \brief Finds the first occurrence of a \a character in the string view.</span></div>
+<div class="line"><span class="lineno">  356</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  357</span><span class="comment">    This method searches for the first occurrence of the specified \a character within this string view, starting from</span></div>
+<div class="line"><span class="lineno">  358</span><span class="comment">    the given \a position.</span></div>
+<div class="line"><span class="lineno">  359</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  360</span><span class="comment">    \param character The character to search for.</span></div>
+<div class="line"><span class="lineno">  361</span><span class="comment">    \param position  The position to start searching from (default: 0).</span></div>
+<div class="line"><span class="lineno">  362</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  363</span><span class="comment">    \return The position of the first occurrence of the \a character, or \ref npos if not found.</span></div>
+<div class="line"><span class="lineno">  364</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  365</span><span class="comment">    \pre The \a position must be less than the string view size.</span></div>
+<div class="line"><span class="lineno">  366</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  367</span><span class="comment">    \note The search is case-sensitive.</span></div>
+<div class="line"><span class="lineno">  368</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span>  [[<a class="code hl_class" href="../../d5/d03/classtoy_1_1_c_string_view.html">nodiscard</a>]] <span class="keyword">constexpr</span> std::size_t <a class="code hl_function" href="../../d5/d03/classtoy_1_1_c_string_view.html#a91de3ec92df6a1ec623d71d1849cf3a6">find</a>(<span class="keywordtype">char</span> character, std::size_t position = 0) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span> </div>
+<div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  372</span><span class="comment">    \brief Finds the last occurrence of a StringLike object in the string view.</span></div>
+<div class="line"><span class="lineno">  373</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  374</span><span class="comment">    This method searches for the last occurrence of a StringLike object within this string view, starting from the given</span></div>
+<div class="line"><span class="lineno">  375</span><span class="comment">    \a position and searching backwards.</span></div>
+<div class="line"><span class="lineno">  376</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  377</span><span class="comment">    \tparam stringType The type of the source string. Must satisfy the StringLike concept.</span></div>
+<div class="line"><span class="lineno">  378</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  379</span><span class="comment">    \param string   The source StringLike object to search for.</span></div>
+<div class="line"><span class="lineno">  380</span><span class="comment">    \param position The position to start searching from (default: \ref npos). If \ref npos, searches from the end.</span></div>
+<div class="line"><span class="lineno">  381</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  382</span><span class="comment">    \return The position of the last occurrence of a StringLike object, or \ref npos if not found.</span></div>
+<div class="line"><span class="lineno">  383</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  384</span><span class="comment">    \pre If \a position is not \ref npos, it must be less than or equal to the maximum valid start index: the string</span></div>
+<div class="line"><span class="lineno">  385</span><span class="comment">    view size minus the size of a StringLike object.</span></div>
+<div class="line"><span class="lineno">  386</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  387</span><span class="comment">    \note The search is case-sensitive.</span></div>
+<div class="line"><span class="lineno">  388</span><span class="comment">    \note If a StringLike object is empty, the method returns \a position if it&#39;s within bounds, otherwise returns the</span></div>
+<div class="line"><span class="lineno">  389</span><span class="comment">          string view size.</span></div>
+<div class="line"><span class="lineno">  390</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00391" name="l00391"></a><span class="lineno">  391</span>  <span class="keyword">template</span> &lt;StringLike stringType&gt;</div>
+<div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span>  [[nodiscard]] <span class="keyword">constexpr</span> std::size_t <a class="code hl_function" href="../../d5/d03/classtoy_1_1_c_string_view.html#a857c00f45935e884fda6dd507de4242c">rfind</a>(<span class="keyword">const</span> stringType &amp; string, std::size_t position = <a class="code hl_variable" href="../../d5/d03/classtoy_1_1_c_string_view.html#a7108b5e4d794ae1a3458b37081379c6c">npos</a>) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00393" name="l00393"></a><span class="lineno">  393</span> </div>
+<div class="line"><a id="l00394" name="l00394"></a><span class="lineno">  394</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  395</span><span class="comment">    \brief Finds the last occurrence of the C \a string in the string view.</span></div>
+<div class="line"><span class="lineno">  396</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  397</span><span class="comment">    This method searches for the last occurrence of the C \a string within this string view, starting from the given \a</span></div>
+<div class="line"><span class="lineno">  398</span><span class="comment">    position and searching backwards.</span></div>
+<div class="line"><span class="lineno">  399</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  400</span><span class="comment">    \param string   The source C string to search for.</span></div>
+<div class="line"><span class="lineno">  401</span><span class="comment">    \param position The position to start searching from (default: \ref npos). If \ref npos, searches from the end.</span></div>
+<div class="line"><span class="lineno">  402</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  403</span><span class="comment">    \return The position of the last occurrence of the C \a string, or \ref npos if not found.</span></div>
+<div class="line"><span class="lineno">  404</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  405</span><span class="comment">    \pre If \a position is not \ref npos, it must be less than or equal to the maximum valid start index: the string</span></div>
+<div class="line"><span class="lineno">  406</span><span class="comment">         view size minus the size of the C \a string.</span></div>
+<div class="line"><span class="lineno">  407</span><span class="comment">    \pre The \a string must not be null.</span></div>
+<div class="line"><span class="lineno">  408</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  409</span><span class="comment">    \note The search is case-sensitive.</span></div>
+<div class="line"><span class="lineno">  410</span><span class="comment">    \note If the C \a string is empty, the method returns \a position if it&#39;s within bounds, otherwise returns the</span></div>
+<div class="line"><span class="lineno">  411</span><span class="comment">          string view size.</span></div>
+<div class="line"><span class="lineno">  412</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00413" name="l00413"></a><span class="lineno">  413</span>  [[<a class="code hl_class" href="../../d5/d03/classtoy_1_1_c_string_view.html">nodiscard</a>]] <span class="keyword">constexpr</span> std::size_t <a class="code hl_function" href="../../d5/d03/classtoy_1_1_c_string_view.html#a2f3c745f4720005a7d15703fc86bc270">rfind</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> * string, std::size_t position = <a class="code hl_variable" href="../../d5/d03/classtoy_1_1_c_string_view.html#a7108b5e4d794ae1a3458b37081379c6c">npos</a>) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00414" name="l00414"></a><span class="lineno">  414</span> </div>
+<div class="line"><a id="l00415" name="l00415"></a><span class="lineno">  415</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  416</span><span class="comment">    \brief Finds the last occurrence of a \a character in the string view.</span></div>
+<div class="line"><span class="lineno">  417</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  418</span><span class="comment">    This method searches for the last occurrence of the specified \a character within this string view, starting from</span></div>
+<div class="line"><span class="lineno">  419</span><span class="comment">    the given \a position and searching backwards.</span></div>
+<div class="line"><span class="lineno">  420</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  421</span><span class="comment">    \param character The character to search for.</span></div>
+<div class="line"><span class="lineno">  422</span><span class="comment">    \param position  The position to start searching from (default: \ref npos). If \ref npos, searches from the end.</span></div>
+<div class="line"><span class="lineno">  423</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  424</span><span class="comment">    \return The position of the last occurrence of the \a character, or \ref npos if not found.</span></div>
+<div class="line"><span class="lineno">  425</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  426</span><span class="comment">    \pre The \a position must be less than the string view size.</span></div>
+<div class="line"><span class="lineno">  427</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  428</span><span class="comment">    \note The search is case-sensitive.</span></div>
+<div class="line"><span class="lineno">  429</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00430" name="l00430"></a><span class="lineno">  430</span>  [[<a class="code hl_class" href="../../d5/d03/classtoy_1_1_c_string_view.html">nodiscard</a>]] <span class="keyword">constexpr</span> std::size_t <a class="code hl_function" href="../../d5/d03/classtoy_1_1_c_string_view.html#a643acb38e12ce27774d40c975a2c3698">rfind</a>(<span class="keywordtype">char</span> character, std::size_t position = <a class="code hl_variable" href="../../d5/d03/classtoy_1_1_c_string_view.html#a7108b5e4d794ae1a3458b37081379c6c">npos</a>) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00431" name="l00431"></a><span class="lineno">  431</span> </div>
+<div class="line"><a id="l00432" name="l00432"></a><span class="lineno">  432</span>  <span class="comment">/// The special value, its exact meaning depends on the context</span></div>
+<div class="line"><a id="l00433" name="l00433"></a><span class="lineno"><a class="line" href="../../d5/d03/classtoy_1_1_c_string_view.html#a7108b5e4d794ae1a3458b37081379c6c">  433</a></span>  <span class="keyword">static</span> <span class="keyword">constexpr</span> std::size_t <a class="code hl_variable" href="../../d5/d03/classtoy_1_1_c_string_view.html#a7108b5e4d794ae1a3458b37081379c6c">npos</a> = std::size_t(-1);</div>
+<div class="line"><a id="l00434" name="l00434"></a><span class="lineno">  434</span> </div>
+<div class="line"><a id="l00435" name="l00435"></a><span class="lineno">  435</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  436</span><span class="comment">    \brief Finds the first occurrence of any character from a StringLike object.</span></div>
+<div class="line"><span class="lineno">  437</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  438</span><span class="comment">    This method searches for the first occurrence of any character from a StringLike object within this string view,</span></div>
+<div class="line"><span class="lineno">  439</span><span class="comment">    starting from the given \a position.</span></div>
+<div class="line"><span class="lineno">  440</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  441</span><span class="comment">    \tparam stringType The type of the source string. Must satisfy the StringLike concept.</span></div>
+<div class="line"><span class="lineno">  442</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  443</span><span class="comment">    \param string   The StringLike object containing characters to search for.</span></div>
+<div class="line"><span class="lineno">  444</span><span class="comment">    \param position The position to start searching from (default: 0).</span></div>
+<div class="line"><span class="lineno">  445</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  446</span><span class="comment">    \return The position of the first occurrence of any character from a StringLike object, or \ref npos if not found.</span></div>
+<div class="line"><span class="lineno">  447</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  448</span><span class="comment">    \pre The \a position must be less than the string view size.</span></div>
+<div class="line"><span class="lineno">  449</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  450</span><span class="comment">    \note The search is case-sensitive.</span></div>
+<div class="line"><span class="lineno">  451</span><span class="comment">    \note If a StringLike object is empty, this method returns \ref npos.</span></div>
+<div class="line"><span class="lineno">  452</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00453" name="l00453"></a><span class="lineno">  453</span>  <span class="keyword">template</span> &lt;StringLike stringType&gt;</div>
+<div class="line"><a id="l00454" name="l00454"></a><span class="lineno">  454</span>  [[nodiscard]] <span class="keyword">constexpr</span> std::size_t <a class="code hl_function" href="../../d5/d03/classtoy_1_1_c_string_view.html#a4c9e16fc17732b7e6c131d07e2b1a220">find_first_of</a>(<span class="keyword">const</span> stringType &amp; string, std::size_t position = 0) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00455" name="l00455"></a><span class="lineno">  455</span> </div>
+<div class="line"><a id="l00456" name="l00456"></a><span class="lineno">  456</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  457</span><span class="comment">    \brief Finds the first occurrence of any character from the C \a string.</span></div>
+<div class="line"><span class="lineno">  458</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  459</span><span class="comment">    This method searches for the first occurrence of any character from the C \a string within this string view,</span></div>
+<div class="line"><span class="lineno">  460</span><span class="comment">    starting from the given \a position.</span></div>
+<div class="line"><span class="lineno">  461</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  462</span><span class="comment">    \param string   The C string containing characters to search for.</span></div>
+<div class="line"><span class="lineno">  463</span><span class="comment">    \param position The position to start searching from (default: 0).</span></div>
+<div class="line"><span class="lineno">  464</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  465</span><span class="comment">    \return The position of the first occurrence of any character from the C \a string, or \ref npos if not found.</span></div>
+<div class="line"><span class="lineno">  466</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  467</span><span class="comment">    \pre The \a position must be less than the string view size.</span></div>
+<div class="line"><span class="lineno">  468</span><span class="comment">    \pre The \a string must not be null.</span></div>
+<div class="line"><span class="lineno">  469</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  470</span><span class="comment">    \note The search is case-sensitive.</span></div>
+<div class="line"><span class="lineno">  471</span><span class="comment">    \note If the C \a string is empty, this method returns \ref npos.</span></div>
+<div class="line"><span class="lineno">  472</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00473" name="l00473"></a><span class="lineno">  473</span>  [[<a class="code hl_class" href="../../d5/d03/classtoy_1_1_c_string_view.html">nodiscard</a>]] <span class="keyword">constexpr</span> std::size_t <a class="code hl_function" href="../../d5/d03/classtoy_1_1_c_string_view.html#adaa0a01cc9ab2f34ae7688a4f7ac98df">find_first_of</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> * string, std::size_t position = 0) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00474" name="l00474"></a><span class="lineno">  474</span> </div>
+<div class="line"><a id="l00475" name="l00475"></a><span class="lineno">  475</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  476</span><span class="comment">    \brief Finds the first occurrence of the specified \a character.</span></div>
+<div class="line"><span class="lineno">  477</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  478</span><span class="comment">    This method searches for the first occurrence of the specified \a character within this string view, starting from</span></div>
+<div class="line"><span class="lineno">  479</span><span class="comment">    the given \a position.</span></div>
+<div class="line"><span class="lineno">  480</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  481</span><span class="comment">    \param character The character to search for.</span></div>
+<div class="line"><span class="lineno">  482</span><span class="comment">    \param position  The position to start searching from (default: 0).</span></div>
+<div class="line"><span class="lineno">  483</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  484</span><span class="comment">    \return The position of the first occurrence of the \a character, or \ref npos if not found.</span></div>
+<div class="line"><span class="lineno">  485</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  486</span><span class="comment">    \pre The \a position must be less than the string view size.</span></div>
+<div class="line"><span class="lineno">  487</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  488</span><span class="comment">    \note The search is case-sensitive.</span></div>
+<div class="line"><span class="lineno">  489</span><span class="comment">    \note This method is equivalent to find(character, position).</span></div>
+<div class="line"><span class="lineno">  490</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00491" name="l00491"></a><span class="lineno">  491</span>  [[<a class="code hl_class" href="../../d5/d03/classtoy_1_1_c_string_view.html">nodiscard</a>]] <span class="keyword">constexpr</span> std::size_t <a class="code hl_function" href="../../d5/d03/classtoy_1_1_c_string_view.html#a0cd121e1778d472b5f82f6cf3f2bdcef">find_first_of</a>(<span class="keywordtype">char</span> character, std::size_t position = 0) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00492" name="l00492"></a><span class="lineno">  492</span> </div>
+<div class="line"><a id="l00493" name="l00493"></a><span class="lineno">  493</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00494" name="l00494"></a><span class="lineno">  494</span>  <span class="comment">/// Pointer to the wrapped C string</span></div>
+<div class="line"><a id="l00495" name="l00495"></a><span class="lineno"><a class="line" href="../../d5/d03/classtoy_1_1_c_string_view.html#a3fd727898d1fd0d4261e894033c3396b">  495</a></span>  <span class="keyword">const</span> <span class="keywordtype">char</span> * <a class="code hl_variable" href="../../d5/d03/classtoy_1_1_c_string_view.html#a3fd727898d1fd0d4261e894033c3396b">_data</a>;</div>
+<div class="line"><a id="l00496" name="l00496"></a><span class="lineno">  496</span> </div>
+<div class="line"><a id="l00497" name="l00497"></a><span class="lineno">  497</span>  <span class="comment">/// Static empty C string used as default value for null pointers</span></div>
+<div class="line"><a id="l00498" name="l00498"></a><span class="lineno"><a class="line" href="../../d5/d03/classtoy_1_1_c_string_view.html#a44d0080af17ac18934fd248105aa1f3a">  498</a></span>  <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">char</span> <a class="code hl_variable" href="../../d5/d03/classtoy_1_1_c_string_view.html#a44d0080af17ac18934fd248105aa1f3a">_emptyString</a>[]{<span class="stringliteral">&#39;\0&#39;</span>};</div>
+<div class="line"><a id="l00499" name="l00499"></a><span class="lineno">  499</span> </div>
+<div class="line"><a id="l00500" name="l00500"></a><span class="lineno">  500</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  501</span><span class="comment">    \brief Helper method for finding \a data in the string view.</span></div>
+<div class="line"><span class="lineno">  502</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  503</span><span class="comment">    This private method performs the common search logic used by all find methods. It searches for the specified \a data</span></div>
+<div class="line"><span class="lineno">  504</span><span class="comment">    starting from the given \a position.</span></div>
+<div class="line"><span class="lineno">  505</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  506</span><span class="comment">    \param position The position to start searching from.</span></div>
+<div class="line"><span class="lineno">  507</span><span class="comment">    \param data     The data to search for.</span></div>
+<div class="line"><span class="lineno">  508</span><span class="comment">    \param dataSize The size of the data to search for.</span></div>
+<div class="line"><span class="lineno">  509</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  510</span><span class="comment">    \return The position of the first occurrence of \a data, or \ref npos if not found.</span></div>
+<div class="line"><span class="lineno">  511</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  512</span><span class="comment">    \pre The \a position must be less than the string view size.</span></div>
+<div class="line"><span class="lineno">  513</span><span class="comment">    \pre The \a data must not be null.</span></div>
+<div class="line"><span class="lineno">  514</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00515" name="l00515"></a><span class="lineno">  515</span>  <span class="keyword">constexpr</span> std::size_t <a class="code hl_function" href="../../d5/d03/classtoy_1_1_c_string_view.html#a28948d9ba480ffd28756849a5cb7177f">_find_raw</a>(std::size_t position, <span class="keyword">const</span> <span class="keywordtype">char</span> * data, std::size_t dataSize) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00516" name="l00516"></a><span class="lineno">  516</span> </div>
+<div class="line"><a id="l00517" name="l00517"></a><span class="lineno">  517</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  518</span><span class="comment">    \brief Helper method for finding \a data in the string view backwards.</span></div>
+<div class="line"><span class="lineno">  519</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  520</span><span class="comment">    This private method performs the common reverse search logic used by all rfind methods. It searches for the</span></div>
+<div class="line"><span class="lineno">  521</span><span class="comment">    specified \a data starting from the given \a position and searching backwards.</span></div>
+<div class="line"><span class="lineno">  522</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  523</span><span class="comment">    \param position The position to start searching from.</span></div>
+<div class="line"><span class="lineno">  524</span><span class="comment">    \param data     The data to search for.</span></div>
+<div class="line"><span class="lineno">  525</span><span class="comment">    \param dataSize The size of the data to search for.</span></div>
+<div class="line"><span class="lineno">  526</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  527</span><span class="comment">    \return The position of the last occurrence of \a data, or \ref npos if not found.</span></div>
+<div class="line"><span class="lineno">  528</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  529</span><span class="comment">    \pre If \a position is not \ref npos, it must be less than or equal to the string view size.</span></div>
+<div class="line"><span class="lineno">  530</span><span class="comment">    \pre The \a data must not be null.</span></div>
+<div class="line"><span class="lineno">  531</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00532" name="l00532"></a><span class="lineno">  532</span>  <span class="keyword">constexpr</span> std::size_t <a class="code hl_function" href="../../d5/d03/classtoy_1_1_c_string_view.html#a816c3474acc096a09f23dd6294602d72">_rfind_raw</a>(std::size_t position, <span class="keyword">const</span> <span class="keywordtype">char</span> * data, std::size_t dataSize) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00533" name="l00533"></a><span class="lineno">  533</span> </div>
+<div class="line"><a id="l00534" name="l00534"></a><span class="lineno">  534</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  535</span><span class="comment">    \brief Helper method for finding the first occurrence of any character from \a data.</span></div>
+<div class="line"><span class="lineno">  536</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  537</span><span class="comment">    This private method performs the common search logic used by all find_first_of methods. It searches for the first</span></div>
+<div class="line"><span class="lineno">  538</span><span class="comment">    occurrence of any character from the specified \a data starting from the given \a position.</span></div>
+<div class="line"><span class="lineno">  539</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  540</span><span class="comment">    \param position The position to start searching from.</span></div>
+<div class="line"><span class="lineno">  541</span><span class="comment">    \param data     The data containing characters to search for.</span></div>
+<div class="line"><span class="lineno">  542</span><span class="comment">    \param dataSize The size of the data containing characters to search for.</span></div>
+<div class="line"><span class="lineno">  543</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  544</span><span class="comment">    \return The position of the first occurrence of any character from \a data, or \ref npos if not found.</span></div>
+<div class="line"><span class="lineno">  545</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  546</span><span class="comment">    \pre The \a position must be less than the string view size.</span></div>
+<div class="line"><span class="lineno">  547</span><span class="comment">    \pre The \a data must not be null.</span></div>
+<div class="line"><span class="lineno">  548</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00549" name="l00549"></a><span class="lineno">  549</span>  <span class="keyword">constexpr</span> std::size_t <a class="code hl_function" href="../../d5/d03/classtoy_1_1_c_string_view.html#a93d5fd5bb781cf39617c5f7daed4558f">_find_first_of_raw</a>(std::size_t position, <span class="keyword">const</span> <span class="keywordtype">char</span> * data,</div>
+<div class="line"><a id="l00550" name="l00550"></a><span class="lineno">  550</span>                                           std::size_t dataSize) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00551" name="l00551"></a><span class="lineno">  551</span>};</div>
 </div>
-<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span> </div>
-<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>} <span class="comment">// namespace toy</span></div>
-<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span> </div>
-<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span><span class="preprocessor">#</span><span class="preprocessor">endif</span> <span class="comment">// INCLUDE_CORE_C_STRING_VIEW_HPP_</span></div>
+<div class="line"><a id="l00552" name="l00552"></a><span class="lineno">  552</span> </div>
+<div class="line"><a id="l00553" name="l00553"></a><span class="lineno">  553</span>} <span class="comment">// namespace toy</span></div>
+<div class="line"><a id="l00554" name="l00554"></a><span class="lineno">  554</span> </div>
+<div class="line"><a id="l00555" name="l00555"></a><span class="lineno">  555</span><span class="preprocessor">#</span><span class="preprocessor">endif</span> <span class="comment">// INCLUDE_CORE_C_STRING_VIEW_HPP_</span></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html">toy::CStringView</a></div><div class="ttdef"><b>Definition</b> c_string_view.hpp:30</div></div>
+<div class="ttc" id="aclasstoy_1_1_c_string_view_html_a0cd121e1778d472b5f82f6cf3f2bdcef"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a0cd121e1778d472b5f82f6cf3f2bdcef">toy::CStringView::find_first_of</a></div><div class="ttdeci">constexpr std::size_t find_first_of(char character, std::size_t position=0) const noexcept</div><div class="ttdoc">Finds the first occurrence of the specified character.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:164</div></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_a1a70352432ff6efe34a7c0fc6012e16a"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a1a70352432ff6efe34a7c0fc6012e16a">toy::CStringView::empty</a></div><div class="ttdeci">constexpr bool empty() const noexcept</div><div class="ttdoc">Checks if the string view is empty.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:92</div></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_a2089895f2989348b9311ae5196020a8e"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a2089895f2989348b9311ae5196020a8e">toy::CStringView::capacity</a></div><div class="ttdeci">constexpr std::size_t capacity() const noexcept</div><div class="ttdoc">Returns the capacity of the string view.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:116</div></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_a267bbe14a77506bb0b9479faade6c7fc"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a267bbe14a77506bb0b9479faade6c7fc">toy::CStringView::clear</a></div><div class="ttdeci">constexpr void clear() noexcept</div><div class="ttdoc">Clears the contents by detaching from the current C string.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:120</div></div>
+<div class="ttc" id="aclasstoy_1_1_c_string_view_html_a28948d9ba480ffd28756849a5cb7177f"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a28948d9ba480ffd28756849a5cb7177f">toy::CStringView::_find_raw</a></div><div class="ttdeci">constexpr std::size_t _find_raw(std::size_t position, const char *data, std::size_t dataSize) const noexcept</div><div class="ttdoc">Helper method for finding data in the string view.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:168</div></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_a2d6dae36ef9b82f5d6f5f579cf4da692"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a2d6dae36ef9b82f5d6f5f579cf4da692">toy::CStringView::assign</a></div><div class="ttdeci">constexpr CStringView &amp; assign(const char *string) noexcept</div><div class="ttdoc">Copy assigns the C string to this string view.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:52</div></div>
+<div class="ttc" id="aclasstoy_1_1_c_string_view_html_a2f3c745f4720005a7d15703fc86bc270"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a2f3c745f4720005a7d15703fc86bc270">toy::CStringView::rfind</a></div><div class="ttdeci">constexpr std::size_t rfind(const char *string, std::size_t position=npos) const noexcept</div><div class="ttdoc">Finds the last occurrence of the C string in the string view.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:147</div></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_a3a8634e0b4ae35b9754bbab8dfcc7502"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a3a8634e0b4ae35b9754bbab8dfcc7502">toy::CStringView::front</a></div><div class="ttdeci">constexpr const char &amp; front() const noexcept</div><div class="ttdoc">Returns a const reference to the first character of the string view.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:72</div></div>
-<div class="ttc" id="aclasstoy_1_1_c_string_view_html_a3fd727898d1fd0d4261e894033c3396b"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a3fd727898d1fd0d4261e894033c3396b">toy::CStringView::_data</a></div><div class="ttdeci">const char * _data</div><div class="ttdoc">Pointer to the wrapped C string.</div><div class="ttdef"><b>Definition</b> c_string_view.hpp:318</div></div>
-<div class="ttc" id="aclasstoy_1_1_c_string_view_html_a44d0080af17ac18934fd248105aa1f3a"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a44d0080af17ac18934fd248105aa1f3a">toy::CStringView::_emptyString</a></div><div class="ttdeci">static constexpr char _emptyString[]</div><div class="ttdoc">Static empty C string used as default value for null pointers.</div><div class="ttdef"><b>Definition</b> c_string_view.hpp:321</div></div>
+<div class="ttc" id="aclasstoy_1_1_c_string_view_html_a3fd727898d1fd0d4261e894033c3396b"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a3fd727898d1fd0d4261e894033c3396b">toy::CStringView::_data</a></div><div class="ttdeci">const char * _data</div><div class="ttdoc">Pointer to the wrapped C string.</div><div class="ttdef"><b>Definition</b> c_string_view.hpp:495</div></div>
+<div class="ttc" id="aclasstoy_1_1_c_string_view_html_a44d0080af17ac18934fd248105aa1f3a"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a44d0080af17ac18934fd248105aa1f3a">toy::CStringView::_emptyString</a></div><div class="ttdeci">static constexpr char _emptyString[]</div><div class="ttdoc">Static empty C string used as default value for null pointers.</div><div class="ttdef"><b>Definition</b> c_string_view.hpp:498</div></div>
+<div class="ttc" id="aclasstoy_1_1_c_string_view_html_a4c9e16fc17732b7e6c131d07e2b1a220"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a4c9e16fc17732b7e6c131d07e2b1a220">toy::CStringView::find_first_of</a></div><div class="ttdeci">constexpr std::size_t find_first_of(const stringType &amp;string, std::size_t position=0) const noexcept</div><div class="ttdoc">Finds the first occurrence of any character from a StringLike object.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:156</div></div>
+<div class="ttc" id="aclasstoy_1_1_c_string_view_html_a51e64c69c9b0a9ed965ea15b40e1128a"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a51e64c69c9b0a9ed965ea15b40e1128a">toy::CStringView::find</a></div><div class="ttdeci">constexpr std::size_t find(const stringType &amp;string, std::size_t position=0) const noexcept</div><div class="ttdoc">Finds the first occurrence of a StringLike object in the string view.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:130</div></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_a53bd50e64d92a36d07a8d4f240c73147"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a53bd50e64d92a36d07a8d4f240c73147">toy::CStringView::length</a></div><div class="ttdeci">constexpr std::size_t length() const noexcept</div><div class="ttdoc">Returns the size of the string view.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:108</div></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_a59adcb66726ff68ceafc4bc1e2366475"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a59adcb66726ff68ceafc4bc1e2366475">toy::CStringView::assign</a></div><div class="ttdeci">constexpr CStringView &amp; assign(const CStringView &amp;string) noexcept</div><div class="ttdoc">Copy assigns other string view to this string view.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:46</div></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_a5e1b02dbf7df4f6950577cf34e032b03"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a5e1b02dbf7df4f6950577cf34e032b03">toy::CStringView::data</a></div><div class="ttdeci">constexpr const char * data() const noexcept</div><div class="ttdoc">Returns a constant pointer to the data of the string view.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:84</div></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_a61dbfbf58ac6f2ab042774a2c3e81e6b"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a61dbfbf58ac6f2ab042774a2c3e81e6b">toy::CStringView::swap</a></div><div class="ttdeci">constexpr void swap(CStringView &amp;string) noexcept</div><div class="ttdoc">Swaps the contents of this string view with another string view.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:124</div></div>
+<div class="ttc" id="aclasstoy_1_1_c_string_view_html_a643acb38e12ce27774d40c975a2c3698"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a643acb38e12ce27774d40c975a2c3698">toy::CStringView::rfind</a></div><div class="ttdeci">constexpr std::size_t rfind(char character, std::size_t position=npos) const noexcept</div><div class="ttdoc">Finds the last occurrence of a character in the string view.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:151</div></div>
+<div class="ttc" id="aclasstoy_1_1_c_string_view_html_a658906675b5aa3a95cc0b071bf0286e8"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a658906675b5aa3a95cc0b071bf0286e8">toy::CStringView::find</a></div><div class="ttdeci">constexpr std::size_t find(const char *string, std::size_t position=0) const noexcept</div><div class="ttdoc">Finds the first occurrence of the C string in the string view.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:134</div></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_a65ca67f3828e8129c0022f9102b96b5c"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a65ca67f3828e8129c0022f9102b96b5c">toy::CStringView::max_size</a></div><div class="ttdeci">constexpr std::size_t max_size() const noexcept</div><div class="ttdoc">Returns the maximum observable size of this string view.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:112</div></div>
+<div class="ttc" id="aclasstoy_1_1_c_string_view_html_a7108b5e4d794ae1a3458b37081379c6c"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a7108b5e4d794ae1a3458b37081379c6c">toy::CStringView::npos</a></div><div class="ttdeci">static constexpr std::size_t npos</div><div class="ttdoc">The special value, its exact meaning depends on the context.</div><div class="ttdef"><b>Definition</b> c_string_view.hpp:433</div></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_a74fd427671ff6309013227005d307d86"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a74fd427671ff6309013227005d307d86">toy::CStringView::~CStringView</a></div><div class="ttdeci">constexpr ~CStringView() noexcept=default</div><div class="ttdoc">Destructor for the string view.</div></div>
+<div class="ttc" id="aclasstoy_1_1_c_string_view_html_a816c3474acc096a09f23dd6294602d72"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a816c3474acc096a09f23dd6294602d72">toy::CStringView::_rfind_raw</a></div><div class="ttdeci">constexpr std::size_t _rfind_raw(std::size_t position, const char *data, std::size_t dataSize) const noexcept</div><div class="ttdoc">Helper method for finding data in the string view backwards.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:193</div></div>
+<div class="ttc" id="aclasstoy_1_1_c_string_view_html_a857c00f45935e884fda6dd507de4242c"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a857c00f45935e884fda6dd507de4242c">toy::CStringView::rfind</a></div><div class="ttdeci">constexpr std::size_t rfind(const stringType &amp;string, std::size_t position=npos) const noexcept</div><div class="ttdoc">Finds the last occurrence of a StringLike object in the string view.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:143</div></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_a8f0b3a45e04f9a8781f16c351d1bf5c1"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a8f0b3a45e04f9a8781f16c351d1bf5c1">toy::CStringView::back</a></div><div class="ttdeci">constexpr const char &amp; back() const noexcept</div><div class="ttdoc">Returns a const reference to the last character of the string view.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:76</div></div>
+<div class="ttc" id="aclasstoy_1_1_c_string_view_html_a91de3ec92df6a1ec623d71d1849cf3a6"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a91de3ec92df6a1ec623d71d1849cf3a6">toy::CStringView::find</a></div><div class="ttdeci">constexpr std::size_t find(char character, std::size_t position=0) const noexcept</div><div class="ttdoc">Finds the first occurrence of a character in the string view.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:138</div></div>
+<div class="ttc" id="aclasstoy_1_1_c_string_view_html_a93d5fd5bb781cf39617c5f7daed4558f"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a93d5fd5bb781cf39617c5f7daed4558f">toy::CStringView::_find_first_of_raw</a></div><div class="ttdeci">constexpr std::size_t _find_first_of_raw(std::size_t position, const char *data, std::size_t dataSize) const noexcept</div><div class="ttdoc">Helper method for finding the first occurrence of any character from data.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:225</div></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_a9b598d47988cd3fb3862800f6ec9be65"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a9b598d47988cd3fb3862800f6ec9be65">toy::CStringView::operator[]</a></div><div class="ttdeci">constexpr const char &amp; operator[](std::size_t offset) const noexcept</div><div class="ttdoc">Access a character in the string view at a given offset.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:66</div></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_a9c1ebb999ea758881cb9a9ce85dd7246"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a9c1ebb999ea758881cb9a9ce85dd7246">toy::CStringView::operator=</a></div><div class="ttdeci">constexpr CStringView &amp; operator=(const CStringView &amp;string) noexcept=default</div><div class="ttdoc">Copy assigns other string view to this string view.</div></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_a9fbe10d07774d3460b07d0286f56259e"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a9fbe10d07774d3460b07d0286f56259e">toy::CStringView::CStringView</a></div><div class="ttdeci">constexpr CStringView(const CStringView &amp;string) noexcept=default</div><div class="ttdoc">Constructs a copy of string view.</div></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_aad95e80a56dc5edd7b1fa6158175163b"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#aad95e80a56dc5edd7b1fa6158175163b">toy::CStringView::operator=</a></div><div class="ttdeci">constexpr CStringView &amp; operator=(const char *string) noexcept</div><div class="ttdoc">Copy assigns the C string to this string view.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:38</div></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_abd1a5cceb264d3d595bdbf9d415ffb74"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#abd1a5cceb264d3d595bdbf9d415ffb74">toy::CStringView::size</a></div><div class="ttdeci">constexpr std::size_t size() const noexcept</div><div class="ttdoc">Returns the size of the string view.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:96</div></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_ac7478fb514b8527952f100fc89061954"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#ac7478fb514b8527952f100fc89061954">toy::CStringView::at</a></div><div class="ttdeci">constexpr const char &amp; at(std::size_t offset) const noexcept</div><div class="ttdoc">Access a character in the string view at a given offset.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:60</div></div>
+<div class="ttc" id="aclasstoy_1_1_c_string_view_html_adaa0a01cc9ab2f34ae7688a4f7ac98df"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#adaa0a01cc9ab2f34ae7688a4f7ac98df">toy::CStringView::find_first_of</a></div><div class="ttdeci">constexpr std::size_t find_first_of(const char *string, std::size_t position=0) const noexcept</div><div class="ttdoc">Finds the first occurrence of any character from the C string.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:160</div></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_adb54f0951dc63d5cc1466ae61e941df5"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#adb54f0951dc63d5cc1466ae61e941df5">toy::CStringView::c_str</a></div><div class="ttdeci">constexpr const char * c_str() const noexcept</div><div class="ttdoc">Returns a constant pointer to the C string representation of this string view.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:88</div></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_af55492c22e19b5ac015367834546a386"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#af55492c22e19b5ac015367834546a386">toy::CStringView::utf8_size</a></div><div class="ttdeci">std::size_t utf8_size() const noexcept</div><div class="ttdoc">Returns the size of the Unicode string in UTF-8 encoding.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:104</div></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_af5ec20956a3cecd987fc33ff3bdd6540"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#af5ec20956a3cecd987fc33ff3bdd6540">toy::CStringView::CStringView</a></div><div class="ttdeci">constexpr CStringView(const char *string) noexcept</div><div class="ttdoc">Constructs a string view from a C string.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:33</div></div>
@@ -514,7 +756,7 @@ $(function(){initNavTree('dd/ded/c__string__view_8hpp_source.html','../../'); in
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="../../dir_3d69f64eaf81436fe2b22361382717e5.html">core</a></li><li class="navelem"><a class="el" href="../../dd/ded/c__string__view_8hpp.html">c_string_view.hpp</a></li>
-    <li class="footer">Generated on Fri Sep 19 2025 for ToyGine2 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generated on Sun Sep 21 2025 for ToyGine2 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>
