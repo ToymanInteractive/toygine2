@@ -4734,3 +4734,201 @@ TEST_CASE("CStringView contains", "[core][c_string_view]") {
     STATIC_REQUIRE(str.contains("World") == true);
   }
 }
+
+TEST_CASE("CStringView operator==", "[core][c_string_view]") {
+  SECTION("CStringView == CStringView") {
+    constexpr CStringView str1("Hello");
+    constexpr CStringView str2("Hello");
+    constexpr CStringView str3("World");
+    constexpr CStringView empty1;
+    constexpr CStringView empty2;
+
+    REQUIRE(str1 == str2);
+    REQUIRE(str2 == str1);
+    REQUIRE_FALSE((str1 == str3));
+    REQUIRE_FALSE((str3 == str1));
+    REQUIRE(empty1 == empty2);
+    REQUIRE(empty2 == empty1);
+    REQUIRE_FALSE((str1 == empty1));
+    REQUIRE_FALSE((empty1 == str1));
+
+    // Compile-time checks
+    STATIC_REQUIRE(str1 == str2);
+    STATIC_REQUIRE(str2 == str1);
+    STATIC_REQUIRE_FALSE((str1 == str3));
+    STATIC_REQUIRE_FALSE((str3 == str1));
+    STATIC_REQUIRE(empty1 == empty2);
+    STATIC_REQUIRE(empty2 == empty1);
+    STATIC_REQUIRE_FALSE((str1 == empty1));
+    STATIC_REQUIRE_FALSE((empty1 == str1));
+  }
+
+  SECTION("FixedString == StringLike") {
+    constexpr CStringView str("Hello");
+    const std::string stdStr1;
+    const std::string stdStr2("Hello");
+    const std::string stdStr3("World");
+
+    REQUIRE_FALSE((str == stdStr1));
+    REQUIRE_FALSE((stdStr1 == str));
+    REQUIRE(str == stdStr2);
+    REQUIRE(stdStr2 == str);
+    REQUIRE_FALSE((str == stdStr3));
+    REQUIRE_FALSE((stdStr3 == str));
+  }
+
+  SECTION("CStringView == C string") {
+    constexpr CStringView str1("Hello");
+    constexpr CStringView empty;
+
+    REQUIRE(str1 == "Hello");
+    REQUIRE("Hello" == str1);
+    REQUIRE_FALSE((str1 == "World"));
+    REQUIRE_FALSE(("World" == str1));
+    REQUIRE(empty == "");
+    REQUIRE("" == empty);
+    REQUIRE_FALSE((str1 == ""));
+    REQUIRE_FALSE(("" == str1));
+
+    // Compile-time checks
+    STATIC_REQUIRE(str1 == "Hello");
+    STATIC_REQUIRE("Hello" == str1);
+    STATIC_REQUIRE_FALSE((str1 == "World"));
+    STATIC_REQUIRE_FALSE(("World" == str1));
+    STATIC_REQUIRE(empty == "");
+    STATIC_REQUIRE("" == empty);
+    STATIC_REQUIRE_FALSE((str1 == ""));
+    STATIC_REQUIRE_FALSE(("" == str1));
+  }
+
+  SECTION("Edge cases") {
+    constexpr CStringView str1("A");
+    constexpr CStringView str2("B");
+    constexpr CStringView empty1;
+    constexpr CStringView empty2;
+
+    // Single character comparison
+    REQUIRE(str1 == "A");
+    REQUIRE("A" == str1);
+    REQUIRE_FALSE((str1 == "B"));
+    REQUIRE_FALSE(("B" == str1));
+
+    // Empty string comparisons
+    REQUIRE(empty1 == empty2);
+    REQUIRE(empty2 == empty1);
+    REQUIRE(empty1 == "");
+    REQUIRE("" == empty1);
+
+    // Different sizes with same content
+    constexpr CStringView small("Hi");
+    constexpr CStringView large("Hi");
+
+    REQUIRE(small == large);
+    REQUIRE(large == small);
+
+    // Compile-time checks
+    STATIC_REQUIRE(str1 == "A");
+    STATIC_REQUIRE("A" == str1);
+    STATIC_REQUIRE_FALSE((str1 == "B"));
+    STATIC_REQUIRE_FALSE(("B" == str1));
+
+    STATIC_REQUIRE(empty1 == empty2);
+    STATIC_REQUIRE(empty2 == empty1);
+    STATIC_REQUIRE(empty1 == "");
+    STATIC_REQUIRE("" == empty1);
+
+    STATIC_REQUIRE(small == large);
+    STATIC_REQUIRE(large == small);
+  }
+
+  SECTION("Special characters") {
+    constexpr CStringView str1("Hello\nWorld");
+    constexpr CStringView str2("Hello\tWorld");
+    constexpr CStringView str3("Hello World");
+
+    REQUIRE(str1 == "Hello\nWorld");
+    REQUIRE("Hello\nWorld" == str1);
+    REQUIRE(str2 == "Hello\tWorld");
+    REQUIRE("Hello\tWorld" == str2);
+    REQUIRE_FALSE((str1 == str2));
+    REQUIRE_FALSE((str2 == str1));
+    REQUIRE_FALSE((str1 == str3));
+    REQUIRE_FALSE((str3 == str1));
+
+    // Compile-time checks
+    STATIC_REQUIRE(str1 == "Hello\nWorld");
+    STATIC_REQUIRE("Hello\nWorld" == str1);
+    STATIC_REQUIRE(str2 == "Hello\tWorld");
+    STATIC_REQUIRE("Hello\tWorld" == str2);
+    STATIC_REQUIRE_FALSE((str1 == str2));
+    STATIC_REQUIRE_FALSE((str2 == str1));
+    STATIC_REQUIRE_FALSE((str1 == str3));
+    STATIC_REQUIRE_FALSE((str3 == str1));
+  }
+
+  SECTION("Unicode content") {
+    constexpr CStringView str1("Привет");
+    constexpr CStringView str2("Мир");
+    constexpr CStringView str3("Привет");
+
+    REQUIRE(str1 == "Привет");
+    REQUIRE("Привет" == str1);
+    REQUIRE(str1 == str3);
+    REQUIRE(str3 == str1);
+    REQUIRE_FALSE((str1 == str2));
+    REQUIRE_FALSE((str2 == str1));
+
+    // Compile-time checks
+    STATIC_REQUIRE(str1 == "Привет");
+    STATIC_REQUIRE("Привет" == str1);
+    STATIC_REQUIRE(str1 == str3);
+    STATIC_REQUIRE(str3 == str1);
+    STATIC_REQUIRE_FALSE((str1 == str2));
+    STATIC_REQUIRE_FALSE((str2 == str1));
+  }
+
+  SECTION("Performance test") {
+    constexpr CStringView str1("This is a longer string for performance testing");
+    constexpr CStringView str2("This is a longer string for performance testing");
+    constexpr CStringView str3("This is a different string for performance testing");
+
+    REQUIRE(str1 == str2);
+    REQUIRE(str2 == str1);
+    REQUIRE_FALSE((str1 == str3));
+    REQUIRE_FALSE((str3 == str1));
+
+    // Compile-time checks
+    STATIC_REQUIRE(str1 == str2);
+    STATIC_REQUIRE(str2 == str1);
+    STATIC_REQUIRE_FALSE((str1 == str3));
+    STATIC_REQUIRE_FALSE((str3 == str1));
+  }
+
+  SECTION("Constexpr operations") {
+    constexpr CStringView str1("Test");
+    constexpr CStringView str2("Test");
+    constexpr CStringView str3("Different");
+
+    constexpr bool eq1 = str1 == str2;
+    constexpr bool eq2 = str1 == str3;
+    constexpr bool eq3 = str1 == "Test";
+    constexpr bool eq4 = "Test" == str1;
+    constexpr bool eq5 = str1 == "Different";
+    constexpr bool eq6 = "Different" == str1;
+
+    REQUIRE(eq1);
+    REQUIRE_FALSE(eq2);
+    REQUIRE(eq3);
+    REQUIRE(eq4);
+    REQUIRE_FALSE(eq5);
+    REQUIRE_FALSE(eq6);
+
+    // Compile-time checks
+    STATIC_REQUIRE(eq1);
+    STATIC_REQUIRE_FALSE(eq2);
+    STATIC_REQUIRE(eq3);
+    STATIC_REQUIRE(eq4);
+    STATIC_REQUIRE_FALSE(eq5);
+    STATIC_REQUIRE_FALSE(eq6);
+  }
+}

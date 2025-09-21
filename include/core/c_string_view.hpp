@@ -978,6 +978,101 @@ private:
                                               std::size_t dataSize) const noexcept;
 };
 
+/*!
+  \brief Equality comparison operator for two CStringView objects.
+
+  This operator compares two CStringView objects for equality. The comparison is performed character by character.
+
+  \param lhs The left-hand side CStringView object.
+  \param rhs The right-hand side CStringView object.
+
+  \return True if both strings view have the same content, false otherwise.
+
+  \note The comparison is case-sensitive.
+  \note Empty string views are considered equal.
+
+  \see operator<=>(const CStringView &, const CStringView &)
+*/
+[[nodiscard]] constexpr bool operator==(const CStringView & lhs, const CStringView & rhs) noexcept;
+
+/*!
+  \brief Equality comparison operator for CStringView and StringLike object.
+
+  This operator compares a CStringView object with a StringLike object for equality.
+
+  \tparam stringType The type of the StringLike object. Must satisfy the StringLike concept.
+
+  \param lhs The CStringView object.
+  \param rhs The StringLike object.
+
+  \return True if both strings have the same content, false otherwise.
+
+  \note The comparison is case-sensitive.
+  \note Empty strings are considered equal.
+
+  \see operator<=>(const CStringView &, const stringType &)
+*/
+template <StringLike stringType>
+[[nodiscard]] constexpr bool operator==(const CStringView & lhs, const stringType & rhs) noexcept;
+
+/*!
+  \brief Equality comparison operator for StringLike object and CStringView.
+
+  This operator compares a StringLike object with a CStringView object for equality.
+
+  \tparam stringType The type of the StringLike object. Must satisfy the StringLike concept.
+
+  \param lhs The StringLike object.
+  \param rhs The CStringView object.
+
+  \return True if both strings have the same content, false otherwise.
+
+  \note The comparison is case-sensitive.
+  \note Empty strings are considered equal.
+
+  \see operator<=>(const stringType &, const CStringView &)
+*/
+template <StringLike stringType>
+[[nodiscard]] constexpr bool operator==(const stringType & lhs, const CStringView & rhs) noexcept;
+
+/*!
+  \brief Equality comparison operator for CStringView and C string.
+
+  This operator compares a CStringView object with a C string for equality.
+
+  \param lhs The CStringView object.
+  \param rhs The C string.
+
+  \return True if both strings have the same content, false otherwise.
+
+  \pre The \a rhs pointer must not be null.
+
+  \note The comparison is case-sensitive.
+  \note Empty strings are considered equal.
+
+  \see operator<=>(const CStringView &, const char *)
+*/
+[[nodiscard]] constexpr bool operator==(const CStringView & lhs, const char * rhs) noexcept;
+
+/*!
+  \brief Equality comparison operator for C string and CStringView.
+
+  This operator compares a C string with a CStringView object for equality.
+
+  \param lhs The C string.
+  \param rhs The CStringView object.
+
+  \return True if both strings have the same content, false otherwise.
+
+  \pre The \a lhs pointer must not be null.
+
+  \note The comparison is case-sensitive.
+  \note Empty strings are considered equal.
+
+  \see operator<=>(const char *, const CStringView &)
+*/
+[[nodiscard]] constexpr bool operator==(const char * lhs, const CStringView & rhs) noexcept;
+
 } // namespace toy
 
 #endif // INCLUDE_CORE_C_STRING_VIEW_HPP_

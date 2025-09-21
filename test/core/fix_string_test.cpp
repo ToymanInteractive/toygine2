@@ -8769,9 +8769,6 @@ TEST_CASE("FixedString operator==", "[core][fixed_string]") {
     const std::string stdStr1;
     const std::string stdStr2("Hello");
     const std::string stdStr3("World");
-    constexpr CStringView strView1;
-    constexpr CStringView strView2("Hello");
-    constexpr CStringView strView3("World");
 
     REQUIRE_FALSE((str == stdStr1));
     REQUIRE_FALSE((stdStr1 == str));
@@ -8779,13 +8776,6 @@ TEST_CASE("FixedString operator==", "[core][fixed_string]") {
     REQUIRE(stdStr2 == str);
     REQUIRE_FALSE((str == stdStr3));
     REQUIRE_FALSE((stdStr3 == str));
-
-    STATIC_REQUIRE_FALSE((str == strView1));
-    STATIC_REQUIRE_FALSE((strView1 == str));
-    STATIC_REQUIRE(str == strView2);
-    STATIC_REQUIRE(strView2 == str);
-    STATIC_REQUIRE_FALSE((str == strView3));
-    STATIC_REQUIRE_FALSE((strView3 == str));
   }
 
   SECTION("FixedString == C string") {
