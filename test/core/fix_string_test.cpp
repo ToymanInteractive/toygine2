@@ -79,6 +79,7 @@ TEST_CASE("FixedString constructors", "[core][fixed_string]") {
     REQUIRE(copy3.size() == 8);
     REQUIRE(std::strcmp(copy3.c_str(), "CopyTest") == 0);
 
+    // Compile-time checks
     STATIC_REQUIRE(copy1.size() == 8);
     STATIC_REQUIRE(cstrcmp(copy1.c_str(), "CopyTest") == 0);
     STATIC_REQUIRE(copy2.size() == 8);
@@ -124,14 +125,15 @@ TEST_CASE("FixedString constructors", "[core][fixed_string]") {
   }
 
   SECTION("StringLike constructor") {
-    const std::string stdStr("StringLike");
-    const FixedString<16> fromStd(stdStr);
-    const FixedString<32> fromFix(fromStd);
+    const FixedString<16> fromStd(std::string("StringLike"));
+    constexpr FixedString<16> fromFix(CStringView("StringLike"));
 
     REQUIRE(fromStd.size() == 10);
     REQUIRE(std::strcmp(fromStd.c_str(), "StringLike") == 0);
-    REQUIRE(fromFix.size() == 10);
-    REQUIRE(std::strcmp(fromFix.c_str(), "StringLike") == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(fromFix.size() == 10);
+    STATIC_REQUIRE(cstrcmp(fromFix.c_str(), "StringLike") == 0);
   }
 
   SECTION("Edge cases") {
@@ -142,6 +144,7 @@ TEST_CASE("FixedString constructors", "[core][fixed_string]") {
     REQUIRE(empty1.size() == 0);
     REQUIRE(empty2.size() == 0);
 
+    // Compile-time checks
     STATIC_REQUIRE(empty1.size() == 0);
     STATIC_REQUIRE(empty2.size() == 0);
 
@@ -151,6 +154,7 @@ TEST_CASE("FixedString constructors", "[core][fixed_string]") {
     REQUIRE(single.size() == 1);
     REQUIRE(std::strcmp(single.c_str(), "X") == 0);
 
+    // Compile-time checks
     STATIC_REQUIRE(single.size() == 1);
     STATIC_REQUIRE(cstrcmp(single.c_str(), "X") == 0);
 
@@ -293,14 +297,11 @@ TEST_CASE("FixedString operators=", "[core][fixed_string]") {
     FixedString<12> str1;
     FixedString<24> str2;
 
-    const std::string stdStr("Hello World");
-    const FixedString<16> fixStr("Test String");
-
-    str1 = stdStr;
+    str1 = std::string("Hello World");
     REQUIRE(str1.size() == 11);
     REQUIRE(std::strcmp(str1.c_str(), "Hello World") == 0);
 
-    str2 = fixStr;
+    str2 = FixedString<16>("Test String");
     REQUIRE(str2.size() == 11);
     REQUIRE(std::strcmp(str2.c_str(), "Test String") == 0);
   }
@@ -496,22 +497,19 @@ TEST_CASE("FixedString assign", "[core][fixed_string]") {
 
   SECTION("StringLike assignment") {
     FixedString<16> str1;
-    std::string str2("Hello");
-    std::string str3("World");
 
     // Assign from std::string
-    str1.assign(str2);
+    str1.assign(std::string("Hello"));
     REQUIRE(str1.size() == 5);
     REQUIRE(std::strcmp(str1.c_str(), "Hello") == 0);
 
     // Assign from another std::string
-    str1.assign(str3);
+    str1.assign(std::string("World"));
     REQUIRE(str1.size() == 5);
     REQUIRE(std::strcmp(str1.c_str(), "World") == 0);
 
     // Assign from empty std::string
-    std::string emptyStr("");
-    str1.assign(emptyStr);
+    str1.assign(std::string(""));
     REQUIRE(str1.size() == 0);
     REQUIRE(std::strcmp(str1.c_str(), "") == 0);
   }
@@ -638,8 +636,7 @@ TEST_CASE("FixedString assign", "[core][fixed_string]") {
     REQUIRE(std::strcmp(str1.c_str(), "Test") == 0);
 
     // Chaining with different types
-    std::string str2("Chained");
-    str1.assign("Initial").assign(str2);
+    str1.assign("Initial").assign(std::string("Chained"));
     REQUIRE(str1.size() == 7);
     REQUIRE(std::strcmp(str1.c_str(), "Chained") == 0);
 
@@ -1015,13 +1012,15 @@ TEST_CASE("FixedString front and back", "[core][fixed_string]") {
 
     REQUIRE(testString.front() == 'H');
     REQUIRE(testString[0] == 'H');
-    STATIC_REQUIRE(constString.front() == 'H');
-    STATIC_REQUIRE(constString[0] == 'H');
 
     // Test modification
     testString.front() = 'h';
     REQUIRE(testString.front() == 'h');
     REQUIRE(testString[0] == 'h');
+
+    // Compile-time checks
+    STATIC_REQUIRE(constString.front() == 'H');
+    STATIC_REQUIRE(constString[0] == 'H');
   }
 
   SECTION("Back method") {
@@ -1030,13 +1029,15 @@ TEST_CASE("FixedString front and back", "[core][fixed_string]") {
 
     REQUIRE(testString.back() == 'd');
     REQUIRE(testString[testString.size() - 1] == 'd');
-    STATIC_REQUIRE(constString.back() == 'd');
-    STATIC_REQUIRE(constString[constString.size() - 1] == 'd');
 
     // Test modification
     testString.back() = 'D';
     REQUIRE(testString.back() == 'D');
     REQUIRE(testString[testString.size() - 1] == 'D');
+
+    // Compile-time checks
+    STATIC_REQUIRE(constString.back() == 'd');
+    STATIC_REQUIRE(constString[constString.size() - 1] == 'd');
   }
 
   SECTION("Single character string") {
@@ -1114,6 +1115,7 @@ TEST_CASE("FixedString front and back", "[core][fixed_string]") {
   SECTION("Const references") {
     constexpr FixedString<32> testString("Hello World");
 
+    // Compile-time checks
     STATIC_REQUIRE(testString.front() == 'H');
     STATIC_REQUIRE(testString.back() == 'd');
   }
@@ -1832,6 +1834,7 @@ TEST_CASE("FixedString length", "[core][fixed_string]") {
     REQUIRE(emptyString.length() == emptyString.size());
     REQUIRE(singleChar.length() == singleChar.size());
 
+    // Compile-time checks
     STATIC_REQUIRE(testString.length() == 11);
     STATIC_REQUIRE(emptyString.length() == 0);
     STATIC_REQUIRE(singleChar.length() == 1);
@@ -1860,6 +1863,7 @@ TEST_CASE("FixedString length", "[core][fixed_string]") {
     REQUIRE(emptyMedium.length() == emptyMedium.size());
     REQUIRE(emptyLarge.length() == emptyLarge.size());
 
+    // Compile-time checks
     STATIC_REQUIRE(smallString.length() == 2);
     STATIC_REQUIRE(mediumString.length() == 11);
     STATIC_REQUIRE(largeString.length() == 23);
@@ -1882,6 +1886,7 @@ TEST_CASE("FixedString length", "[core][fixed_string]") {
     REQUIRE(specialString.length() == specialString.size());
     REQUIRE(emptyString.length() == emptyString.size());
 
+    // Compile-time checks
     STATIC_REQUIRE(newlineString.length() == 11);
     STATIC_REQUIRE(tabString.length() == 11);
     STATIC_REQUIRE(specialString.length() == 10);
@@ -1904,6 +1909,7 @@ TEST_CASE("FixedString length", "[core][fixed_string]") {
     REQUIRE(mixedString.length() == mixedString.size());
     REQUIRE(emptyString.length() == emptyString.size());
 
+    // Compile-time checks
     STATIC_REQUIRE(unicodeString.length() == 19);
     STATIC_REQUIRE(emojiString.length() == 16);
     STATIC_REQUIRE(mixedString.length() == 12);
@@ -1926,6 +1932,7 @@ TEST_CASE("FixedString length", "[core][fixed_string]") {
     REQUIRE(hexString.length() == hexString.size());
     REQUIRE(emptyString.length() == emptyString.size());
 
+    // Compile-time checks
     STATIC_REQUIRE(numericString.length() == 5);
     STATIC_REQUIRE(floatString.length() == 7);
     STATIC_REQUIRE(hexString.length() == 6);
@@ -1948,6 +1955,7 @@ TEST_CASE("FixedString length", "[core][fixed_string]") {
     REQUIRE(longString.length() == longString.size());
     REQUIRE(emptyString.length() == emptyString.size());
 
+    // Compile-time checks
     STATIC_REQUIRE(mixedString.length() == 16);
     STATIC_REQUIRE(complexString.length() == 12);
     STATIC_REQUIRE(longString.length() == 52);
@@ -1970,6 +1978,7 @@ TEST_CASE("FixedString length", "[core][fixed_string]") {
     REQUIRE(emptyString.length() == emptyString.size());
     REQUIRE(defaultString.length() == defaultString.size());
 
+    // Compile-time checks
     STATIC_REQUIRE(singleChar.length() == 1);
     STATIC_REQUIRE(twoChars.length() == 2);
     STATIC_REQUIRE(emptyString.length() == 0);
@@ -1989,6 +1998,7 @@ TEST_CASE("FixedString max_size", "[core][fixed_string]") {
     REQUIRE(largeString.max_size() == 31);
     REQUIRE(extraLargeString.max_size() == 63);
 
+    // Compile-time checks
     STATIC_REQUIRE(smallString.max_size() == 7);
     STATIC_REQUIRE(mediumString.max_size() == 15);
     STATIC_REQUIRE(largeString.max_size() == 31);
@@ -2006,6 +2016,7 @@ TEST_CASE("FixedString max_size", "[core][fixed_string]") {
     REQUIRE(emptyLarge.max_size() == 31);
     REQUIRE(emptyExtraLarge.max_size() == 63);
 
+    // Compile-time checks
     STATIC_REQUIRE(emptySmall.max_size() == 7);
     STATIC_REQUIRE(emptyMedium.max_size() == 15);
     STATIC_REQUIRE(emptyLarge.max_size() == 31);
@@ -2023,6 +2034,7 @@ TEST_CASE("FixedString max_size", "[core][fixed_string]") {
     REQUIRE(defaultLarge.max_size() == 31);
     REQUIRE(defaultExtraLarge.max_size() == 63);
 
+    // Compile-time checks
     STATIC_REQUIRE(defaultSmall.max_size() == 7);
     STATIC_REQUIRE(defaultMedium.max_size() == 15);
     STATIC_REQUIRE(defaultLarge.max_size() == 31);
@@ -2040,6 +2052,7 @@ TEST_CASE("FixedString max_size", "[core][fixed_string]") {
     REQUIRE(singleLarge.max_size() == 31);
     REQUIRE(singleExtraLarge.max_size() == 63);
 
+    // Compile-time checks
     STATIC_REQUIRE(singleSmall.max_size() == 7);
     STATIC_REQUIRE(singleMedium.max_size() == 15);
     STATIC_REQUIRE(singleLarge.max_size() == 31);
@@ -2058,6 +2071,7 @@ TEST_CASE("FixedString max_size", "[core][fixed_string]") {
     REQUIRE(maxLarge.max_size() == 31);
     REQUIRE(maxExtraLarge.max_size() == 63);
 
+    // Compile-time checks
     STATIC_REQUIRE(maxSmall.max_size() == 7);
     STATIC_REQUIRE(maxMedium.max_size() == 15);
     STATIC_REQUIRE(maxLarge.max_size() == 31);
@@ -2080,6 +2094,7 @@ TEST_CASE("FixedString max_size", "[core][fixed_string]") {
     REQUIRE(extraLargeString.max_size() == 63);
     REQUIRE(hugeString.max_size() == 127);
 
+    // Compile-time checks
     STATIC_REQUIRE(tinyString.max_size() == 3);
     STATIC_REQUIRE(smallString.max_size() == 7);
     STATIC_REQUIRE(mediumString.max_size() == 15);
@@ -2097,6 +2112,7 @@ TEST_CASE("FixedString max_size", "[core][fixed_string]") {
     REQUIRE(twoCharString.max_size() == 1);
     REQUIRE(threeCharString.max_size() == 2);
 
+    // Compile-time checks
     STATIC_REQUIRE(minimalString.max_size() == 0);
     STATIC_REQUIRE(twoCharString.max_size() == 1);
     STATIC_REQUIRE(threeCharString.max_size() == 2);
@@ -2112,6 +2128,7 @@ TEST_CASE("FixedString max_size", "[core][fixed_string]") {
     REQUIRE(testString2.max_size() == testString2.capacity());
     REQUIRE(testString3.max_size() == testString3.capacity());
 
+    // Compile-time checks
     STATIC_REQUIRE(testString1.max_size() == testString1.capacity());
     STATIC_REQUIRE(testString2.max_size() == testString2.capacity());
     STATIC_REQUIRE(testString3.max_size() == testString3.capacity());
@@ -2130,6 +2147,7 @@ TEST_CASE("FixedString capacity", "[core][fixed_string]") {
     REQUIRE(largeString.capacity() == 31);
     REQUIRE(extraLargeString.capacity() == 63);
 
+    // Compile-time checks
     STATIC_REQUIRE(smallString.capacity() == 7);
     STATIC_REQUIRE(mediumString.capacity() == 15);
     STATIC_REQUIRE(largeString.capacity() == 31);
@@ -2147,6 +2165,7 @@ TEST_CASE("FixedString capacity", "[core][fixed_string]") {
     REQUIRE(emptyLarge.capacity() == 31);
     REQUIRE(emptyExtraLarge.capacity() == 63);
 
+    // Compile-time checks
     STATIC_REQUIRE(emptySmall.capacity() == 7);
     STATIC_REQUIRE(emptyMedium.capacity() == 15);
     STATIC_REQUIRE(emptyLarge.capacity() == 31);
@@ -2164,6 +2183,7 @@ TEST_CASE("FixedString capacity", "[core][fixed_string]") {
     REQUIRE(defaultLarge.capacity() == 31);
     REQUIRE(defaultExtraLarge.capacity() == 63);
 
+    // Compile-time checks
     STATIC_REQUIRE(defaultSmall.capacity() == 7);
     STATIC_REQUIRE(defaultMedium.capacity() == 15);
     STATIC_REQUIRE(defaultLarge.capacity() == 31);
@@ -2181,6 +2201,7 @@ TEST_CASE("FixedString capacity", "[core][fixed_string]") {
     REQUIRE(singleLarge.capacity() == 31);
     REQUIRE(singleExtraLarge.capacity() == 63);
 
+    // Compile-time checks
     STATIC_REQUIRE(singleSmall.capacity() == 7);
     STATIC_REQUIRE(singleMedium.capacity() == 15);
     STATIC_REQUIRE(singleLarge.capacity() == 31);
@@ -2199,6 +2220,7 @@ TEST_CASE("FixedString capacity", "[core][fixed_string]") {
     REQUIRE(maxLarge.capacity() == 31);
     REQUIRE(maxExtraLarge.capacity() == 63);
 
+    // Compile-time checks
     STATIC_REQUIRE(maxSmall.capacity() == 7);
     STATIC_REQUIRE(maxMedium.capacity() == 15);
     STATIC_REQUIRE(maxLarge.capacity() == 31);
@@ -2221,6 +2243,7 @@ TEST_CASE("FixedString capacity", "[core][fixed_string]") {
     REQUIRE(extraLargeString.capacity() == 63);
     REQUIRE(hugeString.capacity() == 127);
 
+    // Compile-time checks
     STATIC_REQUIRE(tinyString.capacity() == 3);
     STATIC_REQUIRE(smallString.capacity() == 7);
     STATIC_REQUIRE(mediumString.capacity() == 15);
@@ -2238,6 +2261,7 @@ TEST_CASE("FixedString capacity", "[core][fixed_string]") {
     REQUIRE(twoCharString.capacity() == 1);
     REQUIRE(threeCharString.capacity() == 2);
 
+    // Compile-time checks
     STATIC_REQUIRE(minimalString.capacity() == 0);
     STATIC_REQUIRE(twoCharString.capacity() == 1);
     STATIC_REQUIRE(threeCharString.capacity() == 2);
@@ -2253,6 +2277,7 @@ TEST_CASE("FixedString capacity", "[core][fixed_string]") {
     REQUIRE(testString2.capacity() == testString2.max_size());
     REQUIRE(testString3.capacity() == testString3.max_size());
 
+    // Compile-time checks
     STATIC_REQUIRE(testString1.capacity() == testString1.max_size());
     STATIC_REQUIRE(testString2.capacity() == testString2.max_size());
     STATIC_REQUIRE(testString3.capacity() == testString3.max_size());
@@ -2272,6 +2297,7 @@ TEST_CASE("FixedString capacity", "[core][fixed_string]") {
     REQUIRE(test32.capacity() == 31); // 32 - 1 = 31
     REQUIRE(test64.capacity() == 63); // 64 - 1 = 63
 
+    // Compile-time checks
     STATIC_REQUIRE(test4.capacity() == 3);
     STATIC_REQUIRE(test8.capacity() == 7);
     STATIC_REQUIRE(test16.capacity() == 15);
@@ -4667,8 +4693,6 @@ TEST_CASE("FixedString swap", "[core][fixed_string]") {
   }
 }
 
-// to refactor 6040 - 4670 = 1370
-
 TEST_CASE("FixedString find", "[core][fixed_string]") {
   SECTION("Find FixedString substring") {
     constexpr FixedString<32> testString("Hello World");
@@ -4677,6 +4701,12 @@ TEST_CASE("FixedString find", "[core][fixed_string]") {
     REQUIRE(testString.find(FixedString<16>("Hello")) == 0);
     REQUIRE(testString.find(FixedString<16>("lo Wo")) == 3);
     REQUIRE(testString.find(FixedString<16>("xyz")) == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find(FixedString<16>("World")) == 6);
+    STATIC_REQUIRE(testString.find(FixedString<16>("Hello")) == 0);
+    STATIC_REQUIRE(testString.find(FixedString<16>("lo Wo")) == 3);
+    STATIC_REQUIRE(testString.find(FixedString<16>("xyz")) == FixedString<32>::npos);
   }
 
   SECTION("Find StringLike substring") {
@@ -4686,6 +4716,12 @@ TEST_CASE("FixedString find", "[core][fixed_string]") {
     REQUIRE(testString.find(std::string("Hello")) == 0);
     REQUIRE(testString.find(std::string("lo Wo")) == 3);
     REQUIRE(testString.find(std::string("xyz")) == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find(CStringView("World")) == 6);
+    STATIC_REQUIRE(testString.find(CStringView("Hello")) == 0);
+    STATIC_REQUIRE(testString.find(CStringView("lo Wo")) == 3);
+    STATIC_REQUIRE(testString.find(CStringView("xyz")) == FixedString<32>::npos);
   }
 
   SECTION("Find C string substring") {
@@ -4695,6 +4731,12 @@ TEST_CASE("FixedString find", "[core][fixed_string]") {
     REQUIRE(testString.find("Hello") == 0);
     REQUIRE(testString.find("lo Wo") == 3);
     REQUIRE(testString.find("xyz") == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find("World") == 6);
+    STATIC_REQUIRE(testString.find("Hello") == 0);
+    STATIC_REQUIRE(testString.find("lo Wo") == 3);
+    STATIC_REQUIRE(testString.find("xyz") == FixedString<32>::npos);
   }
 
   SECTION("Find character") {
@@ -4706,6 +4748,14 @@ TEST_CASE("FixedString find", "[core][fixed_string]") {
     REQUIRE(testString.find('W') == 6);
     REQUIRE(testString.find('d') == 10);
     REQUIRE(testString.find('x') == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find('H') == 0);
+    STATIC_REQUIRE(testString.find('l') == 2);
+    STATIC_REQUIRE(testString.find('o') == 4);
+    STATIC_REQUIRE(testString.find('W') == 6);
+    STATIC_REQUIRE(testString.find('d') == 10);
+    STATIC_REQUIRE(testString.find('x') == FixedString<32>::npos);
   }
 
   SECTION("Find with position parameter") {
@@ -4718,6 +4768,15 @@ TEST_CASE("FixedString find", "[core][fixed_string]") {
     REQUIRE(testString.find('l', 3) == 3);
     REQUIRE(testString.find('l', 4) == 9);
     REQUIRE(testString.find('l', 10) == 14);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find("Hello", 0) == 0);
+    STATIC_REQUIRE(testString.find("Hello", 1) == 12);
+    STATIC_REQUIRE(testString.find("Hello", 13) == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find('l', 0) == 2);
+    STATIC_REQUIRE(testString.find('l', 3) == 3);
+    STATIC_REQUIRE(testString.find('l', 4) == 9);
+    STATIC_REQUIRE(testString.find('l', 10) == 14);
   }
 
   SECTION("Find empty substring") {
@@ -4727,7 +4786,16 @@ TEST_CASE("FixedString find", "[core][fixed_string]") {
     REQUIRE(testString.find(std::string("")) == 0);
     REQUIRE(testString.find("") == 0);
     REQUIRE(testString.find("", 5) == 5);
-    REQUIRE(testString.find("", 11) == FixedString<32>::npos);
+    REQUIRE(testString.find("", 11) == 11);
+    REQUIRE(testString.find("", 12) == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find(FixedString<16>("")) == 0);
+    STATIC_REQUIRE(testString.find(CStringView("")) == 0);
+    STATIC_REQUIRE(testString.find("") == 0);
+    STATIC_REQUIRE(testString.find("", 5) == 5);
+    STATIC_REQUIRE(testString.find("", 11) == 11);
+    STATIC_REQUIRE(testString.find("", 12) == FixedString<32>::npos);
   }
 
   SECTION("Find in empty string") {
@@ -4737,7 +4805,14 @@ TEST_CASE("FixedString find", "[core][fixed_string]") {
     REQUIRE(testString.find(std::string("Hello")) == FixedString<32>::npos);
     REQUIRE(testString.find("Hello") == FixedString<32>::npos);
     REQUIRE(testString.find('H') == FixedString<32>::npos);
-    REQUIRE(testString.find("") == FixedString<32>::npos);
+    REQUIRE(testString.find("") == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find(FixedString<16>("Hello")) == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find(CStringView("Hello")) == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find("Hello") == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find('H') == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find("") == 0);
   }
 
   SECTION("Find with position beyond string size") {
@@ -4746,6 +4821,11 @@ TEST_CASE("FixedString find", "[core][fixed_string]") {
     REQUIRE(testString.find("World", 10) == FixedString<32>::npos);
     REQUIRE(testString.find('H', 10) == FixedString<32>::npos);
     REQUIRE(testString.find("", 10) == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find("World", 10) == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find('H', 10) == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find("", 10) == FixedString<32>::npos);
   }
 
   SECTION("Find substring at end") {
@@ -4754,6 +4834,11 @@ TEST_CASE("FixedString find", "[core][fixed_string]") {
     REQUIRE(testString.find("World") == 6);
     REQUIRE(testString.find("d") == 10);
     REQUIRE(testString.find("ld") == 9);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find("World") == 6);
+    STATIC_REQUIRE(testString.find("d") == 10);
+    STATIC_REQUIRE(testString.find("ld") == 9);
   }
 
   SECTION("Find substring at beginning") {
@@ -4762,6 +4847,11 @@ TEST_CASE("FixedString find", "[core][fixed_string]") {
     REQUIRE(testString.find("Hello") == 0);
     REQUIRE(testString.find("H") == 0);
     REQUIRE(testString.find("He") == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find("Hello") == 0);
+    STATIC_REQUIRE(testString.find("H") == 0);
+    STATIC_REQUIRE(testString.find("He") == 0);
   }
 
   SECTION("Find overlapping substrings") {
@@ -4771,6 +4861,12 @@ TEST_CASE("FixedString find", "[core][fixed_string]") {
     REQUIRE(testString.find("ab", 1) == 2);
     REQUIRE(testString.find("ab", 3) == 4);
     REQUIRE(testString.find("ab", 5) == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find("ab") == 0);
+    STATIC_REQUIRE(testString.find("ab", 1) == 2);
+    STATIC_REQUIRE(testString.find("ab", 3) == 4);
+    STATIC_REQUIRE(testString.find("ab", 5) == FixedString<32>::npos);
   }
 
   SECTION("Find with repeated characters") {
@@ -4781,6 +4877,13 @@ TEST_CASE("FixedString find", "[core][fixed_string]") {
     REQUIRE(testString.find("aa", 2) == 2);
     REQUIRE(testString.find("aa", 3) == 3);
     REQUIRE(testString.find("aa", 4) == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find("aa") == 0);
+    STATIC_REQUIRE(testString.find("aa", 1) == 1);
+    STATIC_REQUIRE(testString.find("aa", 2) == 2);
+    STATIC_REQUIRE(testString.find("aa", 3) == 3);
+    STATIC_REQUIRE(testString.find("aa", 4) == FixedString<32>::npos);
   }
 
   SECTION("Find case sensitivity") {
@@ -4790,6 +4893,12 @@ TEST_CASE("FixedString find", "[core][fixed_string]") {
     REQUIRE(testString.find("WORLD") == FixedString<32>::npos);
     REQUIRE(testString.find("Hello") == 0);
     REQUIRE(testString.find("World") == 6);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find("hello") == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find("WORLD") == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find("Hello") == 0);
+    STATIC_REQUIRE(testString.find("World") == 6);
   }
 
   SECTION("Find with different FixedString capacities") {
@@ -4798,6 +4907,11 @@ TEST_CASE("FixedString find", "[core][fixed_string]") {
     REQUIRE(testString.find(FixedString<8>("World")) == 6);
     REQUIRE(testString.find(FixedString<16>("World")) == 6);
     REQUIRE(testString.find(FixedString<64>("World")) == 6);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find(FixedString<8>("World")) == 6);
+    STATIC_REQUIRE(testString.find(FixedString<16>("World")) == 6);
+    STATIC_REQUIRE(testString.find(FixedString<64>("World")) == 6);
   }
 
   SECTION("Find with exact match") {
@@ -4806,6 +4920,11 @@ TEST_CASE("FixedString find", "[core][fixed_string]") {
     REQUIRE(testString.find("Hello") == 0);
     REQUIRE(testString.find("Hello", 0) == 0);
     REQUIRE(testString.find("Hello", 1) == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find("Hello") == 0);
+    STATIC_REQUIRE(testString.find("Hello", 0) == 0);
+    STATIC_REQUIRE(testString.find("Hello", 1) == FixedString<32>::npos);
   }
 
   SECTION("Find with single character string") {
@@ -4815,6 +4934,91 @@ TEST_CASE("FixedString find", "[core][fixed_string]") {
     REQUIRE(testString.find('A') == 0);
     REQUIRE(testString.find("B") == FixedString<32>::npos);
     REQUIRE(testString.find('B') == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find("A") == 0);
+    STATIC_REQUIRE(testString.find('A') == 0);
+    STATIC_REQUIRE(testString.find("B") == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find('B') == FixedString<32>::npos);
+  }
+
+  SECTION("Find with special characters") {
+    constexpr FixedString<32> testString("Hello\n\tWorld!");
+
+    REQUIRE(testString.find("\n") == 5);
+    REQUIRE(testString.find("\t") == 6);
+    REQUIRE(testString.find("!") == 12);
+    REQUIRE(testString.find("\n\t") == 5);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find("\n") == 5);
+    STATIC_REQUIRE(testString.find("\t") == 6);
+    STATIC_REQUIRE(testString.find("!") == 12);
+    STATIC_REQUIRE(testString.find("\n\t") == 5);
+  }
+
+  SECTION("Find with Unicode content") {
+    constexpr FixedString<64> testString("Hello 世界");
+
+    REQUIRE(testString.find("世界") == 6);
+    REQUIRE(testString.find("Hello") == 0);
+    REQUIRE(testString.find(" ") == 5);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find("世界") == 6);
+    STATIC_REQUIRE(testString.find("Hello") == 0);
+    STATIC_REQUIRE(testString.find(" ") == 5);
+  }
+
+  SECTION("Find with numeric content") {
+    constexpr FixedString<32> testString("12345Hello67890");
+
+    REQUIRE(testString.find("12345") == 0);
+    REQUIRE(testString.find("Hello") == 5);
+    REQUIRE(testString.find("67890") == 10);
+    REQUIRE(testString.find("456") == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find("12345") == 0);
+    STATIC_REQUIRE(testString.find("Hello") == 5);
+    STATIC_REQUIRE(testString.find("67890") == 10);
+    STATIC_REQUIRE(testString.find("456") == FixedString<32>::npos);
+  }
+
+  SECTION("Find with mixed content") {
+    constexpr FixedString<32> testString("Hello123World!@#");
+
+    REQUIRE(testString.find("123") == 5);
+    REQUIRE(testString.find("!@#") == 13);
+    REQUIRE(testString.find("Hello123") == 0);
+    REQUIRE(testString.find("World!@#") == 8);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find("123") == 5);
+    STATIC_REQUIRE(testString.find("!@#") == 13);
+    STATIC_REQUIRE(testString.find("Hello123") == 0);
+    STATIC_REQUIRE(testString.find("World!@#") == 8);
+  }
+
+  SECTION("Find with position edge cases") {
+    constexpr FixedString<32> testString("Hello World");
+
+    REQUIRE(testString.find("Hello", 0) == 0);
+    REQUIRE(testString.find("Hello", 1) == FixedString<32>::npos);
+    REQUIRE(testString.find("World", 6) == 6);
+    REQUIRE(testString.find("World", 7) == FixedString<32>::npos);
+    REQUIRE(testString.find("", 0) == 0);
+    REQUIRE(testString.find("", 11) == 11);
+    REQUIRE(testString.find("", 12) == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find("Hello", 0) == 0);
+    STATIC_REQUIRE(testString.find("Hello", 1) == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find("World", 6) == 6);
+    STATIC_REQUIRE(testString.find("World", 7) == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find("", 0) == 0);
+    STATIC_REQUIRE(testString.find("", 11) == 11);
+    STATIC_REQUIRE(testString.find("", 12) == FixedString<32>::npos);
   }
 }
 
@@ -4826,6 +5030,12 @@ TEST_CASE("FixedString rfind", "[core][fixed_string]") {
     REQUIRE(testString.rfind(FixedString<16>("World")) == 6);
     REQUIRE(testString.rfind(FixedString<16>("lo")) == 15);
     REQUIRE(testString.rfind(FixedString<16>("xyz")) == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind(FixedString<16>("Hello")) == 12);
+    STATIC_REQUIRE(testString.rfind(FixedString<16>("World")) == 6);
+    STATIC_REQUIRE(testString.rfind(FixedString<16>("lo")) == 15);
+    STATIC_REQUIRE(testString.rfind(FixedString<16>("xyz")) == FixedString<32>::npos);
   }
 
   SECTION("Rfind StringLike substring") {
@@ -4835,6 +5045,12 @@ TEST_CASE("FixedString rfind", "[core][fixed_string]") {
     REQUIRE(testString.rfind(std::string("World")) == 6);
     REQUIRE(testString.rfind(std::string("lo")) == 15);
     REQUIRE(testString.rfind(std::string("xyz")) == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind(CStringView("Hello")) == 12);
+    STATIC_REQUIRE(testString.rfind(CStringView("World")) == 6);
+    STATIC_REQUIRE(testString.rfind(CStringView("lo")) == 15);
+    STATIC_REQUIRE(testString.rfind(CStringView("xyz")) == FixedString<32>::npos);
   }
 
   SECTION("Rfind C string substring") {
@@ -4844,6 +5060,12 @@ TEST_CASE("FixedString rfind", "[core][fixed_string]") {
     REQUIRE(testString.rfind("World") == 6);
     REQUIRE(testString.rfind("lo") == 15);
     REQUIRE(testString.rfind("xyz") == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind("Hello") == 12);
+    STATIC_REQUIRE(testString.rfind("World") == 6);
+    STATIC_REQUIRE(testString.rfind("lo") == 15);
+    STATIC_REQUIRE(testString.rfind("xyz") == FixedString<32>::npos);
   }
 
   SECTION("Rfind character") {
@@ -4855,6 +5077,14 @@ TEST_CASE("FixedString rfind", "[core][fixed_string]") {
     REQUIRE(testString.rfind('W') == 6);
     REQUIRE(testString.rfind('d') == 10);
     REQUIRE(testString.rfind('x') == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind('H') == 12);
+    STATIC_REQUIRE(testString.rfind('l') == 15);
+    STATIC_REQUIRE(testString.rfind('o') == 16);
+    STATIC_REQUIRE(testString.rfind('W') == 6);
+    STATIC_REQUIRE(testString.rfind('d') == 10);
+    STATIC_REQUIRE(testString.rfind('x') == FixedString<32>::npos);
   }
 
   SECTION("Rfind with position parameter") {
@@ -4867,6 +5097,15 @@ TEST_CASE("FixedString rfind", "[core][fixed_string]") {
     REQUIRE(testString.rfind('l', 13) == 9);
     REQUIRE(testString.rfind('l', 8) == 3);
     REQUIRE(testString.rfind('l', 2) == 2);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind("Hello", 12) == 12);
+    STATIC_REQUIRE(testString.rfind("Hello", 11) == 0);
+    STATIC_REQUIRE(testString.rfind("Hello", 0) == 0);
+    STATIC_REQUIRE(testString.rfind('l', 16) == 15);
+    STATIC_REQUIRE(testString.rfind('l', 13) == 9);
+    STATIC_REQUIRE(testString.rfind('l', 8) == 3);
+    STATIC_REQUIRE(testString.rfind('l', 2) == 2);
   }
 
   SECTION("Rfind empty substring") {
@@ -4877,6 +5116,13 @@ TEST_CASE("FixedString rfind", "[core][fixed_string]") {
     REQUIRE(testString.rfind("") == 11);
     REQUIRE(testString.rfind("", 5) == 5);
     REQUIRE(testString.rfind("", 0) == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind(FixedString<16>("")) == 11);
+    STATIC_REQUIRE(testString.rfind(CStringView("")) == 11);
+    STATIC_REQUIRE(testString.rfind("") == 11);
+    STATIC_REQUIRE(testString.rfind("", 5) == 5);
+    STATIC_REQUIRE(testString.rfind("", 0) == 0);
   }
 
   SECTION("Rfind in empty string") {
@@ -4887,6 +5133,13 @@ TEST_CASE("FixedString rfind", "[core][fixed_string]") {
     REQUIRE(testString.rfind("Hello") == FixedString<32>::npos);
     REQUIRE(testString.rfind('H') == FixedString<32>::npos);
     REQUIRE(testString.rfind("") == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind(FixedString<16>("Hello")) == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.rfind(CStringView("Hello")) == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.rfind("Hello") == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.rfind('H') == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.rfind("") == 0);
   }
 
   SECTION("Rfind substring at end") {
@@ -4895,6 +5148,11 @@ TEST_CASE("FixedString rfind", "[core][fixed_string]") {
     REQUIRE(testString.rfind("World") == 6);
     REQUIRE(testString.rfind("d") == 10);
     REQUIRE(testString.rfind("ld") == 9);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind("World") == 6);
+    STATIC_REQUIRE(testString.rfind("d") == 10);
+    STATIC_REQUIRE(testString.rfind("ld") == 9);
   }
 
   SECTION("Rfind substring at beginning") {
@@ -4903,6 +5161,11 @@ TEST_CASE("FixedString rfind", "[core][fixed_string]") {
     REQUIRE(testString.rfind("Hello") == 12);
     REQUIRE(testString.rfind("H") == 12);
     REQUIRE(testString.rfind("He") == 12);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind("Hello") == 12);
+    STATIC_REQUIRE(testString.rfind("H") == 12);
+    STATIC_REQUIRE(testString.rfind("He") == 12);
   }
 
   SECTION("Rfind overlapping substrings") {
@@ -4912,6 +5175,12 @@ TEST_CASE("FixedString rfind", "[core][fixed_string]") {
     REQUIRE(testString.rfind("ab", 3) == 2);
     REQUIRE(testString.rfind("ab", 1) == 0);
     REQUIRE(testString.rfind("ab", 0) == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind("ab") == 4);
+    STATIC_REQUIRE(testString.rfind("ab", 3) == 2);
+    STATIC_REQUIRE(testString.rfind("ab", 1) == 0);
+    STATIC_REQUIRE(testString.rfind("ab", 0) == 0);
   }
 
   SECTION("Rfind with repeated characters") {
@@ -4921,6 +5190,12 @@ TEST_CASE("FixedString rfind", "[core][fixed_string]") {
     REQUIRE(testString.rfind("aa", 2) == 2);
     REQUIRE(testString.rfind("aa", 1) == 1);
     REQUIRE(testString.rfind("aa", 0) == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind("aa") == 3);
+    STATIC_REQUIRE(testString.rfind("aa", 2) == 2);
+    STATIC_REQUIRE(testString.rfind("aa", 1) == 1);
+    STATIC_REQUIRE(testString.rfind("aa", 0) == 0);
   }
 
   SECTION("Rfind case sensitivity") {
@@ -4930,6 +5205,12 @@ TEST_CASE("FixedString rfind", "[core][fixed_string]") {
     REQUIRE(testString.rfind("WORLD") == FixedString<32>::npos);
     REQUIRE(testString.rfind("Hello") == 12);
     REQUIRE(testString.rfind("World") == 6);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind("hello") == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.rfind("WORLD") == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.rfind("Hello") == 12);
+    STATIC_REQUIRE(testString.rfind("World") == 6);
   }
 
   SECTION("Rfind with different FixedString capacities") {
@@ -4938,6 +5219,11 @@ TEST_CASE("FixedString rfind", "[core][fixed_string]") {
     REQUIRE(testString.rfind(FixedString<8>("Hello")) == 12);
     REQUIRE(testString.rfind(FixedString<16>("Hello")) == 12);
     REQUIRE(testString.rfind(FixedString<64>("Hello")) == 12);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind(FixedString<8>("Hello")) == 12);
+    STATIC_REQUIRE(testString.rfind(FixedString<16>("Hello")) == 12);
+    STATIC_REQUIRE(testString.rfind(FixedString<64>("Hello")) == 12);
   }
 
   SECTION("Rfind with exact match") {
@@ -4945,6 +5231,10 @@ TEST_CASE("FixedString rfind", "[core][fixed_string]") {
 
     REQUIRE(testString.rfind("Hello") == 0);
     REQUIRE(testString.rfind("Hello", 0) == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind("Hello") == 0);
+    STATIC_REQUIRE(testString.rfind("Hello", 0) == 0);
   }
 
   SECTION("Rfind with single character string") {
@@ -4954,6 +5244,12 @@ TEST_CASE("FixedString rfind", "[core][fixed_string]") {
     REQUIRE(testString.rfind('A') == 0);
     REQUIRE(testString.rfind("B") == FixedString<32>::npos);
     REQUIRE(testString.rfind('B') == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind("A") == 0);
+    STATIC_REQUIRE(testString.rfind('A') == 0);
+    STATIC_REQUIRE(testString.rfind("B") == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.rfind('B') == FixedString<32>::npos);
   }
 
   SECTION("Rfind with position 0") {
@@ -4963,6 +5259,12 @@ TEST_CASE("FixedString rfind", "[core][fixed_string]") {
     REQUIRE(testString.rfind("World", 0) == FixedString<32>::npos);
     REQUIRE(testString.rfind('H', 0) == 0);
     REQUIRE(testString.rfind('W', 0) == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind("Hello", 0) == 0);
+    STATIC_REQUIRE(testString.rfind("World", 0) == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.rfind('H', 0) == 0);
+    STATIC_REQUIRE(testString.rfind('W', 0) == FixedString<32>::npos);
   }
 
   SECTION("Rfind with substring longer than string") {
@@ -4970,6 +5272,10 @@ TEST_CASE("FixedString rfind", "[core][fixed_string]") {
 
     REQUIRE(testString.rfind("Hello World") == FixedString<32>::npos);
     REQUIRE(testString.rfind("Hello World", 10) == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind("Hello World") == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.rfind("Hello World", 10) == FixedString<32>::npos);
   }
 
   SECTION("Rfind with multiple occurrences") {
@@ -4979,6 +5285,12 @@ TEST_CASE("FixedString rfind", "[core][fixed_string]") {
     REQUIRE(testString.rfind("ab", 5) == 4);
     REQUIRE(testString.rfind("ab", 3) == 2);
     REQUIRE(testString.rfind("ab", 1) == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind("ab") == 6);
+    STATIC_REQUIRE(testString.rfind("ab", 5) == 4);
+    STATIC_REQUIRE(testString.rfind("ab", 3) == 2);
+    STATIC_REQUIRE(testString.rfind("ab", 1) == 0);
   }
 
   SECTION("Rfind with position in middle") {
@@ -4988,6 +5300,12 @@ TEST_CASE("FixedString rfind", "[core][fixed_string]") {
     REQUIRE(testString.rfind("Hello", 12) == 12);
     REQUIRE(testString.rfind('l', 8) == 3);
     REQUIRE(testString.rfind('l', 15) == 15);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind("Hello", 8) == 0);
+    STATIC_REQUIRE(testString.rfind("Hello", 12) == 12);
+    STATIC_REQUIRE(testString.rfind('l', 8) == 3);
+    STATIC_REQUIRE(testString.rfind('l', 15) == 15);
   }
 }
 
@@ -4999,6 +5317,12 @@ TEST_CASE("FixedString find_first_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_of(FixedString<16>("H")) == 0);
     REQUIRE(testString.find_first_of(FixedString<16>("d")) == 10);
     REQUIRE(testString.find_first_of(FixedString<16>("xyz")) == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of(FixedString<16>("aeiou")) == 1);
+    STATIC_REQUIRE(testString.find_first_of(FixedString<16>("H")) == 0);
+    STATIC_REQUIRE(testString.find_first_of(FixedString<16>("d")) == 10);
+    STATIC_REQUIRE(testString.find_first_of(FixedString<16>("xyz")) == FixedString<32>::npos);
   }
 
   SECTION("Find first of StringLike characters") {
@@ -5008,6 +5332,12 @@ TEST_CASE("FixedString find_first_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_of(std::string("H")) == 0);
     REQUIRE(testString.find_first_of(std::string("d")) == 10);
     REQUIRE(testString.find_first_of(std::string("xyz")) == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of(CStringView("aeiou")) == 1);
+    STATIC_REQUIRE(testString.find_first_of(CStringView("H")) == 0);
+    STATIC_REQUIRE(testString.find_first_of(CStringView("d")) == 10);
+    STATIC_REQUIRE(testString.find_first_of(CStringView("xyz")) == FixedString<32>::npos);
   }
 
   SECTION("Find first of C string characters") {
@@ -5017,6 +5347,12 @@ TEST_CASE("FixedString find_first_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_of("H") == 0);
     REQUIRE(testString.find_first_of("d") == 10);
     REQUIRE(testString.find_first_of("xyz") == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of("aeiou") == 1);
+    STATIC_REQUIRE(testString.find_first_of("H") == 0);
+    STATIC_REQUIRE(testString.find_first_of("d") == 10);
+    STATIC_REQUIRE(testString.find_first_of("xyz") == FixedString<32>::npos);
   }
 
   SECTION("Find first of single character") {
@@ -5029,6 +5365,15 @@ TEST_CASE("FixedString find_first_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_of('W') == 6);
     REQUIRE(testString.find_first_of('d') == 10);
     REQUIRE(testString.find_first_of('x') == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of('H') == 0);
+    STATIC_REQUIRE(testString.find_first_of('e') == 1);
+    STATIC_REQUIRE(testString.find_first_of('l') == 2);
+    STATIC_REQUIRE(testString.find_first_of('o') == 4);
+    STATIC_REQUIRE(testString.find_first_of('W') == 6);
+    STATIC_REQUIRE(testString.find_first_of('d') == 10);
+    STATIC_REQUIRE(testString.find_first_of('x') == FixedString<32>::npos);
   }
 
   SECTION("Find first of with position parameter") {
@@ -5040,6 +5385,14 @@ TEST_CASE("FixedString find_first_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_of("aeiou", 8) == 13);
     REQUIRE(testString.find_first_of("aeiou", 14) == 16);
     REQUIRE(testString.find_first_of("aeiou", 17) == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of("aeiou", 0) == 1);
+    STATIC_REQUIRE(testString.find_first_of("aeiou", 2) == 4);
+    STATIC_REQUIRE(testString.find_first_of("aeiou", 5) == 7);
+    STATIC_REQUIRE(testString.find_first_of("aeiou", 8) == 13);
+    STATIC_REQUIRE(testString.find_first_of("aeiou", 14) == 16);
+    STATIC_REQUIRE(testString.find_first_of("aeiou", 17) == FixedString<32>::npos);
   }
 
   SECTION("Find first of empty character set") {
@@ -5048,6 +5401,11 @@ TEST_CASE("FixedString find_first_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_of(FixedString<16>("")) == FixedString<32>::npos);
     REQUIRE(testString.find_first_of(std::string("")) == FixedString<32>::npos);
     REQUIRE(testString.find_first_of("") == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of(FixedString<16>("")) == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find_first_of(CStringView("")) == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find_first_of("") == FixedString<32>::npos);
   }
 
   SECTION("Find first of in empty string") {
@@ -5057,6 +5415,12 @@ TEST_CASE("FixedString find_first_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_of(std::string("aeiou")) == FixedString<32>::npos);
     REQUIRE(testString.find_first_of("aeiou") == FixedString<32>::npos);
     REQUIRE(testString.find_first_of('a') == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of(FixedString<16>("aeiou")) == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find_first_of(CStringView("aeiou")) == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find_first_of("aeiou") == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find_first_of('a') == FixedString<32>::npos);
   }
 
   SECTION("Find first of with position beyond string size") {
@@ -5064,6 +5428,10 @@ TEST_CASE("FixedString find_first_of", "[core][fixed_string]") {
 
     REQUIRE(testString.find_first_of("aeiou", 10) == FixedString<32>::npos);
     REQUIRE(testString.find_first_of('a', 10) == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of("aeiou", 10) == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find_first_of('a', 10) == FixedString<32>::npos);
   }
 
   SECTION("Find first of with repeated characters") {
@@ -5072,6 +5440,11 @@ TEST_CASE("FixedString find_first_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_of("a") == 0);
     REQUIRE(testString.find_first_of("ab") == 0);
     REQUIRE(testString.find_first_of("b") == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of("a") == 0);
+    STATIC_REQUIRE(testString.find_first_of("ab") == 0);
+    STATIC_REQUIRE(testString.find_first_of("b") == FixedString<32>::npos);
   }
 
   SECTION("Find first of with multiple character sets") {
@@ -5081,6 +5454,12 @@ TEST_CASE("FixedString find_first_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_of("lo") == 2); // 'l' at position 2
     REQUIRE(testString.find_first_of("Wr") == 6); // 'W' at position 6
     REQUIRE(testString.find_first_of("dl") == 2); // 'l' at position 2
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of("Hl") == 0);
+    STATIC_REQUIRE(testString.find_first_of("lo") == 2);
+    STATIC_REQUIRE(testString.find_first_of("Wr") == 6);
+    STATIC_REQUIRE(testString.find_first_of("dl") == 2);
   }
 
   SECTION("Find first of case sensitivity") {
@@ -5090,6 +5469,12 @@ TEST_CASE("FixedString find_first_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_of("H") == 0);
     REQUIRE(testString.find_first_of("w") == FixedString<32>::npos);
     REQUIRE(testString.find_first_of("W") == 6);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of("h") == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find_first_of("H") == 0);
+    STATIC_REQUIRE(testString.find_first_of("w") == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find_first_of("W") == 6);
   }
 
   SECTION("Find first of with special characters") {
@@ -5098,6 +5483,11 @@ TEST_CASE("FixedString find_first_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_of("!,") == 5); // ',' at position 5
     REQUIRE(testString.find_first_of("!") == 12); // '!' at position 12
     REQUIRE(testString.find_first_of(".,!") == 5); // ',' at position 5
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of("!,") == 5);
+    STATIC_REQUIRE(testString.find_first_of("!") == 12);
+    STATIC_REQUIRE(testString.find_first_of(".,!") == 5);
   }
 
   SECTION("Find first of with numbers") {
@@ -5106,6 +5496,11 @@ TEST_CASE("FixedString find_first_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_of("0123456789") == 5); // '1' at position 5
     REQUIRE(testString.find_first_of("123") == 5); // '1' at position 5
     REQUIRE(testString.find_first_of("456") == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of("0123456789") == 5);
+    STATIC_REQUIRE(testString.find_first_of("123") == 5);
+    STATIC_REQUIRE(testString.find_first_of("456") == FixedString<32>::npos);
   }
 
   SECTION("Find first of with whitespace") {
@@ -5114,6 +5509,11 @@ TEST_CASE("FixedString find_first_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_of(" \t\n") == 5); // ' ' at position 5
     REQUIRE(testString.find_first_of("\t") == 11);
     REQUIRE(testString.find_first_of("\n") == 12);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of(" \t\n") == 5);
+    STATIC_REQUIRE(testString.find_first_of("\t") == 11);
+    STATIC_REQUIRE(testString.find_first_of("\n") == 12);
   }
 
   SECTION("Find first of with different FixedString capacities") {
@@ -5122,6 +5522,11 @@ TEST_CASE("FixedString find_first_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_of(FixedString<8>("aeiou")) == 1);
     REQUIRE(testString.find_first_of(FixedString<16>("aeiou")) == 1);
     REQUIRE(testString.find_first_of(FixedString<64>("aeiou")) == 1);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of(FixedString<8>("aeiou")) == 1);
+    STATIC_REQUIRE(testString.find_first_of(FixedString<16>("aeiou")) == 1);
+    STATIC_REQUIRE(testString.find_first_of(FixedString<64>("aeiou")) == 1);
   }
 
   SECTION("Find first of with single character string") {
@@ -5131,6 +5536,12 @@ TEST_CASE("FixedString find_first_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_of('A') == 0);
     REQUIRE(testString.find_first_of("B") == FixedString<32>::npos);
     REQUIRE(testString.find_first_of('B') == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of("A") == 0);
+    STATIC_REQUIRE(testString.find_first_of('A') == 0);
+    STATIC_REQUIRE(testString.find_first_of("B") == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find_first_of('B') == FixedString<32>::npos);
   }
 
   SECTION("Find first of with position 0") {
@@ -5139,6 +5550,11 @@ TEST_CASE("FixedString find_first_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_of("aeiou", 0) == 1);
     REQUIRE(testString.find_first_of("H", 0) == 0);
     REQUIRE(testString.find_first_of("xyz", 0) == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of("aeiou", 0) == 1);
+    STATIC_REQUIRE(testString.find_first_of("H", 0) == 0);
+    STATIC_REQUIRE(testString.find_first_of("xyz", 0) == FixedString<32>::npos);
   }
 
   SECTION("Find first of with all characters found") {
@@ -5147,6 +5563,11 @@ TEST_CASE("FixedString find_first_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_of("aeiou") == 0);
     REQUIRE(testString.find_first_of("xyz") == 23);
     REQUIRE(testString.find_first_of("z") == 25);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of("aeiou") == 0);
+    STATIC_REQUIRE(testString.find_first_of("xyz") == 23);
+    STATIC_REQUIRE(testString.find_first_of("z") == 25);
   }
 
   SECTION("Find first of with no characters found") {
@@ -5155,8 +5576,15 @@ TEST_CASE("FixedString find_first_of", "[core][fixed_string]") {
     REQUIRE(testString.find_first_of("0123456789") == FixedString<32>::npos);
     REQUIRE(testString.find_first_of("!@#$%^&*()") == FixedString<32>::npos);
     REQUIRE(testString.find_first_of("[]{}|\\:;\"'<>?/") == FixedString<32>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of("0123456789") == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find_first_of("!@#$%^&*()") == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find_first_of("[]{}|\\:;\"'<>?/") == FixedString<32>::npos);
   }
 }
+
+// to refactor 6465 - 5584 = 881
 
 TEST_CASE("FixedString find_first_not_of", "[core][fixed_string]") {
   SECTION("Find first not of FixedString characters") {
@@ -6070,12 +6498,12 @@ TEST_CASE("FixedString ends_with", "[core][fixed_string]") {
     REQUIRE(testString.ends_with(std::string("")) == true);
 
     // Compile-time checks
-    STATIC_REQUIRE(testString.ends_with(std::string("World")) == true);
-    STATIC_REQUIRE(testString.ends_with(std::string("Hello World")) == true);
-    STATIC_REQUIRE(testString.ends_with(std::string("d")) == true);
-    STATIC_REQUIRE(testString.ends_with(std::string("Hello")) == false);
-    STATIC_REQUIRE(testString.ends_with(std::string("xyz")) == false);
-    STATIC_REQUIRE(testString.ends_with(std::string("")) == true);
+    STATIC_REQUIRE(testString.ends_with(CStringView("World")) == true);
+    STATIC_REQUIRE(testString.ends_with(CStringView("Hello World")) == true);
+    STATIC_REQUIRE(testString.ends_with(CStringView("d")) == true);
+    STATIC_REQUIRE(testString.ends_with(CStringView("Hello")) == false);
+    STATIC_REQUIRE(testString.ends_with(CStringView("xyz")) == false);
+    STATIC_REQUIRE(testString.ends_with(CStringView("")) == true);
   }
 
   SECTION("C string ends_with") {
@@ -6123,7 +6551,7 @@ TEST_CASE("FixedString ends_with", "[core][fixed_string]") {
 
     // Compile-time checks
     STATIC_REQUIRE(testString.ends_with(FixedString<16>("Hello")) == false);
-    STATIC_REQUIRE(testString.ends_with(std::string("Hello")) == false);
+    STATIC_REQUIRE(testString.ends_with(CStringView("Hello")) == false);
     STATIC_REQUIRE(testString.ends_with("Hello") == false);
     STATIC_REQUIRE(testString.ends_with('H') == false);
     STATIC_REQUIRE(testString.ends_with("") == true);
@@ -6489,15 +6917,22 @@ TEST_CASE("FixedString contains", "[core][fixed_string]") {
   }
 
   SECTION("StringLike contains") {
-    FixedString<32> str("Hello World");
+    constexpr FixedString<32> str("Hello World");
 
-    // std::string contains
     REQUIRE(str.contains(std::string("World")) == true);
     REQUIRE(str.contains(std::string("Hello")) == true);
     REQUIRE(str.contains(std::string("lo Wo")) == true);
     REQUIRE(str.contains(std::string("Hello World")) == true);
     REQUIRE(str.contains(std::string("xyz")) == false);
     REQUIRE(str.contains(std::string("")) == true);
+
+    // Compile-time checks
+    STATIC_REQUIRE(str.contains(CStringView("World")) == true);
+    STATIC_REQUIRE(str.contains(CStringView("Hello")) == true);
+    STATIC_REQUIRE(str.contains(CStringView("lo Wo")) == true);
+    STATIC_REQUIRE(str.contains(CStringView("Hello World")) == true);
+    STATIC_REQUIRE(str.contains(CStringView("xyz")) == false);
+    STATIC_REQUIRE(str.contains(CStringView("")) == true);
   }
 
   SECTION("Character contains") {
@@ -6532,6 +6967,7 @@ TEST_CASE("FixedString contains", "[core][fixed_string]") {
 
     // Compile-time checks
     STATIC_REQUIRE(str.contains(FixedString<16>("Hello")) == false);
+    STATIC_REQUIRE(str.contains(CStringView("Hello")) == false);
     STATIC_REQUIRE(str.contains("Hello") == false);
     STATIC_REQUIRE(str.contains('H') == false);
     STATIC_REQUIRE(str.contains("") == true);
@@ -6744,6 +7180,20 @@ TEST_CASE("FixedString substr", "[core][fixed_string]") {
     REQUIRE(std::strcmp(testString.substr(6, 3).c_str(), "Wor") == 0);
     REQUIRE(testString.substr(0, 0).size() == 0);
     REQUIRE(std::strcmp(testString.substr(0, 0).c_str(), "") == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.substr(0).size() == 11);
+    STATIC_REQUIRE(cstrcmp(testString.substr(0).c_str(), "Hello World") == 0);
+    STATIC_REQUIRE(testString.substr(0, 5).size() == 5);
+    STATIC_REQUIRE(cstrcmp(testString.substr(0, 5).c_str(), "Hello") == 0);
+    STATIC_REQUIRE(testString.substr(6).size() == 5);
+    STATIC_REQUIRE(cstrcmp(testString.substr(6).c_str(), "World") == 0);
+    STATIC_REQUIRE(testString.substr(6, 5).size() == 5);
+    STATIC_REQUIRE(cstrcmp(testString.substr(6, 5).c_str(), "World") == 0);
+    STATIC_REQUIRE(testString.substr(6, 3).size() == 3);
+    STATIC_REQUIRE(cstrcmp(testString.substr(6, 3).c_str(), "Wor") == 0);
+    STATIC_REQUIRE(testString.substr(0, 0).size() == 0);
+    STATIC_REQUIRE(cstrcmp(testString.substr(0, 0).c_str(), "") == 0);
   }
 
   SECTION("Substr with default parameters") {
@@ -6755,6 +7205,14 @@ TEST_CASE("FixedString substr", "[core][fixed_string]") {
     REQUIRE(std::strcmp(testString.substr(0).c_str(), "Hello World") == 0);
     REQUIRE(testString.substr(6).size() == 5);
     REQUIRE(std::strcmp(testString.substr(6).c_str(), "World") == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.substr().size() == 11);
+    STATIC_REQUIRE(cstrcmp(testString.substr().c_str(), "Hello World") == 0);
+    STATIC_REQUIRE(testString.substr(0).size() == 11);
+    STATIC_REQUIRE(cstrcmp(testString.substr(0).c_str(), "Hello World") == 0);
+    STATIC_REQUIRE(testString.substr(6).size() == 5);
+    STATIC_REQUIRE(cstrcmp(testString.substr(6).c_str(), "World") == 0);
   }
 
   SECTION("Substr with count parameter") {
@@ -6780,6 +7238,28 @@ TEST_CASE("FixedString substr", "[core][fixed_string]") {
     REQUIRE(std::strcmp(testString.substr(6, 4).c_str(), "Worl") == 0);
     REQUIRE(testString.substr(6, 5).size() == 5);
     REQUIRE(std::strcmp(testString.substr(6, 5).c_str(), "World") == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.substr(0, 1).size() == 1);
+    STATIC_REQUIRE(cstrcmp(testString.substr(0, 1).c_str(), "H") == 0);
+    STATIC_REQUIRE(testString.substr(0, 2).size() == 2);
+    STATIC_REQUIRE(cstrcmp(testString.substr(0, 2).c_str(), "He") == 0);
+    STATIC_REQUIRE(testString.substr(0, 3).size() == 3);
+    STATIC_REQUIRE(cstrcmp(testString.substr(0, 3).c_str(), "Hel") == 0);
+    STATIC_REQUIRE(testString.substr(0, 4).size() == 4);
+    STATIC_REQUIRE(cstrcmp(testString.substr(0, 4).c_str(), "Hell") == 0);
+    STATIC_REQUIRE(testString.substr(0, 5).size() == 5);
+    STATIC_REQUIRE(cstrcmp(testString.substr(0, 5).c_str(), "Hello") == 0);
+    STATIC_REQUIRE(testString.substr(6, 1).size() == 1);
+    STATIC_REQUIRE(cstrcmp(testString.substr(6, 1).c_str(), "W") == 0);
+    STATIC_REQUIRE(testString.substr(6, 2).size() == 2);
+    STATIC_REQUIRE(cstrcmp(testString.substr(6, 2).c_str(), "Wo") == 0);
+    STATIC_REQUIRE(testString.substr(6, 3).size() == 3);
+    STATIC_REQUIRE(cstrcmp(testString.substr(6, 3).c_str(), "Wor") == 0);
+    STATIC_REQUIRE(testString.substr(6, 4).size() == 4);
+    STATIC_REQUIRE(cstrcmp(testString.substr(6, 4).c_str(), "Worl") == 0);
+    STATIC_REQUIRE(testString.substr(6, 5).size() == 5);
+    STATIC_REQUIRE(cstrcmp(testString.substr(6, 5).c_str(), "World") == 0);
   }
 
   SECTION("Substr with npos count") {
@@ -6791,6 +7271,14 @@ TEST_CASE("FixedString substr", "[core][fixed_string]") {
     REQUIRE(std::strcmp(testString.substr(6, FixedString<32>::npos).c_str(), "World") == 0);
     REQUIRE(testString.substr(10, FixedString<32>::npos).size() == 1);
     REQUIRE(std::strcmp(testString.substr(10, FixedString<32>::npos).c_str(), "d") == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.substr(0, FixedString<32>::npos).size() == 11);
+    STATIC_REQUIRE(cstrcmp(testString.substr(0, FixedString<32>::npos).c_str(), "Hello World") == 0);
+    STATIC_REQUIRE(testString.substr(6, FixedString<32>::npos).size() == 5);
+    STATIC_REQUIRE(cstrcmp(testString.substr(6, FixedString<32>::npos).c_str(), "World") == 0);
+    STATIC_REQUIRE(testString.substr(10, FixedString<32>::npos).size() == 1);
+    STATIC_REQUIRE(cstrcmp(testString.substr(10, FixedString<32>::npos).c_str(), "d") == 0);
   }
 
   SECTION("Substr with position at end") {
@@ -6802,6 +7290,14 @@ TEST_CASE("FixedString substr", "[core][fixed_string]") {
     REQUIRE(std::strcmp(testString.substr(11, 0).c_str(), "") == 0);
     REQUIRE(testString.substr(11, 5).size() == 0);
     REQUIRE(std::strcmp(testString.substr(11, 5).c_str(), "") == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.substr(11).size() == 0);
+    STATIC_REQUIRE(cstrcmp(testString.substr(11).c_str(), "") == 0);
+    STATIC_REQUIRE(testString.substr(11, 0).size() == 0);
+    STATIC_REQUIRE(cstrcmp(testString.substr(11, 0).c_str(), "") == 0);
+    STATIC_REQUIRE(testString.substr(11, 5).size() == 0);
+    STATIC_REQUIRE(cstrcmp(testString.substr(11, 5).c_str(), "") == 0);
   }
 
   SECTION("Substr from empty string") {
@@ -6813,6 +7309,14 @@ TEST_CASE("FixedString substr", "[core][fixed_string]") {
     REQUIRE(std::strcmp(testString.substr(0, 0).c_str(), "") == 0);
     REQUIRE(testString.substr(0, 5).size() == 0);
     REQUIRE(std::strcmp(testString.substr(0, 5).c_str(), "") == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.substr(0).size() == 0);
+    STATIC_REQUIRE(cstrcmp(testString.substr(0).c_str(), "") == 0);
+    STATIC_REQUIRE(testString.substr(0, 0).size() == 0);
+    STATIC_REQUIRE(cstrcmp(testString.substr(0, 0).c_str(), "") == 0);
+    STATIC_REQUIRE(testString.substr(0, 5).size() == 0);
+    STATIC_REQUIRE(cstrcmp(testString.substr(0, 5).c_str(), "") == 0);
   }
 
   SECTION("Substr single character") {
@@ -6828,6 +7332,18 @@ TEST_CASE("FixedString substr", "[core][fixed_string]") {
     REQUIRE(std::strcmp(testString.substr(1).c_str(), "") == 0);
     REQUIRE(testString.substr(1, 1).size() == 0);
     REQUIRE(std::strcmp(testString.substr(1, 1).c_str(), "") == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.substr(0).size() == 1);
+    STATIC_REQUIRE(cstrcmp(testString.substr(0).c_str(), "A") == 0);
+    STATIC_REQUIRE(testString.substr(0, 1).size() == 1);
+    STATIC_REQUIRE(cstrcmp(testString.substr(0, 1).c_str(), "A") == 0);
+    STATIC_REQUIRE(testString.substr(0, 0).size() == 0);
+    STATIC_REQUIRE(cstrcmp(testString.substr(0, 0).c_str(), "") == 0);
+    STATIC_REQUIRE(testString.substr(1).size() == 0);
+    STATIC_REQUIRE(cstrcmp(testString.substr(1).c_str(), "") == 0);
+    STATIC_REQUIRE(testString.substr(1, 1).size() == 0);
+    STATIC_REQUIRE(cstrcmp(testString.substr(1, 1).c_str(), "") == 0);
   }
 
   SECTION("Substr with repeated characters") {
@@ -6855,6 +7371,30 @@ TEST_CASE("FixedString substr", "[core][fixed_string]") {
     REQUIRE(std::strcmp(testString.substr(4).c_str(), "a") == 0);
     REQUIRE(testString.substr(5).size() == 0);
     REQUIRE(std::strcmp(testString.substr(5).c_str(), "") == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.substr(0).size() == 5);
+    STATIC_REQUIRE(cstrcmp(testString.substr(0).c_str(), "aaaaa") == 0);
+    STATIC_REQUIRE(testString.substr(0, 1).size() == 1);
+    STATIC_REQUIRE(cstrcmp(testString.substr(0, 1).c_str(), "a") == 0);
+    STATIC_REQUIRE(testString.substr(0, 2).size() == 2);
+    STATIC_REQUIRE(cstrcmp(testString.substr(0, 2).c_str(), "aa") == 0);
+    STATIC_REQUIRE(testString.substr(0, 3).size() == 3);
+    STATIC_REQUIRE(cstrcmp(testString.substr(0, 3).c_str(), "aaa") == 0);
+    STATIC_REQUIRE(testString.substr(0, 4).size() == 4);
+    STATIC_REQUIRE(cstrcmp(testString.substr(0, 4).c_str(), "aaaa") == 0);
+    STATIC_REQUIRE(testString.substr(0, 5).size() == 5);
+    STATIC_REQUIRE(cstrcmp(testString.substr(0, 5).c_str(), "aaaaa") == 0);
+    STATIC_REQUIRE(testString.substr(1).size() == 4);
+    STATIC_REQUIRE(cstrcmp(testString.substr(1).c_str(), "aaaa") == 0);
+    STATIC_REQUIRE(testString.substr(2).size() == 3);
+    STATIC_REQUIRE(cstrcmp(testString.substr(2).c_str(), "aaa") == 0);
+    STATIC_REQUIRE(testString.substr(3).size() == 2);
+    STATIC_REQUIRE(cstrcmp(testString.substr(3).c_str(), "aa") == 0);
+    STATIC_REQUIRE(testString.substr(4).size() == 1);
+    STATIC_REQUIRE(cstrcmp(testString.substr(4).c_str(), "a") == 0);
+    STATIC_REQUIRE(testString.substr(5).size() == 0);
+    STATIC_REQUIRE(cstrcmp(testString.substr(5).c_str(), "") == 0);
   }
 
   SECTION("Substr with special characters") {
@@ -6870,6 +7410,18 @@ TEST_CASE("FixedString substr", "[core][fixed_string]") {
     REQUIRE(std::strcmp(testString.substr(12).c_str(), "!") == 0);
     REQUIRE(testString.substr(12, 1).size() == 1);
     REQUIRE(std::strcmp(testString.substr(12, 1).c_str(), "!") == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.substr(5).size() == 8);
+    STATIC_REQUIRE(cstrcmp(testString.substr(5).c_str(), ", World!") == 0);
+    STATIC_REQUIRE(testString.substr(5, 1).size() == 1);
+    STATIC_REQUIRE(cstrcmp(testString.substr(5, 1).c_str(), ",") == 0);
+    STATIC_REQUIRE(testString.substr(5, 2).size() == 2);
+    STATIC_REQUIRE(cstrcmp(testString.substr(5, 2).c_str(), ", ") == 0);
+    STATIC_REQUIRE(testString.substr(12).size() == 1);
+    STATIC_REQUIRE(cstrcmp(testString.substr(12).c_str(), "!") == 0);
+    STATIC_REQUIRE(testString.substr(12, 1).size() == 1);
+    STATIC_REQUIRE(cstrcmp(testString.substr(12, 1).c_str(), "!") == 0);
   }
 
   SECTION("Substr with numbers") {
@@ -6897,6 +7449,30 @@ TEST_CASE("FixedString substr", "[core][fixed_string]") {
     REQUIRE(std::strcmp(testString.substr(4).c_str(), "5") == 0);
     REQUIRE(testString.substr(5).size() == 0);
     REQUIRE(std::strcmp(testString.substr(5).c_str(), "") == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.substr(0).size() == 5);
+    STATIC_REQUIRE(cstrcmp(testString.substr(0).c_str(), "12345") == 0);
+    STATIC_REQUIRE(testString.substr(0, 1).size() == 1);
+    STATIC_REQUIRE(cstrcmp(testString.substr(0, 1).c_str(), "1") == 0);
+    STATIC_REQUIRE(testString.substr(0, 2).size() == 2);
+    STATIC_REQUIRE(cstrcmp(testString.substr(0, 2).c_str(), "12") == 0);
+    STATIC_REQUIRE(testString.substr(0, 3).size() == 3);
+    STATIC_REQUIRE(cstrcmp(testString.substr(0, 3).c_str(), "123") == 0);
+    STATIC_REQUIRE(testString.substr(0, 4).size() == 4);
+    STATIC_REQUIRE(cstrcmp(testString.substr(0, 4).c_str(), "1234") == 0);
+    STATIC_REQUIRE(testString.substr(0, 5).size() == 5);
+    STATIC_REQUIRE(cstrcmp(testString.substr(0, 5).c_str(), "12345") == 0);
+    STATIC_REQUIRE(testString.substr(1).size() == 4);
+    STATIC_REQUIRE(cstrcmp(testString.substr(1).c_str(), "2345") == 0);
+    STATIC_REQUIRE(testString.substr(2).size() == 3);
+    STATIC_REQUIRE(cstrcmp(testString.substr(2).c_str(), "345") == 0);
+    STATIC_REQUIRE(testString.substr(3).size() == 2);
+    STATIC_REQUIRE(cstrcmp(testString.substr(3).c_str(), "45") == 0);
+    STATIC_REQUIRE(testString.substr(4).size() == 1);
+    STATIC_REQUIRE(cstrcmp(testString.substr(4).c_str(), "5") == 0);
+    STATIC_REQUIRE(testString.substr(5).size() == 0);
+    STATIC_REQUIRE(cstrcmp(testString.substr(5).c_str(), "") == 0);
   }
 
   SECTION("Substr with whitespace") {
@@ -6910,6 +7486,16 @@ TEST_CASE("FixedString substr", "[core][fixed_string]") {
     REQUIRE(std::strcmp(testString.substr(5, 2).c_str(), " W") == 0);
     REQUIRE(testString.substr(5, 3).size() == 3);
     REQUIRE(std::strcmp(testString.substr(5, 3).c_str(), " Wo") == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.substr(5).size() == 6);
+    STATIC_REQUIRE(cstrcmp(testString.substr(5).c_str(), " World") == 0);
+    STATIC_REQUIRE(testString.substr(5, 1).size() == 1);
+    STATIC_REQUIRE(cstrcmp(testString.substr(5, 1).c_str(), " ") == 0);
+    STATIC_REQUIRE(testString.substr(5, 2).size() == 2);
+    STATIC_REQUIRE(cstrcmp(testString.substr(5, 2).c_str(), " W") == 0);
+    STATIC_REQUIRE(testString.substr(5, 3).size() == 3);
+    STATIC_REQUIRE(cstrcmp(testString.substr(5, 3).c_str(), " Wo") == 0);
   }
 
   SECTION("Substr with newlines") {
@@ -6923,6 +7509,16 @@ TEST_CASE("FixedString substr", "[core][fixed_string]") {
     REQUIRE(std::strcmp(testString.substr(5, 2).c_str(), "\nW") == 0);
     REQUIRE(testString.substr(6).size() == 5);
     REQUIRE(std::strcmp(testString.substr(6).c_str(), "World") == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.substr(5).size() == 6);
+    STATIC_REQUIRE(cstrcmp(testString.substr(5).c_str(), "\nWorld") == 0);
+    STATIC_REQUIRE(testString.substr(5, 1).size() == 1);
+    STATIC_REQUIRE(cstrcmp(testString.substr(5, 1).c_str(), "\n") == 0);
+    STATIC_REQUIRE(testString.substr(5, 2).size() == 2);
+    STATIC_REQUIRE(cstrcmp(testString.substr(5, 2).c_str(), "\nW") == 0);
+    STATIC_REQUIRE(testString.substr(6).size() == 5);
+    STATIC_REQUIRE(cstrcmp(testString.substr(6).c_str(), "World") == 0);
   }
 
   SECTION("Substr with tabs") {
@@ -6936,6 +7532,16 @@ TEST_CASE("FixedString substr", "[core][fixed_string]") {
     REQUIRE(std::strcmp(testString.substr(5, 2).c_str(), "\tW") == 0);
     REQUIRE(testString.substr(6).size() == 5);
     REQUIRE(std::strcmp(testString.substr(6).c_str(), "World") == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.substr(5).size() == 6);
+    STATIC_REQUIRE(cstrcmp(testString.substr(5).c_str(), "\tWorld") == 0);
+    STATIC_REQUIRE(testString.substr(5, 1).size() == 1);
+    STATIC_REQUIRE(cstrcmp(testString.substr(5, 1).c_str(), "\t") == 0);
+    STATIC_REQUIRE(testString.substr(5, 2).size() == 2);
+    STATIC_REQUIRE(cstrcmp(testString.substr(5, 2).c_str(), "\tW") == 0);
+    STATIC_REQUIRE(testString.substr(6).size() == 5);
+    STATIC_REQUIRE(cstrcmp(testString.substr(6).c_str(), "World") == 0);
   }
 
   SECTION("Substr maximum length") {
@@ -6953,6 +7559,20 @@ TEST_CASE("FixedString substr", "[core][fixed_string]") {
     REQUIRE(std::strcmp(testString.substr(14, 1).c_str(), "5") == 0);
     REQUIRE(testString.substr(15).size() == 0);
     REQUIRE(std::strcmp(testString.substr(15).c_str(), "") == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.substr(0).size() == 15);
+    STATIC_REQUIRE(cstrcmp(testString.substr(0).c_str(), "123456789012345") == 0);
+    STATIC_REQUIRE(testString.substr(0, 15).size() == 15);
+    STATIC_REQUIRE(cstrcmp(testString.substr(0, 15).c_str(), "123456789012345") == 0);
+    STATIC_REQUIRE(testString.substr(0, 16).size() == 15);
+    STATIC_REQUIRE(cstrcmp(testString.substr(0, 16).c_str(), "123456789012345") == 0);
+    STATIC_REQUIRE(testString.substr(14).size() == 1);
+    STATIC_REQUIRE(cstrcmp(testString.substr(14).c_str(), "5") == 0);
+    STATIC_REQUIRE(testString.substr(14, 1).size() == 1);
+    STATIC_REQUIRE(cstrcmp(testString.substr(14, 1).c_str(), "5") == 0);
+    STATIC_REQUIRE(testString.substr(15).size() == 0);
+    STATIC_REQUIRE(cstrcmp(testString.substr(15).c_str(), "") == 0);
   }
 
   SECTION("Substr with mixed content") {
@@ -6968,6 +7588,18 @@ TEST_CASE("FixedString substr", "[core][fixed_string]") {
     REQUIRE(std::strcmp(testString.substr(3, 5).c_str(), "Hello") == 0);
     REQUIRE(testString.substr(2, 4).size() == 4);
     REQUIRE(std::strcmp(testString.substr(2, 4).c_str(), "3Hel") == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.substr(0).size() == 8);
+    STATIC_REQUIRE(cstrcmp(testString.substr(0).c_str(), "123Hello") == 0);
+    STATIC_REQUIRE(testString.substr(0, 3).size() == 3);
+    STATIC_REQUIRE(cstrcmp(testString.substr(0, 3).c_str(), "123") == 0);
+    STATIC_REQUIRE(testString.substr(3).size() == 5);
+    STATIC_REQUIRE(cstrcmp(testString.substr(3).c_str(), "Hello") == 0);
+    STATIC_REQUIRE(testString.substr(3, 5).size() == 5);
+    STATIC_REQUIRE(cstrcmp(testString.substr(3, 5).c_str(), "Hello") == 0);
+    STATIC_REQUIRE(testString.substr(2, 4).size() == 4);
+    STATIC_REQUIRE(cstrcmp(testString.substr(2, 4).c_str(), "3Hel") == 0);
   }
 
   SECTION("Substr with overlapping ranges") {
@@ -6995,6 +7627,30 @@ TEST_CASE("FixedString substr", "[core][fixed_string]") {
     REQUIRE(std::strcmp(testString.substr(3, 2).c_str(), "de") == 0);
     REQUIRE(testString.substr(4, 2).size() == 2);
     REQUIRE(std::strcmp(testString.substr(4, 2).c_str(), "ef") == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.substr(0, 1).size() == 1);
+    STATIC_REQUIRE(cstrcmp(testString.substr(0, 1).c_str(), "a") == 0);
+    STATIC_REQUIRE(testString.substr(1, 1).size() == 1);
+    STATIC_REQUIRE(cstrcmp(testString.substr(1, 1).c_str(), "b") == 0);
+    STATIC_REQUIRE(testString.substr(2, 1).size() == 1);
+    STATIC_REQUIRE(cstrcmp(testString.substr(2, 1).c_str(), "c") == 0);
+    STATIC_REQUIRE(testString.substr(3, 1).size() == 1);
+    STATIC_REQUIRE(cstrcmp(testString.substr(3, 1).c_str(), "d") == 0);
+    STATIC_REQUIRE(testString.substr(4, 1).size() == 1);
+    STATIC_REQUIRE(cstrcmp(testString.substr(4, 1).c_str(), "e") == 0);
+    STATIC_REQUIRE(testString.substr(5, 1).size() == 1);
+    STATIC_REQUIRE(cstrcmp(testString.substr(5, 1).c_str(), "f") == 0);
+    STATIC_REQUIRE(testString.substr(0, 2).size() == 2);
+    STATIC_REQUIRE(cstrcmp(testString.substr(0, 2).c_str(), "ab") == 0);
+    STATIC_REQUIRE(testString.substr(1, 2).size() == 2);
+    STATIC_REQUIRE(cstrcmp(testString.substr(1, 2).c_str(), "bc") == 0);
+    STATIC_REQUIRE(testString.substr(2, 2).size() == 2);
+    STATIC_REQUIRE(cstrcmp(testString.substr(2, 2).c_str(), "cd") == 0);
+    STATIC_REQUIRE(testString.substr(3, 2).size() == 2);
+    STATIC_REQUIRE(cstrcmp(testString.substr(3, 2).c_str(), "de") == 0);
+    STATIC_REQUIRE(testString.substr(4, 2).size() == 2);
+    STATIC_REQUIRE(cstrcmp(testString.substr(4, 2).c_str(), "ef") == 0);
   }
 
   SECTION("Substr with exact string length") {
@@ -7012,6 +7668,20 @@ TEST_CASE("FixedString substr", "[core][fixed_string]") {
     REQUIRE(std::strcmp(testString.substr(3, 2).c_str(), "lo") == 0);
     REQUIRE(testString.substr(4, 1).size() == 1);
     REQUIRE(std::strcmp(testString.substr(4, 1).c_str(), "o") == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.substr(0, 5).size() == 5);
+    STATIC_REQUIRE(cstrcmp(testString.substr(0, 5).c_str(), "Hello") == 0);
+    STATIC_REQUIRE(testString.substr(0, 6).size() == 5);
+    STATIC_REQUIRE(cstrcmp(testString.substr(0, 6).c_str(), "Hello") == 0);
+    STATIC_REQUIRE(testString.substr(1, 4).size() == 4);
+    STATIC_REQUIRE(cstrcmp(testString.substr(1, 4).c_str(), "ello") == 0);
+    STATIC_REQUIRE(testString.substr(2, 3).size() == 3);
+    STATIC_REQUIRE(cstrcmp(testString.substr(2, 3).c_str(), "llo") == 0);
+    STATIC_REQUIRE(testString.substr(3, 2).size() == 2);
+    STATIC_REQUIRE(cstrcmp(testString.substr(3, 2).c_str(), "lo") == 0);
+    STATIC_REQUIRE(testString.substr(4, 1).size() == 1);
+    STATIC_REQUIRE(cstrcmp(testString.substr(4, 1).c_str(), "o") == 0);
   }
 
   SECTION("Substr with zero count") {
@@ -7025,6 +7695,16 @@ TEST_CASE("FixedString substr", "[core][fixed_string]") {
     REQUIRE(std::strcmp(testString.substr(10, 0).c_str(), "") == 0);
     REQUIRE(testString.substr(11, 0).size() == 0);
     REQUIRE(std::strcmp(testString.substr(11, 0).c_str(), "") == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.substr(0, 0).size() == 0);
+    STATIC_REQUIRE(cstrcmp(testString.substr(0, 0).c_str(), "") == 0);
+    STATIC_REQUIRE(testString.substr(5, 0).size() == 0);
+    STATIC_REQUIRE(cstrcmp(testString.substr(5, 0).c_str(), "") == 0);
+    STATIC_REQUIRE(testString.substr(10, 0).size() == 0);
+    STATIC_REQUIRE(cstrcmp(testString.substr(10, 0).c_str(), "") == 0);
+    STATIC_REQUIRE(testString.substr(11, 0).size() == 0);
+    STATIC_REQUIRE(cstrcmp(testString.substr(11, 0).c_str(), "") == 0);
   }
 
   SECTION("Substr with position at string size") {
@@ -7036,6 +7716,14 @@ TEST_CASE("FixedString substr", "[core][fixed_string]") {
     REQUIRE(std::strcmp(testString.substr(5, 0).c_str(), "") == 0);
     REQUIRE(testString.substr(5, 1).size() == 0);
     REQUIRE(std::strcmp(testString.substr(5, 1).c_str(), "") == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.substr(5).size() == 0);
+    STATIC_REQUIRE(cstrcmp(testString.substr(5).c_str(), "") == 0);
+    STATIC_REQUIRE(testString.substr(5, 0).size() == 0);
+    STATIC_REQUIRE(cstrcmp(testString.substr(5, 0).c_str(), "") == 0);
+    STATIC_REQUIRE(testString.substr(5, 1).size() == 0);
+    STATIC_REQUIRE(cstrcmp(testString.substr(5, 1).c_str(), "") == 0);
   }
 
   SECTION("Substr with different FixedString capacities") {
@@ -7055,6 +7743,20 @@ TEST_CASE("FixedString substr", "[core][fixed_string]") {
     REQUIRE(std::strcmp(mediumString.substr(6).c_str(), "World") == 0);
     REQUIRE(largeString.substr(12).size() == 8);
     REQUIRE(std::strcmp(largeString.substr(12).c_str(), "Universe") == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(smallString.substr(0, 3).size() == 3);
+    STATIC_REQUIRE(cstrcmp(smallString.substr(0, 3).c_str(), "Hel") == 0);
+    STATIC_REQUIRE(mediumString.substr(0, 5).size() == 5);
+    STATIC_REQUIRE(cstrcmp(mediumString.substr(0, 5).c_str(), "Hello") == 0);
+    STATIC_REQUIRE(largeString.substr(0, 5).size() == 5);
+    STATIC_REQUIRE(cstrcmp(largeString.substr(0, 5).c_str(), "Hello") == 0);
+    STATIC_REQUIRE(smallString.substr(2).size() == 3);
+    STATIC_REQUIRE(cstrcmp(smallString.substr(2).c_str(), "llo") == 0);
+    STATIC_REQUIRE(mediumString.substr(6).size() == 5);
+    STATIC_REQUIRE(cstrcmp(mediumString.substr(6).c_str(), "World") == 0);
+    STATIC_REQUIRE(largeString.substr(12).size() == 8);
+    STATIC_REQUIRE(cstrcmp(largeString.substr(12).c_str(), "Universe") == 0);
   }
 
   SECTION("Substr with punctuation") {
@@ -7070,6 +7772,18 @@ TEST_CASE("FixedString substr", "[core][fixed_string]") {
     REQUIRE(std::strcmp(testString.substr(5, 3).c_str(), ", W") == 0);
     REQUIRE(testString.substr(11, 2).size() == 2);
     REQUIRE(std::strcmp(testString.substr(11, 2).c_str(), "d!") == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.substr(5, 1).size() == 1);
+    STATIC_REQUIRE(cstrcmp(testString.substr(5, 1).c_str(), ",") == 0);
+    STATIC_REQUIRE(testString.substr(6, 1).size() == 1);
+    STATIC_REQUIRE(cstrcmp(testString.substr(6, 1).c_str(), " ") == 0);
+    STATIC_REQUIRE(testString.substr(12, 1).size() == 1);
+    STATIC_REQUIRE(cstrcmp(testString.substr(12, 1).c_str(), "!") == 0);
+    STATIC_REQUIRE(testString.substr(5, 3).size() == 3);
+    STATIC_REQUIRE(cstrcmp(testString.substr(5, 3).c_str(), ", W") == 0);
+    STATIC_REQUIRE(testString.substr(11, 2).size() == 2);
+    STATIC_REQUIRE(cstrcmp(testString.substr(11, 2).c_str(), "d!") == 0);
   }
 
   SECTION("Substr with unicode-like content") {
@@ -7079,337 +7793,12 @@ TEST_CASE("FixedString substr", "[core][fixed_string]") {
     REQUIRE(std::strcmp(testString.substr(0, 6).c_str(), "Hello ") == 0);
     REQUIRE(testString.substr(6).size() == 6);
     REQUIRE(std::strcmp(testString.substr(6).c_str(), "世界") == 0);
-  }
 
-  SECTION("Constexpr substr operations") {
-    constexpr FixedString<32> testString("Hello World");
-
-    // Basic constexpr substr operations
-    constexpr auto substr1 = testString.substr(0);
-    constexpr auto substr2 = testString.substr(0, 5);
-    constexpr auto substr3 = testString.substr(6);
-    constexpr auto substr4 = testString.substr(6, 5);
-    constexpr auto substr5 = testString.substr(6, 3);
-    constexpr auto substr6 = testString.substr(0, 0);
-
-    STATIC_REQUIRE(substr1.size() == 11);
-    STATIC_REQUIRE(cstrcmp(substr1.c_str(), "Hello World") == 0);
-    STATIC_REQUIRE(substr2.size() == 5);
-    STATIC_REQUIRE(cstrcmp(substr2.c_str(), "Hello") == 0);
-    STATIC_REQUIRE(substr3.size() == 5);
-    STATIC_REQUIRE(cstrcmp(substr3.c_str(), "World") == 0);
-    STATIC_REQUIRE(substr4.size() == 5);
-    STATIC_REQUIRE(cstrcmp(substr4.c_str(), "World") == 0);
-    STATIC_REQUIRE(substr5.size() == 3);
-    STATIC_REQUIRE(cstrcmp(substr5.c_str(), "Wor") == 0);
-    STATIC_REQUIRE(substr6.size() == 0);
-    STATIC_REQUIRE(cstrcmp(substr6.c_str(), "") == 0);
-  }
-
-  SECTION("Constexpr substr with default parameters") {
-    constexpr FixedString<32> testString("Hello World");
-
-    constexpr auto substr1 = testString.substr();
-    constexpr auto substr2 = testString.substr(0);
-    constexpr auto substr3 = testString.substr(6);
-
-    STATIC_REQUIRE(substr1.size() == 11);
-    STATIC_REQUIRE(cstrcmp(substr1.c_str(), "Hello World") == 0);
-    STATIC_REQUIRE(substr2.size() == 11);
-    STATIC_REQUIRE(cstrcmp(substr2.c_str(), "Hello World") == 0);
-    STATIC_REQUIRE(substr3.size() == 5);
-    STATIC_REQUIRE(cstrcmp(substr3.c_str(), "World") == 0);
-  }
-
-  SECTION("Constexpr substr with count parameter") {
-    constexpr FixedString<32> testString("Hello World");
-
-    constexpr auto substr1 = testString.substr(0, 1);
-    constexpr auto substr2 = testString.substr(0, 2);
-    constexpr auto substr3 = testString.substr(0, 3);
-    constexpr auto substr4 = testString.substr(0, 4);
-    constexpr auto substr5 = testString.substr(0, 5);
-    constexpr auto substr6 = testString.substr(6, 1);
-    constexpr auto substr7 = testString.substr(6, 2);
-    constexpr auto substr8 = testString.substr(6, 3);
-    constexpr auto substr9 = testString.substr(6, 4);
-    constexpr auto substr10 = testString.substr(6, 5);
-
-    STATIC_REQUIRE(substr1.size() == 1);
-    STATIC_REQUIRE(cstrcmp(substr1.c_str(), "H") == 0);
-    STATIC_REQUIRE(substr2.size() == 2);
-    STATIC_REQUIRE(cstrcmp(substr2.c_str(), "He") == 0);
-    STATIC_REQUIRE(substr3.size() == 3);
-    STATIC_REQUIRE(cstrcmp(substr3.c_str(), "Hel") == 0);
-    STATIC_REQUIRE(substr4.size() == 4);
-    STATIC_REQUIRE(cstrcmp(substr4.c_str(), "Hell") == 0);
-    STATIC_REQUIRE(substr5.size() == 5);
-    STATIC_REQUIRE(cstrcmp(substr5.c_str(), "Hello") == 0);
-    STATIC_REQUIRE(substr6.size() == 1);
-    STATIC_REQUIRE(cstrcmp(substr6.c_str(), "W") == 0);
-    STATIC_REQUIRE(substr7.size() == 2);
-    STATIC_REQUIRE(cstrcmp(substr7.c_str(), "Wo") == 0);
-    STATIC_REQUIRE(substr8.size() == 3);
-    STATIC_REQUIRE(cstrcmp(substr8.c_str(), "Wor") == 0);
-    STATIC_REQUIRE(substr9.size() == 4);
-    STATIC_REQUIRE(cstrcmp(substr9.c_str(), "Worl") == 0);
-    STATIC_REQUIRE(substr10.size() == 5);
-    STATIC_REQUIRE(cstrcmp(substr10.c_str(), "World") == 0);
-  }
-
-  SECTION("Constexpr substr with npos count") {
-    constexpr FixedString<32> testString("Hello World");
-
-    constexpr auto substr1 = testString.substr(0, FixedString<32>::npos);
-    constexpr auto substr2 = testString.substr(6, FixedString<32>::npos);
-    constexpr auto substr3 = testString.substr(10, FixedString<32>::npos);
-
-    STATIC_REQUIRE(substr1.size() == 11);
-    STATIC_REQUIRE(cstrcmp(substr1.c_str(), "Hello World") == 0);
-    STATIC_REQUIRE(substr2.size() == 5);
-    STATIC_REQUIRE(cstrcmp(substr2.c_str(), "World") == 0);
-    STATIC_REQUIRE(substr3.size() == 1);
-    STATIC_REQUIRE(cstrcmp(substr3.c_str(), "d") == 0);
-  }
-
-  SECTION("Constexpr substr with position at end") {
-    constexpr FixedString<32> testString("Hello World");
-
-    constexpr auto substr1 = testString.substr(11);
-    constexpr auto substr2 = testString.substr(11, 0);
-    constexpr auto substr3 = testString.substr(11, 5);
-
-    STATIC_REQUIRE(substr1.size() == 0);
-    STATIC_REQUIRE(cstrcmp(substr1.c_str(), "") == 0);
-    STATIC_REQUIRE(substr2.size() == 0);
-    STATIC_REQUIRE(cstrcmp(substr2.c_str(), "") == 0);
-    STATIC_REQUIRE(substr3.size() == 0);
-    STATIC_REQUIRE(cstrcmp(substr3.c_str(), "") == 0);
-  }
-
-  SECTION("Constexpr substr from empty string") {
-    constexpr FixedString<32> testString("");
-
-    constexpr auto substr1 = testString.substr(0);
-    constexpr auto substr2 = testString.substr(0, 0);
-    constexpr auto substr3 = testString.substr(0, 5);
-
-    STATIC_REQUIRE(substr1.size() == 0);
-    STATIC_REQUIRE(cstrcmp(substr1.c_str(), "") == 0);
-    STATIC_REQUIRE(substr2.size() == 0);
-    STATIC_REQUIRE(cstrcmp(substr2.c_str(), "") == 0);
-    STATIC_REQUIRE(substr3.size() == 0);
-    STATIC_REQUIRE(cstrcmp(substr3.c_str(), "") == 0);
-  }
-
-  SECTION("Constexpr substr single character") {
-    constexpr FixedString<32> testString("A");
-
-    constexpr auto substr1 = testString.substr(0);
-    constexpr auto substr2 = testString.substr(0, 1);
-    constexpr auto substr3 = testString.substr(0, 0);
-    constexpr auto substr4 = testString.substr(1);
-    constexpr auto substr5 = testString.substr(1, 1);
-
-    STATIC_REQUIRE(substr1.size() == 1);
-    STATIC_REQUIRE(cstrcmp(substr1.c_str(), "A") == 0);
-    STATIC_REQUIRE(substr2.size() == 1);
-    STATIC_REQUIRE(cstrcmp(substr2.c_str(), "A") == 0);
-    STATIC_REQUIRE(substr3.size() == 0);
-    STATIC_REQUIRE(cstrcmp(substr3.c_str(), "") == 0);
-    STATIC_REQUIRE(substr4.size() == 0);
-    STATIC_REQUIRE(cstrcmp(substr4.c_str(), "") == 0);
-    STATIC_REQUIRE(substr5.size() == 0);
-    STATIC_REQUIRE(cstrcmp(substr5.c_str(), "") == 0);
-  }
-
-  SECTION("Constexpr substr with repeated characters") {
-    constexpr FixedString<32> testString("aaaaa");
-
-    constexpr auto substr1 = testString.substr(0);
-    constexpr auto substr2 = testString.substr(0, 1);
-    constexpr auto substr3 = testString.substr(0, 2);
-    constexpr auto substr4 = testString.substr(0, 3);
-    constexpr auto substr5 = testString.substr(0, 4);
-    constexpr auto substr6 = testString.substr(0, 5);
-    constexpr auto substr7 = testString.substr(1);
-    constexpr auto substr8 = testString.substr(2);
-    constexpr auto substr9 = testString.substr(3);
-    constexpr auto substr10 = testString.substr(4);
-    constexpr auto substr11 = testString.substr(5);
-
-    STATIC_REQUIRE(substr1.size() == 5);
-    STATIC_REQUIRE(cstrcmp(substr1.c_str(), "aaaaa") == 0);
-    STATIC_REQUIRE(substr2.size() == 1);
-    STATIC_REQUIRE(cstrcmp(substr2.c_str(), "a") == 0);
-    STATIC_REQUIRE(substr3.size() == 2);
-    STATIC_REQUIRE(cstrcmp(substr3.c_str(), "aa") == 0);
-    STATIC_REQUIRE(substr4.size() == 3);
-    STATIC_REQUIRE(cstrcmp(substr4.c_str(), "aaa") == 0);
-    STATIC_REQUIRE(substr5.size() == 4);
-    STATIC_REQUIRE(cstrcmp(substr5.c_str(), "aaaa") == 0);
-    STATIC_REQUIRE(substr6.size() == 5);
-    STATIC_REQUIRE(cstrcmp(substr6.c_str(), "aaaaa") == 0);
-    STATIC_REQUIRE(substr7.size() == 4);
-    STATIC_REQUIRE(cstrcmp(substr7.c_str(), "aaaa") == 0);
-    STATIC_REQUIRE(substr8.size() == 3);
-    STATIC_REQUIRE(cstrcmp(substr8.c_str(), "aaa") == 0);
-    STATIC_REQUIRE(substr9.size() == 2);
-    STATIC_REQUIRE(cstrcmp(substr9.c_str(), "aa") == 0);
-    STATIC_REQUIRE(substr10.size() == 1);
-    STATIC_REQUIRE(cstrcmp(substr10.c_str(), "a") == 0);
-    STATIC_REQUIRE(substr11.size() == 0);
-    STATIC_REQUIRE(cstrcmp(substr11.c_str(), "") == 0);
-  }
-
-  SECTION("Constexpr substr with special characters") {
-    constexpr FixedString<32> testString("Hello, World!");
-
-    constexpr auto substr1 = testString.substr(5);
-    constexpr auto substr2 = testString.substr(5, 1);
-    constexpr auto substr3 = testString.substr(5, 2);
-    constexpr auto substr4 = testString.substr(12);
-    constexpr auto substr5 = testString.substr(12, 1);
-
-    STATIC_REQUIRE(substr1.size() == 8);
-    STATIC_REQUIRE(cstrcmp(substr1.c_str(), ", World!") == 0);
-    STATIC_REQUIRE(substr2.size() == 1);
-    STATIC_REQUIRE(cstrcmp(substr2.c_str(), ",") == 0);
-    STATIC_REQUIRE(substr3.size() == 2);
-    STATIC_REQUIRE(cstrcmp(substr3.c_str(), ", ") == 0);
-    STATIC_REQUIRE(substr4.size() == 1);
-    STATIC_REQUIRE(cstrcmp(substr4.c_str(), "!") == 0);
-    STATIC_REQUIRE(substr5.size() == 1);
-    STATIC_REQUIRE(cstrcmp(substr5.c_str(), "!") == 0);
-  }
-
-  SECTION("Constexpr substr with numbers") {
-    constexpr FixedString<32> testString("12345");
-
-    constexpr auto substr1 = testString.substr(0);
-    constexpr auto substr2 = testString.substr(0, 1);
-    constexpr auto substr3 = testString.substr(0, 2);
-    constexpr auto substr4 = testString.substr(0, 3);
-    constexpr auto substr5 = testString.substr(0, 4);
-    constexpr auto substr6 = testString.substr(0, 5);
-    constexpr auto substr7 = testString.substr(1);
-    constexpr auto substr8 = testString.substr(2);
-    constexpr auto substr9 = testString.substr(3);
-    constexpr auto substr10 = testString.substr(4);
-    constexpr auto substr11 = testString.substr(5);
-
-    STATIC_REQUIRE(substr1.size() == 5);
-    STATIC_REQUIRE(cstrcmp(substr1.c_str(), "12345") == 0);
-    STATIC_REQUIRE(substr2.size() == 1);
-    STATIC_REQUIRE(cstrcmp(substr2.c_str(), "1") == 0);
-    STATIC_REQUIRE(substr3.size() == 2);
-    STATIC_REQUIRE(cstrcmp(substr3.c_str(), "12") == 0);
-    STATIC_REQUIRE(substr4.size() == 3);
-    STATIC_REQUIRE(cstrcmp(substr4.c_str(), "123") == 0);
-    STATIC_REQUIRE(substr5.size() == 4);
-    STATIC_REQUIRE(cstrcmp(substr5.c_str(), "1234") == 0);
-    STATIC_REQUIRE(substr6.size() == 5);
-    STATIC_REQUIRE(cstrcmp(substr6.c_str(), "12345") == 0);
-    STATIC_REQUIRE(substr7.size() == 4);
-    STATIC_REQUIRE(cstrcmp(substr7.c_str(), "2345") == 0);
-    STATIC_REQUIRE(substr8.size() == 3);
-    STATIC_REQUIRE(cstrcmp(substr8.c_str(), "345") == 0);
-    STATIC_REQUIRE(substr9.size() == 2);
-    STATIC_REQUIRE(cstrcmp(substr9.c_str(), "45") == 0);
-    STATIC_REQUIRE(substr10.size() == 1);
-    STATIC_REQUIRE(cstrcmp(substr10.c_str(), "5") == 0);
-    STATIC_REQUIRE(substr11.size() == 0);
-    STATIC_REQUIRE(cstrcmp(substr11.c_str(), "") == 0);
-  }
-
-  SECTION("Constexpr substr with whitespace") {
-    constexpr FixedString<32> testString("Hello World");
-
-    constexpr auto substr1 = testString.substr(5);
-    constexpr auto substr2 = testString.substr(5, 1);
-    constexpr auto substr3 = testString.substr(5, 2);
-    constexpr auto substr4 = testString.substr(5, 3);
-
-    STATIC_REQUIRE(substr1.size() == 6);
-    STATIC_REQUIRE(cstrcmp(substr1.c_str(), " World") == 0);
-    STATIC_REQUIRE(substr2.size() == 1);
-    STATIC_REQUIRE(cstrcmp(substr2.c_str(), " ") == 0);
-    STATIC_REQUIRE(substr3.size() == 2);
-    STATIC_REQUIRE(cstrcmp(substr3.c_str(), " W") == 0);
-    STATIC_REQUIRE(substr4.size() == 3);
-    STATIC_REQUIRE(cstrcmp(substr4.c_str(), " Wo") == 0);
-  }
-
-  SECTION("Constexpr substr with newlines") {
-    constexpr FixedString<32> testString("Hello\nWorld");
-
-    constexpr auto substr1 = testString.substr(5);
-    constexpr auto substr2 = testString.substr(5, 1);
-    constexpr auto substr3 = testString.substr(5, 2);
-    constexpr auto substr4 = testString.substr(6);
-
-    STATIC_REQUIRE(substr1.size() == 6);
-    STATIC_REQUIRE(cstrcmp(substr1.c_str(), "\nWorld") == 0);
-    STATIC_REQUIRE(substr2.size() == 1);
-    STATIC_REQUIRE(cstrcmp(substr2.c_str(), "\n") == 0);
-    STATIC_REQUIRE(substr3.size() == 2);
-    STATIC_REQUIRE(cstrcmp(substr3.c_str(), "\nW") == 0);
-    STATIC_REQUIRE(substr4.size() == 5);
-    STATIC_REQUIRE(cstrcmp(substr4.c_str(), "World") == 0);
-  }
-
-  SECTION("Constexpr substr with tabs") {
-    constexpr FixedString<32> testString("Hello\tWorld");
-
-    constexpr auto substr1 = testString.substr(5);
-    constexpr auto substr2 = testString.substr(5, 1);
-    constexpr auto substr3 = testString.substr(5, 2);
-    constexpr auto substr4 = testString.substr(6);
-
-    STATIC_REQUIRE(substr1.size() == 6);
-    STATIC_REQUIRE(cstrcmp(substr1.c_str(), "\tWorld") == 0);
-    STATIC_REQUIRE(substr2.size() == 1);
-    STATIC_REQUIRE(cstrcmp(substr2.c_str(), "\t") == 0);
-    STATIC_REQUIRE(substr3.size() == 2);
-    STATIC_REQUIRE(cstrcmp(substr3.c_str(), "\tW") == 0);
-    STATIC_REQUIRE(substr4.size() == 5);
-    STATIC_REQUIRE(cstrcmp(substr4.c_str(), "World") == 0);
-  }
-
-  SECTION("Constexpr substr maximum length") {
-    constexpr FixedString<16> testString("123456789012345"); // 15 characters
-
-    constexpr auto substr1 = testString.substr(0);
-    constexpr auto substr2 = testString.substr(0, 15);
-    constexpr auto substr3 = testString.substr(0, 16);
-    constexpr auto substr4 = testString.substr(14);
-    constexpr auto substr5 = testString.substr(14, 1);
-    constexpr auto substr6 = testString.substr(15);
-
-    STATIC_REQUIRE(substr1.size() == 15);
-    STATIC_REQUIRE(cstrcmp(substr1.c_str(), "123456789012345") == 0);
-    STATIC_REQUIRE(substr2.size() == 15);
-    STATIC_REQUIRE(cstrcmp(substr2.c_str(), "123456789012345") == 0);
-    STATIC_REQUIRE(substr3.size() == 15);
-    STATIC_REQUIRE(cstrcmp(substr3.c_str(), "123456789012345") == 0);
-    STATIC_REQUIRE(substr4.size() == 1);
-    STATIC_REQUIRE(cstrcmp(substr4.c_str(), "5") == 0);
-    STATIC_REQUIRE(substr5.size() == 1);
-    STATIC_REQUIRE(cstrcmp(substr5.c_str(), "5") == 0);
-    STATIC_REQUIRE(substr6.size() == 0);
-    STATIC_REQUIRE(cstrcmp(substr6.c_str(), "") == 0);
-  }
-
-  SECTION("Constexpr substr with unicode-like content") {
-    constexpr FixedString<32> testString("Hello 世界");
-
-    constexpr auto substr1 = testString.substr(0, 6);
-    constexpr auto substr2 = testString.substr(6);
-
-    STATIC_REQUIRE(substr1.size() == 6);
-    STATIC_REQUIRE(cstrcmp(substr1.c_str(), "Hello ") == 0);
-    STATIC_REQUIRE(substr2.size() == 6); // 2 characters * 3 bytes each
-    STATIC_REQUIRE(cstrcmp(substr2.c_str(), "世界") == 0);
+    // Compile-time checks
+    STATIC_REQUIRE(testString.substr(0, 6).size() == 6);
+    STATIC_REQUIRE(cstrcmp(testString.substr(0, 6).c_str(), "Hello ") == 0);
+    STATIC_REQUIRE(testString.substr(6).size() == 6);
+    STATIC_REQUIRE(cstrcmp(testString.substr(6).c_str(), "世界") == 0);
   }
 }
 
@@ -7458,6 +7847,8 @@ TEST_CASE("FixedString operators+", "[core][fixed_string]") {
 
     REQUIRE(result.size() == 10);
     REQUIRE(std::strcmp(result.c_str(), "HelloWorld") == 0);
+
+    // Compile-time checks
     STATIC_REQUIRE(result.size() == 10);
     STATIC_REQUIRE(cstrcmp(result.c_str(), "HelloWorld") == 0);
   }
@@ -7467,6 +7858,8 @@ TEST_CASE("FixedString operators+", "[core][fixed_string]") {
 
     REQUIRE(result.size() == 10);
     REQUIRE(std::strcmp(result.c_str(), "HelloWorld") == 0);
+
+    // Compile-time checks
     STATIC_REQUIRE(result.size() == 10);
     STATIC_REQUIRE(cstrcmp(result.c_str(), "HelloWorld") == 0);
   }
@@ -7476,6 +7869,8 @@ TEST_CASE("FixedString operators+", "[core][fixed_string]") {
 
     REQUIRE(result.size() == 10);
     REQUIRE(std::strcmp(result.c_str(), "HelloWorld") == 0);
+
+    // Compile-time checks
     STATIC_REQUIRE(result.size() == 10);
     STATIC_REQUIRE(cstrcmp(result.c_str(), "HelloWorld") == 0);
   }
@@ -7485,6 +7880,8 @@ TEST_CASE("FixedString operators+", "[core][fixed_string]") {
 
     REQUIRE(result.size() == 10);
     REQUIRE(std::strcmp(result.c_str(), "HelloWorld") == 0);
+
+    // Compile-time checks
     STATIC_REQUIRE(result.size() == 10);
     STATIC_REQUIRE(cstrcmp(result.c_str(), "HelloWorld") == 0);
   }
@@ -7494,6 +7891,8 @@ TEST_CASE("FixedString operators+", "[core][fixed_string]") {
 
     REQUIRE(result.size() == 10);
     REQUIRE(std::strcmp(result.c_str(), "HelloWorld") == 0);
+
+    // Compile-time checks
     STATIC_REQUIRE(result.size() == 10);
     STATIC_REQUIRE(cstrcmp(result.c_str(), "HelloWorld") == 0);
   }
@@ -7503,6 +7902,8 @@ TEST_CASE("FixedString operators+", "[core][fixed_string]") {
 
     REQUIRE(result.size() == 10);
     REQUIRE(std::strcmp(result.c_str(), "HelloWorld") == 0);
+
+    // Compile-time checks
     STATIC_REQUIRE(result.size() == 10);
     STATIC_REQUIRE(cstrcmp(result.c_str(), "HelloWorld") == 0);
   }
@@ -7512,6 +7913,8 @@ TEST_CASE("FixedString operators+", "[core][fixed_string]") {
 
     REQUIRE(result.size() == 0);
     REQUIRE(std::strcmp(result.c_str(), "") == 0);
+
+    // Compile-time checks
     STATIC_REQUIRE(result.size() == 0);
     STATIC_REQUIRE(cstrcmp(result.c_str(), "") == 0);
   }
@@ -7526,6 +7929,8 @@ TEST_CASE("FixedString operators+", "[core][fixed_string]") {
     REQUIRE(std::strcmp(result1.c_str(), "Hello") == 0);
     REQUIRE(result2.size() == 5);
     REQUIRE(std::strcmp(result2.c_str(), "Hello") == 0);
+
+    // Compile-time checks
     STATIC_REQUIRE(result1.size() == 5);
     STATIC_REQUIRE(cstrcmp(result1.c_str(), "Hello") == 0);
     STATIC_REQUIRE(result2.size() == 5);
@@ -7537,6 +7942,8 @@ TEST_CASE("FixedString operators+", "[core][fixed_string]") {
 
     REQUIRE(result.size() == 3);
     REQUIRE(std::strcmp(result.c_str(), "ABC") == 0);
+
+    // Compile-time checks
     STATIC_REQUIRE(result.size() == 3);
     STATIC_REQUIRE(cstrcmp(result.c_str(), "ABC") == 0);
   }
@@ -7548,6 +7955,8 @@ TEST_CASE("FixedString operators+", "[core][fixed_string]") {
 
     REQUIRE(result.size() == 10);
     REQUIRE(result == "HelloWorld");
+
+    // Compile-time checks
     STATIC_REQUIRE(result.size() == 10);
     STATIC_REQUIRE(cstrcmp(result.c_str(), "HelloWorld") == 0);
   }
@@ -7557,6 +7966,8 @@ TEST_CASE("FixedString operators+", "[core][fixed_string]") {
 
     REQUIRE(result.size() == 4);
     REQUIRE(std::strcmp(result.c_str(), "ABCD") == 0);
+
+    // Compile-time checks
     STATIC_REQUIRE(result.size() == 4);
     STATIC_REQUIRE(cstrcmp(result.c_str(), "ABCD") == 0);
   }
@@ -7566,6 +7977,8 @@ TEST_CASE("FixedString operators+", "[core][fixed_string]") {
 
     REQUIRE(result.size() == 2);
     REQUIRE(std::strcmp(result.c_str(), "AB") == 0);
+
+    // Compile-time checks
     STATIC_REQUIRE(result.size() == 2);
     STATIC_REQUIRE(cstrcmp(result.c_str(), "AB") == 0);
   }
@@ -7575,6 +7988,8 @@ TEST_CASE("FixedString operators+", "[core][fixed_string]") {
 
     REQUIRE(result.size() == 6);
     REQUIRE(std::strcmp(result.c_str(), "Hello!") == 0);
+
+    // Compile-time checks
     STATIC_REQUIRE(result.size() == 6);
     STATIC_REQUIRE(cstrcmp(result.c_str(), "Hello!") == 0);
   }
@@ -7584,6 +7999,8 @@ TEST_CASE("FixedString operators+", "[core][fixed_string]") {
 
     REQUIRE(result.size() == 6);
     REQUIRE(std::strcmp(result.c_str(), "!Hello") == 0);
+
+    // Compile-time checks
     STATIC_REQUIRE(result.size() == 6);
     STATIC_REQUIRE(cstrcmp(result.c_str(), "!Hello") == 0);
   }
@@ -7593,6 +8010,8 @@ TEST_CASE("FixedString operators+", "[core][fixed_string]") {
 
     REQUIRE(result.size() == 1);
     REQUIRE(std::strcmp(result.c_str(), "A") == 0);
+
+    // Compile-time checks
     STATIC_REQUIRE(result.size() == 1);
     STATIC_REQUIRE(cstrcmp(result.c_str(), "A") == 0);
   }
@@ -7602,6 +8021,8 @@ TEST_CASE("FixedString operators+", "[core][fixed_string]") {
 
     REQUIRE(result.size() == 1);
     REQUIRE(std::strcmp(result.c_str(), "A") == 0);
+
+    // Compile-time checks
     STATIC_REQUIRE(result.size() == 1);
     STATIC_REQUIRE(cstrcmp(result.c_str(), "A") == 0);
   }
@@ -7613,16 +8034,22 @@ TEST_CASE("FixedString operators+", "[core][fixed_string]") {
 
     REQUIRE(result1.size() == 5);
     REQUIRE(std::strcmp(result1.c_str(), "Test\n") == 0);
+
+    // Compile-time checks
     STATIC_REQUIRE(result1.size() == 5);
     STATIC_REQUIRE(cstrcmp(result1.c_str(), "Test\n") == 0);
 
     REQUIRE(result2.size() == 5);
     REQUIRE(std::strcmp(result2.c_str(), "Test\t") == 0);
+
+    // Compile-time checks
     STATIC_REQUIRE(result2.size() == 5);
     STATIC_REQUIRE(cstrcmp(result2.c_str(), "Test\t") == 0);
 
     REQUIRE(result3.size() == 5);
     REQUIRE(std::strcmp(result3.c_str(), "Test ") == 0);
+
+    // Compile-time checks
     STATIC_REQUIRE(result3.size() == 5);
     STATIC_REQUIRE(cstrcmp(result3.c_str(), "Test ") == 0);
   }
@@ -7634,16 +8061,22 @@ TEST_CASE("FixedString operators+", "[core][fixed_string]") {
 
     REQUIRE(result1.size() == 5);
     REQUIRE(std::strcmp(result1.c_str(), "\nTest") == 0);
+
+    // Compile-time checks
     STATIC_REQUIRE(result1.size() == 5);
     STATIC_REQUIRE(cstrcmp(result1.c_str(), "\nTest") == 0);
 
     REQUIRE(result2.size() == 5);
     REQUIRE(std::strcmp(result2.c_str(), "\tTest") == 0);
+
+    // Compile-time checks
     STATIC_REQUIRE(result2.size() == 5);
     STATIC_REQUIRE(cstrcmp(result2.c_str(), "\tTest") == 0);
 
     REQUIRE(result3.size() == 5);
     REQUIRE(std::strcmp(result3.c_str(), " Test") == 0);
+
+    // Compile-time checks
     STATIC_REQUIRE(result3.size() == 5);
     STATIC_REQUIRE(cstrcmp(result3.c_str(), " Test") == 0);
   }
@@ -7653,6 +8086,8 @@ TEST_CASE("FixedString operators+", "[core][fixed_string]") {
 
     REQUIRE(result.size() == 7);
     REQUIRE(std::strcmp(result.c_str(), "Number1") == 0);
+
+    // Compile-time checks
     STATIC_REQUIRE(result.size() == 7);
     STATIC_REQUIRE(cstrcmp(result.c_str(), "Number1") == 0);
   }
@@ -7662,6 +8097,8 @@ TEST_CASE("FixedString operators+", "[core][fixed_string]") {
 
     REQUIRE(result.size() == 7);
     REQUIRE(std::strcmp(result.c_str(), "1Number") == 0);
+
+    // Compile-time checks
     STATIC_REQUIRE(result.size() == 7);
     STATIC_REQUIRE(cstrcmp(result.c_str(), "1Number") == 0);
   }
@@ -7671,6 +8108,8 @@ TEST_CASE("FixedString operators+", "[core][fixed_string]") {
 
     REQUIRE(result.size() == 6);
     REQUIRE(std::strcmp(result.c_str(), "Hello,") == 0);
+
+    // Compile-time checks
     STATIC_REQUIRE(result.size() == 6);
     STATIC_REQUIRE(cstrcmp(result.c_str(), "Hello,") == 0);
   }
@@ -7680,6 +8119,8 @@ TEST_CASE("FixedString operators+", "[core][fixed_string]") {
 
     REQUIRE(result.size() == 6);
     REQUIRE(std::strcmp(result.c_str(), ",Hello") == 0);
+
+    // Compile-time checks
     STATIC_REQUIRE(result.size() == 6);
     STATIC_REQUIRE(cstrcmp(result.c_str(), ",Hello") == 0);
   }
@@ -7689,6 +8130,8 @@ TEST_CASE("FixedString operators+", "[core][fixed_string]") {
 
     REQUIRE(result.size() == 3);
     REQUIRE(std::strcmp(result.c_str(), "ABC") == 0);
+
+    // Compile-time checks
     STATIC_REQUIRE(result.size() == 3);
     STATIC_REQUIRE(cstrcmp(result.c_str(), "ABC") == 0);
   }
@@ -7698,6 +8141,8 @@ TEST_CASE("FixedString operators+", "[core][fixed_string]") {
 
     REQUIRE(result.size() == 5);
     REQUIRE(std::strcmp(result.c_str(), "ABCDE") == 0);
+
+    // Compile-time checks
     STATIC_REQUIRE(result.size() == 5);
     STATIC_REQUIRE(cstrcmp(result.c_str(), "ABCDE") == 0);
   }
@@ -7707,6 +8152,8 @@ TEST_CASE("FixedString operators+", "[core][fixed_string]") {
 
     REQUIRE(result.size() == 5);
     REQUIRE(std::strcmp(result.c_str(), "ABCDE") == 0);
+
+    // Compile-time checks
     STATIC_REQUIRE(result.size() == 5);
     STATIC_REQUIRE(cstrcmp(result.c_str(), "ABCDE") == 0);
   }
@@ -7718,6 +8165,8 @@ TEST_CASE("FixedString operators+", "[core][fixed_string]") {
 
     REQUIRE(result.size() == 6);
     REQUIRE(result == "Hello!");
+
+    // Compile-time checks
     STATIC_REQUIRE(result.size() == 6);
     STATIC_REQUIRE(cstrcmp(result.c_str(), "Hello!") == 0);
   }
@@ -7729,6 +8178,8 @@ TEST_CASE("FixedString operators+", "[core][fixed_string]") {
 
     REQUIRE(result.size() == 6);
     REQUIRE(result == "!Hello");
+
+    // Compile-time checks
     STATIC_REQUIRE(result.size() == 6);
     STATIC_REQUIRE(cstrcmp(result.c_str(), "!Hello") == 0);
   }
@@ -7754,6 +8205,7 @@ TEST_CASE("FixedString operator==", "[core][fixed_string]") {
     REQUIRE_FALSE((str1 == empty1));
     REQUIRE_FALSE((empty1 == str1));
 
+    // Compile-time checks
     STATIC_REQUIRE(str1 == str2);
     STATIC_REQUIRE(str2 == str1);
     STATIC_REQUIRE(str1 == str4);
@@ -7767,17 +8219,27 @@ TEST_CASE("FixedString operator==", "[core][fixed_string]") {
   }
 
   SECTION("FixedString == StringLike") {
-    constexpr FixedString<16> str1("Hello");
-    const std::string str2("Hello");
-    const std::string str3("World");
-    const std::string empty;
+    constexpr FixedString<16> str("Hello");
+    const std::string stdStr1;
+    const std::string stdStr2("Hello");
+    const std::string stdStr3("World");
+    constexpr CStringView strView1;
+    constexpr CStringView strView2("Hello");
+    constexpr CStringView strView3("World");
 
-    REQUIRE(str1 == str2);
-    REQUIRE(str2 == str1);
-    REQUIRE_FALSE((str1 == str3));
-    REQUIRE_FALSE((str3 == str1));
-    REQUIRE_FALSE((str1 == empty));
-    REQUIRE_FALSE((empty == str1));
+    REQUIRE_FALSE((str == stdStr1));
+    REQUIRE_FALSE((stdStr1 == str));
+    REQUIRE(str == stdStr2);
+    REQUIRE(stdStr2 == str);
+    REQUIRE_FALSE((str == stdStr3));
+    REQUIRE_FALSE((stdStr3 == str));
+
+    STATIC_REQUIRE_FALSE((str == strView1));
+    STATIC_REQUIRE_FALSE((strView1 == str));
+    STATIC_REQUIRE(str == strView2);
+    STATIC_REQUIRE(strView2 == str);
+    STATIC_REQUIRE_FALSE((str == strView3));
+    STATIC_REQUIRE_FALSE((strView3 == str));
   }
 
   SECTION("FixedString == C string") {
@@ -7793,6 +8255,7 @@ TEST_CASE("FixedString operator==", "[core][fixed_string]") {
     REQUIRE_FALSE((str1 == ""));
     REQUIRE_FALSE(("" == str1));
 
+    // Compile-time checks
     STATIC_REQUIRE(str1 == "Hello");
     STATIC_REQUIRE("Hello" == str1);
     STATIC_REQUIRE_FALSE((str1 == "World"));
@@ -7815,21 +8278,11 @@ TEST_CASE("FixedString operator==", "[core][fixed_string]") {
     REQUIRE_FALSE((str1 == "B"));
     REQUIRE_FALSE(("B" == str1));
 
-    STATIC_REQUIRE(str1 == "A");
-    STATIC_REQUIRE("A" == str1);
-    STATIC_REQUIRE_FALSE((str1 == "B"));
-    STATIC_REQUIRE_FALSE(("B" == str1));
-
     // Empty string comparisons
     REQUIRE(empty1 == empty2);
     REQUIRE(empty2 == empty1);
     REQUIRE(empty1 == "");
     REQUIRE("" == empty1);
-
-    STATIC_REQUIRE(empty1 == empty2);
-    STATIC_REQUIRE(empty2 == empty1);
-    STATIC_REQUIRE(empty1 == "");
-    STATIC_REQUIRE("" == empty1);
 
     // Different sizes with same content
     constexpr FixedString<8> small("Hi");
@@ -7837,6 +8290,17 @@ TEST_CASE("FixedString operator==", "[core][fixed_string]") {
 
     REQUIRE(small == large);
     REQUIRE(large == small);
+
+    // Compile-time checks
+    STATIC_REQUIRE(str1 == "A");
+    STATIC_REQUIRE("A" == str1);
+    STATIC_REQUIRE_FALSE((str1 == "B"));
+    STATIC_REQUIRE_FALSE(("B" == str1));
+
+    STATIC_REQUIRE(empty1 == empty2);
+    STATIC_REQUIRE(empty2 == empty1);
+    STATIC_REQUIRE(empty1 == "");
+    STATIC_REQUIRE("" == empty1);
 
     STATIC_REQUIRE(small == large);
     STATIC_REQUIRE(large == small);
@@ -7856,6 +8320,7 @@ TEST_CASE("FixedString operator==", "[core][fixed_string]") {
     REQUIRE_FALSE((str1 == str3));
     REQUIRE_FALSE((str3 == str1));
 
+    // Compile-time checks
     STATIC_REQUIRE(str1 == "Hello\nWorld");
     STATIC_REQUIRE("Hello\nWorld" == str1);
     STATIC_REQUIRE(str2 == "Hello\tWorld");
@@ -7878,6 +8343,7 @@ TEST_CASE("FixedString operator==", "[core][fixed_string]") {
     REQUIRE_FALSE((str1 == str2));
     REQUIRE_FALSE((str2 == str1));
 
+    // Compile-time checks
     STATIC_REQUIRE(str1 == "Привет");
     STATIC_REQUIRE("Привет" == str1);
     STATIC_REQUIRE(str1 == str3);
@@ -7896,6 +8362,7 @@ TEST_CASE("FixedString operator==", "[core][fixed_string]") {
     REQUIRE_FALSE((str1 == str3));
     REQUIRE_FALSE((str3 == str1));
 
+    // Compile-time checks
     STATIC_REQUIRE(str1 == str2);
     STATIC_REQUIRE(str2 == str1);
     STATIC_REQUIRE_FALSE((str1 == str3));
@@ -7921,6 +8388,7 @@ TEST_CASE("FixedString operator==", "[core][fixed_string]") {
     REQUIRE_FALSE(eq5);
     REQUIRE_FALSE(eq6);
 
+    // Compile-time checks
     STATIC_REQUIRE(eq1);
     STATIC_REQUIRE_FALSE(eq2);
     STATIC_REQUIRE(eq3);
@@ -7945,11 +8413,6 @@ TEST_CASE("FixedString operator<=>", "[core][fixed_string]") {
     REQUIRE((str1 <=> str4) == std::strong_ordering::equal);
     REQUIRE((str4 <=> str1) == std::strong_ordering::equal);
 
-    STATIC_REQUIRE((str1 <=> str2) == std::strong_ordering::equal);
-    STATIC_REQUIRE((str2 <=> str1) == std::strong_ordering::equal);
-    STATIC_REQUIRE((str1 <=> str4) == std::strong_ordering::equal);
-    STATIC_REQUIRE((str4 <=> str1) == std::strong_ordering::equal);
-
     // Different strings
     REQUIRE((str1 <=> str3) == std::strong_ordering::less);
     REQUIRE((str3 <=> str1) == std::strong_ordering::greater);
@@ -7957,6 +8420,12 @@ TEST_CASE("FixedString operator<=>", "[core][fixed_string]") {
     REQUIRE((str5 <=> str1) == std::strong_ordering::greater);
     REQUIRE((str1 <=> str6) == std::strong_ordering::greater);
     REQUIRE((str6 <=> str1) == std::strong_ordering::less);
+
+    // Compile-time checks
+    STATIC_REQUIRE((str1 <=> str2) == std::strong_ordering::equal);
+    STATIC_REQUIRE((str2 <=> str1) == std::strong_ordering::equal);
+    STATIC_REQUIRE((str1 <=> str4) == std::strong_ordering::equal);
+    STATIC_REQUIRE((str4 <=> str1) == std::strong_ordering::equal);
 
     STATIC_REQUIRE((str1 <=> str3) == std::strong_ordering::less);
     STATIC_REQUIRE((str3 <=> str1) == std::strong_ordering::greater);
@@ -7967,17 +8436,21 @@ TEST_CASE("FixedString operator<=>", "[core][fixed_string]") {
   }
 
   SECTION("FixedString <=> StringLike") {
-    constexpr FixedString<16> str1("Hello");
-    const std::string str2("Hello");
-    const std::string str3("World");
+    constexpr FixedString<16> str("Hello");
+    const std::string stdStr1("Hello");
+    const std::string stdStr2("World");
+    constexpr CStringView strView1("Hello");
+    constexpr CStringView strView2("World");
 
-    // Equal strings
-    REQUIRE((str1 <=> str2) == std::strong_ordering::equal);
-    REQUIRE((str2 <=> str1) == std::strong_ordering::equal);
+    REQUIRE((str <=> stdStr1) == std::strong_ordering::equal);
+    REQUIRE((stdStr1 <=> str) == std::strong_ordering::equal);
+    REQUIRE((str <=> stdStr2) == std::strong_ordering::less);
+    REQUIRE((stdStr2 <=> str) == std::strong_ordering::greater);
 
-    // Different strings
-    REQUIRE((str1 <=> str3) == std::strong_ordering::less);
-    REQUIRE((str3 <=> str1) == std::strong_ordering::greater);
+    STATIC_REQUIRE((str <=> strView1) == std::strong_ordering::equal);
+    STATIC_REQUIRE((strView1 <=> str) == std::strong_ordering::equal);
+    STATIC_REQUIRE((str <=> strView2) == std::strong_ordering::less);
+    STATIC_REQUIRE((strView2 <=> str) == std::strong_ordering::greater);
   }
 
   SECTION("FixedString <=> C string") {
@@ -7991,9 +8464,6 @@ TEST_CASE("FixedString operator<=>", "[core][fixed_string]") {
     REQUIRE((str1 <=> str2) == std::strong_ordering::equal);
     REQUIRE((str2 <=> str1) == std::strong_ordering::equal);
 
-    STATIC_REQUIRE((str1 <=> str2) == std::strong_ordering::equal);
-    STATIC_REQUIRE((str2 <=> str1) == std::strong_ordering::equal);
-
     // Different strings
     REQUIRE((str1 <=> str3) == std::strong_ordering::less);
     REQUIRE((str3 <=> str1) == std::strong_ordering::greater);
@@ -8003,6 +8473,9 @@ TEST_CASE("FixedString operator<=>", "[core][fixed_string]") {
     REQUIRE((str5 <=> str1) == std::strong_ordering::less);
 
     // Compile-time checks
+    STATIC_REQUIRE((str1 <=> str2) == std::strong_ordering::equal);
+    STATIC_REQUIRE((str2 <=> str1) == std::strong_ordering::equal);
+
     STATIC_REQUIRE((str1 <=> str3) == std::strong_ordering::less);
     STATIC_REQUIRE((str3 <=> str1) == std::strong_ordering::greater);
     STATIC_REQUIRE((str1 <=> str4) == std::strong_ordering::less);
@@ -8024,16 +8497,17 @@ TEST_CASE("FixedString operator<=>", "[core][fixed_string]") {
     REQUIRE((empty1 <=> emptyCStr) == std::strong_ordering::equal);
     REQUIRE((emptyCStr <=> empty1) == std::strong_ordering::equal);
 
-    STATIC_REQUIRE((empty1 <=> empty2) == std::strong_ordering::equal);
-    STATIC_REQUIRE((empty2 <=> empty1) == std::strong_ordering::equal);
-    STATIC_REQUIRE((empty1 <=> emptyCStr) == std::strong_ordering::equal);
-    STATIC_REQUIRE((emptyCStr <=> empty1) == std::strong_ordering::equal);
-
     // Empty vs non-empty
     REQUIRE((empty1 <=> nonEmpty) == std::strong_ordering::less);
     REQUIRE((nonEmpty <=> empty1) == std::strong_ordering::greater);
     REQUIRE((empty1 <=> nonEmptyCStr) == std::strong_ordering::less);
     REQUIRE((nonEmptyCStr <=> empty1) == std::strong_ordering::greater);
+
+    // Compile-time checks
+    STATIC_REQUIRE((empty1 <=> empty2) == std::strong_ordering::equal);
+    STATIC_REQUIRE((empty2 <=> empty1) == std::strong_ordering::equal);
+    STATIC_REQUIRE((empty1 <=> emptyCStr) == std::strong_ordering::equal);
+    STATIC_REQUIRE((emptyCStr <=> empty1) == std::strong_ordering::equal);
 
     STATIC_REQUIRE((empty1 <=> nonEmpty) == std::strong_ordering::less);
     STATIC_REQUIRE((nonEmpty <=> empty1) == std::strong_ordering::greater);
@@ -8051,9 +8525,6 @@ TEST_CASE("FixedString operator<=>", "[core][fixed_string]") {
     REQUIRE((str1 <=> str3) == std::strong_ordering::equal);
     REQUIRE((str3 <=> str1) == std::strong_ordering::equal);
 
-    STATIC_REQUIRE((str1 <=> str3) == std::strong_ordering::equal);
-    STATIC_REQUIRE((str3 <=> str1) == std::strong_ordering::equal);
-
     // Different single characters
     REQUIRE((str1 <=> str2) == std::strong_ordering::less);
     REQUIRE((str2 <=> str1) == std::strong_ordering::greater);
@@ -8061,6 +8532,10 @@ TEST_CASE("FixedString operator<=>", "[core][fixed_string]") {
     REQUIRE((str4 <=> str1) == std::strong_ordering::greater);
     REQUIRE((str2 <=> str4) == std::strong_ordering::less);
     REQUIRE((str4 <=> str2) == std::strong_ordering::greater);
+
+    // Compile-time checks
+    STATIC_REQUIRE((str1 <=> str3) == std::strong_ordering::equal);
+    STATIC_REQUIRE((str3 <=> str1) == std::strong_ordering::equal);
 
     STATIC_REQUIRE((str1 <=> str2) == std::strong_ordering::less);
     STATIC_REQUIRE((str2 <=> str1) == std::strong_ordering::greater);
@@ -8083,6 +8558,7 @@ TEST_CASE("FixedString operator<=>", "[core][fixed_string]") {
     REQUIRE((upper <=> mixed) == std::strong_ordering::less); // 'H' < 'H' (same), but 'E' < 'e'
     REQUIRE((mixed <=> upper) == std::strong_ordering::greater);
 
+    // Compile-time checks
     STATIC_REQUIRE((lower <=> upper) == std::strong_ordering::greater);
     STATIC_REQUIRE((upper <=> lower) == std::strong_ordering::less);
     STATIC_REQUIRE((lower <=> mixed) == std::strong_ordering::greater);
@@ -8103,14 +8579,15 @@ TEST_CASE("FixedString operator<=>", "[core][fixed_string]") {
     REQUIRE((str3 <=> str1) == std::strong_ordering::less); // "Hell" < "Hello"
     REQUIRE((str1 <=> str3) == std::strong_ordering::greater);
 
+    // Equal strings
+    REQUIRE((str1 <=> str4) == std::strong_ordering::equal);
+    REQUIRE((str4 <=> str1) == std::strong_ordering::equal);
+
+    // Compile-time checks
     STATIC_REQUIRE((str1 <=> str2) == std::strong_ordering::less);
     STATIC_REQUIRE((str2 <=> str1) == std::strong_ordering::greater);
     STATIC_REQUIRE((str3 <=> str1) == std::strong_ordering::less);
     STATIC_REQUIRE((str1 <=> str3) == std::strong_ordering::greater);
-
-    // Equal strings
-    REQUIRE((str1 <=> str4) == std::strong_ordering::equal);
-    REQUIRE((str4 <=> str1) == std::strong_ordering::equal);
 
     STATIC_REQUIRE((str1 <=> str4) == std::strong_ordering::equal);
     STATIC_REQUIRE((str4 <=> str1) == std::strong_ordering::equal);
@@ -8126,9 +8603,6 @@ TEST_CASE("FixedString operator<=>", "[core][fixed_string]") {
     REQUIRE((str1 <=> str4) == std::strong_ordering::equal);
     REQUIRE((str4 <=> str1) == std::strong_ordering::equal);
 
-    STATIC_REQUIRE((str1 <=> str4) == std::strong_ordering::equal);
-    STATIC_REQUIRE((str4 <=> str1) == std::strong_ordering::equal);
-
     // Different special characters
     REQUIRE((str1 <=> str2) == std::strong_ordering::greater); // '\n' > '\t' in ASCII
     REQUIRE((str2 <=> str1) == std::strong_ordering::less);
@@ -8136,6 +8610,10 @@ TEST_CASE("FixedString operator<=>", "[core][fixed_string]") {
     REQUIRE((str3 <=> str1) == std::strong_ordering::greater);
     REQUIRE((str2 <=> str3) == std::strong_ordering::less); // '\t' < ' ' in ASCII
     REQUIRE((str3 <=> str2) == std::strong_ordering::greater);
+
+    // Compile-time checks
+    STATIC_REQUIRE((str1 <=> str4) == std::strong_ordering::equal);
+    STATIC_REQUIRE((str4 <=> str1) == std::strong_ordering::equal);
 
     STATIC_REQUIRE((str1 <=> str2) == std::strong_ordering::greater);
     STATIC_REQUIRE((str2 <=> str1) == std::strong_ordering::less);
@@ -8155,14 +8633,15 @@ TEST_CASE("FixedString operator<=>", "[core][fixed_string]") {
     REQUIRE((str1 <=> str3) == std::strong_ordering::equal);
     REQUIRE((str3 <=> str1) == std::strong_ordering::equal);
 
-    STATIC_REQUIRE((str1 <=> str3) == std::strong_ordering::equal);
-    STATIC_REQUIRE((str3 <=> str1) == std::strong_ordering::equal);
-
     // Different Unicode strings
     REQUIRE((str1 <=> str2) != std::strong_ordering::equal);
     REQUIRE((str2 <=> str1) != std::strong_ordering::equal);
     REQUIRE((str1 <=> str4) != std::strong_ordering::equal);
     REQUIRE((str4 <=> str1) != std::strong_ordering::equal);
+
+    // Compile-time checks
+    STATIC_REQUIRE((str1 <=> str3) == std::strong_ordering::equal);
+    STATIC_REQUIRE((str3 <=> str1) == std::strong_ordering::equal);
 
     STATIC_REQUIRE((str1 <=> str2) != std::strong_ordering::equal);
     STATIC_REQUIRE((str2 <=> str1) != std::strong_ordering::equal);
@@ -8181,9 +8660,6 @@ TEST_CASE("FixedString operator<=>", "[core][fixed_string]") {
     REQUIRE((str1 <=> str3) == std::strong_ordering::equal);
     REQUIRE((str3 <=> str1) == std::strong_ordering::equal);
 
-    STATIC_REQUIRE((str1 <=> str3) == std::strong_ordering::equal);
-    STATIC_REQUIRE((str3 <=> str1) == std::strong_ordering::equal);
-
     // Different numeric strings
     REQUIRE((str1 <=> str2) == std::strong_ordering::less); // "123" < "456"
     REQUIRE((str2 <=> str1) == std::strong_ordering::greater);
@@ -8191,6 +8667,10 @@ TEST_CASE("FixedString operator<=>", "[core][fixed_string]") {
     REQUIRE((str4 <=> str1) == std::strong_ordering::less);
     REQUIRE((str1 <=> str5) == std::strong_ordering::less); // "123" < "1234"
     REQUIRE((str5 <=> str1) == std::strong_ordering::greater);
+
+    // Compile-time checks
+    STATIC_REQUIRE((str1 <=> str3) == std::strong_ordering::equal);
+    STATIC_REQUIRE((str3 <=> str1) == std::strong_ordering::equal);
 
     STATIC_REQUIRE((str1 <=> str2) == std::strong_ordering::less);
     STATIC_REQUIRE((str2 <=> str1) == std::strong_ordering::greater);
@@ -8209,12 +8689,13 @@ TEST_CASE("FixedString operator<=>", "[core][fixed_string]") {
     REQUIRE((str1 <=> str2) == std::strong_ordering::equal);
     REQUIRE((str2 <=> str1) == std::strong_ordering::equal);
 
-    STATIC_REQUIRE((str1 <=> str2) == std::strong_ordering::equal);
-    STATIC_REQUIRE((str2 <=> str1) == std::strong_ordering::equal);
-
     // Different lengths
     REQUIRE((str1 <=> str3) == std::strong_ordering::less); // "ABC" < "ABCD"
     REQUIRE((str3 <=> str1) == std::strong_ordering::greater);
+
+    // Compile-time checks
+    STATIC_REQUIRE((str1 <=> str2) == std::strong_ordering::equal);
+    STATIC_REQUIRE((str2 <=> str1) == std::strong_ordering::equal);
 
     STATIC_REQUIRE((str1 <=> str3) == std::strong_ordering::less);
     STATIC_REQUIRE((str3 <=> str1) == std::strong_ordering::greater);

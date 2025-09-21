@@ -5,6 +5,7 @@
         "codacy",
         "constexpr",
         "cpack",
+        "cstrpbrk",
         "devkit",
         "devkitarm",
         "doxyfile",

@@ -538,6 +538,234 @@ TEST_CASE("cstrchr function", "[core][constexpr_utils]") {
   }
 }
 
+TEST_CASE("cstrpbrk function", "[core][constexpr_utils]") {
+  SECTION("Basic character set search") {
+    constexpr const char * str = "Hello World";
+    constexpr const char * accept1 = "aeiou";
+    constexpr const char * accept2 = "H";
+    constexpr const char * accept3 = "d";
+    constexpr const char * accept4 = "xyz";
+
+    STATIC_REQUIRE(cstrpbrk(str, accept1) != nullptr);
+    STATIC_REQUIRE(cstrpbrk(str, accept2) != nullptr);
+    STATIC_REQUIRE(cstrpbrk(str, accept3) != nullptr);
+    STATIC_REQUIRE(cstrpbrk(str, accept4) == nullptr);
+
+    // Compare with std::strpbrk
+    REQUIRE(cstrpbrk(str, accept1) == std::strpbrk(str, accept1));
+    REQUIRE(cstrpbrk(str, accept2) == std::strpbrk(str, accept2));
+    REQUIRE(cstrpbrk(str, accept3) == std::strpbrk(str, accept3));
+    REQUIRE(cstrpbrk(str, accept4) == std::strpbrk(str, accept4));
+  }
+
+  SECTION("Single character in accept set") {
+    constexpr const char * str = "Hello World";
+    constexpr const char * accept1 = "e";
+    constexpr const char * accept2 = "o";
+    constexpr const char * accept3 = "W";
+    constexpr const char * accept4 = "Z";
+
+    STATIC_REQUIRE(cstrpbrk(str, accept1) != nullptr);
+    STATIC_REQUIRE(cstrpbrk(str, accept2) != nullptr);
+    STATIC_REQUIRE(cstrpbrk(str, accept3) != nullptr);
+    STATIC_REQUIRE(cstrpbrk(str, accept4) == nullptr);
+
+    // Compare with std::strpbrk
+    REQUIRE(cstrpbrk(str, accept1) == std::strpbrk(str, accept1));
+    REQUIRE(cstrpbrk(str, accept2) == std::strpbrk(str, accept2));
+    REQUIRE(cstrpbrk(str, accept3) == std::strpbrk(str, accept3));
+    REQUIRE(cstrpbrk(str, accept4) == std::strpbrk(str, accept4));
+  }
+
+  SECTION("Multiple characters in accept set") {
+    constexpr const char * str = "Hello World";
+    constexpr const char * accept1 = "aeiou";
+    constexpr const char * accept2 = "Hl";
+    constexpr const char * accept3 = "Wrd";
+    constexpr const char * accept4 = "xyz";
+
+    STATIC_REQUIRE(cstrpbrk(str, accept1) != nullptr);
+    STATIC_REQUIRE(cstrpbrk(str, accept2) != nullptr);
+    STATIC_REQUIRE(cstrpbrk(str, accept3) != nullptr);
+    STATIC_REQUIRE(cstrpbrk(str, accept4) == nullptr);
+
+    // Compare with std::strpbrk
+    REQUIRE(cstrpbrk(str, accept1) == std::strpbrk(str, accept1));
+    REQUIRE(cstrpbrk(str, accept2) == std::strpbrk(str, accept2));
+    REQUIRE(cstrpbrk(str, accept3) == std::strpbrk(str, accept3));
+    REQUIRE(cstrpbrk(str, accept4) == std::strpbrk(str, accept4));
+  }
+
+  SECTION("Empty strings") {
+    constexpr const char * emptyStr = "";
+    constexpr const char * accept1 = "aeiou";
+    constexpr const char * accept2 = "";
+
+    STATIC_REQUIRE(cstrpbrk(emptyStr, accept1) == nullptr);
+    STATIC_REQUIRE(cstrpbrk(emptyStr, accept2) == nullptr);
+
+    // Compare with std::strpbrk
+    REQUIRE(cstrpbrk(emptyStr, accept1) == std::strpbrk(emptyStr, accept1));
+    REQUIRE(cstrpbrk(emptyStr, accept2) == std::strpbrk(emptyStr, accept2));
+  }
+
+  SECTION("First character match") {
+    constexpr const char * str = "Hello World";
+    constexpr const char * accept1 = "H";
+    constexpr const char * accept2 = "Hel";
+    constexpr const char * accept3 = "Hl";
+
+    STATIC_REQUIRE(cstrpbrk(str, accept1) != nullptr);
+    STATIC_REQUIRE(cstrpbrk(str, accept2) != nullptr);
+    STATIC_REQUIRE(cstrpbrk(str, accept3) != nullptr);
+
+    // Compare with std::strpbrk
+    REQUIRE(cstrpbrk(str, accept1) == std::strpbrk(str, accept1));
+    REQUIRE(cstrpbrk(str, accept2) == std::strpbrk(str, accept2));
+    REQUIRE(cstrpbrk(str, accept3) == std::strpbrk(str, accept3));
+  }
+
+  SECTION("Last character match") {
+    constexpr const char * str = "Hello World";
+    constexpr const char * accept1 = "d";
+    constexpr const char * accept2 = "ld";
+    constexpr const char * accept3 = "World";
+
+    STATIC_REQUIRE(cstrpbrk(str, accept1) != nullptr);
+    STATIC_REQUIRE(cstrpbrk(str, accept2) != nullptr);
+    STATIC_REQUIRE(cstrpbrk(str, accept3) != nullptr);
+
+    // Compare with std::strpbrk
+    REQUIRE(cstrpbrk(str, accept1) == std::strpbrk(str, accept1));
+    REQUIRE(cstrpbrk(str, accept2) == std::strpbrk(str, accept2));
+    REQUIRE(cstrpbrk(str, accept3) == std::strpbrk(str, accept3));
+  }
+
+  SECTION("Case sensitivity") {
+    constexpr const char * str = "Hello World";
+    constexpr const char * accept1 = "hello";
+    constexpr const char * accept2 = "HELLO";
+    constexpr const char * accept3 = "Hello";
+
+    STATIC_REQUIRE(cstrpbrk(str, accept1) != nullptr);
+    STATIC_REQUIRE(cstrpbrk(str, accept2) != nullptr);
+    STATIC_REQUIRE(cstrpbrk(str, accept3) != nullptr);
+
+    // Compare with std::strpbrk
+    REQUIRE(cstrpbrk(str, accept1) == std::strpbrk(str, accept1));
+    REQUIRE(cstrpbrk(str, accept2) == std::strpbrk(str, accept2));
+    REQUIRE(cstrpbrk(str, accept3) == std::strpbrk(str, accept3));
+  }
+
+  SECTION("Special characters") {
+    constexpr const char * str = "Hello, World!";
+    constexpr const char * accept1 = ",!";
+    constexpr const char * accept2 = ".,";
+    constexpr const char * accept3 = "!?";
+    constexpr const char * accept4 = "xyz";
+
+    STATIC_REQUIRE(cstrpbrk(str, accept1) != nullptr);
+    STATIC_REQUIRE(cstrpbrk(str, accept2) != nullptr);
+    STATIC_REQUIRE(cstrpbrk(str, accept3) != nullptr);
+    STATIC_REQUIRE(cstrpbrk(str, accept4) == nullptr);
+
+    // Compare with std::strpbrk
+    REQUIRE(cstrpbrk(str, accept1) == std::strpbrk(str, accept1));
+    REQUIRE(cstrpbrk(str, accept2) == std::strpbrk(str, accept2));
+    REQUIRE(cstrpbrk(str, accept3) == std::strpbrk(str, accept3));
+    REQUIRE(cstrpbrk(str, accept4) == std::strpbrk(str, accept4));
+  }
+
+  SECTION("Numeric characters") {
+    constexpr const char * str = "Hello123World";
+    constexpr const char * accept1 = "123";
+    constexpr const char * accept2 = "456";
+    constexpr const char * accept3 = "0123456789";
+    constexpr const char * accept4 = "abc";
+
+    STATIC_REQUIRE(cstrpbrk(str, accept1) != nullptr);
+    STATIC_REQUIRE(cstrpbrk(str, accept2) == nullptr);
+    STATIC_REQUIRE(cstrpbrk(str, accept3) != nullptr);
+    STATIC_REQUIRE(cstrpbrk(str, accept4) == nullptr);
+
+    // Compare with std::strpbrk
+    REQUIRE(cstrpbrk(str, accept1) == std::strpbrk(str, accept1));
+    REQUIRE(cstrpbrk(str, accept2) == std::strpbrk(str, accept2));
+    REQUIRE(cstrpbrk(str, accept3) == std::strpbrk(str, accept3));
+    REQUIRE(cstrpbrk(str, accept4) == std::strpbrk(str, accept4));
+  }
+
+  SECTION("Whitespace characters") {
+    constexpr const char * str = "Hello World";
+    constexpr const char * accept1 = " ";
+    constexpr const char * accept2 = " \t\n";
+    constexpr const char * accept3 = "\t";
+    constexpr const char * accept4 = "xyz";
+
+    STATIC_REQUIRE(cstrpbrk(str, accept1) != nullptr);
+    STATIC_REQUIRE(cstrpbrk(str, accept2) != nullptr);
+    STATIC_REQUIRE(cstrpbrk(str, accept3) == nullptr);
+    STATIC_REQUIRE(cstrpbrk(str, accept4) == nullptr);
+
+    // Compare with std::strpbrk
+    REQUIRE(cstrpbrk(str, accept1) == std::strpbrk(str, accept1));
+    REQUIRE(cstrpbrk(str, accept2) == std::strpbrk(str, accept2));
+    REQUIRE(cstrpbrk(str, accept3) == std::strpbrk(str, accept3));
+    REQUIRE(cstrpbrk(str, accept4) == std::strpbrk(str, accept4));
+  }
+
+  SECTION("Repeated characters in accept set") {
+    constexpr const char * str = "Hello World";
+    constexpr const char * accept1 = "lll";
+    constexpr const char * accept2 = "HHH";
+    constexpr const char * accept3 = "llH";
+
+    STATIC_REQUIRE(cstrpbrk(str, accept1) != nullptr);
+    STATIC_REQUIRE(cstrpbrk(str, accept2) != nullptr);
+    STATIC_REQUIRE(cstrpbrk(str, accept3) != nullptr);
+
+    // Compare with std::strpbrk
+    REQUIRE(cstrpbrk(str, accept1) == std::strpbrk(str, accept1));
+    REQUIRE(cstrpbrk(str, accept2) == std::strpbrk(str, accept2));
+    REQUIRE(cstrpbrk(str, accept3) == std::strpbrk(str, accept3));
+  }
+
+  SECTION("Long strings") {
+    constexpr const char * longStr = "This is a very long string for performance testing";
+    constexpr const char * accept1 = "aeiou";
+    constexpr const char * accept2 = "xyz";
+    constexpr const char * accept3 = "T";
+    constexpr const char * accept4 = "g";
+
+    STATIC_REQUIRE(cstrpbrk(longStr, accept1) != nullptr);
+    STATIC_REQUIRE(cstrpbrk(longStr, accept2) != nullptr);
+    STATIC_REQUIRE(cstrpbrk(longStr, accept3) != nullptr);
+    STATIC_REQUIRE(cstrpbrk(longStr, accept4) != nullptr);
+
+    // Compare with std::strpbrk
+    REQUIRE(cstrpbrk(longStr, accept1) == std::strpbrk(longStr, accept1));
+    REQUIRE(cstrpbrk(longStr, accept2) == std::strpbrk(longStr, accept2));
+    REQUIRE(cstrpbrk(longStr, accept3) == std::strpbrk(longStr, accept3));
+    REQUIRE(cstrpbrk(longStr, accept4) == std::strpbrk(longStr, accept4));
+  }
+
+  SECTION("Edge cases") {
+    constexpr const char * str = "A";
+    constexpr const char * accept1 = "A";
+    constexpr const char * accept2 = "B";
+    constexpr const char * accept3 = "AB";
+
+    STATIC_REQUIRE(cstrpbrk(str, accept1) != nullptr);
+    STATIC_REQUIRE(cstrpbrk(str, accept2) == nullptr);
+    STATIC_REQUIRE(cstrpbrk(str, accept3) != nullptr);
+
+    // Compare with std::strpbrk
+    REQUIRE(cstrpbrk(str, accept1) == std::strpbrk(str, accept1));
+    REQUIRE(cstrpbrk(str, accept2) == std::strpbrk(str, accept2));
+    REQUIRE(cstrpbrk(str, accept3) == std::strpbrk(str, accept3));
+  }
+}
+
 TEST_CASE("cstrstr function", "[core][constexpr_utils]") {
   SECTION("Basic substring search") {
     constexpr const char * haystack = "Hello World";

@@ -1814,3 +1814,864 @@ TEST_CASE("CStringView swap", "[core][c_string_view]") {
     REQUIRE(string2.size() == 16);
   }
 }
+
+TEST_CASE("CStringView find", "[core][c_string_view]") {
+  SECTION("Find CStringView substring") {
+    constexpr CStringView testString("Hello World");
+
+    REQUIRE(testString.find(CStringView("World")) == 6);
+    REQUIRE(testString.find(CStringView("Hello")) == 0);
+    REQUIRE(testString.find(CStringView("lo Wo")) == 3);
+    REQUIRE(testString.find(CStringView("xyz")) == CStringView::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find(CStringView("World")) == 6);
+    STATIC_REQUIRE(testString.find(CStringView("Hello")) == 0);
+    STATIC_REQUIRE(testString.find(CStringView("lo Wo")) == 3);
+    STATIC_REQUIRE(testString.find(CStringView("xyz")) == CStringView::npos);
+  }
+
+  SECTION("Find StringLike substring") {
+    constexpr CStringView testString("Hello World");
+
+    REQUIRE(testString.find(std::string("World")) == 6);
+    REQUIRE(testString.find(std::string("Hello")) == 0);
+    REQUIRE(testString.find(std::string("lo Wo")) == 3);
+    REQUIRE(testString.find(std::string("xyz")) == CStringView::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find(FixedString<32>("World")) == 6);
+    STATIC_REQUIRE(testString.find(FixedString<32>("Hello")) == 0);
+    STATIC_REQUIRE(testString.find(FixedString<32>("lo Wo")) == 3);
+    STATIC_REQUIRE(testString.find(FixedString<32>("xyz")) == CStringView::npos);
+  }
+
+  SECTION("Find C string substring") {
+    constexpr CStringView testString("Hello World");
+
+    REQUIRE(testString.find("World") == 6);
+    REQUIRE(testString.find("Hello") == 0);
+    REQUIRE(testString.find("lo Wo") == 3);
+    REQUIRE(testString.find("xyz") == CStringView::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find("World") == 6);
+    STATIC_REQUIRE(testString.find("Hello") == 0);
+    STATIC_REQUIRE(testString.find("lo Wo") == 3);
+    STATIC_REQUIRE(testString.find("xyz") == CStringView::npos);
+  }
+
+  SECTION("Find character") {
+    constexpr CStringView testString("Hello World");
+
+    REQUIRE(testString.find('H') == 0);
+    REQUIRE(testString.find('l') == 2);
+    REQUIRE(testString.find('o') == 4);
+    REQUIRE(testString.find('W') == 6);
+    REQUIRE(testString.find('d') == 10);
+    REQUIRE(testString.find('x') == CStringView::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find('H') == 0);
+    STATIC_REQUIRE(testString.find('l') == 2);
+    STATIC_REQUIRE(testString.find('o') == 4);
+    STATIC_REQUIRE(testString.find('W') == 6);
+    STATIC_REQUIRE(testString.find('d') == 10);
+    STATIC_REQUIRE(testString.find('x') == CStringView::npos);
+  }
+
+  SECTION("Find with position parameter") {
+    constexpr CStringView testString("Hello World Hello");
+
+    REQUIRE(testString.find("Hello", 0) == 0);
+    REQUIRE(testString.find("Hello", 1) == 12);
+    REQUIRE(testString.find("Hello", 13) == CStringView::npos);
+    REQUIRE(testString.find('l', 0) == 2);
+    REQUIRE(testString.find('l', 3) == 3);
+    REQUIRE(testString.find('l', 4) == 9);
+    REQUIRE(testString.find('l', 10) == 14);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find("Hello", 0) == 0);
+    STATIC_REQUIRE(testString.find("Hello", 1) == 12);
+    STATIC_REQUIRE(testString.find("Hello", 13) == CStringView::npos);
+    STATIC_REQUIRE(testString.find('l', 0) == 2);
+    STATIC_REQUIRE(testString.find('l', 3) == 3);
+    STATIC_REQUIRE(testString.find('l', 4) == 9);
+    STATIC_REQUIRE(testString.find('l', 10) == 14);
+  }
+
+  SECTION("Find empty substring") {
+    constexpr CStringView testString("Hello World");
+
+    REQUIRE(testString.find(CStringView("")) == 0);
+    REQUIRE(testString.find(std::string("")) == 0);
+    REQUIRE(testString.find("") == 0);
+    REQUIRE(testString.find("", 5) == 5);
+    REQUIRE(testString.find("", 11) == 11);
+    REQUIRE(testString.find("", 12) == CStringView::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find(CStringView("")) == 0);
+    STATIC_REQUIRE(testString.find(FixedString<32>("")) == 0);
+    STATIC_REQUIRE(testString.find("") == 0);
+    STATIC_REQUIRE(testString.find("", 5) == 5);
+    STATIC_REQUIRE(testString.find("", 11) == 11);
+    STATIC_REQUIRE(testString.find("", 12) == CStringView::npos);
+  }
+
+  SECTION("Find in empty string") {
+    constexpr CStringView testString("");
+
+    REQUIRE(testString.find(CStringView("Hello")) == CStringView::npos);
+    REQUIRE(testString.find(std::string("Hello")) == CStringView::npos);
+    REQUIRE(testString.find("Hello") == CStringView::npos);
+    REQUIRE(testString.find('H') == CStringView::npos);
+    REQUIRE(testString.find("") == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find(CStringView("Hello")) == CStringView::npos);
+    STATIC_REQUIRE(testString.find(FixedString<32>("Hello")) == CStringView::npos);
+    STATIC_REQUIRE(testString.find("Hello") == CStringView::npos);
+    STATIC_REQUIRE(testString.find('H') == CStringView::npos);
+    STATIC_REQUIRE(testString.find("") == 0);
+  }
+
+  SECTION("Find with position beyond string size") {
+    constexpr CStringView testString("Hello");
+
+    REQUIRE(testString.find("World", 10) == CStringView::npos);
+    REQUIRE(testString.find('H', 10) == CStringView::npos);
+    REQUIRE(testString.find("", 10) == CStringView::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find("World", 10) == CStringView::npos);
+    STATIC_REQUIRE(testString.find('H', 10) == CStringView::npos);
+    STATIC_REQUIRE(testString.find("", 10) == CStringView::npos);
+  }
+
+  SECTION("Find substring at end") {
+    constexpr CStringView testString("Hello World");
+
+    REQUIRE(testString.find("World") == 6);
+    REQUIRE(testString.find("d") == 10);
+    REQUIRE(testString.find("ld") == 9);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find("World") == 6);
+    STATIC_REQUIRE(testString.find("d") == 10);
+    STATIC_REQUIRE(testString.find("ld") == 9);
+  }
+
+  SECTION("Find substring at beginning") {
+    constexpr CStringView testString("Hello World");
+
+    REQUIRE(testString.find("Hello") == 0);
+    REQUIRE(testString.find("H") == 0);
+    REQUIRE(testString.find("He") == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find("Hello") == 0);
+    STATIC_REQUIRE(testString.find("H") == 0);
+    STATIC_REQUIRE(testString.find("He") == 0);
+  }
+
+  SECTION("Find overlapping substrings") {
+    constexpr CStringView testString("ababab");
+
+    REQUIRE(testString.find("ab") == 0);
+    REQUIRE(testString.find("ab", 1) == 2);
+    REQUIRE(testString.find("ab", 3) == 4);
+    REQUIRE(testString.find("ab", 5) == CStringView::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find("ab") == 0);
+    STATIC_REQUIRE(testString.find("ab", 1) == 2);
+    STATIC_REQUIRE(testString.find("ab", 3) == 4);
+    STATIC_REQUIRE(testString.find("ab", 5) == CStringView::npos);
+  }
+
+  SECTION("Find with repeated characters") {
+    constexpr CStringView testString("aaaaa");
+
+    REQUIRE(testString.find("aa") == 0);
+    REQUIRE(testString.find("aa", 1) == 1);
+    REQUIRE(testString.find("aa", 2) == 2);
+    REQUIRE(testString.find("aa", 3) == 3);
+    REQUIRE(testString.find("aa", 4) == CStringView::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find("aa") == 0);
+    STATIC_REQUIRE(testString.find("aa", 1) == 1);
+    STATIC_REQUIRE(testString.find("aa", 2) == 2);
+    STATIC_REQUIRE(testString.find("aa", 3) == 3);
+    STATIC_REQUIRE(testString.find("aa", 4) == CStringView::npos);
+  }
+
+  SECTION("Find case sensitivity") {
+    constexpr CStringView testString("Hello World");
+
+    REQUIRE(testString.find("hello") == CStringView::npos);
+    REQUIRE(testString.find("WORLD") == CStringView::npos);
+    REQUIRE(testString.find("Hello") == 0);
+    REQUIRE(testString.find("World") == 6);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find("hello") == CStringView::npos);
+    STATIC_REQUIRE(testString.find("WORLD") == CStringView::npos);
+    STATIC_REQUIRE(testString.find("Hello") == 0);
+    STATIC_REQUIRE(testString.find("World") == 6);
+  }
+
+  SECTION("Find with different CStringView capacities") {
+    constexpr CStringView testString("Hello World");
+
+    REQUIRE(testString.find(CStringView("World")) == 6);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find(CStringView("World")) == 6);
+  }
+
+  SECTION("Find with exact match") {
+    constexpr CStringView testString("Hello");
+
+    REQUIRE(testString.find("Hello") == 0);
+    REQUIRE(testString.find("Hello", 0) == 0);
+    REQUIRE(testString.find("Hello", 1) == CStringView::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find("Hello") == 0);
+    STATIC_REQUIRE(testString.find("Hello", 0) == 0);
+    STATIC_REQUIRE(testString.find("Hello", 1) == CStringView::npos);
+  }
+
+  SECTION("Find with single character string") {
+    constexpr CStringView testString("A");
+
+    REQUIRE(testString.find("A") == 0);
+    REQUIRE(testString.find('A') == 0);
+    REQUIRE(testString.find("B") == CStringView::npos);
+    REQUIRE(testString.find('B') == CStringView::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find("A") == 0);
+    STATIC_REQUIRE(testString.find('A') == 0);
+    STATIC_REQUIRE(testString.find("B") == CStringView::npos);
+    STATIC_REQUIRE(testString.find('B') == CStringView::npos);
+  }
+
+  SECTION("Find with special characters") {
+    constexpr CStringView testString("Hello\n\tWorld!");
+
+    REQUIRE(testString.find("\n") == 5);
+    REQUIRE(testString.find("\t") == 6);
+    REQUIRE(testString.find("!") == 12);
+    REQUIRE(testString.find("\n\t") == 5);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find("\n") == 5);
+    STATIC_REQUIRE(testString.find("\t") == 6);
+    STATIC_REQUIRE(testString.find("!") == 12);
+    STATIC_REQUIRE(testString.find("\n\t") == 5);
+  }
+
+  SECTION("Find with Unicode content") {
+    constexpr CStringView testString("Hello 世界");
+
+    REQUIRE(testString.find("世界") == 6);
+    REQUIRE(testString.find("Hello") == 0);
+    REQUIRE(testString.find(" ") == 5);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find("世界") == 6);
+    STATIC_REQUIRE(testString.find("Hello") == 0);
+    STATIC_REQUIRE(testString.find(" ") == 5);
+  }
+
+  SECTION("Find with numeric content") {
+    constexpr CStringView testString("12345Hello67890");
+
+    REQUIRE(testString.find("12345") == 0);
+    REQUIRE(testString.find("Hello") == 5);
+    REQUIRE(testString.find("67890") == 10);
+    REQUIRE(testString.find("456") == CStringView::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find("12345") == 0);
+    STATIC_REQUIRE(testString.find("Hello") == 5);
+    STATIC_REQUIRE(testString.find("67890") == 10);
+    STATIC_REQUIRE(testString.find("456") == CStringView::npos);
+  }
+
+  SECTION("Find with mixed content") {
+    constexpr CStringView testString("Hello123World!@#");
+
+    REQUIRE(testString.find("123") == 5);
+    REQUIRE(testString.find("!@#") == 13);
+    REQUIRE(testString.find("Hello123") == 0);
+    REQUIRE(testString.find("World!@#") == 8);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find("123") == 5);
+    STATIC_REQUIRE(testString.find("!@#") == 13);
+    STATIC_REQUIRE(testString.find("Hello123") == 0);
+    STATIC_REQUIRE(testString.find("World!@#") == 8);
+  }
+
+  SECTION("Find with position edge cases") {
+    constexpr CStringView testString("Hello World");
+
+    REQUIRE(testString.find("Hello", 0) == 0);
+    REQUIRE(testString.find("Hello", 1) == CStringView::npos);
+    REQUIRE(testString.find("World", 6) == 6);
+    REQUIRE(testString.find("World", 7) == CStringView::npos);
+    REQUIRE(testString.find("", 0) == 0);
+    REQUIRE(testString.find("", 11) == 11);
+    REQUIRE(testString.find("", 12) == CStringView::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find("Hello", 0) == 0);
+    STATIC_REQUIRE(testString.find("Hello", 1) == CStringView::npos);
+    STATIC_REQUIRE(testString.find("World", 6) == 6);
+    STATIC_REQUIRE(testString.find("World", 7) == CStringView::npos);
+    STATIC_REQUIRE(testString.find("", 0) == 0);
+    STATIC_REQUIRE(testString.find("", 11) == 11);
+    STATIC_REQUIRE(testString.find("", 12) == CStringView::npos);
+  }
+}
+
+TEST_CASE("CStringView rfind", "[core][c_string_view]") {
+  SECTION("Rfind CStringView substring") {
+    constexpr CStringView testString("Hello World Hello");
+
+    REQUIRE(testString.rfind(CStringView("Hello")) == 12);
+    REQUIRE(testString.rfind(CStringView("World")) == 6);
+    REQUIRE(testString.rfind(CStringView("lo")) == 15);
+    REQUIRE(testString.rfind(CStringView("xyz")) == CStringView::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind(CStringView("Hello")) == 12);
+    STATIC_REQUIRE(testString.rfind(CStringView("World")) == 6);
+    STATIC_REQUIRE(testString.rfind(CStringView("lo")) == 15);
+    STATIC_REQUIRE(testString.rfind(CStringView("xyz")) == CStringView::npos);
+  }
+
+  SECTION("Rfind StringLike substring") {
+    constexpr CStringView testString("Hello World Hello");
+
+    REQUIRE(testString.rfind(std::string("Hello")) == 12);
+    REQUIRE(testString.rfind(std::string("World")) == 6);
+    REQUIRE(testString.rfind(std::string("lo")) == 15);
+    REQUIRE(testString.rfind(std::string("xyz")) == CStringView::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind(FixedString<32>("Hello")) == 12);
+    STATIC_REQUIRE(testString.rfind(FixedString<32>("World")) == 6);
+    STATIC_REQUIRE(testString.rfind(FixedString<32>("lo")) == 15);
+    STATIC_REQUIRE(testString.rfind(FixedString<32>("xyz")) == CStringView::npos);
+  }
+
+  SECTION("Rfind C string substring") {
+    constexpr CStringView testString("Hello World Hello");
+
+    REQUIRE(testString.rfind("Hello") == 12);
+    REQUIRE(testString.rfind("World") == 6);
+    REQUIRE(testString.rfind("lo") == 15);
+    REQUIRE(testString.rfind("xyz") == CStringView::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind("Hello") == 12);
+    STATIC_REQUIRE(testString.rfind("World") == 6);
+    STATIC_REQUIRE(testString.rfind("lo") == 15);
+    STATIC_REQUIRE(testString.rfind("xyz") == CStringView::npos);
+  }
+
+  SECTION("Rfind character") {
+    constexpr CStringView testString("Hello World Hello");
+
+    REQUIRE(testString.rfind('H') == 12);
+    REQUIRE(testString.rfind('l') == 15);
+    REQUIRE(testString.rfind('o') == 16);
+    REQUIRE(testString.rfind('W') == 6);
+    REQUIRE(testString.rfind('d') == 10);
+    REQUIRE(testString.rfind('x') == CStringView::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind('H') == 12);
+    STATIC_REQUIRE(testString.rfind('l') == 15);
+    STATIC_REQUIRE(testString.rfind('o') == 16);
+    STATIC_REQUIRE(testString.rfind('W') == 6);
+    STATIC_REQUIRE(testString.rfind('d') == 10);
+    STATIC_REQUIRE(testString.rfind('x') == CStringView::npos);
+  }
+
+  SECTION("Rfind with position parameter") {
+    constexpr CStringView testString("Hello World Hello");
+
+    REQUIRE(testString.rfind("Hello", 12) == 12);
+    REQUIRE(testString.rfind("Hello", 11) == 0);
+    REQUIRE(testString.rfind("Hello", 0) == 0);
+    REQUIRE(testString.rfind('l', 16) == 15);
+    REQUIRE(testString.rfind('l', 13) == 9);
+    REQUIRE(testString.rfind('l', 8) == 3);
+    REQUIRE(testString.rfind('l', 2) == 2);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind("Hello", 12) == 12);
+    STATIC_REQUIRE(testString.rfind("Hello", 11) == 0);
+    STATIC_REQUIRE(testString.rfind("Hello", 0) == 0);
+    STATIC_REQUIRE(testString.rfind('l', 16) == 15);
+    STATIC_REQUIRE(testString.rfind('l', 13) == 9);
+    STATIC_REQUIRE(testString.rfind('l', 8) == 3);
+    STATIC_REQUIRE(testString.rfind('l', 2) == 2);
+  }
+
+  SECTION("Rfind empty substring") {
+    constexpr CStringView testString("Hello World");
+
+    REQUIRE(testString.rfind(CStringView("")) == 11);
+    REQUIRE(testString.rfind(std::string("")) == 11);
+    REQUIRE(testString.rfind("") == 11);
+    REQUIRE(testString.rfind("", 5) == 5);
+    REQUIRE(testString.rfind("", 0) == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind(CStringView("")) == 11);
+    STATIC_REQUIRE(testString.rfind(FixedString<32>("")) == 11);
+    STATIC_REQUIRE(testString.rfind("") == 11);
+    STATIC_REQUIRE(testString.rfind("", 5) == 5);
+    STATIC_REQUIRE(testString.rfind("", 0) == 0);
+  }
+
+  SECTION("Rfind in empty string") {
+    constexpr CStringView testString("");
+
+    REQUIRE(testString.rfind(CStringView("Hello")) == CStringView::npos);
+    REQUIRE(testString.rfind(std::string("Hello")) == CStringView::npos);
+    REQUIRE(testString.rfind("Hello") == CStringView::npos);
+    REQUIRE(testString.rfind('H') == CStringView::npos);
+    REQUIRE(testString.rfind("") == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind(CStringView("Hello")) == CStringView::npos);
+    STATIC_REQUIRE(testString.rfind(FixedString<32>("Hello")) == CStringView::npos);
+    STATIC_REQUIRE(testString.rfind("Hello") == CStringView::npos);
+    STATIC_REQUIRE(testString.rfind('H') == CStringView::npos);
+    STATIC_REQUIRE(testString.rfind("") == 0);
+  }
+
+  SECTION("Rfind substring at end") {
+    constexpr CStringView testString("Hello World");
+
+    REQUIRE(testString.rfind("World") == 6);
+    REQUIRE(testString.rfind("d") == 10);
+    REQUIRE(testString.rfind("ld") == 9);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind("World") == 6);
+    STATIC_REQUIRE(testString.rfind("d") == 10);
+    STATIC_REQUIRE(testString.rfind("ld") == 9);
+  }
+
+  SECTION("Rfind substring at beginning") {
+    constexpr CStringView testString("Hello World Hello");
+
+    REQUIRE(testString.rfind("Hello") == 12);
+    REQUIRE(testString.rfind("H") == 12);
+    REQUIRE(testString.rfind("He") == 12);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind("Hello") == 12);
+    STATIC_REQUIRE(testString.rfind("H") == 12);
+    STATIC_REQUIRE(testString.rfind("He") == 12);
+  }
+
+  SECTION("Rfind overlapping substrings") {
+    constexpr CStringView testString("ababab");
+
+    REQUIRE(testString.rfind("ab") == 4);
+    REQUIRE(testString.rfind("ab", 3) == 2);
+    REQUIRE(testString.rfind("ab", 1) == 0);
+    REQUIRE(testString.rfind("ab", 0) == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind("ab") == 4);
+    STATIC_REQUIRE(testString.rfind("ab", 3) == 2);
+    STATIC_REQUIRE(testString.rfind("ab", 1) == 0);
+    STATIC_REQUIRE(testString.rfind("ab", 0) == 0);
+  }
+
+  SECTION("Rfind with repeated characters") {
+    constexpr CStringView testString("aaaaa");
+
+    REQUIRE(testString.rfind("aa") == 3);
+    REQUIRE(testString.rfind("aa", 2) == 2);
+    REQUIRE(testString.rfind("aa", 1) == 1);
+    REQUIRE(testString.rfind("aa", 0) == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind("aa") == 3);
+    STATIC_REQUIRE(testString.rfind("aa", 2) == 2);
+    STATIC_REQUIRE(testString.rfind("aa", 1) == 1);
+    STATIC_REQUIRE(testString.rfind("aa", 0) == 0);
+  }
+
+  SECTION("Rfind case sensitivity") {
+    constexpr CStringView testString("Hello World Hello");
+
+    REQUIRE(testString.rfind("hello") == CStringView::npos);
+    REQUIRE(testString.rfind("WORLD") == CStringView::npos);
+    REQUIRE(testString.rfind("Hello") == 12);
+    REQUIRE(testString.rfind("World") == 6);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind("hello") == CStringView::npos);
+    STATIC_REQUIRE(testString.rfind("WORLD") == CStringView::npos);
+    STATIC_REQUIRE(testString.rfind("Hello") == 12);
+    STATIC_REQUIRE(testString.rfind("World") == 6);
+  }
+
+  SECTION("Rfind with exact match") {
+    constexpr CStringView testString("Hello");
+
+    REQUIRE(testString.rfind("Hello") == 0);
+    REQUIRE(testString.rfind("Hello", 0) == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind("Hello") == 0);
+    STATIC_REQUIRE(testString.rfind("Hello", 0) == 0);
+  }
+
+  SECTION("Rfind with single character string") {
+    constexpr CStringView testString("A");
+
+    REQUIRE(testString.rfind("A") == 0);
+    REQUIRE(testString.rfind('A') == 0);
+    REQUIRE(testString.rfind("B") == CStringView::npos);
+    REQUIRE(testString.rfind('B') == CStringView::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind("A") == 0);
+    STATIC_REQUIRE(testString.rfind('A') == 0);
+    STATIC_REQUIRE(testString.rfind("B") == CStringView::npos);
+    STATIC_REQUIRE(testString.rfind('B') == CStringView::npos);
+  }
+
+  SECTION("Rfind with position 0") {
+    constexpr CStringView testString("Hello World");
+
+    REQUIRE(testString.rfind("Hello", 0) == 0);
+    REQUIRE(testString.rfind("World", 0) == CStringView::npos);
+    REQUIRE(testString.rfind('H', 0) == 0);
+    REQUIRE(testString.rfind('W', 0) == CStringView::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind("Hello", 0) == 0);
+    STATIC_REQUIRE(testString.rfind("World", 0) == CStringView::npos);
+    STATIC_REQUIRE(testString.rfind('H', 0) == 0);
+    STATIC_REQUIRE(testString.rfind('W', 0) == CStringView::npos);
+  }
+
+  SECTION("Rfind with substring longer than string") {
+    constexpr CStringView testString("Hello");
+
+    REQUIRE(testString.rfind("Hello World") == CStringView::npos);
+    REQUIRE(testString.rfind("Hello World", 10) == CStringView::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind("Hello World") == CStringView::npos);
+    STATIC_REQUIRE(testString.rfind("Hello World", 10) == CStringView::npos);
+  }
+
+  SECTION("Rfind with multiple occurrences") {
+    constexpr CStringView testString("abababab");
+
+    REQUIRE(testString.rfind("ab") == 6);
+    REQUIRE(testString.rfind("ab", 5) == 4);
+    REQUIRE(testString.rfind("ab", 3) == 2);
+    REQUIRE(testString.rfind("ab", 1) == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind("ab") == 6);
+    STATIC_REQUIRE(testString.rfind("ab", 5) == 4);
+    STATIC_REQUIRE(testString.rfind("ab", 3) == 2);
+    STATIC_REQUIRE(testString.rfind("ab", 1) == 0);
+  }
+
+  SECTION("Rfind with position in middle") {
+    constexpr CStringView testString("Hello World Hello");
+
+    REQUIRE(testString.rfind("Hello", 8) == 0);
+    REQUIRE(testString.rfind("Hello", 12) == 12);
+    REQUIRE(testString.rfind('l', 8) == 3);
+    REQUIRE(testString.rfind('l', 15) == 15);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.rfind("Hello", 8) == 0);
+    STATIC_REQUIRE(testString.rfind("Hello", 12) == 12);
+    STATIC_REQUIRE(testString.rfind('l', 8) == 3);
+    STATIC_REQUIRE(testString.rfind('l', 15) == 15);
+  }
+}
+
+TEST_CASE("CStringView find_first_of", "[core][c_string_view]") {
+  SECTION("Find first of CStringView characters") {
+    constexpr CStringView testString("Hello World");
+
+    REQUIRE(testString.find_first_of(CStringView("aeiou")) == 1); // 'e' at position 1
+    REQUIRE(testString.find_first_of(CStringView("H")) == 0);
+    REQUIRE(testString.find_first_of(CStringView("d")) == 10);
+    REQUIRE(testString.find_first_of(CStringView("xyz")) == CStringView::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of(CStringView("aeiou")) == 1);
+    STATIC_REQUIRE(testString.find_first_of(CStringView("H")) == 0);
+    STATIC_REQUIRE(testString.find_first_of(CStringView("d")) == 10);
+    STATIC_REQUIRE(testString.find_first_of(CStringView("xyz")) == CStringView::npos);
+  }
+
+  SECTION("Find first of StringLike characters") {
+    constexpr CStringView testString("Hello World");
+
+    REQUIRE(testString.find_first_of(std::string("aeiou")) == 1);
+    REQUIRE(testString.find_first_of(std::string("H")) == 0);
+    REQUIRE(testString.find_first_of(std::string("d")) == 10);
+    REQUIRE(testString.find_first_of(std::string("xyz")) == CStringView::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of(FixedString<32>("aeiou")) == 1);
+    STATIC_REQUIRE(testString.find_first_of(FixedString<32>("H")) == 0);
+    STATIC_REQUIRE(testString.find_first_of(FixedString<32>("d")) == 10);
+    STATIC_REQUIRE(testString.find_first_of(FixedString<32>("xyz")) == CStringView::npos);
+  }
+
+  SECTION("Find first of C string characters") {
+    constexpr CStringView testString("Hello World");
+
+    REQUIRE(testString.find_first_of("aeiou") == 1);
+    REQUIRE(testString.find_first_of("H") == 0);
+    REQUIRE(testString.find_first_of("d") == 10);
+    REQUIRE(testString.find_first_of("xyz") == CStringView::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of("aeiou") == 1);
+    STATIC_REQUIRE(testString.find_first_of("H") == 0);
+    STATIC_REQUIRE(testString.find_first_of("d") == 10);
+    STATIC_REQUIRE(testString.find_first_of("xyz") == CStringView::npos);
+  }
+
+  SECTION("Find first of single character") {
+    constexpr CStringView testString("Hello World");
+
+    REQUIRE(testString.find_first_of('H') == 0);
+    REQUIRE(testString.find_first_of('e') == 1);
+    REQUIRE(testString.find_first_of('l') == 2);
+    REQUIRE(testString.find_first_of('o') == 4);
+    REQUIRE(testString.find_first_of('W') == 6);
+    REQUIRE(testString.find_first_of('d') == 10);
+    REQUIRE(testString.find_first_of('x') == CStringView::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of('H') == 0);
+    STATIC_REQUIRE(testString.find_first_of('e') == 1);
+    STATIC_REQUIRE(testString.find_first_of('l') == 2);
+    STATIC_REQUIRE(testString.find_first_of('o') == 4);
+    STATIC_REQUIRE(testString.find_first_of('W') == 6);
+    STATIC_REQUIRE(testString.find_first_of('d') == 10);
+    STATIC_REQUIRE(testString.find_first_of('x') == CStringView::npos);
+  }
+
+  SECTION("Find first of with position parameter") {
+    constexpr CStringView testString("Hello World Hello");
+
+    REQUIRE(testString.find_first_of("aeiou", 0) == 1);
+    REQUIRE(testString.find_first_of("aeiou", 2) == 4);
+    REQUIRE(testString.find_first_of("aeiou", 5) == 7);
+    REQUIRE(testString.find_first_of("aeiou", 8) == 13);
+    REQUIRE(testString.find_first_of("aeiou", 14) == 16);
+    REQUIRE(testString.find_first_of("aeiou", 17) == CStringView::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of("aeiou", 0) == 1);
+    STATIC_REQUIRE(testString.find_first_of("aeiou", 2) == 4);
+    STATIC_REQUIRE(testString.find_first_of("aeiou", 5) == 7);
+    STATIC_REQUIRE(testString.find_first_of("aeiou", 8) == 13);
+    STATIC_REQUIRE(testString.find_first_of("aeiou", 14) == 16);
+    STATIC_REQUIRE(testString.find_first_of("aeiou", 17) == CStringView::npos);
+  }
+
+  SECTION("Find first of empty character set") {
+    constexpr CStringView testString("Hello World");
+
+    REQUIRE(testString.find_first_of(CStringView("")) == CStringView::npos);
+    REQUIRE(testString.find_first_of(std::string("")) == CStringView::npos);
+    REQUIRE(testString.find_first_of("") == CStringView::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of(CStringView("")) == CStringView::npos);
+    STATIC_REQUIRE(testString.find_first_of(FixedString<32>("")) == CStringView::npos);
+    STATIC_REQUIRE(testString.find_first_of("") == CStringView::npos);
+  }
+
+  SECTION("Find first of in empty string") {
+    constexpr CStringView testString("");
+
+    REQUIRE(testString.find_first_of(CStringView("aeiou")) == CStringView::npos);
+    REQUIRE(testString.find_first_of(std::string("aeiou")) == CStringView::npos);
+    REQUIRE(testString.find_first_of("aeiou") == CStringView::npos);
+    REQUIRE(testString.find_first_of('a') == CStringView::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of(CStringView("aeiou")) == CStringView::npos);
+    STATIC_REQUIRE(testString.find_first_of(FixedString<32>("aeiou")) == CStringView::npos);
+    STATIC_REQUIRE(testString.find_first_of("aeiou") == CStringView::npos);
+    STATIC_REQUIRE(testString.find_first_of('a') == CStringView::npos);
+  }
+
+  SECTION("Find first of with position beyond string size") {
+    constexpr CStringView testString("Hello");
+
+    REQUIRE(testString.find_first_of("aeiou", 10) == CStringView::npos);
+    REQUIRE(testString.find_first_of('a', 10) == CStringView::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of("aeiou", 10) == CStringView::npos);
+    STATIC_REQUIRE(testString.find_first_of('a', 10) == CStringView::npos);
+  }
+
+  SECTION("Find first of with repeated characters") {
+    constexpr CStringView testString("aaaaa");
+
+    REQUIRE(testString.find_first_of("a") == 0);
+    REQUIRE(testString.find_first_of("ab") == 0);
+    REQUIRE(testString.find_first_of("b") == CStringView::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of("a") == 0);
+    STATIC_REQUIRE(testString.find_first_of("ab") == 0);
+    STATIC_REQUIRE(testString.find_first_of("b") == CStringView::npos);
+  }
+
+  SECTION("Find first of with multiple character sets") {
+    constexpr CStringView testString("Hello World");
+
+    REQUIRE(testString.find_first_of("Hl") == 0); // 'H' at position 0
+    REQUIRE(testString.find_first_of("lo") == 2); // 'l' at position 2
+    REQUIRE(testString.find_first_of("Wr") == 6); // 'W' at position 6
+    REQUIRE(testString.find_first_of("dl") == 2); // 'l' at position 2
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of("Hl") == 0);
+    STATIC_REQUIRE(testString.find_first_of("lo") == 2);
+    STATIC_REQUIRE(testString.find_first_of("Wr") == 6);
+    STATIC_REQUIRE(testString.find_first_of("dl") == 2);
+  }
+
+  SECTION("Find first of case sensitivity") {
+    constexpr CStringView testString("Hello World");
+
+    REQUIRE(testString.find_first_of("h") == CStringView::npos);
+    REQUIRE(testString.find_first_of("H") == 0);
+    REQUIRE(testString.find_first_of("w") == CStringView::npos);
+    REQUIRE(testString.find_first_of("W") == 6);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of("h") == CStringView::npos);
+    STATIC_REQUIRE(testString.find_first_of("H") == 0);
+    STATIC_REQUIRE(testString.find_first_of("w") == CStringView::npos);
+    STATIC_REQUIRE(testString.find_first_of("W") == 6);
+  }
+
+  SECTION("Find first of with special characters") {
+    constexpr CStringView testString("Hello, World!");
+
+    REQUIRE(testString.find_first_of("!,") == 5); // ',' at position 5
+    REQUIRE(testString.find_first_of("!") == 12); // '!' at position 12
+    REQUIRE(testString.find_first_of(".,!") == 5); // ',' at position 5
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of("!,") == 5);
+    STATIC_REQUIRE(testString.find_first_of("!") == 12);
+    STATIC_REQUIRE(testString.find_first_of(".,!") == 5);
+  }
+
+  SECTION("Find first of with numbers") {
+    constexpr CStringView testString("Hello123World");
+
+    REQUIRE(testString.find_first_of("0123456789") == 5); // '1' at position 5
+    REQUIRE(testString.find_first_of("123") == 5); // '1' at position 5
+    REQUIRE(testString.find_first_of("456") == CStringView::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of("0123456789") == 5);
+    STATIC_REQUIRE(testString.find_first_of("123") == 5);
+    STATIC_REQUIRE(testString.find_first_of("456") == CStringView::npos);
+  }
+
+  SECTION("Find first of with whitespace") {
+    constexpr CStringView testString("Hello World\t\n");
+
+    REQUIRE(testString.find_first_of(" \t\n") == 5); // ' ' at position 5
+    REQUIRE(testString.find_first_of("\t") == 11);
+    REQUIRE(testString.find_first_of("\n") == 12);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of(" \t\n") == 5);
+    STATIC_REQUIRE(testString.find_first_of("\t") == 11);
+    STATIC_REQUIRE(testString.find_first_of("\n") == 12);
+  }
+
+  SECTION("Find first of with single character string") {
+    constexpr CStringView testString("A");
+
+    REQUIRE(testString.find_first_of("A") == 0);
+    REQUIRE(testString.find_first_of('A') == 0);
+    REQUIRE(testString.find_first_of("B") == CStringView::npos);
+    REQUIRE(testString.find_first_of('B') == CStringView::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of("A") == 0);
+    STATIC_REQUIRE(testString.find_first_of('A') == 0);
+    STATIC_REQUIRE(testString.find_first_of("B") == CStringView::npos);
+    STATIC_REQUIRE(testString.find_first_of('B') == CStringView::npos);
+  }
+
+  SECTION("Find first of with position 0") {
+    constexpr CStringView testString("Hello World");
+
+    REQUIRE(testString.find_first_of("aeiou", 0) == 1);
+    REQUIRE(testString.find_first_of("H", 0) == 0);
+    REQUIRE(testString.find_first_of("xyz", 0) == CStringView::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of("aeiou", 0) == 1);
+    STATIC_REQUIRE(testString.find_first_of("H", 0) == 0);
+    STATIC_REQUIRE(testString.find_first_of("xyz", 0) == CStringView::npos);
+  }
+
+  SECTION("Find first of with all characters found") {
+    constexpr CStringView testString("abcdefghijklmnopqrstuvwxyz");
+
+    REQUIRE(testString.find_first_of("aeiou") == 0);
+    REQUIRE(testString.find_first_of("xyz") == 23);
+    REQUIRE(testString.find_first_of("z") == 25);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of("aeiou") == 0);
+    STATIC_REQUIRE(testString.find_first_of("xyz") == 23);
+    STATIC_REQUIRE(testString.find_first_of("z") == 25);
+  }
+
+  SECTION("Find first of with no characters found") {
+    constexpr CStringView testString("Hello World");
+
+    REQUIRE(testString.find_first_of("0123456789") == CStringView::npos);
+    REQUIRE(testString.find_first_of("!@#$%^&*()") == CStringView::npos);
+    REQUIRE(testString.find_first_of("[]{}|\\:;\"'<>?/") == CStringView::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_first_of("0123456789") == CStringView::npos);
+    STATIC_REQUIRE(testString.find_first_of("!@#$%^&*()") == CStringView::npos);
+    STATIC_REQUIRE(testString.find_first_of("[]{}|\\:;\"'<>?/") == CStringView::npos);
+  }
+}

@@ -27,7 +27,7 @@
 
 namespace toy {
 
-[[nodiscard]] constexpr int cstrcmp(const char * lhs, const char * rhs) noexcept {
+constexpr int cstrcmp(const char * lhs, const char * rhs) noexcept {
   while (*lhs && (*lhs == *rhs)) {
     ++lhs;
     ++rhs;
@@ -39,7 +39,7 @@ namespace toy {
   return (static_cast<unsigned char>(*lhs) < static_cast<unsigned char>(*rhs)) ? -1 : 1;
 }
 
-[[nodiscard]] constexpr const char * cstrchr(const char * str, int ch) noexcept {
+constexpr const char * cstrchr(const char * str, int ch) noexcept {
   const auto target = static_cast<unsigned char>(ch);
 
   for (; *str; ++str) {
@@ -50,7 +50,21 @@ namespace toy {
   return (static_cast<unsigned char>(*str) == target) ? str : nullptr;
 }
 
-[[nodiscard]] constexpr const char * cstrstr(const char * haystack, const char * needle) noexcept {
+constexpr const char * cstrpbrk(const char * str, const char * accept) noexcept {
+  if (!str || !accept)
+    return nullptr;
+
+  for (; *str != '\0'; ++str) {
+    for (const char * a = accept; *a != '\0'; ++a) {
+      if (*str == *a)
+        return str;
+    }
+  }
+
+  return nullptr;
+}
+
+constexpr const char * cstrstr(const char * haystack, const char * needle) noexcept {
   if (!*needle)
     return haystack;
 

@@ -78,6 +78,32 @@ namespace toy {
 [[nodiscard]] constexpr const char * cstrchr(const char * str, int ch) noexcept;
 
 /*!
+  \brief Finds the first occurrence of any character from a set in a C string.
+
+  This function searches for the first occurrence of any character from the \a accept string within the \a str string.
+  The search is performed character by character from the beginning and returns a pointer to the first character found
+  that matches any character in the accept set, or nullptr if no character from the accept set is found. This function
+  is designed to be constexpr-compatible and provides the same behavior as std::strpbrk but can be evaluated at compile
+  time.
+
+  \param str    The C string to search in. Must be null-terminated.
+  \param accept The C string containing the set of characters to search for. Must be null-terminated.
+
+  \return A pointer to the first character in \a str that matches any character in \a accept, or nullptr if no
+          character from the accept set is found.
+
+  \pre The \a str pointer must not be null.
+  \pre The \a accept pointer must not be null.
+
+  \note The search is case-sensitive.
+  \note The function searches from the beginning of \a str and returns the first match.
+  \note This function is constexpr-compatible and can be used in compile-time contexts.
+
+  \see std::strpbrk
+*/
+[[nodiscard]] constexpr const char * cstrpbrk(const char * str, const char * accept) noexcept;
+
+/*!
   \brief Finds the first occurrence of a substring in a C string.
 
   This function searches for the first occurrence of the \a needle string within the \a haystack string. The search is

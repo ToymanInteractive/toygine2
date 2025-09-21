@@ -926,7 +926,7 @@ constexpr bool FixedString<allocatedSize>::ends_with(const FixedString<allocated
   if consteval {
     return _size >= string._size && std::equal(_data + _size - string._size, _data + _size, string._data);
   } else {
-    return _size >= string._size && std::memcmp(_data + (_size - string._size), string._data, string._size) == 0;
+    return _size >= string._size && std::memcmp(_data + _size - string._size, string._data, string._size) == 0;
   }
 }
 
@@ -936,7 +936,7 @@ constexpr bool FixedString<allocatedSize>::ends_with(const stringType & string) 
   if consteval {
     return _size >= string.size() && std::equal(_data + _size - string.size(), _data + _size, string.c_str());
   } else {
-    return _size >= string.size() && std::memcmp(_data + (_size - string.size()), string.c_str(), string.size()) == 0;
+    return _size >= string.size() && std::memcmp(_data + _size - string.size(), string.c_str(), string.size()) == 0;
   }
 }
 
@@ -1122,7 +1122,7 @@ constexpr void FixedString<allocatedSize>::_replace_raw(std::size_t position, st
 template <std::size_t allocatedSize>
 constexpr std::size_t FixedString<allocatedSize>::_find_raw(std::size_t position, const char * data,
                                                             std::size_t dataSize) const noexcept {
-  if (position >= _size)
+  if (position > _size)
     return npos;
 
   if (dataSize == 0)
@@ -1130,8 +1130,15 @@ constexpr std::size_t FixedString<allocatedSize>::_find_raw(std::size_t position
   else if (dataSize > _size - position)
     return npos;
 
-  const auto occurrence = dataSize == 1 ? std::strchr(_data + position, data[0]) : std::strstr(_data + position, data);
+  const char * occurrence;
 
+  if consteval {
+    occurrence = dataSize == 1 ? cstrchr(_data + position, data[0]) : cstrstr(_data + position, data);
+  } else {
+    occurrence = dataSize == 1 ? static_cast<const char *>(std::memchr(_data + position, data[0], _size - position))
+                               : std::strstr(_data + position, data);
+  }
+ 
   return occurrence != nullptr ? occurrence - _data : npos;
 }
 
@@ -1150,7 +1157,16 @@ constexpr std::size_t FixedString<allocatedSize>::_rfind_raw(std::size_t positio
 
   for (std::size_t i = 0; i <= position; ++i) {
     const auto offset = position - i;
-    if (std::memcmp(_data + offset, data, dataSize) == 0)
+
+    bool found;
+
+    if consteval {
+      found = std::equal(_data + offset, _data + offset + dataSize, data);
+    } else {
+      found = std::memcmp(_data + offset, data, dataSize) == 0;
+    }
+
+    if (found)
       return offset;
   }
 
@@ -1163,7 +1179,13 @@ constexpr std::size_t FixedString<allocatedSize>::_find_first_of_raw(std::size_t
   if (position >= _size || dataSize == 0)
     return npos;
 
-  const auto occurrence = dataSize == 1 ? std::strchr(_data + position, data[0]) : std::strpbrk(_data + position, data);
+  const char * occurrence;
+
+  if consteval {
+    occurrence = dataSize == 1 ? cstrchr(_data + position, data[0]) : cstrpbrk(_data + position, data);
+  } else {
+    occurrence = dataSize == 1 ? std::strchr(_data + position, data[0]) : std::strpbrk(_data + position, data);
+  }
 
   return occurrence != nullptr ? occurrence - _data : npos;
 }
@@ -1275,64 +1297,59 @@ constexpr std::size_t FixedString<allocatedSize>::_find_last_not_of_raw(std::siz
 }
 
 template <std::size_t allocatedSize1, std::size_t allocatedSize2>
-[[nodiscard]] constexpr FixedString<allocatedSize1> operator+(const FixedString<allocatedSize1> & lhs,
-                                                              const FixedString<allocatedSize2> & rhs) noexcept {
+constexpr FixedString<allocatedSize1> operator+(const FixedString<allocatedSize1> & lhs,
+                                                const FixedString<allocatedSize2> & rhs) noexcept {
   FixedString<allocatedSize1> result(lhs);
   result += rhs;
   return result;
 }
 
 template <std::size_t allocatedSize, StringLike stringType>
-[[nodiscard]] constexpr FixedString<allocatedSize> operator+(const FixedString<allocatedSize> & lhs,
-                                                             const stringType & rhs) noexcept {
+constexpr FixedString<allocatedSize> operator+(const FixedString<allocatedSize> & lhs,
+                                               const stringType & rhs) noexcept {
   FixedString<allocatedSize> result(lhs);
   result += rhs;
   return result;
 }
 
 template <StringLike stringType, std::size_t allocatedSize>
-[[nodiscard]] constexpr FixedString<allocatedSize> operator+(const stringType & lhs,
-                                                             const FixedString<allocatedSize> & rhs) noexcept {
+constexpr FixedString<allocatedSize> operator+(const stringType & lhs,
+                                               const FixedString<allocatedSize> & rhs) noexcept {
   FixedString<allocatedSize> result(lhs);
   result += rhs;
   return result;
 }
 
 template <std::size_t allocatedSize>
-[[nodiscard]] constexpr FixedString<allocatedSize> operator+(const FixedString<allocatedSize> & lhs,
-                                                             const char * rhs) noexcept {
+constexpr FixedString<allocatedSize> operator+(const FixedString<allocatedSize> & lhs, const char * rhs) noexcept {
   FixedString<allocatedSize> result(lhs);
   result += rhs;
   return result;
 }
 
 template <std::size_t allocatedSize>
-[[nodiscard]] constexpr FixedString<allocatedSize> operator+(const char * lhs,
-                                                             const FixedString<allocatedSize> & rhs) noexcept {
+constexpr FixedString<allocatedSize> operator+(const char * lhs, const FixedString<allocatedSize> & rhs) noexcept {
   FixedString<allocatedSize> result(lhs);
   result += rhs;
   return result;
 }
 
 template <std::size_t allocatedSize>
-[[nodiscard]] constexpr FixedString<allocatedSize> operator+(const FixedString<allocatedSize> & lhs,
-                                                             char rhs) noexcept {
+constexpr FixedString<allocatedSize> operator+(const FixedString<allocatedSize> & lhs, char rhs) noexcept {
   FixedString<allocatedSize> result(lhs);
   result += rhs;
   return result;
 }
 
 template <std::size_t allocatedSize>
-[[nodiscard]] constexpr FixedString<allocatedSize> operator+(char lhs,
-                                                             const FixedString<allocatedSize> & rhs) noexcept {
+constexpr FixedString<allocatedSize> operator+(char lhs, const FixedString<allocatedSize> & rhs) noexcept {
   FixedString<allocatedSize> result(lhs, 1);
   result += rhs;
   return result;
 }
 
 template <std::size_t allocatedSize1, std::size_t allocatedSize2>
-[[nodiscard]] constexpr bool operator==(const FixedString<allocatedSize1> & lhs,
-                                        const FixedString<allocatedSize2> & rhs) noexcept {
+constexpr bool operator==(const FixedString<allocatedSize1> & lhs, const FixedString<allocatedSize2> & rhs) noexcept {
   if constexpr (allocatedSize1 == allocatedSize2) {
     if (std::addressof(lhs) == std::addressof(rhs))
       return true;
@@ -1351,7 +1368,7 @@ template <std::size_t allocatedSize1, std::size_t allocatedSize2>
 }
 
 template <std::size_t allocatedSize, StringLike stringType>
-[[nodiscard]] constexpr bool operator==(const FixedString<allocatedSize> & lhs, const stringType & rhs) noexcept {
+constexpr bool operator==(const FixedString<allocatedSize> & lhs, const stringType & rhs) noexcept {
   if (lhs.size() != rhs.size())
     return false;
   else if (lhs.empty())
@@ -1365,12 +1382,12 @@ template <std::size_t allocatedSize, StringLike stringType>
 }
 
 template <StringLike stringType, std::size_t allocatedSize>
-[[nodiscard]] constexpr bool operator==(const stringType & lhs, const FixedString<allocatedSize> & rhs) noexcept {
+constexpr bool operator==(const stringType & lhs, const FixedString<allocatedSize> & rhs) noexcept {
   return rhs == lhs;
 }
 
 template <std::size_t allocatedSize>
-[[nodiscard]] constexpr bool operator==(const FixedString<allocatedSize> & lhs, const char * rhs) noexcept {
+constexpr bool operator==(const FixedString<allocatedSize> & lhs, const char * rhs) noexcept {
   assert_message(rhs != nullptr, "C string pointer must not be null");
 
   if (lhs.empty())
@@ -1384,13 +1401,13 @@ template <std::size_t allocatedSize>
 }
 
 template <std::size_t allocatedSize>
-[[nodiscard]] constexpr bool operator==(const char * lhs, const FixedString<allocatedSize> & rhs) noexcept {
+constexpr bool operator==(const char * lhs, const FixedString<allocatedSize> & rhs) noexcept {
   return rhs == lhs;
 }
 
 template <std::size_t allocatedSize1, std::size_t allocatedSize2>
-[[nodiscard]] constexpr std::strong_ordering operator<=>(const FixedString<allocatedSize1> & lhs,
-                                                         const FixedString<allocatedSize2> & rhs) noexcept {
+constexpr std::strong_ordering operator<=>(const FixedString<allocatedSize1> & lhs,
+                                           const FixedString<allocatedSize2> & rhs) noexcept {
   if constexpr (allocatedSize1 == allocatedSize2) {
     if (std::addressof(lhs) == std::addressof(rhs))
       return std::strong_ordering::equal;
@@ -1429,8 +1446,7 @@ template <std::size_t allocatedSize1, std::size_t allocatedSize2>
 }
 
 template <std::size_t allocatedSize, StringLike stringType>
-[[nodiscard]] constexpr std::strong_ordering operator<=>(const FixedString<allocatedSize> & lhs,
-                                                         const stringType & rhs) noexcept {
+constexpr std::strong_ordering operator<=>(const FixedString<allocatedSize> & lhs, const stringType & rhs) noexcept {
   if (lhs.empty() && rhs.size() == 0)
     return std::strong_ordering::equal;
   else if (lhs.empty())
@@ -1464,8 +1480,7 @@ template <std::size_t allocatedSize, StringLike stringType>
 }
 
 template <StringLike stringType, std::size_t allocatedSize>
-[[nodiscard]] constexpr std::strong_ordering operator<=>(const stringType & lhs,
-                                                         const FixedString<allocatedSize> & rhs) noexcept {
+constexpr std::strong_ordering operator<=>(const stringType & lhs, const FixedString<allocatedSize> & rhs) noexcept {
   const auto result = rhs <=> lhs;
   if (result == std::strong_ordering::less)
     return std::strong_ordering::greater;
@@ -1476,8 +1491,7 @@ template <StringLike stringType, std::size_t allocatedSize>
 }
 
 template <std::size_t allocatedSize>
-[[nodiscard]] constexpr std::strong_ordering operator<=>(const FixedString<allocatedSize> & lhs,
-                                                         const char * rhs) noexcept {
+constexpr std::strong_ordering operator<=>(const FixedString<allocatedSize> & lhs, const char * rhs) noexcept {
   assert_message(rhs != nullptr, "C string pointer must not be null");
 
   if (lhs.empty() && *rhs == '\0')
@@ -1514,8 +1528,7 @@ template <std::size_t allocatedSize>
 }
 
 template <std::size_t allocatedSize>
-[[nodiscard]] constexpr std::strong_ordering operator<=>(const char * lhs,
-                                                         const FixedString<allocatedSize> & rhs) noexcept {
+constexpr std::strong_ordering operator<=>(const char * lhs, const FixedString<allocatedSize> & rhs) noexcept {
   assert_message(lhs != nullptr, "C string pointer must not be null");
 
   const auto result = rhs <=> lhs;
