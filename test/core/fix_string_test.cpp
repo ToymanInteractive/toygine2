@@ -8975,18 +8975,11 @@ TEST_CASE("FixedString operator<=>", "[core][fixed_string]") {
     constexpr FixedString<16> str("Hello");
     const std::string stdStr1("Hello");
     const std::string stdStr2("World");
-    constexpr CStringView strView1("Hello");
-    constexpr CStringView strView2("World");
 
     REQUIRE((str <=> stdStr1) == std::strong_ordering::equal);
     REQUIRE((stdStr1 <=> str) == std::strong_ordering::equal);
     REQUIRE((str <=> stdStr2) == std::strong_ordering::less);
     REQUIRE((stdStr2 <=> str) == std::strong_ordering::greater);
-
-    STATIC_REQUIRE((str <=> strView1) == std::strong_ordering::equal);
-    STATIC_REQUIRE((strView1 <=> str) == std::strong_ordering::equal);
-    STATIC_REQUIRE((str <=> strView2) == std::strong_ordering::less);
-    STATIC_REQUIRE((strView2 <=> str) == std::strong_ordering::greater);
   }
 
   SECTION("FixedString <=> C string") {
