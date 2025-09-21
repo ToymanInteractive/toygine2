@@ -5257,3 +5257,149 @@ TEST_CASE("CStringView operator<=>", "[core][c_string_view]") {
     STATIC_REQUIRE((str3 <=> str1) == std::strong_ordering::greater);
   }
 }
+
+TEST_CASE("CStringView std::swap", "[core][c_string_view]") {
+  SECTION("Basic swap functionality") {
+    CStringView str1("Hello");
+    CStringView str2("World");
+
+    std::swap(str1, str2);
+
+    REQUIRE(str1.size() == 5);
+    REQUIRE(std::strcmp(str1.c_str(), "World") == 0);
+    REQUIRE(str2.size() == 5);
+    REQUIRE(std::strcmp(str2.c_str(), "Hello") == 0);
+  }
+
+  SECTION("Swap with empty strings") {
+    CStringView str1("Hello");
+    CStringView str2("");
+
+    std::swap(str1, str2);
+
+    REQUIRE(str1.size() == 0);
+    REQUIRE(std::strcmp(str1.c_str(), "") == 0);
+    REQUIRE(str2.size() == 5);
+    REQUIRE(std::strcmp(str2.c_str(), "Hello") == 0);
+  }
+
+  SECTION("Swap two empty strings") {
+    CStringView str1("");
+    CStringView str2("");
+
+    std::swap(str1, str2);
+
+    REQUIRE(str1.size() == 0);
+    REQUIRE(std::strcmp(str1.c_str(), "") == 0);
+    REQUIRE(str2.size() == 0);
+    REQUIRE(std::strcmp(str2.c_str(), "") == 0);
+  }
+
+  SECTION("Self-swap") {
+    CStringView str1("Hello");
+
+    std::swap(str1, str1);
+
+    REQUIRE(str1.size() == 5);
+    REQUIRE(std::strcmp(str1.c_str(), "Hello") == 0);
+  }
+
+  SECTION("Swap with different sizes") {
+    CStringView str1("Hi");
+    CStringView str2("VeryLongString");
+
+    std::swap(str1, str2);
+
+    REQUIRE(str1.size() == 14);
+    REQUIRE(std::strcmp(str1.c_str(), "VeryLongString") == 0);
+    REQUIRE(str2.size() == 2);
+    REQUIRE(std::strcmp(str2.c_str(), "Hi") == 0);
+  }
+
+  SECTION("Swap with maximum length strings") {
+    CStringView str1("123456789012345"); // 15 chars
+    CStringView str2("ABCDEFGHIJKLMNO"); // 15 chars
+
+    std::swap(str1, str2);
+
+    REQUIRE(str1.size() == 15);
+    REQUIRE(std::strcmp(str1.c_str(), "ABCDEFGHIJKLMNO") == 0);
+    REQUIRE(str2.size() == 15);
+    REQUIRE(std::strcmp(str2.c_str(), "123456789012345") == 0);
+  }
+
+  SECTION("Swap with special characters") {
+    CStringView str1("Hello,\n\t!");
+    CStringView str2("World,\r\n?");
+
+    std::swap(str1, str2);
+
+    REQUIRE(str1.size() == 9);
+    REQUIRE(std::strcmp(str1.c_str(), "World,\r\n?") == 0);
+    REQUIRE(str2.size() == 9);
+    REQUIRE(std::strcmp(str2.c_str(), "Hello,\n\t!") == 0);
+  }
+
+  SECTION("Swap with Unicode content") {
+    CStringView str1("Hello 世界");
+    CStringView str2("World 宇宙");
+
+    std::swap(str1, str2);
+
+    REQUIRE(str1.size() == 12);
+    REQUIRE(std::strcmp(str1.c_str(), "World 宇宙") == 0);
+    REQUIRE(str2.size() == 12);
+    REQUIRE(std::strcmp(str2.c_str(), "Hello 世界") == 0);
+  }
+
+  SECTION("Multiple swaps") {
+    CStringView str1("First");
+    CStringView str2("Second");
+    CStringView str3("Third");
+
+    std::swap(str1, str2);
+
+    REQUIRE(str1.size() == 6);
+    REQUIRE(std::strcmp(str1.c_str(), "Second") == 0);
+    REQUIRE(str2.size() == 5);
+    REQUIRE(std::strcmp(str2.c_str(), "First") == 0);
+
+    std::swap(str2, str3);
+
+    REQUIRE(str2.size() == 5);
+    REQUIRE(std::strcmp(str2.c_str(), "Third") == 0);
+    REQUIRE(str3.size() == 5);
+    REQUIRE(std::strcmp(str3.c_str(), "First") == 0);
+
+    std::swap(str1, str3);
+
+    REQUIRE(str1.size() == 5);
+    REQUIRE(std::strcmp(str1.c_str(), "First") == 0);
+    REQUIRE(str3.size() == 6);
+    REQUIRE(std::strcmp(str3.c_str(), "Second") == 0);
+  }
+
+  SECTION("Performance test with large strings") {
+    CStringView str1("This is a very long string that tests swap performance");
+    CStringView str2("Another very long string for performance testing");
+
+    std::swap(str1, str2);
+
+    REQUIRE(str1.size() == 48);
+    REQUIRE(std::strcmp(str1.c_str(), "Another very long string for performance testing") == 0);
+    REQUIRE(str2.size() == 54);
+    REQUIRE(std::strcmp(str2.c_str(), "This is a very long string that tests swap performance") == 0);
+  }
+
+  SECTION("Swap with single character strings") {
+    CStringView str1("A");
+    CStringView str2("B");
+
+    std::swap(str1, str2);
+
+    REQUIRE(str1.size() == 1);
+    REQUIRE(std::strcmp(str1.c_str(), "B") == 0);
+    REQUIRE(str2.size() == 1);
+    REQUIRE(std::strcmp(str2.c_str(), "A") == 0);
+  }
+}
