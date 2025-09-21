@@ -273,14 +273,14 @@ constexpr const char & FixedString<allocatedSize>::front() const noexcept {
 
 template <std::size_t allocatedSize>
 constexpr char & FixedString<allocatedSize>::back() noexcept {
-  assert_message(_size > 0, "String must not be empty");
+  assert_message(!empty(), "String must not be empty");
 
   return _data[_size - 1];
 }
 
 template <std::size_t allocatedSize>
 constexpr const char & FixedString<allocatedSize>::back() const noexcept {
-  assert_message(_size > 0, "String must not be empty");
+  assert_message(!empty(), "String must not be empty");
 
   return _data[_size - 1];
 }
@@ -429,7 +429,7 @@ constexpr void FixedString<allocatedSize>::push_back(char character) noexcept {
 
 template <std::size_t allocatedSize>
 constexpr void FixedString<allocatedSize>::pop_back() noexcept {
-  assert_message(_size > 0, "String must not be empty for pop_back");
+  assert_message(!empty(), "String must not be empty for pop_back");
 
   if (_size > 0)
     _data[--_size] = '\0';
@@ -437,7 +437,7 @@ constexpr void FixedString<allocatedSize>::pop_back() noexcept {
 
 template <std::size_t allocatedSize>
 constexpr void FixedString<allocatedSize>::utf8_pop_back() noexcept {
-  assert_message(_size > 0, "String must not be empty for utf8_pop_back");
+  assert_message(!empty(), "String must not be empty for utf8_pop_back");
 
   while (_size > 0) {
     --_size;
@@ -893,13 +893,25 @@ constexpr int FixedString<allocatedSize>::compare(const char * string) const noe
 
 template <std::size_t allocatedSize>
 constexpr bool FixedString<allocatedSize>::starts_with(const FixedString<allocatedSize> & string) const noexcept {
-  return _size >= string._size && std::memcmp(_data, string._data, string._size) == 0;
+  if consteval {
+    return _size >= string._size && std::equal(_data, _data + string._size, string._data);
+  } else {
+    return _size >= string._size && std::memcmp(_data, string._data, string._size) == 0;
+  }
 }
 
 template <std::size_t allocatedSize>
 template <StringLike stringType>
 constexpr bool FixedString<allocatedSize>::starts_with(const stringType & string) const noexcept {
-  return _size >= string.size() && std::memcmp(_data, string.c_str(), string.size()) == 0;
+  const auto stringSize = string.size();
+  if (size() < stringSize)
+    return false;
+
+  if consteval {
+    return std::equal(_data, _data + stringSize, string.c_str());
+  } else {
+    return std::memcmp(_data, string.c_str(), stringSize) == 0;
+  }
 }
 
 template <std::size_t allocatedSize>
@@ -913,12 +925,16 @@ constexpr bool FixedString<allocatedSize>::starts_with(const char * string) cons
     needleSize = std::strlen(string);
   }
 
-  return _size >= needleSize && std::memcmp(_data, string, needleSize) == 0;
+  if consteval {
+    return _size >= needleSize && std::equal(_data, _data + needleSize, string);
+  } else {
+    return _size >= needleSize && std::memcmp(_data, string, needleSize) == 0;
+  }
 }
 
 template <std::size_t allocatedSize>
 constexpr bool FixedString<allocatedSize>::starts_with(char character) const noexcept {
-  return _size > 0 && _data[0] == character;
+  return !empty() && _data[0] == character;
 }
 
 template <std::size_t allocatedSize>
@@ -995,10 +1011,13 @@ constexpr bool FixedString<allocatedSize>::contains(const char * string) const n
 
 template <std::size_t allocatedSize>
 constexpr bool FixedString<allocatedSize>::contains(char character) const noexcept {
+  if (empty())
+    return false;
+
   if consteval {
-    return _size > 0 && cstrchr(_data, character) != nullptr;
+    return cstrchr(_data, character) != nullptr;
   } else {
-    return _size > 0 && std::strchr(_data, character) != nullptr;
+    return std::strchr(_data, character) != nullptr;
   }
 }
 
