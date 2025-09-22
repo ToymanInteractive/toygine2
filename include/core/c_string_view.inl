@@ -19,7 +19,7 @@
 //
 /*!
   \file   c_string_view.inl
-  \brief  TODO
+  \brief  Inline implementations for CStringView class.
 */
 
 #ifndef INCLUDE_CORE_C_STRING_VIEW_INL_

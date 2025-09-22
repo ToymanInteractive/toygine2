@@ -46,7 +46,7 @@ namespace toy {
   - 🛡️ **Exception Safety**: All operations are noexcept
   - 🔗 **STL Compatibility**: Provides std::string-like interface
   - 🌍 **UTF-8 Support**: Built-in UTF-8 character counting and manipulation
-  - 🧬 **Template Metaprogramming**: Uses C++20 concepts for type safety
+  - 🧬 **Type Safety**: Uses C++20 concepts for type safety
 
   \section usage Usage Example
 
@@ -74,7 +74,7 @@ namespace toy {
   - 💾 **Memory Usage**: Fixed at compile time, no heap allocation
   - ⚡ **Cache Performance**: Excellent due to stack allocation and contiguous memory layout
   - 📋 **Copy Performance**: Fast due to memcpy/memmove optimizations
-  - 🎯 **String Operations**: Optimized for common cases (single character, empty strings)
+  - 🎯 **String Operations**: Optimized for common cases
 
   \section safety Safety Guarantees
 
