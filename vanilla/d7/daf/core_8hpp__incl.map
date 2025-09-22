@@ -24,7 +24,7 @@
 <area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="951,30,976,79,971,82,946,32"/>
 <area shape="rect" id="Node000013" href="$dd/d9e/linux_2platform__config_8hpp.html" title="additional linux platform header" alt="" coords="1039,79,1246,133"/>
 <area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="971,28,1070,71,1068,76,969,33"/>
-<area shape="rect" id="Node000014" href="$dd/ded/c__string__view_8hpp.html" title="TODO." alt="" coords="1271,93,1441,119"/>
+<area shape="rect" id="Node000014" href="$dd/ded/c__string__view_8hpp.html" title="Non&#45;owning string view class for C&#45;style strings." alt="" coords="1271,93,1441,119"/>
 <area shape="poly" id="edge13_Node000001_Node000014" title=" " alt="" coords="1008,27,1125,48,1259,76,1303,87,1302,92,1258,81,1124,54,1007,33"/>
 <area shape="rect" id="Node000015" href="$d4/dc0/constexpr__utils_8hpp.html" title="Constexpr utility functions for compile&#45;time operations." alt="" coords="1465,93,1647,119"/>
 <area shape="poly" id="edge14_Node000001_Node000015" title=" " alt="" coords="1008,21,1208,41,1331,56,1454,76,1504,87,1503,93,1453,81,1330,62,1207,46,1007,27"/>
@@ -32,7 +32,7 @@
 <area shape="poly" id="edge15_Node000001_Node000016" title=" " alt="" coords="1008,18,1129,22,1292,32,1475,49,1659,76,1703,87,1702,92,1658,81,1474,54,1291,37,1129,27,1007,23"/>
 <area shape="rect" id="Node000017" href="$df/d93/utils_8hpp.html" title="Core utility functions for string manipulation, encoding conversion, and number formatting." alt="" coords="1853,93,1963,119"/>
 <area shape="poly" id="edge16_Node000001_Node000017" title=" " alt="" coords="1008,18,1431,36,1668,53,1766,64,1841,76,1871,86,1870,91,1839,81,1766,69,1668,58,1431,41,1007,24"/>
-<area shape="rect" id="Node000018" href="$df/d4a/c__string__view_8inl.html" title="TODO." alt="" coords="1988,93,2151,119"/>
+<area shape="rect" id="Node000018" href="$df/d4a/c__string__view_8inl.html" title="Inline implementations for CStringView class." alt="" coords="1988,93,2151,119"/>
 <area shape="poly" id="edge17_Node000001_Node000018" title=" " alt="" coords="1008,19,1495,38,1773,55,1889,65,1976,76,2023,87,2022,92,1976,81,1888,70,1773,60,1495,43,1007,24"/>
 <area shape="rect" id="Node000019" href="$dc/d28/constexpr__utils_8inl.html" title="Inline implementations for constexpr utility functions." alt="" coords="2175,93,2348,119"/>
 <area shape="poly" id="edge18_Node000001_Node000019" title=" " alt="" coords="1008,18,1583,36,1918,53,2057,64,2163,76,2213,87,2212,92,2162,81,2057,69,1918,58,1583,41,1008,23"/>

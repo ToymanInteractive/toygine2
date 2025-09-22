@@ -62,9 +62,9 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"d4/da9/namespacetoy.html#a3a8c65476e352b7f64a0bf15ddc87747",
-"dd/ded/c__string__view_8hpp.html"
+"d4/da9/namespacetoy.html#a4ae4e6c5cad6d6db25d552a6254b362d"
 ];
 
-var SYNCONMSG = 'click to disable panel synchronisation';
-var SYNCOFFMSG = 'click to enable panel synchronisation';
+var SYNCONMSG = 'click to disable panel synchronization';
+var SYNCOFFMSG = 'click to enable panel synchronization';
+var LISTOFALLMEMBERS = 'List of all members';

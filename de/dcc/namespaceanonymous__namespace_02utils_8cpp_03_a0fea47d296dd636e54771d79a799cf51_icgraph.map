@@ -1,7 +1,0 @@
-<map id="anonymous_namespace{utils::cpp}::floatPostProcess" name="anonymous_namespace{utils::cpp}::floatPostProcess">
-<area shape="rect" id="Node000001" title="Processes a string representation of a floating&#45;point number, adjusting the exponent,..." alt="" coords="128,23,340,63"/>
-<area shape="rect" id="Node000002" href="$d4/da9/namespacetoy.html#a97f3908f435a8e81f175109e210dac49" title="Converts a 64&#45;bit floating&#45;point number to its string representation with specified precision." alt="" coords="5,5,80,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="114,30,80,25,81,20,115,25"/>
-<area shape="rect" id="Node000003" href="$d4/da9/namespacetoy.html#a706d142ecdd8edb11b7aa44416b06e0c" title="Converts a 32&#45;bit floating&#45;point number to its string representation with specified precision." alt="" coords="5,55,80,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="115,61,80,65,80,60,114,56"/>
-</map>

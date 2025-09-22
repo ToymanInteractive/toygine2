@@ -285,7 +285,7 @@ var sectionId = 'dynsection-0';
 <!-- Node14 -->
 <g id="Node000014" class="node">
 <title>Node14</title>
-<g id="a_Node000014"><a xlink:href="../../dd/ded/c__string__view_8hpp.html" target="_top" xlink:title="TODO.">
+<g id="a_Node000014"><a xlink:href="../../dd/ded/c__string__view_8hpp.html" target="_top" xlink:title="Non&#45;owning string view class for C&#45;style strings.">
 <polygon fill="white" stroke="#666666" points="1077,-30 949,-30 949,-11 1077,-11 1077,-30"/>
 <text text-anchor="middle" x="1013" y="-18" font-family="Helvetica,sans-Serif" font-size="10.00">core/c_string_view.hpp</text>
 </a>
@@ -357,7 +357,7 @@ var sectionId = 'dynsection-0';
 <!-- Node18 -->
 <g id="Node000018" class="node">
 <title>Node18</title>
-<g id="a_Node000018"><a xlink:href="../../df/d4a/c__string__view_8inl.html" target="_top" xlink:title="TODO.">
+<g id="a_Node000018"><a xlink:href="../../df/d4a/c__string__view_8inl.html" target="_top" xlink:title="Inline implementations for CStringView class.">
 <polygon fill="white" stroke="#666666" points="1609,-30 1487,-30 1487,-11 1609,-11 1609,-30"/>
 <text text-anchor="middle" x="1548" y="-18" font-family="Helvetica,sans-Serif" font-size="10.00">core/c_string_view.inl</text>
 </a>

@@ -15,11 +15,11 @@ var core_8hpp =
     [ "OS_SWITCH", "da/d47/core_8hpp.html#add26e12ca77c27fd24f25f0192305cc0", null ],
     [ "OS_WINDOWS", "da/d47/core_8hpp.html#a6aadf1cbdc6ed6b61b4b0bdffb62e727", null ],
     [ "TOY_UNUSED", "da/d47/core_8hpp.html#a6c25f2c5b6e99783e32a4eb8258eb2f6", null ],
-    [ "AssertionCallback", "da/d47/core_8hpp.html#ac9b5b813ecfe0701aa24d2e005f82c8a", null ],
-    [ "StackWalkCallback", "da/d47/core_8hpp.html#a77be860c404126249c99fb34089c497a", null ],
-    [ "ArraySize", "da/d47/core_8hpp.html#a63f823f1d5e638248b10d02d8a1666ba", null ],
-    [ "assertion", "da/d47/core_8hpp.html#a8cb98bf993f962142a0c6a40769e7224", null ],
-    [ "deInitialize", "da/d47/core_8hpp.html#a82b42cf518871245c19337431cfe63e5", null ],
-    [ "initialize", "da/d47/core_8hpp.html#a1586eee3b9f8e4fc0b659ff2d402e28a", null ],
-    [ "setCallbacks", "da/d47/core_8hpp.html#ab92066b98ab69bcf7db8e1089ea4f755", null ]
+    [ "toy::assertion::AssertionCallback", "d2/da2/namespacetoy_1_1assertion.html#ac9b5b813ecfe0701aa24d2e005f82c8a", null ],
+    [ "toy::assertion::StackWalkCallback", "d2/da2/namespacetoy_1_1assertion.html#a77be860c404126249c99fb34089c497a", null ],
+    [ "toy::ArraySize", "d4/da9/namespacetoy.html#a63f823f1d5e638248b10d02d8a1666ba", null ],
+    [ "toy::assertion::assertion", "d2/da2/namespacetoy_1_1assertion.html#a8cb98bf993f962142a0c6a40769e7224", null ],
+    [ "toy::assertion::deInitialize", "d2/da2/namespacetoy_1_1assertion.html#a82b42cf518871245c19337431cfe63e5", null ],
+    [ "toy::assertion::initialize", "d2/da2/namespacetoy_1_1assertion.html#a1586eee3b9f8e4fc0b659ff2d402e28a", null ],
+    [ "toy::assertion::setCallbacks", "d2/da2/namespacetoy_1_1assertion.html#ab92066b98ab69bcf7db8e1089ea4f755", null ]
 ];
