@@ -58,9 +58,9 @@ namespace toy {
   toy::CStringView str("Hello, World!");
 
   // Use in constexpr context
-  constexpr auto greeting = toy::CStringView("Hello");
+  constexpr auto greeting = toy::CStringView("Hello, World!");
   constexpr auto world = toy::CStringView("World");
-  constexpr auto combined = greeting + " " + world;
+  constexpr auto position = greeting.find(world);
 
   // Safe string operations
   if (str.starts_with("Hello")) {
@@ -72,6 +72,7 @@ namespace toy {
 
   - ⚙️ **Construction**: O(1) - just stores a pointer
   - 📝 **Assignment**: O(1) - just copies a pointer
+  - 📏 **Size/Length**: O(n) - requires traversing the string to find the null terminator
   - 🔍 **Search Operations**: O(n*m) where n is the string length and m is the pattern length
   - 💾 **Memory Usage**: Minimal - only stores a single pointer
   - ⚡ **Cache Performance**: Excellent due to pointer-only storage
@@ -347,7 +348,7 @@ public:
 
     \return The maximum number of characters in the string view, excluding the terminating null character.
 
-    \note This method is equivalent to size() method.
+    \note CStringView is non-owning and has no capacity; this is an alias of size().
   */
   [[nodiscard]] constexpr std::size_t max_size() const noexcept;
 
@@ -358,7 +359,7 @@ public:
 
     \return The capacity of the string view in characters, excluding the terminating null character.
 
-    \note This method is equivalent to size() method.
+    \note CStringView is non-owning and has no capacity; this is an alias of size().
   */
   [[nodiscard]] constexpr std::size_t capacity() const noexcept;
 
