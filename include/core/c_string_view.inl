@@ -482,11 +482,11 @@ constexpr bool operator==(const CStringView & lhs, const CStringView & rhs) noex
 
 template <StringLike stringType>
 constexpr bool operator==(const CStringView & lhs, const stringType & rhs) noexcept {
-  if (lhs.c_str() == rhs.c_str() || (lhs.empty() && rhs.empty()))
+  if (lhs.c_str() == rhs.c_str() || (lhs.empty() && rhs.size() == 0))
     return true;
 
   if consteval {
-    return cstrcmp(lhs.c_str(), rhs.c_str());
+    return cstrcmp(lhs.c_str(), rhs.c_str()) == 0;
   } else {
     return std::strcmp(lhs.c_str(), rhs.c_str()) == 0;
   }
