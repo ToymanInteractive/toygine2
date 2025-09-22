@@ -1445,13 +1445,7 @@ constexpr std::strong_ordering operator<=>(const FixedString<allocatedSize1> & l
     return std::strong_ordering::greater;
 
   if consteval {
-    const int result = cstrcmp(lhs.c_str(), rhs.c_str());
-    if (result < 0)
-      return std::strong_ordering::less;
-    else if (result > 0)
-      return std::strong_ordering::greater;
-    else
-      return std::strong_ordering::equal;
+    return cstrcmp(lhs.c_str(), rhs.c_str()) <=> 0;
   } else {
     const int result = std::memcmp(lhs.c_str(), rhs.c_str(), std::min(lhs.size(), rhs.size()));
     if (result < 0)
@@ -1479,13 +1473,7 @@ constexpr std::strong_ordering operator<=>(const FixedString<allocatedSize> & lh
     return std::strong_ordering::greater;
 
   if consteval {
-    const int result = cstrcmp(lhs.c_str(), rhs.c_str());
-    if (result < 0)
-      return std::strong_ordering::less;
-    else if (result > 0)
-      return std::strong_ordering::greater;
-    else
-      return std::strong_ordering::equal;
+    return cstrcmp(lhs.c_str(), rhs.c_str()) <=> 0;
   } else {
     const int result = std::memcmp(lhs.c_str(), rhs.c_str(), std::min(lhs.size(), rhs.size()));
     if (result < 0)
@@ -1526,13 +1514,7 @@ constexpr std::strong_ordering operator<=>(const FixedString<allocatedSize> & lh
     return std::strong_ordering::greater;
 
   if consteval {
-    const int result = cstrcmp(lhs.c_str(), rhs);
-    if (result < 0)
-      return std::strong_ordering::less;
-    else if (result > 0)
-      return std::strong_ordering::greater;
-    else
-      return std::strong_ordering::equal;
+    return cstrcmp(lhs.c_str(), rhs) <=> 0;
   } else {
     const auto rhsLen = std::strlen(rhs);
     const int result = std::memcmp(lhs.c_str(), rhs, std::min(lhs.size(), rhsLen));

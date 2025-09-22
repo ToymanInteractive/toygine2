@@ -469,6 +469,99 @@ constexpr std::size_t CStringView::_find_last_not_of_raw(std::size_t position, c
   return npos;
 }
 
+constexpr bool operator==(const CStringView & lhs, const CStringView & rhs) noexcept {
+  if (std::addressof(lhs) == std::addressof(rhs) || (lhs.empty() && rhs.empty()))
+    return true;
+
+  if consteval {
+    return cstrcmp(lhs.c_str(), rhs.c_str()) == 0;
+  } else {
+    return std::strcmp(lhs.c_str(), rhs.c_str()) == 0;
+  }
+}
+
+template <StringLike stringType>
+constexpr bool operator==(const CStringView & lhs, const stringType & rhs) noexcept {
+  if (lhs.c_str() == rhs.c_str() || (lhs.empty() && rhs.size() == 0))
+    return true;
+
+  if consteval {
+    return cstrcmp(lhs.c_str(), rhs.c_str()) == 0;
+  } else {
+    return std::strcmp(lhs.c_str(), rhs.c_str()) == 0;
+  }
+}
+
+template <StringLike stringType>
+constexpr bool operator==(const stringType & lhs, const CStringView & rhs) noexcept {
+  return rhs == lhs;
+}
+
+constexpr bool operator==(const CStringView & lhs, const char * rhs) noexcept {
+  assert_message(rhs != nullptr, "String pointer must not be null");
+
+  return lhs == CStringView(rhs);
+}
+
+constexpr bool operator==(const char * lhs, const CStringView & rhs) noexcept {
+  assert_message(lhs != nullptr, "String pointer must not be null");
+
+  return CStringView(lhs) == rhs;
+}
+
+constexpr std::strong_ordering operator<=>(const CStringView & lhs, const CStringView & rhs) noexcept {
+  if (std::addressof(lhs) == std::addressof(rhs))
+    return std::strong_ordering::equal;
+
+  if (lhs.empty() && rhs.empty())
+    return std::strong_ordering::equal;
+  else if (lhs.empty())
+    return std::strong_ordering::less;
+  else if (rhs.empty())
+    return std::strong_ordering::greater;
+
+  if consteval {
+    return cstrcmp(lhs.c_str(), rhs.c_str()) <=> 0;
+  } else {
+    return std::strcmp(lhs.c_str(), rhs.c_str()) <=> 0;
+  }
+}
+
+template <StringLike stringType>
+constexpr std::strong_ordering operator<=>(const CStringView & lhs, const stringType & rhs) noexcept {
+  if (lhs.empty() && rhs.size() == 0)
+    return std::strong_ordering::equal;
+  else if (lhs.empty())
+    return std::strong_ordering::less;
+  else if (rhs.size() == 0)
+    return std::strong_ordering::greater;
+
+  if consteval {
+    return cstrcmp(lhs.c_str(), rhs.c_str()) <=> 0;
+  } else {
+    return std::strcmp(lhs.c_str(), rhs.c_str()) <=> 0;
+  }
+}
+
+template <StringLike stringType>
+constexpr std::strong_ordering operator<=>(const stringType & lhs, const CStringView & rhs) noexcept {
+  const auto result = rhs <=> lhs;
+  if (result == std::strong_ordering::less)
+    return std::strong_ordering::greater;
+  else if (result == std::strong_ordering::greater)
+    return std::strong_ordering::less;
+  else
+    return std::strong_ordering::equal;
+}
+
+constexpr std::strong_ordering operator<=>(const CStringView & lhs, const char * rhs) noexcept {
+  return lhs <=> CStringView(rhs);
+}
+
+constexpr std::strong_ordering operator<=>(const char * lhs, const CStringView & rhs) noexcept {
+  return CStringView(lhs) <=> rhs;
+}
+
 } // namespace toy
 
 #endif // INCLUDE_CORE_C_STRING_VIEW_INL_
