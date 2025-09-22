@@ -498,10 +498,14 @@ constexpr bool operator==(const stringType & lhs, const CStringView & rhs) noexc
 }
 
 constexpr bool operator==(const CStringView & lhs, const char * rhs) noexcept {
+  assert_message(rhs != nullptr, "String pointer must not be null");
+
   return lhs == CStringView(rhs);
 }
 
 constexpr bool operator==(const char * lhs, const CStringView & rhs) noexcept {
+  assert_message(lhs != nullptr, "String pointer must not be null");
+
   return CStringView(lhs) == rhs;
 }
 
