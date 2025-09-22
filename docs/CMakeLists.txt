@@ -22,7 +22,7 @@ find_package(Doxygen REQUIRED)
 
 include(FetchContent)
 
-FetchContent_Declare(doxygen_awesome_css GIT_REPOSITORY https://github.com/jothepro/doxygen-awesome-css.git GIT_TAG v2.3.4)
+FetchContent_Declare(doxygen_awesome_css GIT_REPOSITORY https://github.com/jothepro/doxygen-awesome-css.git GIT_TAG v2.4.0)
 FetchContent_MakeAvailable(doxygen_awesome_css)
 FetchContent_GetProperties(doxygen_awesome_css SOURCE_DIR AWESOME_CSS_DIR)
 

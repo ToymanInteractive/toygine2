@@ -19,7 +19,7 @@
 //
 /*!
   \file   c_string_view.hpp
-  \brief  TODO
+  \brief  Non-owning string view class for C-style strings.
 */
 
 #ifndef INCLUDE_CORE_C_STRING_VIEW_HPP_
@@ -27,10 +27,85 @@
 
 namespace toy {
 
+/*!
+  \class CStringView
+  \brief Non-owning string view class for C-style strings.
+
+  CStringView is a lightweight, non-owning wrapper around C-style strings that provides a safe and efficient way to work
+  with null-terminated character arrays. It offers a std::string_view-like interface while being specifically designed
+  for constexpr contexts and compile-time string manipulation.
+
+  Unlike std::string_view, CStringView is optimized for constexpr usage and provides additional functionality for
+  compile-time string operations. It does not own the underlying string data and simply holds a pointer to it, making
+  it extremely lightweight and efficient.
+
+  \section features Key Features
+
+  - ⚙️ **Zero Allocation**: No dynamic memory allocation, only holds a pointer
+  - 🔧 **constexpr Support**: Most operations can be evaluated at compile time
+  - 🛡️ **Exception Safety**: All operations are noexcept
+  - 🔗 **STL Compatibility**: Provides std::string_view/std::string like interface
+  - 🌍 **UTF-8 Support**: Built-in UTF-8 character counting and manipulation
+  - 🧬 **Type Safety**: Uses C++20 concepts for type safety
+  - 📏 **Non-owning**: Does not manage memory, safe for temporary strings
+
+  \section usage Usage Example
+
+  \code
+  #include "c_string_view.hpp"
+
+  // Create a string view from a C string
+  toy::CStringView str("Hello, World!");
+
+  // Use in constexpr context
+  constexpr auto greeting = toy::CStringView("Hello, World!");
+  constexpr auto world = toy::CStringView("World");
+  constexpr auto position = greeting.find(world);
+
+  // Safe string operations
+  if (str.starts_with("Hello")) {
+    // Process the string
+  }
+  \endcode
+
+  \section performance Performance Characteristics
+
+  - ⚙️ **Construction**: O(1) - just stores a pointer
+  - 📝 **Assignment**: O(1) - just copies a pointer
+  - 📏 **Size/Length**: O(n) - requires traversing the string to find the null terminator
+  - 🔍 **Search Operations**: O(n*m) where n is the string length and m is the pattern length
+  - 💾 **Memory Usage**: Minimal - only stores a single pointer
+  - ⚡ **Cache Performance**: Excellent due to pointer-only storage
+  - 📋 **Copy Performance**: Extremely fast - just pointer copy
+  - 🎯 **String Operations**: Optimized for common cases
+
+  \section safety Safety Guarantees
+
+  - 🛡️ **Contracts & Debug Checks**: Bounds are asserted in debug; in production, violating preconditions is UB
+  - 🔒 **Null Pointer Safety**: All C-string operations validate pointers via assertions in debug
+  - 📐 **Type Safety**: Concepts prevent invalid usage
+  - ⚠️ **Exception Safety**: All operations are noexcept, no exceptions thrown
+  - ⏰ **Lifetime Safety**: User must ensure underlying string remains valid
+
+  \section compatibility Compatibility
+
+  - 🆕 **C++23**: Requires C++23 or later for full functionality
+  - 🔗 **STL Integration**: Compatible with STL algorithms and containers
+  - 🌐 **Cross-Platform**: Works on all platforms supported by the compiler
+  - 🔧 **Embedded Systems**: Suitable for resource-constrained environments
+
+  \warning The underlying C string must remain valid for the lifetime of the CStringView object.
+           CStringView does not own the string data and will not manage its lifetime.
+
+  \see std::string_view
+  \see StringLike
+*/
 class CStringView {
 public:
   /*!
     \brief Default constructor.
+
+    Creates an empty string view that points to an empty string.
 
     \post The string view is empty and ready for use.
   */
@@ -273,7 +348,7 @@ public:
 
     \return The maximum number of characters in the string view, excluding the terminating null character.
 
-    \note This method is equivalent to size() method.
+    \note CStringView is non-owning and has no capacity; this is an alias of size().
   */
   [[nodiscard]] constexpr std::size_t max_size() const noexcept;
 
@@ -284,7 +359,7 @@ public:
 
     \return The capacity of the string view in characters, excluding the terminating null character.
 
-    \note This method is equivalent to size() method.
+    \note CStringView is non-owning and has no capacity; this is an alias of size().
   */
   [[nodiscard]] constexpr std::size_t capacity() const noexcept;
 
