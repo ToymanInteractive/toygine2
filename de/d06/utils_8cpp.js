@@ -19,6 +19,6 @@ var utils_8cpp =
     [ "toy::utf8Len", "d4/da9/namespacetoy.html#a4d645acb64c01923ca7a9ab11c0ae7f0", null ],
     [ "toy::utf8toWChar", "d4/da9/namespacetoy.html#aff93fe11056b42f3c929e4739bbad1bf", null ],
     [ "toy::wcharToUtf8", "d4/da9/namespacetoy.html#af6f23b1a42f8357ca5341bbe33902d99", null ],
-    [ "anonymous_namespace{utils.cpp}::sc_exponentTable", "de/dcc/namespaceanonymous__namespace_02utils_8cpp_03.html#a16763e814fa75374c37a7c9b6ac4379b", null ],
-    [ "anonymous_namespace{utils.cpp}::sc_utf8CharSizeTable", "de/dcc/namespaceanonymous__namespace_02utils_8cpp_03.html#ae94b7cef695dd5f7f2d603cbce5ee04e", null ]
+    [ "anonymous_namespace{utils.cpp}::_exponentTable", "de/dcc/namespaceanonymous__namespace_02utils_8cpp_03.html#a6636d66292a058cffc17c9ae585b98ac", null ],
+    [ "anonymous_namespace{utils.cpp}::_utf8CharSizeTable", "de/dcc/namespaceanonymous__namespace_02utils_8cpp_03.html#a47be5010665f5b22cd7a053290556191", null ]
 ];

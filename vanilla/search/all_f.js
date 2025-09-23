@@ -1,4 +1,7 @@
 var searchData=
 [
-  ['quot_0',['quot',['../df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html#a0b0e3e5fe61c7febd3ea8f9fa426760d',1,'anonymous_namespace{utils.cpp}::divmod10']]]
+  ['performance_20characteristics_0',['Performance Characteristics',['../d3/d7a/classtoy_1_1_fixed_string.html#performance',1,'']]],
+  ['platform_5fconfig_2ehpp_1',['platform_config.hpp',['../dd/d9e/linux_2platform__config_8hpp.html',1,'(Global Namespace)'],['../d8/d80/macos_2platform__config_8hpp.html',1,'(Global Namespace)'],['../db/d29/windows_2platform__config_8hpp.html',1,'(Global Namespace)']]],
+  ['pop_5fback_2',['pop_back',['../d3/d7a/classtoy_1_1_fixed_string.html#a69b12da8842982ecea01b163f7029ac3',1,'toy::FixedString']]],
+  ['push_5fback_3',['push_back',['../d3/d7a/classtoy_1_1_fixed_string.html#a35cb76db06e5d0fc94a6fc01b7fa161d',1,'toy::FixedString']]]
 ];

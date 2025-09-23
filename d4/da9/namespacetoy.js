@@ -14,6 +14,9 @@ var namespacetoy =
     [ "FixedString", "d3/d7a/classtoy_1_1_fixed_string.html", "d3/d7a/classtoy_1_1_fixed_string" ],
     [ "StringLike", "df/d77/concepttoy_1_1_string_like.html", null ],
     [ "ArraySize", "d4/da9/namespacetoy.html#a63f823f1d5e638248b10d02d8a1666ba", null ],
+    [ "crc16", "d4/da9/namespacetoy.html#a0aa645443d3d723d40266fb0218bf8e4", null ],
+    [ "crc32", "d4/da9/namespacetoy.html#ab410eb37ac6a14b7b3304d7e5ab113f8", null ],
+    [ "crc8", "d4/da9/namespacetoy.html#ac176db9e510324117075202275b9bd50", null ],
     [ "cstrchr", "d4/da9/namespacetoy.html#a591ce52797bb53b8d8ce64a31cabba6b", null ],
     [ "cstrcmp", "d4/da9/namespacetoy.html#a28fad381ee4d8415699e790432777471", null ],
     [ "cstrpbrk", "d4/da9/namespacetoy.html#adaa16f254dc6bc99679971d96bd87a66", null ],
@@ -65,6 +68,9 @@ var namespacetoy =
     [ "utf8toWChar", "d4/da9/namespacetoy.html#ad81a8970ee6596253140bc264ef6e441", null ],
     [ "utoaImplementation", "d4/da9/namespacetoy.html#a0c19dd984dbb76264f00009b635304f2", null ],
     [ "wcharToUtf8", "d4/da9/namespacetoy.html#af6f23b1a42f8357ca5341bbe33902d99", null ],
+    [ "_crc16Table", "d4/da9/namespacetoy.html#a608a76631c2f23f02596ec2da0fde6f8", null ],
+    [ "_crc32Table", "d4/da9/namespacetoy.html#ad6b0f721ba2c4c20edc3fce5d7730e13", null ],
+    [ "_crc8Table", "d4/da9/namespacetoy.html#afc0083318cdb1d2ff7545d6d9b00e479", null ],
     [ "sc_ansiDigits", "d4/da9/namespacetoy.html#a1b86c01d1136abd02c4b403630ed222f", null ],
     [ "wcharInUtf8MaxSize", "d4/da9/namespacetoy.html#aaba2640627e0f36ead0a3844fd35c6a9", null ]
 ];

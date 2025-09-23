@@ -19,9 +19,12 @@ var searchData=
   ['cpu_5farm_5f64_16',['CPU_ARM_64',['../da/d47/core_8hpp.html#a20e457ee1318b901b1c44dd6390ca1a1',1,'core.hpp']]],
   ['cpu_5fintel_5fx64_17',['CPU_INTEL_x64',['../da/d47/core_8hpp.html#a1e1898e441784683649af6bb189cb75d',1,'core.hpp']]],
   ['cpu_5fintel_5fx86_18',['CPU_INTEL_x86',['../da/d47/core_8hpp.html#ad4c61321e672d6faf976329f76c5cc1a',1,'core.hpp']]],
-  ['cstrchr_19',['cstrchr',['../d4/da9/namespacetoy.html#a591ce52797bb53b8d8ce64a31cabba6b',1,'toy']]],
-  ['cstrcmp_20',['cstrcmp',['../d4/da9/namespacetoy.html#a28fad381ee4d8415699e790432777471',1,'toy']]],
-  ['cstringview_21',['CStringView',['../d5/d03/classtoy_1_1_c_string_view.html',1,'toy::CStringView'],['../d5/d03/classtoy_1_1_c_string_view.html#af79d918dedd06e2c2b99fe920962d64d',1,'toy::CStringView::CStringView() noexcept'],['../d5/d03/classtoy_1_1_c_string_view.html#a9fbe10d07774d3460b07d0286f56259e',1,'toy::CStringView::CStringView(const CStringView &amp;string) noexcept=default'],['../d5/d03/classtoy_1_1_c_string_view.html#af5ec20956a3cecd987fc33ff3bdd6540',1,'toy::CStringView::CStringView(const char *string) noexcept']]],
-  ['cstrpbrk_22',['cstrpbrk',['../d4/da9/namespacetoy.html#adaa16f254dc6bc99679971d96bd87a66',1,'toy']]],
-  ['cstrstr_23',['cstrstr',['../d4/da9/namespacetoy.html#a58d00a4a7bbd87ef48d346903b5a8c78',1,'toy']]]
+  ['crc16_19',['crc16',['../d4/da9/namespacetoy.html#a0aa645443d3d723d40266fb0218bf8e4',1,'toy']]],
+  ['crc32_20',['crc32',['../d4/da9/namespacetoy.html#ab410eb37ac6a14b7b3304d7e5ab113f8',1,'toy']]],
+  ['crc8_21',['crc8',['../d4/da9/namespacetoy.html#ac176db9e510324117075202275b9bd50',1,'toy']]],
+  ['cstrchr_22',['cstrchr',['../d4/da9/namespacetoy.html#a591ce52797bb53b8d8ce64a31cabba6b',1,'toy']]],
+  ['cstrcmp_23',['cstrcmp',['../d4/da9/namespacetoy.html#a28fad381ee4d8415699e790432777471',1,'toy']]],
+  ['cstringview_24',['CStringView',['../d5/d03/classtoy_1_1_c_string_view.html',1,'toy::CStringView'],['../d5/d03/classtoy_1_1_c_string_view.html#af79d918dedd06e2c2b99fe920962d64d',1,'toy::CStringView::CStringView() noexcept'],['../d5/d03/classtoy_1_1_c_string_view.html#a9fbe10d07774d3460b07d0286f56259e',1,'toy::CStringView::CStringView(const CStringView &amp;string) noexcept=default'],['../d5/d03/classtoy_1_1_c_string_view.html#af5ec20956a3cecd987fc33ff3bdd6540',1,'toy::CStringView::CStringView(const char *string) noexcept']]],
+  ['cstrpbrk_25',['cstrpbrk',['../d4/da9/namespacetoy.html#adaa16f254dc6bc99679971d96bd87a66',1,'toy']]],
+  ['cstrstr_26',['cstrstr',['../d4/da9/namespacetoy.html#a58d00a4a7bbd87ef48d346903b5a8c78',1,'toy']]]
 ];
