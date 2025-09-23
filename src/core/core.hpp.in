@@ -199,6 +199,7 @@ inline void assertion(const char * TOY_UNUSED(code), const char * TOY_UNUSED(mes
 #include "core/c_string_view.hpp"
 #include "core/constexpr_utils.hpp"
 #include "core/fixed_string.hpp"
+#include "core/hashes.hpp"
 #include "core/utils.hpp"
 
 //----------------------------------------------------------------------------------------------------------------------

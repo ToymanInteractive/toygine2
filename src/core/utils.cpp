@@ -24,7 +24,8 @@
 #include "utils_internal.inl"
 
 namespace {
-constexpr std::array<std::uint8_t, 256> sc_utf8CharSizeTable{
+
+constexpr std::array<std::uint8_t, 256> _utf8CharSizeTable{
   {0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
    0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
    0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
@@ -45,7 +46,7 @@ constexpr std::array<std::uint8_t, 256> sc_utf8CharSizeTable{
 
    0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x05, 0x05, 0x05, 0x05, 0x06, 0x06, 0x07, 0x08}};
 
-constexpr std::array<std::uint32_t, 32> sc_exponentTable{
+constexpr std::array<std::uint32_t, 32> _exponentTable{
   {0xF0BDC21A, 0x3DA137D5, 0x9DC5ADA8, 0x2863C1F5, 0x6765C793, 0x1A784379, 0x43C33C19, 0xAD78EBC5,
    0x2C68AF0B, 0x71AFD498, 0x1D1A94A2, 0x4A817C80, 0xBEBC2000, 0x30D40000, 0x7D000000, 0x20000000,
    0x51EB851E, 0xD1B71758, 0x35AFE535, 0x89705F41, 0x232F3302, 0x5A126E1A, 0xE69594BE, 0x3B07929F,
@@ -142,8 +143,7 @@ constexpr std::int32_t ftoa32Engine(char * buffer, float value, std::size_t prec
 
   std::int32_t exp10 = (((exponent >> 3) * 77 + 63) >> 5) - 38;
   std::uint32_t t
-    = static_cast<std::uint32_t>((static_cast<std::uint64_t>(fraction << 8) * sc_exponentTable[exponent / 8U]) >> 32)
-      + 1;
+    = static_cast<std::uint32_t>((static_cast<std::uint64_t>(fraction << 8) * _exponentTable[exponent / 8U]) >> 32) + 1;
   t >>= (7 - (exponent & 7));
 
   std::uint8_t digit = t >> 28;
@@ -417,7 +417,7 @@ std::size_t utf8Len(const char * string) noexcept {
 
   std::size_t size = 0;
   while (*string != '\0') {
-    const auto symbolLength = sc_utf8CharSizeTable[static_cast<std::uint8_t>(*string)];
+    const auto symbolLength = _utf8CharSizeTable[static_cast<std::uint8_t>(*string)];
     assert_message(symbolLength != 0, "Invalid UTF-8 symbol");
     if (symbolLength == 0)
       return 0;
