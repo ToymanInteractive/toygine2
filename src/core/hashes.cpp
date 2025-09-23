@@ -132,7 +132,7 @@ std::uint8_t crc8(const void * src, std::size_t size, std::uint8_t crc) noexcept
   const std::uint8_t * data = static_cast<const std::uint8_t *>(src);
 
   while (size--)
-    crc = _crc8Table[crc ^ *data++];
+    crc = _crc8Table[static_cast<std::size_t>(crc ^ *data++)];
 
   return crc;
 }
@@ -143,7 +143,7 @@ std::uint16_t crc16(const void * src, std::size_t size, std::uint16_t crc) noexc
   const std::uint8_t * data = static_cast<const std::uint8_t *>(src);
 
   while (size--)
-    crc = (crc >> 8) ^ _crc16Table[(crc ^ *data++) & 0xFF];
+    crc = (crc >> 8) ^ _crc16Table[static_cast<std::size_t>((crc ^ *data++) & 0xFF)];
 
   return crc;
 }
@@ -156,7 +156,7 @@ std::uint32_t crc32(const void * src, std::size_t size, std::uint32_t crc) noexc
   crc = ~crc;
 
   while (size--)
-    crc = _crc32Table[(crc ^ (*data++)) & 0xff] ^ (crc >> 8);
+    crc = _crc32Table[static_cast<std::size_t>((crc ^ (*data++)) & 0xff)] ^ (crc >> 8);
 
   return ~crc;
 }
