@@ -143,7 +143,7 @@ std::uint16_t crc16(const void * src, std::size_t size, std::uint16_t crc) noexc
   const std::uint8_t * data = static_cast<const std::uint8_t *>(src);
 
   while (size--)
-    crc = (crc >> 8) ^ _crc16Table[static_cast<std::size_t>((crc ^ *data++) & 0xFF)];
+    crc = static_cast<std::uint16_t>((crc >> 8) ^ _crc16Table[static_cast<std::size_t>((crc ^ *data++) & 0xFF)]);
 
   return crc;
 }
