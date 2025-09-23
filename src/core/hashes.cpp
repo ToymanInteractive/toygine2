@@ -17,10 +17,25 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 //
+/*!
+  \file   hashes.cpp
+  \brief  Implementation of CRC hash functions with lookup tables for optimal performance.
+*/
 #include "core.hpp"
 
 namespace toy {
 
+/*!
+  \brief CRC-8 lookup table using Dallas/Maxim polynomial (0x31).
+
+  This lookup table contains precomputed CRC-8 values for all possible byte values (0-255). The table is generated using
+  the Dallas/Maxim polynomial (x⁸ + x⁵ + x⁴ + 1, 0x31). Using this table allows for O(1) CRC calculation per byte
+  instead of O(8) bit-by-bit calculation.
+
+  \note The table contains 256 entries, one for each possible byte value.
+  \note Each entry is a single byte (std::uint8_t).
+  \note The table is constexpr for compile-time evaluation.
+*/
 constexpr std::array<std::uint8_t, 256>
   _crc8Table{0x00, 0x5E, 0xBC, 0xE2, 0x61, 0x3F, 0xDD, 0x83, 0xC2, 0x9C, 0x7E, 0x20, 0xA3, 0xFD, 0x1F, 0x41, 0x9D, 0xC3,
              0x21, 0x7F, 0xFC, 0xA2, 0x40, 0x1E, 0x5F, 0x01, 0xE3, 0xBD, 0x3E, 0x60, 0x82, 0xDC, 0x23, 0x7D, 0x9F, 0xC1,
@@ -38,6 +53,17 @@ constexpr std::array<std::uint8_t, 256>
              0x97, 0xC9, 0x4A, 0x14, 0xF6, 0xA8, 0x74, 0x2A, 0xC8, 0x96, 0x15, 0x4B, 0xA9, 0xF7, 0xB6, 0xE8, 0x0A, 0x54,
              0xD7, 0x89, 0x6B, 0x35};
 
+/*!
+  \brief CRC-16 lookup table using IBM/ARC polynomial (0x8005).
+
+  This lookup table contains precomputed CRC-16 values for all possible byte values (0-255). The table is generated
+  using the IBM/ARC polynomial (x¹⁶ + x¹⁵ + x² + 1, 0x8005). Using this table allows for O(1) CRC calculation per byte
+  instead of O(16) bit-by-bit calculation.
+
+  \note The table contains 256 entries, one for each possible byte value.
+  \note Each entry is a 16-bit value (std::uint16_t).
+  \note The table is constexpr for compile-time evaluation.
+*/
 constexpr std::array<std::uint16_t, 256>
   _crc16Table{0x0000, 0xC0C1, 0xC181, 0x0140, 0xC301, 0x03C0, 0x0280, 0xC241, 0xC601, 0x06C0, 0x0780, 0xC741, 0x0500,
               0xC5C1, 0xC481, 0x0440, 0xCC01, 0x0CC0, 0x0D80, 0xCD41, 0x0F00, 0xCFC1, 0xCE81, 0x0E40, 0x0A00, 0xCAC1,
@@ -60,6 +86,17 @@ constexpr std::array<std::uint16_t, 256>
               0x8F81, 0x4F40, 0x8D01, 0x4DC0, 0x4C80, 0x8C41, 0x4400, 0x84C1, 0x8581, 0x4540, 0x8701, 0x47C0, 0x4680,
               0x8641, 0x8201, 0x42C0, 0x4380, 0x8341, 0x4100, 0x81C1, 0x8081, 0x4040};
 
+/*!
+  \brief CRC-32 lookup table using IEEE 802.3 polynomial (0x04C11DB7).
+
+  This lookup table contains precomputed CRC-32 values for all possible byte values (0-255). The table is generated
+  using the IEEE 802.3 polynomial (x³² + x²⁶ + x²³ + x²² + x¹⁶ + x¹² + x¹¹ + x¹⁰ + x⁸ + x⁷ + x⁵ + x⁴ + x² + x + 1,
+  0x04C11DB7). Using this table allows for O(1) CRC calculation per byte instead of O(32) bit-by-bit calculation.
+
+  \note The table contains 256 entries, one for each possible byte value.
+  \note Each entry is a 32-bit value (std::uint32_t).
+  \note The table is constexpr for compile-time evaluation.
+*/
 constexpr std::array<std::uint32_t, 256>
   _crc32Table{0x00000000, 0x77073096, 0xEE0E612C, 0x990951BA, 0x076DC419, 0x706AF48F, 0xE963A535, 0x9E6495A3,
               0x0EDB8832, 0x79DCB8A4, 0xE0D5E91E, 0x97D2D988, 0x09B64C2B, 0x7EB17CBD, 0xE7B82D07, 0x90BF1D91,

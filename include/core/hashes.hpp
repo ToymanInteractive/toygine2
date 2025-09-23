@@ -19,7 +19,7 @@
 //
 /*!
   \file   hashes.hpp
-  \brief  TODO
+  \brief  CRC hash functions.
 */
 
 #ifndef INCLUDE_CORE_HASHES_HPP_
