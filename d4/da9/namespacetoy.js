@@ -12,6 +12,7 @@ var namespacetoy =
     ] ],
     [ "CStringView", "d5/d03/classtoy_1_1_c_string_view.html", "d5/d03/classtoy_1_1_c_string_view" ],
     [ "FixedString", "d3/d7a/classtoy_1_1_fixed_string.html", "d3/d7a/classtoy_1_1_fixed_string" ],
+    [ "FixedVector", "d7/dec/classtoy_1_1_fixed_vector.html", "d7/dec/classtoy_1_1_fixed_vector" ],
     [ "StringLike", "df/d77/concepttoy_1_1_string_like.html", null ],
     [ "ArraySize", "d4/da9/namespacetoy.html#a63f823f1d5e638248b10d02d8a1666ba", null ],
     [ "crc16", "d4/da9/namespacetoy.html#a0aa645443d3d723d40266fb0218bf8e4", null ],

@@ -14,6 +14,7 @@ var core_8hpp =
     [ "OS_NDS", "da/d47/core_8hpp.html#a0e250bd096d82c22870ec5fe2aa01fc7", null ],
     [ "OS_SWITCH", "da/d47/core_8hpp.html#add26e12ca77c27fd24f25f0192305cc0", null ],
     [ "OS_WINDOWS", "da/d47/core_8hpp.html#a6aadf1cbdc6ed6b61b4b0bdffb62e727", null ],
+    [ "PLACEMENT_NEW", "da/d47/core_8hpp.html#a79e945f7c5e656f14e6d5b5ec36f8325", null ],
     [ "TOY_UNUSED", "da/d47/core_8hpp.html#a6c25f2c5b6e99783e32a4eb8258eb2f6", null ],
     [ "toy::assertion::AssertionCallback", "d2/da2/namespacetoy_1_1assertion.html#ac9b5b813ecfe0701aa24d2e005f82c8a", null ],
     [ "toy::assertion::StackWalkCallback", "d2/da2/namespacetoy_1_1assertion.html#a77be860c404126249c99fb34089c497a", null ],

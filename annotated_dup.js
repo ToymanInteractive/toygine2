@@ -5,6 +5,7 @@ var annotated_dup =
     ] ],
     [ "toy", "d4/da9/namespacetoy.html", [
       [ "CStringView", "d5/d03/classtoy_1_1_c_string_view.html", "d5/d03/classtoy_1_1_c_string_view" ],
-      [ "FixedString", "d3/d7a/classtoy_1_1_fixed_string.html", "d3/d7a/classtoy_1_1_fixed_string" ]
+      [ "FixedString", "d3/d7a/classtoy_1_1_fixed_string.html", "d3/d7a/classtoy_1_1_fixed_string" ],
+      [ "FixedVector", "d7/dec/classtoy_1_1_fixed_vector.html", "d7/dec/classtoy_1_1_fixed_vector" ]
     ] ]
 ];
