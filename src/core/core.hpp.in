@@ -91,6 +91,8 @@
 #undef TARGET_OS
 #undef TARGET_CPU
 
+#define PLACEMENT_NEW new
+
 #include "@TOYGINE_TARGET_PLATFORM_CONFIG_HEADER@"
 
 /// @brief Main engine namespace
@@ -199,6 +201,7 @@ inline void assertion(const char * TOY_UNUSED(code), const char * TOY_UNUSED(mes
 #include "core/c_string_view.hpp"
 #include "core/constexpr_utils.hpp"
 #include "core/fixed_string.hpp"
+#include "core/fixed_vector.hpp"
 #include "core/hashes.hpp"
 #include "core/utils.hpp"
 
@@ -207,6 +210,7 @@ inline void assertion(const char * TOY_UNUSED(code), const char * TOY_UNUSED(mes
 #include "core/c_string_view.inl"
 #include "core/constexpr_utils.inl"
 #include "core/fixed_string.inl"
+#include "core/fixed_vector.inl"
 #include "core/utils.inl"
 
 #endif // INCLUDE_CORE_HPP_
