@@ -92,7 +92,7 @@ constexpr type * FixedVector<type, allocatedSize>::end() noexcept {
   return reinterpret_cast<type *>(_data) + _size;
 }
 
-template <typename type, size_t allocatedSize>
+template <typename type, std::size_t allocatedSize>
 constexpr const type & FixedVector<type, allocatedSize>::operator[](std::size_t index) const noexcept {
   assert(index < _size);
 
