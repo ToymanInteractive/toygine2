@@ -27,44 +27,40 @@ using namespace toy;
 TEST_CASE("FixedVector constructors", "[core][fixed_vector]") {
   SECTION("Default constructor") {
     constexpr FixedVector<int, 10> emptyVec;
-    /*
-        REQUIRE(emptyVec.size() == 0);
-        REQUIRE(emptyVec.capacity() == 10);
-        REQUIRE(emptyVec.empty());
 
-        // Compile-time checks
-        STATIC_REQUIRE(emptyVec.size() == 0);
-        STATIC_REQUIRE(emptyVec.capacity() == 10);
-        STATIC_REQUIRE(emptyVec.empty());
-    */
+    REQUIRE(emptyVec.size() == 0);
+    REQUIRE(emptyVec.capacity() == 10);
+
+    // Compile-time checks
+    STATIC_REQUIRE(emptyVec.size() == 0);
+    STATIC_REQUIRE(emptyVec.capacity() == 10);
   }
-  /*
-    SECTION("Copy constructor same capacity") {
-      FixedVector<int, 5> source;
-      source.push_back(1);
-      source.push_back(2);
-      source.push_back(3);
 
-      FixedVector<int, 5> copy(source);
+  SECTION("Copy constructor same capacity") {
+    FixedVector<int, 5> source;
+    source.push_back(1);
+    source.push_back(2);
+    source.push_back(3);
 
-      REQUIRE(copy.size() == 3);
-      REQUIRE(copy.capacity() == 5);
-      REQUIRE(copy[0] == 1);
-      REQUIRE(copy[1] == 2);
-      REQUIRE(copy[2] == 3);
-    }
+    FixedVector<int, 5> copy(source);
 
-    SECTION("Copy constructor different capacity") {
-      FixedVector<int, 3> source;
-      source.push_back(10);
-      source.push_back(20);
+    REQUIRE(copy.size() == 3);
+    REQUIRE(copy.capacity() == 5);
+    REQUIRE(copy[0] == 1);
+    REQUIRE(copy[1] == 2);
+    REQUIRE(copy[2] == 3);
+  }
 
-      FixedVector<int, 5> copy(source);
+  SECTION("Copy constructor different capacity") {
+    FixedVector<int, 3> source;
+    source.push_back(10);
+    source.push_back(20);
 
-      REQUIRE(copy.size() == 2);
-      REQUIRE(copy.capacity() == 5);
-      REQUIRE(copy[0] == 10);
-      REQUIRE(copy[1] == 20);
-    }
-  */
+    FixedVector<int, 5> copy(source);
+
+    REQUIRE(copy.size() == 2);
+    REQUIRE(copy.capacity() == 5);
+    REQUIRE(copy[0] == 10);
+    REQUIRE(copy[1] == 20);
+  }
 }

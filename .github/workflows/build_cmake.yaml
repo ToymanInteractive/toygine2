@@ -68,7 +68,7 @@ jobs:
             echo "DUMPBIN_PATH = $DUMPBIN_PATH"
           elif [[ "${{ matrix.os }}" =~ "macos" ]]; then
             # Prefer the desired version if it exists, otherwise keep the default.
-            if [ -d "/Applications/Xcode_26.app" ]; then
+            if [ -d "/Applications/Xcode_26.0.app" ]; then
               sudo xcode-select -s /Applications/Xcode_26.0.app
             fi
           elif [[ "${{ matrix.os }}" =~ "ubuntu" ]]; then

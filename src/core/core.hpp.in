@@ -91,6 +91,8 @@
 #undef TARGET_OS
 #undef TARGET_CPU
 
+#define PLACEMENT_NEW new
+
 #include "@TOYGINE_TARGET_PLATFORM_CONFIG_HEADER@"
 
 /// @brief Main engine namespace

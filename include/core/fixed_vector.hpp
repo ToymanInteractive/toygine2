@@ -27,7 +27,7 @@
 
 namespace toy {
 
-template <typename type, std::size_t capacity>
+template <typename type, std::size_t allocatedSize>
 class FixedVector {
 public:
   /*!
@@ -48,11 +48,29 @@ public:
   */
   constexpr ~FixedVector() noexcept;
 
+  constexpr FixedVector(const FixedVector<type, allocatedSize> & array) noexcept;
+
+  template <std::size_t allocatedSize2>
+  constexpr FixedVector(const FixedVector<type, allocatedSize2> & array) noexcept;
+
+  // temporary
+
+  constexpr std::size_t size() const noexcept;
+  constexpr std::size_t capacity() const noexcept;
+
+  constexpr void push_back(const type & val) noexcept;
+
+  constexpr void clear() noexcept;
+
+  constexpr type * end() noexcept;
+
+  constexpr const type & operator[](size_t index) const noexcept;
+
 private:
-  static_assert(capacity > 0, "FixVector capacity must be greater than zero.");
+  static_assert(allocatedSize > 0, "FixedVector capacity must be greater than zero.");
 
   /// Internal buffer for storing elements.
-  std::byte _data[capacity * sizeof(type)];
+  std::byte _data[allocatedSize * sizeof(type)];
 
   /// Current number of elements in the vector.
   std::size_t _size;

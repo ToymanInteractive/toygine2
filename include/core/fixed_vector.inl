@@ -27,16 +27,76 @@
 
 namespace toy {
 
-template <typename type, std::size_t capacity>
-constexpr FixedVector<type, capacity>::FixedVector() noexcept
+template <typename type, std::size_t allocatedSize>
+constexpr FixedVector<type, allocatedSize>::FixedVector() noexcept
   : _data()
   , _size(0) {}
 
-template <typename type, std::size_t capacity>
-constexpr FixedVector<type, capacity>::~FixedVector() noexcept {
-  // TODO: вынести в метод clear
+template <typename type, std::size_t allocatedSize>
+constexpr FixedVector<type, allocatedSize>::~FixedVector() noexcept {
+  clear();
+}
+
+template <typename type, std::size_t allocatedSize>
+constexpr FixedVector<type, allocatedSize>::FixedVector(const FixedVector<type, allocatedSize> & vector) noexcept
+  : _data()
+  , _size(0) {
+  for (std::size_t index = 0; index < vector._size; ++index)
+    push_back(vector[index]);
+}
+
+template <typename type, std::size_t allocatedSize>
+template <std::size_t allocatedSize2>
+constexpr FixedVector<type, allocatedSize>::FixedVector(const FixedVector<type, allocatedSize2> & vector) noexcept
+  : _data()
+  , _size(0) {
+  static_assert(allocatedSize2 > 0, "FixedVector capacity must be greater than zero.");
+  assert_message(vector.size() <= allocatedSize, "Source vector size must not exceed capacity.");
+
+  for (std::size_t index = 0; index < vector.size(); ++index)
+    push_back(vector[index]);
+}
+
+// temporary
+
+template <typename type, std::size_t allocatedSize>
+constexpr std::size_t FixedVector<type, allocatedSize>::size() const noexcept {
+  return _size;
+}
+
+template <typename type, std::size_t allocatedSize>
+constexpr std::size_t FixedVector<type, allocatedSize>::capacity() const noexcept {
+  return allocatedSize;
+}
+
+template <typename type, std::size_t allocatedSize>
+constexpr void FixedVector<type, allocatedSize>::clear() noexcept {
   for (std::size_t index = 0; index < _size; ++index)
     (reinterpret_cast<type *>(_data))[index].~type();
+
+  _size = 0;
+}
+
+template <typename type, std::size_t allocatedSize>
+constexpr void FixedVector<type, allocatedSize>::push_back(const type & val) noexcept {
+  assert(_size < allocatedSize);
+
+  if (_size < allocatedSize) {
+    PLACEMENT_NEW(end()) type(val);
+    ++_size;
+  }
+}
+
+template <typename type, std::size_t allocatedSize>
+constexpr type * FixedVector<type, allocatedSize>::end() noexcept {
+  return reinterpret_cast<type *>(_data) + _size;
+}
+
+template <typename type, size_t allocatedSize>
+constexpr const type & FixedVector<type, allocatedSize>::operator[](std::size_t index) const noexcept {
+  assert(index < _size);
+
+  return (reinterpret_cast<const type *>(_data))[index];
 }
 
 } // namespace toy
