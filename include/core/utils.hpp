@@ -60,8 +60,8 @@ wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, const char * const s
 /*!
   \brief Converts a Unicode UTF-8 encoded C string to a wide character string.
 
-  This function translates a UTF-8 encoded C string string into a wide character string. The conversion stops when the
-  source string ends or the destination buffer is filled.
+  This function translates a UTF-8 encoded C string into a wide character string. The conversion stops when the source
+  string ends or the destination buffer is filled.
 
   \param dest     A pointer to the destination buffer where the converted wide character string will be stored.
   \param destSize The size of the destination buffer in wide characters (not bytes).
