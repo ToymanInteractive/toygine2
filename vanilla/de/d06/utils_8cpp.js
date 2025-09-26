@@ -16,7 +16,7 @@ var utils_8cpp =
     [ "toy::itoa", "d4/da9/namespacetoy.html#a4ae4e6c5cad6d6db25d552a6254b362d", null ],
     [ "toy::itoa", "d4/da9/namespacetoy.html#a85d2dc4a41dd3f21c08bc7565ca499b2", null ],
     [ "toy::itoa", "d4/da9/namespacetoy.html#a23fc801de24bb0daa8db0b2eec615c4d", null ],
-    [ "toy::utf8Len", "d4/da9/namespacetoy.html#a4d645acb64c01923ca7a9ab11c0ae7f0", null ],
+    [ "toy::utf8Len", "d4/da9/namespacetoy.html#ab5f3ab527e8f4d2b3a41de6ee34551bd", null ],
     [ "toy::utf8toWChar", "d4/da9/namespacetoy.html#aff93fe11056b42f3c929e4739bbad1bf", null ],
     [ "toy::wcharToUtf8", "d4/da9/namespacetoy.html#af6f23b1a42f8357ca5341bbe33902d99", null ],
     [ "anonymous_namespace{utils.cpp}::_exponentTable", "de/dcc/namespaceanonymous__namespace_02utils_8cpp_03.html#a6636d66292a058cffc17c9ae585b98ac", null ],

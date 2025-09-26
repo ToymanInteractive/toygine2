@@ -12,7 +12,7 @@ var utils_8hpp =
     [ "toy::itoa", "d4/da9/namespacetoy.html#a85d2dc4a41dd3f21c08bc7565ca499b2", null ],
     [ "toy::itoa", "d4/da9/namespacetoy.html#a23fc801de24bb0daa8db0b2eec615c4d", null ],
     [ "toy::reverseString", "d4/da9/namespacetoy.html#a08e2e765a94dee108e646fd69fe7b535", null ],
-    [ "toy::utf8Len", "d4/da9/namespacetoy.html#a4d645acb64c01923ca7a9ab11c0ae7f0", null ],
+    [ "toy::utf8Len", "d4/da9/namespacetoy.html#ab5f3ab527e8f4d2b3a41de6ee34551bd", null ],
     [ "toy::utf8toWChar", "d4/da9/namespacetoy.html#a9dbda78acf36cc3d5cf3f59eb80232bc", null ],
     [ "toy::utf8toWChar", "d4/da9/namespacetoy.html#aff93fe11056b42f3c929e4739bbad1bf", null ],
     [ "toy::utf8toWChar", "d4/da9/namespacetoy.html#ad81a8970ee6596253140bc264ef6e441", null ],
