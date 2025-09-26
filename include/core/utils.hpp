@@ -132,20 +132,20 @@ constexpr wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, const stri
 char * wcharToUtf8(char * dest, std::size_t destSize, const wchar_t * src) noexcept;
 
 /*!
-  \brief Returns the number of Unicode characters in a UTF-8 encoded C string.
+  \brief Returns the number of Unicode characters in a UTF-8 encoded C \a string.
 
-  This function counts the number of Unicode characters in a UTF-8 encoded C string by parsing UTF-8 sequences. It stops
-  counting when the null character is encountered.
+  This function counts the number of Unicode characters in a UTF-8 encoded C \a string by parsing UTF-8 sequences. It
+  stops counting when the null character is encountered.
 
-  \param src A pointer to the source UTF-8 encoded C string.
+  \param string A pointer to the source UTF-8 encoded C string.
 
-  \return The number of Unicode characters in the C string, or 0 if the string is invalid or null.
+  \return The number of Unicode characters in the C \a string, or 0 if the \a string is invalid or null.
 
   \note The function validates UTF-8 sequences during counting.
   \note Multi-byte sequences (2-3 bytes) are counted as single Unicode characters.
   \note Invalid UTF-8 sequences cause the function to return 0.
 */
-std::size_t utf8Len(const char * str) noexcept;
+std::size_t utf8Len(const char * string) noexcept;
 
 /*!
   \brief Reverses a given C string in-place.
