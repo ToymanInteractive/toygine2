@@ -88,7 +88,6 @@ jobs:
         run: |
           cmake \
             -DTOYGINE_BUILD_TESTS=$([ "${{ matrix.run_test }}" = "true" ] && echo ON || echo OFF) \
-            -DTOYGINE_TEST_WITH_RESULT=$([ "${{ matrix.run_test_with_results }}" = "true" ] && echo ON || echo OFF) \
             --preset ${{ matrix.cmake_preset }}
 
       - name: Build
