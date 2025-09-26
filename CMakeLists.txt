@@ -51,8 +51,11 @@ if (NOT CMAKE_BUILD_TYPE)
 endif ()
 
 if (TOP_PROJECT)
+  include(CMakeDependentOption)
+
   option(TOYGINE_BUILD_DOCS "Set when you want to build engine documentation" OFF)
   option(TOYGINE_BUILD_TESTS "Set when you want to build engine unit tests" ON)
+  cmake_dependent_option(TOYGINE_TESTS_ENABLE_COVERAGE "Set when you want to build engine unit tests" OFF TOYGINE_BUILD_TESTS OFF)
 endif ()
 
 #-------------------------------------------------------------------------------------------
