@@ -6,6 +6,81 @@ on:
 permissions: {}
 
 jobs:
+
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: Linux GCC
+            os: ubuntu-latest
+            upload_results: "true"
+            cmake_preset: linux-ninja-debug
+
+    name: Unit tests on ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5.0.0
+        with:
+          submodules: recursive
+      - name: Prepare CI
+        run: |
+          if [[ "${{ matrix.os }}" =~ "windows" ]]; then
+            MSVC_INSTALL_PATH=$(vswhere -latest -property installationPath)
+            echo "MSVC_INSTALL_PATH = $MSVC_INSTALL_PATH"
+
+            echo "Installed toolset versions:"
+            ls -vr "$MSVC_INSTALL_PATH/VC/Tools/MSVC"
+
+            TOOLS_DIR=$(ls -vr "$MSVC_INSTALL_PATH/VC/Tools/MSVC/" | head -1)
+            echo "TOOLS_DIR = $TOOLS_DIR"
+
+            DUMPBIN_PATH="$MSVC_INSTALL_PATH/VC/Tools/MSVC/$TOOLS_DIR/bin/Hostx64/x64/dumpbin.exe"
+            echo "DUMPBIN_PATH = $DUMPBIN_PATH"
+          elif [[ "${{ matrix.os }}" =~ "macos" ]]; then
+            # Prefer the desired version if it exists, otherwise keep the default.
+            if [ -d "/Applications/Xcode_26.0.app" ]; then
+              sudo xcode-select -s /Applications/Xcode_26.0.app
+            fi
+          elif [[ "${{ matrix.os }}" =~ "ubuntu" ]]; then
+            sudo apt-get update -qq
+            sudo apt-get install -y gcc-14 g++-14
+            sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-14 100
+            sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-14 100
+          fi
+      - name: Setup MSVC dev command prompt
+        if: ${{ contains(matrix.cmake_preset, 'msvc') }}
+        uses: TheMrMilchmann/setup-msvc-dev@v4.0.0
+        with:
+          arch: ${{ contains(matrix.cmake_preset, 'x86') && 'x86' || 'x64' }}
+
+      - name: Configure
+        run: |
+          cmake -DTOYGINE_BUILD_TESTS=ON -DTOYGINE_TESTS_ENABLE_COVERAGE=ON --preset ${{ matrix.cmake_preset }}
+
+      - name: Build
+        run: |
+          cmake --build --preset ${{ matrix.cmake_preset }}
+
+      - name: Test
+        run: |
+          ctest --preset ${{ matrix.cmake_preset }}
+          bash <(curl -s https://codecov.io/bash) -X gcov
+
+      - name: Upload test results to Codecov
+        if: ${{ !cancelled() && matrix.upload_results }}
+        uses: codecov/test-results-action@v1.1.1
+        with:
+          files: out/junit/${{ matrix.cmake_preset }}.xml
+          flags: units
+          token: ${{ secrets.CODECOV_TOKEN }}
+
   build:
     strategy:
       fail-fast: false
@@ -14,7 +89,6 @@ jobs:
           - name: Linux Ninja
             os: ubuntu-latest
             run_test: "true"
-            run_test_with_results: "true"
             cmake_preset: linux-ninja-release
 
           - name: macOS XCode
@@ -98,11 +172,3 @@ jobs:
         if: ${{ matrix.run_test }}
         run: |
           ctest --preset ${{ matrix.cmake_preset }}
-
-      - name: Upload test results to Codecov
-        if: ${{ !cancelled() && matrix.run_test && matrix.run_test_with_results }}
-        uses: codecov/test-results-action@v1.1.1
-        with:
-          files: out/junit/${{ matrix.cmake_preset }}.xml
-          flags: units
-          token: ${{ secrets.CODECOV_TOKEN }}
