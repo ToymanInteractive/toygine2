@@ -47,9 +47,9 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
   string(REGEX REPLACE "-pedantic-errors" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
   set(CMAKE_CXX_FLAGS "-w ${CMAKE_CXX_FLAGS}")
 
-endif()
+endif ()
 
-if ("${COVERAGE_COMPILER_FLAGS}")
+if (ENABLE_CODE_COVERAGE)
   message(STATUS "CMAKE_C_FLAGS before replace: ${CMAKE_C_FLAGS}")
   message(STATUS "CMAKE_CXX_FLAGS before replace: ${CMAKE_CXX_FLAGS}")
 
@@ -58,7 +58,7 @@ if ("${COVERAGE_COMPILER_FLAGS}")
 
   message(STATUS "CMAKE_C_FLAGS after replace: ${CMAKE_C_FLAGS}")
   message(STATUS "CMAKE_CXX_FLAGS after replace: ${CMAKE_CXX_FLAGS}")
-endif()
+endif (ENABLE_CODE_COVERAGE)
 
 #-------------------------------------------------------------------------------------------
 # Remove all of the extra targets
@@ -104,7 +104,7 @@ if (ENABLE_CODE_COVERAGE)
     set(COVERAGE_EXECUTABLE_ARGS "${COVERAGE_EXECUTABLE_ARGS} --preset ${CMAKE_TEST_PRESET_NAME}")
   elseif(DEFINED CMAKE_BUILD_PRESET)
     set(COVERAGE_EXECUTABLE_ARGS "${COVERAGE_EXECUTABLE_ARGS} --preset ${CMAKE_BUILD_PRESET}")
-  endif()
+  endif ()
 
   # cmake code coverage module target
   setup_target_for_coverage_lcov(NAME unit_tests_coverage EXECUTABLE ctest EXECUTABLE_ARGS ${COVERAGE_EXECUTABLE_ARGS} EXCLUDE "${CMAKE_SOURCE_DIR}/test/*")
