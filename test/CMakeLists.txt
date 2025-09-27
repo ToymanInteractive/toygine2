@@ -48,7 +48,6 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
   set(CMAKE_CXX_FLAGS "-w ${CMAKE_CXX_FLAGS}")
 
 endif ()
-
 #-------------------------------------------------------------------------------------------
 # Remove all of the extra targets
 set_property(GLOBAL PROPERTY CTEST_TARGETS_ADDED 1)
@@ -75,7 +74,7 @@ target_include_directories(${TOYGINE_LIBRARY_NAME}-tests PRIVATE ${CMAKE_CURRENT
 target_link_libraries(${TOYGINE_LIBRARY_NAME}-tests PRIVATE Catch2::Catch2 ${TOYGINE_LIBRARY_NAME})
 catch_discover_tests(${TOYGINE_LIBRARY_NAME}-tests)
 
-if (ENABLE_CODE_COVERAGE)
+if (TOYGINE_TESTS_ENABLE_COVERAGE)
   # include the cmake code coverage module
   include(CodeCoverage)
 
@@ -86,7 +85,6 @@ if (ENABLE_CODE_COVERAGE)
   append_coverage_compiler_flags_to_target(${TOYGINE_LIBRARY_NAME})
 
   # exclude /test and /ext directories from coverage analysis
-  # set(COVERAGE_LCOV_EXCLUDES "test/*" "ext/*")
   set(COVERAGE_EXCLUDES "${CMAKE_SOURCE_DIR}/test/*" "${CMAKE_BINARY_DIR}/*" "/usr/*")
 
   set(COVERAGE_EXECUTABLE_ARGS "")
@@ -99,6 +97,6 @@ if (ENABLE_CODE_COVERAGE)
   endif ()
 
   # cmake code coverage module target
-  setup_target_for_coverage_lcov(NAME unit_tests_coverage EXECUTABLE ctest EXECUTABLE_ARGS ${COVERAGE_EXECUTABLE_ARGS} EXCLUDE "${CMAKE_SOURCE_DIR}/test/*")
+  setup_target_for_coverage_lcov(NAME unit_tests_coverage EXECUTABLE ctest EXECUTABLE_ARGS ${COVERAGE_EXECUTABLE_ARGS})
 
-endif (ENABLE_CODE_COVERAGE)
+endif (TOYGINE_TESTS_ENABLE_COVERAGE)

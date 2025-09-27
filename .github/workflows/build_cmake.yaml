@@ -118,7 +118,7 @@ jobs:
 
       - name: Configure
         run: |
-          cmake -DTOYGINE_BUILD_TESTS=ON -DENABLE_CODE_COVERAGE=ON --preset linux-ninja-debug
+          cmake -DTOYGINE_BUILD_TESTS=ON -DTOYGINE_TESTS_ENABLE_COVERAGE=ON --preset linux-ninja-debug
 
       - name: Collect JUnit
         run: |
