@@ -81,6 +81,8 @@ endif ()
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/core/core.hpp.in ${CMAKE_CURRENT_SOURCE_DIR}/include/core.hpp @ONLY)
 
 if (ENABLE_CODE_COVERAGE)
+  # include the cmake code coverage module
+  include(CodeCoverage)
 endif (ENABLE_CODE_COVERAGE)
 
 #-------------------------------------------------------------------------------------------
