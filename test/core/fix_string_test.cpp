@@ -6402,6 +6402,15 @@ TEST_CASE("FixedString find_last_not_of", "[core][fixed_string]") {
     STATIC_REQUIRE(testString.find_last_not_of("Hell") == 4);
     STATIC_REQUIRE(testString.find_last_not_of("Hel") == 4);
   }
+
+  SECTION("Find last not of in empty string") {
+    constexpr FixedString<4> testString("");
+
+    REQUIRE(testString.find_last_not_of("Hello") == FixedString<4>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_last_not_of("Hello") == FixedString<4>::npos);
+  }
 }
 
 TEST_CASE("FixedString compare", "[core][fixed_string]") {
@@ -8771,17 +8780,21 @@ TEST_CASE("FixedString operator==", "[core][fixed_string]") {
   }
 
   SECTION("FixedString == StringLike") {
-    constexpr FixedString<16> str("Hello");
+    constexpr FixedString<8> str1("Hello");
+    constexpr FixedString<8> str2;
     const std::string stdStr1;
     const std::string stdStr2("Hello");
     const std::string stdStr3("World");
 
-    REQUIRE_FALSE((str == stdStr1));
-    REQUIRE_FALSE((stdStr1 == str));
-    REQUIRE(str == stdStr2);
-    REQUIRE(stdStr2 == str);
-    REQUIRE_FALSE((str == stdStr3));
-    REQUIRE_FALSE((stdStr3 == str));
+    REQUIRE_FALSE(str1 == stdStr1);
+    REQUIRE_FALSE(stdStr1 == str1);
+    REQUIRE(str1 == stdStr2);
+    REQUIRE(stdStr2 == str1);
+    REQUIRE_FALSE(str1 == stdStr3);
+    REQUIRE_FALSE(stdStr3 == str1);
+    REQUIRE(str2 == stdStr1);
+    REQUIRE_FALSE(str2 == stdStr2);
+    REQUIRE_FALSE(str2 == stdStr3);
   }
 
   SECTION("FixedString == C string") {
@@ -8950,6 +8963,7 @@ TEST_CASE("FixedString operator<=>", "[core][fixed_string]") {
     constexpr FixedString<16> str6("Hell");
 
     // Equal strings
+    REQUIRE((str1 <=> str1) == std::strong_ordering::equal);
     REQUIRE((str1 <=> str2) == std::strong_ordering::equal);
     REQUIRE((str2 <=> str1) == std::strong_ordering::equal);
     REQUIRE((str1 <=> str4) == std::strong_ordering::equal);
@@ -8964,6 +8978,7 @@ TEST_CASE("FixedString operator<=>", "[core][fixed_string]") {
     REQUIRE((str6 <=> str1) == std::strong_ordering::less);
 
     // Compile-time checks
+    STATIC_REQUIRE((str1 <=> str1) == std::strong_ordering::equal);
     STATIC_REQUIRE((str1 <=> str2) == std::strong_ordering::equal);
     STATIC_REQUIRE((str2 <=> str1) == std::strong_ordering::equal);
     STATIC_REQUIRE((str1 <=> str4) == std::strong_ordering::equal);
