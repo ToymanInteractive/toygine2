@@ -49,8 +49,14 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
 
 endif()
 
+message(STATUS "CMAKE_C_FLAGS before replace: ${CMAKE_C_FLAGS}")
+message(STATUS "CMAKE_CXX_FLAGS before replace: ${CMAKE_CXX_FLAGS}")
+
 string(REGEX REPLACE "${COVERAGE_COMPILER_FLAGS}" "" CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
 string(REGEX REPLACE "${COVERAGE_COMPILER_FLAGS}" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+
+message(STATUS "CMAKE_C_FLAGS after replace: ${CMAKE_C_FLAGS}")
+message(STATUS "CMAKE_CXX_FLAGS after replace: ${CMAKE_CXX_FLAGS}")
 
 #-------------------------------------------------------------------------------------------
 # Remove all of the extra targets
