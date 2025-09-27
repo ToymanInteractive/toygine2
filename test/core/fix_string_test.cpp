@@ -5955,6 +5955,7 @@ TEST_CASE("FixedString find_last_of", "[core][fixed_string]") {
     REQUIRE(testString.find_last_of("Hel", 2) == 2); // 'l' at position 2
     REQUIRE(testString.find_last_of("Hel", 1) == 1); // 'e' at position 1
     REQUIRE(testString.find_last_of("Hel", 0) == 0); // 'H' at position 0
+    REQUIRE(testString.find_last_of("Hel", 17) == FixedString<32>::npos);
 
     // Compile-time checks
     STATIC_REQUIRE(testString.find_last_of("Hel", 8) == 3);
@@ -5962,6 +5963,7 @@ TEST_CASE("FixedString find_last_of", "[core][fixed_string]") {
     STATIC_REQUIRE(testString.find_last_of("Hel", 2) == 2);
     STATIC_REQUIRE(testString.find_last_of("Hel", 1) == 1);
     STATIC_REQUIRE(testString.find_last_of("Hel", 0) == 0);
+    STATIC_REQUIRE(testString.find_last_of("Hel", 17) == FixedString<32>::npos);
   }
 
   SECTION("Find last of empty character set") {
@@ -6378,12 +6380,14 @@ TEST_CASE("FixedString find_last_not_of", "[core][fixed_string]") {
     REQUIRE(testString.find_last_not_of("Hel", 4) == 4); // 'o' at position 4
     REQUIRE(testString.find_last_not_of("Hel", 2) == FixedString<32>::npos);
     REQUIRE(testString.find_last_not_of("Hel", 1) == FixedString<32>::npos);
+    REQUIRE(testString.find_last_not_of("Hel", 17) == FixedString<32>::npos);
 
     // Compile-time checks
     STATIC_REQUIRE(testString.find_last_not_of("Hel", 8) == 8);
     STATIC_REQUIRE(testString.find_last_not_of("Hel", 4) == 4);
     STATIC_REQUIRE(testString.find_last_not_of("Hel", 2) == FixedString<32>::npos);
     STATIC_REQUIRE(testString.find_last_not_of("Hel", 1) == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find_last_not_of("Hel", 17) == FixedString<32>::npos);
   }
 
   SECTION("Find last not of with exact match") {

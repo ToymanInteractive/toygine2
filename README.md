@@ -7,6 +7,7 @@ ToyGine2 is a modern C++ high‑level engine.
 ![Codacy grade](https://img.shields.io/codacy/grade/4c8233540e7c4e5f9715aaacfa36679f?logo=codacy&logoColor=fff&label=Code%20Quality)
 [![DeepSource](https://app.deepsource.com/gh/ToymanInteractive/toygine2.svg/?label=active+issues)](https://app.deepsource.com/gh/ToymanInteractive/toygine2/)
 [![Codecov](https://img.shields.io/codecov/c/github/ToymanInteractive/toygine2?logo=codecov&logoColor=fff&flag=documentation&label=Doxygen%20Coverage)](https://codecov.io/gh/ToymanInteractive/toygine2)
+[![Codecov](https://img.shields.io/codecov/c/github/ToymanInteractive/toygine2?logo=codecov&logoColor=fff&flag=units&label=Code%20Coverage)](https://codecov.io/gh/ToymanInteractive/toygine2)
 ![CodeRabbit Pull Request Reviews](https://img.shields.io/coderabbit/prs/github/ToymanInteractive/toygine2?logo=coderabbit&logoColor=fff&label=CodeRabbit%20Reviews)
 
 ## Supported Systems

@@ -3034,6 +3034,7 @@ TEST_CASE("CStringView find_last_of", "[core][c_string_view]") {
     REQUIRE(testString.find_last_of("Hel", 2) == 2); // 'l' at position 2
     REQUIRE(testString.find_last_of("Hel", 1) == 1); // 'e' at position 1
     REQUIRE(testString.find_last_of("Hel", 0) == 0); // 'H' at position 0
+    REQUIRE(testString.find_last_of("Hel", 17) == CStringView::npos);
 
     // Compile-time checks
     STATIC_REQUIRE(testString.find_last_of("Hel", 8) == 3);
@@ -3041,6 +3042,7 @@ TEST_CASE("CStringView find_last_of", "[core][c_string_view]") {
     STATIC_REQUIRE(testString.find_last_of("Hel", 2) == 2);
     STATIC_REQUIRE(testString.find_last_of("Hel", 1) == 1);
     STATIC_REQUIRE(testString.find_last_of("Hel", 0) == 0);
+    STATIC_REQUIRE(testString.find_last_of("Hel", 17) == CStringView::npos);
   }
 
   SECTION("Find last of empty character set") {
@@ -3457,12 +3459,15 @@ TEST_CASE("CStringView find_last_not_of", "[core][c_string_view]") {
     REQUIRE(testString.find_last_not_of("Hel", 4) == 4); // 'o' at position 4
     REQUIRE(testString.find_last_not_of("Hel", 2) == CStringView::npos);
     REQUIRE(testString.find_last_not_of("Hel", 1) == CStringView::npos);
+    REQUIRE(testString.find_last_not_of("Hel", 17) == CStringView::npos);
 
     // Compile-time checks
     STATIC_REQUIRE(testString.find_last_not_of("Hel", 8) == 8);
     STATIC_REQUIRE(testString.find_last_not_of("Hel", 4) == 4);
     STATIC_REQUIRE(testString.find_last_not_of("Hel", 2) == CStringView::npos);
     STATIC_REQUIRE(testString.find_last_not_of("Hel", 1) == CStringView::npos);
+    STATIC_REQUIRE(testString.find_last_not_of("Hel", 1) == CStringView::npos);
+    (testString.find_last_not_of("Hel", 17) == CStringView::npos);
   }
 
   SECTION("Find last not of with exact match") {
