@@ -83,6 +83,9 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/core/core.hpp.in ${CMAKE_CURRENT_
 if (ENABLE_CODE_COVERAGE)
   # include the cmake code coverage module
   include(CodeCoverage)
+
+  # Update the default compiler flags to enable coverage
+  append_coverage_compiler_flags()
 endif (ENABLE_CODE_COVERAGE)
 
 #-------------------------------------------------------------------------------------------
