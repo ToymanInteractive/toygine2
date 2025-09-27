@@ -51,9 +51,11 @@ if (NOT CMAKE_BUILD_TYPE)
 endif (NOT CMAKE_BUILD_TYPE)
 
 if (TOP_PROJECT)
+  include(CMakeDependentOption)
+
   option(TOYGINE_BUILD_DOCS "Set when you want to build engine documentation" OFF)
   option(TOYGINE_BUILD_TESTS "Set when you want to build engine unit tests" ON)
-  option(ENABLE_CODE_COVERAGE "Set when you want to enable code coverage" OFF)
+  cmake_dependent_option(ENABLE_CODE_COVERAGE "Enable code coverage instrumentation for tests" OFF "TOYGINE_BUILD_TESTS" OFF)
 endif (TOP_PROJECT)
 
 #-------------------------------------------------------------------------------------------
@@ -79,14 +81,6 @@ else ()
 endif ()
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/core/core.hpp.in ${CMAKE_CURRENT_SOURCE_DIR}/include/core.hpp @ONLY)
-
-if (ENABLE_CODE_COVERAGE)
-  # include the cmake code coverage module
-  include(CodeCoverage)
-
-  # Update the default compiler flags to enable coverage
-  append_coverage_compiler_flags()
-endif (ENABLE_CODE_COVERAGE)
 
 #-------------------------------------------------------------------------------------------
 
