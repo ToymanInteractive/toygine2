@@ -80,6 +80,9 @@ endif ()
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/core/core.hpp.in ${CMAKE_CURRENT_SOURCE_DIR}/include/core.hpp @ONLY)
 
+if (ENABLE_CODE_COVERAGE)
+endif (ENABLE_CODE_COVERAGE)
+
 #-------------------------------------------------------------------------------------------
 
 set(SRC_CORE_LIST                                                                                                                src/core/hashes.cpp     src/core/utils.cpp     src/core/utils_internal.inl)
