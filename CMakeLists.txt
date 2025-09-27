@@ -48,12 +48,15 @@ set(CMAKE_CONFIGURATION_TYPES "Debug;Release;RelWithDebInfo" CACHE STRING "" FOR
 # Make default 'RelWithDebInfo' build
 if (NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE "RelWithDebInfo")
-endif ()
+endif (NOT CMAKE_BUILD_TYPE)
 
 if (TOP_PROJECT)
+  include(CMakeDependentOption)
+
   option(TOYGINE_BUILD_DOCS "Set when you want to build engine documentation" OFF)
   option(TOYGINE_BUILD_TESTS "Set when you want to build engine unit tests" ON)
-endif ()
+  cmake_dependent_option(TOYGINE_TESTS_ENABLE_COVERAGE "Enable code coverage instrumentation for tests" OFF "TOYGINE_BUILD_TESTS" OFF)
+endif (TOP_PROJECT)
 
 #-------------------------------------------------------------------------------------------
 # Compile and linking options

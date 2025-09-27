@@ -2293,12 +2293,14 @@ TEST_CASE("CStringView rfind", "[core][c_string_view]") {
     REQUIRE(testString.rfind("ab", 3) == 2);
     REQUIRE(testString.rfind("ab", 1) == 0);
     REQUIRE(testString.rfind("ab", 0) == 0);
+    REQUIRE(testString.rfind("ab", 5) == CStringView::npos);
 
     // Compile-time checks
     STATIC_REQUIRE(testString.rfind("ab") == 4);
     STATIC_REQUIRE(testString.rfind("ab", 3) == 2);
     STATIC_REQUIRE(testString.rfind("ab", 1) == 0);
     STATIC_REQUIRE(testString.rfind("ab", 0) == 0);
+    STATIC_REQUIRE(testString.rfind("ab", 5) == CStringView::npos);
   }
 
   SECTION("Rfind with repeated characters") {

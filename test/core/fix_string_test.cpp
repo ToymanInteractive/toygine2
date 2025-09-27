@@ -5175,12 +5175,14 @@ TEST_CASE("FixedString rfind", "[core][fixed_string]") {
     REQUIRE(testString.rfind("ab", 3) == 2);
     REQUIRE(testString.rfind("ab", 1) == 0);
     REQUIRE(testString.rfind("ab", 0) == 0);
+    REQUIRE(testString.rfind("ab", 5) == FixedString<32>::npos);
 
     // Compile-time checks
     STATIC_REQUIRE(testString.rfind("ab") == 4);
     STATIC_REQUIRE(testString.rfind("ab", 3) == 2);
     STATIC_REQUIRE(testString.rfind("ab", 1) == 0);
     STATIC_REQUIRE(testString.rfind("ab", 0) == 0);
+    STATIC_REQUIRE(testString.rfind("ab", 5) == FixedString<32>::npos);
   }
 
   SECTION("Rfind with repeated characters") {
