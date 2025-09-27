@@ -14,7 +14,6 @@ jobs:
           - name: Linux Ninja
             os: ubuntu-latest
             run_test: "true"
-            run_test_with_results: "true"
             cmake_preset: linux-ninja-release
 
           - name: macOS XCode
@@ -99,10 +98,48 @@ jobs:
         run: |
           ctest --preset ${{ matrix.cmake_preset }}
 
-      - name: Upload test results to Codecov
-        if: ${{ !cancelled() && matrix.run_test && matrix.run_test_with_results }}
+  unit-test:
+    name: Collect unit tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5.0.0
+        with:
+          submodules: recursive
+
+      - name: Prepare CI
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y lcov
+
+      - name: Configure
+        run: |
+          cmake -DTOYGINE_BUILD_TESTS=ON -DENABLE_CODE_COVERAGE=ON --preset linux-ninja-debug
+
+      - name: Collect JUnit
+        run: |
+          cmake --build --preset linux-ninja-debug
+          ctest --preset linux-ninja-debug
+
+      - name: Upload JUnit report to Codecov
         uses: codecov/test-results-action@v1.1.1
         with:
-          files: out/junit/${{ matrix.cmake_preset }}.xml
+          files: out/junit/linux-ninja-debug.xml
+          flags: units
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Collect coverage
+        run: |
+          cmake --build --preset linux-ninja-debug --target unit_tests_coverage
+
+      - name: Upload coverage report to Codecov
+        uses: codecov/codecov-action@v5.5.1
+        with:
+          disable_search: true
+          files: out/build/linux-ninja-debug/unit_tests_coverage.info
           flags: units
           token: ${{ secrets.CODECOV_TOKEN }}

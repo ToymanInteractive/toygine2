@@ -53,6 +53,7 @@ endif ()
 if (TOP_PROJECT)
   option(TOYGINE_BUILD_DOCS "Set when you want to build engine documentation" OFF)
   option(TOYGINE_BUILD_TESTS "Set when you want to build engine unit tests" ON)
+  option(ENABLE_CODE_COVERAGE "Set when you want to enable code coverage" OFF)
 endif ()
 
 #-------------------------------------------------------------------------------------------
@@ -78,6 +79,9 @@ else ()
 endif ()
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/core/core.hpp.in ${CMAKE_CURRENT_SOURCE_DIR}/include/core.hpp @ONLY)
+
+if (ENABLE_CODE_COVERAGE)
+endif (ENABLE_CODE_COVERAGE)
 
 #-------------------------------------------------------------------------------------------
 
