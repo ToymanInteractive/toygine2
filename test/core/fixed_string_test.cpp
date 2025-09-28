@@ -1016,7 +1016,9 @@ TEST_CASE("FixedString front and back", "[core][fixed_string]") {
     constexpr FixedString<16> constString("Hello World");
 
     REQUIRE(testString.front() == 'H');
+    REQUIRE(constString.front() == 'H');
     REQUIRE(testString[0] == 'H');
+    REQUIRE(constString[0] == 'H');
 
     // Test modification
     testString.front() = 'h';
@@ -1033,7 +1035,9 @@ TEST_CASE("FixedString front and back", "[core][fixed_string]") {
     constexpr FixedString<16> constString("Hello World");
 
     REQUIRE(testString.back() == 'd');
+    REQUIRE(constString.back() == 'd');
     REQUIRE(testString[testString.size() - 1] == 'd');
+    REQUIRE(constString[constString.size() - 1] == 'd');
 
     // Test modification
     testString.back() = 'D';
@@ -4705,12 +4709,14 @@ TEST_CASE("FixedString find", "[core][fixed_string]") {
     REQUIRE(testString.find(FixedString<16>("World")) == 6);
     REQUIRE(testString.find(FixedString<16>("Hello")) == 0);
     REQUIRE(testString.find(FixedString<16>("lo Wo")) == 3);
+    REQUIRE(testString.find(FixedString<16>(' ')) == 5);
     REQUIRE(testString.find(FixedString<16>("xyz")) == FixedString<32>::npos);
 
     // Compile-time checks
     STATIC_REQUIRE(testString.find(FixedString<16>("World")) == 6);
     STATIC_REQUIRE(testString.find(FixedString<16>("Hello")) == 0);
     STATIC_REQUIRE(testString.find(FixedString<16>("lo Wo")) == 3);
+    STATIC_REQUIRE(testString.find(FixedString<16>(' ')) == 5);
     STATIC_REQUIRE(testString.find(FixedString<16>("xyz")) == FixedString<32>::npos);
   }
 
@@ -8762,6 +8768,8 @@ TEST_CASE("FixedString operator==", "[core][fixed_string]") {
     constexpr FixedString<16> empty1;
     constexpr FixedString<32> empty2;
 
+    REQUIRE(str1 == str1);
+    REQUIRE(empty1 == empty1);
     REQUIRE(str1 == str2);
     REQUIRE(str2 == str1);
     REQUIRE(str1 == str4);
@@ -8774,6 +8782,8 @@ TEST_CASE("FixedString operator==", "[core][fixed_string]") {
     REQUIRE_FALSE(empty1 == str1);
 
     // Compile-time checks
+    STATIC_REQUIRE(str1 == str1);
+    STATIC_REQUIRE(empty1 == empty1);
     STATIC_REQUIRE(str1 == str2);
     STATIC_REQUIRE(str2 == str1);
     STATIC_REQUIRE(str1 == str4);
@@ -9011,12 +9021,15 @@ TEST_CASE("FixedString operator<=>", "[core][fixed_string]") {
     constexpr FixedString<8> empty;
     const std::string stdStr1("Hello");
     const std::string stdStr2("World");
+    const std::string stdStr3("Big");
     const std::string stdEmpty;
 
     REQUIRE((str <=> stdStr1) == std::strong_ordering::equal);
     REQUIRE((stdStr1 <=> str) == std::strong_ordering::equal);
     REQUIRE((str <=> stdStr2) == std::strong_ordering::less);
     REQUIRE((stdStr2 <=> str) == std::strong_ordering::greater);
+    REQUIRE((str <=> stdStr3) == std::strong_ordering::greater);
+    REQUIRE((stdStr3 <=> str) == std::strong_ordering::less);
     REQUIRE((str <=> stdEmpty) == std::strong_ordering::greater);
     REQUIRE((stdEmpty <=> str) == std::strong_ordering::less);
 
@@ -9024,6 +9037,8 @@ TEST_CASE("FixedString operator<=>", "[core][fixed_string]") {
     REQUIRE((stdStr1 <=> empty) == std::strong_ordering::greater);
     REQUIRE((empty <=> stdStr2) == std::strong_ordering::less);
     REQUIRE((stdStr2 <=> empty) == std::strong_ordering::greater);
+    REQUIRE((empty <=> stdStr3) == std::strong_ordering::less);
+    REQUIRE((stdStr3 <=> empty) == std::strong_ordering::greater);
     REQUIRE((empty <=> stdEmpty) == std::strong_ordering::equal);
     REQUIRE((stdEmpty <=> empty) == std::strong_ordering::equal);
   }
