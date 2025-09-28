@@ -3034,6 +3034,7 @@ TEST_CASE("CStringView find_last_of", "[core][c_string_view]") {
     REQUIRE(testString.find_last_of("Hel", 2) == 2); // 'l' at position 2
     REQUIRE(testString.find_last_of("Hel", 1) == 1); // 'e' at position 1
     REQUIRE(testString.find_last_of("Hel", 0) == 0); // 'H' at position 0
+    REQUIRE(testString.find_last_of("Hel", 17) == CStringView::npos);
 
     // Compile-time checks
     STATIC_REQUIRE(testString.find_last_of("Hel", 8) == 3);
@@ -3041,6 +3042,7 @@ TEST_CASE("CStringView find_last_of", "[core][c_string_view]") {
     STATIC_REQUIRE(testString.find_last_of("Hel", 2) == 2);
     STATIC_REQUIRE(testString.find_last_of("Hel", 1) == 1);
     STATIC_REQUIRE(testString.find_last_of("Hel", 0) == 0);
+    STATIC_REQUIRE(testString.find_last_of("Hel", 17) == CStringView::npos);
   }
 
   SECTION("Find last of empty character set") {
@@ -3457,12 +3459,14 @@ TEST_CASE("CStringView find_last_not_of", "[core][c_string_view]") {
     REQUIRE(testString.find_last_not_of("Hel", 4) == 4); // 'o' at position 4
     REQUIRE(testString.find_last_not_of("Hel", 2) == CStringView::npos);
     REQUIRE(testString.find_last_not_of("Hel", 1) == CStringView::npos);
+    REQUIRE(testString.find_last_not_of("Hel", 17) == CStringView::npos);
 
     // Compile-time checks
     STATIC_REQUIRE(testString.find_last_not_of("Hel", 8) == 8);
     STATIC_REQUIRE(testString.find_last_not_of("Hel", 4) == 4);
     STATIC_REQUIRE(testString.find_last_not_of("Hel", 2) == CStringView::npos);
     STATIC_REQUIRE(testString.find_last_not_of("Hel", 1) == CStringView::npos);
+    STATIC_REQUIRE(testString.find_last_not_of("Hel", 17) == CStringView::npos);
   }
 
   SECTION("Find last not of with exact match") {
@@ -3476,6 +3480,15 @@ TEST_CASE("CStringView find_last_not_of", "[core][c_string_view]") {
     STATIC_REQUIRE(testString.find_last_not_of("Hello") == CStringView::npos);
     STATIC_REQUIRE(testString.find_last_not_of("Hell") == 4);
     STATIC_REQUIRE(testString.find_last_not_of("Hel") == 4);
+  }
+
+  SECTION("Find last not of in empty string") {
+    constexpr CStringView testString("");
+
+    REQUIRE(testString.find_last_not_of("Hello") == CStringView::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_last_not_of("Hello") == CStringView::npos);
   }
 }
 
@@ -4765,18 +4778,22 @@ TEST_CASE("CStringView operator==", "[core][c_string_view]") {
     STATIC_REQUIRE_FALSE((empty1 == str1));
   }
 
-  SECTION("FixedString == StringLike") {
-    constexpr CStringView str("Hello");
+  SECTION("CStringView == StringLike") {
+    constexpr CStringView str1("Hello");
+    constexpr CStringView str2;
     const std::string stdStr1;
     const std::string stdStr2("Hello");
     const std::string stdStr3("World");
 
-    REQUIRE_FALSE((str == stdStr1));
-    REQUIRE_FALSE((stdStr1 == str));
-    REQUIRE(str == stdStr2);
-    REQUIRE(stdStr2 == str);
-    REQUIRE_FALSE((str == stdStr3));
-    REQUIRE_FALSE((stdStr3 == str));
+    REQUIRE_FALSE(str1 == stdStr1);
+    REQUIRE_FALSE(stdStr1 == str1);
+    REQUIRE(str1 == stdStr2);
+    REQUIRE(stdStr2 == str1);
+    REQUIRE_FALSE(str1 == stdStr3);
+    REQUIRE_FALSE(stdStr3 == str1);
+    REQUIRE(str2 == stdStr1);
+    REQUIRE_FALSE(str2 == stdStr2);
+    REQUIRE_FALSE(str2 == stdStr3);
   }
 
   SECTION("CStringView == C string") {
@@ -4944,6 +4961,7 @@ TEST_CASE("CStringView operator<=>", "[core][c_string_view]") {
     constexpr CStringView str5("Hell");
 
     // Equal strings
+    REQUIRE((str1 <=> str1) == std::strong_ordering::equal);
     REQUIRE((str1 <=> str2) == std::strong_ordering::equal);
     REQUIRE((str2 <=> str1) == std::strong_ordering::equal);
 
@@ -4956,6 +4974,7 @@ TEST_CASE("CStringView operator<=>", "[core][c_string_view]") {
     REQUIRE((str5 <=> str1) == std::strong_ordering::less);
 
     // Compile-time checks
+    STATIC_REQUIRE((str1 <=> str1) == std::strong_ordering::equal);
     STATIC_REQUIRE((str1 <=> str2) == std::strong_ordering::equal);
     STATIC_REQUIRE((str2 <=> str1) == std::strong_ordering::equal);
 
@@ -4969,13 +4988,24 @@ TEST_CASE("CStringView operator<=>", "[core][c_string_view]") {
 
   SECTION("CStringView <=> StringLike") {
     constexpr CStringView str("Hello");
+    constexpr CStringView empty;
     const std::string stdStr1("Hello");
     const std::string stdStr2("World");
+    const std::string stdEmpty;
 
     REQUIRE((str <=> stdStr1) == std::strong_ordering::equal);
     REQUIRE((stdStr1 <=> str) == std::strong_ordering::equal);
     REQUIRE((str <=> stdStr2) == std::strong_ordering::less);
     REQUIRE((stdStr2 <=> str) == std::strong_ordering::greater);
+    REQUIRE((str <=> stdEmpty) == std::strong_ordering::greater);
+    REQUIRE((stdEmpty <=> str) == std::strong_ordering::less);
+
+    REQUIRE((empty <=> stdStr1) == std::strong_ordering::less);
+    REQUIRE((stdStr1 <=> empty) == std::strong_ordering::greater);
+    REQUIRE((empty <=> stdStr2) == std::strong_ordering::less);
+    REQUIRE((stdStr2 <=> empty) == std::strong_ordering::greater);
+    REQUIRE((empty <=> stdEmpty) == std::strong_ordering::equal);
+    REQUIRE((stdEmpty <=> empty) == std::strong_ordering::equal);
   }
 
   SECTION("CStringView <=> C string") {

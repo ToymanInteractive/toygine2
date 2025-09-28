@@ -5955,6 +5955,7 @@ TEST_CASE("FixedString find_last_of", "[core][fixed_string]") {
     REQUIRE(testString.find_last_of("Hel", 2) == 2); // 'l' at position 2
     REQUIRE(testString.find_last_of("Hel", 1) == 1); // 'e' at position 1
     REQUIRE(testString.find_last_of("Hel", 0) == 0); // 'H' at position 0
+    REQUIRE(testString.find_last_of("Hel", 17) == FixedString<32>::npos);
 
     // Compile-time checks
     STATIC_REQUIRE(testString.find_last_of("Hel", 8) == 3);
@@ -5962,6 +5963,7 @@ TEST_CASE("FixedString find_last_of", "[core][fixed_string]") {
     STATIC_REQUIRE(testString.find_last_of("Hel", 2) == 2);
     STATIC_REQUIRE(testString.find_last_of("Hel", 1) == 1);
     STATIC_REQUIRE(testString.find_last_of("Hel", 0) == 0);
+    STATIC_REQUIRE(testString.find_last_of("Hel", 17) == FixedString<32>::npos);
   }
 
   SECTION("Find last of empty character set") {
@@ -6378,12 +6380,14 @@ TEST_CASE("FixedString find_last_not_of", "[core][fixed_string]") {
     REQUIRE(testString.find_last_not_of("Hel", 4) == 4); // 'o' at position 4
     REQUIRE(testString.find_last_not_of("Hel", 2) == FixedString<32>::npos);
     REQUIRE(testString.find_last_not_of("Hel", 1) == FixedString<32>::npos);
+    REQUIRE(testString.find_last_not_of("Hel", 17) == FixedString<32>::npos);
 
     // Compile-time checks
     STATIC_REQUIRE(testString.find_last_not_of("Hel", 8) == 8);
     STATIC_REQUIRE(testString.find_last_not_of("Hel", 4) == 4);
     STATIC_REQUIRE(testString.find_last_not_of("Hel", 2) == FixedString<32>::npos);
     STATIC_REQUIRE(testString.find_last_not_of("Hel", 1) == FixedString<32>::npos);
+    STATIC_REQUIRE(testString.find_last_not_of("Hel", 17) == FixedString<32>::npos);
   }
 
   SECTION("Find last not of with exact match") {
@@ -6397,6 +6401,15 @@ TEST_CASE("FixedString find_last_not_of", "[core][fixed_string]") {
     STATIC_REQUIRE(testString.find_last_not_of("Hello") == FixedString<32>::npos);
     STATIC_REQUIRE(testString.find_last_not_of("Hell") == 4);
     STATIC_REQUIRE(testString.find_last_not_of("Hel") == 4);
+  }
+
+  SECTION("Find last not of in empty string") {
+    constexpr FixedString<4> testString("");
+
+    REQUIRE(testString.find_last_not_of("Hello") == FixedString<4>::npos);
+
+    // Compile-time checks
+    STATIC_REQUIRE(testString.find_last_not_of("Hello") == FixedString<4>::npos);
   }
 }
 
@@ -8767,17 +8780,21 @@ TEST_CASE("FixedString operator==", "[core][fixed_string]") {
   }
 
   SECTION("FixedString == StringLike") {
-    constexpr FixedString<16> str("Hello");
+    constexpr FixedString<8> str1("Hello");
+    constexpr FixedString<8> str2;
     const std::string stdStr1;
     const std::string stdStr2("Hello");
     const std::string stdStr3("World");
 
-    REQUIRE_FALSE((str == stdStr1));
-    REQUIRE_FALSE((stdStr1 == str));
-    REQUIRE(str == stdStr2);
-    REQUIRE(stdStr2 == str);
-    REQUIRE_FALSE((str == stdStr3));
-    REQUIRE_FALSE((stdStr3 == str));
+    REQUIRE_FALSE(str1 == stdStr1);
+    REQUIRE_FALSE(stdStr1 == str1);
+    REQUIRE(str1 == stdStr2);
+    REQUIRE(stdStr2 == str1);
+    REQUIRE_FALSE(str1 == stdStr3);
+    REQUIRE_FALSE(stdStr3 == str1);
+    REQUIRE(str2 == stdStr1);
+    REQUIRE_FALSE(str2 == stdStr2);
+    REQUIRE_FALSE(str2 == stdStr3);
   }
 
   SECTION("FixedString == C string") {
@@ -8946,6 +8963,7 @@ TEST_CASE("FixedString operator<=>", "[core][fixed_string]") {
     constexpr FixedString<16> str6("Hell");
 
     // Equal strings
+    REQUIRE((str1 <=> str1) == std::strong_ordering::equal);
     REQUIRE((str1 <=> str2) == std::strong_ordering::equal);
     REQUIRE((str2 <=> str1) == std::strong_ordering::equal);
     REQUIRE((str1 <=> str4) == std::strong_ordering::equal);
@@ -8960,6 +8978,7 @@ TEST_CASE("FixedString operator<=>", "[core][fixed_string]") {
     REQUIRE((str6 <=> str1) == std::strong_ordering::less);
 
     // Compile-time checks
+    STATIC_REQUIRE((str1 <=> str1) == std::strong_ordering::equal);
     STATIC_REQUIRE((str1 <=> str2) == std::strong_ordering::equal);
     STATIC_REQUIRE((str2 <=> str1) == std::strong_ordering::equal);
     STATIC_REQUIRE((str1 <=> str4) == std::strong_ordering::equal);
@@ -8974,14 +8993,25 @@ TEST_CASE("FixedString operator<=>", "[core][fixed_string]") {
   }
 
   SECTION("FixedString <=> StringLike") {
-    constexpr FixedString<16> str("Hello");
+    constexpr FixedString<8> str("Hello");
+    constexpr FixedString<8> empty;
     const std::string stdStr1("Hello");
     const std::string stdStr2("World");
+    const std::string stdEmpty;
 
     REQUIRE((str <=> stdStr1) == std::strong_ordering::equal);
     REQUIRE((stdStr1 <=> str) == std::strong_ordering::equal);
     REQUIRE((str <=> stdStr2) == std::strong_ordering::less);
     REQUIRE((stdStr2 <=> str) == std::strong_ordering::greater);
+    REQUIRE((str <=> stdEmpty) == std::strong_ordering::greater);
+    REQUIRE((stdEmpty <=> str) == std::strong_ordering::less);
+
+    REQUIRE((empty <=> stdStr1) == std::strong_ordering::less);
+    REQUIRE((stdStr1 <=> empty) == std::strong_ordering::greater);
+    REQUIRE((empty <=> stdStr2) == std::strong_ordering::less);
+    REQUIRE((stdStr2 <=> empty) == std::strong_ordering::greater);
+    REQUIRE((empty <=> stdEmpty) == std::strong_ordering::equal);
+    REQUIRE((stdEmpty <=> empty) == std::strong_ordering::equal);
   }
 
   SECTION("FixedString <=> C string") {
