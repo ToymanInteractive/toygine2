@@ -8993,14 +8993,25 @@ TEST_CASE("FixedString operator<=>", "[core][fixed_string]") {
   }
 
   SECTION("FixedString <=> StringLike") {
-    constexpr FixedString<16> str("Hello");
+    constexpr FixedString<8> str("Hello");
+    constexpr FixedString<8> empty;
     const std::string stdStr1("Hello");
     const std::string stdStr2("World");
+    const std::string stdEmpty;
 
     REQUIRE((str <=> stdStr1) == std::strong_ordering::equal);
     REQUIRE((stdStr1 <=> str) == std::strong_ordering::equal);
     REQUIRE((str <=> stdStr2) == std::strong_ordering::less);
     REQUIRE((stdStr2 <=> str) == std::strong_ordering::greater);
+    REQUIRE((str <=> stdEmpty) == std::strong_ordering::greater);
+    REQUIRE((stdEmpty <=> str) == std::strong_ordering::less);
+
+    REQUIRE((empty <=> stdStr1) == std::strong_ordering::less);
+    REQUIRE((stdStr1 <=> empty) == std::strong_ordering::greater);
+    REQUIRE((empty <=> stdStr2) == std::strong_ordering::less);
+    REQUIRE((stdStr2 <=> empty) == std::strong_ordering::greater);
+    REQUIRE((empty <=> stdEmpty) == std::strong_ordering::equal);
+    REQUIRE((stdEmpty <=> empty) == std::strong_ordering::equal);
   }
 
   SECTION("FixedString <=> C string") {
