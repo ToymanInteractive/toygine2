@@ -394,6 +394,7 @@ constexpr std::size_t CStringView::_find_first_not_of_raw(std::size_t position, 
 
   return npos;
 }
+
 constexpr std::size_t CStringView::_find_last_of_raw(std::size_t position, const char * data,
                                                      std::size_t dataSize) const noexcept {
   if (dataSize == 0 || empty())

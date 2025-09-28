@@ -4492,6 +4492,7 @@ TEST_CASE("CStringView contains", "[core][c_string_view]") {
     REQUIRE(str.contains(CStringView("Hello World")) == true);
     REQUIRE(str.contains(CStringView("xyz")) == false);
     REQUIRE(str.contains(CStringView("")) == true);
+    REQUIRE(str.contains(CStringView()) == true);
 
     // Compile-time checks
     STATIC_REQUIRE(str.contains(CStringView("World")) == true);
@@ -4500,6 +4501,7 @@ TEST_CASE("CStringView contains", "[core][c_string_view]") {
     STATIC_REQUIRE(str.contains(CStringView("Hello World")) == true);
     STATIC_REQUIRE(str.contains(CStringView("xyz")) == false);
     STATIC_REQUIRE(str.contains(CStringView("")) == true);
+    STATIC_REQUIRE(str.contains(CStringView()) == true);
   }
 
   SECTION("StringLike contains") {

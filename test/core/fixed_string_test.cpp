@@ -234,6 +234,11 @@ TEST_CASE("FixedString operators=", "[core][fixed_string]") {
     REQUIRE(str2.size() == 23);
     REQUIRE(std::strcmp(str2.c_str(), "This is a longer string") == 0);
 
+    // Self assignment
+    str2 = str2.c_str();
+    REQUIRE(str2.size() == 23);
+    REQUIRE(std::strcmp(str2.c_str(), "This is a longer string") == 0);
+
     // Compile-time checks
     constexpr FixedString<24> constStr1 = "This is a longer string";
     STATIC_REQUIRE(constStr1.size() == 23);
@@ -4783,6 +4788,7 @@ TEST_CASE("FixedString find", "[core][fixed_string]") {
     constexpr FixedString<32> testString("Hello World");
 
     REQUIRE(testString.find(FixedString<16>("")) == 0);
+    REQUIRE(testString.find(FixedString<16>()) == 0);
     REQUIRE(testString.find(std::string("")) == 0);
     REQUIRE(testString.find("") == 0);
     REQUIRE(testString.find("", 5) == 5);
@@ -4791,6 +4797,7 @@ TEST_CASE("FixedString find", "[core][fixed_string]") {
 
     // Compile-time checks
     STATIC_REQUIRE(testString.find(FixedString<16>("")) == 0);
+    STATIC_REQUIRE(testString.find(FixedString<16>()) == 0);
     STATIC_REQUIRE(testString.find(CStringView("")) == 0);
     STATIC_REQUIRE(testString.find("") == 0);
     STATIC_REQUIRE(testString.find("", 5) == 5);
