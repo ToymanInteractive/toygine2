@@ -8759,66 +8759,73 @@ TEST_CASE("FixedString operator==", "[core][fixed_string]") {
     REQUIRE(str2 == str1);
     REQUIRE(str1 == str4);
     REQUIRE(str4 == str1);
-    REQUIRE_FALSE((str1 == str3));
-    REQUIRE_FALSE((str3 == str1));
+    REQUIRE_FALSE(str1 == str3);
+    REQUIRE_FALSE(str3 == str1);
     REQUIRE(empty1 == empty2);
     REQUIRE(empty2 == empty1);
-    REQUIRE_FALSE((str1 == empty1));
-    REQUIRE_FALSE((empty1 == str1));
+    REQUIRE_FALSE(str1 == empty1);
+    REQUIRE_FALSE(empty1 == str1);
 
     // Compile-time checks
     STATIC_REQUIRE(str1 == str2);
     STATIC_REQUIRE(str2 == str1);
     STATIC_REQUIRE(str1 == str4);
     STATIC_REQUIRE(str4 == str1);
-    STATIC_REQUIRE_FALSE((str1 == str3));
-    STATIC_REQUIRE_FALSE((str3 == str1));
+    STATIC_REQUIRE_FALSE(str1 == str3);
+    STATIC_REQUIRE_FALSE(str3 == str1);
     STATIC_REQUIRE(empty1 == empty2);
     STATIC_REQUIRE(empty2 == empty1);
-    STATIC_REQUIRE_FALSE((str1 == empty1));
-    STATIC_REQUIRE_FALSE((empty1 == str1));
+    STATIC_REQUIRE_FALSE(str1 == empty1);
+    STATIC_REQUIRE_FALSE(empty1 == str1);
   }
 
   SECTION("FixedString == StringLike") {
-    constexpr FixedString<8> str1("Hello");
-    constexpr FixedString<8> str2;
-    const std::string stdStr1;
-    const std::string stdStr2("Hello");
-    const std::string stdStr3("World");
+    constexpr FixedString<8> str("Hello");
+    constexpr FixedString<8> empty;
+    const std::string stdHello("Hello");
+    const std::string stdWorld("World");
+    const std::string stdEmpty;
 
-    REQUIRE_FALSE(str1 == stdStr1);
-    REQUIRE_FALSE(stdStr1 == str1);
-    REQUIRE(str1 == stdStr2);
-    REQUIRE(stdStr2 == str1);
-    REQUIRE_FALSE(str1 == stdStr3);
-    REQUIRE_FALSE(stdStr3 == str1);
-    REQUIRE(str2 == stdStr1);
-    REQUIRE_FALSE(str2 == stdStr2);
-    REQUIRE_FALSE(str2 == stdStr3);
+    REQUIRE(str == stdHello);
+    REQUIRE(stdHello == str);
+    REQUIRE_FALSE(str == stdWorld);
+    REQUIRE_FALSE(stdWorld == str);
+
+    REQUIRE(empty == stdEmpty);
+    REQUIRE(stdEmpty == empty);
+
+    REQUIRE_FALSE(stdEmpty == str);
+    REQUIRE_FALSE(str == stdEmpty);
+    REQUIRE_FALSE(empty == stdHello);
+    REQUIRE_FALSE(empty == stdWorld);
   }
 
   SECTION("FixedString == C string") {
-    constexpr FixedString<16> str1("Hello");
-    constexpr FixedString<16> empty;
+    constexpr FixedString<8> str("Hello");
+    constexpr FixedString<8> empty;
 
-    REQUIRE(str1 == "Hello");
-    REQUIRE("Hello" == str1);
-    REQUIRE_FALSE((str1 == "World"));
-    REQUIRE_FALSE(("World" == str1));
+    REQUIRE(str == "Hello");
+    REQUIRE("Hello" == str);
+    REQUIRE_FALSE(str == "World");
+    REQUIRE_FALSE("World" == str);
+
+    REQUIRE(str == str.c_str());
+
     REQUIRE(empty == "");
     REQUIRE("" == empty);
-    REQUIRE_FALSE((str1 == ""));
-    REQUIRE_FALSE(("" == str1));
+    REQUIRE_FALSE(str == "");
+    REQUIRE_FALSE("" == str);
 
     // Compile-time checks
-    STATIC_REQUIRE(str1 == "Hello");
-    STATIC_REQUIRE("Hello" == str1);
-    STATIC_REQUIRE_FALSE((str1 == "World"));
-    STATIC_REQUIRE_FALSE(("World" == str1));
+    STATIC_REQUIRE(str == "Hello");
+    STATIC_REQUIRE("Hello" == str);
+    STATIC_REQUIRE_FALSE(str == "World");
+    STATIC_REQUIRE_FALSE("World" == str);
+    STATIC_REQUIRE(str == str.c_str());
     STATIC_REQUIRE(empty == "");
     STATIC_REQUIRE("" == empty);
-    STATIC_REQUIRE_FALSE((str1 == ""));
-    STATIC_REQUIRE_FALSE(("" == str1));
+    STATIC_REQUIRE_FALSE(str == "");
+    STATIC_REQUIRE_FALSE("" == str);
   }
 
   SECTION("Edge cases") {
@@ -8830,8 +8837,8 @@ TEST_CASE("FixedString operator==", "[core][fixed_string]") {
     // Single character comparison
     REQUIRE(str1 == "A");
     REQUIRE("A" == str1);
-    REQUIRE_FALSE((str1 == "B"));
-    REQUIRE_FALSE(("B" == str1));
+    REQUIRE_FALSE(str1 == "B");
+    REQUIRE_FALSE("B" == str1);
 
     // Empty string comparisons
     REQUIRE(empty1 == empty2);
@@ -8849,8 +8856,8 @@ TEST_CASE("FixedString operator==", "[core][fixed_string]") {
     // Compile-time checks
     STATIC_REQUIRE(str1 == "A");
     STATIC_REQUIRE("A" == str1);
-    STATIC_REQUIRE_FALSE((str1 == "B"));
-    STATIC_REQUIRE_FALSE(("B" == str1));
+    STATIC_REQUIRE_FALSE(str1 == "B");
+    STATIC_REQUIRE_FALSE("B" == str1);
 
     STATIC_REQUIRE(empty1 == empty2);
     STATIC_REQUIRE(empty2 == empty1);
@@ -8870,20 +8877,20 @@ TEST_CASE("FixedString operator==", "[core][fixed_string]") {
     REQUIRE("Hello\nWorld" == str1);
     REQUIRE(str2 == "Hello\tWorld");
     REQUIRE("Hello\tWorld" == str2);
-    REQUIRE_FALSE((str1 == str2));
-    REQUIRE_FALSE((str2 == str1));
-    REQUIRE_FALSE((str1 == str3));
-    REQUIRE_FALSE((str3 == str1));
+    REQUIRE_FALSE(str1 == str2);
+    REQUIRE_FALSE(str2 == str1);
+    REQUIRE_FALSE(str1 == str3);
+    REQUIRE_FALSE(str3 == str1);
 
     // Compile-time checks
     STATIC_REQUIRE(str1 == "Hello\nWorld");
     STATIC_REQUIRE("Hello\nWorld" == str1);
     STATIC_REQUIRE(str2 == "Hello\tWorld");
     STATIC_REQUIRE("Hello\tWorld" == str2);
-    STATIC_REQUIRE_FALSE((str1 == str2));
-    STATIC_REQUIRE_FALSE((str2 == str1));
-    STATIC_REQUIRE_FALSE((str1 == str3));
-    STATIC_REQUIRE_FALSE((str3 == str1));
+    STATIC_REQUIRE_FALSE(str1 == str2);
+    STATIC_REQUIRE_FALSE(str2 == str1);
+    STATIC_REQUIRE_FALSE(str1 == str3);
+    STATIC_REQUIRE_FALSE(str3 == str1);
   }
 
   SECTION("Unicode content") {
@@ -8895,16 +8902,16 @@ TEST_CASE("FixedString operator==", "[core][fixed_string]") {
     REQUIRE("Привет" == str1);
     REQUIRE(str1 == str3);
     REQUIRE(str3 == str1);
-    REQUIRE_FALSE((str1 == str2));
-    REQUIRE_FALSE((str2 == str1));
+    REQUIRE_FALSE(str1 == str2);
+    REQUIRE_FALSE(str2 == str1);
 
     // Compile-time checks
     STATIC_REQUIRE(str1 == "Привет");
     STATIC_REQUIRE("Привет" == str1);
     STATIC_REQUIRE(str1 == str3);
     STATIC_REQUIRE(str3 == str1);
-    STATIC_REQUIRE_FALSE((str1 == str2));
-    STATIC_REQUIRE_FALSE((str2 == str1));
+    STATIC_REQUIRE_FALSE(str1 == str2);
+    STATIC_REQUIRE_FALSE(str2 == str1);
   }
 
   SECTION("Performance test") {
@@ -8914,14 +8921,14 @@ TEST_CASE("FixedString operator==", "[core][fixed_string]") {
 
     REQUIRE(str1 == str2);
     REQUIRE(str2 == str1);
-    REQUIRE_FALSE((str1 == str3));
-    REQUIRE_FALSE((str3 == str1));
+    REQUIRE_FALSE(str1 == str3);
+    REQUIRE_FALSE(str3 == str1);
 
     // Compile-time checks
     STATIC_REQUIRE(str1 == str2);
     STATIC_REQUIRE(str2 == str1);
-    STATIC_REQUIRE_FALSE((str1 == str3));
-    STATIC_REQUIRE_FALSE((str3 == str1));
+    STATIC_REQUIRE_FALSE(str1 == str3);
+    STATIC_REQUIRE_FALSE(str3 == str1);
   }
 
   SECTION("Constexpr operations") {

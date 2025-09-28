@@ -550,12 +550,17 @@ TEST_CASE("cstrpbrk function", "[core][constexpr_utils]") {
     STATIC_REQUIRE(cstrpbrk(str, accept2) != nullptr);
     STATIC_REQUIRE(cstrpbrk(str, accept3) != nullptr);
     STATIC_REQUIRE(cstrpbrk(str, accept4) == nullptr);
+    STATIC_REQUIRE(cstrpbrk(str, nullptr) == nullptr);
+    STATIC_REQUIRE(cstrpbrk(nullptr, accept1) == nullptr);
 
     // Compare with std::strpbrk
     REQUIRE(cstrpbrk(str, accept1) == std::strpbrk(str, accept1));
     REQUIRE(cstrpbrk(str, accept2) == std::strpbrk(str, accept2));
     REQUIRE(cstrpbrk(str, accept3) == std::strpbrk(str, accept3));
     REQUIRE(cstrpbrk(str, accept4) == std::strpbrk(str, accept4));
+
+    REQUIRE(cstrpbrk(str, nullptr) == nullptr);
+    REQUIRE(cstrpbrk(nullptr, accept1) == nullptr);
   }
 
   SECTION("Single character in accept set") {

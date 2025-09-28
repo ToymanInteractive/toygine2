@@ -4760,22 +4760,22 @@ TEST_CASE("CStringView operator==", "[core][c_string_view]") {
 
     REQUIRE(str1 == str2);
     REQUIRE(str2 == str1);
-    REQUIRE_FALSE((str1 == str3));
-    REQUIRE_FALSE((str3 == str1));
+    REQUIRE_FALSE(str1 == str3);
+    REQUIRE_FALSE(str3 == str1);
     REQUIRE(empty1 == empty2);
     REQUIRE(empty2 == empty1);
-    REQUIRE_FALSE((str1 == empty1));
-    REQUIRE_FALSE((empty1 == str1));
+    REQUIRE_FALSE(str1 == empty1);
+    REQUIRE_FALSE(empty1 == str1);
 
     // Compile-time checks
     STATIC_REQUIRE(str1 == str2);
     STATIC_REQUIRE(str2 == str1);
-    STATIC_REQUIRE_FALSE((str1 == str3));
-    STATIC_REQUIRE_FALSE((str3 == str1));
+    STATIC_REQUIRE_FALSE(str1 == str3);
+    STATIC_REQUIRE_FALSE(str3 == str1);
     STATIC_REQUIRE(empty1 == empty2);
     STATIC_REQUIRE(empty2 == empty1);
-    STATIC_REQUIRE_FALSE((str1 == empty1));
-    STATIC_REQUIRE_FALSE((empty1 == str1));
+    STATIC_REQUIRE_FALSE(str1 == empty1);
+    STATIC_REQUIRE_FALSE(empty1 == str1);
   }
 
   SECTION("CStringView == StringLike") {
@@ -4802,22 +4802,22 @@ TEST_CASE("CStringView operator==", "[core][c_string_view]") {
 
     REQUIRE(str1 == "Hello");
     REQUIRE("Hello" == str1);
-    REQUIRE_FALSE((str1 == "World"));
-    REQUIRE_FALSE(("World" == str1));
+    REQUIRE_FALSE(str1 == "World");
+    REQUIRE_FALSE("World" == str1);
     REQUIRE(empty == "");
     REQUIRE("" == empty);
-    REQUIRE_FALSE((str1 == ""));
-    REQUIRE_FALSE(("" == str1));
+    REQUIRE_FALSE(str1 == "");
+    REQUIRE_FALSE("" == str1);
 
     // Compile-time checks
     STATIC_REQUIRE(str1 == "Hello");
     STATIC_REQUIRE("Hello" == str1);
-    STATIC_REQUIRE_FALSE((str1 == "World"));
-    STATIC_REQUIRE_FALSE(("World" == str1));
+    STATIC_REQUIRE_FALSE(str1 == "World");
+    STATIC_REQUIRE_FALSE("World" == str1);
     STATIC_REQUIRE(empty == "");
     STATIC_REQUIRE("" == empty);
-    STATIC_REQUIRE_FALSE((str1 == ""));
-    STATIC_REQUIRE_FALSE(("" == str1));
+    STATIC_REQUIRE_FALSE(str1 == "");
+    STATIC_REQUIRE_FALSE("" == str1);
   }
 
   SECTION("Edge cases") {
@@ -4829,8 +4829,8 @@ TEST_CASE("CStringView operator==", "[core][c_string_view]") {
     // Single character comparison
     REQUIRE(str1 == "A");
     REQUIRE("A" == str1);
-    REQUIRE_FALSE((str1 == "B"));
-    REQUIRE_FALSE(("B" == str1));
+    REQUIRE_FALSE(str1 == "B");
+    REQUIRE_FALSE("B" == str1);
 
     // Empty string comparisons
     REQUIRE(empty1 == empty2);
@@ -4848,8 +4848,8 @@ TEST_CASE("CStringView operator==", "[core][c_string_view]") {
     // Compile-time checks
     STATIC_REQUIRE(str1 == "A");
     STATIC_REQUIRE("A" == str1);
-    STATIC_REQUIRE_FALSE((str1 == "B"));
-    STATIC_REQUIRE_FALSE(("B" == str1));
+    STATIC_REQUIRE_FALSE(str1 == "B");
+    STATIC_REQUIRE_FALSE("B" == str1);
 
     STATIC_REQUIRE(empty1 == empty2);
     STATIC_REQUIRE(empty2 == empty1);
@@ -4869,20 +4869,20 @@ TEST_CASE("CStringView operator==", "[core][c_string_view]") {
     REQUIRE("Hello\nWorld" == str1);
     REQUIRE(str2 == "Hello\tWorld");
     REQUIRE("Hello\tWorld" == str2);
-    REQUIRE_FALSE((str1 == str2));
-    REQUIRE_FALSE((str2 == str1));
-    REQUIRE_FALSE((str1 == str3));
-    REQUIRE_FALSE((str3 == str1));
+    REQUIRE_FALSE(str1 == str2);
+    REQUIRE_FALSE(str2 == str1);
+    REQUIRE_FALSE(str1 == str3);
+    REQUIRE_FALSE(str3 == str1);
 
     // Compile-time checks
     STATIC_REQUIRE(str1 == "Hello\nWorld");
     STATIC_REQUIRE("Hello\nWorld" == str1);
     STATIC_REQUIRE(str2 == "Hello\tWorld");
     STATIC_REQUIRE("Hello\tWorld" == str2);
-    STATIC_REQUIRE_FALSE((str1 == str2));
-    STATIC_REQUIRE_FALSE((str2 == str1));
-    STATIC_REQUIRE_FALSE((str1 == str3));
-    STATIC_REQUIRE_FALSE((str3 == str1));
+    STATIC_REQUIRE_FALSE(str1 == str2);
+    STATIC_REQUIRE_FALSE(str2 == str1);
+    STATIC_REQUIRE_FALSE(str1 == str3);
+    STATIC_REQUIRE_FALSE(str3 == str1);
   }
 
   SECTION("Unicode content") {
@@ -4894,16 +4894,16 @@ TEST_CASE("CStringView operator==", "[core][c_string_view]") {
     REQUIRE("Привет" == str1);
     REQUIRE(str1 == str3);
     REQUIRE(str3 == str1);
-    REQUIRE_FALSE((str1 == str2));
-    REQUIRE_FALSE((str2 == str1));
+    REQUIRE_FALSE(str1 == str2);
+    REQUIRE_FALSE(str2 == str1);
 
     // Compile-time checks
     STATIC_REQUIRE(str1 == "Привет");
     STATIC_REQUIRE("Привет" == str1);
     STATIC_REQUIRE(str1 == str3);
     STATIC_REQUIRE(str3 == str1);
-    STATIC_REQUIRE_FALSE((str1 == str2));
-    STATIC_REQUIRE_FALSE((str2 == str1));
+    STATIC_REQUIRE_FALSE(str1 == str2);
+    STATIC_REQUIRE_FALSE(str2 == str1);
   }
 
   SECTION("Performance test") {
@@ -4913,14 +4913,14 @@ TEST_CASE("CStringView operator==", "[core][c_string_view]") {
 
     REQUIRE(str1 == str2);
     REQUIRE(str2 == str1);
-    REQUIRE_FALSE((str1 == str3));
-    REQUIRE_FALSE((str3 == str1));
+    REQUIRE_FALSE(str1 == str3);
+    REQUIRE_FALSE(str3 == str1);
 
     // Compile-time checks
     STATIC_REQUIRE(str1 == str2);
     STATIC_REQUIRE(str2 == str1);
-    STATIC_REQUIRE_FALSE((str1 == str3));
-    STATIC_REQUIRE_FALSE((str3 == str1));
+    STATIC_REQUIRE_FALSE(str1 == str3);
+    STATIC_REQUIRE_FALSE(str3 == str1);
   }
 
   SECTION("Constexpr operations") {
