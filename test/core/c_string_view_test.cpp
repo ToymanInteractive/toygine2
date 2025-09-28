@@ -3466,8 +3466,7 @@ TEST_CASE("CStringView find_last_not_of", "[core][c_string_view]") {
     STATIC_REQUIRE(testString.find_last_not_of("Hel", 4) == 4);
     STATIC_REQUIRE(testString.find_last_not_of("Hel", 2) == CStringView::npos);
     STATIC_REQUIRE(testString.find_last_not_of("Hel", 1) == CStringView::npos);
-    STATIC_REQUIRE(testString.find_last_not_of("Hel", 1) == CStringView::npos);
-    (testString.find_last_not_of("Hel", 17) == CStringView::npos);
+    STATIC_REQUIRE(testString.find_last_not_of("Hel", 17) == CStringView::npos);
   }
 
   SECTION("Find last not of with exact match") {
