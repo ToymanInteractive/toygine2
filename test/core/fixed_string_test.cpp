@@ -1283,11 +1283,17 @@ TEST_CASE("FixedString data", "[core][fixed_string]") {
     constexpr FixedString<16> testString("Hello World");
     constexpr FixedString<8> emptyString("");
     constexpr FixedString<4> singleChar("A");
+    FixedString<16> string("Hello World");
 
     // Test that data() points to null-terminated string
     REQUIRE(std::strcmp(testString.data(), "Hello World") == 0);
     REQUIRE(std::strcmp(emptyString.data(), "") == 0);
     REQUIRE(std::strcmp(singleChar.data(), "A") == 0);
+
+    // Modifications
+    REQUIRE(std::strcmp(string.data(), "Hello World") == 0);
+    string.data()[0] = 'h';
+    REQUIRE(std::strcmp(string.data(), "hello World") == 0);
 
     // Compile-time checks
     STATIC_REQUIRE(cstrcmp(testString.data(), "Hello World") == 0);
@@ -2521,15 +2527,20 @@ TEST_CASE("FixedString clear", "[core][fixed_string]") {
 
 TEST_CASE("FixedString insert", "[core][fixed_string]") {
   SECTION("Insert FixedString at beginning") {
-    FixedString<32> testString("Hello World");
+    FixedString<32> testString("World");
 
-    REQUIRE(testString.size() == 11);
-    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+    REQUIRE(testString.size() == 5);
+    REQUIRE(std::strcmp(testString.c_str(), "World") == 0);
 
-    testString.insert(0, FixedString<16>("Hi "));
+    testString.insert(0, FixedString<32>("Beautiful "));
 
-    REQUIRE(testString.size() == 14);
-    REQUIRE(std::strcmp(testString.c_str(), "Hi Hello World") == 0);
+    REQUIRE(testString.size() == 15);
+    REQUIRE(std::strcmp(testString.c_str(), "Beautiful World") == 0);
+
+    testString.insert(0, FixedString<8>("Hello "));
+
+    REQUIRE(testString.size() == 21);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello Beautiful World") == 0);
   }
 
   SECTION("Insert FixedString in middle") {
@@ -3551,10 +3562,15 @@ TEST_CASE("FixedString append", "[core][fixed_string]") {
     REQUIRE(testString.size() == 5);
     REQUIRE(std::strcmp(testString.c_str(), "Hello") == 0);
 
+    testString.append(FixedString<32>(" Beautiful"));
+
+    REQUIRE(testString.size() == 15);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello Beautiful") == 0);
+
     testString.append(FixedString<16>(" World"));
 
-    REQUIRE(testString.size() == 11);
-    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+    REQUIRE(testString.size() == 21);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello Beautiful World") == 0);
   }
 
   SECTION("Append C-string") {
@@ -3785,10 +3801,15 @@ TEST_CASE("FixedString operators+=", "[core][fixed_string]") {
     REQUIRE(testString.size() == 5);
     REQUIRE(std::strcmp(testString.c_str(), "Hello") == 0);
 
+    testString += FixedString<32>(" Beautiful");
+
+    REQUIRE(testString.size() == 15);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello Beautiful") == 0);
+
     testString += FixedString<16>(" World");
 
-    REQUIRE(testString.size() == 11);
-    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+    REQUIRE(testString.size() == 21);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello Beautiful World") == 0);
   }
 
   SECTION("Operator += with C-string") {
