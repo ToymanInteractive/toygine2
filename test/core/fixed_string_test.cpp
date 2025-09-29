@@ -9076,11 +9076,12 @@ TEST_CASE("FixedString operator<=>", "[core][fixed_string]") {
 
   SECTION("FixedString <=> StringLike") {
     constexpr FixedString<8> str("Hello");
-    constexpr FixedString<16> fullStr("Hello World");
+    constexpr FixedString<16> strFull("Hello World");
     constexpr FixedString<8> empty;
     const std::string stdStr1("Hello");
     const std::string stdStr2("World");
     const std::string stdStr3("Big");
+    const std::string stdFull("Hello World");
     const std::string stdEmpty;
 
     REQUIRE((str <=> stdStr1) == std::strong_ordering::equal);
@@ -9101,8 +9102,10 @@ TEST_CASE("FixedString operator<=>", "[core][fixed_string]") {
     REQUIRE((empty <=> stdEmpty) == std::strong_ordering::equal);
     REQUIRE((stdEmpty <=> empty) == std::strong_ordering::equal);
 
-    REQUIRE((fullStr <=> stdStr1) == std::strong_ordering::greater);
-    REQUIRE((stdStr1 <=> fullStr) == std::strong_ordering::less);
+    REQUIRE((strFull <=> stdStr1) == std::strong_ordering::greater);
+    REQUIRE((stdStr1 <=> strFull) == std::strong_ordering::less);
+    REQUIRE((str <=> stdFull) == std::strong_ordering::less);
+    REQUIRE((stdFull <=> str) == std::strong_ordering::greater);
   }
 
   SECTION("FixedString <=> C string") {
@@ -9113,9 +9116,12 @@ TEST_CASE("FixedString operator<=>", "[core][fixed_string]") {
     constexpr const char * str3 = "World";
     constexpr const char * str4 = "Hi";
     constexpr const char * str5 = "Hell";
+    constexpr const char * strFull = "Hello World";
 
     REQUIRE((fullStr <=> str2) == std::strong_ordering::greater);
     REQUIRE((str2 <=> fullStr) == std::strong_ordering::less);
+    REQUIRE((strFull <=> str1) == std::strong_ordering::greater);
+    REQUIRE((str1 <=> strFull) == std::strong_ordering::less);
 
     // Equal strings
     REQUIRE((str1 <=> str2) == std::strong_ordering::equal);
@@ -9128,8 +9134,15 @@ TEST_CASE("FixedString operator<=>", "[core][fixed_string]") {
     REQUIRE((str4 <=> str1) == std::strong_ordering::greater);
     REQUIRE((str1 <=> str5) == std::strong_ordering::greater);
     REQUIRE((str5 <=> str1) == std::strong_ordering::less);
+    REQUIRE((fullStr <=> str3) == std::strong_ordering::less);
+    REQUIRE((str3 <=> fullStr) == std::strong_ordering::greater);
 
     // Compile-time checks
+    STATIC_REQUIRE((fullStr <=> str2) == std::strong_ordering::greater);
+    STATIC_REQUIRE((str2 <=> fullStr) == std::strong_ordering::less);
+    STATIC_REQUIRE((strFull <=> str1) == std::strong_ordering::greater);
+    STATIC_REQUIRE((str1 <=> strFull) == std::strong_ordering::less);
+
     STATIC_REQUIRE((str1 <=> str2) == std::strong_ordering::equal);
     STATIC_REQUIRE((str2 <=> str1) == std::strong_ordering::equal);
 
@@ -9139,6 +9152,8 @@ TEST_CASE("FixedString operator<=>", "[core][fixed_string]") {
     STATIC_REQUIRE((str4 <=> str1) == std::strong_ordering::greater);
     STATIC_REQUIRE((str1 <=> str5) == std::strong_ordering::greater);
     STATIC_REQUIRE((str5 <=> str1) == std::strong_ordering::less);
+    STATIC_REQUIRE((fullStr <=> str3) == std::strong_ordering::less);
+    STATIC_REQUIRE((str3 <=> fullStr) == std::strong_ordering::greater);
   }
 
   SECTION("Empty string comparisons") {
