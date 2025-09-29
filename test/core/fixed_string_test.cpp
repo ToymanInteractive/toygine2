@@ -306,7 +306,7 @@ TEST_CASE("FixedString operators=", "[core][fixed_string]") {
     REQUIRE(str1.size() == 11);
     REQUIRE(std::strcmp(str1.c_str(), "Hello World") == 0);
 
-    str2 = FixedString<16>("Test String");
+    str2 = CStringView("Test String");
     REQUIRE(str2.size() == 11);
     REQUIRE(std::strcmp(str2.c_str(), "Test String") == 0);
   }
@@ -8616,25 +8616,25 @@ TEST_CASE("FixedString operators+", "[core][fixed_string]") {
   }
 
   SECTION("FixedString + char") {
-    constexpr auto result = FixedString<20>("Hello") + '!';
-
+    auto result = FixedString<20>("Hello") + '!';
     REQUIRE(result.size() == 6);
     REQUIRE(std::strcmp(result.c_str(), "Hello!") == 0);
 
     // Compile-time checks
-    STATIC_REQUIRE(result.size() == 6);
-    STATIC_REQUIRE(cstrcmp(result.c_str(), "Hello!") == 0);
+    constexpr auto constexprResult = FixedString<20>("Hello") + '!';
+    STATIC_REQUIRE(constexprResult.size() == 6);
+    STATIC_REQUIRE(cstrcmp(constexprResult.c_str(), "Hello!") == 0);
   }
 
   SECTION("char + FixedString") {
-    constexpr auto result = '!' + FixedString<20>("Hello");
-
+    auto result = '!' + FixedString<20>("Hello");
     REQUIRE(result.size() == 6);
     REQUIRE(std::strcmp(result.c_str(), "!Hello") == 0);
 
     // Compile-time checks
-    STATIC_REQUIRE(result.size() == 6);
-    STATIC_REQUIRE(cstrcmp(result.c_str(), "!Hello") == 0);
+    constexpr auto constexprResult = '!' + FixedString<20>("Hello");
+    STATIC_REQUIRE(constexprResult.size() == 6);
+    STATIC_REQUIRE(cstrcmp(constexprResult.c_str(), "!Hello") == 0);
   }
 
   SECTION("FixedString + char (empty string)") {
@@ -9076,6 +9076,7 @@ TEST_CASE("FixedString operator<=>", "[core][fixed_string]") {
 
   SECTION("FixedString <=> StringLike") {
     constexpr FixedString<8> str("Hello");
+    constexpr FixedString<16> fullStr("Hello World");
     constexpr FixedString<8> empty;
     const std::string stdStr1("Hello");
     const std::string stdStr2("World");
@@ -9099,14 +9100,22 @@ TEST_CASE("FixedString operator<=>", "[core][fixed_string]") {
     REQUIRE((stdStr3 <=> empty) == std::strong_ordering::greater);
     REQUIRE((empty <=> stdEmpty) == std::strong_ordering::equal);
     REQUIRE((stdEmpty <=> empty) == std::strong_ordering::equal);
+
+    REQUIRE((fullStr <=> stdStr1) == std::strong_ordering::greater);
+    REQUIRE((stdStr1 <=> fullStr) == std::strong_ordering::less);
   }
 
   SECTION("FixedString <=> C string") {
+    constexpr FixedString<16> fullStr("Hello World");
     constexpr FixedString<16> str1("Hello");
+
     constexpr const char * str2 = "Hello";
     constexpr const char * str3 = "World";
     constexpr const char * str4 = "Hi";
     constexpr const char * str5 = "Hell";
+
+    REQUIRE((fullStr <=> str2) == std::strong_ordering::greater);
+    REQUIRE((str2 <=> fullStr) == std::strong_ordering::less);
 
     // Equal strings
     REQUIRE((str1 <=> str2) == std::strong_ordering::equal);
@@ -9150,6 +9159,8 @@ TEST_CASE("FixedString operator<=>", "[core][fixed_string]") {
     REQUIRE((nonEmpty <=> empty1) == std::strong_ordering::greater);
     REQUIRE((empty1 <=> nonEmptyCStr) == std::strong_ordering::less);
     REQUIRE((nonEmptyCStr <=> empty1) == std::strong_ordering::greater);
+    REQUIRE((emptyCStr <=> nonEmpty) == std::strong_ordering::less);
+    REQUIRE((nonEmpty <=> emptyCStr) == std::strong_ordering::greater);
 
     // Compile-time checks
     STATIC_REQUIRE((empty1 <=> empty2) == std::strong_ordering::equal);
@@ -9161,6 +9172,8 @@ TEST_CASE("FixedString operator<=>", "[core][fixed_string]") {
     STATIC_REQUIRE((nonEmpty <=> empty1) == std::strong_ordering::greater);
     STATIC_REQUIRE((empty1 <=> nonEmptyCStr) == std::strong_ordering::less);
     STATIC_REQUIRE((nonEmptyCStr <=> empty1) == std::strong_ordering::greater);
+    STATIC_REQUIRE((emptyCStr <=> nonEmpty) == std::strong_ordering::less);
+    STATIC_REQUIRE((nonEmpty <=> emptyCStr) == std::strong_ordering::greater);
   }
 
   SECTION("Single character strings") {
