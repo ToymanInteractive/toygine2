@@ -4096,6 +4096,16 @@ TEST_CASE("FixedString replace", "[core][fixed_string]") {
 
     REQUIRE(testString.size() == 9);
     REQUIRE(std::strcmp(testString.c_str(), "Hello ***") == 0);
+
+    testString.replace(2, 0, '*', 0);
+
+    REQUIRE(testString.size() == 9);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello ***") == 0);
+
+    testString.replace(0, 5, '*', 5);
+
+    REQUIRE(testString.size() == 9);
+    REQUIRE(std::strcmp(testString.c_str(), "***** ***") == 0);
   }
 
   SECTION("Replace at beginning") {
@@ -8465,80 +8475,80 @@ TEST_CASE("FixedString operators+", "[core][fixed_string]") {
   }
 
   SECTION("FixedString + FixedString (same size)") {
-    constexpr auto result = FixedString<20>("Hello") + FixedString<20>("World");
-
+    auto result = FixedString<20>("Hello") + FixedString<20>("World");
     REQUIRE(result.size() == 10);
     REQUIRE(std::strcmp(result.c_str(), "HelloWorld") == 0);
 
     // Compile-time checks
-    STATIC_REQUIRE(result.size() == 10);
-    STATIC_REQUIRE(cstrcmp(result.c_str(), "HelloWorld") == 0);
+    constexpr auto constexprResult = FixedString<20>("Hello") + FixedString<20>("World");
+    STATIC_REQUIRE(constexprResult.size() == 10);
+    STATIC_REQUIRE(cstrcmp(constexprResult.c_str(), "HelloWorld") == 0);
   }
 
   SECTION("FixedString + FixedString (different sizes)") {
-    constexpr auto result = FixedString<20>("Hello") + FixedString<10>("World");
-
+    auto result = FixedString<20>("Hello") + FixedString<10>("World");
     REQUIRE(result.size() == 10);
     REQUIRE(std::strcmp(result.c_str(), "HelloWorld") == 0);
 
     // Compile-time checks
-    STATIC_REQUIRE(result.size() == 10);
-    STATIC_REQUIRE(cstrcmp(result.c_str(), "HelloWorld") == 0);
+    constexpr auto constexprResult = FixedString<20>("Hello") + FixedString<10>("World");
+    STATIC_REQUIRE(constexprResult.size() == 10);
+    STATIC_REQUIRE(cstrcmp(constexprResult.c_str(), "HelloWorld") == 0);
   }
 
   SECTION("FixedString + C-string") {
-    constexpr auto result = FixedString<20>("Hello") + "World";
-
+    auto result = FixedString<20>("Hello") + "World";
     REQUIRE(result.size() == 10);
     REQUIRE(std::strcmp(result.c_str(), "HelloWorld") == 0);
 
     // Compile-time checks
-    STATIC_REQUIRE(result.size() == 10);
-    STATIC_REQUIRE(cstrcmp(result.c_str(), "HelloWorld") == 0);
+    constexpr auto constexprResult = FixedString<20>("Hello") + "World";
+    STATIC_REQUIRE(constexprResult.size() == 10);
+    STATIC_REQUIRE(cstrcmp(constexprResult.c_str(), "HelloWorld") == 0);
   }
 
   SECTION("C-string + FixedString") {
-    constexpr auto result = "Hello" + FixedString<20>("World");
-
+    auto result = "Hello" + FixedString<20>("World");
     REQUIRE(result.size() == 10);
     REQUIRE(std::strcmp(result.c_str(), "HelloWorld") == 0);
 
     // Compile-time checks
-    STATIC_REQUIRE(result.size() == 10);
-    STATIC_REQUIRE(cstrcmp(result.c_str(), "HelloWorld") == 0);
+    constexpr auto constexprResult = "Hello" + FixedString<20>("World");
+    STATIC_REQUIRE(constexprResult.size() == 10);
+    STATIC_REQUIRE(cstrcmp(constexprResult.c_str(), "HelloWorld") == 0);
   }
 
   SECTION("FixedString + std::string (StringLike)") {
-    constexpr auto result = FixedString<20>("Hello") + std::string("World");
-
+    auto result = FixedString<20>("Hello") + std::string("World");
     REQUIRE(result.size() == 10);
     REQUIRE(std::strcmp(result.c_str(), "HelloWorld") == 0);
 
     // Compile-time checks
-    STATIC_REQUIRE(result.size() == 10);
-    STATIC_REQUIRE(cstrcmp(result.c_str(), "HelloWorld") == 0);
+    constexpr auto constexprResult = FixedString<20>("Hello") + std::string("World");
+    STATIC_REQUIRE(constexprResult.size() == 10);
+    STATIC_REQUIRE(cstrcmp(constexprResult.c_str(), "HelloWorld") == 0);
   }
 
   SECTION("std::string + FixedString (StringLike)") {
-    constexpr auto result = std::string("Hello") + FixedString<20>("World");
-
+    auto result = std::string("Hello") + FixedString<20>("World");
     REQUIRE(result.size() == 10);
     REQUIRE(std::strcmp(result.c_str(), "HelloWorld") == 0);
 
     // Compile-time checks
-    STATIC_REQUIRE(result.size() == 10);
-    STATIC_REQUIRE(cstrcmp(result.c_str(), "HelloWorld") == 0);
+    constexpr auto constexprResult = std::string("Hello") + FixedString<20>("World");
+    STATIC_REQUIRE(constexprResult.size() == 10);
+    STATIC_REQUIRE(cstrcmp(constexprResult.c_str(), "HelloWorld") == 0);
   }
 
   SECTION("Empty string concatenation") {
-    constexpr auto result = FixedString<20>("") + FixedString<20>("");
-
+    auto result = FixedString<20>("") + FixedString<20>("");
     REQUIRE(result.size() == 0);
     REQUIRE(std::strcmp(result.c_str(), "") == 0);
 
     // Compile-time checks
-    STATIC_REQUIRE(result.size() == 0);
-    STATIC_REQUIRE(cstrcmp(result.c_str(), "") == 0);
+    constexpr auto constexprResult = FixedString<20>("") + FixedString<20>("");
+    STATIC_REQUIRE(constexprResult.size() == 0);
+    STATIC_REQUIRE(cstrcmp(constexprResult.c_str(), "") == 0);
   }
 
   SECTION("One empty string concatenation") {
