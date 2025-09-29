@@ -151,7 +151,7 @@ $(function(){initNavTree('dc/d28/constexpr__utils_8inl_source.html','../../','')
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
 <div class="foldopen" id="foldopen00053" data-start="{" data-end="}">
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="../../d4/da9/namespacetoy.html#adaa16f254dc6bc99679971d96bd87a66">   53</a></span><span class="keyword">constexpr</span> <span class="keyword">const</span> <span class="keywordtype">char</span> * <a class="code hl_function" href="../../d4/da9/namespacetoy.html#adaa16f254dc6bc99679971d96bd87a66">cstrpbrk</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> * str, <span class="keyword">const</span> <span class="keywordtype">char</span> * accept) <span class="keyword">noexcept</span> {</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>  <span class="keywordflow">if</span> (!str || !accept)</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>  <span class="keywordflow">if</span> (str == <span class="keywordtype">nullptr</span> || accept == <span class="keywordtype">nullptr</span>)</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keywordflow">return</span> <span class="keywordtype">nullptr</span>;</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>  <span class="keywordflow">for</span> (; *str != <span class="stringliteral">&#39;\0&#39;</span>; ++str) {</div>

@@ -140,25 +140,23 @@ $(function(){initNavTree('df/d7d/utils_8inl_source.html','../../',''); });
 <div class="foldopen" id="foldopen00041" data-start="{" data-end="}">
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="../../d4/da9/namespacetoy.html#a08e2e765a94dee108e646fd69fe7b535">   41</a></span><span class="keyword">constexpr</span> <span class="keywordtype">char</span> * <a class="code hl_function" href="../../d4/da9/namespacetoy.html#a08e2e765a94dee108e646fd69fe7b535">reverseString</a>(<span class="keywordtype">char</span> * string, std::size_t stringLength) <span class="keyword">noexcept</span> {</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>  assert_message(string != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;The source string must not be null.&quot;</span>);</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>  <span class="keywordflow">if</span> (string == <span class="keywordtype">nullptr</span>)</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordflow">return</span> <span class="keywordtype">nullptr</span>;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>  <span class="keywordflow">if</span> (stringLength == 0)</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    stringLength = std::strlen(string);</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>  <span class="keywordflow">if</span> (stringLength != 0) {</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keywordflow">for</span> (std::size_t i = 0, j = stringLength - 1; i &lt; j; ++i, --j) {</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>      std::swap(string[i], string[j]);</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    }</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>  }</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>  <span class="keywordflow">return</span> string;</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>}</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>  <span class="keywordflow">if</span> (stringLength == 0)</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    stringLength = std::strlen(string);</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>  <span class="keywordflow">if</span> (stringLength != 0) {</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordflow">for</span> (std::size_t i = 0, j = stringLength - 1; i &lt; j; ++i, --j) {</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>      std::swap(string[i], string[j]);</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    }</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>  }</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>  <span class="keywordflow">return</span> string;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>}</div>
 </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>} <span class="comment">// namespace toy</span></div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>} <span class="comment">// namespace toy</span></div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="preprocessor">#</span><span class="preprocessor">endif</span> <span class="comment">// INCLUDE_CORE_UTILS_INL_</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="preprocessor">#</span><span class="preprocessor">endif</span> <span class="comment">// INCLUDE_CORE_UTILS_INL_</span></div>
 <div class="ttc" id="anamespacetoy_html"><div class="ttname"><a href="../../d4/da9/namespacetoy.html">toy</a></div><div class="ttdoc">Main engine namespace.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:28</div></div>
 <div class="ttc" id="anamespacetoy_html_a08e2e765a94dee108e646fd69fe7b535"><div class="ttname"><a href="../../d4/da9/namespacetoy.html#a08e2e765a94dee108e646fd69fe7b535">toy::reverseString</a></div><div class="ttdeci">constexpr char * reverseString(char *string, std::size_t stringLength) noexcept</div><div class="ttdoc">Reverses a given C string in-place.</div><div class="ttdef"><b>Definition</b> utils.inl:41</div></div>
 <div class="ttc" id="anamespacetoy_html_a9dbda78acf36cc3d5cf3f59eb80232bc"><div class="ttname"><a href="../../d4/da9/namespacetoy.html#a9dbda78acf36cc3d5cf3f59eb80232bc">toy::utf8toWChar</a></div><div class="ttdeci">constexpr wchar_t * utf8toWChar(wchar_t *dest, std::size_t destSize, const char *const src) noexcept</div><div class="ttdoc">Converts a Unicode UTF-8 encoded C string to a wide character string.</div><div class="ttdef"><b>Definition</b> utils.inl:30</div></div>
