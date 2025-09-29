@@ -40,8 +40,6 @@ constexpr wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, const stri
 
 constexpr char * reverseString(char * string, std::size_t stringLength) noexcept {
   assert_message(string != nullptr, "The source string must not be null.");
-  if (string == nullptr)
-    return nullptr;
 
   if (stringLength == 0)
     stringLength = std::strlen(string);

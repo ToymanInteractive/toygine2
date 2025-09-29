@@ -51,7 +51,7 @@ constexpr const char * cstrchr(const char * str, int ch) noexcept {
 }
 
 constexpr const char * cstrpbrk(const char * str, const char * accept) noexcept {
-  if (!str || !accept)
+  if (str == nullptr || accept == nullptr)
     return nullptr;
 
   for (; *str != '\0'; ++str) {
