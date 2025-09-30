@@ -305,86 +305,59 @@ char * itoa(char * dest, std::size_t destSize, std::uint32_t value, unsigned bas
 char * itoa(char * dest, std::size_t destSize, std::uint64_t value, unsigned base) noexcept;
 
 /*!
-  \brief Converts a 32-bit floating-point number to its string representation with specified precision.
+  \brief Converts a 32-bit floating-point number to its C string representation with specified precision.
 
-  This function converts a given 32-bit floating-point number into its decimal string representation, storing the result
-  in the provided destination buffer. The conversion supports configurable precision and handles special values.
+  This function converts a given 32-bit floating-point number into its decimal C string representation, storing the
+  result in the provided destination buffer. The conversion supports configurable precision and handles special values.
 
-  \param dest      A pointer to the destination buffer where the converted string is stored.
+  \param dest      A pointer to the destination buffer where the converted C string is stored.
   \param destSize  The size of the destination buffer in characters.
   \param value     The 32-bit floating-point number to be converted.
   \param precision The precision (digits after the decimal point). Default is 7, practical limit is ~7-9 digits.
 
-  \return A pointer to the destination buffer containing the converted string.
-
-  \pre The destination buffer must be valid and have sufficient capacity.
-  \pre The precision should be reasonable (typically ≤ 9 for float).
-
-  \post The destination string is null-terminated.
-  \post Special values (inf, -inf, nan) are properly represented.
-  \post The result uses fixed-point notation (not scientific).
+  \return A pointer to the destination buffer containing the converted C string.
 
   \note The function handles special IEEE-754 values (infinity, NaN).
   \note The function does not support subnormal numbers.
   \note Precision beyond ~7-9 digits may not be meaningful for float.
   \note The function uses efficient bit manipulation for conversion.
-  \note The function is thread-safe for single-buffer operations.
 */
 char * ftoa(char * dest, std::size_t destSize, float value, std::size_t precision = 7) noexcept;
 
 /*!
-  \brief Converts a 64-bit floating-point number to its string representation with specified precision.
+  \brief Converts a 64-bit floating-point number to its C string representation with specified precision.
 
-  This function converts a given 64-bit floating-point number into its decimal string representation, storing the result
-  in the provided destination buffer. The conversion supports configurable precision and handles special values.
+  This function converts a given 64-bit floating-point number into its decimal C string representation, storing the
+  result in the provided destination buffer. The conversion supports configurable precision and handles special values.
 
-  \param dest      A pointer to the destination buffer where the converted string is stored.
+  \param dest      A pointer to the destination buffer where the converted C string is stored.
   \param destSize  The size of the destination buffer in characters.
   \param value     The 64-bit floating-point number to be converted.
   \param precision The precision (digits after the decimal point). Default is 15, practical limit is ~15–17 digits.
 
-  \return A pointer to the destination buffer containing the converted string.
-
-  \pre The destination buffer must be valid and have sufficient capacity.
-  \pre The precision should be reasonable (typically ≤ 17 for double).
-
-  \post The destination string is null-terminated.
-  \post Special values (inf, -inf, nan) are properly represented.
-  \post The result uses fixed-point notation (not scientific).
+  \return A pointer to the destination buffer containing the converted C string.
 
   \note The function handles special IEEE-754 values (infinity, NaN).
   \note The function does not support subnormal numbers.
-  \note Precision beyond ~15–17 digits may not be meaningful for float.
+  \note Precision beyond ~15–17 digits may not be meaningful for double.
   \note The function uses efficient bit manipulation for conversion.
-  \note The function is thread-safe for single-buffer operations.
 */
 char * ftoa(char * dest, std::size_t destSize, double value, std::size_t precision = 15) noexcept;
 
 /*!
-  \brief Formats a number string by inserting grouping separators.
+  \brief Formats a number C string by inserting grouping separators.
 
-  This function inserts a grouping separator (e.g., comma, space, or dot) into a number string every three digits,
+  This function inserts a grouping \a separator (e.g., comma, space, or dot) into a number C string every three digits,
   starting from the right. This is commonly used for formatting large numbers to improve readability (e.g.,
   "1,234,567").
 
-  \param buffer     A pointer to the buffer where the formatted string is stored.
+  \param buffer     A pointer to the buffer where the formatted C string is stored.
   \param bufferSize The size of the buffer in characters.
   \param separator  A pointer to the grouping separator C string to insert (e.g., ",", " ", ".").
 
-  \pre The buffer must be valid and contain a null-terminated number string.
-  \pre The bufferSize must be sufficient to accommodate the formatted result.
-  \pre The separator must not be null and should be reasonable in length (≤ 8 characters).
-  \pre The input string should contain only digits (no decimal points, signs, or other characters).
-
-  \post The buffer contains the formatted number string with grouping separators.
-  \post The function modifies the buffer in-place.
-  \post The function returns early if the buffer is too small for the result.
-
-  \note The function validates available capacity before modification.
+  \note The function modifies the \a buffer in-place.
   \note Grouping separators are inserted every three digits from the right.
   \note The function handles edge cases gracefully (empty string, single digits, etc.).
-  \note The function is thread-safe for single-buffer operations.
-  \note Performance is optimized for common number string lengths.
   \note The function does not validate that the input is purely numeric.
 */
 void formatNumberString(char * buffer, std::size_t bufferSize, const char * separator) noexcept;
