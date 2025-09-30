@@ -107,9 +107,6 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::operator=(
 template <std::size_t allocatedSize>
 template <StringLike stringType>
 constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::operator=(const stringType & string) noexcept {
-  if (_data == string.c_str())
-    return *this;
-
   assert_message(string.size() < allocatedSize, "String size must not exceed capacity");
 
   _size = string.size();
@@ -176,12 +173,6 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::assign(
 template <std::size_t allocatedSize>
 template <StringLike stringType>
 constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::assign(const stringType & string) noexcept {
-  if (_data == string.c_str()) {
-    assert_message(_size == string.size(), "Aliased assign requires matching sizes");
-
-    return *this;
-  }
-
   assert_message(string.size() < allocatedSize, "String size must not exceed capacity");
 
   _size = string.size();

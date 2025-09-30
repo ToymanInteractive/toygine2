@@ -9109,51 +9109,72 @@ TEST_CASE("FixedString operator<=>", "[core][fixed_string]") {
   }
 
   SECTION("FixedString <=> C string") {
-    constexpr FixedString<16> fullStr("Hello World");
     constexpr FixedString<16> str1("Hello");
+    constexpr FixedString<16> str2("World");
+    constexpr FixedString<16> fullStr("Hello World");
 
-    constexpr const char * str2 = "Hello";
-    constexpr const char * str3 = "World";
-    constexpr const char * str4 = "Hi";
-    constexpr const char * str5 = "Hell";
+    constexpr const char * cStr1 = "Hello";
+    constexpr const char * cStr2 = "World";
+    constexpr const char * cStr3 = "Hi";
+    constexpr const char * cStr4 = "Hell";
     constexpr const char * strFull = "Hello World";
 
-    REQUIRE((fullStr <=> str2) == std::strong_ordering::greater);
-    REQUIRE((str2 <=> fullStr) == std::strong_ordering::less);
+    REQUIRE((fullStr <=> cStr1) == std::strong_ordering::greater);
+    REQUIRE((cStr1 <=> fullStr) == std::strong_ordering::less);
     REQUIRE((strFull <=> str1) == std::strong_ordering::greater);
     REQUIRE((str1 <=> strFull) == std::strong_ordering::less);
 
     // Equal strings
-    REQUIRE((str1 <=> str2) == std::strong_ordering::equal);
-    REQUIRE((str2 <=> str1) == std::strong_ordering::equal);
+    REQUIRE((str1 <=> cStr1) == std::strong_ordering::equal);
+    REQUIRE((cStr1 <=> str1) == std::strong_ordering::equal);
+    REQUIRE((str2 <=> cStr2) == std::strong_ordering::equal);
+    REQUIRE((cStr2 <=> str2) == std::strong_ordering::equal);
 
     // Different strings
-    REQUIRE((str1 <=> str3) == std::strong_ordering::less);
-    REQUIRE((str3 <=> str1) == std::strong_ordering::greater);
-    REQUIRE((str1 <=> str4) == std::strong_ordering::less);
-    REQUIRE((str4 <=> str1) == std::strong_ordering::greater);
-    REQUIRE((str1 <=> str5) == std::strong_ordering::greater);
-    REQUIRE((str5 <=> str1) == std::strong_ordering::less);
-    REQUIRE((fullStr <=> str3) == std::strong_ordering::less);
-    REQUIRE((str3 <=> fullStr) == std::strong_ordering::greater);
+    REQUIRE((str1 <=> cStr2) == std::strong_ordering::less);
+    REQUIRE((cStr2 <=> str1) == std::strong_ordering::greater);
+    REQUIRE((str1 <=> cStr3) == std::strong_ordering::less);
+    REQUIRE((cStr3 <=> str1) == std::strong_ordering::greater);
+    REQUIRE((str1 <=> cStr4) == std::strong_ordering::greater);
+    REQUIRE((cStr4 <=> str1) == std::strong_ordering::less);
+
+    REQUIRE((str2 <=> cStr1) == std::strong_ordering::greater);
+    REQUIRE((cStr1 <=> str2) == std::strong_ordering::less);
+    REQUIRE((str2 <=> cStr3) == std::strong_ordering::greater);
+    REQUIRE((cStr3 <=> str2) == std::strong_ordering::less);
+    REQUIRE((str2 <=> cStr4) == std::strong_ordering::greater);
+    REQUIRE((cStr4 <=> str2) == std::strong_ordering::less);
+
+    REQUIRE((fullStr <=> cStr2) == std::strong_ordering::less);
+    REQUIRE((cStr2 <=> fullStr) == std::strong_ordering::greater);
 
     // Compile-time checks
-    STATIC_REQUIRE((fullStr <=> str2) == std::strong_ordering::greater);
-    STATIC_REQUIRE((str2 <=> fullStr) == std::strong_ordering::less);
+    STATIC_REQUIRE((fullStr <=> cStr1) == std::strong_ordering::greater);
+    STATIC_REQUIRE((cStr1 <=> fullStr) == std::strong_ordering::less);
     STATIC_REQUIRE((strFull <=> str1) == std::strong_ordering::greater);
     STATIC_REQUIRE((str1 <=> strFull) == std::strong_ordering::less);
 
-    STATIC_REQUIRE((str1 <=> str2) == std::strong_ordering::equal);
-    STATIC_REQUIRE((str2 <=> str1) == std::strong_ordering::equal);
+    STATIC_REQUIRE((str1 <=> cStr1) == std::strong_ordering::equal);
+    STATIC_REQUIRE((cStr1 <=> str1) == std::strong_ordering::equal);
+    STATIC_REQUIRE((str2 <=> cStr2) == std::strong_ordering::equal);
+    STATIC_REQUIRE((cStr2 <=> str2) == std::strong_ordering::equal);
 
-    STATIC_REQUIRE((str1 <=> str3) == std::strong_ordering::less);
-    STATIC_REQUIRE((str3 <=> str1) == std::strong_ordering::greater);
-    STATIC_REQUIRE((str1 <=> str4) == std::strong_ordering::less);
-    STATIC_REQUIRE((str4 <=> str1) == std::strong_ordering::greater);
-    STATIC_REQUIRE((str1 <=> str5) == std::strong_ordering::greater);
-    STATIC_REQUIRE((str5 <=> str1) == std::strong_ordering::less);
-    STATIC_REQUIRE((fullStr <=> str3) == std::strong_ordering::less);
-    STATIC_REQUIRE((str3 <=> fullStr) == std::strong_ordering::greater);
+    STATIC_REQUIRE((str1 <=> cStr2) == std::strong_ordering::less);
+    STATIC_REQUIRE((cStr2 <=> str1) == std::strong_ordering::greater);
+    STATIC_REQUIRE((str1 <=> cStr3) == std::strong_ordering::less);
+    STATIC_REQUIRE((cStr3 <=> str1) == std::strong_ordering::greater);
+    STATIC_REQUIRE((str1 <=> cStr4) == std::strong_ordering::greater);
+    STATIC_REQUIRE((cStr4 <=> str1) == std::strong_ordering::less);
+
+    STATIC_REQUIRE((str2 <=> cStr1) == std::strong_ordering::greater);
+    STATIC_REQUIRE((cStr1 <=> str2) == std::strong_ordering::less);
+    STATIC_REQUIRE((str2 <=> cStr3) == std::strong_ordering::greater);
+    STATIC_REQUIRE((cStr3 <=> str2) == std::strong_ordering::less);
+    STATIC_REQUIRE((str2 <=> cStr4) == std::strong_ordering::greater);
+    STATIC_REQUIRE((cStr4 <=> str2) == std::strong_ordering::less);
+
+    STATIC_REQUIRE((fullStr <=> cStr2) == std::strong_ordering::less);
+    STATIC_REQUIRE((cStr2 <=> fullStr) == std::strong_ordering::greater);
   }
 
   SECTION("Empty string comparisons") {
