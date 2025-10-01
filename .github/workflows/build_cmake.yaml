@@ -178,3 +178,7 @@ jobs:
       - uses: SonarSource/sonarqube-scan-action/install-build-wrapper@v6.0.0
         env:
           SONAR_HOST_URL: https://sonarcloud.io
+
+      - name: Prepare compile_commands.json
+        run: |
+          cmake -B out/build -DCMAKE_BUILD_TYPE=Debug -DCMAKE_COMPILE_WARNING_AS_ERROR=ON -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DTOYGINE_BUILD_TESTS=ON
