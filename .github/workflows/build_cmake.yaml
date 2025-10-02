@@ -187,11 +187,6 @@ jobs:
         with:
           name: unit_tests_coverage.info
 
-      - name: Convert Lcov to Cobertura
-        run: |
-          pip install lcov_cobertura
-          lcov_cobertura unit_tests_coverage.info
-
       - uses: SonarSource/sonarqube-scan-action/install-build-wrapper@v6.0.0
         env:
           SONAR_HOST_URL: https://sonarcloud.io
