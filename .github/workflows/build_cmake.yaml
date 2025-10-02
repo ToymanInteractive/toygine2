@@ -147,17 +147,6 @@ jobs:
           flags: units
           token: ${{ secrets.CODECOV_TOKEN }}
 
-      - name: Convert Lcov to Cobertura
-        run: |
-          pip install lcov_cobertura
-          lcov_cobertura out/build/linux-ninja-debug/unit_tests_coverage.info
-
-      - name: Upload coverage artifact
-        uses: actions/upload-artifact@v4.6.2
-        with:
-          name: coverage.xml
-          path: coverage.xml
-
       - name: Upload coverage artifact
         uses: actions/upload-artifact@v4.6.2
         with:
@@ -217,7 +206,7 @@ jobs:
             -Dsonar.cfamily.compile-commands=out/build/compile_commands.json
             -Dsonar.cfamily.analysisCache.mode=fs
             -Dsonar.cfamily.analysisCache.path=.sonar-cfamily-cache
-            -Dsonar.coverageReportPaths=coverage.xml
+            -Dsonar.cfamily.llvm-cov.reportPath=unit_tests_coverage.info
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
