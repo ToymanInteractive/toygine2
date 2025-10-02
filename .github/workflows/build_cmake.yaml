@@ -173,6 +173,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5.0.0
         with:
+          # Disabling shallow clones is recommended for improving the relevancy of reporting
+          fetch-depth: 0
           submodules: recursive
 
       - name: Prepare CI
@@ -186,10 +188,6 @@ jobs:
         uses: actions/download-artifact@v5.0.0
         with:
           name: unit_tests_coverage.info
-
-      - uses: SonarSource/sonarqube-scan-action/install-build-wrapper@v6.0.0
-        env:
-          SONAR_HOST_URL: https://sonarcloud.io
 
       - name: Prepare compile_commands.json
         run: |
