@@ -193,12 +193,12 @@ jobs:
 
       - name: Prepare compile_commands.json
         run: |
-          cmake -B out/build -DCMAKE_BUILD_TYPE=Debug -DCMAKE_COMPILE_WARNING_AS_ERROR=ON -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DTOYGINE_BUILD_TESTS=ON
+          cmake -DTOYGINE_BUILD_TESTS=ON -DCMAKE_EXPORT_COMPILE_COMMANDS=ON --preset linux-ninja-debug
 
       - uses: SonarSource/sonarqube-scan-action@v6.0.0
         with:
           args: >-
-            -Dsonar.cfamily.compile-commands=out/build/compile_commands.json
+            -Dsonar.cfamily.compile-commands=out/build/linux-ninja-debug/compile_commands.json
             -Dsonar.cfamily.analysisCache.mode=fs
             -Dsonar.cfamily.analysisCache.path=.sonar-cfamily-cache
             -Dsonar.cfamily.llvm-cov.reportPath=unit_tests_coverage.info
