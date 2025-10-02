@@ -147,6 +147,17 @@ jobs:
           flags: units
           token: ${{ secrets.CODECOV_TOKEN }}
 
+      - name: Convert Lcov to Cobertura
+        run: |
+          pip install lcov_cobertura
+          lcov_cobertura out/build/linux-ninja-debug/unit_tests_coverage.info
+
+      - name: Upload coverage artifact
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: coverage.xml
+          path: coverage.xml
+
       - name: Upload coverage artifact
         uses: actions/upload-artifact@v4.6.2
         with:
