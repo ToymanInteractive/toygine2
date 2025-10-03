@@ -2,6 +2,9 @@ name: CMake
 
 on:
   workflow_call:
+    secrets:
+      SONAR_TOKEN:
+        required: true
 
 permissions: {}
 
@@ -143,3 +146,49 @@ jobs:
           files: out/build/linux-ninja-debug/unit_tests_coverage.info
           flags: units
           token: ${{ secrets.CODECOV_TOKEN }}
+
+  sonar_cloud:
+    name: SonarCloud Analyzer
+    # This job should be run only for the original repo (either pushes or pull requests originating from the same repo), forks are not allowed.
+    # Workflows initiated by Dependabot do not have access to repo secrets, so this job should not be run in this case.
+    if: >-
+      ${{
+          github.repository == 'ToymanInteractive/toygine2'
+          && ( github.event_name == 'push' || ( github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository ) )
+          && github.actor != 'dependabot[bot]'
+       }}
+    runs-on: ubuntu-latest
+    needs: unit-test
+    timeout-minutes: 60
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5.0.0
+        with:
+          # Disabling shallow clones is recommended for improving the relevancy of reporting
+          fetch-depth: 0
+          submodules: recursive
+
+      - name: Prepare CI
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y gcc-14 g++-14
+          sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-14 100
+          sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-14 100
+
+      - name: Prepare compile_commands.json
+        run: |
+          cmake -DTOYGINE_BUILD_TESTS=ON -DCMAKE_EXPORT_COMPILE_COMMANDS=ON --preset linux-ninja-debug
+
+      - uses: SonarSource/sonarqube-scan-action@v6.0.0
+        with:
+          args: >-
+            -Dsonar.cfamily.compile-commands=out/build/linux-ninja-debug/compile_commands.json
+            -Dsonar.cfamily.analysisCache.mode=fs
+            -Dsonar.cfamily.analysisCache.path=.sonar-cfamily-cache
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: https://sonarcloud.io
