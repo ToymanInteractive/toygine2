@@ -54,6 +54,20 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Prepare APT staging dir
+        if: contains(matrix.os, 'ubuntu')
+        run: mkdir -p "$RUNNER_TEMP/apt-cache"
+
+      - name: APT cache restore
+        if: contains(matrix.os, 'ubuntu')
+        id: buildaptcache
+        uses: actions/cache/restore@v4.3.0
+        with:
+          path: ${{ runner.temp }}/apt-cache
+          key: build-${{ matrix.os }}-apt-${{ matrix.cmake_preset }}
+          restore-keys: |
+            build-${{ matrix.os }}-apt-${{ matrix.cmake_preset }}
+
       - name: Prepare CI
         run: |
           if [[ "${{ matrix.os }}" =~ "windows" ]]; then
@@ -79,6 +93,13 @@ jobs:
             sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-14 100
             sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-14 100
           fi
+
+      - name: APT cache save
+        if: contains(matrix.os, 'ubuntu') && steps.buildaptcache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4.3.0
+        with:
+          path: ${{ runner.temp }}/apt-cache
+          key: ${{ steps.buildaptcache.outputs.cache-primary-key }}
 
       - name: Setup MSVC dev command prompt
         if: ${{ contains(matrix.cmake_preset, 'msvc') }}
@@ -114,10 +135,29 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Prepare APT staging dir
+        run: mkdir -p "$RUNNER_TEMP/apt-cache"
+
+      - name: APT cache restore
+        id: unittestaptcache
+        uses: actions/cache/restore@v4.3.0
+        with:
+          path: ${{ runner.temp }}/apt-cache
+          key: uint-test-apt
+          restore-keys: |
+            uint-test-apt
+
       - name: Prepare CI
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y lcov
+
+      - name: APT cache save
+        if: steps.unittestaptcache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4.3.0
+        with:
+          path: ${{ runner.temp }}/apt-cache
+          key: ${{ steps.unittestaptcache.outputs.cache-primary-key }}
 
       - name: Configure
         run: |
@@ -147,7 +187,7 @@ jobs:
           flags: units
           token: ${{ secrets.CODECOV_TOKEN }}
 
-  sonar_cloud:
+  sonar-cloud:
     name: SonarCloud Analyzer
     # This job should be run only for the original repo (either pushes or pull requests originating from the same repo), forks are not allowed.
     # Workflows initiated by Dependabot do not have access to repo secrets, so this job should not be run in this case.
@@ -171,12 +211,31 @@ jobs:
           fetch-depth: 0
           submodules: recursive
 
+      - name: Prepare APT staging dir
+        run: mkdir -p "$RUNNER_TEMP/apt-cache"
+
+      - name: APT cache restore
+        id: sonarcloudaptcache
+        uses: actions/cache/restore@v4.3.0
+        with:
+          path: ${{ runner.temp }}/apt-cache
+          key: sonar-cloud-apt
+          restore-keys: |
+            sonar-cloud-apt
+
       - name: Prepare CI
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y gcc-14 g++-14
           sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-14 100
           sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-14 100
+
+      - name: APT cache save
+        if: steps.sonarcloudaptcache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4.3.0
+        with:
+          path: ${{ runner.temp }}/apt-cache
+          key: ${{ steps.sonarcloudaptcache.outputs.cache-primary-key }}
 
       - name: Prepare compile_commands.json
         run: |

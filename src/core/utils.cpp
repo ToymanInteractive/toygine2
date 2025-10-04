@@ -411,7 +411,7 @@ char * wcharToUtf8(char * dest, std::size_t destSize, const wchar_t * src) noexc
 }
 
 std::size_t utf8Len(const char * string) noexcept {
-  assert_message(string != nullptr, "String pointer must not be null");
+  assert_message(string != nullptr, "C string pointer must not be null");
   if (string == nullptr)
     return 0;
 
