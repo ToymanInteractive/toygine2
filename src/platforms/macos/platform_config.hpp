@@ -45,22 +45,16 @@
 
 #ifdef _DEBUG
 
-#define assert(condition)                                                                                              \
-  if (!(condition)) [[unlikely]]                                                                                       \
-    toy::assertion::assertion(#condition, nullptr, __FILE__, __PRETTY_FUNCTION__, __LINE__);                           \
-  else                                                                                                                 \
-    ((void)0);
+#define assert(expr)                                                                                                   \
+  ((expr) ? (void)0 : toy::assertion::assertion(#expr, nullptr, __FILE__, __PRETTY_FUNCTION__, __LINE__))
 
-#define assert_message(condition, message)                                                                             \
-  if (!(condition)) [[unlikely]]                                                                                       \
-    toy::assertion::assertion(#condition, message, __FILE__, __PRETTY_FUNCTION__, __LINE__);                           \
-  else                                                                                                                 \
-    ((void)0);
+#define assert_message(expr, message)                                                                                  \
+  ((expr) ? (void)0 : toy::assertion::assertion(#expr, message, __FILE__, __PRETTY_FUNCTION__, __LINE__))
 
 #else // _DEBUG
 
-#define assert(condition) ((void)0);
-#define assert_message(condition, message) ((void)0);
+#define assert(condition) ((void)0)
+#define assert_message(condition, message) ((void)0)
 
 #endif // _DEBUG
 
