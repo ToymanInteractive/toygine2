@@ -32,11 +32,11 @@ constexpr CStringView::CStringView() noexcept
 
 constexpr CStringView::CStringView(const char * string) noexcept
   : _data(string) {
-  assert_message(string != nullptr, "String pointer must not be null");
+  assert_message(string != nullptr, "C string pointer must not be null");
 }
 
 constexpr CStringView & CStringView::operator=(const char * string) noexcept {
-  assert_message(string != nullptr, "String pointer must not be null");
+  assert_message(string != nullptr, "C string pointer must not be null");
 
   _data = string;
 
@@ -50,7 +50,7 @@ constexpr CStringView & CStringView::assign(const CStringView & string) noexcept
 }
 
 constexpr CStringView & CStringView::assign(const char * string) noexcept {
-  assert_message(string != nullptr, "String pointer must not be null");
+  assert_message(string != nullptr, "C string pointer must not be null");
 
   _data = string;
 
@@ -268,7 +268,7 @@ constexpr bool CStringView::contains(const stringType & string) const noexcept {
 }
 
 constexpr bool CStringView::contains(const char * string) const noexcept {
-  assert_message(string != nullptr, "String pointer must not be null");
+  assert_message(string != nullptr, "C string pointer must not be null");
 
   if consteval {
     return cstrstr(_data, string) != nullptr;
@@ -499,13 +499,13 @@ constexpr bool operator==(const stringType & lhs, const CStringView & rhs) noexc
 }
 
 constexpr bool operator==(const CStringView & lhs, const char * rhs) noexcept {
-  assert_message(rhs != nullptr, "String pointer must not be null");
+  assert_message(rhs != nullptr, "C string pointer must not be null");
 
   return lhs == CStringView(rhs);
 }
 
 constexpr bool operator==(const char * lhs, const CStringView & rhs) noexcept {
-  assert_message(lhs != nullptr, "String pointer must not be null");
+  assert_message(lhs != nullptr, "C string pointer must not be null");
 
   return CStringView(lhs) == rhs;
 }
