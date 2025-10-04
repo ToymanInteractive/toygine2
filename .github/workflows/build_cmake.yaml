@@ -147,11 +147,12 @@ jobs:
           flags: units
           token: ${{ secrets.CODECOV_TOKEN }}
 
-      - name: Upload coverage artifact
+      - name: Upload GCOV coverage artifact
         uses: actions/upload-artifact@v4.6.2
         with:
-          name: unit_tests_coverage.info
-          path: out/build/linux-ninja-debug/unit_tests_coverage.info
+          name: gcov
+          path: out/build/linux-ninja-debug/test/CMakeFiles/toygine-tests.dir/
+          retention-days: 1
 
   sonar_cloud:
     name: SonarCloud Analyzer
