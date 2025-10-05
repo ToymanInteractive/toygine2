@@ -61,7 +61,7 @@ template <std::size_t allocatedSize>
 constexpr FixedString<allocatedSize>::FixedString(const char * string) noexcept
   : _data{}
   , _size(0) {
-  assert_message(string != nullptr, "String pointer must not be null");
+  assert_message(string != nullptr, "C string pointer must not be null");
 
   if consteval {
     _size = std::char_traits<char>::length(string);
@@ -124,7 +124,7 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::operator=(con
   if (_data == string)
     return *this;
 
-  assert_message(string != nullptr, "String pointer must not be null");
+  assert_message(string != nullptr, "C string pointer must not be null");
 
   if consteval {
     _size = std::char_traits<char>::length(string);
@@ -187,7 +187,7 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::assign(const 
 
 template <std::size_t allocatedSize>
 constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::assign(const char * string) noexcept {
-  assert_message(string != nullptr, "String pointer must not be null");
+  assert_message(string != nullptr, "C string pointer must not be null");
 
   if consteval {
     _size = std::char_traits<char>::length(string);
@@ -347,7 +347,7 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::insert(std::s
 template <std::size_t allocatedSize>
 constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::insert(std::size_t index,
                                                                           const char * string) noexcept {
-  assert_message(string != nullptr, "String pointer must not be null");
+  assert_message(string != nullptr, "C string pointer must not be null");
 
   std::size_t stringLen;
   if consteval {
@@ -376,6 +376,7 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::insert(std::s
     } else {
       std::memset(_data + index, character, count);
     }
+
     _size += count;
     _data[_size] = '\0';
   } else {
@@ -385,6 +386,7 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::insert(std::s
     } else {
       std::memset(_data + index, character, count);
     }
+
     _size += count;
   }
 
@@ -462,7 +464,7 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::append(const 
 template <std::size_t allocatedSize>
 constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::append(const char * string) noexcept {
   assert_message(_data != string, "Cannot append string into itself");
-  assert_message(string != nullptr, "String pointer must not be null");
+  assert_message(string != nullptr, "C string pointer must not be null");
 
   std::size_t stringLen;
   if consteval {
@@ -487,6 +489,7 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::append(char c
   } else {
     std::memset(_data + _size, character, count);
   }
+
   _size += count;
   _data[_size] = '\0';
 
@@ -515,12 +518,13 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::operator+=(co
 
 template <std::size_t allocatedSize>
 constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::operator+=(const char * string) noexcept {
+  assert_message(string != nullptr, "C string pointer must not be null");
+
   std::size_t stringLen;
   if consteval {
     stringLen = std::char_traits<char>::length(string);
   } else {
     assert_message(_data != string, "Cannot append string into itself");
-    assert_message(string != nullptr, "String pointer must not be null");
 
     stringLen = std::strlen(string);
   }
@@ -559,7 +563,7 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::replace(std::
 template <std::size_t allocatedSize>
 constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::replace(std::size_t pos, std::size_t count,
                                                                            const char * string) noexcept {
-  assert_message(string != nullptr, "String pointer must not be null");
+  assert_message(string != nullptr, "C string pointer must not be null");
 
   std::size_t stringLen;
   if consteval {
@@ -669,7 +673,7 @@ constexpr std::size_t FixedString<allocatedSize>::find(const stringType & string
 
 template <std::size_t allocatedSize>
 constexpr std::size_t FixedString<allocatedSize>::find(const char * string, std::size_t position) const noexcept {
-  assert_message(string != nullptr, "String pointer must not be null");
+  assert_message(string != nullptr, "C string pointer must not be null");
 
   std::size_t stringLen;
   if consteval {
@@ -701,7 +705,7 @@ constexpr std::size_t FixedString<allocatedSize>::rfind(const stringType & strin
 
 template <std::size_t allocatedSize>
 constexpr std::size_t FixedString<allocatedSize>::rfind(const char * string, std::size_t position) const noexcept {
-  assert_message(string != nullptr, "String pointer must not be null");
+  assert_message(string != nullptr, "C string pointer must not be null");
 
   std::size_t stringLen;
   if consteval {
@@ -734,7 +738,7 @@ constexpr std::size_t FixedString<allocatedSize>::find_first_of(const stringType
 template <std::size_t allocatedSize>
 constexpr std::size_t FixedString<allocatedSize>::find_first_of(const char * string,
                                                                 std::size_t position) const noexcept {
-  assert_message(string != nullptr, "String pointer must not be null");
+  assert_message(string != nullptr, "C string pointer must not be null");
 
   std::size_t stringLen;
   if consteval {
@@ -767,7 +771,7 @@ constexpr std::size_t FixedString<allocatedSize>::find_first_not_of(const string
 template <std::size_t allocatedSize>
 constexpr std::size_t FixedString<allocatedSize>::find_first_not_of(const char * string,
                                                                     std::size_t position) const noexcept {
-  assert_message(string != nullptr, "String pointer must not be null");
+  assert_message(string != nullptr, "C string pointer must not be null");
 
   std::size_t stringLen;
   if consteval {
@@ -801,7 +805,7 @@ constexpr std::size_t FixedString<allocatedSize>::find_last_of(const stringType 
 template <std::size_t allocatedSize>
 constexpr std::size_t FixedString<allocatedSize>::find_last_of(const char * string,
                                                                std::size_t position) const noexcept {
-  assert_message(string != nullptr, "String pointer must not be null");
+  assert_message(string != nullptr, "C string pointer must not be null");
 
   std::size_t stringLen;
   if consteval {
@@ -834,7 +838,7 @@ constexpr std::size_t FixedString<allocatedSize>::find_last_not_of(const stringT
 template <std::size_t allocatedSize>
 constexpr std::size_t FixedString<allocatedSize>::find_last_not_of(const char * string,
                                                                    std::size_t position) const noexcept {
-  assert_message(string != nullptr, "String pointer must not be null");
+  assert_message(string != nullptr, "C string pointer must not be null");
 
   std::size_t stringLen;
   if consteval {
@@ -873,7 +877,7 @@ constexpr int FixedString<allocatedSize>::compare(const stringType & string) con
 
 template <std::size_t allocatedSize>
 constexpr int FixedString<allocatedSize>::compare(const char * string) const noexcept {
-  assert_message(string != nullptr, "String pointer must not be null");
+  assert_message(string != nullptr, "C string pointer must not be null");
 
   if consteval {
     return cstrcmp(_data, string);
@@ -907,18 +911,16 @@ constexpr bool FixedString<allocatedSize>::starts_with(const stringType & string
 
 template <std::size_t allocatedSize>
 constexpr bool FixedString<allocatedSize>::starts_with(const char * string) const noexcept {
-  assert_message(string != nullptr, "String pointer must not be null");
+  assert_message(string != nullptr, "C string pointer must not be null");
 
   std::size_t needleSize;
   if consteval {
     needleSize = std::char_traits<char>::length(string);
-  } else {
-    needleSize = std::strlen(string);
-  }
 
-  if consteval {
     return _size >= needleSize && std::equal(_data, _data + needleSize, string);
   } else {
+    needleSize = std::strlen(string);
+
     return _size >= needleSize && std::memcmp(_data, string, needleSize) == 0;
   }
 }
@@ -953,7 +955,7 @@ constexpr bool FixedString<allocatedSize>::ends_with(const stringType & string) 
 
 template <std::size_t allocatedSize>
 constexpr bool FixedString<allocatedSize>::ends_with(const char * string) const noexcept {
-  assert_message(string != nullptr, "String pointer must not be null");
+  assert_message(string != nullptr, "C string pointer must not be null");
 
   std::size_t needleSize;
   if consteval {
@@ -998,7 +1000,7 @@ constexpr bool FixedString<allocatedSize>::contains(const stringType & string) c
 
 template <std::size_t allocatedSize>
 constexpr bool FixedString<allocatedSize>::contains(const char * string) const noexcept {
-  assert_message(string != nullptr, "String pointer must not be null");
+  assert_message(string != nullptr, "C string pointer must not be null");
 
   if consteval {
     return cstrstr(_data, string) != nullptr;
@@ -1126,6 +1128,7 @@ constexpr void FixedString<allocatedSize>::_replace_raw(std::size_t position, st
     }
   } else {
     std::memmove(_data + position + dataSize, _data + position + oldCount, _size - position - oldCount + 1);
+
     if consteval {
       std::copy_n(data, dataSize, _data + position);
     } else {
@@ -1315,7 +1318,9 @@ template <std::size_t allocatedSize1, std::size_t allocatedSize2>
 constexpr FixedString<allocatedSize1> operator+(const FixedString<allocatedSize1> & lhs,
                                                 const FixedString<allocatedSize2> & rhs) noexcept {
   FixedString<allocatedSize1> result(lhs);
+
   result += rhs;
+
   return result;
 }
 
@@ -1323,7 +1328,9 @@ template <std::size_t allocatedSize, StringLike stringType>
 constexpr FixedString<allocatedSize> operator+(const FixedString<allocatedSize> & lhs,
                                                const stringType & rhs) noexcept {
   FixedString<allocatedSize> result(lhs);
+
   result += rhs;
+
   return result;
 }
 
@@ -1331,35 +1338,45 @@ template <StringLike stringType, std::size_t allocatedSize>
 constexpr FixedString<allocatedSize> operator+(const stringType & lhs,
                                                const FixedString<allocatedSize> & rhs) noexcept {
   FixedString<allocatedSize> result(lhs);
+
   result += rhs;
+
   return result;
 }
 
 template <std::size_t allocatedSize>
 constexpr FixedString<allocatedSize> operator+(const FixedString<allocatedSize> & lhs, const char * rhs) noexcept {
   FixedString<allocatedSize> result(lhs);
+
   result += rhs;
+
   return result;
 }
 
 template <std::size_t allocatedSize>
 constexpr FixedString<allocatedSize> operator+(const char * lhs, const FixedString<allocatedSize> & rhs) noexcept {
   FixedString<allocatedSize> result(lhs);
+
   result += rhs;
+
   return result;
 }
 
 template <std::size_t allocatedSize>
 constexpr FixedString<allocatedSize> operator+(const FixedString<allocatedSize> & lhs, char rhs) noexcept {
   FixedString<allocatedSize> result(lhs);
+
   result += rhs;
+
   return result;
 }
 
 template <std::size_t allocatedSize>
 constexpr FixedString<allocatedSize> operator+(char lhs, const FixedString<allocatedSize> & rhs) noexcept {
   FixedString<allocatedSize> result(lhs, 1);
+
   result += rhs;
+
   return result;
 }
 
@@ -1439,6 +1456,7 @@ constexpr std::strong_ordering operator<=>(const FixedString<allocatedSize1> & l
     return cstrcmp(lhs.c_str(), rhs.c_str()) <=> 0;
   } else {
     const int result = std::memcmp(lhs.c_str(), rhs.c_str(), std::min(lhs.size(), rhs.size()));
+
     if (result < 0)
       return std::strong_ordering::less;
     else if (result > 0)
@@ -1467,6 +1485,7 @@ constexpr std::strong_ordering operator<=>(const FixedString<allocatedSize> & lh
     return cstrcmp(lhs.c_str(), rhs.c_str()) <=> 0;
   } else {
     const int result = std::memcmp(lhs.c_str(), rhs.c_str(), std::min(lhs.size(), rhs.size()));
+
     if (result < 0)
       return std::strong_ordering::less;
     else if (result > 0)
@@ -1484,13 +1503,7 @@ constexpr std::strong_ordering operator<=>(const FixedString<allocatedSize> & lh
 
 template <StringLike stringType, std::size_t allocatedSize>
 constexpr std::strong_ordering operator<=>(const stringType & lhs, const FixedString<allocatedSize> & rhs) noexcept {
-  const auto result = rhs <=> lhs;
-  if (result == std::strong_ordering::less)
-    return std::strong_ordering::greater;
-  else if (result == std::strong_ordering::greater)
-    return std::strong_ordering::less;
-  else
-    return std::strong_ordering::equal;
+  return 0 <=> (rhs <=> lhs);
 }
 
 template <std::size_t allocatedSize>
@@ -1508,7 +1521,8 @@ constexpr std::strong_ordering operator<=>(const FixedString<allocatedSize> & lh
     return cstrcmp(lhs.c_str(), rhs) <=> 0;
   } else {
     const auto rhsLen = std::strlen(rhs);
-    const int result = std::memcmp(lhs.c_str(), rhs, std::min(lhs.size(), rhsLen));
+    const auto result = std::memcmp(lhs.c_str(), rhs, std::min(lhs.size(), rhsLen));
+
     if (result < 0)
       return std::strong_ordering::less;
     else if (result > 0)
@@ -1528,13 +1542,7 @@ template <std::size_t allocatedSize>
 constexpr std::strong_ordering operator<=>(const char * lhs, const FixedString<allocatedSize> & rhs) noexcept {
   assert_message(lhs != nullptr, "C string pointer must not be null");
 
-  const auto result = rhs <=> lhs;
-  if (result == std::strong_ordering::less)
-    return std::strong_ordering::greater;
-  else if (result == std::strong_ordering::greater)
-    return std::strong_ordering::less;
-  else
-    return std::strong_ordering::equal;
+  return 0 <=> (rhs <=> lhs);
 }
 
 } // namespace toy

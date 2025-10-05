@@ -67,5 +67,9 @@
         "editor.detectIndentation": false,
         "editor.insertSpaces": false,
         "editor.tabSize": 2
+    },
+    "sonarlint.connectedMode.project": {
+        "connectionId": "toymaninteractive",
+        "projectKey": "ToymanInteractive_toygine2"
     }
 }
