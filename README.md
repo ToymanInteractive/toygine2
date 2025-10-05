@@ -12,7 +12,6 @@ ToyGine2 is a modern C++ high‑level engine.
 [![Sonar Duplicated Lines (%)](https://img.shields.io/sonar/duplicated_lines_density/ToymanInteractive_toygine2?logo=sonarqubecloud&logoColor=fff&label=Duplicated%20Lines&server=https%3A%2F%2Fsonarcloud.io)](https://sonarcloud.io/dashboard?id=ToymanInteractive_toygine2)
 [![Code Coverage](https://img.shields.io/codecov/c/github/ToymanInteractive/toygine2?logo=codecov&logoColor=fff&flag=units&label=Code%20Coverage)](https://app.codecov.io/gh/ToymanInteractive/toygine2?flags%5B0%5D=units)
 [![Documentation Coverage](https://img.shields.io/codecov/c/github/ToymanInteractive/toygine2?logo=codecov&logoColor=fff&flag=documentation&label=Doxygen%20Coverage)](https://app.codecov.io/gh/ToymanInteractive/toygine2?flags%5B0%5D=documentation)
-![Codacy grade](https://img.shields.io/codacy/grade/4c8233540e7c4e5f9715aaacfa36679f?logo=codacy&logoColor=fff&label=Code%20Quality)
 [![DeepSource](https://app.deepsource.com/gh/ToymanInteractive/toygine2.svg/?label=active+issues)](https://app.deepsource.com/gh/ToymanInteractive/toygine2/)
 ![CodeRabbit Pull Request Reviews](https://img.shields.io/coderabbit/prs/github/ToymanInteractive/toygine2?logo=coderabbit&logoColor=fff&label=CodeRabbit%20Reviews)
 

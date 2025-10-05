@@ -2,7 +2,6 @@
     "clang-format.fallbackStyle": "Google",
     "cSpell.language": "en,ru",
     "cSpell.words": [
-        "codacy",
         "constexpr",
         "cpack",
         "cstrpbrk",
