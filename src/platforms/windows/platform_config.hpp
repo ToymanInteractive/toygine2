@@ -52,7 +52,7 @@
 #endif
 
 /*!
-  \def assert(expr)
+  \def assert(expression)
   \brief Debug assertion macro for runtime \a expression checking.
 
   This macro provides runtime assertion checking in debug builds. It evaluates the given \a expression and triggers an

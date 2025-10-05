@@ -88,10 +88,28 @@ jobs:
               sudo xcode-select -s /Applications/Xcode_26.0.app
             fi
           elif [[ "${{ matrix.os }}" =~ "ubuntu" ]]; then
-            sudo apt-get update -qq
-            sudo apt-get install -y gcc-14 g++-14
+            set -euo pipefail
+            export DEBIAN_FRONTEND=noninteractive
+
+            APT_CACHE="${APT_CACHE:-${RUNNER_TEMP:-/tmp}/apt-cache}"
+            sudo mkdir -p "$APT_CACHE"
+
+            sudo apt -yq -o Acquire::Retries=3 update
+            sudo apt -yq install eatmydata
+
+            sudo eatmydata apt -yq --no-install-recommends \
+              -o Dir::Cache::archives="$APT_CACHE" \
+              -o APT::Keep-Downloaded-Packages=true \
+              -o Acquire::Retries=3 -o Dpkg::Use-Pty=0 \
+              install \
+              gcc-14 g++-14
+
             sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-14 100
             sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-14 100
+
+            sudo rm -f  "$APT_CACHE/lock" || true
+            sudo rm -rf "$APT_CACHE/partial" || true
+            sudo chown -R "$USER:$USER" "$APT_CACHE"
           fi
 
       - name: APT cache save
@@ -149,8 +167,25 @@ jobs:
 
       - name: Prepare CI
         run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y lcov
+          set -euo pipefail
+          export DEBIAN_FRONTEND=noninteractive
+
+          APT_CACHE="${APT_CACHE:-${RUNNER_TEMP:-/tmp}/apt-cache}"
+          sudo mkdir -p "$APT_CACHE"
+
+          sudo apt -yq -o Acquire::Retries=3 update
+          sudo apt -yq install eatmydata
+
+          sudo eatmydata apt -yq --no-install-recommends \
+            -o Dir::Cache::archives="$APT_CACHE" \
+            -o APT::Keep-Downloaded-Packages=true \
+            -o Acquire::Retries=3 -o Dpkg::Use-Pty=0 \
+            install \
+            lcov
+
+          sudo rm -f  "$APT_CACHE/lock" || true
+          sudo rm -rf "$APT_CACHE/partial" || true
+          sudo chown -R "$USER:$USER" "$APT_CACHE"
 
       - name: APT cache save
         if: steps.unittestaptcache.outputs.cache-hit != 'true'
@@ -225,10 +260,28 @@ jobs:
 
       - name: Prepare CI
         run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y gcc-14 g++-14
+          set -euo pipefail
+          export DEBIAN_FRONTEND=noninteractive
+
+          APT_CACHE="${APT_CACHE:-${RUNNER_TEMP:-/tmp}/apt-cache}"
+          sudo mkdir -p "$APT_CACHE"
+
+          sudo apt -yq -o Acquire::Retries=3 update
+          sudo apt -yq install eatmydata
+
+          sudo eatmydata apt -yq --no-install-recommends \
+            -o Dir::Cache::archives="$APT_CACHE" \
+            -o APT::Keep-Downloaded-Packages=true \
+            -o Acquire::Retries=3 -o Dpkg::Use-Pty=0 \
+            install \
+            gcc-14 g++-14
+
           sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-14 100
           sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-14 100
+
+          sudo rm -f  "$APT_CACHE/lock" || true
+          sudo rm -rf "$APT_CACHE/partial" || true
+          sudo chown -R "$USER:$USER" "$APT_CACHE"
 
       - name: APT cache save
         if: steps.sonarcloudaptcache.outputs.cache-hit != 'true'
