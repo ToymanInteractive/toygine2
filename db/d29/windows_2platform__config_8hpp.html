@@ -121,14 +121,31 @@ $(function(){initNavTree('db/d29/windows_2platform__config_8hpp.html','../../','
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:acdcc5aaebf3f273c1762f24a6ece2e5e" id="r_acdcc5aaebf3f273c1762f24a6ece2e5e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acdcc5aaebf3f273c1762f24a6ece2e5e">assert</a>(condition)</td></tr>
-<tr class="memitem:acee011a673448baf706197935ace44c7" id="r_acee011a673448baf706197935ace44c7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acee011a673448baf706197935ace44c7">assert_message</a>(condition,  message)</td></tr>
+<tr class="memitem:a4c2b466c6ffca5b18dc5fe2d6f6f3ec1" id="r_a4c2b466c6ffca5b18dc5fe2d6f6f3ec1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4c2b466c6ffca5b18dc5fe2d6f6f3ec1">__FUNC_SIGNATURE__</a>&#160;&#160;&#160;__func__</td></tr>
+<tr class="memitem:a0041af519e0e7d47c9bcc83760c4669e" id="r_a0041af519e0e7d47c9bcc83760c4669e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0041af519e0e7d47c9bcc83760c4669e">assert</a>(expression)</td></tr>
+<tr class="memdesc:a0041af519e0e7d47c9bcc83760c4669e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Debug assertion macro for runtime <em class="arg">expression</em> checking.  <br /></td></tr>
+<tr class="memitem:a672330c2fecd516f254162cd9611d91a" id="r_a672330c2fecd516f254162cd9611d91a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a672330c2fecd516f254162cd9611d91a">assert_message</a>(expression,  message)</td></tr>
+<tr class="memdesc:a672330c2fecd516f254162cd9611d91a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Debug assertion macro with custom <em class="arg">message</em> for runtime <em class="arg">expression</em> checking.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>additional windows platform header </p>
 </div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
-<a id="acdcc5aaebf3f273c1762f24a6ece2e5e" name="acdcc5aaebf3f273c1762f24a6ece2e5e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acdcc5aaebf3f273c1762f24a6ece2e5e">&#9670;&#160;</a></span>assert</h2>
+<a id="a4c2b466c6ffca5b18dc5fe2d6f6f3ec1" name="a4c2b466c6ffca5b18dc5fe2d6f6f3ec1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c2b466c6ffca5b18dc5fe2d6f6f3ec1">&#9670;&#160;</a></span>__FUNC_SIGNATURE__</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define __FUNC_SIGNATURE__&#160;&#160;&#160;__func__</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0041af519e0e7d47c9bcc83760c4669e" name="a0041af519e0e7d47c9bcc83760c4669e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0041af519e0e7d47c9bcc83760c4669e">&#9670;&#160;</a></span>assert</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -136,17 +153,41 @@ Macros</h2></td></tr>
         <tr>
           <td class="memname">#define assert</td>
           <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>condition</em></span></td><td>)</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>expression</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">((void)0);</div>
+<b>Value:</b><div class="fragment"><div class="line">  ((expression) ? (void)0 : <a class="code hl_function" href="../../d2/da2/namespacetoy_1_1assertion.html#a6d1330b6720063a047b23b0d46d26afb">toy::assertion::assertion</a>(#expression, <span class="keyword">nullptr</span>, __FILE__, <a class="code hl_define" href="#a4c2b466c6ffca5b18dc5fe2d6f6f3ec1">__FUNC_SIGNATURE__</a>, __LINE__))</div>
+<div class="ttc" id="anamespacetoy_1_1assertion_html_a6d1330b6720063a047b23b0d46d26afb"><div class="ttname"><a href="../../d2/da2/namespacetoy_1_1assertion.html#a6d1330b6720063a047b23b0d46d26afb">toy::assertion::assertion</a></div><div class="ttdeci">void assertion(const char *code, const char *message, const char *fileName, const char *functionName, std::size_t lineNumber)</div><div class="ttdef"><b>Definition</b> assertion_stub.cpp:45</div></div>
+<div class="ttc" id="awindows_2platform__config_8hpp_html_a4c2b466c6ffca5b18dc5fe2d6f6f3ec1"><div class="ttname"><a href="#a4c2b466c6ffca5b18dc5fe2d6f6f3ec1">__FUNC_SIGNATURE__</a></div><div class="ttdeci">#define __FUNC_SIGNATURE__</div><div class="ttdef"><b>Definition</b> platform_config.hpp:51</div></div>
 </div><!-- fragment -->
+<p>Debug assertion macro for runtime <em class="arg">expression</em> checking. </p>
+<p>This macro provides runtime assertion checking in debug builds. It evaluates the given <em class="arg">expression</em> and triggers an assertion failure if the <em class="arg">expression</em> is false. In release builds, this macro expands to nothing.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">expression</td><td>The boolean expression to evaluate. Must be convertible to bool.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This macro is only active in debug builds (_DEBUG defined). </dd>
+<dd>
+In release builds, this macro expands to ((void)0) and has no effect. </dd>
+<dd>
+Assertion failures will call <a class="el" href="../../d2/da2/namespacetoy_1_1assertion.html#a6d1330b6720063a047b23b0d46d26afb">toy::assertion::assertion</a> with file, function, and line information. </dd>
+<dd>
+The <em class="arg">expression</em> is evaluated only once and should not have side effects.</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>Do not rely on the <em class="arg">expression</em> being evaluated in release builds. </dd>
+<dd>
+The <em class="arg">expression</em> should not have side effects as it may not be evaluated in release builds.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dd/d9e/linux_2platform__config_8hpp.html#a672330c2fecd516f254162cd9611d91a" title="Debug assertion macro with custom message for runtime expression checking.">assert_message</a> </dd>
+<dd>
+<a class="el" href="../../d2/da2/namespacetoy_1_1assertion.html#a6d1330b6720063a047b23b0d46d26afb">toy::assertion::assertion</a> </dd></dl>
+
 </div>
 </div>
-<a id="acee011a673448baf706197935ace44c7" name="acee011a673448baf706197935ace44c7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acee011a673448baf706197935ace44c7">&#9670;&#160;</a></span>assert_message</h2>
+<a id="a672330c2fecd516f254162cd9611d91a" name="a672330c2fecd516f254162cd9611d91a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a672330c2fecd516f254162cd9611d91a">&#9670;&#160;</a></span>assert_message</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -154,7 +195,7 @@ Macros</h2></td></tr>
         <tr>
           <td class="memname">#define assert_message</td>
           <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>condition</em></span>, </td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>expression</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -163,8 +204,35 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">((void)0);</div>
+<b>Value:</b><div class="fragment"><div class="line">  ((expression) ? (void)0 : <a class="code hl_function" href="../../d2/da2/namespacetoy_1_1assertion.html#a6d1330b6720063a047b23b0d46d26afb">toy::assertion::assertion</a>(#expression, message, __FILE__, <a class="code hl_define" href="#a4c2b466c6ffca5b18dc5fe2d6f6f3ec1">__FUNC_SIGNATURE__</a>, __LINE__))</div>
 </div><!-- fragment -->
+<p>Debug assertion macro with custom <em class="arg">message</em> for runtime <em class="arg">expression</em> checking. </p>
+<p>This macro provides runtime assertion checking in debug builds with a custom error <em class="arg">message</em>. It evaluates the given <em class="arg">expression</em> and triggers an assertion failure with the provided <em class="arg">message</em> if the <em class="arg">expression</em> is false. In release builds, this macro expands to nothing.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">expression</td><td>The boolean expression to evaluate. Must be convertible to bool. </td></tr>
+    <tr><td class="paramname">message</td><td>A custom error message to display on assertion failure. Must be a C string literal.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This macro is only active in debug builds (_DEBUG defined). </dd>
+<dd>
+In release builds, this macro expands to ((void)0) and has no effect. </dd>
+<dd>
+Assertion failures will call <a class="el" href="../../d2/da2/namespacetoy_1_1assertion.html#a6d1330b6720063a047b23b0d46d26afb">toy::assertion::assertion</a> with file, function, line, and custom <em class="arg">message</em>. </dd>
+<dd>
+The <em class="arg">expression</em> is evaluated only once and should not have side effects. </dd>
+<dd>
+The <em class="arg">message</em> parameter is passed as-is to the assertion handler.</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>Do not rely on the <em class="arg">expression</em> being evaluated in release builds. </dd>
+<dd>
+The <em class="arg">expression</em> should not have side effects as it may not be evaluated in release builds. </dd>
+<dd>
+The <em class="arg">message</em> should be a C string literal for optimal performance.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dd/d9e/linux_2platform__config_8hpp.html#a0041af519e0e7d47c9bcc83760c4669e" title="Debug assertion macro for runtime expression checking.">assert</a> </dd>
+<dd>
+<a class="el" href="../../d2/da2/namespacetoy_1_1assertion.html#a6d1330b6720063a047b23b0d46d26afb">toy::assertion::assertion</a> </dd></dl>
+
 </div>
 </div>
 </div><!-- contents -->

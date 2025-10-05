@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['cpu_5farm_5f32_0',['CPU_ARM_32',['../da/d47/core_8hpp.html#a014b03e21ccae2451f28ca938128f998',1,'core.hpp']]],
-  ['cpu_5farm_5f64_1',['CPU_ARM_64',['../da/d47/core_8hpp.html#a20e457ee1318b901b1c44dd6390ca1a1',1,'core.hpp']]],
-  ['cpu_5fintel_5fx64_2',['CPU_INTEL_x64',['../da/d47/core_8hpp.html#a1e1898e441784683649af6bb189cb75d',1,'core.hpp']]],
-  ['cpu_5fintel_5fx86_3',['CPU_INTEL_x86',['../da/d47/core_8hpp.html#ad4c61321e672d6faf976329f76c5cc1a',1,'core.hpp']]]
+  ['assert_0',['assert',['../dd/d9e/linux_2platform__config_8hpp.html#a0041af519e0e7d47c9bcc83760c4669e',1,'assert:&#160;platform_config.hpp'],['../d8/d80/macos_2platform__config_8hpp.html#a0041af519e0e7d47c9bcc83760c4669e',1,'assert:&#160;platform_config.hpp'],['../db/d29/windows_2platform__config_8hpp.html#a0041af519e0e7d47c9bcc83760c4669e',1,'assert:&#160;platform_config.hpp']]],
+  ['assert_5fmessage_1',['assert_message',['../dd/d9e/linux_2platform__config_8hpp.html#a672330c2fecd516f254162cd9611d91a',1,'assert_message:&#160;platform_config.hpp'],['../d8/d80/macos_2platform__config_8hpp.html#a672330c2fecd516f254162cd9611d91a',1,'assert_message:&#160;platform_config.hpp'],['../db/d29/windows_2platform__config_8hpp.html#a672330c2fecd516f254162cd9611d91a',1,'assert_message:&#160;platform_config.hpp']]]
 ];

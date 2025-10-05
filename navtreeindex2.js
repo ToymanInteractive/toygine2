@@ -1,5 +1,6 @@
 var NAVTREEINDEX2 =
 {
+"df/d4a/c__string__view_8inl.html":[5,0,0,0,1],
 "df/d4a/c__string__view_8inl_source.html":[5,0,0,0,1],
 "df/d77/concepttoy_1_1_string_like.html":[2,0,1,4],
 "df/d77/concepttoy_1_1_string_like.html":[3,0,0],
