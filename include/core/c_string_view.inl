@@ -546,13 +546,7 @@ constexpr std::strong_ordering operator<=>(const CStringView & lhs, const string
 
 template <StringLike stringType>
 constexpr std::strong_ordering operator<=>(const stringType & lhs, const CStringView & rhs) noexcept {
-  const auto result = rhs <=> lhs;
-  if (result == std::strong_ordering::less)
-    return std::strong_ordering::greater;
-  else if (result == std::strong_ordering::greater)
-    return std::strong_ordering::less;
-  else
-    return std::strong_ordering::equal;
+  return 0 <=> (rhs <=> lhs);
 }
 
 constexpr std::strong_ordering operator<=>(const CStringView & lhs, const char * rhs) noexcept {

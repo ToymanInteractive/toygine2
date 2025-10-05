@@ -161,9 +161,9 @@ jobs:
         uses: actions/cache/restore@v4.3.0
         with:
           path: ${{ runner.temp }}/apt-cache
-          key: uint-test-apt
+          key: unit-test-apt
           restore-keys: |
-            uint-test-apt
+            unit-test-apt
 
       - name: Prepare CI
         run: |

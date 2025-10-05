@@ -1503,14 +1503,7 @@ constexpr std::strong_ordering operator<=>(const FixedString<allocatedSize> & lh
 
 template <StringLike stringType, std::size_t allocatedSize>
 constexpr std::strong_ordering operator<=>(const stringType & lhs, const FixedString<allocatedSize> & rhs) noexcept {
-  const auto result = rhs <=> lhs;
-
-  if (result == std::strong_ordering::less)
-    return std::strong_ordering::greater;
-  else if (result == std::strong_ordering::greater)
-    return std::strong_ordering::less;
-  else
-    return std::strong_ordering::equal;
+  return 0 <=> (rhs <=> lhs);
 }
 
 template <std::size_t allocatedSize>
@@ -1549,13 +1542,7 @@ template <std::size_t allocatedSize>
 constexpr std::strong_ordering operator<=>(const char * lhs, const FixedString<allocatedSize> & rhs) noexcept {
   assert_message(lhs != nullptr, "C string pointer must not be null");
 
-  const auto result = rhs <=> lhs;
-  if (result == std::strong_ordering::less)
-    return std::strong_ordering::greater;
-  else if (result == std::strong_ordering::greater)
-    return std::strong_ordering::less;
-  else
-    return std::strong_ordering::equal;
+  return 0 <=> (rhs <=> lhs);
 }
 
 } // namespace toy
