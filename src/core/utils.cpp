@@ -221,8 +221,7 @@ constexpr std::int32_t ftoa64Engine(char * buffer, double value, std::size_t pre
     else
       *pointer++ = '+';
 
-    const std::uint64_t fraction = (uvalue & 0x001FFFFFFFFFFFFFULL) | 0x0010000000000000ULL;
-    if (fraction & 0x000FFFFFFFFFFFFFULL) {
+    if ((uvalue & 0x000FFFFFFFFFFFFFULL) != 0) {
       pointer[0] = 'N';
       pointer[1] = 'A';
       pointer[2] = 'N';
@@ -349,8 +348,7 @@ wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, const char * const s
     std::size_t srcIterator = 0;
 
     while (srcIterator < count && destPointer < unicodeEndPos) {
-      auto symbol = static_cast<std::uint8_t>(src[srcIterator++]);
-      if (symbol <= 0x7F) {
+      if (auto symbol = static_cast<std::uint8_t>(src[srcIterator++]); symbol <= 0x7F) {
         *destPointer = symbol;
       } else {
         std::size_t charBytes = 0;
@@ -386,8 +384,7 @@ char * wcharToUtf8(char * dest, std::size_t destSize, const wchar_t * src) noexc
     const char * const utf8EndPos = dest + (destSize - 1);
 
     while (*src != L'\0' && destPointer < utf8EndPos) {
-      auto symbol = static_cast<std::uint32_t>(*src++);
-      if (symbol <= 0x7F) {
+      if (const auto symbol = static_cast<std::uint32_t>(*src++); symbol <= 0x7F) {
         *destPointer = static_cast<char>(symbol);
       } else {
         if (symbol <= 0x7FF) {
@@ -483,8 +480,7 @@ char * ftoa(char * dest, std::size_t destSize, float value, std::size_t precisio
   const std::size_t bufferSize = 128;
   char buffer[bufferSize + 1];
 
-  auto exp10 = ftoa32Engine(buffer, value, precision);
-  if (exp10 == 0xFF) {
+  if (const auto exp10 = ftoa32Engine(buffer, value, precision); exp10 == 0xFF) {
 #if defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)
     strcpy_s(dest, destSize, buffer);
 #else // defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)
@@ -510,8 +506,7 @@ char * ftoa(char * dest, std::size_t destSize, double value, std::size_t precisi
   const std::size_t bufferSize = 128;
   char buffer[bufferSize + 1];
 
-  auto exp10 = ftoa64Engine(buffer, value, precision);
-  if (exp10 == 0x7FF) {
+  if (const auto exp10 = ftoa64Engine(buffer, value, precision); exp10 == 0x7FF) {
 #if defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)
     strcpy_s(dest, destSize, buffer);
 #else // defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)

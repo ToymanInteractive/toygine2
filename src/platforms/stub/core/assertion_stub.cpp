@@ -23,8 +23,7 @@
 
 #include "core.hpp"
 
-namespace toy {
-namespace assertion {
+namespace toy::assertion {
 
 static AssertionCallback s_assertionCallback = nullptr;
 
@@ -78,5 +77,4 @@ void assertion(const char * code, const char * message, const char * fileName, c
 
 #endif // _DEBUG
 
-} // namespace assertion
-} // namespace toy
+} // namespace toy::assertion
