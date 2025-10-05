@@ -222,6 +222,13 @@ jobs:
           flags: units
           token: ${{ secrets.CODECOV_TOKEN }}
 
+      - name: Upload GCOV coverage artifact
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: gcov
+          path: out/build/linux-ninja-debug/test/CMakeFiles/toygine-tests.dir/
+          retention-days: 1
+
   sonar-cloud:
     name: SonarCloud Analyzer
     # This job should be run only for the original repo (either pushes or pull requests originating from the same repo), forks are not allowed.
@@ -290,6 +297,12 @@ jobs:
           path: ${{ runner.temp }}/apt-cache
           key: ${{ steps.sonarcloudaptcache.outputs.cache-primary-key }}
 
+      - name: Download coverage artifact
+        uses: actions/download-artifact@v5.0.0
+        with:
+          name: gcov
+          path: out/gcov
+
       - name: Prepare compile_commands.json
         run: |
           cmake -DTOYGINE_BUILD_TESTS=ON -DCMAKE_EXPORT_COMPILE_COMMANDS=ON --preset linux-ninja-debug
@@ -300,6 +313,7 @@ jobs:
             -Dsonar.cfamily.compile-commands=out/build/linux-ninja-debug/compile_commands.json
             -Dsonar.cfamily.analysisCache.mode=fs
             -Dsonar.cfamily.analysisCache.path=.sonar-cfamily-cache
+            -Dsonar.cfamily.gcov.reportsPath=out/gcov/
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
