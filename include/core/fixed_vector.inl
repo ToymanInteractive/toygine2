@@ -38,7 +38,7 @@ constexpr FixedVector<type, allocatedSize>::~FixedVector() noexcept {
 }
 
 template <typename type, std::size_t allocatedSize>
-constexpr FixedVector<type, allocatedSize>::FixedVector(std::size_t count) noexcept
+inline FixedVector<type, allocatedSize>::FixedVector(std::size_t count) noexcept
   : _data()
   , _size(0) {
   assert_message(count <= allocatedSize, "Count must not exceed capacity.");

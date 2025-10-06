@@ -37,17 +37,13 @@ TEST_CASE("FixedVector constructors", "[core][fixed_vector]") {
   }
 
   SECTION("Count constructor") {
-    constexpr FixedVector<int, 5> vec(3);
+    const FixedVector<int, 5> vec(3);
 
     REQUIRE(vec.size() == 3);
     REQUIRE(vec.capacity() == 5);
     REQUIRE(vec[0] == 0);
     REQUIRE(vec[1] == 0);
     REQUIRE(vec[2] == 0);
-
-    // Compile-time checks
-    STATIC_REQUIRE(vec.size() == 3);
-    STATIC_REQUIRE(vec.capacity() == 5);
   }
 
   SECTION("Count-value constructor") {

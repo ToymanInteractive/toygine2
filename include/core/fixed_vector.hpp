@@ -61,7 +61,7 @@ public:
     \post The vector contains \a count elements, each initialized with the default value of type \a type.
     \post The vector size is equal to \a count.
   */
-  constexpr explicit FixedVector(std::size_t count) noexcept;
+  inline explicit FixedVector(std::size_t count) noexcept;
 
   /*!
     \brief Constructs a FixedVector with \a count elements initialized to \a value.
