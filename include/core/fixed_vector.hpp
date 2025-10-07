@@ -145,6 +145,20 @@ public:
   template <std::size_t allocatedSize2>
   inline FixedVector(FixedVector<type, allocatedSize2> && other) noexcept;
 
+  /*!
+    \brief Constructs a FixedVector from an initializer list.
+
+    This constructor initializes a FixedVector with the elements from the provided initializer list.
+
+    \param init The initializer list containing the elements to initialize the vector with.
+
+    \pre The \a init size must not exceed the allocated capacity.
+    \pre All elements in \a init must be valid instances of type \a type.
+
+    \post The new vector has the same size and content as the source \a init.
+  */
+  constexpr FixedVector(std::initializer_list<type> init) noexcept;
+
   // temporary
 
   constexpr std::size_t size() const noexcept;

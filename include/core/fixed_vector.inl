@@ -99,6 +99,16 @@ inline FixedVector<type, allocatedSize>::FixedVector(FixedVector<type, allocated
   other.clear();
 }
 
+template <typename type, std::size_t allocatedSize>
+constexpr FixedVector<type, allocatedSize>::FixedVector(std::initializer_list<type> init) noexcept
+  : _data()
+  , _size(0) {
+  assert_message(init.size() <= allocatedSize, "Initializer list size must not exceed capacity.");
+
+  for (const auto & element : init)
+    push_back(element);
+}
+
 // temporary
 
 template <typename type, std::size_t allocatedSize>
