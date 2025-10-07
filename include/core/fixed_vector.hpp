@@ -63,6 +63,22 @@ public:
   */
   inline explicit FixedVector(std::size_t count) noexcept;
 
+  /*!
+    \brief Constructs a FixedVector with \a count elements initialized to \a value.
+
+    This constructor creates a FixedVector containing \a count elements, each initialized with the specified \a value.
+
+    \param count The number of elements to create. Must not exceed the allocated capacity.
+    \param value The value to initialize all elements with.
+
+    \pre The \a count must not exceed the allocated capacity.
+    \pre The \a value must be a valid instance of type \a type.
+
+    \post The vector contains \a count elements, each initialized with \a value.
+    \post The vector size is equal to \a count.
+  */
+  inline FixedVector(std::size_t count, const type & value) noexcept;
+
   // temporary
 
   constexpr FixedVector(const FixedVector<type, allocatedSize> & array) noexcept;

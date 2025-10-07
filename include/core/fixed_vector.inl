@@ -49,6 +49,17 @@ inline FixedVector<type, allocatedSize>::FixedVector(std::size_t count) noexcept
 }
 
 template <typename type, std::size_t allocatedSize>
+inline FixedVector<type, allocatedSize>::FixedVector(std::size_t count, const type & value) noexcept
+  : _data()
+  , _size(count) {
+  assert_message(count <= allocatedSize, "Count must not exceed capacity.");
+
+  for (std::size_t index = 0; index < count; ++index) {
+    std::construct_at(reinterpret_cast<type *>(_data) + index, type(value));
+  }
+}
+
+template <typename type, std::size_t allocatedSize>
 constexpr FixedVector<type, allocatedSize>::FixedVector(const FixedVector<type, allocatedSize> & vector) noexcept
   : _data()
   , _size(0) {
