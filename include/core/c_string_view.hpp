@@ -324,7 +324,7 @@ public:
     \note Invalid UTF-8 sequences are handled gracefully and may affect the count.
     \note This method is useful for internationalization and text processing applications.
   */
-  [[nodiscard]] inline std::size_t utf8_size() const noexcept;
+  [[nodiscard]] std::size_t utf8_size() const noexcept;
 
   /*!
     \brief Returns the size of the string view.
