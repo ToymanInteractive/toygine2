@@ -36,6 +36,16 @@ TEST_CASE("FixedVector constructors", "[core][fixed_vector]") {
     STATIC_REQUIRE(emptyVec.capacity() == 10);
   }
 
+  SECTION("Count constructor") {
+    const FixedVector<int, 5> vec(3);
+
+    REQUIRE(vec.size() == 3);
+    REQUIRE(vec.capacity() == 5);
+    REQUIRE(vec[0] == 0);
+    REQUIRE(vec[1] == 0);
+    REQUIRE(vec[2] == 0);
+  }
+
   SECTION("Copy constructor same capacity") {
     FixedVector<int, 5> source;
     source.push_back(1);

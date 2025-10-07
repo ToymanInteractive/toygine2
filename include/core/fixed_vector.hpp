@@ -48,12 +48,27 @@ public:
   */
   constexpr ~FixedVector() noexcept;
 
+  /*!
+    \brief Constructs a FixedVector with \a count default-initialized elements.
+
+    This constructor creates a FixedVector containing \a count elements, each initialized with the default value of type
+    \a type.
+
+    \param count The number of elements to create. Must not exceed the allocated capacity.
+
+    \pre The \a count must not exceed the allocated capacity.
+
+    \post The vector contains \a count elements, each initialized with the default value of type \a type.
+    \post The vector size is equal to \a count.
+  */
+  inline explicit FixedVector(std::size_t count) noexcept;
+
+  // temporary
+
   constexpr FixedVector(const FixedVector<type, allocatedSize> & array) noexcept;
 
   template <std::size_t allocatedSize2>
   constexpr FixedVector(const FixedVector<type, allocatedSize2> & array) noexcept;
-
-  // temporary
 
   constexpr std::size_t size() const noexcept;
   constexpr std::size_t capacity() const noexcept;
