@@ -77,13 +77,26 @@ inline FixedVector<type, allocatedSize>::FixedVector(const FixedVector<type, all
 }
 
 template <typename type, std::size_t allocatedSize>
-constexpr FixedVector<type, allocatedSize>::FixedVector(FixedVector<type, allocatedSize> && other) noexcept
+inline FixedVector<type, allocatedSize>::FixedVector(FixedVector<type, allocatedSize> && other) noexcept
   : _data()
   , _size(other._size) {
   for (std::size_t index = 0; index < _size; ++index)
     std::construct_at(reinterpret_cast<type *>(_data) + index, type(std::move(other[index])));
 
   other._size = 0;
+}
+
+template <typename type, std::size_t allocatedSize>
+template <std::size_t allocatedSize2>
+inline FixedVector<type, allocatedSize>::FixedVector(FixedVector<type, allocatedSize2> && other) noexcept
+  : _data()
+  , _size(other.size()) {
+  assert_message(other.size() <= allocatedSize, "Source vector size must not exceed capacity.");
+
+  for (std::size_t index = 0; index < _size; ++index)
+    std::construct_at(reinterpret_cast<type *>(_data) + index, type(std::move(other[index])));
+
+  other.clear();
 }
 
 // temporary

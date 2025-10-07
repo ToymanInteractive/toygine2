@@ -124,7 +124,26 @@ public:
     \post The new vector has the same size and content as the source \a other.
     \post The source \a other is left in a valid but unspecified state.
   */
-  constexpr FixedVector(FixedVector<type, allocatedSize> && other) noexcept;
+  inline FixedVector(FixedVector<type, allocatedSize> && other) noexcept;
+
+  /*!
+    \brief Constructs a FixedVector by moving from another FixedVector with different capacity.
+
+    This constructor initializes a FixedVector by moving the content from another FixedVector of the same type
+    but potentially different capacity. The source vector is left in a valid but unspecified state.
+
+    \tparam allocatedSize2 The capacity of the source FixedVector. Must be greater than zero.
+
+    \param other The source FixedVector to move content from.
+
+    \pre The source \a other must be valid and properly initialized.
+    \pre The source \a other size must not exceed the allocated capacity of this vector.
+
+    \post The new vector has the same size and content as the source \a other.
+    \post The source \a other is left in a valid but unspecified state.
+  */
+  template <std::size_t allocatedSize2>
+  inline FixedVector(FixedVector<type, allocatedSize2> && other) noexcept;
 
   // temporary
 
