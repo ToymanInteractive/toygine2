@@ -76,6 +76,16 @@ inline FixedVector<type, allocatedSize>::FixedVector(const FixedVector<type, all
     std::construct_at(reinterpret_cast<type *>(_data) + index, type(other[index]));
 }
 
+template <typename type, std::size_t allocatedSize>
+constexpr FixedVector<type, allocatedSize>::FixedVector(FixedVector<type, allocatedSize> && other) noexcept
+  : _data()
+  , _size(other._size) {
+  for (std::size_t index = 0; index < _size; ++index)
+    std::construct_at(reinterpret_cast<type *>(_data) + index, type(std::move(other[index])));
+
+  other._size = 0;
+}
+
 // temporary
 
 template <typename type, std::size_t allocatedSize>

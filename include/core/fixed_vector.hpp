@@ -111,6 +111,21 @@ public:
   template <std::size_t allocatedSize2>
   inline FixedVector(const FixedVector<type, allocatedSize2> & other) noexcept;
 
+  /*!
+    \brief Constructs a FixedVector by moving from another FixedVector.
+
+    This constructor initializes a FixedVector by moving the content from another FixedVector of the same type and
+    capacity. The source vector is left in a valid but unspecified state.
+
+    \param other The source FixedVector to move content from.
+
+    \pre The source \a other must be valid and properly initialized.
+
+    \post The new vector has the same size and content as the source \a other.
+    \post The source \a other is left in a valid but unspecified state.
+  */
+  constexpr FixedVector(FixedVector<type, allocatedSize> && other) noexcept;
+
   // temporary
 
   constexpr std::size_t size() const noexcept;

@@ -61,8 +61,9 @@ TEST_CASE("FixedVector constructors", "[core][fixed_vector]") {
     source.push_back(1);
     source.push_back(2);
     source.push_back(3);
+    const FixedVector<int, 5> & sourceRef = source;
 
-    FixedVector<int, 5> copy(source);
+    FixedVector<int, 5> copy(sourceRef);
 
     REQUIRE(copy.size() == 3);
     REQUIRE(copy.capacity() == 5);
@@ -75,12 +76,31 @@ TEST_CASE("FixedVector constructors", "[core][fixed_vector]") {
     FixedVector<int, 3> source;
     source.push_back(10);
     source.push_back(20);
+    const FixedVector<int, 3> & sourceRef = source;
 
-    FixedVector<int, 5> copy(source);
+    FixedVector<int, 5> copy(sourceRef);
 
     REQUIRE(copy.size() == 2);
     REQUIRE(copy.capacity() == 5);
     REQUIRE(copy[0] == 10);
     REQUIRE(copy[1] == 20);
+  }
+
+  SECTION("Move constructor same capacity") {
+    FixedVector<int, 5> source;
+    source.push_back(100);
+    source.push_back(200);
+    source.push_back(300);
+
+    FixedVector<int, 5> moved(std::move(source));
+
+    REQUIRE(moved.size() == 3);
+    REQUIRE(moved.capacity() == 5);
+    REQUIRE(moved[0] == 100);
+    REQUIRE(moved[1] == 200);
+    REQUIRE(moved[2] == 300);
+
+    // Source should be empty after move
+    REQUIRE(source.size() == 0);
   }
 }
