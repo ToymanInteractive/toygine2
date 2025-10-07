@@ -77,7 +77,7 @@ public:
     \post The vector contains \a count elements, each initialized with \a value.
     \post The vector size is equal to \a count.
   */
-  FixedVector(std::size_t count, const type & value) noexcept;
+  explicit FixedVector(std::size_t count, const type & value) noexcept;
 
   /*!
     \brief Constructs a copy of \a other FixedVector.

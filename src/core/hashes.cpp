@@ -21,6 +21,7 @@
   \file   hashes.cpp
   \brief  Implementation of CRC hash functions with lookup tables for optimal performance.
 */
+
 #include "core.hpp"
 
 namespace toy {

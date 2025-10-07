@@ -17,6 +17,11 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 //
+/*!
+  \file   utils.cpp
+  \brief  Implementation of core utility functions for string manipulation, encoding conversion, and number formatting.
+*/
+
 #include <bit>
 #include <cmath>
 
