@@ -43,9 +43,8 @@ inline FixedVector<type, allocatedSize>::FixedVector(std::size_t count) noexcept
   , _size(count) {
   assert_message(count <= allocatedSize, "Count must not exceed capacity.");
 
-  for (std::size_t index = 0; index < count; ++index) {
+  for (std::size_t index = 0; index < _size; ++index)
     std::construct_at(reinterpret_cast<type *>(_data) + index, type(type{}));
-  }
 }
 
 template <typename type, std::size_t allocatedSize>
@@ -54,17 +53,16 @@ inline FixedVector<type, allocatedSize>::FixedVector(std::size_t count, const ty
   , _size(count) {
   assert_message(count <= allocatedSize, "Count must not exceed capacity.");
 
-  for (std::size_t index = 0; index < count; ++index) {
+  for (std::size_t index = 0; index < _size; ++index)
     std::construct_at(reinterpret_cast<type *>(_data) + index, type(value));
-  }
 }
 
 template <typename type, std::size_t allocatedSize>
-constexpr FixedVector<type, allocatedSize>::FixedVector(const FixedVector<type, allocatedSize> & vector) noexcept
+inline FixedVector<type, allocatedSize>::FixedVector(const FixedVector<type, allocatedSize> & other) noexcept
   : _data()
-  , _size(0) {
-  for (std::size_t index = 0; index < vector._size; ++index)
-    push_back(vector[index]);
+  , _size(other._size) {
+  for (std::size_t index = 0; index < _size; ++index)
+    std::construct_at(reinterpret_cast<type *>(_data) + index, type(other[index]));
 }
 
 template <typename type, std::size_t allocatedSize>

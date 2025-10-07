@@ -79,9 +79,21 @@ public:
   */
   inline FixedVector(std::size_t count, const type & value) noexcept;
 
-  // temporary
+  /*!
+    \brief Constructs a copy of \a other FixedVector.
 
-  constexpr FixedVector(const FixedVector<type, allocatedSize> & array) noexcept;
+    This constructor initializes a FixedVector by copying the content from another FixedVector of the same type and
+    capacity.
+
+    \param other The source FixedVector to copy content from.
+
+    \pre The source \a other must be valid and properly initialized.
+
+    \post The new vector has the same size and content as the source \a other.
+  */
+  inline FixedVector(const FixedVector<type, allocatedSize> & other) noexcept;
+
+  // temporary
 
   template <std::size_t allocatedSize2>
   constexpr FixedVector(const FixedVector<type, allocatedSize2> & array) noexcept;
