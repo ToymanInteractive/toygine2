@@ -8904,16 +8904,15 @@ TEST_CASE("FixedString operator==", "[core][fixed_string]") {
   }
 
   SECTION("Edge cases") {
-    constexpr FixedString<16> str1("A");
-    constexpr FixedString<16> str2("B");
+    constexpr FixedString<16> str("A");
     constexpr FixedString<16> empty1;
     constexpr FixedString<32> empty2;
 
     // Single character comparison
-    REQUIRE(str1 == "A");
-    REQUIRE("A" == str1);
-    REQUIRE_FALSE(str1 == "B");
-    REQUIRE_FALSE("B" == str1);
+    REQUIRE(str == "A");
+    REQUIRE("A" == str);
+    REQUIRE_FALSE(str == "B");
+    REQUIRE_FALSE("B" == str);
 
     // Empty string comparisons
     REQUIRE(empty1 == empty2);

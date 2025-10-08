@@ -334,18 +334,17 @@ TEST_CASE("CStringView assign", "[core][c_string_view]") {
 
   SECTION("Edge cases") {
     CStringView str1("ABC");
-    CStringView str2("ABC");
-    CStringView str3("ABCD");
+    CStringView str2("ABCD");
 
     // Assign from own c_str() (no-op path)
-    str2.assign(str2.c_str());
-    REQUIRE(str2.size() == 3);
-    REQUIRE(std::strcmp(str2.c_str(), "ABC") == 0);
+    str1.assign(str1.c_str());
+    REQUIRE(str1.size() == 3);
+    REQUIRE(std::strcmp(str1.c_str(), "ABC") == 0);
 
     // Assign empty string
-    str3.assign("");
-    REQUIRE(str3.size() == 0);
-    REQUIRE(std::strcmp(str3.c_str(), "") == 0);
+    str2.assign("");
+    REQUIRE(str2.size() == 0);
+    REQUIRE(std::strcmp(str2.c_str(), "") == 0);
 
     // Compile-time checks
     constexpr auto constStr1 = CStringView("ABC").assign("XYZ");
@@ -4823,16 +4822,15 @@ TEST_CASE("CStringView operator==", "[core][c_string_view]") {
   }
 
   SECTION("Edge cases") {
-    constexpr CStringView str1("A");
-    constexpr CStringView str2("B");
+    constexpr CStringView str("A");
     constexpr CStringView empty1;
     constexpr CStringView empty2;
 
     // Single character comparison
-    REQUIRE(str1 == "A");
-    REQUIRE("A" == str1);
-    REQUIRE_FALSE(str1 == "B");
-    REQUIRE_FALSE("B" == str1);
+    REQUIRE(str == "A");
+    REQUIRE("A" == str);
+    REQUIRE_FALSE(str == "B");
+    REQUIRE_FALSE("B" == str);
 
     // Empty string comparisons
     REQUIRE(empty1 == empty2);
