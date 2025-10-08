@@ -4,5 +4,5 @@ var utils__internal_8inl =
     [ "toy::integerToSymbols", "d4/da9/namespacetoy.html#ad7d30f3d8737ff13c76ec6b2564b1da6", null ],
     [ "toy::itoaImplementation", "d4/da9/namespacetoy.html#a325d3850ce833eab7c97a3eac78559a3", null ],
     [ "toy::utoaImplementation", "d4/da9/namespacetoy.html#a0c19dd984dbb76264f00009b635304f2", null ],
-    [ "toy::sc_ansiDigits", "d4/da9/namespacetoy.html#a1b86c01d1136abd02c4b403630ed222f", null ]
+    [ "toy::_ansiDigits", "d4/da9/namespacetoy.html#ae9d26c716cca917004e820be15f483dd", null ]
 ];

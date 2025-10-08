@@ -121,7 +121,7 @@ var sectionId = 'dynsection-0';
 <!-- Node28 -->
 <g id="Node000028" class="node">
 <title>Node28</title>
-<g id="a_Node000028"><a xlink:href="../../d4/d85/utils__internal_8inl.html" target="_top" xlink:title=" ">
+<g id="a_Node000028"><a xlink:href="../../d4/d85/utils__internal_8inl.html" target="_top" xlink:title="Internal utilities: inline helpers used by the core utils implementation.">
 <polygon fill="white" stroke="#666666" points="1810.5,-96 1715.5,-96 1715.5,-77 1810.5,-77 1810.5,-96"/>
 <text text-anchor="middle" x="1763" y="-84" font-family="Helvetica,sans-Serif" font-size="10.00">utils_internal.inl</text>
 </a>

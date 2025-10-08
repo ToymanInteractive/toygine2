@@ -69,9 +69,9 @@ var namespacetoy =
     [ "utf8toWChar", "d4/da9/namespacetoy.html#ad81a8970ee6596253140bc264ef6e441", null ],
     [ "utoaImplementation", "d4/da9/namespacetoy.html#a0c19dd984dbb76264f00009b635304f2", null ],
     [ "wcharToUtf8", "d4/da9/namespacetoy.html#af6f23b1a42f8357ca5341bbe33902d99", null ],
+    [ "_ansiDigits", "d4/da9/namespacetoy.html#ae9d26c716cca917004e820be15f483dd", null ],
     [ "_crc16Table", "d4/da9/namespacetoy.html#a608a76631c2f23f02596ec2da0fde6f8", null ],
     [ "_crc32Table", "d4/da9/namespacetoy.html#ad6b0f721ba2c4c20edc3fce5d7730e13", null ],
     [ "_crc8Table", "d4/da9/namespacetoy.html#afc0083318cdb1d2ff7545d6d9b00e479", null ],
-    [ "sc_ansiDigits", "d4/da9/namespacetoy.html#a1b86c01d1136abd02c4b403630ed222f", null ],
     [ "wcharInUtf8MaxSize", "d4/da9/namespacetoy.html#aaba2640627e0f36ead0a3844fd35c6a9", null ]
 ];

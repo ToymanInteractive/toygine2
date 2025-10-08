@@ -264,7 +264,8 @@ Variables</h2></td></tr>
 <tr class="memdesc:ad6b0f721ba2c4c20edc3fce5d7730e13"><td class="mdescLeft">&#160;</td><td class="mdescRight">CRC-32 lookup table using IEEE 802.3 polynomial (0x04C11DB7).  <br /></td></tr>
 <tr class="memitem:aaba2640627e0f36ead0a3844fd35c6a9" id="r_aaba2640627e0f36ead0a3844fd35c6a9"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaba2640627e0f36ead0a3844fd35c6a9">wcharInUtf8MaxSize</a> = 3</td></tr>
 <tr class="memdesc:aaba2640627e0f36ead0a3844fd35c6a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum UTF-8 bytes required for BMP characters.  <br /></td></tr>
-<tr class="memitem:a1b86c01d1136abd02c4b403630ed222f" id="r_a1b86c01d1136abd02c4b403630ed222f"><td class="memItemLeft" align="right" valign="top">static constexpr std::array&lt; char, 36 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1b86c01d1136abd02c4b403630ed222f">sc_ansiDigits</a></td></tr>
+<tr class="memitem:ae9d26c716cca917004e820be15f483dd" id="r_ae9d26c716cca917004e820be15f483dd"><td class="memItemLeft" align="right" valign="top">static constexpr std::array&lt; char, 36 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae9d26c716cca917004e820be15f483dd">_ansiDigits</a></td></tr>
+<tr class="memdesc:ae9d26c716cca917004e820be15f483dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">ANSI digit lookup table for base conversion.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Main engine namespace. </p>
@@ -912,7 +913,11 @@ template&lt;typename type&gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The number of characters written to the destination buffer.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The function assumes that the destination buffer is large enough to hold the converted string. The function does not null-terminate the string. The base must be between 2 and 36 inclusive. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The function assumes that the destination buffer is large enough to hold the converted string. </dd>
+<dd>
+The function does not null-terminate the string. </dd>
+<dd>
+The base must be between 2 and 36 inclusive. </dd></dl>
 
 </div>
 </div>
@@ -1383,7 +1388,11 @@ template&lt;typename type&gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A pointer to the destination buffer containing the converted string.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The function assumes that the destination buffer is large enough to hold the converted string. If the destination buffer size is 1, only a null terminator is written. The function reverses the string in-place. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The function assumes that the destination buffer is large enough to hold the converted string. </dd>
+<dd>
+If the destination buffer size is 1, only a null terminator is written. </dd>
+<dd>
+The function reverses the string in-place. </dd></dl>
 
 </div>
 </div>
@@ -3096,7 +3105,11 @@ template&lt;typename type&gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A pointer to the destination buffer containing the converted string.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The function assumes that the destination buffer is large enough to hold the converted string. If the destination buffer size is 1, only a null terminator is written. The base must be between 2 and 36 inclusive. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The function assumes that the destination buffer is large enough to hold the converted string. </dd>
+<dd>
+If the destination buffer size is 1, only a null terminator is written. </dd>
+<dd>
+The base must be between 2 and 36 inclusive. </dd></dl>
 
 </div>
 </div>
@@ -3158,6 +3171,36 @@ UTF-8 sequences may require 1-3 bytes per wide character. </dd></dl>
 </div>
 </div>
 <a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
+<a id="ae9d26c716cca917004e820be15f483dd" name="ae9d26c716cca917004e820be15f483dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9d26c716cca917004e820be15f483dd">&#9670;&#160;</a></span>_ansiDigits</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::array&lt; char, 36 &gt; toy::_ansiDigits</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">{{</div>
+<div class="line">  <span class="charliteral">&#39;0&#39;</span>, <span class="charliteral">&#39;1&#39;</span>, <span class="charliteral">&#39;2&#39;</span>, <span class="charliteral">&#39;3&#39;</span>, <span class="charliteral">&#39;4&#39;</span>, <span class="charliteral">&#39;5&#39;</span>, <span class="charliteral">&#39;6&#39;</span>, <span class="charliteral">&#39;7&#39;</span>, <span class="charliteral">&#39;8&#39;</span>, <span class="charliteral">&#39;9&#39;</span>, <span class="charliteral">&#39;A&#39;</span>, <span class="charliteral">&#39;B&#39;</span>, <span class="charliteral">&#39;C&#39;</span>, <span class="charliteral">&#39;D&#39;</span>, <span class="charliteral">&#39;E&#39;</span>, <span class="charliteral">&#39;F&#39;</span>, <span class="charliteral">&#39;G&#39;</span>, <span class="charliteral">&#39;H&#39;</span>,</div>
+<div class="line">  <span class="charliteral">&#39;I&#39;</span>, <span class="charliteral">&#39;J&#39;</span>, <span class="charliteral">&#39;K&#39;</span>, <span class="charliteral">&#39;L&#39;</span>, <span class="charliteral">&#39;M&#39;</span>, <span class="charliteral">&#39;N&#39;</span>, <span class="charliteral">&#39;O&#39;</span>, <span class="charliteral">&#39;P&#39;</span>, <span class="charliteral">&#39;Q&#39;</span>, <span class="charliteral">&#39;R&#39;</span>, <span class="charliteral">&#39;S&#39;</span>, <span class="charliteral">&#39;T&#39;</span>, <span class="charliteral">&#39;U&#39;</span>, <span class="charliteral">&#39;V&#39;</span>, <span class="charliteral">&#39;W&#39;</span>, <span class="charliteral">&#39;X&#39;</span>, <span class="charliteral">&#39;Y&#39;</span>, <span class="charliteral">&#39;Z&#39;</span>,</div>
+<div class="line">}}</div>
+</div><!-- fragment -->
+<p>ANSI digit lookup table for base conversion. </p>
+<p>This lookup table contains the characters used for representing digits in different numerical bases. It supports bases from 2 to 36, using digits '0'-'9' and 'A'-'Z'.</p>
+<dl class="section note"><dt>Note</dt><dd>The table contains 36 characters: '0'-'9' and 'A'-'Z'. </dd></dl>
+
+</div>
+</div>
 <a id="a608a76631c2f23f02596ec2da0fde6f8" name="a608a76631c2f23f02596ec2da0fde6f8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a608a76631c2f23f02596ec2da0fde6f8">&#9670;&#160;</a></span>_crc16Table</h2>
 
@@ -3200,11 +3243,7 @@ UTF-8 sequences may require 1-3 bytes per wide character. </dd></dl>
 </div><!-- fragment -->
 <p>CRC-16 lookup table using IBM/ARC polynomial (0x8005). </p>
 <p>This lookup table contains precomputed CRC-16 values for all possible byte values (0-255). The table is generated using the IBM/ARC polynomial (x¹⁶ + x¹⁵ + x² + 1, 0x8005). Using this table allows for O(1) CRC calculation per byte instead of O(16) bit-by-bit calculation.</p>
-<dl class="section note"><dt>Note</dt><dd>The table contains 256 entries, one for each possible byte value. </dd>
-<dd>
-Each entry is a 16-bit value (std::uint16_t). </dd>
-<dd>
-The table is constexpr for compile-time evaluation. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The table contains 256 entries, one for each possible byte value. </dd></dl>
 
 </div>
 </div>
@@ -3260,11 +3299,7 @@ The table is constexpr for compile-time evaluation. </dd></dl>
 </div><!-- fragment -->
 <p>CRC-32 lookup table using IEEE 802.3 polynomial (0x04C11DB7). </p>
 <p>This lookup table contains precomputed CRC-32 values for all possible byte values (0-255). The table is generated using the IEEE 802.3 polynomial (x³² + x²⁶ + x²³ + x²² + x¹⁶ + x¹² + x¹¹ + x¹⁰ + x⁸ + x⁷ + x⁵ + x⁴ + x² + x + 1, 0x04C11DB7). Using this table allows for O(1) CRC calculation per byte instead of O(32) bit-by-bit calculation.</p>
-<dl class="section note"><dt>Note</dt><dd>The table contains 256 entries, one for each possible byte value. </dd>
-<dd>
-Each entry is a 32-bit value (std::uint32_t). </dd>
-<dd>
-The table is constexpr for compile-time evaluation. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The table contains 256 entries, one for each possible byte value. </dd></dl>
 
 </div>
 </div>
@@ -3305,37 +3340,8 @@ The table is constexpr for compile-time evaluation. </dd></dl>
 </div><!-- fragment -->
 <p>CRC-8 lookup table using Dallas/Maxim polynomial (0x31). </p>
 <p>This lookup table contains precomputed CRC-8 values for all possible byte values (0-255). The table is generated using the Dallas/Maxim polynomial (x⁸ + x⁵ + x⁴ + 1, 0x31). Using this table allows for O(1) CRC calculation per byte instead of O(8) bit-by-bit calculation.</p>
-<dl class="section note"><dt>Note</dt><dd>The table contains 256 entries, one for each possible byte value. </dd>
-<dd>
-Each entry is a single byte (std::uint8_t). </dd>
-<dd>
-The table is constexpr for compile-time evaluation. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The table contains 256 entries, one for each possible byte value. </dd></dl>
 
-</div>
-</div>
-<a id="a1b86c01d1136abd02c4b403630ed222f" name="a1b86c01d1136abd02c4b403630ed222f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1b86c01d1136abd02c4b403630ed222f">&#9670;&#160;</a></span>sc_ansiDigits</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr std::array&lt; char, 36 &gt; toy::sc_ansiDigits</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel constexpr">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">{{<span class="charliteral">&#39;0&#39;</span>, <span class="charliteral">&#39;1&#39;</span>, <span class="charliteral">&#39;2&#39;</span>, <span class="charliteral">&#39;3&#39;</span>, <span class="charliteral">&#39;4&#39;</span>, <span class="charliteral">&#39;5&#39;</span>, <span class="charliteral">&#39;6&#39;</span>, <span class="charliteral">&#39;7&#39;</span>, <span class="charliteral">&#39;8&#39;</span>, <span class="charliteral">&#39;9&#39;</span>, <span class="charliteral">&#39;A&#39;</span>, <span class="charliteral">&#39;B&#39;</span>,</div>
-<div class="line">                                                     <span class="charliteral">&#39;C&#39;</span>, <span class="charliteral">&#39;D&#39;</span>, <span class="charliteral">&#39;E&#39;</span>, <span class="charliteral">&#39;F&#39;</span>, <span class="charliteral">&#39;G&#39;</span>, <span class="charliteral">&#39;H&#39;</span>, <span class="charliteral">&#39;I&#39;</span>, <span class="charliteral">&#39;J&#39;</span>, <span class="charliteral">&#39;K&#39;</span>, <span class="charliteral">&#39;L&#39;</span>, <span class="charliteral">&#39;M&#39;</span>, <span class="charliteral">&#39;N&#39;</span>,</div>
-<div class="line">                                                     <span class="charliteral">&#39;O&#39;</span>, <span class="charliteral">&#39;P&#39;</span>, <span class="charliteral">&#39;Q&#39;</span>, <span class="charliteral">&#39;R&#39;</span>, <span class="charliteral">&#39;S&#39;</span>, <span class="charliteral">&#39;T&#39;</span>, <span class="charliteral">&#39;U&#39;</span>, <span class="charliteral">&#39;V&#39;</span>, <span class="charliteral">&#39;W&#39;</span>, <span class="charliteral">&#39;X&#39;</span>, <span class="charliteral">&#39;Y&#39;</span>, <span class="charliteral">&#39;Z&#39;</span>}}</div>
-</div><!-- fragment -->
 </div>
 </div>
 <a id="aaba2640627e0f36ead0a3844fd35c6a9" name="aaba2640627e0f36ead0a3844fd35c6a9"></a>
