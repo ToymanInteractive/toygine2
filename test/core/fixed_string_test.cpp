@@ -240,7 +240,7 @@ TEST_CASE("FixedString operators=", "[core][fixed_string]") {
     REQUIRE(std::strcmp(str2.c_str(), "This is a longer string") == 0);
 
     // Compile-time checks
-    constexpr FixedString<24> constStr1 = FixedString<24>("This is a longer string");
+    constexpr auto constStr1 = FixedString<24>("This is a longer string");
     STATIC_REQUIRE(constStr1.size() == 23);
     STATIC_REQUIRE(cstrcmp(constStr1.c_str(), "This is a longer string") == 0);
   }
@@ -290,8 +290,8 @@ TEST_CASE("FixedString operators=", "[core][fixed_string]") {
 
     // Compile-time checks
     constexpr FixedString<8> constStr1("Test");
-    constexpr FixedString<32> constStr2 = FixedString<32>(constStr1);
-    constexpr FixedString<16> constStr3 = FixedString<16>(constStr2);
+    constexpr auto constStr2 = FixedString<32>(constStr1);
+    constexpr auto constStr3 = FixedString<16>(constStr2);
     STATIC_REQUIRE(constStr2.size() == 4);
     STATIC_REQUIRE(cstrcmp(constStr2.c_str(), "Test") == 0);
     STATIC_REQUIRE(constStr3.size() == 4);

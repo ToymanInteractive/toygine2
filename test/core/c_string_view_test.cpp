@@ -170,7 +170,7 @@ TEST_CASE("CStringView operators=", "[core][c_string_view]") {
     REQUIRE(std::strcmp(str2.c_str(), "This is a longer string") == 0);
 
     // Compile-time checks
-    constexpr CStringView constStr1 = CStringView("This is a longer string");
+    constexpr auto constStr1 = CStringView("This is a longer string");
     STATIC_REQUIRE(constStr1.size() == 23);
     STATIC_REQUIRE(cstrcmp(constStr1.c_str(), "This is a longer string") == 0);
   }

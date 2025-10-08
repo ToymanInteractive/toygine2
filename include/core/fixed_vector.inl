@@ -40,9 +40,8 @@ constexpr FixedVector<type, allocatedSize>::~FixedVector() noexcept {
 template <typename type, std::size_t allocatedSize>
 inline FixedVector<type, allocatedSize>::FixedVector(std::size_t count)
   : _data()
-  , _size() {
+  , _size(count) {
   assert_message(count <= allocatedSize, "Count must not exceed capacity.");
-  _size = std::min(count, allocatedSize);
 
   for (std::size_t index = 0; index < _size; ++index)
     std::construct_at(reinterpret_cast<type *>(_data) + index, type{});
@@ -51,9 +50,8 @@ inline FixedVector<type, allocatedSize>::FixedVector(std::size_t count)
 template <typename type, std::size_t allocatedSize>
 inline FixedVector<type, allocatedSize>::FixedVector(std::size_t count, const type & value)
   : _data()
-  , _size() {
+  , _size(count) {
   assert_message(count <= allocatedSize, "Count must not exceed capacity.");
-  _size = std::min(count, allocatedSize);
 
   for (std::size_t index = 0; index < _size; ++index)
     std::construct_at(reinterpret_cast<type *>(_data) + index, value);
@@ -71,9 +69,8 @@ template <typename type, std::size_t allocatedSize>
 template <std::size_t allocatedSize2>
 inline FixedVector<type, allocatedSize>::FixedVector(const FixedVector<type, allocatedSize2> & other)
   : _data()
-  , _size() {
+  , _size(other.size()) {
   assert_message(other.size() <= allocatedSize, "Source vector size must not exceed capacity.");
-  _size = std::min(other.size(), allocatedSize);
 
   for (std::size_t index = 0; index < _size; ++index)
     std::construct_at(reinterpret_cast<type *>(_data) + index, other[index]);
@@ -93,9 +90,8 @@ template <typename type, std::size_t allocatedSize>
 template <std::size_t allocatedSize2>
 inline FixedVector<type, allocatedSize>::FixedVector(FixedVector<type, allocatedSize2> && other)
   : _data()
-  , _size() {
+  , _size(other.size()) {
   assert_message(other.size() <= allocatedSize, "Source vector size must not exceed capacity.");
-  _size = std::min(other.size(), allocatedSize);
 
   for (std::size_t index = 0; index < _size; ++index)
     std::construct_at(reinterpret_cast<type *>(_data) + index, std::move(other[index]));

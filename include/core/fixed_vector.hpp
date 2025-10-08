@@ -33,18 +33,16 @@ public:
   /*!
     \brief Default constructor.
 
-    Constructs an empty FixedVector with no elements. The vector is ready for use and has a size of 0.
-
     \post The vector is empty and ready for use.
   */
   constexpr FixedVector() noexcept;
 
   /*!
-    \brief Destructor.
+    \brief Destructor for the vector.
 
-    Destroys the FixedVector and all its elements. Calls the destructor of each element in the vector.
+    This destructor cleans up the vector.
 
-    \note This destructor is constexpr and can be used in compile-time contexts.
+    \note Since the FixedVector manages its own elements, proper cleanup is performed.
   */
   constexpr ~FixedVector() noexcept;
 
@@ -77,7 +75,7 @@ public:
     \post The vector contains \a count elements, each initialized with \a value.
     \post The vector size is equal to \a count.
   */
-  explicit FixedVector(std::size_t count, const type & value);
+  FixedVector(std::size_t count, const type & value);
 
   /*!
     \brief Constructs a copy of \a other FixedVector.
@@ -91,7 +89,7 @@ public:
 
     \post The new vector has the same size and content as the source \a other.
   */
-  FixedVector(const FixedVector<type, allocatedSize> & other);
+  explicit FixedVector(const FixedVector<type, allocatedSize> & other);
 
   /*!
     \brief Constructs a FixedVector by copying from another FixedVector with different capacity.
@@ -124,7 +122,7 @@ public:
     \post The new vector has the same size and content as the source \a other.
     \post The source \a other is left in a valid but unspecified state.
   */
-  FixedVector(FixedVector<type, allocatedSize> && other);
+  explicit FixedVector(FixedVector<type, allocatedSize> && other) noexcept;
 
   /*!
     \brief Constructs a FixedVector by moving from another FixedVector with different capacity.
@@ -143,7 +141,7 @@ public:
     \post The source \a other is left in a valid but unspecified state.
   */
   template <std::size_t allocatedSize2>
-  explicit FixedVector(FixedVector<type, allocatedSize2> && other);
+  explicit FixedVector(FixedVector<type, allocatedSize2> && other) noexcept;
 
   /*!
     \brief Constructs a FixedVector from an initializer list.
@@ -157,7 +155,7 @@ public:
 
     \post The new vector has the same size and content as the source \a init.
   */
-  FixedVector(std::initializer_list<type> init);
+  explicit FixedVector(std::initializer_list<type> init) noexcept;
 
   // temporary
 
