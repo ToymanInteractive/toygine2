@@ -145,7 +145,7 @@ TEST_CASE("FixedVector constructors", "[core][fixed_vector]") {
   }
 
   SECTION("Different types constructor") {
-    const FixedVector<FixedString<8>, 3> strVec(2, "test");
+    const FixedVector<FixedString<8>, 3> strVec(2, FixedString<8>("test"));
 
     REQUIRE(strVec.size() == 2);
     REQUIRE(strVec.capacity() == 3);

@@ -109,7 +109,7 @@ public:
     \post The new vector has the same size and content as the source \a other.
   */
   template <std::size_t allocatedSize2>
-  FixedVector(const FixedVector<type, allocatedSize2> & other) noexcept;
+  explicit FixedVector(const FixedVector<type, allocatedSize2> & other) noexcept;
 
   /*!
     \brief Constructs a FixedVector by moving from another FixedVector.
@@ -143,7 +143,7 @@ public:
     \post The source \a other is left in a valid but unspecified state.
   */
   template <std::size_t allocatedSize2>
-  FixedVector(FixedVector<type, allocatedSize2> && other) noexcept;
+  explicit FixedVector(FixedVector<type, allocatedSize2> && other) noexcept;
 
   /*!
     \brief Constructs a FixedVector from an initializer list.

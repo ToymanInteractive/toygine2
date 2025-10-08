@@ -132,7 +132,7 @@ public:
     \pre The source C \a string must not be null.
     \pre The source C \a string must be null-terminated.
   */
-  constexpr CStringView(const char * string) noexcept;
+  constexpr explicit CStringView(const char * string) noexcept;
 
   /*!
     \brief Destructor for the string view.

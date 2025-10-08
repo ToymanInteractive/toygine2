@@ -143,7 +143,7 @@ public:
     \post The new string is created with the contents of the source StringLike object.
   */
   template <StringLike stringType>
-  constexpr FixedString(const stringType & string) noexcept;
+  constexpr explicit FixedString(const stringType & string) noexcept;
 
   /*!
     \brief Constructs a string initialized with the C \a string.
@@ -157,7 +157,7 @@ public:
 
     \post The new string is created with the contents of the source C \a string.
   */
-  constexpr FixedString(const char * string) noexcept;
+  constexpr explicit FixedString(const char * string) noexcept;
 
   /*!
     \brief Constructs a string of the given \a count of \a character.
