@@ -11,7 +11,7 @@
 <!-- Node1 -->
 <g id="Node000001" class="node">
 <title>Node1</title>
-<g id="a_Node000001"><a xlink:title=" ">
+<g id="a_Node000001"><a xlink:title="Implementation of core utility functions for string manipulation, encoding conversion,...">
 <polygon fill="#999999" stroke="#666666" points="946.5,-151 847.5,-151 847.5,-132 946.5,-132 946.5,-151"/>
 <text text-anchor="middle" x="897" y="-139" font-family="Helvetica,sans-Serif" font-size="10.00">src/core/utils.cpp</text>
 </a>

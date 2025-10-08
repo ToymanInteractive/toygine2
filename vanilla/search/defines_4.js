@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['placement_5fnew_0',['PLACEMENT_NEW',['../da/d47/core_8hpp.html#a79e945f7c5e656f14e6d5b5ec36f8325',1,'core.hpp']]]
+  ['src_5fcore_5futils_5finternal_5finl_5f_0',['SRC_CORE_UTILS_INTERNAL_INL_',['../d4/d85/utils__internal_8inl.html#a59c5026acee935b89b5b8cf435c67831',1,'utils_internal.inl']]]
 ];
