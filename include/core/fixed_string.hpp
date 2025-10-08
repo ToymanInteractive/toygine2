@@ -143,7 +143,7 @@ public:
     \post The new string is created with the contents of the source StringLike object.
   */
   template <StringLike stringType>
-  constexpr FixedString(const stringType & string) noexcept;
+  constexpr explicit FixedString(const stringType & string) noexcept;
 
   /*!
     \brief Constructs a string initialized with the C \a string.
@@ -157,7 +157,7 @@ public:
 
     \post The new string is created with the contents of the source C \a string.
   */
-  constexpr FixedString(const char * string) noexcept;
+  constexpr explicit FixedString(const char * string) noexcept;
 
   /*!
     \brief Constructs a string of the given \a count of \a character.
@@ -555,7 +555,7 @@ public:
     \note Invalid UTF-8 sequences are handled gracefully and may affect the count.
     \note This method is useful for internationalization and text processing applications.
   */
-  [[nodiscard]] inline std::size_t utf8_size() const noexcept;
+  [[nodiscard]] std::size_t utf8_size() const noexcept;
 
   /*!
     \brief Returns the size of the string.
