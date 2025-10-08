@@ -8928,10 +8928,10 @@ TEST_CASE("FixedString operator==", "[core][fixed_string]") {
     REQUIRE(large == small);
 
     // Compile-time checks
-    STATIC_REQUIRE(str1 == "A");
-    STATIC_REQUIRE("A" == str1);
-    STATIC_REQUIRE_FALSE(str1 == "B");
-    STATIC_REQUIRE_FALSE("B" == str1);
+    STATIC_REQUIRE(str == "A");
+    STATIC_REQUIRE("A" == str);
+    STATIC_REQUIRE_FALSE(str == "B");
+    STATIC_REQUIRE_FALSE("B" == str);
 
     STATIC_REQUIRE(empty1 == empty2);
     STATIC_REQUIRE(empty2 == empty1);
