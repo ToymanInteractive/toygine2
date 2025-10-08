@@ -19,7 +19,7 @@
 //
 /*!
   \file   utils.hpp
-  \brief  Core utility functions for string manipulation, encoding conversion, and number formatting
+  \brief  Core utility functions for string manipulation, encoding conversion, and number formatting.
 */
 
 #ifndef INCLUDE_CORE_UTILS_HPP_

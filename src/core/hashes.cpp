@@ -34,8 +34,6 @@ namespace toy {
   instead of O(8) bit-by-bit calculation.
 
   \note The table contains 256 entries, one for each possible byte value.
-  \note Each entry is a single byte (std::uint8_t).
-  \note The table is constexpr for compile-time evaluation.
 */
 static constexpr std::array<std::uint8_t, 256> _crc8Table{
   {0x00, 0x5E, 0xBC, 0xE2, 0x61, 0x3F, 0xDD, 0x83, 0xC2, 0x9C, 0x7E, 0x20, 0xA3, 0xFD, 0x1F, 0x41, 0x9D, 0xC3, 0x21,
@@ -61,8 +59,6 @@ static constexpr std::array<std::uint8_t, 256> _crc8Table{
   instead of O(16) bit-by-bit calculation.
 
   \note The table contains 256 entries, one for each possible byte value.
-  \note Each entry is a 16-bit value (std::uint16_t).
-  \note The table is constexpr for compile-time evaluation.
 */
 static constexpr std::array<std::uint16_t, 256> _crc16Table{
   {0x0000, 0xC0C1, 0xC181, 0x0140, 0xC301, 0x03C0, 0x0280, 0xC241, 0xC601, 0x06C0, 0x0780, 0xC741, 0x0500, 0xC5C1,
@@ -93,8 +89,6 @@ static constexpr std::array<std::uint16_t, 256> _crc16Table{
   0x04C11DB7). Using this table allows for O(1) CRC calculation per byte instead of O(32) bit-by-bit calculation.
 
   \note The table contains 256 entries, one for each possible byte value.
-  \note Each entry is a 32-bit value (std::uint32_t).
-  \note The table is constexpr for compile-time evaluation.
 */
 static constexpr std::array<std::uint32_t, 256> _crc32Table{
   {0x00000000, 0x77073096, 0xEE0E612C, 0x990951BA, 0x076DC419, 0x706AF48F, 0xE963A535, 0x9E6495A3, 0x0EDB8832,
@@ -130,7 +124,7 @@ static constexpr std::array<std::uint32_t, 256> _crc32Table{
 std::uint8_t crc8(const void * src, std::size_t size, std::uint8_t crc) noexcept {
   assert_message(src != nullptr, "Data pointer must not be null");
 
-  const std::uint8_t * data = static_cast<const std::uint8_t *>(src);
+  const auto * data = static_cast<const std::uint8_t *>(src);
 
   while (size--)
     crc = _crc8Table[static_cast<std::size_t>(crc ^ *data++)];
@@ -141,7 +135,7 @@ std::uint8_t crc8(const void * src, std::size_t size, std::uint8_t crc) noexcept
 std::uint16_t crc16(const void * src, std::size_t size, std::uint16_t crc) noexcept {
   assert_message(src != nullptr, "Data pointer must not be null");
 
-  const std::uint8_t * data = static_cast<const std::uint8_t *>(src);
+  const auto * data = static_cast<const std::uint8_t *>(src);
 
   while (size--)
     crc = static_cast<std::uint16_t>((crc >> 8) ^ _crc16Table[static_cast<std::size_t>((crc ^ *data++) & 0xFF)]);
@@ -152,7 +146,7 @@ std::uint16_t crc16(const void * src, std::size_t size, std::uint16_t crc) noexc
 std::uint32_t crc32(const void * src, std::size_t size, std::uint32_t crc) noexcept {
   assert_message(src != nullptr, "Data pointer must not be null");
 
-  const std::uint8_t * data = static_cast<const std::uint8_t *>(src);
+  const auto * data = static_cast<const std::uint8_t *>(src);
 
   crc = ~crc;
 
