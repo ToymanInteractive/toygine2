@@ -38,7 +38,7 @@ constexpr FixedVector<type, allocatedSize>::~FixedVector() noexcept {
 }
 
 template <typename type, std::size_t allocatedSize>
-inline FixedVector<type, allocatedSize>::FixedVector(std::size_t count) noexcept
+inline FixedVector<type, allocatedSize>::FixedVector(std::size_t count)
   : _data()
   , _size() {
   assert_message(count <= allocatedSize, "Count must not exceed capacity.");
@@ -49,7 +49,7 @@ inline FixedVector<type, allocatedSize>::FixedVector(std::size_t count) noexcept
 }
 
 template <typename type, std::size_t allocatedSize>
-inline FixedVector<type, allocatedSize>::FixedVector(std::size_t count, const type & value) noexcept
+inline FixedVector<type, allocatedSize>::FixedVector(std::size_t count, const type & value)
   : _data()
   , _size() {
   assert_message(count <= allocatedSize, "Count must not exceed capacity.");
@@ -60,7 +60,7 @@ inline FixedVector<type, allocatedSize>::FixedVector(std::size_t count, const ty
 }
 
 template <typename type, std::size_t allocatedSize>
-inline FixedVector<type, allocatedSize>::FixedVector(const FixedVector<type, allocatedSize> & other) noexcept
+inline FixedVector<type, allocatedSize>::FixedVector(const FixedVector<type, allocatedSize> & other)
   : _data()
   , _size(other._size) {
   for (std::size_t index = 0; index < _size; ++index)
@@ -69,7 +69,7 @@ inline FixedVector<type, allocatedSize>::FixedVector(const FixedVector<type, all
 
 template <typename type, std::size_t allocatedSize>
 template <std::size_t allocatedSize2>
-inline FixedVector<type, allocatedSize>::FixedVector(const FixedVector<type, allocatedSize2> & other) noexcept
+inline FixedVector<type, allocatedSize>::FixedVector(const FixedVector<type, allocatedSize2> & other)
   : _data()
   , _size() {
   assert_message(other.size() <= allocatedSize, "Source vector size must not exceed capacity.");
@@ -80,7 +80,7 @@ inline FixedVector<type, allocatedSize>::FixedVector(const FixedVector<type, all
 }
 
 template <typename type, std::size_t allocatedSize>
-inline FixedVector<type, allocatedSize>::FixedVector(FixedVector<type, allocatedSize> && other) noexcept
+inline FixedVector<type, allocatedSize>::FixedVector(FixedVector<type, allocatedSize> && other)
   : _data()
   , _size(other._size) {
   for (std::size_t index = 0; index < _size; ++index)
@@ -91,7 +91,7 @@ inline FixedVector<type, allocatedSize>::FixedVector(FixedVector<type, allocated
 
 template <typename type, std::size_t allocatedSize>
 template <std::size_t allocatedSize2>
-inline FixedVector<type, allocatedSize>::FixedVector(FixedVector<type, allocatedSize2> && other) noexcept
+inline FixedVector<type, allocatedSize>::FixedVector(FixedVector<type, allocatedSize2> && other)
   : _data()
   , _size() {
   assert_message(other.size() <= allocatedSize, "Source vector size must not exceed capacity.");
@@ -104,7 +104,7 @@ inline FixedVector<type, allocatedSize>::FixedVector(FixedVector<type, allocated
 }
 
 template <typename type, std::size_t allocatedSize>
-inline FixedVector<type, allocatedSize>::FixedVector(std::initializer_list<type> init) noexcept
+inline FixedVector<type, allocatedSize>::FixedVector(std::initializer_list<type> init)
   : _data()
   , _size(0) {
   assert_message(init.size() <= allocatedSize, "Initializer list size must not exceed capacity.");

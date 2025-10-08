@@ -61,7 +61,7 @@ public:
     \post The vector contains \a count elements, each initialized with the default value of type \a type.
     \post The vector size is equal to \a count.
   */
-  explicit FixedVector(std::size_t count) noexcept;
+  explicit FixedVector(std::size_t count);
 
   /*!
     \brief Constructs a FixedVector with \a count elements initialized to \a value.
@@ -77,7 +77,7 @@ public:
     \post The vector contains \a count elements, each initialized with \a value.
     \post The vector size is equal to \a count.
   */
-  explicit FixedVector(std::size_t count, const type & value) noexcept;
+  explicit FixedVector(std::size_t count, const type & value);
 
   /*!
     \brief Constructs a copy of \a other FixedVector.
@@ -91,7 +91,7 @@ public:
 
     \post The new vector has the same size and content as the source \a other.
   */
-  FixedVector(const FixedVector<type, allocatedSize> & other) noexcept;
+  FixedVector(const FixedVector<type, allocatedSize> & other);
 
   /*!
     \brief Constructs a FixedVector by copying from another FixedVector with different capacity.
@@ -109,7 +109,7 @@ public:
     \post The new vector has the same size and content as the source \a other.
   */
   template <std::size_t allocatedSize2>
-  explicit FixedVector(const FixedVector<type, allocatedSize2> & other) noexcept;
+  explicit FixedVector(const FixedVector<type, allocatedSize2> & other);
 
   /*!
     \brief Constructs a FixedVector by moving from another FixedVector.
@@ -124,7 +124,7 @@ public:
     \post The new vector has the same size and content as the source \a other.
     \post The source \a other is left in a valid but unspecified state.
   */
-  FixedVector(FixedVector<type, allocatedSize> && other) noexcept;
+  FixedVector(FixedVector<type, allocatedSize> && other);
 
   /*!
     \brief Constructs a FixedVector by moving from another FixedVector with different capacity.
@@ -143,7 +143,7 @@ public:
     \post The source \a other is left in a valid but unspecified state.
   */
   template <std::size_t allocatedSize2>
-  explicit FixedVector(FixedVector<type, allocatedSize2> && other) noexcept;
+  explicit FixedVector(FixedVector<type, allocatedSize2> && other);
 
   /*!
     \brief Constructs a FixedVector from an initializer list.
@@ -157,7 +157,7 @@ public:
 
     \post The new vector has the same size and content as the source \a init.
   */
-  FixedVector(std::initializer_list<type> init) noexcept;
+  FixedVector(std::initializer_list<type> init);
 
   // temporary
 
