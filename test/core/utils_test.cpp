@@ -55,11 +55,11 @@ static constexpr std::array<const char *, 16> asciiArray{{"0", "0", "1e+7", "-1e
                                                           "-0.000042", "4.2e-7", "-4.2e-7"}};
 
 TEST_CASE("ArraySize returns the size of an array", "[core][utils]") {
-  const bool boolArray[] = {true, false};
-  const int intArray[] = {1, 2, 3};
-  const double doubleArray[] = {1.0, 2.0, 3.0, 4.0};
-  const char charArray[] = {'a', 'b', 'c', 'd', 'e'};
-  const char * stringArray[] = {"aaaa", "bbbb", "cccc", "dddd", "eeee", "ffff"};
+  const bool boolArray[]{true, false};
+  const int intArray[]{1, 2, 3};
+  const double doubleArray[]{1.0, 2.0, 3.0, 4.0};
+  const char charArray[]{'a', 'b', 'c', 'd', 'e'};
+  const char * stringArray[]{"aaaa", "bbbb", "cccc", "dddd", "eeee", "ffff"};
 
   CHECK(ArraySize(boolArray) == 2);
   CHECK(ArraySize(intArray) == 3);
@@ -72,7 +72,7 @@ TEST_CASE("utf8toWChar converts a Unicode UTF-8 encoded string to a wide charact
   wchar_t testBuffer[utf8Text.size()];
   constexpr auto testBufferSize = ArraySize(testBuffer);
 
-  const char * utf8String = reinterpret_cast<const char *>(utf8Text.data());
+  const auto utf8String = reinterpret_cast<const char *>(utf8Text.data());
 
   // nullptr
   CHECK(wcscmp(L"", utf8toWChar(testBuffer, testBufferSize, nullptr, 0)) == 0);
@@ -102,7 +102,7 @@ TEST_CASE("wcharToUtf8 converts a Unicode wide character string to a UTF-8 encod
   char testBuffer[unicodeText.size() * wcharInUtf8MaxSize];
   constexpr auto testBufferSize = ArraySize(testBuffer);
 
-  const char * utf8String = reinterpret_cast<const char *>(utf8Text.data());
+  const auto utf8String = reinterpret_cast<const char *>(utf8Text.data());
 
   // nullptr
   CHECK(strcmp("", wcharToUtf8(testBuffer, testBufferSize, nullptr)) == 0);
@@ -128,7 +128,7 @@ TEST_CASE("utf8Len returns the number of Unicode characters in a UTF-8 encoded s
   static const char * s_utf8Text = "Hello World!";
   static const char * s_emptyText = "";
 
-  const char * utf8String = reinterpret_cast<const char *>(utf8Text.data());
+  const auto utf8String = reinterpret_cast<const char *>(utf8Text.data());
 
   CHECK(std::strlen(s_utf8Text) == utf8Len(s_utf8Text));
   CHECK(utf8Len(s_emptyText) == 0);
@@ -140,7 +140,7 @@ TEST_CASE("utf8Len returns the number of Unicode characters in a UTF-8 encoded s
 TEST_CASE("reverseString reverses a given string in-place", "[core][utils]") {
   char reverseBuffer[utf8Text.size()];
 
-  const char * utf8String = reinterpret_cast<const char *>(utf8Text.data());
+  const auto utf8String = reinterpret_cast<const char *>(utf8Text.data());
   const auto utf8StrLen = std::strlen(utf8String);
 
   memcpy(reverseBuffer, utf8Text.data(), utf8Text.size());

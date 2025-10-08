@@ -240,7 +240,7 @@ TEST_CASE("FixedString operators=", "[core][fixed_string]") {
     REQUIRE(std::strcmp(str2.c_str(), "This is a longer string") == 0);
 
     // Compile-time checks
-    constexpr FixedString<24> constStr1 = FixedString<24>("This is a longer string");
+    constexpr auto constStr1 = FixedString<24>("This is a longer string");
     STATIC_REQUIRE(constStr1.size() == 23);
     STATIC_REQUIRE(cstrcmp(constStr1.c_str(), "This is a longer string") == 0);
   }
@@ -290,8 +290,8 @@ TEST_CASE("FixedString operators=", "[core][fixed_string]") {
 
     // Compile-time checks
     constexpr FixedString<8> constStr1("Test");
-    constexpr FixedString<32> constStr2 = FixedString<32>(constStr1);
-    constexpr FixedString<16> constStr3 = FixedString<16>(constStr2);
+    constexpr auto constStr2 = FixedString<32>(constStr1);
+    constexpr auto constStr3 = FixedString<16>(constStr2);
     STATIC_REQUIRE(constStr2.size() == 4);
     STATIC_REQUIRE(cstrcmp(constStr2.c_str(), "Test") == 0);
     STATIC_REQUIRE(constStr3.size() == 4);
@@ -8904,16 +8904,15 @@ TEST_CASE("FixedString operator==", "[core][fixed_string]") {
   }
 
   SECTION("Edge cases") {
-    constexpr FixedString<16> str1("A");
-    constexpr FixedString<16> str2("B");
+    constexpr FixedString<16> str("A");
     constexpr FixedString<16> empty1;
     constexpr FixedString<32> empty2;
 
     // Single character comparison
-    REQUIRE(str1 == "A");
-    REQUIRE("A" == str1);
-    REQUIRE_FALSE(str1 == "B");
-    REQUIRE_FALSE("B" == str1);
+    REQUIRE(str == "A");
+    REQUIRE("A" == str);
+    REQUIRE_FALSE(str == "B");
+    REQUIRE_FALSE("B" == str);
 
     // Empty string comparisons
     REQUIRE(empty1 == empty2);
@@ -8929,10 +8928,10 @@ TEST_CASE("FixedString operator==", "[core][fixed_string]") {
     REQUIRE(large == small);
 
     // Compile-time checks
-    STATIC_REQUIRE(str1 == "A");
-    STATIC_REQUIRE("A" == str1);
-    STATIC_REQUIRE_FALSE(str1 == "B");
-    STATIC_REQUIRE_FALSE("B" == str1);
+    STATIC_REQUIRE(str == "A");
+    STATIC_REQUIRE("A" == str);
+    STATIC_REQUIRE_FALSE(str == "B");
+    STATIC_REQUIRE_FALSE("B" == str);
 
     STATIC_REQUIRE(empty1 == empty2);
     STATIC_REQUIRE(empty2 == empty1);
