@@ -102,11 +102,96 @@ inline FixedVector<type, allocatedSize>::FixedVector(FixedVector<type, allocated
 template <typename type, std::size_t allocatedSize>
 inline FixedVector<type, allocatedSize>::FixedVector(std::initializer_list<type> init) noexcept
   : _data()
-  , _size(0) {
+  , _size(init.size()) {
   assert_message(init.size() <= allocatedSize, "Initializer list size must not exceed capacity.");
 
+  std::size_t index = 0;
   for (const auto & element : init)
-    push_back(element);
+    std::construct_at(reinterpret_cast<type *>(_data) + index++, element);
+}
+
+template <typename type, std::size_t allocatedSize>
+inline FixedVector<type, allocatedSize> & FixedVector<type, allocatedSize>::operator=(
+  const FixedVector<type, allocatedSize> & other) noexcept {
+  if (this == &other)
+    return *this;
+
+  clear();
+
+  _size = other._size;
+
+  for (std::size_t index = 0; index < _size; ++index)
+    std::construct_at(reinterpret_cast<type *>(_data) + index, other[index]);
+
+  return *this;
+}
+
+template <typename type, std::size_t allocatedSize>
+template <std::size_t allocatedSize2>
+inline FixedVector<type, allocatedSize> & FixedVector<type, allocatedSize>::operator=(
+  const FixedVector<type, allocatedSize2> & other) noexcept {
+  assert_message(other.size() <= allocatedSize, "Source vector size must not exceed capacity.");
+
+  clear();
+
+  _size = other.size();
+
+  for (std::size_t index = 0; index < _size; ++index)
+    std::construct_at(reinterpret_cast<type *>(_data) + index, other[index]);
+
+  return *this;
+}
+
+template <typename type, std::size_t allocatedSize>
+inline FixedVector<type, allocatedSize> & FixedVector<type, allocatedSize>::operator=(
+  FixedVector<type, allocatedSize> && other) noexcept {
+  if (this == &other)
+    return *this;
+
+  clear();
+
+  _size = other._size;
+
+  for (std::size_t index = 0; index < _size; ++index)
+    std::construct_at(reinterpret_cast<type *>(_data) + index, std::move(other[index]));
+
+  other.clear();
+
+  return *this;
+}
+
+template <typename type, std::size_t allocatedSize>
+template <std::size_t allocatedSize2>
+inline FixedVector<type, allocatedSize> & FixedVector<type, allocatedSize>::operator=(
+  FixedVector<type, allocatedSize2> && other) noexcept {
+  assert_message(other.size() <= allocatedSize, "Source vector size must not exceed capacity.");
+
+  clear();
+
+  _size = other.size();
+
+  for (std::size_t index = 0; index < _size; ++index)
+    std::construct_at(reinterpret_cast<type *>(_data) + index, std::move(other[index]));
+
+  other.clear();
+
+  return *this;
+}
+
+template <typename type, std::size_t allocatedSize>
+inline FixedVector<type, allocatedSize> & FixedVector<type, allocatedSize>::operator=(
+  std::initializer_list<type> init) noexcept {
+  assert_message(init.size() <= allocatedSize, "Initializer list size must not exceed capacity.");
+
+  clear();
+
+  _size = init.size();
+
+  std::size_t index = 0;
+  for (const auto & element : init)
+    std::construct_at(reinterpret_cast<type *>(_data) + index++, element);
+
+  return *this;
 }
 
 // temporary

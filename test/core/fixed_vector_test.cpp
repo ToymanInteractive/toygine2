@@ -185,3 +185,141 @@ TEST_CASE("FixedVector constructors", "[core][fixed_vector]") {
     REQUIRE(zeroVec.capacity() == 5);
   }
 }
+
+TEST_CASE("FixedVector assignment operators", "[core][fixed_vector]") {
+  SECTION("Copy assignment operator (same capacity)") {
+    const FixedVector<int, 5> vec1{1, 2, 3};
+    FixedVector<int, 5> vec2{4, 5};
+
+    vec2 = vec1;
+
+    REQUIRE(vec2.size() == vec1.size());
+    REQUIRE(vec2[0] == vec1[0]);
+    REQUIRE(vec2[1] == vec1[1]);
+    REQUIRE(vec2[2] == vec1[2]);
+  }
+
+  SECTION("Copy assignment operator (different capacity)") {
+    const FixedVector<int, 3> vec1{1, 2, 3};
+    FixedVector<int, 5> vec2{4, 5};
+
+    vec2 = vec1;
+
+    REQUIRE(vec2.size() == vec1.size());
+    REQUIRE(vec2[0] == vec1[0]);
+    REQUIRE(vec2[1] == vec1[1]);
+    REQUIRE(vec2[2] == vec1[2]);
+  }
+
+  SECTION("Move assignment operator (same capacity)") {
+    FixedVector<int, 5> vec1{1, 2, 3};
+    FixedVector<int, 5> vec2{4, 5};
+
+    vec2 = std::move(vec1);
+
+    REQUIRE(vec2.size() == 3);
+    REQUIRE(vec2[0] == 1);
+    REQUIRE(vec2[1] == 2);
+    REQUIRE(vec2[2] == 3);
+
+    // Source vector should be cleared
+    REQUIRE(vec1.size() == 0);
+  }
+
+  SECTION("Move assignment operator (different capacity)") {
+    FixedVector<int, 3> vec1{1, 2, 3};
+    FixedVector<int, 5> vec2{4, 5};
+
+    vec2 = std::move(vec1);
+
+    REQUIRE(vec2.size() == 3);
+    REQUIRE(vec2[0] == 1);
+    REQUIRE(vec2[1] == 2);
+    REQUIRE(vec2[2] == 3);
+
+    // Source vector should be cleared
+    REQUIRE(vec1.size() == 0);
+  }
+
+  SECTION("Initializer list assignment operator") {
+    FixedVector<int, 5> vec{1, 2, 3};
+
+    vec = {4, 5, 6, 7};
+
+    REQUIRE(vec.size() == 4);
+    REQUIRE(vec[0] == 4);
+    REQUIRE(vec[1] == 5);
+    REQUIRE(vec[2] == 6);
+    REQUIRE(vec[3] == 7);
+  }
+
+  SECTION("Initializer list assignment operator (empty)") {
+    FixedVector<int, 5> vec{1, 2, 3};
+
+    vec = {};
+
+    REQUIRE(vec.size() == 0);
+  }
+
+  SECTION("Initializer list assignment operator (single element)") {
+    FixedVector<int, 5> vec{1, 2, 3};
+
+    vec = {42};
+
+    REQUIRE(vec.size() == 1);
+    REQUIRE(vec[0] == 42);
+  }
+
+  SECTION("Self-assignment (copy)") {
+    FixedVector<int, 5> vec{1, 2, 3};
+
+    vec = vec;
+
+    REQUIRE(vec.size() == 3);
+    REQUIRE(vec[0] == 1);
+    REQUIRE(vec[1] == 2);
+    REQUIRE(vec[2] == 3);
+  }
+
+  SECTION("Self-assignment (move)") {
+    FixedVector<int, 5> vec{1, 2, 3};
+
+    vec = std::move(vec);
+
+    REQUIRE(vec.size() == 3);
+    REQUIRE(vec[0] == 1);
+    REQUIRE(vec[1] == 2);
+    REQUIRE(vec[2] == 3);
+  }
+
+  SECTION("Assignment with different types") {
+    FixedVector<std::string, 3> vec1{"hello", "world"};
+    FixedVector<std::string, 5> vec2{"test"};
+
+    vec2 = vec1;
+
+    REQUIRE(vec2.size() == 2);
+    REQUIRE(vec2[0] == "hello");
+    REQUIRE(vec2[1] == "world");
+  }
+
+  SECTION("Assignment with complex types") {
+    FixedVector<std::vector<int>, 2> vec1;
+    vec1.push_back(std::vector<int>{1, 2, 3});
+    vec1.push_back(std::vector<int>{4, 5});
+
+    FixedVector<std::vector<int>, 3> vec2;
+    vec2.push_back(std::vector<int>{6, 7, 8});
+
+    vec2 = vec1;
+
+    REQUIRE(vec2.size() == 2);
+    REQUIRE(vec2[0].size() == 3);
+    REQUIRE(vec2[0][0] == 1);
+    REQUIRE(vec2[0][1] == 2);
+    REQUIRE(vec2[0][2] == 3);
+    REQUIRE(vec2[1].size() == 2);
+    REQUIRE(vec2[1][0] == 4);
+    REQUIRE(vec2[1][1] == 5);
+  }
+}
