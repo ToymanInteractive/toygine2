@@ -157,6 +157,110 @@ public:
   */
   FixedVector(std::initializer_list<type> init) noexcept;
 
+  /*!
+    \brief Copy assigns other FixedVector to this FixedVector.
+
+    This operator assigns the contents of another FixedVector with the same capacity to this vector.
+
+    \param other The FixedVector to copy content from.
+
+    \return A reference to this FixedVector after assignment.
+
+    \pre The \a other vector must be valid and properly constructed.
+
+    \post This vector has the same size and content as the source \a other vector.
+    \post All elements are properly copied using copy construction.
+    \post All previous elements are properly destroyed.
+
+    \note Self-assignment is handled correctly and safely.
+  */
+  constexpr FixedVector<type, allocatedSize> & operator=(const FixedVector<type, allocatedSize> & other) noexcept;
+
+  /*!
+    \brief Copy assigns FixedVector with different capacity to this FixedVector.
+
+    This operator assigns the contents of another FixedVector with different capacity to this vector.
+
+    \tparam allocatedSize2 The capacity of the source FixedVector.
+
+    \param other The FixedVector to copy content from.
+
+    \return A reference to this FixedVector after assignment.
+
+    \pre The \a other vector must be valid and properly constructed.
+    \pre The \a other vector size must not exceed this vector's capacity.
+
+    \post This vector has the same size and content as the source \a other vector.
+    \post All elements are properly copied using copy construction.
+    \post All previous elements are properly destroyed.
+  */
+  template <std::size_t allocatedSize2>
+  constexpr FixedVector<type, allocatedSize> & operator=(const FixedVector<type, allocatedSize2> & other) noexcept;
+
+  /*!
+    \brief Move assigns other FixedVector to this FixedVector.
+
+    This operator assigns the contents of another FixedVector with the same capacity to this vector using move
+    semantics.
+
+    \param other The FixedVector to move content from.
+
+    \return A reference to this FixedVector after assignment.
+
+    \pre The \a other vector must be valid and properly constructed.
+
+    \post This vector has the same size and content as the source \a other vector.
+    \post All elements are moved using move construction.
+    \post All previous elements are properly destroyed.
+    \post The source vector is left in a valid but unspecified state.
+
+    \note Self-assignment is handled correctly and safely.
+  */
+  constexpr FixedVector<type, allocatedSize> & operator=(FixedVector<type, allocatedSize> && other) noexcept;
+
+  /*!
+    \brief Move assigns FixedVector with different capacity to this FixedVector.
+
+    This operator assigns the contents of another FixedVector with different capacity to this vector using move
+    semantics.
+
+    \tparam allocatedSize2 The capacity of the source FixedVector.
+
+    \param other The FixedVector to move content from.
+
+    \return A reference to this FixedVector after assignment.
+
+    \pre The \a other vector must be valid and properly constructed.
+    \pre The \a other vector size must not exceed this vector's capacity.
+
+    \post This vector has the same size and content as the source \a other vector.
+    \post All elements are moved using move construction.
+    \post All previous elements are properly destroyed.
+    \post The source vector is left in a valid but unspecified state.
+  */
+  template <std::size_t allocatedSize2>
+  constexpr FixedVector<type, allocatedSize> & operator=(FixedVector<type, allocatedSize2> && other) noexcept;
+
+  /*!
+    \brief Assigns initializer list to this FixedVector.
+
+    This operator assigns the contents of an initializer list to this vector.
+
+    \param init The initializer list containing the elements to assign.
+
+    \return A reference to this FixedVector after assignment.
+
+    \pre The \a init size must not exceed the allocated capacity.
+    \pre All elements in \a init must be valid instances of type \a type.
+
+    \post This vector has the same size and content as the source \a init.
+    \post All elements are properly copied using copy construction.
+    \post All previous elements are properly destroyed.
+
+    \note The operator handles empty initializer lists correctly.
+  */
+  constexpr FixedVector<type, allocatedSize> & operator=(std::initializer_list<type> init) noexcept;
+
   // temporary
 
   constexpr std::size_t size() const noexcept;
