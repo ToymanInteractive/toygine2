@@ -102,11 +102,12 @@ inline FixedVector<type, allocatedSize>::FixedVector(FixedVector<type, allocated
 template <typename type, std::size_t allocatedSize>
 inline FixedVector<type, allocatedSize>::FixedVector(std::initializer_list<type> init) noexcept
   : _data()
-  , _size(0) {
+  , _size(init.size()) {
   assert_message(init.size() <= allocatedSize, "Initializer list size must not exceed capacity.");
 
+  std::size_t index = 0;
   for (const auto & element : init)
-    push_back(element);
+    std::construct_at(reinterpret_cast<type *>(_data) + index++, element);
 }
 
 template <typename type, std::size_t allocatedSize>
@@ -184,8 +185,11 @@ inline FixedVector<type, allocatedSize> & FixedVector<type, allocatedSize>::oper
 
   clear();
 
+  _size = init.size();
+
+  std::size_t index = 0;
   for (const auto & element : init)
-    push_back(element);
+    std::construct_at(reinterpret_cast<type *>(_data) + index++, element);
 
   return *this;
 }
