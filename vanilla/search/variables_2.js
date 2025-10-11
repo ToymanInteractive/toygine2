@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['quot_0',['quot',['../df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html#a0b0e3e5fe61c7febd3ea8f9fa426760d',1,'anonymous_namespace{utils.cpp}::divmod10']]]
+  ['quot_0',['quot',['../d9/d10/structtoy_1_1__divmod10.html#af9e5f613cf4019a37b2675f274032820',1,'toy::_divmod10']]]
 ];

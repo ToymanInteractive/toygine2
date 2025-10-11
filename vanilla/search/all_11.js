@@ -1,7 +1,7 @@
 var searchData=
 [
   ['readme_2emd_0',['README.md',['../d9/dd6/_r_e_a_d_m_e_8md.html',1,'']]],
-  ['rem_1',['rem',['../df/d0f/structanonymous__namespace_02utils_8cpp_03_1_1divmod10.html#addb5fa391e32e0505d76bfc30202efe0',1,'anonymous_namespace{utils.cpp}::divmod10']]],
+  ['rem_1',['rem',['../d9/d10/structtoy_1_1__divmod10.html#a5c990eebc39ef350055e4f3317e1f5b7',1,'toy::_divmod10']]],
   ['replace_2',['replace',['../d3/d7a/classtoy_1_1_fixed_string.html#a420a7f66721f7aa364e666078795edb5',1,'toy::FixedString::replace(std::size_t pos, std::size_t count, const FixedString&lt; allocatedSize &gt; &amp;string) noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#afb423343c69dd752c0a27439922e116b',1,'toy::FixedString::replace(std::size_t pos, std::size_t count, const stringType &amp;string) noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#af17d624c0acb3117078c5769baad740e',1,'toy::FixedString::replace(std::size_t pos, std::size_t count, const char *string) noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#afba7a518ba63a32116817444d3582063',1,'toy::FixedString::replace(std::size_t pos, std::size_t count, char character, std::size_t charactersCount=1) noexcept']]],
   ['requirements_3',['Requirements',['../index.html#requirements',1,'']]],
   ['reversestring_4',['reverseString',['../d4/da9/namespacetoy.html#a08e2e765a94dee108e646fd69fe7b535',1,'toy']]],

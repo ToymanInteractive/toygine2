@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['cstringview_0',['CStringView',['../d5/d03/classtoy_1_1_c_string_view.html',1,'toy']]]
+  ['_5fdivmod10_0',['_divmod10',['../d9/d10/structtoy_1_1__divmod10.html',1,'toy']]]
 ];

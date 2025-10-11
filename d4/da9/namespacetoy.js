@@ -10,10 +10,15 @@ var namespacetoy =
       [ "setCallbacks", "d2/da2/namespacetoy_1_1assertion.html#a110a4b7692805ebe9ffdaddcf1cab402", null ],
       [ "s_assertionCallback", "d2/da2/namespacetoy_1_1assertion.html#abf0c95a6d0312b84decc08fc040187c9", null ]
     ] ],
+    [ "_divmod10", "d9/d10/structtoy_1_1__divmod10.html", "d9/d10/structtoy_1_1__divmod10" ],
     [ "CStringView", "d5/d03/classtoy_1_1_c_string_view.html", "d5/d03/classtoy_1_1_c_string_view" ],
     [ "FixedString", "d3/d7a/classtoy_1_1_fixed_string.html", "d3/d7a/classtoy_1_1_fixed_string" ],
     [ "FixedVector", "d7/dec/classtoy_1_1_fixed_vector.html", "d7/dec/classtoy_1_1_fixed_vector" ],
     [ "StringLike", "df/d77/concepttoy_1_1_string_like.html", null ],
+    [ "_divModU10", "d4/da9/namespacetoy.html#accf068383d9d636ae72ad7bb22c7ee34", null ],
+    [ "_floatPostProcess", "d4/da9/namespacetoy.html#a68ab36c5d8a30801d179aa2506c5f99d", null ],
+    [ "_ftoa32Engine", "d4/da9/namespacetoy.html#ad818e59ccbbb39242909823a9c6c90b3", null ],
+    [ "_ftoa64Engine", "d4/da9/namespacetoy.html#a8df045aa0c3d1e6dad5138e49dd8c5a2", null ],
     [ "ArraySize", "d4/da9/namespacetoy.html#a63f823f1d5e638248b10d02d8a1666ba", null ],
     [ "crc16", "d4/da9/namespacetoy.html#a0aa645443d3d723d40266fb0218bf8e4", null ],
     [ "crc32", "d4/da9/namespacetoy.html#ab410eb37ac6a14b7b3304d7e5ab113f8", null ],
@@ -73,5 +78,7 @@ var namespacetoy =
     [ "_crc16Table", "d4/da9/namespacetoy.html#a608a76631c2f23f02596ec2da0fde6f8", null ],
     [ "_crc32Table", "d4/da9/namespacetoy.html#ad6b0f721ba2c4c20edc3fce5d7730e13", null ],
     [ "_crc8Table", "d4/da9/namespacetoy.html#afc0083318cdb1d2ff7545d6d9b00e479", null ],
+    [ "_exponentTable", "d4/da9/namespacetoy.html#a45aef64f4847b6929c1879947bb7e210", null ],
+    [ "_utf8CharSizeTable", "d4/da9/namespacetoy.html#af30024a651bf715e1757f6a4525b0a16", null ],
     [ "wcharInUtf8MaxSize", "d4/da9/namespacetoy.html#aaba2640627e0f36ead0a3844fd35c6a9", null ]
 ];
