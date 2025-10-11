@@ -174,7 +174,7 @@ public:
 
     \note Self-assignment is handled correctly and safely.
   */
-  constexpr FixedVector<type, allocatedSize> & operator=(const FixedVector<type, allocatedSize> & other) noexcept;
+  FixedVector<type, allocatedSize> & operator=(const FixedVector<type, allocatedSize> & other) noexcept;
 
   /*!
     \brief Copy assigns FixedVector with different capacity to this FixedVector.
@@ -195,7 +195,7 @@ public:
     \post All previous elements are properly destroyed.
   */
   template <std::size_t allocatedSize2>
-  constexpr FixedVector<type, allocatedSize> & operator=(const FixedVector<type, allocatedSize2> & other) noexcept;
+  FixedVector<type, allocatedSize> & operator=(const FixedVector<type, allocatedSize2> & other) noexcept;
 
   /*!
     \brief Move assigns other FixedVector to this FixedVector.
@@ -216,7 +216,7 @@ public:
 
     \note Self-assignment is handled correctly and safely.
   */
-  constexpr FixedVector<type, allocatedSize> & operator=(FixedVector<type, allocatedSize> && other) noexcept;
+  FixedVector<type, allocatedSize> & operator=(FixedVector<type, allocatedSize> && other) noexcept;
 
   /*!
     \brief Move assigns FixedVector with different capacity to this FixedVector.
@@ -239,7 +239,7 @@ public:
     \post The source vector is left in a valid but unspecified state.
   */
   template <std::size_t allocatedSize2>
-  constexpr FixedVector<type, allocatedSize> & operator=(FixedVector<type, allocatedSize2> && other) noexcept;
+  FixedVector<type, allocatedSize> & operator=(FixedVector<type, allocatedSize2> && other) noexcept;
 
   /*!
     \brief Assigns initializer list to this FixedVector.
@@ -259,7 +259,7 @@ public:
 
     \note The operator handles empty initializer lists correctly.
   */
-  constexpr FixedVector<type, allocatedSize> & operator=(std::initializer_list<type> init) noexcept;
+  FixedVector<type, allocatedSize> & operator=(std::initializer_list<type> init) noexcept;
 
   // temporary
 
