@@ -98,6 +98,8 @@ namespace toy {
 */
 template <std::size_t allocatedSize>
 class FixedString {
+  static_assert(allocatedSize > 0, "FixedString capacity must be greater than zero.");
+
 public:
   /*!
     \brief Default constructor.
@@ -1753,8 +1755,6 @@ public:
   static constexpr std::size_t npos = std::size_t(-1);
 
 private:
-  static_assert(allocatedSize > 0, "FixedString capacity must be greater than zero.");
-
   /*!
     \brief Helper method for inserting \a data at a specific \a position.
 

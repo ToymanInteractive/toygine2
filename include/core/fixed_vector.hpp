@@ -30,6 +30,14 @@ namespace toy {
 template <typename type, std::size_t allocatedSize>
 class FixedVector {
 public:
+  using value_type = type; //!< Type of elements stored in the vector.
+  using size_type = std::size_t; //!< Type used for vector size and capacity.
+  using difference_type = std::ptrdiff_t; //!< Type used for pointer differences.
+  using reference = value_type &; //!< Reference to vector element.
+  using const_reference = const value_type &; //!< Const reference to vector element.
+  using pointer = type *; //!< Pointer to vector element.
+  using const_pointer = const type *; //!< Const pointer to vector element.
+
   /*!
     \brief Default constructor.
 
@@ -49,17 +57,17 @@ public:
   /*!
     \brief Constructs a FixedVector with \a count default-initialized elements.
 
-    This constructor creates a FixedVector containing \a count elements, each initialized with the default value of type
-    \a type.
+    This constructor creates a FixedVector containing \a count elements, each initialized with the default value of
+    type.
 
     \param count The number of elements to create. Must not exceed the allocated capacity.
 
     \pre The \a count must not exceed the allocated capacity.
 
-    \post The vector contains \a count elements, each initialized with the default value of type \a type.
+    \post The vector contains \a count elements, each initialized with the default value of type.
     \post The vector size is equal to \a count.
   */
-  explicit FixedVector(std::size_t count);
+  explicit FixedVector(size_type count);
 
   /*!
     \brief Constructs a FixedVector with \a count elements initialized to \a value.
@@ -70,12 +78,12 @@ public:
     \param value The value to initialize all elements with.
 
     \pre The \a count must not exceed the allocated capacity.
-    \pre The \a value must be a valid instance of type \a type.
+    \pre The \a value must be a valid instance of type.
 
     \post The vector contains \a count elements, each initialized with \a value.
     \post The vector size is equal to \a count.
   */
-  FixedVector(std::size_t count, const type & value);
+  FixedVector(size_type count, const type & value);
 
   /*!
     \brief Constructs a copy of \a other FixedVector.
@@ -151,7 +159,7 @@ public:
     \param init The initializer list containing the elements to initialize the vector with.
 
     \pre The \a init size must not exceed the allocated capacity.
-    \pre All elements in \a init must be valid instances of type \a type.
+    \pre All elements in \a init must be valid instances of type.
 
     \post The new vector has the same size and content as the source \a init.
   */
@@ -251,7 +259,7 @@ public:
     \return A reference to this FixedVector after assignment.
 
     \pre The \a init size must not exceed the allocated capacity.
-    \pre All elements in \a init must be valid instances of type \a type.
+    \pre All elements in \a init must be valid instances of type.
 
     \post This vector has the same size and content as the source \a init.
     \post All elements are properly copied using copy construction.

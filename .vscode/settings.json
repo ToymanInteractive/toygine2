@@ -20,7 +20,7 @@
     "C_Cpp.clang_format_fallbackStyle": "Google",
     "C_Cpp.clang_format_sortIncludes": true,
     "C_Cpp.clang_format_style": "Google",
-    "C_Cpp.default.compileCommands": "${command:cmake.buildDirectory}/compile_commands.json",
+    "C_Cpp.default.compileCommands": "${workspaceFolder}/out/build/compile_commands.json",
     "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
     "C_Cpp.default.cppStandard": "c++23",
     "C_Cpp.enhancedColorization": "enabled",
@@ -74,5 +74,5 @@
         "connectionId": "toymaninteractive",
         "projectKey": "ToymanInteractive_toygine2"
     },
-    "sonarlint.pathToCompileCommands": "${command:cmake.buildDirectory}/compile_commands.json"
+    "sonarlint.pathToCompileCommands": "${workspaceFolder}/out/build/compile_commands.json"
 }
