@@ -30,13 +30,13 @@ namespace toy {
 template <typename type, std::size_t allocatedSize>
 class FixedVector {
 public:
-  using value_type = type;
-  using size_type = std::size_t;
-  using difference_type = std::ptrdiff_t;
-  using reference = value_type &;
-  using const_reference = const value_type &;
-  using pointer = type *;
-  using const_pointer = const type *;
+  using value_type = type; //!< Type of elements stored in the vector.
+  using size_type = std::size_t; //!< Type used for vector size and capacity.
+  using difference_type = std::ptrdiff_t; //!< Type used for pointer differences.
+  using reference = value_type &; //!< Reference to vector element.
+  using const_reference = const value_type &; //!< Const reference to vector element.
+  using pointer = type *; //!< Pointer to vector element.
+  using const_pointer = const type *; //!< Const pointer to vector element.
 
   /*!
     \brief Default constructor.
