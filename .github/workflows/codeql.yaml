@@ -19,7 +19,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: '38 15 * * 5'
+    - cron: "38 15 * * 5"
 
 jobs:
   analyze:
@@ -89,6 +89,7 @@ jobs:
         run: |
           cmake -DTOYGINE_BUILD_DOCS=OFF -DTOYGINE_BUILD_TESTS=OFF --preset linux-ninja-debug
           cmake --build --preset linux-ninja-debug --parallel
+          echo "CODEQL_CPP_COMPILATION_DATABASE=${{ github.workspace }}/out/build/compile_commands.json" >> $GITHUB_ENV
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v4

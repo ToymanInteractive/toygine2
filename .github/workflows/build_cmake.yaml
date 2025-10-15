@@ -297,7 +297,7 @@ jobs:
       - uses: SonarSource/sonarqube-scan-action@v6.0.0
         with:
           args: >-
-            -Dsonar.cfamily.compile-commands=out/build/compile_commands.json
+            -Dsonar.cfamily.compile-commands=out/build/linux-ninja-debug/compile_commands.json
             -Dsonar.cfamily.analysisCache.mode=fs
             -Dsonar.cfamily.analysisCache.path=.sonar-cfamily-cache
         env:
