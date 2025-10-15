@@ -87,7 +87,7 @@ jobs:
       - if: ${{ matrix.build-mode == 'manual' }}
         shell: bash
         run: |
-          cmake -DTOYGINE_BUILD_DOCS=OFF -DTOYGINE_BUILD_TESTS=OFF -DCMAKE_EXPORT_COMPILE_COMMANDS=ON --preset linux-ninja-debug
+          cmake -DTOYGINE_BUILD_DOCS=OFF -DTOYGINE_BUILD_TESTS=OFF --preset linux-ninja-debug
           cmake --build --preset linux-ninja-debug --parallel
 
       - name: Perform CodeQL Analysis

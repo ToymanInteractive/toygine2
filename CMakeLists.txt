@@ -82,6 +82,14 @@ endif ()
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/core/core.hpp.in ${CMAKE_CURRENT_SOURCE_DIR}/include/core.hpp @ONLY)
 
+# Enable and copy compile commands file in fixed space for static analysis tools
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+execute_process(
+  COMMAND ${CMAKE_COMMAND} -E copy_if_different
+  ${CMAKE_BINARY_DIR}/compile_commands.json
+  ${CMAKE_BINARY_DIR}/../compile_commands.json
+)
+
 #-------------------------------------------------------------------------------------------
 
 set(SRC_CORE_LIST                                                                                                                                              src/core/hashes.cpp     src/core/utils.cpp     src/core/utils_internal.inl)
