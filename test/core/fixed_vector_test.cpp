@@ -154,13 +154,13 @@ TEST_CASE("FixedVector constructors", "[core][fixed_vector]") {
   }
 
   SECTION("Double type constructor") {
-    const FixedVector<double, 4> doubleVec(3, 3.14);
+    const FixedVector<double, 4> doubleVec(3, 3.15);
 
     REQUIRE(doubleVec.size() == 3);
     REQUIRE(doubleVec.capacity() == 4);
-    REQUIRE(doubleVec[0] == 3.14);
-    REQUIRE(doubleVec[1] == 3.14);
-    REQUIRE(doubleVec[2] == 3.14);
+    REQUIRE(doubleVec[0] == 3.15);
+    REQUIRE(doubleVec[1] == 3.15);
+    REQUIRE(doubleVec[2] == 3.15);
   }
 
   SECTION("Bool type constructor") {
