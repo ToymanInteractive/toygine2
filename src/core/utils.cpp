@@ -301,10 +301,10 @@ void _floatPostProcess(char * dest, char * srcBuffer, std::size_t bufferSize, st
 
   std::size_t fractionDigits = digits > intDigits ? digits - intDigits : 0;
   if (intDigits > 0) {
-    auto count = std::min(intDigits, digits);
-    do {
+    const auto count = std::min(intDigits, digits);
+    for (std::size_t i = 0; i < count; ++i) {
       *outputPointer++ = *strBegin++;
-    } while (--count);
+    }
 
     auto trailingZeros = static_cast<std::int32_t>(intDigits) - static_cast<std::int32_t>(digits);
     while (trailingZeros-- > 0)
