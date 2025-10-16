@@ -163,7 +163,7 @@ public:
 
     \post The new vector has the same size and content as the source \a init.
   */
-  FixedVector(std::initializer_list<type> init) noexcept;
+  explicit FixedVector(std::initializer_list<type> init) noexcept;
 
   /*!
     \brief Copy assigns other FixedVector to this FixedVector.
