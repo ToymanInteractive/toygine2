@@ -430,7 +430,7 @@ public:
     \note The returned reference allows modification of the character.
     \note Use const version for read-only access.
   */
-  constexpr char & front() noexcept;
+  [[nodiscard]] constexpr char & front() noexcept;
 
   /*!
     \brief Returns a const reference to the first character of the string.
@@ -458,7 +458,7 @@ public:
     \note The returned reference allows modification of the character.
     \note Use const version for read-only access.
   */
-  constexpr char & back() noexcept;
+  [[nodiscard]] constexpr char & back() noexcept;
 
   /*!
     \brief Returns a const reference to the last character of the string.
@@ -486,7 +486,7 @@ public:
     \note The returned pointer allows modification of the string contents.
     \note Use const version for read-only access.
   */
-  constexpr char * data() noexcept;
+  [[nodiscard]] constexpr char * data() noexcept;
 
   /*!
     \brief Returns a constant pointer to the data of the string.
