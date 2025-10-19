@@ -110,10 +110,10 @@ constexpr bool Point::isZero() const noexcept {
   return x == 0 && y == 0;
 }
 
-constexpr bool Point::isEqual(const Point & point, value_type tolerance) const noexcept {
+bool Point::isEqual(const Point & point, value_type tolerance) const noexcept {
   assert_message(tolerance >= 0, "tolerance must be non-negative");
 
-  return (std::abs(x - point.x) <= tolerance) && (std::abs(y - point.y) <= tolerance);
+  return std::abs(x - point.x) <= tolerance && std::abs(y - point.y) <= tolerance;
 }
 
 } // namespace toy::math

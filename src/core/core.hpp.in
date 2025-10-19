@@ -147,7 +147,7 @@ concept StringLike = requires(const T & str) {
 
 //--------------------------------------------------------------------------------------------------------------------
 
-/// @brief Assertion related functions.
+/// @brief Internal assertion utilities for runtime checks and debugging.
 namespace assertion {
 
 using AssertionCallback = bool (*)(const char *);

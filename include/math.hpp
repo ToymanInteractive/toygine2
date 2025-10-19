@@ -29,7 +29,8 @@
 /// @brief Contains all public mathematical types and utilities of ToyGine.
 namespace toy::math {
 
-using real_t = float; //!< floating point number type.
+/// Floating‑point scalar type.
+using real_t = float;
 
 } // namespace toy::math
 

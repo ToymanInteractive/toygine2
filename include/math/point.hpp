@@ -307,7 +307,7 @@ public:
     \note When tolerance is 0, this performs exact equality comparison.
     \note When tolerance is greater than 0, this performs approximate equality comparison.
   */
-  [[nodiscard]] constexpr bool isEqual(const Point & point, value_type tolerance = 0) const noexcept;
+  [[nodiscard]] bool isEqual(const Point & point, value_type tolerance = 0) const noexcept;
 };
 
 } // namespace toy::math
