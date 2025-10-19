@@ -47,8 +47,6 @@ namespace toy {
   - 🔗 **STL Compatibility**: Provides std::string-like interface
   - 🌍 **UTF-8 Support**: Built-in UTF-8 character counting and manipulation
   - 🧬 **Type Safety**: Uses C++20 concepts for type safety
-  - 🎯 **Performance Optimized**: Optimized for high-performance string operations
-  - 📏 **Fixed Size**: Fixed-size buffer prevents memory fragmentation
 
   \section usage Usage Example
 

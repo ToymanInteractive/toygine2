@@ -46,8 +46,6 @@ namespace toy::math {
   - 🔗 **STL Compatibility**: Provides standard container-like interface
   - 🎯 **UI Optimized**: Designed specifically for UI and input handling
   - 🧬 **Type Safety**: Strong typing with clear coordinate semantics
-  - 🌍 **Platform Agnostic**: Independent of platform-specific coordinate systems
-  - 📏 **Lightweight**: Minimal memory footprint for efficient UI operations
 
   \section usage Usage Example
 
