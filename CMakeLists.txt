@@ -96,18 +96,23 @@ set(SRC_CORE_LIST                                                               
 set(HDR_CORE_LIST include/core.hpp include/core/c_string_view.hpp include/core/constexpr_utils.hpp include/core/fixed_string.hpp include/core/fixed_vector.hpp include/core/hashes.hpp include/core/utils.hpp)
 set(INL_CORE_LIST                  include/core/c_string_view.inl include/core/constexpr_utils.inl include/core/fixed_string.inl include/core/fixed_vector.inl                         include/core/utils.inl)
 
+set(SRC_APP_LIST )
+set(HDR_APP_LIST include/app.hpp include/app/version.hpp)
+set(INL_APP_LIST                 include/app/version.inl)
+
 set(SRC_MATH_LIST)
 set(HDR_MATH_LIST include/math.hpp include/math/point.hpp)
 set(INL_MATH_LIST                  include/math/point.inl)
 
 source_group("Core" FILES ${SRC_CORE_LIST} ${HDR_CORE_LIST} ${INL_CORE_LIST})
+source_group("App"  FILES ${SRC_APP_LIST}  ${HDR_APP_LIST}  ${INL_APP_LIST})
 source_group("Math" FILES ${SRC_MATH_LIST} ${HDR_MATH_LIST} ${INL_MATH_LIST})
 
 #-------------------------------------------------------------------------------------------
 
-set(SRC_LIST ${SRC_LIST} ${SRC_CORE_LIST} ${SRC_MATH_LIST})
-set(HDR_LIST ${HDR_LIST} ${HDR_CORE_LIST} ${HDR_MATH_LIST})
-set(INL_LIST ${INL_LIST} ${INL_CORE_LIST} ${INL_MATH_LIST})
+set(SRC_LIST ${SRC_LIST} ${SRC_CORE_LIST} ${SRC_APP_LIST} ${SRC_MATH_LIST})
+set(HDR_LIST ${HDR_LIST} ${HDR_CORE_LIST} ${HDR_APP_LIST} ${HDR_MATH_LIST})
+set(INL_LIST ${INL_LIST} ${INL_CORE_LIST} ${INL_APP_LIST} ${INL_MATH_LIST})
 set(LIB_LIST ${LIB_LIST})
 
 add_library(${TOYGINE_LIBRARY_NAME} STATIC ${SRC_LIST} ${HDR_LIST} ${INL_LIST})

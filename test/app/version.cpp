@@ -17,29 +17,26 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 //
-/*!
-  \file   math.hpp
-  \brief  Umbrella header for the engine mathematics module
-*/
 
-#ifndef INCLUDE_MATH_HPP_
-#define INCLUDE_MATH_HPP_
+#include <catch2/catch_test_macros.hpp>
 
-#include "core.hpp"
+#include "app.hpp"
 
-/// @namespace toy::math
-/// @brief Contains all public mathematical types, constants, and utility functions of engine.
-namespace toy::math {
+using namespace toy::app;
 
-/// Floating‑point scalar type.
-using real_t = float;
+TEST_CASE("Version constructors", "[app][version]") {
+  SECTION("Default constructor") {
+    const Version version;
+    REQUIRE(version.major == 0);
+    REQUIRE(version.minor == 0);
+    REQUIRE(version.maintenance == 0);
+    REQUIRE(version.revision == 0);
 
-} // namespace toy::math
-
-#include "math/point.hpp"
-
-//----------------------------------------------------------------------------------------------------------------------
-
-#include "math/point.inl"
-
-#endif // INCLUDE_MATH_HPP_
+    // Compile-time checks
+    constexpr Version constexprVersion;
+    STATIC_REQUIRE(constexprVersion.major == 0);
+    STATIC_REQUIRE(constexprVersion.minor == 0);
+    STATIC_REQUIRE(constexprVersion.maintenance == 0);
+    STATIC_REQUIRE(constexprVersion.revision == 0);
+  }
+}

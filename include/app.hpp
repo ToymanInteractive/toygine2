@@ -18,28 +18,17 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   math.hpp
-  \brief  Umbrella header for the engine mathematics module
+  \file   app.hpp
+  \brief  Umbrella header for the engine application module
 */
 
-#ifndef INCLUDE_MATH_HPP_
-#define INCLUDE_MATH_HPP_
+#ifndef INCLUDE_APP_HPP_
+#define INCLUDE_APP_HPP_
 
-#include "core.hpp"
-
-/// @namespace toy::math
-/// @brief Contains all public mathematical types, constants, and utility functions of engine.
-namespace toy::math {
-
-/// Floating‑point scalar type.
-using real_t = float;
-
-} // namespace toy::math
-
-#include "math/point.hpp"
+#include "app/version.hpp"
 
 //----------------------------------------------------------------------------------------------------------------------
 
-#include "math/point.inl"
+#include "app/version.inl"
 
-#endif // INCLUDE_MATH_HPP_
+#endif // INCLUDE_APP_HPP_

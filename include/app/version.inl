@@ -18,28 +18,21 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   math.hpp
-  \brief  Umbrella header for the engine mathematics module
+  \file   version.inl
+  \brief  Implementation of application version management utilities.
 */
 
-#ifndef INCLUDE_MATH_HPP_
-#define INCLUDE_MATH_HPP_
+#ifndef INCLUDE_APP_VERSION_INL_
+#define INCLUDE_APP_VERSION_INL_
 
-#include "core.hpp"
+namespace toy::app {
 
-/// @namespace toy::math
-/// @brief Contains all public mathematical types, constants, and utility functions of engine.
-namespace toy::math {
+constexpr Version::Version() noexcept
+  : major(0)
+  , minor(0)
+  , maintenance(0)
+  , revision(0) {}
 
-/// Floating‑point scalar type.
-using real_t = float;
+} // namespace toy::app
 
-} // namespace toy::math
-
-#include "math/point.hpp"
-
-//----------------------------------------------------------------------------------------------------------------------
-
-#include "math/point.inl"
-
-#endif // INCLUDE_MATH_HPP_
+#endif // INCLUDE_APP_VERSION_INL_
