@@ -19,7 +19,7 @@
 //
 /*!
   \file   point.hpp
-  \brief  TODO
+  \brief  2D integer point class for UI and input handling.
 */
 
 #ifndef INCLUDE_MATH_POINT_HPP_
@@ -27,6 +27,77 @@
 
 namespace toy::math {
 
+/*!
+  \class Point
+  \brief 2D integer point class for UI and input handling.
+
+  Point is a lightweight, high-performance 2D point class that uses integer coordinates. It is specifically designed for
+  UI elements, mouse input handling, window positioning, and GUI layout calculations where pixel-perfect positioning is
+  required.
+
+  The coordinate type is configurable through the \a value_type alias, allowing for different integer precisions based
+  on application needs (defaults to \a std::int32_t).
+
+  \section features Key Features
+
+  - ⚙️ **Configurable Precision**: Uses configurable integer type (currently std::int32_t) for pixel-perfect positioning
+  - 🔧 **constexpr Support**: Most operations can be evaluated at compile time
+  - 🛡️ **Exception Safety**: All operations are noexcept
+  - 🔗 **STL Compatibility**: Provides standard container-like interface
+  - 🎯 **UI Optimized**: Designed specifically for UI and input handling
+  - 🧬 **Type Safety**: Strong typing with clear coordinate semantics
+
+  \section usage Usage Example
+
+  \code
+  #include "math/point.hpp"
+
+  // Mouse position handling
+  toy::math::Point mousePos(100, 200);
+
+  // Window positioning
+  toy::math::Point windowPos(50, 75);
+
+  // GUI element positioning
+  toy::math::Point buttonPos(10, 10);
+  buttonPos += Point(5, 5); // Move button
+
+  // Use in constexpr context
+  constexpr auto origin = toy::math::Point(0, 0);
+  constexpr auto center = toy::math::Point(640, 480);
+  \endcode
+
+  \section performance Performance Characteristics
+
+  - ⚙️ **Construction**: O(1) constant time
+  - 📝 **Assignment**: O(1) constant time
+  - 🔗 **Arithmetic Operations**: O(1) constant time
+  - 🔍 **Comparison Operations**: O(1) constant time
+  - 💾 **Memory Usage**: 2 * sizeof(value_type) bytes (currently 8 bytes with std::int32_t)
+  - ⚡ **Cache Performance**: Excellent due to small size and stack allocation
+  - 📋 **Copy Performance**: Fast due to simple integer copying
+  - 🎯 **UI Operations**: Optimized for UI and input handling
+
+  \section safety Safety Guarantees
+
+  - 🛡️ **Contracts & Debug Checks**: Division by zero is asserted in debug
+  - 🔒 **Bounds Safety**: All operations are bounds-safe
+  - 📐 **Type Safety**: Strong typing prevents coordinate mixing
+  - ⚠️ **Exception Safety**: All operations are noexcept, no exceptions thrown
+
+  \section compatibility Compatibility
+
+  - 🆕 **C++20**: Requires C++20 or later for full functionality
+  - 🔗 **STL Integration**: Compatible with STL algorithms and containers
+  - 🌐 **Cross-Platform**: Works on all platforms supported by the compiler
+  - 🔧 **Embedded Systems**: Suitable for resource-constrained environments
+  - 🔧 **Type Flexibility**: Coordinate type can be changed via \a value_type alias if needed
+
+  \note This class is specifically designed for UI and input handling. For sprite positioning and world coordinates,
+        consider using Vector2 with floating-point precision.
+
+  \see Vector2
+*/
 class Point {
 public:
   using value_type = std::int32_t; //!< The underlying coordinate type.
