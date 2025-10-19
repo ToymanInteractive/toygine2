@@ -72,7 +72,7 @@ namespace toy::math {
   - ⚙️ **Construction**: O(1) constant time
   - 📝 **Assignment**: O(1) constant time
   - 🔗 **Arithmetic Operations**: O(1) constant time
-  - 🔍 **Comparison Operations**: O(1) constant time
+  - ⚖️ **Comparison Operations**: O(1) constant time
   - 💾 **Memory Usage**: 2 * sizeof(value_type) bytes (currently 8 bytes with std::int32_t)
   - ⚡ **Cache Performance**: Excellent due to small size and stack allocation
   - 📋 **Copy Performance**: Fast due to simple integer copying
@@ -87,7 +87,6 @@ namespace toy::math {
 
   \section compatibility Compatibility
 
-  - 🆕 **C++20**: Requires C++20 or later for full functionality
   - 🔗 **STL Integration**: Compatible with STL algorithms and containers
   - 🌐 **Cross-Platform**: Works on all platforms supported by the compiler
   - 🔧 **Embedded Systems**: Suitable for resource-constrained environments

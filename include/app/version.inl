@@ -18,28 +18,36 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   math.hpp
-  \brief  Umbrella header for the engine mathematics module
+  \file   version.inl
+  \brief  Implementation of application version management utilities.
 */
 
-#ifndef INCLUDE_MATH_HPP_
-#define INCLUDE_MATH_HPP_
+#ifndef INCLUDE_APP_VERSION_INL_
+#define INCLUDE_APP_VERSION_INL_
 
-#include "core.hpp"
+namespace toy::app {
 
-/// @namespace toy::math
-/// @brief Contains all public mathematical types, constants, and utility functions of engine.
-namespace toy::math {
+constexpr bool operator==(const Version & lhs, const Version & rhs) noexcept {
+  return lhs.major == rhs.major && lhs.minor == rhs.minor && lhs.maintenance == rhs.maintenance
+         && lhs.revision == rhs.revision;
+}
 
-/// Floating‑point scalar type.
-using real_t = float;
+constexpr std::strong_ordering operator<=>(const Version & lhs, const Version & rhs) noexcept {
+  if (auto cmp = lhs.major <=> rhs.major; cmp != std::strong_ordering::equal) {
+    return cmp;
+  }
 
-} // namespace toy::math
+  if (auto cmp = lhs.minor <=> rhs.minor; cmp != std::strong_ordering::equal) {
+    return cmp;
+  }
 
-#include "math/point.hpp"
+  if (auto cmp = lhs.maintenance <=> rhs.maintenance; cmp != std::strong_ordering::equal) {
+    return cmp;
+  }
 
-//----------------------------------------------------------------------------------------------------------------------
+  return lhs.revision <=> rhs.revision;
+}
 
-#include "math/point.inl"
+} // namespace toy::app
 
-#endif // INCLUDE_MATH_HPP_
+#endif // INCLUDE_APP_VERSION_INL_
