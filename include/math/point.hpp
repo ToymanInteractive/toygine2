@@ -19,7 +19,7 @@
 //
 /*!
   \file   point.hpp
-  \brief  2D integer point class for UI and input handling.
+  \brief  .
 */
 
 #ifndef INCLUDE_MATH_POINT_HPP_

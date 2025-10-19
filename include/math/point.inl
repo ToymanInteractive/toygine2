@@ -19,13 +19,16 @@
 //
 /*!
   \file   point.inl
-  \brief  TODO
+  \brief  Inline implementations for 2D integer point class.
 */
 
 #ifndef INCLUDE_MATH_POINT_INL_
 #define INCLUDE_MATH_POINT_INL_
 
 namespace toy::math {
+
+static_assert(sizeof(Point) == 2 * sizeof(Point::value_type), "Point must be tightly packed");
+static_assert(offsetof(Point, y) == sizeof(Point::value_type), "y must follow x contiguously");
 
 constexpr Point::Point() noexcept
   : x()
@@ -110,7 +113,7 @@ constexpr bool Point::isZero() const noexcept {
   return x == 0 && y == 0;
 }
 
-bool Point::isEqual(const Point & point, value_type tolerance) const noexcept {
+inline bool Point::isEqual(const Point & point, value_type tolerance) const noexcept {
   assert_message(tolerance >= 0, "tolerance must be non-negative");
 
   return std::abs(x - point.x) <= tolerance && std::abs(y - point.y) <= tolerance;

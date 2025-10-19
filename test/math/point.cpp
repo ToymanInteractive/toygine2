@@ -42,70 +42,71 @@ TEST_CASE("Point object structure", "[math][point]") {
 
 TEST_CASE("Point constructors", "[math][point]") {
   SECTION("Default constructor") {
-    constexpr Point point;
-
+    const Point point;
     REQUIRE(point.x == 0);
     REQUIRE(point.y == 0);
 
     // Compile-time checks
-    STATIC_REQUIRE(point.x == 0);
-    STATIC_REQUIRE(point.y == 0);
+    constexpr Point constexprPoint;
+    STATIC_REQUIRE(constexprPoint.x == 0);
+    STATIC_REQUIRE(constexprPoint.y == 0);
   }
 
   SECTION("Constructor with positive coordinates") {
-    constexpr Point point(10, 20);
-
+    const Point point(10, 20);
     REQUIRE(point.x == 10);
     REQUIRE(point.y == 20);
 
     // Compile-time checks
-    STATIC_REQUIRE(point.x == 10);
-    STATIC_REQUIRE(point.y == 20);
+    constexpr Point constexprPoint(10, 20);
+    STATIC_REQUIRE(constexprPoint.x == 10);
+    STATIC_REQUIRE(constexprPoint.y == 20);
   }
 
   SECTION("Constructor with negative coordinates") {
-    constexpr Point point(-5, -15);
-
+    const Point point(-5, -15);
     REQUIRE(point.x == -5);
     REQUIRE(point.y == -15);
 
     // Compile-time checks
-    STATIC_REQUIRE(point.x == -5);
-    STATIC_REQUIRE(point.y == -15);
+    constexpr Point constexprPoint(-5, -15);
+    STATIC_REQUIRE(constexprPoint.x == -5);
+    STATIC_REQUIRE(constexprPoint.y == -15);
   }
 
   SECTION("Constructor with mixed coordinates") {
-    constexpr Point point(-100, 200);
-
+    const Point point(-100, 200);
     REQUIRE(point.x == -100);
     REQUIRE(point.y == 200);
 
     // Compile-time checks
-    STATIC_REQUIRE(point.x == -100);
-    STATIC_REQUIRE(point.y == 200);
+    constexpr Point constexprPoint(-100, 200);
+    STATIC_REQUIRE(constexprPoint.x == -100);
+    STATIC_REQUIRE(constexprPoint.y == 200);
   }
 
   SECTION("Constructor with zero coordinates") {
-    constexpr Point point(0, 0);
-
+    const Point point(0, 0);
     REQUIRE(point.x == 0);
     REQUIRE(point.y == 0);
 
     // Compile-time checks
-    STATIC_REQUIRE(point.x == 0);
-    STATIC_REQUIRE(point.y == 0);
+    constexpr Point constexprPoint(0, 0);
+    STATIC_REQUIRE(constexprPoint.x == 0);
+    STATIC_REQUIRE(constexprPoint.y == 0);
   }
 
   SECTION("Constructor from pointer to array") {
     constexpr std::array<Point::value_type, 2> arr{42, -17};
-    constexpr Point point(arr.data());
 
+    const Point point(arr.data());
     REQUIRE(point.x == 42);
     REQUIRE(point.y == -17);
 
     // Compile-time checks
-    STATIC_REQUIRE(point.x == 42);
-    STATIC_REQUIRE(point.y == -17);
+    constexpr Point constexprPoint(arr.data());
+    STATIC_REQUIRE(constexprPoint.x == 42);
+    STATIC_REQUIRE(constexprPoint.y == -17);
   }
 
   SECTION("Constructor from pointer to array with positive values") {
