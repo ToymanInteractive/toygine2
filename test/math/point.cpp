@@ -169,7 +169,8 @@ TEST_CASE("Point constructors", "[math][point]") {
     REQUIRE(coordPoint.y == -456);
 
     // Test array constructor at runtime
-    Point arrayPoint({789, -321});
+    constexpr std::array<Point::value_type, 2> arr{789, -321};
+    Point arrayPoint(arr.data());
     REQUIRE(arrayPoint.x == 789);
     REQUIRE(arrayPoint.y == -321);
   }
