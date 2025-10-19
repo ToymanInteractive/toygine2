@@ -26,7 +26,7 @@
 #define INCLUDE_MATH_HPP_
 
 /// @namespace toy::math
-/// @brief Contains all public mathematical types and utilities of ToyGine.
+/// @brief Contains all public mathematical types, constants, and utility functions of engine.
 namespace toy::math {
 
 /// Floating‑point scalar type.

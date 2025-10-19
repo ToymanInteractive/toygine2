@@ -119,6 +119,50 @@ inline bool Point::isEqual(const Point & point, value_type tolerance) const noex
   return std::abs(x - point.x) <= tolerance && std::abs(y - point.y) <= tolerance;
 }
 
+constexpr Point operator-(const Point & point) noexcept {
+  return Point(-point.x, -point.y);
+}
+
+constexpr Point operator+(const Point & left, const Point & right) noexcept {
+  return Point(left.x + right.x, left.y + right.y);
+}
+
+constexpr Point operator-(const Point & left, const Point & right) noexcept {
+  return Point(left.x - right.x, left.y - right.y);
+}
+
+constexpr Point operator*(const Point & left, Point::value_type right) noexcept {
+  return Point(left.x * right, left.y * right);
+}
+
+constexpr Point operator*(Point::value_type left, const Point & right) noexcept {
+  return right * left;
+}
+
+constexpr Point operator*(const Point & left, real_t right) noexcept {
+  return Point(static_cast<Point::value_type>(left.x * right), static_cast<Point::value_type>(left.y * right));
+}
+
+constexpr Point operator*(real_t left, const Point & right) noexcept {
+  return right * left;
+}
+
+constexpr Point operator/(const Point & left, Point::value_type right) noexcept {
+  assert_message(right != 0, "right must be non-zero");
+
+  return Point(left.x / right, left.y / right);
+}
+
+constexpr Point operator/(const Point & left, real_t right) noexcept {
+  assert_message(right > 0 || right < 0, "right must be non-zero");
+
+  return Point(static_cast<Point::value_type>(left.x / right), static_cast<Point::value_type>(left.y / right));
+}
+
+constexpr bool operator==(const Point & left, const Point & right) noexcept {
+  return left.x == right.x && left.y == right.y;
+}
+
 } // namespace toy::math
 
 #endif // INCLUDE_MATH_POINT_INL_

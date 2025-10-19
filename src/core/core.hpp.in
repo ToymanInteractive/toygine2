@@ -94,7 +94,7 @@
 #include "@TOYGINE_TARGET_PLATFORM_CONFIG_HEADER@"
 
 /// @namespace toy
-/// @brief Main engine namespace
+/// @brief Root namespace containing all engine modules.
 namespace toy {
 /*!
   \brief Returns the size of an array at compile-time.
@@ -147,7 +147,7 @@ concept StringLike = requires(const T & str) {
 
 //--------------------------------------------------------------------------------------------------------------------
 
-/// @brief Internal assertion utilities for runtime checks and debugging.
+/// @brief Assertion utilities for validating engine invariants and runtime conditions.
 namespace assertion {
 
 using AssertionCallback = bool (*)(const char *);

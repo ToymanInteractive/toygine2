@@ -109,9 +109,7 @@ public:
   constexpr FixedString() noexcept;
 
   /*!
-    \brief Destructor for the string.
-
-    This destructor cleans up the string.
+    \brief Destructor for the fixed string.
 
     \note Since the FixedString does not manage dynamic memory, no special cleanup is required.
   */

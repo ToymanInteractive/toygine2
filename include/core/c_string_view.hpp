@@ -137,7 +137,7 @@ public:
   /*!
     \brief Destructor for the string view.
 
-    \note Since the Destructor does not manage dynamic memory, no special cleanup is required.
+    \note Since the CStringView does not manage dynamic memory, no special cleanup is required.
   */
   constexpr ~CStringView() noexcept = default;
 

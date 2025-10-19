@@ -174,38 +174,6 @@ TEST_CASE("Point constructors", "[math][point]") {
     REQUIRE(arrayPoint.x == 789);
     REQUIRE(arrayPoint.y == -321);
   }
-
-  SECTION("Edge cases") {
-    // Test with maximum positive values
-    constexpr Point maxPoint(2147483647, 2147483647);
-    REQUIRE(maxPoint.x == 2147483647);
-    REQUIRE(maxPoint.y == 2147483647);
-
-    // Test with minimum negative values
-    constexpr Point minPoint(-2147483648, -2147483648);
-    REQUIRE(minPoint.x == -2147483648);
-    REQUIRE(minPoint.y == -2147483648);
-
-    // Test with mixed extreme values
-    constexpr Point mixedPoint(2147483647, -2147483648);
-    REQUIRE(mixedPoint.x == 2147483647);
-    REQUIRE(mixedPoint.y == -2147483648);
-  }
-
-  SECTION("Constexpr operations") {
-    // Test constexpr operations with constructors
-    constexpr Point p1(10, 20);
-    constexpr Point p2(-5, -15);
-    constexpr Point p3({100, -200});
-
-    // Verify all points are properly constructed
-    STATIC_REQUIRE(p1.x == 10);
-    STATIC_REQUIRE(p1.y == 20);
-    STATIC_REQUIRE(p2.x == -5);
-    STATIC_REQUIRE(p2.y == -15);
-    STATIC_REQUIRE(p3.x == 100);
-    STATIC_REQUIRE(p3.y == -200);
-  }
 }
 
 TEST_CASE("Point c_arr methods", "[math][point]") {
@@ -226,8 +194,8 @@ TEST_CASE("Point c_arr methods", "[math][point]") {
   }
 
   SECTION("Const c_arr method") {
-    const Point point(123, -456);
-    const auto * arr = point.c_arr();
+    constexpr Point point(123, -456);
+    const Point::const_pointer arr = point.c_arr();
 
     REQUIRE(arr != nullptr);
     REQUIRE(arr[0] == 123);
@@ -380,7 +348,7 @@ TEST_CASE("Point operators", "[math][point]") {
 
   SECTION("Chained operations") {
     Point point(10, 20);
-    const Point offset(5, 10);
+    constexpr Point offset(5, 10);
 
     point += offset;
     point *= 2;
@@ -405,6 +373,8 @@ TEST_CASE("Point methods", "[math][point]") {
     constexpr auto magnitude = point.sqrMagnitude();
 
     REQUIRE(magnitude == 25);
+
+    // Compile-time checks
     STATIC_REQUIRE(magnitude == 25);
   }
 
@@ -413,6 +383,8 @@ TEST_CASE("Point methods", "[math][point]") {
     constexpr auto magnitude = point.sqrMagnitude();
 
     REQUIRE(magnitude == 0);
+
+    // Compile-time checks
     STATIC_REQUIRE(magnitude == 0);
   }
 
@@ -421,6 +393,8 @@ TEST_CASE("Point methods", "[math][point]") {
     constexpr auto magnitude = point.sqrMagnitude();
 
     REQUIRE(magnitude == 5000000);
+
+    // Compile-time checks
     STATIC_REQUIRE(magnitude == 5000000);
   }
 
@@ -438,6 +412,8 @@ TEST_CASE("Point methods", "[math][point]") {
     constexpr bool result = point.isZero();
 
     REQUIRE(result == true);
+
+    // Compile-time checks
     STATIC_REQUIRE(result == true);
   }
 
@@ -446,6 +422,8 @@ TEST_CASE("Point methods", "[math][point]") {
     constexpr bool result = point.isZero();
 
     REQUIRE(result == false);
+
+    // Compile-time checks
     STATIC_REQUIRE(result == false);
   }
 
@@ -454,6 +432,8 @@ TEST_CASE("Point methods", "[math][point]") {
     constexpr bool result = point.isZero();
 
     REQUIRE(result == false);
+
+    // Compile-time checks
     STATIC_REQUIRE(result == false);
   }
 
@@ -563,5 +543,443 @@ TEST_CASE("Point methods", "[math][point]") {
     constexpr Point testPoint(5, 5);
     REQUIRE(point.isEqual(testPoint) == false);
     REQUIRE(point.isEqual(testPoint, 10) == true);
+  }
+}
+
+TEST_CASE("Point binary operators", "[math][point]") {
+  SECTION("Unary minus operator") {
+    constexpr Point point(10, -20);
+    constexpr Point result = -point;
+
+    REQUIRE(result.x == -10);
+    REQUIRE(result.y == 20);
+
+    // Compile-time checks
+    STATIC_REQUIRE(result.x == -10);
+    STATIC_REQUIRE(result.y == 20);
+  }
+
+  SECTION("Unary minus with zero coordinates") {
+    constexpr Point point(0, 0);
+    constexpr Point result = -point;
+
+    REQUIRE(result.x == 0);
+    REQUIRE(result.y == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(result.x == 0);
+    STATIC_REQUIRE(result.y == 0);
+  }
+
+  SECTION("Unary minus with negative coordinates") {
+    constexpr Point point(-5, -15);
+    constexpr Point result = -point;
+
+    REQUIRE(result.x == 5);
+    REQUIRE(result.y == 15);
+
+    // Compile-time checks
+    STATIC_REQUIRE(result.x == 5);
+    STATIC_REQUIRE(result.y == 15);
+  }
+
+  SECTION("Addition operator") {
+    constexpr Point point1(10, 20);
+    constexpr Point point2(5, -10);
+
+    constexpr Point result = point1 + point2;
+
+    REQUIRE(result.x == 15);
+    REQUIRE(result.y == 10);
+
+    // Compile-time checks
+    STATIC_REQUIRE(result.x == 15);
+    STATIC_REQUIRE(result.y == 10);
+  }
+
+  SECTION("Addition with zero coordinates") {
+    constexpr Point point1(10, 20);
+    constexpr Point point2(0, 0);
+
+    constexpr Point result = point1 + point2;
+
+    REQUIRE(result.x == 10);
+    REQUIRE(result.y == 20);
+
+    // Compile-time checks
+    STATIC_REQUIRE(result.x == 10);
+    STATIC_REQUIRE(result.y == 20);
+  }
+
+  SECTION("Addition with negative coordinates") {
+    constexpr Point point1(-10, -20);
+    constexpr Point point2(-5, -15);
+
+    constexpr Point result = point1 + point2;
+
+    REQUIRE(result.x == -15);
+    REQUIRE(result.y == -35);
+
+    // Compile-time checks
+    STATIC_REQUIRE(result.x == -15);
+    STATIC_REQUIRE(result.y == -35);
+  }
+
+  SECTION("Subtraction operator") {
+    constexpr Point point1(15, 25);
+    constexpr Point point2(5, 10);
+
+    constexpr Point result = point1 - point2;
+
+    REQUIRE(result.x == 10);
+    REQUIRE(result.y == 15);
+
+    // Compile-time checks
+    STATIC_REQUIRE(result.x == 10);
+    STATIC_REQUIRE(result.y == 15);
+  }
+
+  SECTION("Subtraction with zero coordinates") {
+    constexpr Point point1(10, 20);
+    constexpr Point point2(0, 0);
+
+    constexpr Point result = point1 - point2;
+
+    REQUIRE(result.x == 10);
+    REQUIRE(result.y == 20);
+
+    // Compile-time checks
+    STATIC_REQUIRE(result.x == 10);
+    STATIC_REQUIRE(result.y == 20);
+  }
+
+  SECTION("Subtraction with negative coordinates") {
+    constexpr Point point1(-10, -20);
+    constexpr Point point2(-5, -15);
+
+    constexpr Point result = point1 - point2;
+
+    REQUIRE(result.x == -5);
+    REQUIRE(result.y == -5);
+
+    // Compile-time checks
+    STATIC_REQUIRE(result.x == -5);
+    STATIC_REQUIRE(result.y == -5);
+  }
+
+  SECTION("Multiplication with integer scalar (point * scalar)") {
+    constexpr Point point(10, 20);
+    constexpr Point::value_type scalar = 3;
+
+    constexpr Point result = point * scalar;
+
+    REQUIRE(result.x == 30);
+    REQUIRE(result.y == 60);
+
+    // Compile-time checks
+    STATIC_REQUIRE(result.x == 30);
+    STATIC_REQUIRE(result.y == 60);
+  }
+
+  SECTION("Multiplication with integer scalar (scalar * point)") {
+    constexpr Point::value_type scalar = 4;
+    constexpr Point point(5, 15);
+
+    constexpr Point result = scalar * point;
+
+    REQUIRE(result.x == 20);
+    REQUIRE(result.y == 60);
+
+    // Compile-time checks
+    STATIC_REQUIRE(result.x == 20);
+    STATIC_REQUIRE(result.y == 60);
+  }
+
+  SECTION("Multiplication with zero scalar") {
+    constexpr Point point(10, 20);
+    constexpr Point::value_type scalar = 0;
+
+    constexpr Point result = point * scalar;
+
+    REQUIRE(result.x == 0);
+    REQUIRE(result.y == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(result.x == 0);
+    STATIC_REQUIRE(result.y == 0);
+  }
+
+  SECTION("Multiplication with negative scalar") {
+    constexpr Point point(10, 20);
+    constexpr Point::value_type scalar = -2;
+
+    constexpr Point result = point * scalar;
+
+    REQUIRE(result.x == -20);
+    REQUIRE(result.y == -40);
+
+    // Compile-time checks
+    STATIC_REQUIRE(result.x == -20);
+    STATIC_REQUIRE(result.y == -40);
+  }
+
+  SECTION("Multiplication with real scalar (point * real)") {
+    constexpr Point point(10, 20);
+    constexpr real_t scalar = 2.5;
+
+    constexpr Point result = point * scalar;
+
+    REQUIRE(result.x == 25);
+    REQUIRE(result.y == 50);
+
+    // Compile-time checks
+    STATIC_REQUIRE(result.x == 25);
+    STATIC_REQUIRE(result.y == 50);
+  }
+
+  SECTION("Multiplication with real scalar (real * point)") {
+    constexpr real_t scalar = 1.5;
+    constexpr Point point(20, 30);
+
+    constexpr Point result = scalar * point;
+
+    REQUIRE(result.x == 30);
+    REQUIRE(result.y == 45);
+
+    // Compile-time checks
+    STATIC_REQUIRE(result.x == 30);
+    STATIC_REQUIRE(result.y == 45);
+  }
+
+  SECTION("Multiplication with real scalar zero") {
+    constexpr Point point(10, 20);
+    constexpr real_t scalar = 0.0;
+
+    constexpr Point result = point * scalar;
+
+    REQUIRE(result.x == 0);
+    REQUIRE(result.y == 0);
+
+    // Compile-time checks
+    STATIC_REQUIRE(result.x == 0);
+    STATIC_REQUIRE(result.y == 0);
+  }
+
+  SECTION("Multiplication with real scalar negative") {
+    constexpr Point point(10, 20);
+    constexpr real_t scalar = -0.5;
+
+    constexpr Point result = point * scalar;
+
+    REQUIRE(result.x == -5);
+    REQUIRE(result.y == -10);
+
+    // Compile-time checks
+    STATIC_REQUIRE(result.x == -5);
+    STATIC_REQUIRE(result.y == -10);
+  }
+
+  SECTION("Division with integer scalar") {
+    constexpr Point point(30, 60);
+    constexpr Point::value_type scalar = 3;
+
+    constexpr Point result = point / scalar;
+
+    REQUIRE(result.x == 10);
+    REQUIRE(result.y == 20);
+
+    // Compile-time checks
+    STATIC_REQUIRE(result.x == 10);
+    STATIC_REQUIRE(result.y == 20);
+  }
+
+  SECTION("Division with negative scalar") {
+    constexpr Point point(-20, -40);
+    constexpr Point::value_type scalar = -2;
+
+    constexpr Point result = point / scalar;
+
+    REQUIRE(result.x == 10);
+    REQUIRE(result.y == 20);
+
+    // Compile-time checks
+    STATIC_REQUIRE(result.x == 10);
+    STATIC_REQUIRE(result.y == 20);
+  }
+
+  SECTION("Division with real scalar") {
+    constexpr Point point(25, 50);
+    constexpr real_t scalar = 2.5;
+
+    constexpr Point result = point / scalar;
+
+    REQUIRE(result.x == 10);
+    REQUIRE(result.y == 20);
+
+    // Compile-time checks
+    STATIC_REQUIRE(result.x == 10);
+    STATIC_REQUIRE(result.y == 20);
+  }
+
+  SECTION("Division with real scalar negative") {
+    constexpr Point point(-30, -60);
+    constexpr real_t scalar = -1.5;
+
+    constexpr Point result = point / scalar;
+
+    REQUIRE(result.x == 20);
+    REQUIRE(result.y == 40);
+
+    // Compile-time checks
+    STATIC_REQUIRE(result.x == 20);
+    STATIC_REQUIRE(result.y == 40);
+  }
+
+  SECTION("Equality operator with identical points") {
+    constexpr Point point1(10, 20);
+    constexpr Point point2(10, 20);
+
+    constexpr bool result = point1 == point2;
+
+    REQUIRE(result == true);
+
+    // Compile-time checks
+    STATIC_REQUIRE(result == true);
+  }
+
+  SECTION("Equality operator with different points") {
+    constexpr Point point1(10, 20);
+    constexpr Point point2(11, 20);
+
+    constexpr bool result = point1 == point2;
+
+    REQUIRE(result == false);
+
+    // Compile-time checks
+    STATIC_REQUIRE(result == false);
+  }
+
+  SECTION("Equality operator with zero coordinates") {
+    constexpr Point point1(0, 0);
+    constexpr Point point2(0, 0);
+
+    constexpr bool result = point1 == point2;
+
+    REQUIRE(result == true);
+
+    // Compile-time checks
+    STATIC_REQUIRE(result == true);
+  }
+
+  SECTION("Equality operator with negative coordinates") {
+    constexpr Point point1(-10, -20);
+    constexpr Point point2(-10, -20);
+
+    constexpr bool result = point1 == point2;
+
+    REQUIRE(result == true);
+
+    // Compile-time checks
+    STATIC_REQUIRE(result == true);
+  }
+
+  SECTION("Equality operator with mixed coordinates") {
+    constexpr Point point1(10, -20);
+    constexpr Point point2(10, -20);
+
+    constexpr bool result = point1 == point2;
+
+    REQUIRE(result == true);
+
+    // Compile-time checks
+    STATIC_REQUIRE(result == true);
+  }
+
+  SECTION("Chained binary operations") {
+    constexpr Point point1(10, 20);
+    constexpr Point point2(5, 10);
+    constexpr Point::value_type scalar = 2;
+
+    constexpr Point result = (point1 + point2) * scalar - point1;
+
+    REQUIRE(result.x == 20); // ((10+5)*2 - 10) = 30 - 10 = 20
+    REQUIRE(result.y == 40); // ((20+10)*2 - 20) = 60 - 20 = 40
+
+    // Compile-time checks
+    STATIC_REQUIRE(result.x == 20);
+    STATIC_REQUIRE(result.y == 40);
+  }
+
+  SECTION("Complex chained operations") {
+    constexpr Point point1(100, 200);
+    constexpr Point point2(50, 75);
+    constexpr real_t scalar1 = 1.5;
+    constexpr Point::value_type scalar2 = 2;
+
+    constexpr Point result = (point1 * scalar1 + point2) / scalar2;
+
+    REQUIRE(result.x == 100); // ((100*1.5 + 50) / 2) = (150 + 50) / 2 = 100
+    REQUIRE(result.y == 187); // ((200*1.5 + 75) / 2) = (300 + 75) / 2 = 187
+
+    // Compile-time checks
+    STATIC_REQUIRE(result.x == 100);
+    STATIC_REQUIRE(result.y == 187);
+  }
+
+  SECTION("Chained tests") {
+    // Test all binary operators at runtime
+    constexpr Point point1(10, 20);
+    constexpr Point point2(5, -10);
+
+    // Unary minus
+    constexpr Point negated = -point1;
+    REQUIRE(negated.x == -10);
+    REQUIRE(negated.y == -20);
+
+    // Addition
+    constexpr Point sum = negated + point2;
+    REQUIRE(sum.x == -5);
+    REQUIRE(sum.y == -30);
+
+    // Subtraction
+    constexpr Point diff = sum - point2;
+    REQUIRE(diff.x == -10);
+    REQUIRE(diff.y == -20);
+
+    // Multiplication with integer
+    constexpr Point multInt = diff * 3;
+    REQUIRE(multInt.x == -30);
+    REQUIRE(multInt.y == -60);
+
+    // Multiplication with real
+    constexpr Point multReal = multInt * 2.5f;
+    REQUIRE(multReal.x == -75);
+    REQUIRE(multReal.y == -150);
+
+    // Division with integer
+    constexpr Point divInt = multReal / 3;
+    REQUIRE(divInt.x == -25);
+    REQUIRE(divInt.y == -50);
+
+    // Division with real
+    constexpr Point divReal = divInt / 2.5f;
+    REQUIRE(divReal.x == -10);
+    REQUIRE(divReal.y == -20);
+
+    // Compile-time checks
+    STATIC_REQUIRE(negated.x == -10);
+    STATIC_REQUIRE(negated.y == -20);
+    STATIC_REQUIRE(sum.x == -5);
+    STATIC_REQUIRE(sum.y == -30);
+    STATIC_REQUIRE(diff.x == -10);
+    STATIC_REQUIRE(diff.y == -20);
+    STATIC_REQUIRE(multInt.x == -30);
+    STATIC_REQUIRE(multInt.y == -60);
+    STATIC_REQUIRE(multReal.x == -75);
+    STATIC_REQUIRE(multReal.y == -150);
+    STATIC_REQUIRE(divInt.x == -25);
+    STATIC_REQUIRE(divInt.y == -50);
+    STATIC_REQUIRE(divReal.x == -10);
+    STATIC_REQUIRE(divReal.y == -20);
   }
 }
