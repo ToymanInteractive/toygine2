@@ -17,9 +17,9 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 //
-/*
+/*!
   \file   core.hpp
-  \brief  engine core part united header
+  \brief  Umbrella header for the engine core module
 */
 
 #ifndef INCLUDE_CORE_HPP_
@@ -93,6 +93,7 @@
 
 #include "@TOYGINE_TARGET_PLATFORM_CONFIG_HEADER@"
 
+/// @namespace toy
 /// @brief Main engine namespace
 namespace toy {
 /*!
@@ -146,7 +147,7 @@ concept StringLike = requires(const T & str) {
 
 //--------------------------------------------------------------------------------------------------------------------
 
-/// @brief Assertion related functions.
+/// @brief Internal assertion utilities for runtime checks and debugging.
 namespace assertion {
 
 using AssertionCallback = bool (*)(const char *);
