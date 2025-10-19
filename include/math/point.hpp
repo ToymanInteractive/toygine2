@@ -72,7 +72,7 @@ namespace toy::math {
   - ⚙️ **Construction**: O(1) constant time
   - 📝 **Assignment**: O(1) constant time
   - 🔗 **Arithmetic Operations**: O(1) constant time
-  - 🔍 **Comparison Operations**: O(1) constant time
+  - ⚖️ **Comparison Operations**: O(1) constant time
   - 💾 **Memory Usage**: 2 * sizeof(value_type) bytes (currently 8 bytes with std::int32_t)
   - ⚡ **Cache Performance**: Excellent due to small size and stack allocation
   - 📋 **Copy Performance**: Fast due to simple integer copying
