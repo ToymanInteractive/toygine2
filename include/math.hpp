@@ -17,17 +17,19 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 //
-/*
+/*!
   \file   math.hpp
-  \brief  TODO
+  \brief  Umbrella header for the engine mathematics module
 */
 
 #ifndef INCLUDE_MATH_HPP_
 #define INCLUDE_MATH_HPP_
 
+/// @namespace toy::math
+/// @brief Contains all public mathematical types and utilities of ToyGine.
 namespace toy::math {
 
-using real_t = float;
+using real_t = float; //!< floating point number type.
 
 } // namespace toy::math
 

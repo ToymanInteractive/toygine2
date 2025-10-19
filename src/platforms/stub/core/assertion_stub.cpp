@@ -23,6 +23,8 @@
 
 #include "core.hpp"
 
+/// @namespace toy::assertion
+/// @brief Internal assertion utilities for runtime checks and debugging.
 namespace toy::assertion {
 
 static AssertionCallback s_assertionCallback = nullptr;
