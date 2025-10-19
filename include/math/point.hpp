@@ -29,13 +29,16 @@ namespace toy::math {
 
 class Point {
 public:
-  using value_type = std::int32_t;
-  using reference = value_type &;
-  using const_reference = const value_type &;
-  using pointer = value_type *;
-  using const_pointer = const value_type *;
+  using value_type = std::int32_t; //!< The underlying coordinate type.
+  using reference = value_type &; //!< Reference to coordinate value.
+  using const_reference = const value_type &; //!< Constant reference to coordinate value.
+  using pointer = value_type *; //!< Pointer to coordinate value.
+  using const_pointer = const value_type *; //!< Constant pointer to coordinate value.
 
+  /// X coordinate.
   value_type x;
+
+  /// Y coordinate.
   value_type y;
 
   /*!
