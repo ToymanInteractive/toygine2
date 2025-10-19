@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['usage_20example_0',['Usage Example',['../d3/d7a/classtoy_1_1_fixed_string.html#usage',1,'']]],
+  ['usage_20example_0',['Usage Example',['../d3/dce/classtoy_1_1math_1_1_point.html#usage',1,'']]],
   ['utf8_5fpop_5fback_1',['utf8_pop_back',['../d3/d7a/classtoy_1_1_fixed_string.html#aca80fc41b7a1fbf52786e1c66f837977',1,'toy::FixedString']]],
   ['utf8_5fsize_2',['utf8_size',['../d5/d03/classtoy_1_1_c_string_view.html#af55492c22e19b5ac015367834546a386',1,'toy::CStringView::utf8_size()'],['../d3/d7a/classtoy_1_1_fixed_string.html#ad23a132e4628fa6d3630ce63f77b8c19',1,'toy::FixedString::utf8_size()']]],
   ['utf8len_3',['utf8Len',['../d4/da9/namespacetoy.html#ab5f3ab527e8f4d2b3a41de6ee34551bd',1,'toy']]],

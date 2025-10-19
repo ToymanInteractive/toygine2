@@ -1,6 +1,6 @@
 <map id="include/core/utils.inl" name="include/core/utils.inl">
 <area shape="rect" id="Node000001" title="Inline implementations of core utility functions for string manipulation and encoding conversion." alt="" coords="169,5,323,31"/>
-<area shape="rect" id="Node000002" href="$da/d47/core_8hpp.html" title=" " alt="" coords="181,79,311,104"/>
+<area shape="rect" id="Node000002" href="$da/d47/core_8hpp.html" title="Umbrella header for the engine core module." alt="" coords="181,79,311,104"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="249,44,249,79,243,79,243,44"/>
 <area shape="rect" id="Node000003" href="$db/d2d/hashes_8cpp.html" title="Implementation of CRC hash functions with lookup tables for optimal performance." alt="" coords="5,159,156,185"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="211,112,106,162,104,157,208,107"/>

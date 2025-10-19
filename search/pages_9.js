@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['usage_20example_0',['Usage Example',['../d3/d7a/classtoy_1_1_fixed_string.html#usage',1,'']]]
+  ['usage_20example_0',['Usage Example',['../d3/dce/classtoy_1_1math_1_1_point.html#usage',1,'']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['key_20features_0',['Key Features',['../d3/d7a/classtoy_1_1_fixed_string.html#features',1,'']]]
+  ['key_20features_0',['Key Features',['../d3/dce/classtoy_1_1math_1_1_point.html#features',1,'']]]
 ];

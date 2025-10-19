@@ -104,7 +104,7 @@ var sectionId = 'dynsection-0';
 <!-- Node4 -->
 <g id="Node000004" class="node">
 <title>Node4</title>
-<g id="a_Node000004"><a xlink:href="../../da/d47/core_8hpp.html" target="_top" xlink:title=" ">
+<g id="a_Node000004"><a xlink:href="../../da/d47/core_8hpp.html" target="_top" xlink:title="Umbrella header for the engine core module.">
 <polygon fill="white" stroke="#666666" points="823.5,-96 764.5,-96 764.5,-77 823.5,-77 823.5,-96"/>
 <text text-anchor="middle" x="794" y="-84" font-family="Helvetica,sans-Serif" font-size="10.00">core.hpp</text>
 </a>

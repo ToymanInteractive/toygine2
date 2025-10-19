@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['guarantees_0',['Safety Guarantees',['../d3/d7a/classtoy_1_1_fixed_string.html#safety',1,'']]]
+  ['guarantees_0',['Safety Guarantees',['../d3/dce/classtoy_1_1math_1_1_point.html#safety',1,'']]]
 ];

@@ -4,7 +4,7 @@
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="456,47,424,84,420,81,452,44"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="5,181,64,207"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="474,46,468,84,460,104,447,121,416,138,373,148,267,155,158,158,112,161,77,169,62,176,60,171,75,164,111,156,158,152,266,150,372,142,414,133,444,117,456,101,463,83,469,45"/>
-<area shape="rect" id="Node000004" href="$da/d47/core_8hpp.html" title=" " alt="" coords="1025,93,1103,119"/>
+<area shape="rect" id="Node000004" href="$da/d47/core_8hpp.html" title="Umbrella header for the engine core module." alt="" coords="1025,93,1103,119"/>
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="561,36,1011,95,1011,100,560,41"/>
 <area shape="poly" id="edge13_Node000004_Node000003" title=" " alt="" coords="1024,111,519,131,238,149,136,159,77,169,62,176,59,171,75,164,135,153,238,143,519,126,1024,106"/>
 <area shape="rect" id="Node000005" title=" " alt="" coords="88,181,173,207"/>

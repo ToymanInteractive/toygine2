@@ -1,0 +1,7 @@
+<map id="include/math.hpp" name="include/math.hpp">
+<area shape="rect" id="Node000001" title="Umbrella header for the engine mathematics module." alt="" coords="69,5,204,31"/>
+<area shape="rect" id="Node000002" href="$d0/de4/point_8hpp.html" title=" " alt="" coords="5,79,127,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="127,33,89,71,85,67,123,29"/>
+<area shape="rect" id="Node000003" href="$d4/dee/point_8inl.html" title="Inline implementations for 2D integer point class." alt="" coords="151,79,264,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="150,29,188,67,184,71,146,33"/>
+</map>
