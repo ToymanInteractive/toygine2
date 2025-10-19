@@ -36,9 +36,12 @@ constexpr Point::Point(const_reference x, const_reference y) noexcept
   , y(y) {}
 
 constexpr Point::Point(const_pointer values) noexcept
-  : x(values[0])
-  , y(values[1]) {
+  : x()
+  , y() {
   assert_message(values != nullptr, "values cannot be null");
+
+  x = values[0];
+  y = values[1];
 }
 
 constexpr Point::pointer Point::c_arr() noexcept {
@@ -110,7 +113,7 @@ constexpr bool Point::isZero() const noexcept {
 constexpr bool Point::isEqual(const Point & point, value_type tolerance) const noexcept {
   assert_message(tolerance >= 0, "tolerance must be non-negative");
 
-  return (abs(x - point.x) <= tolerance) && (abs(y - point.y) <= tolerance);
+  return (std::abs(x - point.x) <= tolerance) && (std::abs(y - point.y) <= tolerance);
 }
 
 } // namespace toy::math

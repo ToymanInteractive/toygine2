@@ -365,7 +365,7 @@ public:
 
     \see operator[](std::size_t offset)
   */
-  constexpr char & at(std::size_t offset) noexcept;
+  [[nodiscard]] constexpr char & at(std::size_t offset) noexcept;
 
   /*!
     \brief Access a character in the string at a given \a offset.
@@ -400,7 +400,7 @@ public:
     \note The returned reference allows modification of the character.
     \note Use const version for read-only access.
   */
-  constexpr char & operator[](std::size_t offset) noexcept;
+  [[nodiscard]] constexpr char & operator[](std::size_t offset) noexcept;
 
   /*!
     \brief Access a character in the string at a given \a offset.

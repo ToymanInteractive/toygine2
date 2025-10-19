@@ -96,8 +96,9 @@ TEST_CASE("Point constructors", "[math][point]") {
     STATIC_REQUIRE(point.y == 0);
   }
 
-  SECTION("Constructor from array") {
-    constexpr Point point({42, -17});
+  SECTION("Constructor from pointer to array") {
+    constexpr std::array<Point::value_type, 2> arr{42, -17};
+    constexpr Point point(arr.data());
 
     REQUIRE(point.x == 42);
     REQUIRE(point.y == -17);
@@ -107,8 +108,9 @@ TEST_CASE("Point constructors", "[math][point]") {
     STATIC_REQUIRE(point.y == -17);
   }
 
-  SECTION("Constructor from array with positive values") {
-    constexpr Point point({100, 200});
+  SECTION("Constructor from pointer to array with positive values") {
+    constexpr std::array<Point::value_type, 2> arr{100, 200};
+    constexpr Point point(arr.data());
 
     REQUIRE(point.x == 100);
     REQUIRE(point.y == 200);
@@ -118,8 +120,9 @@ TEST_CASE("Point constructors", "[math][point]") {
     STATIC_REQUIRE(point.y == 200);
   }
 
-  SECTION("Constructor from array with negative values") {
-    constexpr Point point({-50, -75});
+  SECTION("Constructor from pointer to array with negative values") {
+    constexpr std::array<Point::value_type, 2> arr{-50, -75};
+    constexpr Point point(arr.data());
 
     REQUIRE(point.x == -50);
     REQUIRE(point.y == -75);
@@ -129,8 +132,9 @@ TEST_CASE("Point constructors", "[math][point]") {
     STATIC_REQUIRE(point.y == -75);
   }
 
-  SECTION("Constructor from array with mixed values") {
-    constexpr Point point({-300, 400});
+  SECTION("Constructor from pointer to array with mixed values") {
+    constexpr std::array<Point::value_type, 2> arr{-300, 400};
+    constexpr Point point(arr.data());
 
     REQUIRE(point.x == -300);
     REQUIRE(point.y == 400);
@@ -140,8 +144,9 @@ TEST_CASE("Point constructors", "[math][point]") {
     STATIC_REQUIRE(point.y == 400);
   }
 
-  SECTION("Constructor from array with zero values") {
-    constexpr Point point({0, 0});
+  SECTION("Constructor from pointer to array with zero values") {
+    constexpr std::array<Point::value_type, 2> arr{0, 0};
+    constexpr Point point(arr.data());
 
     REQUIRE(point.x == 0);
     REQUIRE(point.y == 0);
