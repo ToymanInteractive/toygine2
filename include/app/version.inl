@@ -27,11 +27,26 @@
 
 namespace toy::app {
 
-constexpr Version::Version() noexcept
-  : major(0)
-  , minor(0)
-  , maintenance(0)
-  , revision(0) {}
+constexpr bool operator==(const Version & lhs, const Version & rhs) noexcept {
+  return lhs.major == rhs.major && lhs.minor == rhs.minor && lhs.maintenance == rhs.maintenance
+         && lhs.revision == rhs.revision;
+}
+
+constexpr std::strong_ordering operator<=>(const Version & lhs, const Version & rhs) noexcept {
+  if (auto cmp = lhs.major <=> rhs.major; cmp != std::strong_ordering::equal) {
+    return cmp;
+  }
+
+  if (auto cmp = lhs.minor <=> rhs.minor; cmp != std::strong_ordering::equal) {
+    return cmp;
+  }
+
+  if (auto cmp = lhs.maintenance <=> rhs.maintenance; cmp != std::strong_ordering::equal) {
+    return cmp;
+  }
+
+  return lhs.revision <=> rhs.revision;
+}
 
 } // namespace toy::app
 

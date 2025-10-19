@@ -25,6 +25,10 @@
 #ifndef INCLUDE_APP_HPP_
 #define INCLUDE_APP_HPP_
 
+/// @namespace toy::app
+/// @brief Contains all public application-level types, utilities, and management functions of engine.
+namespace toy::app {} // namespace toy::app
+
 #include "app/version.hpp"
 
 //----------------------------------------------------------------------------------------------------------------------

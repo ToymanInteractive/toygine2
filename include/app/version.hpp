@@ -94,31 +94,59 @@ namespace toy::app {
   \see Semantic Versioning (https://semver.org/)
 */
 struct Version {
-  /*! \brief Major version number. */
-  /*! \details Indicates incompatible API changes. */
-  std::uint32_t major;
-
-  /*! \brief Minor version number. */
-  /*! \details Indicates backward-compatible functionality additions. */
-  std::uint32_t minor;
-
-  /*! \brief Maintenance version number. */
-  /*! \details Indicates backward-compatible bug fixes. */
-  std::uint32_t maintenance;
-
-  /*! \brief Revision number. */
-  /*! \details Indicates build number or patch level. */
-  std::uint32_t revision;
+  /*!
+     \brief Major version number.
+     \details Indicates incompatible API changes.
+  */
+  std::uint32_t major = 0;
 
   /*!
-    \brief Default constructor.
-
-    This constructor initializes all version components to zero.
-
-    \post All version components are initialized to 0.
+   \brief Minor version number.
+   \details Indicates backward-compatible functionality additions.
   */
-  constexpr Version() noexcept;
+  std::uint32_t minor = 0;
+
+  /*!
+   \brief Maintenance version number.
+   \details Indicates backward-compatible bug fixes.
+  */
+  std::uint32_t maintenance = 0;
+
+  /*!
+   \brief Revision number.
+   \details Indicates build number or patch level.
+  */
+  std::uint32_t revision = 0;
 };
+
+/*!
+  \brief Equality operator for two versions.
+
+  Compares two versions for exact equality of all components.
+
+  \param lhs The left-hand side version.
+  \param rhs The right-hand side version.
+
+  \return true if all version components are identical, false otherwise.
+
+  \note This performs exact equality comparison. For semantic versioning compatibility, consider using the three-way
+        comparison operator.
+*/
+[[nodiscard]] constexpr bool operator==(const Version & lhs, const Version & rhs) noexcept;
+
+/*!
+  \brief Three-way comparison operator for two versions.
+
+  Compares two versions using lexicographical ordering following semantic versioning principles. The comparison
+  prioritizes major version over minor, minor over maintenance, and maintenance over revision.
+
+  \param lhs The left-hand side version.
+  \param rhs The right-hand side version.
+
+  \return std::strong_ordering::less if lhs < rhs, std::strong_ordering::greater if lhs > rhs,
+          std::strong_ordering::equal if lhs == rhs.
+*/
+[[nodiscard]] constexpr std::strong_ordering operator<=>(const Version & lhs, const Version & rhs) noexcept;
 
 } // namespace toy::app
 
