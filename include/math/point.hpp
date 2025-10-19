@@ -147,6 +147,13 @@ public:
   explicit constexpr Point(const_pointer values) noexcept;
 
   /*!
+    \brief Destructor for the point.
+
+    \note Since the Point does not manage dynamic memory, no special cleanup is required.
+  */
+  constexpr ~Point() noexcept = default;
+
+  /*!
     \brief Returns a pointer to the array representation of this point.
 
     This method provides direct access to the internal array representation of the point coordinates. The returned
@@ -309,6 +316,135 @@ public:
   */
   [[nodiscard]] bool isEqual(const Point & point, value_type tolerance = 0) const noexcept;
 };
+
+/*!
+  \brief Unary minus operator.
+
+  Returns a \a point with negated coordinates.
+
+  \param point The point to negate.
+
+  \return A new point with negated x and y coordinates.
+*/
+[[nodiscard]] constexpr Point operator-(const Point & point) noexcept;
+
+/*!
+  \brief Addition operator for two points.
+
+  Adds the coordinates of two points together.
+
+  \param left  The first point.
+  \param right The second point.
+
+  \return A new point with coordinates equal to the sum of the input points.
+*/
+[[nodiscard]] constexpr Point operator+(const Point & left, const Point & right) noexcept;
+
+/*!
+  \brief Subtraction operator for two points.
+
+  Subtracts the coordinates of the second point from the first point.
+
+  \param left  The first point.
+  \param right The second point.
+
+  \return A new point with coordinates equal to the difference of the input points.
+*/
+[[nodiscard]] constexpr Point operator-(const Point & left, const Point & right) noexcept;
+
+/*!
+  \brief Multiplication operator for point and integer scalar.
+
+  Multiplies each coordinate of the point by the scalar value.
+
+  \param left  The point to multiply.
+  \param right The integer scalar value.
+
+  \return A new point with coordinates multiplied by the scalar.
+*/
+[[nodiscard]] constexpr Point operator*(const Point & left, Point::value_type right) noexcept;
+
+/*!
+  \brief Multiplication operator for integer scalar and point.
+
+  Multiplies each coordinate of the point by the scalar value.
+
+  \param left  The integer scalar value.
+  \param right The point to multiply.
+
+  \return A new point with coordinates multiplied by the scalar.
+*/
+[[nodiscard]] constexpr Point operator*(Point::value_type left, const Point & right) noexcept;
+
+/*!
+  \brief Multiplication operator for point and real scalar.
+
+  Multiplies each coordinate of the point by the real scalar value.
+
+  \param left  The point to multiply.
+  \param right The real scalar value.
+
+  \return A new point with coordinates multiplied by the scalar.
+*/
+[[nodiscard]] constexpr Point operator*(const Point & left, real_t right) noexcept;
+
+/*!
+  \brief Multiplication operator for real scalar and point.
+
+  Multiplies each coordinate of the point by the real scalar value.
+
+  \param left  The real scalar value.
+  \param right The point to multiply.
+
+  \return A new point with coordinates multiplied by the scalar.
+*/
+[[nodiscard]] constexpr Point operator*(real_t left, const Point & right) noexcept;
+
+/*!
+  \brief Division operator for point and integer scalar.
+
+  Divides each coordinate of the point by the scalar value.
+
+  \param left  The point to divide.
+  \param right The integer scalar value.
+
+  \return A new point with coordinates divided by the scalar.
+
+  \pre The \a right scalar must not be zero.
+
+  \note Division by zero will trigger an assertion in debug mode.
+*/
+[[nodiscard]] constexpr Point operator/(const Point & left, Point::value_type right) noexcept;
+
+/*!
+  \brief Division operator for point and real scalar.
+
+  Divides each coordinate of the point by the real scalar value.
+
+  \param left  The point to divide.
+  \param right The real scalar value.
+
+  \return A new point with coordinates divided by the scalar.
+
+  \pre The \a right scalar must not be zero.
+
+  \note Division by zero will trigger an assertion in debug mode.
+*/
+[[nodiscard]] constexpr Point operator/(const Point & left, real_t right) noexcept;
+
+/*!
+  \brief Equality operator for two points.
+
+  Compares two points for exact equality.
+
+  \param left  The first point.
+  \param right The second point.
+
+  \return true if both points have identical coordinates, false otherwise.
+
+  \note This performs exact equality comparison. For approximate comparison with tolerance, use the \a isEqual method.
+*/
+[[nodiscard]] constexpr bool operator==(const Point & left, const Point & right) noexcept;
 
 } // namespace toy::math
 
