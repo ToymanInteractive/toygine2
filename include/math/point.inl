@@ -140,7 +140,7 @@ constexpr Point operator*(Point::value_type left, const Point & right) noexcept 
 }
 
 constexpr Point operator*(const Point & left, real_t right) noexcept {
-  return Point(left.x * right, left.y * right);
+  return Point(static_cast<Point::value_type>(left.x * right), static_cast<Point::value_type>(left.y * right));
 }
 
 constexpr Point operator*(real_t left, const Point & right) noexcept {
@@ -156,7 +156,7 @@ constexpr Point operator/(const Point & left, Point::value_type right) noexcept 
 constexpr Point operator/(const Point & left, real_t right) noexcept {
   assert_message(right > 0 || right < 0, "right must be non-zero");
 
-  return Point(left.x / right, left.y / right);
+  return Point(static_cast<Point::value_type>(left.x / right), static_cast<Point::value_type>(left.y / right));
 }
 
 constexpr bool operator==(const Point & left, const Point & right) noexcept {

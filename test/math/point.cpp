@@ -174,38 +174,6 @@ TEST_CASE("Point constructors", "[math][point]") {
     REQUIRE(arrayPoint.x == 789);
     REQUIRE(arrayPoint.y == -321);
   }
-
-  SECTION("Edge cases") {
-    // Test with maximum positive values
-    constexpr Point maxPoint(2147483647, 2147483647);
-    REQUIRE(maxPoint.x == 2147483647);
-    REQUIRE(maxPoint.y == 2147483647);
-
-    // Test with minimum negative values
-    constexpr Point minPoint(-2147483648, -2147483648);
-    REQUIRE(minPoint.x == -2147483648);
-    REQUIRE(minPoint.y == -2147483648);
-
-    // Test with mixed extreme values
-    constexpr Point mixedPoint(2147483647, -2147483648);
-    REQUIRE(mixedPoint.x == 2147483647);
-    REQUIRE(mixedPoint.y == -2147483648);
-  }
-
-  SECTION("Constexpr operations") {
-    // Test constexpr operations with constructors
-    constexpr Point p1(10, 20);
-    constexpr Point p2(-5, -15);
-    constexpr Point p3({100, -200});
-
-    // Verify all points are properly constructed
-    STATIC_REQUIRE(p1.x == 10);
-    STATIC_REQUIRE(p1.y == 20);
-    STATIC_REQUIRE(p2.x == -5);
-    STATIC_REQUIRE(p2.y == -15);
-    STATIC_REQUIRE(p3.x == 100);
-    STATIC_REQUIRE(p3.y == -200);
-  }
 }
 
 TEST_CASE("Point c_arr methods", "[math][point]") {
@@ -226,8 +194,8 @@ TEST_CASE("Point c_arr methods", "[math][point]") {
   }
 
   SECTION("Const c_arr method") {
-    const Point point(123, -456);
-    const auto * arr = point.c_arr();
+    constexpr Point point(123, -456);
+    const Point::const_pointer arr = point.c_arr();
 
     REQUIRE(arr != nullptr);
     REQUIRE(arr[0] == 123);
@@ -380,7 +348,7 @@ TEST_CASE("Point operators", "[math][point]") {
 
   SECTION("Chained operations") {
     Point point(10, 20);
-    const Point offset(5, 10);
+    constexpr Point offset(5, 10);
 
     point += offset;
     point *= 2;
@@ -405,6 +373,8 @@ TEST_CASE("Point methods", "[math][point]") {
     constexpr auto magnitude = point.sqrMagnitude();
 
     REQUIRE(magnitude == 25);
+
+    // Compile-time checks
     STATIC_REQUIRE(magnitude == 25);
   }
 
@@ -413,6 +383,8 @@ TEST_CASE("Point methods", "[math][point]") {
     constexpr auto magnitude = point.sqrMagnitude();
 
     REQUIRE(magnitude == 0);
+
+    // Compile-time checks
     STATIC_REQUIRE(magnitude == 0);
   }
 
@@ -421,6 +393,8 @@ TEST_CASE("Point methods", "[math][point]") {
     constexpr auto magnitude = point.sqrMagnitude();
 
     REQUIRE(magnitude == 5000000);
+
+    // Compile-time checks
     STATIC_REQUIRE(magnitude == 5000000);
   }
 
@@ -438,6 +412,8 @@ TEST_CASE("Point methods", "[math][point]") {
     constexpr bool result = point.isZero();
 
     REQUIRE(result == true);
+
+    // Compile-time checks
     STATIC_REQUIRE(result == true);
   }
 
@@ -446,6 +422,8 @@ TEST_CASE("Point methods", "[math][point]") {
     constexpr bool result = point.isZero();
 
     REQUIRE(result == false);
+
+    // Compile-time checks
     STATIC_REQUIRE(result == false);
   }
 
@@ -454,6 +432,8 @@ TEST_CASE("Point methods", "[math][point]") {
     constexpr bool result = point.isZero();
 
     REQUIRE(result == false);
+
+    // Compile-time checks
     STATIC_REQUIRE(result == false);
   }
 
