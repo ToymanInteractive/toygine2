@@ -1,6 +1,9 @@
 var annotated_dup =
 [
     [ "toy", "d4/da9/namespacetoy.html", [
+      [ "app", "dc/df3/namespacetoy_1_1app.html", [
+        [ "Version", "d7/d8d/structtoy_1_1app_1_1_version.html", "d7/d8d/structtoy_1_1app_1_1_version" ]
+      ] ],
       [ "math", "d2/d83/namespacetoy_1_1math.html", [
         [ "Point", "d3/dce/classtoy_1_1math_1_1_point.html", "d3/dce/classtoy_1_1math_1_1_point" ]
       ] ],

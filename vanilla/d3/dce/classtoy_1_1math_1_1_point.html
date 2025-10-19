@@ -183,7 +183,7 @@ Usage Example</h1>
 <div class="line"><span class="comment">// Use in constexpr context</span></div>
 <div class="line"><span class="keyword">constexpr</span> <span class="keyword">auto</span> origin = <a class="code hl_class" href="../../d3/dce/classtoy_1_1math_1_1_point.html">toy::math::Point</a>(0, 0);</div>
 <div class="line"><span class="keyword">constexpr</span> <span class="keyword">auto</span> center = <a class="code hl_class" href="../../d3/dce/classtoy_1_1math_1_1_point.html">toy::math::Point</a>(640, 480);</div>
-<div class="ttc" id="aclasstoy_1_1math_1_1_point_html"><div class="ttname"><a href="../../d3/dce/classtoy_1_1math_1_1_point.html">toy::math::Point</a></div><div class="ttdoc">2D integer point class for UI and input handling.</div><div class="ttdef"><b>Definition</b> point.hpp:101</div></div>
+<div class="ttc" id="aclasstoy_1_1math_1_1_point_html"><div class="ttname"><a href="../../d3/dce/classtoy_1_1math_1_1_point.html">toy::math::Point</a></div><div class="ttdoc">2D integer point class for UI and input handling.</div><div class="ttdef"><b>Definition</b> point.hpp:100</div></div>
 <div class="ttc" id="aclasstoy_1_1math_1_1_point_html_a00eb7547258cbc716c627f4dd39b6151"><div class="ttname"><a href="#a00eb7547258cbc716c627f4dd39b6151">toy::math::Point::Point</a></div><div class="ttdeci">constexpr Point() noexcept</div><div class="ttdoc">Default constructor.</div><div class="ttdef"><b>Definition</b> point.inl:33</div></div>
 <div class="ttc" id="apoint_8hpp_html"><div class="ttname"><a href="../../d0/de4/point_8hpp.html">point.hpp</a></div></div>
 </div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="performance"></a>
@@ -192,7 +192,7 @@ Performance Characteristics</h1>
 <li>⚙️ <b>Construction</b>: O(1) constant time</li>
 <li>📝 <b>Assignment</b>: O(1) constant time</li>
 <li>🔗 <b>Arithmetic Operations</b>: O(1) constant time</li>
-<li>🔍 <b>Comparison Operations</b>: O(1) constant time</li>
+<li>⚖️ <b>Comparison Operations</b>: O(1) constant time</li>
 <li>💾 <b>Memory Usage</b>: 2 * sizeof(value_type) bytes (currently 8 bytes with std::int32_t)</li>
 <li>⚡ <b>Cache Performance</b>: Excellent due to small size and stack allocation</li>
 <li>📋 <b>Copy Performance</b>: Fast due to simple integer copying</li>
@@ -209,7 +209,6 @@ Safety Guarantees</h1>
 <h1 class="doxsection"><a class="anchor" id="compatibility"></a>
 Compatibility</h1>
 <ul>
-<li>🆕 <b>C++20</b>: Requires C++20 or later for full functionality</li>
 <li>🔗 <b>STL Integration</b>: Compatible with STL algorithms and containers</li>
 <li>🌐 <b>Cross-Platform</b>: Works on all platforms supported by the compiler</li>
 <li>🔧 <b>Embedded Systems</b>: Suitable for resource-constrained environments</li>

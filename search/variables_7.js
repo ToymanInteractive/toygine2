@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['y_0',['y',['../d3/dce/classtoy_1_1math_1_1_point.html#a301ff16dc23be25dab6fde7f5f140ce1',1,'toy::math::Point']]]
+  ['x_0',['x',['../d3/dce/classtoy_1_1math_1_1_point.html#a7b6a04091d07db4a43b26d51899d0d50',1,'toy::math::Point']]]
 ];

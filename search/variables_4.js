@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['s_5fassertioncallback_0',['s_assertionCallback',['../d2/da2/namespacetoy_1_1assertion.html#abf0c95a6d0312b84decc08fc040187c9',1,'toy::assertion']]]
+  ['rem_0',['rem',['../d9/d10/structtoy_1_1__divmod10.html#a5c990eebc39ef350055e4f3317e1f5b7',1,'toy::_divmod10']]],
+  ['revision_1',['revision',['../d7/d8d/structtoy_1_1app_1_1_version.html#ae0b345837f55803a3e17e2c85d926c24',1,'toy::app::Version']]]
 ];

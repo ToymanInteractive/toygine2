@@ -1,11 +1,13 @@
 <map id="include/core/fixed_vector.hpp" name="include/core/fixed_vector.hpp">
-<area shape="rect" id="Node000001" title="TODO." alt="" coords="178,5,314,45"/>
-<area shape="rect" id="Node000002" href="$da/d47/core_8hpp.html" title="Umbrella header for the engine core module." alt="" coords="181,93,311,119"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="249,59,249,93,243,93,243,59"/>
-<area shape="rect" id="Node000003" href="$db/d2d/hashes_8cpp.html" title="Implementation of CRC hash functions with lookup tables for optimal performance." alt="" coords="5,174,156,199"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="211,127,106,176,104,172,208,122"/>
-<area shape="rect" id="Node000004" href="$de/d06/utils_8cpp.html" title="Implementation of core utility functions for string manipulation, encoding conversion,..." alt="" coords="180,174,312,199"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="249,132,249,174,243,174,243,132"/>
-<area shape="rect" id="Node000005" href="$d7/d90/assertion__stub_8cpp.html" title=" " alt="" coords="336,167,516,207"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="286,122,384,164,382,169,284,127"/>
+<area shape="rect" id="Node000001" title="TODO." alt="" coords="254,5,390,45"/>
+<area shape="rect" id="Node000002" href="$da/d47/core_8hpp.html" title="Umbrella header for the engine core module." alt="" coords="257,93,387,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="325,59,325,93,319,93,319,59"/>
+<area shape="rect" id="Node000003" href="$d4/d78/math_8hpp.html" title="Umbrella header for the engine mathematics module." alt="" coords="5,174,140,199"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="274,125,110,177,108,171,272,120"/>
+<area shape="rect" id="Node000004" href="$db/d2d/hashes_8cpp.html" title="Implementation of CRC hash functions with lookup tables for optimal performance." alt="" coords="164,174,315,199"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="302,130,253,176,250,172,298,126"/>
+<area shape="rect" id="Node000005" href="$de/d06/utils_8cpp.html" title="Implementation of core utility functions for string manipulation, encoding conversion,..." alt="" coords="339,174,471,199"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="346,126,394,172,391,176,342,130"/>
+<area shape="rect" id="Node000006" href="$d7/d90/assertion__stub_8cpp.html" title=" " alt="" coords="495,167,675,207"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="374,120,522,164,521,169,373,125"/>
 </map>

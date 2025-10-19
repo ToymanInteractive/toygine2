@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['x_0',['x',['../d3/dce/classtoy_1_1math_1_1_point.html#a7b6a04091d07db4a43b26d51899d0d50',1,'toy::math::Point']]]
+  ['wcharinutf8maxsize_0',['wcharInUtf8MaxSize',['../d4/da9/namespacetoy.html#aaba2640627e0f36ead0a3844fd35c6a9',1,'toy']]]
 ];

@@ -1,5 +1,6 @@
 var namespacetoy =
 [
+    [ "app", "dc/df3/namespacetoy_1_1app.html", "dc/df3/namespacetoy_1_1app" ],
     [ "assertion", "d2/da2/namespacetoy_1_1assertion.html", [
       [ "AssertionCallback", "d2/da2/namespacetoy_1_1assertion.html#ac9b5b813ecfe0701aa24d2e005f82c8a", null ],
       [ "StackWalkCallback", "d2/da2/namespacetoy_1_1assertion.html#a77be860c404126249c99fb34089c497a", null ],
