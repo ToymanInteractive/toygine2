@@ -43,6 +43,8 @@ namespace toy::app {
   - 🔗 **Simple Structure**: Plain struct with public members for easy access
   - 🎯 **Version Management**: Designed for application version tracking
   - 🧬 **Type Safety**: Uses std::uint32_t for all version components
+  - 🌍 **Standard Compliance**: Follows semantic versioning standards
+  - 📏 **Immutable Design**: Structure designed for compile-time version constants
 
   \section usage Usage Example
 
@@ -66,6 +68,8 @@ namespace toy::app {
 
   - ⚙️ **Construction**: O(1) constant time
   - 📝 **Access**: O(1) constant time for all members
+  - 📝 **Assignment**: O(1) constant time for member assignment
+  - 🔗 **Comparison**: O(1) constant time for version comparison
   - 💾 **Memory Usage**: 16 bytes (4 * std::uint32_t)
   - ⚡ **Cache Performance**: Excellent due to small size and contiguous layout
   - 📋 **Copy Performance**: Fast due to simple integer copying
@@ -80,7 +84,6 @@ namespace toy::app {
 
   \section compatibility Compatibility
 
-  - 🆕 **C++20**: Requires C++20 or later for full functionality
   - 🌐 **Cross-Platform**: Works on all platforms supported by the compiler
   - 🔧 **Embedded Systems**: Suitable for resource-constrained environments
   - 📱 **Mobile Platforms**: Lightweight and efficient for mobile applications

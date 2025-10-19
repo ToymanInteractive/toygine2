@@ -46,6 +46,8 @@ namespace toy::math {
   - 🔗 **STL Compatibility**: Provides standard container-like interface
   - 🎯 **UI Optimized**: Designed specifically for UI and input handling
   - 🧬 **Type Safety**: Strong typing with clear coordinate semantics
+  - 🌍 **Platform Agnostic**: Independent of platform-specific coordinate systems
+  - 📏 **Lightweight**: Minimal memory footprint for efficient UI operations
 
   \section usage Usage Example
 
@@ -87,7 +89,6 @@ namespace toy::math {
 
   \section compatibility Compatibility
 
-  - 🆕 **C++20**: Requires C++20 or later for full functionality
   - 🔗 **STL Integration**: Compatible with STL algorithms and containers
   - 🌐 **Cross-Platform**: Works on all platforms supported by the compiler
   - 🔧 **Embedded Systems**: Suitable for resource-constrained environments

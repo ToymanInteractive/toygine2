@@ -47,6 +47,8 @@ namespace toy {
   - 🔗 **STL Compatibility**: Provides std::string-like interface
   - 🌍 **UTF-8 Support**: Built-in UTF-8 character counting and manipulation
   - 🧬 **Type Safety**: Uses C++20 concepts for type safety
+  - 🎯 **Performance Optimized**: Optimized for high-performance string operations
+  - 📏 **Fixed Size**: Fixed-size buffer prevents memory fragmentation
 
   \section usage Usage Example
 
@@ -71,6 +73,7 @@ namespace toy {
   - 📝 **Assignment**: O(n) where n is the length of the source string
   - 🔗 **Concatenation**: O(n) where n is the length of the appended string
   - 🔍 **Search Operations**: O(n*m) where n is the string length and m is the pattern length
+  - 🔍 **Comparison Operations**: O(n) where n is the string length
   - 💾 **Memory Usage**: Fixed at compile time, no heap allocation
   - ⚡ **Cache Performance**: Excellent due to stack allocation and contiguous memory layout
   - 📋 **Copy Performance**: Fast due to memcpy/memmove optimizations
