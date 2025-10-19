@@ -22,10 +22,10 @@
   \brief  TODO
 */
 
-#ifndef INCLUDE_MATHEMATICS_POINT_HPP_
-#define INCLUDE_MATHEMATICS_POINT_HPP_
+#ifndef INCLUDE_MATH_POINT_HPP_
+#define INCLUDE_MATH_POINT_HPP_
 
-namespace toy::mathematics {
+namespace toy::math {
 
 class Point {
 public:
@@ -236,6 +236,6 @@ public:
   [[nodiscard]] constexpr bool isEqual(const Point & point, value_type tolerance = 0) const noexcept;
 };
 
-} // namespace toy::mathematics
+} // namespace toy::math
 
-#endif // INCLUDE_MATHEMATICS_POINT_HPP_
+#endif // INCLUDE_MATH_POINT_HPP_

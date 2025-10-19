@@ -22,10 +22,10 @@
   \brief  TODO
 */
 
-#ifndef INCLUDE_MATHEMATICS_POINT_INL_
-#define INCLUDE_MATHEMATICS_POINT_INL_
+#ifndef INCLUDE_MATH_POINT_INL_
+#define INCLUDE_MATH_POINT_INL_
 
-namespace toy::mathematics {
+namespace toy::math {
 
 constexpr Point::Point() noexcept
   : x()
@@ -113,6 +113,6 @@ constexpr bool Point::isEqual(const Point & point, value_type tolerance) const n
   return (abs(x - point.x) <= tolerance) && (abs(y - point.y) <= tolerance);
 }
 
-} // namespace toy::mathematics
+} // namespace toy::math
 
-#endif // INCLUDE_MATHEMATICS_POINT_INL_
+#endif // INCLUDE_MATH_POINT_INL_

@@ -18,23 +18,23 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*
-  \file   mathematics.hpp
-  \brief  engine mathematics part united header
+  \file   math.hpp
+  \brief  TODO
 */
 
-#ifndef INCLUDE_MATHEMATICS_HPP_
-#define INCLUDE_MATHEMATICS_HPP_
+#ifndef INCLUDE_MATH_HPP_
+#define INCLUDE_MATH_HPP_
 
-namespace toy::mathematics {
+namespace toy::math {
 
 using real_t = float;
 
-} // namespace toy::mathematics
+} // namespace toy::math
 
-#include "mathematics/point.hpp"
+#include "math/point.hpp"
 
 //----------------------------------------------------------------------------------------------------------------------
 
-#include "mathematics/point.inl"
+#include "math/point.inl"
 
-#endif // INCLUDE_MATHEMATICS_HPP_
+#endif // INCLUDE_MATH_HPP_

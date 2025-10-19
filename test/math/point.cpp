@@ -21,11 +21,11 @@
 #include <catch2/catch_test_macros.hpp>
 
 #include "core.hpp"
-#include "mathematics.hpp"
+#include "math.hpp"
 
-using namespace toy::mathematics;
+using namespace toy::math;
 
-TEST_CASE("Point object structure", "[mathematics][point]") {
+TEST_CASE("Point object structure", "[math][point]") {
   constexpr Point point(111, 222);
 
   STATIC_REQUIRE(sizeof(point) == sizeof(Point::value_type) * 2);
@@ -40,7 +40,7 @@ TEST_CASE("Point object structure", "[mathematics][point]") {
   REQUIRE(reinterpret_cast<const char *>(arr + 1) - reinterpret_cast<const char *>(arr) == sizeof(Point::value_type));
 }
 
-TEST_CASE("Point constructors", "[mathematics][point]") {
+TEST_CASE("Point constructors", "[math][point]") {
   SECTION("Default constructor") {
     constexpr Point point;
 
@@ -201,7 +201,7 @@ TEST_CASE("Point constructors", "[mathematics][point]") {
   }
 }
 
-TEST_CASE("Point c_arr methods", "[mathematics][point]") {
+TEST_CASE("Point c_arr methods", "[math][point]") {
   SECTION("Non-const c_arr method") {
     Point point(42, -17);
     auto * arr = point.c_arr();
@@ -310,7 +310,7 @@ TEST_CASE("Point c_arr methods", "[mathematics][point]") {
   }
 }
 
-TEST_CASE("Point operators", "[mathematics][point]") {
+TEST_CASE("Point operators", "[math][point]") {
   SECTION("operator+=") {
     Point point1(10, 20);
     constexpr Point point2(5, -10);
@@ -384,7 +384,7 @@ TEST_CASE("Point operators", "[mathematics][point]") {
   }
 }
 
-TEST_CASE("Point methods", "[mathematics][point]") {
+TEST_CASE("Point methods", "[math][point]") {
   SECTION("sqrMagnitude") {
     constexpr Point point(3, 4);
     constexpr auto magnitude = point.sqrMagnitude();
