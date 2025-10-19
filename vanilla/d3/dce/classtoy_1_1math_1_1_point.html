@@ -118,6 +118,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:aee992b33c80955f27ee7054a8df0c32c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html" title="2D integer point class for UI and input handling.">Point</a> with specified coordinates.  <br /></td></tr>
 <tr class="memitem:a5137cd42f350de458764befc80a49bb8" id="r_a5137cd42f350de458764befc80a49bb8"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5137cd42f350de458764befc80a49bb8">Point</a> (<a class="el" href="#a31026bfd7f136afaf3efabe7fbd9c914">const_pointer</a> values) noexcept</td></tr>
 <tr class="memdesc:a5137cd42f350de458764befc80a49bb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html" title="2D integer point class for UI and input handling.">Point</a> from an array of <em class="arg">values</em>.  <br /></td></tr>
+<tr class="memitem:ac477f1c9b232dd4ae14272116425c9c9" id="r_ac477f1c9b232dd4ae14272116425c9c9"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac477f1c9b232dd4ae14272116425c9c9">~Point</a> () noexcept=default</td></tr>
+<tr class="memdesc:ac477f1c9b232dd4ae14272116425c9c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor for the point.  <br /></td></tr>
 <tr class="memitem:a8587af01a6c61c71f74485f5bb4ae887" id="r_a8587af01a6c61c71f74485f5bb4ae887"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="#a81be355f26264e4668a4d94f56d2a3da">pointer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8587af01a6c61c71f74485f5bb4ae887">c_arr</a> () noexcept</td></tr>
 <tr class="memdesc:a8587af01a6c61c71f74485f5bb4ae887"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a pointer to the array representation of this point.  <br /></td></tr>
 <tr class="memitem:a528fff6ce22e07d07e37a0e9403334e7" id="r_a528fff6ce22e07d07e37a0e9403334e7"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="#a31026bfd7f136afaf3efabe7fbd9c914">const_pointer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a528fff6ce22e07d07e37a0e9403334e7">c_arr</a> () const noexcept</td></tr>
@@ -400,6 +402,34 @@ Compatibility</h1>
 <dd>
 The array must contain at least two elements.</dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The point is initialized with x = values[0] and y = values[1]. </dd></dl>
+
+</div>
+</div>
+<a id="ac477f1c9b232dd4ae14272116425c9c9" name="ac477f1c9b232dd4ae14272116425c9c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac477f1c9b232dd4ae14272116425c9c9">&#9670;&#160;</a></span>~Point()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">toy::math::Point::~Point </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel constexpr">constexpr</span><span class="mlabel default">default</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Destructor for the point. </p>
+<dl class="section note"><dt>Note</dt><dd>Since the <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html" title="2D integer point class for UI and input handling.">Point</a> does not manage dynamic memory, no special cleanup is required. </dd></dl>
 
 </div>
 </div>

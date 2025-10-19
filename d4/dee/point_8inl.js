@@ -1,6 +1,5 @@
-var point_8hpp =
+var point_8inl =
 [
-    [ "toy::math::Point", "d3/dce/classtoy_1_1math_1_1_point.html", "d3/dce/classtoy_1_1math_1_1_point" ],
     [ "toy::math::operator*", "d2/d83/namespacetoy_1_1math.html#ad78f522fa7c65e83f3ed9132b307d43e", null ],
     [ "toy::math::operator*", "d2/d83/namespacetoy_1_1math.html#aa9076c759001f350ebc6484c4e8d64bb", null ],
     [ "toy::math::operator*", "d2/d83/namespacetoy_1_1math.html#af6eb2ee3535cee16eaa9552bc4c8afcd", null ],

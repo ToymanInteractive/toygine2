@@ -8,6 +8,7 @@ var classtoy_1_1math_1_1_point =
     [ "Point", "d3/dce/classtoy_1_1math_1_1_point.html#a00eb7547258cbc716c627f4dd39b6151", null ],
     [ "Point", "d3/dce/classtoy_1_1math_1_1_point.html#aee992b33c80955f27ee7054a8df0c32c", null ],
     [ "Point", "d3/dce/classtoy_1_1math_1_1_point.html#a5137cd42f350de458764befc80a49bb8", null ],
+    [ "~Point", "d3/dce/classtoy_1_1math_1_1_point.html#ac477f1c9b232dd4ae14272116425c9c9", null ],
     [ "c_arr", "d3/dce/classtoy_1_1math_1_1_point.html#a528fff6ce22e07d07e37a0e9403334e7", null ],
     [ "c_arr", "d3/dce/classtoy_1_1math_1_1_point.html#a8587af01a6c61c71f74485f5bb4ae887", null ],
     [ "isEqual", "d3/dce/classtoy_1_1math_1_1_point.html#a14ba84a66f945e7e231b0326504ec18a", null ],
