@@ -19,7 +19,7 @@
 //
 /*!
   \file   vector2d.inl
-  \brief  TODO
+  \brief  Inline implementations for 2D floating-point vector class.
 */
 
 #ifndef INCLUDE_MATH_VECTOR2D_INL_
@@ -53,6 +53,84 @@ constexpr real_t * Vector2D::c_arr() noexcept {
 
 constexpr const real_t * Vector2D::c_arr() const noexcept {
   return &x;
+}
+
+constexpr Vector2D & Vector2D::operator+=(const Vector2D & vector) noexcept {
+  x += vector.x;
+  y += vector.y;
+
+  return *this;
+}
+
+constexpr Vector2D & Vector2D::operator-=(const Vector2D & vector) noexcept {
+  x -= vector.x;
+  y -= vector.y;
+
+  return *this;
+}
+
+constexpr Vector2D & Vector2D::operator*=(real_t scalar) noexcept {
+  x *= scalar;
+  y *= scalar;
+
+  return *this;
+}
+
+constexpr Vector2D & Vector2D::operator/=(real_t scalar) noexcept {
+  assert_message(scalar > 0 || scalar < 0, "scalar must be non-zero");
+
+  x /= scalar;
+  y /= scalar;
+
+  return *this;
+}
+
+constexpr real_t Vector2D::sqrMagnitude() const noexcept {
+  return x * x + y * y;
+}
+
+constexpr void Vector2D::setZero() noexcept {
+  x = y = 0;
+}
+
+constexpr bool Vector2D::isZero() const noexcept {
+  return x == 0 && y == 0;
+}
+
+inline bool Vector2D::isEqual(const Vector2D & vector, real_t tolerance) const noexcept {
+  assert_message(tolerance >= 0, "tolerance must be non-negative");
+
+  return std::abs(x - vector.x) <= tolerance && std::abs(y - vector.y) <= tolerance;
+}
+
+constexpr Vector2D operator-(const Vector2D & vector) noexcept {
+  return Vector2D(-vector.x, -vector.y);
+}
+
+constexpr Vector2D operator+(const Vector2D & left, const Vector2D & right) noexcept {
+  return Vector2D(left.x + right.x, left.y + right.y);
+}
+
+constexpr Vector2D operator-(const Vector2D & left, const Vector2D & right) noexcept {
+  return Vector2D(left.x - right.x, left.y - right.y);
+}
+
+constexpr Vector2D operator*(const Vector2D & left, real_t right) noexcept {
+  return Vector2D(left.x * right, left.y * right);
+}
+
+constexpr Vector2D operator*(real_t left, const Vector2D & right) noexcept {
+  return right * left;
+}
+
+constexpr Vector2D operator/(const Vector2D & left, real_t right) noexcept {
+  assert_message(right > 0 || right < 0, "right must be non-zero");
+
+  return Vector2D(left.x / right, left.y / right);
+}
+
+constexpr bool operator==(const Vector2D & left, const Vector2D & right) noexcept {
+  return left.x == right.x && left.y == right.y;
 }
 
 } // namespace toy::math

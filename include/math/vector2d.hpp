@@ -19,7 +19,7 @@
 //
 /*!
   \file   vector2d.hpp
-  \brief  TODO
+  \brief  2D floating-point vector class for interactive game objects and physics calculations.
 */
 
 #ifndef INCLUDE_MATH_VECTOR2D_HPP_
@@ -27,6 +27,67 @@
 
 namespace toy::math {
 
+/*!
+  \class Vector2D
+  \brief 2D floating-point vector class for interactive game objects and physics calculations.
+
+  Vector2D represents a 2D vector with floating-point coordinates, designed for interactive game objects, sprite
+  positioning, character movement, particle systems, physics calculations, and world coordinate transformations where
+  sub-pixel precision is required.
+
+  \section features Key Features
+
+  - ⚙️ **Floating-Point Precision**: Uses \a real_t (float) for sub-pixel positioning and smooth movement
+  - 🔧 **constexpr Support**: Most operations can be evaluated at compile time
+  - 🛡️ **Exception Safety**: All operations are noexcept
+  - 🎯 **Game Optimized**: Designed specifically for interactive game objects and physics
+  - 🧬 **Type Safety**: Strong typing with clear vector semantics
+
+  \section usage Usage Example
+
+  \code
+  #include "math/vector2d.hpp"
+
+  // Sprite positioning
+  toy::math::Vector2D spritePos(100.5f, 200.3f);
+
+  // Character movement
+  toy::math::Vector2D velocity(50.0f, -25.0f);
+  spritePos += velocity * deltaTime;
+
+  // Physics calculations
+  toy::math::Vector2D force(10.0f, 0.0f);
+  toy::math::Vector2D acceleration = force / mass;
+
+  // Particle system
+  std::vector<toy::math::Vector2D> particles;
+  for (auto& particle : particles) {
+      particle += velocity * deltaTime;
+  }
+  \endcode
+
+  \section performance Performance Characteristics
+
+  - ⚙️ **Construction**: O(1) constant time
+  - 📝 **Assignment**: O(1) constant time
+  - 🔗 **Arithmetic Operations**: O(1) constant time
+  - ⚖️ **Comparison Operations**: O(1) constant time
+  - 💾 **Memory Usage**: 8 bytes (2 * sizeof(real_t))
+  - ⚡ **Cache Performance**: Excellent due to small size and stack allocation
+  - 📋 **Copy Performance**: Fast due to simple floating-point copying
+
+  \section safety Safety Guarantees
+
+  - 🛡️ **Contracts & Debug Checks**: Division by zero is asserted in debug
+  - 🔒 **Bounds Safety**: All operations are bounds-safe
+  - 📐 **Type Safety**: Strong typing prevents coordinate mixing
+  - ⚠️ **Exception Safety**: All operations are noexcept, no exceptions thrown
+
+  \note This class is specifically designed for interactive game objects and physics calculations. For UI positioning
+        and pixel-perfect coordinates, consider using Point with integer coordinates.
+
+  \see Point
+*/
 class Vector2D {
 public:
   /// X coordinate.
@@ -105,7 +166,201 @@ public:
     \note Use the non-const overload to allow modification.
   */
   [[nodiscard]] constexpr const real_t * c_arr() const noexcept;
+
+  /*!
+    \brief Adds another \a vector to this vector.
+
+    This operator adds the coordinates of another \a vector to this vector's coordinates.
+
+    \param vector The vector to add to this vector.
+
+    \return A reference to this vector after addition.
+
+    \post This vector's coordinates are the sum of the original coordinates and the other vector's coordinates.
+  */
+  constexpr Vector2D & operator+=(const Vector2D & vector) noexcept;
+
+  /*!
+    \brief Subtracts another \a vector from this vector.
+
+    This operator subtracts the coordinates of another \a vector from this vector's coordinates.
+
+    \param vector The vector to subtract from this vector.
+
+    \return A reference to this vector after subtraction.
+
+    \post This vector's coordinates are the difference of the original coordinates and the other vector's coordinates.
+  */
+  constexpr Vector2D & operator-=(const Vector2D & vector) noexcept;
+
+  /*!
+    \brief Multiplies this vector by a real \a scalar.
+
+    This operator multiplies both coordinates of this vector by the specified real \a scalar.
+
+    \param scalar The real scalar to multiply by.
+
+    \return A reference to this vector after multiplication.
+
+    \post This vector's coordinates are multiplied by the \a scalar.
+  */
+  constexpr Vector2D & operator*=(real_t scalar) noexcept;
+
+  /*!
+    \brief Divides this vector by a real \a scalar.
+
+    This operator divides both coordinates of this vector by the specified real \a scalar.
+
+    \param scalar The real scalar to divide by.
+
+    \return A reference to this vector after division.
+
+    \pre The \a scalar must not be zero.
+
+    \post This vector's coordinates are divided by the \a scalar.
+  */
+  constexpr Vector2D & operator/=(real_t scalar) noexcept;
+
+  /*!
+    \brief Calculates the squared magnitude of this vector.
+
+    This method calculates the squared magnitude (length) of the vector represented by this vector.
+    The squared magnitude is calculated as x² + y².
+
+    \return The squared magnitude of this vector.
+
+    \note This method avoids the expensive square root operation by returning the squared value.
+    \note Use this method when comparing magnitudes for performance reasons.
+  */
+  [[nodiscard]] constexpr real_t sqrMagnitude() const noexcept;
+
+  /*!
+    \brief Sets this vector to zero coordinates.
+
+    This method sets both x and y coordinates of this vector to zero.
+
+    \post This vector's coordinates are set to x = 0 and y = 0.
+  */
+  constexpr void setZero() noexcept;
+
+  /*!
+    \brief Checks if this vector is at the origin.
+
+    This method checks if both coordinates of this vector are zero.
+
+    \return true if both coordinates are zero, false otherwise.
+
+    \note This is equivalent to checking if the vector is at the origin (0, 0).
+  */
+  [[nodiscard]] constexpr bool isZero() const noexcept;
+
+  /*!
+    \brief Checks if this vector is equal to another vector within a \a tolerance.
+
+    This method checks if this vector is equal to another vector within the specified \a tolerance. Two vectors are
+    considered equal if the absolute difference between their coordinates is less than or equal to \a tolerance.
+
+    \param vector    The vector to compare with.
+    \param tolerance The tolerance for equality comparison (default: 0).
+
+    \return true if the vector are equal within the \a tolerance, false otherwise.
+
+    \pre The \a tolerance must be non-negative.
+
+    \note When tolerance is 0, this performs exact equality comparison.
+    \note When tolerance is greater than 0, this performs approximate equality comparison.
+  */
+  [[nodiscard]] bool isEqual(const Vector2D & vector, real_t tolerance = 0) const noexcept;
 };
+
+/*!
+  \brief Unary minus operator.
+
+  Returns a \a vector with negated coordinates.
+
+  \param vector The vector to negate.
+
+  \return A new vector with negated x and y coordinates.
+*/
+[[nodiscard]] constexpr Vector2D operator-(const Vector2D & vector) noexcept;
+
+/*!
+  \brief Addition operator for two vectors.
+
+  Adds the coordinates of two vectors together.
+
+  \param left  The first vector.
+  \param right The second vector.
+
+  \return A new vector with coordinates equal to the sum of the input vectors.
+*/
+[[nodiscard]] constexpr Vector2D operator+(const Vector2D & left, const Vector2D & right) noexcept;
+
+/*!
+  \brief Subtraction operator for two vectors.
+
+  Subtracts the coordinates of the second vector from the first vector.
+
+  \param left  The first vector.
+  \param right The second vector.
+
+  \return A new vector with coordinates equal to the difference of the input vectors.
+*/
+[[nodiscard]] constexpr Vector2D operator-(const Vector2D & left, const Vector2D & right) noexcept;
+
+/*!
+  \brief Multiplication operator for vector and scalar.
+
+  Multiplies each coordinate of the vector by the scalar value.
+
+  \param left  The vector to multiply.
+  \param right The scalar value.
+
+  \return A new vector with coordinates multiplied by the scalar.
+*/
+[[nodiscard]] constexpr Vector2D operator*(const Vector2D & left, real_t right) noexcept;
+
+/*!
+  \brief Multiplication operator for scalar and vector.
+
+  Multiplies each coordinate of the vector by the scalar value.
+
+  \param left  The scalar value.
+  \param right The vector to multiply.
+
+  \return A new vector with coordinates multiplied by the scalar.
+*/
+[[nodiscard]] constexpr Vector2D operator*(real_t left, const Vector2D & right) noexcept;
+
+/*!
+  \brief Division operator for vector and scalar.
+
+  Divides each coordinate of the vector by the scalar value.
+
+  \param left  The vector to divide.
+  \param right The scalar value.
+
+  \return A new vector with coordinates divided by the scalar.
+
+  \pre The \a right scalar must not be zero.
+
+  \note Division by zero will trigger an assertion in debug mode.
+*/
+[[nodiscard]] constexpr Vector2D operator/(const Vector2D & left, real_t right) noexcept;
+
+/*!
+  \brief Equality operator for two vectors.
+
+  Compares two vectors for exact equality.
+
+  \param left  The first vector.
+  \param right The second vector.
+
+  \return true if both vectors have identical coordinates, false otherwise.
+
+  \note This performs exact equality comparison. For approximate comparison with tolerance, use the \a isEqual method.
+*/
+[[nodiscard]] constexpr bool operator==(const Vector2D & left, const Vector2D & right) noexcept;
 
 } // namespace toy::math
 
