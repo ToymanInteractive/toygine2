@@ -19,7 +19,7 @@
 //
 /*!
   \file   point.hpp
-  \brief  .
+  \brief  2D integer point class for UI and input handling.
 */
 
 #ifndef INCLUDE_MATH_POINT_HPP_
@@ -35,15 +35,10 @@ namespace toy::math {
   UI elements, mouse input handling, window positioning, and GUI layout calculations where pixel-perfect positioning is
   required.
 
-  The coordinate type is configurable through the \a value_type alias, allowing for different integer precisions based
-  on application needs (defaults to \a std::int32_t).
-
   \section features Key Features
 
-  - ⚙️ **Configurable Precision**: Uses configurable integer type (currently std::int32_t) for pixel-perfect positioning
   - 🔧 **constexpr Support**: Most operations can be evaluated at compile time
   - 🛡️ **Exception Safety**: All operations are noexcept
-  - 🔗 **STL Compatibility**: Provides standard container-like interface
   - 🎯 **UI Optimized**: Designed specifically for UI and input handling
   - 🧬 **Type Safety**: Strong typing with clear coordinate semantics
 
@@ -73,7 +68,7 @@ namespace toy::math {
   - 📝 **Assignment**: O(1) constant time
   - 🔗 **Arithmetic Operations**: O(1) constant time
   - ⚖️ **Comparison Operations**: O(1) constant time
-  - 💾 **Memory Usage**: 2 * sizeof(value_type) bytes (currently 8 bytes with std::int32_t)
+  - 💾 **Memory Usage**: 8 bytes
   - ⚡ **Cache Performance**: Excellent due to small size and stack allocation
   - 📋 **Copy Performance**: Fast due to simple integer copying
   - 🎯 **UI Operations**: Optimized for UI and input handling
@@ -85,13 +80,6 @@ namespace toy::math {
   - 📐 **Type Safety**: Strong typing prevents coordinate mixing
   - ⚠️ **Exception Safety**: All operations are noexcept, no exceptions thrown
 
-  \section compatibility Compatibility
-
-  - 🔗 **STL Integration**: Compatible with STL algorithms and containers
-  - 🌐 **Cross-Platform**: Works on all platforms supported by the compiler
-  - 🔧 **Embedded Systems**: Suitable for resource-constrained environments
-  - 🔧 **Type Flexibility**: Coordinate type can be changed via \a value_type alias if needed
-
   \note This class is specifically designed for UI and input handling. For sprite positioning and world coordinates,
         consider using Vector2 with floating-point precision.
 
@@ -99,17 +87,11 @@ namespace toy::math {
 */
 class Point {
 public:
-  using value_type = std::int32_t; //!< The underlying coordinate type.
-  using reference = value_type &; //!< Reference to coordinate value.
-  using const_reference = const value_type &; //!< Constant reference to coordinate value.
-  using pointer = value_type *; //!< Pointer to coordinate value.
-  using const_pointer = const value_type *; //!< Constant pointer to coordinate value.
-
   /// X coordinate.
-  value_type x;
+  std::int32_t x;
 
   /// Y coordinate.
-  value_type y;
+  std::int32_t y;
 
   /*!
     \brief Default constructor.
@@ -128,7 +110,7 @@ public:
     \param x The x-coordinate of the point.
     \param y The y-coordinate of the point.
   */
-  constexpr Point(const_reference x, const_reference y) noexcept;
+  constexpr Point(const std::int32_t & x, const std::int32_t & y) noexcept;
 
   /*!
     \brief Constructs a Point from an array of \a values.
@@ -143,7 +125,7 @@ public:
 
     \post The point is initialized with x = values[0] and y = values[1].
   */
-  explicit constexpr Point(const_pointer values) noexcept;
+  explicit constexpr Point(const std::int32_t * values) noexcept;
 
   /*!
     \brief Destructor for the point.
@@ -165,7 +147,7 @@ public:
     \note The returned pointer allows modification of the point coordinates.
     \note Use const version for read-only access.
   */
-  [[nodiscard]] constexpr pointer c_arr() noexcept;
+  [[nodiscard]] constexpr std::int32_t * c_arr() noexcept;
 
   /*!
     \brief Returns a constant pointer to the array representation of this point.
@@ -180,7 +162,7 @@ public:
     \note The returned pointer is read-only and cannot modify the point coordinates.
     \note Use the non-const overload to allow modification.
   */
-  [[nodiscard]] constexpr const_pointer c_arr() const noexcept;
+  [[nodiscard]] constexpr const std::int32_t * c_arr() const noexcept;
 
   /*!
     \brief Adds another \a point to this point.
@@ -219,7 +201,7 @@ public:
 
     \post This point's coordinates are multiplied by the \a scalar.
   */
-  constexpr Point & operator*=(value_type scalar) noexcept;
+  constexpr Point & operator*=(std::int32_t scalar) noexcept;
 
   /*!
     \brief Multiplies this point by a real \a scalar.
@@ -247,7 +229,7 @@ public:
 
     \post This point's coordinates are divided by the \a scalar.
   */
-  constexpr Point & operator/=(value_type scalar) noexcept;
+  constexpr Point & operator/=(std::int32_t scalar) noexcept;
 
   /*!
     \brief Divides this point by a real \a scalar.
@@ -275,7 +257,7 @@ public:
     \note This method avoids the expensive square root operation by returning the squared value.
     \note Use this method when comparing magnitudes for performance reasons.
   */
-  [[nodiscard]] constexpr value_type sqrMagnitude() const noexcept;
+  [[nodiscard]] constexpr std::int32_t sqrMagnitude() const noexcept;
 
   /*!
     \brief Sets this point to zero coordinates.
@@ -313,7 +295,7 @@ public:
     \note When tolerance is 0, this performs exact equality comparison.
     \note When tolerance is greater than 0, this performs approximate equality comparison.
   */
-  [[nodiscard]] bool isEqual(const Point & point, value_type tolerance = 0) const noexcept;
+  [[nodiscard]] bool isEqual(const Point & point, std::int32_t tolerance = 0) const noexcept;
 };
 
 /*!
@@ -361,7 +343,7 @@ public:
 
   \return A new point with coordinates multiplied by the scalar.
 */
-[[nodiscard]] constexpr Point operator*(const Point & left, Point::value_type right) noexcept;
+[[nodiscard]] constexpr Point operator*(const Point & left, std::int32_t right) noexcept;
 
 /*!
   \brief Multiplication operator for integer scalar and point.
@@ -373,7 +355,7 @@ public:
 
   \return A new point with coordinates multiplied by the scalar.
 */
-[[nodiscard]] constexpr Point operator*(Point::value_type left, const Point & right) noexcept;
+[[nodiscard]] constexpr Point operator*(std::int32_t left, const Point & right) noexcept;
 
 /*!
   \brief Multiplication operator for point and real scalar.
@@ -413,7 +395,7 @@ public:
 
   \note Division by zero will trigger an assertion in debug mode.
 */
-[[nodiscard]] constexpr Point operator/(const Point & left, Point::value_type right) noexcept;
+[[nodiscard]] constexpr Point operator/(const Point & left, std::int32_t right) noexcept;
 
 /*!
   \brief Division operator for point and real scalar.
