@@ -36,7 +36,8 @@ TEST_CASE("Point object structure", "[math][point]") {
   REQUIRE(arr + 1 == &point.y);
 
   // Verify contiguous memory
-  REQUIRE(reinterpret_cast<const char *>(arr + 1) - reinterpret_cast<const char *>(arr) == sizeof(std::int32_t));
+  REQUIRE(reinterpret_cast<const std::byte *>(arr + 1) - reinterpret_cast<const std::byte *>(arr)
+          == sizeof(std::int32_t));
 }
 
 TEST_CASE("Point constructors", "[math][point]") {
