@@ -117,72 +117,56 @@ $(function(){initNavTree('d3/dce/classtoy_1_1math_1_1_point.html','../../','d7/d
 <p>2D integer point class for UI and input handling.  
  <a href="#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-pub-types" class="groupheader"><a id="pub-types" name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:adf037c196f723c688ab74b40b0e444d6" id="r_adf037c196f723c688ab74b40b0e444d6"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adf037c196f723c688ab74b40b0e444d6">value_type</a> = std::int32_t</td></tr>
-<tr class="memdesc:adf037c196f723c688ab74b40b0e444d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">The underlying coordinate type.  <br /></td></tr>
-<tr class="memitem:ae829bd795ceb780eb8ad5a6bd84da1f4" id="r_ae829bd795ceb780eb8ad5a6bd84da1f4"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae829bd795ceb780eb8ad5a6bd84da1f4">reference</a> = <a class="el" href="#adf037c196f723c688ab74b40b0e444d6">value_type</a> &amp;</td></tr>
-<tr class="memdesc:ae829bd795ceb780eb8ad5a6bd84da1f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to coordinate value.  <br /></td></tr>
-<tr class="memitem:abd53e9755032809b155732fb4b55d212" id="r_abd53e9755032809b155732fb4b55d212"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abd53e9755032809b155732fb4b55d212">const_reference</a> = const <a class="el" href="#adf037c196f723c688ab74b40b0e444d6">value_type</a> &amp;</td></tr>
-<tr class="memdesc:abd53e9755032809b155732fb4b55d212"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constant reference to coordinate value.  <br /></td></tr>
-<tr class="memitem:a81be355f26264e4668a4d94f56d2a3da" id="r_a81be355f26264e4668a4d94f56d2a3da"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a81be355f26264e4668a4d94f56d2a3da">pointer</a> = <a class="el" href="#adf037c196f723c688ab74b40b0e444d6">value_type</a> *</td></tr>
-<tr class="memdesc:a81be355f26264e4668a4d94f56d2a3da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to coordinate value.  <br /></td></tr>
-<tr class="memitem:a31026bfd7f136afaf3efabe7fbd9c914" id="r_a31026bfd7f136afaf3efabe7fbd9c914"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a31026bfd7f136afaf3efabe7fbd9c914">const_pointer</a> = const <a class="el" href="#adf037c196f723c688ab74b40b0e444d6">value_type</a> *</td></tr>
-<tr class="memdesc:a31026bfd7f136afaf3efabe7fbd9c914"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constant pointer to coordinate value.  <br /></td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a00eb7547258cbc716c627f4dd39b6151" id="r_a00eb7547258cbc716c627f4dd39b6151"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a00eb7547258cbc716c627f4dd39b6151">Point</a> () noexcept</td></tr>
 <tr class="memdesc:a00eb7547258cbc716c627f4dd39b6151"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <br /></td></tr>
-<tr class="memitem:aee992b33c80955f27ee7054a8df0c32c" id="r_aee992b33c80955f27ee7054a8df0c32c"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aee992b33c80955f27ee7054a8df0c32c">Point</a> (<a class="el" href="#abd53e9755032809b155732fb4b55d212">const_reference</a> <a class="el" href="#a7b6a04091d07db4a43b26d51899d0d50">x</a>, <a class="el" href="#abd53e9755032809b155732fb4b55d212">const_reference</a> <a class="el" href="#a301ff16dc23be25dab6fde7f5f140ce1">y</a>) noexcept</td></tr>
-<tr class="memdesc:aee992b33c80955f27ee7054a8df0c32c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html" title="2D integer point class for UI and input handling.">Point</a> with specified coordinates.  <br /></td></tr>
-<tr class="memitem:a5137cd42f350de458764befc80a49bb8" id="r_a5137cd42f350de458764befc80a49bb8"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5137cd42f350de458764befc80a49bb8">Point</a> (<a class="el" href="#a31026bfd7f136afaf3efabe7fbd9c914">const_pointer</a> values) noexcept</td></tr>
-<tr class="memdesc:a5137cd42f350de458764befc80a49bb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html" title="2D integer point class for UI and input handling.">Point</a> from an array of <em class="arg">values</em>.  <br /></td></tr>
+<tr class="memitem:a7e36dfa29f112e92982ec7445b5fc10e" id="r_a7e36dfa29f112e92982ec7445b5fc10e"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7e36dfa29f112e92982ec7445b5fc10e">Point</a> (const std::int32_t &amp;<a class="el" href="#a261d9e126c94e3dcad87d6748b7b9946">x</a>, const std::int32_t &amp;<a class="el" href="#a83a7c8571e955797e990455dec6013c9">y</a>) noexcept</td></tr>
+<tr class="memdesc:a7e36dfa29f112e92982ec7445b5fc10e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html" title="2D integer point class for UI and input handling.">Point</a> with specified coordinates.  <br /></td></tr>
+<tr class="memitem:a63aaad0ec810366bbad80e533156b872" id="r_a63aaad0ec810366bbad80e533156b872"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a63aaad0ec810366bbad80e533156b872">Point</a> (const std::int32_t *values) noexcept</td></tr>
+<tr class="memdesc:a63aaad0ec810366bbad80e533156b872"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html" title="2D integer point class for UI and input handling.">Point</a> from an array of <em class="arg">values</em>.  <br /></td></tr>
 <tr class="memitem:ac477f1c9b232dd4ae14272116425c9c9" id="r_ac477f1c9b232dd4ae14272116425c9c9"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac477f1c9b232dd4ae14272116425c9c9">~Point</a> () noexcept=default</td></tr>
 <tr class="memdesc:ac477f1c9b232dd4ae14272116425c9c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor for the point.  <br /></td></tr>
-<tr class="memitem:a8587af01a6c61c71f74485f5bb4ae887" id="r_a8587af01a6c61c71f74485f5bb4ae887"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="#a81be355f26264e4668a4d94f56d2a3da">pointer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8587af01a6c61c71f74485f5bb4ae887">c_arr</a> () noexcept</td></tr>
-<tr class="memdesc:a8587af01a6c61c71f74485f5bb4ae887"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a pointer to the array representation of this point.  <br /></td></tr>
-<tr class="memitem:a528fff6ce22e07d07e37a0e9403334e7" id="r_a528fff6ce22e07d07e37a0e9403334e7"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="#a31026bfd7f136afaf3efabe7fbd9c914">const_pointer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a528fff6ce22e07d07e37a0e9403334e7">c_arr</a> () const noexcept</td></tr>
-<tr class="memdesc:a528fff6ce22e07d07e37a0e9403334e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a constant pointer to the array representation of this point.  <br /></td></tr>
+<tr class="memitem:ae6e9cc35897d99f7c7cd95b8477bf03f" id="r_ae6e9cc35897d99f7c7cd95b8477bf03f"><td class="memItemLeft" align="right" valign="top">constexpr std::int32_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae6e9cc35897d99f7c7cd95b8477bf03f">c_arr</a> () noexcept</td></tr>
+<tr class="memdesc:ae6e9cc35897d99f7c7cd95b8477bf03f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a pointer to the array representation of this point.  <br /></td></tr>
+<tr class="memitem:a5f20d982f7499dd31bbb90a23ddb47d3" id="r_a5f20d982f7499dd31bbb90a23ddb47d3"><td class="memItemLeft" align="right" valign="top">constexpr const std::int32_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5f20d982f7499dd31bbb90a23ddb47d3">c_arr</a> () const noexcept</td></tr>
+<tr class="memdesc:a5f20d982f7499dd31bbb90a23ddb47d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a constant pointer to the array representation of this point.  <br /></td></tr>
 <tr class="memitem:ade9e4d5bd807418cd878b45fba455740" id="r_ade9e4d5bd807418cd878b45fba455740"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ade9e4d5bd807418cd878b45fba455740">operator+=</a> (const <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a> &amp;point) noexcept</td></tr>
 <tr class="memdesc:ade9e4d5bd807418cd878b45fba455740"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds another <em class="arg">point</em> to this point.  <br /></td></tr>
 <tr class="memitem:a3b92ef9444920073362d85dee1512bb9" id="r_a3b92ef9444920073362d85dee1512bb9"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3b92ef9444920073362d85dee1512bb9">operator-=</a> (const <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a> &amp;point) noexcept</td></tr>
 <tr class="memdesc:a3b92ef9444920073362d85dee1512bb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subtracts another <em class="arg">point</em> from this point.  <br /></td></tr>
-<tr class="memitem:ae83da5e579522ad8a65061bf43459968" id="r_ae83da5e579522ad8a65061bf43459968"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae83da5e579522ad8a65061bf43459968">operator*=</a> (<a class="el" href="#adf037c196f723c688ab74b40b0e444d6">value_type</a> scalar) noexcept</td></tr>
-<tr class="memdesc:ae83da5e579522ad8a65061bf43459968"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiplies this point by an integer <em class="arg">scalar</em>.  <br /></td></tr>
+<tr class="memitem:a4d33981ddada5c13c357f039ce7bf062" id="r_a4d33981ddada5c13c357f039ce7bf062"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4d33981ddada5c13c357f039ce7bf062">operator*=</a> (std::int32_t scalar) noexcept</td></tr>
+<tr class="memdesc:a4d33981ddada5c13c357f039ce7bf062"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiplies this point by an integer <em class="arg">scalar</em>.  <br /></td></tr>
 <tr class="memitem:ac6a070cc95327dec42b42e918095bb8f" id="r_ac6a070cc95327dec42b42e918095bb8f"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac6a070cc95327dec42b42e918095bb8f">operator*=</a> (<a class="el" href="../../d2/d83/namespacetoy_1_1math.html#a928771ce74a56750dd2dcbc28e5892e0">real_t</a> scalar) noexcept</td></tr>
 <tr class="memdesc:ac6a070cc95327dec42b42e918095bb8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiplies this point by a real <em class="arg">scalar</em>.  <br /></td></tr>
-<tr class="memitem:aa27b7e7208564486d3e72d1b5ea6eeda" id="r_aa27b7e7208564486d3e72d1b5ea6eeda"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa27b7e7208564486d3e72d1b5ea6eeda">operator/=</a> (<a class="el" href="#adf037c196f723c688ab74b40b0e444d6">value_type</a> scalar) noexcept</td></tr>
-<tr class="memdesc:aa27b7e7208564486d3e72d1b5ea6eeda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Divides this point by an integer <em class="arg">scalar</em>.  <br /></td></tr>
+<tr class="memitem:a03ab225894771cff47ec7ec40962c8ac" id="r_a03ab225894771cff47ec7ec40962c8ac"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a03ab225894771cff47ec7ec40962c8ac">operator/=</a> (std::int32_t scalar) noexcept</td></tr>
+<tr class="memdesc:a03ab225894771cff47ec7ec40962c8ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Divides this point by an integer <em class="arg">scalar</em>.  <br /></td></tr>
 <tr class="memitem:ac999a3211835a92eb6c49fc398ccdbd1" id="r_ac999a3211835a92eb6c49fc398ccdbd1"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac999a3211835a92eb6c49fc398ccdbd1">operator/=</a> (<a class="el" href="../../d2/d83/namespacetoy_1_1math.html#a928771ce74a56750dd2dcbc28e5892e0">real_t</a> scalar) noexcept</td></tr>
 <tr class="memdesc:ac999a3211835a92eb6c49fc398ccdbd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Divides this point by a real <em class="arg">scalar</em>.  <br /></td></tr>
-<tr class="memitem:a0e5ebdb5cd71765940e9fb894ea3d3cc" id="r_a0e5ebdb5cd71765940e9fb894ea3d3cc"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="#adf037c196f723c688ab74b40b0e444d6">value_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0e5ebdb5cd71765940e9fb894ea3d3cc">sqrMagnitude</a> () const noexcept</td></tr>
-<tr class="memdesc:a0e5ebdb5cd71765940e9fb894ea3d3cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the squared magnitude of this point.  <br /></td></tr>
+<tr class="memitem:a19fb320d2ae62ace3d75f7a23168f20d" id="r_a19fb320d2ae62ace3d75f7a23168f20d"><td class="memItemLeft" align="right" valign="top">constexpr std::int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a19fb320d2ae62ace3d75f7a23168f20d">sqrMagnitude</a> () const noexcept</td></tr>
+<tr class="memdesc:a19fb320d2ae62ace3d75f7a23168f20d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the squared magnitude of this point.  <br /></td></tr>
 <tr class="memitem:a6abe66bb39eead8a572c4275c8b87c09" id="r_a6abe66bb39eead8a572c4275c8b87c09"><td class="memItemLeft" align="right" valign="top">constexpr void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6abe66bb39eead8a572c4275c8b87c09">setZero</a> () noexcept</td></tr>
 <tr class="memdesc:a6abe66bb39eead8a572c4275c8b87c09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets this point to zero coordinates.  <br /></td></tr>
 <tr class="memitem:a32bc8d8a0ae4ef71e7c164401a68ac8f" id="r_a32bc8d8a0ae4ef71e7c164401a68ac8f"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a32bc8d8a0ae4ef71e7c164401a68ac8f">isZero</a> () const noexcept</td></tr>
 <tr class="memdesc:a32bc8d8a0ae4ef71e7c164401a68ac8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if this point is at the origin.  <br /></td></tr>
-<tr class="memitem:a14ba84a66f945e7e231b0326504ec18a" id="r_a14ba84a66f945e7e231b0326504ec18a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a14ba84a66f945e7e231b0326504ec18a">isEqual</a> (const <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a> &amp;point, <a class="el" href="#adf037c196f723c688ab74b40b0e444d6">value_type</a> tolerance=0) const noexcept</td></tr>
-<tr class="memdesc:a14ba84a66f945e7e231b0326504ec18a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if this point is equal to another point within a <em class="arg">tolerance</em>.  <br /></td></tr>
+<tr class="memitem:a3608e59746263ee0c771def2650a6c96" id="r_a3608e59746263ee0c771def2650a6c96"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3608e59746263ee0c771def2650a6c96">isEqual</a> (const <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a> &amp;point, std::int32_t tolerance=0) const noexcept</td></tr>
+<tr class="memdesc:a3608e59746263ee0c771def2650a6c96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if this point is equal to another point within a <em class="arg">tolerance</em>.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a7b6a04091d07db4a43b26d51899d0d50" id="r_a7b6a04091d07db4a43b26d51899d0d50"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#adf037c196f723c688ab74b40b0e444d6">value_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7b6a04091d07db4a43b26d51899d0d50">x</a></td></tr>
-<tr class="memdesc:a7b6a04091d07db4a43b26d51899d0d50"><td class="mdescLeft">&#160;</td><td class="mdescRight">X coordinate.  <br /></td></tr>
-<tr class="memitem:a301ff16dc23be25dab6fde7f5f140ce1" id="r_a301ff16dc23be25dab6fde7f5f140ce1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#adf037c196f723c688ab74b40b0e444d6">value_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a301ff16dc23be25dab6fde7f5f140ce1">y</a></td></tr>
-<tr class="memdesc:a301ff16dc23be25dab6fde7f5f140ce1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Y coordinate.  <br /></td></tr>
+<tr class="memitem:a261d9e126c94e3dcad87d6748b7b9946" id="r_a261d9e126c94e3dcad87d6748b7b9946"><td class="memItemLeft" align="right" valign="top">std::int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a261d9e126c94e3dcad87d6748b7b9946">x</a></td></tr>
+<tr class="memdesc:a261d9e126c94e3dcad87d6748b7b9946"><td class="mdescLeft">&#160;</td><td class="mdescRight">X coordinate.  <br /></td></tr>
+<tr class="memitem:a83a7c8571e955797e990455dec6013c9" id="r_a83a7c8571e955797e990455dec6013c9"><td class="memItemLeft" align="right" valign="top">std::int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a83a7c8571e955797e990455dec6013c9">y</a></td></tr>
+<tr class="memdesc:a83a7c8571e955797e990455dec6013c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Y coordinate.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>2D integer point class for UI and input handling. </p>
 <p><a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html" title="2D integer point class for UI and input handling.">Point</a> is a lightweight, high-performance 2D point class that uses integer coordinates. It is specifically designed for UI elements, mouse input handling, window positioning, and GUI layout calculations where pixel-perfect positioning is required.</p>
-<p>The coordinate type is configurable through the <em class="arg"><a class="el" href="#adf037c196f723c688ab74b40b0e444d6" title="The underlying coordinate type.">value_type</a></em> alias, allowing for different integer precisions based on application needs (defaults to <em class="arg">std::int32_t</em>).</p>
 <h1 class="doxsection"><a class="anchor" id="features"></a>
 Key Features</h1>
 <ul>
-<li>⚙️ <b>Configurable Precision</b>: Uses configurable integer type (currently std::int32_t) for pixel-perfect positioning</li>
 <li>🔧 <b>constexpr Support</b>: Most operations can be evaluated at compile time</li>
 <li>🛡️ <b>Exception Safety</b>: All operations are noexcept</li>
-<li>🔗 <b>STL Compatibility</b>: Provides standard container-like interface</li>
 <li>🎯 <b>UI Optimized</b>: Designed specifically for UI and input handling</li>
 <li>🧬 <b>Type Safety</b>: Strong typing with clear coordinate semantics</li>
 </ul>
@@ -203,9 +187,9 @@ Usage Example</h1>
 <div class="line"><span class="comment">// Use in constexpr context</span></div>
 <div class="line"><span class="keyword">constexpr</span> <span class="keyword">auto</span> origin = <a class="code hl_class" href="../../d3/dce/classtoy_1_1math_1_1_point.html">toy::math::Point</a>(0, 0);</div>
 <div class="line"><span class="keyword">constexpr</span> <span class="keyword">auto</span> center = <a class="code hl_class" href="../../d3/dce/classtoy_1_1math_1_1_point.html">toy::math::Point</a>(640, 480);</div>
-<div class="ttc" id="aclasstoy_1_1math_1_1_point_html"><div class="ttname"><a href="../../d3/dce/classtoy_1_1math_1_1_point.html">toy::math::Point</a></div><div class="ttdoc">2D integer point class for UI and input handling.</div><div class="ttdef"><b>Definition</b> point.hpp:100</div></div>
+<div class="ttc" id="aclasstoy_1_1math_1_1_point_html"><div class="ttname"><a href="../../d3/dce/classtoy_1_1math_1_1_point.html">toy::math::Point</a></div><div class="ttdoc">2D integer point class for UI and input handling.</div><div class="ttdef"><b>Definition</b> point.hpp:88</div></div>
 <div class="ttc" id="aclasstoy_1_1math_1_1_point_html_a00eb7547258cbc716c627f4dd39b6151"><div class="ttname"><a href="#a00eb7547258cbc716c627f4dd39b6151">toy::math::Point::Point</a></div><div class="ttdeci">constexpr Point() noexcept</div><div class="ttdoc">Default constructor.</div><div class="ttdef"><b>Definition</b> point.inl:33</div></div>
-<div class="ttc" id="apoint_8hpp_html"><div class="ttname"><a href="../../d0/de4/point_8hpp.html">point.hpp</a></div></div>
+<div class="ttc" id="apoint_8hpp_html"><div class="ttname"><a href="../../d0/de4/point_8hpp.html">point.hpp</a></div><div class="ttdoc">2D integer point class for UI and input handling.</div></div>
 </div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="performance"></a>
 Performance Characteristics</h1>
 <ul>
@@ -213,7 +197,7 @@ Performance Characteristics</h1>
 <li>📝 <b>Assignment</b>: O(1) constant time</li>
 <li>🔗 <b>Arithmetic Operations</b>: O(1) constant time</li>
 <li>⚖️ <b>Comparison Operations</b>: O(1) constant time</li>
-<li>💾 <b>Memory Usage</b>: 2 * sizeof(value_type) bytes (currently 8 bytes with std::int32_t)</li>
+<li>💾 <b>Memory Usage</b>: 8 bytes</li>
 <li>⚡ <b>Cache Performance</b>: Excellent due to small size and stack allocation</li>
 <li>📋 <b>Copy Performance</b>: Fast due to simple integer copying</li>
 <li>🎯 <b>UI Operations</b>: Optimized for UI and input handling</li>
@@ -226,98 +210,9 @@ Safety Guarantees</h1>
 <li>📐 <b>Type Safety</b>: Strong typing prevents coordinate mixing</li>
 <li>⚠️ <b>Exception Safety</b>: All operations are noexcept, no exceptions thrown</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="compatibility"></a>
-Compatibility</h1>
-<ul>
-<li>🔗 <b>STL Integration</b>: Compatible with STL algorithms and containers</li>
-<li>🌐 <b>Cross-Platform</b>: Works on all platforms supported by the compiler</li>
-<li>🔧 <b>Embedded Systems</b>: Suitable for resource-constrained environments</li>
-<li>🔧 <b>Type Flexibility</b>: Coordinate type can be changed via <em class="arg"><a class="el" href="#adf037c196f723c688ab74b40b0e444d6" title="The underlying coordinate type.">value_type</a></em> alias if needed</li>
-</ul>
 <dl class="section note"><dt>Note</dt><dd>This class is specifically designed for UI and input handling. For sprite positioning and world coordinates, consider using Vector2 with floating-point precision.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd>Vector2 </dd></dl>
-</div><a name="doc-typedef-members" id="doc-typedef-members"></a><h2 id="header-doc-typedef-members" class="groupheader">Member Typedef Documentation</h2>
-<a id="a31026bfd7f136afaf3efabe7fbd9c914" name="a31026bfd7f136afaf3efabe7fbd9c914"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a31026bfd7f136afaf3efabe7fbd9c914">&#9670;&#160;</a></span>const_pointer</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="#a31026bfd7f136afaf3efabe7fbd9c914">toy::math::Point::const_pointer</a> = const <a class="el" href="#adf037c196f723c688ab74b40b0e444d6">value_type</a> *</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Constant pointer to coordinate value. </p>
-
-</div>
-</div>
-<a id="abd53e9755032809b155732fb4b55d212" name="abd53e9755032809b155732fb4b55d212"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abd53e9755032809b155732fb4b55d212">&#9670;&#160;</a></span>const_reference</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="#abd53e9755032809b155732fb4b55d212">toy::math::Point::const_reference</a> = const <a class="el" href="#adf037c196f723c688ab74b40b0e444d6">value_type</a> &amp;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Constant reference to coordinate value. </p>
-
-</div>
-</div>
-<a id="a81be355f26264e4668a4d94f56d2a3da" name="a81be355f26264e4668a4d94f56d2a3da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a81be355f26264e4668a4d94f56d2a3da">&#9670;&#160;</a></span>pointer</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="#a81be355f26264e4668a4d94f56d2a3da">toy::math::Point::pointer</a> = <a class="el" href="#adf037c196f723c688ab74b40b0e444d6">value_type</a> *</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Pointer to coordinate value. </p>
-
-</div>
-</div>
-<a id="ae829bd795ceb780eb8ad5a6bd84da1f4" name="ae829bd795ceb780eb8ad5a6bd84da1f4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae829bd795ceb780eb8ad5a6bd84da1f4">&#9670;&#160;</a></span>reference</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="#ae829bd795ceb780eb8ad5a6bd84da1f4">toy::math::Point::reference</a> = <a class="el" href="#adf037c196f723c688ab74b40b0e444d6">value_type</a> &amp;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Reference to coordinate value. </p>
-
-</div>
-</div>
-<a id="adf037c196f723c688ab74b40b0e444d6" name="adf037c196f723c688ab74b40b0e444d6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adf037c196f723c688ab74b40b0e444d6">&#9670;&#160;</a></span>value_type</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="#adf037c196f723c688ab74b40b0e444d6">toy::math::Point::value_type</a> = std::int32_t</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>The underlying coordinate type. </p>
-
-</div>
-</div>
-<a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
+</div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a00eb7547258cbc716c627f4dd39b6151" name="a00eb7547258cbc716c627f4dd39b6151"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a00eb7547258cbc716c627f4dd39b6151">&#9670;&#160;</a></span>Point() <span class="overload">[1/3]</span></h2>
 
@@ -347,8 +242,8 @@ Compatibility</h1>
 
 </div>
 </div>
-<a id="aee992b33c80955f27ee7054a8df0c32c" name="aee992b33c80955f27ee7054a8df0c32c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aee992b33c80955f27ee7054a8df0c32c">&#9670;&#160;</a></span>Point() <span class="overload">[2/3]</span></h2>
+<a id="a7e36dfa29f112e92982ec7445b5fc10e" name="a7e36dfa29f112e92982ec7445b5fc10e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e36dfa29f112e92982ec7445b5fc10e">&#9670;&#160;</a></span>Point() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -359,12 +254,12 @@ Compatibility</h1>
         <tr>
           <td class="memname">toy::math::Point::Point </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="#abd53e9755032809b155732fb4b55d212">const_reference</a></td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+          <td class="paramtype">const std::int32_t &amp;</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="#abd53e9755032809b155732fb4b55d212">const_reference</a></td>          <td class="paramname"><span class="paramname"><em>y</em></span>&#160;)</td>
+          <td class="paramtype">const std::int32_t &amp;</td>          <td class="paramname"><span class="paramname"><em>y</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -386,8 +281,8 @@ Compatibility</h1>
 
 </div>
 </div>
-<a id="a5137cd42f350de458764befc80a49bb8" name="a5137cd42f350de458764befc80a49bb8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5137cd42f350de458764befc80a49bb8">&#9670;&#160;</a></span>Point() <span class="overload">[3/3]</span></h2>
+<a id="a63aaad0ec810366bbad80e533156b872" name="a63aaad0ec810366bbad80e533156b872"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63aaad0ec810366bbad80e533156b872">&#9670;&#160;</a></span>Point() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -398,7 +293,7 @@ Compatibility</h1>
         <tr>
           <td class="memname">toy::math::Point::Point </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="#a31026bfd7f136afaf3efabe7fbd9c914">const_pointer</a></td>          <td class="paramname"><span class="paramname"><em>values</em></span></td><td>)</td>
+          <td class="paramtype">const std::int32_t *</td>          <td class="paramname"><span class="paramname"><em>values</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -453,8 +348,8 @@ The array must contain at least two elements.</dd></dl>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
-<a id="a528fff6ce22e07d07e37a0e9403334e7" name="a528fff6ce22e07d07e37a0e9403334e7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a528fff6ce22e07d07e37a0e9403334e7">&#9670;&#160;</a></span>c_arr() <span class="overload">[1/2]</span></h2>
+<a id="a5f20d982f7499dd31bbb90a23ddb47d3" name="a5f20d982f7499dd31bbb90a23ddb47d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f20d982f7499dd31bbb90a23ddb47d3">&#9670;&#160;</a></span>c_arr() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -463,7 +358,7 @@ The array must contain at least two elements.</dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="#a31026bfd7f136afaf3efabe7fbd9c914">Point::const_pointer</a> toy::math::Point::c_arr </td>
+          <td class="memname">const std::int32_t * toy::math::Point::c_arr </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
@@ -489,8 +384,8 @@ Use the non-const overload to allow modification. </dd></dl>
 
 </div>
 </div>
-<a id="a8587af01a6c61c71f74485f5bb4ae887" name="a8587af01a6c61c71f74485f5bb4ae887"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8587af01a6c61c71f74485f5bb4ae887">&#9670;&#160;</a></span>c_arr() <span class="overload">[2/2]</span></h2>
+<a id="ae6e9cc35897d99f7c7cd95b8477bf03f" name="ae6e9cc35897d99f7c7cd95b8477bf03f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6e9cc35897d99f7c7cd95b8477bf03f">&#9670;&#160;</a></span>c_arr() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -499,7 +394,7 @@ Use the non-const overload to allow modification. </dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="#a81be355f26264e4668a4d94f56d2a3da">Point::pointer</a> toy::math::Point::c_arr </td>
+          <td class="memname">std::int32_t * toy::math::Point::c_arr </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
@@ -525,8 +420,8 @@ Use const version for read-only access. </dd></dl>
 
 </div>
 </div>
-<a id="a14ba84a66f945e7e231b0326504ec18a" name="a14ba84a66f945e7e231b0326504ec18a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a14ba84a66f945e7e231b0326504ec18a">&#9670;&#160;</a></span>isEqual()</h2>
+<a id="a3608e59746263ee0c771def2650a6c96" name="a3608e59746263ee0c771def2650a6c96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3608e59746263ee0c771def2650a6c96">&#9670;&#160;</a></span>isEqual()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -542,7 +437,7 @@ Use const version for read-only access. </dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="#adf037c196f723c688ab74b40b0e444d6">value_type</a></td>          <td class="paramname"><span class="paramname"><em>tolerance</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;) const</td>
+          <td class="paramtype">std::int32_t</td>          <td class="paramname"><span class="paramname"><em>tolerance</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;) const</td>
         </tr>
       </table>
   </td>
@@ -635,8 +530,8 @@ When tolerance is greater than 0, this performs approximate equality comparison.
 
 </div>
 </div>
-<a id="ae83da5e579522ad8a65061bf43459968" name="ae83da5e579522ad8a65061bf43459968"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae83da5e579522ad8a65061bf43459968">&#9670;&#160;</a></span>operator*=() <span class="overload">[2/2]</span></h2>
+<a id="a4d33981ddada5c13c357f039ce7bf062" name="a4d33981ddada5c13c357f039ce7bf062"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d33981ddada5c13c357f039ce7bf062">&#9670;&#160;</a></span>operator*=() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -647,7 +542,7 @@ When tolerance is greater than 0, this performs approximate equality comparison.
         <tr>
           <td class="memname"><a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a> &amp; toy::math::Point::operator*= </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="#adf037c196f723c688ab74b40b0e444d6">value_type</a></td>          <td class="paramname"><span class="paramname"><em>scalar</em></span></td><td>)</td>
+          <td class="paramtype">std::int32_t</td>          <td class="paramname"><span class="paramname"><em>scalar</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -780,8 +675,8 @@ When tolerance is greater than 0, this performs approximate equality comparison.
 
 </div>
 </div>
-<a id="aa27b7e7208564486d3e72d1b5ea6eeda" name="aa27b7e7208564486d3e72d1b5ea6eeda"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa27b7e7208564486d3e72d1b5ea6eeda">&#9670;&#160;</a></span>operator/=() <span class="overload">[2/2]</span></h2>
+<a id="a03ab225894771cff47ec7ec40962c8ac" name="a03ab225894771cff47ec7ec40962c8ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03ab225894771cff47ec7ec40962c8ac">&#9670;&#160;</a></span>operator/=() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -792,7 +687,7 @@ When tolerance is greater than 0, this performs approximate equality comparison.
         <tr>
           <td class="memname"><a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a> &amp; toy::math::Point::operator/= </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="#adf037c196f723c688ab74b40b0e444d6">value_type</a></td>          <td class="paramname"><span class="paramname"><em>scalar</em></span></td><td>)</td>
+          <td class="paramtype">std::int32_t</td>          <td class="paramname"><span class="paramname"><em>scalar</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -846,8 +741,8 @@ When tolerance is greater than 0, this performs approximate equality comparison.
 
 </div>
 </div>
-<a id="a0e5ebdb5cd71765940e9fb894ea3d3cc" name="a0e5ebdb5cd71765940e9fb894ea3d3cc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0e5ebdb5cd71765940e9fb894ea3d3cc">&#9670;&#160;</a></span>sqrMagnitude()</h2>
+<a id="a19fb320d2ae62ace3d75f7a23168f20d" name="a19fb320d2ae62ace3d75f7a23168f20d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19fb320d2ae62ace3d75f7a23168f20d">&#9670;&#160;</a></span>sqrMagnitude()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -856,7 +751,7 @@ When tolerance is greater than 0, this performs approximate equality comparison.
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="#adf037c196f723c688ab74b40b0e444d6">Point::value_type</a> toy::math::Point::sqrMagnitude </td>
+          <td class="memname">std::int32_t toy::math::Point::sqrMagnitude </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
@@ -879,14 +774,14 @@ Use this method when comparing magnitudes for performance reasons. </dd></dl>
 </div>
 </div>
 <a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
-<a id="a7b6a04091d07db4a43b26d51899d0d50" name="a7b6a04091d07db4a43b26d51899d0d50"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7b6a04091d07db4a43b26d51899d0d50">&#9670;&#160;</a></span>x</h2>
+<a id="a261d9e126c94e3dcad87d6748b7b9946" name="a261d9e126c94e3dcad87d6748b7b9946"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a261d9e126c94e3dcad87d6748b7b9946">&#9670;&#160;</a></span>x</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="#adf037c196f723c688ab74b40b0e444d6">value_type</a> toy::math::Point::x</td>
+          <td class="memname">std::int32_t toy::math::Point::x</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -895,14 +790,14 @@ Use this method when comparing magnitudes for performance reasons. </dd></dl>
 
 </div>
 </div>
-<a id="a301ff16dc23be25dab6fde7f5f140ce1" name="a301ff16dc23be25dab6fde7f5f140ce1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a301ff16dc23be25dab6fde7f5f140ce1">&#9670;&#160;</a></span>y</h2>
+<a id="a83a7c8571e955797e990455dec6013c9" name="a83a7c8571e955797e990455dec6013c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83a7c8571e955797e990455dec6013c9">&#9670;&#160;</a></span>y</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="#adf037c196f723c688ab74b40b0e444d6">value_type</a> toy::math::Point::y</td>
+          <td class="memname">std::int32_t toy::math::Point::y</td>
         </tr>
       </table>
 </div><div class="memdoc">

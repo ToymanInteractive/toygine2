@@ -2,7 +2,7 @@ var searchData=
 [
   ['readme_2emd_0',['README.md',['../d9/dd6/_r_e_a_d_m_e_8md.html',1,'']]],
   ['real_5ft_1',['real_t',['../d2/d83/namespacetoy_1_1math.html#a928771ce74a56750dd2dcbc28e5892e0',1,'toy::math']]],
-  ['reference_2',['reference',['../d7/dec/classtoy_1_1_fixed_vector.html#a54b2b2db7a31500c6daf4e5ef12a55f3',1,'toy::FixedVector::reference'],['../d3/dce/classtoy_1_1math_1_1_point.html#ae829bd795ceb780eb8ad5a6bd84da1f4',1,'toy::math::Point::reference']]],
+  ['reference_2',['reference',['../d7/dec/classtoy_1_1_fixed_vector.html#a54b2b2db7a31500c6daf4e5ef12a55f3',1,'toy::FixedVector']]],
   ['rem_3',['rem',['../d9/d10/structtoy_1_1__divmod10.html#a5c990eebc39ef350055e4f3317e1f5b7',1,'toy::_divmod10']]],
   ['replace_4',['replace',['../d3/d7a/classtoy_1_1_fixed_string.html#a420a7f66721f7aa364e666078795edb5',1,'toy::FixedString::replace(std::size_t pos, std::size_t count, const FixedString&lt; allocatedSize &gt; &amp;string) noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#afb423343c69dd752c0a27439922e116b',1,'toy::FixedString::replace(std::size_t pos, std::size_t count, const stringType &amp;string) noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#af17d624c0acb3117078c5769baad740e',1,'toy::FixedString::replace(std::size_t pos, std::size_t count, const char *string) noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#afba7a518ba63a32116817444d3582063',1,'toy::FixedString::replace(std::size_t pos, std::size_t count, char character, std::size_t charactersCount=1) noexcept']]],
   ['requirements_5',['Requirements',['../index.html#requirements',1,'']]],
