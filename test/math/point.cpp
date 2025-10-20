@@ -194,7 +194,7 @@ TEST_CASE("Point c_arr methods", "[math][point]") {
 
   SECTION("Const c_arr method") {
     constexpr Point point(123, -456);
-    const Point::const_pointer arr = point.c_arr();
+    const Point::value_type * arr = point.c_arr();
 
     REQUIRE(arr != nullptr);
     REQUIRE(arr[0] == 123);

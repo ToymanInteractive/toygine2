@@ -19,7 +19,7 @@
 //
 /*!
   \file   point.hpp
-  \brief  .
+  \brief  2D integer point class for UI and input handling.
 */
 
 #ifndef INCLUDE_MATH_POINT_HPP_
@@ -100,10 +100,6 @@ namespace toy::math {
 class Point {
 public:
   using value_type = std::int32_t; //!< The underlying coordinate type.
-  using reference = value_type &; //!< Reference to coordinate value.
-  using const_reference = const value_type &; //!< Constant reference to coordinate value.
-  using pointer = value_type *; //!< Pointer to coordinate value.
-  using const_pointer = const value_type *; //!< Constant pointer to coordinate value.
 
   /// X coordinate.
   value_type x;
@@ -128,7 +124,7 @@ public:
     \param x The x-coordinate of the point.
     \param y The y-coordinate of the point.
   */
-  constexpr Point(const_reference x, const_reference y) noexcept;
+  constexpr Point(const value_type & x, const value_type & y) noexcept;
 
   /*!
     \brief Constructs a Point from an array of \a values.
@@ -143,7 +139,7 @@ public:
 
     \post The point is initialized with x = values[0] and y = values[1].
   */
-  explicit constexpr Point(const_pointer values) noexcept;
+  explicit constexpr Point(const value_type * values) noexcept;
 
   /*!
     \brief Destructor for the point.
@@ -165,7 +161,7 @@ public:
     \note The returned pointer allows modification of the point coordinates.
     \note Use const version for read-only access.
   */
-  [[nodiscard]] constexpr pointer c_arr() noexcept;
+  [[nodiscard]] constexpr value_type * c_arr() noexcept;
 
   /*!
     \brief Returns a constant pointer to the array representation of this point.
@@ -180,7 +176,7 @@ public:
     \note The returned pointer is read-only and cannot modify the point coordinates.
     \note Use the non-const overload to allow modification.
   */
-  [[nodiscard]] constexpr const_pointer c_arr() const noexcept;
+  [[nodiscard]] constexpr const value_type * c_arr() const noexcept;
 
   /*!
     \brief Adds another \a point to this point.

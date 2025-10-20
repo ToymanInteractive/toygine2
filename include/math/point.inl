@@ -34,11 +34,11 @@ constexpr Point::Point() noexcept
   : x()
   , y() {}
 
-constexpr Point::Point(const_reference x, const_reference y) noexcept
+constexpr Point::Point(const value_type & x, const value_type & y) noexcept
   : x(x)
   , y(y) {}
 
-constexpr Point::Point(const_pointer values) noexcept
+constexpr Point::Point(const value_type * values) noexcept
   : x()
   , y() {
   assert_message(values != nullptr, "values cannot be null");
@@ -47,11 +47,11 @@ constexpr Point::Point(const_pointer values) noexcept
   y = values[1];
 }
 
-constexpr Point::pointer Point::c_arr() noexcept {
+constexpr Point::value_type * Point::c_arr() noexcept {
   return &x;
 }
 
-constexpr Point::const_pointer Point::c_arr() const noexcept {
+constexpr const Point::value_type * Point::c_arr() const noexcept {
   return &x;
 }
 

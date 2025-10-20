@@ -18,30 +18,43 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   math.hpp
-  \brief  Umbrella header for the engine mathematics module
+  \file   vector2d.inl
+  \brief  TODO
 */
 
-#ifndef INCLUDE_MATH_HPP_
-#define INCLUDE_MATH_HPP_
+#ifndef INCLUDE_MATH_VECTOR2D_INL_
+#define INCLUDE_MATH_VECTOR2D_INL_
 
-#include "core.hpp"
-
-/// @namespace toy::math
-/// @brief Contains all public mathematical types, constants, and utility functions of engine.
 namespace toy::math {
 
-/// Floating‑point scalar type.
-using real_t = float;
+static_assert(sizeof(Vector2D) == 2 * sizeof(real_t), "Vector2D must be tightly packed");
+static_assert(offsetof(Vector2D, y) == sizeof(real_t), "y must follow x contiguously");
+
+constexpr Vector2D::Vector2D() noexcept
+  : x()
+  , y() {}
+
+constexpr Vector2D::Vector2D(const real_t & x, const real_t & y) noexcept
+  : x(x)
+  , y(y) {}
+
+constexpr Vector2D::Vector2D(const real_t * values) noexcept
+  : x()
+  , y() {
+  assert_message(values != nullptr, "values cannot be null");
+
+  x = values[0];
+  y = values[1];
+}
+
+constexpr real_t * Vector2D::c_arr() noexcept {
+  return &x;
+}
+
+constexpr const real_t * Vector2D::c_arr() const noexcept {
+  return &x;
+}
 
 } // namespace toy::math
 
-#include "math/point.hpp"
-#include "math/vector2d.hpp"
-
-//----------------------------------------------------------------------------------------------------------------------
-
-#include "math/point.inl"
-#include "math/vector2d.inl"
-
-#endif // INCLUDE_MATH_HPP_
+#endif // INCLUDE_MATH_VECTOR2D_INL_
