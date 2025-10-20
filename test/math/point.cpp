@@ -27,7 +27,7 @@ using namespace toy::math;
 TEST_CASE("Point object structure", "[math][point]") {
   constexpr Point point(111, 222);
 
-  STATIC_REQUIRE(sizeof(point) == sizeof(Point::value_type) * 2);
+  STATIC_REQUIRE(sizeof(point) == sizeof(std::int32_t) * 2);
 
   const auto * arr = point.c_arr();
 
@@ -36,7 +36,7 @@ TEST_CASE("Point object structure", "[math][point]") {
   REQUIRE(arr + 1 == &point.y);
 
   // Verify contiguous memory
-  REQUIRE(reinterpret_cast<const char *>(arr + 1) - reinterpret_cast<const char *>(arr) == sizeof(Point::value_type));
+  REQUIRE(reinterpret_cast<const char *>(arr + 1) - reinterpret_cast<const char *>(arr) == sizeof(std::int32_t));
 }
 
 TEST_CASE("Point constructors", "[math][point]") {
@@ -96,7 +96,7 @@ TEST_CASE("Point constructors", "[math][point]") {
   }
 
   SECTION("Constructor from pointer to array") {
-    constexpr std::array<Point::value_type, 2> arr{42, -17};
+    constexpr std::array<std::int32_t, 2> arr{42, -17};
 
     const Point point(arr.data());
     REQUIRE(point.x == 42);
@@ -109,7 +109,7 @@ TEST_CASE("Point constructors", "[math][point]") {
   }
 
   SECTION("Constructor from pointer to array with positive values") {
-    constexpr std::array<Point::value_type, 2> arr{100, 200};
+    constexpr std::array<std::int32_t, 2> arr{100, 200};
     constexpr Point point(arr.data());
 
     REQUIRE(point.x == 100);
@@ -121,7 +121,7 @@ TEST_CASE("Point constructors", "[math][point]") {
   }
 
   SECTION("Constructor from pointer to array with negative values") {
-    constexpr std::array<Point::value_type, 2> arr{-50, -75};
+    constexpr std::array<std::int32_t, 2> arr{-50, -75};
     constexpr Point point(arr.data());
 
     REQUIRE(point.x == -50);
@@ -133,7 +133,7 @@ TEST_CASE("Point constructors", "[math][point]") {
   }
 
   SECTION("Constructor from pointer to array with mixed values") {
-    constexpr std::array<Point::value_type, 2> arr{-300, 400};
+    constexpr std::array<std::int32_t, 2> arr{-300, 400};
     constexpr Point point(arr.data());
 
     REQUIRE(point.x == -300);
@@ -145,7 +145,7 @@ TEST_CASE("Point constructors", "[math][point]") {
   }
 
   SECTION("Constructor from pointer to array with zero values") {
-    constexpr std::array<Point::value_type, 2> arr{0, 0};
+    constexpr std::array<std::int32_t, 2> arr{0, 0};
     constexpr Point point(arr.data());
 
     REQUIRE(point.x == 0);
@@ -168,7 +168,7 @@ TEST_CASE("Point constructors", "[math][point]") {
     REQUIRE(coordPoint.y == -456);
 
     // Test array constructor at runtime
-    constexpr std::array<Point::value_type, 2> arr{789, -321};
+    constexpr std::array<std::int32_t, 2> arr{789, -321};
     Point arrayPoint(arr.data());
     REQUIRE(arrayPoint.x == 789);
     REQUIRE(arrayPoint.y == -321);
@@ -194,7 +194,7 @@ TEST_CASE("Point c_arr methods", "[math][point]") {
 
   SECTION("Const c_arr method") {
     constexpr Point point(123, -456);
-    const Point::value_type * arr = point.c_arr();
+    const std::int32_t * arr = point.c_arr();
 
     REQUIRE(arr != nullptr);
     REQUIRE(arr[0] == 123);
@@ -307,7 +307,7 @@ TEST_CASE("Point operators", "[math][point]") {
 
   SECTION("operator*= with integer") {
     Point point(10, 20);
-    constexpr Point::value_type scalar = 3;
+    constexpr std::int32_t scalar = 3;
 
     point *= scalar;
 
@@ -327,7 +327,7 @@ TEST_CASE("Point operators", "[math][point]") {
 
   SECTION("operator/= with integer") {
     Point point(30, 60);
-    constexpr Point::value_type scalar = 3;
+    constexpr std::int32_t scalar = 3;
 
     point /= scalar;
 
@@ -467,7 +467,7 @@ TEST_CASE("Point methods", "[math][point]") {
   SECTION("isEqual with tolerance") {
     constexpr Point point1(10, 20);
     constexpr Point point2(12, 18);
-    constexpr Point::value_type tolerance = 3;
+    constexpr std::int32_t tolerance = 3;
 
     const bool result = point1.isEqual(point2, tolerance);
 
@@ -477,7 +477,7 @@ TEST_CASE("Point methods", "[math][point]") {
   SECTION("isEqual with tolerance too small") {
     constexpr Point point1(10, 20);
     constexpr Point point2(15, 25);
-    constexpr Point::value_type tolerance = 2;
+    constexpr std::int32_t tolerance = 2;
 
     const bool result = point1.isEqual(point2, tolerance);
 
@@ -487,7 +487,7 @@ TEST_CASE("Point methods", "[math][point]") {
   SECTION("isEqual with zero tolerance") {
     constexpr Point point1(10, 20);
     constexpr Point point2(10, 21);
-    constexpr Point::value_type tolerance = 0;
+    constexpr std::int32_t tolerance = 0;
 
     const bool result = point1.isEqual(point2, tolerance);
 
@@ -506,7 +506,7 @@ TEST_CASE("Point methods", "[math][point]") {
   SECTION("isEqual with large tolerance") {
     constexpr Point point1(0, 0);
     constexpr Point point2(1000, 1000);
-    constexpr Point::value_type tolerance = 2000;
+    constexpr std::int32_t tolerance = 2000;
 
     const bool result = point1.isEqual(point2, tolerance);
 
@@ -668,7 +668,7 @@ TEST_CASE("Point binary operators", "[math][point]") {
 
   SECTION("Multiplication with integer scalar (point * scalar)") {
     constexpr Point point(10, 20);
-    constexpr Point::value_type scalar = 3;
+    constexpr std::int32_t scalar = 3;
 
     constexpr Point result = point * scalar;
 
@@ -681,7 +681,7 @@ TEST_CASE("Point binary operators", "[math][point]") {
   }
 
   SECTION("Multiplication with integer scalar (scalar * point)") {
-    constexpr Point::value_type scalar = 4;
+    constexpr std::int32_t scalar = 4;
     constexpr Point point(5, 15);
 
     constexpr Point result = scalar * point;
@@ -696,7 +696,7 @@ TEST_CASE("Point binary operators", "[math][point]") {
 
   SECTION("Multiplication with zero scalar") {
     constexpr Point point(10, 20);
-    constexpr Point::value_type scalar = 0;
+    constexpr std::int32_t scalar = 0;
 
     constexpr Point result = point * scalar;
 
@@ -710,7 +710,7 @@ TEST_CASE("Point binary operators", "[math][point]") {
 
   SECTION("Multiplication with negative scalar") {
     constexpr Point point(10, 20);
-    constexpr Point::value_type scalar = -2;
+    constexpr std::int32_t scalar = -2;
 
     constexpr Point result = point * scalar;
 
@@ -780,7 +780,7 @@ TEST_CASE("Point binary operators", "[math][point]") {
 
   SECTION("Division with integer scalar") {
     constexpr Point point(30, 60);
-    constexpr Point::value_type scalar = 3;
+    constexpr std::int32_t scalar = 3;
 
     constexpr Point result = point / scalar;
 
@@ -794,7 +794,7 @@ TEST_CASE("Point binary operators", "[math][point]") {
 
   SECTION("Division with negative scalar") {
     constexpr Point point(-20, -40);
-    constexpr Point::value_type scalar = -2;
+    constexpr std::int32_t scalar = -2;
 
     constexpr Point result = point / scalar;
 
@@ -897,7 +897,7 @@ TEST_CASE("Point binary operators", "[math][point]") {
   SECTION("Chained binary operations") {
     constexpr Point point1(10, 20);
     constexpr Point point2(5, 10);
-    constexpr Point::value_type scalar = 2;
+    constexpr std::int32_t scalar = 2;
 
     constexpr Point result = (point1 + point2) * scalar - point1;
 
@@ -913,7 +913,7 @@ TEST_CASE("Point binary operators", "[math][point]") {
     constexpr Point point1(100, 200);
     constexpr Point point2(50, 75);
     constexpr real_t scalar1 = 1.5;
-    constexpr Point::value_type scalar2 = 2;
+    constexpr std::int32_t scalar2 = 2;
 
     constexpr Point result = (point1 * scalar1 + point2) / scalar2;
 

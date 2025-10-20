@@ -27,18 +27,18 @@
 
 namespace toy::math {
 
-static_assert(sizeof(Point) == 2 * sizeof(Point::value_type), "Point must be tightly packed");
-static_assert(offsetof(Point, y) == sizeof(Point::value_type), "y must follow x contiguously");
+static_assert(sizeof(Point) == 2 * sizeof(std::int32_t), "Point must be tightly packed");
+static_assert(offsetof(Point, y) == sizeof(std::int32_t), "y must follow x contiguously");
 
 constexpr Point::Point() noexcept
   : x()
   , y() {}
 
-constexpr Point::Point(const value_type & x, const value_type & y) noexcept
+constexpr Point::Point(const std::int32_t & x, const std::int32_t & y) noexcept
   : x(x)
   , y(y) {}
 
-constexpr Point::Point(const value_type * values) noexcept
+constexpr Point::Point(const std::int32_t * values) noexcept
   : x()
   , y() {
   assert_message(values != nullptr, "values cannot be null");
@@ -47,11 +47,11 @@ constexpr Point::Point(const value_type * values) noexcept
   y = values[1];
 }
 
-constexpr Point::value_type * Point::c_arr() noexcept {
+constexpr std::int32_t * Point::c_arr() noexcept {
   return &x;
 }
 
-constexpr const Point::value_type * Point::c_arr() const noexcept {
+constexpr const std::int32_t * Point::c_arr() const noexcept {
   return &x;
 }
 
@@ -69,7 +69,7 @@ constexpr Point & Point::operator-=(const Point & point) noexcept {
   return *this;
 }
 
-constexpr Point & Point::operator*=(value_type scalar) noexcept {
+constexpr Point & Point::operator*=(std::int32_t scalar) noexcept {
   x *= scalar;
   y *= scalar;
 
@@ -77,13 +77,13 @@ constexpr Point & Point::operator*=(value_type scalar) noexcept {
 }
 
 constexpr Point & Point::operator*=(real_t scalar) noexcept {
-  x = static_cast<value_type>(x * scalar);
-  y = static_cast<value_type>(y * scalar);
+  x = static_cast<std::int32_t>(x * scalar);
+  y = static_cast<std::int32_t>(y * scalar);
 
   return *this;
 }
 
-constexpr Point & Point::operator/=(value_type scalar) noexcept {
+constexpr Point & Point::operator/=(std::int32_t scalar) noexcept {
   assert_message(scalar != 0, "scalar must be non-zero");
 
   x /= scalar;
@@ -95,13 +95,13 @@ constexpr Point & Point::operator/=(value_type scalar) noexcept {
 constexpr Point & Point::operator/=(real_t scalar) noexcept {
   assert_message(scalar > 0 || scalar < 0, "scalar must be non-zero");
 
-  x = static_cast<value_type>(x / scalar);
-  y = static_cast<value_type>(y / scalar);
+  x = static_cast<std::int32_t>(x / scalar);
+  y = static_cast<std::int32_t>(y / scalar);
 
   return *this;
 }
 
-constexpr Point::value_type Point::sqrMagnitude() const noexcept {
+constexpr std::int32_t Point::sqrMagnitude() const noexcept {
   return x * x + y * y;
 }
 
@@ -113,7 +113,7 @@ constexpr bool Point::isZero() const noexcept {
   return x == 0 && y == 0;
 }
 
-inline bool Point::isEqual(const Point & point, value_type tolerance) const noexcept {
+inline bool Point::isEqual(const Point & point, std::int32_t tolerance) const noexcept {
   assert_message(tolerance >= 0, "tolerance must be non-negative");
 
   return std::abs(x - point.x) <= tolerance && std::abs(y - point.y) <= tolerance;
@@ -131,23 +131,23 @@ constexpr Point operator-(const Point & left, const Point & right) noexcept {
   return Point(left.x - right.x, left.y - right.y);
 }
 
-constexpr Point operator*(const Point & left, Point::value_type right) noexcept {
+constexpr Point operator*(const Point & left, std::int32_t right) noexcept {
   return Point(left.x * right, left.y * right);
 }
 
-constexpr Point operator*(Point::value_type left, const Point & right) noexcept {
+constexpr Point operator*(std::int32_t left, const Point & right) noexcept {
   return right * left;
 }
 
 constexpr Point operator*(const Point & left, real_t right) noexcept {
-  return Point(static_cast<Point::value_type>(left.x * right), static_cast<Point::value_type>(left.y * right));
+  return Point(static_cast<std::int32_t>(left.x * right), static_cast<std::int32_t>(left.y * right));
 }
 
 constexpr Point operator*(real_t left, const Point & right) noexcept {
   return right * left;
 }
 
-constexpr Point operator/(const Point & left, Point::value_type right) noexcept {
+constexpr Point operator/(const Point & left, std::int32_t right) noexcept {
   assert_message(right != 0, "right must be non-zero");
 
   return Point(left.x / right, left.y / right);
@@ -156,7 +156,7 @@ constexpr Point operator/(const Point & left, Point::value_type right) noexcept 
 constexpr Point operator/(const Point & left, real_t right) noexcept {
   assert_message(right > 0 || right < 0, "right must be non-zero");
 
-  return Point(static_cast<Point::value_type>(left.x / right), static_cast<Point::value_type>(left.y / right));
+  return Point(static_cast<std::int32_t>(left.x / right), static_cast<std::int32_t>(left.y / right));
 }
 
 constexpr bool operator==(const Point & left, const Point & right) noexcept {

@@ -275,7 +275,7 @@ TEST_CASE("Vector2D c_arr methods", "[math][vector2d]") {
     REQUIRE(runtimeVector.y == -800);
 
     // Test const version at runtime
-    const Point constRuntimeVector(900, -1000);
+    const Vector2D constRuntimeVector(900, -1000);
     const auto * constRuntimeArr = constRuntimeVector.c_arr();
 
     REQUIRE(constRuntimeArr != nullptr);
