@@ -131,6 +131,8 @@ Functions</h2></td></tr>
 <tr class="memitem:ab92066b98ab69bcf7db8e1089ea4f755" id="r_ab92066b98ab69bcf7db8e1089ea4f755"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab92066b98ab69bcf7db8e1089ea4f755">setCallbacks</a> (<a class="el" href="#ac9b5b813ecfe0701aa24d2e005f82c8a">AssertionCallback</a> assertionCallback, <a class="el" href="#a77be860c404126249c99fb34089c497a">StackWalkCallback</a> stackWalkCallback)</td></tr>
 <tr class="memdesc:ab92066b98ab69bcf7db8e1089ea4f755"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the assertion and stack walk callbacks.  <br /></td></tr>
 <tr class="memitem:a6d1330b6720063a047b23b0d46d26afb" id="r_a6d1330b6720063a047b23b0d46d26afb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6d1330b6720063a047b23b0d46d26afb">assertion</a> (const char *code, const char *message, const char *fileName, const char *functionName, std::size_t lineNumber)</td></tr>
+<tr class="memitem:a080f416a9882bcb84b03d6bf96d6a4c5" id="r_a080f416a9882bcb84b03d6bf96d6a4c5"><td class="memItemLeft" align="right" valign="top">constexpr void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a080f416a9882bcb84b03d6bf96d6a4c5">constexpr_assert</a> (bool condition, const char *message)</td></tr>
+<tr class="memdesc:a080f416a9882bcb84b03d6bf96d6a4c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compile-time assertion function for constexpr contexts.  <br /></td></tr>
 <tr class="memitem:a110a4b7692805ebe9ffdaddcf1cab402" id="r_a110a4b7692805ebe9ffdaddcf1cab402"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a110a4b7692805ebe9ffdaddcf1cab402">setCallbacks</a> (<a class="el" href="#ac9b5b813ecfe0701aa24d2e005f82c8a">AssertionCallback</a> assertionCallback, <a class="el" href="#a77be860c404126249c99fb34089c497a">StackWalkCallback</a> <a class="el" href="../../da/d47/core_8hpp.html#a6c25f2c5b6e99783e32a4eb8258eb2f6">TOY_UNUSED</a>(stackWalkCallback))</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
@@ -202,6 +204,57 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a080f416a9882bcb84b03d6bf96d6a4c5" name="a080f416a9882bcb84b03d6bf96d6a4c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a080f416a9882bcb84b03d6bf96d6a4c5">&#9670;&#160;</a></span>constexpr_assert()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void toy::assertion::constexpr_assert </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>condition</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>message</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Compile-time assertion function for constexpr contexts. </p>
+<p>This function provides assertion capabilities in constexpr contexts where regular assertions cannot be used. When the <em class="arg">condition</em> is false, it throws a std::invalid_argument exception with the provided <em class="arg">message</em>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">condition</td><td>The condition to check. Must be true for the assertion to pass. </td></tr>
+    <tr><td class="paramname">message</td><td>The error message to include in the exception if the assertion fails.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>If <em class="arg">condition</em> is false, with <em class="arg">message</em> as the error description.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This function is designed for use in constexpr contexts where traditional assertions are not available. It should be used sparingly and only when compile-time validation is essential.</dd>
+<dd>
+Unlike regular assertions, this function always throws an exception in both debug and release builds when the condition fails.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dd/d9e/linux_2platform__config_8hpp.html#a0041af519e0e7d47c9bcc83760c4669e" title="Debug assertion macro for runtime expression checking.">assert</a> </dd>
+<dd>
+<a class="el" href="../../dd/d9e/linux_2platform__config_8hpp.html#a672330c2fecd516f254162cd9611d91a" title="Debug assertion macro with custom message for runtime expression checking.">assert_message</a> </dd></dl>
 
 </div>
 </div>

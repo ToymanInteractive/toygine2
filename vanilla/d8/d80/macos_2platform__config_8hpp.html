@@ -123,8 +123,13 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">  ((expression) ? (void)0 : <a class="code hl_function" href="../../d2/da2/namespacetoy_1_1assertion.html#a6d1330b6720063a047b23b0d46d26afb">toy::assertion::assertion</a>(#expression, <span class="keyword">nullptr</span>, __FILE__, __PRETTY_FUNCTION__, __LINE__))</div>
-<div class="ttc" id="anamespacetoy_1_1assertion_html_a6d1330b6720063a047b23b0d46d26afb"><div class="ttname"><a href="../../d2/da2/namespacetoy_1_1assertion.html#a6d1330b6720063a047b23b0d46d26afb">toy::assertion::assertion</a></div><div class="ttdeci">void assertion(const char *code, const char *message, const char *fileName, const char *functionName, std::size_t lineNumber)</div><div class="ttdef"><b>Definition</b> assertion_stub.cpp:44</div></div>
+<b>Value:</b><div class="fragment"><div class="line">  <span class="keywordflow">do</span> {                                                                                                                 \</div>
+<div class="line">    if (std::is_constant_evaluated()) {                                                                                \</div>
+<div class="line">      toy::assertion::constexpr_assert(expression, #expression);                                                       \</div>
+<div class="line">    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (!(expression)) {                                                                                        \</div>
+<div class="line">      toy::assertion::assertion(#expression, <span class="keyword">nullptr</span>, __FILE__, __PRETTY_FUNCTION__, __LINE__);                        \</div>
+<div class="line">    }                                                                                                                  \</div>
+<div class="line">  } <span class="keywordflow">while</span> (0)</div>
 </div><!-- fragment -->
 <p>Debug assertion macro for runtime <em class="arg">expression</em> checking. </p>
 <p>This macro provides runtime assertion checking in debug builds. It evaluates the given <em class="arg">expression</em> and triggers an assertion failure if the <em class="arg">expression</em> is false. In release builds, this macro expands to nothing.</p>
@@ -168,7 +173,13 @@ The <em class="arg">expression</em> should not have side effects as it may not b
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">  ((expression) ? (void)0 : <a class="code hl_function" href="../../d2/da2/namespacetoy_1_1assertion.html#a6d1330b6720063a047b23b0d46d26afb">toy::assertion::assertion</a>(#expression, message, __FILE__, __PRETTY_FUNCTION__, __LINE__))</div>
+<b>Value:</b><div class="fragment"><div class="line">  <span class="keywordflow">do</span> {                                                                                                                 \</div>
+<div class="line">    if (std::is_constant_evaluated()) {                                                                                \</div>
+<div class="line">      toy::assertion::constexpr_assert(expression, message);                                                           \</div>
+<div class="line">    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (!(expression)) {                                                                                        \</div>
+<div class="line">      toy::assertion::assertion(#expression, message, __FILE__, __PRETTY_FUNCTION__, __LINE__);                        \</div>
+<div class="line">    }                                                                                                                  \</div>
+<div class="line">  } <span class="keywordflow">while</span> (0)</div>
 </div><!-- fragment -->
 <p>Debug assertion macro with custom <em class="arg">message</em> for runtime <em class="arg">expression</em> checking. </p>
 <p>This macro provides runtime assertion checking in debug builds with a custom error <em class="arg">message</em>. It evaluates the given <em class="arg">expression</em> and triggers an assertion failure with the provided <em class="arg">message</em> if the <em class="arg">expression</em> is false. In release builds, this macro expands to nothing.</p>

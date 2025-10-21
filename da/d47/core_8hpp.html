@@ -125,7 +125,9 @@ $(function(){initNavTree('da/d47/core_8hpp.html','../../',''); });
 <code>#include &lt;cstring&gt;</code><br />
 <code>#include &lt;cuchar&gt;</code><br />
 <code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;stdexcept&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
+<code>#include &lt;type_traits&gt;</code><br />
 <code>#include &lt;utility&gt;</code><br />
 <code>#include &quot;<a class="el" href="../../dd/d9e/linux_2platform__config_8hpp_source.html">/home/runner/work/toygine2/toygine2/src/platforms/linux/platform_config.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../dd/ded/c__string__view_8hpp_source.html">core/c_string_view.hpp</a>&quot;</code><br />
@@ -214,6 +216,8 @@ Functions</h2></td></tr>
 <tr class="memitem:ab92066b98ab69bcf7db8e1089ea4f755" id="r_ab92066b98ab69bcf7db8e1089ea4f755"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/da2/namespacetoy_1_1assertion.html#ab92066b98ab69bcf7db8e1089ea4f755">toy::assertion::setCallbacks</a> (<a class="el" href="../../d2/da2/namespacetoy_1_1assertion.html#ac9b5b813ecfe0701aa24d2e005f82c8a">AssertionCallback</a> assertionCallback, <a class="el" href="../../d2/da2/namespacetoy_1_1assertion.html#a77be860c404126249c99fb34089c497a">StackWalkCallback</a> stackWalkCallback)</td></tr>
 <tr class="memdesc:ab92066b98ab69bcf7db8e1089ea4f755"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the assertion and stack walk callbacks.  <br /></td></tr>
 <tr class="memitem:a6d1330b6720063a047b23b0d46d26afb" id="r_a6d1330b6720063a047b23b0d46d26afb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/da2/namespacetoy_1_1assertion.html#a6d1330b6720063a047b23b0d46d26afb">toy::assertion::assertion</a> (const char *code, const char *message, const char *fileName, const char *functionName, std::size_t lineNumber)</td></tr>
+<tr class="memitem:a080f416a9882bcb84b03d6bf96d6a4c5" id="r_a080f416a9882bcb84b03d6bf96d6a4c5"><td class="memItemLeft" align="right" valign="top">constexpr void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/da2/namespacetoy_1_1assertion.html#a080f416a9882bcb84b03d6bf96d6a4c5">toy::assertion::constexpr_assert</a> (bool condition, const char *message)</td></tr>
+<tr class="memdesc:a080f416a9882bcb84b03d6bf96d6a4c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compile-time assertion function for constexpr contexts.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Umbrella header for the engine core module. </p>

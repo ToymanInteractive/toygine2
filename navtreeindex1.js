@@ -1,5 +1,6 @@
 var NAVTREEINDEX1 =
 {
+"d3/dce/classtoy_1_1math_1_1_point.html#a19fb320d2ae62ace3d75f7a23168f20d":[4,0,0,1,0,15],
 "d3/dce/classtoy_1_1math_1_1_point.html#a261d9e126c94e3dcad87d6748b7b9946":[2,0,0,2,0,16],
 "d3/dce/classtoy_1_1math_1_1_point.html#a261d9e126c94e3dcad87d6748b7b9946":[4,0,0,1,0,16],
 "d3/dce/classtoy_1_1math_1_1_point.html#a32bc8d8a0ae4ef71e7c164401a68ac8f":[2,0,0,2,0,7],
@@ -248,6 +249,5 @@ var NAVTREEINDEX1 =
 "d7/d8d/structtoy_1_1app_1_1_version.html#ae370dbae09c481fb67d9726cafa692f7":[4,0,0,0,0,1],
 "d7/d90/assertion__stub_8cpp.html":[5,0,1,1,2,0,0],
 "d7/dad/version_8hpp.html":[5,0,0,0,0],
-"d7/dad/version_8hpp_source.html":[5,0,0,0,0],
-"d7/dea/fixed__vector_8hpp.html":[5,0,0,1,6]
+"d7/dad/version_8hpp_source.html":[5,0,0,0,0]
 };

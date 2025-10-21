@@ -19,6 +19,7 @@ var core_8hpp =
     [ "toy::assertion::StackWalkCallback", "d2/da2/namespacetoy_1_1assertion.html#a77be860c404126249c99fb34089c497a", null ],
     [ "toy::ArraySize", "d4/da9/namespacetoy.html#a63f823f1d5e638248b10d02d8a1666ba", null ],
     [ "toy::assertion::assertion", "d2/da2/namespacetoy_1_1assertion.html#a6d1330b6720063a047b23b0d46d26afb", null ],
+    [ "toy::assertion::constexpr_assert", "d2/da2/namespacetoy_1_1assertion.html#a080f416a9882bcb84b03d6bf96d6a4c5", null ],
     [ "toy::assertion::deInitialize", "d2/da2/namespacetoy_1_1assertion.html#a82b42cf518871245c19337431cfe63e5", null ],
     [ "toy::assertion::initialize", "d2/da2/namespacetoy_1_1assertion.html#a1586eee3b9f8e4fc0b659ff2d402e28a", null ],
     [ "toy::assertion::setCallbacks", "d2/da2/namespacetoy_1_1assertion.html#ab92066b98ab69bcf7db8e1089ea4f755", null ]
