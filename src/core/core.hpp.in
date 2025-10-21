@@ -34,7 +34,9 @@
 #include <cstring>
 #include <cuchar>
 #include <memory>
+#include <stdexcept>
 #include <string>
+#include <type_traits>
 #include <utility>
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -192,6 +194,31 @@ inline void assertion(const char * TOY_UNUSED(code), const char * TOY_UNUSED(mes
                       std::size_t TOY_UNUSED(lineNumber)) {}
 
 #endif // _DEBUG
+
+/*!
+  \brief Compile-time assertion function for constexpr contexts.
+
+  This function provides assertion capabilities in constexpr contexts where regular assertions cannot be used. When the
+  \a condition is false, it throws a std::invalid_argument exception with the provided \a message.
+
+  \param condition The condition to check. Must be true for the assertion to pass.
+  \param message   The error message to include in the exception if the assertion fails.
+
+  \throws std::invalid_argument If \a condition is false, with \a message as the error description.
+
+  \note This function is designed for use in constexpr contexts where traditional assertions are not available. It
+        should be used sparingly and only when compile-time validation is essential.
+
+  \note Unlike regular assertions, this function always throws an exception in both debug and release builds when the
+        condition fails.
+
+  \see assert
+  \see assert_message
+*/
+constexpr void constexpr_assert(bool condition, const char * message) {
+  if (!condition)
+    throw std::invalid_argument(message);
+}
 
 } // namespace assertion
 

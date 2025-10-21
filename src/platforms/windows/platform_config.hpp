@@ -72,7 +72,13 @@
   \see toy::assertion::assertion
 */
 #define assert(expression)                                                                                             \
-  ((expression) ? (void)0 : toy::assertion::assertion(#expression, nullptr, __FILE__, __FUNC_SIGNATURE__, __LINE__))
+  do {                                                                                                                 \
+    if (std::is_constant_evaluated()) {                                                                                \
+      toy::assertion::constexpr_assert(expression, #expression);                                                       \
+    } else if (!(expression)) {                                                                                        \
+      toy::assertion::assertion(#expression, nullptr, __FILE__, __FUNC_SIGNATURE__, __LINE__);                         \
+    }                                                                                                                  \
+  } while (0)
 
 /*!
   \def assert_message(expression, message)
@@ -99,7 +105,13 @@
   \see toy::assertion::assertion
 */
 #define assert_message(expression, message)                                                                            \
-  ((expression) ? (void)0 : toy::assertion::assertion(#expression, message, __FILE__, __FUNC_SIGNATURE__, __LINE__))
+  do {                                                                                                                 \
+    if (std::is_constant_evaluated()) {                                                                                \
+      toy::assertion::constexpr_assert(expression, message);                                                           \
+    } else if (!(expression)) {                                                                                        \
+      toy::assertion::assertion(#expression, message, __FILE__, __FUNC_SIGNATURE__, __LINE__);                         \
+    }                                                                                                                  \
+  } while (0)
 
 #else // _DEBUG
 
