@@ -76,7 +76,7 @@
     if (std::is_constant_evaluated()) {                                                                                \
       toy::assertion::constexpr_assert(expression, #expression);                                                       \
     } else if (!(expression)) {                                                                                        \
-      toy::assertion::assertion(#expression, nullptr, __FILE__, __PRETTY_FUNCTION__, __LINE__);                        \
+      toy::assertion::assertion(#expression, nullptr, __FILE__, __FUNC_SIGNATURE__, __LINE__);                         \
     }                                                                                                                  \
   } while (0)
 
@@ -109,7 +109,7 @@
     if (std::is_constant_evaluated()) {                                                                                \
       toy::assertion::constexpr_assert(expression, message);                                                           \
     } else if (!(expression)) {                                                                                        \
-      toy::assertion::assertion(#expression, message, __FILE__, __PRETTY_FUNCTION__, __LINE__);                        \
+      toy::assertion::assertion(#expression, message, __FILE__, __FUNC_SIGNATURE__, __LINE__);                         \
     }                                                                                                                  \
   } while (0)
 
