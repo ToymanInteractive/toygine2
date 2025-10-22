@@ -83,7 +83,7 @@ namespace toy::math {
   \note This class is specifically designed for UI and input handling. For sprite positioning and world coordinates,
         consider using Vector2 with floating-point precision.
 
-  \see Vector2
+  \see Vector2D
 */
 class Point {
 public:
@@ -334,84 +334,80 @@ public:
 [[nodiscard]] constexpr Point operator-(const Point & left, const Point & right) noexcept;
 
 /*!
-  \brief Multiplication operator for point and integer scalar.
+  \brief Multiplication operator for \a point and integer \a scalar.
 
-  Multiplies each coordinate of the point by the scalar value.
+  Multiplies each coordinate of the \a point by the \a scalar value.
 
-  \param left  The point to multiply.
-  \param right The integer scalar value.
+  \param point  The point to multiply.
+  \param scalar The integer scalar value.
 
-  \return A new point with coordinates multiplied by the scalar.
+  \return A new point with coordinates multiplied by the \a scalar.
 */
-[[nodiscard]] constexpr Point operator*(const Point & left, std::int32_t right) noexcept;
+[[nodiscard]] constexpr Point operator*(const Point & point, std::int32_t scalar) noexcept;
 
 /*!
-  \brief Multiplication operator for integer scalar and point.
+  \brief Multiplication operator for integer \a scalar and \a point.
 
-  Multiplies each coordinate of the point by the scalar value.
+  Multiplies each coordinate of the \a point by the \a scalar value.
 
-  \param left  The integer scalar value.
-  \param right The point to multiply.
+  \param scalar The integer scalar value.
+  \param point  The point to multiply.
 
-  \return A new point with coordinates multiplied by the scalar.
+  \return A new point with coordinates multiplied by the \a scalar.
 */
-[[nodiscard]] constexpr Point operator*(std::int32_t left, const Point & right) noexcept;
+[[nodiscard]] constexpr Point operator*(std::int32_t scalar, const Point & point) noexcept;
 
 /*!
-  \brief Multiplication operator for point and real scalar.
+  \brief Multiplication operator for \a point and real \a scalar.
 
-  Multiplies each coordinate of the point by the real scalar value.
+  Multiplies each coordinate of the \a point by the \a scalar value.
 
-  \param left  The point to multiply.
-  \param right The real scalar value.
+  \param point  The point to multiply.
+  \param scalar The real scalar value.
 
-  \return A new point with coordinates multiplied by the scalar.
+  \return A new point with coordinates multiplied by the \a scalar.
 */
-[[nodiscard]] constexpr Point operator*(const Point & left, real_t right) noexcept;
+[[nodiscard]] constexpr Point operator*(const Point & point, real_t scalar) noexcept;
 
 /*!
-  \brief Multiplication operator for real scalar and point.
+  \brief Multiplication operator for real \a scalar and \a point.
 
-  Multiplies each coordinate of the point by the real scalar value.
+  Multiplies each coordinate of the \a point by the \a scalar value.
 
-  \param left  The real scalar value.
-  \param right The point to multiply.
+  \param scalar The real scalar value.
+  \param point  The point to multiply.
 
-  \return A new point with coordinates multiplied by the scalar.
+  \return A new point with coordinates multiplied by the \a scalar.
 */
-[[nodiscard]] constexpr Point operator*(real_t left, const Point & right) noexcept;
+[[nodiscard]] constexpr Point operator*(real_t scalar, const Point & point) noexcept;
 
 /*!
-  \brief Division operator for point and integer scalar.
+  \brief Division operator for \a point and integer \a scalar.
 
-  Divides each coordinate of the point by the scalar value.
+  Divides each coordinate of the \a point by the \a scalar value.
 
-  \param left  The point to divide.
-  \param right The integer scalar value.
+  \param point  The point to divide.
+  \param scalar The integer scalar value.
 
-  \return A new point with coordinates divided by the scalar.
+  \return A new point with coordinates divided by the \a scalar.
 
-  \pre The \a right scalar must not be zero.
-
-  \note Division by zero will trigger an assertion in debug mode.
+  \pre The \a scalar must not be zero.
 */
-[[nodiscard]] constexpr Point operator/(const Point & left, std::int32_t right) noexcept;
+[[nodiscard]] constexpr Point operator/(const Point & point, std::int32_t scalar) noexcept;
 
 /*!
-  \brief Division operator for point and real scalar.
+  \brief Division operator for \a point and real \a scalar.
 
-  Divides each coordinate of the point by the real scalar value.
+  Divides each coordinate of the \a point by the \a scalar value.
 
-  \param left  The point to divide.
-  \param right The real scalar value.
+  \param point  The point to divide.
+  \param scalar The real scalar value.
 
-  \return A new point with coordinates divided by the scalar.
+  \return A new point with coordinates divided by the \a scalar.
 
-  \pre The \a right scalar must not be zero.
-
-  \note Division by zero will trigger an assertion in debug mode.
+  \pre The \a scalar must not be zero.
 */
-[[nodiscard]] constexpr Point operator/(const Point & left, real_t right) noexcept;
+[[nodiscard]] constexpr Point operator/(const Point & point, real_t scalar) noexcept;
 
 /*!
   \brief Equality operator for two points.

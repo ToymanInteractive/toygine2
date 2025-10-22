@@ -131,32 +131,32 @@ constexpr Point operator-(const Point & left, const Point & right) noexcept {
   return Point(left.x - right.x, left.y - right.y);
 }
 
-constexpr Point operator*(const Point & left, std::int32_t right) noexcept {
-  return Point(left.x * right, left.y * right);
+constexpr Point operator*(const Point & point, std::int32_t scalar) noexcept {
+  return Point(point.x * scalar, point.y * scalar);
 }
 
-constexpr Point operator*(std::int32_t left, const Point & right) noexcept {
-  return right * left;
+constexpr Point operator*(std::int32_t scalar, const Point & point) noexcept {
+  return point * scalar;
 }
 
-constexpr Point operator*(const Point & left, real_t right) noexcept {
-  return Point(static_cast<std::int32_t>(left.x * right), static_cast<std::int32_t>(left.y * right));
+constexpr Point operator*(const Point & point, real_t scalar) noexcept {
+  return Point(static_cast<std::int32_t>(point.x * scalar), static_cast<std::int32_t>(point.y * scalar));
 }
 
-constexpr Point operator*(real_t left, const Point & right) noexcept {
-  return right * left;
+constexpr Point operator*(real_t scalar, const Point & point) noexcept {
+  return point * scalar;
 }
 
-constexpr Point operator/(const Point & left, std::int32_t right) noexcept {
-  assert_message(right != 0, "right must be non-zero");
+constexpr Point operator/(const Point & point, std::int32_t scalar) noexcept {
+  assert_message(scalar != 0, "scalar must be non-zero");
 
-  return Point(left.x / right, left.y / right);
+  return Point(point.x / scalar, point.y / scalar);
 }
 
-constexpr Point operator/(const Point & left, real_t right) noexcept {
-  assert_message(right > 0 || right < 0, "right must be non-zero");
+constexpr Point operator/(const Point & point, real_t scalar) noexcept {
+  assert_message(scalar > 0 || scalar < 0, "scalar must be non-zero");
 
-  return Point(static_cast<std::int32_t>(left.x / right), static_cast<std::int32_t>(left.y / right));
+  return Point(static_cast<std::int32_t>(point.x / scalar), static_cast<std::int32_t>(point.y / scalar));
 }
 
 constexpr bool operator==(const Point & left, const Point & right) noexcept {

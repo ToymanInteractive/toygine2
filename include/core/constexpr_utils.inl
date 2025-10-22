@@ -28,6 +28,8 @@
 namespace toy {
 
 constexpr int cstrcmp(const char * lhs, const char * rhs) noexcept {
+  assert_message(lhs != nullptr && rhs != nullptr, "C string pointers must not be null");
+
   while (*lhs && (*lhs == *rhs)) {
     ++lhs;
     ++rhs;
@@ -40,6 +42,8 @@ constexpr int cstrcmp(const char * lhs, const char * rhs) noexcept {
 }
 
 constexpr const char * cstrchr(const char * str, int ch) noexcept {
+  assert_message(str != nullptr, "C string pointer must not be null");
+
   const auto target = static_cast<unsigned char>(ch);
 
   for (; *str; ++str) {
@@ -65,6 +69,8 @@ constexpr const char * cstrpbrk(const char * str, const char * accept) noexcept 
 }
 
 constexpr const char * cstrstr(const char * haystack, const char * needle) noexcept {
+  assert_message(haystack != nullptr && needle != nullptr, "C string pointers must not be null");
+
   if (!*needle)
     return haystack;
 
