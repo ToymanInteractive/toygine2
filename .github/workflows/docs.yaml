@@ -35,6 +35,7 @@ jobs:
         run: |
           cmake -DTOYGINE_BUILD_DOCS=ON -DTOYGINE_BUILD_TESTS=OFF --preset linux-ninja-debug
           cmake --build --preset linux-ninja-debug --target docs
+          sphinx-build -b html docs/source docs/html/sphinx
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4.0.0
