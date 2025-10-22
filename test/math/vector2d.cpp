@@ -486,7 +486,7 @@ TEST_CASE("Vector2D methods", "[math][vector2d]") {
   SECTION("isEqual with large tolerance") {
     constexpr Vector2D vector1(0, 0);
     constexpr Vector2D vector2(1000, 1000);
-    constexpr std::int32_t tolerance = 2000;
+    constexpr real_t tolerance = 2000;
 
     const bool result = vector1.isEqual(vector2, tolerance);
 
