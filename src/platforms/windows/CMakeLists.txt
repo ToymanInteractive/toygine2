@@ -1,4 +1,4 @@
-set(PLATFORM_SRC_CORE_LIST  src/platforms/stub/core/assertion_stub.cpp)
+set(PLATFORM_SRC_CORE_LIST  src/platforms/windows/core/assertion_windows.cpp src/platforms/stub/core/assertion_stub.cpp)
 set(PLATFORM_HDR_CORE_LIST  )
 set(PLATFORM_LIB_CORE_LIST  )
 
