@@ -114,7 +114,7 @@ $(function(){initNavTree('d6/de1/vector2d_8hpp_source.html','../../',''); });
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="comment">//</span></div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment">/*!</span></div>
 <div class="line"><span class="lineno">   21</span><span class="comment">  \file   vector2d.hpp</span></div>
-<div class="line"><span class="lineno">   22</span><span class="comment">  \brief  TODO</span></div>
+<div class="line"><span class="lineno">   22</span><span class="comment">  \brief  2D floating-point vector class for interactive game objects and physics calculations.</span></div>
 <div class="line"><span class="lineno">   23</span><span class="comment">*/</span></div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#</span><span class="preprocessor">ifndef</span> <span class="preprocessor">INCLUDE_MATH_VECTOR2D_HPP_</span></div>
@@ -122,100 +122,363 @@ $(function(){initNavTree('d6/de1/vector2d_8hpp_source.html','../../',''); });
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="keyword">namespace</span> toy::<a class="code hl_namespace" href="../../d2/d83/namespacetoy_1_1math.html">math</a> {</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="foldopen" id="foldopen00030" data-start="{" data-end="};">
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">   30</a></span><span class="keyword">class</span> <a class="code hl_class" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a> {</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>  <span class="comment">/// X coordinate.</span></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#acf1bff19cfe871fbe1818d0db3a50787">   33</a></span>  <a class="code hl_variable" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#acf1bff19cfe871fbe1818d0db3a50787">real_t</a> <a class="code hl_variable" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#acf1bff19cfe871fbe1818d0db3a50787">x</a>;</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>  <span class="comment">/// Y coordinate.</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#a8ec062ff1e135a16912bd94e79b5f73c">   36</a></span>  <a class="code hl_variable" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#a8ec062ff1e135a16912bd94e79b5f73c">real_t</a> <a class="code hl_variable" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#a8ec062ff1e135a16912bd94e79b5f73c">y</a>;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>  <span class="comment">/*!</span></div>
-<div class="line"><span class="lineno">   39</span><span class="comment">    \brief Default constructor.</span></div>
-<div class="line"><span class="lineno">   40</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   41</span><span class="comment">    This constructor initializes a Vector2D with zero coordinates.</span></div>
-<div class="line"><span class="lineno">   42</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   43</span><span class="comment">    \post The vector is initialized with x = 0 and y = 0.</span></div>
-<div class="line"><span class="lineno">   44</span><span class="comment">  */</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>  <span class="keyword">constexpr</span> <a class="code hl_function" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#a08d80e077f40d501f74dece9ea00eaf9">Vector2D</a>() <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>  <span class="comment">/*!</span></div>
-<div class="line"><span class="lineno">   48</span><span class="comment">    \brief Constructs a Vector2D with specified coordinates.</span></div>
-<div class="line"><span class="lineno">   49</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   50</span><span class="comment">    This constructor initializes a Vector2D with the provided \a x and \a y coordinates.</span></div>
-<div class="line"><span class="lineno">   51</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   52</span><span class="comment">    \param x The x-coordinate of the vector.</span></div>
-<div class="line"><span class="lineno">   53</span><span class="comment">    \param y The y-coordinate of the vector.</span></div>
-<div class="line"><span class="lineno">   54</span><span class="comment">  */</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>  <span class="keyword">constexpr</span> <a class="code hl_function" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#a7ebd2a5734c1a75a0481980081e4e210">Vector2D</a>(<span class="keyword">const</span> real_t &amp; x, <span class="keyword">const</span> real_t &amp; y) <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>  <span class="comment">/*!</span></div>
-<div class="line"><span class="lineno">   58</span><span class="comment">    \brief Constructs a Vector2D from an array of \a values.</span></div>
-<div class="line"><span class="lineno">   59</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   60</span><span class="comment">    This constructor initializes a Vector2D with coordinates from the provided array. The array must contain at least</span></div>
-<div class="line"><span class="lineno">   61</span><span class="comment">    two elements where values[0] is x and values[1] is y.</span></div>
-<div class="line"><span class="lineno">   62</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   63</span><span class="comment">    \param values Pointer to an array containing the x and y coordinates.</span></div>
-<div class="line"><span class="lineno">   64</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   65</span><span class="comment">    \pre The \a values pointer must not be null.</span></div>
-<div class="line"><span class="lineno">   66</span><span class="comment">    \pre The array must contain at least two elements.</span></div>
-<div class="line"><span class="lineno">   67</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   68</span><span class="comment">    \post The vector is initialized with x = values[0] and y = values[1].</span></div>
-<div class="line"><span class="lineno">   69</span><span class="comment">  */</span></div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>  <span class="keyword">explicit</span> <span class="keyword">constexpr</span> <a class="code hl_function" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#a88b198de48d4239a2d2d9026dff3b461">Vector2D</a>(<span class="keyword">const</span> real_t * values) <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>  <span class="comment">/*!</span></div>
-<div class="line"><span class="lineno">   73</span><span class="comment">    \brief Destructor for the vector.</span></div>
-<div class="line"><span class="lineno">   74</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   75</span><span class="comment">    \note Since the Vector2D does not manage dynamic memory, no special cleanup is required.</span></div>
-<div class="line"><span class="lineno">   76</span><span class="comment">    */</span></div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#ab4e6ed91b6ac71ef4cb643a8d45e7eca">   77</a></span>  <span class="keyword">constexpr</span> ~<a class="code hl_function" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#ab4e6ed91b6ac71ef4cb643a8d45e7eca">Vector2D</a>() <span class="keyword">noexcept</span> = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>  <span class="comment">/*!</span></div>
-<div class="line"><span class="lineno">   80</span><span class="comment">    \brief Returns a pointer to the array representation of this vector.</span></div>
-<div class="line"><span class="lineno">   81</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   82</span><span class="comment">    This method provides direct access to the internal array representation of the vector coordinates. The returned</span></div>
-<div class="line"><span class="lineno">   83</span><span class="comment">    pointer points to the x coordinate, and the y coordinate follows immediately after.</span></div>
-<div class="line"><span class="lineno">   84</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   85</span><span class="comment">    \return A pointer to the array representation of this vector.</span></div>
-<div class="line"><span class="lineno">   86</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   87</span><span class="comment">    \note The returned pointer points to the x coordinate.</span></div>
-<div class="line"><span class="lineno">   88</span><span class="comment">    \note The y coordinate can be accessed at pointer + 1.</span></div>
-<div class="line"><span class="lineno">   89</span><span class="comment">    \note The returned pointer allows modification of the vector coordinates.</span></div>
-<div class="line"><span class="lineno">   90</span><span class="comment">    \note Use const version for read-only access.</span></div>
-<div class="line"><span class="lineno">   91</span><span class="comment">    */</span></div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>  [[<a class="code hl_class" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">nodiscard</a>]] <span class="keyword">constexpr</span> <a class="code hl_function" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#ad6698f2fd9e894e6410eaf016a35c03e">real_t</a> * <a class="code hl_function" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#ad6698f2fd9e894e6410eaf016a35c03e">c_arr</a>() <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>  <span class="comment">/*!</span></div>
-<div class="line"><span class="lineno">   95</span><span class="comment">    \brief Returns a constant pointer to the array representation of this vector.</span></div>
-<div class="line"><span class="lineno">   96</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   97</span><span class="comment">    This method provides read-only access to the internal array representation of the vector coordinates. The returned</span></div>
-<div class="line"><span class="lineno">   98</span><span class="comment">    pointer points to the x coordinate, and the y coordinate follows immediately after.</span></div>
-<div class="line"><span class="lineno">   99</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  100</span><span class="comment">    \return A constant pointer to the array representation of this vector.</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">   31</span><span class="comment">  \class Vector2D</span></div>
+<div class="line"><span class="lineno">   32</span><span class="comment">  \brief 2D floating-point vector class for interactive game objects and physics calculations.</span></div>
+<div class="line"><span class="lineno">   33</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   34</span><span class="comment">  Vector2D represents a 2D vector with floating-point coordinates, designed for interactive game objects, sprite</span></div>
+<div class="line"><span class="lineno">   35</span><span class="comment">  positioning, character movement, particle systems, physics calculations, and world coordinate transformations where</span></div>
+<div class="line"><span class="lineno">   36</span><span class="comment">  sub-pixel precision is required.</span></div>
+<div class="line"><span class="lineno">   37</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   38</span><span class="comment">  \section features Key Features</span></div>
+<div class="line"><span class="lineno">   39</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   40</span><span class="comment">  - ⚙️ **Floating-Point Precision**: Uses \a real_t (float) for sub-pixel positioning and smooth movement</span></div>
+<div class="line"><span class="lineno">   41</span><span class="comment">  - 🔧 **constexpr Support**: Most operations can be evaluated at compile time</span></div>
+<div class="line"><span class="lineno">   42</span><span class="comment">  - 🛡️ **Exception Safety**: All operations are noexcept</span></div>
+<div class="line"><span class="lineno">   43</span><span class="comment">  - 🎯 **Game Optimized**: Designed specifically for interactive game objects and physics</span></div>
+<div class="line"><span class="lineno">   44</span><span class="comment">  - 🧬 **Type Safety**: Strong typing with clear vector semantics</span></div>
+<div class="line"><span class="lineno">   45</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   46</span><span class="comment">  \section usage Usage Example</span></div>
+<div class="line"><span class="lineno">   47</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   48</span><span class="comment">  \code</span></div>
+<div class="line"><span class="lineno">   49</span><span class="comment">  #include &quot;math/vector2d.hpp&quot;</span></div>
+<div class="line"><span class="lineno">   50</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   51</span><span class="comment">  // Sprite positioning</span></div>
+<div class="line"><span class="lineno">   52</span><span class="comment">  toy::math::Vector2D spritePos(100.5f, 200.3f);</span></div>
+<div class="line"><span class="lineno">   53</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   54</span><span class="comment">  // Character movement</span></div>
+<div class="line"><span class="lineno">   55</span><span class="comment">  toy::math::Vector2D velocity(50.0f, -25.0f);</span></div>
+<div class="line"><span class="lineno">   56</span><span class="comment">  spritePos += velocity * deltaTime;</span></div>
+<div class="line"><span class="lineno">   57</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   58</span><span class="comment">  // Physics calculations</span></div>
+<div class="line"><span class="lineno">   59</span><span class="comment">  toy::math::Vector2D force(10.0f, 0.0f);</span></div>
+<div class="line"><span class="lineno">   60</span><span class="comment">  toy::math::Vector2D acceleration = force / mass;</span></div>
+<div class="line"><span class="lineno">   61</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   62</span><span class="comment">  // Particle system</span></div>
+<div class="line"><span class="lineno">   63</span><span class="comment">  std::vector&lt;toy::math::Vector2D&gt; particles;</span></div>
+<div class="line"><span class="lineno">   64</span><span class="comment">  for (auto&amp; particle : particles) {</span></div>
+<div class="line"><span class="lineno">   65</span><span class="comment">      particle += velocity * deltaTime;</span></div>
+<div class="line"><span class="lineno">   66</span><span class="comment">  }</span></div>
+<div class="line"><span class="lineno">   67</span><span class="comment">  \endcode</span></div>
+<div class="line"><span class="lineno">   68</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   69</span><span class="comment">  \section performance Performance Characteristics</span></div>
+<div class="line"><span class="lineno">   70</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   71</span><span class="comment">  - ⚙️ **Construction**: O(1) constant time</span></div>
+<div class="line"><span class="lineno">   72</span><span class="comment">  - 📝 **Assignment**: O(1) constant time</span></div>
+<div class="line"><span class="lineno">   73</span><span class="comment">  - 🔗 **Arithmetic Operations**: O(1) constant time</span></div>
+<div class="line"><span class="lineno">   74</span><span class="comment">  - ⚖️ **Comparison Operations**: O(1) constant time</span></div>
+<div class="line"><span class="lineno">   75</span><span class="comment">  - 💾 **Memory Usage**: 8 bytes (2 * sizeof(real_t))</span></div>
+<div class="line"><span class="lineno">   76</span><span class="comment">  - ⚡ **Cache Performance**: Excellent due to small size and stack allocation</span></div>
+<div class="line"><span class="lineno">   77</span><span class="comment">  - 📋 **Copy Performance**: Fast due to simple floating-point copying</span></div>
+<div class="line"><span class="lineno">   78</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   79</span><span class="comment">  \section safety Safety Guarantees</span></div>
+<div class="line"><span class="lineno">   80</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   81</span><span class="comment">  - 🛡️ **Contracts &amp; Debug Checks**: Division by zero is asserted in debug</span></div>
+<div class="line"><span class="lineno">   82</span><span class="comment">  - 🔒 **Bounds Safety**: All operations are bounds-safe</span></div>
+<div class="line"><span class="lineno">   83</span><span class="comment">  - 📐 **Type Safety**: Strong typing prevents coordinate mixing</span></div>
+<div class="line"><span class="lineno">   84</span><span class="comment">  - ⚠️ **Exception Safety**: All operations are noexcept, no exceptions thrown</span></div>
+<div class="line"><span class="lineno">   85</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   86</span><span class="comment">  \note This class is specifically designed for interactive game objects and physics calculations. For UI positioning</span></div>
+<div class="line"><span class="lineno">   87</span><span class="comment">        and pixel-perfect coordinates, consider using Point with integer coordinates.</span></div>
+<div class="line"><span class="lineno">   88</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   89</span><span class="comment">  \see Point</span></div>
+<div class="line"><span class="lineno">   90</span><span class="comment">*/</span></div>
+<div class="foldopen" id="foldopen00091" data-start="{" data-end="};">
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">   91</a></span><span class="keyword">class</span> <a class="code hl_class" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a> {</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>  <span class="comment">/// X coordinate.</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno"><a class="line" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#acf1bff19cfe871fbe1818d0db3a50787">   94</a></span>  <a class="code hl_variable" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#acf1bff19cfe871fbe1818d0db3a50787">real_t</a> <a class="code hl_variable" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#acf1bff19cfe871fbe1818d0db3a50787">x</a>;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>  <span class="comment">/// Y coordinate.</span></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#a8ec062ff1e135a16912bd94e79b5f73c">   97</a></span>  <a class="code hl_variable" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#a8ec062ff1e135a16912bd94e79b5f73c">real_t</a> <a class="code hl_variable" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#a8ec062ff1e135a16912bd94e79b5f73c">y</a>;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  100</span><span class="comment">    \brief Default constructor.</span></div>
 <div class="line"><span class="lineno">  101</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  102</span><span class="comment">    \note The returned pointer points to the x coordinate.</span></div>
-<div class="line"><span class="lineno">  103</span><span class="comment">    \note The y coordinate can be accessed at pointer + 1.</span></div>
-<div class="line"><span class="lineno">  104</span><span class="comment">    \note The returned pointer is read-only and cannot modify the vector coordinates.</span></div>
-<div class="line"><span class="lineno">  105</span><span class="comment">    \note Use the non-const overload to allow modification.</span></div>
-<div class="line"><span class="lineno">  106</span><span class="comment">  */</span></div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>  [[<a class="code hl_class" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">nodiscard</a>]] <span class="keyword">constexpr</span> <span class="keyword">const</span> <a class="code hl_function" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#ae7d386d591d6b956422bcdc21fe939b2">real_t</a> * <a class="code hl_function" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#ae7d386d591d6b956422bcdc21fe939b2">c_arr</a>() <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>};</div>
+<div class="line"><span class="lineno">  102</span><span class="comment">    This constructor initializes a Vector2D with zero coordinates.</span></div>
+<div class="line"><span class="lineno">  103</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  104</span><span class="comment">    \post The vector is initialized with x = 0 and y = 0.</span></div>
+<div class="line"><span class="lineno">  105</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>  <span class="keyword">constexpr</span> <a class="code hl_function" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#a08d80e077f40d501f74dece9ea00eaf9">Vector2D</a>() <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  109</span><span class="comment">    \brief Constructs a Vector2D with specified coordinates.</span></div>
+<div class="line"><span class="lineno">  110</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  111</span><span class="comment">    This constructor initializes a Vector2D with the provided \a x and \a y coordinates.</span></div>
+<div class="line"><span class="lineno">  112</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  113</span><span class="comment">    \param x The x-coordinate of the vector.</span></div>
+<div class="line"><span class="lineno">  114</span><span class="comment">    \param y The y-coordinate of the vector.</span></div>
+<div class="line"><span class="lineno">  115</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>  <span class="keyword">constexpr</span> <a class="code hl_function" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#a7ebd2a5734c1a75a0481980081e4e210">Vector2D</a>(<span class="keyword">const</span> real_t &amp; x, <span class="keyword">const</span> real_t &amp; y) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  119</span><span class="comment">    \brief Constructs a Vector2D from an array of \a values.</span></div>
+<div class="line"><span class="lineno">  120</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  121</span><span class="comment">    This constructor initializes a Vector2D with coordinates from the provided array. The array must contain at least</span></div>
+<div class="line"><span class="lineno">  122</span><span class="comment">    two elements where values[0] is x and values[1] is y.</span></div>
+<div class="line"><span class="lineno">  123</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  124</span><span class="comment">    \param values Pointer to an array containing the x and y coordinates.</span></div>
+<div class="line"><span class="lineno">  125</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  126</span><span class="comment">    \pre The \a values pointer must not be null.</span></div>
+<div class="line"><span class="lineno">  127</span><span class="comment">    \pre The array must contain at least two elements.</span></div>
+<div class="line"><span class="lineno">  128</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  129</span><span class="comment">    \post The vector is initialized with x = values[0] and y = values[1].</span></div>
+<div class="line"><span class="lineno">  130</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>  <span class="keyword">explicit</span> <span class="keyword">constexpr</span> <a class="code hl_function" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#a88b198de48d4239a2d2d9026dff3b461">Vector2D</a>(<span class="keyword">const</span> real_t * values) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  134</span><span class="comment">    \brief Destructor for the vector.</span></div>
+<div class="line"><span class="lineno">  135</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  136</span><span class="comment">    \note Since the Vector2D does not manage dynamic memory, no special cleanup is required.</span></div>
+<div class="line"><span class="lineno">  137</span><span class="comment">    */</span></div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno"><a class="line" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#ab4e6ed91b6ac71ef4cb643a8d45e7eca">  138</a></span>  <span class="keyword">constexpr</span> ~<a class="code hl_function" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#ab4e6ed91b6ac71ef4cb643a8d45e7eca">Vector2D</a>() <span class="keyword">noexcept</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span> </div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  141</span><span class="comment">    \brief Returns a pointer to the array representation of this vector.</span></div>
+<div class="line"><span class="lineno">  142</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  143</span><span class="comment">    This method provides direct access to the internal array representation of the vector coordinates. The returned</span></div>
+<div class="line"><span class="lineno">  144</span><span class="comment">    pointer points to the x coordinate, and the y coordinate follows immediately after.</span></div>
+<div class="line"><span class="lineno">  145</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  146</span><span class="comment">    \return A pointer to the array representation of this vector.</span></div>
+<div class="line"><span class="lineno">  147</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  148</span><span class="comment">    \note The returned pointer points to the x coordinate.</span></div>
+<div class="line"><span class="lineno">  149</span><span class="comment">    \note The y coordinate can be accessed at pointer + 1.</span></div>
+<div class="line"><span class="lineno">  150</span><span class="comment">    \note The returned pointer allows modification of the vector coordinates.</span></div>
+<div class="line"><span class="lineno">  151</span><span class="comment">    \note Use const version for read-only access.</span></div>
+<div class="line"><span class="lineno">  152</span><span class="comment">    */</span></div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>  [[<a class="code hl_class" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">nodiscard</a>]] <span class="keyword">constexpr</span> <a class="code hl_function" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#ad6698f2fd9e894e6410eaf016a35c03e">real_t</a> * <a class="code hl_function" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#ad6698f2fd9e894e6410eaf016a35c03e">c_arr</a>() <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span> </div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  156</span><span class="comment">    \brief Returns a constant pointer to the array representation of this vector.</span></div>
+<div class="line"><span class="lineno">  157</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  158</span><span class="comment">    This method provides read-only access to the internal array representation of the vector coordinates. The returned</span></div>
+<div class="line"><span class="lineno">  159</span><span class="comment">    pointer points to the x coordinate, and the y coordinate follows immediately after.</span></div>
+<div class="line"><span class="lineno">  160</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  161</span><span class="comment">    \return A constant pointer to the array representation of this vector.</span></div>
+<div class="line"><span class="lineno">  162</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  163</span><span class="comment">    \note The returned pointer points to the x coordinate.</span></div>
+<div class="line"><span class="lineno">  164</span><span class="comment">    \note The y coordinate can be accessed at pointer + 1.</span></div>
+<div class="line"><span class="lineno">  165</span><span class="comment">    \note The returned pointer is read-only and cannot modify the vector coordinates.</span></div>
+<div class="line"><span class="lineno">  166</span><span class="comment">    \note Use the non-const overload to allow modification.</span></div>
+<div class="line"><span class="lineno">  167</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>  [[<a class="code hl_class" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">nodiscard</a>]] <span class="keyword">constexpr</span> <span class="keyword">const</span> <a class="code hl_function" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#ae7d386d591d6b956422bcdc21fe939b2">real_t</a> * <a class="code hl_function" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#ae7d386d591d6b956422bcdc21fe939b2">c_arr</a>() <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span> </div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  171</span><span class="comment">    \brief Adds another \a vector to this vector.</span></div>
+<div class="line"><span class="lineno">  172</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  173</span><span class="comment">    This operator adds the coordinates of another \a vector to this vector&#39;s coordinates.</span></div>
+<div class="line"><span class="lineno">  174</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  175</span><span class="comment">    \param vector The vector to add to this vector.</span></div>
+<div class="line"><span class="lineno">  176</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  177</span><span class="comment">    \return A reference to this vector after addition.</span></div>
+<div class="line"><span class="lineno">  178</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  179</span><span class="comment">    \post This vector&#39;s coordinates are the sum of the original coordinates and the other vector&#39;s coordinates.</span></div>
+<div class="line"><span class="lineno">  180</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>  <span class="keyword">constexpr</span> <a class="code hl_class" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a> &amp; <a class="code hl_function" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#ae8a67041bf158f94d6e5376685030763">operator</a>+=(<span class="keyword">const</span> <a class="code hl_class" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a> &amp; vector) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span> </div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  184</span><span class="comment">    \brief Subtracts another \a vector from this vector.</span></div>
+<div class="line"><span class="lineno">  185</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  186</span><span class="comment">    This operator subtracts the coordinates of another \a vector from this vector&#39;s coordinates.</span></div>
+<div class="line"><span class="lineno">  187</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  188</span><span class="comment">    \param vector The vector to subtract from this vector.</span></div>
+<div class="line"><span class="lineno">  189</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  190</span><span class="comment">    \return A reference to this vector after subtraction.</span></div>
+<div class="line"><span class="lineno">  191</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  192</span><span class="comment">    \post This vector&#39;s coordinates are the difference of the original coordinates and the other vector&#39;s coordinates.</span></div>
+<div class="line"><span class="lineno">  193</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>  <span class="keyword">constexpr</span> <a class="code hl_class" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a> &amp; <a class="code hl_function" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#a1df4504e7ac11a9cc9fde29b56eacfc2">operator</a>-=(<span class="keyword">const</span> <a class="code hl_class" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a> &amp; vector) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span> </div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  197</span><span class="comment">    \brief Multiplies this vector by a real \a scalar.</span></div>
+<div class="line"><span class="lineno">  198</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  199</span><span class="comment">    This operator multiplies both coordinates of this vector by the specified real \a scalar.</span></div>
+<div class="line"><span class="lineno">  200</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  201</span><span class="comment">    \param scalar The real scalar to multiply by.</span></div>
+<div class="line"><span class="lineno">  202</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  203</span><span class="comment">    \return A reference to this vector after multiplication.</span></div>
+<div class="line"><span class="lineno">  204</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  205</span><span class="comment">    \post This vector&#39;s coordinates are multiplied by the \a scalar.</span></div>
+<div class="line"><span class="lineno">  206</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>  <span class="keyword">constexpr</span> <a class="code hl_class" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a> &amp; <a class="code hl_function" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#a9e1d00bf0449f290f2ea81d39f002942">operator</a>*=(real_t scalar) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span> </div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  210</span><span class="comment">    \brief Divides this vector by a real \a scalar.</span></div>
+<div class="line"><span class="lineno">  211</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  212</span><span class="comment">    This operator divides both coordinates of this vector by the specified real \a scalar.</span></div>
+<div class="line"><span class="lineno">  213</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  214</span><span class="comment">    \param scalar The real scalar to divide by.</span></div>
+<div class="line"><span class="lineno">  215</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  216</span><span class="comment">    \return A reference to this vector after division.</span></div>
+<div class="line"><span class="lineno">  217</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  218</span><span class="comment">    \pre The \a scalar must not be zero.</span></div>
+<div class="line"><span class="lineno">  219</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  220</span><span class="comment">    \post This vector&#39;s coordinates are divided by the \a scalar.</span></div>
+<div class="line"><span class="lineno">  221</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>  <span class="keyword">constexpr</span> <a class="code hl_class" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a> &amp; <a class="code hl_function" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#a02296944400a3102d5d200a77219629a">operator</a>/=(real_t scalar) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span> </div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  225</span><span class="comment">    \brief Calculates the squared magnitude of this vector.</span></div>
+<div class="line"><span class="lineno">  226</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  227</span><span class="comment">    This method calculates the squared magnitude (length) of the vector represented by this vector.</span></div>
+<div class="line"><span class="lineno">  228</span><span class="comment">    The squared magnitude is calculated as x² + y².</span></div>
+<div class="line"><span class="lineno">  229</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  230</span><span class="comment">    \return The squared magnitude of this vector.</span></div>
+<div class="line"><span class="lineno">  231</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  232</span><span class="comment">    \note This method avoids the expensive square root operation by returning the squared value.</span></div>
+<div class="line"><span class="lineno">  233</span><span class="comment">    \note Use this method when comparing magnitudes for performance reasons.</span></div>
+<div class="line"><span class="lineno">  234</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>  [[<a class="code hl_class" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">nodiscard</a>]] <span class="keyword">constexpr</span> <a class="code hl_function" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#ad241a1b3b6db0b748c50b6b4cc316ffb">real_t</a> <a class="code hl_function" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#ad241a1b3b6db0b748c50b6b4cc316ffb">sqrMagnitude</a>() <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span> </div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  238</span><span class="comment">    \brief Sets this vector to zero coordinates.</span></div>
+<div class="line"><span class="lineno">  239</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  240</span><span class="comment">    This method sets both x and y coordinates of this vector to zero.</span></div>
+<div class="line"><span class="lineno">  241</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  242</span><span class="comment">    \post This vector&#39;s coordinates are set to x = 0 and y = 0.</span></div>
+<div class="line"><span class="lineno">  243</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>  <span class="keyword">constexpr</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#ab48c54624d9c924f38bbbdc8c3f8bc49">setZero</a>() <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span> </div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  247</span><span class="comment">    \brief Checks if this vector is at the origin.</span></div>
+<div class="line"><span class="lineno">  248</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  249</span><span class="comment">    This method checks if both coordinates of this vector are zero.</span></div>
+<div class="line"><span class="lineno">  250</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  251</span><span class="comment">    \return true if both coordinates are zero, false otherwise.</span></div>
+<div class="line"><span class="lineno">  252</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  253</span><span class="comment">    \note This is equivalent to checking if the vector is at the origin (0, 0).</span></div>
+<div class="line"><span class="lineno">  254</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>  [[<a class="code hl_class" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">nodiscard</a>]] <span class="keyword">constexpr</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#a2cf2330d222c7afd28339150099ca014">isZero</a>() <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span> </div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  258</span><span class="comment">    \brief Checks if this vector is equal to another vector within a \a tolerance.</span></div>
+<div class="line"><span class="lineno">  259</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  260</span><span class="comment">    This method checks if this vector is equal to another vector within the specified \a tolerance. Two vectors are</span></div>
+<div class="line"><span class="lineno">  261</span><span class="comment">    considered equal if the absolute difference between their coordinates is less than or equal to \a tolerance.</span></div>
+<div class="line"><span class="lineno">  262</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  263</span><span class="comment">    \param vector    The vector to compare with.</span></div>
+<div class="line"><span class="lineno">  264</span><span class="comment">    \param tolerance The tolerance for equality comparison (default: 0).</span></div>
+<div class="line"><span class="lineno">  265</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  266</span><span class="comment">    \return true if the vector are equal within the \a tolerance, false otherwise.</span></div>
+<div class="line"><span class="lineno">  267</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  268</span><span class="comment">    \pre The \a tolerance must be non-negative.</span></div>
+<div class="line"><span class="lineno">  269</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  270</span><span class="comment">    \note When tolerance is 0, this performs exact equality comparison.</span></div>
+<div class="line"><span class="lineno">  271</span><span class="comment">    \note When tolerance is greater than 0, this performs approximate equality comparison.</span></div>
+<div class="line"><span class="lineno">  272</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>  [[<a class="code hl_class" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">nodiscard</a>]] <span class="keywordtype">bool</span> <a class="code hl_function" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#aff70c20ee02e3171088e7d36219cce07">isEqual</a>(<span class="keyword">const</span> <a class="code hl_class" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a> &amp; vector, real_t tolerance = 0) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>};</div>
 </div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>} <span class="comment">// namespace toy::math</span></div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span><span class="preprocessor">#</span><span class="preprocessor">endif</span> <span class="comment">// INCLUDE_MATH_VECTOR2D_HPP_</span></div>
-<div class="ttc" id="aclasstoy_1_1math_1_1_vector2_d_html"><div class="ttname"><a href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">toy::math::Vector2D</a></div><div class="ttdef"><b>Definition</b> vector2d.hpp:30</div></div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span> </div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span><span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  277</span><span class="comment">  \brief Unary minus operator.</span></div>
+<div class="line"><span class="lineno">  278</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  279</span><span class="comment">  Returns a \a vector with negated coordinates.</span></div>
+<div class="line"><span class="lineno">  280</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  281</span><span class="comment">  \param vector The vector to negate.</span></div>
+<div class="line"><span class="lineno">  282</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  283</span><span class="comment">  \return A new vector with negated x and y coordinates.</span></div>
+<div class="line"><span class="lineno">  284</span><span class="comment">*/</span></div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>[[<a class="code hl_namespace" href="../../d2/d83/namespacetoy_1_1math.html">nodiscard</a>]] <span class="keyword">constexpr</span> <a class="code hl_class" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a> operator-(<span class="keyword">const</span> <a class="code hl_class" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a> &amp; vector) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span> </div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span><span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  288</span><span class="comment">  \brief Addition operator for two vectors.</span></div>
+<div class="line"><span class="lineno">  289</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  290</span><span class="comment">  Adds the coordinates of two vectors together.</span></div>
+<div class="line"><span class="lineno">  291</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  292</span><span class="comment">  \param left  The first vector.</span></div>
+<div class="line"><span class="lineno">  293</span><span class="comment">  \param right The second vector.</span></div>
+<div class="line"><span class="lineno">  294</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  295</span><span class="comment">  \return A new vector with coordinates equal to the sum of the input vectors.</span></div>
+<div class="line"><span class="lineno">  296</span><span class="comment">*/</span></div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>[[<a class="code hl_namespace" href="../../d2/d83/namespacetoy_1_1math.html">nodiscard</a>]] <span class="keyword">constexpr</span> <a class="code hl_class" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a> operator+(<span class="keyword">const</span> <a class="code hl_class" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a> &amp; left, <span class="keyword">const</span> <a class="code hl_class" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a> &amp; right) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span> </div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span><span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  300</span><span class="comment">  \brief Subtraction operator for two vectors.</span></div>
+<div class="line"><span class="lineno">  301</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  302</span><span class="comment">  Subtracts the coordinates of the second vector from the first vector.</span></div>
+<div class="line"><span class="lineno">  303</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  304</span><span class="comment">  \param left  The first vector.</span></div>
+<div class="line"><span class="lineno">  305</span><span class="comment">  \param right The second vector.</span></div>
+<div class="line"><span class="lineno">  306</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  307</span><span class="comment">  \return A new vector with coordinates equal to the difference of the input vectors.</span></div>
+<div class="line"><span class="lineno">  308</span><span class="comment">*/</span></div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>[[<a class="code hl_namespace" href="../../d2/d83/namespacetoy_1_1math.html">nodiscard</a>]] <span class="keyword">constexpr</span> <a class="code hl_class" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a> operator-(<span class="keyword">const</span> <a class="code hl_class" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a> &amp; left, <span class="keyword">const</span> <a class="code hl_class" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a> &amp; right) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span> </div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span><span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  312</span><span class="comment">  \brief Multiplication operator for vector and scalar.</span></div>
+<div class="line"><span class="lineno">  313</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  314</span><span class="comment">  Multiplies each coordinate of the vector by the scalar value.</span></div>
+<div class="line"><span class="lineno">  315</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  316</span><span class="comment">  \param left  The vector to multiply.</span></div>
+<div class="line"><span class="lineno">  317</span><span class="comment">  \param right The scalar value.</span></div>
+<div class="line"><span class="lineno">  318</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  319</span><span class="comment">  \return A new vector with coordinates multiplied by the scalar.</span></div>
+<div class="line"><span class="lineno">  320</span><span class="comment">*/</span></div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>[[<a class="code hl_namespace" href="../../d2/d83/namespacetoy_1_1math.html">nodiscard</a>]] <span class="keyword">constexpr</span> <a class="code hl_class" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a> operator*(<span class="keyword">const</span> <a class="code hl_class" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a> &amp; left, real_t right) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span> </div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span><span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  324</span><span class="comment">  \brief Multiplication operator for scalar and vector.</span></div>
+<div class="line"><span class="lineno">  325</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  326</span><span class="comment">  Multiplies each coordinate of the vector by the scalar value.</span></div>
+<div class="line"><span class="lineno">  327</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  328</span><span class="comment">  \param left  The scalar value.</span></div>
+<div class="line"><span class="lineno">  329</span><span class="comment">  \param right The vector to multiply.</span></div>
+<div class="line"><span class="lineno">  330</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  331</span><span class="comment">  \return A new vector with coordinates multiplied by the scalar.</span></div>
+<div class="line"><span class="lineno">  332</span><span class="comment">*/</span></div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>[[<a class="code hl_namespace" href="../../d2/d83/namespacetoy_1_1math.html">nodiscard</a>]] <span class="keyword">constexpr</span> <a class="code hl_class" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a> operator*(real_t left, <span class="keyword">const</span> <a class="code hl_class" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a> &amp; right) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span> </div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span><span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  336</span><span class="comment">  \brief Division operator for vector and scalar.</span></div>
+<div class="line"><span class="lineno">  337</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  338</span><span class="comment">  Divides each coordinate of the vector by the scalar value.</span></div>
+<div class="line"><span class="lineno">  339</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  340</span><span class="comment">  \param left  The vector to divide.</span></div>
+<div class="line"><span class="lineno">  341</span><span class="comment">  \param right The scalar value.</span></div>
+<div class="line"><span class="lineno">  342</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  343</span><span class="comment">  \return A new vector with coordinates divided by the scalar.</span></div>
+<div class="line"><span class="lineno">  344</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  345</span><span class="comment">  \pre The \a right scalar must not be zero.</span></div>
+<div class="line"><span class="lineno">  346</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  347</span><span class="comment">  \note Division by zero will trigger an assertion in debug mode.</span></div>
+<div class="line"><span class="lineno">  348</span><span class="comment">*/</span></div>
+<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>[[<a class="code hl_namespace" href="../../d2/d83/namespacetoy_1_1math.html">nodiscard</a>]] <span class="keyword">constexpr</span> <a class="code hl_class" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a> operator/(<span class="keyword">const</span> <a class="code hl_class" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a> &amp; left, real_t right) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span> </div>
+<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span><span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  352</span><span class="comment">  \brief Equality operator for two vectors.</span></div>
+<div class="line"><span class="lineno">  353</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  354</span><span class="comment">  Compares two vectors for exact equality.</span></div>
+<div class="line"><span class="lineno">  355</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  356</span><span class="comment">  \param left  The first vector.</span></div>
+<div class="line"><span class="lineno">  357</span><span class="comment">  \param right The second vector.</span></div>
+<div class="line"><span class="lineno">  358</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  359</span><span class="comment">  \return true if both vectors have identical coordinates, false otherwise.</span></div>
+<div class="line"><span class="lineno">  360</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  361</span><span class="comment">  \note This performs exact equality comparison. For approximate comparison with tolerance, use the \a isEqual method.</span></div>
+<div class="line"><span class="lineno">  362</span><span class="comment">*/</span></div>
+<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>[[<a class="code hl_namespace" href="../../d2/d83/namespacetoy_1_1math.html">nodiscard</a>]] <span class="keyword">constexpr</span> <span class="keywordtype">bool</span> operator==(<span class="keyword">const</span> <a class="code hl_class" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a> &amp; left, <span class="keyword">const</span> <a class="code hl_class" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a> &amp; right) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span> </div>
+<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>} <span class="comment">// namespace toy::math</span></div>
+<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span> </div>
+<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span><span class="preprocessor">#</span><span class="preprocessor">endif</span> <span class="comment">// INCLUDE_MATH_VECTOR2D_HPP_</span></div>
+<div class="ttc" id="aclasstoy_1_1math_1_1_vector2_d_html"><div class="ttname"><a href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">toy::math::Vector2D</a></div><div class="ttdoc">2D floating-point vector class for interactive game objects and physics calculations.</div><div class="ttdef"><b>Definition</b> vector2d.hpp:91</div></div>
+<div class="ttc" id="aclasstoy_1_1math_1_1_vector2_d_html_a02296944400a3102d5d200a77219629a"><div class="ttname"><a href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#a02296944400a3102d5d200a77219629a">toy::math::Vector2D::operator/=</a></div><div class="ttdeci">constexpr Vector2D &amp; operator/=(real_t scalar) noexcept</div><div class="ttdoc">Divides this vector by a real scalar.</div><div class="ttdef"><b>Definition</b> vector2d.inl:79</div></div>
 <div class="ttc" id="aclasstoy_1_1math_1_1_vector2_d_html_a08d80e077f40d501f74dece9ea00eaf9"><div class="ttname"><a href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#a08d80e077f40d501f74dece9ea00eaf9">toy::math::Vector2D::Vector2D</a></div><div class="ttdeci">constexpr Vector2D() noexcept</div><div class="ttdoc">Default constructor.</div><div class="ttdef"><b>Definition</b> vector2d.inl:33</div></div>
+<div class="ttc" id="aclasstoy_1_1math_1_1_vector2_d_html_a1df4504e7ac11a9cc9fde29b56eacfc2"><div class="ttname"><a href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#a1df4504e7ac11a9cc9fde29b56eacfc2">toy::math::Vector2D::operator-=</a></div><div class="ttdeci">constexpr Vector2D &amp; operator-=(const Vector2D &amp;vector) noexcept</div><div class="ttdoc">Subtracts another vector from this vector.</div><div class="ttdef"><b>Definition</b> vector2d.inl:65</div></div>
+<div class="ttc" id="aclasstoy_1_1math_1_1_vector2_d_html_a2cf2330d222c7afd28339150099ca014"><div class="ttname"><a href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#a2cf2330d222c7afd28339150099ca014">toy::math::Vector2D::isZero</a></div><div class="ttdeci">constexpr bool isZero() const noexcept</div><div class="ttdoc">Checks if this vector is at the origin.</div><div class="ttdef"><b>Definition</b> vector2d.inl:96</div></div>
 <div class="ttc" id="aclasstoy_1_1math_1_1_vector2_d_html_a7ebd2a5734c1a75a0481980081e4e210"><div class="ttname"><a href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#a7ebd2a5734c1a75a0481980081e4e210">toy::math::Vector2D::Vector2D</a></div><div class="ttdeci">constexpr Vector2D(const real_t &amp;x, const real_t &amp;y) noexcept</div><div class="ttdoc">Constructs a Vector2D with specified coordinates.</div><div class="ttdef"><b>Definition</b> vector2d.inl:37</div></div>
 <div class="ttc" id="aclasstoy_1_1math_1_1_vector2_d_html_a88b198de48d4239a2d2d9026dff3b461"><div class="ttname"><a href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#a88b198de48d4239a2d2d9026dff3b461">toy::math::Vector2D::Vector2D</a></div><div class="ttdeci">constexpr Vector2D(const real_t *values) noexcept</div><div class="ttdoc">Constructs a Vector2D from an array of values.</div><div class="ttdef"><b>Definition</b> vector2d.inl:41</div></div>
-<div class="ttc" id="aclasstoy_1_1math_1_1_vector2_d_html_a8ec062ff1e135a16912bd94e79b5f73c"><div class="ttname"><a href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#a8ec062ff1e135a16912bd94e79b5f73c">toy::math::Vector2D::y</a></div><div class="ttdeci">real_t y</div><div class="ttdoc">Y coordinate.</div><div class="ttdef"><b>Definition</b> vector2d.hpp:36</div></div>
+<div class="ttc" id="aclasstoy_1_1math_1_1_vector2_d_html_a8ec062ff1e135a16912bd94e79b5f73c"><div class="ttname"><a href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#a8ec062ff1e135a16912bd94e79b5f73c">toy::math::Vector2D::y</a></div><div class="ttdeci">real_t y</div><div class="ttdoc">Y coordinate.</div><div class="ttdef"><b>Definition</b> vector2d.hpp:97</div></div>
+<div class="ttc" id="aclasstoy_1_1math_1_1_vector2_d_html_a9e1d00bf0449f290f2ea81d39f002942"><div class="ttname"><a href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#a9e1d00bf0449f290f2ea81d39f002942">toy::math::Vector2D::operator*=</a></div><div class="ttdeci">constexpr Vector2D &amp; operator*=(real_t scalar) noexcept</div><div class="ttdoc">Multiplies this vector by a real scalar.</div><div class="ttdef"><b>Definition</b> vector2d.inl:72</div></div>
+<div class="ttc" id="aclasstoy_1_1math_1_1_vector2_d_html_ab48c54624d9c924f38bbbdc8c3f8bc49"><div class="ttname"><a href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#ab48c54624d9c924f38bbbdc8c3f8bc49">toy::math::Vector2D::setZero</a></div><div class="ttdeci">constexpr void setZero() noexcept</div><div class="ttdoc">Sets this vector to zero coordinates.</div><div class="ttdef"><b>Definition</b> vector2d.inl:92</div></div>
 <div class="ttc" id="aclasstoy_1_1math_1_1_vector2_d_html_ab4e6ed91b6ac71ef4cb643a8d45e7eca"><div class="ttname"><a href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#ab4e6ed91b6ac71ef4cb643a8d45e7eca">toy::math::Vector2D::~Vector2D</a></div><div class="ttdeci">constexpr ~Vector2D() noexcept=default</div><div class="ttdoc">Destructor for the vector.</div></div>
-<div class="ttc" id="aclasstoy_1_1math_1_1_vector2_d_html_acf1bff19cfe871fbe1818d0db3a50787"><div class="ttname"><a href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#acf1bff19cfe871fbe1818d0db3a50787">toy::math::Vector2D::x</a></div><div class="ttdeci">real_t x</div><div class="ttdoc">X coordinate.</div><div class="ttdef"><b>Definition</b> vector2d.hpp:33</div></div>
+<div class="ttc" id="aclasstoy_1_1math_1_1_vector2_d_html_acf1bff19cfe871fbe1818d0db3a50787"><div class="ttname"><a href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#acf1bff19cfe871fbe1818d0db3a50787">toy::math::Vector2D::x</a></div><div class="ttdeci">real_t x</div><div class="ttdoc">X coordinate.</div><div class="ttdef"><b>Definition</b> vector2d.hpp:94</div></div>
+<div class="ttc" id="aclasstoy_1_1math_1_1_vector2_d_html_ad241a1b3b6db0b748c50b6b4cc316ffb"><div class="ttname"><a href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#ad241a1b3b6db0b748c50b6b4cc316ffb">toy::math::Vector2D::sqrMagnitude</a></div><div class="ttdeci">constexpr real_t sqrMagnitude() const noexcept</div><div class="ttdoc">Calculates the squared magnitude of this vector.</div><div class="ttdef"><b>Definition</b> vector2d.inl:88</div></div>
 <div class="ttc" id="aclasstoy_1_1math_1_1_vector2_d_html_ad6698f2fd9e894e6410eaf016a35c03e"><div class="ttname"><a href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#ad6698f2fd9e894e6410eaf016a35c03e">toy::math::Vector2D::c_arr</a></div><div class="ttdeci">constexpr real_t * c_arr() noexcept</div><div class="ttdoc">Returns a pointer to the array representation of this vector.</div><div class="ttdef"><b>Definition</b> vector2d.inl:50</div></div>
 <div class="ttc" id="aclasstoy_1_1math_1_1_vector2_d_html_ae7d386d591d6b956422bcdc21fe939b2"><div class="ttname"><a href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#ae7d386d591d6b956422bcdc21fe939b2">toy::math::Vector2D::c_arr</a></div><div class="ttdeci">constexpr const real_t * c_arr() const noexcept</div><div class="ttdoc">Returns a constant pointer to the array representation of this vector.</div><div class="ttdef"><b>Definition</b> vector2d.inl:54</div></div>
+<div class="ttc" id="aclasstoy_1_1math_1_1_vector2_d_html_ae8a67041bf158f94d6e5376685030763"><div class="ttname"><a href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#ae8a67041bf158f94d6e5376685030763">toy::math::Vector2D::operator+=</a></div><div class="ttdeci">constexpr Vector2D &amp; operator+=(const Vector2D &amp;vector) noexcept</div><div class="ttdoc">Adds another vector to this vector.</div><div class="ttdef"><b>Definition</b> vector2d.inl:58</div></div>
+<div class="ttc" id="aclasstoy_1_1math_1_1_vector2_d_html_aff70c20ee02e3171088e7d36219cce07"><div class="ttname"><a href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#aff70c20ee02e3171088e7d36219cce07">toy::math::Vector2D::isEqual</a></div><div class="ttdeci">bool isEqual(const Vector2D &amp;vector, real_t tolerance=0) const noexcept</div><div class="ttdoc">Checks if this vector is equal to another vector within a tolerance.</div><div class="ttdef"><b>Definition</b> vector2d.inl:100</div></div>
 <div class="ttc" id="anamespacetoy_1_1math_html"><div class="ttname"><a href="../../d2/d83/namespacetoy_1_1math.html">toy::math</a></div><div class="ttdoc">Contains all public mathematical types, constants, and utility functions of engine.</div><div class="ttdef"><b>Definition</b> point.inl:28</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

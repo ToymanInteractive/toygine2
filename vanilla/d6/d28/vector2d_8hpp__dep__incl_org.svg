@@ -11,7 +11,7 @@
 <!-- Node1 -->
 <g id="Node000001" class="node">
 <title>Node1</title>
-<g id="a_Node000001"><a xlink:title="TODO.">
+<g id="a_Node000001"><a xlink:title="2D floating&#45;point vector class for interactive game objects and physics calculations.">
 <polygon fill="#999999" stroke="#666666" points="147,-74 0,-74 0,-55 147,-55 147,-74"/>
 <text text-anchor="middle" x="73.5" y="-62" font-family="Helvetica,sans-Serif" font-size="10.00">include/math/vector2d.hpp</text>
 </a>

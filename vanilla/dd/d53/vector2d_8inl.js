@@ -1,6 +1,5 @@
-var vector2d_8hpp =
+var vector2d_8inl =
 [
-    [ "toy::math::Vector2D", "d9/d85/classtoy_1_1math_1_1_vector2_d.html", "d9/d85/classtoy_1_1math_1_1_vector2_d" ],
     [ "toy::math::operator*", "d2/d83/namespacetoy_1_1math.html#a64b77d367827237e4f5296e24fe488bb", null ],
     [ "toy::math::operator*", "d2/d83/namespacetoy_1_1math.html#ab46d6b569e95030e8c3c2a0256595dbb", null ],
     [ "toy::math::operator+", "d2/d83/namespacetoy_1_1math.html#abb8d19305455ffe5f57e0ca399182597", null ],

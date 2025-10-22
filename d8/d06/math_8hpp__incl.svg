@@ -103,7 +103,7 @@ var sectionId = 'dynsection-0';
 <!-- Node29 -->
 <g id="Node000029" class="node">
 <title>Node29</title>
-<g id="a_Node000029"><a xlink:href="../../d6/de1/vector2d_8hpp.html" target="_top" xlink:title="TODO.">
+<g id="a_Node000029"><a xlink:href="../../d6/de1/vector2d_8hpp.html" target="_top" xlink:title="2D floating&#45;point vector class for interactive game objects and physics calculations.">
 <polygon fill="white" stroke="#666666" points="1171.5,-96 1062.5,-96 1062.5,-77 1171.5,-77 1171.5,-96"/>
 <text text-anchor="middle" x="1117" y="-84" font-family="Helvetica,sans-Serif" font-size="10.00">math/vector2d.hpp</text>
 </a>
@@ -139,7 +139,7 @@ var sectionId = 'dynsection-0';
 <!-- Node31 -->
 <g id="Node000031" class="node">
 <title>Node31</title>
-<g id="a_Node000031"><a xlink:href="../../dd/d53/vector2d_8inl.html" target="_top" xlink:title="TODO.">
+<g id="a_Node000031"><a xlink:href="../../dd/d53/vector2d_8inl.html" target="_top" xlink:title="Inline implementations for 2D floating&#45;point vector class.">
 <polygon fill="white" stroke="#666666" points="1395.5,-96 1292.5,-96 1292.5,-77 1395.5,-77 1395.5,-96"/>
 <text text-anchor="middle" x="1344" y="-84" font-family="Helvetica,sans-Serif" font-size="10.00">math/vector2d.inl</text>
 </a>

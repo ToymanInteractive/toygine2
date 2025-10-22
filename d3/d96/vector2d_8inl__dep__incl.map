@@ -1,5 +1,5 @@
 <map id="include/math/vector2d.inl" name="include/math/vector2d.inl">
-<area shape="rect" id="Node000001" title="TODO." alt="" coords="5,5,193,31"/>
+<area shape="rect" id="Node000001" title="Inline implementations for 2D floating&#45;point vector class." alt="" coords="5,5,193,31"/>
 <area shape="rect" id="Node000002" href="$d4/d78/math_8hpp.html" title="Umbrella header for the engine mathematics module." alt="" coords="32,79,167,104"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="102,44,102,79,97,79,97,44"/>
 </map>
