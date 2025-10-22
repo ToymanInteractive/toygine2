@@ -1,0 +1,31 @@
+name: Generate Doxygen Docs
+
+on:
+  push:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5.0.0
+        with:
+          submodules: recursive
+
+      - name: Install Doxygen
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y doxygen graphviz
+          pip install sphinx breathe sphinx-rtd-theme
+
+      - name: Generate Docs
+        run: |
+          mkdir -p ./docs/html
+          cmake -DTOYGINE_BUILD_DOCS=ON -DTOYGINE_BUILD_TESTS=OFF --preset linux-ninja-debug
+          cmake --build --preset linux-ninja-debug --target docs
