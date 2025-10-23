@@ -30,7 +30,7 @@ html_static_path = ['_static']
 
 # -- Breathe configuration ---------------------------------------------------
 breathe_projects = {
-    "ToyGine": "../xml"  # Путь до Doxygen XML (относительно conf.py)
+    "ToyGine2": "../xml"  # Путь до Doxygen XML (относительно conf.py)
 }
 
 breathe_default_project = "ToyGine2"
