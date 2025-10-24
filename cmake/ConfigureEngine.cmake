@@ -25,7 +25,7 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-find_package(DevkitPro)
+find_package(DevkitPro COMPONENTS gba nds 3ds switch)
 
 if (NOT DEFINED TOYGINE_TARGET_PLATFORM)
   if (CMAKE_SYSTEM_NAME MATCHES Windows)

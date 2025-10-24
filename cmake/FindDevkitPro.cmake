@@ -21,7 +21,7 @@
 # - FindDevkitPro.cmake
 # Detects devkitPro toolchains and components (GBA, NDS, 3DS, SWITCH)
 # Usage:
-#   find_package(DevkitPro)
+#   find_package(DevkitPro COMPONENTS gba nds 3ds switch)
 #
 # This script will attempt to find devkitPro components but will not fail if they are not found.
 # It will simply report what was found and what was not found.
@@ -111,10 +111,18 @@ if(DEVKITPRO_ROOT)
     mark_as_advanced(DEVKITARM_GCC DEVKITA64_GCC)
 
     # === Components ===
-    _find_devkitpro_lib(DEVKITPRO_GBA gba.h gba libgba)
-    _find_devkitpro_lib(DEVKITPRO_NDS nds.h nds9 libnds)
-    _find_devkitpro_lib(DEVKITPRO_3DS 3ds.h ctru libctru)
-    _find_devkitpro_lib(DEVKITPRO_SWITCH switch.h nx libnx)
+    if("gba" IN_LIST DevkitPro_FIND_COMPONENTS)
+        _find_devkitpro_lib(DEVKITPRO_GBA gba.h gba libgba)
+    endif()
+    if("nds" IN_LIST DevkitPro_FIND_COMPONENTS)
+        _find_devkitpro_lib(DEVKITPRO_NDS nds.h nds9 libnds)
+    endif()
+    if("3ds" IN_LIST DevkitPro_FIND_COMPONENTS)
+        _find_devkitpro_lib(DEVKITPRO_3DS 3ds.h ctru libctru)
+    endif()
+    if("switch" IN_LIST DevkitPro_FIND_COMPONENTS)
+        _find_devkitpro_lib(DEVKITPRO_SWITCH switch.h nx libnx)
+    endif()
 
 else(DEVKITPRO_ROOT)
     set(DEVKITPRO_FOUND FALSE)
