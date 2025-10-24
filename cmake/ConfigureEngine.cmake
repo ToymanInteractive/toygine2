@@ -25,6 +25,8 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+find_package(DevkitPro COMPONENTS gba nds 3ds switch)
+
 if (NOT DEFINED TOYGINE_TARGET_PLATFORM)
   if (CMAKE_SYSTEM_NAME MATCHES Windows)
 
@@ -39,6 +41,26 @@ if (NOT DEFINED TOYGINE_TARGET_PLATFORM)
     set(AVAILABLE_PLATFORMS "macOS Desktop")
 
   endif ()
+
+  # Add devkitPro platforms if found
+  if (DEVKITPRO_GBA_FOUND)
+    list(APPEND AVAILABLE_PLATFORMS "Nintendo Game Boy Advance")
+  endif (DEVKITPRO_GBA_FOUND)
+
+  if (DEVKITPRO_NDS_FOUND)
+    list(APPEND AVAILABLE_PLATFORMS "Nintendo DS")
+  endif (DEVKITPRO_NDS_FOUND)
+
+  if (DEVKITPRO_3DS_FOUND)
+    list(APPEND AVAILABLE_PLATFORMS "Nintendo 3DS")
+  endif (DEVKITPRO_3DS_FOUND)
+
+  if (DEVKITPRO_SWITCH_FOUND)
+    list(APPEND AVAILABLE_PLATFORMS "Nintendo Switch")
+  endif (DEVKITPRO_SWITCH_FOUND)
+
+  # Report available platforms
+  message(STATUS "Available platforms: ${AVAILABLE_PLATFORMS}")
 
   list(GET AVAILABLE_PLATFORMS 0 FIRST_PLATFORM)
   set(TOYGINE_TARGET_PLATFORM ${FIRST_PLATFORM} CACHE STRING "Select destination TOYGINE_TARGET_PLATFORM for build")
