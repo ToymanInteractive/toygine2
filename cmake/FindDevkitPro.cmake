@@ -19,9 +19,9 @@
 #-------------------------------------------------------------------------------------------
 
 # - FindDevkitPro.cmake
-# Detects devkitPro toolchains and libraries (GBA, NDS, 3DS)
+# Detects devkitPro toolchains and components (GBA, NDS, 3DS, SWITCH)
 # Usage:
-#   find_package(DevkitPro COMPONENTS gba nds 3ds)
+#   find_package(DevkitPro)
 #
 # This script will attempt to find devkitPro components but will not fail if they are not found.
 # It will simply report what was found and what was not found.
