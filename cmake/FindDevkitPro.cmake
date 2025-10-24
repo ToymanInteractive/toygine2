@@ -56,10 +56,12 @@ macro(_find_devkitpro_lib NAME HEADER LIBNAME SUBDIR)
         find_path(${NAME}_INCLUDE_DIR
             ${HEADER}
             PATHS ${DEVKITPRO_ROOT}/${SUBDIR}/include
+            NO_DEFAULT_PATH
         )
         find_library(${NAME}_LIBRARY
             NAMES ${LIBNAME}
             PATHS ${DEVKITPRO_ROOT}/${SUBDIR}/lib
+            NO_DEFAULT_PATH
         )
 
         if(${NAME}_INCLUDE_DIR AND ${NAME}_LIBRARY)
