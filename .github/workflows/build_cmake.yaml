@@ -42,7 +42,7 @@ jobs:
           - name: DevkitPro GBA
             os: ubuntu-latest
             docker_image: devkitpro/devkitarm:latest
-            cmake_preset: linux-ninja-release
+            cmake_preset: nintendo-gba-ninja
 
     name: ${{ matrix.name }}
     runs-on: ${{ matrix.os }}
