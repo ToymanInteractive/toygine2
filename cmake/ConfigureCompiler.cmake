@@ -119,6 +119,14 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
 # Compiler User’s Manual          https://releases.llvm.org/17.0.1/tools/clang/docs/UsersManual.html
 # разобраться с sanitize
 
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Game Boy Advance")
+
+  list(APPEND CMAKE_MODULE_PATH "${DEVKITPRO_ROOT}/cmake")
+
+  include(GBA)
+
+  message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
+
 else ()
 
   message(FATAL_ERROR "Unsupported platform: ${TOYGINE_TARGET_PLATFORM}")
