@@ -121,6 +121,10 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Game Boy Advance")
 
+  if (NOT DEVKITPRO_FOUND)
+    message(FATAL_ERROR "devkitPro not found. Install devkitPro and ensure DEVKITPRO is set.")
+  endif()
+
   list(APPEND CMAKE_MODULE_PATH "${DEVKITPRO_ROOT}/cmake")
 
   include(GBA)
