@@ -28,8 +28,6 @@ jobs:
             os: macos-15
             run_test: "true"
             cmake_preset: macos-ninja-release
-            cpack_type: RelWithDebInfo
-            cpack_extension: tar.gz
 
           - name: Windows MSVC
             os: windows-2025
