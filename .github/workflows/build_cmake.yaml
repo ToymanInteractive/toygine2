@@ -41,6 +41,10 @@ jobs:
             run_test: "true"
             cmake_preset: windows-msvc-x86
 
+          - name: DevkitPro GBA
+            os: ubuntu-latest
+            cmake_preset: linux-ninja-release
+
     name: ${{ matrix.name }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
@@ -125,14 +129,9 @@ jobs:
         with:
           arch: ${{ contains(matrix.cmake_preset, 'x86') && 'x86' || 'x64' }}
 
-      - name: Configure
+      - name: Build Project
         run: |
-          cmake \
-            -DTOYGINE_BUILD_TESTS=$([ "${{ matrix.run_test }}" = "true" ] && echo ON || echo OFF) \
-            --preset ${{ matrix.cmake_preset }}
-
-      - name: Build
-        run: |
+          cmake -DTOYGINE_BUILD_TESTS=$([ "${{ matrix.run_test }}" = "true" ] && echo ON || echo OFF) --preset ${{ matrix.cmake_preset }}
           cmake --build --preset ${{ matrix.cmake_preset }}
 
       - name: Test
