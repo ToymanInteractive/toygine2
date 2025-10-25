@@ -141,7 +141,7 @@ jobs:
         if: ${{ matrix.docker_image != '' }}
         uses: addnab/docker-run-action@v3
         with:
-          image: ${{ matrix.cmake_preset }}
+          image: ${{ matrix.docker_image }}
           options: |
             -v ${{ github.workspace }}:/workspace
           run: |
