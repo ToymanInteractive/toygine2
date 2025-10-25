@@ -21,7 +21,7 @@
                 "PACKAGE_FILE_NAME": "$env{BUILD_FILE_NAME}",
                 "PACKAGE_NAME_SUFFIX": "$env{BUILD_NAME_SUFFIX}",
                 "CMAKE_BUILD_TYPE": "RelWithDebInfo",
-                "ENABLE_TEST": "OFF",
+                "TOYGINE_BUILD_TESTS": "OFF",
                 "ENABLE_PUBLIC_RELEASE": "$env{ENABLE_PUBLIC_RELEASE}",
                 "ENABLE_PCH": "OFF"
             }
@@ -32,7 +32,7 @@
             "description": "ToyGine 2 Linux Ninja",
             "inherits": "base-release",
             "cacheVariables": {
-                "ENABLE_TEST": "ON"
+                "TOYGINE_BUILD_TESTS": "ON"
             }
         },
         {
@@ -41,7 +41,7 @@
             "description": "ToyGine 2 MacOS Ninja",
             "inherits": "base-release",
             "cacheVariables": {
-                "ENABLE_TEST": "ON"
+                "TOYGINE_BUILD_TESTS": "ON"
             }
         },
         {
@@ -51,7 +51,7 @@
             "inherits": "base-release",
             "generator": "Xcode",
             "cacheVariables": {
-                "ENABLE_TEST": "ON"
+                "TOYGINE_BUILD_TESTS": "ON"
             }
         },
         {
@@ -65,7 +65,7 @@
                 "strategy": "set"
             },
             "cacheVariables": {
-                "ENABLE_TEST": "ON"
+                "TOYGINE_BUILD_TESTS": "ON"
             }
         },
         {
@@ -79,7 +79,7 @@
                 "strategy": "set"
             },
             "cacheVariables": {
-                "ENABLE_TEST": "ON"
+                "TOYGINE_BUILD_TESTS": "ON"
             }
         },
         {
@@ -89,7 +89,7 @@
             "inherits": "macos-ninja-release",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug",
-                "ENABLE_TEST": "ON"
+                "TOYGINE_BUILD_TESTS": "ON"
             }
         },
         {
@@ -99,7 +99,7 @@
             "inherits": "linux-ninja-release",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug",
-                "ENABLE_TEST": "ON"
+                "TOYGINE_BUILD_TESTS": "ON"
             }
         }
     ],
