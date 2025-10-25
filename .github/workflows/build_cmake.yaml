@@ -41,6 +41,7 @@ jobs:
 
           - name: DevkitPro GBA
             os: ubuntu-latest
+            docker_image: devkitpro/devkitarm:latest
             cmake_preset: linux-ninja-release
 
     name: ${{ matrix.name }}
@@ -128,12 +129,24 @@ jobs:
           arch: ${{ contains(matrix.cmake_preset, 'x86') && 'x86' || 'x64' }}
 
       - name: Build and Test
+        if: ${{ matrix.docker_image == '' }}
         run: |
           cmake -DTOYGINE_BUILD_TESTS=$([ "${{ matrix.run_test }}" = "true" ] && echo ON || echo OFF) --preset ${{ matrix.cmake_preset }}
           cmake --build --preset ${{ matrix.cmake_preset }}
           if [ "${{ matrix.run_test }}" = "true" ]; then
             ctest --preset ${{ matrix.cmake_preset }}
           fi
+
+      - name: Build and Test in Docker
+        if: ${{ matrix.docker_image != '' }}
+        uses: addnab/docker-run-action@v3
+        with:
+          image: ${{ matrix.cmake_preset }}
+          options: |
+            -v ${{ github.workspace }}:/workspace
+          run: |
+            cd /workspace
+            cmake -DTOYGINE_BUILD_TESTS=$([ "${{ matrix.run_test }}" = "true" ] && echo ON || echo OFF) --preset ${{ matrix.cmake_preset }}
 
   unit-test:
     name: Collect unit tests
