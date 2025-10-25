@@ -127,15 +127,13 @@ jobs:
         with:
           arch: ${{ contains(matrix.cmake_preset, 'x86') && 'x86' || 'x64' }}
 
-      - name: Build Project
+      - name: Build and Test
         run: |
           cmake -DTOYGINE_BUILD_TESTS=$([ "${{ matrix.run_test }}" = "true" ] && echo ON || echo OFF) --preset ${{ matrix.cmake_preset }}
           cmake --build --preset ${{ matrix.cmake_preset }}
-
-      - name: Test
-        if: ${{ matrix.run_test }}
-        run: |
-          ctest --preset ${{ matrix.cmake_preset }}
+          if [ "${{ matrix.run_test }}" = "true" ]; then
+            ctest --preset ${{ matrix.cmake_preset }}
+          fi
 
   unit-test:
     name: Collect unit tests
