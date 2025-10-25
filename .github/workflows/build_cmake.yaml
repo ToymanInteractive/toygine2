@@ -39,6 +39,10 @@ jobs:
             run_test: "true"
             cmake_preset: windows-msvc-x86
 
+          - name: DevkitPro GBA
+            os: ubuntu-latest
+            cmake_preset: linux-ninja-release
+
     name: ${{ matrix.name }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
