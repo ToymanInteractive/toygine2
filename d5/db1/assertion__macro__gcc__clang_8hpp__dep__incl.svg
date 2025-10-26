@@ -47,7 +47,7 @@
   </g>
 </defs>
 <script type="application/ecmascript">
-var viewWidth = 604;
+var viewWidth = 754;
 var viewHeight = 236;
 var sectionId = 'dynsection-0';
 </script>
@@ -59,20 +59,20 @@ var sectionId = 'dynsection-0';
 <g id="Node000001" class="node">
 <title>Node1</title>
 <g id="a_Node000001"><a xlink:title="Debug and Release assertion macro implementations for GCC/Clang platforms.">
-<polygon fill="#999999" stroke="#666666" points="368,-228 241,-228 241,-187 368,-187 368,-228"/>
-<text text-anchor="start" x="249" y="-216" font-family="Helvetica,sans-Serif" font-size="10.00">src/platforms/common</text>
-<text text-anchor="start" x="249" y="-205" font-family="Helvetica,sans-Serif" font-size="10.00">/assertion_macro_gcc</text>
-<text text-anchor="middle" x="304.5" y="-194" font-family="Helvetica,sans-Serif" font-size="10.00">_clang.hpp</text>
+<polygon fill="#999999" stroke="#666666" points="451.5,-228 324.5,-228 324.5,-187 451.5,-187 451.5,-228"/>
+<text text-anchor="start" x="332.5" y="-216" font-family="Helvetica,sans-Serif" font-size="10.00">src/platforms/common</text>
+<text text-anchor="start" x="332.5" y="-205" font-family="Helvetica,sans-Serif" font-size="10.00">/assertion_macro_gcc</text>
+<text text-anchor="middle" x="388" y="-194" font-family="Helvetica,sans-Serif" font-size="10.00">_clang.hpp</text>
 </a>
 </g>
 </g>
 <!-- Node2 -->
 <g id="Node000002" class="node">
 <title>Node2</title>
-<g id="a_Node000002"><a xlink:href="../../df/db1/gba_2platform__config_8hpp.html" target="_top" xlink:title="additional nintendo game boy advance platform header">
-<polygon fill="white" stroke="#666666" points="161,-151 14,-151 14,-121 161,-121 161,-151"/>
-<text text-anchor="start" x="22" y="-139" font-family="Helvetica,sans-Serif" font-size="10.00">src/platforms/gba/platform</text>
-<text text-anchor="middle" x="87.5" y="-128" font-family="Helvetica,sans-Serif" font-size="10.00">_config.hpp</text>
+<g id="a_Node000002"><a xlink:href="../../d5/d82/3ds_2platform__config_8hpp.html" target="_top" xlink:title="additional nintendo ds platform header">
+<polygon fill="white" stroke="#666666" points="146,-151 0,-151 0,-121 146,-121 146,-151"/>
+<text text-anchor="start" x="8" y="-139" font-family="Helvetica,sans-Serif" font-size="10.00">src/platforms/3ds/platform</text>
+<text text-anchor="middle" x="73" y="-128" font-family="Helvetica,sans-Serif" font-size="10.00">_config.hpp</text>
 </a>
 </g>
 </g>
@@ -80,18 +80,18 @@ var sectionId = 'dynsection-0';
 <g id="edge1_Node000001_Node000002" class="edge">
 <title>Node1&#45;&gt;Node2</title>
 <g id="a_edge1_Node000001_Node000002"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M233.65,-183.81C199.89,-173 160.57,-160.4 131.22,-151"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="232.88,-187.24 243.48,-186.96 235.02,-180.57 232.88,-187.24"/>
+<path fill="none" stroke="#63b8ff" d="M314.41,-190.26C260.51,-178.37 188.07,-162.39 136.65,-151.04"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="313.74,-193.7 324.26,-192.44 315.24,-186.86 313.74,-193.7"/>
 </a>
 </g>
 </g>
 <!-- Node3 -->
 <g id="Node000003" class="node">
 <title>Node3</title>
-<g id="a_Node000003"><a xlink:href="../../dd/d9e/linux_2platform__config_8hpp.html" target="_top" xlink:title="additional linux platform header">
-<polygon fill="white" stroke="#666666" points="296,-151 179,-151 179,-121 296,-121 296,-151"/>
-<text text-anchor="start" x="187" y="-139" font-family="Helvetica,sans-Serif" font-size="10.00">src/platforms/linux</text>
-<text text-anchor="middle" x="237.5" y="-128" font-family="Helvetica,sans-Serif" font-size="10.00">/platform_config.hpp</text>
+<g id="a_Node000003"><a xlink:href="../../df/db1/gba_2platform__config_8hpp.html" target="_top" xlink:title="additional nintendo game boy advance platform header">
+<polygon fill="white" stroke="#666666" points="311.5,-151 164.5,-151 164.5,-121 311.5,-121 311.5,-151"/>
+<text text-anchor="start" x="172.5" y="-139" font-family="Helvetica,sans-Serif" font-size="10.00">src/platforms/gba/platform</text>
+<text text-anchor="middle" x="238" y="-128" font-family="Helvetica,sans-Serif" font-size="10.00">_config.hpp</text>
 </a>
 </g>
 </g>
@@ -99,37 +99,37 @@ var sectionId = 'dynsection-0';
 <g id="edge2_Node000001_Node000003" class="edge">
 <title>Node1&#45;&gt;Node3</title>
 <g id="a_edge2_Node000001_Node000003"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M278.52,-179.55C269.13,-169.81 258.92,-159.22 251.03,-151.04"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="276.02,-182 285.48,-186.77 281.06,-177.14 276.02,-182"/>
+<path fill="none" stroke="#63b8ff" d="M336.64,-182.71C313.95,-172.19 288.03,-160.18 268.46,-151.11"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="335.27,-185.93 345.82,-186.96 338.22,-179.58 335.27,-185.93"/>
 </a>
 </g>
 </g>
-<!-- Node9 -->
-<g id="Node000009" class="node">
-<title>Node9</title>
-<g id="a_Node000009"><a xlink:href="../../d8/d80/macos_2platform__config_8hpp.html" target="_top" xlink:title="additional macOS platform header">
-<polygon fill="white" stroke="#666666" points="431,-151 314,-151 314,-121 431,-121 431,-151"/>
-<text text-anchor="start" x="322" y="-139" font-family="Helvetica,sans-Serif" font-size="10.00">src/platforms/macos</text>
-<text text-anchor="middle" x="372.5" y="-128" font-family="Helvetica,sans-Serif" font-size="10.00">/platform_config.hpp</text>
+<!-- Node4 -->
+<g id="Node000004" class="node">
+<title>Node4</title>
+<g id="a_Node000004"><a xlink:href="../../dd/d9e/linux_2platform__config_8hpp.html" target="_top" xlink:title="additional linux platform header">
+<polygon fill="white" stroke="#666666" points="446.5,-151 329.5,-151 329.5,-121 446.5,-121 446.5,-151"/>
+<text text-anchor="start" x="337.5" y="-139" font-family="Helvetica,sans-Serif" font-size="10.00">src/platforms/linux</text>
+<text text-anchor="middle" x="388" y="-128" font-family="Helvetica,sans-Serif" font-size="10.00">/platform_config.hpp</text>
 </a>
 </g>
 </g>
-<!-- Node1&#45;&gt;Node9 -->
-<g id="edge8_Node000001_Node000009" class="edge">
-<title>Node1&#45;&gt;Node9</title>
-<g id="a_edge8_Node000001_Node000009"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M330.87,-179.55C340.39,-169.81 350.76,-159.22 358.76,-151.04"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="328.3,-177.17 323.8,-186.77 333.3,-182.07 328.3,-177.17"/>
+<!-- Node1&#45;&gt;Node4 -->
+<g id="edge3_Node000001_Node000004" class="edge">
+<title>Node1&#45;&gt;Node4</title>
+<g id="a_edge3_Node000001_Node000004"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M388,-176.66C388,-167.76 388,-158.42 388,-151.04"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="384.5,-176.77 388,-186.77 391.5,-176.77 384.5,-176.77"/>
 </a>
 </g>
 </g>
 <!-- Node10 -->
 <g id="Node000010" class="node">
 <title>Node10</title>
-<g id="a_Node000010"><a xlink:href="../../dc/d74/nds_2platform__config_8hpp.html" target="_top" xlink:title="additional nintendo ds platform header">
-<polygon fill="white" stroke="#666666" points="595.5,-151 449.5,-151 449.5,-121 595.5,-121 595.5,-151"/>
-<text text-anchor="start" x="457.5" y="-139" font-family="Helvetica,sans-Serif" font-size="10.00">src/platforms/nds/platform</text>
-<text text-anchor="middle" x="522.5" y="-128" font-family="Helvetica,sans-Serif" font-size="10.00">_config.hpp</text>
+<g id="a_Node000010"><a xlink:href="../../d8/d80/macos_2platform__config_8hpp.html" target="_top" xlink:title="additional macOS platform header">
+<polygon fill="white" stroke="#666666" points="581.5,-151 464.5,-151 464.5,-121 581.5,-121 581.5,-151"/>
+<text text-anchor="start" x="472.5" y="-139" font-family="Helvetica,sans-Serif" font-size="10.00">src/platforms/macos</text>
+<text text-anchor="middle" x="523" y="-128" font-family="Helvetica,sans-Serif" font-size="10.00">/platform_config.hpp</text>
 </a>
 </g>
 </g>
@@ -137,35 +137,36 @@ var sectionId = 'dynsection-0';
 <g id="edge9_Node000001_Node000010" class="edge">
 <title>Node1&#45;&gt;Node10</title>
 <g id="a_edge9_Node000001_Node000010"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M375.67,-183.81C409.59,-173 449.09,-160.4 478.57,-151"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="374.27,-180.58 365.81,-186.96 376.4,-187.25 374.27,-180.58"/>
+<path fill="none" stroke="#63b8ff" d="M435.04,-182.28C455.27,-171.87 478.21,-160.06 495.59,-151.11"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="433.25,-179.27 425.96,-186.96 436.46,-185.49 433.25,-179.27"/>
 </a>
 </g>
 </g>
-<!-- Node4 -->
-<g id="Node000004" class="node">
-<title>Node4</title>
-<g id="a_Node000004"><a xlink:href="../../da/d47/core_8hpp.html" target="_top" xlink:title="Umbrella header for the engine core module.">
-<polygon fill="white" stroke="#666666" points="286,-85 189,-85 189,-66 286,-66 286,-85"/>
-<text text-anchor="middle" x="237.5" y="-73" font-family="Helvetica,sans-Serif" font-size="10.00">include/core.hpp</text>
+<!-- Node11 -->
+<g id="Node000011" class="node">
+<title>Node11</title>
+<g id="a_Node000011"><a xlink:href="../../dc/d74/nds_2platform__config_8hpp.html" target="_top" xlink:title="additional nintendo ds platform header">
+<polygon fill="white" stroke="#666666" points="746,-151 600,-151 600,-121 746,-121 746,-151"/>
+<text text-anchor="start" x="608" y="-139" font-family="Helvetica,sans-Serif" font-size="10.00">src/platforms/nds/platform</text>
+<text text-anchor="middle" x="673" y="-128" font-family="Helvetica,sans-Serif" font-size="10.00">_config.hpp</text>
 </a>
 </g>
 </g>
-<!-- Node3&#45;&gt;Node4 -->
-<g id="edge3_Node000003_Node000004" class="edge">
-<title>Node3&#45;&gt;Node4</title>
-<g id="a_edge3_Node000003_Node000004"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M237.5,-110.75C237.5,-101.72 237.5,-92.03 237.5,-85.27"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="234,-110.84 237.5,-120.84 241,-110.84 234,-110.84"/>
+<!-- Node1&#45;&gt;Node11 -->
+<g id="edge10_Node000001_Node000011" class="edge">
+<title>Node1&#45;&gt;Node11</title>
+<g id="a_edge10_Node000001_Node000011"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M461.61,-188.55C509.5,-176.87 571.07,-161.86 615.4,-151.05"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="460.49,-185.22 451.6,-190.99 462.15,-192.02 460.49,-185.22"/>
 </a>
 </g>
 </g>
 <!-- Node5 -->
 <g id="Node000005" class="node">
 <title>Node5</title>
-<g id="a_Node000005"><a xlink:href="../../d4/d78/math_8hpp.html" target="_top" xlink:title="Umbrella header for the engine mathematics module.">
-<polygon fill="white" stroke="#666666" points="101,-24.5 0,-24.5 0,-5.5 101,-5.5 101,-24.5"/>
-<text text-anchor="middle" x="50.5" y="-12.5" font-family="Helvetica,sans-Serif" font-size="10.00">include/math.hpp</text>
+<g id="a_Node000005"><a xlink:href="../../da/d47/core_8hpp.html" target="_top" xlink:title="Umbrella header for the engine core module.">
+<polygon fill="white" stroke="#666666" points="436.5,-85 339.5,-85 339.5,-66 436.5,-66 436.5,-85"/>
+<text text-anchor="middle" x="388" y="-73" font-family="Helvetica,sans-Serif" font-size="10.00">include/core.hpp</text>
 </a>
 </g>
 </g>
@@ -173,63 +174,81 @@ var sectionId = 'dynsection-0';
 <g id="edge4_Node000004_Node000005" class="edge">
 <title>Node4&#45;&gt;Node5</title>
 <g id="a_edge4_Node000004_Node000005"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M200.62,-62.96C164.45,-51.65 110.15,-34.66 77.72,-24.52"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="199.72,-66.35 210.31,-65.99 201.81,-59.67 199.72,-66.35"/>
+<path fill="none" stroke="#63b8ff" d="M388,-110.75C388,-101.72 388,-92.03 388,-85.27"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="384.5,-110.84 388,-120.84 391.5,-110.84 384.5,-110.84"/>
 </a>
 </g>
 </g>
 <!-- Node6 -->
 <g id="Node000006" class="node">
 <title>Node6</title>
-<g id="a_Node000006"><a xlink:href="../../db/d2d/hashes_8cpp.html" target="_top" xlink:title="Implementation of CRC hash functions with lookup tables for optimal performance.">
-<polygon fill="white" stroke="#666666" points="232,-24.5 119,-24.5 119,-5.5 232,-5.5 232,-24.5"/>
-<text text-anchor="middle" x="175.5" y="-12.5" font-family="Helvetica,sans-Serif" font-size="10.00">src/core/hashes.cpp</text>
+<g id="a_Node000006"><a xlink:href="../../d4/d78/math_8hpp.html" target="_top" xlink:title="Umbrella header for the engine mathematics module.">
+<polygon fill="white" stroke="#666666" points="251.5,-24.5 150.5,-24.5 150.5,-5.5 251.5,-5.5 251.5,-24.5"/>
+<text text-anchor="middle" x="201" y="-12.5" font-family="Helvetica,sans-Serif" font-size="10.00">include/math.hpp</text>
 </a>
 </g>
 </g>
-<!-- Node4&#45;&gt;Node6 -->
-<g id="edge5_Node000004_Node000006" class="edge">
-<title>Node4&#45;&gt;Node6</title>
-<g id="a_edge5_Node000004_Node000006"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M220.98,-58.91C209.35,-47.94 194.22,-33.67 184.69,-24.67"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="218.68,-61.55 228.35,-65.87 223.48,-56.46 218.68,-61.55"/>
+<!-- Node5&#45;&gt;Node6 -->
+<g id="edge5_Node000005_Node000006" class="edge">
+<title>Node5&#45;&gt;Node6</title>
+<g id="a_edge5_Node000005_Node000006"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M351.12,-62.96C314.95,-51.65 260.65,-34.66 228.22,-24.52"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="350.22,-66.35 360.81,-65.99 352.31,-59.67 350.22,-66.35"/>
 </a>
 </g>
 </g>
 <!-- Node7 -->
 <g id="Node000007" class="node">
 <title>Node7</title>
-<g id="a_Node000007"><a xlink:href="../../de/d06/utils_8cpp.html" target="_top" xlink:title="Implementation of core utility functions for string manipulation, encoding conversion,...">
-<polygon fill="white" stroke="#666666" points="349,-24.5 250,-24.5 250,-5.5 349,-5.5 349,-24.5"/>
-<text text-anchor="middle" x="299.5" y="-12.5" font-family="Helvetica,sans-Serif" font-size="10.00">src/core/utils.cpp</text>
+<g id="a_Node000007"><a xlink:href="../../db/d2d/hashes_8cpp.html" target="_top" xlink:title="Implementation of CRC hash functions with lookup tables for optimal performance.">
+<polygon fill="white" stroke="#666666" points="382.5,-24.5 269.5,-24.5 269.5,-5.5 382.5,-5.5 382.5,-24.5"/>
+<text text-anchor="middle" x="326" y="-12.5" font-family="Helvetica,sans-Serif" font-size="10.00">src/core/hashes.cpp</text>
 </a>
 </g>
 </g>
-<!-- Node4&#45;&gt;Node7 -->
-<g id="edge6_Node000004_Node000007" class="edge">
-<title>Node4&#45;&gt;Node7</title>
-<g id="a_edge6_Node000004_Node000007"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M254.02,-58.91C265.65,-47.94 280.78,-33.67 290.31,-24.67"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="251.52,-56.46 246.65,-65.87 256.32,-61.55 251.52,-56.46"/>
+<!-- Node5&#45;&gt;Node7 -->
+<g id="edge6_Node000005_Node000007" class="edge">
+<title>Node5&#45;&gt;Node7</title>
+<g id="a_edge6_Node000005_Node000007"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M371.48,-58.91C359.85,-47.94 344.72,-33.67 335.19,-24.67"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="369.18,-61.55 378.85,-65.87 373.98,-56.46 369.18,-61.55"/>
 </a>
 </g>
 </g>
 <!-- Node8 -->
 <g id="Node000008" class="node">
 <title>Node8</title>
-<g id="a_Node000008"><a xlink:href="../../d7/d90/assertion__stub_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="502,-30 367,-30 367,0 502,0 502,-30"/>
-<text text-anchor="start" x="375" y="-18" font-family="Helvetica,sans-Serif" font-size="10.00">src/platforms/stub</text>
-<text text-anchor="middle" x="434.5" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">/core/assertion_stub.cpp</text>
+<g id="a_Node000008"><a xlink:href="../../de/d06/utils_8cpp.html" target="_top" xlink:title="Implementation of core utility functions for string manipulation, encoding conversion,...">
+<polygon fill="white" stroke="#666666" points="499.5,-24.5 400.5,-24.5 400.5,-5.5 499.5,-5.5 499.5,-24.5"/>
+<text text-anchor="middle" x="450" y="-12.5" font-family="Helvetica,sans-Serif" font-size="10.00">src/core/utils.cpp</text>
 </a>
 </g>
 </g>
-<!-- Node4&#45;&gt;Node8 -->
-<g id="edge7_Node000004_Node000008" class="edge">
-<title>Node4&#45;&gt;Node8</title>
-<g id="a_edge7_Node000004_Node000008"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M275.97,-63.08C307.78,-53.63 353.1,-40.17 387.14,-30.06"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="274.74,-59.79 266.15,-65.99 276.73,-66.5 274.74,-59.79"/>
+<!-- Node5&#45;&gt;Node8 -->
+<g id="edge7_Node000005_Node000008" class="edge">
+<title>Node5&#45;&gt;Node8</title>
+<g id="a_edge7_Node000005_Node000008"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M404.52,-58.91C416.15,-47.94 431.28,-33.67 440.81,-24.67"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="402.02,-56.46 397.15,-65.87 406.82,-61.55 402.02,-56.46"/>
+</a>
+</g>
+</g>
+<!-- Node9 -->
+<g id="Node000009" class="node">
+<title>Node9</title>
+<g id="a_Node000009"><a xlink:href="../../d7/d90/assertion__stub_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="652.5,-30 517.5,-30 517.5,0 652.5,0 652.5,-30"/>
+<text text-anchor="start" x="525.5" y="-18" font-family="Helvetica,sans-Serif" font-size="10.00">src/platforms/stub</text>
+<text text-anchor="middle" x="585" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">/core/assertion_stub.cpp</text>
+</a>
+</g>
+</g>
+<!-- Node5&#45;&gt;Node9 -->
+<g id="edge8_Node000005_Node000009" class="edge">
+<title>Node5&#45;&gt;Node9</title>
+<g id="a_edge8_Node000005_Node000009"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M426.47,-63.08C458.28,-53.63 503.6,-40.17 537.64,-30.06"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="425.24,-59.79 416.65,-65.99 427.23,-66.5 425.24,-59.79"/>
 </a>
 </g>
 </g>

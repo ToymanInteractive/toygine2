@@ -1,5 +1,6 @@
 var dir_ceed1ce8f89ba04e240f3818f1ccc961 =
 [
+    [ "3ds", "dir_ec42ad78dd6cae3ff203004d8c882467.html", "dir_ec42ad78dd6cae3ff203004d8c882467" ],
     [ "common", "dir_3c172eab3d3eff36a04ebb8e77c44848.html", "dir_3c172eab3d3eff36a04ebb8e77c44848" ],
     [ "gba", "dir_c535a4a48b3b456973d783f9794b23a7.html", "dir_c535a4a48b3b456973d783f9794b23a7" ],
     [ "linux", "dir_85f2f5b017d0e280691879598107c592.html", "dir_85f2f5b017d0e280691879598107c592" ],

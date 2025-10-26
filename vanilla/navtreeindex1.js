@@ -240,6 +240,8 @@ var NAVTREEINDEX1 =
 "d5/d03/classtoy_1_1_c_string_view.html#af5ec20956a3cecd987fc33ff3bdd6540":[4,0,0,3,2],
 "d5/d03/classtoy_1_1_c_string_view.html#af79d918dedd06e2c2b99fe920962d64d":[2,0,0,4,0],
 "d5/d03/classtoy_1_1_c_string_view.html#af79d918dedd06e2c2b99fe920962d64d":[4,0,0,3,0],
+"d5/d82/3ds_2platform__config_8hpp.html":[5,0,1,1,0,0],
+"d5/d82/3ds_2platform__config_8hpp_source.html":[5,0,1,1,0,0],
 "d6/d2c/app_8hpp.html":[5,0,0,3],
 "d6/d2c/app_8hpp_source.html":[5,0,0,3],
 "d6/de1/vector2d_8hpp.html":[5,0,0,2,2],
@@ -247,7 +249,5 @@ var NAVTREEINDEX1 =
 "d7/d40/fixed__string_8inl.html":[5,0,0,1,5],
 "d7/d40/fixed__string_8inl_source.html":[5,0,0,1,5],
 "d7/d7f/fixed__string_8hpp.html":[5,0,0,1,4],
-"d7/d7f/fixed__string_8hpp_source.html":[5,0,0,1,4],
-"d7/d8d/structtoy_1_1app_1_1_version.html":[2,0,0,0,0],
-"d7/d8d/structtoy_1_1app_1_1_version.html":[4,0,0,0,0]
+"d7/d7f/fixed__string_8hpp_source.html":[5,0,0,1,4]
 };

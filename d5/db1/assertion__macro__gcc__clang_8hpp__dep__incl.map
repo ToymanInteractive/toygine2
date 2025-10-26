@@ -1,21 +1,23 @@
 <map id="src/platforms/common/assertion_macro_gcc_clang.hpp" name="src/platforms/common/assertion_macro_gcc_clang.hpp">
-<area shape="rect" id="Node000001" title="Debug and Release assertion macro implementations for GCC/Clang platforms." alt="" coords="327,5,496,60"/>
-<area shape="rect" id="Node000002" href="$df/db1/gba_2platform__config_8hpp.html" title="additional nintendo game boy advance platform header" alt="" coords="24,108,220,148"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="318,67,181,111,179,105,316,62"/>
-<area shape="rect" id="Node000003" href="$dd/d9e/linux_2platform__config_8hpp.html" title="additional linux platform header" alt="" coords="244,108,400,148"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="379,72,342,110,338,106,375,68"/>
-<area shape="rect" id="Node000009" href="$d8/d80/macos_2platform__config_8hpp.html" title="additional macOS platform header" alt="" coords="424,108,580,148"/>
-<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="448,68,486,106,482,110,445,72"/>
-<area shape="rect" id="Node000010" href="$dc/d74/nds_2platform__config_8hpp.html" title="additional nintendo ds platform header" alt="" coords="605,108,799,148"/>
-<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="507,62,644,105,643,111,505,67"/>
-<area shape="rect" id="Node000004" href="$da/d47/core_8hpp.html" title="Umbrella header for the engine core module." alt="" coords="257,196,387,221"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="325,162,325,196,319,196,319,162"/>
-<area shape="rect" id="Node000005" href="$d4/d78/math_8hpp.html" title="Umbrella header for the engine mathematics module." alt="" coords="5,277,140,302"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="274,228,110,279,108,274,272,223"/>
-<area shape="rect" id="Node000006" href="$db/d2d/hashes_8cpp.html" title="Implementation of CRC hash functions with lookup tables for optimal performance." alt="" coords="164,277,315,302"/>
-<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="302,233,253,278,250,275,298,229"/>
-<area shape="rect" id="Node000007" href="$de/d06/utils_8cpp.html" title="Implementation of core utility functions for string manipulation, encoding conversion,..." alt="" coords="339,277,471,302"/>
-<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="346,229,394,275,391,278,342,233"/>
-<area shape="rect" id="Node000008" href="$d7/d90/assertion__stub_8cpp.html" title=" " alt="" coords="495,269,675,309"/>
-<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="374,223,522,267,521,272,373,228"/>
+<area shape="rect" id="Node000001" title="Debug and Release assertion macro implementations for GCC/Clang platforms." alt="" coords="438,5,607,60"/>
+<area shape="rect" id="Node000002" href="$d5/d82/3ds_2platform__config_8hpp.html" title="additional nintendo ds platform header" alt="" coords="5,108,200,148"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="425,58,188,111,187,105,424,53"/>
+<area shape="rect" id="Node000003" href="$df/db1/gba_2platform__config_8hpp.html" title="additional nintendo game boy advance platform header" alt="" coords="225,108,421,148"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="455,68,364,110,362,105,453,63"/>
+<area shape="rect" id="Node000004" href="$dd/d9e/linux_2platform__config_8hpp.html" title="additional linux platform header" alt="" coords="445,108,601,148"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="525,74,525,108,520,108,520,74"/>
+<area shape="rect" id="Node000010" href="$d8/d80/macos_2platform__config_8hpp.html" title="additional macOS platform header" alt="" coords="625,108,781,148"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="587,64,667,105,665,110,584,69"/>
+<area shape="rect" id="Node000011" href="$dc/d74/nds_2platform__config_8hpp.html" title="additional nintendo ds platform header" alt="" coords="805,108,1000,148"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="621,55,826,105,825,111,620,61"/>
+<area shape="rect" id="Node000005" href="$da/d47/core_8hpp.html" title="Umbrella header for the engine core module." alt="" coords="458,196,587,221"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="525,162,525,196,520,196,520,162"/>
+<area shape="rect" id="Node000006" href="$d4/d78/math_8hpp.html" title="Umbrella header for the engine mathematics module." alt="" coords="206,277,341,302"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="474,228,310,279,309,274,473,223"/>
+<area shape="rect" id="Node000007" href="$db/d2d/hashes_8cpp.html" title="Implementation of CRC hash functions with lookup tables for optimal performance." alt="" coords="365,277,515,302"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="502,233,454,278,450,275,499,229"/>
+<area shape="rect" id="Node000008" href="$de/d06/utils_8cpp.html" title="Implementation of core utility functions for string manipulation, encoding conversion,..." alt="" coords="539,277,671,302"/>
+<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="547,229,595,275,591,278,543,233"/>
+<area shape="rect" id="Node000009" href="$d7/d90/assertion__stub_8cpp.html" title=" " alt="" coords="695,269,875,309"/>
+<area shape="poly" id="edge8_Node000005_Node000009" title=" " alt="" coords="575,223,723,267,721,272,573,228"/>
 </map>
