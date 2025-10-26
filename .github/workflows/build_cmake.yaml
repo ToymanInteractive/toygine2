@@ -148,6 +148,7 @@ jobs:
           run: |
             cd /workspace
             cmake -DTOYGINE_BUILD_TESTS=$([ "${{ matrix.run_test }}" = "true" ] && echo ON || echo OFF) --preset ${{ matrix.cmake_preset }}
+            cmake --build --preset ${{ matrix.cmake_preset }}
 
   unit-test:
     name: Collect unit tests
