@@ -25,7 +25,10 @@
 #ifndef SRC_PLATFORMS_COMMON_ASSERTION_MACRO_GCC_CLANG_HPP_
 #define SRC_PLATFORMS_COMMON_ASSERTION_MACRO_GCC_CLANG_HPP_
 
+#if defined(assert)
+// Undefine any existing assert macro to avoid conflicts
 #undef assert
+#endif
 
 #ifdef _DEBUG
 
