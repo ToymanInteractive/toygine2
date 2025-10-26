@@ -333,9 +333,6 @@ jobs:
         with:
           name: unit_tests_coverage.info
 
-      - name: Display structure of downloaded files
-        run: ls -R .
-
       - uses: SonarSource/sonarqube-scan-action@v6.0.0
         with:
           args: >-
