@@ -301,9 +301,10 @@ void _floatPostProcess(char * dest, char * srcBuffer, std::size_t bufferSize, st
 
   std::size_t fractionDigits = digits > intDigits ? digits - intDigits : 0;
   if (intDigits > 0) {
-    auto count = std::min(intDigits, digits);
-    while (count--)
+    const auto count = std::min(intDigits, digits);
+    for (std::size_t i = 0; i < count; ++i) {
       *outputPointer++ = *strBegin++;
+    }
 
     auto trailingZeros = static_cast<std::int32_t>(intDigits) - static_cast<std::int32_t>(digits);
     while (trailingZeros-- > 0)
@@ -314,11 +315,15 @@ void _floatPostProcess(char * dest, char * srcBuffer, std::size_t bufferSize, st
 
   if (fractionDigits > 0) {
     *outputPointer++ = '.';
-    while (leadingZeros-- > 0)
-      *outputPointer++ = '0';
+    if (leadingZeros > 0) {
+      do {
+        *outputPointer++ = '0';
+      } while (--leadingZeros);
+    }
 
-    while (fractionDigits-- > 0)
+    do {
       *outputPointer++ = *strBegin++;
+    } while (--fractionDigits);
   }
 
   if (exp10 != 0) {
@@ -353,32 +358,36 @@ wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, const char * const s
   if (dest == nullptr || destSize == 0)
     return nullptr;
 
+  if (src == nullptr || count == 0) {
+    *dest = L'\0';
+
+    return dest;
+  }
+
   wchar_t * destPointer = dest;
-  if (count > 0 && src != nullptr) {
-    const wchar_t * unicodeEndPos = dest + (destSize - 1);
-    std::size_t srcIterator = 0;
+  const wchar_t * unicodeEndPos = dest + (destSize - 1);
+  std::size_t srcIterator = 0;
 
-    while (srcIterator < count && destPointer < unicodeEndPos) {
-      if (auto symbol = static_cast<std::uint8_t>(src[srcIterator++]); symbol <= 0x7F) {
-        *destPointer = symbol;
-      } else {
-        std::size_t charBytes = 0;
-        while ((symbol & 0x80) != 0) {
-          ++charBytes;
-          symbol <<= 1;
-        }
-
-        auto unicodeChar = static_cast<wchar_t>(symbol >> charBytes);
-        while (charBytes-- > 1) {
-          unicodeChar <<= 6;
-          unicodeChar |= static_cast<std::uint8_t>(src[srcIterator++]) & 0x3F;
-        }
-
-        *destPointer = unicodeChar;
+  while (srcIterator < count && destPointer < unicodeEndPos) {
+    if (auto symbol = static_cast<std::uint8_t>(src[srcIterator++]); symbol <= 0x7F) {
+      *destPointer = symbol;
+    } else {
+      std::size_t charBytes = 0;
+      while ((symbol & 0x80) != 0) {
+        ++charBytes;
+        symbol = static_cast<std::uint8_t>(symbol << 1);
       }
 
-      ++destPointer;
+      auto unicodeChar = static_cast<wchar_t>(symbol >> charBytes);
+      while (charBytes-- > 1) {
+        unicodeChar <<= 6;
+        unicodeChar |= static_cast<std::uint8_t>(src[srcIterator++]) & 0x3F;
+      }
+
+      *destPointer = unicodeChar;
     }
+
+    ++destPointer;
   }
 
   *destPointer = L'\0';
