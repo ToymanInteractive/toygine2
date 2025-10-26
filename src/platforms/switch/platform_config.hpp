@@ -19,20 +19,20 @@
 //
 /*!
   \file   platform_config.hpp
-  \brief  additional nintendo 3ds platform header
+  \brief  additional nintendo switch platform header
 */
 
-#ifndef SRC_PLATFORMS_3DS_PLATFORM_CONFIG_HPP_
-#define SRC_PLATFORMS_3DS_PLATFORM_CONFIG_HPP_
+#ifndef SRC_PLATFORMS_SWITCH_PLATFORM_CONFIG_HPP_
+#define SRC_PLATFORMS_SWITCH_PLATFORM_CONFIG_HPP_
 
 #if defined(__DEVKITPRO__)
 
-#define TARGET_OS OS_3DS
+#define TARGET_OS OS_SWITCH
 
-#define TARGET_CPU CPU_ARM_32
+#define TARGET_CPU CPU_ARM_64
 
 #endif // defined(__DEVKITPRO__)
 
 #include "../common/assertion_macro_gcc_clang.hpp"
 
-#endif // SRC_PLATFORMS_3DS_PLATFORM_CONFIG_HPP_
+#endif // SRC_PLATFORMS_SWITCH_PLATFORM_CONFIG_HPP_

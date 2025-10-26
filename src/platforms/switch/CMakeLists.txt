@@ -22,7 +22,7 @@ set(PLATFORM_SRC_CORE_LIST  src/platforms/stub/core/assertion_stub.cpp)
 set(PLATFORM_HDR_CORE_LIST  )
 set(PLATFORM_LIB_CORE_LIST  )
 
-set(PLATFORM_HDR_LIST       src/platforms/nds/platform_config.hpp)
+set(PLATFORM_HDR_LIST       src/platforms/switch/platform_config.hpp)
 
 source_group("Platform\\Core" FILES ${PLATFORM_SRC_CORE_LIST} ${PLATFORM_HDR_CORE_LIST})
 

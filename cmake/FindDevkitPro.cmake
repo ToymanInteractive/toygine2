@@ -29,24 +29,11 @@
 # Provides variables:
 #   DEVKITPRO_FOUND - TRUE if devkitPro root was found
 #   DEVKITPRO_ROOT - Root directory of devkitPro installation (if found)
-#   DEVKITARM - Path to devkitARM GCC compiler (if found)
-#   DEVKITA64 - Path to devkitA64 GCC compiler (if found)
 #
 #   DEVKITPRO_GBA_FOUND - TRUE if GBA libraries were found
-#   DEVKITPRO_GBA_INCLUDE_DIR - GBA include directory (if found)
-#   DEVKITPRO_GBA_LIBRARY - GBA library path (if found)
-#
 #   DEVKITPRO_NDS_FOUND - TRUE if NDS libraries were found
-#   DEVKITPRO_NDS_INCLUDE_DIR - NDS include directory (if found)
-#   DEVKITPRO_NDS_LIBRARY - NDS library path (if found)
-#
 #   DEVKITPRO_3DS_FOUND - TRUE if 3DS libraries were found
-#   DEVKITPRO_3DS_INCLUDE_DIR - 3DS include directory (if found)
-#   DEVKITPRO_3DS_LIBRARY - 3DS library path (if found)
-#
 #   DEVKITPRO_SWITCH_FOUND - TRUE if SWITCH libraries were found
-#   DEVKITPRO_SWITCH_INCLUDE_DIR - SWITCH include directory (if found)
-#   DEVKITPRO_SWITCH_LIBRARY - SWITCH library path (if found)
 
 cmake_minimum_required(VERSION 3.31.0 FATAL_ERROR)
 
@@ -73,12 +60,12 @@ macro(_find_devkitpro_lib NAME HEADER LIBNAME SUBDIR)
     endif(${NAME}_INCLUDE_DIR AND ${NAME}_LIBRARY)
   else(DEVKITPRO_FOUND)
     set(${NAME}_FOUND FALSE)
-    set(${NAME}_INCLUDE_DIR "")
-    set(${NAME}_LIBRARY "")
     message(STATUS "Skipping ${SUBDIR} search (devkitPro not found)")
   endif(DEVKITPRO_FOUND)
 
-  mark_as_advanced(${NAME}_FOUND ${NAME}_INCLUDE_DIR ${NAME}_LIBRARY)
+  mark_as_advanced(${NAME}_FOUND)
+  unset(${NAME}_INCLUDE_DIR)
+  unset(${NAME}_LIBRARY)
 endmacro()
 
 set(_DEVKITPRO_POSSIBLE_PATHS $ENV{DEVKITPRO} /opt/devkitpro C:/devkitPro)
@@ -112,10 +99,15 @@ if(DEVKITPRO_ROOT)
     PATHS "${DEVKITPRO_ROOT}/devkitA64/bin" NO_DEFAULT_PATH)
 
   if(DEVKITA64_GCC)
-    message(STATUS "Found devkitA64 GCC: ${DEVKITA64_GCC}")
+    get_filename_component(DEVKITA64 "${DEVKITA64_GCC}" DIRECTORY)
+    get_filename_component(DEVKITA64 "${DEVKITA64}" DIRECTORY)
+
+    message(STATUS "Found devkitARM: ${DEVKITA64}")
   endif(DEVKITA64_GCC)
 
-  mark_as_advanced(DEVKITARM DEVKITA64_GCC)
+  unset(DEVKITA64_GCC)
+
+  mark_as_advanced(DEVKITARM DEVKITA64)
 
   # === Components ===
   if("gba" IN_LIST DevkitPro_FIND_COMPONENTS)

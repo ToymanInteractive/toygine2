@@ -113,6 +113,16 @@
             }
         },
         {
+            "name": "nintendo-switch-ninja",
+            "displayName": "Nintendo Switch",
+            "description": "ToyGine 2 Nintendo Switch",
+            "inherits": "base-release",
+            "toolchainFile": "$env{DEVKITPRO}/cmake/Switch.cmake",
+            "cacheVariables": {
+                "TOYGINE_TARGET_PLATFORM": "Nintendo Switch"
+            }
+        },
+        {
             "name": "macos-ninja-debug",
             "displayName": "macOS Ninja debug",
             "description": "ToyGine 2 MacOS Ninja (Debug)",
@@ -182,6 +192,11 @@
         {
             "name": "nintendo-3ds-ninja",
             "configurePreset": "nintendo-3ds-ninja",
+            "inherits": "default-release"
+        },
+        {
+            "name": "nintendo-switch-ninja",
+            "configurePreset": "nintendo-switch-ninja",
             "inherits": "default-release"
         },
         {

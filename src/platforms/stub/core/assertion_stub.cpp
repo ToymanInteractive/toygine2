@@ -17,6 +17,10 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 //
+/*!
+  \file   assertion_stub.cpp
+  \brief  Stub implementation of assertion system for platforms without native assertion support.
+*/
 
 #include <cstdio>
 #include <string>

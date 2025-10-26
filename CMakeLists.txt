@@ -85,6 +85,9 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 3DS")
   include(${CMAKE_CURRENT_SOURCE_DIR}/src/platforms/3ds/CMakeLists.txt)
   set(TOYGINE_TARGET_PLATFORM_CONFIG_HEADER ${CMAKE_CURRENT_SOURCE_DIR}/src/platforms/3ds/platform_config.hpp)
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
+  include(${CMAKE_CURRENT_SOURCE_DIR}/src/platforms/switch/CMakeLists.txt)
+  set(TOYGINE_TARGET_PLATFORM_CONFIG_HEADER ${CMAKE_CURRENT_SOURCE_DIR}/src/platforms/switch/platform_config.hpp)
 else ()
   message(FATAL_ERROR "Unsupported TOYGINE_TARGET_PLATFORM: ${TOYGINE_TARGET_PLATFORM}")
 endif ()
@@ -119,9 +122,9 @@ source_group("Math" FILES ${SRC_MATH_LIST} ${HDR_MATH_LIST} ${INL_MATH_LIST})
 
 #-------------------------------------------------------------------------------------------
 
-set(SRC_LIST ${SRC_LIST} ${SRC_CORE_LIST} ${SRC_APP_LIST} ${SRC_MATH_LIST})
-set(HDR_LIST ${HDR_LIST} ${HDR_CORE_LIST} ${HDR_APP_LIST} ${HDR_MATH_LIST})
-set(INL_LIST ${INL_LIST} ${INL_CORE_LIST} ${INL_APP_LIST} ${INL_MATH_LIST})
+list(APPEND SRC_LIST ${SRC_CORE_LIST} ${SRC_APP_LIST} ${SRC_MATH_LIST})
+list(APPEND HDR_LIST ${HDR_CORE_LIST} ${HDR_APP_LIST} ${HDR_MATH_LIST})
+list(APPEND INL_LIST ${INL_CORE_LIST} ${INL_APP_LIST} ${INL_MATH_LIST})
 set(LIB_LIST ${LIB_LIST})
 
 add_library(${TOYGINE_LIBRARY_NAME} STATIC ${SRC_LIST} ${HDR_LIST} ${INL_LIST})
