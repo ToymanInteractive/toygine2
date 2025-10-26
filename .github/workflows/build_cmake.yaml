@@ -261,7 +261,6 @@ jobs:
           && github.actor != 'dependabot[bot]'
        }}
     runs-on: ubuntu-latest
-    needs: unit-test
     timeout-minutes: 60
     defaults:
       run:
