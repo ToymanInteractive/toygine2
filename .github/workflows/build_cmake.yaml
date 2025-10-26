@@ -351,7 +351,7 @@ jobs:
             -Dsonar.cfamily.compile-commands=out/build/linux-ninja-debug/compile_commands.json
             -Dsonar.cfamily.analysisCache.mode=fs
             -Dsonar.cfamily.analysisCache.path=.sonar-cfamily-cache
-            -Dsonar.cfamily.gcov.reportsPath=out/coverage
+            -Dsonar.cfamily.cobertura.reportPaths=out/coverage
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
