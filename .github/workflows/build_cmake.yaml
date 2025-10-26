@@ -57,6 +57,12 @@ jobs:
             run_test: "false"
             cmake_preset: nintendo-3ds-ninja
 
+          - name: DevkitPro Switch
+            os: ubuntu-latest
+            docker_image: devkitpro/devkita64:latest
+            run_test: "false"
+            cmake_preset: nintendo-switch-ninja
+
     name: ${{ matrix.name }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
