@@ -251,7 +251,7 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
 
       - name: Upload coverage artifact
-        uses: actions/upload-artifact@v4.6.2
+        uses: actions/upload-artifact@v5.0.0
         with:
           name: unit_tests_coverage.info
           path: out/build/linux-ninja-debug/unit_tests_coverage.info
@@ -324,14 +324,14 @@ jobs:
           path: ${{ runner.temp }}/apt-cache
           key: ${{ steps.sonarcloudaptcache.outputs.cache-primary-key }}
 
-      - name: Download coverage artifact
-        uses: actions/download-artifact@v5.0.0
-        with:
-          name: unit_tests_coverage.info
-
       - name: Prepare compile_commands.json
         run: |
           cmake -DTOYGINE_BUILD_TESTS=ON --preset linux-ninja-debug
+
+      - name: Download coverage artifact
+        uses: actions/download-artifact@v6.0.0
+        with:
+          name: unit_tests_coverage.info
 
       - uses: SonarSource/sonarqube-scan-action@v6.0.0
         with:
