@@ -29,8 +29,8 @@
 # Provides variables:
 #   DEVKITPRO_FOUND - TRUE if devkitPro root was found
 #   DEVKITPRO_ROOT - Root directory of devkitPro installation (if found)
-#   DEVKITARM_GCC - Path to devkitARM GCC compiler (if found)
-#   DEVKITA64_GCC - Path to devkitA64 GCC compiler (if found)
+#   DEVKITARM - Path to devkitARM GCC compiler (if found)
+#   DEVKITA64 - Path to devkitA64 GCC compiler (if found)
 #
 #   DEVKITPRO_GBA_FOUND - TRUE if GBA libraries were found
 #   DEVKITPRO_GBA_INCLUDE_DIR - GBA include directory (if found)
@@ -52,84 +52,89 @@ cmake_minimum_required(VERSION 3.31.0 FATAL_ERROR)
 
 # === Helper macro for library detection ===
 macro(_find_devkitpro_lib NAME HEADER LIBNAME SUBDIR)
-    if(DEVKITPRO_FOUND)
-        find_path(${NAME}_INCLUDE_DIR
-            ${HEADER}
-            PATHS ${DEVKITPRO_ROOT}/${SUBDIR}/include
-            NO_DEFAULT_PATH
-        )
-        find_library(${NAME}_LIBRARY
-            NAMES ${LIBNAME}
-            PATHS ${DEVKITPRO_ROOT}/${SUBDIR}/lib
-            NO_DEFAULT_PATH
-        )
+  if(DEVKITPRO_FOUND)
+    find_path(${NAME}_INCLUDE_DIR
+      ${HEADER}
+      PATHS ${DEVKITPRO_ROOT}/${SUBDIR}/include
+      NO_DEFAULT_PATH
+    )
+    find_library(${NAME}_LIBRARY
+      NAMES ${LIBNAME}
+      PATHS ${DEVKITPRO_ROOT}/${SUBDIR}/lib
+      NO_DEFAULT_PATH
+    )
 
-        if(${NAME}_INCLUDE_DIR AND ${NAME}_LIBRARY)
-            set(${NAME}_FOUND TRUE)
-            message(STATUS "Found ${SUBDIR}: ${${NAME}_LIBRARY}")
-        else(${NAME}_INCLUDE_DIR AND ${NAME}_LIBRARY)
-            set(${NAME}_FOUND FALSE)
-            message(STATUS "Not found: ${SUBDIR}")
-        endif(${NAME}_INCLUDE_DIR AND ${NAME}_LIBRARY)
-    else(DEVKITPRO_FOUND)
-        set(${NAME}_FOUND FALSE)
-        set(${NAME}_INCLUDE_DIR "")
-        set(${NAME}_LIBRARY "")
-        message(STATUS "Skipping ${SUBDIR} search (devkitPro not found)")
-    endif(DEVKITPRO_FOUND)
+    if(${NAME}_INCLUDE_DIR AND ${NAME}_LIBRARY)
+      set(${NAME}_FOUND TRUE)
+      message(STATUS "Found ${SUBDIR}: ${${NAME}_LIBRARY}")
+    else(${NAME}_INCLUDE_DIR AND ${NAME}_LIBRARY)
+      set(${NAME}_FOUND FALSE)
+      message(STATUS "Not found: ${SUBDIR}")
+    endif(${NAME}_INCLUDE_DIR AND ${NAME}_LIBRARY)
+  else(DEVKITPRO_FOUND)
+    set(${NAME}_FOUND FALSE)
+    set(${NAME}_INCLUDE_DIR "")
+    set(${NAME}_LIBRARY "")
+    message(STATUS "Skipping ${SUBDIR} search (devkitPro not found)")
+  endif(DEVKITPRO_FOUND)
 
-    mark_as_advanced(${NAME}_FOUND ${NAME}_INCLUDE_DIR ${NAME}_LIBRARY)
+  mark_as_advanced(${NAME}_FOUND ${NAME}_INCLUDE_DIR ${NAME}_LIBRARY)
 endmacro()
 
 set(_DEVKITPRO_POSSIBLE_PATHS $ENV{DEVKITPRO} /opt/devkitpro C:/devkitPro)
 
 find_path(DEVKITPRO_ROOT
-    NAMES devkitARM devkitA64
-    PATHS ${_DEVKITPRO_POSSIBLE_PATHS}
-    NO_DEFAULT_PATH
-    DOC "Root directory of devkitPro installation"
+  NAMES devkitARM devkitA64
+  PATHS ${_DEVKITPRO_POSSIBLE_PATHS}
+  NO_DEFAULT_PATH
+  DOC "Root directory of devkitPro installation"
 )
 
 if(DEVKITPRO_ROOT)
-    set(DEVKITPRO_FOUND TRUE)
-    message(STATUS "Found devkitPro at: ${DEVKITPRO_ROOT}")
+  set(DEVKITPRO_FOUND TRUE)
+  message(STATUS "Found devkitPro at: ${DEVKITPRO_ROOT}")
 
-    # === devkitARM toolchain ===
-    find_program(DEVKITARM_GCC arm-none-eabi-gcc
-        PATHS "${DEVKITPRO_ROOT}/devkitARM/bin" NO_DEFAULT_PATH)
+  # === devkitARM toolchain ===
+  find_program(DEVKITARM_GCC arm-none-eabi-gcc
+    PATHS "${DEVKITPRO_ROOT}/devkitARM/bin" NO_DEFAULT_PATH)
 
-    if(DEVKITARM_GCC)
-        message(STATUS "Found devkitARM GCC: ${DEVKITARM_GCC}")
-    endif(DEVKITARM_GCC)
+  if(DEVKITARM_GCC)
+    get_filename_component(DEVKITARM "${DEVKITARM_GCC}" DIRECTORY)
+    get_filename_component(DEVKITARM "${DEVKITARM}" DIRECTORY)
 
-    # === devkitA64 toolchain ===
-    find_program(DEVKITA64_GCC aarch64-none-elf-gcc
-        PATHS "${DEVKITPRO_ROOT}/devkitA64/bin" NO_DEFAULT_PATH)
+    message(STATUS "Found devkitARM: ${DEVKITARM}")
+  endif(DEVKITARM_GCC)
 
-    if(DEVKITA64_GCC)
-        message(STATUS "Found devkitA64 GCC: ${DEVKITA64_GCC}")
-    endif(DEVKITA64_GCC)
+  unset(DEVKITARM_GCC)
 
-    mark_as_advanced(DEVKITARM_GCC DEVKITA64_GCC)
+  # === devkitA64 toolchain ===
+  find_program(DEVKITA64_GCC aarch64-none-elf-gcc
+    PATHS "${DEVKITPRO_ROOT}/devkitA64/bin" NO_DEFAULT_PATH)
 
-    # === Components ===
-    if("gba" IN_LIST DevkitPro_FIND_COMPONENTS)
-        _find_devkitpro_lib(DEVKITPRO_GBA gba.h gba libgba)
-    endif()
-    if("nds" IN_LIST DevkitPro_FIND_COMPONENTS)
-        _find_devkitpro_lib(DEVKITPRO_NDS nds.h nds9 libnds)
-    endif()
-    if("3ds" IN_LIST DevkitPro_FIND_COMPONENTS)
-        _find_devkitpro_lib(DEVKITPRO_3DS 3ds.h ctru libctru)
-    endif()
-    if("switch" IN_LIST DevkitPro_FIND_COMPONENTS)
-        _find_devkitpro_lib(DEVKITPRO_SWITCH switch.h nx libnx)
-    endif()
+  if(DEVKITA64_GCC)
+    message(STATUS "Found devkitA64 GCC: ${DEVKITA64_GCC}")
+  endif(DEVKITA64_GCC)
+
+  mark_as_advanced(DEVKITARM DEVKITA64_GCC)
+
+  # === Components ===
+  if("gba" IN_LIST DevkitPro_FIND_COMPONENTS)
+    _find_devkitpro_lib(DEVKITPRO_GBA gba.h gba libgba)
+  endif()
+  if("nds" IN_LIST DevkitPro_FIND_COMPONENTS)
+    _find_devkitpro_lib(DEVKITPRO_NDS nds.h nds9 libnds)
+  endif()
+  if("3ds" IN_LIST DevkitPro_FIND_COMPONENTS)
+    _find_devkitpro_lib(DEVKITPRO_3DS 3ds.h ctru libctru)
+  endif()
+  if("switch" IN_LIST DevkitPro_FIND_COMPONENTS)
+    _find_devkitpro_lib(DEVKITPRO_SWITCH switch.h nx libnx)
+  endif()
 
 else(DEVKITPRO_ROOT)
-    set(DEVKITPRO_FOUND FALSE)
-    message(STATUS "No devkitPro found")
-    message(STATUS "  Searched in ${_DEVKITPRO_POSSIBLE_PATHS}")
+  set(DEVKITPRO_FOUND FALSE)
+  message(STATUS "No devkitPro found")
+  message(STATUS "  Searched in ${_DEVKITPRO_POSSIBLE_PATHS}")
 endif(DEVKITPRO_ROOT)
 
 mark_as_advanced(DEVKITPRO_ROOT)

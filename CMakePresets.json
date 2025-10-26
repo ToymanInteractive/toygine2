@@ -83,6 +83,16 @@
             }
         },
         {
+            "name": "nintendo-gba-ninja",
+            "displayName": "Nintendo GameBoy Advance",
+            "description": "ToyGine 2 Nintendo GameBoy Advance",
+            "inherits": "base-release",
+            "toolchainFile": "$env{DEVKITPRO}/cmake/GBA.cmake",
+            "cacheVariables": {
+                "TOYGINE_TARGET_PLATFORM": "Nintendo Game Boy Advance"
+            }
+        },
+        {
             "name": "macos-ninja-debug",
             "displayName": "macOS Ninja debug",
             "description": "ToyGine 2 MacOS Ninja (Debug)",
@@ -137,6 +147,11 @@
         {
             "name": "windows-msvc-x86",
             "configurePreset": "windows-msvc-x86",
+            "inherits": "default-release"
+        },
+        {
+            "name": "nintendo-gba-ninja",
+            "configurePreset": "nintendo-gba-ninja",
             "inherits": "default-release"
         },
         {

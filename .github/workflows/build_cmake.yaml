@@ -39,6 +39,12 @@ jobs:
             run_test: "true"
             cmake_preset: windows-msvc-x86
 
+          - name: DevkitPro GBA
+            os: ubuntu-latest
+            docker_image: devkitpro/devkitarm:latest
+            run_test: "false"
+            cmake_preset: nintendo-gba-ninja
+
     name: ${{ matrix.name }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
@@ -123,15 +129,26 @@ jobs:
         with:
           arch: ${{ contains(matrix.cmake_preset, 'x86') && 'x86' || 'x64' }}
 
-      - name: Build Project
+      - name: Build and Test
+        if: ${{ matrix.docker_image == '' }}
         run: |
           cmake -DTOYGINE_BUILD_TESTS=$([ "${{ matrix.run_test }}" = "true" ] && echo ON || echo OFF) --preset ${{ matrix.cmake_preset }}
           cmake --build --preset ${{ matrix.cmake_preset }}
+          if [ "${{ matrix.run_test }}" = "true" ]; then
+            ctest --preset ${{ matrix.cmake_preset }}
+          fi
 
-      - name: Test
-        if: ${{ matrix.run_test }}
-        run: |
-          ctest --preset ${{ matrix.cmake_preset }}
+      - name: Build and Test in Docker
+        if: ${{ matrix.docker_image != '' }}
+        uses: addnab/docker-run-action@v3
+        with:
+          image: ${{ matrix.docker_image }}
+          options: |
+            -v ${{ github.workspace }}:/workspace
+          run: |
+            cd /workspace
+            cmake -DTOYGINE_BUILD_TESTS=$([ "${{ matrix.run_test }}" = "true" ] && echo ON || echo OFF) --preset ${{ matrix.cmake_preset }}
+            cmake --build --preset ${{ matrix.cmake_preset }}
 
   unit-test:
     name: Collect unit tests
