@@ -60,8 +60,6 @@ macro(_find_devkitpro_lib NAME HEADER LIBNAME SUBDIR)
     endif(${NAME}_INCLUDE_DIR AND ${NAME}_LIBRARY)
   else(DEVKITPRO_FOUND)
     set(${NAME}_FOUND FALSE)
-    set(${NAME}_INCLUDE_DIR "")
-    set(${NAME}_LIBRARY "")
     message(STATUS "Skipping ${SUBDIR} search (devkitPro not found)")
   endif(DEVKITPRO_FOUND)
 
@@ -101,10 +99,15 @@ if(DEVKITPRO_ROOT)
     PATHS "${DEVKITPRO_ROOT}/devkitA64/bin" NO_DEFAULT_PATH)
 
   if(DEVKITA64_GCC)
-    message(STATUS "Found devkitA64 GCC: ${DEVKITA64_GCC}")
+    get_filename_component(DEVKITA64 "${DEVKITA64_GCC}" DIRECTORY)
+    get_filename_component(DEVKITA64 "${DEVKITA64}" DIRECTORY)
+
+    message(STATUS "Found devkitARM: ${DEVKITA64}")
   endif(DEVKITA64_GCC)
 
-  mark_as_advanced(DEVKITARM DEVKITA64_GCC)
+  unset(DEVKITA64_GCC)
+
+  mark_as_advanced(DEVKITARM DEVKITA64)
 
   # === Components ===
   if("gba" IN_LIST DevkitPro_FIND_COMPONENTS)
