@@ -19,7 +19,7 @@
 //
 /*!
   \file   assertion_macro_gcc_clang.hpp
-  \brief  TODO
+  \brief  Debug and Release assertion macro implementations for GCC/Clang platforms.
 */
 
 #ifndef SRC_PLATFORMS_COMMON_ASSERTION_MACRO_GCC_CLANG_HPP_

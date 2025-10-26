@@ -39,6 +39,6 @@
 
 #endif // defined(__linux__)
 
-#include "../common/platform_config.hpp"
+#include "../common/assertion_macro_gcc_clang.hpp"
 
 #endif // SRC_PLATFORMS_LINUX_PLATFORM_CONFIG_HPP_

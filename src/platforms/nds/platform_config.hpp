@@ -33,6 +33,6 @@
 
 #endif // defined(__DEVKITPRO__)
 
-#include "../common/platform_config.hpp"
+#include "../common/assertion_macro_gcc_clang.hpp"
 
 #endif // SRC_PLATFORMS_NDS_PLATFORM_CONFIG_HPP_

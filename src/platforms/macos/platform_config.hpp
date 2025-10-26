@@ -39,6 +39,6 @@
 
 #endif // defined(__APPLE__) && defined(TARGET_OS_OSX)
 
-#include "../common/platform_config.hpp"
+#include "../common/assertion_macro_gcc_clang.hpp"
 
 #endif // SRC_PLATFORMS_MACOS_PLATFORM_CONFIG_HPP_
