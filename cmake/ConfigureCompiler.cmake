@@ -143,6 +143,18 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
 
   message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
 
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 3DS")
+
+  if (NOT DEVKITPRO_FOUND)
+    message(FATAL_ERROR "devkitPro not found. Install devkitPro and ensure DEVKITPRO is set.")
+  endif()
+
+  list(APPEND CMAKE_MODULE_PATH "${DEVKITPRO_ROOT}/cmake")
+
+  include(3DS)
+
+  message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
+
 else ()
 
   message(FATAL_ERROR "Unsupported platform: ${TOYGINE_TARGET_PLATFORM}")
