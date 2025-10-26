@@ -49,7 +49,7 @@ jobs:
             os: ubuntu-latest
             docker_image: devkitpro/devkitarm:latest
             run_test: "false"
-            cmake_preset: nintendo-nds-ninja
+            cmake_preset: nintendo-ds-ninja
 
     name: ${{ matrix.name }}
     runs-on: ${{ matrix.os }}
