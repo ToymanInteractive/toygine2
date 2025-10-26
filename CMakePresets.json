@@ -103,6 +103,16 @@
             }
         },
         {
+            "name": "nintendo-3ds-ninja",
+            "displayName": "Nintendo 3DS",
+            "description": "ToyGine 2 Nintendo 3DS",
+            "inherits": "base-release",
+            "toolchainFile": "$env{DEVKITPRO}/cmake/3DS.cmake",
+            "cacheVariables": {
+                "TOYGINE_TARGET_PLATFORM": "Nintendo 3DS"
+            }
+        },
+        {
             "name": "macos-ninja-debug",
             "displayName": "macOS Ninja debug",
             "description": "ToyGine 2 MacOS Ninja (Debug)",
@@ -167,6 +177,11 @@
         {
             "name": "nintendo-ds-ninja",
             "configurePreset": "nintendo-ds-ninja",
+            "inherits": "default-release"
+        },
+        {
+            "name": "nintendo-3ds-ninja",
+            "configurePreset": "nintendo-3ds-ninja",
             "inherits": "default-release"
         },
         {
