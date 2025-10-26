@@ -256,6 +256,17 @@ jobs:
           name: unit_tests_coverage.info
           path: out/build/linux-ninja-debug/unit_tests_coverage.info
 
+      - name: Covert to Cobertura
+        run: |
+          pip install lcov_cobertura
+          lcov_cobertura out/build/linux-ninja-debug/unit_tests_coverage.info --output out/build/linux-ninja-debug/cobertura.xml
+
+      - name: Upload coverage artifact
+        uses: actions/upload-artifact@v5.0.0
+        with:
+          name: cobertura.xml
+          path: out/build/linux-ninja-debug/cobertura.xml
+
   sonar-cloud:
     name: SonarCloud Analyzer
     # This job should be run only for the original repo (either pushes or pull requests originating from the same repo), forks are not allowed.
@@ -331,7 +342,8 @@ jobs:
       - name: Download coverage artifact
         uses: actions/download-artifact@v6.0.0
         with:
-          name: unit_tests_coverage.info
+          name: cobertura.xml
+          path: out/coverage
 
       - uses: SonarSource/sonarqube-scan-action@v6.0.0
         with:
@@ -339,7 +351,7 @@ jobs:
             -Dsonar.cfamily.compile-commands=out/build/linux-ninja-debug/compile_commands.json
             -Dsonar.cfamily.analysisCache.mode=fs
             -Dsonar.cfamily.analysisCache.path=.sonar-cfamily-cache
-            -Dsonar.cfamily.llvm-cov.reportPath=unit_tests_coverage.info
+            -Dsonar.cfamily.gcov.reportsPath=out/coverage
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
