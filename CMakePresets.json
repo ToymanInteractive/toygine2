@@ -84,12 +84,22 @@
         },
         {
             "name": "nintendo-gba-ninja",
-            "displayName": "Nintendo GameBoy Advance",
-            "description": "ToyGine 2 Nintendo GameBoy Advance",
+            "displayName": "Nintendo Game Boy Advance",
+            "description": "ToyGine 2 Nintendo Game Boy Advance",
             "inherits": "base-release",
             "toolchainFile": "$env{DEVKITPRO}/cmake/GBA.cmake",
             "cacheVariables": {
                 "TOYGINE_TARGET_PLATFORM": "Nintendo Game Boy Advance"
+            }
+        },
+        {
+            "name": "nintendo-ds-ninja",
+            "displayName": "Nintendo DS",
+            "description": "ToyGine 2 Nintendo DS",
+            "inherits": "base-release",
+            "toolchainFile": "$env{DEVKITPRO}/cmake/NDS.cmake",
+            "cacheVariables": {
+                "TOYGINE_TARGET_PLATFORM": "Nintendo DS"
             }
         },
         {
@@ -152,6 +162,11 @@
         {
             "name": "nintendo-gba-ninja",
             "configurePreset": "nintendo-gba-ninja",
+            "inherits": "default-release"
+        },
+        {
+            "name": "nintendo-ds-ninja",
+            "configurePreset": "nintendo-ds-ninja",
             "inherits": "default-release"
         },
         {

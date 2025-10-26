@@ -19,15 +19,15 @@
 //
 /*!
   \file   platform_config.hpp
-  \brief  additional nintendo game boy advance platform header
+  \brief  additional nintendo ds platform header
 */
 
-#ifndef SRC_PLATFORMS_GBA_PLATFORM_CONFIG_HPP_
-#define SRC_PLATFORMS_GBA_PLATFORM_CONFIG_HPP_
+#ifndef SRC_PLATFORMS_NDS_PLATFORM_CONFIG_HPP_
+#define SRC_PLATFORMS_NDS_PLATFORM_CONFIG_HPP_
 
 #if defined(__DEVKITPRO__)
 
-#define TARGET_OS OS_GBA
+#define TARGET_OS OS_NDS
 
 #define TARGET_CPU CPU_ARM_32
 
@@ -35,4 +35,4 @@
 
 #include "../common/assertion_macro_gcc_clang.hpp"
 
-#endif // SRC_PLATFORMS_GBA_PLATFORM_CONFIG_HPP_
+#endif // SRC_PLATFORMS_NDS_PLATFORM_CONFIG_HPP_
