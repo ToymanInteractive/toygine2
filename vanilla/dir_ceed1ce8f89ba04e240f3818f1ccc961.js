@@ -7,5 +7,6 @@ var dir_ceed1ce8f89ba04e240f3818f1ccc961 =
     [ "macos", "dir_09678985b484b4db3dfe2991103a0695.html", "dir_09678985b484b4db3dfe2991103a0695" ],
     [ "nds", "dir_2ddc4bd1c9638660b0dec9084e710279.html", "dir_2ddc4bd1c9638660b0dec9084e710279" ],
     [ "stub", "dir_dbd2f83f65a97e35fcbceb75bafbe0f9.html", "dir_dbd2f83f65a97e35fcbceb75bafbe0f9" ],
+    [ "switch", "dir_f1cd75b7a609b9cf63cfb1686d016e0b.html", "dir_f1cd75b7a609b9cf63cfb1686d016e0b" ],
     [ "windows", "dir_0a18029368813177489ba7a997da11e8.html", "dir_0a18029368813177489ba7a997da11e8" ]
 ];

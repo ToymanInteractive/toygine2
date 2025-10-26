@@ -1,15 +1,17 @@
 <map id="src/platforms/common/assertion_macro_gcc_clang.hpp" name="src/platforms/common/assertion_macro_gcc_clang.hpp">
-<area shape="rect" id="Node000001" title="Debug and Release assertion macro implementations for GCC/Clang platforms." alt="" coords="438,5,607,60"/>
-<area shape="rect" id="Node000002" href="$d5/d82/3ds_2platform__config_8hpp.html" title="additional nintendo ds platform header" alt="" coords="5,108,200,148"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="425,58,188,111,187,105,424,53"/>
+<area shape="rect" id="Node000001" title="Debug and Release assertion macro implementations for GCC/Clang platforms." alt="" coords="527,5,697,60"/>
+<area shape="rect" id="Node000002" href="$d5/d82/3ds_2platform__config_8hpp.html" title="additional nintendo 3ds platform header" alt="" coords="5,108,200,148"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="514,54,201,112,200,106,513,49"/>
 <area shape="rect" id="Node000003" href="$df/db1/gba_2platform__config_8hpp.html" title="additional nintendo game boy advance platform header" alt="" coords="225,108,421,148"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="455,68,364,110,362,105,453,63"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="518,67,382,111,380,105,517,62"/>
 <area shape="rect" id="Node000004" href="$dd/d9e/linux_2platform__config_8hpp.html" title="additional linux platform header" alt="" coords="445,108,601,148"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="525,74,525,108,520,108,520,74"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="579,72,543,110,539,106,575,68"/>
 <area shape="rect" id="Node000010" href="$d8/d80/macos_2platform__config_8hpp.html" title="additional macOS platform header" alt="" coords="625,108,781,148"/>
-<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="587,64,667,105,665,110,584,69"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="649,68,686,106,682,110,645,72"/>
 <area shape="rect" id="Node000011" href="$dc/d74/nds_2platform__config_8hpp.html" title="additional nintendo ds platform header" alt="" coords="805,108,1000,148"/>
-<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="621,55,826,105,825,111,620,61"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="708,62,845,105,843,111,706,67"/>
+<area shape="rect" id="Node000012" href="$db/d83/switch_2platform__config_8hpp.html" title="additional nintendo switch platform header" alt="" coords="1025,108,1181,148"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="710,49,1013,105,1025,108,1024,113,1011,111,709,54"/>
 <area shape="rect" id="Node000005" href="$da/d47/core_8hpp.html" title="Umbrella header for the engine core module." alt="" coords="458,196,587,221"/>
 <area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="525,162,525,196,520,196,520,162"/>
 <area shape="rect" id="Node000006" href="$d4/d78/math_8hpp.html" title="Umbrella header for the engine mathematics module." alt="" coords="206,277,341,302"/>
@@ -18,6 +20,6 @@
 <area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="502,233,454,278,450,275,499,229"/>
 <area shape="rect" id="Node000008" href="$de/d06/utils_8cpp.html" title="Implementation of core utility functions for string manipulation, encoding conversion,..." alt="" coords="539,277,671,302"/>
 <area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="547,229,595,275,591,278,543,233"/>
-<area shape="rect" id="Node000009" href="$d7/d90/assertion__stub_8cpp.html" title=" " alt="" coords="695,269,875,309"/>
+<area shape="rect" id="Node000009" href="$d7/d90/assertion__stub_8cpp.html" title="Stub implementation of assertion system for platforms without native assertion support." alt="" coords="695,269,875,309"/>
 <area shape="poly" id="edge8_Node000005_Node000009" title=" " alt="" coords="575,223,723,267,721,272,573,228"/>
 </map>

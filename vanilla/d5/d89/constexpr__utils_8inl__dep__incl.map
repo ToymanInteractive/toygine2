@@ -8,6 +8,6 @@
 <area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="302,130,253,176,250,172,298,126"/>
 <area shape="rect" id="Node000005" href="$de/d06/utils_8cpp.html" title="Implementation of core utility functions for string manipulation, encoding conversion,..." alt="" coords="339,174,471,199"/>
 <area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="346,126,394,172,391,176,342,130"/>
-<area shape="rect" id="Node000006" href="$d7/d90/assertion__stub_8cpp.html" title=" " alt="" coords="495,167,675,207"/>
+<area shape="rect" id="Node000006" href="$d7/d90/assertion__stub_8cpp.html" title="Stub implementation of assertion system for platforms without native assertion support." alt="" coords="495,167,675,207"/>
 <area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="374,120,522,164,521,169,373,125"/>
 </map>
