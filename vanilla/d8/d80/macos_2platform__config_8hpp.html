@@ -96,121 +96,18 @@ $(function(){initNavTree('d8/d80/macos_2platform__config_8hpp.html','../../','')
 
 <p>additional macOS platform header  
 <a href="#details">More...</a></p>
-
+<div class="textblock"><code>#include &quot;<a class="el" href="../../d1/d5f/assertion__macro__gcc__clang_8hpp_source.html">../common/assertion_macro_gcc_clang.hpp</a>&quot;</code><br />
+</div><div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Include dependency graph for platform_config.hpp:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d2/d1c/macos_2platform__config_8hpp__incl.svg" width="180" height="139"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div>
 <p><a href="../../d8/d80/macos_2platform__config_8hpp_source.html">Go to the source code of this file.</a></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:a0041af519e0e7d47c9bcc83760c4669e" id="r_a0041af519e0e7d47c9bcc83760c4669e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0041af519e0e7d47c9bcc83760c4669e">assert</a>(expression)</td></tr>
-<tr class="memdesc:a0041af519e0e7d47c9bcc83760c4669e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Debug assertion macro for runtime <em class="arg">expression</em> checking.  <br /></td></tr>
-<tr class="memitem:a672330c2fecd516f254162cd9611d91a" id="r_a672330c2fecd516f254162cd9611d91a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a672330c2fecd516f254162cd9611d91a">assert_message</a>(expression,  message)</td></tr>
-<tr class="memdesc:a672330c2fecd516f254162cd9611d91a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Debug assertion macro with custom <em class="arg">message</em> for runtime <em class="arg">expression</em> checking.  <br /></td></tr>
-</table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>additional macOS platform header </p>
-</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
-<a id="a0041af519e0e7d47c9bcc83760c4669e" name="a0041af519e0e7d47c9bcc83760c4669e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0041af519e0e7d47c9bcc83760c4669e">&#9670;&#160;</a></span>assert</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define assert</td>
-          <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>expression</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">  <span class="keywordflow">do</span> {                                                                                                                 \</div>
-<div class="line">    if (std::is_constant_evaluated()) {                                                                                \</div>
-<div class="line">      toy::assertion::constexpr_assert(expression, #expression);                                                       \</div>
-<div class="line">    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (!(expression)) {                                                                                        \</div>
-<div class="line">      toy::assertion::assertion(#expression, <span class="keyword">nullptr</span>, __FILE__, __PRETTY_FUNCTION__, __LINE__);                        \</div>
-<div class="line">    }                                                                                                                  \</div>
-<div class="line">  } <span class="keywordflow">while</span> (0)</div>
-</div><!-- fragment -->
-<p>Debug assertion macro for runtime <em class="arg">expression</em> checking. </p>
-<p>This macro provides runtime assertion checking in debug builds. It evaluates the given <em class="arg">expression</em> and triggers an assertion failure if the <em class="arg">expression</em> is false. In release builds, this macro expands to nothing.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">expression</td><td>The boolean expression to evaluate. Must be convertible to bool.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section note"><dt>Note</dt><dd>This macro is only active in debug builds (_DEBUG defined). </dd>
-<dd>
-In release builds, this macro expands to ((void)0) and has no effect. </dd>
-<dd>
-Assertion failures will call <a class="el" href="../../d2/da2/namespacetoy_1_1assertion.html#a6d1330b6720063a047b23b0d46d26afb">toy::assertion::assertion</a> with file, function, and line information. </dd>
-<dd>
-The <em class="arg">expression</em> is evaluated only once and should not have side effects.</dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd>Do not rely on the <em class="arg">expression</em> being evaluated in release builds. </dd>
-<dd>
-The <em class="arg">expression</em> should not have side effects as it may not be evaluated in release builds.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../df/db1/gba_2platform__config_8hpp.html#a672330c2fecd516f254162cd9611d91a" title="Debug assertion macro with custom message for runtime expression checking.">assert_message</a> </dd>
-<dd>
-<a class="el" href="../../d2/da2/namespacetoy_1_1assertion.html#a6d1330b6720063a047b23b0d46d26afb">toy::assertion::assertion</a> </dd></dl>
-
-</div>
-</div>
-<a id="a672330c2fecd516f254162cd9611d91a" name="a672330c2fecd516f254162cd9611d91a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a672330c2fecd516f254162cd9611d91a">&#9670;&#160;</a></span>assert_message</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define assert_message</td>
-          <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>expression</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>message</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">  <span class="keywordflow">do</span> {                                                                                                                 \</div>
-<div class="line">    if (std::is_constant_evaluated()) {                                                                                \</div>
-<div class="line">      toy::assertion::constexpr_assert(expression, message);                                                           \</div>
-<div class="line">    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (!(expression)) {                                                                                        \</div>
-<div class="line">      toy::assertion::assertion(#expression, message, __FILE__, __PRETTY_FUNCTION__, __LINE__);                        \</div>
-<div class="line">    }                                                                                                                  \</div>
-<div class="line">  } <span class="keywordflow">while</span> (0)</div>
-</div><!-- fragment -->
-<p>Debug assertion macro with custom <em class="arg">message</em> for runtime <em class="arg">expression</em> checking. </p>
-<p>This macro provides runtime assertion checking in debug builds with a custom error <em class="arg">message</em>. It evaluates the given <em class="arg">expression</em> and triggers an assertion failure with the provided <em class="arg">message</em> if the <em class="arg">expression</em> is false. In release builds, this macro expands to nothing.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">expression</td><td>The boolean expression to evaluate. Must be convertible to bool. </td></tr>
-    <tr><td class="paramname">message</td><td>A custom error message to display on assertion failure. Must be a C string literal.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section note"><dt>Note</dt><dd>This macro is only active in debug builds (_DEBUG defined). </dd>
-<dd>
-In release builds, this macro expands to ((void)0) and has no effect. </dd>
-<dd>
-Assertion failures will call <a class="el" href="../../d2/da2/namespacetoy_1_1assertion.html#a6d1330b6720063a047b23b0d46d26afb">toy::assertion::assertion</a> with file, function, line, and custom <em class="arg">message</em>. </dd>
-<dd>
-The <em class="arg">expression</em> is evaluated only once and should not have side effects. </dd>
-<dd>
-The <em class="arg">message</em> parameter is passed as-is to the assertion handler.</dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd>Do not rely on the <em class="arg">expression</em> being evaluated in release builds. </dd>
-<dd>
-The <em class="arg">expression</em> should not have side effects as it may not be evaluated in release builds. </dd>
-<dd>
-The <em class="arg">message</em> should be a C string literal for optimal performance.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../df/db1/gba_2platform__config_8hpp.html#a0041af519e0e7d47c9bcc83760c4669e" title="Debug assertion macro for runtime expression checking.">assert</a> </dd>
-<dd>
-<a class="el" href="../../d2/da2/namespacetoy_1_1assertion.html#a6d1330b6720063a047b23b0d46d26afb">toy::assertion::assertion</a> </dd></dl>
-
-</div>
-</div>
-</div><!-- contents -->
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>

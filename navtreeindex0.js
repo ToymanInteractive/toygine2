@@ -5,6 +5,10 @@ var NAVTREEINDEX0 =
 "concepts.html":[3],
 "d0/de4/point_8hpp.html":[5,0,0,2,0],
 "d0/de4/point_8hpp_source.html":[5,0,0,2,0],
+"d1/d5f/assertion__macro__gcc__clang_8hpp.html":[5,0,1,1,0,0],
+"d1/d5f/assertion__macro__gcc__clang_8hpp.html#a0041af519e0e7d47c9bcc83760c4669e":[5,0,1,1,0,0,0],
+"d1/d5f/assertion__macro__gcc__clang_8hpp.html#a672330c2fecd516f254162cd9611d91a":[5,0,1,1,0,0,1],
+"d1/d5f/assertion__macro__gcc__clang_8hpp_source.html":[5,0,1,1,0,0],
 "d2/d83/namespacetoy_1_1math.html":[2,0,0,1],
 "d2/d83/namespacetoy_1_1math.html#a237969d397d856ba403536b96321a926":[2,0,0,1,15],
 "d2/d83/namespacetoy_1_1math.html#a3a38c2b254610122be68eaa78896c558":[2,0,0,1,9],
@@ -245,9 +249,5 @@ var NAVTREEINDEX0 =
 "d3/d7a/classtoy_1_1_fixed_string.html#afad7817c5f37198671e098cd67ade423":[2,0,0,5,34],
 "d3/d7a/classtoy_1_1_fixed_string.html#afad7817c5f37198671e098cd67ade423":[4,0,0,4,34],
 "d3/d7a/classtoy_1_1_fixed_string.html#afb423343c69dd752c0a27439922e116b":[2,0,0,5,89],
-"d3/d7a/classtoy_1_1_fixed_string.html#afb423343c69dd752c0a27439922e116b":[4,0,0,4,89],
-"d3/d7a/classtoy_1_1_fixed_string.html#afba7a518ba63a32116817444d3582063":[2,0,0,5,86],
-"d3/d7a/classtoy_1_1_fixed_string.html#afba7a518ba63a32116817444d3582063":[4,0,0,4,86],
-"d3/d7a/classtoy_1_1_fixed_string.html#afd6420b021d180b334ca1cf3a8e8c663":[2,0,0,5,69],
-"d3/d7a/classtoy_1_1_fixed_string.html#afd6420b021d180b334ca1cf3a8e8c663":[4,0,0,4,69]
+"d3/d7a/classtoy_1_1_fixed_string.html#afb423343c69dd752c0a27439922e116b":[4,0,0,4,89]
 };

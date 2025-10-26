@@ -114,7 +114,7 @@ $(function(){initNavTree('df/db1/gba_2platform__config_8hpp_source.html','../../
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="comment">//</span></div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment">/*!</span></div>
 <div class="line"><span class="lineno">   21</span><span class="comment">  \file   platform_config.hpp</span></div>
-<div class="line"><span class="lineno">   22</span><span class="comment">  \brief  additional nintendo gba platform header</span></div>
+<div class="line"><span class="lineno">   22</span><span class="comment">  \brief  additional nintendo game boy advance platform header</span></div>
 <div class="line"><span class="lineno">   23</span><span class="comment">*/</span></div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#</span><span class="preprocessor">ifndef</span> <span class="preprocessor">SRC_PLATFORMS_GBA_PLATFORM_CONFIG_HPP_</span></div>
@@ -128,119 +128,9 @@ $(function(){initNavTree('df/db1/gba_2platform__config_8hpp_source.html','../../
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor">#</span><span class="preprocessor">endif</span> <span class="comment">// defined(__DEVKITPRO__)</span></div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="comment">//----------------------------------------------------------------------------------------------------------------------</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&quot;../common/assertion_macro_gcc_clang.hpp&quot;</span></div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#</span><span class="preprocessor">undef</span> <span class="preprocessor">assert</span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="preprocessor">#</span><span class="preprocessor">ifdef</span> <span class="preprocessor">_DEBUG</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment">/*!</span></div>
-<div class="line"><span class="lineno">   43</span><span class="comment">  \def assert(expression)</span></div>
-<div class="line"><span class="lineno">   44</span><span class="comment">  \brief Debug assertion macro for runtime \a expression checking.</span></div>
-<div class="line"><span class="lineno">   45</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   46</span><span class="comment">  This macro provides runtime assertion checking in debug builds. It evaluates the given \a expression and triggers an</span></div>
-<div class="line"><span class="lineno">   47</span><span class="comment">  assertion failure if the \a expression is false. In release builds, this macro expands to nothing.</span></div>
-<div class="line"><span class="lineno">   48</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   49</span><span class="comment">  \param expression The boolean expression to evaluate. Must be convertible to bool.</span></div>
-<div class="line"><span class="lineno">   50</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   51</span><span class="comment">  \note This macro is only active in debug builds (_DEBUG defined).</span></div>
-<div class="line"><span class="lineno">   52</span><span class="comment">  \note In release builds, this macro expands to ((void)0) and has no effect.</span></div>
-<div class="line"><span class="lineno">   53</span><span class="comment">  \note Assertion failures will call toy::assertion::assertion with file, function, and line information.</span></div>
-<div class="line"><span class="lineno">   54</span><span class="comment">  \note The \a expression is evaluated only once and should not have side effects.</span></div>
-<div class="line"><span class="lineno">   55</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   56</span><span class="comment">  \warning Do not rely on the \a expression being evaluated in release builds.</span></div>
-<div class="line"><span class="lineno">   57</span><span class="comment">  \warning The \a expression should not have side effects as it may not be evaluated in release builds.</span></div>
-<div class="line"><span class="lineno">   58</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   59</span><span class="comment">  \see assert_message</span></div>
-<div class="line"><span class="lineno">   60</span><span class="comment">  \see toy::assertion::assertion</span></div>
-<div class="line"><span class="lineno">   61</span><span class="comment">*/</span></div>
-<div class="foldopen" id="foldopen00062" data-start="" data-end="">
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="../../df/db1/gba_2platform__config_8hpp.html#a0041af519e0e7d47c9bcc83760c4669e">   62</a></span><span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">assert</span><span class="preprocessor">(</span><span class="preprocessor">expression</span><span class="preprocessor">)</span></div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>  <span class="preprocessor">do</span> <span class="preprocessor">{</span></div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="preprocessor">if</span> <span class="preprocessor">(</span><span class="preprocessor">std</span><span class="preprocessor">::</span><span class="preprocessor">is_constant_evaluated</span><span class="preprocessor">(</span><span class="preprocessor">)</span><span class="preprocessor">)</span> <span class="preprocessor">{</span></div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>      <span class="preprocessor">toy</span><span class="preprocessor">::</span><span class="preprocessor">assertion</span><span class="preprocessor">::</span><span class="preprocessor">constexpr_assert</span><span class="preprocessor">(</span><span class="preprocessor">expression</span><span class="preprocessor">,</span> <span class="preprocessor">#</span><span class="preprocessor">expression</span><span class="preprocessor">)</span><span class="preprocessor">;</span></div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="preprocessor">}</span> <span class="preprocessor">else</span> <span class="preprocessor">if</span> <span class="preprocessor">(</span><span class="preprocessor">!</span><span class="preprocessor">(</span><span class="preprocessor">expression</span><span class="preprocessor">)</span><span class="preprocessor">)</span> <span class="preprocessor">{</span></div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>      <span class="preprocessor">toy</span><span class="preprocessor">::</span><span class="preprocessor">assertion</span><span class="preprocessor">::</span><span class="preprocessor">assertion</span><span class="preprocessor">(</span><span class="preprocessor">#</span><span class="preprocessor">expression</span><span class="preprocessor">,</span> <span class="preprocessor">nullptr</span><span class="preprocessor">,</span> <span class="preprocessor">__FILE__</span><span class="preprocessor">,</span> <span class="preprocessor">__PRETTY_FUNCTION__</span><span class="preprocessor">,</span> <span class="preprocessor">__LINE__</span><span class="preprocessor">)</span><span class="preprocessor">;</span></div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="preprocessor">}</span></div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>  <span class="preprocessor">}</span> <span class="preprocessor">while</span> <span class="preprocessor">(</span>0<span class="preprocessor">)</span></div>
-</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="comment">/*!</span></div>
-<div class="line"><span class="lineno">   72</span><span class="comment">  \def assert_message(expression, message)</span></div>
-<div class="line"><span class="lineno">   73</span><span class="comment">  \brief Debug assertion macro with custom \a message for runtime \a expression checking.</span></div>
-<div class="line"><span class="lineno">   74</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   75</span><span class="comment">  This macro provides runtime assertion checking in debug builds with a custom error \a message. It evaluates the given</span></div>
-<div class="line"><span class="lineno">   76</span><span class="comment">  \a expression and triggers an assertion failure with the provided \a message if the \a expression is false. In release</span></div>
-<div class="line"><span class="lineno">   77</span><span class="comment">  builds, this macro expands to nothing.</span></div>
-<div class="line"><span class="lineno">   78</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   79</span><span class="comment">  \param expression The boolean expression to evaluate. Must be convertible to bool.</span></div>
-<div class="line"><span class="lineno">   80</span><span class="comment">  \param message    A custom error message to display on assertion failure. Must be a C string literal.</span></div>
-<div class="line"><span class="lineno">   81</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   82</span><span class="comment">  \note This macro is only active in debug builds (_DEBUG defined).</span></div>
-<div class="line"><span class="lineno">   83</span><span class="comment">  \note In release builds, this macro expands to ((void)0) and has no effect.</span></div>
-<div class="line"><span class="lineno">   84</span><span class="comment">  \note Assertion failures will call toy::assertion::assertion with file, function, line, and custom \a message.</span></div>
-<div class="line"><span class="lineno">   85</span><span class="comment">  \note The \a expression is evaluated only once and should not have side effects.</span></div>
-<div class="line"><span class="lineno">   86</span><span class="comment">  \note The \a message parameter is passed as-is to the assertion handler.</span></div>
-<div class="line"><span class="lineno">   87</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   88</span><span class="comment">  \warning Do not rely on the \a expression being evaluated in release builds.</span></div>
-<div class="line"><span class="lineno">   89</span><span class="comment">  \warning The \a expression should not have side effects as it may not be evaluated in release builds.</span></div>
-<div class="line"><span class="lineno">   90</span><span class="comment">  \warning The \a message should be a C string literal for optimal performance.</span></div>
-<div class="line"><span class="lineno">   91</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   92</span><span class="comment">  \see assert</span></div>
-<div class="line"><span class="lineno">   93</span><span class="comment">  \see toy::assertion::assertion</span></div>
-<div class="line"><span class="lineno">   94</span><span class="comment">*/</span></div>
-<div class="foldopen" id="foldopen00095" data-start="" data-end="">
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="../../df/db1/gba_2platform__config_8hpp.html#a672330c2fecd516f254162cd9611d91a">   95</a></span><span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">assert_message</span><span class="preprocessor">(</span><span class="preprocessor">expression</span><span class="preprocessor">,</span> <span class="preprocessor">message</span><span class="preprocessor">)</span></div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>  <span class="preprocessor">do</span> <span class="preprocessor">{</span></div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <span class="preprocessor">if</span> <span class="preprocessor">(</span><span class="preprocessor">std</span><span class="preprocessor">::</span><span class="preprocessor">is_constant_evaluated</span><span class="preprocessor">(</span><span class="preprocessor">)</span><span class="preprocessor">)</span> <span class="preprocessor">{</span></div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>      <span class="preprocessor">toy</span><span class="preprocessor">::</span><span class="preprocessor">assertion</span><span class="preprocessor">::</span><span class="preprocessor">constexpr_assert</span><span class="preprocessor">(</span><span class="preprocessor">expression</span><span class="preprocessor">,</span> <span class="preprocessor">message</span><span class="preprocessor">)</span><span class="preprocessor">;</span></div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="preprocessor">}</span> <span class="preprocessor">else</span> <span class="preprocessor">if</span> <span class="preprocessor">(</span><span class="preprocessor">!</span><span class="preprocessor">(</span><span class="preprocessor">expression</span><span class="preprocessor">)</span><span class="preprocessor">)</span> <span class="preprocessor">{</span></div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>      <span class="preprocessor">toy</span><span class="preprocessor">::</span><span class="preprocessor">assertion</span><span class="preprocessor">::</span><span class="preprocessor">assertion</span><span class="preprocessor">(</span><span class="preprocessor">#</span><span class="preprocessor">expression</span><span class="preprocessor">,</span> <span class="preprocessor">message</span><span class="preprocessor">,</span> <span class="preprocessor">__FILE__</span><span class="preprocessor">,</span> <span class="preprocessor">__PRETTY_FUNCTION__</span><span class="preprocessor">,</span> <span class="preprocessor">__LINE__</span><span class="preprocessor">)</span><span class="preprocessor">;</span></div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <span class="preprocessor">}</span></div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>  <span class="preprocessor">}</span> <span class="preprocessor">while</span> <span class="preprocessor">(</span>0<span class="preprocessor">)</span></div>
-</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="preprocessor">#</span><span class="preprocessor">else</span> <span class="comment">// _DEBUG</span></div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span><span class="comment">/*!</span></div>
-<div class="line"><span class="lineno">  107</span><span class="comment">  \def assert(expression)</span></div>
-<div class="line"><span class="lineno">  108</span><span class="comment">  \brief Release build assertion macro (no-op).</span></div>
-<div class="line"><span class="lineno">  109</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  110</span><span class="comment">  In release builds, this macro expands to nothing and has no effect. The \a expression is not evaluated.</span></div>
-<div class="line"><span class="lineno">  111</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  112</span><span class="comment">  \param expression The boolean expression (ignored in release builds).</span></div>
-<div class="line"><span class="lineno">  113</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  114</span><span class="comment">  \note This macro is only defined in release builds (!_DEBUG).</span></div>
-<div class="line"><span class="lineno">  115</span><span class="comment">  \note The \a expression parameter is ignored and not evaluated.</span></div>
-<div class="line"><span class="lineno">  116</span><span class="comment">  \note This ensures zero overhead in release builds.</span></div>
-<div class="line"><span class="lineno">  117</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  118</span><span class="comment">  \see assert_message</span></div>
-<div class="line"><span class="lineno">  119</span><span class="comment">*/</span></div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span><span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">assert</span><span class="preprocessor">(</span><span class="preprocessor">expression</span><span class="preprocessor">)</span> <span class="preprocessor">(</span><span class="preprocessor">(</span><span class="keywordtype">void</span><span class="preprocessor">)</span>0<span class="preprocessor">)</span></div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span><span class="comment">/*!</span></div>
-<div class="line"><span class="lineno">  123</span><span class="comment">  \def assert_message(expression, message)</span></div>
-<div class="line"><span class="lineno">  124</span><span class="comment">  \brief Release build assertion macro with \a message (no-op).</span></div>
-<div class="line"><span class="lineno">  125</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  126</span><span class="comment">  In release builds, this macro expands to nothing and has no effect. Neither the \a expression nor the \a message are</span></div>
-<div class="line"><span class="lineno">  127</span><span class="comment">  evaluated.</span></div>
-<div class="line"><span class="lineno">  128</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  129</span><span class="comment">  \param expression The boolean expression (ignored in release builds).</span></div>
-<div class="line"><span class="lineno">  130</span><span class="comment">  \param message    The custom error message (ignored in release builds).</span></div>
-<div class="line"><span class="lineno">  131</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  132</span><span class="comment">  \note This macro is only defined in release builds (!_DEBUG).</span></div>
-<div class="line"><span class="lineno">  133</span><span class="comment">  \note Both parameters are ignored and not evaluated.</span></div>
-<div class="line"><span class="lineno">  134</span><span class="comment">  \note This ensures zero overhead in release builds.</span></div>
-<div class="line"><span class="lineno">  135</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  136</span><span class="comment">  \see assert</span></div>
-<div class="line"><span class="lineno">  137</span><span class="comment">*/</span></div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span><span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">assert_message</span><span class="preprocessor">(</span><span class="preprocessor">expression</span><span class="preprocessor">,</span> <span class="preprocessor">message</span><span class="preprocessor">)</span> <span class="preprocessor">(</span><span class="preprocessor">(</span><span class="keywordtype">void</span><span class="preprocessor">)</span>0<span class="preprocessor">)</span></div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span> </div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span><span class="preprocessor">#</span><span class="preprocessor">endif</span> <span class="comment">// _DEBUG</span></div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span> </div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span><span class="comment">//----------------------------------------------------------------------------------------------------------------------</span></div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span> </div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span><span class="preprocessor">#</span><span class="preprocessor">endif</span> <span class="comment">// SRC_PLATFORMS_GBA_PLATFORM_CONFIG_HPP_</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#</span><span class="preprocessor">endif</span> <span class="comment">// SRC_PLATFORMS_GBA_PLATFORM_CONFIG_HPP_</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->
