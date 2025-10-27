@@ -140,6 +140,7 @@
         "variant": "cpp",
         "vector": "cpp",
         "algorithm": "cpp",
-        "*.in": "cpp"
+        "*.in": "cpp",
+        "cstddef": "cpp"
     }
 }

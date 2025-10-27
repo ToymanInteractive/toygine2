@@ -184,6 +184,47 @@ TEST_CASE("FixedVector constructors", "[core][fixed_vector]") {
     REQUIRE(zeroVec.size() == 0);
     REQUIRE(zeroVec.capacity() == 5);
   }
+
+  SECTION("Iterator constructor") {
+    const std::vector<int> sourceVec{1, 2, 3, 4};
+    const FixedVector<int, 5> vec(sourceVec.begin(), sourceVec.end());
+
+    REQUIRE(vec.size() == 4);
+    REQUIRE(vec.capacity() == 5);
+    REQUIRE(vec[0] == 1);
+    REQUIRE(vec[1] == 2);
+    REQUIRE(vec[2] == 3);
+    REQUIRE(vec[3] == 4);
+  }
+
+  SECTION("Iterator constructor with array") {
+    constexpr std::array<int, 3> sourceArray{10, 20, 30};
+    const FixedVector<int, 5> vec(std::begin(sourceArray), std::end(sourceArray));
+
+    REQUIRE(vec.size() == 3);
+    REQUIRE(vec.capacity() == 5);
+    REQUIRE(vec[0] == 10);
+    REQUIRE(vec[1] == 20);
+    REQUIRE(vec[2] == 30);
+  }
+
+  SECTION("Iterator constructor with empty range") {
+    constexpr std::vector<int> emptyVec;
+    const FixedVector<int, 5> vec(emptyVec.begin(), emptyVec.end());
+
+    REQUIRE(vec.size() == 0);
+    REQUIRE(vec.capacity() == 5);
+  }
+
+  SECTION("Iterator constructor with different types") {
+    const std::vector<FixedString<10>> sourceVec{FixedString<10>("hello"), FixedString<10>("world")};
+    const FixedVector<FixedString<10>, 5> vec(sourceVec.begin(), sourceVec.end());
+
+    REQUIRE(vec.size() == 2);
+    REQUIRE(vec.capacity() == 5);
+    REQUIRE(vec[0] == "hello");
+    REQUIRE(vec[1] == "world");
+  }
 }
 
 TEST_CASE("FixedVector assignment operators", "[core][fixed_vector]") {
@@ -321,5 +362,206 @@ TEST_CASE("FixedVector assignment operators", "[core][fixed_vector]") {
     REQUIRE(vec2[1].size() == 2);
     REQUIRE(vec2[1][0] == 4);
     REQUIRE(vec2[1][1] == 5);
+  }
+}
+
+TEST_CASE("FixedVector assign methods", "[core][fixed_vector]") {
+  SECTION("Assign count and value") {
+    FixedVector<int, 5> vec{1, 2, 3};
+
+    vec.assign(2, 42);
+
+    REQUIRE(vec.size() == 2);
+    REQUIRE(vec.capacity() == 5);
+    REQUIRE(vec[0] == 42);
+    REQUIRE(vec[1] == 42);
+  }
+
+  SECTION("Assign count and value with existing elements") {
+    FixedVector<int, 5> vec{1, 2, 3, 4, 5};
+
+    vec.assign(3, 99);
+
+    REQUIRE(vec.size() == 3);
+    REQUIRE(vec.capacity() == 5);
+    REQUIRE(vec[0] == 99);
+    REQUIRE(vec[1] == 99);
+    REQUIRE(vec[2] == 99);
+  }
+
+  SECTION("Assign count and value with empty vector") {
+    FixedVector<int, 5> vec;
+
+    vec.assign(4, 10);
+
+    REQUIRE(vec.size() == 4);
+    REQUIRE(vec.capacity() == 5);
+    REQUIRE(vec[0] == 10);
+    REQUIRE(vec[1] == 10);
+    REQUIRE(vec[2] == 10);
+    REQUIRE(vec[3] == 10);
+  }
+
+  SECTION("Assign count and value with zero count") {
+    FixedVector<int, 5> vec{1, 2, 3};
+
+    vec.assign(0, 42);
+
+    REQUIRE(vec.size() == 0);
+    REQUIRE(vec.capacity() == 5);
+  }
+
+  SECTION("Assign from iterator range") {
+    std::vector<int> source{10, 20, 30, 40};
+    FixedVector<int, 5> vec{1, 2, 3};
+
+    vec.assign(source.begin(), source.end());
+
+    REQUIRE(vec.size() == 4);
+    REQUIRE(vec.capacity() == 5);
+    REQUIRE(vec[0] == 10);
+    REQUIRE(vec[1] == 20);
+    REQUIRE(vec[2] == 30);
+    REQUIRE(vec[3] == 40);
+  }
+
+  SECTION("Assign from iterator range with array") {
+    constexpr std::array<int, 3> sourceArray{100, 200, 300};
+    FixedVector<int, 5> vec{1, 2, 3, 4};
+
+    vec.assign(std::begin(sourceArray), std::end(sourceArray));
+
+    REQUIRE(vec.size() == 3);
+    REQUIRE(vec.capacity() == 5);
+    REQUIRE(vec[0] == 100);
+    REQUIRE(vec[1] == 200);
+    REQUIRE(vec[2] == 300);
+  }
+
+  SECTION("Assign from empty iterator range") {
+    const std::vector<int> emptyVec;
+    FixedVector<int, 5> vec{1, 2, 3};
+
+    vec.assign(emptyVec.begin(), emptyVec.end());
+
+    REQUIRE(vec.size() == 0);
+    REQUIRE(vec.capacity() == 5);
+  }
+
+  SECTION("Assign from iterator range with different types") {
+    std::vector<FixedString<10>> source{FixedString<10>("foo"), FixedString<10>("bar")};
+    FixedVector<FixedString<10>, 5> vec{FixedString<10>("old")};
+
+    vec.assign(source.begin(), source.end());
+
+    REQUIRE(vec.size() == 2);
+    REQUIRE(vec.capacity() == 5);
+    REQUIRE(vec[0] == "foo");
+    REQUIRE(vec[1] == "bar");
+  }
+
+  SECTION("Assign from initializer list") {
+    FixedVector<int, 5> vec{1, 2, 3};
+
+    vec.assign({4, 5, 6, 7});
+
+    REQUIRE(vec.size() == 4);
+    REQUIRE(vec.capacity() == 5);
+    REQUIRE(vec[0] == 4);
+    REQUIRE(vec[1] == 5);
+    REQUIRE(vec[2] == 6);
+    REQUIRE(vec[3] == 7);
+  }
+
+  SECTION("Assign from empty initializer list") {
+    FixedVector<int, 5> vec{1, 2, 3, 4, 5};
+
+    vec.assign({});
+
+    REQUIRE(vec.size() == 0);
+    REQUIRE(vec.capacity() == 5);
+  }
+
+  SECTION("Assign from single element initializer list") {
+    FixedVector<int, 5> vec{1, 2, 3};
+
+    vec.assign({999});
+
+    REQUIRE(vec.size() == 1);
+    REQUIRE(vec.capacity() == 5);
+    REQUIRE(vec[0] == 999);
+  }
+
+  SECTION("Assign from initializer list with different sizes") {
+    FixedVector<int, 5> vec{1, 2, 3, 4, 5};
+
+    vec.assign({10, 20});
+
+    REQUIRE(vec.size() == 2);
+    REQUIRE(vec.capacity() == 5);
+    REQUIRE(vec[0] == 10);
+    REQUIRE(vec[1] == 20);
+
+    vec.assign({100, 200, 300, 400, 500});
+
+    REQUIRE(vec.size() == 5);
+    REQUIRE(vec.capacity() == 5);
+    REQUIRE(vec[0] == 100);
+    REQUIRE(vec[4] == 500);
+  }
+
+  SECTION("Assign with complex types") {
+    FixedVector<std::vector<int>, 3> vec;
+    std::vector<std::vector<int>> source{{1, 2}, {3, 4, 5}};
+
+    vec.assign(source.begin(), source.end());
+
+    REQUIRE(vec.size() == 2);
+    REQUIRE(vec.capacity() == 3);
+    REQUIRE(vec[0].size() == 2);
+    REQUIRE(vec[0][0] == 1);
+    REQUIRE(vec[0][1] == 2);
+    REQUIRE(vec[1].size() == 3);
+    REQUIRE(vec[1][0] == 3);
+    REQUIRE(vec[1][1] == 4);
+    REQUIRE(vec[1][2] == 5);
+  }
+
+  SECTION("Assign chained operations") {
+    FixedVector<int, 5> vec;
+
+    vec.assign(3, 1);
+    REQUIRE(vec.size() == 3);
+    REQUIRE(vec.capacity() == 5);
+    REQUIRE(vec[2] == 1);
+
+    vec.assign({2, 3, 4, 5});
+    REQUIRE(vec.size() == 4);
+    REQUIRE(vec.capacity() == 5);
+    REQUIRE(vec[3] == 5);
+
+    std::vector<int> v{10, 20};
+    vec.assign(v.begin(), v.end());
+    REQUIRE(vec.size() == 2);
+    REQUIRE(vec.capacity() == 5);
+    REQUIRE(vec[0] == 10);
+    REQUIRE(vec[1] == 20);
+  }
+
+  SECTION("Assign edge cases") {
+    // Maximum capacity assignment
+    FixedVector<int, 1> maxVec;
+    maxVec.assign(1, 999);
+    REQUIRE(maxVec.size() == 1);
+    REQUIRE(maxVec.capacity() == 1);
+    REQUIRE(maxVec[0] == 999);
+
+    // Assign same value multiple times
+    FixedVector<int, 5> sameVec;
+    sameVec.assign(5, 42);
+    REQUIRE(sameVec.size() == 5);
+    for (auto i = 0; i < sameVec.size(); ++i) {
+      REQUIRE(sameVec[i] == 42);
+    }
   }
 }
