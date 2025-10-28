@@ -209,7 +209,7 @@ TEST_CASE("FixedVector constructors", "[core][fixed_vector]") {
   }
 
   SECTION("Iterator constructor with empty range") {
-    constexpr std::vector<int> emptyVec;
+    const std::vector<int> emptyVec;
     const FixedVector<int, 5> vec(emptyVec.begin(), emptyVec.end());
 
     REQUIRE(vec.size() == 0);

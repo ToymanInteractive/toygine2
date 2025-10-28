@@ -37,8 +37,8 @@ public:
   using const_reference = const value_type &; //!< Const reference to vector element.
   using pointer = type *; //!< Pointer to vector element.
   using const_pointer = const type *; //!< Const pointer to vector element.
-  using iterator = value_type *;
-  using const_iterator = const value_type *;
+  using iterator = value_type *; //!< Iterator type for vector elements.
+  using const_iterator = const value_type *; //!< Const iterator type for vector elements.
   using reverse_iterator = std::reverse_iterator<iterator>;
   using const_reverse_iterator = std::reverse_iterator<const_iterator>;
 
@@ -106,7 +106,7 @@ public:
     \post The new vector contains all elements from the range [ \a first, \a last ).
   */
   template <typename InputIterator, typename = std::enable_if_t<!std::is_integral_v<InputIterator>>>
-  FixedVector(InputIterator first, InputIterator last) noexcept;
+  FixedVector(InputIterator first, InputIterator last);
 
   /*!
     \brief Constructs a copy of \a other FixedVector.
@@ -290,7 +290,7 @@ public:
 
     \note The operator handles empty initializer lists correctly.
   */
-  FixedVector<type, allocatedSize> & operator=(std::initializer_list<type> ilist) noexcept;
+  FixedVector<type, allocatedSize> & operator=(std::initializer_list<type> ilist);
 
   /*!
     \brief Assigns \a count copies of \a value to the vector.
@@ -314,7 +314,7 @@ public:
   /*!
     \brief Assigns elements from the range [ \a first, \a last ) to the vector.
 
-    This method replaces the current contents of the vector with seen from the range [ \a first, \a last ).
+    This method replaces the current contents of the vector with elements from the range [ \a first, \a last ).
 
     \tparam InputIterator The type of the input iterator.
 
@@ -332,7 +332,7 @@ public:
     \note Elements from the range are copied into the vector.
   */
   template <typename InputIterator, typename = std::enable_if_t<!std::is_integral_v<InputIterator>>>
-  void assign(InputIterator first, InputIterator last) noexcept;
+  void assign(InputIterator first, InputIterator last);
 
   /*!
     \brief Assigns elements from an initializer list to the vector.
@@ -350,7 +350,7 @@ public:
     \note This method clears existing elements before assignment.
     \note The operator handles empty initializer lists correctly.
   */
-  void assign(std::initializer_list<type> ilist) noexcept;
+  void assign(std::initializer_list<type> ilist);
 
   // temporary
 
