@@ -58,13 +58,13 @@ inline FixedVector<type, allocatedSize>::FixedVector(size_type count, const type
 }
 
 template <typename type, std::size_t allocatedSize>
-template <typename InputIterator, typename>
+template <typename InputIterator>
+  requires(!std::is_integral_v<InputIterator>)
 inline FixedVector<type, allocatedSize>::FixedVector(InputIterator first, InputIterator last)
   : _data()
   , _size(0) {
-  assert_message(std::distance(first, last) <= allocatedSize, "Iterator range size must not exceed capacity.");
-
   for (auto it = first; it != last; ++it) {
+    assert_message(_size < allocatedSize, "Iterator range size must not exceed capacity.");
     push_back(*it);
   }
 }
@@ -219,13 +219,13 @@ inline void FixedVector<type, allocatedSize>::assign(size_type count, const type
 }
 
 template <typename type, std::size_t allocatedSize>
-template <typename InputIterator, typename>
+template <typename InputIterator>
+  requires(!std::is_integral_v<InputIterator>)
 inline void FixedVector<type, allocatedSize>::assign(InputIterator first, InputIterator last) {
-  assert_message(std::distance(first, last) <= allocatedSize, "Iterator range size must not exceed capacity.");
-
   clear();
 
   for (auto it = first; it != last; ++it) {
+    assert_message(_size < allocatedSize, "Iterator range size must not exceed capacity.");
     push_back(*it);
   }
 }
