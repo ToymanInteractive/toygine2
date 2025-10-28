@@ -38,9 +38,6 @@ public:
   using pointer = type *; //!< Pointer to vector element.
   using const_pointer = const type *; //!< Const pointer to vector element.
   using iterator = value_type *; //!< Iterator type for vector elements.
-  using const_iterator = const value_type *; //!< Const iterator type for vector elements.
-  using reverse_iterator = std::reverse_iterator<iterator>;
-  using const_reverse_iterator = std::reverse_iterator<const_iterator>;
 
   /*!
     \brief Default constructor.
@@ -105,7 +102,8 @@ public:
 
     \post The new vector contains all elements from the range [ \a first, \a last ).
   */
-  template <typename InputIterator, typename = std::enable_if_t<!std::is_integral_v<InputIterator>>>
+  template <typename InputIterator>
+    requires(!std::is_integral_v<InputIterator>)
   FixedVector(InputIterator first, InputIterator last);
 
   /*!
@@ -186,7 +184,7 @@ public:
 
     \post The new vector has the same size and content as the source \a init.
   */
-  explicit FixedVector(std::initializer_list<type> init) noexcept;
+  explicit FixedVector(std::initializer_list<type> init);
 
   /*!
     \brief Copy assigns other FixedVector to this FixedVector.
@@ -331,7 +329,8 @@ public:
     \note This method clears existing elements before assignment.
     \note Elements from the range are copied into the vector.
   */
-  template <typename InputIterator, typename = std::enable_if_t<!std::is_integral_v<InputIterator>>>
+  template <typename InputIterator>
+    requires(!std::is_integral_v<InputIterator>)
   void assign(InputIterator first, InputIterator last);
 
   /*!

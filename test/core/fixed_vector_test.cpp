@@ -560,7 +560,7 @@ TEST_CASE("FixedVector assign methods", "[core][fixed_vector]") {
     FixedVector<int, 5> sameVec;
     sameVec.assign(5, 42);
     REQUIRE(sameVec.size() == 5);
-    for (auto i = 0; i < sameVec.size(); ++i) {
+    for (std::size_t i = 0; i < sameVec.size(); ++i) {
       REQUIRE(sameVec[i] == 42);
     }
   }

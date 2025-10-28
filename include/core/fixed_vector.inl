@@ -58,6 +58,18 @@ inline FixedVector<type, allocatedSize>::FixedVector(size_type count, const type
 }
 
 template <typename type, std::size_t allocatedSize>
+template <typename InputIterator, typename>
+inline FixedVector<type, allocatedSize>::FixedVector(InputIterator first, InputIterator last)
+  : _data()
+  , _size(0) {
+  assert_message(std::distance(first, last) <= allocatedSize, "Iterator range size must not exceed capacity.");
+
+  for (auto it = first; it != last; ++it) {
+    push_back(*it);
+  }
+}
+
+template <typename type, std::size_t allocatedSize>
 inline FixedVector<type, allocatedSize>::FixedVector(const FixedVector<type, allocatedSize> & other) noexcept
   : _data()
   , _size(other._size) {
@@ -100,7 +112,7 @@ inline FixedVector<type, allocatedSize>::FixedVector(FixedVector<type, allocated
 }
 
 template <typename type, std::size_t allocatedSize>
-inline FixedVector<type, allocatedSize>::FixedVector(std::initializer_list<type> init) noexcept
+inline FixedVector<type, allocatedSize>::FixedVector(std::initializer_list<type> init)
   : _data()
   , _size(init.size()) {
   assert_message(init.size() <= allocatedSize, "Initializer list size must not exceed capacity.");
@@ -108,18 +120,6 @@ inline FixedVector<type, allocatedSize>::FixedVector(std::initializer_list<type>
   size_type index = 0;
   for (const auto & element : init)
     std::construct_at(reinterpret_cast<type *>(_data) + index++, element);
-}
-
-template <typename type, std::size_t allocatedSize>
-template <typename InputIterator, typename>
-inline FixedVector<type, allocatedSize>::FixedVector(InputIterator first, InputIterator last)
-  : _data()
-  , _size(0) {
-  assert_message(std::distance(first, last) <= allocatedSize, "Iterator range size must not exceed capacity.");
-
-  for (auto it = first; it != last; ++it) {
-    push_back(*it);
-  }
 }
 
 template <typename type, std::size_t allocatedSize>
