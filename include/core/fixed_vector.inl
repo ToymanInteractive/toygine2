@@ -29,8 +29,7 @@ namespace toy {
 
 template <typename type, std::size_t allocatedSize>
 constexpr FixedVector<type, allocatedSize>::FixedVector() noexcept
-  : _data()
-  , _size(0) {}
+  : _data() {}
 
 template <typename type, std::size_t allocatedSize>
 constexpr FixedVector<type, allocatedSize>::~FixedVector() noexcept {
@@ -61,11 +60,10 @@ template <typename type, std::size_t allocatedSize>
 template <typename InputIterator>
   requires(!std::is_integral_v<InputIterator>)
 inline FixedVector<type, allocatedSize>::FixedVector(InputIterator first, InputIterator last)
-  : _data()
-  , _size(0) {
+  : _data() {
   for (auto it = first; it != last; ++it) {
     assert_message(_size < allocatedSize, "Iterator range size must not exceed capacity.");
-    push_back(*it);
+    std::construct_at(reinterpret_cast<type *>(_data) + _size++, *it);
   }
 }
 
@@ -226,7 +224,7 @@ inline void FixedVector<type, allocatedSize>::assign(InputIterator first, InputI
 
   for (auto it = first; it != last; ++it) {
     assert_message(_size < allocatedSize, "Iterator range size must not exceed capacity.");
-    push_back(*it);
+    std::construct_at(reinterpret_cast<type *>(_data) + _size++, *it);
   }
 }
 
