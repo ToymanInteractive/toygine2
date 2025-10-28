@@ -193,14 +193,14 @@ inline FixedVector<type, allocatedSize> & FixedVector<type, allocatedSize>::oper
 template <typename type, std::size_t allocatedSize>
 inline FixedVector<type, allocatedSize> & FixedVector<type, allocatedSize>::operator=(
   std::initializer_list<type> ilist) {
-  assert_message(init.size() <= allocatedSize, "Initializer list size must not exceed capacity.");
+  assert_message(ilist.size() <= allocatedSize, "Initializer list size must not exceed capacity.");
 
   clear();
 
-  _size = init.size();
+  _size = ilist.size();
 
   size_type index = 0;
-  for (const auto & element : init)
+  for (const auto & element : ilist)
     std::construct_at(reinterpret_cast<type *>(_data) + index++, element);
 
   return *this;
