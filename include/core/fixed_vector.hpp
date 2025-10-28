@@ -37,6 +37,7 @@ public:
   using const_reference = const value_type &; //!< Const reference to vector element.
   using pointer = type *; //!< Pointer to vector element.
   using const_pointer = const type *; //!< Const pointer to vector element.
+  using iterator = value_type *; //!< Iterator type for vector elements.
 
   /*!
     \brief Default constructor.
@@ -84,6 +85,26 @@ public:
     \post The vector size is equal to \a count.
   */
   FixedVector(size_type count, const type & value);
+
+  /*!
+    \brief Constructs a FixedVector from a range defined by iterators.
+
+    This constructor initializes a FixedVector with elements from the range [ \a first, \a last ).
+
+    \tparam InputIterator The type of the input iterator.
+
+    \param first Iterator pointing to the first element to copy.
+    \param last  Iterator pointing to one past the last element to copy.
+
+    \pre The \a first and \a last iterators must be valid.
+    \pre The range [ \a first, \a last ) must not exceed the allocated capacity.
+    \pre All elements in the range must be valid instances of type.
+
+    \post The new vector contains all elements from the range [ \a first, \a last ).
+  */
+  template <typename InputIterator>
+    requires(!std::is_integral_v<InputIterator>)
+  FixedVector(InputIterator first, InputIterator last);
 
   /*!
     \brief Constructs a copy of \a other FixedVector.
@@ -163,7 +184,7 @@ public:
 
     \post The new vector has the same size and content as the source \a init.
   */
-  explicit FixedVector(std::initializer_list<type> init) noexcept;
+  explicit FixedVector(std::initializer_list<type> init);
 
   /*!
     \brief Copy assigns other FixedVector to this FixedVector.
@@ -254,25 +275,86 @@ public:
 
     This operator assigns the contents of an initializer list to this vector.
 
-    \param init The initializer list containing the elements to assign.
+    \param ilist The initializer list containing the elements to assign.
 
     \return A reference to this FixedVector after assignment.
 
-    \pre The \a init size must not exceed the allocated capacity.
-    \pre All elements in \a init must be valid instances of type.
+    \pre The \a ilist size must not exceed the allocated capacity.
+    \pre All elements in \a ilist must be valid instances of type.
 
-    \post This vector has the same size and content as the source \a init.
+    \post This vector has the same size and content as the source \a ilist.
     \post All elements are properly copied using copy construction.
     \post All previous elements are properly destroyed.
 
     \note The operator handles empty initializer lists correctly.
   */
-  FixedVector<type, allocatedSize> & operator=(std::initializer_list<type> init) noexcept;
+  FixedVector<type, allocatedSize> & operator=(std::initializer_list<type> ilist);
+
+  /*!
+    \brief Assigns \a count copies of \a value to the vector.
+
+    This method replaces the current contents of the vector with \a count copies of \a value.
+
+    \param count The number of copies of \a value to assign.
+    \param value The value to assign \a count copies of.
+
+    \pre The \a count must not exceed the allocated capacity.
+
+    \post The vector contains \a count elements, each initialized with \a value.
+    \post The vector size is equal to \a count.
+    \post All previous elements are properly destroyed.
+
+    \note This method clears existing elements before assignment.
+    \note The \a value is copied for each element.
+  */
+  void assign(size_type count, const type & value);
+
+  /*!
+    \brief Assigns elements from the range [ \a first, \a last ) to the vector.
+
+    This method replaces the current contents of the vector with elements from the range [ \a first, \a last ).
+
+    \tparam InputIterator The type of the input iterator.
+
+    \param first Iterator pointing to the first element to assign.
+    \param last  Iterator pointing to one past the last element to assign.
+
+    \pre The \a first and \a last iterators must be valid.
+    \pre The range [ \a first, \a last ) must not exceed the allocated capacity.
+
+    \post The vector contains all elements from the range [ \a first, \a last ).
+    \post The vector size is equal to the size of the range.
+    \post All previous elements are properly destroyed.
+
+    \note This method clears existing elements before assignment.
+    \note Elements from the range are copied into the vector.
+  */
+  template <typename InputIterator>
+    requires(!std::is_integral_v<InputIterator>)
+  void assign(InputIterator first, InputIterator last);
+
+  /*!
+    \brief Assigns elements from an initializer list to the vector.
+
+    This method replaces the current contents of the vector with elements from the initializer list.
+
+    \param ilist The initializer list containing the elements to assign.
+
+    \pre The \a ilist size must not exceed the allocated capacity.
+
+    \post The vector contains all elements from the initializer list.
+    \post The vector size is equal to the size of the initializer list.
+    \post All previous elements are properly destroyed.
+
+    \note This method clears existing elements before assignment.
+    \note The operator handles empty initializer lists correctly.
+  */
+  void assign(std::initializer_list<type> ilist);
 
   // temporary
 
-  constexpr std::size_t size() const noexcept;
-  constexpr std::size_t capacity() const noexcept;
+  constexpr size_type size() const noexcept;
+  constexpr size_type capacity() const noexcept;
 
   constexpr void push_back(const type & val) noexcept;
 
@@ -289,7 +371,7 @@ private:
   std::byte _data[allocatedSize * sizeof(type)];
 
   /// Current number of elements in the vector.
-  std::size_t _size;
+  size_type _size = 0;
 };
 
 } // namespace toy
