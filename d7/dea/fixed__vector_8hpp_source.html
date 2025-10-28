@@ -153,265 +153,347 @@ $(function(){initNavTree('d7/dea/fixed__vector_8hpp_source.html','../../',''); }
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="../../d7/dec/classtoy_1_1_fixed_vector.html#ac7b8218dba3672ac58881b354217bf92">   37</a></span>  <span class="keyword">using</span> <a class="code hl_typedef" href="../../d7/dec/classtoy_1_1_fixed_vector.html#ac7b8218dba3672ac58881b354217bf92">const_reference</a> = <span class="keyword">const</span> <a class="code hl_typedef" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a9ade8246e6a0327c4e6667d294a60957">value_type</a> &amp;; <span class="comment">//!&lt; Const reference to vector element.</span></div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a0b8e451a1d4734b84b21479924f1a3a6">   38</a></span>  <span class="keyword">using</span> <a class="code hl_typedef" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a0b8e451a1d4734b84b21479924f1a3a6">pointer</a> = type *; <span class="comment">//!&lt; Pointer to vector element.</span></div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a24493c98e46094de18403d96126c31d2">   39</a></span>  <span class="keyword">using</span> <a class="code hl_typedef" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a24493c98e46094de18403d96126c31d2">const_pointer</a> = <span class="keyword">const</span> type *; <span class="comment">//!&lt; Const pointer to vector element.</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>  <span class="comment">/*!</span></div>
-<div class="line"><span class="lineno">   42</span><span class="comment">    \brief Default constructor.</span></div>
-<div class="line"><span class="lineno">   43</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   44</span><span class="comment">    \post The vector is empty and ready for use.</span></div>
-<div class="line"><span class="lineno">   45</span><span class="comment">  */</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>  <span class="keyword">constexpr</span> <a class="code hl_function" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a268734f9669e3693c60d125ab548e98f">FixedVector</a>() <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>  <span class="comment">/*!</span></div>
-<div class="line"><span class="lineno">   49</span><span class="comment">    \brief Destructor for the vector.</span></div>
-<div class="line"><span class="lineno">   50</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   51</span><span class="comment">    This destructor cleans up the vector.</span></div>
-<div class="line"><span class="lineno">   52</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   53</span><span class="comment">    \note Since the FixedVector manages its own elements, proper cleanup is performed.</span></div>
-<div class="line"><span class="lineno">   54</span><span class="comment">  */</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>  <span class="keyword">constexpr</span> ~<a class="code hl_function" href="../../d7/dec/classtoy_1_1_fixed_vector.html#ad98be7eb41babb07b9bc52d57783ef03">FixedVector</a>() <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>  <span class="comment">/*!</span></div>
-<div class="line"><span class="lineno">   58</span><span class="comment">    \brief Constructs a FixedVector with \a count default-initialized elements.</span></div>
-<div class="line"><span class="lineno">   59</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   60</span><span class="comment">    This constructor creates a FixedVector containing \a count elements, each initialized with the default value of</span></div>
-<div class="line"><span class="lineno">   61</span><span class="comment">    type.</span></div>
-<div class="line"><span class="lineno">   62</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   63</span><span class="comment">    \param count The number of elements to create. Must not exceed the allocated capacity.</span></div>
-<div class="line"><span class="lineno">   64</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   65</span><span class="comment">    \pre The \a count must not exceed the allocated capacity.</span></div>
-<div class="line"><span class="lineno">   66</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   67</span><span class="comment">    \post The vector contains \a count elements, each initialized with the default value of type.</span></div>
-<div class="line"><span class="lineno">   68</span><span class="comment">    \post The vector size is equal to \a count.</span></div>
-<div class="line"><span class="lineno">   69</span><span class="comment">  */</span></div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>  <span class="keyword">explicit</span> <a class="code hl_function" href="../../d7/dec/classtoy_1_1_fixed_vector.html#af41f645630eaed35f734c222c05ba49a">FixedVector</a>(size_type count);</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>  <span class="comment">/*!</span></div>
-<div class="line"><span class="lineno">   73</span><span class="comment">    \brief Constructs a FixedVector with \a count elements initialized to \a value.</span></div>
-<div class="line"><span class="lineno">   74</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   75</span><span class="comment">    This constructor creates a FixedVector containing \a count elements, each initialized with the specified \a value.</span></div>
-<div class="line"><span class="lineno">   76</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   77</span><span class="comment">    \param count The number of elements to create. Must not exceed the allocated capacity.</span></div>
-<div class="line"><span class="lineno">   78</span><span class="comment">    \param value The value to initialize all elements with.</span></div>
-<div class="line"><span class="lineno">   79</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   80</span><span class="comment">    \pre The \a count must not exceed the allocated capacity.</span></div>
-<div class="line"><span class="lineno">   81</span><span class="comment">    \pre The \a value must be a valid instance of type.</span></div>
-<div class="line"><span class="lineno">   82</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   83</span><span class="comment">    \post The vector contains \a count elements, each initialized with \a value.</span></div>
-<div class="line"><span class="lineno">   84</span><span class="comment">    \post The vector size is equal to \a count.</span></div>
-<div class="line"><span class="lineno">   85</span><span class="comment">  */</span></div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>  <a class="code hl_function" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a9e70e7b0654204b928e67181175113e0">FixedVector</a>(size_type count, <span class="keyword">const</span> type &amp; value);</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>  <span class="comment">/*!</span></div>
-<div class="line"><span class="lineno">   89</span><span class="comment">    \brief Constructs a copy of \a other FixedVector.</span></div>
-<div class="line"><span class="lineno">   90</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   91</span><span class="comment">    This constructor initializes a FixedVector by copying the content from another FixedVector of the same type and</span></div>
-<div class="line"><span class="lineno">   92</span><span class="comment">    capacity.</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a5eac0b7567faa3f43d21ca977bb01ae6">   40</a></span>  <span class="keyword">using</span> <a class="code hl_typedef" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a5eac0b7567faa3f43d21ca977bb01ae6">iterator</a> = <a class="code hl_typedef" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a9ade8246e6a0327c4e6667d294a60957">value_type</a> *; <span class="comment">//!&lt; Iterator type for vector elements.</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">   43</span><span class="comment">    \brief Default constructor.</span></div>
+<div class="line"><span class="lineno">   44</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   45</span><span class="comment">    \post The vector is empty and ready for use.</span></div>
+<div class="line"><span class="lineno">   46</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>  <span class="keyword">constexpr</span> <a class="code hl_function" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a268734f9669e3693c60d125ab548e98f">FixedVector</a>() <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">   50</span><span class="comment">    \brief Destructor for the vector.</span></div>
+<div class="line"><span class="lineno">   51</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   52</span><span class="comment">    This destructor cleans up the vector.</span></div>
+<div class="line"><span class="lineno">   53</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   54</span><span class="comment">    \note Since the FixedVector manages its own elements, proper cleanup is performed.</span></div>
+<div class="line"><span class="lineno">   55</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>  <span class="keyword">constexpr</span> ~<a class="code hl_function" href="../../d7/dec/classtoy_1_1_fixed_vector.html#ad98be7eb41babb07b9bc52d57783ef03">FixedVector</a>() <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">   59</span><span class="comment">    \brief Constructs a FixedVector with \a count default-initialized elements.</span></div>
+<div class="line"><span class="lineno">   60</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   61</span><span class="comment">    This constructor creates a FixedVector containing \a count elements, each initialized with the default value of</span></div>
+<div class="line"><span class="lineno">   62</span><span class="comment">    type.</span></div>
+<div class="line"><span class="lineno">   63</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   64</span><span class="comment">    \param count The number of elements to create. Must not exceed the allocated capacity.</span></div>
+<div class="line"><span class="lineno">   65</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   66</span><span class="comment">    \pre The \a count must not exceed the allocated capacity.</span></div>
+<div class="line"><span class="lineno">   67</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   68</span><span class="comment">    \post The vector contains \a count elements, each initialized with the default value of type.</span></div>
+<div class="line"><span class="lineno">   69</span><span class="comment">    \post The vector size is equal to \a count.</span></div>
+<div class="line"><span class="lineno">   70</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>  <span class="keyword">explicit</span> <a class="code hl_function" href="../../d7/dec/classtoy_1_1_fixed_vector.html#af41f645630eaed35f734c222c05ba49a">FixedVector</a>(size_type count);</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">   74</span><span class="comment">    \brief Constructs a FixedVector with \a count elements initialized to \a value.</span></div>
+<div class="line"><span class="lineno">   75</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   76</span><span class="comment">    This constructor creates a FixedVector containing \a count elements, each initialized with the specified \a value.</span></div>
+<div class="line"><span class="lineno">   77</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   78</span><span class="comment">    \param count The number of elements to create. Must not exceed the allocated capacity.</span></div>
+<div class="line"><span class="lineno">   79</span><span class="comment">    \param value The value to initialize all elements with.</span></div>
+<div class="line"><span class="lineno">   80</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   81</span><span class="comment">    \pre The \a count must not exceed the allocated capacity.</span></div>
+<div class="line"><span class="lineno">   82</span><span class="comment">    \pre The \a value must be a valid instance of type.</span></div>
+<div class="line"><span class="lineno">   83</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   84</span><span class="comment">    \post The vector contains \a count elements, each initialized with \a value.</span></div>
+<div class="line"><span class="lineno">   85</span><span class="comment">    \post The vector size is equal to \a count.</span></div>
+<div class="line"><span class="lineno">   86</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>  <a class="code hl_function" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a9e70e7b0654204b928e67181175113e0">FixedVector</a>(size_type count, <span class="keyword">const</span> type &amp; value);</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">   90</span><span class="comment">    \brief Constructs a FixedVector from a range defined by iterators.</span></div>
+<div class="line"><span class="lineno">   91</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   92</span><span class="comment">    This constructor initializes a FixedVector with elements from the range [ \a first, \a last ).</span></div>
 <div class="line"><span class="lineno">   93</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   94</span><span class="comment">    \param other The source FixedVector to copy content from.</span></div>
+<div class="line"><span class="lineno">   94</span><span class="comment">    \tparam InputIterator The type of the input iterator.</span></div>
 <div class="line"><span class="lineno">   95</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   96</span><span class="comment">    \pre The source \a other must be valid and properly initialized.</span></div>
-<div class="line"><span class="lineno">   97</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   98</span><span class="comment">    \post The new vector has the same size and content as the source \a other.</span></div>
-<div class="line"><span class="lineno">   99</span><span class="comment">  */</span></div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>  <a class="code hl_function" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a7fbe60cf0a7fd017284c3a4521cdffce">FixedVector</a>(<span class="keyword">const</span> <a class="code hl_class" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a>&lt;type, allocatedSize&gt; &amp; other) <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>  <span class="comment">/*!</span></div>
-<div class="line"><span class="lineno">  103</span><span class="comment">    \brief Constructs a FixedVector by copying from another FixedVector with different capacity.</span></div>
-<div class="line"><span class="lineno">  104</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  105</span><span class="comment">    This constructor initializes a FixedVector by copying the content from another FixedVector of the same type</span></div>
-<div class="line"><span class="lineno">  106</span><span class="comment">    but potentially different capacity.</span></div>
-<div class="line"><span class="lineno">  107</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  108</span><span class="comment">    \tparam allocatedSize2 The capacity of the source FixedVector. Must be greater than zero.</span></div>
-<div class="line"><span class="lineno">  109</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  110</span><span class="comment">    \param other The source FixedVector to copy content from.</span></div>
+<div class="line"><span class="lineno">   96</span><span class="comment">    \param first Iterator pointing to the first element to copy.</span></div>
+<div class="line"><span class="lineno">   97</span><span class="comment">    \param last  Iterator pointing to one past the last element to copy.</span></div>
+<div class="line"><span class="lineno">   98</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   99</span><span class="comment">    \pre The \a first and \a last iterators must be valid.</span></div>
+<div class="line"><span class="lineno">  100</span><span class="comment">    \pre The range [ \a first, \a last ) must not exceed the allocated capacity.</span></div>
+<div class="line"><span class="lineno">  101</span><span class="comment">    \pre All elements in the range must be valid instances of type.</span></div>
+<div class="line"><span class="lineno">  102</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  103</span><span class="comment">    \post The new vector contains all elements from the range [ \a first, \a last ).</span></div>
+<div class="line"><span class="lineno">  104</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> <a class="code hl_class" href="../../d7/dec/classtoy_1_1_fixed_vector.html">InputIterator</a>&gt;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keyword">requires</span>(!<a class="code hl_class" href="../../d7/dec/classtoy_1_1_fixed_vector.html">std</a>::<a class="code hl_class" href="../../d7/dec/classtoy_1_1_fixed_vector.html">is_integral_v</a>&lt;<a class="code hl_class" href="../../d7/dec/classtoy_1_1_fixed_vector.html">InputIterator</a>&gt;)</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>  <a class="code hl_class" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a>(<a class="code hl_class" href="../../d7/dec/classtoy_1_1_fixed_vector.html">InputIterator</a> <a class="code hl_class" href="../../d7/dec/classtoy_1_1_fixed_vector.html">first</a>, <a class="code hl_class" href="../../d7/dec/classtoy_1_1_fixed_vector.html">InputIterator</a> <a class="code hl_class" href="../../d7/dec/classtoy_1_1_fixed_vector.html">last</a>);</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  110</span><span class="comment">    \brief Constructs a copy of \a other FixedVector.</span></div>
 <div class="line"><span class="lineno">  111</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  112</span><span class="comment">    \pre The source \a other must be valid and properly initialized.</span></div>
-<div class="line"><span class="lineno">  113</span><span class="comment">    \pre The source \a other size must not exceed the allocated capacity of this vector.</span></div>
+<div class="line"><span class="lineno">  112</span><span class="comment">    This constructor initializes a FixedVector by copying the content from another FixedVector of the same type and</span></div>
+<div class="line"><span class="lineno">  113</span><span class="comment">    capacity.</span></div>
 <div class="line"><span class="lineno">  114</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  115</span><span class="comment">    \post The new vector has the same size and content as the source \a other.</span></div>
-<div class="line"><span class="lineno">  116</span><span class="comment">  */</span></div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>  <span class="keyword">template</span> &lt;std::size_t allocatedSize2&gt;</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>  <a class="code hl_function" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a3040082c470725af5f023d2f4fa8615c">FixedVector</a>(<span class="keyword">const</span> <a class="code hl_class" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a>&lt;type, allocatedSize2&gt; &amp; other) <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>  <span class="comment">/*!</span></div>
-<div class="line"><span class="lineno">  121</span><span class="comment">    \brief Constructs a FixedVector by moving from another FixedVector.</span></div>
-<div class="line"><span class="lineno">  122</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  123</span><span class="comment">    This constructor initializes a FixedVector by moving the content from another FixedVector of the same type and</span></div>
-<div class="line"><span class="lineno">  124</span><span class="comment">    capacity. The source vector is left in a valid but unspecified state.</span></div>
+<div class="line"><span class="lineno">  115</span><span class="comment">    \param other The source FixedVector to copy content from.</span></div>
+<div class="line"><span class="lineno">  116</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  117</span><span class="comment">    \pre The source \a other must be valid and properly initialized.</span></div>
+<div class="line"><span class="lineno">  118</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  119</span><span class="comment">    \post The new vector has the same size and content as the source \a other.</span></div>
+<div class="line"><span class="lineno">  120</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>  <a class="code hl_function" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a7fbe60cf0a7fd017284c3a4521cdffce">FixedVector</a>(<span class="keyword">const</span> <a class="code hl_class" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a>&lt;type, allocatedSize&gt; &amp; other) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  124</span><span class="comment">    \brief Constructs a FixedVector by copying from another FixedVector with different capacity.</span></div>
 <div class="line"><span class="lineno">  125</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  126</span><span class="comment">    \param other The source FixedVector to move content from.</span></div>
-<div class="line"><span class="lineno">  127</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  128</span><span class="comment">    \pre The source \a other must be valid and properly initialized.</span></div>
-<div class="line"><span class="lineno">  129</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  130</span><span class="comment">    \post The new vector has the same size and content as the source \a other.</span></div>
-<div class="line"><span class="lineno">  131</span><span class="comment">    \post The source \a other is left in a valid but unspecified state.</span></div>
-<div class="line"><span class="lineno">  132</span><span class="comment">  */</span></div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>  <a class="code hl_function" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a05fc127b4161c7009da7a46e2cb24a18">FixedVector</a>(<a class="code hl_class" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a>&lt;type, allocatedSize&gt; &amp;&amp; other) <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>  <span class="comment">/*!</span></div>
-<div class="line"><span class="lineno">  136</span><span class="comment">    \brief Constructs a FixedVector by moving from another FixedVector with different capacity.</span></div>
-<div class="line"><span class="lineno">  137</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  138</span><span class="comment">    This constructor initializes a FixedVector by moving the content from another FixedVector of the same type</span></div>
-<div class="line"><span class="lineno">  139</span><span class="comment">    but potentially different capacity. The source vector is left in a valid but unspecified state.</span></div>
-<div class="line"><span class="lineno">  140</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  141</span><span class="comment">    \tparam allocatedSize2 The capacity of the source FixedVector. Must be greater than zero.</span></div>
-<div class="line"><span class="lineno">  142</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  143</span><span class="comment">    \param other The source FixedVector to move content from.</span></div>
-<div class="line"><span class="lineno">  144</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  145</span><span class="comment">    \pre The source \a other must be valid and properly initialized.</span></div>
-<div class="line"><span class="lineno">  146</span><span class="comment">    \pre The source \a other size must not exceed the allocated capacity of this vector.</span></div>
-<div class="line"><span class="lineno">  147</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  148</span><span class="comment">    \post The new vector has the same size and content as the source \a other.</span></div>
-<div class="line"><span class="lineno">  149</span><span class="comment">    \post The source \a other is left in a valid but unspecified state.</span></div>
-<div class="line"><span class="lineno">  150</span><span class="comment">  */</span></div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>  <span class="keyword">template</span> &lt;std::size_t allocatedSize2&gt;</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>  <a class="code hl_function" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a2746b0450f03ec6b59341aff07a19d86">FixedVector</a>(<a class="code hl_class" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a>&lt;type, allocatedSize2&gt; &amp;&amp; other) <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span> </div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>  <span class="comment">/*!</span></div>
-<div class="line"><span class="lineno">  155</span><span class="comment">    \brief Constructs a FixedVector from an initializer list.</span></div>
-<div class="line"><span class="lineno">  156</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  157</span><span class="comment">    This constructor initializes a FixedVector with the elements from the provided initializer list.</span></div>
+<div class="line"><span class="lineno">  126</span><span class="comment">    This constructor initializes a FixedVector by copying the content from another FixedVector of the same type</span></div>
+<div class="line"><span class="lineno">  127</span><span class="comment">    but potentially different capacity.</span></div>
+<div class="line"><span class="lineno">  128</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  129</span><span class="comment">    \tparam allocatedSize2 The capacity of the source FixedVector. Must be greater than zero.</span></div>
+<div class="line"><span class="lineno">  130</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  131</span><span class="comment">    \param other The source FixedVector to copy content from.</span></div>
+<div class="line"><span class="lineno">  132</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  133</span><span class="comment">    \pre The source \a other must be valid and properly initialized.</span></div>
+<div class="line"><span class="lineno">  134</span><span class="comment">    \pre The source \a other size must not exceed the allocated capacity of this vector.</span></div>
+<div class="line"><span class="lineno">  135</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  136</span><span class="comment">    \post The new vector has the same size and content as the source \a other.</span></div>
+<div class="line"><span class="lineno">  137</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>  <span class="keyword">template</span> &lt;std::size_t allocatedSize2&gt;</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>  <a class="code hl_function" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a3040082c470725af5f023d2f4fa8615c">FixedVector</a>(<span class="keyword">const</span> <a class="code hl_class" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a>&lt;type, allocatedSize2&gt; &amp; other) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span> </div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  142</span><span class="comment">    \brief Constructs a FixedVector by moving from another FixedVector.</span></div>
+<div class="line"><span class="lineno">  143</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  144</span><span class="comment">    This constructor initializes a FixedVector by moving the content from another FixedVector of the same type and</span></div>
+<div class="line"><span class="lineno">  145</span><span class="comment">    capacity. The source vector is left in a valid but unspecified state.</span></div>
+<div class="line"><span class="lineno">  146</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  147</span><span class="comment">    \param other The source FixedVector to move content from.</span></div>
+<div class="line"><span class="lineno">  148</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  149</span><span class="comment">    \pre The source \a other must be valid and properly initialized.</span></div>
+<div class="line"><span class="lineno">  150</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  151</span><span class="comment">    \post The new vector has the same size and content as the source \a other.</span></div>
+<div class="line"><span class="lineno">  152</span><span class="comment">    \post The source \a other is left in a valid but unspecified state.</span></div>
+<div class="line"><span class="lineno">  153</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>  <a class="code hl_function" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a05fc127b4161c7009da7a46e2cb24a18">FixedVector</a>(<a class="code hl_class" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a>&lt;type, allocatedSize&gt; &amp;&amp; other) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span> </div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  157</span><span class="comment">    \brief Constructs a FixedVector by moving from another FixedVector with different capacity.</span></div>
 <div class="line"><span class="lineno">  158</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  159</span><span class="comment">    \param init The initializer list containing the elements to initialize the vector with.</span></div>
-<div class="line"><span class="lineno">  160</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  161</span><span class="comment">    \pre The \a init size must not exceed the allocated capacity.</span></div>
-<div class="line"><span class="lineno">  162</span><span class="comment">    \pre All elements in \a init must be valid instances of type.</span></div>
+<div class="line"><span class="lineno">  159</span><span class="comment">    This constructor initializes a FixedVector by moving the content from another FixedVector of the same type</span></div>
+<div class="line"><span class="lineno">  160</span><span class="comment">    but potentially different capacity. The source vector is left in a valid but unspecified state.</span></div>
+<div class="line"><span class="lineno">  161</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  162</span><span class="comment">    \tparam allocatedSize2 The capacity of the source FixedVector. Must be greater than zero.</span></div>
 <div class="line"><span class="lineno">  163</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  164</span><span class="comment">    \post The new vector has the same size and content as the source \a init.</span></div>
-<div class="line"><span class="lineno">  165</span><span class="comment">  */</span></div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>  <span class="keyword">explicit</span> <a class="code hl_function" href="../../d7/dec/classtoy_1_1_fixed_vector.html#af41f645630eaed35f734c222c05ba49a">FixedVector</a>(std::initializer_list&lt;type&gt; init) <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span> </div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>  <span class="comment">/*!</span></div>
-<div class="line"><span class="lineno">  169</span><span class="comment">    \brief Copy assigns other FixedVector to this FixedVector.</span></div>
-<div class="line"><span class="lineno">  170</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  171</span><span class="comment">    This operator assigns the contents of another FixedVector with the same capacity to this vector.</span></div>
-<div class="line"><span class="lineno">  172</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  173</span><span class="comment">    \param other The FixedVector to copy content from.</span></div>
-<div class="line"><span class="lineno">  174</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  175</span><span class="comment">    \return A reference to this FixedVector after assignment.</span></div>
-<div class="line"><span class="lineno">  176</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  177</span><span class="comment">    \pre The \a other vector must be valid and properly constructed.</span></div>
-<div class="line"><span class="lineno">  178</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  179</span><span class="comment">    \post This vector has the same size and content as the source \a other vector.</span></div>
-<div class="line"><span class="lineno">  180</span><span class="comment">    \post All elements are properly copied using copy construction.</span></div>
-<div class="line"><span class="lineno">  181</span><span class="comment">    \post All previous elements are properly destroyed.</span></div>
-<div class="line"><span class="lineno">  182</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  183</span><span class="comment">    \note Self-assignment is handled correctly and safely.</span></div>
-<div class="line"><span class="lineno">  184</span><span class="comment">  */</span></div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>  <a class="code hl_class" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a>&lt;type, allocatedSize&gt; &amp; <a class="code hl_function" href="../../d7/dec/classtoy_1_1_fixed_vector.html#abd1856c08a6264f956ae6087eb47df07">operator</a>=(<span class="keyword">const</span> <a class="code hl_class" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a>&lt;type, allocatedSize&gt; &amp; other) <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span> </div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>  <span class="comment">/*!</span></div>
-<div class="line"><span class="lineno">  188</span><span class="comment">    \brief Copy assigns FixedVector with different capacity to this FixedVector.</span></div>
-<div class="line"><span class="lineno">  189</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  190</span><span class="comment">    This operator assigns the contents of another FixedVector with different capacity to this vector.</span></div>
+<div class="line"><span class="lineno">  164</span><span class="comment">    \param other The source FixedVector to move content from.</span></div>
+<div class="line"><span class="lineno">  165</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  166</span><span class="comment">    \pre The source \a other must be valid and properly initialized.</span></div>
+<div class="line"><span class="lineno">  167</span><span class="comment">    \pre The source \a other size must not exceed the allocated capacity of this vector.</span></div>
+<div class="line"><span class="lineno">  168</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  169</span><span class="comment">    \post The new vector has the same size and content as the source \a other.</span></div>
+<div class="line"><span class="lineno">  170</span><span class="comment">    \post The source \a other is left in a valid but unspecified state.</span></div>
+<div class="line"><span class="lineno">  171</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>  <span class="keyword">template</span> &lt;std::size_t allocatedSize2&gt;</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>  <a class="code hl_function" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a2746b0450f03ec6b59341aff07a19d86">FixedVector</a>(<a class="code hl_class" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a>&lt;type, allocatedSize2&gt; &amp;&amp; other) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span> </div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  176</span><span class="comment">    \brief Constructs a FixedVector from an initializer list.</span></div>
+<div class="line"><span class="lineno">  177</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  178</span><span class="comment">    This constructor initializes a FixedVector with the elements from the provided initializer list.</span></div>
+<div class="line"><span class="lineno">  179</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  180</span><span class="comment">    \param init The initializer list containing the elements to initialize the vector with.</span></div>
+<div class="line"><span class="lineno">  181</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  182</span><span class="comment">    \pre The \a init size must not exceed the allocated capacity.</span></div>
+<div class="line"><span class="lineno">  183</span><span class="comment">    \pre All elements in \a init must be valid instances of type.</span></div>
+<div class="line"><span class="lineno">  184</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  185</span><span class="comment">    \post The new vector has the same size and content as the source \a init.</span></div>
+<div class="line"><span class="lineno">  186</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>  <span class="keyword">explicit</span> <a class="code hl_function" href="../../d7/dec/classtoy_1_1_fixed_vector.html#af41f645630eaed35f734c222c05ba49a">FixedVector</a>(std::initializer_list&lt;type&gt; init);</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span> </div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  190</span><span class="comment">    \brief Copy assigns other FixedVector to this FixedVector.</span></div>
 <div class="line"><span class="lineno">  191</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  192</span><span class="comment">    \tparam allocatedSize2 The capacity of the source FixedVector.</span></div>
+<div class="line"><span class="lineno">  192</span><span class="comment">    This operator assigns the contents of another FixedVector with the same capacity to this vector.</span></div>
 <div class="line"><span class="lineno">  193</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  194</span><span class="comment">    \param other The FixedVector to copy content from.</span></div>
 <div class="line"><span class="lineno">  195</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  196</span><span class="comment">    \return A reference to this FixedVector after assignment.</span></div>
 <div class="line"><span class="lineno">  197</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  198</span><span class="comment">    \pre The \a other vector must be valid and properly constructed.</span></div>
-<div class="line"><span class="lineno">  199</span><span class="comment">    \pre The \a other vector size must not exceed this vector&#39;s capacity.</span></div>
-<div class="line"><span class="lineno">  200</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  201</span><span class="comment">    \post This vector has the same size and content as the source \a other vector.</span></div>
-<div class="line"><span class="lineno">  202</span><span class="comment">    \post All elements are properly copied using copy construction.</span></div>
-<div class="line"><span class="lineno">  203</span><span class="comment">    \post All previous elements are properly destroyed.</span></div>
-<div class="line"><span class="lineno">  204</span><span class="comment">  */</span></div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>  <span class="keyword">template</span> &lt;std::size_t allocatedSize2&gt;</div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>  <a class="code hl_class" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a>&lt;type, allocatedSize&gt; &amp; <a class="code hl_function" href="../../d7/dec/classtoy_1_1_fixed_vector.html#adcfd48696fd209b680f04bbf9f12e6c7">operator</a>=(<span class="keyword">const</span> <a class="code hl_class" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a>&lt;type, allocatedSize2&gt; &amp; other) <span class="keyword">noexcept</span>;</div>
+<div class="line"><span class="lineno">  199</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  200</span><span class="comment">    \post This vector has the same size and content as the source \a other vector.</span></div>
+<div class="line"><span class="lineno">  201</span><span class="comment">    \post All elements are properly copied using copy construction.</span></div>
+<div class="line"><span class="lineno">  202</span><span class="comment">    \post All previous elements are properly destroyed.</span></div>
+<div class="line"><span class="lineno">  203</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  204</span><span class="comment">    \note Self-assignment is handled correctly and safely.</span></div>
+<div class="line"><span class="lineno">  205</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>  <a class="code hl_class" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a>&lt;type, allocatedSize&gt; &amp; <a class="code hl_function" href="../../d7/dec/classtoy_1_1_fixed_vector.html#abd1856c08a6264f956ae6087eb47df07">operator</a>=(<span class="keyword">const</span> <a class="code hl_class" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a>&lt;type, allocatedSize&gt; &amp; other) <span class="keyword">noexcept</span>;</div>
 <div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span> </div>
 <div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>  <span class="comment">/*!</span></div>
-<div class="line"><span class="lineno">  209</span><span class="comment">    \brief Move assigns other FixedVector to this FixedVector.</span></div>
+<div class="line"><span class="lineno">  209</span><span class="comment">    \brief Copy assigns FixedVector with different capacity to this FixedVector.</span></div>
 <div class="line"><span class="lineno">  210</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  211</span><span class="comment">    This operator assigns the contents of another FixedVector with the same capacity to this vector using move</span></div>
-<div class="line"><span class="lineno">  212</span><span class="comment">    semantics.</span></div>
-<div class="line"><span class="lineno">  213</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  214</span><span class="comment">    \param other The FixedVector to move content from.</span></div>
-<div class="line"><span class="lineno">  215</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  216</span><span class="comment">    \return A reference to this FixedVector after assignment.</span></div>
-<div class="line"><span class="lineno">  217</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  218</span><span class="comment">    \pre The \a other vector must be valid and properly constructed.</span></div>
-<div class="line"><span class="lineno">  219</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  220</span><span class="comment">    \post This vector has the same size and content as the source \a other vector.</span></div>
-<div class="line"><span class="lineno">  221</span><span class="comment">    \post All elements are moved using move construction.</span></div>
-<div class="line"><span class="lineno">  222</span><span class="comment">    \post All previous elements are properly destroyed.</span></div>
-<div class="line"><span class="lineno">  223</span><span class="comment">    \post The source vector is left in a valid but unspecified state.</span></div>
-<div class="line"><span class="lineno">  224</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  225</span><span class="comment">    \note Self-assignment is handled correctly and safely.</span></div>
-<div class="line"><span class="lineno">  226</span><span class="comment">  */</span></div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>  <a class="code hl_class" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a>&lt;type, allocatedSize&gt; &amp; <a class="code hl_function" href="../../d7/dec/classtoy_1_1_fixed_vector.html#ab9ee707c6ee51e565a00b10911c1594e">operator</a>=(<a class="code hl_class" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a>&lt;type, allocatedSize&gt; &amp;&amp; other) <span class="keyword">noexcept</span>;</div>
+<div class="line"><span class="lineno">  211</span><span class="comment">    This operator assigns the contents of another FixedVector with different capacity to this vector.</span></div>
+<div class="line"><span class="lineno">  212</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  213</span><span class="comment">    \tparam allocatedSize2 The capacity of the source FixedVector.</span></div>
+<div class="line"><span class="lineno">  214</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  215</span><span class="comment">    \param other The FixedVector to copy content from.</span></div>
+<div class="line"><span class="lineno">  216</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  217</span><span class="comment">    \return A reference to this FixedVector after assignment.</span></div>
+<div class="line"><span class="lineno">  218</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  219</span><span class="comment">    \pre The \a other vector must be valid and properly constructed.</span></div>
+<div class="line"><span class="lineno">  220</span><span class="comment">    \pre The \a other vector size must not exceed this vector&#39;s capacity.</span></div>
+<div class="line"><span class="lineno">  221</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  222</span><span class="comment">    \post This vector has the same size and content as the source \a other vector.</span></div>
+<div class="line"><span class="lineno">  223</span><span class="comment">    \post All elements are properly copied using copy construction.</span></div>
+<div class="line"><span class="lineno">  224</span><span class="comment">    \post All previous elements are properly destroyed.</span></div>
+<div class="line"><span class="lineno">  225</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>  <span class="keyword">template</span> &lt;std::size_t allocatedSize2&gt;</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>  <a class="code hl_class" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a>&lt;type, allocatedSize&gt; &amp; <a class="code hl_function" href="../../d7/dec/classtoy_1_1_fixed_vector.html#adcfd48696fd209b680f04bbf9f12e6c7">operator</a>=(<span class="keyword">const</span> <a class="code hl_class" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a>&lt;type, allocatedSize2&gt; &amp; other) <span class="keyword">noexcept</span>;</div>
 <div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span> </div>
 <div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>  <span class="comment">/*!</span></div>
-<div class="line"><span class="lineno">  230</span><span class="comment">    \brief Move assigns FixedVector with different capacity to this FixedVector.</span></div>
+<div class="line"><span class="lineno">  230</span><span class="comment">    \brief Move assigns other FixedVector to this FixedVector.</span></div>
 <div class="line"><span class="lineno">  231</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  232</span><span class="comment">    This operator assigns the contents of another FixedVector with different capacity to this vector using move</span></div>
+<div class="line"><span class="lineno">  232</span><span class="comment">    This operator assigns the contents of another FixedVector with the same capacity to this vector using move</span></div>
 <div class="line"><span class="lineno">  233</span><span class="comment">    semantics.</span></div>
 <div class="line"><span class="lineno">  234</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  235</span><span class="comment">    \tparam allocatedSize2 The capacity of the source FixedVector.</span></div>
+<div class="line"><span class="lineno">  235</span><span class="comment">    \param other The FixedVector to move content from.</span></div>
 <div class="line"><span class="lineno">  236</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  237</span><span class="comment">    \param other The FixedVector to move content from.</span></div>
+<div class="line"><span class="lineno">  237</span><span class="comment">    \return A reference to this FixedVector after assignment.</span></div>
 <div class="line"><span class="lineno">  238</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  239</span><span class="comment">    \return A reference to this FixedVector after assignment.</span></div>
+<div class="line"><span class="lineno">  239</span><span class="comment">    \pre The \a other vector must be valid and properly constructed.</span></div>
 <div class="line"><span class="lineno">  240</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  241</span><span class="comment">    \pre The \a other vector must be valid and properly constructed.</span></div>
-<div class="line"><span class="lineno">  242</span><span class="comment">    \pre The \a other vector size must not exceed this vector&#39;s capacity.</span></div>
-<div class="line"><span class="lineno">  243</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  244</span><span class="comment">    \post This vector has the same size and content as the source \a other vector.</span></div>
-<div class="line"><span class="lineno">  245</span><span class="comment">    \post All elements are moved using move construction.</span></div>
-<div class="line"><span class="lineno">  246</span><span class="comment">    \post All previous elements are properly destroyed.</span></div>
-<div class="line"><span class="lineno">  247</span><span class="comment">    \post The source vector is left in a valid but unspecified state.</span></div>
-<div class="line"><span class="lineno">  248</span><span class="comment">  */</span></div>
-<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>  <span class="keyword">template</span> &lt;std::size_t allocatedSize2&gt;</div>
-<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>  <a class="code hl_class" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a>&lt;type, allocatedSize&gt; &amp; <a class="code hl_function" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a438a849f87c280465a0ec71b5b515238">operator</a>=(<a class="code hl_class" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a>&lt;type, allocatedSize2&gt; &amp;&amp; other) <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span> </div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>  <span class="comment">/*!</span></div>
-<div class="line"><span class="lineno">  253</span><span class="comment">    \brief Assigns initializer list to this FixedVector.</span></div>
-<div class="line"><span class="lineno">  254</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  255</span><span class="comment">    This operator assigns the contents of an initializer list to this vector.</span></div>
-<div class="line"><span class="lineno">  256</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  257</span><span class="comment">    \param init The initializer list containing the elements to assign.</span></div>
-<div class="line"><span class="lineno">  258</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  259</span><span class="comment">    \return A reference to this FixedVector after assignment.</span></div>
-<div class="line"><span class="lineno">  260</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  261</span><span class="comment">    \pre The \a init size must not exceed the allocated capacity.</span></div>
-<div class="line"><span class="lineno">  262</span><span class="comment">    \pre All elements in \a init must be valid instances of type.</span></div>
-<div class="line"><span class="lineno">  263</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  264</span><span class="comment">    \post This vector has the same size and content as the source \a init.</span></div>
-<div class="line"><span class="lineno">  265</span><span class="comment">    \post All elements are properly copied using copy construction.</span></div>
-<div class="line"><span class="lineno">  266</span><span class="comment">    \post All previous elements are properly destroyed.</span></div>
-<div class="line"><span class="lineno">  267</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  268</span><span class="comment">    \note The operator handles empty initializer lists correctly.</span></div>
+<div class="line"><span class="lineno">  241</span><span class="comment">    \post This vector has the same size and content as the source \a other vector.</span></div>
+<div class="line"><span class="lineno">  242</span><span class="comment">    \post All elements are moved using move construction.</span></div>
+<div class="line"><span class="lineno">  243</span><span class="comment">    \post All previous elements are properly destroyed.</span></div>
+<div class="line"><span class="lineno">  244</span><span class="comment">    \post The source vector is left in a valid but unspecified state.</span></div>
+<div class="line"><span class="lineno">  245</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  246</span><span class="comment">    \note Self-assignment is handled correctly and safely.</span></div>
+<div class="line"><span class="lineno">  247</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>  <a class="code hl_class" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a>&lt;type, allocatedSize&gt; &amp; <a class="code hl_function" href="../../d7/dec/classtoy_1_1_fixed_vector.html#ab9ee707c6ee51e565a00b10911c1594e">operator</a>=(<a class="code hl_class" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a>&lt;type, allocatedSize&gt; &amp;&amp; other) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span> </div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  251</span><span class="comment">    \brief Move assigns FixedVector with different capacity to this FixedVector.</span></div>
+<div class="line"><span class="lineno">  252</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  253</span><span class="comment">    This operator assigns the contents of another FixedVector with different capacity to this vector using move</span></div>
+<div class="line"><span class="lineno">  254</span><span class="comment">    semantics.</span></div>
+<div class="line"><span class="lineno">  255</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  256</span><span class="comment">    \tparam allocatedSize2 The capacity of the source FixedVector.</span></div>
+<div class="line"><span class="lineno">  257</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  258</span><span class="comment">    \param other The FixedVector to move content from.</span></div>
+<div class="line"><span class="lineno">  259</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  260</span><span class="comment">    \return A reference to this FixedVector after assignment.</span></div>
+<div class="line"><span class="lineno">  261</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  262</span><span class="comment">    \pre The \a other vector must be valid and properly constructed.</span></div>
+<div class="line"><span class="lineno">  263</span><span class="comment">    \pre The \a other vector size must not exceed this vector&#39;s capacity.</span></div>
+<div class="line"><span class="lineno">  264</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  265</span><span class="comment">    \post This vector has the same size and content as the source \a other vector.</span></div>
+<div class="line"><span class="lineno">  266</span><span class="comment">    \post All elements are moved using move construction.</span></div>
+<div class="line"><span class="lineno">  267</span><span class="comment">    \post All previous elements are properly destroyed.</span></div>
+<div class="line"><span class="lineno">  268</span><span class="comment">    \post The source vector is left in a valid but unspecified state.</span></div>
 <div class="line"><span class="lineno">  269</span><span class="comment">  */</span></div>
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>  <a class="code hl_class" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a>&lt;type, allocatedSize&gt; &amp; <a class="code hl_function" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a7fae3a88461f05878e4a0d9b966a2b48">operator</a>=(std::initializer_list&lt;type&gt; init) <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span> </div>
-<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>  <span class="comment">// temporary</span></div>
-<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span> </div>
-<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>  <span class="keyword">constexpr</span> <a class="code hl_function" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a8b52067ca198f6f9fdfcca90bd6bfd67">std</a>::<a class="code hl_function" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a8b52067ca198f6f9fdfcca90bd6bfd67">size_t</a> <a class="code hl_function" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a8b52067ca198f6f9fdfcca90bd6bfd67">size</a>() <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>  <span class="keyword">constexpr</span> <a class="code hl_function" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a00c716c2d271772cc9a66fb396a53b5a">std</a>::<a class="code hl_function" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a00c716c2d271772cc9a66fb396a53b5a">size_t</a> <a class="code hl_function" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a00c716c2d271772cc9a66fb396a53b5a">capacity</a>() <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span> </div>
-<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>  <span class="keyword">constexpr</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d7/dec/classtoy_1_1_fixed_vector.html#ad1b12283014e9694c538c41a6b4d854b">push_back</a>(<span class="keyword">const</span> type &amp; val) <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span> </div>
-<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>  <span class="keyword">constexpr</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a5ae89743b5bf48d51270730a216c1e2d">clear</a>() <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span> </div>
-<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>  <span class="keyword">constexpr</span> type * <a class="code hl_function" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a1433f69e5ccf1b0caafe64a4f8990651">end</a>() <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span> </div>
-<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>  <span class="keyword">constexpr</span> <span class="keyword">const</span> type &amp; <a class="code hl_function" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a0f40c2837636b687642df34c63a97d7f">operator</a>[](size_t index) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span> </div>
-<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>  <span class="keyword">static_assert</span>(allocatedSize &gt; 0, <span class="stringliteral">&quot;FixedVector capacity must be greater than zero.&quot;</span>);</div>
-<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span> </div>
-<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>  <span class="comment">/// Internal buffer for storing elements.</span></div>
-<div class="line"><a id="l00289" name="l00289"></a><span class="lineno"><a class="line" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a6d4949391844c1bb740b5656e2dbc0d4">  289</a></span>  <a class="code hl_variable" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a6d4949391844c1bb740b5656e2dbc0d4">std</a>::<a class="code hl_variable" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a6d4949391844c1bb740b5656e2dbc0d4">byte</a> <a class="code hl_variable" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a6d4949391844c1bb740b5656e2dbc0d4">_data</a>[allocatedSize * <span class="keyword">sizeof</span>(type)];</div>
-<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span> </div>
-<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>  <span class="comment">/// Current number of elements in the vector.</span></div>
-<div class="line"><a id="l00292" name="l00292"></a><span class="lineno"><a class="line" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a5c9cc666d1f061976ce71fe968964a5a">  292</a></span>  <a class="code hl_variable" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a5c9cc666d1f061976ce71fe968964a5a">std</a>::<a class="code hl_variable" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a5c9cc666d1f061976ce71fe968964a5a">size_t</a> <a class="code hl_variable" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a5c9cc666d1f061976ce71fe968964a5a">_size</a>;</div>
-<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>};</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>  <span class="keyword">template</span> &lt;std::size_t allocatedSize2&gt;</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>  <a class="code hl_class" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a>&lt;type, allocatedSize&gt; &amp; <a class="code hl_function" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a438a849f87c280465a0ec71b5b515238">operator</a>=(<a class="code hl_class" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a>&lt;type, allocatedSize2&gt; &amp;&amp; other) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span> </div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  274</span><span class="comment">    \brief Assigns initializer list to this FixedVector.</span></div>
+<div class="line"><span class="lineno">  275</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  276</span><span class="comment">    This operator assigns the contents of an initializer list to this vector.</span></div>
+<div class="line"><span class="lineno">  277</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  278</span><span class="comment">    \param ilist The initializer list containing the elements to assign.</span></div>
+<div class="line"><span class="lineno">  279</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  280</span><span class="comment">    \return A reference to this FixedVector after assignment.</span></div>
+<div class="line"><span class="lineno">  281</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  282</span><span class="comment">    \pre The \a ilist size must not exceed the allocated capacity.</span></div>
+<div class="line"><span class="lineno">  283</span><span class="comment">    \pre All elements in \a ilist must be valid instances of type.</span></div>
+<div class="line"><span class="lineno">  284</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  285</span><span class="comment">    \post This vector has the same size and content as the source \a ilist.</span></div>
+<div class="line"><span class="lineno">  286</span><span class="comment">    \post All elements are properly copied using copy construction.</span></div>
+<div class="line"><span class="lineno">  287</span><span class="comment">    \post All previous elements are properly destroyed.</span></div>
+<div class="line"><span class="lineno">  288</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  289</span><span class="comment">    \note The operator handles empty initializer lists correctly.</span></div>
+<div class="line"><span class="lineno">  290</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>  <a class="code hl_class" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a>&lt;type, allocatedSize&gt; &amp; <a class="code hl_function" href="../../d7/dec/classtoy_1_1_fixed_vector.html#aa610304b854d065790d877acdf3f340a">operator</a>=(std::initializer_list&lt;type&gt; ilist);</div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span> </div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  294</span><span class="comment">    \brief Assigns \a count copies of \a value to the vector.</span></div>
+<div class="line"><span class="lineno">  295</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  296</span><span class="comment">    This method replaces the current contents of the vector with \a count copies of \a value.</span></div>
+<div class="line"><span class="lineno">  297</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  298</span><span class="comment">    \param count The number of copies of \a value to assign.</span></div>
+<div class="line"><span class="lineno">  299</span><span class="comment">    \param value The value to assign \a count copies of.</span></div>
+<div class="line"><span class="lineno">  300</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  301</span><span class="comment">    \pre The \a count must not exceed the allocated capacity.</span></div>
+<div class="line"><span class="lineno">  302</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  303</span><span class="comment">    \post The vector contains \a count elements, each initialized with \a value.</span></div>
+<div class="line"><span class="lineno">  304</span><span class="comment">    \post The vector size is equal to \a count.</span></div>
+<div class="line"><span class="lineno">  305</span><span class="comment">    \post All previous elements are properly destroyed.</span></div>
+<div class="line"><span class="lineno">  306</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  307</span><span class="comment">    \note This method clears existing elements before assignment.</span></div>
+<div class="line"><span class="lineno">  308</span><span class="comment">    \note The \a value is copied for each element.</span></div>
+<div class="line"><span class="lineno">  309</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>  <span class="keywordtype">void</span> <a class="code hl_function" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a84ca453a2cad602ff9020c8b0e15193f">assign</a>(size_type count, <span class="keyword">const</span> type &amp; value);</div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span> </div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  313</span><span class="comment">    \brief Assigns elements from the range [ \a first, \a last ) to the vector.</span></div>
+<div class="line"><span class="lineno">  314</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  315</span><span class="comment">    This method replaces the current contents of the vector with elements from the range [ \a first, \a last ).</span></div>
+<div class="line"><span class="lineno">  316</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  317</span><span class="comment">    \tparam InputIterator The type of the input iterator.</span></div>
+<div class="line"><span class="lineno">  318</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  319</span><span class="comment">    \param first Iterator pointing to the first element to assign.</span></div>
+<div class="line"><span class="lineno">  320</span><span class="comment">    \param last  Iterator pointing to one past the last element to assign.</span></div>
+<div class="line"><span class="lineno">  321</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  322</span><span class="comment">    \pre The \a first and \a last iterators must be valid.</span></div>
+<div class="line"><span class="lineno">  323</span><span class="comment">    \pre The range [ \a first, \a last ) must not exceed the allocated capacity.</span></div>
+<div class="line"><span class="lineno">  324</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  325</span><span class="comment">    \post The vector contains all elements from the range [ \a first, \a last ).</span></div>
+<div class="line"><span class="lineno">  326</span><span class="comment">    \post The vector size is equal to the size of the range.</span></div>
+<div class="line"><span class="lineno">  327</span><span class="comment">    \post All previous elements are properly destroyed.</span></div>
+<div class="line"><span class="lineno">  328</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  329</span><span class="comment">    \note This method clears existing elements before assignment.</span></div>
+<div class="line"><span class="lineno">  330</span><span class="comment">    \note Elements from the range are copied into the vector.</span></div>
+<div class="line"><span class="lineno">  331</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> <a class="code hl_class" href="../../d7/dec/classtoy_1_1_fixed_vector.html">InputIterator</a>&gt;</div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>    <span class="keyword">requires</span>(!<a class="code hl_class" href="../../d7/dec/classtoy_1_1_fixed_vector.html">std</a>::<a class="code hl_class" href="../../d7/dec/classtoy_1_1_fixed_vector.html">is_integral_v</a>&lt;<a class="code hl_class" href="../../d7/dec/classtoy_1_1_fixed_vector.html">InputIterator</a>&gt;)</div>
+<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>  <span class="keywordtype">void</span> <a class="code hl_class" href="../../d7/dec/classtoy_1_1_fixed_vector.html">assign</a>(<a class="code hl_class" href="../../d7/dec/classtoy_1_1_fixed_vector.html">InputIterator</a> <a class="code hl_class" href="../../d7/dec/classtoy_1_1_fixed_vector.html">first</a>, <a class="code hl_class" href="../../d7/dec/classtoy_1_1_fixed_vector.html">InputIterator</a> <a class="code hl_class" href="../../d7/dec/classtoy_1_1_fixed_vector.html">last</a>);</div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span> </div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>  <span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  337</span><span class="comment">    \brief Assigns elements from an initializer list to the vector.</span></div>
+<div class="line"><span class="lineno">  338</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  339</span><span class="comment">    This method replaces the current contents of the vector with elements from the initializer list.</span></div>
+<div class="line"><span class="lineno">  340</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  341</span><span class="comment">    \param ilist The initializer list containing the elements to assign.</span></div>
+<div class="line"><span class="lineno">  342</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  343</span><span class="comment">    \pre The \a ilist size must not exceed the allocated capacity.</span></div>
+<div class="line"><span class="lineno">  344</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  345</span><span class="comment">    \post The vector contains all elements from the initializer list.</span></div>
+<div class="line"><span class="lineno">  346</span><span class="comment">    \post The vector size is equal to the size of the initializer list.</span></div>
+<div class="line"><span class="lineno">  347</span><span class="comment">    \post All previous elements are properly destroyed.</span></div>
+<div class="line"><span class="lineno">  348</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  349</span><span class="comment">    \note This method clears existing elements before assignment.</span></div>
+<div class="line"><span class="lineno">  350</span><span class="comment">    \note The operator handles empty initializer lists correctly.</span></div>
+<div class="line"><span class="lineno">  351</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>  <span class="keywordtype">void</span> <a class="code hl_function" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a846f00926be347def9cc59298b2f72cf">assign</a>(std::initializer_list&lt;type&gt; ilist);</div>
+<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span> </div>
+<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>  <span class="comment">// temporary</span></div>
+<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span> </div>
+<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span>  <span class="keyword">constexpr</span> <a class="code hl_function" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a8b52067ca198f6f9fdfcca90bd6bfd67">size_type</a> <a class="code hl_function" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a8b52067ca198f6f9fdfcca90bd6bfd67">size</a>() <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span>  <span class="keyword">constexpr</span> <a class="code hl_function" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a00c716c2d271772cc9a66fb396a53b5a">size_type</a> <a class="code hl_function" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a00c716c2d271772cc9a66fb396a53b5a">capacity</a>() <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span> </div>
+<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span>  <span class="keyword">constexpr</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d7/dec/classtoy_1_1_fixed_vector.html#ad1b12283014e9694c538c41a6b4d854b">push_back</a>(<span class="keyword">const</span> type &amp; val) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span> </div>
+<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>  <span class="keyword">constexpr</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a5ae89743b5bf48d51270730a216c1e2d">clear</a>() <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span> </div>
+<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>  <span class="keyword">constexpr</span> type * <a class="code hl_function" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a1433f69e5ccf1b0caafe64a4f8990651">end</a>() <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span> </div>
+<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>  <span class="keyword">constexpr</span> <span class="keyword">const</span> type &amp; <a class="code hl_function" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a0f40c2837636b687642df34c63a97d7f">operator</a>[](size_t index) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span> </div>
+<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span>  <span class="keyword">static_assert</span>(allocatedSize &gt; 0, <span class="stringliteral">&quot;FixedVector capacity must be greater than zero.&quot;</span>);</div>
+<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span> </div>
+<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span>  <span class="comment">/// Internal buffer for storing elements.</span></div>
+<div class="line"><a id="l00371" name="l00371"></a><span class="lineno"><a class="line" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a6d4949391844c1bb740b5656e2dbc0d4">  371</a></span>  <a class="code hl_variable" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a6d4949391844c1bb740b5656e2dbc0d4">std</a>::<a class="code hl_variable" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a6d4949391844c1bb740b5656e2dbc0d4">byte</a> <a class="code hl_variable" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a6d4949391844c1bb740b5656e2dbc0d4">_data</a>[allocatedSize * <span class="keyword">sizeof</span>(type)];</div>
+<div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span> </div>
+<div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span>  <span class="comment">/// Current number of elements in the vector.</span></div>
+<div class="line"><a id="l00374" name="l00374"></a><span class="lineno"><a class="line" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a566cdb40d2ac367a8db078ee5ee18945">  374</a></span>  <a class="code hl_variable" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a566cdb40d2ac367a8db078ee5ee18945">size_type</a> <a class="code hl_variable" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a566cdb40d2ac367a8db078ee5ee18945">_size</a> = 0;</div>
+<div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span>};</div>
 </div>
-<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span> </div>
-<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>} <span class="comment">// namespace toy</span></div>
-<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span> </div>
-<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span><span class="preprocessor">#</span><span class="preprocessor">endif</span> <span class="comment">// INCLUDE_CORE_FIXED_VECTOR_HPP_</span></div>
+<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span> </div>
+<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>} <span class="comment">// namespace toy</span></div>
+<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span> </div>
+<div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span><span class="preprocessor">#</span><span class="preprocessor">endif</span> <span class="comment">// INCLUDE_CORE_FIXED_VECTOR_HPP_</span></div>
 <div class="ttc" id="aassertion__macro__gcc__clang_8hpp_html_a672330c2fecd516f254162cd9611d91a"><div class="ttname"><a href="../../d1/d5f/assertion__macro__gcc__clang_8hpp.html#a672330c2fecd516f254162cd9611d91a">assert_message</a></div><div class="ttdeci">#define assert_message(expression, message)</div><div class="ttdoc">Debug assertion macro with custom message for runtime expression checking.</div><div class="ttdef"><b>Definition</b> assertion_macro_gcc_clang.hpp:88</div></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html">toy::CStringView</a></div><div class="ttdoc">Non-owning string view class for C-style strings.</div><div class="ttdef"><b>Definition</b> c_string_view.hpp:103</div></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_a07841e493d8829a95b0bb375dafb93e6"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a07841e493d8829a95b0bb375dafb93e6">toy::CStringView::find_first_not_of</a></div><div class="ttdeci">constexpr std::size_t find_first_not_of(const stringType &amp;string, std::size_t position=0) const noexcept</div><div class="ttdoc">Finds the first occurrence of any character not from a StringLike object.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:167</div></div>
@@ -582,32 +664,35 @@ $(function(){initNavTree('d7/dea/fixed__vector_8hpp_source.html','../../',''); }
 <div class="ttc" id="aclasstoy_1_1_fixed_string_html_afba7a518ba63a32116817444d3582063"><div class="ttname"><a href="../../d3/d7a/classtoy_1_1_fixed_string.html#afba7a518ba63a32116817444d3582063">toy::FixedString::replace</a></div><div class="ttdeci">constexpr FixedString&lt; allocatedSize &gt; &amp; replace(std::size_t pos, std::size_t count, char character, std::size_t charactersCount=1) noexcept</div><div class="ttdoc">Replaces a portion of the string with a character repeated the given count of times.</div><div class="ttdef"><b>Definition</b> fixed_string.inl:580</div></div>
 <div class="ttc" id="aclasstoy_1_1_fixed_string_html_afd6420b021d180b334ca1cf3a8e8c663"><div class="ttname"><a href="../../d3/d7a/classtoy_1_1_fixed_string.html#afd6420b021d180b334ca1cf3a8e8c663">toy::FixedString::insert</a></div><div class="ttdeci">constexpr FixedString&lt; allocatedSize &gt; &amp; insert(std::size_t index, const char *string) noexcept</div><div class="ttdoc">Inserts the C string at the specified index.</div><div class="ttdef"><b>Definition</b> fixed_string.inl:348</div></div>
 <div class="ttc" id="aclasstoy_1_1_fixed_vector_html"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html">toy::FixedVector</a></div><div class="ttdef"><b>Definition</b> fixed_vector.hpp:31</div></div>
-<div class="ttc" id="aclasstoy_1_1_fixed_vector_html_a00c716c2d271772cc9a66fb396a53b5a"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#a00c716c2d271772cc9a66fb396a53b5a">toy::FixedVector::capacity</a></div><div class="ttdeci">constexpr std::size_t capacity() const noexcept</div><div class="ttdef"><b>Definition</b> fixed_vector.inl:205</div></div>
-<div class="ttc" id="aclasstoy_1_1_fixed_vector_html_a05fc127b4161c7009da7a46e2cb24a18"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#a05fc127b4161c7009da7a46e2cb24a18">toy::FixedVector::FixedVector</a></div><div class="ttdeci">FixedVector(FixedVector&lt; type, allocatedSize &gt; &amp;&amp;other) noexcept</div><div class="ttdoc">Constructs a FixedVector by moving from another FixedVector.</div><div class="ttdef"><b>Definition</b> fixed_vector.inl:80</div></div>
+<div class="ttc" id="aclasstoy_1_1_fixed_vector_html_a00c716c2d271772cc9a66fb396a53b5a"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#a00c716c2d271772cc9a66fb396a53b5a">toy::FixedVector::capacity</a></div><div class="ttdeci">constexpr size_type capacity() const noexcept</div><div class="ttdef"><b>Definition</b> fixed_vector.inl:252</div></div>
+<div class="ttc" id="aclasstoy_1_1_fixed_vector_html_a05fc127b4161c7009da7a46e2cb24a18"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#a05fc127b4161c7009da7a46e2cb24a18">toy::FixedVector::FixedVector</a></div><div class="ttdeci">FixedVector(FixedVector&lt; type, allocatedSize &gt; &amp;&amp;other) noexcept</div><div class="ttdoc">Constructs a FixedVector by moving from another FixedVector.</div><div class="ttdef"><b>Definition</b> fixed_vector.inl:90</div></div>
 <div class="ttc" id="aclasstoy_1_1_fixed_vector_html_a0b8e451a1d4734b84b21479924f1a3a6"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#a0b8e451a1d4734b84b21479924f1a3a6">toy::FixedVector::pointer</a></div><div class="ttdeci">type * pointer</div><div class="ttdoc">Pointer to vector element.</div><div class="ttdef"><b>Definition</b> fixed_vector.hpp:38</div></div>
-<div class="ttc" id="aclasstoy_1_1_fixed_vector_html_a0f40c2837636b687642df34c63a97d7f"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#a0f40c2837636b687642df34c63a97d7f">toy::FixedVector::operator[]</a></div><div class="ttdeci">constexpr const type &amp; operator[](size_t index) const noexcept</div><div class="ttdef"><b>Definition</b> fixed_vector.inl:233</div></div>
-<div class="ttc" id="aclasstoy_1_1_fixed_vector_html_a1433f69e5ccf1b0caafe64a4f8990651"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#a1433f69e5ccf1b0caafe64a4f8990651">toy::FixedVector::end</a></div><div class="ttdeci">constexpr type * end() noexcept</div><div class="ttdef"><b>Definition</b> fixed_vector.inl:228</div></div>
+<div class="ttc" id="aclasstoy_1_1_fixed_vector_html_a0f40c2837636b687642df34c63a97d7f"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#a0f40c2837636b687642df34c63a97d7f">toy::FixedVector::operator[]</a></div><div class="ttdeci">constexpr const type &amp; operator[](size_t index) const noexcept</div><div class="ttdef"><b>Definition</b> fixed_vector.inl:280</div></div>
+<div class="ttc" id="aclasstoy_1_1_fixed_vector_html_a1433f69e5ccf1b0caafe64a4f8990651"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#a1433f69e5ccf1b0caafe64a4f8990651">toy::FixedVector::end</a></div><div class="ttdeci">constexpr type * end() noexcept</div><div class="ttdef"><b>Definition</b> fixed_vector.inl:275</div></div>
 <div class="ttc" id="aclasstoy_1_1_fixed_vector_html_a24493c98e46094de18403d96126c31d2"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#a24493c98e46094de18403d96126c31d2">toy::FixedVector::const_pointer</a></div><div class="ttdeci">const type * const_pointer</div><div class="ttdoc">Const pointer to vector element.</div><div class="ttdef"><b>Definition</b> fixed_vector.hpp:39</div></div>
 <div class="ttc" id="aclasstoy_1_1_fixed_vector_html_a268734f9669e3693c60d125ab548e98f"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#a268734f9669e3693c60d125ab548e98f">toy::FixedVector::FixedVector</a></div><div class="ttdeci">constexpr FixedVector() noexcept</div><div class="ttdoc">Default constructor.</div><div class="ttdef"><b>Definition</b> fixed_vector.inl:31</div></div>
-<div class="ttc" id="aclasstoy_1_1_fixed_vector_html_a2746b0450f03ec6b59341aff07a19d86"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#a2746b0450f03ec6b59341aff07a19d86">toy::FixedVector::FixedVector</a></div><div class="ttdeci">FixedVector(FixedVector&lt; type, allocatedSize2 &gt; &amp;&amp;other) noexcept</div><div class="ttdoc">Constructs a FixedVector by moving from another FixedVector with different capacity.</div><div class="ttdef"><b>Definition</b> fixed_vector.inl:91</div></div>
-<div class="ttc" id="aclasstoy_1_1_fixed_vector_html_a3040082c470725af5f023d2f4fa8615c"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#a3040082c470725af5f023d2f4fa8615c">toy::FixedVector::FixedVector</a></div><div class="ttdeci">FixedVector(const FixedVector&lt; type, allocatedSize2 &gt; &amp;other) noexcept</div><div class="ttdoc">Constructs a FixedVector by copying from another FixedVector with different capacity.</div><div class="ttdef"><b>Definition</b> fixed_vector.inl:70</div></div>
-<div class="ttc" id="aclasstoy_1_1_fixed_vector_html_a438a849f87c280465a0ec71b5b515238"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#a438a849f87c280465a0ec71b5b515238">toy::FixedVector::operator=</a></div><div class="ttdeci">FixedVector&lt; type, allocatedSize &gt; &amp; operator=(FixedVector&lt; type, allocatedSize2 &gt; &amp;&amp;other) noexcept</div><div class="ttdoc">Move assigns FixedVector with different capacity to this FixedVector.</div><div class="ttdef"><b>Definition</b> fixed_vector.inl:165</div></div>
+<div class="ttc" id="aclasstoy_1_1_fixed_vector_html_a2746b0450f03ec6b59341aff07a19d86"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#a2746b0450f03ec6b59341aff07a19d86">toy::FixedVector::FixedVector</a></div><div class="ttdeci">FixedVector(FixedVector&lt; type, allocatedSize2 &gt; &amp;&amp;other) noexcept</div><div class="ttdoc">Constructs a FixedVector by moving from another FixedVector with different capacity.</div><div class="ttdef"><b>Definition</b> fixed_vector.inl:101</div></div>
+<div class="ttc" id="aclasstoy_1_1_fixed_vector_html_a3040082c470725af5f023d2f4fa8615c"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#a3040082c470725af5f023d2f4fa8615c">toy::FixedVector::FixedVector</a></div><div class="ttdeci">FixedVector(const FixedVector&lt; type, allocatedSize2 &gt; &amp;other) noexcept</div><div class="ttdoc">Constructs a FixedVector by copying from another FixedVector with different capacity.</div><div class="ttdef"><b>Definition</b> fixed_vector.inl:80</div></div>
+<div class="ttc" id="aclasstoy_1_1_fixed_vector_html_a438a849f87c280465a0ec71b5b515238"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#a438a849f87c280465a0ec71b5b515238">toy::FixedVector::operator=</a></div><div class="ttdeci">FixedVector&lt; type, allocatedSize &gt; &amp; operator=(FixedVector&lt; type, allocatedSize2 &gt; &amp;&amp;other) noexcept</div><div class="ttdoc">Move assigns FixedVector with different capacity to this FixedVector.</div><div class="ttdef"><b>Definition</b> fixed_vector.inl:175</div></div>
 <div class="ttc" id="aclasstoy_1_1_fixed_vector_html_a54b2b2db7a31500c6daf4e5ef12a55f3"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#a54b2b2db7a31500c6daf4e5ef12a55f3">toy::FixedVector::reference</a></div><div class="ttdeci">value_type &amp; reference</div><div class="ttdoc">Reference to vector element.</div><div class="ttdef"><b>Definition</b> fixed_vector.hpp:36</div></div>
-<div class="ttc" id="aclasstoy_1_1_fixed_vector_html_a5ae89743b5bf48d51270730a216c1e2d"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#a5ae89743b5bf48d51270730a216c1e2d">toy::FixedVector::clear</a></div><div class="ttdeci">constexpr void clear() noexcept</div><div class="ttdef"><b>Definition</b> fixed_vector.inl:210</div></div>
-<div class="ttc" id="aclasstoy_1_1_fixed_vector_html_a5c9cc666d1f061976ce71fe968964a5a"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#a5c9cc666d1f061976ce71fe968964a5a">toy::FixedVector::_size</a></div><div class="ttdeci">std::size_t _size</div><div class="ttdoc">Current number of elements in the vector.</div><div class="ttdef"><b>Definition</b> fixed_vector.hpp:292</div></div>
-<div class="ttc" id="aclasstoy_1_1_fixed_vector_html_a6d4949391844c1bb740b5656e2dbc0d4"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#a6d4949391844c1bb740b5656e2dbc0d4">toy::FixedVector::_data</a></div><div class="ttdeci">std::byte _data[allocatedSize *sizeof(type)]</div><div class="ttdoc">Internal buffer for storing elements.</div><div class="ttdef"><b>Definition</b> fixed_vector.hpp:289</div></div>
-<div class="ttc" id="aclasstoy_1_1_fixed_vector_html_a7fae3a88461f05878e4a0d9b966a2b48"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#a7fae3a88461f05878e4a0d9b966a2b48">toy::FixedVector::operator=</a></div><div class="ttdeci">FixedVector&lt; type, allocatedSize &gt; &amp; operator=(std::initializer_list&lt; type &gt; init) noexcept</div><div class="ttdoc">Assigns initializer list to this FixedVector.</div><div class="ttdef"><b>Definition</b> fixed_vector.inl:182</div></div>
-<div class="ttc" id="aclasstoy_1_1_fixed_vector_html_a7fbe60cf0a7fd017284c3a4521cdffce"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#a7fbe60cf0a7fd017284c3a4521cdffce">toy::FixedVector::FixedVector</a></div><div class="ttdeci">FixedVector(const FixedVector&lt; type, allocatedSize &gt; &amp;other) noexcept</div><div class="ttdoc">Constructs a copy of other FixedVector.</div><div class="ttdef"><b>Definition</b> fixed_vector.inl:61</div></div>
-<div class="ttc" id="aclasstoy_1_1_fixed_vector_html_a8b52067ca198f6f9fdfcca90bd6bfd67"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#a8b52067ca198f6f9fdfcca90bd6bfd67">toy::FixedVector::size</a></div><div class="ttdeci">constexpr std::size_t size() const noexcept</div><div class="ttdef"><b>Definition</b> fixed_vector.inl:200</div></div>
+<div class="ttc" id="aclasstoy_1_1_fixed_vector_html_a566cdb40d2ac367a8db078ee5ee18945"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#a566cdb40d2ac367a8db078ee5ee18945">toy::FixedVector::_size</a></div><div class="ttdeci">size_type _size</div><div class="ttdoc">Current number of elements in the vector.</div><div class="ttdef"><b>Definition</b> fixed_vector.hpp:374</div></div>
+<div class="ttc" id="aclasstoy_1_1_fixed_vector_html_a5ae89743b5bf48d51270730a216c1e2d"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#a5ae89743b5bf48d51270730a216c1e2d">toy::FixedVector::clear</a></div><div class="ttdeci">constexpr void clear() noexcept</div><div class="ttdef"><b>Definition</b> fixed_vector.inl:257</div></div>
+<div class="ttc" id="aclasstoy_1_1_fixed_vector_html_a5eac0b7567faa3f43d21ca977bb01ae6"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#a5eac0b7567faa3f43d21ca977bb01ae6">toy::FixedVector::iterator</a></div><div class="ttdeci">value_type * iterator</div><div class="ttdoc">Iterator type for vector elements.</div><div class="ttdef"><b>Definition</b> fixed_vector.hpp:40</div></div>
+<div class="ttc" id="aclasstoy_1_1_fixed_vector_html_a6d4949391844c1bb740b5656e2dbc0d4"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#a6d4949391844c1bb740b5656e2dbc0d4">toy::FixedVector::_data</a></div><div class="ttdeci">std::byte _data[allocatedSize *sizeof(type)]</div><div class="ttdoc">Internal buffer for storing elements.</div><div class="ttdef"><b>Definition</b> fixed_vector.hpp:371</div></div>
+<div class="ttc" id="aclasstoy_1_1_fixed_vector_html_a7fbe60cf0a7fd017284c3a4521cdffce"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#a7fbe60cf0a7fd017284c3a4521cdffce">toy::FixedVector::FixedVector</a></div><div class="ttdeci">FixedVector(const FixedVector&lt; type, allocatedSize &gt; &amp;other) noexcept</div><div class="ttdoc">Constructs a copy of other FixedVector.</div><div class="ttdef"><b>Definition</b> fixed_vector.inl:71</div></div>
+<div class="ttc" id="aclasstoy_1_1_fixed_vector_html_a846f00926be347def9cc59298b2f72cf"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#a846f00926be347def9cc59298b2f72cf">toy::FixedVector::assign</a></div><div class="ttdeci">void assign(std::initializer_list&lt; type &gt; ilist)</div><div class="ttdoc">Assigns elements from an initializer list to the vector.</div><div class="ttdef"><b>Definition</b> fixed_vector.inl:232</div></div>
+<div class="ttc" id="aclasstoy_1_1_fixed_vector_html_a84ca453a2cad602ff9020c8b0e15193f"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#a84ca453a2cad602ff9020c8b0e15193f">toy::FixedVector::assign</a></div><div class="ttdeci">void assign(size_type count, const type &amp;value)</div><div class="ttdoc">Assigns count copies of value to the vector.</div><div class="ttdef"><b>Definition</b> fixed_vector.inl:208</div></div>
+<div class="ttc" id="aclasstoy_1_1_fixed_vector_html_a8b52067ca198f6f9fdfcca90bd6bfd67"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#a8b52067ca198f6f9fdfcca90bd6bfd67">toy::FixedVector::size</a></div><div class="ttdeci">constexpr size_type size() const noexcept</div><div class="ttdef"><b>Definition</b> fixed_vector.inl:247</div></div>
 <div class="ttc" id="aclasstoy_1_1_fixed_vector_html_a9ade8246e6a0327c4e6667d294a60957"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#a9ade8246e6a0327c4e6667d294a60957">toy::FixedVector::value_type</a></div><div class="ttdeci">type value_type</div><div class="ttdoc">Type of elements stored in the vector.</div><div class="ttdef"><b>Definition</b> fixed_vector.hpp:33</div></div>
-<div class="ttc" id="aclasstoy_1_1_fixed_vector_html_a9e70e7b0654204b928e67181175113e0"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#a9e70e7b0654204b928e67181175113e0">toy::FixedVector::FixedVector</a></div><div class="ttdeci">FixedVector(size_type count, const type &amp;value)</div><div class="ttdoc">Constructs a FixedVector with count elements initialized to value.</div><div class="ttdef"><b>Definition</b> fixed_vector.inl:51</div></div>
-<div class="ttc" id="aclasstoy_1_1_fixed_vector_html_ab9ee707c6ee51e565a00b10911c1594e"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#ab9ee707c6ee51e565a00b10911c1594e">toy::FixedVector::operator=</a></div><div class="ttdeci">FixedVector&lt; type, allocatedSize &gt; &amp; operator=(FixedVector&lt; type, allocatedSize &gt; &amp;&amp;other) noexcept</div><div class="ttdoc">Move assigns other FixedVector to this FixedVector.</div><div class="ttdef"><b>Definition</b> fixed_vector.inl:146</div></div>
-<div class="ttc" id="aclasstoy_1_1_fixed_vector_html_abd1856c08a6264f956ae6087eb47df07"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#abd1856c08a6264f956ae6087eb47df07">toy::FixedVector::operator=</a></div><div class="ttdeci">FixedVector&lt; type, allocatedSize &gt; &amp; operator=(const FixedVector&lt; type, allocatedSize &gt; &amp;other) noexcept</div><div class="ttdoc">Copy assigns other FixedVector to this FixedVector.</div><div class="ttdef"><b>Definition</b> fixed_vector.inl:114</div></div>
+<div class="ttc" id="aclasstoy_1_1_fixed_vector_html_a9e70e7b0654204b928e67181175113e0"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#a9e70e7b0654204b928e67181175113e0">toy::FixedVector::FixedVector</a></div><div class="ttdeci">FixedVector(size_type count, const type &amp;value)</div><div class="ttdoc">Constructs a FixedVector with count elements initialized to value.</div><div class="ttdef"><b>Definition</b> fixed_vector.inl:50</div></div>
+<div class="ttc" id="aclasstoy_1_1_fixed_vector_html_aa610304b854d065790d877acdf3f340a"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#aa610304b854d065790d877acdf3f340a">toy::FixedVector::operator=</a></div><div class="ttdeci">FixedVector&lt; type, allocatedSize &gt; &amp; operator=(std::initializer_list&lt; type &gt; ilist)</div><div class="ttdoc">Assigns initializer list to this FixedVector.</div><div class="ttdef"><b>Definition</b> fixed_vector.inl:192</div></div>
+<div class="ttc" id="aclasstoy_1_1_fixed_vector_html_ab9ee707c6ee51e565a00b10911c1594e"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#ab9ee707c6ee51e565a00b10911c1594e">toy::FixedVector::operator=</a></div><div class="ttdeci">FixedVector&lt; type, allocatedSize &gt; &amp; operator=(FixedVector&lt; type, allocatedSize &gt; &amp;&amp;other) noexcept</div><div class="ttdoc">Move assigns other FixedVector to this FixedVector.</div><div class="ttdef"><b>Definition</b> fixed_vector.inl:156</div></div>
+<div class="ttc" id="aclasstoy_1_1_fixed_vector_html_abd1856c08a6264f956ae6087eb47df07"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#abd1856c08a6264f956ae6087eb47df07">toy::FixedVector::operator=</a></div><div class="ttdeci">FixedVector&lt; type, allocatedSize &gt; &amp; operator=(const FixedVector&lt; type, allocatedSize &gt; &amp;other) noexcept</div><div class="ttdoc">Copy assigns other FixedVector to this FixedVector.</div><div class="ttdef"><b>Definition</b> fixed_vector.inl:124</div></div>
 <div class="ttc" id="aclasstoy_1_1_fixed_vector_html_ac7b8218dba3672ac58881b354217bf92"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#ac7b8218dba3672ac58881b354217bf92">toy::FixedVector::const_reference</a></div><div class="ttdeci">const value_type &amp; const_reference</div><div class="ttdoc">Const reference to vector element.</div><div class="ttdef"><b>Definition</b> fixed_vector.hpp:37</div></div>
-<div class="ttc" id="aclasstoy_1_1_fixed_vector_html_ad1b12283014e9694c538c41a6b4d854b"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#ad1b12283014e9694c538c41a6b4d854b">toy::FixedVector::push_back</a></div><div class="ttdeci">constexpr void push_back(const type &amp;val) noexcept</div><div class="ttdef"><b>Definition</b> fixed_vector.inl:218</div></div>
-<div class="ttc" id="aclasstoy_1_1_fixed_vector_html_ad98be7eb41babb07b9bc52d57783ef03"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#ad98be7eb41babb07b9bc52d57783ef03">toy::FixedVector::~FixedVector</a></div><div class="ttdeci">constexpr ~FixedVector() noexcept</div><div class="ttdoc">Destructor for the vector.</div><div class="ttdef"><b>Definition</b> fixed_vector.inl:36</div></div>
-<div class="ttc" id="aclasstoy_1_1_fixed_vector_html_adcfd48696fd209b680f04bbf9f12e6c7"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#adcfd48696fd209b680f04bbf9f12e6c7">toy::FixedVector::operator=</a></div><div class="ttdeci">FixedVector&lt; type, allocatedSize &gt; &amp; operator=(const FixedVector&lt; type, allocatedSize2 &gt; &amp;other) noexcept</div><div class="ttdoc">Copy assigns FixedVector with different capacity to this FixedVector.</div><div class="ttdef"><b>Definition</b> fixed_vector.inl:131</div></div>
-<div class="ttc" id="aclasstoy_1_1_fixed_vector_html_af41f645630eaed35f734c222c05ba49a"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#af41f645630eaed35f734c222c05ba49a">toy::FixedVector::FixedVector</a></div><div class="ttdeci">FixedVector(size_type count)</div><div class="ttdoc">Constructs a FixedVector with count default-initialized elements.</div><div class="ttdef"><b>Definition</b> fixed_vector.inl:41</div></div>
+<div class="ttc" id="aclasstoy_1_1_fixed_vector_html_ad1b12283014e9694c538c41a6b4d854b"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#ad1b12283014e9694c538c41a6b4d854b">toy::FixedVector::push_back</a></div><div class="ttdeci">constexpr void push_back(const type &amp;val) noexcept</div><div class="ttdef"><b>Definition</b> fixed_vector.inl:265</div></div>
+<div class="ttc" id="aclasstoy_1_1_fixed_vector_html_ad98be7eb41babb07b9bc52d57783ef03"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#ad98be7eb41babb07b9bc52d57783ef03">toy::FixedVector::~FixedVector</a></div><div class="ttdeci">constexpr ~FixedVector() noexcept</div><div class="ttdoc">Destructor for the vector.</div><div class="ttdef"><b>Definition</b> fixed_vector.inl:35</div></div>
+<div class="ttc" id="aclasstoy_1_1_fixed_vector_html_adcfd48696fd209b680f04bbf9f12e6c7"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#adcfd48696fd209b680f04bbf9f12e6c7">toy::FixedVector::operator=</a></div><div class="ttdeci">FixedVector&lt; type, allocatedSize &gt; &amp; operator=(const FixedVector&lt; type, allocatedSize2 &gt; &amp;other) noexcept</div><div class="ttdoc">Copy assigns FixedVector with different capacity to this FixedVector.</div><div class="ttdef"><b>Definition</b> fixed_vector.inl:141</div></div>
+<div class="ttc" id="aclasstoy_1_1_fixed_vector_html_af41f645630eaed35f734c222c05ba49a"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#af41f645630eaed35f734c222c05ba49a">toy::FixedVector::FixedVector</a></div><div class="ttdeci">FixedVector(size_type count)</div><div class="ttdoc">Constructs a FixedVector with count default-initialized elements.</div><div class="ttdef"><b>Definition</b> fixed_vector.inl:40</div></div>
 <div class="ttc" id="aconcepttoy_1_1_string_like_html"><div class="ttname"><a href="../../df/d77/concepttoy_1_1_string_like.html">toy::StringLike</a></div><div class="ttdoc">Concept defining the requirements for string-like types.</div><div class="ttdef"><b>Definition</b> core.hpp:128</div></div>
 <div class="ttc" id="acore_8hpp_html_a1e1898e441784683649af6bb189cb75d"><div class="ttname"><a href="../../da/d47/core_8hpp.html#a1e1898e441784683649af6bb189cb75d">CPU_INTEL_x64</a></div><div class="ttdeci">#define CPU_INTEL_x64</div><div class="ttdoc">Intel CPU 64 bit code.</div><div class="ttdef"><b>Definition</b> core.hpp:83</div></div>
 <div class="ttc" id="acore_8hpp_html_a6c25f2c5b6e99783e32a4eb8258eb2f6"><div class="ttname"><a href="../../da/d47/core_8hpp.html#a6c25f2c5b6e99783e32a4eb8258eb2f6">TOY_UNUSED</a></div><div class="ttdeci">#define TOY_UNUSED(identifier)</div><div class="ttdoc">Suppresses compiler warnings about unused variables or functions.</div><div class="ttdef"><b>Definition</b> core.hpp:145</div></div>

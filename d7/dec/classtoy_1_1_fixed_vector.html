@@ -130,6 +130,8 @@ Public Types</h2></td></tr>
 <tr class="memdesc:a0b8e451a1d4734b84b21479924f1a3a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to vector element.  <br /></td></tr>
 <tr class="memitem:a24493c98e46094de18403d96126c31d2" id="r_a24493c98e46094de18403d96126c31d2"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a24493c98e46094de18403d96126c31d2">const_pointer</a> = const type *</td></tr>
 <tr class="memdesc:a24493c98e46094de18403d96126c31d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Const pointer to vector element.  <br /></td></tr>
+<tr class="memitem:a5eac0b7567faa3f43d21ca977bb01ae6" id="r_a5eac0b7567faa3f43d21ca977bb01ae6"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5eac0b7567faa3f43d21ca977bb01ae6">iterator</a> = <a class="el" href="#a9ade8246e6a0327c4e6667d294a60957">value_type</a> *</td></tr>
+<tr class="memdesc:a5eac0b7567faa3f43d21ca977bb01ae6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Iterator type for vector elements.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -141,6 +143,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:af41f645630eaed35f734c222c05ba49a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a> with <em class="arg">count</em> default-initialized elements.  <br /></td></tr>
 <tr class="memitem:a9e70e7b0654204b928e67181175113e0" id="r_a9e70e7b0654204b928e67181175113e0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9e70e7b0654204b928e67181175113e0">FixedVector</a> (<a class="el" href="#a99474f84eab51bad0b14ad3f44df88a0">size_type</a> count, const type &amp;value)</td></tr>
 <tr class="memdesc:a9e70e7b0654204b928e67181175113e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a> with <em class="arg">count</em> elements initialized to <em class="arg">value</em>.  <br /></td></tr>
+<tr class="memitem:a25647c562aa395ccb719b01601e78e56" id="r_a25647c562aa395ccb719b01601e78e56"><td class="memTemplParams" colspan="2">template&lt;typename InputIterator&gt; <br />
+requires (!std::is_integral_v&lt;InputIterator&gt;)</td></tr>
+<tr class="memitem:a25647c562aa395ccb719b01601e78e56 template"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a25647c562aa395ccb719b01601e78e56">FixedVector</a> (InputIterator first, InputIterator last)</td></tr>
+<tr class="memdesc:a25647c562aa395ccb719b01601e78e56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a> from a range defined by iterators.  <br /></td></tr>
 <tr class="memitem:a7fbe60cf0a7fd017284c3a4521cdffce" id="r_a7fbe60cf0a7fd017284c3a4521cdffce"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7fbe60cf0a7fd017284c3a4521cdffce">FixedVector</a> (const FixedVector&lt; type, allocatedSize &gt; &amp;other) noexcept</td></tr>
 <tr class="memdesc:a7fbe60cf0a7fd017284c3a4521cdffce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a copy of <em class="arg">other</em> <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a>.  <br /></td></tr>
 <tr class="memitem:a3040082c470725af5f023d2f4fa8615c" id="r_a3040082c470725af5f023d2f4fa8615c"><td class="memTemplParams" colspan="2">template&lt;std::size_t allocatedSize2&gt; </td></tr>
@@ -151,8 +157,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a2746b0450f03ec6b59341aff07a19d86" id="r_a2746b0450f03ec6b59341aff07a19d86"><td class="memTemplParams" colspan="2">template&lt;std::size_t allocatedSize2&gt; </td></tr>
 <tr class="memitem:a2746b0450f03ec6b59341aff07a19d86 template"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2746b0450f03ec6b59341aff07a19d86">FixedVector</a> (FixedVector&lt; type, allocatedSize2 &gt; &amp;&amp;other) noexcept</td></tr>
 <tr class="memdesc:a2746b0450f03ec6b59341aff07a19d86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a> by moving from another <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a> with different capacity.  <br /></td></tr>
-<tr class="memitem:a733df7e4ad2c967fdf05f976c192c988" id="r_a733df7e4ad2c967fdf05f976c192c988"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a733df7e4ad2c967fdf05f976c192c988">FixedVector</a> (std::initializer_list&lt; type &gt; init) noexcept</td></tr>
-<tr class="memdesc:a733df7e4ad2c967fdf05f976c192c988"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a> from an initializer list.  <br /></td></tr>
+<tr class="memitem:a44d442b9538b75f63f0786fe5a8efd30" id="r_a44d442b9538b75f63f0786fe5a8efd30"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a44d442b9538b75f63f0786fe5a8efd30">FixedVector</a> (std::initializer_list&lt; type &gt; init)</td></tr>
+<tr class="memdesc:a44d442b9538b75f63f0786fe5a8efd30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a> from an initializer list.  <br /></td></tr>
 <tr class="memitem:abd1856c08a6264f956ae6087eb47df07" id="r_abd1856c08a6264f956ae6087eb47df07"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a268734f9669e3693c60d125ab548e98f">FixedVector</a>&lt; type, allocatedSize &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abd1856c08a6264f956ae6087eb47df07">operator=</a> (const <a class="el" href="#a268734f9669e3693c60d125ab548e98f">FixedVector</a>&lt; type, allocatedSize &gt; &amp;other) noexcept</td></tr>
 <tr class="memdesc:abd1856c08a6264f956ae6087eb47df07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy assigns other <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a> to this <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a>.  <br /></td></tr>
 <tr class="memitem:adcfd48696fd209b680f04bbf9f12e6c7" id="r_adcfd48696fd209b680f04bbf9f12e6c7"><td class="memTemplParams" colspan="2">template&lt;std::size_t allocatedSize2&gt; </td></tr>
@@ -163,10 +169,18 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a438a849f87c280465a0ec71b5b515238" id="r_a438a849f87c280465a0ec71b5b515238"><td class="memTemplParams" colspan="2">template&lt;std::size_t allocatedSize2&gt; </td></tr>
 <tr class="memitem:a438a849f87c280465a0ec71b5b515238 template"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a268734f9669e3693c60d125ab548e98f">FixedVector</a>&lt; type, allocatedSize &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a438a849f87c280465a0ec71b5b515238">operator=</a> (<a class="el" href="#a268734f9669e3693c60d125ab548e98f">FixedVector</a>&lt; type, allocatedSize2 &gt; &amp;&amp;other) noexcept</td></tr>
 <tr class="memdesc:a438a849f87c280465a0ec71b5b515238"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move assigns <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a> with different capacity to this <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a>.  <br /></td></tr>
-<tr class="memitem:a7fae3a88461f05878e4a0d9b966a2b48" id="r_a7fae3a88461f05878e4a0d9b966a2b48"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a268734f9669e3693c60d125ab548e98f">FixedVector</a>&lt; type, allocatedSize &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7fae3a88461f05878e4a0d9b966a2b48">operator=</a> (std::initializer_list&lt; type &gt; init) noexcept</td></tr>
-<tr class="memdesc:a7fae3a88461f05878e4a0d9b966a2b48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigns initializer list to this <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a>.  <br /></td></tr>
-<tr class="memitem:a8b52067ca198f6f9fdfcca90bd6bfd67" id="r_a8b52067ca198f6f9fdfcca90bd6bfd67"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8b52067ca198f6f9fdfcca90bd6bfd67">size</a> () const noexcept</td></tr>
-<tr class="memitem:a00c716c2d271772cc9a66fb396a53b5a" id="r_a00c716c2d271772cc9a66fb396a53b5a"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a00c716c2d271772cc9a66fb396a53b5a">capacity</a> () const noexcept</td></tr>
+<tr class="memitem:aa610304b854d065790d877acdf3f340a" id="r_aa610304b854d065790d877acdf3f340a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a268734f9669e3693c60d125ab548e98f">FixedVector</a>&lt; type, allocatedSize &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa610304b854d065790d877acdf3f340a">operator=</a> (std::initializer_list&lt; type &gt; ilist)</td></tr>
+<tr class="memdesc:aa610304b854d065790d877acdf3f340a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigns initializer list to this <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a>.  <br /></td></tr>
+<tr class="memitem:a84ca453a2cad602ff9020c8b0e15193f" id="r_a84ca453a2cad602ff9020c8b0e15193f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a84ca453a2cad602ff9020c8b0e15193f">assign</a> (<a class="el" href="#a99474f84eab51bad0b14ad3f44df88a0">size_type</a> count, const type &amp;value)</td></tr>
+<tr class="memdesc:a84ca453a2cad602ff9020c8b0e15193f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigns <em class="arg">count</em> copies of <em class="arg">value</em> to the vector.  <br /></td></tr>
+<tr class="memitem:a68cbb30e031b4d94ac9e540b336d7bd5" id="r_a68cbb30e031b4d94ac9e540b336d7bd5"><td class="memTemplParams" colspan="2">template&lt;typename InputIterator&gt; <br />
+requires (!std::is_integral_v&lt;InputIterator&gt;)</td></tr>
+<tr class="memitem:a68cbb30e031b4d94ac9e540b336d7bd5 template"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a68cbb30e031b4d94ac9e540b336d7bd5">assign</a> (InputIterator first, InputIterator last)</td></tr>
+<tr class="memdesc:a68cbb30e031b4d94ac9e540b336d7bd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigns elements from the range [ <em class="arg">first</em>, <em class="arg">last</em> ) to the vector.  <br /></td></tr>
+<tr class="memitem:a846f00926be347def9cc59298b2f72cf" id="r_a846f00926be347def9cc59298b2f72cf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a846f00926be347def9cc59298b2f72cf">assign</a> (std::initializer_list&lt; type &gt; ilist)</td></tr>
+<tr class="memdesc:a846f00926be347def9cc59298b2f72cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigns elements from an initializer list to the vector.  <br /></td></tr>
+<tr class="memitem:a8b52067ca198f6f9fdfcca90bd6bfd67" id="r_a8b52067ca198f6f9fdfcca90bd6bfd67"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="#a99474f84eab51bad0b14ad3f44df88a0">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8b52067ca198f6f9fdfcca90bd6bfd67">size</a> () const noexcept</td></tr>
+<tr class="memitem:a00c716c2d271772cc9a66fb396a53b5a" id="r_a00c716c2d271772cc9a66fb396a53b5a"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="#a99474f84eab51bad0b14ad3f44df88a0">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a00c716c2d271772cc9a66fb396a53b5a">capacity</a> () const noexcept</td></tr>
 <tr class="memitem:ad1b12283014e9694c538c41a6b4d854b" id="r_ad1b12283014e9694c538c41a6b4d854b"><td class="memItemLeft" align="right" valign="top">constexpr void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad1b12283014e9694c538c41a6b4d854b">push_back</a> (const type &amp;val) noexcept</td></tr>
 <tr class="memitem:a5ae89743b5bf48d51270730a216c1e2d" id="r_a5ae89743b5bf48d51270730a216c1e2d"><td class="memItemLeft" align="right" valign="top">constexpr void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5ae89743b5bf48d51270730a216c1e2d">clear</a> () noexcept</td></tr>
 <tr class="memitem:a1433f69e5ccf1b0caafe64a4f8990651" id="r_a1433f69e5ccf1b0caafe64a4f8990651"><td class="memItemLeft" align="right" valign="top">constexpr type *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1433f69e5ccf1b0caafe64a4f8990651">end</a> () noexcept</td></tr>
@@ -176,8 +190,8 @@ Public Member Functions</h2></td></tr>
 Private Attributes</h2></td></tr>
 <tr class="memitem:a6d4949391844c1bb740b5656e2dbc0d4" id="r_a6d4949391844c1bb740b5656e2dbc0d4"><td class="memItemLeft" align="right" valign="top">std::byte&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6d4949391844c1bb740b5656e2dbc0d4">_data</a> [allocatedSize *sizeof(type)]</td></tr>
 <tr class="memdesc:a6d4949391844c1bb740b5656e2dbc0d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal buffer for storing elements.  <br /></td></tr>
-<tr class="memitem:a5c9cc666d1f061976ce71fe968964a5a" id="r_a5c9cc666d1f061976ce71fe968964a5a"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5c9cc666d1f061976ce71fe968964a5a">_size</a></td></tr>
-<tr class="memdesc:a5c9cc666d1f061976ce71fe968964a5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current number of elements in the vector.  <br /></td></tr>
+<tr class="memitem:a566cdb40d2ac367a8db078ee5ee18945" id="r_a566cdb40d2ac367a8db078ee5ee18945"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a99474f84eab51bad0b14ad3f44df88a0">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a566cdb40d2ac367a8db078ee5ee18945">_size</a> = 0</td></tr>
+<tr class="memdesc:a566cdb40d2ac367a8db078ee5ee18945"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current number of elements in the vector.  <br /></td></tr>
 </table>
 <a name="doc-typedef-members" id="doc-typedef-members"></a><h2 id="header-doc-typedef-members" class="groupheader">Member Typedef Documentation</h2>
 <a id="a24493c98e46094de18403d96126c31d2" name="a24493c98e46094de18403d96126c31d2"></a>
@@ -231,6 +245,24 @@ template&lt;typename type, std::size_t allocatedSize&gt; </div>
 </div><div class="memdoc">
 
 <p>Type used for pointer differences. </p>
+
+</div>
+</div>
+<a id="a5eac0b7567faa3f43d21ca977bb01ae6" name="a5eac0b7567faa3f43d21ca977bb01ae6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5eac0b7567faa3f43d21ca977bb01ae6">&#9670;&#160;</a></span>iterator</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename type, std::size_t allocatedSize&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">toy::FixedVector</a>&lt; type, allocatedSize &gt;::iterator = <a class="el" href="#a9ade8246e6a0327c4e6667d294a60957">value_type</a> *</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Iterator type for vector elements. </p>
 
 </div>
 </div>
@@ -308,7 +340,7 @@ template&lt;typename type, std::size_t allocatedSize&gt; </div>
 </div>
 <a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a268734f9669e3693c60d125ab548e98f" name="a268734f9669e3693c60d125ab548e98f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a268734f9669e3693c60d125ab548e98f">&#9670;&#160;</a></span>FixedVector() <span class="overload">[1/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a268734f9669e3693c60d125ab548e98f">&#9670;&#160;</a></span>FixedVector() <span class="overload">[1/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -369,7 +401,7 @@ template&lt;typename type, std::size_t allocatedSize&gt; </div>
 </div>
 </div>
 <a id="af41f645630eaed35f734c222c05ba49a" name="af41f645630eaed35f734c222c05ba49a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af41f645630eaed35f734c222c05ba49a">&#9670;&#160;</a></span>FixedVector() <span class="overload">[2/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af41f645630eaed35f734c222c05ba49a">&#9670;&#160;</a></span>FixedVector() <span class="overload">[2/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -409,7 +441,7 @@ The vector size is equal to <em class="arg">count</em>. </dd></dl>
 </div>
 </div>
 <a id="a9e70e7b0654204b928e67181175113e0" name="a9e70e7b0654204b928e67181175113e0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9e70e7b0654204b928e67181175113e0">&#9670;&#160;</a></span>FixedVector() <span class="overload">[3/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e70e7b0654204b928e67181175113e0">&#9670;&#160;</a></span>FixedVector() <span class="overload">[3/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -455,8 +487,65 @@ The vector size is equal to <em class="arg">count</em>. </dd></dl>
 
 </div>
 </div>
+<a id="a25647c562aa395ccb719b01601e78e56" name="a25647c562aa395ccb719b01601e78e56"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25647c562aa395ccb719b01601e78e56">&#9670;&#160;</a></span>FixedVector() <span class="overload">[4/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename type, std::size_t allocatedSize&gt; <br />
+requires (!std::is_integral_v&lt;InputIterator&gt;)</div>
+<div class="memtemplate">
+template&lt;typename InputIterator&gt; <br />
+requires (!std::is_integral_v&lt;InputIterator&gt;)</div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">toy::FixedVector</a>&lt; type, allocatedSize &gt;::FixedVector </td>
+          <td>(</td>
+          <td class="paramtype">InputIterator</td>          <td class="paramname"><span class="paramname"><em>first</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">InputIterator</td>          <td class="paramname"><span class="paramname"><em>last</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructs a <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a> from a range defined by iterators. </p>
+<p>This constructor initializes a <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a> with elements from the range [ <em class="arg">first</em>, <em class="arg">last</em> ).</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">InputIterator</td><td>The type of the input iterator.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">first</td><td>Iterator pointing to the first element to copy. </td></tr>
+    <tr><td class="paramname">last</td><td>Iterator pointing to one past the last element to copy.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">first</em> and <em class="arg">last</em> iterators must be valid. </dd>
+<dd>
+The range [ <em class="arg">first</em>, <em class="arg">last</em> ) must not exceed the allocated capacity. </dd>
+<dd>
+All elements in the range must be valid instances of type.</dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>The new vector contains all elements from the range [ <em class="arg">first</em>, <em class="arg">last</em> ). </dd></dl>
+
+</div>
+</div>
 <a id="a7fbe60cf0a7fd017284c3a4521cdffce" name="a7fbe60cf0a7fd017284c3a4521cdffce"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7fbe60cf0a7fd017284c3a4521cdffce">&#9670;&#160;</a></span>FixedVector() <span class="overload">[4/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7fbe60cf0a7fd017284c3a4521cdffce">&#9670;&#160;</a></span>FixedVector() <span class="overload">[5/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -494,7 +583,7 @@ template&lt;typename type, std::size_t allocatedSize&gt; </div>
 </div>
 </div>
 <a id="a3040082c470725af5f023d2f4fa8615c" name="a3040082c470725af5f023d2f4fa8615c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3040082c470725af5f023d2f4fa8615c">&#9670;&#160;</a></span>FixedVector() <span class="overload">[5/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3040082c470725af5f023d2f4fa8615c">&#9670;&#160;</a></span>FixedVector() <span class="overload">[6/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -542,7 +631,7 @@ The source <em class="arg">other</em> size must not exceed the allocated capacit
 </div>
 </div>
 <a id="a05fc127b4161c7009da7a46e2cb24a18" name="a05fc127b4161c7009da7a46e2cb24a18"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a05fc127b4161c7009da7a46e2cb24a18">&#9670;&#160;</a></span>FixedVector() <span class="overload">[6/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a05fc127b4161c7009da7a46e2cb24a18">&#9670;&#160;</a></span>FixedVector() <span class="overload">[7/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -582,7 +671,7 @@ The source <em class="arg">other</em> is left in a valid but unspecified state. 
 </div>
 </div>
 <a id="a2746b0450f03ec6b59341aff07a19d86" name="a2746b0450f03ec6b59341aff07a19d86"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2746b0450f03ec6b59341aff07a19d86">&#9670;&#160;</a></span>FixedVector() <span class="overload">[7/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a2746b0450f03ec6b59341aff07a19d86">&#9670;&#160;</a></span>FixedVector() <span class="overload">[8/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -631,8 +720,8 @@ The source <em class="arg">other</em> is left in a valid but unspecified state. 
 
 </div>
 </div>
-<a id="a733df7e4ad2c967fdf05f976c192c988" name="a733df7e4ad2c967fdf05f976c192c988"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a733df7e4ad2c967fdf05f976c192c988">&#9670;&#160;</a></span>FixedVector() <span class="overload">[8/8]</span></h2>
+<a id="a44d442b9538b75f63f0786fe5a8efd30" name="a44d442b9538b75f63f0786fe5a8efd30"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44d442b9538b75f63f0786fe5a8efd30">&#9670;&#160;</a></span>FixedVector() <span class="overload">[9/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -651,7 +740,7 @@ template&lt;typename type, std::size_t allocatedSize&gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel explicit">explicit</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel explicit">explicit</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -672,6 +761,163 @@ All elements in <em class="arg">init</em> must be valid instances of type.</dd><
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a68cbb30e031b4d94ac9e540b336d7bd5" name="a68cbb30e031b4d94ac9e540b336d7bd5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68cbb30e031b4d94ac9e540b336d7bd5">&#9670;&#160;</a></span>assign() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename type, std::size_t allocatedSize&gt; <br />
+requires (!std::is_integral_v&lt;InputIterator&gt;)</div>
+<div class="memtemplate">
+template&lt;typename InputIterator&gt; <br />
+requires (!std::is_integral_v&lt;InputIterator&gt;)</div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">toy::FixedVector</a>&lt; type, allocatedSize &gt;::assign </td>
+          <td>(</td>
+          <td class="paramtype">InputIterator</td>          <td class="paramname"><span class="paramname"><em>first</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">InputIterator</td>          <td class="paramname"><span class="paramname"><em>last</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Assigns elements from the range [ <em class="arg">first</em>, <em class="arg">last</em> ) to the vector. </p>
+<p>This method replaces the current contents of the vector with elements from the range [ <em class="arg">first</em>, <em class="arg">last</em> ).</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">InputIterator</td><td>The type of the input iterator.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">first</td><td>Iterator pointing to the first element to assign. </td></tr>
+    <tr><td class="paramname">last</td><td>Iterator pointing to one past the last element to assign.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">first</em> and <em class="arg">last</em> iterators must be valid. </dd>
+<dd>
+The range [ <em class="arg">first</em>, <em class="arg">last</em> ) must not exceed the allocated capacity.</dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>The vector contains all elements from the range [ <em class="arg">first</em>, <em class="arg">last</em> ). </dd>
+<dd>
+The vector size is equal to the size of the range. </dd>
+<dd>
+All previous elements are properly destroyed.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This method clears existing elements before assignment. </dd>
+<dd>
+Elements from the range are copied into the vector. </dd></dl>
+
+</div>
+</div>
+<a id="a84ca453a2cad602ff9020c8b0e15193f" name="a84ca453a2cad602ff9020c8b0e15193f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a84ca453a2cad602ff9020c8b0e15193f">&#9670;&#160;</a></span>assign() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename type, std::size_t allocatedSize&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">toy::FixedVector</a>&lt; type, allocatedSize &gt;::assign </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a99474f84eab51bad0b14ad3f44df88a0">size_type</a></td>          <td class="paramname"><span class="paramname"><em>count</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const type &amp;</td>          <td class="paramname"><span class="paramname"><em>value</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Assigns <em class="arg">count</em> copies of <em class="arg">value</em> to the vector. </p>
+<p>This method replaces the current contents of the vector with <em class="arg">count</em> copies of <em class="arg">value</em>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">count</td><td>The number of copies of <em class="arg">value</em> to assign. </td></tr>
+    <tr><td class="paramname">value</td><td>The value to assign <em class="arg">count</em> copies of.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">count</em> must not exceed the allocated capacity.</dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>The vector contains <em class="arg">count</em> elements, each initialized with <em class="arg">value</em>. </dd>
+<dd>
+The vector size is equal to <em class="arg">count</em>. </dd>
+<dd>
+All previous elements are properly destroyed.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This method clears existing elements before assignment. </dd>
+<dd>
+The <em class="arg">value</em> is copied for each element. </dd></dl>
+
+</div>
+</div>
+<a id="a846f00926be347def9cc59298b2f72cf" name="a846f00926be347def9cc59298b2f72cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a846f00926be347def9cc59298b2f72cf">&#9670;&#160;</a></span>assign() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename type, std::size_t allocatedSize&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">toy::FixedVector</a>&lt; type, allocatedSize &gt;::assign </td>
+          <td>(</td>
+          <td class="paramtype">std::initializer_list&lt; type &gt;</td>          <td class="paramname"><span class="paramname"><em>ilist</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Assigns elements from an initializer list to the vector. </p>
+<p>This method replaces the current contents of the vector with elements from the initializer list.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ilist</td><td>The initializer list containing the elements to assign.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">ilist</em> size must not exceed the allocated capacity.</dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>The vector contains all elements from the initializer list. </dd>
+<dd>
+The vector size is equal to the size of the initializer list. </dd>
+<dd>
+All previous elements are properly destroyed.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This method clears existing elements before assignment. </dd>
+<dd>
+The operator handles empty initializer lists correctly. </dd></dl>
+
+</div>
+</div>
 <a id="a00c716c2d271772cc9a66fb396a53b5a" name="a00c716c2d271772cc9a66fb396a53b5a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a00c716c2d271772cc9a66fb396a53b5a">&#9670;&#160;</a></span>capacity()</h2>
 
@@ -951,8 +1197,8 @@ The source vector is left in a valid but unspecified state. </dd></dl>
 
 </div>
 </div>
-<a id="a7fae3a88461f05878e4a0d9b966a2b48" name="a7fae3a88461f05878e4a0d9b966a2b48"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7fae3a88461f05878e4a0d9b966a2b48">&#9670;&#160;</a></span>operator=() <span class="overload">[5/5]</span></h2>
+<a id="aa610304b854d065790d877acdf3f340a" name="aa610304b854d065790d877acdf3f340a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa610304b854d065790d877acdf3f340a">&#9670;&#160;</a></span>operator=() <span class="overload">[5/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -965,13 +1211,13 @@ template&lt;typename type, std::size_t allocatedSize&gt; </div>
         <tr>
           <td class="memname"><a class="el" href="#a268734f9669e3693c60d125ab548e98f">FixedVector</a>&lt; type, allocatedSize &gt; &amp; <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">toy::FixedVector</a>&lt; type, allocatedSize &gt;::operator= </td>
           <td>(</td>
-          <td class="paramtype">std::initializer_list&lt; type &gt;</td>          <td class="paramname"><span class="paramname"><em>init</em></span></td><td>)</td>
+          <td class="paramtype">std::initializer_list&lt; type &gt;</td>          <td class="paramname"><span class="paramname"><em>ilist</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -980,15 +1226,15 @@ template&lt;typename type, std::size_t allocatedSize&gt; </div>
 <p>This operator assigns the contents of an initializer list to this vector.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">init</td><td>The initializer list containing the elements to assign.</td></tr>
+    <tr><td class="paramname">ilist</td><td>The initializer list containing the elements to assign.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a> after assignment.</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">init</em> size must not exceed the allocated capacity. </dd>
+<dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">ilist</em> size must not exceed the allocated capacity. </dd>
 <dd>
-All elements in <em class="arg">init</em> must be valid instances of type.</dd></dl>
-<dl class="section post"><dt>Postcondition</dt><dd>This vector has the same size and content as the source <em class="arg">init</em>. </dd>
+All elements in <em class="arg">ilist</em> must be valid instances of type.</dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>This vector has the same size and content as the source <em class="arg">ilist</em>. </dd>
 <dd>
 All elements are properly copied using copy construction. </dd>
 <dd>
@@ -1105,8 +1351,8 @@ template&lt;typename type, std::size_t allocatedSize&gt; </div>
 
 </div>
 </div>
-<a id="a5c9cc666d1f061976ce71fe968964a5a" name="a5c9cc666d1f061976ce71fe968964a5a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5c9cc666d1f061976ce71fe968964a5a">&#9670;&#160;</a></span>_size</h2>
+<a id="a566cdb40d2ac367a8db078ee5ee18945" name="a566cdb40d2ac367a8db078ee5ee18945"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a566cdb40d2ac367a8db078ee5ee18945">&#9670;&#160;</a></span>_size</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1117,7 +1363,7 @@ template&lt;typename type, std::size_t allocatedSize&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">toy::FixedVector</a>&lt; type, allocatedSize &gt;::_size</td>
+          <td class="memname"><a class="el" href="#a99474f84eab51bad0b14ad3f44df88a0">size_type</a> <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">toy::FixedVector</a>&lt; type, allocatedSize &gt;::_size = 0</td>
         </tr>
       </table>
   </td>
