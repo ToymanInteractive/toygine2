@@ -209,7 +209,7 @@ TEST_CASE("FixedVector constructors", "[core][fixed_vector]") {
   }
 
   SECTION("Iterator constructor with empty range") {
-    constexpr std::array<int, 0> emptyArray;
+    constexpr std::array<int, 0> emptyArray{};
     const FixedVector<int, 5> vec(emptyArray.begin(), emptyArray.end());
 
     REQUIRE(vec.size() == 0);
@@ -439,7 +439,7 @@ TEST_CASE("FixedVector assign methods", "[core][fixed_vector]") {
   }
 
   SECTION("Assign from empty iterator range") {
-    constexpr std::array<int, 0> emptyArray;
+    constexpr std::array<int, 0> emptyArray{};
     FixedVector<int, 5> vec{1, 2, 3};
 
     vec.assign(emptyArray.begin(), emptyArray.end());
@@ -932,8 +932,8 @@ TEST_CASE("FixedVector iterator methods", "[core][fixed_vector]") {
     REQUIRE(*constRit == 30);
     REQUIRE(constRit != constVec.rend());
 
-    // rcbegin
-    auto rcbeginIt = constVec.rcbegin();
+    // crbegin
+    auto rcbeginIt = constVec.crbegin();
     REQUIRE(rcbeginIt == constVec.rbegin());
     REQUIRE(*rcbeginIt == 30);
   }
@@ -950,8 +950,8 @@ TEST_CASE("FixedVector iterator methods", "[core][fixed_vector]") {
     auto constRend = constVec.rend();
     REQUIRE(constRend != constVec.rbegin());
 
-    // rcend
-    auto rcendIt = constVec.rcend();
+    // crend
+    auto rcendIt = constVec.crend();
     REQUIRE(rcendIt == constVec.rend());
   }
 
@@ -974,7 +974,7 @@ TEST_CASE("FixedVector iterator methods", "[core][fixed_vector]") {
 
     const FixedVector<int, 5> constEmptyVec;
     REQUIRE(constEmptyVec.rbegin() == constEmptyVec.rend());
-    REQUIRE(constEmptyVec.rcbegin() == constEmptyVec.rcend());
+    REQUIRE(constEmptyVec.crbegin() == constEmptyVec.crend());
   }
 
   SECTION("Reverse iterator modification") {

@@ -47,7 +47,7 @@ public:
   using const_iterator = const value_type *;
   //! Reverse iterator type for vector elements.
   using reverse_iterator = std::reverse_iterator<iterator>;
-  //!< Const reverse iterator type for vector elements.
+  //! Const reverse iterator type for vector elements.
   using const_reverse_iterator = std::reverse_iterator<const_iterator>;
 
   /*!
@@ -662,14 +662,14 @@ public:
 
     \return A const reverse iterator to the last element of the vector.
 
-    \note If the vector is empty, the returned iterator will be equal to \a rcend().
+    \note If the vector is empty, the returned iterator will be equal to \a crend().
     \note The iterator is read-only and cannot modify elements.
     \note This method is provided for consistency with standard containers.
-    \note Iteration through the vector in reverse order can be done using [rcbegin(), rcend()).
+    \note Iteration through the vector in reverse order can be done using [crbegin(), crend()).
 
-    \see rcend()
+    \see crend()
   */
-  [[nodiscard]] constexpr const_reverse_iterator rcbegin() const noexcept;
+  [[nodiscard]] constexpr const_reverse_iterator crbegin() const noexcept;
 
   /*!
     \brief Returns a reverse iterator to the element preceding the first element of the vector.
@@ -712,13 +712,13 @@ public:
     \return A const reverse iterator to the element preceding the first element of the vector.
 
     \note The returned iterator should not be dereferenced.
-    \note It is used to indicate the end of a reverse range [rcbegin(), rcend()).
-    \note For an empty vector, \a rcbegin() == \a rcend().
+    \note It is used to indicate the end of a reverse range [crbegin(), crend()).
+    \note For an empty vector, \a crbegin() == \a crend().
     \note This method is provided for consistency with standard containers.
 
-    \see rcbegin()
+    \see crbegin()
   */
-  [[nodiscard]] constexpr const_reverse_iterator rcend() const noexcept;
+  [[nodiscard]] constexpr const_reverse_iterator crend() const noexcept;
 
   // temporary
 

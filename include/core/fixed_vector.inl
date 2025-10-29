@@ -367,7 +367,7 @@ template <typename type, std::size_t allocatedSize>
 
 template <typename type, std::size_t allocatedSize>
 [[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::const_reverse_iterator FixedVector<
-  type, allocatedSize>::rcbegin() const noexcept {
+  type, allocatedSize>::crbegin() const noexcept {
   return rbegin();
 }
 
@@ -385,7 +385,7 @@ template <typename type, std::size_t allocatedSize>
 
 template <typename type, std::size_t allocatedSize>
 [[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::const_reverse_iterator FixedVector<
-  type, allocatedSize>::rcend() const noexcept {
+  type, allocatedSize>::crend() const noexcept {
   return rend();
 }
 
