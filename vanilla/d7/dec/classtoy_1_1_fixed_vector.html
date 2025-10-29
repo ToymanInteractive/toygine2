@@ -112,6 +112,12 @@ Public Types</h2></td></tr>
 <tr class="memdesc:a24493c98e46094de18403d96126c31d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Const pointer to vector element.  <br /></td></tr>
 <tr class="memitem:a5eac0b7567faa3f43d21ca977bb01ae6" id="r_a5eac0b7567faa3f43d21ca977bb01ae6"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5eac0b7567faa3f43d21ca977bb01ae6">iterator</a> = <a class="el" href="#a9ade8246e6a0327c4e6667d294a60957">value_type</a> *</td></tr>
 <tr class="memdesc:a5eac0b7567faa3f43d21ca977bb01ae6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Iterator type for vector elements.  <br /></td></tr>
+<tr class="memitem:ac66fdf023303871d1e81d4f32fe1437c" id="r_ac66fdf023303871d1e81d4f32fe1437c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac66fdf023303871d1e81d4f32fe1437c">const_iterator</a> = const <a class="el" href="#a9ade8246e6a0327c4e6667d294a60957">value_type</a> *</td></tr>
+<tr class="memdesc:ac66fdf023303871d1e81d4f32fe1437c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Const iterator type for vector elements.  <br /></td></tr>
+<tr class="memitem:a45e0f742275955faed2f6c84a4e0ebeb" id="r_a45e0f742275955faed2f6c84a4e0ebeb"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a45e0f742275955faed2f6c84a4e0ebeb">reverse_iterator</a> = std::reverse_iterator&lt;<a class="el" href="#a5eac0b7567faa3f43d21ca977bb01ae6">iterator</a>&gt;</td></tr>
+<tr class="memdesc:a45e0f742275955faed2f6c84a4e0ebeb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reverse iterator type for vector elements.  <br /></td></tr>
+<tr class="memitem:a41ce3fc124ed7c8f2d46f0f619dde153" id="r_a41ce3fc124ed7c8f2d46f0f619dde153"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a41ce3fc124ed7c8f2d46f0f619dde153">const_reverse_iterator</a> = std::reverse_iterator&lt;<a class="el" href="#ac66fdf023303871d1e81d4f32fe1437c">const_iterator</a>&gt;</td></tr>
+<tr class="memdesc:a41ce3fc124ed7c8f2d46f0f619dde153"><td class="mdescLeft">&#160;</td><td class="mdescRight">Const reverse iterator type for vector elements.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -179,11 +185,34 @@ requires (!std::is_integral_v&lt;InputIterator&gt;)</td></tr>
 <tr class="memdesc:a668bf255d5c4ab7568fe4e0c98eaef5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a pointer to the underlying data array.  <br /></td></tr>
 <tr class="memitem:a083ef2741f0287282a6db7728422221f" id="r_a083ef2741f0287282a6db7728422221f"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="#a24493c98e46094de18403d96126c31d2">const_pointer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a083ef2741f0287282a6db7728422221f">data</a> () const noexcept</td></tr>
 <tr class="memdesc:a083ef2741f0287282a6db7728422221f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a const pointer to the underlying data array.  <br /></td></tr>
+<tr class="memitem:a5d596760a93f06dbb483faa248ad3347" id="r_a5d596760a93f06dbb483faa248ad3347"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="#a5eac0b7567faa3f43d21ca977bb01ae6">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5d596760a93f06dbb483faa248ad3347">begin</a> () noexcept</td></tr>
+<tr class="memdesc:a5d596760a93f06dbb483faa248ad3347"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an iterator to the first element of the vector.  <br /></td></tr>
+<tr class="memitem:a2ba2b19fb8e712dfcc3c1dd6ead5c1f5" id="r_a2ba2b19fb8e712dfcc3c1dd6ead5c1f5"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="#ac66fdf023303871d1e81d4f32fe1437c">const_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2ba2b19fb8e712dfcc3c1dd6ead5c1f5">begin</a> () const noexcept</td></tr>
+<tr class="memdesc:a2ba2b19fb8e712dfcc3c1dd6ead5c1f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a const iterator to the first element of the vector.  <br /></td></tr>
+<tr class="memitem:a3aa792a563dc682204213d3811d33b6e" id="r_a3aa792a563dc682204213d3811d33b6e"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="#ac66fdf023303871d1e81d4f32fe1437c">const_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3aa792a563dc682204213d3811d33b6e">cbegin</a> () const noexcept</td></tr>
+<tr class="memdesc:a3aa792a563dc682204213d3811d33b6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a const iterator to the first element of the vector.  <br /></td></tr>
+<tr class="memitem:aa284ff8b315f0aeafd58b0c4ecede634" id="r_aa284ff8b315f0aeafd58b0c4ecede634"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="#a5eac0b7567faa3f43d21ca977bb01ae6">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa284ff8b315f0aeafd58b0c4ecede634">end</a> () noexcept</td></tr>
+<tr class="memdesc:aa284ff8b315f0aeafd58b0c4ecede634"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an iterator to the element following the last element of the vector.  <br /></td></tr>
+<tr class="memitem:a4b891a0a6ccc5dcc75f11c30752e5674" id="r_a4b891a0a6ccc5dcc75f11c30752e5674"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="#ac66fdf023303871d1e81d4f32fe1437c">const_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4b891a0a6ccc5dcc75f11c30752e5674">end</a> () const noexcept</td></tr>
+<tr class="memdesc:a4b891a0a6ccc5dcc75f11c30752e5674"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a const iterator to the element following the last element of the vector.  <br /></td></tr>
+<tr class="memitem:a105b400ca6152f4789a31729564f809d" id="r_a105b400ca6152f4789a31729564f809d"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="#ac66fdf023303871d1e81d4f32fe1437c">const_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a105b400ca6152f4789a31729564f809d">cend</a> () const noexcept</td></tr>
+<tr class="memdesc:a105b400ca6152f4789a31729564f809d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a const iterator to the element following the last element of the vector.  <br /></td></tr>
+<tr class="memitem:a834b370c8f747d2e941e51b2f183d162" id="r_a834b370c8f747d2e941e51b2f183d162"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="#a45e0f742275955faed2f6c84a4e0ebeb">reverse_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a834b370c8f747d2e941e51b2f183d162">rbegin</a> () noexcept</td></tr>
+<tr class="memdesc:a834b370c8f747d2e941e51b2f183d162"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reverse iterator to the last element of the vector.  <br /></td></tr>
+<tr class="memitem:af18fa1c4ace6ecae4d26a70a560f306b" id="r_af18fa1c4ace6ecae4d26a70a560f306b"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="#a41ce3fc124ed7c8f2d46f0f619dde153">const_reverse_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af18fa1c4ace6ecae4d26a70a560f306b">rbegin</a> () const noexcept</td></tr>
+<tr class="memdesc:af18fa1c4ace6ecae4d26a70a560f306b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a const reverse iterator to the last element of the vector.  <br /></td></tr>
+<tr class="memitem:a8d1ee9e92ff1100e5d2199de7796ca5d" id="r_a8d1ee9e92ff1100e5d2199de7796ca5d"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="#a41ce3fc124ed7c8f2d46f0f619dde153">const_reverse_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8d1ee9e92ff1100e5d2199de7796ca5d">crbegin</a> () const noexcept</td></tr>
+<tr class="memdesc:a8d1ee9e92ff1100e5d2199de7796ca5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a const reverse iterator to the last element of the vector.  <br /></td></tr>
+<tr class="memitem:aec0ebc0e70b57778fb5078c2408483fe" id="r_aec0ebc0e70b57778fb5078c2408483fe"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="#a45e0f742275955faed2f6c84a4e0ebeb">reverse_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aec0ebc0e70b57778fb5078c2408483fe">rend</a> () noexcept</td></tr>
+<tr class="memdesc:aec0ebc0e70b57778fb5078c2408483fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reverse iterator to the element preceding the first element of the vector.  <br /></td></tr>
+<tr class="memitem:a502337b071003804ede596849ea084f1" id="r_a502337b071003804ede596849ea084f1"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="#a41ce3fc124ed7c8f2d46f0f619dde153">const_reverse_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a502337b071003804ede596849ea084f1">rend</a> () const noexcept</td></tr>
+<tr class="memdesc:a502337b071003804ede596849ea084f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a const reverse iterator to the element preceding the first element of the vector.  <br /></td></tr>
+<tr class="memitem:a44958049e98e13f51ec12b4a94de188a" id="r_a44958049e98e13f51ec12b4a94de188a"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="#a41ce3fc124ed7c8f2d46f0f619dde153">const_reverse_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a44958049e98e13f51ec12b4a94de188a">crend</a> () const noexcept</td></tr>
+<tr class="memdesc:a44958049e98e13f51ec12b4a94de188a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a const reverse iterator to the element preceding the first element of the vector.  <br /></td></tr>
 <tr class="memitem:a8b52067ca198f6f9fdfcca90bd6bfd67" id="r_a8b52067ca198f6f9fdfcca90bd6bfd67"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="#a99474f84eab51bad0b14ad3f44df88a0">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8b52067ca198f6f9fdfcca90bd6bfd67">size</a> () const noexcept</td></tr>
 <tr class="memitem:a00c716c2d271772cc9a66fb396a53b5a" id="r_a00c716c2d271772cc9a66fb396a53b5a"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="#a99474f84eab51bad0b14ad3f44df88a0">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a00c716c2d271772cc9a66fb396a53b5a">capacity</a> () const noexcept</td></tr>
 <tr class="memitem:ad1b12283014e9694c538c41a6b4d854b" id="r_ad1b12283014e9694c538c41a6b4d854b"><td class="memItemLeft" align="right" valign="top">constexpr void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad1b12283014e9694c538c41a6b4d854b">push_back</a> (const type &amp;val) noexcept</td></tr>
 <tr class="memitem:a5ae89743b5bf48d51270730a216c1e2d" id="r_a5ae89743b5bf48d51270730a216c1e2d"><td class="memItemLeft" align="right" valign="top">constexpr void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5ae89743b5bf48d51270730a216c1e2d">clear</a> () noexcept</td></tr>
-<tr class="memitem:a1433f69e5ccf1b0caafe64a4f8990651" id="r_a1433f69e5ccf1b0caafe64a4f8990651"><td class="memItemLeft" align="right" valign="top">constexpr type *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1433f69e5ccf1b0caafe64a4f8990651">end</a> () noexcept</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -193,6 +222,24 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a566cdb40d2ac367a8db078ee5ee18945"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current number of elements in the vector.  <br /></td></tr>
 </table>
 <a name="doc-typedef-members" id="doc-typedef-members"></a><h2 id="header-doc-typedef-members" class="groupheader">Member Typedef Documentation</h2>
+<a id="ac66fdf023303871d1e81d4f32fe1437c" name="ac66fdf023303871d1e81d4f32fe1437c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac66fdf023303871d1e81d4f32fe1437c">&#9670;&#160;</a></span>const_iterator</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename type, std::size_t allocatedSize&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">toy::FixedVector</a>&lt; type, allocatedSize &gt;::const_iterator = const <a class="el" href="#a9ade8246e6a0327c4e6667d294a60957">value_type</a> *</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Const iterator type for vector elements. </p>
+
+</div>
+</div>
 <a id="a24493c98e46094de18403d96126c31d2" name="a24493c98e46094de18403d96126c31d2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a24493c98e46094de18403d96126c31d2">&#9670;&#160;</a></span>const_pointer</h2>
 
@@ -226,6 +273,24 @@ template&lt;typename type, std::size_t allocatedSize&gt; </div>
 </div><div class="memdoc">
 
 <p>Const reference to vector element. </p>
+
+</div>
+</div>
+<a id="a41ce3fc124ed7c8f2d46f0f619dde153" name="a41ce3fc124ed7c8f2d46f0f619dde153"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41ce3fc124ed7c8f2d46f0f619dde153">&#9670;&#160;</a></span>const_reverse_iterator</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename type, std::size_t allocatedSize&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">toy::FixedVector</a>&lt; type, allocatedSize &gt;::const_reverse_iterator = std::reverse_iterator&lt;<a class="el" href="#ac66fdf023303871d1e81d4f32fe1437c">const_iterator</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Const reverse iterator type for vector elements. </p>
 
 </div>
 </div>
@@ -298,6 +363,24 @@ template&lt;typename type, std::size_t allocatedSize&gt; </div>
 </div><div class="memdoc">
 
 <p>Reference to vector element. </p>
+
+</div>
+</div>
+<a id="a45e0f742275955faed2f6c84a4e0ebeb" name="a45e0f742275955faed2f6c84a4e0ebeb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45e0f742275955faed2f6c84a4e0ebeb">&#9670;&#160;</a></span>reverse_iterator</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename type, std::size_t allocatedSize&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">toy::FixedVector</a>&lt; type, allocatedSize &gt;::reverse_iterator = std::reverse_iterator&lt;<a class="el" href="#a5eac0b7567faa3f43d21ca977bb01ae6">iterator</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reverse iterator type for vector elements. </p>
 
 </div>
 </div>
@@ -1077,6 +1160,76 @@ Use const version for read-only access.</dd></dl>
 
 </div>
 </div>
+<a id="a2ba2b19fb8e712dfcc3c1dd6ead5c1f5" name="a2ba2b19fb8e712dfcc3c1dd6ead5c1f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ba2b19fb8e712dfcc3c1dd6ead5c1f5">&#9670;&#160;</a></span>begin() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename type, std::size_t allocatedSize&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a268734f9669e3693c60d125ab548e98f">FixedVector</a>&lt; type, allocatedSize &gt;<a class="el" href="#ac66fdf023303871d1e81d4f32fe1437c">::const_iterator</a> <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">toy::FixedVector</a>&lt; type, allocatedSize &gt;::begin </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a const iterator to the first element of the vector. </p>
+<p>This method returns a const iterator pointing to the first element of the vector.</p>
+<dl class="section return"><dt>Returns</dt><dd>A const iterator to the first element of the vector.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If the vector is empty, the returned iterator will be equal to <em class="arg"><a class="el" href="#a4b891a0a6ccc5dcc75f11c30752e5674" title="Returns a const iterator to the element following the last element of the vector.">end() const</a></em>. </dd>
+<dd>
+The iterator is read-only and cannot modify elements.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a4b891a0a6ccc5dcc75f11c30752e5674" title="Returns a const iterator to the element following the last element of the vector.">end() const</a> </dd></dl>
+
+</div>
+</div>
+<a id="a5d596760a93f06dbb483faa248ad3347" name="a5d596760a93f06dbb483faa248ad3347"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d596760a93f06dbb483faa248ad3347">&#9670;&#160;</a></span>begin() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename type, std::size_t allocatedSize&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a268734f9669e3693c60d125ab548e98f">FixedVector</a>&lt; type, allocatedSize &gt;<a class="el" href="#a5eac0b7567faa3f43d21ca977bb01ae6">::iterator</a> <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">toy::FixedVector</a>&lt; type, allocatedSize &gt;::begin </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns an iterator to the first element of the vector. </p>
+<p>This method returns an iterator pointing to the first element of the vector.</p>
+<dl class="section return"><dt>Returns</dt><dd>An iterator to the first element of the vector.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If the vector is empty, the returned iterator will be equal to <em class="arg"><a class="el" href="#aa284ff8b315f0aeafd58b0c4ecede634" title="Returns an iterator to the element following the last element of the vector.">end()</a></em>. </dd>
+<dd>
+The iterator allows modification of elements.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#aa284ff8b315f0aeafd58b0c4ecede634" title="Returns an iterator to the element following the last element of the vector.">end()</a> </dd></dl>
+
+</div>
+</div>
 <a id="a00c716c2d271772cc9a66fb396a53b5a" name="a00c716c2d271772cc9a66fb396a53b5a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a00c716c2d271772cc9a66fb396a53b5a">&#9670;&#160;</a></span>capacity()</h2>
 
@@ -1104,6 +1257,82 @@ template&lt;typename type, std::size_t allocatedSize&gt; </div>
 
 </div>
 </div>
+<a id="a3aa792a563dc682204213d3811d33b6e" name="a3aa792a563dc682204213d3811d33b6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3aa792a563dc682204213d3811d33b6e">&#9670;&#160;</a></span>cbegin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename type, std::size_t allocatedSize&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a268734f9669e3693c60d125ab548e98f">FixedVector</a>&lt; type, allocatedSize &gt;<a class="el" href="#ac66fdf023303871d1e81d4f32fe1437c">::const_iterator</a> <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">toy::FixedVector</a>&lt; type, allocatedSize &gt;::cbegin </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a const iterator to the first element of the vector. </p>
+<p>This method returns a const iterator pointing to the first element of the vector.</p>
+<dl class="section return"><dt>Returns</dt><dd>A const iterator to the first element of the vector.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If the vector is empty, the returned iterator will be equal to <em class="arg"><a class="el" href="#a105b400ca6152f4789a31729564f809d" title="Returns a const iterator to the element following the last element of the vector.">cend()</a></em>. </dd>
+<dd>
+The iterator is read-only and cannot modify elements. </dd>
+<dd>
+This method is provided for consistency with standard containers.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a105b400ca6152f4789a31729564f809d" title="Returns a const iterator to the element following the last element of the vector.">cend()</a> </dd></dl>
+
+</div>
+</div>
+<a id="a105b400ca6152f4789a31729564f809d" name="a105b400ca6152f4789a31729564f809d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a105b400ca6152f4789a31729564f809d">&#9670;&#160;</a></span>cend()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename type, std::size_t allocatedSize&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a268734f9669e3693c60d125ab548e98f">FixedVector</a>&lt; type, allocatedSize &gt;<a class="el" href="#ac66fdf023303871d1e81d4f32fe1437c">::const_iterator</a> <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">toy::FixedVector</a>&lt; type, allocatedSize &gt;::cend </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a const iterator to the element following the last element of the vector. </p>
+<p>This method returns a const iterator pointing to the element following the last element of the vector. This iterator acts as a placeholder and cannot be dereferenced.</p>
+<dl class="section return"><dt>Returns</dt><dd>A const iterator to the element following the last element of the vector.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The returned iterator should not be dereferenced. </dd>
+<dd>
+It is used to indicate the end of a range [<a class="el" href="#a3aa792a563dc682204213d3811d33b6e" title="Returns a const iterator to the first element of the vector.">cbegin()</a>, <a class="el" href="#a105b400ca6152f4789a31729564f809d" title="Returns a const iterator to the element following the last element of the vector.">cend()</a>). </dd>
+<dd>
+For an empty vector, <em class="arg"><a class="el" href="#a3aa792a563dc682204213d3811d33b6e" title="Returns a const iterator to the first element of the vector.">cbegin()</a></em> == <em class="arg"><a class="el" href="#a105b400ca6152f4789a31729564f809d" title="Returns a const iterator to the element following the last element of the vector.">cend()</a></em>. </dd>
+<dd>
+This method is provided for consistency with standard containers.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a3aa792a563dc682204213d3811d33b6e" title="Returns a const iterator to the first element of the vector.">cbegin()</a> </dd></dl>
+
+</div>
+</div>
 <a id="a5ae89743b5bf48d51270730a216c1e2d" name="a5ae89743b5bf48d51270730a216c1e2d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5ae89743b5bf48d51270730a216c1e2d">&#9670;&#160;</a></span>clear()</h2>
 
@@ -1128,6 +1357,84 @@ template&lt;typename type, std::size_t allocatedSize&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8d1ee9e92ff1100e5d2199de7796ca5d" name="a8d1ee9e92ff1100e5d2199de7796ca5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d1ee9e92ff1100e5d2199de7796ca5d">&#9670;&#160;</a></span>crbegin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename type, std::size_t allocatedSize&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a268734f9669e3693c60d125ab548e98f">FixedVector</a>&lt; type, allocatedSize &gt;<a class="el" href="#a41ce3fc124ed7c8f2d46f0f619dde153">::const_reverse_iterator</a> <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">toy::FixedVector</a>&lt; type, allocatedSize &gt;::crbegin </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a const reverse iterator to the last element of the vector. </p>
+<p>This method returns a const reverse iterator pointing to the last element of the vector.</p>
+<dl class="section return"><dt>Returns</dt><dd>A const reverse iterator to the last element of the vector.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If the vector is empty, the returned iterator will be equal to <em class="arg"><a class="el" href="#a44958049e98e13f51ec12b4a94de188a" title="Returns a const reverse iterator to the element preceding the first element of the vector.">crend()</a></em>. </dd>
+<dd>
+The iterator is read-only and cannot modify elements. </dd>
+<dd>
+This method is provided for consistency with standard containers. </dd>
+<dd>
+Iteration through the vector in reverse order can be done using [<a class="el" href="#a8d1ee9e92ff1100e5d2199de7796ca5d" title="Returns a const reverse iterator to the last element of the vector.">crbegin()</a>, <a class="el" href="#a44958049e98e13f51ec12b4a94de188a" title="Returns a const reverse iterator to the element preceding the first element of the vector.">crend()</a>).</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a44958049e98e13f51ec12b4a94de188a" title="Returns a const reverse iterator to the element preceding the first element of the vector.">crend()</a> </dd></dl>
+
+</div>
+</div>
+<a id="a44958049e98e13f51ec12b4a94de188a" name="a44958049e98e13f51ec12b4a94de188a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44958049e98e13f51ec12b4a94de188a">&#9670;&#160;</a></span>crend()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename type, std::size_t allocatedSize&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a268734f9669e3693c60d125ab548e98f">FixedVector</a>&lt; type, allocatedSize &gt;<a class="el" href="#a41ce3fc124ed7c8f2d46f0f619dde153">::const_reverse_iterator</a> <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">toy::FixedVector</a>&lt; type, allocatedSize &gt;::crend </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a const reverse iterator to the element preceding the first element of the vector. </p>
+<p>This method returns a const reverse iterator pointing to the element preceding the first element of the vector. This iterator acts as a placeholder and cannot be dereferenced.</p>
+<dl class="section return"><dt>Returns</dt><dd>A const reverse iterator to the element preceding the first element of the vector.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The returned iterator should not be dereferenced. </dd>
+<dd>
+It is used to indicate the end of a reverse range [<a class="el" href="#a8d1ee9e92ff1100e5d2199de7796ca5d" title="Returns a const reverse iterator to the last element of the vector.">crbegin()</a>, <a class="el" href="#a44958049e98e13f51ec12b4a94de188a" title="Returns a const reverse iterator to the element preceding the first element of the vector.">crend()</a>). </dd>
+<dd>
+For an empty vector, <em class="arg"><a class="el" href="#a8d1ee9e92ff1100e5d2199de7796ca5d" title="Returns a const reverse iterator to the last element of the vector.">crbegin()</a></em> == <em class="arg"><a class="el" href="#a44958049e98e13f51ec12b4a94de188a" title="Returns a const reverse iterator to the element preceding the first element of the vector.">crend()</a></em>. </dd>
+<dd>
+This method is provided for consistency with standard containers.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a8d1ee9e92ff1100e5d2199de7796ca5d" title="Returns a const reverse iterator to the last element of the vector.">crbegin()</a> </dd></dl>
 
 </div>
 </div>
@@ -1213,8 +1520,8 @@ Use const version for read-only access.</dd></dl>
 
 </div>
 </div>
-<a id="a1433f69e5ccf1b0caafe64a4f8990651" name="a1433f69e5ccf1b0caafe64a4f8990651"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1433f69e5ccf1b0caafe64a4f8990651">&#9670;&#160;</a></span>end()</h2>
+<a id="a4b891a0a6ccc5dcc75f11c30752e5674" name="a4b891a0a6ccc5dcc75f11c30752e5674"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b891a0a6ccc5dcc75f11c30752e5674">&#9670;&#160;</a></span>end() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1225,7 +1532,44 @@ template&lt;typename type, std::size_t allocatedSize&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">type * <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">toy::FixedVector</a>&lt; type, allocatedSize &gt;::end </td>
+          <td class="memname"><a class="el" href="#a268734f9669e3693c60d125ab548e98f">FixedVector</a>&lt; type, allocatedSize &gt;<a class="el" href="#ac66fdf023303871d1e81d4f32fe1437c">::const_iterator</a> <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">toy::FixedVector</a>&lt; type, allocatedSize &gt;::end </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a const iterator to the element following the last element of the vector. </p>
+<p>This method returns a const iterator pointing to the element following the last element of the vector. This iterator acts as a placeholder and cannot be dereferenced.</p>
+<dl class="section return"><dt>Returns</dt><dd>A const iterator to the element following the last element of the vector.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The returned iterator should not be dereferenced. </dd>
+<dd>
+It is used to indicate the end of a range [<a class="el" href="#a5d596760a93f06dbb483faa248ad3347" title="Returns an iterator to the first element of the vector.">begin()</a>, <a class="el" href="#aa284ff8b315f0aeafd58b0c4ecede634" title="Returns an iterator to the element following the last element of the vector.">end()</a>). </dd>
+<dd>
+For an empty vector, <em class="arg"><a class="el" href="#a2ba2b19fb8e712dfcc3c1dd6ead5c1f5" title="Returns a const iterator to the first element of the vector.">begin() const </a>==</em> <em class="arg"><a class="el" href="#a4b891a0a6ccc5dcc75f11c30752e5674" title="Returns a const iterator to the element following the last element of the vector.">end() const</a></em>.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a2ba2b19fb8e712dfcc3c1dd6ead5c1f5" title="Returns a const iterator to the first element of the vector.">begin() const</a> </dd></dl>
+
+</div>
+</div>
+<a id="aa284ff8b315f0aeafd58b0c4ecede634" name="aa284ff8b315f0aeafd58b0c4ecede634"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa284ff8b315f0aeafd58b0c4ecede634">&#9670;&#160;</a></span>end() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename type, std::size_t allocatedSize&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a268734f9669e3693c60d125ab548e98f">FixedVector</a>&lt; type, allocatedSize &gt;<a class="el" href="#a5eac0b7567faa3f43d21ca977bb01ae6">::iterator</a> <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">toy::FixedVector</a>&lt; type, allocatedSize &gt;::end </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
@@ -1233,10 +1577,20 @@ template&lt;typename type, std::size_t allocatedSize&gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Returns an iterator to the element following the last element of the vector. </p>
+<p>This method returns an iterator pointing to the element following the last element of the vector. This iterator acts as a placeholder and cannot be dereferenced.</p>
+<dl class="section return"><dt>Returns</dt><dd>An iterator to the element following the last element of the vector.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The returned iterator should not be dereferenced. </dd>
+<dd>
+It is used to indicate the end of a range [<a class="el" href="#a5d596760a93f06dbb483faa248ad3347" title="Returns an iterator to the first element of the vector.">begin()</a>, <a class="el" href="#aa284ff8b315f0aeafd58b0c4ecede634" title="Returns an iterator to the element following the last element of the vector.">end()</a>). </dd>
+<dd>
+For an empty vector, <em class="arg"><a class="el" href="#a5d596760a93f06dbb483faa248ad3347" title="Returns an iterator to the first element of the vector.">begin()</a></em> == <em class="arg"><a class="el" href="#aa284ff8b315f0aeafd58b0c4ecede634" title="Returns an iterator to the element following the last element of the vector.">end()</a></em>.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a5d596760a93f06dbb483faa248ad3347" title="Returns an iterator to the first element of the vector.">begin()</a> </dd></dl>
 
 </div>
 </div>
@@ -1662,6 +2016,154 @@ template&lt;typename type, std::size_t allocatedSize&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="af18fa1c4ace6ecae4d26a70a560f306b" name="af18fa1c4ace6ecae4d26a70a560f306b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af18fa1c4ace6ecae4d26a70a560f306b">&#9670;&#160;</a></span>rbegin() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename type, std::size_t allocatedSize&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a268734f9669e3693c60d125ab548e98f">FixedVector</a>&lt; type, allocatedSize &gt;<a class="el" href="#a41ce3fc124ed7c8f2d46f0f619dde153">::const_reverse_iterator</a> <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">toy::FixedVector</a>&lt; type, allocatedSize &gt;::rbegin </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a const reverse iterator to the last element of the vector. </p>
+<p>This method returns a const reverse iterator pointing to the last element of the vector.</p>
+<dl class="section return"><dt>Returns</dt><dd>A const reverse iterator to the last element of the vector.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If the vector is empty, the returned iterator will be equal to <em class="arg"><a class="el" href="#a502337b071003804ede596849ea084f1" title="Returns a const reverse iterator to the element preceding the first element of the vector.">rend() const</a></em>. </dd>
+<dd>
+The iterator is read-only and cannot modify elements. </dd>
+<dd>
+Iteration through the vector in reverse order can be done using [<a class="el" href="#a834b370c8f747d2e941e51b2f183d162" title="Returns a reverse iterator to the last element of the vector.">rbegin()</a>, <a class="el" href="#aec0ebc0e70b57778fb5078c2408483fe" title="Returns a reverse iterator to the element preceding the first element of the vector.">rend()</a>) const.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a502337b071003804ede596849ea084f1" title="Returns a const reverse iterator to the element preceding the first element of the vector.">rend() const</a> </dd></dl>
+
+</div>
+</div>
+<a id="a834b370c8f747d2e941e51b2f183d162" name="a834b370c8f747d2e941e51b2f183d162"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a834b370c8f747d2e941e51b2f183d162">&#9670;&#160;</a></span>rbegin() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename type, std::size_t allocatedSize&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a268734f9669e3693c60d125ab548e98f">FixedVector</a>&lt; type, allocatedSize &gt;<a class="el" href="#a45e0f742275955faed2f6c84a4e0ebeb">::reverse_iterator</a> <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">toy::FixedVector</a>&lt; type, allocatedSize &gt;::rbegin </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a reverse iterator to the last element of the vector. </p>
+<p>This method returns a reverse iterator pointing to the last element of the vector.</p>
+<dl class="section return"><dt>Returns</dt><dd>A reverse iterator to the last element of the vector.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If the vector is empty, the returned iterator will be equal to <em class="arg"><a class="el" href="#aec0ebc0e70b57778fb5078c2408483fe" title="Returns a reverse iterator to the element preceding the first element of the vector.">rend()</a></em>. </dd>
+<dd>
+The iterator allows modification of elements. </dd>
+<dd>
+Iteration through the vector in reverse order can be done using [<a class="el" href="#a834b370c8f747d2e941e51b2f183d162" title="Returns a reverse iterator to the last element of the vector.">rbegin()</a>, <a class="el" href="#aec0ebc0e70b57778fb5078c2408483fe" title="Returns a reverse iterator to the element preceding the first element of the vector.">rend()</a>).</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#aec0ebc0e70b57778fb5078c2408483fe" title="Returns a reverse iterator to the element preceding the first element of the vector.">rend()</a> </dd></dl>
+
+</div>
+</div>
+<a id="a502337b071003804ede596849ea084f1" name="a502337b071003804ede596849ea084f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a502337b071003804ede596849ea084f1">&#9670;&#160;</a></span>rend() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename type, std::size_t allocatedSize&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a268734f9669e3693c60d125ab548e98f">FixedVector</a>&lt; type, allocatedSize &gt;<a class="el" href="#a41ce3fc124ed7c8f2d46f0f619dde153">::const_reverse_iterator</a> <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">toy::FixedVector</a>&lt; type, allocatedSize &gt;::rend </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a const reverse iterator to the element preceding the first element of the vector. </p>
+<p>This method returns a const reverse iterator pointing to the element preceding the first element of the vector. This iterator acts as a placeholder and cannot be dereferenced.</p>
+<dl class="section return"><dt>Returns</dt><dd>A const reverse iterator to the element preceding the first element of the vector.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The returned iterator should not be dereferenced. </dd>
+<dd>
+It is used to indicate the end of a reverse range [<a class="el" href="#a834b370c8f747d2e941e51b2f183d162" title="Returns a reverse iterator to the last element of the vector.">rbegin()</a>, <a class="el" href="#aec0ebc0e70b57778fb5078c2408483fe" title="Returns a reverse iterator to the element preceding the first element of the vector.">rend()</a>) const. </dd>
+<dd>
+For an empty vector, <em class="arg"><a class="el" href="#af18fa1c4ace6ecae4d26a70a560f306b" title="Returns a const reverse iterator to the last element of the vector.">rbegin() const </a>==</em> <em class="arg"><a class="el" href="#a502337b071003804ede596849ea084f1" title="Returns a const reverse iterator to the element preceding the first element of the vector.">rend() const</a></em>.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#af18fa1c4ace6ecae4d26a70a560f306b" title="Returns a const reverse iterator to the last element of the vector.">rbegin() const</a> </dd></dl>
+
+</div>
+</div>
+<a id="aec0ebc0e70b57778fb5078c2408483fe" name="aec0ebc0e70b57778fb5078c2408483fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec0ebc0e70b57778fb5078c2408483fe">&#9670;&#160;</a></span>rend() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename type, std::size_t allocatedSize&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a268734f9669e3693c60d125ab548e98f">FixedVector</a>&lt; type, allocatedSize &gt;<a class="el" href="#a45e0f742275955faed2f6c84a4e0ebeb">::reverse_iterator</a> <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">toy::FixedVector</a>&lt; type, allocatedSize &gt;::rend </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a reverse iterator to the element preceding the first element of the vector. </p>
+<p>This method returns a reverse iterator pointing to the element preceding the first element of the vector. This iterator acts as a placeholder and cannot be dereferenced.</p>
+<dl class="section return"><dt>Returns</dt><dd>A reverse iterator to the element preceding the first element of the vector.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The returned iterator should not be dereferenced. </dd>
+<dd>
+It is used to indicate the end of a reverse range [<a class="el" href="#a834b370c8f747d2e941e51b2f183d162" title="Returns a reverse iterator to the last element of the vector.">rbegin()</a>, <a class="el" href="#aec0ebc0e70b57778fb5078c2408483fe" title="Returns a reverse iterator to the element preceding the first element of the vector.">rend()</a>). </dd>
+<dd>
+For an empty vector, <em class="arg"><a class="el" href="#a834b370c8f747d2e941e51b2f183d162" title="Returns a reverse iterator to the last element of the vector.">rbegin()</a></em> == <em class="arg"><a class="el" href="#aec0ebc0e70b57778fb5078c2408483fe" title="Returns a reverse iterator to the element preceding the first element of the vector.">rend()</a></em>.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a834b370c8f747d2e941e51b2f183d162" title="Returns a reverse iterator to the last element of the vector.">rbegin()</a> </dd></dl>
 
 </div>
 </div>
