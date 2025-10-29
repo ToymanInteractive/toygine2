@@ -31,13 +31,24 @@ template <typename type, std::size_t allocatedSize>
 class FixedVector {
 public:
   using value_type = type; //!< Type of elements stored in the vector.
+
   using size_type = std::size_t; //!< Type used for vector size and capacity.
   using difference_type = std::ptrdiff_t; //!< Type used for pointer differences.
+
   using reference = value_type &; //!< Reference to vector element.
   using const_reference = const value_type &; //!< Const reference to vector element.
+
   using pointer = type *; //!< Pointer to vector element.
   using const_pointer = const type *; //!< Const pointer to vector element.
-  using iterator = value_type *; //!< Iterator type for vector elements.
+
+  //! Iterator type for vector elements.
+  using iterator = value_type *;
+  //! Const iterator type for vector elements.
+  using const_iterator = const value_type *;
+  //! Reverse iterator type for vector elements.
+  using reverse_iterator = std::reverse_iterator<iterator>;
+  //! Const reverse iterator type for vector elements.
+  using const_reverse_iterator = std::reverse_iterator<const_iterator>;
 
   /*!
     \brief Default constructor.
@@ -522,6 +533,193 @@ public:
   */
   [[nodiscard]] constexpr const_pointer data() const noexcept;
 
+  /*!
+    \brief Returns an iterator to the first element of the vector.
+
+    This method returns an iterator pointing to the first element of the vector.
+
+    \return An iterator to the first element of the vector.
+
+    \note If the vector is empty, the returned iterator will be equal to \a end().
+    \note The iterator allows modification of elements.
+
+    \see end()
+  */
+  [[nodiscard]] constexpr iterator begin() noexcept;
+
+  /*!
+    \brief Returns a const iterator to the first element of the vector.
+
+    This method returns a const iterator pointing to the first element of the vector.
+
+    \return A const iterator to the first element of the vector.
+
+    \note If the vector is empty, the returned iterator will be equal to \a end() const.
+    \note The iterator is read-only and cannot modify elements.
+
+    \see end() const
+  */
+  [[nodiscard]] constexpr const_iterator begin() const noexcept;
+
+  /*!
+    \brief Returns a const iterator to the first element of the vector.
+
+    This method returns a const iterator pointing to the first element of the vector.
+
+    \return A const iterator to the first element of the vector.
+
+    \note If the vector is empty, the returned iterator will be equal to \a cend().
+    \note The iterator is read-only and cannot modify elements.
+    \note This method is provided for consistency with standard containers.
+
+    \see cend()
+  */
+  [[nodiscard]] constexpr const_iterator cbegin() const noexcept;
+
+  /*!
+    \brief Returns an iterator to the element following the last element of the vector.
+
+    This method returns an iterator pointing to the element following the last element of the vector. This iterator acts
+    as a placeholder and cannot be dereferenced.
+
+    \return An iterator to the element following the last element of the vector.
+
+    \note The returned iterator should not be dereferenced.
+    \note It is used to indicate the end of a range [begin(), end()).
+    \note For an empty vector, \a begin() == \a end().
+
+    \see begin()
+  */
+  [[nodiscard]] constexpr iterator end() noexcept;
+
+  /*!
+    \brief Returns a const iterator to the element following the last element of the vector.
+
+    This method returns a const iterator pointing to the element following the last element of the vector. This iterator
+    acts as a placeholder and cannot be dereferenced.
+
+    \return A const iterator to the element following the last element of the vector.
+
+    \note The returned iterator should not be dereferenced.
+    \note It is used to indicate the end of a range [begin(), end()).
+    \note For an empty vector, \a begin() const == \a end() const.
+
+    \see begin() const
+  */
+  [[nodiscard]] constexpr const_iterator end() const noexcept;
+
+  /*!
+    \brief Returns a const iterator to the element following the last element of the vector.
+
+    This method returns a const iterator pointing to the element following the last element of the vector. This iterator
+    acts as a placeholder and cannot be dereferenced.
+
+    \return A const iterator to the element following the last element of the vector.
+
+    \note The returned iterator should not be dereferenced.
+    \note It is used to indicate the end of a range [cbegin(), cend()).
+    \note For an empty vector, \a cbegin() == \a cend().
+    \note This method is provided for consistency with standard containers.
+
+    \see cbegin()
+  */
+  [[nodiscard]] constexpr const_iterator cend() const noexcept;
+
+  /*!
+    \brief Returns a reverse iterator to the last element of the vector.
+
+    This method returns a reverse iterator pointing to the last element of the vector.
+
+    \return A reverse iterator to the last element of the vector.
+
+    \note If the vector is empty, the returned iterator will be equal to \a rend().
+    \note The iterator allows modification of elements.
+    \note Iteration through the vector in reverse order can be done using [rbegin(), rend()).
+
+    \see rend()
+  */
+  [[nodiscard]] constexpr reverse_iterator rbegin() noexcept;
+
+  /*!
+    \brief Returns a const reverse iterator to the last element of the vector.
+
+    This method returns a const reverse iterator pointing to the last element of the vector.
+
+    \return A const reverse iterator to the last element of the vector.
+
+    \note If the vector is empty, the returned iterator will be equal to \a rend() const.
+    \note The iterator is read-only and cannot modify elements.
+    \note Iteration through the vector in reverse order can be done using [rbegin(), rend()) const.
+
+    \see rend() const
+  */
+  [[nodiscard]] constexpr const_reverse_iterator rbegin() const noexcept;
+
+  /*!
+    \brief Returns a const reverse iterator to the last element of the vector.
+
+    This method returns a const reverse iterator pointing to the last element of the vector.
+
+    \return A const reverse iterator to the last element of the vector.
+
+    \note If the vector is empty, the returned iterator will be equal to \a crend().
+    \note The iterator is read-only and cannot modify elements.
+    \note This method is provided for consistency with standard containers.
+    \note Iteration through the vector in reverse order can be done using [crbegin(), crend()).
+
+    \see crend()
+  */
+  [[nodiscard]] constexpr const_reverse_iterator crbegin() const noexcept;
+
+  /*!
+    \brief Returns a reverse iterator to the element preceding the first element of the vector.
+
+    This method returns a reverse iterator pointing to the element preceding the first element of the vector. This
+    iterator acts as a placeholder and cannot be dereferenced.
+
+    \return A reverse iterator to the element preceding the first element of the vector.
+
+    \note The returned iterator should not be dereferenced.
+    \note It is used to indicate the end of a reverse range [rbegin(), rend()).
+    \note For an empty vector, \a rbegin() == \a rend().
+
+    \see rbegin()
+  */
+  [[nodiscard]] constexpr reverse_iterator rend() noexcept;
+
+  /*!
+    \brief Returns a const reverse iterator to the element preceding the first element of the vector.
+
+    This method returns a const reverse iterator pointing to the element preceding the first element of the vector. This
+    iterator acts as a placeholder and cannot be dereferenced.
+
+    \return A const reverse iterator to the element preceding the first element of the vector.
+
+    \note The returned iterator should not be dereferenced.
+    \note It is used to indicate the end of a reverse range [rbegin(), rend()) const.
+    \note For an empty vector, \a rbegin() const == \a rend() const.
+
+    \see rbegin() const
+  */
+  [[nodiscard]] constexpr const_reverse_iterator rend() const noexcept;
+
+  /*!
+    \brief Returns a const reverse iterator to the element preceding the first element of the vector.
+
+    This method returns a const reverse iterator pointing to the element preceding the first element of the vector. This
+    iterator acts as a placeholder and cannot be dereferenced.
+
+    \return A const reverse iterator to the element preceding the first element of the vector.
+
+    \note The returned iterator should not be dereferenced.
+    \note It is used to indicate the end of a reverse range [crbegin(), crend()).
+    \note For an empty vector, \a crbegin() == \a crend().
+    \note This method is provided for consistency with standard containers.
+
+    \see crbegin()
+  */
+  [[nodiscard]] constexpr const_reverse_iterator crend() const noexcept;
+
   // temporary
 
   constexpr size_type size() const noexcept;
@@ -530,8 +728,6 @@ public:
   constexpr void push_back(const type & val) noexcept;
 
   constexpr void clear() noexcept;
-
-  constexpr type * end() noexcept;
 
 private:
   static_assert(allocatedSize > 0, "FixedVector capacity must be greater than zero.");
