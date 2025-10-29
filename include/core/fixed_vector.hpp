@@ -352,9 +352,9 @@ public:
   void assign(std::initializer_list<type> ilist);
 
   /*!
-    \brief Access an element at the specified position with bounds checking.
+    \brief Access an element at the specified position.
 
-    This method provides direct access to an element at the specified \a pos with bounds checking.
+    This method provides direct access to an element at the specified \a pos.
 
     \param pos The position of the element to access in the vector.
 
@@ -364,16 +364,16 @@ public:
 
     \note The returned reference allows modification of the element.
     \note Use const version for read-only access.
-    \note This method is equivalent to the subscript operator with bounds checking.
+    \note This method is equivalent to the subscript operator.
 
     \see operator[](size_type pos)
   */
   [[nodiscard]] constexpr reference at(size_type pos) noexcept;
 
   /*!
-    \brief Access an element at the specified position with bounds checking.
+    \brief Access an element at the specified position.
 
-    This method provides read-only access to an element at the specified \a pos with bounds checking.
+    This method provides read-only access to an element at the specified \a pos.
 
     \param pos The position of the element to access in the vector.
 
@@ -383,16 +383,16 @@ public:
 
     \note The returned reference is read-only and cannot modify the element.
     \note Use the non-const overload to allow modification.
-    \note This method is equivalent to the subscript operator with bounds checking.
+    \note This method is equivalent to the subscript operator.
 
     \see operator[](size_type pos) const
   */
   [[nodiscard]] constexpr const_reference at(size_type pos) const noexcept;
 
   /*!
-    \brief Access an element at the specified position with bounds checking.
+    \brief Access an element at the specified position.
 
-    This operator provides direct access to an element at the specified \a pos with bounds checking.
+    This operator provides direct access to an element at the specified \a pos.
 
     \param pos The position of the element to access in the vector.
 
@@ -406,9 +406,9 @@ public:
   [[nodiscard]] constexpr reference operator[](size_type pos) noexcept;
 
   /*!
-    \brief Access an element at the specified position with bounds checking.
+    \brief Access an element at the specified position.
 
-    This operator provides read-only access to an element at the specified \a pos with bounds checking.
+    This operator provides read-only access to an element at the specified \a pos.
 
     \param pos The position of the element to access in the vector.
 
