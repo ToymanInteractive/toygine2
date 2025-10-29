@@ -10,21 +10,25 @@ assignees: ''
 ## 📝 Summary
 
 SUMMARY
+
 ---
 
 ## 💡 Motivation
 
 MOTIVATION
+
 ---
 
 ## 🎯 Goals
 
 GOALS
+
 ---
 
 ## 🧱 Implementation Details
 
 IMPLEMENTATION_DETAILS
+
 ---
 
 ## 📚 References
