@@ -308,13 +308,13 @@ template <typename type, std::size_t allocatedSize>
 template <typename type, std::size_t allocatedSize>
 [[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::pointer FixedVector<type,
                                                                                        allocatedSize>::data() noexcept {
-  return reinterpret_cast<type *>(_data);
+  return reinterpret_cast<pointer>(_data);
 }
 
 template <typename type, std::size_t allocatedSize>
 [[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::const_pointer FixedVector<
   type, allocatedSize>::data() const noexcept {
-  return reinterpret_cast<const type *>(_data);
+  return reinterpret_cast<const_pointer>(_data);
 }
 
 template <typename type, std::size_t allocatedSize>
