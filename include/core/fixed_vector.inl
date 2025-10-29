@@ -317,6 +317,78 @@ template <typename type, std::size_t allocatedSize>
   return reinterpret_cast<const type *>(_data);
 }
 
+template <typename type, std::size_t allocatedSize>
+[[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::iterator FixedVector<
+  type, allocatedSize>::begin() noexcept {
+  return data();
+}
+
+template <typename type, std::size_t allocatedSize>
+[[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::const_iterator FixedVector<
+  type, allocatedSize>::begin() const noexcept {
+  return data();
+}
+
+template <typename type, std::size_t allocatedSize>
+[[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::const_iterator FixedVector<
+  type, allocatedSize>::cbegin() const noexcept {
+  return begin();
+}
+
+template <typename type, std::size_t allocatedSize>
+[[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::iterator FixedVector<type,
+                                                                                        allocatedSize>::end() noexcept {
+  return data() + _size;
+}
+
+template <typename type, std::size_t allocatedSize>
+[[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::const_iterator FixedVector<
+  type, allocatedSize>::end() const noexcept {
+  return data() + _size;
+}
+
+template <typename type, std::size_t allocatedSize>
+[[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::const_iterator FixedVector<
+  type, allocatedSize>::cend() const noexcept {
+  return end();
+}
+
+template <typename type, std::size_t allocatedSize>
+[[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::reverse_iterator FixedVector<
+  type, allocatedSize>::rbegin() noexcept {
+  return reverse_iterator(end());
+}
+
+template <typename type, std::size_t allocatedSize>
+[[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::const_reverse_iterator FixedVector<
+  type, allocatedSize>::rbegin() const noexcept {
+  return const_reverse_iterator(end());
+}
+
+template <typename type, std::size_t allocatedSize>
+[[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::const_reverse_iterator FixedVector<
+  type, allocatedSize>::rcbegin() const noexcept {
+  return rbegin();
+}
+
+template <typename type, std::size_t allocatedSize>
+[[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::reverse_iterator FixedVector<
+  type, allocatedSize>::rend() noexcept {
+  return reverse_iterator(begin());
+}
+
+template <typename type, std::size_t allocatedSize>
+[[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::const_reverse_iterator FixedVector<
+  type, allocatedSize>::rend() const noexcept {
+  return const_reverse_iterator(begin());
+}
+
+template <typename type, std::size_t allocatedSize>
+[[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::const_reverse_iterator FixedVector<
+  type, allocatedSize>::rcend() const noexcept {
+  return rend();
+}
+
 // temporary
 
 template <typename type, std::size_t allocatedSize>
@@ -345,11 +417,6 @@ constexpr void FixedVector<type, allocatedSize>::push_back(const type & val) noe
     std::construct_at(end(), type(val));
     ++_size;
   }
-}
-
-template <typename type, std::size_t allocatedSize>
-constexpr type * FixedVector<type, allocatedSize>::end() noexcept {
-  return data() + _size;
 }
 
 } // namespace toy

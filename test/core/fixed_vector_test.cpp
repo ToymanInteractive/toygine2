@@ -186,8 +186,8 @@ TEST_CASE("FixedVector constructors", "[core][fixed_vector]") {
   }
 
   SECTION("Iterator constructor") {
-    const std::vector<int> sourceVec{1, 2, 3, 4};
-    const FixedVector<int, 5> vec(sourceVec.begin(), sourceVec.end());
+    constexpr std::array<int, 4> sourceArray{1, 2, 3, 4};
+    const FixedVector<int, 5> vec(sourceArray.begin(), sourceArray.end());
 
     REQUIRE(vec.size() == 4);
     REQUIRE(vec.capacity() == 5);
@@ -209,16 +209,16 @@ TEST_CASE("FixedVector constructors", "[core][fixed_vector]") {
   }
 
   SECTION("Iterator constructor with empty range") {
-    const std::vector<int> emptyVec;
-    const FixedVector<int, 5> vec(emptyVec.begin(), emptyVec.end());
+    constexpr std::array<int, 0> emptyArray;
+    const FixedVector<int, 5> vec(emptyArray.begin(), emptyArray.end());
 
     REQUIRE(vec.size() == 0);
     REQUIRE(vec.capacity() == 5);
   }
 
   SECTION("Iterator constructor with different types") {
-    const std::vector<FixedString<10>> sourceVec{FixedString<10>("hello"), FixedString<10>("world")};
-    const FixedVector<FixedString<10>, 5> vec(sourceVec.begin(), sourceVec.end());
+    constexpr std::array<FixedString<10>, 2> sourceArray{FixedString<10>("hello"), FixedString<10>("world")};
+    const FixedVector<FixedString<10>, 5> vec(sourceArray.begin(), sourceArray.end());
 
     REQUIRE(vec.size() == 2);
     REQUIRE(vec.capacity() == 5);
@@ -412,7 +412,7 @@ TEST_CASE("FixedVector assign methods", "[core][fixed_vector]") {
   }
 
   SECTION("Assign from iterator range") {
-    std::vector<int> source{10, 20, 30, 40};
+    constexpr std::array<int, 4> source{10, 20, 30, 40};
     FixedVector<int, 5> vec{1, 2, 3};
 
     vec.assign(source.begin(), source.end());
@@ -439,17 +439,17 @@ TEST_CASE("FixedVector assign methods", "[core][fixed_vector]") {
   }
 
   SECTION("Assign from empty iterator range") {
-    const std::vector<int> emptyVec;
+    constexpr std::array<int, 0> emptyArray;
     FixedVector<int, 5> vec{1, 2, 3};
 
-    vec.assign(emptyVec.begin(), emptyVec.end());
+    vec.assign(emptyArray.begin(), emptyArray.end());
 
     REQUIRE(vec.size() == 0);
     REQUIRE(vec.capacity() == 5);
   }
 
   SECTION("Assign from iterator range with different types") {
-    std::vector<FixedString<10>> source{FixedString<10>("foo"), FixedString<10>("bar")};
+    constexpr std::array<FixedString<10>, 2> source{FixedString<10>("foo"), FixedString<10>("bar")};
     FixedVector<FixedString<10>, 5> vec{FixedString<10>("old")};
 
     vec.assign(source.begin(), source.end());
@@ -511,8 +511,8 @@ TEST_CASE("FixedVector assign methods", "[core][fixed_vector]") {
   }
 
   SECTION("Assign with complex types") {
+    const std::vector<std::vector<int>> source{{1, 2}, {3, 4, 5}};
     FixedVector<std::vector<int>, 3> vec;
-    std::vector<std::vector<int>> source{{1, 2}, {3, 4, 5}};
 
     vec.assign(source.begin(), source.end());
 
@@ -540,8 +540,8 @@ TEST_CASE("FixedVector assign methods", "[core][fixed_vector]") {
     REQUIRE(vec.capacity() == 5);
     REQUIRE(vec[3] == 5);
 
-    std::vector<int> v{10, 20};
-    vec.assign(v.begin(), v.end());
+    constexpr std::array<int, 2> a{10, 20};
+    vec.assign(a.begin(), a.end());
     REQUIRE(vec.size() == 2);
     REQUIRE(vec.capacity() == 5);
     REQUIRE(vec[0] == 10);
@@ -794,5 +794,246 @@ TEST_CASE("FixedVector data methods", "[core][fixed_vector]") {
 
     // Same pointer after modification
     REQUIRE(dataPtr == vec.data());
+  }
+}
+
+TEST_CASE("FixedVector iterator methods", "[core][fixed_vector]") {
+  SECTION("Begin methods") {
+    FixedVector<int, 5> vec{10, 20, 30};
+
+    // Non-const begin
+    auto it = vec.begin();
+    REQUIRE(it == vec.data());
+    REQUIRE(*it == 10);
+    REQUIRE(it != vec.end());
+
+    // Const begin
+    const FixedVector<int, 5> constVec{10, 20, 30};
+    auto constIt = constVec.begin();
+    REQUIRE(constIt == constVec.data());
+    REQUIRE(*constIt == 10);
+    REQUIRE(constIt != constVec.end());
+
+    // cbegin
+    auto cbeginIt = constVec.cbegin();
+    REQUIRE(cbeginIt == constVec.begin());
+    REQUIRE(*cbeginIt == 10);
+  }
+
+  SECTION("End methods") {
+    FixedVector<int, 5> vec{10, 20, 30};
+
+    // Non-const end
+    auto it = vec.end();
+    REQUIRE(it == vec.data() + vec.size());
+    REQUIRE(it != vec.begin());
+
+    // Const end
+    const FixedVector<int, 5> constVec{10, 20, 30};
+    auto constIt = constVec.end();
+    REQUIRE(constIt == constVec.data() + constVec.size());
+    REQUIRE(constIt != constVec.begin());
+
+    // cend
+    auto cendIt = constVec.cend();
+    REQUIRE(cendIt == constVec.end());
+  }
+
+  SECTION("Empty vector iterators") {
+    FixedVector<int, 5> emptyVec;
+    REQUIRE(emptyVec.begin() == emptyVec.end());
+
+    constexpr FixedVector<int, 5> constEmptyVec;
+    REQUIRE(constEmptyVec.begin() == constEmptyVec.end());
+    REQUIRE(constEmptyVec.cbegin() == constEmptyVec.cend());
+  }
+
+  SECTION("Forward iteration") {
+    FixedVector<int, 5> vec{10, 20, 30};
+
+    auto it = vec.begin();
+    REQUIRE(*it == 10);
+    ++it;
+    REQUIRE(*it == 20);
+    ++it;
+    REQUIRE(*it == 30);
+    ++it;
+    REQUIRE(it == vec.end());
+  }
+
+  SECTION("Iterator dereference and modification") {
+    FixedVector<int, 5> vec{1, 2, 3};
+
+    *vec.begin() = 99;
+    REQUIRE(vec[0] == 99);
+
+    auto it = vec.begin();
+    ++it;
+    *it = 88;
+    REQUIRE(vec[1] == 88);
+  }
+
+  SECTION("Range-based for loop") {
+    FixedVector<int, 5> vec{1, 2, 3};
+    std::vector<int> result;
+
+    for (auto & element : vec) {
+      result.push_back(element);
+      element = element * 2;
+    }
+
+    REQUIRE(result.size() == 3);
+    REQUIRE(result[0] == 1);
+    REQUIRE(result[1] == 2);
+    REQUIRE(result[2] == 3);
+    REQUIRE(vec[0] == 2);
+    REQUIRE(vec[1] == 4);
+    REQUIRE(vec[2] == 6);
+  }
+
+  SECTION("Range-based for loop with const vector") {
+    const FixedVector<int, 5> vec{1, 2, 3};
+    std::vector<int> result;
+
+    for (const auto & element : vec) {
+      result.push_back(element);
+    }
+
+    REQUIRE(result.size() == 3);
+    REQUIRE(result[0] == 1);
+    REQUIRE(result[1] == 2);
+    REQUIRE(result[2] == 3);
+  }
+
+  SECTION("Iterator arithmetic") {
+    FixedVector<int, 5> vec{10, 20, 30, 40};
+
+    auto it = vec.begin();
+    REQUIRE(*(it + 0) == 10);
+    REQUIRE(*(it + 1) == 20);
+    REQUIRE(*(it + 2) == 30);
+    REQUIRE(*(it + 3) == 40);
+
+    REQUIRE(it + 4 == vec.end());
+    REQUIRE(vec.end() - vec.begin() == 4);
+  }
+
+  SECTION("Reverse begin methods") {
+    FixedVector<int, 5> vec{10, 20, 30};
+
+    // Non-const rbegin
+    auto rit = vec.rbegin();
+    REQUIRE(*rit == 30);
+    REQUIRE(rit != vec.rend());
+
+    // Const rbegin
+    const FixedVector<int, 5> constVec{10, 20, 30};
+    auto constRit = constVec.rbegin();
+    REQUIRE(*constRit == 30);
+    REQUIRE(constRit != constVec.rend());
+
+    // rcbegin
+    auto rcbeginIt = constVec.rcbegin();
+    REQUIRE(rcbeginIt == constVec.rbegin());
+    REQUIRE(*rcbeginIt == 30);
+  }
+
+  SECTION("Reverse end methods") {
+    FixedVector<int, 5> vec{10, 20, 30};
+
+    // Non-const rend
+    auto rit = vec.rend();
+    REQUIRE(rit != vec.rbegin());
+
+    // Const rend
+    const FixedVector<int, 5> constVec{10, 20, 30};
+    auto constRend = constVec.rend();
+    REQUIRE(constRend != constVec.rbegin());
+
+    // rcend
+    auto rcendIt = constVec.rcend();
+    REQUIRE(rcendIt == constVec.rend());
+  }
+
+  SECTION("Reverse iteration") {
+    FixedVector<int, 5> vec{10, 20, 30};
+
+    auto rit = vec.rbegin();
+    REQUIRE(*rit == 30);
+    ++rit;
+    REQUIRE(*rit == 20);
+    ++rit;
+    REQUIRE(*rit == 10);
+    ++rit;
+    REQUIRE(rit == vec.rend());
+  }
+
+  SECTION("Reverse iteration empty vector") {
+    FixedVector<int, 5> emptyVec;
+    REQUIRE(emptyVec.rbegin() == emptyVec.rend());
+
+    const FixedVector<int, 5> constEmptyVec;
+    REQUIRE(constEmptyVec.rbegin() == constEmptyVec.rend());
+    REQUIRE(constEmptyVec.rcbegin() == constEmptyVec.rcend());
+  }
+
+  SECTION("Reverse iterator modification") {
+    FixedVector<int, 5> vec{10, 20, 30};
+
+    *vec.rbegin() = 99;
+    REQUIRE(vec[2] == 99);
+
+    auto rit = vec.rbegin();
+    ++rit;
+    *rit = 88;
+    REQUIRE(vec[1] == 88);
+  }
+
+  SECTION("String elements with iterators") {
+    FixedVector<std::string, 4> stringVec{"a", "b", "c"};
+
+    auto it = stringVec.begin();
+    REQUIRE(*it == "a");
+    ++it;
+    REQUIRE(*it == "b");
+    ++it;
+    REQUIRE(*it == "c");
+
+    // Reverse iteration
+    auto rit = stringVec.rbegin();
+    REQUIRE(*rit == "c");
+    ++rit;
+    REQUIRE(*rit == "b");
+    ++rit;
+    REQUIRE(*rit == "a");
+  }
+
+  SECTION("Iterator comparison with std algorithms") {
+    FixedVector<int, 5> vec{3, 1, 4, 1, 5};
+
+    // std::find
+    auto found = std::find(vec.begin(), vec.end(), 4);
+    REQUIRE(found != vec.end());
+    REQUIRE(*found == 4);
+
+    // std::min_element
+    auto minIt = std::min_element(vec.begin(), vec.end());
+    REQUIRE(minIt != vec.end());
+    REQUIRE(*minIt == 1);
+
+    // std::max_element
+    auto maxIt = std::max_element(vec.begin(), vec.end());
+    REQUIRE(maxIt != vec.end());
+    REQUIRE(*maxIt == 5);
+  }
+
+  SECTION("Const iterator immutability") {
+    const FixedVector<int, 5> constVec{1, 2, 3};
+
+    // Should compile - reading is allowed
+    auto it = constVec.begin();
+    int value = *it;
+
+    REQUIRE(value == 1);
   }
 }
