@@ -43,7 +43,7 @@ inline FixedVector<type, allocatedSize>::FixedVector(size_type count)
   assert_message(count <= allocatedSize, "Count must not exceed capacity.");
 
   for (size_type index = 0; index < _size; ++index)
-    std::construct_at(reinterpret_cast<type *>(_data) + index, type{});
+    std::construct_at(data() + index, type{});
 }
 
 template <typename type, std::size_t allocatedSize>
@@ -53,7 +53,7 @@ inline FixedVector<type, allocatedSize>::FixedVector(size_type count, const type
   assert_message(count <= allocatedSize, "Count must not exceed capacity.");
 
   for (size_type index = 0; index < _size; ++index)
-    std::construct_at(reinterpret_cast<type *>(_data) + index, value);
+    std::construct_at(data() + index, value);
 }
 
 template <typename type, std::size_t allocatedSize>
@@ -63,7 +63,7 @@ inline FixedVector<type, allocatedSize>::FixedVector(InputIterator first, InputI
   : _data() {
   for (auto it = first; it != last; ++it) {
     assert_message(_size < allocatedSize, "Iterator range size must not exceed capacity.");
-    std::construct_at(reinterpret_cast<type *>(_data) + _size++, *it);
+    std::construct_at(data() + _size++, *it);
   }
 }
 
@@ -72,7 +72,7 @@ inline FixedVector<type, allocatedSize>::FixedVector(const FixedVector<type, all
   : _data()
   , _size(other._size) {
   for (size_type index = 0; index < _size; ++index)
-    std::construct_at(reinterpret_cast<type *>(_data) + index, other[index]);
+    std::construct_at(data() + index, other[index]);
 }
 
 template <typename type, std::size_t allocatedSize>
@@ -83,7 +83,7 @@ inline FixedVector<type, allocatedSize>::FixedVector(const FixedVector<type, all
   assert_message(other.size() <= allocatedSize, "Source vector size must not exceed capacity.");
 
   for (size_type index = 0; index < _size; ++index)
-    std::construct_at(reinterpret_cast<type *>(_data) + index, other[index]);
+    std::construct_at(data() + index, other[index]);
 }
 
 template <typename type, std::size_t allocatedSize>
@@ -91,7 +91,7 @@ inline FixedVector<type, allocatedSize>::FixedVector(FixedVector<type, allocated
   : _data()
   , _size(other._size) {
   for (size_type index = 0; index < _size; ++index)
-    std::construct_at(reinterpret_cast<type *>(_data) + index, std::move(other[index]));
+    std::construct_at(data() + index, std::move(other[index]));
 
   other.clear();
 }
@@ -104,7 +104,7 @@ inline FixedVector<type, allocatedSize>::FixedVector(FixedVector<type, allocated
   assert_message(other.size() <= allocatedSize, "Source vector size must not exceed capacity.");
 
   for (size_type index = 0; index < _size; ++index)
-    std::construct_at(reinterpret_cast<type *>(_data) + index, std::move(other[index]));
+    std::construct_at(data() + index, std::move(other[index]));
 
   other.clear();
 }
@@ -117,7 +117,7 @@ inline FixedVector<type, allocatedSize>::FixedVector(std::initializer_list<type>
 
   size_type index = 0;
   for (const auto & element : init)
-    std::construct_at(reinterpret_cast<type *>(_data) + index++, element);
+    std::construct_at(data() + index++, element);
 }
 
 template <typename type, std::size_t allocatedSize>
@@ -131,7 +131,7 @@ inline FixedVector<type, allocatedSize> & FixedVector<type, allocatedSize>::oper
   _size = other._size;
 
   for (size_type index = 0; index < _size; ++index)
-    std::construct_at(reinterpret_cast<type *>(_data) + index, other[index]);
+    std::construct_at(data() + index, other[index]);
 
   return *this;
 }
@@ -147,7 +147,7 @@ inline FixedVector<type, allocatedSize> & FixedVector<type, allocatedSize>::oper
   _size = other.size();
 
   for (size_type index = 0; index < _size; ++index)
-    std::construct_at(reinterpret_cast<type *>(_data) + index, other[index]);
+    std::construct_at(data() + index, other[index]);
 
   return *this;
 }
@@ -163,7 +163,7 @@ inline FixedVector<type, allocatedSize> & FixedVector<type, allocatedSize>::oper
   _size = other._size;
 
   for (size_type index = 0; index < _size; ++index)
-    std::construct_at(reinterpret_cast<type *>(_data) + index, std::move(other[index]));
+    std::construct_at(data() + index, std::move(other[index]));
 
   other.clear();
 
@@ -181,7 +181,7 @@ inline FixedVector<type, allocatedSize> & FixedVector<type, allocatedSize>::oper
   _size = other.size();
 
   for (size_type index = 0; index < _size; ++index)
-    std::construct_at(reinterpret_cast<type *>(_data) + index, std::move(other[index]));
+    std::construct_at(data() + index, std::move(other[index]));
 
   other.clear();
 
@@ -199,7 +199,7 @@ inline FixedVector<type, allocatedSize> & FixedVector<type, allocatedSize>::oper
 
   size_type index = 0;
   for (const auto & element : ilist)
-    std::construct_at(reinterpret_cast<type *>(_data) + index++, element);
+    std::construct_at(data() + index++, element);
 
   return *this;
 }
@@ -213,7 +213,7 @@ inline void FixedVector<type, allocatedSize>::assign(size_type count, const type
   _size = count;
 
   for (size_type index = 0; index < _size; ++index)
-    std::construct_at(reinterpret_cast<type *>(_data) + index, value);
+    std::construct_at(data() + index, value);
 }
 
 template <typename type, std::size_t allocatedSize>
@@ -224,7 +224,7 @@ inline void FixedVector<type, allocatedSize>::assign(InputIterator first, InputI
 
   for (auto it = first; it != last; ++it) {
     assert_message(_size < allocatedSize, "Iterator range size must not exceed capacity.");
-    std::construct_at(reinterpret_cast<type *>(_data) + _size++, *it);
+    std::construct_at(data() + _size++, *it);
   }
 }
 
@@ -238,7 +238,83 @@ inline void FixedVector<type, allocatedSize>::assign(std::initializer_list<type>
 
   size_type index = 0;
   for (const auto & element : ilist)
-    std::construct_at(reinterpret_cast<type *>(_data) + index++, element);
+    std::construct_at(data() + index++, element);
+}
+
+template <typename type, std::size_t allocatedSize>
+[[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::reference FixedVector<type, allocatedSize>::at(
+  size_type pos) noexcept {
+  assert_message(pos < _size, "Position must be within bounds");
+
+  return data()[pos];
+}
+
+template <typename type, std::size_t allocatedSize>
+[[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::const_reference FixedVector<type, allocatedSize>::at(
+  size_type pos) const noexcept {
+  assert_message(pos < _size, "Position must be within bounds");
+
+  return data()[pos];
+}
+
+template <typename type, std::size_t allocatedSize>
+[[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::reference FixedVector<
+  type, allocatedSize>::operator[](size_type pos) noexcept {
+  assert_message(pos < _size, "Position must be within bounds");
+
+  return data()[pos];
+}
+
+template <typename type, std::size_t allocatedSize>
+[[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::const_reference FixedVector<
+  type, allocatedSize>::operator[](size_type pos) const noexcept {
+  assert_message(pos < _size, "Position must be within bounds");
+
+  return data()[pos];
+}
+
+template <typename type, std::size_t allocatedSize>
+[[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::reference FixedVector<
+  type, allocatedSize>::front() noexcept {
+  assert_message(_size > 0, "Vector must not be empty");
+
+  return *data();
+}
+
+template <typename type, std::size_t allocatedSize>
+[[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::const_reference FixedVector<
+  type, allocatedSize>::front() const noexcept {
+  assert_message(_size > 0, "Vector must not be empty");
+
+  return *data();
+}
+
+template <typename type, std::size_t allocatedSize>
+[[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::reference FixedVector<
+  type, allocatedSize>::back() noexcept {
+  assert_message(_size > 0, "Vector must not be empty");
+
+  return data()[_size - 1];
+}
+
+template <typename type, std::size_t allocatedSize>
+[[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::const_reference FixedVector<
+  type, allocatedSize>::back() const noexcept {
+  assert_message(_size > 0, "Vector must not be empty");
+
+  return data()[_size - 1];
+}
+
+template <typename type, std::size_t allocatedSize>
+[[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::pointer FixedVector<type,
+                                                                                       allocatedSize>::data() noexcept {
+  return reinterpret_cast<type *>(_data);
+}
+
+template <typename type, std::size_t allocatedSize>
+[[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::const_pointer FixedVector<
+  type, allocatedSize>::data() const noexcept {
+  return reinterpret_cast<const type *>(_data);
 }
 
 // temporary
@@ -256,7 +332,7 @@ constexpr std::size_t FixedVector<type, allocatedSize>::capacity() const noexcep
 template <typename type, std::size_t allocatedSize>
 constexpr void FixedVector<type, allocatedSize>::clear() noexcept {
   for (std::size_t index = 0; index < _size; ++index)
-    (reinterpret_cast<type *>(_data))[index].~type();
+    data()[index].~type();
 
   _size = 0;
 }
@@ -273,14 +349,7 @@ constexpr void FixedVector<type, allocatedSize>::push_back(const type & val) noe
 
 template <typename type, std::size_t allocatedSize>
 constexpr type * FixedVector<type, allocatedSize>::end() noexcept {
-  return reinterpret_cast<type *>(_data) + _size;
-}
-
-template <typename type, std::size_t allocatedSize>
-constexpr const type & FixedVector<type, allocatedSize>::operator[](std::size_t index) const noexcept {
-  assert(index < _size);
-
-  return (reinterpret_cast<const type *>(_data))[index];
+  return data() + _size;
 }
 
 } // namespace toy
