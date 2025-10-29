@@ -351,6 +351,177 @@ public:
   */
   void assign(std::initializer_list<type> ilist);
 
+  /*!
+    \brief Access an element at the specified position with bounds checking.
+
+    This method provides direct access to an element at the specified \a pos with bounds checking.
+
+    \param pos The position of the element to access in the vector.
+
+    \return A reference to the element at the specified \a pos.
+
+    \pre The \a pos must be less than the current vector size.
+
+    \note The returned reference allows modification of the element.
+    \note Use const version for read-only access.
+    \note This method is equivalent to the subscript operator with bounds checking.
+
+    \see operator[](size_type pos)
+  */
+  [[nodiscard]] constexpr reference at(size_type pos) noexcept;
+
+  /*!
+    \brief Access an element at the specified position with bounds checking.
+
+    This method provides read-only access to an element at the specified \a pos with bounds checking.
+
+    \param pos The position of the element to access in the vector.
+
+    \return A const reference to the element at the specified \a pos.
+
+    \pre The \a pos must be less than the current vector size.
+
+    \note The returned reference is read-only and cannot modify the element.
+    \note Use the non-const overload to allow modification.
+    \note This method is equivalent to the subscript operator with bounds checking.
+
+    \see operator[](size_type pos) const
+  */
+  [[nodiscard]] constexpr const_reference at(size_type pos) const noexcept;
+
+  /*!
+    \brief Access an element at the specified position with bounds checking.
+
+    This operator provides direct access to an element at the specified \a pos with bounds checking.
+
+    \param pos The position of the element to access in the vector.
+
+    \return A reference to the element at the specified \a pos.
+
+    \pre The \a pos should be less than the current vector size.
+
+    \note The returned reference allows modification of the element.
+    \note Use const version for read-only access.
+  */
+  [[nodiscard]] constexpr reference operator[](size_type pos) noexcept;
+
+  /*!
+    \brief Access an element at the specified position with bounds checking.
+
+    This operator provides read-only access to an element at the specified \a pos with bounds checking.
+
+    \param pos The position of the element to access in the vector.
+
+    \return A const reference to the element at the specified \a pos.
+
+    \pre The \a pos should be less than the current vector size.
+
+    \note The returned reference is read-only and cannot modify the element.
+    \note Use the non-const overload to allow modification.
+  */
+  [[nodiscard]] constexpr const_reference operator[](size_type pos) const noexcept;
+
+  /*!
+    \brief Returns a reference to the first element of the vector.
+
+    This method provides direct access to the first element of the vector.
+
+    \return A reference to the first element of the vector.
+
+    \pre The vector must not be empty.
+
+    \note The returned reference allows modification of the element.
+    \note Use const version for read-only access.
+
+    \see back()
+  */
+  [[nodiscard]] constexpr reference front() noexcept;
+
+  /*!
+    \brief Returns a const reference to the first element of the vector.
+
+    This method provides read-only access to the first element of the vector.
+
+    \return A const reference to the first element of the vector.
+
+    \pre The vector must not be empty.
+
+    \note The returned reference is read-only and cannot modify the element.
+    \note Use the non-const overload to allow modification.
+
+    \see back() const
+  */
+  [[nodiscard]] constexpr const_reference front() const noexcept;
+
+  /*!
+    \brief Returns a reference to the last element of the vector.
+
+    This method provides direct access to the last element of the vector.
+
+    \return A reference to the last element of the vector.
+
+    \pre The vector must not be empty.
+
+    \note The returned reference allows modification of the element.
+    \note Use const version for read-only access.
+
+    \see front()
+  */
+  [[nodiscard]] constexpr reference back() noexcept;
+
+  /*!
+    \brief Returns a const reference to the last element of the vector.
+
+    This method provides read-only access to the last element of the vector.
+
+    \return A const reference to the last element of the vector.
+
+    \pre The vector must not be empty.
+
+    \note The returned reference is read-only and cannot modify the element.
+    \note Use the non-const overload to allow modification.
+
+    \see front() const
+  */
+  [[nodiscard]] constexpr const_reference back() const noexcept;
+
+  /*!
+    \brief Returns a pointer to the underlying data array.
+
+    This method provides direct access to the underlying data storage of the vector.
+
+    \return A pointer to the first element in the underlying array.
+
+    \note The returned pointer is valid as long as the vector exists.
+    \note The pointer points to a contiguous block of memory containing the vector elements.
+    \note The array contains exactly \a size() elements.
+    \note Modifying elements through the returned pointer directly modifies the vector contents.
+    \note Use const version for read-only access.
+
+    \warning Accessing elements beyond \a size() through the returned pointer results in undefined behavior.
+
+    \see size()
+  */
+  [[nodiscard]] constexpr pointer data() noexcept;
+
+  /*!
+    \brief Returns a const pointer to the underlying data array.
+
+    This method provides read-only access to the underlying data storage of the vector.
+
+    \return A const pointer to the first element in the underlying array.
+
+    \note The returned pointer is valid as long as the vector exists.
+    \note The pointer points to a contiguous block of memory containing the vector elements.
+    \note The array contains exactly \a size() elements.
+    \note The returned pointer does not allow modification of the vector contents.
+
+    \warning Accessing elements beyond \a size() through the returned pointer results in undefined behavior.
+
+    \see size()
+  */
+  [[nodiscard]] constexpr const_pointer data() const noexcept;
+
   // temporary
 
   constexpr size_type size() const noexcept;
@@ -361,8 +532,6 @@ public:
   constexpr void clear() noexcept;
 
   constexpr type * end() noexcept;
-
-  constexpr const type & operator[](size_t index) const noexcept;
 
 private:
   static_assert(allocatedSize > 0, "FixedVector capacity must be greater than zero.");

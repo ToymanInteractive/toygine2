@@ -560,8 +560,239 @@ TEST_CASE("FixedVector assign methods", "[core][fixed_vector]") {
     FixedVector<int, 5> sameVec;
     sameVec.assign(5, 42);
     REQUIRE(sameVec.size() == 5);
-    for (std::size_t i = 0; i < sameVec.size(); ++i) {
+    for (auto i = 0; i < sameVec.size(); ++i) {
       REQUIRE(sameVec[i] == 42);
     }
+  }
+}
+
+TEST_CASE("FixedVector at methods", "[core][fixed_vector]") {
+  SECTION("Non-const at method") {
+    FixedVector<int, 5> vec{10, 20, 30};
+
+    REQUIRE(vec.at(0) == 10);
+    REQUIRE(vec.at(1) == 20);
+    REQUIRE(vec.at(2) == 30);
+
+    // Modify through at()
+    vec.at(1) = 99;
+    REQUIRE(vec.at(1) == 99);
+  }
+
+  SECTION("Const at method") {
+    const FixedVector<int, 5> vec{10, 20, 30};
+
+    REQUIRE(vec.at(0) == 10);
+    REQUIRE(vec.at(1) == 20);
+    REQUIRE(vec.at(2) == 30);
+  }
+}
+
+TEST_CASE("FixedVector operator[] methods", "[core][fixed_vector]") {
+  SECTION("Non-const operator[]") {
+    FixedVector<int, 5> vec{10, 20, 30};
+
+    REQUIRE(vec[0] == 10);
+    REQUIRE(vec[1] == 20);
+    REQUIRE(vec[2] == 30);
+
+    // Modify through operator[]
+    vec[1] = 99;
+    REQUIRE(vec[1] == 99);
+  }
+
+  SECTION("Const operator[]") {
+    const FixedVector<int, 5> vec{10, 20, 30};
+
+    REQUIRE(vec[0] == 10);
+    REQUIRE(vec[1] == 20);
+    REQUIRE(vec[2] == 30);
+  }
+
+  SECTION("String elements") {
+    FixedVector<std::string, 3> stringVec{"foo", "bar", "baz"};
+
+    REQUIRE(stringVec[0] == "foo");
+    REQUIRE(stringVec[1] == "bar");
+    REQUIRE(stringVec[2] == "baz");
+
+    // Modify through operator[]
+    stringVec[1] = "qux";
+    REQUIRE(stringVec[1] == "qux");
+  }
+}
+
+TEST_CASE("FixedVector front methods", "[core][fixed_vector]") {
+  SECTION("Non-const front method") {
+    FixedVector<int, 5> vec{10, 20, 30};
+
+    REQUIRE(vec.front() == 10);
+
+    // Modify through front()
+    vec.front() = 99;
+    REQUIRE(vec.front() == 99);
+    REQUIRE(vec[0] == 99);
+  }
+
+  SECTION("Const front method") {
+    const FixedVector<int, 5> vec{10, 20, 30};
+
+    REQUIRE(vec.front() == 10);
+  }
+
+  SECTION("Single element") {
+    FixedVector<int, 5> vec{42};
+
+    REQUIRE(vec.front() == 42);
+    REQUIRE(vec.front() == vec.back());
+
+    vec.front() = 100;
+    REQUIRE(vec.front() == 100);
+  }
+
+  SECTION("String elements") {
+    FixedVector<std::string, 3> stringVec{"foo", "bar", "baz"};
+
+    REQUIRE(stringVec.front() == "foo");
+
+    stringVec.front() = "qux";
+    REQUIRE(stringVec.front() == "qux");
+  }
+}
+
+TEST_CASE("FixedVector back methods", "[core][fixed_vector]") {
+  SECTION("Non-const back method") {
+    FixedVector<int, 5> vec{10, 20, 30};
+
+    REQUIRE(vec.back() == 30);
+
+    // Modify through back()
+    vec.back() = 99;
+    REQUIRE(vec.back() == 99);
+    REQUIRE(vec[2] == 99);
+  }
+
+  SECTION("Const back method") {
+    const FixedVector<int, 5> vec{10, 20, 30};
+
+    REQUIRE(vec.back() == 30);
+  }
+
+  SECTION("Single element") {
+    FixedVector<int, 5> vec{42};
+
+    REQUIRE(vec.back() == 42);
+    REQUIRE(vec.back() == vec.front());
+
+    vec.back() = 100;
+    REQUIRE(vec.back() == 100);
+  }
+
+  SECTION("String elements") {
+    FixedVector<std::string, 3> stringVec{"foo", "bar", "baz"};
+
+    REQUIRE(stringVec.back() == "baz");
+
+    stringVec.back() = "qux";
+    REQUIRE(stringVec.back() == "qux");
+  }
+
+  SECTION("Multiple elements - front and back different") {
+    FixedVector<int, 5> vec{1, 2, 3, 4, 5};
+
+    REQUIRE(vec.front() == 1);
+    REQUIRE(vec.back() == 5);
+
+    vec.front() = 10;
+    vec.back() = 50;
+
+    REQUIRE(vec.front() == 10);
+    REQUIRE(vec.back() == 50);
+    REQUIRE(vec[0] == 10);
+    REQUIRE(vec[4] == 50);
+  }
+}
+
+TEST_CASE("FixedVector data methods", "[core][fixed_vector]") {
+  SECTION("Non-const data method") {
+    FixedVector<int, 5> vec{10, 20, 30};
+
+    int * dataPtr = vec.data();
+
+    REQUIRE(dataPtr != nullptr);
+    REQUIRE(dataPtr == &vec[0]);
+    REQUIRE(*dataPtr == 10);
+
+    // Modify through data pointer
+    *dataPtr = 99;
+    REQUIRE(vec[0] == 99);
+
+    // Access elements through pointer arithmetic
+    REQUIRE(dataPtr[1] == 20);
+    REQUIRE(dataPtr[2] == 30);
+  }
+
+  SECTION("Const data method") {
+    const FixedVector<int, 5> vec{10, 20, 30};
+
+    const int * dataPtr = vec.data();
+
+    REQUIRE(dataPtr != nullptr);
+    REQUIRE(dataPtr == &vec[0]);
+    REQUIRE(*dataPtr == 10);
+
+    // Read elements through pointer arithmetic
+    REQUIRE(dataPtr[1] == 20);
+    REQUIRE(dataPtr[2] == 30);
+  }
+
+  SECTION("Empty vector") {
+    FixedVector<int, 5> emptyVec;
+
+    int * dataPtr = emptyVec.data();
+
+    REQUIRE(dataPtr != nullptr);
+    REQUIRE(emptyVec.size() == 0);
+  }
+
+  SECTION("Single element") {
+    FixedVector<int, 5> vec{42};
+
+    int * dataPtr = vec.data();
+
+    REQUIRE(*dataPtr == 42);
+    REQUIRE(dataPtr == &vec.front());
+    REQUIRE(dataPtr == &vec.back());
+  }
+
+  SECTION("String elements") {
+    FixedVector<std::string, 3> stringVec{"foo", "bar", "baz"};
+
+    std::string * dataPtr = stringVec.data();
+
+    REQUIRE(dataPtr != nullptr);
+    REQUIRE(dataPtr[0] == "foo");
+    REQUIRE(dataPtr[1] == "bar");
+    REQUIRE(dataPtr[2] == "baz");
+
+    // Modify through data pointer
+    dataPtr[1] = "qux";
+    REQUIRE(stringVec[1] == "qux");
+  }
+
+  SECTION("Data pointer remains valid after modifications") {
+    FixedVector<int, 5> vec{1, 2, 3};
+
+    int * dataPtr = vec.data();
+
+    vec.push_back(4);
+    REQUIRE(*dataPtr == 1);
+    REQUIRE(dataPtr[0] == 1);
+    REQUIRE(dataPtr[1] == 2);
+    REQUIRE(dataPtr[2] == 3);
+    REQUIRE(dataPtr[3] == 4);
+
+    // Same pointer after modification
+    REQUIRE(dataPtr == vec.data());
   }
 }
