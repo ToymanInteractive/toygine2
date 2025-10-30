@@ -1037,3 +1037,159 @@ TEST_CASE("FixedVector iterator methods", "[core][fixed_vector]") {
     REQUIRE(value == 1);
   }
 }
+
+TEST_CASE("FixedVector size and capacity methods", "[core][fixed_vector]") {
+  SECTION("Empty method") {
+    FixedVector<int, 5> emptyVec{};
+    REQUIRE(emptyVec.empty() == true);
+
+    FixedVector<int, 5> nonEmptyVec{1, 2, 3};
+    REQUIRE(nonEmptyVec.empty() == false);
+
+    const FixedVector<int, 5> constEmptyVec{};
+    REQUIRE(constEmptyVec.empty() == true);
+
+    const FixedVector<int, 5> constNonEmptyVec{1, 2};
+    REQUIRE(constNonEmptyVec.empty() == false);
+
+    constexpr FixedVector<int, 5> constexprEmptyVec{};
+    STATIC_REQUIRE(constexprEmptyVec.empty() == true);
+  }
+
+  SECTION("Size method") {
+    FixedVector<int, 5> emptyVec{};
+    REQUIRE(emptyVec.size() == 0);
+
+    FixedVector<int, 5> vec{1, 2, 3};
+    REQUIRE(vec.size() == 3);
+
+    vec.push_back(4);
+    REQUIRE(vec.size() == 4);
+
+    vec.clear();
+    REQUIRE(vec.size() == 0);
+
+    const FixedVector<int, 5> constVec{10, 20};
+    REQUIRE(constVec.size() == 2);
+
+    constexpr FixedVector<int, 5> constexprEmptyVec{};
+    STATIC_REQUIRE(constexprEmptyVec.size() == 0);
+  }
+
+  SECTION("Max size method") {
+    FixedVector<int, 5> vec{};
+    REQUIRE(vec.max_size() == 5);
+
+    FixedVector<int, 10> largeVec{};
+    REQUIRE(largeVec.max_size() == 10);
+
+    FixedVector<FixedString<8>, 3> stringVec{};
+    REQUIRE(stringVec.max_size() == 3);
+
+    const FixedVector<int, 5> constVec{};
+    REQUIRE(constVec.max_size() == 5);
+
+    // max_size equals capacity
+    REQUIRE(vec.max_size() == vec.capacity());
+    REQUIRE(largeVec.max_size() == largeVec.capacity());
+
+    constexpr FixedVector<int, 5> constexprVec{};
+    STATIC_REQUIRE(constexprVec.max_size() == 5);
+  }
+
+  SECTION("Capacity method") {
+    FixedVector<int, 5> vec{};
+    REQUIRE(vec.capacity() == 5);
+
+    FixedVector<int, 10> largeVec{};
+    REQUIRE(largeVec.capacity() == 10);
+
+    FixedVector<std::string, 3> stringVec{};
+    REQUIRE(stringVec.capacity() == 3);
+
+    const FixedVector<int, 5> constVec{};
+    REQUIRE(constVec.capacity() == 5);
+
+    // Capacity remains constant
+    vec.push_back(1);
+    REQUIRE(vec.capacity() == 5);
+
+    vec.push_back(2);
+    REQUIRE(vec.capacity() == 5);
+
+    vec.clear();
+    REQUIRE(vec.capacity() == 5);
+
+    constexpr FixedVector<int, 5> constexprVec{};
+    STATIC_REQUIRE(constexprVec.capacity() == 5);
+  }
+
+  SECTION("Size and capacity relationship") {
+    FixedVector<int, 5> vec{};
+
+    // Initially empty
+    REQUIRE(vec.size() == 0);
+    REQUIRE(vec.capacity() == 5);
+    REQUIRE(vec.size() <= vec.capacity());
+    REQUIRE(vec.empty() == true);
+
+    // After adding elements
+    vec.push_back(1);
+    REQUIRE(vec.size() == 1);
+    REQUIRE(vec.capacity() == 5);
+    REQUIRE(vec.size() <= vec.capacity());
+    REQUIRE(vec.empty() == false);
+
+    vec.push_back(2);
+    vec.push_back(3);
+    REQUIRE(vec.size() == 3);
+    REQUIRE(vec.capacity() == 5);
+    REQUIRE(vec.size() <= vec.capacity());
+
+    // After clearing
+    vec.clear();
+    REQUIRE(vec.size() == 0);
+    REQUIRE(vec.capacity() == 5);
+    REQUIRE(vec.empty() == true);
+  }
+
+  SECTION("Max size equals capacity") {
+    FixedVector<int, 5> vec{};
+    REQUIRE(vec.max_size() == vec.capacity());
+
+    FixedVector<int, 10> largeVec{};
+    REQUIRE(largeVec.max_size() == largeVec.capacity());
+
+    FixedVector<std::string, 20> stringVec{"a", "b"};
+    REQUIRE(stringVec.max_size() == stringVec.capacity());
+  }
+
+  SECTION("Different template parameters") {
+    // Different sizes
+    STATIC_REQUIRE(FixedVector<int, 1>{}.capacity() == 1);
+    STATIC_REQUIRE(FixedVector<int, 1>{}.max_size() == 1);
+    STATIC_REQUIRE(FixedVector<int, 1>{}.size() == 0);
+    STATIC_REQUIRE(FixedVector<int, 1>{}.empty() == true);
+
+    STATIC_REQUIRE(FixedVector<int, 100>{}.capacity() == 100);
+    STATIC_REQUIRE(FixedVector<int, 100>{}.max_size() == 100);
+
+    // Different types
+    FixedVector<double, 5> doubleVec{};
+    REQUIRE(doubleVec.capacity() == 5);
+    REQUIRE(doubleVec.max_size() == 5);
+
+    FixedVector<FixedString<10>, 3> stringVec{};
+    REQUIRE(stringVec.capacity() == 3);
+    REQUIRE(stringVec.max_size() == 3);
+  }
+
+  SECTION("Constexpr evaluation") {
+    constexpr FixedVector<int, 5> emptyVec{};
+
+    STATIC_REQUIRE(emptyVec.size() == 0);
+    STATIC_REQUIRE(emptyVec.empty() == true);
+    STATIC_REQUIRE(emptyVec.capacity() == 5);
+    STATIC_REQUIRE(emptyVec.max_size() == 5);
+  }
+}

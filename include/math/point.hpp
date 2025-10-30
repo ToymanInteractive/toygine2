@@ -417,7 +417,7 @@ public:
   \param left  The first point.
   \param right The second point.
 
-  \return true if both points have identical coordinates, false otherwise.
+  \return \c true if both points have identical coordinates, \c false otherwise.
 
   \note This performs exact equality comparison. For approximate comparison with tolerance, use the \a isEqual method.
 */

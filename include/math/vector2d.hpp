@@ -248,7 +248,7 @@ public:
 
     This method checks if both coordinates of this vector are zero.
 
-    \return true if both coordinates are zero, false otherwise.
+    \return \c true if both coordinates are zero, \c false otherwise.
 
     \note This is equivalent to checking if the vector is at the origin (0, 0).
   */
@@ -263,7 +263,7 @@ public:
     \param vector    The vector to compare with.
     \param tolerance The tolerance for equality comparison (default: 0).
 
-    \return true if the vector are equal within the \a tolerance, false otherwise.
+    \return \c true if the vector are equal within the \a tolerance, \c false otherwise.
 
     \pre The \a tolerance must be non-negative.
 
@@ -356,7 +356,7 @@ public:
   \param left  The first vector.
   \param right The second vector.
 
-  \return true if both vectors have identical coordinates, false otherwise.
+  \return \c true if both vectors have identical coordinates, \c false otherwise.
 
   \note This performs exact equality comparison. For approximate comparison with tolerance, use the \a isEqual method.
 */
