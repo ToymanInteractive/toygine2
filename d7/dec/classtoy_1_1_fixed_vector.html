@@ -229,8 +229,14 @@ requires (!std::is_integral_v&lt;InputIterator&gt;)</td></tr>
 <tr class="memdesc:a502337b071003804ede596849ea084f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a const reverse iterator to the element preceding the first element of the vector.  <br /></td></tr>
 <tr class="memitem:a44958049e98e13f51ec12b4a94de188a" id="r_a44958049e98e13f51ec12b4a94de188a"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="#a41ce3fc124ed7c8f2d46f0f619dde153">const_reverse_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a44958049e98e13f51ec12b4a94de188a">crend</a> () const noexcept</td></tr>
 <tr class="memdesc:a44958049e98e13f51ec12b4a94de188a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a const reverse iterator to the element preceding the first element of the vector.  <br /></td></tr>
-<tr class="memitem:a8b52067ca198f6f9fdfcca90bd6bfd67" id="r_a8b52067ca198f6f9fdfcca90bd6bfd67"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="#a99474f84eab51bad0b14ad3f44df88a0">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8b52067ca198f6f9fdfcca90bd6bfd67">size</a> () const noexcept</td></tr>
-<tr class="memitem:a00c716c2d271772cc9a66fb396a53b5a" id="r_a00c716c2d271772cc9a66fb396a53b5a"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="#a99474f84eab51bad0b14ad3f44df88a0">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a00c716c2d271772cc9a66fb396a53b5a">capacity</a> () const noexcept</td></tr>
+<tr class="memitem:a593a03b30ed1bcde725c425eb2e17763" id="r_a593a03b30ed1bcde725c425eb2e17763"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a593a03b30ed1bcde725c425eb2e17763">empty</a> () const noexcept</td></tr>
+<tr class="memdesc:a593a03b30ed1bcde725c425eb2e17763"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the vector is empty.  <br /></td></tr>
+<tr class="memitem:a4b06d64f626a2130dae81662061f1488" id="r_a4b06d64f626a2130dae81662061f1488"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="#a99474f84eab51bad0b14ad3f44df88a0">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4b06d64f626a2130dae81662061f1488">size</a> () const noexcept</td></tr>
+<tr class="memdesc:a4b06d64f626a2130dae81662061f1488"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of elements currently stored in the vector.  <br /></td></tr>
+<tr class="memitem:a8ba3db26a57d6fb551b41288d265925c" id="r_a8ba3db26a57d6fb551b41288d265925c"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="#a99474f84eab51bad0b14ad3f44df88a0">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8ba3db26a57d6fb551b41288d265925c">max_size</a> () const noexcept</td></tr>
+<tr class="memdesc:a8ba3db26a57d6fb551b41288d265925c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the maximum number of elements the vector can hold.  <br /></td></tr>
+<tr class="memitem:a0fc22ea0d90028f12998680b66e146c6" id="r_a0fc22ea0d90028f12998680b66e146c6"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="#a99474f84eab51bad0b14ad3f44df88a0">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0fc22ea0d90028f12998680b66e146c6">capacity</a> () const noexcept</td></tr>
+<tr class="memdesc:a0fc22ea0d90028f12998680b66e146c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the maximum number of elements that can be stored in the vector.  <br /></td></tr>
 <tr class="memitem:ad1b12283014e9694c538c41a6b4d854b" id="r_ad1b12283014e9694c538c41a6b4d854b"><td class="memItemLeft" align="right" valign="top">constexpr void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad1b12283014e9694c538c41a6b4d854b">push_back</a> (const type &amp;val) noexcept</td></tr>
 <tr class="memitem:a5ae89743b5bf48d51270730a216c1e2d" id="r_a5ae89743b5bf48d51270730a216c1e2d"><td class="memItemLeft" align="right" valign="top">constexpr void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5ae89743b5bf48d51270730a216c1e2d">clear</a> () noexcept</td></tr>
 </table><table class="memberdecls">
@@ -1250,8 +1256,8 @@ The iterator allows modification of elements.</dd></dl>
 
 </div>
 </div>
-<a id="a00c716c2d271772cc9a66fb396a53b5a" name="a00c716c2d271772cc9a66fb396a53b5a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a00c716c2d271772cc9a66fb396a53b5a">&#9670;&#160;</a></span>capacity()</h2>
+<a id="a0fc22ea0d90028f12998680b66e146c6" name="a0fc22ea0d90028f12998680b66e146c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0fc22ea0d90028f12998680b66e146c6">&#9670;&#160;</a></span>capacity()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1262,7 +1268,7 @@ template&lt;typename type, std::size_t allocatedSize&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">toy::FixedVector</a>&lt; type, allocatedSize &gt;::capacity </td>
+          <td class="memname"><a class="el" href="#a268734f9669e3693c60d125ab548e98f">FixedVector</a>&lt; type, allocatedSize &gt;<a class="el" href="#a99474f84eab51bad0b14ad3f44df88a0">::size_type</a> <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">toy::FixedVector</a>&lt; type, allocatedSize &gt;::capacity </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
@@ -1270,10 +1276,20 @@ template&lt;typename type, std::size_t allocatedSize&gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Returns the maximum number of elements that can be stored in the vector. </p>
+<p>This method returns the maximum number of elements that the vector can store without reallocation. This value is fixed at compile time and determined by the template parameter <em class="arg">allocatedSize</em>.</p>
+<dl class="section return"><dt>Returns</dt><dd>The maximum number of elements the vector can store.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The capacity is always greater than or equal to the current size. </dd>
+<dd>
+The capacity cannot change during the lifetime of the vector. </dd>
+<dd>
+Attempting to add more elements than the capacity will result in undefined behavior.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a4b06d64f626a2130dae81662061f1488" title="Returns the number of elements currently stored in the vector.">size()</a> </dd></dl>
 
 </div>
 </div>
@@ -1490,11 +1506,11 @@ template&lt;typename type, std::size_t allocatedSize&gt; </div>
 <dd>
 The pointer points to a contiguous block of memory containing the vector elements. </dd>
 <dd>
-The array contains exactly <em class="arg"><a class="el" href="#a8b52067ca198f6f9fdfcca90bd6bfd67">size()</a></em> elements. </dd>
+The array contains exactly <em class="arg"><a class="el" href="#a4b06d64f626a2130dae81662061f1488" title="Returns the number of elements currently stored in the vector.">size()</a></em> elements. </dd>
 <dd>
 The returned pointer does not allow modification of the vector contents.</dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd>Accessing elements beyond <em class="arg"><a class="el" href="#a8b52067ca198f6f9fdfcca90bd6bfd67">size()</a></em> through the returned pointer results in undefined behavior.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a8b52067ca198f6f9fdfcca90bd6bfd67">size()</a> </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>Accessing elements beyond <em class="arg"><a class="el" href="#a4b06d64f626a2130dae81662061f1488" title="Returns the number of elements currently stored in the vector.">size()</a></em> through the returned pointer results in undefined behavior.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a4b06d64f626a2130dae81662061f1488" title="Returns the number of elements currently stored in the vector.">size()</a> </dd></dl>
 
 </div>
 </div>
@@ -1530,13 +1546,48 @@ template&lt;typename type, std::size_t allocatedSize&gt; </div>
 <dd>
 The pointer points to a contiguous block of memory containing the vector elements. </dd>
 <dd>
-The array contains exactly <em class="arg"><a class="el" href="#a8b52067ca198f6f9fdfcca90bd6bfd67">size()</a></em> elements. </dd>
+The array contains exactly <em class="arg"><a class="el" href="#a4b06d64f626a2130dae81662061f1488" title="Returns the number of elements currently stored in the vector.">size()</a></em> elements. </dd>
 <dd>
 Modifying elements through the returned pointer directly modifies the vector contents. </dd>
 <dd>
 Use const version for read-only access.</dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd>Accessing elements beyond <em class="arg"><a class="el" href="#a8b52067ca198f6f9fdfcca90bd6bfd67">size()</a></em> through the returned pointer results in undefined behavior.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a8b52067ca198f6f9fdfcca90bd6bfd67">size()</a> </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>Accessing elements beyond <em class="arg"><a class="el" href="#a4b06d64f626a2130dae81662061f1488" title="Returns the number of elements currently stored in the vector.">size()</a></em> through the returned pointer results in undefined behavior.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a4b06d64f626a2130dae81662061f1488" title="Returns the number of elements currently stored in the vector.">size()</a> </dd></dl>
+
+</div>
+</div>
+<a id="a593a03b30ed1bcde725c425eb2e17763" name="a593a03b30ed1bcde725c425eb2e17763"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a593a03b30ed1bcde725c425eb2e17763">&#9670;&#160;</a></span>empty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename type, std::size_t allocatedSize&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">toy::FixedVector</a>&lt; type, allocatedSize &gt;::empty </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Checks if the vector is empty. </p>
+<p>This method returns whether the vector contains any elements.</p>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the vector is empty (size is 0), <code>false</code> otherwise.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This method provides a convenient way to check if the vector has no elements. </dd>
+<dd>
+Equivalent to <em class="arg"><a class="el" href="#a4b06d64f626a2130dae81662061f1488" title="Returns the number of elements currently stored in the vector.">size()</a></em> == 0.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a4b06d64f626a2130dae81662061f1488" title="Returns the number of elements currently stored in the vector.">size()</a> </dd></dl>
 
 </div>
 </div>
@@ -1683,6 +1734,41 @@ template&lt;typename type, std::size_t allocatedSize&gt; </div>
 <dd>
 Use const version for read-only access.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#ad2d35c3e377890c5951616c6bb235181" title="Returns a reference to the last element of the vector.">back()</a> </dd></dl>
+
+</div>
+</div>
+<a id="a8ba3db26a57d6fb551b41288d265925c" name="a8ba3db26a57d6fb551b41288d265925c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ba3db26a57d6fb551b41288d265925c">&#9670;&#160;</a></span>max_size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename type, std::size_t allocatedSize&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a268734f9669e3693c60d125ab548e98f">FixedVector</a>&lt; type, allocatedSize &gt;<a class="el" href="#a99474f84eab51bad0b14ad3f44df88a0">::size_type</a> <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">toy::FixedVector</a>&lt; type, allocatedSize &gt;::max_size </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the maximum number of elements the vector can hold. </p>
+<p>This method returns the theoretical maximum number of elements that the vector can hold. For <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a>, this is equal to the allocated capacity.</p>
+<dl class="section return"><dt>Returns</dt><dd>The maximum number of elements the vector can hold.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>For <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a>, <em class="arg"><a class="el" href="#a8ba3db26a57d6fb551b41288d265925c" title="Returns the maximum number of elements the vector can hold.">max_size()</a></em> is always equal to <em class="arg"><a class="el" href="#a0fc22ea0d90028f12998680b66e146c6" title="Returns the maximum number of elements that can be stored in the vector.">capacity()</a></em>. </dd>
+<dd>
+This value is fixed at compile time and determined by the template parameter <em class="arg">allocatedSize</em>.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a0fc22ea0d90028f12998680b66e146c6" title="Returns the maximum number of elements that can be stored in the vector.">capacity()</a> </dd></dl>
 
 </div>
 </div>
@@ -2187,8 +2273,8 @@ For an empty vector, <em class="arg"><a class="el" href="#a834b370c8f747d2e941e5
 
 </div>
 </div>
-<a id="a8b52067ca198f6f9fdfcca90bd6bfd67" name="a8b52067ca198f6f9fdfcca90bd6bfd67"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8b52067ca198f6f9fdfcca90bd6bfd67">&#9670;&#160;</a></span>size()</h2>
+<a id="a4b06d64f626a2130dae81662061f1488" name="a4b06d64f626a2130dae81662061f1488"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b06d64f626a2130dae81662061f1488">&#9670;&#160;</a></span>size()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2199,7 +2285,7 @@ template&lt;typename type, std::size_t allocatedSize&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">toy::FixedVector</a>&lt; type, allocatedSize &gt;::size </td>
+          <td class="memname"><a class="el" href="#a268734f9669e3693c60d125ab548e98f">FixedVector</a>&lt; type, allocatedSize &gt;<a class="el" href="#a99474f84eab51bad0b14ad3f44df88a0">::size_type</a> <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">toy::FixedVector</a>&lt; type, allocatedSize &gt;::size </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
@@ -2207,10 +2293,20 @@ template&lt;typename type, std::size_t allocatedSize&gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Returns the number of elements currently stored in the vector. </p>
+<p>This method returns the current number of elements in the vector.</p>
+<dl class="section return"><dt>Returns</dt><dd>The number of elements in the vector.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The size is always less than or equal to the capacity. </dd>
+<dd>
+For an empty vector, this method returns 0.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a0fc22ea0d90028f12998680b66e146c6" title="Returns the maximum number of elements that can be stored in the vector.">capacity()</a> </dd>
+<dd>
+<a class="el" href="#a593a03b30ed1bcde725c425eb2e17763" title="Checks if the vector is empty.">empty()</a> </dd></dl>
 
 </div>
 </div>

@@ -1094,7 +1094,7 @@ If one string is a prefix of another, the shorter string is considered lexicogra
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True if this string view contains the specified <em class="arg">character</em>, false otherwise.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if this string view contains the specified <em class="arg">character</em>, <code>false</code> otherwise.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd>
 <dd>
 If the string view is empty, this method returns false. </dd></dl>
@@ -1132,7 +1132,7 @@ If the string view is empty, this method returns false. </dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True if this string view contains the C <em class="arg">string</em>, false otherwise.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if this string view contains the C <em class="arg">string</em>, <code>false</code> otherwise.</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>The C <em class="arg">string</em> must not be null.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd>
 <dd>
@@ -1181,7 +1181,7 @@ template&lt;StringLike stringType&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True if this string view contains a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object, false otherwise.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if this string view contains a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object, <code>false</code> otherwise.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd>
 <dd>
 If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object is empty, this method returns true. </dd>
@@ -1247,7 +1247,7 @@ The returned pointer is read-only and cannot modify the string view contents. </
 
 <p>Checks if the string view is empty. </p>
 <p>This method checks if the string view is empty, i.e. its size is zero. An empty string view contains no characters and has a length of zero.</p>
-<dl class="section return"><dt>Returns</dt><dd>True if the string view is empty, false otherwise.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the string view is empty (size is 0), <code>false</code> otherwise.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>An empty string view has size zero. </dd>
 <dd>
 An empty string view still contains a null terminator. </dd>
@@ -1287,7 +1287,7 @@ This method is equivalent to the expression: <span class="tt"><a class="el" href
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True if this string view ends with the specified <em class="arg">character</em>, false otherwise.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if this string view ends with the specified <em class="arg">character</em>, <code>false</code> otherwise.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The comparison is case-sensitive. </dd>
 <dd>
 If the string view is empty, this method returns false. </dd></dl>
@@ -1325,7 +1325,7 @@ If the string view is empty, this method returns false. </dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True if this string view ends with the C <em class="arg">string</em>, false otherwise.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if this string view ends with the C <em class="arg">string</em>, <code>false</code> otherwise.</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>The C <em class="arg">string</em> must not be null.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The comparison is case-sensitive. </dd>
 <dd>
@@ -1374,7 +1374,7 @@ template&lt;StringLike stringType&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True if this string view ends with a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object, false otherwise.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if this string view ends with a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object, <code>false</code> otherwise.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The comparison is case-sensitive. </dd>
 <dd>
 If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object is empty, this method returns true. </dd>
@@ -2485,7 +2485,7 @@ If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Co
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True if this string view starts with the specified <em class="arg">character</em>, false otherwise.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if this string view starts with the specified <em class="arg">character</em>, <code>false</code> otherwise.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The comparison is case-sensitive. </dd>
 <dd>
 If the string view is empty, this method returns false. </dd></dl>
@@ -2523,7 +2523,7 @@ If the string view is empty, this method returns false. </dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True if this string view starts with the C <em class="arg">string</em>, false otherwise.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if this string view starts with the C <em class="arg">string</em>, <code>false</code> otherwise.</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>The C <em class="arg">string</em> must not be null.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The comparison is case-sensitive. </dd>
 <dd>
@@ -2572,7 +2572,7 @@ template&lt;StringLike stringType&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True if this string view starts with a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object, false otherwise.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if this string view starts with a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object, <code>false</code> otherwise.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The comparison is case-sensitive. </dd>
 <dd>
 If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object is empty, this method returns true. </dd>

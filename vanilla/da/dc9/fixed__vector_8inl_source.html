@@ -564,47 +564,65 @@ $(function(){initNavTree('da/dc9/fixed__vector_8inl_source.html','../../',''); }
 <div class="line"><a id="l00390" name="l00390"></a><span class="lineno">  390</span>}</div>
 </div>
 <div class="line"><a id="l00391" name="l00391"></a><span class="lineno">  391</span> </div>
-<div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span><span class="comment">// temporary</span></div>
-<div class="line"><a id="l00393" name="l00393"></a><span class="lineno">  393</span> </div>
-<div class="line"><a id="l00394" name="l00394"></a><span class="lineno">  394</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> type, std::size_t allocatedSize&gt;</div>
-<div class="foldopen" id="foldopen00395" data-start="{" data-end="}">
-<div class="line"><a id="l00395" name="l00395"></a><span class="lineno"><a class="line" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a8b52067ca198f6f9fdfcca90bd6bfd67">  395</a></span><span class="keyword">constexpr</span> std::size_t FixedVector&lt;type, allocatedSize&gt;::size() <span class="keyword">const</span> <span class="keyword">noexcept</span> {</div>
-<div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span>  <span class="keywordflow">return</span> _size;</div>
-<div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span>}</div>
+<div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> type, std::size_t allocatedSize&gt;</div>
+<div class="foldopen" id="foldopen00393" data-start="{" data-end="}">
+<div class="line"><a id="l00393" name="l00393"></a><span class="lineno"><a class="line" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a593a03b30ed1bcde725c425eb2e17763">  393</a></span>[[nodiscard]] <span class="keyword">constexpr</span> <span class="keywordtype">bool</span> FixedVector&lt;type, allocatedSize&gt;::empty() <span class="keyword">const</span> <span class="keyword">noexcept</span> {</div>
+<div class="line"><a id="l00394" name="l00394"></a><span class="lineno">  394</span>  <span class="keywordflow">return</span> _size == 0;</div>
+<div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span>}</div>
 </div>
-<div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span> </div>
-<div class="line"><a id="l00399" name="l00399"></a><span class="lineno">  399</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> type, std::size_t allocatedSize&gt;</div>
-<div class="foldopen" id="foldopen00400" data-start="{" data-end="}">
-<div class="line"><a id="l00400" name="l00400"></a><span class="lineno"><a class="line" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a00c716c2d271772cc9a66fb396a53b5a">  400</a></span><span class="keyword">constexpr</span> std::size_t FixedVector&lt;type, allocatedSize&gt;::capacity() <span class="keyword">const</span> <span class="keyword">noexcept</span> {</div>
-<div class="line"><a id="l00401" name="l00401"></a><span class="lineno">  401</span>  <span class="keywordflow">return</span> allocatedSize;</div>
+<div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span> </div>
+<div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> type, std::size_t allocatedSize&gt;</div>
+<div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span>[[nodiscard]] <span class="keyword">constexpr</span> <span class="keyword">typename</span> FixedVector&lt;type, allocatedSize&gt;::size_type FixedVector&lt;type,</div>
+<div class="foldopen" id="foldopen00399" data-start="{" data-end="}">
+<div class="line"><a id="l00399" name="l00399"></a><span class="lineno"><a class="line" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a4b06d64f626a2130dae81662061f1488">  399</a></span>                                                                                         allocatedSize&gt;::size() <span class="keyword">const</span></div>
+<div class="line"><a id="l00400" name="l00400"></a><span class="lineno">  400</span>  <span class="keyword">noexcept</span> {</div>
+<div class="line"><a id="l00401" name="l00401"></a><span class="lineno">  401</span>  <span class="keywordflow">return</span> _size;</div>
 <div class="line"><a id="l00402" name="l00402"></a><span class="lineno">  402</span>}</div>
 </div>
 <div class="line"><a id="l00403" name="l00403"></a><span class="lineno">  403</span> </div>
 <div class="line"><a id="l00404" name="l00404"></a><span class="lineno">  404</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> type, std::size_t allocatedSize&gt;</div>
-<div class="foldopen" id="foldopen00405" data-start="{" data-end="}">
-<div class="line"><a id="l00405" name="l00405"></a><span class="lineno"><a class="line" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a5ae89743b5bf48d51270730a216c1e2d">  405</a></span><span class="keyword">constexpr</span> <span class="keywordtype">void</span> FixedVector&lt;type, allocatedSize&gt;::clear() <span class="keyword">noexcept</span> {</div>
-<div class="line"><a id="l00406" name="l00406"></a><span class="lineno">  406</span>  <span class="keywordflow">for</span> (std::size_t index = 0; index &lt; _size; ++index)</div>
-<div class="line"><a id="l00407" name="l00407"></a><span class="lineno">  407</span>    data()[index].~type();</div>
-<div class="line"><a id="l00408" name="l00408"></a><span class="lineno">  408</span> </div>
-<div class="line"><a id="l00409" name="l00409"></a><span class="lineno">  409</span>  _size = 0;</div>
-<div class="line"><a id="l00410" name="l00410"></a><span class="lineno">  410</span>}</div>
+<div class="line"><a id="l00405" name="l00405"></a><span class="lineno">  405</span>[[nodiscard]] <span class="keyword">constexpr</span> <span class="keyword">typename</span> FixedVector&lt;type, allocatedSize&gt;::size_type FixedVector&lt;</div>
+<div class="foldopen" id="foldopen00406" data-start="{" data-end="}">
+<div class="line"><a id="l00406" name="l00406"></a><span class="lineno"><a class="line" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a8ba3db26a57d6fb551b41288d265925c">  406</a></span>  type, allocatedSize&gt;::max_size() <span class="keyword">const</span> <span class="keyword">noexcept</span> {</div>
+<div class="line"><a id="l00407" name="l00407"></a><span class="lineno">  407</span>  <span class="keywordflow">return</span> allocatedSize;</div>
+<div class="line"><a id="l00408" name="l00408"></a><span class="lineno">  408</span>}</div>
 </div>
-<div class="line"><a id="l00411" name="l00411"></a><span class="lineno">  411</span> </div>
-<div class="line"><a id="l00412" name="l00412"></a><span class="lineno">  412</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> type, std::size_t allocatedSize&gt;</div>
-<div class="foldopen" id="foldopen00413" data-start="{" data-end="}">
-<div class="line"><a id="l00413" name="l00413"></a><span class="lineno"><a class="line" href="../../d7/dec/classtoy_1_1_fixed_vector.html#ad1b12283014e9694c538c41a6b4d854b">  413</a></span><span class="keyword">constexpr</span> <span class="keywordtype">void</span> FixedVector&lt;type, allocatedSize&gt;::push_back(<span class="keyword">const</span> type &amp; val) <span class="keyword">noexcept</span> {</div>
-<div class="line"><a id="l00414" name="l00414"></a><span class="lineno">  414</span>  assert(_size &lt; allocatedSize);</div>
+<div class="line"><a id="l00409" name="l00409"></a><span class="lineno">  409</span> </div>
+<div class="line"><a id="l00410" name="l00410"></a><span class="lineno">  410</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> type, std::size_t allocatedSize&gt;</div>
+<div class="line"><a id="l00411" name="l00411"></a><span class="lineno">  411</span>[[nodiscard]] <span class="keyword">constexpr</span> <span class="keyword">typename</span> FixedVector&lt;type, allocatedSize&gt;::size_type FixedVector&lt;</div>
+<div class="foldopen" id="foldopen00412" data-start="{" data-end="}">
+<div class="line"><a id="l00412" name="l00412"></a><span class="lineno"><a class="line" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a0fc22ea0d90028f12998680b66e146c6">  412</a></span>  type, allocatedSize&gt;::capacity() <span class="keyword">const</span> <span class="keyword">noexcept</span> {</div>
+<div class="line"><a id="l00413" name="l00413"></a><span class="lineno">  413</span>  <span class="keywordflow">return</span> allocatedSize;</div>
+<div class="line"><a id="l00414" name="l00414"></a><span class="lineno">  414</span>}</div>
+</div>
 <div class="line"><a id="l00415" name="l00415"></a><span class="lineno">  415</span> </div>
-<div class="line"><a id="l00416" name="l00416"></a><span class="lineno">  416</span>  <span class="keywordflow">if</span> (_size &lt; allocatedSize) {</div>
-<div class="line"><a id="l00417" name="l00417"></a><span class="lineno">  417</span>    std::construct_at(end(), type(val));</div>
-<div class="line"><a id="l00418" name="l00418"></a><span class="lineno">  418</span>    ++_size;</div>
-<div class="line"><a id="l00419" name="l00419"></a><span class="lineno">  419</span>  }</div>
-<div class="line"><a id="l00420" name="l00420"></a><span class="lineno">  420</span>}</div>
+<div class="line"><a id="l00416" name="l00416"></a><span class="lineno">  416</span><span class="comment">// temporary</span></div>
+<div class="line"><a id="l00417" name="l00417"></a><span class="lineno">  417</span> </div>
+<div class="line"><a id="l00418" name="l00418"></a><span class="lineno">  418</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> type, std::size_t allocatedSize&gt;</div>
+<div class="foldopen" id="foldopen00419" data-start="{" data-end="}">
+<div class="line"><a id="l00419" name="l00419"></a><span class="lineno"><a class="line" href="../../d7/dec/classtoy_1_1_fixed_vector.html#a5ae89743b5bf48d51270730a216c1e2d">  419</a></span><span class="keyword">constexpr</span> <span class="keywordtype">void</span> FixedVector&lt;type, allocatedSize&gt;::clear() <span class="keyword">noexcept</span> {</div>
+<div class="line"><a id="l00420" name="l00420"></a><span class="lineno">  420</span>  <span class="keywordflow">for</span> (std::size_t index = 0; index &lt; _size; ++index)</div>
+<div class="line"><a id="l00421" name="l00421"></a><span class="lineno">  421</span>    data()[index].~type();</div>
+<div class="line"><a id="l00422" name="l00422"></a><span class="lineno">  422</span> </div>
+<div class="line"><a id="l00423" name="l00423"></a><span class="lineno">  423</span>  _size = 0;</div>
+<div class="line"><a id="l00424" name="l00424"></a><span class="lineno">  424</span>}</div>
 </div>
-<div class="line"><a id="l00421" name="l00421"></a><span class="lineno">  421</span> </div>
-<div class="line"><a id="l00422" name="l00422"></a><span class="lineno">  422</span>} <span class="comment">// namespace toy</span></div>
-<div class="line"><a id="l00423" name="l00423"></a><span class="lineno">  423</span> </div>
-<div class="line"><a id="l00424" name="l00424"></a><span class="lineno">  424</span><span class="preprocessor">#</span><span class="preprocessor">endif</span> <span class="comment">// INCLUDE_CORE_FIXED_VECTOR_INL_</span></div>
+<div class="line"><a id="l00425" name="l00425"></a><span class="lineno">  425</span> </div>
+<div class="line"><a id="l00426" name="l00426"></a><span class="lineno">  426</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> type, std::size_t allocatedSize&gt;</div>
+<div class="foldopen" id="foldopen00427" data-start="{" data-end="}">
+<div class="line"><a id="l00427" name="l00427"></a><span class="lineno"><a class="line" href="../../d7/dec/classtoy_1_1_fixed_vector.html#ad1b12283014e9694c538c41a6b4d854b">  427</a></span><span class="keyword">constexpr</span> <span class="keywordtype">void</span> FixedVector&lt;type, allocatedSize&gt;::push_back(<span class="keyword">const</span> type &amp; val) <span class="keyword">noexcept</span> {</div>
+<div class="line"><a id="l00428" name="l00428"></a><span class="lineno">  428</span>  assert(_size &lt; allocatedSize);</div>
+<div class="line"><a id="l00429" name="l00429"></a><span class="lineno">  429</span> </div>
+<div class="line"><a id="l00430" name="l00430"></a><span class="lineno">  430</span>  <span class="keywordflow">if</span> (_size &lt; allocatedSize) {</div>
+<div class="line"><a id="l00431" name="l00431"></a><span class="lineno">  431</span>    std::construct_at(end(), type(val));</div>
+<div class="line"><a id="l00432" name="l00432"></a><span class="lineno">  432</span>    ++_size;</div>
+<div class="line"><a id="l00433" name="l00433"></a><span class="lineno">  433</span>  }</div>
+<div class="line"><a id="l00434" name="l00434"></a><span class="lineno">  434</span>}</div>
+</div>
+<div class="line"><a id="l00435" name="l00435"></a><span class="lineno">  435</span> </div>
+<div class="line"><a id="l00436" name="l00436"></a><span class="lineno">  436</span>} <span class="comment">// namespace toy</span></div>
+<div class="line"><a id="l00437" name="l00437"></a><span class="lineno">  437</span> </div>
+<div class="line"><a id="l00438" name="l00438"></a><span class="lineno">  438</span><span class="preprocessor">#</span><span class="preprocessor">endif</span> <span class="comment">// INCLUDE_CORE_FIXED_VECTOR_INL_</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->
