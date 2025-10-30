@@ -720,10 +720,67 @@ public:
   */
   [[nodiscard]] constexpr const_reverse_iterator crend() const noexcept;
 
-  // temporary
+  /*!
+    \brief Checks if the vector is empty.
 
-  constexpr size_type size() const noexcept;
-  constexpr size_type capacity() const noexcept;
+    This method returns whether the vector contains any elements.
+
+    \return \c true if the vector is empty (size is 0), \c false otherwise.
+
+    \note This method provides a convenient way to check if the vector has no elements.
+    \note Equivalent to \a size() == 0.
+
+    \see size()
+  */
+  [[nodiscard]] constexpr bool empty() const noexcept;
+
+  /*!
+    \brief Returns the number of elements currently stored in the vector.
+
+    This method returns the current number of elements in the vector.
+
+    \return The number of elements in the vector.
+
+    \note The size is always less than or equal to the capacity.
+    \note For an empty vector, this method returns 0.
+
+    \see capacity()
+    \see empty()
+  */
+  [[nodiscard]] constexpr size_type size() const noexcept;
+
+  /*!
+    \brief Returns the maximum number of elements the vector can hold.
+
+    This method returns the theoretical maximum number of elements that the vector can hold. For FixedVector, this is
+    equal to the allocated capacity.
+
+    \return The maximum number of elements the vector can hold.
+
+    \note For FixedVector, \a max_size() is always equal to \a capacity().
+    \note This value is fixed at compile time and determined by the template parameter \a allocatedSize.
+
+    \see capacity()
+  */
+  [[nodiscard]] constexpr size_type max_size() const noexcept;
+
+  /*!
+    \brief Returns the maximum number of elements that can be stored in the vector.
+
+    This method returns the maximum number of elements that the vector can store without reallocation. This value is
+    fixed at compile time and determined by the template parameter \a allocatedSize.
+
+    \return The maximum number of elements the vector can store.
+
+    \note The capacity is always greater than or equal to the current size.
+    \note The capacity cannot change during the lifetime of the vector.
+    \note Attempting to add more elements than the capacity will result in undefined behavior.
+
+    \see size()
+  */
+  [[nodiscard]] constexpr size_type capacity() const noexcept;
+
+  // temporary
 
   constexpr void push_back(const type & val) noexcept;
 

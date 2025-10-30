@@ -389,17 +389,31 @@ template <typename type, std::size_t allocatedSize>
   return rend();
 }
 
-// temporary
+template <typename type, std::size_t allocatedSize>
+[[nodiscard]] constexpr bool FixedVector<type, allocatedSize>::empty() const noexcept {
+  return _size == 0;
+}
 
 template <typename type, std::size_t allocatedSize>
-constexpr std::size_t FixedVector<type, allocatedSize>::size() const noexcept {
+[[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::size_type FixedVector<type,
+                                                                                         allocatedSize>::size() const
+  noexcept {
   return _size;
 }
 
 template <typename type, std::size_t allocatedSize>
-constexpr std::size_t FixedVector<type, allocatedSize>::capacity() const noexcept {
+[[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::size_type FixedVector<
+  type, allocatedSize>::max_size() const noexcept {
   return allocatedSize;
 }
+
+template <typename type, std::size_t allocatedSize>
+[[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::size_type FixedVector<
+  type, allocatedSize>::capacity() const noexcept {
+  return allocatedSize;
+}
+
+// temporary
 
 template <typename type, std::size_t allocatedSize>
 constexpr void FixedVector<type, allocatedSize>::clear() noexcept {

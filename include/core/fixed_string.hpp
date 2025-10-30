@@ -521,7 +521,7 @@ public:
     This method checks if the string is empty, i.e. its size is zero. An empty string contains no characters and has a
     length of zero.
 
-    \return True if the string is empty, false otherwise.
+    \return \c true if the string is empty (size is 0), \c false otherwise.
 
     \note An empty string has size zero.
     \note An empty string still contains a null terminator.
@@ -1537,7 +1537,7 @@ public:
 
     \param string The string to check if this string starts with.
 
-    \return True if this string starts with the specified \a string, false otherwise.
+    \return \c true if this string starts with the specified \a string, \c false otherwise.
 
     \note The comparison is case-sensitive.
     \note If the specified \a string is empty, this method returns true.
@@ -1555,7 +1555,7 @@ public:
 
     \param string The StringLike object to check if this string starts with.
 
-    \return True if this string starts with a StringLike object, false otherwise.
+    \return \c true if this string starts with a StringLike object, \c false otherwise.
 
     \note The comparison is case-sensitive.
     \note If a StringLike object is empty, this method returns true.
@@ -1572,7 +1572,7 @@ public:
 
     \param string The C string to check if this string starts with.
 
-    \return True if this string starts with the C \a string, false otherwise.
+    \return \c true if this string starts with the C \a string, \c false otherwise.
 
     \pre The C \a string must not be null.
 
@@ -1590,7 +1590,7 @@ public:
 
     \param character The character to check if this string starts with.
 
-    \return True if this string starts with the specified \a character, false otherwise.
+    \return \c true if this string starts with the specified \a character, \c false otherwise.
 
     \note The comparison is case-sensitive.
     \note If the string is empty, this method returns false.
@@ -1605,7 +1605,7 @@ public:
 
     \param string The string to check if this string ends with.
 
-    \return True if this string ends with the specified \a string, false otherwise.
+    \return \c true if this string ends with the specified \a string, \c false otherwise.
 
     \note The comparison is case-sensitive.
     \note If the specified \a string is empty, this method returns true.
@@ -1623,7 +1623,7 @@ public:
 
     \param string The StringLike object to check if this string ends with.
 
-    \return True if this string ends with a StringLike object, false otherwise.
+    \return \c true if this string ends with a StringLike object, \c false otherwise.
 
     \note The comparison is case-sensitive.
     \note If a StringLike object is empty, this method returns true.
@@ -1640,7 +1640,7 @@ public:
 
     \param string The C string to check if this string ends with.
 
-    \return True if this string ends with the C \a string, false otherwise.
+    \return \c true if this string ends with the C \a string, \c false otherwise.
 
     \pre The C \a string must not be null.
 
@@ -1658,7 +1658,7 @@ public:
 
     \param character The character to check if this string ends with.
 
-    \return True if this string ends with the specified \a character, false otherwise.
+    \return \c true if this string ends with the specified \a character, \c false otherwise.
 
     \note The comparison is case-sensitive.
     \note If the string is empty, this method returns false.
@@ -1672,7 +1672,7 @@ public:
 
     \param string The string to search for within this string.
 
-    \return True if this string contains the specified \a string, false otherwise.
+    \return \c true if this string contains the specified \a string, \c false otherwise.
 
     \note The search is case-sensitive.
     \note If the specified \a string is empty, this method returns true.
@@ -1689,7 +1689,7 @@ public:
 
     \param string The StringLike object to search for within this string.
 
-    \return True if this string contains a StringLike object, false otherwise.
+    \return \c true if this string contains a StringLike object, \c false otherwise.
 
     \note The search is case-sensitive.
     \note If a StringLike object is empty, this method returns true.
@@ -1705,7 +1705,7 @@ public:
 
     \param string The C string to search for within this string.
 
-    \return True if this string contains the C \a string, false otherwise.
+    \return \c true if this string contains the C \a string, \c false otherwise.
 
     \pre The C \a string must not be null.
 
@@ -1722,7 +1722,7 @@ public:
 
     \param character The character to search for within this string.
 
-    \return True if this string contains the specified \a character, false otherwise.
+    \return \c true if this string contains the specified \a character, \c false otherwise.
 
     \note The search is case-sensitive.
     \note If the string is empty, this method returns false.
@@ -2060,7 +2060,7 @@ template <std::size_t allocatedSize>
   \param lhs The left-hand side FixedString object.
   \param rhs The right-hand side FixedString object.
 
-  \return True if both strings have the same content, false otherwise.
+  \return \c true if both strings have the same content, \c false otherwise.
 
   \note The comparison is case-sensitive.
   \note Empty strings are considered equal.
@@ -2082,7 +2082,7 @@ template <std::size_t allocatedSize1, std::size_t allocatedSize2>
   \param lhs The FixedString object.
   \param rhs The StringLike object.
 
-  \return True if both strings have the same content, false otherwise.
+  \return \c true if both strings have the same content, \c false otherwise.
 
   \note The comparison is case-sensitive.
   \note Empty strings are considered equal.
@@ -2103,7 +2103,7 @@ template <std::size_t allocatedSize, StringLike stringType>
   \param lhs The StringLike object.
   \param rhs The FixedString object.
 
-  \return True if both strings have the same content, false otherwise.
+  \return \c true if both strings have the same content, \c false otherwise.
 
   \note The comparison is case-sensitive.
   \note Empty strings are considered equal.
@@ -2123,7 +2123,7 @@ template <StringLike stringType, std::size_t allocatedSize>
   \param lhs The FixedString object.
   \param rhs The C string.
 
-  \return True if both strings have the same content, false otherwise.
+  \return \c true if both strings have the same content, \c false otherwise.
 
   \pre The \a rhs pointer must not be null.
 
@@ -2145,7 +2145,7 @@ template <std::size_t allocatedSize>
   \param lhs The C string.
   \param rhs The FixedString object.
 
-  \return True if both strings have the same content, false otherwise.
+  \return \c true if both strings have the same content, \c false otherwise.
 
   \pre The \a lhs pointer must not be null.
 

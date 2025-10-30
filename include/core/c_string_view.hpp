@@ -289,7 +289,7 @@ public:
     This method checks if the string view is empty, i.e. its size is zero. An empty string view contains no characters
     and has a length of zero.
 
-    \return True if the string view is empty, false otherwise.
+    \return \c true if the string view is empty (size is 0), \c false otherwise.
 
     \note An empty string view has size zero.
     \note An empty string view still contains a null terminator.
@@ -795,7 +795,7 @@ public:
 
     \param string The StringLike object to check if this string starts with.
 
-    \return True if this string view starts with a StringLike object, false otherwise.
+    \return \c true if this string view starts with a StringLike object, \c false otherwise.
 
     \note The comparison is case-sensitive.
     \note If a StringLike object is empty, this method returns true.
@@ -812,7 +812,7 @@ public:
 
     \param string The C string to check if this string starts with.
 
-    \return True if this string view starts with the C \a string, false otherwise.
+    \return \c true if this string view starts with the C \a string, \c false otherwise.
 
     \pre The C \a string must not be null.
 
@@ -830,7 +830,7 @@ public:
 
     \param character The character to check if this string view starts with.
 
-    \return True if this string view starts with the specified \a character, false otherwise.
+    \return \c true if this string view starts with the specified \a character, \c false otherwise.
 
     \note The comparison is case-sensitive.
     \note If the string view is empty, this method returns false.
@@ -847,7 +847,7 @@ public:
 
     \param string The StringLike object to check if this string view ends with.
 
-    \return True if this string view ends with a StringLike object, false otherwise.
+    \return \c true if this string view ends with a StringLike object, \c false otherwise.
 
     \note The comparison is case-sensitive.
     \note If a StringLike object is empty, this method returns true.
@@ -864,7 +864,7 @@ public:
 
     \param string The C string to check if this string view ends with.
 
-    \return True if this string view ends with the C \a string, false otherwise.
+    \return \c true if this string view ends with the C \a string, \c false otherwise.
 
     \pre The C \a string must not be null.
 
@@ -882,7 +882,7 @@ public:
 
     \param character The character to check if this string view ends with.
 
-    \return True if this string view ends with the specified \a character, false otherwise.
+    \return \c true if this string view ends with the specified \a character, \c false otherwise.
 
     \note The comparison is case-sensitive.
     \note If the string view is empty, this method returns false.
@@ -898,7 +898,7 @@ public:
 
     \param string The StringLike object to search for within this string.
 
-    \return True if this string view contains a StringLike object, false otherwise.
+    \return \c true if this string view contains a StringLike object, \c false otherwise.
 
     \note The search is case-sensitive.
     \note If a StringLike object is empty, this method returns true.
@@ -914,7 +914,7 @@ public:
 
     \param string The C string to search for within this string.
 
-    \return True if this string view contains the C \a string, false otherwise.
+    \return \c true if this string view contains the C \a string, \c false otherwise.
 
     \pre The C \a string must not be null.
 
@@ -931,7 +931,7 @@ public:
 
     \param character The character to search for within this string view.
 
-    \return True if this string view contains the specified \a character, false otherwise.
+    \return \c true if this string view contains the specified \a character, \c false otherwise.
 
     \note The search is case-sensitive.
     \note If the string view is empty, this method returns false.
@@ -1061,7 +1061,7 @@ private:
   \param lhs The left-hand side CStringView object.
   \param rhs The right-hand side CStringView object.
 
-  \return True if both strings view have the same content, false otherwise.
+  \return \c true if both strings view have the same content, \c false otherwise.
 
   \note The comparison is case-sensitive.
   \note Empty string views are considered equal.
@@ -1080,7 +1080,7 @@ private:
   \param lhs The CStringView object.
   \param rhs The StringLike object.
 
-  \return True if both strings have the same content, false otherwise.
+  \return \c true if both strings have the same content, \c false otherwise.
 
   \note The comparison is case-sensitive.
   \note Empty strings are considered equal.
@@ -1100,7 +1100,7 @@ template <StringLike stringType>
   \param lhs The StringLike object.
   \param rhs The CStringView object.
 
-  \return True if both strings have the same content, false otherwise.
+  \return \c true if both strings have the same content, \c false otherwise.
 
   \note The comparison is case-sensitive.
   \note Empty strings are considered equal.
@@ -1118,7 +1118,7 @@ template <StringLike stringType>
   \param lhs The CStringView object.
   \param rhs The C string.
 
-  \return True if both strings have the same content, false otherwise.
+  \return \c true if both strings have the same content, \c false otherwise.
 
   \pre The \a rhs pointer must not be null.
 
@@ -1137,7 +1137,7 @@ template <StringLike stringType>
   \param lhs The C string.
   \param rhs The CStringView object.
 
-  \return True if both strings have the same content, false otherwise.
+  \return \c true if both strings have the same content, \c false otherwise.
 
   \pre The \a lhs pointer must not be null.
 
