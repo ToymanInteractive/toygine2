@@ -780,11 +780,25 @@ public:
   */
   [[nodiscard]] constexpr size_type capacity() const noexcept;
 
+  /*!
+    \brief Removes all elements from the vector.
+
+    This method destroys all elements currently stored in the vector and sets the size to zero. The vector can be reused
+    after clearing.
+
+    \post The vector is empty (size is 0).
+    \post All elements are properly destroyed.
+
+    \note This method calls the destructor for each element.
+    \note After calling \a clear(), the vector can be reused without reallocation.
+    \note For POD types, this operation is very fast.
+    \note The internal buffer is not deallocated, only elements are destroyed.
+  */
+  constexpr void clear() noexcept;
+
   // temporary
 
   constexpr void push_back(const type & val) noexcept;
-
-  constexpr void clear() noexcept;
 
 private:
   static_assert(allocatedSize > 0, "FixedVector capacity must be greater than zero.");
