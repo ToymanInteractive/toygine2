@@ -1077,16 +1077,16 @@ TEST_CASE("FixedVector size and capacity methods", "[core][fixed_vector]") {
   }
 
   SECTION("Max size method") {
-    FixedVector<int, 5> vec;
+    FixedVector<int, 5> vec{};
     REQUIRE(vec.max_size() == 5);
 
-    FixedVector<int, 10> largeVec;
+    FixedVector<int, 10> largeVec{};
     REQUIRE(largeVec.max_size() == 10);
 
-    FixedVector<std::string, 3> stringVec;
+    FixedVector<FixedString<8>, 3> stringVec{};
     REQUIRE(stringVec.max_size() == 3);
 
-    const FixedVector<int, 5> constVec;
+    const FixedVector<int, 5> constVec{};
     REQUIRE(constVec.max_size() == 5);
 
     // max_size equals capacity
