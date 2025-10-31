@@ -237,8 +237,9 @@ requires (!std::is_integral_v&lt;InputIterator&gt;)</td></tr>
 <tr class="memdesc:a8ba3db26a57d6fb551b41288d265925c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the maximum number of elements the vector can hold.  <br /></td></tr>
 <tr class="memitem:a0fc22ea0d90028f12998680b66e146c6" id="r_a0fc22ea0d90028f12998680b66e146c6"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="#a99474f84eab51bad0b14ad3f44df88a0">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0fc22ea0d90028f12998680b66e146c6">capacity</a> () const noexcept</td></tr>
 <tr class="memdesc:a0fc22ea0d90028f12998680b66e146c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the maximum number of elements that can be stored in the vector.  <br /></td></tr>
-<tr class="memitem:ad1b12283014e9694c538c41a6b4d854b" id="r_ad1b12283014e9694c538c41a6b4d854b"><td class="memItemLeft" align="right" valign="top">constexpr void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad1b12283014e9694c538c41a6b4d854b">push_back</a> (const type &amp;val) noexcept</td></tr>
 <tr class="memitem:a5ae89743b5bf48d51270730a216c1e2d" id="r_a5ae89743b5bf48d51270730a216c1e2d"><td class="memItemLeft" align="right" valign="top">constexpr void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5ae89743b5bf48d51270730a216c1e2d">clear</a> () noexcept</td></tr>
+<tr class="memdesc:a5ae89743b5bf48d51270730a216c1e2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all elements from the vector.  <br /></td></tr>
+<tr class="memitem:ad1b12283014e9694c538c41a6b4d854b" id="r_ad1b12283014e9694c538c41a6b4d854b"><td class="memItemLeft" align="right" valign="top">constexpr void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad1b12283014e9694c538c41a6b4d854b">push_back</a> (const type &amp;val) noexcept</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -1393,6 +1394,19 @@ template&lt;typename type, std::size_t allocatedSize&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Removes all elements from the vector. </p>
+<p>This method destroys all elements currently stored in the vector and sets the size to zero. The vector can be reused after clearing.</p>
+<dl class="section post"><dt>Postcondition</dt><dd>The vector is empty (size is 0). </dd>
+<dd>
+All elements are properly destroyed.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This method properly destroys each element (destructor calls are optimized away for trivially destructible types). </dd>
+<dd>
+After calling <em class="arg"><a class="el" href="#a5ae89743b5bf48d51270730a216c1e2d" title="Removes all elements from the vector.">clear()</a></em>, the vector can be reused without reallocation. </dd>
+<dd>
+For POD types, this operation is very fast. </dd>
+<dd>
+The internal buffer is not deallocated, only elements are destroyed. </dd></dl>
 
 </div>
 </div>
