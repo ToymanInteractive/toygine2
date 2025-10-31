@@ -789,7 +789,8 @@ public:
     \post The vector is empty (size is 0).
     \post All elements are properly destroyed.
 
-    \note This method calls the destructor for each element.
+    \note This method properly destroys each element (destructor calls are optimized away for trivially destructible
+          types).
     \note After calling \a clear(), the vector can be reused without reallocation.
     \note For POD types, this operation is very fast.
     \note The internal buffer is not deallocated, only elements are destroyed.
