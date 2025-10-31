@@ -395,9 +395,8 @@ template <typename type, std::size_t allocatedSize>
 }
 
 template <typename type, std::size_t allocatedSize>
-[[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::size_type FixedVector<type,
-                                                                                         allocatedSize>::size() const
-  noexcept {
+[[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::size_type FixedVector<type, allocatedSize>::size()
+  const noexcept {
   return _size;
 }
 
@@ -413,15 +412,17 @@ template <typename type, std::size_t allocatedSize>
   return allocatedSize;
 }
 
-// temporary
-
 template <typename type, std::size_t allocatedSize>
 constexpr void FixedVector<type, allocatedSize>::clear() noexcept {
-  for (std::size_t index = 0; index < _size; ++index)
-    data()[index].~type();
+  if constexpr (!std::is_trivially_destructible_v<type>) {
+    for (size_type index = 0; index < _size; ++index)
+      data()[index].~type();
+  }
 
   _size = 0;
 }
+
+// temporary
 
 template <typename type, std::size_t allocatedSize>
 constexpr void FixedVector<type, allocatedSize>::push_back(const type & val) noexcept {

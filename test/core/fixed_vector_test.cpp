@@ -18,6 +18,8 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
+#include <vector>
+
 #include <catch2/catch_test_macros.hpp>
 
 #include "core.hpp"
@@ -1191,5 +1193,137 @@ TEST_CASE("FixedVector size and capacity methods", "[core][fixed_vector]") {
     STATIC_REQUIRE(emptyVec.empty() == true);
     STATIC_REQUIRE(emptyVec.capacity() == 5);
     STATIC_REQUIRE(emptyVec.max_size() == 5);
+  }
+}
+
+TEST_CASE("FixedVector clear method", "[core][fixed_vector]") {
+  SECTION("Clear empty vector") {
+    FixedVector<int, 5> emptyVec{};
+
+    REQUIRE(emptyVec.empty() == true);
+    REQUIRE(emptyVec.size() == 0);
+
+    emptyVec.clear();
+
+    REQUIRE(emptyVec.empty() == true);
+    REQUIRE(emptyVec.size() == 0);
+    REQUIRE(emptyVec.capacity() == 5);
+  }
+
+  SECTION("Clear vector with elements") {
+    FixedVector<int, 5> vec{1, 2, 3};
+
+    REQUIRE(vec.size() == 3);
+    REQUIRE(vec.empty() == false);
+
+    vec.clear();
+
+    REQUIRE(vec.size() == 0);
+    REQUIRE(vec.empty() == true);
+    REQUIRE(vec.capacity() == 5);
+  }
+
+  SECTION("Capacity remains unchanged after clear") {
+    FixedVector<int, 5> vec{1, 2, 3, 4, 5};
+
+    const auto capacityBefore = vec.capacity();
+    REQUIRE(capacityBefore == 5);
+
+    vec.clear();
+
+    REQUIRE(vec.capacity() == capacityBefore);
+    REQUIRE(vec.capacity() == 5);
+  }
+
+  SECTION("Can reuse vector after clear") {
+    FixedVector<int, 5> vec{10, 20, 30};
+
+    vec.clear();
+
+    REQUIRE(vec.size() == 0);
+    REQUIRE(vec.empty() == true);
+
+    vec.push_back(100);
+    REQUIRE(vec.size() == 1);
+    REQUIRE(vec[0] == 100);
+    REQUIRE(vec.empty() == false);
+
+    vec.push_back(200);
+    REQUIRE(vec.size() == 2);
+    REQUIRE(vec[1] == 200);
+  }
+
+  SECTION("Clear multiple times") {
+    FixedVector<int, 5> vec{1, 2};
+
+    vec.clear();
+    REQUIRE(vec.size() == 0);
+    REQUIRE(vec.empty() == true);
+
+    vec.push_back(10);
+    REQUIRE(vec.size() == 1);
+
+    vec.clear();
+    REQUIRE(vec.size() == 0);
+
+    vec.clear(); // Clear again when already empty
+    REQUIRE(vec.size() == 0);
+    REQUIRE(vec.empty() == true);
+  }
+
+  SECTION("Clear with string elements") {
+    FixedVector<FixedString<10>, 5> stringVec{FixedString<10>("a"), FixedString<10>("b"), FixedString<10>("c")};
+
+    REQUIRE(stringVec.size() == 3);
+
+    stringVec.clear();
+
+    REQUIRE(stringVec.size() == 0);
+    REQUIRE(stringVec.empty() == true);
+    REQUIRE(stringVec.capacity() == 5);
+
+    // Verify destructors were called - add new elements
+    stringVec.push_back(FixedString<10>("new"));
+    REQUIRE(stringVec.size() == 1);
+    REQUIRE(stringVec[0] == "new");
+  }
+
+  SECTION("Clear with complex types") {
+    FixedVector<std::vector<int>, 3> complexVec;
+
+    complexVec.push_back(std::vector<int>{1, 2, 3});
+    complexVec.push_back(std::vector<int>{4, 5});
+
+    REQUIRE(complexVec.size() == 2);
+
+    complexVec.clear();
+
+    REQUIRE(complexVec.size() == 0);
+    REQUIRE(complexVec.empty() == true);
+
+    // Reuse after clear
+    complexVec.push_back(std::vector<int>{10, 20});
+    REQUIRE(complexVec.size() == 1);
+    REQUIRE(complexVec[0].size() == 2);
+  }
+
+  SECTION("Clear preserves capacity for different sizes") {
+    FixedVector<int, 10> largeVec{1, 2, 3, 4, 5};
+
+    REQUIRE(largeVec.capacity() == 10);
+
+    largeVec.clear();
+
+    REQUIRE(largeVec.capacity() == 10);
+    REQUIRE(largeVec.size() == 0);
+
+    FixedVector<int, 1> smallVec{42};
+
+    REQUIRE(smallVec.capacity() == 1);
+
+    smallVec.clear();
+
+    REQUIRE(smallVec.capacity() == 1);
+    REQUIRE(smallVec.size() == 0);
   }
 }
