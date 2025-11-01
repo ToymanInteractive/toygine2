@@ -37,13 +37,13 @@ template <typename type, std::size_t allocatedSize>
 constexpr bool CallbacksPool<type, allocatedSize>::add(void (*method)(type tArg)) noexcept {
   assert_message(method != nullptr, "Cannot add null callback");
 
-  // check the method already exists
+  // Check if the method already exists
   for (auto const & callback : _callbacks) {
     if (callback.method == method)
       return true;
   }
 
-  // find a free slot
+  // Find a free slot
   for (auto & callback : _callbacks) {
     if (callback.method == nullptr) {
       callback.method = method;
@@ -51,13 +51,13 @@ constexpr bool CallbacksPool<type, allocatedSize>::add(void (*method)(type tArg)
     }
   }
 
-  // should never get here
+  // Should never get here if pool size is sufficient
   assert_message(false, "No room for new callback, increase pool size");
   return false;
 }
 
 template <typename type, std::size_t allocatedSize>
-constexpr bool CallbacksPool<type, allocatedSize>::remove(void (*method)(type tArg)) noexcept {
+constexpr bool CallbacksPool<type, allocatedSize>::remove(void (*method)(type arg)) noexcept {
   for (auto & callback : _callbacks) {
     if (callback.method == method) {
       callback.method = nullptr;
