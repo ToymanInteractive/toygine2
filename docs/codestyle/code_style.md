@@ -310,8 +310,8 @@ constexpr char & at(std::size_t offset) noexcept {
 - Use `/*! ... */` for multi-line documentation blocks
 - Use `///` for single-line member variable comments
 - Always document public APIs
-- Follow the [Doxygen Style Guide](codestyle/DOXYGEN_STYLE_GUIDE.md)
-- Use [Doxygen Class Templates](codestyle/DOXYGEN_CLASS_TEMPLATE.md) when documenting classes
+- Follow the [Doxygen Style Guide](DOXYGEN_STYLE_GUIDE.md)
+- Use [Doxygen Class Templates](DOXYGEN_CLASS_TEMPLATE.md) when documenting classes
 
 ```cpp
 /*!
@@ -331,13 +331,13 @@ constexpr char & at(std::size_t offset) noexcept {
 
 The project provides templates and style guides for Doxygen documentation:
 
-- **[Doxygen Style Guide](codestyle/DOXYGEN_STYLE_GUIDE.md)**: Comprehensive guide covering all aspects of Doxygen documentation, including formatting rules, tag usage, parameter documentation, and best practices.
-- **[Doxygen Class Template](codestyle/DOXYGEN_CLASS_TEMPLATE.md)**: Ready-to-use templates for documenting classes, including regular classes, template classes, structs, and simplified versions. Includes examples for all common documentation sections.
+- **[Doxygen Style Guide](DOXYGEN_STYLE_GUIDE.md)**: Comprehensive guide covering all aspects of Doxygen documentation, including formatting rules, tag usage, parameter documentation, and best practices.
+- **[Doxygen Class Template](DOXYGEN_CLASS_TEMPLATE.md)**: Ready-to-use templates for documenting classes, including regular classes, template classes, structs, and simplified versions. Includes examples for all common documentation sections.
 
 When creating new documentation:
 
-1. Refer to the [Doxygen Style Guide](codestyle/DOXYGEN_STYLE_GUIDE.md) for formatting rules and conventions
-2. Use templates from [Doxygen Class Template](codestyle/DOXYGEN_CLASS_TEMPLATE.md) as a starting point for class documentation
+1. Refer to the [Doxygen Style Guide](DOXYGEN_STYLE_GUIDE.md) for formatting rules and conventions
+2. Use templates from [Doxygen Class Template](DOXYGEN_CLASS_TEMPLATE.md) as a starting point for class documentation
 3. Follow the checklist in the Style Guide to ensure completeness
 
 ### Member Variable Documentation

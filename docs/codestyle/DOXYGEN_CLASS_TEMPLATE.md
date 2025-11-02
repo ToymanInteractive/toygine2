@@ -382,7 +382,7 @@ class ClassName {
 ### \warning (optional)
 
 - Important warnings
-- Used rarely, only for critical points
+- Rarely used, only for critical points
 - For example, lifetime issues, ownership semantics
 
 ### \see

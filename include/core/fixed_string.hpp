@@ -533,7 +533,7 @@ public:
 
     \note The returned pointer points to a null-terminated string.
     \note The returned pointer is read-only and cannot modify the string contents.
-    \note This method is equivalent to \a data() const method.
+    \note This method is equivalent to \ref data() const.
 
     \see data() const
   */
@@ -549,7 +549,7 @@ public:
 
     \note An empty string has size zero.
     \note An empty string still contains a null terminator.
-    \note This method is equivalent to the expression: ```size() == 0```.
+    \note This method is equivalent to the expression: `size() == 0`.
 
     \see size()
   */
@@ -1805,7 +1805,8 @@ public:
     \pre The \a position must be less than or equal to the string size.
 
     \note If \a position is equal to the string size, an empty string is returned.
-    \note If \a count is \ref npos or exceeds remaining characters from \a position, all remaining characters are included.
+    \note If \a count is \ref npos or exceeds remaining characters from \a position, all remaining characters are
+    included.
   */
   [[nodiscard]] constexpr FixedString<allocatedSize> substr(std::size_t position = 0,
                                                             std::size_t count = npos) const noexcept;
@@ -2050,7 +2051,7 @@ template <StringLike stringType, std::size_t allocatedSize>
 
   \return A new FixedString object containing the concatenated result.
 
-  \pre The \a rhs C-string must be null-terminated.
+  \pre The \a rhs C-string must not be null and must be null-terminated.
 
   \note Result size is sum of both input sizes, must not exceed allocated size.
 */

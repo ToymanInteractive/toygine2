@@ -278,11 +278,11 @@ public:
 
     \return A constant pointer to the C string representation of this string view.
 
-    \note The returned pointer points to a null-terminated string view.
+    \note The returned pointer points to a null-terminated C string.
     \note The returned pointer is read-only and cannot modify the string view contents.
-    \note This method is equivalent to \a data() const method.
+    \note This method is equivalent to \ref data().
 
-    \see data() const
+    \see data()
   */
   [[nodiscard]] constexpr const char * c_str() const noexcept;
 
@@ -296,7 +296,7 @@ public:
 
     \note An empty string view has size zero.
     \note An empty string view still contains a null terminator.
-    \note This method is equivalent to the expression: ```size() == 0```.
+    \note This method is equivalent to the expression: `size() == 0`.
 
     \see size()
   */

@@ -83,7 +83,7 @@ Class documentation should follow this structure:
 11. `\warning` - warnings (if needed)
 12. `\see` - related classes/types
 
-### Example
+### Class/Struct Example
 
 ```cpp
 /*!
@@ -165,7 +165,7 @@ Method documentation should follow this order:
 9. `\see` - related methods/operators
 10. `\warning` - warnings (if needed)
 
-### Example
+### Method/Function Example
 
 ```cpp
 /*!
@@ -195,7 +195,7 @@ Method documentation should follow this order:
 
 ## Parameter Documentation
 
-### Format
+### Parameter Format
 
 - Start with `\param`
 - Use `\a` to reference the parameter name in descriptions
@@ -248,7 +248,7 @@ Always mention default values in parameter descriptions:
 
 ## Return Value Documentation
 
-### Format
+### Return Value Format
 
 - Start with `\return`
 - Describe what is returned
@@ -278,7 +278,7 @@ Always mention default values in parameter descriptions:
 - Include size/bounds checks
 - Include type requirements (when not obvious from signature)
 
-### Format
+### Preconditions/Postconditions Format
 
 ```cpp
 \pre The \a index must be within the bounds of the current string.
@@ -461,7 +461,7 @@ str += " This is a test.";
 Use backticks for inline code in notes:
 
 ```cpp
-\note This method is equivalent to the expression: ```size() == \c 0```.
+\note This method is equivalent to the expression: `size() == \c 0`.
 ```
 
 ---
@@ -537,7 +537,7 @@ Before committing, ensure:
 
 Always follow this order:
 
-```
+```text
 \brief
 [detailed description]
 \tparam (if template)
@@ -554,7 +554,7 @@ Always follow this order:
 
 Always follow this order:
 
-```
+```text
 \class or \struct
 \brief
 [detailed description]
