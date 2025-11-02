@@ -37,7 +37,7 @@ namespace toy::math {
 
   \section features Key Features
 
-  - 🔧 **constexpr Support**: Most operations can be evaluated at compile time
+  - 🔧 **ConstExpr Support**: Most operations can be evaluated at compile time
   - 🛡️ **Exception Safety**: All operations are noexcept
   - 🎯 **UI Optimized**: Designed specifically for UI and input handling
   - 🧬 **Type Safety**: Strong typing with clear coordinate semantics

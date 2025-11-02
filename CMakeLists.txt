@@ -104,9 +104,9 @@ execute_process(
 
 #-------------------------------------------------------------------------------------------
 
-set(SRC_CORE_LIST                                                                                                                                              src/core/hashes.cpp     src/core/utils.cpp     src/core/utils_internal.inl)
-set(HDR_CORE_LIST include/core.hpp include/core/c_string_view.hpp include/core/constexpr_utils.hpp include/core/fixed_string.hpp include/core/fixed_vector.hpp include/core/hashes.hpp include/core/utils.hpp)
-set(INL_CORE_LIST                  include/core/c_string_view.inl include/core/constexpr_utils.inl include/core/fixed_string.inl include/core/fixed_vector.inl                         include/core/utils.inl)
+set(SRC_CORE_LIST                                                                                                                                                                              src/core/hashes.cpp     src/core/utils.cpp     src/core/utils_internal.inl)
+set(HDR_CORE_LIST include/core.hpp include/core/c_string_view.hpp include/core/callbacks_pool.hpp include/core/constexpr_utils.hpp include/core/fixed_string.hpp include/core/fixed_vector.hpp include/core/hashes.hpp include/core/utils.hpp)
+set(INL_CORE_LIST                  include/core/c_string_view.inl include/core/callbacks_pool.inl include/core/constexpr_utils.inl include/core/fixed_string.inl include/core/fixed_vector.inl                         include/core/utils.inl)
 
 set(SRC_APP_LIST )
 set(HDR_APP_LIST include/app.hpp include/app/version.hpp)

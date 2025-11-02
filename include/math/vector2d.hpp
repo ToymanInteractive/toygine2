@@ -38,7 +38,7 @@ namespace toy::math {
   \section features Key Features
 
   - ⚙️ **Floating-Point Precision**: Uses \a real_t (float) for sub-pixel positioning and smooth movement
-  - 🔧 **constexpr Support**: Most operations can be evaluated at compile time
+  - 🔧 **ConstExpr Support**: Most operations can be evaluated at compile time
   - 🛡️ **Exception Safety**: All operations are noexcept
   - 🎯 **Game Optimized**: Designed specifically for interactive game objects and physics
   - 🧬 **Type Safety**: Strong typing with clear vector semantics
