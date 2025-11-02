@@ -10,10 +10,12 @@ var searchData=
   ['src_5fcore_5futils_5finternal_5finl_5f_7',['SRC_CORE_UTILS_INTERNAL_INL_',['../d4/d85/utils__internal_8inl.html#a59c5026acee935b89b5b8cf435c67831',1,'utils_internal.inl']]],
   ['stackwalkcallback_8',['StackWalkCallback',['../d2/da2/namespacetoy_1_1assertion.html#a77be860c404126249c99fb34089c497a',1,'toy::assertion']]],
   ['starts_5fwith_9',['starts_with',['../d5/d03/classtoy_1_1_c_string_view.html#a690dc08abeb1cd6ffc0a81e14d5703f2',1,'toy::CStringView::starts_with(const stringType &amp;string) const noexcept'],['../d5/d03/classtoy_1_1_c_string_view.html#aeeaf609b797459bacd751dd62a314392',1,'toy::CStringView::starts_with(const char *string) const noexcept'],['../d5/d03/classtoy_1_1_c_string_view.html#af13ff57be547b364b7d255eebe7de185',1,'toy::CStringView::starts_with(char character) const noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#a616ed816856ff2ca07bb80da0199fc95',1,'toy::FixedString::starts_with(const FixedString&lt; allocatedSize &gt; &amp;string) const noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#ae2773eb44a0dcd5301f41dc1b0f776af',1,'toy::FixedString::starts_with(const stringType &amp;string) const noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#ac1fa1fe5dd1b7b4a923886b0544f4250',1,'toy::FixedString::starts_with(const char *string) const noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#a50f3a0981ef8977421e7ca9b26716799',1,'toy::FixedString::starts_with(char character) const noexcept']]],
-  ['stringlike_10',['StringLike',['../df/d77/concepttoy_1_1_string_like.html',1,'toy']]],
-  ['substr_11',['substr',['../d3/d7a/classtoy_1_1_fixed_string.html#a13a412da8d19cfa2d2b8686abbcea689',1,'toy::FixedString']]],
-  ['supported_20c_20compilers_12',['Supported C++ compilers',['../index.html#supported-c-compilers',1,'']]],
-  ['supported_20systems_13',['Supported Systems',['../index.html#supported-systems',1,'']]],
-  ['swap_14',['swap',['../d5/d03/classtoy_1_1_c_string_view.html#a61dbfbf58ac6f2ab042774a2c3e81e6b',1,'toy::CStringView::swap()'],['../d3/d7a/classtoy_1_1_fixed_string.html#a0d6b3d27deeefe85c8422cff605adcbc',1,'toy::FixedString::swap()']]],
-  ['systems_15',['Supported Systems',['../index.html#supported-systems',1,'']]]
+  ['staticcallback_10',['StaticCallback',['../d7/d9f/structtoy_1_1_callbacks_pool_1_1_static_callback.html',1,'toy::CallbacksPool']]],
+  ['stringlike_11',['StringLike',['../df/d77/concepttoy_1_1_string_like.html',1,'toy']]],
+  ['subscribersamount_12',['subscribersAmount',['../d8/dc9/classtoy_1_1_callbacks_pool.html#a3f589c9fb1daaab3e907436f2aca1647',1,'toy::CallbacksPool']]],
+  ['substr_13',['substr',['../d3/d7a/classtoy_1_1_fixed_string.html#a13a412da8d19cfa2d2b8686abbcea689',1,'toy::FixedString']]],
+  ['supported_20c_20compilers_14',['Supported C++ compilers',['../index.html#supported-c-compilers',1,'']]],
+  ['supported_20systems_15',['Supported Systems',['../index.html#supported-systems',1,'']]],
+  ['swap_16',['swap',['../d5/d03/classtoy_1_1_c_string_view.html#a61dbfbf58ac6f2ab042774a2c3e81e6b',1,'toy::CStringView::swap()'],['../d3/d7a/classtoy_1_1_fixed_string.html#a0d6b3d27deeefe85c8422cff605adcbc',1,'toy::FixedString::swap()']]],
+  ['systems_17',['Supported Systems',['../index.html#supported-systems',1,'']]]
 ];
