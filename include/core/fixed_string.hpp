@@ -361,7 +361,7 @@ public:
 
     \return A reference to the character at the specified \a offset.
 
-    \pre The \a offset should be less than the current string size.
+    \pre The \a offset must be less than the current string size.
 
     \note The returned reference allows modification of the character.
     \note Use const version for read-only access.
@@ -380,7 +380,7 @@ public:
 
     \return A const reference to the character at the specified \a offset.
 
-    \pre The \a offset should be less than the current string size.
+    \pre The \a offset must be less than the current string size.
 
     \note The returned reference is read-only and cannot modify the character.
     \note Use the non-const overload to allow modification.
@@ -399,7 +399,7 @@ public:
 
     \return A reference to the character at the specified \a offset.
 
-    \pre The \a offset should be less than the current string size.
+    \pre The \a offset must be less than the current string size.
 
     \note The returned reference allows modification of the character.
     \note Use const version for read-only access.
@@ -418,7 +418,7 @@ public:
 
     \return A const reference to the character at the specified \a offset.
 
-    \pre The \a offset should be less than the current string size.
+    \pre The \a offset must be less than the current string size.
 
     \note The returned reference is read-only and cannot modify the character.
     \note Use the non-const overload to allow modification.
@@ -563,7 +563,7 @@ public:
 
     \return The number of characters in the string, excluding the terminating null character.
 
-    \note This method is equivalent to \a length() method.
+    \note This method is equivalent to \ref length().
 
     \see length()
   */
@@ -594,7 +594,7 @@ public:
 
     \return The number of characters in the string, excluding the terminating null character.
 
-    \note This method is equivalent to \a size() method.
+    \note This method is equivalent to \ref size().
 
     \see size()
   */
@@ -1450,9 +1450,9 @@ public:
     \pre If \a position is not \ref npos, it must be less than the string size.
 
     \note The search is case-sensitive.
-    \note This method is equivalent to rfind(character, position).
+    \note This method is equivalent to \ref rfind(char, std::size_t) const.
 
-    \see rfind(char, std::size_t)
+    \see rfind(char, std::size_t) const
   */
   [[nodiscard]] constexpr std::size_t find_last_of(char character, std::size_t position = npos) const noexcept;
 
@@ -2070,7 +2070,7 @@ template <std::size_t allocatedSize>
   \param lhs The left-hand side C-string.
   \param rhs The right-hand side FixedString object.
 
-  \pre The \a lhs C-string must be null-terminated.
+  \pre The \a lhs C-string must not be null and must be null-terminated.
 
   \return A new FixedString object containing the concatenated result.
 

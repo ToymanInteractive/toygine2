@@ -209,7 +209,7 @@ public:
 
     \return A const reference to the character at the specified \a offset.
 
-    \pre The \a offset should be less than the current string view size.
+    \pre The \a offset must be less than the current string view size.
 
     \note The returned reference is read-only and cannot modify the character.
     \note This method is equivalent to the subscript operator.
@@ -227,7 +227,7 @@ public:
 
     \return A const reference to the character at the specified \a offset.
 
-    \pre The \a offset should be less than the current string view size.
+    \pre The \a offset must be less than the current string view size.
 
     \note The returned reference is read-only and cannot modify the character.
   */
@@ -239,6 +239,8 @@ public:
     This method provides read-only access to the first character of the string view.
 
     \return A const reference to the first character of the string view.
+
+    \pre The string view must not be empty.
 
     \note The returned reference is read-only and cannot modify the character.
   */
@@ -310,7 +312,7 @@ public:
 
     \return The number of characters in the string view, excluding the terminating null character.
 
-    \note This method is equivalent to \a length() method.
+    \note This method is equivalent to \ref length().
 
     \see length()
   */
@@ -341,7 +343,7 @@ public:
 
     \return The number of characters in the string view, excluding the terminating null character.
 
-    \note This method is equivalent to \a size() method.
+    \note This method is equivalent to \ref size().
 
     \see size()
   */
@@ -569,7 +571,9 @@ public:
     \pre The \a position must be less than the string view size.
 
     \note The search is case-sensitive.
-    \note This method is equivalent to \a find(character, position).
+    \note This method is equivalent to \ref find(char, std::size_t) const.
+
+    \see find(char, std::size_t) const
   */
   [[nodiscard]] constexpr std::size_t find_first_of(char character, std::size_t position = 0) const noexcept;
 
@@ -687,7 +691,9 @@ public:
     \pre If \a position is not \ref npos, it must be less than the string view size.
 
     \note The search is case-sensitive.
-    \note This method is equivalent to rfind(character, position).
+    \note This method is equivalent to \ref rfind(char, std::size_t) const.
+
+    \see rfind(char, std::size_t) const
   */
   [[nodiscard]] constexpr std::size_t find_last_of(char character, std::size_t position = npos) const noexcept;
 

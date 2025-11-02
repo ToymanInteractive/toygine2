@@ -66,7 +66,7 @@ Every header file must start with a file documentation block:
 
 ## Class/Struct Documentation
 
-### Structure
+### Class/Struct Structure
 
 Class documentation should follow this structure:
 
@@ -295,7 +295,7 @@ Always mention default values in parameter descriptions:
 - Include size/state changes
 - Multiple `\post` tags for multiple state changes
 
-### Format
+### Postconditions Format
 
 ```cpp
 \post This string contains the same content as the source StringLike object.
@@ -380,7 +380,7 @@ Always mention default values in parameter descriptions:
 - Include type constraints and requirements
 - Use clear, descriptive names
 
-### Format
+### Template Parameters Format
 
 ```cpp
 \tparam allocatedSize The size of the internal character buffer, including space for the null terminator.
@@ -391,7 +391,7 @@ Always mention default values in parameter descriptions:
 \tparam type          The type of elements stored in the vector. Must be a copy-constructible and destructible type.
 \tparam allocatedSize The maximum number of elements that can be stored in the vector. Must be greater than zero.
 
-\tparam InputIterator The type of the input iterator. Must satisfy the InputIterator concept and must not be an integral type.
+\tparam InputIterator The type of the input iterator. Must not be an integral type.
 ```
 
 ---

@@ -272,7 +272,7 @@ concept StringLike = requires(T t) {
 };
 ```
 
-### Type Aliases
+### Type Aliases — using vs typedef
 
 - Prefer `using` declarations over `typedef`
 

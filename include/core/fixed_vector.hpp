@@ -102,8 +102,7 @@ public:
 
     This constructor initializes a FixedVector with elements from the range [ \a first, \a last ).
 
-    \tparam InputIterator The type of the input iterator. Must satisfy the InputIterator concept and must not be an
-    integral type.
+    \tparam InputIterator The type of the input iterator. Must not be an integral type.
 
     \param first Iterator pointing to the first element to copy.
     \param last  Iterator pointing to one past the last element to copy.
@@ -326,8 +325,7 @@ public:
 
     This method replaces the current contents of the vector with elements from the range [ \a first, \a last ).
 
-    \tparam InputIterator The type of the input iterator. Must satisfy the InputIterator concept and must not be an
-    integral type.
+    \tparam InputIterator The type of the input iterator. Must not be an integral type.
 
     \param first Iterator pointing to the first element to assign.
     \param last  Iterator pointing to one past the last element to assign.
