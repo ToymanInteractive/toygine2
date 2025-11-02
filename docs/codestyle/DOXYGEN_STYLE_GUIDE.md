@@ -150,7 +150,7 @@ Use appropriate emojis for feature categories:
 
 ## Method/Function Documentation
 
-### Structure
+### Method/Function Structure
 
 Method documentation should follow this order:
 
@@ -203,7 +203,7 @@ Method documentation should follow this order:
 - Include default values when applicable
 - Keep descriptions concise (one line when possible)
 
-### Alignment
+### Parameter Alignment
 
 When multiple parameters exist, align descriptions:
 
@@ -213,7 +213,7 @@ When multiple parameters exist, align descriptions:
 \param src      A pointer to the source data to copy from.
 ```
 
-### Default Values
+### Parameter Default Values
 
 Always mention default values in parameter descriptions:
 
@@ -223,7 +223,7 @@ Always mention default values in parameter descriptions:
 \param tolerance The tolerance for equality comparison (default: \c 0).
 ```
 
-### Restrictions
+### Parameter Restrictions
 
 - **Do NOT** include conditions or requirements in `\param` descriptions
 - Move all conditions to `\pre` tags
@@ -255,7 +255,7 @@ Always mention default values in parameter descriptions:
 - Use `\c` for constants and literal values
 - Mention special return values (e.g., `\ref npos`, `nullptr`)
 
-### Example
+### Return Value Example
 
 ```cpp
 \return A reference to this string after appending.
@@ -278,7 +278,7 @@ Always mention default values in parameter descriptions:
 - Include size/bounds checks
 - Include type requirements (when not obvious from signature)
 
-### Preconditions/Postconditions Format
+### Preconditions Format
 
 ```cpp
 \pre The \a index must be within the bounds of the current string.
@@ -360,7 +360,7 @@ Always mention default values in parameter descriptions:
   - Related classes (`Point` ↔ `Vector2D`, `FixedString` ↔ `CStringView`)
   - Similar methods (`find()` ↔ `rfind()`, `find_first_of()` ↔ `find_first_not_of()`)
 
-### Format
+### Cross-References Format
 
 ```cpp
 \see operator+=(const stringType &)
@@ -407,7 +407,7 @@ Always mention default values in parameter descriptions:
   - `\post` descriptions
   - `\note` descriptions
 
-### Examples
+### Constants and Values Examples
 
 ```cpp
 \param count The number of times to repeat the \a character (default: \c 1).
