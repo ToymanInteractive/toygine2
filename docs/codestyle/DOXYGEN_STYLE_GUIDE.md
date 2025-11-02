@@ -57,6 +57,7 @@ Every header file must start with a file documentation block:
 ```
 
 **Rules:**
+
 - Use `\file` with the actual filename (relative to include directory)
 - `\brief` should be a concise one-line description
 - Place before include guards
@@ -135,6 +136,7 @@ Class documentation should follow this structure:
 ### Emoji Usage in Features
 
 Use appropriate emojis for feature categories:
+
 - ⚙️ - Memory/Resource management
 - 🔧 - Language features (constexpr, noexcept, etc.)
 - 🛡️ - Safety/Exception guarantees
@@ -228,6 +230,7 @@ Always mention default values in parameter descriptions:
 - Keep `\param` focused on what the parameter represents, not its constraints
 
 **Correct:**
+
 ```cpp
 \param string The source C string to copy content from.
 
@@ -236,6 +239,7 @@ Always mention default values in parameter descriptions:
 ```
 
 **Incorrect:**
+
 ```cpp
 \param string The source C string to copy content from (must not be null, must be null-terminated).
 ```
@@ -313,12 +317,14 @@ Always mention default values in parameter descriptions:
 - Keep notes concise; long explanations should be split across multiple notes
 
 **Simple:**
+
 ```cpp
 \note Self-assignment is handled correctly and safely.
 \note The search is case-sensitive.
 ```
 
 **Complex:**
+
 ```cpp
 \note For ASCII strings, utf8_size() equals size().
 \note For UTF-8 strings, utf8_size() may be less than size().
