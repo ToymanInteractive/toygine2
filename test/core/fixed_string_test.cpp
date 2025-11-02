@@ -1366,7 +1366,7 @@ TEST_CASE("FixedString c_str method", "[core][fixed_string]") {
     STATIC_REQUIRE(cstrcmp(singleChar.c_str(), "A") == 0);
   }
 
-  SECTION("C string pointer stability") {
+  SECTION("C string stability") {
     constexpr FixedString<32> testString("Stability Test");
     constexpr FixedString<32> copy1(testString);
     constexpr FixedString<32> copy2(testString);

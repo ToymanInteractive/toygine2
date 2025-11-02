@@ -36,7 +36,7 @@ namespace toy {
 
   \param src  The source data to calculate CRC-8 for.
   \param size The size of the data in bytes.
-  \param crc  The initial CRC value.
+  \param crc  The initial CRC value (default: \c 0x00).
 
   \return The calculated CRC-8 checksum value.
 
@@ -46,7 +46,7 @@ namespace toy {
   \note This function uses the Dallas/Maxim CRC-8 polynomial (0x31), which is commonly used in 1-Wire protocols and
         embedded systems.
   \note The function is noexcept and does not throw exceptions.
-  \note For empty data (size = 0), the function returns the initial CRC value.
+  \note For empty data (size = \c 0), the function returns the initial CRC value.
 
   \see https://en.wikipedia.org/wiki/Cyclic_redundancy_check
   \see https://reveng.sourceforge.io/crc-catalogue/1-15.htm#crc.cat-bits.8
@@ -70,7 +70,7 @@ namespace toy {
 
   \param src  The source data to calculate CRC-16 for.
   \param size The size of the data in bytes.
-  \param crc  The initial CRC value.
+  \param crc  The initial CRC value (default: \c 0x0000).
 
   \return The calculated CRC-16 checksum value.
 
@@ -80,7 +80,7 @@ namespace toy {
   \note This function uses the IBM/ARC CRC-16 polynomial (0x8005), which is commonly used in communication protocols and
         file systems.
   \note The function is noexcept and does not throw exceptions.
-  \note For empty data (size = 0), the function returns the initial CRC value.
+  \note For empty data (size = \c 0), the function returns the initial CRC value.
 
   \see https://en.wikipedia.org/wiki/Cyclic_redundancy_check
   \see https://reveng.sourceforge.io/crc-catalogue/16.htm#crc.cat.crc-16-arc
@@ -105,7 +105,7 @@ namespace toy {
 
   \param src  The source data to calculate CRC-32 for.
   \param size The size of the data in bytes.
-  \param crc  The initial CRC value.
+  \param crc  The initial CRC value (default: \c 0x00000000).
 
   \return The calculated CRC-32 checksum value.
 
@@ -114,7 +114,7 @@ namespace toy {
 
   \note This function uses the IEEE 802.3 CRC-32 polynomial (0x04C11DB7), which is the most widely used CRC-32 variant.
   \note The function is noexcept and does not throw exceptions.
-  \note For empty data (size = 0), the function returns the initial CRC value.
+  \note For empty data (size = \c 0), the function returns the initial CRC value.
 
   \see https://en.wikipedia.org/wiki/Cyclic_redundancy_check
   \see https://reveng.sourceforge.io/crc-catalogue/17plus.htm#crc.cat-bits.32

@@ -91,11 +91,11 @@ namespace toy {
   - 🌐 **Cross-Platform**: Works on all platforms supported by the compiler
   - 🔧 **Embedded Systems**: Suitable for resource-constrained environments
 
-  \note The internal buffer size is allocatedSize, but the maximum string length is allocatedSize - 1 to account for the
-        null terminator.
+  \note The internal buffer size is allocatedSize, but the maximum string length is allocatedSize - 1 (null terminator).
 
   \see std::string
   \see StringLike
+  \see CStringView
 */
 template <std::size_t allocatedSize>
 class FixedString {
@@ -166,14 +166,14 @@ public:
     This constructor initializes a string with a \a character repeated the given \a count of times.
 
     \param character The character to repeat.
-    \param count     The number of times to repeat the \a character (default: 1).
+    \param count     The number of times to repeat the \a character (default: \c 1).
 
     \pre The \a count must not exceed the allocated size.
 
     \post The new string is created with the contents of the \a character repeated the given \a count of times.
     \post The string size equals the \a count.
 
-    \note This is useful for creating strings with repeated patterns or filling strings with specific characters.
+    \note This is useful for creating strings with repeated patterns or filling with specific characters.
   */
   constexpr explicit FixedString(char character, std::size_t count = 1) noexcept;
 
@@ -215,6 +215,8 @@ public:
     \post The size of this string equals the size of the source StringLike object.
 
     \note Self-assignment is handled correctly and safely.
+
+    \see assign(const stringType &)
   */
   template <StringLike stringType>
   constexpr FixedString<allocatedSize> & operator=(const stringType & string) noexcept;
@@ -238,6 +240,8 @@ public:
     \post The size of this string equals the size of the source C \a string.
 
     \note Self-assignment is handled correctly and safely.
+
+    \see assign(const char *)
   */
   constexpr FixedString<allocatedSize> & operator=(const char * string) noexcept;
 
@@ -251,6 +255,7 @@ public:
     \return A reference to this string after assignment.
 
     \post This string contains only one specified \a character.
+    \post The string size equals \c 1.
 
     \note This is useful for resetting a string to contain only a single character.
   */
@@ -334,7 +339,7 @@ public:
     This method assigns a \a character repeated the given \a count of times to this string.
 
     \param character The character to repeat.
-    \param count     The number of times to repeat the \a character (default: 1).
+    \param count     The number of times to repeat the \a character (default: \c 1).
 
     \return A reference to this string after assignment.
 
@@ -343,7 +348,7 @@ public:
     \post This string object contains the specified \a character repeated \a count of times.
     \post The string size equals the \a count parameter.
 
-    \note This is useful for creating strings with repeated patterns or filling strings with specific characters.
+    \note This is useful for creating strings with repeated patterns or filling with specific characters.
   */
   constexpr FixedString<allocatedSize> & assign(char character, std::size_t count = 1) noexcept;
 
@@ -356,7 +361,7 @@ public:
 
     \return A reference to the character at the specified \a offset.
 
-    \pre The \a offset should be less than the current string size.
+    \pre The \a offset must be less than the current string size.
 
     \note The returned reference allows modification of the character.
     \note Use const version for read-only access.
@@ -375,7 +380,7 @@ public:
 
     \return A const reference to the character at the specified \a offset.
 
-    \pre The \a offset should be less than the current string size.
+    \pre The \a offset must be less than the current string size.
 
     \note The returned reference is read-only and cannot modify the character.
     \note Use the non-const overload to allow modification.
@@ -394,10 +399,13 @@ public:
 
     \return A reference to the character at the specified \a offset.
 
-    \pre The \a offset should be less than the current string size.
+    \pre The \a offset must be less than the current string size.
 
     \note The returned reference allows modification of the character.
     \note Use const version for read-only access.
+
+    \see operator[](std::size_t offset) const
+    \see at()
   */
   [[nodiscard]] constexpr char & operator[](std::size_t offset) noexcept;
 
@@ -410,7 +418,7 @@ public:
 
     \return A const reference to the character at the specified \a offset.
 
-    \pre The \a offset should be less than the current string size.
+    \pre The \a offset must be less than the current string size.
 
     \note The returned reference is read-only and cannot modify the character.
     \note Use the non-const overload to allow modification.
@@ -428,6 +436,8 @@ public:
 
     \note The returned reference allows modification of the character.
     \note Use const version for read-only access.
+
+    \see front() const
   */
   [[nodiscard]] constexpr char & front() noexcept;
 
@@ -442,6 +452,8 @@ public:
 
     \note The returned reference is read-only and cannot modify the character.
     \note Use the non-const overload to allow modification.
+
+    \see front() noexcept
   */
   [[nodiscard]] constexpr const char & front() const noexcept;
 
@@ -456,6 +468,8 @@ public:
 
     \note The returned reference allows modification of the character.
     \note Use const version for read-only access.
+
+    \see back() const
   */
   [[nodiscard]] constexpr char & back() noexcept;
 
@@ -470,6 +484,8 @@ public:
 
     \note The returned reference is read-only and cannot modify the character.
     \note Use the non-const overload to allow modification.
+
+    \see back() noexcept
   */
   [[nodiscard]] constexpr const char & back() const noexcept;
 
@@ -484,6 +500,9 @@ public:
     \note The returned pointer points to a null-terminated character array.
     \note The returned pointer allows modification of the string contents.
     \note Use const version for read-only access.
+
+    \see data() const
+    \see c_str()
   */
   [[nodiscard]] constexpr char * data() noexcept;
 
@@ -498,6 +517,9 @@ public:
     \note The returned pointer points to a null-terminated character array.
     \note The returned pointer is read-only and cannot modify the string contents.
     \note Use the non-const overload to allow modification.
+
+    \see data()
+    \see c_str()
   */
   [[nodiscard]] constexpr const char * data() const noexcept;
 
@@ -511,7 +533,9 @@ public:
 
     \note The returned pointer points to a null-terminated string.
     \note The returned pointer is read-only and cannot modify the string contents.
-    \note This method is equivalent to data() const method.
+    \note This method is equivalent to \ref data() const.
+
+    \see data() const
   */
   [[nodiscard]] constexpr const char * c_str() const noexcept;
 
@@ -521,11 +545,13 @@ public:
     This method checks if the string is empty, i.e. its size is zero. An empty string contains no characters and has a
     length of zero.
 
-    \return \c true if the string is empty (size is 0), \c false otherwise.
+    \return \c true if the string is empty (size is \c 0), \c false otherwise.
 
     \note An empty string has size zero.
     \note An empty string still contains a null terminator.
-    \note This method is equivalent to the expression: ```size() == 0```.
+    \note This method is equivalent to the expression: `size() == 0`.
+
+    \see size()
   */
   [[nodiscard]] constexpr bool empty() const noexcept;
 
@@ -537,7 +563,9 @@ public:
 
     \return The number of characters in the string, excluding the terminating null character.
 
-    \note This method is equivalent to length() method.
+    \note This method is equivalent to \ref length().
+
+    \see length()
   */
   [[nodiscard]] constexpr std::size_t size() const noexcept;
 
@@ -554,7 +582,7 @@ public:
     \note For ASCII strings, utf8_size() equals size().
     \note For UTF-8 strings, utf8_size() may be less than size().
     \note Invalid UTF-8 sequences are handled gracefully and may affect the count.
-    \note This method is useful for internationalization and text processing applications.
+    \note This method is useful for internationalization and text processing.
   */
   [[nodiscard]] std::size_t utf8_size() const noexcept;
 
@@ -566,7 +594,7 @@ public:
 
     \return The number of characters in the string, excluding the terminating null character.
 
-    \note This method is equivalent to size() method.
+    \note This method is equivalent to \ref size().
 
     \see size()
   */
@@ -581,7 +609,9 @@ public:
     \return The maximum number of characters in the string, excluding the terminating null character.
 
     \note The maximum size is determined at compile time.
-    \note This method is equivalent to capacity() method.
+    \note This method is equivalent to \a capacity() method.
+
+    \see capacity()
   */
   [[nodiscard]] constexpr std::size_t max_size() const noexcept;
 
@@ -594,7 +624,9 @@ public:
     \return The capacity of the string in characters, excluding the terminating null character.
 
     \note The capacity is determined at compile time.
-    \note This method is equivalent to max_size() method.
+    \note This method is equivalent to \a max_size() method.
+
+    \see max_size()
   */
   [[nodiscard]] constexpr std::size_t capacity() const noexcept;
 
@@ -602,6 +634,9 @@ public:
     \brief Clears the contents of the string.
 
     This method resets the size of the string to zero and effectively clears the string.
+
+    \post The string is empty (size is \c 0).
+    \post All characters are cleared, but the buffer remains allocated.
 
     \note The string object is cleared, and its size is set to zero.
   */
@@ -620,6 +655,10 @@ public:
 
     \pre The \a index must be within the bounds of the current string.
     \pre The combined length after insertion must not exceed the allocated size.
+
+    \post The \a string is inserted at position \a index.
+    \post The string size is increased by the size of the inserted \a string.
+    \post All characters after \a index are shifted right.
   */
   constexpr FixedString<allocatedSize> & insert(std::size_t index, const FixedString<allocatedSize> & string) noexcept;
 
@@ -638,6 +677,10 @@ public:
 
     \pre The \a index must be within the bounds of the current string.
     \pre The combined length after insertion must not exceed the allocated size.
+
+    \post The StringLike object is inserted at position \a index.
+    \post The string size is increased by the size of the inserted StringLike object.
+    \post All characters after \a index are shifted right.
   */
   template <StringLike stringType>
   constexpr FixedString<allocatedSize> & insert(std::size_t index, const stringType & string) noexcept;
@@ -656,6 +699,10 @@ public:
     \pre The \a index must be within the bounds of the current string.
     \pre The combined length after insertion must not exceed the allocated size.
     \pre The source C \a string must not be null.
+
+    \post The C \a string is inserted at position \a index.
+    \post The string size is increased by the size of the inserted C \a string.
+    \post All characters after \a index are shifted right.
   */
   constexpr FixedString<allocatedSize> & insert(std::size_t index, const char * string) noexcept;
 
@@ -667,7 +714,7 @@ public:
 
     \param index     The position where the characters should be inserted.
     \param character The character to insert.
-    \param count     The number of times to repeat the \a character (default: 1).
+    \param count     The number of times to repeat the \a character (default: \c 1).
 
     \return A reference to this string after insertion.
 
@@ -684,16 +731,20 @@ public:
     shifted left to fill the gap, and the string size is updated accordingly.
 
     \param offset The starting position for erasing characters.
-    \param count  The number of characters to erase. If count is \ref npos or equal to the remaining length, then all
-                  characters from \a offset to the end are removed.
+    \param count  The number of characters to erase (default: \ref npos). If count is \ref npos or equal to the
+                  remaining length, then all characters from \a offset to the end are removed.
 
     \return A reference to this string after erasing.
 
     \pre The \a offset must be within the bounds of the current string.
     \pre The sum of \a offset and \a count must be less than or equal to the current string size.
 
-    \note If \a count is npos, all characters from \a offset to the end are removed.
-    \note If \a count is 0, the operation is a no-op.
+    \post The specified range of characters is removed from the string.
+    \post The string size is decreased by the number of erased characters.
+    \post All characters after the erased range are shifted left.
+
+    \note If \a count is \c npos, all characters from \a offset to the end are removed.
+    \note If \a count is \c 0, the operation is a no-op.
     \note Erasing from an empty string has no effect.
   */
   constexpr FixedString<allocatedSize> & erase(std::size_t offset, std::size_t count = npos) noexcept;
@@ -707,7 +758,7 @@ public:
 
     \pre The combined length after append must not exceed the allocated size.
 
-    \note This method is equivalent to the addition assignment operator but more explicit in intent.
+    \note This method is equivalent to operator+= but more explicit in intent.
 
     \see operator+=(char)
   */
@@ -739,7 +790,7 @@ public:
 
     \note If the string is empty, the behavior is undefined.
     \note For ASCII strings, this method behaves identically to pop_back().
-    \note This method is useful when working with internationalized text that may contain non-ASCII characters.
+    \note This method is useful for internationalized text with non-ASCII characters.
   */
   constexpr void utf8_pop_back() noexcept;
 
@@ -775,7 +826,8 @@ public:
 
     \pre The combined length after appending must not exceed the allocated size.
 
-    \post The string is extended with the appended content.
+    \post The StringLike object is appended to the end of this string.
+    \post The string size is increased by the size of the appended StringLike object.
 
     \note This method is equivalent to the addition assignment operator.
 
@@ -810,13 +862,14 @@ public:
     This method appends a \a character repeated the given \a count of times to the end of this string.
 
     \param character The character to append.
-    \param count     The number of times to repeat the \a character (default: 1).
+    \param count     The number of times to repeat the \a character (default: \c 1).
 
     \return A reference to this string after appending.
 
     \pre The combined length after appending must not exceed the allocated size.
 
-    \post The string is extended with the appended content.
+    \post The \a character is appended \a count times to the end of the string.
+    \post The string size is increased by \a count.
   */
   constexpr FixedString<allocatedSize> & append(char character, std::size_t count = 1) noexcept;
 
@@ -831,7 +884,8 @@ public:
 
     \pre The combined length after appending must not exceed the allocated size.
 
-    \post The string is extended with the appended content.
+    \post The \a string is appended to the end of this string.
+    \post The string size is increased by the size of the appended \a string.
   */
   constexpr FixedString<allocatedSize> & operator+=(const FixedString<allocatedSize> & string) noexcept;
 
@@ -878,9 +932,13 @@ public:
 
     \return A reference to this string after appending.
 
-    \pre The combined length after appending must not exceed the allocated size.
+    \pre The current string size must be less than the allocated capacity.
 
-    \post The string is extended with the appended content.
+    \post The \a character is appended to the end of this string.
+    \post The string size is increased by \c 1.
+
+    \see append(char, std::size_t)
+    \see push_back(char)
   */
   constexpr FixedString<allocatedSize> & operator+=(char character) noexcept;
 
@@ -899,6 +957,8 @@ public:
     \pre The \a pos must be within the bounds of the current string.
     \pre The replacement range ( \a pos + \a count ) must be within the string bounds.
     \pre The resulting string size must not exceed the allocated capacity.
+
+    \post The specified range is replaced with the \a string.
   */
   constexpr FixedString<allocatedSize> & replace(std::size_t pos, std::size_t count,
                                                  const FixedString<allocatedSize> & string) noexcept;
@@ -920,6 +980,8 @@ public:
     \pre The \a pos must be within the bounds of the current string.
     \pre The replacement range ( \a pos + \a count ) must be within the string bounds.
     \pre The resulting string size must not exceed the allocated capacity.
+
+    \post The specified range is replaced with the StringLike object.
   */
   template <StringLike stringType>
   constexpr FixedString<allocatedSize> & replace(std::size_t pos, std::size_t count,
@@ -941,6 +1003,8 @@ public:
     \pre The replacement range ( \a pos + \a count ) must be within the string bounds.
     \pre The source C \a string must not be null.
     \pre The resulting string size must not exceed the allocated capacity.
+
+    \post The specified range is replaced with the C \a string.
   */
   constexpr FixedString<allocatedSize> & replace(std::size_t pos, std::size_t count, const char * string) noexcept;
 
@@ -952,14 +1016,16 @@ public:
 
     \param pos             The starting position for the replacement.
     \param count           The number of characters to replace.
-    \param character       The character to replace.
-    \param charactersCount The number of times to repeat the \a character (default: 1).
+    \param character       The character to replace with.
+    \param charactersCount The number of times to repeat the \a character (default: \c 1).
 
     \return A reference to this string after replacement.
 
     \pre The \a pos must be within the bounds of the current string.
     \pre The replacement range ( \a pos + \a count ) must be within the string bounds.
     \pre The resulting string size must not exceed the allocated capacity.
+
+    \post The specified range is replaced with the \a character repeated \a charactersCount times.
   */
   constexpr FixedString<allocatedSize> & replace(std::size_t pos, std::size_t count, char character,
                                                  std::size_t charactersCount = 1) noexcept;
@@ -973,7 +1039,7 @@ public:
 
     \param dest  The destination buffer to copy characters to.
     \param count The maximum number of characters to copy.
-    \param pos   The starting position in the string to copy from (default: 0).
+    \param pos      The starting position in the string to copy from (default: \c 0).
 
     \return The actual number of characters copied.
 
@@ -982,7 +1048,7 @@ public:
     \pre The \a dest buffer must not overlap this string's internal storage.
     \pre The \a dest buffer must have sufficient space for the copied characters.
 
-    \note If \a count is \ref npos or exceeds the remaining characters from \a pos, all remaining characters are copied.
+    \note If \a count is \ref npos or exceeds remaining characters from \a pos, all remaining characters are copied.
     \note The destination buffer is not null-terminated by this method.
   */
   constexpr std::size_t copy(char * dest, std::size_t count, std::size_t pos = 0) const noexcept;
@@ -1010,7 +1076,7 @@ public:
     \a position.
 
     \param string   The source string to search for.
-    \param position The position to start searching from (default: 0).
+    \param position The position to start searching from (default: \c 0).
 
     \return The position of the first occurrence of other \a string, or \ref npos if not found.
 
@@ -1030,7 +1096,7 @@ public:
     \tparam stringType The type of the source string. Must satisfy the StringLike concept.
 
     \param string   The source StringLike object to search for.
-    \param position The position to start searching from (default: 0).
+    \param position The position to start searching from (default: \c 0).
 
     \return The position of the first occurrence of a StringLike object, or \ref npos if not found.
 
@@ -1048,7 +1114,7 @@ public:
     position.
 
     \param string   The source C string to search for.
-    \param position The position to start searching from (default: 0).
+    \param position The position to start searching from (default: \c 0).
 
     \return The position of the first occurrence of the C \a string, or \ref npos if not found.
 
@@ -1066,7 +1132,7 @@ public:
     given \a position.
 
     \param character The character to search for.
-    \param position  The position to start searching from (default: 0).
+    \param position  The position to start searching from (default: \c 0).
 
     \return The position of the first occurrence of the \a character, or \ref npos if not found.
 
@@ -1091,8 +1157,7 @@ public:
          size minus the size of \a string.
 
     \note The search is case-sensitive.
-    \note If \a string is empty, the method returns \a position if it's within bounds, otherwise returns the string
-          size.
+    \note If \a string is empty, returns \a position if within bounds, otherwise returns the string size.
   */
   [[nodiscard]] constexpr std::size_t rfind(const FixedString<allocatedSize> & string,
                                             std::size_t position = npos) const noexcept;
@@ -1114,8 +1179,7 @@ public:
          size minus the size of a StringLike object.
 
     \note The search is case-sensitive.
-    \note If a StringLike object is empty, the method returns \a position if it's within bounds, otherwise returns the
-          string size.
+    \note If a StringLike object is empty, returns \a position if within bounds, otherwise returns the string size.
   */
   template <StringLike stringType>
   [[nodiscard]] constexpr std::size_t rfind(const stringType & string, std::size_t position = npos) const noexcept;
@@ -1136,8 +1200,7 @@ public:
     \pre The \a string must not be null.
 
     \note The search is case-sensitive.
-    \note If the C \a string is empty, the method returns \a position if it's within bounds, otherwise returns the
-          string size.
+    \note If the C \a string is empty, returns \a position if within bounds, otherwise returns the string size.
   */
   [[nodiscard]] constexpr std::size_t rfind(const char * string, std::size_t position = npos) const noexcept;
 
@@ -1165,7 +1228,7 @@ public:
     starting from the given \a position.
 
     \param string   The string containing characters to search for.
-    \param position The position to start searching from (default: 0).
+    \param position The position to start searching from (default: \c 0).
 
     \return The position of the first occurrence of any character from \a string, or \ref npos if not found.
 
@@ -1186,7 +1249,7 @@ public:
     \tparam stringType The type of the source string. Must satisfy the StringLike concept.
 
     \param string   The StringLike object containing characters to search for.
-    \param position The position to start searching from (default: 0).
+    \param position The position to start searching from (default: \c 0).
 
     \return The position of the first occurrence of any character from a StringLike object, or \ref npos if not found.
 
@@ -1205,7 +1268,7 @@ public:
     from the given \a position.
 
     \param string   The C string containing characters to search for.
-    \param position The position to start searching from (default: 0).
+    \param position The position to start searching from (default: \c 0).
 
     \return The position of the first occurrence of any character from the C \a string, or \ref npos if not found.
 
@@ -1224,7 +1287,7 @@ public:
     given \a position.
 
     \param character The character to search for.
-    \param position  The position to start searching from (default: 0).
+    \param position  The position to start searching from (default: \c 0).
 
     \return The position of the first occurrence of the \a character, or \ref npos if not found.
 
@@ -1242,14 +1305,14 @@ public:
     this string, starting from the given \a position.
 
     \param string   The string containing characters to exclude from search.
-    \param position The position to start searching from (default: 0).
+    \param position The position to start searching from (default: \c 0).
 
     \return The position of the first occurrence of any character not from \a string, or \ref npos if not found.
 
     \pre The \a position must be less than the string size.
 
     \note The search is case-sensitive.
-    \note If \a string is empty, this method returns \a position if it's within bounds, otherwise returns \ref npos.
+    \note If \a string is empty, returns \a position if within bounds, otherwise returns \ref npos.
   */
   [[nodiscard]] constexpr std::size_t find_first_not_of(const FixedString<allocatedSize> & string,
                                                         std::size_t position = 0) const noexcept;
@@ -1263,7 +1326,7 @@ public:
     \tparam stringType The type of the source string. Must satisfy the StringLike concept.
 
     \param string   The StringLike object containing characters to exclude from search.
-    \param position The position to start searching from (default: 0).
+    \param position The position to start searching from (default: \c 0).
 
     \return The position of the first occurrence of any character not from a StringLike object, or \ref npos if not
             found.
@@ -1271,8 +1334,7 @@ public:
     \pre The \a position must be less than the string size.
 
     \note The search is case-sensitive.
-    \note If a StringLike object is empty, this method returns \a position if it's within bounds, otherwise returns \ref
-          npos.
+    \note If a StringLike object is empty, returns \a position if within bounds, otherwise returns \ref npos.
   */
   template <StringLike stringType>
   [[nodiscard]] constexpr std::size_t find_first_not_of(const stringType & string,
@@ -1285,7 +1347,7 @@ public:
     string, starting from the given \a position.
 
     \param string   The C string containing characters to exclude from search.
-    \param position The position to start searching from (default: 0).
+    \param position The position to start searching from (default: \c 0).
 
     \return The position of the first occurrence of any character not from the C \a string, or \ref npos if not found.
 
@@ -1293,8 +1355,7 @@ public:
     \pre The \a string must not be null.
 
     \note The search is case-sensitive.
-    \note If the C \a string is empty, this method returns \a position if it's within bounds, otherwise returns \ref
-          npos.
+    \note If the C \a string is empty, returns \a position if within bounds, otherwise returns \ref npos.
   */
   [[nodiscard]] constexpr std::size_t find_first_not_of(const char * string, std::size_t position = 0) const noexcept;
 
@@ -1305,7 +1366,7 @@ public:
     within this string, starting from the given \a position.
 
     \param character The character to exclude from search.
-    \param position  The position to start searching from (default: 0).
+    \param position  The position to start searching from (default: \c 0).
 
     \return The position of the first occurrence of any character not equal to \a character, or \ref npos if not found.
 
@@ -1389,7 +1450,9 @@ public:
     \pre If \a position is not \ref npos, it must be less than the string size.
 
     \note The search is case-sensitive.
-    \note This method is equivalent to rfind(character, position).
+    \note This method is equivalent to \ref rfind(char, std::size_t) const.
+
+    \see rfind(char, std::size_t) const
   */
   [[nodiscard]] constexpr std::size_t find_last_of(char character, std::size_t position = npos) const noexcept;
 
@@ -1407,7 +1470,7 @@ public:
     \pre If \a position is not \ref npos, it must be less than the string size.
 
     \note The search is case-sensitive.
-    \note If \a string is empty, this method returns \a position if it's within bounds, otherwise returns \ref npos.
+    \note If \a string is empty, returns \a position if within bounds, otherwise returns \ref npos.
   */
   [[nodiscard]] constexpr std::size_t find_last_not_of(const FixedString<allocatedSize> & string,
                                                        std::size_t position = npos) const noexcept;
@@ -1429,8 +1492,7 @@ public:
     \pre If \a position is not \ref npos, it must be less than the string size.
 
     \note The search is case-sensitive.
-    \note If a StringLike object is empty, this method returns \a position if it's within bounds, otherwise returns \ref
-          npos.
+    \note If a StringLike object is empty, returns \a position if within bounds, otherwise returns \ref npos.
   */
   template <StringLike stringType>
   [[nodiscard]] constexpr std::size_t find_last_not_of(const stringType & string,
@@ -1451,8 +1513,7 @@ public:
     \pre The \a string must not be null.
 
     \note The search is case-sensitive.
-    \note If the C \a string is empty, this method returns \a position if it's within bounds, otherwise returns \ref
-          npos.
+    \note If the C \a string is empty, returns \a position if within bounds, otherwise returns \ref npos.
   */
   [[nodiscard]] constexpr std::size_t find_last_not_of(const char * string, std::size_t position = npos) const noexcept;
 
@@ -1486,7 +1547,7 @@ public:
 
     \note The comparison is case-sensitive.
     \note The comparison stops at the first character that differs between the strings.
-    \note If one string is a prefix of another, the shorter string is considered lexicographically smaller.
+    \note If one string is a prefix of another, the shorter is considered lexicographically smaller.
   */
   [[nodiscard]] constexpr int compare(const FixedString<allocatedSize> & string) const noexcept;
 
@@ -1505,7 +1566,7 @@ public:
 
     \note The comparison is case-sensitive.
     \note The comparison stops at the first character that differs between the strings.
-    \note If one string is a prefix of another, the shorter string is considered lexicographically smaller.
+    \note If one string is a prefix of another, the shorter is considered lexicographically smaller.
   */
   template <StringLike stringType>
   [[nodiscard]] constexpr int compare(const stringType & string) const noexcept;
@@ -1525,7 +1586,7 @@ public:
 
     \note The comparison is case-sensitive.
     \note The comparison stops at the first character that differs between the strings.
-    \note If one string is a prefix of another, the shorter string is considered lexicographically smaller.
+    \note If one string is a prefix of another, the shorter is considered lexicographically smaller.
   */
   [[nodiscard]] constexpr int compare(const char * string) const noexcept;
 
@@ -1540,8 +1601,8 @@ public:
     \return \c true if this string starts with the specified \a string, \c false otherwise.
 
     \note The comparison is case-sensitive.
-    \note If the specified \a string is empty, this method returns true.
-    \note If the specified \a string is longer than this string, this method returns false.
+    \note If the specified \a string is empty, this method returns \c true.
+    \note If the specified \a string is longer than this string, returns \c false.
   */
   [[nodiscard]] constexpr bool starts_with(const FixedString<allocatedSize> & string) const noexcept;
 
@@ -1558,8 +1619,8 @@ public:
     \return \c true if this string starts with a StringLike object, \c false otherwise.
 
     \note The comparison is case-sensitive.
-    \note If a StringLike object is empty, this method returns true.
-    \note If a StringLike object is longer than this string, this method returns false.
+    \note If a StringLike object is empty, this method returns \c true.
+    \note If a StringLike object is longer than this string, returns \c false.
   */
   template <StringLike stringType>
   [[nodiscard]] constexpr bool starts_with(const stringType & string) const noexcept;
@@ -1577,8 +1638,8 @@ public:
     \pre The C \a string must not be null.
 
     \note The comparison is case-sensitive.
-    \note If the C \a string is empty, this method returns true.
-    \note If the C \a string is longer than this string, this method returns false.
+    \note If the C \a string is empty, this method returns \c true.
+    \note If the C \a string is longer than this string, this method returns \c false.
   */
   [[nodiscard]] constexpr bool starts_with(const char * string) const noexcept;
 
@@ -1593,7 +1654,7 @@ public:
     \return \c true if this string starts with the specified \a character, \c false otherwise.
 
     \note The comparison is case-sensitive.
-    \note If the string is empty, this method returns false.
+    \note If the string is empty, this method returns \c false.
   */
   [[nodiscard]] constexpr bool starts_with(char character) const noexcept;
 
@@ -1608,8 +1669,8 @@ public:
     \return \c true if this string ends with the specified \a string, \c false otherwise.
 
     \note The comparison is case-sensitive.
-    \note If the specified \a string is empty, this method returns true.
-    \note If the specified \a string is longer than this string, this method returns false.
+    \note If the specified \a string is empty, this method returns \c true.
+    \note If the specified \a string is longer than this string, returns \c false.
   */
   [[nodiscard]] constexpr bool ends_with(const FixedString<allocatedSize> & string) const noexcept;
 
@@ -1626,8 +1687,8 @@ public:
     \return \c true if this string ends with a StringLike object, \c false otherwise.
 
     \note The comparison is case-sensitive.
-    \note If a StringLike object is empty, this method returns true.
-    \note If a StringLike object is longer than this string, this method returns false.
+    \note If a StringLike object is empty, this method returns \c true.
+    \note If a StringLike object is longer than this string, returns \c false.
   */
   template <StringLike stringType>
   [[nodiscard]] constexpr bool ends_with(const stringType & string) const noexcept;
@@ -1645,8 +1706,8 @@ public:
     \pre The C \a string must not be null.
 
     \note The comparison is case-sensitive.
-    \note If the C \a string is empty, this method returns true.
-    \note If the C \a string is longer than this string, this method returns false.
+    \note If the C \a string is empty, this method returns \c true.
+    \note If the C \a string is longer than this string, this method returns \c false.
   */
   [[nodiscard]] constexpr bool ends_with(const char * string) const noexcept;
 
@@ -1661,7 +1722,7 @@ public:
     \return \c true if this string ends with the specified \a character, \c false otherwise.
 
     \note The comparison is case-sensitive.
-    \note If the string is empty, this method returns false.
+    \note If the string is empty, this method returns \c false.
   */
   [[nodiscard]] constexpr bool ends_with(char character) const noexcept;
 
@@ -1675,8 +1736,8 @@ public:
     \return \c true if this string contains the specified \a string, \c false otherwise.
 
     \note The search is case-sensitive.
-    \note If the specified \a string is empty, this method returns true.
-    \note If the specified \a string is longer than this string, this method returns false.
+    \note If the specified \a string is empty, this method returns \c true.
+    \note If the specified \a string is longer than this string, returns \c false.
   */
   [[nodiscard]] constexpr bool contains(const FixedString<allocatedSize> & string) const noexcept;
 
@@ -1692,8 +1753,8 @@ public:
     \return \c true if this string contains a StringLike object, \c false otherwise.
 
     \note The search is case-sensitive.
-    \note If a StringLike object is empty, this method returns true.
-    \note If a StringLike object is longer than this string, this method returns false.
+    \note If a StringLike object is empty, this method returns \c true.
+    \note If a StringLike object is longer than this string, returns \c false.
   */
   template <StringLike stringType>
   [[nodiscard]] constexpr bool contains(const stringType & string) const noexcept;
@@ -1710,8 +1771,8 @@ public:
     \pre The C \a string must not be null.
 
     \note The search is case-sensitive.
-    \note If the C \a string is empty, this method returns true.
-    \note If the C \a string is longer than this string, this method returns false.
+    \note If the C \a string is empty, this method returns \c true.
+    \note If the C \a string is longer than this string, this method returns \c false.
   */
   [[nodiscard]] constexpr bool contains(const char * string) const noexcept;
 
@@ -1725,7 +1786,7 @@ public:
     \return \c true if this string contains the specified \a character, \c false otherwise.
 
     \note The search is case-sensitive.
-    \note If the string is empty, this method returns false.
+    \note If the string is empty, this method returns \c false.
   */
   [[nodiscard]] constexpr bool contains(char character) const noexcept;
 
@@ -1735,7 +1796,7 @@ public:
     This method creates and returns a new FixedString object containing a substring of this string, starting at the
     specified \a position and containing up to \a count characters.
 
-    \param position The starting position of the substring (default: 0).
+    \param position The starting position of the substring (default: \c 0).
     \param count    The maximum number of characters to include in the substring (default: \ref npos). If \ref npos or
                     exceeds the remaining characters, all characters from \a position to the end are included.
 
@@ -1744,8 +1805,8 @@ public:
     \pre The \a position must be less than or equal to the string size.
 
     \note If \a position is equal to the string size, an empty string is returned.
-    \note If \a count is \ref npos or exceeds the remaining characters from \a position, all remaining characters are
-          included.
+    \note If \a count is \ref npos or exceeds remaining characters from \a position, all remaining characters are
+    included.
   */
   [[nodiscard]] constexpr FixedString<allocatedSize> substr(std::size_t position = 0,
                                                             std::size_t count = npos) const noexcept;
@@ -1931,7 +1992,7 @@ private:
 
   \return A new FixedString object containing the concatenated result.
 
-  \note The result size will be the sum of both input sizes, must not exceed the allocated size.
+  \note Result size is sum of both input sizes, must not exceed allocated size.
 */
 template <std::size_t allocatedSize1, std::size_t allocatedSize2>
 [[nodiscard]] constexpr FixedString<allocatedSize1> operator+(const FixedString<allocatedSize1> & lhs,
@@ -1951,7 +2012,7 @@ template <std::size_t allocatedSize1, std::size_t allocatedSize2>
 
   \return A new FixedString object containing the concatenated result.
 
-  \note The result size will be the sum of both input sizes, must not exceed the allocated size.
+  \note Result size is sum of both input sizes, must not exceed allocated size.
 */
 template <std::size_t allocatedSize, StringLike stringType>
 [[nodiscard]] constexpr FixedString<allocatedSize> operator+(const FixedString<allocatedSize> & lhs,
@@ -1971,7 +2032,7 @@ template <std::size_t allocatedSize, StringLike stringType>
 
   \return A new FixedString object containing the concatenated result.
 
-  \note The result size will be the sum of both input sizes, must not exceed the allocated size.
+  \note Result size is sum of both input sizes, must not exceed allocated size.
 */
 template <StringLike stringType, std::size_t allocatedSize>
 [[nodiscard]] constexpr FixedString<allocatedSize> operator+(const stringType & lhs,
@@ -1986,12 +2047,13 @@ template <StringLike stringType, std::size_t allocatedSize>
   \tparam allocatedSize The size of the FixedString's internal buffer.
 
   \param lhs The left-hand side FixedString object.
-  \param rhs The right-hand side C-string (null-terminated).
+  \param rhs The right-hand side C-string.
 
   \return A new FixedString object containing the concatenated result.
 
-  \note The result size will be the sum of both input sizes, must not exceed the allocated size.
-  \note The C-string must be null-terminated.
+  \pre The \a rhs C-string must not be null and must be null-terminated.
+
+  \note Result size is sum of both input sizes, must not exceed allocated size.
 */
 template <std::size_t allocatedSize>
 [[nodiscard]] constexpr FixedString<allocatedSize> operator+(const FixedString<allocatedSize> & lhs,
@@ -2005,13 +2067,14 @@ template <std::size_t allocatedSize>
 
   \tparam allocatedSize The size of the FixedString's internal buffer.
 
-  \param lhs The left-hand side C-string (null-terminated).
+  \param lhs The left-hand side C-string.
   \param rhs The right-hand side FixedString object.
+
+  \pre The \a lhs C-string must not be null and must be null-terminated.
 
   \return A new FixedString object containing the concatenated result.
 
-  \note The result size will be the sum of both input sizes, must not exceed the allocated size.
-  \note The C-string must be null-terminated.
+  \note Result size is sum of both input sizes, must not exceed allocated size.
 */
 template <std::size_t allocatedSize>
 [[nodiscard]] constexpr FixedString<allocatedSize> operator+(const char * lhs,
@@ -2028,7 +2091,7 @@ template <std::size_t allocatedSize>
 
   \return A new FixedString object containing the concatenated result.
 
-  \note The result size will be the sum of both input sizes, must not exceed the allocated size.
+  \note Result size is sum of both input sizes, must not exceed allocated size.
 */
 template <std::size_t allocatedSize>
 [[nodiscard]] constexpr FixedString<allocatedSize> operator+(const FixedString<allocatedSize> & lhs, char rhs) noexcept;
@@ -2044,7 +2107,7 @@ template <std::size_t allocatedSize>
 
   \return A new FixedString object containing the concatenated result.
 
-  \note The result size will be the sum of both input sizes, must not exceed the allocated size.
+  \note Result size is sum of both input sizes, must not exceed allocated size.
 */
 template <std::size_t allocatedSize>
 [[nodiscard]] constexpr FixedString<allocatedSize> operator+(char lhs, const FixedString<allocatedSize> & rhs) noexcept;

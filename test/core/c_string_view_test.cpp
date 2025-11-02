@@ -710,7 +710,7 @@ TEST_CASE("CStringView c_str method", "[core][c_string_view]") {
     STATIC_REQUIRE(cstrcmp(singleChar.c_str(), "A") == 0);
   }
 
-  SECTION("C string pointer stability") {
+  SECTION("C string stability") {
     constexpr CStringView testString("Stability Test");
     constexpr CStringView copy1(testString);
     constexpr CStringView copy2(testString);

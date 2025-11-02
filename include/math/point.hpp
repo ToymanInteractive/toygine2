@@ -80,8 +80,8 @@ namespace toy::math {
   - 📐 **Type Safety**: Strong typing prevents coordinate mixing
   - ⚠️ **Exception Safety**: All operations are noexcept, no exceptions thrown
 
-  \note This class is specifically designed for UI and input handling. For sprite positioning and world coordinates,
-        consider using Vector2 with floating-point precision.
+  \note This class is specifically designed for UI and input handling.
+  \note For sprite positioning and world coordinates, consider using Vector2D with floating-point precision.
 
   \see Vector2D
 */
@@ -98,7 +98,7 @@ public:
 
     This constructor initializes a Point with zero coordinates.
 
-    \post The point is initialized with x = 0 and y = 0.
+    \post The point is initialized with x = \c 0 and y = \c 0.
   */
   constexpr Point() noexcept;
 
@@ -264,7 +264,8 @@ public:
 
     This method sets both x and y coordinates of this point to zero.
 
-    \post This point's coordinates are set to x = 0 and y = 0.
+    \post This point's coordinates are set to x = \c 0 and y = \c 0.
+    \post The point is at the origin.
   */
   constexpr void setZero() noexcept;
 
@@ -273,9 +274,9 @@ public:
 
     This method checks if both coordinates of this point are zero.
 
-    \return true if both coordinates are zero, false otherwise.
+    \return \c true if both coordinates are zero, \c false otherwise.
 
-    \note This is equivalent to checking if the point is at the origin (0, 0).
+    \note This is equivalent to checking if the point is at the origin (\c 0, \c 0).
   */
   [[nodiscard]] constexpr bool isZero() const noexcept;
 
@@ -286,14 +287,14 @@ public:
     considered equal if the absolute difference between their coordinates is less than or equal to \a tolerance.
 
     \param point     The point to compare with.
-    \param tolerance The tolerance for equality comparison (default: 0).
+    \param tolerance The tolerance for equality comparison (default: \c 0).
 
-    \return true if the points are equal within the \a tolerance, false otherwise.
+    \return \c true if the points are equal within the \a tolerance, \c false otherwise.
 
     \pre The \a tolerance must be non-negative.
 
-    \note When tolerance is 0, this performs exact equality comparison.
-    \note When tolerance is greater than 0, this performs approximate equality comparison.
+    \note When tolerance is \c 0, this performs exact equality comparison.
+    \note When tolerance is greater than \c 0, this performs approximate equality comparison.
   */
   [[nodiscard]] bool isEqual(const Point & point, std::int32_t tolerance = 0) const noexcept;
 };

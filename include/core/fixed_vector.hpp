@@ -72,7 +72,7 @@ public:
     This constructor creates a FixedVector containing \a count elements, each initialized with the default value of
     type.
 
-    \param count The number of elements to create. Must not exceed the allocated capacity.
+    \param count The number of elements to create.
 
     \pre The \a count must not exceed the allocated capacity.
 
@@ -86,7 +86,7 @@ public:
 
     This constructor creates a FixedVector containing \a count elements, each initialized with the specified \a value.
 
-    \param count The number of elements to create. Must not exceed the allocated capacity.
+    \param count The number of elements to create.
     \param value The value to initialize all elements with.
 
     \pre The \a count must not exceed the allocated capacity.
@@ -102,7 +102,7 @@ public:
 
     This constructor initializes a FixedVector with elements from the range [ \a first, \a last ).
 
-    \tparam InputIterator The type of the input iterator.
+    \tparam InputIterator The type of the input iterator. Must not be an integral type.
 
     \param first Iterator pointing to the first element to copy.
     \param last  Iterator pointing to one past the last element to copy.
@@ -325,7 +325,7 @@ public:
 
     This method replaces the current contents of the vector with elements from the range [ \a first, \a last ).
 
-    \tparam InputIterator The type of the input iterator.
+    \tparam InputIterator The type of the input iterator. Must not be an integral type.
 
     \param first Iterator pointing to the first element to assign.
     \param last  Iterator pointing to one past the last element to assign.
@@ -725,10 +725,10 @@ public:
 
     This method returns whether the vector contains any elements.
 
-    \return \c true if the vector is empty (size is 0), \c false otherwise.
+    \return \c true if the vector is empty (size is \c 0), \c false otherwise.
 
     \note This method provides a convenient way to check if the vector has no elements.
-    \note Equivalent to \a size() == 0.
+    \note Equivalent to `size() == 0`.
 
     \see size()
   */
@@ -742,7 +742,7 @@ public:
     \return The number of elements in the vector.
 
     \note The size is always less than or equal to the capacity.
-    \note For an empty vector, this method returns 0.
+    \note For an empty vector, this method returns \c 0.
 
     \see capacity()
     \see empty()
@@ -786,11 +786,11 @@ public:
     This method destroys all elements currently stored in the vector and sets the size to zero. The vector can be reused
     after clearing.
 
-    \post The vector is empty (size is 0).
+    \post The vector is empty (size is \c 0).
     \post All elements are properly destroyed.
 
     \note This method properly destroys each element (destructor calls are optimized away for trivially destructible
-          types).
+    types).
     \note After calling \a clear(), the vector can be reused without reallocation.
     \note For POD types, this operation is very fast.
     \note The internal buffer is not deallocated, only elements are destroyed.
