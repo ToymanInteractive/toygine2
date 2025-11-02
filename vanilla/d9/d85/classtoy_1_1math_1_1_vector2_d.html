@@ -188,7 +188,9 @@ Safety Guarantees</h1>
 <li>📐 <b>Type Safety</b>: Strong typing prevents coordinate mixing</li>
 <li>⚠️ <b>Exception Safety</b>: All operations are noexcept, no exceptions thrown</li>
 </ul>
-<dl class="section note"><dt>Note</dt><dd>This class is specifically designed for interactive game objects and physics calculations. For UI positioning and pixel-perfect coordinates, consider using <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html" title="2D integer point class for UI and input handling.">Point</a> with integer coordinates.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This class is specifically designed for interactive game objects and physics calculations. </dd>
+<dd>
+For UI positioning and pixel-perfect coordinates, consider using <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html" title="2D integer point class for UI and input handling.">Point</a> with integer coordinates.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html" title="2D integer point class for UI and input handling.">Point</a> </dd></dl>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a08d80e077f40d501f74dece9ea00eaf9" name="a08d80e077f40d501f74dece9ea00eaf9"></a>
@@ -216,7 +218,7 @@ Safety Guarantees</h1>
 
 <p>Default constructor. </p>
 <p>This constructor initializes a <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html" title="2D floating-point vector class for interactive game objects and physics calculations.">Vector2D</a> with zero coordinates.</p>
-<dl class="section post"><dt>Postcondition</dt><dd>The vector is initialized with x = 0 and y = 0. </dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>The vector is initialized with x = <code>0</code> and y = <code>0</code>. </dd></dl>
 
 </div>
 </div>
@@ -430,15 +432,15 @@ Use const version for read-only access. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">vector</td><td>The vector to compare with. </td></tr>
-    <tr><td class="paramname">tolerance</td><td>The tolerance for equality comparison (default: 0).</td></tr>
+    <tr><td class="paramname">tolerance</td><td>The tolerance for equality comparison (default: <code>0</code>).</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if the vector are equal within the <em class="arg">tolerance</em>, <code>false</code> otherwise.</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">tolerance</em> must be non-negative.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>When tolerance is 0, this performs exact equality comparison. </dd>
+<dl class="section note"><dt>Note</dt><dd>When tolerance is <code>0</code>, this performs exact equality comparison. </dd>
 <dd>
-When tolerance is greater than 0, this performs approximate equality comparison. </dd></dl>
+When tolerance is greater than <code>0</code>, this performs approximate equality comparison. </dd></dl>
 
 </div>
 </div>
@@ -468,7 +470,7 @@ When tolerance is greater than 0, this performs approximate equality comparison.
 <p>Checks if this vector is at the origin. </p>
 <p>This method checks if both coordinates of this vector are zero.</p>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if both coordinates are zero, <code>false</code> otherwise.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This is equivalent to checking if the vector is at the origin (0, 0). </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This is equivalent to checking if the vector is at the origin (<code>0</code>, <code>0</code>). </dd></dl>
 
 </div>
 </div>
@@ -642,7 +644,9 @@ When tolerance is greater than 0, this performs approximate equality comparison.
 
 <p>Sets this vector to zero coordinates. </p>
 <p>This method sets both x and y coordinates of this vector to zero.</p>
-<dl class="section post"><dt>Postcondition</dt><dd>This vector's coordinates are set to x = 0 and y = 0. </dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>This vector's coordinates are set to x = <code>0</code> and y = <code>0</code>. </dd>
+<dd>
+The vector is at the origin. </dd></dl>
 
 </div>
 </div>

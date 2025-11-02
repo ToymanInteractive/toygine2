@@ -294,7 +294,7 @@ Usage Example</h1>
 <div class="line">  <span class="comment">// Process the string</span></div>
 <div class="line">}</div>
 <div class="ttc" id="ac__string__view_8hpp_html"><div class="ttname"><a href="../../dd/ded/c__string__view_8hpp.html">c_string_view.hpp</a></div><div class="ttdoc">Non-owning string view class for C-style strings.</div></div>
-<div class="ttc" id="aclasstoy_1_1_c_string_view_html"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html">toy::CStringView</a></div><div class="ttdoc">Non-owning string view class for C-style strings.</div><div class="ttdef"><b>Definition</b> c_string_view.hpp:103</div></div>
+<div class="ttc" id="aclasstoy_1_1_c_string_view_html"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html">toy::CStringView</a></div><div class="ttdoc">Non-owning string view class for C-style strings.</div><div class="ttdef"><b>Definition</b> c_string_view.hpp:104</div></div>
 </div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="performance"></a>
 Performance Characteristics</h1>
 <ul>
@@ -327,7 +327,9 @@ Compatibility</h1>
 <dl class="section warning"><dt>Warning</dt><dd>The underlying C string must remain valid for the lifetime of the <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> object. <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> does not own the string data and will not manage its lifetime.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd>std::string_view </dd>
 <dd>
-<a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> </dd></dl>
+<a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> </dd>
+<dd>
+<a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="Template string class with fixed-size character buffer.">FixedString</a> </dd></dl>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="af79d918dedd06e2c2b99fe920962d64d" name="af79d918dedd06e2c2b99fe920962d64d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af79d918dedd06e2c2b99fe920962d64d">&#9670;&#160;</a></span>CStringView() <span class="overload">[1/3]</span></h2>
@@ -382,10 +384,10 @@ Compatibility</h1>
 </div><div class="memdoc">
 
 <p>Constructs a copy of <em class="arg">string</em> view. </p>
-<p>This constructor initializes a string view by copying the C string pointer from another <em class="arg">string</em> view.</p>
+<p>This constructor initializes a string view by copying the C string from another <em class="arg">string</em> view.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">string</td><td>The source string view to copy C string pointer from.</td></tr>
+    <tr><td class="paramname">string</td><td>The source string view to copy C string from.</td></tr>
   </table>
   </dd>
 </dl>
@@ -593,7 +595,7 @@ The <em class="arg">data</em> must not be null. </dd></dl>
 <p>This private method performs the common reverse search logic used by all find_last_not_of methods. It searches for the last occurrence of any character that is not present in the specified <em class="arg">data</em> starting from the given <em class="arg">position</em> and searching backwards.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">position</td><td>The position to start searching from. If <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>, searches from the end. </td></tr>
+    <tr><td class="paramname">position</td><td>The position to start searching from (default: <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>). If <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>, searches from the end. </td></tr>
     <tr><td class="paramname">data</td><td>The data containing characters to exclude from search. </td></tr>
     <tr><td class="paramname">dataSize</td><td>The size of the data containing characters to exclude from search.</td></tr>
   </table>
@@ -642,7 +644,7 @@ The <em class="arg">data</em> must not be null. </dd></dl>
 <p>This private method performs the common reverse search logic used by all find_last_of methods. It searches for the last occurrence of any character from the specified <em class="arg">data</em> starting from the given <em class="arg">position</em> and searching backwards.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">position</td><td>The position to start searching from. If <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>, searches from the end. </td></tr>
+    <tr><td class="paramname">position</td><td>The position to start searching from (default: <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>). If <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>, searches from the end. </td></tr>
     <tr><td class="paramname">data</td><td>The data containing characters to search for. </td></tr>
     <tr><td class="paramname">dataSize</td><td>The size of the data containing characters to search for.</td></tr>
   </table>
@@ -817,10 +819,10 @@ The source C <em class="arg">string</em> must be null-terminated.</dd></dl>
 </div><div class="memdoc">
 
 <p>Copy assigns other <em class="arg">string</em> view to this string view. </p>
-<p>This method assigns the C string pointer of another <em class="arg">string</em> view to this string view.</p>
+<p>This method assigns the C string of another <em class="arg">string</em> view to this string view.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">string</td><td>The source string view to copy C string pointer from.</td></tr>
+    <tr><td class="paramname">string</td><td>The source string view to copy C string from.</td></tr>
   </table>
   </dd>
 </dl>
@@ -862,7 +864,7 @@ The source C <em class="arg">string</em> must be null-terminated.</dd></dl>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A const reference to the character at the specified <em class="arg">offset</em>.</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">offset</em> should be less than the current string view size.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">offset</em> must be less than the current string view size.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The returned reference is read-only and cannot modify the character. </dd>
 <dd>
 This method is equivalent to the subscript operator.</dd></dl>
@@ -927,11 +929,12 @@ This method is equivalent to the subscript operator.</dd></dl>
 <p>Returns a constant pointer to the C string representation of this string view. </p>
 <p>This method returns a constant pointer to the C string representation of this string view. The returned pointer provides read-only access to the string view contents and can be used with C functions that require a char pointer.</p>
 <dl class="section return"><dt>Returns</dt><dd>A constant pointer to the C string representation of this string view.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The returned pointer points to a null-terminated string view. </dd>
+<dl class="section note"><dt>Note</dt><dd>The returned pointer points to a null-terminated C string. </dd>
 <dd>
 The returned pointer is read-only and cannot modify the string view contents. </dd>
 <dd>
-This method is equivalent to <a class="el" href="#a5e1b02dbf7df4f6950577cf34e032b03" title="Returns a constant pointer to the data of the string view.">data() const </a>method. </dd></dl>
+This method is equivalent to <a class="el" href="#a5e1b02dbf7df4f6950577cf34e032b03">data()</a>.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a5e1b02dbf7df4f6950577cf34e032b03" title="Returns a constant pointer to the data of the string view.">data()</a> </dd></dl>
 
 </div>
 </div>
@@ -990,6 +993,9 @@ This method is equivalent to <a class="el" href="#a5e1b02dbf7df4f6950577cf34e032
 
 <p>Clears the contents by detaching from the current C string. </p>
 <p>This method resets this view to point at the internal empty sentinel. The previously referenced character buffer is not modified or freed.</p>
+<dl class="section post"><dt>Postcondition</dt><dd>The string view is empty (size is <code>0</code>). </dd>
+<dd>
+The string view points to an empty sentinel string.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>No allocation or deallocation occurs. </dd></dl>
 
 </div>
@@ -1031,7 +1037,7 @@ This method is equivalent to <a class="el" href="#a5e1b02dbf7df4f6950577cf34e032
 <dd>
 The comparison stops at the first character that differs between the strings. </dd>
 <dd>
-If one string is a prefix of another, the shorter string is considered lexicographically smaller. </dd></dl>
+If one string is a prefix of another, the shorter is considered lexicographically smaller. </dd></dl>
 
 </div>
 </div>
@@ -1079,7 +1085,7 @@ template&lt;StringLike stringType&gt; </div>
 <dd>
 The comparison stops at the first character that differs between the strings. </dd>
 <dd>
-If one string is a prefix of another, the shorter string is considered lexicographically smaller. </dd></dl>
+If one string is a prefix of another, the shorter is considered lexicographically smaller. </dd></dl>
 
 </div>
 </div>
@@ -1117,7 +1123,7 @@ If one string is a prefix of another, the shorter string is considered lexicogra
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if this string view contains the specified <em class="arg">character</em>, <code>false</code> otherwise.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd>
 <dd>
-If the string view is empty, this method returns false. </dd></dl>
+If the string view is empty, this method returns <code>false</code>. </dd></dl>
 
 </div>
 </div>
@@ -1156,9 +1162,9 @@ If the string view is empty, this method returns false. </dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>The C <em class="arg">string</em> must not be null.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd>
 <dd>
-If the C <em class="arg">string</em> is empty, this method returns true. </dd>
+If the C <em class="arg">string</em> is empty, this method returns <code>true</code>. </dd>
 <dd>
-If the C <em class="arg">string</em> is longer than this string view, this method returns false. </dd></dl>
+If the C <em class="arg">string</em> is longer than this string view, returns <code>false</code>. </dd></dl>
 
 </div>
 </div>
@@ -1204,9 +1210,9 @@ template&lt;StringLike stringType&gt; </div>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if this string view contains a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object, <code>false</code> otherwise.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd>
 <dd>
-If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object is empty, this method returns true. </dd>
+If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object is empty, this method returns <code>true</code>. </dd>
 <dd>
-If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object is longer than this string view, this method returns false. </dd></dl>
+If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object is longer than this string view, returns <code>false</code>. </dd></dl>
 
 </div>
 </div>
@@ -1267,12 +1273,13 @@ The returned pointer is read-only and cannot modify the string view contents. </
 
 <p>Checks if the string view is empty. </p>
 <p>This method checks if the string view is empty, i.e. its size is zero. An empty string view contains no characters and has a length of zero.</p>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the string view is empty (size is 0), <code>false</code> otherwise.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the string view is empty, <code>false</code> otherwise.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>An empty string view has size zero. </dd>
 <dd>
 An empty string view still contains a null terminator. </dd>
 <dd>
-This method is equivalent to the expression: <span class="tt"><a class="el" href="#abd1a5cceb264d3d595bdbf9d415ffb74" title="Returns the size of the string view.">size()</a> == 0</span>. </dd></dl>
+This method is equivalent to the expression: <span class="tt"><a class="el" href="#abd1a5cceb264d3d595bdbf9d415ffb74" title="Returns the size of the string view.">size()</a> == 0</span>.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#abd1a5cceb264d3d595bdbf9d415ffb74" title="Returns the size of the string view.">size()</a> </dd></dl>
 
 </div>
 </div>
@@ -1310,7 +1317,7 @@ This method is equivalent to the expression: <span class="tt"><a class="el" href
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if this string view ends with the specified <em class="arg">character</em>, <code>false</code> otherwise.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The comparison is case-sensitive. </dd>
 <dd>
-If the string view is empty, this method returns false. </dd></dl>
+If the string view is empty, this method returns <code>false</code>. </dd></dl>
 
 </div>
 </div>
@@ -1349,9 +1356,9 @@ If the string view is empty, this method returns false. </dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>The C <em class="arg">string</em> must not be null.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The comparison is case-sensitive. </dd>
 <dd>
-If the C <em class="arg">string</em> is empty, this method returns true. </dd>
+If the C <em class="arg">string</em> is empty, this method returns <code>true</code>. </dd>
 <dd>
-If the C <em class="arg">string</em> is longer than this string view, this method returns false. </dd></dl>
+If the C <em class="arg">string</em> is longer than this string view, returns <code>false</code>. </dd></dl>
 
 </div>
 </div>
@@ -1397,9 +1404,9 @@ template&lt;StringLike stringType&gt; </div>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if this string view ends with a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object, <code>false</code> otherwise.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The comparison is case-sensitive. </dd>
 <dd>
-If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object is empty, this method returns true. </dd>
+If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object is empty, this method returns <code>true</code>. </dd>
 <dd>
-If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object is longer than this string view, this method returns false. </dd></dl>
+If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object is longer than this string view, returns <code>false</code>. </dd></dl>
 
 </div>
 </div>
@@ -1435,7 +1442,7 @@ If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Co
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">character</td><td>The character to search for. </td></tr>
-    <tr><td class="paramname">position</td><td>The position to start searching from (default: 0).</td></tr>
+    <tr><td class="paramname">position</td><td>The position to start searching from (default: <code>0</code>).</td></tr>
   </table>
   </dd>
 </dl>
@@ -1477,7 +1484,7 @@ If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Co
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">string</td><td>The source C string to search for. </td></tr>
-    <tr><td class="paramname">position</td><td>The position to start searching from (default: 0).</td></tr>
+    <tr><td class="paramname">position</td><td>The position to start searching from (default: <code>0</code>).</td></tr>
   </table>
   </dd>
 </dl>
@@ -1529,7 +1536,7 @@ template&lt;StringLike stringType&gt; </div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">string</td><td>The source <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object to search for. </td></tr>
-    <tr><td class="paramname">position</td><td>The position to start searching from (default: 0).</td></tr>
+    <tr><td class="paramname">position</td><td>The position to start searching from (default: <code>0</code>).</td></tr>
   </table>
   </dd>
 </dl>
@@ -1571,7 +1578,7 @@ template&lt;StringLike stringType&gt; </div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">character</td><td>The character to exclude from search. </td></tr>
-    <tr><td class="paramname">position</td><td>The position to start searching from (default: 0).</td></tr>
+    <tr><td class="paramname">position</td><td>The position to start searching from (default: <code>0</code>).</td></tr>
   </table>
   </dd>
 </dl>
@@ -1613,7 +1620,7 @@ template&lt;StringLike stringType&gt; </div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">string</td><td>The C string containing characters to exclude from search. </td></tr>
-    <tr><td class="paramname">position</td><td>The position to start searching from (default: 0).</td></tr>
+    <tr><td class="paramname">position</td><td>The position to start searching from (default: <code>0</code>).</td></tr>
   </table>
   </dd>
 </dl>
@@ -1623,7 +1630,7 @@ template&lt;StringLike stringType&gt; </div>
 The <em class="arg">string</em> must not be null.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd>
 <dd>
-If the C <em class="arg">string</em> is empty, this method returns <em class="arg">position</em> if it's within bounds, otherwise returns <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>. </dd></dl>
+If the C <em class="arg">string</em> is empty, returns <em class="arg">position</em> if within bounds, otherwise returns <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>. </dd></dl>
 
 </div>
 </div>
@@ -1667,7 +1674,7 @@ template&lt;StringLike stringType&gt; </div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">string</td><td>The <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object containing characters to exclude from search. </td></tr>
-    <tr><td class="paramname">position</td><td>The position to start searching from (default: 0).</td></tr>
+    <tr><td class="paramname">position</td><td>The position to start searching from (default: <code>0</code>).</td></tr>
   </table>
   </dd>
 </dl>
@@ -1675,7 +1682,7 @@ template&lt;StringLike stringType&gt; </div>
 <dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">position</em> must be less than the string view size.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd>
 <dd>
-If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object is empty, this method returns <em class="arg">position</em> if it's within bounds, otherwise returns <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>. </dd></dl>
+If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object is empty, returns <em class="arg">position</em> if within bounds, otherwise returns <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>. </dd></dl>
 
 </div>
 </div>
@@ -1711,7 +1718,7 @@ If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Co
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">character</td><td>The character to search for. </td></tr>
-    <tr><td class="paramname">position</td><td>The position to start searching from (default: 0).</td></tr>
+    <tr><td class="paramname">position</td><td>The position to start searching from (default: <code>0</code>).</td></tr>
   </table>
   </dd>
 </dl>
@@ -1719,7 +1726,8 @@ If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Co
 <dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">position</em> must be less than the string view size.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd>
 <dd>
-This method is equivalent to find(character, position). </dd></dl>
+This method is equivalent to <a class="el" href="#a91de3ec92df6a1ec623d71d1849cf3a6">find(char, std::size_t) const</a>.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a91de3ec92df6a1ec623d71d1849cf3a6" title="Finds the first occurrence of a character in the string view.">find(char, std::size_t) const</a> </dd></dl>
 
 </div>
 </div>
@@ -1755,7 +1763,7 @@ This method is equivalent to find(character, position). </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">string</td><td>The C string containing characters to search for. </td></tr>
-    <tr><td class="paramname">position</td><td>The position to start searching from (default: 0).</td></tr>
+    <tr><td class="paramname">position</td><td>The position to start searching from (default: <code>0</code>).</td></tr>
   </table>
   </dd>
 </dl>
@@ -1809,7 +1817,7 @@ template&lt;StringLike stringType&gt; </div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">string</td><td>The <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object containing characters to search for. </td></tr>
-    <tr><td class="paramname">position</td><td>The position to start searching from (default: 0).</td></tr>
+    <tr><td class="paramname">position</td><td>The position to start searching from (default: <code>0</code>).</td></tr>
   </table>
   </dd>
 </dl>
@@ -1905,7 +1913,7 @@ If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Co
 The <em class="arg">string</em> must not be null.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd>
 <dd>
-If the C <em class="arg">string</em> is empty, this method returns <em class="arg">position</em> if it's within bounds, otherwise returns <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>. </dd></dl>
+If the C <em class="arg">string</em> is empty, returns <em class="arg">position</em> if within bounds, otherwise returns <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>. </dd></dl>
 
 </div>
 </div>
@@ -1957,7 +1965,7 @@ template&lt;StringLike stringType&gt; </div>
 <dl class="section pre"><dt>Precondition</dt><dd>If <em class="arg">position</em> is not <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>, it must be less than the string view size.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd>
 <dd>
-If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object is empty, this method returns <em class="arg">position</em> if it's within bounds, otherwise returns <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>. </dd></dl>
+If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object is empty, returns <em class="arg">position</em> if within bounds, otherwise returns <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>. </dd></dl>
 
 </div>
 </div>
@@ -2001,7 +2009,8 @@ If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Co
 <dl class="section pre"><dt>Precondition</dt><dd>If <em class="arg">position</em> is not <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>, it must be less than the string view size.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd>
 <dd>
-This method is equivalent to rfind(character, position). </dd></dl>
+This method is equivalent to <a class="el" href="#a643acb38e12ce27774d40c975a2c3698">rfind(char, std::size_t) const</a>.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a643acb38e12ce27774d40c975a2c3698" title="Finds the last occurrence of a character in the string view.">rfind(char, std::size_t) const</a> </dd></dl>
 
 </div>
 </div>
@@ -2129,6 +2138,7 @@ If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Co
 <p>Returns a const reference to the first character of the string view. </p>
 <p>This method provides read-only access to the first character of the string view.</p>
 <dl class="section return"><dt>Returns</dt><dd>A const reference to the first character of the string view.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The string view must not be empty.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The returned reference is read-only and cannot modify the character. </dd></dl>
 
 </div>
@@ -2159,7 +2169,7 @@ If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Co
 <p>Returns the size of the string view. </p>
 <p>This method returns the current number of characters in the string view, excluding the terminating null character. The length represents the actual length of the string view content.</p>
 <dl class="section return"><dt>Returns</dt><dd>The number of characters in the string view, excluding the terminating null character.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This method is equivalent to <a class="el" href="#abd1a5cceb264d3d595bdbf9d415ffb74" title="Returns the size of the string view.">size()</a> method.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This method is equivalent to <a class="el" href="#abd1a5cceb264d3d595bdbf9d415ffb74">size()</a>.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#abd1a5cceb264d3d595bdbf9d415ffb74" title="Returns the size of the string view.">size()</a> </dd></dl>
 
 </div>
@@ -2256,10 +2266,10 @@ The source C <em class="arg">string</em> must be null-terminated. </dd></dl>
 </div><div class="memdoc">
 
 <p>Copy assigns other <em class="arg">string</em> view to this string view. </p>
-<p>This operator assigns the C string pointer of another <em class="arg">string</em> view to this string view.</p>
+<p>This operator assigns the C string of another <em class="arg">string</em> view to this string view.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">string</td><td>The source string view to copy C string pointer from.</td></tr>
+    <tr><td class="paramname">string</td><td>The source string view to copy C string from.</td></tr>
   </table>
   </dd>
 </dl>
@@ -2299,7 +2309,7 @@ The source C <em class="arg">string</em> must be null-terminated. </dd></dl>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A const reference to the character at the specified <em class="arg">offset</em>.</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">offset</em> should be less than the current string view size.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">offset</em> must be less than the current string view size.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The returned reference is read-only and cannot modify the character. </dd></dl>
 
 </div>
@@ -2388,7 +2398,7 @@ The source C <em class="arg">string</em> must be null-terminated. </dd></dl>
 The <em class="arg">string</em> must not be null.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd>
 <dd>
-If the C <em class="arg">string</em> is empty, the method returns <em class="arg">position</em> if it's within bounds, otherwise returns the string view size. </dd></dl>
+If the C <em class="arg">string</em> is empty, returns <em class="arg">position</em> if within bounds, otherwise returns the string view size. </dd></dl>
 
 </div>
 </div>
@@ -2440,7 +2450,7 @@ template&lt;StringLike stringType&gt; </div>
 <dl class="section pre"><dt>Precondition</dt><dd>If <em class="arg">position</em> is not <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>, it must be less than or equal to the maximum valid start index: the string view size minus the size of a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd>
 <dd>
-If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object is empty, the method returns <em class="arg">position</em> if it's within bounds, otherwise returns the string view size. </dd></dl>
+If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object is empty, returns <em class="arg">position</em> if within bounds, otherwise returns the string view size. </dd></dl>
 
 </div>
 </div>
@@ -2470,7 +2480,8 @@ If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Co
 <p>Returns the size of the string view. </p>
 <p>This method returns the current number of characters in the string view, excluding the terminating null character. The size represents the actual length of the string view content.</p>
 <dl class="section return"><dt>Returns</dt><dd>The number of characters in the string view, excluding the terminating null character.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This method is equivalent to <a class="el" href="#a53bd50e64d92a36d07a8d4f240c73147" title="Returns the size of the string view.">length()</a> method. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This method is equivalent to <a class="el" href="#a53bd50e64d92a36d07a8d4f240c73147">length()</a>.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a53bd50e64d92a36d07a8d4f240c73147" title="Returns the size of the string view.">length()</a> </dd></dl>
 
 </div>
 </div>
@@ -2508,7 +2519,7 @@ If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Co
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if this string view starts with the specified <em class="arg">character</em>, <code>false</code> otherwise.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The comparison is case-sensitive. </dd>
 <dd>
-If the string view is empty, this method returns false. </dd></dl>
+If the string view is empty, this method returns <code>false</code>. </dd></dl>
 
 </div>
 </div>
@@ -2547,9 +2558,9 @@ If the string view is empty, this method returns false. </dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>The C <em class="arg">string</em> must not be null.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The comparison is case-sensitive. </dd>
 <dd>
-If the C <em class="arg">string</em> is empty, this method returns true. </dd>
+If the C <em class="arg">string</em> is empty, this method returns <code>true</code>. </dd>
 <dd>
-If the C <em class="arg">string</em> is longer than this string view, this method returns false. </dd></dl>
+If the C <em class="arg">string</em> is longer than this string view, returns <code>false</code>. </dd></dl>
 
 </div>
 </div>
@@ -2595,9 +2606,9 @@ template&lt;StringLike stringType&gt; </div>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if this string view starts with a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object, <code>false</code> otherwise.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The comparison is case-sensitive. </dd>
 <dd>
-If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object is empty, this method returns true. </dd>
+If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object is empty, this method returns <code>true</code>. </dd>
 <dd>
-If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object is longer than this string view, this method returns false. </dd></dl>
+If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object is longer than this string view, returns <code>false</code>. </dd></dl>
 
 </div>
 </div>
@@ -2671,7 +2682,7 @@ For UTF-8 strings, <a class="el" href="#af55492c22e19b5ac015367834546a386" title
 <dd>
 Invalid UTF-8 sequences are handled gracefully and may affect the count. </dd>
 <dd>
-This method is useful for internationalization and text processing applications. </dd></dl>
+This method is useful for internationalization and text processing. </dd></dl>
 
 </div>
 </div>

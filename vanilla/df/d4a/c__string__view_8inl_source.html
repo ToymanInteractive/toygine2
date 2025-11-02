@@ -130,13 +130,13 @@ $(function(){initNavTree('df/d4a/c__string__view_8inl_source.html','../../','');
 <div class="foldopen" id="foldopen00033" data-start="{" data-end="}">
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="../../d5/d03/classtoy_1_1_c_string_view.html#af5ec20956a3cecd987fc33ff3bdd6540">   33</a></span><span class="keyword">constexpr</span> CStringView::CStringView(<span class="keyword">const</span> <span class="keywordtype">char</span> * string) <span class="keyword">noexcept</span></div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>  : _data(string) {</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>  assert_message(string != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string pointer must not be null&quot;</span>);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>  assert_message(string != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string must not be null&quot;</span>);</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>}</div>
 </div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
 <div class="foldopen" id="foldopen00038" data-start="{" data-end="}">
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="../../d5/d03/classtoy_1_1_c_string_view.html#aad95e80a56dc5edd7b1fa6158175163b">   38</a></span><span class="keyword">constexpr</span> CStringView &amp; CStringView::operator=(<span class="keyword">const</span> <span class="keywordtype">char</span> * string) <span class="keyword">noexcept</span> {</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>  assert_message(string != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string pointer must not be null&quot;</span>);</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>  assert_message(string != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string must not be null&quot;</span>);</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>  _data = string;</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
@@ -154,7 +154,7 @@ $(function(){initNavTree('df/d4a/c__string__view_8inl_source.html','../../','');
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
 <div class="foldopen" id="foldopen00052" data-start="{" data-end="}">
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="../../d5/d03/classtoy_1_1_c_string_view.html#a2d6dae36ef9b82f5d6f5f579cf4da692">   52</a></span><span class="keyword">constexpr</span> CStringView &amp; CStringView::assign(<span class="keyword">const</span> <span class="keywordtype">char</span> * string) <span class="keyword">noexcept</span> {</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>  assert_message(string != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string pointer must not be null&quot;</span>);</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>  assert_message(string != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string must not be null&quot;</span>);</div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>  _data = string;</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
@@ -456,7 +456,7 @@ $(function(){initNavTree('df/d4a/c__string__view_8inl_source.html','../../','');
 <div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span> </div>
 <div class="foldopen" id="foldopen00270" data-start="{" data-end="}">
 <div class="line"><a id="l00270" name="l00270"></a><span class="lineno"><a class="line" href="../../d5/d03/classtoy_1_1_c_string_view.html#a10d252dcb997c9b27c1bc1f074c0eb8d">  270</a></span><span class="keyword">constexpr</span> <span class="keywordtype">bool</span> CStringView::contains(<span class="keyword">const</span> <span class="keywordtype">char</span> * string) <span class="keyword">const</span> <span class="keyword">noexcept</span> {</div>
-<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>  assert_message(string != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string pointer must not be null&quot;</span>);</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>  assert_message(string != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string must not be null&quot;</span>);</div>
 <div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span> </div>
 <div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>  <span class="keywordflow">if</span> <span class="keyword">consteval</span> {</div>
 <div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>    <span class="keywordflow">return</span> cstrstr(_data, string) != <span class="keywordtype">nullptr</span>;</div>
@@ -709,7 +709,7 @@ $(function(){initNavTree('df/d4a/c__string__view_8inl_source.html','../../','');
 <div class="line"><a id="l00500" name="l00500"></a><span class="lineno">  500</span> </div>
 <div class="foldopen" id="foldopen00501" data-start="{" data-end="}">
 <div class="line"><a id="l00501" name="l00501"></a><span class="lineno"><a class="line" href="../../d4/da9/namespacetoy.html#a3761711b53e204a0f2871764d435fd35">  501</a></span><span class="keyword">constexpr</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../d4/da9/namespacetoy.html#a3761711b53e204a0f2871764d435fd35">operator</a>==(<span class="keyword">const</span> CStringView &amp; lhs, <span class="keyword">const</span> <span class="keywordtype">char</span> * rhs) <span class="keyword">noexcept</span> {</div>
-<div class="line"><a id="l00502" name="l00502"></a><span class="lineno">  502</span>  assert_message(rhs != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string pointer must not be null&quot;</span>);</div>
+<div class="line"><a id="l00502" name="l00502"></a><span class="lineno">  502</span>  assert_message(rhs != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string must not be null&quot;</span>);</div>
 <div class="line"><a id="l00503" name="l00503"></a><span class="lineno">  503</span> </div>
 <div class="line"><a id="l00504" name="l00504"></a><span class="lineno">  504</span>  <span class="keywordflow">return</span> lhs == CStringView(rhs);</div>
 <div class="line"><a id="l00505" name="l00505"></a><span class="lineno">  505</span>}</div>
@@ -717,7 +717,7 @@ $(function(){initNavTree('df/d4a/c__string__view_8inl_source.html','../../','');
 <div class="line"><a id="l00506" name="l00506"></a><span class="lineno">  506</span> </div>
 <div class="foldopen" id="foldopen00507" data-start="{" data-end="}">
 <div class="line"><a id="l00507" name="l00507"></a><span class="lineno"><a class="line" href="../../d4/da9/namespacetoy.html#a71f575fa58def2abe56c129ff51a3696">  507</a></span><span class="keyword">constexpr</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../d4/da9/namespacetoy.html#a71f575fa58def2abe56c129ff51a3696">operator</a>==(<span class="keyword">const</span> <span class="keywordtype">char</span> * lhs, <span class="keyword">const</span> CStringView &amp; rhs) <span class="keyword">noexcept</span> {</div>
-<div class="line"><a id="l00508" name="l00508"></a><span class="lineno">  508</span>  assert_message(lhs != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string pointer must not be null&quot;</span>);</div>
+<div class="line"><a id="l00508" name="l00508"></a><span class="lineno">  508</span>  assert_message(lhs != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string must not be null&quot;</span>);</div>
 <div class="line"><a id="l00509" name="l00509"></a><span class="lineno">  509</span> </div>
 <div class="line"><a id="l00510" name="l00510"></a><span class="lineno">  510</span>  <span class="keywordflow">return</span> CStringView(lhs) == rhs;</div>
 <div class="line"><a id="l00511" name="l00511"></a><span class="lineno">  511</span>}</div>

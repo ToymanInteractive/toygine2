@@ -141,94 +141,95 @@ $(function(){initNavTree('d4/dc0/constexpr__utils_8hpp_source.html','../../','')
 <div class="line"><span class="lineno">   46</span><span class="comment">  \note The comparison is case-sensitive.</span></div>
 <div class="line"><span class="lineno">   47</span><span class="comment">  \note The comparison stops at the first character that differs between the strings.</span></div>
 <div class="line"><span class="lineno">   48</span><span class="comment">  \note If one string is a prefix of another, the shorter string is considered lexicographically smaller.</span></div>
-<div class="line"><span class="lineno">   49</span><span class="comment">  \note Return values are -1, 0, or 1 based on lexicographic order using unsigned char comparison; this differs from</span></div>
-<div class="line"><span class="lineno">   50</span><span class="comment">        std::strcmp, which returns the arithmetic difference.</span></div>
-<div class="line"><span class="lineno">   51</span><span class="comment">  \note This function is constexpr-compatible and can be used in compile-time contexts.</span></div>
-<div class="line"><span class="lineno">   52</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   53</span><span class="comment">  \see std::strcmp</span></div>
-<div class="line"><span class="lineno">   54</span><span class="comment">*/</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>[[<a class="code hl_concept" href="../../df/d77/concepttoy_1_1_string_like.html">nodiscard</a>]] <span class="keyword">constexpr</span> <span class="keywordtype">int</span> cstrcmp(<span class="keyword">const</span> <span class="keywordtype">char</span> * lhs, <span class="keyword">const</span> <span class="keywordtype">char</span> * rhs) <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="comment">/*!</span></div>
-<div class="line"><span class="lineno">   58</span><span class="comment">  \brief Finds the first occurrence of a character in a C string.</span></div>
-<div class="line"><span class="lineno">   59</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   60</span><span class="comment">  This function searches for the first occurrence of the character \a ch within the string \a str. The search is</span></div>
-<div class="line"><span class="lineno">   61</span><span class="comment">  performed character by character from the beginning of the string and returns a pointer to the first occurrence, or</span></div>
-<div class="line"><span class="lineno">   62</span><span class="comment">  nullptr if the character is not found. This function is designed to be constexpr-compatible and provides the same</span></div>
-<div class="line"><span class="lineno">   63</span><span class="comment">  behavior as std::strchr but can be evaluated at compile time.</span></div>
-<div class="line"><span class="lineno">   64</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   65</span><span class="comment">  \param str The C string to search in.</span></div>
-<div class="line"><span class="lineno">   66</span><span class="comment">  \param ch  The character to search for.</span></div>
-<div class="line"><span class="lineno">   67</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   68</span><span class="comment">  \return A pointer to the first occurrence of \a ch in \a str, or nullptr if not found.</span></div>
-<div class="line"><span class="lineno">   69</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   70</span><span class="comment">  \pre The \a str pointer must not be null.</span></div>
-<div class="line"><span class="lineno">   71</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   72</span><span class="comment">  \note The search is case-sensitive.</span></div>
-<div class="line"><span class="lineno">   73</span><span class="comment">  \note The function searches from the beginning of \a str and returns the first match.</span></div>
-<div class="line"><span class="lineno">   74</span><span class="comment">  \note This function is constexpr-compatible and can be used in compile-time contexts.</span></div>
-<div class="line"><span class="lineno">   75</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   76</span><span class="comment">  \see std::strchr</span></div>
-<div class="line"><span class="lineno">   77</span><span class="comment">*/</span></div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>[[<a class="code hl_concept" href="../../df/d77/concepttoy_1_1_string_like.html">nodiscard</a>]] <span class="keyword">constexpr</span> <span class="keyword">const</span> <span class="keywordtype">char</span> * cstrchr(<span class="keyword">const</span> <span class="keywordtype">char</span> * str, <span class="keywordtype">int</span> ch) <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="comment">/*!</span></div>
-<div class="line"><span class="lineno">   81</span><span class="comment">  \brief Finds the first occurrence of any character from a set in a C string.</span></div>
-<div class="line"><span class="lineno">   82</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   83</span><span class="comment">  This function searches for the first occurrence of any character from the \a accept string within the \a str string.</span></div>
-<div class="line"><span class="lineno">   84</span><span class="comment">  The search is performed character by character from the beginning and returns a pointer to the first character found</span></div>
-<div class="line"><span class="lineno">   85</span><span class="comment">  that matches any character in the accept set, or nullptr if no character from the accept set is found. This function</span></div>
-<div class="line"><span class="lineno">   86</span><span class="comment">  is designed to be constexpr-compatible and provides the same behavior as std::strpbrk but can be evaluated at compile</span></div>
-<div class="line"><span class="lineno">   87</span><span class="comment">  time.</span></div>
-<div class="line"><span class="lineno">   88</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   89</span><span class="comment">  \param str    The C string to search in. Must be null-terminated.</span></div>
-<div class="line"><span class="lineno">   90</span><span class="comment">  \param accept The C string containing the set of characters to search for. Must be null-terminated.</span></div>
-<div class="line"><span class="lineno">   91</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   92</span><span class="comment">  \return A pointer to the first character in \a str that matches any character in \a accept, or nullptr if no</span></div>
-<div class="line"><span class="lineno">   93</span><span class="comment">          character from the accept set is found.</span></div>
-<div class="line"><span class="lineno">   94</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   95</span><span class="comment">  \pre The \a str pointer must not be null.</span></div>
-<div class="line"><span class="lineno">   96</span><span class="comment">  \pre The \a accept pointer must not be null.</span></div>
-<div class="line"><span class="lineno">   97</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   98</span><span class="comment">  \note The search is case-sensitive.</span></div>
-<div class="line"><span class="lineno">   99</span><span class="comment">  \note The function searches from the beginning of \a str and returns the first match.</span></div>
-<div class="line"><span class="lineno">  100</span><span class="comment">  \note This function is constexpr-compatible and can be used in compile-time contexts.</span></div>
-<div class="line"><span class="lineno">  101</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  102</span><span class="comment">  \see std::strpbrk</span></div>
-<div class="line"><span class="lineno">  103</span><span class="comment">*/</span></div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>[[<a class="code hl_concept" href="../../df/d77/concepttoy_1_1_string_like.html">nodiscard</a>]] <span class="keyword">constexpr</span> <span class="keyword">const</span> <span class="keywordtype">char</span> * cstrpbrk(<span class="keyword">const</span> <span class="keywordtype">char</span> * str, <span class="keyword">const</span> <span class="keywordtype">char</span> * accept) <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span><span class="comment">/*!</span></div>
-<div class="line"><span class="lineno">  107</span><span class="comment">  \brief Finds the first occurrence of a substring in a C string.</span></div>
-<div class="line"><span class="lineno">  108</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  109</span><span class="comment">  This function searches for the first occurrence of the \a needle string within the \a haystack string. The search is</span></div>
-<div class="line"><span class="lineno">  110</span><span class="comment">  performed character by character from the beginning and returns a pointer to the beginning of the first occurrence, or</span></div>
-<div class="line"><span class="lineno">  111</span><span class="comment">  nullptr if the substring is not found. This function is designed to be constexpr-compatible and provides the same</span></div>
-<div class="line"><span class="lineno">  112</span><span class="comment">  behavior as std::strstr but can be evaluated at compile time.</span></div>
-<div class="line"><span class="lineno">  113</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  114</span><span class="comment">  \param haystack The C string to search in.</span></div>
-<div class="line"><span class="lineno">  115</span><span class="comment">  \param needle   The C string to search for.</span></div>
-<div class="line"><span class="lineno">  116</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  117</span><span class="comment">  \return A pointer to the first occurrence of \a needle in \a haystack, or nullptr if not found. If \a needle is an</span></div>
-<div class="line"><span class="lineno">  118</span><span class="comment">          empty string, returns \a haystack.</span></div>
-<div class="line"><span class="lineno">  119</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  120</span><span class="comment">  \pre The \a haystack pointer must not be null.</span></div>
-<div class="line"><span class="lineno">  121</span><span class="comment">  \pre The \a needle pointer must not be null.</span></div>
-<div class="line"><span class="lineno">  122</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  123</span><span class="comment">  \note The search is case-sensitive.</span></div>
-<div class="line"><span class="lineno">  124</span><span class="comment">  \note If \a needle is an empty string, the function returns \a haystack immediately.</span></div>
-<div class="line"><span class="lineno">  125</span><span class="comment">  \note The function searches from the beginning of \a haystack and returns the first match.</span></div>
-<div class="line"><span class="lineno">  126</span><span class="comment">  \note This function is constexpr-compatible and can be used in compile-time contexts.</span></div>
-<div class="line"><span class="lineno">  127</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  128</span><span class="comment">  \see std::strstr</span></div>
-<div class="line"><span class="lineno">  129</span><span class="comment">*/</span></div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>[[<a class="code hl_concept" href="../../df/d77/concepttoy_1_1_string_like.html">nodiscard</a>]] <span class="keyword">constexpr</span> <span class="keyword">const</span> <span class="keywordtype">char</span> * cstrstr(<span class="keyword">const</span> <span class="keywordtype">char</span> * haystack, <span class="keyword">const</span> <span class="keywordtype">char</span> * needle) <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>} <span class="comment">// namespace toy</span></div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span><span class="preprocessor">#</span><span class="preprocessor">endif</span> <span class="comment">// INCLUDE_CORE_CONSTEXPR_UTILS_HPP_</span></div>
+<div class="line"><span class="lineno">   49</span><span class="comment">  \note Return values are -1, 0, or 1 (differs from std::strcmp which returns arithmetic difference).</span></div>
+<div class="line"><span class="lineno">   50</span><span class="comment">  \note This function is constexpr-compatible and can be used in compile-time contexts.</span></div>
+<div class="line"><span class="lineno">   51</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   52</span><span class="comment">  \see std::strcmp</span></div>
+<div class="line"><span class="lineno">   53</span><span class="comment">*/</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>[[<a class="code hl_concept" href="../../df/d77/concepttoy_1_1_string_like.html">nodiscard</a>]] <span class="keyword">constexpr</span> <span class="keywordtype">int</span> cstrcmp(<span class="keyword">const</span> <span class="keywordtype">char</span> * lhs, <span class="keyword">const</span> <span class="keywordtype">char</span> * rhs) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">   57</span><span class="comment">  \brief Finds the first occurrence of a character in a C string.</span></div>
+<div class="line"><span class="lineno">   58</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   59</span><span class="comment">  This function searches for the first occurrence of the character \a ch within the string \a str. The search is</span></div>
+<div class="line"><span class="lineno">   60</span><span class="comment">  performed character by character from the beginning of the string and returns a pointer to the first occurrence, or</span></div>
+<div class="line"><span class="lineno">   61</span><span class="comment">  nullptr if the character is not found. This function is designed to be constexpr-compatible and provides the same</span></div>
+<div class="line"><span class="lineno">   62</span><span class="comment">  behavior as std::strchr but can be evaluated at compile time.</span></div>
+<div class="line"><span class="lineno">   63</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   64</span><span class="comment">  \param str The C string to search in.</span></div>
+<div class="line"><span class="lineno">   65</span><span class="comment">  \param ch  The character to search for.</span></div>
+<div class="line"><span class="lineno">   66</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   67</span><span class="comment">  \return A pointer to the first occurrence of \a ch in \a str, or nullptr if not found.</span></div>
+<div class="line"><span class="lineno">   68</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   69</span><span class="comment">  \pre The \a str pointer must not be null.</span></div>
+<div class="line"><span class="lineno">   70</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   71</span><span class="comment">  \note The search is case-sensitive.</span></div>
+<div class="line"><span class="lineno">   72</span><span class="comment">  \note The function searches from the beginning of \a str and returns the first match.</span></div>
+<div class="line"><span class="lineno">   73</span><span class="comment">  \note This function is constexpr-compatible and can be used in compile-time contexts.</span></div>
+<div class="line"><span class="lineno">   74</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   75</span><span class="comment">  \see std::strchr</span></div>
+<div class="line"><span class="lineno">   76</span><span class="comment">*/</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>[[<a class="code hl_concept" href="../../df/d77/concepttoy_1_1_string_like.html">nodiscard</a>]] <span class="keyword">constexpr</span> <span class="keyword">const</span> <span class="keywordtype">char</span> * cstrchr(<span class="keyword">const</span> <span class="keywordtype">char</span> * str, <span class="keywordtype">int</span> ch) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">   80</span><span class="comment">  \brief Finds the first occurrence of any character from a set in a C string.</span></div>
+<div class="line"><span class="lineno">   81</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   82</span><span class="comment">  This function searches for the first occurrence of any character from the \a accept string within the \a str string.</span></div>
+<div class="line"><span class="lineno">   83</span><span class="comment">  The search is performed character by character from the beginning and returns a pointer to the first character found</span></div>
+<div class="line"><span class="lineno">   84</span><span class="comment">  that matches any character in the accept set, or nullptr if no character from the accept set is found. This function</span></div>
+<div class="line"><span class="lineno">   85</span><span class="comment">  is designed to be constexpr-compatible and provides the same behavior as std::strpbrk but can be evaluated at compile</span></div>
+<div class="line"><span class="lineno">   86</span><span class="comment">  time.</span></div>
+<div class="line"><span class="lineno">   87</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   88</span><span class="comment">  \param str    The C string to search in.</span></div>
+<div class="line"><span class="lineno">   89</span><span class="comment">  \param accept The C string containing the set of characters to search for.</span></div>
+<div class="line"><span class="lineno">   90</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   91</span><span class="comment">  \return A pointer to the first character in \a str that matches any character in \a accept, or nullptr if no</span></div>
+<div class="line"><span class="lineno">   92</span><span class="comment">          character from the accept set is found.</span></div>
+<div class="line"><span class="lineno">   93</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   94</span><span class="comment">  \pre The \a str pointer must not be null.</span></div>
+<div class="line"><span class="lineno">   95</span><span class="comment">  \pre The \a accept pointer must not be null.</span></div>
+<div class="line"><span class="lineno">   96</span><span class="comment">  \pre The \a str must be null-terminated.</span></div>
+<div class="line"><span class="lineno">   97</span><span class="comment">  \pre The \a accept must be null-terminated.</span></div>
+<div class="line"><span class="lineno">   98</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   99</span><span class="comment">  \note The search is case-sensitive.</span></div>
+<div class="line"><span class="lineno">  100</span><span class="comment">  \note The function searches from the beginning of \a str and returns the first match.</span></div>
+<div class="line"><span class="lineno">  101</span><span class="comment">  \note This function is constexpr-compatible and can be used in compile-time contexts.</span></div>
+<div class="line"><span class="lineno">  102</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  103</span><span class="comment">  \see std::strpbrk</span></div>
+<div class="line"><span class="lineno">  104</span><span class="comment">*/</span></div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>[[<a class="code hl_concept" href="../../df/d77/concepttoy_1_1_string_like.html">nodiscard</a>]] <span class="keyword">constexpr</span> <span class="keyword">const</span> <span class="keywordtype">char</span> * cstrpbrk(<span class="keyword">const</span> <span class="keywordtype">char</span> * str, <span class="keyword">const</span> <span class="keywordtype">char</span> * accept) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span><span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  108</span><span class="comment">  \brief Finds the first occurrence of a substring in a C string.</span></div>
+<div class="line"><span class="lineno">  109</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  110</span><span class="comment">  This function searches for the first occurrence of the \a needle string within the \a haystack string. The search is</span></div>
+<div class="line"><span class="lineno">  111</span><span class="comment">  performed character by character from the beginning and returns a pointer to the beginning of the first occurrence, or</span></div>
+<div class="line"><span class="lineno">  112</span><span class="comment">  nullptr if the substring is not found. This function is designed to be constexpr-compatible and provides the same</span></div>
+<div class="line"><span class="lineno">  113</span><span class="comment">  behavior as std::strstr but can be evaluated at compile time.</span></div>
+<div class="line"><span class="lineno">  114</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  115</span><span class="comment">  \param haystack The C string to search in.</span></div>
+<div class="line"><span class="lineno">  116</span><span class="comment">  \param needle   The C string to search for.</span></div>
+<div class="line"><span class="lineno">  117</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  118</span><span class="comment">  \return A pointer to the first occurrence of \a needle in \a haystack, or nullptr if not found. If \a needle is an</span></div>
+<div class="line"><span class="lineno">  119</span><span class="comment">          empty string, returns \a haystack.</span></div>
+<div class="line"><span class="lineno">  120</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  121</span><span class="comment">  \pre The \a haystack pointer must not be null.</span></div>
+<div class="line"><span class="lineno">  122</span><span class="comment">  \pre The \a needle pointer must not be null.</span></div>
+<div class="line"><span class="lineno">  123</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  124</span><span class="comment">  \note The search is case-sensitive.</span></div>
+<div class="line"><span class="lineno">  125</span><span class="comment">  \note If \a needle is an empty string, the function returns \a haystack immediately.</span></div>
+<div class="line"><span class="lineno">  126</span><span class="comment">  \note The function searches from the beginning of \a haystack and returns the first match.</span></div>
+<div class="line"><span class="lineno">  127</span><span class="comment">  \note This function is constexpr-compatible and can be used in compile-time contexts.</span></div>
+<div class="line"><span class="lineno">  128</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  129</span><span class="comment">  \see std::strstr</span></div>
+<div class="line"><span class="lineno">  130</span><span class="comment">*/</span></div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>[[<a class="code hl_concept" href="../../df/d77/concepttoy_1_1_string_like.html">nodiscard</a>]] <span class="keyword">constexpr</span> <span class="keyword">const</span> <span class="keywordtype">char</span> * cstrstr(<span class="keyword">const</span> <span class="keywordtype">char</span> * haystack, <span class="keyword">const</span> <span class="keywordtype">char</span> * needle) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>} <span class="comment">// namespace toy</span></div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span><span class="preprocessor">#</span><span class="preprocessor">endif</span> <span class="comment">// INCLUDE_CORE_CONSTEXPR_UTILS_HPP_</span></div>
 <div class="ttc" id="aassertion__macro__gcc__clang_8hpp_html_a672330c2fecd516f254162cd9611d91a"><div class="ttname"><a href="../../d1/d5f/assertion__macro__gcc__clang_8hpp.html#a672330c2fecd516f254162cd9611d91a">assert_message</a></div><div class="ttdeci">#define assert_message(expression, message)</div><div class="ttdoc">Debug assertion macro with custom message for runtime expression checking.</div><div class="ttdef"><b>Definition</b> assertion_macro_gcc_clang.hpp:88</div></div>
-<div class="ttc" id="aclasstoy_1_1_c_string_view_html"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html">toy::CStringView</a></div><div class="ttdoc">Non-owning string view class for C-style strings.</div><div class="ttdef"><b>Definition</b> c_string_view.hpp:103</div></div>
+<div class="ttc" id="aclasstoy_1_1_c_string_view_html"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html">toy::CStringView</a></div><div class="ttdoc">Non-owning string view class for C-style strings.</div><div class="ttdef"><b>Definition</b> c_string_view.hpp:104</div></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_a07841e493d8829a95b0bb375dafb93e6"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a07841e493d8829a95b0bb375dafb93e6">toy::CStringView::find_first_not_of</a></div><div class="ttdeci">constexpr std::size_t find_first_not_of(const stringType &amp;string, std::size_t position=0) const noexcept</div><div class="ttdoc">Finds the first occurrence of any character not from a StringLike object.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:167</div></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_a0cd121e1778d472b5f82f6cf3f2bdcef"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a0cd121e1778d472b5f82f6cf3f2bdcef">toy::CStringView::find_first_of</a></div><div class="ttdeci">constexpr std::size_t find_first_of(char character, std::size_t position=0) const noexcept</div><div class="ttdoc">Finds the first occurrence of the specified character.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:162</div></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_a0cf6450c1d7131517d11fdcccf0ea0c0"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a0cf6450c1d7131517d11fdcccf0ea0c0">toy::CStringView::find_last_of</a></div><div class="ttdeci">constexpr std::size_t find_last_of(const stringType &amp;string, std::size_t position=npos) const noexcept</div><div class="ttdoc">Finds the last occurrence of any character from a StringLike object.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:180</div></div>
@@ -242,9 +243,9 @@ $(function(){initNavTree('d4/dc0/constexpr__utils_8hpp_source.html','../../','')
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_a2d6dae36ef9b82f5d6f5f579cf4da692"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a2d6dae36ef9b82f5d6f5f579cf4da692">toy::CStringView::assign</a></div><div class="ttdeci">constexpr CStringView &amp; assign(const char *string) noexcept</div><div class="ttdoc">Copy assigns the C string to this string view.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:52</div></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_a2f3c745f4720005a7d15703fc86bc270"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a2f3c745f4720005a7d15703fc86bc270">toy::CStringView::rfind</a></div><div class="ttdeci">constexpr std::size_t rfind(const char *string, std::size_t position=npos) const noexcept</div><div class="ttdoc">Finds the last occurrence of the C string in the string view.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:145</div></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_a3a8634e0b4ae35b9754bbab8dfcc7502"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a3a8634e0b4ae35b9754bbab8dfcc7502">toy::CStringView::front</a></div><div class="ttdeci">constexpr const char &amp; front() const noexcept</div><div class="ttdoc">Returns a const reference to the first character of the string view.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:72</div></div>
-<div class="ttc" id="aclasstoy_1_1_c_string_view_html_a3fd727898d1fd0d4261e894033c3396b"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a3fd727898d1fd0d4261e894033c3396b">toy::CStringView::_data</a></div><div class="ttdeci">const char * _data</div><div class="ttdoc">Pointer to the wrapped C string.</div><div class="ttdef"><b>Definition</b> c_string_view.hpp:943</div></div>
+<div class="ttc" id="aclasstoy_1_1_c_string_view_html_a3fd727898d1fd0d4261e894033c3396b"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a3fd727898d1fd0d4261e894033c3396b">toy::CStringView::_data</a></div><div class="ttdeci">const char * _data</div><div class="ttdoc">Pointer to the wrapped C string.</div><div class="ttdef"><b>Definition</b> c_string_view.hpp:953</div></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_a43203e8e0d660cfc02ce84b1a6f80747"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a43203e8e0d660cfc02ce84b1a6f80747">toy::CStringView::find_last_not_of</a></div><div class="ttdeci">constexpr std::size_t find_last_not_of(char character, std::size_t position=npos) const noexcept</div><div class="ttdoc">Finds the last occurrence of any character not equal to the specified character.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:201</div></div>
-<div class="ttc" id="aclasstoy_1_1_c_string_view_html_a44d0080af17ac18934fd248105aa1f3a"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a44d0080af17ac18934fd248105aa1f3a">toy::CStringView::_emptyString</a></div><div class="ttdeci">static constexpr char _emptyString[]</div><div class="ttdoc">Static empty C string used as default value for null pointers.</div><div class="ttdef"><b>Definition</b> c_string_view.hpp:946</div></div>
+<div class="ttc" id="aclasstoy_1_1_c_string_view_html_a44d0080af17ac18934fd248105aa1f3a"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a44d0080af17ac18934fd248105aa1f3a">toy::CStringView::_emptyString</a></div><div class="ttdeci">static constexpr char _emptyString[]</div><div class="ttdoc">Static empty C string used as default value for null pointers.</div><div class="ttdef"><b>Definition</b> c_string_view.hpp:956</div></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_a4c8e71577b69ed0d61810910ee14c392"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a4c8e71577b69ed0d61810910ee14c392">toy::CStringView::ends_with</a></div><div class="ttdeci">constexpr bool ends_with(const stringType &amp;string) const noexcept</div><div class="ttdoc">Checks if the string view ends with a StringLike object.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:240</div></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_a4c9e16fc17732b7e6c131d07e2b1a220"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a4c9e16fc17732b7e6c131d07e2b1a220">toy::CStringView::find_first_of</a></div><div class="ttdeci">constexpr std::size_t find_first_of(const stringType &amp;string, std::size_t position=0) const noexcept</div><div class="ttdoc">Finds the first occurrence of any character from a StringLike object.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:154</div></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_a51e64c69c9b0a9ed965ea15b40e1128a"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a51e64c69c9b0a9ed965ea15b40e1128a">toy::CStringView::find</a></div><div class="ttdeci">constexpr std::size_t find(const stringType &amp;string, std::size_t position=0) const noexcept</div><div class="ttdoc">Finds the first occurrence of a StringLike object in the string view.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:128</div></div>
@@ -259,7 +260,7 @@ $(function(){initNavTree('d4/dc0/constexpr__utils_8hpp_source.html','../../','')
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_a658906675b5aa3a95cc0b071bf0286e8"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a658906675b5aa3a95cc0b071bf0286e8">toy::CStringView::find</a></div><div class="ttdeci">constexpr std::size_t find(const char *string, std::size_t position=0) const noexcept</div><div class="ttdoc">Finds the first occurrence of the C string in the string view.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:132</div></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_a65ca67f3828e8129c0022f9102b96b5c"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a65ca67f3828e8129c0022f9102b96b5c">toy::CStringView::max_size</a></div><div class="ttdeci">constexpr std::size_t max_size() const noexcept</div><div class="ttdoc">Returns the maximum observable size of this string view.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:110</div></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_a690dc08abeb1cd6ffc0a81e14d5703f2"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a690dc08abeb1cd6ffc0a81e14d5703f2">toy::CStringView::starts_with</a></div><div class="ttdeci">constexpr bool starts_with(const stringType &amp;string) const noexcept</div><div class="ttdoc">Checks if the string view starts with a StringLike object.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:219</div></div>
-<div class="ttc" id="aclasstoy_1_1_c_string_view_html_a7108b5e4d794ae1a3458b37081379c6c"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a7108b5e4d794ae1a3458b37081379c6c">toy::CStringView::npos</a></div><div class="ttdeci">static constexpr std::size_t npos</div><div class="ttdoc">The special value, its exact meaning depends on the context.</div><div class="ttdef"><b>Definition</b> c_string_view.hpp:508</div></div>
+<div class="ttc" id="aclasstoy_1_1_c_string_view_html_a7108b5e4d794ae1a3458b37081379c6c"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a7108b5e4d794ae1a3458b37081379c6c">toy::CStringView::npos</a></div><div class="ttdeci">static constexpr std::size_t npos</div><div class="ttdoc">The special value, its exact meaning depends on the context.</div><div class="ttdef"><b>Definition</b> c_string_view.hpp:518</div></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_a74fd427671ff6309013227005d307d86"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a74fd427671ff6309013227005d307d86">toy::CStringView::~CStringView</a></div><div class="ttdeci">constexpr ~CStringView() noexcept=default</div><div class="ttdoc">Destructor for the string view.</div></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_a755ddffa1d723da2ad12d3516b309759"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a755ddffa1d723da2ad12d3516b309759">toy::CStringView::find_first_not_of</a></div><div class="ttdeci">constexpr std::size_t find_first_not_of(char character, std::size_t position=0) const noexcept</div><div class="ttdoc">Finds the first occurrence of any character not equal to the specified character.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:175</div></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_a76f8fcc30b75fa98f938628f62fbe5fd"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a76f8fcc30b75fa98f938628f62fbe5fd">toy::CStringView::find_last_of</a></div><div class="ttdeci">constexpr std::size_t find_last_of(const char *string, std::size_t position=npos) const noexcept</div><div class="ttdoc">Finds the last occurrence of any character from the C string.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:184</div></div>

@@ -584,7 +584,7 @@ template&lt;typename T, std::size_t N&gt; </div>
   <table class="params">
     <tr><td class="paramname">src</td><td>The source data to calculate CRC-16 for. </td></tr>
     <tr><td class="paramname">size</td><td>The size of the data in bytes. </td></tr>
-    <tr><td class="paramname">crc</td><td>The initial CRC value.</td></tr>
+    <tr><td class="paramname">crc</td><td>The initial CRC value (default: <code>0x0000</code>).</td></tr>
   </table>
   </dd>
 </dl>
@@ -596,7 +596,7 @@ The <em class="arg">size</em> must be valid for the data pointed to by <em class
 <dd>
 The function is noexcept and does not throw exceptions. </dd>
 <dd>
-For empty data (size = 0), the function returns the initial CRC value.</dd></dl>
+For empty data (size = <code>0</code>), the function returns the initial CRC value.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://en.wikipedia.org/wiki/Cyclic_redundancy_check">https://en.wikipedia.org/wiki/Cyclic_redundancy_check</a> </dd>
 <dd>
 <a href="https://reveng.sourceforge.io/crc-catalogue/16.htm#crc.cat.crc-16-arc">https://reveng.sourceforge.io/crc-catalogue/16.htm#crc.cat.crc-16-arc</a> </dd></dl>
@@ -649,7 +649,7 @@ For empty data (size = 0), the function returns the initial CRC value.</dd></dl>
   <table class="params">
     <tr><td class="paramname">src</td><td>The source data to calculate CRC-32 for. </td></tr>
     <tr><td class="paramname">size</td><td>The size of the data in bytes. </td></tr>
-    <tr><td class="paramname">crc</td><td>The initial CRC value.</td></tr>
+    <tr><td class="paramname">crc</td><td>The initial CRC value (default: <code>0x00000000</code>).</td></tr>
   </table>
   </dd>
 </dl>
@@ -661,7 +661,7 @@ The <em class="arg">size</em> must be valid for the data pointed to by <em class
 <dd>
 The function is noexcept and does not throw exceptions. </dd>
 <dd>
-For empty data (size = 0), the function returns the initial CRC value.</dd></dl>
+For empty data (size = <code>0</code>), the function returns the initial CRC value.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://en.wikipedia.org/wiki/Cyclic_redundancy_check">https://en.wikipedia.org/wiki/Cyclic_redundancy_check</a> </dd>
 <dd>
 <a href="https://reveng.sourceforge.io/crc-catalogue/17plus.htm#crc.cat-bits.32">https://reveng.sourceforge.io/crc-catalogue/17plus.htm#crc.cat-bits.32</a> </dd></dl>
@@ -706,7 +706,7 @@ For empty data (size = 0), the function returns the initial CRC value.</dd></dl>
   <table class="params">
     <tr><td class="paramname">src</td><td>The source data to calculate CRC-8 for. </td></tr>
     <tr><td class="paramname">size</td><td>The size of the data in bytes. </td></tr>
-    <tr><td class="paramname">crc</td><td>The initial CRC value.</td></tr>
+    <tr><td class="paramname">crc</td><td>The initial CRC value (default: <code>0x00</code>).</td></tr>
   </table>
   </dd>
 </dl>
@@ -718,7 +718,7 @@ The <em class="arg">size</em> must be valid for the data pointed to by <em class
 <dd>
 The function is noexcept and does not throw exceptions. </dd>
 <dd>
-For empty data (size = 0), the function returns the initial CRC value.</dd></dl>
+For empty data (size = <code>0</code>), the function returns the initial CRC value.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://en.wikipedia.org/wiki/Cyclic_redundancy_check">https://en.wikipedia.org/wiki/Cyclic_redundancy_check</a> </dd>
 <dd>
 <a href="https://reveng.sourceforge.io/crc-catalogue/1-15.htm#crc.cat-bits.8">https://reveng.sourceforge.io/crc-catalogue/1-15.htm#crc.cat-bits.8</a> </dd></dl>
@@ -818,7 +818,7 @@ The comparison stops at the first character that differs between the strings. </
 <dd>
 If one string is a prefix of another, the shorter string is considered lexicographically smaller. </dd>
 <dd>
-Return values are -1, 0, or 1 based on lexicographic order using unsigned char comparison; this differs from std::strcmp, which returns the arithmetic difference. </dd>
+Return values are -1, 0, or 1 (differs from std::strcmp which returns arithmetic difference). </dd>
 <dd>
 This function is constexpr-compatible and can be used in compile-time contexts.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd>std::strcmp </dd></dl>
@@ -856,15 +856,19 @@ This function is constexpr-compatible and can be used in compile-time contexts.<
 <p>This function searches for the first occurrence of any character from the <em class="arg">accept</em> string within the <em class="arg">str</em> string. The search is performed character by character from the beginning and returns a pointer to the first character found that matches any character in the accept set, or nullptr if no character from the accept set is found. This function is designed to be constexpr-compatible and provides the same behavior as std::strpbrk but can be evaluated at compile time.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">str</td><td>The C string to search in. Must be null-terminated. </td></tr>
-    <tr><td class="paramname">accept</td><td>The C string containing the set of characters to search for. Must be null-terminated.</td></tr>
+    <tr><td class="paramname">str</td><td>The C string to search in. </td></tr>
+    <tr><td class="paramname">accept</td><td>The C string containing the set of characters to search for.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A pointer to the first character in <em class="arg">str</em> that matches any character in <em class="arg">accept</em>, or nullptr if no character from the accept set is found.</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">str</em> pointer must not be null. </dd>
 <dd>
-The <em class="arg">accept</em> pointer must not be null.</dd></dl>
+The <em class="arg">accept</em> pointer must not be null. </dd>
+<dd>
+The <em class="arg">str</em> must be null-terminated. </dd>
+<dd>
+The <em class="arg">accept</em> must be null-terminated.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd>
 <dd>
 The function searches from the beginning of <em class="arg">str</em> and returns the first match. </dd>
@@ -1674,7 +1678,7 @@ template&lt;std::size_t allocatedSize&gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A new <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="Template string class with fixed-size character buffer.">FixedString</a> object containing the concatenated result.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The result size will be the sum of both input sizes, must not exceed the allocated size. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Result size is sum of both input sizes, must not exceed allocated size. </dd></dl>
 
 </div>
 </div>
@@ -1717,15 +1721,14 @@ template&lt;std::size_t allocatedSize&gt; </div>
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">lhs</td><td>The left-hand side C-string (null-terminated). </td></tr>
+    <tr><td class="paramname">lhs</td><td>The left-hand side C-string. </td></tr>
     <tr><td class="paramname">rhs</td><td>The right-hand side <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="Template string class with fixed-size character buffer.">FixedString</a> object.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">lhs</em> C-string must not be null and must be null-terminated.</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>A new <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="Template string class with fixed-size character buffer.">FixedString</a> object containing the concatenated result.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The result size will be the sum of both input sizes, must not exceed the allocated size. </dd>
-<dd>
-The C-string must be null-terminated. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Result size is sum of both input sizes, must not exceed allocated size. </dd></dl>
 
 </div>
 </div>
@@ -1768,7 +1771,7 @@ template&lt;std::size_t allocatedSize&gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A new <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="Template string class with fixed-size character buffer.">FixedString</a> object containing the concatenated result.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The result size will be the sum of both input sizes, must not exceed the allocated size. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Result size is sum of both input sizes, must not exceed allocated size. </dd></dl>
 
 </div>
 </div>
@@ -1812,14 +1815,13 @@ template&lt;std::size_t allocatedSize&gt; </div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">lhs</td><td>The left-hand side <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="Template string class with fixed-size character buffer.">FixedString</a> object. </td></tr>
-    <tr><td class="paramname">rhs</td><td>The right-hand side C-string (null-terminated).</td></tr>
+    <tr><td class="paramname">rhs</td><td>The right-hand side C-string.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A new <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="Template string class with fixed-size character buffer.">FixedString</a> object containing the concatenated result.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The result size will be the sum of both input sizes, must not exceed the allocated size. </dd>
-<dd>
-The C-string must be null-terminated. </dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">rhs</em> C-string must not be null and must be null-terminated.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Result size is sum of both input sizes, must not exceed allocated size. </dd></dl>
 
 </div>
 </div>
@@ -1869,7 +1871,7 @@ template&lt;std::size_t allocatedSize, StringLike stringType&gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A new <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="Template string class with fixed-size character buffer.">FixedString</a> object containing the concatenated result.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The result size will be the sum of both input sizes, must not exceed the allocated size. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Result size is sum of both input sizes, must not exceed allocated size. </dd></dl>
 
 </div>
 </div>
@@ -1919,7 +1921,7 @@ template&lt;std::size_t allocatedSize1, std::size_t allocatedSize2&gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A new <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="Template string class with fixed-size character buffer.">FixedString</a> object containing the concatenated result.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The result size will be the sum of both input sizes, must not exceed the allocated size. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Result size is sum of both input sizes, must not exceed allocated size. </dd></dl>
 
 </div>
 </div>
@@ -1969,7 +1971,7 @@ template&lt;StringLike stringType, std::size_t allocatedSize&gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A new <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="Template string class with fixed-size character buffer.">FixedString</a> object containing the concatenated result.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The result size will be the sum of both input sizes, must not exceed the allocated size. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Result size is sum of both input sizes, must not exceed allocated size. </dd></dl>
 
 </div>
 </div>
@@ -3047,18 +3049,18 @@ Empty strings are considered equal.</dd></dl>
 </div><div class="memdoc">
 
 <p>Reverses a given C string in-place. </p>
-<p>This function reverses a given C string in-place by swapping characters from both ends towards the center. It can be used to reverse a string of a specified length, or to reverse a null-terminated string when count is 0.</p>
+<p>This function reverses a given C string in-place by swapping characters from both ends towards the center. It can be used to reverse a string of a specified length, or to reverse a null-terminated string when count is <code>0</code>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">str</td><td>A pointer to the C string to reverse. </td></tr>
-    <tr><td class="paramname">count</td><td>The length of the C string to reverse. If 0, the function determines the length automatically.</td></tr>
+    <tr><td class="paramname">count</td><td>The length of the C string to reverse (default: <code>0</code>).</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A pointer to the reversed C string (same as input pointer).</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The function modifies the original string directly. </dd>
 <dd>
-When count = 0, the function calls strlen() to determine the string length. </dd></dl>
+When count = <code>0</code>, the function calls strlen() to determine the string length. </dd></dl>
 
 </div>
 </div>
@@ -3150,7 +3152,7 @@ Invalid UTF-8 sequences cause the function to return 0. </dd></dl>
 The source C string must be a valid UTF-8 encoded string.</dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The destination string is null-terminated. </dd>
 <dd>
-The function returns nullptr on buffer overflow or invalid input.</dd></dl>
+The function returns <code>nullptr</code> on buffer overflow or invalid input.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Only BMP (≤ 0xFFFF) characters are supported by design; 4-byte UTF-8 sequences are not produced. </dd>
 <dd>
 This is an inline wrapper around the main utf8toWChar function. </dd>
@@ -3215,7 +3217,7 @@ The source C string must be a valid UTF-8 encoded string. </dd>
 The count parameter must be reasonable (typically ≤ source string length).</dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The destination string is null-terminated. </dd>
 <dd>
-The function returns nullptr on buffer overflow or invalid input.</dd></dl>
+The function returns <code>nullptr</code> on buffer overflow or invalid input.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Only BMP (≤ 0xFFFF) characters are supported by design; 4-byte UTF-8 sequences are not produced. </dd>
 <dd>
 The function handles UTF-8 validation and skips invalid sequences. </dd>
@@ -3280,7 +3282,7 @@ template&lt;StringLike stringType&gt; </div>
 The source <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object must provide UTF-8 encoded string data via c_str().</dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The destination string is null-terminated. </dd>
 <dd>
-The function returns nullptr on buffer overflow or invalid input.</dd></dl>
+The function returns <code>nullptr</code> on buffer overflow or invalid input.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Only BMP (≤ 0xFFFF) characters are supported by design; 4-byte UTF-8 sequences are not produced. </dd>
 <dd>
 This template works with std::string, <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="Template string class with fixed-size character buffer.">FixedString</a>, and other string-like types. </dd></dl>
@@ -3402,7 +3404,7 @@ The source C string must be a valid wide character string. </dd>
 The destination buffer size should account for potential UTF-8 expansion.</dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The destination string is null-terminated. </dd>
 <dd>
-The function returns nullptr on buffer overflow or invalid input.</dd></dl>
+The function returns <code>nullptr</code> on buffer overflow or invalid input.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The function handles wide character to UTF-8 conversion efficiently. </dd>
 <dd>
 UTF-8 sequences may require 1-3 bytes per wide character. </dd></dl>

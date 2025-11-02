@@ -183,7 +183,7 @@ $(function(){initNavTree('d7/d40/fixed__string_8inl_source.html','../../',''); }
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="../../d3/d7a/classtoy_1_1_fixed_string.html#a0160e6ffc7ab6ab9c16f72b81bd778a7">   61</a></span><span class="keyword">constexpr</span> FixedString&lt;allocatedSize&gt;::FixedString(<span class="keyword">const</span> <span class="keywordtype">char</span> * string) <span class="keyword">noexcept</span></div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>  : _data{}</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>  , _size(0) {</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>  assert_message(string != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string pointer must not be null&quot;</span>);</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>  assert_message(string != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string must not be null&quot;</span>);</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>  <span class="keywordflow">if</span> <span class="keyword">consteval</span> {</div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    _size = std::char_traits&lt;<span class="keywordtype">char</span>&gt;::length(string);</div>
@@ -254,7 +254,7 @@ $(function(){initNavTree('d7/d40/fixed__string_8inl_source.html','../../',''); }
 <div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>  <span class="keywordflow">if</span> (_data == string)</div>
 <div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
 <div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>  assert_message(string != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string pointer must not be null&quot;</span>);</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>  assert_message(string != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string must not be null&quot;</span>);</div>
 <div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
 <div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>  <span class="keywordflow">if</span> <span class="keyword">consteval</span> {</div>
 <div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    _size = std::char_traits&lt;<span class="keywordtype">char</span>&gt;::length(string);</div>
@@ -325,7 +325,7 @@ $(function(){initNavTree('d7/d40/fixed__string_8inl_source.html','../../',''); }
 <div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span><span class="keyword">template</span> &lt;std::size_t allocatedSize&gt;</div>
 <div class="foldopen" id="foldopen00189" data-start="{" data-end="}">
 <div class="line"><a id="l00189" name="l00189"></a><span class="lineno"><a class="line" href="../../d3/d7a/classtoy_1_1_fixed_string.html#a4e5b3632640e36750ef3a5d9308f361d">  189</a></span><span class="keyword">constexpr</span> FixedString&lt;allocatedSize&gt; &amp; FixedString&lt;allocatedSize&gt;::assign(<span class="keyword">const</span> <span class="keywordtype">char</span> * string) <span class="keyword">noexcept</span> {</div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>  assert_message(string != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string pointer must not be null&quot;</span>);</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>  assert_message(string != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string must not be null&quot;</span>);</div>
 <div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span> </div>
 <div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>  <span class="keywordflow">if</span> <span class="keyword">consteval</span> {</div>
 <div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>    _size = std::char_traits&lt;<span class="keywordtype">char</span>&gt;::length(string);</div>
@@ -529,7 +529,7 @@ $(function(){initNavTree('d7/d40/fixed__string_8inl_source.html','../../',''); }
 <div class="foldopen" id="foldopen00348" data-start="{" data-end="}">
 <div class="line"><a id="l00348" name="l00348"></a><span class="lineno"><a class="line" href="../../d3/d7a/classtoy_1_1_fixed_string.html#afd6420b021d180b334ca1cf3a8e8c663">  348</a></span><span class="keyword">constexpr</span> FixedString&lt;allocatedSize&gt; &amp; FixedString&lt;allocatedSize&gt;::insert(std::size_t index,</div>
 <div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>                                                                          <span class="keyword">const</span> <span class="keywordtype">char</span> * string) <span class="keyword">noexcept</span> {</div>
-<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>  assert_message(string != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string pointer must not be null&quot;</span>);</div>
+<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>  assert_message(string != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string must not be null&quot;</span>);</div>
 <div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span> </div>
 <div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>  std::size_t stringLen;</div>
 <div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>  <span class="keywordflow">if</span> <span class="keyword">consteval</span> {</div>
@@ -662,7 +662,7 @@ $(function(){initNavTree('d7/d40/fixed__string_8inl_source.html','../../',''); }
 <div class="foldopen" id="foldopen00465" data-start="{" data-end="}">
 <div class="line"><a id="l00465" name="l00465"></a><span class="lineno"><a class="line" href="../../d3/d7a/classtoy_1_1_fixed_string.html#a91164b48eea66fabbf553ec8563e741c">  465</a></span><span class="keyword">constexpr</span> FixedString&lt;allocatedSize&gt; &amp; FixedString&lt;allocatedSize&gt;::append(<span class="keyword">const</span> <span class="keywordtype">char</span> * string) <span class="keyword">noexcept</span> {</div>
 <div class="line"><a id="l00466" name="l00466"></a><span class="lineno">  466</span>  assert_message(_data != string, <span class="stringliteral">&quot;Cannot append string into itself&quot;</span>);</div>
-<div class="line"><a id="l00467" name="l00467"></a><span class="lineno">  467</span>  assert_message(string != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string pointer must not be null&quot;</span>);</div>
+<div class="line"><a id="l00467" name="l00467"></a><span class="lineno">  467</span>  assert_message(string != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string must not be null&quot;</span>);</div>
 <div class="line"><a id="l00468" name="l00468"></a><span class="lineno">  468</span> </div>
 <div class="line"><a id="l00469" name="l00469"></a><span class="lineno">  469</span>  std::size_t stringLen;</div>
 <div class="line"><a id="l00470" name="l00470"></a><span class="lineno">  470</span>  <span class="keywordflow">if</span> <span class="keyword">consteval</span> {</div>
@@ -724,7 +724,7 @@ $(function(){initNavTree('d7/d40/fixed__string_8inl_source.html','../../',''); }
 <div class="line"><a id="l00519" name="l00519"></a><span class="lineno">  519</span><span class="keyword">template</span> &lt;std::size_t allocatedSize&gt;</div>
 <div class="foldopen" id="foldopen00520" data-start="{" data-end="}">
 <div class="line"><a id="l00520" name="l00520"></a><span class="lineno"><a class="line" href="../../d3/d7a/classtoy_1_1_fixed_string.html#ad20802dd7b9d4680103006e107722fbf">  520</a></span><span class="keyword">constexpr</span> FixedString&lt;allocatedSize&gt; &amp; FixedString&lt;allocatedSize&gt;::operator+=(<span class="keyword">const</span> <span class="keywordtype">char</span> * string) <span class="keyword">noexcept</span> {</div>
-<div class="line"><a id="l00521" name="l00521"></a><span class="lineno">  521</span>  assert_message(string != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string pointer must not be null&quot;</span>);</div>
+<div class="line"><a id="l00521" name="l00521"></a><span class="lineno">  521</span>  assert_message(string != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string must not be null&quot;</span>);</div>
 <div class="line"><a id="l00522" name="l00522"></a><span class="lineno">  522</span> </div>
 <div class="line"><a id="l00523" name="l00523"></a><span class="lineno">  523</span>  std::size_t stringLen;</div>
 <div class="line"><a id="l00524" name="l00524"></a><span class="lineno">  524</span>  <span class="keywordflow">if</span> <span class="keyword">consteval</span> {</div>
@@ -777,7 +777,7 @@ $(function(){initNavTree('d7/d40/fixed__string_8inl_source.html','../../',''); }
 <div class="foldopen" id="foldopen00564" data-start="{" data-end="}">
 <div class="line"><a id="l00564" name="l00564"></a><span class="lineno"><a class="line" href="../../d3/d7a/classtoy_1_1_fixed_string.html#af17d624c0acb3117078c5769baad740e">  564</a></span><span class="keyword">constexpr</span> FixedString&lt;allocatedSize&gt; &amp; FixedString&lt;allocatedSize&gt;::replace(std::size_t pos, std::size_t count,</div>
 <div class="line"><a id="l00565" name="l00565"></a><span class="lineno">  565</span>                                                                           <span class="keyword">const</span> <span class="keywordtype">char</span> * string) <span class="keyword">noexcept</span> {</div>
-<div class="line"><a id="l00566" name="l00566"></a><span class="lineno">  566</span>  assert_message(string != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string pointer must not be null&quot;</span>);</div>
+<div class="line"><a id="l00566" name="l00566"></a><span class="lineno">  566</span>  assert_message(string != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string must not be null&quot;</span>);</div>
 <div class="line"><a id="l00567" name="l00567"></a><span class="lineno">  567</span> </div>
 <div class="line"><a id="l00568" name="l00568"></a><span class="lineno">  568</span>  std::size_t stringLen;</div>
 <div class="line"><a id="l00569" name="l00569"></a><span class="lineno">  569</span>  <span class="keywordflow">if</span> <span class="keyword">consteval</span> {</div>
@@ -899,7 +899,7 @@ $(function(){initNavTree('d7/d40/fixed__string_8inl_source.html','../../',''); }
 <div class="line"><a id="l00674" name="l00674"></a><span class="lineno">  674</span><span class="keyword">template</span> &lt;std::size_t allocatedSize&gt;</div>
 <div class="foldopen" id="foldopen00675" data-start="{" data-end="}">
 <div class="line"><a id="l00675" name="l00675"></a><span class="lineno"><a class="line" href="../../d3/d7a/classtoy_1_1_fixed_string.html#af9033ff91153c37f3bf3e9fc95277202">  675</a></span><span class="keyword">constexpr</span> std::size_t FixedString&lt;allocatedSize&gt;::find(<span class="keyword">const</span> <span class="keywordtype">char</span> * string, std::size_t position) <span class="keyword">const</span> <span class="keyword">noexcept</span> {</div>
-<div class="line"><a id="l00676" name="l00676"></a><span class="lineno">  676</span>  assert_message(string != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string pointer must not be null&quot;</span>);</div>
+<div class="line"><a id="l00676" name="l00676"></a><span class="lineno">  676</span>  assert_message(string != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string must not be null&quot;</span>);</div>
 <div class="line"><a id="l00677" name="l00677"></a><span class="lineno">  677</span> </div>
 <div class="line"><a id="l00678" name="l00678"></a><span class="lineno">  678</span>  std::size_t stringLen;</div>
 <div class="line"><a id="l00679" name="l00679"></a><span class="lineno">  679</span>  <span class="keywordflow">if</span> <span class="keyword">consteval</span> {</div>
@@ -939,7 +939,7 @@ $(function(){initNavTree('d7/d40/fixed__string_8inl_source.html','../../',''); }
 <div class="line"><a id="l00706" name="l00706"></a><span class="lineno">  706</span><span class="keyword">template</span> &lt;std::size_t allocatedSize&gt;</div>
 <div class="foldopen" id="foldopen00707" data-start="{" data-end="}">
 <div class="line"><a id="l00707" name="l00707"></a><span class="lineno"><a class="line" href="../../d3/d7a/classtoy_1_1_fixed_string.html#af8b9dc0d831adbed4dac60f98e251f7d">  707</a></span><span class="keyword">constexpr</span> std::size_t FixedString&lt;allocatedSize&gt;::rfind(<span class="keyword">const</span> <span class="keywordtype">char</span> * string, std::size_t position) <span class="keyword">const</span> <span class="keyword">noexcept</span> {</div>
-<div class="line"><a id="l00708" name="l00708"></a><span class="lineno">  708</span>  assert_message(string != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string pointer must not be null&quot;</span>);</div>
+<div class="line"><a id="l00708" name="l00708"></a><span class="lineno">  708</span>  assert_message(string != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string must not be null&quot;</span>);</div>
 <div class="line"><a id="l00709" name="l00709"></a><span class="lineno">  709</span> </div>
 <div class="line"><a id="l00710" name="l00710"></a><span class="lineno">  710</span>  std::size_t stringLen;</div>
 <div class="line"><a id="l00711" name="l00711"></a><span class="lineno">  711</span>  <span class="keywordflow">if</span> <span class="keyword">consteval</span> {</div>
@@ -980,7 +980,7 @@ $(function(){initNavTree('d7/d40/fixed__string_8inl_source.html','../../',''); }
 <div class="foldopen" id="foldopen00739" data-start="{" data-end="}">
 <div class="line"><a id="l00739" name="l00739"></a><span class="lineno"><a class="line" href="../../d3/d7a/classtoy_1_1_fixed_string.html#acdb0b3f4d40fe01b0f306182d502a68f">  739</a></span><span class="keyword">constexpr</span> std::size_t FixedString&lt;allocatedSize&gt;::find_first_of(<span class="keyword">const</span> <span class="keywordtype">char</span> * string,</div>
 <div class="line"><a id="l00740" name="l00740"></a><span class="lineno">  740</span>                                                                std::size_t position) <span class="keyword">const</span> <span class="keyword">noexcept</span> {</div>
-<div class="line"><a id="l00741" name="l00741"></a><span class="lineno">  741</span>  assert_message(string != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string pointer must not be null&quot;</span>);</div>
+<div class="line"><a id="l00741" name="l00741"></a><span class="lineno">  741</span>  assert_message(string != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string must not be null&quot;</span>);</div>
 <div class="line"><a id="l00742" name="l00742"></a><span class="lineno">  742</span> </div>
 <div class="line"><a id="l00743" name="l00743"></a><span class="lineno">  743</span>  std::size_t stringLen;</div>
 <div class="line"><a id="l00744" name="l00744"></a><span class="lineno">  744</span>  <span class="keywordflow">if</span> <span class="keyword">consteval</span> {</div>
@@ -1021,7 +1021,7 @@ $(function(){initNavTree('d7/d40/fixed__string_8inl_source.html','../../',''); }
 <div class="foldopen" id="foldopen00772" data-start="{" data-end="}">
 <div class="line"><a id="l00772" name="l00772"></a><span class="lineno"><a class="line" href="../../d3/d7a/classtoy_1_1_fixed_string.html#a3f52d824c28af82070a5ff54f8983869">  772</a></span><span class="keyword">constexpr</span> std::size_t FixedString&lt;allocatedSize&gt;::find_first_not_of(<span class="keyword">const</span> <span class="keywordtype">char</span> * string,</div>
 <div class="line"><a id="l00773" name="l00773"></a><span class="lineno">  773</span>                                                                    std::size_t position) <span class="keyword">const</span> <span class="keyword">noexcept</span> {</div>
-<div class="line"><a id="l00774" name="l00774"></a><span class="lineno">  774</span>  assert_message(string != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string pointer must not be null&quot;</span>);</div>
+<div class="line"><a id="l00774" name="l00774"></a><span class="lineno">  774</span>  assert_message(string != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string must not be null&quot;</span>);</div>
 <div class="line"><a id="l00775" name="l00775"></a><span class="lineno">  775</span> </div>
 <div class="line"><a id="l00776" name="l00776"></a><span class="lineno">  776</span>  std::size_t stringLen;</div>
 <div class="line"><a id="l00777" name="l00777"></a><span class="lineno">  777</span>  <span class="keywordflow">if</span> <span class="keyword">consteval</span> {</div>
@@ -1063,7 +1063,7 @@ $(function(){initNavTree('d7/d40/fixed__string_8inl_source.html','../../',''); }
 <div class="foldopen" id="foldopen00806" data-start="{" data-end="}">
 <div class="line"><a id="l00806" name="l00806"></a><span class="lineno"><a class="line" href="../../d3/d7a/classtoy_1_1_fixed_string.html#a3d6aee7816098fda10cce4f83f24b5a8">  806</a></span><span class="keyword">constexpr</span> std::size_t FixedString&lt;allocatedSize&gt;::find_last_of(<span class="keyword">const</span> <span class="keywordtype">char</span> * string,</div>
 <div class="line"><a id="l00807" name="l00807"></a><span class="lineno">  807</span>                                                               std::size_t position) <span class="keyword">const</span> <span class="keyword">noexcept</span> {</div>
-<div class="line"><a id="l00808" name="l00808"></a><span class="lineno">  808</span>  assert_message(string != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string pointer must not be null&quot;</span>);</div>
+<div class="line"><a id="l00808" name="l00808"></a><span class="lineno">  808</span>  assert_message(string != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string must not be null&quot;</span>);</div>
 <div class="line"><a id="l00809" name="l00809"></a><span class="lineno">  809</span> </div>
 <div class="line"><a id="l00810" name="l00810"></a><span class="lineno">  810</span>  std::size_t stringLen;</div>
 <div class="line"><a id="l00811" name="l00811"></a><span class="lineno">  811</span>  <span class="keywordflow">if</span> <span class="keyword">consteval</span> {</div>
@@ -1104,7 +1104,7 @@ $(function(){initNavTree('d7/d40/fixed__string_8inl_source.html','../../',''); }
 <div class="foldopen" id="foldopen00839" data-start="{" data-end="}">
 <div class="line"><a id="l00839" name="l00839"></a><span class="lineno"><a class="line" href="../../d3/d7a/classtoy_1_1_fixed_string.html#af6d2cbce5fe3b7041d2a19469e1dc476">  839</a></span><span class="keyword">constexpr</span> std::size_t FixedString&lt;allocatedSize&gt;::find_last_not_of(<span class="keyword">const</span> <span class="keywordtype">char</span> * string,</div>
 <div class="line"><a id="l00840" name="l00840"></a><span class="lineno">  840</span>                                                                   std::size_t position) <span class="keyword">const</span> <span class="keyword">noexcept</span> {</div>
-<div class="line"><a id="l00841" name="l00841"></a><span class="lineno">  841</span>  assert_message(string != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string pointer must not be null&quot;</span>);</div>
+<div class="line"><a id="l00841" name="l00841"></a><span class="lineno">  841</span>  assert_message(string != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string must not be null&quot;</span>);</div>
 <div class="line"><a id="l00842" name="l00842"></a><span class="lineno">  842</span> </div>
 <div class="line"><a id="l00843" name="l00843"></a><span class="lineno">  843</span>  std::size_t stringLen;</div>
 <div class="line"><a id="l00844" name="l00844"></a><span class="lineno">  844</span>  <span class="keywordflow">if</span> <span class="keyword">consteval</span> {</div>
@@ -1151,7 +1151,7 @@ $(function(){initNavTree('d7/d40/fixed__string_8inl_source.html','../../',''); }
 <div class="line"><a id="l00878" name="l00878"></a><span class="lineno">  878</span><span class="keyword">template</span> &lt;std::size_t allocatedSize&gt;</div>
 <div class="foldopen" id="foldopen00879" data-start="{" data-end="}">
 <div class="line"><a id="l00879" name="l00879"></a><span class="lineno"><a class="line" href="../../d3/d7a/classtoy_1_1_fixed_string.html#ac508cd66afefabd2c181ba1987896449">  879</a></span><span class="keyword">constexpr</span> <span class="keywordtype">int</span> FixedString&lt;allocatedSize&gt;::compare(<span class="keyword">const</span> <span class="keywordtype">char</span> * string) <span class="keyword">const</span> <span class="keyword">noexcept</span> {</div>
-<div class="line"><a id="l00880" name="l00880"></a><span class="lineno">  880</span>  assert_message(string != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string pointer must not be null&quot;</span>);</div>
+<div class="line"><a id="l00880" name="l00880"></a><span class="lineno">  880</span>  assert_message(string != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string must not be null&quot;</span>);</div>
 <div class="line"><a id="l00881" name="l00881"></a><span class="lineno">  881</span> </div>
 <div class="line"><a id="l00882" name="l00882"></a><span class="lineno">  882</span>  <span class="keywordflow">if</span> <span class="keyword">consteval</span> {</div>
 <div class="line"><a id="l00883" name="l00883"></a><span class="lineno">  883</span>    <span class="keywordflow">return</span> cstrcmp(_data, string);</div>
@@ -1191,7 +1191,7 @@ $(function(){initNavTree('d7/d40/fixed__string_8inl_source.html','../../',''); }
 <div class="line"><a id="l00912" name="l00912"></a><span class="lineno">  912</span><span class="keyword">template</span> &lt;std::size_t allocatedSize&gt;</div>
 <div class="foldopen" id="foldopen00913" data-start="{" data-end="}">
 <div class="line"><a id="l00913" name="l00913"></a><span class="lineno"><a class="line" href="../../d3/d7a/classtoy_1_1_fixed_string.html#ac1fa1fe5dd1b7b4a923886b0544f4250">  913</a></span><span class="keyword">constexpr</span> <span class="keywordtype">bool</span> FixedString&lt;allocatedSize&gt;::starts_with(<span class="keyword">const</span> <span class="keywordtype">char</span> * string) <span class="keyword">const</span> <span class="keyword">noexcept</span> {</div>
-<div class="line"><a id="l00914" name="l00914"></a><span class="lineno">  914</span>  assert_message(string != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string pointer must not be null&quot;</span>);</div>
+<div class="line"><a id="l00914" name="l00914"></a><span class="lineno">  914</span>  assert_message(string != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string must not be null&quot;</span>);</div>
 <div class="line"><a id="l00915" name="l00915"></a><span class="lineno">  915</span> </div>
 <div class="line"><a id="l00916" name="l00916"></a><span class="lineno">  916</span>  std::size_t needleSize;</div>
 <div class="line"><a id="l00917" name="l00917"></a><span class="lineno">  917</span>  <span class="keywordflow">if</span> <span class="keyword">consteval</span> {</div>
@@ -1243,7 +1243,7 @@ $(function(){initNavTree('d7/d40/fixed__string_8inl_source.html','../../',''); }
 <div class="line"><a id="l00956" name="l00956"></a><span class="lineno">  956</span><span class="keyword">template</span> &lt;std::size_t allocatedSize&gt;</div>
 <div class="foldopen" id="foldopen00957" data-start="{" data-end="}">
 <div class="line"><a id="l00957" name="l00957"></a><span class="lineno"><a class="line" href="../../d3/d7a/classtoy_1_1_fixed_string.html#aa442f696f1a0a91c15d1f1db45a41abb">  957</a></span><span class="keyword">constexpr</span> <span class="keywordtype">bool</span> FixedString&lt;allocatedSize&gt;::ends_with(<span class="keyword">const</span> <span class="keywordtype">char</span> * string) <span class="keyword">const</span> <span class="keyword">noexcept</span> {</div>
-<div class="line"><a id="l00958" name="l00958"></a><span class="lineno">  958</span>  assert_message(string != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string pointer must not be null&quot;</span>);</div>
+<div class="line"><a id="l00958" name="l00958"></a><span class="lineno">  958</span>  assert_message(string != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string must not be null&quot;</span>);</div>
 <div class="line"><a id="l00959" name="l00959"></a><span class="lineno">  959</span> </div>
 <div class="line"><a id="l00960" name="l00960"></a><span class="lineno">  960</span>  std::size_t needleSize;</div>
 <div class="line"><a id="l00961" name="l00961"></a><span class="lineno">  961</span>  <span class="keywordflow">if</span> <span class="keyword">consteval</span> {</div>
@@ -1296,7 +1296,7 @@ $(function(){initNavTree('d7/d40/fixed__string_8inl_source.html','../../',''); }
 <div class="line"><a id="l01001" name="l01001"></a><span class="lineno"> 1001</span><span class="keyword">template</span> &lt;std::size_t allocatedSize&gt;</div>
 <div class="foldopen" id="foldopen01002" data-start="{" data-end="}">
 <div class="line"><a id="l01002" name="l01002"></a><span class="lineno"><a class="line" href="../../d3/d7a/classtoy_1_1_fixed_string.html#afad7817c5f37198671e098cd67ade423"> 1002</a></span><span class="keyword">constexpr</span> <span class="keywordtype">bool</span> FixedString&lt;allocatedSize&gt;::contains(<span class="keyword">const</span> <span class="keywordtype">char</span> * string) <span class="keyword">const</span> <span class="keyword">noexcept</span> {</div>
-<div class="line"><a id="l01003" name="l01003"></a><span class="lineno"> 1003</span>  assert_message(string != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string pointer must not be null&quot;</span>);</div>
+<div class="line"><a id="l01003" name="l01003"></a><span class="lineno"> 1003</span>  assert_message(string != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string must not be null&quot;</span>);</div>
 <div class="line"><a id="l01004" name="l01004"></a><span class="lineno"> 1004</span> </div>
 <div class="line"><a id="l01005" name="l01005"></a><span class="lineno"> 1005</span>  <span class="keywordflow">if</span> <span class="keyword">consteval</span> {</div>
 <div class="line"><a id="l01006" name="l01006"></a><span class="lineno"> 1006</span>    <span class="keywordflow">return</span> cstrstr(_data, string) != <span class="keywordtype">nullptr</span>;</div>
@@ -1760,7 +1760,7 @@ $(function(){initNavTree('d7/d40/fixed__string_8inl_source.html','../../',''); }
 <div class="line"><a id="l01421" name="l01421"></a><span class="lineno"> 1421</span><span class="keyword">template</span> &lt;std::size_t allocatedSize&gt;</div>
 <div class="foldopen" id="foldopen01422" data-start="{" data-end="}">
 <div class="line"><a id="l01422" name="l01422"></a><span class="lineno"><a class="line" href="../../d4/da9/namespacetoy.html#a6e7299d83e4f5d41d4951f84a44abdf4"> 1422</a></span><span class="keyword">constexpr</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../d4/da9/namespacetoy.html#a6e7299d83e4f5d41d4951f84a44abdf4">operator</a>==(<span class="keyword">const</span> FixedString&lt;allocatedSize&gt; &amp; lhs, <span class="keyword">const</span> <span class="keywordtype">char</span> * rhs) <span class="keyword">noexcept</span> {</div>
-<div class="line"><a id="l01423" name="l01423"></a><span class="lineno"> 1423</span>  assert_message(rhs != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string pointer must not be null&quot;</span>);</div>
+<div class="line"><a id="l01423" name="l01423"></a><span class="lineno"> 1423</span>  assert_message(rhs != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string must not be null&quot;</span>);</div>
 <div class="line"><a id="l01424" name="l01424"></a><span class="lineno"> 1424</span> </div>
 <div class="line"><a id="l01425" name="l01425"></a><span class="lineno"> 1425</span>  <span class="keywordflow">if</span> (lhs.empty())</div>
 <div class="line"><a id="l01426" name="l01426"></a><span class="lineno"> 1426</span>    <span class="keywordflow">return</span> *rhs == <span class="stringliteral">&#39;\0&#39;</span>;</div>
@@ -1858,7 +1858,7 @@ $(function(){initNavTree('d7/d40/fixed__string_8inl_source.html','../../',''); }
 <div class="line"><a id="l01509" name="l01509"></a><span class="lineno"> 1509</span><span class="keyword">template</span> &lt;std::size_t allocatedSize&gt;</div>
 <div class="foldopen" id="foldopen01510" data-start="{" data-end="}">
 <div class="line"><a id="l01510" name="l01510"></a><span class="lineno"><a class="line" href="../../d4/da9/namespacetoy.html#a46515295e8eafc3e748d0c02ad5ecd70"> 1510</a></span><span class="keyword">constexpr</span> <a class="code hl_function" href="../../d4/da9/namespacetoy.html#a46515295e8eafc3e748d0c02ad5ecd70">std</a>::<a class="code hl_function" href="../../d4/da9/namespacetoy.html#a46515295e8eafc3e748d0c02ad5ecd70">strong_ordering</a> <a class="code hl_function" href="../../d4/da9/namespacetoy.html#a46515295e8eafc3e748d0c02ad5ecd70">operator</a>&lt;=&gt;(<span class="keyword">const</span> FixedString&lt;allocatedSize&gt; &amp; lhs, <span class="keyword">const</span> <span class="keywordtype">char</span> * rhs) <span class="keyword">noexcept</span> {</div>
-<div class="line"><a id="l01511" name="l01511"></a><span class="lineno"> 1511</span>  assert_message(rhs != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string pointer must not be null&quot;</span>);</div>
+<div class="line"><a id="l01511" name="l01511"></a><span class="lineno"> 1511</span>  assert_message(rhs != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string must not be null&quot;</span>);</div>
 <div class="line"><a id="l01512" name="l01512"></a><span class="lineno"> 1512</span> </div>
 <div class="line"><a id="l01513" name="l01513"></a><span class="lineno"> 1513</span>  <span class="keywordflow">if</span> (lhs.empty() &amp;&amp; *rhs == <span class="stringliteral">&#39;\0&#39;</span>)</div>
 <div class="line"><a id="l01514" name="l01514"></a><span class="lineno"> 1514</span>    <span class="keywordflow">return</span> std::strong_ordering::equal;</div>
@@ -1892,7 +1892,7 @@ $(function(){initNavTree('d7/d40/fixed__string_8inl_source.html','../../',''); }
 <div class="line"><a id="l01541" name="l01541"></a><span class="lineno"> 1541</span><span class="keyword">template</span> &lt;std::size_t allocatedSize&gt;</div>
 <div class="foldopen" id="foldopen01542" data-start="{" data-end="}">
 <div class="line"><a id="l01542" name="l01542"></a><span class="lineno"><a class="line" href="../../d4/da9/namespacetoy.html#a876dcc65c97b11b3e32289867cd11a56"> 1542</a></span><span class="keyword">constexpr</span> <a class="code hl_function" href="../../d4/da9/namespacetoy.html#a876dcc65c97b11b3e32289867cd11a56">std</a>::<a class="code hl_function" href="../../d4/da9/namespacetoy.html#a876dcc65c97b11b3e32289867cd11a56">strong_ordering</a> <a class="code hl_function" href="../../d4/da9/namespacetoy.html#a876dcc65c97b11b3e32289867cd11a56">operator</a>&lt;=&gt;(<span class="keyword">const</span> <span class="keywordtype">char</span> * lhs, <span class="keyword">const</span> FixedString&lt;allocatedSize&gt; &amp; rhs) <span class="keyword">noexcept</span> {</div>
-<div class="line"><a id="l01543" name="l01543"></a><span class="lineno"> 1543</span>  assert_message(lhs != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string pointer must not be null&quot;</span>);</div>
+<div class="line"><a id="l01543" name="l01543"></a><span class="lineno"> 1543</span>  assert_message(lhs != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;C string must not be null&quot;</span>);</div>
 <div class="line"><a id="l01544" name="l01544"></a><span class="lineno"> 1544</span> </div>
 <div class="line"><a id="l01545" name="l01545"></a><span class="lineno"> 1545</span>  <span class="keywordflow">return</span> 0 &lt;=&gt; (rhs &lt;=&gt; lhs);</div>
 <div class="line"><a id="l01546" name="l01546"></a><span class="lineno"> 1546</span>}</div>

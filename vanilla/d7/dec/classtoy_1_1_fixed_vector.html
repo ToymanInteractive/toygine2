@@ -518,7 +518,7 @@ template&lt;typename type, std::size_t allocatedSize&gt; </div>
 <p>This constructor creates a <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a> containing <em class="arg">count</em> elements, each initialized with the default value of type.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">count</td><td>The number of elements to create. Must not exceed the allocated capacity.</td></tr>
+    <tr><td class="paramname">count</td><td>The number of elements to create.</td></tr>
   </table>
   </dd>
 </dl>
@@ -562,7 +562,7 @@ template&lt;typename type, std::size_t allocatedSize&gt; </div>
 <p>This constructor creates a <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a> containing <em class="arg">count</em> elements, each initialized with the specified <em class="arg">value</em>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">count</td><td>The number of elements to create. Must not exceed the allocated capacity. </td></tr>
+    <tr><td class="paramname">count</td><td>The number of elements to create. </td></tr>
     <tr><td class="paramname">value</td><td>The value to initialize all elements with.</td></tr>
   </table>
   </dd>
@@ -613,7 +613,7 @@ requires (!std::is_integral_v&lt;InputIterator&gt;)</div>
 <p>This constructor initializes a <a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a> with elements from the range [ <em class="arg">first</em>, <em class="arg">last</em> ).</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">InputIterator</td><td>The type of the input iterator.</td></tr>
+    <tr><td class="paramname">InputIterator</td><td>The type of the input iterator. Must not be an integral type.</td></tr>
   </table>
   </dd>
 </dl>
@@ -887,7 +887,7 @@ requires (!std::is_integral_v&lt;InputIterator&gt;)</div>
 <p>This method replaces the current contents of the vector with elements from the range [ <em class="arg">first</em>, <em class="arg">last</em> ).</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">InputIterator</td><td>The type of the input iterator.</td></tr>
+    <tr><td class="paramname">InputIterator</td><td>The type of the input iterator. Must not be an integral type.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1377,7 +1377,7 @@ template&lt;typename type, std::size_t allocatedSize&gt; </div>
 
 <p>Removes all elements from the vector. </p>
 <p>This method destroys all elements currently stored in the vector and sets the size to zero. The vector can be reused after clearing.</p>
-<dl class="section post"><dt>Postcondition</dt><dd>The vector is empty (size is 0). </dd>
+<dl class="section post"><dt>Postcondition</dt><dd>The vector is empty (size is <code>0</code>). </dd>
 <dd>
 All elements are properly destroyed.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This method properly destroys each element (destructor calls are optimized away for trivially destructible types). </dd>
@@ -1577,10 +1577,10 @@ template&lt;typename type, std::size_t allocatedSize&gt; </div>
 
 <p>Checks if the vector is empty. </p>
 <p>This method returns whether the vector contains any elements.</p>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the vector is empty (size is 0), <code>false</code> otherwise.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the vector is empty (size is <code>0</code>), <code>false</code> otherwise.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This method provides a convenient way to check if the vector has no elements. </dd>
 <dd>
-Equivalent to <em class="arg"><a class="el" href="#a4b06d64f626a2130dae81662061f1488" title="Returns the number of elements currently stored in the vector.">size()</a></em> == 0.</dd></dl>
+Equivalent to <span class="tt"><a class="el" href="#a4b06d64f626a2130dae81662061f1488" title="Returns the number of elements currently stored in the vector.">size()</a> == 0</span>.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#a4b06d64f626a2130dae81662061f1488" title="Returns the number of elements currently stored in the vector.">size()</a> </dd></dl>
 
 </div>
@@ -2297,7 +2297,7 @@ template&lt;typename type, std::size_t allocatedSize&gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>The number of elements in the vector.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The size is always less than or equal to the capacity. </dd>
 <dd>
-For an empty vector, this method returns 0.</dd></dl>
+For an empty vector, this method returns <code>0</code>.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#a0fc22ea0d90028f12998680b66e146c6" title="Returns the maximum number of elements that can be stored in the vector.">capacity()</a> </dd>
 <dd>
 <a class="el" href="#a593a03b30ed1bcde725c425eb2e17763" title="Checks if the vector is empty.">empty()</a> </dd></dl>
