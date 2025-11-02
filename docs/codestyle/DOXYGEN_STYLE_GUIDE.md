@@ -101,7 +101,7 @@ Class documentation should follow this structure:
   \section features Key Features
 
   - ⚙️ **Zero Dynamic Allocation**: All memory is allocated on the stack at compile time
-  - 🔧 **constexpr Support**: Most operations can be evaluated at compile time
+  - 🔧 **ConstExpr Support**: Most operations can be evaluated at compile time
   - 🛡️ **Exception Safety**: All operations are noexcept
 
   \section usage Usage Example

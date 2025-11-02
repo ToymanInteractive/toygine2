@@ -38,7 +38,7 @@ namespace toy::app {
   \section features Key Features
 
   - ⚙️ **Semantic Versioning**: Follows major.minor.maintenance.revision format
-  - 🔧 **constexpr Support**: All operations can be evaluated at compile time
+  - 🔧 **ConstExpr Support**: All operations can be evaluated at compile time
   - 🛡️ **Exception Safety**: All operations are noexcept
   - 🔗 **Simple Structure**: Plain struct with public members for easy access
   - 🎯 **Version Management**: Designed for application version tracking

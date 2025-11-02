@@ -19,7 +19,7 @@
 //
 /*!
   \file   callbacks_pool.inl
-  \brief  TODO
+  \brief  Inline implementations for template callback pool class with fixed-size callback storage.
 */
 
 #ifndef INCLUDE_CORE_CALLBACKS_POOL_INL_

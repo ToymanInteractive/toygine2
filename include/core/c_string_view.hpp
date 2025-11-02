@@ -42,7 +42,7 @@ namespace toy {
   \section features Key Features
 
   - ⚙️ **Zero Allocation**: No dynamic memory allocation, only holds a pointer
-  - 🔧 **constexpr Support**: Most operations can be evaluated at compile time
+  - 🔧 **ConstExpr Support**: Most operations can be evaluated at compile time
   - 🛡️ **Exception Safety**: All operations are noexcept
   - 🔗 **STL Compatibility**: Provides std::string_view/std::string like interface
   - 🌍 **UTF-8 Support**: Built-in UTF-8 character counting and manipulation

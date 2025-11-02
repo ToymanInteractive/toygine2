@@ -241,7 +241,7 @@ Used for simple classes that do not require a `compatibility` section (e.g., `Ve
 
   \section features Key Features
 
-  - 🔧 **constexpr Support**: Most operations can be evaluated at compile time
+  - 🔧 **ConstExpr Support**: Most operations can be evaluated at compile time
   - 🛡️ **Exception Safety**: All operations are noexcept
   - 🎯 **Optimized**: Designed specifically for [specific application]
   - 🧬 **Type Safety**: Strong typing with clear [semantics]
