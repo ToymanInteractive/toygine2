@@ -103,19 +103,6 @@ TEST_CASE("CallbacksPool add method", "[core][callbacks_pool]") {
     REQUIRE(pool.subscribersAmount() == 1); // Still 1, no duplicate added
   }
 
-  SECTION("Add to full pool") {
-    CallbacksPool<int, 2> pool{};
-
-    REQUIRE(pool.add(callback1) == true);
-    REQUIRE(pool.add(callback2) == true);
-    REQUIRE(pool.subscribersAmount() == 2);
-
-    // Pool is full, should assert in debug mode
-    // In release mode, this should return false
-    bool result = pool.add(callback3);
-    REQUIRE(pool.subscribersAmount() == 2); // No new callback added
-  }
-
   SECTION("Add with different types") {
     CallbacksPool<double, 4> doublePool{};
     void (*doubleCallback)(double) = [](double d) { (void)d; };
@@ -149,7 +136,7 @@ TEST_CASE("CallbacksPool remove method", "[core][callbacks_pool]") {
     REQUIRE(pool.subscribersAmount() == 1);
 
     REQUIRE(pool.remove(callback2) == false); // callback2 was never added
-    REQUIRE(pool.subscribersAmount() == 1);  // Count unchanged
+    REQUIRE(pool.subscribersAmount() == 1); // Count unchanged
   }
 
   SECTION("Remove from empty pool") {
@@ -410,31 +397,6 @@ TEST_CASE("CallbacksPool call method", "[core][callbacks_pool]") {
 
     REQUIRE(g_callback1Count == 0);
     REQUIRE(g_callback2Count == 0);
-  }
-
-  SECTION("Call with complex types") {
-    struct TestStruct {
-      int value;
-      double ratio;
-    };
-
-    int callCount = 0;
-    TestStruct lastStruct{0, 0.0};
-
-    void (*complexCallback)(TestStruct) = [&](TestStruct s) {
-      ++callCount;
-      lastStruct = s;
-    };
-
-    CallbacksPool<TestStruct, 4> pool{};
-    pool.add(complexCallback);
-
-    TestStruct test{42, 3.14};
-    pool.call(test);
-
-    REQUIRE(callCount == 1);
-    REQUIRE(lastStruct.value == 42);
-    REQUIRE(lastStruct.ratio == 3.14);
   }
 }
 

@@ -80,10 +80,11 @@ namespace toy {
   \section performance Performance Characteristics
 
   - ⚙️ **Construction**: O(1) constant time
-  - 📝 **Adding Callback**: O(n) where n is the number of callbacks (for duplicate check)
-  - 🔗 **Removing Callback**: O(n) where n is the number of callbacks
+  - 📝 **Adding Callback**: O(n) where n is the number of registered callbacks (for duplicate check)
+  - 🔗 **Removing Callback**: O(n) where n is the number of registered callbacks
   - 🔍 **Calling Callbacks**: O(n) where n is the number of registered callbacks
-  - 💾 **Memory Usage**: Fixed at compile time, sizeof(std::array<StaticCallback, allocatedSize>)
+  - 📊 **Subscriber Count**: O(1) constant time (cached count)
+  - 💾 **Memory Usage**: Fixed at compile time
   - ⚡ **Cache Performance**: Excellent due to stack allocation and contiguous memory layout
   - 📋 **Copy Performance**: Fast due to array-based storage
 
@@ -167,6 +168,8 @@ public:
     This method returns the current number of active callbacks in the pool.
 
     \return The number of registered callbacks.
+
+    \note The count is maintained internally for optimal performance.
   */
   [[nodiscard]] constexpr std::size_t subscribersAmount() const noexcept;
 
@@ -178,17 +181,19 @@ public:
 
     \param parameter The parameter value to pass to all registered callbacks.
 
-    \note Empty slots (\c nullptr callbacks) are skipped during invocation.
     \note The invocation order matches the order in which callbacks were added.
+    \note Only active callbacks are invoked.
   */
   constexpr void call(type parameter) const noexcept;
 
 private:
+  //! Internal structure to store a callback function pointer.
   struct StaticCallback {
-    void (*method)(type arg) = nullptr;
+    void (*method)(type arg) = nullptr; //!< Pointer to the callback function.
   };
 
-  std::array<StaticCallback, allocatedSize> _callbacks;
+  std::array<StaticCallback, allocatedSize> _callbacks; //!< Fixed-size array storing registered callbacks.
+  std::size_t _subscribersCount = 0; //!< Active callbacks count.
 };
 
 } // namespace toy
