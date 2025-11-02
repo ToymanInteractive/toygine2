@@ -180,9 +180,6 @@ public:
     order they were added to the pool.
 
     \param parameter The parameter value to pass to all registered callbacks.
-
-    \note The invocation order matches the order in which callbacks were added.
-    \note Only active callbacks are invoked.
   */
   constexpr void call(type parameter) const noexcept;
 
