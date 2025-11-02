@@ -99,6 +99,7 @@ namespace toy {
 
   \see std::string_view
   \see StringLike
+  \see FixedString
 */
 class CStringView {
 public:
@@ -114,9 +115,9 @@ public:
   /*!
     \brief Constructs a copy of \a string view.
 
-    This constructor initializes a string view by copying the C string pointer from another \a string view.
+    This constructor initializes a string view by copying the C string from another \a string view.
 
-    \param string The source string view to copy C string pointer from.
+    \param string The source string view to copy C string from.
 
     \pre The source \a string view must be valid and properly initialized.
   */
@@ -144,9 +145,9 @@ public:
   /*!
     \brief Copy assigns other \a string view to this string view.
 
-    This operator assigns the C string pointer of another \a string view to this string view.
+    This operator assigns the C string of another \a string view to this string view.
 
-    \param string The source string view to copy C string pointer from.
+    \param string The source string view to copy C string from.
 
     \return A reference to this string view after assignment.
   */
@@ -169,9 +170,9 @@ public:
   /*!
     \brief Copy assigns other \a string view to this string view.
 
-    This method assigns the C string pointer of another \a string view to this string view.
+    This method assigns the C string of another \a string view to this string view.
 
-    \param string The source string view to copy C string pointer from.
+    \param string The source string view to copy C string from.
 
     \return A reference to this string view after assignment.
 
@@ -279,7 +280,9 @@ public:
 
     \note The returned pointer points to a null-terminated string view.
     \note The returned pointer is read-only and cannot modify the string view contents.
-    \note This method is equivalent to data() const method.
+    \note This method is equivalent to \a data() const method.
+
+    \see data() const
   */
   [[nodiscard]] constexpr const char * c_str() const noexcept;
 
@@ -289,11 +292,13 @@ public:
     This method checks if the string view is empty, i.e. its size is zero. An empty string view contains no characters
     and has a length of zero.
 
-    \return \c true if the string view is empty (size is 0), \c false otherwise.
+    \return \c true if the string view is empty, \c false otherwise.
 
     \note An empty string view has size zero.
     \note An empty string view still contains a null terminator.
     \note This method is equivalent to the expression: ```size() == 0```.
+
+    \see size()
   */
   [[nodiscard]] constexpr bool empty() const noexcept;
 
@@ -305,7 +310,9 @@ public:
 
     \return The number of characters in the string view, excluding the terminating null character.
 
-    \note This method is equivalent to length() method.
+    \note This method is equivalent to \a length() method.
+
+    \see length()
   */
   [[nodiscard]] constexpr std::size_t size() const noexcept;
 
@@ -322,7 +329,7 @@ public:
     \note For ASCII strings, utf8_size() equals size().
     \note For UTF-8 strings, utf8_size() may be less than size().
     \note Invalid UTF-8 sequences are handled gracefully and may affect the count.
-    \note This method is useful for internationalization and text processing applications.
+    \note This method is useful for internationalization and text processing.
   */
   [[nodiscard]] std::size_t utf8_size() const noexcept;
 
@@ -334,7 +341,7 @@ public:
 
     \return The number of characters in the string view, excluding the terminating null character.
 
-    \note This method is equivalent to size() method.
+    \note This method is equivalent to \a size() method.
 
     \see size()
   */
@@ -369,6 +376,9 @@ public:
     This method resets this view to point at the internal empty sentinel. The previously referenced character buffer is
     not modified or freed.
 
+    \post The string view is empty (size is \c 0).
+    \post The string view points to an empty sentinel string.
+
     \note No allocation or deallocation occurs.
   */
   constexpr void clear() noexcept;
@@ -397,7 +407,7 @@ public:
     \tparam stringType The type of the source string. Must satisfy the StringLike concept.
 
     \param string   The source StringLike object to search for.
-    \param position The position to start searching from (default: 0).
+    \param position The position to start searching from (default: \c 0).
 
     \return The position of the first occurrence of a StringLike object, or \ref npos if not found.
 
@@ -415,7 +425,7 @@ public:
     position.
 
     \param string   The source C string to search for.
-    \param position The position to start searching from (default: 0).
+    \param position The position to start searching from (default: \c 0).
 
     \return The position of the first occurrence of the C \a string, or \ref npos if not found.
 
@@ -433,7 +443,7 @@ public:
     the given \a position.
 
     \param character The character to search for.
-    \param position  The position to start searching from (default: 0).
+    \param position  The position to start searching from (default: \c 0).
 
     \return The position of the first occurrence of the \a character, or \ref npos if not found.
 
@@ -460,8 +470,7 @@ public:
     view size minus the size of a StringLike object.
 
     \note The search is case-sensitive.
-    \note If a StringLike object is empty, the method returns \a position if it's within bounds, otherwise returns the
-          string view size.
+    \note If a StringLike object is empty, returns \a position if within bounds, otherwise returns the string view size.
   */
   template <StringLike stringType>
   [[nodiscard]] constexpr std::size_t rfind(const stringType & string, std::size_t position = npos) const noexcept;
@@ -482,8 +491,7 @@ public:
     \pre The \a string must not be null.
 
     \note The search is case-sensitive.
-    \note If the C \a string is empty, the method returns \a position if it's within bounds, otherwise returns the
-          string view size.
+    \note If the C \a string is empty, returns \a position if within bounds, otherwise returns the string view size.
   */
   [[nodiscard]] constexpr std::size_t rfind(const char * string, std::size_t position = npos) const noexcept;
 
@@ -516,7 +524,7 @@ public:
     \tparam stringType The type of the source string. Must satisfy the StringLike concept.
 
     \param string   The StringLike object containing characters to search for.
-    \param position The position to start searching from (default: 0).
+    \param position The position to start searching from (default: \c 0).
 
     \return The position of the first occurrence of any character from a StringLike object, or \ref npos if not found.
 
@@ -535,7 +543,7 @@ public:
     starting from the given \a position.
 
     \param string   The C string containing characters to search for.
-    \param position The position to start searching from (default: 0).
+    \param position The position to start searching from (default: \c 0).
 
     \return The position of the first occurrence of any character from the C \a string, or \ref npos if not found.
 
@@ -554,14 +562,14 @@ public:
     the given \a position.
 
     \param character The character to search for.
-    \param position  The position to start searching from (default: 0).
+    \param position  The position to start searching from (default: \c 0).
 
     \return The position of the first occurrence of the \a character, or \ref npos if not found.
 
     \pre The \a position must be less than the string view size.
 
     \note The search is case-sensitive.
-    \note This method is equivalent to find(character, position).
+    \note This method is equivalent to \a find(character, position).
   */
   [[nodiscard]] constexpr std::size_t find_first_of(char character, std::size_t position = 0) const noexcept;
 
@@ -574,7 +582,7 @@ public:
     \tparam stringType The type of the source string. Must satisfy the StringLike concept.
 
     \param string   The StringLike object containing characters to exclude from search.
-    \param position The position to start searching from (default: 0).
+    \param position The position to start searching from (default: \c 0).
 
     \return The position of the first occurrence of any character not from a StringLike object, or \ref npos if not
             found.
@@ -582,8 +590,7 @@ public:
     \pre The \a position must be less than the string view size.
 
     \note The search is case-sensitive.
-    \note If a StringLike object is empty, this method returns \a position if it's within bounds, otherwise returns \ref
-          npos.
+    \note If a StringLike object is empty, returns \a position if within bounds, otherwise returns \ref npos.
   */
   template <StringLike stringType>
   [[nodiscard]] constexpr std::size_t find_first_not_of(const stringType & string,
@@ -596,7 +603,7 @@ public:
     string view, starting from the given \a position.
 
     \param string   The C string containing characters to exclude from search.
-    \param position The position to start searching from (default: 0).
+    \param position The position to start searching from (default: \c 0).
 
     \return The position of the first occurrence of any character not from the C \a string, or \ref npos if not found.
 
@@ -604,8 +611,7 @@ public:
     \pre The \a string must not be null.
 
     \note The search is case-sensitive.
-    \note If the C \a string is empty, this method returns \a position if it's within bounds, otherwise returns \ref
-          npos.
+    \note If the C \a string is empty, returns \a position if within bounds, otherwise returns \ref npos.
   */
   [[nodiscard]] constexpr std::size_t find_first_not_of(const char * string, std::size_t position = 0) const noexcept;
 
@@ -616,7 +622,7 @@ public:
     within this string view, starting from the given \a position.
 
     \param character The character to exclude from search.
-    \param position  The position to start searching from (default: 0).
+    \param position  The position to start searching from (default: \c 0).
 
     \return The position of the first occurrence of any character not equal to \a character, or \ref npos if not found.
 
@@ -702,8 +708,7 @@ public:
     \pre If \a position is not \ref npos, it must be less than the string view size.
 
     \note The search is case-sensitive.
-    \note If a StringLike object is empty, this method returns \a position if it's within bounds, otherwise returns \ref
-          npos.
+    \note If a StringLike object is empty, returns \a position if within bounds, otherwise returns \ref npos.
   */
   template <StringLike stringType>
   [[nodiscard]] constexpr std::size_t find_last_not_of(const stringType & string,
@@ -724,8 +729,7 @@ public:
     \pre The \a string must not be null.
 
     \note The search is case-sensitive.
-    \note If the C \a string is empty, this method returns \a position if it's within bounds, otherwise returns \ref
-          npos.
+    \note If the C \a string is empty, returns \a position if within bounds, otherwise returns \ref npos.
   */
   [[nodiscard]] constexpr std::size_t find_last_not_of(const char * string, std::size_t position = npos) const noexcept;
 
@@ -761,7 +765,7 @@ public:
 
     \note The comparison is case-sensitive.
     \note The comparison stops at the first character that differs between the strings.
-    \note If one string is a prefix of another, the shorter string is considered lexicographically smaller.
+    \note If one string is a prefix of another, the shorter is considered lexicographically smaller.
   */
   template <StringLike stringType>
   [[nodiscard]] constexpr int compare(const stringType & string) const noexcept;
@@ -781,7 +785,7 @@ public:
 
     \note The comparison is case-sensitive.
     \note The comparison stops at the first character that differs between the strings.
-    \note If one string is a prefix of another, the shorter string is considered lexicographically smaller.
+    \note If one string is a prefix of another, the shorter is considered lexicographically smaller.
   */
   [[nodiscard]] constexpr int compare(const char * string) const noexcept;
 
@@ -798,8 +802,8 @@ public:
     \return \c true if this string view starts with a StringLike object, \c false otherwise.
 
     \note The comparison is case-sensitive.
-    \note If a StringLike object is empty, this method returns true.
-    \note If a StringLike object is longer than this string view, this method returns false.
+    \note If a StringLike object is empty, this method returns \c true.
+    \note If a StringLike object is longer than this string view, returns \c false.
   */
   template <StringLike stringType>
   [[nodiscard]] constexpr bool starts_with(const stringType & string) const noexcept;
@@ -817,8 +821,8 @@ public:
     \pre The C \a string must not be null.
 
     \note The comparison is case-sensitive.
-    \note If the C \a string is empty, this method returns true.
-    \note If the C \a string is longer than this string view, this method returns false.
+    \note If the C \a string is empty, this method returns \c true.
+    \note If the C \a string is longer than this string view, returns \c false.
   */
   [[nodiscard]] constexpr bool starts_with(const char * string) const noexcept;
 
@@ -833,7 +837,7 @@ public:
     \return \c true if this string view starts with the specified \a character, \c false otherwise.
 
     \note The comparison is case-sensitive.
-    \note If the string view is empty, this method returns false.
+    \note If the string view is empty, this method returns \c false.
   */
   [[nodiscard]] constexpr bool starts_with(char character) const noexcept;
 
@@ -850,8 +854,8 @@ public:
     \return \c true if this string view ends with a StringLike object, \c false otherwise.
 
     \note The comparison is case-sensitive.
-    \note If a StringLike object is empty, this method returns true.
-    \note If a StringLike object is longer than this string view, this method returns false.
+    \note If a StringLike object is empty, this method returns \c true.
+    \note If a StringLike object is longer than this string view, returns \c false.
   */
   template <StringLike stringType>
   [[nodiscard]] constexpr bool ends_with(const stringType & string) const noexcept;
@@ -869,8 +873,8 @@ public:
     \pre The C \a string must not be null.
 
     \note The comparison is case-sensitive.
-    \note If the C \a string is empty, this method returns true.
-    \note If the C \a string is longer than this string view, this method returns false.
+    \note If the C \a string is empty, this method returns \c true.
+    \note If the C \a string is longer than this string view, returns \c false.
   */
   [[nodiscard]] constexpr bool ends_with(const char * string) const noexcept;
 
@@ -885,7 +889,7 @@ public:
     \return \c true if this string view ends with the specified \a character, \c false otherwise.
 
     \note The comparison is case-sensitive.
-    \note If the string view is empty, this method returns false.
+    \note If the string view is empty, this method returns \c false.
   */
   [[nodiscard]] constexpr bool ends_with(char character) const noexcept;
 
@@ -901,8 +905,8 @@ public:
     \return \c true if this string view contains a StringLike object, \c false otherwise.
 
     \note The search is case-sensitive.
-    \note If a StringLike object is empty, this method returns true.
-    \note If a StringLike object is longer than this string view, this method returns false.
+    \note If a StringLike object is empty, this method returns \c true.
+    \note If a StringLike object is longer than this string view, returns \c false.
   */
   template <StringLike stringType>
   [[nodiscard]] constexpr bool contains(const stringType & string) const noexcept;
@@ -919,8 +923,8 @@ public:
     \pre The C \a string must not be null.
 
     \note The search is case-sensitive.
-    \note If the C \a string is empty, this method returns true.
-    \note If the C \a string is longer than this string view, this method returns false.
+    \note If the C \a string is empty, this method returns \c true.
+    \note If the C \a string is longer than this string view, returns \c false.
   */
   [[nodiscard]] constexpr bool contains(const char * string) const noexcept;
 
@@ -934,7 +938,7 @@ public:
     \return \c true if this string view contains the specified \a character, \c false otherwise.
 
     \note The search is case-sensitive.
-    \note If the string view is empty, this method returns false.
+    \note If the string view is empty, this method returns \c false.
   */
   [[nodiscard]] constexpr bool contains(char character) const noexcept;
 
@@ -1022,7 +1026,7 @@ private:
     last occurrence of any character from the specified \a data starting from the given \a position and searching
     backwards.
 
-    \param position The position to start searching from. If \ref npos, searches from the end.
+    \param position The position to start searching from (default: \ref npos). If \ref npos, searches from the end.
     \param data     The data containing characters to search for.
     \param dataSize The size of the data containing characters to search for.
 
@@ -1040,7 +1044,7 @@ private:
     the last occurrence of any character that is not present in the specified \a data starting from the given \a
     position and searching backwards.
 
-    \param position The position to start searching from. If \ref npos, searches from the end.
+    \param position The position to start searching from (default: \ref npos). If \ref npos, searches from the end.
     \param data     The data containing characters to exclude from search.
     \param dataSize The size of the data containing characters to exclude from search.
 

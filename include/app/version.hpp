@@ -88,8 +88,8 @@ namespace toy::app {
   - 🔧 **Embedded Systems**: Suitable for resource-constrained environments
   - 📱 **Mobile Platforms**: Lightweight and efficient for mobile applications
 
-  \note This structure is designed for compile-time version management. For runtime version parsing from strings,
-        consider implementing additional utility functions.
+  \note This structure is designed for compile-time version management.
+  \note For runtime version parsing from strings, consider implementing additional utility functions.
 
   \see Semantic Versioning (https://semver.org/)
 */

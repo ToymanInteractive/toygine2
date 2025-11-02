@@ -49,7 +49,7 @@ constexpr std::size_t wcharInUtf8MaxSize = 3;
   \pre The count parameter must be reasonable (typically ≤ source string length).
 
   \post The destination string is null-terminated.
-  \post The function returns nullptr on buffer overflow or invalid input.
+  \post The function returns \c nullptr on buffer overflow or invalid input.
 
   \note Only BMP (≤ 0xFFFF) characters are supported by design; 4-byte UTF-8 sequences are not produced.
   \note The function handles UTF-8 validation and skips invalid sequences.
@@ -73,7 +73,7 @@ wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, const char * const s
   \pre The source C string must be a valid UTF-8 encoded string.
 
   \post The destination string is null-terminated.
-  \post The function returns nullptr on buffer overflow or invalid input.
+  \post The function returns \c nullptr on buffer overflow or invalid input.
 
   \note Only BMP (≤ 0xFFFF) characters are supported by design; 4-byte UTF-8 sequences are not produced.
   \note This is an inline wrapper around the main utf8toWChar function.
@@ -99,7 +99,7 @@ constexpr wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, const char
   \pre The source StringLike object must provide UTF-8 encoded string data via c_str().
 
   \post The destination string is null-terminated.
-  \post The function returns nullptr on buffer overflow or invalid input.
+  \post The function returns \c nullptr on buffer overflow or invalid input.
 
   \note Only BMP (≤ 0xFFFF) characters are supported by design; 4-byte UTF-8 sequences are not produced.
   \note This template works with std::string, FixedString, and other string-like types.
@@ -124,7 +124,7 @@ constexpr wchar_t * utf8toWChar(wchar_t * dest, std::size_t destSize, const stri
   \pre The destination buffer size should account for potential UTF-8 expansion.
 
   \post The destination string is null-terminated.
-  \post The function returns nullptr on buffer overflow or invalid input.
+  \post The function returns \c nullptr on buffer overflow or invalid input.
 
   \note The function handles wide character to UTF-8 conversion efficiently.
   \note UTF-8 sequences may require 1-3 bytes per wide character.
@@ -151,15 +151,15 @@ std::size_t utf8Len(const char * string) noexcept;
   \brief Reverses a given C string in-place.
 
   This function reverses a given C string in-place by swapping characters from both ends towards the center. It can be
-  used to reverse a string of a specified length, or to reverse a null-terminated string when count is 0.
+  used to reverse a string of a specified length, or to reverse a null-terminated string when count is \c 0.
 
   \param str   A pointer to the C string to reverse.
-  \param count The length of the C string to reverse. If 0, the function determines the length automatically.
+  \param count The length of the C string to reverse (default: \c 0).
 
   \return A pointer to the reversed C string (same as input pointer).
 
   \note The function modifies the original string directly.
-  \note When count = 0, the function calls strlen() to determine the string length.
+  \note When count = \c 0, the function calls strlen() to determine the string length.
 */
 constexpr char * reverseString(char * str, std::size_t count = 0) noexcept;
 

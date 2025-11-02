@@ -46,8 +46,7 @@ namespace toy {
   \note The comparison is case-sensitive.
   \note The comparison stops at the first character that differs between the strings.
   \note If one string is a prefix of another, the shorter string is considered lexicographically smaller.
-  \note Return values are -1, 0, or 1 based on lexicographic order using unsigned char comparison; this differs from
-        std::strcmp, which returns the arithmetic difference.
+  \note Return values are -1, 0, or 1 (differs from std::strcmp which returns arithmetic difference).
   \note This function is constexpr-compatible and can be used in compile-time contexts.
 
   \see std::strcmp
@@ -86,14 +85,16 @@ namespace toy {
   is designed to be constexpr-compatible and provides the same behavior as std::strpbrk but can be evaluated at compile
   time.
 
-  \param str    The C string to search in. Must be null-terminated.
-  \param accept The C string containing the set of characters to search for. Must be null-terminated.
+  \param str    The C string to search in.
+  \param accept The C string containing the set of characters to search for.
 
   \return A pointer to the first character in \a str that matches any character in \a accept, or nullptr if no
           character from the accept set is found.
 
   \pre The \a str pointer must not be null.
   \pre The \a accept pointer must not be null.
+  \pre The \a str must be null-terminated.
+  \pre The \a accept must be null-terminated.
 
   \note The search is case-sensitive.
   \note The function searches from the beginning of \a str and returns the first match.

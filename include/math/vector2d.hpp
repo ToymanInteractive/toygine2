@@ -83,8 +83,8 @@ namespace toy::math {
   - 📐 **Type Safety**: Strong typing prevents coordinate mixing
   - ⚠️ **Exception Safety**: All operations are noexcept, no exceptions thrown
 
-  \note This class is specifically designed for interactive game objects and physics calculations. For UI positioning
-        and pixel-perfect coordinates, consider using Point with integer coordinates.
+  \note This class is specifically designed for interactive game objects and physics calculations.
+  \note For UI positioning and pixel-perfect coordinates, consider using Point with integer coordinates.
 
   \see Point
 */
@@ -101,7 +101,7 @@ public:
 
     This constructor initializes a Vector2D with zero coordinates.
 
-    \post The vector is initialized with x = 0 and y = 0.
+    \post The vector is initialized with x = \c 0 and y = \c 0.
   */
   constexpr Vector2D() noexcept;
 
@@ -239,7 +239,8 @@ public:
 
     This method sets both x and y coordinates of this vector to zero.
 
-    \post This vector's coordinates are set to x = 0 and y = 0.
+    \post This vector's coordinates are set to x = \c 0 and y = \c 0.
+    \post The vector is at the origin.
   */
   constexpr void setZero() noexcept;
 
@@ -250,7 +251,7 @@ public:
 
     \return \c true if both coordinates are zero, \c false otherwise.
 
-    \note This is equivalent to checking if the vector is at the origin (0, 0).
+    \note This is equivalent to checking if the vector is at the origin (\c 0, \c 0).
   */
   [[nodiscard]] constexpr bool isZero() const noexcept;
 
@@ -261,14 +262,14 @@ public:
     considered equal if the absolute difference between their coordinates is less than or equal to \a tolerance.
 
     \param vector    The vector to compare with.
-    \param tolerance The tolerance for equality comparison (default: 0).
+    \param tolerance The tolerance for equality comparison (default: \c 0).
 
     \return \c true if the vector are equal within the \a tolerance, \c false otherwise.
 
     \pre The \a tolerance must be non-negative.
 
-    \note When tolerance is 0, this performs exact equality comparison.
-    \note When tolerance is greater than 0, this performs approximate equality comparison.
+    \note When tolerance is \c 0, this performs exact equality comparison.
+    \note When tolerance is greater than \c 0, this performs approximate equality comparison.
   */
   [[nodiscard]] bool isEqual(const Vector2D & vector, real_t tolerance = 0) const noexcept;
 };
