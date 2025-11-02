@@ -96,7 +96,7 @@ namespace toy {
   - ⚠️ **Exception Safety**: All operations are noexcept, no exceptions thrown
 
   \note The pool does not prevent duplicate subscriptions - adding the same callback multiple times will only register
-        it once.
+        it once and return \c true.
   \note When the pool is full, attempts to add new callbacks will fail (asserted in debug mode).
 
   \warning Callbacks must remain valid for the lifetime of the CallbacksPool object. The pool does not manage callback
@@ -187,6 +187,8 @@ public:
   constexpr void call(type parameter) const noexcept;
 
 private:
+  static_assert(allocatedSize > 0, "CallbacksPool capacity must be greater than zero");
+
   //! Internal structure to store a callback function pointer.
   struct StaticCallback {
     void (*method)(type arg) = nullptr; //!< Pointer to the callback function.

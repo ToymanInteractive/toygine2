@@ -28,13 +28,12 @@
 namespace toy {
 
 template <typename type, std::size_t allocatedSize>
-constexpr CallbacksPool<type, allocatedSize>::CallbacksPool() noexcept
-  : _callbacks() {
+constexpr CallbacksPool<type, allocatedSize>::CallbacksPool() noexcept {
   _callbacks.fill(StaticCallback());
 }
 
 template <typename type, std::size_t allocatedSize>
-constexpr bool CallbacksPool<type, allocatedSize>::add(void (*method)(type tArg)) noexcept {
+constexpr bool CallbacksPool<type, allocatedSize>::add(void (*method)(type arg)) noexcept {
   assert_message(method != nullptr, "Cannot add null callback");
 
   // Check if the method already exists
