@@ -54,6 +54,7 @@ if (TOP_PROJECT)
   include(CMakeDependentOption)
 
   option(TOYGINE_BUILD_DOCS "Set when you want to build engine documentation" OFF)
+  option(TOYGINE_BUILD_EXAMPLES "Set when you want to build engine examples" ON)
   option(TOYGINE_BUILD_TESTS "Set when you want to build engine unit tests" ON)
   cmake_dependent_option(TOYGINE_TESTS_ENABLE_COVERAGE "Enable code coverage instrumentation for tests" OFF "TOYGINE_BUILD_TESTS" OFF)
 endif (TOP_PROJECT)
@@ -136,6 +137,14 @@ if (PREPROCESSOR_DEFINITIONS)
 endif (PREPROCESSOR_DEFINITIONS)
 
 target_link_libraries(${TOYGINE_LIBRARY_NAME} ${LIB_LIST})
+
+#-------------------------------------------------------------------------------------------
+# Examples
+#-------------------------------------------------------------------------------------------
+
+if (TOYGINE_BUILD_EXAMPLES)
+  add_subdirectory(examples)
+endif (TOYGINE_BUILD_EXAMPLES)
 
 #-------------------------------------------------------------------------------------------
 # Unit tests
