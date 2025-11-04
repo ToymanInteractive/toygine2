@@ -22,7 +22,7 @@
 
 #include "core.hpp"
 
-using namespace toy;
+namespace toy {
 
 int _callback1Count = 0;
 int _callback2Count = 0;
@@ -107,8 +107,8 @@ TEST_CASE("CallbacksPool add method", "[core][callbacks_pool]") {
     void (*doubleCallback)(double) = [](double d) { (void)d; };
     REQUIRE(doublePool.add(doubleCallback) == true);
 
-    CallbacksPool<std::size_t, 4> sizePool;
-    void (*sizeCallback)(std::size_t) = [](std::size_t s) { (void)s; };
+    CallbacksPool<size_t, 4> sizePool;
+    void (*sizeCallback)(size_t) = [](size_t s) { (void)s; };
     REQUIRE(sizePool.add(sizeCallback) == true);
   }
 }
@@ -471,3 +471,5 @@ TEST_CASE("CallbacksPool integration", "[core][callbacks_pool]") {
     REQUIRE(_callback1Count == 1);
   }
 }
+
+} // namespace toy

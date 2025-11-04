@@ -57,13 +57,13 @@ constexpr CStringView & CStringView::assign(const char * string) noexcept {
   return *this;
 }
 
-constexpr const char & CStringView::at(std::size_t offset) const noexcept {
+constexpr const char & CStringView::at(size_t offset) const noexcept {
   assert_message(offset < size() || (offset == 0 && empty()), "Offset must be within bounds");
 
   return _data[offset];
 }
 
-constexpr const char & CStringView::operator[](std::size_t offset) const noexcept {
+constexpr const char & CStringView::operator[](size_t offset) const noexcept {
   assert_message(offset < size() || (offset == 0 && empty()), "Offset must be within bounds");
 
   return _data[offset];
@@ -91,7 +91,7 @@ constexpr bool CStringView::empty() const noexcept {
   return *_data == '\0';
 }
 
-constexpr std::size_t CStringView::size() const noexcept {
+constexpr size_t CStringView::size() const noexcept {
   if consteval {
     return std::char_traits<char>::length(_data);
   } else {
@@ -99,19 +99,19 @@ constexpr std::size_t CStringView::size() const noexcept {
   }
 }
 
-inline std::size_t CStringView::utf8_size() const noexcept {
+inline size_t CStringView::utf8_size() const noexcept {
   return utf8Len(_data);
 }
 
-constexpr std::size_t CStringView::length() const noexcept {
+constexpr size_t CStringView::length() const noexcept {
   return size();
 }
 
-constexpr std::size_t CStringView::max_size() const noexcept {
+constexpr size_t CStringView::max_size() const noexcept {
   return size();
 }
 
-constexpr std::size_t CStringView::capacity() const noexcept {
+constexpr size_t CStringView::capacity() const noexcept {
   return size();
 }
 
@@ -125,80 +125,80 @@ constexpr void CStringView::swap(CStringView & string) noexcept {
 }
 
 template <StringLike stringType>
-constexpr std::size_t CStringView::find(const stringType & string, std::size_t position) const noexcept {
+constexpr size_t CStringView::find(const stringType & string, size_t position) const noexcept {
   return _find_raw(position, string.c_str(), string.size());
 }
 
-constexpr std::size_t CStringView::find(const char * string, std::size_t position) const noexcept {
+constexpr size_t CStringView::find(const char * string, size_t position) const noexcept {
   return find(CStringView(string), position);
 }
 
-constexpr std::size_t CStringView::find(char character, std::size_t position) const noexcept {
+constexpr size_t CStringView::find(char character, size_t position) const noexcept {
   return _find_raw(position, &character, 1);
 }
 
 template <StringLike stringType>
-constexpr std::size_t CStringView::rfind(const stringType & string, std::size_t position) const noexcept {
+constexpr size_t CStringView::rfind(const stringType & string, size_t position) const noexcept {
   return _rfind_raw(position, string.c_str(), string.size());
 }
 
-constexpr std::size_t CStringView::rfind(const char * string, std::size_t position) const noexcept {
+constexpr size_t CStringView::rfind(const char * string, size_t position) const noexcept {
   return rfind(CStringView(string), position);
 }
 
-constexpr std::size_t CStringView::rfind(char character, std::size_t position) const noexcept {
+constexpr size_t CStringView::rfind(char character, size_t position) const noexcept {
   return _rfind_raw(position, &character, 1);
 }
 
 template <StringLike stringType>
-constexpr std::size_t CStringView::find_first_of(const stringType & string, std::size_t position) const noexcept {
+constexpr size_t CStringView::find_first_of(const stringType & string, size_t position) const noexcept {
   return _find_first_of_raw(position, string.c_str(), string.size());
 }
 
-constexpr std::size_t CStringView::find_first_of(const char * string, std::size_t position) const noexcept {
+constexpr size_t CStringView::find_first_of(const char * string, size_t position) const noexcept {
   return find_first_of(CStringView(string), position);
 }
 
-constexpr std::size_t CStringView::find_first_of(char character, std::size_t position) const noexcept {
+constexpr size_t CStringView::find_first_of(char character, size_t position) const noexcept {
   return _find_first_of_raw(position, &character, 1);
 }
 
 template <StringLike stringType>
-constexpr std::size_t CStringView::find_first_not_of(const stringType & string, std::size_t position) const noexcept {
+constexpr size_t CStringView::find_first_not_of(const stringType & string, size_t position) const noexcept {
   return _find_first_not_of_raw(position, string.c_str(), string.size());
 }
 
-constexpr std::size_t CStringView::find_first_not_of(const char * string, std::size_t position) const noexcept {
+constexpr size_t CStringView::find_first_not_of(const char * string, size_t position) const noexcept {
   return find_first_not_of(CStringView(string), position);
 }
 
-constexpr std::size_t CStringView::find_first_not_of(char character, std::size_t position) const noexcept {
+constexpr size_t CStringView::find_first_not_of(char character, size_t position) const noexcept {
   return _find_first_not_of_raw(position, &character, 1);
 }
 
 template <StringLike stringType>
-constexpr std::size_t CStringView::find_last_of(const stringType & string, std::size_t position) const noexcept {
+constexpr size_t CStringView::find_last_of(const stringType & string, size_t position) const noexcept {
   return _find_last_of_raw(position, string.c_str(), string.size());
 }
 
-constexpr std::size_t CStringView::find_last_of(const char * string, std::size_t position) const noexcept {
+constexpr size_t CStringView::find_last_of(const char * string, size_t position) const noexcept {
   return find_last_of(CStringView(string), position);
 }
 
-constexpr std::size_t CStringView::find_last_of(char character, std::size_t position) const noexcept {
+constexpr size_t CStringView::find_last_of(char character, size_t position) const noexcept {
   return _find_last_of_raw(position, &character, 1);
 }
 
 template <StringLike stringType>
-constexpr std::size_t CStringView::find_last_not_of(const stringType & string, std::size_t position) const noexcept {
+constexpr size_t CStringView::find_last_not_of(const stringType & string, size_t position) const noexcept {
   return _find_last_not_of_raw(position, string.c_str(), string.size());
 }
 
-constexpr std::size_t CStringView::find_last_not_of(const char * string, std::size_t position) const noexcept {
+constexpr size_t CStringView::find_last_not_of(const char * string, size_t position) const noexcept {
   return find_last_not_of(CStringView(string), position);
 }
 
-constexpr std::size_t CStringView::find_last_not_of(char character, std::size_t position) const noexcept {
+constexpr size_t CStringView::find_last_not_of(char character, size_t position) const noexcept {
   return _find_last_not_of_raw(position, &character, 1);
 }
 
@@ -288,8 +288,8 @@ constexpr bool CStringView::contains(char character) const noexcept {
   }
 }
 
-constexpr std::size_t CStringView::_find_raw(std::size_t position, const char * data,
-                                             std::size_t dataSize) const noexcept {
+constexpr size_t CStringView::_find_raw(size_t position, const char * data,
+                                             size_t dataSize) const noexcept {
   const auto stringViewSize = size();
 
   if (position > stringViewSize)
@@ -310,11 +310,11 @@ constexpr std::size_t CStringView::_find_raw(std::size_t position, const char * 
                    : std::strstr(_data + position, data);
   }
 
-  return occurrence != nullptr ? static_cast<std::size_t>(occurrence - _data) : npos;
+  return occurrence != nullptr ? static_cast<size_t>(occurrence - _data) : npos;
 }
 
-constexpr std::size_t CStringView::_rfind_raw(std::size_t position, const char * data,
-                                              std::size_t dataSize) const noexcept {
+constexpr size_t CStringView::_rfind_raw(size_t position, const char * data,
+                                              size_t dataSize) const noexcept {
   const auto stringViewSize = size();
 
   if (dataSize == 0)
@@ -327,7 +327,7 @@ constexpr std::size_t CStringView::_rfind_raw(std::size_t position, const char *
   else if (position > stringViewSize - dataSize)
     return npos;
 
-  for (std::size_t i = 0; i <= position; ++i) {
+  for (size_t i = 0; i <= position; ++i) {
     const auto offset = position - i;
 
     bool found;
@@ -345,8 +345,8 @@ constexpr std::size_t CStringView::_rfind_raw(std::size_t position, const char *
   return npos;
 }
 
-constexpr std::size_t CStringView::_find_first_of_raw(std::size_t position, const char * data,
-                                                      std::size_t dataSize) const noexcept {
+constexpr size_t CStringView::_find_first_of_raw(size_t position, const char * data,
+                                                      size_t dataSize) const noexcept {
   const auto stringViewSize = size();
 
   if (position >= stringViewSize || dataSize == 0)
@@ -360,11 +360,11 @@ constexpr std::size_t CStringView::_find_first_of_raw(std::size_t position, cons
     occurrence = dataSize == 1 ? std::strchr(_data + position, data[0]) : std::strpbrk(_data + position, data);
   }
 
-  return occurrence != nullptr ? static_cast<std::size_t>(occurrence - _data) : npos;
+  return occurrence != nullptr ? static_cast<size_t>(occurrence - _data) : npos;
 }
 
-constexpr std::size_t CStringView::_find_first_not_of_raw(std::size_t position, const char * data,
-                                                          std::size_t dataSize) const noexcept {
+constexpr size_t CStringView::_find_first_not_of_raw(size_t position, const char * data,
+                                                          size_t dataSize) const noexcept {
   const auto stringViewSize = size();
 
   if (position >= stringViewSize)
@@ -382,7 +382,7 @@ constexpr std::size_t CStringView::_find_first_not_of_raw(std::size_t position, 
   } else {
     std::array<bool, 256> excludedChars{};
 
-    for (std::size_t i = 0; i < dataSize; ++i) {
+    for (size_t i = 0; i < dataSize; ++i) {
       excludedChars[static_cast<unsigned char>(data[i])] = true;
     }
 
@@ -395,8 +395,8 @@ constexpr std::size_t CStringView::_find_first_not_of_raw(std::size_t position, 
   return npos;
 }
 
-constexpr std::size_t CStringView::_find_last_of_raw(std::size_t position, const char * data,
-                                                     std::size_t dataSize) const noexcept {
+constexpr size_t CStringView::_find_last_of_raw(size_t position, const char * data,
+                                                     size_t dataSize) const noexcept {
   if (dataSize == 0 || empty())
     return npos;
 
@@ -409,7 +409,7 @@ constexpr std::size_t CStringView::_find_last_of_raw(std::size_t position, const
 
   if (dataSize == 1) {
     const auto target = data[0];
-    for (std::size_t i = 0; i <= position; ++i) {
+    for (size_t i = 0; i <= position; ++i) {
       const auto scanIndex = position - i;
       if (_data[scanIndex] == target)
         return scanIndex;
@@ -417,11 +417,11 @@ constexpr std::size_t CStringView::_find_last_of_raw(std::size_t position, const
   } else {
     std::array<bool, 256> targetChars{};
 
-    for (std::size_t i = 0; i < dataSize; ++i) {
+    for (size_t i = 0; i < dataSize; ++i) {
       targetChars[static_cast<unsigned char>(data[i])] = true;
     }
 
-    for (std::size_t i = 0; i <= position; ++i) {
+    for (size_t i = 0; i <= position; ++i) {
       const auto scanIndex = position - i;
       if (targetChars[static_cast<unsigned char>(_data[scanIndex])])
         return scanIndex;
@@ -431,8 +431,8 @@ constexpr std::size_t CStringView::_find_last_of_raw(std::size_t position, const
   return npos;
 }
 
-constexpr std::size_t CStringView::_find_last_not_of_raw(std::size_t position, const char * data,
-                                                         std::size_t dataSize) const noexcept {
+constexpr size_t CStringView::_find_last_not_of_raw(size_t position, const char * data,
+                                                         size_t dataSize) const noexcept {
   if (empty())
     return npos;
 
@@ -448,7 +448,7 @@ constexpr std::size_t CStringView::_find_last_not_of_raw(std::size_t position, c
 
   if (dataSize == 1) {
     const auto exclude = data[0];
-    for (std::size_t i = 0; i <= position; ++i) {
+    for (size_t i = 0; i <= position; ++i) {
       const auto scanIndex = position - i;
       if (_data[scanIndex] != exclude)
         return scanIndex;
@@ -456,11 +456,11 @@ constexpr std::size_t CStringView::_find_last_not_of_raw(std::size_t position, c
   } else {
     std::array<bool, 256> excludedChars{};
 
-    for (std::size_t i = 0; i < dataSize; ++i) {
+    for (size_t i = 0; i < dataSize; ++i) {
       excludedChars[static_cast<unsigned char>(data[i])] = true;
     }
 
-    for (std::size_t i = 0; i <= position; ++i) {
+    for (size_t i = 0; i <= position; ++i) {
       const auto scanIndex = position - i;
       if (!excludedChars[static_cast<unsigned char>(_data[scanIndex])])
         return scanIndex;

@@ -27,12 +27,12 @@
 
 namespace toy {
 
-template <typename type, std::size_t allocatedSize>
+template <typename type, size_t allocatedSize>
 class FixedVector {
 public:
   using value_type = type; //!< Type of elements stored in the vector.
 
-  using size_type = std::size_t; //!< Type used for vector size and capacity.
+  using size_type = size_t; //!< Type used for vector size and capacity.
   using difference_type = std::ptrdiff_t; //!< Type used for pointer differences.
 
   using reference = value_type &; //!< Reference to vector element.
@@ -146,7 +146,7 @@ public:
 
     \post The new vector has the same size and content as the source \a other.
   */
-  template <std::size_t allocatedSize2>
+  template <size_t allocatedSize2>
   FixedVector(const FixedVector<type, allocatedSize2> & other) noexcept;
 
   /*!
@@ -180,7 +180,7 @@ public:
     \post The new vector has the same size and content as the source \a other.
     \post The source \a other is left in a valid but unspecified state.
   */
-  template <std::size_t allocatedSize2>
+  template <size_t allocatedSize2>
   FixedVector(FixedVector<type, allocatedSize2> && other) noexcept;
 
   /*!
@@ -234,7 +234,7 @@ public:
     \post All elements are properly copied using copy construction.
     \post All previous elements are properly destroyed.
   */
-  template <std::size_t allocatedSize2>
+  template <size_t allocatedSize2>
   FixedVector<type, allocatedSize> & operator=(const FixedVector<type, allocatedSize2> & other) noexcept;
 
   /*!
@@ -278,7 +278,7 @@ public:
     \post All previous elements are properly destroyed.
     \post The source vector is left in a valid but unspecified state.
   */
-  template <std::size_t allocatedSize2>
+  template <size_t allocatedSize2>
   FixedVector<type, allocatedSize> & operator=(FixedVector<type, allocatedSize2> && other) noexcept;
 
   /*!

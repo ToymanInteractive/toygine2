@@ -24,7 +24,7 @@
 
 #include "core.hpp"
 
-using namespace toy;
+namespace toy {
 
 TEST_CASE("FixedVector constructors", "[core][fixed_vector]") {
   SECTION("Default constructor") {
@@ -562,7 +562,7 @@ TEST_CASE("FixedVector assign methods", "[core][fixed_vector]") {
     FixedVector<int, 5> sameVec;
     sameVec.assign(5, 42);
     REQUIRE(sameVec.size() == 5);
-    for (std::size_t i = 0; i < sameVec.size(); ++i) {
+    for (size_t i = 0; i < sameVec.size(); ++i) {
       REQUIRE(sameVec[i] == 42);
     }
   }
@@ -1327,3 +1327,5 @@ TEST_CASE("FixedVector clear method", "[core][fixed_vector]") {
     REQUIRE(smallVec.size() == 0);
   }
 }
+
+} // namespace toy

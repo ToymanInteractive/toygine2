@@ -24,7 +24,7 @@
 
 #include "core.hpp"
 
-using namespace toy;
+namespace toy {
 
 TEST_CASE("crc8 function", "[core][hashes]") {
   SECTION("Empty data") {
@@ -424,3 +424,5 @@ TEST_CASE("crc32 function", "[core][hashes]") {
     REQUIRE(crc1 != crc2);
   }
 }
+
+} // namespace toy

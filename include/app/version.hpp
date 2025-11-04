@@ -42,7 +42,7 @@ namespace toy::app {
   - 🛡️ **Exception Safety**: All operations are noexcept
   - 🔗 **Simple Structure**: Plain struct with public members for easy access
   - 🎯 **Version Management**: Designed for application version tracking
-  - 🧬 **Type Safety**: Uses std::uint32_t for all version components
+  - 🧬 **Type Safety**: Uses uint32_t for all version components
   - 🌍 **Standard Compliance**: Follows semantic versioning standards
   - 📏 **Immutable Design**: Structure designed for compile-time version constants
 
@@ -70,7 +70,7 @@ namespace toy::app {
   - 📝 **Access**: O(1) constant time for all members
   - 📝 **Assignment**: O(1) constant time for member assignment
   - 🔗 **Comparison**: O(1) constant time for version comparison
-  - 💾 **Memory Usage**: 16 bytes (4 * std::uint32_t)
+  - 💾 **Memory Usage**: 16 bytes (4 * uint32_t)
   - ⚡ **Cache Performance**: Excellent due to small size and contiguous layout
   - 📋 **Copy Performance**: Fast due to simple integer copying
   - 🎯 **Version Operations**: Optimized for compile-time evaluation
@@ -78,7 +78,7 @@ namespace toy::app {
   \section safety Safety Guarantees
 
   - 🛡️ **Bounds Safety**: All operations are bounds-safe
-  - 📐 **Type Safety**: Strong typing with std::uint32_t components
+  - 📐 **Type Safety**: Strong typing with uint32_t components
   - ⚠️ **Exception Safety**: All operations are noexcept, no exceptions thrown
   - 🔒 **Memory Safety**: No dynamic allocation, stack-only structure
 
@@ -98,25 +98,25 @@ struct Version {
      \brief Major version number.
      \details Indicates incompatible API changes.
   */
-  std::uint32_t major = 0;
+  uint32_t major = 0;
 
   /*!
    \brief Minor version number.
    \details Indicates backward-compatible functionality additions.
   */
-  std::uint32_t minor = 0;
+  uint32_t minor = 0;
 
   /*!
    \brief Maintenance version number.
    \details Indicates backward-compatible bug fixes.
   */
-  std::uint32_t maintenance = 0;
+  uint32_t maintenance = 0;
 
   /*!
    \brief Revision number.
    \details Indicates build number or patch level.
   */
-  std::uint32_t revision = 0;
+  uint32_t revision = 0;
 };
 
 /*!

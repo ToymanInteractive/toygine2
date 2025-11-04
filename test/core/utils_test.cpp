@@ -22,9 +22,9 @@
 
 #include "core.hpp"
 
-using namespace toy;
+namespace toy {
 
-static constexpr std::array<std::uint8_t, 119> utf8Text{{
+static constexpr std::array<uint8_t, 119> utf8Text{{
   0x48, 0x65, 0x6C, 0x6C, 0x6F, 0x20, 0x57, 0x6F, 0x72, 0x6C, 0x64, 0x21, 0x20, 0x2F, 0x20, 0xD0, 0x9F,
   0xD1, 0x80, 0xD0, 0xB8, 0xD0, 0xB2, 0xD0, 0xB5, 0xD1, 0x82, 0x20, 0xD0, 0xBC, 0xD0, 0xB8, 0xD1, 0x80,
   0x21, 0x20, 0x2F, 0x20, 0x42, 0x6F, 0x6E, 0x6A, 0x6F, 0x75, 0x72, 0x20, 0x74, 0x6F, 0x75, 0x74, 0x20,
@@ -154,8 +154,8 @@ TEST_CASE("reverseString reverses a given string in-place", "[core][utils]") {
   CHECK(strcmp(reverseBuffer, utf8String) != 0);
   CHECK(std::strlen(reverseBuffer) == utf8StrLen);
 
-  for (std::size_t index = 0; index < (sizeof(reverseBuffer) - 1); ++index) {
-    CHECK(utf8Text[index] == static_cast<std::uint8_t>(reverseBuffer[sizeof(reverseBuffer) - index - 2]));
+  for (size_t index = 0; index < (sizeof(reverseBuffer) - 1); ++index) {
+    CHECK(utf8Text[index] == static_cast<uint8_t>(reverseBuffer[sizeof(reverseBuffer) - index - 2]));
   }
 
   reverseString(reverseBuffer);
@@ -165,56 +165,54 @@ TEST_CASE("reverseString reverses a given string in-place", "[core][utils]") {
 TEST_CASE("itoa converts an integer value to a string representation.", "[core][utils]") {
   char buffer[80];
 
-  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::int8_t>::max()), "127") == 0);
-  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::int8_t>::min()), "-128") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<int8_t>::max()), "127") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<int8_t>::min()), "-128") == 0);
 
-  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::int16_t>::max()), "32767") == 0);
-  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::int16_t>::min()), "-32768") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<int16_t>::max()), "32767") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<int16_t>::min()), "-32768") == 0);
 
-  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::int32_t>::max()), "2147483647") == 0);
-  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::int32_t>::min()), "-2147483648") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<int32_t>::max()), "2147483647") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<int32_t>::min()), "-2147483648") == 0);
 
-  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::int64_t>::max()), "9223372036854775807") == 0);
-  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::int64_t>::min()), "-9223372036854775808") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<int64_t>::max()), "9223372036854775807") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<int64_t>::min()), "-9223372036854775808") == 0);
 
-  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint8_t>::min(), 8), "0") == 0);
-  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint8_t>::min(), 10), "0") == 0);
-  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint8_t>::min(), 16), "0") == 0);
-  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint8_t>::max(), 2), "11111111") == 0);
-  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint8_t>::max(), 8), "377") == 0);
-  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint8_t>::max(), 10), "255") == 0);
-  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint8_t>::max(), 16), "FF") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<uint8_t>::min(), 8), "0") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<uint8_t>::min(), 10), "0") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<uint8_t>::min(), 16), "0") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<uint8_t>::max(), 2), "11111111") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<uint8_t>::max(), 8), "377") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<uint8_t>::max(), 10), "255") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<uint8_t>::max(), 16), "FF") == 0);
 
-  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint16_t>::min(), 8), "0") == 0);
-  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint16_t>::min(), 10), "0") == 0);
-  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint16_t>::min(), 16), "0") == 0);
-  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint16_t>::max(), 2), "1111111111111111") == 0);
-  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint16_t>::max(), 8), "177777") == 0);
-  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint16_t>::max(), 10), "65535") == 0);
-  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint16_t>::max(), 16), "FFFF") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<uint16_t>::min(), 8), "0") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<uint16_t>::min(), 10), "0") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<uint16_t>::min(), 16), "0") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<uint16_t>::max(), 2), "1111111111111111") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<uint16_t>::max(), 8), "177777") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<uint16_t>::max(), 10), "65535") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<uint16_t>::max(), 16), "FFFF") == 0);
 
-  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint32_t>::min(), 8), "0") == 0);
-  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint32_t>::min(), 10), "0") == 0);
-  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint32_t>::min(), 16), "0") == 0);
-  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint32_t>::max(), 2),
-               "11111111111111111111111111111111")
-        == 0);
-  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint32_t>::max(), 8), "37777777777") == 0);
-  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint32_t>::max(), 10), "4294967295") == 0);
-  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint32_t>::max(), 16), "FFFFFFFF") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<uint32_t>::min(), 8), "0") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<uint32_t>::min(), 10), "0") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<uint32_t>::min(), 16), "0") == 0);
+  CHECK(
+    strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<uint32_t>::max(), 2), "11111111111111111111111111111111")
+    == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<uint32_t>::max(), 8), "37777777777") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<uint32_t>::max(), 10), "4294967295") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<uint32_t>::max(), 16), "FFFFFFFF") == 0);
 
-  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint64_t>::min(), 8), "0") == 0);
-  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint64_t>::min(), 10), "0") == 0);
-  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint64_t>::min(), 16), "0") == 0);
-  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint64_t>::max(), 2),
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<uint64_t>::min(), 8), "0") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<uint64_t>::min(), 10), "0") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<uint64_t>::min(), 16), "0") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<uint64_t>::max(), 2),
                "1111111111111111111111111111111111111111111111111111111111111111")
         == 0);
-  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint64_t>::max(), 8), "1777777777777777777777")
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<uint64_t>::max(), 8), "1777777777777777777777")
         == 0);
-  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint64_t>::max(), 10), "18446744073709551615")
-        == 0);
-  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<std::uint64_t>::max(), 16), "FFFFFFFFFFFFFFFF")
-        == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<uint64_t>::max(), 10), "18446744073709551615") == 0);
+  CHECK(strcmp(itoa(buffer, ArraySize(buffer), std::numeric_limits<uint64_t>::max(), 16), "FFFFFFFFFFFFFFFF") == 0);
 }
 
 TEST_CASE("ftoa converts a floating-point number to its string representation in a specified precision",
@@ -255,7 +253,7 @@ TEST_CASE("formatNumberString format number string", "[core][utils]") {
 
   static_assert(numbers.size() == parsedNumbers.size(), "Invalid arrays size");
 
-  for (std::size_t index = 0; index < parsedNumbers.size(); ++index) {
+  for (size_t index = 0; index < parsedNumbers.size(); ++index) {
     char buffer[128];
 
 #ifdef _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES
@@ -268,3 +266,5 @@ TEST_CASE("formatNumberString format number string", "[core][utils]") {
     CHECK(strcmp(buffer, parsedNumbers[index]) == 0);
   }
 }
+
+} // namespace toy

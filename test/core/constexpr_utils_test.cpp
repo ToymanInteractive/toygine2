@@ -22,7 +22,7 @@
 
 #include "core.hpp"
 
-using namespace toy;
+namespace toy {
 
 TEST_CASE("cstrcmp function", "[core][constexpr_utils]") {
   SECTION("Equal strings") {
@@ -1117,3 +1117,5 @@ TEST_CASE("cstrstr function", "[core][constexpr_utils]") {
     REQUIRE(cstrstr(longHaystack, needle4) == std::strstr(longHaystack, needle4));
   }
 }
+
+} // namespace toy

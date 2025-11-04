@@ -22,7 +22,7 @@
 
 #include "core.hpp"
 
-using namespace toy;
+namespace toy {
 
 TEST_CASE("CStringView constructors", "[core][c_string_view]") {
   SECTION("Default constructor") {
@@ -5435,3 +5435,5 @@ TEST_CASE("CStringView std::swap", "[core][c_string_view]") {
     REQUIRE(std::strcmp(str2.c_str(), "A") == 0);
   }
 }
+
+} // namespace toy

@@ -120,7 +120,7 @@ struct Version;
 - Use **camelCase** for template parameter names
 
 ```cpp
-template <std::size_t allocatedSize>
+template <size_t allocatedSize>
 template <typename type>
 template <StringLike stringType>
 ```
@@ -133,7 +133,7 @@ template <StringLike stringType>
 class FixedString {
 private:
   char _data[allocatedSize];
-  std::size_t _size;
+  size_t _size;
 };
 ```
 
@@ -144,7 +144,7 @@ private:
 
 ```cpp
 constexpr void push_back(char character) noexcept;
-constexpr std::size_t find_first_of(char character, std::size_t position = 0) const noexcept;
+constexpr size_t find_first_of(char character, size_t position = 0) const noexcept;
 ```
 
 ### Type Aliases
@@ -153,7 +153,7 @@ constexpr std::size_t find_first_of(char character, std::size_t position = 0) co
 
 ```cpp
 using value_type = type;
-using size_type = std::size_t;
+using size_type = size_t;
 using difference_type = std::ptrdiff_t;
 using reference = value_type &;
 using const_reference = const value_type &;
@@ -164,7 +164,7 @@ using const_reference = const value_type &;
 - Use **UPPER_SNAKE_CASE** for constants and enum values
 
 ```cpp
-static constexpr std::size_t npos = std::size_t(-1);
+static constexpr size_t npos = size_t(-1);
 enum class Color { RED, GREEN, BLUE };
 ```
 
@@ -235,7 +235,7 @@ private:
 
 ```cpp
 constexpr FixedString() noexcept;
-constexpr std::size_t size() const noexcept;
+constexpr size_t size() const noexcept;
 constexpr bool empty() const noexcept;
 ```
 
@@ -254,7 +254,7 @@ constexpr FixedString & operator=(const FixedString & string) noexcept;
 - Use `[[nodiscard]]` for functions whose return values should not be ignored
 
 ```cpp
-[[nodiscard]] constexpr std::size_t size() const noexcept;
+[[nodiscard]] constexpr size_t size() const noexcept;
 [[nodiscard]] constexpr bool empty() const noexcept;
 [[nodiscard]] constexpr const char * data() const noexcept;
 ```
@@ -267,7 +267,7 @@ constexpr FixedString & operator=(const FixedString & string) noexcept;
 ```cpp
 template <typename T>
 concept StringLike = requires(T t) {
-  { t.size() } -> std::convertible_to<std::size_t>;
+  { t.size() } -> std::convertible_to<size_t>;
   { t.data() } -> std::convertible_to<const char *>;
 };
 ```
@@ -278,11 +278,11 @@ concept StringLike = requires(T t) {
 
 ```cpp
 // Good
-using size_type = std::size_t;
+using size_type = size_t;
 using value_type = type;
 
 // Avoid
-typedef std::size_t size_type;
+typedef size_t size_type;
 ```
 
 ---
@@ -295,7 +295,7 @@ typedef std::size_t size_type;
 - Document preconditions with `\pre` tags in Doxygen comments
 
 ```cpp
-constexpr char & at(std::size_t offset) noexcept {
+constexpr char & at(size_t offset) noexcept {
   assert(offset < _size);
   return _data[offset];
 }
@@ -324,7 +324,7 @@ constexpr char & at(std::size_t offset) noexcept {
 
   \see length()
 */
-[[nodiscard]] constexpr std::size_t size() const noexcept;
+[[nodiscard]] constexpr size_t size() const noexcept;
 ```
 
 ### Documentation Templates
@@ -346,7 +346,7 @@ When creating new documentation:
 
 ```cpp
 using value_type = type;  //!< Type of elements stored in the vector.
-using size_type = std::size_t;  //!< Type used for vector size and capacity.
+using size_type = size_t;  //!< Type used for vector size and capacity.
 ```
 
 ---
@@ -384,7 +384,7 @@ using size_type = std::size_t;  //!< Type used for vector size and capacity.
 - Use `const` references for parameters that shouldn't be modified
 
 ```cpp
-constexpr std::size_t size() const noexcept;
+constexpr size_t size() const noexcept;
 constexpr const char * data() const noexcept;
 constexpr bool operator==(const FixedString & other) const noexcept;
 ```
@@ -395,7 +395,7 @@ constexpr bool operator==(const FixedString & other) const noexcept;
 - Prefer constructor initialization lists
 
 ```cpp
-template <std::size_t allocatedSize>
+template <size_t allocatedSize>
 constexpr FixedString() noexcept
   : _data{'\0'}
   , _size(0) {}
@@ -406,7 +406,7 @@ constexpr FixedString() noexcept
 - Use `static_assert` for compile-time checks
 
 ```cpp
-template <std::size_t allocatedSize>
+template <size_t allocatedSize>
 class FixedString {
   static_assert(allocatedSize > 0, "FixedString capacity must be greater than zero.");
 };

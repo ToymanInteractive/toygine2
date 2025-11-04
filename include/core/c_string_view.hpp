@@ -214,9 +214,9 @@ public:
     \note The returned reference is read-only and cannot modify the character.
     \note This method is equivalent to the subscript operator.
 
-    \see operator[](std::size_t offset) const
+    \see operator[](size_t offset) const
   */
-  [[nodiscard]] constexpr const char & at(std::size_t offset) const noexcept;
+  [[nodiscard]] constexpr const char & at(size_t offset) const noexcept;
 
   /*!
     \brief Access a character in the string view at a given \a offset.
@@ -231,7 +231,7 @@ public:
 
     \note The returned reference is read-only and cannot modify the character.
   */
-  [[nodiscard]] constexpr const char & operator[](std::size_t offset) const noexcept;
+  [[nodiscard]] constexpr const char & operator[](size_t offset) const noexcept;
 
   /*!
     \brief Returns a const reference to the first character of the string view.
@@ -316,7 +316,7 @@ public:
 
     \see length()
   */
-  [[nodiscard]] constexpr std::size_t size() const noexcept;
+  [[nodiscard]] constexpr size_t size() const noexcept;
 
   /*!
     \brief Returns the size of the Unicode string in UTF-8 encoding.
@@ -333,7 +333,7 @@ public:
     \note Invalid UTF-8 sequences are handled gracefully and may affect the count.
     \note This method is useful for internationalization and text processing.
   */
-  [[nodiscard]] std::size_t utf8_size() const noexcept;
+  [[nodiscard]] size_t utf8_size() const noexcept;
 
   /*!
     \brief Returns the size of the string view.
@@ -347,7 +347,7 @@ public:
 
     \see size()
   */
-  [[nodiscard]] constexpr std::size_t length() const noexcept;
+  [[nodiscard]] constexpr size_t length() const noexcept;
 
   /*!
     \brief Returns the maximum observable size of this string view.
@@ -359,7 +359,7 @@ public:
 
     \note CStringView is non-owning and has no capacity; this is an alias of size().
   */
-  [[nodiscard]] constexpr std::size_t max_size() const noexcept;
+  [[nodiscard]] constexpr size_t max_size() const noexcept;
 
   /*!
     \brief Returns the capacity of the string view.
@@ -370,7 +370,7 @@ public:
 
     \note CStringView is non-owning and has no capacity; this is an alias of size().
   */
-  [[nodiscard]] constexpr std::size_t capacity() const noexcept;
+  [[nodiscard]] constexpr size_t capacity() const noexcept;
 
   /*!
     \brief Clears the contents by detaching from the current C string.
@@ -418,7 +418,7 @@ public:
     \note The search is case-sensitive.
   */
   template <StringLike stringType>
-  [[nodiscard]] constexpr std::size_t find(const stringType & string, std::size_t position = 0) const noexcept;
+  [[nodiscard]] constexpr size_t find(const stringType & string, size_t position = 0) const noexcept;
 
   /*!
     \brief Finds the first occurrence of the C \a string in the string view.
@@ -436,7 +436,7 @@ public:
 
     \note The search is case-sensitive.
   */
-  [[nodiscard]] constexpr std::size_t find(const char * string, std::size_t position = 0) const noexcept;
+  [[nodiscard]] constexpr size_t find(const char * string, size_t position = 0) const noexcept;
 
   /*!
     \brief Finds the first occurrence of a \a character in the string view.
@@ -453,7 +453,7 @@ public:
 
     \note The search is case-sensitive.
   */
-  [[nodiscard]] constexpr std::size_t find(char character, std::size_t position = 0) const noexcept;
+  [[nodiscard]] constexpr size_t find(char character, size_t position = 0) const noexcept;
 
   /*!
     \brief Finds the last occurrence of a StringLike object in the string view.
@@ -475,7 +475,7 @@ public:
     \note If a StringLike object is empty, returns \a position if within bounds, otherwise returns the string view size.
   */
   template <StringLike stringType>
-  [[nodiscard]] constexpr std::size_t rfind(const stringType & string, std::size_t position = npos) const noexcept;
+  [[nodiscard]] constexpr size_t rfind(const stringType & string, size_t position = npos) const noexcept;
 
   /*!
     \brief Finds the last occurrence of the C \a string in the string view.
@@ -495,7 +495,7 @@ public:
     \note The search is case-sensitive.
     \note If the C \a string is empty, returns \a position if within bounds, otherwise returns the string view size.
   */
-  [[nodiscard]] constexpr std::size_t rfind(const char * string, std::size_t position = npos) const noexcept;
+  [[nodiscard]] constexpr size_t rfind(const char * string, size_t position = npos) const noexcept;
 
   /*!
     \brief Finds the last occurrence of a \a character in the string view.
@@ -512,10 +512,10 @@ public:
 
     \note The search is case-sensitive.
   */
-  [[nodiscard]] constexpr std::size_t rfind(char character, std::size_t position = npos) const noexcept;
+  [[nodiscard]] constexpr size_t rfind(char character, size_t position = npos) const noexcept;
 
   /// The special value, its exact meaning depends on the context
-  static constexpr std::size_t npos = std::size_t(-1);
+  static constexpr size_t npos = size_t(-1);
 
   /*!
     \brief Finds the first occurrence of any character from a StringLike object.
@@ -536,7 +536,7 @@ public:
     \note If a StringLike object is empty, this method returns \ref npos.
   */
   template <StringLike stringType>
-  [[nodiscard]] constexpr std::size_t find_first_of(const stringType & string, std::size_t position = 0) const noexcept;
+  [[nodiscard]] constexpr size_t find_first_of(const stringType & string, size_t position = 0) const noexcept;
 
   /*!
     \brief Finds the first occurrence of any character from the C \a string.
@@ -555,7 +555,7 @@ public:
     \note The search is case-sensitive.
     \note If the C \a string is empty, this method returns \ref npos.
   */
-  [[nodiscard]] constexpr std::size_t find_first_of(const char * string, std::size_t position = 0) const noexcept;
+  [[nodiscard]] constexpr size_t find_first_of(const char * string, size_t position = 0) const noexcept;
 
   /*!
     \brief Finds the first occurrence of the specified \a character.
@@ -571,11 +571,11 @@ public:
     \pre The \a position must be less than the string view size.
 
     \note The search is case-sensitive.
-    \note This method is equivalent to \ref find(char, std::size_t) const.
+    \note This method is equivalent to \ref find(char, size_t) const.
 
-    \see find(char, std::size_t) const
+    \see find(char, size_t) const
   */
-  [[nodiscard]] constexpr std::size_t find_first_of(char character, std::size_t position = 0) const noexcept;
+  [[nodiscard]] constexpr size_t find_first_of(char character, size_t position = 0) const noexcept;
 
   /*!
     \brief Finds the first occurrence of any character not from a StringLike object.
@@ -597,8 +597,7 @@ public:
     \note If a StringLike object is empty, returns \a position if within bounds, otherwise returns \ref npos.
   */
   template <StringLike stringType>
-  [[nodiscard]] constexpr std::size_t find_first_not_of(const stringType & string,
-                                                        std::size_t position = 0) const noexcept;
+  [[nodiscard]] constexpr size_t find_first_not_of(const stringType & string, size_t position = 0) const noexcept;
 
   /*!
     \brief Finds the first occurrence of any character not from the C \a string.
@@ -617,7 +616,7 @@ public:
     \note The search is case-sensitive.
     \note If the C \a string is empty, returns \a position if within bounds, otherwise returns \ref npos.
   */
-  [[nodiscard]] constexpr std::size_t find_first_not_of(const char * string, std::size_t position = 0) const noexcept;
+  [[nodiscard]] constexpr size_t find_first_not_of(const char * string, size_t position = 0) const noexcept;
 
   /*!
     \brief Finds the first occurrence of any character not equal to the specified \a character.
@@ -634,7 +633,7 @@ public:
 
     \note The search is case-sensitive.
   */
-  [[nodiscard]] constexpr std::size_t find_first_not_of(char character, std::size_t position = 0) const noexcept;
+  [[nodiscard]] constexpr size_t find_first_not_of(char character, size_t position = 0) const noexcept;
 
   /*!
     \brief Finds the last occurrence of any character from a StringLike object.
@@ -655,8 +654,7 @@ public:
     \note If a StringLike object is empty, this method returns \ref npos.
   */
   template <StringLike stringType>
-  [[nodiscard]] constexpr std::size_t find_last_of(const stringType & string,
-                                                   std::size_t position = npos) const noexcept;
+  [[nodiscard]] constexpr size_t find_last_of(const stringType & string, size_t position = npos) const noexcept;
 
   /*!
     \brief Finds the last occurrence of any character from the C \a string.
@@ -675,7 +673,7 @@ public:
     \note The search is case-sensitive.
     \note If the C \a string is empty, this method returns \ref npos.
   */
-  [[nodiscard]] constexpr std::size_t find_last_of(const char * string, std::size_t position = npos) const noexcept;
+  [[nodiscard]] constexpr size_t find_last_of(const char * string, size_t position = npos) const noexcept;
 
   /*!
     \brief Finds the last occurrence of the specified \a character.
@@ -691,11 +689,11 @@ public:
     \pre If \a position is not \ref npos, it must be less than the string view size.
 
     \note The search is case-sensitive.
-    \note This method is equivalent to \ref rfind(char, std::size_t) const.
+    \note This method is equivalent to \ref rfind(char, size_t) const.
 
-    \see rfind(char, std::size_t) const
+    \see rfind(char, size_t) const
   */
-  [[nodiscard]] constexpr std::size_t find_last_of(char character, std::size_t position = npos) const noexcept;
+  [[nodiscard]] constexpr size_t find_last_of(char character, size_t position = npos) const noexcept;
 
   /*!
     \brief Finds the last occurrence of any character not from a StringLike object.
@@ -717,8 +715,7 @@ public:
     \note If a StringLike object is empty, returns \a position if within bounds, otherwise returns \ref npos.
   */
   template <StringLike stringType>
-  [[nodiscard]] constexpr std::size_t find_last_not_of(const stringType & string,
-                                                       std::size_t position = npos) const noexcept;
+  [[nodiscard]] constexpr size_t find_last_not_of(const stringType & string, size_t position = npos) const noexcept;
 
   /*!
     \brief Finds the last occurrence of any character not from the C \a string.
@@ -737,7 +734,7 @@ public:
     \note The search is case-sensitive.
     \note If the C \a string is empty, returns \a position if within bounds, otherwise returns \ref npos.
   */
-  [[nodiscard]] constexpr std::size_t find_last_not_of(const char * string, std::size_t position = npos) const noexcept;
+  [[nodiscard]] constexpr size_t find_last_not_of(const char * string, size_t position = npos) const noexcept;
 
   /*!
     \brief Finds the last occurrence of any character not equal to the specified \a character.
@@ -754,7 +751,7 @@ public:
 
     \note The search is case-sensitive.
   */
-  [[nodiscard]] constexpr std::size_t find_last_not_of(char character, std::size_t position = npos) const noexcept;
+  [[nodiscard]] constexpr size_t find_last_not_of(char character, size_t position = npos) const noexcept;
 
   /*!
     \brief Compares this string view with a StringLike object lexicographically.
@@ -970,7 +967,7 @@ private:
     \pre The \a position must be less than the string view size.
     \pre The \a data must not be null.
   */
-  constexpr std::size_t _find_raw(std::size_t position, const char * data, std::size_t dataSize) const noexcept;
+  constexpr size_t _find_raw(size_t position, const char * data, size_t dataSize) const noexcept;
 
   /*!
     \brief Helper method for finding \a data in the string view backwards.
@@ -987,7 +984,7 @@ private:
     \pre If \a position is not \ref npos, it must be less than or equal to the string view size.
     \pre The \a data must not be null.
   */
-  constexpr std::size_t _rfind_raw(std::size_t position, const char * data, std::size_t dataSize) const noexcept;
+  constexpr size_t _rfind_raw(size_t position, const char * data, size_t dataSize) const noexcept;
 
   /*!
     \brief Helper method for finding the first occurrence of any character from \a data.
@@ -1004,8 +1001,7 @@ private:
     \pre The \a position must be less than the string view size.
     \pre The \a data must not be null.
   */
-  constexpr std::size_t _find_first_of_raw(std::size_t position, const char * data,
-                                           std::size_t dataSize) const noexcept;
+  constexpr size_t _find_first_of_raw(size_t position, const char * data, size_t dataSize) const noexcept;
 
   /*!
     \brief Helper method for finding the first occurrence of any character not from \a data.
@@ -1022,8 +1018,7 @@ private:
     \pre The \a position must be less than the string view size.
     \pre The \a data must not be null.
   */
-  constexpr std::size_t _find_first_not_of_raw(std::size_t position, const char * data,
-                                               std::size_t dataSize) const noexcept;
+  constexpr size_t _find_first_not_of_raw(size_t position, const char * data, size_t dataSize) const noexcept;
 
   /*!
     \brief Helper method for finding the last occurrence of any character from \a data.
@@ -1041,7 +1036,7 @@ private:
     \pre If \a position is not \ref npos, it must be less than the string view size.
     \pre The \a data must not be null.
   */
-  constexpr std::size_t _find_last_of_raw(std::size_t position, const char * data, std::size_t dataSize) const noexcept;
+  constexpr size_t _find_last_of_raw(size_t position, const char * data, size_t dataSize) const noexcept;
 
   /*!
     \brief Helper method for finding the last occurrence of any character not from \a data.
@@ -1059,8 +1054,7 @@ private:
     \pre If \a position is not \ref npos, it must be less than the string view size.
     \pre The \a data must not be null.
   */
-  constexpr std::size_t _find_last_not_of_raw(std::size_t position, const char * data,
-                                              std::size_t dataSize) const noexcept;
+  constexpr size_t _find_last_not_of_raw(size_t position, const char * data, size_t dataSize) const noexcept;
 };
 
 /*!

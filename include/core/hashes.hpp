@@ -51,7 +51,7 @@ namespace toy {
   \see https://en.wikipedia.org/wiki/Cyclic_redundancy_check
   \see https://reveng.sourceforge.io/crc-catalogue/1-15.htm#crc.cat-bits.8
 */
-[[nodiscard]] std::uint8_t crc8(const void * src, std::size_t size, std::uint8_t crc = 0x00) noexcept;
+[[nodiscard]] uint8_t crc8(const void * src, size_t size, uint8_t crc = 0x00) noexcept;
 
 /*!
   \brief Calculates CRC-16 checksum using IBM/ARC polynomial.
@@ -85,7 +85,7 @@ namespace toy {
   \see https://en.wikipedia.org/wiki/Cyclic_redundancy_check
   \see https://reveng.sourceforge.io/crc-catalogue/16.htm#crc.cat.crc-16-arc
 */
-[[nodiscard]] std::uint16_t crc16(const void * src, std::size_t size, std::uint16_t crc = 0x0000) noexcept;
+[[nodiscard]] uint16_t crc16(const void * src, size_t size, uint16_t crc = 0x0000) noexcept;
 
 /*!
   \brief Calculates CRC-32 checksum using IEEE 802.3 polynomial.
@@ -119,7 +119,7 @@ namespace toy {
   \see https://en.wikipedia.org/wiki/Cyclic_redundancy_check
   \see https://reveng.sourceforge.io/crc-catalogue/17plus.htm#crc.cat-bits.32
 */
-[[nodiscard]] std::uint32_t crc32(const void * src, std::size_t size, std::uint32_t crc = 0x00000000) noexcept;
+[[nodiscard]] uint32_t crc32(const void * src, size_t size, uint32_t crc = 0x00000000) noexcept;
 
 } // namespace toy
 

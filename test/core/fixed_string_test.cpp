@@ -22,7 +22,7 @@
 
 #include "core.hpp"
 
-using namespace toy;
+namespace toy {
 
 TEST_CASE("FixedString constructors", "[core][fixed_string]") {
   SECTION("Default constructor") {
@@ -9597,3 +9597,5 @@ TEST_CASE("FixedString std::swap", "[core][fixed_string]") {
     REQUIRE(std::strcmp(str2.c_str(), "A") == 0);
   }
 }
+
+} // namespace toy

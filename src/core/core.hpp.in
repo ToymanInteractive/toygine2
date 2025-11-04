@@ -100,14 +100,26 @@
 /// @namespace toy
 /// @brief Root namespace containing all engine modules.
 namespace toy {
+
+using std::size_t;
+
+using std::int16_t;
+using std::int32_t;
+using std::int64_t;
+using std::int8_t;
+using std::uint16_t;
+using std::uint32_t;
+using std::uint64_t;
+using std::uint8_t;
+
 /*!
   \brief Returns the size of an array at compile-time.
 
   This is a compile-time helper function that returns the size of an array. The size of the array is inferred from the
   parameter type, which is a reference to an array of length N.
 */
-template <typename T, std::size_t N>
-constexpr std::size_t ArraySize(T (&)[N]) {
+template <typename T, size_t N>
+constexpr size_t ArraySize(T (&)[N]) {
   return N;
 }
 
@@ -115,8 +127,8 @@ constexpr std::size_t ArraySize(T (&)[N]) {
   \brief Concept defining the requirements for string-like types.
 
   This concept defines the interface that any type must satisfy to be considered string-like. It requires the type to
-  have a size() method that returns a value convertible to std::size_t, and a c_str() method that returns a value
-  convertible to const char*.
+  have a size() method that returns a value convertible to size_t, and a c_str() method that returns a value convertible
+  to const char*.
 
   (Template parameter T is the type to check for string-like properties.)
 
@@ -128,7 +140,7 @@ constexpr std::size_t ArraySize(T (&)[N]) {
 */
 template <typename T>
 concept StringLike = requires(const T & str) {
-  { str.size() } -> std::same_as<std::size_t>;
+  { str.size() } -> std::same_as<size_t>;
   { str.c_str() } -> std::convertible_to<const char *>;
 };
 
@@ -187,13 +199,13 @@ void setCallbacks(AssertionCallback assertionCallback, StackWalkCallback stackWa
 #ifdef _DEBUG
 
 void assertion(const char * code, const char * message, const char * fileName, const char * functionName,
-               std::size_t lineNumber);
+               size_t lineNumber);
 
 #else // _DEBUG
 
 inline void assertion(const char * TOY_UNUSED(code), const char * TOY_UNUSED(message),
                       const char * TOY_UNUSED(fileName), const char * TOY_UNUSED(functionName),
-                      std::size_t TOY_UNUSED(lineNumber)) {}
+                      size_t TOY_UNUSED(lineNumber)) {}
 
 #endif // _DEBUG
 
