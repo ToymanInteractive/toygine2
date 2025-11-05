@@ -25,8 +25,6 @@
 #ifndef SRC_CORE_UTILS_INTERNAL_INL_
 #define SRC_CORE_UTILS_INTERNAL_INL_
 
-#include <type_traits>
-
 namespace toy {
 
 /*!

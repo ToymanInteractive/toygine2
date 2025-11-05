@@ -61,6 +61,18 @@ static constexpr std::array<uint8_t, 256> _utf8CharSizeTable{{
   0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x05, 0x05, 0x05, 0x05, 0x06, 0x06, 0x07, 0x08,
 }};
 
+/*!
+  \brief Precomputed exponent lookup table for efficient binary-to-decimal floating-point conversion.
+
+  This lookup table contains 32 precomputed values used to convert IEEE-754 binary floating-point exponents to decimal
+  exponents during float-to-string conversion. The table maps groups of 8 binary exponent values to precomputed
+  multipliers that approximate the conversion from binary to decimal representation.
+
+  \note The table is indexed by exponent / 8, where exponent is the 8-bit IEEE-754 exponent field (0-255).
+        Each entry is a 32-bit fixed-point multiplier used to compute the decimal mantissa efficiently.
+  \note This table enables O(1) lookup instead of expensive runtime power-of-10 calculations, significantly improving
+        the performance of floating-point number formatting.
+*/
 constexpr std::array<uint32_t, 32> _exponentTable{{
   0xF0BDC21A, 0x3DA137D5, 0x9DC5ADA8, 0x2863C1F5, 0x6765C793, 0x1A784379, 0x43C33C19, 0xAD78EBC5,
   0x2C68AF0B, 0x71AFD498, 0x1D1A94A2, 0x4A817C80, 0xBEBC2000, 0x30D40000, 0x7D000000, 0x20000000,
