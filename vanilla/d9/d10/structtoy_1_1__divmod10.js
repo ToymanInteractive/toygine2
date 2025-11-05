@@ -1,5 +1,5 @@
 var structtoy_1_1__divmod10 =
 [
-    [ "quot", "d9/d10/structtoy_1_1__divmod10.html#af9e5f613cf4019a37b2675f274032820", null ],
-    [ "rem", "d9/d10/structtoy_1_1__divmod10.html#a5c990eebc39ef350055e4f3317e1f5b7", null ]
+    [ "quot", "d9/d10/structtoy_1_1__divmod10.html#ab2cd556a449dad6de65cdbfe88552248", null ],
+    [ "rem", "d9/d10/structtoy_1_1__divmod10.html#a0a36126e3c670083dc8d95776ae1e4f4", null ]
 ];

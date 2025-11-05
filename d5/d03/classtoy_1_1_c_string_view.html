@@ -135,10 +135,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a59adcb66726ff68ceafc4bc1e2366475"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy assigns other <em class="arg">string</em> view to this string view.  <br /></td></tr>
 <tr class="memitem:a2d6dae36ef9b82f5d6f5f579cf4da692" id="r_a2d6dae36ef9b82f5d6f5f579cf4da692"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="#af79d918dedd06e2c2b99fe920962d64d">CStringView</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2d6dae36ef9b82f5d6f5f579cf4da692">assign</a> (const char *string) noexcept</td></tr>
 <tr class="memdesc:a2d6dae36ef9b82f5d6f5f579cf4da692"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy assigns the C <em class="arg">string</em> to this string view.  <br /></td></tr>
-<tr class="memitem:ac7478fb514b8527952f100fc89061954" id="r_ac7478fb514b8527952f100fc89061954"><td class="memItemLeft" align="right" valign="top">constexpr const char &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac7478fb514b8527952f100fc89061954">at</a> (std::size_t offset) const noexcept</td></tr>
-<tr class="memdesc:ac7478fb514b8527952f100fc89061954"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access a character in the string view at a given <em class="arg">offset</em>.  <br /></td></tr>
-<tr class="memitem:a9b598d47988cd3fb3862800f6ec9be65" id="r_a9b598d47988cd3fb3862800f6ec9be65"><td class="memItemLeft" align="right" valign="top">constexpr const char &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9b598d47988cd3fb3862800f6ec9be65">operator[]</a> (std::size_t offset) const noexcept</td></tr>
-<tr class="memdesc:a9b598d47988cd3fb3862800f6ec9be65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access a character in the string view at a given <em class="arg">offset</em>.  <br /></td></tr>
+<tr class="memitem:ad3f48510eebdc40744aca52b31bfee3c" id="r_ad3f48510eebdc40744aca52b31bfee3c"><td class="memItemLeft" align="right" valign="top">constexpr const char &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad3f48510eebdc40744aca52b31bfee3c">at</a> (size_t offset) const noexcept</td></tr>
+<tr class="memdesc:ad3f48510eebdc40744aca52b31bfee3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access a character in the string view at a given <em class="arg">offset</em>.  <br /></td></tr>
+<tr class="memitem:aff82b69d23c0c93900483730048d23f0" id="r_aff82b69d23c0c93900483730048d23f0"><td class="memItemLeft" align="right" valign="top">constexpr const char &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aff82b69d23c0c93900483730048d23f0">operator[]</a> (size_t offset) const noexcept</td></tr>
+<tr class="memdesc:aff82b69d23c0c93900483730048d23f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access a character in the string view at a given <em class="arg">offset</em>.  <br /></td></tr>
 <tr class="memitem:a3a8634e0b4ae35b9754bbab8dfcc7502" id="r_a3a8634e0b4ae35b9754bbab8dfcc7502"><td class="memItemLeft" align="right" valign="top">constexpr const char &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3a8634e0b4ae35b9754bbab8dfcc7502">front</a> () const noexcept</td></tr>
 <tr class="memdesc:a3a8634e0b4ae35b9754bbab8dfcc7502"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a const reference to the first character of the string view.  <br /></td></tr>
 <tr class="memitem:a8f0b3a45e04f9a8781f16c351d1bf5c1" id="r_a8f0b3a45e04f9a8781f16c351d1bf5c1"><td class="memItemLeft" align="right" valign="top">constexpr const char &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8f0b3a45e04f9a8781f16c351d1bf5c1">back</a> () const noexcept</td></tr>
@@ -149,62 +149,62 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:adb54f0951dc63d5cc1466ae61e941df5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a constant pointer to the C string representation of this string view.  <br /></td></tr>
 <tr class="memitem:a1a70352432ff6efe34a7c0fc6012e16a" id="r_a1a70352432ff6efe34a7c0fc6012e16a"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1a70352432ff6efe34a7c0fc6012e16a">empty</a> () const noexcept</td></tr>
 <tr class="memdesc:a1a70352432ff6efe34a7c0fc6012e16a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the string view is empty.  <br /></td></tr>
-<tr class="memitem:abd1a5cceb264d3d595bdbf9d415ffb74" id="r_abd1a5cceb264d3d595bdbf9d415ffb74"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abd1a5cceb264d3d595bdbf9d415ffb74">size</a> () const noexcept</td></tr>
-<tr class="memdesc:abd1a5cceb264d3d595bdbf9d415ffb74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the size of the string view.  <br /></td></tr>
-<tr class="memitem:af55492c22e19b5ac015367834546a386" id="r_af55492c22e19b5ac015367834546a386"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af55492c22e19b5ac015367834546a386">utf8_size</a> () const noexcept</td></tr>
-<tr class="memdesc:af55492c22e19b5ac015367834546a386"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the size of the Unicode string in UTF-8 encoding.  <br /></td></tr>
-<tr class="memitem:a53bd50e64d92a36d07a8d4f240c73147" id="r_a53bd50e64d92a36d07a8d4f240c73147"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a53bd50e64d92a36d07a8d4f240c73147">length</a> () const noexcept</td></tr>
-<tr class="memdesc:a53bd50e64d92a36d07a8d4f240c73147"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the size of the string view.  <br /></td></tr>
-<tr class="memitem:a65ca67f3828e8129c0022f9102b96b5c" id="r_a65ca67f3828e8129c0022f9102b96b5c"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a65ca67f3828e8129c0022f9102b96b5c">max_size</a> () const noexcept</td></tr>
-<tr class="memdesc:a65ca67f3828e8129c0022f9102b96b5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the maximum observable size of this string view.  <br /></td></tr>
-<tr class="memitem:a2089895f2989348b9311ae5196020a8e" id="r_a2089895f2989348b9311ae5196020a8e"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2089895f2989348b9311ae5196020a8e">capacity</a> () const noexcept</td></tr>
-<tr class="memdesc:a2089895f2989348b9311ae5196020a8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the capacity of the string view.  <br /></td></tr>
+<tr class="memitem:a56455f7c7872e005bae0bd9f37f8d188" id="r_a56455f7c7872e005bae0bd9f37f8d188"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a56455f7c7872e005bae0bd9f37f8d188">size</a> () const noexcept</td></tr>
+<tr class="memdesc:a56455f7c7872e005bae0bd9f37f8d188"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the size of the string view.  <br /></td></tr>
+<tr class="memitem:af2fcc3a984aa7a26f458509827c72fea" id="r_af2fcc3a984aa7a26f458509827c72fea"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af2fcc3a984aa7a26f458509827c72fea">utf8_size</a> () const noexcept</td></tr>
+<tr class="memdesc:af2fcc3a984aa7a26f458509827c72fea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the size of the Unicode string in UTF-8 encoding.  <br /></td></tr>
+<tr class="memitem:a6120478d89996e674d30f8398ccfbc51" id="r_a6120478d89996e674d30f8398ccfbc51"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6120478d89996e674d30f8398ccfbc51">length</a> () const noexcept</td></tr>
+<tr class="memdesc:a6120478d89996e674d30f8398ccfbc51"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the size of the string view.  <br /></td></tr>
+<tr class="memitem:a6354e478ad35f159833948e7951f671c" id="r_a6354e478ad35f159833948e7951f671c"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6354e478ad35f159833948e7951f671c">max_size</a> () const noexcept</td></tr>
+<tr class="memdesc:a6354e478ad35f159833948e7951f671c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the maximum observable size of this string view.  <br /></td></tr>
+<tr class="memitem:a648369b58f6c23f223fbaca2ce7dfc68" id="r_a648369b58f6c23f223fbaca2ce7dfc68"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a648369b58f6c23f223fbaca2ce7dfc68">capacity</a> () const noexcept</td></tr>
+<tr class="memdesc:a648369b58f6c23f223fbaca2ce7dfc68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the capacity of the string view.  <br /></td></tr>
 <tr class="memitem:a267bbe14a77506bb0b9479faade6c7fc" id="r_a267bbe14a77506bb0b9479faade6c7fc"><td class="memItemLeft" align="right" valign="top">constexpr void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a267bbe14a77506bb0b9479faade6c7fc">clear</a> () noexcept</td></tr>
 <tr class="memdesc:a267bbe14a77506bb0b9479faade6c7fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the contents by detaching from the current C string.  <br /></td></tr>
 <tr class="memitem:a61dbfbf58ac6f2ab042774a2c3e81e6b" id="r_a61dbfbf58ac6f2ab042774a2c3e81e6b"><td class="memItemLeft" align="right" valign="top">constexpr void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a61dbfbf58ac6f2ab042774a2c3e81e6b">swap</a> (<a class="el" href="#af79d918dedd06e2c2b99fe920962d64d">CStringView</a> &amp;string) noexcept</td></tr>
 <tr class="memdesc:a61dbfbf58ac6f2ab042774a2c3e81e6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Swaps the contents of this string view with another <em class="arg">string</em> view.  <br /></td></tr>
-<tr class="memitem:a51e64c69c9b0a9ed965ea15b40e1128a" id="r_a51e64c69c9b0a9ed965ea15b40e1128a"><td class="memTemplParams" colspan="2">template&lt;StringLike stringType&gt; </td></tr>
-<tr class="memitem:a51e64c69c9b0a9ed965ea15b40e1128a template"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a51e64c69c9b0a9ed965ea15b40e1128a">find</a> (const stringType &amp;string, std::size_t position=0) const noexcept</td></tr>
-<tr class="memdesc:a51e64c69c9b0a9ed965ea15b40e1128a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the first occurrence of a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object in the string view.  <br /></td></tr>
-<tr class="memitem:a658906675b5aa3a95cc0b071bf0286e8" id="r_a658906675b5aa3a95cc0b071bf0286e8"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a658906675b5aa3a95cc0b071bf0286e8">find</a> (const char *string, std::size_t position=0) const noexcept</td></tr>
-<tr class="memdesc:a658906675b5aa3a95cc0b071bf0286e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the first occurrence of the C <em class="arg">string</em> in the string view.  <br /></td></tr>
-<tr class="memitem:a91de3ec92df6a1ec623d71d1849cf3a6" id="r_a91de3ec92df6a1ec623d71d1849cf3a6"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a91de3ec92df6a1ec623d71d1849cf3a6">find</a> (char character, std::size_t position=0) const noexcept</td></tr>
-<tr class="memdesc:a91de3ec92df6a1ec623d71d1849cf3a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the first occurrence of a <em class="arg">character</em> in the string view.  <br /></td></tr>
-<tr class="memitem:a857c00f45935e884fda6dd507de4242c" id="r_a857c00f45935e884fda6dd507de4242c"><td class="memTemplParams" colspan="2">template&lt;StringLike stringType&gt; </td></tr>
-<tr class="memitem:a857c00f45935e884fda6dd507de4242c template"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a857c00f45935e884fda6dd507de4242c">rfind</a> (const stringType &amp;string, std::size_t position=<a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>) const noexcept</td></tr>
-<tr class="memdesc:a857c00f45935e884fda6dd507de4242c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the last occurrence of a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object in the string view.  <br /></td></tr>
-<tr class="memitem:a2f3c745f4720005a7d15703fc86bc270" id="r_a2f3c745f4720005a7d15703fc86bc270"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2f3c745f4720005a7d15703fc86bc270">rfind</a> (const char *string, std::size_t position=<a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>) const noexcept</td></tr>
-<tr class="memdesc:a2f3c745f4720005a7d15703fc86bc270"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the last occurrence of the C <em class="arg">string</em> in the string view.  <br /></td></tr>
-<tr class="memitem:a643acb38e12ce27774d40c975a2c3698" id="r_a643acb38e12ce27774d40c975a2c3698"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a643acb38e12ce27774d40c975a2c3698">rfind</a> (char character, std::size_t position=<a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>) const noexcept</td></tr>
-<tr class="memdesc:a643acb38e12ce27774d40c975a2c3698"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the last occurrence of a <em class="arg">character</em> in the string view.  <br /></td></tr>
-<tr class="memitem:a4c9e16fc17732b7e6c131d07e2b1a220" id="r_a4c9e16fc17732b7e6c131d07e2b1a220"><td class="memTemplParams" colspan="2">template&lt;StringLike stringType&gt; </td></tr>
-<tr class="memitem:a4c9e16fc17732b7e6c131d07e2b1a220 template"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4c9e16fc17732b7e6c131d07e2b1a220">find_first_of</a> (const stringType &amp;string, std::size_t position=0) const noexcept</td></tr>
-<tr class="memdesc:a4c9e16fc17732b7e6c131d07e2b1a220"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the first occurrence of any character from a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object.  <br /></td></tr>
-<tr class="memitem:adaa0a01cc9ab2f34ae7688a4f7ac98df" id="r_adaa0a01cc9ab2f34ae7688a4f7ac98df"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adaa0a01cc9ab2f34ae7688a4f7ac98df">find_first_of</a> (const char *string, std::size_t position=0) const noexcept</td></tr>
-<tr class="memdesc:adaa0a01cc9ab2f34ae7688a4f7ac98df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the first occurrence of any character from the C <em class="arg">string</em>.  <br /></td></tr>
-<tr class="memitem:a0cd121e1778d472b5f82f6cf3f2bdcef" id="r_a0cd121e1778d472b5f82f6cf3f2bdcef"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0cd121e1778d472b5f82f6cf3f2bdcef">find_first_of</a> (char character, std::size_t position=0) const noexcept</td></tr>
-<tr class="memdesc:a0cd121e1778d472b5f82f6cf3f2bdcef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the first occurrence of the specified <em class="arg">character</em>.  <br /></td></tr>
-<tr class="memitem:a07841e493d8829a95b0bb375dafb93e6" id="r_a07841e493d8829a95b0bb375dafb93e6"><td class="memTemplParams" colspan="2">template&lt;StringLike stringType&gt; </td></tr>
-<tr class="memitem:a07841e493d8829a95b0bb375dafb93e6 template"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a07841e493d8829a95b0bb375dafb93e6">find_first_not_of</a> (const stringType &amp;string, std::size_t position=0) const noexcept</td></tr>
-<tr class="memdesc:a07841e493d8829a95b0bb375dafb93e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the first occurrence of any character not from a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object.  <br /></td></tr>
-<tr class="memitem:aa9488a785adfd74265b7bc17e0a8ff79" id="r_aa9488a785adfd74265b7bc17e0a8ff79"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa9488a785adfd74265b7bc17e0a8ff79">find_first_not_of</a> (const char *string, std::size_t position=0) const noexcept</td></tr>
-<tr class="memdesc:aa9488a785adfd74265b7bc17e0a8ff79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the first occurrence of any character not from the C <em class="arg">string</em>.  <br /></td></tr>
-<tr class="memitem:a755ddffa1d723da2ad12d3516b309759" id="r_a755ddffa1d723da2ad12d3516b309759"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a755ddffa1d723da2ad12d3516b309759">find_first_not_of</a> (char character, std::size_t position=0) const noexcept</td></tr>
-<tr class="memdesc:a755ddffa1d723da2ad12d3516b309759"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the first occurrence of any character not equal to the specified <em class="arg">character</em>.  <br /></td></tr>
-<tr class="memitem:a0cf6450c1d7131517d11fdcccf0ea0c0" id="r_a0cf6450c1d7131517d11fdcccf0ea0c0"><td class="memTemplParams" colspan="2">template&lt;StringLike stringType&gt; </td></tr>
-<tr class="memitem:a0cf6450c1d7131517d11fdcccf0ea0c0 template"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0cf6450c1d7131517d11fdcccf0ea0c0">find_last_of</a> (const stringType &amp;string, std::size_t position=<a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>) const noexcept</td></tr>
-<tr class="memdesc:a0cf6450c1d7131517d11fdcccf0ea0c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the last occurrence of any character from a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object.  <br /></td></tr>
-<tr class="memitem:a76f8fcc30b75fa98f938628f62fbe5fd" id="r_a76f8fcc30b75fa98f938628f62fbe5fd"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a76f8fcc30b75fa98f938628f62fbe5fd">find_last_of</a> (const char *string, std::size_t position=<a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>) const noexcept</td></tr>
-<tr class="memdesc:a76f8fcc30b75fa98f938628f62fbe5fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the last occurrence of any character from the C <em class="arg">string</em>.  <br /></td></tr>
-<tr class="memitem:af52378ac870ce1904cfca4dc56fc5712" id="r_af52378ac870ce1904cfca4dc56fc5712"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af52378ac870ce1904cfca4dc56fc5712">find_last_of</a> (char character, std::size_t position=<a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>) const noexcept</td></tr>
-<tr class="memdesc:af52378ac870ce1904cfca4dc56fc5712"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the last occurrence of the specified <em class="arg">character</em>.  <br /></td></tr>
-<tr class="memitem:ac77689d4d097c16e96536a32736f78fe" id="r_ac77689d4d097c16e96536a32736f78fe"><td class="memTemplParams" colspan="2">template&lt;StringLike stringType&gt; </td></tr>
-<tr class="memitem:ac77689d4d097c16e96536a32736f78fe template"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac77689d4d097c16e96536a32736f78fe">find_last_not_of</a> (const stringType &amp;string, std::size_t position=<a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>) const noexcept</td></tr>
-<tr class="memdesc:ac77689d4d097c16e96536a32736f78fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the last occurrence of any character not from a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object.  <br /></td></tr>
-<tr class="memitem:abba1f4c8bfdff27a848681fe55f7e7c6" id="r_abba1f4c8bfdff27a848681fe55f7e7c6"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abba1f4c8bfdff27a848681fe55f7e7c6">find_last_not_of</a> (const char *string, std::size_t position=<a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>) const noexcept</td></tr>
-<tr class="memdesc:abba1f4c8bfdff27a848681fe55f7e7c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the last occurrence of any character not from the C <em class="arg">string</em>.  <br /></td></tr>
-<tr class="memitem:a43203e8e0d660cfc02ce84b1a6f80747" id="r_a43203e8e0d660cfc02ce84b1a6f80747"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a43203e8e0d660cfc02ce84b1a6f80747">find_last_not_of</a> (char character, std::size_t position=<a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>) const noexcept</td></tr>
-<tr class="memdesc:a43203e8e0d660cfc02ce84b1a6f80747"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the last occurrence of any character not equal to the specified <em class="arg">character</em>.  <br /></td></tr>
+<tr class="memitem:a750303f5eb6ff80d0729aabae7fd2972" id="r_a750303f5eb6ff80d0729aabae7fd2972"><td class="memTemplParams" colspan="2">template&lt;StringLike stringType&gt; </td></tr>
+<tr class="memitem:a750303f5eb6ff80d0729aabae7fd2972 template"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a750303f5eb6ff80d0729aabae7fd2972">find</a> (const stringType &amp;string, size_t position=0) const noexcept</td></tr>
+<tr class="memdesc:a750303f5eb6ff80d0729aabae7fd2972"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the first occurrence of a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object in the string view.  <br /></td></tr>
+<tr class="memitem:ac26525b33f1f4a023b72eb223f51efce" id="r_ac26525b33f1f4a023b72eb223f51efce"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac26525b33f1f4a023b72eb223f51efce">find</a> (const char *string, size_t position=0) const noexcept</td></tr>
+<tr class="memdesc:ac26525b33f1f4a023b72eb223f51efce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the first occurrence of the C <em class="arg">string</em> in the string view.  <br /></td></tr>
+<tr class="memitem:a8a75b7eb449240c8afe1f11dc9e1944d" id="r_a8a75b7eb449240c8afe1f11dc9e1944d"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8a75b7eb449240c8afe1f11dc9e1944d">find</a> (char character, size_t position=0) const noexcept</td></tr>
+<tr class="memdesc:a8a75b7eb449240c8afe1f11dc9e1944d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the first occurrence of a <em class="arg">character</em> in the string view.  <br /></td></tr>
+<tr class="memitem:a3ae555f117f83592da1aefafdd656af0" id="r_a3ae555f117f83592da1aefafdd656af0"><td class="memTemplParams" colspan="2">template&lt;StringLike stringType&gt; </td></tr>
+<tr class="memitem:a3ae555f117f83592da1aefafdd656af0 template"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3ae555f117f83592da1aefafdd656af0">rfind</a> (const stringType &amp;string, size_t position=<a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>) const noexcept</td></tr>
+<tr class="memdesc:a3ae555f117f83592da1aefafdd656af0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the last occurrence of a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object in the string view.  <br /></td></tr>
+<tr class="memitem:ada601aeb8a74b2f93c11b58bff50f50b" id="r_ada601aeb8a74b2f93c11b58bff50f50b"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ada601aeb8a74b2f93c11b58bff50f50b">rfind</a> (const char *string, size_t position=<a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>) const noexcept</td></tr>
+<tr class="memdesc:ada601aeb8a74b2f93c11b58bff50f50b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the last occurrence of the C <em class="arg">string</em> in the string view.  <br /></td></tr>
+<tr class="memitem:abc21bf7f8e4d58c5a5834e16bba65208" id="r_abc21bf7f8e4d58c5a5834e16bba65208"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abc21bf7f8e4d58c5a5834e16bba65208">rfind</a> (char character, size_t position=<a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>) const noexcept</td></tr>
+<tr class="memdesc:abc21bf7f8e4d58c5a5834e16bba65208"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the last occurrence of a <em class="arg">character</em> in the string view.  <br /></td></tr>
+<tr class="memitem:a94f746d805e323bc7c551de04f927b3d" id="r_a94f746d805e323bc7c551de04f927b3d"><td class="memTemplParams" colspan="2">template&lt;StringLike stringType&gt; </td></tr>
+<tr class="memitem:a94f746d805e323bc7c551de04f927b3d template"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a94f746d805e323bc7c551de04f927b3d">find_first_of</a> (const stringType &amp;string, size_t position=0) const noexcept</td></tr>
+<tr class="memdesc:a94f746d805e323bc7c551de04f927b3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the first occurrence of any character from a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object.  <br /></td></tr>
+<tr class="memitem:adce5aa064a0cc176db13a67dc0f45fb5" id="r_adce5aa064a0cc176db13a67dc0f45fb5"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adce5aa064a0cc176db13a67dc0f45fb5">find_first_of</a> (const char *string, size_t position=0) const noexcept</td></tr>
+<tr class="memdesc:adce5aa064a0cc176db13a67dc0f45fb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the first occurrence of any character from the C <em class="arg">string</em>.  <br /></td></tr>
+<tr class="memitem:a5936f341813b3c2c4f966f2a429e1945" id="r_a5936f341813b3c2c4f966f2a429e1945"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5936f341813b3c2c4f966f2a429e1945">find_first_of</a> (char character, size_t position=0) const noexcept</td></tr>
+<tr class="memdesc:a5936f341813b3c2c4f966f2a429e1945"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the first occurrence of the specified <em class="arg">character</em>.  <br /></td></tr>
+<tr class="memitem:af3b8dfa4771e19e127747951ef6129a4" id="r_af3b8dfa4771e19e127747951ef6129a4"><td class="memTemplParams" colspan="2">template&lt;StringLike stringType&gt; </td></tr>
+<tr class="memitem:af3b8dfa4771e19e127747951ef6129a4 template"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af3b8dfa4771e19e127747951ef6129a4">find_first_not_of</a> (const stringType &amp;string, size_t position=0) const noexcept</td></tr>
+<tr class="memdesc:af3b8dfa4771e19e127747951ef6129a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the first occurrence of any character not from a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object.  <br /></td></tr>
+<tr class="memitem:a024f2f89ea991e6afc1f049d08a41bf6" id="r_a024f2f89ea991e6afc1f049d08a41bf6"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a024f2f89ea991e6afc1f049d08a41bf6">find_first_not_of</a> (const char *string, size_t position=0) const noexcept</td></tr>
+<tr class="memdesc:a024f2f89ea991e6afc1f049d08a41bf6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the first occurrence of any character not from the C <em class="arg">string</em>.  <br /></td></tr>
+<tr class="memitem:ae8aa2c5de0844a0ffcf80e748e9d3c7a" id="r_ae8aa2c5de0844a0ffcf80e748e9d3c7a"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae8aa2c5de0844a0ffcf80e748e9d3c7a">find_first_not_of</a> (char character, size_t position=0) const noexcept</td></tr>
+<tr class="memdesc:ae8aa2c5de0844a0ffcf80e748e9d3c7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the first occurrence of any character not equal to the specified <em class="arg">character</em>.  <br /></td></tr>
+<tr class="memitem:a8987bed49b7971eac8097e92c4db80ca" id="r_a8987bed49b7971eac8097e92c4db80ca"><td class="memTemplParams" colspan="2">template&lt;StringLike stringType&gt; </td></tr>
+<tr class="memitem:a8987bed49b7971eac8097e92c4db80ca template"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8987bed49b7971eac8097e92c4db80ca">find_last_of</a> (const stringType &amp;string, size_t position=<a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>) const noexcept</td></tr>
+<tr class="memdesc:a8987bed49b7971eac8097e92c4db80ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the last occurrence of any character from a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object.  <br /></td></tr>
+<tr class="memitem:af9be50089de84b067ca054334be123fd" id="r_af9be50089de84b067ca054334be123fd"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af9be50089de84b067ca054334be123fd">find_last_of</a> (const char *string, size_t position=<a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>) const noexcept</td></tr>
+<tr class="memdesc:af9be50089de84b067ca054334be123fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the last occurrence of any character from the C <em class="arg">string</em>.  <br /></td></tr>
+<tr class="memitem:a6e45c5a91e2e49811add5f31f9e502e2" id="r_a6e45c5a91e2e49811add5f31f9e502e2"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6e45c5a91e2e49811add5f31f9e502e2">find_last_of</a> (char character, size_t position=<a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>) const noexcept</td></tr>
+<tr class="memdesc:a6e45c5a91e2e49811add5f31f9e502e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the last occurrence of the specified <em class="arg">character</em>.  <br /></td></tr>
+<tr class="memitem:a1b7cb3ab3e828a7398ff2c60e01ed63c" id="r_a1b7cb3ab3e828a7398ff2c60e01ed63c"><td class="memTemplParams" colspan="2">template&lt;StringLike stringType&gt; </td></tr>
+<tr class="memitem:a1b7cb3ab3e828a7398ff2c60e01ed63c template"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1b7cb3ab3e828a7398ff2c60e01ed63c">find_last_not_of</a> (const stringType &amp;string, size_t position=<a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>) const noexcept</td></tr>
+<tr class="memdesc:a1b7cb3ab3e828a7398ff2c60e01ed63c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the last occurrence of any character not from a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object.  <br /></td></tr>
+<tr class="memitem:af65872dd014b3464e456b4e968515387" id="r_af65872dd014b3464e456b4e968515387"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af65872dd014b3464e456b4e968515387">find_last_not_of</a> (const char *string, size_t position=<a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>) const noexcept</td></tr>
+<tr class="memdesc:af65872dd014b3464e456b4e968515387"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the last occurrence of any character not from the C <em class="arg">string</em>.  <br /></td></tr>
+<tr class="memitem:aa72a613962a15db97dd3176c3cd6afe9" id="r_aa72a613962a15db97dd3176c3cd6afe9"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa72a613962a15db97dd3176c3cd6afe9">find_last_not_of</a> (char character, size_t position=<a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>) const noexcept</td></tr>
+<tr class="memdesc:aa72a613962a15db97dd3176c3cd6afe9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the last occurrence of any character not equal to the specified <em class="arg">character</em>.  <br /></td></tr>
 <tr class="memitem:ae69e623d93e4bd89a026dcfea4bffeeb" id="r_ae69e623d93e4bd89a026dcfea4bffeeb"><td class="memTemplParams" colspan="2">template&lt;StringLike stringType&gt; </td></tr>
 <tr class="memitem:ae69e623d93e4bd89a026dcfea4bffeeb template"><td class="memItemLeft" align="right" valign="top">constexpr int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae69e623d93e4bd89a026dcfea4bffeeb">compare</a> (const stringType &amp;string) const noexcept</td></tr>
 <tr class="memdesc:ae69e623d93e4bd89a026dcfea4bffeeb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares this string view with a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object lexicographically.  <br /></td></tr>
@@ -234,23 +234,23 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-attribs" class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:a7108b5e4d794ae1a3458b37081379c6c" id="r_a7108b5e4d794ae1a3458b37081379c6c"><td class="memItemLeft" align="right" valign="top">static constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a> = std::size_t(-1)</td></tr>
-<tr class="memdesc:a7108b5e4d794ae1a3458b37081379c6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The special value, its exact meaning depends on the context.  <br /></td></tr>
+<tr class="memitem:ad63db28d9eb901a3934303a5fda0af21" id="r_ad63db28d9eb901a3934303a5fda0af21"><td class="memItemLeft" align="right" valign="top">static constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a> = size_t(-1)</td></tr>
+<tr class="memdesc:ad63db28d9eb901a3934303a5fda0af21"><td class="mdescLeft">&#160;</td><td class="mdescRight">The special value, its exact meaning depends on the context.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
-<tr class="memitem:a28948d9ba480ffd28756849a5cb7177f" id="r_a28948d9ba480ffd28756849a5cb7177f"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a28948d9ba480ffd28756849a5cb7177f">_find_raw</a> (std::size_t position, const char *<a class="el" href="#a5e1b02dbf7df4f6950577cf34e032b03">data</a>, std::size_t dataSize) const noexcept</td></tr>
-<tr class="memdesc:a28948d9ba480ffd28756849a5cb7177f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method for finding <em class="arg">data</em> in the string view.  <br /></td></tr>
-<tr class="memitem:a816c3474acc096a09f23dd6294602d72" id="r_a816c3474acc096a09f23dd6294602d72"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a816c3474acc096a09f23dd6294602d72">_rfind_raw</a> (std::size_t position, const char *<a class="el" href="#a5e1b02dbf7df4f6950577cf34e032b03">data</a>, std::size_t dataSize) const noexcept</td></tr>
-<tr class="memdesc:a816c3474acc096a09f23dd6294602d72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method for finding <em class="arg">data</em> in the string view backwards.  <br /></td></tr>
-<tr class="memitem:a93d5fd5bb781cf39617c5f7daed4558f" id="r_a93d5fd5bb781cf39617c5f7daed4558f"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a93d5fd5bb781cf39617c5f7daed4558f">_find_first_of_raw</a> (std::size_t position, const char *<a class="el" href="#a5e1b02dbf7df4f6950577cf34e032b03">data</a>, std::size_t dataSize) const noexcept</td></tr>
-<tr class="memdesc:a93d5fd5bb781cf39617c5f7daed4558f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method for finding the first occurrence of any character from <em class="arg">data</em>.  <br /></td></tr>
-<tr class="memitem:a8df56f483f60f0d47566fd20e1fecd80" id="r_a8df56f483f60f0d47566fd20e1fecd80"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8df56f483f60f0d47566fd20e1fecd80">_find_first_not_of_raw</a> (std::size_t position, const char *<a class="el" href="#a5e1b02dbf7df4f6950577cf34e032b03">data</a>, std::size_t dataSize) const noexcept</td></tr>
-<tr class="memdesc:a8df56f483f60f0d47566fd20e1fecd80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method for finding the first occurrence of any character not from <em class="arg">data</em>.  <br /></td></tr>
-<tr class="memitem:a6536c76c8a8ae76775e73c4df687744f" id="r_a6536c76c8a8ae76775e73c4df687744f"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6536c76c8a8ae76775e73c4df687744f">_find_last_of_raw</a> (std::size_t position, const char *<a class="el" href="#a5e1b02dbf7df4f6950577cf34e032b03">data</a>, std::size_t dataSize) const noexcept</td></tr>
-<tr class="memdesc:a6536c76c8a8ae76775e73c4df687744f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method for finding the last occurrence of any character from <em class="arg">data</em>.  <br /></td></tr>
-<tr class="memitem:a638b541c57f5dcb75bab2e72bfd788ed" id="r_a638b541c57f5dcb75bab2e72bfd788ed"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a638b541c57f5dcb75bab2e72bfd788ed">_find_last_not_of_raw</a> (std::size_t position, const char *<a class="el" href="#a5e1b02dbf7df4f6950577cf34e032b03">data</a>, std::size_t dataSize) const noexcept</td></tr>
-<tr class="memdesc:a638b541c57f5dcb75bab2e72bfd788ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method for finding the last occurrence of any character not from <em class="arg">data</em>.  <br /></td></tr>
+<tr class="memitem:abfa29c6595aec5ea675e7f21eabddee6" id="r_abfa29c6595aec5ea675e7f21eabddee6"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abfa29c6595aec5ea675e7f21eabddee6">_find_raw</a> (size_t position, const char *<a class="el" href="#a5e1b02dbf7df4f6950577cf34e032b03">data</a>, size_t dataSize) const noexcept</td></tr>
+<tr class="memdesc:abfa29c6595aec5ea675e7f21eabddee6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method for finding <em class="arg">data</em> in the string view.  <br /></td></tr>
+<tr class="memitem:ac374898ed5679a18a77639c363126ba4" id="r_ac374898ed5679a18a77639c363126ba4"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac374898ed5679a18a77639c363126ba4">_rfind_raw</a> (size_t position, const char *<a class="el" href="#a5e1b02dbf7df4f6950577cf34e032b03">data</a>, size_t dataSize) const noexcept</td></tr>
+<tr class="memdesc:ac374898ed5679a18a77639c363126ba4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method for finding <em class="arg">data</em> in the string view backwards.  <br /></td></tr>
+<tr class="memitem:a8fc7c19bfb44109d076ded997903012c" id="r_a8fc7c19bfb44109d076ded997903012c"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8fc7c19bfb44109d076ded997903012c">_find_first_of_raw</a> (size_t position, const char *<a class="el" href="#a5e1b02dbf7df4f6950577cf34e032b03">data</a>, size_t dataSize) const noexcept</td></tr>
+<tr class="memdesc:a8fc7c19bfb44109d076ded997903012c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method for finding the first occurrence of any character from <em class="arg">data</em>.  <br /></td></tr>
+<tr class="memitem:af19cf0c882e16db56c43bc0dba58fdbd" id="r_af19cf0c882e16db56c43bc0dba58fdbd"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af19cf0c882e16db56c43bc0dba58fdbd">_find_first_not_of_raw</a> (size_t position, const char *<a class="el" href="#a5e1b02dbf7df4f6950577cf34e032b03">data</a>, size_t dataSize) const noexcept</td></tr>
+<tr class="memdesc:af19cf0c882e16db56c43bc0dba58fdbd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method for finding the first occurrence of any character not from <em class="arg">data</em>.  <br /></td></tr>
+<tr class="memitem:aef6a70c1960447f9a3fb623f36913349" id="r_aef6a70c1960447f9a3fb623f36913349"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aef6a70c1960447f9a3fb623f36913349">_find_last_of_raw</a> (size_t position, const char *<a class="el" href="#a5e1b02dbf7df4f6950577cf34e032b03">data</a>, size_t dataSize) const noexcept</td></tr>
+<tr class="memdesc:aef6a70c1960447f9a3fb623f36913349"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method for finding the last occurrence of any character from <em class="arg">data</em>.  <br /></td></tr>
+<tr class="memitem:ac47d6f4be3ed69e4358c4759e35d7285" id="r_ac47d6f4be3ed69e4358c4759e35d7285"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac47d6f4be3ed69e4358c4759e35d7285">_find_last_not_of_raw</a> (size_t position, const char *<a class="el" href="#a5e1b02dbf7df4f6950577cf34e032b03">data</a>, size_t dataSize) const noexcept</td></tr>
+<tr class="memdesc:ac47d6f4be3ed69e4358c4759e35d7285"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method for finding the last occurrence of any character not from <em class="arg">data</em>.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -461,8 +461,8 @@ The source C <em class="arg">string</em> must be null-terminated. </dd></dl>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
-<a id="a8df56f483f60f0d47566fd20e1fecd80" name="a8df56f483f60f0d47566fd20e1fecd80"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8df56f483f60f0d47566fd20e1fecd80">&#9670;&#160;</a></span>_find_first_not_of_raw()</h2>
+<a id="af19cf0c882e16db56c43bc0dba58fdbd" name="af19cf0c882e16db56c43bc0dba58fdbd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af19cf0c882e16db56c43bc0dba58fdbd">&#9670;&#160;</a></span>_find_first_not_of_raw()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -471,9 +471,9 @@ The source C <em class="arg">string</em> must be null-terminated. </dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t toy::CStringView::_find_first_not_of_raw </td>
+          <td class="memname">size_t toy::CStringView::_find_first_not_of_raw </td>
           <td>(</td>
-          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span>, </td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -483,7 +483,7 @@ The source C <em class="arg">string</em> must be null-terminated. </dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>dataSize</em></span>&#160;) const</td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>dataSize</em></span>&#160;) const</td>
         </tr>
       </table>
   </td>
@@ -503,15 +503,15 @@ The source C <em class="arg">string</em> must be null-terminated. </dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The position of the first occurrence of any character not from <em class="arg">data</em>, or <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a> if not found.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The position of the first occurrence of any character not from <em class="arg">data</em>, or <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a> if not found.</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">position</em> must be less than the string view size. </dd>
 <dd>
 The <em class="arg">data</em> must not be null. </dd></dl>
 
 </div>
 </div>
-<a id="a93d5fd5bb781cf39617c5f7daed4558f" name="a93d5fd5bb781cf39617c5f7daed4558f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a93d5fd5bb781cf39617c5f7daed4558f">&#9670;&#160;</a></span>_find_first_of_raw()</h2>
+<a id="a8fc7c19bfb44109d076ded997903012c" name="a8fc7c19bfb44109d076ded997903012c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8fc7c19bfb44109d076ded997903012c">&#9670;&#160;</a></span>_find_first_of_raw()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -520,9 +520,9 @@ The <em class="arg">data</em> must not be null. </dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t toy::CStringView::_find_first_of_raw </td>
+          <td class="memname">size_t toy::CStringView::_find_first_of_raw </td>
           <td>(</td>
-          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span>, </td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -532,7 +532,7 @@ The <em class="arg">data</em> must not be null. </dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>dataSize</em></span>&#160;) const</td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>dataSize</em></span>&#160;) const</td>
         </tr>
       </table>
   </td>
@@ -552,15 +552,15 @@ The <em class="arg">data</em> must not be null. </dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The position of the first occurrence of any character from <em class="arg">data</em>, or <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a> if not found.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The position of the first occurrence of any character from <em class="arg">data</em>, or <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a> if not found.</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">position</em> must be less than the string view size. </dd>
 <dd>
 The <em class="arg">data</em> must not be null. </dd></dl>
 
 </div>
 </div>
-<a id="a638b541c57f5dcb75bab2e72bfd788ed" name="a638b541c57f5dcb75bab2e72bfd788ed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a638b541c57f5dcb75bab2e72bfd788ed">&#9670;&#160;</a></span>_find_last_not_of_raw()</h2>
+<a id="ac47d6f4be3ed69e4358c4759e35d7285" name="ac47d6f4be3ed69e4358c4759e35d7285"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac47d6f4be3ed69e4358c4759e35d7285">&#9670;&#160;</a></span>_find_last_not_of_raw()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -569,9 +569,9 @@ The <em class="arg">data</em> must not be null. </dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t toy::CStringView::_find_last_not_of_raw </td>
+          <td class="memname">size_t toy::CStringView::_find_last_not_of_raw </td>
           <td>(</td>
-          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span>, </td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -581,7 +581,7 @@ The <em class="arg">data</em> must not be null. </dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>dataSize</em></span>&#160;) const</td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>dataSize</em></span>&#160;) const</td>
         </tr>
       </table>
   </td>
@@ -595,21 +595,21 @@ The <em class="arg">data</em> must not be null. </dd></dl>
 <p>This private method performs the common reverse search logic used by all find_last_not_of methods. It searches for the last occurrence of any character that is not present in the specified <em class="arg">data</em> starting from the given <em class="arg">position</em> and searching backwards.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">position</td><td>The position to start searching from (default: <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>). If <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>, searches from the end. </td></tr>
+    <tr><td class="paramname">position</td><td>The position to start searching from (default: <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>). If <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>, searches from the end. </td></tr>
     <tr><td class="paramname">data</td><td>The data containing characters to exclude from search. </td></tr>
     <tr><td class="paramname">dataSize</td><td>The size of the data containing characters to exclude from search.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The position of the last occurrence of any character not from <em class="arg">data</em>, or <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a> if not found.</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd>If <em class="arg">position</em> is not <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>, it must be less than the string view size. </dd>
+<dl class="section return"><dt>Returns</dt><dd>The position of the last occurrence of any character not from <em class="arg">data</em>, or <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a> if not found.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>If <em class="arg">position</em> is not <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>, it must be less than the string view size. </dd>
 <dd>
 The <em class="arg">data</em> must not be null. </dd></dl>
 
 </div>
 </div>
-<a id="a6536c76c8a8ae76775e73c4df687744f" name="a6536c76c8a8ae76775e73c4df687744f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6536c76c8a8ae76775e73c4df687744f">&#9670;&#160;</a></span>_find_last_of_raw()</h2>
+<a id="aef6a70c1960447f9a3fb623f36913349" name="aef6a70c1960447f9a3fb623f36913349"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef6a70c1960447f9a3fb623f36913349">&#9670;&#160;</a></span>_find_last_of_raw()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -618,9 +618,9 @@ The <em class="arg">data</em> must not be null. </dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t toy::CStringView::_find_last_of_raw </td>
+          <td class="memname">size_t toy::CStringView::_find_last_of_raw </td>
           <td>(</td>
-          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span>, </td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -630,7 +630,7 @@ The <em class="arg">data</em> must not be null. </dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>dataSize</em></span>&#160;) const</td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>dataSize</em></span>&#160;) const</td>
         </tr>
       </table>
   </td>
@@ -644,21 +644,21 @@ The <em class="arg">data</em> must not be null. </dd></dl>
 <p>This private method performs the common reverse search logic used by all find_last_of methods. It searches for the last occurrence of any character from the specified <em class="arg">data</em> starting from the given <em class="arg">position</em> and searching backwards.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">position</td><td>The position to start searching from (default: <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>). If <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>, searches from the end. </td></tr>
+    <tr><td class="paramname">position</td><td>The position to start searching from (default: <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>). If <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>, searches from the end. </td></tr>
     <tr><td class="paramname">data</td><td>The data containing characters to search for. </td></tr>
     <tr><td class="paramname">dataSize</td><td>The size of the data containing characters to search for.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The position of the last occurrence of any character from <em class="arg">data</em>, or <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a> if not found.</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd>If <em class="arg">position</em> is not <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>, it must be less than the string view size. </dd>
+<dl class="section return"><dt>Returns</dt><dd>The position of the last occurrence of any character from <em class="arg">data</em>, or <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a> if not found.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>If <em class="arg">position</em> is not <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>, it must be less than the string view size. </dd>
 <dd>
 The <em class="arg">data</em> must not be null. </dd></dl>
 
 </div>
 </div>
-<a id="a28948d9ba480ffd28756849a5cb7177f" name="a28948d9ba480ffd28756849a5cb7177f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a28948d9ba480ffd28756849a5cb7177f">&#9670;&#160;</a></span>_find_raw()</h2>
+<a id="abfa29c6595aec5ea675e7f21eabddee6" name="abfa29c6595aec5ea675e7f21eabddee6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abfa29c6595aec5ea675e7f21eabddee6">&#9670;&#160;</a></span>_find_raw()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -667,9 +667,9 @@ The <em class="arg">data</em> must not be null. </dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t toy::CStringView::_find_raw </td>
+          <td class="memname">size_t toy::CStringView::_find_raw </td>
           <td>(</td>
-          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span>, </td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -679,7 +679,7 @@ The <em class="arg">data</em> must not be null. </dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>dataSize</em></span>&#160;) const</td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>dataSize</em></span>&#160;) const</td>
         </tr>
       </table>
   </td>
@@ -699,15 +699,15 @@ The <em class="arg">data</em> must not be null. </dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The position of the first occurrence of <em class="arg">data</em>, or <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a> if not found.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The position of the first occurrence of <em class="arg">data</em>, or <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a> if not found.</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">position</em> must be less than the string view size. </dd>
 <dd>
 The <em class="arg">data</em> must not be null. </dd></dl>
 
 </div>
 </div>
-<a id="a816c3474acc096a09f23dd6294602d72" name="a816c3474acc096a09f23dd6294602d72"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a816c3474acc096a09f23dd6294602d72">&#9670;&#160;</a></span>_rfind_raw()</h2>
+<a id="ac374898ed5679a18a77639c363126ba4" name="ac374898ed5679a18a77639c363126ba4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac374898ed5679a18a77639c363126ba4">&#9670;&#160;</a></span>_rfind_raw()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -716,9 +716,9 @@ The <em class="arg">data</em> must not be null. </dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t toy::CStringView::_rfind_raw </td>
+          <td class="memname">size_t toy::CStringView::_rfind_raw </td>
           <td>(</td>
-          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span>, </td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -728,7 +728,7 @@ The <em class="arg">data</em> must not be null. </dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>dataSize</em></span>&#160;) const</td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>dataSize</em></span>&#160;) const</td>
         </tr>
       </table>
   </td>
@@ -748,8 +748,8 @@ The <em class="arg">data</em> must not be null. </dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The position of the last occurrence of <em class="arg">data</em>, or <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a> if not found.</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd>If <em class="arg">position</em> is not <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>, it must be less than or equal to the string view size. </dd>
+<dl class="section return"><dt>Returns</dt><dd>The position of the last occurrence of <em class="arg">data</em>, or <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a> if not found.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>If <em class="arg">position</em> is not <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>, it must be less than or equal to the string view size. </dd>
 <dd>
 The <em class="arg">data</em> must not be null. </dd></dl>
 
@@ -832,8 +832,8 @@ The source C <em class="arg">string</em> must be null-terminated.</dd></dl>
 
 </div>
 </div>
-<a id="ac7478fb514b8527952f100fc89061954" name="ac7478fb514b8527952f100fc89061954"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac7478fb514b8527952f100fc89061954">&#9670;&#160;</a></span>at()</h2>
+<a id="ad3f48510eebdc40744aca52b31bfee3c" name="ad3f48510eebdc40744aca52b31bfee3c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3f48510eebdc40744aca52b31bfee3c">&#9670;&#160;</a></span>at()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -844,7 +844,7 @@ The source C <em class="arg">string</em> must be null-terminated.</dd></dl>
         <tr>
           <td class="memname">const char &amp; toy::CStringView::at </td>
           <td>(</td>
-          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>offset</em></span></td><td>)</td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>offset</em></span></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -868,7 +868,7 @@ The source C <em class="arg">string</em> must be null-terminated.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The returned reference is read-only and cannot modify the character. </dd>
 <dd>
 This method is equivalent to the subscript operator.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a9b598d47988cd3fb3862800f6ec9be65" title="Access a character in the string view at a given offset.">operator[](std::size_t offset) const</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#aff82b69d23c0c93900483730048d23f0" title="Access a character in the string view at a given offset.">operator[](size_t offset) const</a> </dd></dl>
 
 </div>
 </div>
@@ -938,8 +938,8 @@ This method is equivalent to <a class="el" href="#a5e1b02dbf7df4f6950577cf34e032
 
 </div>
 </div>
-<a id="a2089895f2989348b9311ae5196020a8e" name="a2089895f2989348b9311ae5196020a8e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2089895f2989348b9311ae5196020a8e">&#9670;&#160;</a></span>capacity()</h2>
+<a id="a648369b58f6c23f223fbaca2ce7dfc68" name="a648369b58f6c23f223fbaca2ce7dfc68"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a648369b58f6c23f223fbaca2ce7dfc68">&#9670;&#160;</a></span>capacity()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -948,7 +948,7 @@ This method is equivalent to <a class="el" href="#a5e1b02dbf7df4f6950577cf34e032
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t toy::CStringView::capacity </td>
+          <td class="memname">size_t toy::CStringView::capacity </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
@@ -964,7 +964,7 @@ This method is equivalent to <a class="el" href="#a5e1b02dbf7df4f6950577cf34e032
 <p>Returns the capacity of the string view. </p>
 <p>This method returns the capacity of the allocated buffer for the string view.</p>
 <dl class="section return"><dt>Returns</dt><dd>The capacity of the string view in characters, excluding the terminating null character.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd><a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> is non-owning and has no capacity; this is an alias of <a class="el" href="#abd1a5cceb264d3d595bdbf9d415ffb74" title="Returns the size of the string view.">size()</a>. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd><a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> is non-owning and has no capacity; this is an alias of <a class="el" href="#a56455f7c7872e005bae0bd9f37f8d188" title="Returns the size of the string view.">size()</a>. </dd></dl>
 
 </div>
 </div>
@@ -1278,8 +1278,8 @@ The returned pointer is read-only and cannot modify the string view contents. </
 <dd>
 An empty string view still contains a null terminator. </dd>
 <dd>
-This method is equivalent to the expression: <span class="tt"><a class="el" href="#abd1a5cceb264d3d595bdbf9d415ffb74" title="Returns the size of the string view.">size()</a> == 0</span>.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="#abd1a5cceb264d3d595bdbf9d415ffb74" title="Returns the size of the string view.">size()</a> </dd></dl>
+This method is equivalent to the expression: <span class="tt"><a class="el" href="#a56455f7c7872e005bae0bd9f37f8d188" title="Returns the size of the string view.">size()</a> == 0</span>.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a56455f7c7872e005bae0bd9f37f8d188" title="Returns the size of the string view.">size()</a> </dd></dl>
 
 </div>
 </div>
@@ -1410,8 +1410,8 @@ If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Co
 
 </div>
 </div>
-<a id="a91de3ec92df6a1ec623d71d1849cf3a6" name="a91de3ec92df6a1ec623d71d1849cf3a6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a91de3ec92df6a1ec623d71d1849cf3a6">&#9670;&#160;</a></span>find() <span class="overload">[1/3]</span></h2>
+<a id="a8a75b7eb449240c8afe1f11dc9e1944d" name="a8a75b7eb449240c8afe1f11dc9e1944d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a75b7eb449240c8afe1f11dc9e1944d">&#9670;&#160;</a></span>find() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1420,14 +1420,14 @@ If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Co
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t toy::CStringView::find </td>
+          <td class="memname">size_t toy::CStringView::find </td>
           <td>(</td>
           <td class="paramtype">char</td>          <td class="paramname"><span class="paramname"><em>character</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;) const</td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;) const</td>
         </tr>
       </table>
   </td>
@@ -1446,14 +1446,14 @@ If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Co
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The position of the first occurrence of the <em class="arg">character</em>, or <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a> if not found.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The position of the first occurrence of the <em class="arg">character</em>, or <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a> if not found.</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">position</em> must be less than the string view size.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd></dl>
 
 </div>
 </div>
-<a id="a658906675b5aa3a95cc0b071bf0286e8" name="a658906675b5aa3a95cc0b071bf0286e8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a658906675b5aa3a95cc0b071bf0286e8">&#9670;&#160;</a></span>find() <span class="overload">[2/3]</span></h2>
+<a id="ac26525b33f1f4a023b72eb223f51efce" name="ac26525b33f1f4a023b72eb223f51efce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac26525b33f1f4a023b72eb223f51efce">&#9670;&#160;</a></span>find() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1462,14 +1462,14 @@ If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Co
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t toy::CStringView::find </td>
+          <td class="memname">size_t toy::CStringView::find </td>
           <td>(</td>
           <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>string</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;) const</td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;) const</td>
         </tr>
       </table>
   </td>
@@ -1488,7 +1488,7 @@ If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Co
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The position of the first occurrence of the C <em class="arg">string</em>, or <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a> if not found.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The position of the first occurrence of the C <em class="arg">string</em>, or <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a> if not found.</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">position</em> must be less than the string view size. </dd>
 <dd>
 The <em class="arg">string</em> must not be null.</dd></dl>
@@ -1496,8 +1496,8 @@ The <em class="arg">string</em> must not be null.</dd></dl>
 
 </div>
 </div>
-<a id="a51e64c69c9b0a9ed965ea15b40e1128a" name="a51e64c69c9b0a9ed965ea15b40e1128a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a51e64c69c9b0a9ed965ea15b40e1128a">&#9670;&#160;</a></span>find() <span class="overload">[3/3]</span></h2>
+<a id="a750303f5eb6ff80d0729aabae7fd2972" name="a750303f5eb6ff80d0729aabae7fd2972"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a750303f5eb6ff80d0729aabae7fd2972">&#9670;&#160;</a></span>find() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1508,14 +1508,14 @@ template&lt;StringLike stringType&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t toy::CStringView::find </td>
+          <td class="memname">size_t toy::CStringView::find </td>
           <td>(</td>
           <td class="paramtype">const stringType &amp;</td>          <td class="paramname"><span class="paramname"><em>string</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;) const</td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;) const</td>
         </tr>
       </table>
   </td>
@@ -1540,14 +1540,14 @@ template&lt;StringLike stringType&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The position of the first occurrence of a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object, or <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a> if not found.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The position of the first occurrence of a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object, or <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a> if not found.</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">position</em> must be less than the string view size.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd></dl>
 
 </div>
 </div>
-<a id="a755ddffa1d723da2ad12d3516b309759" name="a755ddffa1d723da2ad12d3516b309759"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a755ddffa1d723da2ad12d3516b309759">&#9670;&#160;</a></span>find_first_not_of() <span class="overload">[1/3]</span></h2>
+<a id="ae8aa2c5de0844a0ffcf80e748e9d3c7a" name="ae8aa2c5de0844a0ffcf80e748e9d3c7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8aa2c5de0844a0ffcf80e748e9d3c7a">&#9670;&#160;</a></span>find_first_not_of() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1556,14 +1556,14 @@ template&lt;StringLike stringType&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t toy::CStringView::find_first_not_of </td>
+          <td class="memname">size_t toy::CStringView::find_first_not_of </td>
           <td>(</td>
           <td class="paramtype">char</td>          <td class="paramname"><span class="paramname"><em>character</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;) const</td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;) const</td>
         </tr>
       </table>
   </td>
@@ -1582,14 +1582,14 @@ template&lt;StringLike stringType&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The position of the first occurrence of any character not equal to <em class="arg">character</em>, or <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a> if not found.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The position of the first occurrence of any character not equal to <em class="arg">character</em>, or <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a> if not found.</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">position</em> must be less than the string view size.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd></dl>
 
 </div>
 </div>
-<a id="aa9488a785adfd74265b7bc17e0a8ff79" name="aa9488a785adfd74265b7bc17e0a8ff79"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa9488a785adfd74265b7bc17e0a8ff79">&#9670;&#160;</a></span>find_first_not_of() <span class="overload">[2/3]</span></h2>
+<a id="a024f2f89ea991e6afc1f049d08a41bf6" name="a024f2f89ea991e6afc1f049d08a41bf6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a024f2f89ea991e6afc1f049d08a41bf6">&#9670;&#160;</a></span>find_first_not_of() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1598,14 +1598,14 @@ template&lt;StringLike stringType&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t toy::CStringView::find_first_not_of </td>
+          <td class="memname">size_t toy::CStringView::find_first_not_of </td>
           <td>(</td>
           <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>string</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;) const</td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;) const</td>
         </tr>
       </table>
   </td>
@@ -1624,18 +1624,18 @@ template&lt;StringLike stringType&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The position of the first occurrence of any character not from the C <em class="arg">string</em>, or <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a> if not found.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The position of the first occurrence of any character not from the C <em class="arg">string</em>, or <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a> if not found.</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">position</em> must be less than the string size. </dd>
 <dd>
 The <em class="arg">string</em> must not be null.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd>
 <dd>
-If the C <em class="arg">string</em> is empty, returns <em class="arg">position</em> if within bounds, otherwise returns <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>. </dd></dl>
+If the C <em class="arg">string</em> is empty, returns <em class="arg">position</em> if within bounds, otherwise returns <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>. </dd></dl>
 
 </div>
 </div>
-<a id="a07841e493d8829a95b0bb375dafb93e6" name="a07841e493d8829a95b0bb375dafb93e6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a07841e493d8829a95b0bb375dafb93e6">&#9670;&#160;</a></span>find_first_not_of() <span class="overload">[3/3]</span></h2>
+<a id="af3b8dfa4771e19e127747951ef6129a4" name="af3b8dfa4771e19e127747951ef6129a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3b8dfa4771e19e127747951ef6129a4">&#9670;&#160;</a></span>find_first_not_of() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1646,14 +1646,14 @@ template&lt;StringLike stringType&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t toy::CStringView::find_first_not_of </td>
+          <td class="memname">size_t toy::CStringView::find_first_not_of </td>
           <td>(</td>
           <td class="paramtype">const stringType &amp;</td>          <td class="paramname"><span class="paramname"><em>string</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;) const</td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;) const</td>
         </tr>
       </table>
   </td>
@@ -1678,16 +1678,16 @@ template&lt;StringLike stringType&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The position of the first occurrence of any character not from a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object, or <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a> if not found.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The position of the first occurrence of any character not from a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object, or <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a> if not found.</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">position</em> must be less than the string view size.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd>
 <dd>
-If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object is empty, returns <em class="arg">position</em> if within bounds, otherwise returns <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>. </dd></dl>
+If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object is empty, returns <em class="arg">position</em> if within bounds, otherwise returns <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>. </dd></dl>
 
 </div>
 </div>
-<a id="a0cd121e1778d472b5f82f6cf3f2bdcef" name="a0cd121e1778d472b5f82f6cf3f2bdcef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0cd121e1778d472b5f82f6cf3f2bdcef">&#9670;&#160;</a></span>find_first_of() <span class="overload">[1/3]</span></h2>
+<a id="a5936f341813b3c2c4f966f2a429e1945" name="a5936f341813b3c2c4f966f2a429e1945"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5936f341813b3c2c4f966f2a429e1945">&#9670;&#160;</a></span>find_first_of() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1696,14 +1696,14 @@ If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Co
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t toy::CStringView::find_first_of </td>
+          <td class="memname">size_t toy::CStringView::find_first_of </td>
           <td>(</td>
           <td class="paramtype">char</td>          <td class="paramname"><span class="paramname"><em>character</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;) const</td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;) const</td>
         </tr>
       </table>
   </td>
@@ -1722,17 +1722,17 @@ If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Co
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The position of the first occurrence of the <em class="arg">character</em>, or <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a> if not found.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The position of the first occurrence of the <em class="arg">character</em>, or <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a> if not found.</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">position</em> must be less than the string view size.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd>
 <dd>
-This method is equivalent to <a class="el" href="#a91de3ec92df6a1ec623d71d1849cf3a6">find(char, std::size_t) const</a>.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a91de3ec92df6a1ec623d71d1849cf3a6" title="Finds the first occurrence of a character in the string view.">find(char, std::size_t) const</a> </dd></dl>
+This method is equivalent to <a class="el" href="#a8a75b7eb449240c8afe1f11dc9e1944d">find(char, size_t) const</a>.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a8a75b7eb449240c8afe1f11dc9e1944d" title="Finds the first occurrence of a character in the string view.">find(char, size_t) const</a> </dd></dl>
 
 </div>
 </div>
-<a id="adaa0a01cc9ab2f34ae7688a4f7ac98df" name="adaa0a01cc9ab2f34ae7688a4f7ac98df"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adaa0a01cc9ab2f34ae7688a4f7ac98df">&#9670;&#160;</a></span>find_first_of() <span class="overload">[2/3]</span></h2>
+<a id="adce5aa064a0cc176db13a67dc0f45fb5" name="adce5aa064a0cc176db13a67dc0f45fb5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adce5aa064a0cc176db13a67dc0f45fb5">&#9670;&#160;</a></span>find_first_of() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1741,14 +1741,14 @@ This method is equivalent to <a class="el" href="#a91de3ec92df6a1ec623d71d1849cf
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t toy::CStringView::find_first_of </td>
+          <td class="memname">size_t toy::CStringView::find_first_of </td>
           <td>(</td>
           <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>string</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;) const</td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;) const</td>
         </tr>
       </table>
   </td>
@@ -1767,18 +1767,18 @@ This method is equivalent to <a class="el" href="#a91de3ec92df6a1ec623d71d1849cf
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The position of the first occurrence of any character from the C <em class="arg">string</em>, or <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a> if not found.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The position of the first occurrence of any character from the C <em class="arg">string</em>, or <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a> if not found.</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">position</em> must be less than the string view size. </dd>
 <dd>
 The <em class="arg">string</em> must not be null.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd>
 <dd>
-If the C <em class="arg">string</em> is empty, this method returns <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>. </dd></dl>
+If the C <em class="arg">string</em> is empty, this method returns <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>. </dd></dl>
 
 </div>
 </div>
-<a id="a4c9e16fc17732b7e6c131d07e2b1a220" name="a4c9e16fc17732b7e6c131d07e2b1a220"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4c9e16fc17732b7e6c131d07e2b1a220">&#9670;&#160;</a></span>find_first_of() <span class="overload">[3/3]</span></h2>
+<a id="a94f746d805e323bc7c551de04f927b3d" name="a94f746d805e323bc7c551de04f927b3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94f746d805e323bc7c551de04f927b3d">&#9670;&#160;</a></span>find_first_of() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1789,14 +1789,14 @@ template&lt;StringLike stringType&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t toy::CStringView::find_first_of </td>
+          <td class="memname">size_t toy::CStringView::find_first_of </td>
           <td>(</td>
           <td class="paramtype">const stringType &amp;</td>          <td class="paramname"><span class="paramname"><em>string</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;) const</td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;) const</td>
         </tr>
       </table>
   </td>
@@ -1821,16 +1821,16 @@ template&lt;StringLike stringType&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The position of the first occurrence of any character from a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object, or <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a> if not found.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The position of the first occurrence of any character from a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object, or <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a> if not found.</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">position</em> must be less than the string view size.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd>
 <dd>
-If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object is empty, this method returns <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>. </dd></dl>
+If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object is empty, this method returns <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>. </dd></dl>
 
 </div>
 </div>
-<a id="a43203e8e0d660cfc02ce84b1a6f80747" name="a43203e8e0d660cfc02ce84b1a6f80747"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a43203e8e0d660cfc02ce84b1a6f80747">&#9670;&#160;</a></span>find_last_not_of() <span class="overload">[1/3]</span></h2>
+<a id="aa72a613962a15db97dd3176c3cd6afe9" name="aa72a613962a15db97dd3176c3cd6afe9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa72a613962a15db97dd3176c3cd6afe9">&#9670;&#160;</a></span>find_last_not_of() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1839,14 +1839,14 @@ If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Co
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t toy::CStringView::find_last_not_of </td>
+          <td class="memname">size_t toy::CStringView::find_last_not_of </td>
           <td>(</td>
           <td class="paramtype">char</td>          <td class="paramname"><span class="paramname"><em>character</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a></span>&#160;) const</td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a></span>&#160;) const</td>
         </tr>
       </table>
   </td>
@@ -1861,18 +1861,18 @@ If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Co
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">character</td><td>The character to exclude from search. </td></tr>
-    <tr><td class="paramname">position</td><td>The position to start searching from (default: <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>). If <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>, searches from the end.</td></tr>
+    <tr><td class="paramname">position</td><td>The position to start searching from (default: <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>). If <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>, searches from the end.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The position of the last occurrence of any character not equal to <em class="arg">character</em>, or <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a> if not found.</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd>If <em class="arg">position</em> is not <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>, it must be less than the string view size.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The position of the last occurrence of any character not equal to <em class="arg">character</em>, or <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a> if not found.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>If <em class="arg">position</em> is not <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>, it must be less than the string view size.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd></dl>
 
 </div>
 </div>
-<a id="abba1f4c8bfdff27a848681fe55f7e7c6" name="abba1f4c8bfdff27a848681fe55f7e7c6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abba1f4c8bfdff27a848681fe55f7e7c6">&#9670;&#160;</a></span>find_last_not_of() <span class="overload">[2/3]</span></h2>
+<a id="af65872dd014b3464e456b4e968515387" name="af65872dd014b3464e456b4e968515387"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af65872dd014b3464e456b4e968515387">&#9670;&#160;</a></span>find_last_not_of() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1881,14 +1881,14 @@ If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Co
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t toy::CStringView::find_last_not_of </td>
+          <td class="memname">size_t toy::CStringView::find_last_not_of </td>
           <td>(</td>
           <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>string</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a></span>&#160;) const</td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a></span>&#160;) const</td>
         </tr>
       </table>
   </td>
@@ -1903,22 +1903,22 @@ If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Co
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">string</td><td>The C string containing characters to exclude from search. </td></tr>
-    <tr><td class="paramname">position</td><td>The position to start searching from (default: <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>). If <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>, searches from the end.</td></tr>
+    <tr><td class="paramname">position</td><td>The position to start searching from (default: <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>). If <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>, searches from the end.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The position of the last occurrence of any character not from the C <em class="arg">string</em>, or <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a> if not found.</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd>If <em class="arg">position</em> is not <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>, it must be less than the string view size. </dd>
+<dl class="section return"><dt>Returns</dt><dd>The position of the last occurrence of any character not from the C <em class="arg">string</em>, or <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a> if not found.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>If <em class="arg">position</em> is not <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>, it must be less than the string view size. </dd>
 <dd>
 The <em class="arg">string</em> must not be null.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd>
 <dd>
-If the C <em class="arg">string</em> is empty, returns <em class="arg">position</em> if within bounds, otherwise returns <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>. </dd></dl>
+If the C <em class="arg">string</em> is empty, returns <em class="arg">position</em> if within bounds, otherwise returns <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>. </dd></dl>
 
 </div>
 </div>
-<a id="ac77689d4d097c16e96536a32736f78fe" name="ac77689d4d097c16e96536a32736f78fe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac77689d4d097c16e96536a32736f78fe">&#9670;&#160;</a></span>find_last_not_of() <span class="overload">[3/3]</span></h2>
+<a id="a1b7cb3ab3e828a7398ff2c60e01ed63c" name="a1b7cb3ab3e828a7398ff2c60e01ed63c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b7cb3ab3e828a7398ff2c60e01ed63c">&#9670;&#160;</a></span>find_last_not_of() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1929,14 +1929,14 @@ template&lt;StringLike stringType&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t toy::CStringView::find_last_not_of </td>
+          <td class="memname">size_t toy::CStringView::find_last_not_of </td>
           <td>(</td>
           <td class="paramtype">const stringType &amp;</td>          <td class="paramname"><span class="paramname"><em>string</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a></span>&#160;) const</td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a></span>&#160;) const</td>
         </tr>
       </table>
   </td>
@@ -1957,20 +1957,20 @@ template&lt;StringLike stringType&gt; </div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">string</td><td>The <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object containing characters to exclude from search. </td></tr>
-    <tr><td class="paramname">position</td><td>The position to start searching from (default: <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>). If <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>, searches from the end.</td></tr>
+    <tr><td class="paramname">position</td><td>The position to start searching from (default: <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>). If <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>, searches from the end.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The position of the last occurrence of any character not from a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object, or <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a> if not found.</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd>If <em class="arg">position</em> is not <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>, it must be less than the string view size.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The position of the last occurrence of any character not from a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object, or <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a> if not found.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>If <em class="arg">position</em> is not <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>, it must be less than the string view size.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd>
 <dd>
-If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object is empty, returns <em class="arg">position</em> if within bounds, otherwise returns <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>. </dd></dl>
+If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object is empty, returns <em class="arg">position</em> if within bounds, otherwise returns <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>. </dd></dl>
 
 </div>
 </div>
-<a id="af52378ac870ce1904cfca4dc56fc5712" name="af52378ac870ce1904cfca4dc56fc5712"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af52378ac870ce1904cfca4dc56fc5712">&#9670;&#160;</a></span>find_last_of() <span class="overload">[1/3]</span></h2>
+<a id="a6e45c5a91e2e49811add5f31f9e502e2" name="a6e45c5a91e2e49811add5f31f9e502e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e45c5a91e2e49811add5f31f9e502e2">&#9670;&#160;</a></span>find_last_of() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1979,14 +1979,14 @@ If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Co
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t toy::CStringView::find_last_of </td>
+          <td class="memname">size_t toy::CStringView::find_last_of </td>
           <td>(</td>
           <td class="paramtype">char</td>          <td class="paramname"><span class="paramname"><em>character</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a></span>&#160;) const</td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a></span>&#160;) const</td>
         </tr>
       </table>
   </td>
@@ -2001,21 +2001,21 @@ If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Co
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">character</td><td>The character to search for. </td></tr>
-    <tr><td class="paramname">position</td><td>The position to start searching from (default: <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>). If <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>, searches from the end.</td></tr>
+    <tr><td class="paramname">position</td><td>The position to start searching from (default: <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>). If <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>, searches from the end.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The position of the last occurrence of the <em class="arg">character</em>, or <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a> if not found.</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd>If <em class="arg">position</em> is not <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>, it must be less than the string view size.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The position of the last occurrence of the <em class="arg">character</em>, or <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a> if not found.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>If <em class="arg">position</em> is not <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>, it must be less than the string view size.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd>
 <dd>
-This method is equivalent to <a class="el" href="#a643acb38e12ce27774d40c975a2c3698">rfind(char, std::size_t) const</a>.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a643acb38e12ce27774d40c975a2c3698" title="Finds the last occurrence of a character in the string view.">rfind(char, std::size_t) const</a> </dd></dl>
+This method is equivalent to <a class="el" href="#abc21bf7f8e4d58c5a5834e16bba65208">rfind(char, size_t) const</a>.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#abc21bf7f8e4d58c5a5834e16bba65208" title="Finds the last occurrence of a character in the string view.">rfind(char, size_t) const</a> </dd></dl>
 
 </div>
 </div>
-<a id="a76f8fcc30b75fa98f938628f62fbe5fd" name="a76f8fcc30b75fa98f938628f62fbe5fd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a76f8fcc30b75fa98f938628f62fbe5fd">&#9670;&#160;</a></span>find_last_of() <span class="overload">[2/3]</span></h2>
+<a id="af9be50089de84b067ca054334be123fd" name="af9be50089de84b067ca054334be123fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af9be50089de84b067ca054334be123fd">&#9670;&#160;</a></span>find_last_of() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2024,14 +2024,14 @@ This method is equivalent to <a class="el" href="#a643acb38e12ce27774d40c975a2c3
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t toy::CStringView::find_last_of </td>
+          <td class="memname">size_t toy::CStringView::find_last_of </td>
           <td>(</td>
           <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>string</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a></span>&#160;) const</td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a></span>&#160;) const</td>
         </tr>
       </table>
   </td>
@@ -2046,22 +2046,22 @@ This method is equivalent to <a class="el" href="#a643acb38e12ce27774d40c975a2c3
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">string</td><td>The C string containing characters to search for. </td></tr>
-    <tr><td class="paramname">position</td><td>The position to start searching from (default: <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>). If <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>, searches from the end.</td></tr>
+    <tr><td class="paramname">position</td><td>The position to start searching from (default: <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>). If <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>, searches from the end.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The position of the last occurrence of any character from the C <em class="arg">string</em>, or <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a> if not found.</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd>If <em class="arg">position</em> is not <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>, it must be less than the string view size. </dd>
+<dl class="section return"><dt>Returns</dt><dd>The position of the last occurrence of any character from the C <em class="arg">string</em>, or <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a> if not found.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>If <em class="arg">position</em> is not <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>, it must be less than the string view size. </dd>
 <dd>
 The <em class="arg">string</em> must not be null.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd>
 <dd>
-If the C <em class="arg">string</em> is empty, this method returns <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>. </dd></dl>
+If the C <em class="arg">string</em> is empty, this method returns <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>. </dd></dl>
 
 </div>
 </div>
-<a id="a0cf6450c1d7131517d11fdcccf0ea0c0" name="a0cf6450c1d7131517d11fdcccf0ea0c0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0cf6450c1d7131517d11fdcccf0ea0c0">&#9670;&#160;</a></span>find_last_of() <span class="overload">[3/3]</span></h2>
+<a id="a8987bed49b7971eac8097e92c4db80ca" name="a8987bed49b7971eac8097e92c4db80ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8987bed49b7971eac8097e92c4db80ca">&#9670;&#160;</a></span>find_last_of() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2072,14 +2072,14 @@ template&lt;StringLike stringType&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t toy::CStringView::find_last_of </td>
+          <td class="memname">size_t toy::CStringView::find_last_of </td>
           <td>(</td>
           <td class="paramtype">const stringType &amp;</td>          <td class="paramname"><span class="paramname"><em>string</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a></span>&#160;) const</td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a></span>&#160;) const</td>
         </tr>
       </table>
   </td>
@@ -2100,15 +2100,15 @@ template&lt;StringLike stringType&gt; </div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">string</td><td>The <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object containing characters to search for. </td></tr>
-    <tr><td class="paramname">position</td><td>The position to start searching from (default: <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>). If <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>, searches from the end.</td></tr>
+    <tr><td class="paramname">position</td><td>The position to start searching from (default: <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>). If <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>, searches from the end.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The position of the last occurrence of any character from a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object, or <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a> if not found.</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd>If <em class="arg">position</em> is not <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>, it must be less than the string view size.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The position of the last occurrence of any character from a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object, or <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a> if not found.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>If <em class="arg">position</em> is not <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>, it must be less than the string view size.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd>
 <dd>
-If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object is empty, this method returns <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>. </dd></dl>
+If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object is empty, this method returns <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>. </dd></dl>
 
 </div>
 </div>
@@ -2143,8 +2143,8 @@ If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Co
 
 </div>
 </div>
-<a id="a53bd50e64d92a36d07a8d4f240c73147" name="a53bd50e64d92a36d07a8d4f240c73147"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a53bd50e64d92a36d07a8d4f240c73147">&#9670;&#160;</a></span>length()</h2>
+<a id="a6120478d89996e674d30f8398ccfbc51" name="a6120478d89996e674d30f8398ccfbc51"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6120478d89996e674d30f8398ccfbc51">&#9670;&#160;</a></span>length()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2153,7 +2153,7 @@ If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Co
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t toy::CStringView::length </td>
+          <td class="memname">size_t toy::CStringView::length </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
@@ -2169,13 +2169,13 @@ If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Co
 <p>Returns the size of the string view. </p>
 <p>This method returns the current number of characters in the string view, excluding the terminating null character. The length represents the actual length of the string view content.</p>
 <dl class="section return"><dt>Returns</dt><dd>The number of characters in the string view, excluding the terminating null character.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This method is equivalent to <a class="el" href="#abd1a5cceb264d3d595bdbf9d415ffb74">size()</a>.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="#abd1a5cceb264d3d595bdbf9d415ffb74" title="Returns the size of the string view.">size()</a> </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This method is equivalent to <a class="el" href="#a56455f7c7872e005bae0bd9f37f8d188">size()</a>.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a56455f7c7872e005bae0bd9f37f8d188" title="Returns the size of the string view.">size()</a> </dd></dl>
 
 </div>
 </div>
-<a id="a65ca67f3828e8129c0022f9102b96b5c" name="a65ca67f3828e8129c0022f9102b96b5c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a65ca67f3828e8129c0022f9102b96b5c">&#9670;&#160;</a></span>max_size()</h2>
+<a id="a6354e478ad35f159833948e7951f671c" name="a6354e478ad35f159833948e7951f671c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6354e478ad35f159833948e7951f671c">&#9670;&#160;</a></span>max_size()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2184,7 +2184,7 @@ If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Co
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t toy::CStringView::max_size </td>
+          <td class="memname">size_t toy::CStringView::max_size </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
@@ -2200,7 +2200,7 @@ If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Co
 <p>Returns the maximum observable size of this string view. </p>
 <p>This method returns the maximum possible size for the string view. The maximum size represents the size of the allocated buffer.</p>
 <dl class="section return"><dt>Returns</dt><dd>The maximum number of characters in the string view, excluding the terminating null character.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd><a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> is non-owning and has no capacity; this is an alias of <a class="el" href="#abd1a5cceb264d3d595bdbf9d415ffb74" title="Returns the size of the string view.">size()</a>. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd><a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> is non-owning and has no capacity; this is an alias of <a class="el" href="#a56455f7c7872e005bae0bd9f37f8d188" title="Returns the size of the string view.">size()</a>. </dd></dl>
 
 </div>
 </div>
@@ -2277,8 +2277,8 @@ The source C <em class="arg">string</em> must be null-terminated. </dd></dl>
 
 </div>
 </div>
-<a id="a9b598d47988cd3fb3862800f6ec9be65" name="a9b598d47988cd3fb3862800f6ec9be65"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9b598d47988cd3fb3862800f6ec9be65">&#9670;&#160;</a></span>operator[]()</h2>
+<a id="aff82b69d23c0c93900483730048d23f0" name="aff82b69d23c0c93900483730048d23f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff82b69d23c0c93900483730048d23f0">&#9670;&#160;</a></span>operator[]()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2289,7 +2289,7 @@ The source C <em class="arg">string</em> must be null-terminated. </dd></dl>
         <tr>
           <td class="memname">const char &amp; toy::CStringView::operator[] </td>
           <td>(</td>
-          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>offset</em></span></td><td>)</td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>offset</em></span></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -2314,8 +2314,8 @@ The source C <em class="arg">string</em> must be null-terminated. </dd></dl>
 
 </div>
 </div>
-<a id="a643acb38e12ce27774d40c975a2c3698" name="a643acb38e12ce27774d40c975a2c3698"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a643acb38e12ce27774d40c975a2c3698">&#9670;&#160;</a></span>rfind() <span class="overload">[1/3]</span></h2>
+<a id="abc21bf7f8e4d58c5a5834e16bba65208" name="abc21bf7f8e4d58c5a5834e16bba65208"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc21bf7f8e4d58c5a5834e16bba65208">&#9670;&#160;</a></span>rfind() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2324,14 +2324,14 @@ The source C <em class="arg">string</em> must be null-terminated. </dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t toy::CStringView::rfind </td>
+          <td class="memname">size_t toy::CStringView::rfind </td>
           <td>(</td>
           <td class="paramtype">char</td>          <td class="paramname"><span class="paramname"><em>character</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a></span>&#160;) const</td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a></span>&#160;) const</td>
         </tr>
       </table>
   </td>
@@ -2346,18 +2346,18 @@ The source C <em class="arg">string</em> must be null-terminated. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">character</td><td>The character to search for. </td></tr>
-    <tr><td class="paramname">position</td><td>The position to start searching from (default: <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>). If <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>, searches from the end.</td></tr>
+    <tr><td class="paramname">position</td><td>The position to start searching from (default: <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>). If <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>, searches from the end.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The position of the last occurrence of the <em class="arg">character</em>, or <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a> if not found.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The position of the last occurrence of the <em class="arg">character</em>, or <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a> if not found.</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">position</em> must be less than the string view size.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd></dl>
 
 </div>
 </div>
-<a id="a2f3c745f4720005a7d15703fc86bc270" name="a2f3c745f4720005a7d15703fc86bc270"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2f3c745f4720005a7d15703fc86bc270">&#9670;&#160;</a></span>rfind() <span class="overload">[2/3]</span></h2>
+<a id="ada601aeb8a74b2f93c11b58bff50f50b" name="ada601aeb8a74b2f93c11b58bff50f50b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada601aeb8a74b2f93c11b58bff50f50b">&#9670;&#160;</a></span>rfind() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2366,14 +2366,14 @@ The source C <em class="arg">string</em> must be null-terminated. </dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t toy::CStringView::rfind </td>
+          <td class="memname">size_t toy::CStringView::rfind </td>
           <td>(</td>
           <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>string</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a></span>&#160;) const</td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a></span>&#160;) const</td>
         </tr>
       </table>
   </td>
@@ -2388,12 +2388,12 @@ The source C <em class="arg">string</em> must be null-terminated. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">string</td><td>The source C string to search for. </td></tr>
-    <tr><td class="paramname">position</td><td>The position to start searching from (default: <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>). If <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>, searches from the end.</td></tr>
+    <tr><td class="paramname">position</td><td>The position to start searching from (default: <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>). If <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>, searches from the end.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The position of the last occurrence of the C <em class="arg">string</em>, or <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a> if not found.</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd>If <em class="arg">position</em> is not <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>, it must be less than or equal to the maximum valid start index: the string view size minus the size of the C <em class="arg">string</em>. </dd>
+<dl class="section return"><dt>Returns</dt><dd>The position of the last occurrence of the C <em class="arg">string</em>, or <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a> if not found.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>If <em class="arg">position</em> is not <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>, it must be less than or equal to the maximum valid start index: the string view size minus the size of the C <em class="arg">string</em>. </dd>
 <dd>
 The <em class="arg">string</em> must not be null.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd>
@@ -2402,8 +2402,8 @@ If the C <em class="arg">string</em> is empty, returns <em class="arg">position<
 
 </div>
 </div>
-<a id="a857c00f45935e884fda6dd507de4242c" name="a857c00f45935e884fda6dd507de4242c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a857c00f45935e884fda6dd507de4242c">&#9670;&#160;</a></span>rfind() <span class="overload">[3/3]</span></h2>
+<a id="a3ae555f117f83592da1aefafdd656af0" name="a3ae555f117f83592da1aefafdd656af0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ae555f117f83592da1aefafdd656af0">&#9670;&#160;</a></span>rfind() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2414,14 +2414,14 @@ template&lt;StringLike stringType&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t toy::CStringView::rfind </td>
+          <td class="memname">size_t toy::CStringView::rfind </td>
           <td>(</td>
           <td class="paramtype">const stringType &amp;</td>          <td class="paramname"><span class="paramname"><em>string</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a></span>&#160;) const</td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a></span>&#160;) const</td>
         </tr>
       </table>
   </td>
@@ -2442,20 +2442,20 @@ template&lt;StringLike stringType&gt; </div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">string</td><td>The source <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object to search for. </td></tr>
-    <tr><td class="paramname">position</td><td>The position to start searching from (default: <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>). If <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>, searches from the end.</td></tr>
+    <tr><td class="paramname">position</td><td>The position to start searching from (default: <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>). If <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>, searches from the end.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The position of the last occurrence of a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object, or <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a> if not found.</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd>If <em class="arg">position</em> is not <a class="el" href="#a7108b5e4d794ae1a3458b37081379c6c">npos</a>, it must be less than or equal to the maximum valid start index: the string view size minus the size of a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The position of the last occurrence of a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object, or <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a> if not found.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>If <em class="arg">position</em> is not <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21">npos</a>, it must be less than or equal to the maximum valid start index: the string view size minus the size of a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd>
 <dd>
 If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object is empty, returns <em class="arg">position</em> if within bounds, otherwise returns the string view size. </dd></dl>
 
 </div>
 </div>
-<a id="abd1a5cceb264d3d595bdbf9d415ffb74" name="abd1a5cceb264d3d595bdbf9d415ffb74"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abd1a5cceb264d3d595bdbf9d415ffb74">&#9670;&#160;</a></span>size()</h2>
+<a id="a56455f7c7872e005bae0bd9f37f8d188" name="a56455f7c7872e005bae0bd9f37f8d188"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56455f7c7872e005bae0bd9f37f8d188">&#9670;&#160;</a></span>size()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2464,7 +2464,7 @@ If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Co
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t toy::CStringView::size </td>
+          <td class="memname">size_t toy::CStringView::size </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
@@ -2480,8 +2480,8 @@ If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Co
 <p>Returns the size of the string view. </p>
 <p>This method returns the current number of characters in the string view, excluding the terminating null character. The size represents the actual length of the string view content.</p>
 <dl class="section return"><dt>Returns</dt><dd>The number of characters in the string view, excluding the terminating null character.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This method is equivalent to <a class="el" href="#a53bd50e64d92a36d07a8d4f240c73147">length()</a>.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a53bd50e64d92a36d07a8d4f240c73147" title="Returns the size of the string view.">length()</a> </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This method is equivalent to <a class="el" href="#a6120478d89996e674d30f8398ccfbc51">length()</a>.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a6120478d89996e674d30f8398ccfbc51" title="Returns the size of the string view.">length()</a> </dd></dl>
 
 </div>
 </div>
@@ -2650,8 +2650,8 @@ The other <em class="arg">string</em> view contains the contents that were in th
 
 </div>
 </div>
-<a id="af55492c22e19b5ac015367834546a386" name="af55492c22e19b5ac015367834546a386"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af55492c22e19b5ac015367834546a386">&#9670;&#160;</a></span>utf8_size()</h2>
+<a id="af2fcc3a984aa7a26f458509827c72fea" name="af2fcc3a984aa7a26f458509827c72fea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af2fcc3a984aa7a26f458509827c72fea">&#9670;&#160;</a></span>utf8_size()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2660,7 +2660,7 @@ The other <em class="arg">string</em> view contains the contents that were in th
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t toy::CStringView::utf8_size </td>
+          <td class="memname">size_t toy::CStringView::utf8_size </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
@@ -2674,11 +2674,11 @@ The other <em class="arg">string</em> view contains the contents that were in th
 </div><div class="memdoc">
 
 <p>Returns the size of the Unicode string in UTF-8 encoding. </p>
-<p>This method returns the number of Unicode characters in the UTF-8 encoded string, excluding the terminating null character. For ASCII strings, this value equals the <a class="el" href="#abd1a5cceb264d3d595bdbf9d415ffb74" title="Returns the size of the string view.">size()</a> method. For UTF-8 encoded strings, this method counts the number of Unicode characters rather than bytes. The method validates UTF-8 encoding and counts only complete, well-formed Unicode characters.</p>
+<p>This method returns the number of Unicode characters in the UTF-8 encoded string, excluding the terminating null character. For ASCII strings, this value equals the <a class="el" href="#a56455f7c7872e005bae0bd9f37f8d188" title="Returns the size of the string view.">size()</a> method. For UTF-8 encoded strings, this method counts the number of Unicode characters rather than bytes. The method validates UTF-8 encoding and counts only complete, well-formed Unicode characters.</p>
 <dl class="section return"><dt>Returns</dt><dd>The number of Unicode characters in the string view, excluding the terminating null character.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>For ASCII strings, <a class="el" href="#af55492c22e19b5ac015367834546a386" title="Returns the size of the Unicode string in UTF-8 encoding.">utf8_size()</a> equals <a class="el" href="#abd1a5cceb264d3d595bdbf9d415ffb74" title="Returns the size of the string view.">size()</a>. </dd>
+<dl class="section note"><dt>Note</dt><dd>For ASCII strings, <a class="el" href="#af2fcc3a984aa7a26f458509827c72fea" title="Returns the size of the Unicode string in UTF-8 encoding.">utf8_size()</a> equals <a class="el" href="#a56455f7c7872e005bae0bd9f37f8d188" title="Returns the size of the string view.">size()</a>. </dd>
 <dd>
-For UTF-8 strings, <a class="el" href="#af55492c22e19b5ac015367834546a386" title="Returns the size of the Unicode string in UTF-8 encoding.">utf8_size()</a> may be less than <a class="el" href="#abd1a5cceb264d3d595bdbf9d415ffb74" title="Returns the size of the string view.">size()</a>. </dd>
+For UTF-8 strings, <a class="el" href="#af2fcc3a984aa7a26f458509827c72fea" title="Returns the size of the Unicode string in UTF-8 encoding.">utf8_size()</a> may be less than <a class="el" href="#a56455f7c7872e005bae0bd9f37f8d188" title="Returns the size of the string view.">size()</a>. </dd>
 <dd>
 Invalid UTF-8 sequences are handled gracefully and may affect the count. </dd>
 <dd>
@@ -2735,8 +2735,8 @@ This method is useful for internationalization and text processing. </dd></dl>
 
 </div>
 </div>
-<a id="a7108b5e4d794ae1a3458b37081379c6c" name="a7108b5e4d794ae1a3458b37081379c6c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7108b5e4d794ae1a3458b37081379c6c">&#9670;&#160;</a></span>npos</h2>
+<a id="ad63db28d9eb901a3934303a5fda0af21" name="ad63db28d9eb901a3934303a5fda0af21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad63db28d9eb901a3934303a5fda0af21">&#9670;&#160;</a></span>npos</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2745,7 +2745,7 @@ This method is useful for internationalization and text processing. </dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t toy::CStringView::npos = std::size_t(-1)</td>
+          <td class="memname">size_t toy::CStringView::npos = size_t(-1)</td>
         </tr>
       </table>
   </td>

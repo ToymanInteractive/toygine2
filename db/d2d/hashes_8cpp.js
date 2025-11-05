@@ -1,9 +1,9 @@
 var hashes_8cpp =
 [
-    [ "toy::crc16", "d4/da9/namespacetoy.html#a0aa645443d3d723d40266fb0218bf8e4", null ],
-    [ "toy::crc32", "d4/da9/namespacetoy.html#ab410eb37ac6a14b7b3304d7e5ab113f8", null ],
-    [ "toy::crc8", "d4/da9/namespacetoy.html#ac176db9e510324117075202275b9bd50", null ],
-    [ "toy::_crc16Table", "d4/da9/namespacetoy.html#a608a76631c2f23f02596ec2da0fde6f8", null ],
-    [ "toy::_crc32Table", "d4/da9/namespacetoy.html#ad6b0f721ba2c4c20edc3fce5d7730e13", null ],
-    [ "toy::_crc8Table", "d4/da9/namespacetoy.html#afc0083318cdb1d2ff7545d6d9b00e479", null ]
+    [ "toy::crc16", "d4/da9/namespacetoy.html#aa63c971425cb6819414030806927a68a", null ],
+    [ "toy::crc32", "d4/da9/namespacetoy.html#a17983e173fb5e8cf5baaab61a78a402e", null ],
+    [ "toy::crc8", "d4/da9/namespacetoy.html#a00ce0b516e9a47a62227a9309afdb583", null ],
+    [ "toy::_crc16Table", "d4/da9/namespacetoy.html#ad5a24715635e389733d2bd51420d0cce", null ],
+    [ "toy::_crc32Table", "d4/da9/namespacetoy.html#adea4ce7523cb7c07e3df1712514c1298", null ],
+    [ "toy::_crc8Table", "d4/da9/namespacetoy.html#a63a8d4228d33c90f9ef1684c10c07b37", null ]
 ];

@@ -9,7 +9,7 @@ var classtoy_1_1_fixed_vector =
     [ "pointer", "d7/dec/classtoy_1_1_fixed_vector.html#a0b8e451a1d4734b84b21479924f1a3a6", null ],
     [ "reference", "d7/dec/classtoy_1_1_fixed_vector.html#a54b2b2db7a31500c6daf4e5ef12a55f3", null ],
     [ "reverse_iterator", "d7/dec/classtoy_1_1_fixed_vector.html#a45e0f742275955faed2f6c84a4e0ebeb", null ],
-    [ "size_type", "d7/dec/classtoy_1_1_fixed_vector.html#a99474f84eab51bad0b14ad3f44df88a0", null ],
+    [ "size_type", "d7/dec/classtoy_1_1_fixed_vector.html#a7990024284ecd15dccb290558eb7458e", null ],
     [ "value_type", "d7/dec/classtoy_1_1_fixed_vector.html#a9ade8246e6a0327c4e6667d294a60957", null ],
     [ "FixedVector", "d7/dec/classtoy_1_1_fixed_vector.html#a268734f9669e3693c60d125ab548e98f", null ],
     [ "~FixedVector", "d7/dec/classtoy_1_1_fixed_vector.html#ad98be7eb41babb07b9bc52d57783ef03", null ],

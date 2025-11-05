@@ -7,7 +7,7 @@ var classtoy_1_1_callbacks_pool =
     [ "call", "d8/dc9/classtoy_1_1_callbacks_pool.html#af1e82cc08bfd90ce35b5dc92a895aa5d", null ],
     [ "remove", "d8/dc9/classtoy_1_1_callbacks_pool.html#a758ac6322667eadb5f9a001ab7786acd", null ],
     [ "reset", "d8/dc9/classtoy_1_1_callbacks_pool.html#a0a43af989c25f5748843913a48bdc167", null ],
-    [ "subscribersAmount", "d8/dc9/classtoy_1_1_callbacks_pool.html#a3f589c9fb1daaab3e907436f2aca1647", null ],
+    [ "subscribersAmount", "d8/dc9/classtoy_1_1_callbacks_pool.html#a24cab7bff4bd2278b995a4395ef4c904", null ],
     [ "_callbacks", "d8/dc9/classtoy_1_1_callbacks_pool.html#ad28957117de2430f258769bee32249dd", null ],
-    [ "_subscribersCount", "d8/dc9/classtoy_1_1_callbacks_pool.html#ae3919abece03092d9096a99ac8493382", null ]
+    [ "_subscribersCount", "d8/dc9/classtoy_1_1_callbacks_pool.html#acdb9af165834d8b543c106a6fc8b9574", null ]
 ];

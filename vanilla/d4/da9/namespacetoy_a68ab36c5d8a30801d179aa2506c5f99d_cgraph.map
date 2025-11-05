@@ -1,5 +1,0 @@
-<map id="toy::_floatPostProcess" name="toy::_floatPostProcess">
-<area shape="rect" id="Node000001" title="Processes a string representation of a floating&#45;point number, adjusting the exponent,..." alt="" coords="5,5,169,31"/>
-<area shape="rect" id="Node000002" href="$d4/da9/namespacetoy.html#accf068383d9d636ae72ad7bb22c7ee34" title="Divides a given 32&#45;bit unsigned integer by 10 and returns the quotient and remainder." alt="" coords="217,5,348,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="170,15,204,15,204,21,170,21"/>
-</map>

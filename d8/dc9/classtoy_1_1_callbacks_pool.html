@@ -140,8 +140,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a758ac6322667eadb5f9a001ab7786acd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes a callback from the pool.  <br /></td></tr>
 <tr class="memitem:a0a43af989c25f5748843913a48bdc167" id="r_a0a43af989c25f5748843913a48bdc167"><td class="memItemLeft" align="right" valign="top">constexpr void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0a43af989c25f5748843913a48bdc167">reset</a> () noexcept</td></tr>
 <tr class="memdesc:a0a43af989c25f5748843913a48bdc167"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears all callbacks from the pool.  <br /></td></tr>
-<tr class="memitem:a3f589c9fb1daaab3e907436f2aca1647" id="r_a3f589c9fb1daaab3e907436f2aca1647"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3f589c9fb1daaab3e907436f2aca1647">subscribersAmount</a> () const noexcept</td></tr>
-<tr class="memdesc:a3f589c9fb1daaab3e907436f2aca1647"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of registered callbacks.  <br /></td></tr>
+<tr class="memitem:a24cab7bff4bd2278b995a4395ef4c904" id="r_a24cab7bff4bd2278b995a4395ef4c904"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a24cab7bff4bd2278b995a4395ef4c904">subscribersAmount</a> () const noexcept</td></tr>
+<tr class="memdesc:a24cab7bff4bd2278b995a4395ef4c904"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of registered callbacks.  <br /></td></tr>
 <tr class="memitem:af1e82cc08bfd90ce35b5dc92a895aa5d" id="r_af1e82cc08bfd90ce35b5dc92a895aa5d"><td class="memItemLeft" align="right" valign="top">constexpr void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af1e82cc08bfd90ce35b5dc92a895aa5d">call</a> (type parameter) const noexcept</td></tr>
 <tr class="memdesc:af1e82cc08bfd90ce35b5dc92a895aa5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invokes all registered callbacks with the given parameter.  <br /></td></tr>
 </table><table class="memberdecls">
@@ -149,11 +149,11 @@ Public Member Functions</h2></td></tr>
 Private Attributes</h2></td></tr>
 <tr class="memitem:ad28957117de2430f258769bee32249dd" id="r_ad28957117de2430f258769bee32249dd"><td class="memItemLeft" align="right" valign="top">std::array&lt; <a class="el" href="../../d7/d9f/structtoy_1_1_callbacks_pool_1_1_static_callback.html">StaticCallback</a>, allocatedSize &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad28957117de2430f258769bee32249dd">_callbacks</a></td></tr>
 <tr class="memdesc:ad28957117de2430f258769bee32249dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fixed-size array storing registered callbacks.  <br /></td></tr>
-<tr class="memitem:ae3919abece03092d9096a99ac8493382" id="r_ae3919abece03092d9096a99ac8493382"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae3919abece03092d9096a99ac8493382">_subscribersCount</a> = 0</td></tr>
-<tr class="memdesc:ae3919abece03092d9096a99ac8493382"><td class="mdescLeft">&#160;</td><td class="mdescRight">Active callbacks count.  <br /></td></tr>
+<tr class="memitem:acdb9af165834d8b543c106a6fc8b9574" id="r_acdb9af165834d8b543c106a6fc8b9574"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acdb9af165834d8b543c106a6fc8b9574">_subscribersCount</a> = 0</td></tr>
+<tr class="memdesc:acdb9af165834d8b543c106a6fc8b9574"><td class="mdescLeft">&#160;</td><td class="mdescRight">Active callbacks count.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><div class="compoundTemplParams">template&lt;typename type, std::size_t allocatedSize = 4&gt;<br />
+<div class="textblock"><div class="compoundTemplParams">template&lt;typename type, size_t allocatedSize = 4&gt;<br />
 class toy::CallbacksPool&lt; type, allocatedSize &gt;</div><p>Template callback pool class with fixed-size callback storage. </p>
 <p><a class="el" href="../../d8/dc9/classtoy_1_1_callbacks_pool.html" title="Template callback pool class with fixed-size callback storage.">CallbacksPool</a> is a lightweight, high-performance callback pool class that uses a fixed-size array to store function pointers. It provides a simple observer pattern implementation without dynamic memory allocation, making it suitable for embedded systems, real-time applications, and performance-critical code where memory allocation overhead must be minimized.</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
@@ -191,7 +191,7 @@ Usage Example</h1>
 <div class="line">pool.<a class="code hl_function" href="#af1e82cc08bfd90ce35b5dc92a895aa5d">call</a>(42);</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Check subscriber count</span></div>
-<div class="line"><span class="keyword">auto</span> count = pool.<a class="code hl_function" href="#a3f589c9fb1daaab3e907436f2aca1647">subscribersAmount</a>();</div>
+<div class="line"><span class="keyword">auto</span> count = pool.<a class="code hl_function" href="#a24cab7bff4bd2278b995a4395ef4c904">subscribersAmount</a>();</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Unsubscribe</span></div>
 <div class="line">pool.<a class="code hl_function" href="#a758ac6322667eadb5f9a001ab7786acd">remove</a>(onEvent);</div>
@@ -201,7 +201,7 @@ Usage Example</h1>
 <div class="ttc" id="acallbacks__pool_8hpp_html"><div class="ttname"><a href="../../d1/d5c/callbacks__pool_8hpp.html">callbacks_pool.hpp</a></div><div class="ttdoc">Template callback pool class with fixed-size callback storage.</div></div>
 <div class="ttc" id="aclasstoy_1_1_callbacks_pool_html"><div class="ttname"><a href="../../d8/dc9/classtoy_1_1_callbacks_pool.html">toy::CallbacksPool</a></div><div class="ttdoc">Template callback pool class with fixed-size callback storage.</div><div class="ttdef"><b>Definition</b> callbacks_pool.hpp:106</div></div>
 <div class="ttc" id="aclasstoy_1_1_callbacks_pool_html_a0a43af989c25f5748843913a48bdc167"><div class="ttname"><a href="#a0a43af989c25f5748843913a48bdc167">toy::CallbacksPool::reset</a></div><div class="ttdeci">constexpr void reset() noexcept</div><div class="ttdoc">Clears all callbacks from the pool.</div><div class="ttdef"><b>Definition</b> callbacks_pool.inl:66</div></div>
-<div class="ttc" id="aclasstoy_1_1_callbacks_pool_html_a3f589c9fb1daaab3e907436f2aca1647"><div class="ttname"><a href="#a3f589c9fb1daaab3e907436f2aca1647">toy::CallbacksPool::subscribersAmount</a></div><div class="ttdeci">constexpr std::size_t subscribersAmount() const noexcept</div><div class="ttdoc">Returns the number of registered callbacks.</div><div class="ttdef"><b>Definition</b> callbacks_pool.inl:71</div></div>
+<div class="ttc" id="aclasstoy_1_1_callbacks_pool_html_a24cab7bff4bd2278b995a4395ef4c904"><div class="ttname"><a href="#a24cab7bff4bd2278b995a4395ef4c904">toy::CallbacksPool::subscribersAmount</a></div><div class="ttdeci">constexpr size_t subscribersAmount() const noexcept</div><div class="ttdoc">Returns the number of registered callbacks.</div><div class="ttdef"><b>Definition</b> callbacks_pool.inl:71</div></div>
 <div class="ttc" id="aclasstoy_1_1_callbacks_pool_html_a4ed62a797abc836ae90a905894234bf6"><div class="ttname"><a href="#a4ed62a797abc836ae90a905894234bf6">toy::CallbacksPool::add</a></div><div class="ttdeci">constexpr bool add(void(*method)(type arg)) noexcept</div><div class="ttdoc">Adds a callback to the pool.</div><div class="ttdef"><b>Definition</b> callbacks_pool.inl:36</div></div>
 <div class="ttc" id="aclasstoy_1_1_callbacks_pool_html_a758ac6322667eadb5f9a001ab7786acd"><div class="ttname"><a href="#a758ac6322667eadb5f9a001ab7786acd">toy::CallbacksPool::remove</a></div><div class="ttdeci">constexpr bool remove(void(*method)(type arg)) noexcept</div><div class="ttdoc">Removes a callback from the pool.</div><div class="ttdef"><b>Definition</b> callbacks_pool.inl:54</div></div>
 <div class="ttc" id="aclasstoy_1_1_callbacks_pool_html_af1e82cc08bfd90ce35b5dc92a895aa5d"><div class="ttname"><a href="#af1e82cc08bfd90ce35b5dc92a895aa5d">toy::CallbacksPool::call</a></div><div class="ttdeci">constexpr void call(type parameter) const noexcept</div><div class="ttdoc">Invokes all registered callbacks with the given parameter.</div><div class="ttdef"><b>Definition</b> callbacks_pool.inl:76</div></div>
@@ -236,7 +236,7 @@ When the pool is full, attempts to add new callbacks will fail (asserted in debu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename type, std::size_t allocatedSize&gt; </div>
+template&lt;typename type, size_t allocatedSize&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -267,7 +267,7 @@ template&lt;typename type, std::size_t allocatedSize&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename type, std::size_t allocatedSize = 4&gt; </div>
+template&lt;typename type, size_t allocatedSize = 4&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -298,7 +298,7 @@ template&lt;typename type, std::size_t allocatedSize = 4&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename type, std::size_t allocatedSize&gt; </div>
+template&lt;typename type, size_t allocatedSize&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -339,7 +339,7 @@ If the pool is full, the method returns <code>false</code> and asserts in debug 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename type, std::size_t allocatedSize&gt; </div>
+template&lt;typename type, size_t allocatedSize&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -375,7 +375,7 @@ template&lt;typename type, std::size_t allocatedSize&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename type, std::size_t allocatedSize&gt; </div>
+template&lt;typename type, size_t allocatedSize&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -413,7 +413,7 @@ template&lt;typename type, std::size_t allocatedSize&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename type, std::size_t allocatedSize&gt; </div>
+template&lt;typename type, size_t allocatedSize&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -440,19 +440,19 @@ All callback slots are available for new subscriptions. </dd></dl>
 
 </div>
 </div>
-<a id="a3f589c9fb1daaab3e907436f2aca1647" name="a3f589c9fb1daaab3e907436f2aca1647"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3f589c9fb1daaab3e907436f2aca1647">&#9670;&#160;</a></span>subscribersAmount()</h2>
+<a id="a24cab7bff4bd2278b995a4395ef4c904" name="a24cab7bff4bd2278b995a4395ef4c904"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24cab7bff4bd2278b995a4395ef4c904">&#9670;&#160;</a></span>subscribersAmount()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename type, std::size_t allocatedSize&gt; </div>
+template&lt;typename type, size_t allocatedSize&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t <a class="el" href="../../d8/dc9/classtoy_1_1_callbacks_pool.html">toy::CallbacksPool</a>&lt; type, allocatedSize &gt;::subscribersAmount </td>
+          <td class="memname">size_t <a class="el" href="../../d8/dc9/classtoy_1_1_callbacks_pool.html">toy::CallbacksPool</a>&lt; type, allocatedSize &gt;::subscribersAmount </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
@@ -479,7 +479,7 @@ template&lt;typename type, std::size_t allocatedSize&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename type, std::size_t allocatedSize = 4&gt; </div>
+template&lt;typename type, size_t allocatedSize = 4&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -499,19 +499,19 @@ template&lt;typename type, std::size_t allocatedSize = 4&gt; </div>
 
 </div>
 </div>
-<a id="ae3919abece03092d9096a99ac8493382" name="ae3919abece03092d9096a99ac8493382"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae3919abece03092d9096a99ac8493382">&#9670;&#160;</a></span>_subscribersCount</h2>
+<a id="acdb9af165834d8b543c106a6fc8b9574" name="acdb9af165834d8b543c106a6fc8b9574"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acdb9af165834d8b543c106a6fc8b9574">&#9670;&#160;</a></span>_subscribersCount</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename type, std::size_t allocatedSize = 4&gt; </div>
+template&lt;typename type, size_t allocatedSize = 4&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t <a class="el" href="../../d8/dc9/classtoy_1_1_callbacks_pool.html">toy::CallbacksPool</a>&lt; type, allocatedSize &gt;::_subscribersCount = 0</td>
+          <td class="memname">size_t <a class="el" href="../../d8/dc9/classtoy_1_1_callbacks_pool.html">toy::CallbacksPool</a>&lt; type, allocatedSize &gt;::_subscribersCount = 0</td>
         </tr>
       </table>
   </td>

@@ -1,5 +1,0 @@
-<map id="toy::_divModU10" name="toy::_divModU10">
-<area shape="rect" id="Node000001" title="Divides a given 32&#45;bit unsigned integer by 10 and returns the quotient and remainder." alt="" coords="217,5,348,31"/>
-<area shape="rect" id="Node000002" href="$d4/da9/namespacetoy.html#a68ab36c5d8a30801d179aa2506c5f99d" title="Processes a string representation of a floating&#45;point number, adjusting the exponent,..." alt="" coords="5,5,169,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="204,21,169,21,169,15,204,15"/>
-</map>
