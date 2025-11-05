@@ -102,7 +102,7 @@ namespace toy {
   \warning Callbacks must remain valid for the lifetime of the CallbacksPool object. The pool does not manage callback
            lifetime.
 */
-template <typename type, std::size_t allocatedSize = 4>
+template <typename type, size_t allocatedSize = 4>
 class CallbacksPool {
 public:
   /*!
@@ -171,7 +171,7 @@ public:
 
     \note The count is maintained internally for optimal performance.
   */
-  [[nodiscard]] constexpr std::size_t subscribersAmount() const noexcept;
+  [[nodiscard]] constexpr size_t subscribersAmount() const noexcept;
 
   /*!
     \brief Invokes all registered callbacks with the given parameter.
@@ -192,7 +192,7 @@ private:
   };
 
   std::array<StaticCallback, allocatedSize> _callbacks; //!< Fixed-size array storing registered callbacks.
-  std::size_t _subscribersCount = 0; //!< Active callbacks count.
+  size_t _subscribersCount = 0; //!< Active callbacks count.
 };
 
 } // namespace toy

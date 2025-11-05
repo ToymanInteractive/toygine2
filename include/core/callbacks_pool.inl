@@ -27,17 +27,17 @@
 
 namespace toy {
 
-template <typename type, std::size_t allocatedSize>
+template <typename type, size_t allocatedSize>
 constexpr CallbacksPool<type, allocatedSize>::CallbacksPool() noexcept {
   _callbacks.fill(StaticCallback());
 }
 
-template <typename type, std::size_t allocatedSize>
+template <typename type, size_t allocatedSize>
 constexpr bool CallbacksPool<type, allocatedSize>::add(void (*method)(type arg)) noexcept {
   assert_message(method != nullptr, "Cannot add null callback");
 
   // Check if the method already exists
-  for (std::size_t index = 0; index < _subscribersCount; ++index) {
+  for (size_t index = 0; index < _subscribersCount; ++index) {
     if (_callbacks[index].method == method)
       return true;
   }
@@ -50,9 +50,9 @@ constexpr bool CallbacksPool<type, allocatedSize>::add(void (*method)(type arg))
   return true;
 }
 
-template <typename type, std::size_t allocatedSize>
+template <typename type, size_t allocatedSize>
 constexpr bool CallbacksPool<type, allocatedSize>::remove(void (*method)(type arg)) noexcept {
-  for (std::size_t index = 0; index < _subscribersCount; ++index) {
+  for (size_t index = 0; index < _subscribersCount; ++index) {
     if (_callbacks[index].method == method) {
       _callbacks[index].method = _callbacks[--_subscribersCount].method;
       return true;
@@ -62,19 +62,19 @@ constexpr bool CallbacksPool<type, allocatedSize>::remove(void (*method)(type ar
   return false;
 }
 
-template <typename type, std::size_t allocatedSize>
+template <typename type, size_t allocatedSize>
 constexpr void CallbacksPool<type, allocatedSize>::reset() noexcept {
   _subscribersCount = 0;
 }
 
-template <typename type, std::size_t allocatedSize>
-[[nodiscard]] constexpr std::size_t CallbacksPool<type, allocatedSize>::subscribersAmount() const noexcept {
+template <typename type, size_t allocatedSize>
+[[nodiscard]] constexpr size_t CallbacksPool<type, allocatedSize>::subscribersAmount() const noexcept {
   return _subscribersCount;
 }
 
-template <typename type, std::size_t allocatedSize>
+template <typename type, size_t allocatedSize>
 constexpr void CallbacksPool<type, allocatedSize>::call(type arg) const noexcept {
-  for (std::size_t index = 0; index < _subscribersCount; ++index) {
+  for (size_t index = 0; index < _subscribersCount; ++index) {
     (*_callbacks[index].method)(arg);
   }
 }

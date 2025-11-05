@@ -147,7 +147,7 @@ Used for template classes (e.g., `FixedString`, `FixedVector`).
   \see RelatedClass
   \see RelatedConcept
 */
-template <typename TemplateParam1, std::size_t TemplateParam2>
+template <typename TemplateParam1, size_t TemplateParam2>
 class ClassName {
   // ...
 };

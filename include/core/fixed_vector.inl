@@ -27,16 +27,16 @@
 
 namespace toy {
 
-template <typename type, std::size_t allocatedSize>
+template <typename type, size_t allocatedSize>
 constexpr FixedVector<type, allocatedSize>::FixedVector() noexcept
   : _data() {}
 
-template <typename type, std::size_t allocatedSize>
+template <typename type, size_t allocatedSize>
 constexpr FixedVector<type, allocatedSize>::~FixedVector() noexcept {
   clear();
 }
 
-template <typename type, std::size_t allocatedSize>
+template <typename type, size_t allocatedSize>
 inline FixedVector<type, allocatedSize>::FixedVector(size_type count)
   : _data()
   , _size(count) {
@@ -46,7 +46,7 @@ inline FixedVector<type, allocatedSize>::FixedVector(size_type count)
     std::construct_at(data() + index, type{});
 }
 
-template <typename type, std::size_t allocatedSize>
+template <typename type, size_t allocatedSize>
 inline FixedVector<type, allocatedSize>::FixedVector(size_type count, const type & value)
   : _data()
   , _size(count) {
@@ -56,7 +56,7 @@ inline FixedVector<type, allocatedSize>::FixedVector(size_type count, const type
     std::construct_at(data() + index, value);
 }
 
-template <typename type, std::size_t allocatedSize>
+template <typename type, size_t allocatedSize>
 template <typename InputIterator>
   requires(!std::is_integral_v<InputIterator>)
 inline FixedVector<type, allocatedSize>::FixedVector(InputIterator first, InputIterator last)
@@ -67,7 +67,7 @@ inline FixedVector<type, allocatedSize>::FixedVector(InputIterator first, InputI
   }
 }
 
-template <typename type, std::size_t allocatedSize>
+template <typename type, size_t allocatedSize>
 inline FixedVector<type, allocatedSize>::FixedVector(const FixedVector<type, allocatedSize> & other) noexcept
   : _data()
   , _size(other._size) {
@@ -75,8 +75,8 @@ inline FixedVector<type, allocatedSize>::FixedVector(const FixedVector<type, all
     std::construct_at(data() + index, other[index]);
 }
 
-template <typename type, std::size_t allocatedSize>
-template <std::size_t allocatedSize2>
+template <typename type, size_t allocatedSize>
+template <size_t allocatedSize2>
 inline FixedVector<type, allocatedSize>::FixedVector(const FixedVector<type, allocatedSize2> & other) noexcept
   : _data()
   , _size(other.size()) {
@@ -86,7 +86,7 @@ inline FixedVector<type, allocatedSize>::FixedVector(const FixedVector<type, all
     std::construct_at(data() + index, other[index]);
 }
 
-template <typename type, std::size_t allocatedSize>
+template <typename type, size_t allocatedSize>
 inline FixedVector<type, allocatedSize>::FixedVector(FixedVector<type, allocatedSize> && other) noexcept
   : _data()
   , _size(other._size) {
@@ -96,8 +96,8 @@ inline FixedVector<type, allocatedSize>::FixedVector(FixedVector<type, allocated
   other.clear();
 }
 
-template <typename type, std::size_t allocatedSize>
-template <std::size_t allocatedSize2>
+template <typename type, size_t allocatedSize>
+template <size_t allocatedSize2>
 inline FixedVector<type, allocatedSize>::FixedVector(FixedVector<type, allocatedSize2> && other) noexcept
   : _data()
   , _size(other.size()) {
@@ -109,7 +109,7 @@ inline FixedVector<type, allocatedSize>::FixedVector(FixedVector<type, allocated
   other.clear();
 }
 
-template <typename type, std::size_t allocatedSize>
+template <typename type, size_t allocatedSize>
 inline FixedVector<type, allocatedSize>::FixedVector(std::initializer_list<type> init)
   : _data()
   , _size(init.size()) {
@@ -120,7 +120,7 @@ inline FixedVector<type, allocatedSize>::FixedVector(std::initializer_list<type>
     std::construct_at(data() + index++, element);
 }
 
-template <typename type, std::size_t allocatedSize>
+template <typename type, size_t allocatedSize>
 inline FixedVector<type, allocatedSize> & FixedVector<type, allocatedSize>::operator=(
   const FixedVector<type, allocatedSize> & other) noexcept {
   if (this == &other)
@@ -136,8 +136,8 @@ inline FixedVector<type, allocatedSize> & FixedVector<type, allocatedSize>::oper
   return *this;
 }
 
-template <typename type, std::size_t allocatedSize>
-template <std::size_t allocatedSize2>
+template <typename type, size_t allocatedSize>
+template <size_t allocatedSize2>
 inline FixedVector<type, allocatedSize> & FixedVector<type, allocatedSize>::operator=(
   const FixedVector<type, allocatedSize2> & other) noexcept {
   assert_message(other.size() <= allocatedSize, "Source vector size must not exceed capacity.");
@@ -152,7 +152,7 @@ inline FixedVector<type, allocatedSize> & FixedVector<type, allocatedSize>::oper
   return *this;
 }
 
-template <typename type, std::size_t allocatedSize>
+template <typename type, size_t allocatedSize>
 inline FixedVector<type, allocatedSize> & FixedVector<type, allocatedSize>::operator=(
   FixedVector<type, allocatedSize> && other) noexcept {
   if (this == &other)
@@ -170,8 +170,8 @@ inline FixedVector<type, allocatedSize> & FixedVector<type, allocatedSize>::oper
   return *this;
 }
 
-template <typename type, std::size_t allocatedSize>
-template <std::size_t allocatedSize2>
+template <typename type, size_t allocatedSize>
+template <size_t allocatedSize2>
 inline FixedVector<type, allocatedSize> & FixedVector<type, allocatedSize>::operator=(
   FixedVector<type, allocatedSize2> && other) noexcept {
   assert_message(other.size() <= allocatedSize, "Source vector size must not exceed capacity.");
@@ -188,7 +188,7 @@ inline FixedVector<type, allocatedSize> & FixedVector<type, allocatedSize>::oper
   return *this;
 }
 
-template <typename type, std::size_t allocatedSize>
+template <typename type, size_t allocatedSize>
 inline FixedVector<type, allocatedSize> & FixedVector<type, allocatedSize>::operator=(
   std::initializer_list<type> ilist) {
   assert_message(ilist.size() <= allocatedSize, "Initializer list size must not exceed capacity.");
@@ -204,7 +204,7 @@ inline FixedVector<type, allocatedSize> & FixedVector<type, allocatedSize>::oper
   return *this;
 }
 
-template <typename type, std::size_t allocatedSize>
+template <typename type, size_t allocatedSize>
 inline void FixedVector<type, allocatedSize>::assign(size_type count, const type & value) {
   assert_message(count <= allocatedSize, "Count must not exceed capacity.");
 
@@ -216,7 +216,7 @@ inline void FixedVector<type, allocatedSize>::assign(size_type count, const type
     std::construct_at(data() + index, value);
 }
 
-template <typename type, std::size_t allocatedSize>
+template <typename type, size_t allocatedSize>
 template <typename InputIterator>
   requires(!std::is_integral_v<InputIterator>)
 inline void FixedVector<type, allocatedSize>::assign(InputIterator first, InputIterator last) {
@@ -228,7 +228,7 @@ inline void FixedVector<type, allocatedSize>::assign(InputIterator first, InputI
   }
 }
 
-template <typename type, std::size_t allocatedSize>
+template <typename type, size_t allocatedSize>
 inline void FixedVector<type, allocatedSize>::assign(std::initializer_list<type> ilist) {
   assert_message(ilist.size() <= allocatedSize, "Initializer list size must not exceed capacity.");
 
@@ -241,7 +241,7 @@ inline void FixedVector<type, allocatedSize>::assign(std::initializer_list<type>
     std::construct_at(data() + index++, element);
 }
 
-template <typename type, std::size_t allocatedSize>
+template <typename type, size_t allocatedSize>
 [[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::reference FixedVector<type, allocatedSize>::at(
   size_type pos) noexcept {
   assert_message(pos < _size, "Position must be within bounds");
@@ -249,7 +249,7 @@ template <typename type, std::size_t allocatedSize>
   return data()[pos];
 }
 
-template <typename type, std::size_t allocatedSize>
+template <typename type, size_t allocatedSize>
 [[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::const_reference FixedVector<type, allocatedSize>::at(
   size_type pos) const noexcept {
   assert_message(pos < _size, "Position must be within bounds");
@@ -257,7 +257,7 @@ template <typename type, std::size_t allocatedSize>
   return data()[pos];
 }
 
-template <typename type, std::size_t allocatedSize>
+template <typename type, size_t allocatedSize>
 [[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::reference FixedVector<
   type, allocatedSize>::operator[](size_type pos) noexcept {
   assert_message(pos < _size, "Position must be within bounds");
@@ -265,7 +265,7 @@ template <typename type, std::size_t allocatedSize>
   return data()[pos];
 }
 
-template <typename type, std::size_t allocatedSize>
+template <typename type, size_t allocatedSize>
 [[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::const_reference FixedVector<
   type, allocatedSize>::operator[](size_type pos) const noexcept {
   assert_message(pos < _size, "Position must be within bounds");
@@ -273,7 +273,7 @@ template <typename type, std::size_t allocatedSize>
   return data()[pos];
 }
 
-template <typename type, std::size_t allocatedSize>
+template <typename type, size_t allocatedSize>
 [[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::reference FixedVector<
   type, allocatedSize>::front() noexcept {
   assert_message(_size > 0, "Vector must not be empty");
@@ -281,7 +281,7 @@ template <typename type, std::size_t allocatedSize>
   return *data();
 }
 
-template <typename type, std::size_t allocatedSize>
+template <typename type, size_t allocatedSize>
 [[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::const_reference FixedVector<
   type, allocatedSize>::front() const noexcept {
   assert_message(_size > 0, "Vector must not be empty");
@@ -289,7 +289,7 @@ template <typename type, std::size_t allocatedSize>
   return *data();
 }
 
-template <typename type, std::size_t allocatedSize>
+template <typename type, size_t allocatedSize>
 [[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::reference FixedVector<
   type, allocatedSize>::back() noexcept {
   assert_message(_size > 0, "Vector must not be empty");
@@ -297,7 +297,7 @@ template <typename type, std::size_t allocatedSize>
   return data()[_size - 1];
 }
 
-template <typename type, std::size_t allocatedSize>
+template <typename type, size_t allocatedSize>
 [[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::const_reference FixedVector<
   type, allocatedSize>::back() const noexcept {
   assert_message(_size > 0, "Vector must not be empty");
@@ -305,114 +305,114 @@ template <typename type, std::size_t allocatedSize>
   return data()[_size - 1];
 }
 
-template <typename type, std::size_t allocatedSize>
+template <typename type, size_t allocatedSize>
 [[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::pointer FixedVector<type,
                                                                                        allocatedSize>::data() noexcept {
   return reinterpret_cast<pointer>(_data);
 }
 
-template <typename type, std::size_t allocatedSize>
+template <typename type, size_t allocatedSize>
 [[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::const_pointer FixedVector<
   type, allocatedSize>::data() const noexcept {
   return reinterpret_cast<const_pointer>(_data);
 }
 
-template <typename type, std::size_t allocatedSize>
+template <typename type, size_t allocatedSize>
 [[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::iterator FixedVector<
   type, allocatedSize>::begin() noexcept {
   return data();
 }
 
-template <typename type, std::size_t allocatedSize>
+template <typename type, size_t allocatedSize>
 [[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::const_iterator FixedVector<
   type, allocatedSize>::begin() const noexcept {
   return data();
 }
 
-template <typename type, std::size_t allocatedSize>
+template <typename type, size_t allocatedSize>
 [[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::const_iterator FixedVector<
   type, allocatedSize>::cbegin() const noexcept {
   return begin();
 }
 
-template <typename type, std::size_t allocatedSize>
+template <typename type, size_t allocatedSize>
 [[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::iterator FixedVector<type,
                                                                                         allocatedSize>::end() noexcept {
   return data() + _size;
 }
 
-template <typename type, std::size_t allocatedSize>
+template <typename type, size_t allocatedSize>
 [[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::const_iterator FixedVector<
   type, allocatedSize>::end() const noexcept {
   return data() + _size;
 }
 
-template <typename type, std::size_t allocatedSize>
+template <typename type, size_t allocatedSize>
 [[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::const_iterator FixedVector<
   type, allocatedSize>::cend() const noexcept {
   return end();
 }
 
-template <typename type, std::size_t allocatedSize>
+template <typename type, size_t allocatedSize>
 [[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::reverse_iterator FixedVector<
   type, allocatedSize>::rbegin() noexcept {
   return reverse_iterator(end());
 }
 
-template <typename type, std::size_t allocatedSize>
+template <typename type, size_t allocatedSize>
 [[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::const_reverse_iterator FixedVector<
   type, allocatedSize>::rbegin() const noexcept {
   return const_reverse_iterator(end());
 }
 
-template <typename type, std::size_t allocatedSize>
+template <typename type, size_t allocatedSize>
 [[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::const_reverse_iterator FixedVector<
   type, allocatedSize>::crbegin() const noexcept {
   return rbegin();
 }
 
-template <typename type, std::size_t allocatedSize>
+template <typename type, size_t allocatedSize>
 [[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::reverse_iterator FixedVector<
   type, allocatedSize>::rend() noexcept {
   return reverse_iterator(begin());
 }
 
-template <typename type, std::size_t allocatedSize>
+template <typename type, size_t allocatedSize>
 [[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::const_reverse_iterator FixedVector<
   type, allocatedSize>::rend() const noexcept {
   return const_reverse_iterator(begin());
 }
 
-template <typename type, std::size_t allocatedSize>
+template <typename type, size_t allocatedSize>
 [[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::const_reverse_iterator FixedVector<
   type, allocatedSize>::crend() const noexcept {
   return rend();
 }
 
-template <typename type, std::size_t allocatedSize>
+template <typename type, size_t allocatedSize>
 [[nodiscard]] constexpr bool FixedVector<type, allocatedSize>::empty() const noexcept {
   return _size == 0;
 }
 
-template <typename type, std::size_t allocatedSize>
+template <typename type, size_t allocatedSize>
 [[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::size_type FixedVector<type, allocatedSize>::size()
   const noexcept {
   return _size;
 }
 
-template <typename type, std::size_t allocatedSize>
+template <typename type, size_t allocatedSize>
 [[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::size_type FixedVector<
   type, allocatedSize>::max_size() const noexcept {
   return allocatedSize;
 }
 
-template <typename type, std::size_t allocatedSize>
+template <typename type, size_t allocatedSize>
 [[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::size_type FixedVector<
   type, allocatedSize>::capacity() const noexcept {
   return allocatedSize;
 }
 
-template <typename type, std::size_t allocatedSize>
+template <typename type, size_t allocatedSize>
 constexpr void FixedVector<type, allocatedSize>::clear() noexcept {
   if constexpr (!std::is_trivially_destructible_v<type>) {
     for (size_type index = 0; index < _size; ++index)
@@ -424,7 +424,7 @@ constexpr void FixedVector<type, allocatedSize>::clear() noexcept {
 
 // temporary
 
-template <typename type, std::size_t allocatedSize>
+template <typename type, size_t allocatedSize>
 constexpr void FixedVector<type, allocatedSize>::push_back(const type & val) noexcept {
   assert(_size < allocatedSize);
 

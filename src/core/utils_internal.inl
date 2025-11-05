@@ -25,8 +25,6 @@
 #ifndef SRC_CORE_UTILS_INTERNAL_INL_
 #define SRC_CORE_UTILS_INTERNAL_INL_
 
-#include <type_traits>
-
 namespace toy {
 
 /*!
@@ -62,12 +60,12 @@ static constexpr std::array<char, 36> _ansiDigits{{
   \note The base must be between 2 and 36 inclusive.
 */
 template <typename type>
-constexpr std::size_t integerToSymbols(char * dest, std::size_t destSize, type value, unsigned base) {
+constexpr size_t integerToSymbols(char * dest, size_t destSize, type value, unsigned base) {
   static_assert(std::is_integral_v<type>, "integerToSymbols requires an integral type");
   assert_message(dest != nullptr && destSize > 0, "The destination buffer must not be null.");
   assert_message(base >= 2 && base <= _ansiDigits.size(), "The base must be between 2 and 36 inclusive.");
 
-  std::size_t index = 0;
+  size_t index = 0;
 
   do {
     dest[index++] = _ansiDigits[value % base];
@@ -95,7 +93,7 @@ constexpr std::size_t integerToSymbols(char * dest, std::size_t destSize, type v
   \note The function reverses the string in-place.
 */
 template <typename type>
-inline char * itoaImplementation(char * dest, std::size_t destSize, type value) {
+inline char * itoaImplementation(char * dest, size_t destSize, type value) {
   static_assert(std::is_integral_v<type> && std::is_signed_v<type>,
                 "itoaImplementation requires a signed integral type");
   assert_message(dest != nullptr && destSize > 0, "The destination buffer must not be null.");
@@ -108,7 +106,7 @@ inline char * itoaImplementation(char * dest, std::size_t destSize, type value) 
   // decrease dest size for '\0' symbol
   --destSize;
 
-  std::size_t symbols = 0;
+  size_t symbols = 0;
   const bool valueNegative = (value < 0);
   using unsigned_type = std::make_unsigned_t<type>;
   if (valueNegative) {
@@ -146,7 +144,7 @@ inline char * itoaImplementation(char * dest, std::size_t destSize, type value) 
   \note The base must be between 2 and 36 inclusive.
 */
 template <typename type>
-inline char * utoaImplementation(char * dest, std::size_t destSize, type value, unsigned base) {
+inline char * utoaImplementation(char * dest, size_t destSize, type value, unsigned base) {
   static_assert(std::is_unsigned_v<type>, "utoaImplementation requires an unsigned integer type");
   assert_message(dest != nullptr && destSize > 0, "The destination buffer must not be null.");
   if (destSize == 1) {

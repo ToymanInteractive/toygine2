@@ -46,7 +46,7 @@ void setCallbacks(AssertionCallback assertionCallback, StackWalkCallback TOY_UNU
 #ifdef _DEBUG
 
 void assertion(const char * code, const char * message, const char * fileName, const char * functionName,
-               std::size_t lineNumber) {
+               size_t lineNumber) {
   char assertionString[4096];
   int written;
   if (message == nullptr)

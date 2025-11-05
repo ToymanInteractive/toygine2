@@ -88,10 +88,10 @@ namespace toy::math {
 class Point {
 public:
   /// X coordinate.
-  std::int32_t x;
+  int32_t x;
 
   /// Y coordinate.
-  std::int32_t y;
+  int32_t y;
 
   /*!
     \brief Default constructor.
@@ -110,7 +110,7 @@ public:
     \param x The x-coordinate of the point.
     \param y The y-coordinate of the point.
   */
-  constexpr Point(const std::int32_t & x, const std::int32_t & y) noexcept;
+  constexpr Point(const int32_t & x, const int32_t & y) noexcept;
 
   /*!
     \brief Constructs a Point from an array of \a values.
@@ -125,7 +125,7 @@ public:
 
     \post The point is initialized with x = values[0] and y = values[1].
   */
-  explicit constexpr Point(const std::int32_t * values) noexcept;
+  explicit constexpr Point(const int32_t * values) noexcept;
 
   /*!
     \brief Destructor for the point.
@@ -147,7 +147,7 @@ public:
     \note The returned pointer allows modification of the point coordinates.
     \note Use const version for read-only access.
   */
-  [[nodiscard]] constexpr std::int32_t * c_arr() noexcept;
+  [[nodiscard]] constexpr int32_t * c_arr() noexcept;
 
   /*!
     \brief Returns a constant pointer to the array representation of this point.
@@ -162,7 +162,7 @@ public:
     \note The returned pointer is read-only and cannot modify the point coordinates.
     \note Use the non-const overload to allow modification.
   */
-  [[nodiscard]] constexpr const std::int32_t * c_arr() const noexcept;
+  [[nodiscard]] constexpr const int32_t * c_arr() const noexcept;
 
   /*!
     \brief Adds another \a point to this point.
@@ -201,7 +201,7 @@ public:
 
     \post This point's coordinates are multiplied by the \a scalar.
   */
-  constexpr Point & operator*=(std::int32_t scalar) noexcept;
+  constexpr Point & operator*=(int32_t scalar) noexcept;
 
   /*!
     \brief Multiplies this point by a real \a scalar.
@@ -229,7 +229,7 @@ public:
 
     \post This point's coordinates are divided by the \a scalar.
   */
-  constexpr Point & operator/=(std::int32_t scalar) noexcept;
+  constexpr Point & operator/=(int32_t scalar) noexcept;
 
   /*!
     \brief Divides this point by a real \a scalar.
@@ -257,7 +257,7 @@ public:
     \note This method avoids the expensive square root operation by returning the squared value.
     \note Use this method when comparing magnitudes for performance reasons.
   */
-  [[nodiscard]] constexpr std::int32_t sqrMagnitude() const noexcept;
+  [[nodiscard]] constexpr int32_t sqrMagnitude() const noexcept;
 
   /*!
     \brief Sets this point to zero coordinates.
@@ -296,7 +296,7 @@ public:
     \note When tolerance is \c 0, this performs exact equality comparison.
     \note When tolerance is greater than \c 0, this performs approximate equality comparison.
   */
-  [[nodiscard]] bool isEqual(const Point & point, std::int32_t tolerance = 0) const noexcept;
+  [[nodiscard]] bool isEqual(const Point & point, int32_t tolerance = 0) const noexcept;
 };
 
 /*!
@@ -344,7 +344,7 @@ public:
 
   \return A new point with coordinates multiplied by the \a scalar.
 */
-[[nodiscard]] constexpr Point operator*(const Point & point, std::int32_t scalar) noexcept;
+[[nodiscard]] constexpr Point operator*(const Point & point, int32_t scalar) noexcept;
 
 /*!
   \brief Multiplication operator for integer \a scalar and \a point.
@@ -356,7 +356,7 @@ public:
 
   \return A new point with coordinates multiplied by the \a scalar.
 */
-[[nodiscard]] constexpr Point operator*(std::int32_t scalar, const Point & point) noexcept;
+[[nodiscard]] constexpr Point operator*(int32_t scalar, const Point & point) noexcept;
 
 /*!
   \brief Multiplication operator for \a point and real \a scalar.
@@ -394,7 +394,7 @@ public:
 
   \pre The \a scalar must not be zero.
 */
-[[nodiscard]] constexpr Point operator/(const Point & point, std::int32_t scalar) noexcept;
+[[nodiscard]] constexpr Point operator/(const Point & point, int32_t scalar) noexcept;
 
 /*!
   \brief Division operator for \a point and real \a scalar.
