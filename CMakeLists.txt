@@ -35,7 +35,7 @@ endif (CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
 set(CMAKE_DEBUG_POSTFIX "d")
 set(CMAKE_RELWITHDEBINFO_POSTFIX "rd")
 
-# Set generate relative path ON
+# Disable regeneration of build system files by IDEs
 set(CMAKE_SUPPRESS_REGENERATION TRUE)
 
 #-------------------------------------------------------------------------------------------
