@@ -1,7 +1,0 @@
-<map id="toy::CallbacksPool&lt; type, allocatedSize &gt;" name="toy::CallbacksPool&lt; type, allocatedSize &gt;">
-<area shape="rect" id="Node000001" title="Template callback pool class with fixed&#45;size callback storage." alt="" coords="13,241,189,281"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,131,196,171"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="103,185,103,241,98,241,98,185"/>
-<area shape="rect" id="Node000003" href="$d7/d9f/structtoy_1_1_callbacks_pool_1_1_static_callback.html" title="Internal structure to store a callback function pointer." alt="" coords="20,5,181,60"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="103,74,103,130,98,130,98,74"/>
-</map>

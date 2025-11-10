@@ -1,9 +1,0 @@
-<map id="toy::ftoa" name="toy::ftoa">
-<area shape="rect" id="Node000001" title="Converts a 32&#45;bit floating&#45;point number to its C string representation with specified precision." alt="" coords="5,31,80,56"/>
-<area shape="rect" id="Node000002" href="$d4/da9/namespacetoy.html#a1398396b240f9a663cdedc2a077edfb3" title="Processes a string representation of a floating&#45;point number, adjusting the exponent,..." alt="" coords="128,5,292,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="80,35,114,30,115,35,81,40"/>
-<area shape="rect" id="Node000004" href="$d4/da9/namespacetoy.html#a5c08dafb841b59caed6996f17b8baebc" title="Converts a floating&#45;point number to its string representation in a specified precision." alt="" coords="139,55,281,80"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="81,46,125,52,125,58,80,51"/>
-<area shape="rect" id="Node000003" href="$d4/da9/namespacetoy.html#ad95906de2f58b602b9ee9f16708f15b4" title="Divides a given 32&#45;bit unsigned integer by 10 and returns the quotient and remainder." alt="" coords="340,5,471,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="292,15,326,15,326,21,292,21"/>
-</map>
