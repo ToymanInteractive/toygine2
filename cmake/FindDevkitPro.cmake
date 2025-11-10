@@ -1,5 +1,5 @@
 #-------------------------------------------------------------------------------------------
-# Copyright (c) 2025 by Toyman Interactive
+# Copyright (c) 2025 Toyman Interactive
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of this
 # software and associated documentation files (the "Software"), to deal in the Software
@@ -83,7 +83,8 @@ if(DEVKITPRO_ROOT)
 
   # === devkitARM toolchain ===
   find_program(DEVKITARM_GCC arm-none-eabi-gcc
-    PATHS "${DEVKITPRO_ROOT}/devkitARM/bin" NO_DEFAULT_PATH)
+    PATHS "${DEVKITPRO_ROOT}/devkitARM/bin" NO_DEFAULT_PATH
+    DOC "Path to devkitPro ARM gcc compiler")
 
   if(DEVKITARM_GCC)
     get_filename_component(DEVKITARM "${DEVKITARM_GCC}" DIRECTORY)
@@ -96,7 +97,8 @@ if(DEVKITPRO_ROOT)
 
   # === devkitA64 toolchain ===
   find_program(DEVKITA64_GCC aarch64-none-elf-gcc
-    PATHS "${DEVKITPRO_ROOT}/devkitA64/bin" NO_DEFAULT_PATH)
+    PATHS "${DEVKITPRO_ROOT}/devkitA64/bin" NO_DEFAULT_PATH
+    DOC "Path to devkitPro ARM64 gcc compiler")
 
   if(DEVKITA64_GCC)
     get_filename_component(DEVKITA64 "${DEVKITA64_GCC}" DIRECTORY)
