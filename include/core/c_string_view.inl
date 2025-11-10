@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2025 by Toyman Interactive
+// Copyright (c) 2025 Toyman Interactive
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this
 // software and associated documentation files (the "Software"), to deal in the Software
@@ -288,8 +288,7 @@ constexpr bool CStringView::contains(char character) const noexcept {
   }
 }
 
-constexpr size_t CStringView::_find_raw(size_t position, const char * data,
-                                             size_t dataSize) const noexcept {
+constexpr size_t CStringView::_find_raw(size_t position, const char * data, size_t dataSize) const noexcept {
   const auto stringViewSize = size();
 
   if (position > stringViewSize)
@@ -313,8 +312,7 @@ constexpr size_t CStringView::_find_raw(size_t position, const char * data,
   return occurrence != nullptr ? static_cast<size_t>(occurrence - _data) : npos;
 }
 
-constexpr size_t CStringView::_rfind_raw(size_t position, const char * data,
-                                              size_t dataSize) const noexcept {
+constexpr size_t CStringView::_rfind_raw(size_t position, const char * data, size_t dataSize) const noexcept {
   const auto stringViewSize = size();
 
   if (dataSize == 0)
@@ -345,8 +343,7 @@ constexpr size_t CStringView::_rfind_raw(size_t position, const char * data,
   return npos;
 }
 
-constexpr size_t CStringView::_find_first_of_raw(size_t position, const char * data,
-                                                      size_t dataSize) const noexcept {
+constexpr size_t CStringView::_find_first_of_raw(size_t position, const char * data, size_t dataSize) const noexcept {
   const auto stringViewSize = size();
 
   if (position >= stringViewSize || dataSize == 0)
@@ -364,7 +361,7 @@ constexpr size_t CStringView::_find_first_of_raw(size_t position, const char * d
 }
 
 constexpr size_t CStringView::_find_first_not_of_raw(size_t position, const char * data,
-                                                          size_t dataSize) const noexcept {
+                                                     size_t dataSize) const noexcept {
   const auto stringViewSize = size();
 
   if (position >= stringViewSize)
@@ -395,8 +392,7 @@ constexpr size_t CStringView::_find_first_not_of_raw(size_t position, const char
   return npos;
 }
 
-constexpr size_t CStringView::_find_last_of_raw(size_t position, const char * data,
-                                                     size_t dataSize) const noexcept {
+constexpr size_t CStringView::_find_last_of_raw(size_t position, const char * data, size_t dataSize) const noexcept {
   if (dataSize == 0 || empty())
     return npos;
 
@@ -432,7 +428,7 @@ constexpr size_t CStringView::_find_last_of_raw(size_t position, const char * da
 }
 
 constexpr size_t CStringView::_find_last_not_of_raw(size_t position, const char * data,
-                                                         size_t dataSize) const noexcept {
+                                                    size_t dataSize) const noexcept {
   if (empty())
     return npos;
 

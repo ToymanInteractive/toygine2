@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2025 by Toyman Interactive
+// Copyright (c) 2025 Toyman Interactive
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this
 // software and associated documentation files (the "Software"), to deal in the Software
@@ -345,8 +345,7 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::insert(size_t
 }
 
 template <size_t allocatedSize>
-constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::insert(size_t index,
-                                                                          const char * string) noexcept {
+constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::insert(size_t index, const char * string) noexcept {
   assert_message(string != nullptr, "C string must not be null");
 
   size_t stringLen;
@@ -394,8 +393,7 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::insert(size_t
 }
 
 template <size_t allocatedSize>
-constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::erase(size_t offset,
-                                                                         size_t count) noexcept {
+constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::erase(size_t offset, size_t count) noexcept {
   assert_message(offset <= _size, "Offset must not exceed string size");
 
   if (count == npos)
@@ -577,8 +575,7 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::replace(size_
 }
 
 template <size_t allocatedSize>
-constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::replace(size_t pos, size_t count,
-                                                                           char character,
+constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::replace(size_t pos, size_t count, char character,
                                                                            size_t charactersCount) noexcept {
   if (count == 0 && charactersCount == 0)
     return *this;
@@ -661,7 +658,7 @@ constexpr void FixedString<allocatedSize>::swap(FixedString<allocatedSize> & str
 
 template <size_t allocatedSize>
 constexpr size_t FixedString<allocatedSize>::find(const FixedString<allocatedSize> & string,
-                                                       size_t position) const noexcept {
+                                                  size_t position) const noexcept {
   return _find_raw(position, string._data, string._size);
 }
 
@@ -692,14 +689,13 @@ constexpr size_t FixedString<allocatedSize>::find(char character, size_t positio
 
 template <size_t allocatedSize>
 constexpr size_t FixedString<allocatedSize>::rfind(const FixedString<allocatedSize> & string,
-                                                        size_t position) const noexcept {
+                                                   size_t position) const noexcept {
   return _rfind_raw(position, string._data, string._size);
 }
 
 template <size_t allocatedSize>
 template <StringLike stringType>
-constexpr size_t FixedString<allocatedSize>::rfind(const stringType & string,
-                                                        size_t position) const noexcept {
+constexpr size_t FixedString<allocatedSize>::rfind(const stringType & string, size_t position) const noexcept {
   return _rfind_raw(position, string.c_str(), string.size());
 }
 
@@ -724,20 +720,18 @@ constexpr size_t FixedString<allocatedSize>::rfind(char character, size_t positi
 
 template <size_t allocatedSize>
 constexpr size_t FixedString<allocatedSize>::find_first_of(const FixedString<allocatedSize> & string,
-                                                                size_t position) const noexcept {
+                                                           size_t position) const noexcept {
   return _find_first_of_raw(position, string._data, string._size);
 }
 
 template <size_t allocatedSize>
 template <StringLike stringType>
-constexpr size_t FixedString<allocatedSize>::find_first_of(const stringType & string,
-                                                                size_t position) const noexcept {
+constexpr size_t FixedString<allocatedSize>::find_first_of(const stringType & string, size_t position) const noexcept {
   return _find_first_of_raw(position, string.c_str(), string.size());
 }
 
 template <size_t allocatedSize>
-constexpr size_t FixedString<allocatedSize>::find_first_of(const char * string,
-                                                                size_t position) const noexcept {
+constexpr size_t FixedString<allocatedSize>::find_first_of(const char * string, size_t position) const noexcept {
   assert_message(string != nullptr, "C string must not be null");
 
   size_t stringLen;
@@ -757,20 +751,19 @@ constexpr size_t FixedString<allocatedSize>::find_first_of(char character, size_
 
 template <size_t allocatedSize>
 constexpr size_t FixedString<allocatedSize>::find_first_not_of(const FixedString<allocatedSize> & string,
-                                                                    size_t position) const noexcept {
+                                                               size_t position) const noexcept {
   return _find_first_not_of_raw(position, string._data, string._size);
 }
 
 template <size_t allocatedSize>
 template <StringLike stringType>
 constexpr size_t FixedString<allocatedSize>::find_first_not_of(const stringType & string,
-                                                                    size_t position) const noexcept {
+                                                               size_t position) const noexcept {
   return _find_first_not_of_raw(position, string.c_str(), string.size());
 }
 
 template <size_t allocatedSize>
-constexpr size_t FixedString<allocatedSize>::find_first_not_of(const char * string,
-                                                                    size_t position) const noexcept {
+constexpr size_t FixedString<allocatedSize>::find_first_not_of(const char * string, size_t position) const noexcept {
   assert_message(string != nullptr, "C string must not be null");
 
   size_t stringLen;
@@ -784,27 +777,24 @@ constexpr size_t FixedString<allocatedSize>::find_first_not_of(const char * stri
 }
 
 template <size_t allocatedSize>
-constexpr size_t FixedString<allocatedSize>::find_first_not_of(char character,
-                                                                    size_t position) const noexcept {
+constexpr size_t FixedString<allocatedSize>::find_first_not_of(char character, size_t position) const noexcept {
   return _find_first_not_of_raw(position, &character, 1);
 }
 
 template <size_t allocatedSize>
 constexpr size_t FixedString<allocatedSize>::find_last_of(const FixedString<allocatedSize> & string,
-                                                               size_t position) const noexcept {
+                                                          size_t position) const noexcept {
   return _find_last_of_raw(position, string._data, string._size);
 }
 
 template <size_t allocatedSize>
 template <StringLike stringType>
-constexpr size_t FixedString<allocatedSize>::find_last_of(const stringType & string,
-                                                               size_t position) const noexcept {
+constexpr size_t FixedString<allocatedSize>::find_last_of(const stringType & string, size_t position) const noexcept {
   return _find_last_of_raw(position, string.c_str(), string.size());
 }
 
 template <size_t allocatedSize>
-constexpr size_t FixedString<allocatedSize>::find_last_of(const char * string,
-                                                               size_t position) const noexcept {
+constexpr size_t FixedString<allocatedSize>::find_last_of(const char * string, size_t position) const noexcept {
   assert_message(string != nullptr, "C string must not be null");
 
   size_t stringLen;
@@ -824,20 +814,19 @@ constexpr size_t FixedString<allocatedSize>::find_last_of(char character, size_t
 
 template <size_t allocatedSize>
 constexpr size_t FixedString<allocatedSize>::find_last_not_of(const FixedString<allocatedSize> & string,
-                                                                   size_t position) const noexcept {
+                                                              size_t position) const noexcept {
   return _find_last_not_of_raw(position, string._data, string._size);
 }
 
 template <size_t allocatedSize>
 template <StringLike stringType>
 constexpr size_t FixedString<allocatedSize>::find_last_not_of(const stringType & string,
-                                                                   size_t position) const noexcept {
+                                                              size_t position) const noexcept {
   return _find_last_not_of_raw(position, string.c_str(), string.size());
 }
 
 template <size_t allocatedSize>
-constexpr size_t FixedString<allocatedSize>::find_last_not_of(const char * string,
-                                                                   size_t position) const noexcept {
+constexpr size_t FixedString<allocatedSize>::find_last_not_of(const char * string, size_t position) const noexcept {
   assert_message(string != nullptr, "C string must not be null");
 
   size_t stringLen;
@@ -851,8 +840,7 @@ constexpr size_t FixedString<allocatedSize>::find_last_not_of(const char * strin
 }
 
 template <size_t allocatedSize>
-constexpr size_t FixedString<allocatedSize>::find_last_not_of(char character,
-                                                                   size_t position) const noexcept {
+constexpr size_t FixedString<allocatedSize>::find_last_not_of(char character, size_t position) const noexcept {
   return _find_last_not_of_raw(position, &character, 1);
 }
 
@@ -1022,8 +1010,7 @@ constexpr bool FixedString<allocatedSize>::contains(char character) const noexce
 }
 
 template <size_t allocatedSize>
-constexpr FixedString<allocatedSize> FixedString<allocatedSize>::substr(size_t position,
-                                                                        size_t count) const noexcept {
+constexpr FixedString<allocatedSize> FixedString<allocatedSize>::substr(size_t position, size_t count) const noexcept {
   assert_message(position <= _size, "Position must not exceed string size");
 
   const auto remaining = _size - position;
@@ -1046,8 +1033,7 @@ constexpr FixedString<allocatedSize> FixedString<allocatedSize>::substr(size_t p
 }
 
 template <size_t allocatedSize>
-constexpr void FixedString<allocatedSize>::_insert_raw(size_t position, const char * data,
-                                                       size_t dataSize) noexcept {
+constexpr void FixedString<allocatedSize>::_insert_raw(size_t position, const char * data, size_t dataSize) noexcept {
   if (dataSize == 0)
     return;
 
@@ -1141,7 +1127,7 @@ constexpr void FixedString<allocatedSize>::_replace_raw(size_t position, size_t 
 
 template <size_t allocatedSize>
 constexpr size_t FixedString<allocatedSize>::_find_raw(size_t position, const char * data,
-                                                            size_t dataSize) const noexcept {
+                                                       size_t dataSize) const noexcept {
   if (position > _size)
     return npos;
 
@@ -1164,7 +1150,7 @@ constexpr size_t FixedString<allocatedSize>::_find_raw(size_t position, const ch
 
 template <size_t allocatedSize>
 constexpr size_t FixedString<allocatedSize>::_rfind_raw(size_t position, const char * data,
-                                                             size_t dataSize) const noexcept {
+                                                        size_t dataSize) const noexcept {
   if (dataSize == 0)
     return std::min(position, _size);
   else if (dataSize > _size)
@@ -1195,7 +1181,7 @@ constexpr size_t FixedString<allocatedSize>::_rfind_raw(size_t position, const c
 
 template <size_t allocatedSize>
 constexpr size_t FixedString<allocatedSize>::_find_first_of_raw(size_t position, const char * data,
-                                                                     size_t dataSize) const noexcept {
+                                                                size_t dataSize) const noexcept {
   if (position >= _size || dataSize == 0)
     return npos;
 
@@ -1212,7 +1198,7 @@ constexpr size_t FixedString<allocatedSize>::_find_first_of_raw(size_t position,
 
 template <size_t allocatedSize>
 constexpr size_t FixedString<allocatedSize>::_find_first_not_of_raw(size_t position, const char * data,
-                                                                         size_t dataSize) const noexcept {
+                                                                    size_t dataSize) const noexcept {
   if (position >= _size)
     return npos;
 
@@ -1243,7 +1229,7 @@ constexpr size_t FixedString<allocatedSize>::_find_first_not_of_raw(size_t posit
 
 template <size_t allocatedSize>
 constexpr size_t FixedString<allocatedSize>::_find_last_of_raw(size_t position, const char * data,
-                                                                    size_t dataSize) const noexcept {
+                                                               size_t dataSize) const noexcept {
   if (dataSize == 0 || empty())
     return npos;
 
@@ -1278,7 +1264,7 @@ constexpr size_t FixedString<allocatedSize>::_find_last_of_raw(size_t position, 
 
 template <size_t allocatedSize>
 constexpr size_t FixedString<allocatedSize>::_find_last_not_of_raw(size_t position, const char * data,
-                                                                        size_t dataSize) const noexcept {
+                                                                   size_t dataSize) const noexcept {
   if (empty())
     return npos;
 

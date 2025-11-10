@@ -2,4 +2,4 @@
 
 ## Reporting a Vulnerability
 
-If you have found a security vulnerability in any of the software or services we provide, please do not open a public GitHub issue. Instead, report it privately by emailing <dmitry.krutskikh@gmail.com>.
+Please use GitHub's private [Security Advisories](https://github.com/ToymanInteractive/toygine2/security/advisories/new) to report vulnerabilities.

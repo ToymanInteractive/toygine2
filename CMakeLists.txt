@@ -1,5 +1,5 @@
 #-------------------------------------------------------------------------------------------
-# Copyright (c) 2025 by Toyman Interactive
+# Copyright (c) 2025 Toyman Interactive
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of this
 # software and associated documentation files (the "Software"), to deal in the Software
@@ -37,6 +37,9 @@ set(CMAKE_RELWITHDEBINFO_POSTFIX "rd")
 
 # Disable regeneration of build system files by IDEs
 set(CMAKE_SUPPRESS_REGENERATION TRUE)
+
+# Enable projects folders
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 #-------------------------------------------------------------------------------------------
 # User-provided options
