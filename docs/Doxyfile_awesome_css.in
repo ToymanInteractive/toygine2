@@ -1,5 +1,7 @@
 @INCLUDE               = ./docs/Doxyfile
 
+GENERATE_HTML          = YES
+
 HTML_OUTPUT            = html
 
 HTML_HEADER            = ./docs/awesome_css/header.html

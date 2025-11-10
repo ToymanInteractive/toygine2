@@ -30,10 +30,8 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile.in ${CMAKE_CURRENT_SOURCE_DI
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile_awesome_css.in ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile_awesome_css @ONLY)
 
 add_custom_target(docs
-#   Generate doxygen documentation used doxygen_awesome_css theme
     COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile_awesome_css
-#   Generate doxygen documentation used vanilla theme
-#    COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile
+    COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
     COMMENT "Generating documentation with Doxygen"
     VERBATIM
