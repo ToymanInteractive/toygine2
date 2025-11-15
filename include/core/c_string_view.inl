@@ -502,16 +502,16 @@ constexpr bool operator==(const char * lhs, const CStringView & rhs) noexcept {
   return CStringView(lhs) == rhs;
 }
 
-constexpr std::strong_ordering operator<=>(const CStringView & lhs, const CStringView & rhs) noexcept {
+constexpr strong_ordering operator<=>(const CStringView & lhs, const CStringView & rhs) noexcept {
   if (std::addressof(lhs) == std::addressof(rhs))
-    return std::strong_ordering::equal;
+    return strong_ordering::equal;
 
   if (lhs.empty() && rhs.empty())
-    return std::strong_ordering::equal;
+    return strong_ordering::equal;
   else if (lhs.empty())
-    return std::strong_ordering::less;
+    return strong_ordering::less;
   else if (rhs.empty())
-    return std::strong_ordering::greater;
+    return strong_ordering::greater;
 
   if consteval {
     return cstrcmp(lhs.c_str(), rhs.c_str()) <=> 0;
@@ -521,13 +521,13 @@ constexpr std::strong_ordering operator<=>(const CStringView & lhs, const CStrin
 }
 
 template <StringLike stringType>
-constexpr std::strong_ordering operator<=>(const CStringView & lhs, const stringType & rhs) noexcept {
+constexpr strong_ordering operator<=>(const CStringView & lhs, const stringType & rhs) noexcept {
   if (lhs.empty() && rhs.size() == 0)
-    return std::strong_ordering::equal;
+    return strong_ordering::equal;
   else if (lhs.empty())
-    return std::strong_ordering::less;
+    return strong_ordering::less;
   else if (rhs.size() == 0)
-    return std::strong_ordering::greater;
+    return strong_ordering::greater;
 
   if consteval {
     return cstrcmp(lhs.c_str(), rhs.c_str()) <=> 0;
@@ -537,15 +537,15 @@ constexpr std::strong_ordering operator<=>(const CStringView & lhs, const string
 }
 
 template <StringLike stringType>
-constexpr std::strong_ordering operator<=>(const stringType & lhs, const CStringView & rhs) noexcept {
+constexpr strong_ordering operator<=>(const stringType & lhs, const CStringView & rhs) noexcept {
   return 0 <=> (rhs <=> lhs);
 }
 
-constexpr std::strong_ordering operator<=>(const CStringView & lhs, const char * rhs) noexcept {
+constexpr strong_ordering operator<=>(const CStringView & lhs, const char * rhs) noexcept {
   return lhs <=> CStringView(rhs);
 }
 
-constexpr std::strong_ordering operator<=>(const char * lhs, const CStringView & rhs) noexcept {
+constexpr strong_ordering operator<=>(const char * lhs, const CStringView & rhs) noexcept {
   return CStringView(lhs) <=> rhs;
 }
 

@@ -1155,83 +1155,80 @@ template <StringLike stringType>
 /*!
   \brief Three-way comparison operator for CStringView objects.
 
-  This operator provides a three-way comparison between two CStringView objects. It returns a std::strong_ordering value
-  that indicates the relationship between the string views.
+  This operator provides a three-way comparison between two CStringView objects. It returns a strong_ordering value that
+  indicates the relationship between the string views.
 
   \param lhs The left-hand side CStringView object to compare.
   \param rhs The right-hand side CStringView object to compare.
 
-  \return std::strong_ordering::less if \a lhs is lexicographically less than \a rhs, std::strong_ordering::equal if
-          they are equal, or std::strong_ordering::greater if \a lhs is lexicographically greater than \a rhs.
+  \return \c strong_ordering::less if \a lhs is lexicographically less than \a rhs, \c strong_ordering::equal if they
+          are equal, or \c strong_ordering::greater if \a lhs is lexicographically greater than \a rhs.
 
   \note The comparison is case-sensitive.
   \note The comparison is performed lexicographically character by character.
   \note Empty string views are considered equal.
 
-  \see std::strong_ordering
   \see operator==(const CStringView &, const CStringView &)
 */
-[[nodiscard]] constexpr std::strong_ordering operator<=>(const CStringView & lhs, const CStringView & rhs) noexcept;
+[[nodiscard]] constexpr strong_ordering operator<=>(const CStringView & lhs, const CStringView & rhs) noexcept;
 
 /*!
   \brief Three-way comparison operator for CStringView and StringLike object.
 
   This operator provides a three-way comparison between a CStringView object and a StringLike object. It returns a
-  std::strong_ordering value that indicates the relationship between the strings.
+  strong_ordering value that indicates the relationship between the strings.
 
   \tparam stringType The type of the StringLike object. Must satisfy the StringLike concept.
 
   \param lhs The CStringView object to compare.
   \param rhs The StringLike object to compare.
 
-  \return std::strong_ordering::less if \a lhs is lexicographically less than \a rhs, std::strong_ordering::equal if
-          they are equal, or std::strong_ordering::greater if \a lhs is lexicographically greater than \a rhs.
+  \return \c strong_ordering::less if \a lhs is lexicographically less than \a rhs, \c strong_ordering::equal if they
+          are equal, or \c strong_ordering::greater if \a lhs is lexicographically greater than \a rhs.
 
   \note The comparison is case-sensitive.
   \note The comparison is performed lexicographically character by character.
   \note Empty strings are considered equal.
 
-  \see std::strong_ordering
   \see operator==(const CStringView &, const stringType &)
 */
 template <StringLike stringType>
-[[nodiscard]] constexpr std::strong_ordering operator<=>(const CStringView & lhs, const stringType & rhs) noexcept;
+[[nodiscard]] constexpr strong_ordering operator<=>(const CStringView & lhs, const stringType & rhs) noexcept;
 
 /*!
   \brief Three-way comparison operator for StringLike object and CStringView.
 
   This operator provides a three-way comparison between a StringLike object and a CStringView object. It returns a
-  std::strong_ordering value that indicates the relationship between the strings.
+  strong_ordering value that indicates the relationship between the strings.
 
   \tparam stringType The type of the StringLike object. Must satisfy the StringLike concept.
 
   \param lhs The StringLike object to compare.
   \param rhs The CStringView object to compare.
 
-  \return std::strong_ordering::less if \a lhs is lexicographically less than \a rhs, std::strong_ordering::equal if
-          they are equal, or std::strong_ordering::greater if \a lhs is lexicographically greater than \a rhs.
+  \return \c strong_ordering::less if \a lhs is lexicographically less than \a rhs, \c strong_ordering::equal if they
+          are equal, or \c strong_ordering::greater if \a lhs is lexicographically greater than \a rhs.
 
   \note The comparison is case-sensitive.
   \note The comparison is performed lexicographically character by character.
   \note Empty strings are considered equal.
 
-  \see std::strong_ordering
   \see operator==(const stringType &, const CStringView &)
 */
 template <StringLike stringType>
-[[nodiscard]] constexpr std::strong_ordering operator<=>(const stringType & lhs, const CStringView & rhs) noexcept;
+[[nodiscard]] constexpr strong_ordering operator<=>(const stringType & lhs, const CStringView & rhs) noexcept;
 
 /*!
   \brief Three-way comparison operator for CStringView and C string.
 
   This operator provides a three-way comparison between a CStringView object and a C string. It returns a
-  std::strong_ordering value that indicates the relationship between the strings.
+  strong_ordering value that indicates the relationship between the strings.
 
   \param lhs The CStringView object to compare.
   \param rhs The C string to compare.
 
-  \return std::strong_ordering::less if \a lhs is lexicographically less than \a rhs, std::strong_ordering::equal if
-          they are equal, or std::strong_ordering::greater if \a lhs is lexicographically greater than \a rhs.
+  \return \c strong_ordering::less if \a lhs is lexicographically less than \a rhs, \c strong_ordering::equal if they
+          are equal, or \c strong_ordering::greater if \a lhs is lexicographically greater than \a rhs.
 
   \pre The \a rhs pointer must not be null.
 
@@ -1239,22 +1236,21 @@ template <StringLike stringType>
   \note The comparison is performed lexicographically character by character.
   \note Empty strings are considered equal.
 
-  \see std::strong_ordering
   \see operator==(const CStringView &, const char *)
 */
-[[nodiscard]] constexpr std::strong_ordering operator<=>(const CStringView & lhs, const char * rhs) noexcept;
+[[nodiscard]] constexpr strong_ordering operator<=>(const CStringView & lhs, const char * rhs) noexcept;
 
 /*!
   \brief Three-way comparison operator for C string and CStringView.
 
   This operator provides a three-way comparison between a C string and a CStringView object. It returns a
-  std::strong_ordering value that indicates the relationship between the strings.
+  strong_ordering value that indicates the relationship between the strings.
 
   \param lhs The C string to compare.
   \param rhs The CStringView object to compare.
 
-  \return std::strong_ordering::less if \a lhs is lexicographically less than \a rhs, std::strong_ordering::equal if
-          they are equal, or std::strong_ordering::greater if \a lhs is lexicographically greater than \a rhs.
+  \return \c strong_ordering::less if \a lhs is lexicographically less than \a rhs, \c strong_ordering::equal if they
+          are equal, or \c strong_ordering::greater if \a lhs is lexicographically greater than \a rhs.
 
   \pre The \a lhs pointer must not be null.
 
@@ -1262,10 +1258,9 @@ template <StringLike stringType>
   \note The comparison is performed lexicographically character by character.
   \note Empty strings are considered equal.
 
-  \see std::strong_ordering
   \see operator==(const char *, const CStringView &)
 */
-[[nodiscard]] constexpr std::strong_ordering operator<=>(const char * lhs, const CStringView & rhs) noexcept;
+[[nodiscard]] constexpr strong_ordering operator<=>(const char * lhs, const CStringView & rhs) noexcept;
 
 } // namespace toy
 
