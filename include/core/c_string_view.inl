@@ -92,11 +92,7 @@ constexpr bool CStringView::empty() const noexcept {
 }
 
 constexpr size_t CStringView::size() const noexcept {
-  if consteval {
-    return std::char_traits<char>::length(_data);
-  } else {
-    return std::strlen(_data);
-  }
+  return std::char_traits<char>::length(_data);
 }
 
 inline size_t CStringView::utf8_size() const noexcept {

@@ -132,10 +132,10 @@ TEST_CASE("utf8Len returns the number of Unicode characters in a UTF-8 encoded s
 
   const auto utf8String = reinterpret_cast<const char *>(utf8Text.data());
 
-  CHECK(std::strlen(s_utf8Text) == utf8Len(s_utf8Text));
+  CHECK(std::char_traits<char>::length(s_utf8Text) == utf8Len(s_utf8Text));
   CHECK(utf8Len(s_emptyText) == 0);
 
-  CHECK(std::strlen(utf8String) != utf8Len(utf8String));
+  CHECK(std::char_traits<char>::length(utf8String) != utf8Len(utf8String));
   CHECK(wcslen(unicodeText.data()) == utf8Len(utf8String));
 }
 
@@ -143,16 +143,16 @@ TEST_CASE("reverseString reverses a given string in-place", "[core][utils]") {
   char reverseBuffer[utf8Text.size()];
 
   const auto utf8String = reinterpret_cast<const char *>(utf8Text.data());
-  const auto utf8StrLen = std::strlen(utf8String);
+  const auto utf8StrLen = std::char_traits<char>::length(utf8String);
 
   memcpy(reverseBuffer, utf8Text.data(), utf8Text.size());
 
   CHECK(strcmp(utf8String, reverseBuffer) == 0);
-  CHECK(std::strlen(reverseBuffer) == utf8StrLen);
+  CHECK(std::char_traits<char>::length(reverseBuffer) == utf8StrLen);
 
-  reverseString(reverseBuffer, std::strlen(reverseBuffer));
+  reverseString(reverseBuffer, std::char_traits<char>::length(reverseBuffer));
   CHECK(strcmp(reverseBuffer, utf8String) != 0);
-  CHECK(std::strlen(reverseBuffer) == utf8StrLen);
+  CHECK(std::char_traits<char>::length(reverseBuffer) == utf8StrLen);
 
   for (size_t index = 0; index < (sizeof(reverseBuffer) - 1); ++index) {
     CHECK(utf8Text[index] == static_cast<uint8_t>(reverseBuffer[sizeof(reverseBuffer) - index - 2]));
