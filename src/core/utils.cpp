@@ -582,7 +582,7 @@ void formatNumberString(char * buffer, size_t bufferSize, const char * separator
     std::memmove(buffer + (scanChars + groupSeparatorsCount * separatorLen - groupSize),
                  buffer + (scanChars - groupSize), groupSize);
     const auto destBufferShift = scanChars + (groupSeparatorsCount - 1) * separatorLen - groupSize;
-    std::memcpy(buffer + destBufferShift, separator, separatorLen);
+    char_traits<char>::move(buffer + destBufferShift, separator, separatorLen);
     scanChars -= groupSize;
     --groupSeparatorsCount;
   }

@@ -36,11 +36,7 @@ template <size_t allocatedSize>
 constexpr FixedString<allocatedSize>::FixedString(const FixedString<allocatedSize> & string) noexcept
   : _data{}
   , _size(string.size()) {
-  if consteval {
-    std::copy_n(string.data(), _size + 1, _data);
-  } else {
-    std::memcpy(_data, string.data(), _size + 1);
-  }
+  char_traits<char>::move(_data, string.data(), _size + 1);
 }
 
 template <size_t allocatedSize>
@@ -50,11 +46,7 @@ constexpr FixedString<allocatedSize>::FixedString(const stringType & string) noe
   , _size(string.size()) {
   assert_message(_size < allocatedSize, "String size must not exceed capacity");
 
-  if consteval {
-    std::copy_n(string.c_str(), _size + 1, _data);
-  } else {
-    std::memcpy(_data, string.c_str(), _size + 1);
-  }
+  char_traits<char>::move(_data, string.c_str(), _size + 1);
 }
 
 template <size_t allocatedSize>
@@ -90,7 +82,7 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::operator=(
     return *this;
 
   _size = string._size;
-  std::memcpy(_data, string._data, _size + 1);
+  char_traits<char>::move(_data, string._data, _size + 1);
 
   return *this;
 }
@@ -101,11 +93,7 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::operator=(con
   assert_message(string.size() < allocatedSize, "String size must not exceed capacity");
 
   _size = string.size();
-  if consteval {
-    std::copy_n(string.c_str(), _size + 1, _data);
-  } else {
-    std::memcpy(_data, string.c_str(), _size + 1);
-  }
+  char_traits<char>::move(_data, string.c_str(), _size + 1);
 
   return *this;
 }
@@ -143,11 +131,7 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::assign(
     return *this;
 
   _size = string.size();
-  if consteval {
-    std::copy_n(string.data(), _size + 1, _data);
-  } else {
-    std::memcpy(_data, string.data(), _size + 1);
-  }
+  char_traits<char>::move(_data, string.data(), _size + 1);
 
   return *this;
 }
@@ -158,11 +142,7 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::assign(const 
   assert_message(string.size() < allocatedSize, "String size must not exceed capacity");
 
   _size = string.size();
-  if consteval {
-    std::copy_n(string.c_str(), _size + 1, _data);
-  } else {
-    std::memcpy(_data, string.c_str(), _size + 1);
-  }
+  char_traits<char>::move(_data, string.c_str(), _size + 1);
 
   return *this;
 }
@@ -350,7 +330,8 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::insert(size_t
     _size += count;
     _data[_size] = '\0';
   } else {
-    std::memmove(_data + index + count, _data + index, _size - index + 1);
+    char_traits<char>::move(_data + index + count, _data + index, _size - index + 1);
+
     if consteval {
       std::fill_n(_data + index, count, character);
     } else {
@@ -376,7 +357,7 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::erase(size_t 
   assert_message(offset + count <= _size, "Erase range must be within string bounds");
 
   _size -= count;
-  std::memmove(_data + offset, _data + offset + count, _size - offset + 1);
+  char_traits<char>::move(_data + offset, _data + offset + count, _size - offset + 1);
 
   return *this;
 }
@@ -565,7 +546,8 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::replace(size_
       }
       _data[pos + charactersCount] = '\0';
     } else {
-      std::memmove(_data + pos + charactersCount, _data + pos + count, _size - pos - count + 1);
+      char_traits<char>::move(_data + pos + charactersCount, _data + pos + count, _size - pos - count + 1);
+
       if consteval {
         std::fill_n(_data + pos, charactersCount, character);
       } else {
@@ -589,11 +571,7 @@ constexpr size_t FixedString<allocatedSize>::copy(char * dest, size_t count, siz
   if (count == npos || pos + count > _size)
     count = _size - pos;
 
-  if consteval {
-    std::copy_n(_data + pos, count, dest);
-  } else {
-    std::memcpy(dest, _data + pos, count);
-  }
+  char_traits<char>::move(dest, _data + pos, count);
 
   return count;
 }
@@ -604,15 +582,10 @@ constexpr void FixedString<allocatedSize>::swap(FixedString<allocatedSize> & str
     return;
 
   char tempData[allocatedSize];
-  if consteval {
-    std::copy_n(_data, _size + 1, tempData);
-    std::copy_n(string._data, string._size + 1, _data);
-    std::copy_n(tempData, _size + 1, string._data);
-  } else {
-    std::memcpy(tempData, _data, _size + 1);
-    std::memcpy(_data, string._data, string._size + 1);
-    std::memcpy(string._data, tempData, _size + 1);
-  }
+
+  char_traits<char>::move(tempData, _data, _size + 1);
+  char_traits<char>::move(_data, string._data, string._size + 1);
+  char_traits<char>::move(string._data, tempData, _size + 1);
 
   std::swap(_size, string._size);
 }
@@ -921,11 +894,9 @@ constexpr FixedString<allocatedSize> FixedString<allocatedSize>::substr(size_t p
   FixedString<allocatedSize> result;
 
   result._size = count;
-  if consteval {
-    std::copy_n(_data + position, count, result._data);
-  } else {
-    std::memcpy(result._data, _data + position, count);
-  }
+
+  char_traits<char>::move(result._data, _data + position, count);
+
   result._data[count] = '\0';
 
   return result;
@@ -944,18 +915,11 @@ constexpr void FixedString<allocatedSize>::_insert_raw(size_t position, const ch
 
   // If inserting at the end, just append
   if (position == _size) {
-    if consteval {
-      std::copy_n(data, dataSize + 1, _data + _size);
-    } else {
-      std::memcpy(_data + _size, data, dataSize + 1);
-    }
+    char_traits<char>::move(_data + _size, data, dataSize + 1);
   } else {
-    std::memmove(_data + position + dataSize, _data + position, _size - position + 1);
-    if consteval {
-      std::copy_n(data, dataSize, _data + position);
-    } else {
-      std::memcpy(_data + position, data, dataSize);
-    }
+    char_traits<char>::move(_data + position + dataSize, _data + position, _size - position + 1);
+
+    char_traits<char>::move(_data + position, data, dataSize);
   }
 
   _size += dataSize;
@@ -967,15 +931,12 @@ constexpr void FixedString<allocatedSize>::_append_raw(const char * data, size_t
     return;
 
   assert_message(_size + dataSize < allocatedSize, "Appended data must fit in capacity");
-
-  if consteval {
-    std::copy_n(data, dataSize + 1, _data + _size);
-  } else {
+  if !consteval {
     assert_message(((data + dataSize) < _data) || (data >= (_data + allocatedSize)),
                    "Source data pointer must not point into _data buffer");
-
-    std::memcpy(_data + _size, data, dataSize + 1);
   }
+
+  char_traits<char>::move(_data + _size, data, dataSize + 1);
   _size += dataSize;
 }
 
@@ -993,11 +954,7 @@ constexpr void FixedString<allocatedSize>::_replace_raw(size_t position, size_t 
 
   // If sizes are equal, no need to shift data
   if (oldCount == dataSize) {
-    if consteval {
-      std::copy_n(data, dataSize, _data + position);
-    } else {
-      std::memcpy(_data + position, data, dataSize);
-    }
+    char_traits<char>::move(_data + position, data, dataSize);
 
     return;
   }
@@ -1006,19 +963,10 @@ constexpr void FixedString<allocatedSize>::_replace_raw(size_t position, size_t 
 
   // If replacing at the end, no need to shift
   if (position + oldCount == _size) {
-    if consteval {
-      std::copy_n(data, dataSize + 1, _data + position);
-    } else {
-      std::memcpy(_data + position, data, dataSize + 1);
-    }
+    char_traits<char>::move(_data + position, data, dataSize + 1);
   } else {
-    std::memmove(_data + position + dataSize, _data + position + oldCount, _size - position - oldCount + 1);
-
-    if consteval {
-      std::copy_n(data, dataSize, _data + position);
-    } else {
-      std::memcpy(_data + position, data, dataSize);
-    }
+    char_traits<char>::move(_data + position + dataSize, _data + position + oldCount, _size - position - oldCount + 1);
+    char_traits<char>::move(_data + position, data, dataSize);
   }
 
   _size = _size - oldCount + dataSize;
