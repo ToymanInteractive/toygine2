@@ -217,11 +217,7 @@ constexpr bool CStringView::starts_with(const stringType & string) const noexcep
   if (size() < stringSize)
     return false;
 
-  if consteval {
-    return std::equal(_data, _data + stringSize, string.c_str());
-  } else {
-    return std::memcmp(_data, string.c_str(), stringSize) == 0;
-  }
+  return char_traits<char>::compare(_data, string.c_str(), stringSize) == 0;
 }
 
 constexpr bool CStringView::starts_with(const char * string) const noexcept {
@@ -239,11 +235,7 @@ constexpr bool CStringView::ends_with(const stringType & string) const noexcept 
   if (thisSize < stringSize)
     return false;
 
-  if consteval {
-    return std::equal(_data + thisSize - stringSize, _data + thisSize, string.c_str());
-  } else {
-    return std::memcmp(_data + thisSize - stringSize, string.c_str(), stringSize) == 0;
-  }
+  return char_traits<char>::compare(_data + thisSize - stringSize, string.c_str(), stringSize) == 0;
 }
 
 constexpr bool CStringView::ends_with(const char * string) const noexcept {
@@ -324,14 +316,7 @@ constexpr size_t CStringView::_rfind_raw(size_t position, const char * data, siz
   for (size_t i = 0; i <= position; ++i) {
     const auto offset = position - i;
 
-    bool found;
-
-    if consteval {
-      found = std::equal(_data + offset, _data + offset + dataSize, data);
-    } else {
-      found = std::memcmp(_data + offset, data, dataSize) == 0;
-    }
-
+    const auto found = char_traits<char>::compare(_data + offset, data, dataSize) == 0;
     if (found)
       return offset;
   }

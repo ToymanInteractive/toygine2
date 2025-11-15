@@ -807,11 +807,7 @@ constexpr int FixedString<allocatedSize>::compare(const char * string) const noe
 
 template <size_t allocatedSize>
 constexpr bool FixedString<allocatedSize>::starts_with(const FixedString<allocatedSize> & string) const noexcept {
-  if consteval {
-    return _size >= string._size && std::equal(_data, _data + string._size, string._data);
-  } else {
-    return _size >= string._size && std::memcmp(_data, string._data, string._size) == 0;
-  }
+  return _size >= string._size && char_traits<char>::compare(_data, string._data, string._size) == 0;
 }
 
 template <size_t allocatedSize>
@@ -821,11 +817,7 @@ constexpr bool FixedString<allocatedSize>::starts_with(const stringType & string
   if (size() < stringSize)
     return false;
 
-  if consteval {
-    return std::equal(_data, _data + stringSize, string.c_str());
-  } else {
-    return std::memcmp(_data, string.c_str(), stringSize) == 0;
-  }
+  return char_traits<char>::compare(_data, string.c_str(), stringSize) == 0;
 }
 
 template <size_t allocatedSize>
@@ -833,11 +825,8 @@ constexpr bool FixedString<allocatedSize>::starts_with(const char * string) cons
   assert_message(string != nullptr, "C string must not be null");
 
   const auto needleSize = char_traits<char>::length(string);
-  if consteval {
-    return _size >= needleSize && std::equal(_data, _data + needleSize, string);
-  } else {
-    return _size >= needleSize && std::memcmp(_data, string, needleSize) == 0;
-  }
+
+  return _size >= needleSize && char_traits<char>::compare(_data, string, needleSize) == 0;
 }
 
 template <size_t allocatedSize>
@@ -847,11 +836,8 @@ constexpr bool FixedString<allocatedSize>::starts_with(char character) const noe
 
 template <size_t allocatedSize>
 constexpr bool FixedString<allocatedSize>::ends_with(const FixedString<allocatedSize> & string) const noexcept {
-  if consteval {
-    return _size >= string._size && std::equal(_data + _size - string._size, _data + _size, string._data);
-  } else {
-    return _size >= string._size && std::memcmp(_data + _size - string._size, string._data, string._size) == 0;
-  }
+  return _size >= string._size
+         && char_traits<char>::compare(_data + _size - string._size, string._data, string._size) == 0;
 }
 
 template <size_t allocatedSize>
@@ -861,11 +847,7 @@ constexpr bool FixedString<allocatedSize>::ends_with(const stringType & string) 
   if (_size < stringSize)
     return false;
 
-  if consteval {
-    return std::equal(_data + _size - stringSize, _data + _size, string.c_str());
-  } else {
-    return std::memcmp(_data + _size - stringSize, string.c_str(), stringSize) == 0;
-  }
+  return char_traits<char>::compare(_data + _size - stringSize, string.c_str(), stringSize) == 0;
 }
 
 template <size_t allocatedSize>
@@ -876,11 +858,7 @@ constexpr bool FixedString<allocatedSize>::ends_with(const char * string) const 
   if (_size < needleSize)
     return false;
 
-  if consteval {
-    return std::equal(_data + _size - needleSize, _data + _size, string);
-  } else {
-    return std::memcmp(_data + _size - needleSize, string, needleSize) == 0;
-  }
+  return char_traits<char>::compare(_data + _size - needleSize, string, needleSize) == 0;
 }
 
 template <size_t allocatedSize>
@@ -1085,14 +1063,7 @@ constexpr size_t FixedString<allocatedSize>::_rfind_raw(size_t position, const c
   for (size_t i = 0; i <= position; ++i) {
     const auto offset = position - i;
 
-    bool found;
-
-    if consteval {
-      found = std::equal(_data + offset, _data + offset + dataSize, data);
-    } else {
-      found = std::memcmp(_data + offset, data, dataSize) == 0;
-    }
-
+    const auto found = char_traits<char>::compare(_data + offset, data, dataSize) == 0;
     if (found)
       return offset;
   }
@@ -1299,11 +1270,7 @@ constexpr bool operator==(const FixedString<allocatedSize1> & lhs, const FixedSt
   else if (lhs.empty())
     return true;
 
-  if consteval {
-    return std::equal(lhs.c_str(), lhs.c_str() + lhs.size(), rhs.c_str());
-  } else {
-    return std::memcmp(lhs.c_str(), rhs.c_str(), lhs.size()) == 0;
-  }
+  return char_traits<char>::compare(lhs.c_str(), rhs.c_str(), lhs.size()) == 0;
 }
 
 template <size_t allocatedSize, StringLike stringType>
@@ -1313,11 +1280,7 @@ constexpr bool operator==(const FixedString<allocatedSize> & lhs, const stringTy
   else if (lhs.empty())
     return true;
 
-  if consteval {
-    return std::equal(lhs.c_str(), lhs.c_str() + lhs.size(), rhs.c_str());
-  } else {
-    return std::memcmp(lhs.c_str(), rhs.c_str(), lhs.size()) == 0;
-  }
+  return char_traits<char>::compare(lhs.c_str(), rhs.c_str(), lhs.size()) == 0;
 }
 
 template <StringLike stringType, size_t allocatedSize>
@@ -1332,11 +1295,7 @@ constexpr bool operator==(const FixedString<allocatedSize> & lhs, const char * r
   if (lhs.empty())
     return *rhs == '\0';
 
-  if consteval {
-    return lhs.size() == char_traits<char>::length(rhs) && std::equal(lhs.c_str(), lhs.c_str() + lhs.size(), rhs);
-  } else {
-    return lhs.size() == char_traits<char>::length(rhs) && std::memcmp(lhs.c_str(), rhs, lhs.size()) == 0;
-  }
+  return lhs.size() == char_traits<char>::length(rhs) && char_traits<char>::compare(lhs.c_str(), rhs, lhs.size()) == 0;
 }
 
 template <size_t allocatedSize>
