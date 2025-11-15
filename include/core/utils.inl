@@ -30,7 +30,7 @@ namespace toy {
 constexpr wchar_t * utf8toWChar(wchar_t * dest, size_t destSize, const char * const src) noexcept {
   assert_message(src != nullptr, "The source must not be null.");
 
-  return src != nullptr ? utf8toWChar(dest, destSize, src, std::char_traits<char>::length(src)) : nullptr;
+  return src != nullptr ? utf8toWChar(dest, destSize, src, char_traits<char>::length(src)) : nullptr;
 }
 
 template <StringLike stringType>
@@ -42,7 +42,7 @@ constexpr char * reverseString(char * string, size_t stringLength) noexcept {
   assert_message(string != nullptr, "The source string must not be null.");
 
   if (stringLength == 0)
-    stringLength = std::char_traits<char>::length(string);
+    stringLength = char_traits<char>::length(string);
 
   if (stringLength != 0) {
     for (size_t i = 0, j = stringLength - 1; i < j; ++i, --j) {

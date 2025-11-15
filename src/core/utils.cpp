@@ -291,7 +291,7 @@ void _floatPostProcess(char * dest, char * srcBuffer, size_t bufferSize, int32_t
     --strBegin;
   }
 
-  const auto digits = std::char_traits<char>::length(strBegin);
+  const auto digits = char_traits<char>::length(strBegin);
   size_t intDigits = 0;
   size_t leadingZeros = 0;
   if (static_cast<size_t>(std::abs(exp10)) >= precision) {
@@ -543,7 +543,7 @@ char * ftoa(char * dest, size_t destSize, double value, size_t precision) noexce
 
 void formatNumberString(char * buffer, size_t bufferSize, const char * separator) noexcept {
   assert_message(buffer != nullptr && bufferSize > 0, "The destination buffer must not be null.");
-  assert_message(separator != nullptr && std::char_traits<char>::length(separator) <= 8,
+  assert_message(separator != nullptr && char_traits<char>::length(separator) <= 8,
                  "The grouping separator must not be null and must not exceed 8 characters.");
 
   constexpr size_t groupSize = 3;
@@ -560,11 +560,11 @@ void formatNumberString(char * buffer, size_t bufferSize, const char * separator
   if (digitsCount <= groupSize) // Nothing to format.
     return;
 
-  const auto separatorLen = std::char_traits<char>::length(separator);
+  const auto separatorLen = char_traits<char>::length(separator);
   if (separatorLen == 0)
     return;
 
-  const auto ansiStringLen = std::char_traits<char>::length(buffer);
+  const auto ansiStringLen = char_traits<char>::length(buffer);
   auto groupSeparatorsCount = (digitsCount - 1U) / groupSize;
   const auto requiredSize = ansiStringLen + groupSeparatorsCount * separatorLen;
   assert_message(requiredSize < bufferSize, "Buffer size is too low.");

@@ -63,14 +63,10 @@ constexpr FixedString<allocatedSize>::FixedString(const char * string) noexcept
   , _size(0) {
   assert_message(string != nullptr, "C string must not be null");
 
-  _size = std::char_traits<char>::length(string);
+  _size = char_traits<char>::length(string);
   assert_message(_size < allocatedSize, "String length must not exceed capacity");
 
-  if consteval {
-    std::copy_n(string, _size + 1, _data);
-  } else {
-    std::memcpy(_data, string, _size + 1);
-  }
+  char_traits<char>::copy(_data, string, _size + 1);
 }
 
 template <size_t allocatedSize>
@@ -121,14 +117,10 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::operator=(con
 
   assert_message(string != nullptr, "C string must not be null");
 
-  _size = std::char_traits<char>::length(string);
+  _size = char_traits<char>::length(string);
   assert_message(_size < allocatedSize, "String length must not exceed capacity");
 
-  if consteval {
-    std::copy_n(string, _size + 1, _data);
-  } else {
-    std::memcpy(_data, string, _size + 1);
-  }
+  char_traits<char>::copy(_data, string, _size + 1);
 
   return *this;
 }
@@ -184,14 +176,10 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::assign(const 
       return *this;
   }
 
-  _size = std::char_traits<char>::length(string);
+  _size = char_traits<char>::length(string);
   assert_message(_size < allocatedSize, "String length must not exceed capacity");
 
-  if consteval {
-    std::copy_n(string, _size + 1, _data);
-  } else {
-    std::memcpy(_data, string, _size + 1);
-  }
+  char_traits<char>::copy(_data, string, _size + 1);
 
   return *this;
 }
@@ -335,7 +323,7 @@ template <size_t allocatedSize>
 constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::insert(size_t index, const char * string) noexcept {
   assert_message(string != nullptr, "C string must not be null");
 
-  const auto stringLen = std::char_traits<char>::length(string);
+  const auto stringLen = char_traits<char>::length(string);
 
   _insert_raw(index, string, stringLen);
 
@@ -447,7 +435,7 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::append(const 
   assert_message(_data != string, "Cannot append string into itself");
   assert_message(string != nullptr, "C string must not be null");
 
-  const auto stringLen = std::char_traits<char>::length(string);
+  const auto stringLen = char_traits<char>::length(string);
 
   _append_raw(string, stringLen);
 
@@ -501,7 +489,7 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::operator+=(co
     assert_message(_data != string, "Cannot append string into itself");
   }
 
-  const auto stringLen = std::char_traits<char>::length(string);
+  const auto stringLen = char_traits<char>::length(string);
 
   _append_raw(string, stringLen);
 
@@ -540,7 +528,7 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::replace(size_
                                                                            const char * string) noexcept {
   assert_message(string != nullptr, "C string must not be null");
 
-  const auto stringLen = std::char_traits<char>::length(string);
+  const auto stringLen = char_traits<char>::length(string);
 
   _replace_raw(pos, count, string, stringLen);
 
@@ -645,7 +633,7 @@ template <size_t allocatedSize>
 constexpr size_t FixedString<allocatedSize>::find(const char * string, size_t position) const noexcept {
   assert_message(string != nullptr, "C string must not be null");
 
-  const auto stringLen = std::char_traits<char>::length(string);
+  const auto stringLen = char_traits<char>::length(string);
 
   return _find_raw(position, string, stringLen);
 }
@@ -671,7 +659,7 @@ template <size_t allocatedSize>
 constexpr size_t FixedString<allocatedSize>::rfind(const char * string, size_t position) const noexcept {
   assert_message(string != nullptr, "C string must not be null");
 
-  const auto stringLen = std::char_traits<char>::length(string);
+  const auto stringLen = char_traits<char>::length(string);
 
   return _rfind_raw(position, string, stringLen);
 }
@@ -697,7 +685,7 @@ template <size_t allocatedSize>
 constexpr size_t FixedString<allocatedSize>::find_first_of(const char * string, size_t position) const noexcept {
   assert_message(string != nullptr, "C string must not be null");
 
-  const auto stringLen = std::char_traits<char>::length(string);
+  const auto stringLen = char_traits<char>::length(string);
 
   return _find_first_of_raw(position, string, stringLen);
 }
@@ -724,7 +712,7 @@ template <size_t allocatedSize>
 constexpr size_t FixedString<allocatedSize>::find_first_not_of(const char * string, size_t position) const noexcept {
   assert_message(string != nullptr, "C string must not be null");
 
-  const auto stringLen = std::char_traits<char>::length(string);
+  const auto stringLen = char_traits<char>::length(string);
 
   return _find_first_not_of_raw(position, string, stringLen);
 }
@@ -750,7 +738,7 @@ template <size_t allocatedSize>
 constexpr size_t FixedString<allocatedSize>::find_last_of(const char * string, size_t position) const noexcept {
   assert_message(string != nullptr, "C string must not be null");
 
-  const auto stringLen = std::char_traits<char>::length(string);
+  const auto stringLen = char_traits<char>::length(string);
 
   return _find_last_of_raw(position, string, stringLen);
 }
@@ -777,7 +765,7 @@ template <size_t allocatedSize>
 constexpr size_t FixedString<allocatedSize>::find_last_not_of(const char * string, size_t position) const noexcept {
   assert_message(string != nullptr, "C string must not be null");
 
-  const auto stringLen = std::char_traits<char>::length(string);
+  const auto stringLen = char_traits<char>::length(string);
 
   return _find_last_not_of_raw(position, string, stringLen);
 }
@@ -844,7 +832,7 @@ template <size_t allocatedSize>
 constexpr bool FixedString<allocatedSize>::starts_with(const char * string) const noexcept {
   assert_message(string != nullptr, "C string must not be null");
 
-  const auto needleSize = std::char_traits<char>::length(string);
+  const auto needleSize = char_traits<char>::length(string);
   if consteval {
     return _size >= needleSize && std::equal(_data, _data + needleSize, string);
   } else {
@@ -884,7 +872,7 @@ template <size_t allocatedSize>
 constexpr bool FixedString<allocatedSize>::ends_with(const char * string) const noexcept {
   assert_message(string != nullptr, "C string must not be null");
 
-  const auto needleSize = std::char_traits<char>::length(string);
+  const auto needleSize = char_traits<char>::length(string);
   if (_size < needleSize)
     return false;
 
@@ -1345,9 +1333,9 @@ constexpr bool operator==(const FixedString<allocatedSize> & lhs, const char * r
     return *rhs == '\0';
 
   if consteval {
-    return lhs.size() == std::char_traits<char>::length(rhs) && std::equal(lhs.c_str(), lhs.c_str() + lhs.size(), rhs);
+    return lhs.size() == char_traits<char>::length(rhs) && std::equal(lhs.c_str(), lhs.c_str() + lhs.size(), rhs);
   } else {
-    return lhs.size() == std::char_traits<char>::length(rhs) && std::memcmp(lhs.c_str(), rhs, lhs.size()) == 0;
+    return lhs.size() == char_traits<char>::length(rhs) && std::memcmp(lhs.c_str(), rhs, lhs.size()) == 0;
   }
 }
 
@@ -1439,7 +1427,7 @@ constexpr strong_ordering operator<=>(const FixedString<allocatedSize> & lhs, co
   if consteval {
     return cstrcmp(lhs.c_str(), rhs) <=> 0;
   } else {
-    const auto rhsLen = std::char_traits<char>::length(rhs);
+    const auto rhsLen = char_traits<char>::length(rhs);
     const auto result = std::memcmp(lhs.c_str(), rhs, std::min(lhs.size(), rhsLen));
 
     if (result < 0)

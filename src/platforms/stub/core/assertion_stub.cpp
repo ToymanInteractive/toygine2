@@ -49,6 +49,7 @@ void assertion(const char * code, const char * message, const char * fileName, c
                size_t lineNumber) {
   char assertionString[4096];
   int written;
+
   if (message == nullptr)
     written = snprintf(assertionString, sizeof(assertionString), "%s @ %s (%zu):\r\n\r\n%s", functionName, fileName,
                        lineNumber, code);
@@ -59,7 +60,7 @@ void assertion(const char * code, const char * message, const char * fileName, c
   // Check for truncation
   if (written >= static_cast<int>(sizeof(assertionString))) {
     constexpr const char * const truncationMessage = "...[TRUNCATED]";
-    constexpr const auto truncationLength = std::char_traits<char>::length(truncationMessage) + 1;
+    constexpr auto truncationLength = char_traits<char>::length(truncationMessage) + 1;
 #if defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)
     strcpy_s(&assertionString[sizeof(assertionString) - truncationLength], truncationLength, truncationMessage);
 #else // defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)
