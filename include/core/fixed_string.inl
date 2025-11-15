@@ -64,7 +64,6 @@ constexpr FixedString<allocatedSize>::FixedString(const char * string) noexcept
   assert_message(string != nullptr, "C string must not be null");
 
   _size = std::char_traits<char>::length(string);
-
   assert_message(_size < allocatedSize, "String length must not exceed capacity");
 
   if consteval {
@@ -123,7 +122,6 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::operator=(con
   assert_message(string != nullptr, "C string must not be null");
 
   _size = std::char_traits<char>::length(string);
-
   assert_message(_size < allocatedSize, "String length must not exceed capacity");
 
   if consteval {
@@ -187,7 +185,6 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::assign(const 
   }
 
   _size = std::char_traits<char>::length(string);
-
   assert_message(_size < allocatedSize, "String length must not exceed capacity");
 
   if consteval {
@@ -339,6 +336,7 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::insert(size_t
   assert_message(string != nullptr, "C string must not be null");
 
   const auto stringLen = std::char_traits<char>::length(string);
+
   _insert_raw(index, string, stringLen);
 
   return *this;
@@ -450,6 +448,7 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::append(const 
   assert_message(string != nullptr, "C string must not be null");
 
   const auto stringLen = std::char_traits<char>::length(string);
+
   _append_raw(string, stringLen);
 
   return *this;
@@ -542,6 +541,7 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::replace(size_
   assert_message(string != nullptr, "C string must not be null");
 
   const auto stringLen = std::char_traits<char>::length(string);
+
   _replace_raw(pos, count, string, stringLen);
 
   return *this;
@@ -885,7 +885,6 @@ constexpr bool FixedString<allocatedSize>::ends_with(const char * string) const 
   assert_message(string != nullptr, "C string must not be null");
 
   const auto needleSize = std::char_traits<char>::length(string);
-
   if (_size < needleSize)
     return false;
 
