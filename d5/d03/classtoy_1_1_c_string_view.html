@@ -261,6 +261,33 @@ Private Attributes</h2></td></tr>
 Static Private Attributes</h2></td></tr>
 <tr class="memitem:a44d0080af17ac18934fd248105aa1f3a" id="r_a44d0080af17ac18934fd248105aa1f3a"><td class="memItemLeft" align="right" valign="top">static constexpr char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a44d0080af17ac18934fd248105aa1f3a">_emptyString</a> [] {'\0'}</td></tr>
 <tr class="memdesc:a44d0080af17ac18934fd248105aa1f3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static empty C string used as default value for null pointers.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-friends" class="groupheader"><a id="friends" name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a0872c0a0c69b98837828e7d67211d6d9" id="r_a0872c0a0c69b98837828e7d67211d6d9"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0872c0a0c69b98837828e7d67211d6d9">operator==</a> (const <a class="el" href="#af79d918dedd06e2c2b99fe920962d64d">CStringView</a> &amp;lhs, const <a class="el" href="#af79d918dedd06e2c2b99fe920962d64d">CStringView</a> &amp;rhs)</td></tr>
+<tr class="memdesc:a0872c0a0c69b98837828e7d67211d6d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equality comparison operator for two <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> objects.  <br /></td></tr>
+<tr class="memitem:ade7a652f601a4fb2bded6aaeeb01bd3e" id="r_ade7a652f601a4fb2bded6aaeeb01bd3e"><td class="memTemplParams" colspan="2">template&lt;StringLike stringType&gt; </td></tr>
+<tr class="memitem:ade7a652f601a4fb2bded6aaeeb01bd3e template"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ade7a652f601a4fb2bded6aaeeb01bd3e">operator==</a> (const <a class="el" href="#af79d918dedd06e2c2b99fe920962d64d">CStringView</a> &amp;lhs, const stringType &amp;rhs)</td></tr>
+<tr class="memdesc:ade7a652f601a4fb2bded6aaeeb01bd3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equality comparison operator for <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> and <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object.  <br /></td></tr>
+<tr class="memitem:a38449c9d333480b787427166b1f1a5f2" id="r_a38449c9d333480b787427166b1f1a5f2"><td class="memTemplParams" colspan="2">template&lt;StringLike stringType&gt; </td></tr>
+<tr class="memitem:a38449c9d333480b787427166b1f1a5f2 template"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a38449c9d333480b787427166b1f1a5f2">operator==</a> (const stringType &amp;lhs, const <a class="el" href="#af79d918dedd06e2c2b99fe920962d64d">CStringView</a> &amp;rhs)</td></tr>
+<tr class="memdesc:a38449c9d333480b787427166b1f1a5f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equality comparison operator for <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object and <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a>.  <br /></td></tr>
+<tr class="memitem:a8ec5dd9e4efc084e94d07fd121728410" id="r_a8ec5dd9e4efc084e94d07fd121728410"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8ec5dd9e4efc084e94d07fd121728410">operator==</a> (const <a class="el" href="#af79d918dedd06e2c2b99fe920962d64d">CStringView</a> &amp;lhs, const char *rhs)</td></tr>
+<tr class="memdesc:a8ec5dd9e4efc084e94d07fd121728410"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equality comparison operator for <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> and C string.  <br /></td></tr>
+<tr class="memitem:ab799b965b3feaa3c80dc38e6296744e5" id="r_ab799b965b3feaa3c80dc38e6296744e5"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab799b965b3feaa3c80dc38e6296744e5">operator==</a> (const char *lhs, const <a class="el" href="#af79d918dedd06e2c2b99fe920962d64d">CStringView</a> &amp;rhs)</td></tr>
+<tr class="memdesc:ab799b965b3feaa3c80dc38e6296744e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equality comparison operator for C string and <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a>.  <br /></td></tr>
+<tr class="memitem:aa768a7b7f720466490f0ff8db015b605" id="r_aa768a7b7f720466490f0ff8db015b605"><td class="memItemLeft" align="right" valign="top">constexpr strong_ordering&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa768a7b7f720466490f0ff8db015b605">operator&lt;=&gt;</a> (const <a class="el" href="#af79d918dedd06e2c2b99fe920962d64d">CStringView</a> &amp;lhs, const <a class="el" href="#af79d918dedd06e2c2b99fe920962d64d">CStringView</a> &amp;rhs)</td></tr>
+<tr class="memdesc:aa768a7b7f720466490f0ff8db015b605"><td class="mdescLeft">&#160;</td><td class="mdescRight">Three-way comparison operator for <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> objects.  <br /></td></tr>
+<tr class="memitem:aec73450f59b93644f6e14917ea1654bc" id="r_aec73450f59b93644f6e14917ea1654bc"><td class="memTemplParams" colspan="2">template&lt;StringLike stringType&gt; </td></tr>
+<tr class="memitem:aec73450f59b93644f6e14917ea1654bc template"><td class="memItemLeft" align="right" valign="top">constexpr strong_ordering&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aec73450f59b93644f6e14917ea1654bc">operator&lt;=&gt;</a> (const <a class="el" href="#af79d918dedd06e2c2b99fe920962d64d">CStringView</a> &amp;lhs, const stringType &amp;rhs)</td></tr>
+<tr class="memdesc:aec73450f59b93644f6e14917ea1654bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Three-way comparison operator for <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> and <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object.  <br /></td></tr>
+<tr class="memitem:ad8e07a5be8e6cf0e4b1a6c853107f702" id="r_ad8e07a5be8e6cf0e4b1a6c853107f702"><td class="memTemplParams" colspan="2">template&lt;StringLike stringType&gt; </td></tr>
+<tr class="memitem:ad8e07a5be8e6cf0e4b1a6c853107f702 template"><td class="memItemLeft" align="right" valign="top">constexpr strong_ordering&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad8e07a5be8e6cf0e4b1a6c853107f702">operator&lt;=&gt;</a> (const stringType &amp;lhs, const <a class="el" href="#af79d918dedd06e2c2b99fe920962d64d">CStringView</a> &amp;rhs)</td></tr>
+<tr class="memdesc:ad8e07a5be8e6cf0e4b1a6c853107f702"><td class="mdescLeft">&#160;</td><td class="mdescRight">Three-way comparison operator for <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object and <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a>.  <br /></td></tr>
+<tr class="memitem:acb7764e0e1874f2f034704102d9e8ca3" id="r_acb7764e0e1874f2f034704102d9e8ca3"><td class="memItemLeft" align="right" valign="top">constexpr strong_ordering&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acb7764e0e1874f2f034704102d9e8ca3">operator&lt;=&gt;</a> (const <a class="el" href="#af79d918dedd06e2c2b99fe920962d64d">CStringView</a> &amp;lhs, const char *rhs)</td></tr>
+<tr class="memdesc:acb7764e0e1874f2f034704102d9e8ca3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Three-way comparison operator for <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> and C string.  <br /></td></tr>
+<tr class="memitem:a54972f3bc3b2429b287548f27f684fad" id="r_a54972f3bc3b2429b287548f27f684fad"><td class="memItemLeft" align="right" valign="top">constexpr strong_ordering&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a54972f3bc3b2429b287548f27f684fad">operator&lt;=&gt;</a> (const char *lhs, const <a class="el" href="#af79d918dedd06e2c2b99fe920962d64d">CStringView</a> &amp;rhs)</td></tr>
+<tr class="memdesc:a54972f3bc3b2429b287548f27f684fad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Three-way comparison operator for C string and <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a>.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Non-owning string view class for C-style strings. </p>
@@ -2683,6 +2710,493 @@ For UTF-8 strings, <a class="el" href="#af2fcc3a984aa7a26f458509827c72fea" title
 Invalid UTF-8 sequences are handled gracefully and may affect the count. </dd>
 <dd>
 This method is useful for internationalization and text processing. </dd></dl>
+
+</div>
+</div>
+<a name="doc-related-members" id="doc-related-members"></a><h2 id="header-doc-related-members" class="groupheader">Friends And Related Symbol Documentation</h2>
+<a id="a54972f3bc3b2429b287548f27f684fad" name="a54972f3bc3b2429b287548f27f684fad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54972f3bc3b2429b287548f27f684fad">&#9670;&#160;</a></span>operator&lt;=&gt; <span class="overload">[1/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">strong_ordering operator&lt;=&gt; </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>lhs</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="#af79d918dedd06e2c2b99fe920962d64d">CStringView</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>rhs</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel friend">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Three-way comparison operator for C string and <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a>. </p>
+<p>This operator provides a three-way comparison between a C string and a <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> object. It returns a strong_ordering value that indicates the relationship between the strings.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lhs</td><td>The C string to compare. </td></tr>
+    <tr><td class="paramname">rhs</td><td>The <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> object to compare.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>strong_ordering::less</code> if <em class="arg">lhs</em> is lexicographically less than <em class="arg">rhs</em>, <code>strong_ordering::equal</code> if they are equal, or <code>strong_ordering::greater</code> if <em class="arg">lhs</em> is lexicographically greater than <em class="arg">rhs</em>.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">lhs</em> pointer must not be null.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The comparison is case-sensitive. </dd>
+<dd>
+The comparison is performed lexicographically character by character. </dd>
+<dd>
+Empty strings are considered equal.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#ab799b965b3feaa3c80dc38e6296744e5" title="Equality comparison operator for C string and CStringView.">operator==(const char *, const CStringView &amp;)</a> </dd></dl>
+
+</div>
+</div>
+<a id="acb7764e0e1874f2f034704102d9e8ca3" name="acb7764e0e1874f2f034704102d9e8ca3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb7764e0e1874f2f034704102d9e8ca3">&#9670;&#160;</a></span>operator&lt;=&gt; <span class="overload">[2/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">strong_ordering operator&lt;=&gt; </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="#af79d918dedd06e2c2b99fe920962d64d">CStringView</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>lhs</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>rhs</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel friend">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Three-way comparison operator for <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> and C string. </p>
+<p>This operator provides a three-way comparison between a <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> object and a C string. It returns a strong_ordering value that indicates the relationship between the strings.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lhs</td><td>The <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> object to compare. </td></tr>
+    <tr><td class="paramname">rhs</td><td>The C string to compare.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>strong_ordering::less</code> if <em class="arg">lhs</em> is lexicographically less than <em class="arg">rhs</em>, <code>strong_ordering::equal</code> if they are equal, or <code>strong_ordering::greater</code> if <em class="arg">lhs</em> is lexicographically greater than <em class="arg">rhs</em>.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">rhs</em> pointer must not be null.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The comparison is case-sensitive. </dd>
+<dd>
+The comparison is performed lexicographically character by character. </dd>
+<dd>
+Empty strings are considered equal.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a8ec5dd9e4efc084e94d07fd121728410" title="Equality comparison operator for CStringView and C string.">operator==(const CStringView &amp;, const char *)</a> </dd></dl>
+
+</div>
+</div>
+<a id="aa768a7b7f720466490f0ff8db015b605" name="aa768a7b7f720466490f0ff8db015b605"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa768a7b7f720466490f0ff8db015b605">&#9670;&#160;</a></span>operator&lt;=&gt; <span class="overload">[3/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">strong_ordering operator&lt;=&gt; </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="#af79d918dedd06e2c2b99fe920962d64d">CStringView</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>lhs</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="#af79d918dedd06e2c2b99fe920962d64d">CStringView</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>rhs</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel friend">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Three-way comparison operator for <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> objects. </p>
+<p>This operator provides a three-way comparison between two <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> objects. It returns a strong_ordering value that indicates the relationship between the string views.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lhs</td><td>The left-hand side <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> object to compare. </td></tr>
+    <tr><td class="paramname">rhs</td><td>The right-hand side <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> object to compare.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>strong_ordering::less</code> if <em class="arg">lhs</em> is lexicographically less than <em class="arg">rhs</em>, <code>strong_ordering::equal</code> if they are equal, or <code>strong_ordering::greater</code> if <em class="arg">lhs</em> is lexicographically greater than <em class="arg">rhs</em>.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The comparison is case-sensitive. </dd>
+<dd>
+The comparison is performed lexicographically character by character. </dd>
+<dd>
+Empty string views are considered equal.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a0872c0a0c69b98837828e7d67211d6d9" title="Equality comparison operator for two CStringView objects.">operator==(const CStringView &amp;, const CStringView &amp;)</a> </dd></dl>
+
+</div>
+</div>
+<a id="aec73450f59b93644f6e14917ea1654bc" name="aec73450f59b93644f6e14917ea1654bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec73450f59b93644f6e14917ea1654bc">&#9670;&#160;</a></span>operator&lt;=&gt; <span class="overload">[4/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;StringLike stringType&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">strong_ordering operator&lt;=&gt; </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="#af79d918dedd06e2c2b99fe920962d64d">CStringView</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>lhs</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const stringType &amp;</td>          <td class="paramname"><span class="paramname"><em>rhs</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel friend">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Three-way comparison operator for <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> and <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object. </p>
+<p>This operator provides a three-way comparison between a <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> object and a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object. It returns a strong_ordering value that indicates the relationship between the strings.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">stringType</td><td>The type of the <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object. Must satisfy the <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> concept.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lhs</td><td>The <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> object to compare. </td></tr>
+    <tr><td class="paramname">rhs</td><td>The <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object to compare.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>strong_ordering::less</code> if <em class="arg">lhs</em> is lexicographically less than <em class="arg">rhs</em>, <code>strong_ordering::equal</code> if they are equal, or <code>strong_ordering::greater</code> if <em class="arg">lhs</em> is lexicographically greater than <em class="arg">rhs</em>.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The comparison is case-sensitive. </dd>
+<dd>
+The comparison is performed lexicographically character by character. </dd>
+<dd>
+Empty strings are considered equal.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#ade7a652f601a4fb2bded6aaeeb01bd3e" title="Equality comparison operator for CStringView and StringLike object.">operator==(const CStringView &amp;, const stringType &amp;)</a> </dd></dl>
+
+</div>
+</div>
+<a id="ad8e07a5be8e6cf0e4b1a6c853107f702" name="ad8e07a5be8e6cf0e4b1a6c853107f702"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8e07a5be8e6cf0e4b1a6c853107f702">&#9670;&#160;</a></span>operator&lt;=&gt; <span class="overload">[5/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;StringLike stringType&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">strong_ordering operator&lt;=&gt; </td>
+          <td>(</td>
+          <td class="paramtype">const stringType &amp;</td>          <td class="paramname"><span class="paramname"><em>lhs</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="#af79d918dedd06e2c2b99fe920962d64d">CStringView</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>rhs</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel friend">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Three-way comparison operator for <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object and <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a>. </p>
+<p>This operator provides a three-way comparison between a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object and a <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> object. It returns a strong_ordering value that indicates the relationship between the strings.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">stringType</td><td>The type of the <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object. Must satisfy the <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> concept.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lhs</td><td>The <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object to compare. </td></tr>
+    <tr><td class="paramname">rhs</td><td>The <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> object to compare.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>strong_ordering::less</code> if <em class="arg">lhs</em> is lexicographically less than <em class="arg">rhs</em>, <code>strong_ordering::equal</code> if they are equal, or <code>strong_ordering::greater</code> if <em class="arg">lhs</em> is lexicographically greater than <em class="arg">rhs</em>.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The comparison is case-sensitive. </dd>
+<dd>
+The comparison is performed lexicographically character by character. </dd>
+<dd>
+Empty strings are considered equal.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a38449c9d333480b787427166b1f1a5f2" title="Equality comparison operator for StringLike object and CStringView.">operator==(const stringType &amp;, const CStringView &amp;)</a> </dd></dl>
+
+</div>
+</div>
+<a id="ab799b965b3feaa3c80dc38e6296744e5" name="ab799b965b3feaa3c80dc38e6296744e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab799b965b3feaa3c80dc38e6296744e5">&#9670;&#160;</a></span>operator== <span class="overload">[1/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool operator== </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>lhs</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="#af79d918dedd06e2c2b99fe920962d64d">CStringView</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>rhs</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel friend">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Equality comparison operator for C string and <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a>. </p>
+<p>This operator compares a C string with a <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> object for equality.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lhs</td><td>The C string. </td></tr>
+    <tr><td class="paramname">rhs</td><td>The <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> object.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if both strings have the same content, <code>false</code> otherwise.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">lhs</em> pointer must not be null.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The comparison is case-sensitive. </dd>
+<dd>
+Empty strings are considered equal.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a54972f3bc3b2429b287548f27f684fad" title="Three-way comparison operator for C string and CStringView.">operator&lt;=&gt;(const char *, const CStringView &amp;)</a> </dd></dl>
+
+</div>
+</div>
+<a id="a8ec5dd9e4efc084e94d07fd121728410" name="a8ec5dd9e4efc084e94d07fd121728410"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ec5dd9e4efc084e94d07fd121728410">&#9670;&#160;</a></span>operator== <span class="overload">[2/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="#af79d918dedd06e2c2b99fe920962d64d">CStringView</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>lhs</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>rhs</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel friend">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Equality comparison operator for <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> and C string. </p>
+<p>This operator compares a <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> object with a C string for equality.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lhs</td><td>The <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> object. </td></tr>
+    <tr><td class="paramname">rhs</td><td>The C string.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if both strings have the same content, <code>false</code> otherwise.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">rhs</em> pointer must not be null.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The comparison is case-sensitive. </dd>
+<dd>
+Empty strings are considered equal.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#acb7764e0e1874f2f034704102d9e8ca3" title="Three-way comparison operator for CStringView and C string.">operator&lt;=&gt;(const CStringView &amp;, const char *)</a> </dd></dl>
+
+</div>
+</div>
+<a id="a0872c0a0c69b98837828e7d67211d6d9" name="a0872c0a0c69b98837828e7d67211d6d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0872c0a0c69b98837828e7d67211d6d9">&#9670;&#160;</a></span>operator== <span class="overload">[3/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="#af79d918dedd06e2c2b99fe920962d64d">CStringView</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>lhs</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="#af79d918dedd06e2c2b99fe920962d64d">CStringView</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>rhs</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel friend">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Equality comparison operator for two <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> objects. </p>
+<p>This operator compares two <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> objects for equality. The comparison is performed character by character.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lhs</td><td>The left-hand side <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> object. </td></tr>
+    <tr><td class="paramname">rhs</td><td>The right-hand side <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> object.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if both strings view have the same content, <code>false</code> otherwise.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The comparison is case-sensitive. </dd>
+<dd>
+Empty string views are considered equal.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#aa768a7b7f720466490f0ff8db015b605" title="Three-way comparison operator for CStringView objects.">operator&lt;=&gt;(const CStringView &amp;, const CStringView &amp;)</a> </dd></dl>
+
+</div>
+</div>
+<a id="ade7a652f601a4fb2bded6aaeeb01bd3e" name="ade7a652f601a4fb2bded6aaeeb01bd3e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade7a652f601a4fb2bded6aaeeb01bd3e">&#9670;&#160;</a></span>operator== <span class="overload">[4/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;StringLike stringType&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="#af79d918dedd06e2c2b99fe920962d64d">CStringView</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>lhs</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const stringType &amp;</td>          <td class="paramname"><span class="paramname"><em>rhs</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel friend">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Equality comparison operator for <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> and <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object. </p>
+<p>This operator compares a <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> object with a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object for equality.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">stringType</td><td>The type of the <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object. Must satisfy the <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> concept.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lhs</td><td>The <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> object. </td></tr>
+    <tr><td class="paramname">rhs</td><td>The <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if both strings have the same content, <code>false</code> otherwise.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The comparison is case-sensitive. </dd>
+<dd>
+Empty strings are considered equal.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#aec73450f59b93644f6e14917ea1654bc" title="Three-way comparison operator for CStringView and StringLike object.">operator&lt;=&gt;(const CStringView &amp;, const stringType &amp;)</a> </dd></dl>
+
+</div>
+</div>
+<a id="a38449c9d333480b787427166b1f1a5f2" name="a38449c9d333480b787427166b1f1a5f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38449c9d333480b787427166b1f1a5f2">&#9670;&#160;</a></span>operator== <span class="overload">[5/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;StringLike stringType&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool operator== </td>
+          <td>(</td>
+          <td class="paramtype">const stringType &amp;</td>          <td class="paramname"><span class="paramname"><em>lhs</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="#af79d918dedd06e2c2b99fe920962d64d">CStringView</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>rhs</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel friend">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Equality comparison operator for <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object and <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a>. </p>
+<p>This operator compares a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object with a <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> object for equality.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">stringType</td><td>The type of the <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object. Must satisfy the <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> concept.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lhs</td><td>The <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object. </td></tr>
+    <tr><td class="paramname">rhs</td><td>The <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> object.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if both strings have the same content, <code>false</code> otherwise.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The comparison is case-sensitive. </dd>
+<dd>
+Empty strings are considered equal.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#ad8e07a5be8e6cf0e4b1a6c853107f702" title="Three-way comparison operator for StringLike object and CStringView.">operator&lt;=&gt;(const stringType &amp;, const CStringView &amp;)</a> </dd></dl>
 
 </div>
 </div>

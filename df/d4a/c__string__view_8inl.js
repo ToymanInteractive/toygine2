@@ -1,13 +1,13 @@
 var c__string__view_8inl =
 [
-    [ "toy::operator<=>", "d4/da9/namespacetoy.html#ae9067c36a0df934378e09747294794fa", null ],
-    [ "toy::operator<=>", "d4/da9/namespacetoy.html#a61aed9a20d32f82b04985afb975ac0a5", null ],
-    [ "toy::operator<=>", "d4/da9/namespacetoy.html#a689f0ea157c502afb3071ee597f7cbb7", null ],
-    [ "toy::operator<=>", "d4/da9/namespacetoy.html#a13522125ac864b6c004cfe6630b0c4e8", null ],
-    [ "toy::operator<=>", "d4/da9/namespacetoy.html#a7ebd1701000ec278b1d8c07321ab648f", null ],
-    [ "toy::operator==", "d4/da9/namespacetoy.html#a71f575fa58def2abe56c129ff51a3696", null ],
-    [ "toy::operator==", "d4/da9/namespacetoy.html#a3761711b53e204a0f2871764d435fd35", null ],
-    [ "toy::operator==", "d4/da9/namespacetoy.html#a3a8c65476e352b7f64a0bf15ddc87747", null ],
-    [ "toy::operator==", "d4/da9/namespacetoy.html#a3ae46d261b42cdcd0e59b395aebdc834", null ],
-    [ "toy::operator==", "d4/da9/namespacetoy.html#ac0c288d93fdbf4dba71c4309203d9047", null ]
+    [ "toy::operator<=>", "d4/da9/namespacetoy.html#adb0d1ff8ab5036a6e22ae42713298d3c", null ],
+    [ "toy::operator<=>", "d4/da9/namespacetoy.html#a50ab25ff3fb94874504ea406b6e7d689", null ],
+    [ "toy::operator<=>", "d4/da9/namespacetoy.html#a2c200cbde4a17d3e89940fec2a9cce9f", null ],
+    [ "toy::operator<=>", "d4/da9/namespacetoy.html#a106f668999d5b477e3f81bfb9b03205a", null ],
+    [ "toy::operator<=>", "d4/da9/namespacetoy.html#a7e28ed6cc6edd0bdb484aaf612d587ef", null ],
+    [ "toy::operator==", "d4/da9/namespacetoy.html#a2e761e3d7b539dbdf6cfeaaac234eead", null ],
+    [ "toy::operator==", "d4/da9/namespacetoy.html#a0bd773c8ce056b71c2520fdb09b900df", null ],
+    [ "toy::operator==", "d4/da9/namespacetoy.html#af1c89e92e67487a8e2f12a1842085bb8", null ],
+    [ "toy::operator==", "d4/da9/namespacetoy.html#af032ad4928608bfaf27241733fcd3f41", null ],
+    [ "toy::operator==", "d4/da9/namespacetoy.html#ad6d2b3dad381a4caa6e84a33f62a26d4", null ]
 ];
