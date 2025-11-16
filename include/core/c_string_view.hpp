@@ -945,6 +945,211 @@ public:
   */
   [[nodiscard]] constexpr bool contains(char character) const noexcept;
 
+  /*!
+    \brief Equality comparison operator for two CStringView objects.
+
+    This operator compares two CStringView objects for equality. The comparison is performed character by character.
+
+    \param lhs The left-hand side CStringView object.
+    \param rhs The right-hand side CStringView object.
+
+    \return \c true if both strings view have the same content, \c false otherwise.
+
+    \note The comparison is case-sensitive.
+    \note Empty string views are considered equal.
+
+    \see operator<=>(const CStringView &, const CStringView &)
+  */
+  friend constexpr bool operator==(const CStringView & lhs, const CStringView & rhs) noexcept;
+
+  /*!
+    \brief Equality comparison operator for CStringView and StringLike object.
+
+    This operator compares a CStringView object with a StringLike object for equality.
+
+    \tparam stringType The type of the StringLike object. Must satisfy the StringLike concept.
+
+    \param lhs The CStringView object.
+    \param rhs The StringLike object.
+
+    \return \c true if both strings have the same content, \c false otherwise.
+
+    \note The comparison is case-sensitive.
+    \note Empty strings are considered equal.
+
+    \see operator<=>(const CStringView &, const stringType &)
+  */
+  template <StringLike stringType>
+  friend constexpr bool operator==(const CStringView & lhs, const stringType & rhs) noexcept;
+
+  /*!
+    \brief Equality comparison operator for StringLike object and CStringView.
+
+    This operator compares a StringLike object with a CStringView object for equality.
+
+    \tparam stringType The type of the StringLike object. Must satisfy the StringLike concept.
+
+    \param lhs The StringLike object.
+    \param rhs The CStringView object.
+
+    \return \c true if both strings have the same content, \c false otherwise.
+
+    \note The comparison is case-sensitive.
+    \note Empty strings are considered equal.
+
+    \see operator<=>(const stringType &, const CStringView &)
+  */
+  template <StringLike stringType>
+  friend constexpr bool operator==(const stringType & lhs, const CStringView & rhs) noexcept;
+
+  /*!
+    \brief Equality comparison operator for CStringView and C string.
+
+    This operator compares a CStringView object with a C string for equality.
+
+    \param lhs The CStringView object.
+    \param rhs The C string.
+
+    \return \c true if both strings have the same content, \c false otherwise.
+
+    \pre The \a rhs pointer must not be null.
+
+    \note The comparison is case-sensitive.
+    \note Empty strings are considered equal.
+
+    \see operator<=>(const CStringView &, const char *)
+  */
+  friend constexpr bool operator==(const CStringView & lhs, const char * rhs) noexcept;
+
+  /*!
+    \brief Equality comparison operator for C string and CStringView.
+
+    This operator compares a C string with a CStringView object for equality.
+
+    \param lhs The C string.
+    \param rhs The CStringView object.
+
+    \return \c true if both strings have the same content, \c false otherwise.
+
+    \pre The \a lhs pointer must not be null.
+
+    \note The comparison is case-sensitive.
+    \note Empty strings are considered equal.
+
+    \see operator<=>(const char *, const CStringView &)
+  */
+  friend constexpr bool operator==(const char * lhs, const CStringView & rhs) noexcept;
+
+  /*!
+    \brief Three-way comparison operator for CStringView objects.
+
+    This operator provides a three-way comparison between two CStringView objects. It returns a strong_ordering value
+    that indicates the relationship between the string views.
+
+    \param lhs The left-hand side CStringView object to compare.
+    \param rhs The right-hand side CStringView object to compare.
+
+    \return \c strong_ordering::less if \a lhs is lexicographically less than \a rhs, \c strong_ordering::equal if they
+            are equal, or \c strong_ordering::greater if \a lhs is lexicographically greater than \a rhs.
+
+    \note The comparison is case-sensitive.
+    \note The comparison is performed lexicographically character by character.
+    \note Empty string views are considered equal.
+
+    \see operator==(const CStringView &, const CStringView &)
+  */
+  friend constexpr strong_ordering operator<=>(const CStringView & lhs, const CStringView & rhs) noexcept;
+
+  /*!
+    \brief Three-way comparison operator for CStringView and StringLike object.
+
+    This operator provides a three-way comparison between a CStringView object and a StringLike object. It returns a
+    strong_ordering value that indicates the relationship between the strings.
+
+    \tparam stringType The type of the StringLike object. Must satisfy the StringLike concept.
+
+    \param lhs The CStringView object to compare.
+    \param rhs The StringLike object to compare.
+
+    \return \c strong_ordering::less if \a lhs is lexicographically less than \a rhs, \c strong_ordering::equal if they
+            are equal, or \c strong_ordering::greater if \a lhs is lexicographically greater than \a rhs.
+
+    \note The comparison is case-sensitive.
+    \note The comparison is performed lexicographically character by character.
+    \note Empty strings are considered equal.
+
+    \see operator==(const CStringView &, const stringType &)
+  */
+  template <StringLike stringType>
+  friend constexpr strong_ordering operator<=>(const CStringView & lhs, const stringType & rhs) noexcept;
+
+  /*!
+    \brief Three-way comparison operator for StringLike object and CStringView.
+
+    This operator provides a three-way comparison between a StringLike object and a CStringView object. It returns a
+    strong_ordering value that indicates the relationship between the strings.
+
+    \tparam stringType The type of the StringLike object. Must satisfy the StringLike concept.
+
+    \param lhs The StringLike object to compare.
+    \param rhs The CStringView object to compare.
+
+    \return \c strong_ordering::less if \a lhs is lexicographically less than \a rhs, \c strong_ordering::equal if they
+            are equal, or \c strong_ordering::greater if \a lhs is lexicographically greater than \a rhs.
+
+    \note The comparison is case-sensitive.
+    \note The comparison is performed lexicographically character by character.
+    \note Empty strings are considered equal.
+
+    \see operator==(const stringType &, const CStringView &)
+  */
+  template <StringLike stringType>
+  friend constexpr strong_ordering operator<=>(const stringType & lhs, const CStringView & rhs) noexcept;
+
+  /*!
+    \brief Three-way comparison operator for CStringView and C string.
+
+    This operator provides a three-way comparison between a CStringView object and a C string. It returns a
+    strong_ordering value that indicates the relationship between the strings.
+
+    \param lhs The CStringView object to compare.
+    \param rhs The C string to compare.
+
+    \return \c strong_ordering::less if \a lhs is lexicographically less than \a rhs, \c strong_ordering::equal if they
+            are equal, or \c strong_ordering::greater if \a lhs is lexicographically greater than \a rhs.
+
+    \pre The \a rhs pointer must not be null.
+
+    \note The comparison is case-sensitive.
+    \note The comparison is performed lexicographically character by character.
+    \note Empty strings are considered equal.
+
+    \see operator==(const CStringView &, const char *)
+  */
+  friend constexpr strong_ordering operator<=>(const CStringView & lhs, const char * rhs) noexcept;
+
+  /*!
+    \brief Three-way comparison operator for C string and CStringView.
+
+    This operator provides a three-way comparison between a C string and a CStringView object. It returns a
+    strong_ordering value that indicates the relationship between the strings.
+
+    \param lhs The C string to compare.
+    \param rhs The CStringView object to compare.
+
+    \return \c strong_ordering::less if \a lhs is lexicographically less than \a rhs, \c strong_ordering::equal if they
+            are equal, or \c strong_ordering::greater if \a lhs is lexicographically greater than \a rhs.
+
+    \pre The \a lhs pointer must not be null.
+
+    \note The comparison is case-sensitive.
+    \note The comparison is performed lexicographically character by character.
+    \note Empty strings are considered equal.
+
+    \see operator==(const char *, const CStringView &)
+  */
+  friend constexpr strong_ordering operator<=>(const char * lhs, const CStringView & rhs) noexcept;
+
 private:
   /// Pointer to the wrapped C string
   const char * _data;
@@ -1056,211 +1261,6 @@ private:
   */
   constexpr size_t _find_last_not_of_raw(size_t position, const char * data, size_t dataSize) const noexcept;
 };
-
-/*!
-  \brief Equality comparison operator for two CStringView objects.
-
-  This operator compares two CStringView objects for equality. The comparison is performed character by character.
-
-  \param lhs The left-hand side CStringView object.
-  \param rhs The right-hand side CStringView object.
-
-  \return \c true if both strings view have the same content, \c false otherwise.
-
-  \note The comparison is case-sensitive.
-  \note Empty string views are considered equal.
-
-  \see operator<=>(const CStringView &, const CStringView &)
-*/
-[[nodiscard]] constexpr bool operator==(const CStringView & lhs, const CStringView & rhs) noexcept;
-
-/*!
-  \brief Equality comparison operator for CStringView and StringLike object.
-
-  This operator compares a CStringView object with a StringLike object for equality.
-
-  \tparam stringType The type of the StringLike object. Must satisfy the StringLike concept.
-
-  \param lhs The CStringView object.
-  \param rhs The StringLike object.
-
-  \return \c true if both strings have the same content, \c false otherwise.
-
-  \note The comparison is case-sensitive.
-  \note Empty strings are considered equal.
-
-  \see operator<=>(const CStringView &, const stringType &)
-*/
-template <StringLike stringType>
-[[nodiscard]] constexpr bool operator==(const CStringView & lhs, const stringType & rhs) noexcept;
-
-/*!
-  \brief Equality comparison operator for StringLike object and CStringView.
-
-  This operator compares a StringLike object with a CStringView object for equality.
-
-  \tparam stringType The type of the StringLike object. Must satisfy the StringLike concept.
-
-  \param lhs The StringLike object.
-  \param rhs The CStringView object.
-
-  \return \c true if both strings have the same content, \c false otherwise.
-
-  \note The comparison is case-sensitive.
-  \note Empty strings are considered equal.
-
-  \see operator<=>(const stringType &, const CStringView &)
-*/
-template <StringLike stringType>
-[[nodiscard]] constexpr bool operator==(const stringType & lhs, const CStringView & rhs) noexcept;
-
-/*!
-  \brief Equality comparison operator for CStringView and C string.
-
-  This operator compares a CStringView object with a C string for equality.
-
-  \param lhs The CStringView object.
-  \param rhs The C string.
-
-  \return \c true if both strings have the same content, \c false otherwise.
-
-  \pre The \a rhs pointer must not be null.
-
-  \note The comparison is case-sensitive.
-  \note Empty strings are considered equal.
-
-  \see operator<=>(const CStringView &, const char *)
-*/
-[[nodiscard]] constexpr bool operator==(const CStringView & lhs, const char * rhs) noexcept;
-
-/*!
-  \brief Equality comparison operator for C string and CStringView.
-
-  This operator compares a C string with a CStringView object for equality.
-
-  \param lhs The C string.
-  \param rhs The CStringView object.
-
-  \return \c true if both strings have the same content, \c false otherwise.
-
-  \pre The \a lhs pointer must not be null.
-
-  \note The comparison is case-sensitive.
-  \note Empty strings are considered equal.
-
-  \see operator<=>(const char *, const CStringView &)
-*/
-[[nodiscard]] constexpr bool operator==(const char * lhs, const CStringView & rhs) noexcept;
-
-/*!
-  \brief Three-way comparison operator for CStringView objects.
-
-  This operator provides a three-way comparison between two CStringView objects. It returns a strong_ordering value that
-  indicates the relationship between the string views.
-
-  \param lhs The left-hand side CStringView object to compare.
-  \param rhs The right-hand side CStringView object to compare.
-
-  \return \c strong_ordering::less if \a lhs is lexicographically less than \a rhs, \c strong_ordering::equal if they
-          are equal, or \c strong_ordering::greater if \a lhs is lexicographically greater than \a rhs.
-
-  \note The comparison is case-sensitive.
-  \note The comparison is performed lexicographically character by character.
-  \note Empty string views are considered equal.
-
-  \see operator==(const CStringView &, const CStringView &)
-*/
-[[nodiscard]] constexpr strong_ordering operator<=>(const CStringView & lhs, const CStringView & rhs) noexcept;
-
-/*!
-  \brief Three-way comparison operator for CStringView and StringLike object.
-
-  This operator provides a three-way comparison between a CStringView object and a StringLike object. It returns a
-  strong_ordering value that indicates the relationship between the strings.
-
-  \tparam stringType The type of the StringLike object. Must satisfy the StringLike concept.
-
-  \param lhs The CStringView object to compare.
-  \param rhs The StringLike object to compare.
-
-  \return \c strong_ordering::less if \a lhs is lexicographically less than \a rhs, \c strong_ordering::equal if they
-          are equal, or \c strong_ordering::greater if \a lhs is lexicographically greater than \a rhs.
-
-  \note The comparison is case-sensitive.
-  \note The comparison is performed lexicographically character by character.
-  \note Empty strings are considered equal.
-
-  \see operator==(const CStringView &, const stringType &)
-*/
-template <StringLike stringType>
-[[nodiscard]] constexpr strong_ordering operator<=>(const CStringView & lhs, const stringType & rhs) noexcept;
-
-/*!
-  \brief Three-way comparison operator for StringLike object and CStringView.
-
-  This operator provides a three-way comparison between a StringLike object and a CStringView object. It returns a
-  strong_ordering value that indicates the relationship between the strings.
-
-  \tparam stringType The type of the StringLike object. Must satisfy the StringLike concept.
-
-  \param lhs The StringLike object to compare.
-  \param rhs The CStringView object to compare.
-
-  \return \c strong_ordering::less if \a lhs is lexicographically less than \a rhs, \c strong_ordering::equal if they
-          are equal, or \c strong_ordering::greater if \a lhs is lexicographically greater than \a rhs.
-
-  \note The comparison is case-sensitive.
-  \note The comparison is performed lexicographically character by character.
-  \note Empty strings are considered equal.
-
-  \see operator==(const stringType &, const CStringView &)
-*/
-template <StringLike stringType>
-[[nodiscard]] constexpr strong_ordering operator<=>(const stringType & lhs, const CStringView & rhs) noexcept;
-
-/*!
-  \brief Three-way comparison operator for CStringView and C string.
-
-  This operator provides a three-way comparison between a CStringView object and a C string. It returns a
-  strong_ordering value that indicates the relationship between the strings.
-
-  \param lhs The CStringView object to compare.
-  \param rhs The C string to compare.
-
-  \return \c strong_ordering::less if \a lhs is lexicographically less than \a rhs, \c strong_ordering::equal if they
-          are equal, or \c strong_ordering::greater if \a lhs is lexicographically greater than \a rhs.
-
-  \pre The \a rhs pointer must not be null.
-
-  \note The comparison is case-sensitive.
-  \note The comparison is performed lexicographically character by character.
-  \note Empty strings are considered equal.
-
-  \see operator==(const CStringView &, const char *)
-*/
-[[nodiscard]] constexpr strong_ordering operator<=>(const CStringView & lhs, const char * rhs) noexcept;
-
-/*!
-  \brief Three-way comparison operator for C string and CStringView.
-
-  This operator provides a three-way comparison between a C string and a CStringView object. It returns a
-  strong_ordering value that indicates the relationship between the strings.
-
-  \param lhs The C string to compare.
-  \param rhs The CStringView object to compare.
-
-  \return \c strong_ordering::less if \a lhs is lexicographically less than \a rhs, \c strong_ordering::equal if they
-          are equal, or \c strong_ordering::greater if \a lhs is lexicographically greater than \a rhs.
-
-  \pre The \a lhs pointer must not be null.
-
-  \note The comparison is case-sensitive.
-  \note The comparison is performed lexicographically character by character.
-  \note Empty strings are considered equal.
-
-  \see operator==(const char *, const CStringView &)
-*/
-[[nodiscard]] constexpr strong_ordering operator<=>(const char * lhs, const CStringView & rhs) noexcept;
 
 } // namespace toy
 
