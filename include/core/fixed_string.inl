@@ -1331,24 +1331,19 @@ constexpr strong_ordering operator<=>(const FixedString<allocatedSize> & lhs, co
   else if (*rhs == '\0')
     return strong_ordering::greater;
 
-  if consteval {
-    return cstrcmp(lhs.c_str(), rhs) <=> 0;
-  } else {
-    const auto rhsLen = char_traits<char>::length(rhs);
-    const auto result = std::memcmp(lhs.c_str(), rhs, std::min(lhs.size(), rhsLen));
-
-    if (result < 0)
+  const auto rhsLen = char_traits<char>::length(rhs);
+  const int result = char_traits<char>::compare(lhs.c_str(), rhs, std::min(lhs.size(), rhsLen));
+  if (result < 0)
+    return strong_ordering::less;
+  else if (result > 0)
+    return strong_ordering::greater;
+  else {
+    if (lhs.size() < rhsLen)
       return strong_ordering::less;
-    else if (result > 0)
+    else if (lhs.size() > rhsLen)
       return strong_ordering::greater;
-    else {
-      if (lhs.size() < rhsLen)
-        return strong_ordering::less;
-      else if (lhs.size() > rhsLen)
-        return strong_ordering::greater;
-      else
-        return strong_ordering::equal;
-    }
+    else
+      return strong_ordering::equal;
   }
 }
 
