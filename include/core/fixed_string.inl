@@ -36,11 +36,7 @@ template <size_t allocatedSize>
 constexpr FixedString<allocatedSize>::FixedString(const FixedString<allocatedSize> & string) noexcept
   : _data{}
   , _size(string.size()) {
-  if consteval {
-    std::copy_n(string.data(), _size + 1, _data);
-  } else {
-    std::memcpy(_data, string.data(), _size + 1);
-  }
+  char_traits<char>::move(_data, string.data(), _size + 1);
 }
 
 template <size_t allocatedSize>
@@ -50,11 +46,7 @@ constexpr FixedString<allocatedSize>::FixedString(const stringType & string) noe
   , _size(string.size()) {
   assert_message(_size < allocatedSize, "String size must not exceed capacity");
 
-  if consteval {
-    std::copy_n(string.c_str(), _size + 1, _data);
-  } else {
-    std::memcpy(_data, string.c_str(), _size + 1);
-  }
+  char_traits<char>::move(_data, string.c_str(), _size + 1);
 }
 
 template <size_t allocatedSize>
@@ -63,19 +55,10 @@ constexpr FixedString<allocatedSize>::FixedString(const char * string) noexcept
   , _size(0) {
   assert_message(string != nullptr, "C string must not be null");
 
-  if consteval {
-    _size = std::char_traits<char>::length(string);
-  } else {
-    _size = std::strlen(string);
-  }
-
+  _size = char_traits<char>::length(string);
   assert_message(_size < allocatedSize, "String length must not exceed capacity");
 
-  if consteval {
-    std::copy_n(string, _size + 1, _data);
-  } else {
-    std::memcpy(_data, string, _size + 1);
-  }
+  char_traits<char>::copy(_data, string, _size + 1);
 }
 
 template <size_t allocatedSize>
@@ -99,7 +82,7 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::operator=(
     return *this;
 
   _size = string._size;
-  std::memcpy(_data, string._data, _size + 1);
+  char_traits<char>::move(_data, string._data, _size + 1);
 
   return *this;
 }
@@ -110,11 +93,7 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::operator=(con
   assert_message(string.size() < allocatedSize, "String size must not exceed capacity");
 
   _size = string.size();
-  if consteval {
-    std::copy_n(string.c_str(), _size + 1, _data);
-  } else {
-    std::memcpy(_data, string.c_str(), _size + 1);
-  }
+  char_traits<char>::move(_data, string.c_str(), _size + 1);
 
   return *this;
 }
@@ -126,19 +105,10 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::operator=(con
 
   assert_message(string != nullptr, "C string must not be null");
 
-  if consteval {
-    _size = std::char_traits<char>::length(string);
-  } else {
-    _size = std::strlen(string);
-  }
-
+  _size = char_traits<char>::length(string);
   assert_message(_size < allocatedSize, "String length must not exceed capacity");
 
-  if consteval {
-    std::copy_n(string, _size + 1, _data);
-  } else {
-    std::memcpy(_data, string, _size + 1);
-  }
+  char_traits<char>::copy(_data, string, _size + 1);
 
   return *this;
 }
@@ -161,11 +131,7 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::assign(
     return *this;
 
   _size = string.size();
-  if consteval {
-    std::copy_n(string.data(), _size + 1, _data);
-  } else {
-    std::memcpy(_data, string.data(), _size + 1);
-  }
+  char_traits<char>::move(_data, string.data(), _size + 1);
 
   return *this;
 }
@@ -176,11 +142,7 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::assign(const 
   assert_message(string.size() < allocatedSize, "String size must not exceed capacity");
 
   _size = string.size();
-  if consteval {
-    std::copy_n(string.c_str(), _size + 1, _data);
-  } else {
-    std::memcpy(_data, string.c_str(), _size + 1);
-  }
+  char_traits<char>::move(_data, string.c_str(), _size + 1);
 
   return *this;
 }
@@ -189,22 +151,15 @@ template <size_t allocatedSize>
 constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::assign(const char * string) noexcept {
   assert_message(string != nullptr, "C string must not be null");
 
-  if consteval {
-    _size = std::char_traits<char>::length(string);
-  } else {
+  if !consteval {
     if (_data == string)
       return *this;
-
-    _size = std::strlen(string);
   }
 
+  _size = char_traits<char>::length(string);
   assert_message(_size < allocatedSize, "String length must not exceed capacity");
 
-  if consteval {
-    std::copy_n(string, _size + 1, _data);
-  } else {
-    std::memcpy(_data, string, _size + 1);
-  }
+  char_traits<char>::copy(_data, string, _size + 1);
 
   return *this;
 }
@@ -348,12 +303,8 @@ template <size_t allocatedSize>
 constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::insert(size_t index, const char * string) noexcept {
   assert_message(string != nullptr, "C string must not be null");
 
-  size_t stringLen;
-  if consteval {
-    stringLen = std::char_traits<char>::length(string);
-  } else {
-    stringLen = std::strlen(string);
-  }
+  const auto stringLen = char_traits<char>::length(string);
+
   _insert_raw(index, string, stringLen);
 
   return *this;
@@ -379,7 +330,8 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::insert(size_t
     _size += count;
     _data[_size] = '\0';
   } else {
-    std::memmove(_data + index + count, _data + index, _size - index + 1);
+    char_traits<char>::move(_data + index + count, _data + index, _size - index + 1);
+
     if consteval {
       std::fill_n(_data + index, count, character);
     } else {
@@ -405,7 +357,7 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::erase(size_t 
   assert_message(offset + count <= _size, "Erase range must be within string bounds");
 
   _size -= count;
-  std::memmove(_data + offset, _data + offset + count, _size - offset + 1);
+  char_traits<char>::move(_data + offset, _data + offset + count, _size - offset + 1);
 
   return *this;
 }
@@ -464,12 +416,8 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::append(const 
   assert_message(_data != string, "Cannot append string into itself");
   assert_message(string != nullptr, "C string must not be null");
 
-  size_t stringLen;
-  if consteval {
-    stringLen = std::char_traits<char>::length(string);
-  } else {
-    stringLen = std::strlen(string);
-  }
+  const auto stringLen = char_traits<char>::length(string);
+
   _append_raw(string, stringLen);
 
   return *this;
@@ -518,14 +466,12 @@ template <size_t allocatedSize>
 constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::operator+=(const char * string) noexcept {
   assert_message(string != nullptr, "C string must not be null");
 
-  size_t stringLen;
-  if consteval {
-    stringLen = std::char_traits<char>::length(string);
-  } else {
+  if !consteval {
     assert_message(_data != string, "Cannot append string into itself");
-
-    stringLen = std::strlen(string);
   }
+
+  const auto stringLen = char_traits<char>::length(string);
+
   _append_raw(string, stringLen);
 
   return *this;
@@ -563,12 +509,8 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::replace(size_
                                                                            const char * string) noexcept {
   assert_message(string != nullptr, "C string must not be null");
 
-  size_t stringLen;
-  if consteval {
-    stringLen = std::char_traits<char>::length(string);
-  } else {
-    stringLen = std::strlen(string);
-  }
+  const auto stringLen = char_traits<char>::length(string);
+
   _replace_raw(pos, count, string, stringLen);
 
   return *this;
@@ -604,7 +546,8 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::replace(size_
       }
       _data[pos + charactersCount] = '\0';
     } else {
-      std::memmove(_data + pos + charactersCount, _data + pos + count, _size - pos - count + 1);
+      char_traits<char>::move(_data + pos + charactersCount, _data + pos + count, _size - pos - count + 1);
+
       if consteval {
         std::fill_n(_data + pos, charactersCount, character);
       } else {
@@ -628,11 +571,7 @@ constexpr size_t FixedString<allocatedSize>::copy(char * dest, size_t count, siz
   if (count == npos || pos + count > _size)
     count = _size - pos;
 
-  if consteval {
-    std::copy_n(_data + pos, count, dest);
-  } else {
-    std::memcpy(dest, _data + pos, count);
-  }
+  char_traits<char>::move(dest, _data + pos, count);
 
   return count;
 }
@@ -643,15 +582,10 @@ constexpr void FixedString<allocatedSize>::swap(FixedString<allocatedSize> & str
     return;
 
   char tempData[allocatedSize];
-  if consteval {
-    std::copy_n(_data, _size + 1, tempData);
-    std::copy_n(string._data, string._size + 1, _data);
-    std::copy_n(tempData, _size + 1, string._data);
-  } else {
-    std::memcpy(tempData, _data, _size + 1);
-    std::memcpy(_data, string._data, string._size + 1);
-    std::memcpy(string._data, tempData, _size + 1);
-  }
+
+  char_traits<char>::move(tempData, _data, _size + 1);
+  char_traits<char>::move(_data, string._data, string._size + 1);
+  char_traits<char>::move(string._data, tempData, _size + 1);
 
   std::swap(_size, string._size);
 }
@@ -672,12 +606,7 @@ template <size_t allocatedSize>
 constexpr size_t FixedString<allocatedSize>::find(const char * string, size_t position) const noexcept {
   assert_message(string != nullptr, "C string must not be null");
 
-  size_t stringLen;
-  if consteval {
-    stringLen = std::char_traits<char>::length(string);
-  } else {
-    stringLen = std::strlen(string);
-  }
+  const auto stringLen = char_traits<char>::length(string);
 
   return _find_raw(position, string, stringLen);
 }
@@ -703,12 +632,7 @@ template <size_t allocatedSize>
 constexpr size_t FixedString<allocatedSize>::rfind(const char * string, size_t position) const noexcept {
   assert_message(string != nullptr, "C string must not be null");
 
-  size_t stringLen;
-  if consteval {
-    stringLen = std::char_traits<char>::length(string);
-  } else {
-    stringLen = std::strlen(string);
-  }
+  const auto stringLen = char_traits<char>::length(string);
 
   return _rfind_raw(position, string, stringLen);
 }
@@ -734,12 +658,7 @@ template <size_t allocatedSize>
 constexpr size_t FixedString<allocatedSize>::find_first_of(const char * string, size_t position) const noexcept {
   assert_message(string != nullptr, "C string must not be null");
 
-  size_t stringLen;
-  if consteval {
-    stringLen = std::char_traits<char>::length(string);
-  } else {
-    stringLen = std::strlen(string);
-  }
+  const auto stringLen = char_traits<char>::length(string);
 
   return _find_first_of_raw(position, string, stringLen);
 }
@@ -766,12 +685,7 @@ template <size_t allocatedSize>
 constexpr size_t FixedString<allocatedSize>::find_first_not_of(const char * string, size_t position) const noexcept {
   assert_message(string != nullptr, "C string must not be null");
 
-  size_t stringLen;
-  if consteval {
-    stringLen = std::char_traits<char>::length(string);
-  } else {
-    stringLen = std::strlen(string);
-  }
+  const auto stringLen = char_traits<char>::length(string);
 
   return _find_first_not_of_raw(position, string, stringLen);
 }
@@ -797,12 +711,7 @@ template <size_t allocatedSize>
 constexpr size_t FixedString<allocatedSize>::find_last_of(const char * string, size_t position) const noexcept {
   assert_message(string != nullptr, "C string must not be null");
 
-  size_t stringLen;
-  if consteval {
-    stringLen = std::char_traits<char>::length(string);
-  } else {
-    stringLen = std::strlen(string);
-  }
+  const auto stringLen = char_traits<char>::length(string);
 
   return _find_last_of_raw(position, string, stringLen);
 }
@@ -829,12 +738,7 @@ template <size_t allocatedSize>
 constexpr size_t FixedString<allocatedSize>::find_last_not_of(const char * string, size_t position) const noexcept {
   assert_message(string != nullptr, "C string must not be null");
 
-  size_t stringLen;
-  if consteval {
-    stringLen = std::char_traits<char>::length(string);
-  } else {
-    stringLen = std::strlen(string);
-  }
+  const auto stringLen = char_traits<char>::length(string);
 
   return _find_last_not_of_raw(position, string, stringLen);
 }
@@ -876,11 +780,7 @@ constexpr int FixedString<allocatedSize>::compare(const char * string) const noe
 
 template <size_t allocatedSize>
 constexpr bool FixedString<allocatedSize>::starts_with(const FixedString<allocatedSize> & string) const noexcept {
-  if consteval {
-    return _size >= string._size && std::equal(_data, _data + string._size, string._data);
-  } else {
-    return _size >= string._size && std::memcmp(_data, string._data, string._size) == 0;
-  }
+  return _size >= string._size && char_traits<char>::compare(_data, string._data, string._size) == 0;
 }
 
 template <size_t allocatedSize>
@@ -890,27 +790,16 @@ constexpr bool FixedString<allocatedSize>::starts_with(const stringType & string
   if (size() < stringSize)
     return false;
 
-  if consteval {
-    return std::equal(_data, _data + stringSize, string.c_str());
-  } else {
-    return std::memcmp(_data, string.c_str(), stringSize) == 0;
-  }
+  return char_traits<char>::compare(_data, string.c_str(), stringSize) == 0;
 }
 
 template <size_t allocatedSize>
 constexpr bool FixedString<allocatedSize>::starts_with(const char * string) const noexcept {
   assert_message(string != nullptr, "C string must not be null");
 
-  size_t needleSize;
-  if consteval {
-    needleSize = std::char_traits<char>::length(string);
+  const auto needleSize = char_traits<char>::length(string);
 
-    return _size >= needleSize && std::equal(_data, _data + needleSize, string);
-  } else {
-    needleSize = std::strlen(string);
-
-    return _size >= needleSize && std::memcmp(_data, string, needleSize) == 0;
-  }
+  return _size >= needleSize && char_traits<char>::compare(_data, string, needleSize) == 0;
 }
 
 template <size_t allocatedSize>
@@ -920,11 +809,8 @@ constexpr bool FixedString<allocatedSize>::starts_with(char character) const noe
 
 template <size_t allocatedSize>
 constexpr bool FixedString<allocatedSize>::ends_with(const FixedString<allocatedSize> & string) const noexcept {
-  if consteval {
-    return _size >= string._size && std::equal(_data + _size - string._size, _data + _size, string._data);
-  } else {
-    return _size >= string._size && std::memcmp(_data + _size - string._size, string._data, string._size) == 0;
-  }
+  return _size >= string._size
+         && char_traits<char>::compare(_data + _size - string._size, string._data, string._size) == 0;
 }
 
 template <size_t allocatedSize>
@@ -934,32 +820,18 @@ constexpr bool FixedString<allocatedSize>::ends_with(const stringType & string) 
   if (_size < stringSize)
     return false;
 
-  if consteval {
-    return std::equal(_data + _size - stringSize, _data + _size, string.c_str());
-  } else {
-    return std::memcmp(_data + _size - stringSize, string.c_str(), stringSize) == 0;
-  }
+  return char_traits<char>::compare(_data + _size - stringSize, string.c_str(), stringSize) == 0;
 }
 
 template <size_t allocatedSize>
 constexpr bool FixedString<allocatedSize>::ends_with(const char * string) const noexcept {
   assert_message(string != nullptr, "C string must not be null");
 
-  size_t needleSize;
-  if consteval {
-    needleSize = std::char_traits<char>::length(string);
-  } else {
-    needleSize = std::strlen(string);
-  }
-
+  const auto needleSize = char_traits<char>::length(string);
   if (_size < needleSize)
     return false;
 
-  if consteval {
-    return std::equal(_data + _size - needleSize, _data + _size, string);
-  } else {
-    return std::memcmp(_data + _size - needleSize, string, needleSize) == 0;
-  }
+  return char_traits<char>::compare(_data + _size - needleSize, string, needleSize) == 0;
 }
 
 template <size_t allocatedSize>
@@ -1022,11 +894,9 @@ constexpr FixedString<allocatedSize> FixedString<allocatedSize>::substr(size_t p
   FixedString<allocatedSize> result;
 
   result._size = count;
-  if consteval {
-    std::copy_n(_data + position, count, result._data);
-  } else {
-    std::memcpy(result._data, _data + position, count);
-  }
+
+  char_traits<char>::move(result._data, _data + position, count);
+
   result._data[count] = '\0';
 
   return result;
@@ -1045,18 +915,11 @@ constexpr void FixedString<allocatedSize>::_insert_raw(size_t position, const ch
 
   // If inserting at the end, just append
   if (position == _size) {
-    if consteval {
-      std::copy_n(data, dataSize + 1, _data + _size);
-    } else {
-      std::memcpy(_data + _size, data, dataSize + 1);
-    }
+    char_traits<char>::move(_data + _size, data, dataSize + 1);
   } else {
-    std::memmove(_data + position + dataSize, _data + position, _size - position + 1);
-    if consteval {
-      std::copy_n(data, dataSize, _data + position);
-    } else {
-      std::memcpy(_data + position, data, dataSize);
-    }
+    char_traits<char>::move(_data + position + dataSize, _data + position, _size - position + 1);
+
+    char_traits<char>::move(_data + position, data, dataSize);
   }
 
   _size += dataSize;
@@ -1068,15 +931,12 @@ constexpr void FixedString<allocatedSize>::_append_raw(const char * data, size_t
     return;
 
   assert_message(_size + dataSize < allocatedSize, "Appended data must fit in capacity");
-
-  if consteval {
-    std::copy_n(data, dataSize + 1, _data + _size);
-  } else {
+  if !consteval {
     assert_message(((data + dataSize) < _data) || (data >= (_data + allocatedSize)),
                    "Source data pointer must not point into _data buffer");
-
-    std::memcpy(_data + _size, data, dataSize + 1);
   }
+
+  char_traits<char>::move(_data + _size, data, dataSize + 1);
   _size += dataSize;
 }
 
@@ -1094,11 +954,7 @@ constexpr void FixedString<allocatedSize>::_replace_raw(size_t position, size_t 
 
   // If sizes are equal, no need to shift data
   if (oldCount == dataSize) {
-    if consteval {
-      std::copy_n(data, dataSize, _data + position);
-    } else {
-      std::memcpy(_data + position, data, dataSize);
-    }
+    char_traits<char>::move(_data + position, data, dataSize);
 
     return;
   }
@@ -1107,19 +963,10 @@ constexpr void FixedString<allocatedSize>::_replace_raw(size_t position, size_t 
 
   // If replacing at the end, no need to shift
   if (position + oldCount == _size) {
-    if consteval {
-      std::copy_n(data, dataSize + 1, _data + position);
-    } else {
-      std::memcpy(_data + position, data, dataSize + 1);
-    }
+    char_traits<char>::move(_data + position, data, dataSize + 1);
   } else {
-    std::memmove(_data + position + dataSize, _data + position + oldCount, _size - position - oldCount + 1);
-
-    if consteval {
-      std::copy_n(data, dataSize, _data + position);
-    } else {
-      std::memcpy(_data + position, data, dataSize);
-    }
+    char_traits<char>::move(_data + position + dataSize, _data + position + oldCount, _size - position - oldCount + 1);
+    char_traits<char>::move(_data + position, data, dataSize);
   }
 
   _size = _size - oldCount + dataSize;
@@ -1164,14 +1011,7 @@ constexpr size_t FixedString<allocatedSize>::_rfind_raw(size_t position, const c
   for (size_t i = 0; i <= position; ++i) {
     const auto offset = position - i;
 
-    bool found;
-
-    if consteval {
-      found = std::equal(_data + offset, _data + offset + dataSize, data);
-    } else {
-      found = std::memcmp(_data + offset, data, dataSize) == 0;
-    }
-
+    const auto found = char_traits<char>::compare(_data + offset, data, dataSize) == 0;
     if (found)
       return offset;
   }
@@ -1378,11 +1218,7 @@ constexpr bool operator==(const FixedString<allocatedSize1> & lhs, const FixedSt
   else if (lhs.empty())
     return true;
 
-  if consteval {
-    return std::equal(lhs.c_str(), lhs.c_str() + lhs.size(), rhs.c_str());
-  } else {
-    return std::memcmp(lhs.c_str(), rhs.c_str(), lhs.size()) == 0;
-  }
+  return char_traits<char>::compare(lhs.c_str(), rhs.c_str(), lhs.size()) == 0;
 }
 
 template <size_t allocatedSize, StringLike stringType>
@@ -1392,11 +1228,7 @@ constexpr bool operator==(const FixedString<allocatedSize> & lhs, const stringTy
   else if (lhs.empty())
     return true;
 
-  if consteval {
-    return std::equal(lhs.c_str(), lhs.c_str() + lhs.size(), rhs.c_str());
-  } else {
-    return std::memcmp(lhs.c_str(), rhs.c_str(), lhs.size()) == 0;
-  }
+  return char_traits<char>::compare(lhs.c_str(), rhs.c_str(), lhs.size()) == 0;
 }
 
 template <StringLike stringType, size_t allocatedSize>
@@ -1411,11 +1243,7 @@ constexpr bool operator==(const FixedString<allocatedSize> & lhs, const char * r
   if (lhs.empty())
     return *rhs == '\0';
 
-  if consteval {
-    return lhs.size() == std::char_traits<char>::length(rhs) && std::equal(lhs.c_str(), lhs.c_str() + lhs.size(), rhs);
-  } else {
-    return lhs.size() == std::strlen(rhs) && std::memcmp(lhs.c_str(), rhs, lhs.size()) == 0;
-  }
+  return lhs.size() == char_traits<char>::length(rhs) && char_traits<char>::compare(lhs.c_str(), rhs, lhs.size()) == 0;
 }
 
 template <size_t allocatedSize>
@@ -1424,19 +1252,19 @@ constexpr bool operator==(const char * lhs, const FixedString<allocatedSize> & r
 }
 
 template <size_t allocatedSize1, size_t allocatedSize2>
-constexpr std::strong_ordering operator<=>(const FixedString<allocatedSize1> & lhs,
-                                           const FixedString<allocatedSize2> & rhs) noexcept {
+constexpr strong_ordering operator<=>(const FixedString<allocatedSize1> & lhs,
+                                      const FixedString<allocatedSize2> & rhs) noexcept {
   if constexpr (allocatedSize1 == allocatedSize2) {
     if (std::addressof(lhs) == std::addressof(rhs))
-      return std::strong_ordering::equal;
+      return strong_ordering::equal;
   }
 
   if (lhs.empty() && rhs.empty())
-    return std::strong_ordering::equal;
+    return strong_ordering::equal;
   else if (lhs.empty())
-    return std::strong_ordering::less;
+    return strong_ordering::less;
   else if (rhs.empty())
-    return std::strong_ordering::greater;
+    return strong_ordering::greater;
 
   if consteval {
     return cstrcmp(lhs.c_str(), rhs.c_str()) <=> 0;
@@ -1444,28 +1272,28 @@ constexpr std::strong_ordering operator<=>(const FixedString<allocatedSize1> & l
     const int result = std::memcmp(lhs.c_str(), rhs.c_str(), std::min(lhs.size(), rhs.size()));
 
     if (result < 0)
-      return std::strong_ordering::less;
+      return strong_ordering::less;
     else if (result > 0)
-      return std::strong_ordering::greater;
+      return strong_ordering::greater;
     else {
       if (lhs.size() < rhs.size())
-        return std::strong_ordering::less;
+        return strong_ordering::less;
       else if (lhs.size() > rhs.size())
-        return std::strong_ordering::greater;
+        return strong_ordering::greater;
       else
-        return std::strong_ordering::equal;
+        return strong_ordering::equal;
     }
   }
 }
 
 template <size_t allocatedSize, StringLike stringType>
-constexpr std::strong_ordering operator<=>(const FixedString<allocatedSize> & lhs, const stringType & rhs) noexcept {
+constexpr strong_ordering operator<=>(const FixedString<allocatedSize> & lhs, const stringType & rhs) noexcept {
   if (lhs.empty() && rhs.size() == 0)
-    return std::strong_ordering::equal;
+    return strong_ordering::equal;
   else if (lhs.empty())
-    return std::strong_ordering::less;
+    return strong_ordering::less;
   else if (rhs.size() == 0)
-    return std::strong_ordering::greater;
+    return strong_ordering::greater;
 
   if consteval {
     return cstrcmp(lhs.c_str(), rhs.c_str()) <=> 0;
@@ -1473,59 +1301,54 @@ constexpr std::strong_ordering operator<=>(const FixedString<allocatedSize> & lh
     const int result = std::memcmp(lhs.c_str(), rhs.c_str(), std::min(lhs.size(), rhs.size()));
 
     if (result < 0)
-      return std::strong_ordering::less;
+      return strong_ordering::less;
     else if (result > 0)
-      return std::strong_ordering::greater;
+      return strong_ordering::greater;
     else {
       if (lhs.size() < rhs.size())
-        return std::strong_ordering::less;
+        return strong_ordering::less;
       else if (lhs.size() > rhs.size())
-        return std::strong_ordering::greater;
+        return strong_ordering::greater;
       else
-        return std::strong_ordering::equal;
+        return strong_ordering::equal;
     }
   }
 }
 
 template <StringLike stringType, size_t allocatedSize>
-constexpr std::strong_ordering operator<=>(const stringType & lhs, const FixedString<allocatedSize> & rhs) noexcept {
+constexpr strong_ordering operator<=>(const stringType & lhs, const FixedString<allocatedSize> & rhs) noexcept {
   return 0 <=> (rhs <=> lhs);
 }
 
 template <size_t allocatedSize>
-constexpr std::strong_ordering operator<=>(const FixedString<allocatedSize> & lhs, const char * rhs) noexcept {
+constexpr strong_ordering operator<=>(const FixedString<allocatedSize> & lhs, const char * rhs) noexcept {
   assert_message(rhs != nullptr, "C string must not be null");
 
   if (lhs.empty() && *rhs == '\0')
-    return std::strong_ordering::equal;
+    return strong_ordering::equal;
   else if (lhs.empty())
-    return std::strong_ordering::less;
+    return strong_ordering::less;
   else if (*rhs == '\0')
-    return std::strong_ordering::greater;
+    return strong_ordering::greater;
 
-  if consteval {
-    return cstrcmp(lhs.c_str(), rhs) <=> 0;
-  } else {
-    const auto rhsLen = std::strlen(rhs);
-    const auto result = std::memcmp(lhs.c_str(), rhs, std::min(lhs.size(), rhsLen));
-
-    if (result < 0)
-      return std::strong_ordering::less;
-    else if (result > 0)
-      return std::strong_ordering::greater;
-    else {
-      if (lhs.size() < rhsLen)
-        return std::strong_ordering::less;
-      else if (lhs.size() > rhsLen)
-        return std::strong_ordering::greater;
-      else
-        return std::strong_ordering::equal;
-    }
+  const auto rhsLen = char_traits<char>::length(rhs);
+  const int result = char_traits<char>::compare(lhs.c_str(), rhs, std::min(lhs.size(), rhsLen));
+  if (result < 0)
+    return strong_ordering::less;
+  else if (result > 0)
+    return strong_ordering::greater;
+  else {
+    if (lhs.size() < rhsLen)
+      return strong_ordering::less;
+    else if (lhs.size() > rhsLen)
+      return strong_ordering::greater;
+    else
+      return strong_ordering::equal;
   }
 }
 
 template <size_t allocatedSize>
-constexpr std::strong_ordering operator<=>(const char * lhs, const FixedString<allocatedSize> & rhs) noexcept {
+constexpr strong_ordering operator<=>(const char * lhs, const FixedString<allocatedSize> & rhs) noexcept {
   assert_message(lhs != nullptr, "C string must not be null");
 
   return 0 <=> (rhs <=> lhs);

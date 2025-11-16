@@ -22,6 +22,7 @@
 
 #include "app.hpp"
 
+using namespace toy;
 using namespace toy::app;
 
 TEST_CASE("Version constructors", "[app][version]") {
@@ -156,10 +157,10 @@ TEST_CASE("Version three-way comparison operator", "[app][version]") {
     constexpr Version v2{1, 2, 3, 4};
     constexpr auto result = v1 <=> v2;
 
-    REQUIRE(result == std::strong_ordering::equal);
+    REQUIRE(result == strong_ordering::equal);
 
     // Compile-time checks
-    STATIC_REQUIRE(result == std::strong_ordering::equal);
+    STATIC_REQUIRE(result == strong_ordering::equal);
   }
 
   SECTION("Major version comparison") {
@@ -167,19 +168,19 @@ TEST_CASE("Version three-way comparison operator", "[app][version]") {
     constexpr Version v2{2, 1, 1, 1};
     constexpr auto result = v1 <=> v2;
 
-    REQUIRE(result == std::strong_ordering::less);
+    REQUIRE(result == strong_ordering::less);
 
     // Compile-time checks
-    STATIC_REQUIRE(result == std::strong_ordering::less);
+    STATIC_REQUIRE(result == strong_ordering::less);
 
     constexpr Version v3{2, 1, 1, 1};
     constexpr Version v4{1, 2, 3, 4};
     constexpr auto result2 = v3 <=> v4;
 
-    REQUIRE(result2 == std::strong_ordering::greater);
+    REQUIRE(result2 == strong_ordering::greater);
 
     // Compile-time checks
-    STATIC_REQUIRE(result2 == std::strong_ordering::greater);
+    STATIC_REQUIRE(result2 == strong_ordering::greater);
   }
 
   SECTION("Minor version comparison") {
@@ -187,19 +188,19 @@ TEST_CASE("Version three-way comparison operator", "[app][version]") {
     constexpr Version v2{1, 3, 1, 1};
     constexpr auto result = v1 <=> v2;
 
-    REQUIRE(result == std::strong_ordering::less);
+    REQUIRE(result == strong_ordering::less);
 
     // Compile-time checks
-    STATIC_REQUIRE(result == std::strong_ordering::less);
+    STATIC_REQUIRE(result == strong_ordering::less);
 
     constexpr Version v3{1, 3, 1, 1};
     constexpr Version v4{1, 2, 3, 4};
     constexpr auto result2 = v3 <=> v4;
 
-    REQUIRE(result2 == std::strong_ordering::greater);
+    REQUIRE(result2 == strong_ordering::greater);
 
     // Compile-time checks
-    STATIC_REQUIRE(result2 == std::strong_ordering::greater);
+    STATIC_REQUIRE(result2 == strong_ordering::greater);
   }
 
   SECTION("Maintenance version comparison") {
@@ -207,19 +208,19 @@ TEST_CASE("Version three-way comparison operator", "[app][version]") {
     constexpr Version v2{1, 2, 4, 1};
     constexpr auto result = v1 <=> v2;
 
-    REQUIRE(result == std::strong_ordering::less);
+    REQUIRE(result == strong_ordering::less);
 
     // Compile-time checks
-    STATIC_REQUIRE(result == std::strong_ordering::less);
+    STATIC_REQUIRE(result == strong_ordering::less);
 
     constexpr Version v3{1, 2, 4, 1};
     constexpr Version v4{1, 2, 3, 4};
     constexpr auto result2 = v3 <=> v4;
 
-    REQUIRE(result2 == std::strong_ordering::greater);
+    REQUIRE(result2 == strong_ordering::greater);
 
     // Compile-time checks
-    STATIC_REQUIRE(result2 == std::strong_ordering::greater);
+    STATIC_REQUIRE(result2 == strong_ordering::greater);
   }
 
   SECTION("Revision version comparison") {
@@ -227,19 +228,19 @@ TEST_CASE("Version three-way comparison operator", "[app][version]") {
     constexpr Version v2{1, 2, 3, 5};
     constexpr auto result = v1 <=> v2;
 
-    REQUIRE(result == std::strong_ordering::less);
+    REQUIRE(result == strong_ordering::less);
 
     // Compile-time checks
-    STATIC_REQUIRE(result == std::strong_ordering::less);
+    STATIC_REQUIRE(result == strong_ordering::less);
 
     constexpr Version v3{1, 2, 3, 5};
     constexpr Version v4{1, 2, 3, 4};
     constexpr auto result2 = v3 <=> v4;
 
-    REQUIRE(result2 == std::strong_ordering::greater);
+    REQUIRE(result2 == strong_ordering::greater);
 
     // Compile-time checks
-    STATIC_REQUIRE(result2 == std::strong_ordering::greater);
+    STATIC_REQUIRE(result2 == strong_ordering::greater);
   }
 
   SECTION("Zero versions") {
@@ -247,10 +248,10 @@ TEST_CASE("Version three-way comparison operator", "[app][version]") {
     constexpr Version v2{0, 0, 0, 0};
     constexpr auto result = v1 <=> v2;
 
-    REQUIRE(result == std::strong_ordering::equal);
+    REQUIRE(result == strong_ordering::equal);
 
     // Compile-time checks
-    STATIC_REQUIRE(result == std::strong_ordering::equal);
+    STATIC_REQUIRE(result == strong_ordering::equal);
   }
 }
 

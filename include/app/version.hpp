@@ -143,10 +143,10 @@ struct Version {
   \param lhs The left-hand side version.
   \param rhs The right-hand side version.
 
-  \return std::strong_ordering::less if lhs < rhs, std::strong_ordering::greater if lhs > rhs,
-          std::strong_ordering::equal if lhs == rhs.
+  \return \c strong_ordering::less if lhs < rhs, \c strong_ordering::greater if lhs > rhs, \c strong_ordering::equal if
+          lhs == rhs.
 */
-[[nodiscard]] constexpr std::strong_ordering operator<=>(const Version & lhs, const Version & rhs) noexcept;
+[[nodiscard]] constexpr strong_ordering operator<=>(const Version & lhs, const Version & rhs) noexcept;
 
 } // namespace toy::app
 

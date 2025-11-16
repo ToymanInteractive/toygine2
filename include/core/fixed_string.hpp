@@ -2213,8 +2213,8 @@ template <size_t allocatedSize>
 /*!
   \brief Three-way comparison operator for FixedString objects.
 
-  This operator provides a three-way comparison between two FixedString objects. It returns a std::strong_ordering value
-  that indicates the relationship between the strings.
+  This operator provides a three-way comparison between two FixedString objects. It returns a strong_ordering value that
+  indicates the relationship between the strings.
 
   \tparam allocatedSize1 The size of the first FixedString's internal buffer.
   \tparam allocatedSize2 The size of the second FixedString's internal buffer.
@@ -2222,25 +2222,24 @@ template <size_t allocatedSize>
   \param lhs The left-hand side FixedString object to compare.
   \param rhs The right-hand side FixedString object to compare.
 
-  \return std::strong_ordering::less if \a lhs is lexicographically less than \a rhs, std::strong_ordering::equal if
-          they are equal, or std::strong_ordering::greater if \a lhs is lexicographically greater than \a rhs.
+  \return \c strong_ordering::less if \a lhs is lexicographically less than \a rhs, \c strong_ordering::equal if they
+          are equal, or \c strong_ordering::greater if \a lhs is lexicographically greater than \a rhs.
 
   \note The comparison is case-sensitive.
   \note The comparison is performed lexicographically character by character.
   \note Empty strings are considered equal.
 
-  \see std::strong_ordering
   \see operator==(const FixedString<allocatedSize1> &, const FixedString<allocatedSize2> &)
 */
 template <size_t allocatedSize1, size_t allocatedSize2>
-[[nodiscard]] constexpr std::strong_ordering operator<=>(const FixedString<allocatedSize1> & lhs,
-                                                         const FixedString<allocatedSize2> & rhs) noexcept;
+[[nodiscard]] constexpr strong_ordering operator<=>(const FixedString<allocatedSize1> & lhs,
+                                                    const FixedString<allocatedSize2> & rhs) noexcept;
 
 /*!
   \brief Three-way comparison operator for FixedString and StringLike object.
 
   This operator provides a three-way comparison between a FixedString object and a StringLike object. It returns a
-  std::strong_ordering value that indicates the relationship between the strings.
+  strong_ordering value that indicates the relationship between the strings.
 
   \tparam allocatedSize The size of the FixedString's internal buffer.
   \tparam stringType The type of the StringLike object. Must satisfy the StringLike concept.
@@ -2248,25 +2247,24 @@ template <size_t allocatedSize1, size_t allocatedSize2>
   \param lhs The FixedString object to compare.
   \param rhs The StringLike object to compare.
 
-  \return std::strong_ordering::less if \a lhs is lexicographically less than \a rhs, std::strong_ordering::equal if
-          they are equal, or std::strong_ordering::greater if \a lhs is lexicographically greater than \a rhs.
+  \return \c strong_ordering::less if \a lhs is lexicographically less than \a rhs, \c strong_ordering::equal if they
+          are equal, or \c strong_ordering::greater if \a lhs is lexicographically greater than \a rhs.
 
   \note The comparison is case-sensitive.
   \note The comparison is performed lexicographically character by character.
   \note Empty strings are considered equal.
 
-  \see std::strong_ordering
   \see operator==(const FixedString<allocatedSize> &, const stringType &)
 */
 template <size_t allocatedSize, StringLike stringType>
-[[nodiscard]] constexpr std::strong_ordering operator<=>(const FixedString<allocatedSize> & lhs,
-                                                         const stringType & rhs) noexcept;
+[[nodiscard]] constexpr strong_ordering operator<=>(const FixedString<allocatedSize> & lhs,
+                                                    const stringType & rhs) noexcept;
 
 /*!
   \brief Three-way comparison operator for StringLike object and FixedString.
 
   This operator provides a three-way comparison between a StringLike object and a FixedString object. It returns a
-  std::strong_ordering value that indicates the relationship between the strings.
+  strong_ordering value that indicates the relationship between the strings.
 
   \tparam stringType The type of the StringLike object. Must satisfy the StringLike concept.
   \tparam allocatedSize The size of the FixedString's internal buffer.
@@ -2274,33 +2272,32 @@ template <size_t allocatedSize, StringLike stringType>
   \param lhs The StringLike object to compare.
   \param rhs The FixedString object to compare.
 
-  \return std::strong_ordering::less if \a lhs is lexicographically less than \a rhs, std::strong_ordering::equal if
-          they are equal, or std::strong_ordering::greater if \a lhs is lexicographically greater than \a rhs.
+  \return \c strong_ordering::less if \a lhs is lexicographically less than \a rhs, \c strong_ordering::equal if they
+          are equal, or \c strong_ordering::greater if \a lhs is lexicographically greater than \a rhs.
 
   \note The comparison is case-sensitive.
   \note The comparison is performed lexicographically character by character.
   \note Empty strings are considered equal.
 
-  \see std::strong_ordering
   \see operator==(const stringType &, const FixedString<allocatedSize> &)
 */
 template <StringLike stringType, size_t allocatedSize>
-[[nodiscard]] constexpr std::strong_ordering operator<=>(const stringType & lhs,
-                                                         const FixedString<allocatedSize> & rhs) noexcept;
+[[nodiscard]] constexpr strong_ordering operator<=>(const stringType & lhs,
+                                                    const FixedString<allocatedSize> & rhs) noexcept;
 
 /*!
   \brief Three-way comparison operator for FixedString and C string.
 
   This operator provides a three-way comparison between a FixedString object and a C string. It returns a
-  std::strong_ordering value that indicates the relationship between the strings.
+  strong_ordering value that indicates the relationship between the strings.
 
   \tparam allocatedSize The size of the FixedString's internal buffer.
 
   \param lhs The FixedString object to compare.
   \param rhs The C string to compare.
 
-  \return std::strong_ordering::less if \a lhs is lexicographically less than \a rhs, std::strong_ordering::equal if
-          they are equal, or std::strong_ordering::greater if \a lhs is lexicographically greater than \a rhs.
+  \return \c strong_ordering::less if \a lhs is lexicographically less than \a rhs, \c strong_ordering::equal if they
+          are equal, or \c strong_ordering::greater if \a lhs is lexicographically greater than \a rhs.
 
   \pre The \a rhs pointer must not be null.
 
@@ -2308,26 +2305,24 @@ template <StringLike stringType, size_t allocatedSize>
   \note The comparison is performed lexicographically character by character.
   \note Empty strings are considered equal.
 
-  \see std::strong_ordering
   \see operator==(const FixedString<allocatedSize> &, const char *)
 */
 template <size_t allocatedSize>
-[[nodiscard]] constexpr std::strong_ordering operator<=>(const FixedString<allocatedSize> & lhs,
-                                                         const char * rhs) noexcept;
+[[nodiscard]] constexpr strong_ordering operator<=>(const FixedString<allocatedSize> & lhs, const char * rhs) noexcept;
 
 /*!
   \brief Three-way comparison operator for C string and FixedString.
 
   This operator provides a three-way comparison between a C string and a FixedString object. It returns a
-  std::strong_ordering value that indicates the relationship between the strings.
+  strong_ordering value that indicates the relationship between the strings.
 
   \tparam allocatedSize The size of the FixedString's internal buffer.
 
   \param lhs The C string to compare.
   \param rhs The FixedString object to compare.
 
-  \return std::strong_ordering::less if \a lhs is lexicographically less than \a rhs, std::strong_ordering::equal if
-          they are equal, or std::strong_ordering::greater if \a lhs is lexicographically greater than \a rhs.
+  \return \c strong_ordering::less if \a lhs is lexicographically less than \a rhs, \c strong_ordering::equal if they
+          are equal, or \c strong_ordering::greater if \a lhs is lexicographically greater than \a rhs.
 
   \pre The \a lhs pointer must not be null.
 
@@ -2335,12 +2330,10 @@ template <size_t allocatedSize>
   \note The comparison is performed lexicographically character by character.
   \note Empty strings are considered equal.
 
-  \see std::strong_ordering
   \see operator==(const char *, const FixedString<allocatedSize> &)
 */
 template <size_t allocatedSize>
-[[nodiscard]] constexpr std::strong_ordering operator<=>(const char * lhs,
-                                                         const FixedString<allocatedSize> & rhs) noexcept;
+[[nodiscard]] constexpr strong_ordering operator<=>(const char * lhs, const FixedString<allocatedSize> & rhs) noexcept;
 
 } // namespace toy
 
