@@ -1,11 +1,11 @@
 var c__string__view_8hpp =
 [
     [ "toy::CStringView", "d5/d03/classtoy_1_1_c_string_view.html", "d5/d03/classtoy_1_1_c_string_view" ],
-    [ "toy::operator<=>", "d4/da9/namespacetoy.html#ab856389c5db41137391343498eb280a2", null ],
-    [ "toy::operator<=>", "d4/da9/namespacetoy.html#ad9aa91580633549a095c7ba702bee9d9", null ],
-    [ "toy::operator<=>", "d4/da9/namespacetoy.html#af959d0dc5fc118ec5c65f27143180021", null ],
-    [ "toy::operator<=>", "d4/da9/namespacetoy.html#a2571fe89aa51139ddbb04bc1fdd0585c", null ],
-    [ "toy::operator<=>", "d4/da9/namespacetoy.html#ac327b00da21b55bf3cd1817280a52315", null ],
+    [ "toy::operator<=>", "d4/da9/namespacetoy.html#ae9067c36a0df934378e09747294794fa", null ],
+    [ "toy::operator<=>", "d4/da9/namespacetoy.html#a61aed9a20d32f82b04985afb975ac0a5", null ],
+    [ "toy::operator<=>", "d4/da9/namespacetoy.html#a689f0ea157c502afb3071ee597f7cbb7", null ],
+    [ "toy::operator<=>", "d4/da9/namespacetoy.html#a13522125ac864b6c004cfe6630b0c4e8", null ],
+    [ "toy::operator<=>", "d4/da9/namespacetoy.html#a7ebd1701000ec278b1d8c07321ab648f", null ],
     [ "toy::operator==", "d4/da9/namespacetoy.html#a71f575fa58def2abe56c129ff51a3696", null ],
     [ "toy::operator==", "d4/da9/namespacetoy.html#a3761711b53e204a0f2871764d435fd35", null ],
     [ "toy::operator==", "d4/da9/namespacetoy.html#a3a8c65476e352b7f64a0bf15ddc87747", null ],

@@ -237,7 +237,7 @@ var NAVTREEINDEX2 =
 "dc/d74/nds_2platform__config_8hpp_source.html":[5,0,1,1,5,0],
 "dc/df3/namespacetoy_1_1app.html":[2,0,0,0],
 "dc/df3/namespacetoy_1_1app.html#a59a8db7ab2490402a962f92c1b7e055e":[2,0,0,0,2],
-"dc/df3/namespacetoy_1_1app.html#acbce97348cb2e4b53f77a8539befcccb":[2,0,0,0,1],
+"dc/df3/namespacetoy_1_1app.html#accd3d4d4c107af42972b37be954d25b7":[2,0,0,0,1],
 "dd/d53/vector2d_8inl.html":[5,0,0,2,3],
 "dd/d53/vector2d_8inl_source.html":[5,0,0,2,3],
 "dd/d8e/hashes_8hpp.html":[5,0,0,1,10],
