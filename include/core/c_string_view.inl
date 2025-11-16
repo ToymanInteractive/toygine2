@@ -523,7 +523,7 @@ constexpr strong_ordering operator<=>(const CStringView & lhs, const stringType 
 
 template <StringLike stringType>
 constexpr strong_ordering operator<=>(const stringType & lhs, const CStringView & rhs) noexcept {
-  return 0 <=> (rhs <=> lhs);
+  return CStringView(lhs.c_str()) <=> rhs;
 }
 
 constexpr strong_ordering operator<=>(const CStringView & lhs, const char * rhs) noexcept {
