@@ -27,6 +27,6 @@ jobs:
         run: |
           bash tools/builder/check_code_format.sh
       - name: Check format of markdown files
-        uses: DavidAnson/markdownlint-cli2-action@v20
+        uses: DavidAnson/markdownlint-cli2-action@v21
         with:
           globs: '**/*.md'
