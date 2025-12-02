@@ -27,6 +27,17 @@
 
 namespace toy {
 
+template <size_t allocatedSize>
+struct FixedStringStorage {
+  static_assert(allocatedSize > 0, "FixedStringStorage capacity must be greater than zero.");
+
+  /// Internal character buffer storing the storage data
+  char buffer[allocatedSize] = {'\0'};
+
+  /// Current number of characters in the storage (excluding null terminator)
+  size_t size = 0;
+};
+
 /*!
   \class FixedString
   \brief Template string class with fixed-size character buffer.
@@ -102,32 +113,53 @@ class FixedString {
   static_assert(allocatedSize > 0, "FixedString capacity must be greater than zero.");
 
 public:
+  using value_type = char; //!< Type of characters stored in the string.
+
+  using size_type = size_t; //!< Type used for string size and capacity.
+  using difference_type = std::ptrdiff_t; //!< Type used for pointer differences.
+
+  using reference = value_type &; //!< Reference to string character.
+  using const_reference = const value_type &; //!< Const reference to string character.
+
+  using pointer = value_type *; //!< Pointer to string character.
+  using const_pointer = const value_type *; //!< Const pointer to string character.
+
+  using iterator = value_type *; //!< Iterator type for string characters.
+  using const_iterator = const value_type *; //!< Const iterator type for string characters.
+
+  //! Reverse iterator type for string characters.
+  using reverse_iterator = std::reverse_iterator<iterator>;
+  //! Const reverse iterator type for string characters.
+  using const_reverse_iterator = std::reverse_iterator<const_iterator>;
+
   /*!
     \brief Default constructor.
 
     \post The string is empty and ready for use.
   */
-  constexpr FixedString() noexcept;
+  constexpr FixedString() noexcept = default;
 
   /*!
     \brief Destructor for the fixed string.
-
-    \note Since the FixedString does not manage dynamic memory, no special cleanup is required.
   */
   constexpr ~FixedString() noexcept = default;
 
   /*!
-    \brief Constructs a copy of \a string.
+    \brief Constructs a string of the given \a count of \a character.
 
-    This constructor initializes a string by copying the content from another \a string.
+    This constructor initializes a string with a \a character repeated the given \a count of times.
 
-    \param string The source string to copy content from.
+    \param count     The number of times to repeat the \a character.
+    \param character The character to repeat.
 
-    \pre The source \a string must be valid and properly initialized.
+    \pre The \a count must not exceed the allocated size.
 
-    \post The new string has the same size as the source \a string.
+    \post The new string is created with the contents of the \a character repeated the given \a count of times.
+    \post The string size equals the \a count.
+
+    \note This is useful for creating strings with repeated patterns or filling with specific characters.
   */
-  constexpr FixedString(const FixedString<allocatedSize> & string) noexcept;
+  constexpr FixedString(size_type count, char character) noexcept;
 
   /*!
     \brief Constructs a string initialized with a StringLike object.
@@ -159,23 +191,6 @@ public:
     \post The new string is created with the contents of the source C \a string.
   */
   constexpr explicit FixedString(const char * string) noexcept;
-
-  /*!
-    \brief Constructs a string of the given \a count of \a character.
-
-    This constructor initializes a string with a \a character repeated the given \a count of times.
-
-    \param character The character to repeat.
-    \param count     The number of times to repeat the \a character (default: \c 1).
-
-    \pre The \a count must not exceed the allocated size.
-
-    \post The new string is created with the contents of the \a character repeated the given \a count of times.
-    \post The string size equals the \a count.
-
-    \note This is useful for creating strings with repeated patterns or filling with specific characters.
-  */
-  constexpr explicit FixedString(char character, size_t count = 1) noexcept;
 
   /*!
     \brief Copy assigns other \a string to this string.
@@ -1962,10 +1977,7 @@ private:
   constexpr size_t _find_last_not_of_raw(size_t position, const char * data, size_t dataSize) const noexcept;
 
   /// Internal character buffer storing the string data
-  char _data[allocatedSize];
-
-  /// Current number of characters in the string (excluding null terminator)
-  size_t _size;
+  FixedStringStorage<allocatedSize> _storage;
 };
 
 /*!

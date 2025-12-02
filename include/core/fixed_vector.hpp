@@ -41,10 +41,9 @@ public:
   using pointer = type *; //!< Pointer to vector element.
   using const_pointer = const type *; //!< Const pointer to vector element.
 
-  //! Iterator type for vector elements.
-  using iterator = value_type *;
-  //! Const iterator type for vector elements.
-  using const_iterator = const value_type *;
+  using iterator = value_type *; //!< Iterator type for vector elements.
+  using const_iterator = const value_type *; //!< Const iterator type for vector elements.
+
   //! Reverse iterator type for vector elements.
   using reverse_iterator = std::reverse_iterator<iterator>;
   //! Const reverse iterator type for vector elements.
