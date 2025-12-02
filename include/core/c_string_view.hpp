@@ -1041,10 +1041,10 @@ public:
   friend constexpr bool operator==(const char * lhs, const CStringView & rhs) noexcept;
 
   /*!
-    \brief Three-way comparison operator for CStringView objects.
+    \brief Three-way comparison operator for two CStringView objects.
 
-    This operator provides a three-way comparison between two CStringView objects. It returns a strong_ordering value
-    that indicates the relationship between the string views.
+    This operator provides a three-way comparison between two CStringView objects. It returns a strong_ordering value that
+    indicates the relationship between the string views.
 
     \param lhs The left-hand side CStringView object to compare.
     \param rhs The right-hand side CStringView object to compare.

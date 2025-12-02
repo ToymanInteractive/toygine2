@@ -99,10 +99,10 @@ TEST_CASE("FixedString constructors", "[core][fixed_string]") {
   }
 
   SECTION("Character constructor") {
-    constexpr FixedString<16> single('A');
-    constexpr FixedString<32> multiple('B', 5);
-    constexpr FixedString<8> many('C', 7);
-    constexpr FixedString<64> empty('D', 0);
+    constexpr FixedString<16> single(1, 'A');
+    constexpr FixedString<32> multiple(5, 'B');
+    constexpr FixedString<8> many(7, 'C');
+    constexpr FixedString<64> empty(0, 'D');
 
     REQUIRE(single.size() == 1);
     REQUIRE(std::strcmp(single.c_str(), "A") == 0);
@@ -4767,14 +4767,14 @@ TEST_CASE("FixedString find", "[core][fixed_string]") {
     REQUIRE(testString.find(FixedString<32>("World")) == 6);
     REQUIRE(testString.find(FixedString<32>("Hello")) == 0);
     REQUIRE(testString.find(FixedString<32>("lo Wo")) == 3);
-    REQUIRE(testString.find(FixedString<32>(' ')) == 5);
+    REQUIRE(testString.find(FixedString<32>(" ")) == 5);
     REQUIRE(testString.find(FixedString<32>("xyz")) == FixedString<32>::npos);
 
     // Compile-time checks
     STATIC_REQUIRE(testString.find(FixedString<32>("World")) == 6);
     STATIC_REQUIRE(testString.find(FixedString<32>("Hello")) == 0);
     STATIC_REQUIRE(testString.find(FixedString<32>("lo Wo")) == 3);
-    STATIC_REQUIRE(testString.find(FixedString<32>(' ')) == 5);
+    STATIC_REQUIRE(testString.find(FixedString<32>(" ")) == 5);
     STATIC_REQUIRE(testString.find(FixedString<32>("xyz")) == FixedString<32>::npos);
   }
 
