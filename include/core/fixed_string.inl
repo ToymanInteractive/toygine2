@@ -44,7 +44,7 @@ constexpr FixedString<allocatedSize>::FixedString(size_type count, char characte
 template <size_t allocatedSize>
 template <StringLike stringType>
 constexpr FixedString<allocatedSize>::FixedString(const stringType & string) noexcept {
-  assert_message(_storage.size < allocatedSize, "String size must not exceed capacity");
+  assert_message(string.size() < allocatedSize, "String size must not exceed capacity");
 
   _storage.size = string.size();
 
