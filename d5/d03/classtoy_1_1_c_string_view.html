@@ -277,7 +277,7 @@ Friends</h2></td></tr>
 <tr class="memitem:ab799b965b3feaa3c80dc38e6296744e5" id="r_ab799b965b3feaa3c80dc38e6296744e5"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab799b965b3feaa3c80dc38e6296744e5">operator==</a> (const char *lhs, const <a class="el" href="#af79d918dedd06e2c2b99fe920962d64d">CStringView</a> &amp;rhs)</td></tr>
 <tr class="memdesc:ab799b965b3feaa3c80dc38e6296744e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equality comparison operator for C string and <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a>.  <br /></td></tr>
 <tr class="memitem:aa768a7b7f720466490f0ff8db015b605" id="r_aa768a7b7f720466490f0ff8db015b605"><td class="memItemLeft" align="right" valign="top">constexpr strong_ordering&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa768a7b7f720466490f0ff8db015b605">operator&lt;=&gt;</a> (const <a class="el" href="#af79d918dedd06e2c2b99fe920962d64d">CStringView</a> &amp;lhs, const <a class="el" href="#af79d918dedd06e2c2b99fe920962d64d">CStringView</a> &amp;rhs)</td></tr>
-<tr class="memdesc:aa768a7b7f720466490f0ff8db015b605"><td class="mdescLeft">&#160;</td><td class="mdescRight">Three-way comparison operator for <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> objects.  <br /></td></tr>
+<tr class="memdesc:aa768a7b7f720466490f0ff8db015b605"><td class="mdescLeft">&#160;</td><td class="mdescRight">Three-way comparison operator for two <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> objects.  <br /></td></tr>
 <tr class="memitem:aec73450f59b93644f6e14917ea1654bc" id="r_aec73450f59b93644f6e14917ea1654bc"><td class="memTemplParams" colspan="2">template&lt;StringLike stringType&gt; </td></tr>
 <tr class="memitem:aec73450f59b93644f6e14917ea1654bc template"><td class="memItemLeft" align="right" valign="top">constexpr strong_ordering&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aec73450f59b93644f6e14917ea1654bc">operator&lt;=&gt;</a> (const <a class="el" href="#af79d918dedd06e2c2b99fe920962d64d">CStringView</a> &amp;lhs, const stringType &amp;rhs)</td></tr>
 <tr class="memdesc:aec73450f59b93644f6e14917ea1654bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Three-way comparison operator for <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> and <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">StringLike</a> object.  <br /></td></tr>
@@ -2835,7 +2835,7 @@ Empty strings are considered equal.</dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p>Three-way comparison operator for <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> objects. </p>
+<p>Three-way comparison operator for two <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> objects. </p>
 <p>This operator provides a three-way comparison between two <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> objects. It returns a strong_ordering value that indicates the relationship between the string views.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -3092,7 +3092,7 @@ Empty strings are considered equal.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The comparison is case-sensitive. </dd>
 <dd>
 Empty string views are considered equal.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="#aa768a7b7f720466490f0ff8db015b605" title="Three-way comparison operator for CStringView objects.">operator&lt;=&gt;(const CStringView &amp;, const CStringView &amp;)</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#aa768a7b7f720466490f0ff8db015b605" title="Three-way comparison operator for two CStringView objects.">operator&lt;=&gt;(const CStringView &amp;, const CStringView &amp;)</a> </dd></dl>
 
 </div>
 </div>

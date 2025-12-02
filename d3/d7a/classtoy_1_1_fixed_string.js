@@ -1,11 +1,21 @@
 var classtoy_1_1_fixed_string =
 [
-    [ "FixedString", "d3/d7a/classtoy_1_1_fixed_string.html#a3ec6973dae756a4635aef824baa0be9f", null ],
+    [ "const_iterator", "d3/d7a/classtoy_1_1_fixed_string.html#ac96a63a5b42f04cd0b95ad9ea177ebf2", null ],
+    [ "const_pointer", "d3/d7a/classtoy_1_1_fixed_string.html#af0590cf259faacbb2999219c71d248cd", null ],
+    [ "const_reference", "d3/d7a/classtoy_1_1_fixed_string.html#a9d66437fa1cf74987dda6274667e5dcd", null ],
+    [ "const_reverse_iterator", "d3/d7a/classtoy_1_1_fixed_string.html#a5db4f8a91e20c67cd6cfdaa0f295d810", null ],
+    [ "difference_type", "d3/d7a/classtoy_1_1_fixed_string.html#af0a932d6255074d2eeb76fe6264b8598", null ],
+    [ "iterator", "d3/d7a/classtoy_1_1_fixed_string.html#ac3563d4d3cc0bdf600e93258c7620235", null ],
+    [ "pointer", "d3/d7a/classtoy_1_1_fixed_string.html#a1bc62052d551277ac99f014b6adf6611", null ],
+    [ "reference", "d3/d7a/classtoy_1_1_fixed_string.html#ada28d35679418f1becf6b15790aa14fa", null ],
+    [ "reverse_iterator", "d3/d7a/classtoy_1_1_fixed_string.html#ad5e05bea8cca36660cfc19a061435405", null ],
+    [ "size_type", "d3/d7a/classtoy_1_1_fixed_string.html#a45c1ee3b58eac68636bc64d12e66cb39", null ],
+    [ "value_type", "d3/d7a/classtoy_1_1_fixed_string.html#ab6e6024e5b0be04a1757987e76e7bc64", null ],
+    [ "FixedString", "d3/d7a/classtoy_1_1_fixed_string.html#a44fdfe5e1658ec2f72943c72ced11f36", null ],
     [ "~FixedString", "d3/d7a/classtoy_1_1_fixed_string.html#a98d7d5a78401b79437b808d6fb40c682", null ],
-    [ "FixedString", "d3/d7a/classtoy_1_1_fixed_string.html#a48cbd35d56b3d1fadc02029881ef7a74", null ],
+    [ "FixedString", "d3/d7a/classtoy_1_1_fixed_string.html#adf1ec74de29144993eb7806c1e05a6d3", null ],
     [ "FixedString", "d3/d7a/classtoy_1_1_fixed_string.html#a3e6bf6517c287249c3afc8feb87dd785", null ],
     [ "FixedString", "d3/d7a/classtoy_1_1_fixed_string.html#a0160e6ffc7ab6ab9c16f72b81bd778a7", null ],
-    [ "FixedString", "d3/d7a/classtoy_1_1_fixed_string.html#a681d98f567783ea15785f06358382932", null ],
     [ "_append_raw", "d3/d7a/classtoy_1_1_fixed_string.html#a9d4505391a92612d3dd997fc2a6d7e1f", null ],
     [ "_find_first_not_of_raw", "d3/d7a/classtoy_1_1_fixed_string.html#ae43ee0d0f93d4ab49e79f55ce950d5ad", null ],
     [ "_find_first_of_raw", "d3/d7a/classtoy_1_1_fixed_string.html#a012569deed8e88ed9955736d9bda4cc4", null ],
@@ -103,7 +113,6 @@ var classtoy_1_1_fixed_string =
     [ "swap", "d3/d7a/classtoy_1_1_fixed_string.html#a0d6b3d27deeefe85c8422cff605adcbc", null ],
     [ "utf8_pop_back", "d3/d7a/classtoy_1_1_fixed_string.html#aca80fc41b7a1fbf52786e1c66f837977", null ],
     [ "utf8_size", "d3/d7a/classtoy_1_1_fixed_string.html#a72efed1a713479fd77505ede267a2d33", null ],
-    [ "_data", "d3/d7a/classtoy_1_1_fixed_string.html#ab15c6d6e2602f732ee7feb05cd7bb5d1", null ],
-    [ "_size", "d3/d7a/classtoy_1_1_fixed_string.html#a8a7cd9c17ecb7d0be1562005f52a5b55", null ],
+    [ "_storage", "d3/d7a/classtoy_1_1_fixed_string.html#a05a98b03a4e564ea5a5f26dfae56a048", null ],
     [ "npos", "d3/d7a/classtoy_1_1_fixed_string.html#aa67281adc0c101c3619fed8ff618ac6a", null ]
 ];
