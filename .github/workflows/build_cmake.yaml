@@ -29,15 +29,20 @@ jobs:
             run_test: "true"
             cmake_preset: macos-ninja-release
 
+          - name: Windows MSVC x86
+            os: windows-2025
+            run_test: "true"
+            cmake_preset: windows-msvc-x86
+
           - name: Windows MSVC
             os: windows-2025
             run_test: "true"
             cmake_preset: windows-msvc
 
-          - name: Windows MSVC x86
-            os: windows-2025
+          - name: Windows MSVC AArch64
+            os: windows-11-arm
             run_test: "true"
-            cmake_preset: windows-msvc-x86
+            cmake_preset: windows-msvc
 
           - name: DevkitPro GBA
             os: ubuntu-latest
