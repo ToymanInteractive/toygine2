@@ -321,7 +321,7 @@ jobs:
         run: |
           cmake -DTOYGINE_BUILD_TESTS=ON --preset linux-ninja-debug
 
-      - uses: SonarSource/sonarqube-scan-action@v6.0.0
+      - uses: SonarSource/sonarqube-scan-action@v7.0.0
         with:
           args: >-
             -Dsonar.cfamily.compile-commands=out/build/linux-ninja-debug/compile_commands.json
