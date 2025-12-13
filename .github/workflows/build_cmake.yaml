@@ -14,18 +14,33 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - name: Linux Ninja
+          - name: Linux Ninja x64
             os: ubuntu-24.04
             run_test: "true"
             cmake_preset: linux-ninja-release
 
-          - name: macOS XCode
+          - name: Linux Ninja arm64
+            os: ubuntu-24.04-arm
+            run_test: "true"
+            cmake_preset: linux-ninja-release
+
+          - name: macOS XCode arm64
             os: macos-15
             run_test: "true"
             cmake_preset: macos-xcode
 
-          - name: macOS Ninja
+          - name: macOS Ninja arm64
             os: macos-15
+            run_test: "true"
+            cmake_preset: macos-ninja-release
+
+          - name: macOS XCode Intel
+            os: macos-15-intel
+            run_test: "true"
+            cmake_preset: macos-xcode
+
+          - name: macOS Ninja Intel
+            os: macos-15-intel
             run_test: "true"
             cmake_preset: macos-ninja-release
 
@@ -36,11 +51,6 @@ jobs:
 
           - name: Windows MSVC
             os: windows-2025
-            run_test: "true"
-            cmake_preset: windows-msvc
-
-          - name: Windows MSVC AArch64
-            os: windows-11-arm
             run_test: "true"
             cmake_preset: windows-msvc
 
