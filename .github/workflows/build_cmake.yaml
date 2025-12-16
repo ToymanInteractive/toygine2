@@ -247,7 +247,7 @@ jobs:
           ctest --preset linux-ninja-debug
 
       - name: Upload JUnit report to Codecov
-        uses: codecov/test-results-action@v1.1.1
+        uses: codecov/test-results-action@v1.2.1
         with:
           files: out/junit/linux-ninja-debug.xml
           flags: units
