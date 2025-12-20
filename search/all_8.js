@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['hashes_2ecpp_0',['hashes.cpp',['../db/d2d/hashes_8cpp.html',1,'']]],
-  ['hashes_2ehpp_1',['hashes.hpp',['../dd/d8e/hashes_8hpp.html',1,'']]]
+  ['general_20coding_20principles_0',['General Coding Principles',['../d2/d77/md__8instructions.html#general-coding-principles',1,'']]],
+  ['guarantees_1',['Safety Guarantees',['../d9/d85/classtoy_1_1math_1_1_vector2_d.html#safety',1,'']]]
 ];

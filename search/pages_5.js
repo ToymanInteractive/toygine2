@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['performance_20characteristics_0',['Performance Characteristics',['../d9/d85/classtoy_1_1math_1_1_vector2_d.html#performance',1,'']]]
+  ['instructions_0',['Repository AI Instructions',['../d2/d77/md__8instructions.html',1,'']]]
 ];

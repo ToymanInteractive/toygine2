@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['usage_20example_0',['Usage Example',['../d9/d85/classtoy_1_1math_1_1_vector2_d.html#usage',1,'']]]
+  ['repository_20ai_20instructions_0',['Repository AI Instructions',['../d2/d77/md__8instructions.html',1,'']]],
+  ['requirements_1',['Requirements',['../index.html#requirements',1,'']]]
 ];

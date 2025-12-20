@@ -30,6 +30,11 @@ var NAVTREE =
       [ "Supported C++ compilers", "index.html#supported-c-compilers", null ],
       [ "Tools", "index.html#tools", null ]
     ] ],
+    [ "Repository AI Instructions", "d2/d77/md__8instructions.html", [
+      [ "Project Context", "d2/d77/md__8instructions.html#project-context", null ],
+      [ "General Coding Principles", "d2/d77/md__8instructions.html#general-coding-principles", null ],
+      [ "Language and Standard", "d2/d77/md__8instructions.html#language-and-standard", null ]
+    ] ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [
@@ -64,9 +69,9 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"d3/d7a/classtoy_1_1_fixed_string.html#ae2773eb44a0dcd5301f41dc1b0f776af",
-"d5/d03/classtoy_1_1_c_string_view.html#ade7a652f601a4fb2bded6aaeeb01bd3e",
-"da/d47/core_8hpp.html#a014b03e21ccae2451f28ca938128f998"
+"d3/d7a/classtoy_1_1_fixed_string.html#adf1ec74de29144993eb7806c1e05a6d3",
+"d5/d03/classtoy_1_1_c_string_view.html#adb54f0951dc63d5cc1466ae61e941df5",
+"d9/d85/classtoy_1_1math_1_1_vector2_d.html#ae8a67041bf158f94d6e5376685030763"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

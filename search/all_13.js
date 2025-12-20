@@ -1,10 +1,22 @@
 var searchData=
 [
-  ['tools_0',['Tools',['../index.html#tools',1,'']]],
-  ['toy_1',['toy',['../d4/da9/namespacetoy.html',1,'']]],
-  ['toy_3a_3aapp_2',['app',['../dc/df3/namespacetoy_1_1app.html',1,'toy']]],
-  ['toy_3a_3aassertion_3',['assertion',['../d2/da2/namespacetoy_1_1assertion.html',1,'toy']]],
-  ['toy_3a_3amath_4',['math',['../d2/d83/namespacetoy_1_1math.html',1,'toy']]],
-  ['toy_5funused_5',['TOY_UNUSED',['../da/d47/core_8hpp.html#a6c25f2c5b6e99783e32a4eb8258eb2f6',1,'core.hpp']]],
-  ['toygine2_6',['ToyGine2',['../index.html',1,'']]]
+  ['s_5fassertioncallback_0',['s_assertionCallback',['../d2/da2/namespacetoy_1_1assertion.html#abf0c95a6d0312b84decc08fc040187c9',1,'toy::assertion']]],
+  ['safety_20guarantees_1',['Safety Guarantees',['../d9/d85/classtoy_1_1math_1_1_vector2_d.html#safety',1,'']]],
+  ['setcallbacks_2',['setCallbacks',['../d2/da2/namespacetoy_1_1assertion.html#ab92066b98ab69bcf7db8e1089ea4f755',1,'toy::assertion::setCallbacks(AssertionCallback assertionCallback, StackWalkCallback stackWalkCallback)'],['../d2/da2/namespacetoy_1_1assertion.html#a110a4b7692805ebe9ffdaddcf1cab402',1,'toy::assertion::setCallbacks(AssertionCallback assertionCallback, StackWalkCallback TOY_UNUSED(stackWalkCallback))']]],
+  ['setzero_3',['setZero',['../d3/dce/classtoy_1_1math_1_1_point.html#a6abe66bb39eead8a572c4275c8b87c09',1,'toy::math::Point::setZero()'],['../d9/d85/classtoy_1_1math_1_1_vector2_d.html#ab48c54624d9c924f38bbbdc8c3f8bc49',1,'toy::math::Vector2D::setZero()']]],
+  ['size_4',['size',['../d5/d3b/structtoy_1_1_fixed_string_storage.html#a6449cdbdbfea41d537cdfd7bb2ffc504',1,'toy::FixedStringStorage::size'],['../d5/d03/classtoy_1_1_c_string_view.html#a56455f7c7872e005bae0bd9f37f8d188',1,'toy::CStringView::size()'],['../d3/d7a/classtoy_1_1_fixed_string.html#a4da35d380d8f7f7aa57f3e425df21f77',1,'toy::FixedString::size()'],['../d7/dec/classtoy_1_1_fixed_vector.html#a4b06d64f626a2130dae81662061f1488',1,'toy::FixedVector::size()']]],
+  ['size_5ftype_5',['size_type',['../d3/d7a/classtoy_1_1_fixed_string.html#a45c1ee3b58eac68636bc64d12e66cb39',1,'toy::FixedString::size_type'],['../d7/dec/classtoy_1_1_fixed_vector.html#a7990024284ecd15dccb290558eb7458e',1,'toy::FixedVector::size_type']]],
+  ['sqrmagnitude_6',['sqrMagnitude',['../d3/dce/classtoy_1_1math_1_1_point.html#a0454d2639eb29492706c8c082e0ee4c4',1,'toy::math::Point::sqrMagnitude()'],['../d9/d85/classtoy_1_1math_1_1_vector2_d.html#ad241a1b3b6db0b748c50b6b4cc316ffb',1,'toy::math::Vector2D::sqrMagnitude()']]],
+  ['src_5fcore_5futils_5finternal_5finl_5f_7',['SRC_CORE_UTILS_INTERNAL_INL_',['../d4/d85/utils__internal_8inl.html#a59c5026acee935b89b5b8cf435c67831',1,'utils_internal.inl']]],
+  ['stackwalkcallback_8',['StackWalkCallback',['../d2/da2/namespacetoy_1_1assertion.html#a77be860c404126249c99fb34089c497a',1,'toy::assertion']]],
+  ['standard_9',['Language and Standard',['../d2/d77/md__8instructions.html#language-and-standard',1,'']]],
+  ['starts_5fwith_10',['starts_with',['../d5/d03/classtoy_1_1_c_string_view.html#a690dc08abeb1cd6ffc0a81e14d5703f2',1,'toy::CStringView::starts_with(const stringType &amp;string) const noexcept'],['../d5/d03/classtoy_1_1_c_string_view.html#aeeaf609b797459bacd751dd62a314392',1,'toy::CStringView::starts_with(const char *string) const noexcept'],['../d5/d03/classtoy_1_1_c_string_view.html#af13ff57be547b364b7d255eebe7de185',1,'toy::CStringView::starts_with(char character) const noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#a616ed816856ff2ca07bb80da0199fc95',1,'toy::FixedString::starts_with(const FixedString&lt; allocatedSize &gt; &amp;string) const noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#ae2773eb44a0dcd5301f41dc1b0f776af',1,'toy::FixedString::starts_with(const stringType &amp;string) const noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#ac1fa1fe5dd1b7b4a923886b0544f4250',1,'toy::FixedString::starts_with(const char *string) const noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#a50f3a0981ef8977421e7ca9b26716799',1,'toy::FixedString::starts_with(char character) const noexcept']]],
+  ['staticcallback_11',['StaticCallback',['../d7/d9f/structtoy_1_1_callbacks_pool_1_1_static_callback.html',1,'toy::CallbacksPool']]],
+  ['stringlike_12',['StringLike',['../df/d77/concepttoy_1_1_string_like.html',1,'toy']]],
+  ['subscribersamount_13',['subscribersAmount',['../d8/dc9/classtoy_1_1_callbacks_pool.html#a24cab7bff4bd2278b995a4395ef4c904',1,'toy::CallbacksPool']]],
+  ['substr_14',['substr',['../d3/d7a/classtoy_1_1_fixed_string.html#ab32593e12733514f8ca98d7855afd512',1,'toy::FixedString']]],
+  ['supported_20c_20compilers_15',['Supported C++ compilers',['../index.html#supported-c-compilers',1,'']]],
+  ['supported_20systems_16',['Supported Systems',['../index.html#supported-systems',1,'']]],
+  ['swap_17',['swap',['../d5/d03/classtoy_1_1_c_string_view.html#a61dbfbf58ac6f2ab042774a2c3e81e6b',1,'toy::CStringView::swap()'],['../d3/d7a/classtoy_1_1_fixed_string.html#a0d6b3d27deeefe85c8422cff605adcbc',1,'toy::FixedString::swap()']]],
+  ['systems_18',['Supported Systems',['../index.html#supported-systems',1,'']]]
 ];
