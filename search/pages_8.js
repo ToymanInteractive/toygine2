@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['performance_20characteristics_0',['Performance Characteristics',['../d9/d85/classtoy_1_1math_1_1_vector2_d.html#performance',1,'']]],
-  ['principles_1',['General Coding Principles',['../d2/d77/md__8instructions.html#general-coding-principles',1,'']]],
-  ['project_20context_2',['Project Context',['../d2/d77/md__8instructions.html#project-context',1,'']]]
+  ['independence_0',['Test Independence',['../d2/d77/md__8instructions.html#test-independence',1,'']]],
+  ['inl_20files_1',['&lt;span class=&quot;tt&quot;&gt;.inl&lt;/span&gt; Files',['../d2/d77/md__8instructions.html#inl-files',1,'']]],
+  ['inline_20and_20template_20code_2',['Inline and Template Code',['../d2/d77/md__8instructions.html#inline-and-template-code',1,'']]],
+  ['instructions_3',['Repository AI Instructions',['../d2/d77/md__8instructions.html',1,'']]]
 ];

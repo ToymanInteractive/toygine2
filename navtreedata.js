@@ -33,7 +33,36 @@ var NAVTREE =
     [ "Repository AI Instructions", "d2/d77/md__8instructions.html", [
       [ "Project Context", "d2/d77/md__8instructions.html#project-context", null ],
       [ "General Coding Principles", "d2/d77/md__8instructions.html#general-coding-principles", null ],
-      [ "Language and Standard", "d2/d77/md__8instructions.html#language-and-standard", null ]
+      [ "Language and Standard", "d2/d77/md__8instructions.html#language-and-standard", null ],
+      [ "Header / Source Organization", "d2/d77/md__8instructions.html#header--source-organization", [
+        [ "Module Structure", "d2/d77/md__8instructions.html#module-structure", null ],
+        [ "Headers", "d2/d77/md__8instructions.html#headers", null ],
+        [ "Inline and Template Code", "d2/d77/md__8instructions.html#inline-and-template-code", null ],
+        [ "<span class=\"tt\">.inl</span> Files", "d2/d77/md__8instructions.html#inl-files", null ]
+      ] ],
+      [ "Memory and Allocation Rules", "d2/d77/md__8instructions.html#memory-and-allocation-rules", null ],
+      [ "Constexpr-First Design", "d2/d77/md__8instructions.html#constexpr-first-design", null ],
+      [ "Error Handling", "d2/d77/md__8instructions.html#error-handling", null ],
+      [ "Naming Conventions", "d2/d77/md__8instructions.html#naming-conventions", [
+        [ "Private Members", "d2/d77/md__8instructions.html#private-members", null ]
+      ] ],
+      [ "Comments and Documentation", "d2/d77/md__8instructions.html#comments-and-documentation", null ],
+      [ "Documentation Style Rules", "d2/d77/md__8instructions.html#documentation-style-rules", null ],
+      [ "Unit Test Style Rules", "d2/d77/md__8instructions.html#unit-test-style-rules", null ],
+      [ "Test Framework Assumptions", "d2/d77/md__8instructions.html#test-framework-assumptions", null ],
+      [ "General Test Principles", "d2/d77/md__8instructions.html#general-test-principles", null ],
+      [ "Test Length and Structure", "d2/d77/md__8instructions.html#test-length-and-structure", null ],
+      [ "Compile-Time vs Runtime Testing", "d2/d77/md__8instructions.html#compile-time-vs-runtime-testing", [
+        [ "Compile-Time (<span class=\"tt\">constexpr</span>) Tests", "d2/d77/md__8instructions.html#compile-time-constexpr-tests", null ],
+        [ "Runtime Tests", "d2/d77/md__8instructions.html#runtime-tests", null ]
+      ] ],
+      [ "Redundancy and Duplication", "d2/d77/md__8instructions.html#redundancy-and-duplication", null ],
+      [ "Value-Based Assertions", "d2/d77/md__8instructions.html#value-based-assertions", null ],
+      [ "Constexpr + Runtime Parity", "d2/d77/md__8instructions.html#constexpr--runtime-parity", null ],
+      [ "Naming Tests", "d2/d77/md__8instructions.html#naming-tests", null ],
+      [ "Floating-Point Rules", "d2/d77/md__8instructions.html#floating-point-rules", null ],
+      [ "Test Independence", "d2/d77/md__8instructions.html#test-independence", null ],
+      [ "Final Rule", "d2/d77/md__8instructions.html#final-rule", null ]
     ] ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
@@ -69,9 +98,9 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"d3/d7a/classtoy_1_1_fixed_string.html#adf1ec74de29144993eb7806c1e05a6d3",
-"d5/d03/classtoy_1_1_c_string_view.html#adb54f0951dc63d5cc1466ae61e941df5",
-"d9/d85/classtoy_1_1math_1_1_vector2_d.html#ae8a67041bf158f94d6e5376685030763"
+"d3/d7a/classtoy_1_1_fixed_string.html#ac530927c94ca89ca0ae075f39bb233bd",
+"d5/d03/classtoy_1_1_c_string_view.html#ab53650610cda4e34ef495396d81c846e",
+"d9/d85/classtoy_1_1math_1_1_vector2_d.html#a08d80e077f40d501f74dece9ea00eaf9"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

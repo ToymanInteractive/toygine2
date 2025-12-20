@@ -11,10 +11,5 @@ var searchData=
   ['time_20constexpr_20tests_8',['Compile-Time (&lt;span class=&quot;tt&quot;&gt;constexpr&lt;/span&gt;) Tests',['../d2/d77/md__8instructions.html#compile-time-constexpr-tests',1,'']]],
   ['time_20vs_20runtime_20testing_9',['Compile-Time vs Runtime Testing',['../d2/d77/md__8instructions.html#compile-time-vs-runtime-testing',1,'']]],
   ['tools_10',['Tools',['../index.html#tools',1,'']]],
-  ['toy_11',['toy',['../d4/da9/namespacetoy.html',1,'']]],
-  ['toy_3a_3aapp_12',['app',['../dc/df3/namespacetoy_1_1app.html',1,'toy']]],
-  ['toy_3a_3aassertion_13',['assertion',['../d2/da2/namespacetoy_1_1assertion.html',1,'toy']]],
-  ['toy_3a_3amath_14',['math',['../d2/d83/namespacetoy_1_1math.html',1,'toy']]],
-  ['toy_5funused_15',['TOY_UNUSED',['../da/d47/core_8hpp.html#a6c25f2c5b6e99783e32a4eb8258eb2f6',1,'core.hpp']]],
-  ['toygine2_16',['ToyGine2',['../index.html',1,'']]]
+  ['toygine2_11',['ToyGine2',['../index.html',1,'']]]
 ];

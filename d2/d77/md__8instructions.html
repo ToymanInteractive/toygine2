@@ -162,8 +162,278 @@ Language and Standard</h1>
 <li>C++20 is the baseline language standard.</li>
 <li>C++23 features may be used selectively where they are supported by the target toolchain.</li>
 <li>Prefer standard library facilities when feasible.</li>
-<li>Avoid compiler-specific extensions unless strictly required. </li>
+<li>Avoid compiler-specific extensions unless strictly required.</li>
 </ul>
+<hr  />
+<h1 class="doxsection"><a class="anchor" id="header--source-organization"></a>
+Header / Source Organization</h1>
+<h2 class="doxsection"><a class="anchor" id="module-structure"></a>
+Module Structure</h2>
+<ul>
+<li>Each module exposes a single public <em>barrel header</em> that acts as the module entry point.</li>
+<li>Users of the library must include <b>only</b> the module header and must not depend on internal headers.</li>
+<li>Internal headers are considered implementation details and are not part of the public API.</li>
+<li>Barrel headers may be precompiled.</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="headers"></a>
+Headers</h2>
+<ul>
+<li>Public headers must be self-contained.</li>
+<li>Public headers must not rely on include order.</li>
+<li>Minimize includes; prefer forward declarations in public headers.</li>
+<li>Internal headers may include other internal headers freely.</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="inline-and-template-code"></a>
+Inline and Template Code</h2>
+<ul>
+<li>All inline and template implementations must be placed in <span class="tt">.inl</span> files.</li>
+<li>Public headers must include their corresponding <span class="tt">.inl</span> file explicitly, typically at the end of the header.</li>
+<li>Do not place non-trivial inline implementations directly in public headers.</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="inl-files"></a>
+<span class="tt">.inl</span> Files</h2>
+<ul>
+<li><span class="tt">.inl</span> files are part of the module interface but not part of the public API.</li>
+<li><span class="tt">.inl</span> files may contain:<ul>
+<li>Template implementations</li>
+<li><span class="tt">constexpr</span> and inline function definitions</li>
+<li>Inline operator implementations</li>
+</ul>
+</li>
+<li><span class="tt">.inl</span> files must not be included directly by users.</li>
+<li><span class="tt">.inl</span> files must not introduce new public symbols that are not declared in the corresponding header.</li>
+<li>Each <span class="tt">.inl</span> file must be included by exactly one public header.</li>
+</ul>
+<hr  />
+<h1 class="doxsection"><a class="anchor" id="memory-and-allocation-rules"></a>
+Memory and Allocation Rules</h1>
+<ul>
+<li>Avoid dynamic allocation by default.</li>
+<li>Any heap allocation must be explicit and justified.</li>
+<li>Support both:<ul>
+<li>Fixed-capacity (stack or static storage)</li>
+<li>Dynamic allocation (heap), when required</li>
+</ul>
+</li>
+</ul>
+<p>No hidden allocations.</p>
+<hr  />
+<h1 class="doxsection"><a class="anchor" id="constexpr-first-design"></a>
+Constexpr-First Design</h1>
+<ul>
+<li>Prefer <span class="tt">constexpr</span> whenever possible.</li>
+<li>APIs should be usable at compile time if logically feasible.</li>
+<li>Favor value semantics.</li>
+</ul>
+<p>If something can be checked at compile time, it should be.</p>
+<hr  />
+<h1 class="doxsection"><a class="anchor" id="error-handling"></a>
+Error Handling</h1>
+<ul>
+<li>Prefer explicit error handling.</li>
+<li>Avoid exceptions unless explicitly allowed.</li>
+<li>Prefer:<ul>
+<li>Return values</li>
+<li><span class="tt">expected</span>-like patterns</li>
+<li>Compile-time validation</li>
+</ul>
+</li>
+</ul>
+<hr  />
+<h1 class="doxsection"><a class="anchor" id="naming-conventions"></a>
+Naming Conventions</h1>
+<ul>
+<li>Types (classes, structs, enums, concepts): <span class="tt">PascalCase</span></li>
+<li>Functions and variables: <span class="tt">camelCase</span></li>
+<li>Constants: <span class="tt">UPPER_SNAKE_CASE</span> (only for true, globally visible constants)</li>
+<li>Template parameters: descriptive names; avoid single-letter names unless the meaning is obvious and the scope is trivial</li>
+</ul>
+<p>Names must describe <b>intent</b>, not implementation details.</p>
+<h2 class="doxsection"><a class="anchor" id="private-members"></a>
+Private Members</h2>
+<ul>
+<li>All private data members and private member functions <b>must</b> start with a leading underscore (<span class="tt">_</span>).</li>
+<li>This rule applies only to private members; protected and public members must <b>not</b> use a leading underscore.</li>
+<li>The leading underscore is part of the naming convention and must be preserved consistently.</li>
+</ul>
+<hr  />
+<h1 class="doxsection"><a class="anchor" id="comments-and-documentation"></a>
+Comments and Documentation</h1>
+<ul>
+<li>Do not comment obvious code.</li>
+<li>Comments must explain <em>why</em>, not <em>what</em>.</li>
+<li>Public APIs must be documented.</li>
+</ul>
+<p>Documentation style:</p>
+<ul>
+<li>Concise</li>
+<li>Neutral</li>
+<li>Technical</li>
+<li>No marketing language</li>
+</ul>
+<hr  />
+<h1 class="doxsection"><a class="anchor" id="documentation-style-rules"></a>
+Documentation Style Rules</h1>
+<ul>
+<li>Use simple, direct language.</li>
+<li>Avoid verbosity.</li>
+<li>Prefer bullet points over prose where appropriate.</li>
+<li>Document:<ul>
+<li>Purpose</li>
+<li>Constraints</li>
+<li>Usage expectations</li>
+<li>Compile-time vs runtime behavior</li>
+</ul>
+</li>
+</ul>
+<hr  />
+<h1 class="doxsection"><a class="anchor" id="unit-test-style-rules"></a>
+Unit Test Style Rules</h1>
+<p>These rules define how unit tests must be written or generated by AI tools in this repository.</p>
+<p>The goal is to keep tests:</p>
+<ul>
+<li>Short</li>
+<li>Deterministic</li>
+<li>Non-redundant</li>
+<li>Suitable for constrained and embedded platforms</li>
+</ul>
+<hr  />
+<h1 class="doxsection"><a class="anchor" id="test-framework-assumptions"></a>
+Test Framework Assumptions</h1>
+<ul>
+<li>Catch2-style tests are assumed.</li>
+<li><span class="tt">static_assert</span> and <span class="tt">STATIC_REQUIRE</span> are preferred when possible.</li>
+</ul>
+<hr  />
+<h1 class="doxsection"><a class="anchor" id="general-test-principles"></a>
+General Test Principles</h1>
+<ul>
+<li>Tests must be minimal and focused.</li>
+<li>One test = one behavioral aspect.</li>
+<li>Prefer clarity over coverage inflation.</li>
+<li>Avoid large, monolithic test cases.</li>
+</ul>
+<hr  />
+<h1 class="doxsection"><a class="anchor" id="test-length-and-structure"></a>
+Test Length and Structure</h1>
+<ul>
+<li>Tests must be readable without scrolling.</li>
+<li>Avoid excessive setup.</li>
+<li>Avoid deeply nested sections.</li>
+</ul>
+<p>If setup becomes complex, refactor the API or extract helpers.</p>
+<hr  />
+<h1 class="doxsection"><a class="anchor" id="compile-time-vs-runtime-testing"></a>
+Compile-Time vs Runtime Testing</h1>
+<h2 class="doxsection"><a class="anchor" id="compile-time-constexpr-tests"></a>
+Compile-Time (<span class="tt">constexpr</span>) Tests</h2>
+<ul>
+<li>Prefer compile-time verification whenever possible.</li>
+<li>Use:<ul>
+<li><span class="tt">static_assert</span></li>
+<li><span class="tt">STATIC_REQUIRE</span></li>
+</ul>
+</li>
+<li>Test:<ul>
+<li>Type traits</li>
+<li><span class="tt">constexpr</span> constructors</li>
+<li><span class="tt">constexpr</span> operators</li>
+<li>Compile-time invariants</li>
+</ul>
+</li>
+</ul>
+<p>Compile-time tests are preferred for:</p>
+<ul>
+<li>Containers</li>
+<li>Math types</li>
+<li>Value semantics</li>
+</ul>
+<hr  />
+<h2 class="doxsection"><a class="anchor" id="runtime-tests"></a>
+Runtime Tests</h2>
+<ul>
+<li>Use runtime tests only when:<ul>
+<li>Behavior depends on runtime state</li>
+<li><span class="tt">constexpr</span> evaluation is not possible</li>
+</ul>
+</li>
+<li>Runtime tests must be deterministic.</li>
+</ul>
+<p>Avoid:</p>
+<ul>
+<li>Randomness</li>
+<li>Time-based behavior</li>
+<li>Platform-dependent assumptions</li>
+</ul>
+<hr  />
+<h1 class="doxsection"><a class="anchor" id="redundancy-and-duplication"></a>
+Redundancy and Duplication</h1>
+<ul>
+<li>Do not generate multiple tests for the same behavior.</li>
+<li>Avoid copy-paste test cases with minor variations.</li>
+</ul>
+<p>Prefer:</p>
+<ul>
+<li>Parameterized tests</li>
+<li>Small helper functions</li>
+<li>Reusing a single test to cover multiple invariants</li>
+</ul>
+<p>If two tests assert the same contract, keep only one.</p>
+<hr  />
+<h1 class="doxsection"><a class="anchor" id="value-based-assertions"></a>
+Value-Based Assertions</h1>
+<ul>
+<li>Prefer value comparisons over implementation details.</li>
+<li>Do not test private or internal state unless explicitly intended.</li>
+</ul>
+<p>Tests must survive refactoring without semantic changes.</p>
+<hr  />
+<h1 class="doxsection"><a class="anchor" id="constexpr--runtime-parity"></a>
+Constexpr + Runtime Parity</h1>
+<p>When applicable:</p>
+<ul>
+<li>Verify the same behavior at:<ul>
+<li>Compile time</li>
+<li>Runtime</li>
+</ul>
+</li>
+</ul>
+<p>The observable result must be identical.</p>
+<hr  />
+<h1 class="doxsection"><a class="anchor" id="naming-tests"></a>
+Naming Tests</h1>
+<ul>
+<li>Test names must describe behavior, not implementation.</li>
+<li>Avoid redundant prefixes.</li>
+<li>Avoid repeating the tested type name unless necessary.</li>
+</ul>
+<hr  />
+<h1 class="doxsection"><a class="anchor" id="floating-point-rules"></a>
+Floating-Point Rules</h1>
+<ul>
+<li>Avoid floating-point tests unless explicitly required.</li>
+<li>If unavoidable:<ul>
+<li>Account for platform limitations</li>
+<li>Avoid fragile equality checks</li>
+</ul>
+</li>
+</ul>
+<hr  />
+<h1 class="doxsection"><a class="anchor" id="test-independence"></a>
+Test Independence</h1>
+<ul>
+<li>Tests must not depend on:<ul>
+<li>Execution order</li>
+<li>Global mutable state</li>
+</ul>
+</li>
+<li>Each test must be independently executable.</li>
+</ul>
+<hr  />
+<h1 class="doxsection"><a class="anchor" id="final-rule"></a>
+Final Rule</h1>
+<p>If a behavior can be verified at compile time, it must be verified at compile time.</p>
+<p>Runtime tests exist only to cover what compile-time tests cannot. </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
