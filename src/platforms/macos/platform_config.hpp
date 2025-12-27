@@ -30,11 +30,11 @@
 inline constexpr auto currentPlatform = Platform::MacOS;
 
 #if defined(__aarch64__)
-#define TARGET_CPU CPU_ARM_64
+inline constexpr auto currentCpuArchitecture = CpuArchitecture::Arm64;
 #elif defined(__x86_64__)
-#define TARGET_CPU CPU_INTEL_x64
+inline constexpr auto currentCpuArchitecture = CpuArchitecture::x64;
 #else
-#define TARGET_CPU CPU_INTEL_x86
+inline constexpr auto currentCpuArchitecture = CpuArchitecture::x86;
 #endif
 
 #endif // defined(__APPLE__) && defined(TARGET_OS_OSX)

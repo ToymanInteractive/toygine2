@@ -45,25 +45,8 @@
 
 #include "core/platform.hpp"
 
-//==============================
-//  ProcessorType
-//==============================
-
-/// Intel CPU 32 bit code
-#define CPU_INTEL_x86 0x1020
-
-/// Intel CPU 64 bit code
-#define CPU_INTEL_x64 0x1040
-
-/// ARM CPU 32 bit code
-#define CPU_ARM_32 0x2020
-
-/// ARM CPU 64 bit code
-#define CPU_ARM_64 0x2040
-
 //----------------------------------------------------------------------------------------------------------------------
 
-#undef TARGET_OS
 #undef TARGET_CPU
 
 #include "@TOYGINE_TARGET_PLATFORM_CONFIG_HEADER@"

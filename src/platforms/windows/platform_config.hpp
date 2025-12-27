@@ -30,9 +30,9 @@
 inline constexpr auto currentPlatform = Platform::Windows;
 
 #if defined(_M_IX86) || defined(__i386__)
-#define TARGET_CPU CPU_INTEL_x86
+inline constexpr auto currentCpuArchitecture = CpuArchitecture::x86;
 #elif defined(_M_X64) || defined(__x86_64__)
-#define TARGET_CPU CPU_INTEL_x64
+inline constexpr auto currentCpuArchitecture = CpuArchitecture::x64;
 #endif
 
 #endif // defined(_WIN32)

@@ -29,7 +29,7 @@
 
 inline constexpr auto currentPlatform = Platform::N3DS;
 
-#define TARGET_CPU CPU_ARM_32
+inline constexpr auto currentCpuArchitecture = CpuArchitecture::Arm32;
 
 #endif // defined(__DEVKITPRO__)
 

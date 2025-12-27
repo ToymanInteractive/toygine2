@@ -19,7 +19,7 @@
 //
 /*!
   \file   platform.hpp
-  \brief  Platform enumeration and platform detection utilities.
+  \brief  Platform and CPU architecture enumerations with compile-time and runtime detection utilities.
 */
 
 #ifndef INCLUDE_CORE_PLATFORM_HPP_
@@ -46,7 +46,7 @@
   #include "core.hpp"
 
   // Compile-time platform detection
-  constexpr Platform currentPlatform = Platform::MacOS;
+  constexpr auto currentPlatform = Platform::MacOS;
 
   if constexpr (currentPlatform == Platform::MacOS) {
     // macOS-specific code (evaluated at compile time)
@@ -57,7 +57,7 @@
   }
 
   // Runtime platform checking
-  Platform runtimePlatform = getCurrentPlatform();
+  const auto runtimePlatform = getCurrentPlatform();
   if (runtimePlatform == Platform::Linux) {
     // Linux-specific logic
   }
@@ -93,6 +93,64 @@ enum class Platform : unsigned int {
 
   /// Nintendo Switch hybrid gaming console
   Switch = 0x8000,
+};
+
+/*!
+  \enum CpuArchitecture
+  \brief Enumeration of CPU architectures and instruction set architectures.
+
+  Identifies the target CPU architecture for compile-time and runtime architecture detection. Values use hexadecimal
+  identifiers starting from \c 0x1020, with each architecture family assigned a distinct range. This design enables
+  compile-time architecture checks and combination with platform identifiers.
+
+  \section features Key Features
+
+  - 🔧 **Constexpr Support**: All values are usable in constexpr contexts
+  - 🎯 **Compile-Time Detection**: Enables compile-time conditional compilation via \c if \c constexpr
+  - 📐 **Type Safety**: Strongly-typed enum class prevents implicit conversions
+  - 🔗 **Platform Integration**: Hex values designed to combine with platform identifiers
+
+  \section usage Usage Example
+
+  \code
+  #include "core.hpp"
+
+  // Compile-time architecture detection
+  constexpr auto currentArch = CpuArchitecture::x64;
+
+  if constexpr (currentArch == CpuArchitecture::x64) {
+    // x64-specific optimizations (evaluated at compile time)
+  } else if constexpr (currentArch == CpuArchitecture::Arm64) {
+    // ARM64-specific optimizations (evaluated at compile time)
+  }
+
+  // Runtime architecture checking
+  const auto runtimeArch = getCurrentArchitecture();
+  if (runtimeArch == CpuArchitecture::Arm64) {
+    // ARM64-specific logic
+  }
+
+  // Combined platform and architecture detection
+  if constexpr (currentPlatform == Platform::MacOS && currentArch == CpuArchitecture::Arm64) {
+    // Apple Silicon specific code
+  }
+  \endcode
+
+  \note Architecture families use distinct hex ranges: Intel (\c 0x1020-\c 0x1040), ARM (\c 0x2020-\c 0x2040).
+  \note Architecture values can be combined with platform values for combined platform-architecture identification.
+*/
+enum class CpuArchitecture : unsigned int {
+  /// Intel x86 32-bit instruction set architecture (IA-32)
+  x86 = 0x1020,
+
+  /// Intel x64 64-bit instruction set architecture (x86-64, AMD64)
+  x64 = 0x1040,
+
+  /// ARM 32-bit instruction set architecture (ARMv7, ARMv8-A AArch32)
+  Arm32 = 0x2020,
+
+  /// ARM 64-bit instruction set architecture (ARMv8-A AArch64, ARM64)
+  Arm64 = 0x2040,
 };
 
 #endif // INCLUDE_CORE_PLATFORM_HPP_
