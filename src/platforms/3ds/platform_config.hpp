@@ -27,7 +27,7 @@
 
 #if defined(__DEVKITPRO__)
 
-#define TARGET_OS OS_3DS
+constexpr auto currentPlatform = Platform::N3DS;
 
 #define TARGET_CPU CPU_ARM_32
 

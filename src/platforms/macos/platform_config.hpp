@@ -27,7 +27,7 @@
 
 #if defined(__APPLE__) && defined(TARGET_OS_OSX)
 
-#define TARGET_OS OS_MAC_OS
+constexpr auto currentPlatform = Platform::MacOS;
 
 #if defined(__aarch64__)
 #define TARGET_CPU CPU_ARM_64
