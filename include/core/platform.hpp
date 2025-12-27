@@ -46,7 +46,7 @@
   #include "core.hpp"
 
   // Compile-time platform detection
-  constexpr auto currentPlatform = Platform::MacOS;
+  constexpr Platform currentPlatform = Platform::MacOS;
 
   if constexpr (currentPlatform == Platform::MacOS) {
     // macOS-specific code (evaluated at compile time)
@@ -57,7 +57,7 @@
   }
 
   // Runtime platform checking
-  const auto runtimePlatform = getCurrentPlatform();
+  const Platform runtimePlatform = getCurrentPlatform();
   if (runtimePlatform == Platform::Linux) {
     // Linux-specific logic
   }
@@ -100,7 +100,7 @@ enum class Platform : unsigned int {
   \brief Enumeration of CPU architectures and instruction set architectures.
 
   Identifies the target CPU architecture for compile-time and runtime architecture detection. Values use hexadecimal
-  identifiers starting from \c 0x1020, with each architecture family assigned a distinct range. This design enables
+  identifiers starting from \c 0x0014, with each architecture family assigned a distinct range. This design enables
   compile-time architecture checks and combination with platform identifiers.
 
   \section features Key Features
@@ -116,7 +116,7 @@ enum class Platform : unsigned int {
   #include "core.hpp"
 
   // Compile-time architecture detection
-  constexpr auto currentArch = CpuArchitecture::x64;
+  constexpr CpuArchitecture currentArch = CpuArchitecture::x64;
 
   if constexpr (currentArch == CpuArchitecture::x64) {
     // x64-specific optimizations (evaluated at compile time)
@@ -125,7 +125,7 @@ enum class Platform : unsigned int {
   }
 
   // Runtime architecture checking
-  const auto runtimeArch = getCurrentArchitecture();
+  const CpuArchitecture runtimeArch = getCurrentArchitecture();
   if (runtimeArch == CpuArchitecture::Arm64) {
     // ARM64-specific logic
   }
@@ -136,7 +136,7 @@ enum class Platform : unsigned int {
   }
   \endcode
 
-  \note Architecture families use distinct hex ranges: Intel (\c 0x1020-\c 0x1040), ARM (\c 0x2020-\c 0x2040).
+  \note Architecture families use distinct hex ranges: Intel (\c 0x0014-\c 0x0018), ARM (\c 0x0024-\c 0x0028).
   \note Architecture values can be combined with platform values for combined platform-architecture identification.
 */
 enum class CpuArchitecture : unsigned int {
