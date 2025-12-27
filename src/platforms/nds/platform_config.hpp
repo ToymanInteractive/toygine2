@@ -27,7 +27,7 @@
 
 #if defined(__DEVKITPRO__)
 
-constexpr auto currentPlatform = Platform::NDS;
+inline constexpr auto currentPlatform = Platform::NDS;
 
 #define TARGET_CPU CPU_ARM_32
 

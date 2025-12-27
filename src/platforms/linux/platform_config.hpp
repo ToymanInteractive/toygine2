@@ -27,7 +27,7 @@
 
 #if defined(__linux__)
 
-constexpr auto currentPlatform = Platform::Linux;
+inline constexpr auto currentPlatform = Platform::Linux;
 
 #if defined(__aarch64__)
 #define TARGET_CPU CPU_ARM_64

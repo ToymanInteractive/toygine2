@@ -27,7 +27,7 @@
 
 #if defined(_WIN32)
 
-constexpr auto currentPlatform = Platform::Windows;
+inline constexpr auto currentPlatform = Platform::Windows;
 
 #if defined(_M_IX86) || defined(__i386__)
 #define TARGET_CPU CPU_INTEL_x86
