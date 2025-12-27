@@ -141,16 +141,19 @@ enum class Platform : unsigned int {
 */
 enum class CpuArchitecture : unsigned int {
   /// Intel x86 32-bit instruction set architecture (IA-32)
-  x86 = 0x1020,
+  x86 = 0x0014,
 
   /// Intel x64 64-bit instruction set architecture (x86-64, AMD64)
-  x64 = 0x1040,
+  x64 = 0x0018,
 
   /// ARM 32-bit instruction set architecture (ARMv7, ARMv8-A AArch32)
-  Arm32 = 0x2020,
+  Arm32 = 0x0024,
 
   /// ARM 64-bit instruction set architecture (ARMv8-A AArch64, ARM64)
-  Arm64 = 0x2040,
+  Arm64 = 0x0028,
+
+  /// Unspecified or unknown architecture
+  Unknown = 0x0000,
 };
 
 #endif // INCLUDE_CORE_PLATFORM_HPP_
