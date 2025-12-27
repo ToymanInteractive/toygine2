@@ -238,7 +238,6 @@ constexpr void constexpr_assert(bool condition, const char * message) {
 #include "core/fixed_string.hpp"
 #include "core/fixed_vector.hpp"
 #include "core/hashes.hpp"
-#include "core/memory.hpp"
 #include "core/utils.hpp"
 
 //----------------------------------------------------------------------------------------------------------------------
