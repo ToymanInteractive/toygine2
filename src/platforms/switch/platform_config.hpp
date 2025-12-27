@@ -27,7 +27,7 @@
 
 #if defined(__DEVKITPRO__)
 
-#define TARGET_OS OS_SWITCH
+inline constexpr auto currentPlatform = Platform::Switch;
 
 #define TARGET_CPU CPU_ARM_64
 

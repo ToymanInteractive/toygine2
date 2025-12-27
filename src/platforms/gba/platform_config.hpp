@@ -27,7 +27,7 @@
 
 #if defined(__DEVKITPRO__)
 
-#define TARGET_OS OS_GBA
+inline constexpr auto currentPlatform = Platform::GBA;
 
 #define TARGET_CPU CPU_ARM_32
 
