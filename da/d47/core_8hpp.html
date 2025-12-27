@@ -131,6 +131,7 @@ $(function(){initNavTree('da/d47/core_8hpp.html','../../',''); });
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;type_traits&gt;</code><br />
 <code>#include &lt;utility&gt;</code><br />
+<code>#include &quot;<a class="el" href="../../d3/d60/platform_8hpp_source.html">core/platform.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../dd/d9e/linux_2platform__config_8hpp_source.html">/home/runner/work/toygine2/toygine2/src/platforms/linux/platform_config.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../dd/ded/c__string__view_8hpp_source.html">core/c_string_view.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d1/d5c/callbacks__pool_8hpp_source.html">core/callbacks_pool.hpp</a>&quot;</code><br />
@@ -174,24 +175,6 @@ Concepts</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a6aadf1cbdc6ed6b61b4b0bdffb62e727" id="r_a6aadf1cbdc6ed6b61b4b0bdffb62e727"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6aadf1cbdc6ed6b61b4b0bdffb62e727">OS_WINDOWS</a>&#160;&#160;&#160;0x1000</td></tr>
-<tr class="memdesc:a6aadf1cbdc6ed6b61b4b0bdffb62e727"><td class="mdescLeft">&#160;</td><td class="mdescRight">Microsoft Windows Desktop xp, vista, 7, 8, 8.1 etc...  <br /></td></tr>
-<tr class="memitem:ae273c7db78098028c7a6b6b230ac0503" id="r_ae273c7db78098028c7a6b6b230ac0503"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae273c7db78098028c7a6b6b230ac0503">OS_LINUX</a>&#160;&#160;&#160;0x2000</td></tr>
-<tr class="memdesc:ae273c7db78098028c7a6b6b230ac0503"><td class="mdescLeft">&#160;</td><td class="mdescRight">GNU Linux.  <br /></td></tr>
-<tr class="memitem:a72ae484bb7b2be09d16f948cd48debf3" id="r_a72ae484bb7b2be09d16f948cd48debf3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a72ae484bb7b2be09d16f948cd48debf3">OS_MAC_OS</a>&#160;&#160;&#160;0x3000</td></tr>
-<tr class="memdesc:a72ae484bb7b2be09d16f948cd48debf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apple macOS.  <br /></td></tr>
-<tr class="memitem:a567e55d90fcd4316396a60025c74f833" id="r_a567e55d90fcd4316396a60025c74f833"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a567e55d90fcd4316396a60025c74f833">OS_IOS</a>&#160;&#160;&#160;0x3100</td></tr>
-<tr class="memdesc:a567e55d90fcd4316396a60025c74f833"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apple iOS.  <br /></td></tr>
-<tr class="memitem:af40f1979db579acb318b57e24b4c7d5a" id="r_af40f1979db579acb318b57e24b4c7d5a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af40f1979db579acb318b57e24b4c7d5a">OS_ANDROID</a>&#160;&#160;&#160;0x4000</td></tr>
-<tr class="memdesc:af40f1979db579acb318b57e24b4c7d5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Google Android.  <br /></td></tr>
-<tr class="memitem:a3478544d2b40792195ffa4687e52330d" id="r_a3478544d2b40792195ffa4687e52330d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3478544d2b40792195ffa4687e52330d">OS_GBA</a>&#160;&#160;&#160;0x5000</td></tr>
-<tr class="memdesc:a3478544d2b40792195ffa4687e52330d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nintendo GameBoy Advance.  <br /></td></tr>
-<tr class="memitem:a0e250bd096d82c22870ec5fe2aa01fc7" id="r_a0e250bd096d82c22870ec5fe2aa01fc7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0e250bd096d82c22870ec5fe2aa01fc7">OS_NDS</a>&#160;&#160;&#160;0x6000</td></tr>
-<tr class="memdesc:a0e250bd096d82c22870ec5fe2aa01fc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nintendo DS.  <br /></td></tr>
-<tr class="memitem:a781f7e8960fd1f2fc208a7faa2c09294" id="r_a781f7e8960fd1f2fc208a7faa2c09294"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a781f7e8960fd1f2fc208a7faa2c09294">OS_3DS</a>&#160;&#160;&#160;0x7000</td></tr>
-<tr class="memdesc:a781f7e8960fd1f2fc208a7faa2c09294"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nintendo 3DS.  <br /></td></tr>
-<tr class="memitem:add26e12ca77c27fd24f25f0192305cc0" id="r_add26e12ca77c27fd24f25f0192305cc0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#add26e12ca77c27fd24f25f0192305cc0">OS_SWITCH</a>&#160;&#160;&#160;0x8000</td></tr>
-<tr class="memdesc:add26e12ca77c27fd24f25f0192305cc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nintendo Switch.  <br /></td></tr>
 <tr class="memitem:ad4c61321e672d6faf976329f76c5cc1a" id="r_ad4c61321e672d6faf976329f76c5cc1a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad4c61321e672d6faf976329f76c5cc1a">CPU_INTEL_x86</a>&#160;&#160;&#160;0x1020</td></tr>
 <tr class="memdesc:ad4c61321e672d6faf976329f76c5cc1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Intel CPU 32 bit code.  <br /></td></tr>
 <tr class="memitem:a1e1898e441784683649af6bb189cb75d" id="r_a1e1898e441784683649af6bb189cb75d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1e1898e441784683649af6bb189cb75d">CPU_INTEL_x64</a>&#160;&#160;&#160;0x1040</td></tr>
@@ -202,6 +185,9 @@ Macros</h2></td></tr>
 <tr class="memdesc:a20e457ee1318b901b1c44dd6390ca1a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">ARM CPU 64 bit code.  <br /></td></tr>
 <tr class="memitem:a6c25f2c5b6e99783e32a4eb8258eb2f6" id="r_a6c25f2c5b6e99783e32a4eb8258eb2f6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6c25f2c5b6e99783e32a4eb8258eb2f6">TOY_UNUSED</a>(identifier)</td></tr>
 <tr class="memdesc:a6c25f2c5b6e99783e32a4eb8258eb2f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Suppresses compiler warnings about unused variables or functions.  <br /></td></tr>
+<tr class="memitem:a682837124a032168bd594ef4ed679c9b" id="r_a682837124a032168bd594ef4ed679c9b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a682837124a032168bd594ef4ed679c9b">t_validate</a>(expression)</td></tr>
+<tr class="memitem:a149f9669066ceac859ca6c8b99bdd633" id="r_a149f9669066ceac859ca6c8b99bdd633"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a149f9669066ceac859ca6c8b99bdd633">t_assert_message</a>(expression,  message)</td></tr>
+<tr class="memitem:a94a808adc84ff2a5345e7ecb00661653" id="r_a94a808adc84ff2a5345e7ecb00661653"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a94a808adc84ff2a5345e7ecb00661653">TOY_CONFIG_DEBUG_MEMORY</a></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -290,147 +276,59 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a781f7e8960fd1f2fc208a7faa2c09294" name="a781f7e8960fd1f2fc208a7faa2c09294"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a781f7e8960fd1f2fc208a7faa2c09294">&#9670;&#160;</a></span>OS_3DS</h2>
+<a id="a149f9669066ceac859ca6c8b99bdd633" name="a149f9669066ceac859ca6c8b99bdd633"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a149f9669066ceac859ca6c8b99bdd633">&#9670;&#160;</a></span>t_assert_message</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define OS_3DS&#160;&#160;&#160;0x7000</td>
+          <td class="memname">#define t_assert_message</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>expression</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>message</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Nintendo 3DS. </p>
-
+<b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="../../d1/d5f/assertion__macro__gcc__clang_8hpp.html#a672330c2fecd516f254162cd9611d91a">assert_message</a>(expression, message)</div>
+<div class="ttc" id="aassertion__macro__gcc__clang_8hpp_html_a672330c2fecd516f254162cd9611d91a"><div class="ttname"><a href="../../d1/d5f/assertion__macro__gcc__clang_8hpp.html#a672330c2fecd516f254162cd9611d91a">assert_message</a></div><div class="ttdeci">#define assert_message(expression, message)</div><div class="ttdoc">Debug assertion macro with custom message for runtime expression checking.</div><div class="ttdef"><b>Definition</b> assertion_macro_gcc_clang.hpp:88</div></div>
+</div><!-- fragment -->
 </div>
 </div>
-<a id="af40f1979db579acb318b57e24b4c7d5a" name="af40f1979db579acb318b57e24b4c7d5a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af40f1979db579acb318b57e24b4c7d5a">&#9670;&#160;</a></span>OS_ANDROID</h2>
+<a id="a682837124a032168bd594ef4ed679c9b" name="a682837124a032168bd594ef4ed679c9b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a682837124a032168bd594ef4ed679c9b">&#9670;&#160;</a></span>t_validate</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define OS_ANDROID&#160;&#160;&#160;0x4000</td>
+          <td class="memname">#define t_validate</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>expression</em></span></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Google Android. </p>
-
+<b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="../../d1/d5f/assertion__macro__gcc__clang_8hpp.html#a0041af519e0e7d47c9bcc83760c4669e">assert</a>(expression)</div>
+<div class="ttc" id="aassertion__macro__gcc__clang_8hpp_html_a0041af519e0e7d47c9bcc83760c4669e"><div class="ttname"><a href="../../d1/d5f/assertion__macro__gcc__clang_8hpp.html#a0041af519e0e7d47c9bcc83760c4669e">assert</a></div><div class="ttdeci">#define assert(expression)</div><div class="ttdoc">Debug assertion macro for runtime expression checking.</div><div class="ttdef"><b>Definition</b> assertion_macro_gcc_clang.hpp:55</div></div>
+</div><!-- fragment -->
 </div>
 </div>
-<a id="a3478544d2b40792195ffa4687e52330d" name="a3478544d2b40792195ffa4687e52330d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3478544d2b40792195ffa4687e52330d">&#9670;&#160;</a></span>OS_GBA</h2>
+<a id="a94a808adc84ff2a5345e7ecb00661653" name="a94a808adc84ff2a5345e7ecb00661653"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94a808adc84ff2a5345e7ecb00661653">&#9670;&#160;</a></span>TOY_CONFIG_DEBUG_MEMORY</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define OS_GBA&#160;&#160;&#160;0x5000</td>
+          <td class="memname">#define TOY_CONFIG_DEBUG_MEMORY</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Nintendo GameBoy Advance. </p>
-
-</div>
-</div>
-<a id="a567e55d90fcd4316396a60025c74f833" name="a567e55d90fcd4316396a60025c74f833"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a567e55d90fcd4316396a60025c74f833">&#9670;&#160;</a></span>OS_IOS</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define OS_IOS&#160;&#160;&#160;0x3100</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Apple iOS. </p>
-
-</div>
-</div>
-<a id="ae273c7db78098028c7a6b6b230ac0503" name="ae273c7db78098028c7a6b6b230ac0503"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae273c7db78098028c7a6b6b230ac0503">&#9670;&#160;</a></span>OS_LINUX</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define OS_LINUX&#160;&#160;&#160;0x2000</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>GNU Linux. </p>
-
-</div>
-</div>
-<a id="a72ae484bb7b2be09d16f948cd48debf3" name="a72ae484bb7b2be09d16f948cd48debf3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a72ae484bb7b2be09d16f948cd48debf3">&#9670;&#160;</a></span>OS_MAC_OS</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define OS_MAC_OS&#160;&#160;&#160;0x3000</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Apple macOS. </p>
-
-</div>
-</div>
-<a id="a0e250bd096d82c22870ec5fe2aa01fc7" name="a0e250bd096d82c22870ec5fe2aa01fc7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0e250bd096d82c22870ec5fe2aa01fc7">&#9670;&#160;</a></span>OS_NDS</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define OS_NDS&#160;&#160;&#160;0x6000</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Nintendo DS. </p>
-
-</div>
-</div>
-<a id="add26e12ca77c27fd24f25f0192305cc0" name="add26e12ca77c27fd24f25f0192305cc0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#add26e12ca77c27fd24f25f0192305cc0">&#9670;&#160;</a></span>OS_SWITCH</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define OS_SWITCH&#160;&#160;&#160;0x8000</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Nintendo Switch. </p>
-
-</div>
-</div>
-<a id="a6aadf1cbdc6ed6b61b4b0bdffb62e727" name="a6aadf1cbdc6ed6b61b4b0bdffb62e727"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6aadf1cbdc6ed6b61b4b0bdffb62e727">&#9670;&#160;</a></span>OS_WINDOWS</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define OS_WINDOWS&#160;&#160;&#160;0x1000</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Microsoft Windows Desktop xp, vista, 7, 8, 8.1 etc... </p>
 
 </div>
 </div>

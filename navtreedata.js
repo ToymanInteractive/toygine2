@@ -89,6 +89,7 @@ var NAVTREE =
       [ "File List", "files.html", "files_dup" ],
       [ "File Members", "globals.html", [
         [ "All", "globals.html", null ],
+        [ "Enumerations", "globals_enum.html", null ],
         [ "Macros", "globals_defs.html", null ]
       ] ]
     ] ]
@@ -98,9 +99,9 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"d3/d7a/classtoy_1_1_fixed_string.html#ac530927c94ca89ca0ae075f39bb233bd",
-"d5/d03/classtoy_1_1_c_string_view.html#ab53650610cda4e34ef495396d81c846e",
-"d9/d85/classtoy_1_1math_1_1_vector2_d.html#a08d80e077f40d501f74dece9ea00eaf9"
+"d3/d7a/classtoy_1_1_fixed_string.html#ab9c8ca05cc927ce86fe321182a91f565",
+"d5/d03/classtoy_1_1_c_string_view.html#a94f746d805e323bc7c551de04f927b3d",
+"d8/dc9/classtoy_1_1_callbacks_pool.html#af1e82cc08bfd90ce35b5dc92a895aa5d"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';
