@@ -114,7 +114,7 @@ $(function(){initNavTree('d3/d60/platform_8hpp.html','../../',''); });
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="#a6737c74f88dcd895cba9a1dabcde8f1b" title="Enumeration of target operating systems and platforms.">Platform</a> enumeration and platform detection utilities.  
+<p><a class="el" href="#a6737c74f88dcd895cba9a1dabcde8f1b" title="Enumeration of target operating systems and platforms.">Platform</a> and CPU architecture enumerations with compile-time and runtime detection utilities.  
 <a href="#details">More...</a></p>
 <div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>This graph shows which files directly or indirectly include this file:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -142,10 +142,96 @@ Enumerations</h2></td></tr>
 <br />
  }</td></tr>
 <tr class="memdesc:a6737c74f88dcd895cba9a1dabcde8f1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumeration of target operating systems and platforms.  <a href="#a6737c74f88dcd895cba9a1dabcde8f1b">More...</a><br /></td></tr>
+<tr class="memitem:abb44a2c5d16900814aa68732a47ffda0" id="r_abb44a2c5d16900814aa68732a47ffda0"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abb44a2c5d16900814aa68732a47ffda0">CpuArchitecture</a> : unsigned int { <br />
+&#160;&#160;<a class="el" href="#abb44a2c5d16900814aa68732a47ffda0a8a9da7865483c5fd359f3acef178d26d">x86</a> = 0x0014
+, <a class="el" href="#abb44a2c5d16900814aa68732a47ffda0a9c16d991c79c6330e655aa29ea623492">x64</a> = 0x0018
+, <a class="el" href="#abb44a2c5d16900814aa68732a47ffda0a044fc9e908d0f160ae1a8ac300eb2b3d">Arm32</a> = 0x0024
+, <a class="el" href="#abb44a2c5d16900814aa68732a47ffda0ac42c3b5bc3b4234ee7823388012368d6">Arm64</a> = 0x0028
+, <br />
+&#160;&#160;<a class="el" href="#abb44a2c5d16900814aa68732a47ffda0a88183b946cc5f0e8c96b2e66e1c74a7e">Unknown</a> = 0x0000
+<br />
+ }</td></tr>
+<tr class="memdesc:abb44a2c5d16900814aa68732a47ffda0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumeration of CPU architectures and instruction set architectures.  <a href="#abb44a2c5d16900814aa68732a47ffda0">More...</a><br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="#a6737c74f88dcd895cba9a1dabcde8f1b" title="Enumeration of target operating systems and platforms.">Platform</a> enumeration and platform detection utilities. </p>
+<div class="textblock"><p><a class="el" href="#a6737c74f88dcd895cba9a1dabcde8f1b" title="Enumeration of target operating systems and platforms.">Platform</a> and CPU architecture enumerations with compile-time and runtime detection utilities. </p>
 </div><a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Enumeration Type Documentation</h2>
+<a id="abb44a2c5d16900814aa68732a47ffda0" name="abb44a2c5d16900814aa68732a47ffda0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb44a2c5d16900814aa68732a47ffda0">&#9670;&#160;</a></span>CpuArchitecture</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#abb44a2c5d16900814aa68732a47ffda0">CpuArchitecture</a> : unsigned int</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Enumeration of CPU architectures and instruction set architectures. </p>
+<p>Identifies the target CPU architecture for compile-time and runtime architecture detection. Values use hexadecimal identifiers starting from <code>0x0014</code>, with each architecture family assigned a distinct range. This design enables compile-time architecture checks and combination with platform identifiers.</p>
+<h1 class="doxsection"><a class="anchor" id="features"></a>
+Key Features</h1>
+<ul>
+<li>🔧 <b>Constexpr Support</b>: All values are usable in constexpr contexts</li>
+<li>🎯 <b>Compile-Time Detection</b>: Enables compile-time conditional compilation via <code>if</code> <code>constexpr</code> </li>
+<li>📐 <b>Type Safety</b>: Strongly-typed enum class prevents implicit conversions</li>
+<li>🔗 <b><a class="el" href="#a6737c74f88dcd895cba9a1dabcde8f1b" title="Enumeration of target operating systems and platforms.">Platform</a> Integration</b>: Hex values designed to combine with platform identifiers</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="usage"></a>
+Usage Example</h1>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="../../da/d47/core_8hpp.html">core.hpp</a>&quot;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Compile-time architecture detection</span></div>
+<div class="line"><span class="keyword">constexpr</span> <a class="code hl_enumeration" href="#abb44a2c5d16900814aa68732a47ffda0">CpuArchitecture</a> currentArch = <a class="code hl_enumvalue" href="#abb44a2c5d16900814aa68732a47ffda0a9c16d991c79c6330e655aa29ea623492">CpuArchitecture::x64</a>;</div>
+<div class="line"> </div>
+<div class="line"><span class="keywordflow">if</span> <span class="keyword">constexpr</span> (currentArch == <a class="code hl_enumvalue" href="#abb44a2c5d16900814aa68732a47ffda0a9c16d991c79c6330e655aa29ea623492">CpuArchitecture::x64</a>) {</div>
+<div class="line">  <span class="comment">// x64-specific optimizations (evaluated at compile time)</span></div>
+<div class="line">} <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (currentArch == <a class="code hl_enumvalue" href="#abb44a2c5d16900814aa68732a47ffda0ac42c3b5bc3b4234ee7823388012368d6">CpuArchitecture::Arm64</a>) {</div>
+<div class="line">  <span class="comment">// ARM64-specific optimizations (evaluated at compile time)</span></div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Runtime architecture checking</span></div>
+<div class="line"><span class="keyword">const</span> <a class="code hl_enumeration" href="#abb44a2c5d16900814aa68732a47ffda0">CpuArchitecture</a> runtimeArch = getCurrentArchitecture();</div>
+<div class="line"><span class="keywordflow">if</span> (runtimeArch == <a class="code hl_enumvalue" href="#abb44a2c5d16900814aa68732a47ffda0ac42c3b5bc3b4234ee7823388012368d6">CpuArchitecture::Arm64</a>) {</div>
+<div class="line">  <span class="comment">// ARM64-specific logic</span></div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Combined platform and architecture detection</span></div>
+<div class="line"><span class="keywordflow">if</span> <span class="keyword">constexpr</span> (currentPlatform == <a class="code hl_enumvalue" href="#a6737c74f88dcd895cba9a1dabcde8f1ba0a5b7edb55b772c60bfa8af868b679cf">Platform::MacOS</a> &amp;&amp; currentArch == <a class="code hl_enumvalue" href="#abb44a2c5d16900814aa68732a47ffda0ac42c3b5bc3b4234ee7823388012368d6">CpuArchitecture::Arm64</a>) {</div>
+<div class="line">  <span class="comment">// Apple Silicon specific code</span></div>
+<div class="line">}</div>
+<div class="ttc" id="acore_8hpp_html"><div class="ttname"><a href="../../da/d47/core_8hpp.html">core.hpp</a></div><div class="ttdoc">Umbrella header for the engine core module.</div></div>
+<div class="ttc" id="aplatform_8hpp_html_a6737c74f88dcd895cba9a1dabcde8f1ba0a5b7edb55b772c60bfa8af868b679cf"><div class="ttname"><a href="#a6737c74f88dcd895cba9a1dabcde8f1ba0a5b7edb55b772c60bfa8af868b679cf">Platform::MacOS</a></div><div class="ttdeci">@ MacOS</div><div class="ttdoc">Apple macOS desktop operating system.</div><div class="ttdef"><b>Definition</b> platform.hpp:77</div></div>
+<div class="ttc" id="aplatform_8hpp_html_abb44a2c5d16900814aa68732a47ffda0"><div class="ttname"><a href="#abb44a2c5d16900814aa68732a47ffda0">CpuArchitecture</a></div><div class="ttdeci">CpuArchitecture</div><div class="ttdoc">Enumeration of CPU architectures and instruction set architectures.</div><div class="ttdef"><b>Definition</b> platform.hpp:142</div></div>
+<div class="ttc" id="aplatform_8hpp_html_abb44a2c5d16900814aa68732a47ffda0a9c16d991c79c6330e655aa29ea623492"><div class="ttname"><a href="#abb44a2c5d16900814aa68732a47ffda0a9c16d991c79c6330e655aa29ea623492">CpuArchitecture::x64</a></div><div class="ttdeci">@ x64</div><div class="ttdoc">Intel x64 64-bit instruction set architecture (x86-64, AMD64).</div><div class="ttdef"><b>Definition</b> platform.hpp:147</div></div>
+<div class="ttc" id="aplatform_8hpp_html_abb44a2c5d16900814aa68732a47ffda0ac42c3b5bc3b4234ee7823388012368d6"><div class="ttname"><a href="#abb44a2c5d16900814aa68732a47ffda0ac42c3b5bc3b4234ee7823388012368d6">CpuArchitecture::Arm64</a></div><div class="ttdeci">@ Arm64</div><div class="ttdoc">ARM 64-bit instruction set architecture (ARMv8-A AArch64, ARM64).</div><div class="ttdef"><b>Definition</b> platform.hpp:153</div></div>
+</div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>Architecture families use distinct hex ranges: Intel (<code>0x0014-<code>0x0018</code>)</code>, ARM (<code>0x0024-<code>0x0028</code>)</code>. </dd>
+<dd>
+Architecture values can be combined with platform values for combined platform-architecture identification. </dd></dl>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="abb44a2c5d16900814aa68732a47ffda0a8a9da7865483c5fd359f3acef178d26d" name="abb44a2c5d16900814aa68732a47ffda0a8a9da7865483c5fd359f3acef178d26d"></a>x86&#160;</td><td class="fielddoc"><p>Intel x86 32-bit instruction set architecture (IA-32). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="abb44a2c5d16900814aa68732a47ffda0a9c16d991c79c6330e655aa29ea623492" name="abb44a2c5d16900814aa68732a47ffda0a9c16d991c79c6330e655aa29ea623492"></a>x64&#160;</td><td class="fielddoc"><p>Intel x64 64-bit instruction set architecture (x86-64, AMD64). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="abb44a2c5d16900814aa68732a47ffda0a044fc9e908d0f160ae1a8ac300eb2b3d" name="abb44a2c5d16900814aa68732a47ffda0a044fc9e908d0f160ae1a8ac300eb2b3d"></a>Arm32&#160;</td><td class="fielddoc"><p>ARM 32-bit instruction set architecture (ARMv7, ARMv8-A AArch32). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="abb44a2c5d16900814aa68732a47ffda0ac42c3b5bc3b4234ee7823388012368d6" name="abb44a2c5d16900814aa68732a47ffda0ac42c3b5bc3b4234ee7823388012368d6"></a>Arm64&#160;</td><td class="fielddoc"><p>ARM 64-bit instruction set architecture (ARMv8-A AArch64, ARM64). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="abb44a2c5d16900814aa68732a47ffda0a88183b946cc5f0e8c96b2e66e1c74a7e" name="abb44a2c5d16900814aa68732a47ffda0a88183b946cc5f0e8c96b2e66e1c74a7e"></a>Unknown&#160;</td><td class="fielddoc"><p>Unspecified or unknown architecture. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 <a id="a6737c74f88dcd895cba9a1dabcde8f1b" name="a6737c74f88dcd895cba9a1dabcde8f1b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6737c74f88dcd895cba9a1dabcde8f1b">&#9670;&#160;</a></span>Platform</h2>
 
@@ -192,13 +278,11 @@ Usage Example</h1>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Runtime platform checking</span></div>
-<div class="line"><a class="code hl_enumeration" href="#a6737c74f88dcd895cba9a1dabcde8f1b">Platform</a> runtimePlatform = getCurrentPlatform();</div>
+<div class="line"><span class="keyword">const</span> <a class="code hl_enumeration" href="#a6737c74f88dcd895cba9a1dabcde8f1b">Platform</a> runtimePlatform = getCurrentPlatform();</div>
 <div class="line"><span class="keywordflow">if</span> (runtimePlatform == <a class="code hl_enumvalue" href="#a6737c74f88dcd895cba9a1dabcde8f1baedc9f0a5a5d57797bf68e37364743831">Platform::Linux</a>) {</div>
 <div class="line">  <span class="comment">// Linux-specific logic</span></div>
 <div class="line">}</div>
-<div class="ttc" id="acore_8hpp_html"><div class="ttname"><a href="../../da/d47/core_8hpp.html">core.hpp</a></div><div class="ttdoc">Umbrella header for the engine core module.</div></div>
 <div class="ttc" id="aplatform_8hpp_html_a6737c74f88dcd895cba9a1dabcde8f1b"><div class="ttname"><a href="#a6737c74f88dcd895cba9a1dabcde8f1b">Platform</a></div><div class="ttdeci">Platform</div><div class="ttdoc">Enumeration of target operating systems and platforms.</div><div class="ttdef"><b>Definition</b> platform.hpp:69</div></div>
-<div class="ttc" id="aplatform_8hpp_html_a6737c74f88dcd895cba9a1dabcde8f1ba0a5b7edb55b772c60bfa8af868b679cf"><div class="ttname"><a href="#a6737c74f88dcd895cba9a1dabcde8f1ba0a5b7edb55b772c60bfa8af868b679cf">Platform::MacOS</a></div><div class="ttdeci">@ MacOS</div><div class="ttdoc">Apple macOS desktop operating system.</div><div class="ttdef"><b>Definition</b> platform.hpp:77</div></div>
 <div class="ttc" id="aplatform_8hpp_html_a6737c74f88dcd895cba9a1dabcde8f1baaea23489ce3aa9b6406ebb28e0cda430"><div class="ttname"><a href="#a6737c74f88dcd895cba9a1dabcde8f1baaea23489ce3aa9b6406ebb28e0cda430">Platform::Windows</a></div><div class="ttdeci">@ Windows</div><div class="ttdoc">Microsoft Windows Desktop operating system (Windows XP, Vista, 7, 8, 8.1, 10, 11, etc....</div><div class="ttdef"><b>Definition</b> platform.hpp:71</div></div>
 <div class="ttc" id="aplatform_8hpp_html_a6737c74f88dcd895cba9a1dabcde8f1baedc9f0a5a5d57797bf68e37364743831"><div class="ttname"><a href="#a6737c74f88dcd895cba9a1dabcde8f1baedc9f0a5a5d57797bf68e37364743831">Platform::Linux</a></div><div class="ttdeci">@ Linux</div><div class="ttdoc">GNU/Linux operating system and Linux-based distributions.</div><div class="ttdef"><b>Definition</b> platform.hpp:74</div></div>
 </div><!-- fragment --><dl class="section note"><dt>Note</dt><dd><a class="el" href="#a6737c74f88dcd895cba9a1dabcde8f1b" title="Enumeration of target operating systems and platforms.">Platform</a> families use distinct hex ranges: desktop (<code>0x1000-<code>0x3000</code>)</code>, mobile (<code>0x3100-<code>0x4000</code>)</code>, consoles (<code>0x5000-<code>0x8000</code>)</code>. iOS (<code>0x3100</code>) shares the Apple family range with macOS (<code>0x3000</code>). </dd></dl>

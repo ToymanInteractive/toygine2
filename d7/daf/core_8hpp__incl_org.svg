@@ -290,7 +290,7 @@
 <!-- Node17 -->
 <g id="Node000017" class="node">
 <title>Node17</title>
-<g id="a_Node000017"><a xlink:href="../../d3/d60/platform_8hpp.html" target="_top" xlink:title="Platform enumeration and platform detection utilities.">
+<g id="a_Node000017"><a xlink:href="../../d3/d60/platform_8hpp.html" target="_top" xlink:title="Platform and CPU architecture enumerations with compile&#45;time and runtime detection utilities.">
 <polygon fill="white" stroke="#666666" points="1223,-96 1119,-96 1119,-77 1223,-77 1223,-96"/>
 <text text-anchor="middle" x="1171" y="-84" font-family="Helvetica,sans-Serif" font-size="10.00">core/platform.hpp</text>
 </a>

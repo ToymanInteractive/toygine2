@@ -1,10 +1,6 @@
 var core_8hpp =
 [
     [ "toy::StringLike", "df/d77/concepttoy_1_1_string_like.html", null ],
-    [ "CPU_ARM_32", "da/d47/core_8hpp.html#a014b03e21ccae2451f28ca938128f998", null ],
-    [ "CPU_ARM_64", "da/d47/core_8hpp.html#a20e457ee1318b901b1c44dd6390ca1a1", null ],
-    [ "CPU_INTEL_x64", "da/d47/core_8hpp.html#a1e1898e441784683649af6bb189cb75d", null ],
-    [ "CPU_INTEL_x86", "da/d47/core_8hpp.html#ad4c61321e672d6faf976329f76c5cc1a", null ],
     [ "t_assert_message", "da/d47/core_8hpp.html#a149f9669066ceac859ca6c8b99bdd633", null ],
     [ "t_validate", "da/d47/core_8hpp.html#a682837124a032168bd594ef4ed679c9b", null ],
     [ "TOY_CONFIG_DEBUG_MEMORY", "da/d47/core_8hpp.html#a94a808adc84ff2a5345e7ecb00661653", null ],
