@@ -68,6 +68,7 @@ using std::uint8_t;
 
 using std::char_traits;
 
+using std::size;
 using std::strong_ordering;
 
 /*!
@@ -204,7 +205,6 @@ constexpr void constexpr_assert(bool condition, const char * message) {
 
 } // namespace toy
 
-#include "core/array_size.hpp"
 #include "core/c_string_view.hpp"
 #include "core/callbacks_pool.hpp"
 #include "core/constexpr_utils.hpp"
