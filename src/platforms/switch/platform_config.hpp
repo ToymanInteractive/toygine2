@@ -29,7 +29,7 @@
 
 inline constexpr auto currentPlatform = Platform::Switch;
 
-#define TARGET_CPU CPU_ARM_64
+inline constexpr auto currentCpuArchitecture = CpuArchitecture::Arm64;
 
 #endif // defined(__DEVKITPRO__)
 
