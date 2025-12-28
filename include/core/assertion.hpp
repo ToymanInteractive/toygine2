@@ -210,7 +210,7 @@ inline void assertion(const char * TOY_UNUSED(code), const char * TOY_UNUSED(mes
 
   \throws std::invalid_argument If \a condition is false, with \a message as the error description.
 
-  \pre The \a message pointer must not be nullptr and must point to a valid null-terminated string.
+  \pre The \a message pointer must point to a valid null-terminated string.
 
   \note This function is designed for use in constexpr contexts where traditional assertions are not available.
   \note Unlike regular assertions, this function always throws an exception in both debug and release builds when the
@@ -233,9 +233,9 @@ inline void assertion(const char * TOY_UNUSED(code), const char * TOY_UNUSED(mes
   // constexpr auto invalid = validateSize<0>();  // Compilation error
   \endcode
 
-  \see assert
-  \see assert_message
-  \see assertion()
+  \sa assert
+  \sa assert_message
+  \sa assertion()
 */
 constexpr void constexpr_assert(bool condition, const char * message) {
   if (!condition)
