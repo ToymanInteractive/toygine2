@@ -17,26 +17,25 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 //
-/*!
-  \file   platform_config.hpp
-  \brief  additional nintendo ds platform header
-*/
 
-#ifndef SRC_PLATFORMS_NDS_PLATFORM_CONFIG_HPP_
-#define SRC_PLATFORMS_NDS_PLATFORM_CONFIG_HPP_
+#include <catch2/catch_test_macros.hpp>
 
-#include "../common/assertion_macro_gcc_clang.hpp"
-
-#if defined(__DEVKITPRO__)
+#include "core.hpp"
 
 namespace toy {
 
-inline constexpr auto currentPlatform = Platform::NDS;
+TEST_CASE("ArraySize returns the size of an array", "[core][utils]") {
+  const bool boolArray[]{true, false};
+  const int intArray[]{1, 2, 3};
+  const double doubleArray[]{1.0, 2.0, 3.0, 4.0};
+  const char charArray[]{'a', 'b', 'c', 'd', 'e'};
+  const char * stringArray[]{"aaaa", "bbbb", "cccc", "dddd", "eeee", "ffff"};
 
-inline constexpr auto currentCpuArchitecture = CpuArchitecture::Arm32;
+  CHECK(ArraySize(boolArray) == 2);
+  CHECK(ArraySize(intArray) == 3);
+  CHECK(ArraySize(doubleArray) == 4);
+  CHECK(ArraySize(charArray) == 5);
+  CHECK(ArraySize(stringArray) == 6);
+}
 
 } // namespace toy
-
-#endif // defined(__DEVKITPRO__)
-
-#endif // SRC_PLATFORMS_NDS_PLATFORM_CONFIG_HPP_

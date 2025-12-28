@@ -25,6 +25,8 @@
 #ifndef INCLUDE_CORE_PLATFORM_HPP_
 #define INCLUDE_CORE_PLATFORM_HPP_
 
+namespace toy {
+
 /*!
   \enum Platform
   \brief Enumeration of target operating systems and platforms.
@@ -155,5 +157,7 @@ enum class CpuArchitecture : unsigned int {
   /// Unspecified or unknown architecture
   Unknown = 0x0000,
 };
+
+} // namespace toy
 
 #endif // INCLUDE_CORE_PLATFORM_HPP_

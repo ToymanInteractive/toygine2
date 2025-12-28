@@ -56,20 +56,6 @@ static constexpr std::array<const char *, 16> asciiArray{{"0", "0", "1e+7", "-1e
                                                           "-4200", "42", "-42", "0.042", "-0.042", "0.000042",
                                                           "-0.000042", "4.2e-7", "-4.2e-7"}};
 
-TEST_CASE("ArraySize returns the size of an array", "[core][utils]") {
-  const bool boolArray[]{true, false};
-  const int intArray[]{1, 2, 3};
-  const double doubleArray[]{1.0, 2.0, 3.0, 4.0};
-  const char charArray[]{'a', 'b', 'c', 'd', 'e'};
-  const char * stringArray[]{"aaaa", "bbbb", "cccc", "dddd", "eeee", "ffff"};
-
-  CHECK(ArraySize(boolArray) == 2);
-  CHECK(ArraySize(intArray) == 3);
-  CHECK(ArraySize(doubleArray) == 4);
-  CHECK(ArraySize(charArray) == 5);
-  CHECK(ArraySize(stringArray) == 6);
-}
-
 TEST_CASE("utf8toWChar converts a Unicode UTF-8 encoded string to a wide character string", "[core][utils]") {
   wchar_t testBuffer[utf8Text.size()];
   constexpr auto testBufferSize = ArraySize(testBuffer);
