@@ -40,7 +40,7 @@ namespace toy {
   - 🔧 **Constexpr Support**: All values are usable in constexpr contexts
   - 🎯 **Compile-Time Detection**: Enables compile-time conditional compilation via \c if \c constexpr
   - 📐 **Type Safety**: Strongly-typed enum class prevents implicit conversions
-  - 🔗 **Architecture Integration**: Hex values designed to combine with CPU architecture identifiers
+  - 🔗 **Architecture Integration**: Hex values designed to combine with \ref CpuArchitecture identifiers
 
   \section usage Usage Example
 
@@ -110,7 +110,7 @@ enum class Platform : unsigned int {
   - 🔧 **Constexpr Support**: All values are usable in constexpr contexts
   - 🎯 **Compile-Time Detection**: Enables compile-time conditional compilation via \c if \c constexpr
   - 📐 **Type Safety**: Strongly-typed enum class prevents implicit conversions
-  - 🔗 **Platform Integration**: Hex values designed to combine with platform identifiers
+  - 🔗 **Platform Integration**: Hex values designed to combine with \ref Platform identifiers
 
   \section usage Usage Example
 
