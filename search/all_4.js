@@ -43,9 +43,10 @@ var searchData=
   ['crc32_40',['crc32',['../d4/da9/namespacetoy.html#a17983e173fb5e8cf5baaab61a78a402e',1,'toy']]],
   ['crc8_41',['crc8',['../d4/da9/namespacetoy.html#a00ce0b516e9a47a62227a9309afdb583',1,'toy']]],
   ['crend_42',['crend',['../d7/dec/classtoy_1_1_fixed_vector.html#a44958049e98e13f51ec12b4a94de188a',1,'toy::FixedVector']]],
-  ['cstrchr_43',['cstrchr',['../d4/da9/namespacetoy.html#a591ce52797bb53b8d8ce64a31cabba6b',1,'toy']]],
-  ['cstrcmp_44',['cstrcmp',['../d4/da9/namespacetoy.html#a28fad381ee4d8415699e790432777471',1,'toy']]],
-  ['cstringview_45',['CStringView',['../d5/d03/classtoy_1_1_c_string_view.html',1,'toy::CStringView'],['../d5/d03/classtoy_1_1_c_string_view.html#af79d918dedd06e2c2b99fe920962d64d',1,'toy::CStringView::CStringView() noexcept'],['../d5/d03/classtoy_1_1_c_string_view.html#a9fbe10d07774d3460b07d0286f56259e',1,'toy::CStringView::CStringView(const CStringView &amp;string) noexcept=default'],['../d5/d03/classtoy_1_1_c_string_view.html#af5ec20956a3cecd987fc33ff3bdd6540',1,'toy::CStringView::CStringView(const char *string) noexcept']]],
-  ['cstrpbrk_46',['cstrpbrk',['../d4/da9/namespacetoy.html#adaa16f254dc6bc99679971d96bd87a66',1,'toy']]],
-  ['cstrstr_47',['cstrstr',['../d4/da9/namespacetoy.html#a58d00a4a7bbd87ef48d346903b5a8c78',1,'toy']]]
+  ['cross_20references_43',['Cross-References',['../d2/d77/md__8instructions.html#cross-references',1,'']]],
+  ['cstrchr_44',['cstrchr',['../d4/da9/namespacetoy.html#a591ce52797bb53b8d8ce64a31cabba6b',1,'toy']]],
+  ['cstrcmp_45',['cstrcmp',['../d4/da9/namespacetoy.html#a28fad381ee4d8415699e790432777471',1,'toy']]],
+  ['cstringview_46',['CStringView',['../d5/d03/classtoy_1_1_c_string_view.html',1,'toy::CStringView'],['../d5/d03/classtoy_1_1_c_string_view.html#af79d918dedd06e2c2b99fe920962d64d',1,'toy::CStringView::CStringView() noexcept'],['../d5/d03/classtoy_1_1_c_string_view.html#a9fbe10d07774d3460b07d0286f56259e',1,'toy::CStringView::CStringView(const CStringView &amp;string) noexcept=default'],['../d5/d03/classtoy_1_1_c_string_view.html#af5ec20956a3cecd987fc33ff3bdd6540',1,'toy::CStringView::CStringView(const char *string) noexcept']]],
+  ['cstrpbrk_47',['cstrpbrk',['../d4/da9/namespacetoy.html#adaa16f254dc6bc99679971d96bd87a66',1,'toy']]],
+  ['cstrstr_48',['cstrstr',['../d4/da9/namespacetoy.html#a58d00a4a7bbd87ef48d346903b5a8c78',1,'toy']]]
 ];

@@ -3,8 +3,8 @@ var namespacetoy =
     [ "app", "dc/df3/namespacetoy_1_1app.html", "dc/df3/namespacetoy_1_1app" ],
     [ "math", "d2/d83/namespacetoy_1_1math.html", "d2/d83/namespacetoy_1_1math" ],
     [ "assertion", "d2/da2/namespacetoy_1_1assertion.html", [
-      [ "AssertionCallback", "d2/da2/namespacetoy_1_1assertion.html#ac9b5b813ecfe0701aa24d2e005f82c8a", null ],
-      [ "StackWalkCallback", "d2/da2/namespacetoy_1_1assertion.html#a77be860c404126249c99fb34089c497a", null ],
+      [ "AssertionCallback", "d2/da2/namespacetoy_1_1assertion.html#a27a675a54a720bf1a098fd13be80553e", null ],
+      [ "StackWalkCallback", "d2/da2/namespacetoy_1_1assertion.html#af491e4e307d14db3efeafb9a77ae76ef", null ],
       [ "assertion", "d2/da2/namespacetoy_1_1assertion.html#a71e8fbdc3d1a6ccee148e120d0c890db", null ],
       [ "constexpr_assert", "d2/da2/namespacetoy_1_1assertion.html#a080f416a9882bcb84b03d6bf96d6a4c5", null ],
       [ "deInitialize", "d2/da2/namespacetoy_1_1assertion.html#a82b42cf518871245c19337431cfe63e5", null ],

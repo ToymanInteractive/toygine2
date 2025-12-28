@@ -119,54 +119,118 @@ $(function(){initNavTree('d2/da2/namespacetoy_1_1assertion.html','../../',''); }
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:ac9b5b813ecfe0701aa24d2e005f82c8a" id="r_ac9b5b813ecfe0701aa24d2e005f82c8a"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac9b5b813ecfe0701aa24d2e005f82c8a">AssertionCallback</a> = bool (*)(const char *)</td></tr>
-<tr class="memitem:a77be860c404126249c99fb34089c497a" id="r_a77be860c404126249c99fb34089c497a"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a77be860c404126249c99fb34089c497a">StackWalkCallback</a> = void (*)(const char *)</td></tr>
+<tr class="memitem:a27a675a54a720bf1a098fd13be80553e" id="r_a27a675a54a720bf1a098fd13be80553e"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a27a675a54a720bf1a098fd13be80553e">AssertionCallback</a> = bool (*)(const char * assertionString)</td></tr>
+<tr class="memdesc:a27a675a54a720bf1a098fd13be80553e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function type for assertion failure handling.  <br /></td></tr>
+<tr class="memitem:af491e4e307d14db3efeafb9a77ae76ef" id="r_af491e4e307d14db3efeafb9a77ae76ef"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af491e4e307d14db3efeafb9a77ae76ef">StackWalkCallback</a> = void (*)(const char * stackFrameString)</td></tr>
+<tr class="memdesc:af491e4e307d14db3efeafb9a77ae76ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function type for stack trace generation.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a1586eee3b9f8e4fc0b659ff2d402e28a" id="r_a1586eee3b9f8e4fc0b659ff2d402e28a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1586eee3b9f8e4fc0b659ff2d402e28a">initialize</a> ()</td></tr>
 <tr class="memdesc:a1586eee3b9f8e4fc0b659ff2d402e28a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the assertion system.  <br /></td></tr>
 <tr class="memitem:a82b42cf518871245c19337431cfe63e5" id="r_a82b42cf518871245c19337431cfe63e5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a82b42cf518871245c19337431cfe63e5">deInitialize</a> ()</td></tr>
-<tr class="memdesc:a82b42cf518871245c19337431cfe63e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shutdown the assertion system.  <br /></td></tr>
-<tr class="memitem:ab92066b98ab69bcf7db8e1089ea4f755" id="r_ab92066b98ab69bcf7db8e1089ea4f755"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab92066b98ab69bcf7db8e1089ea4f755">setCallbacks</a> (<a class="el" href="#ac9b5b813ecfe0701aa24d2e005f82c8a">AssertionCallback</a> assertionCallback, <a class="el" href="#a77be860c404126249c99fb34089c497a">StackWalkCallback</a> stackWalkCallback)</td></tr>
+<tr class="memdesc:a82b42cf518871245c19337431cfe63e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shuts down the assertion system.  <br /></td></tr>
+<tr class="memitem:ab92066b98ab69bcf7db8e1089ea4f755" id="r_ab92066b98ab69bcf7db8e1089ea4f755"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab92066b98ab69bcf7db8e1089ea4f755">setCallbacks</a> (<a class="el" href="#a27a675a54a720bf1a098fd13be80553e">AssertionCallback</a> assertionCallback, <a class="el" href="#af491e4e307d14db3efeafb9a77ae76ef">StackWalkCallback</a> stackWalkCallback)</td></tr>
 <tr class="memdesc:ab92066b98ab69bcf7db8e1089ea4f755"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the assertion and stack walk callbacks.  <br /></td></tr>
 <tr class="memitem:a71e8fbdc3d1a6ccee148e120d0c890db" id="r_a71e8fbdc3d1a6ccee148e120d0c890db"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a71e8fbdc3d1a6ccee148e120d0c890db">assertion</a> (const char *code, const char *message, const char *fileName, const char *functionName, size_t lineNumber)</td></tr>
+<tr class="memdesc:a71e8fbdc3d1a6ccee148e120d0c890db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reports an assertion failure with detailed context information.  <br /></td></tr>
 <tr class="memitem:a080f416a9882bcb84b03d6bf96d6a4c5" id="r_a080f416a9882bcb84b03d6bf96d6a4c5"><td class="memItemLeft" align="right" valign="top">constexpr void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a080f416a9882bcb84b03d6bf96d6a4c5">constexpr_assert</a> (bool condition, const char *message)</td></tr>
 <tr class="memdesc:a080f416a9882bcb84b03d6bf96d6a4c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compile-time assertion function for constexpr contexts.  <br /></td></tr>
-<tr class="memitem:a110a4b7692805ebe9ffdaddcf1cab402" id="r_a110a4b7692805ebe9ffdaddcf1cab402"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a110a4b7692805ebe9ffdaddcf1cab402">setCallbacks</a> (<a class="el" href="#ac9b5b813ecfe0701aa24d2e005f82c8a">AssertionCallback</a> assertionCallback, <a class="el" href="#a77be860c404126249c99fb34089c497a">StackWalkCallback</a> <a class="el" href="../../da/d47/core_8hpp.html#a6c25f2c5b6e99783e32a4eb8258eb2f6">TOY_UNUSED</a>(stackWalkCallback))</td></tr>
+<tr class="memitem:a110a4b7692805ebe9ffdaddcf1cab402" id="r_a110a4b7692805ebe9ffdaddcf1cab402"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a110a4b7692805ebe9ffdaddcf1cab402">setCallbacks</a> (<a class="el" href="#a27a675a54a720bf1a098fd13be80553e">AssertionCallback</a> assertionCallback, <a class="el" href="#af491e4e307d14db3efeafb9a77ae76ef">StackWalkCallback</a> <a class="el" href="../../da/d47/core_8hpp.html#a6c25f2c5b6e99783e32a4eb8258eb2f6">TOY_UNUSED</a>(stackWalkCallback))</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:abf0c95a6d0312b84decc08fc040187c9" id="r_abf0c95a6d0312b84decc08fc040187c9"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="#ac9b5b813ecfe0701aa24d2e005f82c8a">AssertionCallback</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abf0c95a6d0312b84decc08fc040187c9">s_assertionCallback</a> = nullptr</td></tr>
+<tr class="memitem:abf0c95a6d0312b84decc08fc040187c9" id="r_abf0c95a6d0312b84decc08fc040187c9"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="#a27a675a54a720bf1a098fd13be80553e">AssertionCallback</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abf0c95a6d0312b84decc08fc040187c9">s_assertionCallback</a> = nullptr</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Assertion utilities for validating engine invariants and runtime conditions. </p>
-</div><a name="doc-typedef-members" id="doc-typedef-members"></a><h2 id="header-doc-typedef-members" class="groupheader">Typedef Documentation</h2>
-<a id="ac9b5b813ecfe0701aa24d2e005f82c8a" name="ac9b5b813ecfe0701aa24d2e005f82c8a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac9b5b813ecfe0701aa24d2e005f82c8a">&#9670;&#160;</a></span>AssertionCallback</h2>
+<p>This namespace provides a configurable assertion system that supports both runtime assertions (in debug builds) and compile-time assertions (in constexpr contexts). The system allows custom callback registration for handling assertion failures and stack trace generation.</p>
+<h1 class="doxsection"><a class="anchor" id="features"></a>
+Key Features</h1>
+<ul>
+<li>🔧 <b>Configurable Callbacks</b>: Custom assertion and stack walk handlers</li>
+<li>🎯 <b>Debug/Release Support</b>: Runtime assertions only in debug builds</li>
+<li>⚡ <b>Compile-Time Assertions</b>: constexpr_assert for constexpr contexts</li>
+<li>🛡️ <b>Exception Safety</b>: Compile-time assertions throw exceptions for validation failures</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="usage"></a>
+Usage Example</h1>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="../../d5/d96/assertion_8hpp.html">core/assertion.hpp</a>&quot;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Initialize assertion system</span></div>
+<div class="line"><a class="code hl_function" href="#a1586eee3b9f8e4fc0b659ff2d402e28a">toy::assertion::initialize</a>();</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Set custom callbacks</span></div>
+<div class="line"><a class="code hl_function" href="#ab92066b98ab69bcf7db8e1089ea4f755">toy::assertion::setCallbacks</a>(myAssertionHandler, myStackWalkHandler);</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Runtime assertion (debug builds only)</span></div>
+<div class="line"><span class="preprocessor">#ifdef _DEBUG</span></div>
+<div class="line"><a class="code hl_function" href="#a71e8fbdc3d1a6ccee148e120d0c890db">toy::assertion::assertion</a>(<span class="stringliteral">&quot;value &gt; 0&quot;</span>, <span class="keyword">nullptr</span>, __FILE__, __FUNCTION__, __LINE__);</div>
+<div class="line"><span class="preprocessor">#endif</span></div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Compile-time assertion</span></div>
+<div class="line"><span class="keyword">constexpr</span> <span class="keywordtype">int</span> value = 42;</div>
+<div class="line"><a class="code hl_function" href="#a080f416a9882bcb84b03d6bf96d6a4c5">toy::assertion::constexpr_assert</a>(value &gt; 0, <span class="stringliteral">&quot;value must be positive&quot;</span>);</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Cleanup</span></div>
+<div class="line"><a class="code hl_function" href="#a82b42cf518871245c19337431cfe63e5">toy::assertion::deInitialize</a>();</div>
+<div class="ttc" id="aassertion_8hpp_html"><div class="ttname"><a href="../../d5/d96/assertion_8hpp.html">assertion.hpp</a></div><div class="ttdoc">Assertion system for runtime and compile-time validation of engine invariants.</div></div>
+<div class="ttc" id="anamespacetoy_1_1assertion_html_a080f416a9882bcb84b03d6bf96d6a4c5"><div class="ttname"><a href="#a080f416a9882bcb84b03d6bf96d6a4c5">toy::assertion::constexpr_assert</a></div><div class="ttdeci">constexpr void constexpr_assert(bool condition, const char *message)</div><div class="ttdoc">Compile-time assertion function for constexpr contexts.</div><div class="ttdef"><b>Definition</b> assertion.hpp:240</div></div>
+<div class="ttc" id="anamespacetoy_1_1assertion_html_a1586eee3b9f8e4fc0b659ff2d402e28a"><div class="ttname"><a href="#a1586eee3b9f8e4fc0b659ff2d402e28a">toy::assertion::initialize</a></div><div class="ttdeci">void initialize()</div><div class="ttdoc">Initializes the assertion system.</div><div class="ttdef"><b>Definition</b> assertion_stub.cpp:34</div></div>
+<div class="ttc" id="anamespacetoy_1_1assertion_html_a71e8fbdc3d1a6ccee148e120d0c890db"><div class="ttname"><a href="#a71e8fbdc3d1a6ccee148e120d0c890db">toy::assertion::assertion</a></div><div class="ttdeci">void assertion(const char *code, const char *message, const char *fileName, const char *functionName, size_t lineNumber)</div><div class="ttdoc">Reports an assertion failure with detailed context information.</div><div class="ttdef"><b>Definition</b> assertion_stub.cpp:48</div></div>
+<div class="ttc" id="anamespacetoy_1_1assertion_html_a82b42cf518871245c19337431cfe63e5"><div class="ttname"><a href="#a82b42cf518871245c19337431cfe63e5">toy::assertion::deInitialize</a></div><div class="ttdeci">void deInitialize()</div><div class="ttdoc">Shuts down the assertion system.</div><div class="ttdef"><b>Definition</b> assertion_stub.cpp:38</div></div>
+<div class="ttc" id="anamespacetoy_1_1assertion_html_ab92066b98ab69bcf7db8e1089ea4f755"><div class="ttname"><a href="#ab92066b98ab69bcf7db8e1089ea4f755">toy::assertion::setCallbacks</a></div><div class="ttdeci">void setCallbacks(AssertionCallback assertionCallback, StackWalkCallback stackWalkCallback)</div><div class="ttdoc">Sets the assertion and stack walk callbacks.</div></div>
+</div><!-- fragment --> </div><a name="doc-typedef-members" id="doc-typedef-members"></a><h2 id="header-doc-typedef-members" class="groupheader">Typedef Documentation</h2>
+<a id="a27a675a54a720bf1a098fd13be80553e" name="a27a675a54a720bf1a098fd13be80553e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27a675a54a720bf1a098fd13be80553e">&#9670;&#160;</a></span>AssertionCallback</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="#ac9b5b813ecfe0701aa24d2e005f82c8a">toy::assertion::AssertionCallback</a> = bool (*)(const char *)</td>
+          <td class="memname">using <a class="el" href="#a27a675a54a720bf1a098fd13be80553e">toy::assertion::AssertionCallback</a> = bool (*)(const char * assertionString)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
+<p>Callback function type for assertion failure handling. </p>
+<p>This callback is invoked when an assertion fails. The callback receives a formatted assertion string containing the assertion code, message (if any), file name, function name, and line number.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">assertionString</td><td>The formatted assertion string describing the failure.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the assertion should be ignored, <code>false</code> otherwise.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The callback should not throw exceptions. </dd>
+<dd>
+The assertion string pointer is valid only during the callback invocation. </dd></dl>
+
 </div>
 </div>
-<a id="a77be860c404126249c99fb34089c497a" name="a77be860c404126249c99fb34089c497a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a77be860c404126249c99fb34089c497a">&#9670;&#160;</a></span>StackWalkCallback</h2>
+<a id="af491e4e307d14db3efeafb9a77ae76ef" name="af491e4e307d14db3efeafb9a77ae76ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af491e4e307d14db3efeafb9a77ae76ef">&#9670;&#160;</a></span>StackWalkCallback</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="#a77be860c404126249c99fb34089c497a">toy::assertion::StackWalkCallback</a> = void (*)(const char *)</td>
+          <td class="memname">using <a class="el" href="#af491e4e307d14db3efeafb9a77ae76ef">toy::assertion::StackWalkCallback</a> = void (*)(const char * stackFrameString)</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Callback function type for stack trace generation. </p>
+<p>This callback is invoked to output stack trace information. The callback receives a formatted string containing stack frame information.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">stackFrameString</td><td>The formatted string for a single stack frame.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>The callback should not throw exceptions. </dd>
+<dd>
+The stack frame string pointer is valid only during the callback invocation. </dd></dl>
 
 </div>
 </div>
@@ -205,6 +269,42 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Reports an assertion failure with detailed context information. </p>
+<p>This function is called when an assertion fails in debug builds. It formats the assertion information and invokes the registered assertion callback (if set). This function is typically invoked by assertion macros, not directly by user code.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">code</td><td>The assertion expression as a string (e.g., "value &gt; 0"). </td></tr>
+    <tr><td class="paramname">message</td><td>Optional custom message string, or nullptr if no message is provided. </td></tr>
+    <tr><td class="paramname">fileName</td><td>The source file name where the assertion failed. </td></tr>
+    <tr><td class="paramname">functionName</td><td>The function name where the assertion failed. </td></tr>
+    <tr><td class="paramname">lineNumber</td><td>The line number where the assertion failed.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The assertion system must be initialized (via <a class="el" href="#a1586eee3b9f8e4fc0b659ff2d402e28a">initialize()</a>).</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function is only available in debug builds (_DEBUG defined). </dd>
+<dd>
+In release builds, this function is replaced with an inline no-op. </dd>
+<dd>
+The function invokes the registered assertion callback if one is set.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#ab92066b98ab69bcf7db8e1089ea4f755" title="Sets the assertion and stack walk callbacks.">setCallbacks()</a> </dd>
+<dd>
+<a class="el" href="#a080f416a9882bcb84b03d6bf96d6a4c5" title="Compile-time assertion function for constexpr contexts.">constexpr_assert()</a> </dd></dl>
+
+<p class="reference">Referenced by <a class="el" href="#a71e8fbdc3d1a6ccee148e120d0c890db">assertion()</a>.</p>
+<div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d2/da2/namespacetoy_1_1assertion_a71e8fbdc3d1a6ccee148e120d0c890db_cgraph.svg" width="190" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-1" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d2/da2/namespacetoy_1_1assertion_a71e8fbdc3d1a6ccee148e120d0c890db_icgraph.svg" width="190" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
 </div>
 </div>
 <a id="a080f416a9882bcb84b03d6bf96d6a4c5" name="a080f416a9882bcb84b03d6bf96d6a4c5"></a>
@@ -235,7 +335,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Compile-time assertion function for constexpr contexts. </p>
-<p>This function provides assertion capabilities in constexpr contexts where regular assertions cannot be used. When the <em class="arg">condition</em> is false, it throws a std::invalid_argument exception with the provided <em class="arg">message</em>.</p>
+<p>This function provides assertion capabilities in constexpr contexts where regular runtime assertions cannot be used. When the <em class="arg">condition</em> is false, it throws a std::invalid_argument exception with the provided <em class="arg">message</em>, causing compilation to fail if evaluated at compile time.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">condition</td><td>The condition to check. Must be true for the assertion to pass. </td></tr>
@@ -249,12 +349,31 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>This function is designed for use in constexpr contexts where traditional assertions are not available. It should be used sparingly and only when compile-time validation is essential.</dd>
+<dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">message</em> pointer must point to a valid null-terminated string.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function is designed for use in constexpr contexts where traditional assertions are not available. </dd>
 <dd>
-Unlike regular assertions, this function always throws an exception in both debug and release builds when the condition fails.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d1/d5f/assertion__macro__gcc__clang_8hpp.html#a0041af519e0e7d47c9bcc83760c4669e" title="Debug assertion macro for runtime expression checking.">assert</a> </dd>
+Unlike regular assertions, this function always throws an exception in both debug and release builds when the condition fails. </dd>
 <dd>
-<a class="el" href="../../d1/d5f/assertion__macro__gcc__clang_8hpp.html#a672330c2fecd516f254162cd9611d91a" title="Debug assertion macro with custom message for runtime expression checking.">assert_message</a> </dd></dl>
+When evaluated at compile time, a failed assertion will cause a compilation error. </dd>
+<dd>
+When evaluated at runtime, a failed assertion will throw an exception.</dd></dl>
+<h1 class="doxsection"><a class="anchor" id="usage"></a>
+Usage Example</h1>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="../../d5/d96/assertion_8hpp.html">core/assertion.hpp</a>&quot;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">template</span> &lt;<span class="keywordtype">size_t</span> N&gt;</div>
+<div class="line"><span class="keyword">constexpr</span> <span class="keywordtype">size_t</span> validateSize() {</div>
+<div class="line">  <a class="code hl_function" href="#a080f416a9882bcb84b03d6bf96d6a4c5">toy::assertion::constexpr_assert</a>(N &gt; 0, <span class="stringliteral">&quot;Size must be greater than zero&quot;</span>);</div>
+<div class="line">  <span class="keywordflow">return</span> N;</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">constexpr</span> <span class="keyword">auto</span> size = validateSize&lt;10&gt;();  <span class="comment">// OK</span></div>
+<div class="line"><span class="comment">// constexpr auto invalid = validateSize&lt;0&gt;();  // Compilation error</span></div>
+</div><!-- fragment --><dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d1/d5f/assertion__macro__gcc__clang_8hpp.html#a0041af519e0e7d47c9bcc83760c4669e" title="Debug assertion macro for runtime expression checking.">assert</a> </dd>
+<dd>
+<a class="el" href="../../d1/d5f/assertion__macro__gcc__clang_8hpp.html#a672330c2fecd516f254162cd9611d91a" title="Debug assertion macro with custom message for runtime expression checking.">assert_message</a> </dd>
+<dd>
+<a class="el" href="../../d2/da2/namespacetoy_1_1assertion.html" title="Assertion utilities for validating engine invariants and runtime conditions.">assertion()</a> </dd></dl>
 
 </div>
 </div>
@@ -273,7 +392,14 @@ Unlike regular assertions, this function always throws an exception in both debu
       </table>
 </div><div class="memdoc">
 
-<p>Shutdown the assertion system. </p>
+<p>Shuts down the assertion system. </p>
+<p>This function cleans up the assertion system and should be called when assertions are no longer needed. It resets all callbacks and releases any resources held by the assertion system.</p>
+<dl class="section post"><dt>Postcondition</dt><dd>The assertion system is no longer active. </dd>
+<dd>
+All callbacks are reset to <code>nullptr</code>.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function is safe to call multiple times. </dd>
+<dd>
+Should be called after <a class="el" href="#a1586eee3b9f8e4fc0b659ff2d402e28a">initialize()</a> when assertions are no longer needed.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#a1586eee3b9f8e4fc0b659ff2d402e28a" title="Initializes the assertion system.">initialize()</a> </dd></dl>
 
 </div>
@@ -294,7 +420,16 @@ Unlike regular assertions, this function always throws an exception in both debu
 </div><div class="memdoc">
 
 <p>Initializes the assertion system. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a82b42cf518871245c19337431cfe63e5" title="Shutdown the assertion system.">deInitialize()</a> </dd></dl>
+<p>This function must be called before using any assertion functionality. It prepares the internal state of the assertion system for use.</p>
+<dl class="section post"><dt>Postcondition</dt><dd>The assertion system is ready for use. </dd>
+<dd>
+All callbacks are reset to nullptr.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function is safe to call multiple times. </dd>
+<dd>
+Must be paired with a call to <a class="el" href="#a82b42cf518871245c19337431cfe63e5">deInitialize()</a>.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a82b42cf518871245c19337431cfe63e5" title="Shuts down the assertion system.">deInitialize()</a> </dd>
+<dd>
+<a class="el" href="#ab92066b98ab69bcf7db8e1089ea4f755" title="Sets the assertion and stack walk callbacks.">setCallbacks()</a> </dd></dl>
 
 </div>
 </div>
@@ -307,26 +442,36 @@ Unlike regular assertions, this function always throws an exception in both debu
         <tr>
           <td class="memname">void toy::assertion::setCallbacks </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="#ac9b5b813ecfe0701aa24d2e005f82c8a">AssertionCallback</a></td>          <td class="paramname"><span class="paramname"><em>assertionCallback</em></span>, </td>
+          <td class="paramtype"><a class="el" href="#a27a675a54a720bf1a098fd13be80553e">AssertionCallback</a></td>          <td class="paramname"><span class="paramname"><em>assertionCallback</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="#a77be860c404126249c99fb34089c497a">StackWalkCallback</a></td>          <td class="paramname"><span class="paramname"><em>stackWalkCallback</em></span>&#160;)</td>
+          <td class="paramtype"><a class="el" href="#af491e4e307d14db3efeafb9a77ae76ef">StackWalkCallback</a></td>          <td class="paramname"><span class="paramname"><em>stackWalkCallback</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Sets the assertion and stack walk callbacks. </p>
-<p>The assertion callback is called when an assertion is triggered. The callback is passed the assertion string and should return true if the assertion should be ignored, false otherwise.</p>
-<p>The stack walk callback is called to print the stack trace. The callback is passed the constructed string.</p>
+<p>This function registers custom callback functions for handling assertion failures and stack trace generation. The callbacks are invoked when assertions are triggered, allowing custom error handling and logging.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">assertionCallback</td><td>The assertion callback. </td></tr>
-    <tr><td class="paramname">stackWalkCallback</td><td>The stack walk callback. </td></tr>
+    <tr><td class="paramname">assertionCallback</td><td>The callback function to invoke on assertion failure. Can be nullptr to disable. </td></tr>
+    <tr><td class="paramname">stackWalkCallback</td><td>The callback function to invoke for stack trace output. Can be nullptr to disable.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The assertion system must be initialized (via <a class="el" href="#a1586eee3b9f8e4fc0b659ff2d402e28a">initialize()</a>).</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Callbacks can be set to nullptr to disable them. </dd>
+<dd>
+Callbacks are invoked synchronously during assertion processing. </dd>
+<dd>
+The assertion callback should return <code>true</code> to ignore the assertion, <code>false</code> otherwise.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a1586eee3b9f8e4fc0b659ff2d402e28a" title="Initializes the assertion system.">initialize()</a> </dd>
+<dd>
+<a class="el" href="#a27a675a54a720bf1a098fd13be80553e" title="Callback function type for assertion failure handling.">AssertionCallback</a> </dd>
+<dd>
+<a class="el" href="#af491e4e307d14db3efeafb9a77ae76ef" title="Callback function type for stack trace generation.">StackWalkCallback</a> </dd></dl>
 
 </div>
 </div>
@@ -339,12 +484,12 @@ Unlike regular assertions, this function always throws an exception in both debu
         <tr>
           <td class="memname">void toy::assertion::setCallbacks </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="#ac9b5b813ecfe0701aa24d2e005f82c8a">AssertionCallback</a></td>          <td class="paramname"><span class="paramname"><em>assertionCallback</em></span>, </td>
+          <td class="paramtype"><a class="el" href="#a27a675a54a720bf1a098fd13be80553e">AssertionCallback</a></td>          <td class="paramname"><span class="paramname"><em>assertionCallback</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="#a77be860c404126249c99fb34089c497a">StackWalkCallback</a> </td>          <td class="paramname"><span class="paramname"><em>TOY_UNUSED</em></span>stackWalkCallback&#160;)</td>
+          <td class="paramtype"><a class="el" href="#af491e4e307d14db3efeafb9a77ae76ef">StackWalkCallback</a> </td>          <td class="paramname"><span class="paramname"><em>TOY_UNUSED</em></span>stackWalkCallback&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -362,7 +507,7 @@ Unlike regular assertions, this function always throws an exception in both debu
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="#ac9b5b813ecfe0701aa24d2e005f82c8a">AssertionCallback</a> toy::assertion::s_assertionCallback = nullptr</td>
+          <td class="memname"><a class="el" href="#a27a675a54a720bf1a098fd13be80553e">AssertionCallback</a> toy::assertion::s_assertionCallback = nullptr</td>
         </tr>
       </table>
   </td>
