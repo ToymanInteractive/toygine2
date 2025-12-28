@@ -61,7 +61,7 @@ namespace toy {
   \note Prefer this function over sizeof(array) / sizeof(array[0]) for better type safety.
 */
 template <typename T, size_t N>
-constexpr size_t ArraySize(T (&array)[N]) noexcept {
+constexpr size_t ArraySize(T (&)[N]) noexcept {
   return N;
 }
 
