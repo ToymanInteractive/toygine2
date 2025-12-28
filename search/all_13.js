@@ -21,6 +21,6 @@ var searchData=
   ['supported_20c_20compilers_18',['Supported C++ compilers',['../index.html#supported-c-compilers',1,'']]],
   ['supported_20systems_19',['Supported Systems',['../index.html#supported-systems',1,'']]],
   ['swap_20',['swap',['../d5/d03/classtoy_1_1_c_string_view.html#a61dbfbf58ac6f2ab042774a2c3e81e6b',1,'toy::CStringView::swap()'],['../d3/d7a/classtoy_1_1_fixed_string.html#a0d6b3d27deeefe85c8422cff605adcbc',1,'toy::FixedString::swap()']]],
-  ['switch_21',['Switch',['../d3/d60/platform_8hpp.html#a6737c74f88dcd895cba9a1dabcde8f1babbc155fb2b111bf61c4f5ff892915e6b',1,'platform.hpp']]],
+  ['switch_21',['Switch',['../d4/da9/namespacetoy.html#aa6f1ef0b4e0aa4864f1c8d431775bc94abbc155fb2b111bf61c4f5ff892915e6b',1,'toy']]],
   ['systems_22',['Supported Systems',['../index.html#supported-systems',1,'']]]
 ];

@@ -143,6 +143,34 @@ Concepts</h2></td></tr>
 <tr class="memitem:StringLike" id="r_StringLike"><td class="memItemLeft" align="right" valign="top">concept &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d77/concepttoy_1_1_string_like.html">StringLike</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concept defining the requirements for string-like types. <br /></td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:aa6f1ef0b4e0aa4864f1c8d431775bc94" id="r_aa6f1ef0b4e0aa4864f1c8d431775bc94"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa6f1ef0b4e0aa4864f1c8d431775bc94">Platform</a> : unsigned int { <br />
+&#160;&#160;<a class="el" href="#aa6f1ef0b4e0aa4864f1c8d431775bc94aaea23489ce3aa9b6406ebb28e0cda430">Windows</a> = 0x1000
+, <a class="el" href="#aa6f1ef0b4e0aa4864f1c8d431775bc94aedc9f0a5a5d57797bf68e37364743831">Linux</a> = 0x2000
+, <a class="el" href="#aa6f1ef0b4e0aa4864f1c8d431775bc94a0a5b7edb55b772c60bfa8af868b679cf">MacOS</a> = 0x3000
+, <a class="el" href="#aa6f1ef0b4e0aa4864f1c8d431775bc94a1bdf605991920db11cbdf8508204c4eb">iOS</a> = 0x3100
+, <br />
+&#160;&#160;<a class="el" href="#aa6f1ef0b4e0aa4864f1c8d431775bc94ae84e30b9390cdb64db6db2c9ab87846d">Android</a> = 0x4000
+, <a class="el" href="#aa6f1ef0b4e0aa4864f1c8d431775bc94ad61abb0698c83433ab6b11ab3d68447d">GBA</a> = 0x5000
+, <a class="el" href="#aa6f1ef0b4e0aa4864f1c8d431775bc94a762ba5f7878627c28916f73f55646717">NDS</a> = 0x6000
+, <a class="el" href="#aa6f1ef0b4e0aa4864f1c8d431775bc94a91f63b3de0c255c06d76b4a195ed5b15">N3DS</a> = 0x7000
+, <br />
+&#160;&#160;<a class="el" href="#aa6f1ef0b4e0aa4864f1c8d431775bc94abbc155fb2b111bf61c4f5ff892915e6b">Switch</a> = 0x8000
+<br />
+ }</td></tr>
+<tr class="memdesc:aa6f1ef0b4e0aa4864f1c8d431775bc94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumeration of target operating systems and platforms.  <a href="#aa6f1ef0b4e0aa4864f1c8d431775bc94">More...</a><br /></td></tr>
+<tr class="memitem:a9fbbca3cbd855381284624d5fc830d49" id="r_a9fbbca3cbd855381284624d5fc830d49"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9fbbca3cbd855381284624d5fc830d49">CpuArchitecture</a> : unsigned int { <br />
+&#160;&#160;<a class="el" href="#a9fbbca3cbd855381284624d5fc830d49a8a9da7865483c5fd359f3acef178d26d">x86</a> = 0x0014
+, <a class="el" href="#a9fbbca3cbd855381284624d5fc830d49a9c16d991c79c6330e655aa29ea623492">x64</a> = 0x0018
+, <a class="el" href="#a9fbbca3cbd855381284624d5fc830d49a044fc9e908d0f160ae1a8ac300eb2b3d">Arm32</a> = 0x0024
+, <a class="el" href="#a9fbbca3cbd855381284624d5fc830d49ac42c3b5bc3b4234ee7823388012368d6">Arm64</a> = 0x0028
+, <br />
+&#160;&#160;<a class="el" href="#a9fbbca3cbd855381284624d5fc830d49a88183b946cc5f0e8c96b2e66e1c74a7e">Unknown</a> = 0x0000
+<br />
+ }</td></tr>
+<tr class="memdesc:a9fbbca3cbd855381284624d5fc830d49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumeration of CPU architectures and instruction set architectures.  <a href="#a9fbbca3cbd855381284624d5fc830d49">More...</a><br /></td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:af1c89e92e67487a8e2f12a1842085bb8" id="r_af1c89e92e67487a8e2f12a1842085bb8"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af1c89e92e67487a8e2f12a1842085bb8">operator==</a> (const <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a> &amp;lhs, const <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a> &amp;rhs)</td></tr>
@@ -231,9 +259,6 @@ Functions</h2></td></tr>
 <tr class="memdesc:aa63c971425cb6819414030806927a68a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates CRC-16 checksum using IBM/ARC polynomial.  <br /></td></tr>
 <tr class="memitem:a17983e173fb5e8cf5baaab61a78a402e" id="r_a17983e173fb5e8cf5baaab61a78a402e"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a17983e173fb5e8cf5baaab61a78a402e">crc32</a> (const void *src, size_t size, uint32_t crc=0x00000000) noexcept</td></tr>
 <tr class="memdesc:a17983e173fb5e8cf5baaab61a78a402e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates CRC-32 checksum using IEEE 802.3 polynomial.  <br /></td></tr>
-<tr class="memitem:a21509d35964c2e5617e654ff442146af" id="r_a21509d35964c2e5617e654ff442146af"><td class="memTemplParams" colspan="2">template&lt;typename T, size_t N&gt; </td></tr>
-<tr class="memitem:a21509d35964c2e5617e654ff442146af template"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a21509d35964c2e5617e654ff442146af">ArraySize</a> (T(&amp;)[N])</td></tr>
-<tr class="memdesc:a21509d35964c2e5617e654ff442146af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the size of an array at compile-time.  <br /></td></tr>
 <tr class="memitem:ad95906de2f58b602b9ee9f16708f15b4" id="r_ad95906de2f58b602b9ee9f16708f15b4"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="../../d9/d10/structtoy_1_1__divmod10.html">_divmod10</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad95906de2f58b602b9ee9f16708f15b4">_divModU10</a> (uint32_t value) noexcept</td></tr>
 <tr class="memdesc:ad95906de2f58b602b9ee9f16708f15b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Divides a given 32-bit unsigned integer by 10 and returns the quotient and remainder.  <br /></td></tr>
 <tr class="memitem:a5c08dafb841b59caed6996f17b8baebc" id="r_a5c08dafb841b59caed6996f17b8baebc"><td class="memItemLeft" align="right" valign="top">constexpr int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5c08dafb841b59caed6996f17b8baebc">_ftoa32Engine</a> (char *buffer, float value, size_t precision) noexcept</td></tr>
@@ -299,7 +324,161 @@ Variables</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Root namespace containing all engine modules. </p>
-</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+</div><a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Enumeration Type Documentation</h2>
+<a id="a9fbbca3cbd855381284624d5fc830d49" name="a9fbbca3cbd855381284624d5fc830d49"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9fbbca3cbd855381284624d5fc830d49">&#9670;&#160;</a></span>CpuArchitecture</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#a9fbbca3cbd855381284624d5fc830d49">toy::CpuArchitecture</a> : unsigned int</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Enumeration of CPU architectures and instruction set architectures. </p>
+<p>Identifies the target CPU architecture for compile-time and runtime architecture detection. Values use hexadecimal identifiers starting from <code>0x0014</code>, with each architecture family assigned a distinct range. This design enables compile-time architecture checks and combination with platform identifiers.</p>
+<h1 class="doxsection"><a class="anchor" id="features"></a>
+Key Features</h1>
+<ul>
+<li>🔧 <b>Constexpr Support</b>: All values are usable in constexpr contexts</li>
+<li>🎯 <b>Compile-Time Detection</b>: Enables compile-time conditional compilation via <code>if</code> <code>constexpr</code> </li>
+<li>📐 <b>Type Safety</b>: Strongly-typed enum class prevents implicit conversions</li>
+<li>🔗 <b><a class="el" href="#aa6f1ef0b4e0aa4864f1c8d431775bc94" title="Enumeration of target operating systems and platforms.">Platform</a> Integration</b>: Hex values designed to combine with platform identifiers</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="usage"></a>
+Usage Example</h1>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="../../da/d47/core_8hpp.html">core.hpp</a>&quot;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Compile-time architecture detection</span></div>
+<div class="line"><span class="keyword">constexpr</span> <a class="code hl_enumeration" href="#a9fbbca3cbd855381284624d5fc830d49">CpuArchitecture</a> currentArch = <a class="code hl_enumvalue" href="#a9fbbca3cbd855381284624d5fc830d49a9c16d991c79c6330e655aa29ea623492">CpuArchitecture::x64</a>;</div>
+<div class="line"> </div>
+<div class="line"><span class="keywordflow">if</span> <span class="keyword">constexpr</span> (currentArch == <a class="code hl_enumvalue" href="#a9fbbca3cbd855381284624d5fc830d49a9c16d991c79c6330e655aa29ea623492">CpuArchitecture::x64</a>) {</div>
+<div class="line">  <span class="comment">// x64-specific optimizations (evaluated at compile time)</span></div>
+<div class="line">} <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (currentArch == <a class="code hl_enumvalue" href="#a9fbbca3cbd855381284624d5fc830d49ac42c3b5bc3b4234ee7823388012368d6">CpuArchitecture::Arm64</a>) {</div>
+<div class="line">  <span class="comment">// ARM64-specific optimizations (evaluated at compile time)</span></div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Runtime architecture checking</span></div>
+<div class="line"><span class="keyword">const</span> <a class="code hl_enumeration" href="#a9fbbca3cbd855381284624d5fc830d49">CpuArchitecture</a> runtimeArch = getCurrentArchitecture();</div>
+<div class="line"><span class="keywordflow">if</span> (runtimeArch == <a class="code hl_enumvalue" href="#a9fbbca3cbd855381284624d5fc830d49ac42c3b5bc3b4234ee7823388012368d6">CpuArchitecture::Arm64</a>) {</div>
+<div class="line">  <span class="comment">// ARM64-specific logic</span></div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Combined platform and architecture detection</span></div>
+<div class="line"><span class="keywordflow">if</span> <span class="keyword">constexpr</span> (currentPlatform == <a class="code hl_enumvalue" href="#aa6f1ef0b4e0aa4864f1c8d431775bc94a0a5b7edb55b772c60bfa8af868b679cf">Platform::MacOS</a> &amp;&amp; currentArch == <a class="code hl_enumvalue" href="#a9fbbca3cbd855381284624d5fc830d49ac42c3b5bc3b4234ee7823388012368d6">CpuArchitecture::Arm64</a>) {</div>
+<div class="line">  <span class="comment">// Apple Silicon specific code</span></div>
+<div class="line">}</div>
+<div class="ttc" id="acore_8hpp_html"><div class="ttname"><a href="../../da/d47/core_8hpp.html">core.hpp</a></div><div class="ttdoc">Umbrella header for the engine core module.</div></div>
+<div class="ttc" id="anamespacetoy_html_a9fbbca3cbd855381284624d5fc830d49"><div class="ttname"><a href="#a9fbbca3cbd855381284624d5fc830d49">toy::CpuArchitecture</a></div><div class="ttdeci">CpuArchitecture</div><div class="ttdoc">Enumeration of CPU architectures and instruction set architectures.</div><div class="ttdef"><b>Definition</b> platform.hpp:144</div></div>
+<div class="ttc" id="anamespacetoy_html_a9fbbca3cbd855381284624d5fc830d49a9c16d991c79c6330e655aa29ea623492"><div class="ttname"><a href="#a9fbbca3cbd855381284624d5fc830d49a9c16d991c79c6330e655aa29ea623492">toy::CpuArchitecture::x64</a></div><div class="ttdeci">@ x64</div><div class="ttdoc">Intel x64 64-bit instruction set architecture (x86-64, AMD64).</div><div class="ttdef"><b>Definition</b> platform.hpp:149</div></div>
+<div class="ttc" id="anamespacetoy_html_a9fbbca3cbd855381284624d5fc830d49ac42c3b5bc3b4234ee7823388012368d6"><div class="ttname"><a href="#a9fbbca3cbd855381284624d5fc830d49ac42c3b5bc3b4234ee7823388012368d6">toy::CpuArchitecture::Arm64</a></div><div class="ttdeci">@ Arm64</div><div class="ttdoc">ARM 64-bit instruction set architecture (ARMv8-A AArch64, ARM64).</div><div class="ttdef"><b>Definition</b> platform.hpp:155</div></div>
+<div class="ttc" id="anamespacetoy_html_aa6f1ef0b4e0aa4864f1c8d431775bc94a0a5b7edb55b772c60bfa8af868b679cf"><div class="ttname"><a href="#aa6f1ef0b4e0aa4864f1c8d431775bc94a0a5b7edb55b772c60bfa8af868b679cf">toy::Platform::MacOS</a></div><div class="ttdeci">@ MacOS</div><div class="ttdoc">Apple macOS desktop operating system.</div><div class="ttdef"><b>Definition</b> platform.hpp:79</div></div>
+</div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>Architecture families use distinct hex ranges: Intel (<code>0x0014-<code>0x0018</code>)</code>, ARM (<code>0x0024-<code>0x0028</code>)</code>. </dd>
+<dd>
+Architecture values can be combined with platform values for combined platform-architecture identification. </dd></dl>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a9fbbca3cbd855381284624d5fc830d49a8a9da7865483c5fd359f3acef178d26d" name="a9fbbca3cbd855381284624d5fc830d49a8a9da7865483c5fd359f3acef178d26d"></a>x86&#160;</td><td class="fielddoc"><p>Intel x86 32-bit instruction set architecture (IA-32). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a9fbbca3cbd855381284624d5fc830d49a9c16d991c79c6330e655aa29ea623492" name="a9fbbca3cbd855381284624d5fc830d49a9c16d991c79c6330e655aa29ea623492"></a>x64&#160;</td><td class="fielddoc"><p>Intel x64 64-bit instruction set architecture (x86-64, AMD64). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a9fbbca3cbd855381284624d5fc830d49a044fc9e908d0f160ae1a8ac300eb2b3d" name="a9fbbca3cbd855381284624d5fc830d49a044fc9e908d0f160ae1a8ac300eb2b3d"></a>Arm32&#160;</td><td class="fielddoc"><p>ARM 32-bit instruction set architecture (ARMv7, ARMv8-A AArch32). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a9fbbca3cbd855381284624d5fc830d49ac42c3b5bc3b4234ee7823388012368d6" name="a9fbbca3cbd855381284624d5fc830d49ac42c3b5bc3b4234ee7823388012368d6"></a>Arm64&#160;</td><td class="fielddoc"><p>ARM 64-bit instruction set architecture (ARMv8-A AArch64, ARM64). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a9fbbca3cbd855381284624d5fc830d49a88183b946cc5f0e8c96b2e66e1c74a7e" name="a9fbbca3cbd855381284624d5fc830d49a88183b946cc5f0e8c96b2e66e1c74a7e"></a>Unknown&#160;</td><td class="fielddoc"><p>Unspecified or unknown architecture. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="aa6f1ef0b4e0aa4864f1c8d431775bc94" name="aa6f1ef0b4e0aa4864f1c8d431775bc94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6f1ef0b4e0aa4864f1c8d431775bc94">&#9670;&#160;</a></span>Platform</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#aa6f1ef0b4e0aa4864f1c8d431775bc94">toy::Platform</a> : unsigned int</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Enumeration of target operating systems and platforms. </p>
+<p>Identifies the target platform for compile-time and runtime platform detection. Values use hexadecimal identifiers starting from <code>0x1000</code>, with each platform family assigned a distinct range. This design enables compile-time platform checks and potential combination with CPU architecture identifiers.</p>
+<h1 class="doxsection"><a class="anchor" id="features"></a>
+Key Features</h1>
+<ul>
+<li>🔧 <b>Constexpr Support</b>: All values are usable in constexpr contexts</li>
+<li>🎯 <b>Compile-Time Detection</b>: Enables compile-time conditional compilation via <code>if</code> <code>constexpr</code> </li>
+<li>📐 <b>Type Safety</b>: Strongly-typed enum class prevents implicit conversions</li>
+<li>🔗 <b>Architecture Integration</b>: Hex values designed to combine with CPU architecture identifiers</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="usage"></a>
+Usage Example</h1>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="../../da/d47/core_8hpp.html">core.hpp</a>&quot;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Compile-time platform detection</span></div>
+<div class="line"><span class="keyword">constexpr</span> <a class="code hl_enumeration" href="#aa6f1ef0b4e0aa4864f1c8d431775bc94">Platform</a> currentPlatform = <a class="code hl_enumvalue" href="#aa6f1ef0b4e0aa4864f1c8d431775bc94a0a5b7edb55b772c60bfa8af868b679cf">Platform::MacOS</a>;</div>
+<div class="line"> </div>
+<div class="line"><span class="keywordflow">if</span> <span class="keyword">constexpr</span> (currentPlatform == <a class="code hl_enumvalue" href="#aa6f1ef0b4e0aa4864f1c8d431775bc94a0a5b7edb55b772c60bfa8af868b679cf">Platform::MacOS</a>) {</div>
+<div class="line">  <span class="comment">// macOS-specific code (evaluated at compile time)</span></div>
+<div class="line">} <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (currentPlatform == <a class="code hl_enumvalue" href="#aa6f1ef0b4e0aa4864f1c8d431775bc94aaea23489ce3aa9b6406ebb28e0cda430">Platform::Windows</a>) {</div>
+<div class="line">  <span class="comment">// Windows-specific code (evaluated at compile time)</span></div>
+<div class="line">} <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (currentPlatform == <a class="code hl_enumvalue" href="#aa6f1ef0b4e0aa4864f1c8d431775bc94aedc9f0a5a5d57797bf68e37364743831">Platform::Linux</a>) {</div>
+<div class="line">  <span class="comment">// Linux-specific code (evaluated at compile time)</span></div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Runtime platform checking</span></div>
+<div class="line"><span class="keyword">const</span> <a class="code hl_enumeration" href="#aa6f1ef0b4e0aa4864f1c8d431775bc94">Platform</a> runtimePlatform = getCurrentPlatform();</div>
+<div class="line"><span class="keywordflow">if</span> (runtimePlatform == <a class="code hl_enumvalue" href="#aa6f1ef0b4e0aa4864f1c8d431775bc94aedc9f0a5a5d57797bf68e37364743831">Platform::Linux</a>) {</div>
+<div class="line">  <span class="comment">// Linux-specific logic</span></div>
+<div class="line">}</div>
+<div class="ttc" id="anamespacetoy_html_aa6f1ef0b4e0aa4864f1c8d431775bc94"><div class="ttname"><a href="#aa6f1ef0b4e0aa4864f1c8d431775bc94">toy::Platform</a></div><div class="ttdeci">Platform</div><div class="ttdoc">Enumeration of target operating systems and platforms.</div><div class="ttdef"><b>Definition</b> platform.hpp:71</div></div>
+<div class="ttc" id="anamespacetoy_html_aa6f1ef0b4e0aa4864f1c8d431775bc94aaea23489ce3aa9b6406ebb28e0cda430"><div class="ttname"><a href="#aa6f1ef0b4e0aa4864f1c8d431775bc94aaea23489ce3aa9b6406ebb28e0cda430">toy::Platform::Windows</a></div><div class="ttdeci">@ Windows</div><div class="ttdoc">Microsoft Windows Desktop operating system (Windows XP, Vista, 7, 8, 8.1, 10, 11, etc....</div><div class="ttdef"><b>Definition</b> platform.hpp:73</div></div>
+<div class="ttc" id="anamespacetoy_html_aa6f1ef0b4e0aa4864f1c8d431775bc94aedc9f0a5a5d57797bf68e37364743831"><div class="ttname"><a href="#aa6f1ef0b4e0aa4864f1c8d431775bc94aedc9f0a5a5d57797bf68e37364743831">toy::Platform::Linux</a></div><div class="ttdeci">@ Linux</div><div class="ttdoc">GNU/Linux operating system and Linux-based distributions.</div><div class="ttdef"><b>Definition</b> platform.hpp:76</div></div>
+</div><!-- fragment --><dl class="section note"><dt>Note</dt><dd><a class="el" href="#aa6f1ef0b4e0aa4864f1c8d431775bc94" title="Enumeration of target operating systems and platforms.">Platform</a> families use distinct hex ranges: desktop (<code>0x1000-<code>0x3000</code>)</code>, mobile (<code>0x3100-<code>0x4000</code>)</code>, consoles (<code>0x5000-<code>0x8000</code>)</code>. iOS (<code>0x3100</code>) shares the Apple family range with macOS (<code>0x3000</code>). </dd></dl>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aa6f1ef0b4e0aa4864f1c8d431775bc94aaea23489ce3aa9b6406ebb28e0cda430" name="aa6f1ef0b4e0aa4864f1c8d431775bc94aaea23489ce3aa9b6406ebb28e0cda430"></a>Windows&#160;</td><td class="fielddoc"><p>Microsoft Windows Desktop operating system (Windows XP, Vista, 7, 8, 8.1, 10, 11, etc.). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aa6f1ef0b4e0aa4864f1c8d431775bc94aedc9f0a5a5d57797bf68e37364743831" name="aa6f1ef0b4e0aa4864f1c8d431775bc94aedc9f0a5a5d57797bf68e37364743831"></a>Linux&#160;</td><td class="fielddoc"><p>GNU/Linux operating system and Linux-based distributions. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aa6f1ef0b4e0aa4864f1c8d431775bc94a0a5b7edb55b772c60bfa8af868b679cf" name="aa6f1ef0b4e0aa4864f1c8d431775bc94a0a5b7edb55b772c60bfa8af868b679cf"></a>MacOS&#160;</td><td class="fielddoc"><p>Apple macOS desktop operating system. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aa6f1ef0b4e0aa4864f1c8d431775bc94a1bdf605991920db11cbdf8508204c4eb" name="aa6f1ef0b4e0aa4864f1c8d431775bc94a1bdf605991920db11cbdf8508204c4eb"></a>iOS&#160;</td><td class="fielddoc"><p>Apple iOS mobile operating system. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aa6f1ef0b4e0aa4864f1c8d431775bc94ae84e30b9390cdb64db6db2c9ab87846d" name="aa6f1ef0b4e0aa4864f1c8d431775bc94ae84e30b9390cdb64db6db2c9ab87846d"></a>Android&#160;</td><td class="fielddoc"><p>Google Android mobile operating system. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aa6f1ef0b4e0aa4864f1c8d431775bc94ad61abb0698c83433ab6b11ab3d68447d" name="aa6f1ef0b4e0aa4864f1c8d431775bc94ad61abb0698c83433ab6b11ab3d68447d"></a>GBA&#160;</td><td class="fielddoc"><p>Nintendo Game Boy Advance handheld gaming console. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aa6f1ef0b4e0aa4864f1c8d431775bc94a762ba5f7878627c28916f73f55646717" name="aa6f1ef0b4e0aa4864f1c8d431775bc94a762ba5f7878627c28916f73f55646717"></a>NDS&#160;</td><td class="fielddoc"><p>Nintendo DS dual-screen handheld gaming console. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aa6f1ef0b4e0aa4864f1c8d431775bc94a91f63b3de0c255c06d76b4a195ed5b15" name="aa6f1ef0b4e0aa4864f1c8d431775bc94a91f63b3de0c255c06d76b4a195ed5b15"></a>N3DS&#160;</td><td class="fielddoc"><p>Nintendo 3DS handheld gaming console with stereoscopic 3D display. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aa6f1ef0b4e0aa4864f1c8d431775bc94abbc155fb2b111bf61c4f5ff892915e6b" name="aa6f1ef0b4e0aa4864f1c8d431775bc94abbc155fb2b111bf61c4f5ff892915e6b"></a>Switch&#160;</td><td class="fielddoc"><p>Nintendo Switch hybrid gaming console. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="ad95906de2f58b602b9ee9f16708f15b4" name="ad95906de2f58b602b9ee9f16708f15b4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad95906de2f58b602b9ee9f16708f15b4">&#9670;&#160;</a></span>_divModU10()</h2>
 
@@ -530,36 +709,6 @@ Variables</h2></td></tr>
 <div id="dynsection-5-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d4/da9/namespacetoy_a23cb859f41bbfdd0562927582baec660_icgraph.svg" width="276" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
-
-</div>
-</div>
-<a id="a21509d35964c2e5617e654ff442146af" name="a21509d35964c2e5617e654ff442146af"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a21509d35964c2e5617e654ff442146af">&#9670;&#160;</a></span>ArraySize()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T, size_t N&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">size_t toy::ArraySize </td>
-          <td>(</td>
-          <td class="paramtype">T(&amp;)</td>          <td class="paramname"><span class="paramname"><em></em></span>[N]</td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the size of an array at compile-time. </p>
-<p>This is a compile-time helper function that returns the size of an array. The size of the array is inferred from the parameter type, which is a reference to an array of length N. </p>
 
 </div>
 </div>

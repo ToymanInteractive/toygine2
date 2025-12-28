@@ -1,6 +1,5 @@
 var NAVTREEINDEX3 =
 {
-"d8/dc9/classtoy_1_1_callbacks_pool.html#abafb577a2adc03ad61aa426525456a1c":[5,0,0,4,2],
 "d8/dc9/classtoy_1_1_callbacks_pool.html#acdb9af165834d8b543c106a6fc8b9574":[3,0,0,5,9],
 "d8/dc9/classtoy_1_1_callbacks_pool.html#acdb9af165834d8b543c106a6fc8b9574":[5,0,0,4,9],
 "d8/dc9/classtoy_1_1_callbacks_pool.html#ad28957117de2430f258769bee32249dd":[3,0,0,5,8],
@@ -151,14 +150,14 @@ var NAVTREEINDEX3 =
 "functions_y.html":[5,2,0,19],
 "functions_~.html":[5,2,0,20],
 "globals.html":[6,1,0],
-"globals_defs.html":[6,1,2],
-"globals_enum.html":[6,1,1],
+"globals_defs.html":[6,1,1],
 "index.html":[],
 "index.html#requirements":[1],
 "index.html#supported-c-compilers":[1,0],
 "index.html#supported-systems":[0],
 "index.html#tools":[1,1],
 "namespacemembers.html":[3,1,0],
+"namespacemembers_enum.html":[3,1,4],
 "namespacemembers_func.html":[3,1,1],
 "namespacemembers_type.html":[3,1,3],
 "namespacemembers_vars.html":[3,1,2],

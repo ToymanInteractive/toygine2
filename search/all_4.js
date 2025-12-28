@@ -37,7 +37,7 @@ var searchData=
   ['conventions_34',['Naming Conventions',['../d2/d77/md__8instructions.html#naming-conventions',1,'']]],
   ['copy_35',['copy',['../d3/d7a/classtoy_1_1_fixed_string.html#ae326fa78447917b9b8c28bc779dbbc8a',1,'toy::FixedString']]],
   ['core_2ehpp_36',['core.hpp',['../da/d47/core_8hpp.html',1,'']]],
-  ['cpuarchitecture_37',['CpuArchitecture',['../d3/d60/platform_8hpp.html#abb44a2c5d16900814aa68732a47ffda0',1,'platform.hpp']]],
+  ['cpuarchitecture_37',['CpuArchitecture',['../d4/da9/namespacetoy.html#a9fbbca3cbd855381284624d5fc830d49',1,'toy']]],
   ['crbegin_38',['crbegin',['../d7/dec/classtoy_1_1_fixed_vector.html#a8d1ee9e92ff1100e5d2199de7796ca5d',1,'toy::FixedVector']]],
   ['crc16_39',['crc16',['../d4/da9/namespacetoy.html#aa63c971425cb6819414030806927a68a',1,'toy']]],
   ['crc32_40',['crc32',['../d4/da9/namespacetoy.html#a17983e173fb5e8cf5baaab61a78a402e',1,'toy']]],
