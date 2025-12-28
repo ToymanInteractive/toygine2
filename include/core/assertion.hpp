@@ -239,7 +239,7 @@ inline void assertion(const char * TOY_UNUSED(code), const char * TOY_UNUSED(mes
 */
 constexpr void constexpr_assert(bool condition, const char * message) {
   if (!condition)
-    throw std::invalid_argument(message);
+    throw std::invalid_argument(message ? message : "constexpr_assert failed");
 }
 
 } // namespace toy::assertion
