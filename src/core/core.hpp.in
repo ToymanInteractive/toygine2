@@ -130,81 +130,9 @@ concept StringLike = requires(const T & str) {
 
 //--------------------------------------------------------------------------------------------------------------------
 
-/// @brief Assertion utilities for validating engine invariants and runtime conditions.
-namespace assertion {
-
-using AssertionCallback = bool (*)(const char *);
-using StackWalkCallback = void (*)(const char *);
-
-/*!
-  \brief Initializes the assertion system.
-
-  \sa deInitialize()
-*/
-void initialize();
-
-/*!
-  \brief Shutdown the assertion system.
-
-  \sa initialize()
-*/
-void deInitialize();
-
-/*!
-  \brief Sets the assertion and stack walk callbacks.
-
-  The assertion callback is called when an assertion is triggered. The callback is passed the assertion string and
-  should return true if the assertion should be ignored, false otherwise.
-
-  The stack walk callback is called to print the stack trace. The callback is passed the constructed string.
-
-  \param assertionCallback The assertion callback.
-  \param stackWalkCallback The stack walk callback.
-*/
-void setCallbacks(AssertionCallback assertionCallback, StackWalkCallback stackWalkCallback);
-
-#ifdef _DEBUG
-
-void assertion(const char * code, const char * message, const char * fileName, const char * functionName,
-               size_t lineNumber);
-
-#else // _DEBUG
-
-inline void assertion(const char * TOY_UNUSED(code), const char * TOY_UNUSED(message),
-                      const char * TOY_UNUSED(fileName), const char * TOY_UNUSED(functionName),
-                      size_t TOY_UNUSED(lineNumber)) {}
-
-#endif // _DEBUG
-
-/*!
-  \brief Compile-time assertion function for constexpr contexts.
-
-  This function provides assertion capabilities in constexpr contexts where regular assertions cannot be used. When the
-  \a condition is false, it throws a std::invalid_argument exception with the provided \a message.
-
-  \param condition The condition to check. Must be true for the assertion to pass.
-  \param message   The error message to include in the exception if the assertion fails.
-
-  \throws std::invalid_argument If \a condition is false, with \a message as the error description.
-
-  \note This function is designed for use in constexpr contexts where traditional assertions are not available. It
-        should be used sparingly and only when compile-time validation is essential.
-
-  \note Unlike regular assertions, this function always throws an exception in both debug and release builds when the
-        condition fails.
-
-  \see assert
-  \see assert_message
-*/
-constexpr void constexpr_assert(bool condition, const char * message) {
-  if (!condition)
-    throw std::invalid_argument(message);
-}
-
-} // namespace assertion
-
 } // namespace toy
 
+#include "core/assertion.hpp"
 #include "core/c_string_view.hpp"
 #include "core/callbacks_pool.hpp"
 #include "core/constexpr_utils.hpp"
