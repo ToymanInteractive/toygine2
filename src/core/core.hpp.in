@@ -47,9 +47,9 @@
 
 //----------------------------------------------------------------------------------------------------------------------
 
-#undef TARGET_CPU
-
 #include "@TOYGINE_TARGET_PLATFORM_CONFIG_HEADER@"
+
+//----------------------------------------------------------------------------------------------------------------------
 
 /// @namespace toy
 /// @brief Root namespace containing all engine modules.
@@ -68,18 +68,8 @@ using std::uint8_t;
 
 using std::char_traits;
 
+using std::size;
 using std::strong_ordering;
-
-/*!
-  \brief Returns the size of an array at compile-time.
-
-  This is a compile-time helper function that returns the size of an array. The size of the array is inferred from the
-  parameter type, which is a reference to an array of length N.
-*/
-template <typename T, size_t N>
-constexpr size_t ArraySize(T (&)[N]) {
-  return N;
-}
 
 /*!
   \brief Concept defining the requirements for string-like types.

@@ -25,7 +25,11 @@
 #ifndef SRC_PLATFORMS_MACOS_PLATFORM_CONFIG_HPP_
 #define SRC_PLATFORMS_MACOS_PLATFORM_CONFIG_HPP_
 
+#include "../common/assertion_macro_gcc_clang.hpp"
+
 #if defined(__APPLE__) && defined(TARGET_OS_OSX)
+
+namespace toy {
 
 inline constexpr auto currentPlatform = Platform::MacOS;
 
@@ -41,8 +45,8 @@ inline constexpr auto currentCpuArchitecture = CpuArchitecture::x86;
 inline constexpr auto currentCpuArchitecture = CpuArchitecture::Unknown;
 #endif
 
-#endif // defined(__APPLE__) && defined(TARGET_OS_OSX)
+} // namespace toy
 
-#include "../common/assertion_macro_gcc_clang.hpp"
+#endif // defined(__APPLE__) && defined(TARGET_OS_OSX)
 
 #endif // SRC_PLATFORMS_MACOS_PLATFORM_CONFIG_HPP_

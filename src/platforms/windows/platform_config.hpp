@@ -27,6 +27,8 @@
 
 #if defined(_WIN32)
 
+namespace toy {
+
 inline constexpr auto currentPlatform = Platform::Windows;
 
 #if defined(_M_X64) || defined(__x86_64__)
@@ -38,6 +40,8 @@ inline constexpr auto currentCpuArchitecture = CpuArchitecture::x86;
 #else
 inline constexpr auto currentCpuArchitecture = CpuArchitecture::Unknown;
 #endif
+
+} // namespace toy
 
 #endif // defined(_WIN32)
 

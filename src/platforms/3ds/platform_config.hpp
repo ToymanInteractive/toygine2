@@ -25,14 +25,18 @@
 #ifndef SRC_PLATFORMS_3DS_PLATFORM_CONFIG_HPP_
 #define SRC_PLATFORMS_3DS_PLATFORM_CONFIG_HPP_
 
+#include "../common/assertion_macro_gcc_clang.hpp"
+
 #if defined(__DEVKITPRO__)
+
+namespace toy {
 
 inline constexpr auto currentPlatform = Platform::N3DS;
 
 inline constexpr auto currentCpuArchitecture = CpuArchitecture::Arm32;
 
-#endif // defined(__DEVKITPRO__)
+} // namespace toy
 
-#include "../common/assertion_macro_gcc_clang.hpp"
+#endif // defined(__DEVKITPRO__)
 
 #endif // SRC_PLATFORMS_3DS_PLATFORM_CONFIG_HPP_

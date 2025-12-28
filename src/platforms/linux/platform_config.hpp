@@ -25,7 +25,11 @@
 #ifndef SRC_PLATFORMS_LINUX_PLATFORM_CONFIG_HPP_
 #define SRC_PLATFORMS_LINUX_PLATFORM_CONFIG_HPP_
 
+#include "../common/assertion_macro_gcc_clang.hpp"
+
 #if defined(__linux__)
+
+namespace toy {
 
 inline constexpr auto currentPlatform = Platform::Linux;
 
@@ -41,8 +45,8 @@ inline constexpr auto currentCpuArchitecture = CpuArchitecture::x86;
 inline constexpr auto currentCpuArchitecture = CpuArchitecture::Unknown;
 #endif
 
-#endif // defined(__linux__)
+} // namespace toy
 
-#include "../common/assertion_macro_gcc_clang.hpp"
+#endif // defined(__linux__)
 
 #endif // SRC_PLATFORMS_LINUX_PLATFORM_CONFIG_HPP_
