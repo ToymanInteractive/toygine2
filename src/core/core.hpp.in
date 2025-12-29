@@ -92,23 +92,6 @@ concept StringLike = requires(const T & str) {
   { str.c_str() } -> std::convertible_to<const char *>;
 };
 
-#if 1
-/*!
-  \def TOY_UNUSED(identifier)
-  \brief Suppresses compiler warnings about unused variables or functions.
-
-  This macro is used to ignore identifiers that are not used in the code, but are still declared for some reason.
-
-  \param identifier The identifier to ignore.
-
-  \note This macro does not change the behavior of the program.
-  \note This macro is used to suppress compiler warnings about unused variables or functions.
-*/
-#define TOY_UNUSED(identifier)
-#else
-#define TOY_UNUSED(identifier) identifier
-#endif
-
 #undef validate
 
 #ifdef _DEBUG

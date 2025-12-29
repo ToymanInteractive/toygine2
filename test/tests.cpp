@@ -8,7 +8,7 @@
   throw std::runtime_error(message);
 }
 
-void _stackWalkCallback(const char * TOY_UNUSED(info)) {}
+void _stackWalkCallback([[maybe_unused]] const char * info) {}
 
 int main(int argc, char * argv[]) {
   toy::assertion::initialize();

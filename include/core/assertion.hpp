@@ -192,9 +192,9 @@ void assertion(const char * code, const char * message, const char * fileName, c
   \note This function is only available in release builds (when _DEBUG is not defined).
   \note This function has no effect and is completely optimized away by the compiler.
 */
-inline void assertion(const char * TOY_UNUSED(code), const char * TOY_UNUSED(message),
-                      const char * TOY_UNUSED(fileName), const char * TOY_UNUSED(functionName),
-                      size_t TOY_UNUSED(lineNumber)) {}
+inline void assertion([[maybe_unused]] const char * code, [[maybe_unused]] const char * message,
+                      [[maybe_unused]] const char * fileName, [[maybe_unused]] const char * functionName,
+                      [[maybe_unused]] size_t lineNumber) {}
 
 #endif // _DEBUG
 
