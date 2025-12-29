@@ -1,4 +1,4 @@
-# Repository AI Instructions
+# AGENTS Guidelines for This Repository
 
 This file defines mandatory rules for AI-assisted code and documentation generation in this repository.
 
