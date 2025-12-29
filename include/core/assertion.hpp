@@ -183,18 +183,12 @@ void assertion(const char * code, const char * message, const char * fileName, c
   In release builds, assertions are disabled and this function does nothing. This allows assertion code to compile
   without overhead in release builds.
 
-  \param code         Unused in release builds.
-  \param message      Unused in release builds.
-  \param fileName     Unused in release builds.
-  \param functionName Unused in release builds.
-  \param lineNumber   Unused in release builds.
-
   \note This function is only available in release builds (when _DEBUG is not defined).
   \note This function has no effect and is completely optimized away by the compiler.
 */
-inline void assertion(const char * TOY_UNUSED(code), const char * TOY_UNUSED(message),
-                      const char * TOY_UNUSED(fileName), const char * TOY_UNUSED(functionName),
-                      size_t TOY_UNUSED(lineNumber)) {}
+inline void assertion(const char *, const char *, const char *, const char *, size_t) {
+  // Intentionally empty - no-op in release builds
+}
 
 #endif // _DEBUG
 

@@ -39,7 +39,7 @@ void deInitialize() {
   s_assertionCallback = nullptr;
 }
 
-void setCallbacks(AssertionCallback assertionCallback, StackWalkCallback TOY_UNUSED(stackWalkCallback)) {
+void setCallbacks(AssertionCallback assertionCallback, [[maybe_unused]] StackWalkCallback stackWalkCallback) {
   s_assertionCallback = assertionCallback;
 }
 
