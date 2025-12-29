@@ -261,7 +261,7 @@ $(function(){initNavTree('d5/d96/assertion_8hpp_source.html','../../',''); });
 <div class="line"><span class="lineno">  146</span><span class="comment">  \sa AssertionCallback</span></div>
 <div class="line"><span class="lineno">  147</span><span class="comment">  \sa StackWalkCallback</span></div>
 <div class="line"><span class="lineno">  148</span><span class="comment">*/</span></div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno"><a class="line" href="../../d2/da2/namespacetoy_1_1assertion.html#ab92066b98ab69bcf7db8e1089ea4f755">  149</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d2/da2/namespacetoy_1_1assertion.html#ab92066b98ab69bcf7db8e1089ea4f755">setCallbacks</a>(<a class="code hl_typedef" href="../../d2/da2/namespacetoy_1_1assertion.html#a27a675a54a720bf1a098fd13be80553e">AssertionCallback</a> assertionCallback, <a class="code hl_typedef" href="../../d2/da2/namespacetoy_1_1assertion.html#af491e4e307d14db3efeafb9a77ae76ef">StackWalkCallback</a> stackWalkCallback);</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d2/da2/namespacetoy_1_1assertion.html#ab92066b98ab69bcf7db8e1089ea4f755">setCallbacks</a>(<a class="code hl_typedef" href="../../d2/da2/namespacetoy_1_1assertion.html#a27a675a54a720bf1a098fd13be80553e">AssertionCallback</a> assertionCallback, <a class="code hl_typedef" href="../../d2/da2/namespacetoy_1_1assertion.html#af491e4e307d14db3efeafb9a77ae76ef">StackWalkCallback</a> stackWalkCallback);</div>
 <div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span> </div>
 <div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span><span class="preprocessor">#</span><span class="preprocessor">ifdef</span> <span class="preprocessor">_DEBUG</span></div>
 <div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span> </div>
@@ -298,79 +298,72 @@ $(function(){initNavTree('d5/d96/assertion_8hpp_source.html','../../',''); });
 <div class="line"><span class="lineno">  183</span><span class="comment">  In release builds, assertions are disabled and this function does nothing. This allows assertion code to compile</span></div>
 <div class="line"><span class="lineno">  184</span><span class="comment">  without overhead in release builds.</span></div>
 <div class="line"><span class="lineno">  185</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  186</span><span class="comment">  \param code         Unused in release builds.</span></div>
-<div class="line"><span class="lineno">  187</span><span class="comment">  \param message      Unused in release builds.</span></div>
-<div class="line"><span class="lineno">  188</span><span class="comment">  \param fileName     Unused in release builds.</span></div>
-<div class="line"><span class="lineno">  189</span><span class="comment">  \param functionName Unused in release builds.</span></div>
-<div class="line"><span class="lineno">  190</span><span class="comment">  \param lineNumber   Unused in release builds.</span></div>
-<div class="line"><span class="lineno">  191</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  192</span><span class="comment">  \note This function is only available in release builds (when _DEBUG is not defined).</span></div>
-<div class="line"><span class="lineno">  193</span><span class="comment">  \note This function has no effect and is completely optimized away by the compiler.</span></div>
-<div class="line"><span class="lineno">  194</span><span class="comment">*/</span></div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span><span class="keyword">inline</span> <span class="keywordtype">void</span> assertion(<span class="keyword">const</span> <span class="keywordtype">char</span> * <a class="code hl_define" href="../../da/d47/core_8hpp.html#a6c25f2c5b6e99783e32a4eb8258eb2f6">TOY_UNUSED</a>(code), <span class="keyword">const</span> <span class="keywordtype">char</span> * <a class="code hl_define" href="../../da/d47/core_8hpp.html#a6c25f2c5b6e99783e32a4eb8258eb2f6">TOY_UNUSED</a>(message),</div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>                      <span class="keyword">const</span> <span class="keywordtype">char</span> * <a class="code hl_define" href="../../da/d47/core_8hpp.html#a6c25f2c5b6e99783e32a4eb8258eb2f6">TOY_UNUSED</a>(fileName), <span class="keyword">const</span> <span class="keywordtype">char</span> * <a class="code hl_define" href="../../da/d47/core_8hpp.html#a6c25f2c5b6e99783e32a4eb8258eb2f6">TOY_UNUSED</a>(functionName),</div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>                      size_t <a class="code hl_define" href="../../da/d47/core_8hpp.html#a6c25f2c5b6e99783e32a4eb8258eb2f6">TOY_UNUSED</a>(lineNumber)) {}</div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span> </div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span><span class="preprocessor">#</span><span class="preprocessor">endif</span> <span class="comment">// _DEBUG</span></div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span> </div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span><span class="comment">/*!</span></div>
-<div class="line"><span class="lineno">  202</span><span class="comment">  \brief Compile-time assertion function for constexpr contexts.</span></div>
-<div class="line"><span class="lineno">  203</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  204</span><span class="comment">  This function provides assertion capabilities in constexpr contexts where regular runtime assertions cannot be used.</span></div>
-<div class="line"><span class="lineno">  205</span><span class="comment">  When the \a condition is false, it throws a std::invalid_argument exception with the provided \a message, causing</span></div>
-<div class="line"><span class="lineno">  206</span><span class="comment">  compilation to fail if evaluated at compile time.</span></div>
-<div class="line"><span class="lineno">  207</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  208</span><span class="comment">  \param condition The condition to check. Must be true for the assertion to pass.</span></div>
-<div class="line"><span class="lineno">  209</span><span class="comment">  \param message   The error message to include in the exception if the assertion fails.</span></div>
-<div class="line"><span class="lineno">  210</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  211</span><span class="comment">  \throws std::invalid_argument If \a condition is false, with \a message as the error description.</span></div>
-<div class="line"><span class="lineno">  212</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  213</span><span class="comment">  \pre The \a message pointer must point to a valid null-terminated string.</span></div>
+<div class="line"><span class="lineno">  186</span><span class="comment">  \note This function is only available in release builds (when _DEBUG is not defined).</span></div>
+<div class="line"><span class="lineno">  187</span><span class="comment">  \note This function has no effect and is completely optimized away by the compiler.</span></div>
+<div class="line"><span class="lineno">  188</span><span class="comment">*/</span></div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span><span class="keyword">inline</span> <span class="keywordtype">void</span> assertion(<span class="keyword">const</span> <span class="keywordtype">char</span> *, <span class="keyword">const</span> <span class="keywordtype">char</span> *, <span class="keyword">const</span> <span class="keywordtype">char</span> *, <span class="keyword">const</span> <span class="keywordtype">char</span> *, size_t) {</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>  <span class="comment">// Intentionally empty - no-op in release builds</span></div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>}</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span> </div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span><span class="preprocessor">#</span><span class="preprocessor">endif</span> <span class="comment">// _DEBUG</span></div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span> </div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span><span class="comment">/*!</span></div>
+<div class="line"><span class="lineno">  196</span><span class="comment">  \brief Compile-time assertion function for constexpr contexts.</span></div>
+<div class="line"><span class="lineno">  197</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  198</span><span class="comment">  This function provides assertion capabilities in constexpr contexts where regular runtime assertions cannot be used.</span></div>
+<div class="line"><span class="lineno">  199</span><span class="comment">  When the \a condition is false, it throws a std::invalid_argument exception with the provided \a message, causing</span></div>
+<div class="line"><span class="lineno">  200</span><span class="comment">  compilation to fail if evaluated at compile time.</span></div>
+<div class="line"><span class="lineno">  201</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  202</span><span class="comment">  \param condition The condition to check. Must be true for the assertion to pass.</span></div>
+<div class="line"><span class="lineno">  203</span><span class="comment">  \param message   The error message to include in the exception if the assertion fails.</span></div>
+<div class="line"><span class="lineno">  204</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  205</span><span class="comment">  \throws std::invalid_argument If \a condition is false, with \a message as the error description.</span></div>
+<div class="line"><span class="lineno">  206</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  207</span><span class="comment">  \pre The \a message pointer must point to a valid null-terminated string.</span></div>
+<div class="line"><span class="lineno">  208</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  209</span><span class="comment">  \note This function is designed for use in constexpr contexts where traditional assertions are not available.</span></div>
+<div class="line"><span class="lineno">  210</span><span class="comment">  \note Unlike regular assertions, this function always throws an exception in both debug and release builds when the</span></div>
+<div class="line"><span class="lineno">  211</span><span class="comment">        condition fails.</span></div>
+<div class="line"><span class="lineno">  212</span><span class="comment">  \note When evaluated at compile time, a failed assertion will cause a compilation error.</span></div>
+<div class="line"><span class="lineno">  213</span><span class="comment">  \note When evaluated at runtime, a failed assertion will throw an exception.</span></div>
 <div class="line"><span class="lineno">  214</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  215</span><span class="comment">  \note This function is designed for use in constexpr contexts where traditional assertions are not available.</span></div>
-<div class="line"><span class="lineno">  216</span><span class="comment">  \note Unlike regular assertions, this function always throws an exception in both debug and release builds when the</span></div>
-<div class="line"><span class="lineno">  217</span><span class="comment">        condition fails.</span></div>
-<div class="line"><span class="lineno">  218</span><span class="comment">  \note When evaluated at compile time, a failed assertion will cause a compilation error.</span></div>
-<div class="line"><span class="lineno">  219</span><span class="comment">  \note When evaluated at runtime, a failed assertion will throw an exception.</span></div>
-<div class="line"><span class="lineno">  220</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  221</span><span class="comment">  \section usage Usage Example</span></div>
-<div class="line"><span class="lineno">  222</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  223</span><span class="comment">  \code</span></div>
-<div class="line"><span class="lineno">  224</span><span class="comment">  #include &quot;core/assertion.hpp&quot;</span></div>
+<div class="line"><span class="lineno">  215</span><span class="comment">  \section usage Usage Example</span></div>
+<div class="line"><span class="lineno">  216</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  217</span><span class="comment">  \code</span></div>
+<div class="line"><span class="lineno">  218</span><span class="comment">  #include &quot;core/assertion.hpp&quot;</span></div>
+<div class="line"><span class="lineno">  219</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  220</span><span class="comment">  template &lt;size_t N&gt;</span></div>
+<div class="line"><span class="lineno">  221</span><span class="comment">  constexpr size_t validateSize() {</span></div>
+<div class="line"><span class="lineno">  222</span><span class="comment">    toy::assertion::constexpr_assert(N &gt; 0, &quot;Size must be greater than zero&quot;);</span></div>
+<div class="line"><span class="lineno">  223</span><span class="comment">    return N;</span></div>
+<div class="line"><span class="lineno">  224</span><span class="comment">  }</span></div>
 <div class="line"><span class="lineno">  225</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  226</span><span class="comment">  template &lt;size_t N&gt;</span></div>
-<div class="line"><span class="lineno">  227</span><span class="comment">  constexpr size_t validateSize() {</span></div>
-<div class="line"><span class="lineno">  228</span><span class="comment">    toy::assertion::constexpr_assert(N &gt; 0, &quot;Size must be greater than zero&quot;);</span></div>
-<div class="line"><span class="lineno">  229</span><span class="comment">    return N;</span></div>
-<div class="line"><span class="lineno">  230</span><span class="comment">  }</span></div>
-<div class="line"><span class="lineno">  231</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  232</span><span class="comment">  constexpr auto size = validateSize&lt;10&gt;();  // OK</span></div>
-<div class="line"><span class="lineno">  233</span><span class="comment">  // constexpr auto invalid = validateSize&lt;0&gt;();  // Compilation error</span></div>
-<div class="line"><span class="lineno">  234</span><span class="comment">  \endcode</span></div>
-<div class="line"><span class="lineno">  235</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  236</span><span class="comment">  \sa assert</span></div>
-<div class="line"><span class="lineno">  237</span><span class="comment">  \sa assert_message</span></div>
-<div class="line"><span class="lineno">  238</span><span class="comment">  \sa assertion()</span></div>
-<div class="line"><span class="lineno">  239</span><span class="comment">*/</span></div>
-<div class="foldopen" id="foldopen00240" data-start="{" data-end="}">
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno"><a class="line" href="../../d2/da2/namespacetoy_1_1assertion.html#a080f416a9882bcb84b03d6bf96d6a4c5">  240</a></span><span class="keyword">constexpr</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d2/da2/namespacetoy_1_1assertion.html#a080f416a9882bcb84b03d6bf96d6a4c5">constexpr_assert</a>(<span class="keywordtype">bool</span> condition, <span class="keyword">const</span> <span class="keywordtype">char</span> * message) {</div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>  <span class="keywordflow">if</span> (!condition)</div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>    <span class="keywordflow">throw</span> std::invalid_argument(message ? message : <span class="stringliteral">&quot;constexpr_assert failed&quot;</span>);</div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>}</div>
+<div class="line"><span class="lineno">  226</span><span class="comment">  constexpr auto size = validateSize&lt;10&gt;();  // OK</span></div>
+<div class="line"><span class="lineno">  227</span><span class="comment">  // constexpr auto invalid = validateSize&lt;0&gt;();  // Compilation error</span></div>
+<div class="line"><span class="lineno">  228</span><span class="comment">  \endcode</span></div>
+<div class="line"><span class="lineno">  229</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  230</span><span class="comment">  \sa assert</span></div>
+<div class="line"><span class="lineno">  231</span><span class="comment">  \sa assert_message</span></div>
+<div class="line"><span class="lineno">  232</span><span class="comment">  \sa assertion()</span></div>
+<div class="line"><span class="lineno">  233</span><span class="comment">*/</span></div>
+<div class="foldopen" id="foldopen00234" data-start="{" data-end="}">
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno"><a class="line" href="../../d2/da2/namespacetoy_1_1assertion.html#a080f416a9882bcb84b03d6bf96d6a4c5">  234</a></span><span class="keyword">constexpr</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d2/da2/namespacetoy_1_1assertion.html#a080f416a9882bcb84b03d6bf96d6a4c5">constexpr_assert</a>(<span class="keywordtype">bool</span> condition, <span class="keyword">const</span> <span class="keywordtype">char</span> * message) {</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>  <span class="keywordflow">if</span> (!condition)</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>    <span class="keywordflow">throw</span> std::invalid_argument(message ? message : <span class="stringliteral">&quot;constexpr_assert failed&quot;</span>);</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>}</div>
 </div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span> </div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>} <span class="comment">// namespace toy::assertion</span></div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span> </div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span><span class="preprocessor">#</span><span class="preprocessor">endif</span> <span class="comment">// INCLUDE_CORE_ASSERTION_HPP_</span></div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span> </div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>} <span class="comment">// namespace toy::assertion</span></div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span> </div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span><span class="preprocessor">#</span><span class="preprocessor">endif</span> <span class="comment">// INCLUDE_CORE_ASSERTION_HPP_</span></div>
 <div class="ttc" id="aassertion__macro__gcc__clang_8hpp_html_a672330c2fecd516f254162cd9611d91a"><div class="ttname"><a href="../../d1/d5f/assertion__macro__gcc__clang_8hpp.html#a672330c2fecd516f254162cd9611d91a">assert_message</a></div><div class="ttdeci">#define assert_message(expression, message)</div><div class="ttdoc">Debug assertion macro with custom message for runtime expression checking.</div><div class="ttdef"><b>Definition</b> assertion_macro_gcc_clang.hpp:88</div></div>
 <div class="ttc" id="aconcepttoy_1_1_string_like_html"><div class="ttname"><a href="../../df/d77/concepttoy_1_1_string_like.html">toy::StringLike</a></div><div class="ttdoc">Concept defining the requirements for string-like types.</div><div class="ttdef"><b>Definition</b> core.hpp:90</div></div>
-<div class="ttc" id="acore_8hpp_html_a6c25f2c5b6e99783e32a4eb8258eb2f6"><div class="ttname"><a href="../../da/d47/core_8hpp.html#a6c25f2c5b6e99783e32a4eb8258eb2f6">TOY_UNUSED</a></div><div class="ttdeci">#define TOY_UNUSED(identifier)</div><div class="ttdoc">Suppresses compiler warnings about unused variables or functions.</div><div class="ttdef"><b>Definition</b> core.hpp:107</div></div>
-<div class="ttc" id="anamespacetoy_1_1assertion_html_a080f416a9882bcb84b03d6bf96d6a4c5"><div class="ttname"><a href="../../d2/da2/namespacetoy_1_1assertion.html#a080f416a9882bcb84b03d6bf96d6a4c5">toy::assertion::constexpr_assert</a></div><div class="ttdeci">constexpr void constexpr_assert(bool condition, const char *message)</div><div class="ttdoc">Compile-time assertion function for constexpr contexts.</div><div class="ttdef"><b>Definition</b> assertion.hpp:240</div></div>
+<div class="ttc" id="anamespacetoy_1_1assertion_html_a080f416a9882bcb84b03d6bf96d6a4c5"><div class="ttname"><a href="../../d2/da2/namespacetoy_1_1assertion.html#a080f416a9882bcb84b03d6bf96d6a4c5">toy::assertion::constexpr_assert</a></div><div class="ttdeci">constexpr void constexpr_assert(bool condition, const char *message)</div><div class="ttdoc">Compile-time assertion function for constexpr contexts.</div><div class="ttdef"><b>Definition</b> assertion.hpp:234</div></div>
 <div class="ttc" id="anamespacetoy_1_1assertion_html_a1586eee3b9f8e4fc0b659ff2d402e28a"><div class="ttname"><a href="../../d2/da2/namespacetoy_1_1assertion.html#a1586eee3b9f8e4fc0b659ff2d402e28a">toy::assertion::initialize</a></div><div class="ttdeci">void initialize()</div><div class="ttdoc">Initializes the assertion system.</div><div class="ttdef"><b>Definition</b> assertion_stub.cpp:34</div></div>
 <div class="ttc" id="anamespacetoy_1_1assertion_html_a27a675a54a720bf1a098fd13be80553e"><div class="ttname"><a href="../../d2/da2/namespacetoy_1_1assertion.html#a27a675a54a720bf1a098fd13be80553e">toy::assertion::AssertionCallback</a></div><div class="ttdeci">bool(*)(const char *assertionString) AssertionCallback</div><div class="ttdoc">Callback function type for assertion failure handling.</div><div class="ttdef"><b>Definition</b> assertion.hpp:82</div></div>
 <div class="ttc" id="anamespacetoy_1_1assertion_html_a71e8fbdc3d1a6ccee148e120d0c890db"><div class="ttname"><a href="../../d2/da2/namespacetoy_1_1assertion.html#a71e8fbdc3d1a6ccee148e120d0c890db">toy::assertion::assertion</a></div><div class="ttdeci">void assertion(const char *code, const char *message, const char *fileName, const char *functionName, size_t lineNumber)</div><div class="ttdoc">Reports an assertion failure with detailed context information.</div><div class="ttdef"><b>Definition</b> assertion_stub.cpp:48</div></div>
 <div class="ttc" id="anamespacetoy_1_1assertion_html_a82b42cf518871245c19337431cfe63e5"><div class="ttname"><a href="../../d2/da2/namespacetoy_1_1assertion.html#a82b42cf518871245c19337431cfe63e5">toy::assertion::deInitialize</a></div><div class="ttdeci">void deInitialize()</div><div class="ttdoc">Shuts down the assertion system.</div><div class="ttdef"><b>Definition</b> assertion_stub.cpp:38</div></div>
-<div class="ttc" id="anamespacetoy_1_1assertion_html_ab92066b98ab69bcf7db8e1089ea4f755"><div class="ttname"><a href="../../d2/da2/namespacetoy_1_1assertion.html#ab92066b98ab69bcf7db8e1089ea4f755">toy::assertion::setCallbacks</a></div><div class="ttdeci">void setCallbacks(AssertionCallback assertionCallback, StackWalkCallback stackWalkCallback)</div><div class="ttdoc">Sets the assertion and stack walk callbacks.</div></div>
+<div class="ttc" id="anamespacetoy_1_1assertion_html_ab92066b98ab69bcf7db8e1089ea4f755"><div class="ttname"><a href="../../d2/da2/namespacetoy_1_1assertion.html#ab92066b98ab69bcf7db8e1089ea4f755">toy::assertion::setCallbacks</a></div><div class="ttdeci">void setCallbacks(AssertionCallback assertionCallback, StackWalkCallback stackWalkCallback)</div><div class="ttdoc">Sets the assertion and stack walk callbacks.</div><div class="ttdef"><b>Definition</b> assertion_stub.cpp:42</div></div>
 <div class="ttc" id="anamespacetoy_1_1assertion_html_af491e4e307d14db3efeafb9a77ae76ef"><div class="ttname"><a href="../../d2/da2/namespacetoy_1_1assertion.html#af491e4e307d14db3efeafb9a77ae76ef">toy::assertion::StackWalkCallback</a></div><div class="ttdeci">void(*)(const char *stackFrameString) StackWalkCallback</div><div class="ttdoc">Callback function type for stack trace generation.</div><div class="ttdef"><b>Definition</b> assertion.hpp:95</div></div>
 <div class="ttc" id="anamespacetoy_html_a00ce0b516e9a47a62227a9309afdb583"><div class="ttname"><a href="../../d4/da9/namespacetoy.html#a00ce0b516e9a47a62227a9309afdb583">toy::crc8</a></div><div class="ttdeci">uint8_t crc8(const void *src, size_t size, uint8_t crc) noexcept</div><div class="ttdoc">Calculates CRC-8 checksum using Dallas/Maxim polynomial.</div><div class="ttdef"><b>Definition</b> hashes.cpp:121</div></div>
 <div class="ttc" id="anamespacetoy_html_a17983e173fb5e8cf5baaab61a78a402e"><div class="ttname"><a href="../../d4/da9/namespacetoy.html#a17983e173fb5e8cf5baaab61a78a402e">toy::crc32</a></div><div class="ttdeci">uint32_t crc32(const void *src, size_t size, uint32_t crc) noexcept</div><div class="ttdoc">Calculates CRC-32 checksum using IEEE 802.3 polynomial.</div><div class="ttdef"><b>Definition</b> hashes.cpp:147</div></div>

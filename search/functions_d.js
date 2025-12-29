@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['setcallbacks_0',['setCallbacks',['../d2/da2/namespacetoy_1_1assertion.html#ab92066b98ab69bcf7db8e1089ea4f755',1,'toy::assertion::setCallbacks(AssertionCallback assertionCallback, StackWalkCallback stackWalkCallback)'],['../d2/da2/namespacetoy_1_1assertion.html#a110a4b7692805ebe9ffdaddcf1cab402',1,'toy::assertion::setCallbacks(AssertionCallback assertionCallback, StackWalkCallback TOY_UNUSED(stackWalkCallback))']]],
+  ['setcallbacks_0',['setCallbacks',['../d2/da2/namespacetoy_1_1assertion.html#ab92066b98ab69bcf7db8e1089ea4f755',1,'toy::assertion']]],
   ['setzero_1',['setZero',['../d3/dce/classtoy_1_1math_1_1_point.html#a6abe66bb39eead8a572c4275c8b87c09',1,'toy::math::Point::setZero()'],['../d9/d85/classtoy_1_1math_1_1_vector2_d.html#ab48c54624d9c924f38bbbdc8c3f8bc49',1,'toy::math::Vector2D::setZero()']]],
   ['size_2',['size',['../d5/d03/classtoy_1_1_c_string_view.html#a56455f7c7872e005bae0bd9f37f8d188',1,'toy::CStringView::size()'],['../d3/d7a/classtoy_1_1_fixed_string.html#a4da35d380d8f7f7aa57f3e425df21f77',1,'toy::FixedString::size()'],['../d7/dec/classtoy_1_1_fixed_vector.html#a4b06d64f626a2130dae81662061f1488',1,'toy::FixedVector::size()']]],
   ['sqrmagnitude_3',['sqrMagnitude',['../d3/dce/classtoy_1_1math_1_1_point.html#a0454d2639eb29492706c8c082e0ee4c4',1,'toy::math::Point::sqrMagnitude()'],['../d9/d85/classtoy_1_1math_1_1_vector2_d.html#ad241a1b3b6db0b748c50b6b4cc316ffb',1,'toy::math::Vector2D::sqrMagnitude()']]],

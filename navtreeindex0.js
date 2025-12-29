@@ -63,13 +63,12 @@ var NAVTREEINDEX0 =
 "d2/d83/namespacetoy_1_1math.html#ae60797f1d56ea3c795f635cbb5d91559":[3,0,0,1,8],
 "d2/da2/namespacetoy_1_1assertion.html":[3,0,0,2],
 "d2/da2/namespacetoy_1_1assertion.html#a080f416a9882bcb84b03d6bf96d6a4c5":[3,0,0,2,3],
-"d2/da2/namespacetoy_1_1assertion.html#a110a4b7692805ebe9ffdaddcf1cab402":[3,0,0,2,7],
 "d2/da2/namespacetoy_1_1assertion.html#a1586eee3b9f8e4fc0b659ff2d402e28a":[3,0,0,2,5],
 "d2/da2/namespacetoy_1_1assertion.html#a27a675a54a720bf1a098fd13be80553e":[3,0,0,2,0],
 "d2/da2/namespacetoy_1_1assertion.html#a71e8fbdc3d1a6ccee148e120d0c890db":[3,0,0,2,2],
 "d2/da2/namespacetoy_1_1assertion.html#a82b42cf518871245c19337431cfe63e5":[3,0,0,2,4],
 "d2/da2/namespacetoy_1_1assertion.html#ab92066b98ab69bcf7db8e1089ea4f755":[3,0,0,2,6],
-"d2/da2/namespacetoy_1_1assertion.html#abf0c95a6d0312b84decc08fc040187c9":[3,0,0,2,8],
+"d2/da2/namespacetoy_1_1assertion.html#abf0c95a6d0312b84decc08fc040187c9":[3,0,0,2,7],
 "d2/da2/namespacetoy_1_1assertion.html#af491e4e307d14db3efeafb9a77ae76ef":[3,0,0,2,1],
 "d2/dbe/version_8inl.html":[6,0,0,0,1],
 "d2/dbe/version_8inl_source.html":[6,0,0,0,1],
@@ -249,5 +248,6 @@ var NAVTREEINDEX0 =
 "d3/d7a/classtoy_1_1_fixed_string.html#ac0fb8affc96410c2c78456a4c8ee29f0":[5,0,0,6,100],
 "d3/d7a/classtoy_1_1_fixed_string.html#ac1fa1fe5dd1b7b4a923886b0544f4250":[3,0,0,7,106],
 "d3/d7a/classtoy_1_1_fixed_string.html#ac1fa1fe5dd1b7b4a923886b0544f4250":[5,0,0,6,106],
-"d3/d7a/classtoy_1_1_fixed_string.html#ac3563d4d3cc0bdf600e93258c7620235":[3,0,0,7,5]
+"d3/d7a/classtoy_1_1_fixed_string.html#ac3563d4d3cc0bdf600e93258c7620235":[3,0,0,7,5],
+"d3/d7a/classtoy_1_1_fixed_string.html#ac3563d4d3cc0bdf600e93258c7620235":[5,0,0,6,5]
 };

@@ -18,6 +18,5 @@ var searchData=
   ['toy_3a_3aassertion_15',['assertion',['../d2/da2/namespacetoy_1_1assertion.html',1,'toy']]],
   ['toy_3a_3amath_16',['math',['../d2/d83/namespacetoy_1_1math.html',1,'toy']]],
   ['toy_5fconfig_5fdebug_5fmemory_17',['TOY_CONFIG_DEBUG_MEMORY',['../da/d47/core_8hpp.html#a94a808adc84ff2a5345e7ecb00661653',1,'core.hpp']]],
-  ['toy_5funused_18',['TOY_UNUSED',['../da/d47/core_8hpp.html#a6c25f2c5b6e99783e32a4eb8258eb2f6',1,'core.hpp']]],
-  ['toygine2_19',['ToyGine2',['../index.html',1,'']]]
+  ['toygine2_18',['ToyGine2',['../index.html',1,'']]]
 ];
