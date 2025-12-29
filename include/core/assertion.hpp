@@ -186,7 +186,9 @@ void assertion(const char * code, const char * message, const char * fileName, c
   \note This function is only available in release builds (when _DEBUG is not defined).
   \note This function has no effect and is completely optimized away by the compiler.
 */
-inline void assertion(const char *, const char *, const char *, const char *, size_t) {}
+inline void assertion(const char *, const char *, const char *, const char *, size_t) {
+  // Intentionally empty - no-op in release builds
+}
 
 #endif // _DEBUG
 
