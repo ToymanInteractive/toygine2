@@ -1,8 +1,15 @@
 var searchData=
 [
-  ['handling_0',['Error Handling',['../d2/d77/md__8instructions.html#error-handling',1,'']]],
-  ['hashes_2ecpp_1',['hashes.cpp',['../db/d2d/hashes_8cpp.html',1,'']]],
-  ['hashes_2ehpp_2',['hashes.hpp',['../dd/d8e/hashes_8hpp.html',1,'']]],
-  ['header_20source_20organization_3',['Header / Source Organization',['../d2/d77/md__8instructions.html#header--source-organization',1,'']]],
-  ['headers_4',['Headers',['../d2/d77/md__8instructions.html#headers',1,'']]]
+  ['independence_0',['Test Independence',['../df/d81/md__a_g_e_n_t_s.html#test-independence',1,'']]],
+  ['initialize_1',['initialize',['../d2/da2/namespacetoy_1_1assertion.html#a1586eee3b9f8e4fc0b659ff2d402e28a',1,'toy::assertion']]],
+  ['inl_20files_2',['&lt;span class=&quot;tt&quot;&gt;.inl&lt;/span&gt; Files',['../df/d81/md__a_g_e_n_t_s.html#inl-files',1,'']]],
+  ['inline_20and_20template_20code_3',['Inline and Template Code',['../df/d81/md__a_g_e_n_t_s.html#inline-and-template-code',1,'']]],
+  ['insert_4',['insert',['../d3/d7a/classtoy_1_1_fixed_string.html#a1adeddf0595ab0a0db264c98ac9582cb',1,'toy::FixedString::insert(size_t index, const FixedString&lt; allocatedSize &gt; &amp;string) noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#a683bd2292c28792077b554321eb71f09',1,'toy::FixedString::insert(size_t index, const stringType &amp;string) noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#a922e5d68ed1b00d857852e8c8bfbebe8',1,'toy::FixedString::insert(size_t index, const char *string) noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#ad20fad3f3dfa93ea12b336306d1e5fd3',1,'toy::FixedString::insert(size_t index, char character, size_t count=1) noexcept']]],
+  ['integertosymbols_5',['integerToSymbols',['../d4/da9/namespacetoy.html#af111340cdbc50c7d6bd94225a55b32c7',1,'toy']]],
+  ['ios_6',['iOS',['../d4/da9/namespacetoy.html#aa6f1ef0b4e0aa4864f1c8d431775bc94a1bdf605991920db11cbdf8508204c4eb',1,'toy']]],
+  ['isequal_7',['isEqual',['../d3/dce/classtoy_1_1math_1_1_point.html#a5f988f77eaf0d5e077e6c3e8fe62cf2a',1,'toy::math::Point::isEqual()'],['../d9/d85/classtoy_1_1math_1_1_vector2_d.html#aff70c20ee02e3171088e7d36219cce07',1,'toy::math::Vector2D::isEqual()']]],
+  ['iszero_8',['isZero',['../d3/dce/classtoy_1_1math_1_1_point.html#a32bc8d8a0ae4ef71e7c164401a68ac8f',1,'toy::math::Point::isZero()'],['../d9/d85/classtoy_1_1math_1_1_vector2_d.html#a2cf2330d222c7afd28339150099ca014',1,'toy::math::Vector2D::isZero()']]],
+  ['iterator_9',['iterator',['../d3/d7a/classtoy_1_1_fixed_string.html#ac3563d4d3cc0bdf600e93258c7620235',1,'toy::FixedString::iterator'],['../d7/dec/classtoy_1_1_fixed_vector.html#a5eac0b7567faa3f43d21ca977bb01ae6',1,'toy::FixedVector::iterator']]],
+  ['itoa_10',['itoa',['../d4/da9/namespacetoy.html#ae8b2c5fe28a3bb8e21f377b9e8ef2bc9',1,'toy::itoa(char *dest, size_t destSize, int8_t value) noexcept'],['../d4/da9/namespacetoy.html#a4761bfce539cb0e61b65a3573e79177f',1,'toy::itoa(char *dest, size_t destSize, int16_t value) noexcept'],['../d4/da9/namespacetoy.html#a0e120ac7533ff2ef21be74515b922843',1,'toy::itoa(char *dest, size_t destSize, int32_t value) noexcept'],['../d4/da9/namespacetoy.html#a8940d6802bb6b139541f903cce67ee13',1,'toy::itoa(char *dest, size_t destSize, int64_t value) noexcept'],['../d4/da9/namespacetoy.html#ad88d5c5524309ced684464f509f48eb8',1,'toy::itoa(char *dest, size_t destSize, uint8_t value, unsigned base) noexcept'],['../d4/da9/namespacetoy.html#a477ae7fff644ef6bbc2162f5b827c076',1,'toy::itoa(char *dest, size_t destSize, uint16_t value, unsigned base) noexcept'],['../d4/da9/namespacetoy.html#af7a429be258da6f4885ce12e4df67523',1,'toy::itoa(char *dest, size_t destSize, uint32_t value, unsigned base) noexcept'],['../d4/da9/namespacetoy.html#afd44b7ead4fce62170589e95348fe0bf',1,'toy::itoa(char *dest, size_t destSize, uint64_t value, unsigned base) noexcept']]],
+  ['itoaimplementation_11',['itoaImplementation',['../d4/da9/namespacetoy.html#ac7e6ab0756e81280710cbab536e6a030',1,'toy']]]
 ];

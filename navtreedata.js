@@ -30,41 +30,41 @@ var NAVTREE =
       [ "Supported C++ compilers", "index.html#supported-c-compilers", null ],
       [ "Tools", "index.html#tools", null ]
     ] ],
-    [ "Repository AI Instructions", "d2/d77/md__8instructions.html", [
-      [ "Project Context", "d2/d77/md__8instructions.html#project-context", null ],
-      [ "General Coding Principles", "d2/d77/md__8instructions.html#general-coding-principles", null ],
-      [ "Language and Standard", "d2/d77/md__8instructions.html#language-and-standard", null ],
-      [ "Header / Source Organization", "d2/d77/md__8instructions.html#header--source-organization", [
-        [ "Module Structure", "d2/d77/md__8instructions.html#module-structure", null ],
-        [ "Headers", "d2/d77/md__8instructions.html#headers", null ],
-        [ "Inline and Template Code", "d2/d77/md__8instructions.html#inline-and-template-code", null ],
-        [ "<span class=\"tt\">.inl</span> Files", "d2/d77/md__8instructions.html#inl-files", null ]
+    [ "AGENTS Guidelines for This Repository", "df/d81/md__a_g_e_n_t_s.html", [
+      [ "Project Context", "df/d81/md__a_g_e_n_t_s.html#project-context", null ],
+      [ "General Coding Principles", "df/d81/md__a_g_e_n_t_s.html#general-coding-principles", null ],
+      [ "Language and Standard", "df/d81/md__a_g_e_n_t_s.html#language-and-standard", null ],
+      [ "Header / Source Organization", "df/d81/md__a_g_e_n_t_s.html#header--source-organization", [
+        [ "Module Structure", "df/d81/md__a_g_e_n_t_s.html#module-structure", null ],
+        [ "Headers", "df/d81/md__a_g_e_n_t_s.html#headers", null ],
+        [ "Inline and Template Code", "df/d81/md__a_g_e_n_t_s.html#inline-and-template-code", null ],
+        [ "<span class=\"tt\">.inl</span> Files", "df/d81/md__a_g_e_n_t_s.html#inl-files", null ]
       ] ],
-      [ "Memory and Allocation Rules", "d2/d77/md__8instructions.html#memory-and-allocation-rules", null ],
-      [ "Constexpr-First Design", "d2/d77/md__8instructions.html#constexpr-first-design", null ],
-      [ "Error Handling", "d2/d77/md__8instructions.html#error-handling", null ],
-      [ "Naming Conventions", "d2/d77/md__8instructions.html#naming-conventions", [
-        [ "Private Members", "d2/d77/md__8instructions.html#private-members", null ]
+      [ "Memory and Allocation Rules", "df/d81/md__a_g_e_n_t_s.html#memory-and-allocation-rules", null ],
+      [ "Constexpr-First Design", "df/d81/md__a_g_e_n_t_s.html#constexpr-first-design", null ],
+      [ "Error Handling", "df/d81/md__a_g_e_n_t_s.html#error-handling", null ],
+      [ "Naming Conventions", "df/d81/md__a_g_e_n_t_s.html#naming-conventions", [
+        [ "Private Members", "df/d81/md__a_g_e_n_t_s.html#private-members", null ]
       ] ],
-      [ "Comments and Documentation", "d2/d77/md__8instructions.html#comments-and-documentation", null ],
-      [ "Documentation Style Rules", "d2/d77/md__8instructions.html#documentation-style-rules", [
-        [ "Cross-References", "d2/d77/md__8instructions.html#cross-references", null ]
+      [ "Comments and Documentation", "df/d81/md__a_g_e_n_t_s.html#comments-and-documentation", null ],
+      [ "Documentation Style Rules", "df/d81/md__a_g_e_n_t_s.html#documentation-style-rules", [
+        [ "Cross-References", "df/d81/md__a_g_e_n_t_s.html#cross-references", null ]
       ] ],
-      [ "Unit Test Style Rules", "d2/d77/md__8instructions.html#unit-test-style-rules", null ],
-      [ "Test Framework Assumptions", "d2/d77/md__8instructions.html#test-framework-assumptions", null ],
-      [ "General Test Principles", "d2/d77/md__8instructions.html#general-test-principles", null ],
-      [ "Test Length and Structure", "d2/d77/md__8instructions.html#test-length-and-structure", null ],
-      [ "Compile-Time vs Runtime Testing", "d2/d77/md__8instructions.html#compile-time-vs-runtime-testing", [
-        [ "Compile-Time (<span class=\"tt\">constexpr</span>) Tests", "d2/d77/md__8instructions.html#compile-time-constexpr-tests", null ],
-        [ "Runtime Tests", "d2/d77/md__8instructions.html#runtime-tests", null ]
+      [ "Unit Test Style Rules", "df/d81/md__a_g_e_n_t_s.html#unit-test-style-rules", null ],
+      [ "Test Framework Assumptions", "df/d81/md__a_g_e_n_t_s.html#test-framework-assumptions", null ],
+      [ "General Test Principles", "df/d81/md__a_g_e_n_t_s.html#general-test-principles", null ],
+      [ "Test Length and Structure", "df/d81/md__a_g_e_n_t_s.html#test-length-and-structure", null ],
+      [ "Compile-Time vs Runtime Testing", "df/d81/md__a_g_e_n_t_s.html#compile-time-vs-runtime-testing", [
+        [ "Compile-Time (<span class=\"tt\">constexpr</span>) Tests", "df/d81/md__a_g_e_n_t_s.html#compile-time-constexpr-tests", null ],
+        [ "Runtime Tests", "df/d81/md__a_g_e_n_t_s.html#runtime-tests", null ]
       ] ],
-      [ "Redundancy and Duplication", "d2/d77/md__8instructions.html#redundancy-and-duplication", null ],
-      [ "Value-Based Assertions", "d2/d77/md__8instructions.html#value-based-assertions", null ],
-      [ "Constexpr + Runtime Parity", "d2/d77/md__8instructions.html#constexpr--runtime-parity", null ],
-      [ "Naming Tests", "d2/d77/md__8instructions.html#naming-tests", null ],
-      [ "Floating-Point Rules", "d2/d77/md__8instructions.html#floating-point-rules", null ],
-      [ "Test Independence", "d2/d77/md__8instructions.html#test-independence", null ],
-      [ "Final Rule", "d2/d77/md__8instructions.html#final-rule", null ]
+      [ "Redundancy and Duplication", "df/d81/md__a_g_e_n_t_s.html#redundancy-and-duplication", null ],
+      [ "Value-Based Assertions", "df/d81/md__a_g_e_n_t_s.html#value-based-assertions", null ],
+      [ "Constexpr + Runtime Parity", "df/d81/md__a_g_e_n_t_s.html#constexpr--runtime-parity", null ],
+      [ "Naming Tests", "df/d81/md__a_g_e_n_t_s.html#naming-tests", null ],
+      [ "Floating-Point Rules", "df/d81/md__a_g_e_n_t_s.html#floating-point-rules", null ],
+      [ "Test Independence", "df/d81/md__a_g_e_n_t_s.html#test-independence", null ],
+      [ "Final Rule", "df/d81/md__a_g_e_n_t_s.html#final-rule", null ]
     ] ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
@@ -101,9 +101,9 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"d3/d7a/classtoy_1_1_fixed_string.html#ac508cd66afefabd2c181ba1987896449",
-"d5/d03/classtoy_1_1_c_string_view.html#a8ec5dd9e4efc084e94d07fd121728410",
-"d8/dc9/classtoy_1_1_callbacks_pool.html#abafb577a2adc03ad61aa426525456a1c"
+"d3/d7a/classtoy_1_1_fixed_string.html#ae15e66a6771e19158329754f0e118234",
+"d5/d03/classtoy_1_1_c_string_view.html#ac47d6f4be3ed69e4358c4759e35d7285",
+"d9/d85/classtoy_1_1math_1_1_vector2_d.html#a9e1d00bf0449f290f2ea81d39f002942"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';
