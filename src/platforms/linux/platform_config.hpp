@@ -25,7 +25,9 @@
 #ifndef SRC_PLATFORMS_LINUX_PLATFORM_CONFIG_HPP_
 #define SRC_PLATFORMS_LINUX_PLATFORM_CONFIG_HPP_
 
+#include "../../../include/core/platform.hpp"
 #include "../common/assertion_macro_gcc_clang.hpp"
+
 
 #if defined(__linux__)
 

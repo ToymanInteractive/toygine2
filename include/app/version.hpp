@@ -91,7 +91,7 @@ namespace toy::app {
   \note This structure is designed for compile-time version management.
   \note For runtime version parsing from strings, consider implementing additional utility functions.
 
-  \see Semantic Versioning (https://semver.org/)
+  \sa Semantic Versioning (https://semver.org/)
 */
 struct Version {
   /*!

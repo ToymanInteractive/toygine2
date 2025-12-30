@@ -48,8 +48,8 @@ namespace toy {
   \note The function is noexcept and does not throw exceptions.
   \note For empty data (size = \c 0), the function returns the initial CRC value.
 
-  \see https://en.wikipedia.org/wiki/Cyclic_redundancy_check
-  \see https://reveng.sourceforge.io/crc-catalogue/1-15.htm#crc.cat-bits.8
+  \sa https://en.wikipedia.org/wiki/Cyclic_redundancy_check
+  \sa https://reveng.sourceforge.io/crc-catalogue/1-15.htm#crc.cat-bits.8
 */
 [[nodiscard]] uint8_t crc8(const void * src, size_t size, uint8_t crc = 0x00) noexcept;
 
@@ -82,8 +82,8 @@ namespace toy {
   \note The function is noexcept and does not throw exceptions.
   \note For empty data (size = \c 0), the function returns the initial CRC value.
 
-  \see https://en.wikipedia.org/wiki/Cyclic_redundancy_check
-  \see https://reveng.sourceforge.io/crc-catalogue/16.htm#crc.cat.crc-16-arc
+  \sa https://en.wikipedia.org/wiki/Cyclic_redundancy_check
+  \sa https://reveng.sourceforge.io/crc-catalogue/16.htm#crc.cat.crc-16-arc
 */
 [[nodiscard]] uint16_t crc16(const void * src, size_t size, uint16_t crc = 0x0000) noexcept;
 
@@ -116,8 +116,8 @@ namespace toy {
   \note The function is noexcept and does not throw exceptions.
   \note For empty data (size = \c 0), the function returns the initial CRC value.
 
-  \see https://en.wikipedia.org/wiki/Cyclic_redundancy_check
-  \see https://reveng.sourceforge.io/crc-catalogue/17plus.htm#crc.cat-bits.32
+  \sa https://en.wikipedia.org/wiki/Cyclic_redundancy_check
+  \sa https://reveng.sourceforge.io/crc-catalogue/17plus.htm#crc.cat-bits.32
 */
 [[nodiscard]] uint32_t crc32(const void * src, size_t size, uint32_t crc = 0x00000000) noexcept;
 

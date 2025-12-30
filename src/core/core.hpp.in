@@ -43,10 +43,6 @@
 
 //----------------------------------------------------------------------------------------------------------------------
 
-#include "core/platform.hpp"
-
-//----------------------------------------------------------------------------------------------------------------------
-
 #include "@TOYGINE_TARGET_PLATFORM_CONFIG_HEADER@"
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -71,38 +67,17 @@ using std::char_traits;
 using std::size;
 using std::strong_ordering;
 
-/*!
-  \brief Concept defining the requirements for string-like types.
-
-  This concept defines the interface that any type must satisfy to be considered string-like. It requires the type to
-  have a size() method that returns a value convertible to size_t, and a c_str() method that returns a value convertible
-  to const char*.
-
-  (Template parameter T is the type to check for string-like properties.)
-
-  \note Types satisfying this concept can be used with FixedString template methods that accept generic string types,
-        such as constructors, assignment operators, and various string manipulation methods.
-
-  \note The concept ensures type safety and provides a compile-time guarantee that the required methods exist and return
-        compatible types.
-*/
-template <typename T>
-concept StringLike = requires(const T & str) {
-  { str.size() } -> std::same_as<size_t>;
-  { str.c_str() } -> std::convertible_to<const char *>;
-};
-
 #undef validate
 
 #ifdef _DEBUG
 
-#define t_validate(expression) assert(expression)
-#define t_assert_message(expression, message) assert_message(expression, message)
+#define validate(expression) assert(expression)
+#define validate_message(expression, message) assert_message(expression, message)
 
 #else
 
-#define t_validate(expression) (expression)
-#define t_assert_message(expression, message) (expression)
+#define validate(expression) (expression)
+#define validate_message(expression, message) (expression)
 
 #endif
 
@@ -122,6 +97,8 @@ concept StringLike = requires(const T & str) {
 #include "core/fixed_string.hpp"
 #include "core/fixed_vector.hpp"
 #include "core/hashes.hpp"
+#include "core/platform.hpp"
+#include "core/string_like.hpp"
 #include "core/utils.hpp"
 
 //----------------------------------------------------------------------------------------------------------------------

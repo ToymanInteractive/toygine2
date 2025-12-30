@@ -81,7 +81,7 @@ Class documentation should follow this structure:
 9. `\section compatibility Compatibility` - platform/standard requirements
 10. `\note` - important notes (one line each for simple notes, multiple for complex cases)
 11. `\warning` - warnings (if needed)
-12. `\see` - related classes/types
+12. `\sa` - related classes/types
 
 ### Class/Struct Example
 
@@ -128,8 +128,8 @@ Class documentation should follow this structure:
 
   \note The internal buffer size is allocatedSize, but the maximum string length is allocatedSize - 1 (null terminator).
 
-  \see std::string
-  \see StringLike
+  \sa std::string
+  \sa StringLike
 */
 ```
 
@@ -162,7 +162,7 @@ Method documentation should follow this order:
 6. `\pre` - preconditions
 7. `\post` - postconditions (for state-changing methods)
 8. `\note` - additional notes
-9. `\see` - related methods/operators
+9. `\sa` - related methods/operators
 10. `\warning` - warnings (if needed)
 
 ### Method/Function Example
@@ -187,7 +187,7 @@ Method documentation should follow this order:
 
   \note This method is equivalent to the addition assignment operator.
 
-  \see operator+=(const stringType &)
+  \sa operator+=(const stringType &)
 */
 ```
 
@@ -350,9 +350,9 @@ Always mention default values in parameter descriptions:
 
 ## Cross-References
 
-### \see Tags
+### \sa Tags
 
-- Add `\see` tags for all related methods, classes, and types
+- Add `\sa` tags for all related methods, classes, and types
 - Link between:
   - Methods and their equivalent operators (`append()` ↔ `operator+=()`)
   - Const and non-const overloads (`data()` ↔ `data() const`)
@@ -363,11 +363,11 @@ Always mention default values in parameter descriptions:
 ### Cross-References Format
 
 ```cpp
-\see operator+=(const stringType &)
-\see size()
-\see data() const
-\see Point
-\see find()
+\sa operator+=(const stringType &)
+\sa size()
+\sa data() const
+\sa Point
+\sa find()
 ```
 
 ---
@@ -434,7 +434,7 @@ This method appends the contents of the \a string to the end of this string.
 
 ```cpp
 \return The position of the first occurrence, or \ref npos if not found.
-\see operator+=(const stringType &)
+\sa operator+=(const stringType &)
 ```
 
 ---
@@ -526,7 +526,7 @@ Before committing, ensure:
 - [ ] `\return` is documented for all non-void functions
 - [ ] `\tparam` is documented for all template parameters
 - [ ] `\note` tags are one line each (or properly split)
-- [ ] Related methods/classes have `\see` tags
+- [ ] Related methods/classes have `\sa` tags
 - [ ] Template parameters have type requirements documented
 
 ---
@@ -546,7 +546,7 @@ Always follow this order:
 \pre
 \post (for state-changing methods)
 \note
-\see
+\sa
 \warning (if needed)
 ```
 
@@ -566,7 +566,7 @@ Always follow this order:
 \section compatibility
 \note
 \warning (if needed)
-\see
+\sa
 ```
 
 ### Consistency Checks

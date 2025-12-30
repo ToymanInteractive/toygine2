@@ -49,7 +49,7 @@ namespace toy {
   \note Return values are -1, 0, or 1 (differs from std::strcmp which returns arithmetic difference).
   \note This function is constexpr-compatible and can be used in compile-time contexts.
 
-  \see std::strcmp
+  \sa std::strcmp
 */
 [[nodiscard]] constexpr int cstrcmp(const char * lhs, const char * rhs) noexcept;
 
@@ -72,7 +72,7 @@ namespace toy {
   \note The function searches from the beginning of \a str and returns the first match.
   \note This function is constexpr-compatible and can be used in compile-time contexts.
 
-  \see std::strchr
+  \sa std::strchr
 */
 [[nodiscard]] constexpr const char * cstrchr(const char * str, int ch) noexcept;
 
@@ -100,7 +100,7 @@ namespace toy {
   \note The function searches from the beginning of \a str and returns the first match.
   \note This function is constexpr-compatible and can be used in compile-time contexts.
 
-  \see std::strpbrk
+  \sa std::strpbrk
 */
 [[nodiscard]] constexpr const char * cstrpbrk(const char * str, const char * accept) noexcept;
 
@@ -126,7 +126,7 @@ namespace toy {
   \note The function searches from the beginning of \a haystack and returns the first match.
   \note This function is constexpr-compatible and can be used in compile-time contexts.
 
-  \see std::strstr
+  \sa std::strstr
 */
 [[nodiscard]] constexpr const char * cstrstr(const char * haystack, const char * needle) noexcept;
 

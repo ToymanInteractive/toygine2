@@ -86,7 +86,7 @@ namespace toy::math {
   \note This class is specifically designed for interactive game objects and physics calculations.
   \note For UI positioning and pixel-perfect coordinates, consider using Point with integer coordinates.
 
-  \see Point
+  \sa toy::math::Point
 */
 class Vector2D {
 public:

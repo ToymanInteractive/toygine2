@@ -25,6 +25,7 @@
 #ifndef SRC_PLATFORMS_MACOS_PLATFORM_CONFIG_HPP_
 #define SRC_PLATFORMS_MACOS_PLATFORM_CONFIG_HPP_
 
+#include "../../../include/core/platform.hpp"
 #include "../common/assertion_macro_gcc_clang.hpp"
 
 #if defined(__APPLE__) && defined(TARGET_OS_OSX)

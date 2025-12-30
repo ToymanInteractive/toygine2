@@ -181,13 +181,21 @@ Documentation style:
   - Enum values: `\ref EnumName::Value`
   - Namespaces: `\ref namespaceName`
   - Concepts: `\ref ConceptName`
+- When referencing **classes, structs, enums, namespaces, or concepts** from the codebase in documentation, **always** include the full namespace qualification in the `\ref` tag.
+- This ensures clarity and avoids ambiguity when the same symbol name exists in different namespaces.
+- Use the full qualified name: `\ref toy::ClassName` instead of `\ref ClassName`, `\ref toy::math::Vector2D` instead of `\ref Vector2D`.
+
+**Note**: For functions, you may use unqualified names if the context makes it clear, but qualified names are preferred for consistency.
 
 Examples:
 
-- `\ref initialize()` instead of `initialize()`
-- `\ref FixedVector` instead of `FixedVector`
-- `\ref toy::assertion::assertion()` instead of `assertion()`
-- `\ref Platform::Windows` instead of `Platform::Windows`
+- `\ref toy::FixedString` instead of `\ref FixedString`
+- `\ref toy::math::Vector2D` instead of `\ref Vector2D`
+- `\ref toy::assertion::AssertionCallback` instead of `\ref AssertionCallback`
+- `\ref toy::Platform` instead of `\ref Platform`
+- `\ref toy::CpuArchitecture` instead of `\ref CpuArchitecture`
+- `\ref toy::assertion::assertion()` instead of `\ref assertion()`
+- `\ref toy::Platform::Windows` instead of `\ref Platform::Windows`
 
 **Exceptions**:
 
