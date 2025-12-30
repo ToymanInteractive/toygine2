@@ -1157,7 +1157,7 @@ constexpr FixedString<allocatedSize> operator+(const FixedString<allocatedSize> 
   return result;
 }
 
-template <StringLike stringType, size_t allocatedSize>
+template <size_t allocatedSize, StringLike stringType>
 constexpr FixedString<allocatedSize> operator+(const stringType & lhs,
                                                const FixedString<allocatedSize> & rhs) noexcept {
   FixedString<allocatedSize> result(lhs);
@@ -1228,7 +1228,7 @@ constexpr bool operator==(const FixedString<allocatedSize> & lhs, const stringTy
   return char_traits<char>::compare(lhs.c_str(), rhs.c_str(), lhs.size()) == 0;
 }
 
-template <StringLike stringType, size_t allocatedSize>
+template <size_t allocatedSize, StringLike stringType>
 constexpr bool operator==(const stringType & lhs, const FixedString<allocatedSize> & rhs) noexcept {
   return rhs == lhs;
 }
@@ -1312,7 +1312,7 @@ constexpr strong_ordering operator<=>(const FixedString<allocatedSize> & lhs, co
   }
 }
 
-template <StringLike stringType, size_t allocatedSize>
+template <size_t allocatedSize, StringLike stringType>
 constexpr strong_ordering operator<=>(const stringType & lhs, const FixedString<allocatedSize> & rhs) noexcept {
   return 0 <=> (rhs <=> lhs);
 }

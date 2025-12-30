@@ -83,7 +83,7 @@ namespace toy::math {
   \note This class is specifically designed for UI and input handling.
   \note For sprite positioning and world coordinates, consider using Vector2D with floating-point precision.
 
-  \see Vector2D
+  \sa toy::math::Vector2D
 */
 class Point {
 public:

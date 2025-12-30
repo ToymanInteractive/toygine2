@@ -23,7 +23,6 @@
 */
 
 #include <cstdio>
-#include <string>
 
 #include "core.hpp"
 

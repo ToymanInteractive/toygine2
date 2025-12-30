@@ -66,8 +66,8 @@ Used for regular classes without template parameters (e.g., `Vector2D`, `Point`)
   \note Additional note about the class, if necessary. For example, about specific
         usage or limitations.
 
-  \see RelatedClass
-  \see RelatedFunction
+  \sa RelatedClass
+  \sa RelatedFunction
 */
 class ClassName {
   // ...
@@ -144,8 +144,8 @@ Used for template classes (e.g., `FixedString`, `FixedVector`).
   \warning Important warning about features, if necessary. For example, about lifetime
            for non-owning classes or memory limitations.
 
-  \see RelatedClass
-  \see RelatedConcept
+  \sa RelatedClass
+  \sa RelatedConcept
 */
 template <typename TemplateParam1, size_t TemplateParam2>
 class ClassName {
@@ -219,7 +219,7 @@ Used for structures (e.g., `Version`).
   \note Additional note about the struct, if necessary. For example, that the
         struct is designed for compile-time version management.
 
-  \see RelatedStandard
+  \sa RelatedStandard
 */
 struct StructName {
   // ...
@@ -275,7 +275,7 @@ Used for simple classes that do not require a `compatibility` section (e.g., `Ve
 
   \note Additional note, if necessary.
 
-  \see RelatedClass
+  \sa RelatedClass
 */
 class ClassName {
   // ...
@@ -385,7 +385,7 @@ class ClassName {
 - Rarely used, only for critical points
 - For example, lifetime issues, ownership semantics
 
-### \see
+### \sa
 
 - Related classes, functions, concepts
 - No more than 2-3 references
@@ -405,7 +405,7 @@ class ClassName {
 - [ ] `\section compatibility` is added if needed
 - [ ] `\note` is added if there is useful information
 - [ ] `\warning` is added if there are critical warnings
-- [ ] `\see` contains relevant references
+- [ ] `\sa` contains relevant references
 - [ ] Emoji are used consistently
 - [ ] All descriptions are written in English
 

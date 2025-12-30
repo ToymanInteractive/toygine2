@@ -25,6 +25,8 @@
 #ifndef INCLUDE_CORE_C_STRING_VIEW_HPP_
 #define INCLUDE_CORE_C_STRING_VIEW_HPP_
 
+#include "string_like.hpp"
+
 namespace toy {
 
 /*!
@@ -97,9 +99,9 @@ namespace toy {
   \warning The underlying C string must remain valid for the lifetime of the CStringView object.
            CStringView does not own the string data and will not manage its lifetime.
 
-  \see std::string_view
-  \see StringLike
-  \see FixedString
+  \sa std::string_view
+  \sa toy::StringLike
+  \sa toy::FixedString
 */
 class CStringView {
 public:
@@ -178,7 +180,7 @@ public:
 
     \note This method is equivalent to the copy assignment operator.
 
-    \see operator=(const CStringView & string)
+    \sa operator=(const CStringView & string)
   */
   constexpr CStringView & assign(const CStringView & string) noexcept;
 
@@ -196,7 +198,7 @@ public:
 
     \note This method is equivalent to the copy assignment operator.
 
-    \see operator=(const char * string)
+    \sa operator=(const char * string)
   */
   constexpr CStringView & assign(const char * string) noexcept;
 
@@ -214,7 +216,7 @@ public:
     \note The returned reference is read-only and cannot modify the character.
     \note This method is equivalent to the subscript operator.
 
-    \see operator[](size_t offset) const
+    \sa operator[](size_t offset) const
   */
   [[nodiscard]] constexpr const char & at(size_t offset) const noexcept;
 
@@ -284,7 +286,7 @@ public:
     \note The returned pointer is read-only and cannot modify the string view contents.
     \note This method is equivalent to \ref data().
 
-    \see data()
+    \sa data()
   */
   [[nodiscard]] constexpr const char * c_str() const noexcept;
 
@@ -300,7 +302,7 @@ public:
     \note An empty string view still contains a null terminator.
     \note This method is equivalent to the expression: `size() == 0`.
 
-    \see size()
+    \sa size()
   */
   [[nodiscard]] constexpr bool empty() const noexcept;
 
@@ -314,7 +316,7 @@ public:
 
     \note This method is equivalent to \ref length().
 
-    \see length()
+    \sa length()
   */
   [[nodiscard]] constexpr size_t size() const noexcept;
 
@@ -345,7 +347,7 @@ public:
 
     \note This method is equivalent to \ref size().
 
-    \see size()
+    \sa size()
   */
   [[nodiscard]] constexpr size_t length() const noexcept;
 
@@ -401,17 +403,17 @@ public:
   constexpr void swap(CStringView & string) noexcept;
 
   /*!
-    \brief Finds the first occurrence of a StringLike object in the string view.
+    \brief Finds the first occurrence of a \ref toy::StringLike object in the string view.
 
-    This method searches for the first occurrence of a StringLike object within this string view, starting from the
-    given \a position.
+    This method searches for the first occurrence of a \ref toy::StringLike object within this string view, starting
+    from the given \a position.
 
-    \tparam stringType The type of the source string. Must satisfy the StringLike concept.
+    \tparam stringType The type of the source string. Must satisfy the \ref toy::StringLike concept.
 
-    \param string   The source StringLike object to search for.
+    \param string   The source \ref toy::StringLike object to search for.
     \param position The position to start searching from (default: \c 0).
 
-    \return The position of the first occurrence of a StringLike object, or \ref npos if not found.
+    \return The position of the first occurrence of a \ref toy::StringLike object, or \ref npos if not found.
 
     \pre The \a position must be less than the string view size.
 
@@ -456,23 +458,24 @@ public:
   [[nodiscard]] constexpr size_t find(char character, size_t position = 0) const noexcept;
 
   /*!
-    \brief Finds the last occurrence of a StringLike object in the string view.
+    \brief Finds the last occurrence of a \ref toy::StringLike object in the string view.
 
-    This method searches for the last occurrence of a StringLike object within this string view, starting from the given
-    \a position and searching backwards.
+    This method searches for the last occurrence of a \ref toy::StringLike object within this string view, starting from
+    the given \a position and searching backwards.
 
-    \tparam stringType The type of the source string. Must satisfy the StringLike concept.
+    \tparam stringType The type of the source string. Must satisfy the \ref toy::StringLike concept.
 
-    \param string   The source StringLike object to search for.
+    \param string   The source \ref toy::StringLike object to search for.
     \param position The position to start searching from (default: \ref npos). If \ref npos, searches from the end.
 
-    \return The position of the last occurrence of a StringLike object, or \ref npos if not found.
+    \return The position of the last occurrence of a \ref toy::StringLike object, or \ref npos if not found.
 
     \pre If \a position is not \ref npos, it must be less than or equal to the maximum valid start index: the string
-    view size minus the size of a StringLike object.
+    view size minus the size of a \ref toy::StringLike object.
 
     \note The search is case-sensitive.
-    \note If a StringLike object is empty, returns \a position if within bounds, otherwise returns the string view size.
+    \note If a \ref toy::StringLike object is empty, returns \a position if within bounds, otherwise returns the string
+    view size.
   */
   template <StringLike stringType>
   [[nodiscard]] constexpr size_t rfind(const stringType & string, size_t position = npos) const noexcept;
@@ -518,22 +521,23 @@ public:
   static constexpr size_t npos = size_t(-1);
 
   /*!
-    \brief Finds the first occurrence of any character from a StringLike object.
+    \brief Finds the first occurrence of any character from a \ref toy::StringLike object.
 
-    This method searches for the first occurrence of any character from a StringLike object within this string view,
-    starting from the given \a position.
+    This method searches for the first occurrence of any character from a \ref toy::StringLike object within this string
+    view, starting from the given \a position.
 
-    \tparam stringType The type of the source string. Must satisfy the StringLike concept.
+    \tparam stringType The type of the source string. Must satisfy the \ref toy::StringLike concept.
 
-    \param string   The StringLike object containing characters to search for.
+    \param string   The \ref toy::StringLike object containing characters to search for.
     \param position The position to start searching from (default: \c 0).
 
-    \return The position of the first occurrence of any character from a StringLike object, or \ref npos if not found.
+    \return The position of the first occurrence of any character from a \ref toy::StringLike object, or \ref npos if
+            not found.
 
     \pre The \a position must be less than the string view size.
 
     \note The search is case-sensitive.
-    \note If a StringLike object is empty, this method returns \ref npos.
+    \note If a \ref toy::StringLike object is empty, this method returns \ref npos.
   */
   template <StringLike stringType>
   [[nodiscard]] constexpr size_t find_first_of(const stringType & string, size_t position = 0) const noexcept;
@@ -573,28 +577,28 @@ public:
     \note The search is case-sensitive.
     \note This method is equivalent to \ref find(char, size_t) const.
 
-    \see find(char, size_t) const
+    \sa find(char, size_t) const
   */
   [[nodiscard]] constexpr size_t find_first_of(char character, size_t position = 0) const noexcept;
 
   /*!
-    \brief Finds the first occurrence of any character not from a StringLike object.
+    \brief Finds the first occurrence of any character not from a \ref toy::StringLike object.
 
-    This method searches for the first occurrence of any character that is not present in a StringLike object within
-    this string view, starting from the given \a position.
+    This method searches for the first occurrence of any character that is not present in a \ref toy::StringLike object
+    within this string view, starting from the given \a position.
 
-    \tparam stringType The type of the source string. Must satisfy the StringLike concept.
+    \tparam stringType The type of the source string. Must satisfy the \ref toy::StringLike concept.
 
-    \param string   The StringLike object containing characters to exclude from search.
+    \param string   The \ref toy::StringLike object containing characters to exclude from search.
     \param position The position to start searching from (default: \c 0).
 
-    \return The position of the first occurrence of any character not from a StringLike object, or \ref npos if not
-            found.
+    \return The position of the first occurrence of any character not from a \ref toy::StringLike object, or \ref npos
+            if not found.
 
     \pre The \a position must be less than the string view size.
 
     \note The search is case-sensitive.
-    \note If a StringLike object is empty, returns \a position if within bounds, otherwise returns \ref npos.
+    \note If a \ref toy::StringLike object is empty, returns \a position if within bounds, otherwise returns \ref npos.
   */
   template <StringLike stringType>
   [[nodiscard]] constexpr size_t find_first_not_of(const stringType & string, size_t position = 0) const noexcept;
@@ -636,22 +640,23 @@ public:
   [[nodiscard]] constexpr size_t find_first_not_of(char character, size_t position = 0) const noexcept;
 
   /*!
-    \brief Finds the last occurrence of any character from a StringLike object.
+    \brief Finds the last occurrence of any character from a \ref toy::StringLike object.
 
-    This method searches for the last occurrence of any character from a StringLike object within this string view,
-    starting from the given \a position and searching backwards.
+    This method searches for the last occurrence of any character from a \ref toy::StringLike object within this string
+    view, starting from the given \a position and searching backwards.
 
-    \tparam stringType The type of the source string. Must satisfy the StringLike concept.
+    \tparam stringType The type of the source string. Must satisfy the \ref toy::StringLike concept.
 
-    \param string   The StringLike object containing characters to search for.
+    \param string   The \ref toy::StringLike object containing characters to search for.
     \param position The position to start searching from (default: \ref npos). If \ref npos, searches from the end.
 
-    \return The position of the last occurrence of any character from a StringLike object, or \ref npos if not found.
+    \return The position of the last occurrence of any character from a \ref toy::StringLike object, or \ref npos if not
+            found.
 
     \pre If \a position is not \ref npos, it must be less than the string view size.
 
     \note The search is case-sensitive.
-    \note If a StringLike object is empty, this method returns \ref npos.
+    \note If a \ref toy::StringLike object is empty, this method returns \ref npos.
   */
   template <StringLike stringType>
   [[nodiscard]] constexpr size_t find_last_of(const stringType & string, size_t position = npos) const noexcept;
@@ -691,28 +696,28 @@ public:
     \note The search is case-sensitive.
     \note This method is equivalent to \ref rfind(char, size_t) const.
 
-    \see rfind(char, size_t) const
+    \sa rfind(char, size_t) const
   */
   [[nodiscard]] constexpr size_t find_last_of(char character, size_t position = npos) const noexcept;
 
   /*!
-    \brief Finds the last occurrence of any character not from a StringLike object.
+    \brief Finds the last occurrence of any character not from a \ref toy::StringLike object.
 
-    This method searches for the last occurrence of any character that is not present in a StringLike object within this
-    string view, starting from the given \a position and searching backwards.
+    This method searches for the last occurrence of any character that is not present in a \ref toy::StringLike object
+    within this string view, starting from the given \a position and searching backwards.
 
-    \tparam stringType The type of the source string. Must satisfy the StringLike concept.
+    \tparam stringType The type of the source string. Must satisfy the \ref toy::StringLike concept.
 
-    \param string   The StringLike object containing characters to exclude from search.
+    \param string   The \ref toy::StringLike object containing characters to exclude from search.
     \param position The position to start searching from (default: \ref npos). If \ref npos, searches from the end.
 
-    \return The position of the last occurrence of any character not from a StringLike object, or \ref npos if not
-            found.
+    \return The position of the last occurrence of any character not from a \ref toy::StringLike object, or \ref npos if
+            not found.
 
     \pre If \a position is not \ref npos, it must be less than the string view size.
 
     \note The search is case-sensitive.
-    \note If a StringLike object is empty, returns \a position if within bounds, otherwise returns \ref npos.
+    \note If a \ref toy::StringLike object is empty, returns \a position if within bounds, otherwise returns \ref npos.
   */
   template <StringLike stringType>
   [[nodiscard]] constexpr size_t find_last_not_of(const stringType & string, size_t position = npos) const noexcept;
@@ -754,17 +759,18 @@ public:
   [[nodiscard]] constexpr size_t find_last_not_of(char character, size_t position = npos) const noexcept;
 
   /*!
-    \brief Compares this string view with a StringLike object lexicographically.
+    \brief Compares this string view with a \ref toy::StringLike object lexicographically.
 
-    This method performs a lexicographic comparison between this string view and a StringLike object. The comparison is
-    performed character by character using the character's numeric value.
+    This method performs a lexicographic comparison between this string view and a \ref toy::StringLike object. The
+    comparison is performed character by character using the character's numeric value.
 
-    \tparam stringType The type of the source string. Must satisfy the StringLike concept.
+    \tparam stringType The type of the source string. Must satisfy the \ref toy::StringLike concept.
 
-    \param string The StringLike object to compare with this string.
+    \param string The \ref toy::StringLike object to compare with this string.
 
-    \return A negative value if this string view is lexicographically less than a StringLike object, zero if they are
-    equal, or a positive value if this string view is lexicographically greater than a StringLike object.
+    \return A negative value if this string view is lexicographically less than a \ref toy::StringLike object, zero if
+            they are equal, or a positive value if this string view is lexicographically greater than a
+            \ref toy::StringLike object.
 
     \note The comparison is case-sensitive.
     \note The comparison stops at the first character that differs between the strings.
@@ -793,20 +799,20 @@ public:
   [[nodiscard]] constexpr int compare(const char * string) const noexcept;
 
   /*!
-    \brief Checks if the string view starts with a StringLike object.
+    \brief Checks if the string view starts with a \ref toy::StringLike object.
 
-    This method checks if the current string view starts with a StringLike object. The comparison is performed character
-    by character from the beginning of the string view.
+    This method checks if the current string view starts with a \ref toy::StringLike object. The comparison is performed
+    character by character from the beginning of the string view.
 
-    \tparam stringType The type of the source string. Must satisfy the StringLike concept.
+    \tparam stringType The type of the source string. Must satisfy the \ref toy::StringLike concept.
 
-    \param string The StringLike object to check if this string starts with.
+    \param string The \ref toy::StringLike object to check if this string starts with.
 
-    \return \c true if this string view starts with a StringLike object, \c false otherwise.
+    \return \c true if this string view starts with a \ref toy::StringLike object, \c false otherwise.
 
     \note The comparison is case-sensitive.
-    \note If a StringLike object is empty, this method returns \c true.
-    \note If a StringLike object is longer than this string view, returns \c false.
+    \note If a \ref toy::StringLike object is empty, this method returns \c true.
+    \note If a \ref toy::StringLike object is longer than this string view, returns \c false.
   */
   template <StringLike stringType>
   [[nodiscard]] constexpr bool starts_with(const stringType & string) const noexcept;
@@ -845,20 +851,20 @@ public:
   [[nodiscard]] constexpr bool starts_with(char character) const noexcept;
 
   /*!
-    \brief Checks if the string view ends with a StringLike object.
+    \brief Checks if the string view ends with a \ref toy::StringLike object.
 
-    This method checks if the current string view ends with a StringLike object. The comparison is performed character
-    by character from the end of the string view.
+    This method checks if the current string view ends with a \ref toy::StringLike object. The comparison is performed
+    character by character from the end of the string view.
 
-    \tparam stringType The type of the source string. Must satisfy the StringLike concept.
+    \tparam stringType The type of the source string. Must satisfy the \ref toy::StringLike concept.
 
-    \param string The StringLike object to check if this string view ends with.
+    \param string The \ref toy::StringLike object to check if this string view ends with.
 
-    \return \c true if this string view ends with a StringLike object, \c false otherwise.
+    \return \c true if this string view ends with a \ref toy::StringLike object, \c false otherwise.
 
     \note The comparison is case-sensitive.
-    \note If a StringLike object is empty, this method returns \c true.
-    \note If a StringLike object is longer than this string view, returns \c false.
+    \note If a \ref toy::StringLike object is empty, this method returns \c true.
+    \note If a \ref toy::StringLike object is longer than this string view, returns \c false.
   */
   template <StringLike stringType>
   [[nodiscard]] constexpr bool ends_with(const stringType & string) const noexcept;
@@ -897,19 +903,19 @@ public:
   [[nodiscard]] constexpr bool ends_with(char character) const noexcept;
 
   /*!
-    \brief Checks if the string view contains a StringLike object.
+    \brief Checks if the string view contains a \ref toy::StringLike object.
 
-    This method checks if the current string view contains a StringLike object anywhere within it.
+    This method checks if the current string view contains a \ref toy::StringLike object anywhere within it.
 
-    \tparam stringType The type of the source string. Must satisfy the StringLike concept.
+    \tparam stringType The type of the source string. Must satisfy the \ref toy::StringLike concept.
 
-    \param string The StringLike object to search for within this string.
+    \param string The \ref toy::StringLike object to search for within this string.
 
-    \return \c true if this string view contains a StringLike object, \c false otherwise.
+    \return \c true if this string view contains a \ref toy::StringLike object, \c false otherwise.
 
     \note The search is case-sensitive.
-    \note If a StringLike object is empty, this method returns \c true.
-    \note If a StringLike object is longer than this string view, returns \c false.
+    \note If a \ref toy::StringLike object is empty, this method returns \c true.
+    \note If a \ref toy::StringLike object is longer than this string view, returns \c false.
   */
   template <StringLike stringType>
   [[nodiscard]] constexpr bool contains(const stringType & string) const noexcept;
@@ -958,38 +964,38 @@ public:
     \note The comparison is case-sensitive.
     \note Empty string views are considered equal.
 
-    \see operator<=>(const CStringView &, const CStringView &)
+    \sa operator<=>(const CStringView &, const CStringView &)
   */
   friend constexpr bool operator==(const CStringView & lhs, const CStringView & rhs) noexcept;
 
   /*!
-    \brief Equality comparison operator for CStringView and StringLike object.
+    \brief Equality comparison operator for CStringView and \ref toy::StringLike object.
 
-    This operator compares a CStringView object with a StringLike object for equality.
+    This operator compares a CStringView object with a \ref toy::StringLike object for equality.
 
-    \tparam stringType The type of the StringLike object. Must satisfy the StringLike concept.
+    \tparam stringType The type of the \ref toy::StringLike object. Must satisfy the \ref toy::StringLike concept.
 
     \param lhs The CStringView object.
-    \param rhs The StringLike object.
+    \param rhs The \ref toy::StringLike object.
 
     \return \c true if both strings have the same content, \c false otherwise.
 
     \note The comparison is case-sensitive.
     \note Empty strings are considered equal.
 
-    \see operator<=>(const CStringView &, const stringType &)
+    \sa operator<=>(const CStringView &, const stringType &)
   */
   template <StringLike stringType>
   friend constexpr bool operator==(const CStringView & lhs, const stringType & rhs) noexcept;
 
   /*!
-    \brief Equality comparison operator for StringLike object and CStringView.
+    \brief Equality comparison operator for \ref toy::StringLike object and CStringView.
 
-    This operator compares a StringLike object with a CStringView object for equality.
+    This operator compares a \ref toy::StringLike object with a CStringView object for equality.
 
-    \tparam stringType The type of the StringLike object. Must satisfy the StringLike concept.
+    \tparam stringType The type of the \ref toy::StringLike object. Must satisfy the \ref toy::StringLike concept.
 
-    \param lhs The StringLike object.
+    \param lhs The \ref toy::StringLike object.
     \param rhs The CStringView object.
 
     \return \c true if both strings have the same content, \c false otherwise.
@@ -997,7 +1003,7 @@ public:
     \note The comparison is case-sensitive.
     \note Empty strings are considered equal.
 
-    \see operator<=>(const stringType &, const CStringView &)
+    \sa operator<=>(const stringType &, const CStringView &)
   */
   template <StringLike stringType>
   friend constexpr bool operator==(const stringType & lhs, const CStringView & rhs) noexcept;
@@ -1017,7 +1023,7 @@ public:
     \note The comparison is case-sensitive.
     \note Empty strings are considered equal.
 
-    \see operator<=>(const CStringView &, const char *)
+    \sa operator<=>(const CStringView &, const char *)
   */
   friend constexpr bool operator==(const CStringView & lhs, const char * rhs) noexcept;
 
@@ -1036,15 +1042,15 @@ public:
     \note The comparison is case-sensitive.
     \note Empty strings are considered equal.
 
-    \see operator<=>(const char *, const CStringView &)
+    \sa operator<=>(const char *, const CStringView &)
   */
   friend constexpr bool operator==(const char * lhs, const CStringView & rhs) noexcept;
 
   /*!
     \brief Three-way comparison operator for two CStringView objects.
 
-    This operator provides a three-way comparison between two CStringView objects. It returns a strong_ordering value that
-    indicates the relationship between the string views.
+    This operator provides a three-way comparison between two CStringView objects. It returns a strong_ordering value
+    that indicates the relationship between the string views.
 
     \param lhs The left-hand side CStringView object to compare.
     \param rhs The right-hand side CStringView object to compare.
@@ -1056,20 +1062,20 @@ public:
     \note The comparison is performed lexicographically character by character.
     \note Empty string views are considered equal.
 
-    \see operator==(const CStringView &, const CStringView &)
+    \sa operator==(const CStringView &, const CStringView &)
   */
   friend constexpr strong_ordering operator<=>(const CStringView & lhs, const CStringView & rhs) noexcept;
 
   /*!
-    \brief Three-way comparison operator for CStringView and StringLike object.
+    \brief Three-way comparison operator for CStringView and \ref toy::StringLike object.
 
-    This operator provides a three-way comparison between a CStringView object and a StringLike object. It returns a
-    strong_ordering value that indicates the relationship between the strings.
+    This operator provides a three-way comparison between a CStringView object and a \ref toy::StringLike object. It
+    returns a strong_ordering value that indicates the relationship between the strings.
 
-    \tparam stringType The type of the StringLike object. Must satisfy the StringLike concept.
+    \tparam stringType The type of the \ref toy::StringLike object. Must satisfy the \ref toy::StringLike concept.
 
     \param lhs The CStringView object to compare.
-    \param rhs The StringLike object to compare.
+    \param rhs The \ref toy::StringLike object to compare.
 
     \return \c strong_ordering::less if \a lhs is lexicographically less than \a rhs, \c strong_ordering::equal if they
             are equal, or \c strong_ordering::greater if \a lhs is lexicographically greater than \a rhs.
@@ -1078,20 +1084,20 @@ public:
     \note The comparison is performed lexicographically character by character.
     \note Empty strings are considered equal.
 
-    \see operator==(const CStringView &, const stringType &)
+    \sa operator==(const CStringView &, const stringType &)
   */
   template <StringLike stringType>
   friend constexpr strong_ordering operator<=>(const CStringView & lhs, const stringType & rhs) noexcept;
 
   /*!
-    \brief Three-way comparison operator for StringLike object and CStringView.
+    \brief Three-way comparison operator for \ref toy::StringLike object and CStringView.
 
-    This operator provides a three-way comparison between a StringLike object and a CStringView object. It returns a
-    strong_ordering value that indicates the relationship between the strings.
+    This operator provides a three-way comparison between a \ref toy::StringLike object and a CStringView object. It
+    returns a strong_ordering value that indicates the relationship between the strings.
 
-    \tparam stringType The type of the StringLike object. Must satisfy the StringLike concept.
+    \tparam stringType The type of the \ref toy::StringLike object. Must satisfy the \ref toy::StringLike concept.
 
-    \param lhs The StringLike object to compare.
+    \param lhs The \ref toy::StringLike object to compare.
     \param rhs The CStringView object to compare.
 
     \return \c strong_ordering::less if \a lhs is lexicographically less than \a rhs, \c strong_ordering::equal if they
@@ -1101,7 +1107,7 @@ public:
     \note The comparison is performed lexicographically character by character.
     \note Empty strings are considered equal.
 
-    \see operator==(const stringType &, const CStringView &)
+    \sa operator==(const stringType &, const CStringView &)
   */
   template <StringLike stringType>
   friend constexpr strong_ordering operator<=>(const stringType & lhs, const CStringView & rhs) noexcept;
@@ -1124,7 +1130,7 @@ public:
     \note The comparison is performed lexicographically character by character.
     \note Empty strings are considered equal.
 
-    \see operator==(const CStringView &, const char *)
+    \sa operator==(const CStringView &, const char *)
   */
   friend constexpr strong_ordering operator<=>(const CStringView & lhs, const char * rhs) noexcept;
 
@@ -1146,7 +1152,7 @@ public:
     \note The comparison is performed lexicographically character by character.
     \note Empty strings are considered equal.
 
-    \see operator==(const char *, const CStringView &)
+    \sa operator==(const char *, const CStringView &)
   */
   friend constexpr strong_ordering operator<=>(const char * lhs, const CStringView & rhs) noexcept;
 

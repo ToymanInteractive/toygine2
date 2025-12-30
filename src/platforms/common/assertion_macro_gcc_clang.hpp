@@ -49,8 +49,8 @@
   \warning Do not rely on the \a expression being evaluated in release builds.
   \warning The \a expression should not have side effects as it may not be evaluated in release builds.
 
-  \see assert_message
-  \see toy::assertion::assertion
+  \sa assert_message
+  \sa toy::assertion::assertion
 */
 #define assert(expression)                                                                                             \
   do {                                                                                                                 \
@@ -82,8 +82,8 @@
   \warning The \a expression should not have side effects as it may not be evaluated in release builds.
   \warning The \a message should be a C string literal for optimal performance.
 
-  \see assert
-  \see toy::assertion::assertion
+  \sa assert
+  \sa toy::assertion::assertion
 */
 #define assert_message(expression, message)                                                                            \
   do {                                                                                                                 \
@@ -108,7 +108,7 @@
   \note The \a expression parameter is ignored and not evaluated.
   \note This ensures zero overhead in release builds.
 
-  \see assert_message
+  \sa assert_message
 */
 #define assert(expression) ((void)0)
 
@@ -126,7 +126,7 @@
   \note Both parameters are ignored and not evaluated.
   \note This ensures zero overhead in release builds.
 
-  \see assert
+  \sa assert
 */
 #define assert_message(expression, message) ((void)0)
 

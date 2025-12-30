@@ -322,7 +322,7 @@ constexpr char & at(size_t offset) noexcept {
 
   \return The number of characters in the string.
 
-  \see length()
+  \sa length()
 */
 [[nodiscard]] constexpr size_t size() const noexcept;
 ```

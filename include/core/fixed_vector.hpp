@@ -376,7 +376,7 @@ public:
     \note Use const version for read-only access.
     \note This method is equivalent to the subscript operator.
 
-    \see operator[](size_type pos)
+    \sa operator[](size_type pos)
   */
   [[nodiscard]] constexpr reference at(size_type pos) noexcept;
 
@@ -395,7 +395,7 @@ public:
     \note Use the non-const overload to allow modification.
     \note This method is equivalent to the subscript operator.
 
-    \see operator[](size_type pos) const
+    \sa operator[](size_type pos) const
   */
   [[nodiscard]] constexpr const_reference at(size_type pos) const noexcept;
 
@@ -443,7 +443,7 @@ public:
     \note The returned reference allows modification of the element.
     \note Use const version for read-only access.
 
-    \see back()
+    \sa back()
   */
   [[nodiscard]] constexpr reference front() noexcept;
 
@@ -459,7 +459,7 @@ public:
     \note The returned reference is read-only and cannot modify the element.
     \note Use the non-const overload to allow modification.
 
-    \see back() const
+    \sa back() const
   */
   [[nodiscard]] constexpr const_reference front() const noexcept;
 
@@ -475,7 +475,7 @@ public:
     \note The returned reference allows modification of the element.
     \note Use const version for read-only access.
 
-    \see front()
+    \sa front()
   */
   [[nodiscard]] constexpr reference back() noexcept;
 
@@ -491,7 +491,7 @@ public:
     \note The returned reference is read-only and cannot modify the element.
     \note Use the non-const overload to allow modification.
 
-    \see front() const
+    \sa front() const
   */
   [[nodiscard]] constexpr const_reference back() const noexcept;
 
@@ -510,7 +510,7 @@ public:
 
     \warning Accessing elements beyond \a size() through the returned pointer results in undefined behavior.
 
-    \see size()
+    \sa size()
   */
   [[nodiscard]] constexpr pointer data() noexcept;
 
@@ -528,7 +528,7 @@ public:
 
     \warning Accessing elements beyond \a size() through the returned pointer results in undefined behavior.
 
-    \see size()
+    \sa size()
   */
   [[nodiscard]] constexpr const_pointer data() const noexcept;
 
@@ -542,7 +542,7 @@ public:
     \note If the vector is empty, the returned iterator will be equal to \a end().
     \note The iterator allows modification of elements.
 
-    \see end()
+    \sa end()
   */
   [[nodiscard]] constexpr iterator begin() noexcept;
 
@@ -556,7 +556,7 @@ public:
     \note If the vector is empty, the returned iterator will be equal to \a end() const.
     \note The iterator is read-only and cannot modify elements.
 
-    \see end() const
+    \sa end() const
   */
   [[nodiscard]] constexpr const_iterator begin() const noexcept;
 
@@ -571,7 +571,7 @@ public:
     \note The iterator is read-only and cannot modify elements.
     \note This method is provided for consistency with standard containers.
 
-    \see cend()
+    \sa cend()
   */
   [[nodiscard]] constexpr const_iterator cbegin() const noexcept;
 
@@ -587,7 +587,7 @@ public:
     \note It is used to indicate the end of a range [begin(), end()).
     \note For an empty vector, \a begin() == \a end().
 
-    \see begin()
+    \sa begin()
   */
   [[nodiscard]] constexpr iterator end() noexcept;
 
@@ -603,7 +603,7 @@ public:
     \note It is used to indicate the end of a range [begin(), end()).
     \note For an empty vector, \a begin() const == \a end() const.
 
-    \see begin() const
+    \sa begin() const
   */
   [[nodiscard]] constexpr const_iterator end() const noexcept;
 
@@ -620,7 +620,7 @@ public:
     \note For an empty vector, \a cbegin() == \a cend().
     \note This method is provided for consistency with standard containers.
 
-    \see cbegin()
+    \sa cbegin()
   */
   [[nodiscard]] constexpr const_iterator cend() const noexcept;
 
@@ -635,7 +635,7 @@ public:
     \note The iterator allows modification of elements.
     \note Iteration through the vector in reverse order can be done using [rbegin(), rend()).
 
-    \see rend()
+    \sa rend()
   */
   [[nodiscard]] constexpr reverse_iterator rbegin() noexcept;
 
@@ -650,7 +650,7 @@ public:
     \note The iterator is read-only and cannot modify elements.
     \note Iteration through the vector in reverse order can be done using [rbegin(), rend()) const.
 
-    \see rend() const
+    \sa rend() const
   */
   [[nodiscard]] constexpr const_reverse_iterator rbegin() const noexcept;
 
@@ -666,7 +666,7 @@ public:
     \note This method is provided for consistency with standard containers.
     \note Iteration through the vector in reverse order can be done using [crbegin(), crend()).
 
-    \see crend()
+    \sa crend()
   */
   [[nodiscard]] constexpr const_reverse_iterator crbegin() const noexcept;
 
@@ -682,7 +682,7 @@ public:
     \note It is used to indicate the end of a reverse range [rbegin(), rend()).
     \note For an empty vector, \a rbegin() == \a rend().
 
-    \see rbegin()
+    \sa rbegin()
   */
   [[nodiscard]] constexpr reverse_iterator rend() noexcept;
 
@@ -698,7 +698,7 @@ public:
     \note It is used to indicate the end of a reverse range [rbegin(), rend()) const.
     \note For an empty vector, \a rbegin() const == \a rend() const.
 
-    \see rbegin() const
+    \sa rbegin() const
   */
   [[nodiscard]] constexpr const_reverse_iterator rend() const noexcept;
 
@@ -715,7 +715,7 @@ public:
     \note For an empty vector, \a crbegin() == \a crend().
     \note This method is provided for consistency with standard containers.
 
-    \see crbegin()
+    \sa crbegin()
   */
   [[nodiscard]] constexpr const_reverse_iterator crend() const noexcept;
 
@@ -729,7 +729,7 @@ public:
     \note This method provides a convenient way to check if the vector has no elements.
     \note Equivalent to `size() == 0`.
 
-    \see size()
+    \sa size()
   */
   [[nodiscard]] constexpr bool empty() const noexcept;
 
@@ -743,8 +743,8 @@ public:
     \note The size is always less than or equal to the capacity.
     \note For an empty vector, this method returns \c 0.
 
-    \see capacity()
-    \see empty()
+    \sa capacity()
+    \sa empty()
   */
   [[nodiscard]] constexpr size_type size() const noexcept;
 
@@ -759,7 +759,7 @@ public:
     \note For FixedVector, \a max_size() is always equal to \a capacity().
     \note This value is fixed at compile time and determined by the template parameter \a allocatedSize.
 
-    \see capacity()
+    \sa capacity()
   */
   [[nodiscard]] constexpr size_type max_size() const noexcept;
 
@@ -775,7 +775,7 @@ public:
     \note The capacity cannot change during the lifetime of the vector.
     \note Attempting to add more elements than the capacity will result in undefined behavior.
 
-    \see size()
+    \sa size()
   */
   [[nodiscard]] constexpr size_type capacity() const noexcept;
 

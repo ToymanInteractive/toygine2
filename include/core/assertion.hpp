@@ -169,8 +169,8 @@ void setCallbacks(AssertionCallback assertionCallback, StackWalkCallback stackWa
   \note In release builds, this function is replaced with an inline no-op.
   \note The function invokes the registered assertion callback if one is set.
 
-  \see setCallbacks()
-  \see constexpr_assert()
+  \sa setCallbacks()
+  \sa constexpr_assert()
 */
 void assertion(const char * code, const char * message, const char * fileName, const char * functionName,
                size_t lineNumber);

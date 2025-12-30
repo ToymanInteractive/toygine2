@@ -25,6 +25,8 @@
 #ifndef INCLUDE_CORE_FIXED_STRING_HPP_
 #define INCLUDE_CORE_FIXED_STRING_HPP_
 
+#include "string_like.hpp"
+
 namespace toy {
 
 template <size_t allocatedSize>
@@ -104,9 +106,9 @@ struct FixedStringStorage {
 
   \note The internal buffer size is allocatedSize, but the maximum string length is allocatedSize - 1 (null terminator).
 
-  \see std::string
-  \see StringLike
-  \see CStringView
+  \sa std::string
+  \sa toy::StringLike
+  \sa toy::CStringView
 */
 template <size_t allocatedSize>
 class FixedString {
@@ -162,18 +164,18 @@ public:
   constexpr FixedString(size_type count, char character) noexcept;
 
   /*!
-    \brief Constructs a string initialized with a StringLike object.
+    \brief Constructs a string initialized with a \ref toy::StringLike object.
 
-    This constructor initializes a string by copying the content from a StringLike object.
+    This constructor initializes a string by copying the content from a \ref toy::StringLike object.
 
-    \tparam stringType The type of the source string. Must satisfy the StringLike concept.
+    \tparam stringType The type of the source string. Must satisfy the \ref toy::StringLike concept.
 
-    \param string The source StringLike object to copy content from.
+    \param string The source \ref toy::StringLike object to copy content from.
 
-    \pre The source StringLike object must be valid and properly initialized.
-    \pre The source StringLike object size must not exceed the allocated capacity.
+    \pre The source \ref toy::StringLike object must be valid and properly initialized.
+    \pre The source \ref toy::StringLike object size must not exceed the allocated capacity.
 
-    \post The new string is created with the contents of the source StringLike object.
+    \post The new string is created with the contents of the source \ref toy::StringLike object.
   */
   template <StringLike stringType>
   constexpr explicit FixedString(const stringType & string) noexcept;
@@ -212,26 +214,26 @@ public:
   constexpr FixedString<allocatedSize> & operator=(const FixedString<allocatedSize> & string) noexcept;
 
   /*!
-    \brief Copy assigns a StringLike object to this string.
+    \brief Copy assigns a \ref toy::StringLike object to this string.
 
-    This operator assigns the content from a StringLike object to this string. The assignment operation performs a deep
-    copy of the string data and updates the size accordingly.
+    This operator assigns the content from a \ref toy::StringLike object to this string. The assignment operation
+    performs a deep copy of the string data and updates the size accordingly.
 
-    \tparam stringType The type of the source string. Must satisfy the StringLike concept.
+    \tparam stringType The type of the source string. Must satisfy the \ref toy::StringLike concept.
 
-    \param string The source StringLike object to copy content from.
+    \param string The source \ref toy::StringLike object to copy content from.
 
     \return A reference to this string after assignment.
 
-    \pre The source StringLike object must be valid and properly initialized.
-    \pre The source StringLike object size must not exceed the allocated capacity.
+    \pre The source \ref toy::StringLike object must be valid and properly initialized.
+    \pre The source \ref toy::StringLike object size must not exceed the allocated capacity.
 
-    \post This string contains the same content as the source StringLike object.
-    \post The size of this string equals the size of the source StringLike object.
+    \post This string contains the same content as the source \ref toy::StringLike object.
+    \post The size of this string equals the size of the source \ref toy::StringLike object.
 
     \note Self-assignment is handled correctly and safely.
 
-    \see assign(const stringType &)
+    \sa assign(const stringType &)
   */
   template <StringLike stringType>
   constexpr FixedString<allocatedSize> & operator=(const stringType & string) noexcept;
@@ -256,7 +258,7 @@ public:
 
     \note Self-assignment is handled correctly and safely.
 
-    \see assign(const char *)
+    \sa assign(const char *)
   */
   constexpr FixedString<allocatedSize> & operator=(const char * string) noexcept;
 
@@ -294,32 +296,32 @@ public:
     \note Self-assignment is handled correctly and safely.
     \note This method is equivalent to the copy assignment operator.
 
-    \see operator=(const FixedString<allocatedSize> & string)
+    \sa operator=(const FixedString<allocatedSize> & string)
   */
   constexpr FixedString<allocatedSize> & assign(const FixedString<allocatedSize> & string) noexcept;
 
   /*!
-    \brief Copy assigns a StringLike object to this string.
+    \brief Copy assigns a \ref toy::StringLike object to this string.
 
-    This method assigns the content from a StringLike object to this string. The assignment operation performs a deep
-    copy of the string data and updates the size accordingly.
+    This method assigns the content from a \ref toy::StringLike object to this string. The assignment operation performs
+    a deep copy of the string data and updates the size accordingly.
 
-    \tparam stringType The type of the source string. Must satisfy the StringLike concept.
+    \tparam stringType The type of the source string. Must satisfy the \ref toy::StringLike concept.
 
-    \param string The source StringLike object to copy content from.
+    \param string The source \ref toy::StringLike object to copy content from.
 
     \return A reference to this string after assignment.
 
-    \pre The source StringLike object must be valid and properly initialized.
-    \pre The source StringLike object size must not exceed the allocated capacity.
+    \pre The source \ref toy::StringLike object must be valid and properly initialized.
+    \pre The source \ref toy::StringLike object size must not exceed the allocated capacity.
 
-    \post This string contains the same content as the source StringLike object.
-    \post The size of this string equals the size of the source StringLike object.
+    \post This string contains the same content as the source \ref toy::StringLike object.
+    \post The size of this string equals the size of the source \ref toy::StringLike object.
 
     \note Self-assignment is handled correctly and safely.
     \note This method is equivalent to the copy assignment operator.
 
-    \see operator=(const stringType & string)
+    \sa operator=(const stringType & string)
   */
   template <StringLike stringType>
   constexpr FixedString<allocatedSize> & assign(const stringType & string) noexcept;
@@ -344,7 +346,7 @@ public:
     \note Self-assignment is handled correctly and safely.
     \note This method is equivalent to the copy assignment operator.
 
-    \see operator=(const char * string)
+    \sa operator=(const char * string)
   */
   constexpr FixedString<allocatedSize> & assign(const char * string) noexcept;
 
@@ -382,7 +384,7 @@ public:
     \note Use const version for read-only access.
     \note This method is equivalent to the subscript operator.
 
-    \see operator[](size_t offset)
+    \sa operator[](size_t offset)
   */
   [[nodiscard]] constexpr char & at(size_t offset) noexcept;
 
@@ -401,7 +403,7 @@ public:
     \note Use the non-const overload to allow modification.
     \note This method is equivalent to the subscript operator.
 
-    \see operator[](size_t offset) const
+    \sa operator[](size_t offset) const
   */
   [[nodiscard]] constexpr const char & at(size_t offset) const noexcept;
 
@@ -419,8 +421,8 @@ public:
     \note The returned reference allows modification of the character.
     \note Use const version for read-only access.
 
-    \see operator[](size_t offset) const
-    \see at()
+    \sa operator[](size_t offset) const
+    \sa at()
   */
   [[nodiscard]] constexpr char & operator[](size_t offset) noexcept;
 
@@ -452,7 +454,7 @@ public:
     \note The returned reference allows modification of the character.
     \note Use const version for read-only access.
 
-    \see front() const
+    \sa front() const
   */
   [[nodiscard]] constexpr char & front() noexcept;
 
@@ -468,7 +470,7 @@ public:
     \note The returned reference is read-only and cannot modify the character.
     \note Use the non-const overload to allow modification.
 
-    \see front() noexcept
+    \sa front() noexcept
   */
   [[nodiscard]] constexpr const char & front() const noexcept;
 
@@ -484,7 +486,7 @@ public:
     \note The returned reference allows modification of the character.
     \note Use const version for read-only access.
 
-    \see back() const
+    \sa back() const
   */
   [[nodiscard]] constexpr char & back() noexcept;
 
@@ -500,7 +502,7 @@ public:
     \note The returned reference is read-only and cannot modify the character.
     \note Use the non-const overload to allow modification.
 
-    \see back() noexcept
+    \sa back() noexcept
   */
   [[nodiscard]] constexpr const char & back() const noexcept;
 
@@ -516,8 +518,8 @@ public:
     \note The returned pointer allows modification of the string contents.
     \note Use const version for read-only access.
 
-    \see data() const
-    \see c_str()
+    \sa data() const
+    \sa c_str()
   */
   [[nodiscard]] constexpr char * data() noexcept;
 
@@ -533,8 +535,8 @@ public:
     \note The returned pointer is read-only and cannot modify the string contents.
     \note Use the non-const overload to allow modification.
 
-    \see data()
-    \see c_str()
+    \sa data()
+    \sa c_str()
   */
   [[nodiscard]] constexpr const char * data() const noexcept;
 
@@ -550,7 +552,7 @@ public:
     \note The returned pointer is read-only and cannot modify the string contents.
     \note This method is equivalent to \ref data() const.
 
-    \see data() const
+    \sa data() const
   */
   [[nodiscard]] constexpr const char * c_str() const noexcept;
 
@@ -566,7 +568,7 @@ public:
     \note An empty string still contains a null terminator.
     \note This method is equivalent to the expression: `size() == 0`.
 
-    \see size()
+    \sa size()
   */
   [[nodiscard]] constexpr bool empty() const noexcept;
 
@@ -580,7 +582,7 @@ public:
 
     \note This method is equivalent to \ref length().
 
-    \see length()
+    \sa length()
   */
   [[nodiscard]] constexpr size_t size() const noexcept;
 
@@ -611,7 +613,7 @@ public:
 
     \note This method is equivalent to \ref size().
 
-    \see size()
+    \sa size()
   */
   [[nodiscard]] constexpr size_t length() const noexcept;
 
@@ -626,7 +628,7 @@ public:
     \note The maximum size is determined at compile time.
     \note This method is equivalent to \a capacity() method.
 
-    \see capacity()
+    \sa capacity()
   */
   [[nodiscard]] constexpr size_t max_size() const noexcept;
 
@@ -641,7 +643,7 @@ public:
     \note The capacity is determined at compile time.
     \note This method is equivalent to \a max_size() method.
 
-    \see max_size()
+    \sa max_size()
   */
   [[nodiscard]] constexpr size_t capacity() const noexcept;
 
@@ -678,23 +680,23 @@ public:
   constexpr FixedString<allocatedSize> & insert(size_t index, const FixedString<allocatedSize> & string) noexcept;
 
   /*!
-    \brief Inserts a StringLike object at the specified \a index.
+    \brief Inserts a \ref toy::StringLike object at the specified \a index.
 
-    This method inserts the contents from a StringLike object at the specified position. The insertion shifts existing
-    characters to the right to make room for the new content.
+    This method inserts the contents from a \ref toy::StringLike object at the specified position. The insertion shifts
+    existing characters to the right to make room for the new content.
 
-    \tparam stringType The type of the source string. Must satisfy the StringLike concept.
+    \tparam stringType The type of the source string. Must satisfy the \ref toy::StringLike concept.
 
-    \param index  The position where the StringLike object should be inserted.
-    \param string The source StringLike object to insert content from.
+    \param index  The position where the \ref toy::StringLike object should be inserted.
+    \param string The source \ref toy::StringLike object to insert content from.
 
     \return A reference to this string after insertion.
 
     \pre The \a index must be within the bounds of the current string.
     \pre The combined length after insertion must not exceed the allocated size.
 
-    \post The StringLike object is inserted at position \a index.
-    \post The string size is increased by the size of the inserted StringLike object.
+    \post The \ref toy::StringLike object is inserted at position \a index.
+    \post The string size is increased by the size of the inserted \ref toy::StringLike object.
     \post All characters after \a index are shifted right.
   */
   template <StringLike stringType>
@@ -775,7 +777,7 @@ public:
 
     \note This method is equivalent to operator+= but more explicit in intent.
 
-    \see operator+=(char)
+    \sa operator+=(char)
   */
   constexpr void push_back(char character) noexcept;
 
@@ -824,29 +826,29 @@ public:
 
     \note This method is equivalent to the addition assignment operator.
 
-    \see operator+=(const FixedString<allocatedSize> &)
+    \sa operator+=(const FixedString<allocatedSize> &)
   */
   constexpr FixedString<allocatedSize> & append(const FixedString<allocatedSize> & string) noexcept;
 
   /*!
-    \brief Appends a StringLike object to the end of this string.
+    \brief Appends a \ref toy::StringLike object to the end of this string.
 
-    This method appends the contents of a StringLike object to the end of this string.
+    This method appends the contents of a \ref toy::StringLike object to the end of this string.
 
-    \tparam stringType The type of the source string. Must satisfy the StringLike concept.
+    \tparam stringType The type of the source string. Must satisfy the \ref toy::StringLike concept.
 
-    \param string The source StringLike object to append content from.
+    \param string The source \ref toy::StringLike object to append content from.
 
     \return A reference to this string after appending.
 
     \pre The combined length after appending must not exceed the allocated size.
 
-    \post The StringLike object is appended to the end of this string.
-    \post The string size is increased by the size of the appended StringLike object.
+    \post The \ref toy::StringLike object is appended to the end of this string.
+    \post The string size is increased by the size of the appended \ref toy::StringLike object.
 
     \note This method is equivalent to the addition assignment operator.
 
-    \see operator+=(const stringType &)
+    \sa operator+=(const stringType &)
   */
   template <StringLike stringType>
   constexpr FixedString<allocatedSize> & append(const stringType & string) noexcept;
@@ -867,7 +869,7 @@ public:
 
     \note This method is equivalent to the addition assignment operator.
 
-    \see operator+=(const char *)
+    \sa operator+=(const char *)
   */
   constexpr FixedString<allocatedSize> & append(const char * string) noexcept;
 
@@ -905,13 +907,13 @@ public:
   constexpr FixedString<allocatedSize> & operator+=(const FixedString<allocatedSize> & string) noexcept;
 
   /*!
-    \brief Appends a StringLike object to the end of this string.
+    \brief Appends a \ref toy::StringLike object to the end of this string.
 
-    This operator appends the contents of a StringLike object to the end of this string.
+    This operator appends the contents of a \ref toy::StringLike object to the end of this string.
 
-    \tparam stringType The type of the source string. Must satisfy the StringLike concept.
+    \tparam stringType The type of the source string. Must satisfy the \ref toy::StringLike concept.
 
-    \param string The source StringLike object to append content from.
+    \param string The source \ref toy::StringLike object to append content from.
 
     \return A reference to this string after appending.
 
@@ -952,8 +954,8 @@ public:
     \post The \a character is appended to the end of this string.
     \post The string size is increased by \c 1.
 
-    \see append(char, size_t)
-    \see push_back(char)
+    \sa append(char, size_t)
+    \sa push_back(char)
   */
   constexpr FixedString<allocatedSize> & operator+=(char character) noexcept;
 
@@ -979,16 +981,17 @@ public:
                                                  const FixedString<allocatedSize> & string) noexcept;
 
   /*!
-    \brief Replaces a portion of the string with a StringLike object.
+    \brief Replaces a portion of the string with a \ref toy::StringLike object.
 
-    This method replaces a specified range of characters in the current string with the contents of a StringLike object.
-    The replacement operation shifts existing characters as needed to accommodate the new content.
+    This method replaces a specified range of characters in the current string with the contents of a \ref
+    toy::StringLike object. The replacement operation shifts existing characters as needed to accommodate the new
+    content.
 
-    \tparam stringType The type of the source string. Must satisfy the StringLike concept.
+    \tparam stringType The type of the source string. Must satisfy the \ref toy::StringLike concept.
 
     \param pos    The starting position for the replacement.
     \param count  The number of characters to replace.
-    \param string The source StringLike object to replace content from.
+    \param string The source \ref toy::StringLike object to replace content from.
 
     \return A reference to this string after replacement.
 
@@ -996,7 +999,7 @@ public:
     \pre The replacement range ( \a pos + \a count ) must be within the string bounds.
     \pre The resulting string size must not exceed the allocated capacity.
 
-    \post The specified range is replaced with the StringLike object.
+    \post The specified range is replaced with the \ref toy::StringLike object.
   */
   template <StringLike stringType>
   constexpr FixedString<allocatedSize> & replace(size_t pos, size_t count, const stringType & string) noexcept;
@@ -1101,17 +1104,17 @@ public:
   [[nodiscard]] constexpr size_t find(const FixedString<allocatedSize> & string, size_t position = 0) const noexcept;
 
   /*!
-    \brief Finds the first occurrence of a StringLike object in the string.
+    \brief Finds the first occurrence of a \ref toy::StringLike object in the string.
 
-    This method searches for the first occurrence of a StringLike object within this string, starting from the given \a
-    position.
+    This method searches for the first occurrence of a \ref toy::StringLike object within this string, starting from the
+    given \a position.
 
-    \tparam stringType The type of the source string. Must satisfy the StringLike concept.
+    \tparam stringType The type of the source string. Must satisfy the \ref toy::StringLike concept.
 
-    \param string   The source StringLike object to search for.
+    \param string   The source \ref toy::StringLike object to search for.
     \param position The position to start searching from (default: \c 0).
 
-    \return The position of the first occurrence of a StringLike object, or \ref npos if not found.
+    \return The position of the first occurrence of a \ref toy::StringLike object, or \ref npos if not found.
 
     \pre The \a position must be less than the string size.
 
@@ -1176,23 +1179,24 @@ public:
                                        size_t position = npos) const noexcept;
 
   /*!
-    \brief Finds the last occurrence of a StringLike object in the string.
+    \brief Finds the last occurrence of a \ref toy::StringLike object in the string.
 
-    This method searches for the last occurrence of a StringLike object within this string, starting from the given \a
-    position and searching backwards.
+    This method searches for the last occurrence of a \ref toy::StringLike object within this string, starting from the
+    given \a position and searching backwards.
 
-    \tparam stringType The type of the source string. Must satisfy the StringLike concept.
+    \tparam stringType The type of the source string. Must satisfy the \ref toy::StringLike concept.
 
-    \param string   The source StringLike object to search for.
+    \param string   The source \ref toy::StringLike object to search for.
     \param position The position to start searching from (default: \ref npos). If \ref npos, searches from the end.
 
-    \return The position of the last occurrence of a StringLike object, or \ref npos if not found.
+    \return The position of the last occurrence of a \ref toy::StringLike object, or \ref npos if not found.
 
     \pre If \a position is not \ref npos, it must be less than or equal to the maximum valid start index: the string
-         size minus the size of a StringLike object.
+         size minus the size of a \ref toy::StringLike object.
 
     \note The search is case-sensitive.
-    \note If a StringLike object is empty, returns \a position if within bounds, otherwise returns the string size.
+    \note If a \ref toy::StringLike object is empty, returns \a position if within bounds, otherwise returns the string
+          size.
   */
   template <StringLike stringType>
   [[nodiscard]] constexpr size_t rfind(const stringType & string, size_t position = npos) const noexcept;
@@ -1254,22 +1258,23 @@ public:
                                                size_t position = 0) const noexcept;
 
   /*!
-    \brief Finds the first occurrence of any character from a StringLike object.
+    \brief Finds the first occurrence of any character from a \ref toy::StringLike object.
 
-    This method searches for the first occurrence of any character from a StringLike object within this string, starting
-    from the given \a position.
+    This method searches for the first occurrence of any character from a \ref toy::StringLike object within this
+    string, starting from the given \a position.
 
-    \tparam stringType The type of the source string. Must satisfy the StringLike concept.
+    \tparam stringType The type of the source string. Must satisfy the \ref toy::StringLike concept.
 
-    \param string   The StringLike object containing characters to search for.
+    \param string   The \ref toy::StringLike object containing characters to search for.
     \param position The position to start searching from (default: \c 0).
 
-    \return The position of the first occurrence of any character from a StringLike object, or \ref npos if not found.
+    \return The position of the first occurrence of any character from a \ref toy::StringLike object, or \ref npos if
+            not found.
 
     \pre The \a position must be less than the string size.
 
     \note The search is case-sensitive.
-    \note If a StringLike object is empty, this method returns \ref npos.
+    \note If a \ref toy::StringLike object is empty, this method returns \ref npos.
   */
   template <StringLike stringType>
   [[nodiscard]] constexpr size_t find_first_of(const stringType & string, size_t position = 0) const noexcept;
@@ -1331,23 +1336,23 @@ public:
                                                    size_t position = 0) const noexcept;
 
   /*!
-    \brief Finds the first occurrence of any character not from a StringLike object.
+    \brief Finds the first occurrence of any character not from a \ref toy::StringLike object.
 
-    This method searches for the first occurrence of any character that is not present in a StringLike object within
-    this string, starting from the given \a position.
+    This method searches for the first occurrence of any character that is not present in a \ref toy::StringLike object
+    within this string, starting from the given \a position.
 
-    \tparam stringType The type of the source string. Must satisfy the StringLike concept.
+    \tparam stringType The type of the source string. Must satisfy the \ref toy::StringLike concept.
 
-    \param string   The StringLike object containing characters to exclude from search.
+    \param string   The \ref toy::StringLike object containing characters to exclude from search.
     \param position The position to start searching from (default: \c 0).
 
-    \return The position of the first occurrence of any character not from a StringLike object, or \ref npos if not
-            found.
+    \return The position of the first occurrence of any character not from a \ref toy::StringLike object, or \ref npos
+            if not found.
 
     \pre The \a position must be less than the string size.
 
     \note The search is case-sensitive.
-    \note If a StringLike object is empty, returns \a position if within bounds, otherwise returns \ref npos.
+    \note If a \ref toy::StringLike object is empty, returns \a position if within bounds, otherwise returns \ref npos.
   */
   template <StringLike stringType>
   [[nodiscard]] constexpr size_t find_first_not_of(const stringType & string, size_t position = 0) const noexcept;
@@ -1408,22 +1413,23 @@ public:
                                               size_t position = npos) const noexcept;
 
   /*!
-    \brief Finds the last occurrence of any character from a StringLike object.
+    \brief Finds the last occurrence of any character from a \ref toy::StringLike object.
 
-    This method searches for the last occurrence of any character from a StringLike object within this string, starting
-    from the given \a position and searching backwards.
+    This method searches for the last occurrence of any character from a \ref toy::StringLike object within this string,
+    starting from the given \a position and searching backwards.
 
-    \tparam stringType The type of the source string. Must satisfy the StringLike concept.
+    \tparam stringType The type of the source string. Must satisfy the \ref toy::StringLike concept.
 
-    \param string   The StringLike object containing characters to search for.
+    \param string   The \ref toy::StringLike object containing characters to search for.
     \param position The position to start searching from (default: \ref npos). If \ref npos, searches from the end.
 
-    \return The position of the last occurrence of any character from a StringLike object, or \ref npos if not found.
+    \return The position of the last occurrence of any character from a \ref toy::StringLike object, or \ref npos if not
+            found.
 
     \pre If \a position is not \ref npos, it must be less than the string size.
 
     \note The search is case-sensitive.
-    \note If a StringLike object is empty, this method returns \ref npos.
+    \note If a \ref toy::StringLike object is empty, this method returns \ref npos.
   */
   template <StringLike stringType>
   [[nodiscard]] constexpr size_t find_last_of(const stringType & string, size_t position = npos) const noexcept;
@@ -1463,7 +1469,7 @@ public:
     \note The search is case-sensitive.
     \note This method is equivalent to \ref rfind(char, size_t) const.
 
-    \see rfind(char, size_t) const
+    \sa rfind(char, size_t) const
   */
   [[nodiscard]] constexpr size_t find_last_of(char character, size_t position = npos) const noexcept;
 
@@ -1487,23 +1493,23 @@ public:
                                                   size_t position = npos) const noexcept;
 
   /*!
-    \brief Finds the last occurrence of any character not from a StringLike object.
+    \brief Finds the last occurrence of any character not from a \ref toy::StringLike object.
 
-    This method searches for the last occurrence of any character that is not present in a StringLike object within this
-    string, starting from the given \a position and searching backwards.
+    This method searches for the last occurrence of any character that is not present in a \ref toy::StringLike object
+    within this string, starting from the given \a position and searching backwards.
 
-    \tparam stringType The type of the source string. Must satisfy the StringLike concept.
+    \tparam stringType The type of the source string. Must satisfy the \ref toy::StringLike concept.
 
-    \param string   The StringLike object containing characters to exclude from search.
+    \param string   The \ref toy::StringLike object containing characters to exclude from search.
     \param position The position to start searching from (default: \ref npos). If \ref npos, searches from the end.
 
-    \return The position of the last occurrence of any character not from a StringLike object, or \ref npos if not
-            found.
+    \return The position of the last occurrence of any character not from a \ref toy::StringLike object, or \ref npos if
+            not found.
 
     \pre If \a position is not \ref npos, it must be less than the string size.
 
     \note The search is case-sensitive.
-    \note If a StringLike object is empty, returns \a position if within bounds, otherwise returns \ref npos.
+    \note If a \ref toy::StringLike object is empty, returns \a position if within bounds, otherwise returns \ref npos.
   */
   template <StringLike stringType>
   [[nodiscard]] constexpr size_t find_last_not_of(const stringType & string, size_t position = npos) const noexcept;
@@ -1562,17 +1568,18 @@ public:
   [[nodiscard]] constexpr int compare(const FixedString<allocatedSize> & string) const noexcept;
 
   /*!
-    \brief Compares this string with a StringLike object lexicographically.
+    \brief Compares this string with a \ref toy::StringLike object lexicographically.
 
-    This method performs a lexicographic comparison between this string and a StringLike object. The comparison is
-    performed character by character using the character's numeric value.
+    This method performs a lexicographic comparison between this string and a \ref toy::StringLike object. The
+    comparison is performed character by character using the character's numeric value.
 
-    \tparam stringType The type of the source string. Must satisfy the StringLike concept.
+    \tparam stringType The type of the source string. Must satisfy the \ref toy::StringLike concept.
 
-    \param string The StringLike object to compare with this string.
+    \param string The \ref toy::StringLike object to compare with this string.
 
-    \return A negative value if this string is lexicographically less than a StringLike object, zero if they are equal,
-            or a positive value if this string is lexicographically greater than a StringLike object.
+    \return A negative value if this string is lexicographically less than a \ref toy::StringLike object, zero if they
+            are equal, or a positive value if this string is lexicographically greater than a \ref toy::StringLike
+            object.
 
     \note The comparison is case-sensitive.
     \note The comparison stops at the first character that differs between the strings.
@@ -1617,20 +1624,20 @@ public:
   [[nodiscard]] constexpr bool starts_with(const FixedString<allocatedSize> & string) const noexcept;
 
   /*!
-    \brief Checks if the string starts with a StringLike object.
+    \brief Checks if the string starts with a \ref toy::StringLike object.
 
-    This method checks if the current string starts with a StringLike object. The comparison is performed character by
-    character from the beginning of the string.
+    This method checks if the current string starts with a \ref toy::StringLike object. The comparison is performed
+    character by character from the beginning of the string.
 
-    \tparam stringType The type of the source string. Must satisfy the StringLike concept.
+    \tparam stringType The type of the source string. Must satisfy the \ref toy::StringLike concept.
 
-    \param string The StringLike object to check if this string starts with.
+    \param string The \ref toy::StringLike object to check if this string starts with.
 
-    \return \c true if this string starts with a StringLike object, \c false otherwise.
+    \return \c true if this string starts with a \ref toy::StringLike object, \c false otherwise.
 
     \note The comparison is case-sensitive.
-    \note If a StringLike object is empty, this method returns \c true.
-    \note If a StringLike object is longer than this string, returns \c false.
+    \note If a \ref toy::StringLike object is empty, this method returns \c true.
+    \note If a \ref toy::StringLike object is longer than this string, returns \c false.
   */
   template <StringLike stringType>
   [[nodiscard]] constexpr bool starts_with(const stringType & string) const noexcept;
@@ -1685,20 +1692,20 @@ public:
   [[nodiscard]] constexpr bool ends_with(const FixedString<allocatedSize> & string) const noexcept;
 
   /*!
-    \brief Checks if the string ends with a StringLike object.
+    \brief Checks if the string ends with a \ref toy::StringLike object.
 
-    This method checks if the current string ends with a StringLike object. The comparison is performed character by
-    character from the end of the string.
+    This method checks if the current string ends with a \ref toy::StringLike object. The comparison is performed
+    character by character from the end of the string.
 
-    \tparam stringType The type of the source string. Must satisfy the StringLike concept.
+    \tparam stringType The type of the source string. Must satisfy the \ref toy::StringLike concept.
 
-    \param string The StringLike object to check if this string ends with.
+    \param string The \ref toy::StringLike object to check if this string ends with.
 
-    \return \c true if this string ends with a StringLike object, \c false otherwise.
+    \return \c true if this string ends with a \ref toy::StringLike object, \c false otherwise.
 
     \note The comparison is case-sensitive.
-    \note If a StringLike object is empty, this method returns \c true.
-    \note If a StringLike object is longer than this string, returns \c false.
+    \note If a \ref toy::StringLike object is empty, this method returns \c true.
+    \note If a \ref toy::StringLike object is longer than this string, returns \c false.
   */
   template <StringLike stringType>
   [[nodiscard]] constexpr bool ends_with(const stringType & string) const noexcept;
@@ -1752,19 +1759,19 @@ public:
   [[nodiscard]] constexpr bool contains(const FixedString<allocatedSize> & string) const noexcept;
 
   /*!
-    \brief Checks if the string contains a StringLike object.
+    \brief Checks if the string contains a \ref toy::StringLike object.
 
-    This method checks if the current string contains a StringLike object anywhere within it.
+    This method checks if the current string contains a \ref toy::StringLike object anywhere within it.
 
-    \tparam stringType The type of the source string. Must satisfy the StringLike concept.
+    \tparam stringType The type of the source string. Must satisfy the \ref toy::StringLike concept.
 
-    \param string The StringLike object to search for within this string.
+    \param string The \ref toy::StringLike object to search for within this string.
 
-    \return \c true if this string contains a StringLike object, \c false otherwise.
+    \return \c true if this string contains a \ref toy::StringLike object, \c false otherwise.
 
     \note The search is case-sensitive.
-    \note If a StringLike object is empty, this method returns \c true.
-    \note If a StringLike object is longer than this string, returns \c false.
+    \note If a \ref toy::StringLike object is empty, this method returns \c true.
+    \note If a \ref toy::StringLike object is longer than this string, returns \c false.
   */
   template <StringLike stringType>
   [[nodiscard]] constexpr bool contains(const stringType & string) const noexcept;
@@ -2001,16 +2008,16 @@ template <size_t allocatedSize1, size_t allocatedSize2>
                                                               const FixedString<allocatedSize2> & rhs) noexcept;
 
 /*!
-  \brief Concatenation operator for FixedString and StringLike object.
+  \brief Concatenation operator for FixedString and \ref toy::StringLike object.
 
-  This operator creates a new FixedString object by concatenating a FixedString with any StringLike object. The result
-  will contain the characters from the left-hand side followed by the characters from the right-hand side.
+  This operator creates a new FixedString object by concatenating a FixedString with any \ref toy::StringLike object.
+  The result will contain the characters from the left-hand side followed by the characters from the right-hand side.
 
   \tparam allocatedSize The size of the FixedString's internal buffer.
-  \tparam stringType The type of the StringLike object. Must satisfy the StringLike concept.
+  \tparam stringType The type of the \ref toy::StringLike object. Must satisfy the \ref toy::StringLike concept.
 
   \param lhs The left-hand side FixedString object.
-  \param rhs The right-hand side StringLike object.
+  \param rhs The right-hand side \ref toy::StringLike object.
 
   \return A new FixedString object containing the concatenated result.
 
@@ -2021,22 +2028,22 @@ template <size_t allocatedSize, StringLike stringType>
                                                              const stringType & rhs) noexcept;
 
 /*!
-  \brief Concatenation operator for StringLike object and FixedString.
+  \brief Concatenation operator for \ref toy::StringLike object and FixedString.
 
-  This operator creates a new FixedString object by concatenating any StringLike object with a FixedString. The result
-  will contain the characters from the left-hand side followed by the characters from the right-hand side.
+  This operator creates a new FixedString object by concatenating any \ref toy::StringLike object with a FixedString.
+  The result will contain the characters from the left-hand side followed by the characters from the right-hand side.
 
-  \tparam stringType The type of the StringLike object. Must satisfy the StringLike concept.
+  \tparam stringType The type of the \ref toy::StringLike object. Must satisfy the \ref toy::StringLike concept.
   \tparam allocatedSize The size of the FixedString's internal buffer.
 
-  \param lhs The left-hand side StringLike object.
+  \param lhs The left-hand side \ref toy::StringLike object.
   \param rhs The right-hand side FixedString object.
 
   \return A new FixedString object containing the concatenated result.
 
   \note Result size is sum of both input sizes, must not exceed allocated size.
 */
-template <StringLike stringType, size_t allocatedSize>
+template <size_t allocatedSize, StringLike stringType>
 [[nodiscard]] constexpr FixedString<allocatedSize> operator+(const stringType & lhs,
                                                              const FixedString<allocatedSize> & rhs) noexcept;
 
@@ -2130,42 +2137,42 @@ template <size_t allocatedSize>
   \note The comparison is case-sensitive.
   \note Empty strings are considered equal.
 
-  \see operator<=>(const FixedString<allocatedSize1> &, const FixedString<allocatedSize2> &)
+  \sa operator<=>(const FixedString<allocatedSize1> &, const FixedString<allocatedSize2> &)
 */
 template <size_t allocatedSize1, size_t allocatedSize2>
 [[nodiscard]] constexpr bool operator==(const FixedString<allocatedSize1> & lhs,
                                         const FixedString<allocatedSize2> & rhs) noexcept;
 
 /*!
-  \brief Equality comparison operator for FixedString and StringLike object.
+  \brief Equality comparison operator for FixedString and \ref toy::StringLike object.
 
-  This operator compares a FixedString object with a StringLike object for equality.
+  This operator compares a FixedString object with a \ref toy::StringLike object for equality.
 
   \tparam allocatedSize The size of the FixedString's internal buffer.
-  \tparam stringType The type of the StringLike object. Must satisfy the StringLike concept.
+  \tparam stringType The type of the \ref toy::StringLike object. Must satisfy the \ref toy::StringLike concept.
 
   \param lhs The FixedString object.
-  \param rhs The StringLike object.
+  \param rhs The \ref toy::StringLike object.
 
   \return \c true if both strings have the same content, \c false otherwise.
 
   \note The comparison is case-sensitive.
   \note Empty strings are considered equal.
 
-  \see operator<=>(const FixedString<allocatedSize> &, const stringType &)
+  \sa operator<=>(const FixedString<allocatedSize> &, const stringType &)
 */
 template <size_t allocatedSize, StringLike stringType>
 [[nodiscard]] constexpr bool operator==(const FixedString<allocatedSize> & lhs, const stringType & rhs) noexcept;
 
 /*!
-  \brief Equality comparison operator for StringLike object and FixedString.
+  \brief Equality comparison operator for \ref toy::StringLike object and FixedString.
 
-  This operator compares a StringLike object with a FixedString object for equality.
+  This operator compares a \ref toy::StringLike object with a FixedString object for equality.
 
-  \tparam stringType The type of the StringLike object. Must satisfy the StringLike concept.
+  \tparam stringType The type of the \ref toy::StringLike object. Must satisfy the \ref toy::StringLike concept.
   \tparam allocatedSize The size of the FixedString's internal buffer.
 
-  \param lhs The StringLike object.
+  \param lhs The \ref toy::StringLike object.
   \param rhs The FixedString object.
 
   \return \c true if both strings have the same content, \c false otherwise.
@@ -2173,9 +2180,9 @@ template <size_t allocatedSize, StringLike stringType>
   \note The comparison is case-sensitive.
   \note Empty strings are considered equal.
 
-  \see operator<=>(const stringType &, const FixedString<allocatedSize> &)
+  \sa operator<=>(const stringType &, const FixedString<allocatedSize> &)
 */
-template <StringLike stringType, size_t allocatedSize>
+template <size_t allocatedSize, StringLike stringType>
 [[nodiscard]] constexpr bool operator==(const stringType & lhs, const FixedString<allocatedSize> & rhs) noexcept;
 
 /*!
@@ -2195,7 +2202,7 @@ template <StringLike stringType, size_t allocatedSize>
   \note The comparison is case-sensitive.
   \note Empty strings are considered equal.
 
-  \see operator<=>(const FixedString<allocatedSize> &, const char *)
+  \sa operator<=>(const FixedString<allocatedSize> &, const char *)
 */
 template <size_t allocatedSize>
 [[nodiscard]] constexpr bool operator==(const FixedString<allocatedSize> & lhs, const char * rhs) noexcept;
@@ -2217,7 +2224,7 @@ template <size_t allocatedSize>
   \note The comparison is case-sensitive.
   \note Empty strings are considered equal.
 
-  \see operator<=>(const char *, const FixedString<allocatedSize> &)
+  \sa operator<=>(const char *, const FixedString<allocatedSize> &)
 */
 template <size_t allocatedSize>
 [[nodiscard]] constexpr bool operator==(const char * lhs, const FixedString<allocatedSize> & rhs) noexcept;
@@ -2241,23 +2248,23 @@ template <size_t allocatedSize>
   \note The comparison is performed lexicographically character by character.
   \note Empty strings are considered equal.
 
-  \see operator==(const FixedString<allocatedSize1> &, const FixedString<allocatedSize2> &)
+  \sa operator==(const FixedString<allocatedSize1> &, const FixedString<allocatedSize2> &)
 */
 template <size_t allocatedSize1, size_t allocatedSize2>
 [[nodiscard]] constexpr strong_ordering operator<=>(const FixedString<allocatedSize1> & lhs,
                                                     const FixedString<allocatedSize2> & rhs) noexcept;
 
 /*!
-  \brief Three-way comparison operator for FixedString and StringLike object.
+  \brief Three-way comparison operator for FixedString and \ref toy::StringLike object.
 
-  This operator provides a three-way comparison between a FixedString object and a StringLike object. It returns a
-  strong_ordering value that indicates the relationship between the strings.
+  This operator provides a three-way comparison between a FixedString object and a \ref toy::StringLike object. It
+  returns a strong_ordering value that indicates the relationship between the strings.
 
   \tparam allocatedSize The size of the FixedString's internal buffer.
-  \tparam stringType The type of the StringLike object. Must satisfy the StringLike concept.
+  \tparam stringType The type of the \ref toy::StringLike object. Must satisfy the \ref toy::StringLike concept.
 
   \param lhs The FixedString object to compare.
-  \param rhs The StringLike object to compare.
+  \param rhs The \ref toy::StringLike object to compare.
 
   \return \c strong_ordering::less if \a lhs is lexicographically less than \a rhs, \c strong_ordering::equal if they
           are equal, or \c strong_ordering::greater if \a lhs is lexicographically greater than \a rhs.
@@ -2266,22 +2273,22 @@ template <size_t allocatedSize1, size_t allocatedSize2>
   \note The comparison is performed lexicographically character by character.
   \note Empty strings are considered equal.
 
-  \see operator==(const FixedString<allocatedSize> &, const stringType &)
+  \sa operator==(const FixedString<allocatedSize> &, const stringType &)
 */
 template <size_t allocatedSize, StringLike stringType>
 [[nodiscard]] constexpr strong_ordering operator<=>(const FixedString<allocatedSize> & lhs,
                                                     const stringType & rhs) noexcept;
 
 /*!
-  \brief Three-way comparison operator for StringLike object and FixedString.
+  \brief Three-way comparison operator for \ref toy::StringLike object and FixedString.
 
-  This operator provides a three-way comparison between a StringLike object and a FixedString object. It returns a
-  strong_ordering value that indicates the relationship between the strings.
+  This operator provides a three-way comparison between a \ref toy::StringLike object and a FixedString object. It
+  returns a strong_ordering value that indicates the relationship between the strings.
 
-  \tparam stringType The type of the StringLike object. Must satisfy the StringLike concept.
+  \tparam stringType The type of the \ref toy::StringLike object. Must satisfy the \ref toy::StringLike concept.
   \tparam allocatedSize The size of the FixedString's internal buffer.
 
-  \param lhs The StringLike object to compare.
+  \param lhs The \ref toy::StringLike object to compare.
   \param rhs The FixedString object to compare.
 
   \return \c strong_ordering::less if \a lhs is lexicographically less than \a rhs, \c strong_ordering::equal if they
@@ -2291,9 +2298,9 @@ template <size_t allocatedSize, StringLike stringType>
   \note The comparison is performed lexicographically character by character.
   \note Empty strings are considered equal.
 
-  \see operator==(const stringType &, const FixedString<allocatedSize> &)
+  \sa operator==(const stringType &, const FixedString<allocatedSize> &)
 */
-template <StringLike stringType, size_t allocatedSize>
+template <size_t allocatedSize, StringLike stringType>
 [[nodiscard]] constexpr strong_ordering operator<=>(const stringType & lhs,
                                                     const FixedString<allocatedSize> & rhs) noexcept;
 
@@ -2317,7 +2324,7 @@ template <StringLike stringType, size_t allocatedSize>
   \note The comparison is performed lexicographically character by character.
   \note Empty strings are considered equal.
 
-  \see operator==(const FixedString<allocatedSize> &, const char *)
+  \sa operator==(const FixedString<allocatedSize> &, const char *)
 */
 template <size_t allocatedSize>
 [[nodiscard]] constexpr strong_ordering operator<=>(const FixedString<allocatedSize> & lhs, const char * rhs) noexcept;
@@ -2342,7 +2349,7 @@ template <size_t allocatedSize>
   \note The comparison is performed lexicographically character by character.
   \note Empty strings are considered equal.
 
-  \see operator==(const char *, const FixedString<allocatedSize> &)
+  \sa operator==(const char *, const FixedString<allocatedSize> &)
 */
 template <size_t allocatedSize>
 [[nodiscard]] constexpr strong_ordering operator<=>(const char * lhs, const FixedString<allocatedSize> & rhs) noexcept;
