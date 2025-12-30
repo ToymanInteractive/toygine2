@@ -122,14 +122,41 @@ $(function(){initNavTree('df/d77/concepttoy_1_1_string_like.html','../../',''); 
 <div class="line">  { str.size() } -&gt; std::same_as&lt;size_t&gt;;</div>
 <div class="line">  { str.c_str() } -&gt; std::convertible_to&lt;const char *&gt;;</div>
 <div class="line">}</div>
-<div class="ttc" id="aconcepttoy_1_1_string_like_html"><div class="ttname"><a href="../../df/d77/concepttoy_1_1_string_like.html">toy::StringLike</a></div><div class="ttdoc">Concept defining the requirements for string-like types.</div><div class="ttdef"><b>Definition</b> core.hpp:90</div></div>
+<div class="ttc" id="aconcepttoy_1_1_string_like_html"><div class="ttname"><a href="../../df/d77/concepttoy_1_1_string_like.html">toy::StringLike</a></div><div class="ttdoc">Concept defining the requirements for string-like types.</div><div class="ttdef"><b>Definition</b> string_like.hpp:72</div></div>
 </div><!-- fragment --><a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Concept defining the requirements for string-like types. </p>
-<p>This concept defines the interface that any type must satisfy to be considered string-like. It requires the type to have a size() method that returns a value convertible to size_t, and a c_str() method that returns a value convertible to const char*.</p>
-<p>(Template parameter T is the type to check for string-like properties.)</p>
-<dl class="section note"><dt>Note</dt><dd>Types satisfying this concept can be used with FixedString template methods that accept generic string types, such as constructors, assignment operators, and various string manipulation methods.</dd>
+<p>This concept defines the interface that any type must satisfy to be considered string-like. It requires the type to have a <code>size()</code> method that returns a value convertible to <code>size_t</code>, and a <code>c_str()</code> method that returns a value convertible to <code>const</code> <code>char*</code>.</p>
+<h1 class="doxsection"><a class="anchor" id="requirements"></a>
+Requirements</h1>
+<p>A type <em class="arg">T</em> satisfies StringLike if and only if:</p><ul>
+<li><code>T::size()</code> returns <code>std::same_as&lt;size_t&gt;</code> </li>
+<li><code>T::c_str()</code> returns <code>std::convertible_to&lt;const char*&gt;</code> </li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="usage"></a>
+Usage Example</h1>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="../../da/d47/core_8hpp.html">core.hpp</a>&quot;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// std::string satisfies StringLike</span></div>
+<div class="line">std::string stdStr = <span class="stringliteral">&quot;Hello&quot;</span>;</div>
+<div class="line"><span class="keyword">static_assert</span>(<a class="code hl_concept" href="../../df/d77/concepttoy_1_1_string_like.html">StringLike</a>&lt;<span class="keyword">decltype</span>(stdStr)&gt;);</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// FixedString satisfies StringLike</span></div>
+<div class="line"><a class="code hl_class" href="../../d3/d7a/classtoy_1_1_fixed_string.html">toy::FixedString&lt;32&gt;</a> fixedStr = <span class="stringliteral">&quot;World&quot;</span>;</div>
+<div class="line"><span class="keyword">static_assert</span>(<a class="code hl_concept" href="../../df/d77/concepttoy_1_1_string_like.html">StringLike</a>&lt;<span class="keyword">decltype</span>(fixedStr)&gt;);</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Use with FixedString methods</span></div>
+<div class="line"><a class="code hl_class" href="../../d3/d7a/classtoy_1_1_fixed_string.html">toy::FixedString&lt;64&gt;</a> result;</div>
+<div class="line">result.<a class="code hl_function" href="../../d3/d7a/classtoy_1_1_fixed_string.html#a345d44b57008227663c1ad9c1b3ac457">assign</a>(stdStr);  <span class="comment">// Works with std::string</span></div>
+<div class="line">result += fixedStr;     <span class="comment">// Works with FixedString</span></div>
+<div class="ttc" id="aclasstoy_1_1_fixed_string_html"><div class="ttname"><a href="../../d3/d7a/classtoy_1_1_fixed_string.html">toy::FixedString</a></div><div class="ttdoc">Template string class with fixed-size character buffer.</div><div class="ttdef"><b>Definition</b> fixed_string.hpp:114</div></div>
+<div class="ttc" id="aclasstoy_1_1_fixed_string_html_a345d44b57008227663c1ad9c1b3ac457"><div class="ttname"><a href="../../d3/d7a/classtoy_1_1_fixed_string.html#a345d44b57008227663c1ad9c1b3ac457">toy::FixedString::assign</a></div><div class="ttdeci">constexpr FixedString&lt; allocatedSize &gt; &amp; assign(const FixedString&lt; allocatedSize &gt; &amp;string) noexcept</div><div class="ttdoc">Copy assigns other string to this string.</div><div class="ttdef"><b>Definition</b> fixed_string.inl:114</div></div>
+<div class="ttc" id="acore_8hpp_html"><div class="ttname"><a href="../../da/d47/core_8hpp.html">core.hpp</a></div><div class="ttdoc">Umbrella header for the engine core module.</div></div>
+</div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>The concept ensures type safety and provides a compile-time guarantee that the required methods exist and return compatible types. </dd>
 <dd>
-The concept ensures type safety and provides a compile-time guarantee that the required methods exist and return compatible types. </dd></dl>
+Common types that satisfy this concept include <code>std::string</code>, <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">toy::CStringView</a>, <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html">toy::FixedString</a>, and custom string types that provide the required interface.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">toy::CStringView</a> </dd>
+<dd>
+<a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="Template string class with fixed-size character buffer.">toy::FixedString</a> </dd></dl>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->

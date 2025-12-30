@@ -131,7 +131,6 @@ $(function(){initNavTree('da/d47/core_8hpp.html','../../',''); });
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;type_traits&gt;</code><br />
 <code>#include &lt;utility&gt;</code><br />
-<code>#include &quot;<a class="el" href="../../d3/d60/platform_8hpp_source.html">core/platform.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../dd/d9e/linux_2platform__config_8hpp_source.html">/home/runner/work/toygine2/toygine2/src/platforms/linux/platform_config.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d5/d96/assertion_8hpp_source.html">core/assertion.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../dd/ded/c__string__view_8hpp_source.html">core/c_string_view.hpp</a>&quot;</code><br />
@@ -140,6 +139,8 @@ $(function(){initNavTree('da/d47/core_8hpp.html','../../',''); });
 <code>#include &quot;<a class="el" href="../../d7/d7f/fixed__string_8hpp_source.html">core/fixed_string.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d7/dea/fixed__vector_8hpp_source.html">core/fixed_vector.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../dd/d8e/hashes_8hpp_source.html">core/hashes.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d3/d60/platform_8hpp_source.html">core/platform.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../de/deb/string__like_8hpp_source.html">core/string_like.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../df/d93/utils_8hpp_source.html">core/utils.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../df/d4a/c__string__view_8inl_source.html">core/c_string_view.inl</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d6/ddb/callbacks__pool_8inl_source.html">core/callbacks_pool.inl</a>&quot;</code><br />
@@ -167,28 +168,56 @@ Namespaces</h2></td></tr>
 <tr class="memitem:toy" id="r_toy"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da9/namespacetoy.html">toy</a></td></tr>
 <tr class="memdesc:d4/da9/namespacetoy"><td class="mdescLeft">&#160;</td><td class="mdescRight">Root namespace containing all engine modules. <br /></td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-concepts" class="groupheader"><a id="concepts" name="concepts"></a>
-Concepts</h2></td></tr>
-<tr class="memitem:toy_3A_3AStringLike" id="r_toy_3A_3AStringLike"><td class="memItemLeft" align="right" valign="top">concept &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d77/concepttoy_1_1_string_like.html">toy::StringLike</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concept defining the requirements for string-like types. <br /></td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a682837124a032168bd594ef4ed679c9b" id="r_a682837124a032168bd594ef4ed679c9b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a682837124a032168bd594ef4ed679c9b">t_validate</a>(expression)</td></tr>
-<tr class="memitem:a149f9669066ceac859ca6c8b99bdd633" id="r_a149f9669066ceac859ca6c8b99bdd633"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a149f9669066ceac859ca6c8b99bdd633">t_assert_message</a>(expression,  message)</td></tr>
+<tr class="memitem:afbb70fd2dfa1856485dbfd775fb527d9" id="r_afbb70fd2dfa1856485dbfd775fb527d9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afbb70fd2dfa1856485dbfd775fb527d9">validate</a>(expression)</td></tr>
+<tr class="memitem:a12cf99d5743dc2301359b6c2724fe48a" id="r_a12cf99d5743dc2301359b6c2724fe48a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a12cf99d5743dc2301359b6c2724fe48a">validate_message</a>(expression,  message)</td></tr>
 <tr class="memitem:a94a808adc84ff2a5345e7ecb00661653" id="r_a94a808adc84ff2a5345e7ecb00661653"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a94a808adc84ff2a5345e7ecb00661653">TOY_CONFIG_DEBUG_MEMORY</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Umbrella header for the engine core module. </p>
 </div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
-<a id="a149f9669066ceac859ca6c8b99bdd633" name="a149f9669066ceac859ca6c8b99bdd633"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a149f9669066ceac859ca6c8b99bdd633">&#9670;&#160;</a></span>t_assert_message</h2>
+<a id="a94a808adc84ff2a5345e7ecb00661653" name="a94a808adc84ff2a5345e7ecb00661653"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94a808adc84ff2a5345e7ecb00661653">&#9670;&#160;</a></span>TOY_CONFIG_DEBUG_MEMORY</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define t_assert_message</td>
+          <td class="memname">#define TOY_CONFIG_DEBUG_MEMORY</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afbb70fd2dfa1856485dbfd775fb527d9" name="afbb70fd2dfa1856485dbfd775fb527d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afbb70fd2dfa1856485dbfd775fb527d9">&#9670;&#160;</a></span>validate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define validate</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>expression</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="../../d1/d5f/assertion__macro__gcc__clang_8hpp.html#a0041af519e0e7d47c9bcc83760c4669e">assert</a>(expression)</div>
+<div class="ttc" id="aassertion__macro__gcc__clang_8hpp_html_a0041af519e0e7d47c9bcc83760c4669e"><div class="ttname"><a href="../../d1/d5f/assertion__macro__gcc__clang_8hpp.html#a0041af519e0e7d47c9bcc83760c4669e">assert</a></div><div class="ttdeci">#define assert(expression)</div><div class="ttdoc">Debug assertion macro for runtime expression checking.</div><div class="ttdef"><b>Definition</b> assertion_macro_gcc_clang.hpp:55</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a12cf99d5743dc2301359b6c2724fe48a" name="a12cf99d5743dc2301359b6c2724fe48a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a12cf99d5743dc2301359b6c2724fe48a">&#9670;&#160;</a></span>validate_message</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define validate_message</td>
           <td>(</td>
           <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>expression</em></span>, </td>
         </tr>
@@ -202,39 +231,6 @@ Macros</h2></td></tr>
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="../../d1/d5f/assertion__macro__gcc__clang_8hpp.html#a672330c2fecd516f254162cd9611d91a">assert_message</a>(expression, message)</div>
 <div class="ttc" id="aassertion__macro__gcc__clang_8hpp_html_a672330c2fecd516f254162cd9611d91a"><div class="ttname"><a href="../../d1/d5f/assertion__macro__gcc__clang_8hpp.html#a672330c2fecd516f254162cd9611d91a">assert_message</a></div><div class="ttdeci">#define assert_message(expression, message)</div><div class="ttdoc">Debug assertion macro with custom message for runtime expression checking.</div><div class="ttdef"><b>Definition</b> assertion_macro_gcc_clang.hpp:88</div></div>
 </div><!-- fragment -->
-</div>
-</div>
-<a id="a682837124a032168bd594ef4ed679c9b" name="a682837124a032168bd594ef4ed679c9b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a682837124a032168bd594ef4ed679c9b">&#9670;&#160;</a></span>t_validate</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define t_validate</td>
-          <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>expression</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="../../d1/d5f/assertion__macro__gcc__clang_8hpp.html#a0041af519e0e7d47c9bcc83760c4669e">assert</a>(expression)</div>
-<div class="ttc" id="aassertion__macro__gcc__clang_8hpp_html_a0041af519e0e7d47c9bcc83760c4669e"><div class="ttname"><a href="../../d1/d5f/assertion__macro__gcc__clang_8hpp.html#a0041af519e0e7d47c9bcc83760c4669e">assert</a></div><div class="ttdeci">#define assert(expression)</div><div class="ttdoc">Debug assertion macro for runtime expression checking.</div><div class="ttdef"><b>Definition</b> assertion_macro_gcc_clang.hpp:55</div></div>
-</div><!-- fragment -->
-</div>
-</div>
-<a id="a94a808adc84ff2a5345e7ecb00661653" name="a94a808adc84ff2a5345e7ecb00661653"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a94a808adc84ff2a5345e7ecb00661653">&#9670;&#160;</a></span>TOY_CONFIG_DEBUG_MEMORY</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define TOY_CONFIG_DEBUG_MEMORY</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
 </div>
 </div>
 </div><!-- contents -->

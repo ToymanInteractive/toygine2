@@ -1,5 +1,7 @@
 <map id="src/platforms/nds/platform_config.hpp" name="src/platforms/nds/platform_config.hpp">
-<area shape="rect" id="Node000001" title="additional nintendo ds platform header" alt="" coords="5,5,200,45"/>
-<area shape="rect" id="Node000002" href="$d1/d5f/assertion__macro__gcc__clang_8hpp.html" title="Debug and Release assertion macro implementations for GCC/Clang platforms." alt="" coords="18,93,187,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="105,46,105,79,100,79,100,46"/>
+<area shape="rect" id="Node000001" title="additional nintendo ds platform header" alt="" coords="65,5,259,45"/>
+<area shape="rect" id="Node000002" href="$d3/d60/platform_8hpp.html" title="Platform and CPU architecture enumerations with compile&#45;time and runtime detection utilities." alt="" coords="5,93,143,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="144,48,105,86,101,82,141,44"/>
+<area shape="rect" id="Node000003" href="$d1/d5f/assertion__macro__gcc__clang_8hpp.html" title="Debug and Release assertion macro implementations for GCC/Clang platforms." alt="" coords="167,93,336,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="184,44,223,82,220,86,180,48"/>
 </map>

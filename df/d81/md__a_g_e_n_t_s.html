@@ -300,13 +300,20 @@ Cross-References</h2>
 <li>Concepts: <span class="tt">\ref ConceptName</span></li>
 </ul>
 </li>
+<li>When referencing <b>classes, structs, enums, namespaces, or concepts</b> from the codebase in documentation, <b>always</b> include the full namespace qualification in the <span class="tt">\ref</span> tag.</li>
+<li>This ensures clarity and avoids ambiguity when the same symbol name exists in different namespaces.</li>
+<li>Use the full qualified name: <span class="tt">\ref toy::ClassName</span> instead of <span class="tt">\ref ClassName</span>, <span class="tt">\ref <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html" title="2D floating-point vector class for interactive game objects and physics calculations.">toy::math::Vector2D</a></span> instead of <span class="tt">\ref Vector2D</span>.</li>
 </ul>
+<p><b>Note</b>: For functions, you may use unqualified names if the context makes it clear, but qualified names are preferred for consistency.</p>
 <p>Examples:</p>
 <ul>
-<li><span class="tt">\ref initialize()</span> instead of <span class="tt">initialize()</span></li>
-<li><span class="tt">\ref FixedVector</span> instead of <span class="tt">FixedVector</span></li>
-<li><span class="tt">\ref <a class="el" href="../../d2/da2/namespacetoy_1_1assertion.html#a71e8fbdc3d1a6ccee148e120d0c890db" title="Reports an assertion failure with detailed context information.">toy::assertion::assertion()</a></span> instead of <span class="tt">assertion()</span></li>
-<li><span class="tt">\ref Platform::Windows</span> instead of <span class="tt">Platform::Windows</span></li>
+<li><span class="tt">\ref <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="Template string class with fixed-size character buffer.">toy::FixedString</a></span> instead of <span class="tt">\ref FixedString</span></li>
+<li><span class="tt">\ref <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html" title="2D floating-point vector class for interactive game objects and physics calculations.">toy::math::Vector2D</a></span> instead of <span class="tt">\ref Vector2D</span></li>
+<li><span class="tt">\ref <a class="el" href="../../d2/da2/namespacetoy_1_1assertion.html#a27a675a54a720bf1a098fd13be80553e" title="Callback function type for assertion failure handling.">toy::assertion::AssertionCallback</a></span> instead of <span class="tt">\ref AssertionCallback</span></li>
+<li><span class="tt">\ref <a class="el" href="../../d4/da9/namespacetoy.html#aa6f1ef0b4e0aa4864f1c8d431775bc94" title="Enumeration of target operating systems and platforms.">toy::Platform</a></span> instead of <span class="tt">\ref Platform</span></li>
+<li><span class="tt">\ref <a class="el" href="../../d4/da9/namespacetoy.html#a9fbbca3cbd855381284624d5fc830d49" title="Enumeration of CPU architectures and instruction set architectures.">toy::CpuArchitecture</a></span> instead of <span class="tt">\ref CpuArchitecture</span></li>
+<li><span class="tt">\ref <a class="el" href="../../d2/da2/namespacetoy_1_1assertion.html#a71e8fbdc3d1a6ccee148e120d0c890db" title="Reports an assertion failure with detailed context information.">toy::assertion::assertion()</a></span> instead of <span class="tt">\ref assertion()</span></li>
+<li><span class="tt">\ref <a class="el" href="../../d4/da9/namespacetoy.html#aa6f1ef0b4e0aa4864f1c8d431775bc94aaea23489ce3aa9b6406ebb28e0cda430" title="Microsoft Windows Desktop operating system (Windows XP, Vista, 7, 8, 8.1, 10, 11, etc....">toy::Platform::Windows</a></span> instead of <span class="tt">\ref Platform::Windows</span></li>
 </ul>
 <p><b>Exceptions</b>:</p>
 <ul>

@@ -13,6 +13,7 @@ var dir_3d69f64eaf81436fe2b22361382717e5 =
     [ "fixed_vector.inl", "da/dc9/fixed__vector_8inl.html", null ],
     [ "hashes.hpp", "dd/d8e/hashes_8hpp.html", "dd/d8e/hashes_8hpp" ],
     [ "platform.hpp", "d3/d60/platform_8hpp.html", "d3/d60/platform_8hpp" ],
+    [ "string_like.hpp", "de/deb/string__like_8hpp.html", "de/deb/string__like_8hpp" ],
     [ "utils.hpp", "df/d93/utils_8hpp.html", "df/d93/utils_8hpp" ],
     [ "utils.inl", "df/d7d/utils_8inl.html", "df/d7d/utils_8inl" ]
 ];

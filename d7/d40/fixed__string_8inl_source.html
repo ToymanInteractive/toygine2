@@ -1476,7 +1476,7 @@ $(function(){initNavTree('d7/d40/fixed__string_8inl_source.html','../../',''); }
 <div class="line"><a id="l01158" name="l01158"></a><span class="lineno"> 1158</span>}</div>
 </div>
 <div class="line"><a id="l01159" name="l01159"></a><span class="lineno"> 1159</span> </div>
-<div class="line"><a id="l01160" name="l01160"></a><span class="lineno"> 1160</span><span class="keyword">template</span> &lt;StringLike stringType, size_t allocatedSize&gt;</div>
+<div class="line"><a id="l01160" name="l01160"></a><span class="lineno"> 1160</span><span class="keyword">template</span> &lt;size_t allocatedSize, StringLike stringType&gt;</div>
 <div class="foldopen" id="foldopen01161" data-start="{" data-end="}">
 <div class="line"><a id="l01161" name="l01161"></a><span class="lineno"><a class="line" href="../../d4/da9/namespacetoy.html#a3e935013c7764b31202b25105a86cedd"> 1161</a></span><span class="keyword">constexpr</span> <a class="code hl_function" href="../../d4/da9/namespacetoy.html#ac789c531cca9ded2d4866edf6d7b9ed5">FixedString</a>&lt;<a class="code hl_function" href="../../d4/da9/namespacetoy.html#ac789c531cca9ded2d4866edf6d7b9ed5">allocatedSize</a>&gt; <a class="code hl_function" href="../../d4/da9/namespacetoy.html#ac789c531cca9ded2d4866edf6d7b9ed5">operator</a>+(<span class="keyword">const</span> stringType &amp; lhs,</div>
 <div class="line"><a id="l01162" name="l01162"></a><span class="lineno"> 1162</span>                                               <span class="keyword">const</span> FixedString&lt;allocatedSize&gt; &amp; rhs) <span class="keyword">noexcept</span> {</div>
@@ -1561,7 +1561,7 @@ $(function(){initNavTree('d7/d40/fixed__string_8inl_source.html','../../',''); }
 <div class="line"><a id="l01229" name="l01229"></a><span class="lineno"> 1229</span>}</div>
 </div>
 <div class="line"><a id="l01230" name="l01230"></a><span class="lineno"> 1230</span> </div>
-<div class="line"><a id="l01231" name="l01231"></a><span class="lineno"> 1231</span><span class="keyword">template</span> &lt;StringLike stringType, size_t allocatedSize&gt;</div>
+<div class="line"><a id="l01231" name="l01231"></a><span class="lineno"> 1231</span><span class="keyword">template</span> &lt;size_t allocatedSize, StringLike stringType&gt;</div>
 <div class="foldopen" id="foldopen01232" data-start="{" data-end="}">
 <div class="line"><a id="l01232" name="l01232"></a><span class="lineno"><a class="line" href="../../d4/da9/namespacetoy.html#a300e65bc1fbafecbcf63f47317198ec4"> 1232</a></span><span class="keyword">constexpr</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../d4/da9/namespacetoy.html#acf758a094d8de5ef108ef3e984c37cf1">operator</a>==(<span class="keyword">const</span> stringType &amp; lhs, <span class="keyword">const</span> FixedString&lt;allocatedSize&gt; &amp; rhs) <span class="keyword">noexcept</span> {</div>
 <div class="line"><a id="l01233" name="l01233"></a><span class="lineno"> 1233</span>  <span class="keywordflow">return</span> rhs == lhs;</div>
@@ -1655,7 +1655,7 @@ $(function(){initNavTree('d7/d40/fixed__string_8inl_source.html','../../',''); }
 <div class="line"><a id="l01313" name="l01313"></a><span class="lineno"> 1313</span>}</div>
 </div>
 <div class="line"><a id="l01314" name="l01314"></a><span class="lineno"> 1314</span> </div>
-<div class="line"><a id="l01315" name="l01315"></a><span class="lineno"> 1315</span><span class="keyword">template</span> &lt;StringLike stringType, size_t allocatedSize&gt;</div>
+<div class="line"><a id="l01315" name="l01315"></a><span class="lineno"> 1315</span><span class="keyword">template</span> &lt;size_t allocatedSize, StringLike stringType&gt;</div>
 <div class="foldopen" id="foldopen01316" data-start="{" data-end="}">
 <div class="line"><a id="l01316" name="l01316"></a><span class="lineno"><a class="line" href="../../d4/da9/namespacetoy.html#a377071f6eeeb1a7746d86c53f7fc5f22"> 1316</a></span><span class="keyword">constexpr</span> <a class="code hl_function" href="../../d4/da9/namespacetoy.html#a3b958204f31fa5e70210feb177d307b9">strong_ordering</a> <a class="code hl_function" href="../../d4/da9/namespacetoy.html#a3b958204f31fa5e70210feb177d307b9">operator</a>&lt;=&gt;(<span class="keyword">const</span> stringType &amp; lhs, <span class="keyword">const</span> FixedString&lt;allocatedSize&gt; &amp; rhs) <span class="keyword">noexcept</span> {</div>
 <div class="line"><a id="l01317" name="l01317"></a><span class="lineno"> 1317</span>  <span class="keywordflow">return</span> 0 &lt;=&gt; (rhs &lt;=&gt; lhs);</div>

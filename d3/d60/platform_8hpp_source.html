@@ -155,7 +155,7 @@ $(function(){initNavTree('d3/d60/platform_8hpp_source.html','../../',''); });
 <div class="line"><span class="lineno">   40</span><span class="comment">  - 🔧 **Constexpr Support**: All values are usable in constexpr contexts</span></div>
 <div class="line"><span class="lineno">   41</span><span class="comment">  - 🎯 **Compile-Time Detection**: Enables compile-time conditional compilation via \c if \c constexpr</span></div>
 <div class="line"><span class="lineno">   42</span><span class="comment">  - 📐 **Type Safety**: Strongly-typed enum class prevents implicit conversions</span></div>
-<div class="line"><span class="lineno">   43</span><span class="comment">  - 🔗 **Architecture Integration**: Hex values designed to combine with \ref CpuArchitecture identifiers</span></div>
+<div class="line"><span class="lineno">   43</span><span class="comment">  - 🔗 **Architecture Integration**: Hex values designed to combine with \ref toy::CpuArchitecture identifiers</span></div>
 <div class="line"><span class="lineno">   44</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">   45</span><span class="comment">  \section usage Usage Example</span></div>
 <div class="line"><span class="lineno">   46</span><span class="comment"></span> </div>
@@ -227,7 +227,7 @@ $(function(){initNavTree('d3/d60/platform_8hpp_source.html','../../',''); });
 <div class="line"><span class="lineno">  110</span><span class="comment">  - 🔧 **Constexpr Support**: All values are usable in constexpr contexts</span></div>
 <div class="line"><span class="lineno">  111</span><span class="comment">  - 🎯 **Compile-Time Detection**: Enables compile-time conditional compilation via \c if \c constexpr</span></div>
 <div class="line"><span class="lineno">  112</span><span class="comment">  - 📐 **Type Safety**: Strongly-typed enum class prevents implicit conversions</span></div>
-<div class="line"><span class="lineno">  113</span><span class="comment">  - 🔗 **Platform Integration**: Hex values designed to combine with \ref Platform identifiers</span></div>
+<div class="line"><span class="lineno">  113</span><span class="comment">  - 🔗 **Platform Integration**: Hex values designed to combine with \ref toy::Platform identifiers</span></div>
 <div class="line"><span class="lineno">  114</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  115</span><span class="comment">  \section usage Usage Example</span></div>
 <div class="line"><span class="lineno">  116</span><span class="comment"></span> </div>
@@ -281,7 +281,7 @@ $(function(){initNavTree('d3/d60/platform_8hpp_source.html','../../',''); });
 <div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span> </div>
 <div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span><span class="preprocessor">#</span><span class="preprocessor">endif</span> <span class="comment">// INCLUDE_CORE_PLATFORM_HPP_</span></div>
 <div class="ttc" id="aassertion__macro__gcc__clang_8hpp_html_a672330c2fecd516f254162cd9611d91a"><div class="ttname"><a href="../../d1/d5f/assertion__macro__gcc__clang_8hpp.html#a672330c2fecd516f254162cd9611d91a">assert_message</a></div><div class="ttdeci">#define assert_message(expression, message)</div><div class="ttdoc">Debug assertion macro with custom message for runtime expression checking.</div><div class="ttdef"><b>Definition</b> assertion_macro_gcc_clang.hpp:88</div></div>
-<div class="ttc" id="aconcepttoy_1_1_string_like_html"><div class="ttname"><a href="../../df/d77/concepttoy_1_1_string_like.html">toy::StringLike</a></div><div class="ttdoc">Concept defining the requirements for string-like types.</div><div class="ttdef"><b>Definition</b> core.hpp:90</div></div>
+<div class="ttc" id="aconcepttoy_1_1_string_like_html"><div class="ttname"><a href="../../df/d77/concepttoy_1_1_string_like.html">toy::StringLike</a></div><div class="ttdoc">Concept defining the requirements for string-like types.</div><div class="ttdef"><b>Definition</b> string_like.hpp:72</div></div>
 <div class="ttc" id="anamespacetoy_html_a00ce0b516e9a47a62227a9309afdb583"><div class="ttname"><a href="../../d4/da9/namespacetoy.html#a00ce0b516e9a47a62227a9309afdb583">toy::crc8</a></div><div class="ttdeci">uint8_t crc8(const void *src, size_t size, uint8_t crc) noexcept</div><div class="ttdoc">Calculates CRC-8 checksum using Dallas/Maxim polynomial.</div><div class="ttdef"><b>Definition</b> hashes.cpp:121</div></div>
 <div class="ttc" id="anamespacetoy_html_a17983e173fb5e8cf5baaab61a78a402e"><div class="ttname"><a href="../../d4/da9/namespacetoy.html#a17983e173fb5e8cf5baaab61a78a402e">toy::crc32</a></div><div class="ttdeci">uint32_t crc32(const void *src, size_t size, uint32_t crc) noexcept</div><div class="ttdoc">Calculates CRC-32 checksum using IEEE 802.3 polynomial.</div><div class="ttdef"><b>Definition</b> hashes.cpp:147</div></div>
 <div class="ttc" id="anamespacetoy_html_a63a8d4228d33c90f9ef1684c10c07b37"><div class="ttname"><a href="../../d4/da9/namespacetoy.html#a63a8d4228d33c90f9ef1684c10c07b37">toy::_crc8Table</a></div><div class="ttdeci">static constexpr std::array&lt; uint8_t, 256 &gt; _crc8Table</div><div class="ttdoc">CRC-8 lookup table using Dallas/Maxim polynomial (0x31).</div><div class="ttdef"><b>Definition</b> hashes.cpp:36</div></div>

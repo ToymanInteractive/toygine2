@@ -164,8 +164,8 @@ $(function(){initNavTree('d1/d5f/assertion__macro__gcc__clang_8hpp_source.html',
 <div class="line"><span class="lineno">   49</span><span class="comment">  \warning Do not rely on the \a expression being evaluated in release builds.</span></div>
 <div class="line"><span class="lineno">   50</span><span class="comment">  \warning The \a expression should not have side effects as it may not be evaluated in release builds.</span></div>
 <div class="line"><span class="lineno">   51</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   52</span><span class="comment">  \see assert_message</span></div>
-<div class="line"><span class="lineno">   53</span><span class="comment">  \see toy::assertion::assertion</span></div>
+<div class="line"><span class="lineno">   52</span><span class="comment">  \sa assert_message</span></div>
+<div class="line"><span class="lineno">   53</span><span class="comment">  \sa toy::assertion::assertion</span></div>
 <div class="line"><span class="lineno">   54</span><span class="comment">*/</span></div>
 <div class="foldopen" id="foldopen00055" data-start="" data-end="">
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="../../d1/d5f/assertion__macro__gcc__clang_8hpp.html#a0041af519e0e7d47c9bcc83760c4669e">   55</a></span><span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">assert</span><span class="preprocessor">(</span><span class="preprocessor">expression</span><span class="preprocessor">)</span></div>
@@ -199,8 +199,8 @@ $(function(){initNavTree('d1/d5f/assertion__macro__gcc__clang_8hpp_source.html',
 <div class="line"><span class="lineno">   82</span><span class="comment">  \warning The \a expression should not have side effects as it may not be evaluated in release builds.</span></div>
 <div class="line"><span class="lineno">   83</span><span class="comment">  \warning The \a message should be a C string literal for optimal performance.</span></div>
 <div class="line"><span class="lineno">   84</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   85</span><span class="comment">  \see assert</span></div>
-<div class="line"><span class="lineno">   86</span><span class="comment">  \see toy::assertion::assertion</span></div>
+<div class="line"><span class="lineno">   85</span><span class="comment">  \sa assert</span></div>
+<div class="line"><span class="lineno">   86</span><span class="comment">  \sa toy::assertion::assertion</span></div>
 <div class="line"><span class="lineno">   87</span><span class="comment">*/</span></div>
 <div class="foldopen" id="foldopen00088" data-start="" data-end="">
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="../../d1/d5f/assertion__macro__gcc__clang_8hpp.html#a672330c2fecd516f254162cd9611d91a">   88</a></span><span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">assert_message</span><span class="preprocessor">(</span><span class="preprocessor">expression</span><span class="preprocessor">,</span> <span class="preprocessor">message</span><span class="preprocessor">)</span></div>
@@ -227,7 +227,7 @@ $(function(){initNavTree('d1/d5f/assertion__macro__gcc__clang_8hpp_source.html',
 <div class="line"><span class="lineno">  108</span><span class="comment">  \note The \a expression parameter is ignored and not evaluated.</span></div>
 <div class="line"><span class="lineno">  109</span><span class="comment">  \note This ensures zero overhead in release builds.</span></div>
 <div class="line"><span class="lineno">  110</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  111</span><span class="comment">  \see assert_message</span></div>
+<div class="line"><span class="lineno">  111</span><span class="comment">  \sa assert_message</span></div>
 <div class="line"><span class="lineno">  112</span><span class="comment">*/</span></div>
 <div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">assert</span><span class="preprocessor">(</span><span class="preprocessor">expression</span><span class="preprocessor">)</span> <span class="preprocessor">(</span><span class="preprocessor">(</span><span class="keywordtype">void</span><span class="preprocessor">)</span>0<span class="preprocessor">)</span></div>
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
@@ -245,7 +245,7 @@ $(function(){initNavTree('d1/d5f/assertion__macro__gcc__clang_8hpp_source.html',
 <div class="line"><span class="lineno">  126</span><span class="comment">  \note Both parameters are ignored and not evaluated.</span></div>
 <div class="line"><span class="lineno">  127</span><span class="comment">  \note This ensures zero overhead in release builds.</span></div>
 <div class="line"><span class="lineno">  128</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  129</span><span class="comment">  \see assert</span></div>
+<div class="line"><span class="lineno">  129</span><span class="comment">  \sa assert</span></div>
 <div class="line"><span class="lineno">  130</span><span class="comment">*/</span></div>
 <div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span><span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">assert_message</span><span class="preprocessor">(</span><span class="preprocessor">expression</span><span class="preprocessor">,</span> <span class="preprocessor">message</span><span class="preprocessor">)</span> <span class="preprocessor">(</span><span class="preprocessor">(</span><span class="keywordtype">void</span><span class="preprocessor">)</span>0<span class="preprocessor">)</span></div>
 <div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
@@ -253,7 +253,7 @@ $(function(){initNavTree('d1/d5f/assertion__macro__gcc__clang_8hpp_source.html',
 <div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
 <div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span><span class="preprocessor">#</span><span class="preprocessor">endif</span> <span class="comment">// SRC_PLATFORMS_COMMON_ASSERTION_MACRO_GCC_CLANG_HPP_</span></div>
 <div class="ttc" id="aassertion__macro__gcc__clang_8hpp_html_a672330c2fecd516f254162cd9611d91a"><div class="ttname"><a href="../../d1/d5f/assertion__macro__gcc__clang_8hpp.html#a672330c2fecd516f254162cd9611d91a">assert_message</a></div><div class="ttdeci">#define assert_message(expression, message)</div><div class="ttdoc">Debug assertion macro with custom message for runtime expression checking.</div><div class="ttdef"><b>Definition</b> assertion_macro_gcc_clang.hpp:88</div></div>
-<div class="ttc" id="aconcepttoy_1_1_string_like_html"><div class="ttname"><a href="../../df/d77/concepttoy_1_1_string_like.html">toy::StringLike</a></div><div class="ttdoc">Concept defining the requirements for string-like types.</div><div class="ttdef"><b>Definition</b> core.hpp:90</div></div>
+<div class="ttc" id="aconcepttoy_1_1_string_like_html"><div class="ttname"><a href="../../df/d77/concepttoy_1_1_string_like.html">toy::StringLike</a></div><div class="ttdoc">Concept defining the requirements for string-like types.</div><div class="ttdef"><b>Definition</b> string_like.hpp:72</div></div>
 <div class="ttc" id="anamespacetoy_html_a00ce0b516e9a47a62227a9309afdb583"><div class="ttname"><a href="../../d4/da9/namespacetoy.html#a00ce0b516e9a47a62227a9309afdb583">toy::crc8</a></div><div class="ttdeci">uint8_t crc8(const void *src, size_t size, uint8_t crc) noexcept</div><div class="ttdoc">Calculates CRC-8 checksum using Dallas/Maxim polynomial.</div><div class="ttdef"><b>Definition</b> hashes.cpp:121</div></div>
 <div class="ttc" id="anamespacetoy_html_a17983e173fb5e8cf5baaab61a78a402e"><div class="ttname"><a href="../../d4/da9/namespacetoy.html#a17983e173fb5e8cf5baaab61a78a402e">toy::crc32</a></div><div class="ttdeci">uint32_t crc32(const void *src, size_t size, uint32_t crc) noexcept</div><div class="ttdoc">Calculates CRC-32 checksum using IEEE 802.3 polynomial.</div><div class="ttdef"><b>Definition</b> hashes.cpp:147</div></div>
 <div class="ttc" id="anamespacetoy_html_a63a8d4228d33c90f9ef1684c10c07b37"><div class="ttname"><a href="../../d4/da9/namespacetoy.html#a63a8d4228d33c90f9ef1684c10c07b37">toy::_crc8Table</a></div><div class="ttdeci">static constexpr std::array&lt; uint8_t, 256 &gt; _crc8Table</div><div class="ttdoc">CRC-8 lookup table using Dallas/Maxim polynomial (0x31).</div><div class="ttdef"><b>Definition</b> hashes.cpp:36</div></div>

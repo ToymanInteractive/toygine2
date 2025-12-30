@@ -25,8 +25,7 @@
 var NAVTREE =
 [
   [ "ToyGine2", "index.html", [
-    [ "Supported Systems", "index.html#supported-systems", null ],
-    [ "Requirements", "index.html#requirements", [
+    [ "Supported Systems", "index.html#supported-systems", [
       [ "Supported C++ compilers", "index.html#supported-c-compilers", null ],
       [ "Tools", "index.html#tools", null ]
     ] ],
