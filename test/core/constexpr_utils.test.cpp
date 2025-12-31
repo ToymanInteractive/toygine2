@@ -466,31 +466,36 @@ TEST_CASE("cstrchr function", "[core][constexpr_utils]") {
   }
 
   SECTION("Edge cases") {
+    constexpr const char * empty = "";
+    constexpr const char * ch1 = "a";
+
     // Null terminator
-    STATIC_REQUIRE(cstrchr("", '\0') != nullptr);
-    STATIC_REQUIRE(cstrchr("a", '\0') != nullptr);
+    STATIC_REQUIRE(cstrchr(empty, '\0') != nullptr);
+    STATIC_REQUIRE(cstrchr(ch1, '\0') != nullptr);
 
     // Single character match
-    STATIC_REQUIRE(cstrchr("a", 'a') != nullptr);
-    STATIC_REQUIRE(cstrchr("a", 'b') == nullptr);
+    STATIC_REQUIRE(cstrchr(ch1, 'a') != nullptr);
+    STATIC_REQUIRE(cstrchr(ch1, 'b') == nullptr);
 
     // Compare with std::strchr
-    REQUIRE(cstrchr("", '\0') == std::strchr("", '\0'));
-    REQUIRE(cstrchr("a", '\0') == std::strchr("a", '\0'));
+    REQUIRE(cstrchr(empty, '\0') == std::strchr(empty, '\0'));
+    REQUIRE(cstrchr(ch1, '\0') == std::strchr(ch1, '\0'));
 
-    REQUIRE(cstrchr("a", 'a') == std::strchr("a", 'a'));
-    REQUIRE(cstrchr("a", 'b') == std::strchr("a", 'b'));
+    REQUIRE(cstrchr(ch1, 'a') == std::strchr(ch1, 'a'));
+    REQUIRE(cstrchr(ch1, 'b') == std::strchr(ch1, 'b'));
   }
 
   SECTION("Constexpr operations") {
-    constexpr const char * str = "Hello World";
+    constexpr const char * helloWorld = "Hello World";
+    constexpr const char * test = "Test";
+    constexpr const char * abc = "ABC";
     constexpr char ch1 = 'o';
     constexpr char ch2 = 'z';
 
-    constexpr const char * result1 = cstrchr(str, ch1);
-    constexpr const char * result2 = cstrchr(str, ch2);
-    constexpr const char * result3 = cstrchr("Test", 'e');
-    constexpr const char * result4 = cstrchr("ABC", 'B');
+    constexpr const char * result1 = cstrchr(helloWorld, ch1);
+    constexpr const char * result2 = cstrchr(helloWorld, ch2);
+    constexpr const char * result3 = cstrchr(test, 'e');
+    constexpr const char * result4 = cstrchr(abc, 'B');
 
     STATIC_REQUIRE(result1 != nullptr);
     STATIC_REQUIRE(result2 == nullptr);
@@ -498,24 +503,24 @@ TEST_CASE("cstrchr function", "[core][constexpr_utils]") {
     STATIC_REQUIRE(result4 != nullptr);
 
     // Complex compile-time checks
-    STATIC_REQUIRE(cstrchr("Hello World", 'H') != nullptr);
-    STATIC_REQUIRE(cstrchr("Hello World", 'z') == nullptr);
-    STATIC_REQUIRE(cstrchr("Test", 'T') != nullptr);
-    STATIC_REQUIRE(cstrchr("Test", 'Z') == nullptr);
-    STATIC_REQUIRE(cstrchr("ABC", 'A') != nullptr);
-    STATIC_REQUIRE(cstrchr("ABC", 'Z') == nullptr);
+    STATIC_REQUIRE(cstrchr(helloWorld, 'H') != nullptr);
+    STATIC_REQUIRE(cstrchr(helloWorld, 'z') == nullptr);
+    STATIC_REQUIRE(cstrchr(test, 'T') != nullptr);
+    STATIC_REQUIRE(cstrchr(test, 'Z') == nullptr);
+    STATIC_REQUIRE(cstrchr(abc, 'A') != nullptr);
+    STATIC_REQUIRE(cstrchr(abc, 'Z') == nullptr);
 
     // Compare with std::strchr
-    REQUIRE(result1 == std::strchr(str, ch1));
-    REQUIRE(result2 == std::strchr(str, ch2));
-    REQUIRE(result3 == std::strchr("Test", 'e'));
-    REQUIRE(result4 == std::strchr("ABC", 'B'));
-    REQUIRE(cstrchr("Hello World", 'H') == std::strchr("Hello World", 'H'));
-    REQUIRE(cstrchr("Hello World", 'z') == std::strchr("Hello World", 'z'));
-    REQUIRE(cstrchr("Test", 'T') == std::strchr("Test", 'T'));
-    REQUIRE(cstrchr("Test", 'Z') == std::strchr("Test", 'Z'));
-    REQUIRE(cstrchr("ABC", 'A') == std::strchr("ABC", 'A'));
-    REQUIRE(cstrchr("ABC", 'Z') == std::strchr("ABC", 'Z'));
+    REQUIRE(result1 == std::strchr(helloWorld, ch1));
+    REQUIRE(result2 == std::strchr(helloWorld, ch2));
+    REQUIRE(result3 == std::strchr(test, 'e'));
+    REQUIRE(result4 == std::strchr(abc, 'B'));
+    REQUIRE(cstrchr(helloWorld, 'H') == std::strchr(helloWorld, 'H'));
+    REQUIRE(cstrchr(helloWorld, 'z') == std::strchr(helloWorld, 'z'));
+    REQUIRE(cstrchr(test, 'T') == std::strchr(test, 'T'));
+    REQUIRE(cstrchr(test, 'Z') == std::strchr(test, 'Z'));
+    REQUIRE(cstrchr(abc, 'A') == std::strchr(abc, 'A'));
+    REQUIRE(cstrchr(abc, 'Z') == std::strchr(abc, 'Z'));
   }
 
   SECTION("Long strings") {
@@ -1032,44 +1037,53 @@ TEST_CASE("cstrstr function", "[core][constexpr_utils]") {
   }
 
   SECTION("Edge cases") {
+    constexpr const char * empty = "";
+    constexpr const char * a = "a";
+    constexpr const char * abc = "abc";
+    constexpr const char * abcd = "abcd";
+    constexpr const char * hello = "hello";
+    constexpr const char * helloWorld = "hello world";
+
     // Identical strings
-    STATIC_REQUIRE(cstrstr("", "") != nullptr);
-    STATIC_REQUIRE(cstrstr("a", "a") != nullptr); // Single character match
-    STATIC_REQUIRE(cstrstr("abc", "abc") != nullptr); // Full string match
+    STATIC_REQUIRE(cstrstr(empty, "") != nullptr);
+    STATIC_REQUIRE(cstrstr(a, "a") != nullptr); // Single character match
+    STATIC_REQUIRE(cstrstr(abc, "abc") != nullptr); // Full string match
 
     // One string is prefix of another
-    STATIC_REQUIRE(cstrstr("abc", "abcd") == nullptr); // "abc" doesn't contain "abcd"
-    STATIC_REQUIRE(cstrstr("abcd", "abc") != nullptr); // "abcd" contains "abc"
-    STATIC_REQUIRE(cstrstr("", "a") == nullptr); // Empty doesn't contain "a"
-    STATIC_REQUIRE(cstrstr("a", "") != nullptr); // "a" contains empty string
+    STATIC_REQUIRE(cstrstr(abc, "abcd") == nullptr); // "abc" doesn't contain "abcd"
+    STATIC_REQUIRE(cstrstr(abcd, "abc") != nullptr); // "abcd" contains "abc"
+    STATIC_REQUIRE(cstrstr(empty, "a") == nullptr); // Empty doesn't contain "a"
+    STATIC_REQUIRE(cstrstr(a, "") != nullptr); // "a" contains empty string
 
     // Different lengths, same prefix
-    STATIC_REQUIRE(cstrstr("hello", "helloworld") == nullptr); // "hello" doesn't contain "helloworld"
-    STATIC_REQUIRE(cstrstr("helloworld", "hello") != nullptr); // "helloworld" contains "hello"
+    STATIC_REQUIRE(cstrstr(hello, "helloworld") == nullptr); // "hello" doesn't contain "helloworld"
+    STATIC_REQUIRE(cstrstr(helloWorld, "hello") != nullptr); // "helloworld" contains "hello"
 
     // Compare with std::strstr
-    REQUIRE(cstrstr("", "") == std::strstr("", ""));
-    REQUIRE(cstrstr("a", "a") == std::strstr("a", "a"));
-    REQUIRE(cstrstr("abc", "abc") == std::strstr("abc", "abc"));
+    REQUIRE(cstrstr(empty, "") == std::strstr(empty, ""));
+    REQUIRE(cstrstr(a, "a") == std::strstr(a, "a"));
+    REQUIRE(cstrstr(abc, "abc") == std::strstr(abc, "abc"));
 
-    REQUIRE(cstrstr("abc", "abcd") == std::strstr("abc", "abcd"));
-    REQUIRE(cstrstr("abcd", "abc") == std::strstr("abcd", "abc"));
-    REQUIRE(cstrstr("", "a") == std::strstr("", "a"));
-    REQUIRE(cstrstr("a", "") == std::strstr("a", ""));
+    REQUIRE(cstrstr(abc, "abcd") == std::strstr(abc, "abcd"));
+    REQUIRE(cstrstr(abcd, "abc") == std::strstr(abcd, "abc"));
+    REQUIRE(cstrstr(empty, "a") == std::strstr(empty, "a"));
+    REQUIRE(cstrstr(a, "") == std::strstr(a, ""));
 
-    REQUIRE(cstrstr("hello", "helloworld") == std::strstr("hello", "helloworld"));
-    REQUIRE(cstrstr("helloworld", "hello") == std::strstr("helloworld", "hello"));
+    REQUIRE(cstrstr(hello, "helloworld") == std::strstr(hello, "helloworld"));
+    REQUIRE(cstrstr(helloWorld, "hello") == std::strstr(helloWorld, "hello"));
   }
 
   SECTION("Constexpr operations") {
-    constexpr const char * haystack = "Hello World";
-    constexpr const char * needle1 = "World";
-    constexpr const char * needle2 = "Universe";
+    constexpr const char * helloWorld = "Hello World";
+    constexpr const char * worl1 = "World";
+    constexpr const char * word2 = "Universe";
+    constexpr const char * word3 = "Test";
+    constexpr const char * abc = "ABC";
 
-    constexpr const char * result1 = cstrstr(haystack, needle1);
-    constexpr const char * result2 = cstrstr(haystack, needle2);
-    constexpr const char * result3 = cstrstr("Test", "es");
-    constexpr const char * result4 = cstrstr("ABC", "B");
+    constexpr const char * result1 = cstrstr(helloWorld, worl1);
+    constexpr const char * result2 = cstrstr(helloWorld, word2);
+    constexpr const char * result3 = cstrstr(word3, "es");
+    constexpr const char * result4 = cstrstr(abc, "B");
 
     STATIC_REQUIRE(result1 != nullptr);
     STATIC_REQUIRE(result2 == nullptr);
@@ -1077,25 +1091,25 @@ TEST_CASE("cstrstr function", "[core][constexpr_utils]") {
     STATIC_REQUIRE(result4 != nullptr);
 
     // Complex compile-time checks
-    STATIC_REQUIRE(cstrstr("Hello World", "Hello") != nullptr);
-    STATIC_REQUIRE(cstrstr("Hello World", "xyz") == nullptr);
-    STATIC_REQUIRE(cstrstr("Test", "Test") != nullptr);
-    STATIC_REQUIRE(cstrstr("Test", "Fail") == nullptr);
-    STATIC_REQUIRE(cstrstr("ABC", "ABC") != nullptr);
-    STATIC_REQUIRE(cstrstr("ABC", "XYZ") == nullptr);
+    STATIC_REQUIRE(cstrstr(helloWorld, "Hello") != nullptr);
+    STATIC_REQUIRE(cstrstr(helloWorld, "xyz") == nullptr);
+    STATIC_REQUIRE(cstrstr(word3, "Test") != nullptr);
+    STATIC_REQUIRE(cstrstr(word3, "Fail") == nullptr);
+    STATIC_REQUIRE(cstrstr(abc, "ABC") != nullptr);
+    STATIC_REQUIRE(cstrstr(abc, "XYZ") == nullptr);
 
     // Compare with std::strstr
-    REQUIRE(result1 == std::strstr(haystack, needle1));
-    REQUIRE(result2 == std::strstr(haystack, needle2));
-    REQUIRE(result3 == std::strstr("Test", "es"));
-    REQUIRE(result4 == std::strstr("ABC", "B"));
+    REQUIRE(result1 == std::strstr(helloWorld, worl1));
+    REQUIRE(result2 == std::strstr(helloWorld, word2));
+    REQUIRE(result3 == std::strstr(word3, "es"));
+    REQUIRE(result4 == std::strstr(abc, "B"));
 
-    REQUIRE(cstrstr("Hello World", "Hello") == std::strstr("Hello World", "Hello"));
-    REQUIRE(cstrstr("Hello World", "xyz") == std::strstr("Hello World", "xyz"));
-    REQUIRE(cstrstr("Test", "Test") == std::strstr("Test", "Test"));
-    REQUIRE(cstrstr("Test", "Fail") == std::strstr("Test", "Fail"));
-    REQUIRE(cstrstr("ABC", "ABC") == std::strstr("ABC", "ABC"));
-    REQUIRE(cstrstr("ABC", "XYZ") == std::strstr("ABC", "XYZ"));
+    REQUIRE(cstrstr(helloWorld, "Hello") == std::strstr(helloWorld, "Hello"));
+    REQUIRE(cstrstr(helloWorld, "xyz") == std::strstr(helloWorld, "xyz"));
+    REQUIRE(cstrstr(word3, "Test") == std::strstr(word3, "Test"));
+    REQUIRE(cstrstr(word3, "Fail") == std::strstr(word3, "Fail"));
+    REQUIRE(cstrstr(abc, "ABC") == std::strstr(abc, "ABC"));
+    REQUIRE(cstrstr(abc, "XYZ") == std::strstr(abc, "XYZ"));
   }
 
   SECTION("Long strings") {
