@@ -1075,12 +1075,12 @@ TEST_CASE("cstrstr function", "[core][constexpr_utils]") {
 
   SECTION("Constexpr operations") {
     constexpr const char * helloWorld = "Hello World";
-    constexpr const char * worl1 = "World";
+    constexpr const char * word1 = "World";
     constexpr const char * word2 = "Universe";
     constexpr const char * word3 = "Test";
     constexpr const char * abc = "ABC";
 
-    constexpr const char * result1 = cstrstr(helloWorld, worl1);
+    constexpr const char * result1 = cstrstr(helloWorld, word1);
     constexpr const char * result2 = cstrstr(helloWorld, word2);
     constexpr const char * result3 = cstrstr(word3, "es");
     constexpr const char * result4 = cstrstr(abc, "B");
@@ -1099,7 +1099,7 @@ TEST_CASE("cstrstr function", "[core][constexpr_utils]") {
     STATIC_REQUIRE(cstrstr(abc, "XYZ") == nullptr);
 
     // Compare with std::strstr
-    REQUIRE(result1 == std::strstr(helloWorld, worl1));
+    REQUIRE(result1 == std::strstr(helloWorld, word1));
     REQUIRE(result2 == std::strstr(helloWorld, word2));
     REQUIRE(result3 == std::strstr(word3, "es"));
     REQUIRE(result4 == std::strstr(abc, "B"));
