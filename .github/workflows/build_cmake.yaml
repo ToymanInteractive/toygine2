@@ -55,25 +55,25 @@ jobs:
             cmake_preset: windows-msvc
 
           - name: DevkitPro GBA
-            os: ubuntu-latest
+            os: ubuntu-slim
             docker_image: devkitpro/devkitarm:latest
             run_test: "false"
             cmake_preset: nintendo-gba-ninja
 
           - name: DevkitPro NDS
-            os: ubuntu-latest
+            os: ubuntu-slim
             docker_image: devkitpro/devkitarm:latest
             run_test: "false"
             cmake_preset: nintendo-ds-ninja
 
           - name: DevkitPro 3DS
-            os: ubuntu-latest
+            os: ubuntu-slim
             docker_image: devkitpro/devkitarm:latest
             run_test: "false"
             cmake_preset: nintendo-3ds-ninja
 
           - name: DevkitPro Switch
-            os: ubuntu-latest
+            os: ubuntu-slim
             docker_image: devkitpro/devkita64:latest
             run_test: "false"
             cmake_preset: nintendo-switch-ninja
@@ -185,7 +185,7 @@ jobs:
 
   unit-test:
     name: Collect unit tests
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     timeout-minutes: 30
     defaults:
       run:
@@ -275,7 +275,7 @@ jobs:
           && ( github.event_name == 'push' || ( github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository ) )
           && github.actor != 'dependabot[bot]'
        }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     timeout-minutes: 60
     defaults:
       run:

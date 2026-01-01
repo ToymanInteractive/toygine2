@@ -8,7 +8,7 @@ permissions: {}
 jobs:
   style:
     name: Code style check
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     timeout-minutes: 10
     defaults:
       run:
@@ -29,4 +29,4 @@ jobs:
       - name: Check format of markdown files
         uses: DavidAnson/markdownlint-cli2-action@v22
         with:
-          globs: '**/*.md'
+          globs: "**/*.md"

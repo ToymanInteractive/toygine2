@@ -16,7 +16,7 @@ permissions:
 jobs:
   dispatcher:
     name: Job dispatcher
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     timeout-minutes: 10
     defaults:
       run:
