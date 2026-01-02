@@ -8,7 +8,7 @@ on:
 jobs:
   cache-cleanup:
     name: Cleanup caches
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     permissions:
       actions: write
     steps:
