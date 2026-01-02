@@ -29,8 +29,8 @@ ToyGine2 is a modern C++ high‑level engine.
 | ------- | ----------------------- | -------------------------------- |
 | Windows | Microsoft Visual Studio | MSVC 2022 17.4 and above         |
 | macOS   | Xcode                   | 16.4 and above (Apple Clang 17+) |
-| Linux   | GCC                     | 14.0 and above                   |
-| GBA     | devkitARM               | release 66 (GCC 15.1.0)          |
+| Linux   | GCC                     | 14.2 and above                   |
+| GBA     | devkitARM               | release 66 (GCC 15.2.0)          |
 
 ### Tools
 

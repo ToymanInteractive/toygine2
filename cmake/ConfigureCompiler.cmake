@@ -72,6 +72,12 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop")
 
   message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
 
+  if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 14.2)
+    message(FATAL_ERROR "GCC >= 14.2 required")
+  endif(CMAKE_CXX_COMPILER_VERSION VERSION_LESS 14.2)
+
+# Option Summary  https://gcc.gnu.org/onlinedocs/gcc-14.2.0/gcc/Option-Summary.html
+
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
 
   if (CMAKE_GENERATOR STREQUAL "Xcode")
@@ -123,7 +129,7 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Game Boy Advance")
 
   if (NOT DEVKITPRO_FOUND)
     message(FATAL_ERROR "devkitPro not found. Install devkitPro and ensure DEVKITPRO is set.")
-  endif()
+  endif(NOT DEVKITPRO_FOUND)
 
   list(APPEND CMAKE_MODULE_PATH "${DEVKITPRO_ROOT}/cmake")
 
@@ -131,11 +137,17 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Game Boy Advance")
 
   message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
 
+  if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 15.2)
+    message(FATAL_ERROR "GCC >= 15.2 required")
+  endif(CMAKE_CXX_COMPILER_VERSION VERSION_LESS 15.2)
+
+# Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/Option-Summary.html
+
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
 
   if (NOT DEVKITPRO_FOUND)
     message(FATAL_ERROR "devkitPro not found. Install devkitPro and ensure DEVKITPRO is set.")
-  endif()
+  endif(NOT DEVKITPRO_FOUND)
 
   list(APPEND CMAKE_MODULE_PATH "${DEVKITPRO_ROOT}/cmake")
 
@@ -143,11 +155,19 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
 
   message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
 
+  if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 15.2)
+    message(FATAL_ERROR "GCC >= 15.2 required")
+  endif(CMAKE_CXX_COMPILER_VERSION VERSION_LESS 15.2)
+
+# Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/Option-Summary.html
+
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 3DS")
+
+# Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/Option-Summary.html
 
   if (NOT DEVKITPRO_FOUND)
     message(FATAL_ERROR "devkitPro not found. Install devkitPro and ensure DEVKITPRO is set.")
-  endif()
+  endif(NOT DEVKITPRO_FOUND)
 
   list(APPEND CMAKE_MODULE_PATH "${DEVKITPRO_ROOT}/cmake")
 
@@ -155,17 +175,31 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 3DS")
 
   message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
 
+  if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 15.2)
+    message(FATAL_ERROR "GCC >= 15.2 required")
+  endif(CMAKE_CXX_COMPILER_VERSION VERSION_LESS 15.2)
+
+# Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/Option-Summary.html
+
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
+
+# Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/Option-Summary.html
 
   if (NOT DEVKITPRO_FOUND)
     message(FATAL_ERROR "devkitPro not found. Install devkitPro and ensure DEVKITPRO is set.")
-  endif()
+  endif(NOT DEVKITPRO_FOUND)
 
   list(APPEND CMAKE_MODULE_PATH "${DEVKITPRO_ROOT}/cmake")
 
   include(Switch)
 
   message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
+
+  if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 15.2)
+    message(FATAL_ERROR "GCC >= 15.2 required")
+  endif(CMAKE_CXX_COMPILER_VERSION VERSION_LESS 15.2)
+
+# Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/Option-Summary.html
 
 else ()
 

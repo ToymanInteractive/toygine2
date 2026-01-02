@@ -34,8 +34,7 @@ constexpr OStringStream<StringType>::OStringStream(const SourceStringType & stri
 
 template <typename StringType>
 constexpr void OStringStream<StringType>::swap(OStringStream & other) noexcept {
-  if (this != std::addressof(other))
-    std::swap(_string, other._string);
+  std::swap(_string, other._string);
 }
 
 template <typename StringType>
