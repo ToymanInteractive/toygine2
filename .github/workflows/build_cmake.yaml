@@ -224,7 +224,10 @@ jobs:
             -o APT::Keep-Downloaded-Packages=true \
             -o Acquire::Retries=3 -o Dpkg::Use-Pty=0 \
             install \
-            lcov
+            lcov gcc-14 g++-14
+
+          sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-14 100
+          sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-14 100
 
           sudo rm -f  "$APT_CACHE/lock" || true
           sudo rm -rf "$APT_CACHE/partial" || true
