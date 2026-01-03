@@ -72,11 +72,11 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop")
 
   message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
 
-  if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 14.2)
-    message(FATAL_ERROR "GCC >= 14.2 required")
-  endif(CMAKE_CXX_COMPILER_VERSION VERSION_LESS 14.2)
+  if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 13.3)
+    message(FATAL_ERROR "GCC >= 13.3 required")
+  endif(CMAKE_CXX_COMPILER_VERSION VERSION_LESS 13.3)
 
-# Option Summary  https://gcc.gnu.org/onlinedocs/gcc-14.2.0/gcc/Option-Summary.html
+# Option Summary  https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/Option-Summary.html
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
 
