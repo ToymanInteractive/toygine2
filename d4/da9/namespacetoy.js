@@ -18,6 +18,7 @@ var namespacetoy =
     [ "FixedStringStorage", "d5/d3b/structtoy_1_1_fixed_string_storage.html", "d5/d3b/structtoy_1_1_fixed_string_storage" ],
     [ "FixedString", "d3/d7a/classtoy_1_1_fixed_string.html", "d3/d7a/classtoy_1_1_fixed_string" ],
     [ "FixedVector", "d7/dec/classtoy_1_1_fixed_vector.html", "d7/dec/classtoy_1_1_fixed_vector" ],
+    [ "OStringStream", "d7/d15/classtoy_1_1_o_string_stream.html", "d7/d15/classtoy_1_1_o_string_stream" ],
     [ "StringLike", "df/d77/concepttoy_1_1_string_like.html", null ],
     [ "CpuArchitecture", "d4/da9/namespacetoy.html#a9fbbca3cbd855381284624d5fc830d49", [
       [ "x86", "d4/da9/namespacetoy.html#a9fbbca3cbd855381284624d5fc830d49a8a9da7865483c5fd359f3acef178d26d", null ],

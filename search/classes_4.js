@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['staticcallback_0',['StaticCallback',['../d7/d9f/structtoy_1_1_callbacks_pool_1_1_static_callback.html',1,'toy::CallbacksPool']]]
+  ['point_0',['Point',['../d3/dce/classtoy_1_1math_1_1_point.html',1,'toy::math']]]
 ];
