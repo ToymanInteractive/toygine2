@@ -350,6 +350,8 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::erase(size_t 
 
 template <size_t allocatedSize>
 constexpr void FixedString<allocatedSize>::push_back(char character) noexcept {
+  assert_message(character != '\0', "Character must not be null.");
+
   if (character == '\0')
     return;
 
@@ -470,6 +472,8 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::operator+=(co
 
 template <size_t allocatedSize>
 constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::operator+=(char character) noexcept {
+  assert_message(character != '\0', "Character must not be null.");
+
   if (character == '\0')
     return *this;
 
