@@ -163,9 +163,56 @@ $(function(){initNavTree('d9/dcb/o__string__stream_8inl_source.html','../../',''
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>}</div>
 </div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>} <span class="comment">// namespace toy</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="preprocessor">#</span><span class="preprocessor">endif</span> <span class="comment">// INCLUDE_CORE_O_STRING_STREAM_INL_</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> StringType&gt;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="keyword">template</span> &lt;StringLike SourceStringType&gt;</div>
+<div class="foldopen" id="foldopen00047" data-start="{" data-end="}">
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="../../d7/d15/classtoy_1_1_o_string_stream.html#acbabf124a32a172c880497f3257967e7">   47</a></span><span class="keyword">constexpr</span> <span class="keywordtype">void</span> OStringStream&lt;StringType&gt;::str(<span class="keyword">const</span> SourceStringType &amp; string) <span class="keyword">noexcept</span> {</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>  _string = string;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>}</div>
+</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> StringType&gt;</div>
+<div class="foldopen" id="foldopen00052" data-start="{" data-end="}">
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="../../d7/d15/classtoy_1_1_o_string_stream.html#a8e0df79bdfbb170c35f4218a25ade3a5">   52</a></span><span class="keyword">constexpr</span> CStringView OStringStream&lt;StringType&gt;::view() <span class="keyword">const</span> <span class="keyword">noexcept</span> {</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>  <span class="keywordflow">return</span> CStringView(_string.c_str());</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>}</div>
+</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> StringType&gt;</div>
+<div class="foldopen" id="foldopen00057" data-start="{" data-end="}">
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="../../d7/d15/classtoy_1_1_o_string_stream.html#aeb83538611d9facf4a2b5a2888d7f203">   57</a></span><span class="keyword">inline</span> OStringStream&lt;StringType&gt; &amp; OStringStream&lt;StringType&gt;::put(char_type character) <span class="keyword">noexcept</span> {</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>  assert_message(character != <span class="stringliteral">&#39;\0&#39;</span>, <span class="stringliteral">&quot;Character must not be null.&quot;</span>);</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>  _string.push_back(character);</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>  <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>}</div>
+</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> StringType&gt;</div>
+<div class="foldopen" id="foldopen00066" data-start="{" data-end="}">
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="../../d7/d15/classtoy_1_1_o_string_stream.html#a5578741db6fef667ac769081706a9228">   66</a></span><span class="keyword">inline</span> OStringStream&lt;StringType&gt; &amp; OStringStream&lt;StringType&gt;::write(<span class="keyword">const</span> char_type * string, size_t count) <span class="keyword">noexcept</span> {</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>  assert_message(string != <span class="keywordtype">nullptr</span>, <span class="stringliteral">&quot;Source string must not be null.&quot;</span>);</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>  <span class="keywordflow">if</span> (string == <span class="keywordtype">nullptr</span> || count == 0)</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>  <span class="keywordflow">for</span> (size_t i = 0; i &lt; count; ++i)</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    _string.push_back(string[i]);</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>  <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>}</div>
+</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> StringType&gt;</div>
+<div class="foldopen" id="foldopen00078" data-start="{" data-end="}">
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="../../d7/d15/classtoy_1_1_o_string_stream.html#a6e53656cd017b708a4b95850e6923dcb">   78</a></span><span class="keyword">constexpr</span> OStringStream&lt;StringType&gt;::pos_type OStringStream&lt;StringType&gt;::tellp() <span class="keyword">const</span> <span class="keyword">noexcept</span> {</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>  <span class="keywordflow">return</span> _string.size();</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>}</div>
+</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>} <span class="comment">// namespace toy</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="preprocessor">#</span><span class="preprocessor">endif</span> <span class="comment">// INCLUDE_CORE_O_STRING_STREAM_INL_</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->

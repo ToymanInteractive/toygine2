@@ -114,6 +114,13 @@ $(function(){initNavTree('d7/d15/classtoy_1_1_o_string_stream.html','../../','d7
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-types" class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a38e47228545b1a975f1dfe899f0dac0a" id="r_a38e47228545b1a975f1dfe899f0dac0a"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a38e47228545b1a975f1dfe899f0dac0a">char_type</a> = char</td></tr>
+<tr class="memdesc:a38e47228545b1a975f1dfe899f0dac0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of characters stored in the string.  <br /></td></tr>
+<tr class="memitem:ab383b8e1334ba8e40ad4ddbac105c8a0" id="r_ab383b8e1334ba8e40ad4ddbac105c8a0"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab383b8e1334ba8e40ad4ddbac105c8a0">pos_type</a> = size_t</td></tr>
+<tr class="memdesc:ab383b8e1334ba8e40ad4ddbac105c8a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of positions in the string.  <br /></td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a801c0cef8d956fb69fd8f89bc3c9ac52" id="r_a801c0cef8d956fb69fd8f89bc3c9ac52"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a801c0cef8d956fb69fd8f89bc3c9ac52">OStringStream</a> () noexcept=default</td></tr>
@@ -129,11 +136,59 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a33e8b57da620ae99a9c03612bb2dbbcb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Swaps the contents of this stream with another stream.  <br /></td></tr>
 <tr class="memitem:a88ac692738f862730436cfa29e0159fe" id="r_a88ac692738f862730436cfa29e0159fe"><td class="memItemLeft" align="right" valign="top">constexpr const StringType &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a88ac692738f862730436cfa29e0159fe">str</a> () const noexcept</td></tr>
 <tr class="memdesc:a88ac692738f862730436cfa29e0159fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a const reference to the underlying string.  <br /></td></tr>
+<tr class="memitem:acbabf124a32a172c880497f3257967e7" id="r_acbabf124a32a172c880497f3257967e7"><td class="memTemplParams" colspan="2">template&lt;StringLike SourceStringType&gt; </td></tr>
+<tr class="memitem:acbabf124a32a172c880497f3257967e7 template"><td class="memItemLeft" align="right" valign="top">constexpr void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acbabf124a32a172c880497f3257967e7">str</a> (const SourceStringType &amp;string) noexcept</td></tr>
+<tr class="memdesc:acbabf124a32a172c880497f3257967e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the content of the stream from a string-like object.  <br /></td></tr>
+<tr class="memitem:a8e0df79bdfbb170c35f4218a25ade3a5" id="r_a8e0df79bdfbb170c35f4218a25ade3a5"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8e0df79bdfbb170c35f4218a25ade3a5">view</a> () const noexcept</td></tr>
+<tr class="memdesc:a8e0df79bdfbb170c35f4218a25ade3a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a non-owning view of the underlying string.  <br /></td></tr>
+<tr class="memitem:aeb83538611d9facf4a2b5a2888d7f203" id="r_aeb83538611d9facf4a2b5a2888d7f203"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a801c0cef8d956fb69fd8f89bc3c9ac52">OStringStream</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeb83538611d9facf4a2b5a2888d7f203">put</a> (<a class="el" href="#a38e47228545b1a975f1dfe899f0dac0a">char_type</a> character) noexcept</td></tr>
+<tr class="memdesc:aeb83538611d9facf4a2b5a2888d7f203"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends a single character to the end of the stream.  <br /></td></tr>
+<tr class="memitem:a5578741db6fef667ac769081706a9228" id="r_a5578741db6fef667ac769081706a9228"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a801c0cef8d956fb69fd8f89bc3c9ac52">OStringStream</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5578741db6fef667ac769081706a9228">write</a> (const <a class="el" href="#a38e47228545b1a975f1dfe899f0dac0a">char_type</a> *string, size_t count) noexcept</td></tr>
+<tr class="memdesc:a5578741db6fef667ac769081706a9228"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes a specified number of characters from a buffer to the stream.  <br /></td></tr>
+<tr class="memitem:a6e53656cd017b708a4b95850e6923dcb" id="r_a6e53656cd017b708a4b95850e6923dcb"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="#ab383b8e1334ba8e40ad4ddbac105c8a0">pos_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6e53656cd017b708a4b95850e6923dcb">tellp</a> () const noexcept</td></tr>
+<tr class="memdesc:a6e53656cd017b708a4b95850e6923dcb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current write position in the stream.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:af7b4723343300cca10a0c8178c9214af" id="r_af7b4723343300cca10a0c8178c9214af"><td class="memItemLeft" align="right" valign="top">StringType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af7b4723343300cca10a0c8178c9214af">_string</a></td></tr>
 </table>
+<a name="doc-typedef-members" id="doc-typedef-members"></a><h2 id="header-doc-typedef-members" class="groupheader">Member Typedef Documentation</h2>
+<a id="a38e47228545b1a975f1dfe899f0dac0a" name="a38e47228545b1a975f1dfe899f0dac0a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38e47228545b1a975f1dfe899f0dac0a">&#9670;&#160;</a></span>char_type</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename StringType&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html">toy::OStringStream</a>&lt; StringType &gt;::char_type = char</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Type of characters stored in the string. </p>
+
+</div>
+</div>
+<a id="ab383b8e1334ba8e40ad4ddbac105c8a0" name="ab383b8e1334ba8e40ad4ddbac105c8a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab383b8e1334ba8e40ad4ddbac105c8a0">&#9670;&#160;</a></span>pos_type</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename StringType&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html">toy::OStringStream</a>&lt; StringType &gt;::pos_type = size_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Type of positions in the string. </p>
+
+</div>
+</div>
 <a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a801c0cef8d956fb69fd8f89bc3c9ac52" name="a801c0cef8d956fb69fd8f89bc3c9ac52"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a801c0cef8d956fb69fd8f89bc3c9ac52">&#9670;&#160;</a></span>OStringStream() <span class="overload">[1/2]</span></h2>
@@ -194,7 +249,7 @@ template&lt;StringLike SourceStringType&gt; </div>
 </div><div class="memdoc">
 
 <p>Constructs an <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html">OStringStream</a> from a string-like object. </p>
-<p>This constructor initializes the stream by copying the content from a string-like object. The source object must satisfy the <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html">toy::StringLike</a> concept.</p>
+<p>This constructor initializes the stream by copying the content from a string-like object.</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">SourceStringType</td><td>The type of the source string. Must satisfy the <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html">toy::StringLike</a> concept.</td></tr>
@@ -207,9 +262,7 @@ template&lt;StringLike SourceStringType&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">string</em> must be valid and properly initialized. </dd>
-<dd>
-The <em class="arg">string</em> size must not exceed the capacity of StringType.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">string</em> must be valid and properly initialized.</dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The stream contains a copy of the source string content.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The constructor performs a deep copy of the string content. </dd>
 <dd>
@@ -302,8 +355,52 @@ The source <em class="arg">other</em> stream is left in a valid but unspecified 
 
 </div>
 </div>
+<a id="aeb83538611d9facf4a2b5a2888d7f203" name="aeb83538611d9facf4a2b5a2888d7f203"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb83538611d9facf4a2b5a2888d7f203">&#9670;&#160;</a></span>put()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename StringType&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a801c0cef8d956fb69fd8f89bc3c9ac52">OStringStream</a>&lt; StringType &gt; &amp; <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html">toy::OStringStream</a>&lt; StringType &gt;::put </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a38e47228545b1a975f1dfe899f0dac0a">char_type</a></td>          <td class="paramname"><span class="paramname"><em>character</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Appends a single character to the end of the stream. </p>
+<p>This method appends the specified <em class="arg">character</em> to the end of the underlying string storage. The character is added to the current content without replacing it.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">character</td><td>The character to append to the stream.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html">OStringStream</a>, allowing method chaining.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">character</em> must not be the null character ('\0').</dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>The <em class="arg">character</em> is appended to the end of the stream content. </dd>
+<dd>
+The write position is advanced by one character.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a5578741db6fef667ac769081706a9228" title="Writes a specified number of characters from a buffer to the stream.">write(const char_type *, size_t)</a> </dd>
+<dd>
+<a class="el" href="#a6e53656cd017b708a4b95850e6923dcb" title="Returns the current write position in the stream.">tellp()</a> </dd></dl>
+
+</div>
+</div>
 <a id="a88ac692738f862730436cfa29e0159fe" name="a88ac692738f862730436cfa29e0159fe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a88ac692738f862730436cfa29e0159fe">&#9670;&#160;</a></span>str()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a88ac692738f862730436cfa29e0159fe">&#9670;&#160;</a></span>str() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -330,7 +427,62 @@ template&lt;typename StringType&gt; </div>
 <p>Returns a const reference to the underlying string. </p>
 <p>This method provides read-only access to the internal string storage.</p>
 <dl class="section return"><dt>Returns</dt><dd>A const reference to the underlying string.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The returned reference is valid for the lifetime of the <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html">OStringStream</a> object. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The returned reference is valid for the lifetime of the <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html">OStringStream</a> object.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a8e0df79bdfbb170c35f4218a25ade3a5" title="Returns a non-owning view of the underlying string.">view()</a> </dd></dl>
+
+</div>
+</div>
+<a id="acbabf124a32a172c880497f3257967e7" name="acbabf124a32a172c880497f3257967e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acbabf124a32a172c880497f3257967e7">&#9670;&#160;</a></span>str() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename StringType&gt; </div>
+<div class="memtemplate">
+template&lt;StringLike SourceStringType&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html">toy::OStringStream</a>&lt; StringType &gt;::str </td>
+          <td>(</td>
+          <td class="paramtype">const SourceStringType &amp;</td>          <td class="paramname"><span class="paramname"><em>string</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets the content of the stream from a string-like object. </p>
+<p>This method replaces the current content of the stream with the content from a string-like object.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">SourceStringType</td><td>The type of the source string. Must satisfy the <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html">toy::StringLike</a> concept.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">string</td><td>The source string-like object to set the content from.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">string</em> must be valid and properly initialized.</dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>The stream contains a copy of the source string content. </dd>
+<dd>
+The previous content of the stream is replaced.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The method performs a deep copy of the string content. </dd>
+<dd>
+The source string type can be different from StringType as long as both satisfy <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html">toy::StringLike</a>. </dd>
+<dd>
+This method provides a convenient way to update the stream content after construction.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a88ac692738f862730436cfa29e0159fe" title="Returns a const reference to the underlying string.">str() const</a> </dd></dl>
 
 </div>
 </div>
@@ -375,6 +527,138 @@ Both streams remain valid after the swap operation.</dd></dl>
 The operation is noexcept and provides strong exception guarantee. </dd>
 <dd>
 This method is useful for efficient content exchange without copying. </dd></dl>
+
+</div>
+</div>
+<a id="a6e53656cd017b708a4b95850e6923dcb" name="a6e53656cd017b708a4b95850e6923dcb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e53656cd017b708a4b95850e6923dcb">&#9670;&#160;</a></span>tellp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename StringType&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a801c0cef8d956fb69fd8f89bc3c9ac52">OStringStream</a>&lt; StringType &gt;<a class="el" href="#ab383b8e1334ba8e40ad4ddbac105c8a0">::pos_type</a> <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html">toy::OStringStream</a>&lt; StringType &gt;::tellp </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the current write position in the stream. </p>
+<p>This method returns the position where the next write operation will append data. Since <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html">OStringStream</a> only supports appending operations (all writes go to the end), the write position always equals the number of characters currently in the stream, which is the same as the size of the underlying string.</p>
+<dl class="section return"><dt>Returns</dt><dd>The current write position, representing the index where the next character will be appended. This value is always equal to the number of characters written so far and to <code><a class="el" href="#a88ac692738f862730436cfa29e0159fe" title="Returns a const reference to the underlying string.">str()</a></code>.size().</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Since all operations append to the end, the write position is always equal to the stream size.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a88ac692738f862730436cfa29e0159fe" title="Returns a const reference to the underlying string.">str() const</a> </dd>
+<dd>
+<a class="el" href="#aeb83538611d9facf4a2b5a2888d7f203" title="Appends a single character to the end of the stream.">put(char_type)</a> </dd>
+<dd>
+<a class="el" href="#a5578741db6fef667ac769081706a9228" title="Writes a specified number of characters from a buffer to the stream.">write(const char_type *, size_t)</a> </dd></dl>
+
+</div>
+</div>
+<a id="a8e0df79bdfbb170c35f4218a25ade3a5" name="a8e0df79bdfbb170c35f4218a25ade3a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e0df79bdfbb170c35f4218a25ade3a5">&#9670;&#160;</a></span>view()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename StringType&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a> <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html">toy::OStringStream</a>&lt; StringType &gt;::view </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a non-owning view of the underlying string. </p>
+<p>This method creates and returns a <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">toy::CStringView</a> that provides read-only access to the underlying string storage without copying the content. The view is lightweight and does not own the string data.</p>
+<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">toy::CStringView</a> representing the current content of the stream.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The returned view is valid for the lifetime of the <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html">OStringStream</a> object. </dd>
+<dd>
+The view does not own the string data and should not be used after the <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html">OStringStream</a> is destroyed. </dd>
+<dd>
+This method is useful for passing the stream content to functions that accept <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">toy::CStringView</a> without creating a copy. </dd>
+<dd>
+The view reflects the current state of the stream at the time of the call.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a88ac692738f862730436cfa29e0159fe" title="Returns a const reference to the underlying string.">str() const</a> </dd>
+<dd>
+<a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">toy::CStringView</a> </dd></dl>
+
+</div>
+</div>
+<a id="a5578741db6fef667ac769081706a9228" name="a5578741db6fef667ac769081706a9228"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5578741db6fef667ac769081706a9228">&#9670;&#160;</a></span>write()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename StringType&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a801c0cef8d956fb69fd8f89bc3c9ac52">OStringStream</a>&lt; StringType &gt; &amp; <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html">toy::OStringStream</a>&lt; StringType &gt;::write </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="#a38e47228545b1a975f1dfe899f0dac0a">char_type</a> *</td>          <td class="paramname"><span class="paramname"><em>string</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>count</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Writes a specified number of characters from a buffer to the stream. </p>
+<p>This method appends <em class="arg">count</em> characters from the buffer pointed to by <em class="arg">string</em> to the end of the stream. The characters are copied directly from the buffer without requiring null termination.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">string</td><td>The pointer to the character buffer to write from. Must not be null if <em class="arg">count</em> is greater than zero. </td></tr>
+    <tr><td class="paramname">count</td><td>The number of characters to write from the buffer.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html">OStringStream</a>, allowing method chaining.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>If <em class="arg">count</em> is greater than zero, <em class="arg">string</em> must not be null and must point to a valid buffer of at least <em class="arg">count</em> characters. </dd>
+<dd>
+All characters in the buffer must not be null characters ('\0').</dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd><em class="arg">count</em> characters from the buffer are appended to the end of the stream content. </dd>
+<dd>
+The write position is advanced by <em class="arg">count</em> characters.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This method is useful for writing binary data or partial strings that may not be null-terminated. </dd>
+<dd>
+If <em class="arg">count</em> is zero, the method returns without modifying the stream.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#aeb83538611d9facf4a2b5a2888d7f203" title="Appends a single character to the end of the stream.">put(char_type)</a> </dd>
+<dd>
+<a class="el" href="#a6e53656cd017b708a4b95850e6923dcb" title="Returns the current write position in the stream.">tellp()</a> </dd></dl>
 
 </div>
 </div>
