@@ -3002,7 +3002,7 @@ TEST_CASE("FixedString push_back", "[core][fixed_string]") {
     testString.push_back('\t');
     testString.push_back('\0');
 
-    REQUIRE(testString.size() == 8);
+    REQUIRE(testString.size() == 7);
     REQUIRE(std::strcmp(testString.c_str(), "Hello\n\t") == 0);
   }
 
