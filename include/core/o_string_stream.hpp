@@ -192,7 +192,7 @@ public:
     \sa write(const char_type *, size_t)
     \sa tellp()
   */
-  inline OStringStream & put(char_type character) noexcept;
+  OStringStream & put(char_type character) noexcept;
 
   /*!
     \brief Writes a specified number of characters from a buffer to the stream.
@@ -218,7 +218,7 @@ public:
     \sa put(char_type)
     \sa tellp()
   */
-  inline OStringStream & write(const char_type * string, size_t count) noexcept;
+  OStringStream & write(const char_type * string, size_t count) noexcept;
 
   /*!
     \brief Returns the current write position in the stream.

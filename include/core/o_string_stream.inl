@@ -54,20 +54,20 @@ constexpr CStringView OStringStream<StringType>::view() const noexcept {
 }
 
 template <typename StringType>
-OStringStream<StringType> & OStringStream<StringType>::put(char_type character) noexcept {
+inline OStringStream<StringType> & OStringStream<StringType>::put(char_type character) noexcept {
   _string.append(character);
 
   return *this;
 }
 
 template <typename StringType>
-OStringStream<StringType> & OStringStream<StringType>::write(const char_type * string, size_t count) noexcept {
+inline OStringStream<StringType> & OStringStream<StringType>::write(const char_type * string, size_t count) noexcept {
   assert_message(string != nullptr, "Source string must not be null.");
   if (string == nullptr || count == 0)
     return *this;
 
   for (size_t i = 0; i < count; ++i)
-    _string.append(string[i]);
+    _string.push_back(string[i]);
 
   return *this;
 }
