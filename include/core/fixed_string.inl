@@ -350,6 +350,11 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::erase(size_t 
 
 template <size_t allocatedSize>
 constexpr void FixedString<allocatedSize>::push_back(char character) noexcept {
+  assert_message(character != '\0', "Character must not be null.");
+
+  if (character == '\0')
+    return;
+
   assert_message(_storage.size + 1 < allocatedSize, "String must have space for new character");
 
   _storage.buffer[_storage.size++] = character;
@@ -411,7 +416,9 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::append(const 
 
 template <size_t allocatedSize>
 constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::append(char character, size_t count) noexcept {
-  if (count == 0)
+  assert_message(character != '\0', "Character must not be null.");
+
+  if (character == '\0' || count == 0)
     return *this;
 
   assert_message(_storage.size + count < allocatedSize, "Appended string must fit in capacity");
@@ -465,6 +472,11 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::operator+=(co
 
 template <size_t allocatedSize>
 constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::operator+=(char character) noexcept {
+  assert_message(character != '\0', "Character must not be null.");
+
+  if (character == '\0')
+    return *this;
+
   assert_message(_storage.size + 1 < allocatedSize, "Appended string must fit in capacity");
 
   _storage.buffer[_storage.size++] = character;

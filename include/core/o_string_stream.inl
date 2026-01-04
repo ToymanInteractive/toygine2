@@ -42,6 +42,43 @@ constexpr const StringType & OStringStream<StringType>::str() const noexcept {
   return _string;
 }
 
+template <typename StringType>
+template <StringLike SourceStringType>
+constexpr void OStringStream<StringType>::str(const SourceStringType & string) noexcept {
+  _string = string;
+}
+
+template <typename StringType>
+constexpr CStringView OStringStream<StringType>::view() const noexcept {
+  return CStringView(_string.c_str());
+}
+
+template <typename StringType>
+inline OStringStream<StringType> & OStringStream<StringType>::put(char_type character) noexcept {
+  assert_message(character != '\0', "Character must not be null.");
+
+  _string.push_back(character);
+
+  return *this;
+}
+
+template <typename StringType>
+inline OStringStream<StringType> & OStringStream<StringType>::write(const char_type * string, size_t count) noexcept {
+  assert_message(string != nullptr, "Source string must not be null.");
+  if (string == nullptr || count == 0)
+    return *this;
+
+  for (size_t i = 0; i < count; ++i)
+    _string.push_back(string[i]);
+
+  return *this;
+}
+
+template <typename StringType>
+constexpr OStringStream<StringType>::pos_type OStringStream<StringType>::tellp() const noexcept {
+  return _string.size();
+}
+
 } // namespace toy
 
 #endif // INCLUDE_CORE_O_STRING_STREAM_INL_

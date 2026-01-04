@@ -77,6 +77,11 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop")
   endif(CMAKE_CXX_COMPILER_VERSION VERSION_LESS 13.3)
 
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/Option-Summary.html
+#                 https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/C-Dialect-Options.html#index-flax-vector-conversions
+# Option Summary  https://gcc.gnu.org/onlinedocs/gcc-14.2.0/gcc/Option-Summary.html
+
+  set(CMAKE_C_FLAGS   "-std=с17")
+  set(CMAKE_CXX_FLAGS "-std=c++23")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
 
@@ -143,6 +148,9 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Game Boy Advance")
 
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/Option-Summary.html
 
+  set(CMAKE_C_FLAGS   "-std=с17")
+  set(CMAKE_CXX_FLAGS "-std=c++23")
+
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
 
   if (NOT DEVKITPRO_FOUND)
@@ -160,6 +168,9 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
   endif(CMAKE_CXX_COMPILER_VERSION VERSION_LESS 15.2)
 
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/Option-Summary.html
+
+  set(CMAKE_C_FLAGS   "-std=с17")
+  set(CMAKE_CXX_FLAGS "-std=c++23")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 3DS")
 
@@ -181,6 +192,9 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 3DS")
 
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/Option-Summary.html
 
+  set(CMAKE_C_FLAGS   "-std=с17")
+  set(CMAKE_CXX_FLAGS "-std=c++23")
+
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
 
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/Option-Summary.html
@@ -200,6 +214,9 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
   endif(CMAKE_CXX_COMPILER_VERSION VERSION_LESS 15.2)
 
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/Option-Summary.html
+
+  set(CMAKE_C_FLAGS   "-std=с17")
+  set(CMAKE_CXX_FLAGS "-std=c++23")
 
 else ()
 
