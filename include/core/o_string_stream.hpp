@@ -32,6 +32,10 @@ namespace toy {
 template <typename StringType>
 class OStringStream {
 public:
+  using char_type = char; //!< Type of characters stored in the string.
+
+  using pos_type = size_t; //!< Type of positions in the string.
+
   /*!
     \brief Default constructor.
 
@@ -44,15 +48,13 @@ public:
   /*!
     \brief Constructs an OStringStream from a string-like object.
 
-    This constructor initializes the stream by copying the content from a string-like object. The source object must
-    satisfy the \ref toy::StringLike concept.
+    This constructor initializes the stream by copying the content from a string-like object.
 
     \tparam SourceStringType The type of the source string. Must satisfy the \ref toy::StringLike concept.
 
     \param string The source string-like object to copy content from.
 
     \pre The \a string must be valid and properly initialized.
-    \pre The \a string size must not exceed the capacity of StringType.
 
     \post The stream contains a copy of the source string content.
 
@@ -125,8 +127,116 @@ public:
     \return A const reference to the underlying string.
 
     \note The returned reference is valid for the lifetime of the OStringStream object.
+
+    \sa view()
   */
   [[nodiscard]] constexpr const StringType & str() const noexcept;
+
+  /*!
+    \brief Sets the content of the stream from a string-like object.
+
+    This method replaces the current content of the stream with the content from a string-like object.
+
+    \tparam SourceStringType The type of the source string. Must satisfy the \ref toy::StringLike concept.
+
+    \param string The source string-like object to set the content from.
+
+    \pre The \a string must be valid and properly initialized.
+
+    \post The stream contains a copy of the source string content.
+    \post The previous content of the stream is replaced.
+
+    \note The method performs a deep copy of the string content.
+    \note The source string type can be different from StringType as long as both satisfy \ref toy::StringLike.
+    \note This method provides a convenient way to update the stream content after construction.
+
+    \sa str() const
+  */
+  template <StringLike SourceStringType>
+  constexpr void str(const SourceStringType & string) noexcept;
+
+  /*!
+    \brief Returns a non-owning view of the underlying string.
+
+    This method creates and returns a \ref toy::CStringView that provides read-only access to the underlying string
+    storage without copying the content. The view is lightweight and does not own the string data.
+
+    \return A \ref toy::CStringView representing the current content of the stream.
+
+    \note The returned view is valid for the lifetime of the OStringStream object.
+    \note The view does not own the string data and should not be used after the OStringStream is destroyed.
+    \note This method is useful for passing the stream content to functions that accept \ref toy::CStringView without
+          creating a copy.
+    \note The view reflects the current state of the stream at the time of the call.
+
+    \sa str() const
+    \sa toy::CStringView
+  */
+  [[nodiscard]] constexpr CStringView view() const noexcept;
+
+  /*!
+    \brief Appends a single character to the end of the stream.
+
+    This method appends the specified \a character to the end of the underlying string storage. The character is added
+    to the current content without replacing it.
+
+    \param character The character to append to the stream.
+
+    \return A reference to this OStringStream, allowing method chaining.
+
+    \pre The \a character must not be the null character ('\0').
+
+    \post The \a character is appended to the end of the stream content.
+    \post The write position is advanced by one character.
+
+    \sa write(const char_type *, size_t)
+    \sa tellp()
+  */
+  inline OStringStream & put(char_type character) noexcept;
+
+  /*!
+    \brief Writes a specified number of characters from a buffer to the stream.
+
+    This method appends \a count characters from the buffer pointed to by \a string to the end of the stream. The
+    characters are copied directly from the buffer without requiring null termination.
+
+    \param string The pointer to the character buffer to write from. Must not be null if \a count is greater than zero.
+    \param count  The number of characters to write from the buffer.
+
+    \return A reference to this OStringStream, allowing method chaining.
+
+    \pre If \a count is greater than zero, \a string must not be null and must point to a valid buffer of at least
+         \a count characters.
+    \pre All characters in the buffer must not be null characters ('\0').
+
+    \post \a count characters from the buffer are appended to the end of the stream content.
+    \post The write position is advanced by \a count characters.
+
+    \note This method is useful for writing binary data or partial strings that may not be null-terminated.
+    \note If \a count is zero, the method returns without modifying the stream.
+
+    \sa put(char_type)
+    \sa tellp()
+  */
+  inline OStringStream & write(const char_type * string, size_t count) noexcept;
+
+  /*!
+    \brief Returns the current write position in the stream.
+
+    This method returns the position where the next write operation will append data. Since OStringStream only supports
+    appending operations (all writes go to the end), the write position always equals the number of characters currently
+    in the stream, which is the same as the size of the underlying string.
+
+    \return The current write position, representing the index where the next character will be appended. This value is
+            always equal to the number of characters written so far and to \c str().size().
+
+    \note Since all operations append to the end, the write position is always equal to the stream size.
+
+    \sa str() const
+    \sa put(char_type)
+    \sa write(const char_type *, size_t)
+  */
+  [[nodiscard]] constexpr pos_type tellp() const noexcept;
 
 private:
   StringType _string;
