@@ -411,7 +411,9 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::append(const 
 
 template <size_t allocatedSize>
 constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::append(char character, size_t count) noexcept {
-  if (count == 0)
+  assert_message(character != '\0', "Character must not be null.");
+
+  if (character == '\0' || count == 0)
     return *this;
 
   assert_message(_storage.size + count < allocatedSize, "Appended string must fit in capacity");

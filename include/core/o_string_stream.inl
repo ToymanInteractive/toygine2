@@ -55,8 +55,6 @@ constexpr CStringView OStringStream<StringType>::view() const noexcept {
 
 template <typename StringType>
 OStringStream<StringType> & OStringStream<StringType>::put(char_type character) noexcept {
-  assert_message(character != '\0', "Character must not be null.");
-
   _string.append(character);
 
   return *this;
@@ -64,15 +62,12 @@ OStringStream<StringType> & OStringStream<StringType>::put(char_type character) 
 
 template <typename StringType>
 OStringStream<StringType> & OStringStream<StringType>::write(const char_type * string, size_t count) noexcept {
-  if (count == 0)
+  assert_message(string != nullptr, "Source string must not be null.");
+  if (string == nullptr || count == 0)
     return *this;
 
-  assert_message(string != nullptr, "Source string must not be null.");
-
-  for (size_t i = 0; i < count; ++i) {
-    assert_message(string[i] != '\0', "Character must not be null.");
+  for (size_t i = 0; i < count; ++i)
     _string.append(string[i]);
-  }
 
   return *this;
 }
