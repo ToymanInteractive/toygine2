@@ -55,6 +55,8 @@ constexpr CStringView OStringStream<StringType>::view() const noexcept {
 
 template <typename StringType>
 inline OStringStream<StringType> & OStringStream<StringType>::put(char_type character) noexcept {
+  assert_message(character != '\0', "Character must not be null.");
+
   _string.push_back(character);
 
   return *this;
