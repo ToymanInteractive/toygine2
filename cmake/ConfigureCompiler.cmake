@@ -215,7 +215,7 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
 
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/Option-Summary.html
 
-  set(CMAKE_C_FLAGS   "-std=c17")
+  set(CMAKE_C_FLAGS   "-std=с17")
   set(CMAKE_CXX_FLAGS "-std=c++23")
 
 else ()

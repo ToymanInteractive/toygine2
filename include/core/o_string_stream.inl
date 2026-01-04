@@ -55,7 +55,7 @@ constexpr CStringView OStringStream<StringType>::view() const noexcept {
 
 template <typename StringType>
 inline OStringStream<StringType> & OStringStream<StringType>::put(char_type character) noexcept {
-  _string.append(character);
+  _string.push_back(character);
 
   return *this;
 }
