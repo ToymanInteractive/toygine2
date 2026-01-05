@@ -35,6 +35,14 @@ constexpr OStringStream<StringType>::OStringStream(const SourceStringType & stri
 template <typename StringType>
 constexpr void OStringStream<StringType>::swap(OStringStream & other) noexcept {
   std::swap(_string, other._string);
+  std::swap(_precision, other._precision);
+}
+
+template <typename StringType>
+constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(bool value) noexcept {
+  _string += value ? "true" : "false";
+
+  return *this;
 }
 
 template <typename StringType>
@@ -54,7 +62,7 @@ constexpr CStringView OStringStream<StringType>::view() const noexcept {
 }
 
 template <typename StringType>
-inline OStringStream<StringType> & OStringStream<StringType>::put(char_type character) noexcept {
+constexpr OStringStream<StringType> & OStringStream<StringType>::put(char_type character) noexcept {
   assert_message(character != '\0', "Character must not be null.");
 
   _string.push_back(character);
@@ -63,7 +71,8 @@ inline OStringStream<StringType> & OStringStream<StringType>::put(char_type char
 }
 
 template <typename StringType>
-inline OStringStream<StringType> & OStringStream<StringType>::write(const char_type * string, size_t count) noexcept {
+constexpr OStringStream<StringType> & OStringStream<StringType>::write(const char_type * string,
+                                                                       size_t count) noexcept {
   assert_message(string != nullptr, "Source string must not be null.");
   if (string == nullptr || count == 0)
     return *this;
@@ -77,6 +86,22 @@ inline OStringStream<StringType> & OStringStream<StringType>::write(const char_t
 template <typename StringType>
 constexpr OStringStream<StringType>::pos_type OStringStream<StringType>::tellp() const noexcept {
   return _string.size();
+}
+
+template <typename StringType>
+constexpr int OStringStream<StringType>::precision() const noexcept {
+  return _precision;
+}
+
+template <typename StringType>
+constexpr int OStringStream<StringType>::precision(int newPrecision) noexcept {
+  assert_message(newPrecision >= 0, "Precision must be non-negative.");
+
+  const auto oldPrecision = _precision;
+
+  _precision = newPrecision;
+
+  return oldPrecision;
 }
 
 } // namespace toy

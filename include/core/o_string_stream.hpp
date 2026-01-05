@@ -120,6 +120,26 @@ public:
   constexpr void swap(OStringStream & other) noexcept;
 
   /*!
+    \brief Inserts a boolean value into the stream.
+
+    This operator converts the boolean \a value to its string representation and appends it to the stream. The value
+    \c true is converted to the string "true", and the value \c false is converted to the string "false".
+
+    \param value The boolean value to insert into the stream.
+
+    \return A reference to this OStringStream, allowing operator chaining.
+
+    \note This operator follows the same pattern as std::ostringstream::operator<<(bool).
+
+    \post The write position is advanced by the length of the appended string (4 for "true", 5 for "false").
+
+    \sa put(char_type)
+    \sa write(const char_type *, size_t)
+    \sa tellp()
+  */
+  constexpr OStringStream & operator<<(bool value) noexcept;
+
+  /*!
     \brief Returns a const reference to the underlying string.
 
     This method provides read-only access to the internal string storage.
@@ -192,7 +212,7 @@ public:
     \sa write(const char_type *, size_t)
     \sa tellp()
   */
-  OStringStream & put(char_type character) noexcept;
+  constexpr OStringStream & put(char_type character) noexcept;
 
   /*!
     \brief Writes a specified number of characters from a buffer to the stream.
@@ -218,7 +238,7 @@ public:
     \sa put(char_type)
     \sa tellp()
   */
-  OStringStream & write(const char_type * string, size_t count) noexcept;
+  constexpr OStringStream & write(const char_type * string, size_t count) noexcept;
 
   /*!
     \brief Returns the current write position in the stream.
@@ -238,8 +258,41 @@ public:
   */
   [[nodiscard]] constexpr pos_type tellp() const noexcept;
 
+  /*!
+    \brief Returns the current floating-point precision setting.
+
+    This method returns the precision value that will be used for formatting floating-point numbers when writing to the
+    stream. The precision specifies the number of digits to display after the decimal point.
+
+    \return The current precision value.
+
+    \note The precision value affects how floating-point numbers are formatted when written to the stream.
+
+    \sa precision(int)
+  */
+  [[nodiscard]] constexpr int precision() const noexcept;
+
+  /*!
+    \brief Sets the floating-point precision and returns the previous value.
+
+    This method sets the precision value that will be used for formatting floating-point numbers when writing to the
+    stream. The precision specifies the number of digits to display after the decimal point.
+
+    \param newPrecision The new precision value to set.
+
+    \return The previous precision value before the change.
+
+    \pre The \a newPrecision must be non-negative.
+
+    \note The precision value affects how floating-point numbers are formatted when written to the stream.
+
+    \sa precision() const
+  */
+  constexpr int precision(int newPrecision) noexcept;
+
 private:
   StringType _string;
+  int _precision = 6;
 };
 
 } // namespace toy
