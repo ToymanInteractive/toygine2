@@ -140,6 +140,90 @@ public:
   constexpr OStringStream & operator<<(bool value) noexcept;
 
   /*!
+    \brief Inserts a signed long integer value into the stream.
+
+    This operator converts the signed long integer \a value to its decimal string representation and appends it to the
+    stream. Negative values are prefixed with a minus sign.
+
+    \param value The signed long integer value to insert into the stream.
+
+    \return A reference to this OStringStream, allowing operator chaining.
+
+    \post The write position is advanced by the length of the appended string.
+
+    \note This operator follows the same pattern as std::ostringstream::operator<<(long).
+
+    \sa operator<<(unsigned long)
+    \sa operator<<(long long)
+    \sa put(char_type)
+    \sa tellp()
+  */
+  constexpr OStringStream & operator<<(long value) noexcept;
+
+  /*!
+    \brief Inserts an unsigned long integer value into the stream.
+
+    This operator converts the unsigned long integer \a value to its decimal string representation and appends it to the
+    stream.
+
+    \param value The unsigned long integer value to insert into the stream.
+
+    \return A reference to this OStringStream, allowing operator chaining.
+
+    \post The write position is advanced by the length of the appended string.
+
+    \note This operator follows the same pattern as std::ostringstream::operator<<(unsigned long).
+
+    \sa operator<<(long)
+    \sa operator<<(unsigned long long)
+    \sa put(char_type)
+    \sa tellp()
+  */
+  constexpr OStringStream & operator<<(unsigned long value) noexcept;
+
+  /*!
+    \brief Inserts a signed long long integer value into the stream.
+
+    This operator converts the signed long long integer \a value to its decimal string representation and appends it to
+    the stream. Negative values are prefixed with a minus sign.
+
+    \param value The signed long long integer value to insert into the stream.
+
+    \return A reference to this OStringStream, allowing operator chaining.
+
+    \post The write position is advanced by the length of the appended string.
+
+    \note This operator follows the same pattern as std::ostringstream::operator<<(long long).
+
+    \sa operator<<(long)
+    \sa operator<<(unsigned long long)
+    \sa put(char_type)
+    \sa tellp()
+  */
+  constexpr OStringStream & operator<<(long long value) noexcept;
+
+  /*!
+    \brief Inserts an unsigned long long integer value into the stream.
+
+    This operator converts the unsigned long long integer \a value to its decimal string representation and appends it
+    to the stream.
+
+    \param value The unsigned long long integer value to insert into the stream.
+
+    \return A reference to this OStringStream, allowing operator chaining.
+
+    \post The write position is advanced by the length of the appended string.
+
+    \note This operator follows the same pattern as std::ostringstream::operator<<(unsigned long long).
+
+    \sa operator<<(long long)
+    \sa operator<<(unsigned long)
+    \sa put(char_type)
+    \sa tellp()
+  */
+  constexpr OStringStream & operator<<(unsigned long long value) noexcept;
+
+  /*!
     \brief Returns a const reference to the underlying string.
 
     This method provides read-only access to the internal string storage.

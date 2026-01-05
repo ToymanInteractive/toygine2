@@ -546,6 +546,83 @@ TEST_CASE("OStringStream operator<<", "[core][o_string_stream]") {
     REQUIRE(stream1.str() == "true");
     REQUIRE(stream2.str() == "false");
   }
+
+  SECTION("Insert long integer") {
+    OStringStream<FixedString<32>> stream;
+
+    stream << 12345L;
+
+    REQUIRE(stream.str() == "12345");
+  }
+
+  SECTION("Insert negative long integer") {
+    OStringStream<FixedString<32>> stream;
+
+    stream << -12345L;
+
+    REQUIRE(stream.str() == "-12345");
+  }
+
+  SECTION("Insert unsigned long integer") {
+    OStringStream<FixedString<32>> stream;
+
+    stream << 12345UL;
+
+    REQUIRE(stream.str() == "12345");
+  }
+
+  SECTION("Insert long long integer") {
+    OStringStream<FixedString<64>> stream;
+
+    stream << 123456789LL;
+
+    REQUIRE(stream.str() == "123456789");
+  }
+
+  SECTION("Insert negative long long integer") {
+    OStringStream<FixedString<64>> stream;
+
+    stream << -123456789LL;
+
+    REQUIRE(stream.str() == "-123456789");
+  }
+
+  SECTION("Insert unsigned long long integer") {
+    OStringStream<FixedString<64>> stream;
+
+    stream << 123456789ULL;
+
+    REQUIRE(stream.str() == "123456789");
+  }
+
+  SECTION("Insert zero values") {
+    OStringStream<FixedString<32>> stream;
+
+    stream << 0L << 0UL << 0LL << 0ULL;
+
+    REQUIRE(stream.str() == "0000");
+  }
+
+  SECTION("Insert integer to stream with content") {
+    OStringStream<FixedString<64>> stream(CStringView("Value: "));
+
+    stream << 42L;
+
+    REQUIRE(stream.str() == "Value: 42");
+  }
+
+  SECTION("Insert integer returns reference for chaining") {
+    OStringStream<FixedString<64>> stream1;
+    OStringStream<FixedString<64>> stream2;
+
+    auto & ref1 = stream1 << 100L;
+    auto & ref2 = stream2 << 200UL;
+
+    REQUIRE(&ref1 == &stream1);
+    REQUIRE(&ref2 == &stream2);
+    REQUIRE(stream1.str() == "100");
+    REQUIRE(stream2.str() == "200");
+  }
 }
 
 } // namespace toy
