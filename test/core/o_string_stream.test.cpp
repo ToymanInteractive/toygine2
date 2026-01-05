@@ -487,7 +487,6 @@ TEST_CASE("OStringStream precision", "[core][o_string_stream]") {
 
     stream.precision(3);
     REQUIRE(stream.precision() == 3);
-    REQUIRE(stream.str().size() == 2);
     REQUIRE(stream.str() == "AB");
   }
 }
@@ -498,7 +497,6 @@ TEST_CASE("OStringStream operator<<", "[core][o_string_stream]") {
 
     stream << true;
 
-    REQUIRE(stream.str().size() == 4);
     REQUIRE(stream.str() == "true");
   }
 
@@ -507,16 +505,14 @@ TEST_CASE("OStringStream operator<<", "[core][o_string_stream]") {
 
     stream << false;
 
-    REQUIRE(stream.str().size() == 5);
     REQUIRE(stream.str() == "false");
   }
 
   SECTION("Insert boolean to stream with content") {
-    OStringStream<FixedString<32>> stream(FixedString<16>("Value: "));
+    OStringStream<FixedString<32>> stream("Value: ");
 
     stream << true;
 
-    REQUIRE(stream.str().size() == 11);
     REQUIRE(stream.str() == "Value: true");
   }
 
@@ -525,7 +521,6 @@ TEST_CASE("OStringStream operator<<", "[core][o_string_stream]") {
 
     stream << true << false << true;
 
-    REQUIRE(stream.str().size() == 13);
     REQUIRE(stream.str() == "truefalsetrue");
   }
 
@@ -536,7 +531,6 @@ TEST_CASE("OStringStream operator<<", "[core][o_string_stream]") {
     stream.put(' ');
     stream << false;
 
-    REQUIRE(stream.str().size() == 10);
     REQUIRE(stream.str() == "true false");
   }
 

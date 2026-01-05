@@ -474,28 +474,18 @@ char * itoa(char * dest, size_t destSize, int64_t value) noexcept {
 }
 
 char * itoa(char * dest, size_t destSize, uint8_t value, unsigned base) noexcept {
-  assert_message(destSize >= 4, "The destination buffer size must be at least 4 characters for worst case 255");
-
   return utoaImplementation(dest, destSize, value, base);
 }
 
 char * itoa(char * dest, size_t destSize, uint16_t value, unsigned base) noexcept {
-  assert_message(destSize >= 6, "The destination buffer size must be at least 6 characters for worst case 65535");
-
   return utoaImplementation(dest, destSize, value, base);
 }
 
 char * itoa(char * dest, size_t destSize, uint32_t value, unsigned base) noexcept {
-  assert_message(destSize >= 11,
-                 "The destination buffer size must be at least 11 characters for worst case 4294967295");
-
   return utoaImplementation(dest, destSize, value, base);
 }
 
 char * itoa(char * dest, size_t destSize, uint64_t value, unsigned base) noexcept {
-  assert_message(destSize >= 21,
-                 "The destination buffer size must be at least 21 characters for worst case 18446744073709551615");
-
   return utoaImplementation(dest, destSize, value, base);
 }
 
