@@ -509,7 +509,7 @@ TEST_CASE("OStringStream operator<<", "[core][o_string_stream]") {
   }
 
   SECTION("Insert boolean to stream with content") {
-    OStringStream<FixedString<32>> stream("Value: ");
+    OStringStream<FixedString<32>> stream(CStringView("Value: "));
 
     stream << true;
 
