@@ -30,56 +30,47 @@ TEST_CASE("OStringStream constructors", "[core][o_string_stream]") {
   SECTION("Default constructor") {
     constexpr OStringStream<FixedString<32>> emptyStream;
 
-    REQUIRE(emptyStream.str().size() == 0);
-    REQUIRE(std::strcmp(emptyStream.str().c_str(), "") == 0);
+    REQUIRE(emptyStream.str() == "");
 
     // Compile-time checks
-    STATIC_REQUIRE(emptyStream.str().size() == 0);
-    STATIC_REQUIRE(cstrcmp(emptyStream.str().c_str(), "") == 0);
+    STATIC_REQUIRE(emptyStream.str() == "");
   }
 
   SECTION("Constructor from FixedString") {
     constexpr FixedString<16> source("Hello");
     constexpr OStringStream<FixedString<32>> stream(source);
 
-    REQUIRE(stream.str().size() == 5);
-    REQUIRE(std::strcmp(stream.str().c_str(), "Hello") == 0);
+    REQUIRE(stream.str() == "Hello");
 
     // Compile-time checks
-    STATIC_REQUIRE(stream.str().size() == 5);
-    STATIC_REQUIRE(cstrcmp(stream.str().c_str(), "Hello") == 0);
+    STATIC_REQUIRE(stream.str() == "Hello");
   }
 
   SECTION("Constructor from std::string") {
     std::string source = "World";
     OStringStream<FixedString<64>> stream(source);
 
-    REQUIRE(stream.str().size() == 5);
-    REQUIRE(std::strcmp(stream.str().c_str(), "World") == 0);
+    REQUIRE(stream.str() == "World");
   }
 
   SECTION("Constructor from CStringView") {
     constexpr CStringView view("Test");
     constexpr OStringStream<FixedString<32>> stream(view);
 
-    REQUIRE(stream.str().size() == 4);
-    REQUIRE(std::strcmp(stream.str().c_str(), "Test") == 0);
+    REQUIRE(stream.str() == "Test");
 
     // Compile-time checks
-    STATIC_REQUIRE(stream.str().size() == 4);
-    STATIC_REQUIRE(cstrcmp(stream.str().c_str(), "Test") == 0);
+    STATIC_REQUIRE(stream.str() == "Test");
   }
 
   SECTION("Constructor with empty string") {
     constexpr FixedString<16> empty;
     constexpr OStringStream<FixedString<32>> stream(empty);
 
-    REQUIRE(stream.str().size() == 0);
-    REQUIRE(std::strcmp(stream.str().c_str(), "") == 0);
+    REQUIRE(stream.str() == "");
 
     // Compile-time checks
-    STATIC_REQUIRE(stream.str().size() == 0);
-    STATIC_REQUIRE(cstrcmp(stream.str().c_str(), "") == 0);
+    STATIC_REQUIRE(stream.str() == "");
   }
 }
 
@@ -90,10 +81,8 @@ TEST_CASE("OStringStream assignment operators", "[core][o_string_stream]") {
 
     target = source;
 
-    REQUIRE(target.str().size() == 6);
-    REQUIRE(std::strcmp(target.str().c_str(), "Source") == 0);
-    REQUIRE(source.str().size() == 6);
-    REQUIRE(std::strcmp(source.str().c_str(), "Source") == 0);
+    REQUIRE(target.str() == "Source");
+    REQUIRE(source.str() == "Source");
   }
 
   SECTION("Move assignment") {
@@ -102,8 +91,7 @@ TEST_CASE("OStringStream assignment operators", "[core][o_string_stream]") {
 
     target = std::move(source);
 
-    REQUIRE(target.str().size() == 4);
-    REQUIRE(std::strcmp(target.str().c_str(), "Move") == 0);
+    REQUIRE(target.str() == "Move");
   }
 }
 
@@ -112,45 +100,54 @@ TEST_CASE("OStringStream swap", "[core][o_string_stream]") {
     OStringStream<FixedString<32>> stream1(FixedString<16>("First"));
     OStringStream<FixedString<32>> stream2(FixedString<16>("Second"));
 
+    stream1.precision(3);
+    stream2.precision(9);
+
     stream1.swap(stream2);
 
-    REQUIRE(stream1.str().size() == 6);
-    REQUIRE(std::strcmp(stream1.str().c_str(), "Second") == 0);
-    REQUIRE(stream2.str().size() == 5);
-    REQUIRE(std::strcmp(stream2.str().c_str(), "First") == 0);
+    REQUIRE(stream1.str() == "Second");
+    REQUIRE(stream1.precision() == 9);
+    REQUIRE(stream2.str() == "First");
+    REQUIRE(stream2.precision() == 3);
   }
 
   SECTION("Swap with empty stream") {
     OStringStream<FixedString<32>> stream1(FixedString<16>("Content"));
     OStringStream<FixedString<32>> stream2;
 
+    stream1.precision(5);
+
     stream1.swap(stream2);
 
-    REQUIRE(stream1.str().size() == 0);
-    REQUIRE(std::strcmp(stream1.str().c_str(), "") == 0);
-    REQUIRE(stream2.str().size() == 7);
-    REQUIRE(std::strcmp(stream2.str().c_str(), "Content") == 0);
+    REQUIRE(stream1.str() == "");
+    REQUIRE(stream1.precision() == 6);
+    REQUIRE(stream2.str() == "Content");
+    REQUIRE(stream2.precision() == 5);
   }
 
   SECTION("Self-swap") {
     OStringStream<FixedString<32>> stream(FixedString<16>("Test"));
 
+    stream.precision(8);
     stream.swap(stream);
 
-    REQUIRE(stream.str().size() == 4);
-    REQUIRE(std::strcmp(stream.str().c_str(), "Test") == 0);
+    REQUIRE(stream.str() == "Test");
+    REQUIRE(stream.precision() == 8);
   }
 
   SECTION("Swap empty streams") {
     OStringStream<FixedString<32>> stream1;
     OStringStream<FixedString<32>> stream2;
 
+    stream1.precision(2);
+    stream2.precision(10);
+
     stream1.swap(stream2);
 
-    REQUIRE(stream1.str().size() == 0);
-    REQUIRE(std::strcmp(stream1.str().c_str(), "") == 0);
-    REQUIRE(stream2.str().size() == 0);
-    REQUIRE(std::strcmp(stream2.str().c_str(), "") == 0);
+    REQUIRE(stream1.str() == "");
+    REQUIRE(stream1.precision() == 10);
+    REQUIRE(stream2.str() == "");
+    REQUIRE(stream2.precision() == 2);
   }
 }
 
@@ -161,8 +158,7 @@ TEST_CASE("OStringStream str setter", "[core][o_string_stream]") {
 
     stream.str(source);
 
-    REQUIRE(stream.str().size() == 10);
-    REQUIRE(std::strcmp(stream.str().c_str(), "NewContent") == 0);
+    REQUIRE(stream.str() == "NewContent");
   }
 
   SECTION("Set from CStringView") {
@@ -171,8 +167,7 @@ TEST_CASE("OStringStream str setter", "[core][o_string_stream]") {
 
     stream.str(view);
 
-    REQUIRE(stream.str().size() == 10);
-    REQUIRE(std::strcmp(stream.str().c_str(), "NewContent") == 0);
+    REQUIRE(stream.str() == "NewContent");
   }
 
   SECTION("Set from std::string") {
@@ -181,8 +176,7 @@ TEST_CASE("OStringStream str setter", "[core][o_string_stream]") {
 
     stream.str(source);
 
-    REQUIRE(stream.str().size() == 10);
-    REQUIRE(std::strcmp(stream.str().c_str(), "NewContent") == 0);
+    REQUIRE(stream.str() == "NewContent");
   }
 
   SECTION("Set empty string") {
@@ -201,13 +195,13 @@ TEST_CASE("OStringStream str setter", "[core][o_string_stream]") {
     constexpr FixedString<16> third("Third");
 
     stream.str(first);
-    REQUIRE(std::strcmp(stream.str().c_str(), "First") == 0);
+    REQUIRE(stream.str() == "First");
 
     stream.str(second);
-    REQUIRE(std::strcmp(stream.str().c_str(), "Second") == 0);
+    REQUIRE(stream.str() == "Second");
 
     stream.str(third);
-    REQUIRE(std::strcmp(stream.str().c_str(), "Third") == 0);
+    REQUIRE(stream.str() == "Third");
   }
 }
 
@@ -216,8 +210,7 @@ TEST_CASE("OStringStream view", "[core][o_string_stream]") {
     constexpr OStringStream<FixedString<32>> stream(FixedString<16>("Hello"));
     auto view = stream.view();
 
-    REQUIRE(view.size() == 5);
-    REQUIRE(std::strcmp(view.c_str(), "Hello") == 0);
+    REQUIRE(view == "Hello");
   }
 
   SECTION("View with empty stream") {
@@ -231,14 +224,12 @@ TEST_CASE("OStringStream view", "[core][o_string_stream]") {
     OStringStream<FixedString<32>> stream(FixedString<16>("Initial"));
     auto view1 = stream.view();
 
-    REQUIRE(view1.size() == 7);
-    REQUIRE(std::strcmp(view1.c_str(), "Initial") == 0);
+    REQUIRE(view1 == "Initial");
 
     stream.str(FixedString<16>("Updated"));
     auto view2 = stream.view();
 
-    REQUIRE(view2.size() == 7);
-    REQUIRE(std::strcmp(view2.c_str(), "Updated") == 0);
+    REQUIRE(view2 == "Updated");
   }
 
   SECTION("Multiple views of same stream") {
@@ -246,8 +237,6 @@ TEST_CASE("OStringStream view", "[core][o_string_stream]") {
     auto view1 = stream.view();
     auto view2 = stream.view();
 
-    REQUIRE(view1.size() == view2.size());
-    REQUIRE(std::strcmp(view1.c_str(), view2.c_str()) == 0);
     REQUIRE(view1 == view2);
   }
 }
@@ -258,8 +247,7 @@ TEST_CASE("OStringStream put", "[core][o_string_stream]") {
 
     stream.put('A');
 
-    REQUIRE(stream.str().size() == 1);
-    REQUIRE(std::strcmp(stream.str().c_str(), "A") == 0);
+    REQUIRE(stream.str() == "A");
   }
 
   SECTION("Put single character to stream with content") {
@@ -267,8 +255,7 @@ TEST_CASE("OStringStream put", "[core][o_string_stream]") {
 
     stream.put('!');
 
-    REQUIRE(stream.str().size() == 6);
-    REQUIRE(std::strcmp(stream.str().c_str(), "Hello!") == 0);
+    REQUIRE(stream.str() == "Hello!");
   }
 
   SECTION("Put multiple characters with chaining") {
@@ -276,8 +263,7 @@ TEST_CASE("OStringStream put", "[core][o_string_stream]") {
 
     stream.put('H').put('e').put('l').put('l').put('o');
 
-    REQUIRE(stream.str().size() == 5);
-    REQUIRE(std::strcmp(stream.str().c_str(), "Hello") == 0);
+    REQUIRE(stream.str() == "Hello");
   }
 
   SECTION("Put to stream and verify content") {
@@ -285,8 +271,7 @@ TEST_CASE("OStringStream put", "[core][o_string_stream]") {
 
     stream.put('1').put('2').put('3');
 
-    REQUIRE(stream.str().size() == 7);
-    REQUIRE(std::strcmp(stream.str().c_str(), "Test123") == 0);
+    REQUIRE(stream.str() == "Test123");
   }
 
   SECTION("Put special characters") {
@@ -310,8 +295,8 @@ TEST_CASE("OStringStream put", "[core][o_string_stream]") {
 
     REQUIRE(&ref1 == &stream1);
     REQUIRE(&ref2 == &stream2);
-    REQUIRE(std::strcmp(stream1.str().c_str(), "A") == 0);
-    REQUIRE(std::strcmp(stream2.str().c_str(), "B") == 0);
+    REQUIRE(stream1.str() == "A");
+    REQUIRE(stream2.str() == "B");
   }
 }
 
@@ -322,8 +307,7 @@ TEST_CASE("OStringStream write", "[core][o_string_stream]") {
 
     stream.write(buffer, 5);
 
-    REQUIRE(stream.str().size() == 5);
-    REQUIRE(std::strcmp(stream.str().c_str(), "Hello") == 0);
+    REQUIRE(stream.str() == "Hello");
   }
 
   SECTION("Write to stream with content") {
@@ -332,8 +316,7 @@ TEST_CASE("OStringStream write", "[core][o_string_stream]") {
 
     stream.write(buffer, 3);
 
-    REQUIRE(stream.str().size() == 7);
-    REQUIRE(std::strcmp(stream.str().c_str(), "Test123") == 0);
+    REQUIRE(stream.str() == "Test123");
   }
 
   SECTION("Write zero count") {
@@ -342,8 +325,7 @@ TEST_CASE("OStringStream write", "[core][o_string_stream]") {
 
     stream.write(buffer, 0);
 
-    REQUIRE(stream.str().size() == 7);
-    REQUIRE(std::strcmp(stream.str().c_str(), "Initial") == 0);
+    REQUIRE(stream.str() == "Initial");
   }
 
   SECTION("Write partial string") {
@@ -352,8 +334,7 @@ TEST_CASE("OStringStream write", "[core][o_string_stream]") {
 
     stream.write(buffer, 5);
 
-    REQUIRE(stream.str().size() == 5);
-    REQUIRE(std::strcmp(stream.str().c_str(), "Hello") == 0);
+    REQUIRE(stream.str() == "Hello");
   }
 
   SECTION("Write multiple times with chaining") {
@@ -363,8 +344,7 @@ TEST_CASE("OStringStream write", "[core][o_string_stream]") {
 
     stream.write(buffer1, 5).write(buffer2, 6);
 
-    REQUIRE(stream.str().size() == 11);
-    REQUIRE(std::strcmp(stream.str().c_str(), "Hello World") == 0);
+    REQUIRE(stream.str() == "Hello World");
   }
 
   SECTION("Write binary data") {
@@ -373,8 +353,7 @@ TEST_CASE("OStringStream write", "[core][o_string_stream]") {
 
     stream.write(buffer, 5);
 
-    REQUIRE(stream.str().size() == 5);
-    REQUIRE(std::strcmp(stream.str().c_str(), "Hello") == 0);
+    REQUIRE(stream.str() == "Hello");
   }
 
   SECTION("Write returns reference for chaining") {
@@ -388,8 +367,8 @@ TEST_CASE("OStringStream write", "[core][o_string_stream]") {
 
     REQUIRE(&ref1 == &stream1);
     REQUIRE(&ref2 == &stream2);
-    REQUIRE(std::strcmp(stream1.str().c_str(), "First") == 0);
-    REQUIRE(std::strcmp(stream2.str().c_str(), "Second") == 0);
+    REQUIRE(stream1.str() == "First");
+    REQUIRE(stream2.str() == "Second");
   }
 }
 
@@ -456,6 +435,122 @@ TEST_CASE("OStringStream tellp", "[core][o_string_stream]") {
 
     REQUIRE(stream.tellp() == stream.str().size());
     REQUIRE(stream.tellp() == 3);
+  }
+}
+
+TEST_CASE("OStringStream precision", "[core][o_string_stream]") {
+  SECTION("Default precision") {
+    constexpr OStringStream<FixedString<32>> stream;
+
+    REQUIRE(stream.precision() == 6);
+
+    // Compile-time check
+    STATIC_REQUIRE(stream.precision() == 6);
+  }
+
+  SECTION("Set precision") {
+    OStringStream<FixedString<32>> stream;
+
+    REQUIRE(stream.precision() == 6);
+
+    const auto oldPrecision = stream.precision(10);
+
+    REQUIRE(oldPrecision == 6);
+    REQUIRE(stream.precision() == 10);
+  }
+
+  SECTION("Set precision multiple times") {
+    OStringStream<FixedString<32>> stream;
+
+    REQUIRE(stream.precision() == 6);
+
+    auto prev = stream.precision(2);
+    REQUIRE(prev == 6);
+    REQUIRE(stream.precision() == 2);
+
+    prev = stream.precision(15);
+    REQUIRE(prev == 2);
+    REQUIRE(stream.precision() == 15);
+
+    prev = stream.precision(0);
+    REQUIRE(prev == 15);
+    REQUIRE(stream.precision() == 0);
+  }
+
+  SECTION("Precision is independent of stream content") {
+    OStringStream<FixedString<32>> stream;
+
+    REQUIRE(stream.precision() == 6);
+
+    stream.put('A').put('B');
+    REQUIRE(stream.precision() == 6);
+
+    stream.precision(3);
+    REQUIRE(stream.precision() == 3);
+    REQUIRE(stream.str().size() == 2);
+    REQUIRE(stream.str() == "AB");
+  }
+}
+
+TEST_CASE("OStringStream operator<<", "[core][o_string_stream]") {
+  SECTION("Insert true boolean value") {
+    OStringStream<FixedString<32>> stream;
+
+    stream << true;
+
+    REQUIRE(stream.str().size() == 4);
+    REQUIRE(stream.str() == "true");
+  }
+
+  SECTION("Insert false boolean value") {
+    OStringStream<FixedString<32>> stream;
+
+    stream << false;
+
+    REQUIRE(stream.str().size() == 5);
+    REQUIRE(stream.str() == "false");
+  }
+
+  SECTION("Insert boolean to stream with content") {
+    OStringStream<FixedString<32>> stream(FixedString<16>("Value: "));
+
+    stream << true;
+
+    REQUIRE(stream.str().size() == 11);
+    REQUIRE(stream.str() == "Value: true");
+  }
+
+  SECTION("Operator chaining with boolean") {
+    OStringStream<FixedString<32>> stream;
+
+    stream << true << false << true;
+
+    REQUIRE(stream.str().size() == 13);
+    REQUIRE(stream.str() == "truefalsetrue");
+  }
+
+  SECTION("Insert boolean with separator") {
+    OStringStream<FixedString<32>> stream;
+
+    stream << true;
+    stream.put(' ');
+    stream << false;
+
+    REQUIRE(stream.str().size() == 10);
+    REQUIRE(stream.str() == "true false");
+  }
+
+  SECTION("Insert boolean returns reference for chaining") {
+    OStringStream<FixedString<32>> stream1;
+    OStringStream<FixedString<32>> stream2;
+
+    auto & ref1 = stream1 << true;
+    auto & ref2 = stream2 << false;
+
+    REQUIRE(&ref1 == &stream1);
+    REQUIRE(&ref2 == &stream2);
+    REQUIRE(stream1.str() == "true");
+    REQUIRE(stream2.str() == "false");
   }
 }
 
