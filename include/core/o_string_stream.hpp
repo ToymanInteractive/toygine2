@@ -375,8 +375,8 @@ public:
   constexpr int precision(int newPrecision) noexcept;
 
 private:
-  StringType _string;
-  int _precision = 6;
+  StringType _string; //!< Internal string storage for the stream content.
+  int _precision = 6; //!< Floating-point precision value used for number formatting.
 };
 
 } // namespace toy

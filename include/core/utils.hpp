@@ -82,27 +82,27 @@ wchar_t * utf8toWChar(wchar_t * dest, size_t destSize, const char * const src, s
 constexpr wchar_t * utf8toWChar(wchar_t * dest, size_t destSize, const char * const src) noexcept;
 
 /*!
-  \brief Converts a Unicode UTF-8 encoded StringLike object to a wide character string.
+  \brief Converts a Unicode UTF-8 encoded \ref toy::StringLike object to a wide character string.
 
-  This template function translates a UTF-8 encoded StringLike object into a wide character string. The conversion stops
-  when the source string ends or the destination buffer is filled.
+  This template function translates a UTF-8 encoded \ref toy::StringLike object into a wide character string. The
+  conversion stops when the source string ends or the destination buffer is filled.
 
-  \tparam stringType The type of the source string. Must satisfy the StringLike concept.
+  \tparam stringType The type of the source string. Must satisfy the \ref toy::StringLike concept.
 
   \param dest     A pointer to the destination buffer where the converted wide character string will be stored.
   \param destSize The size of the destination buffer in wide characters (not bytes).
-  \param src      A reference to a StringLike object with UTF-8 encoded content.
+  \param src      A reference to a \ref toy::StringLike object with UTF-8 encoded content.
 
   \return A pointer to the destination wide character string, or nullptr if the destination buffer is invalid.
 
   \pre The destination buffer must be valid and have sufficient capacity.
-  \pre The source StringLike object must provide UTF-8 encoded string data via c_str().
+  \pre The source \ref toy::StringLike object must provide UTF-8 encoded string data via c_str().
 
   \post The destination string is null-terminated.
   \post The function returns \c nullptr on buffer overflow or invalid input.
 
   \note Only BMP (≤ 0xFFFF) characters are supported by design; 4-byte UTF-8 sequences are not produced.
-  \note This template works with std::string, FixedString, and other string-like types.
+  \note This template works with std::string, \ref toy::FixedString, and other string-like types.
 */
 template <StringLike stringType>
 constexpr wchar_t * utf8toWChar(wchar_t * dest, size_t destSize, const stringType & src) noexcept;
