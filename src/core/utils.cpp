@@ -473,19 +473,19 @@ char * itoa(char * dest, size_t destSize, int64_t value) noexcept {
   return itoaImplementation(dest, destSize, value);
 }
 
-char * itoa(char * dest, size_t destSize, uint8_t value, unsigned base) noexcept {
+char * utoa(char * dest, size_t destSize, uint8_t value, unsigned base) noexcept {
   return utoaImplementation(dest, destSize, value, base);
 }
 
-char * itoa(char * dest, size_t destSize, uint16_t value, unsigned base) noexcept {
+char * utoa(char * dest, size_t destSize, uint16_t value, unsigned base) noexcept {
   return utoaImplementation(dest, destSize, value, base);
 }
 
-char * itoa(char * dest, size_t destSize, uint32_t value, unsigned base) noexcept {
+char * utoa(char * dest, size_t destSize, uint32_t value, unsigned base) noexcept {
   return utoaImplementation(dest, destSize, value, base);
 }
 
-char * itoa(char * dest, size_t destSize, uint64_t value, unsigned base) noexcept {
+char * utoa(char * dest, size_t destSize, uint64_t value, unsigned base) noexcept {
   return utoaImplementation(dest, destSize, value, base);
 }
 

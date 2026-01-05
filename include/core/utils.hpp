@@ -248,7 +248,7 @@ char * itoa(char * dest, size_t destSize, int64_t value) noexcept;
   \note The function supports bases 2-36 with digits 0-9 and letters A-Z.
   \note Hexadecimal values use uppercase letters (A-F).
 */
-char * itoa(char * dest, size_t destSize, uint8_t value, unsigned base) noexcept;
+char * utoa(char * dest, size_t destSize, uint8_t value, unsigned base = 10) noexcept;
 
 /*!
   \brief Converts a 16-bit unsigned integer to a C string representation in the specified base.
@@ -266,7 +266,7 @@ char * itoa(char * dest, size_t destSize, uint8_t value, unsigned base) noexcept
   \note The function supports bases 2-36 with digits 0-9 and letters A-Z.
   \note Hexadecimal values use uppercase letters (A-F).
 */
-char * itoa(char * dest, size_t destSize, uint16_t value, unsigned base) noexcept;
+char * utoa(char * dest, size_t destSize, uint16_t value, unsigned base = 10) noexcept;
 
 /*!
   \brief Converts a 32-bit unsigned integer to a C string representation in the specified base.
@@ -284,7 +284,7 @@ char * itoa(char * dest, size_t destSize, uint16_t value, unsigned base) noexcep
   \note The function supports bases 2-36 with digits 0-9 and letters A-Z.
   \note Hexadecimal values use uppercase letters (A-F).
 */
-char * itoa(char * dest, size_t destSize, uint32_t value, unsigned base) noexcept;
+char * utoa(char * dest, size_t destSize, uint32_t value, unsigned base = 10) noexcept;
 
 /*!
   \brief Converts a 64-bit unsigned integer to a C string representation in the specified base.
@@ -302,7 +302,7 @@ char * itoa(char * dest, size_t destSize, uint32_t value, unsigned base) noexcep
   \note The function supports bases 2-36 with digits 0-9 and letters A-Z.
   \note Hexadecimal values use uppercase letters (A-F).
 */
-char * itoa(char * dest, size_t destSize, uint64_t value, unsigned base) noexcept;
+char * utoa(char * dest, size_t destSize, uint64_t value, unsigned base = 10) noexcept;
 
 /*!
   \brief Converts a 32-bit floating-point number to its C string representation with specified precision.
