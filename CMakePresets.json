@@ -83,7 +83,7 @@
             }
         },
         {
-            "name": "nintendo-gba-ninja",
+            "name": "nintendo-gba-ninja-release",
             "displayName": "Nintendo Game Boy Advance",
             "description": "ToyGine 2 Nintendo Game Boy Advance",
             "inherits": "base-release",
@@ -93,7 +93,7 @@
             }
         },
         {
-            "name": "nintendo-ds-ninja",
+            "name": "nintendo-ds-ninja-release",
             "displayName": "Nintendo DS",
             "description": "ToyGine 2 Nintendo DS",
             "inherits": "base-release",
@@ -103,7 +103,7 @@
             }
         },
         {
-            "name": "nintendo-3ds-ninja",
+            "name": "nintendo-3ds-ninja-release",
             "displayName": "Nintendo 3DS",
             "description": "ToyGine 2 Nintendo 3DS",
             "inherits": "base-release",
@@ -113,7 +113,7 @@
             }
         },
         {
-            "name": "nintendo-switch-ninja",
+            "name": "nintendo-switch-ninja-release",
             "displayName": "Nintendo Switch",
             "description": "ToyGine 2 Nintendo Switch",
             "inherits": "base-release",
@@ -180,23 +180,23 @@
             "inherits": "default-release"
         },
         {
-            "name": "nintendo-gba-ninja",
-            "configurePreset": "nintendo-gba-ninja",
+            "name": "nintendo-gba-ninja-release",
+            "configurePreset": "nintendo-gba-ninja-release",
             "inherits": "default-release"
         },
         {
-            "name": "nintendo-ds-ninja",
-            "configurePreset": "nintendo-ds-ninja",
+            "name": "nintendo-ds-ninja-release",
+            "configurePreset": "nintendo-ds-ninja-release",
             "inherits": "default-release"
         },
         {
-            "name": "nintendo-3ds-ninja",
-            "configurePreset": "nintendo-3ds-ninja",
+            "name": "nintendo-3ds-ninja-release",
+            "configurePreset": "nintendo-3ds-ninja-release",
             "inherits": "default-release"
         },
         {
-            "name": "nintendo-switch-ninja",
-            "configurePreset": "nintendo-switch-ninja",
+            "name": "nintendo-switch-ninja-release",
+            "configurePreset": "nintendo-switch-ninja-release",
             "inherits": "default-release"
         },
         {
@@ -215,9 +215,13 @@
             "name": "default-debug",
             "hidden": true,
             "output": {
-                "debug": true,
-                "verbosity": "extra",
-                "outputJUnitFile": "${sourceDir}/out/junit/${presetName}.xml"
+                "shortProgress": true,
+                "verbosity": "default",
+                "outputOnFailure": true
+            },
+            "execution": {
+                "stopOnFailure": true,
+                "jobs": 0
             },
             "configuration": "Debug"
         },
@@ -226,8 +230,12 @@
             "hidden": true,
             "output": {
                 "shortProgress": true,
-                "verbosity": "verbose",
+                "verbosity": "default",
                 "outputJUnitFile": "${sourceDir}/out/junit/${presetName}.xml"
+            },
+            "execution": {
+                "stopOnFailure": true,
+                "jobs": 0
             },
             "configuration": "RelWithDebInfo"
         },
