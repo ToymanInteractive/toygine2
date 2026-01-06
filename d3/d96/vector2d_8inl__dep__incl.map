@@ -2,4 +2,6 @@
 <area shape="rect" id="Node000001" title="Inline implementations for 2D floating&#45;point vector class." alt="" coords="5,5,193,31"/>
 <area shape="rect" id="Node000002" href="$d4/d78/math_8hpp.html" title="Umbrella header for the engine mathematics module." alt="" coords="32,79,167,104"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="102,44,102,79,97,79,97,44"/>
+<area shape="rect" id="Node000003" href="$d8/d8c/toygine2_8hpp.html" title="Main umbrella header for the entire ToyGine2 engine." alt="" coords="20,152,179,177"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="102,118,102,152,97,152,97,118"/>
 </map>

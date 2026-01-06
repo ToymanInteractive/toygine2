@@ -65,6 +65,7 @@ var NAVTREE =
       [ "Test Independence", "df/d81/md__a_g_e_n_t_s.html#test-independence", null ],
       [ "Final Rule", "df/d81/md__a_g_e_n_t_s.html#final-rule", null ]
     ] ],
+    [ "Topics", "topics.html", "topics" ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [
@@ -100,9 +101,9 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"d3/d7a/classtoy_1_1_fixed_string.html#ae15e66a6771e19158329754f0e118234",
-"d5/d03/classtoy_1_1_c_string_view.html#ac47d6f4be3ed69e4358c4759e35d7285",
-"d7/dec/classtoy_1_1_fixed_vector.html#af41f645630eaed35f734c222c05ba49a"
+"d4/da9/namespacetoy.html#a9fbbca3cbd855381284624d5fc830d49ac42c3b5bc3b4234ee7823388012368d6",
+"d7/dec/classtoy_1_1_fixed_vector.html#a668bf255d5c4ab7568fe4e0c98eaef5a",
+"functions_func_w.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

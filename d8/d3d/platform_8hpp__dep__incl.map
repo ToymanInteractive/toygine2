@@ -1,30 +1,34 @@
 <map id="include/core/platform.hpp" name="include/core/platform.hpp">
-<area shape="rect" id="Node000001" title="Platform and CPU architecture enumerations with compile&#45;time and runtime detection utilities." alt="" coords="661,5,851,31"/>
-<area shape="rect" id="Node000002" href="$da/d47/core_8hpp.html" title="Umbrella header for the engine core module." alt="" coords="325,167,454,192"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="647,25,502,31,342,41,208,58,163,68,139,81,128,101,132,118,148,132,175,144,248,162,325,171,324,176,247,167,174,149,145,137,127,120,122,100,135,77,161,63,207,52,342,36,501,25,647,19"/>
-<area shape="rect" id="Node000008" href="$d5/d82/3ds_2platform__config_8hpp.html" title="additional nintendo 3ds platform header" alt="" coords="149,79,344,119"/>
-<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="663,35,356,81,345,83,344,78,356,76,662,30"/>
-<area shape="rect" id="Node000009" href="$df/db1/gba_2platform__config_8hpp.html" title="additional nintendo game boy advance platform header" alt="" coords="369,79,565,119"/>
-<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="701,37,537,81,536,76,700,32"/>
-<area shape="rect" id="Node000010" href="$dd/d9e/linux_2platform__config_8hpp.html" title="additional linux platform header" alt="" coords="589,79,745,119"/>
-<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="734,42,690,81,686,77,731,38"/>
-<area shape="rect" id="Node000011" href="$d8/d80/macos_2platform__config_8hpp.html" title="additional macOS platform header" alt="" coords="769,79,925,119"/>
-<area shape="poly" id="edge11_Node000001_Node000011" title=" " alt="" coords="781,38,827,76,823,81,778,42"/>
-<area shape="rect" id="Node000012" href="$dc/d74/nds_2platform__config_8hpp.html" title="additional nintendo ds platform header" alt="" coords="949,79,1144,119"/>
-<area shape="poly" id="edge12_Node000001_Node000012" title=" " alt="" coords="812,32,977,76,976,81,811,37"/>
-<area shape="rect" id="Node000013" href="$db/d83/switch_2platform__config_8hpp.html" title="additional nintendo switch platform header" alt="" coords="1169,79,1325,119"/>
-<area shape="poly" id="edge13_Node000001_Node000013" title=" " alt="" coords="856,30,1156,76,1169,78,1168,84,1156,81,855,35"/>
-<area shape="rect" id="Node000014" href="$db/d29/windows_2platform__config_8hpp.html" title="additional windows platform header" alt="" coords="1349,79,1518,119"/>
-<area shape="poly" id="edge14_Node000001_Node000014" title=" " alt="" coords="865,25,1084,45,1338,76,1349,78,1348,83,1337,81,1083,50,864,30"/>
+<area shape="rect" id="Node000001" title="Platform and CPU architecture enumerations with compile&#45;time and runtime detection utilities." alt="" coords="628,5,817,31"/>
+<area shape="rect" id="Node000002" href="$da/d47/core_8hpp.html" title="Umbrella header for the engine core module." alt="" coords="291,167,421,192"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="614,25,468,31,309,41,175,58,130,68,106,81,94,101,98,118,115,132,142,144,215,162,291,171,291,176,214,167,140,149,112,137,94,120,89,100,102,77,128,63,174,52,308,36,468,25,614,19"/>
+<area shape="rect" id="Node000009" href="$d5/d82/3ds_2platform__config_8hpp.html" title="additional nintendo 3ds platform header" alt="" coords="116,79,311,119"/>
+<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="629,35,323,81,311,83,311,78,322,76,628,30"/>
+<area shape="rect" id="Node000010" href="$df/db1/gba_2platform__config_8hpp.html" title="additional nintendo game boy advance platform header" alt="" coords="335,79,531,119"/>
+<area shape="poly" id="edge11_Node000001_Node000010" title=" " alt="" coords="668,37,504,81,502,76,667,32"/>
+<area shape="rect" id="Node000011" href="$dd/d9e/linux_2platform__config_8hpp.html" title="additional linux platform header" alt="" coords="555,79,711,119"/>
+<area shape="poly" id="edge12_Node000001_Node000011" title=" " alt="" coords="701,42,657,81,653,77,698,38"/>
+<area shape="rect" id="Node000012" href="$d8/d80/macos_2platform__config_8hpp.html" title="additional macOS platform header" alt="" coords="735,79,891,119"/>
+<area shape="poly" id="edge14_Node000001_Node000012" title=" " alt="" coords="748,38,793,76,790,81,745,42"/>
+<area shape="rect" id="Node000013" href="$dc/d74/nds_2platform__config_8hpp.html" title="additional nintendo ds platform header" alt="" coords="916,79,1111,119"/>
+<area shape="poly" id="edge15_Node000001_Node000013" title=" " alt="" coords="779,32,944,76,943,81,778,37"/>
+<area shape="rect" id="Node000014" href="$db/d83/switch_2platform__config_8hpp.html" title="additional nintendo switch platform header" alt="" coords="1135,79,1291,119"/>
+<area shape="poly" id="edge16_Node000001_Node000014" title=" " alt="" coords="823,30,1123,76,1136,78,1135,84,1122,81,822,35"/>
+<area shape="rect" id="Node000015" href="$db/d29/windows_2platform__config_8hpp.html" title="additional windows platform header" alt="" coords="1315,79,1485,119"/>
+<area shape="poly" id="edge17_Node000001_Node000015" title=" " alt="" coords="831,25,1050,45,1304,76,1316,78,1315,83,1304,81,1050,50,831,30"/>
 <area shape="rect" id="Node000003" href="$d6/d2c/app_8hpp.html" title="Umbrella header for the engine application module." alt="" coords="5,247,131,273"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="329,198,143,243,114,250,113,245,142,237,327,193"/>
-<area shape="rect" id="Node000004" href="$d4/d78/math_8hpp.html" title="Umbrella header for the engine mathematics module." alt="" coords="155,247,290,273"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="354,200,248,250,246,245,352,195"/>
-<area shape="rect" id="Node000005" href="$db/d2d/hashes_8cpp.html" title="Implementation of CRC hash functions with lookup tables for optimal performance." alt="" coords="314,247,465,273"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="392,206,392,247,387,247,387,206"/>
-<area shape="rect" id="Node000006" href="$de/d06/utils_8cpp.html" title="Implementation of core utility functions for string manipulation, encoding conversion,..." alt="" coords="489,247,621,273"/>
-<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="427,195,532,245,529,250,425,200"/>
-<area shape="rect" id="Node000007" href="$d7/d90/assertion__stub_8cpp.html" title="Stub implementation of assertion system for platforms without native assertion support." alt="" coords="645,240,825,280"/>
-<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="453,192,653,237,651,243,452,198"/>
-<area shape="poly" id="edge10_Node000010_Node000002" title=" " alt="" coords="588,125,431,169,429,164,586,120"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="302,198,111,250,109,245,300,193"/>
+<area shape="rect" id="Node000004" href="$d8/d8c/toygine2_8hpp.html" title="Main umbrella header for the entire ToyGine2 engine." alt="" coords="89,328,247,353"/>
+<area shape="poly" id="edge6_Node000002_Node000004" title=" " alt="" coords="279,195,234,213,213,226,195,242,182,263,175,286,170,328,165,328,169,285,177,260,191,238,210,222,231,208,277,190"/>
+<area shape="rect" id="Node000005" href="$d4/d78/math_8hpp.html" title="Umbrella header for the engine mathematics module." alt="" coords="206,247,341,273"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="336,203,287,249,284,245,332,200"/>
+<area shape="rect" id="Node000006" href="$db/d2d/hashes_8cpp.html" title="Implementation of CRC hash functions with lookup tables for optimal performance." alt="" coords="365,247,515,273"/>
+<area shape="poly" id="edge7_Node000002_Node000006" title=" " alt="" coords="380,200,429,245,426,249,377,203"/>
+<area shape="rect" id="Node000007" href="$de/d06/utils_8cpp.html" title="Implementation of core utility functions for string manipulation, encoding conversion,..." alt="" coords="539,247,671,273"/>
+<area shape="poly" id="edge8_Node000002_Node000007" title=" " alt="" coords="406,194,570,245,568,250,404,199"/>
+<area shape="rect" id="Node000008" href="$d7/d90/assertion__stub_8cpp.html" title="Stub implementation of assertion system for platforms without native assertion support." alt="" coords="695,240,875,280"/>
+<area shape="poly" id="edge9_Node000002_Node000008" title=" " alt="" coords="433,192,684,237,696,239,695,245,684,243,432,197"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="95,279,155,326,152,330,92,283"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="249,283,185,330,182,326,245,279"/>
+<area shape="poly" id="edge13_Node000011_Node000002" title=" " alt="" coords="554,125,397,169,396,164,553,120"/>
 </map>

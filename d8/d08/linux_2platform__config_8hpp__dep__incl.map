@@ -1,15 +1,19 @@
 <map id="src/platforms/linux/platform_config.hpp" name="src/platforms/linux/platform_config.hpp">
-<area shape="rect" id="Node000001" title="additional linux platform header" alt="" coords="311,5,467,45"/>
-<area shape="rect" id="Node000002" href="$da/d47/core_8hpp.html" title="Umbrella header for the engine core module." alt="" coords="325,93,454,119"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="392,59,392,93,387,93,387,59"/>
+<area shape="rect" id="Node000001" title="additional linux platform header" alt="" coords="278,5,434,45"/>
+<area shape="rect" id="Node000002" href="$da/d47/core_8hpp.html" title="Umbrella header for the engine core module." alt="" coords="291,93,421,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="359,59,359,93,353,93,353,59"/>
 <area shape="rect" id="Node000003" href="$d6/d2c/app_8hpp.html" title="Umbrella header for the engine application module." alt="" coords="5,174,131,199"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="329,124,143,169,114,177,113,171,142,164,327,119"/>
-<area shape="rect" id="Node000004" href="$d4/d78/math_8hpp.html" title="Umbrella header for the engine mathematics module." alt="" coords="155,174,290,199"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="354,127,248,176,246,172,352,122"/>
-<area shape="rect" id="Node000005" href="$db/d2d/hashes_8cpp.html" title="Implementation of CRC hash functions with lookup tables for optimal performance." alt="" coords="314,174,465,199"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="392,132,392,174,387,174,387,132"/>
-<area shape="rect" id="Node000006" href="$de/d06/utils_8cpp.html" title="Implementation of core utility functions for string manipulation, encoding conversion,..." alt="" coords="489,174,621,199"/>
-<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="427,122,532,172,529,176,425,127"/>
-<area shape="rect" id="Node000007" href="$d7/d90/assertion__stub_8cpp.html" title="Stub implementation of assertion system for platforms without native assertion support." alt="" coords="645,167,825,207"/>
-<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="453,119,653,164,651,169,452,124"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="302,125,111,177,109,171,300,120"/>
+<area shape="rect" id="Node000004" href="$d8/d8c/toygine2_8hpp.html" title="Main umbrella header for the entire ToyGine2 engine." alt="" coords="89,255,247,280"/>
+<area shape="poly" id="edge6_Node000002_Node000004" title=" " alt="" coords="279,123,235,140,214,153,197,168,183,189,175,213,170,255,165,254,170,212,178,187,193,165,211,148,232,135,277,118"/>
+<area shape="rect" id="Node000005" href="$d4/d78/math_8hpp.html" title="Umbrella header for the engine mathematics module." alt="" coords="206,174,341,199"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="336,130,287,176,284,172,332,126"/>
+<area shape="rect" id="Node000006" href="$db/d2d/hashes_8cpp.html" title="Implementation of CRC hash functions with lookup tables for optimal performance." alt="" coords="365,174,515,199"/>
+<area shape="poly" id="edge7_Node000002_Node000006" title=" " alt="" coords="380,126,429,172,426,176,377,130"/>
+<area shape="rect" id="Node000007" href="$de/d06/utils_8cpp.html" title="Implementation of core utility functions for string manipulation, encoding conversion,..." alt="" coords="539,174,671,199"/>
+<area shape="poly" id="edge8_Node000002_Node000007" title=" " alt="" coords="406,120,570,171,568,177,404,125"/>
+<area shape="rect" id="Node000008" href="$d7/d90/assertion__stub_8cpp.html" title="Stub implementation of assertion system for platforms without native assertion support." alt="" coords="695,167,875,207"/>
+<area shape="poly" id="edge9_Node000002_Node000008" title=" " alt="" coords="433,119,684,164,696,166,695,171,684,169,432,124"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="95,206,155,252,152,257,92,210"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="249,210,185,257,182,252,245,205"/>
 </map>

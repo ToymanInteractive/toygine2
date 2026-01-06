@@ -7,10 +7,11 @@ var searchData=
   ['utf8_5fsize_4',['utf8_size',['../d5/d03/classtoy_1_1_c_string_view.html#af2fcc3a984aa7a26f458509827c72fea',1,'toy::CStringView::utf8_size()'],['../d3/d7a/classtoy_1_1_fixed_string.html#a72efed1a713479fd77505ede267a2d33',1,'toy::FixedString::utf8_size()']]],
   ['utf8len_5',['utf8Len',['../d4/da9/namespacetoy.html#a5ab02021f4ca34e0d5b6a1b0172ebe95',1,'toy']]],
   ['utf8towchar_6',['utf8toWChar',['../d4/da9/namespacetoy.html#acf0d2ea5a12a30e6b7bdfaa9762b7ee3',1,'toy::utf8toWChar(wchar_t *dest, size_t destSize, const char *const src) noexcept'],['../d4/da9/namespacetoy.html#ad77806ddefe069afcd095c3d1ef37391',1,'toy::utf8toWChar(wchar_t *dest, size_t destSize, const stringType &amp;src) noexcept'],['../d4/da9/namespacetoy.html#a5ee65428f52c52934cf358eec39c55aa',1,'toy::utf8toWChar(wchar_t *dest, size_t destSize, const char *const src, size_t count) noexcept']]],
-  ['utils_2ecpp_7',['utils.cpp',['../de/d06/utils_8cpp.html',1,'']]],
-  ['utils_2ehpp_8',['utils.hpp',['../df/d93/utils_8hpp.html',1,'']]],
-  ['utils_2einl_9',['utils.inl',['../df/d7d/utils_8inl.html',1,'']]],
-  ['utils_5finternal_2einl_10',['utils_internal.inl',['../d4/d85/utils__internal_8inl.html',1,'']]],
-  ['utoa_11',['utoa',['../d4/da9/namespacetoy.html#a3896c1390775b3c0290dfb6b19cc6788',1,'toy::utoa(char *dest, size_t destSize, uint8_t value, unsigned base=10) noexcept'],['../d4/da9/namespacetoy.html#ac943fcf84753ab779d99dc2de0393662',1,'toy::utoa(char *dest, size_t destSize, uint16_t value, unsigned base=10) noexcept'],['../d4/da9/namespacetoy.html#a16e50f6c32e0d76220f46133a3d81592',1,'toy::utoa(char *dest, size_t destSize, uint32_t value, unsigned base=10) noexcept'],['../d4/da9/namespacetoy.html#aa15d157e1eba61a003251489cc1ccc99',1,'toy::utoa(char *dest, size_t destSize, uint64_t value, unsigned base=10) noexcept']]],
-  ['utoaimplementation_12',['utoaImplementation',['../d4/da9/namespacetoy.html#a10d90a55c9c7b54190a445f8fabaa599',1,'toy']]]
+  ['utilities_7',['String Utilities',['../d4/d6e/group___string.html',1,'']]],
+  ['utils_2ecpp_8',['utils.cpp',['../de/d06/utils_8cpp.html',1,'']]],
+  ['utils_2ehpp_9',['utils.hpp',['../df/d93/utils_8hpp.html',1,'']]],
+  ['utils_2einl_10',['utils.inl',['../df/d7d/utils_8inl.html',1,'']]],
+  ['utils_5finternal_2einl_11',['utils_internal.inl',['../d4/d85/utils__internal_8inl.html',1,'']]],
+  ['utoa_12',['utoa',['../d4/da9/namespacetoy.html#a3896c1390775b3c0290dfb6b19cc6788',1,'toy::utoa(char *dest, size_t destSize, uint8_t value, unsigned base=10) noexcept'],['../d4/da9/namespacetoy.html#ac943fcf84753ab779d99dc2de0393662',1,'toy::utoa(char *dest, size_t destSize, uint16_t value, unsigned base=10) noexcept'],['../d4/da9/namespacetoy.html#a16e50f6c32e0d76220f46133a3d81592',1,'toy::utoa(char *dest, size_t destSize, uint32_t value, unsigned base=10) noexcept'],['../d4/da9/namespacetoy.html#aa15d157e1eba61a003251489cc1ccc99',1,'toy::utoa(char *dest, size_t destSize, uint64_t value, unsigned base=10) noexcept']]],
+  ['utoaimplementation_13',['utoaImplementation',['../d4/da9/namespacetoy.html#a10d90a55c9c7b54190a445f8fabaa599',1,'toy']]]
 ];

@@ -1,7 +1,6 @@
 var fixed__string_8hpp =
 [
     [ "toy::FixedStringStorage&lt; allocatedSize &gt;", "d5/d3b/structtoy_1_1_fixed_string_storage.html", "d5/d3b/structtoy_1_1_fixed_string_storage" ],
-    [ "toy::FixedString&lt; allocatedSize &gt;", "d3/d7a/classtoy_1_1_fixed_string.html", "d3/d7a/classtoy_1_1_fixed_string" ],
     [ "toy::operator+", "d4/da9/namespacetoy.html#a356a3fceab84ce068ff702d19893708b", null ],
     [ "toy::operator+", "d4/da9/namespacetoy.html#a2fef40d514c1a38e96d004926fe183d6", null ],
     [ "toy::operator+", "d4/da9/namespacetoy.html#a326a560f0c3c0d12d9c7a8642d001e6d", null ],
