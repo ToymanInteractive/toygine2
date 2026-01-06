@@ -5,6 +5,7 @@ include/core.hpp
 docs/html/
 docs/xml/
 docs/Doxyfile
+docs/Doxyfile.in.bak
 docs/Doxyfile_awesome_css
 doxygen.log
 
