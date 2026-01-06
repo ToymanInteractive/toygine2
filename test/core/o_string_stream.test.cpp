@@ -623,6 +623,40 @@ TEST_CASE("OStringStream operator<<", "[core][o_string_stream]") {
     REQUIRE(stream1.str() == "100");
     REQUIRE(stream2.str() == "200");
   }
+
+  SECTION("Insert longs with separator") {
+    OStringStream<FixedString<64>> stream;
+
+    stream << std::numeric_limits<long>::min();
+    stream.put(' ');
+    stream << std::numeric_limits<unsigned long>::min();
+    stream.put(' ');
+    stream << std::numeric_limits<long>::max();
+    stream.put(' ');
+    stream << std::numeric_limits<unsigned long>::max();
+
+    if constexpr (sizeof(long) == 4) {
+      REQUIRE(stream.str() == "-2147483648 0 2147483647 4294967295");
+    } else if constexpr (sizeof(long) == 8) {
+      REQUIRE(stream.str() == "-9223372036854775808 0 9223372036854775807 18446744073709551615");
+    } else {
+      static_assert(sizeof(long) == 4 || sizeof(long) == 8, "Unsupported value size");
+    }
+  }
+
+  SECTION("Insert long longs with separator") {
+    OStringStream<FixedString<64>> stream;
+
+    stream << std::numeric_limits<long long>::min();
+    stream.put(' ');
+    stream << std::numeric_limits<unsigned long long>::min();
+    stream.put(' ');
+    stream << std::numeric_limits<long long>::max();
+    stream.put(' ');
+    stream << std::numeric_limits<unsigned long long>::max();
+
+    REQUIRE(stream.str() == "-9223372036854775808 0 9223372036854775807 18446744073709551615");
+  }
 }
 
 } // namespace toy

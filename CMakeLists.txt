@@ -126,7 +126,7 @@ source_group("Math" FILES ${SRC_MATH_LIST} ${HDR_MATH_LIST} ${INL_MATH_LIST})
 #-------------------------------------------------------------------------------------------
 
 list(APPEND SRC_LIST ${SRC_CORE_LIST} ${SRC_APP_LIST} ${SRC_MATH_LIST})
-list(APPEND HDR_LIST ${HDR_CORE_LIST} ${HDR_APP_LIST} ${HDR_MATH_LIST})
+list(APPEND HDR_LIST ${HDR_CORE_LIST} ${HDR_APP_LIST} ${HDR_MATH_LIST} include/toygine2.hpp)
 list(APPEND INL_LIST ${INL_CORE_LIST} ${INL_APP_LIST} ${INL_MATH_LIST})
 set(LIB_LIST ${LIB_LIST})
 
