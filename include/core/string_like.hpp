@@ -29,6 +29,7 @@ namespace toy {
 
 /*!
   \concept StringLike
+  \ingroup String
   \brief Concept defining the requirements for string-like types.
 
   This concept defines the interface that any type must satisfy to be considered string-like. It requires the type to

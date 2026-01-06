@@ -86,9 +86,26 @@ using std::strong_ordering;
 #define TOY_CONFIG_DEBUG_MEMORY
 #endif // defined(_DEBUG) && !defined(FORCE_NOT_DEBUG_MEMORY)
 
+} // namespace toy
+
 //--------------------------------------------------------------------------------------------------------------------
 
-} // namespace toy
+/*!
+  \defgroup String String Utilities
+  \brief Classes and concepts for string manipulation and formatting.
+
+  This group contains all string-related types and utilities in the core module:
+
+  \section features Key Features
+
+  - Zero or minimal dynamic allocation
+  - Constexpr support where possible
+  - Exception safety (noexcept operations)
+  - Type safety through C++20 concepts
+  - Cross-platform compatibility
+*/
+
+//--------------------------------------------------------------------------------------------------------------------
 
 #include "core/assertion.hpp"
 #include "core/c_string_view.hpp"

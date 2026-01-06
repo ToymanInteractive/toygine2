@@ -67,9 +67,9 @@ constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(unsi
   char buffer[21];
 
   if constexpr (sizeof(value) == 4) {
-    utoa(buffer, std::size(buffer), static_cast<uint32_t>(value), 10);
+    utoa(buffer, std::size(buffer), static_cast<uint32_t>(value));
   } else if constexpr (sizeof(value) == 8) {
-    utoa(buffer, std::size(buffer), static_cast<uint64_t>(value), 10);
+    utoa(buffer, std::size(buffer), static_cast<uint64_t>(value));
   } else {
     static_assert(sizeof(value) == 4 || sizeof(value) == 8, "Unsupported value size");
   }
@@ -96,7 +96,7 @@ constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(unsi
   char buffer[21];
 
   static_assert(sizeof(value) == 8, "Unsupported value size");
-  utoa(buffer, std::size(buffer), static_cast<uint64_t>(value), 10);
+  utoa(buffer, std::size(buffer), static_cast<uint64_t>(value));
 
   _string += buffer;
 
