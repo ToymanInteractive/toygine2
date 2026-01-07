@@ -62,6 +62,8 @@ using std::uint32_t;
 using std::uint64_t;
 using std::uint8_t;
 
+using std::nullptr_t;
+
 using std::char_traits;
 
 using std::size;

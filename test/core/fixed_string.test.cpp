@@ -3612,7 +3612,7 @@ TEST_CASE("FixedString append", "[core][fixed_string]") {
     REQUIRE(testString.size() == 5);
     REQUIRE(std::strcmp(testString.c_str(), "Hello") == 0);
 
-    testString.append('!');
+    testString.append(1, '!');
 
     REQUIRE(testString.size() == 6);
     REQUIRE(std::strcmp(testString.c_str(), "Hello!") == 0);
@@ -3624,7 +3624,7 @@ TEST_CASE("FixedString append", "[core][fixed_string]") {
     REQUIRE(testString.size() == 5);
     REQUIRE(std::strcmp(testString.c_str(), "Hello") == 0);
 
-    testString.append(' ', 3);
+    testString.append(3, ' ');
 
     REQUIRE(testString.size() == 8);
     REQUIRE(std::strcmp(testString.c_str(), "Hello   ") == 0);
@@ -3649,7 +3649,7 @@ TEST_CASE("FixedString append", "[core][fixed_string]") {
     const auto originalSize = testString.size();
     const auto originalContent = std::string(testString.c_str());
 
-    testString.append('X', 0);
+    testString.append(0, 'X');
 
     REQUIRE(testString.size() == originalSize);
     REQUIRE(std::strcmp(testString.c_str(), originalContent.c_str()) == 0);
@@ -3661,9 +3661,9 @@ TEST_CASE("FixedString append", "[core][fixed_string]") {
     REQUIRE(testString.size() == 5);
     REQUIRE(std::strcmp(testString.c_str(), "Hello") == 0);
 
-    testString.append('\n');
-    testString.append('\t');
-    testString.append('!');
+    testString.append(1, '\n');
+    testString.append(1, '\t');
+    testString.append(1, '!');
 
     REQUIRE(testString.size() == 8);
     REQUIRE(std::strcmp(testString.c_str(), "Hello\n\t!") == 0);
@@ -3763,7 +3763,7 @@ TEST_CASE("FixedString append", "[core][fixed_string]") {
       .append(FixedString<8>(" else"))
       .append(std::string(" really"))
       .append(" matters")
-      .append('.', 3);
+      .append(3, '.');
 
     REQUIRE(testString.size() == 30);
     REQUIRE(std::strcmp(testString.c_str(), "Nothing else really matters...") == 0);

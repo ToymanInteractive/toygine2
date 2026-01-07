@@ -551,7 +551,7 @@ public:
 
     \note The returned pointer points to a null-terminated string.
     \note The returned pointer is read-only and cannot modify the string contents.
-    \note This method is equivalent to \ref data() const.
+    \note This method is equivalent to data() const.
 
     \sa data() const
   */
@@ -581,7 +581,7 @@ public:
 
     \return The number of characters in the string, excluding the terminating null character.
 
-    \note This method is equivalent to \ref length().
+    \note This method is equivalent to length().
 
     \sa length()
   */
@@ -612,7 +612,7 @@ public:
 
     \return The number of characters in the string, excluding the terminating null character.
 
-    \note This method is equivalent to \ref size().
+    \note This method is equivalent to size().
 
     \sa size()
   */
@@ -798,7 +798,7 @@ public:
   /*!
     \brief Removes the last UTF-8 encoded character from the string.
 
-    This method removes the last UTF-8 encoded character from the current string. Unlike \ref pop_back() which removes a
+    This method removes the last UTF-8 encoded character from the current string. Unlike pop_back() which removes a
     single character, this method removes the complete UTF-8 encoded character, which may consist of multiple bytes.
 
     \pre The string must not be empty.
@@ -879,8 +879,8 @@ public:
 
     This method appends a \a character repeated the given \a count of times to the end of this string.
 
+    \param count     The number of times to repeat the \a character.
     \param character The character to append.
-    \param count     The number of times to repeat the \a character (default: \c 1).
 
     \return A reference to this string after appending.
 
@@ -889,7 +889,7 @@ public:
     \post The \a character is appended \a count times to the end of the string.
     \post The string size is increased by \a count.
   */
-  constexpr FixedString<allocatedSize> & append(char character, size_t count = 1) noexcept;
+  constexpr FixedString<allocatedSize> & append(size_type count, char character) noexcept;
 
   /*!
     \brief Appends other \a string to the end of this string.
@@ -955,7 +955,7 @@ public:
     \post The \a character is appended to the end of this string.
     \post The string size is increased by \c 1.
 
-    \sa append(char, size_t)
+    \sa append(size_type, char)
     \sa push_back(char)
   */
   constexpr FixedString<allocatedSize> & operator+=(char character) noexcept;
@@ -1468,7 +1468,7 @@ public:
     \pre If \a position is not \ref npos, it must be less than the string size.
 
     \note The search is case-sensitive.
-    \note This method is equivalent to \ref rfind(char, size_t) const.
+    \note This method is equivalent to rfind(char, size_t) const.
 
     \sa rfind(char, size_t) const
   */

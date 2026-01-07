@@ -285,7 +285,7 @@ public:
 
     \note The returned pointer points to a null-terminated C string.
     \note The returned pointer is read-only and cannot modify the string view contents.
-    \note This method is equivalent to \ref data().
+    \note This method is equivalent to data().
 
     \sa data()
   */
@@ -315,7 +315,7 @@ public:
 
     \return The number of characters in the string view, excluding the terminating null character.
 
-    \note This method is equivalent to \ref length().
+    \note This method is equivalent to length().
 
     \sa length()
   */
@@ -346,7 +346,7 @@ public:
 
     \return The number of characters in the string view, excluding the terminating null character.
 
-    \note This method is equivalent to \ref size().
+    \note This method is equivalent to size().
 
     \sa size()
   */
@@ -576,7 +576,7 @@ public:
     \pre The \a position must be less than the string view size.
 
     \note The search is case-sensitive.
-    \note This method is equivalent to \ref find(char, size_t) const.
+    \note This method is equivalent to find(char, size_t) const.
 
     \sa find(char, size_t) const
   */
@@ -695,7 +695,7 @@ public:
     \pre If \a position is not \ref npos, it must be less than the string view size.
 
     \note The search is case-sensitive.
-    \note This method is equivalent to \ref rfind(char, size_t) const.
+    \note This method is equivalent to rfind(char, size_t) const.
 
     \sa rfind(char, size_t) const
   */

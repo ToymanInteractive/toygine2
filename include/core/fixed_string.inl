@@ -415,7 +415,7 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::append(const 
 }
 
 template <size_t allocatedSize>
-constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::append(char character, size_t count) noexcept {
+constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::append(size_type count, char character) noexcept {
   assert_message(character != '\0', "Character must not be null.");
 
   if (character == '\0' || count == 0)

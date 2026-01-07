@@ -172,20 +172,22 @@ Documentation style:
 
 ### Cross-References
 
-- When referencing methods, classes, functions, types, or other symbols from the codebase in documentation, **always** use the Doxygen `\ref` tag to create proper cross-references.
+- When referencing types, classes, or other non-function symbols from the codebase in documentation, **always** use the Doxygen `\ref` tag with full namespace qualification to create proper cross-references.
 - This ensures that documentation links are generated correctly and remain valid when symbols are renamed or moved.
-- Use `\ref` for:
-  - Function names: `\ref functionName()`
-  - Class/struct names: `\ref ClassName`
-  - Type aliases: `\ref TypeAlias`
-  - Enum values: `\ref EnumName::Value`
-  - Namespaces: `\ref namespaceName`
-  - Concepts: `\ref ConceptName`
-- When referencing **classes, structs, enums, namespaces, or concepts** from the codebase in documentation, **always** include the full namespace qualification in the `\ref` tag.
+- Use `\ref` **only** for non-function symbols (classes, types, enums, namespaces, concepts):
+  - Class/struct names: `\ref toy::ClassName`
+  - Type aliases: `\ref toy::TypeAlias`
+  - Enum values: `\ref toy::EnumName::Value`
+  - Namespaces: `\ref toy::namespaceName`
+  - Concepts: `\ref toy::ConceptName`
+- **Do not use `\ref` for functions or methods**. Reference functions and methods using plain text without `\ref`:
+  - Functions: `toy::functionName()` (not `\ref toy::functionName()`)
+  - Methods: `methodName()` (not `\ref methodName()`)
+- When using `\ref` for **classes, structs, enums, namespaces, or concepts**, **always** include the full namespace qualification in the `\ref` tag.
 - This ensures clarity and avoids ambiguity when the same symbol name exists in different namespaces.
 - Use the full qualified name: `\ref toy::ClassName` instead of `\ref ClassName`, `\ref toy::math::Vector2D` instead of `\ref Vector2D`.
 
-**Note**: For functions, you may use unqualified names if the context makes it clear, but qualified names are preferred for consistency.
+**Note**: For functions and methods, use plain text with optional namespace qualification: `toy::functionName()` or `functionName()` if context is clear.
 
 Examples:
 
@@ -194,13 +196,14 @@ Examples:
 - `\ref toy::assertion::AssertionCallback` instead of `\ref AssertionCallback`
 - `\ref toy::Platform` instead of `\ref Platform`
 - `\ref toy::CpuArchitecture` instead of `\ref CpuArchitecture`
-- `\ref toy::assertion::assertion()` instead of `\ref assertion()`
+- `toy::assertion::assertion()` instead of `\ref toy::assertion::assertion()` (no `\ref` for functions)
 - `\ref toy::Platform::Windows` instead of `\ref Platform::Windows`
 
 **Exceptions**:
 
 - Do not use `\ref` for standard library types or functions (e.g., `std::string`, `std::vector`, `std::size_t`).
 - Do not use `\ref` in `\sa` (see also) or `\see` (see) sections. These tags automatically create cross-references, so use plain symbol names: `\sa functionName()` instead of `\sa \ref functionName()`, and `\see ClassName` instead of `\see \ref ClassName`.
+- Do not use `\ref` for functions or methods anywhere in documentation.
 
 ---
 

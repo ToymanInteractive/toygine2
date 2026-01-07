@@ -140,6 +140,46 @@ public:
   constexpr OStringStream & operator<<(bool value) noexcept;
 
   /*!
+    \brief Inserts a signed short integer value into the stream.
+
+    This operator converts the signed short integer \a value to its decimal string representation and appends it to the
+    stream. Negative values are prefixed with a minus sign.
+
+    \param value The signed short integer value to insert into the stream.
+
+    \return A reference to this OStringStream, allowing operator chaining.
+
+    \post The write position is advanced by the length of the appended string.
+
+    \note This operator follows the same pattern as std::ostringstream::operator<<(short).
+
+    \sa operator<<(unsigned short)
+    \sa put(char_type)
+    \sa tellp()
+  */
+  constexpr OStringStream & operator<<(short value) noexcept;
+
+  /*!
+    \brief Inserts an unsigned short integer value into the stream.
+
+    This operator converts the unsigned short integer \a value to its decimal string representation and appends it to
+    the stream.
+
+    \param value The unsigned short integer value to insert into the stream.
+
+    \return A reference to this OStringStream, allowing operator chaining.
+
+    \post The write position is advanced by the length of the appended string.
+
+    \note This operator follows the same pattern as std::ostringstream::operator<<(unsigned short).
+
+    \sa operator<<(short)
+    \sa put(char_type)
+    \sa tellp()
+  */
+  constexpr OStringStream & operator<<(unsigned short value) noexcept;
+
+  /*!
     \brief Inserts a signed long integer value into the stream.
 
     This operator converts the signed long integer \a value to its decimal string representation and appends it to the
@@ -154,7 +194,6 @@ public:
     \note This operator follows the same pattern as std::ostringstream::operator<<(long).
 
     \sa operator<<(unsigned long)
-    \sa operator<<(long long)
     \sa put(char_type)
     \sa tellp()
   */
@@ -175,7 +214,6 @@ public:
     \note This operator follows the same pattern as std::ostringstream::operator<<(unsigned long).
 
     \sa operator<<(long)
-    \sa operator<<(unsigned long long)
     \sa put(char_type)
     \sa tellp()
   */
@@ -195,7 +233,6 @@ public:
 
     \note This operator follows the same pattern as std::ostringstream::operator<<(long long).
 
-    \sa operator<<(long)
     \sa operator<<(unsigned long long)
     \sa put(char_type)
     \sa tellp()
@@ -217,11 +254,137 @@ public:
     \note This operator follows the same pattern as std::ostringstream::operator<<(unsigned long long).
 
     \sa operator<<(long long)
-    \sa operator<<(unsigned long)
     \sa put(char_type)
     \sa tellp()
   */
   constexpr OStringStream & operator<<(unsigned long long value) noexcept;
+
+  /*!
+    \brief Inserts a signed integer value into the stream.
+
+    This operator converts the signed integer \a value to its decimal string representation and appends it to the
+    stream. Negative values are prefixed with a minus sign.
+
+    \param value The signed integer value to insert into the stream.
+
+    \return A reference to this OStringStream, allowing operator chaining.
+
+    \post The write position is advanced by the length of the appended string.
+
+    \note This operator follows the same pattern as std::ostringstream::operator<<(int).
+
+    \sa operator<<(unsigned int)
+    \sa put(char_type)
+    \sa tellp()
+  */
+  constexpr OStringStream & operator<<(int value) noexcept;
+
+  /*!
+    \brief Inserts an unsigned integer value into the stream.
+
+    This operator converts the unsigned integer \a value to its decimal string representation and appends it to the
+    stream.
+
+    \param value The unsigned integer value to insert into the stream.
+
+    \return A reference to this OStringStream, allowing operator chaining.
+
+    \post The write position is advanced by the length of the appended string.
+
+    \note This operator follows the same pattern as std::ostringstream::operator<<(unsigned int).
+
+    \sa operator<<(int)
+    \sa put(char_type)
+    \sa tellp()
+  */
+  constexpr OStringStream & operator<<(unsigned int value) noexcept;
+
+  /*!
+    \brief Inserts a single-precision floating-point value into the stream.
+
+    This operator converts the float \a value to its decimal string representation with the current precision setting
+    and appends it to the stream. The precision controls the number of digits displayed.
+
+    \param value The single-precision floating-point value to insert into the stream.
+
+    \return A reference to this OStringStream, allowing operator chaining.
+
+    \post The write position is advanced by the length of the appended string.
+
+    \note This operator follows the same pattern as std::ostringstream::operator<<(float).
+    \note The precision is controlled by precision() and defaults to 6 digits.
+
+    \sa precision() const
+    \sa precision(int)
+    \sa operator<<(double)
+    \sa put(char_type)
+    \sa tellp()
+  */
+  constexpr OStringStream & operator<<(float value) noexcept;
+
+  /*!
+    \brief Inserts a double-precision floating-point value into the stream.
+
+    This operator converts the double \a value to its decimal string representation with the current precision setting
+    and appends it to the stream. The precision controls the number of digits displayed.
+
+    \param value The double-precision floating-point value to insert into the stream.
+
+    \return A reference to this OStringStream, allowing operator chaining.
+
+    \post The write position is advanced by the length of the appended string.
+
+    \note This operator follows the same pattern as std::ostringstream::operator<<(double).
+    \note The precision is controlled by precision(int) and defaults to 6 digits.
+
+    \sa precision() const
+    \sa precision(int)
+    \sa operator<<(float)
+    \sa put(char_type)
+    \sa tellp()
+  */
+  constexpr OStringStream & operator<<(double value) noexcept;
+
+  /*!
+    \brief Inserts a pointer value into the stream.
+
+    This operator converts the pointer \a value to its hexadecimal string representation with "0x" prefix and appends it
+    to the stream. The pointer is formatted as a hexadecimal number, matching the standard C++ pointer output format.
+
+    \param value The pointer value to insert into the stream.
+
+    \return A reference to this OStringStream, allowing operator chaining.
+
+    \post The write position is advanced by the length of the appended string.
+
+    \note This operator follows the same pattern as std::ostringstream::operator<<(const void*).
+    \note For null pointers, consider using operator<<(nullptr_t) for consistent "nullptr" output.
+
+    \sa operator<<(nullptr_t)
+    \sa put(char_type)
+    \sa tellp()
+  */
+  constexpr OStringStream & operator<<(const void * value) noexcept;
+
+  /*!
+    \brief Inserts a null pointer literal into the stream.
+
+    This operator inserts the string "nullptr" into the stream when a null pointer literal is provided. This provides
+    a consistent and readable representation for null pointers.
+
+    \return A reference to this OStringStream, allowing operator chaining.
+
+    \post The write position is advanced by 7 characters (length of "nullptr").
+
+    \note This operator follows the same pattern as std::ostringstream::operator<<(std::nullptr_t).
+    \note The output is always the string "nullptr", regardless of the actual null pointer value.
+    \note This operator is preferred over operator<<(const void*) for null pointer literals.
+
+    \sa operator<<(const void *)
+    \sa put(char_type)
+    \sa tellp()
+  */
+  constexpr OStringStream & operator<<(nullptr_t) noexcept;
 
   /*!
     \brief Returns a const reference to the underlying string.
@@ -346,7 +509,7 @@ public:
     \brief Returns the current floating-point precision setting.
 
     This method returns the precision value that will be used for formatting floating-point numbers when writing to the
-    stream. The precision specifies the number of digits to display after the decimal point.
+    stream. The precision specifies the number of digits to display.
 
     \return The current precision value.
 
@@ -360,7 +523,7 @@ public:
     \brief Sets the floating-point precision and returns the previous value.
 
     This method sets the precision value that will be used for formatting floating-point numbers when writing to the
-    stream. The precision specifies the number of digits to display after the decimal point.
+    stream. The precision specifies the number of digits to display.
 
     \param newPrecision The new precision value to set.
 

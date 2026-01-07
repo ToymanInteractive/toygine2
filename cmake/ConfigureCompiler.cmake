@@ -77,11 +77,11 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop")
   endif(CMAKE_CXX_COMPILER_VERSION VERSION_LESS 13.3)
 
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/Option-Summary.html
-#                 https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/C-Dialect-Options.html#index-flax-vector-conversions
+#                 https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/C-Dialect-Options.html#index-fpermitted-flt-eval-methods
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-14.2.0/gcc/Option-Summary.html
 
-  set(CMAKE_C_FLAGS   "-std=с17")
-  set(CMAKE_CXX_FLAGS "-std=c++23")
+  set(CMAKE_C_FLAGS   "-std=c17   -foffload=default -fopenmp-simd")
+  set(CMAKE_CXX_FLAGS "-std=c++23 -foffload=default -fopenmp-simd")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
 
@@ -148,8 +148,8 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Game Boy Advance")
 
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/Option-Summary.html
 
-  set(CMAKE_C_FLAGS   "-std=с17")
-  set(CMAKE_CXX_FLAGS "-std=c++23")
+  set(CMAKE_C_FLAGS   "-std=с17   -foffload=disable -fopenmp-simd")
+  set(CMAKE_CXX_FLAGS "-std=c++23 -foffload=disable -fopenmp-simd")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
 
@@ -169,8 +169,8 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
 
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/Option-Summary.html
 
-  set(CMAKE_C_FLAGS   "-std=с17")
-  set(CMAKE_CXX_FLAGS "-std=c++23")
+  set(CMAKE_C_FLAGS   "-std=с17   -foffload=disable -fopenmp-simd")
+  set(CMAKE_CXX_FLAGS "-std=c++23 -foffload=disable -fopenmp-simd")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 3DS")
 
@@ -192,8 +192,8 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 3DS")
 
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/Option-Summary.html
 
-  set(CMAKE_C_FLAGS   "-std=с17")
-  set(CMAKE_CXX_FLAGS "-std=c++23")
+  set(CMAKE_C_FLAGS   "-std=с17   -foffload=disable -fopenmp-simd")
+  set(CMAKE_CXX_FLAGS "-std=c++23 -foffload=disable -fopenmp-simd")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
 
@@ -215,8 +215,8 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
 
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/Option-Summary.html
 
-  set(CMAKE_C_FLAGS   "-std=с17")
-  set(CMAKE_CXX_FLAGS "-std=c++23")
+  set(CMAKE_C_FLAGS   "-std=с17   -foffload=disable -fopenmp-simd")
+  set(CMAKE_CXX_FLAGS "-std=c++23 -foffload=disable -fopenmp-simd")
 
 else ()
 
