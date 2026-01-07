@@ -879,8 +879,8 @@ public:
 
     This method appends a \a character repeated the given \a count of times to the end of this string.
 
+    \param count     The number of times to repeat the \a character.
     \param character The character to append.
-    \param count     The number of times to repeat the \a character (default: \c 1).
 
     \return A reference to this string after appending.
 
@@ -889,7 +889,7 @@ public:
     \post The \a character is appended \a count times to the end of the string.
     \post The string size is increased by \a count.
   */
-  constexpr FixedString<allocatedSize> & append(char character, size_t count = 1) noexcept;
+  constexpr FixedString<allocatedSize> & append(size_type count, char character) noexcept;
 
   /*!
     \brief Appends other \a string to the end of this string.
@@ -955,7 +955,7 @@ public:
     \post The \a character is appended to the end of this string.
     \post The string size is increased by \c 1.
 
-    \sa append(char, size_t)
+    \sa append(size_type, char)
     \sa push_back(char)
   */
   constexpr FixedString<allocatedSize> & operator+=(char character) noexcept;

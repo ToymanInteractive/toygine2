@@ -548,83 +548,192 @@ TEST_CASE("OStringStream operator<<", "[core][o_string_stream]") {
   }
 
   SECTION("Insert long integer") {
-    OStringStream<FixedString<32>> stream;
+    OStringStream<FixedString<8>> stream1;
+    OStringStream<FixedString<8>> stream2;
+    OStringStream<FixedString<8>> stream3;
 
-    stream << 12345L;
+    stream1 << 12345L;
+    stream2 << -12345L;
+    stream3 << 12345UL;
 
-    REQUIRE(stream.str() == "12345");
-  }
-
-  SECTION("Insert negative long integer") {
-    OStringStream<FixedString<32>> stream;
-
-    stream << -12345L;
-
-    REQUIRE(stream.str() == "-12345");
-  }
-
-  SECTION("Insert unsigned long integer") {
-    OStringStream<FixedString<32>> stream;
-
-    stream << 12345UL;
-
-    REQUIRE(stream.str() == "12345");
+    REQUIRE(stream1.str() == "12345");
+    REQUIRE(stream2.str() == "-12345");
+    REQUIRE(stream3.str() == "12345");
   }
 
   SECTION("Insert long long integer") {
-    OStringStream<FixedString<64>> stream;
+    OStringStream<FixedString<16>> stream1;
+    OStringStream<FixedString<16>> stream2;
+    OStringStream<FixedString<16>> stream3;
 
-    stream << 123456789LL;
+    stream1 << 123456789LL;
+    stream2 << -123456789LL;
+    stream3 << 123456789ULL;
 
-    REQUIRE(stream.str() == "123456789");
+    REQUIRE(stream1.str() == "123456789");
+    REQUIRE(stream2.str() == "-123456789");
+    REQUIRE(stream3.str() == "123456789");
   }
 
-  SECTION("Insert negative long long integer") {
-    OStringStream<FixedString<64>> stream;
+  SECTION("Insert double") {
+    OStringStream<FixedString<16>> stream1;
+    OStringStream<FixedString<16>> stream2;
 
-    stream << -123456789LL;
+    stream1 << 123.456;
+    stream2 << -123.456;
 
-    REQUIRE(stream.str() == "-123456789");
+    REQUIRE(stream1.str() == "123.456");
+    REQUIRE(stream2.str() == "-123.456");
   }
 
-  SECTION("Insert unsigned long long integer") {
-    OStringStream<FixedString<64>> stream;
+  SECTION("Insert short integer") {
+    OStringStream<FixedString<8>> stream1;
+    OStringStream<FixedString<8>> stream2;
+    OStringStream<FixedString<8>> stream3;
 
-    stream << 123456789ULL;
+    stream1 << short(12345);
+    stream2 << short(-12345);
+    stream3 << static_cast<unsigned short>(12345);
 
-    REQUIRE(stream.str() == "123456789");
+    REQUIRE(stream1.str() == "12345");
+    REQUIRE(stream2.str() == "-12345");
+    REQUIRE(stream3.str() == "12345");
+  }
+
+  SECTION("Insert int integer") {
+    OStringStream<FixedString<8>> stream1;
+    OStringStream<FixedString<8>> stream2;
+    OStringStream<FixedString<8>> stream3;
+
+    stream1 << 12345;
+    stream2 << -12345;
+    stream3 << 12345U;
+
+    REQUIRE(stream1.str() == "12345");
+    REQUIRE(stream2.str() == "-12345");
+    REQUIRE(stream3.str() == "12345");
+  }
+
+  SECTION("Insert float") {
+    OStringStream<FixedString<16>> stream1;
+    OStringStream<FixedString<16>> stream2;
+
+    stream1 << 123.456f;
+    stream2 << -123.456f;
+
+    REQUIRE(stream1.str() == "123.456");
+    REQUIRE(stream2.str() == "-123.456");
   }
 
   SECTION("Insert zero values") {
     OStringStream<FixedString<32>> stream;
 
-    stream << 0L << 0UL << 0LL << 0ULL;
+    stream << 0L << 0UL << 0LL << 0ULL << 0.0 << short(0) << static_cast<unsigned short>(0) << 0 << 0U << 0.0f;
 
-    REQUIRE(stream.str() == "0000");
+    REQUIRE(stream.str() == "0000000000");
   }
 
-  SECTION("Insert integer to stream with content") {
-    OStringStream<FixedString<64>> stream(CStringView("Value: "));
+  SECTION("Insert numbers to stream with content") {
+    OStringStream<FixedString<64>> stream1(CStringView("Value: "));
+    OStringStream<FixedString<64>> stream2(CStringView("Value: "));
+    OStringStream<FixedString<64>> stream3(CStringView("Value: "));
+    OStringStream<FixedString<64>> stream4(CStringView("Value: "));
+    OStringStream<FixedString<64>> stream5(CStringView("Value: "));
+    OStringStream<FixedString<64>> stream6(CStringView("Value: "));
+    OStringStream<FixedString<64>> stream7(CStringView("Value: "));
+    OStringStream<FixedString<64>> stream8(CStringView("Value: "));
+    OStringStream<FixedString<64>> stream9(CStringView("Value: "));
+    OStringStream<FixedString<64>> stream10(CStringView("Value: "));
 
-    stream << 42L;
+    stream1 << -12L;
+    stream2 << 23UL;
+    stream3 << -34LL;
+    stream4 << 45ULL;
+    stream5 << 5.6;
+    stream6 << short(-67);
+    stream7 << static_cast<unsigned short>(78);
+    stream8 << 89;
+    stream9 << 90;
+    stream10 << 0.1;
 
-    REQUIRE(stream.str() == "Value: 42");
+    REQUIRE(stream1.str() == "Value: -12");
+    REQUIRE(stream2.str() == "Value: 23");
+    REQUIRE(stream3.str() == "Value: -34");
+    REQUIRE(stream4.str() == "Value: 45");
+    REQUIRE(stream5.str() == "Value: 5.6");
+    REQUIRE(stream6.str() == "Value: -67");
+    REQUIRE(stream7.str() == "Value: 78");
+    REQUIRE(stream8.str() == "Value: 89");
+    REQUIRE(stream9.str() == "Value: 90");
+    REQUIRE(stream10.str() == "Value: 0.1");
   }
 
-  SECTION("Insert integer returns reference for chaining") {
-    OStringStream<FixedString<64>> stream1;
-    OStringStream<FixedString<64>> stream2;
+  SECTION("Insert long returns reference for chaining") {
+    OStringStream<FixedString<16>> stream1;
+    OStringStream<FixedString<16>> stream2;
 
-    auto & ref1 = stream1 << 100L;
+    auto & ref1 = stream1 << -100L;
     auto & ref2 = stream2 << 200UL;
 
     REQUIRE(&ref1 == &stream1);
     REQUIRE(&ref2 == &stream2);
-    REQUIRE(stream1.str() == "100");
+    REQUIRE(stream1.str() == "-100");
     REQUIRE(stream2.str() == "200");
   }
 
-  SECTION("Insert longs with separator") {
+  SECTION("Insert long long returns reference for chaining") {
+    OStringStream<FixedString<16>> stream1;
+    OStringStream<FixedString<16>> stream2;
+
+    auto & ref1 = stream1 << -100LL;
+    auto & ref2 = stream2 << 200ULL;
+
+    REQUIRE(&ref1 == &stream1);
+    REQUIRE(&ref2 == &stream2);
+    REQUIRE(stream1.str() == "-100");
+    REQUIRE(stream2.str() == "200");
+  }
+
+  SECTION("Insert double returns reference for chaining") {
+    OStringStream<FixedString<16>> stream1;
+    OStringStream<FixedString<16>> stream2;
+
+    auto & ref1 = stream1 << 100.5;
+    auto & ref2 = stream2 << 200.75;
+
+    REQUIRE(&ref1 == &stream1);
+    REQUIRE(&ref2 == &stream2);
+    REQUIRE(stream1.str() == "100.5");
+    REQUIRE(stream2.str() == "200.75");
+  }
+
+  SECTION("Insert short returns reference for chaining") {
+    OStringStream<FixedString<16>> stream1;
+    OStringStream<FixedString<16>> stream2;
+
+    auto & ref1 = stream1 << short(-100);
+    auto & ref2 = stream2 << static_cast<unsigned short>(200);
+
+    REQUIRE(&ref1 == &stream1);
+    REQUIRE(&ref2 == &stream2);
+    REQUIRE(stream1.str() == "-100");
+    REQUIRE(stream2.str() == "200");
+  }
+
+  SECTION("Insert int returns reference for chaining") {
+    OStringStream<FixedString<16>> stream1;
+    OStringStream<FixedString<16>> stream2;
+
+    auto & ref1 = stream1 << -100;
+    auto & ref2 = stream2 << 100U;
+
+    REQUIRE(&ref1 == &stream1);
+    REQUIRE(&ref2 == &stream2);
+    REQUIRE(stream1.str() == "-100");
+    REQUIRE(stream2.str() == "100");
+  }
+
+  SECTION("Insert longs min/max with separator") {
     OStringStream<FixedString<64>> stream;
 
     stream << std::numeric_limits<long>::min();
@@ -644,7 +753,7 @@ TEST_CASE("OStringStream operator<<", "[core][o_string_stream]") {
     }
   }
 
-  SECTION("Insert long longs with separator") {
+  SECTION("Insert long longs min/max with separator") {
     OStringStream<FixedString<64>> stream;
 
     stream << std::numeric_limits<long long>::min();
@@ -656,6 +765,131 @@ TEST_CASE("OStringStream operator<<", "[core][o_string_stream]") {
     stream << std::numeric_limits<unsigned long long>::max();
 
     REQUIRE(stream.str() == "-9223372036854775808 0 9223372036854775807 18446744073709551615");
+  }
+
+  SECTION("Insert float returns reference for chaining") {
+    OStringStream<FixedString<16>> stream1;
+    OStringStream<FixedString<16>> stream2;
+
+    auto & ref1 = stream1 << 100.5f;
+    auto & ref2 = stream2 << 200.75f;
+
+    REQUIRE(&ref1 == &stream1);
+    REQUIRE(&ref2 == &stream2);
+    REQUIRE(stream1.str() == "100.5");
+    REQUIRE(stream2.str() == "200.75");
+  }
+
+  SECTION("Insert double with custom precision") {
+    OStringStream<FixedString<64>> stream1;
+    OStringStream<FixedString<64>> stream2;
+    OStringStream<FixedString<64>> stream3;
+    OStringStream<FixedString<64>> stream4;
+
+    stream2.precision(3);
+    stream3.precision(1);
+    stream4.precision(15);
+
+    stream1 << 3.141592653589793;
+    stream2 << 3.141592653589793;
+    stream3 << 3.141592653589793;
+    stream4 << 3.141592653589793;
+
+    REQUIRE(stream1.str() == "3.14159");
+    REQUIRE(stream2.str() == "3.14");
+    REQUIRE(stream3.str() == "3");
+    REQUIRE(stream4.str() == "3.14159244298935");
+  }
+
+  SECTION("Insert short min/max with separator") {
+    OStringStream<FixedString<64>> stream;
+
+    stream << std::numeric_limits<short>::min();
+    stream.put(' ');
+    stream << std::numeric_limits<short>::max();
+    stream.put(' ');
+    stream << std::numeric_limits<unsigned short>::min();
+    stream.put(' ');
+    stream << std::numeric_limits<unsigned short>::max();
+
+    REQUIRE(stream.str() == "-32768 32767 0 65535");
+  }
+
+  SECTION("Insert int min/max with separator") {
+    OStringStream<FixedString<64>> stream;
+
+    stream << std::numeric_limits<int>::min();
+    stream.put(' ');
+    stream << std::numeric_limits<int>::max();
+    stream.put(' ');
+    stream << std::numeric_limits<unsigned int>::min();
+    stream.put(' ');
+    stream << std::numeric_limits<unsigned int>::max();
+
+    if constexpr (sizeof(int) == 4) {
+      REQUIRE(stream.str() == "-2147483648 2147483647 0 4294967295");
+    } else if constexpr (sizeof(long) == 8) {
+      REQUIRE(stream.str() == "-9223372036854775808 9223372036854775807 0 18446744073709551615");
+    } else {
+      static_assert(sizeof(int) == 4 || sizeof(int) == 8, "Unsupported value size");
+    }
+  }
+
+  SECTION("Insert floar with custom precision") {
+    OStringStream<FixedString<64>> stream1;
+    OStringStream<FixedString<64>> stream2;
+    OStringStream<FixedString<64>> stream3;
+    OStringStream<FixedString<64>> stream4;
+
+    stream2.precision(3);
+    stream3.precision(1);
+    stream4.precision(15);
+
+    stream1 << 3.141592653589793f;
+    stream2 << 3.141592653589793f;
+    stream3 << 3.141592653589793f;
+    stream4 << 3.141592653589793f;
+
+    REQUIRE(stream1.str() == "3.14159");
+    REQUIRE(stream2.str() == "3.14");
+    REQUIRE(stream3.str() == "3");
+    REQUIRE(stream4.str() == "3.14159244298935");
+  }
+
+  SECTION("Insert void pointer") {
+    OStringStream<FixedString<32>> stream1;
+    OStringStream<FixedString<32>> stream2;
+
+    constexpr int value = 42;
+
+    stream1 << &value;
+    stream2 << nullptr;
+
+    REQUIRE(stream1.str().starts_with("0x"));
+
+    if constexpr (sizeof(long) == 4) {
+      REQUIRE(stream1.str().length() == 10);
+    } else if constexpr (sizeof(long) == 8) {
+      REQUIRE(stream1.str().length() == 18);
+    } else {
+      static_assert(sizeof(long) == 4 || sizeof(long) == 8, "Unsupported value size");
+    }
+
+    REQUIRE(stream2.str() == "nullptr");
+  }
+
+  SECTION("Insert pointer to stream with content") {
+    OStringStream<FixedString<32>> stream1(CStringView("Ptr: "));
+    OStringStream<FixedString<32>> stream2(CStringView("Ptr: "));
+
+    constexpr int value = 100;
+
+    stream1 << &value;
+    stream2 << nullptr;
+
+    REQUIRE(stream1.str().starts_with("Ptr: 0x"));
+    REQUIRE(stream1.str().size() > 6);
+    REQUIRE(stream2.str() == "Ptr: nullptr");
   }
 }
 

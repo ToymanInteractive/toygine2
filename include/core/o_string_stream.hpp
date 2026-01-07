@@ -223,6 +223,22 @@ public:
   */
   constexpr OStringStream & operator<<(unsigned long long value) noexcept;
 
+  constexpr OStringStream & operator<<(double value) noexcept;
+
+  constexpr OStringStream & operator<<(const void * value) noexcept;
+
+  constexpr OStringStream & operator<<(nullptr_t) noexcept;
+
+  constexpr OStringStream & operator<<(short value) noexcept;
+
+  constexpr OStringStream & operator<<(int value) noexcept;
+
+  constexpr OStringStream & operator<<(unsigned short value) noexcept;
+
+  constexpr OStringStream & operator<<(unsigned int value) noexcept;
+
+  constexpr OStringStream & operator<<(float value) noexcept;
+
   /*!
     \brief Returns a const reference to the underlying string.
 
