@@ -386,7 +386,6 @@ public:
   */
   constexpr OStringStream & operator<<(nullptr_t) noexcept;
 
-
   /*!
     \brief Returns a const reference to the underlying string.
 

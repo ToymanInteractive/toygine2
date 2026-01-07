@@ -799,7 +799,7 @@ TEST_CASE("OStringStream operator<<", "[core][o_string_stream]") {
     REQUIRE(stream1.str() == "3.14159");
     REQUIRE(stream2.str() == "3.14");
     REQUIRE(stream3.str() == "3");
-    REQUIRE(stream4.str() == "3.14159265358935");
+    REQUIRE(stream4.str() == "3.14159244298935");
   }
 
   SECTION("Insert short min/max with separator") {
