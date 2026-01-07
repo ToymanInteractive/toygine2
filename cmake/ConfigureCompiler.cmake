@@ -76,12 +76,21 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop")
     message(FATAL_ERROR "GCC >= 13.3 required")
   endif(CMAKE_CXX_COMPILER_VERSION VERSION_LESS 13.3)
 
-# Option Summary  https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/Option-Summary.html
-#                 https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/C-Dialect-Options.html#index-fpermitted-flt-eval-methods
-# Option Summary  https://gcc.gnu.org/onlinedocs/gcc-14.2.0/gcc/Option-Summary.html
+# Option Summary  https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/C_002b_002b-Dialect-Options.html
+#                 https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/C_002b_002b-Dialect-Options.html#Options-Controlling-C_002b_002b-Dialect
+# Option Summary  https://gcc.gnu.org/onlinedocs/gcc-14.2.0/gcc/C_002b_002b-Dialect-Options.html
 
-  set(CMAKE_C_FLAGS   "-std=c17   -foffload=default -fopenmp-simd")
-  set(CMAKE_CXX_FLAGS "-std=c++23 -foffload=default -fopenmp-simd")
+  set(CMAKE_C_FLAGS   "-std=c17   -foffload=default -fopenmp-simd -fstrict-flex-arrays=2")
+  set(CMAKE_CXX_FLAGS "-std=c++23 -foffload=default -fopenmp-simd -fstrict-flex-arrays=2")
+
+  set(CMAKE_C_FLAGS_DEBUG            "    -g -D_DEBUG -fpermitted-flt-eval-methods=ieee")
+  set(CMAKE_CXX_FLAGS_DEBUG          "    -g -D_DEBUG -fpermitted-flt-eval-methods=ieee")
+
+  set(CMAKE_C_FLAGS_RELWITHDEBINFO   "-O2 -g -D_DEBUG -fpermitted-flt-eval-methods=fast")
+  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g -D_DEBUG -fpermitted-flt-eval-methods=fast")
+
+  set(CMAKE_C_FLAGS_RELEASE          "-O3    -DNDEBUG -fpermitted-flt-eval-methods=fast")
+  set(CMAKE_CXX_FLAGS_RELEASE        "-O3    -DNDEBUG -fpermitted-flt-eval-methods=fast")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
 
@@ -146,10 +155,19 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Game Boy Advance")
     message(FATAL_ERROR "GCC >= 15.2 required")
   endif(CMAKE_CXX_COMPILER_VERSION VERSION_LESS 15.2)
 
-# Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/Option-Summary.html
+# Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/C_002b_002b-Dialect-Options.html
 
-  set(CMAKE_C_FLAGS   "-std=с17   -foffload=disable -fopenmp-simd")
-  set(CMAKE_CXX_FLAGS "-std=c++23 -foffload=disable -fopenmp-simd")
+  set(CMAKE_C_FLAGS   "-std=c17   -fstrict-flex-arrays=2")
+  set(CMAKE_CXX_FLAGS "-std=c++23 -fstrict-flex-arrays=2")
+
+  set(CMAKE_C_FLAGS_DEBUG            "    -g -D_DEBUG -fpermitted-flt-eval-methods=ieee")
+  set(CMAKE_CXX_FLAGS_DEBUG          "    -g -D_DEBUG -fpermitted-flt-eval-methods=ieee")
+
+  set(CMAKE_C_FLAGS_RELWITHDEBINFO   "-O2 -g -D_DEBUG -fpermitted-flt-eval-methods=fast")
+  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g -D_DEBUG -fpermitted-flt-eval-methods=fast")
+
+  set(CMAKE_C_FLAGS_RELEASE          "-O3    -DNDEBUG -fpermitted-flt-eval-methods=fast")
+  set(CMAKE_CXX_FLAGS_RELEASE        "-O3    -DNDEBUG -fpermitted-flt-eval-methods=fast")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
 
@@ -167,14 +185,21 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
     message(FATAL_ERROR "GCC >= 15.2 required")
   endif(CMAKE_CXX_COMPILER_VERSION VERSION_LESS 15.2)
 
-# Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/Option-Summary.html
+# Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/C_002b_002b-Dialect-Options.html
 
-  set(CMAKE_C_FLAGS   "-std=с17   -foffload=disable -fopenmp-simd")
-  set(CMAKE_CXX_FLAGS "-std=c++23 -foffload=disable -fopenmp-simd")
+  set(CMAKE_C_FLAGS   "-std=c17   -fstrict-flex-arrays=2")
+  set(CMAKE_CXX_FLAGS "-std=c++23 -fstrict-flex-arrays=2")
+
+  set(CMAKE_C_FLAGS_DEBUG            "    -g -D_DEBUG -fpermitted-flt-eval-methods=ieee")
+  set(CMAKE_CXX_FLAGS_DEBUG          "    -g -D_DEBUG -fpermitted-flt-eval-methods=ieee")
+
+  set(CMAKE_C_FLAGS_RELWITHDEBINFO   "-O2 -g -D_DEBUG -fpermitted-flt-eval-methods=fast")
+  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g -D_DEBUG -fpermitted-flt-eval-methods=fast")
+
+  set(CMAKE_C_FLAGS_RELEASE          "-O3    -DNDEBUG -fpermitted-flt-eval-methods=fast")
+  set(CMAKE_CXX_FLAGS_RELEASE        "-O3    -DNDEBUG -fpermitted-flt-eval-methods=fast")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 3DS")
-
-# Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/Option-Summary.html
 
   if (NOT DEVKITPRO_FOUND)
     message(FATAL_ERROR "devkitPro not found. Install devkitPro and ensure DEVKITPRO is set.")
@@ -190,14 +215,21 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 3DS")
     message(FATAL_ERROR "GCC >= 15.2 required")
   endif(CMAKE_CXX_COMPILER_VERSION VERSION_LESS 15.2)
 
-# Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/Option-Summary.html
+# Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/C_002b_002b-Dialect-Options.html
 
-  set(CMAKE_C_FLAGS   "-std=с17   -foffload=disable -fopenmp-simd")
-  set(CMAKE_CXX_FLAGS "-std=c++23 -foffload=disable -fopenmp-simd")
+  set(CMAKE_C_FLAGS   "-std=c17   -fstrict-flex-arrays=2")
+  set(CMAKE_CXX_FLAGS "-std=c++23 -fstrict-flex-arrays=2")
+
+  set(CMAKE_C_FLAGS_DEBUG            "    -g -D_DEBUG -fpermitted-flt-eval-methods=ieee")
+  set(CMAKE_CXX_FLAGS_DEBUG          "    -g -D_DEBUG -fpermitted-flt-eval-methods=ieee")
+
+  set(CMAKE_C_FLAGS_RELWITHDEBINFO   "-O2 -g -D_DEBUG -fpermitted-flt-eval-methods=fast")
+  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g -D_DEBUG -fpermitted-flt-eval-methods=fast")
+
+  set(CMAKE_C_FLAGS_RELEASE          "-O3    -DNDEBUG -fpermitted-flt-eval-methods=fast")
+  set(CMAKE_CXX_FLAGS_RELEASE        "-O3    -DNDEBUG -fpermitted-flt-eval-methods=fast")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
-
-# Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/Option-Summary.html
 
   if (NOT DEVKITPRO_FOUND)
     message(FATAL_ERROR "devkitPro not found. Install devkitPro and ensure DEVKITPRO is set.")
@@ -213,10 +245,19 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
     message(FATAL_ERROR "GCC >= 15.2 required")
   endif(CMAKE_CXX_COMPILER_VERSION VERSION_LESS 15.2)
 
-# Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/Option-Summary.html
+# Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/C_002b_002b-Dialect-Options.html
 
-  set(CMAKE_C_FLAGS   "-std=с17   -foffload=disable -fopenmp-simd")
-  set(CMAKE_CXX_FLAGS "-std=c++23 -foffload=disable -fopenmp-simd")
+  set(CMAKE_C_FLAGS   "-std=c17   -fstrict-flex-arrays=2")
+  set(CMAKE_CXX_FLAGS "-std=c++23 -fstrict-flex-arrays=2")
+
+  set(CMAKE_C_FLAGS_DEBUG            "    -g -D_DEBUG -fpermitted-flt-eval-methods=ieee")
+  set(CMAKE_CXX_FLAGS_DEBUG          "    -g -D_DEBUG -fpermitted-flt-eval-methods=ieee")
+
+  set(CMAKE_C_FLAGS_RELWITHDEBINFO   "-O2 -g -D_DEBUG -fpermitted-flt-eval-methods=fast")
+  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g -D_DEBUG -fpermitted-flt-eval-methods=fast")
+
+  set(CMAKE_C_FLAGS_RELEASE          "-O3    -DNDEBUG -fpermitted-flt-eval-methods=fast")
+  set(CMAKE_CXX_FLAGS_RELEASE        "-O3    -DNDEBUG -fpermitted-flt-eval-methods=fast")
 
 else ()
 
