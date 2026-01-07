@@ -548,32 +548,71 @@ TEST_CASE("OStringStream operator<<", "[core][o_string_stream]") {
     REQUIRE(stream2.str() == "false");
   }
 
-  SECTION("Insert long integer") {
+  SECTION("Insert int8 integer") {
     OStringStream<FixedString<8>> stream1;
     OStringStream<FixedString<8>> stream2;
     OStringStream<FixedString<8>> stream3;
 
-    stream1 << 12345L;
-    stream2 << -12345L;
-    stream3 << 12345UL;
+    stream1 << static_cast<int8_t>(123);
+    stream2 << static_cast<int8_t>(-123);
+    stream3 << static_cast<uint8_t>(123);
+
+    REQUIRE(stream1.str() == "123");
+    REQUIRE(stream2.str() == "-123");
+    REQUIRE(stream3.str() == "123");
+  }
+
+  SECTION("Insert int16 integer") {
+    OStringStream<FixedString<8>> stream1;
+    OStringStream<FixedString<8>> stream2;
+    OStringStream<FixedString<8>> stream3;
+
+    stream1 << static_cast<int16_t>(12345);
+    stream2 << static_cast<int16_t>(-12345);
+    stream3 << static_cast<uint16_t>(12345);
 
     REQUIRE(stream1.str() == "12345");
     REQUIRE(stream2.str() == "-12345");
     REQUIRE(stream3.str() == "12345");
   }
 
-  SECTION("Insert long long integer") {
+  SECTION("Insert int32 integer") {
     OStringStream<FixedString<16>> stream1;
     OStringStream<FixedString<16>> stream2;
     OStringStream<FixedString<16>> stream3;
 
-    stream1 << 123456789LL;
-    stream2 << -123456789LL;
-    stream3 << 123456789ULL;
+    stream1 << static_cast<int32_t>(123456789);
+    stream2 << static_cast<int32_t>(-123456789);
+    stream3 << static_cast<uint32_t>(123456789);
 
     REQUIRE(stream1.str() == "123456789");
     REQUIRE(stream2.str() == "-123456789");
     REQUIRE(stream3.str() == "123456789");
+  }
+
+  SECTION("Insert int64 integer") {
+    OStringStream<FixedString<32>> stream1;
+    OStringStream<FixedString<32>> stream2;
+    OStringStream<FixedString<32>> stream3;
+
+    stream1 << static_cast<int64_t>(123456789);
+    stream2 << static_cast<int64_t>(-123456789);
+    stream3 << static_cast<uint64_t>(123456789);
+
+    REQUIRE(stream1.str() == "123456789");
+    REQUIRE(stream2.str() == "-123456789");
+    REQUIRE(stream3.str() == "123456789");
+  }
+
+  SECTION("Insert float") {
+    OStringStream<FixedString<16>> stream1;
+    OStringStream<FixedString<16>> stream2;
+
+    stream1 << 123.456f;
+    stream2 << -123.456f;
+
+    REQUIRE(stream1.str() == "123.456");
+    REQUIRE(stream2.str() == "-123.456");
   }
 
   SECTION("Insert double") {
@@ -585,20 +624,6 @@ TEST_CASE("OStringStream operator<<", "[core][o_string_stream]") {
 
     REQUIRE(stream1.str() == "123.456");
     REQUIRE(stream2.str() == "-123.456");
-  }
-
-  SECTION("Insert short integer") {
-    OStringStream<FixedString<8>> stream1;
-    OStringStream<FixedString<8>> stream2;
-    OStringStream<FixedString<8>> stream3;
-
-    stream1 << short(12345);
-    stream2 << short(-12345);
-    stream3 << static_cast<unsigned short>(12345);
-
-    REQUIRE(stream1.str() == "12345");
-    REQUIRE(stream2.str() == "-12345");
-    REQUIRE(stream3.str() == "12345");
   }
 
   SECTION("Insert int integer") {
@@ -615,23 +640,14 @@ TEST_CASE("OStringStream operator<<", "[core][o_string_stream]") {
     REQUIRE(stream3.str() == "12345");
   }
 
-  SECTION("Insert float") {
-    OStringStream<FixedString<16>> stream1;
-    OStringStream<FixedString<16>> stream2;
-
-    stream1 << 123.456f;
-    stream2 << -123.456f;
-
-    REQUIRE(stream1.str() == "123.456");
-    REQUIRE(stream2.str() == "-123.456");
-  }
-
   SECTION("Insert zero values") {
     OStringStream<FixedString<32>> stream;
 
-    stream << 0L << 0UL << 0LL << 0ULL << 0.0 << short(0) << static_cast<unsigned short>(0) << 0 << 0U << 0.0f;
+    stream << static_cast<int8_t>(0) << static_cast<uint8_t>(0) << static_cast<int16_t>(0) << static_cast<uint16_t>(0)
+           << static_cast<int32_t>(0) << static_cast<uint32_t>(0) << static_cast<int64_t>(0) << static_cast<uint64_t>(0)
+           << 0.0f << 0.0 << 0 << 0U;
 
-    REQUIRE(stream.str() == "0000000000");
+    REQUIRE(stream.str() == "000000000000");
   }
 
   SECTION("Insert numbers to stream with content") {
@@ -645,36 +661,42 @@ TEST_CASE("OStringStream operator<<", "[core][o_string_stream]") {
     OStringStream<FixedString<64>> stream8(CStringView("Value: "));
     OStringStream<FixedString<64>> stream9(CStringView("Value: "));
     OStringStream<FixedString<64>> stream10(CStringView("Value: "));
+    OStringStream<FixedString<64>> stream11(CStringView("Value: "));
+    OStringStream<FixedString<64>> stream12(CStringView("Value: "));
 
-    stream1 << -12L;
-    stream2 << 23UL;
-    stream3 << -34LL;
-    stream4 << 45ULL;
-    stream5 << 5.6;
-    stream6 << short(-67);
-    stream7 << static_cast<unsigned short>(78);
-    stream8 << 89;
-    stream9 << 90;
+    stream1 << static_cast<int8_t>(-12);
+    stream2 << static_cast<uint8_t>(23);
+    stream3 << static_cast<int16_t>(-34);
+    stream4 << static_cast<uint16_t>(45);
+    stream5 << static_cast<int32_t>(-56);
+    stream6 << static_cast<uint32_t>(67);
+    stream7 << static_cast<int64_t>(-78);
+    stream8 << static_cast<uint64_t>(89);
+    stream9 << -9.0f;
     stream10 << 0.1;
+    stream11 << -12;
+    stream12 << 23;
 
     REQUIRE(stream1.str() == "Value: -12");
     REQUIRE(stream2.str() == "Value: 23");
     REQUIRE(stream3.str() == "Value: -34");
     REQUIRE(stream4.str() == "Value: 45");
-    REQUIRE(stream5.str() == "Value: 5.6");
-    REQUIRE(stream6.str() == "Value: -67");
-    REQUIRE(stream7.str() == "Value: 78");
+    REQUIRE(stream5.str() == "Value: -56");
+    REQUIRE(stream6.str() == "Value: 67");
+    REQUIRE(stream7.str() == "Value: -78");
     REQUIRE(stream8.str() == "Value: 89");
-    REQUIRE(stream9.str() == "Value: 90");
+    REQUIRE(stream9.str() == "Value: -9");
     REQUIRE(stream10.str() == "Value: 0.1");
+    REQUIRE(stream11.str() == "Value: -12");
+    REQUIRE(stream12.str() == "Value: 23");
   }
 
-  SECTION("Insert long returns reference for chaining") {
+  SECTION("Insert int8 returns reference for chaining") {
     OStringStream<FixedString<16>> stream1;
     OStringStream<FixedString<16>> stream2;
 
-    auto & ref1 = stream1 << -100L;
-    auto & ref2 = stream2 << 200UL;
+    auto & ref1 = stream1 << static_cast<int8_t>(-100);
+    auto & ref2 = stream2 << static_cast<uint8_t>(200);
 
     REQUIRE(&ref1 == &stream1);
     REQUIRE(&ref2 == &stream2);
@@ -682,12 +704,12 @@ TEST_CASE("OStringStream operator<<", "[core][o_string_stream]") {
     REQUIRE(stream2.str() == "200");
   }
 
-  SECTION("Insert long long returns reference for chaining") {
+  SECTION("Insert int16 returns reference for chaining") {
     OStringStream<FixedString<16>> stream1;
     OStringStream<FixedString<16>> stream2;
 
-    auto & ref1 = stream1 << -100LL;
-    auto & ref2 = stream2 << 200ULL;
+    auto & ref1 = stream1 << static_cast<int16_t>(-100);
+    auto & ref2 = stream2 << static_cast<uint16_t>(200);
 
     REQUIRE(&ref1 == &stream1);
     REQUIRE(&ref2 == &stream2);
@@ -695,25 +717,12 @@ TEST_CASE("OStringStream operator<<", "[core][o_string_stream]") {
     REQUIRE(stream2.str() == "200");
   }
 
-  SECTION("Insert double returns reference for chaining") {
+  SECTION("Insert int32 returns reference for chaining") {
     OStringStream<FixedString<16>> stream1;
     OStringStream<FixedString<16>> stream2;
 
-    auto & ref1 = stream1 << 100.5;
-    auto & ref2 = stream2 << 200.75;
-
-    REQUIRE(&ref1 == &stream1);
-    REQUIRE(&ref2 == &stream2);
-    REQUIRE(stream1.str() == "100.5");
-    REQUIRE(stream2.str() == "200.75");
-  }
-
-  SECTION("Insert short returns reference for chaining") {
-    OStringStream<FixedString<16>> stream1;
-    OStringStream<FixedString<16>> stream2;
-
-    auto & ref1 = stream1 << short(-100);
-    auto & ref2 = stream2 << static_cast<unsigned short>(200);
+    auto & ref1 = stream1 << static_cast<int32_t>(-100);
+    auto & ref2 = stream2 << static_cast<uint32_t>(200);
 
     REQUIRE(&ref1 == &stream1);
     REQUIRE(&ref2 == &stream2);
@@ -721,51 +730,17 @@ TEST_CASE("OStringStream operator<<", "[core][o_string_stream]") {
     REQUIRE(stream2.str() == "200");
   }
 
-  SECTION("Insert int returns reference for chaining") {
+  SECTION("Insert int64 returns reference for chaining") {
     OStringStream<FixedString<16>> stream1;
     OStringStream<FixedString<16>> stream2;
 
-    auto & ref1 = stream1 << -100;
-    auto & ref2 = stream2 << 100U;
+    auto & ref1 = stream1 << static_cast<int64_t>(-100);
+    auto & ref2 = stream2 << static_cast<uint64_t>(200);
 
     REQUIRE(&ref1 == &stream1);
     REQUIRE(&ref2 == &stream2);
     REQUIRE(stream1.str() == "-100");
-    REQUIRE(stream2.str() == "100");
-  }
-
-  SECTION("Insert longs min/max with separator") {
-    OStringStream<FixedString<64>> stream;
-
-    stream << std::numeric_limits<long>::min();
-    stream.put(' ');
-    stream << std::numeric_limits<unsigned long>::min();
-    stream.put(' ');
-    stream << std::numeric_limits<long>::max();
-    stream.put(' ');
-    stream << std::numeric_limits<unsigned long>::max();
-
-    if constexpr (sizeof(long) == 4) {
-      REQUIRE(stream.str() == "-2147483648 0 2147483647 4294967295");
-    } else if constexpr (sizeof(long) == 8) {
-      REQUIRE(stream.str() == "-9223372036854775808 0 9223372036854775807 18446744073709551615");
-    } else {
-      static_assert(sizeof(long) == 4 || sizeof(long) == 8, "Unsupported value size");
-    }
-  }
-
-  SECTION("Insert long longs min/max with separator") {
-    OStringStream<FixedString<64>> stream;
-
-    stream << std::numeric_limits<long long>::min();
-    stream.put(' ');
-    stream << std::numeric_limits<unsigned long long>::min();
-    stream.put(' ');
-    stream << std::numeric_limits<long long>::max();
-    stream.put(' ');
-    stream << std::numeric_limits<unsigned long long>::max();
-
-    REQUIRE(stream.str() == "-9223372036854775808 0 9223372036854775807 18446744073709551615");
+    REQUIRE(stream2.str() == "200");
   }
 
   SECTION("Insert float returns reference for chaining") {
@@ -781,39 +756,86 @@ TEST_CASE("OStringStream operator<<", "[core][o_string_stream]") {
     REQUIRE(stream2.str() == "200.75");
   }
 
-  SECTION("Insert double with custom precision") {
-    OStringStream<FixedString<64>> stream1;
-    OStringStream<FixedString<64>> stream2;
-    OStringStream<FixedString<64>> stream3;
-    OStringStream<FixedString<64>> stream4;
+  SECTION("Insert double returns reference for chaining") {
+    OStringStream<FixedString<16>> stream1;
+    OStringStream<FixedString<16>> stream2;
 
-    stream2.precision(3);
-    stream3.precision(1);
-    stream4.precision(15);
+    auto & ref1 = stream1 << 100.5;
+    auto & ref2 = stream2 << 200.75;
 
-    stream1 << std::numbers::pi;
-    stream2 << std::numbers::pi;
-    stream3 << std::numbers::pi;
-    stream4 << std::numbers::pi;
-
-    REQUIRE(stream1.str() == "3.14159");
-    REQUIRE(stream2.str() == "3.14");
-    REQUIRE(stream3.str() == "3");
-    REQUIRE(stream4.str() == "3.14159244298935");
+    REQUIRE(&ref1 == &stream1);
+    REQUIRE(&ref2 == &stream2);
+    REQUIRE(stream1.str() == "100.5");
+    REQUIRE(stream2.str() == "200.75");
   }
 
-  SECTION("Insert short min/max with separator") {
+  SECTION("Insert int returns reference for chaining") {
+    OStringStream<FixedString<16>> stream1;
+    OStringStream<FixedString<16>> stream2;
+
+    auto & ref1 = stream1 << -100;
+    auto & ref2 = stream2 << 100U;
+
+    REQUIRE(&ref1 == &stream1);
+    REQUIRE(&ref2 == &stream2);
+    REQUIRE(stream1.str() == "-100");
+    REQUIRE(stream2.str() == "100");
+  }
+
+  SECTION("Insert int8 min/max with separator") {
     OStringStream<FixedString<64>> stream;
 
-    stream << std::numeric_limits<short>::min();
+    stream << std::numeric_limits<int8_t>::min();
     stream.put(' ');
-    stream << std::numeric_limits<short>::max();
+    stream << std::numeric_limits<int8_t>::max();
     stream.put(' ');
-    stream << std::numeric_limits<unsigned short>::min();
+    stream << std::numeric_limits<uint8_t>::min();
     stream.put(' ');
-    stream << std::numeric_limits<unsigned short>::max();
+    stream << std::numeric_limits<uint8_t>::max();
+
+    REQUIRE(stream.str() == "-128 127 0 255");
+  }
+
+  SECTION("Insert int16 min/max with separator") {
+    OStringStream<FixedString<64>> stream;
+
+    stream << std::numeric_limits<int16_t>::min();
+    stream.put(' ');
+    stream << std::numeric_limits<int16_t>::max();
+    stream.put(' ');
+    stream << std::numeric_limits<uint16_t>::min();
+    stream.put(' ');
+    stream << std::numeric_limits<uint16_t>::max();
 
     REQUIRE(stream.str() == "-32768 32767 0 65535");
+  }
+
+  SECTION("Insert int32 min/max with separator") {
+    OStringStream<FixedString<64>> stream;
+
+    stream << std::numeric_limits<int32_t>::min();
+    stream.put(' ');
+    stream << std::numeric_limits<int32_t>::max();
+    stream.put(' ');
+    stream << std::numeric_limits<uint32_t>::min();
+    stream.put(' ');
+    stream << std::numeric_limits<uint32_t>::max();
+
+    REQUIRE(stream.str() == "-2147483648 2147483647 0 4294967295");
+  }
+
+  SECTION("Insert int64 min/max with separator") {
+    OStringStream<FixedString<64>> stream;
+
+    stream << std::numeric_limits<int64_t>::min();
+    stream.put(' ');
+    stream << std::numeric_limits<int64_t>::max();
+    stream.put(' ');
+    stream << std::numeric_limits<uint64_t>::min();
+    stream.put(' ');
+    stream << std::numeric_limits<uint64_t>::max();
+
+    REQUIRE(stream.str() == "-9223372036854775808 9223372036854775807 0 18446744073709551615");
   }
 
   SECTION("Insert int min/max with separator") {
@@ -846,10 +868,31 @@ TEST_CASE("OStringStream operator<<", "[core][o_string_stream]") {
     stream3.precision(1);
     stream4.precision(15);
 
-    stream1 << 3.141592653589793f;
-    stream2 << 3.141592653589793f;
-    stream3 << 3.141592653589793f;
-    stream4 << 3.141592653589793f;
+    stream1 << std::numbers::pi_v<float>;
+    stream2 << std::numbers::pi_v<float>;
+    stream3 << std::numbers::pi_v<float>;
+    stream4 << std::numbers::pi_v<float>;
+
+    REQUIRE(stream1.str() == "3.14159");
+    REQUIRE(stream2.str() == "3.14");
+    REQUIRE(stream3.str() == "3");
+    REQUIRE(stream4.str() == "3.14159244298935");
+  }
+
+  SECTION("Insert double with custom precision") {
+    OStringStream<FixedString<64>> stream1;
+    OStringStream<FixedString<64>> stream2;
+    OStringStream<FixedString<64>> stream3;
+    OStringStream<FixedString<64>> stream4;
+
+    stream2.precision(3);
+    stream3.precision(1);
+    stream4.precision(15);
+
+    stream1 << std::numbers::pi;
+    stream2 << std::numbers::pi;
+    stream3 << std::numbers::pi;
+    stream4 << std::numbers::pi;
 
     REQUIRE(stream1.str() == "3.14159");
     REQUIRE(stream2.str() == "3.14");
