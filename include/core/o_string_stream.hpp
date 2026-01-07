@@ -303,7 +303,7 @@ public:
     \brief Inserts a single-precision floating-point value into the stream.
 
     This operator converts the float \a value to its decimal string representation with the current precision setting
-    and appends it to the stream. The precision controls the number of digits displayed after the decimal point.
+    and appends it to the stream. The precision controls the number of digits displayed.
 
     \param value The single-precision floating-point value to insert into the stream.
 
@@ -509,7 +509,7 @@ public:
     \brief Returns the current floating-point precision setting.
 
     This method returns the precision value that will be used for formatting floating-point numbers when writing to the
-    stream. The precision specifies the number of digits to display after the decimal point.
+    stream. The precision specifies the number of digits to display.
 
     \return The current precision value.
 
@@ -523,7 +523,7 @@ public:
     \brief Sets the floating-point precision and returns the previous value.
 
     This method sets the precision value that will be used for formatting floating-point numbers when writing to the
-    stream. The precision specifies the number of digits to display after the decimal point.
+    stream. The precision specifies the number of digits to display.
 
     \param newPrecision The new precision value to set.
 
