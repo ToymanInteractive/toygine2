@@ -167,7 +167,7 @@ constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(cons
   }
 
   const auto bufferDataLen = char_traits<char>::length(buffer);
-  const int leadingZeros = static_cast<int>(sizeof(value)) * 2 - bufferDataLen;
+  const int leadingZeros = static_cast<int>(sizeof(value)) * 2 - static_cast<int>(bufferDataLen);
   if (leadingZeros > 0)
     _string.append(leadingZeros, '0');
 
