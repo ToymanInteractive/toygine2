@@ -80,7 +80,7 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop")
 #                 https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/C-Dialect-Options.html#index-fpermitted-flt-eval-methods
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-14.2.0/gcc/Option-Summary.html
 
-  set(CMAKE_C_FLAGS   "-std=с17   -foffload=default -fopenmp-simd")
+  set(CMAKE_C_FLAGS   "-std=c17   -foffload=default -fopenmp-simd")
   set(CMAKE_CXX_FLAGS "-std=c++23 -foffload=default -fopenmp-simd")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")

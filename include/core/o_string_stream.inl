@@ -187,6 +187,9 @@ constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(doub
 
 template <typename StringType>
 constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(const void * value) noexcept {
+  if (value == nullptr)
+    return *this << nullptr;
+
   char buffer[17];
 
   _string += "0x";

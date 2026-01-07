@@ -386,33 +386,6 @@ public:
   */
   constexpr OStringStream & operator<<(nullptr_t) noexcept;
 
-  /*!
-    \brief Inserts a string-like object into the stream.
-
-    This operator appends the content of a string-like object to the stream. The source string type must satisfy the
-    \ref toy::StringLike concept, which requires \c size() and \c c_str() methods.
-
-    \tparam SourceStringType The type of the source string. Must satisfy the \ref toy::StringLike concept.
-
-    \param string The string-like object to insert into the stream.
-
-    \return A reference to this OStringStream, allowing operator chaining.
-
-    \pre The \a string must be valid and properly initialized.
-
-    \post The content of \a string is appended to the stream.
-    \post The write position is advanced by the length of the appended string.
-
-    \note This operator follows the same pattern as std::ostringstream::operator<<(const std::string&).
-    \note Common types that satisfy \ref toy::StringLike include \ref toy::FixedString, \ref toy::CStringView,
-          \c std::string, and custom string types with the required interface.
-
-    \sa toy::StringLike
-    \sa put(char_type)
-    \sa tellp()
-  */
-  template <StringLike SourceStringType>
-  constexpr OStringStream & operator<<(const SourceStringType & string) noexcept;
 
   /*!
     \brief Returns a const reference to the underlying string.

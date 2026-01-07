@@ -18,6 +18,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
+#include <numbers>
 #include <string>
 
 #include <catch2/catch_test_macros.hpp>
@@ -790,15 +791,15 @@ TEST_CASE("OStringStream operator<<", "[core][o_string_stream]") {
     stream3.precision(1);
     stream4.precision(15);
 
-    stream1 << 3.141592653589793;
-    stream2 << 3.141592653589793;
-    stream3 << 3.141592653589793;
-    stream4 << 3.141592653589793;
+    stream1 << std::numbers::pi;
+    stream2 << std::numbers::pi;
+    stream3 << std::numbers::pi;
+    stream4 << std::numbers::pi;
 
     REQUIRE(stream1.str() == "3.14159");
     REQUIRE(stream2.str() == "3.14");
     REQUIRE(stream3.str() == "3");
-    REQUIRE(stream4.str() == "3.14159244298935");
+    REQUIRE(stream4.str() == "3.14159265358935");
   }
 
   SECTION("Insert short min/max with separator") {
@@ -828,14 +829,14 @@ TEST_CASE("OStringStream operator<<", "[core][o_string_stream]") {
 
     if constexpr (sizeof(int) == 4) {
       REQUIRE(stream.str() == "-2147483648 2147483647 0 4294967295");
-    } else if constexpr (sizeof(long) == 8) {
+    } else if constexpr (sizeof(int) == 8) {
       REQUIRE(stream.str() == "-9223372036854775808 9223372036854775807 0 18446744073709551615");
     } else {
       static_assert(sizeof(int) == 4 || sizeof(int) == 8, "Unsupported value size");
     }
   }
 
-  SECTION("Insert floar with custom precision") {
+  SECTION("Insert float with custom precision") {
     OStringStream<FixedString<64>> stream1;
     OStringStream<FixedString<64>> stream2;
     OStringStream<FixedString<64>> stream3;
@@ -859,11 +860,14 @@ TEST_CASE("OStringStream operator<<", "[core][o_string_stream]") {
   SECTION("Insert void pointer") {
     OStringStream<FixedString<32>> stream1;
     OStringStream<FixedString<32>> stream2;
+    OStringStream<FixedString<32>> stream3;
 
     constexpr int value = 42;
+    constexpr const int * ptr = nullptr;
 
     stream1 << &value;
-    stream2 << nullptr;
+    stream2 << ptr;
+    stream3 << nullptr;
 
     REQUIRE(stream1.str().starts_with("0x"));
 
@@ -876,6 +880,7 @@ TEST_CASE("OStringStream operator<<", "[core][o_string_stream]") {
     }
 
     REQUIRE(stream2.str() == "nullptr");
+    REQUIRE(stream3.str() == "nullptr");
   }
 
   SECTION("Insert pointer to stream with content") {
