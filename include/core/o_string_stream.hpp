@@ -312,7 +312,7 @@ public:
     \post The write position is advanced by the length of the appended string.
 
     \note This operator follows the same pattern as std::ostringstream::operator<<(float).
-    \note The precision is controlled by \ref precision() and defaults to 6 digits.
+    \note The precision is controlled by precision() and defaults to 6 digits.
 
     \sa precision() const
     \sa precision(int)
@@ -335,7 +335,7 @@ public:
     \post The write position is advanced by the length of the appended string.
 
     \note This operator follows the same pattern as std::ostringstream::operator<<(double).
-    \note The precision is controlled by \ref precision(int) and defaults to 6 digits.
+    \note The precision is controlled by precision(int) and defaults to 6 digits.
 
     \sa precision() const
     \sa precision(int)

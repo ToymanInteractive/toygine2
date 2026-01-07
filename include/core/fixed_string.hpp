@@ -551,7 +551,7 @@ public:
 
     \note The returned pointer points to a null-terminated string.
     \note The returned pointer is read-only and cannot modify the string contents.
-    \note This method is equivalent to \ref data() const.
+    \note This method is equivalent to data() const.
 
     \sa data() const
   */
@@ -581,7 +581,7 @@ public:
 
     \return The number of characters in the string, excluding the terminating null character.
 
-    \note This method is equivalent to \ref length().
+    \note This method is equivalent to length().
 
     \sa length()
   */
@@ -612,7 +612,7 @@ public:
 
     \return The number of characters in the string, excluding the terminating null character.
 
-    \note This method is equivalent to \ref size().
+    \note This method is equivalent to size().
 
     \sa size()
   */
@@ -798,7 +798,7 @@ public:
   /*!
     \brief Removes the last UTF-8 encoded character from the string.
 
-    This method removes the last UTF-8 encoded character from the current string. Unlike \ref pop_back() which removes a
+    This method removes the last UTF-8 encoded character from the current string. Unlike pop_back() which removes a
     single character, this method removes the complete UTF-8 encoded character, which may consist of multiple bytes.
 
     \pre The string must not be empty.
@@ -1468,7 +1468,7 @@ public:
     \pre If \a position is not \ref npos, it must be less than the string size.
 
     \note The search is case-sensitive.
-    \note This method is equivalent to \ref rfind(char, size_t) const.
+    \note This method is equivalent to rfind(char, size_t) const.
 
     \sa rfind(char, size_t) const
   */

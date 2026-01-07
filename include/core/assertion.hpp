@@ -104,7 +104,7 @@ using StackWalkCallback = void (*)(const char * stackFrameString);
   \post All callbacks are reset to nullptr.
 
   \note This function is safe to call multiple times.
-  \note Must be paired with a call to \ref deInitialize().
+  \note Must be paired with a call to deInitialize().
 
   \sa deInitialize()
   \sa setCallbacks()
@@ -121,7 +121,7 @@ void initialize();
   \post All callbacks are reset to \c nullptr.
 
   \note This function is safe to call multiple times.
-  \note Should be called after \ref initialize() when assertions are no longer needed.
+  \note Should be called after initialize() when assertions are no longer needed.
 
   \sa initialize()
 */
@@ -136,7 +136,7 @@ void deInitialize();
   \param assertionCallback The callback function to invoke on assertion failure. Can be nullptr to disable.
   \param stackWalkCallback The callback function to invoke for stack trace output. Can be nullptr to disable.
 
-  \pre The assertion system must be initialized (via \ref initialize()).
+  \pre The assertion system must be initialized (via initialize()).
 
   \note Callbacks can be set to nullptr to disable them.
   \note Callbacks are invoked synchronously during assertion processing.
@@ -163,7 +163,7 @@ void setCallbacks(AssertionCallback assertionCallback, StackWalkCallback stackWa
   \param functionName The function name where the assertion failed.
   \param lineNumber   The line number where the assertion failed.
 
-  \pre The assertion system must be initialized (via \ref initialize()).
+  \pre The assertion system must be initialized (via initialize()).
 
   \note This function is only available in debug builds (_DEBUG defined).
   \note In release builds, this function is replaced with an inline no-op.

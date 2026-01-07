@@ -871,12 +871,12 @@ TEST_CASE("OStringStream operator<<", "[core][o_string_stream]") {
 
     REQUIRE(stream1.str().starts_with("0x"));
 
-    if constexpr (sizeof(long) == 4) {
+    if constexpr (sizeof(void *) == 4) {
       REQUIRE(stream1.str().length() == 10);
-    } else if constexpr (sizeof(long) == 8) {
+    } else if constexpr (sizeof(void *) == 8) {
       REQUIRE(stream1.str().length() == 18);
     } else {
-      static_assert(sizeof(long) == 4 || sizeof(long) == 8, "Unsupported value size");
+      static_assert(sizeof(void *) == 4 || sizeof(void *) == 8, "Unsupported value size");
     }
 
     REQUIRE(stream2.str() == "nullptr");
