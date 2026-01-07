@@ -19,7 +19,7 @@
 //
 /*!
   \file   o_string_stream.hpp
-  \brief  TODO
+  \brief  Output string stream class for building strings from various data types.
 */
 
 #ifndef INCLUDE_CORE_O_STRING_STREAM_HPP_
@@ -140,164 +140,164 @@ public:
   constexpr OStringStream & operator<<(bool value) noexcept;
 
   /*!
-    \brief Inserts a signed short integer value into the stream.
+    \brief Inserts a signed 8-bit integer value into the stream.
 
-    This operator converts the signed short integer \a value to its decimal string representation and appends it to the
+    This operator converts the signed 8-bit integer \a value to its decimal string representation and appends it to the
     stream. Negative values are prefixed with a minus sign.
 
-    \param value The signed short integer value to insert into the stream.
+    \param value The signed 8-bit integer value to insert into the stream.
 
     \return A reference to this OStringStream, allowing operator chaining.
 
     \post The write position is advanced by the length of the appended string.
 
-    \note This operator follows the same pattern as std::ostringstream::operator<<(short).
+    \note This operator follows the same pattern as std::ostringstream::operator<<(int8_t).
 
-    \sa operator<<(unsigned short)
+    \sa operator<<(uint8_t)
     \sa put(char_type)
     \sa tellp()
   */
-  constexpr OStringStream & operator<<(short value) noexcept;
+  constexpr OStringStream & operator<<(int8_t value) noexcept;
 
   /*!
-    \brief Inserts an unsigned short integer value into the stream.
+    \brief Inserts a signed 16-bit integer value into the stream.
 
-    This operator converts the unsigned short integer \a value to its decimal string representation and appends it to
+    This operator converts the signed 16-bit integer \a value to its decimal string representation and appends it to the
+    stream. Negative values are prefixed with a minus sign.
+
+    \param value The signed 16-bit integer value to insert into the stream.
+
+    \return A reference to this OStringStream, allowing operator chaining.
+
+    \post The write position is advanced by the length of the appended string.
+
+    \note This operator follows the same pattern as std::ostringstream::operator<<(int16_t).
+
+    \sa operator<<(uint16_t)
+    \sa put(char_type)
+    \sa tellp()
+  */
+  constexpr OStringStream & operator<<(int16_t value) noexcept;
+
+  /*!
+    \brief Inserts a signed 32-bit integer value into the stream.
+
+    This operator converts the signed 32-bit integer \a value to its decimal string representation and appends it to the
+    stream. Negative values are prefixed with a minus sign.
+
+    \param value The signed 32-bit integer value to insert into the stream.
+
+    \return A reference to this OStringStream, allowing operator chaining.
+
+    \post The write position is advanced by the length of the appended string.
+
+    \note This operator follows the same pattern as std::ostringstream::operator<<(int32_t).
+
+    \sa operator<<(uint32_t)
+    \sa put(char_type)
+    \sa tellp()
+  */
+  constexpr OStringStream & operator<<(int32_t value) noexcept;
+
+  /*!
+    \brief Inserts a signed 64-bit integer value into the stream.
+
+    This operator converts the signed 64-bit integer \a value to its decimal string representation and appends it to the
+    stream. Negative values are prefixed with a minus sign.
+
+    \param value The signed 64-bit integer value to insert into the stream.
+
+    \return A reference to this OStringStream, allowing operator chaining.
+
+    \post The write position is advanced by the length of the appended string.
+
+    \note This operator follows the same pattern as std::ostringstream::operator<<(int64_t).
+
+    \sa operator<<(uint64_t)
+    \sa put(char_type)
+    \sa tellp()
+  */
+  constexpr OStringStream & operator<<(int64_t value) noexcept;
+
+  /*!
+    \brief Inserts an unsigned 8-bit integer value into the stream.
+
+    This operator converts the unsigned 8-bit integer \a value to its decimal string representation and appends it to
     the stream.
 
-    \param value The unsigned short integer value to insert into the stream.
+    \param value The unsigned 8-bit integer value to insert into the stream.
 
     \return A reference to this OStringStream, allowing operator chaining.
 
     \post The write position is advanced by the length of the appended string.
 
-    \note This operator follows the same pattern as std::ostringstream::operator<<(unsigned short).
+    \note This operator follows the same pattern as std::ostringstream::operator<<(uint8_t).
 
-    \sa operator<<(short)
+    \sa operator<<(int8_t)
     \sa put(char_type)
     \sa tellp()
   */
-  constexpr OStringStream & operator<<(unsigned short value) noexcept;
+  constexpr OStringStream & operator<<(uint8_t value) noexcept;
 
   /*!
-    \brief Inserts a signed long integer value into the stream.
+    \brief Inserts an unsigned 16-bit integer value into the stream.
 
-    This operator converts the signed long integer \a value to its decimal string representation and appends it to the
-    stream. Negative values are prefixed with a minus sign.
+    This operator converts the unsigned 16-bit integer \a value to its decimal string representation and appends it to
+    the stream.
 
-    \param value The signed long integer value to insert into the stream.
+    \param value The unsigned 16-bit integer value to insert into the stream.
 
     \return A reference to this OStringStream, allowing operator chaining.
 
     \post The write position is advanced by the length of the appended string.
 
-    \note This operator follows the same pattern as std::ostringstream::operator<<(long).
+    \note This operator follows the same pattern as std::ostringstream::operator<<(uint16_t).
 
-    \sa operator<<(unsigned long)
+    \sa operator<<(int16_t)
     \sa put(char_type)
     \sa tellp()
   */
-  constexpr OStringStream & operator<<(long value) noexcept;
+  constexpr OStringStream & operator<<(uint16_t value) noexcept;
 
   /*!
-    \brief Inserts an unsigned long integer value into the stream.
+    \brief Inserts an unsigned 32-bit integer value into the stream.
 
-    This operator converts the unsigned long integer \a value to its decimal string representation and appends it to the
-    stream.
+    This operator converts the unsigned 32-bit integer \a value to its decimal string representation and appends it to
+    the stream.
 
-    \param value The unsigned long integer value to insert into the stream.
+    \param value The unsigned 32-bit integer value to insert into the stream.
 
     \return A reference to this OStringStream, allowing operator chaining.
 
     \post The write position is advanced by the length of the appended string.
 
-    \note This operator follows the same pattern as std::ostringstream::operator<<(unsigned long).
+    \note This operator follows the same pattern as std::ostringstream::operator<<(uint32_t).
 
-    \sa operator<<(long)
+    \sa operator<<(int32_t)
     \sa put(char_type)
     \sa tellp()
   */
-  constexpr OStringStream & operator<<(unsigned long value) noexcept;
+  constexpr OStringStream & operator<<(uint32_t value) noexcept;
 
   /*!
-    \brief Inserts a signed long long integer value into the stream.
+    \brief Inserts an unsigned 64-bit integer value into the stream.
 
-    This operator converts the signed long long integer \a value to its decimal string representation and appends it to
-    the stream. Negative values are prefixed with a minus sign.
+    This operator converts the unsigned 64-bit integer \a value to its decimal string representation and appends it to
+    the stream.
 
-    \param value The signed long long integer value to insert into the stream.
-
-    \return A reference to this OStringStream, allowing operator chaining.
-
-    \post The write position is advanced by the length of the appended string.
-
-    \note This operator follows the same pattern as std::ostringstream::operator<<(long long).
-
-    \sa operator<<(unsigned long long)
-    \sa put(char_type)
-    \sa tellp()
-  */
-  constexpr OStringStream & operator<<(long long value) noexcept;
-
-  /*!
-    \brief Inserts an unsigned long long integer value into the stream.
-
-    This operator converts the unsigned long long integer \a value to its decimal string representation and appends it
-    to the stream.
-
-    \param value The unsigned long long integer value to insert into the stream.
+    \param value The unsigned 64-bit integer value to insert into the stream.
 
     \return A reference to this OStringStream, allowing operator chaining.
 
     \post The write position is advanced by the length of the appended string.
 
-    \note This operator follows the same pattern as std::ostringstream::operator<<(unsigned long long).
+    \note This operator follows the same pattern as std::ostringstream::operator<<(uint64_t).
 
-    \sa operator<<(long long)
+    \sa operator<<(int64_t)
     \sa put(char_type)
     \sa tellp()
   */
-  constexpr OStringStream & operator<<(unsigned long long value) noexcept;
-
-  /*!
-    \brief Inserts a signed integer value into the stream.
-
-    This operator converts the signed integer \a value to its decimal string representation and appends it to the
-    stream. Negative values are prefixed with a minus sign.
-
-    \param value The signed integer value to insert into the stream.
-
-    \return A reference to this OStringStream, allowing operator chaining.
-
-    \post The write position is advanced by the length of the appended string.
-
-    \note This operator follows the same pattern as std::ostringstream::operator<<(int).
-
-    \sa operator<<(unsigned int)
-    \sa put(char_type)
-    \sa tellp()
-  */
-  constexpr OStringStream & operator<<(int value) noexcept;
-
-  /*!
-    \brief Inserts an unsigned integer value into the stream.
-
-    This operator converts the unsigned integer \a value to its decimal string representation and appends it to the
-    stream.
-
-    \param value The unsigned integer value to insert into the stream.
-
-    \return A reference to this OStringStream, allowing operator chaining.
-
-    \post The write position is advanced by the length of the appended string.
-
-    \note This operator follows the same pattern as std::ostringstream::operator<<(unsigned int).
-
-    \sa operator<<(int)
-    \sa put(char_type)
-    \sa tellp()
-  */
-  constexpr OStringStream & operator<<(unsigned int value) noexcept;
+  constexpr OStringStream & operator<<(uint64_t value) noexcept;
 
   /*!
     \brief Inserts a single-precision floating-point value into the stream.
