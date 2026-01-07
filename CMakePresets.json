@@ -231,6 +231,7 @@
             "output": {
                 "shortProgress": true,
                 "verbosity": "default",
+                "outputOnFailure": true,
                 "outputJUnitFile": "${sourceDir}/out/junit/${presetName}.xml"
             },
             "execution": {
