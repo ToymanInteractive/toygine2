@@ -204,7 +204,7 @@ inline void assertion(const char *, const char *, const char *, const char *, si
 
   \throws std::invalid_argument If \a condition is false, with \a message as the error description.
 
-  \pre The \a message pointer must point to a valid null-terminated string.
+  \pre The \a message pointer must point to a valid C string.
 
   \note This function is designed for use in constexpr contexts where traditional assertions are not available.
   \note Unlike regular assertions, this function always throws an exception in both debug and release builds when the

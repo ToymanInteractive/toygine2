@@ -251,7 +251,6 @@ public:
     \return A reference to this string after assignment.
 
     \pre The source C \a string must not be null.
-    \pre The source C \a string must be null-terminated.
     \pre The source C \a string size must not exceed the allocated capacity.
 
     \post This string contains the same content as the source C \a string.
@@ -549,7 +548,6 @@ public:
 
     \return A constant pointer to the C string representation of this string.
 
-    \note The returned pointer points to a null-terminated string.
     \note The returned pointer is read-only and cannot modify the string contents.
     \note This method is equivalent to data() const.
 
@@ -2061,7 +2059,7 @@ template <size_t allocatedSize, StringLike stringType>
 
   \return A new FixedString object containing the concatenated result.
 
-  \pre The \a rhs C-string must not be null and must be null-terminated.
+  \pre The \a rhs C-string must not be null.
 
   \note Result size is sum of both input sizes, must not exceed allocated size.
 */
@@ -2080,7 +2078,7 @@ template <size_t allocatedSize>
   \param lhs The left-hand side C-string.
   \param rhs The right-hand side FixedString object.
 
-  \pre The \a lhs C-string must not be null and must be null-terminated.
+  \pre The \a lhs C-string must not be null.
 
   \return A new FixedString object containing the concatenated result.
 

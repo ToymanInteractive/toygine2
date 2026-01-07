@@ -939,6 +939,180 @@ TEST_CASE("OStringStream operator<<", "[core][o_string_stream]") {
     REQUIRE(stream1.str().size() > 6);
     REQUIRE(stream2.str() == "Ptr: nullptr");
   }
+
+  SECTION("Insert char_type character") {
+    OStringStream<FixedString<32>> stream1;
+    OStringStream<FixedString<32>> stream2;
+
+    stream1 << 'A';
+    stream2 << 'Z';
+
+    REQUIRE(stream1.str() == "A");
+    REQUIRE(stream2.str() == "Z");
+  }
+
+  SECTION("Insert char_type to stream with content") {
+    OStringStream<FixedString<32>> stream(CStringView("Hello"));
+
+    stream << '!';
+
+    REQUIRE(stream.str() == "Hello!");
+  }
+
+  SECTION("Insert char_type with chaining") {
+    OStringStream<FixedString<32>> stream;
+
+    stream << 'H' << 'e' << 'l' << 'l' << 'o';
+
+    REQUIRE(stream.str() == "Hello");
+  }
+
+  SECTION("Insert char_type special characters") {
+    OStringStream<FixedString<32>> stream;
+
+    stream << ' ' << '\n' << '\t' << '!';
+
+    REQUIRE(stream.str().size() == 4);
+    REQUIRE(stream.str()[0] == ' ');
+    REQUIRE(stream.str()[1] == '\n');
+    REQUIRE(stream.str()[2] == '\t');
+    REQUIRE(stream.str()[3] == '!');
+  }
+
+  SECTION("Insert char_type returns reference for chaining") {
+    OStringStream<FixedString<32>> stream1;
+    OStringStream<FixedString<32>> stream2;
+
+    auto & ref1 = stream1 << 'A';
+    auto & ref2 = stream2 << 'B';
+
+    REQUIRE(&ref1 == &stream1);
+    REQUIRE(&ref2 == &stream2);
+    REQUIRE(stream1.str() == "A");
+    REQUIRE(stream2.str() == "B");
+  }
+
+  SECTION("Insert StringLike FixedString") {
+    OStringStream<FixedString<64>> stream1;
+    OStringStream<FixedString<64>> stream2;
+
+    const FixedString<16> str1("Hello");
+    const FixedString<16> str2("World");
+
+    stream1 << str1;
+    stream2 << str2;
+
+    REQUIRE(stream1.str() == "Hello");
+    REQUIRE(stream2.str() == "World");
+  }
+
+  SECTION("Insert StringLike CStringView") {
+    OStringStream<FixedString<64>> stream1;
+    OStringStream<FixedString<64>> stream2;
+
+    const CStringView view1("Test");
+    const CStringView view2("String");
+
+    stream1 << view1;
+    stream2 << view2;
+
+    REQUIRE(stream1.str() == "Test");
+    REQUIRE(stream2.str() == "String");
+  }
+
+  SECTION("Insert StringLike to stream with content") {
+    OStringStream<FixedString<64>> stream(CStringView("Prefix: "));
+
+    const FixedString<16> suffix("Suffix");
+
+    stream << suffix;
+
+    REQUIRE(stream.str() == "Prefix: Suffix");
+  }
+
+  SECTION("Insert StringLike with chaining") {
+    OStringStream<FixedString<64>> stream;
+
+    const FixedString<16> hello("Hello");
+    const CStringView space(" ");
+    const FixedString<16> world("World");
+
+    stream << hello << space << world;
+
+    REQUIRE(stream.str() == "Hello World");
+  }
+
+  SECTION("Insert StringLike returns reference for chaining") {
+    OStringStream<FixedString<64>> stream1;
+    OStringStream<FixedString<64>> stream2;
+
+    const FixedString<16> str1("First");
+    const FixedString<16> str2("Second");
+
+    auto & ref1 = stream1 << str1;
+    auto & ref2 = stream2 << str2;
+
+    REQUIRE(&ref1 == &stream1);
+    REQUIRE(&ref2 == &stream2);
+    REQUIRE(stream1.str() == "First");
+    REQUIRE(stream2.str() == "Second");
+  }
+
+  SECTION("Insert C string literal") {
+    OStringStream<FixedString<64>> stream1;
+    OStringStream<FixedString<64>> stream2;
+
+    stream1 << "Hello";
+    stream2 << "World";
+
+    REQUIRE(stream1.str() == "Hello");
+    REQUIRE(stream2.str() == "World");
+  }
+
+  SECTION("Insert C string to stream with content") {
+    OStringStream<FixedString<64>> stream(CStringView("Prefix: "));
+
+    stream << "Suffix";
+
+    REQUIRE(stream.str() == "Prefix: Suffix");
+  }
+
+  SECTION("Insert C string with chaining") {
+    OStringStream<FixedString<64>> stream;
+
+    stream << "Hello" << " " << "World";
+
+    REQUIRE(stream.str() == "Hello World");
+  }
+
+  SECTION("Insert C string returns reference for chaining") {
+    OStringStream<FixedString<64>> stream1;
+    OStringStream<FixedString<64>> stream2;
+
+    auto & ref1 = stream1 << "First";
+    auto & ref2 = stream2 << "Second";
+
+    REQUIRE(&ref1 == &stream1);
+    REQUIRE(&ref2 == &stream2);
+    REQUIRE(stream1.str() == "First");
+    REQUIRE(stream2.str() == "Second");
+  }
+
+  SECTION("Insert C string empty string") {
+    OStringStream<FixedString<64>> stream;
+
+    stream << "";
+
+    REQUIRE(stream.str() == "");
+  }
+
+  SECTION("Insert C string with special characters") {
+    OStringStream<FixedString<64>> stream;
+
+    stream << "A\nB\tC";
+
+    REQUIRE(stream.str() == "A\nB\tC");
+  }
 }
 
 } // namespace toy
