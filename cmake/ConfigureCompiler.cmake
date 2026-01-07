@@ -83,14 +83,14 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop")
   set(CMAKE_C_FLAGS   "-std=c17   -foffload=default -fopenmp-simd -fstrict-flex-arrays=2")
   set(CMAKE_CXX_FLAGS "-std=c++23 -foffload=default -fopenmp-simd -fstrict-flex-arrays=2")
 
-  set(CMAKE_C_FLAGS_DEBUG            "    -g -D_DEBUG -fpermitted-flt-eval-methods=ieee")
-  set(CMAKE_CXX_FLAGS_DEBUG          "    -g -D_DEBUG -fpermitted-flt-eval-methods=ieee")
+  set(CMAKE_C_FLAGS_DEBUG            "    -g -D_DEBUG")
+  set(CMAKE_CXX_FLAGS_DEBUG          "    -g -D_DEBUG")
 
-  set(CMAKE_C_FLAGS_RELWITHDEBINFO   "-O2 -g -D_DEBUG -fpermitted-flt-eval-methods=fast")
-  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g -D_DEBUG -fpermitted-flt-eval-methods=fast")
+  set(CMAKE_C_FLAGS_RELWITHDEBINFO   "-O2 -g -D_DEBUG")
+  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g -D_DEBUG")
 
-  set(CMAKE_C_FLAGS_RELEASE          "-O3    -DNDEBUG -fpermitted-flt-eval-methods=fast")
-  set(CMAKE_CXX_FLAGS_RELEASE        "-O3    -DNDEBUG -fpermitted-flt-eval-methods=fast")
+  set(CMAKE_C_FLAGS_RELEASE          "-O3    -DNDEBUG")
+  set(CMAKE_CXX_FLAGS_RELEASE        "-O3    -DNDEBUG")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
 
@@ -160,14 +160,14 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Game Boy Advance")
   set(CMAKE_C_FLAGS   "-std=c17   -fstrict-flex-arrays=2")
   set(CMAKE_CXX_FLAGS "-std=c++23 -fstrict-flex-arrays=2")
 
-  set(CMAKE_C_FLAGS_DEBUG            "    -g -D_DEBUG -fpermitted-flt-eval-methods=ieee")
-  set(CMAKE_CXX_FLAGS_DEBUG          "    -g -D_DEBUG -fpermitted-flt-eval-methods=ieee")
+  set(CMAKE_C_FLAGS_DEBUG            "    -g -D_DEBUG")
+  set(CMAKE_CXX_FLAGS_DEBUG          "    -g -D_DEBUG")
 
-  set(CMAKE_C_FLAGS_RELWITHDEBINFO   "-O2 -g -D_DEBUG -fpermitted-flt-eval-methods=fast")
-  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g -D_DEBUG -fpermitted-flt-eval-methods=fast")
+  set(CMAKE_C_FLAGS_RELWITHDEBINFO   "-O2 -g -D_DEBUG")
+  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g -D_DEBUG")
 
-  set(CMAKE_C_FLAGS_RELEASE          "-O3    -DNDEBUG -fpermitted-flt-eval-methods=fast")
-  set(CMAKE_CXX_FLAGS_RELEASE        "-O3    -DNDEBUG -fpermitted-flt-eval-methods=fast")
+  set(CMAKE_C_FLAGS_RELEASE          "-O3    -DNDEBUG")
+  set(CMAKE_CXX_FLAGS_RELEASE        "-O3    -DNDEBUG")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
 
@@ -190,14 +190,14 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
   set(CMAKE_C_FLAGS   "-std=c17   -fstrict-flex-arrays=2")
   set(CMAKE_CXX_FLAGS "-std=c++23 -fstrict-flex-arrays=2")
 
-  set(CMAKE_C_FLAGS_DEBUG            "    -g -D_DEBUG -fpermitted-flt-eval-methods=ieee")
-  set(CMAKE_CXX_FLAGS_DEBUG          "    -g -D_DEBUG -fpermitted-flt-eval-methods=ieee")
+  set(CMAKE_C_FLAGS_DEBUG            "    -g -D_DEBUG")
+  set(CMAKE_CXX_FLAGS_DEBUG          "    -g -D_DEBUG")
 
-  set(CMAKE_C_FLAGS_RELWITHDEBINFO   "-O2 -g -D_DEBUG -fpermitted-flt-eval-methods=fast")
-  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g -D_DEBUG -fpermitted-flt-eval-methods=fast")
+  set(CMAKE_C_FLAGS_RELWITHDEBINFO   "-O2 -g -D_DEBUG")
+  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g -D_DEBUG")
 
-  set(CMAKE_C_FLAGS_RELEASE          "-O3    -DNDEBUG -fpermitted-flt-eval-methods=fast")
-  set(CMAKE_CXX_FLAGS_RELEASE        "-O3    -DNDEBUG -fpermitted-flt-eval-methods=fast")
+  set(CMAKE_C_FLAGS_RELEASE          "-O3    -DNDEBUG")
+  set(CMAKE_CXX_FLAGS_RELEASE        "-O3    -DNDEBUG")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 3DS")
 
@@ -220,14 +220,14 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 3DS")
   set(CMAKE_C_FLAGS   "-std=c17   -fstrict-flex-arrays=2")
   set(CMAKE_CXX_FLAGS "-std=c++23 -fstrict-flex-arrays=2")
 
-  set(CMAKE_C_FLAGS_DEBUG            "    -g -D_DEBUG -fpermitted-flt-eval-methods=ieee")
-  set(CMAKE_CXX_FLAGS_DEBUG          "    -g -D_DEBUG -fpermitted-flt-eval-methods=ieee")
+  set(CMAKE_C_FLAGS_DEBUG            "    -g -D_DEBUG")
+  set(CMAKE_CXX_FLAGS_DEBUG          "    -g -D_DEBUG")
 
-  set(CMAKE_C_FLAGS_RELWITHDEBINFO   "-O2 -g -D_DEBUG -fpermitted-flt-eval-methods=fast")
-  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g -D_DEBUG -fpermitted-flt-eval-methods=fast")
+  set(CMAKE_C_FLAGS_RELWITHDEBINFO   "-O2 -g -D_DEBUG")
+  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g -D_DEBUG")
 
-  set(CMAKE_C_FLAGS_RELEASE          "-O3    -DNDEBUG -fpermitted-flt-eval-methods=fast")
-  set(CMAKE_CXX_FLAGS_RELEASE        "-O3    -DNDEBUG -fpermitted-flt-eval-methods=fast")
+  set(CMAKE_C_FLAGS_RELEASE          "-O3    -DNDEBUG")
+  set(CMAKE_CXX_FLAGS_RELEASE        "-O3    -DNDEBUG")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
 
@@ -250,14 +250,14 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
   set(CMAKE_C_FLAGS   "-std=c17   -fstrict-flex-arrays=2")
   set(CMAKE_CXX_FLAGS "-std=c++23 -fstrict-flex-arrays=2")
 
-  set(CMAKE_C_FLAGS_DEBUG            "    -g -D_DEBUG -fpermitted-flt-eval-methods=ieee")
-  set(CMAKE_CXX_FLAGS_DEBUG          "    -g -D_DEBUG -fpermitted-flt-eval-methods=ieee")
+  set(CMAKE_C_FLAGS_DEBUG            "    -g -D_DEBUG")
+  set(CMAKE_CXX_FLAGS_DEBUG          "    -g -D_DEBUG")
 
-  set(CMAKE_C_FLAGS_RELWITHDEBINFO   "-O2 -g -D_DEBUG -fpermitted-flt-eval-methods=fast")
-  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g -D_DEBUG -fpermitted-flt-eval-methods=fast")
+  set(CMAKE_C_FLAGS_RELWITHDEBINFO   "-O2 -g -D_DEBUG")
+  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g -D_DEBUG")
 
-  set(CMAKE_C_FLAGS_RELEASE          "-O3    -DNDEBUG -fpermitted-flt-eval-methods=fast")
-  set(CMAKE_CXX_FLAGS_RELEASE        "-O3    -DNDEBUG -fpermitted-flt-eval-methods=fast")
+  set(CMAKE_C_FLAGS_RELEASE          "-O3    -DNDEBUG")
+  set(CMAKE_CXX_FLAGS_RELEASE        "-O3    -DNDEBUG")
 
 else ()
 
