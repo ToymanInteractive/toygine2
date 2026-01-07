@@ -64,7 +64,7 @@
 <area shape="poly" id="edge36_Node000001_Node000033" title=" " alt="" coords="1816,17,2970,35,3639,52,3886,63,4031,76,4074,86,4073,92,4030,81,3885,69,3639,58,2970,40,1816,23"/>
 <area shape="rect" id="Node000034" href="$da/dc9/fixed__vector_8inl.html" title="TODO." alt="" coords="4216,93,4368,119"/>
 <area shape="poly" id="edge37_Node000001_Node000034" title=" " alt="" coords="1816,17,2309,22,3056,34,3780,51,4047,63,4204,76,4249,87,4247,92,4204,81,4047,68,3780,57,3056,39,2309,28,1816,23"/>
-<area shape="rect" id="Node000035" href="$d9/dcb/o__string__stream_8inl.html" title="TODO." alt="" coords="4392,93,4571,119"/>
+<area shape="rect" id="Node000035" href="$d9/dcb/o__string__stream_8inl.html" title="Implementation of OStringStream template methods." alt="" coords="4392,93,4571,119"/>
 <area shape="poly" id="edge38_Node000001_Node000035" title=" " alt="" coords="1815,17,3142,34,3923,52,4211,63,4380,76,4432,87,4431,92,4380,81,4210,69,3922,57,3142,40,1815,23"/>
 <area shape="rect" id="Node000036" href="$df/d7d/utils_8inl.html" title="Inline implementations of core utility functions for string manipulation and encoding conversion." alt="" coords="4595,93,4698,119"/>
 <area shape="poly" id="edge39_Node000001_Node000036" title=" " alt="" coords="1816,17,2377,18,3244,25,3690,32,4089,42,4400,57,4510,66,4583,76,4612,85,4611,90,4582,81,4510,71,4400,62,4089,48,3690,37,3244,30,2377,23,1816,22"/>

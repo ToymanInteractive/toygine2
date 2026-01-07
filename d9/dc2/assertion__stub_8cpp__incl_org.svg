@@ -636,7 +636,7 @@
 <!-- Node37 -->
 <g id="Node000037" class="node">
 <title>Node37</title>
-<g id="a_Node000037"><a xlink:href="../../d9/dcb/o__string__stream_8inl.html" target="_top" xlink:title="TODO.">
+<g id="a_Node000037"><a xlink:href="../../d9/dcb/o__string__stream_8inl.html" target="_top" xlink:title="Implementation of OStringStream template methods.">
 <polygon fill="white" stroke="#666666" points="3424,-96 3290,-96 3290,-77 3424,-77 3424,-96"/>
 <text text-anchor="middle" x="3357" y="-84" font-family="Helvetica,sans-Serif" font-size="10.00">core/o_string_stream.inl</text>
 </a>

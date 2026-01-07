@@ -102,8 +102,8 @@ var NAVTREEINDEX =
 [
 "annotated.html",
 "d4/da9/namespacetoy.html#a9fbbca3cbd855381284624d5fc830d49ac42c3b5bc3b4234ee7823388012368d6",
-"d7/dec/classtoy_1_1_fixed_vector.html#a668bf255d5c4ab7568fe4e0c98eaef5a",
-"functions_func_w.html"
+"d7/dec/classtoy_1_1_fixed_vector.html#a4b891a0a6ccc5dcc75f11c30752e5674",
+"functions_func_a.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

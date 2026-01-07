@@ -233,8 +233,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a38f0a05db9dc1625048db4a8aa9d30c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="toy::StringLike">toy::StringLike</a> object to the end of this string.  <br /></td></tr>
 <tr class="memitem:a91164b48eea66fabbf553ec8563e741c" id="r_a91164b48eea66fabbf553ec8563e741c"><td class="memItemLeft">constexpr <a class="el" href="#a44fdfe5e1658ec2f72943c72ced11f36">FixedString</a>&lt; allocatedSize &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a91164b48eea66fabbf553ec8563e741c">append</a> (const char *string) noexcept</td></tr>
 <tr class="memdesc:a91164b48eea66fabbf553ec8563e741c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends the C <em class="arg">string</em> to the end of this string.  <br /></td></tr>
-<tr class="memitem:a7ad3de1faef38c09c29319f8227153c6" id="r_a7ad3de1faef38c09c29319f8227153c6"><td class="memItemLeft">constexpr <a class="el" href="#a44fdfe5e1658ec2f72943c72ced11f36">FixedString</a>&lt; allocatedSize &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a7ad3de1faef38c09c29319f8227153c6">append</a> (char character, size_t count=1) noexcept</td></tr>
-<tr class="memdesc:a7ad3de1faef38c09c29319f8227153c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends a <em class="arg">character</em> repeated the given <em class="arg">count</em> times to the end of this string.  <br /></td></tr>
+<tr class="memitem:adbb286024fb0ed5c832d29ed9701046d" id="r_adbb286024fb0ed5c832d29ed9701046d"><td class="memItemLeft">constexpr <a class="el" href="#a44fdfe5e1658ec2f72943c72ced11f36">FixedString</a>&lt; allocatedSize &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#adbb286024fb0ed5c832d29ed9701046d">append</a> (<a class="el" href="#a45c1ee3b58eac68636bc64d12e66cb39">size_type</a> count, char character) noexcept</td></tr>
+<tr class="memdesc:adbb286024fb0ed5c832d29ed9701046d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends a <em class="arg">character</em> repeated the given <em class="arg">count</em> times to the end of this string.  <br /></td></tr>
 <tr class="memitem:a59abe3a985749d133aa72a8ab3c92575" id="r_a59abe3a985749d133aa72a8ab3c92575"><td class="memItemLeft">constexpr <a class="el" href="#a44fdfe5e1658ec2f72943c72ced11f36">FixedString</a>&lt; allocatedSize &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a59abe3a985749d133aa72a8ab3c92575">operator+=</a> (const <a class="el" href="#a44fdfe5e1658ec2f72943c72ced11f36">FixedString</a>&lt; allocatedSize &gt; &amp;string) noexcept</td></tr>
 <tr class="memdesc:a59abe3a985749d133aa72a8ab3c92575"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends other <em class="arg">string</em> to the end of this string.  <br /></td></tr>
 <tr class="memitem:a07cdbb56775fbe39ed595fede1bd1edf" id="r_a07cdbb56775fbe39ed595fede1bd1edf"><td class="memTemplParams" colspan="2">template&lt;StringLike stringType&gt; </td></tr>
@@ -1304,54 +1304,8 @@ The <em class="arg">data</em> must not be null. </dd></dl>
 
 </div>
 </div>
-<a id="a7ad3de1faef38c09c29319f8227153c6" name="a7ad3de1faef38c09c29319f8227153c6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7ad3de1faef38c09c29319f8227153c6">&#9670;&#160;</a></span>append() <span class="overload">[1/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;size_t allocatedSize&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="#a44fdfe5e1658ec2f72943c72ced11f36">FixedString</a>&lt; allocatedSize &gt; &amp; <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html">toy::FixedString</a>&lt; allocatedSize &gt;::append </td>
-          <td>(</td>
-          <td class="paramtype">char</td>          <td class="paramname"><span class="paramname"><em>character</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>count</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1</span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Appends a <em class="arg">character</em> repeated the given <em class="arg">count</em> times to the end of this string. </p>
-<p>This method appends a <em class="arg">character</em> repeated the given <em class="arg">count</em> of times to the end of this string.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">character</td><td>The character to append. </td></tr>
-    <tr><td class="paramname">count</td><td>The number of times to repeat the <em class="arg">character</em> (default: <code>1</code>).</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A reference to this string after appending.</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd>The combined length after appending must not exceed the allocated size.</dd></dl>
-<dl class="section post"><dt>Postcondition</dt><dd>The <em class="arg">character</em> is appended <em class="arg">count</em> times to the end of the string. </dd>
-<dd>
-The string size is increased by <em class="arg">count</em>. </dd></dl>
-
-</div>
-</div>
 <a id="a91164b48eea66fabbf553ec8563e741c" name="a91164b48eea66fabbf553ec8563e741c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a91164b48eea66fabbf553ec8563e741c">&#9670;&#160;</a></span>append() <span class="overload">[2/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a91164b48eea66fabbf553ec8563e741c">&#9670;&#160;</a></span>append() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1394,7 +1348,7 @@ The source C <em class="arg">string</em> must not be null.</dd></dl>
 </div>
 </div>
 <a id="a8a08c2c46a3a9c9222f5f4c05cb10ddc" name="a8a08c2c46a3a9c9222f5f4c05cb10ddc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8a08c2c46a3a9c9222f5f4c05cb10ddc">&#9670;&#160;</a></span>append() <span class="overload">[3/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a08c2c46a3a9c9222f5f4c05cb10ddc">&#9670;&#160;</a></span>append() <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1435,7 +1389,7 @@ template&lt;size_t allocatedSize&gt; </div>
 </div>
 </div>
 <a id="a38f0a05db9dc1625048db4a8aa9d30c5" name="a38f0a05db9dc1625048db4a8aa9d30c5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a38f0a05db9dc1625048db4a8aa9d30c5">&#9670;&#160;</a></span>append() <span class="overload">[4/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a38f0a05db9dc1625048db4a8aa9d30c5">&#9670;&#160;</a></span>append() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1482,6 +1436,52 @@ template&lt;StringLike stringType&gt; </div>
 The string size is increased by the size of the appended <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="toy::StringLike">toy::StringLike</a> object.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This method is equivalent to the addition assignment operator.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#a07cdbb56775fbe39ed595fede1bd1edf" title="Appends a toy::StringLike object to the end of this string.">operator+=(const stringType &amp;)</a> </dd></dl>
+
+</div>
+</div>
+<a id="adbb286024fb0ed5c832d29ed9701046d" name="adbb286024fb0ed5c832d29ed9701046d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adbb286024fb0ed5c832d29ed9701046d">&#9670;&#160;</a></span>append() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;size_t allocatedSize&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a44fdfe5e1658ec2f72943c72ced11f36">FixedString</a>&lt; allocatedSize &gt; &amp; <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html">toy::FixedString</a>&lt; allocatedSize &gt;::append </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a45c1ee3b58eac68636bc64d12e66cb39">size_type</a></td>          <td class="paramname"><span class="paramname"><em>count</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char</td>          <td class="paramname"><span class="paramname"><em>character</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Appends a <em class="arg">character</em> repeated the given <em class="arg">count</em> times to the end of this string. </p>
+<p>This method appends a <em class="arg">character</em> repeated the given <em class="arg">count</em> of times to the end of this string.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">count</td><td>The number of times to repeat the <em class="arg">character</em>. </td></tr>
+    <tr><td class="paramname">character</td><td>The character to append.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this string after appending.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The combined length after appending must not exceed the allocated size.</dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>The <em class="arg">character</em> is appended <em class="arg">count</em> times to the end of the string. </dd>
+<dd>
+The string size is increased by <em class="arg">count</em>. </dd></dl>
 
 </div>
 </div>
@@ -1871,7 +1871,7 @@ template&lt;size_t allocatedSize&gt; </div>
 <dd>
 The returned pointer is read-only and cannot modify the string contents. </dd>
 <dd>
-This method is equivalent to <a class="el" href="#af8ae7971d636e51ae7025f0510adc186" title="data() const">data() const</a>.</dd></dl>
+This method is equivalent to <a class="el" href="#af8ae7971d636e51ae7025f0510adc186" title="Returns a constant pointer to the data of the string.">data() const</a>.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#af8ae7971d636e51ae7025f0510adc186" title="Returns a constant pointer to the data of the string.">data() const</a> </dd></dl>
 
 </div>
@@ -3464,7 +3464,7 @@ template&lt;size_t allocatedSize&gt; </div>
 <dl class="section pre"><dt>Precondition</dt><dd>If <em class="arg">position</em> is not <a class="el" href="#aa67281adc0c101c3619fed8ff618ac6a" title="npos">npos</a>, it must be less than the string size.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd>
 <dd>
-This method is equivalent to <a class="el" href="#ac0fb8affc96410c2c78456a4c8ee29f0" title="rfind(char, size_t) const">rfind(char, size_t) const</a>.</dd></dl>
+This method is equivalent to <a class="el" href="#ac0fb8affc96410c2c78456a4c8ee29f0" title="Finds the last occurrence of a character in the string.">rfind(char, size_t) const</a>.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#ac0fb8affc96410c2c78456a4c8ee29f0" title="Finds the last occurrence of a character in the string.">rfind(char, size_t) const</a> </dd></dl>
 
 </div>
@@ -3928,7 +3928,7 @@ template&lt;size_t allocatedSize&gt; </div>
 <p>Returns the size of the string. </p>
 <p>This method returns the current number of characters in the string, excluding the terminating null character. The length represents the actual length of the string content.</p>
 <dl class="section return"><dt>Returns</dt><dd>The number of characters in the string, excluding the terminating null character.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This method is equivalent to <a class="el" href="#a4da35d380d8f7f7aa57f3e425df21f77" title="size()">size()</a>.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This method is equivalent to <a class="el" href="#a4da35d380d8f7f7aa57f3e425df21f77" title="Returns the size of the string.">size()</a>.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#a4da35d380d8f7f7aa57f3e425df21f77" title="Returns the size of the string.">size()</a> </dd></dl>
 
 </div>
@@ -4006,7 +4006,7 @@ template&lt;size_t allocatedSize&gt; </div>
 <dl class="section post"><dt>Postcondition</dt><dd>The <em class="arg">character</em> is appended to the end of this string. </dd>
 <dd>
 The string size is increased by <code>1</code>.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a7ad3de1faef38c09c29319f8227153c6" title="Appends a character repeated the given count times to the end of this string.">append(char, size_t)</a> </dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#adbb286024fb0ed5c832d29ed9701046d" title="Appends a character repeated the given count times to the end of this string.">append(size_type, char)</a> </dd>
 <dd>
 <a class="el" href="#a35cb76db06e5d0fc94a6fc01b7fa161d" title="Appends a single character to the end of the string.">push_back(char)</a> </dd></dl>
 
@@ -4933,7 +4933,7 @@ template&lt;size_t allocatedSize&gt; </div>
 <p>Returns the size of the string. </p>
 <p>This method returns the current number of characters in the string, excluding the terminating null character. The size represents the actual length of the string content.</p>
 <dl class="section return"><dt>Returns</dt><dd>The number of characters in the string, excluding the terminating null character.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This method is equivalent to <a class="el" href="#a40f234d8be756c3babc9a5945e241dcd" title="length()">length()</a>.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This method is equivalent to <a class="el" href="#a40f234d8be756c3babc9a5945e241dcd" title="Returns the size of the string.">length()</a>.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#a40f234d8be756c3babc9a5945e241dcd" title="Returns the size of the string.">length()</a> </dd></dl>
 
 </div>
@@ -5227,7 +5227,7 @@ template&lt;size_t allocatedSize&gt; </div>
 </div><div class="memdoc">
 
 <p>Removes the last UTF-8 encoded character from the string. </p>
-<p>This method removes the last UTF-8 encoded character from the current string. Unlike <a class="el" href="#a69b12da8842982ecea01b163f7029ac3" title="pop_back()">pop_back()</a> which removes a single character, this method removes the complete UTF-8 encoded character, which may consist of multiple bytes.</p>
+<p>This method removes the last UTF-8 encoded character from the current string. Unlike <a class="el" href="#a69b12da8842982ecea01b163f7029ac3" title="Removes the last character from the string.">pop_back()</a> which removes a single character, this method removes the complete UTF-8 encoded character, which may consist of multiple bytes.</p>
 <dl class="section pre"><dt>Precondition</dt><dd>The string must not be empty. </dd>
 <dd>
 The string must contain valid UTF-8 encoded text.</dd></dl>

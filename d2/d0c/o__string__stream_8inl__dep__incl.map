@@ -1,5 +1,5 @@
 <map id="include/core/o_string_stream.inl" name="include/core/o_string_stream.inl">
-<area shape="rect" id="Node000001" title="TODO." alt="" coords="277,5,435,45"/>
+<area shape="rect" id="Node000001" title="Implementation of OStringStream template methods." alt="" coords="277,5,435,45"/>
 <area shape="rect" id="Node000002" href="$da/d47/core_8hpp.html" title="Umbrella header for the engine core module." alt="" coords="291,93,421,119"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="359,59,359,93,353,93,353,59"/>
 <area shape="rect" id="Node000003" href="$d6/d2c/app_8hpp.html" title="Umbrella header for the engine application module." alt="" coords="5,174,131,199"/>

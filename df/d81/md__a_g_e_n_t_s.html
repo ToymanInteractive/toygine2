@@ -289,22 +289,26 @@ Documentation Style Rules</h1>
 <h2 class="doxsection"><a class="anchor" id="cross-references"></a>
 Cross-References</h2>
 <ul>
-<li>When referencing methods, classes, functions, types, or other symbols from the codebase in documentation, <b>always</b> use the Doxygen <span class="tt">\ref</span> tag to create proper cross-references.</li>
+<li>When referencing types, classes, or other non-function symbols from the codebase in documentation, <b>always</b> use the Doxygen <span class="tt">\ref</span> tag with full namespace qualification to create proper cross-references.</li>
 <li>This ensures that documentation links are generated correctly and remain valid when symbols are renamed or moved.</li>
-<li>Use <span class="tt">\ref</span> for:<ul>
-<li>Function names: <span class="tt">\ref functionName()</span></li>
-<li>Class/struct names: <span class="tt">\ref ClassName</span></li>
-<li>Type aliases: <span class="tt">\ref TypeAlias</span></li>
-<li>Enum values: <span class="tt">\ref EnumName::Value</span></li>
-<li>Namespaces: <span class="tt">\ref namespaceName</span></li>
-<li>Concepts: <span class="tt">\ref ConceptName</span></li>
+<li>Use <span class="tt">\ref</span> <b>only</b> for non-function symbols (classes, types, enums, namespaces, concepts):<ul>
+<li>Class/struct names: <span class="tt">\ref toy::ClassName</span></li>
+<li>Type aliases: <span class="tt">\ref toy::TypeAlias</span></li>
+<li>Enum values: <span class="tt">\ref toy::EnumName::Value</span></li>
+<li>Namespaces: <span class="tt">\ref toy::namespaceName</span></li>
+<li>Concepts: <span class="tt">\ref toy::ConceptName</span></li>
 </ul>
 </li>
-<li>When referencing <b>classes, structs, enums, namespaces, or concepts</b> from the codebase in documentation, <b>always</b> include the full namespace qualification in the <span class="tt">\ref</span> tag.</li>
+<li>**Do not use <span class="tt">\ref</span> for functions or methods**. Reference functions and methods using plain text without <span class="tt">\ref</span>:<ul>
+<li>Functions: <span class="tt">toy::functionName()</span> (not <span class="tt">\ref toy::functionName()</span>)</li>
+<li>Methods: <span class="tt">methodName()</span> (not <span class="tt">\ref methodName()</span>)</li>
+</ul>
+</li>
+<li>When using <span class="tt">\ref</span> for <b>classes, structs, enums, namespaces, or concepts</b>, <b>always</b> include the full namespace qualification in the <span class="tt">\ref</span> tag.</li>
 <li>This ensures clarity and avoids ambiguity when the same symbol name exists in different namespaces.</li>
 <li>Use the full qualified name: <span class="tt">\ref toy::ClassName</span> instead of <span class="tt">\ref ClassName</span>, <span class="tt">\ref <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html" title="2D floating-point vector class for interactive game objects and physics calculations.">toy::math::Vector2D</a></span> instead of <span class="tt">\ref Vector2D</span>.</li>
 </ul>
-<p><b>Note</b>: For functions, you may use unqualified names if the context makes it clear, but qualified names are preferred for consistency.</p>
+<p><b>Note</b>: For functions and methods, use plain text with optional namespace qualification: <span class="tt">toy::functionName()</span> or <span class="tt">functionName()</span> if context is clear.</p>
 <p>Examples:</p>
 <ul>
 <li><span class="tt">\ref <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="Template string class with fixed-size character buffer.">toy::FixedString</a></span> instead of <span class="tt">\ref FixedString</span></li>
@@ -312,13 +316,14 @@ Cross-References</h2>
 <li><span class="tt">\ref <a class="el" href="../../d2/da2/namespacetoy_1_1assertion.html#a27a675a54a720bf1a098fd13be80553e" title="Callback function type for assertion failure handling.">toy::assertion::AssertionCallback</a></span> instead of <span class="tt">\ref AssertionCallback</span></li>
 <li><span class="tt">\ref <a class="el" href="../../d4/da9/namespacetoy.html#aa6f1ef0b4e0aa4864f1c8d431775bc94" title="Enumeration of target operating systems and platforms.">toy::Platform</a></span> instead of <span class="tt">\ref Platform</span></li>
 <li><span class="tt">\ref <a class="el" href="../../d4/da9/namespacetoy.html#a9fbbca3cbd855381284624d5fc830d49" title="Enumeration of CPU architectures and instruction set architectures.">toy::CpuArchitecture</a></span> instead of <span class="tt">\ref CpuArchitecture</span></li>
-<li><span class="tt">\ref <a class="el" href="../../d2/da2/namespacetoy_1_1assertion.html#a71e8fbdc3d1a6ccee148e120d0c890db" title="Reports an assertion failure with detailed context information.">toy::assertion::assertion()</a></span> instead of <span class="tt">\ref assertion()</span></li>
+<li><span class="tt"><a class="el" href="../../d2/da2/namespacetoy_1_1assertion.html#a71e8fbdc3d1a6ccee148e120d0c890db" title="Reports an assertion failure with detailed context information.">toy::assertion::assertion()</a></span> instead of <span class="tt">\ref <a class="el" href="../../d2/da2/namespacetoy_1_1assertion.html#a71e8fbdc3d1a6ccee148e120d0c890db" title="Reports an assertion failure with detailed context information.">toy::assertion::assertion()</a></span> (no <span class="tt">\ref</span> for functions)</li>
 <li><span class="tt">\ref <a class="el" href="../../d4/da9/namespacetoy.html#aa6f1ef0b4e0aa4864f1c8d431775bc94aaea23489ce3aa9b6406ebb28e0cda430" title="Microsoft Windows Desktop operating system (Windows XP, Vista, 7, 8, 8.1, 10, 11, etc....">toy::Platform::Windows</a></span> instead of <span class="tt">\ref Platform::Windows</span></li>
 </ul>
 <p><b>Exceptions</b>:</p>
 <ul>
 <li>Do not use <span class="tt">\ref</span> for standard library types or functions (e.g., <span class="tt">std::string</span>, <span class="tt">std::vector</span>, <span class="tt">std::size_t</span>).</li>
 <li>Do not use <span class="tt">\ref</span> in <span class="tt">\sa</span> (see also) or <span class="tt">\see</span> (see) sections. These tags automatically create cross-references, so use plain symbol names: <span class="tt">\sa functionName()</span> instead of <span class="tt">\sa \ref functionName()</span>, and <span class="tt">\see ClassName</span> instead of <span class="tt">\see \ref ClassName</span>.</li>
+<li>Do not use <span class="tt">\ref</span> for functions or methods anywhere in documentation.</li>
 </ul>
 <hr  />
 <h1 class="doxsection"><a class="anchor" id="unit-test-style-rules"></a>

@@ -669,7 +669,7 @@ $(function(){initNavTree('d7/d7f/fixed__string_8hpp_source.html','../../',''); }
 <div class="line"><span class="lineno">  551</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  552</span><span class="comment">    \note The returned pointer points to a null-terminated string.</span></div>
 <div class="line"><span class="lineno">  553</span><span class="comment">    \note The returned pointer is read-only and cannot modify the string contents.</span></div>
-<div class="line"><span class="lineno">  554</span><span class="comment">    \note This method is equivalent to \ref data() const.</span></div>
+<div class="line"><span class="lineno">  554</span><span class="comment">    \note This method is equivalent to data() const.</span></div>
 <div class="line"><span class="lineno">  555</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  556</span><span class="comment">    \sa data() const</span></div>
 <div class="line"><span class="lineno">  557</span><span class="comment">  */</span></div>
@@ -699,7 +699,7 @@ $(function(){initNavTree('d7/d7f/fixed__string_8hpp_source.html','../../',''); }
 <div class="line"><span class="lineno">  581</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  582</span><span class="comment">    \return The number of characters in the string, excluding the terminating null character.</span></div>
 <div class="line"><span class="lineno">  583</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  584</span><span class="comment">    \note This method is equivalent to \ref length().</span></div>
+<div class="line"><span class="lineno">  584</span><span class="comment">    \note This method is equivalent to length().</span></div>
 <div class="line"><span class="lineno">  585</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  586</span><span class="comment">    \sa length()</span></div>
 <div class="line"><span class="lineno">  587</span><span class="comment">  */</span></div>
@@ -730,7 +730,7 @@ $(function(){initNavTree('d7/d7f/fixed__string_8hpp_source.html','../../',''); }
 <div class="line"><span class="lineno">  612</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  613</span><span class="comment">    \return The number of characters in the string, excluding the terminating null character.</span></div>
 <div class="line"><span class="lineno">  614</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  615</span><span class="comment">    \note This method is equivalent to \ref size().</span></div>
+<div class="line"><span class="lineno">  615</span><span class="comment">    \note This method is equivalent to size().</span></div>
 <div class="line"><span class="lineno">  616</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  617</span><span class="comment">    \sa size()</span></div>
 <div class="line"><span class="lineno">  618</span><span class="comment">  */</span></div>
@@ -916,7 +916,7 @@ $(function(){initNavTree('d7/d7f/fixed__string_8hpp_source.html','../../',''); }
 <div class="line"><a id="l00798" name="l00798"></a><span class="lineno">  798</span>  <span class="comment">/*!</span></div>
 <div class="line"><span class="lineno">  799</span><span class="comment">    \brief Removes the last UTF-8 encoded character from the string.</span></div>
 <div class="line"><span class="lineno">  800</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  801</span><span class="comment">    This method removes the last UTF-8 encoded character from the current string. Unlike \ref pop_back() which removes a</span></div>
+<div class="line"><span class="lineno">  801</span><span class="comment">    This method removes the last UTF-8 encoded character from the current string. Unlike pop_back() which removes a</span></div>
 <div class="line"><span class="lineno">  802</span><span class="comment">    single character, this method removes the complete UTF-8 encoded character, which may consist of multiple bytes.</span></div>
 <div class="line"><span class="lineno">  803</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  804</span><span class="comment">    \pre The string must not be empty.</span></div>
@@ -997,8 +997,8 @@ $(function(){initNavTree('d7/d7f/fixed__string_8hpp_source.html','../../',''); }
 <div class="line"><span class="lineno">  879</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  880</span><span class="comment">    This method appends a \a character repeated the given \a count of times to the end of this string.</span></div>
 <div class="line"><span class="lineno">  881</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  882</span><span class="comment">    \param character The character to append.</span></div>
-<div class="line"><span class="lineno">  883</span><span class="comment">    \param count     The number of times to repeat the \a character (default: \c 1).</span></div>
+<div class="line"><span class="lineno">  882</span><span class="comment">    \param count     The number of times to repeat the \a character.</span></div>
+<div class="line"><span class="lineno">  883</span><span class="comment">    \param character The character to append.</span></div>
 <div class="line"><span class="lineno">  884</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  885</span><span class="comment">    \return A reference to this string after appending.</span></div>
 <div class="line"><span class="lineno">  886</span><span class="comment"></span> </div>
@@ -1007,7 +1007,7 @@ $(function(){initNavTree('d7/d7f/fixed__string_8hpp_source.html','../../',''); }
 <div class="line"><span class="lineno">  889</span><span class="comment">    \post The \a character is appended \a count times to the end of the string.</span></div>
 <div class="line"><span class="lineno">  890</span><span class="comment">    \post The string size is increased by \a count.</span></div>
 <div class="line"><span class="lineno">  891</span><span class="comment">  */</span></div>
-<div class="line"><a id="l00892" name="l00892"></a><span class="lineno">  892</span>  <span class="keyword">constexpr</span> <a class="code hl_class" href="../../d3/d7a/classtoy_1_1_fixed_string.html">FixedString</a>&lt;allocatedSize&gt; &amp; <a class="code hl_function" href="../../d3/d7a/classtoy_1_1_fixed_string.html#a7ad3de1faef38c09c29319f8227153c6">append</a>(<span class="keywordtype">char</span> character, size_t count = 1) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00892" name="l00892"></a><span class="lineno">  892</span>  <span class="keyword">constexpr</span> <a class="code hl_class" href="../../d3/d7a/classtoy_1_1_fixed_string.html">FixedString</a>&lt;allocatedSize&gt; &amp; <a class="code hl_function" href="../../d3/d7a/classtoy_1_1_fixed_string.html#adbb286024fb0ed5c832d29ed9701046d">append</a>(<a class="code hl_typedef" href="../../d3/d7a/classtoy_1_1_fixed_string.html#a45c1ee3b58eac68636bc64d12e66cb39">size_type</a> count, <span class="keywordtype">char</span> character) <span class="keyword">noexcept</span>;</div>
 <div class="line"><a id="l00893" name="l00893"></a><span class="lineno">  893</span> </div>
 <div class="line"><a id="l00894" name="l00894"></a><span class="lineno">  894</span>  <span class="comment">/*!</span></div>
 <div class="line"><span class="lineno">  895</span><span class="comment">    \brief Appends other \a string to the end of this string.</span></div>
@@ -1073,7 +1073,7 @@ $(function(){initNavTree('d7/d7f/fixed__string_8hpp_source.html','../../',''); }
 <div class="line"><span class="lineno">  955</span><span class="comment">    \post The \a character is appended to the end of this string.</span></div>
 <div class="line"><span class="lineno">  956</span><span class="comment">    \post The string size is increased by \c 1.</span></div>
 <div class="line"><span class="lineno">  957</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  958</span><span class="comment">    \sa append(char, size_t)</span></div>
+<div class="line"><span class="lineno">  958</span><span class="comment">    \sa append(size_type, char)</span></div>
 <div class="line"><span class="lineno">  959</span><span class="comment">    \sa push_back(char)</span></div>
 <div class="line"><span class="lineno">  960</span><span class="comment">  */</span></div>
 <div class="line"><a id="l00961" name="l00961"></a><span class="lineno">  961</span>  <span class="keyword">constexpr</span> <a class="code hl_class" href="../../d3/d7a/classtoy_1_1_fixed_string.html">FixedString</a>&lt;allocatedSize&gt; &amp; <a class="code hl_function" href="../../d3/d7a/classtoy_1_1_fixed_string.html#ae15e66a6771e19158329754f0e118234">operator</a>+=(<span class="keywordtype">char</span> character) <span class="keyword">noexcept</span>;</div>
@@ -1586,7 +1586,7 @@ $(function(){initNavTree('d7/d7f/fixed__string_8hpp_source.html','../../',''); }
 <div class="line"><span class="lineno"> 1468</span><span class="comment">    \pre If \a position is not \ref npos, it must be less than the string size.</span></div>
 <div class="line"><span class="lineno"> 1469</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno"> 1470</span><span class="comment">    \note The search is case-sensitive.</span></div>
-<div class="line"><span class="lineno"> 1471</span><span class="comment">    \note This method is equivalent to \ref rfind(char, size_t) const.</span></div>
+<div class="line"><span class="lineno"> 1471</span><span class="comment">    \note This method is equivalent to rfind(char, size_t) const.</span></div>
 <div class="line"><span class="lineno"> 1472</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno"> 1473</span><span class="comment">    \sa rfind(char, size_t) const</span></div>
 <div class="line"><span class="lineno"> 1474</span><span class="comment">  */</span></div>
@@ -2612,7 +2612,6 @@ $(function(){initNavTree('d7/d7f/fixed__string_8hpp_source.html','../../',''); }
 <div class="ttc" id="aclasstoy_1_1_fixed_string_html_a73402879291624049aa972c17a58c21d"><div class="ttname"><a href="../../d3/d7a/classtoy_1_1_fixed_string.html#a73402879291624049aa972c17a58c21d">toy::FixedString::find</a></div><div class="ttdeci">constexpr size_t find(char character, size_t position=0) const noexcept</div><div class="ttdoc">Finds the first occurrence of a character in the string.</div><div class="ttdef"><b>Definition</b> fixed_string.inl:614</div></div>
 <div class="ttc" id="aclasstoy_1_1_fixed_string_html_a759d69d8c9dd8ff9bbed2d1829da8217"><div class="ttname"><a href="../../d3/d7a/classtoy_1_1_fixed_string.html#a759d69d8c9dd8ff9bbed2d1829da8217">toy::FixedString::replace</a></div><div class="ttdeci">constexpr FixedString&lt; allocatedSize &gt; &amp; replace(size_t pos, size_t count, const char *string) noexcept</div><div class="ttdoc">Replaces a portion of the string with the C string.</div><div class="ttdef"><b>Definition</b> fixed_string.inl:506</div></div>
 <div class="ttc" id="aclasstoy_1_1_fixed_string_html_a7aaab26df6b62bffe82d9d2ab32eb416"><div class="ttname"><a href="../../d3/d7a/classtoy_1_1_fixed_string.html#a7aaab26df6b62bffe82d9d2ab32eb416">toy::FixedString::operator[]</a></div><div class="ttdeci">constexpr char &amp; operator[](size_t offset) noexcept</div><div class="ttdoc">Access a character in the string at a given offset.</div><div class="ttdef"><b>Definition</b> fixed_string.inl:183</div></div>
-<div class="ttc" id="aclasstoy_1_1_fixed_string_html_a7ad3de1faef38c09c29319f8227153c6"><div class="ttname"><a href="../../d3/d7a/classtoy_1_1_fixed_string.html#a7ad3de1faef38c09c29319f8227153c6">toy::FixedString::append</a></div><div class="ttdeci">constexpr FixedString&lt; allocatedSize &gt; &amp; append(char character, size_t count=1) noexcept</div><div class="ttdoc">Appends a character repeated the given count times to the end of this string.</div><div class="ttdef"><b>Definition</b> fixed_string.inl:418</div></div>
 <div class="ttc" id="aclasstoy_1_1_fixed_string_html_a7d74c11c3411509cc5aa4a654f8f4515"><div class="ttname"><a href="../../d3/d7a/classtoy_1_1_fixed_string.html#a7d74c11c3411509cc5aa4a654f8f4515">toy::FixedString::operator=</a></div><div class="ttdeci">constexpr FixedString&lt; allocatedSize &gt; &amp; operator=(char character) noexcept</div><div class="ttdoc">Character assignment to this string.</div><div class="ttdef"><b>Definition</b> fixed_string.inl:103</div></div>
 <div class="ttc" id="aclasstoy_1_1_fixed_string_html_a7e30fe4fddb938dd11f1e3af0b53132f"><div class="ttname"><a href="../../d3/d7a/classtoy_1_1_fixed_string.html#a7e30fe4fddb938dd11f1e3af0b53132f">toy::FixedString::rfind</a></div><div class="ttdeci">constexpr size_t rfind(const FixedString&lt; allocatedSize &gt; &amp;string, size_t position=npos) const noexcept</div><div class="ttdoc">Finds the last occurrence of other string in the string.</div><div class="ttdef"><b>Definition</b> fixed_string.inl:619</div></div>
 <div class="ttc" id="aclasstoy_1_1_fixed_string_html_a8448018a58c82d61cb461e98b6f80a40"><div class="ttname"><a href="../../d3/d7a/classtoy_1_1_fixed_string.html#a8448018a58c82d61cb461e98b6f80a40">toy::FixedString::compare</a></div><div class="ttdeci">constexpr int compare(const stringType &amp;string) const noexcept</div><div class="ttdoc">Compares this string with a toy::StringLike object lexicographically.</div><div class="ttdef"><b>Definition</b> fixed_string.inl:761</div></div>
@@ -2655,6 +2654,7 @@ $(function(){initNavTree('d7/d7f/fixed__string_8hpp_source.html','../../',''); }
 <div class="ttc" id="aclasstoy_1_1_fixed_string_html_ad69a62527d383f5e55695755d70c5e13"><div class="ttname"><a href="../../d3/d7a/classtoy_1_1_fixed_string.html#ad69a62527d383f5e55695755d70c5e13">toy::FixedString::at</a></div><div class="ttdeci">constexpr char &amp; at(size_t offset) noexcept</div><div class="ttdoc">Access a character in the string at a given offset.</div><div class="ttdef"><b>Definition</b> fixed_string.inl:169</div></div>
 <div class="ttc" id="aclasstoy_1_1_fixed_string_html_ada1d0c20637884df171e63012e7dcbc0"><div class="ttname"><a href="../../d3/d7a/classtoy_1_1_fixed_string.html#ada1d0c20637884df171e63012e7dcbc0">toy::FixedString::contains</a></div><div class="ttdeci">constexpr bool contains(const stringType &amp;string) const noexcept</div><div class="ttdoc">Checks if the string contains a toy::StringLike object.</div><div class="ttdef"><b>Definition</b> fixed_string.inl:855</div></div>
 <div class="ttc" id="aclasstoy_1_1_fixed_string_html_ada28d35679418f1becf6b15790aa14fa"><div class="ttname"><a href="../../d3/d7a/classtoy_1_1_fixed_string.html#ada28d35679418f1becf6b15790aa14fa">toy::FixedString::reference</a></div><div class="ttdeci">value_type &amp; reference</div><div class="ttdoc">Reference to string character.</div><div class="ttdef"><b>Definition</b> fixed_string.hpp:124</div></div>
+<div class="ttc" id="aclasstoy_1_1_fixed_string_html_adbb286024fb0ed5c832d29ed9701046d"><div class="ttname"><a href="../../d3/d7a/classtoy_1_1_fixed_string.html#adbb286024fb0ed5c832d29ed9701046d">toy::FixedString::append</a></div><div class="ttdeci">constexpr FixedString&lt; allocatedSize &gt; &amp; append(size_type count, char character) noexcept</div><div class="ttdoc">Appends a character repeated the given count times to the end of this string.</div><div class="ttdef"><b>Definition</b> fixed_string.inl:418</div></div>
 <div class="ttc" id="aclasstoy_1_1_fixed_string_html_addcc79dcd74c3911875d482206469030"><div class="ttname"><a href="../../d3/d7a/classtoy_1_1_fixed_string.html#addcc79dcd74c3911875d482206469030">toy::FixedString::find_last_of</a></div><div class="ttdeci">constexpr size_t find_last_of(const char *string, size_t position=npos) const noexcept</div><div class="ttdoc">Finds the last occurrence of any character from the C string.</div><div class="ttdef"><b>Definition</b> fixed_string.inl:710</div></div>
 <div class="ttc" id="aclasstoy_1_1_fixed_string_html_adf1ec74de29144993eb7806c1e05a6d3"><div class="ttname"><a href="../../d3/d7a/classtoy_1_1_fixed_string.html#adf1ec74de29144993eb7806c1e05a6d3">toy::FixedString::FixedString</a></div><div class="ttdeci">constexpr FixedString(size_type count, char character) noexcept</div><div class="ttdoc">Constructs a string of the given count of character.</div><div class="ttdef"><b>Definition</b> fixed_string.inl:31</div></div>
 <div class="ttc" id="aclasstoy_1_1_fixed_string_html_ae15e66a6771e19158329754f0e118234"><div class="ttname"><a href="../../d3/d7a/classtoy_1_1_fixed_string.html#ae15e66a6771e19158329754f0e118234">toy::FixedString::operator+=</a></div><div class="ttdeci">constexpr FixedString&lt; allocatedSize &gt; &amp; operator+=(char character) noexcept</div><div class="ttdoc">Appends a character to the end of this string.</div><div class="ttdef"><b>Definition</b> fixed_string.inl:474</div></div>

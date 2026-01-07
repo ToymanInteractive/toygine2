@@ -219,7 +219,7 @@ $(function(){initNavTree('d5/d96/assertion_8hpp_source.html','../../',''); });
 <div class="line"><span class="lineno">  104</span><span class="comment">  \post All callbacks are reset to nullptr.</span></div>
 <div class="line"><span class="lineno">  105</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  106</span><span class="comment">  \note This function is safe to call multiple times.</span></div>
-<div class="line"><span class="lineno">  107</span><span class="comment">  \note Must be paired with a call to \ref deInitialize().</span></div>
+<div class="line"><span class="lineno">  107</span><span class="comment">  \note Must be paired with a call to deInitialize().</span></div>
 <div class="line"><span class="lineno">  108</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  109</span><span class="comment">  \sa deInitialize()</span></div>
 <div class="line"><span class="lineno">  110</span><span class="comment">  \sa setCallbacks()</span></div>
@@ -236,7 +236,7 @@ $(function(){initNavTree('d5/d96/assertion_8hpp_source.html','../../',''); });
 <div class="line"><span class="lineno">  121</span><span class="comment">  \post All callbacks are reset to \c nullptr.</span></div>
 <div class="line"><span class="lineno">  122</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  123</span><span class="comment">  \note This function is safe to call multiple times.</span></div>
-<div class="line"><span class="lineno">  124</span><span class="comment">  \note Should be called after \ref initialize() when assertions are no longer needed.</span></div>
+<div class="line"><span class="lineno">  124</span><span class="comment">  \note Should be called after initialize() when assertions are no longer needed.</span></div>
 <div class="line"><span class="lineno">  125</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  126</span><span class="comment">  \sa initialize()</span></div>
 <div class="line"><span class="lineno">  127</span><span class="comment">*/</span></div>
@@ -251,7 +251,7 @@ $(function(){initNavTree('d5/d96/assertion_8hpp_source.html','../../',''); });
 <div class="line"><span class="lineno">  136</span><span class="comment">  \param assertionCallback The callback function to invoke on assertion failure. Can be nullptr to disable.</span></div>
 <div class="line"><span class="lineno">  137</span><span class="comment">  \param stackWalkCallback The callback function to invoke for stack trace output. Can be nullptr to disable.</span></div>
 <div class="line"><span class="lineno">  138</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  139</span><span class="comment">  \pre The assertion system must be initialized (via \ref initialize()).</span></div>
+<div class="line"><span class="lineno">  139</span><span class="comment">  \pre The assertion system must be initialized (via initialize()).</span></div>
 <div class="line"><span class="lineno">  140</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  141</span><span class="comment">  \note Callbacks can be set to nullptr to disable them.</span></div>
 <div class="line"><span class="lineno">  142</span><span class="comment">  \note Callbacks are invoked synchronously during assertion processing.</span></div>
@@ -278,7 +278,7 @@ $(function(){initNavTree('d5/d96/assertion_8hpp_source.html','../../',''); });
 <div class="line"><span class="lineno">  163</span><span class="comment">  \param functionName The function name where the assertion failed.</span></div>
 <div class="line"><span class="lineno">  164</span><span class="comment">  \param lineNumber   The line number where the assertion failed.</span></div>
 <div class="line"><span class="lineno">  165</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  166</span><span class="comment">  \pre The assertion system must be initialized (via \ref initialize()).</span></div>
+<div class="line"><span class="lineno">  166</span><span class="comment">  \pre The assertion system must be initialized (via initialize()).</span></div>
 <div class="line"><span class="lineno">  167</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  168</span><span class="comment">  \note This function is only available in debug builds (_DEBUG defined).</span></div>
 <div class="line"><span class="lineno">  169</span><span class="comment">  \note In release builds, this function is replaced with an inline no-op.</span></div>
