@@ -61,7 +61,7 @@
 <area shape="poly" id="edge28_Node000003_Node000028" title=" " alt="" coords="1791,173,1802,175,1948,191,2073,197,2183,197,2286,194,2389,192,2499,194,2623,203,2770,223,2816,234,2815,239,2769,228,2623,208,2499,199,2389,197,2286,200,2183,202,2073,202,1948,196,1801,180,1790,178"/>
 <area shape="rect" id="Node000029" href="$dd/d8e/hashes_8hpp.html" title="CRC hash functions." alt="" coords="2965,240,3093,265"/>
 <area shape="poly" id="edge29_Node000003_Node000029" title=" " alt="" coords="1791,173,1802,175,1976,192,2125,197,2256,194,2379,188,2501,184,2632,185,2780,196,2954,223,2990,233,2989,238,2953,228,2780,202,2632,190,2502,189,2379,194,2256,200,2125,202,1976,197,1801,180,1790,178"/>
-<area shape="rect" id="Node000030" href="$de/d2d/o__string__stream_8hpp.html" title="TODO." alt="" coords="3117,240,3304,265"/>
+<area shape="rect" id="Node000030" href="$de/d2d/o__string__stream_8hpp.html" title="Output string stream class for building strings from various data types." alt="" coords="3117,240,3304,265"/>
 <area shape="poly" id="edge30_Node000003_Node000030" title=" " alt="" coords="1791,173,1802,175,1999,195,2167,202,2315,201,2454,196,2592,192,2740,192,2908,201,3106,223,3160,234,3159,239,3105,228,2908,206,2740,197,2592,197,2454,202,2315,207,2167,208,1999,200,1801,180,1790,178"/>
 <area shape="rect" id="Node000031" href="$df/d93/utils_8hpp.html" title="Core utility functions for string manipulation, encoding conversion, and number formatting." alt="" coords="3329,240,3439,265"/>
 <area shape="poly" id="edge34_Node000003_Node000031" title=" " alt="" coords="1791,173,1802,175,1949,186,2133,191,2560,190,2780,189,2987,193,3170,203,3249,212,3317,223,3348,232,3347,237,3315,228,3248,217,3170,209,2987,198,2780,195,2560,195,2132,196,1949,191,1801,180,1790,178"/>
