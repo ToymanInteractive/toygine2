@@ -185,8 +185,6 @@ constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(null
 
 template <typename StringType>
 constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(char_type value) noexcept {
-  assert_message(value != '\0', "Character must not be null.");
-
   _string.push_back(value);
 
   return *this;

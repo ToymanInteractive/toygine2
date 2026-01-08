@@ -440,12 +440,9 @@ public:
 
     \return A reference to this OStringStream, allowing operator chaining.
 
-    \pre The \a value must not be the null character ('\0').
-
     \post The write position is advanced by one character.
 
     \note This operator follows the same pattern as std::ostringstream::operator<<(char_type).
-    \note The character is appended directly to the stream without null character checks.
 
     \sa operator<<(const char_type *)
     \sa operator<<(const SourceStringType &)
