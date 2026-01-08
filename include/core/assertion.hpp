@@ -29,16 +29,13 @@
   \namespace toy::assertion
   \brief Assertion utilities for validating engine invariants and runtime conditions.
 
-  This namespace provides a configurable assertion system that supports both runtime assertions (in debug builds) and
-  compile-time assertions (in constexpr contexts). The system allows custom callback registration for handling assertion
-  failures and stack trace generation.
+  This namespace provides a configurable assertion system that supports runtime assertions (in debug builds). The system
+  allows custom callback registration for handling assertion failures and stack trace generation.
 
   \section features Key Features
 
   - 🔧 **Configurable Callbacks**: Custom assertion and stack walk handlers
   - 🎯 **Debug/Release Support**: Runtime assertions only in debug builds
-  - ⚡ **Compile-Time Assertions**: constexpr_assert for constexpr contexts
-  - 🛡️ **Exception Safety**: Compile-time assertions throw exceptions for validation failures
 
   \section usage Usage Example
 
@@ -55,10 +52,6 @@
   #ifdef _DEBUG
   toy::assertion::assertion("value > 0", nullptr, __FILE__, __FUNCTION__, __LINE__);
   #endif
-
-  // Compile-time assertion
-  constexpr int value = 42;
-  toy::assertion::constexpr_assert(value > 0, "value must be positive");
 
   // Cleanup
   toy::assertion::deInitialize();
@@ -143,8 +136,8 @@ void deInitialize();
   \note The assertion callback should return \c true to ignore the assertion, \c false otherwise.
 
   \sa initialize()
-  \sa AssertionCallback
-  \sa StackWalkCallback
+  \sa toy::assertion::AssertionCallback
+  \sa toy::assertion::StackWalkCallback
 */
 void setCallbacks(AssertionCallback assertionCallback, StackWalkCallback stackWalkCallback);
 
@@ -170,7 +163,6 @@ void setCallbacks(AssertionCallback assertionCallback, StackWalkCallback stackWa
   \note The function invokes the registered assertion callback if one is set.
 
   \sa setCallbacks()
-  \sa constexpr_assert()
 */
 void assertion(const char * code, const char * message, const char * fileName, const char * functionName,
                size_t lineNumber);
@@ -193,48 +185,18 @@ inline void assertion(const char *, const char *, const char *, const char *, si
 #endif // _DEBUG
 
 /*!
-  \brief Compile-time assertion function for constexpr contexts.
+  \brief Forces a compile-time error when called.
 
-  This function provides assertion capabilities in constexpr contexts where regular runtime assertions cannot be used.
-  When the \a condition is false, it throws a std::invalid_argument exception with the provided \a message, causing
-  compilation to fail if evaluated at compile time.
+  This function is designed to be used in template metaprogramming and constexpr contexts to force a compile-time
+  error. When called, it triggers a compilation failure, which can be useful for static_assert-like behavior in
+  contexts where static_assert cannot be used.
 
-  \param condition The condition to check. Must be true for the assertion to pass.
-  \param message   The error message to include in the exception if the assertion fails.
-
-  \throws std::invalid_argument If \a condition is false, with \a message as the error description.
-
-  \pre The \a message pointer must point to a valid C string.
-
-  \note This function is designed for use in constexpr contexts where traditional assertions are not available.
-  \note Unlike regular assertions, this function always throws an exception in both debug and release builds when the
-        condition fails.
-  \note When evaluated at compile time, a failed assertion will cause a compilation error.
-  \note When evaluated at runtime, a failed assertion will throw an exception.
-
-  \section usage Usage Example
-
-  \code
-  #include "core/assertion.hpp"
-
-  template <size_t N>
-  constexpr size_t validateSize() {
-    toy::assertion::constexpr_assert(N > 0, "Size must be greater than zero");
-    return N;
-  }
-
-  constexpr auto size = validateSize<10>();  // OK
-  // constexpr auto invalid = validateSize<0>();  // Compilation error
-  \endcode
-
-  \sa assert
-  \sa assert_message
-  \sa assertion()
+  \note This function should never be called in valid code. It is intended to be used in template specializations or
+        constexpr branches that should never be reached.
+  \note The function is marked as \c [[noreturn]] to indicate it never returns normally.
+  \note This function causes a compile-time error when evaluated in constexpr contexts.
 */
-constexpr void constexpr_assert(bool condition, const char * message) {
-  if (!condition)
-    throw std::invalid_argument(message ? message : "constexpr_assert failed");
-}
+[[noreturn]] void assertCompileTimeError() noexcept;
 
 } // namespace toy::assertion
 
