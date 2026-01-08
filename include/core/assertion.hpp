@@ -196,7 +196,9 @@ inline void assertion(const char *, const char *, const char *, const char *, si
   \note The function is marked as \c [[noreturn]] to indicate it never returns normally.
   \note This function causes a compile-time error when evaluated in constexpr contexts.
 */
-[[noreturn]] void assertCompileTimeError() noexcept;
+inline void assertCompileTimeError() noexcept {
+  // Intentionally cause a compile-time error
+}
 
 } // namespace toy::assertion
 
