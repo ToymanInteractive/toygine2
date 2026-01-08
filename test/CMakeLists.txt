@@ -50,6 +50,11 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
   string(REGEX REPLACE "-pedantic-errors" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
   set(CMAKE_CXX_FLAGS "-w ${CMAKE_CXX_FLAGS}")
 
+  string(REGEX REPLACE "-fsanitize=[^\\s]+" "" CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG}")
+  string(REGEX REPLACE "-fsanitize=[^\\s]+" "" CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG}")
+  string(REGEX REPLACE "-fsanitize=[^\\s]+" "" CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG}")
+  string(REGEX REPLACE "-fsanitize=[^\\s]+" "" CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO "${CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO}")
+
 endif ()
 #-------------------------------------------------------------------------------------------
 # Remove all of the extra targets
@@ -96,6 +101,7 @@ if (TOYGINE_TESTS_ENABLE_COVERAGE)
   append_coverage_compiler_flags()
   append_coverage_compiler_flags_to_target(${TOYGINE_LIBRARY_NAME})
   append_coverage_compiler_flags_to_target(${TOYGINE_LIBRARY_NAME}-catch2-tests)
+  append_coverage_compiler_flags_to_target(${TOYGINE_LIBRARY_NAME}-cpputest-tests)
 
   # exclude /test and /ext directories from coverage analysis
   set(COVERAGE_EXCLUDES "${CMAKE_SOURCE_DIR}/test/*" "${CMAKE_BINARY_DIR}/*" "/usr/*")
