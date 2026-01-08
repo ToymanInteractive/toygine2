@@ -55,25 +55,25 @@ jobs:
             cmake_preset: windows-msvc
 
           - name: DevkitPro GBA
-            os: ubuntu-24.04
+            os: ubuntu-slim
             docker_image: devkitpro/devkitarm:latest
             run_test: "false"
             cmake_preset: nintendo-gba-ninja-release
 
           - name: DevkitPro NDS
-            os: ubuntu-24.04
+            os: ubuntu-slim
             docker_image: devkitpro/devkitarm:latest
             run_test: "false"
             cmake_preset: nintendo-ds-ninja-release
 
           - name: DevkitPro 3DS
-            os: ubuntu-24.04
+            os: ubuntu-slim
             docker_image: devkitpro/devkitarm:latest
             run_test: "false"
             cmake_preset: nintendo-3ds-ninja-release
 
           - name: DevkitPro Switch
-            os: ubuntu-24.04
+            os: ubuntu-slim
             docker_image: devkitpro/devkita64:latest
             run_test: "false"
             cmake_preset: nintendo-switch-ninja-release
