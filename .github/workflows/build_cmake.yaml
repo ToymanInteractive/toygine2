@@ -107,6 +107,7 @@ jobs:
             build-${{ matrix.os }}-apt-${{ matrix.cmake_preset }}
 
       - name: Prepare CI
+        if: ${{ matrix.docker_image == '' }}
         run: |
           if [[ "${{ matrix.os }}" =~ "windows" ]]; then
             MSVC_INSTALL_PATH=$(vswhere -latest -property installationPath)
