@@ -93,11 +93,11 @@ jobs:
           submodules: recursive
 
       - name: Prepare APT staging dir
-        if: contains(matrix.os, 'ubuntu')
+        if: contains(matrix.os, 'ubuntu') && matrix.docker_image == ''
         run: mkdir -p "$RUNNER_TEMP/apt-cache"
 
       - name: APT cache restore
-        if: contains(matrix.os, 'ubuntu')
+        if: contains(matrix.os, 'ubuntu') && matrix.docker_image == ''
         id: buildaptcache
         uses: actions/cache/restore@v5.0.1
         with:
@@ -152,7 +152,7 @@ jobs:
           fi
 
       - name: APT cache save
-        if: contains(matrix.os, 'ubuntu') && steps.buildaptcache.outputs.cache-hit != 'true'
+        if: contains(matrix.os, 'ubuntu') && matrix.docker_image == '' && steps.buildaptcache.outputs.cache-hit != 'true'
         uses: actions/cache/save@v5.0.1
         with:
           path: ${{ runner.temp }}/apt-cache
