@@ -29,6 +29,50 @@
 
 namespace toy {
 
+/*!
+  \class OStringStream
+  \ingroup String
+  \brief Template output string stream class for building strings from various data types.
+
+  OStringStream is a lightweight, high-performance output stream class that provides a std::ostringstream-like interface
+  while using a fixed-size or custom string storage type. It supports formatting and inserting various data types into
+  a string buffer, including integers, floating-point numbers, booleans, pointers, and string-like objects.
+
+  \tparam StringType The type of the underlying string storage. Must satisfy the \ref toy::StringLike concept.
+
+  \section features Key Features
+
+  - ⚙️ **Zero or Minimal Dynamic Allocation**: Uses the provided StringType for storage (e.g., \ref toy::FixedString)
+  - 🔧 **ConstExpr Support**: Most operations can be evaluated at compile time
+  - 🛡️ **Exception Safety**: All operations are noexcept
+  - 🔗 **STL Compatibility**: Provides std::ostringstream-like interface
+  - 📝 **Type Safety**: Uses C++20 concepts for type safety
+  - 🎯 **Precision Control**: Configurable precision for floating-point formatting
+
+  \section usage Usage Example
+
+  \code
+  #include "o_string_stream.hpp"
+  #include "fixed_string.hpp"
+
+  // Create a stream with FixedString storage
+  toy::OStringStream<toy::FixedString<64>> stream;
+
+  // Insert various types
+  stream << "Value: " << 42 << ", Pi: " << 3.14159;
+  stream << '!' << CStringView(" Result: ") << true;
+
+  // Get the result
+  const auto result = stream.str();
+  \endcode
+
+  \note The stream only supports appending operations. All writes go to the end of the string.
+  \note The write position always equals the size of the underlying string.
+
+  \sa toy::FixedString
+  \sa toy::StringLike
+  \sa toy::CStringView
+*/
 template <typename StringType>
 class OStringStream {
 public:
@@ -387,6 +431,83 @@ public:
   constexpr OStringStream & operator<<(nullptr_t) noexcept;
 
   /*!
+    \brief Inserts a single character into the stream.
+
+    This operator appends the specified \a value character to the end of the stream. The character is added directly
+    without any conversion or formatting.
+
+    \param value The character to insert into the stream.
+
+    \return A reference to this OStringStream, allowing operator chaining.
+
+    \post The write position is advanced by one character.
+
+    \note This operator follows the same pattern as std::ostringstream::operator<<(char_type).
+
+    \sa operator<<(const char_type *)
+    \sa operator<<(const SourceStringType &)
+    \sa put(char_type)
+    \sa tellp()
+  */
+  constexpr OStringStream & operator<<(char_type value) noexcept;
+
+  /*!
+    \brief Inserts a string-like object into the stream.
+
+    This operator appends the content of a string-like object to the end of the stream. The string content is copied
+    and appended to the current stream content.
+
+    \tparam SourceStringType The type of the source string. Must satisfy the \ref toy::StringLike concept.
+
+    \param value The string-like object to insert into the stream.
+
+    \return A reference to this OStringStream, allowing operator chaining.
+
+    \pre The \a value must be valid and properly initialized.
+
+    \post The write position is advanced by the length of the appended string.
+
+    \note This operator follows the same pattern as std::ostringstream::operator<<(const std::string&).
+    \note The source string type can be different from StringType as long as both satisfy \ref toy::StringLike.
+    \note This operator is useful for inserting string literals, \ref toy::FixedString objects, and other string-like
+    types.
+
+    \sa operator<<(const char_type *)
+    \sa operator<<(char_type)
+    \sa put(char_type)
+    \sa write(const char_type *, size_t)
+    \sa tellp()
+  */
+  template <StringLike SourceStringType>
+  constexpr OStringStream & operator<<(const SourceStringType & value) noexcept;
+
+  /*!
+    \brief Inserts a C string into the stream.
+
+    This operator appends the content of a C string to the end of the stream. The string is copied and appended to the
+    current stream content.
+
+    \param value The C string to insert into the stream.
+
+    \return A reference to this OStringStream, allowing operator chaining.
+
+    \pre The \a value must not be null.
+
+    \post The write position is advanced by the length of the appended string (excluding the null terminator).
+
+    \note This operator follows the same pattern as std::ostringstream::operator<<(const char*).
+    \note The string is appended up to but not including the null terminator.
+    \note This operator is useful for inserting C-style string literals and null-terminated character arrays.
+
+    \sa operator<<(const SourceStringType &)
+    \sa operator<<(char_type)
+    \sa put(char_type)
+    \sa write(const char_type *, size_t)
+    \sa tellp()
+  */
+  constexpr OStringStream & operator<<(const char_type * value) noexcept;
+
+  /*!
     \brief Returns a const reference to the underlying string.
 
     This method provides read-only access to the internal string storage.
@@ -539,6 +660,7 @@ public:
 
 private:
   StringType _string; //!< Internal string storage for the stream content.
+
   int _precision = 6; //!< Floating-point precision value used for number formatting.
 };
 

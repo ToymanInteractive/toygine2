@@ -93,8 +93,8 @@ namespace toy {
 
   \pre The \a str pointer must not be null.
   \pre The \a accept pointer must not be null.
-  \pre The \a str must be null-terminated.
-  \pre The \a accept must be null-terminated.
+  \pre The \a str must be C string.
+  \pre The \a accept must be C string.
 
   \note The search is case-sensitive.
   \note The function searches from the beginning of \a str and returns the first match.

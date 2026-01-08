@@ -184,6 +184,30 @@ constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(null
 }
 
 template <typename StringType>
+constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(char_type value) noexcept {
+  _string.push_back(value);
+
+  return *this;
+}
+
+template <typename StringType>
+template <StringLike SourceStringType>
+constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(const SourceStringType & value) noexcept {
+  _string.append(value);
+
+  return *this;
+}
+
+template <typename StringType>
+constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(const char_type * value) noexcept {
+  assert_message(value != nullptr, "String pointer must not be null.");
+
+  _string.append(value);
+
+  return *this;
+}
+
+template <typename StringType>
 constexpr const StringType & OStringStream<StringType>::str() const noexcept {
   return _string;
 }

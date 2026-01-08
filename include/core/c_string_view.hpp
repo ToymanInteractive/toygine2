@@ -134,7 +134,6 @@ public:
     \param string The C string to wrap.
 
     \pre The source C \a string must not be null.
-    \pre The source C \a string must be null-terminated.
   */
   constexpr explicit CStringView(const char * string) noexcept;
 
@@ -166,7 +165,6 @@ public:
     \return A reference to this string view after assignment.
 
     \pre The source C \a string must not be null.
-    \pre The source C \a string must be null-terminated.
   */
   constexpr CStringView & operator=(const char * string) noexcept;
 
@@ -195,7 +193,6 @@ public:
     \return A reference to this string view after assignment.
 
     \pre The source C \a string must not be null.
-    \pre The source C \a string must be null-terminated.
 
     \note This method is equivalent to the copy assignment operator.
 
@@ -283,7 +280,7 @@ public:
 
     \return A constant pointer to the C string representation of this string view.
 
-    \note The returned pointer points to a null-terminated C string.
+    \note The returned pointer points to a C string.
     \note The returned pointer is read-only and cannot modify the string view contents.
     \note This method is equivalent to data().
 

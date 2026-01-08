@@ -83,10 +83,12 @@ inline constexpr auto currentCpuArchitecture = CpuArchitecture::Unknown;
 */
 #define assert(expression)                                                                                             \
   do {                                                                                                                 \
-    if (std::is_constant_evaluated()) {                                                                                \
-      toy::assertion::constexpr_assert(expression, #expression);                                                       \
-    } else if (!(expression)) {                                                                                        \
-      toy::assertion::assertion(#expression, nullptr, __FILE__, __FUNC_SIGNATURE__, __LINE__);                         \
+    if (!(expression)) {                                                                                               \
+      if (std::is_constant_evaluated()) {                                                                              \
+        toy::assertion::assertCompileTimeError();                                                                      \
+      } else {                                                                                                         \
+        toy::assertion::assertion(#expression, nullptr, __FILE__, __FUNC_SIGNATURE__, __LINE__);                       \
+      }                                                                                                                \
     }                                                                                                                  \
   } while (0)
 
@@ -116,10 +118,12 @@ inline constexpr auto currentCpuArchitecture = CpuArchitecture::Unknown;
 */
 #define assert_message(expression, message)                                                                            \
   do {                                                                                                                 \
-    if (std::is_constant_evaluated()) {                                                                                \
-      toy::assertion::constexpr_assert(expression, message);                                                           \
-    } else if (!(expression)) {                                                                                        \
-      toy::assertion::assertion(#expression, message, __FILE__, __FUNC_SIGNATURE__, __LINE__);                         \
+    if (!(expression)) {                                                                                               \
+      if (std::is_constant_evaluated()) {                                                                              \
+        toy::assertion::assertCompileTimeError();                                                                      \
+      } else {                                                                                                         \
+        toy::assertion::assertion(#expression, message, __FILE__, __FUNC_SIGNATURE__, __LINE__);                       \
+      }                                                                                                                \
     }                                                                                                                  \
   } while (0)
 
