@@ -68,11 +68,11 @@ FetchContent_MakeAvailable(Catch2)
 
 list(APPEND CMAKE_MODULE_PATH ${Catch2_SOURCE_DIR}/extras)
 
-file(GLOB_RECURSE TEST_SRC CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp")
+file(GLOB_RECURSE CATCH_TEST_SRC CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/catch/*.cpp")
 
 include(Catch)
 
-add_executable(${TOYGINE_LIBRARY_NAME}-catch2-tests ${TEST_SRC})
+add_executable(${TOYGINE_LIBRARY_NAME}-catch2-tests ${CATCH_TEST_SRC})
 target_include_directories(${TOYGINE_LIBRARY_NAME}-catch2-tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include)
 target_link_libraries(${TOYGINE_LIBRARY_NAME}-catch2-tests PRIVATE Catch2::Catch2 ${TOYGINE_LIBRARY_NAME})
 catch_discover_tests(${TOYGINE_LIBRARY_NAME}-catch2-tests)
