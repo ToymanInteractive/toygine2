@@ -50,11 +50,6 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
   string(REGEX REPLACE "-pedantic-errors" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
   set(CMAKE_CXX_FLAGS "-w ${CMAKE_CXX_FLAGS}")
 
-  string(REGEX REPLACE "-fsanitize=[^\\s]+" "" CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG}")
-  string(REGEX REPLACE "-fsanitize=[^\\s]+" "" CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG}")
-  string(REGEX REPLACE "-fsanitize=[^\\s]+" "" CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG}")
-  string(REGEX REPLACE "-fsanitize=[^\\s]+" "" CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO "${CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO}")
-
 endif ()
 #-------------------------------------------------------------------------------------------
 # Remove all of the extra targets
