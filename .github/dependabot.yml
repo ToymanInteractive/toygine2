@@ -5,8 +5,19 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+
     assignees:
       - "dependabot"
       - "dkrutskikh"
+
     commit-message:
-      prefix: "chore: "
+      prefix: "chore(ci): "
+
+    groups:
+      github-actions:
+        patterns:
+          - "actions/*"
+
+      docker-images:
+        patterns:
+          - "*"

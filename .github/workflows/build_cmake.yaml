@@ -56,32 +56,32 @@ jobs:
 
           - name: DevkitPro GBA
             os: ubuntu-24.04
-            docker_image: devkitpro/devkitarm:20251117
+            container: devkitpro/devkitarm:20251117
             run_test: "false"
             cmake_preset: nintendo-gba-ninja-release
 
           - name: DevkitPro NDS
             os: ubuntu-24.04
-            docker_image: devkitpro/devkitarm:20251117
+            container: devkitpro/devkitarm:20251117
             run_test: "false"
             cmake_preset: nintendo-ds-ninja-release
 
           - name: DevkitPro 3DS
             os: ubuntu-24.04
-            docker_image: devkitpro/devkitarm:20251117
+            container: devkitpro/devkitarm:20251117
             run_test: "false"
             cmake_preset: nintendo-3ds-ninja-release
 
           - name: DevkitPro Switch
             os: ubuntu-24.04
-            docker_image: devkitpro/devkita64:20251117
+            container: devkitpro/devkita64:20251117
             run_test: "false"
             cmake_preset: nintendo-switch-ninja-release
 
     name: ${{ matrix.name }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
-    container: ${{ matrix.docker_image != '' && matrix.docker_image || null }}
+    container: ${{ matrix.container != '' && matrix.container || null }}
     defaults:
       run:
         shell: bash
@@ -93,11 +93,11 @@ jobs:
           submodules: recursive
 
       - name: Prepare APT staging dir
-        if: contains(matrix.os, 'ubuntu') && matrix.docker_image == ''
+        if: contains(matrix.os, 'ubuntu') && matrix.container == ''
         run: mkdir -p "$RUNNER_TEMP/apt-cache"
 
       - name: APT cache restore
-        if: contains(matrix.os, 'ubuntu') && matrix.docker_image == ''
+        if: contains(matrix.os, 'ubuntu') && matrix.container == ''
         id: buildaptcache
         uses: actions/cache/restore@v5.0.1
         with:
@@ -107,7 +107,7 @@ jobs:
             build-${{ matrix.os }}-apt-${{ matrix.cmake_preset }}
 
       - name: Prepare CI
-        if: ${{ matrix.docker_image == '' }}
+        if: ${{ matrix.container == '' }}
         run: |
           if [[ "${{ matrix.os }}" =~ "windows" ]]; then
             MSVC_INSTALL_PATH=$(vswhere -latest -property installationPath)
@@ -152,7 +152,7 @@ jobs:
           fi
 
       - name: APT cache save
-        if: contains(matrix.os, 'ubuntu') && matrix.docker_image == '' && steps.buildaptcache.outputs.cache-hit != 'true'
+        if: contains(matrix.os, 'ubuntu') && matrix.container == '' && steps.buildaptcache.outputs.cache-hit != 'true'
         uses: actions/cache/save@v5.0.1
         with:
           path: ${{ runner.temp }}/apt-cache
