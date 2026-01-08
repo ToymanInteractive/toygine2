@@ -1,0 +1,6 @@
+<map id="toy::CStringView::clear" name="toy::CStringView::clear">
+<area shape="rect" id="Node000001" title="Clears the contents by detaching from the current C string." alt="" coords="5,37,173,62"/>
+<area shape="rect" id="Node000002" href="$d7/d15/classtoy_1_1_o_string_stream.html#a2771f205d9b13c0281df543a5c50254f" title=" " alt="" coords="221,29,367,69"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="173,47,207,47,207,52,173,52"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="256,30,254,20,260,11,273,5,294,3,318,6,331,13,328,18,316,11,294,8,275,10,263,15,259,21,261,28"/>
+</map>

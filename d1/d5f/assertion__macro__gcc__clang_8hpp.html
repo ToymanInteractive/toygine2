@@ -150,10 +150,12 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> {                                                                                                                 \</div>
-<div class="line">  if (std::is_constant_evaluated()) {                                                                                \</div>
-<div class="line">    toy::assertion::constexpr_assert(expression, #expression);                                                       \</div>
-<div class="line">  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (!(expression)) {                                                                                        \</div>
-<div class="line">    toy::assertion::assertion(#expression, <span class="keyword">nullptr</span>, __FILE__, __PRETTY_FUNCTION__, __LINE__);                        \</div>
+<div class="line">  if (!(expression)) {                                                                                               \</div>
+<div class="line">    if (std::is_constant_evaluated()) {                                                                              \</div>
+<div class="line">      toy::assertion::assertCompileTimeError();                                                                      \</div>
+<div class="line">    } <span class="keywordflow">else</span> {                                                                                                         \</div>
+<div class="line">      toy::assertion::assertion(#expression, <span class="keyword">nullptr</span>, __FILE__, __PRETTY_FUNCTION__, __LINE__);                      \</div>
+<div class="line">    }                                                                                                                \</div>
 <div class="line">  }                                                                                                                  \</div>
 <div class="line">} <span class="keywordflow">while</span> (0)</div>
 </div><!-- fragment -->
@@ -200,10 +202,12 @@ The <em class="arg">expression</em> should not have side effects as it may not b
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> {                                                                                                                 \</div>
-<div class="line">  if (std::is_constant_evaluated()) {                                                                                \</div>
-<div class="line">    toy::assertion::constexpr_assert(expression, message);                                                           \</div>
-<div class="line">  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (!(expression)) {                                                                                        \</div>
-<div class="line">    toy::assertion::assertion(#expression, message, __FILE__, __PRETTY_FUNCTION__, __LINE__);                        \</div>
+<div class="line">  if (!(expression)) {                                                                                               \</div>
+<div class="line">    if (std::is_constant_evaluated()) {                                                                              \</div>
+<div class="line">      toy::assertion::assertCompileTimeError();                                                                      \</div>
+<div class="line">    } <span class="keywordflow">else</span> {                                                                                                         \</div>
+<div class="line">      toy::assertion::assertion(#expression, message, __FILE__, __PRETTY_FUNCTION__, __LINE__);                      \</div>
+<div class="line">    }                                                                                                                \</div>
 <div class="line">  }                                                                                                                  \</div>
 <div class="line">} <span class="keywordflow">while</span> (0)</div>
 </div><!-- fragment -->

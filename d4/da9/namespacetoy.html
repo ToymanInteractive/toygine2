@@ -138,6 +138,7 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Template string class with fixed-size character buffer.  <a href="../../d3/d7a/classtoy_1_1_fixed_string.html#details">More...</a><br /></td></tr>
 <tr class="memitem:FixedVector" id="r_FixedVector"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a></td></tr>
 <tr class="memitem:OStringStream" id="r_OStringStream"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html">OStringStream</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Template output string stream class for building strings from various data types.  <a href="../../d7/d15/classtoy_1_1_o_string_stream.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-concepts" class="groupheader"><a id="concepts" name="concepts"></a>
 Concepts</h2></td></tr>
@@ -1040,9 +1041,9 @@ This function is constexpr-compatible and can be used in compile-time contexts.<
 <dd>
 The <em class="arg">accept</em> pointer must not be null. </dd>
 <dd>
-The <em class="arg">str</em> must be null-terminated. </dd>
+The <em class="arg">str</em> must be C string. </dd>
 <dd>
-The <em class="arg">accept</em> must be null-terminated.</dd></dl>
+The <em class="arg">accept</em> must be C string.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd>
 <dd>
 The function searches from the beginning of <em class="arg">str</em> and returns the first match. </dd>
@@ -1692,7 +1693,7 @@ template&lt;size_t allocatedSize&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">lhs</em> C-string must not be null and must be null-terminated.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">lhs</em> C-string must not be null.</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>A new <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="Template string class with fixed-size character buffer.">FixedString</a> object containing the concatenated result.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Result size is sum of both input sizes, must not exceed allocated size. </dd></dl>
 
@@ -1786,7 +1787,7 @@ template&lt;size_t allocatedSize&gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A new <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="Template string class with fixed-size character buffer.">FixedString</a> object containing the concatenated result.</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">rhs</em> C-string must not be null and must be null-terminated.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">rhs</em> C-string must not be null.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Result size is sum of both input sizes, must not exceed allocated size. </dd></dl>
 
 </div>
