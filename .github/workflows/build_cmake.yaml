@@ -56,25 +56,25 @@ jobs:
 
           - name: DevkitPro GBA
             os: ubuntu-24.04
-            container: devkitpro/devkitarm:20251117
+            container: devkitpro/devkitarm:20251231
             run_test: "false"
             cmake_preset: nintendo-gba-ninja-release
 
           - name: DevkitPro NDS
             os: ubuntu-24.04
-            container: devkitpro/devkitarm:20251117
+            container: devkitpro/devkitarm:20251231
             run_test: "false"
             cmake_preset: nintendo-ds-ninja-release
 
           - name: DevkitPro 3DS
             os: ubuntu-24.04
-            container: devkitpro/devkitarm:20251117
+            container: devkitpro/devkitarm:20251231
             run_test: "false"
             cmake_preset: nintendo-3ds-ninja-release
 
           - name: DevkitPro Switch
             os: ubuntu-24.04
-            container: devkitpro/devkita64:20251117
+            container: devkitpro/devkita64:20251231
             run_test: "false"
             cmake_preset: nintendo-switch-ninja-release
 
@@ -123,8 +123,8 @@ jobs:
             echo "DUMPBIN_PATH = $DUMPBIN_PATH"
           elif [[ "${{ matrix.os }}" =~ "macos" ]]; then
             # Prefer the desired version if it exists, otherwise keep the default.
-            if [ -d "/Applications/Xcode_26.0.app" ]; then
-              sudo xcode-select -s /Applications/Xcode_26.0.app
+            if [ -d "/Applications/Xcode_26.2.0.app" ]; then
+              sudo xcode-select -s /Applications/Xcode_26.2.0.app
             fi
           elif [[ "${{ matrix.os }}" =~ "ubuntu" ]]; then
             set -euo pipefail
