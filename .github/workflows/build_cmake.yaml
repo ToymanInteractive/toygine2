@@ -56,31 +56,32 @@ jobs:
 
           - name: DevkitPro GBA
             os: ubuntu-24.04
-            docker_image: devkitpro/devkitarm:latest
+            docker_image: devkitpro/devkitarm:20251117
             run_test: "false"
             cmake_preset: nintendo-gba-ninja-release
 
           - name: DevkitPro NDS
             os: ubuntu-24.04
-            docker_image: devkitpro/devkitarm:latest
+            docker_image: devkitpro/devkitarm:20251117
             run_test: "false"
             cmake_preset: nintendo-ds-ninja-release
 
           - name: DevkitPro 3DS
             os: ubuntu-24.04
-            docker_image: devkitpro/devkitarm:latest
+            docker_image: devkitpro/devkitarm:20251117
             run_test: "false"
             cmake_preset: nintendo-3ds-ninja-release
 
           - name: DevkitPro Switch
             os: ubuntu-24.04
-            docker_image: devkitpro/devkita64:latest
+            docker_image: devkitpro/devkita64:20251117
             run_test: "false"
             cmake_preset: nintendo-switch-ninja-release
 
     name: ${{ matrix.name }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
+    container: ${{ matrix.docker_image != '' && matrix.docker_image || null }}
     defaults:
       run:
         shell: bash
@@ -92,11 +93,11 @@ jobs:
           submodules: recursive
 
       - name: Prepare APT staging dir
-        if: contains(matrix.os, 'ubuntu')
+        if: contains(matrix.os, 'ubuntu') && matrix.docker_image == ''
         run: mkdir -p "$RUNNER_TEMP/apt-cache"
 
       - name: APT cache restore
-        if: contains(matrix.os, 'ubuntu')
+        if: contains(matrix.os, 'ubuntu') && matrix.docker_image == ''
         id: buildaptcache
         uses: actions/cache/restore@v5.0.1
         with:
@@ -106,6 +107,7 @@ jobs:
             build-${{ matrix.os }}-apt-${{ matrix.cmake_preset }}
 
       - name: Prepare CI
+        if: ${{ matrix.docker_image == '' }}
         run: |
           if [[ "${{ matrix.os }}" =~ "windows" ]]; then
             MSVC_INSTALL_PATH=$(vswhere -latest -property installationPath)
@@ -150,7 +152,7 @@ jobs:
           fi
 
       - name: APT cache save
-        if: contains(matrix.os, 'ubuntu') && steps.buildaptcache.outputs.cache-hit != 'true'
+        if: contains(matrix.os, 'ubuntu') && matrix.docker_image == '' && steps.buildaptcache.outputs.cache-hit != 'true'
         uses: actions/cache/save@v5.0.1
         with:
           path: ${{ runner.temp }}/apt-cache
@@ -163,25 +165,12 @@ jobs:
           arch: ${{ contains(matrix.cmake_preset, 'x86') && 'x86' || 'x64' }}
 
       - name: Build and Test
-        if: ${{ matrix.docker_image == '' }}
         run: |
           cmake -DTOYGINE_BUILD_TESTS=$([ "${{ matrix.run_test }}" = "true" ] && echo ON || echo OFF) --preset ${{ matrix.cmake_preset }}
           cmake --build --preset ${{ matrix.cmake_preset }}
           if [ "${{ matrix.run_test }}" = "true" ]; then
             ctest --preset ${{ matrix.cmake_preset }}
           fi
-
-      - name: Build and Test in Docker
-        if: ${{ matrix.docker_image != '' }}
-        uses: addnab/docker-run-action@v3
-        with:
-          image: ${{ matrix.docker_image }}
-          options: |
-            -v ${{ github.workspace }}:/workspace
-          run: |
-            cd /workspace
-            cmake -DTOYGINE_BUILD_TESTS=$([ "${{ matrix.run_test }}" = "true" ] && echo ON || echo OFF) --preset ${{ matrix.cmake_preset }}
-            cmake --build --preset ${{ matrix.cmake_preset }}
 
   unit-test:
     name: Collect unit tests

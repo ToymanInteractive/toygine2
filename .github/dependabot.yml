@@ -7,7 +7,17 @@ updates:
       interval: "daily"
     assignees:
       - "dependabot"
-    reviewers:
+      - "dkrutskikh"
+    commit-message:
+      prefix: "chore: "
+
+  # Maintain Docker images used in GitHub Actions
+  - package-ecosystem: "docker"
+    directory: "/.github/workflows"
+    schedule:
+      interval: "daily"
+    assignees:
+      - "dependabot"
       - "dkrutskikh"
     commit-message:
       prefix: "chore: "
