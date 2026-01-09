@@ -63,6 +63,8 @@ set(CATCH_INSTALL_HELPERS OFF)
 set(CATCH_BUILD_TESTING OFF)
 set(CATCH_INSTALL_DOCS OFF)
 
+set(CPPUTEST_MEM_LEAK_DETECTION_DISABLED ON)
+
 FetchContent_Declare(Catch2 GIT_REPOSITORY https://github.com/catchorg/Catch2.git GIT_TAG v3.12.0)
 FetchContent_MakeAvailable(Catch2)
 
