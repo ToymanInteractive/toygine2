@@ -63,19 +63,32 @@ set(CATCH_INSTALL_HELPERS OFF)
 set(CATCH_BUILD_TESTING OFF)
 set(CATCH_INSTALL_DOCS OFF)
 
+set(CPPUTEST_MEM_LEAK_DETECTION_DISABLED ON)
+
 FetchContent_Declare(Catch2 GIT_REPOSITORY https://github.com/catchorg/Catch2.git GIT_TAG v3.12.0)
 FetchContent_MakeAvailable(Catch2)
 
+FetchContent_Declare(CppUTest GIT_REPOSITORY https://github.com/cpputest/cpputest.git GIT_TAG master)
+FetchContent_MakeAvailable(CppUTest)
+
 list(APPEND CMAKE_MODULE_PATH ${Catch2_SOURCE_DIR}/extras)
 
-file(GLOB_RECURSE TEST_SRC CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp")
+file(GLOB_RECURSE CATCH_TEST_SRC CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/catch/*.cpp")
+file(GLOB_RECURSE CPPUTEST_TEST_SRC CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/cpputest/*.cpp")
 
 include(Catch)
 
-add_executable(${TOYGINE_LIBRARY_NAME}-tests ${TEST_SRC})
-target_include_directories(${TOYGINE_LIBRARY_NAME}-tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include)
-target_link_libraries(${TOYGINE_LIBRARY_NAME}-tests PRIVATE Catch2::Catch2 ${TOYGINE_LIBRARY_NAME})
-catch_discover_tests(${TOYGINE_LIBRARY_NAME}-tests)
+add_executable(${TOYGINE_LIBRARY_NAME}-catch2-tests ${CATCH_TEST_SRC})
+target_include_directories(${TOYGINE_LIBRARY_NAME}-catch2-tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include)
+target_link_libraries(${TOYGINE_LIBRARY_NAME}-catch2-tests PRIVATE Catch2::Catch2 ${TOYGINE_LIBRARY_NAME})
+catch_discover_tests(${TOYGINE_LIBRARY_NAME}-catch2-tests)
+
+include(CppUTest)
+
+add_executable(${TOYGINE_LIBRARY_NAME}-cpputest-tests ${CPPUTEST_TEST_SRC})
+target_include_directories(${TOYGINE_LIBRARY_NAME}-cpputest-tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include)
+target_link_libraries(${TOYGINE_LIBRARY_NAME}-cpputest-tests PRIVATE CppUTest::CppUTest CppUTest::CppUTestExt ${TOYGINE_LIBRARY_NAME})
+cpputest_discover_tests(${TOYGINE_LIBRARY_NAME}-cpputest-tests)
 
 if (TOYGINE_TESTS_ENABLE_COVERAGE)
   # include the cmake code coverage module
@@ -84,7 +97,8 @@ if (TOYGINE_TESTS_ENABLE_COVERAGE)
   # Update the default compiler flags to enable coverage
   append_coverage_compiler_flags()
   append_coverage_compiler_flags_to_target(${TOYGINE_LIBRARY_NAME})
-  append_coverage_compiler_flags_to_target(${TOYGINE_LIBRARY_NAME}-tests)
+  append_coverage_compiler_flags_to_target(${TOYGINE_LIBRARY_NAME}-catch2-tests)
+  append_coverage_compiler_flags_to_target(${TOYGINE_LIBRARY_NAME}-cpputest-tests)
 
   # exclude /test and /ext directories from coverage analysis
   set(COVERAGE_EXCLUDES "${CMAKE_SOURCE_DIR}/test/*" "${CMAKE_BINARY_DIR}/*" "/usr/*")
