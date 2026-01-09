@@ -107,8 +107,8 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
   set(CMAKE_C_FLAGS   "-Werror -Weverything -pedantic-errors -Wno-missing-prototypes                                                                -Wno-missing-include-dirs -Wno-padded -Wno-poison-system-directories -fshow-column -fshow-source-location -fcaret-diagnostics -fcolor-diagnostics -fdiagnostics-format=clang -fdiagnostics-show-option -fdiagnostics-show-category=id -fdiagnostics-fixit-info -fdiagnostics-print-source-range-info -fdiagnostics-parseable-fixits -fno-rounding-math -fexcess-precision=standard")
   set(CMAKE_CXX_FLAGS "-Werror -Weverything -pedantic-errors -Wno-missing-prototypes -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-c++20-compat -Wno-missing-include-dirs -Wno-padded -Wno-poison-system-directories -fshow-column -fshow-source-location -fcaret-diagnostics -fcolor-diagnostics -fdiagnostics-format=clang -fdiagnostics-show-option -fdiagnostics-show-category=id -fdiagnostics-fixit-info -fdiagnostics-print-source-range-info -fdiagnostics-parseable-fixits -fno-rounding-math -fexcess-precision=standard")
 
-  set(CMAKE_C_FLAGS_DEBUG            "    -g -D_DEBUG -fno-fast-math -fstrict-float-cast-overflow    -fmath-errno -fno-unsafe-math-optimizations -ffp-model=precise -ffp-exception-behavior=strict)
-  set(CMAKE_CXX_FLAGS_DEBUG          "    -g -D_DEBUG -fno-fast-math -fstrict-float-cast-overflow    -fmath-errno -fno-unsafe-math-optimizations -ffp-model=precise -ffp-exception-behavior=strict)
+  set(CMAKE_C_FLAGS_DEBUG            "    -g -D_DEBUG -fno-fast-math -fstrict-float-cast-overflow    -fmath-errno -fno-unsafe-math-optimizations -ffp-model=precise -ffp-exception-behavior=strict -fprotect-parens")
+  set(CMAKE_CXX_FLAGS_DEBUG          "    -g -D_DEBUG -fno-fast-math -fstrict-float-cast-overflow    -fmath-errno -fno-unsafe-math-optimizations -ffp-model=precise -ffp-exception-behavior=strict -fprotect-parens")
 
   set(CMAKE_C_FLAGS_RELWITHDEBINFO   "-O2 -g -D_DEBUG")
   set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g -D_DEBUG")
