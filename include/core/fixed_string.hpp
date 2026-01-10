@@ -46,7 +46,7 @@ struct FixedStringStorage {
   \brief Template string class with fixed-size character buffer.
 
   FixedString is a lightweight, high-performance string class that uses a fixed-size character buffer allocated on the
-  stack. It provides a std::string-like interface while avoiding dynamic memory allocation, making it suitable for
+  stack. It provides a \c std::string-like interface while avoiding dynamic memory allocation, making it suitable for
   embedded systems, real-time applications, and performance-critical code where memory allocation overhead must be
   minimized.
 
@@ -58,7 +58,7 @@ struct FixedStringStorage {
   - ⚙️ **Zero Dynamic Allocation**: All memory is allocated on the stack at compile time
   - 🔧 **ConstExpr Support**: Most operations can be evaluated at compile time
   - 🛡️ **Exception Safety**: All operations are noexcept
-  - 🔗 **STL Compatibility**: Provides std::string-like interface
+  - 🔗 **STL Compatibility**: Provides \c std::string-like interface
   - 🌍 **UTF-8 Support**: Built-in UTF-8 character counting and manipulation
   - 🧬 **Type Safety**: Uses C++20 concepts for type safety
 

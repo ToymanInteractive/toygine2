@@ -32,7 +32,7 @@ namespace toy {
 
   This function performs a lexicographic comparison between two C strings. The comparison is performed character by
   character using the character's numeric value. This function is designed to be constexpr-compatible and provides the
-  same behavior as std::strcmp but can be evaluated at compile time.
+  same behavior as \c std::strcmp but can be evaluated at compile time.
 
   \param lhs The left-hand side C string to compare.
   \param rhs The right-hand side C string to compare.
@@ -46,7 +46,7 @@ namespace toy {
   \note The comparison is case-sensitive.
   \note The comparison stops at the first character that differs between the strings.
   \note If one string is a prefix of another, the shorter string is considered lexicographically smaller.
-  \note Return values are -1, 0, or 1 (differs from std::strcmp which returns arithmetic difference).
+  \note Return values are -1, 0, or 1 (differs from \c std::strcmp which returns arithmetic difference).
   \note This function is constexpr-compatible and can be used in compile-time contexts.
 
   \sa std::strcmp
@@ -59,7 +59,7 @@ namespace toy {
   This function searches for the first occurrence of the character \a ch within the string \a str. The search is
   performed character by character from the beginning of the string and returns a pointer to the first occurrence, or
   nullptr if the character is not found. This function is designed to be constexpr-compatible and provides the same
-  behavior as std::strchr but can be evaluated at compile time.
+  behavior as \c std::strchr but can be evaluated at compile time.
 
   \param str The C string to search in.
   \param ch  The character to search for.
@@ -82,8 +82,8 @@ namespace toy {
   This function searches for the first occurrence of any character from the \a accept string within the \a str string.
   The search is performed character by character from the beginning and returns a pointer to the first character found
   that matches any character in the accept set, or nullptr if no character from the accept set is found. This function
-  is designed to be constexpr-compatible and provides the same behavior as std::strpbrk but can be evaluated at compile
-  time.
+  is designed to be constexpr-compatible and provides the same behavior as \c std::strpbrk but can be evaluated at
+  compile time.
 
   \param str    The C string to search in.
   \param accept The C string containing the set of characters to search for.
@@ -110,7 +110,7 @@ namespace toy {
   This function searches for the first occurrence of the \a needle string within the \a haystack string. The search is
   performed character by character from the beginning and returns a pointer to the beginning of the first occurrence, or
   nullptr if the substring is not found. This function is designed to be constexpr-compatible and provides the same
-  behavior as std::strstr but can be evaluated at compile time.
+  behavior as \c std::strstr but can be evaluated at compile time.
 
   \param haystack The C string to search in.
   \param needle   The C string to search for.

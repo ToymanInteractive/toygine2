@@ -13,6 +13,7 @@
         "endfunction",
         "endmacro",
         "ftoa",
+        "metaprogramming",
         "msvc",
         "ndebug",
         "relwithdebinfo",
