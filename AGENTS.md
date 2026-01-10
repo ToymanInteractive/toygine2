@@ -157,6 +157,8 @@ Documentation style:
 - Technical
 - No marketing language
 
+**Exception**: The "Key Features" section (typically using `\section features`) may use emoji and markdown emphasis for visual clarity and readability. This exception applies only to the features list and does not extend to other documentation sections.
+
 ---
 
 ## Documentation Style Rules

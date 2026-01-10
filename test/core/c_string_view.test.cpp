@@ -25,6 +25,10 @@
 namespace toy {
 
 TEST_CASE("CStringView constructors", "[core][c_string_view]") {
+  SECTION("Object size") {
+    STATIC_REQUIRE(sizeof(CStringView) == sizeof(char *));
+  }
+
   SECTION("Default constructor") {
     constexpr CStringView emptyStr;
 

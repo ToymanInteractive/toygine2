@@ -35,10 +35,10 @@ namespace toy {
   \brief Non-owning string view class for C-style strings.
 
   CStringView is a lightweight, non-owning wrapper around C-style strings that provides a safe and efficient way to work
-  with null-terminated character arrays. It offers a std::string_view-like interface while being specifically designed
-  for constexpr contexts and compile-time string manipulation.
+  with null-terminated character arrays. It offers a \c std::string_view-like interface while being specifically
+  designed for constexpr contexts and compile-time string manipulation.
 
-  Unlike std::string_view, CStringView is optimized for constexpr usage and provides additional functionality for
+  Unlike \c std::string_view, CStringView is optimized for constexpr usage and provides additional functionality for
   compile-time string operations. It does not own the underlying string data and simply holds a pointer to it, making
   it extremely lightweight and efficient.
 
@@ -47,7 +47,7 @@ namespace toy {
   - ⚙️ **Zero Allocation**: No dynamic memory allocation, only holds a pointer
   - 🔧 **ConstExpr Support**: Most operations can be evaluated at compile time
   - 🛡️ **Exception Safety**: All operations are noexcept
-  - 🔗 **STL Compatibility**: Provides std::string_view/std::string like interface
+  - 🔗 **STL Compatibility**: Provides \c std::string_view / \c std::string like interface
   - 🌍 **UTF-8 Support**: Built-in UTF-8 character counting and manipulation
   - 🧬 **Type Safety**: Uses C++20 concepts for type safety
   - 📏 **Non-owning**: Does not manage memory, safe for temporary strings
@@ -135,7 +135,7 @@ public:
 
     \pre The source C \a string must not be null.
   */
-  constexpr explicit CStringView(const char * string) noexcept;
+  constexpr explicit(false) CStringView(const char * string) noexcept;
 
   /*!
     \brief Destructor for the string view.

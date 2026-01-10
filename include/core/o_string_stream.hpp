@@ -34,9 +34,9 @@ namespace toy {
   \ingroup String
   \brief Template output string stream class for building strings from various data types.
 
-  OStringStream is a lightweight, high-performance output stream class that provides a std::ostringstream-like interface
-  while using a fixed-size or custom string storage type. It supports formatting and inserting various data types into
-  a string buffer, including integers, floating-point numbers, booleans, pointers, and string-like objects.
+  OStringStream is a lightweight, high-performance output stream class that provides a \c std::ostringstream-like
+  interface while using a fixed-size or custom string storage type. It supports formatting and inserting various data
+  types into a string buffer, including integers, floating-point numbers, booleans, pointers, and string-like objects.
 
   \tparam StringType The type of the underlying string storage. Must satisfy the \ref toy::StringLike concept.
 
@@ -45,7 +45,7 @@ namespace toy {
   - ⚙️ **Zero or Minimal Dynamic Allocation**: Uses the provided StringType for storage (e.g., \ref toy::FixedString)
   - 🔧 **ConstExpr Support**: Most operations can be evaluated at compile time
   - 🛡️ **Exception Safety**: All operations are noexcept
-  - 🔗 **STL Compatibility**: Provides std::ostringstream-like interface
+  - 🔗 **STL Compatibility**: Provides \c std::ostringstream-like interface
   - 📝 **Type Safety**: Uses C++20 concepts for type safety
   - 🎯 **Precision Control**: Configurable precision for floating-point formatting
 
@@ -173,7 +173,7 @@ public:
 
     \return A reference to this OStringStream, allowing operator chaining.
 
-    \note This operator follows the same pattern as std::ostringstream::operator<<(bool).
+    \note This operator follows the same pattern as \c std::ostringstream::operator<<(bool).
 
     \post The write position is advanced by the length of the appended string (4 for "true", 5 for "false").
 
@@ -195,7 +195,7 @@ public:
 
     \post The write position is advanced by the length of the appended string.
 
-    \note This operator follows the same pattern as std::ostringstream::operator<<(int8_t).
+    \note This operator follows the same pattern as \c std::ostringstream::operator<<(int8_t).
 
     \sa operator<<(uint8_t)
     \sa put(char_type)
@@ -215,7 +215,7 @@ public:
 
     \post The write position is advanced by the length of the appended string.
 
-    \note This operator follows the same pattern as std::ostringstream::operator<<(int16_t).
+    \note This operator follows the same pattern as \c std::ostringstream::operator<<(int16_t).
 
     \sa operator<<(uint16_t)
     \sa put(char_type)
@@ -235,7 +235,7 @@ public:
 
     \post The write position is advanced by the length of the appended string.
 
-    \note This operator follows the same pattern as std::ostringstream::operator<<(int32_t).
+    \note This operator follows the same pattern as \c std::ostringstream::operator<<(int32_t).
 
     \sa operator<<(uint32_t)
     \sa put(char_type)
@@ -255,7 +255,7 @@ public:
 
     \post The write position is advanced by the length of the appended string.
 
-    \note This operator follows the same pattern as std::ostringstream::operator<<(int64_t).
+    \note This operator follows the same pattern as \c std::ostringstream::operator<<(int64_t).
 
     \sa operator<<(uint64_t)
     \sa put(char_type)
@@ -275,7 +275,7 @@ public:
 
     \post The write position is advanced by the length of the appended string.
 
-    \note This operator follows the same pattern as std::ostringstream::operator<<(uint8_t).
+    \note This operator follows the same pattern as \c std::ostringstream::operator<<(uint8_t).
 
     \sa operator<<(int8_t)
     \sa put(char_type)
@@ -295,7 +295,7 @@ public:
 
     \post The write position is advanced by the length of the appended string.
 
-    \note This operator follows the same pattern as std::ostringstream::operator<<(uint16_t).
+    \note This operator follows the same pattern as \c std::ostringstream::operator<<(uint16_t).
 
     \sa operator<<(int16_t)
     \sa put(char_type)
@@ -315,7 +315,7 @@ public:
 
     \post The write position is advanced by the length of the appended string.
 
-    \note This operator follows the same pattern as std::ostringstream::operator<<(uint32_t).
+    \note This operator follows the same pattern as \c std::ostringstream::operator<<(uint32_t).
 
     \sa operator<<(int32_t)
     \sa put(char_type)
@@ -335,7 +335,7 @@ public:
 
     \post The write position is advanced by the length of the appended string.
 
-    \note This operator follows the same pattern as std::ostringstream::operator<<(uint64_t).
+    \note This operator follows the same pattern as \c std::ostringstream::operator<<(uint64_t).
 
     \sa operator<<(int64_t)
     \sa put(char_type)
@@ -355,7 +355,7 @@ public:
 
     \post The write position is advanced by the length of the appended string.
 
-    \note This operator follows the same pattern as std::ostringstream::operator<<(float).
+    \note This operator follows the same pattern as \c std::ostringstream::operator<<(float).
     \note The precision is controlled by precision() and defaults to 6 digits.
 
     \sa precision() const
@@ -378,7 +378,7 @@ public:
 
     \post The write position is advanced by the length of the appended string.
 
-    \note This operator follows the same pattern as std::ostringstream::operator<<(double).
+    \note This operator follows the same pattern as \c std::ostringstream::operator<<(double).
     \note The precision is controlled by precision(int) and defaults to 6 digits.
 
     \sa precision() const
@@ -401,7 +401,7 @@ public:
 
     \post The write position is advanced by the length of the appended string.
 
-    \note This operator follows the same pattern as std::ostringstream::operator<<(const void*).
+    \note This operator follows the same pattern as \c std::ostringstream::operator<<(const void*).
     \note For null pointers, consider using operator<<(nullptr_t) for consistent "nullptr" output.
 
     \sa operator<<(nullptr_t)
@@ -420,7 +420,7 @@ public:
 
     \post The write position is advanced by 7 characters (length of "nullptr").
 
-    \note This operator follows the same pattern as std::ostringstream::operator<<(std::nullptr_t).
+    \note This operator follows the same pattern as \c std::ostringstream::operator<<(std::nullptr_t).
     \note The output is always the string "nullptr", regardless of the actual null pointer value.
     \note This operator is preferred over operator<<(const void*) for null pointer literals.
 
@@ -442,7 +442,7 @@ public:
 
     \post The write position is advanced by one character.
 
-    \note This operator follows the same pattern as std::ostringstream::operator<<(char_type).
+    \note This operator follows the same pattern as \c std::ostringstream::operator<<(char_type).
 
     \sa operator<<(const char_type *)
     \sa operator<<(const SourceStringType &)
@@ -467,7 +467,7 @@ public:
 
     \post The write position is advanced by the length of the appended string.
 
-    \note This operator follows the same pattern as std::ostringstream::operator<<(const std::string&).
+    \note This operator follows the same pattern as \c std::ostringstream::operator<<(const std::string&).
     \note The source string type can be different from StringType as long as both satisfy \ref toy::StringLike.
     \note This operator is useful for inserting string literals, \ref toy::FixedString objects, and other string-like
     types.
@@ -495,7 +495,7 @@ public:
 
     \post The write position is advanced by the length of the appended string (excluding the null terminator).
 
-    \note This operator follows the same pattern as std::ostringstream::operator<<(const char*).
+    \note This operator follows the same pattern as \c std::ostringstream::operator<<(const char*).
     \note The string is appended up to but not including the null terminator.
     \note This operator is useful for inserting C-style string literals and null-terminated character arrays.
 
