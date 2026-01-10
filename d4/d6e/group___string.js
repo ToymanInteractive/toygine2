@@ -4,7 +4,6 @@ var group___string =
     [ "toy::CStringView", "d5/d03/classtoy_1_1_c_string_view.html", [
       [ "CStringView", "d5/d03/classtoy_1_1_c_string_view.html#af79d918dedd06e2c2b99fe920962d64d", null ],
       [ "CStringView", "d5/d03/classtoy_1_1_c_string_view.html#a9fbe10d07774d3460b07d0286f56259e", null ],
-      [ "CStringView", "d5/d03/classtoy_1_1_c_string_view.html#af5ec20956a3cecd987fc33ff3bdd6540", null ],
       [ "~CStringView", "d5/d03/classtoy_1_1_c_string_view.html#a74fd427671ff6309013227005d307d86", null ],
       [ "_find_first_not_of_raw", "d5/d03/classtoy_1_1_c_string_view.html#af19cf0c882e16db56c43bc0dba58fdbd", null ],
       [ "_find_first_of_raw", "d5/d03/classtoy_1_1_c_string_view.html#a8fc7c19bfb44109d076ded997903012c", null ],
@@ -29,6 +28,7 @@ var group___string =
       [ "ends_with", "d5/d03/classtoy_1_1_c_string_view.html#a5abe0302785540ecee993b3d6fb4fdd0", null ],
       [ "ends_with", "d5/d03/classtoy_1_1_c_string_view.html#a2ab165dc724a2f3d057f782e30ad8959", null ],
       [ "ends_with", "d5/d03/classtoy_1_1_c_string_view.html#a4c8e71577b69ed0d61810910ee14c392", null ],
+      [ "explicit", "d5/d03/classtoy_1_1_c_string_view.html#a38cada806f591cf55cdcb411d8210fae", null ],
       [ "find", "d5/d03/classtoy_1_1_c_string_view.html#a8a75b7eb449240c8afe1f11dc9e1944d", null ],
       [ "find", "d5/d03/classtoy_1_1_c_string_view.html#ac26525b33f1f4a023b72eb223f51efce", null ],
       [ "find", "d5/d03/classtoy_1_1_c_string_view.html#a750303f5eb6ff80d0729aabae7fd2972", null ],
@@ -189,6 +189,13 @@ var group___string =
       [ "utf8_size", "d3/d7a/classtoy_1_1_fixed_string.html#a72efed1a713479fd77505ede267a2d33", null ],
       [ "_storage", "d3/d7a/classtoy_1_1_fixed_string.html#a05a98b03a4e564ea5a5f26dfae56a048", null ],
       [ "npos", "d3/d7a/classtoy_1_1_fixed_string.html#aa67281adc0c101c3619fed8ff618ac6a", null ]
+    ] ],
+    [ "toy::FormatString&lt; Args &gt;", "dc/d62/classtoy_1_1_format_string.html", [
+      [ "_compileTimeError", "dc/d62/classtoy_1_1_format_string.html#afd793fd7ecad4136327c535a8e2d6602", null ],
+      [ "_countFormatPlaceholders", "dc/d62/classtoy_1_1_format_string.html#a6f166d073b247194d6c6fc290e537791", null ],
+      [ "explicit", "dc/d62/classtoy_1_1_format_string.html#a8bddc50cb2304cfc22f2f5fdc201dfc5", null ],
+      [ "get", "dc/d62/classtoy_1_1_format_string.html#aad2ddbdff43aae3fa0d453ec2196a339", null ],
+      [ "_string", "dc/d62/classtoy_1_1_format_string.html#aa80fa19ae3c237c10b36f9c9688e4e65", null ]
     ] ],
     [ "toy::OStringStream&lt; StringType &gt;", "d7/d15/classtoy_1_1_o_string_stream.html", [
       [ "char_type", "d7/d15/classtoy_1_1_o_string_stream.html#a38e47228545b1a975f1dfe899f0dac0a", null ],

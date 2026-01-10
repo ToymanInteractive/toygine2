@@ -123,8 +123,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:af79d918dedd06e2c2b99fe920962d64d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <br /></td></tr>
 <tr class="memitem:a9fbe10d07774d3460b07d0286f56259e" id="r_a9fbe10d07774d3460b07d0286f56259e"><td class="memItemLeft">constexpr&#160;</td><td class="memItemRight"><a class="el" href="#a9fbe10d07774d3460b07d0286f56259e">CStringView</a> (const CStringView &amp;string) noexcept=default</td></tr>
 <tr class="memdesc:a9fbe10d07774d3460b07d0286f56259e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a copy of <em class="arg">string</em> view.  <br /></td></tr>
-<tr class="memitem:af5ec20956a3cecd987fc33ff3bdd6540" id="r_af5ec20956a3cecd987fc33ff3bdd6540"><td class="memItemLeft">constexpr&#160;</td><td class="memItemRight"><a class="el" href="#af5ec20956a3cecd987fc33ff3bdd6540">CStringView</a> (const char *string) noexcept</td></tr>
-<tr class="memdesc:af5ec20956a3cecd987fc33ff3bdd6540"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a string view from a C <em class="arg">string</em>.  <br /></td></tr>
+<tr class="memitem:a38cada806f591cf55cdcb411d8210fae" id="r_a38cada806f591cf55cdcb411d8210fae"><td class="memItemLeft">constexpr&#160;</td><td class="memItemRight"><a class="el" href="#a38cada806f591cf55cdcb411d8210fae">explicit</a> (false) <a class="el" href="#af79d918dedd06e2c2b99fe920962d64d">CStringView</a>(const char *string) noexcept</td></tr>
+<tr class="memdesc:a38cada806f591cf55cdcb411d8210fae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a string view from a C <em class="arg">string</em>.  <br /></td></tr>
 <tr class="memitem:a74fd427671ff6309013227005d307d86" id="r_a74fd427671ff6309013227005d307d86"><td class="memItemLeft">constexpr&#160;</td><td class="memItemRight"><a class="el" href="#a74fd427671ff6309013227005d307d86">~CStringView</a> () noexcept=default</td></tr>
 <tr class="memdesc:a74fd427671ff6309013227005d307d86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor for the string view.  <br /></td></tr>
 <tr class="memitem:a9c1ebb999ea758881cb9a9ce85dd7246" id="r_a9c1ebb999ea758881cb9a9ce85dd7246"><td class="memItemLeft">constexpr <a class="el" href="#af79d918dedd06e2c2b99fe920962d64d">CStringView</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a9c1ebb999ea758881cb9a9ce85dd7246">operator=</a> (const <a class="el" href="#af79d918dedd06e2c2b99fe920962d64d">CStringView</a> &amp;string) noexcept=default</td></tr>
@@ -291,15 +291,15 @@ Friends</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Non-owning string view class for C-style strings. </p>
-<p><a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> is a lightweight, non-owning wrapper around C-style strings that provides a safe and efficient way to work with null-terminated character arrays. It offers a std::string_view-like interface while being specifically designed for constexpr contexts and compile-time string manipulation.</p>
-<p>Unlike std::string_view, <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> is optimized for constexpr usage and provides additional functionality for compile-time string operations. It does not own the underlying string data and simply holds a pointer to it, making it extremely lightweight and efficient.</p>
+<p><a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> is a lightweight, non-owning wrapper around C-style strings that provides a safe and efficient way to work with null-terminated character arrays. It offers a <code>std::string_view-like</code> interface while being specifically designed for constexpr contexts and compile-time string manipulation.</p>
+<p>Unlike <code>std::string_view</code>, <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> is optimized for constexpr usage and provides additional functionality for compile-time string operations. It does not own the underlying string data and simply holds a pointer to it, making it extremely lightweight and efficient.</p>
 <h1 class="doxsection"><a class="anchor" id="features"></a>
 Key Features</h1>
 <ul>
 <li>⚙️ <b>Zero Allocation</b>: No dynamic memory allocation, only holds a pointer</li>
 <li>🔧 <b>ConstExpr Support</b>: Most operations can be evaluated at compile time</li>
 <li>🛡️ <b>Exception Safety</b>: All operations are noexcept</li>
-<li>🔗 <b>STL Compatibility</b>: Provides std::string_view/std::string like interface</li>
+<li>🔗 <b>STL Compatibility</b>: Provides <code>std::string_view</code> / <code>std::string</code> like interface</li>
 <li>🌍 <b>UTF-8 Support</b>: Built-in UTF-8 character counting and manipulation</li>
 <li>🧬 <b>Type Safety</b>: Uses C++20 concepts for type safety</li>
 <li>📏 <b>Non-owning</b>: Does not manage memory, safe for temporary strings</li>
@@ -359,7 +359,7 @@ Compatibility</h1>
 <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="Template string class with fixed-size character buffer.">toy::FixedString</a> </dd></dl>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="af79d918dedd06e2c2b99fe920962d64d" name="af79d918dedd06e2c2b99fe920962d64d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af79d918dedd06e2c2b99fe920962d64d">&#9670;&#160;</a></span>CStringView() <span class="overload">[1/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af79d918dedd06e2c2b99fe920962d64d">&#9670;&#160;</a></span>CStringView() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -394,7 +394,7 @@ Compatibility</h1>
 </div>
 </div>
 <a id="a9fbe10d07774d3460b07d0286f56259e" name="a9fbe10d07774d3460b07d0286f56259e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9fbe10d07774d3460b07d0286f56259e">&#9670;&#160;</a></span>CStringView() <span class="overload">[2/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9fbe10d07774d3460b07d0286f56259e">&#9670;&#160;</a></span>CStringView() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -425,47 +425,6 @@ Compatibility</h1>
   </dd>
 </dl>
 <dl class="section pre"><dt>Precondition</dt><dd>The source <em class="arg">string</em> view must be valid and properly initialized. </dd></dl>
-
-</div>
-</div>
-<a id="af5ec20956a3cecd987fc33ff3bdd6540" name="af5ec20956a3cecd987fc33ff3bdd6540"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af5ec20956a3cecd987fc33ff3bdd6540">&#9670;&#160;</a></span>CStringView() <span class="overload">[3/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">toy::CStringView::CStringView </td>
-          <td>(</td>
-          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>string</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel explicit">explicit</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Constructs a string view from a C <em class="arg">string</em>. </p>
-<p>Creates a new string view that wraps the provided C <em class="arg">string</em> pointer.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">string</td><td>The C string to wrap.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section pre"><dt>Precondition</dt><dd>The source C <em class="arg">string</em> must not be null. </dd></dl>
-<div id="dynsection-1" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-1-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_af5ec20956a3cecd987fc33ff3bdd6540_cgraph.svg" width="419" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
 
 </div>
 </div>
@@ -544,10 +503,10 @@ Compatibility</h1>
 <dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">position</em> must be less than the string view size. </dd>
 <dd>
 The <em class="arg">data</em> must not be null. </dd></dl>
-<div id="dynsection-2" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-1" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_af19cf0c882e16db56c43bc0dba58fdbd_cgraph.svg" width="368" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -599,10 +558,10 @@ The <em class="arg">data</em> must not be null. </dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">position</em> must be less than the string view size. </dd>
 <dd>
 The <em class="arg">data</em> must not be null. </dd></dl>
-<div id="dynsection-3" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-2" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-3-content" class="dyncontent" style="display:none;">
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_a8fc7c19bfb44109d076ded997903012c_cgraph.svg" width="340" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -654,10 +613,10 @@ The <em class="arg">data</em> must not be null. </dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>If <em class="arg">position</em> is not <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21" title="npos">npos</a>, it must be less than the string view size. </dd>
 <dd>
 The <em class="arg">data</em> must not be null. </dd></dl>
-<div id="dynsection-4" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-3" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-4-content" class="dyncontent" style="display:none;">
+<div id="dynsection-3-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_ac47d6f4be3ed69e4358c4759e35d7285_cgraph.svg" width="367" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -709,10 +668,10 @@ The <em class="arg">data</em> must not be null. </dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>If <em class="arg">position</em> is not <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21" title="npos">npos</a>, it must be less than the string view size. </dd>
 <dd>
 The <em class="arg">data</em> must not be null. </dd></dl>
-<div id="dynsection-5" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-4" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-5-content" class="dyncontent" style="display:none;">
+<div id="dynsection-4-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_aef6a70c1960447f9a3fb623f36913349_cgraph.svg" width="340" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -764,10 +723,10 @@ The <em class="arg">data</em> must not be null. </dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">position</em> must be less than the string view size. </dd>
 <dd>
 The <em class="arg">data</em> must not be null. </dd></dl>
-<div id="dynsection-6" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-5" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-6-content" class="dyncontent" style="display:none;">
+<div id="dynsection-5-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_abfa29c6595aec5ea675e7f21eabddee6_cgraph.svg" width="340" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -819,10 +778,10 @@ The <em class="arg">data</em> must not be null. </dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>If <em class="arg">position</em> is not <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21" title="npos">npos</a>, it must be less than or equal to the string view size. </dd>
 <dd>
 The <em class="arg">data</em> must not be null. </dd></dl>
-<div id="dynsection-7" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-7-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-6" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-7-content" class="dyncontent" style="display:none;">
+<div id="dynsection-6-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_ac374898ed5679a18a77639c363126ba4_cgraph.svg" width="340" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -863,10 +822,10 @@ The <em class="arg">data</em> must not be null. </dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>The source C <em class="arg">string</em> must not be null.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This method is equivalent to the copy assignment operator.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#aad95e80a56dc5edd7b1fa6158175163b" title="Copy assigns the C string to this string view.">operator=(const char * string)</a> </dd></dl>
-<div id="dynsection-8" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-8-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-7" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-7-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-8-content" class="dyncontent" style="display:none;">
+<div id="dynsection-7-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_a2d6dae36ef9b82f5d6f5f579cf4da692_cgraph.svg" width="383" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -906,10 +865,10 @@ The <em class="arg">data</em> must not be null. </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>A reference to this string view after assignment.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This method is equivalent to the copy assignment operator.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#a9c1ebb999ea758881cb9a9ce85dd7246" title="Copy assigns other string view to this string view.">operator=(const CStringView &amp; string)</a> </dd></dl>
-<div id="dynsection-9" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-9-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-8" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-8-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-9-content" class="dyncontent" style="display:none;">
+<div id="dynsection-8-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_a59adcb66726ff68ceafc4bc1e2366475_cgraph.svg" width="383" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -952,10 +911,10 @@ The <em class="arg">data</em> must not be null. </dd></dl>
 <dd>
 This method is equivalent to the subscript operator.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#aff82b69d23c0c93900483730048d23f0" title="Access a character in the string view at a given offset.">operator[](size_t offset) const</a> </dd></dl>
-<div id="dynsection-10" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-10-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-9" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-9-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-10-content" class="dyncontent" style="display:none;">
+<div id="dynsection-9-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_ad3f48510eebdc40744aca52b31bfee3c_cgraph.svg" width="354" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -989,10 +948,10 @@ This method is equivalent to the subscript operator.</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>A const reference to the last character of the string view.</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>The string view must not be empty.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The returned reference is read-only and cannot modify the character. </dd></dl>
-<div id="dynsection-11" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-11-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-10" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-10-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-11-content" class="dyncontent" style="display:none;">
+<div id="dynsection-10-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_a8f0b3a45e04f9a8781f16c351d1bf5c1_cgraph.svg" width="371" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -1030,10 +989,10 @@ The returned pointer is read-only and cannot modify the string view contents. </
 <dd>
 This method is equivalent to <a class="el" href="#a5e1b02dbf7df4f6950577cf34e032b03" title="Returns a constant pointer to the data of the string view.">data()</a>.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#a5e1b02dbf7df4f6950577cf34e032b03" title="Returns a constant pointer to the data of the string view.">data()</a> </dd></dl>
-<div id="dynsection-12" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-12-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-11" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-11-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-12-content" class="dyncontent" style="display:none;">
+<div id="dynsection-11-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_adb54f0951dc63d5cc1466ae61e941df5_cgraph.svg" width="371" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -1066,10 +1025,10 @@ This method is equivalent to <a class="el" href="#a5e1b02dbf7df4f6950577cf34e032
 <p>This method returns the capacity of the allocated buffer for the string view.</p>
 <dl class="section return"><dt>Returns</dt><dd>The capacity of the string view in characters, excluding the terminating null character.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd><a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> is non-owning and has no capacity; this is an alias of <a class="el" href="#a56455f7c7872e005bae0bd9f37f8d188" title="Returns the size of the string view.">size()</a>. </dd></dl>
-<div id="dynsection-13" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-13-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-12" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-12-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-13-content" class="dyncontent" style="display:none;">
+<div id="dynsection-12-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_a648369b58f6c23f223fbaca2ce7dfc68_cgraph.svg" width="395" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -1104,10 +1063,10 @@ This method is equivalent to <a class="el" href="#a5e1b02dbf7df4f6950577cf34e032
 <dd>
 The string view points to an empty sentinel string.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>No allocation or deallocation occurs. </dd></dl>
-<div id="dynsection-14" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-14-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-13" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-13-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-14-content" class="dyncontent" style="display:none;">
+<div id="dynsection-13-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_a267bbe14a77506bb0b9479faade6c7fc_cgraph.svg" width="372" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -1151,10 +1110,10 @@ The string view points to an empty sentinel string.</dd></dl>
 The comparison stops at the first character that differs between the strings. </dd>
 <dd>
 If one string is a prefix of another, the shorter is considered lexicographically smaller. </dd></dl>
-<div id="dynsection-15" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-15-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-14" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-14-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-15-content" class="dyncontent" style="display:none;">
+<div id="dynsection-14-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_ab53650610cda4e34ef495396d81c846e_cgraph.svg" width="398" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -1205,10 +1164,10 @@ template&lt;StringLike stringType&gt; </div>
 The comparison stops at the first character that differs between the strings. </dd>
 <dd>
 If one string is a prefix of another, the shorter is considered lexicographically smaller. </dd></dl>
-<div id="dynsection-16" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-16-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-15" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-15-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-16-content" class="dyncontent" style="display:none;">
+<div id="dynsection-15-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_ae69e623d93e4bd89a026dcfea4bffeeb_cgraph.svg" width="398" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -1249,10 +1208,10 @@ If one string is a prefix of another, the shorter is considered lexicographicall
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd>
 <dd>
 If the string view is empty, this method returns <code>false</code>. </dd></dl>
-<div id="dynsection-17" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-17-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-16" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-16-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-17-content" class="dyncontent" style="display:none;">
+<div id="dynsection-16-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_abda51f62f9b4d536e8491f89c7eae7da_cgraph.svg" width="395" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -1296,10 +1255,10 @@ If the string view is empty, this method returns <code>false</code>. </dd></dl>
 If the C <em class="arg">string</em> is empty, this method returns <code>true</code>. </dd>
 <dd>
 If the C <em class="arg">string</em> is longer than this string view, returns <code>false</code>. </dd></dl>
-<div id="dynsection-18" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-18-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-17" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-17-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-18-content" class="dyncontent" style="display:none;">
+<div id="dynsection-17-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_a10d252dcb997c9b27c1bc1f074c0eb8d_cgraph.svg" width="395" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -1350,10 +1309,10 @@ template&lt;StringLike stringType&gt; </div>
 If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="toy::StringLike">toy::StringLike</a> object is empty, this method returns <code>true</code>. </dd>
 <dd>
 If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="toy::StringLike">toy::StringLike</a> object is longer than this string view, returns <code>false</code>. </dd></dl>
-<div id="dynsection-19" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-19-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-18" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-18-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-19-content" class="dyncontent" style="display:none;">
+<div id="dynsection-18-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_a20e3f6366eac4dc5dae6c958798c2232_cgraph.svg" width="395" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -1388,10 +1347,10 @@ If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="to
 <dl class="section note"><dt>Note</dt><dd>The returned pointer points to a null-terminated character array. </dd>
 <dd>
 The returned pointer is read-only and cannot modify the string view contents. </dd></dl>
-<div id="dynsection-20" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-20-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-19" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-19-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-20-content" class="dyncontent" style="display:none;">
+<div id="dynsection-19-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_a5e1b02dbf7df4f6950577cf34e032b03_cgraph.svg" width="370" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -1429,10 +1388,10 @@ An empty string view still contains a null terminator. </dd>
 <dd>
 This method is equivalent to the expression: <span class="tt"><a class="el" href="#a56455f7c7872e005bae0bd9f37f8d188" title="Returns the size of the string view.">size()</a> == 0</span>.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#a56455f7c7872e005bae0bd9f37f8d188" title="Returns the size of the string view.">size()</a> </dd></dl>
-<div id="dynsection-21" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-21-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-20" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-20-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-21-content" class="dyncontent" style="display:none;">
+<div id="dynsection-20-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_a1a70352432ff6efe34a7c0fc6012e16a_cgraph.svg" width="383" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -1473,10 +1432,10 @@ This method is equivalent to the expression: <span class="tt"><a class="el" href
 <dl class="section note"><dt>Note</dt><dd>The comparison is case-sensitive. </dd>
 <dd>
 If the string view is empty, this method returns <code>false</code>. </dd></dl>
-<div id="dynsection-22" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-22-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-21" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-21-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-22-content" class="dyncontent" style="display:none;">
+<div id="dynsection-21-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_a5abe0302785540ecee993b3d6fb4fdd0_cgraph.svg" width="407" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -1520,10 +1479,10 @@ If the string view is empty, this method returns <code>false</code>. </dd></dl>
 If the C <em class="arg">string</em> is empty, this method returns <code>true</code>. </dd>
 <dd>
 If the C <em class="arg">string</em> is longer than this string view, returns <code>false</code>. </dd></dl>
-<div id="dynsection-23" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-23-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-22" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-22-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-23-content" class="dyncontent" style="display:none;">
+<div id="dynsection-22-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_a2ab165dc724a2f3d057f782e30ad8959_cgraph.svg" width="407" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -1574,12 +1533,47 @@ template&lt;StringLike stringType&gt; </div>
 If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="toy::StringLike">toy::StringLike</a> object is empty, this method returns <code>true</code>. </dd>
 <dd>
 If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="toy::StringLike">toy::StringLike</a> object is longer than this string view, returns <code>false</code>. </dd></dl>
-<div id="dynsection-24" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-24-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-23" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-23-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-24-content" class="dyncontent" style="display:none;">
+<div id="dynsection-23-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_a4c8e71577b69ed0d61810910ee14c392_cgraph.svg" width="407" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
+
+</div>
+</div>
+<a id="a38cada806f591cf55cdcb411d8210fae" name="a38cada806f591cf55cdcb411d8210fae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38cada806f591cf55cdcb411d8210fae">&#9670;&#160;</a></span>explicit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">toy::CStringView::explicit </td>
+          <td>(</td>
+          <td class="paramtype">false</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructs a string view from a C <em class="arg">string</em>. </p>
+<p>Creates a new string view that wraps the provided C <em class="arg">string</em> pointer.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">string</td><td>The C string to wrap.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The source C <em class="arg">string</em> must not be null. </dd></dl>
 
 </div>
 </div>
@@ -1622,10 +1616,10 @@ If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="to
 <dl class="section return"><dt>Returns</dt><dd>The position of the first occurrence of the <em class="arg">character</em>, or <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21" title="npos">npos</a> if not found.</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">position</em> must be less than the string view size.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd></dl>
-<div id="dynsection-25" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-25-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-24" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-24-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-25-content" class="dyncontent" style="display:none;">
+<div id="dynsection-24-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_a8a75b7eb449240c8afe1f11dc9e1944d_cgraph.svg" width="364" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -1672,10 +1666,10 @@ If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="to
 <dd>
 The <em class="arg">string</em> must not be null.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd></dl>
-<div id="dynsection-26" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-26-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-25" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-25-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-26-content" class="dyncontent" style="display:none;">
+<div id="dynsection-25-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_ac26525b33f1f4a023b72eb223f51efce_cgraph.svg" width="364" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -1728,10 +1722,10 @@ template&lt;StringLike stringType&gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>The position of the first occurrence of a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="toy::StringLike">toy::StringLike</a> object, or <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21" title="npos">npos</a> if not found.</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">position</em> must be less than the string view size.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd></dl>
-<div id="dynsection-27" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-27-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-26" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-26-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-27-content" class="dyncontent" style="display:none;">
+<div id="dynsection-26-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_a750303f5eb6ff80d0729aabae7fd2972_cgraph.svg" width="364" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -1776,10 +1770,10 @@ template&lt;StringLike stringType&gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>The position of the first occurrence of any character not equal to <em class="arg">character</em>, or <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21" title="npos">npos</a> if not found.</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">position</em> must be less than the string view size.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd></dl>
-<div id="dynsection-28" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-28-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-27" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-27-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-28-content" class="dyncontent" style="display:none;">
+<div id="dynsection-27-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_ae8aa2c5de0844a0ffcf80e748e9d3c7a_cgraph.svg" width="364" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -1828,10 +1822,10 @@ The <em class="arg">string</em> must not be null.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd>
 <dd>
 If the C <em class="arg">string</em> is empty, returns <em class="arg">position</em> if within bounds, otherwise returns <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21" title="npos">npos</a>. </dd></dl>
-<div id="dynsection-29" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-29-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-28" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-28-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-29-content" class="dyncontent" style="display:none;">
+<div id="dynsection-28-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_a024f2f89ea991e6afc1f049d08a41bf6_cgraph.svg" width="364" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -1886,10 +1880,10 @@ template&lt;StringLike stringType&gt; </div>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd>
 <dd>
 If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="toy::StringLike">toy::StringLike</a> object is empty, returns <em class="arg">position</em> if within bounds, otherwise returns <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21" title="npos">npos</a>. </dd></dl>
-<div id="dynsection-30" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-30-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-29" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-29-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-30-content" class="dyncontent" style="display:none;">
+<div id="dynsection-29-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_af3b8dfa4771e19e127747951ef6129a4_cgraph.svg" width="364" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -1937,10 +1931,10 @@ If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="to
 <dd>
 This method is equivalent to <a class="el" href="#a8a75b7eb449240c8afe1f11dc9e1944d" title="Finds the first occurrence of a character in the string view.">find(char, size_t) const</a>.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#a8a75b7eb449240c8afe1f11dc9e1944d" title="Finds the first occurrence of a character in the string view.">find(char, size_t) const</a> </dd></dl>
-<div id="dynsection-31" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-31-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-30" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-30-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-31-content" class="dyncontent" style="display:none;">
+<div id="dynsection-30-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_a5936f341813b3c2c4f966f2a429e1945_cgraph.svg" width="364" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -1989,10 +1983,10 @@ The <em class="arg">string</em> must not be null.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd>
 <dd>
 If the C <em class="arg">string</em> is empty, this method returns <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21" title="npos">npos</a>. </dd></dl>
-<div id="dynsection-32" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-32-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-31" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-31-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-32-content" class="dyncontent" style="display:none;">
+<div id="dynsection-31-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_adce5aa064a0cc176db13a67dc0f45fb5_cgraph.svg" width="364" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -2047,10 +2041,10 @@ template&lt;StringLike stringType&gt; </div>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd>
 <dd>
 If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="toy::StringLike">toy::StringLike</a> object is empty, this method returns <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21" title="npos">npos</a>. </dd></dl>
-<div id="dynsection-33" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-33-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-32" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-32-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-33-content" class="dyncontent" style="display:none;">
+<div id="dynsection-32-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_a94f746d805e323bc7c551de04f927b3d_cgraph.svg" width="364" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -2095,10 +2089,10 @@ If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="to
 <dl class="section return"><dt>Returns</dt><dd>The position of the last occurrence of any character not equal to <em class="arg">character</em>, or <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21" title="npos">npos</a> if not found.</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>If <em class="arg">position</em> is not <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21" title="npos">npos</a>, it must be less than the string view size.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd></dl>
-<div id="dynsection-34" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-34-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-33" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-33-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-34-content" class="dyncontent" style="display:none;">
+<div id="dynsection-33-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_aa72a613962a15db97dd3176c3cd6afe9_cgraph.svg" width="364" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -2147,10 +2141,10 @@ The <em class="arg">string</em> must not be null.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd>
 <dd>
 If the C <em class="arg">string</em> is empty, returns <em class="arg">position</em> if within bounds, otherwise returns <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21" title="npos">npos</a>. </dd></dl>
-<div id="dynsection-35" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-35-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-34" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-34-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-35-content" class="dyncontent" style="display:none;">
+<div id="dynsection-34-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_af65872dd014b3464e456b4e968515387_cgraph.svg" width="364" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -2205,10 +2199,10 @@ template&lt;StringLike stringType&gt; </div>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd>
 <dd>
 If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="toy::StringLike">toy::StringLike</a> object is empty, returns <em class="arg">position</em> if within bounds, otherwise returns <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21" title="npos">npos</a>. </dd></dl>
-<div id="dynsection-36" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-36-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-35" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-35-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-36-content" class="dyncontent" style="display:none;">
+<div id="dynsection-35-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_a1b7cb3ab3e828a7398ff2c60e01ed63c_cgraph.svg" width="364" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -2256,10 +2250,10 @@ If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="to
 <dd>
 This method is equivalent to <a class="el" href="#abc21bf7f8e4d58c5a5834e16bba65208" title="Finds the last occurrence of a character in the string view.">rfind(char, size_t) const</a>.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#abc21bf7f8e4d58c5a5834e16bba65208" title="Finds the last occurrence of a character in the string view.">rfind(char, size_t) const</a> </dd></dl>
-<div id="dynsection-37" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-37-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-36" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-36-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-37-content" class="dyncontent" style="display:none;">
+<div id="dynsection-36-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_a6e45c5a91e2e49811add5f31f9e502e2_cgraph.svg" width="364" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -2308,10 +2302,10 @@ The <em class="arg">string</em> must not be null.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd>
 <dd>
 If the C <em class="arg">string</em> is empty, this method returns <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21" title="npos">npos</a>. </dd></dl>
-<div id="dynsection-38" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-38-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-37" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-37-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-38-content" class="dyncontent" style="display:none;">
+<div id="dynsection-37-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_af9be50089de84b067ca054334be123fd_cgraph.svg" width="364" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -2366,10 +2360,10 @@ template&lt;StringLike stringType&gt; </div>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd>
 <dd>
 If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="toy::StringLike">toy::StringLike</a> object is empty, this method returns <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21" title="npos">npos</a>. </dd></dl>
-<div id="dynsection-39" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-39-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-38" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-38-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-39-content" class="dyncontent" style="display:none;">
+<div id="dynsection-38-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_a8987bed49b7971eac8097e92c4db80ca_cgraph.svg" width="364" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -2403,10 +2397,10 @@ If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="to
 <dl class="section return"><dt>Returns</dt><dd>A const reference to the first character of the string view.</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>The string view must not be empty.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The returned reference is read-only and cannot modify the character. </dd></dl>
-<div id="dynsection-40" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-40-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-39" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-39-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-40-content" class="dyncontent" style="display:none;">
+<div id="dynsection-39-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_a3a8634e0b4ae35b9754bbab8dfcc7502_cgraph.svg" width="371" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -2440,10 +2434,10 @@ If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="to
 <dl class="section return"><dt>Returns</dt><dd>The number of characters in the string view, excluding the terminating null character.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This method is equivalent to <a class="el" href="#a56455f7c7872e005bae0bd9f37f8d188" title="Returns the size of the string view.">size()</a>.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#a56455f7c7872e005bae0bd9f37f8d188" title="Returns the size of the string view.">size()</a> </dd></dl>
-<div id="dynsection-41" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-41-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-40" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-40-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-41-content" class="dyncontent" style="display:none;">
+<div id="dynsection-40-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_a6120478d89996e674d30f8398ccfbc51_cgraph.svg" width="382" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -2476,10 +2470,10 @@ If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="to
 <p>This method returns the maximum possible size for the string view. The maximum size represents the size of the allocated buffer.</p>
 <dl class="section return"><dt>Returns</dt><dd>The maximum number of characters in the string view, excluding the terminating null character.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd><a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> is non-owning and has no capacity; this is an alias of <a class="el" href="#a56455f7c7872e005bae0bd9f37f8d188" title="Returns the size of the string view.">size()</a>. </dd></dl>
-<div id="dynsection-42" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-42-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-41" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-41-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-42-content" class="dyncontent" style="display:none;">
+<div id="dynsection-41-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_a6354e478ad35f159833948e7951f671c_cgraph.svg" width="403" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -2518,10 +2512,10 @@ If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="to
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A reference to this string view after assignment.</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>The source C <em class="arg">string</em> must not be null. </dd></dl>
-<div id="dynsection-43" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-43-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-42" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-42-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-43-content" class="dyncontent" style="display:none;">
+<div id="dynsection-42-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_aad95e80a56dc5edd7b1fa6158175163b_cgraph.svg" width="407" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -2596,10 +2590,10 @@ If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="to
 <dl class="section return"><dt>Returns</dt><dd>A const reference to the character at the specified <em class="arg">offset</em>.</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">offset</em> must be less than the current string view size.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The returned reference is read-only and cannot modify the character. </dd></dl>
-<div id="dynsection-44" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-44-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-43" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-43-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-44-content" class="dyncontent" style="display:none;">
+<div id="dynsection-43-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_aff82b69d23c0c93900483730048d23f0_cgraph.svg" width="406" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -2644,10 +2638,10 @@ If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="to
 <dl class="section return"><dt>Returns</dt><dd>The position of the last occurrence of the <em class="arg">character</em>, or <a class="el" href="#ad63db28d9eb901a3934303a5fda0af21" title="npos">npos</a> if not found.</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">position</em> must be less than the string view size.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd></dl>
-<div id="dynsection-45" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-45-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-44" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-44-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-45-content" class="dyncontent" style="display:none;">
+<div id="dynsection-44-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_abc21bf7f8e4d58c5a5834e16bba65208_cgraph.svg" width="370" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -2696,10 +2690,10 @@ The <em class="arg">string</em> must not be null.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd>
 <dd>
 If the C <em class="arg">string</em> is empty, returns <em class="arg">position</em> if within bounds, otherwise returns the string view size. </dd></dl>
-<div id="dynsection-46" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-46-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-45" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-45-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-46-content" class="dyncontent" style="display:none;">
+<div id="dynsection-45-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_ada601aeb8a74b2f93c11b58bff50f50b_cgraph.svg" width="370" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -2754,10 +2748,10 @@ template&lt;StringLike stringType&gt; </div>
 <dl class="section note"><dt>Note</dt><dd>The search is case-sensitive. </dd>
 <dd>
 If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="toy::StringLike">toy::StringLike</a> object is empty, returns <em class="arg">position</em> if within bounds, otherwise returns the string view size. </dd></dl>
-<div id="dynsection-47" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-47-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-46" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-46-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-47-content" class="dyncontent" style="display:none;">
+<div id="dynsection-46-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_a3ae555f117f83592da1aefafdd656af0_cgraph.svg" width="370" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -2791,10 +2785,10 @@ If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="to
 <dl class="section return"><dt>Returns</dt><dd>The number of characters in the string view, excluding the terminating null character.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This method is equivalent to <a class="el" href="#a6120478d89996e674d30f8398ccfbc51" title="Returns the size of the string view.">length()</a>.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#a6120478d89996e674d30f8398ccfbc51" title="Returns the size of the string view.">length()</a> </dd></dl>
-<div id="dynsection-48" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-48-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-47" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-47-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-48-content" class="dyncontent" style="display:none;">
+<div id="dynsection-47-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_a56455f7c7872e005bae0bd9f37f8d188_cgraph.svg" width="367" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -2835,10 +2829,10 @@ If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="to
 <dl class="section note"><dt>Note</dt><dd>The comparison is case-sensitive. </dd>
 <dd>
 If the string view is empty, this method returns <code>false</code>. </dd></dl>
-<div id="dynsection-49" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-49-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-48" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-48-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-49-content" class="dyncontent" style="display:none;">
+<div id="dynsection-48-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_af13ff57be547b364b7d255eebe7de185_cgraph.svg" width="412" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -2882,10 +2876,10 @@ If the string view is empty, this method returns <code>false</code>. </dd></dl>
 If the C <em class="arg">string</em> is empty, this method returns <code>true</code>. </dd>
 <dd>
 If the C <em class="arg">string</em> is longer than this string view, returns <code>false</code>. </dd></dl>
-<div id="dynsection-50" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-50-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-49" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-49-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-50-content" class="dyncontent" style="display:none;">
+<div id="dynsection-49-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_aeeaf609b797459bacd751dd62a314392_cgraph.svg" width="412" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -2936,10 +2930,10 @@ template&lt;StringLike stringType&gt; </div>
 If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="toy::StringLike">toy::StringLike</a> object is empty, this method returns <code>true</code>. </dd>
 <dd>
 If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="toy::StringLike">toy::StringLike</a> object is longer than this string view, returns <code>false</code>. </dd></dl>
-<div id="dynsection-51" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-51-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-50" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-50-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-51-content" class="dyncontent" style="display:none;">
+<div id="dynsection-50-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_a690dc08abeb1cd6ffc0a81e14d5703f2_cgraph.svg" width="412" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -2980,10 +2974,10 @@ If a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="to
 <dd>
 The other <em class="arg">string</em> view contains the contents that were in this string.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Self-swap is handled correctly and safely (no-op). </dd></dl>
-<div id="dynsection-52" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-52-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-51" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-51-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-52-content" class="dyncontent" style="display:none;">
+<div id="dynsection-51-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_a61dbfbf58ac6f2ab042774a2c3e81e6b_cgraph.svg" width="375" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -3022,10 +3016,10 @@ For UTF-8 strings, <a class="el" href="#af2fcc3a984aa7a26f458509827c72fea" title
 Invalid UTF-8 sequences are handled gracefully and may affect the count. </dd>
 <dd>
 This method is useful for internationalization and text processing. </dd></dl>
-<div id="dynsection-53" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-53-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-52" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-52-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-53-content" class="dyncontent" style="display:none;">
+<div id="dynsection-52-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d03/classtoy_1_1_c_string_view_af2fcc3a984aa7a26f458509827c72fea_cgraph.svg" width="399" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 

@@ -1,13 +1,15 @@
 <map id="include/core/string_like.hpp" name="include/core/string_like.hpp">
 <area shape="rect" id="Node000001" title="C++ concept for string&#45;like types with size() and c_str() methods." alt="" coords="285,5,427,45"/>
 <area shape="rect" id="Node000002" href="$da/d47/core_8hpp.html" title="Umbrella header for the engine core module." alt="" coords="291,181,421,207"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="272,47,229,62,194,81,182,93,176,104,175,117,182,132,204,154,231,170,261,180,291,186,290,192,260,185,229,174,201,158,178,135,170,118,170,103,178,89,191,77,227,57,271,42"/>
-<area shape="rect" id="Node000009" href="$dd/ded/c__string__view_8hpp.html" title="Non&#45;owning string view class for C&#45;style strings." alt="" coords="193,93,349,133"/>
-<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="329,57,291,95,288,91,326,53"/>
-<area shape="rect" id="Node000010" href="$d7/d7f/fixed__string_8hpp.html" title="Template string class with fixed&#45;size character buffer." alt="" coords="373,93,509,133"/>
-<area shape="poly" id="edge12_Node000001_Node000010" title=" " alt="" coords="386,53,424,91,421,95,383,57"/>
-<area shape="rect" id="Node000011" href="$de/d2d/o__string__stream_8hpp.html" title="Output string stream class for building strings from various data types." alt="" coords="533,93,691,133"/>
-<area shape="poly" id="edge14_Node000001_Node000011" title=" " alt="" coords="426,47,557,91,555,96,424,52"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="271,35,196,46,129,65,104,77,89,93,86,110,97,132,109,142,127,151,176,166,235,177,291,184,290,190,234,182,175,171,125,156,106,146,93,135,81,111,84,90,101,73,127,60,195,41,270,30"/>
+<area shape="rect" id="Node000009" href="$dd/ded/c__string__view_8hpp.html" title="Non&#45;owning string view class for C&#45;style strings." alt="" coords="107,93,263,133"/>
+<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="308,54,224,96,222,91,305,49"/>
+<area shape="rect" id="Node000010" href="$d7/d7f/fixed__string_8hpp.html" title="Template string class with fixed&#45;size character buffer." alt="" coords="288,93,424,133"/>
+<area shape="poly" id="edge12_Node000001_Node000010" title=" " alt="" coords="359,59,359,93,353,93,353,59"/>
+<area shape="rect" id="Node000011" href="$d4/d0a/format_8hpp.html" title="Compile&#45;time format string validation class." alt="" coords="449,101,626,126"/>
+<area shape="poly" id="edge14_Node000001_Node000011" title=" " alt="" coords="409,49,514,98,512,103,407,54"/>
+<area shape="rect" id="Node000012" href="$de/d2d/o__string__stream_8hpp.html" title="Output string stream class for building strings from various data types." alt="" coords="651,93,808,133"/>
+<area shape="poly" id="edge16_Node000001_Node000012" title=" " alt="" coords="441,43,651,91,650,97,440,49"/>
 <area shape="rect" id="Node000003" href="$d6/d2c/app_8hpp.html" title="Umbrella header for the engine application module." alt="" coords="5,262,131,287"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="302,213,111,265,109,259,300,208"/>
 <area shape="rect" id="Node000004" href="$d8/d8c/toygine2_8hpp.html" title="Main umbrella header for the entire ToyGine2 engine." alt="" coords="89,343,247,368"/>
@@ -22,7 +24,8 @@
 <area shape="poly" id="edge9_Node000002_Node000008" title=" " alt="" coords="433,207,684,252,696,254,695,259,684,257,432,212"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="95,294,155,340,152,345,92,298"/>
 <area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="249,298,185,345,182,340,245,293"/>
-<area shape="poly" id="edge11_Node000009_Node000002" title=" " alt="" coords="303,141,345,179,341,183,300,145"/>
-<area shape="poly" id="edge13_Node000010_Node000002" title=" " alt="" coords="412,145,371,183,367,179,409,141"/>
-<area shape="poly" id="edge15_Node000011_Node000002" title=" " alt="" coords="538,140,394,184,393,179,537,135"/>
+<area shape="poly" id="edge11_Node000009_Node000002" title=" " alt="" coords="240,137,332,179,330,184,237,141"/>
+<area shape="poly" id="edge13_Node000010_Node000002" title=" " alt="" coords="359,147,359,181,353,181,353,147"/>
+<area shape="poly" id="edge15_Node000011_Node000002" title=" " alt="" coords="499,134,383,184,381,179,497,129"/>
+<area shape="poly" id="edge17_Node000012_Node000002" title=" " alt="" coords="638,137,411,184,410,179,637,131"/>
 </map>

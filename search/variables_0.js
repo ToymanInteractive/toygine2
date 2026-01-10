@@ -11,7 +11,7 @@ var searchData=
   ['_5fprecision_8',['_precision',['../d7/d15/classtoy_1_1_o_string_stream.html#a1a58f761bb99962d859ca509a08b2377',1,'toy::OStringStream']]],
   ['_5fsize_9',['_size',['../d7/dec/classtoy_1_1_fixed_vector.html#a566cdb40d2ac367a8db078ee5ee18945',1,'toy::FixedVector']]],
   ['_5fstorage_10',['_storage',['../d3/d7a/classtoy_1_1_fixed_string.html#a05a98b03a4e564ea5a5f26dfae56a048',1,'toy::FixedString']]],
-  ['_5fstring_11',['_string',['../d7/d15/classtoy_1_1_o_string_stream.html#af7b4723343300cca10a0c8178c9214af',1,'toy::OStringStream']]],
+  ['_5fstring_11',['_string',['../dc/d62/classtoy_1_1_format_string.html#aa80fa19ae3c237c10b36f9c9688e4e65',1,'toy::FormatString::_string'],['../d7/d15/classtoy_1_1_o_string_stream.html#af7b4723343300cca10a0c8178c9214af',1,'toy::OStringStream::_string']]],
   ['_5fsubscriberscount_12',['_subscribersCount',['../d8/dc9/classtoy_1_1_callbacks_pool.html#acdb9af165834d8b543c106a6fc8b9574',1,'toy::CallbacksPool']]],
   ['_5futf8charsizetable_13',['_utf8CharSizeTable',['../d4/da9/namespacetoy.html#a4a12924c5030e6b26a105cce437a95a9',1,'toy']]]
 ];

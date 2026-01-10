@@ -149,9 +149,9 @@ $(function(){initNavTree('de/d2d/o__string__stream_8hpp_source.html','../../',''
 <div class="line"><span class="lineno">   34</span><span class="comment">  \ingroup String</span></div>
 <div class="line"><span class="lineno">   35</span><span class="comment">  \brief Template output string stream class for building strings from various data types.</span></div>
 <div class="line"><span class="lineno">   36</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   37</span><span class="comment">  OStringStream is a lightweight, high-performance output stream class that provides a std::ostringstream-like interface</span></div>
-<div class="line"><span class="lineno">   38</span><span class="comment">  while using a fixed-size or custom string storage type. It supports formatting and inserting various data types into</span></div>
-<div class="line"><span class="lineno">   39</span><span class="comment">  a string buffer, including integers, floating-point numbers, booleans, pointers, and string-like objects.</span></div>
+<div class="line"><span class="lineno">   37</span><span class="comment">  OStringStream is a lightweight, high-performance output stream class that provides a \c std::ostringstream-like</span></div>
+<div class="line"><span class="lineno">   38</span><span class="comment">  interface while using a fixed-size or custom string storage type. It supports formatting and inserting various data</span></div>
+<div class="line"><span class="lineno">   39</span><span class="comment">  types into a string buffer, including integers, floating-point numbers, booleans, pointers, and string-like objects.</span></div>
 <div class="line"><span class="lineno">   40</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">   41</span><span class="comment">  \tparam StringType The type of the underlying string storage. Must satisfy the \ref toy::StringLike concept.</span></div>
 <div class="line"><span class="lineno">   42</span><span class="comment"></span> </div>
@@ -160,7 +160,7 @@ $(function(){initNavTree('de/d2d/o__string__stream_8hpp_source.html','../../',''
 <div class="line"><span class="lineno">   45</span><span class="comment">  - ⚙️ **Zero or Minimal Dynamic Allocation**: Uses the provided StringType for storage (e.g., \ref toy::FixedString)</span></div>
 <div class="line"><span class="lineno">   46</span><span class="comment">  - 🔧 **ConstExpr Support**: Most operations can be evaluated at compile time</span></div>
 <div class="line"><span class="lineno">   47</span><span class="comment">  - 🛡️ **Exception Safety**: All operations are noexcept</span></div>
-<div class="line"><span class="lineno">   48</span><span class="comment">  - 🔗 **STL Compatibility**: Provides std::ostringstream-like interface</span></div>
+<div class="line"><span class="lineno">   48</span><span class="comment">  - 🔗 **STL Compatibility**: Provides \c std::ostringstream-like interface</span></div>
 <div class="line"><span class="lineno">   49</span><span class="comment">  - 📝 **Type Safety**: Uses C++20 concepts for type safety</span></div>
 <div class="line"><span class="lineno">   50</span><span class="comment">  - 🎯 **Precision Control**: Configurable precision for floating-point formatting</span></div>
 <div class="line"><span class="lineno">   51</span><span class="comment"></span> </div>
@@ -289,7 +289,7 @@ $(function(){initNavTree('de/d2d/o__string__stream_8hpp_source.html','../../',''
 <div class="line"><span class="lineno">  173</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  174</span><span class="comment">    \return A reference to this OStringStream, allowing operator chaining.</span></div>
 <div class="line"><span class="lineno">  175</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  176</span><span class="comment">    \note This operator follows the same pattern as std::ostringstream::operator&lt;&lt;(bool).</span></div>
+<div class="line"><span class="lineno">  176</span><span class="comment">    \note This operator follows the same pattern as \c std::ostringstream::operator&lt;&lt;(bool).</span></div>
 <div class="line"><span class="lineno">  177</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  178</span><span class="comment">    \post The write position is advanced by the length of the appended string (4 for &quot;true&quot;, 5 for &quot;false&quot;).</span></div>
 <div class="line"><span class="lineno">  179</span><span class="comment"></span> </div>
@@ -311,7 +311,7 @@ $(function(){initNavTree('de/d2d/o__string__stream_8hpp_source.html','../../',''
 <div class="line"><span class="lineno">  195</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  196</span><span class="comment">    \post The write position is advanced by the length of the appended string.</span></div>
 <div class="line"><span class="lineno">  197</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  198</span><span class="comment">    \note This operator follows the same pattern as std::ostringstream::operator&lt;&lt;(int8_t).</span></div>
+<div class="line"><span class="lineno">  198</span><span class="comment">    \note This operator follows the same pattern as \c std::ostringstream::operator&lt;&lt;(int8_t).</span></div>
 <div class="line"><span class="lineno">  199</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  200</span><span class="comment">    \sa operator&lt;&lt;(uint8_t)</span></div>
 <div class="line"><span class="lineno">  201</span><span class="comment">    \sa put(char_type)</span></div>
@@ -331,7 +331,7 @@ $(function(){initNavTree('de/d2d/o__string__stream_8hpp_source.html','../../',''
 <div class="line"><span class="lineno">  215</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  216</span><span class="comment">    \post The write position is advanced by the length of the appended string.</span></div>
 <div class="line"><span class="lineno">  217</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  218</span><span class="comment">    \note This operator follows the same pattern as std::ostringstream::operator&lt;&lt;(int16_t).</span></div>
+<div class="line"><span class="lineno">  218</span><span class="comment">    \note This operator follows the same pattern as \c std::ostringstream::operator&lt;&lt;(int16_t).</span></div>
 <div class="line"><span class="lineno">  219</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  220</span><span class="comment">    \sa operator&lt;&lt;(uint16_t)</span></div>
 <div class="line"><span class="lineno">  221</span><span class="comment">    \sa put(char_type)</span></div>
@@ -351,7 +351,7 @@ $(function(){initNavTree('de/d2d/o__string__stream_8hpp_source.html','../../',''
 <div class="line"><span class="lineno">  235</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  236</span><span class="comment">    \post The write position is advanced by the length of the appended string.</span></div>
 <div class="line"><span class="lineno">  237</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  238</span><span class="comment">    \note This operator follows the same pattern as std::ostringstream::operator&lt;&lt;(int32_t).</span></div>
+<div class="line"><span class="lineno">  238</span><span class="comment">    \note This operator follows the same pattern as \c std::ostringstream::operator&lt;&lt;(int32_t).</span></div>
 <div class="line"><span class="lineno">  239</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  240</span><span class="comment">    \sa operator&lt;&lt;(uint32_t)</span></div>
 <div class="line"><span class="lineno">  241</span><span class="comment">    \sa put(char_type)</span></div>
@@ -371,7 +371,7 @@ $(function(){initNavTree('de/d2d/o__string__stream_8hpp_source.html','../../',''
 <div class="line"><span class="lineno">  255</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  256</span><span class="comment">    \post The write position is advanced by the length of the appended string.</span></div>
 <div class="line"><span class="lineno">  257</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  258</span><span class="comment">    \note This operator follows the same pattern as std::ostringstream::operator&lt;&lt;(int64_t).</span></div>
+<div class="line"><span class="lineno">  258</span><span class="comment">    \note This operator follows the same pattern as \c std::ostringstream::operator&lt;&lt;(int64_t).</span></div>
 <div class="line"><span class="lineno">  259</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  260</span><span class="comment">    \sa operator&lt;&lt;(uint64_t)</span></div>
 <div class="line"><span class="lineno">  261</span><span class="comment">    \sa put(char_type)</span></div>
@@ -391,7 +391,7 @@ $(function(){initNavTree('de/d2d/o__string__stream_8hpp_source.html','../../',''
 <div class="line"><span class="lineno">  275</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  276</span><span class="comment">    \post The write position is advanced by the length of the appended string.</span></div>
 <div class="line"><span class="lineno">  277</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  278</span><span class="comment">    \note This operator follows the same pattern as std::ostringstream::operator&lt;&lt;(uint8_t).</span></div>
+<div class="line"><span class="lineno">  278</span><span class="comment">    \note This operator follows the same pattern as \c std::ostringstream::operator&lt;&lt;(uint8_t).</span></div>
 <div class="line"><span class="lineno">  279</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  280</span><span class="comment">    \sa operator&lt;&lt;(int8_t)</span></div>
 <div class="line"><span class="lineno">  281</span><span class="comment">    \sa put(char_type)</span></div>
@@ -411,7 +411,7 @@ $(function(){initNavTree('de/d2d/o__string__stream_8hpp_source.html','../../',''
 <div class="line"><span class="lineno">  295</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  296</span><span class="comment">    \post The write position is advanced by the length of the appended string.</span></div>
 <div class="line"><span class="lineno">  297</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  298</span><span class="comment">    \note This operator follows the same pattern as std::ostringstream::operator&lt;&lt;(uint16_t).</span></div>
+<div class="line"><span class="lineno">  298</span><span class="comment">    \note This operator follows the same pattern as \c std::ostringstream::operator&lt;&lt;(uint16_t).</span></div>
 <div class="line"><span class="lineno">  299</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  300</span><span class="comment">    \sa operator&lt;&lt;(int16_t)</span></div>
 <div class="line"><span class="lineno">  301</span><span class="comment">    \sa put(char_type)</span></div>
@@ -431,7 +431,7 @@ $(function(){initNavTree('de/d2d/o__string__stream_8hpp_source.html','../../',''
 <div class="line"><span class="lineno">  315</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  316</span><span class="comment">    \post The write position is advanced by the length of the appended string.</span></div>
 <div class="line"><span class="lineno">  317</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  318</span><span class="comment">    \note This operator follows the same pattern as std::ostringstream::operator&lt;&lt;(uint32_t).</span></div>
+<div class="line"><span class="lineno">  318</span><span class="comment">    \note This operator follows the same pattern as \c std::ostringstream::operator&lt;&lt;(uint32_t).</span></div>
 <div class="line"><span class="lineno">  319</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  320</span><span class="comment">    \sa operator&lt;&lt;(int32_t)</span></div>
 <div class="line"><span class="lineno">  321</span><span class="comment">    \sa put(char_type)</span></div>
@@ -451,7 +451,7 @@ $(function(){initNavTree('de/d2d/o__string__stream_8hpp_source.html','../../',''
 <div class="line"><span class="lineno">  335</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  336</span><span class="comment">    \post The write position is advanced by the length of the appended string.</span></div>
 <div class="line"><span class="lineno">  337</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  338</span><span class="comment">    \note This operator follows the same pattern as std::ostringstream::operator&lt;&lt;(uint64_t).</span></div>
+<div class="line"><span class="lineno">  338</span><span class="comment">    \note This operator follows the same pattern as \c std::ostringstream::operator&lt;&lt;(uint64_t).</span></div>
 <div class="line"><span class="lineno">  339</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  340</span><span class="comment">    \sa operator&lt;&lt;(int64_t)</span></div>
 <div class="line"><span class="lineno">  341</span><span class="comment">    \sa put(char_type)</span></div>
@@ -471,7 +471,7 @@ $(function(){initNavTree('de/d2d/o__string__stream_8hpp_source.html','../../',''
 <div class="line"><span class="lineno">  355</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  356</span><span class="comment">    \post The write position is advanced by the length of the appended string.</span></div>
 <div class="line"><span class="lineno">  357</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  358</span><span class="comment">    \note This operator follows the same pattern as std::ostringstream::operator&lt;&lt;(float).</span></div>
+<div class="line"><span class="lineno">  358</span><span class="comment">    \note This operator follows the same pattern as \c std::ostringstream::operator&lt;&lt;(float).</span></div>
 <div class="line"><span class="lineno">  359</span><span class="comment">    \note The precision is controlled by precision() and defaults to 6 digits.</span></div>
 <div class="line"><span class="lineno">  360</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  361</span><span class="comment">    \sa precision() const</span></div>
@@ -494,7 +494,7 @@ $(function(){initNavTree('de/d2d/o__string__stream_8hpp_source.html','../../',''
 <div class="line"><span class="lineno">  378</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  379</span><span class="comment">    \post The write position is advanced by the length of the appended string.</span></div>
 <div class="line"><span class="lineno">  380</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  381</span><span class="comment">    \note This operator follows the same pattern as std::ostringstream::operator&lt;&lt;(double).</span></div>
+<div class="line"><span class="lineno">  381</span><span class="comment">    \note This operator follows the same pattern as \c std::ostringstream::operator&lt;&lt;(double).</span></div>
 <div class="line"><span class="lineno">  382</span><span class="comment">    \note The precision is controlled by precision(int) and defaults to 6 digits.</span></div>
 <div class="line"><span class="lineno">  383</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  384</span><span class="comment">    \sa precision() const</span></div>
@@ -517,7 +517,7 @@ $(function(){initNavTree('de/d2d/o__string__stream_8hpp_source.html','../../',''
 <div class="line"><span class="lineno">  401</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  402</span><span class="comment">    \post The write position is advanced by the length of the appended string.</span></div>
 <div class="line"><span class="lineno">  403</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  404</span><span class="comment">    \note This operator follows the same pattern as std::ostringstream::operator&lt;&lt;(const void*).</span></div>
+<div class="line"><span class="lineno">  404</span><span class="comment">    \note This operator follows the same pattern as \c std::ostringstream::operator&lt;&lt;(const void*).</span></div>
 <div class="line"><span class="lineno">  405</span><span class="comment">    \note For null pointers, consider using operator&lt;&lt;(nullptr_t) for consistent &quot;nullptr&quot; output.</span></div>
 <div class="line"><span class="lineno">  406</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  407</span><span class="comment">    \sa operator&lt;&lt;(nullptr_t)</span></div>
@@ -536,7 +536,7 @@ $(function(){initNavTree('de/d2d/o__string__stream_8hpp_source.html','../../',''
 <div class="line"><span class="lineno">  420</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  421</span><span class="comment">    \post The write position is advanced by 7 characters (length of &quot;nullptr&quot;).</span></div>
 <div class="line"><span class="lineno">  422</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  423</span><span class="comment">    \note This operator follows the same pattern as std::ostringstream::operator&lt;&lt;(std::nullptr_t).</span></div>
+<div class="line"><span class="lineno">  423</span><span class="comment">    \note This operator follows the same pattern as \c std::ostringstream::operator&lt;&lt;(std::nullptr_t).</span></div>
 <div class="line"><span class="lineno">  424</span><span class="comment">    \note The output is always the string &quot;nullptr&quot;, regardless of the actual null pointer value.</span></div>
 <div class="line"><span class="lineno">  425</span><span class="comment">    \note This operator is preferred over operator&lt;&lt;(const void*) for null pointer literals.</span></div>
 <div class="line"><span class="lineno">  426</span><span class="comment"></span> </div>
@@ -558,7 +558,7 @@ $(function(){initNavTree('de/d2d/o__string__stream_8hpp_source.html','../../',''
 <div class="line"><span class="lineno">  442</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  443</span><span class="comment">    \post The write position is advanced by one character.</span></div>
 <div class="line"><span class="lineno">  444</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  445</span><span class="comment">    \note This operator follows the same pattern as std::ostringstream::operator&lt;&lt;(char_type).</span></div>
+<div class="line"><span class="lineno">  445</span><span class="comment">    \note This operator follows the same pattern as \c std::ostringstream::operator&lt;&lt;(char_type).</span></div>
 <div class="line"><span class="lineno">  446</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  447</span><span class="comment">    \sa operator&lt;&lt;(const char_type *)</span></div>
 <div class="line"><span class="lineno">  448</span><span class="comment">    \sa operator&lt;&lt;(const SourceStringType &amp;)</span></div>
@@ -583,7 +583,7 @@ $(function(){initNavTree('de/d2d/o__string__stream_8hpp_source.html','../../',''
 <div class="line"><span class="lineno">  467</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  468</span><span class="comment">    \post The write position is advanced by the length of the appended string.</span></div>
 <div class="line"><span class="lineno">  469</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  470</span><span class="comment">    \note This operator follows the same pattern as std::ostringstream::operator&lt;&lt;(const std::string&amp;).</span></div>
+<div class="line"><span class="lineno">  470</span><span class="comment">    \note This operator follows the same pattern as \c std::ostringstream::operator&lt;&lt;(const std::string&amp;).</span></div>
 <div class="line"><span class="lineno">  471</span><span class="comment">    \note The source string type can be different from StringType as long as both satisfy \ref toy::StringLike.</span></div>
 <div class="line"><span class="lineno">  472</span><span class="comment">    \note This operator is useful for inserting string literals, \ref toy::FixedString objects, and other string-like</span></div>
 <div class="line"><span class="lineno">  473</span><span class="comment">    types.</span></div>
@@ -611,7 +611,7 @@ $(function(){initNavTree('de/d2d/o__string__stream_8hpp_source.html','../../',''
 <div class="line"><span class="lineno">  495</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  496</span><span class="comment">    \post The write position is advanced by the length of the appended string (excluding the null terminator).</span></div>
 <div class="line"><span class="lineno">  497</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  498</span><span class="comment">    \note This operator follows the same pattern as std::ostringstream::operator&lt;&lt;(const char*).</span></div>
+<div class="line"><span class="lineno">  498</span><span class="comment">    \note This operator follows the same pattern as \c std::ostringstream::operator&lt;&lt;(const char*).</span></div>
 <div class="line"><span class="lineno">  499</span><span class="comment">    \note The string is appended up to but not including the null terminator.</span></div>
 <div class="line"><span class="lineno">  500</span><span class="comment">    \note This operator is useful for inserting C-style string literals and null-terminated character arrays.</span></div>
 <div class="line"><span class="lineno">  501</span><span class="comment"></span> </div>
@@ -796,6 +796,7 @@ $(function(){initNavTree('de/d2d/o__string__stream_8hpp_source.html','../../',''
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_a2ab165dc724a2f3d057f782e30ad8959"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a2ab165dc724a2f3d057f782e30ad8959">toy::CStringView::ends_with</a></div><div class="ttdeci">constexpr bool ends_with(const char *string) const noexcept</div><div class="ttdoc">Checks if the string view ends with the C string.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:241</div></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_a2d6dae36ef9b82f5d6f5f579cf4da692"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a2d6dae36ef9b82f5d6f5f579cf4da692">toy::CStringView::assign</a></div><div class="ttdeci">constexpr CStringView &amp; assign(const char *string) noexcept</div><div class="ttdoc">Copy assigns the C string to this string view.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:52</div></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_a38449c9d333480b787427166b1f1a5f2"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a38449c9d333480b787427166b1f1a5f2">toy::CStringView::operator==</a></div><div class="ttdeci">friend constexpr bool operator==(const stringType &amp;lhs, const CStringView &amp;rhs) noexcept</div><div class="ttdoc">Equality comparison operator for toy::StringLike object and CStringView.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:474</div></div>
+<div class="ttc" id="aclasstoy_1_1_c_string_view_html_a38cada806f591cf55cdcb411d8210fae"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a38cada806f591cf55cdcb411d8210fae">toy::CStringView::explicit</a></div><div class="ttdeci">constexpr explicit(false) CStringView(const char *string) noexcept</div><div class="ttdoc">Constructs a string view from a C string.</div></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_a3a8634e0b4ae35b9754bbab8dfcc7502"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a3a8634e0b4ae35b9754bbab8dfcc7502">toy::CStringView::front</a></div><div class="ttdeci">constexpr const char &amp; front() const noexcept</div><div class="ttdoc">Returns a const reference to the first character of the string view.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:72</div></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_a3ae555f117f83592da1aefafdd656af0"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a3ae555f117f83592da1aefafdd656af0">toy::CStringView::rfind</a></div><div class="ttdeci">constexpr size_t rfind(const stringType &amp;string, size_t position=npos) const noexcept</div><div class="ttdoc">Finds the last occurrence of a toy::StringLike object in the string view.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:137</div></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_a3fd727898d1fd0d4261e894033c3396b"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#a3fd727898d1fd0d4261e894033c3396b">toy::CStringView::_data</a></div><div class="ttdeci">const char * _data</div><div class="ttdoc">Pointer to the wrapped C string.</div><div class="ttdef"><b>Definition</b> c_string_view.hpp:1159</div></div>
@@ -846,7 +847,6 @@ $(function(){initNavTree('de/d2d/o__string__stream_8hpp_source.html','../../',''
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_af19cf0c882e16db56c43bc0dba58fdbd"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#af19cf0c882e16db56c43bc0dba58fdbd">toy::CStringView::_find_first_not_of_raw</a></div><div class="ttdeci">constexpr size_t _find_first_not_of_raw(size_t position, const char *data, size_t dataSize) const noexcept</div><div class="ttdoc">Helper method for finding the first occurrence of any character not from data.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:344</div></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_af2fcc3a984aa7a26f458509827c72fea"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#af2fcc3a984aa7a26f458509827c72fea">toy::CStringView::utf8_size</a></div><div class="ttdeci">size_t utf8_size() const noexcept</div><div class="ttdoc">Returns the size of the Unicode string in UTF-8 encoding.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:98</div></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_af3b8dfa4771e19e127747951ef6129a4"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#af3b8dfa4771e19e127747951ef6129a4">toy::CStringView::find_first_not_of</a></div><div class="ttdeci">constexpr size_t find_first_not_of(const stringType &amp;string, size_t position=0) const noexcept</div><div class="ttdoc">Finds the first occurrence of any character not from a toy::StringLike object.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:163</div></div>
-<div class="ttc" id="aclasstoy_1_1_c_string_view_html_af5ec20956a3cecd987fc33ff3bdd6540"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#af5ec20956a3cecd987fc33ff3bdd6540">toy::CStringView::CStringView</a></div><div class="ttdeci">constexpr CStringView(const char *string) noexcept</div><div class="ttdoc">Constructs a string view from a C string.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:33</div></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_af65872dd014b3464e456b4e968515387"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#af65872dd014b3464e456b4e968515387">toy::CStringView::find_last_not_of</a></div><div class="ttdeci">constexpr size_t find_last_not_of(const char *string, size_t position=npos) const noexcept</div><div class="ttdoc">Finds the last occurrence of any character not from the C string.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:193</div></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_af79d918dedd06e2c2b99fe920962d64d"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#af79d918dedd06e2c2b99fe920962d64d">toy::CStringView::CStringView</a></div><div class="ttdeci">constexpr CStringView() noexcept</div><div class="ttdoc">Default constructor.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:30</div></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html_af9be50089de84b067ca054334be123fd"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html#af9be50089de84b067ca054334be123fd">toy::CStringView::find_last_of</a></div><div class="ttdeci">constexpr size_t find_last_of(const char *string, size_t position=npos) const noexcept</div><div class="ttdoc">Finds the last occurrence of any character from the C string.</div><div class="ttdef"><b>Definition</b> c_string_view.inl:180</div></div>
@@ -1037,6 +1037,12 @@ $(function(){initNavTree('de/d2d/o__string__stream_8hpp_source.html','../../',''
 <div class="ttc" id="aclasstoy_1_1_fixed_vector_html_af099d9be0e468c575d5f2e018a95bb27"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#af099d9be0e468c575d5f2e018a95bb27">toy::FixedVector::front</a></div><div class="ttdeci">constexpr const_reference front() const noexcept</div><div class="ttdoc">Returns a const reference to the first element of the vector.</div><div class="ttdef"><b>Definition</b> fixed_vector.inl:286</div></div>
 <div class="ttc" id="aclasstoy_1_1_fixed_vector_html_af18fa1c4ace6ecae4d26a70a560f306b"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#af18fa1c4ace6ecae4d26a70a560f306b">toy::FixedVector::rbegin</a></div><div class="ttdeci">constexpr const_reverse_iterator rbegin() const noexcept</div><div class="ttdoc">Returns a const reverse iterator to the last element of the vector.</div><div class="ttdef"><b>Definition</b> fixed_vector.inl:364</div></div>
 <div class="ttc" id="aclasstoy_1_1_fixed_vector_html_af41f645630eaed35f734c222c05ba49a"><div class="ttname"><a href="../../d7/dec/classtoy_1_1_fixed_vector.html#af41f645630eaed35f734c222c05ba49a">toy::FixedVector::FixedVector</a></div><div class="ttdeci">FixedVector(size_type count)</div><div class="ttdoc">Constructs a FixedVector with count default-initialized elements.</div><div class="ttdef"><b>Definition</b> fixed_vector.inl:40</div></div>
+<div class="ttc" id="aclasstoy_1_1_format_string_html"><div class="ttname"><a href="../../dc/d62/classtoy_1_1_format_string.html">toy::FormatString</a></div><div class="ttdoc">Compile-time validated format string wrapper.</div><div class="ttdef"><b>Definition</b> format.hpp:74</div></div>
+<div class="ttc" id="aclasstoy_1_1_format_string_html_a6f166d073b247194d6c6fc290e537791"><div class="ttname"><a href="../../dc/d62/classtoy_1_1_format_string.html#a6f166d073b247194d6c6fc290e537791">toy::FormatString::_countFormatPlaceholders</a></div><div class="ttdeci">static constexpr size_t _countFormatPlaceholders(const CStringView &amp;string) noexcept</div><div class="ttdoc">Counts the number of format placeholders in a format string.</div><div class="ttdef"><b>Definition</b> format.inl:48</div></div>
+<div class="ttc" id="aclasstoy_1_1_format_string_html_a8bddc50cb2304cfc22f2f5fdc201dfc5"><div class="ttname"><a href="../../dc/d62/classtoy_1_1_format_string.html#a8bddc50cb2304cfc22f2f5fdc201dfc5">toy::FormatString::explicit</a></div><div class="ttdeci">consteval explicit(false) FormatString(const CStringView &amp;string) noexcept</div><div class="ttdoc">Constructs a FormatString with compile-time validation.</div></div>
+<div class="ttc" id="aclasstoy_1_1_format_string_html_aa80fa19ae3c237c10b36f9c9688e4e65"><div class="ttname"><a href="../../dc/d62/classtoy_1_1_format_string.html#aa80fa19ae3c237c10b36f9c9688e4e65">toy::FormatString::_string</a></div><div class="ttdeci">const CStringView _string</div><div class="ttdoc">The stored format string.</div><div class="ttdef"><b>Definition</b> format.hpp:115</div></div>
+<div class="ttc" id="aclasstoy_1_1_format_string_html_aad2ddbdff43aae3fa0d453ec2196a339"><div class="ttname"><a href="../../dc/d62/classtoy_1_1_format_string.html#aad2ddbdff43aae3fa0d453ec2196a339">toy::FormatString::get</a></div><div class="ttdeci">constexpr CStringView get() const noexcept</div><div class="ttdoc">Returns a copy of the stored format string.</div><div class="ttdef"><b>Definition</b> format.inl:43</div></div>
+<div class="ttc" id="aclasstoy_1_1_format_string_html_afd793fd7ecad4136327c535a8e2d6602"><div class="ttname"><a href="../../dc/d62/classtoy_1_1_format_string.html#afd793fd7ecad4136327c535a8e2d6602">toy::FormatString::_compileTimeError</a></div><div class="ttdeci">static void _compileTimeError(const char *message) noexcept</div><div class="ttdoc">Triggers a compile-time error when format string validation fails.</div><div class="ttdef"><b>Definition</b> format.inl:87</div></div>
 <div class="ttc" id="aclasstoy_1_1_o_string_stream_html"><div class="ttname"><a href="../../d7/d15/classtoy_1_1_o_string_stream.html">toy::OStringStream</a></div><div class="ttdoc">Template output string stream class for building strings from various data types.</div><div class="ttdef"><b>Definition</b> o_string_stream.hpp:77</div></div>
 <div class="ttc" id="aclasstoy_1_1_o_string_stream_html_a1a58f761bb99962d859ca509a08b2377"><div class="ttname"><a href="../../d7/d15/classtoy_1_1_o_string_stream.html#a1a58f761bb99962d859ca509a08b2377">toy::OStringStream::_precision</a></div><div class="ttdeci">int _precision</div><div class="ttdoc">Floating-point precision value used for number formatting.</div><div class="ttdef"><b>Definition</b> o_string_stream.hpp:664</div></div>
 <div class="ttc" id="aclasstoy_1_1_o_string_stream_html_a1e91c2bfd60f8b0e6c19e03fd5377801"><div class="ttname"><a href="../../d7/d15/classtoy_1_1_o_string_stream.html#a1e91c2bfd60f8b0e6c19e03fd5377801">toy::OStringStream::write</a></div><div class="ttdeci">constexpr OStringStream &amp; write(const char_type *string, size_t count) noexcept</div><div class="ttdoc">Writes a specified number of characters from a buffer to the stream.</div><div class="ttdef"><b>Definition</b> o_string_stream.inl:236</div></div>

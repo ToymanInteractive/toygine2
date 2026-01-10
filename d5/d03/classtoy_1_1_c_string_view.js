@@ -2,7 +2,6 @@ var classtoy_1_1_c_string_view =
 [
     [ "CStringView", "d5/d03/classtoy_1_1_c_string_view.html#af79d918dedd06e2c2b99fe920962d64d", null ],
     [ "CStringView", "d5/d03/classtoy_1_1_c_string_view.html#a9fbe10d07774d3460b07d0286f56259e", null ],
-    [ "CStringView", "d5/d03/classtoy_1_1_c_string_view.html#af5ec20956a3cecd987fc33ff3bdd6540", null ],
     [ "~CStringView", "d5/d03/classtoy_1_1_c_string_view.html#a74fd427671ff6309013227005d307d86", null ],
     [ "_find_first_not_of_raw", "d5/d03/classtoy_1_1_c_string_view.html#af19cf0c882e16db56c43bc0dba58fdbd", null ],
     [ "_find_first_of_raw", "d5/d03/classtoy_1_1_c_string_view.html#a8fc7c19bfb44109d076ded997903012c", null ],
@@ -27,6 +26,7 @@ var classtoy_1_1_c_string_view =
     [ "ends_with", "d5/d03/classtoy_1_1_c_string_view.html#a5abe0302785540ecee993b3d6fb4fdd0", null ],
     [ "ends_with", "d5/d03/classtoy_1_1_c_string_view.html#a2ab165dc724a2f3d057f782e30ad8959", null ],
     [ "ends_with", "d5/d03/classtoy_1_1_c_string_view.html#a4c8e71577b69ed0d61810910ee14c392", null ],
+    [ "explicit", "d5/d03/classtoy_1_1_c_string_view.html#a38cada806f591cf55cdcb411d8210fae", null ],
     [ "find", "d5/d03/classtoy_1_1_c_string_view.html#a8a75b7eb449240c8afe1f11dc9e1944d", null ],
     [ "find", "d5/d03/classtoy_1_1_c_string_view.html#ac26525b33f1f4a023b72eb223f51efce", null ],
     [ "find", "d5/d03/classtoy_1_1_c_string_view.html#a750303f5eb6ff80d0729aabae7fd2972", null ],

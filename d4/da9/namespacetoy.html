@@ -137,6 +137,8 @@ Classes</h2></td></tr>
 <tr class="memitem:FixedString" id="r_FixedString"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html">FixedString</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Template string class with fixed-size character buffer.  <a href="../../d3/d7a/classtoy_1_1_fixed_string.html#details">More...</a><br /></td></tr>
 <tr class="memitem:FixedVector" id="r_FixedVector"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../d7/dec/classtoy_1_1_fixed_vector.html">FixedVector</a></td></tr>
+<tr class="memitem:FormatString" id="r_FormatString"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../dc/d62/classtoy_1_1_format_string.html">FormatString</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compile-time validated format string wrapper.  <a href="../../dc/d62/classtoy_1_1_format_string.html#details">More...</a><br /></td></tr>
 <tr class="memitem:OStringStream" id="r_OStringStream"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html">OStringStream</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Template output string stream class for building strings from various data types.  <a href="../../d7/d15/classtoy_1_1_o_string_stream.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
@@ -928,7 +930,7 @@ For empty data (size = <code>0</code>), the function returns the initial CRC val
 </div><div class="memdoc">
 
 <p>Finds the first occurrence of a character in a C string. </p>
-<p>This function searches for the first occurrence of the character <em class="arg">ch</em> within the string <em class="arg">str</em>. The search is performed character by character from the beginning of the string and returns a pointer to the first occurrence, or nullptr if the character is not found. This function is designed to be constexpr-compatible and provides the same behavior as std::strchr but can be evaluated at compile time.</p>
+<p>This function searches for the first occurrence of the character <em class="arg">ch</em> within the string <em class="arg">str</em>. The search is performed character by character from the beginning of the string and returns a pointer to the first occurrence, or nullptr if the character is not found. This function is designed to be constexpr-compatible and provides the same behavior as <code>std::strchr</code> but can be evaluated at compile time.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">str</td><td>The C string to search in. </td></tr>
@@ -975,7 +977,7 @@ This function is constexpr-compatible and can be used in compile-time contexts.<
 </div><div class="memdoc">
 
 <p>Compares two C strings lexicographically. </p>
-<p>This function performs a lexicographic comparison between two C strings. The comparison is performed character by character using the character's numeric value. This function is designed to be constexpr-compatible and provides the same behavior as std::strcmp but can be evaluated at compile time.</p>
+<p>This function performs a lexicographic comparison between two C strings. The comparison is performed character by character using the character's numeric value. This function is designed to be constexpr-compatible and provides the same behavior as <code>std::strcmp</code> but can be evaluated at compile time.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">lhs</td><td>The left-hand side C string to compare. </td></tr>
@@ -993,7 +995,7 @@ The comparison stops at the first character that differs between the strings. </
 <dd>
 If one string is a prefix of another, the shorter string is considered lexicographically smaller. </dd>
 <dd>
-Return values are -1, 0, or 1 (differs from std::strcmp which returns arithmetic difference). </dd>
+Return values are -1, 0, or 1 (differs from <code>std::strcmp</code> which returns arithmetic difference). </dd>
 <dd>
 This function is constexpr-compatible and can be used in compile-time contexts.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd>std::strcmp </dd></dl>
@@ -1028,7 +1030,7 @@ This function is constexpr-compatible and can be used in compile-time contexts.<
 </div><div class="memdoc">
 
 <p>Finds the first occurrence of any character from a set in a C string. </p>
-<p>This function searches for the first occurrence of any character from the <em class="arg">accept</em> string within the <em class="arg">str</em> string. The search is performed character by character from the beginning and returns a pointer to the first character found that matches any character in the accept set, or nullptr if no character from the accept set is found. This function is designed to be constexpr-compatible and provides the same behavior as std::strpbrk but can be evaluated at compile time.</p>
+<p>This function searches for the first occurrence of any character from the <em class="arg">accept</em> string within the <em class="arg">str</em> string. The search is performed character by character from the beginning and returns a pointer to the first character found that matches any character in the accept set, or nullptr if no character from the accept set is found. This function is designed to be constexpr-compatible and provides the same behavior as <code>std::strpbrk</code> but can be evaluated at compile time.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">str</td><td>The C string to search in. </td></tr>
@@ -1081,7 +1083,7 @@ This function is constexpr-compatible and can be used in compile-time contexts.<
 </div><div class="memdoc">
 
 <p>Finds the first occurrence of a substring in a C string. </p>
-<p>This function searches for the first occurrence of the <em class="arg">needle</em> string within the <em class="arg">haystack</em> string. The search is performed character by character from the beginning and returns a pointer to the beginning of the first occurrence, or nullptr if the substring is not found. This function is designed to be constexpr-compatible and provides the same behavior as std::strstr but can be evaluated at compile time.</p>
+<p>This function searches for the first occurrence of the <em class="arg">needle</em> string within the <em class="arg">haystack</em> string. The search is performed character by character from the beginning and returns a pointer to the beginning of the first occurrence, or nullptr if the substring is not found. This function is designed to be constexpr-compatible and provides the same behavior as <code>std::strstr</code> but can be evaluated at compile time.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">haystack</td><td>The C string to search in. </td></tr>
@@ -3212,7 +3214,7 @@ The source <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" tit
 The function returns <code>nullptr</code> on buffer overflow or invalid input.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Only BMP (≤ 0xFFFF) characters are supported by design; 4-byte UTF-8 sequences are not produced. </dd>
 <dd>
-This template works with std::string, <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="toy::FixedString">toy::FixedString</a>, and other string-like types. </dd></dl>
+This template works with <code>std::string</code>, <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="toy::FixedString">toy::FixedString</a>, and other string-like types. </dd></dl>
 
 </div>
 </div>
