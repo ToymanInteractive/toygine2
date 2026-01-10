@@ -109,7 +109,7 @@ public:
     \sa FormatString(const CStringView &)
     \sa toy::CStringView
   */
-  constexpr CStringView get() const noexcept;
+  [[nodiscard]] constexpr CStringView get() const noexcept;
 
 private:
   const CStringView _string; //!< The stored format string.

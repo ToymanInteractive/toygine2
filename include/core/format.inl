@@ -83,7 +83,7 @@ constexpr size_t FormatString<Args...>::_countFormatPlaceholders(const CStringVi
   return placeholderCount;
 }
 
-inline void _compileTimeError(const char *) noexcept {
+inline void _compileTimeError([[maybe_unused]] const char * message) noexcept {
   // Intentionally cause a compile-time error
 }
 
