@@ -82,6 +82,11 @@ constexpr size_t FormatString<Args...>::_countFormatPlaceholders(const CStringVi
 
   return placeholderCount;
 }
+
+inline void _compileTimeError(const char *) noexcept {
+  // Intentionally cause a compile-time error
+}
+
 } // namespace toy
 
 #endif // INCLUDE_CORE_FORMAT_INL_

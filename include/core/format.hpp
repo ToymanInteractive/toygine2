@@ -133,9 +133,24 @@ private:
   */
   [[nodiscard]] static constexpr size_t _countFormatPlaceholders(const CStringView & string) noexcept;
 
-  inline void _compileTimeError(const char *) noexcept {
-    // Intentionally cause a compile-time error
-  }
+  /*!
+    \brief Generates a compile-time error when called in consteval context.
+
+    This function is used to trigger compile-time errors when format string validation fails. When called within a
+    \c consteval function, the compiler will generate an error message, effectively preventing invalid format strings
+    from being used.
+
+    The function is intentionally left empty, as its purpose is to be called in a context where the compiler can
+    detect that it would be executed, causing a compile-time error. In \c consteval contexts, calling this function
+    with a condition that evaluates to true will result in a compile-time error.
+
+    \param message The error message to display (currently unused, but provided for future use or debugging).
+
+    \note This function should only be called from within \c consteval contexts where validation fails.
+
+    \sa FormatString(const CStringView &)
+  */
+  void _compileTimeError(const char * message) noexcept;
 };
 
 } // namespace toy
