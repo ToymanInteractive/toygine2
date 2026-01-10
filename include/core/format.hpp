@@ -67,8 +67,8 @@ namespace toy {
   \note Invalid format strings result in compile-time errors, not runtime exceptions.
   \note This class is similar to \c std::format_string but designed for use with \ref toy::CStringView.
 
-  \sa CStringView
-  \sa StringLike
+  \sa toy::CStringView
+  \sa toy::StringLike
 */
 template <class... Args>
 class FormatString {
@@ -107,7 +107,7 @@ public:
     \note The returned \ref toy::CStringView is a non-owning view and does not copy the underlying string data.
 
     \sa FormatString(const CStringView &)
-    \sa CStringView
+    \sa toy::CStringView
   */
   constexpr CStringView get() const noexcept;
 
@@ -129,24 +129,19 @@ private:
     \note This function is constexpr-compatible and can be used in compile-time contexts.
     \note Returns \ref toy::CStringView::npos if unmatched braces are detected.
 
-    \sa CStringView::npos
+    \sa toy::CStringView::npos
   */
   [[nodiscard]] static constexpr size_t _countFormatPlaceholders(const CStringView & string) noexcept;
 
   /*!
-    \brief Generates a compile-time error when called in consteval context.
+    \brief Triggers a compile-time error when format string validation fails.
 
-    This function is used to trigger compile-time errors when format string validation fails. When called within a
-    \c consteval function, the compiler will generate an error message, effectively preventing invalid format strings
-    from being used.
+    Called from within the \c consteval constructor to generate compile-time errors for invalid format strings.
 
-    The function is intentionally left empty, as its purpose is to be called in a context where the compiler can
-    detect that it would be executed, causing a compile-time error. In \c consteval contexts, calling this function
-    with a condition that evaluates to true will result in a compile-time error.
+    \param message Error message describing the validation failure.
 
-    \param message The error message to display (currently unused, but provided for future use or debugging).
-
-    \note This function should only be called from within \c consteval contexts where validation fails.
+    \note Only called from \c consteval contexts.
+    \note Causes compilation to fail when executed.
 
     \sa FormatString(const CStringView &)
   */
