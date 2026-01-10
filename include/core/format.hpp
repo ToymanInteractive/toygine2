@@ -145,7 +145,7 @@ private:
 
     \sa FormatString(const CStringView &)
   */
-  void _compileTimeError(const char * message) noexcept;
+  static void _compileTimeError(const char * message) noexcept;
 };
 
 } // namespace toy
