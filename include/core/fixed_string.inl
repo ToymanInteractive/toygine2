@@ -382,38 +382,6 @@ constexpr void FixedString<allocatedSize>::utf8_pop_back() noexcept {
 }
 
 template <size_t allocatedSize>
-constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::append(
-  const FixedString<allocatedSize> & string) noexcept {
-  assert_message(this != &string, "Cannot append string into itself");
-
-  _append_raw(string._storage.buffer, string._storage.size);
-
-  return *this;
-}
-
-template <size_t allocatedSize>
-template <StringLike stringType>
-constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::append(const stringType & string) noexcept {
-  assert_message(_storage.buffer != string.c_str(), "Cannot append string into itself");
-
-  _append_raw(string.c_str(), string.size());
-
-  return *this;
-}
-
-template <size_t allocatedSize>
-constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::append(const char * string) noexcept {
-  assert_message(_storage.buffer != string, "Cannot append string into itself");
-  assert_message(string != nullptr, "C string must not be null");
-
-  const auto stringLen = char_traits<char>::length(string);
-
-  _append_raw(string, stringLen);
-
-  return *this;
-}
-
-template <size_t allocatedSize>
 constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::append(size_type count, char character) noexcept {
   assert_message(character != '\0', "Character must not be null.");
 
@@ -430,6 +398,49 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::append(size_t
 
   _storage.size += count;
   _storage.buffer[_storage.size] = '\0';
+
+  return *this;
+}
+
+template <size_t allocatedSize>
+constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::append(const char * string,
+                                                                          size_type count) noexcept {
+  assert_message(_storage.buffer != string, "Cannot append string into itself");
+  assert_message(string != nullptr, "C string must not be null");
+  assert_message(char_traits<char>::length(string) >= count, "C string must be at least 'count' characters long");
+
+  _append_raw(string, count);
+  _storage.buffer[_storage.size] = '\0';
+
+  return *this;
+}
+
+template <size_t allocatedSize>
+constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::append(const char * string) noexcept {
+  assert_message(_storage.buffer != string, "Cannot append string into itself");
+  assert_message(string != nullptr, "C string must not be null");
+
+  _append_raw(string, char_traits<char>::length(string));
+
+  return *this;
+}
+
+template <size_t allocatedSize>
+constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::append(
+  const FixedString<allocatedSize> & string) noexcept {
+  assert_message(this != &string, "Cannot append string into itself");
+
+  _append_raw(string._storage.buffer, string._storage.size);
+
+  return *this;
+}
+
+template <size_t allocatedSize>
+template <StringLike stringType>
+constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::append(const stringType & string) noexcept {
+  assert_message(_storage.buffer != string.c_str(), "Cannot append string into itself");
+
+  _append_raw(string.c_str(), string.size());
 
   return *this;
 }

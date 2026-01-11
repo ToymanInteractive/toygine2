@@ -811,6 +811,61 @@ public:
   constexpr void utf8_pop_back() noexcept;
 
   /*!
+    \brief Appends a \a character repeated the given \a count times to the end of this string.
+
+    This method appends a \a character repeated the given \a count of times to the end of this string.
+
+    \param count     The number of times to repeat the \a character.
+    \param character The character to append.
+
+    \return A reference to this string after appending.
+
+    \pre The combined length after appending must not exceed the allocated size.
+
+    \post The \a character is appended \a count times to the end of the string.
+    \post The string size is increased by \a count.
+  */
+  constexpr FixedString<allocatedSize> & append(size_type count, char character) noexcept;
+
+  /*!
+    \brief Appends the first \a count characters from the C \a string to the end of this string.
+
+    This method appends the first \a count characters from the C \a string to the end of this string.
+
+    \param string The source C string to append content from.
+    \param count  The number of characters to append from the C string.
+
+    \return A reference to this string after appending.
+
+    \pre The combined length after appending must not exceed the allocated size.
+    \pre The source C \a string must not be null.
+    \pre The C \a string must be at least \a count characters long.
+
+    \post The string size is increased by \a count.
+  */
+  constexpr FixedString<allocatedSize> & append(const char * string, size_type count) noexcept;
+
+  /*!
+    \brief Appends the C \a string to the end of this string.
+
+    This method appends the contents of the C \a string to the end of this string.
+
+    \param string The source C string to append content from.
+
+    \return A reference to this string after appending.
+
+    \pre The combined length after appending must not exceed the allocated size.
+    \pre The source C \a string must not be null.
+
+    \post The string is extended with the appended content.
+
+    \note This method is equivalent to the addition assignment operator.
+
+    \sa operator+=(const char *)
+  */
+  constexpr FixedString<allocatedSize> & append(const char * string) noexcept;
+
+  /*!
     \brief Appends other \a string to the end of this string.
 
     This method appends the contents of another \a string to the end of this string.
@@ -848,46 +903,10 @@ public:
     \note This method is equivalent to the addition assignment operator.
 
     \sa operator+=(const stringType &)
+    \sa toy::StringLike
   */
   template <StringLike stringType>
   constexpr FixedString<allocatedSize> & append(const stringType & string) noexcept;
-
-  /*!
-    \brief Appends the C \a string to the end of this string.
-
-    This method appends the contents of the C \a string to the end of this string.
-
-    \param string The source C string to append content from.
-
-    \return A reference to this string after appending.
-
-    \pre The combined length after appending must not exceed the allocated size.
-    \pre The source C \a string must not be null.
-
-    \post The string is extended with the appended content.
-
-    \note This method is equivalent to the addition assignment operator.
-
-    \sa operator+=(const char *)
-  */
-  constexpr FixedString<allocatedSize> & append(const char * string) noexcept;
-
-  /*!
-    \brief Appends a \a character repeated the given \a count times to the end of this string.
-
-    This method appends a \a character repeated the given \a count of times to the end of this string.
-
-    \param count     The number of times to repeat the \a character.
-    \param character The character to append.
-
-    \return A reference to this string after appending.
-
-    \pre The combined length after appending must not exceed the allocated size.
-
-    \post The \a character is appended \a count times to the end of the string.
-    \post The string size is increased by \a count.
-  */
-  constexpr FixedString<allocatedSize> & append(size_type count, char character) noexcept;
 
   /*!
     \brief Appends other \a string to the end of this string.
