@@ -1,5 +1,6 @@
 var NAVTREEINDEX1 =
 {
+"d4/da9/namespacetoy.html#a9fbbca3cbd855381284624d5fc830d49":[3,0,0,12],
 "d4/da9/namespacetoy.html#a9fbbca3cbd855381284624d5fc830d49a044fc9e908d0f160ae1a8ac300eb2b3d":[3,0,0,12,2],
 "d4/da9/namespacetoy.html#a9fbbca3cbd855381284624d5fc830d49a88183b946cc5f0e8c96b2e66e1c74a7e":[3,0,0,12,4],
 "d4/da9/namespacetoy.html#a9fbbca3cbd855381284624d5fc830d49a8a9da7865483c5fd359f3acef178d26d":[3,0,0,12,0],
@@ -248,6 +249,5 @@ var NAVTREEINDEX1 =
 "d7/dec/classtoy_1_1_fixed_vector.html#a69a70f101a77333478a20fa4b3885971":[5,0,0,7,26],
 "d7/dec/classtoy_1_1_fixed_vector.html#a6d4949391844c1bb740b5656e2dbc0d4":[3,0,0,8,57],
 "d7/dec/classtoy_1_1_fixed_vector.html#a6d4949391844c1bb740b5656e2dbc0d4":[5,0,0,7,57],
-"d7/dec/classtoy_1_1_fixed_vector.html#a70de75bb05cc09aefa48483784ee0465":[3,0,0,8,25],
-"d7/dec/classtoy_1_1_fixed_vector.html#a70de75bb05cc09aefa48483784ee0465":[5,0,0,7,25]
+"d7/dec/classtoy_1_1_fixed_vector.html#a70de75bb05cc09aefa48483784ee0465":[3,0,0,8,25]
 };

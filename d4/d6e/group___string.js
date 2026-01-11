@@ -100,6 +100,7 @@ var group___string =
       [ "_replace_raw", "d3/d7a/classtoy_1_1_fixed_string.html#a056a7c84f6d671f2fb5192af93d2c4f4", null ],
       [ "_rfind_raw", "d3/d7a/classtoy_1_1_fixed_string.html#a046f421bc4e826db9e77bef9646811e3", null ],
       [ "append", "d3/d7a/classtoy_1_1_fixed_string.html#a91164b48eea66fabbf553ec8563e741c", null ],
+      [ "append", "d3/d7a/classtoy_1_1_fixed_string.html#a2512493e108e9c272f1685e46f6ae8fd", null ],
       [ "append", "d3/d7a/classtoy_1_1_fixed_string.html#a8a08c2c46a3a9c9222f5f4c05cb10ddc", null ],
       [ "append", "d3/d7a/classtoy_1_1_fixed_string.html#a38f0a05db9dc1625048db4a8aa9d30c5", null ],
       [ "append", "d3/d7a/classtoy_1_1_fixed_string.html#adbb286024fb0ed5c832d29ed9701046d", null ],
