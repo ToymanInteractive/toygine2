@@ -382,6 +382,58 @@ constexpr void FixedString<allocatedSize>::utf8_pop_back() noexcept {
 }
 
 template <size_t allocatedSize>
+constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::append(size_type count, char character) noexcept {
+  assert_message(character != '\0', "Character must not be null.");
+  if (character == '\0' || count == 0)
+    return *this;
+
+  assert_message(_storage.size + count < allocatedSize, "Appended string must fit in capacity");
+
+  if consteval {
+    std::fill_n(_storage.buffer + _storage.size, count, character);
+  } else {
+    std::memset(_storage.buffer + _storage.size, character, count);
+  }
+
+  _storage.size += count;
+  _storage.buffer[_storage.size] = '\0';
+
+  return *this;
+}
+
+template <size_t allocatedSize>
+constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::append(const char * string,
+                                                                          size_type count) noexcept {
+  if (count == 0)
+    return *this;
+
+  assert_message(string != nullptr, "C string must not be null");
+  assert_message(char_traits<char>::find(string, count, '\0') == nullptr,
+                 "C string must be at least 'count' characters long");
+  assert_message(_storage.size + count < allocatedSize, "Appended data must fit in capacity");
+  if !consteval {
+    assert_message(((string + count) < _storage.buffer) || (string >= (_storage.buffer + allocatedSize)),
+                   "Source data pointer must not point into _storage.buffer buffer");
+  }
+
+  char_traits<char>::move(_storage.buffer + _storage.size, string, count);
+  _storage.size += count;
+  _storage.buffer[_storage.size] = '\0';
+
+  return *this;
+}
+
+template <size_t allocatedSize>
+constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::append(const char * string) noexcept {
+  assert_message(_storage.buffer != string, "Cannot append string into itself");
+  assert_message(string != nullptr, "C string must not be null");
+
+  _append_raw(string, char_traits<char>::length(string));
+
+  return *this;
+}
+
+template <size_t allocatedSize>
 constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::append(
   const FixedString<allocatedSize> & string) noexcept {
   assert_message(this != &string, "Cannot append string into itself");
@@ -397,39 +449,6 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::append(const 
   assert_message(_storage.buffer != string.c_str(), "Cannot append string into itself");
 
   _append_raw(string.c_str(), string.size());
-
-  return *this;
-}
-
-template <size_t allocatedSize>
-constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::append(const char * string) noexcept {
-  assert_message(_storage.buffer != string, "Cannot append string into itself");
-  assert_message(string != nullptr, "C string must not be null");
-
-  const auto stringLen = char_traits<char>::length(string);
-
-  _append_raw(string, stringLen);
-
-  return *this;
-}
-
-template <size_t allocatedSize>
-constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::append(size_type count, char character) noexcept {
-  assert_message(character != '\0', "Character must not be null.");
-
-  if (character == '\0' || count == 0)
-    return *this;
-
-  assert_message(_storage.size + count < allocatedSize, "Appended string must fit in capacity");
-
-  if consteval {
-    std::fill_n(_storage.buffer + _storage.size, count, character);
-  } else {
-    std::memset(_storage.buffer + _storage.size, character, count);
-  }
-
-  _storage.size += count;
-  _storage.buffer[_storage.size] = '\0';
 
   return *this;
 }

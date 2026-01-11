@@ -236,11 +236,8 @@ template <typename StringType>
 constexpr OStringStream<StringType> & OStringStream<StringType>::write(const char_type * string,
                                                                        size_t count) noexcept {
   assert_message(string != nullptr, "Source string must not be null.");
-  if (string == nullptr || count == 0)
-    return *this;
-
-  for (size_t i = 0; i < count; ++i)
-    _string.push_back(string[i]);
+  if (string != nullptr && count > 0)
+    _string.append(string, count);
 
   return *this;
 }

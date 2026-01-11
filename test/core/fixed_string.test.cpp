@@ -3594,6 +3594,42 @@ TEST_CASE("FixedString append", "[core][fixed_string]") {
     REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
   }
 
+  SECTION("Append C-string with count") {
+    FixedString<32> testString("Hello");
+
+    REQUIRE(testString.size() == 5);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello") == 0);
+
+    testString.append(" World!", 6);
+
+    REQUIRE(testString.size() == 11);
+    REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
+  }
+
+  SECTION("Append partial C-string") {
+    FixedString<32> testString("Test");
+
+    REQUIRE(testString.size() == 4);
+    REQUIRE(std::strcmp(testString.c_str(), "Test") == 0);
+
+    testString.append("12345", 3);
+
+    REQUIRE(testString.size() == 7);
+    REQUIRE(std::strcmp(testString.c_str(), "Test123") == 0);
+  }
+
+  SECTION("Append zero count from C-string") {
+    FixedString<32> testString("Hello");
+
+    const auto originalSize = testString.size();
+    const auto originalContent = std::string(testString.c_str());
+
+    testString.append("World", 0);
+
+    REQUIRE(testString.size() == originalSize);
+    REQUIRE(std::strcmp(testString.c_str(), originalContent.c_str()) == 0);
+  }
+
   SECTION("Append std::string") {
     FixedString<32> testString("Hello");
 
