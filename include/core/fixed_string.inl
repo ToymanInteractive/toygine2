@@ -405,11 +405,20 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::append(size_t
 template <size_t allocatedSize>
 constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::append(const char * string,
                                                                           size_type count) noexcept {
-  assert_message(_storage.buffer != string, "Cannot append string into itself");
-  assert_message(string != nullptr, "C string must not be null");
-  assert_message(char_traits<char>::length(string) >= count, "C string must be at least 'count' characters long");
+  if (count == 0)
+    return *this;
 
-  _append_raw(string, count);
+  assert_message(string != nullptr, "C string must not be null");
+  assert_message(char_traits<char>::find(string, count, '\0') == nullptr,
+                 "C string must be at least 'count' characters long");
+  assert_message(_storage.size + count < allocatedSize, "Appended data must fit in capacity");
+  if !consteval {
+    assert_message(((string + count) < _storage.buffer) || (string >= (_storage.buffer + allocatedSize)),
+                   "Source data pointer must not point into _storage.buffer buffer");
+  }
+
+  char_traits<char>::move(_storage.buffer + _storage.size, string, count);
+  _storage.size += count;
   _storage.buffer[_storage.size] = '\0';
 
   return *this;
