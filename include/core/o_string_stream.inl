@@ -40,7 +40,7 @@ constexpr void OStringStream<StringType>::swap(OStringStream & other) noexcept {
 
 template <typename StringType>
 constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(bool value) noexcept {
-  _string += value ? "true" : "false";
+  _string.append(value ? "true" : "false");
 
   return *this;
 }
@@ -50,7 +50,7 @@ constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(int8
   char buffer[5];
 
   itoa(buffer, size(buffer), value);
-  _string += buffer;
+  _string.append(buffer);
 
   return *this;
 }
@@ -60,7 +60,7 @@ constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(int1
   char buffer[7];
 
   itoa(buffer, size(buffer), value);
-  _string += buffer;
+  _string.append(buffer);
 
   return *this;
 }
@@ -70,7 +70,7 @@ constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(int3
   char buffer[12];
 
   itoa(buffer, size(buffer), value);
-  _string += buffer;
+  _string.append(buffer);
 
   return *this;
 }
@@ -80,7 +80,7 @@ constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(int6
   char buffer[21];
 
   itoa(buffer, size(buffer), value);
-  _string += buffer;
+  _string.append(buffer);
 
   return *this;
 }
@@ -90,7 +90,7 @@ constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(uint
   char buffer[4];
 
   utoa(buffer, size(buffer), value);
-  _string += buffer;
+  _string.append(buffer);
 
   return *this;
 }
@@ -100,7 +100,7 @@ constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(uint
   char buffer[6];
 
   utoa(buffer, size(buffer), value);
-  _string += buffer;
+  _string.append(buffer);
 
   return *this;
 }
@@ -110,7 +110,7 @@ constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(uint
   char buffer[11];
 
   utoa(buffer, size(buffer), value);
-  _string += buffer;
+  _string.append(buffer);
 
   return *this;
 }
@@ -120,7 +120,7 @@ constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(uint
   char buffer[21];
 
   utoa(buffer, size(buffer), value);
-  _string += buffer;
+  _string.append(buffer);
 
   return *this;
 }
@@ -131,8 +131,7 @@ constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(floa
 
   static_assert(sizeof(value) == 4, "Unsupported value size");
   ftoa(buffer, size(buffer), value, _precision);
-
-  _string += buffer;
+  _string.append(buffer);
 
   return *this;
 }
@@ -143,8 +142,7 @@ constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(doub
 
   static_assert(sizeof(value) == 8, "Unsupported value size");
   ftoa(buffer, size(buffer), value, _precision);
-
-  _string += buffer;
+  _string.append(buffer);
 
   return *this;
 }
@@ -171,14 +169,14 @@ constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(cons
   if (leadingZeros > 0)
     _string.append(leadingZeros, '0');
 
-  _string += buffer;
+  _string.append(buffer);
 
   return *this;
 }
 
 template <typename StringType>
 constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(nullptr_t) noexcept {
-  _string += "nullptr";
+  _string.append("nullptr");
 
   return *this;
 }
