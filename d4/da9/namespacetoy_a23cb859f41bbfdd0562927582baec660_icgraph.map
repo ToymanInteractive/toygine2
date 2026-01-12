@@ -1,5 +1,0 @@
-<map id="toy::_ftoa64Engine" name="toy::_ftoa64Engine">
-<area shape="rect" id="Node000001" title="Converts a 64&#45;bit floating&#45;point number to its string representation with specified precision." alt="" coords="128,5,271,31"/>
-<area shape="rect" id="Node000002" href="$d4/da9/namespacetoy.html#a153b39b476aa91d0b98f6350eeae88a2" title="Converts a 64&#45;bit floating&#45;point number to its C string representation with specified precision." alt="" coords="5,5,80,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="114,21,80,21,80,15,114,15"/>
-</map>

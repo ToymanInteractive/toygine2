@@ -1,6 +1,0 @@
-<map id="toy::CStringView::length" name="toy::CStringView::length">
-<area shape="rect" id="Node000001" title="Returns the size of the string view." alt="" coords="5,37,183,62"/>
-<area shape="rect" id="Node000002" href="$d7/d15/classtoy_1_1_o_string_stream.html#a2771f205d9b13c0281df543a5c50254f" title=" " alt="" coords="231,29,376,69"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="183,47,217,47,217,52,183,52"/>
-<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="264,30,262,20,268,10,282,5,303,3,328,6,341,13,338,18,326,11,303,8,283,10,271,15,267,21,269,28"/>
-</map>

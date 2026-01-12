@@ -1,6 +1,0 @@
-<map id="toy::FixedString::_append_raw" name="toy::FixedString::_append_raw">
-<area shape="rect" id="Node000001" title="Helper method for appending data to the end of the string." alt="" coords="5,29,136,69"/>
-<area shape="rect" id="Node000002" href="$d7/d15/classtoy_1_1_o_string_stream.html#a2771f205d9b13c0281df543a5c50254f" title=" " alt="" coords="184,29,329,69"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="136,47,170,47,170,52,136,52"/>
-<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="222,30,220,20,225,11,238,5,257,3,278,6,290,13,287,17,277,11,257,8,239,10,229,15,225,21,227,28"/>
-</map>

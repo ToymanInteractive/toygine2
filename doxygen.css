@@ -1,4 +1,4 @@
-/* The standard CSS for doxygen 1.16.0*/
+/* The standard CSS for doxygen 1.16.1*/
 
 body {
 	background-color: white;
@@ -2131,7 +2131,7 @@ details[open]>summary::before {
 
 
 html {
---timestamp: 'Sun Jan 11 2026';
+--timestamp: 'Mon Jan 12 2026';
 }
 span.timestamp { content: ' '; }
 span.timestamp:before { content: var(--timestamp); }
