@@ -154,8 +154,6 @@ constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(cons
 
   char buffer[17];
 
-  _string += "0x";
-
   if constexpr (sizeof(value) == 4) {
     utoa(buffer, size(buffer), static_cast<uint32_t>(reinterpret_cast<uintptr_t>(value)), 16);
   } else if constexpr (sizeof(value) == 8) {
@@ -163,6 +161,8 @@ constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(cons
   } else {
     static_assert(sizeof(value) == 4 || sizeof(value) == 8, "Unsupported pointer size");
   }
+
+  _string.append("0x");
 
   const auto bufferDataLen = char_traits<char>::length(buffer);
   const int leadingZeros = static_cast<int>(sizeof(value)) * 2 - static_cast<int>(bufferDataLen);
