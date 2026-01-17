@@ -93,7 +93,9 @@ public:
 
     \sa get()
   */
-  consteval explicit(false) FormatString(const CStringView & string) noexcept;
+  template <typename StringType>
+    requires std::convertible_to<StringType, CStringView>
+  consteval explicit(false) FormatString(StringType string) noexcept;
 
   /*!
     \brief Returns a copy of the stored format string.
@@ -147,6 +149,9 @@ private:
   */
   static void _compileTimeError(const char * message) noexcept;
 };
+
+template <typename StringType, class... Args>
+StringType & format(StringType & out, FormatString<Args...> formatString, Args &&... args);
 
 } // namespace toy
 
