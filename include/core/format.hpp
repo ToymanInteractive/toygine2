@@ -153,6 +153,9 @@ private:
 template <typename StringType, class... Args>
 StringType & format(StringType & out, FormatString<Args...> formatString, Args &&... args);
 
+template <typename StringType, class... Args, size_t N>
+StringType & format(StringType & out, const char (&formatString)[N], Args &&... args);
+
 } // namespace toy
 
 #endif // INCLUDE_CORE_FORMAT_HPP_

@@ -100,6 +100,12 @@ inline StringType & format(StringType & out, FormatString<Args...> formatString,
   return out;
 }
 
+template <typename StringType, class... Args, size_t N>
+inline StringType & format(StringType & out, const char (&formatString)[N], Args &&... args) {
+  constexpr FormatString<Args...> fs(formatString);
+  return format(out, fs, std::forward<Args>(args)...);
+}
+
 } // namespace toy
 
 #endif // INCLUDE_CORE_FORMAT_INL_
