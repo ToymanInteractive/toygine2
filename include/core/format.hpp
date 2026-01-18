@@ -148,6 +148,9 @@ private:
   static void _compileTimeError(const char * message) noexcept;
 };
 
+template <size_t allocatedSize, class... Args>
+[[nodiscard]] FixedString<allocatedSize> vformat(const CStringView & formatString, Args &&... args);
+
 } // namespace toy
 
 #endif // INCLUDE_CORE_FORMAT_HPP_

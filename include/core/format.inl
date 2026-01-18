@@ -25,6 +25,12 @@
 #ifndef INCLUDE_CORE_FORMAT_INL_
 #define INCLUDE_CORE_FORMAT_INL_
 
+#include <tuple>
+#include <type_traits>
+#include <utility>
+
+#include "o_string_stream.hpp"
+
 namespace toy {
 
 template <class... Args>
@@ -86,6 +92,18 @@ constexpr size_t FormatString<Args...>::_countFormatPlaceholders(const CStringVi
 template <class... Args>
 inline void FormatString<Args...>::_compileTimeError([[maybe_unused]] const char * message) noexcept {
   // Intentionally cause a compile-time error
+}
+
+template <size_t allocatedSize, class... Args>
+[[nodiscard]] inline FixedString<allocatedSize> vformat(const CStringView & formatString,
+                                                        [[maybe_unused]] Args &&... args) {
+  FixedString<allocatedSize> result;
+
+  auto stream = OStringStream<FixedString<allocatedSize>>(result);
+
+  stream << formatString.c_str();
+
+  return result;
 }
 
 } // namespace toy
