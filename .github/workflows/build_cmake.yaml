@@ -99,7 +99,7 @@ jobs:
       - name: APT cache restore
         if: contains(matrix.os, 'ubuntu') && matrix.container == ''
         id: buildaptcache
-        uses: actions/cache/restore@v5.0.1
+        uses: actions/cache/restore@v5.0.2
         with:
           path: ${{ runner.temp }}/apt-cache
           key: build-${{ matrix.os }}-apt-${{ matrix.cmake_preset }}
@@ -155,7 +155,7 @@ jobs:
 
       - name: APT cache save
         if: contains(matrix.os, 'ubuntu') && matrix.container == '' && steps.buildaptcache.outputs.cache-hit != 'true'
-        uses: actions/cache/save@v5.0.1
+        uses: actions/cache/save@v5.0.2
         with:
           path: ${{ runner.temp }}/apt-cache
           key: ${{ steps.buildaptcache.outputs.cache-primary-key }}
@@ -192,7 +192,7 @@ jobs:
 
       - name: APT cache restore
         id: unittestaptcache
-        uses: actions/cache/restore@v5.0.1
+        uses: actions/cache/restore@v5.0.2
         with:
           path: ${{ runner.temp }}/apt-cache
           key: unit-test-apt
@@ -223,7 +223,7 @@ jobs:
 
       - name: APT cache save
         if: steps.unittestaptcache.outputs.cache-hit != 'true'
-        uses: actions/cache/save@v5.0.1
+        uses: actions/cache/save@v5.0.2
         with:
           path: ${{ runner.temp }}/apt-cache
           key: ${{ steps.unittestaptcache.outputs.cache-primary-key }}
@@ -284,7 +284,7 @@ jobs:
 
       - name: APT cache restore
         id: sonarcloudaptcache
-        uses: actions/cache/restore@v5.0.1
+        uses: actions/cache/restore@v5.0.2
         with:
           path: ${{ runner.temp }}/apt-cache
           key: sonar-cloud-apt
@@ -318,7 +318,7 @@ jobs:
 
       - name: APT cache save
         if: steps.sonarcloudaptcache.outputs.cache-hit != 'true'
-        uses: actions/cache/save@v5.0.1
+        uses: actions/cache/save@v5.0.2
         with:
           path: ${{ runner.temp }}/apt-cache
           key: ${{ steps.sonarcloudaptcache.outputs.cache-primary-key }}
