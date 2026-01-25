@@ -27,19 +27,36 @@
 
 set -e -o pipefail
 
+# Get all modified files in the current branch compared to base branch
 FILES_TO_CHECK=$(git diff --name-only HEAD^ | (grep -E ".*\.(cpp|cc|c\+\+|cxx|c|h|hpp|inl|java|js)$" || true) \
                                             | (grep -v "^src/thirdparty/.*/.*" || true))
 
-if [ -z "$FILES_TO_CHECK" ]; then
+if [[ -z "$FILES_TO_CHECK" ]]; then
   echo "There is no source code to check the formatting."
   exit 0
 fi
 
-if FORMAT_DIFF=$(git diff -U0 HEAD^ -- "${FILES_TO_CHECK[@]}" | clang-format-diff -p1 -style=file) && [ -z "$FORMAT_DIFF" ]; then
-  echo "All the source code in the PR is formatted correctly."
+echo "Checking formatting for files in branch..."
+echo "$FILES_TO_CHECK"
+
+FORMAT_ERRORS=0
+
+for file in $FILES_TO_CHECK; do
+  if [ ! -f "$file" ]; then
+    continue  # File may have been deleted
+  fi
+
+  # Check if the file requires formatting
+  if ! clang-format --dry-run -Werror -style=file "$file" 2>/dev/null; then
+    echo "Formatting needed: $file"
+    FORMAT_ERRORS=$((FORMAT_ERRORS + 1))
+  fi
+done
+
+if [ $FORMAT_ERRORS -eq 0 ]; then
+  echo "All source code is formatted correctly."
   exit 0
 else
-  echo "Formatting errors found!"
-  echo "$FORMAT_DIFF"
+  echo "Found $FORMAT_ERRORS file(s) with formatting errors!"
   exit 1
 fi
