@@ -56,25 +56,25 @@ jobs:
 
           - name: DevkitPro GBA
             os: ubuntu-24.04
-            container: devkitpro/devkitarm:20251231
+            container: docker/Dockerfile.devkitarm
             run_test: "false"
             cmake_preset: nintendo-gba-ninja-release
 
           - name: DevkitPro NDS
             os: ubuntu-24.04
-            container: devkitpro/devkitarm:20251231
+            container: docker/Dockerfile.devkitarm
             run_test: "false"
             cmake_preset: nintendo-ds-ninja-release
 
           - name: DevkitPro 3DS
             os: ubuntu-24.04
-            container: devkitpro/devkitarm:20251231
+            container: docker/Dockerfile.devkitarm
             run_test: "false"
             cmake_preset: nintendo-3ds-ninja-release
 
           - name: DevkitPro Switch
             os: ubuntu-24.04
-            container: devkitpro/devkita64:20251231
+            container: docker/Dockerfile.devkita64
             run_test: "false"
             cmake_preset: nintendo-switch-ninja-release
 
