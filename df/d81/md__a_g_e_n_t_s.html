@@ -446,6 +446,10 @@ Naming Tests</h1>
 <li>Test names must describe behavior, not implementation.</li>
 <li>Avoid redundant prefixes.</li>
 <li>Avoid repeating the tested type name unless necessary.</li>
+<li><span class="tt">TEST_CASE</span> names must follow <span class="tt">&lt;module&gt;/&lt;class&gt;/&lt;case&gt;[_&lt;variant&gt;]</span>.</li>
+<li><span class="tt">TEST_CASE</span> names use <span class="tt">lowercase_snake_case</span>.</li>
+<li>Human-readable descriptions go in a comment immediately before <span class="tt">TEST_CASE</span> or <span class="tt">SUBCASE</span>.</li>
+<li>Avoid a single <span class="tt">SUBCASE</span> inside a <span class="tt">TEST_CASE</span>.</li>
 </ul>
 <hr  />
 <h1 class="doxsection"><a class="anchor" id="floating-point-rules"></a>
