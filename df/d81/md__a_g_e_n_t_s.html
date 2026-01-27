@@ -239,6 +239,14 @@ Error Handling</h1>
 </ul>
 </li>
 </ul>
+<h2 class="doxsection"><a class="anchor" id="assertions"></a>
+Assertions</h2>
+<ul>
+<li>Prefer <span class="tt"><a class="el" href="../../d1/d5f/assertion__macro__gcc__clang_8hpp.html#a672330c2fecd516f254162cd9611d91a" title="Debug assertion macro with custom message for runtime expression checking.">assert_message</a></span> over plain <span class="tt"><a class="el" href="../../d1/d5f/assertion__macro__gcc__clang_8hpp.html#a0041af519e0e7d47c9bcc83760c4669e" title="Debug assertion macro for runtime expression checking.">assert</a></span> when asserting invariants.</li>
+<li>Always use the two-argument form with a human-readable message so that failure output is understandable without reading the code.</li>
+<li>For <span class="tt"><a class="el" href="../../d1/d5f/assertion__macro__gcc__clang_8hpp.html#a672330c2fecd516f254162cd9611d91a" title="Debug assertion macro with custom message for runtime expression checking.">assert_message</a>(condition, "message")</span>: the string literal must describe what was expected or why the condition must hold.</li>
+<li>For <span class="tt">static_assert(condition, "message")</span>: use the same format; the string literal must explain the invariant in human terms (e.g. <span class="tt">static_assert(length == expected, "length must match the literal's UTF-8 byte count")</span>).</li>
+</ul>
 <hr  />
 <h1 class="doxsection"><a class="anchor" id="naming-conventions"></a>
 Naming Conventions</h1>
@@ -341,8 +349,8 @@ Unit Test Style Rules</h1>
 <h1 class="doxsection"><a class="anchor" id="test-framework-assumptions"></a>
 Test Framework Assumptions</h1>
 <ul>
-<li>Catch2-style tests are assumed.</li>
-<li><span class="tt">static_assert</span> and <span class="tt">STATIC_REQUIRE</span> are preferred when possible.</li>
+<li>DocTest-style tests are assumed.</li>
+<li><span class="tt">static_assert</span> is preferred when possible.</li>
 </ul>
 <hr  />
 <h1 class="doxsection"><a class="anchor" id="general-test-principles"></a>
@@ -371,7 +379,6 @@ Compile-Time (<span class="tt">constexpr</span>) Tests</h2>
 <li>Prefer compile-time verification whenever possible.</li>
 <li>Use:<ul>
 <li><span class="tt">static_assert</span></li>
-<li><span class="tt">STATIC_REQUIRE</span></li>
 </ul>
 </li>
 <li>Test:<ul>
@@ -427,6 +434,16 @@ Value-Based Assertions</h1>
 <li>Do not test private or internal state unless explicitly intended.</li>
 </ul>
 <p>Tests must survive refactoring without semantic changes.</p>
+<hr  />
+<h1 class="doxsection"><a class="anchor" id="string-length-assertions-including-utf-8"></a>
+String length assertions (including UTF-8)</h1>
+<p>When asserting that a string’s <span class="tt">size()</span> or <span class="tt">length()</span> equals the byte length of a string literal (especially UTF-8 or other multi-byte encodings), do not use hardcoded numeric constants.</p>
+<ul>
+<li>Use a compile-time length from the same literal: <span class="tt">std::char_traits&lt;char&gt;::length("...")</span>.</li>
+<li>Example: <span class="tt">REQUIRE(str.size() == std::char_traits&lt;char&gt;::length("Привет мир"))</span> instead of <span class="tt">REQUIRE(str.size() == 19)</span>.</li>
+<li>This keeps tests robust (no manual byte counting, source encoding is the single source of truth) and readable (the literal shows the expected content).</li>
+<li>Include <span class="tt">&lt;string&gt;</span> when using <span class="tt">std::char_traits</span>.</li>
+</ul>
 <hr  />
 <h1 class="doxsection"><a class="anchor" id="constexpr--runtime-parity"></a>
 Constexpr + Runtime Parity</h1>

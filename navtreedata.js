@@ -41,7 +41,9 @@ var NAVTREE =
       ] ],
       [ "Memory and Allocation Rules", "df/d81/md__a_g_e_n_t_s.html#memory-and-allocation-rules", null ],
       [ "Constexpr-First Design", "df/d81/md__a_g_e_n_t_s.html#constexpr-first-design", null ],
-      [ "Error Handling", "df/d81/md__a_g_e_n_t_s.html#error-handling", null ],
+      [ "Error Handling", "df/d81/md__a_g_e_n_t_s.html#error-handling", [
+        [ "Assertions", "df/d81/md__a_g_e_n_t_s.html#assertions", null ]
+      ] ],
       [ "Naming Conventions", "df/d81/md__a_g_e_n_t_s.html#naming-conventions", [
         [ "Private Members", "df/d81/md__a_g_e_n_t_s.html#private-members", null ]
       ] ],
@@ -59,6 +61,7 @@ var NAVTREE =
       ] ],
       [ "Redundancy and Duplication", "df/d81/md__a_g_e_n_t_s.html#redundancy-and-duplication", null ],
       [ "Value-Based Assertions", "df/d81/md__a_g_e_n_t_s.html#value-based-assertions", null ],
+      [ "String length assertions (including UTF-8)", "df/d81/md__a_g_e_n_t_s.html#string-length-assertions-including-utf-8", null ],
       [ "Constexpr + Runtime Parity", "df/d81/md__a_g_e_n_t_s.html#constexpr--runtime-parity", null ],
       [ "Naming Tests", "df/d81/md__a_g_e_n_t_s.html#naming-tests", null ],
       [ "Floating-Point Rules", "df/d81/md__a_g_e_n_t_s.html#floating-point-rules", null ],
@@ -103,7 +106,7 @@ var NAVTREEINDEX =
 "annotated.html",
 "d4/da9/namespacetoy.html#a9fbbca3cbd855381284624d5fc830d49",
 "d7/dec/classtoy_1_1_fixed_vector.html#a70de75bb05cc09aefa48483784ee0465",
-"functions_func_v.html"
+"functions_func_t.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

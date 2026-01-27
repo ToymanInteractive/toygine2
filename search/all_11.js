@@ -1,25 +1,4 @@
 var searchData=
 [
-  ['rbegin_0',['rbegin',['../d7/dec/classtoy_1_1_fixed_vector.html#a834b370c8f747d2e941e51b2f183d162',1,'toy::FixedVector::rbegin() noexcept'],['../d7/dec/classtoy_1_1_fixed_vector.html#af18fa1c4ace6ecae4d26a70a560f306b',1,'toy::FixedVector::rbegin() const noexcept']]],
-  ['readme_2emd_1',['README.md',['../d9/dd6/_r_e_a_d_m_e_8md.html',1,'']]],
-  ['real_5ft_2',['real_t',['../d2/d83/namespacetoy_1_1math.html#a928771ce74a56750dd2dcbc28e5892e0',1,'toy::math']]],
-  ['redundancy_20and_20duplication_3',['Redundancy and Duplication',['../df/d81/md__a_g_e_n_t_s.html#redundancy-and-duplication',1,'']]],
-  ['reference_4',['reference',['../d3/d7a/classtoy_1_1_fixed_string.html#ada28d35679418f1becf6b15790aa14fa',1,'toy::FixedString::reference'],['../d7/dec/classtoy_1_1_fixed_vector.html#a54b2b2db7a31500c6daf4e5ef12a55f3',1,'toy::FixedVector::reference']]],
-  ['references_5',['Cross-References',['../df/d81/md__a_g_e_n_t_s.html#cross-references',1,'']]],
-  ['rem_6',['rem',['../d9/d10/structtoy_1_1__divmod10.html#a0a36126e3c670083dc8d95776ae1e4f4',1,'toy::_divmod10']]],
-  ['remove_7',['remove',['../d8/dc9/classtoy_1_1_callbacks_pool.html#a758ac6322667eadb5f9a001ab7786acd',1,'toy::CallbacksPool']]],
-  ['rend_8',['rend',['../d7/dec/classtoy_1_1_fixed_vector.html#aec0ebc0e70b57778fb5078c2408483fe',1,'toy::FixedVector::rend() noexcept'],['../d7/dec/classtoy_1_1_fixed_vector.html#a502337b071003804ede596849ea084f1',1,'toy::FixedVector::rend() const noexcept']]],
-  ['replace_9',['replace',['../d3/d7a/classtoy_1_1_fixed_string.html#a8b5f30ac56ba63fafc781f60b202f4be',1,'toy::FixedString::replace(size_t pos, size_t count, const FixedString&lt; allocatedSize &gt; &amp;string) noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#a2ab04499e75620da5d7aaa3fcc79c57b',1,'toy::FixedString::replace(size_t pos, size_t count, const stringType &amp;string) noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#a759d69d8c9dd8ff9bbed2d1829da8217',1,'toy::FixedString::replace(size_t pos, size_t count, const char *string) noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#a06dad25686c382641b9c1bbc319bd044',1,'toy::FixedString::replace(size_t pos, size_t count, char character, size_t charactersCount=1) noexcept']]],
-  ['repository_10',['AGENTS Guidelines for This Repository',['../df/d81/md__a_g_e_n_t_s.html',1,'']]],
-  ['requirements_11',['Requirements',['../index.html#requirements',1,'']]],
-  ['reset_12',['reset',['../d8/dc9/classtoy_1_1_callbacks_pool.html#a0a43af989c25f5748843913a48bdc167',1,'toy::CallbacksPool']]],
-  ['reverse_5fiterator_13',['reverse_iterator',['../d3/d7a/classtoy_1_1_fixed_string.html#ad5e05bea8cca36660cfc19a061435405',1,'toy::FixedString::reverse_iterator'],['../d7/dec/classtoy_1_1_fixed_vector.html#a45e0f742275955faed2f6c84a4e0ebeb',1,'toy::FixedVector::reverse_iterator']]],
-  ['reversestring_14',['reverseString',['../d4/da9/namespacetoy.html#a2ad56b53b8cdbb022ce8ce3b2aa32503',1,'toy']]],
-  ['revision_15',['revision',['../d7/d8d/structtoy_1_1app_1_1_version.html#a83cf4b60f1a98acef1b7ba6ae87602e0',1,'toy::app::Version']]],
-  ['rfind_16',['rfind',['../d5/d03/classtoy_1_1_c_string_view.html#a3ae555f117f83592da1aefafdd656af0',1,'toy::CStringView::rfind(const stringType &amp;string, size_t position=npos) const noexcept'],['../d5/d03/classtoy_1_1_c_string_view.html#ada601aeb8a74b2f93c11b58bff50f50b',1,'toy::CStringView::rfind(const char *string, size_t position=npos) const noexcept'],['../d5/d03/classtoy_1_1_c_string_view.html#abc21bf7f8e4d58c5a5834e16bba65208',1,'toy::CStringView::rfind(char character, size_t position=npos) const noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#a7e30fe4fddb938dd11f1e3af0b53132f',1,'toy::FixedString::rfind(const FixedString&lt; allocatedSize &gt; &amp;string, size_t position=npos) const noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#a4002a23810be324c6b9ab23eeaaa1bcf',1,'toy::FixedString::rfind(const stringType &amp;string, size_t position=npos) const noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#a595b8daf5e844d66d63b1807b115c4d3',1,'toy::FixedString::rfind(const char *string, size_t position=npos) const noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#ac0fb8affc96410c2c78456a4c8ee29f0',1,'toy::FixedString::rfind(char character, size_t position=npos) const noexcept']]],
-  ['rule_17',['Final Rule',['../df/d81/md__a_g_e_n_t_s.html#final-rule',1,'']]],
-  ['rules_18',['Rules',['../df/d81/md__a_g_e_n_t_s.html#documentation-style-rules',1,'Documentation Style Rules'],['../df/d81/md__a_g_e_n_t_s.html#floating-point-rules',1,'Floating-Point Rules'],['../df/d81/md__a_g_e_n_t_s.html#memory-and-allocation-rules',1,'Memory and Allocation Rules'],['../df/d81/md__a_g_e_n_t_s.html#unit-test-style-rules',1,'Unit Test Style Rules']]],
-  ['runtime_20parity_19',['Constexpr + Runtime Parity',['../df/d81/md__a_g_e_n_t_s.html#constexpr--runtime-parity',1,'']]],
-  ['runtime_20testing_20',['Compile-Time vs Runtime Testing',['../df/d81/md__a_g_e_n_t_s.html#compile-time-vs-runtime-testing',1,'']]],
-  ['runtime_20tests_21',['Runtime Tests',['../df/d81/md__a_g_e_n_t_s.html#runtime-tests',1,'']]]
+  ['quot_0',['quot',['../d9/d10/structtoy_1_1__divmod10.html#ab2cd556a449dad6de65cdbfe88552248',1,'toy::_divmod10']]]
 ];
