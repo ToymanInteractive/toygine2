@@ -125,6 +125,13 @@ If something can be checked at compile time, it should be.
   - `expected`-like patterns
   - Compile-time validation
 
+### Assertions
+
+- Prefer `assert_message` over plain `assert` when asserting invariants.
+- Always use the two-argument form with a human-readable message so that failure output is understandable without reading the code.
+- For `assert_message(condition, "message")`: the string literal must describe what was expected or why the condition must hold.
+- For `static_assert(condition, "message")`: use the same format; the string literal must explain the invariant in human terms (e.g. `static_assert(length == expected, "length must match the literal's UTF-8 byte count")`).
+
 ---
 
 ## Naming Conventions
@@ -305,6 +312,17 @@ If two tests assert the same contract, keep only one.
 - Do not test private or internal state unless explicitly intended.
 
 Tests must survive refactoring without semantic changes.
+
+---
+
+## String length assertions (including UTF-8)
+
+When asserting that a string’s `size()` or `length()` equals the byte length of a string literal (especially UTF-8 or other multi-byte encodings), do not use hardcoded numeric constants.
+
+- Use a compile-time length from the same literal: `std::char_traits<char>::length("...")`.
+- Example: `REQUIRE(str.size() == std::char_traits<char>::length("Привет мир"))` instead of `REQUIRE(str.size() == 19)`.
+- This keeps tests robust (no manual byte counting, source encoding is the single source of truth) and readable (the literal shows the expected content).
+- Include `<string>` when using `std::char_traits`.
 
 ---
 

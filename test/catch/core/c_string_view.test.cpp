@@ -35,7 +35,6 @@ TEST_CASE("CStringView constructors", "[core][c_string_view]") {
     REQUIRE(emptyStr.size() == 0);
     REQUIRE(std::strcmp(emptyStr.c_str(), "") == 0);
 
-    // Compile-time checks
     static_assert(emptyStr.size() == 0);
     static_assert(cstrcmp(emptyStr.c_str(), "") == 0);
   }
@@ -76,7 +75,6 @@ TEST_CASE("CStringView constructors", "[core][c_string_view]") {
     REQUIRE(str4.size() == 35);
     REQUIRE(std::strcmp(str4.c_str(), "This is a longer string for testing") == 0);
 
-    // Compile-time checks
     static_assert(str1.size() == 5);
     static_assert(cstrcmp(str1.c_str(), "Hello") == 0);
     static_assert(str2.size() == 5);
@@ -92,11 +90,11 @@ TEST_CASE("CStringView constructors", "[core][c_string_view]") {
     constexpr CStringView empty1("");
     constexpr CStringView empty2("");
 
-    REQUIRE(empty1.size() == 0);
-    REQUIRE(empty2.size() == 0);
+    REQUIRE(empty1.empty());
+    REQUIRE(empty2.empty());
 
-    static_assert(empty1.size() == 0);
-    static_assert(empty2.size() == 0);
+    static_assert(empty1.empty());
+    static_assert(empty2.empty());
 
     // Single character
     constexpr CStringView single("X");
@@ -120,7 +118,6 @@ TEST_CASE("CStringView constructors", "[core][c_string_view]") {
     REQUIRE(mixed.size() == 8);
     REQUIRE(std::strcmp(mixed.c_str(), "Mix\t\nEnd") == 0);
 
-    // Compile-time checks
     static_assert(newline.size() == 11);
     static_assert(cstrcmp(newline.c_str(), "Line1\nLine2") == 0);
     static_assert(tab.size() == 9);
@@ -133,15 +130,14 @@ TEST_CASE("CStringView constructors", "[core][c_string_view]") {
     constexpr CStringView unicode("Привет мир");
     constexpr CStringView emoji("Hello 🌍");
 
-    REQUIRE(unicode.size() == 19); // UTF-8 bytes
+    REQUIRE(unicode.size() == std::char_traits<char>::length("Привет мир"));
     REQUIRE(std::strcmp(unicode.c_str(), "Привет мир") == 0);
-    REQUIRE(emoji.size() == 10); // UTF-8 bytes
+    REQUIRE(emoji.size() == std::char_traits<char>::length("Hello 🌍"));
     REQUIRE(std::strcmp(emoji.c_str(), "Hello 🌍") == 0);
 
-    // Compile-time checks
-    static_assert(unicode.size() == 19);
+    static_assert(unicode.size() == std::char_traits<char>::length("Привет мир"));
     static_assert(cstrcmp(unicode.c_str(), "Привет мир") == 0);
-    static_assert(emoji.size() == 10);
+    static_assert(emoji.size() == std::char_traits<char>::length("Hello 🌍"));
     static_assert(cstrcmp(emoji.c_str(), "Hello 🌍") == 0);
   }
 }
@@ -165,7 +161,7 @@ TEST_CASE("CStringView operators=", "[core][c_string_view]") {
 
     // Empty string assignment
     str1 = "";
-    REQUIRE(str1.size() == 0);
+    REQUIRE(str1.empty());
     REQUIRE(std::strcmp(str1.c_str(), "") == 0);
 
     // Long string assignment
@@ -173,7 +169,6 @@ TEST_CASE("CStringView operators=", "[core][c_string_view]") {
     REQUIRE(str2.size() == 23);
     REQUIRE(std::strcmp(str2.c_str(), "This is a longer string") == 0);
 
-    // Compile-time checks
     constexpr auto constStr1 = CStringView("This is a longer string");
     static_assert(constStr1.size() == 23);
     static_assert(cstrcmp(constStr1.c_str(), "This is a longer string") == 0);
@@ -197,7 +192,6 @@ TEST_CASE("CStringView operators=", "[core][c_string_view]") {
     REQUIRE(str1.size() == 5);
     REQUIRE(std::strcmp(str1.c_str(), "Hello") == 0);
 
-    // Compile-time checks
     constexpr CStringView constStr1("Hello");
     constexpr CStringView constStr2 = constStr1;
     static_assert(constStr2.size() == 5);
@@ -217,7 +211,7 @@ TEST_CASE("CStringView operators=", "[core][c_string_view]") {
     // Empty to non-empty
     str2 = "";
     str1 = str2;
-    REQUIRE(str1.size() == 0);
+    REQUIRE(str1.empty());
     REQUIRE(std::strcmp(str1.c_str(), "") == 0);
   }
 
@@ -244,16 +238,15 @@ TEST_CASE("CStringView operators=", "[core][c_string_view]") {
     CStringView str2;
 
     str1 = "Привет";
-    REQUIRE(str1.size() == 12); // UTF-8 encoding
+    REQUIRE(str1.size() == std::char_traits<char>::length("Привет"));
     REQUIRE(std::strcmp(str1.c_str(), "Привет") == 0);
 
     str2 = "Hello 🌍";
-    REQUIRE(str2.size() == 10); // UTF-8 encoding
+    REQUIRE(str2.size() == std::char_traits<char>::length("Hello 🌍"));
     REQUIRE(std::strcmp(str2.c_str(), "Hello 🌍") == 0);
 
-    // Assignment between Unicode strings
     str1 = str2;
-    REQUIRE(str1.size() == 10);
+    REQUIRE(str1.size() == std::char_traits<char>::length("Hello 🌍"));
     REQUIRE(std::strcmp(str1.c_str(), "Hello 🌍") == 0);
   }
 }
@@ -275,7 +268,7 @@ TEST_CASE("CStringView assign", "[core][c_string_view]") {
 
     // Empty string assignment
     str1.assign("");
-    REQUIRE(str1.size() == 0);
+    REQUIRE(str1.empty());
     REQUIRE(std::strcmp(str1.c_str(), "") == 0);
 
     // Long string assignment
@@ -288,7 +281,6 @@ TEST_CASE("CStringView assign", "[core][c_string_view]") {
     REQUIRE(str3.size() == 1);
     REQUIRE(std::strcmp(str3.c_str(), "A") == 0);
 
-    // Compile-time checks
     constexpr auto constStr1 = CStringView().assign("Hello");
     constexpr auto constStr2 = CStringView("World").assign("VeryLongString");
     constexpr auto constStr3 = CStringView("A").assign("");
@@ -296,7 +288,7 @@ TEST_CASE("CStringView assign", "[core][c_string_view]") {
     static_assert(cstrcmp(constStr1.c_str(), "Hello") == 0);
     static_assert(constStr2.size() == 14);
     static_assert(cstrcmp(constStr2.c_str(), "VeryLongString") == 0);
-    static_assert(constStr3.size() == 0);
+    static_assert(constStr3.empty());
     static_assert(cstrcmp(constStr3.c_str(), "") == 0);
   }
 
@@ -323,10 +315,9 @@ TEST_CASE("CStringView assign", "[core][c_string_view]") {
     // Empty string assignment
     CStringView emptyStr("");
     str1.assign(emptyStr);
-    REQUIRE(str1.size() == 0);
+    REQUIRE(str1.empty());
     REQUIRE(std::strcmp(str1.c_str(), "") == 0);
 
-    // Compile-time checks
     constexpr CStringView constStr1("Hello");
     constexpr auto constStr2 = CStringView("World").assign(constStr1);
     constexpr auto constStr3 = CStringView().assign(constStr2);
@@ -347,15 +338,14 @@ TEST_CASE("CStringView assign", "[core][c_string_view]") {
 
     // Assign empty string
     str2.assign("");
-    REQUIRE(str2.size() == 0);
+    REQUIRE(str2.empty());
     REQUIRE(std::strcmp(str2.c_str(), "") == 0);
 
-    // Compile-time checks
     constexpr auto constStr1 = CStringView("ABC").assign("XYZ");
     constexpr auto constStr2 = CStringView("ABCD").assign("");
     static_assert(constStr1.size() == 3);
     static_assert(cstrcmp(constStr1.c_str(), "XYZ") == 0);
-    static_assert(constStr2.size() == 0);
+    static_assert(constStr2.empty());
     static_assert(cstrcmp(constStr2.c_str(), "") == 0);
   }
 
@@ -373,7 +363,6 @@ TEST_CASE("CStringView assign", "[core][c_string_view]") {
     REQUIRE(str2.size() == 10);
     REQUIRE(std::strcmp(str2.c_str(), "!@#$%^&*()") == 0);
 
-    // Compile-time checks
     constexpr auto constStr1 = CStringView().assign("Hello\n\tWorld");
     constexpr auto constStr2 = CStringView().assign("!@#$%^&*()");
     static_assert(constStr1.size() == 12);
@@ -386,22 +375,19 @@ TEST_CASE("CStringView assign", "[core][c_string_view]") {
     CStringView str1;
     CStringView str2;
 
-    // Unicode characters
     str1.assign("Hello 世界");
-    REQUIRE(str1.size() == 12);
+    REQUIRE(str1.size() == std::char_traits<char>::length("Hello 世界"));
     REQUIRE(std::strcmp(str1.c_str(), "Hello 世界") == 0);
 
-    // Mixed ASCII and Unicode
     str2.assign("Test 🌍");
-    REQUIRE(str2.size() == 9);
+    REQUIRE(str2.size() == std::char_traits<char>::length("Test 🌍"));
     REQUIRE(std::strcmp(str2.c_str(), "Test 🌍") == 0);
 
-    // Compile-time checks
     constexpr auto constStr1 = CStringView().assign("Hello 世界");
     constexpr auto constStr2 = CStringView().assign("Test 🌍");
-    static_assert(constStr1.size() == 12);
+    static_assert(constStr1.size() == std::char_traits<char>::length("Hello 世界"));
     static_assert(cstrcmp(constStr1.c_str(), "Hello 世界") == 0);
-    static_assert(constStr2.size() == 9);
+    static_assert(constStr2.size() == std::char_traits<char>::length("Test 🌍"));
     static_assert(cstrcmp(constStr2.c_str(), "Test 🌍") == 0);
   }
 
@@ -418,7 +404,6 @@ TEST_CASE("CStringView assign", "[core][c_string_view]") {
     REQUIRE(str1.size() == 4);
     REQUIRE(std::strcmp(str1.c_str(), "Test") == 0);
 
-    // Compile-time checks
     constexpr auto constStr1 = CStringView("a").assign("b");
     constexpr auto constStr2 = CStringView("Hello").assign("Test");
     static_assert(constStr1.size() == 1);
@@ -438,7 +423,6 @@ TEST_CASE("CStringView at", "[core][c_string_view]") {
     REQUIRE(str.at(3) == 'l');
     REQUIRE(str.at(4) == 'd');
 
-    // Compile-time checks
     static_assert(str.at(0) == 'W');
     static_assert(str.at(1) == 'o');
     static_assert(str.at(2) == 'r');
@@ -451,7 +435,6 @@ TEST_CASE("CStringView at", "[core][c_string_view]") {
 
     REQUIRE(str.at(0) == '\0');
 
-    // Compile-time checks
     static_assert(str.at(0) == '\0');
   }
 }
@@ -475,7 +458,6 @@ TEST_CASE("CStringView operator[]", "[core][c_string_view]") {
     REQUIRE(longStr[4] == 'L');
     REQUIRE(longStr[13] == 'g');
 
-    // Compile-time checks
     static_assert(str[0] == 'H');
     static_assert(str[1] == 'e');
     static_assert(str[2] == 'l');
@@ -493,9 +475,6 @@ TEST_CASE("CStringView operator[]", "[core][c_string_view]") {
   SECTION("empty string") {
     constexpr CStringView str;
 
-    REQUIRE(str[0] == '\0');
-
-    // Compile-time checks
     static_assert(str[0] == '\0');
   }
 }
@@ -504,8 +483,6 @@ TEST_CASE("CStringView front and back", "[core][c_string_view]") {
   SECTION("Front method") {
     constexpr CStringView testString("Hello World");
 
-    REQUIRE(testString.front() == 'H');
-    REQUIRE(testString[0] == 'H');
     static_assert(testString.front() == 'H');
     static_assert(testString[0] == 'H');
   }
@@ -513,18 +490,12 @@ TEST_CASE("CStringView front and back", "[core][c_string_view]") {
   SECTION("Back method") {
     constexpr CStringView testString("Hello World");
 
-    REQUIRE(testString.back() == 'd');
-    REQUIRE(testString[testString.size() - 1] == 'd');
     static_assert(testString.back() == 'd');
     static_assert(testString[testString.size() - 1] == 'd');
   }
 
   SECTION("Single character string") {
     constexpr CStringView testString("A");
-
-    REQUIRE(testString.front() == 'A');
-    REQUIRE(testString.back() == 'A');
-    REQUIRE(testString.front() == testString.back());
 
     static_assert(testString.front() == 'A');
     static_assert(testString.back() == 'A');
@@ -534,16 +505,11 @@ TEST_CASE("CStringView front and back", "[core][c_string_view]") {
   SECTION("Empty string") {
     constexpr CStringView testString;
 
-    REQUIRE(testString.front() == '\0');
     static_assert(testString.front() == '\0');
   }
 
   SECTION("Two character string") {
     constexpr CStringView testString("AB");
-
-    REQUIRE(testString.front() == 'A');
-    REQUIRE(testString.back() == 'B');
-    REQUIRE(testString.front() != testString.back());
 
     static_assert(testString.front() == 'A');
     static_assert(testString.back() == 'B');
@@ -560,18 +526,12 @@ TEST_CASE("CStringView front and back", "[core][c_string_view]") {
   SECTION("Numeric content") {
     constexpr CStringView testString("12345");
 
-    REQUIRE(testString.front() == '1');
-    REQUIRE(testString.back() == '5');
-
     static_assert(testString.front() == '1');
     static_assert(testString.back() == '5');
   }
 
   SECTION("Mixed content") {
     constexpr CStringView testString("123Hello456");
-
-    REQUIRE(testString.front() == '1');
-    REQUIRE(testString.back() == '6');
 
     static_assert(testString.front() == '1');
     static_assert(testString.back() == '6');
@@ -580,9 +540,6 @@ TEST_CASE("CStringView front and back", "[core][c_string_view]") {
   SECTION("Long strings") {
     constexpr CStringView testString("This is a very long string for performance testing");
 
-    REQUIRE(testString.front() == 'T');
-    REQUIRE(testString.back() == 'g');
-
     static_assert(testString.front() == 'T');
     static_assert(testString.back() == 'g');
   }
@@ -590,18 +547,12 @@ TEST_CASE("CStringView front and back", "[core][c_string_view]") {
   SECTION("Case sensitivity") {
     constexpr CStringView testString("Hello World");
 
-    REQUIRE(testString.front() == 'H'); // Uppercase
-    REQUIRE(testString.back() == 'd'); // Lowercase
-
-    static_assert(testString.front() == 'H');
-    static_assert(testString.back() == 'd');
+    static_assert(testString.front() == 'H'); // Uppercase
+    static_assert(testString.back() == 'd'); // Lowercase
   }
 
   SECTION("Whitespace handling") {
     constexpr CStringView testString(" Hello ");
-
-    REQUIRE(testString.front() == ' ');
-    REQUIRE(testString.back() == ' ');
 
     static_assert(testString.front() == ' ');
     static_assert(testString.back() == ' ');
@@ -643,7 +594,6 @@ TEST_CASE("CStringView data", "[core][c_string_view]") {
     REQUIRE(std::strcmp(emptyString.data(), "") == 0);
     REQUIRE(std::strcmp(singleChar.data(), "A") == 0);
 
-    // Compile-time checks
     static_assert(cstrcmp(testString.data(), "Hello World") == 0);
     static_assert(cstrcmp(emptyString.data(), "") == 0);
     static_assert(cstrcmp(singleChar.data(), "A") == 0);
@@ -664,7 +614,6 @@ TEST_CASE("CStringView data", "[core][c_string_view]") {
     REQUIRE(std::strcmp(copy1.data(), "Stability Test") == 0);
     REQUIRE(std::strcmp(copy2.data(), "Stability Test") == 0);
 
-    // Compile-time checks
     static_assert(testString.data() == testString.data());
     static_assert(copy1.data() == copy1.data());
     static_assert(copy2.data() == copy2.data());
@@ -682,7 +631,6 @@ TEST_CASE("CStringView data", "[core][c_string_view]") {
     REQUIRE(std::strcmp(emptyString.data(), "") == 0);
     REQUIRE(std::strcmp(defaultString.data(), "") == 0);
 
-    // Compile-time checks
     static_assert(cstrcmp(emptyString.data(), "") == 0);
     static_assert(cstrcmp(defaultString.data(), "") == 0);
   }
@@ -704,7 +652,6 @@ TEST_CASE("CStringView c_str method", "[core][c_string_view]") {
     REQUIRE(std::strcmp(emptyString.c_str(), "") == 0);
     REQUIRE(std::strcmp(singleChar.c_str(), "A") == 0);
 
-    // Compile-time checks
     static_assert(testString.c_str() == testString.data());
     static_assert(emptyString.c_str() == emptyString.data());
     static_assert(singleChar.c_str() == singleChar.data());
@@ -729,7 +676,6 @@ TEST_CASE("CStringView c_str method", "[core][c_string_view]") {
     REQUIRE(std::strcmp(copy1.c_str(), "Stability Test") == 0);
     REQUIRE(std::strcmp(copy2.c_str(), "Stability Test") == 0);
 
-    // Compile-time checks
     static_assert(testString.c_str() == testString.c_str());
     static_assert(copy1.c_str() == copy1.c_str());
     static_assert(copy2.c_str() == copy2.c_str());
@@ -747,7 +693,6 @@ TEST_CASE("CStringView c_str method", "[core][c_string_view]") {
     REQUIRE(std::strcmp(emptyString.c_str(), "") == 0);
     REQUIRE(std::strcmp(defaultString.c_str(), "") == 0);
 
-    // Compile-time checks
     static_assert(emptyString.c_str() == emptyString.data());
     static_assert(defaultString.c_str() == defaultString.data());
   }
@@ -763,8 +708,7 @@ TEST_CASE("CStringView empty method", "[core][c_string_view]") {
     REQUIRE(emptyString.empty());
     REQUIRE(defaultString.empty());
 
-    // Compile-time checks
-    STATIC_REQUIRE_FALSE(nonEmptyString.empty());
+    static_assert(!nonEmptyString.empty());
     static_assert(emptyString.empty());
     static_assert(defaultString.empty());
   }
@@ -776,8 +720,7 @@ TEST_CASE("CStringView empty method", "[core][c_string_view]") {
     REQUIRE_FALSE(singleChar.empty());
     REQUIRE(emptyString.empty());
 
-    // Compile-time checks
-    STATIC_REQUIRE_FALSE(singleChar.empty());
+    static_assert(!singleChar.empty());
     static_assert(emptyString.empty());
   }
 
@@ -796,10 +739,9 @@ TEST_CASE("CStringView empty method", "[core][c_string_view]") {
     REQUIRE(emptyMedium.empty());
     REQUIRE(emptyLarge.empty());
 
-    // Compile-time checks
-    STATIC_REQUIRE_FALSE(smallString.empty());
-    STATIC_REQUIRE_FALSE(mediumString.empty());
-    STATIC_REQUIRE_FALSE(largeString.empty());
+    static_assert(!smallString.empty());
+    static_assert(!mediumString.empty());
+    static_assert(!largeString.empty());
     static_assert(emptySmall.empty());
     static_assert(emptyMedium.empty());
     static_assert(emptyLarge.empty());
@@ -816,10 +758,9 @@ TEST_CASE("CStringView empty method", "[core][c_string_view]") {
     REQUIRE_FALSE(specialString.empty());
     REQUIRE(emptyString.empty());
 
-    // Compile-time checks
-    STATIC_REQUIRE_FALSE(newlineString.empty());
-    STATIC_REQUIRE_FALSE(tabString.empty());
-    STATIC_REQUIRE_FALSE(specialString.empty());
+    static_assert(!newlineString.empty());
+    static_assert(!tabString.empty());
+    static_assert(!specialString.empty());
     static_assert(emptyString.empty());
   }
 
@@ -834,10 +775,9 @@ TEST_CASE("CStringView empty method", "[core][c_string_view]") {
     REQUIRE_FALSE(mixedString.empty());
     REQUIRE(emptyString.empty());
 
-    // Compile-time checks
-    STATIC_REQUIRE_FALSE(unicodeString.empty());
-    STATIC_REQUIRE_FALSE(emojiString.empty());
-    STATIC_REQUIRE_FALSE(mixedString.empty());
+    static_assert(!unicodeString.empty());
+    static_assert(!emojiString.empty());
+    static_assert(!mixedString.empty());
     static_assert(emptyString.empty());
   }
 
@@ -852,10 +792,9 @@ TEST_CASE("CStringView empty method", "[core][c_string_view]") {
     REQUIRE_FALSE(hexString.empty());
     REQUIRE(emptyString.empty());
 
-    // Compile-time checks
-    STATIC_REQUIRE_FALSE(numericStringView.empty());
-    STATIC_REQUIRE_FALSE(floatString.empty());
-    STATIC_REQUIRE_FALSE(hexString.empty());
+    static_assert(!numericStringView.empty());
+    static_assert(!floatString.empty());
+    static_assert(!hexString.empty());
     static_assert(emptyString.empty());
   }
 
@@ -870,10 +809,9 @@ TEST_CASE("CStringView empty method", "[core][c_string_view]") {
     REQUIRE_FALSE(longString.empty());
     REQUIRE(emptyString.empty());
 
-    // Compile-time checks
-    STATIC_REQUIRE_FALSE(mixedString.empty());
-    STATIC_REQUIRE_FALSE(complexString.empty());
-    STATIC_REQUIRE_FALSE(longString.empty());
+    static_assert(!mixedString.empty());
+    static_assert(!complexString.empty());
+    static_assert(!longString.empty());
     static_assert(emptyString.empty());
   }
 
@@ -888,10 +826,9 @@ TEST_CASE("CStringView empty method", "[core][c_string_view]") {
     REQUIRE_FALSE(maxTiny.empty());
     REQUIRE(emptyString.empty());
 
-    // Compile-time checks
-    STATIC_REQUIRE_FALSE(maxString.empty());
-    STATIC_REQUIRE_FALSE(maxSmall.empty());
-    STATIC_REQUIRE_FALSE(maxTiny.empty());
+    static_assert(!maxString.empty());
+    static_assert(!maxSmall.empty());
+    static_assert(!maxTiny.empty());
     static_assert(emptyString.empty());
   }
 
@@ -910,9 +847,8 @@ TEST_CASE("CStringView empty method", "[core][c_string_view]") {
     REQUIRE(emptyString.size() == 0);
     REQUIRE(defaultString.size() == 0);
 
-    // Compile-time checks
-    STATIC_REQUIRE_FALSE(singleChar.empty());
-    STATIC_REQUIRE_FALSE(twoChars.empty());
+    static_assert(!singleChar.empty());
+    static_assert(!twoChars.empty());
     static_assert(emptyString.empty());
     static_assert(defaultString.empty());
     static_assert(singleChar.size() == 1);
@@ -932,7 +868,6 @@ TEST_CASE("CStringView size method", "[core][c_string_view]") {
     REQUIRE(emptyString.size() == 0);
     REQUIRE(defaultString.size() == 0);
 
-    // Compile-time checks
     static_assert(testString.size() == 11);
     static_assert(emptyString.size() == 0);
     static_assert(defaultString.size() == 0);
@@ -945,7 +880,6 @@ TEST_CASE("CStringView size method", "[core][c_string_view]") {
     REQUIRE(singleChar.size() == 1);
     REQUIRE(emptyString.size() == 0);
 
-    // Compile-time checks
     static_assert(singleChar.size() == 1);
     static_assert(emptyString.size() == 0);
   }
@@ -965,7 +899,6 @@ TEST_CASE("CStringView size method", "[core][c_string_view]") {
     REQUIRE(emptyMedium.size() == 0);
     REQUIRE(emptyLarge.size() == 0);
 
-    // Compile-time checks
     static_assert(smallString.size() == 2);
     static_assert(mediumString.size() == 11);
     static_assert(largeString.size() == 23);
@@ -985,7 +918,6 @@ TEST_CASE("CStringView size method", "[core][c_string_view]") {
     REQUIRE(specialString.size() == 10);
     REQUIRE(emptyString.size() == 0);
 
-    // Compile-time checks
     static_assert(newlineString.size() == 11);
     static_assert(tabString.size() == 11);
     static_assert(specialString.size() == 10);
@@ -998,15 +930,14 @@ TEST_CASE("CStringView size method", "[core][c_string_view]") {
     constexpr CStringView mixedString("Hello 世界");
     constexpr CStringView emptyString("");
 
-    REQUIRE(unicodeString.size() == 19);
-    REQUIRE(emojiString.size() == 16);
-    REQUIRE(mixedString.size() == 12);
+    REQUIRE(unicodeString.size() == std::char_traits<char>::length("Привет мир"));
+    REQUIRE(emojiString.size() == std::char_traits<char>::length("Hello 🌍 World"));
+    REQUIRE(mixedString.size() == std::char_traits<char>::length("Hello 世界"));
     REQUIRE(emptyString.size() == 0);
 
-    // Compile-time checks
-    static_assert(unicodeString.size() == 19);
-    static_assert(emojiString.size() == 16);
-    static_assert(mixedString.size() == 12);
+    static_assert(unicodeString.size() == std::char_traits<char>::length("Привет мир"));
+    static_assert(emojiString.size() == std::char_traits<char>::length("Hello 🌍 World"));
+    static_assert(mixedString.size() == std::char_traits<char>::length("Hello 世界"));
     static_assert(emptyString.size() == 0);
   }
 
@@ -1021,7 +952,6 @@ TEST_CASE("CStringView size method", "[core][c_string_view]") {
     REQUIRE(hexString.size() == 6);
     REQUIRE(emptyString.size() == 0);
 
-    // Compile-time checks
     static_assert(numericStringView.size() == 5);
     static_assert(floatString.size() == 7);
     static_assert(hexString.size() == 6);
@@ -1039,7 +969,6 @@ TEST_CASE("CStringView size method", "[core][c_string_view]") {
     REQUIRE(longString.size() == 52);
     REQUIRE(emptyString.size() == 0);
 
-    // Compile-time checks
     static_assert(mixedString.size() == 16);
     static_assert(complexString.size() == 12);
     static_assert(longString.size() == 52);
@@ -1057,7 +986,6 @@ TEST_CASE("CStringView size method", "[core][c_string_view]") {
     REQUIRE(maxTiny.size() == 3);
     REQUIRE(emptyString.size() == 0);
 
-    // Compile-time checks
     static_assert(maxString.size() == 15);
     static_assert(maxSmall.size() == 7);
     static_assert(maxTiny.size() == 3);
@@ -1075,7 +1003,6 @@ TEST_CASE("CStringView size method", "[core][c_string_view]") {
     REQUIRE(emptyString.size() == 0);
     REQUIRE(defaultString.size() == 0);
 
-    // Compile-time checks
     static_assert(singleChar.size() == 1);
     static_assert(twoChars.size() == 2);
     static_assert(emptyString.size() == 0);
@@ -1108,7 +1035,7 @@ TEST_CASE("CStringView utf8_size", "[core][c_string_view]") {
 
     constexpr CStringView cyrillicStringView(cyrillicText.data());
 
-    REQUIRE(cyrillicStringView.size() == 19);
+    REQUIRE(cyrillicStringView.size() == std::char_traits<char>::length("Привет мир"));
     REQUIRE(cyrillicStringView.utf8_size() == 10);
   }
 
@@ -1120,7 +1047,7 @@ TEST_CASE("CStringView utf8_size", "[core][c_string_view]") {
 
     constexpr CStringView mixedString(mixedText.data());
 
-    REQUIRE(mixedString.size() == 12);
+    REQUIRE(mixedString.size() == std::char_traits<char>::length("Hello 世界"));
     REQUIRE(mixedString.utf8_size() == 8); // 6 ASCII + 2 Chinese characters
   }
 
@@ -1132,7 +1059,7 @@ TEST_CASE("CStringView utf8_size", "[core][c_string_view]") {
 
     constexpr CStringView emojiString(emojiText.data());
 
-    REQUIRE(emojiString.size() == 10);
+    REQUIRE(emojiString.size() == std::char_traits<char>::length("Hello 🌍"));
     REQUIRE(emojiString.utf8_size() == 7); // 6 ASCII + 1 emoji
   }
 
@@ -1177,7 +1104,7 @@ TEST_CASE("CStringView utf8_size", "[core][c_string_view]") {
 
     constexpr CStringView longString(longUtf8Text.data());
 
-    REQUIRE(longString.size() == 66); // 66 bytes
+    REQUIRE(longString.size() == std::char_traits<char>::length("ToyGine2 - Бесплатный 2D/3D игровой движок."));
     REQUIRE(longString.utf8_size() == 43); // 43 characters
   }
 }
@@ -1258,20 +1185,19 @@ TEST_CASE("CStringView length", "[core][c_string_view]") {
     constexpr CStringView mixedString("Hello 世界");
     constexpr CStringView emptyString("");
 
-    REQUIRE(unicodeString.length() == 19);
-    REQUIRE(emojiString.length() == 16);
-    REQUIRE(mixedString.length() == 12);
+    REQUIRE(unicodeString.length() == std::char_traits<char>::length("Привет мир"));
+    REQUIRE(emojiString.length() == std::char_traits<char>::length("Hello 🌍 World"));
+    REQUIRE(mixedString.length() == std::char_traits<char>::length("Hello 世界"));
     REQUIRE(emptyString.length() == 0);
 
-    // length() should equal size() for all strings
     REQUIRE(unicodeString.length() == unicodeString.size());
     REQUIRE(emojiString.length() == emojiString.size());
     REQUIRE(mixedString.length() == mixedString.size());
     REQUIRE(emptyString.length() == emptyString.size());
 
-    static_assert(unicodeString.length() == 19);
-    static_assert(emojiString.length() == 16);
-    static_assert(mixedString.length() == 12);
+    static_assert(unicodeString.length() == std::char_traits<char>::length("Привет мир"));
+    static_assert(emojiString.length() == std::char_traits<char>::length("Hello 🌍 World"));
+    static_assert(mixedString.length() == std::char_traits<char>::length("Hello 世界"));
   }
 
   SECTION("Numeric content") {
@@ -1770,17 +1696,17 @@ TEST_CASE("CStringView swap", "[core][c_string_view]") {
     CStringView string1("Hello 世界");
     CStringView string2("Привет мир");
 
-    REQUIRE(string1.size() == 12);
+    REQUIRE(string1.size() == std::char_traits<char>::length("Hello 世界"));
     REQUIRE(std::strcmp(string1.c_str(), "Hello 世界") == 0);
-    REQUIRE(string2.size() == 19);
+    REQUIRE(string2.size() == std::char_traits<char>::length("Привет мир"));
     REQUIRE(std::strcmp(string2.c_str(), "Привет мир") == 0);
 
     string1.swap(string2);
 
     REQUIRE(std::strcmp(string1.c_str(), "Привет мир") == 0);
-    REQUIRE(string1.size() == 19);
+    REQUIRE(string1.size() == std::char_traits<char>::length("Привет мир"));
     REQUIRE(std::strcmp(string2.c_str(), "Hello 世界") == 0);
-    REQUIRE(string2.size() == 12);
+    REQUIRE(string2.size() == std::char_traits<char>::length("Hello 世界"));
   }
 
   SECTION("Swap with numeric content") {
@@ -1827,7 +1753,6 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
     REQUIRE(testString.find(CStringView("lo Wo")) == 3);
     REQUIRE(testString.find(CStringView("xyz")) == CStringView::npos);
 
-    // Compile-time checks
     static_assert(testString.find(CStringView("World")) == 6);
     static_assert(testString.find(CStringView("Hello")) == 0);
     static_assert(testString.find(CStringView("lo Wo")) == 3);
@@ -1842,7 +1767,6 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
     REQUIRE(testString.find(std::string("lo Wo")) == 3);
     REQUIRE(testString.find(std::string("xyz")) == CStringView::npos);
 
-    // Compile-time checks
     static_assert(testString.find(CStringView("World")) == 6);
     static_assert(testString.find(CStringView("Hello")) == 0);
     static_assert(testString.find(CStringView("lo Wo")) == 3);
@@ -1857,7 +1781,6 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
     REQUIRE(testString.find("lo Wo") == 3);
     REQUIRE(testString.find("xyz") == CStringView::npos);
 
-    // Compile-time checks
     static_assert(testString.find("World") == 6);
     static_assert(testString.find("Hello") == 0);
     static_assert(testString.find("lo Wo") == 3);
@@ -1874,7 +1797,6 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
     REQUIRE(testString.find('d') == 10);
     REQUIRE(testString.find('x') == CStringView::npos);
 
-    // Compile-time checks
     static_assert(testString.find('H') == 0);
     static_assert(testString.find('l') == 2);
     static_assert(testString.find('o') == 4);
@@ -1894,7 +1816,6 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
     REQUIRE(testString.find('l', 4) == 9);
     REQUIRE(testString.find('l', 10) == 14);
 
-    // Compile-time checks
     static_assert(testString.find("Hello", 0) == 0);
     static_assert(testString.find("Hello", 1) == 12);
     static_assert(testString.find("Hello", 13) == CStringView::npos);
@@ -1914,7 +1835,6 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
     REQUIRE(testString.find("", 11) == 11);
     REQUIRE(testString.find("", 12) == CStringView::npos);
 
-    // Compile-time checks
     static_assert(testString.find(CStringView("")) == 0);
     static_assert(testString.find(FixedString<8>("")) == 0);
     static_assert(testString.find("") == 0);
@@ -1932,7 +1852,6 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
     REQUIRE(testString.find('H') == CStringView::npos);
     REQUIRE(testString.find("") == 0);
 
-    // Compile-time checks
     static_assert(testString.find(CStringView("Hello")) == CStringView::npos);
     static_assert(testString.find(FixedString<8>("Hello")) == CStringView::npos);
     static_assert(testString.find("Hello") == CStringView::npos);
@@ -1947,7 +1866,6 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
     REQUIRE(testString.find('H', 10) == CStringView::npos);
     REQUIRE(testString.find("", 10) == CStringView::npos);
 
-    // Compile-time checks
     static_assert(testString.find("World", 10) == CStringView::npos);
     static_assert(testString.find('H', 10) == CStringView::npos);
     static_assert(testString.find("", 10) == CStringView::npos);
@@ -1960,7 +1878,6 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
     REQUIRE(testString.find("d") == 10);
     REQUIRE(testString.find("ld") == 9);
 
-    // Compile-time checks
     static_assert(testString.find("World") == 6);
     static_assert(testString.find("d") == 10);
     static_assert(testString.find("ld") == 9);
@@ -1973,7 +1890,6 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
     REQUIRE(testString.find("H") == 0);
     REQUIRE(testString.find("He") == 0);
 
-    // Compile-time checks
     static_assert(testString.find("Hello") == 0);
     static_assert(testString.find("H") == 0);
     static_assert(testString.find("He") == 0);
@@ -1987,7 +1903,6 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
     REQUIRE(testString.find("ab", 3) == 4);
     REQUIRE(testString.find("ab", 5) == CStringView::npos);
 
-    // Compile-time checks
     static_assert(testString.find("ab") == 0);
     static_assert(testString.find("ab", 1) == 2);
     static_assert(testString.find("ab", 3) == 4);
@@ -2003,7 +1918,6 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
     REQUIRE(testString.find("aa", 3) == 3);
     REQUIRE(testString.find("aa", 4) == CStringView::npos);
 
-    // Compile-time checks
     static_assert(testString.find("aa") == 0);
     static_assert(testString.find("aa", 1) == 1);
     static_assert(testString.find("aa", 2) == 2);
@@ -2019,7 +1933,6 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
     REQUIRE(testString.find("Hello") == 0);
     REQUIRE(testString.find("World") == 6);
 
-    // Compile-time checks
     static_assert(testString.find("hello") == CStringView::npos);
     static_assert(testString.find("WORLD") == CStringView::npos);
     static_assert(testString.find("Hello") == 0);
@@ -2031,7 +1944,6 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
 
     REQUIRE(testString.find(CStringView("World")) == 6);
 
-    // Compile-time checks
     static_assert(testString.find(CStringView("World")) == 6);
   }
 
@@ -2042,7 +1954,6 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
     REQUIRE(testString.find("Hello", 0) == 0);
     REQUIRE(testString.find("Hello", 1) == CStringView::npos);
 
-    // Compile-time checks
     static_assert(testString.find("Hello") == 0);
     static_assert(testString.find("Hello", 0) == 0);
     static_assert(testString.find("Hello", 1) == CStringView::npos);
@@ -2056,7 +1967,6 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
     REQUIRE(testString.find("B") == CStringView::npos);
     REQUIRE(testString.find('B') == CStringView::npos);
 
-    // Compile-time checks
     static_assert(testString.find("A") == 0);
     static_assert(testString.find('A') == 0);
     static_assert(testString.find("B") == CStringView::npos);
@@ -2071,7 +1981,6 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
     REQUIRE(testString.find("!") == 12);
     REQUIRE(testString.find("\n\t") == 5);
 
-    // Compile-time checks
     static_assert(testString.find("\n") == 5);
     static_assert(testString.find("\t") == 6);
     static_assert(testString.find("!") == 12);
@@ -2085,7 +1994,6 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
     REQUIRE(testString.find("Hello") == 0);
     REQUIRE(testString.find(" ") == 5);
 
-    // Compile-time checks
     static_assert(testString.find("世界") == 6);
     static_assert(testString.find("Hello") == 0);
     static_assert(testString.find(" ") == 5);
@@ -2099,7 +2007,6 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
     REQUIRE(testString.find("67890") == 10);
     REQUIRE(testString.find("456") == CStringView::npos);
 
-    // Compile-time checks
     static_assert(testString.find("12345") == 0);
     static_assert(testString.find("Hello") == 5);
     static_assert(testString.find("67890") == 10);
@@ -2114,7 +2021,6 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
     REQUIRE(testString.find("Hello123") == 0);
     REQUIRE(testString.find("World!@#") == 8);
 
-    // Compile-time checks
     static_assert(testString.find("123") == 5);
     static_assert(testString.find("!@#") == 13);
     static_assert(testString.find("Hello123") == 0);
@@ -2132,7 +2038,6 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
     REQUIRE(testString.find("", 11) == 11);
     REQUIRE(testString.find("", 12) == CStringView::npos);
 
-    // Compile-time checks
     static_assert(testString.find("Hello", 0) == 0);
     static_assert(testString.find("Hello", 1) == CStringView::npos);
     static_assert(testString.find("World", 6) == 6);
@@ -2152,7 +2057,6 @@ TEST_CASE("CStringView rfind", "[core][c_string_view]") {
     REQUIRE(testString.rfind(CStringView("lo")) == 15);
     REQUIRE(testString.rfind(CStringView("xyz")) == CStringView::npos);
 
-    // Compile-time checks
     static_assert(testString.rfind(CStringView("Hello")) == 12);
     static_assert(testString.rfind(CStringView("World")) == 6);
     static_assert(testString.rfind(CStringView("lo")) == 15);
@@ -2167,7 +2071,6 @@ TEST_CASE("CStringView rfind", "[core][c_string_view]") {
     REQUIRE(testString.rfind(std::string("lo")) == 15);
     REQUIRE(testString.rfind(std::string("xyz")) == CStringView::npos);
 
-    // Compile-time checks
     static_assert(testString.rfind(CStringView("Hello")) == 12);
     static_assert(testString.rfind(CStringView("World")) == 6);
     static_assert(testString.rfind(CStringView("lo")) == 15);
@@ -2182,7 +2085,6 @@ TEST_CASE("CStringView rfind", "[core][c_string_view]") {
     REQUIRE(testString.rfind("lo") == 15);
     REQUIRE(testString.rfind("xyz") == CStringView::npos);
 
-    // Compile-time checks
     static_assert(testString.rfind("Hello") == 12);
     static_assert(testString.rfind("World") == 6);
     static_assert(testString.rfind("lo") == 15);
@@ -2199,7 +2101,6 @@ TEST_CASE("CStringView rfind", "[core][c_string_view]") {
     REQUIRE(testString.rfind('d') == 10);
     REQUIRE(testString.rfind('x') == CStringView::npos);
 
-    // Compile-time checks
     static_assert(testString.rfind('H') == 12);
     static_assert(testString.rfind('l') == 15);
     static_assert(testString.rfind('o') == 16);
@@ -2219,7 +2120,6 @@ TEST_CASE("CStringView rfind", "[core][c_string_view]") {
     REQUIRE(testString.rfind('l', 8) == 3);
     REQUIRE(testString.rfind('l', 2) == 2);
 
-    // Compile-time checks
     static_assert(testString.rfind("Hello", 12) == 12);
     static_assert(testString.rfind("Hello", 11) == 0);
     static_assert(testString.rfind("Hello", 0) == 0);
@@ -2238,7 +2138,6 @@ TEST_CASE("CStringView rfind", "[core][c_string_view]") {
     REQUIRE(testString.rfind("", 5) == 5);
     REQUIRE(testString.rfind("", 0) == 0);
 
-    // Compile-time checks
     static_assert(testString.rfind(CStringView("")) == 11);
     static_assert(testString.rfind(FixedString<4>("")) == 11);
     static_assert(testString.rfind("") == 11);
@@ -2255,7 +2154,6 @@ TEST_CASE("CStringView rfind", "[core][c_string_view]") {
     REQUIRE(testString.rfind('H') == CStringView::npos);
     REQUIRE(testString.rfind("") == 0);
 
-    // Compile-time checks
     static_assert(testString.rfind(CStringView("Hello")) == CStringView::npos);
     static_assert(testString.rfind(FixedString<8>("Hello")) == CStringView::npos);
     static_assert(testString.rfind("Hello") == CStringView::npos);
@@ -2270,7 +2168,6 @@ TEST_CASE("CStringView rfind", "[core][c_string_view]") {
     REQUIRE(testString.rfind("d") == 10);
     REQUIRE(testString.rfind("ld") == 9);
 
-    // Compile-time checks
     static_assert(testString.rfind("World") == 6);
     static_assert(testString.rfind("d") == 10);
     static_assert(testString.rfind("ld") == 9);
@@ -2283,7 +2180,6 @@ TEST_CASE("CStringView rfind", "[core][c_string_view]") {
     REQUIRE(testString.rfind("H") == 12);
     REQUIRE(testString.rfind("He") == 12);
 
-    // Compile-time checks
     static_assert(testString.rfind("Hello") == 12);
     static_assert(testString.rfind("H") == 12);
     static_assert(testString.rfind("He") == 12);
@@ -2298,7 +2194,6 @@ TEST_CASE("CStringView rfind", "[core][c_string_view]") {
     REQUIRE(testString.rfind("ab", 0) == 0);
     REQUIRE(testString.rfind("ab", 5) == CStringView::npos);
 
-    // Compile-time checks
     static_assert(testString.rfind("ab") == 4);
     static_assert(testString.rfind("ab", 3) == 2);
     static_assert(testString.rfind("ab", 1) == 0);
@@ -2314,7 +2209,6 @@ TEST_CASE("CStringView rfind", "[core][c_string_view]") {
     REQUIRE(testString.rfind("aa", 1) == 1);
     REQUIRE(testString.rfind("aa", 0) == 0);
 
-    // Compile-time checks
     static_assert(testString.rfind("aa") == 3);
     static_assert(testString.rfind("aa", 2) == 2);
     static_assert(testString.rfind("aa", 1) == 1);
@@ -2329,7 +2223,6 @@ TEST_CASE("CStringView rfind", "[core][c_string_view]") {
     REQUIRE(testString.rfind("Hello") == 12);
     REQUIRE(testString.rfind("World") == 6);
 
-    // Compile-time checks
     static_assert(testString.rfind("hello") == CStringView::npos);
     static_assert(testString.rfind("WORLD") == CStringView::npos);
     static_assert(testString.rfind("Hello") == 12);
@@ -2342,7 +2235,6 @@ TEST_CASE("CStringView rfind", "[core][c_string_view]") {
     REQUIRE(testString.rfind("Hello") == 0);
     REQUIRE(testString.rfind("Hello", 0) == 0);
 
-    // Compile-time checks
     static_assert(testString.rfind("Hello") == 0);
     static_assert(testString.rfind("Hello", 0) == 0);
   }
@@ -2355,7 +2247,6 @@ TEST_CASE("CStringView rfind", "[core][c_string_view]") {
     REQUIRE(testString.rfind("B") == CStringView::npos);
     REQUIRE(testString.rfind('B') == CStringView::npos);
 
-    // Compile-time checks
     static_assert(testString.rfind("A") == 0);
     static_assert(testString.rfind('A') == 0);
     static_assert(testString.rfind("B") == CStringView::npos);
@@ -2370,7 +2261,6 @@ TEST_CASE("CStringView rfind", "[core][c_string_view]") {
     REQUIRE(testString.rfind('H', 0) == 0);
     REQUIRE(testString.rfind('W', 0) == CStringView::npos);
 
-    // Compile-time checks
     static_assert(testString.rfind("Hello", 0) == 0);
     static_assert(testString.rfind("World", 0) == CStringView::npos);
     static_assert(testString.rfind('H', 0) == 0);
@@ -2383,7 +2273,6 @@ TEST_CASE("CStringView rfind", "[core][c_string_view]") {
     REQUIRE(testString.rfind("Hello World") == CStringView::npos);
     REQUIRE(testString.rfind("Hello World", 10) == CStringView::npos);
 
-    // Compile-time checks
     static_assert(testString.rfind("Hello World") == CStringView::npos);
     static_assert(testString.rfind("Hello World", 10) == CStringView::npos);
   }
@@ -2396,7 +2285,6 @@ TEST_CASE("CStringView rfind", "[core][c_string_view]") {
     REQUIRE(testString.rfind("ab", 3) == 2);
     REQUIRE(testString.rfind("ab", 1) == 0);
 
-    // Compile-time checks
     static_assert(testString.rfind("ab") == 6);
     static_assert(testString.rfind("ab", 5) == 4);
     static_assert(testString.rfind("ab", 3) == 2);
@@ -2411,7 +2299,6 @@ TEST_CASE("CStringView rfind", "[core][c_string_view]") {
     REQUIRE(testString.rfind('l', 8) == 3);
     REQUIRE(testString.rfind('l', 15) == 15);
 
-    // Compile-time checks
     static_assert(testString.rfind("Hello", 8) == 0);
     static_assert(testString.rfind("Hello", 12) == 12);
     static_assert(testString.rfind('l', 8) == 3);
@@ -2428,7 +2315,6 @@ TEST_CASE("CStringView find_first_of", "[core][c_string_view]") {
     REQUIRE(testString.find_first_of(CStringView("d")) == 10);
     REQUIRE(testString.find_first_of(CStringView("xyz")) == CStringView::npos);
 
-    // Compile-time checks
     static_assert(testString.find_first_of(CStringView("aeiou")) == 1);
     static_assert(testString.find_first_of(CStringView("H")) == 0);
     static_assert(testString.find_first_of(CStringView("d")) == 10);
@@ -2443,7 +2329,6 @@ TEST_CASE("CStringView find_first_of", "[core][c_string_view]") {
     REQUIRE(testString.find_first_of(std::string("d")) == 10);
     REQUIRE(testString.find_first_of(std::string("xyz")) == CStringView::npos);
 
-    // Compile-time checks
     static_assert(testString.find_first_of(CStringView("aeiou")) == 1);
     static_assert(testString.find_first_of(CStringView("H")) == 0);
     static_assert(testString.find_first_of(CStringView("d")) == 10);
@@ -2458,7 +2343,6 @@ TEST_CASE("CStringView find_first_of", "[core][c_string_view]") {
     REQUIRE(testString.find_first_of("d") == 10);
     REQUIRE(testString.find_first_of("xyz") == CStringView::npos);
 
-    // Compile-time checks
     static_assert(testString.find_first_of("aeiou") == 1);
     static_assert(testString.find_first_of("H") == 0);
     static_assert(testString.find_first_of("d") == 10);
@@ -2476,7 +2360,6 @@ TEST_CASE("CStringView find_first_of", "[core][c_string_view]") {
     REQUIRE(testString.find_first_of('d') == 10);
     REQUIRE(testString.find_first_of('x') == CStringView::npos);
 
-    // Compile-time checks
     static_assert(testString.find_first_of('H') == 0);
     static_assert(testString.find_first_of('e') == 1);
     static_assert(testString.find_first_of('l') == 2);
@@ -2496,7 +2379,6 @@ TEST_CASE("CStringView find_first_of", "[core][c_string_view]") {
     REQUIRE(testString.find_first_of("aeiou", 14) == 16);
     REQUIRE(testString.find_first_of("aeiou", 17) == CStringView::npos);
 
-    // Compile-time checks
     static_assert(testString.find_first_of("aeiou", 0) == 1);
     static_assert(testString.find_first_of("aeiou", 2) == 4);
     static_assert(testString.find_first_of("aeiou", 5) == 7);
@@ -2512,7 +2394,6 @@ TEST_CASE("CStringView find_first_of", "[core][c_string_view]") {
     REQUIRE(testString.find_first_of(std::string("")) == CStringView::npos);
     REQUIRE(testString.find_first_of("") == CStringView::npos);
 
-    // Compile-time checks
     static_assert(testString.find_first_of(CStringView("")) == CStringView::npos);
     static_assert(testString.find_first_of(FixedString<4>("")) == CStringView::npos);
     static_assert(testString.find_first_of("") == CStringView::npos);
@@ -2526,7 +2407,6 @@ TEST_CASE("CStringView find_first_of", "[core][c_string_view]") {
     REQUIRE(testString.find_first_of("aeiou") == CStringView::npos);
     REQUIRE(testString.find_first_of('a') == CStringView::npos);
 
-    // Compile-time checks
     static_assert(testString.find_first_of(CStringView("aeiou")) == CStringView::npos);
     static_assert(testString.find_first_of(FixedString<8>("aeiou")) == CStringView::npos);
     static_assert(testString.find_first_of("aeiou") == CStringView::npos);
@@ -2539,7 +2419,6 @@ TEST_CASE("CStringView find_first_of", "[core][c_string_view]") {
     REQUIRE(testString.find_first_of("aeiou", 10) == CStringView::npos);
     REQUIRE(testString.find_first_of('a', 10) == CStringView::npos);
 
-    // Compile-time checks
     static_assert(testString.find_first_of("aeiou", 10) == CStringView::npos);
     static_assert(testString.find_first_of('a', 10) == CStringView::npos);
   }
@@ -2551,7 +2430,6 @@ TEST_CASE("CStringView find_first_of", "[core][c_string_view]") {
     REQUIRE(testString.find_first_of("ab") == 0);
     REQUIRE(testString.find_first_of("b") == CStringView::npos);
 
-    // Compile-time checks
     static_assert(testString.find_first_of("a") == 0);
     static_assert(testString.find_first_of("ab") == 0);
     static_assert(testString.find_first_of("b") == CStringView::npos);
@@ -2565,7 +2443,6 @@ TEST_CASE("CStringView find_first_of", "[core][c_string_view]") {
     REQUIRE(testString.find_first_of("Wr") == 6); // 'W' at position 6
     REQUIRE(testString.find_first_of("dl") == 2); // 'l' at position 2
 
-    // Compile-time checks
     static_assert(testString.find_first_of("Hl") == 0);
     static_assert(testString.find_first_of("lo") == 2);
     static_assert(testString.find_first_of("Wr") == 6);
@@ -2580,7 +2457,6 @@ TEST_CASE("CStringView find_first_of", "[core][c_string_view]") {
     REQUIRE(testString.find_first_of("w") == CStringView::npos);
     REQUIRE(testString.find_first_of("W") == 6);
 
-    // Compile-time checks
     static_assert(testString.find_first_of("h") == CStringView::npos);
     static_assert(testString.find_first_of("H") == 0);
     static_assert(testString.find_first_of("w") == CStringView::npos);
@@ -2594,7 +2470,6 @@ TEST_CASE("CStringView find_first_of", "[core][c_string_view]") {
     REQUIRE(testString.find_first_of("!") == 12); // '!' at position 12
     REQUIRE(testString.find_first_of(".,!") == 5); // ',' at position 5
 
-    // Compile-time checks
     static_assert(testString.find_first_of("!,") == 5);
     static_assert(testString.find_first_of("!") == 12);
     static_assert(testString.find_first_of(".,!") == 5);
@@ -2607,7 +2482,6 @@ TEST_CASE("CStringView find_first_of", "[core][c_string_view]") {
     REQUIRE(testString.find_first_of("123") == 5); // '1' at position 5
     REQUIRE(testString.find_first_of("456") == CStringView::npos);
 
-    // Compile-time checks
     static_assert(testString.find_first_of("0123456789") == 5);
     static_assert(testString.find_first_of("123") == 5);
     static_assert(testString.find_first_of("456") == CStringView::npos);
@@ -2620,7 +2494,6 @@ TEST_CASE("CStringView find_first_of", "[core][c_string_view]") {
     REQUIRE(testString.find_first_of("\t") == 11);
     REQUIRE(testString.find_first_of("\n") == 12);
 
-    // Compile-time checks
     static_assert(testString.find_first_of(" \t\n") == 5);
     static_assert(testString.find_first_of("\t") == 11);
     static_assert(testString.find_first_of("\n") == 12);
@@ -2634,7 +2507,6 @@ TEST_CASE("CStringView find_first_of", "[core][c_string_view]") {
     REQUIRE(testString.find_first_of("B") == CStringView::npos);
     REQUIRE(testString.find_first_of('B') == CStringView::npos);
 
-    // Compile-time checks
     static_assert(testString.find_first_of("A") == 0);
     static_assert(testString.find_first_of('A') == 0);
     static_assert(testString.find_first_of("B") == CStringView::npos);
@@ -2648,7 +2520,6 @@ TEST_CASE("CStringView find_first_of", "[core][c_string_view]") {
     REQUIRE(testString.find_first_of("H", 0) == 0);
     REQUIRE(testString.find_first_of("xyz", 0) == CStringView::npos);
 
-    // Compile-time checks
     static_assert(testString.find_first_of("aeiou", 0) == 1);
     static_assert(testString.find_first_of("H", 0) == 0);
     static_assert(testString.find_first_of("xyz", 0) == CStringView::npos);
@@ -2661,7 +2532,6 @@ TEST_CASE("CStringView find_first_of", "[core][c_string_view]") {
     REQUIRE(testString.find_first_of("xyz") == 23);
     REQUIRE(testString.find_first_of("z") == 25);
 
-    // Compile-time checks
     static_assert(testString.find_first_of("aeiou") == 0);
     static_assert(testString.find_first_of("xyz") == 23);
     static_assert(testString.find_first_of("z") == 25);
@@ -2674,7 +2544,6 @@ TEST_CASE("CStringView find_first_of", "[core][c_string_view]") {
     REQUIRE(testString.find_first_of("!@#$%^&*()") == CStringView::npos);
     REQUIRE(testString.find_first_of("[]{}|\\:;\"'<>?/") == CStringView::npos);
 
-    // Compile-time checks
     static_assert(testString.find_first_of("0123456789") == CStringView::npos);
     static_assert(testString.find_first_of("!@#$%^&*()") == CStringView::npos);
     static_assert(testString.find_first_of("[]{}|\\:;\"'<>?/") == CStringView::npos);
@@ -2689,7 +2558,6 @@ TEST_CASE("CStringView find_first_not_of", "[core][c_string_view]") {
     REQUIRE(testString.find_first_not_of(CStringView("Hel")) == 4); // 'o' at position 4
     REQUIRE(testString.find_first_not_of(CStringView("Helo Wrd")) == CStringView::npos);
 
-    // Compile-time checks
     static_assert(testString.find_first_not_of(CStringView("H")) == 1);
     static_assert(testString.find_first_not_of(CStringView("Hel")) == 4);
     static_assert(testString.find_first_not_of(CStringView("Helo Wrd")) == CStringView::npos);
@@ -2702,7 +2570,6 @@ TEST_CASE("CStringView find_first_not_of", "[core][c_string_view]") {
     REQUIRE(testString.find_first_not_of(std::string("Hel")) == 4); // 'o' at position 4
     REQUIRE(testString.find_first_not_of(std::string("Helo Wrd")) == CStringView::npos);
 
-    // Compile-time checks
     static_assert(testString.find_first_not_of(CStringView("H")) == 1);
     static_assert(testString.find_first_not_of(CStringView("Hel")) == 4);
     static_assert(testString.find_first_not_of(CStringView("Helo Wrd")) == CStringView::npos);
@@ -2715,7 +2582,6 @@ TEST_CASE("CStringView find_first_not_of", "[core][c_string_view]") {
     REQUIRE(testString.find_first_not_of("Hel") == 4); // 'o' at position 4
     REQUIRE(testString.find_first_not_of("Helo Wrd") == CStringView::npos);
 
-    // Compile-time checks
     static_assert(testString.find_first_not_of("H") == 1);
     static_assert(testString.find_first_not_of("Hel") == 4);
     static_assert(testString.find_first_not_of("Helo Wrd") == CStringView::npos);
@@ -2728,7 +2594,6 @@ TEST_CASE("CStringView find_first_not_of", "[core][c_string_view]") {
     REQUIRE(testString.find_first_not_of('b') == 0); // 'a' at position 0
     REQUIRE(testString.find_first_not_of('x') == 0); // 'a' at position 0
 
-    // Compile-time checks
     static_assert(testString.find_first_not_of('a') == 5);
     static_assert(testString.find_first_not_of('b') == 0);
     static_assert(testString.find_first_not_of('x') == 0);
@@ -2743,7 +2608,6 @@ TEST_CASE("CStringView find_first_not_of", "[core][c_string_view]") {
     REQUIRE(testString.find_first_not_of("Hel", 6) == 6); // 'W' at position 6
     REQUIRE(testString.find_first_not_of("Hel", 7) == 7); // 'o' at position 7
 
-    // Compile-time checks
     static_assert(testString.find_first_not_of("Hel", 0) == 4);
     static_assert(testString.find_first_not_of("Hel", 4) == 4);
     static_assert(testString.find_first_not_of("Hel", 5) == 5);
@@ -2759,7 +2623,6 @@ TEST_CASE("CStringView find_first_not_of", "[core][c_string_view]") {
     REQUIRE(testString.find_first_not_of("") == 0); // 'H' at position 0
     REQUIRE(testString.find_first_not_of("", 5) == 5); // ' ' at position 5
 
-    // Compile-time checks
     static_assert(testString.find_first_not_of(CStringView("")) == 0);
     static_assert(testString.find_first_not_of(FixedString<4>("")) == 0);
     static_assert(testString.find_first_not_of("") == 0);
@@ -2774,7 +2637,6 @@ TEST_CASE("CStringView find_first_not_of", "[core][c_string_view]") {
     REQUIRE(testString.find_first_not_of("aeiou") == CStringView::npos);
     REQUIRE(testString.find_first_not_of('a') == CStringView::npos);
 
-    // Compile-time checks
     static_assert(testString.find_first_not_of(CStringView("aeiou")) == CStringView::npos);
     static_assert(testString.find_first_not_of(FixedString<8>("aeiou")) == CStringView::npos);
     static_assert(testString.find_first_not_of("aeiou") == CStringView::npos);
@@ -2787,7 +2649,6 @@ TEST_CASE("CStringView find_first_not_of", "[core][c_string_view]") {
     REQUIRE(testString.find_first_not_of("aeiou", 10) == CStringView::npos);
     REQUIRE(testString.find_first_not_of('a', 10) == CStringView::npos);
 
-    // Compile-time checks
     static_assert(testString.find_first_not_of("aeiou", 10) == CStringView::npos);
     static_assert(testString.find_first_not_of('a', 10) == CStringView::npos);
   }
@@ -2799,7 +2660,6 @@ TEST_CASE("CStringView find_first_not_of", "[core][c_string_view]") {
     REQUIRE(testString.find_first_not_of("ab") == CStringView::npos);
     REQUIRE(testString.find_first_not_of("b") == 0); // 'a' at position 0
 
-    // Compile-time checks
     static_assert(testString.find_first_not_of("a") == CStringView::npos);
     static_assert(testString.find_first_not_of("ab") == CStringView::npos);
     static_assert(testString.find_first_not_of("b") == 0);
@@ -2813,7 +2673,6 @@ TEST_CASE("CStringView find_first_not_of", "[core][c_string_view]") {
     REQUIRE(testString.find_first_not_of("Helo") == 5); // ' ' at position 5
     REQUIRE(testString.find_first_not_of("Helo ") == 6); // 'W' at position 6
 
-    // Compile-time checks
     static_assert(testString.find_first_not_of("Hl") == 1);
     static_assert(testString.find_first_not_of("Hel") == 4);
     static_assert(testString.find_first_not_of("Helo") == 5);
@@ -2828,7 +2687,6 @@ TEST_CASE("CStringView find_first_not_of", "[core][c_string_view]") {
     REQUIRE(testString.find_first_not_of("w") == 0); // 'H' at position 0
     REQUIRE(testString.find_first_not_of("W") == 0); // 'H' at position 0
 
-    // Compile-time checks
     static_assert(testString.find_first_not_of("h") == 0);
     static_assert(testString.find_first_not_of("H") == 1);
     static_assert(testString.find_first_not_of("w") == 0);
@@ -2841,7 +2699,6 @@ TEST_CASE("CStringView find_first_not_of", "[core][c_string_view]") {
     REQUIRE(testString.find_first_not_of("Helo, Wrd!") == CStringView::npos);
     REQUIRE(testString.find_first_not_of("Helo, Wrd") == 12); // '!' at position 12
 
-    // Compile-time checks
     static_assert(testString.find_first_not_of("Helo, Wrd!") == CStringView::npos);
     static_assert(testString.find_first_not_of("Helo, Wrd") == 12);
   }
@@ -2853,7 +2710,6 @@ TEST_CASE("CStringView find_first_not_of", "[core][c_string_view]") {
     REQUIRE(testString.find_first_not_of("Helo123Wrd") == CStringView::npos);
     REQUIRE(testString.find_first_not_of("Helo123Wr") == 12); // 'd' at position 12
 
-    // Compile-time checks
     static_assert(testString.find_first_not_of("0123456789") == 0);
     static_assert(testString.find_first_not_of("Helo123Wrd") == CStringView::npos);
     static_assert(testString.find_first_not_of("Helo123Wr") == 12);
@@ -2866,7 +2722,6 @@ TEST_CASE("CStringView find_first_not_of", "[core][c_string_view]") {
     REQUIRE(testString.find_first_not_of("Helo Wrd\t\n") == CStringView::npos);
     REQUIRE(testString.find_first_not_of("Helo Wrd") == 11); // '\t' at position 11
 
-    // Compile-time checks
     static_assert(testString.find_first_not_of(" \t\n") == 0);
     static_assert(testString.find_first_not_of("Helo Wrd\t\n") == CStringView::npos);
     static_assert(testString.find_first_not_of("Helo Wrd") == 11);
@@ -2880,7 +2735,6 @@ TEST_CASE("CStringView find_first_not_of", "[core][c_string_view]") {
     REQUIRE(testString.find_first_not_of("B") == 0); // 'A' at position 0
     REQUIRE(testString.find_first_not_of('B') == 0); // 'A' at position 0
 
-    // Compile-time checks
     static_assert(testString.find_first_not_of("A") == CStringView::npos);
     static_assert(testString.find_first_not_of('A') == CStringView::npos);
     static_assert(testString.find_first_not_of("B") == 0);
@@ -2894,7 +2748,6 @@ TEST_CASE("CStringView find_first_not_of", "[core][c_string_view]") {
     REQUIRE(testString.find_first_not_of("Hel", 0) == 4);
     REQUIRE(testString.find_first_not_of("Helo Wrd", 0) == CStringView::npos);
 
-    // Compile-time checks
     static_assert(testString.find_first_not_of("H", 0) == 1);
     static_assert(testString.find_first_not_of("Hel", 0) == 4);
     static_assert(testString.find_first_not_of("Helo Wrd", 0) == CStringView::npos);
@@ -2907,7 +2760,6 @@ TEST_CASE("CStringView find_first_not_of", "[core][c_string_view]") {
     REQUIRE(testString.find_first_not_of("abcdefghijklmnopqrstuvwxy") == 25); // 'z' at position 25
     REQUIRE(testString.find_first_not_of("abcdefghijklmnopqrstuvwx") == 24); // 'y' at position 24
 
-    // Compile-time checks
     static_assert(testString.find_first_not_of("abcdefghijklmnopqrstuvwxyz") == CStringView::npos);
     static_assert(testString.find_first_not_of("abcdefghijklmnopqrstuvwxy") == 25);
     static_assert(testString.find_first_not_of("abcdefghijklmnopqrstuvwx") == 24);
@@ -2920,7 +2772,6 @@ TEST_CASE("CStringView find_first_not_of", "[core][c_string_view]") {
     REQUIRE(testString.find_first_not_of("0123456789") == 0); // 'H' at position 0
     REQUIRE(testString.find_first_not_of("!@#$%^&*()") == 0); // 'H' at position 0
 
-    // Compile-time checks
     static_assert(testString.find_first_not_of("xyz") == 0);
     static_assert(testString.find_first_not_of("0123456789") == 0);
     static_assert(testString.find_first_not_of("!@#$%^&*()") == 0);
@@ -2933,7 +2784,6 @@ TEST_CASE("CStringView find_first_not_of", "[core][c_string_view]") {
     REQUIRE(testString.find_first_not_of("Helo123Wr") == 12); // 'd' at position 12
     REQUIRE(testString.find_first_not_of("Helo123Wd") == 10); // 'r' at position 10
 
-    // Compile-time checks
     static_assert(testString.find_first_not_of("Helo123Wrd") == CStringView::npos);
     static_assert(testString.find_first_not_of("Helo123Wr") == 12);
     static_assert(testString.find_first_not_of("Helo123Wd") == 10);
@@ -2947,7 +2797,6 @@ TEST_CASE("CStringView find_first_not_of", "[core][c_string_view]") {
     REQUIRE(testString.find_first_not_of("Hel", 6) == 6); // 'W' at position 6
     REQUIRE(testString.find_first_not_of("Hel", 7) == 7); // 'o' at position 7
 
-    // Compile-time checks
     static_assert(testString.find_first_not_of("Hel", 4) == 4);
     static_assert(testString.find_first_not_of("Hel", 5) == 5);
     static_assert(testString.find_first_not_of("Hel", 6) == 6);
@@ -2961,7 +2810,6 @@ TEST_CASE("CStringView find_first_not_of", "[core][c_string_view]") {
     REQUIRE(testString.find_first_not_of("Hell") == 4); // 'o' at position 4
     REQUIRE(testString.find_first_not_of("Hel") == 4); // 'o' at position 4
 
-    // Compile-time checks
     static_assert(testString.find_first_not_of("Hello") == CStringView::npos);
     static_assert(testString.find_first_not_of("Hell") == 4);
     static_assert(testString.find_first_not_of("Hel") == 4);
@@ -2977,7 +2825,6 @@ TEST_CASE("CStringView find_last_of", "[core][c_string_view]") {
     REQUIRE(testString.find_last_of(CStringView("H")) == 0); // 'H' at position 0
     REQUIRE(testString.find_last_of(CStringView("d")) == 10); // 'd' at position 10
 
-    // Compile-time checks
     static_assert(testString.find_last_of(CStringView("aeiou")) == 7);
     static_assert(testString.find_last_of(CStringView("l")) == 9);
     static_assert(testString.find_last_of(CStringView("H")) == 0);
@@ -2992,7 +2839,6 @@ TEST_CASE("CStringView find_last_of", "[core][c_string_view]") {
     REQUIRE(testString.find_last_of(std::string("H")) == 0); // 'H' at position 0
     REQUIRE(testString.find_last_of(std::string("d")) == 10); // 'd' at position 10
 
-    // Compile-time checks
     static_assert(testString.find_last_of(CStringView("aeiou")) == 7);
     static_assert(testString.find_last_of(CStringView("l")) == 9);
     static_assert(testString.find_last_of(CStringView("H")) == 0);
@@ -3007,7 +2853,6 @@ TEST_CASE("CStringView find_last_of", "[core][c_string_view]") {
     REQUIRE(testString.find_last_of("H") == 0); // 'H' at position 0
     REQUIRE(testString.find_last_of("d") == 10); // 'd' at position 10
 
-    // Compile-time checks
     static_assert(testString.find_last_of("aeiou") == 7);
     static_assert(testString.find_last_of("l") == 9);
     static_assert(testString.find_last_of("H") == 0);
@@ -3022,7 +2867,6 @@ TEST_CASE("CStringView find_last_of", "[core][c_string_view]") {
     REQUIRE(testString.find_last_of('H') == 0); // 'H' at position 0
     REQUIRE(testString.find_last_of('d') == 10); // 'd' at position 10
 
-    // Compile-time checks
     static_assert(testString.find_last_of('l') == 9);
     static_assert(testString.find_last_of('o') == 7);
     static_assert(testString.find_last_of('H') == 0);
@@ -3039,7 +2883,6 @@ TEST_CASE("CStringView find_last_of", "[core][c_string_view]") {
     REQUIRE(testString.find_last_of("Hel", 0) == 0); // 'H' at position 0
     REQUIRE(testString.find_last_of("Hel", 17) == CStringView::npos);
 
-    // Compile-time checks
     static_assert(testString.find_last_of("Hel", 8) == 3);
     static_assert(testString.find_last_of("Hel", 4) == 3);
     static_assert(testString.find_last_of("Hel", 2) == 2);
@@ -3055,7 +2898,6 @@ TEST_CASE("CStringView find_last_of", "[core][c_string_view]") {
     REQUIRE(testString.find_last_of(std::string("")) == CStringView::npos);
     REQUIRE(testString.find_last_of("") == CStringView::npos);
 
-    // Compile-time checks
     static_assert(testString.find_last_of(CStringView("")) == CStringView::npos);
     static_assert(testString.find_last_of(FixedString<4>("")) == CStringView::npos);
     static_assert(testString.find_last_of("") == CStringView::npos);
@@ -3068,7 +2910,6 @@ TEST_CASE("CStringView find_last_of", "[core][c_string_view]") {
     REQUIRE(testString.find_last_of("!@#$%^&*()") == CStringView::npos);
     REQUIRE(testString.find_last_of("[]{}|\\:;\"'<>?/") == CStringView::npos);
 
-    // Compile-time checks
     static_assert(testString.find_last_of("0123456789") == CStringView::npos);
     static_assert(testString.find_last_of("!@#$%^&*()") == CStringView::npos);
     static_assert(testString.find_last_of("[]{}|\\:;\"'<>?/") == CStringView::npos);
@@ -3082,7 +2923,6 @@ TEST_CASE("CStringView find_last_of", "[core][c_string_view]") {
     REQUIRE(testString.find_last_of("Helo") == 9); // 'l' at position 9
     REQUIRE(testString.find_last_of("Helo ") == 9); // 'l' at position 9
 
-    // Compile-time checks
     static_assert(testString.find_last_of("Hl") == 9);
     static_assert(testString.find_last_of("Hel") == 9);
     static_assert(testString.find_last_of("Helo") == 9);
@@ -3097,7 +2937,6 @@ TEST_CASE("CStringView find_last_of", "[core][c_string_view]") {
     REQUIRE(testString.find_last_of("w") == CStringView::npos);
     REQUIRE(testString.find_last_of("W") == 6); // 'W' at position 6
 
-    // Compile-time checks
     static_assert(testString.find_last_of("h") == CStringView::npos);
     static_assert(testString.find_last_of("H") == 0);
     static_assert(testString.find_last_of("w") == CStringView::npos);
@@ -3111,7 +2950,6 @@ TEST_CASE("CStringView find_last_of", "[core][c_string_view]") {
     REQUIRE(testString.find_last_of("Helo, Wrd") == 11); // 'd' at position 11
     REQUIRE(testString.find_last_of("Helo, Wr") == 10); // 'l' at position 10
 
-    // Compile-time checks
     static_assert(testString.find_last_of("Helo, Wrd!") == 12);
     static_assert(testString.find_last_of("Helo, Wrd") == 11);
     static_assert(testString.find_last_of("Helo, Wr") == 10);
@@ -3124,7 +2962,6 @@ TEST_CASE("CStringView find_last_of", "[core][c_string_view]") {
     REQUIRE(testString.find_last_of("Helo123Wrd") == 12); // 'd' at position 12
     REQUIRE(testString.find_last_of("Helo123Wr") == 11); // 'l' at position 11
 
-    // Compile-time checks
     static_assert(testString.find_last_of("0123456789") == 7);
     static_assert(testString.find_last_of("Helo123Wrd") == 12);
     static_assert(testString.find_last_of("Helo123Wr") == 11);
@@ -3137,7 +2974,6 @@ TEST_CASE("CStringView find_last_of", "[core][c_string_view]") {
     REQUIRE(testString.find_last_of("Helo Wrd\t\n") == 12); // '\n' at position 12
     REQUIRE(testString.find_last_of("Helo Wrd") == 10); // 'd' at position 10
 
-    // Compile-time checks
     static_assert(testString.find_last_of(" \t\n") == 12);
     static_assert(testString.find_last_of("Helo Wrd\t\n") == 12);
     static_assert(testString.find_last_of("Helo Wrd") == 10);
@@ -3150,7 +2986,6 @@ TEST_CASE("CStringView find_last_of", "[core][c_string_view]") {
     REQUIRE(testString.find_last_of('b') == 5); // 'b' at position 5
     REQUIRE(testString.find_last_of('x') == CStringView::npos);
 
-    // Compile-time checks
     static_assert(testString.find_last_of('a') == 4);
     static_assert(testString.find_last_of('b') == 5);
     static_assert(testString.find_last_of('x') == CStringView::npos);
@@ -3164,7 +2999,6 @@ TEST_CASE("CStringView find_last_of", "[core][c_string_view]") {
     REQUIRE(testString.find_last_of("B") == CStringView::npos);
     REQUIRE(testString.find_last_of('B') == CStringView::npos);
 
-    // Compile-time checks
     static_assert(testString.find_last_of("A") == 4);
     static_assert(testString.find_last_of('A') == 4);
     static_assert(testString.find_last_of("B") == CStringView::npos);
@@ -3178,7 +3012,6 @@ TEST_CASE("CStringView find_last_of", "[core][c_string_view]") {
     REQUIRE(testString.find_last_of("abcdefghijklmnopqrstuvwxy") == 24); // 'y' at position 24
     REQUIRE(testString.find_last_of("abcdefghijklmnopqrstuvwx") == 23); // 'x' at position 23
 
-    // Compile-time checks
     static_assert(testString.find_last_of("abcdefghijklmnopqrstuvwxyz") == 25);
     static_assert(testString.find_last_of("abcdefghijklmnopqrstuvwxy") == 24);
     static_assert(testString.find_last_of("abcdefghijklmnopqrstuvwx") == 23);
@@ -3191,7 +3024,6 @@ TEST_CASE("CStringView find_last_of", "[core][c_string_view]") {
     REQUIRE(testString.find_last_of("Helo Wr") == 9); // 'l' at position 9
     REQUIRE(testString.find_last_of("Helo W") == 9); // 'l' at position 9
 
-    // Compile-time checks
     static_assert(testString.find_last_of("Helo Wrd") == 10);
     static_assert(testString.find_last_of("Helo Wr") == 9);
     static_assert(testString.find_last_of("Helo W") == 9);
@@ -3205,7 +3037,6 @@ TEST_CASE("CStringView find_last_of", "[core][c_string_view]") {
     REQUIRE(testString.find_last_of("Hel", 2) == 2); // 'l' at position 2
     REQUIRE(testString.find_last_of("Hel", 1) == 1); // 'e' at position 1
 
-    // Compile-time checks
     static_assert(testString.find_last_of("Hel", 8) == 3);
     static_assert(testString.find_last_of("Hel", 4) == 3);
     static_assert(testString.find_last_of("Hel", 2) == 2);
@@ -3219,7 +3050,6 @@ TEST_CASE("CStringView find_last_of", "[core][c_string_view]") {
     REQUIRE(testString.find_last_of("Hell") == 3); // 'l' at position 3
     REQUIRE(testString.find_last_of("Hel") == 3); // 'l' at position 3
 
-    // Compile-time checks
     static_assert(testString.find_last_of("Hello") == 4);
     static_assert(testString.find_last_of("Hell") == 3);
     static_assert(testString.find_last_of("Hel") == 3);
@@ -3235,7 +3065,6 @@ TEST_CASE("CStringView find_last_not_of", "[core][c_string_view]") {
     REQUIRE(testString.find_last_not_of(CStringView("rld")) == 7); // 'o' at position 7
     REQUIRE(testString.find_last_not_of(CStringView("World")) == 5); // ' ' at position 5
 
-    // Compile-time checks
     static_assert(testString.find_last_not_of(CStringView("d")) == 9);
     static_assert(testString.find_last_not_of(CStringView("ld")) == 8);
     static_assert(testString.find_last_not_of(CStringView("rld")) == 7);
@@ -3250,7 +3079,6 @@ TEST_CASE("CStringView find_last_not_of", "[core][c_string_view]") {
     REQUIRE(testString.find_last_not_of(std::string("rld")) == 7); // 'o' at position 7
     REQUIRE(testString.find_last_not_of(std::string("World")) == 5); // ' ' at position 5
 
-    // Compile-time checks
     static_assert(testString.find_last_not_of(CStringView("d")) == 9);
     static_assert(testString.find_last_not_of(CStringView("ld")) == 8);
     static_assert(testString.find_last_not_of(CStringView("rld")) == 7);
@@ -3265,7 +3093,6 @@ TEST_CASE("CStringView find_last_not_of", "[core][c_string_view]") {
     REQUIRE(testString.find_last_not_of("rld") == 7); // 'o' at position 7
     REQUIRE(testString.find_last_not_of("World") == 5); // ' ' at position 5
 
-    // Compile-time checks
     static_assert(testString.find_last_not_of("d") == 9);
     static_assert(testString.find_last_not_of("ld") == 8);
     static_assert(testString.find_last_not_of("rld") == 7);
@@ -3280,7 +3107,6 @@ TEST_CASE("CStringView find_last_not_of", "[core][c_string_view]") {
     REQUIRE(testString.find_last_not_of('o') == 10); // 'd' at position 10
     REQUIRE(testString.find_last_not_of('H') == 10); // 'd' at position 10
 
-    // Compile-time checks
     static_assert(testString.find_last_not_of('d') == 9);
     static_assert(testString.find_last_not_of('l') == 10);
     static_assert(testString.find_last_not_of('o') == 10);
@@ -3296,7 +3122,6 @@ TEST_CASE("CStringView find_last_not_of", "[core][c_string_view]") {
     REQUIRE(testString.find_last_not_of("Hel", 1) == CStringView::npos);
     REQUIRE(testString.find_last_not_of("Hel", 0) == CStringView::npos);
 
-    // Compile-time checks
     static_assert(testString.find_last_not_of("Hel", 8) == 8);
     static_assert(testString.find_last_not_of("Hel", 4) == 4);
     static_assert(testString.find_last_not_of("Hel", 2) == CStringView::npos);
@@ -3312,7 +3137,6 @@ TEST_CASE("CStringView find_last_not_of", "[core][c_string_view]") {
     REQUIRE(testString.find_last_not_of("") == 10); // 'd' at position 10
     REQUIRE(testString.find_last_not_of("", 5) == 5); // ' ' at position 5
 
-    // Compile-time checks
     static_assert(testString.find_last_not_of(CStringView("")) == 10);
     static_assert(testString.find_last_not_of(FixedString<10>("")) == 10);
     static_assert(testString.find_last_not_of("") == 10);
@@ -3326,7 +3150,6 @@ TEST_CASE("CStringView find_last_not_of", "[core][c_string_view]") {
     REQUIRE(testString.find_last_not_of("Helo Wr") == 10); // 'd' at position 10
     REQUIRE(testString.find_last_not_of("Helo W") == 10); // 'd' at position 10
 
-    // Compile-time checks
     static_assert(testString.find_last_not_of("Helo Wrd") == CStringView::npos);
     static_assert(testString.find_last_not_of("Helo Wr") == 10);
     static_assert(testString.find_last_not_of("Helo W") == 10);
@@ -3340,7 +3163,6 @@ TEST_CASE("CStringView find_last_not_of", "[core][c_string_view]") {
     REQUIRE(testString.find_last_not_of("Helo") == 10); // 'd' at position 10
     REQUIRE(testString.find_last_not_of("Helo ") == 10); // 'd' at position 10
 
-    // Compile-time checks
     static_assert(testString.find_last_not_of("Hl") == 10);
     static_assert(testString.find_last_not_of("Hel") == 10);
     static_assert(testString.find_last_not_of("Helo") == 10);
@@ -3355,7 +3177,6 @@ TEST_CASE("CStringView find_last_not_of", "[core][c_string_view]") {
     REQUIRE(testString.find_last_not_of("w") == 10); // 'd' at position 10
     REQUIRE(testString.find_last_not_of("W") == 10); // 'd' at position 10
 
-    // Compile-time checks
     static_assert(testString.find_last_not_of("h") == 10);
     static_assert(testString.find_last_not_of("H") == 10);
     static_assert(testString.find_last_not_of("w") == 10);
@@ -3369,7 +3190,6 @@ TEST_CASE("CStringView find_last_not_of", "[core][c_string_view]") {
     REQUIRE(testString.find_last_not_of("Helo, Wrd") == 12); // '!' at position 12
     REQUIRE(testString.find_last_not_of("Helo, Wr") == 12); // '!' at position 12
 
-    // Compile-time checks
     static_assert(testString.find_last_not_of("Helo, Wrd!") == CStringView::npos);
     static_assert(testString.find_last_not_of("Helo, Wrd") == 12);
     static_assert(testString.find_last_not_of("Helo, Wr") == 12);
@@ -3382,7 +3202,6 @@ TEST_CASE("CStringView find_last_not_of", "[core][c_string_view]") {
     REQUIRE(testString.find_last_not_of("Helo123Wrd") == CStringView::npos);
     REQUIRE(testString.find_last_not_of("Helo123Wr") == 12); // 'd' at position 12
 
-    // Compile-time checks
     static_assert(testString.find_last_not_of("0123456789") == 12);
     static_assert(testString.find_last_not_of("Helo123Wrd") == CStringView::npos);
     static_assert(testString.find_last_not_of("Helo123Wr") == 12);
@@ -3395,7 +3214,6 @@ TEST_CASE("CStringView find_last_not_of", "[core][c_string_view]") {
     REQUIRE(testString.find_last_not_of("Helo Wrd\t\n") == CStringView::npos);
     REQUIRE(testString.find_last_not_of("Helo Wrd") == 12); // '\n' at position 12
 
-    // Compile-time checks
     static_assert(testString.find_last_not_of(" \t\n") == 10);
     static_assert(testString.find_last_not_of("Helo Wrd\t\n") == CStringView::npos);
     static_assert(testString.find_last_not_of("Helo Wrd") == 12);
@@ -3408,7 +3226,6 @@ TEST_CASE("CStringView find_last_not_of", "[core][c_string_view]") {
     REQUIRE(testString.find_last_not_of('b') == 4); // 'a' at position 4
     REQUIRE(testString.find_last_not_of('x') == 5); // 'b' at position 5
 
-    // Compile-time checks
     static_assert(testString.find_last_not_of('a') == 5);
     static_assert(testString.find_last_not_of('b') == 4);
     static_assert(testString.find_last_not_of('x') == 5);
@@ -3422,7 +3239,6 @@ TEST_CASE("CStringView find_last_not_of", "[core][c_string_view]") {
     REQUIRE(testString.find_last_not_of("B") == 4); // 'A' at position 4
     REQUIRE(testString.find_last_not_of('B') == 4); // 'A' at position 4
 
-    // Compile-time checks
     static_assert(testString.find_last_not_of("A") == CStringView::npos);
     static_assert(testString.find_last_not_of('A') == CStringView::npos);
     static_assert(testString.find_last_not_of("B") == 4);
@@ -3436,7 +3252,6 @@ TEST_CASE("CStringView find_last_not_of", "[core][c_string_view]") {
     REQUIRE(testString.find_last_not_of("abcdefghijklmnopqrstuvwxy") == 25); // 'z' at position 25
     REQUIRE(testString.find_last_not_of("abcdefghijklmnopqrstuvwx") == 25); // 'z' at position 25
 
-    // Compile-time checks
     static_assert(testString.find_last_not_of("abcdefghijklmnopqrstuvwxyz") == CStringView::npos);
     static_assert(testString.find_last_not_of("abcdefghijklmnopqrstuvwxy") == 25);
     static_assert(testString.find_last_not_of("abcdefghijklmnopqrstuvwx") == 25);
@@ -3449,7 +3264,6 @@ TEST_CASE("CStringView find_last_not_of", "[core][c_string_view]") {
     REQUIRE(testString.find_last_not_of("0123456789") == 10); // 'd' at position 10
     REQUIRE(testString.find_last_not_of("!@#$%^&*()") == 10); // 'd' at position 10
 
-    // Compile-time checks
     static_assert(testString.find_last_not_of("xyz") == 10);
     static_assert(testString.find_last_not_of("0123456789") == 10);
     static_assert(testString.find_last_not_of("!@#$%^&*()") == 10);
@@ -3464,7 +3278,6 @@ TEST_CASE("CStringView find_last_not_of", "[core][c_string_view]") {
     REQUIRE(testString.find_last_not_of("Hel", 1) == CStringView::npos);
     REQUIRE(testString.find_last_not_of("Hel", 17) == CStringView::npos);
 
-    // Compile-time checks
     static_assert(testString.find_last_not_of("Hel", 8) == 8);
     static_assert(testString.find_last_not_of("Hel", 4) == 4);
     static_assert(testString.find_last_not_of("Hel", 2) == CStringView::npos);
@@ -3479,7 +3292,6 @@ TEST_CASE("CStringView find_last_not_of", "[core][c_string_view]") {
     REQUIRE(testString.find_last_not_of("Hell") == 4); // 'o' at position 4
     REQUIRE(testString.find_last_not_of("Hel") == 4); // 'o' at position 4
 
-    // Compile-time checks
     static_assert(testString.find_last_not_of("Hello") == CStringView::npos);
     static_assert(testString.find_last_not_of("Hell") == 4);
     static_assert(testString.find_last_not_of("Hel") == 4);
@@ -3490,7 +3302,6 @@ TEST_CASE("CStringView find_last_not_of", "[core][c_string_view]") {
 
     REQUIRE(testString.find_last_not_of("Hello") == CStringView::npos);
 
-    // Compile-time checks
     static_assert(testString.find_last_not_of("Hello") == CStringView::npos);
   }
 }
@@ -3506,7 +3317,6 @@ TEST_CASE("CStringView compare", "[core][c_string_view]") {
     REQUIRE(testString1.compare(testString3) < 0);
     REQUIRE(testString1.compare(testString4) > 0);
 
-    // Compile-time checks
     static_assert(testString1.compare(testString2) == 0);
     static_assert(testString1.compare(testString3) < 0);
     static_assert(testString1.compare(testString4) > 0);
@@ -3519,7 +3329,6 @@ TEST_CASE("CStringView compare", "[core][c_string_view]") {
     REQUIRE(testString.compare(std::string("World")) < 0);
     REQUIRE(testString.compare(std::string("Hell")) > 0);
 
-    // Compile-time checks
     static_assert(testString.compare(CStringView("Hello")) == 0);
     static_assert(testString.compare(CStringView("World")) < 0);
     static_assert(testString.compare(CStringView("Hell")) > 0);
@@ -3532,7 +3341,6 @@ TEST_CASE("CStringView compare", "[core][c_string_view]") {
     REQUIRE(testString.compare("World") < 0);
     REQUIRE(testString.compare("Hell") > 0);
 
-    // Compile-time checks
     static_assert(testString.compare("Hello") == 0);
     static_assert(testString.compare("World") < 0);
     static_assert(testString.compare("Hell") > 0);
@@ -3545,7 +3353,6 @@ TEST_CASE("CStringView compare", "[core][c_string_view]") {
     REQUIRE(testString.compare(std::string("Hello World")) == 0);
     REQUIRE(testString.compare("Hello World") == 0);
 
-    // Compile-time checks
     static_assert(testString.compare(CStringView("Hello World")) == 0);
     static_assert(testString.compare(FixedString<16>("Hello World")) == 0);
     static_assert(testString.compare("Hello World") == 0);
@@ -3560,7 +3367,6 @@ TEST_CASE("CStringView compare", "[core][c_string_view]") {
     REQUIRE(testString1.compare("") == 0);
     REQUIRE(testString1.compare(std::string("")) == 0);
 
-    // Compile-time checks
     static_assert(testString1.compare(testString2) < 0);
     static_assert(testString2.compare(testString1) > 0);
     static_assert(testString1.compare("") == 0);
@@ -3574,7 +3380,6 @@ TEST_CASE("CStringView compare", "[core][c_string_view]") {
     REQUIRE(testString1.compare(testString2) < 0);
     REQUIRE(testString2.compare(testString1) > 0);
 
-    // Compile-time checks
     static_assert(testString1.compare(testString2) < 0);
     static_assert(testString2.compare(testString1) > 0);
   }
@@ -3586,7 +3391,6 @@ TEST_CASE("CStringView compare", "[core][c_string_view]") {
     REQUIRE(testString1.compare(testString2) > 0);
     REQUIRE(testString2.compare(testString1) < 0);
 
-    // Compile-time checks
     static_assert(testString1.compare(testString2) > 0);
     static_assert(testString2.compare(testString1) < 0);
   }
@@ -3598,7 +3402,6 @@ TEST_CASE("CStringView compare", "[core][c_string_view]") {
     REQUIRE(testString1.compare(testString2) < 0);
     REQUIRE(testString2.compare(testString1) > 0);
 
-    // Compile-time checks
     static_assert(testString1.compare(testString2) < 0);
     static_assert(testString2.compare(testString1) > 0);
   }
@@ -3610,7 +3413,6 @@ TEST_CASE("CStringView compare", "[core][c_string_view]") {
     REQUIRE(testString1.compare(testString2) > 0);
     REQUIRE(testString2.compare(testString1) < 0);
 
-    // Compile-time checks
     static_assert(testString1.compare(testString2) > 0);
     static_assert(testString2.compare(testString1) < 0);
   }
@@ -3622,7 +3424,6 @@ TEST_CASE("CStringView compare", "[core][c_string_view]") {
     REQUIRE(testString1.compare(testString2) < 0);
     REQUIRE(testString2.compare(testString1) > 0);
 
-    // Compile-time checks
     static_assert(testString1.compare(testString2) < 0);
     static_assert(testString2.compare(testString1) > 0);
   }
@@ -3634,7 +3435,6 @@ TEST_CASE("CStringView compare", "[core][c_string_view]") {
     REQUIRE(testString.compare("HELLO") > 0);
     REQUIRE(testString.compare("Hello") == 0);
 
-    // Compile-time checks
     static_assert(testString.compare("hello") < 0);
     static_assert(testString.compare("HELLO") > 0);
     static_assert(testString.compare("Hello") == 0);
@@ -3649,7 +3449,6 @@ TEST_CASE("CStringView compare", "[core][c_string_view]") {
     REQUIRE(testString1.compare("A") == 0);
     REQUIRE(testString1.compare("B") < 0);
 
-    // Compile-time checks
     static_assert(testString1.compare(testString2) < 0);
     static_assert(testString2.compare(testString1) > 0);
     static_assert(testString1.compare("A") == 0);
@@ -3665,7 +3464,6 @@ TEST_CASE("CStringView compare", "[core][c_string_view]") {
     REQUIRE(testString1.compare("aaa") == 0);
     REQUIRE(testString1.compare("aa") > 0);
 
-    // Compile-time checks
     static_assert(testString1.compare(testString2) > 0);
     static_assert(testString2.compare(testString1) < 0);
     static_assert(testString1.compare("aaa") == 0);
@@ -3681,7 +3479,6 @@ TEST_CASE("CStringView compare", "[core][c_string_view]") {
     REQUIRE(testString1.compare("Hello!") == 0);
     REQUIRE(testString1.compare("Hello") > 0);
 
-    // Compile-time checks
     static_assert(testString1.compare(testString2) > 0);
     static_assert(testString2.compare(testString1) < 0);
     static_assert(testString1.compare("Hello!") == 0);
@@ -3697,7 +3494,6 @@ TEST_CASE("CStringView compare", "[core][c_string_view]") {
     REQUIRE(testString1.compare("123") == 0);
     REQUIRE(testString1.compare("456") < 0);
 
-    // Compile-time checks
     static_assert(testString1.compare(testString2) < 0);
     static_assert(testString2.compare(testString1) > 0);
     static_assert(testString1.compare("123") == 0);
@@ -3713,7 +3509,6 @@ TEST_CASE("CStringView compare", "[core][c_string_view]") {
     REQUIRE(testString1.compare("Hello123") == 0);
     REQUIRE(testString1.compare("Hello456") < 0);
 
-    // Compile-time checks
     static_assert(testString1.compare(testString2) < 0);
     static_assert(testString2.compare(testString1) > 0);
     static_assert(testString1.compare("Hello123") == 0);
@@ -3729,7 +3524,6 @@ TEST_CASE("CStringView compare", "[core][c_string_view]") {
     REQUIRE(testString1.compare("123456789012345") == 0);
     REQUIRE(testString1.compare("123456789012346") < 0);
 
-    // Compile-time checks
     static_assert(testString1.compare(testString2) < 0);
     static_assert(testString2.compare(testString1) > 0);
     static_assert(testString1.compare("123456789012345") == 0);
@@ -3743,7 +3537,6 @@ TEST_CASE("CStringView compare", "[core][c_string_view]") {
     REQUIRE(testString.compare(std::string("Hello")) > 0);
     REQUIRE(testString.compare(std::string("World")) < 0);
 
-    // Compile-time checks
     static_assert(testString.compare(FixedString<16>("Hello World")) == 0);
     static_assert(testString.compare(FixedString<16>("Hello")) > 0);
     static_assert(testString.compare(FixedString<16>("World")) < 0);
@@ -3756,7 +3549,6 @@ TEST_CASE("CStringView compare", "[core][c_string_view]") {
     REQUIRE(testString.compare(arr.data()) == 0);
     REQUIRE(testString.compare("Hello") == 0);
 
-    // Compile-time checks
     static_assert(testString.compare(arr.data()) == 0);
     static_assert(testString.compare("Hello") == 0);
   }
@@ -3771,7 +3563,6 @@ TEST_CASE("CStringView compare", "[core][c_string_view]") {
     constexpr CStringView testStringWithNull("Hello\0World");
     REQUIRE(testString.compare(testStringWithNull) == 0);
 
-    // Compile-time checks
     static_assert(testString.compare("Hello\0World") == 0);
     static_assert(testString.compare(testStringWithNull) == 0);
   }
@@ -3788,7 +3579,6 @@ TEST_CASE("CStringView starts_with", "[core][c_string_view]") {
     REQUIRE(testString.starts_with(CStringView("xyz")) == false);
     REQUIRE(testString.starts_with(CStringView("")));
 
-    // Compile-time checks
     static_assert(testString.starts_with(CStringView("Hello")));
     static_assert(testString.starts_with(CStringView("Hello World")));
     static_assert(testString.starts_with(CStringView("H")));
@@ -3807,7 +3597,6 @@ TEST_CASE("CStringView starts_with", "[core][c_string_view]") {
     REQUIRE(testString.starts_with(std::string("xyz")) == false);
     REQUIRE(testString.starts_with(std::string("")));
 
-    // Compile-time checks
     static_assert(testString.starts_with(FixedString<16>("Hello")));
     static_assert(testString.starts_with(FixedString<16>("Hello World")));
     static_assert(testString.starts_with(FixedString<16>("H")));
@@ -3826,7 +3615,6 @@ TEST_CASE("CStringView starts_with", "[core][c_string_view]") {
     REQUIRE(testString.starts_with("xyz") == false);
     REQUIRE(testString.starts_with(""));
 
-    // Compile-time checks
     static_assert(testString.starts_with("Hello"));
     static_assert(testString.starts_with("Hello World"));
     static_assert(testString.starts_with("H"));
@@ -3843,7 +3631,6 @@ TEST_CASE("CStringView starts_with", "[core][c_string_view]") {
     REQUIRE(testString.starts_with('W') == false);
     REQUIRE(testString.starts_with('x') == false);
 
-    // Compile-time checks
     static_assert(testString.starts_with('H'));
     static_assert(testString.starts_with('h') == false);
     static_assert(testString.starts_with('W') == false);
@@ -3859,7 +3646,6 @@ TEST_CASE("CStringView starts_with", "[core][c_string_view]") {
     REQUIRE(testString.starts_with('H') == false);
     REQUIRE(testString.starts_with(""));
 
-    // Compile-time checks
     static_assert(testString.starts_with(CStringView("Hello")) == false);
     static_assert(testString.starts_with(FixedString<16>("Hello")) == false);
     static_assert(testString.starts_with("Hello") == false);
@@ -3876,7 +3662,6 @@ TEST_CASE("CStringView starts_with", "[core][c_string_view]") {
     REQUIRE(testString.starts_with('B') == false);
     REQUIRE(testString.starts_with(""));
 
-    // Compile-time checks
     static_assert(testString.starts_with("A"));
     static_assert(testString.starts_with('A'));
     static_assert(testString.starts_with("B") == false);
@@ -3892,7 +3677,6 @@ TEST_CASE("CStringView starts_with", "[core][c_string_view]") {
     REQUIRE(testString.starts_with("Hello"));
     REQUIRE(testString.starts_with("Hell"));
 
-    // Compile-time checks
     static_assert(testString.starts_with("Hello World") == false);
     static_assert(testString.starts_with("Hello Universe") == false);
     static_assert(testString.starts_with("Hello"));
@@ -3908,7 +3692,6 @@ TEST_CASE("CStringView starts_with", "[core][c_string_view]") {
     REQUIRE(testString.starts_with('h') == false);
     REQUIRE(testString.starts_with('H'));
 
-    // Compile-time checks
     static_assert(testString.starts_with("hello") == false);
     static_assert(testString.starts_with("HELLO") == false);
     static_assert(testString.starts_with("Hello"));
@@ -3926,7 +3709,6 @@ TEST_CASE("CStringView starts_with", "[core][c_string_view]") {
     REQUIRE(testString.starts_with('a'));
     REQUIRE(testString.starts_with('b') == false);
 
-    // Compile-time checks
     static_assert(testString.starts_with("aaa"));
     static_assert(testString.starts_with("aaaa"));
     static_assert(testString.starts_with("aaaab"));
@@ -3944,7 +3726,6 @@ TEST_CASE("CStringView starts_with", "[core][c_string_view]") {
     REQUIRE(testString.starts_with('!'));
     REQUIRE(testString.starts_with('@') == false);
 
-    // Compile-time checks
     static_assert(testString.starts_with("!@#"));
     static_assert(testString.starts_with("!@#$%"));
     static_assert(testString.starts_with("!@#$%^") == false);
@@ -3961,7 +3742,6 @@ TEST_CASE("CStringView starts_with", "[core][c_string_view]") {
     REQUIRE(testString.starts_with('1'));
     REQUIRE(testString.starts_with('2') == false);
 
-    // Compile-time checks
     static_assert(testString.starts_with("123"));
     static_assert(testString.starts_with("12345"));
     static_assert(testString.starts_with("123456") == false);
@@ -3979,7 +3759,6 @@ TEST_CASE("CStringView starts_with", "[core][c_string_view]") {
     REQUIRE(testString.starts_with('H'));
     REQUIRE(testString.starts_with('1') == false);
 
-    // Compile-time checks
     static_assert(testString.starts_with("Hello"));
     static_assert(testString.starts_with("Hello1"));
     static_assert(testString.starts_with("Hello123"));
@@ -3997,7 +3776,6 @@ TEST_CASE("CStringView starts_with", "[core][c_string_view]") {
     REQUIRE(testString.starts_with('1'));
     REQUIRE(testString.starts_with('5') == false);
 
-    // Compile-time checks
     static_assert(testString.starts_with("123456789012345"));
     static_assert(testString.starts_with("12345678901234"));
     static_assert(testString.starts_with("1234567890123456") == false);
@@ -4012,7 +3790,6 @@ TEST_CASE("CStringView starts_with", "[core][c_string_view]") {
     REQUIRE(testString.starts_with(std::string("Hello World")));
     REQUIRE(testString.starts_with(std::string("World")) == false);
 
-    // Compile-time checks
     static_assert(testString.starts_with(FixedString<16>("Hello")));
     static_assert(testString.starts_with(FixedString<16>("Hello World")));
     static_assert(testString.starts_with(FixedString<16>("World")) == false);
@@ -4025,7 +3802,6 @@ TEST_CASE("CStringView starts_with", "[core][c_string_view]") {
     REQUIRE(testString.starts_with(arr.data()));
     REQUIRE(testString.starts_with("Hel"));
 
-    // Compile-time checks
     static_assert(testString.starts_with(arr.data()));
     static_assert(testString.starts_with("Hel"));
   }
@@ -4040,7 +3816,6 @@ TEST_CASE("CStringView starts_with", "[core][c_string_view]") {
     constexpr CStringView testStringWithNull("Hello\0World");
     REQUIRE(testStringWithNull.starts_with("Hello"));
 
-    // Compile-time checks
     static_assert(testString.starts_with("Hello\0World"));
     static_assert(testStringWithNull.starts_with("Hello"));
   }
@@ -4054,7 +3829,6 @@ TEST_CASE("CStringView starts_with", "[core][c_string_view]") {
     REQUIRE(testString.starts_with(' '));
     REQUIRE(testString.starts_with('H') == false);
 
-    // Compile-time checks
     static_assert(testString.starts_with(" "));
     static_assert(testString.starts_with(" Hello"));
     static_assert(testString.starts_with("Hello") == false);
@@ -4070,7 +3844,6 @@ TEST_CASE("CStringView starts_with", "[core][c_string_view]") {
     REQUIRE(testString.starts_with("H"));
     REQUIRE(testString.starts_with(""));
 
-    // Compile-time checks
     static_assert(testString.starts_with("Hello"));
     static_assert(testString.starts_with("Hell"));
     static_assert(testString.starts_with("H"));
@@ -4089,7 +3862,6 @@ TEST_CASE("CStringView ends_with", "[core][c_string_view]") {
     REQUIRE(testString.ends_with(CStringView("xyz")) == false);
     REQUIRE(testString.ends_with(CStringView("")));
 
-    // Compile-time checks
     static_assert(testString.ends_with(CStringView("World")));
     static_assert(testString.ends_with(CStringView("Hello World")));
     static_assert(testString.ends_with(CStringView("d")));
@@ -4108,7 +3880,6 @@ TEST_CASE("CStringView ends_with", "[core][c_string_view]") {
     REQUIRE(testString.ends_with(std::string("xyz")) == false);
     REQUIRE(testString.ends_with(std::string("")));
 
-    // Compile-time checks
     static_assert(testString.ends_with(FixedString<16>("World")));
     static_assert(testString.ends_with(FixedString<16>("Hello World")));
     static_assert(testString.ends_with(FixedString<16>("d")));
@@ -4127,7 +3898,6 @@ TEST_CASE("CStringView ends_with", "[core][c_string_view]") {
     REQUIRE(testString.ends_with("xyz") == false);
     REQUIRE(testString.ends_with(""));
 
-    // Compile-time checks
     static_assert(testString.ends_with("World"));
     static_assert(testString.ends_with("Hello World"));
     static_assert(testString.ends_with("d"));
@@ -4144,7 +3914,6 @@ TEST_CASE("CStringView ends_with", "[core][c_string_view]") {
     REQUIRE(testString.ends_with('H') == false);
     REQUIRE(testString.ends_with('x') == false);
 
-    // Compile-time checks
     static_assert(testString.ends_with('d'));
     static_assert(testString.ends_with('D') == false);
     static_assert(testString.ends_with('H') == false);
@@ -4160,7 +3929,6 @@ TEST_CASE("CStringView ends_with", "[core][c_string_view]") {
     REQUIRE(testString.ends_with('H') == false);
     REQUIRE(testString.ends_with(""));
 
-    // Compile-time checks
     static_assert(testString.ends_with(CStringView("Hello")) == false);
     static_assert(testString.ends_with(FixedString<8>("Hello")) == false);
     static_assert(testString.ends_with("Hello") == false);
@@ -4177,7 +3945,6 @@ TEST_CASE("CStringView ends_with", "[core][c_string_view]") {
     REQUIRE(testString.ends_with('B') == false);
     REQUIRE(testString.ends_with(""));
 
-    // Compile-time checks
     static_assert(testString.ends_with("A"));
     static_assert(testString.ends_with('A'));
     static_assert(testString.ends_with("B") == false);
@@ -4193,7 +3960,6 @@ TEST_CASE("CStringView ends_with", "[core][c_string_view]") {
     REQUIRE(testString.ends_with("Hello"));
     REQUIRE(testString.ends_with("llo"));
 
-    // Compile-time checks
     static_assert(testString.ends_with("Hello World") == false);
     static_assert(testString.ends_with("Hello Universe") == false);
     static_assert(testString.ends_with("Hello"));
@@ -4209,7 +3975,6 @@ TEST_CASE("CStringView ends_with", "[core][c_string_view]") {
     REQUIRE(testString.ends_with('d'));
     REQUIRE(testString.ends_with('D') == false);
 
-    // Compile-time checks
     static_assert(testString.ends_with("world") == false);
     static_assert(testString.ends_with("WORLD") == false);
     static_assert(testString.ends_with("World"));
@@ -4227,7 +3992,6 @@ TEST_CASE("CStringView ends_with", "[core][c_string_view]") {
     REQUIRE(testString.ends_with('a'));
     REQUIRE(testString.ends_with('b') == false);
 
-    // Compile-time checks
     static_assert(testString.ends_with("aaa"));
     static_assert(testString.ends_with("aaaa"));
     static_assert(testString.ends_with("baaaa"));
@@ -4245,7 +4009,6 @@ TEST_CASE("CStringView ends_with", "[core][c_string_view]") {
     REQUIRE(testString.ends_with('!'));
     REQUIRE(testString.ends_with('@') == false);
 
-    // Compile-time checks
     static_assert(testString.ends_with("@!"));
     static_assert(testString.ends_with("%$#@!"));
     static_assert(testString.ends_with("^%$#@!") == false);
@@ -4262,7 +4025,6 @@ TEST_CASE("CStringView ends_with", "[core][c_string_view]") {
     REQUIRE(testString.ends_with('1'));
     REQUIRE(testString.ends_with('2') == false);
 
-    // Compile-time checks
     static_assert(testString.ends_with("321"));
     static_assert(testString.ends_with("54321"));
     static_assert(testString.ends_with("654321") == false);
@@ -4280,7 +4042,6 @@ TEST_CASE("CStringView ends_with", "[core][c_string_view]") {
     REQUIRE(testString.ends_with('o'));
     REQUIRE(testString.ends_with('1') == false);
 
-    // Compile-time checks
     static_assert(testString.ends_with("Hello"));
     static_assert(testString.ends_with("3Hello"));
     static_assert(testString.ends_with("123Hello"));
@@ -4298,7 +4059,6 @@ TEST_CASE("CStringView ends_with", "[core][c_string_view]") {
     REQUIRE(testString.ends_with('5'));
     REQUIRE(testString.ends_with('1') == false);
 
-    // Compile-time checks
     static_assert(testString.ends_with("123456789012345"));
     static_assert(testString.ends_with("23456789012345"));
     static_assert(testString.ends_with("0123456789012345") == false);
@@ -4313,7 +4073,6 @@ TEST_CASE("CStringView ends_with", "[core][c_string_view]") {
     REQUIRE(testString.ends_with(arr.data()));
     REQUIRE(testString.ends_with("llo"));
 
-    // Compile-time checks
     static_assert(testString.ends_with(arr.data()));
     static_assert(testString.ends_with("llo"));
   }
@@ -4328,7 +4087,6 @@ TEST_CASE("CStringView ends_with", "[core][c_string_view]") {
     constexpr CStringView testStringWithNull("Hello\0World");
     REQUIRE(testStringWithNull.ends_with("World") == false);
 
-    // Compile-time checks
     static_assert(testString.ends_with("Hello\0World"));
     static_assert(testStringWithNull.ends_with("World") == false);
   }
@@ -4342,7 +4100,6 @@ TEST_CASE("CStringView ends_with", "[core][c_string_view]") {
     REQUIRE(testString.ends_with(' '));
     REQUIRE(testString.ends_with('d') == false);
 
-    // Compile-time checks
     static_assert(testString.ends_with(" "));
     static_assert(testString.ends_with("World "));
     static_assert(testString.ends_with("World") == false);
@@ -4358,7 +4115,6 @@ TEST_CASE("CStringView ends_with", "[core][c_string_view]") {
     REQUIRE(testString.ends_with("o"));
     REQUIRE(testString.ends_with(""));
 
-    // Compile-time checks
     static_assert(testString.ends_with("Hello"));
     static_assert(testString.ends_with("llo"));
     static_assert(testString.ends_with("o"));
@@ -4375,7 +4131,6 @@ TEST_CASE("CStringView ends_with", "[core][c_string_view]") {
     REQUIRE(testString.ends_with("ababab"));
     REQUIRE(testString.ends_with("bababab") == false);
 
-    // Compile-time checks
     static_assert(testString.ends_with("ab"));
     static_assert(testString.ends_with("bab"));
     static_assert(testString.ends_with("abab"));
@@ -4393,7 +4148,6 @@ TEST_CASE("CStringView ends_with", "[core][c_string_view]") {
     REQUIRE(testString.ends_with("ababab"));
     REQUIRE(testString.ends_with("abababab"));
 
-    // Compile-time checks
     static_assert(testString.ends_with("ab"));
     static_assert(testString.ends_with("bab"));
     static_assert(testString.ends_with("abab"));
@@ -4411,7 +4165,6 @@ TEST_CASE("CStringView ends_with", "[core][c_string_view]") {
     REQUIRE(testString.ends_with("xyz") == false);
     REQUIRE(testString.ends_with(""));
 
-    // Compile-time checks
     static_assert(testString.ends_with("世界"));
     static_assert(testString.ends_with("Hello 世界"));
     static_assert(testString.ends_with("界"));
@@ -4430,7 +4183,6 @@ TEST_CASE("CStringView ends_with", "[core][c_string_view]") {
     REQUIRE(testString.ends_with("T") == false);
     REQUIRE(testString.ends_with(""));
 
-    // Compile-time checks
     static_assert(testString.ends_with("testing"));
     static_assert(testString.ends_with("performance testing"));
     static_assert(testString.ends_with("This is a very long string for performance testing"));
@@ -4476,7 +4228,6 @@ TEST_CASE("CStringView contains", "[core][c_string_view]") {
     REQUIRE(str.contains("xyz") == false);
     REQUIRE(str.contains(""));
 
-    // Compile-time checks
     static_assert(str.contains("World"));
     static_assert(str.contains("Hello"));
     static_assert(str.contains("lo Wo"));
@@ -4497,7 +4248,6 @@ TEST_CASE("CStringView contains", "[core][c_string_view]") {
     REQUIRE(str.contains(CStringView("")));
     REQUIRE(str.contains(CStringView()));
 
-    // Compile-time checks
     static_assert(str.contains(CStringView("World")));
     static_assert(str.contains(CStringView("Hello")));
     static_assert(str.contains(CStringView("lo Wo")));
@@ -4517,7 +4267,6 @@ TEST_CASE("CStringView contains", "[core][c_string_view]") {
     REQUIRE(str.contains(std::string("xyz")) == false);
     REQUIRE(str.contains(std::string("")));
 
-    // Compile-time checks
     static_assert(str.contains(FixedString<16>("World")));
     static_assert(str.contains(FixedString<16>("Hello")));
     static_assert(str.contains(FixedString<16>("lo Wo")));
@@ -4537,7 +4286,6 @@ TEST_CASE("CStringView contains", "[core][c_string_view]") {
     REQUIRE(str.contains('x') == false);
     REQUIRE(str.contains('Z') == false);
 
-    // Compile-time checks
     static_assert(str.contains('H'));
     static_assert(str.contains('o'));
     static_assert(str.contains('l'));
@@ -4556,7 +4304,6 @@ TEST_CASE("CStringView contains", "[core][c_string_view]") {
     REQUIRE(str.contains('H') == false);
     REQUIRE(str.contains(""));
 
-    // Compile-time checks
     static_assert(str.contains(CStringView("Hello")) == false);
     static_assert(str.contains(FixedString<8>("Hello")) == false);
     static_assert(str.contains("Hello") == false);
@@ -4574,7 +4321,6 @@ TEST_CASE("CStringView contains", "[core][c_string_view]") {
     REQUIRE(str.contains('B') == false);
     REQUIRE(str.contains(""));
 
-    // Compile-time checks
     static_assert(str.contains("A"));
     static_assert(str.contains('A'));
     static_assert(str.contains("B") == false);
@@ -4592,7 +4338,6 @@ TEST_CASE("CStringView contains", "[core][c_string_view]") {
     REQUIRE(str.contains('h') == false);
     REQUIRE(str.contains('H'));
 
-    // Compile-time checks
     static_assert(str.contains("world") == false);
     static_assert(str.contains("WORLD") == false);
     static_assert(str.contains("World"));
@@ -4614,7 +4359,6 @@ TEST_CASE("CStringView contains", "[core][c_string_view]") {
     REQUIRE(str.contains("llo"));
     REQUIRE(str.contains("ell"));
 
-    // Compile-time checks
     static_assert(str.contains("Hello World") == false);
     static_assert(str.contains("Hello Universe") == false);
     static_assert(str.contains("Hello"));
@@ -4633,7 +4377,6 @@ TEST_CASE("CStringView contains", "[core][c_string_view]") {
     REQUIRE(str.contains("\tWorld"));
     REQUIRE(str.contains("World!"));
 
-    // Compile-time checks
     static_assert(str.contains("\n"));
     static_assert(str.contains("\t"));
     static_assert(str.contains("!"));
@@ -4652,7 +4395,6 @@ TEST_CASE("CStringView contains", "[core][c_string_view]") {
     REQUIRE(str.contains("世"));
     REQUIRE(str.contains("宇宙") == false);
 
-    // Compile-time checks
     static_assert(str.contains("世界"));
     static_assert(str.contains("Hello 世"));
     static_assert(str.contains("界"));
@@ -4671,7 +4413,6 @@ TEST_CASE("CStringView contains", "[core][c_string_view]") {
     REQUIRE(str.contains("babab"));
     REQUIRE(str.contains("abababa") == false);
 
-    // Compile-time checks
     static_assert(str.contains("ab"));
     static_assert(str.contains("bab"));
     static_assert(str.contains("abab"));
@@ -4693,7 +4434,6 @@ TEST_CASE("CStringView contains", "[core][c_string_view]") {
     REQUIRE(str.contains('5'));
     REQUIRE(str.contains('9') == false);
 
-    // Compile-time checks
     static_assert(str.contains("123"));
     static_assert(str.contains("345"));
     static_assert(str.contains("234"));
@@ -4715,7 +4455,6 @@ TEST_CASE("CStringView contains", "[core][c_string_view]") {
     REQUIRE(str.contains("123Hello456"));
     REQUIRE(str.contains("789") == false);
 
-    // Compile-time checks
     static_assert(str.contains("123"));
     static_assert(str.contains("Hello"));
     static_assert(str.contains("456"));
@@ -4742,7 +4481,6 @@ TEST_CASE("CStringView contains", "[core][c_string_view]") {
     REQUIRE(str.contains("ld"));
     REQUIRE(str.contains("World"));
 
-    // Compile-time checks
     static_assert(str.contains("H"));
     static_assert(str.contains("He"));
     static_assert(str.contains("Hello"));
@@ -4772,15 +4510,14 @@ TEST_CASE("CStringView operator==", "[core][c_string_view]") {
     REQUIRE_FALSE(str1 == empty1);
     REQUIRE_FALSE(empty1 == str1);
 
-    // Compile-time checks
     static_assert(str1 == str2);
     static_assert(str2 == str1);
-    STATIC_REQUIRE_FALSE(str1 == str3);
-    STATIC_REQUIRE_FALSE(str3 == str1);
+    static_assert(str1 != str3);
+    static_assert(str3 != str1);
     static_assert(empty1 == empty2);
     static_assert(empty2 == empty1);
-    STATIC_REQUIRE_FALSE(str1 == empty1);
-    STATIC_REQUIRE_FALSE(empty1 == str1);
+    static_assert(str1 != empty1);
+    static_assert(empty1 != str1);
   }
 
   SECTION("CStringView == StringLike") {
@@ -4814,15 +4551,14 @@ TEST_CASE("CStringView operator==", "[core][c_string_view]") {
     REQUIRE_FALSE(str1 == "");
     REQUIRE_FALSE("" == str1);
 
-    // Compile-time checks
     static_assert(str1 == "Hello");
     static_assert("Hello" == str1);
-    STATIC_REQUIRE_FALSE(str1 == "World");
-    STATIC_REQUIRE_FALSE("World" == str1);
+    static_assert(str1 != "World");
+    static_assert("World" != str1);
     static_assert(empty == "");
     static_assert("" == empty);
-    STATIC_REQUIRE_FALSE(str1 == "");
-    STATIC_REQUIRE_FALSE("" == str1);
+    static_assert(str1 != "");
+    static_assert("" != str1);
   }
 
   SECTION("Edge cases") {
@@ -4830,30 +4566,14 @@ TEST_CASE("CStringView operator==", "[core][c_string_view]") {
     constexpr CStringView empty1;
     constexpr CStringView empty2;
 
-    // Single character comparison
-    REQUIRE(str == "A");
-    REQUIRE("A" == str);
-    REQUIRE_FALSE(str == "B");
-    REQUIRE_FALSE("B" == str);
-
-    // Empty string comparisons
-    REQUIRE(empty1 == empty2);
-    REQUIRE(empty2 == empty1);
-    REQUIRE(empty1 == "");
-    REQUIRE("" == empty1);
-
     // Different sizes with same content
     constexpr CStringView small("Hi");
     constexpr CStringView large("Hi");
 
-    REQUIRE(small == large);
-    REQUIRE(large == small);
-
-    // Compile-time checks
     static_assert(str == "A");
     static_assert("A" == str);
-    STATIC_REQUIRE_FALSE(str == "B");
-    STATIC_REQUIRE_FALSE("B" == str);
+    static_assert(str != "B");
+    static_assert("B" != str);
 
     static_assert(empty1 == empty2);
     static_assert(empty2 == empty1);
@@ -4869,24 +4589,14 @@ TEST_CASE("CStringView operator==", "[core][c_string_view]") {
     constexpr CStringView str2("Hello\tWorld");
     constexpr CStringView str3("Hello World");
 
-    REQUIRE(str1 == "Hello\nWorld");
-    REQUIRE("Hello\nWorld" == str1);
-    REQUIRE(str2 == "Hello\tWorld");
-    REQUIRE("Hello\tWorld" == str2);
-    REQUIRE_FALSE(str1 == str2);
-    REQUIRE_FALSE(str2 == str1);
-    REQUIRE_FALSE(str1 == str3);
-    REQUIRE_FALSE(str3 == str1);
-
-    // Compile-time checks
     static_assert(str1 == "Hello\nWorld");
     static_assert("Hello\nWorld" == str1);
     static_assert(str2 == "Hello\tWorld");
     static_assert("Hello\tWorld" == str2);
-    STATIC_REQUIRE_FALSE(str1 == str2);
-    STATIC_REQUIRE_FALSE(str2 == str1);
-    STATIC_REQUIRE_FALSE(str1 == str3);
-    STATIC_REQUIRE_FALSE(str3 == str1);
+    static_assert(str1 != str2);
+    static_assert(str2 != str1);
+    static_assert(str1 != str3);
+    static_assert(str3 != str1);
   }
 
   SECTION("Unicode content") {
@@ -4894,20 +4604,12 @@ TEST_CASE("CStringView operator==", "[core][c_string_view]") {
     constexpr CStringView str2("Мир");
     constexpr CStringView str3("Привет");
 
-    REQUIRE(str1 == "Привет");
-    REQUIRE("Привет" == str1);
-    REQUIRE(str1 == str3);
-    REQUIRE(str3 == str1);
-    REQUIRE_FALSE(str1 == str2);
-    REQUIRE_FALSE(str2 == str1);
-
-    // Compile-time checks
     static_assert(str1 == "Привет");
     static_assert("Привет" == str1);
     static_assert(str1 == str3);
     static_assert(str3 == str1);
-    STATIC_REQUIRE_FALSE(str1 == str2);
-    STATIC_REQUIRE_FALSE(str2 == str1);
+    static_assert(str1 != str2);
+    static_assert(str2 != str1);
   }
 
   SECTION("Performance test") {
@@ -4915,16 +4617,10 @@ TEST_CASE("CStringView operator==", "[core][c_string_view]") {
     constexpr CStringView str2("This is a longer string for performance testing");
     constexpr CStringView str3("This is a different string for performance testing");
 
-    REQUIRE(str1 == str2);
-    REQUIRE(str2 == str1);
-    REQUIRE_FALSE(str1 == str3);
-    REQUIRE_FALSE(str3 == str1);
-
-    // Compile-time checks
     static_assert(str1 == str2);
     static_assert(str2 == str1);
-    STATIC_REQUIRE_FALSE(str1 == str3);
-    STATIC_REQUIRE_FALSE(str3 == str1);
+    static_assert(str1 != str3);
+    static_assert(str3 != str1);
   }
 
   SECTION("Constexpr operations") {
@@ -4939,20 +4635,12 @@ TEST_CASE("CStringView operator==", "[core][c_string_view]") {
     constexpr bool eq5 = str1 == "Different";
     constexpr bool eq6 = "Different" == str1;
 
-    REQUIRE(eq1);
-    REQUIRE_FALSE(eq2);
-    REQUIRE(eq3);
-    REQUIRE(eq4);
-    REQUIRE_FALSE(eq5);
-    REQUIRE_FALSE(eq6);
-
-    // Compile-time checks
     static_assert(eq1);
-    STATIC_REQUIRE_FALSE(eq2);
+    static_assert(!eq2);
     static_assert(eq3);
     static_assert(eq4);
-    STATIC_REQUIRE_FALSE(eq5);
-    STATIC_REQUIRE_FALSE(eq6);
+    static_assert(!eq5);
+    static_assert(!eq6);
   }
 }
 
@@ -4977,7 +4665,6 @@ TEST_CASE("CStringView operator<=>", "[core][c_string_view]") {
     REQUIRE((str1 <=> str5) == strong_ordering::greater);
     REQUIRE((str5 <=> str1) == strong_ordering::less);
 
-    // Compile-time checks
     static_assert((str1 <=> str1) == strong_ordering::equal);
     static_assert((str1 <=> str2) == strong_ordering::equal);
     static_assert((str2 <=> str1) == strong_ordering::equal);
@@ -5031,7 +4718,6 @@ TEST_CASE("CStringView operator<=>", "[core][c_string_view]") {
     REQUIRE((str1 <=> str5) == strong_ordering::greater);
     REQUIRE((str5 <=> str1) == strong_ordering::less);
 
-    // Compile-time checks
     static_assert((str1 <=> str2) == strong_ordering::equal);
     static_assert((str2 <=> str1) == strong_ordering::equal);
 
@@ -5062,7 +4748,6 @@ TEST_CASE("CStringView operator<=>", "[core][c_string_view]") {
     REQUIRE((empty1 <=> nonEmptyCStr) == strong_ordering::less);
     REQUIRE((nonEmptyCStr <=> empty1) == strong_ordering::greater);
 
-    // Compile-time checks
     static_assert((empty1 <=> empty2) == strong_ordering::equal);
     static_assert((empty2 <=> empty1) == strong_ordering::equal);
     static_assert((empty1 <=> emptyCStr) == strong_ordering::equal);
@@ -5092,7 +4777,6 @@ TEST_CASE("CStringView operator<=>", "[core][c_string_view]") {
     REQUIRE((str2 <=> str4) == strong_ordering::less);
     REQUIRE((str4 <=> str2) == strong_ordering::greater);
 
-    // Compile-time checks
     static_assert((str1 <=> str3) == strong_ordering::equal);
     static_assert((str3 <=> str1) == strong_ordering::equal);
 
@@ -5117,7 +4801,6 @@ TEST_CASE("CStringView operator<=>", "[core][c_string_view]") {
     REQUIRE((upper <=> mixed) == strong_ordering::less); // 'H' < 'H' (same), but 'E' < 'e'
     REQUIRE((mixed <=> upper) == strong_ordering::greater);
 
-    // Compile-time checks
     static_assert((lower <=> upper) == strong_ordering::greater);
     static_assert((upper <=> lower) == strong_ordering::less);
     static_assert((lower <=> mixed) == strong_ordering::greater);
@@ -5142,7 +4825,6 @@ TEST_CASE("CStringView operator<=>", "[core][c_string_view]") {
     REQUIRE((str1 <=> str4) == strong_ordering::equal);
     REQUIRE((str4 <=> str1) == strong_ordering::equal);
 
-    // Compile-time checks
     static_assert((str1 <=> str2) == strong_ordering::less);
     static_assert((str2 <=> str1) == strong_ordering::greater);
     static_assert((str3 <=> str1) == strong_ordering::less);
@@ -5170,7 +4852,6 @@ TEST_CASE("CStringView operator<=>", "[core][c_string_view]") {
     REQUIRE((str2 <=> str3) == strong_ordering::less); // '\t' < ' ' in ASCII
     REQUIRE((str3 <=> str2) == strong_ordering::greater);
 
-    // Compile-time checks
     static_assert((str1 <=> str4) == strong_ordering::equal);
     static_assert((str4 <=> str1) == strong_ordering::equal);
 
@@ -5198,7 +4879,6 @@ TEST_CASE("CStringView operator<=>", "[core][c_string_view]") {
     REQUIRE((str1 <=> str4) != strong_ordering::equal);
     REQUIRE((str4 <=> str1) != strong_ordering::equal);
 
-    // Compile-time checks
     static_assert((str1 <=> str3) == strong_ordering::equal);
     static_assert((str3 <=> str1) == strong_ordering::equal);
 
@@ -5227,7 +4907,6 @@ TEST_CASE("CStringView operator<=>", "[core][c_string_view]") {
     REQUIRE((str1 <=> str5) == strong_ordering::less); // "123" < "1234"
     REQUIRE((str5 <=> str1) == strong_ordering::greater);
 
-    // Compile-time checks
     static_assert((str1 <=> str3) == strong_ordering::equal);
     static_assert((str3 <=> str1) == strong_ordering::equal);
 
@@ -5254,14 +4933,6 @@ TEST_CASE("CStringView operator<=>", "[core][c_string_view]") {
     constexpr auto eq5 = str1 <=> str6;
     constexpr auto eq6 = str5 <=> str1;
 
-    REQUIRE(eq1 == strong_ordering::equal);
-    REQUIRE(eq2 != strong_ordering::equal);
-    REQUIRE(eq3 == strong_ordering::equal);
-    REQUIRE(eq4 == strong_ordering::equal);
-    REQUIRE(eq5 != strong_ordering::equal);
-    REQUIRE(eq6 == strong_ordering::equal);
-
-    // Compile-time checks
     static_assert(eq1 == strong_ordering::equal);
     static_assert(eq2 != strong_ordering::equal);
     static_assert(eq3 == strong_ordering::equal);
@@ -5286,7 +4957,6 @@ TEST_CASE("CStringView operator<=>", "[core][c_string_view]") {
     REQUIRE((str1 <=> str4) != strong_ordering::equal); // Different content
     REQUIRE((str4 <=> str1) != strong_ordering::equal);
 
-    // Compile-time checks
     static_assert((str1 <=> str2) == strong_ordering::equal);
     static_assert((str2 <=> str1) == strong_ordering::equal);
     static_assert((str1 <=> str3) == strong_ordering::less);
@@ -5382,9 +5052,9 @@ TEST_CASE("CStringView std::swap", "[core][c_string_view]") {
 
     std::swap(str1, str2);
 
-    REQUIRE(str1.size() == 12);
+    REQUIRE(str1.size() == std::char_traits<char>::length("World 宇宙"));
     REQUIRE(std::strcmp(str1.c_str(), "World 宇宙") == 0);
-    REQUIRE(str2.size() == 12);
+    REQUIRE(str2.size() == std::char_traits<char>::length("Hello 世界"));
     REQUIRE(std::strcmp(str2.c_str(), "Hello 世界") == 0);
   }
 

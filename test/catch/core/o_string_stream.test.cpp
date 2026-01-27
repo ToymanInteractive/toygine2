@@ -31,9 +31,6 @@ TEST_CASE("OStringStream constructors", "[core][o_string_stream]") {
   SECTION("Default constructor") {
     constexpr OStringStream<FixedString<32>> emptyStream;
 
-    REQUIRE(emptyStream.str() == "");
-
-    // Compile-time checks
     static_assert(emptyStream.str() == "");
   }
 
@@ -41,9 +38,6 @@ TEST_CASE("OStringStream constructors", "[core][o_string_stream]") {
     constexpr FixedString<16> source("Hello");
     constexpr OStringStream<FixedString<32>> stream(source);
 
-    REQUIRE(stream.str() == "Hello");
-
-    // Compile-time checks
     static_assert(stream.str() == "Hello");
   }
 
@@ -58,9 +52,6 @@ TEST_CASE("OStringStream constructors", "[core][o_string_stream]") {
     constexpr CStringView view("Test");
     constexpr OStringStream<FixedString<32>> stream(view);
 
-    REQUIRE(stream.str() == "Test");
-
-    // Compile-time checks
     static_assert(stream.str() == "Test");
   }
 
@@ -68,9 +59,6 @@ TEST_CASE("OStringStream constructors", "[core][o_string_stream]") {
     constexpr FixedString<16> empty;
     constexpr OStringStream<FixedString<32>> stream(empty);
 
-    REQUIRE(stream.str() == "");
-
-    // Compile-time checks
     static_assert(stream.str() == "");
   }
 }

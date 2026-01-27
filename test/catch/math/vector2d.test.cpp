@@ -45,7 +45,6 @@ TEST_CASE("Vector2D constructors", "[math][vector2d]") {
     REQUIRE(vector.x == 0.0);
     REQUIRE(vector.y == 0.0);
 
-    // Compile-time checks
     constexpr Vector2D constexprVector;
     static_assert(constexprVector.x == 0.0);
     static_assert(constexprVector.y == 0.0);
@@ -56,7 +55,6 @@ TEST_CASE("Vector2D constructors", "[math][vector2d]") {
     REQUIRE(vector.x == 12);
     REQUIRE(vector.y == 23);
 
-    // Compile-time checks
     constexpr Vector2D constexprVector(12, 23);
     static_assert(constexprVector.x == 12);
     static_assert(constexprVector.y == 23);
@@ -67,7 +65,6 @@ TEST_CASE("Vector2D constructors", "[math][vector2d]") {
     REQUIRE(vector.x == -5);
     REQUIRE(vector.y == -15);
 
-    // Compile-time checks
     constexpr Vector2D constexprVector(-5, -15);
     static_assert(constexprVector.x == -5);
     static_assert(constexprVector.y == -15);
@@ -78,7 +75,6 @@ TEST_CASE("Vector2D constructors", "[math][vector2d]") {
     REQUIRE(vector.x == -100);
     REQUIRE(vector.y == 200);
 
-    // Compile-time checks
     constexpr Vector2D constexprVector(-100, 200);
     static_assert(constexprVector.x == -100);
     static_assert(constexprVector.y == 200);
@@ -89,7 +85,6 @@ TEST_CASE("Vector2D constructors", "[math][vector2d]") {
     REQUIRE(vector.x == 0);
     REQUIRE(vector.y == 0);
 
-    // Compile-time checks
     constexpr Vector2D constexprVector(0, 0);
     static_assert(constexprVector.x == 0);
     static_assert(constexprVector.y == 0);
@@ -102,7 +97,6 @@ TEST_CASE("Vector2D constructors", "[math][vector2d]") {
     REQUIRE(vector.x == 42);
     REQUIRE(vector.y == -17);
 
-    // Compile-time checks
     constexpr Vector2D constexprVector(arr.data());
     static_assert(constexprVector.x == 42);
     static_assert(constexprVector.y == -17);
@@ -196,7 +190,6 @@ TEST_CASE("Vector2D c_arr methods", "[math][vector2d]") {
     REQUIRE(vector.c_arr()[0] == 0);
     REQUIRE(vector.c_arr()[1] == 0);
 
-    // Compile-time checks
     static_assert(vector.c_arr()[0] == 0);
   }
 
@@ -206,7 +199,6 @@ TEST_CASE("Vector2D c_arr methods", "[math][vector2d]") {
     REQUIRE(vector.c_arr()[0] == 10);
     REQUIRE(vector.c_arr()[1] == 20);
 
-    // Compile-time checks
     static_assert(vector.c_arr()[0] == 10);
   }
 
@@ -216,7 +208,6 @@ TEST_CASE("Vector2D c_arr methods", "[math][vector2d]") {
     REQUIRE(vector.c_arr()[0] == -50);
     REQUIRE(vector.c_arr()[1] == 75);
 
-    // Compile-time checks
     static_assert(vector.c_arr()[0] == -50);
   }
 
@@ -327,7 +318,6 @@ TEST_CASE("Vector2D methods", "[math][vector2d]") {
     constexpr Vector2D vector(3, 4);
     constexpr auto magnitude = vector.sqrMagnitude();
 
-    REQUIRE(magnitude == 25);
     static_assert(magnitude == 25);
   }
 
@@ -496,10 +486,6 @@ TEST_CASE("Vector2D binary operators", "[math][vector2d]") {
     constexpr Vector2D vector(10, -20);
     constexpr Vector2D result = -vector;
 
-    REQUIRE(result.x == -10);
-    REQUIRE(result.y == 20);
-
-    // Compile-time checks
     static_assert(result.x == -10);
     static_assert(result.y == 20);
   }
@@ -508,10 +494,6 @@ TEST_CASE("Vector2D binary operators", "[math][vector2d]") {
     constexpr Vector2D vector(0, 0);
     constexpr Vector2D result = -vector;
 
-    REQUIRE(result.x == 0);
-    REQUIRE(result.y == 0);
-
-    // Compile-time checks
     static_assert(result.x == 0);
     static_assert(result.y == 0);
   }
@@ -520,10 +502,6 @@ TEST_CASE("Vector2D binary operators", "[math][vector2d]") {
     constexpr Vector2D vector(-5, -15);
     constexpr Vector2D result = -vector;
 
-    REQUIRE(result.x == 5);
-    REQUIRE(result.y == 15);
-
-    // Compile-time checks
     static_assert(result.x == 5);
     static_assert(result.y == 15);
   }
@@ -534,10 +512,6 @@ TEST_CASE("Vector2D binary operators", "[math][vector2d]") {
 
     constexpr Vector2D result = vector1 + vector2;
 
-    REQUIRE(result.x == 15);
-    REQUIRE(result.y == 10);
-
-    // Compile-time checks
     static_assert(result.x == 15);
     static_assert(result.y == 10);
   }
@@ -548,10 +522,6 @@ TEST_CASE("Vector2D binary operators", "[math][vector2d]") {
 
     constexpr Vector2D result = vector1 + vector2;
 
-    REQUIRE(result.x == 10);
-    REQUIRE(result.y == 20);
-
-    // Compile-time checks
     static_assert(result.x == 10);
     static_assert(result.y == 20);
   }
@@ -562,10 +532,6 @@ TEST_CASE("Vector2D binary operators", "[math][vector2d]") {
 
     constexpr Vector2D result = vector1 + vector2;
 
-    REQUIRE(result.x == -15);
-    REQUIRE(result.y == -35);
-
-    // Compile-time checks
     static_assert(result.x == -15);
     static_assert(result.y == -35);
   }
@@ -576,10 +542,6 @@ TEST_CASE("Vector2D binary operators", "[math][vector2d]") {
 
     constexpr Vector2D result = vector1 - vector2;
 
-    REQUIRE(result.x == 10);
-    REQUIRE(result.y == 15);
-
-    // Compile-time checks
     static_assert(result.x == 10);
     static_assert(result.y == 15);
   }
@@ -590,10 +552,6 @@ TEST_CASE("Vector2D binary operators", "[math][vector2d]") {
 
     constexpr Vector2D result = vector1 - vector2;
 
-    REQUIRE(result.x == 10);
-    REQUIRE(result.y == 20);
-
-    // Compile-time checks
     static_assert(result.x == 10);
     static_assert(result.y == 20);
   }
@@ -604,10 +562,6 @@ TEST_CASE("Vector2D binary operators", "[math][vector2d]") {
 
     constexpr Vector2D result = vector1 - vector2;
 
-    REQUIRE(result.x == -5);
-    REQUIRE(result.y == -5);
-
-    // Compile-time checks
     static_assert(result.x == -5);
     static_assert(result.y == -5);
   }
@@ -618,10 +572,6 @@ TEST_CASE("Vector2D binary operators", "[math][vector2d]") {
 
     constexpr Vector2D result = vector * scalar;
 
-    REQUIRE(result.x == 25);
-    REQUIRE(result.y == 50);
-
-    // Compile-time checks
     static_assert(result.x == 25);
     static_assert(result.y == 50);
   }
@@ -632,10 +582,6 @@ TEST_CASE("Vector2D binary operators", "[math][vector2d]") {
 
     constexpr Vector2D result = scalar * vector;
 
-    REQUIRE(result.x == 30);
-    REQUIRE(result.y == 45);
-
-    // Compile-time checks
     static_assert(result.x == 30);
     static_assert(result.y == 45);
   }
@@ -646,10 +592,6 @@ TEST_CASE("Vector2D binary operators", "[math][vector2d]") {
 
     constexpr Vector2D result = vector * scalar;
 
-    REQUIRE(result.x == 0);
-    REQUIRE(result.y == 0);
-
-    // Compile-time checks
     static_assert(result.x == 0);
     static_assert(result.y == 0);
   }
@@ -660,10 +602,6 @@ TEST_CASE("Vector2D binary operators", "[math][vector2d]") {
 
     constexpr Vector2D result = vector * scalar;
 
-    REQUIRE(result.x == -5);
-    REQUIRE(result.y == -10);
-
-    // Compile-time checks
     static_assert(result.x == -5);
     static_assert(result.y == -10);
   }
@@ -674,10 +612,6 @@ TEST_CASE("Vector2D binary operators", "[math][vector2d]") {
 
     constexpr Vector2D result = vector / scalar;
 
-    REQUIRE(result.x == 10);
-    REQUIRE(result.y == 20);
-
-    // Compile-time checks
     static_assert(result.x == 10);
     static_assert(result.y == 20);
   }
@@ -688,10 +622,6 @@ TEST_CASE("Vector2D binary operators", "[math][vector2d]") {
 
     constexpr Vector2D result = vector / scalar;
 
-    REQUIRE(result.x == 20);
-    REQUIRE(result.y == 40);
-
-    // Compile-time checks
     static_assert(result.x == 20);
     static_assert(result.y == 40);
   }
@@ -702,9 +632,6 @@ TEST_CASE("Vector2D binary operators", "[math][vector2d]") {
 
     constexpr bool result = vector1 == vector2;
 
-    REQUIRE(result);
-
-    // Compile-time checks
     static_assert(result);
   }
 
@@ -714,9 +641,6 @@ TEST_CASE("Vector2D binary operators", "[math][vector2d]") {
 
     constexpr bool result = vector1 == vector2;
 
-    REQUIRE(result == false);
-
-    // Compile-time checks
     static_assert(result == false);
   }
 
@@ -726,9 +650,6 @@ TEST_CASE("Vector2D binary operators", "[math][vector2d]") {
 
     constexpr bool result = vector1 == vector2;
 
-    REQUIRE(result);
-
-    // Compile-time checks
     static_assert(result);
   }
 
@@ -738,9 +659,6 @@ TEST_CASE("Vector2D binary operators", "[math][vector2d]") {
 
     constexpr bool result = vector1 == vector2;
 
-    REQUIRE(result);
-
-    // Compile-time checks
     static_assert(result);
   }
 
@@ -750,9 +668,6 @@ TEST_CASE("Vector2D binary operators", "[math][vector2d]") {
 
     constexpr bool result = vector1 == vector2;
 
-    REQUIRE(result);
-
-    // Compile-time checks
     static_assert(result);
   }
 
@@ -763,12 +678,8 @@ TEST_CASE("Vector2D binary operators", "[math][vector2d]") {
 
     constexpr Vector2D result = (vector1 + vector2) * scalar - vector1;
 
-    REQUIRE(result.x == 20); // ((10+5)*2 - 10) = 30 - 10 = 20
-    REQUIRE(result.y == 40); // ((20+10)*2 - 20) = 60 - 20 = 40
-
-    // Compile-time checks
-    static_assert(result.x == 20);
-    static_assert(result.y == 40);
+    static_assert(result.x == 20); // ((10+5)*2 - 10) = 30 - 10 = 20
+    static_assert(result.y == 40); // ((20+10)*2 - 20) = 60 - 20 = 40
   }
 
   SECTION("Complex chained operations") {
@@ -779,45 +690,20 @@ TEST_CASE("Vector2D binary operators", "[math][vector2d]") {
 
     constexpr Vector2D result = (vector1 * scalar1 + vector2) / scalar2;
 
-    REQUIRE(result.x == 100); // ((100*1.5 + 50) / 2) = (150 + 50) / 2 = 100
-    REQUIRE(result.y == 187.5); // ((200*1.5 + 75) / 2) = (300 + 75) / 2 = 187.5
-
-    // Compile-time checks
-    static_assert(result.x == 100);
-    static_assert(result.y == 187.5);
+    static_assert(result.x == 100); // ((100*1.5 + 50) / 2) = (150 + 50) / 2 = 100
+    static_assert(result.y == 187.5); // ((200*1.5 + 75) / 2) = (300 + 75) / 2 = 187.5
   }
 
   SECTION("Chained tests") {
-    // Test all binary operators at runtime
     constexpr Vector2D vector1(10, 20);
     constexpr Vector2D vector2(5, -10);
 
-    // Unary minus
     constexpr Vector2D negated = -vector1;
-    REQUIRE(negated.x == -10);
-    REQUIRE(negated.y == -20);
-
-    // Addition
     constexpr Vector2D sum = negated + vector2;
-    REQUIRE(sum.x == -5);
-    REQUIRE(sum.y == -30);
-
-    // Subtraction
     constexpr Vector2D diff = sum - vector2;
-    REQUIRE(diff.x == -10);
-    REQUIRE(diff.y == -20);
-
-    // Multiplication
     constexpr Vector2D mult = diff * 2.5f;
-    REQUIRE(mult.x == -25);
-    REQUIRE(mult.y == -50);
-
-    // Division
     constexpr Vector2D div = mult / 5;
-    REQUIRE(div.x == -5);
-    REQUIRE(div.y == -10);
 
-    // Compile-time checks
     static_assert(negated.x == -10);
     static_assert(negated.y == -20);
     static_assert(sum.x == -5);

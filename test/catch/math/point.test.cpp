@@ -45,7 +45,6 @@ TEST_CASE("Point constructors", "[math][point]") {
     REQUIRE(point.x == 0);
     REQUIRE(point.y == 0);
 
-    // Compile-time checks
     constexpr Point constexprPoint;
     static_assert(constexprPoint.x == 0);
     static_assert(constexprPoint.y == 0);
@@ -56,7 +55,6 @@ TEST_CASE("Point constructors", "[math][point]") {
     REQUIRE(point.x == 10);
     REQUIRE(point.y == 20);
 
-    // Compile-time checks
     constexpr Point constexprPoint(10, 20);
     static_assert(constexprPoint.x == 10);
     static_assert(constexprPoint.y == 20);
@@ -67,7 +65,6 @@ TEST_CASE("Point constructors", "[math][point]") {
     REQUIRE(point.x == -5);
     REQUIRE(point.y == -15);
 
-    // Compile-time checks
     constexpr Point constexprPoint(-5, -15);
     static_assert(constexprPoint.x == -5);
     static_assert(constexprPoint.y == -15);
@@ -78,7 +75,6 @@ TEST_CASE("Point constructors", "[math][point]") {
     REQUIRE(point.x == -100);
     REQUIRE(point.y == 200);
 
-    // Compile-time checks
     constexpr Point constexprPoint(-100, 200);
     static_assert(constexprPoint.x == -100);
     static_assert(constexprPoint.y == 200);
@@ -89,7 +85,6 @@ TEST_CASE("Point constructors", "[math][point]") {
     REQUIRE(point.x == 0);
     REQUIRE(point.y == 0);
 
-    // Compile-time checks
     constexpr Point constexprPoint(0, 0);
     static_assert(constexprPoint.x == 0);
     static_assert(constexprPoint.y == 0);
@@ -102,7 +97,6 @@ TEST_CASE("Point constructors", "[math][point]") {
     REQUIRE(point.x == 42);
     REQUIRE(point.y == -17);
 
-    // Compile-time checks
     constexpr Point constexprPoint(arr.data());
     static_assert(constexprPoint.x == 42);
     static_assert(constexprPoint.y == -17);
@@ -196,7 +190,6 @@ TEST_CASE("Point c_arr methods", "[math][point]") {
     REQUIRE(point.c_arr()[0] == 0);
     REQUIRE(point.c_arr()[1] == 0);
 
-    // Compile-time checks
     static_assert(point.c_arr()[0] == 0);
   }
 
@@ -206,7 +199,6 @@ TEST_CASE("Point c_arr methods", "[math][point]") {
     REQUIRE(point.c_arr()[0] == 10);
     REQUIRE(point.c_arr()[1] == 20);
 
-    // Compile-time checks
     static_assert(point.c_arr()[0] == 10);
   }
 
@@ -216,7 +208,6 @@ TEST_CASE("Point c_arr methods", "[math][point]") {
     REQUIRE(point.c_arr()[0] == -50);
     REQUIRE(point.c_arr()[1] == 75);
 
-    // Compile-time checks
     static_assert(point.c_arr()[0] == -50);
   }
 
@@ -347,7 +338,6 @@ TEST_CASE("Point methods", "[math][point]") {
     constexpr Point point(3, 4);
     constexpr auto magnitude = point.sqrMagnitude();
 
-    REQUIRE(magnitude == 25);
     static_assert(magnitude == 25);
   }
 
@@ -516,10 +506,6 @@ TEST_CASE("Point binary operators", "[math][point]") {
     constexpr Point point(10, -20);
     constexpr Point result = -point;
 
-    REQUIRE(result.x == -10);
-    REQUIRE(result.y == 20);
-
-    // Compile-time checks
     static_assert(result.x == -10);
     static_assert(result.y == 20);
   }
@@ -528,10 +514,6 @@ TEST_CASE("Point binary operators", "[math][point]") {
     constexpr Point point(0, 0);
     constexpr Point result = -point;
 
-    REQUIRE(result.x == 0);
-    REQUIRE(result.y == 0);
-
-    // Compile-time checks
     static_assert(result.x == 0);
     static_assert(result.y == 0);
   }
@@ -540,10 +522,6 @@ TEST_CASE("Point binary operators", "[math][point]") {
     constexpr Point point(-5, -15);
     constexpr Point result = -point;
 
-    REQUIRE(result.x == 5);
-    REQUIRE(result.y == 15);
-
-    // Compile-time checks
     static_assert(result.x == 5);
     static_assert(result.y == 15);
   }
@@ -554,10 +532,6 @@ TEST_CASE("Point binary operators", "[math][point]") {
 
     constexpr Point result = point1 + point2;
 
-    REQUIRE(result.x == 15);
-    REQUIRE(result.y == 10);
-
-    // Compile-time checks
     static_assert(result.x == 15);
     static_assert(result.y == 10);
   }
@@ -568,10 +542,6 @@ TEST_CASE("Point binary operators", "[math][point]") {
 
     constexpr Point result = point1 + point2;
 
-    REQUIRE(result.x == 10);
-    REQUIRE(result.y == 20);
-
-    // Compile-time checks
     static_assert(result.x == 10);
     static_assert(result.y == 20);
   }
@@ -582,10 +552,6 @@ TEST_CASE("Point binary operators", "[math][point]") {
 
     constexpr Point result = point1 + point2;
 
-    REQUIRE(result.x == -15);
-    REQUIRE(result.y == -35);
-
-    // Compile-time checks
     static_assert(result.x == -15);
     static_assert(result.y == -35);
   }
@@ -596,10 +562,6 @@ TEST_CASE("Point binary operators", "[math][point]") {
 
     constexpr Point result = point1 - point2;
 
-    REQUIRE(result.x == 10);
-    REQUIRE(result.y == 15);
-
-    // Compile-time checks
     static_assert(result.x == 10);
     static_assert(result.y == 15);
   }
@@ -613,7 +575,6 @@ TEST_CASE("Point binary operators", "[math][point]") {
     REQUIRE(result.x == 10);
     REQUIRE(result.y == 20);
 
-    // Compile-time checks
     static_assert(result.x == 10);
     static_assert(result.y == 20);
   }
@@ -624,10 +585,6 @@ TEST_CASE("Point binary operators", "[math][point]") {
 
     constexpr Point result = point1 - point2;
 
-    REQUIRE(result.x == -5);
-    REQUIRE(result.y == -5);
-
-    // Compile-time checks
     static_assert(result.x == -5);
     static_assert(result.y == -5);
   }
@@ -638,10 +595,6 @@ TEST_CASE("Point binary operators", "[math][point]") {
 
     constexpr Point result = point * scalar;
 
-    REQUIRE(result.x == 30);
-    REQUIRE(result.y == 60);
-
-    // Compile-time checks
     static_assert(result.x == 30);
     static_assert(result.y == 60);
   }
@@ -652,10 +605,6 @@ TEST_CASE("Point binary operators", "[math][point]") {
 
     constexpr Point result = scalar * point;
 
-    REQUIRE(result.x == 20);
-    REQUIRE(result.y == 60);
-
-    // Compile-time checks
     static_assert(result.x == 20);
     static_assert(result.y == 60);
   }
@@ -666,10 +615,6 @@ TEST_CASE("Point binary operators", "[math][point]") {
 
     constexpr Point result = point * scalar;
 
-    REQUIRE(result.x == 0);
-    REQUIRE(result.y == 0);
-
-    // Compile-time checks
     static_assert(result.x == 0);
     static_assert(result.y == 0);
   }
@@ -680,10 +625,6 @@ TEST_CASE("Point binary operators", "[math][point]") {
 
     constexpr Point result = point * scalar;
 
-    REQUIRE(result.x == -20);
-    REQUIRE(result.y == -40);
-
-    // Compile-time checks
     static_assert(result.x == -20);
     static_assert(result.y == -40);
   }
@@ -694,10 +635,6 @@ TEST_CASE("Point binary operators", "[math][point]") {
 
     constexpr Point result = point * scalar;
 
-    REQUIRE(result.x == 25);
-    REQUIRE(result.y == 50);
-
-    // Compile-time checks
     static_assert(result.x == 25);
     static_assert(result.y == 50);
   }
@@ -708,10 +645,6 @@ TEST_CASE("Point binary operators", "[math][point]") {
 
     constexpr Point result = scalar * point;
 
-    REQUIRE(result.x == 30);
-    REQUIRE(result.y == 45);
-
-    // Compile-time checks
     static_assert(result.x == 30);
     static_assert(result.y == 45);
   }
@@ -722,10 +655,6 @@ TEST_CASE("Point binary operators", "[math][point]") {
 
     constexpr Point result = point * scalar;
 
-    REQUIRE(result.x == 0);
-    REQUIRE(result.y == 0);
-
-    // Compile-time checks
     static_assert(result.x == 0);
     static_assert(result.y == 0);
   }
@@ -736,10 +665,6 @@ TEST_CASE("Point binary operators", "[math][point]") {
 
     constexpr Point result = point * scalar;
 
-    REQUIRE(result.x == -5);
-    REQUIRE(result.y == -10);
-
-    // Compile-time checks
     static_assert(result.x == -5);
     static_assert(result.y == -10);
   }
@@ -750,10 +675,6 @@ TEST_CASE("Point binary operators", "[math][point]") {
 
     constexpr Point result = point / scalar;
 
-    REQUIRE(result.x == 10);
-    REQUIRE(result.y == 20);
-
-    // Compile-time checks
     static_assert(result.x == 10);
     static_assert(result.y == 20);
   }
@@ -764,10 +685,6 @@ TEST_CASE("Point binary operators", "[math][point]") {
 
     constexpr Point result = point / scalar;
 
-    REQUIRE(result.x == 10);
-    REQUIRE(result.y == 20);
-
-    // Compile-time checks
     static_assert(result.x == 10);
     static_assert(result.y == 20);
   }
@@ -778,10 +695,6 @@ TEST_CASE("Point binary operators", "[math][point]") {
 
     constexpr Point result = point / scalar;
 
-    REQUIRE(result.x == 10);
-    REQUIRE(result.y == 20);
-
-    // Compile-time checks
     static_assert(result.x == 10);
     static_assert(result.y == 20);
   }
@@ -792,10 +705,6 @@ TEST_CASE("Point binary operators", "[math][point]") {
 
     constexpr Point result = point / scalar;
 
-    REQUIRE(result.x == 20);
-    REQUIRE(result.y == 40);
-
-    // Compile-time checks
     static_assert(result.x == 20);
     static_assert(result.y == 40);
   }
@@ -806,9 +715,6 @@ TEST_CASE("Point binary operators", "[math][point]") {
 
     constexpr bool result = point1 == point2;
 
-    REQUIRE(result);
-
-    // Compile-time checks
     static_assert(result);
   }
 
@@ -818,9 +724,6 @@ TEST_CASE("Point binary operators", "[math][point]") {
 
     constexpr bool result = point1 == point2;
 
-    REQUIRE(result == false);
-
-    // Compile-time checks
     static_assert(result == false);
   }
 
@@ -830,9 +733,6 @@ TEST_CASE("Point binary operators", "[math][point]") {
 
     constexpr bool result = point1 == point2;
 
-    REQUIRE(result);
-
-    // Compile-time checks
     static_assert(result);
   }
 
@@ -842,9 +742,6 @@ TEST_CASE("Point binary operators", "[math][point]") {
 
     constexpr bool result = point1 == point2;
 
-    REQUIRE(result);
-
-    // Compile-time checks
     static_assert(result);
   }
 
@@ -854,9 +751,6 @@ TEST_CASE("Point binary operators", "[math][point]") {
 
     constexpr bool result = point1 == point2;
 
-    REQUIRE(result);
-
-    // Compile-time checks
     static_assert(result);
   }
 
@@ -867,12 +761,8 @@ TEST_CASE("Point binary operators", "[math][point]") {
 
     constexpr Point result = (point1 + point2) * scalar - point1;
 
-    REQUIRE(result.x == 20); // ((10+5)*2 - 10) = 30 - 10 = 20
-    REQUIRE(result.y == 40); // ((20+10)*2 - 20) = 60 - 20 = 40
-
-    // Compile-time checks
-    static_assert(result.x == 20);
-    static_assert(result.y == 40);
+    static_assert(result.x == 20); // ((10+5)*2 - 10) = 30 - 10 = 20
+    static_assert(result.y == 40); // ((20+10)*2 - 20) = 60 - 20 = 40
   }
 
   SECTION("Complex chained operations") {
@@ -883,55 +773,22 @@ TEST_CASE("Point binary operators", "[math][point]") {
 
     constexpr Point result = (point1 * scalar1 + point2) / scalar2;
 
-    REQUIRE(result.x == 100); // ((100*1.5 + 50) / 2) = (150 + 50) / 2 = 100
-    REQUIRE(result.y == 187); // ((200*1.5 + 75) / 2) = (300 + 75) / 2 = 187
-
-    // Compile-time checks
-    static_assert(result.x == 100);
-    static_assert(result.y == 187);
+    static_assert(result.x == 100); // ((100*1.5 + 50) / 2) = (150 + 50) / 2 = 100
+    static_assert(result.y == 187); // ((200*1.5 + 75) / 2) = (300 + 75) / 2 = 187
   }
 
   SECTION("Chained tests") {
-    // Test all binary operators at runtime
     constexpr Point point1(10, 20);
     constexpr Point point2(5, -10);
 
-    // Unary minus
     constexpr Point negated = -point1;
-    REQUIRE(negated.x == -10);
-    REQUIRE(negated.y == -20);
-
-    // Addition
     constexpr Point sum = negated + point2;
-    REQUIRE(sum.x == -5);
-    REQUIRE(sum.y == -30);
-
-    // Subtraction
     constexpr Point diff = sum - point2;
-    REQUIRE(diff.x == -10);
-    REQUIRE(diff.y == -20);
-
-    // Multiplication with integer
     constexpr Point multInt = diff * 3;
-    REQUIRE(multInt.x == -30);
-    REQUIRE(multInt.y == -60);
-
-    // Multiplication with real
     constexpr Point multReal = multInt * 2.5f;
-    REQUIRE(multReal.x == -75);
-    REQUIRE(multReal.y == -150);
-
-    // Division with integer
     constexpr Point divInt = multReal / 3;
-    REQUIRE(divInt.x == -25);
-    REQUIRE(divInt.y == -50);
-
-    // Division with real
     constexpr Point divReal = divInt / 2.5f;
-    REQUIRE(divReal.x == -10);
-    REQUIRE(divReal.y == -20);
 
-    // Compile-time checks
     static_assert(negated.x == -10);
     static_assert(negated.y == -20);
     static_assert(sum.x == -5);

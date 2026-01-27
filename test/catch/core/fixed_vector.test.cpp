@@ -30,10 +30,6 @@ TEST_CASE("FixedVector constructors", "[core][fixed_vector]") {
   SECTION("Default constructor") {
     constexpr FixedVector<int, 10> emptyVec;
 
-    REQUIRE(emptyVec.size() == 0);
-    REQUIRE(emptyVec.capacity() == 10);
-
-    // Compile-time checks
     static_assert(emptyVec.size() == 0);
     static_assert(emptyVec.capacity() == 10);
   }
