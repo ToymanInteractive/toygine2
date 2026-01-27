@@ -30,12 +30,8 @@ TEST_CASE("FixedVector constructors", "[core][fixed_vector]") {
   SECTION("Default constructor") {
     constexpr FixedVector<int, 10> emptyVec;
 
-    REQUIRE(emptyVec.size() == 0);
-    REQUIRE(emptyVec.capacity() == 10);
-
-    // Compile-time checks
-    STATIC_REQUIRE(emptyVec.size() == 0);
-    STATIC_REQUIRE(emptyVec.capacity() == 10);
+    static_assert(emptyVec.size() == 0);
+    static_assert(emptyVec.capacity() == 10);
   }
 
   SECTION("Count constructor") {
@@ -170,8 +166,8 @@ TEST_CASE("FixedVector constructors", "[core][fixed_vector]") {
 
     REQUIRE(boolVec.size() == 2);
     REQUIRE(boolVec.capacity() == 3);
-    REQUIRE(boolVec[0] == true);
-    REQUIRE(boolVec[1] == true);
+    REQUIRE(boolVec[0]);
+    REQUIRE(boolVec[1]);
   }
 
   SECTION("Edge cases") {
@@ -1043,19 +1039,19 @@ TEST_CASE("FixedVector iterator methods", "[core][fixed_vector]") {
 TEST_CASE("FixedVector size and capacity methods", "[core][fixed_vector]") {
   SECTION("Empty method") {
     FixedVector<int, 5> emptyVec{};
-    REQUIRE(emptyVec.empty() == true);
+    REQUIRE(emptyVec.empty());
 
     FixedVector<int, 5> nonEmptyVec{1, 2, 3};
     REQUIRE(nonEmptyVec.empty() == false);
 
     const FixedVector<int, 5> constEmptyVec{};
-    REQUIRE(constEmptyVec.empty() == true);
+    REQUIRE(constEmptyVec.empty());
 
     const FixedVector<int, 5> constNonEmptyVec{1, 2};
     REQUIRE(constNonEmptyVec.empty() == false);
 
     constexpr FixedVector<int, 5> constexprEmptyVec{};
-    STATIC_REQUIRE(constexprEmptyVec.empty() == true);
+    static_assert(constexprEmptyVec.empty());
   }
 
   SECTION("Size method") {
@@ -1075,7 +1071,7 @@ TEST_CASE("FixedVector size and capacity methods", "[core][fixed_vector]") {
     REQUIRE(constVec.size() == 2);
 
     constexpr FixedVector<int, 5> constexprEmptyVec{};
-    STATIC_REQUIRE(constexprEmptyVec.size() == 0);
+    static_assert(constexprEmptyVec.size() == 0);
   }
 
   SECTION("Max size method") {
@@ -1096,7 +1092,7 @@ TEST_CASE("FixedVector size and capacity methods", "[core][fixed_vector]") {
     REQUIRE(largeVec.max_size() == largeVec.capacity());
 
     constexpr FixedVector<int, 5> constexprVec{};
-    STATIC_REQUIRE(constexprVec.max_size() == 5);
+    static_assert(constexprVec.max_size() == 5);
   }
 
   SECTION("Capacity method") {
@@ -1123,7 +1119,7 @@ TEST_CASE("FixedVector size and capacity methods", "[core][fixed_vector]") {
     REQUIRE(vec.capacity() == 5);
 
     constexpr FixedVector<int, 5> constexprVec{};
-    STATIC_REQUIRE(constexprVec.capacity() == 5);
+    static_assert(constexprVec.capacity() == 5);
   }
 
   SECTION("Size and capacity relationship") {
@@ -1133,7 +1129,7 @@ TEST_CASE("FixedVector size and capacity methods", "[core][fixed_vector]") {
     REQUIRE(vec.size() == 0);
     REQUIRE(vec.capacity() == 5);
     REQUIRE(vec.size() <= vec.capacity());
-    REQUIRE(vec.empty() == true);
+    REQUIRE(vec.empty());
 
     // After adding elements
     vec.push_back(1);
@@ -1152,7 +1148,7 @@ TEST_CASE("FixedVector size and capacity methods", "[core][fixed_vector]") {
     vec.clear();
     REQUIRE(vec.size() == 0);
     REQUIRE(vec.capacity() == 5);
-    REQUIRE(vec.empty() == true);
+    REQUIRE(vec.empty());
   }
 
   SECTION("Max size equals capacity") {
@@ -1168,13 +1164,13 @@ TEST_CASE("FixedVector size and capacity methods", "[core][fixed_vector]") {
 
   SECTION("Different template parameters") {
     // Different sizes
-    STATIC_REQUIRE(FixedVector<int, 1>{}.capacity() == 1);
-    STATIC_REQUIRE(FixedVector<int, 1>{}.max_size() == 1);
-    STATIC_REQUIRE(FixedVector<int, 1>{}.size() == 0);
-    STATIC_REQUIRE(FixedVector<int, 1>{}.empty() == true);
+    static_assert(FixedVector<int, 1>{}.capacity() == 1);
+    static_assert(FixedVector<int, 1>{}.max_size() == 1);
+    static_assert(FixedVector<int, 1>{}.size() == 0);
+    static_assert(FixedVector<int, 1>{}.empty());
 
-    STATIC_REQUIRE(FixedVector<int, 100>{}.capacity() == 100);
-    STATIC_REQUIRE(FixedVector<int, 100>{}.max_size() == 100);
+    static_assert(FixedVector<int, 100>{}.capacity() == 100);
+    static_assert(FixedVector<int, 100>{}.max_size() == 100);
 
     // Different types
     FixedVector<double, 5> doubleVec{};
@@ -1189,10 +1185,10 @@ TEST_CASE("FixedVector size and capacity methods", "[core][fixed_vector]") {
   SECTION("Constexpr evaluation") {
     constexpr FixedVector<int, 5> emptyVec{};
 
-    STATIC_REQUIRE(emptyVec.size() == 0);
-    STATIC_REQUIRE(emptyVec.empty() == true);
-    STATIC_REQUIRE(emptyVec.capacity() == 5);
-    STATIC_REQUIRE(emptyVec.max_size() == 5);
+    static_assert(emptyVec.size() == 0);
+    static_assert(emptyVec.empty());
+    static_assert(emptyVec.capacity() == 5);
+    static_assert(emptyVec.max_size() == 5);
   }
 }
 
@@ -1200,12 +1196,12 @@ TEST_CASE("FixedVector clear method", "[core][fixed_vector]") {
   SECTION("Clear empty vector") {
     FixedVector<int, 5> emptyVec{};
 
-    REQUIRE(emptyVec.empty() == true);
+    REQUIRE(emptyVec.empty());
     REQUIRE(emptyVec.size() == 0);
 
     emptyVec.clear();
 
-    REQUIRE(emptyVec.empty() == true);
+    REQUIRE(emptyVec.empty());
     REQUIRE(emptyVec.size() == 0);
     REQUIRE(emptyVec.capacity() == 5);
   }
@@ -1219,7 +1215,7 @@ TEST_CASE("FixedVector clear method", "[core][fixed_vector]") {
     vec.clear();
 
     REQUIRE(vec.size() == 0);
-    REQUIRE(vec.empty() == true);
+    REQUIRE(vec.empty());
     REQUIRE(vec.capacity() == 5);
   }
 
@@ -1241,7 +1237,7 @@ TEST_CASE("FixedVector clear method", "[core][fixed_vector]") {
     vec.clear();
 
     REQUIRE(vec.size() == 0);
-    REQUIRE(vec.empty() == true);
+    REQUIRE(vec.empty());
 
     vec.push_back(100);
     REQUIRE(vec.size() == 1);
@@ -1258,7 +1254,7 @@ TEST_CASE("FixedVector clear method", "[core][fixed_vector]") {
 
     vec.clear();
     REQUIRE(vec.size() == 0);
-    REQUIRE(vec.empty() == true);
+    REQUIRE(vec.empty());
 
     vec.push_back(10);
     REQUIRE(vec.size() == 1);
@@ -1268,7 +1264,7 @@ TEST_CASE("FixedVector clear method", "[core][fixed_vector]") {
 
     vec.clear(); // Clear again when already empty
     REQUIRE(vec.size() == 0);
-    REQUIRE(vec.empty() == true);
+    REQUIRE(vec.empty());
   }
 
   SECTION("Clear with string elements") {
@@ -1279,7 +1275,7 @@ TEST_CASE("FixedVector clear method", "[core][fixed_vector]") {
     stringVec.clear();
 
     REQUIRE(stringVec.size() == 0);
-    REQUIRE(stringVec.empty() == true);
+    REQUIRE(stringVec.empty());
     REQUIRE(stringVec.capacity() == 5);
 
     // Verify destructors were called - add new elements
@@ -1299,7 +1295,7 @@ TEST_CASE("FixedVector clear method", "[core][fixed_vector]") {
     complexVec.clear();
 
     REQUIRE(complexVec.size() == 0);
-    REQUIRE(complexVec.empty() == true);
+    REQUIRE(complexVec.empty());
 
     // Reuse after clear
     complexVec.push_back(std::vector<int>{10, 20});

@@ -31,20 +31,14 @@ TEST_CASE("OStringStream constructors", "[core][o_string_stream]") {
   SECTION("Default constructor") {
     constexpr OStringStream<FixedString<32>> emptyStream;
 
-    REQUIRE(emptyStream.str() == "");
-
-    // Compile-time checks
-    STATIC_REQUIRE(emptyStream.str() == "");
+    static_assert(emptyStream.str() == "");
   }
 
   SECTION("Constructor from FixedString") {
     constexpr FixedString<16> source("Hello");
     constexpr OStringStream<FixedString<32>> stream(source);
 
-    REQUIRE(stream.str() == "Hello");
-
-    // Compile-time checks
-    STATIC_REQUIRE(stream.str() == "Hello");
+    static_assert(stream.str() == "Hello");
   }
 
   SECTION("Constructor from std::string") {
@@ -58,20 +52,14 @@ TEST_CASE("OStringStream constructors", "[core][o_string_stream]") {
     constexpr CStringView view("Test");
     constexpr OStringStream<FixedString<32>> stream(view);
 
-    REQUIRE(stream.str() == "Test");
-
-    // Compile-time checks
-    STATIC_REQUIRE(stream.str() == "Test");
+    static_assert(stream.str() == "Test");
   }
 
   SECTION("Constructor with empty string") {
     constexpr FixedString<16> empty;
     constexpr OStringStream<FixedString<32>> stream(empty);
 
-    REQUIRE(stream.str() == "");
-
-    // Compile-time checks
-    STATIC_REQUIRE(stream.str() == "");
+    static_assert(stream.str() == "");
   }
 }
 
@@ -380,7 +368,7 @@ TEST_CASE("OStringStream tellp", "[core][o_string_stream]") {
     REQUIRE(stream.tellp() == 0);
 
     // Compile-time check
-    STATIC_REQUIRE(stream.tellp() == 0);
+    static_assert(stream.tellp() == 0);
   }
 
   SECTION("Tellp after construction") {
@@ -389,7 +377,7 @@ TEST_CASE("OStringStream tellp", "[core][o_string_stream]") {
     REQUIRE(stream.tellp() == 5);
 
     // Compile-time check
-    STATIC_REQUIRE(stream.tellp() == 5);
+    static_assert(stream.tellp() == 5);
   }
 
   SECTION("Tellp after put") {
@@ -446,7 +434,7 @@ TEST_CASE("OStringStream precision", "[core][o_string_stream]") {
     REQUIRE(stream.precision() == 6);
 
     // Compile-time check
-    STATIC_REQUIRE(stream.precision() == 6);
+    static_assert(stream.precision() == 6);
   }
 
   SECTION("Set precision") {
