@@ -224,8 +224,8 @@ The goal is to keep tests:
 
 ## Test Framework Assumptions
 
-- Catch2-style tests are assumed.
-- `static_assert` and `STATIC_REQUIRE` are preferred when possible.
+- DocTest-style tests are assumed.
+- `static_assert` are preferred when possible.
 
 ---
 
@@ -255,7 +255,6 @@ If setup becomes complex, refactor the API or extract helpers.
 - Prefer compile-time verification whenever possible.
 - Use:
   - `static_assert`
-  - `STATIC_REQUIRE`
 - Test:
   - Type traits
   - `constexpr` constructors

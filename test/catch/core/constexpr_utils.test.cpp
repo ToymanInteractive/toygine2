@@ -31,10 +31,10 @@ TEST_CASE("cstrcmp function", "[core][constexpr_utils]") {
     constexpr const char * empty1 = "";
     constexpr const char * empty2 = "";
 
-    STATIC_REQUIRE(cstrcmp(str1, str2) == 0);
-    STATIC_REQUIRE(cstrcmp(empty1, empty2) == 0);
-    STATIC_REQUIRE(cstrcmp("Test", "Test") == 0);
-    STATIC_REQUIRE(cstrcmp("", "") == 0);
+    static_assert(cstrcmp(str1, str2) == 0);
+    static_assert(cstrcmp(empty1, empty2) == 0);
+    static_assert(cstrcmp("Test", "Test") == 0);
+    static_assert(cstrcmp("", "") == 0);
 
     // Compare with std::strcmp
     REQUIRE(cstrcmp(str1, str2) == std::strcmp(str1, str2));
@@ -49,12 +49,12 @@ TEST_CASE("cstrcmp function", "[core][constexpr_utils]") {
     constexpr const char * str3 = "Hi";
     constexpr const char * str4 = "Hello World";
 
-    STATIC_REQUIRE(cstrcmp(str1, str2) < 0); // "Hello" < "World"
-    STATIC_REQUIRE(cstrcmp(str2, str1) > 0); // "World" > "Hello"
-    STATIC_REQUIRE(cstrcmp(str1, str3) < 0); // "Hello" < "Hi"
-    STATIC_REQUIRE(cstrcmp(str3, str1) > 0); // "Hi" > "Hello"
-    STATIC_REQUIRE(cstrcmp(str1, str4) < 0); // "Hello" < "Hello World"
-    STATIC_REQUIRE(cstrcmp(str4, str1) > 0); // "Hello World" > "Hello"
+    static_assert(cstrcmp(str1, str2) < 0); // "Hello" < "World"
+    static_assert(cstrcmp(str2, str1) > 0); // "World" > "Hello"
+    static_assert(cstrcmp(str1, str3) < 0); // "Hello" < "Hi"
+    static_assert(cstrcmp(str3, str1) > 0); // "Hi" > "Hello"
+    static_assert(cstrcmp(str1, str4) < 0); // "Hello" < "Hello World"
+    static_assert(cstrcmp(str4, str1) > 0); // "Hello World" > "Hello"
 
     // Compare with std::strcmp
     REQUIRE(cstrcmp(str1, str2) == std::strcmp(str1, str2));
@@ -69,9 +69,9 @@ TEST_CASE("cstrcmp function", "[core][constexpr_utils]") {
     constexpr const char * empty = "";
     constexpr const char * nonEmpty = "Test";
 
-    STATIC_REQUIRE(cstrcmp(empty, empty) == 0);
-    STATIC_REQUIRE(cstrcmp(empty, nonEmpty) < 0); // "" < "Test"
-    STATIC_REQUIRE(cstrcmp(nonEmpty, empty) > 0); // "Test" > ""
+    static_assert(cstrcmp(empty, empty) == 0);
+    static_assert(cstrcmp(empty, nonEmpty) < 0); // "" < "Test"
+    static_assert(cstrcmp(nonEmpty, empty) > 0); // "Test" > ""
 
     // Compare with std::strcmp
     REQUIRE(cstrcmp(empty, empty) == std::strcmp(empty, empty));
@@ -84,13 +84,13 @@ TEST_CASE("cstrcmp function", "[core][constexpr_utils]") {
     constexpr const char * b = "B";
     constexpr const char * z = "Z";
 
-    STATIC_REQUIRE(cstrcmp(a, a) == 0);
-    STATIC_REQUIRE(cstrcmp(a, b) < 0); // "A" < "B"
-    STATIC_REQUIRE(cstrcmp(b, a) > 0); // "B" > "A"
-    STATIC_REQUIRE(cstrcmp(a, z) < 0); // "A" < "Z"
-    STATIC_REQUIRE(cstrcmp(z, a) > 0); // "Z" > "A"
-    STATIC_REQUIRE(cstrcmp(b, z) < 0); // "B" < "Z"
-    STATIC_REQUIRE(cstrcmp(z, b) > 0); // "Z" > "B"
+    static_assert(cstrcmp(a, a) == 0);
+    static_assert(cstrcmp(a, b) < 0); // "A" < "B"
+    static_assert(cstrcmp(b, a) > 0); // "B" > "A"
+    static_assert(cstrcmp(a, z) < 0); // "A" < "Z"
+    static_assert(cstrcmp(z, a) > 0); // "Z" > "A"
+    static_assert(cstrcmp(b, z) < 0); // "B" < "Z"
+    static_assert(cstrcmp(z, b) > 0); // "Z" > "B"
 
     // Compare with std::strcmp
     REQUIRE(cstrcmp(a, a) == std::strcmp(a, a));
@@ -107,12 +107,12 @@ TEST_CASE("cstrcmp function", "[core][constexpr_utils]") {
     constexpr const char * upper = "HELLO";
     constexpr const char * mixed = "Hello";
 
-    STATIC_REQUIRE(cstrcmp(lower, upper) > 0); // "hello" > "HELLO" (ASCII)
-    STATIC_REQUIRE(cstrcmp(upper, lower) < 0); // "HELLO" < "hello" (ASCII)
-    STATIC_REQUIRE(cstrcmp(lower, mixed) > 0); // "hello" > "Hello" (ASCII)
-    STATIC_REQUIRE(cstrcmp(mixed, lower) < 0); // "Hello" < "hello" (ASCII)
-    STATIC_REQUIRE(cstrcmp(upper, mixed) < 0); // "HELLO" < "Hello" (ASCII)
-    STATIC_REQUIRE(cstrcmp(mixed, upper) > 0); // "Hello" > "HELLO" (ASCII)
+    static_assert(cstrcmp(lower, upper) > 0); // "hello" > "HELLO" (ASCII)
+    static_assert(cstrcmp(upper, lower) < 0); // "HELLO" < "hello" (ASCII)
+    static_assert(cstrcmp(lower, mixed) > 0); // "hello" > "Hello" (ASCII)
+    static_assert(cstrcmp(mixed, lower) < 0); // "Hello" < "hello" (ASCII)
+    static_assert(cstrcmp(upper, mixed) < 0); // "HELLO" < "Hello" (ASCII)
+    static_assert(cstrcmp(mixed, upper) > 0); // "Hello" > "HELLO" (ASCII)
 
     // Compare with std::strcmp
     REQUIRE(cstrcmp(lower, upper) == std::strcmp(lower, upper));
@@ -129,15 +129,15 @@ TEST_CASE("cstrcmp function", "[core][constexpr_utils]") {
     constexpr const char * space = "Hello World";
     constexpr const char * punct = "Hello, World!";
 
-    STATIC_REQUIRE(cstrcmp(newline, newline) == 0);
-    STATIC_REQUIRE(cstrcmp(tab, tab) == 0);
-    STATIC_REQUIRE(cstrcmp(space, space) == 0);
-    STATIC_REQUIRE(cstrcmp(punct, punct) == 0);
+    static_assert(cstrcmp(newline, newline) == 0);
+    static_assert(cstrcmp(tab, tab) == 0);
+    static_assert(cstrcmp(space, space) == 0);
+    static_assert(cstrcmp(punct, punct) == 0);
 
     // Different special characters
-    STATIC_REQUIRE(cstrcmp(newline, tab) != 0);
-    STATIC_REQUIRE(cstrcmp(tab, space) != 0);
-    STATIC_REQUIRE(cstrcmp(space, punct) != 0);
+    static_assert(cstrcmp(newline, tab) != 0);
+    static_assert(cstrcmp(tab, space) != 0);
+    static_assert(cstrcmp(space, punct) != 0);
 
     // Compare with std::strcmp
     REQUIRE(cstrcmp(newline, newline) == std::strcmp(newline, newline));
@@ -156,11 +156,11 @@ TEST_CASE("cstrcmp function", "[core][constexpr_utils]") {
     constexpr const char * unicode3 = "Привет";
     constexpr const char * emoji = "Hello 🌍";
 
-    STATIC_REQUIRE(cstrcmp(unicode1, unicode3) == 0);
-    STATIC_REQUIRE(cstrcmp(unicode1, unicode2) != 0);
-    STATIC_REQUIRE(cstrcmp(unicode2, unicode1) != 0);
-    STATIC_REQUIRE(cstrcmp(unicode1, emoji) != 0);
-    STATIC_REQUIRE(cstrcmp(emoji, unicode1) != 0);
+    static_assert(cstrcmp(unicode1, unicode3) == 0);
+    static_assert(cstrcmp(unicode1, unicode2) != 0);
+    static_assert(cstrcmp(unicode2, unicode1) != 0);
+    static_assert(cstrcmp(unicode1, emoji) != 0);
+    static_assert(cstrcmp(emoji, unicode1) != 0);
 
     // Compare with std::strcmp
     REQUIRE(cstrcmp(unicode1, unicode3) == std::strcmp(unicode1, unicode3));
@@ -177,13 +177,13 @@ TEST_CASE("cstrcmp function", "[core][constexpr_utils]") {
     constexpr const char * num4 = "12";
     constexpr const char * num5 = "1234";
 
-    STATIC_REQUIRE(cstrcmp(num1, num3) == 0);
-    STATIC_REQUIRE(cstrcmp(num1, num2) < 0); // "123" < "456"
-    STATIC_REQUIRE(cstrcmp(num2, num1) > 0); // "456" > "123"
-    STATIC_REQUIRE(cstrcmp(num1, num4) > 0); // "123" > "12"
-    STATIC_REQUIRE(cstrcmp(num4, num1) < 0); // "12" < "123"
-    STATIC_REQUIRE(cstrcmp(num1, num5) < 0); // "123" < "1234"
-    STATIC_REQUIRE(cstrcmp(num5, num1) > 0); // "1234" > "123"
+    static_assert(cstrcmp(num1, num3) == 0);
+    static_assert(cstrcmp(num1, num2) < 0); // "123" < "456"
+    static_assert(cstrcmp(num2, num1) > 0); // "456" > "123"
+    static_assert(cstrcmp(num1, num4) > 0); // "123" > "12"
+    static_assert(cstrcmp(num4, num1) < 0); // "12" < "123"
+    static_assert(cstrcmp(num1, num5) < 0); // "123" < "1234"
+    static_assert(cstrcmp(num5, num1) > 0); // "1234" > "123"
 
     // Compare with std::strcmp
     REQUIRE(cstrcmp(num1, num3) == std::strcmp(num1, num3));
@@ -197,19 +197,19 @@ TEST_CASE("cstrcmp function", "[core][constexpr_utils]") {
 
   SECTION("Edge cases") {
     // Identical strings
-    STATIC_REQUIRE(cstrcmp("", "") == 0);
-    STATIC_REQUIRE(cstrcmp("a", "a") == 0);
-    STATIC_REQUIRE(cstrcmp("abc", "abc") == 0);
+    static_assert(cstrcmp("", "") == 0);
+    static_assert(cstrcmp("a", "a") == 0);
+    static_assert(cstrcmp("abc", "abc") == 0);
 
     // One string is prefix of another
-    STATIC_REQUIRE(cstrcmp("abc", "abcd") < 0); // "abc" < "abcd"
-    STATIC_REQUIRE(cstrcmp("abcd", "abc") > 0); // "abcd" > "abc"
-    STATIC_REQUIRE(cstrcmp("", "a") < 0); // "" < "a"
-    STATIC_REQUIRE(cstrcmp("a", "") > 0); // "a" > ""
+    static_assert(cstrcmp("abc", "abcd") < 0); // "abc" < "abcd"
+    static_assert(cstrcmp("abcd", "abc") > 0); // "abcd" > "abc"
+    static_assert(cstrcmp("", "a") < 0); // "" < "a"
+    static_assert(cstrcmp("a", "") > 0); // "a" > ""
 
     // Different lengths, same prefix
-    STATIC_REQUIRE(cstrcmp("hello", "helloworld") < 0);
-    STATIC_REQUIRE(cstrcmp("helloworld", "hello") > 0);
+    static_assert(cstrcmp("hello", "helloworld") < 0);
+    static_assert(cstrcmp("helloworld", "hello") > 0);
 
     // Compare with std::strcmp
     REQUIRE(cstrcmp("", "") == std::strcmp("", ""));
@@ -235,10 +235,10 @@ TEST_CASE("cstrcmp function", "[core][constexpr_utils]") {
     constexpr int lt = cstrcmp("A", "B");
     constexpr int gt = cstrcmp("B", "A");
 
-    STATIC_REQUIRE(eq == 0);
-    STATIC_REQUIRE(ne != 0);
-    STATIC_REQUIRE(lt < 0);
-    STATIC_REQUIRE(gt > 0);
+    static_assert(eq == 0);
+    static_assert(ne != 0);
+    static_assert(lt < 0);
+    static_assert(gt > 0);
 
     // Compare with std::strcmp
     REQUIRE(eq == std::strcmp(str1, str2));
@@ -252,9 +252,9 @@ TEST_CASE("cstrcmp function", "[core][constexpr_utils]") {
     constexpr const char * long2 = "This is a very long string for performance testing";
     constexpr const char * long3 = "This is a very long string for performance testing!";
 
-    STATIC_REQUIRE(cstrcmp(long1, long2) == 0);
-    STATIC_REQUIRE(cstrcmp(long1, long3) < 0);
-    STATIC_REQUIRE(cstrcmp(long3, long1) > 0);
+    static_assert(cstrcmp(long1, long2) == 0);
+    static_assert(cstrcmp(long1, long3) < 0);
+    static_assert(cstrcmp(long3, long1) > 0);
 
     // Compare with std::strcmp
     REQUIRE(cstrcmp(long1, long2) == std::strcmp(long1, long2));
@@ -272,11 +272,11 @@ TEST_CASE("cstrchr function", "[core][constexpr_utils]") {
     constexpr char ch4 = 'd';
     constexpr char ch5 = 'z';
 
-    STATIC_REQUIRE(cstrchr(str, ch1) == str); // "H" at position 0
-    STATIC_REQUIRE(cstrchr(str, ch2) == str + 4); // "o" at position 4
-    STATIC_REQUIRE(cstrchr(str, ch3) == str + 2); // "l" at position 2 (first occurrence)
-    STATIC_REQUIRE(cstrchr(str, ch4) == str + 10); // "d" at position 10
-    STATIC_REQUIRE(cstrchr(str, ch5) == nullptr);
+    static_assert(cstrchr(str, ch1) == str); // "H" at position 0
+    static_assert(cstrchr(str, ch2) == str + 4); // "o" at position 4
+    static_assert(cstrchr(str, ch3) == str + 2); // "l" at position 2 (first occurrence)
+    static_assert(cstrchr(str, ch4) == str + 10); // "d" at position 10
+    static_assert(cstrchr(str, ch5) == nullptr);
 
     // Compare with std::strchr
     REQUIRE(cstrchr(str, ch1) == std::strchr(str, ch1));
@@ -293,10 +293,10 @@ TEST_CASE("cstrchr function", "[core][constexpr_utils]") {
     constexpr char ch3 = '9';
     constexpr char ch4 = '@';
 
-    STATIC_REQUIRE(cstrchr(str, ch1) == nullptr);
-    STATIC_REQUIRE(cstrchr(str, ch2) == nullptr);
-    STATIC_REQUIRE(cstrchr(str, ch3) == nullptr);
-    STATIC_REQUIRE(cstrchr(str, ch4) == nullptr);
+    static_assert(cstrchr(str, ch1) == nullptr);
+    static_assert(cstrchr(str, ch2) == nullptr);
+    static_assert(cstrchr(str, ch3) == nullptr);
+    static_assert(cstrchr(str, ch4) == nullptr);
 
     // Compare with std::strchr
     REQUIRE(cstrchr(str, ch1) == std::strchr(str, ch1));
@@ -310,8 +310,8 @@ TEST_CASE("cstrchr function", "[core][constexpr_utils]") {
     constexpr char ch1 = 'a';
     constexpr char ch2 = '\0';
 
-    STATIC_REQUIRE(cstrchr(emptyStr, ch1) == nullptr);
-    STATIC_REQUIRE(cstrchr(emptyStr, ch2) == emptyStr);
+    static_assert(cstrchr(emptyStr, ch1) == nullptr);
+    static_assert(cstrchr(emptyStr, ch2) == emptyStr);
 
     // Compare with std::strchr
     REQUIRE(cstrchr(emptyStr, ch1) == std::strchr(emptyStr, ch1));
@@ -324,9 +324,9 @@ TEST_CASE("cstrchr function", "[core][constexpr_utils]") {
     constexpr char ch2 = 'B';
     constexpr char ch3 = 'a';
 
-    STATIC_REQUIRE(cstrchr(singleChar, ch1) == singleChar);
-    STATIC_REQUIRE(cstrchr(singleChar, ch2) == nullptr);
-    STATIC_REQUIRE(cstrchr(singleChar, ch3) == nullptr);
+    static_assert(cstrchr(singleChar, ch1) == singleChar);
+    static_assert(cstrchr(singleChar, ch2) == nullptr);
+    static_assert(cstrchr(singleChar, ch3) == nullptr);
 
     // Compare with std::strchr
     REQUIRE(cstrchr(singleChar, ch1) == std::strchr(singleChar, ch1));
@@ -341,10 +341,10 @@ TEST_CASE("cstrchr function", "[core][constexpr_utils]") {
     constexpr char ch3 = 'w'; // lowercase
     constexpr char ch4 = 'W'; // uppercase
 
-    STATIC_REQUIRE(cstrchr(str, ch1) == nullptr); // Case sensitive
-    STATIC_REQUIRE(cstrchr(str, ch2) == str); // Exact match
-    STATIC_REQUIRE(cstrchr(str, ch3) == nullptr); // Case sensitive
-    STATIC_REQUIRE(cstrchr(str, ch4) == str + 6); // Exact match
+    static_assert(cstrchr(str, ch1) == nullptr); // Case sensitive
+    static_assert(cstrchr(str, ch2) == str); // Exact match
+    static_assert(cstrchr(str, ch3) == nullptr); // Case sensitive
+    static_assert(cstrchr(str, ch4) == str + 6); // Exact match
 
     // Compare with std::strchr
     REQUIRE(cstrchr(str, ch1) == std::strchr(str, ch1));
@@ -359,9 +359,9 @@ TEST_CASE("cstrchr function", "[core][constexpr_utils]") {
     constexpr char ch2 = 'b';
     constexpr char ch3 = 'c';
 
-    STATIC_REQUIRE(cstrchr(str, ch1) == str); // First 'a' at position 0
-    STATIC_REQUIRE(cstrchr(str, ch2) == str + 1); // First 'b' at position 1
-    STATIC_REQUIRE(cstrchr(str, ch3) == nullptr); // 'c' not found
+    static_assert(cstrchr(str, ch1) == str); // First 'a' at position 0
+    static_assert(cstrchr(str, ch2) == str + 1); // First 'b' at position 1
+    static_assert(cstrchr(str, ch3) == nullptr); // 'c' not found
 
     // Compare with std::strchr
     REQUIRE(cstrchr(str, ch1) == std::strchr(str, ch1));
@@ -376,10 +376,10 @@ TEST_CASE("cstrchr function", "[core][constexpr_utils]") {
     constexpr char ch3 = '!';
     constexpr char ch4 = ' ';
 
-    STATIC_REQUIRE(cstrchr(str, ch1) == str + 5); // "\n" at position 5
-    STATIC_REQUIRE(cstrchr(str, ch2) == str + 6); // "\t" at position 6
-    STATIC_REQUIRE(cstrchr(str, ch3) == str + 12); // "!" at position 12
-    STATIC_REQUIRE(cstrchr(str, ch4) == nullptr);
+    static_assert(cstrchr(str, ch1) == str + 5); // "\n" at position 5
+    static_assert(cstrchr(str, ch2) == str + 6); // "\t" at position 6
+    static_assert(cstrchr(str, ch3) == str + 12); // "!" at position 12
+    static_assert(cstrchr(str, ch4) == nullptr);
 
     // Compare with std::strchr
     REQUIRE(cstrchr(str, ch1) == std::strchr(str, ch1));
@@ -393,8 +393,8 @@ TEST_CASE("cstrchr function", "[core][constexpr_utils]") {
     constexpr char ch1 = 'H';
     constexpr char ch2 = 'z';
 
-    STATIC_REQUIRE(cstrchr(str, ch1) == str); // "H" at position 0
-    STATIC_REQUIRE(cstrchr(str, ch2) == nullptr); // "z" not found
+    static_assert(cstrchr(str, ch1) == str); // "H" at position 0
+    static_assert(cstrchr(str, ch2) == nullptr); // "z" not found
 
     // Compare with std::strchr
     REQUIRE(cstrchr(str, ch1) == std::strchr(str, ch1));
@@ -408,10 +408,10 @@ TEST_CASE("cstrchr function", "[core][constexpr_utils]") {
     constexpr char ch3 = '5';
     constexpr char ch4 = '6';
 
-    STATIC_REQUIRE(cstrchr(str, ch1) == str); // "1" at position 0
-    STATIC_REQUIRE(cstrchr(str, ch2) == str + 2); // "3" at position 2
-    STATIC_REQUIRE(cstrchr(str, ch3) == str + 4); // "5" at position 4
-    STATIC_REQUIRE(cstrchr(str, ch4) == nullptr); // "6" not found
+    static_assert(cstrchr(str, ch1) == str); // "1" at position 0
+    static_assert(cstrchr(str, ch2) == str + 2); // "3" at position 2
+    static_assert(cstrchr(str, ch3) == str + 4); // "5" at position 4
+    static_assert(cstrchr(str, ch4) == nullptr); // "6" not found
 
     // Compare with std::strchr
     REQUIRE(cstrchr(str, ch1) == std::strchr(str, ch1));
@@ -428,11 +428,11 @@ TEST_CASE("cstrchr function", "[core][constexpr_utils]") {
     constexpr char ch4 = '6';
     constexpr char ch5 = 'z';
 
-    STATIC_REQUIRE(cstrchr(str, ch1) == str); // "1" at position 0
-    STATIC_REQUIRE(cstrchr(str, ch2) == str + 3); // "H" at position 3
-    STATIC_REQUIRE(cstrchr(str, ch3) == str + 7); // "o" at position 7
-    STATIC_REQUIRE(cstrchr(str, ch4) == str + 10); // "6" at position 10
-    STATIC_REQUIRE(cstrchr(str, ch5) == nullptr); // "z" not found
+    static_assert(cstrchr(str, ch1) == str); // "1" at position 0
+    static_assert(cstrchr(str, ch2) == str + 3); // "H" at position 3
+    static_assert(cstrchr(str, ch3) == str + 7); // "o" at position 7
+    static_assert(cstrchr(str, ch4) == str + 10); // "6" at position 10
+    static_assert(cstrchr(str, ch5) == nullptr); // "z" not found
 
     // Compare with std::strchr
     REQUIRE(cstrchr(str, ch1) == std::strchr(str, ch1));
@@ -446,16 +446,16 @@ TEST_CASE("cstrchr function", "[core][constexpr_utils]") {
     constexpr const char * str = "Hello World";
 
     // Beginning
-    STATIC_REQUIRE(cstrchr(str, 'H') == str);
-    STATIC_REQUIRE(cstrchr(str, 'e') == str + 1);
+    static_assert(cstrchr(str, 'H') == str);
+    static_assert(cstrchr(str, 'e') == str + 1);
 
     // Middle
-    STATIC_REQUIRE(cstrchr(str, 'l') == str + 2); // First "l" at position 2
-    STATIC_REQUIRE(cstrchr(str, 'o') == str + 4); // First "o" at position 4
+    static_assert(cstrchr(str, 'l') == str + 2); // First "l" at position 2
+    static_assert(cstrchr(str, 'o') == str + 4); // First "o" at position 4
 
     // End
-    STATIC_REQUIRE(cstrchr(str, 'd') == str + 10);
-    STATIC_REQUIRE(cstrchr(str, 'l') == str + 2); // First "l", not the last one
+    static_assert(cstrchr(str, 'd') == str + 10);
+    static_assert(cstrchr(str, 'l') == str + 2); // First "l", not the last one
 
     // Compare with std::strchr
     REQUIRE(cstrchr(str, 'H') == std::strchr(str, 'H'));
@@ -470,12 +470,12 @@ TEST_CASE("cstrchr function", "[core][constexpr_utils]") {
     constexpr const char * ch1 = "a";
 
     // Null terminator
-    STATIC_REQUIRE(cstrchr(empty, '\0') != nullptr);
-    STATIC_REQUIRE(cstrchr(ch1, '\0') != nullptr);
+    static_assert(cstrchr(empty, '\0') != nullptr);
+    static_assert(cstrchr(ch1, '\0') != nullptr);
 
     // Single character match
-    STATIC_REQUIRE(cstrchr(ch1, 'a') != nullptr);
-    STATIC_REQUIRE(cstrchr(ch1, 'b') == nullptr);
+    static_assert(cstrchr(ch1, 'a') != nullptr);
+    static_assert(cstrchr(ch1, 'b') == nullptr);
 
     // Compare with std::strchr
     REQUIRE(cstrchr(empty, '\0') == std::strchr(empty, '\0'));
@@ -497,18 +497,18 @@ TEST_CASE("cstrchr function", "[core][constexpr_utils]") {
     constexpr const char * result3 = cstrchr(test, 'e');
     constexpr const char * result4 = cstrchr(abc, 'B');
 
-    STATIC_REQUIRE(result1 != nullptr);
-    STATIC_REQUIRE(result2 == nullptr);
-    STATIC_REQUIRE(result3 != nullptr);
-    STATIC_REQUIRE(result4 != nullptr);
+    static_assert(result1 != nullptr);
+    static_assert(result2 == nullptr);
+    static_assert(result3 != nullptr);
+    static_assert(result4 != nullptr);
 
     // Complex compile-time checks
-    STATIC_REQUIRE(cstrchr(helloWorld, 'H') != nullptr);
-    STATIC_REQUIRE(cstrchr(helloWorld, 'z') == nullptr);
-    STATIC_REQUIRE(cstrchr(test, 'T') != nullptr);
-    STATIC_REQUIRE(cstrchr(test, 'Z') == nullptr);
-    STATIC_REQUIRE(cstrchr(abc, 'A') != nullptr);
-    STATIC_REQUIRE(cstrchr(abc, 'Z') == nullptr);
+    static_assert(cstrchr(helloWorld, 'H') != nullptr);
+    static_assert(cstrchr(helloWorld, 'z') == nullptr);
+    static_assert(cstrchr(test, 'T') != nullptr);
+    static_assert(cstrchr(test, 'Z') == nullptr);
+    static_assert(cstrchr(abc, 'A') != nullptr);
+    static_assert(cstrchr(abc, 'Z') == nullptr);
 
     // Compare with std::strchr
     REQUIRE(result1 == std::strchr(helloWorld, ch1));
@@ -530,10 +530,10 @@ TEST_CASE("cstrchr function", "[core][constexpr_utils]") {
     constexpr char ch3 = 't';
     constexpr char ch4 = 'z';
 
-    STATIC_REQUIRE(cstrchr(longStr, ch1) != nullptr);
-    STATIC_REQUIRE(cstrchr(longStr, ch2) != nullptr);
-    STATIC_REQUIRE(cstrchr(longStr, ch3) != nullptr);
-    STATIC_REQUIRE(cstrchr(longStr, ch4) == nullptr);
+    static_assert(cstrchr(longStr, ch1) != nullptr);
+    static_assert(cstrchr(longStr, ch2) != nullptr);
+    static_assert(cstrchr(longStr, ch3) != nullptr);
+    static_assert(cstrchr(longStr, ch4) == nullptr);
 
     // Compare with std::strchr
     REQUIRE(cstrchr(longStr, ch1) == std::strchr(longStr, ch1));
@@ -551,14 +551,14 @@ TEST_CASE("cstrpbrk function", "[core][constexpr_utils]") {
     constexpr const char * accept3 = "d";
     constexpr const char * accept4 = "xyz";
 
-    STATIC_REQUIRE(cstrpbrk(str, accept1) != nullptr);
-    STATIC_REQUIRE(cstrpbrk(str, accept2) != nullptr);
-    STATIC_REQUIRE(cstrpbrk(str, accept3) != nullptr);
-    STATIC_REQUIRE(cstrpbrk(str, accept4) == nullptr);
+    static_assert(cstrpbrk(str, accept1) != nullptr);
+    static_assert(cstrpbrk(str, accept2) != nullptr);
+    static_assert(cstrpbrk(str, accept3) != nullptr);
+    static_assert(cstrpbrk(str, accept4) == nullptr);
 
-    STATIC_REQUIRE(cstrpbrk(str, nullptr) == nullptr);
-    STATIC_REQUIRE(cstrpbrk(nullptr, accept1) == nullptr);
-    STATIC_REQUIRE(cstrpbrk(nullptr, nullptr) == nullptr);
+    static_assert(cstrpbrk(str, nullptr) == nullptr);
+    static_assert(cstrpbrk(nullptr, accept1) == nullptr);
+    static_assert(cstrpbrk(nullptr, nullptr) == nullptr);
 
     // Compare with std::strpbrk
     REQUIRE(cstrpbrk(str, accept1) == std::strpbrk(str, accept1));
@@ -578,10 +578,10 @@ TEST_CASE("cstrpbrk function", "[core][constexpr_utils]") {
     constexpr const char * accept3 = "W";
     constexpr const char * accept4 = "Z";
 
-    STATIC_REQUIRE(cstrpbrk(str, accept1) != nullptr);
-    STATIC_REQUIRE(cstrpbrk(str, accept2) != nullptr);
-    STATIC_REQUIRE(cstrpbrk(str, accept3) != nullptr);
-    STATIC_REQUIRE(cstrpbrk(str, accept4) == nullptr);
+    static_assert(cstrpbrk(str, accept1) != nullptr);
+    static_assert(cstrpbrk(str, accept2) != nullptr);
+    static_assert(cstrpbrk(str, accept3) != nullptr);
+    static_assert(cstrpbrk(str, accept4) == nullptr);
 
     // Compare with std::strpbrk
     REQUIRE(cstrpbrk(str, accept1) == std::strpbrk(str, accept1));
@@ -597,10 +597,10 @@ TEST_CASE("cstrpbrk function", "[core][constexpr_utils]") {
     constexpr const char * accept3 = "Wrd";
     constexpr const char * accept4 = "xyz";
 
-    STATIC_REQUIRE(cstrpbrk(str, accept1) != nullptr);
-    STATIC_REQUIRE(cstrpbrk(str, accept2) != nullptr);
-    STATIC_REQUIRE(cstrpbrk(str, accept3) != nullptr);
-    STATIC_REQUIRE(cstrpbrk(str, accept4) == nullptr);
+    static_assert(cstrpbrk(str, accept1) != nullptr);
+    static_assert(cstrpbrk(str, accept2) != nullptr);
+    static_assert(cstrpbrk(str, accept3) != nullptr);
+    static_assert(cstrpbrk(str, accept4) == nullptr);
 
     // Compare with std::strpbrk
     REQUIRE(cstrpbrk(str, accept1) == std::strpbrk(str, accept1));
@@ -614,8 +614,8 @@ TEST_CASE("cstrpbrk function", "[core][constexpr_utils]") {
     constexpr const char * accept1 = "aeiou";
     constexpr const char * accept2 = "";
 
-    STATIC_REQUIRE(cstrpbrk(emptyStr, accept1) == nullptr);
-    STATIC_REQUIRE(cstrpbrk(emptyStr, accept2) == nullptr);
+    static_assert(cstrpbrk(emptyStr, accept1) == nullptr);
+    static_assert(cstrpbrk(emptyStr, accept2) == nullptr);
 
     // Compare with std::strpbrk
     REQUIRE(cstrpbrk(emptyStr, accept1) == std::strpbrk(emptyStr, accept1));
@@ -628,9 +628,9 @@ TEST_CASE("cstrpbrk function", "[core][constexpr_utils]") {
     constexpr const char * accept2 = "Hel";
     constexpr const char * accept3 = "Hl";
 
-    STATIC_REQUIRE(cstrpbrk(str, accept1) != nullptr);
-    STATIC_REQUIRE(cstrpbrk(str, accept2) != nullptr);
-    STATIC_REQUIRE(cstrpbrk(str, accept3) != nullptr);
+    static_assert(cstrpbrk(str, accept1) != nullptr);
+    static_assert(cstrpbrk(str, accept2) != nullptr);
+    static_assert(cstrpbrk(str, accept3) != nullptr);
 
     // Compare with std::strpbrk
     REQUIRE(cstrpbrk(str, accept1) == std::strpbrk(str, accept1));
@@ -644,9 +644,9 @@ TEST_CASE("cstrpbrk function", "[core][constexpr_utils]") {
     constexpr const char * accept2 = "ld";
     constexpr const char * accept3 = "World";
 
-    STATIC_REQUIRE(cstrpbrk(str, accept1) != nullptr);
-    STATIC_REQUIRE(cstrpbrk(str, accept2) != nullptr);
-    STATIC_REQUIRE(cstrpbrk(str, accept3) != nullptr);
+    static_assert(cstrpbrk(str, accept1) != nullptr);
+    static_assert(cstrpbrk(str, accept2) != nullptr);
+    static_assert(cstrpbrk(str, accept3) != nullptr);
 
     // Compare with std::strpbrk
     REQUIRE(cstrpbrk(str, accept1) == std::strpbrk(str, accept1));
@@ -660,9 +660,9 @@ TEST_CASE("cstrpbrk function", "[core][constexpr_utils]") {
     constexpr const char * accept2 = "HELLO";
     constexpr const char * accept3 = "Hello";
 
-    STATIC_REQUIRE(cstrpbrk(str, accept1) != nullptr);
-    STATIC_REQUIRE(cstrpbrk(str, accept2) != nullptr);
-    STATIC_REQUIRE(cstrpbrk(str, accept3) != nullptr);
+    static_assert(cstrpbrk(str, accept1) != nullptr);
+    static_assert(cstrpbrk(str, accept2) != nullptr);
+    static_assert(cstrpbrk(str, accept3) != nullptr);
 
     // Compare with std::strpbrk
     REQUIRE(cstrpbrk(str, accept1) == std::strpbrk(str, accept1));
@@ -677,10 +677,10 @@ TEST_CASE("cstrpbrk function", "[core][constexpr_utils]") {
     constexpr const char * accept3 = "!?";
     constexpr const char * accept4 = "xyz";
 
-    STATIC_REQUIRE(cstrpbrk(str, accept1) != nullptr);
-    STATIC_REQUIRE(cstrpbrk(str, accept2) != nullptr);
-    STATIC_REQUIRE(cstrpbrk(str, accept3) != nullptr);
-    STATIC_REQUIRE(cstrpbrk(str, accept4) == nullptr);
+    static_assert(cstrpbrk(str, accept1) != nullptr);
+    static_assert(cstrpbrk(str, accept2) != nullptr);
+    static_assert(cstrpbrk(str, accept3) != nullptr);
+    static_assert(cstrpbrk(str, accept4) == nullptr);
 
     // Compare with std::strpbrk
     REQUIRE(cstrpbrk(str, accept1) == std::strpbrk(str, accept1));
@@ -696,10 +696,10 @@ TEST_CASE("cstrpbrk function", "[core][constexpr_utils]") {
     constexpr const char * accept3 = "0123456789";
     constexpr const char * accept4 = "abc";
 
-    STATIC_REQUIRE(cstrpbrk(str, accept1) != nullptr);
-    STATIC_REQUIRE(cstrpbrk(str, accept2) == nullptr);
-    STATIC_REQUIRE(cstrpbrk(str, accept3) != nullptr);
-    STATIC_REQUIRE(cstrpbrk(str, accept4) == nullptr);
+    static_assert(cstrpbrk(str, accept1) != nullptr);
+    static_assert(cstrpbrk(str, accept2) == nullptr);
+    static_assert(cstrpbrk(str, accept3) != nullptr);
+    static_assert(cstrpbrk(str, accept4) == nullptr);
 
     // Compare with std::strpbrk
     REQUIRE(cstrpbrk(str, accept1) == std::strpbrk(str, accept1));
@@ -715,10 +715,10 @@ TEST_CASE("cstrpbrk function", "[core][constexpr_utils]") {
     constexpr const char * accept3 = "\t";
     constexpr const char * accept4 = "xyz";
 
-    STATIC_REQUIRE(cstrpbrk(str, accept1) != nullptr);
-    STATIC_REQUIRE(cstrpbrk(str, accept2) != nullptr);
-    STATIC_REQUIRE(cstrpbrk(str, accept3) == nullptr);
-    STATIC_REQUIRE(cstrpbrk(str, accept4) == nullptr);
+    static_assert(cstrpbrk(str, accept1) != nullptr);
+    static_assert(cstrpbrk(str, accept2) != nullptr);
+    static_assert(cstrpbrk(str, accept3) == nullptr);
+    static_assert(cstrpbrk(str, accept4) == nullptr);
 
     // Compare with std::strpbrk
     REQUIRE(cstrpbrk(str, accept1) == std::strpbrk(str, accept1));
@@ -733,9 +733,9 @@ TEST_CASE("cstrpbrk function", "[core][constexpr_utils]") {
     constexpr const char * accept2 = "HHH";
     constexpr const char * accept3 = "llH";
 
-    STATIC_REQUIRE(cstrpbrk(str, accept1) != nullptr);
-    STATIC_REQUIRE(cstrpbrk(str, accept2) != nullptr);
-    STATIC_REQUIRE(cstrpbrk(str, accept3) != nullptr);
+    static_assert(cstrpbrk(str, accept1) != nullptr);
+    static_assert(cstrpbrk(str, accept2) != nullptr);
+    static_assert(cstrpbrk(str, accept3) != nullptr);
 
     // Compare with std::strpbrk
     REQUIRE(cstrpbrk(str, accept1) == std::strpbrk(str, accept1));
@@ -750,10 +750,10 @@ TEST_CASE("cstrpbrk function", "[core][constexpr_utils]") {
     constexpr const char * accept3 = "T";
     constexpr const char * accept4 = "g";
 
-    STATIC_REQUIRE(cstrpbrk(longStr, accept1) != nullptr);
-    STATIC_REQUIRE(cstrpbrk(longStr, accept2) != nullptr);
-    STATIC_REQUIRE(cstrpbrk(longStr, accept3) != nullptr);
-    STATIC_REQUIRE(cstrpbrk(longStr, accept4) != nullptr);
+    static_assert(cstrpbrk(longStr, accept1) != nullptr);
+    static_assert(cstrpbrk(longStr, accept2) != nullptr);
+    static_assert(cstrpbrk(longStr, accept3) != nullptr);
+    static_assert(cstrpbrk(longStr, accept4) != nullptr);
 
     // Compare with std::strpbrk
     REQUIRE(cstrpbrk(longStr, accept1) == std::strpbrk(longStr, accept1));
@@ -768,9 +768,9 @@ TEST_CASE("cstrpbrk function", "[core][constexpr_utils]") {
     constexpr const char * accept2 = "B";
     constexpr const char * accept3 = "AB";
 
-    STATIC_REQUIRE(cstrpbrk(str, accept1) != nullptr);
-    STATIC_REQUIRE(cstrpbrk(str, accept2) == nullptr);
-    STATIC_REQUIRE(cstrpbrk(str, accept3) != nullptr);
+    static_assert(cstrpbrk(str, accept1) != nullptr);
+    static_assert(cstrpbrk(str, accept2) == nullptr);
+    static_assert(cstrpbrk(str, accept3) != nullptr);
 
     // Compare with std::strpbrk
     REQUIRE(cstrpbrk(str, accept1) == std::strpbrk(str, accept1));
@@ -787,16 +787,16 @@ TEST_CASE("cstrstr function", "[core][constexpr_utils]") {
     constexpr const char * needle3 = "lo Wo";
     constexpr const char * needle4 = "Hello World";
 
-    STATIC_REQUIRE(cstrstr(haystack, needle1) != nullptr);
-    STATIC_REQUIRE(cstrstr(haystack, needle2) != nullptr);
-    STATIC_REQUIRE(cstrstr(haystack, needle3) != nullptr);
-    STATIC_REQUIRE(cstrstr(haystack, needle4) != nullptr);
+    static_assert(cstrstr(haystack, needle1) != nullptr);
+    static_assert(cstrstr(haystack, needle2) != nullptr);
+    static_assert(cstrstr(haystack, needle3) != nullptr);
+    static_assert(cstrstr(haystack, needle4) != nullptr);
 
     // Verify correct positions
-    STATIC_REQUIRE(cstrstr(haystack, needle1) == haystack + 6); // "World" starts at position 6
-    STATIC_REQUIRE(cstrstr(haystack, needle2) == haystack); // "Hello" starts at position 0
-    STATIC_REQUIRE(cstrstr(haystack, needle3) == haystack + 3); // "lo Wo" starts at position 3
-    STATIC_REQUIRE(cstrstr(haystack, needle4) == haystack); // "Hello World" starts at position 0
+    static_assert(cstrstr(haystack, needle1) == haystack + 6); // "World" starts at position 6
+    static_assert(cstrstr(haystack, needle2) == haystack); // "Hello" starts at position 0
+    static_assert(cstrstr(haystack, needle3) == haystack + 3); // "lo Wo" starts at position 3
+    static_assert(cstrstr(haystack, needle4) == haystack); // "Hello World" starts at position 0
 
     // Compare with std::strstr
     REQUIRE(cstrstr(haystack, needle1) == std::strstr(haystack, needle1));
@@ -812,10 +812,10 @@ TEST_CASE("cstrstr function", "[core][constexpr_utils]") {
     constexpr const char * needle3 = "Hello Universe";
     constexpr const char * needle4 = "World Hello";
 
-    STATIC_REQUIRE(cstrstr(haystack, needle1) == nullptr);
-    STATIC_REQUIRE(cstrstr(haystack, needle2) == nullptr);
-    STATIC_REQUIRE(cstrstr(haystack, needle3) == nullptr);
-    STATIC_REQUIRE(cstrstr(haystack, needle4) == nullptr);
+    static_assert(cstrstr(haystack, needle1) == nullptr);
+    static_assert(cstrstr(haystack, needle2) == nullptr);
+    static_assert(cstrstr(haystack, needle3) == nullptr);
+    static_assert(cstrstr(haystack, needle4) == nullptr);
 
     // Compare with std::strstr
     REQUIRE(cstrstr(haystack, needle1) == std::strstr(haystack, needle1));
@@ -829,8 +829,8 @@ TEST_CASE("cstrstr function", "[core][constexpr_utils]") {
     constexpr const char * haystack2 = "";
     constexpr const char * emptyNeedle = "";
 
-    STATIC_REQUIRE(cstrstr(haystack1, emptyNeedle) == haystack1);
-    STATIC_REQUIRE(cstrstr(haystack2, emptyNeedle) == haystack2);
+    static_assert(cstrstr(haystack1, emptyNeedle) == haystack1);
+    static_assert(cstrstr(haystack2, emptyNeedle) == haystack2);
 
     // Compare with std::strstr
     REQUIRE(cstrstr(haystack1, emptyNeedle) == std::strstr(haystack1, emptyNeedle));
@@ -842,8 +842,8 @@ TEST_CASE("cstrstr function", "[core][constexpr_utils]") {
     constexpr const char * needle1 = "Hello";
     constexpr const char * needle2 = "";
 
-    STATIC_REQUIRE(cstrstr(emptyHaystack, needle1) == nullptr);
-    STATIC_REQUIRE(cstrstr(emptyHaystack, needle2) == emptyHaystack);
+    static_assert(cstrstr(emptyHaystack, needle1) == nullptr);
+    static_assert(cstrstr(emptyHaystack, needle2) == emptyHaystack);
 
     // Compare with std::strstr
     REQUIRE(cstrstr(emptyHaystack, needle1) == std::strstr(emptyHaystack, needle1));
@@ -857,10 +857,10 @@ TEST_CASE("cstrstr function", "[core][constexpr_utils]") {
     constexpr const char * needle3 = "l";
     constexpr const char * needle4 = "x";
 
-    STATIC_REQUIRE(cstrstr(haystack, needle1) == haystack); // "H" at position 0
-    STATIC_REQUIRE(cstrstr(haystack, needle2) == haystack + 4); // "o" at position 4
-    STATIC_REQUIRE(cstrstr(haystack, needle3) == haystack + 2); // "l" at position 2 (first occurrence)
-    STATIC_REQUIRE(cstrstr(haystack, needle4) == nullptr); // "x" not found
+    static_assert(cstrstr(haystack, needle1) == haystack); // "H" at position 0
+    static_assert(cstrstr(haystack, needle2) == haystack + 4); // "o" at position 4
+    static_assert(cstrstr(haystack, needle3) == haystack + 2); // "l" at position 2 (first occurrence)
+    static_assert(cstrstr(haystack, needle4) == nullptr); // "x" not found
 
     // Compare with std::strstr
     REQUIRE(cstrstr(haystack, needle1) == std::strstr(haystack, needle1));
@@ -876,10 +876,10 @@ TEST_CASE("cstrstr function", "[core][constexpr_utils]") {
     constexpr const char * needle3 = "world";
     constexpr const char * needle4 = "Hello";
 
-    STATIC_REQUIRE(cstrstr(haystack, needle1) == nullptr); // Case sensitive
-    STATIC_REQUIRE(cstrstr(haystack, needle2) == nullptr); // Case sensitive
-    STATIC_REQUIRE(cstrstr(haystack, needle3) == nullptr); // Case sensitive
-    STATIC_REQUIRE(cstrstr(haystack, needle4) == haystack); // Exact match
+    static_assert(cstrstr(haystack, needle1) == nullptr); // Case sensitive
+    static_assert(cstrstr(haystack, needle2) == nullptr); // Case sensitive
+    static_assert(cstrstr(haystack, needle3) == nullptr); // Case sensitive
+    static_assert(cstrstr(haystack, needle4) == haystack); // Exact match
 
     // Compare with std::strstr
     REQUIRE(cstrstr(haystack, needle1) == std::strstr(haystack, needle1));
@@ -896,11 +896,11 @@ TEST_CASE("cstrstr function", "[core][constexpr_utils]") {
     constexpr const char * needle4 = "ababab";
     constexpr const char * needle5 = "babab";
 
-    STATIC_REQUIRE(cstrstr(haystack, needle1) == haystack); // "ab" at position 0
-    STATIC_REQUIRE(cstrstr(haystack, needle2) == haystack + 1); // "bab" at position 1
-    STATIC_REQUIRE(cstrstr(haystack, needle3) == haystack); // "abab" at position 0
-    STATIC_REQUIRE(cstrstr(haystack, needle4) == haystack); // "ababab" at position 0
-    STATIC_REQUIRE(cstrstr(haystack, needle5) == haystack + 1); // "babab" at position 1
+    static_assert(cstrstr(haystack, needle1) == haystack); // "ab" at position 0
+    static_assert(cstrstr(haystack, needle2) == haystack + 1); // "bab" at position 1
+    static_assert(cstrstr(haystack, needle3) == haystack); // "abab" at position 0
+    static_assert(cstrstr(haystack, needle4) == haystack); // "ababab" at position 0
+    static_assert(cstrstr(haystack, needle5) == haystack + 1); // "babab" at position 1
 
     // Compare with std::strstr
     REQUIRE(cstrstr(haystack, needle1) == std::strstr(haystack, needle1));
@@ -919,12 +919,12 @@ TEST_CASE("cstrstr function", "[core][constexpr_utils]") {
     constexpr const char * needle5 = "\tWorld";
     constexpr const char * needle6 = "World!";
 
-    STATIC_REQUIRE(cstrstr(haystack, needle1) == haystack + 5); // "\n" at position 5
-    STATIC_REQUIRE(cstrstr(haystack, needle2) == haystack + 6); // "\t" at position 6
-    STATIC_REQUIRE(cstrstr(haystack, needle3) == haystack + 12); // "!" at position 12
-    STATIC_REQUIRE(cstrstr(haystack, needle4) == haystack); // "Hello\n" at position 0
-    STATIC_REQUIRE(cstrstr(haystack, needle5) == haystack + 6); // "\tWorld" at position 6
-    STATIC_REQUIRE(cstrstr(haystack, needle6) == haystack + 7); // "World!" at position 7
+    static_assert(cstrstr(haystack, needle1) == haystack + 5); // "\n" at position 5
+    static_assert(cstrstr(haystack, needle2) == haystack + 6); // "\t" at position 6
+    static_assert(cstrstr(haystack, needle3) == haystack + 12); // "!" at position 12
+    static_assert(cstrstr(haystack, needle4) == haystack); // "Hello\n" at position 0
+    static_assert(cstrstr(haystack, needle5) == haystack + 6); // "\tWorld" at position 6
+    static_assert(cstrstr(haystack, needle6) == haystack + 7); // "World!" at position 7
 
     // Compare with std::strstr
     REQUIRE(cstrstr(haystack, needle1) == std::strstr(haystack, needle1));
@@ -943,11 +943,11 @@ TEST_CASE("cstrstr function", "[core][constexpr_utils]") {
     constexpr const char * needle4 = "世";
     constexpr const char * needle5 = "宇宙";
 
-    STATIC_REQUIRE(cstrstr(haystack, needle1) == haystack + 6); // "世界" at position 6
-    STATIC_REQUIRE(cstrstr(haystack, needle2) == haystack); // "Hello 世" at position 0
-    STATIC_REQUIRE(cstrstr(haystack, needle3) == haystack + 9); // "界" at position 9
-    STATIC_REQUIRE(cstrstr(haystack, needle4) == haystack + 6); // "世" at position 6
-    STATIC_REQUIRE(cstrstr(haystack, needle5) == nullptr); // "宇宙" not found
+    static_assert(cstrstr(haystack, needle1) == haystack + 6); // "世界" at position 6
+    static_assert(cstrstr(haystack, needle2) == haystack); // "Hello 世" at position 0
+    static_assert(cstrstr(haystack, needle3) == haystack + 9); // "界" at position 9
+    static_assert(cstrstr(haystack, needle4) == haystack + 6); // "世" at position 6
+    static_assert(cstrstr(haystack, needle5) == nullptr); // "宇宙" not found
 
     // Compare with std::strstr
     REQUIRE(cstrstr(haystack, needle1) == std::strstr(haystack, needle1));
@@ -965,11 +965,11 @@ TEST_CASE("cstrstr function", "[core][constexpr_utils]") {
     constexpr const char * needle4 = "12345";
     constexpr const char * needle5 = "678";
 
-    STATIC_REQUIRE(cstrstr(haystack, needle1) == haystack); // "123" at position 0
-    STATIC_REQUIRE(cstrstr(haystack, needle2) == haystack + 2); // "345" at position 2
-    STATIC_REQUIRE(cstrstr(haystack, needle3) == haystack + 1); // "234" at position 1
-    STATIC_REQUIRE(cstrstr(haystack, needle4) == haystack); // "12345" at position 0
-    STATIC_REQUIRE(cstrstr(haystack, needle5) == nullptr); // "678" not found
+    static_assert(cstrstr(haystack, needle1) == haystack); // "123" at position 0
+    static_assert(cstrstr(haystack, needle2) == haystack + 2); // "345" at position 2
+    static_assert(cstrstr(haystack, needle3) == haystack + 1); // "234" at position 1
+    static_assert(cstrstr(haystack, needle4) == haystack); // "12345" at position 0
+    static_assert(cstrstr(haystack, needle5) == nullptr); // "678" not found
 
     // Compare with std::strstr
     REQUIRE(cstrstr(haystack, needle1) == std::strstr(haystack, needle1));
@@ -988,12 +988,12 @@ TEST_CASE("cstrstr function", "[core][constexpr_utils]") {
     constexpr const char * needle5 = "123Hello456";
     constexpr const char * needle6 = "789";
 
-    STATIC_REQUIRE(cstrstr(haystack, needle1) == haystack); // "123" at position 0
-    STATIC_REQUIRE(cstrstr(haystack, needle2) == haystack + 3); // "Hello" at position 3
-    STATIC_REQUIRE(cstrstr(haystack, needle3) == haystack + 8); // "456" at position 8
-    STATIC_REQUIRE(cstrstr(haystack, needle4) == haystack + 2); // "3Hello4" at position 2
-    STATIC_REQUIRE(cstrstr(haystack, needle5) == haystack); // "123Hello456" at position 0
-    STATIC_REQUIRE(cstrstr(haystack, needle6) == nullptr); // "789" not found
+    static_assert(cstrstr(haystack, needle1) == haystack); // "123" at position 0
+    static_assert(cstrstr(haystack, needle2) == haystack + 3); // "Hello" at position 3
+    static_assert(cstrstr(haystack, needle3) == haystack + 8); // "456" at position 8
+    static_assert(cstrstr(haystack, needle4) == haystack + 2); // "3Hello4" at position 2
+    static_assert(cstrstr(haystack, needle5) == haystack); // "123Hello456" at position 0
+    static_assert(cstrstr(haystack, needle6) == nullptr); // "789" not found
 
     // Compare with std::strstr
     REQUIRE(cstrstr(haystack, needle1) == std::strstr(haystack, needle1));
@@ -1008,19 +1008,19 @@ TEST_CASE("cstrstr function", "[core][constexpr_utils]") {
     constexpr const char * haystack = "Hello World";
 
     // Beginning
-    STATIC_REQUIRE(cstrstr(haystack, "H") == haystack);
-    STATIC_REQUIRE(cstrstr(haystack, "He") == haystack);
-    STATIC_REQUIRE(cstrstr(haystack, "Hello") == haystack);
+    static_assert(cstrstr(haystack, "H") == haystack);
+    static_assert(cstrstr(haystack, "He") == haystack);
+    static_assert(cstrstr(haystack, "Hello") == haystack);
 
     // Middle
-    STATIC_REQUIRE(cstrstr(haystack, "l") == haystack + 2); // First "l" at position 2
-    STATIC_REQUIRE(cstrstr(haystack, "ll") == haystack + 2); // "ll" at position 2
-    STATIC_REQUIRE(cstrstr(haystack, "lo W") == haystack + 3); // "lo W" at position 3
+    static_assert(cstrstr(haystack, "l") == haystack + 2); // First "l" at position 2
+    static_assert(cstrstr(haystack, "ll") == haystack + 2); // "ll" at position 2
+    static_assert(cstrstr(haystack, "lo W") == haystack + 3); // "lo W" at position 3
 
     // End
-    STATIC_REQUIRE(cstrstr(haystack, "d") == haystack + 10); // "d" at position 10
-    STATIC_REQUIRE(cstrstr(haystack, "ld") == haystack + 9); // "ld" at position 9
-    STATIC_REQUIRE(cstrstr(haystack, "World") == haystack + 6); // "World" at position 6
+    static_assert(cstrstr(haystack, "d") == haystack + 10); // "d" at position 10
+    static_assert(cstrstr(haystack, "ld") == haystack + 9); // "ld" at position 9
+    static_assert(cstrstr(haystack, "World") == haystack + 6); // "World" at position 6
 
     // Compare with std::strstr
     REQUIRE(cstrstr(haystack, "H") == std::strstr(haystack, "H"));
@@ -1045,19 +1045,19 @@ TEST_CASE("cstrstr function", "[core][constexpr_utils]") {
     constexpr const char * helloWorld = "hello world";
 
     // Identical strings
-    STATIC_REQUIRE(cstrstr(empty, "") != nullptr);
-    STATIC_REQUIRE(cstrstr(a, "a") != nullptr); // Single character match
-    STATIC_REQUIRE(cstrstr(abc, "abc") != nullptr); // Full string match
+    static_assert(cstrstr(empty, "") != nullptr);
+    static_assert(cstrstr(a, "a") != nullptr); // Single character match
+    static_assert(cstrstr(abc, "abc") != nullptr); // Full string match
 
     // One string is prefix of another
-    STATIC_REQUIRE(cstrstr(abc, "abcd") == nullptr); // "abc" doesn't contain "abcd"
-    STATIC_REQUIRE(cstrstr(abcd, "abc") != nullptr); // "abcd" contains "abc"
-    STATIC_REQUIRE(cstrstr(empty, "a") == nullptr); // Empty doesn't contain "a"
-    STATIC_REQUIRE(cstrstr(a, "") != nullptr); // "a" contains empty string
+    static_assert(cstrstr(abc, "abcd") == nullptr); // "abc" doesn't contain "abcd"
+    static_assert(cstrstr(abcd, "abc") != nullptr); // "abcd" contains "abc"
+    static_assert(cstrstr(empty, "a") == nullptr); // Empty doesn't contain "a"
+    static_assert(cstrstr(a, "") != nullptr); // "a" contains empty string
 
     // Different lengths, same prefix
-    STATIC_REQUIRE(cstrstr(hello, "helloworld") == nullptr); // "hello" doesn't contain "helloworld"
-    STATIC_REQUIRE(cstrstr(helloWorld, "hello") != nullptr); // "helloworld" contains "hello"
+    static_assert(cstrstr(hello, "helloworld") == nullptr); // "hello" doesn't contain "helloworld"
+    static_assert(cstrstr(helloWorld, "hello") != nullptr); // "helloworld" contains "hello"
 
     // Compare with std::strstr
     REQUIRE(cstrstr(empty, "") == std::strstr(empty, ""));
@@ -1085,18 +1085,18 @@ TEST_CASE("cstrstr function", "[core][constexpr_utils]") {
     constexpr const char * result3 = cstrstr(word3, "es");
     constexpr const char * result4 = cstrstr(abc, "B");
 
-    STATIC_REQUIRE(result1 != nullptr);
-    STATIC_REQUIRE(result2 == nullptr);
-    STATIC_REQUIRE(result3 != nullptr);
-    STATIC_REQUIRE(result4 != nullptr);
+    static_assert(result1 != nullptr);
+    static_assert(result2 == nullptr);
+    static_assert(result3 != nullptr);
+    static_assert(result4 != nullptr);
 
     // Complex compile-time checks
-    STATIC_REQUIRE(cstrstr(helloWorld, "Hello") != nullptr);
-    STATIC_REQUIRE(cstrstr(helloWorld, "xyz") == nullptr);
-    STATIC_REQUIRE(cstrstr(word3, "Test") != nullptr);
-    STATIC_REQUIRE(cstrstr(word3, "Fail") == nullptr);
-    STATIC_REQUIRE(cstrstr(abc, "ABC") != nullptr);
-    STATIC_REQUIRE(cstrstr(abc, "XYZ") == nullptr);
+    static_assert(cstrstr(helloWorld, "Hello") != nullptr);
+    static_assert(cstrstr(helloWorld, "xyz") == nullptr);
+    static_assert(cstrstr(word3, "Test") != nullptr);
+    static_assert(cstrstr(word3, "Fail") == nullptr);
+    static_assert(cstrstr(abc, "ABC") != nullptr);
+    static_assert(cstrstr(abc, "XYZ") == nullptr);
 
     // Compare with std::strstr
     REQUIRE(result1 == std::strstr(helloWorld, word1));
@@ -1119,10 +1119,10 @@ TEST_CASE("cstrstr function", "[core][constexpr_utils]") {
     constexpr const char * needle3 = "testing";
     constexpr const char * needle4 = "not found";
 
-    STATIC_REQUIRE(cstrstr(longHaystack, needle1) != nullptr);
-    STATIC_REQUIRE(cstrstr(longHaystack, needle2) != nullptr);
-    STATIC_REQUIRE(cstrstr(longHaystack, needle3) != nullptr);
-    STATIC_REQUIRE(cstrstr(longHaystack, needle4) == nullptr);
+    static_assert(cstrstr(longHaystack, needle1) != nullptr);
+    static_assert(cstrstr(longHaystack, needle2) != nullptr);
+    static_assert(cstrstr(longHaystack, needle3) != nullptr);
+    static_assert(cstrstr(longHaystack, needle4) == nullptr);
 
     // Compare with std::strstr
     REQUIRE(cstrstr(longHaystack, needle1) == std::strstr(longHaystack, needle1));

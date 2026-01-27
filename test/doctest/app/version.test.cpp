@@ -31,12 +31,6 @@ TEST_CASE("app/version/constructors") {
   SUBCASE("default") {
     constexpr Version version;
 
-    REQUIRE(version.major == 0);
-    REQUIRE(version.minor == 0);
-    REQUIRE(version.maintenance == 0);
-    REQUIRE(version.revision == 0);
-
-    // Compile-time checks
     static_assert(version.major == 0);
     static_assert(version.minor == 0);
     static_assert(version.maintenance == 0);
@@ -47,12 +41,6 @@ TEST_CASE("app/version/constructors") {
   SUBCASE("aggregate_initialization") {
     constexpr Version version{5, 10, 15, 20};
 
-    REQUIRE(version.major == 5);
-    REQUIRE(version.minor == 10);
-    REQUIRE(version.maintenance == 15);
-    REQUIRE(version.revision == 20);
-
-    // Compile-time checks
     static_assert(version.major == 5);
     static_assert(version.minor == 10);
     static_assert(version.maintenance == 15);
@@ -63,12 +51,6 @@ TEST_CASE("app/version/constructors") {
   SUBCASE("partial_initialization") {
     constexpr Version version{1, 2};
 
-    REQUIRE(version.major == 1);
-    REQUIRE(version.minor == 2);
-    REQUIRE(version.maintenance == 0);
-    REQUIRE(version.revision == 0);
-
-    // Compile-time checks
     static_assert(version.major == 1);
     static_assert(version.minor == 2);
     static_assert(version.maintenance == 0);
@@ -84,10 +66,7 @@ TEST_CASE("app/version/equality_operator") {
     constexpr Version v2{1, 2, 3, 4};
     constexpr bool result = v1 == v2;
 
-    REQUIRE(result == true);
-
-    // Compile-time checks
-    static_assert(result == true);
+    static_assert(result);
   }
 
   // Major version differences compare not equal.
@@ -96,10 +75,7 @@ TEST_CASE("app/version/equality_operator") {
     constexpr Version v2{2, 2, 3, 4};
     constexpr bool result = v1 == v2;
 
-    REQUIRE(result == false);
-
-    // Compile-time checks
-    static_assert(result == false);
+    static_assert(!result);
   }
 
   // Minor version differences compare not equal.
@@ -108,10 +84,7 @@ TEST_CASE("app/version/equality_operator") {
     constexpr Version v2{1, 3, 3, 4};
     constexpr bool result = v1 == v2;
 
-    REQUIRE(result == false);
-
-    // Compile-time checks
-    static_assert(result == false);
+    static_assert(!result);
   }
 
   // Maintenance version differences compare not equal.
@@ -120,10 +93,7 @@ TEST_CASE("app/version/equality_operator") {
     constexpr Version v2{1, 2, 4, 4};
     constexpr bool result = v1 == v2;
 
-    REQUIRE(result == false);
-
-    // Compile-time checks
-    static_assert(result == false);
+    static_assert(!result);
   }
 
   // Revision version differences compare not equal.
@@ -132,10 +102,7 @@ TEST_CASE("app/version/equality_operator") {
     constexpr Version v2{1, 2, 3, 5};
     constexpr bool result = v1 == v2;
 
-    REQUIRE(result == false);
-
-    // Compile-time checks
-    static_assert(result == false);
+    static_assert(!result);
   }
 
   // Zero versions compare equal.
@@ -144,10 +111,7 @@ TEST_CASE("app/version/equality_operator") {
     constexpr Version v2{0, 0, 0, 0};
     constexpr bool result = v1 == v2;
 
-    REQUIRE(result == true);
-
-    // Compile-time checks
-    static_assert(result == true);
+    static_assert(result);
   }
 
   // Zero and non-zero versions compare not equal.
@@ -156,10 +120,7 @@ TEST_CASE("app/version/equality_operator") {
     constexpr Version v2{0, 0, 0, 1};
     constexpr bool result = v1 == v2;
 
-    REQUIRE(result == false);
-
-    // Compile-time checks
-    static_assert(result == false);
+    static_assert(!result);
   }
 }
 
@@ -171,9 +132,6 @@ TEST_CASE("app/version/three_way_comparison_operator") {
     constexpr Version v2{1, 2, 3, 4};
     constexpr auto result = v1 <=> v2;
 
-    REQUIRE(result == strong_ordering::equal);
-
-    // Compile-time checks
     static_assert(result == strong_ordering::equal);
   }
 
@@ -183,18 +141,12 @@ TEST_CASE("app/version/three_way_comparison_operator") {
     constexpr Version v2{2, 1, 1, 1};
     constexpr auto result = v1 <=> v2;
 
-    REQUIRE(result == strong_ordering::less);
-
-    // Compile-time checks
     static_assert(result == strong_ordering::less);
 
     constexpr Version v3{2, 1, 1, 1};
     constexpr Version v4{1, 2, 3, 4};
     constexpr auto result2 = v3 <=> v4;
 
-    REQUIRE(result2 == strong_ordering::greater);
-
-    // Compile-time checks
     static_assert(result2 == strong_ordering::greater);
   }
 
@@ -204,18 +156,12 @@ TEST_CASE("app/version/three_way_comparison_operator") {
     constexpr Version v2{1, 3, 1, 1};
     constexpr auto result = v1 <=> v2;
 
-    REQUIRE(result == strong_ordering::less);
-
-    // Compile-time checks
     static_assert(result == strong_ordering::less);
 
     constexpr Version v3{1, 3, 1, 1};
     constexpr Version v4{1, 2, 3, 4};
     constexpr auto result2 = v3 <=> v4;
 
-    REQUIRE(result2 == strong_ordering::greater);
-
-    // Compile-time checks
     static_assert(result2 == strong_ordering::greater);
   }
 
@@ -225,18 +171,12 @@ TEST_CASE("app/version/three_way_comparison_operator") {
     constexpr Version v2{1, 2, 4, 1};
     constexpr auto result = v1 <=> v2;
 
-    REQUIRE(result == strong_ordering::less);
-
-    // Compile-time checks
     static_assert(result == strong_ordering::less);
 
     constexpr Version v3{1, 2, 4, 1};
     constexpr Version v4{1, 2, 3, 4};
     constexpr auto result2 = v3 <=> v4;
 
-    REQUIRE(result2 == strong_ordering::greater);
-
-    // Compile-time checks
     static_assert(result2 == strong_ordering::greater);
   }
 
@@ -246,18 +186,12 @@ TEST_CASE("app/version/three_way_comparison_operator") {
     constexpr Version v2{1, 2, 3, 5};
     constexpr auto result = v1 <=> v2;
 
-    REQUIRE(result == strong_ordering::less);
-
-    // Compile-time checks
     static_assert(result == strong_ordering::less);
 
     constexpr Version v3{1, 2, 3, 5};
     constexpr Version v4{1, 2, 3, 4};
     constexpr auto result2 = v3 <=> v4;
 
-    REQUIRE(result2 == strong_ordering::greater);
-
-    // Compile-time checks
     static_assert(result2 == strong_ordering::greater);
   }
 
@@ -267,9 +201,6 @@ TEST_CASE("app/version/three_way_comparison_operator") {
     constexpr Version v2{0, 0, 0, 0};
     constexpr auto result = v1 <=> v2;
 
-    REQUIRE(result == strong_ordering::equal);
-
-    // Compile-time checks
     static_assert(result == strong_ordering::equal);
   }
 }
@@ -281,11 +212,6 @@ TEST_CASE("app/version/comparison_operators") {
     constexpr Version v1{1, 2, 3, 4};
     constexpr Version v2{1, 2, 3, 5};
 
-    REQUIRE(v1 < v2);
-    REQUIRE(!(v2 < v1));
-    REQUIRE(!(v1 < v1));
-
-    // Compile-time checks
     static_assert(v1 < v2);
     static_assert(!(v2 < v1));
     static_assert(!(v1 < v1));
@@ -297,11 +223,6 @@ TEST_CASE("app/version/comparison_operators") {
     constexpr Version v2{1, 2, 3, 5};
     constexpr Version v3{1, 2, 3, 4};
 
-    REQUIRE(v1 <= v2);
-    REQUIRE(v1 <= v3);
-    REQUIRE(!(v2 <= v1));
-
-    // Compile-time checks
     static_assert(v1 <= v2);
     static_assert(v1 <= v3);
     static_assert(!(v2 <= v1));
@@ -312,11 +233,6 @@ TEST_CASE("app/version/comparison_operators") {
     constexpr Version v1{1, 2, 3, 5};
     constexpr Version v2{1, 2, 3, 4};
 
-    REQUIRE(v1 > v2);
-    REQUIRE(!(v2 > v1));
-    REQUIRE(!(v1 > v1));
-
-    // Compile-time checks
     static_assert(v1 > v2);
     static_assert(!(v2 > v1));
     static_assert(!(v1 > v1));
@@ -328,11 +244,6 @@ TEST_CASE("app/version/comparison_operators") {
     constexpr Version v2{1, 2, 3, 4};
     constexpr Version v3{1, 2, 3, 5};
 
-    REQUIRE(v1 >= v2);
-    REQUIRE(v1 >= v3);
-    REQUIRE(!(v2 >= v1));
-
-    // Compile-time checks
     static_assert(v1 >= v2);
     static_assert(v1 >= v3);
     static_assert(!(v2 >= v1));
@@ -343,10 +254,6 @@ TEST_CASE("app/version/comparison_operators") {
     constexpr Version v1{1, 2, 3, 4};
     constexpr Version v2{1, 2, 3, 5};
 
-    REQUIRE(v1 != v2);
-    REQUIRE(!(v1 != v1));
-
-    // Compile-time checks
     static_assert(v1 != v2);
     static_assert(!(v1 != v1));
   }
@@ -359,11 +266,6 @@ TEST_CASE("app/version/semantic_scenarios") {
     constexpr Version v1{1, 0, 0, 0};
     constexpr Version v2{2, 0, 0, 0};
 
-    REQUIRE(v1 < v2);
-    REQUIRE(v2 > v1);
-    REQUIRE(v1 != v2);
-
-    // Compile-time checks
     static_assert(v1 < v2);
     static_assert(v2 > v1);
     static_assert(v1 != v2);
@@ -374,11 +276,6 @@ TEST_CASE("app/version/semantic_scenarios") {
     constexpr Version v1{1, 1, 0, 0};
     constexpr Version v2{1, 2, 0, 0};
 
-    REQUIRE(v1 < v2);
-    REQUIRE(v2 > v1);
-    REQUIRE(v1 != v2);
-
-    // Compile-time checks
     static_assert(v1 < v2);
     static_assert(v2 > v1);
     static_assert(v1 != v2);
@@ -389,11 +286,6 @@ TEST_CASE("app/version/semantic_scenarios") {
     constexpr Version v1{1, 1, 1, 0};
     constexpr Version v2{1, 1, 2, 0};
 
-    REQUIRE(v1 < v2);
-    REQUIRE(v2 > v1);
-    REQUIRE(v1 != v2);
-
-    // Compile-time checks
     static_assert(v1 < v2);
     static_assert(v2 > v1);
     static_assert(v1 != v2);
@@ -404,11 +296,6 @@ TEST_CASE("app/version/semantic_scenarios") {
     constexpr Version v1{1, 1, 1, 1};
     constexpr Version v2{1, 1, 1, 2};
 
-    REQUIRE(v1 < v2);
-    REQUIRE(v2 > v1);
-    REQUIRE(v1 != v2);
-
-    // Compile-time checks
     static_assert(v1 < v2);
     static_assert(v2 > v1);
     static_assert(v1 != v2);
@@ -421,11 +308,6 @@ TEST_CASE("app/version/semantic_scenarios") {
     constexpr Version v3{1, 3, 0, 0};
     constexpr Version v4{2, 0, 0, 0};
 
-    REQUIRE(v1 < v2);
-    REQUIRE(v2 < v3);
-    REQUIRE(v3 < v4);
-
-    // Compile-time checks
     static_assert(v1 < v2);
     static_assert(v2 < v3);
     static_assert(v3 < v4);

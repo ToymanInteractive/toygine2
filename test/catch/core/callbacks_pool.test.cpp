@@ -58,15 +58,15 @@ TEST_CASE("CallbacksPool constructors", "[core][callbacks_pool]") {
     REQUIRE(pool.subscribersAmount() == 0);
 
     constexpr CallbacksPool<int, 4> constExprPool;
-    STATIC_REQUIRE(constExprPool.subscribersAmount() == 0);
+    static_assert(constExprPool.subscribersAmount() == 0);
   }
 
   SECTION("Different template parameters") {
     constexpr CallbacksPool<int, 8> largePool;
-    STATIC_REQUIRE(largePool.subscribersAmount() == 0);
+    static_assert(largePool.subscribersAmount() == 0);
 
     constexpr CallbacksPool<double, 2> smallPool;
-    STATIC_REQUIRE(smallPool.subscribersAmount() == 0);
+    static_assert(smallPool.subscribersAmount() == 0);
   }
 }
 
@@ -74,42 +74,42 @@ TEST_CASE("CallbacksPool add method", "[core][callbacks_pool]") {
   SECTION("Add single callback") {
     CallbacksPool<int, 4> pool;
 
-    REQUIRE(pool.add(_callback1) == true);
+    REQUIRE(pool.add(_callback1));
     REQUIRE(pool.subscribersAmount() == 1);
   }
 
   SECTION("Add multiple callbacks") {
     CallbacksPool<int, 4> pool;
 
-    REQUIRE(pool.add(_callback1) == true);
+    REQUIRE(pool.add(_callback1));
     REQUIRE(pool.subscribersAmount() == 1);
 
-    REQUIRE(pool.add(_callback2) == true);
+    REQUIRE(pool.add(_callback2));
     REQUIRE(pool.subscribersAmount() == 2);
 
-    REQUIRE(pool.add(_callback3) == true);
+    REQUIRE(pool.add(_callback3));
     REQUIRE(pool.subscribersAmount() == 3);
   }
 
   SECTION("Add duplicate callback (idempotent)") {
     CallbacksPool<int, 4> pool;
 
-    REQUIRE(pool.add(_callback1) == true);
+    REQUIRE(pool.add(_callback1));
     REQUIRE(pool.subscribersAmount() == 1);
 
     // Adding the same callback again should return true but not increase count
-    REQUIRE(pool.add(_callback1) == true);
+    REQUIRE(pool.add(_callback1));
     REQUIRE(pool.subscribersAmount() == 1); // Still 1, no duplicate added
   }
 
   SECTION("Add with different types") {
     CallbacksPool<double, 4> doublePool;
     void (*doubleCallback)(double) = [](double d) { (void)d; };
-    REQUIRE(doublePool.add(doubleCallback) == true);
+    REQUIRE(doublePool.add(doubleCallback));
 
     CallbacksPool<size_t, 4> sizePool;
     void (*sizeCallback)(size_t) = [](size_t s) { (void)s; };
-    REQUIRE(sizePool.add(sizeCallback) == true);
+    REQUIRE(sizePool.add(sizeCallback));
   }
 }
 
@@ -121,10 +121,10 @@ TEST_CASE("CallbacksPool remove method", "[core][callbacks_pool]") {
     pool.add(_callback2);
     REQUIRE(pool.subscribersAmount() == 2);
 
-    REQUIRE(pool.remove(_callback1) == true);
+    REQUIRE(pool.remove(_callback1));
     REQUIRE(pool.subscribersAmount() == 1);
 
-    REQUIRE(pool.remove(_callback2) == true);
+    REQUIRE(pool.remove(_callback2));
     REQUIRE(pool.subscribersAmount() == 0);
   }
 

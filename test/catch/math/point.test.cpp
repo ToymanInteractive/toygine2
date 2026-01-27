@@ -27,7 +27,7 @@ using namespace toy::math;
 TEST_CASE("Point object structure", "[math][point]") {
   constexpr Point point(111, 222);
 
-  STATIC_REQUIRE(sizeof(point) == sizeof(int32_t) * 2);
+  static_assert(sizeof(point) == sizeof(int32_t) * 2);
 
   const auto * arr = point.c_arr();
 
@@ -47,8 +47,8 @@ TEST_CASE("Point constructors", "[math][point]") {
 
     // Compile-time checks
     constexpr Point constexprPoint;
-    STATIC_REQUIRE(constexprPoint.x == 0);
-    STATIC_REQUIRE(constexprPoint.y == 0);
+    static_assert(constexprPoint.x == 0);
+    static_assert(constexprPoint.y == 0);
   }
 
   SECTION("Constructor with positive coordinates") {
@@ -58,8 +58,8 @@ TEST_CASE("Point constructors", "[math][point]") {
 
     // Compile-time checks
     constexpr Point constexprPoint(10, 20);
-    STATIC_REQUIRE(constexprPoint.x == 10);
-    STATIC_REQUIRE(constexprPoint.y == 20);
+    static_assert(constexprPoint.x == 10);
+    static_assert(constexprPoint.y == 20);
   }
 
   SECTION("Constructor with negative coordinates") {
@@ -69,8 +69,8 @@ TEST_CASE("Point constructors", "[math][point]") {
 
     // Compile-time checks
     constexpr Point constexprPoint(-5, -15);
-    STATIC_REQUIRE(constexprPoint.x == -5);
-    STATIC_REQUIRE(constexprPoint.y == -15);
+    static_assert(constexprPoint.x == -5);
+    static_assert(constexprPoint.y == -15);
   }
 
   SECTION("Constructor with mixed coordinates") {
@@ -80,8 +80,8 @@ TEST_CASE("Point constructors", "[math][point]") {
 
     // Compile-time checks
     constexpr Point constexprPoint(-100, 200);
-    STATIC_REQUIRE(constexprPoint.x == -100);
-    STATIC_REQUIRE(constexprPoint.y == 200);
+    static_assert(constexprPoint.x == -100);
+    static_assert(constexprPoint.y == 200);
   }
 
   SECTION("Constructor with zero coordinates") {
@@ -91,8 +91,8 @@ TEST_CASE("Point constructors", "[math][point]") {
 
     // Compile-time checks
     constexpr Point constexprPoint(0, 0);
-    STATIC_REQUIRE(constexprPoint.x == 0);
-    STATIC_REQUIRE(constexprPoint.y == 0);
+    static_assert(constexprPoint.x == 0);
+    static_assert(constexprPoint.y == 0);
   }
 
   SECTION("Constructor from pointer to array") {
@@ -104,56 +104,40 @@ TEST_CASE("Point constructors", "[math][point]") {
 
     // Compile-time checks
     constexpr Point constexprPoint(arr.data());
-    STATIC_REQUIRE(constexprPoint.x == 42);
-    STATIC_REQUIRE(constexprPoint.y == -17);
+    static_assert(constexprPoint.x == 42);
+    static_assert(constexprPoint.y == -17);
   }
 
   SECTION("Constructor from pointer to array with positive values") {
     constexpr std::array<int32_t, 2> arr{100, 200};
     constexpr Point point(arr.data());
 
-    REQUIRE(point.x == 100);
-    REQUIRE(point.y == 200);
-
-    // Compile-time checks
-    STATIC_REQUIRE(point.x == 100);
-    STATIC_REQUIRE(point.y == 200);
+    static_assert(point.x == 100);
+    static_assert(point.y == 200);
   }
 
   SECTION("Constructor from pointer to array with negative values") {
     constexpr std::array<int32_t, 2> arr{-50, -75};
     constexpr Point point(arr.data());
 
-    REQUIRE(point.x == -50);
-    REQUIRE(point.y == -75);
-
-    // Compile-time checks
-    STATIC_REQUIRE(point.x == -50);
-    STATIC_REQUIRE(point.y == -75);
+    static_assert(point.x == -50);
+    static_assert(point.y == -75);
   }
 
   SECTION("Constructor from pointer to array with mixed values") {
     constexpr std::array<int32_t, 2> arr{-300, 400};
     constexpr Point point(arr.data());
 
-    REQUIRE(point.x == -300);
-    REQUIRE(point.y == 400);
-
-    // Compile-time checks
-    STATIC_REQUIRE(point.x == -300);
-    STATIC_REQUIRE(point.y == 400);
+    static_assert(point.x == -300);
+    static_assert(point.y == 400);
   }
 
   SECTION("Constructor from pointer to array with zero values") {
     constexpr std::array<int32_t, 2> arr{0, 0};
     constexpr Point point(arr.data());
 
-    REQUIRE(point.x == 0);
-    REQUIRE(point.y == 0);
-
-    // Compile-time checks
-    STATIC_REQUIRE(point.x == 0);
-    STATIC_REQUIRE(point.y == 0);
+    static_assert(point.x == 0);
+    static_assert(point.y == 0);
   }
 
   SECTION("Runtime constructor tests") {
@@ -213,7 +197,7 @@ TEST_CASE("Point c_arr methods", "[math][point]") {
     REQUIRE(point.c_arr()[1] == 0);
 
     // Compile-time checks
-    STATIC_REQUIRE(point.c_arr()[0] == 0);
+    static_assert(point.c_arr()[0] == 0);
   }
 
   SECTION("c_arr with coordinate constructor") {
@@ -223,7 +207,7 @@ TEST_CASE("Point c_arr methods", "[math][point]") {
     REQUIRE(point.c_arr()[1] == 20);
 
     // Compile-time checks
-    STATIC_REQUIRE(point.c_arr()[0] == 10);
+    static_assert(point.c_arr()[0] == 10);
   }
 
   SECTION("c_arr with array constructor") {
@@ -233,7 +217,7 @@ TEST_CASE("Point c_arr methods", "[math][point]") {
     REQUIRE(point.c_arr()[1] == 75);
 
     // Compile-time checks
-    STATIC_REQUIRE(point.c_arr()[0] == -50);
+    static_assert(point.c_arr()[0] == -50);
   }
 
   SECTION("c_arr modification test") {
@@ -364,37 +348,28 @@ TEST_CASE("Point methods", "[math][point]") {
     constexpr auto magnitude = point.sqrMagnitude();
 
     REQUIRE(magnitude == 25);
-    STATIC_REQUIRE(magnitude == 25);
+    static_assert(magnitude == 25);
   }
 
   SECTION("sqrMagnitude with negative coordinates") {
     constexpr Point point(-3, -4);
     constexpr auto magnitude = point.sqrMagnitude();
 
-    REQUIRE(magnitude == 25);
-
-    // Compile-time checks
-    STATIC_REQUIRE(magnitude == 25);
+    static_assert(magnitude == 25);
   }
 
   SECTION("sqrMagnitude with zero coordinates") {
     constexpr Point point(0, 0);
     constexpr auto magnitude = point.sqrMagnitude();
 
-    REQUIRE(magnitude == 0);
-
-    // Compile-time checks
-    STATIC_REQUIRE(magnitude == 0);
+    static_assert(magnitude == 0);
   }
 
   SECTION("sqrMagnitude with large coordinates") {
     constexpr Point point(1000, 2000);
     constexpr auto magnitude = point.sqrMagnitude();
 
-    REQUIRE(magnitude == 5000000);
-
-    // Compile-time checks
-    STATIC_REQUIRE(magnitude == 5000000);
+    static_assert(magnitude == 5000000);
   }
 
   SECTION("setZero") {
@@ -410,30 +385,21 @@ TEST_CASE("Point methods", "[math][point]") {
     constexpr Point point(0, 0);
     constexpr bool result = point.isZero();
 
-    REQUIRE(result == true);
-
-    // Compile-time checks
-    STATIC_REQUIRE(result == true);
+    static_assert(result);
   }
 
   SECTION("isZero with non-zero point") {
     constexpr Point point(1, 0);
     constexpr bool result = point.isZero();
 
-    REQUIRE(result == false);
-
-    // Compile-time checks
-    STATIC_REQUIRE(result == false);
+    static_assert(!result);
   }
 
   SECTION("isZero with negative coordinates") {
     constexpr Point point(-1, -1);
     constexpr bool result = point.isZero();
 
-    REQUIRE(result == false);
-
-    // Compile-time checks
-    STATIC_REQUIRE(result == false);
+    static_assert(!result);
   }
 
   SECTION("isZero after setZero") {
@@ -443,7 +409,7 @@ TEST_CASE("Point methods", "[math][point]") {
 
     point.setZero();
 
-    REQUIRE(point.isZero() == true);
+    REQUIRE(point.isZero());
   }
 
   SECTION("isEqual with exact match") {
@@ -452,7 +418,7 @@ TEST_CASE("Point methods", "[math][point]") {
 
     const auto result = point1.isEqual(point2);
 
-    REQUIRE(result == true);
+    REQUIRE(result);
   }
 
   SECTION("isEqual with different points") {
@@ -471,7 +437,7 @@ TEST_CASE("Point methods", "[math][point]") {
 
     const bool result = point1.isEqual(point2, tolerance);
 
-    REQUIRE(result == true); // |10-12| <= 3 && |20-18| <= 3
+    REQUIRE(result); // |10-12| <= 3 && |20-18| <= 3
   }
 
   SECTION("isEqual with tolerance too small") {
@@ -500,7 +466,7 @@ TEST_CASE("Point methods", "[math][point]") {
 
     const bool result = point1.isEqual(point2);
 
-    REQUIRE(result == true); // Default tolerance is 0, exact match
+    REQUIRE(result); // Default tolerance is 0, exact match
   }
 
   SECTION("isEqual with large tolerance") {
@@ -510,7 +476,7 @@ TEST_CASE("Point methods", "[math][point]") {
 
     const bool result = point1.isEqual(point2, tolerance);
 
-    REQUIRE(result == true); // |0-1000| <= 2000 && |0-1000| <= 2000
+    REQUIRE(result); // |0-1000| <= 2000 && |0-1000| <= 2000
   }
 
   SECTION("Runtime tests") {
@@ -535,13 +501,13 @@ TEST_CASE("Point methods", "[math][point]") {
     REQUIRE(point.isZero() == false);
 
     point.setZero();
-    REQUIRE(point.isZero() == true);
+    REQUIRE(point.isZero());
     REQUIRE(point.sqrMagnitude() == 0);
 
     // Test isEqual at runtime
     constexpr Point testPoint(5, 5);
     REQUIRE(point.isEqual(testPoint) == false);
-    REQUIRE(point.isEqual(testPoint, 10) == true);
+    REQUIRE(point.isEqual(testPoint, 10));
   }
 }
 
@@ -554,8 +520,8 @@ TEST_CASE("Point binary operators", "[math][point]") {
     REQUIRE(result.y == 20);
 
     // Compile-time checks
-    STATIC_REQUIRE(result.x == -10);
-    STATIC_REQUIRE(result.y == 20);
+    static_assert(result.x == -10);
+    static_assert(result.y == 20);
   }
 
   SECTION("Unary minus with zero coordinates") {
@@ -566,8 +532,8 @@ TEST_CASE("Point binary operators", "[math][point]") {
     REQUIRE(result.y == 0);
 
     // Compile-time checks
-    STATIC_REQUIRE(result.x == 0);
-    STATIC_REQUIRE(result.y == 0);
+    static_assert(result.x == 0);
+    static_assert(result.y == 0);
   }
 
   SECTION("Unary minus with negative coordinates") {
@@ -578,8 +544,8 @@ TEST_CASE("Point binary operators", "[math][point]") {
     REQUIRE(result.y == 15);
 
     // Compile-time checks
-    STATIC_REQUIRE(result.x == 5);
-    STATIC_REQUIRE(result.y == 15);
+    static_assert(result.x == 5);
+    static_assert(result.y == 15);
   }
 
   SECTION("Addition operator") {
@@ -592,8 +558,8 @@ TEST_CASE("Point binary operators", "[math][point]") {
     REQUIRE(result.y == 10);
 
     // Compile-time checks
-    STATIC_REQUIRE(result.x == 15);
-    STATIC_REQUIRE(result.y == 10);
+    static_assert(result.x == 15);
+    static_assert(result.y == 10);
   }
 
   SECTION("Addition with zero coordinates") {
@@ -606,8 +572,8 @@ TEST_CASE("Point binary operators", "[math][point]") {
     REQUIRE(result.y == 20);
 
     // Compile-time checks
-    STATIC_REQUIRE(result.x == 10);
-    STATIC_REQUIRE(result.y == 20);
+    static_assert(result.x == 10);
+    static_assert(result.y == 20);
   }
 
   SECTION("Addition with negative coordinates") {
@@ -620,8 +586,8 @@ TEST_CASE("Point binary operators", "[math][point]") {
     REQUIRE(result.y == -35);
 
     // Compile-time checks
-    STATIC_REQUIRE(result.x == -15);
-    STATIC_REQUIRE(result.y == -35);
+    static_assert(result.x == -15);
+    static_assert(result.y == -35);
   }
 
   SECTION("Subtraction operator") {
@@ -634,8 +600,8 @@ TEST_CASE("Point binary operators", "[math][point]") {
     REQUIRE(result.y == 15);
 
     // Compile-time checks
-    STATIC_REQUIRE(result.x == 10);
-    STATIC_REQUIRE(result.y == 15);
+    static_assert(result.x == 10);
+    static_assert(result.y == 15);
   }
 
   SECTION("Subtraction with zero coordinates") {
@@ -648,8 +614,8 @@ TEST_CASE("Point binary operators", "[math][point]") {
     REQUIRE(result.y == 20);
 
     // Compile-time checks
-    STATIC_REQUIRE(result.x == 10);
-    STATIC_REQUIRE(result.y == 20);
+    static_assert(result.x == 10);
+    static_assert(result.y == 20);
   }
 
   SECTION("Subtraction with negative coordinates") {
@@ -662,8 +628,8 @@ TEST_CASE("Point binary operators", "[math][point]") {
     REQUIRE(result.y == -5);
 
     // Compile-time checks
-    STATIC_REQUIRE(result.x == -5);
-    STATIC_REQUIRE(result.y == -5);
+    static_assert(result.x == -5);
+    static_assert(result.y == -5);
   }
 
   SECTION("Multiplication with integer scalar (point * scalar)") {
@@ -676,8 +642,8 @@ TEST_CASE("Point binary operators", "[math][point]") {
     REQUIRE(result.y == 60);
 
     // Compile-time checks
-    STATIC_REQUIRE(result.x == 30);
-    STATIC_REQUIRE(result.y == 60);
+    static_assert(result.x == 30);
+    static_assert(result.y == 60);
   }
 
   SECTION("Multiplication with integer scalar (scalar * point)") {
@@ -690,8 +656,8 @@ TEST_CASE("Point binary operators", "[math][point]") {
     REQUIRE(result.y == 60);
 
     // Compile-time checks
-    STATIC_REQUIRE(result.x == 20);
-    STATIC_REQUIRE(result.y == 60);
+    static_assert(result.x == 20);
+    static_assert(result.y == 60);
   }
 
   SECTION("Multiplication with zero scalar") {
@@ -704,8 +670,8 @@ TEST_CASE("Point binary operators", "[math][point]") {
     REQUIRE(result.y == 0);
 
     // Compile-time checks
-    STATIC_REQUIRE(result.x == 0);
-    STATIC_REQUIRE(result.y == 0);
+    static_assert(result.x == 0);
+    static_assert(result.y == 0);
   }
 
   SECTION("Multiplication with negative scalar") {
@@ -718,8 +684,8 @@ TEST_CASE("Point binary operators", "[math][point]") {
     REQUIRE(result.y == -40);
 
     // Compile-time checks
-    STATIC_REQUIRE(result.x == -20);
-    STATIC_REQUIRE(result.y == -40);
+    static_assert(result.x == -20);
+    static_assert(result.y == -40);
   }
 
   SECTION("Multiplication with real scalar (point * real)") {
@@ -732,8 +698,8 @@ TEST_CASE("Point binary operators", "[math][point]") {
     REQUIRE(result.y == 50);
 
     // Compile-time checks
-    STATIC_REQUIRE(result.x == 25);
-    STATIC_REQUIRE(result.y == 50);
+    static_assert(result.x == 25);
+    static_assert(result.y == 50);
   }
 
   SECTION("Multiplication with real scalar (real * point)") {
@@ -746,8 +712,8 @@ TEST_CASE("Point binary operators", "[math][point]") {
     REQUIRE(result.y == 45);
 
     // Compile-time checks
-    STATIC_REQUIRE(result.x == 30);
-    STATIC_REQUIRE(result.y == 45);
+    static_assert(result.x == 30);
+    static_assert(result.y == 45);
   }
 
   SECTION("Multiplication with real scalar zero") {
@@ -760,8 +726,8 @@ TEST_CASE("Point binary operators", "[math][point]") {
     REQUIRE(result.y == 0);
 
     // Compile-time checks
-    STATIC_REQUIRE(result.x == 0);
-    STATIC_REQUIRE(result.y == 0);
+    static_assert(result.x == 0);
+    static_assert(result.y == 0);
   }
 
   SECTION("Multiplication with real scalar negative") {
@@ -774,8 +740,8 @@ TEST_CASE("Point binary operators", "[math][point]") {
     REQUIRE(result.y == -10);
 
     // Compile-time checks
-    STATIC_REQUIRE(result.x == -5);
-    STATIC_REQUIRE(result.y == -10);
+    static_assert(result.x == -5);
+    static_assert(result.y == -10);
   }
 
   SECTION("Division with integer scalar") {
@@ -788,8 +754,8 @@ TEST_CASE("Point binary operators", "[math][point]") {
     REQUIRE(result.y == 20);
 
     // Compile-time checks
-    STATIC_REQUIRE(result.x == 10);
-    STATIC_REQUIRE(result.y == 20);
+    static_assert(result.x == 10);
+    static_assert(result.y == 20);
   }
 
   SECTION("Division with negative scalar") {
@@ -802,8 +768,8 @@ TEST_CASE("Point binary operators", "[math][point]") {
     REQUIRE(result.y == 20);
 
     // Compile-time checks
-    STATIC_REQUIRE(result.x == 10);
-    STATIC_REQUIRE(result.y == 20);
+    static_assert(result.x == 10);
+    static_assert(result.y == 20);
   }
 
   SECTION("Division with real scalar") {
@@ -816,8 +782,8 @@ TEST_CASE("Point binary operators", "[math][point]") {
     REQUIRE(result.y == 20);
 
     // Compile-time checks
-    STATIC_REQUIRE(result.x == 10);
-    STATIC_REQUIRE(result.y == 20);
+    static_assert(result.x == 10);
+    static_assert(result.y == 20);
   }
 
   SECTION("Division with real scalar negative") {
@@ -830,8 +796,8 @@ TEST_CASE("Point binary operators", "[math][point]") {
     REQUIRE(result.y == 40);
 
     // Compile-time checks
-    STATIC_REQUIRE(result.x == 20);
-    STATIC_REQUIRE(result.y == 40);
+    static_assert(result.x == 20);
+    static_assert(result.y == 40);
   }
 
   SECTION("Equality operator with identical points") {
@@ -840,10 +806,10 @@ TEST_CASE("Point binary operators", "[math][point]") {
 
     constexpr bool result = point1 == point2;
 
-    REQUIRE(result == true);
+    REQUIRE(result);
 
     // Compile-time checks
-    STATIC_REQUIRE(result == true);
+    static_assert(result);
   }
 
   SECTION("Equality operator with different points") {
@@ -855,7 +821,7 @@ TEST_CASE("Point binary operators", "[math][point]") {
     REQUIRE(result == false);
 
     // Compile-time checks
-    STATIC_REQUIRE(result == false);
+    static_assert(result == false);
   }
 
   SECTION("Equality operator with zero coordinates") {
@@ -864,10 +830,10 @@ TEST_CASE("Point binary operators", "[math][point]") {
 
     constexpr bool result = point1 == point2;
 
-    REQUIRE(result == true);
+    REQUIRE(result);
 
     // Compile-time checks
-    STATIC_REQUIRE(result == true);
+    static_assert(result);
   }
 
   SECTION("Equality operator with negative coordinates") {
@@ -876,10 +842,10 @@ TEST_CASE("Point binary operators", "[math][point]") {
 
     constexpr bool result = point1 == point2;
 
-    REQUIRE(result == true);
+    REQUIRE(result);
 
     // Compile-time checks
-    STATIC_REQUIRE(result == true);
+    static_assert(result);
   }
 
   SECTION("Equality operator with mixed coordinates") {
@@ -888,10 +854,10 @@ TEST_CASE("Point binary operators", "[math][point]") {
 
     constexpr bool result = point1 == point2;
 
-    REQUIRE(result == true);
+    REQUIRE(result);
 
     // Compile-time checks
-    STATIC_REQUIRE(result == true);
+    static_assert(result);
   }
 
   SECTION("Chained binary operations") {
@@ -905,8 +871,8 @@ TEST_CASE("Point binary operators", "[math][point]") {
     REQUIRE(result.y == 40); // ((20+10)*2 - 20) = 60 - 20 = 40
 
     // Compile-time checks
-    STATIC_REQUIRE(result.x == 20);
-    STATIC_REQUIRE(result.y == 40);
+    static_assert(result.x == 20);
+    static_assert(result.y == 40);
   }
 
   SECTION("Complex chained operations") {
@@ -921,8 +887,8 @@ TEST_CASE("Point binary operators", "[math][point]") {
     REQUIRE(result.y == 187); // ((200*1.5 + 75) / 2) = (300 + 75) / 2 = 187
 
     // Compile-time checks
-    STATIC_REQUIRE(result.x == 100);
-    STATIC_REQUIRE(result.y == 187);
+    static_assert(result.x == 100);
+    static_assert(result.y == 187);
   }
 
   SECTION("Chained tests") {
@@ -966,19 +932,19 @@ TEST_CASE("Point binary operators", "[math][point]") {
     REQUIRE(divReal.y == -20);
 
     // Compile-time checks
-    STATIC_REQUIRE(negated.x == -10);
-    STATIC_REQUIRE(negated.y == -20);
-    STATIC_REQUIRE(sum.x == -5);
-    STATIC_REQUIRE(sum.y == -30);
-    STATIC_REQUIRE(diff.x == -10);
-    STATIC_REQUIRE(diff.y == -20);
-    STATIC_REQUIRE(multInt.x == -30);
-    STATIC_REQUIRE(multInt.y == -60);
-    STATIC_REQUIRE(multReal.x == -75);
-    STATIC_REQUIRE(multReal.y == -150);
-    STATIC_REQUIRE(divInt.x == -25);
-    STATIC_REQUIRE(divInt.y == -50);
-    STATIC_REQUIRE(divReal.x == -10);
-    STATIC_REQUIRE(divReal.y == -20);
+    static_assert(negated.x == -10);
+    static_assert(negated.y == -20);
+    static_assert(sum.x == -5);
+    static_assert(sum.y == -30);
+    static_assert(diff.x == -10);
+    static_assert(diff.y == -20);
+    static_assert(multInt.x == -30);
+    static_assert(multInt.y == -60);
+    static_assert(multReal.x == -75);
+    static_assert(multReal.y == -150);
+    static_assert(divInt.x == -25);
+    static_assert(divInt.y == -50);
+    static_assert(divReal.x == -10);
+    static_assert(divReal.y == -20);
   }
 }

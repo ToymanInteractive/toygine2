@@ -27,7 +27,7 @@ using namespace toy::math;
 TEST_CASE("Vector2D object structure", "[math][vector2d]") {
   constexpr Vector2D vector(111, 222);
 
-  STATIC_REQUIRE(sizeof(vector) == sizeof(real_t) * 2);
+  static_assert(sizeof(vector) == sizeof(real_t) * 2);
 
   const auto * arr = vector.c_arr();
 
@@ -47,8 +47,8 @@ TEST_CASE("Vector2D constructors", "[math][vector2d]") {
 
     // Compile-time checks
     constexpr Vector2D constexprVector;
-    STATIC_REQUIRE(constexprVector.x == 0.0);
-    STATIC_REQUIRE(constexprVector.y == 0.0);
+    static_assert(constexprVector.x == 0.0);
+    static_assert(constexprVector.y == 0.0);
   }
 
   SECTION("Constructor with positive coordinates") {
@@ -58,8 +58,8 @@ TEST_CASE("Vector2D constructors", "[math][vector2d]") {
 
     // Compile-time checks
     constexpr Vector2D constexprVector(12, 23);
-    STATIC_REQUIRE(constexprVector.x == 12);
-    STATIC_REQUIRE(constexprVector.y == 23);
+    static_assert(constexprVector.x == 12);
+    static_assert(constexprVector.y == 23);
   }
 
   SECTION("Constructor with negative coordinates") {
@@ -69,8 +69,8 @@ TEST_CASE("Vector2D constructors", "[math][vector2d]") {
 
     // Compile-time checks
     constexpr Vector2D constexprVector(-5, -15);
-    STATIC_REQUIRE(constexprVector.x == -5);
-    STATIC_REQUIRE(constexprVector.y == -15);
+    static_assert(constexprVector.x == -5);
+    static_assert(constexprVector.y == -15);
   }
 
   SECTION("Constructor with mixed coordinates") {
@@ -80,8 +80,8 @@ TEST_CASE("Vector2D constructors", "[math][vector2d]") {
 
     // Compile-time checks
     constexpr Vector2D constexprVector(-100, 200);
-    STATIC_REQUIRE(constexprVector.x == -100);
-    STATIC_REQUIRE(constexprVector.y == 200);
+    static_assert(constexprVector.x == -100);
+    static_assert(constexprVector.y == 200);
   }
 
   SECTION("Constructor with zero coordinates") {
@@ -91,8 +91,8 @@ TEST_CASE("Vector2D constructors", "[math][vector2d]") {
 
     // Compile-time checks
     constexpr Vector2D constexprVector(0, 0);
-    STATIC_REQUIRE(constexprVector.x == 0);
-    STATIC_REQUIRE(constexprVector.y == 0);
+    static_assert(constexprVector.x == 0);
+    static_assert(constexprVector.y == 0);
   }
 
   SECTION("Constructor from pointer to array") {
@@ -104,56 +104,40 @@ TEST_CASE("Vector2D constructors", "[math][vector2d]") {
 
     // Compile-time checks
     constexpr Vector2D constexprVector(arr.data());
-    STATIC_REQUIRE(constexprVector.x == 42);
-    STATIC_REQUIRE(constexprVector.y == -17);
+    static_assert(constexprVector.x == 42);
+    static_assert(constexprVector.y == -17);
   }
 
   SECTION("Constructor from pointer to array with positive values") {
     constexpr std::array<real_t, 2> arr{100, 200};
     constexpr Vector2D vector(arr.data());
 
-    REQUIRE(vector.x == 100);
-    REQUIRE(vector.y == 200);
-
-    // Compile-time checks
-    STATIC_REQUIRE(vector.x == 100);
-    STATIC_REQUIRE(vector.y == 200);
+    static_assert(vector.x == 100);
+    static_assert(vector.y == 200);
   }
 
   SECTION("Constructor from pointer to array with negative values") {
     constexpr std::array<real_t, 2> arr{-50, -75};
     constexpr Vector2D vector(arr.data());
 
-    REQUIRE(vector.x == -50);
-    REQUIRE(vector.y == -75);
-
-    // Compile-time checks
-    STATIC_REQUIRE(vector.x == -50);
-    STATIC_REQUIRE(vector.y == -75);
+    static_assert(vector.x == -50);
+    static_assert(vector.y == -75);
   }
 
   SECTION("Constructor from pointer to array with mixed values") {
     constexpr std::array<real_t, 2> arr{-300, 400};
     constexpr Vector2D vector(arr.data());
 
-    REQUIRE(vector.x == -300);
-    REQUIRE(vector.y == 400);
-
-    // Compile-time checks
-    STATIC_REQUIRE(vector.x == -300);
-    STATIC_REQUIRE(vector.y == 400);
+    static_assert(vector.x == -300);
+    static_assert(vector.y == 400);
   }
 
   SECTION("Constructor from pointer to array with zero values") {
     constexpr std::array<real_t, 2> arr{0, 0};
     constexpr Vector2D vector(arr.data());
 
-    REQUIRE(vector.x == 0);
-    REQUIRE(vector.y == 0);
-
-    // Compile-time checks
-    STATIC_REQUIRE(vector.x == 0);
-    STATIC_REQUIRE(vector.y == 0);
+    static_assert(vector.x == 0);
+    static_assert(vector.y == 0);
   }
 
   SECTION("Runtime constructor tests") {
@@ -213,7 +197,7 @@ TEST_CASE("Vector2D c_arr methods", "[math][vector2d]") {
     REQUIRE(vector.c_arr()[1] == 0);
 
     // Compile-time checks
-    STATIC_REQUIRE(vector.c_arr()[0] == 0);
+    static_assert(vector.c_arr()[0] == 0);
   }
 
   SECTION("c_arr with coordinate constructor") {
@@ -223,7 +207,7 @@ TEST_CASE("Vector2D c_arr methods", "[math][vector2d]") {
     REQUIRE(vector.c_arr()[1] == 20);
 
     // Compile-time checks
-    STATIC_REQUIRE(vector.c_arr()[0] == 10);
+    static_assert(vector.c_arr()[0] == 10);
   }
 
   SECTION("c_arr with array constructor") {
@@ -233,7 +217,7 @@ TEST_CASE("Vector2D c_arr methods", "[math][vector2d]") {
     REQUIRE(vector.c_arr()[1] == 75);
 
     // Compile-time checks
-    STATIC_REQUIRE(vector.c_arr()[0] == -50);
+    static_assert(vector.c_arr()[0] == -50);
   }
 
   SECTION("c_arr modification test") {
@@ -344,37 +328,28 @@ TEST_CASE("Vector2D methods", "[math][vector2d]") {
     constexpr auto magnitude = vector.sqrMagnitude();
 
     REQUIRE(magnitude == 25);
-    STATIC_REQUIRE(magnitude == 25);
+    static_assert(magnitude == 25);
   }
 
   SECTION("sqrMagnitude with negative coordinates") {
     constexpr Vector2D vector(-3, -4);
     constexpr auto magnitude = vector.sqrMagnitude();
 
-    REQUIRE(magnitude == 25);
-
-    // Compile-time checks
-    STATIC_REQUIRE(magnitude == 25);
+    static_assert(magnitude == 25);
   }
 
   SECTION("sqrMagnitude with zero coordinates") {
     constexpr Vector2D vector(0, 0);
     constexpr auto magnitude = vector.sqrMagnitude();
 
-    REQUIRE(magnitude == 0);
-
-    // Compile-time checks
-    STATIC_REQUIRE(magnitude == 0);
+    static_assert(magnitude == 0);
   }
 
   SECTION("sqrMagnitude with large coordinates") {
     constexpr Vector2D vector(1000, 2000);
     constexpr auto magnitude = vector.sqrMagnitude();
 
-    REQUIRE(magnitude == 5000000);
-
-    // Compile-time checks
-    STATIC_REQUIRE(magnitude == 5000000);
+    static_assert(magnitude == 5000000);
   }
 
   SECTION("setZero") {
@@ -390,30 +365,21 @@ TEST_CASE("Vector2D methods", "[math][vector2d]") {
     constexpr Vector2D vector(0, 0);
     constexpr bool result = vector.isZero();
 
-    REQUIRE(result == true);
-
-    // Compile-time checks
-    STATIC_REQUIRE(result == true);
+    static_assert(result);
   }
 
   SECTION("isZero with non-zero vector") {
     constexpr Vector2D vector(1, 0);
     constexpr bool result = vector.isZero();
 
-    REQUIRE(result == false);
-
-    // Compile-time checks
-    STATIC_REQUIRE(result == false);
+    static_assert(!result);
   }
 
   SECTION("isZero with negative coordinates") {
     constexpr Vector2D vector(-1, -1);
     constexpr bool result = vector.isZero();
 
-    REQUIRE(result == false);
-
-    // Compile-time checks
-    STATIC_REQUIRE(result == false);
+    static_assert(!result);
   }
 
   SECTION("isZero after setZero") {
@@ -423,7 +389,7 @@ TEST_CASE("Vector2D methods", "[math][vector2d]") {
 
     vector.setZero();
 
-    REQUIRE(vector.isZero() == true);
+    REQUIRE(vector.isZero());
   }
 
   SECTION("isEqual with exact match") {
@@ -432,7 +398,7 @@ TEST_CASE("Vector2D methods", "[math][vector2d]") {
 
     const auto result = vector1.isEqual(vector2);
 
-    REQUIRE(result == true);
+    REQUIRE(result);
   }
 
   SECTION("isEqual with different vectors") {
@@ -451,7 +417,7 @@ TEST_CASE("Vector2D methods", "[math][vector2d]") {
 
     const bool result = vector1.isEqual(vector2, tolerance);
 
-    REQUIRE(result == true); // |10-12| <= 3 && |20-18| <= 3
+    REQUIRE(result); // |10-12| <= 3 && |20-18| <= 3
   }
 
   SECTION("isEqual with tolerance too small") {
@@ -480,7 +446,7 @@ TEST_CASE("Vector2D methods", "[math][vector2d]") {
 
     const bool result = vector1.isEqual(vector2);
 
-    REQUIRE(result == true); // Default tolerance is 0, exact match
+    REQUIRE(result); // Default tolerance is 0, exact match
   }
 
   SECTION("isEqual with large tolerance") {
@@ -490,7 +456,7 @@ TEST_CASE("Vector2D methods", "[math][vector2d]") {
 
     const bool result = vector1.isEqual(vector2, tolerance);
 
-    REQUIRE(result == true); // |0-1000| <= 2000 && |0-1000| <= 2000
+    REQUIRE(result); // |0-1000| <= 2000 && |0-1000| <= 2000
   }
 
   SECTION("Runtime tests") {
@@ -515,13 +481,13 @@ TEST_CASE("Vector2D methods", "[math][vector2d]") {
     REQUIRE(vector.isZero() == false);
 
     vector.setZero();
-    REQUIRE(vector.isZero() == true);
+    REQUIRE(vector.isZero());
     REQUIRE(vector.sqrMagnitude() == 0);
 
     // Test isEqual at runtime
     constexpr Vector2D testVector(5, 5);
     REQUIRE(vector.isEqual(testVector) == false);
-    REQUIRE(vector.isEqual(testVector, 10) == true);
+    REQUIRE(vector.isEqual(testVector, 10));
   }
 }
 
@@ -534,8 +500,8 @@ TEST_CASE("Vector2D binary operators", "[math][vector2d]") {
     REQUIRE(result.y == 20);
 
     // Compile-time checks
-    STATIC_REQUIRE(result.x == -10);
-    STATIC_REQUIRE(result.y == 20);
+    static_assert(result.x == -10);
+    static_assert(result.y == 20);
   }
 
   SECTION("Unary minus with zero coordinates") {
@@ -546,8 +512,8 @@ TEST_CASE("Vector2D binary operators", "[math][vector2d]") {
     REQUIRE(result.y == 0);
 
     // Compile-time checks
-    STATIC_REQUIRE(result.x == 0);
-    STATIC_REQUIRE(result.y == 0);
+    static_assert(result.x == 0);
+    static_assert(result.y == 0);
   }
 
   SECTION("Unary minus with negative coordinates") {
@@ -558,8 +524,8 @@ TEST_CASE("Vector2D binary operators", "[math][vector2d]") {
     REQUIRE(result.y == 15);
 
     // Compile-time checks
-    STATIC_REQUIRE(result.x == 5);
-    STATIC_REQUIRE(result.y == 15);
+    static_assert(result.x == 5);
+    static_assert(result.y == 15);
   }
 
   SECTION("Addition operator") {
@@ -572,8 +538,8 @@ TEST_CASE("Vector2D binary operators", "[math][vector2d]") {
     REQUIRE(result.y == 10);
 
     // Compile-time checks
-    STATIC_REQUIRE(result.x == 15);
-    STATIC_REQUIRE(result.y == 10);
+    static_assert(result.x == 15);
+    static_assert(result.y == 10);
   }
 
   SECTION("Addition with zero coordinates") {
@@ -586,8 +552,8 @@ TEST_CASE("Vector2D binary operators", "[math][vector2d]") {
     REQUIRE(result.y == 20);
 
     // Compile-time checks
-    STATIC_REQUIRE(result.x == 10);
-    STATIC_REQUIRE(result.y == 20);
+    static_assert(result.x == 10);
+    static_assert(result.y == 20);
   }
 
   SECTION("Addition with negative coordinates") {
@@ -600,8 +566,8 @@ TEST_CASE("Vector2D binary operators", "[math][vector2d]") {
     REQUIRE(result.y == -35);
 
     // Compile-time checks
-    STATIC_REQUIRE(result.x == -15);
-    STATIC_REQUIRE(result.y == -35);
+    static_assert(result.x == -15);
+    static_assert(result.y == -35);
   }
 
   SECTION("Subtraction operator") {
@@ -614,8 +580,8 @@ TEST_CASE("Vector2D binary operators", "[math][vector2d]") {
     REQUIRE(result.y == 15);
 
     // Compile-time checks
-    STATIC_REQUIRE(result.x == 10);
-    STATIC_REQUIRE(result.y == 15);
+    static_assert(result.x == 10);
+    static_assert(result.y == 15);
   }
 
   SECTION("Subtraction with zero coordinates") {
@@ -628,8 +594,8 @@ TEST_CASE("Vector2D binary operators", "[math][vector2d]") {
     REQUIRE(result.y == 20);
 
     // Compile-time checks
-    STATIC_REQUIRE(result.x == 10);
-    STATIC_REQUIRE(result.y == 20);
+    static_assert(result.x == 10);
+    static_assert(result.y == 20);
   }
 
   SECTION("Subtraction with negative coordinates") {
@@ -642,8 +608,8 @@ TEST_CASE("Vector2D binary operators", "[math][vector2d]") {
     REQUIRE(result.y == -5);
 
     // Compile-time checks
-    STATIC_REQUIRE(result.x == -5);
-    STATIC_REQUIRE(result.y == -5);
+    static_assert(result.x == -5);
+    static_assert(result.y == -5);
   }
 
   SECTION("Multiplication with scalar (vector * scalar)") {
@@ -656,8 +622,8 @@ TEST_CASE("Vector2D binary operators", "[math][vector2d]") {
     REQUIRE(result.y == 50);
 
     // Compile-time checks
-    STATIC_REQUIRE(result.x == 25);
-    STATIC_REQUIRE(result.y == 50);
+    static_assert(result.x == 25);
+    static_assert(result.y == 50);
   }
 
   SECTION("Multiplication with scalar (scalar * vector)") {
@@ -670,8 +636,8 @@ TEST_CASE("Vector2D binary operators", "[math][vector2d]") {
     REQUIRE(result.y == 45);
 
     // Compile-time checks
-    STATIC_REQUIRE(result.x == 30);
-    STATIC_REQUIRE(result.y == 45);
+    static_assert(result.x == 30);
+    static_assert(result.y == 45);
   }
 
   SECTION("Multiplication with scalar zero") {
@@ -684,8 +650,8 @@ TEST_CASE("Vector2D binary operators", "[math][vector2d]") {
     REQUIRE(result.y == 0);
 
     // Compile-time checks
-    STATIC_REQUIRE(result.x == 0);
-    STATIC_REQUIRE(result.y == 0);
+    static_assert(result.x == 0);
+    static_assert(result.y == 0);
   }
 
   SECTION("Multiplication with scalar negative") {
@@ -698,8 +664,8 @@ TEST_CASE("Vector2D binary operators", "[math][vector2d]") {
     REQUIRE(result.y == -10);
 
     // Compile-time checks
-    STATIC_REQUIRE(result.x == -5);
-    STATIC_REQUIRE(result.y == -10);
+    static_assert(result.x == -5);
+    static_assert(result.y == -10);
   }
 
   SECTION("Division with scalar") {
@@ -712,8 +678,8 @@ TEST_CASE("Vector2D binary operators", "[math][vector2d]") {
     REQUIRE(result.y == 20);
 
     // Compile-time checks
-    STATIC_REQUIRE(result.x == 10);
-    STATIC_REQUIRE(result.y == 20);
+    static_assert(result.x == 10);
+    static_assert(result.y == 20);
   }
 
   SECTION("Division with scalar negative") {
@@ -726,8 +692,8 @@ TEST_CASE("Vector2D binary operators", "[math][vector2d]") {
     REQUIRE(result.y == 40);
 
     // Compile-time checks
-    STATIC_REQUIRE(result.x == 20);
-    STATIC_REQUIRE(result.y == 40);
+    static_assert(result.x == 20);
+    static_assert(result.y == 40);
   }
 
   SECTION("Equality operator with identical points") {
@@ -736,10 +702,10 @@ TEST_CASE("Vector2D binary operators", "[math][vector2d]") {
 
     constexpr bool result = vector1 == vector2;
 
-    REQUIRE(result == true);
+    REQUIRE(result);
 
     // Compile-time checks
-    STATIC_REQUIRE(result == true);
+    static_assert(result);
   }
 
   SECTION("Equality operator with different points") {
@@ -751,7 +717,7 @@ TEST_CASE("Vector2D binary operators", "[math][vector2d]") {
     REQUIRE(result == false);
 
     // Compile-time checks
-    STATIC_REQUIRE(result == false);
+    static_assert(result == false);
   }
 
   SECTION("Equality operator with zero coordinates") {
@@ -760,10 +726,10 @@ TEST_CASE("Vector2D binary operators", "[math][vector2d]") {
 
     constexpr bool result = vector1 == vector2;
 
-    REQUIRE(result == true);
+    REQUIRE(result);
 
     // Compile-time checks
-    STATIC_REQUIRE(result == true);
+    static_assert(result);
   }
 
   SECTION("Equality operator with negative coordinates") {
@@ -772,10 +738,10 @@ TEST_CASE("Vector2D binary operators", "[math][vector2d]") {
 
     constexpr bool result = vector1 == vector2;
 
-    REQUIRE(result == true);
+    REQUIRE(result);
 
     // Compile-time checks
-    STATIC_REQUIRE(result == true);
+    static_assert(result);
   }
 
   SECTION("Equality operator with mixed coordinates") {
@@ -784,10 +750,10 @@ TEST_CASE("Vector2D binary operators", "[math][vector2d]") {
 
     constexpr bool result = vector1 == vector2;
 
-    REQUIRE(result == true);
+    REQUIRE(result);
 
     // Compile-time checks
-    STATIC_REQUIRE(result == true);
+    static_assert(result);
   }
 
   SECTION("Chained binary operations") {
@@ -801,8 +767,8 @@ TEST_CASE("Vector2D binary operators", "[math][vector2d]") {
     REQUIRE(result.y == 40); // ((20+10)*2 - 20) = 60 - 20 = 40
 
     // Compile-time checks
-    STATIC_REQUIRE(result.x == 20);
-    STATIC_REQUIRE(result.y == 40);
+    static_assert(result.x == 20);
+    static_assert(result.y == 40);
   }
 
   SECTION("Complex chained operations") {
@@ -817,8 +783,8 @@ TEST_CASE("Vector2D binary operators", "[math][vector2d]") {
     REQUIRE(result.y == 187.5); // ((200*1.5 + 75) / 2) = (300 + 75) / 2 = 187.5
 
     // Compile-time checks
-    STATIC_REQUIRE(result.x == 100);
-    STATIC_REQUIRE(result.y == 187.5);
+    static_assert(result.x == 100);
+    static_assert(result.y == 187.5);
   }
 
   SECTION("Chained tests") {
@@ -852,15 +818,15 @@ TEST_CASE("Vector2D binary operators", "[math][vector2d]") {
     REQUIRE(div.y == -10);
 
     // Compile-time checks
-    STATIC_REQUIRE(negated.x == -10);
-    STATIC_REQUIRE(negated.y == -20);
-    STATIC_REQUIRE(sum.x == -5);
-    STATIC_REQUIRE(sum.y == -30);
-    STATIC_REQUIRE(diff.x == -10);
-    STATIC_REQUIRE(diff.y == -20);
-    STATIC_REQUIRE(mult.x == -25);
-    STATIC_REQUIRE(mult.y == -50);
-    STATIC_REQUIRE(div.x == -5);
-    STATIC_REQUIRE(div.y == -10);
+    static_assert(negated.x == -10);
+    static_assert(negated.y == -20);
+    static_assert(sum.x == -5);
+    static_assert(sum.y == -30);
+    static_assert(diff.x == -10);
+    static_assert(diff.y == -20);
+    static_assert(mult.x == -25);
+    static_assert(mult.y == -50);
+    static_assert(div.x == -5);
+    static_assert(div.y == -10);
   }
 }
