@@ -326,6 +326,10 @@ The observable result must be identical.
 - Test names must describe behavior, not implementation.
 - Avoid redundant prefixes.
 - Avoid repeating the tested type name unless necessary.
+- `TEST_CASE` names must follow `<module>/<class>/<case>[_<variant>]`.
+- `TEST_CASE` names use `lowercase_snake_case`.
+- Human-readable descriptions go in a comment immediately before `TEST_CASE` or `SUBCASE`.
+- Avoid a single `SUBCASE` inside a `TEST_CASE`.
 
 ---
 
