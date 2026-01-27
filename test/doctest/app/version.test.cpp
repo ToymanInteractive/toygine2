@@ -18,15 +18,17 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-#include <catch2/catch_test_macros.hpp>
+#include <doctest/doctest.h>
 
 #include "app.hpp"
 
 using namespace toy;
 using namespace toy::app;
 
-TEST_CASE("Version constructors", "[app][version]") {
-  SECTION("Default constructor") {
+// Version constructors and initialization variants.
+TEST_CASE("app/version/constructors") {
+  // Default constructed version is zeroed.
+  SUBCASE("default") {
     constexpr Version version;
 
     REQUIRE(version.major == 0);
@@ -35,13 +37,14 @@ TEST_CASE("Version constructors", "[app][version]") {
     REQUIRE(version.revision == 0);
 
     // Compile-time checks
-    STATIC_REQUIRE(version.major == 0);
-    STATIC_REQUIRE(version.minor == 0);
-    STATIC_REQUIRE(version.maintenance == 0);
-    STATIC_REQUIRE(version.revision == 0);
+    static_assert(version.major == 0);
+    static_assert(version.minor == 0);
+    static_assert(version.maintenance == 0);
+    static_assert(version.revision == 0);
   }
 
-  SECTION("Aggregate initialization") {
+  // Aggregate initialization sets all fields.
+  SUBCASE("aggregate_initialization") {
     constexpr Version version{5, 10, 15, 20};
 
     REQUIRE(version.major == 5);
@@ -50,13 +53,14 @@ TEST_CASE("Version constructors", "[app][version]") {
     REQUIRE(version.revision == 20);
 
     // Compile-time checks
-    STATIC_REQUIRE(version.major == 5);
-    STATIC_REQUIRE(version.minor == 10);
-    STATIC_REQUIRE(version.maintenance == 15);
-    STATIC_REQUIRE(version.revision == 20);
+    static_assert(version.major == 5);
+    static_assert(version.minor == 10);
+    static_assert(version.maintenance == 15);
+    static_assert(version.revision == 20);
   }
 
-  SECTION("Partial initialization") {
+  // Partial initialization leaves missing fields at zero.
+  SUBCASE("partial_initialization") {
     constexpr Version version{1, 2};
 
     REQUIRE(version.major == 1);
@@ -65,15 +69,17 @@ TEST_CASE("Version constructors", "[app][version]") {
     REQUIRE(version.revision == 0);
 
     // Compile-time checks
-    STATIC_REQUIRE(version.major == 1);
-    STATIC_REQUIRE(version.minor == 2);
-    STATIC_REQUIRE(version.maintenance == 0);
-    STATIC_REQUIRE(version.revision == 0);
+    static_assert(version.major == 1);
+    static_assert(version.minor == 2);
+    static_assert(version.maintenance == 0);
+    static_assert(version.revision == 0);
   }
 }
 
-TEST_CASE("Version equality operator", "[app][version]") {
-  SECTION("Identical versions") {
+// Equality operator comparisons across version fields.
+TEST_CASE("app/version/equality_operator") {
+  // Identical versions compare equal.
+  SUBCASE("identical") {
     constexpr Version v1{1, 2, 3, 4};
     constexpr Version v2{1, 2, 3, 4};
     constexpr bool result = v1 == v2;
@@ -81,10 +87,11 @@ TEST_CASE("Version equality operator", "[app][version]") {
     REQUIRE(result == true);
 
     // Compile-time checks
-    STATIC_REQUIRE(result == true);
+    static_assert(result == true);
   }
 
-  SECTION("Different major versions") {
+  // Major version differences compare not equal.
+  SUBCASE("different_major_versions") {
     constexpr Version v1{1, 2, 3, 4};
     constexpr Version v2{2, 2, 3, 4};
     constexpr bool result = v1 == v2;
@@ -92,10 +99,11 @@ TEST_CASE("Version equality operator", "[app][version]") {
     REQUIRE(result == false);
 
     // Compile-time checks
-    STATIC_REQUIRE(result == false);
+    static_assert(result == false);
   }
 
-  SECTION("Different minor versions") {
+  // Minor version differences compare not equal.
+  SUBCASE("different_minor_versions") {
     constexpr Version v1{1, 2, 3, 4};
     constexpr Version v2{1, 3, 3, 4};
     constexpr bool result = v1 == v2;
@@ -103,10 +111,11 @@ TEST_CASE("Version equality operator", "[app][version]") {
     REQUIRE(result == false);
 
     // Compile-time checks
-    STATIC_REQUIRE(result == false);
+    static_assert(result == false);
   }
 
-  SECTION("Different maintenance versions") {
+  // Maintenance version differences compare not equal.
+  SUBCASE("different_maintenance_versions") {
     constexpr Version v1{1, 2, 3, 4};
     constexpr Version v2{1, 2, 4, 4};
     constexpr bool result = v1 == v2;
@@ -114,10 +123,11 @@ TEST_CASE("Version equality operator", "[app][version]") {
     REQUIRE(result == false);
 
     // Compile-time checks
-    STATIC_REQUIRE(result == false);
+    static_assert(result == false);
   }
 
-  SECTION("Different revision versions") {
+  // Revision version differences compare not equal.
+  SUBCASE("different_revision_versions") {
     constexpr Version v1{1, 2, 3, 4};
     constexpr Version v2{1, 2, 3, 5};
     constexpr bool result = v1 == v2;
@@ -125,10 +135,11 @@ TEST_CASE("Version equality operator", "[app][version]") {
     REQUIRE(result == false);
 
     // Compile-time checks
-    STATIC_REQUIRE(result == false);
+    static_assert(result == false);
   }
 
-  SECTION("Zero versions") {
+  // Zero versions compare equal.
+  SUBCASE("zero_versions") {
     constexpr Version v1{0, 0, 0, 0};
     constexpr Version v2{0, 0, 0, 0};
     constexpr bool result = v1 == v2;
@@ -136,10 +147,11 @@ TEST_CASE("Version equality operator", "[app][version]") {
     REQUIRE(result == true);
 
     // Compile-time checks
-    STATIC_REQUIRE(result == true);
+    static_assert(result == true);
   }
 
-  SECTION("Mixed zero and non-zero") {
+  // Zero and non-zero versions compare not equal.
+  SUBCASE("mixed_zero_and_non_zero") {
     constexpr Version v1{0, 0, 0, 0};
     constexpr Version v2{0, 0, 0, 1};
     constexpr bool result = v1 == v2;
@@ -147,12 +159,14 @@ TEST_CASE("Version equality operator", "[app][version]") {
     REQUIRE(result == false);
 
     // Compile-time checks
-    STATIC_REQUIRE(result == false);
+    static_assert(result == false);
   }
 }
 
-TEST_CASE("Version three-way comparison operator", "[app][version]") {
-  SECTION("Equal versions") {
+// Three-way comparison ordering behavior.
+TEST_CASE("app/version/three_way_comparison_operator") {
+  // Equal versions yield strong_ordering::equal.
+  SUBCASE("equal_versions") {
     constexpr Version v1{1, 2, 3, 4};
     constexpr Version v2{1, 2, 3, 4};
     constexpr auto result = v1 <=> v2;
@@ -160,10 +174,11 @@ TEST_CASE("Version three-way comparison operator", "[app][version]") {
     REQUIRE(result == strong_ordering::equal);
 
     // Compile-time checks
-    STATIC_REQUIRE(result == strong_ordering::equal);
+    static_assert(result == strong_ordering::equal);
   }
 
-  SECTION("Major version comparison") {
+  // Major version drives ordering first.
+  SUBCASE("major_version_comparison") {
     constexpr Version v1{1, 2, 3, 4};
     constexpr Version v2{2, 1, 1, 1};
     constexpr auto result = v1 <=> v2;
@@ -171,7 +186,7 @@ TEST_CASE("Version three-way comparison operator", "[app][version]") {
     REQUIRE(result == strong_ordering::less);
 
     // Compile-time checks
-    STATIC_REQUIRE(result == strong_ordering::less);
+    static_assert(result == strong_ordering::less);
 
     constexpr Version v3{2, 1, 1, 1};
     constexpr Version v4{1, 2, 3, 4};
@@ -180,10 +195,11 @@ TEST_CASE("Version three-way comparison operator", "[app][version]") {
     REQUIRE(result2 == strong_ordering::greater);
 
     // Compile-time checks
-    STATIC_REQUIRE(result2 == strong_ordering::greater);
+    static_assert(result2 == strong_ordering::greater);
   }
 
-  SECTION("Minor version comparison") {
+  // Minor version drives ordering after major.
+  SUBCASE("minor_version_comparison") {
     constexpr Version v1{1, 2, 3, 4};
     constexpr Version v2{1, 3, 1, 1};
     constexpr auto result = v1 <=> v2;
@@ -191,7 +207,7 @@ TEST_CASE("Version three-way comparison operator", "[app][version]") {
     REQUIRE(result == strong_ordering::less);
 
     // Compile-time checks
-    STATIC_REQUIRE(result == strong_ordering::less);
+    static_assert(result == strong_ordering::less);
 
     constexpr Version v3{1, 3, 1, 1};
     constexpr Version v4{1, 2, 3, 4};
@@ -200,10 +216,11 @@ TEST_CASE("Version three-way comparison operator", "[app][version]") {
     REQUIRE(result2 == strong_ordering::greater);
 
     // Compile-time checks
-    STATIC_REQUIRE(result2 == strong_ordering::greater);
+    static_assert(result2 == strong_ordering::greater);
   }
 
-  SECTION("Maintenance version comparison") {
+  // Maintenance version drives ordering after minor.
+  SUBCASE("maintenance_version_comparison") {
     constexpr Version v1{1, 2, 3, 4};
     constexpr Version v2{1, 2, 4, 1};
     constexpr auto result = v1 <=> v2;
@@ -211,7 +228,7 @@ TEST_CASE("Version three-way comparison operator", "[app][version]") {
     REQUIRE(result == strong_ordering::less);
 
     // Compile-time checks
-    STATIC_REQUIRE(result == strong_ordering::less);
+    static_assert(result == strong_ordering::less);
 
     constexpr Version v3{1, 2, 4, 1};
     constexpr Version v4{1, 2, 3, 4};
@@ -220,10 +237,11 @@ TEST_CASE("Version three-way comparison operator", "[app][version]") {
     REQUIRE(result2 == strong_ordering::greater);
 
     // Compile-time checks
-    STATIC_REQUIRE(result2 == strong_ordering::greater);
+    static_assert(result2 == strong_ordering::greater);
   }
 
-  SECTION("Revision version comparison") {
+  // Revision version drives ordering last.
+  SUBCASE("revision_version_comparison") {
     constexpr Version v1{1, 2, 3, 4};
     constexpr Version v2{1, 2, 3, 5};
     constexpr auto result = v1 <=> v2;
@@ -231,7 +249,7 @@ TEST_CASE("Version three-way comparison operator", "[app][version]") {
     REQUIRE(result == strong_ordering::less);
 
     // Compile-time checks
-    STATIC_REQUIRE(result == strong_ordering::less);
+    static_assert(result == strong_ordering::less);
 
     constexpr Version v3{1, 2, 3, 5};
     constexpr Version v4{1, 2, 3, 4};
@@ -240,10 +258,11 @@ TEST_CASE("Version three-way comparison operator", "[app][version]") {
     REQUIRE(result2 == strong_ordering::greater);
 
     // Compile-time checks
-    STATIC_REQUIRE(result2 == strong_ordering::greater);
+    static_assert(result2 == strong_ordering::greater);
   }
 
-  SECTION("Zero versions") {
+  // Zero versions compare as equal in ordering.
+  SUBCASE("zero_versions") {
     constexpr Version v1{0, 0, 0, 0};
     constexpr Version v2{0, 0, 0, 0};
     constexpr auto result = v1 <=> v2;
@@ -251,12 +270,14 @@ TEST_CASE("Version three-way comparison operator", "[app][version]") {
     REQUIRE(result == strong_ordering::equal);
 
     // Compile-time checks
-    STATIC_REQUIRE(result == strong_ordering::equal);
+    static_assert(result == strong_ordering::equal);
   }
 }
 
-TEST_CASE("Version comparison operators", "[app][version]") {
-  SECTION("Less than operator") {
+// Relational and equality operators consistency checks.
+TEST_CASE("app/version/comparison_operators") {
+  // Less-than operator orders by version fields.
+  SUBCASE("less_than_operator") {
     constexpr Version v1{1, 2, 3, 4};
     constexpr Version v2{1, 2, 3, 5};
 
@@ -265,12 +286,13 @@ TEST_CASE("Version comparison operators", "[app][version]") {
     REQUIRE(!(v1 < v1));
 
     // Compile-time checks
-    STATIC_REQUIRE(v1 < v2);
-    STATIC_REQUIRE(!(v2 < v1));
-    STATIC_REQUIRE(!(v1 < v1));
+    static_assert(v1 < v2);
+    static_assert(!(v2 < v1));
+    static_assert(!(v1 < v1));
   }
 
-  SECTION("Less than or equal operator") {
+  // Less-than-or-equal matches ordering semantics.
+  SUBCASE("less_than_or_equal_operator") {
     constexpr Version v1{1, 2, 3, 4};
     constexpr Version v2{1, 2, 3, 5};
     constexpr Version v3{1, 2, 3, 4};
@@ -280,12 +302,13 @@ TEST_CASE("Version comparison operators", "[app][version]") {
     REQUIRE(!(v2 <= v1));
 
     // Compile-time checks
-    STATIC_REQUIRE(v1 <= v2);
-    STATIC_REQUIRE(v1 <= v3);
-    STATIC_REQUIRE(!(v2 <= v1));
+    static_assert(v1 <= v2);
+    static_assert(v1 <= v3);
+    static_assert(!(v2 <= v1));
   }
 
-  SECTION("Greater than operator") {
+  // Greater-than operator orders by version fields.
+  SUBCASE("greater_than_operator") {
     constexpr Version v1{1, 2, 3, 5};
     constexpr Version v2{1, 2, 3, 4};
 
@@ -294,12 +317,13 @@ TEST_CASE("Version comparison operators", "[app][version]") {
     REQUIRE(!(v1 > v1));
 
     // Compile-time checks
-    STATIC_REQUIRE(v1 > v2);
-    STATIC_REQUIRE(!(v2 > v1));
-    STATIC_REQUIRE(!(v1 > v1));
+    static_assert(v1 > v2);
+    static_assert(!(v2 > v1));
+    static_assert(!(v1 > v1));
   }
 
-  SECTION("Greater than or equal operator") {
+  // Greater-than-or-equal matches ordering semantics.
+  SUBCASE("greater_than_or_equal_operator") {
     constexpr Version v1{1, 2, 3, 5};
     constexpr Version v2{1, 2, 3, 4};
     constexpr Version v3{1, 2, 3, 5};
@@ -309,12 +333,13 @@ TEST_CASE("Version comparison operators", "[app][version]") {
     REQUIRE(!(v2 >= v1));
 
     // Compile-time checks
-    STATIC_REQUIRE(v1 >= v2);
-    STATIC_REQUIRE(v1 >= v3);
-    STATIC_REQUIRE(!(v2 >= v1));
+    static_assert(v1 >= v2);
+    static_assert(v1 >= v3);
+    static_assert(!(v2 >= v1));
   }
 
-  SECTION("Not equal operator") {
+  // Not-equal operator matches equality semantics.
+  SUBCASE("not_equal_operator") {
     constexpr Version v1{1, 2, 3, 4};
     constexpr Version v2{1, 2, 3, 5};
 
@@ -322,13 +347,15 @@ TEST_CASE("Version comparison operators", "[app][version]") {
     REQUIRE(!(v1 != v1));
 
     // Compile-time checks
-    STATIC_REQUIRE(v1 != v2);
-    STATIC_REQUIRE(!(v1 != v1));
+    static_assert(v1 != v2);
+    static_assert(!(v1 != v1));
   }
 }
 
-TEST_CASE("Version semantic versioning scenarios", "[app][version]") {
-  SECTION("Major version precedence") {
+// Semantic versioning precedence scenarios.
+TEST_CASE("app/version/semantic_scenarios") {
+  // Major version has highest precedence.
+  SUBCASE("major_version_precedence") {
     constexpr Version v1{1, 0, 0, 0};
     constexpr Version v2{2, 0, 0, 0};
 
@@ -337,12 +364,13 @@ TEST_CASE("Version semantic versioning scenarios", "[app][version]") {
     REQUIRE(v1 != v2);
 
     // Compile-time checks
-    STATIC_REQUIRE(v1 < v2);
-    STATIC_REQUIRE(v2 > v1);
-    STATIC_REQUIRE(v1 != v2);
+    static_assert(v1 < v2);
+    static_assert(v2 > v1);
+    static_assert(v1 != v2);
   }
 
-  SECTION("Minor version precedence") {
+  // Minor version has precedence after major.
+  SUBCASE("minor_version_precedence") {
     constexpr Version v1{1, 1, 0, 0};
     constexpr Version v2{1, 2, 0, 0};
 
@@ -351,12 +379,13 @@ TEST_CASE("Version semantic versioning scenarios", "[app][version]") {
     REQUIRE(v1 != v2);
 
     // Compile-time checks
-    STATIC_REQUIRE(v1 < v2);
-    STATIC_REQUIRE(v2 > v1);
-    STATIC_REQUIRE(v1 != v2);
+    static_assert(v1 < v2);
+    static_assert(v2 > v1);
+    static_assert(v1 != v2);
   }
 
-  SECTION("Maintenance version precedence") {
+  // Maintenance version has precedence after minor.
+  SUBCASE("maintenance_version_precedence") {
     constexpr Version v1{1, 1, 1, 0};
     constexpr Version v2{1, 1, 2, 0};
 
@@ -365,12 +394,13 @@ TEST_CASE("Version semantic versioning scenarios", "[app][version]") {
     REQUIRE(v1 != v2);
 
     // Compile-time checks
-    STATIC_REQUIRE(v1 < v2);
-    STATIC_REQUIRE(v2 > v1);
-    STATIC_REQUIRE(v1 != v2);
+    static_assert(v1 < v2);
+    static_assert(v2 > v1);
+    static_assert(v1 != v2);
   }
 
-  SECTION("Revision version precedence") {
+  // Revision version has the lowest precedence.
+  SUBCASE("revision_version_precedence") {
     constexpr Version v1{1, 1, 1, 1};
     constexpr Version v2{1, 1, 1, 2};
 
@@ -379,12 +409,13 @@ TEST_CASE("Version semantic versioning scenarios", "[app][version]") {
     REQUIRE(v1 != v2);
 
     // Compile-time checks
-    STATIC_REQUIRE(v1 < v2);
-    STATIC_REQUIRE(v2 > v1);
-    STATIC_REQUIRE(v1 != v2);
+    static_assert(v1 < v2);
+    static_assert(v2 > v1);
+    static_assert(v1 != v2);
   }
 
-  SECTION("Complex version comparisons") {
+  // Complex ordering chains across fields.
+  SUBCASE("complex_version_comparisons") {
     constexpr Version v1{1, 2, 3, 4};
     constexpr Version v2{1, 2, 4, 0};
     constexpr Version v3{1, 3, 0, 0};
@@ -395,42 +426,41 @@ TEST_CASE("Version semantic versioning scenarios", "[app][version]") {
     REQUIRE(v3 < v4);
 
     // Compile-time checks
-    STATIC_REQUIRE(v1 < v2);
-    STATIC_REQUIRE(v2 < v3);
-    STATIC_REQUIRE(v3 < v4);
+    static_assert(v1 < v2);
+    static_assert(v2 < v3);
+    static_assert(v3 < v4);
   }
 }
 
-TEST_CASE("Version runtime tests", "[app][version]") {
-  SECTION("Runtime version creation and comparison") {
-    Version v1{1, 0, 0, 0};
-    Version v2{1, 1, 0, 0};
-    Version v3{1, 1, 1, 0};
-    Version v4{1, 1, 1, 1};
+// Runtime-only comparisons that cannot be constexpr.
+TEST_CASE("app/version/runtime_tests") {
+  Version v1{1, 0, 0, 0};
+  Version v2{1, 1, 0, 0};
+  Version v3{1, 1, 1, 0};
+  Version v4{1, 1, 1, 1};
 
-    REQUIRE(v1 < v2);
-    REQUIRE(v2 < v3);
-    REQUIRE(v3 < v4);
+  REQUIRE(v1 < v2);
+  REQUIRE(v2 < v3);
+  REQUIRE(v3 < v4);
 
-    REQUIRE(v4 > v3);
-    REQUIRE(v3 > v2);
-    REQUIRE(v2 > v1);
+  REQUIRE(v4 > v3);
+  REQUIRE(v3 > v2);
+  REQUIRE(v2 > v1);
 
-    REQUIRE(v1 <= v2);
-    REQUIRE(v2 <= v3);
-    REQUIRE(v3 <= v4);
+  REQUIRE(v1 <= v2);
+  REQUIRE(v2 <= v3);
+  REQUIRE(v3 <= v4);
 
-    REQUIRE(v4 >= v3);
-    REQUIRE(v3 >= v2);
-    REQUIRE(v2 >= v1);
+  REQUIRE(v4 >= v3);
+  REQUIRE(v3 >= v2);
+  REQUIRE(v2 >= v1);
 
-    REQUIRE(v1 != v2);
-    REQUIRE(v2 != v3);
-    REQUIRE(v3 != v4);
+  REQUIRE(v1 != v2);
+  REQUIRE(v2 != v3);
+  REQUIRE(v3 != v4);
 
-    // Test equality
-    Version v5{1, 0, 0, 0};
-    REQUIRE(v1 == v5);
-    REQUIRE(!(v1 == v2));
-  }
+  // Test equality
+  Version v5{1, 0, 0, 0};
+  REQUIRE(v1 == v5);
+  REQUIRE(!(v1 == v2));
 }
