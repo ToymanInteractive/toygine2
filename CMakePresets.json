@@ -293,6 +293,9 @@
             "configurePreset": "linux-ninja-test-coverage",
             "inherits": "linux-ninja-debug",
             "output": {
+                "shortProgress": true,
+                "verbosity": "default",
+                "outputOnFailure": true,
                 "outputJUnitFile": "${sourceDir}/out/junit/${presetName}.xml"
             }
         }

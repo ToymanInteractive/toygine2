@@ -5,6 +5,8 @@ on:
     secrets:
       SONAR_TOKEN:
         required: true
+      CODECOV_TOKEN:
+        required: true
 
 permissions: {}
 
