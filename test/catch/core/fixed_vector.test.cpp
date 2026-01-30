@@ -184,7 +184,7 @@ TEST_CASE("FixedVector constructors", "[core][fixed_vector]") {
   }
 
   SECTION("Iterator constructor") {
-    constexpr std::array<int, 4> sourceArray{1, 2, 3, 4};
+    constexpr array<int, 4> sourceArray{1, 2, 3, 4};
     const FixedVector<int, 5> vec(sourceArray.begin(), sourceArray.end());
 
     REQUIRE(vec.size() == 4);
@@ -196,7 +196,7 @@ TEST_CASE("FixedVector constructors", "[core][fixed_vector]") {
   }
 
   SECTION("Iterator constructor with array") {
-    constexpr std::array<int, 3> sourceArray{10, 20, 30};
+    constexpr array<int, 3> sourceArray{10, 20, 30};
     const FixedVector<int, 5> vec(std::begin(sourceArray), std::end(sourceArray));
 
     REQUIRE(vec.size() == 3);
@@ -207,7 +207,7 @@ TEST_CASE("FixedVector constructors", "[core][fixed_vector]") {
   }
 
   SECTION("Iterator constructor with empty range") {
-    constexpr std::array<int, 0> emptyArray{};
+    constexpr array<int, 0> emptyArray{};
     const FixedVector<int, 5> vec(emptyArray.begin(), emptyArray.end());
 
     REQUIRE(vec.size() == 0);
@@ -215,7 +215,7 @@ TEST_CASE("FixedVector constructors", "[core][fixed_vector]") {
   }
 
   SECTION("Iterator constructor with different types") {
-    constexpr std::array<FixedString<10>, 2> sourceArray{FixedString<10>("hello"), FixedString<10>("world")};
+    constexpr array<FixedString<10>, 2> sourceArray{FixedString<10>("hello"), FixedString<10>("world")};
     const FixedVector<FixedString<10>, 5> vec(sourceArray.begin(), sourceArray.end());
 
     REQUIRE(vec.size() == 2);
@@ -410,7 +410,7 @@ TEST_CASE("FixedVector assign methods", "[core][fixed_vector]") {
   }
 
   SECTION("Assign from iterator range") {
-    constexpr std::array<int, 4> source{10, 20, 30, 40};
+    constexpr array<int, 4> source{10, 20, 30, 40};
     FixedVector<int, 5> vec{1, 2, 3};
 
     vec.assign(source.begin(), source.end());
@@ -424,7 +424,7 @@ TEST_CASE("FixedVector assign methods", "[core][fixed_vector]") {
   }
 
   SECTION("Assign from iterator range with array") {
-    constexpr std::array<int, 3> sourceArray{100, 200, 300};
+    constexpr array<int, 3> sourceArray{100, 200, 300};
     FixedVector<int, 5> vec{1, 2, 3, 4};
 
     vec.assign(std::begin(sourceArray), std::end(sourceArray));
@@ -437,7 +437,7 @@ TEST_CASE("FixedVector assign methods", "[core][fixed_vector]") {
   }
 
   SECTION("Assign from empty iterator range") {
-    constexpr std::array<int, 0> emptyArray{};
+    constexpr array<int, 0> emptyArray{};
     FixedVector<int, 5> vec{1, 2, 3};
 
     vec.assign(emptyArray.begin(), emptyArray.end());
@@ -447,7 +447,7 @@ TEST_CASE("FixedVector assign methods", "[core][fixed_vector]") {
   }
 
   SECTION("Assign from iterator range with different types") {
-    constexpr std::array<FixedString<10>, 2> source{FixedString<10>("foo"), FixedString<10>("bar")};
+    constexpr array<FixedString<10>, 2> source{FixedString<10>("foo"), FixedString<10>("bar")};
     FixedVector<FixedString<10>, 5> vec{FixedString<10>("old")};
 
     vec.assign(source.begin(), source.end());
@@ -538,7 +538,7 @@ TEST_CASE("FixedVector assign methods", "[core][fixed_vector]") {
     REQUIRE(vec.capacity() == 5);
     REQUIRE(vec[3] == 5);
 
-    constexpr std::array<int, 2> a{10, 20};
+    constexpr array<int, 2> a{10, 20};
     vec.assign(a.begin(), a.end());
     REQUIRE(vec.size() == 2);
     REQUIRE(vec.capacity() == 5);

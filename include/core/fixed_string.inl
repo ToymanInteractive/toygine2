@@ -1079,7 +1079,7 @@ constexpr size_t FixedString<allocatedSize>::_find_first_not_of_raw(size_t posit
         return i;
     }
   } else {
-    std::array<bool, 256> excludedChars{};
+    array<bool, 256> excludedChars{};
 
     for (size_t i = 0; i < dataSize; ++i) {
       excludedChars[static_cast<unsigned char>(data[i])] = true;
@@ -1113,7 +1113,7 @@ constexpr size_t FixedString<allocatedSize>::_find_last_of_raw(size_t position, 
         return scanIndex;
     }
   } else {
-    std::array<bool, 256> targetChars{};
+    array<bool, 256> targetChars{};
 
     for (size_t i = 0; i < dataSize; ++i) {
       targetChars[static_cast<unsigned char>(data[i])] = true;
@@ -1151,7 +1151,7 @@ constexpr size_t FixedString<allocatedSize>::_find_last_not_of_raw(size_t positi
         return scanIndex;
     }
   } else {
-    std::array<bool, 256> excludedChars{};
+    array<bool, 256> excludedChars{};
 
     for (size_t i = 0; i < dataSize; ++i) {
       excludedChars[static_cast<unsigned char>(data[i])] = true;

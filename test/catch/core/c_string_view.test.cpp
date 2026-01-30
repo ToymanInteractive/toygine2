@@ -1028,10 +1028,10 @@ TEST_CASE("CStringView utf8_size", "[core][c_string_view]") {
 
   SECTION("UTF-8 Cyrillic text") {
     // "Привет мир" in UTF-8
-    static constexpr std::array<char, 20> cyrillicText{{char(0xD0), char(0x9F), char(0xD1), char(0x80), char(0xD0),
-                                                        char(0xB8), char(0xD0), char(0xB2), char(0xD0), char(0xB5),
-                                                        char(0xD1), char(0x82), char(0x20), char(0xD0), char(0xBC),
-                                                        char(0xD0), char(0xB8), char(0xD1), char(0x80), char(0x00)}};
+    static constexpr array<char, 20> cyrillicText{{char(0xD0), char(0x9F), char(0xD1), char(0x80), char(0xD0),
+                                                   char(0xB8), char(0xD0), char(0xB2), char(0xD0), char(0xB5),
+                                                   char(0xD1), char(0x82), char(0x20), char(0xD0), char(0xBC),
+                                                   char(0xD0), char(0xB8), char(0xD1), char(0x80), char(0x00)}};
 
     constexpr CStringView cyrillicStringView(cyrillicText.data());
 
@@ -1041,9 +1041,9 @@ TEST_CASE("CStringView utf8_size", "[core][c_string_view]") {
 
   SECTION("Mixed ASCII and UTF-8") {
     // "Hello 世界" in UTF-8
-    static constexpr std::array<char, 13> mixedText{{char(0x48), char(0x65), char(0x6C), char(0x6C), char(0x6F),
-                                                     char(0x20), char(0xE4), char(0xB8), char(0x96), char(0xE7),
-                                                     char(0x95), char(0x8C), char(0x00)}};
+    static constexpr array<char, 13> mixedText{{char(0x48), char(0x65), char(0x6C), char(0x6C), char(0x6F), char(0x20),
+                                                char(0xE4), char(0xB8), char(0x96), char(0xE7), char(0x95), char(0x8C),
+                                                char(0x00)}};
 
     constexpr CStringView mixedString(mixedText.data());
 
@@ -1053,9 +1053,8 @@ TEST_CASE("CStringView utf8_size", "[core][c_string_view]") {
 
   SECTION("Emoji characters") {
     // "Hello 🌍" in UTF-8
-    static constexpr std::array<char, 11> emojiText{{char(0x48), char(0x65), char(0x6C), char(0x6C), char(0x6F),
-                                                     char(0x20), char(0xF0), char(0x9F), char(0x8C), char(0x8D),
-                                                     char(0x00)}};
+    static constexpr array<char, 11> emojiText{{char(0x48), char(0x65), char(0x6C), char(0x6C), char(0x6F), char(0x20),
+                                                char(0xF0), char(0x9F), char(0x8C), char(0x8D), char(0x00)}};
 
     constexpr CStringView emojiString(emojiText.data());
 
@@ -1092,7 +1091,7 @@ TEST_CASE("CStringView utf8_size", "[core][c_string_view]") {
 
   SECTION("Long UTF-8 text") {
     // "ToyGine2 - Бесплатный 2D/3D игровой движок." in UTF-8
-    static constexpr std::array<char, 67> longUtf8Text{
+    static constexpr array<char, 67> longUtf8Text{
       {char(0x54), char(0x6F), char(0x79), char(0x47), char(0x69), char(0x6E), char(0x65), char(0x32), char(0x20),
        char(0x2D), char(0x20), char(0xD0), char(0x91), char(0xD0), char(0xB5), char(0xD1), char(0x81), char(0xD0),
        char(0xBF), char(0xD0), char(0xBB), char(0xD0), char(0xB0), char(0xD1), char(0x82), char(0xD0), char(0xBD),
@@ -3544,7 +3543,7 @@ TEST_CASE("CStringView compare", "[core][c_string_view]") {
 
   SECTION("Compare with array") {
     constexpr CStringView testString("Hello");
-    constexpr std::array<char, 6> arr = {'H', 'e', 'l', 'l', 'o', '\0'};
+    constexpr array<char, 6> arr = {'H', 'e', 'l', 'l', 'o', '\0'};
 
     REQUIRE(testString.compare(arr.data()) == 0);
     REQUIRE(testString.compare("Hello") == 0);
@@ -3797,7 +3796,7 @@ TEST_CASE("CStringView starts_with", "[core][c_string_view]") {
 
   SECTION("Starts with array") {
     constexpr CStringView testString("Hello");
-    constexpr std::array<char, 4> arr = {'H', 'e', 'l', '\0'};
+    constexpr array<char, 4> arr = {'H', 'e', 'l', '\0'};
 
     REQUIRE(testString.starts_with(arr.data()));
     REQUIRE(testString.starts_with("Hel"));
@@ -4068,7 +4067,7 @@ TEST_CASE("CStringView ends_with", "[core][c_string_view]") {
 
   SECTION("Array ends_with") {
     constexpr CStringView testString("Hello");
-    constexpr std::array<char, 4> arr = {'l', 'l', 'o', '\0'};
+    constexpr array<char, 4> arr = {'l', 'l', 'o', '\0'};
 
     REQUIRE(testString.ends_with(arr.data()));
     REQUIRE(testString.ends_with("llo"));

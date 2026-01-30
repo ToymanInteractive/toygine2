@@ -1584,10 +1584,10 @@ TEST_CASE("FixedString utf8_size", "[core][fixed_string]") {
 
   SECTION("UTF-8 Cyrillic text") {
     // "Привет мир" in UTF-8
-    static constexpr std::array<char, 20> cyrillicText{{char(0xD0), char(0x9F), char(0xD1), char(0x80), char(0xD0),
-                                                        char(0xB8), char(0xD0), char(0xB2), char(0xD0), char(0xB5),
-                                                        char(0xD1), char(0x82), char(0x20), char(0xD0), char(0xBC),
-                                                        char(0xD0), char(0xB8), char(0xD1), char(0x80), char(0x00)}};
+    static constexpr array<char, 20> cyrillicText{{char(0xD0), char(0x9F), char(0xD1), char(0x80), char(0xD0),
+                                                   char(0xB8), char(0xD0), char(0xB2), char(0xD0), char(0xB5),
+                                                   char(0xD1), char(0x82), char(0x20), char(0xD0), char(0xBC),
+                                                   char(0xD0), char(0xB8), char(0xD1), char(0x80), char(0x00)}};
 
     constexpr FixedString<32> cyrillicString(cyrillicText.data());
 
@@ -1597,9 +1597,9 @@ TEST_CASE("FixedString utf8_size", "[core][fixed_string]") {
 
   SECTION("Mixed ASCII and UTF-8") {
     // "Hello 世界" in UTF-8
-    static constexpr std::array<char, 13> mixedText{{char(0x48), char(0x65), char(0x6C), char(0x6C), char(0x6F),
-                                                     char(0x20), char(0xE4), char(0xB8), char(0x96), char(0xE7),
-                                                     char(0x95), char(0x8C), char(0x00)}};
+    static constexpr array<char, 13> mixedText{{char(0x48), char(0x65), char(0x6C), char(0x6C), char(0x6F), char(0x20),
+                                                char(0xE4), char(0xB8), char(0x96), char(0xE7), char(0x95), char(0x8C),
+                                                char(0x00)}};
 
     constexpr FixedString<16> mixedString(mixedText.data());
 
@@ -1609,9 +1609,8 @@ TEST_CASE("FixedString utf8_size", "[core][fixed_string]") {
 
   SECTION("Emoji characters") {
     // "Hello 🌍" in UTF-8
-    static constexpr std::array<char, 11> emojiText{{char(0x48), char(0x65), char(0x6C), char(0x6C), char(0x6F),
-                                                     char(0x20), char(0xF0), char(0x9F), char(0x8C), char(0x8D),
-                                                     char(0x00)}};
+    static constexpr array<char, 11> emojiText{{char(0x48), char(0x65), char(0x6C), char(0x6C), char(0x6F), char(0x20),
+                                                char(0xF0), char(0x9F), char(0x8C), char(0x8D), char(0x00)}};
 
     constexpr FixedString<16> emojiString(emojiText.data());
 
@@ -1648,7 +1647,7 @@ TEST_CASE("FixedString utf8_size", "[core][fixed_string]") {
 
   SECTION("Long UTF-8 text") {
     // "ToyGine2 - Бесплатный 2D/3D игровой движок." in UTF-8
-    static constexpr std::array<char, 67> longUtf8Text{
+    static constexpr array<char, 67> longUtf8Text{
       {char(0x54), char(0x6F), char(0x79), char(0x47), char(0x69), char(0x6E), char(0x65), char(0x32), char(0x20),
        char(0x2D), char(0x20), char(0xD0), char(0x91), char(0xD0), char(0xB5), char(0xD1), char(0x81), char(0xD0),
        char(0xBF), char(0xD0), char(0xBB), char(0xD0), char(0xB0), char(0xD1), char(0x82), char(0xD0), char(0xBD),
@@ -4173,7 +4172,7 @@ TEST_CASE("FixedString replace", "[core][fixed_string]") {
 
   SECTION("Replace with array") {
     FixedString<32> testString("Hello World");
-    constexpr std::array<char, 9> arr = {'U', 'n', 'i', 'v', 'e', 'r', 's', 'e', '\0'};
+    constexpr array<char, 9> arr = {'U', 'n', 'i', 'v', 'e', 'r', 's', 'e', '\0'};
 
     REQUIRE(testString.size() == 11);
     REQUIRE(std::strcmp(testString.c_str(), "Hello World") == 0);
@@ -6461,7 +6460,7 @@ TEST_CASE("FixedString compare", "[core][fixed_string]") {
 
   SECTION("Compare with array") {
     constexpr FixedString<32> testString("Hello");
-    constexpr std::array<char, 6> arr = {'H', 'e', 'l', 'l', 'o', '\0'};
+    constexpr array<char, 6> arr = {'H', 'e', 'l', 'l', 'o', '\0'};
 
     REQUIRE(testString.compare(arr.data()) == 0);
     REQUIRE(testString.compare("Hello") == 0);
@@ -6728,7 +6727,7 @@ TEST_CASE("FixedString starts_with", "[core][fixed_string]") {
 
   SECTION("Starts with array") {
     constexpr FixedString<32> testString("Hello");
-    constexpr std::array<char, 4> arr = {'H', 'e', 'l', '\0'};
+    constexpr array<char, 4> arr = {'H', 'e', 'l', '\0'};
 
     REQUIRE(testString.starts_with(arr.data()));
     REQUIRE(testString.starts_with("Hel"));
@@ -7013,7 +7012,7 @@ TEST_CASE("FixedString ends_with", "[core][fixed_string]") {
 
   SECTION("Array ends_with") {
     constexpr FixedString<32> testString("Hello");
-    constexpr std::array<char, 4> arr = {'l', 'l', 'o', '\0'};
+    constexpr array<char, 4> arr = {'l', 'l', 'o', '\0'};
 
     REQUIRE(testString.ends_with(arr.data()));
     REQUIRE(testString.ends_with("llo"));

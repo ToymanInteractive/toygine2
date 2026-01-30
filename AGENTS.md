@@ -1,8 +1,8 @@
 # AGENTS Guidelines for This Repository
 
-This file defines mandatory rules for AI-assisted code and documentation generation in this repository.
+This document defines **mandatory rules** for AI‑assisted code, test, and documentation generation in this repository.
 
-All AI tools (Cursor, Copilot, Continue, etc.) must follow these rules when generating or modifying code, tests, or documentation.
+All AI tools (Cursor, Copilot, Continue, ChatGPT, etc.) **must follow these rules** when generating or modifying code, tests, or documentation.
 
 ---
 

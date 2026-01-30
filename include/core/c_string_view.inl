@@ -358,7 +358,7 @@ constexpr size_t CStringView::_find_first_not_of_raw(size_t position, const char
         return i;
     }
   } else {
-    std::array<bool, 256> excludedChars{};
+    array<bool, 256> excludedChars{};
 
     for (size_t i = 0; i < dataSize; ++i) {
       excludedChars[static_cast<unsigned char>(data[i])] = true;
@@ -392,7 +392,7 @@ constexpr size_t CStringView::_find_last_of_raw(size_t position, const char * da
         return scanIndex;
     }
   } else {
-    std::array<bool, 256> targetChars{};
+    array<bool, 256> targetChars{};
 
     for (size_t i = 0; i < dataSize; ++i) {
       targetChars[static_cast<unsigned char>(data[i])] = true;
@@ -431,7 +431,7 @@ constexpr size_t CStringView::_find_last_not_of_raw(size_t position, const char 
         return scanIndex;
     }
   } else {
-    std::array<bool, 256> excludedChars{};
+    array<bool, 256> excludedChars{};
 
     for (size_t i = 0; i < dataSize; ++i) {
       excludedChars[static_cast<unsigned char>(data[i])] = true;
