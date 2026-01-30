@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['callbackspool_0',['CallbacksPool',['../d8/dc9/classtoy_1_1_callbacks_pool.html',1,'toy']]],
-  ['cstringview_1',['CStringView',['../d5/d03/classtoy_1_1_c_string_view.html',1,'toy']]]
+  ['array_0',['array',['../d8/d52/classtoy_1_1array.html',1,'toy']]]
 ];

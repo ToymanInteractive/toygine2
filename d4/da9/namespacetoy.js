@@ -20,6 +20,7 @@ var namespacetoy =
     [ "FixedVector", "d7/dec/classtoy_1_1_fixed_vector.html", "d7/dec/classtoy_1_1_fixed_vector" ],
     [ "FormatString", "dc/d62/classtoy_1_1_format_string.html", "dc/d62/classtoy_1_1_format_string" ],
     [ "OStringStream", "d7/d15/classtoy_1_1_o_string_stream.html", "d7/d15/classtoy_1_1_o_string_stream" ],
+    [ "array", "d8/d52/classtoy_1_1array.html", "d8/d52/classtoy_1_1array" ],
     [ "StringLike", "df/d77/concepttoy_1_1_string_like.html", null ],
     [ "CpuArchitecture", "d4/da9/namespacetoy.html#a9fbbca3cbd855381284624d5fc830d49", [
       [ "x86", "d4/da9/namespacetoy.html#a9fbbca3cbd855381284624d5fc830d49a8a9da7865483c5fd359f3acef178d26d", null ],
@@ -97,11 +98,11 @@ var namespacetoy =
     [ "utoa", "d4/da9/namespacetoy.html#a3896c1390775b3c0290dfb6b19cc6788", null ],
     [ "utoaImplementation", "d4/da9/namespacetoy.html#a10d90a55c9c7b54190a445f8fabaa599", null ],
     [ "wcharToUtf8", "d4/da9/namespacetoy.html#a008aa42596921d995b66340139fd3cfb", null ],
-    [ "_ansiDigits", "d4/da9/namespacetoy.html#ae9d26c716cca917004e820be15f483dd", null ],
-    [ "_crc16Table", "d4/da9/namespacetoy.html#ad5a24715635e389733d2bd51420d0cce", null ],
-    [ "_crc32Table", "d4/da9/namespacetoy.html#adea4ce7523cb7c07e3df1712514c1298", null ],
-    [ "_crc8Table", "d4/da9/namespacetoy.html#a63a8d4228d33c90f9ef1684c10c07b37", null ],
-    [ "_exponentTable", "d4/da9/namespacetoy.html#a6aa717a5991fe2ff2553833f1d626178", null ],
-    [ "_utf8CharSizeTable", "d4/da9/namespacetoy.html#a4a12924c5030e6b26a105cce437a95a9", null ],
+    [ "_ansiDigits", "d4/da9/namespacetoy.html#a7e08bb0700f4c81f7fd28710e2e61e9e", null ],
+    [ "_crc16Table", "d4/da9/namespacetoy.html#a1c66eabbb0dea6bd870920a6585afbf4", null ],
+    [ "_crc32Table", "d4/da9/namespacetoy.html#a2700f13c2a45a3d51f7f770b487fdea1", null ],
+    [ "_crc8Table", "d4/da9/namespacetoy.html#a8c48bd85be2362df34afbf1e4cb72f9d", null ],
+    [ "_exponentTable", "d4/da9/namespacetoy.html#a347e818bfb701d85aaa994862433373d", null ],
+    [ "_utf8CharSizeTable", "d4/da9/namespacetoy.html#abaf6e43802564c3840542ee978aeb917", null ],
     [ "wcharInUtf8MaxSize", "d4/da9/namespacetoy.html#a15a8263a5364e1ff581cf08613b9647f", null ]
 ];

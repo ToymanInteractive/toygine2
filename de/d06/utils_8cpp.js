@@ -19,6 +19,6 @@ var utils_8cpp =
     [ "toy::utoa", "d4/da9/namespacetoy.html#aa15d157e1eba61a003251489cc1ccc99", null ],
     [ "toy::utoa", "d4/da9/namespacetoy.html#a3896c1390775b3c0290dfb6b19cc6788", null ],
     [ "toy::wcharToUtf8", "d4/da9/namespacetoy.html#a008aa42596921d995b66340139fd3cfb", null ],
-    [ "toy::_exponentTable", "d4/da9/namespacetoy.html#a6aa717a5991fe2ff2553833f1d626178", null ],
-    [ "toy::_utf8CharSizeTable", "d4/da9/namespacetoy.html#a4a12924c5030e6b26a105cce437a95a9", null ]
+    [ "toy::_exponentTable", "d4/da9/namespacetoy.html#a347e818bfb701d85aaa994862433373d", null ],
+    [ "toy::_utf8CharSizeTable", "d4/da9/namespacetoy.html#abaf6e43802564c3840542ee978aeb917", null ]
 ];
