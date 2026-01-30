@@ -252,7 +252,7 @@ jobs:
         uses: codecov/codecov-action@v5.5.2
         with:
           disable_search: true
-          files: out/build/linux-ninja-debug/unit_tests_coverage.info
+          files: out/build/linux-ninja-test-coverage/unit_tests_coverage.info
           flags: units
           token: ${{ secrets.CODECOV_TOKEN }}
 
