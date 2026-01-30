@@ -125,8 +125,6 @@ jobs:
             # Prefer the desired version if it exists, otherwise keep the default.
             if [ -d "/Applications/Xcode_26.2.0.app" ]; then
               sudo xcode-select -s /Applications/Xcode_26.2.0.app
-            elif [ -d "/Applications/Xcode_26.1.1.app" ]; then
-              sudo xcode-select -s /Applications/Xcode_26.1.1.app
             fi
           elif [[ "${{ matrix.os }}" =~ "ubuntu" ]]; then
             set -euo pipefail

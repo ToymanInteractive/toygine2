@@ -69,6 +69,8 @@ using std::char_traits;
 using std::size;
 using std::strong_ordering;
 
+using std::array;
+
 #undef validate
 
 #ifdef _DEBUG

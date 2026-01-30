@@ -191,7 +191,7 @@ private:
     void (*method)(type arg) = nullptr; //!< Pointer to the callback function.
   };
 
-  std::array<StaticCallback, allocatedSize> _callbacks; //!< Fixed-size array storing registered callbacks.
+  array<StaticCallback, allocatedSize> _callbacks; //!< Fixed-size array storing registered callbacks.
   size_t _subscribersCount = 0; //!< Active callbacks count.
 };
 
