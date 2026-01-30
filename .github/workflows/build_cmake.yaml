@@ -228,23 +228,23 @@ jobs:
 
       - name: Configure
         run: |
-          cmake -DTOYGINE_BUILD_TESTS=ON -DTOYGINE_TESTS_ENABLE_COVERAGE=ON --preset linux-ninja-debug
+          cmake -DTOYGINE_BUILD_TESTS=ON -DTOYGINE_TESTS_ENABLE_COVERAGE=ON --preset linux-ninja-test-coverage
 
       - name: Collect JUnit
         run: |
-          cmake --build --preset linux-ninja-debug
-          ctest --preset linux-ninja-debug
+          cmake --build --preset linux-ninja-test-coverage
+          ctest --preset linux-ninja-test-coverage
 
       - name: Upload JUnit report to Codecov
         uses: codecov/test-results-action@v1.2.1
         with:
-          files: out/junit/linux-ninja-debug.xml
+          files: out/junit/linux-ninja-test-coverage.xml
           flags: units
           token: ${{ secrets.CODECOV_TOKEN }}
 
       - name: Collect coverage
         run: |
-          cmake --build --preset linux-ninja-debug --target unit_tests_coverage
+          cmake --build --preset linux-ninja-test-coverage --target unit_tests_coverage
 
       - name: Upload coverage report to Codecov
         uses: codecov/codecov-action@v5.5.2

@@ -141,6 +141,12 @@
                 "CMAKE_BUILD_TYPE": "Debug",
                 "TOYGINE_BUILD_TESTS": "ON"
             }
+        },
+        {
+            "name": "linux-ninja-test-coverage",
+            "displayName": "Linux Ninja Tests Coverage",
+            "description": "ToyGine 2 Linux Ninja (Test Coverage)",
+            "inherits": "linux-ninja-debug"
         }
     ],
     "buildPresets": [
@@ -208,6 +214,11 @@
             "name": "linux-ninja-debug",
             "configurePreset": "linux-ninja-debug",
             "inherits": "default-debug"
+        },
+        {
+            "name": "linux-ninja-test-coverage",
+            "configurePreset": "linux-ninja-test-coverage",
+            "inherits": "linux-ninja-debug"
         }
     ],
     "testPresets": [
@@ -231,8 +242,7 @@
             "output": {
                 "shortProgress": true,
                 "verbosity": "default",
-                "outputOnFailure": true,
-                "outputJUnitFile": "${sourceDir}/out/junit/${presetName}.xml"
+                "outputOnFailure": true
             },
             "execution": {
                 "stopOnFailure": true,
@@ -277,6 +287,14 @@
             "name": "linux-ninja-debug",
             "configurePreset": "linux-ninja-debug",
             "inherits": "default-debug"
+        },
+        {
+            "name": "linux-ninja-test-coverage",
+            "configurePreset": "linux-ninja-test-coverage",
+            "inherits": "linux-ninja-debug",
+            "output": {
+                "outputJUnitFile": "${sourceDir}/out/junit/${presetName}.xml"
+            }
         }
     ]
 }
