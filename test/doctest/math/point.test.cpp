@@ -18,12 +18,11 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-#include <catch2/catch_test_macros.hpp>
+#include <doctest/doctest.h>
 
 #include "math.hpp"
 
-using namespace toy;
-using namespace toy::math;
+namespace toy::math {
 
 // Point has fixed size and contiguous x,y layout.
 TEST_CASE("math/point/point_object_structure") {
@@ -40,7 +39,7 @@ TEST_CASE("math/point/point_object_structure") {
 
 // Default, coordinate, and array constructors.
 TEST_CASE("math/point/point_constructors") {
-  SECTION("Default constructor") {
+  SUBCASE("default_constructor") {
     constexpr Point point;
 
     REQUIRE(point.x == 0);
@@ -50,7 +49,7 @@ TEST_CASE("math/point/point_constructors") {
     static_assert(point.y == 0, "default-constructed y must be 0");
   }
 
-  SECTION("Constructor with positive coordinates") {
+  SUBCASE("constructor_with_positive_coordinates") {
     constexpr Point point(10, 20);
 
     REQUIRE(point.x == 10);
@@ -60,7 +59,7 @@ TEST_CASE("math/point/point_constructors") {
     static_assert(point.y == 20, "y must match constructor argument");
   }
 
-  SECTION("Constructor with negative coordinates") {
+  SUBCASE("constructor_with_negative_coordinates") {
     constexpr Point point(-5, -15);
 
     REQUIRE(point.x == -5);
@@ -70,7 +69,7 @@ TEST_CASE("math/point/point_constructors") {
     static_assert(point.y == -15, "y must match constructor argument");
   }
 
-  SECTION("Constructor with mixed coordinates") {
+  SUBCASE("constructor_with_mixed_coordinates") {
     constexpr Point point(-100, 200);
 
     REQUIRE(point.x == -100);
@@ -80,7 +79,7 @@ TEST_CASE("math/point/point_constructors") {
     static_assert(point.y == 200, "y must match constructor argument");
   }
 
-  SECTION("Constructor with zero coordinates") {
+  SUBCASE("constructor_with_zero_coordinates") {
     constexpr Point point(0, 0);
 
     REQUIRE(point.x == 0);
@@ -90,7 +89,7 @@ TEST_CASE("math/point/point_constructors") {
     static_assert(point.y == 0, "y must be 0");
   }
 
-  SECTION("Constructor from pointer to array") {
+  SUBCASE("constructor_from_pointer_to_array") {
     constexpr array<int32_t, 2> arr{42, -17};
     constexpr Point point(arr.data());
 
@@ -101,7 +100,7 @@ TEST_CASE("math/point/point_constructors") {
     static_assert(point.y == -17, "y must match array element");
   }
 
-  SECTION("Constructor from pointer to array with positive values") {
+  SUBCASE("constructor_from_pointer_to_array_with_positive_values") {
     constexpr array<int32_t, 2> arr{100, 200};
     constexpr Point point(arr.data());
 
@@ -112,7 +111,7 @@ TEST_CASE("math/point/point_constructors") {
     static_assert(point.y == 200, "y must match array element");
   }
 
-  SECTION("Constructor from pointer to array with negative values") {
+  SUBCASE("constructor_from_pointer_to_array_with_negative_values") {
     constexpr array<int32_t, 2> arr{-50, -75};
     constexpr Point point(arr.data());
 
@@ -123,7 +122,7 @@ TEST_CASE("math/point/point_constructors") {
     static_assert(point.y == -75, "y must match array element");
   }
 
-  SECTION("Constructor from pointer to array with mixed values") {
+  SUBCASE("constructor_from_pointer_to_array_with_mixed_values") {
     constexpr array<int32_t, 2> arr{-300, 400};
     constexpr Point point(arr.data());
 
@@ -134,7 +133,7 @@ TEST_CASE("math/point/point_constructors") {
     static_assert(point.y == 400, "y must match array element");
   }
 
-  SECTION("Constructor from pointer to array with zero values") {
+  SUBCASE("constructor_from_pointer_to_array_with_zero_values") {
     constexpr array<int32_t, 2> arr{0, 0};
     constexpr Point point(arr.data());
 
@@ -145,7 +144,7 @@ TEST_CASE("math/point/point_constructors") {
     static_assert(point.y == 0, "y must be 0");
   }
 
-  SECTION("Runtime constructor tests") {
+  SUBCASE("runtime_constructor_tests") {
     Point defaultPoint;
     REQUIRE(defaultPoint.x == 0);
     REQUIRE(defaultPoint.y == 0);
@@ -163,7 +162,7 @@ TEST_CASE("math/point/point_constructors") {
 
 // c_arr returns pointer to contiguous x,y.
 TEST_CASE("math/point/point_c_arr_methods") {
-  SECTION("Non-const c_arr method") {
+  SUBCASE("non_const_c_arr_method") {
     Point point(42, -17);
     auto * arr = point.c_arr();
 
@@ -179,7 +178,7 @@ TEST_CASE("math/point/point_c_arr_methods") {
     REQUIRE(point.y == -200);
   }
 
-  SECTION("Const c_arr method") {
+  SUBCASE("const_c_arr_method") {
     constexpr Point point(123, -456);
     const auto * arr = point.c_arr();
 
@@ -191,7 +190,7 @@ TEST_CASE("math/point/point_c_arr_methods") {
     REQUIRE(point.y == -456);
   }
 
-  SECTION("c_arr with default constructor") {
+  SUBCASE("c_arr_with_default_constructor") {
     constexpr Point point;
 
     REQUIRE(point.c_arr()[0] == 0);
@@ -200,7 +199,7 @@ TEST_CASE("math/point/point_c_arr_methods") {
     static_assert(point.c_arr()[0] == 0, "first element must be 0 for default-constructed point");
   }
 
-  SECTION("c_arr with coordinate constructor") {
+  SUBCASE("c_arr_with_coordinate_constructor") {
     constexpr Point point(10, 20);
 
     REQUIRE(point.c_arr()[0] == 10);
@@ -209,7 +208,7 @@ TEST_CASE("math/point/point_c_arr_methods") {
     static_assert(point.c_arr()[0] == 10, "first element must match x");
   }
 
-  SECTION("c_arr with array constructor") {
+  SUBCASE("c_arr_with_array_constructor") {
     constexpr Point point({-50, 75});
 
     REQUIRE(point.c_arr()[0] == -50);
@@ -218,7 +217,7 @@ TEST_CASE("math/point/point_c_arr_methods") {
     static_assert(point.c_arr()[0] == -50, "first element must match x");
   }
 
-  SECTION("c_arr modification test") {
+  SUBCASE("c_arr_modification_test") {
     Point point(1, 2);
     auto * arr = point.c_arr();
 
@@ -241,7 +240,7 @@ TEST_CASE("math/point/point_c_arr_methods") {
     REQUIRE(point.y == 60);
   }
 
-  SECTION("c_arr runtime tests") {
+  SUBCASE("c_arr_runtime_tests") {
     Point runtimePoint(500, -600);
     auto * runtimeArr = runtimePoint.c_arr();
 
@@ -266,7 +265,7 @@ TEST_CASE("math/point/point_c_arr_methods") {
 
 // +=, -=, *=, /= and chaining.
 TEST_CASE("math/point/point_operators") {
-  SECTION("operator+=") {
+  SUBCASE("operator_plus_assign") {
     Point point1(10, 20);
     constexpr Point point2(5, -10);
 
@@ -276,7 +275,7 @@ TEST_CASE("math/point/point_operators") {
     REQUIRE(point1.y == 10);
   }
 
-  SECTION("operator-=") {
+  SUBCASE("operator_minus_assign") {
     Point point1(15, 25);
     constexpr Point point2(5, 10);
 
@@ -286,7 +285,7 @@ TEST_CASE("math/point/point_operators") {
     REQUIRE(point1.y == 15);
   }
 
-  SECTION("operator*= with integer") {
+  SUBCASE("operator_times_assign_with_integer") {
     Point point(10, 20);
     constexpr int32_t scalar = 3;
 
@@ -296,7 +295,7 @@ TEST_CASE("math/point/point_operators") {
     REQUIRE(point.y == 60);
   }
 
-  SECTION("operator*= with real") {
+  SUBCASE("operator_times_assign_with_real") {
     Point point(10, 20);
     constexpr real_t scalar = 2.5;
 
@@ -306,7 +305,7 @@ TEST_CASE("math/point/point_operators") {
     REQUIRE(point.y == 50);
   }
 
-  SECTION("operator/= with integer") {
+  SUBCASE("operator_div_assign_with_integer") {
     Point point(30, 60);
     constexpr int32_t scalar = 3;
 
@@ -316,7 +315,7 @@ TEST_CASE("math/point/point_operators") {
     REQUIRE(point.y == 20);
   }
 
-  SECTION("operator/= with real") {
+  SUBCASE("operator_div_assign_with_real") {
     Point point(20, 45);
     constexpr real_t scalar = 2.5;
 
@@ -326,7 +325,7 @@ TEST_CASE("math/point/point_operators") {
     REQUIRE(point.y == 18);
   }
 
-  SECTION("Chained operations") {
+  SUBCASE("chained_operations") {
     Point point(10, 20);
     constexpr Point offset(5, 10);
 
@@ -341,7 +340,7 @@ TEST_CASE("math/point/point_operators") {
 
 // sqrMagnitude, setZero, isZero, isEqual.
 TEST_CASE("math/point/point_methods") {
-  SECTION("sqrMagnitude") {
+  SUBCASE("sqr_magnitude") {
     constexpr Point point(3, 4);
 
     REQUIRE(point.sqrMagnitude() == 25);
@@ -349,7 +348,7 @@ TEST_CASE("math/point/point_methods") {
     static_assert(point.sqrMagnitude() == 25, "sqrMagnitude of (3,4) must be 25");
   }
 
-  SECTION("sqrMagnitude with negative coordinates") {
+  SUBCASE("sqr_magnitude_with_negative_coordinates") {
     constexpr Point point(-3, -4);
 
     REQUIRE(point.sqrMagnitude() == 25);
@@ -357,7 +356,7 @@ TEST_CASE("math/point/point_methods") {
     static_assert(point.sqrMagnitude() == 25, "sqrMagnitude of (-3,-4) must be 25");
   }
 
-  SECTION("sqrMagnitude with zero coordinates") {
+  SUBCASE("sqr_magnitude_with_zero_coordinates") {
     constexpr Point point(0, 0);
 
     REQUIRE(point.sqrMagnitude() == 0);
@@ -365,7 +364,7 @@ TEST_CASE("math/point/point_methods") {
     static_assert(point.sqrMagnitude() == 0, "sqrMagnitude of origin must be 0");
   }
 
-  SECTION("sqrMagnitude with large coordinates") {
+  SUBCASE("sqr_magnitude_with_large_coordinates") {
     constexpr Point point(1000, 2000);
 
     REQUIRE(point.sqrMagnitude() == 5000000);
@@ -373,7 +372,7 @@ TEST_CASE("math/point/point_methods") {
     static_assert(point.sqrMagnitude() == 5000000, "sqrMagnitude must equal x² + y²");
   }
 
-  SECTION("setZero") {
+  SUBCASE("set_zero") {
     Point point(100, 200);
 
     point.setZero();
@@ -382,7 +381,7 @@ TEST_CASE("math/point/point_methods") {
     REQUIRE(point.y == 0);
   }
 
-  SECTION("isZero with zero point") {
+  SUBCASE("is_zero_with_zero_point") {
     constexpr Point point(0, 0);
 
     REQUIRE(point.isZero());
@@ -390,7 +389,7 @@ TEST_CASE("math/point/point_methods") {
     static_assert(point.isZero(), "origin must be zero");
   }
 
-  SECTION("isZero with non-zero point") {
+  SUBCASE("is_zero_with_non_zero_point") {
     constexpr Point point(1, 0);
 
     REQUIRE(!point.isZero());
@@ -398,7 +397,7 @@ TEST_CASE("math/point/point_methods") {
     static_assert(!point.isZero(), "non-zero vector must not be zero");
   }
 
-  SECTION("isZero with negative coordinates") {
+  SUBCASE("is_zero_with_negative_coordinates") {
     constexpr Point point(-1, -1);
 
     REQUIRE(!point.isZero());
@@ -406,7 +405,7 @@ TEST_CASE("math/point/point_methods") {
     static_assert(!point.isZero(), "non-zero vector must not be zero");
   }
 
-  SECTION("isZero after setZero") {
+  SUBCASE("is_zero_after_set_zero") {
     Point point(100, 200);
 
     REQUIRE(!point.isZero());
@@ -416,21 +415,21 @@ TEST_CASE("math/point/point_methods") {
     REQUIRE(point.isZero());
   }
 
-  SECTION("isEqual with exact match") {
+  SUBCASE("is_equal_with_exact_match") {
     constexpr Point point1(10, 20);
     constexpr Point point2(10, 20);
 
     REQUIRE(point1.isEqual(point2));
   }
 
-  SECTION("isEqual with different points") {
+  SUBCASE("is_equal_with_different_points") {
     constexpr Point point1(10, 20);
     constexpr Point point2(11, 20);
 
     REQUIRE(!point1.isEqual(point2));
   }
 
-  SECTION("isEqual with tolerance") {
+  SUBCASE("is_equal_with_tolerance") {
     constexpr Point point1(10, 20);
     constexpr Point point2(12, 18);
     constexpr int32_t tolerance = 3;
@@ -438,7 +437,7 @@ TEST_CASE("math/point/point_methods") {
     REQUIRE(point1.isEqual(point2, tolerance));
   }
 
-  SECTION("isEqual with tolerance too small") {
+  SUBCASE("is_equal_with_tolerance_too_small") {
     constexpr Point point1(10, 20);
     constexpr Point point2(15, 25);
     constexpr int32_t tolerance = 2;
@@ -446,7 +445,7 @@ TEST_CASE("math/point/point_methods") {
     REQUIRE(!point1.isEqual(point2, tolerance));
   }
 
-  SECTION("isEqual with zero tolerance") {
+  SUBCASE("is_equal_with_zero_tolerance") {
     constexpr Point point1(10, 20);
     constexpr Point point2(10, 21);
     constexpr int32_t tolerance = 0;
@@ -454,14 +453,14 @@ TEST_CASE("math/point/point_methods") {
     REQUIRE(!point1.isEqual(point2, tolerance));
   }
 
-  SECTION("isEqual with default tolerance") {
+  SUBCASE("is_equal_with_default_tolerance") {
     constexpr Point point1(10, 20);
     constexpr Point point2(10, 20);
 
     REQUIRE(point1.isEqual(point2));
   }
 
-  SECTION("isEqual with large tolerance") {
+  SUBCASE("is_equal_with_large_tolerance") {
     constexpr Point point1(0, 0);
     constexpr Point point2(1000, 1000);
     constexpr int32_t tolerance = 2000;
@@ -469,7 +468,7 @@ TEST_CASE("math/point/point_methods") {
     REQUIRE(point1.isEqual(point2, tolerance));
   }
 
-  SECTION("Runtime tests") {
+  SUBCASE("runtime_tests") {
     Point point(10, 20);
     constexpr Point offset(5, -10);
 
@@ -500,7 +499,7 @@ TEST_CASE("math/point/point_methods") {
 
 // +, -, *, /, unary minus, ==.
 TEST_CASE("math/point/point_binary_operators") {
-  SECTION("Unary minus operator") {
+  SUBCASE("unary_minus_operator") {
     constexpr Point point(10, -20);
     constexpr auto result = -point;
 
@@ -511,7 +510,7 @@ TEST_CASE("math/point/point_binary_operators") {
     static_assert(result.y == 20, "unary minus must negate y");
   }
 
-  SECTION("Unary minus with zero coordinates") {
+  SUBCASE("unary_minus_with_zero_coordinates") {
     constexpr Point point(0, 0);
     constexpr auto result = -point;
 
@@ -522,7 +521,7 @@ TEST_CASE("math/point/point_binary_operators") {
     static_assert(result.y == 0, "unary minus of origin must remain 0");
   }
 
-  SECTION("Unary minus with negative coordinates") {
+  SUBCASE("unary_minus_with_negative_coordinates") {
     constexpr Point point(-5, -15);
     constexpr auto result = -point;
 
@@ -533,7 +532,7 @@ TEST_CASE("math/point/point_binary_operators") {
     static_assert(result.y == 15, "unary minus must negate y");
   }
 
-  SECTION("Addition operator") {
+  SUBCASE("addition_operator") {
     constexpr Point point1(10, 20);
     constexpr Point point2(5, -10);
 
@@ -546,7 +545,7 @@ TEST_CASE("math/point/point_binary_operators") {
     static_assert(result.y == 10, "addition y must be sum of y components");
   }
 
-  SECTION("Addition with zero coordinates") {
+  SUBCASE("addition_with_zero_coordinates") {
     constexpr Point point1(10, 20);
     constexpr Point point2(0, 0);
 
@@ -559,7 +558,7 @@ TEST_CASE("math/point/point_binary_operators") {
     static_assert(result.y == 20, "adding origin must preserve y");
   }
 
-  SECTION("Addition with negative coordinates") {
+  SUBCASE("addition_with_negative_coordinates") {
     constexpr Point point1(-10, -20);
     constexpr Point point2(-5, -15);
 
@@ -572,7 +571,7 @@ TEST_CASE("math/point/point_binary_operators") {
     static_assert(result.y == -35, "addition y must be sum of y components");
   }
 
-  SECTION("Subtraction operator") {
+  SUBCASE("subtraction_operator") {
     constexpr Point point1(15, 25);
     constexpr Point point2(5, 10);
 
@@ -585,7 +584,7 @@ TEST_CASE("math/point/point_binary_operators") {
     static_assert(result.y == 15, "subtraction y must be difference of y components");
   }
 
-  SECTION("Subtraction with zero coordinates") {
+  SUBCASE("subtraction_with_zero_coordinates") {
     constexpr Point point1(10, 20);
     constexpr Point point2(0, 0);
 
@@ -598,7 +597,7 @@ TEST_CASE("math/point/point_binary_operators") {
     static_assert(result.y == 20, "subtracting origin must preserve y");
   }
 
-  SECTION("Subtraction with negative coordinates") {
+  SUBCASE("subtraction_with_negative_coordinates") {
     constexpr Point point1(-10, -20);
     constexpr Point point2(-5, -15);
 
@@ -611,7 +610,7 @@ TEST_CASE("math/point/point_binary_operators") {
     static_assert(result.y == -5, "subtraction y must be difference of y components");
   }
 
-  SECTION("Multiplication with integer scalar (point * scalar)") {
+  SUBCASE("multiplication_with_integer_scalar_point_times_scalar") {
     constexpr Point point(10, 20);
     constexpr int32_t scalar = 3;
 
@@ -624,7 +623,7 @@ TEST_CASE("math/point/point_binary_operators") {
     static_assert(result.y == 60, "point * scalar must scale y");
   }
 
-  SECTION("Multiplication with integer scalar (scalar * point)") {
+  SUBCASE("multiplication_with_integer_scalar_scalar_times_point") {
     constexpr int32_t scalar = 4;
     constexpr Point point(5, 15);
 
@@ -637,7 +636,7 @@ TEST_CASE("math/point/point_binary_operators") {
     static_assert(result.y == 60, "scalar * point must scale y");
   }
 
-  SECTION("Multiplication with zero scalar") {
+  SUBCASE("multiplication_with_zero_scalar") {
     constexpr Point point(10, 20);
     constexpr int32_t scalar = 0;
 
@@ -650,7 +649,7 @@ TEST_CASE("math/point/point_binary_operators") {
     static_assert(result.y == 0, "point * 0 must yield 0");
   }
 
-  SECTION("Multiplication with negative scalar") {
+  SUBCASE("multiplication_with_negative_scalar") {
     constexpr Point point(10, 20);
     constexpr int32_t scalar = -2;
 
@@ -663,7 +662,7 @@ TEST_CASE("math/point/point_binary_operators") {
     static_assert(result.y == -40, "point * negative scalar must negate and scale y");
   }
 
-  SECTION("Multiplication with real scalar (point * real)") {
+  SUBCASE("multiplication_with_real_scalar_point_times_real") {
     constexpr Point point(10, 20);
     constexpr real_t scalar = 2.5;
 
@@ -676,7 +675,7 @@ TEST_CASE("math/point/point_binary_operators") {
     static_assert(result.y == 50, "point * real must scale y");
   }
 
-  SECTION("Multiplication with real scalar (real * point)") {
+  SUBCASE("multiplication_with_real_scalar_real_times_point") {
     constexpr real_t scalar = 1.5;
     constexpr Point point(20, 30);
 
@@ -689,7 +688,7 @@ TEST_CASE("math/point/point_binary_operators") {
     static_assert(result.y == 45, "real * point must scale y");
   }
 
-  SECTION("Multiplication with real scalar zero") {
+  SUBCASE("multiplication_with_real_scalar_zero") {
     constexpr Point point(10, 20);
     constexpr real_t scalar = 0.0;
 
@@ -702,7 +701,7 @@ TEST_CASE("math/point/point_binary_operators") {
     static_assert(result.y == 0, "point * 0 must yield 0");
   }
 
-  SECTION("Multiplication with real scalar negative") {
+  SUBCASE("multiplication_with_real_scalar_negative") {
     constexpr Point point(10, 20);
     constexpr real_t scalar = -0.5;
 
@@ -715,7 +714,7 @@ TEST_CASE("math/point/point_binary_operators") {
     static_assert(result.y == -10, "point * negative real must scale y");
   }
 
-  SECTION("Division with integer scalar") {
+  SUBCASE("division_with_integer_scalar") {
     constexpr Point point(30, 60);
     constexpr int32_t scalar = 3;
 
@@ -728,7 +727,7 @@ TEST_CASE("math/point/point_binary_operators") {
     static_assert(result.y == 20, "point / scalar must divide y");
   }
 
-  SECTION("Division with negative scalar") {
+  SUBCASE("division_with_negative_scalar") {
     constexpr Point point(-20, -40);
     constexpr int32_t scalar = -2;
 
@@ -741,7 +740,7 @@ TEST_CASE("math/point/point_binary_operators") {
     static_assert(result.y == 20, "point / negative scalar must divide y");
   }
 
-  SECTION("Division with real scalar") {
+  SUBCASE("division_with_real_scalar") {
     constexpr Point point(25, 50);
     constexpr real_t scalar = 2.5;
 
@@ -754,7 +753,7 @@ TEST_CASE("math/point/point_binary_operators") {
     static_assert(result.y == 20, "point / real must divide y");
   }
 
-  SECTION("Division with real scalar negative") {
+  SUBCASE("division_with_real_scalar_negative") {
     constexpr Point point(-30, -60);
     constexpr real_t scalar = -1.5;
 
@@ -767,7 +766,7 @@ TEST_CASE("math/point/point_binary_operators") {
     static_assert(result.y == 40, "point / negative real must divide y");
   }
 
-  SECTION("Equality operator with identical points") {
+  SUBCASE("equality_operator_with_identical_points") {
     constexpr Point point1(10, 20);
     constexpr Point point2(10, 20);
 
@@ -776,7 +775,7 @@ TEST_CASE("math/point/point_binary_operators") {
     static_assert(point1 == point2, "identical points must compare equal");
   }
 
-  SECTION("Equality operator with different points") {
+  SUBCASE("equality_operator_with_different_points") {
     constexpr Point point1(10, 20);
     constexpr Point point2(11, 20);
 
@@ -785,7 +784,7 @@ TEST_CASE("math/point/point_binary_operators") {
     static_assert(!(point1 == point2), "different points must not compare equal");
   }
 
-  SECTION("Equality operator with zero coordinates") {
+  SUBCASE("equality_operator_with_zero_coordinates") {
     constexpr Point point1(0, 0);
     constexpr Point point2(0, 0);
 
@@ -794,7 +793,7 @@ TEST_CASE("math/point/point_binary_operators") {
     static_assert(point1 == point2, "identical origins must compare equal");
   }
 
-  SECTION("Equality operator with negative coordinates") {
+  SUBCASE("equality_operator_with_negative_coordinates") {
     constexpr Point point1(-10, -20);
     constexpr Point point2(-10, -20);
 
@@ -803,7 +802,7 @@ TEST_CASE("math/point/point_binary_operators") {
     static_assert(point1 == point2, "identical points must compare equal");
   }
 
-  SECTION("Equality operator with mixed coordinates") {
+  SUBCASE("equality_operator_with_mixed_coordinates") {
     constexpr Point point1(10, -20);
     constexpr Point point2(10, -20);
 
@@ -812,7 +811,7 @@ TEST_CASE("math/point/point_binary_operators") {
     static_assert(point1 == point2, "identical points must compare equal");
   }
 
-  SECTION("Chained binary operations") {
+  SUBCASE("chained_binary_operations") {
     constexpr Point point1(10, 20);
     constexpr Point point2(5, 10);
     constexpr int32_t scalar = 2;
@@ -826,7 +825,7 @@ TEST_CASE("math/point/point_binary_operators") {
     static_assert(result.y == 40, "chained (p1+p2)*s-p1 must yield correct y");
   }
 
-  SECTION("Complex chained operations") {
+  SUBCASE("complex_chained_operations") {
     constexpr Point point1(100, 200);
     constexpr Point point2(50, 75);
     constexpr real_t scalar1 = 1.5;
@@ -841,7 +840,7 @@ TEST_CASE("math/point/point_binary_operators") {
     static_assert(result.y == 187, "chained (p1*s1+p2)/s2 must yield correct y");
   }
 
-  SECTION("Chained tests") {
+  SUBCASE("chained_tests") {
     constexpr Point point1(10, 20);
     constexpr Point point2(5, -10);
 
@@ -884,3 +883,5 @@ TEST_CASE("math/point/point_binary_operators") {
     static_assert(divReal.y == -20, "divReal y must be -20");
   }
 }
+
+} // namespace toy::math
