@@ -385,7 +385,7 @@ TEST_CASE("math/vector2d/vector2d_methods") {
     static_assert(!vector.isZero(), "non-zero vector must not be zero");
   }
 
-  SUBCASE("isZero after setZero") {
+  SUBCASE("is_zero_after_set_zero") {
     Vector2D vector(100, 200);
 
     REQUIRE(!vector.isZero());
