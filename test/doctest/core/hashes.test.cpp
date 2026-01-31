@@ -18,101 +18,100 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-#include <iostream>
-
-#include <catch2/catch_test_macros.hpp>
+#include <doctest/doctest.h>
 
 #include "core.hpp"
 
 namespace toy {
 
-TEST_CASE("crc8 function", "[core][hashes]") {
-  SECTION("Empty data") {
+// CRC-8 checksum over byte sequences.
+TEST_CASE("core/hashes/crc8_function") {
+  SUBCASE("empty_data") {
     constexpr CStringView empty("");
 
     REQUIRE(crc8(empty.c_str(), empty.size()) == 0x00);
   }
 
-  SECTION("Single character") {
+  SUBCASE("single_character") {
     constexpr CStringView single("A");
 
     REQUIRE(crc8(single.c_str(), single.size()) == 0x18);
   }
 
-  SECTION("Short string") {
+  SUBCASE("short_string") {
     constexpr CStringView shortStr("Hello");
 
     REQUIRE(crc8(shortStr.c_str(), shortStr.size()) == 0xEB);
   }
 
-  SECTION("Medium string") {
+  SUBCASE("medium_string") {
     constexpr CStringView medium("Toygine2 - Free 2D/3D game engine.");
 
     REQUIRE(crc8(medium.c_str(), medium.size()) == 0x5B);
   }
 
-  SECTION("Long string") {
+  SUBCASE("long_string") {
     constexpr CStringView longStr(
       "This is a very long string that contains multiple words and should test the CRC8 algorithm with a substantial amount of data to process.");
 
     REQUIRE(crc8(longStr.c_str(), longStr.size()) == 0xAA);
   }
 
-  SECTION("String with special characters") {
+  SUBCASE("string_with_special_characters") {
     constexpr CStringView special("Hello, World! @#$%^&*()_+-=[]{}|;':\",./<>?");
 
     REQUIRE(crc8(special.c_str(), special.size()) == 0x77);
   }
 
-  SECTION("String with numbers") {
+  SUBCASE("string_with_numbers") {
     constexpr CStringView numbers("1234567890");
 
     REQUIRE(crc8(numbers.c_str(), numbers.size()) == 0x4F);
   }
 
-  SECTION("String with mixed content") {
+  SUBCASE("string_with_mixed_content") {
     constexpr CStringView mixed("ABC123def456GHI789jkl");
 
     REQUIRE(crc8(mixed.c_str(), mixed.size()) == 0x23);
   }
 
-  SECTION("Unicode string") {
+  SUBCASE("unicode_string") {
     constexpr CStringView unicode("Привет, мир! 🌍");
 
     REQUIRE(crc8(unicode.c_str(), unicode.size()) == 0xDB);
   }
 
-  SECTION("Binary data") {
+  SUBCASE("binary_data") {
     constexpr unsigned char binaryData[] = {0xDE, 0xAD, 0xBE, 0xEF, 0xCA, 0xFE};
 
     REQUIRE(crc8(binaryData, sizeof(binaryData)) == 0x2C);
   }
 
-  SECTION("All zeros") {
+  SUBCASE("all_zeros") {
     constexpr unsigned char zeros[] = {0x00, 0x00, 0x00, 0x00, 0x00};
 
     REQUIRE(crc8(zeros, sizeof(zeros)) == 0x00);
   }
 
-  SECTION("All ones") {
+  SUBCASE("all_ones") {
     constexpr unsigned char ones[] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
 
     REQUIRE(crc8(ones, sizeof(ones)) == 0x44);
   }
 
-  SECTION("Pattern data") {
+  SUBCASE("pattern_data") {
     constexpr unsigned char pattern[] = {0xAA, 0x55, 0xAA, 0x55, 0xAA, 0x55};
 
     REQUIRE(crc8(pattern, sizeof(pattern)) == 0xC5);
   }
 
-  SECTION("Sequential data") {
+  SUBCASE("sequential_data") {
     constexpr unsigned char sequential[] = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09};
 
     REQUIRE(crc8(sequential, sizeof(sequential)) == 0xF2);
   }
 
-  SECTION("Incremental CRC calculation") {
+  SUBCASE("incremental_crc_calculation") {
     constexpr CStringView part1("Toygine2 - Free ");
     constexpr CStringView part2("2D/3D game engine.");
 
@@ -122,7 +121,7 @@ TEST_CASE("crc8 function", "[core][hashes]") {
     REQUIRE(crc2 == 0x5B);
   }
 
-  SECTION("Consistency check") {
+  SUBCASE("consistency_check") {
     constexpr CStringView testString("Consistency test string");
 
     auto crc1 = crc8(testString.c_str(), testString.size());
@@ -134,7 +133,7 @@ TEST_CASE("crc8 function", "[core][hashes]") {
     REQUIRE(crc1 == 0x77);
   }
 
-  SECTION("Different data produces different CRC") {
+  SUBCASE("different_data_produces_different_crc") {
     constexpr CStringView str1("ABC");
     constexpr CStringView str2("CBA");
     constexpr CStringView str3("ABD");
@@ -148,7 +147,7 @@ TEST_CASE("crc8 function", "[core][hashes]") {
     REQUIRE(crc2 != crc3);
   }
 
-  SECTION("Edge case - single bit difference") {
+  SUBCASE("edge_case_single_bit_difference") {
     constexpr unsigned char data1[] = {0x00, 0x00};
     constexpr unsigned char data2[] = {0x01, 0x00};
 
@@ -159,93 +158,94 @@ TEST_CASE("crc8 function", "[core][hashes]") {
   }
 }
 
-TEST_CASE("crc16 function", "[core][hashes]") {
-  SECTION("Empty data") {
+// CRC-16 checksum over byte sequences.
+TEST_CASE("core/hashes/crc16_function") {
+  SUBCASE("empty_data") {
     constexpr CStringView empty("");
 
     REQUIRE(crc16(empty.c_str(), empty.size()) == 0x0000);
   }
 
-  SECTION("Single character") {
+  SUBCASE("single_character") {
     constexpr CStringView single("A");
 
     REQUIRE(crc16(single.c_str(), single.size()) == 0x30C0);
   }
 
-  SECTION("Short string") {
+  SUBCASE("short_string") {
     constexpr CStringView shortStr("Hello");
 
     REQUIRE(crc16(shortStr.c_str(), shortStr.size()) == 0xF353);
   }
 
-  SECTION("Medium string") {
+  SUBCASE("medium_string") {
     constexpr CStringView medium("Toygine2 - Free 2D/3D game engine.");
 
     REQUIRE(crc16(medium.c_str(), medium.size()) == 0x0676);
   }
 
-  SECTION("Long string") {
+  SUBCASE("long_string") {
     constexpr CStringView longStr(
       "This is a very long string that contains multiple words and should test the CRC16 algorithm with a substantial amount of data to process.");
 
     REQUIRE(crc16(longStr.c_str(), longStr.size()) == 0xB504);
   }
 
-  SECTION("String with special characters") {
+  SUBCASE("string_with_special_characters") {
     constexpr CStringView special("Hello, World! @#$%^&*()_+-=[]{}|;':\",./<>?");
 
     REQUIRE(crc16(special.c_str(), special.size()) == 0x9618);
   }
 
-  SECTION("String with numbers") {
+  SUBCASE("string_with_numbers") {
     constexpr CStringView numbers("1234567890");
 
     REQUIRE(crc16(numbers.c_str(), numbers.size()) == 0xC57A);
   }
 
-  SECTION("String with mixed content") {
+  SUBCASE("string_with_mixed_content") {
     constexpr CStringView mixed("ABC123def456GHI789jkl");
 
     REQUIRE(crc16(mixed.c_str(), mixed.size()) == 0xFF9D);
   }
 
-  SECTION("Unicode string") {
+  SUBCASE("unicode_string") {
     constexpr CStringView unicode("Привет, мир! 🌍");
 
     REQUIRE(crc16(unicode.c_str(), unicode.size()) == 0xF20D);
   }
 
-  SECTION("Binary data") {
+  SUBCASE("binary_data") {
     constexpr unsigned char binaryData[] = {0xDE, 0xAD, 0xBE, 0xEF, 0xCA, 0xFE};
 
     REQUIRE(crc16(binaryData, sizeof(binaryData)) == 0x9B7D);
   }
 
-  SECTION("All zeros") {
+  SUBCASE("all_zeros") {
     constexpr unsigned char zeros[] = {0x00, 0x00, 0x00, 0x00, 0x00};
 
     REQUIRE(crc16(zeros, sizeof(zeros)) == 0x0000);
   }
 
-  SECTION("All ones") {
+  SUBCASE("all_ones") {
     constexpr unsigned char ones[] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
 
     REQUIRE(crc16(ones, sizeof(ones)) == 0x8015);
   }
 
-  SECTION("Pattern data") {
+  SUBCASE("pattern_data") {
     constexpr unsigned char pattern[] = {0xAA, 0x55, 0xAA, 0x55, 0xAA, 0x55};
 
     REQUIRE(crc16(pattern, sizeof(pattern)) == 0x519B);
   }
 
-  SECTION("Sequential data") {
+  SUBCASE("sequential_data") {
     constexpr unsigned char sequential[] = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09};
 
     REQUIRE(crc16(sequential, sizeof(sequential)) == 0x4204);
   }
 
-  SECTION("Incremental CRC calculation") {
+  SUBCASE("incremental_crc_calculation") {
     constexpr CStringView part1("Toygine2 - Free ");
     constexpr CStringView part2("2D/3D game engine.");
 
@@ -255,7 +255,7 @@ TEST_CASE("crc16 function", "[core][hashes]") {
     REQUIRE(crc2 == 0x0676);
   }
 
-  SECTION("Consistency check") {
+  SUBCASE("consistency_check") {
     constexpr CStringView testString("Consistency test string");
 
     auto crc1 = crc16(testString.c_str(), testString.size());
@@ -267,7 +267,7 @@ TEST_CASE("crc16 function", "[core][hashes]") {
     REQUIRE(crc1 == 0xC45E);
   }
 
-  SECTION("Different data produces different CRC") {
+  SUBCASE("different_data_produces_different_crc") {
     constexpr CStringView str1("ABC");
     constexpr CStringView str2("CBA");
     constexpr CStringView str3("ABD");
@@ -281,7 +281,7 @@ TEST_CASE("crc16 function", "[core][hashes]") {
     REQUIRE(crc2 != crc3);
   }
 
-  SECTION("Edge case - single bit difference") {
+  SUBCASE("edge_case_single_bit_difference") {
     constexpr unsigned char data1[] = {0x00, 0x00};
     constexpr unsigned char data2[] = {0x01, 0x00};
 
@@ -292,93 +292,94 @@ TEST_CASE("crc16 function", "[core][hashes]") {
   }
 }
 
-TEST_CASE("crc32 function", "[core][hashes]") {
-  SECTION("Empty data") {
+// CRC-32 checksum over byte sequences.
+TEST_CASE("core/hashes/crc32_function") {
+  SUBCASE("empty_data") {
     constexpr CStringView empty("");
 
     REQUIRE(crc32(empty.c_str(), empty.size()) == 0x00000000);
   }
 
-  SECTION("Single character") {
+  SUBCASE("single_character") {
     constexpr CStringView single("A");
 
     REQUIRE(crc32(single.c_str(), single.size()) == 0xd3d99e8b);
   }
 
-  SECTION("Short string") {
+  SUBCASE("short_string") {
     constexpr CStringView shortStr("Hello");
 
     REQUIRE(crc32(shortStr.c_str(), shortStr.size()) == 0xF7D18982);
   }
 
-  SECTION("Medium string") {
+  SUBCASE("medium_string") {
     constexpr CStringView medium("Toygine2 - Free 2D/3D game engine.");
 
     REQUIRE(crc32(medium.c_str(), medium.size()) == 0xF78FCD49);
   }
 
-  SECTION("Long string") {
+  SUBCASE("long_string") {
     constexpr CStringView longStr(
       "This is a very long string that contains multiple words and should test the CRC32 algorithm with a substantial amount of data to process.");
 
     REQUIRE(crc32(longStr.c_str(), longStr.size()) == 0x9fd194da);
   }
 
-  SECTION("String with special characters") {
+  SUBCASE("string_with_special_characters") {
     constexpr CStringView special("Hello, World! @#$%^&*()_+-=[]{}|;':\",./<>?");
 
     REQUIRE(crc32(special.c_str(), special.size()) == 0xa07c9757);
   }
 
-  SECTION("String with numbers") {
+  SUBCASE("string_with_numbers") {
     constexpr CStringView numbers("1234567890");
 
     REQUIRE(crc32(numbers.c_str(), numbers.size()) == 0x261DAEE5);
   }
 
-  SECTION("String with mixed content") {
+  SUBCASE("string_with_mixed_content") {
     constexpr CStringView mixed("ABC123def456GHI789jkl");
 
     REQUIRE(crc32(mixed.c_str(), mixed.size()) == 0xc473d6d6);
   }
 
-  SECTION("Unicode string") {
+  SUBCASE("unicode_string") {
     constexpr CStringView unicode("Привет, мир! 🌍");
 
     REQUIRE(crc32(unicode.c_str(), unicode.size()) == 0xc35cc603);
   }
 
-  SECTION("Binary data") {
+  SUBCASE("binary_data") {
     constexpr unsigned char binaryData[] = {0xDE, 0xAD, 0xBE, 0xEF, 0xCA, 0xFE};
 
     REQUIRE(crc32(binaryData, sizeof(binaryData)) == 0x2542c930);
   }
 
-  SECTION("All zeros") {
+  SUBCASE("all_zeros") {
     constexpr unsigned char zeros[] = {0x00, 0x00, 0x00, 0x00, 0x00};
 
     REQUIRE(crc32(zeros, sizeof(zeros)) == 0xc622f71d);
   }
 
-  SECTION("All ones") {
+  SUBCASE("all_ones") {
     constexpr unsigned char ones[] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
 
     REQUIRE(crc32(ones, sizeof(ones)) == 0xd2fd1072);
   }
 
-  SECTION("Pattern data") {
+  SUBCASE("pattern_data") {
     constexpr unsigned char pattern[] = {0xAA, 0x55, 0xAA, 0x55, 0xAA, 0x55};
 
     REQUIRE(crc32(pattern, sizeof(pattern)) == 0xfefe37b2);
   }
 
-  SECTION("Sequential data") {
+  SUBCASE("sequential_data") {
     constexpr unsigned char sequential[] = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09};
 
     REQUIRE(crc32(sequential, sizeof(sequential)) == 0x456cd746);
   }
 
-  SECTION("Incremental CRC calculation") {
+  SUBCASE("incremental_crc_calculation") {
     constexpr CStringView part1("Toygine2 - Free ");
     constexpr CStringView part2("2D/3D game engine.");
 
@@ -388,7 +389,7 @@ TEST_CASE("crc32 function", "[core][hashes]") {
     REQUIRE(crc2 == 0xf78fcd49);
   }
 
-  SECTION("Consistency check") {
+  SUBCASE("consistency_check") {
     constexpr CStringView testString("Consistency test string");
 
     auto crc1 = crc32(testString.c_str(), testString.size());
@@ -400,7 +401,7 @@ TEST_CASE("crc32 function", "[core][hashes]") {
     REQUIRE(crc1 == 0x8fadd6d9);
   }
 
-  SECTION("Different data produces different CRC") {
+  SUBCASE("different_data_produces_different_crc") {
     constexpr CStringView str1("ABC");
     constexpr CStringView str2("CBA");
     constexpr CStringView str3("ABD");
@@ -414,7 +415,7 @@ TEST_CASE("crc32 function", "[core][hashes]") {
     REQUIRE(crc2 != crc3);
   }
 
-  SECTION("Edge case - single bit difference") {
+  SUBCASE("edge_case_single_bit_difference") {
     constexpr unsigned char data1[] = {0x00, 0x00};
     constexpr unsigned char data2[] = {0x01, 0x00};
 
