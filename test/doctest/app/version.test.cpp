@@ -320,11 +320,14 @@ TEST_CASE("app/version/runtime_tests") {
   Version v2{1, 1, 0, 0};
   Version v3{1, 1, 1, 0};
   Version v4{1, 1, 1, 1};
+  Version v5{2, 0, 0, 0};
 
   REQUIRE(v1 < v2);
   REQUIRE(v2 < v3);
   REQUIRE(v3 < v4);
+  REQUIRE(v4 < v5);
 
+  REQUIRE(v5 > v4);
   REQUIRE(v4 > v3);
   REQUIRE(v3 > v2);
   REQUIRE(v2 > v1);
@@ -332,7 +335,9 @@ TEST_CASE("app/version/runtime_tests") {
   REQUIRE(v1 <= v2);
   REQUIRE(v2 <= v3);
   REQUIRE(v3 <= v4);
+  REQUIRE(v4 <= v5);
 
+  REQUIRE(v5 >= v4);
   REQUIRE(v4 >= v3);
   REQUIRE(v3 >= v2);
   REQUIRE(v2 >= v1);
@@ -340,9 +345,10 @@ TEST_CASE("app/version/runtime_tests") {
   REQUIRE(v1 != v2);
   REQUIRE(v2 != v3);
   REQUIRE(v3 != v4);
+  REQUIRE(v4 != v5);
 
   // Test equality
-  Version v5{1, 0, 0, 0};
-  REQUIRE(v1 == v5);
+  Version v6{1, 0, 0, 0};
+  REQUIRE(v1 == v6);
   REQUIRE(!(v1 == v2));
 }
