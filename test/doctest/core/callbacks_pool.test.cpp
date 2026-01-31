@@ -30,22 +30,22 @@ int callback3Count = 0;
 
 int lastValue = 0;
 
-void callback1(int value) {
+static void callback1(int value) {
   ++callback1Count;
   lastValue = value;
 }
 
-void callback2(int value) {
+static void callback2(int value) {
   ++callback2Count;
   lastValue = value * 2;
 }
 
-void callback3(int value) {
+static void callback3(int value) {
   ++callback3Count;
   lastValue = value * 3;
 }
 
-void resetCounters() {
+static void resetCounters() {
   callback1Count = 0;
   callback2Count = 0;
   callback3Count = 0;
@@ -147,7 +147,7 @@ TEST_CASE("core/callbacks_pool/callbacks_pool_remove_method") {
   SUBCASE("remove_from_empty_pool") {
     CallbacksPool<int, 4> pool;
 
-    REQUIRE(pool.remove(callback1) == false);
+    REQUIRE(!pool.remove(callback1));
     REQUIRE(pool.subscribersAmount() == 0);
   }
 
