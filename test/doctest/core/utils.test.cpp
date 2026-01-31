@@ -337,8 +337,6 @@ TEST_CASE("core/utils/ftoa_converts_float_to_string") {
 
     static_assert(floatTestValues.size() == doubleTestValues.size() && floatTestValues.size() == asciiTestValues.size(),
                   "float, double and expected ASCII arrays must have same size");
-    REQUIRE(floatTestValues.size() == doubleTestValues.size());
-    REQUIRE(floatTestValues.size() == asciiTestValues.size());
 
     for (size_t index = 0; index < floatTestValues.size(); ++index) {
       REQUIRE(strcmp(ftoa(buffer, size(buffer), floatTestValues[index]), asciiTestValues[index]) == 0);
@@ -356,7 +354,6 @@ TEST_CASE("core/utils/format_number_string_adds_thousand_separator") {
                                                    "12", "123", "12 345 678", "-1 234 567 890", "+0", "-0", "0.0"}};
 
   static_assert(numbers.size() == parsedNumbers.size(), "input and expected arrays must have same size");
-  REQUIRE(numbers.size() == parsedNumbers.size());
 
   for (size_t index = 0; index < parsedNumbers.size(); ++index) {
     char buffer[128];
