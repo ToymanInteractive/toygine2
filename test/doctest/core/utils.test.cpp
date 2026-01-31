@@ -18,8 +18,6 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-#include <limits>
-
 #include <doctest/doctest.h>
 
 #include "core.hpp"
