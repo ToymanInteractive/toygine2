@@ -22,8 +22,7 @@
 
 #include "app.hpp"
 
-using namespace toy;
-using namespace toy::app;
+namespace toy::app {
 
 // Version constructors and initialization variants.
 TEST_CASE("app/version/constructors") {
@@ -352,3 +351,5 @@ TEST_CASE("app/version/runtime_tests") {
   REQUIRE(v1 == v6);
   REQUIRE(!(v1 == v2));
 }
+
+} // namespace toy::app
