@@ -174,6 +174,7 @@ TEST_CASE("math/vector2d/vector2d_c_arr_methods") {
 
     arr[0] = 100;
     arr[1] = -200;
+
     REQUIRE(vector.x == 100);
     REQUIRE(vector.y == -200);
   }
@@ -223,16 +224,19 @@ TEST_CASE("math/vector2d/vector2d_c_arr_methods") {
 
     arr[0] = 10;
     arr[1] = 20;
+
     REQUIRE(vector.x == 10);
     REQUIRE(vector.y == 20);
 
     *arr = 30;
     *(arr + 1) = 40;
+
     REQUIRE(vector.x == 30);
     REQUIRE(vector.y == 40);
 
     arr[0] = 50;
     arr[1] = 60;
+
     REQUIRE(vector.x == 50);
     REQUIRE(vector.y == 60);
   }
@@ -247,6 +251,7 @@ TEST_CASE("math/vector2d/vector2d_c_arr_methods") {
 
     runtimeArr[0] = 700;
     runtimeArr[1] = -800;
+
     REQUIRE(runtimeVector.x == 700);
     REQUIRE(runtimeVector.y == -800);
 
@@ -441,11 +446,10 @@ TEST_CASE("math/vector2d/vector2d_methods") {
     constexpr Vector2D vector2(1000, 1000);
     constexpr real_t tolerance = 2000;
 
-    REQUIRE(vector1.isEqual(vector2, tolerance)); // |0-1000| <= 2000 && |0-1000| <= 2000
+    REQUIRE(vector1.isEqual(vector2, tolerance));
   }
 
   SECTION("Runtime tests") {
-    // Test operators at runtime
     Vector2D vector(10, 20);
     constexpr Vector2D offset(5, -10);
 
