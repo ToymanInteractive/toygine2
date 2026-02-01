@@ -737,9 +737,9 @@ TEST_CASE("math/vector2d/binary_operators") {
     constexpr Vector2D vector1(10, 20);
     constexpr Vector2D vector2(11, 20);
 
-    REQUIRE(!(vector1 == vector2));
+    REQUIRE(vector1 != vector2);
 
-    static_assert(!(vector1 == vector2), "different vectors must not compare equal");
+    static_assert(vector1 != vector2, "different vectors must not compare equal");
   }
 
   // operator== with zero coordinates.

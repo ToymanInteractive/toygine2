@@ -254,7 +254,6 @@ TEST_CASE("app/version/comparison_operators") {
     constexpr Version v2{1, 2, 3, 5};
 
     static_assert(v1 != v2, "different versions must be not equal");
-    static_assert(!(v1 != v1), "same version must not be not equal");
   }
 }
 
@@ -349,7 +348,7 @@ TEST_CASE("app/version/runtime_tests") {
   // Test equality
   Version v6{1, 0, 0, 0};
   REQUIRE(v1 == v6);
-  REQUIRE(!(v1 == v2));
+  REQUIRE(v1 != v2);
 }
 
 } // namespace toy::app

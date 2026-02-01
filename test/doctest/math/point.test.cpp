@@ -844,9 +844,9 @@ TEST_CASE("math/point/binary_operators") {
     constexpr Point point1(10, 20);
     constexpr Point point2(11, 20);
 
-    REQUIRE(!(point1 == point2));
+    REQUIRE(point1 != point2);
 
-    static_assert(!(point1 == point2), "different points must not compare equal");
+    static_assert(point1 != point2, "different points must not compare equal");
   }
 
   // operator== with zero coordinates.
