@@ -60,6 +60,7 @@ constexpr array<const char *, 16> asciiTestValues{{"0", "0", "1e+7", "-1e+7", "1
 
 // UTF-8 to wide character conversion.
 TEST_CASE("core/utils/utf8_to_wchar_converts_utf8_to_wide_string") {
+  // nullptr input yields empty wide string.
   SUBCASE("nullptr input") {
     wchar_t testBuffer[utf8TestData.size()];
 
@@ -67,6 +68,7 @@ TEST_CASE("core/utils/utf8_to_wchar_converts_utf8_to_wide_string") {
     REQUIRE(wcscmp(testBuffer, L"") == 0);
   }
 
+  // Empty string yields empty wide string.
   SUBCASE("empty string") {
     wchar_t testBuffer[utf8TestData.size()];
 
@@ -74,6 +76,7 @@ TEST_CASE("core/utils/utf8_to_wchar_converts_utf8_to_wide_string") {
     REQUIRE(wcscmp(testBuffer, L"") == 0);
   }
 
+  // UTF-8 C array converts to wide string.
   SUBCASE("utf8 C array") {
     wchar_t testBuffer[utf8TestData.size()];
 
@@ -84,6 +87,7 @@ TEST_CASE("core/utils/utf8_to_wchar_converts_utf8_to_wide_string") {
     REQUIRE(wcscmp(testBuffer, unicodeTestData.data()) == 0);
   }
 
+  // UTF-8 C string converts to wide string.
   SUBCASE("utf8 C string") {
     wchar_t testBuffer[utf8TestData.size()];
 
@@ -93,6 +97,7 @@ TEST_CASE("core/utils/utf8_to_wchar_converts_utf8_to_wide_string") {
     REQUIRE(wcscmp(testBuffer, unicodeTestData.data()) == 0);
   }
 
+  // UTF-8 std::string converts to wide string.
   SUBCASE("utf8 std::string") {
     wchar_t testBuffer[utf8TestData.size()];
 
@@ -103,6 +108,7 @@ TEST_CASE("core/utils/utf8_to_wchar_converts_utf8_to_wide_string") {
     REQUIRE(wcscmp(testBuffer, unicodeTestData.data()) == 0);
   }
 
+  // Null buffer returns nullptr.
   SUBCASE("null buffer returns nullptr") {
     REQUIRE(utf8toWChar(nullptr, 10, "test", 4) == nullptr);
   }
@@ -110,6 +116,7 @@ TEST_CASE("core/utils/utf8_to_wchar_converts_utf8_to_wide_string") {
 
 // Wide character to UTF-8 conversion.
 TEST_CASE("core/utils/wchar_to_utf8_converts_wide_to_utf8_string") {
+  // nullptr input yields empty UTF-8 string.
   SUBCASE("nullptr input") {
     char testBuffer[unicodeTestData.size() * wcharInUtf8MaxSize];
 
@@ -117,6 +124,7 @@ TEST_CASE("core/utils/wchar_to_utf8_converts_wide_to_utf8_string") {
     REQUIRE(strcmp(testBuffer, "") == 0);
   }
 
+  // Empty wide string yields empty UTF-8 string.
   SUBCASE("empty string") {
     char testBuffer[unicodeTestData.size() * wcharInUtf8MaxSize];
 
@@ -124,6 +132,7 @@ TEST_CASE("core/utils/wchar_to_utf8_converts_wide_to_utf8_string") {
     REQUIRE(strcmp(testBuffer, "") == 0);
   }
 
+  // Wide C string converts to UTF-8.
   SUBCASE("wchar C string") {
     char testBuffer[unicodeTestData.size() * wcharInUtf8MaxSize];
 
@@ -133,6 +142,7 @@ TEST_CASE("core/utils/wchar_to_utf8_converts_wide_to_utf8_string") {
     REQUIRE(strcmp(reinterpret_cast<const char *>(utf8TestData.data()), testBuffer) == 0);
   }
 
+  // Buffer size limits; insufficient buffer yields empty.
   SUBCASE("buffer size limits") {
     char testBuffer[unicodeTestData.size() * wcharInUtf8MaxSize];
 
@@ -140,6 +150,7 @@ TEST_CASE("core/utils/wchar_to_utf8_converts_wide_to_utf8_string") {
     REQUIRE(strcmp(testBuffer, "") == 0);
   }
 
+  // Null buffer returns nullptr (wcharToUtf8).
   SUBCASE("null buffer returns nullptr") {
     REQUIRE(wcharToUtf8(nullptr, 10, L"test") == nullptr);
   }
@@ -147,18 +158,21 @@ TEST_CASE("core/utils/wchar_to_utf8_converts_wide_to_utf8_string") {
 
 // UTF-8 string length in code points.
 TEST_CASE("core/utils/utf8_len_returns_unicode_code_point_count") {
+  // ASCII string length equals byte length.
   SUBCASE("ASCII string length equals byte length") {
     const char * asciiSample = "Hello World!";
 
     REQUIRE(std::char_traits<char>::length(asciiSample) == utf8Len(asciiSample));
   }
 
+  // Empty string has zero length.
   SUBCASE("empty string") {
     const char * emptySample = "";
 
     REQUIRE(utf8Len(emptySample) == 0);
   }
 
+  // Multi-byte UTF-8 length equals code point count.
   SUBCASE("multi-byte UTF-8 length equals code point count") {
     REQUIRE(std::char_traits<char>::length(reinterpret_cast<const char *>(utf8TestData.data()))
             != utf8Len(reinterpret_cast<const char *>(utf8TestData.data())));
@@ -168,6 +182,7 @@ TEST_CASE("core/utils/utf8_len_returns_unicode_code_point_count") {
 
 // In-place string reversal.
 TEST_CASE("core/utils/reverse_string_reverses_in_place") {
+  // Initial copy matches source before reverse.
   SUBCASE("initial copy matches source") {
     char reverseBuffer[utf8TestData.size()];
 
@@ -177,6 +192,7 @@ TEST_CASE("core/utils/reverse_string_reverses_in_place") {
     REQUIRE(std::char_traits<char>::length(reverseBuffer) == utf8TestData.size() - 1);
   }
 
+  // First reverse changes content and preserves length.
   SUBCASE("first reverse changes content and preserves length") {
     char reverseBuffer[utf8TestData.size()];
 
@@ -187,6 +203,7 @@ TEST_CASE("core/utils/reverse_string_reverses_in_place") {
     REQUIRE(std::char_traits<char>::length(reverseBuffer) == utf8TestData.size() - 1);
   }
 
+  // Reversed bytes match source in reverse order.
   SUBCASE("reversed bytes match source in reverse order") {
     char reverseBuffer[utf8TestData.size()];
 
@@ -198,6 +215,7 @@ TEST_CASE("core/utils/reverse_string_reverses_in_place") {
     }
   }
 
+  // Second reverse restores original.
   SUBCASE("second reverse restores original") {
     char reverseBuffer[utf8TestData.size()];
 
@@ -211,6 +229,7 @@ TEST_CASE("core/utils/reverse_string_reverses_in_place") {
 
 // Signed integer to string conversion.
 TEST_CASE("core/utils/itoa_converts_integer_to_string") {
+  // int8_t min, max, zero.
   SUBCASE("int8_t") {
     char buffer[8];
 
@@ -219,6 +238,7 @@ TEST_CASE("core/utils/itoa_converts_integer_to_string") {
     REQUIRE(strcmp(itoa(buffer, size(buffer), static_cast<int8_t>(0)), "0") == 0);
   }
 
+  // int16_t min, max, zero.
   SUBCASE("int16_t") {
     char buffer[8];
 
@@ -227,6 +247,7 @@ TEST_CASE("core/utils/itoa_converts_integer_to_string") {
     REQUIRE(strcmp(itoa(buffer, size(buffer), static_cast<int16_t>(0)), "0") == 0);
   }
 
+  // int32_t min, max, zero.
   SUBCASE("int32_t") {
     char buffer[12];
 
@@ -235,6 +256,7 @@ TEST_CASE("core/utils/itoa_converts_integer_to_string") {
     REQUIRE(strcmp(itoa(buffer, size(buffer), static_cast<int32_t>(0)), "0") == 0);
   }
 
+  // int64_t min, max, zero.
   SUBCASE("int64_t") {
     char buffer[24];
 
@@ -246,6 +268,7 @@ TEST_CASE("core/utils/itoa_converts_integer_to_string") {
 
 // Unsigned integer to string conversion with radix (2, 8, 10, 16).
 TEST_CASE("core/utils/utoa_converts_unsigned_integer_to_string") {
+  // uint8_t min/max in radix 2, 8, 10, 16.
   SUBCASE("uint8_t") {
     char buffer[12];
 
@@ -259,6 +282,7 @@ TEST_CASE("core/utils/utoa_converts_unsigned_integer_to_string") {
     REQUIRE(strcmp(utoa(buffer, size(buffer), std::numeric_limits<uint8_t>::max(), 16), "FF") == 0);
   }
 
+  // uint16_t min/max in radix 2, 8, 10, 16.
   SUBCASE("uint16_t") {
     char buffer[20];
 
@@ -272,6 +296,7 @@ TEST_CASE("core/utils/utoa_converts_unsigned_integer_to_string") {
     REQUIRE(strcmp(utoa(buffer, size(buffer), std::numeric_limits<uint16_t>::max(), 16), "FFFF") == 0);
   }
 
+  // uint32_t min/max in radix 2, 8, 10, 16.
   SUBCASE("uint32_t") {
     char buffer[36];
 
@@ -287,6 +312,7 @@ TEST_CASE("core/utils/utoa_converts_unsigned_integer_to_string") {
     REQUIRE(strcmp(utoa(buffer, size(buffer), std::numeric_limits<uint32_t>::max(), 16), "FFFFFFFF") == 0);
   }
 
+  // uint64_t min/max in radix 2, 8, 10, 16.
   SUBCASE("uint64_t") {
     char buffer[68];
 
@@ -305,6 +331,7 @@ TEST_CASE("core/utils/utoa_converts_unsigned_integer_to_string") {
 
 // Floating-point to string conversion.
 TEST_CASE("core/utils/ftoa_converts_float_to_string") {
+  // Float and double positive values.
   SUBCASE("float and double positive") {
     char buffer[32];
 
@@ -312,6 +339,7 @@ TEST_CASE("core/utils/ftoa_converts_float_to_string") {
     REQUIRE(strcmp(ftoa(buffer, size(buffer), 3.1415926535897932384626433832795), "3.14159244298935") == 0);
   }
 
+  // Float and double negative values.
   SUBCASE("float and double negative") {
     char buffer[32];
 
@@ -319,6 +347,7 @@ TEST_CASE("core/utils/ftoa_converts_float_to_string") {
     REQUIRE(strcmp(ftoa(buffer, size(buffer), -3.1415926535897932384626433832795), "-3.14159244298935") == 0);
   }
 
+  // Infinity and NaN formatting.
   SUBCASE("infinity and nan") {
     char buffer[32];
 
@@ -332,6 +361,7 @@ TEST_CASE("core/utils/ftoa_converts_float_to_string") {
     REQUIRE(strcmp(ftoa(buffer, size(buffer), -std::numeric_limits<double>::quiet_NaN()), "-NAN") == 0);
   }
 
+  // Array of float and double values vs expected ASCII.
   SUBCASE("array of float and double values") {
     char buffer[32];
 

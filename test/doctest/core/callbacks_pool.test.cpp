@@ -53,7 +53,8 @@ static void resetCounters() {
 }
 
 // Default and template-parameterized constructors.
-TEST_CASE("core/callbacks_pool/callbacks_pool_constructors") {
+TEST_CASE("core/callbacks_pool/constructors") {
+  // Default constructor yields zero subscribers.
   SUBCASE("default_constructor") {
     constexpr CallbacksPool<int, 4> pool;
 
@@ -62,6 +63,7 @@ TEST_CASE("core/callbacks_pool/callbacks_pool_constructors") {
     static_assert(pool.subscribersAmount() == 0, "default-constructed pool must have zero subscribers");
   }
 
+  // Different template parameters yield zero subscribers.
   SUBCASE("different_template_parameters") {
     constexpr CallbacksPool<double, 2> smallPool;
     constexpr CallbacksPool<int, 8> largePool;
@@ -75,7 +77,8 @@ TEST_CASE("core/callbacks_pool/callbacks_pool_constructors") {
 }
 
 // add() subscribes callbacks; duplicate add is idempotent.
-TEST_CASE("core/callbacks_pool/callbacks_pool_add_method") {
+TEST_CASE("core/callbacks_pool/add_method") {
+  // Add single callback.
   SUBCASE("add_single_callback") {
     CallbacksPool<int, 4> pool;
 
@@ -83,6 +86,7 @@ TEST_CASE("core/callbacks_pool/callbacks_pool_add_method") {
     REQUIRE(pool.subscribersAmount() == 1);
   }
 
+  // Add multiple callbacks.
   SUBCASE("add_multiple_callbacks") {
     CallbacksPool<int, 4> pool;
 
@@ -96,6 +100,7 @@ TEST_CASE("core/callbacks_pool/callbacks_pool_add_method") {
     REQUIRE(pool.subscribersAmount() == 3);
   }
 
+  // Duplicate add is idempotent; count unchanged.
   SUBCASE("add_duplicate_callback_idempotent") {
     CallbacksPool<int, 4> pool;
 
@@ -106,6 +111,7 @@ TEST_CASE("core/callbacks_pool/callbacks_pool_add_method") {
     REQUIRE(pool.subscribersAmount() == 1);
   }
 
+  // Add with different parameter types.
   SUBCASE("add_with_different_types") {
     CallbacksPool<double, 4> doublePool;
     CallbacksPool<size_t, 4> sizePool;
@@ -119,7 +125,8 @@ TEST_CASE("core/callbacks_pool/callbacks_pool_add_method") {
 }
 
 // remove() unsubscribes callbacks; remove from empty or non-existent returns false.
-TEST_CASE("core/callbacks_pool/callbacks_pool_remove_method") {
+TEST_CASE("core/callbacks_pool/remove_method") {
+  // Remove existing callback.
   SUBCASE("remove_existing_callback") {
     CallbacksPool<int, 4> pool;
 
@@ -134,6 +141,7 @@ TEST_CASE("core/callbacks_pool/callbacks_pool_remove_method") {
     REQUIRE(pool.subscribersAmount() == 0);
   }
 
+  // Remove nonexistent callback leaves pool unchanged.
   SUBCASE("remove_nonexistent_callback") {
     CallbacksPool<int, 4> pool;
 
@@ -144,6 +152,7 @@ TEST_CASE("core/callbacks_pool/callbacks_pool_remove_method") {
     REQUIRE(pool.subscribersAmount() == 1);
   }
 
+  // Remove from empty pool returns false.
   SUBCASE("remove_from_empty_pool") {
     CallbacksPool<int, 4> pool;
 
@@ -151,6 +160,7 @@ TEST_CASE("core/callbacks_pool/callbacks_pool_remove_method") {
     REQUIRE(pool.subscribersAmount() == 0);
   }
 
+  // Remove and readd same callback.
   SUBCASE("remove_and_readd") {
     CallbacksPool<int, 4> pool;
 
@@ -164,6 +174,7 @@ TEST_CASE("core/callbacks_pool/callbacks_pool_remove_method") {
     REQUIRE(pool.subscribersAmount() == 1);
   }
 
+  // Remove multiple callbacks.
   SUBCASE("remove_multiple_callbacks") {
     CallbacksPool<int, 4> pool;
 
@@ -184,7 +195,8 @@ TEST_CASE("core/callbacks_pool/callbacks_pool_remove_method") {
 }
 
 // reset() clears all subscribers; pool is reusable after reset.
-TEST_CASE("core/callbacks_pool/callbacks_pool_reset_method") {
+TEST_CASE("core/callbacks_pool/reset_method") {
+  // Reset empty pool.
   SUBCASE("reset_empty_pool") {
     CallbacksPool<int, 4> pool;
 
@@ -193,6 +205,7 @@ TEST_CASE("core/callbacks_pool/callbacks_pool_reset_method") {
     REQUIRE(pool.subscribersAmount() == 0);
   }
 
+  // Reset pool with callbacks clears all.
   SUBCASE("reset_pool_with_callbacks") {
     CallbacksPool<int, 4> pool;
 
@@ -206,6 +219,7 @@ TEST_CASE("core/callbacks_pool/callbacks_pool_reset_method") {
     REQUIRE(pool.subscribersAmount() == 0);
   }
 
+  // Reset and reuse pool.
   SUBCASE("reset_and_reuse") {
     CallbacksPool<int, 4> pool;
 
@@ -222,6 +236,7 @@ TEST_CASE("core/callbacks_pool/callbacks_pool_reset_method") {
     REQUIRE(pool.subscribersAmount() == 2);
   }
 
+  // Multiple resets.
   SUBCASE("multiple_resets") {
     CallbacksPool<int, 4> pool;
 
@@ -239,13 +254,15 @@ TEST_CASE("core/callbacks_pool/callbacks_pool_reset_method") {
 }
 
 // subscribersAmount() returns current subscriber count.
-TEST_CASE("core/callbacks_pool/callbacks_pool_subscribers_amount_method") {
+TEST_CASE("core/callbacks_pool/subscribers_amount_method") {
+  // Empty pool has zero count.
   SUBCASE("empty_pool") {
     CallbacksPool<int, 4> pool;
 
     REQUIRE(pool.subscribersAmount() == 0);
   }
 
+  // Count after adding callbacks.
   SUBCASE("count_after_adding") {
     CallbacksPool<int, 4> pool;
 
@@ -258,6 +275,7 @@ TEST_CASE("core/callbacks_pool/callbacks_pool_subscribers_amount_method") {
     REQUIRE(pool.subscribersAmount() == 3);
   }
 
+  // Count after removing callbacks.
   SUBCASE("count_after_removing") {
     CallbacksPool<int, 4> pool;
 
@@ -276,6 +294,7 @@ TEST_CASE("core/callbacks_pool/callbacks_pool_subscribers_amount_method") {
     REQUIRE(pool.subscribersAmount() == 0);
   }
 
+  // Count after duplicate add unchanged.
   SUBCASE("count_after_duplicate_add") {
     CallbacksPool<int, 4> pool;
 
@@ -286,6 +305,7 @@ TEST_CASE("core/callbacks_pool/callbacks_pool_subscribers_amount_method") {
     REQUIRE(pool.subscribersAmount() == 1);
   }
 
+  // Count with different pool sizes.
   SUBCASE("count_with_different_pool_sizes") {
     CallbacksPool<int, 2> smallPool;
 
@@ -304,7 +324,8 @@ TEST_CASE("core/callbacks_pool/callbacks_pool_subscribers_amount_method") {
 }
 
 // call() invokes all subscribed callbacks with the given argument.
-TEST_CASE("core/callbacks_pool/callbacks_pool_call_method") {
+TEST_CASE("core/callbacks_pool/call_method") {
+  // Call with no callbacks; counters unchanged.
   SUBCASE("call_with_no_callbacks") {
     CallbacksPool<int, 4> pool;
 
@@ -316,6 +337,7 @@ TEST_CASE("core/callbacks_pool/callbacks_pool_call_method") {
     REQUIRE(callback3Count == 0);
   }
 
+  // Call single callback.
   SUBCASE("call_single_callback") {
     CallbacksPool<int, 4> pool;
 
@@ -331,6 +353,7 @@ TEST_CASE("core/callbacks_pool/callbacks_pool_call_method") {
     REQUIRE(lastValue == 10);
   }
 
+  // Call multiple callbacks.
   SUBCASE("call_multiple_callbacks") {
     CallbacksPool<int, 4> pool;
 
@@ -348,6 +371,7 @@ TEST_CASE("core/callbacks_pool/callbacks_pool_call_method") {
     REQUIRE(lastValue == 15);
   }
 
+  // Call after removal invokes remaining only.
   SUBCASE("call_after_removal") {
     CallbacksPool<int, 4> pool;
 
@@ -366,6 +390,7 @@ TEST_CASE("core/callbacks_pool/callbacks_pool_call_method") {
     REQUIRE(callback3Count == 1);
   }
 
+  // Call multiple times; callback invoked each time.
   SUBCASE("call_multiple_times") {
     CallbacksPool<int, 4> pool;
 
@@ -386,6 +411,7 @@ TEST_CASE("core/callbacks_pool/callbacks_pool_call_method") {
     REQUIRE(callback1Count == 3);
   }
 
+  // Call with different parameter values.
   SUBCASE("call_with_different_parameter_values") {
     CallbacksPool<int, 4> pool;
 
@@ -406,6 +432,7 @@ TEST_CASE("core/callbacks_pool/callbacks_pool_call_method") {
     REQUIRE(lastValue == -50);
   }
 
+  // Call after reset invokes none.
   SUBCASE("call_after_reset") {
     CallbacksPool<int, 4> pool;
 
@@ -424,7 +451,8 @@ TEST_CASE("core/callbacks_pool/callbacks_pool_call_method") {
 }
 
 // Add, remove, reset, call in sequence; duplicate and re-add behavior.
-TEST_CASE("core/callbacks_pool/callbacks_pool_integration") {
+TEST_CASE("core/callbacks_pool/integration") {
+  // Full lifecycle: add, call, remove, reset, add again.
   SUBCASE("full_lifecycle") {
     CallbacksPool<int, 4> pool;
 
@@ -468,6 +496,7 @@ TEST_CASE("core/callbacks_pool/callbacks_pool_integration") {
     REQUIRE(callback3Count == 1);
   }
 
+  // Duplicate add; single subscription, single invocation.
   SUBCASE("duplicate_handling") {
     CallbacksPool<int, 4> pool;
 
@@ -484,6 +513,7 @@ TEST_CASE("core/callbacks_pool/callbacks_pool_integration") {
     REQUIRE(callback1Count == 1);
   }
 
+  // Remove and add same callback; count and invocation correct.
   SUBCASE("remove_and_add_same_callback") {
     CallbacksPool<int, 4> pool;
 
