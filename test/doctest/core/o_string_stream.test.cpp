@@ -28,7 +28,8 @@
 namespace toy {
 
 // Constructors from default, FixedString, std::string, CStringView.
-TEST_CASE("core/o_string_stream/o_string_stream_constructors") {
+TEST_CASE("core/o_string_stream/constructors") {
+  // Default constructor yields empty string.
   SUBCASE("default_constructor") {
     constexpr OStringStream<FixedString<32>> emptyStream;
 
@@ -37,6 +38,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_constructors") {
     static_assert(emptyStream.str() == "", "default-constructed stream must have empty str");
   }
 
+  // Constructor from FixedString.
   SUBCASE("constructor_from_fixed_string") {
     constexpr FixedString<16> source("Hello");
     constexpr OStringStream<FixedString<32>> stream(source);
@@ -46,6 +48,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_constructors") {
     static_assert(stream.str() == "Hello", "str must match source FixedString");
   }
 
+  // Constructor from std::string.
   SUBCASE("constructor_from_std_string") {
     std::string source = "World";
     OStringStream<FixedString<64>> stream(source);
@@ -53,6 +56,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_constructors") {
     REQUIRE(stream.str() == "World");
   }
 
+  // Constructor from CStringView.
   SUBCASE("constructor_from_c_string_view") {
     constexpr CStringView view("Test");
     constexpr OStringStream<FixedString<32>> stream(view);
@@ -62,6 +66,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_constructors") {
     static_assert(stream.str() == "Test", "str must match source CStringView");
   }
 
+  // Constructor with empty string.
   SUBCASE("constructor_with_empty_string") {
     constexpr FixedString<16> empty;
     constexpr OStringStream<FixedString<32>> stream(empty);
@@ -73,7 +78,8 @@ TEST_CASE("core/o_string_stream/o_string_stream_constructors") {
 }
 
 // Copy and move assignment.
-TEST_CASE("core/o_string_stream/o_string_stream_assignment_operators") {
+TEST_CASE("core/o_string_stream/assignment_operators") {
+  // Copy assignment copies content.
   SUBCASE("copy_assignment") {
     constexpr OStringStream<FixedString<32>> source(FixedString<16>("Source"));
     OStringStream<FixedString<32>> target;
@@ -84,6 +90,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_assignment_operators") {
     REQUIRE(source.str() == "Source");
   }
 
+  // Move assignment moves content.
   SUBCASE("move_assignment") {
     OStringStream<FixedString<32>> source(FixedString<16>("Move"));
     OStringStream<FixedString<32>> target;
@@ -95,7 +102,8 @@ TEST_CASE("core/o_string_stream/o_string_stream_assignment_operators") {
 }
 
 // swap() exchanges content and precision.
-TEST_CASE("core/o_string_stream/o_string_stream_swap") {
+TEST_CASE("core/o_string_stream/swap") {
+  // Swap two streams with content and precision.
   SUBCASE("swap_two_streams_with_content") {
     OStringStream<FixedString<32>> stream1(FixedString<16>("First"));
     OStringStream<FixedString<32>> stream2(FixedString<16>("Second"));
@@ -111,6 +119,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_swap") {
     REQUIRE(stream2.precision() == 3);
   }
 
+  // Swap with empty stream.
   SUBCASE("swap_with_empty_stream") {
     OStringStream<FixedString<32>> stream1(FixedString<16>("Content"));
     OStringStream<FixedString<32>> stream2;
@@ -125,6 +134,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_swap") {
     REQUIRE(stream2.precision() == 5);
   }
 
+  // Self-swap is no-op.
   SUBCASE("self_swap") {
     OStringStream<FixedString<32>> stream(FixedString<16>("Test"));
 
@@ -135,6 +145,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_swap") {
     REQUIRE(stream.precision() == 8);
   }
 
+  // Swap empty streams; precision exchanged.
   SUBCASE("swap_empty_streams") {
     OStringStream<FixedString<32>> stream1;
     OStringStream<FixedString<32>> stream2;
@@ -152,7 +163,8 @@ TEST_CASE("core/o_string_stream/o_string_stream_swap") {
 }
 
 // str() setter from FixedString, CStringView, std::string.
-TEST_CASE("core/o_string_stream/o_string_stream_str_setter") {
+TEST_CASE("core/o_string_stream/str_setter") {
+  // str() setter from FixedString.
   SUBCASE("set_from_fixed_string") {
     OStringStream<FixedString<64>> stream(FixedString<16>("Old"));
     constexpr FixedString<16> source("NewContent");
@@ -162,6 +174,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_str_setter") {
     REQUIRE(stream.str() == "NewContent");
   }
 
+  // str() setter from CStringView.
   SUBCASE("set_from_c_string_view") {
     OStringStream<FixedString<64>> stream(FixedString<16>("Old"));
     constexpr CStringView view("NewContent");
@@ -171,6 +184,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_str_setter") {
     REQUIRE(stream.str() == "NewContent");
   }
 
+  // str() setter from std::string.
   SUBCASE("set_from_std_string") {
     OStringStream<FixedString<64>> stream(FixedString<16>("Old"));
     std::string source = "NewContent";
@@ -180,6 +194,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_str_setter") {
     REQUIRE(stream.str() == "NewContent");
   }
 
+  // str() setter to empty string.
   SUBCASE("set_empty_string") {
     OStringStream<FixedString<32>> stream(FixedString<16>("Content"));
     constexpr FixedString<16> empty;
@@ -189,6 +204,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_str_setter") {
     REQUIRE(stream.str().empty());
   }
 
+  // str() setter multiple times.
   SUBCASE("set_multiple_times") {
     OStringStream<FixedString<32>> stream;
     constexpr FixedString<16> first("First");
@@ -207,7 +223,8 @@ TEST_CASE("core/o_string_stream/o_string_stream_str_setter") {
 }
 
 // view() returns CStringView of current content.
-TEST_CASE("core/o_string_stream/o_string_stream_view") {
+TEST_CASE("core/o_string_stream/view") {
+  // view() with content.
   SUBCASE("view_with_content") {
     constexpr OStringStream<FixedString<32>> stream(FixedString<16>("Hello"));
     auto view = stream.view();
@@ -215,6 +232,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_view") {
     REQUIRE(view == "Hello");
   }
 
+  // view() with empty stream.
   SUBCASE("view_with_empty_stream") {
     constexpr OStringStream<FixedString<32>> stream;
     auto view = stream.view();
@@ -222,6 +240,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_view") {
     REQUIRE(view.empty());
   }
 
+  // view() reflects current content after str().
   SUBCASE("view_reflects_current_content") {
     OStringStream<FixedString<32>> stream(FixedString<16>("Initial"));
     auto view1 = stream.view();
@@ -234,6 +253,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_view") {
     REQUIRE(view2 == "Updated");
   }
 
+  // Multiple views of same stream are equal.
   SUBCASE("multiple_views_of_same_stream") {
     OStringStream<FixedString<32>> stream(FixedString<16>("Content"));
     auto view1 = stream.view();
@@ -244,7 +264,8 @@ TEST_CASE("core/o_string_stream/o_string_stream_view") {
 }
 
 // put() appends a single character; returns reference for chaining.
-TEST_CASE("core/o_string_stream/o_string_stream_put") {
+TEST_CASE("core/o_string_stream/put") {
+  // put() single character to empty stream.
   SUBCASE("put_single_character_to_empty_stream") {
     OStringStream<FixedString<32>> stream;
 
@@ -253,6 +274,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_put") {
     REQUIRE(stream.str() == "A");
   }
 
+  // put() single character to stream with content.
   SUBCASE("put_single_character_to_stream_with_content") {
     OStringStream<FixedString<32>> stream(FixedString<16>("Hello"));
 
@@ -261,6 +283,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_put") {
     REQUIRE(stream.str() == "Hello!");
   }
 
+  // put() multiple characters with chaining.
   SUBCASE("put_multiple_characters_with_chaining") {
     OStringStream<FixedString<32>> stream;
 
@@ -269,6 +292,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_put") {
     REQUIRE(stream.str() == "Hello");
   }
 
+  // put() to stream and verify content.
   SUBCASE("put_to_stream_and_verify_content") {
     OStringStream<FixedString<32>> stream(FixedString<16>("Test"));
 
@@ -277,6 +301,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_put") {
     REQUIRE(stream.str() == "Test123");
   }
 
+  // put() special characters (space, newline, tab).
   SUBCASE("put_special_characters") {
     OStringStream<FixedString<32>> stream;
 
@@ -289,6 +314,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_put") {
     REQUIRE(stream.str()[3] == '!');
   }
 
+  // put() returns reference for chaining.
   SUBCASE("put_returns_reference_for_chaining") {
     OStringStream<FixedString<32>> stream1;
     OStringStream<FixedString<32>> stream2;
@@ -304,7 +330,8 @@ TEST_CASE("core/o_string_stream/o_string_stream_put") {
 }
 
 // write() appends count bytes; returns reference for chaining.
-TEST_CASE("core/o_string_stream/o_string_stream_write") {
+TEST_CASE("core/o_string_stream/write") {
+  // write() to empty stream.
   SUBCASE("write_to_empty_stream") {
     OStringStream<FixedString<32>> stream;
     const char * buffer = "Hello";
@@ -314,6 +341,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_write") {
     REQUIRE(stream.str() == "Hello");
   }
 
+  // write() to stream with content.
   SUBCASE("write_to_stream_with_content") {
     OStringStream<FixedString<32>> stream(FixedString<16>("Test"));
     const char * buffer = "123";
@@ -323,6 +351,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_write") {
     REQUIRE(stream.str() == "Test123");
   }
 
+  // write() with zero count leaves content unchanged.
   SUBCASE("write_zero_count") {
     OStringStream<FixedString<32>> stream(FixedString<16>("Initial"));
     const char * buffer = "Data";
@@ -332,6 +361,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_write") {
     REQUIRE(stream.str() == "Initial");
   }
 
+  // write() partial string.
   SUBCASE("write_partial_string") {
     OStringStream<FixedString<32>> stream;
     const char * buffer = "Hello World";
@@ -341,6 +371,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_write") {
     REQUIRE(stream.str() == "Hello");
   }
 
+  // write() multiple times with chaining.
   SUBCASE("write_multiple_times_with_chaining") {
     OStringStream<FixedString<32>> stream;
     const char * buffer1 = "Hello";
@@ -351,6 +382,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_write") {
     REQUIRE(stream.str() == "Hello World");
   }
 
+  // write() binary data.
   SUBCASE("write_binary_data") {
     OStringStream<FixedString<32>> stream;
     constexpr const char buffer[] = {'H', 'e', 'l', 'l', 'o'};
@@ -360,6 +392,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_write") {
     REQUIRE(stream.str() == "Hello");
   }
 
+  // write() returns reference for chaining.
   SUBCASE("write_returns_reference_for_chaining") {
     OStringStream<FixedString<32>> stream1;
     OStringStream<FixedString<32>> stream2;
@@ -377,7 +410,8 @@ TEST_CASE("core/o_string_stream/o_string_stream_write") {
 }
 
 // tellp() returns current write position.
-TEST_CASE("core/o_string_stream/o_string_stream_tellp") {
+TEST_CASE("core/o_string_stream/tellp") {
+  // tellp() on empty stream is zero.
   SUBCASE("tellp_on_empty_stream") {
     constexpr OStringStream<FixedString<32>> stream;
 
@@ -386,6 +420,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_tellp") {
     static_assert(stream.tellp() == 0, "tellp must be 0 for empty stream");
   }
 
+  // tellp() after construction equals length.
   SUBCASE("tellp_after_construction") {
     constexpr OStringStream<FixedString<32>> stream(FixedString<16>("Hello"));
 
@@ -394,6 +429,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_tellp") {
     static_assert(stream.tellp() == 5, "tellp must match string length after construction");
   }
 
+  // tellp() after put().
   SUBCASE("tellp_after_put") {
     OStringStream<FixedString<32>> stream;
 
@@ -406,6 +442,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_tellp") {
     REQUIRE(stream.tellp() == 2);
   }
 
+  // tellp() after write().
   SUBCASE("tellp_after_write") {
     OStringStream<FixedString<32>> stream;
     const char * buffer = "Hello";
@@ -419,6 +456,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_tellp") {
     REQUIRE(stream.tellp() == 10);
   }
 
+  // tellp() after multiple operations.
   SUBCASE("tellp_after_multiple_operations") {
     OStringStream<FixedString<32>> stream(FixedString<16>("Test"));
 
@@ -431,6 +469,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_tellp") {
     REQUIRE(stream.tellp() == 7);
   }
 
+  // tellp() equals string size.
   SUBCASE("tellp_equals_string_size") {
     OStringStream<FixedString<32>> stream;
 
@@ -442,7 +481,8 @@ TEST_CASE("core/o_string_stream/o_string_stream_tellp") {
 }
 
 // precision() get/set; default 6.
-TEST_CASE("core/o_string_stream/o_string_stream_precision") {
+TEST_CASE("core/o_string_stream/precision") {
+  // Default precision is 6.
   SUBCASE("default_precision") {
     constexpr OStringStream<FixedString<32>> stream;
 
@@ -451,6 +491,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_precision") {
     static_assert(stream.precision() == 6, "default precision must be 6");
   }
 
+  // set_precision() and precision() getter.
   SUBCASE("set_precision") {
     OStringStream<FixedString<32>> stream;
 
@@ -462,6 +503,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_precision") {
     REQUIRE(stream.precision() == 10);
   }
 
+  // set_precision() multiple times.
   SUBCASE("set_precision_multiple_times") {
     OStringStream<FixedString<32>> stream;
 
@@ -480,6 +522,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_precision") {
     REQUIRE(stream.precision() == 0);
   }
 
+  // Precision independent of stream content.
   SUBCASE("precision_is_independent_of_stream_content") {
     OStringStream<FixedString<32>> stream;
 
@@ -495,7 +538,8 @@ TEST_CASE("core/o_string_stream/o_string_stream_precision") {
 }
 
 // operator<< for bool, integers, float, double, pointer, char, StringLike, C string.
-TEST_CASE("core/o_string_stream/o_string_stream_operator_insert") {
+TEST_CASE("core/o_string_stream/operator_insert") {
+  // operator<< true.
   SUBCASE("insert_true_boolean_value") {
     OStringStream<FixedString<32>> stream;
 
@@ -504,6 +548,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_operator_insert") {
     REQUIRE(stream.str() == "true");
   }
 
+  // operator<< false.
   SUBCASE("insert_false_boolean_value") {
     OStringStream<FixedString<32>> stream;
 
@@ -512,6 +557,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_operator_insert") {
     REQUIRE(stream.str() == "false");
   }
 
+  // operator<< boolean to stream with content.
   SUBCASE("insert_boolean_to_stream_with_content") {
     OStringStream<FixedString<32>> stream(CStringView("Value: "));
 
@@ -520,6 +566,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_operator_insert") {
     REQUIRE(stream.str() == "Value: true");
   }
 
+  // operator<< chaining with boolean.
   SUBCASE("operator_chaining_with_boolean") {
     OStringStream<FixedString<32>> stream;
 
@@ -528,6 +575,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_operator_insert") {
     REQUIRE(stream.str() == "truefalsetrue");
   }
 
+  // operator<< boolean with separator.
   SUBCASE("insert_boolean_with_separator") {
     OStringStream<FixedString<32>> stream;
 
@@ -538,6 +586,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_operator_insert") {
     REQUIRE(stream.str() == "true false");
   }
 
+  // operator<< boolean returns reference for chaining.
   SUBCASE("insert_boolean_returns_reference_for_chaining") {
     OStringStream<FixedString<32>> stream1;
     OStringStream<FixedString<32>> stream2;
@@ -551,6 +600,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_operator_insert") {
     REQUIRE(stream2.str() == "false");
   }
 
+  // operator<< int8_t and uint8_t.
   SUBCASE("insert_int8_integer") {
     OStringStream<FixedString<8>> stream1;
     OStringStream<FixedString<8>> stream2;
@@ -565,6 +615,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_operator_insert") {
     REQUIRE(stream3.str() == "123");
   }
 
+  // operator<< int16_t and uint16_t.
   SUBCASE("insert_int16_integer") {
     OStringStream<FixedString<8>> stream1;
     OStringStream<FixedString<8>> stream2;
@@ -579,6 +630,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_operator_insert") {
     REQUIRE(stream3.str() == "12345");
   }
 
+  // operator<< int32_t and uint32_t.
   SUBCASE("insert_int32_integer") {
     OStringStream<FixedString<16>> stream1;
     OStringStream<FixedString<16>> stream2;
@@ -593,6 +645,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_operator_insert") {
     REQUIRE(stream3.str() == "123456789");
   }
 
+  // operator<< int64_t and uint64_t.
   SUBCASE("insert_int64_integer") {
     OStringStream<FixedString<32>> stream1;
     OStringStream<FixedString<32>> stream2;
@@ -607,6 +660,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_operator_insert") {
     REQUIRE(stream3.str() == "123456789");
   }
 
+  // operator<< float.
   SUBCASE("insert_float") {
     OStringStream<FixedString<16>> stream1;
     OStringStream<FixedString<16>> stream2;
@@ -618,6 +672,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_operator_insert") {
     REQUIRE(stream2.str() == "-123.456");
   }
 
+  // operator<< double.
   SUBCASE("insert_double") {
     OStringStream<FixedString<16>> stream1;
     OStringStream<FixedString<16>> stream2;
@@ -629,6 +684,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_operator_insert") {
     REQUIRE(stream2.str() == "-123.456");
   }
 
+  // operator<< int and unsigned.
   SUBCASE("insert_int_integer") {
     OStringStream<FixedString<8>> stream1;
     OStringStream<FixedString<8>> stream2;
@@ -643,6 +699,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_operator_insert") {
     REQUIRE(stream3.str() == "12345");
   }
 
+  // operator<< zero values for all integer types.
   SUBCASE("insert_zero_values") {
     OStringStream<FixedString<32>> stream;
 
@@ -653,6 +710,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_operator_insert") {
     REQUIRE(stream.str() == "000000000000");
   }
 
+  // operator<< numbers to stream with content.
   SUBCASE("insert_numbers_to_stream_with_content") {
     OStringStream<FixedString<64>> stream1(CStringView("Value: "));
     OStringStream<FixedString<64>> stream2(CStringView("Value: "));
@@ -694,6 +752,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_operator_insert") {
     REQUIRE(stream12.str() == "Value: 23");
   }
 
+  // operator<< int8 returns reference for chaining.
   SUBCASE("insert_int8_returns_reference_for_chaining") {
     OStringStream<FixedString<16>> stream1;
     OStringStream<FixedString<16>> stream2;
@@ -707,6 +766,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_operator_insert") {
     REQUIRE(stream2.str() == "200");
   }
 
+  // operator<< int16 returns reference for chaining.
   SUBCASE("insert_int16_returns_reference_for_chaining") {
     OStringStream<FixedString<16>> stream1;
     OStringStream<FixedString<16>> stream2;
@@ -720,6 +780,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_operator_insert") {
     REQUIRE(stream2.str() == "200");
   }
 
+  // operator<< int32 returns reference for chaining.
   SUBCASE("insert_int32_returns_reference_for_chaining") {
     OStringStream<FixedString<16>> stream1;
     OStringStream<FixedString<16>> stream2;
@@ -733,6 +794,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_operator_insert") {
     REQUIRE(stream2.str() == "200");
   }
 
+  // operator<< int64 returns reference for chaining.
   SUBCASE("insert_int64_returns_reference_for_chaining") {
     OStringStream<FixedString<16>> stream1;
     OStringStream<FixedString<16>> stream2;
@@ -746,6 +808,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_operator_insert") {
     REQUIRE(stream2.str() == "200");
   }
 
+  // operator<< float returns reference for chaining.
   SUBCASE("insert_float_returns_reference_for_chaining") {
     OStringStream<FixedString<16>> stream1;
     OStringStream<FixedString<16>> stream2;
@@ -759,6 +822,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_operator_insert") {
     REQUIRE(stream2.str() == "200.75");
   }
 
+  // operator<< double returns reference for chaining.
   SUBCASE("insert_double_returns_reference_for_chaining") {
     OStringStream<FixedString<16>> stream1;
     OStringStream<FixedString<16>> stream2;
@@ -772,6 +836,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_operator_insert") {
     REQUIRE(stream2.str() == "200.75");
   }
 
+  // operator<< int returns reference for chaining.
   SUBCASE("insert_int_returns_reference_for_chaining") {
     OStringStream<FixedString<16>> stream1;
     OStringStream<FixedString<16>> stream2;
@@ -785,6 +850,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_operator_insert") {
     REQUIRE(stream2.str() == "100");
   }
 
+  // operator<< int8 min/max with separator.
   SUBCASE("insert_int8_min_max_with_separator") {
     OStringStream<FixedString<64>> stream;
 
@@ -799,6 +865,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_operator_insert") {
     REQUIRE(stream.str() == "-128 127 0 255");
   }
 
+  // operator<< int16 min/max with separator.
   SUBCASE("insert_int16_min_max_with_separator") {
     OStringStream<FixedString<64>> stream;
 
@@ -813,6 +880,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_operator_insert") {
     REQUIRE(stream.str() == "-32768 32767 0 65535");
   }
 
+  // operator<< int32 min/max with separator.
   SUBCASE("insert_int32_min_max_with_separator") {
     OStringStream<FixedString<64>> stream;
 
@@ -827,6 +895,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_operator_insert") {
     REQUIRE(stream.str() == "-2147483648 2147483647 0 4294967295");
   }
 
+  // operator<< int64 min/max with separator.
   SUBCASE("insert_int64_min_max_with_separator") {
     OStringStream<FixedString<64>> stream;
 
@@ -841,6 +910,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_operator_insert") {
     REQUIRE(stream.str() == "-9223372036854775808 9223372036854775807 0 18446744073709551615");
   }
 
+  // operator<< int min/max with separator.
   SUBCASE("insert_int_min_max_with_separator") {
     OStringStream<FixedString<64>> stream;
 
@@ -861,6 +931,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_operator_insert") {
     }
   }
 
+  // operator<< float with custom precision.
   SUBCASE("insert_float_with_custom_precision") {
     OStringStream<FixedString<64>> stream1;
     OStringStream<FixedString<64>> stream2;
@@ -882,6 +953,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_operator_insert") {
     REQUIRE(stream4.str() == "3.14159244298935");
   }
 
+  // operator<< double with custom precision.
   SUBCASE("insert_double_with_custom_precision") {
     OStringStream<FixedString<64>> stream1;
     OStringStream<FixedString<64>> stream2;
@@ -903,6 +975,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_operator_insert") {
     REQUIRE(stream4.str() == "3.14159244298935");
   }
 
+  // operator<< void pointer and nullptr.
   SUBCASE("insert_void_pointer") {
     OStringStream<FixedString<32>> stream1;
     OStringStream<FixedString<32>> stream2;
@@ -929,6 +1002,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_operator_insert") {
     REQUIRE(stream3.str() == "nullptr");
   }
 
+  // operator<< pointer to stream with content.
   SUBCASE("insert_pointer_to_stream_with_content") {
     OStringStream<FixedString<32>> stream1(CStringView("Ptr: "));
     OStringStream<FixedString<32>> stream2(CStringView("Ptr: "));
@@ -943,6 +1017,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_operator_insert") {
     REQUIRE(stream2.str() == "Ptr: nullptr");
   }
 
+  // operator<< char.
   SUBCASE("insert_char_type_character") {
     OStringStream<FixedString<32>> stream1;
     OStringStream<FixedString<32>> stream2;
@@ -954,6 +1029,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_operator_insert") {
     REQUIRE(stream2.str() == "Z");
   }
 
+  // operator<< char to stream with content.
   SUBCASE("insert_char_type_to_stream_with_content") {
     OStringStream<FixedString<32>> stream(CStringView("Hello"));
 
@@ -962,6 +1038,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_operator_insert") {
     REQUIRE(stream.str() == "Hello!");
   }
 
+  // operator<< char with chaining.
   SUBCASE("insert_char_type_with_chaining") {
     OStringStream<FixedString<32>> stream;
 
@@ -970,6 +1047,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_operator_insert") {
     REQUIRE(stream.str() == "Hello");
   }
 
+  // operator<< special characters.
   SUBCASE("insert_char_type_special_characters") {
     OStringStream<FixedString<32>> stream;
 
@@ -982,6 +1060,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_operator_insert") {
     REQUIRE(stream.str()[3] == '!');
   }
 
+  // operator<< char returns reference for chaining.
   SUBCASE("insert_char_type_returns_reference_for_chaining") {
     OStringStream<FixedString<32>> stream1;
     OStringStream<FixedString<32>> stream2;
@@ -995,6 +1074,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_operator_insert") {
     REQUIRE(stream2.str() == "B");
   }
 
+  // operator<< FixedString.
   SUBCASE("insert_string_like_fixed_string") {
     OStringStream<FixedString<64>> stream1;
     OStringStream<FixedString<64>> stream2;
@@ -1009,6 +1089,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_operator_insert") {
     REQUIRE(stream2.str() == "World");
   }
 
+  // operator<< CStringView.
   SUBCASE("insert_string_like_c_string_view") {
     OStringStream<FixedString<64>> stream1;
     OStringStream<FixedString<64>> stream2;
@@ -1023,6 +1104,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_operator_insert") {
     REQUIRE(stream2.str() == "String");
   }
 
+  // operator<< StringLike to stream with content.
   SUBCASE("insert_string_like_to_stream_with_content") {
     OStringStream<FixedString<64>> stream(CStringView("Prefix: "));
 
@@ -1033,6 +1115,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_operator_insert") {
     REQUIRE(stream.str() == "Prefix: Suffix");
   }
 
+  // operator<< StringLike with chaining.
   SUBCASE("insert_string_like_with_chaining") {
     OStringStream<FixedString<64>> stream;
 
@@ -1045,6 +1128,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_operator_insert") {
     REQUIRE(stream.str() == "Hello World");
   }
 
+  // operator<< StringLike returns reference for chaining.
   SUBCASE("insert_string_like_returns_reference_for_chaining") {
     OStringStream<FixedString<64>> stream1;
     OStringStream<FixedString<64>> stream2;
@@ -1061,6 +1145,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_operator_insert") {
     REQUIRE(stream2.str() == "Second");
   }
 
+  // operator<< C string literal.
   SUBCASE("insert_c_string_literal") {
     OStringStream<FixedString<64>> stream1;
     OStringStream<FixedString<64>> stream2;
@@ -1072,6 +1157,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_operator_insert") {
     REQUIRE(stream2.str() == "World");
   }
 
+  // operator<< C string to stream with content.
   SUBCASE("insert_c_string_to_stream_with_content") {
     OStringStream<FixedString<64>> stream(CStringView("Prefix: "));
 
@@ -1080,6 +1166,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_operator_insert") {
     REQUIRE(stream.str() == "Prefix: Suffix");
   }
 
+  // operator<< C string with chaining.
   SUBCASE("insert_c_string_with_chaining") {
     OStringStream<FixedString<64>> stream;
 
@@ -1088,6 +1175,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_operator_insert") {
     REQUIRE(stream.str() == "Hello World");
   }
 
+  // operator<< C string returns reference for chaining.
   SUBCASE("insert_c_string_returns_reference_for_chaining") {
     OStringStream<FixedString<64>> stream1;
     OStringStream<FixedString<64>> stream2;
@@ -1101,6 +1189,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_operator_insert") {
     REQUIRE(stream2.str() == "Second");
   }
 
+  // operator<< empty C string.
   SUBCASE("insert_c_string_empty_string") {
     OStringStream<FixedString<64>> stream;
 
@@ -1109,6 +1198,7 @@ TEST_CASE("core/o_string_stream/o_string_stream_operator_insert") {
     REQUIRE(stream.str() == "");
   }
 
+  // operator<< C string with special characters.
   SUBCASE("insert_c_string_with_special_characters") {
     OStringStream<FixedString<64>> stream;
 

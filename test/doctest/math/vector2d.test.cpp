@@ -25,7 +25,7 @@
 namespace toy::math {
 
 // Vector2D has fixed size and contiguous x,y layout.
-TEST_CASE("math/vector2d/vector2d_object_structure") {
+TEST_CASE("math/vector2d/object_structure") {
   constexpr Vector2D vector(111, 222);
 
   static_assert(sizeof(vector) == sizeof(real_t) * 2, "Vector2D must have size of two real_t");
@@ -38,7 +38,8 @@ TEST_CASE("math/vector2d/vector2d_object_structure") {
 }
 
 // Default, coordinate, and array constructors.
-TEST_CASE("math/vector2d/vector2d_constructors") {
+TEST_CASE("math/vector2d/constructors") {
+  // Default constructor yields zero x, y.
   SUBCASE("default_constructor") {
     constexpr Vector2D vector;
 
@@ -49,6 +50,7 @@ TEST_CASE("math/vector2d/vector2d_constructors") {
     static_assert(vector.y == 0.0, "default-constructed y must be 0");
   }
 
+  // Constructor with positive x, y.
   SUBCASE("constructor_with_positive_coordinates") {
     constexpr Vector2D vector(12, 23);
 
@@ -59,6 +61,7 @@ TEST_CASE("math/vector2d/vector2d_constructors") {
     static_assert(vector.y == 23, "y must match constructor argument");
   }
 
+  // Constructor with negative x, y.
   SUBCASE("constructor_with_negative_coordinates") {
     constexpr Vector2D vector(-5, -15);
 
@@ -69,6 +72,7 @@ TEST_CASE("math/vector2d/vector2d_constructors") {
     static_assert(vector.y == -15, "y must match constructor argument");
   }
 
+  // Constructor with mixed-sign x, y.
   SUBCASE("constructor_with_mixed_coordinates") {
     constexpr Vector2D vector(-100, 200);
 
@@ -79,6 +83,7 @@ TEST_CASE("math/vector2d/vector2d_constructors") {
     static_assert(vector.y == 200, "y must match constructor argument");
   }
 
+  // Constructor with zero x, y.
   SUBCASE("constructor_with_zero_coordinates") {
     constexpr Vector2D vector(0, 0);
 
@@ -89,6 +94,7 @@ TEST_CASE("math/vector2d/vector2d_constructors") {
     static_assert(vector.y == 0, "y must be 0");
   }
 
+  // Constructor from pointer to two-element array.
   SUBCASE("constructor_from_pointer_to_array") {
     constexpr array<real_t, 2> arr{42, -17};
     constexpr Vector2D vector(arr.data());
@@ -100,6 +106,7 @@ TEST_CASE("math/vector2d/vector2d_constructors") {
     static_assert(vector.y == -17, "y must match array element");
   }
 
+  // Constructor from array with positive values.
   SUBCASE("constructor_from_pointer_to_array_with_positive_values") {
     constexpr array<real_t, 2> arr{100, 200};
     constexpr Vector2D vector(arr.data());
@@ -111,6 +118,7 @@ TEST_CASE("math/vector2d/vector2d_constructors") {
     static_assert(vector.y == 200, "y must match array element");
   }
 
+  // Constructor from array with negative values.
   SUBCASE("constructor_from_pointer_to_array_with_negative_values") {
     constexpr array<real_t, 2> arr{-50, -75};
     constexpr Vector2D vector(arr.data());
@@ -122,6 +130,7 @@ TEST_CASE("math/vector2d/vector2d_constructors") {
     static_assert(vector.y == -75, "y must match array element");
   }
 
+  // Constructor from array with mixed-sign values.
   SUBCASE("constructor_from_pointer_to_array_with_mixed_values") {
     constexpr array<real_t, 2> arr{-300, 400};
     constexpr Vector2D vector(arr.data());
@@ -133,6 +142,7 @@ TEST_CASE("math/vector2d/vector2d_constructors") {
     static_assert(vector.y == 400, "y must match array element");
   }
 
+  // Constructor from array with zero values.
   SUBCASE("constructor_from_pointer_to_array_with_zero_values") {
     constexpr array<real_t, 2> arr{0, 0};
     constexpr Vector2D vector(arr.data());
@@ -144,6 +154,7 @@ TEST_CASE("math/vector2d/vector2d_constructors") {
     static_assert(vector.y == 0, "y must be 0");
   }
 
+  // Runtime constructor behavior.
   SUBCASE("runtime_constructor_tests") {
     Vector2D defaultVector;
     REQUIRE(defaultVector.x == 0);
@@ -161,7 +172,8 @@ TEST_CASE("math/vector2d/vector2d_constructors") {
 }
 
 // c_arr returns pointer to contiguous x,y.
-TEST_CASE("math/vector2d/vector2d_c_arr_methods") {
+TEST_CASE("math/vector2d/c_arr_methods") {
+  // Non-const c_arr() returns writable pointer to x,y.
   SUBCASE("non_const_c_arr_method") {
     Vector2D vector(42, -17);
     auto * arr = vector.c_arr();
@@ -178,6 +190,7 @@ TEST_CASE("math/vector2d/vector2d_c_arr_methods") {
     REQUIRE(vector.y == -200);
   }
 
+  // Const c_arr() returns pointer to x,y.
   SUBCASE("const_c_arr_method") {
     constexpr Vector2D vector(123, -456);
     const auto * arr = vector.c_arr();
@@ -190,6 +203,7 @@ TEST_CASE("math/vector2d/vector2d_c_arr_methods") {
     REQUIRE(vector.y == -456);
   }
 
+  // c_arr() with default-constructed vector.
   SUBCASE("c_arr_with_default_constructor") {
     constexpr Vector2D vector;
 
@@ -199,6 +213,7 @@ TEST_CASE("math/vector2d/vector2d_c_arr_methods") {
     static_assert(vector.c_arr()[0] == 0, "first element must be 0 for default-constructed vector");
   }
 
+  // c_arr() with coordinate constructor.
   SUBCASE("c_arr_with_coordinate_constructor") {
     constexpr Vector2D vector(10, 20);
 
@@ -208,6 +223,7 @@ TEST_CASE("math/vector2d/vector2d_c_arr_methods") {
     static_assert(vector.c_arr()[0] == 10, "first element must match x");
   }
 
+  // c_arr() with array constructor.
   SUBCASE("c_arr_with_array_constructor") {
     constexpr Vector2D vector({-50, 75});
 
@@ -240,6 +256,7 @@ TEST_CASE("math/vector2d/vector2d_c_arr_methods") {
     REQUIRE(vector.y == 60);
   }
 
+  // Runtime c_arr() behavior.
   SUBCASE("c_arr_runtime_tests") {
     Vector2D runtimeVector(500, -600);
     auto * runtimeArr = runtimeVector.c_arr();
@@ -264,7 +281,8 @@ TEST_CASE("math/vector2d/vector2d_c_arr_methods") {
 }
 
 // +=, -=, *=, /= and chaining.
-TEST_CASE("math/vector2d/vector2d_operators") {
+TEST_CASE("math/vector2d/operators") {
+  // operator+= adds vector.
   SUBCASE("operator_plus_assign") {
     Vector2D vector1(10, 20);
     constexpr Vector2D vector2(5, -10);
@@ -275,6 +293,7 @@ TEST_CASE("math/vector2d/vector2d_operators") {
     REQUIRE(vector1.y == 10);
   }
 
+  // operator-= subtracts vector.
   SUBCASE("operator_minus_assign") {
     Vector2D vector1(15, 25);
     constexpr Vector2D vector2(5, 10);
@@ -285,6 +304,7 @@ TEST_CASE("math/vector2d/vector2d_operators") {
     REQUIRE(vector1.y == 15);
   }
 
+  // operator*= multiplies by scalar.
   SUBCASE("operator_times_assign") {
     Vector2D vector(10, 20);
     constexpr real_t scalar = 2.5;
@@ -295,6 +315,7 @@ TEST_CASE("math/vector2d/vector2d_operators") {
     REQUIRE(vector.y == 50);
   }
 
+  // operator/= divides by scalar.
   SUBCASE("operator_div_assign") {
     Vector2D vector(20, 45);
     constexpr real_t scalar = 2.5;
@@ -305,6 +326,7 @@ TEST_CASE("math/vector2d/vector2d_operators") {
     REQUIRE(vector.y == 18);
   }
 
+  // Chained compound assignments.
   SUBCASE("chained_operations") {
     Vector2D vector(10, 20);
     constexpr Vector2D offset(5, 10);
@@ -319,7 +341,8 @@ TEST_CASE("math/vector2d/vector2d_operators") {
 }
 
 // sqrMagnitude, setZero, isZero, isEqual.
-TEST_CASE("math/vector2d/vector2d_methods") {
+TEST_CASE("math/vector2d/methods") {
+  // sqrMagnitude() for positive coordinates.
   SUBCASE("sqr_magnitude") {
     constexpr Vector2D vector(3, 4);
 
@@ -328,6 +351,7 @@ TEST_CASE("math/vector2d/vector2d_methods") {
     static_assert(vector.sqrMagnitude() == 25, "sqrMagnitude of (3,4) must be 25");
   }
 
+  // sqrMagnitude() with negative coordinates.
   SUBCASE("sqr_magnitude_with_negative_coordinates") {
     constexpr Vector2D vector(-3, -4);
 
@@ -336,6 +360,7 @@ TEST_CASE("math/vector2d/vector2d_methods") {
     static_assert(vector.sqrMagnitude() == 25, "sqrMagnitude of (-3,-4) must be 25");
   }
 
+  // sqrMagnitude() with zero coordinates.
   SUBCASE("sqr_magnitude_with_zero_coordinates") {
     constexpr Vector2D vector(0, 0);
 
@@ -344,6 +369,7 @@ TEST_CASE("math/vector2d/vector2d_methods") {
     static_assert(vector.sqrMagnitude() == 0, "sqrMagnitude of origin must be 0");
   }
 
+  // sqrMagnitude() with large coordinates.
   SUBCASE("sqr_magnitude_with_large_coordinates") {
     constexpr Vector2D vector(1000, 2000);
 
@@ -352,6 +378,7 @@ TEST_CASE("math/vector2d/vector2d_methods") {
     static_assert(vector.sqrMagnitude() == 5000000, "sqrMagnitude must equal x² + y²");
   }
 
+  // setZero() sets x, y to zero.
   SUBCASE("set_zero") {
     Vector2D vector(100, 200);
 
@@ -361,6 +388,7 @@ TEST_CASE("math/vector2d/vector2d_methods") {
     REQUIRE(vector.y == 0);
   }
 
+  // isZero() true for zero vector.
   SUBCASE("is_zero_with_zero_vector") {
     constexpr Vector2D vector(0, 0);
 
@@ -369,6 +397,7 @@ TEST_CASE("math/vector2d/vector2d_methods") {
     static_assert(vector.isZero(), "origin must be zero");
   }
 
+  // isZero() false for non-zero vector.
   SUBCASE("is_zero_with_non_zero_vector") {
     constexpr Vector2D vector(1, 0);
 
@@ -377,6 +406,7 @@ TEST_CASE("math/vector2d/vector2d_methods") {
     static_assert(!vector.isZero(), "non-zero vector must not be zero");
   }
 
+  // isZero() false for negative coordinates.
   SUBCASE("is_zero_with_negative_coordinates") {
     constexpr Vector2D vector(-1, -1);
 
@@ -385,6 +415,7 @@ TEST_CASE("math/vector2d/vector2d_methods") {
     static_assert(!vector.isZero(), "non-zero vector must not be zero");
   }
 
+  // isZero() true after setZero().
   SUBCASE("is_zero_after_set_zero") {
     Vector2D vector(100, 200);
 
@@ -395,6 +426,7 @@ TEST_CASE("math/vector2d/vector2d_methods") {
     REQUIRE(vector.isZero());
   }
 
+  // isEqual() with exact match.
   SUBCASE("is_equal_with_exact_match") {
     constexpr Vector2D vector1(10, 20);
     constexpr Vector2D vector2(10, 20);
@@ -402,6 +434,7 @@ TEST_CASE("math/vector2d/vector2d_methods") {
     REQUIRE(vector1.isEqual(vector2));
   }
 
+  // isEqual() with different vectors.
   SUBCASE("is_equal_with_different_vectors") {
     constexpr Vector2D vector1(10, 20);
     constexpr Vector2D vector2(11, 20);
@@ -409,6 +442,7 @@ TEST_CASE("math/vector2d/vector2d_methods") {
     REQUIRE(!vector1.isEqual(vector2));
   }
 
+  // isEqual() with tolerance.
   SUBCASE("is_equal_with_tolerance") {
     constexpr Vector2D vector1(10, 20);
     constexpr Vector2D vector2(12, 18);
@@ -417,7 +451,8 @@ TEST_CASE("math/vector2d/vector2d_methods") {
     REQUIRE(vector1.isEqual(vector2, tolerance));
   }
 
-  SUBCASE("isEqual with tolerance too small") {
+  // isEqual() with tolerance too small.
+  SUBCASE("is_equal_with_tolerance_too_small") {
     constexpr Vector2D vector1(10, 20);
     constexpr Vector2D vector2(15, 25);
     constexpr real_t tolerance = 2;
@@ -425,6 +460,7 @@ TEST_CASE("math/vector2d/vector2d_methods") {
     REQUIRE(!vector1.isEqual(vector2, tolerance));
   }
 
+  // isEqual() with zero tolerance.
   SUBCASE("is_equal_with_zero_tolerance") {
     constexpr Vector2D vector1(10, 20);
     constexpr Vector2D vector2(10, 21);
@@ -433,6 +469,7 @@ TEST_CASE("math/vector2d/vector2d_methods") {
     REQUIRE(!vector1.isEqual(vector2, tolerance));
   }
 
+  // isEqual() with default tolerance.
   SUBCASE("is_equal_with_default_tolerance") {
     constexpr Vector2D vector1(10, 20);
     constexpr Vector2D vector2(10, 20);
@@ -440,6 +477,7 @@ TEST_CASE("math/vector2d/vector2d_methods") {
     REQUIRE(vector1.isEqual(vector2));
   }
 
+  // isEqual() with large tolerance.
   SUBCASE("is_equal_with_large_tolerance") {
     constexpr Vector2D vector1(0, 0);
     constexpr Vector2D vector2(1000, 1000);
@@ -448,6 +486,7 @@ TEST_CASE("math/vector2d/vector2d_methods") {
     REQUIRE(vector1.isEqual(vector2, tolerance));
   }
 
+  // Runtime vector methods.
   SUBCASE("runtime_tests") {
     Vector2D vector(10, 20);
     constexpr Vector2D offset(5, -10);
@@ -478,7 +517,8 @@ TEST_CASE("math/vector2d/vector2d_methods") {
 }
 
 // +, -, *, /, unary minus, ==.
-TEST_CASE("math/vector2d/vector2d_binary_operators") {
+TEST_CASE("math/vector2d/binary_operators") {
+  // Unary minus negates x, y.
   SUBCASE("unary_minus_operator") {
     constexpr Vector2D vector(10, -20);
     constexpr auto result = -vector;
@@ -490,6 +530,7 @@ TEST_CASE("math/vector2d/vector2d_binary_operators") {
     static_assert(result.y == 20, "unary minus must negate y");
   }
 
+  // Unary minus with zero coordinates.
   SUBCASE("unary_minus_with_zero_coordinates") {
     constexpr Vector2D vector(0, 0);
     constexpr auto result = -vector;
@@ -501,6 +542,7 @@ TEST_CASE("math/vector2d/vector2d_binary_operators") {
     static_assert(result.y == 0, "unary minus of origin must remain 0");
   }
 
+  // Unary minus with negative coordinates.
   SUBCASE("unary_minus_with_negative_coordinates") {
     constexpr Vector2D vector(-5, -15);
     constexpr auto result = -vector;
@@ -512,6 +554,7 @@ TEST_CASE("math/vector2d/vector2d_binary_operators") {
     static_assert(result.y == 15, "unary minus must negate y");
   }
 
+  // operator+ adds vectors.
   SUBCASE("addition_operator") {
     constexpr Vector2D vector1(10, 20);
     constexpr Vector2D vector2(5, -10);
@@ -525,6 +568,7 @@ TEST_CASE("math/vector2d/vector2d_binary_operators") {
     static_assert(result.y == 10, "addition y must be sum of y components");
   }
 
+  // Addition with zero coordinates.
   SUBCASE("addition_with_zero_coordinates") {
     constexpr Vector2D vector1(10, 20);
     constexpr Vector2D vector2(0, 0);
@@ -538,6 +582,7 @@ TEST_CASE("math/vector2d/vector2d_binary_operators") {
     static_assert(result.y == 20, "adding origin must preserve y");
   }
 
+  // Addition with negative coordinates.
   SUBCASE("addition_with_negative_coordinates") {
     constexpr Vector2D vector1(-10, -20);
     constexpr Vector2D vector2(-5, -15);
@@ -551,6 +596,7 @@ TEST_CASE("math/vector2d/vector2d_binary_operators") {
     static_assert(result.y == -35, "addition y must be sum of y components");
   }
 
+  // operator- subtracts vectors.
   SUBCASE("subtraction_operator") {
     constexpr Vector2D vector1(15, 25);
     constexpr Vector2D vector2(5, 10);
@@ -564,6 +610,7 @@ TEST_CASE("math/vector2d/vector2d_binary_operators") {
     static_assert(result.y == 15, "subtraction y must be difference of y components");
   }
 
+  // Subtraction with zero coordinates.
   SUBCASE("subtraction_with_zero_coordinates") {
     constexpr Vector2D vector1(10, 20);
     constexpr Vector2D vector2(0, 0);
@@ -577,6 +624,7 @@ TEST_CASE("math/vector2d/vector2d_binary_operators") {
     static_assert(result.y == 20, "subtracting origin must preserve y");
   }
 
+  // Subtraction with negative coordinates.
   SUBCASE("subtraction_with_negative_coordinates") {
     constexpr Vector2D vector1(-10, -20);
     constexpr Vector2D vector2(-5, -15);
@@ -590,6 +638,7 @@ TEST_CASE("math/vector2d/vector2d_binary_operators") {
     static_assert(result.y == -5, "subtraction y must be difference of y components");
   }
 
+  // Vector * scalar.
   SUBCASE("multiplication_with_scalar_vector_times_scalar") {
     constexpr Vector2D vector(10, 20);
     constexpr real_t scalar = 2.5;
@@ -603,6 +652,7 @@ TEST_CASE("math/vector2d/vector2d_binary_operators") {
     static_assert(result.y == 50, "vector * scalar must scale y");
   }
 
+  // Scalar * vector.
   SUBCASE("multiplication_with_scalar_scalar_times_vector") {
     constexpr real_t scalar = 1.5;
     constexpr Vector2D vector(20, 30);
@@ -616,6 +666,7 @@ TEST_CASE("math/vector2d/vector2d_binary_operators") {
     static_assert(result.y == 45, "scalar * vector must scale y");
   }
 
+  // Multiplication with zero scalar.
   SUBCASE("multiplication_with_scalar_zero") {
     constexpr Vector2D vector(10, 20);
     constexpr real_t scalar = 0.0;
@@ -629,6 +680,7 @@ TEST_CASE("math/vector2d/vector2d_binary_operators") {
     static_assert(result.y == 0, "vector * 0 must yield 0");
   }
 
+  // Multiplication with negative scalar.
   SUBCASE("multiplication_with_scalar_negative") {
     constexpr Vector2D vector(10, 20);
     constexpr real_t scalar = -0.5;
@@ -642,6 +694,7 @@ TEST_CASE("math/vector2d/vector2d_binary_operators") {
     static_assert(result.y == -10, "vector * negative scalar must scale y");
   }
 
+  // Division by scalar.
   SUBCASE("division_with_scalar") {
     constexpr Vector2D vector(25, 50);
     constexpr real_t scalar = 2.5;
@@ -655,6 +708,7 @@ TEST_CASE("math/vector2d/vector2d_binary_operators") {
     static_assert(result.y == 20, "vector / scalar must divide y");
   }
 
+  // Division by negative scalar.
   SUBCASE("division_with_scalar_negative") {
     constexpr Vector2D vector(-30, -60);
     constexpr real_t scalar = -1.5;
@@ -668,6 +722,7 @@ TEST_CASE("math/vector2d/vector2d_binary_operators") {
     static_assert(result.y == 40, "vector / negative scalar must divide y");
   }
 
+  // operator== with identical vectors.
   SUBCASE("equality_operator_with_identical_points") {
     constexpr Vector2D vector1(10, 20);
     constexpr Vector2D vector2(10, 20);
@@ -677,6 +732,7 @@ TEST_CASE("math/vector2d/vector2d_binary_operators") {
     static_assert(vector1 == vector2, "identical vectors must compare equal");
   }
 
+  // operator== with different vectors.
   SUBCASE("equality_operator_with_different_points") {
     constexpr Vector2D vector1(10, 20);
     constexpr Vector2D vector2(11, 20);
@@ -686,6 +742,7 @@ TEST_CASE("math/vector2d/vector2d_binary_operators") {
     static_assert(!(vector1 == vector2), "different vectors must not compare equal");
   }
 
+  // operator== with zero coordinates.
   SUBCASE("equality_operator_with_zero_coordinates") {
     constexpr Vector2D vector1(0, 0);
     constexpr Vector2D vector2(0, 0);
@@ -695,6 +752,7 @@ TEST_CASE("math/vector2d/vector2d_binary_operators") {
     static_assert(vector1 == vector2, "identical origins must compare equal");
   }
 
+  // operator== with negative coordinates.
   SUBCASE("equality_operator_with_negative_coordinates") {
     constexpr Vector2D vector1(-10, -20);
     constexpr Vector2D vector2(-10, -20);
@@ -704,6 +762,7 @@ TEST_CASE("math/vector2d/vector2d_binary_operators") {
     static_assert(vector1 == vector2, "identical origins must compare equal");
   }
 
+  // operator== with mixed coordinates.
   SUBCASE("equality_operator_with_mixed_coordinates") {
     constexpr Vector2D vector1(10, -20);
     constexpr Vector2D vector2(10, -20);
@@ -713,6 +772,7 @@ TEST_CASE("math/vector2d/vector2d_binary_operators") {
     static_assert(vector1 == vector2, "identical origins must compare equal");
   }
 
+  // Chained binary operations.
   SUBCASE("chained_binary_operations") {
     constexpr Vector2D vector1(10, 20);
     constexpr Vector2D vector2(5, 10);
@@ -742,6 +802,7 @@ TEST_CASE("math/vector2d/vector2d_binary_operators") {
     static_assert(result.y == 187.5, "chained (v1*s1+v2)/s2 must yield correct y");
   }
 
+  // Runtime chained binary tests.
   SUBCASE("chained_tests") {
     constexpr Vector2D vector1(10, 20);
     constexpr Vector2D vector2(5, -10);

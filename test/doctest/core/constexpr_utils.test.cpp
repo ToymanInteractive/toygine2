@@ -26,6 +26,7 @@ namespace toy {
 
 // cstrcmp: compile-time string comparison.
 TEST_CASE("core/constexpr_utils/cstrcmp_function") {
+  // Equal strings compare zero.
   SUBCASE("equal_strings") {
     constexpr const char * str1 = "Hello";
     constexpr const char * str2 = "Hello";
@@ -43,6 +44,7 @@ TEST_CASE("core/constexpr_utils/cstrcmp_function") {
     static_assert(cstrcmp("", "") == 0, "empty literals must compare 0");
   }
 
+  // Different strings compare less or greater.
   SUBCASE("different_strings") {
     constexpr const char * str1 = "Hello";
     constexpr const char * str2 = "World";
@@ -64,6 +66,7 @@ TEST_CASE("core/constexpr_utils/cstrcmp_function") {
     static_assert(cstrcmp(str4, str1) > 0, "full string after prefix");
   }
 
+  // Empty string comparisons.
   SUBCASE("empty_string_comparisons") {
     constexpr const char * empty = "";
     constexpr const char * nonEmpty = "Test";
@@ -77,6 +80,7 @@ TEST_CASE("core/constexpr_utils/cstrcmp_function") {
     static_assert(cstrcmp(nonEmpty, empty) > 0, "non-empty after empty");
   }
 
+  // Single-character strings.
   SUBCASE("single_character_strings") {
     constexpr const char * a = "A";
     constexpr const char * b = "B";
@@ -99,6 +103,7 @@ TEST_CASE("core/constexpr_utils/cstrcmp_function") {
     static_assert(cstrcmp(z, b) > 0, "Z after B");
   }
 
+  // Case sensitivity; ASCII ordering.
   SUBCASE("case_sensitivity") {
     constexpr const char * lower = "hello";
     constexpr const char * upper = "HELLO";
@@ -119,6 +124,7 @@ TEST_CASE("core/constexpr_utils/cstrcmp_function") {
     static_assert(cstrcmp(mixed, upper) > 0, "mixed after upper in ASCII");
   }
 
+  // Special characters (newline, tab, space, punctuation).
   SUBCASE("special_characters") {
     constexpr const char * newline = "Line1\nLine2";
     constexpr const char * tab = "Col1\tCol2";
@@ -142,6 +148,7 @@ TEST_CASE("core/constexpr_utils/cstrcmp_function") {
     static_assert(cstrcmp(space, punct) != 0, "space not punct");
   }
 
+  // Unicode and emoji content.
   SUBCASE("unicode_content") {
     constexpr const char * unicode1 = "Привет";
     constexpr const char * unicode2 = "Мир";
@@ -161,6 +168,7 @@ TEST_CASE("core/constexpr_utils/cstrcmp_function") {
     static_assert(cstrcmp(emoji, unicode1) != 0, "emoji not equal unicode");
   }
 
+  // Numeric string comparisons.
   SUBCASE("numeric_strings") {
     constexpr const char * num1 = "123";
     constexpr const char * num2 = "456";
@@ -185,6 +193,7 @@ TEST_CASE("core/constexpr_utils/cstrcmp_function") {
     static_assert(cstrcmp(num5, num1) > 0, "1234 after 123");
   }
 
+  // Edge cases: empty, prefix, extended.
   SUBCASE("edge_cases") {
     REQUIRE(cstrcmp("", "") == std::strcmp("", ""));
     REQUIRE(cstrcmp("a", "a") == std::strcmp("a", "a"));
@@ -211,6 +220,7 @@ TEST_CASE("core/constexpr_utils/cstrcmp_function") {
     static_assert(cstrcmp("helloworld", "hello") > 0, "longer after prefix");
   }
 
+  // Constexpr comparison results.
   SUBCASE("constexpr_operations") {
     constexpr const char * str1 = "Test";
     constexpr const char * str2 = "Test";
@@ -232,6 +242,7 @@ TEST_CASE("core/constexpr_utils/cstrcmp_function") {
     static_assert(gt > 0, "constexpr greater must be positive");
   }
 
+  // Long string comparison.
   SUBCASE("long_strings") {
     constexpr const char * long1 = "This is a very long string for performance testing";
     constexpr const char * long2 = "This is a very long string for performance testing";
@@ -249,6 +260,7 @@ TEST_CASE("core/constexpr_utils/cstrcmp_function") {
 
 // cstrchr: compile-time character search.
 TEST_CASE("core/constexpr_utils/cstrchr_function") {
+  // Basic character search; first occurrence.
   SUBCASE("basic_character_search") {
     constexpr const char * str = "Hello World";
     constexpr char ch1 = 'H';
@@ -270,6 +282,7 @@ TEST_CASE("core/constexpr_utils/cstrchr_function") {
     static_assert(cstrchr(str, ch5) == nullptr, "z not found");
   }
 
+  // Character not in string returns nullptr.
   SUBCASE("character_not_found") {
     constexpr const char * str = "Hello World";
     constexpr char ch1 = 'x';
@@ -288,6 +301,7 @@ TEST_CASE("core/constexpr_utils/cstrchr_function") {
     static_assert(cstrchr(str, ch4) == nullptr, "@ not found");
   }
 
+  // Empty string; only null terminator match.
   SUBCASE("empty_string") {
     constexpr const char * emptyStr = "";
     constexpr char ch1 = 'a';
@@ -300,6 +314,7 @@ TEST_CASE("core/constexpr_utils/cstrchr_function") {
     static_assert(cstrchr(emptyStr, ch2) == emptyStr, "null terminator in empty");
   }
 
+  // Single-character string.
   SUBCASE("single_character_string") {
     constexpr const char * singleChar = "A";
     constexpr char ch1 = 'A';
@@ -315,6 +330,7 @@ TEST_CASE("core/constexpr_utils/cstrchr_function") {
     static_assert(cstrchr(singleChar, ch3) == nullptr, "lowercase not in A");
   }
 
+  // Case sensitivity; exact match only.
   SUBCASE("case_sensitivity") {
     constexpr const char * str = "Hello World";
     constexpr char ch1 = 'h';
@@ -333,6 +349,7 @@ TEST_CASE("core/constexpr_utils/cstrchr_function") {
     static_assert(cstrchr(str, ch4) == str + 6, "uppercase W at 6");
   }
 
+  // Repeated characters; first occurrence returned.
   SUBCASE("repeated_characters") {
     constexpr const char * str = "ababab";
     constexpr char ch1 = 'a';
@@ -348,6 +365,7 @@ TEST_CASE("core/constexpr_utils/cstrchr_function") {
     static_assert(cstrchr(str, ch3) == nullptr, "c not found");
   }
 
+  // Special characters (newline, tab, exclamation).
   SUBCASE("special_characters") {
     constexpr const char * str = "Hello\n\tWorld!";
     constexpr char ch1 = '\n';
@@ -366,6 +384,7 @@ TEST_CASE("core/constexpr_utils/cstrchr_function") {
     static_assert(cstrchr(str, ch4) == nullptr, "space not in str");
   }
 
+  // Unicode content.
   SUBCASE("unicode_content") {
     constexpr const char * str = "Hello 世界";
     constexpr char ch1 = 'H';
@@ -378,6 +397,7 @@ TEST_CASE("core/constexpr_utils/cstrchr_function") {
     static_assert(cstrchr(str, ch2) == nullptr, "z not in unicode");
   }
 
+  // Numeric character search.
   SUBCASE("numeric_content") {
     constexpr const char * str = "12345";
     constexpr char ch1 = '1';
@@ -417,6 +437,7 @@ TEST_CASE("core/constexpr_utils/cstrchr_function") {
     static_assert(cstrchr(str, ch5) == nullptr, "z not found");
   }
 
+  // Position-specific search; literal chars.
   SUBCASE("position_specific_search") {
     constexpr const char * str = "Hello World";
 
@@ -434,6 +455,7 @@ TEST_CASE("core/constexpr_utils/cstrchr_function") {
     static_assert(cstrchr(str, 'l') == str + 2, "first l not last");
   }
 
+  // Edge cases: null, match, no match.
   SUBCASE("edge_cases") {
     constexpr const char * empty = "";
     constexpr const char * ch1 = "a";
@@ -514,6 +536,7 @@ TEST_CASE("core/constexpr_utils/cstrchr_function") {
 
 // cstrpbrk: compile-time character set search.
 TEST_CASE("core/constexpr_utils/cstrpbrk_function") {
+  // Basic character set search; null accept/str.
   SUBCASE("basic_character_set_search") {
     constexpr const char * str = "Hello World";
     constexpr const char * accept1 = "aeiou";
@@ -540,6 +563,7 @@ TEST_CASE("core/constexpr_utils/cstrpbrk_function") {
     static_assert(cstrpbrk(nullptr, nullptr) == nullptr, "null both");
   }
 
+  // Single character in accept set.
   SUBCASE("single_character_in_accept_set") {
     constexpr const char * str = "Hello World";
     constexpr const char * accept1 = "e";
@@ -558,6 +582,7 @@ TEST_CASE("core/constexpr_utils/cstrpbrk_function") {
     static_assert(cstrpbrk(str, accept4) == nullptr, "Z not in str");
   }
 
+  // Multiple characters in accept set.
   SUBCASE("multiple_characters_in_accept_set") {
     constexpr const char * str = "Hello World";
     constexpr const char * accept1 = "aeiou";
@@ -576,6 +601,7 @@ TEST_CASE("core/constexpr_utils/cstrpbrk_function") {
     static_assert(cstrpbrk(str, accept4) == nullptr, "xyz not in str");
   }
 
+  // Empty string and empty accept set.
   SUBCASE("empty_strings") {
     constexpr const char * emptyStr = "";
     constexpr const char * accept1 = "aeiou";
@@ -588,6 +614,7 @@ TEST_CASE("core/constexpr_utils/cstrpbrk_function") {
     static_assert(cstrpbrk(emptyStr, accept2) == nullptr, "empty str no null");
   }
 
+  // First character match in accept set.
   SUBCASE("first_character_match") {
     constexpr const char * str = "Hello World";
     constexpr const char * accept1 = "H";
@@ -603,6 +630,7 @@ TEST_CASE("core/constexpr_utils/cstrpbrk_function") {
     static_assert(cstrpbrk(str, accept3) != nullptr, "first char match 3");
   }
 
+  // Last character match in accept set.
   SUBCASE("last_character_match") {
     constexpr const char * str = "Hello World";
     constexpr const char * accept1 = "d";
@@ -618,6 +646,7 @@ TEST_CASE("core/constexpr_utils/cstrpbrk_function") {
     static_assert(cstrpbrk(str, accept3) != nullptr, "World in str");
   }
 
+  // Case sensitivity in accept set.
   SUBCASE("case_sensitivity") {
     constexpr const char * str = "Hello World";
     constexpr const char * accept1 = "hello";
@@ -633,6 +662,7 @@ TEST_CASE("core/constexpr_utils/cstrpbrk_function") {
     static_assert(cstrpbrk(str, accept3) != nullptr, "mixed in str");
   }
 
+  // Special characters in accept set (cstrpbrk).
   SUBCASE("special_characters") {
     constexpr const char * str = "Hello, World!";
     constexpr const char * accept1 = ",!";
@@ -651,6 +681,7 @@ TEST_CASE("core/constexpr_utils/cstrpbrk_function") {
     static_assert(cstrpbrk(str, accept4) == nullptr, "xyz not in str");
   }
 
+  // Numeric characters in accept set.
   SUBCASE("numeric_characters") {
     constexpr const char * str = "Hello123World";
     constexpr const char * accept1 = "123";
@@ -669,6 +700,7 @@ TEST_CASE("core/constexpr_utils/cstrpbrk_function") {
     static_assert(cstrpbrk(str, accept4) == nullptr, "abc not in str");
   }
 
+  // Whitespace characters in accept set.
   SUBCASE("whitespace_characters") {
     constexpr const char * str = "Hello World";
     constexpr const char * accept1 = " ";
@@ -687,6 +719,7 @@ TEST_CASE("core/constexpr_utils/cstrpbrk_function") {
     static_assert(cstrpbrk(str, accept4) == nullptr, "xyz not in str");
   }
 
+  // Repeated characters in accept set.
   SUBCASE("repeated_characters_in_accept_set") {
     constexpr const char * str = "Hello World";
     constexpr const char * accept1 = "lll";
@@ -702,6 +735,7 @@ TEST_CASE("core/constexpr_utils/cstrpbrk_function") {
     static_assert(cstrpbrk(str, accept3) != nullptr, "l or H in str");
   }
 
+  // Long string; character set search (cstrpbrk).
   SUBCASE("long_strings") {
     constexpr const char * longStr = "This is a very long string for performance testing";
     constexpr const char * accept1 = "aeiou";
@@ -720,6 +754,7 @@ TEST_CASE("core/constexpr_utils/cstrpbrk_function") {
     static_assert(cstrpbrk(longStr, accept4) != nullptr, "g in long");
   }
 
+  // Edge cases: single char str and accept (cstrpbrk).
   SUBCASE("edge_cases") {
     constexpr const char * str = "A";
     constexpr const char * accept1 = "A";
@@ -738,6 +773,7 @@ TEST_CASE("core/constexpr_utils/cstrpbrk_function") {
 
 // cstrstr: compile-time substring search.
 TEST_CASE("core/constexpr_utils/cstrstr_function") {
+  // Basic substring search; positions and full match.
   SUBCASE("basic_substring_search") {
     constexpr const char * haystack = "Hello World";
     constexpr const char * needle1 = "World";
@@ -760,6 +796,7 @@ TEST_CASE("core/constexpr_utils/cstrstr_function") {
     static_assert(cstrstr(haystack, needle4) == haystack, "full at 0");
   }
 
+  // Substring not in haystack returns nullptr.
   SUBCASE("substring_not_found") {
     constexpr const char * haystack = "Hello World";
     constexpr const char * needle1 = "Universe";
@@ -790,6 +827,7 @@ TEST_CASE("core/constexpr_utils/cstrstr_function") {
     static_assert(cstrstr(haystack2, emptyNeedle) == haystack2, "empty needle returns empty");
   }
 
+  // Empty haystack; needle not found or empty needle.
   SUBCASE("empty_haystack") {
     constexpr const char * emptyHaystack = "";
     constexpr const char * needle1 = "Hello";
@@ -802,6 +840,7 @@ TEST_CASE("core/constexpr_utils/cstrstr_function") {
     static_assert(cstrstr(emptyHaystack, needle2) == emptyHaystack, "empty needle in empty");
   }
 
+  // Single-character substring search (cstrstr).
   SUBCASE("single_character_search") {
     constexpr const char * haystack = "Hello World";
     constexpr const char * needle1 = "H";
@@ -838,6 +877,7 @@ TEST_CASE("core/constexpr_utils/cstrstr_function") {
     static_assert(cstrstr(haystack, needle4) == haystack, "exact match");
   }
 
+  // Repeated patterns; first occurrence (cstrstr).
   SUBCASE("repeated_patterns") {
     constexpr const char * haystack = "ababab";
     constexpr const char * needle1 = "ab";
@@ -859,6 +899,7 @@ TEST_CASE("core/constexpr_utils/cstrstr_function") {
     static_assert(cstrstr(haystack, needle5) == haystack + 1, "babab at 1");
   }
 
+  // Special characters in substring (cstrstr).
   SUBCASE("special_characters") {
     constexpr const char * haystack = "Hello\n\tWorld!";
     constexpr const char * needle1 = "\n";
@@ -883,6 +924,7 @@ TEST_CASE("core/constexpr_utils/cstrstr_function") {
     static_assert(cstrstr(haystack, needle6) == haystack + 7, "World exclamation at 7");
   }
 
+  // Unicode content in haystack and needle (cstrstr).
   SUBCASE("unicode_content") {
     constexpr const char * haystack = "Hello 世界";
     constexpr const char * needle1 = "世界";
@@ -904,6 +946,7 @@ TEST_CASE("core/constexpr_utils/cstrstr_function") {
     static_assert(cstrstr(haystack, needle5) == nullptr, "not in haystack");
   }
 
+  // Numeric substring search (cstrstr).
   SUBCASE("numeric_content") {
     constexpr const char * haystack = "12345";
     constexpr const char * needle1 = "123";
@@ -925,6 +968,7 @@ TEST_CASE("core/constexpr_utils/cstrstr_function") {
     static_assert(cstrstr(haystack, needle5) == nullptr, "678 not found");
   }
 
+  // Mixed alphanumeric substring (cstrstr).
   SUBCASE("mixed_content") {
     constexpr const char * haystack = "123Hello456";
     constexpr const char * needle1 = "123";
@@ -949,6 +993,7 @@ TEST_CASE("core/constexpr_utils/cstrstr_function") {
     static_assert(cstrstr(haystack, needle6) == nullptr, "789 not found");
   }
 
+  // Position-specific substring search (cstrstr).
   SUBCASE("position_specific_search") {
     constexpr const char * haystack = "Hello World";
 
@@ -977,6 +1022,7 @@ TEST_CASE("core/constexpr_utils/cstrstr_function") {
     static_assert(cstrstr(haystack, "World") == haystack + 6, "World at 6");
   }
 
+  // Edge cases: empty, prefix, longer needle (cstrstr).
   SUBCASE("edge_cases") {
     constexpr const char * empty = "";
     constexpr const char * a = "a";
@@ -1047,6 +1093,7 @@ TEST_CASE("core/constexpr_utils/cstrstr_function") {
     static_assert(cstrstr(abc, "XYZ") == nullptr, "XYZ not in abc");
   }
 
+  // Long haystack substring search (cstrstr).
   SUBCASE("long_strings") {
     constexpr const char * longHaystack = "This is a very long string for performance testing";
     constexpr const char * needle1 = "very long";
