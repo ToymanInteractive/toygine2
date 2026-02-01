@@ -353,9 +353,9 @@ TEST_CASE("core/fixed_vector/assignment_operators") {
   // Self-assignment (move).
   SUBCASE("self_assignment_move") {
     FixedVector<int, 5> vec{1, 2, 3};
-    FixedVector<int, 5> & same_vec = vec;
+    FixedVector<int, 5> & sameVec = vec;
 
-    vec = std::move(same_vec);
+    vec = std::move(sameVec);
 
     REQUIRE(vec.size() == 3);
     REQUIRE(vec[0] == 1);
