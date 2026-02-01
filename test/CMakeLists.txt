@@ -80,7 +80,7 @@ if (TOYGINE_TESTS_ENABLE_COVERAGE)
   # Update the default compiler flags to enable coverage
   append_coverage_compiler_flags()
   append_coverage_compiler_flags_to_target(${TOYGINE_LIBRARY_NAME})
-  append_coverage_compiler_flags_to_target(${TOYGINE_LIBRARY_NAME}-doctest-tests)
+  append_coverage_compiler_flags_to_target(${TOYGINE_LIBRARY_NAME}-tests)
 
   # exclude /test and /ext directories from coverage analysis
   set(COVERAGE_EXCLUDES "${CMAKE_SOURCE_DIR}/test/*" "${CMAKE_BINARY_DIR}/*" "/usr/*")
