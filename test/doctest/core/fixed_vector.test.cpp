@@ -20,21 +20,26 @@
 
 #include <vector>
 
-#include <catch2/catch_test_macros.hpp>
+#include <doctest/doctest.h>
 
 #include "core.hpp"
 
 namespace toy {
 
-TEST_CASE("FixedVector constructors", "[core][fixed_vector]") {
-  SECTION("Default constructor") {
+// Default, count, copy, move, initializer list, iterator constructors.
+TEST_CASE("core/fixed_vector/constructors") {
+  // Default constructor yields zero size, full capacity.
+  SUBCASE("default_constructor") {
     constexpr FixedVector<int, 10> emptyVec;
 
-    static_assert(emptyVec.size() == 0);
-    static_assert(emptyVec.capacity() == 10);
+    static_assert(emptyVec.size() == 0, "default-constructed size must be 0");
+    static_assert(emptyVec.capacity() == 10, "default-constructed capacity must match template");
+    REQUIRE(emptyVec.size() == 0);
+    REQUIRE(emptyVec.capacity() == 10);
   }
 
-  SECTION("Count constructor") {
+  // Count constructor; value-initialized elements.
+  SUBCASE("count_constructor") {
     const FixedVector<int, 5> vec(3);
 
     REQUIRE(vec.size() == 3);
@@ -44,7 +49,8 @@ TEST_CASE("FixedVector constructors", "[core][fixed_vector]") {
     REQUIRE(vec[2] == 0);
   }
 
-  SECTION("Count-value constructor") {
+  // Count-value constructor.
+  SUBCASE("count_value_constructor") {
     const FixedVector<int, 5> vec(3, 42);
 
     REQUIRE(vec.size() == 3);
@@ -54,7 +60,8 @@ TEST_CASE("FixedVector constructors", "[core][fixed_vector]") {
     REQUIRE(vec[2] == 42);
   }
 
-  SECTION("Copy constructor same capacity") {
+  // Copy constructor; same capacity.
+  SUBCASE("copy_constructor_same_capacity") {
     FixedVector<int, 5> source;
     source.push_back(1);
     source.push_back(2);
@@ -69,7 +76,8 @@ TEST_CASE("FixedVector constructors", "[core][fixed_vector]") {
     REQUIRE(copy[2] == 3);
   }
 
-  SECTION("Copy constructor different capacity") {
+  // Copy constructor; different capacity.
+  SUBCASE("copy_constructor_different_capacity") {
     FixedVector<int, 3> source;
     source.push_back(10);
     source.push_back(20);
@@ -82,7 +90,8 @@ TEST_CASE("FixedVector constructors", "[core][fixed_vector]") {
     REQUIRE(copy[1] == 20);
   }
 
-  SECTION("Move constructor same capacity") {
+  // Move constructor; same capacity.
+  SUBCASE("move_constructor_same_capacity") {
     FixedVector<int, 5> source;
     source.push_back(100);
     source.push_back(200);
@@ -100,7 +109,8 @@ TEST_CASE("FixedVector constructors", "[core][fixed_vector]") {
     REQUIRE(source.size() == 0);
   }
 
-  SECTION("Move constructor different capacity") {
+  // Move constructor; different capacity.
+  SUBCASE("move_constructor_different_capacity") {
     FixedVector<int, 3> source;
     source.push_back(1000);
     source.push_back(2000);
@@ -116,7 +126,8 @@ TEST_CASE("FixedVector constructors", "[core][fixed_vector]") {
     REQUIRE(source.size() == 0);
   }
 
-  SECTION("Initializer list constructor") {
+  // Initializer list constructor.
+  SUBCASE("initializer_list_constructor") {
     const FixedVector<int, 5> vec{1, 2, 3, 4};
 
     REQUIRE(vec.size() == 4);
@@ -127,14 +138,16 @@ TEST_CASE("FixedVector constructors", "[core][fixed_vector]") {
     REQUIRE(vec[3] == 4);
   }
 
-  SECTION("Empty initializer list constructor") {
+  // Empty initializer list constructor.
+  SUBCASE("empty_initializer_list_constructor") {
     const FixedVector<int, 5> vec{};
 
     REQUIRE(vec.size() == 0);
     REQUIRE(vec.capacity() == 5);
   }
 
-  SECTION("Single element initializer list constructor") {
+  // Single element initializer list constructor.
+  SUBCASE("single_element_initializer_list_constructor") {
     const FixedVector<int, 5> vec{42};
 
     REQUIRE(vec.size() == 1);
@@ -142,7 +155,8 @@ TEST_CASE("FixedVector constructors", "[core][fixed_vector]") {
     REQUIRE(vec[0] == 42);
   }
 
-  SECTION("Different types constructor") {
+  // Different types constructor (FixedString).
+  SUBCASE("different_types_constructor") {
     const FixedVector<FixedString<8>, 3> strVec(2, FixedString<8>("test"));
 
     REQUIRE(strVec.size() == 2);
@@ -151,7 +165,8 @@ TEST_CASE("FixedVector constructors", "[core][fixed_vector]") {
     REQUIRE(strVec[1] == "test");
   }
 
-  SECTION("Double type constructor") {
+  // Double type constructor.
+  SUBCASE("double_type_constructor") {
     const FixedVector<double, 4> doubleVec(3, 3.15);
 
     REQUIRE(doubleVec.size() == 3);
@@ -161,7 +176,8 @@ TEST_CASE("FixedVector constructors", "[core][fixed_vector]") {
     REQUIRE(doubleVec[2] == 3.15);
   }
 
-  SECTION("Bool type constructor") {
+  // Bool type constructor.
+  SUBCASE("bool_type_constructor") {
     const FixedVector<bool, 3> boolVec(2, true);
 
     REQUIRE(boolVec.size() == 2);
@@ -170,7 +186,8 @@ TEST_CASE("FixedVector constructors", "[core][fixed_vector]") {
     REQUIRE(boolVec[1]);
   }
 
-  SECTION("Edge cases") {
+  // Edge cases: max capacity, zero count.
+  SUBCASE("edge_cases") {
     // Maximum capacity
     const FixedVector<int, 1> maxVec(1, 999);
     REQUIRE(maxVec.size() == 1);
@@ -183,7 +200,8 @@ TEST_CASE("FixedVector constructors", "[core][fixed_vector]") {
     REQUIRE(zeroVec.capacity() == 5);
   }
 
-  SECTION("Iterator constructor") {
+  // Iterator constructor.
+  SUBCASE("iterator_constructor") {
     constexpr array<int, 4> sourceArray{1, 2, 3, 4};
     const FixedVector<int, 5> vec(sourceArray.begin(), sourceArray.end());
 
@@ -195,7 +213,8 @@ TEST_CASE("FixedVector constructors", "[core][fixed_vector]") {
     REQUIRE(vec[3] == 4);
   }
 
-  SECTION("Iterator constructor with array") {
+  // Iterator constructor with array.
+  SUBCASE("iterator_constructor_with_array") {
     constexpr array<int, 3> sourceArray{10, 20, 30};
     const FixedVector<int, 5> vec(std::begin(sourceArray), std::end(sourceArray));
 
@@ -206,7 +225,8 @@ TEST_CASE("FixedVector constructors", "[core][fixed_vector]") {
     REQUIRE(vec[2] == 30);
   }
 
-  SECTION("Iterator constructor with empty range") {
+  // Iterator constructor with empty range.
+  SUBCASE("iterator_constructor_with_empty_range") {
     constexpr array<int, 0> emptyArray{};
     const FixedVector<int, 5> vec(emptyArray.begin(), emptyArray.end());
 
@@ -214,7 +234,8 @@ TEST_CASE("FixedVector constructors", "[core][fixed_vector]") {
     REQUIRE(vec.capacity() == 5);
   }
 
-  SECTION("Iterator constructor with different types") {
+  // Iterator constructor with different types.
+  SUBCASE("iterator_constructor_with_different_types") {
     constexpr array<FixedString<10>, 2> sourceArray{FixedString<10>("hello"), FixedString<10>("world")};
     const FixedVector<FixedString<10>, 5> vec(sourceArray.begin(), sourceArray.end());
 
@@ -225,8 +246,10 @@ TEST_CASE("FixedVector constructors", "[core][fixed_vector]") {
   }
 }
 
-TEST_CASE("FixedVector assignment operators", "[core][fixed_vector]") {
-  SECTION("Copy assignment operator (same capacity)") {
+// Copy, move, initializer list assignment; self-assignment.
+TEST_CASE("core/fixed_vector/assignment_operators") {
+  // Copy assignment; same capacity.
+  SUBCASE("copy_assignment_operator_same_capacity") {
     const FixedVector<int, 5> vec1{1, 2, 3};
     FixedVector<int, 5> vec2{4, 5};
 
@@ -238,7 +261,8 @@ TEST_CASE("FixedVector assignment operators", "[core][fixed_vector]") {
     REQUIRE(vec2[2] == vec1[2]);
   }
 
-  SECTION("Copy assignment operator (different capacity)") {
+  // Copy assignment; different capacity.
+  SUBCASE("copy_assignment_operator_different_capacity") {
     const FixedVector<int, 3> vec1{1, 2, 3};
     FixedVector<int, 5> vec2{4, 5};
 
@@ -250,7 +274,8 @@ TEST_CASE("FixedVector assignment operators", "[core][fixed_vector]") {
     REQUIRE(vec2[2] == vec1[2]);
   }
 
-  SECTION("Move assignment operator (same capacity)") {
+  // Move assignment; same capacity.
+  SUBCASE("move_assignment_operator_same_capacity") {
     FixedVector<int, 5> vec1{1, 2, 3};
     FixedVector<int, 5> vec2{4, 5};
 
@@ -265,7 +290,8 @@ TEST_CASE("FixedVector assignment operators", "[core][fixed_vector]") {
     REQUIRE(vec1.size() == 0);
   }
 
-  SECTION("Move assignment operator (different capacity)") {
+  // Move assignment; different capacity.
+  SUBCASE("move_assignment_operator_different_capacity") {
     FixedVector<int, 3> vec1{1, 2, 3};
     FixedVector<int, 5> vec2{4, 5};
 
@@ -280,7 +306,8 @@ TEST_CASE("FixedVector assignment operators", "[core][fixed_vector]") {
     REQUIRE(vec1.size() == 0);
   }
 
-  SECTION("Initializer list assignment operator") {
+  // Initializer list assignment.
+  SUBCASE("initializer_list_assignment_operator") {
     FixedVector<int, 5> vec{1, 2, 3};
 
     vec = {4, 5, 6, 7};
@@ -292,7 +319,8 @@ TEST_CASE("FixedVector assignment operators", "[core][fixed_vector]") {
     REQUIRE(vec[3] == 7);
   }
 
-  SECTION("Initializer list assignment operator (empty)") {
+  // Initializer list assignment; empty list.
+  SUBCASE("initializer_list_assignment_operator_empty") {
     FixedVector<int, 5> vec{1, 2, 3};
 
     vec = {};
@@ -300,7 +328,8 @@ TEST_CASE("FixedVector assignment operators", "[core][fixed_vector]") {
     REQUIRE(vec.size() == 0);
   }
 
-  SECTION("Initializer list assignment operator (single element)") {
+  // Initializer list assignment; single element.
+  SUBCASE("initializer_list_assignment_operator_single_element") {
     FixedVector<int, 5> vec{1, 2, 3};
 
     vec = {42};
@@ -309,7 +338,8 @@ TEST_CASE("FixedVector assignment operators", "[core][fixed_vector]") {
     REQUIRE(vec[0] == 42);
   }
 
-  SECTION("Self-assignment (copy)") {
+  // Self-assignment (copy).
+  SUBCASE("self_assignment_copy") {
     FixedVector<int, 5> vec{1, 2, 3};
 
     vec = vec;
@@ -320,10 +350,12 @@ TEST_CASE("FixedVector assignment operators", "[core][fixed_vector]") {
     REQUIRE(vec[2] == 3);
   }
 
-  SECTION("Self-assignment (move)") {
+  // Self-assignment (move).
+  SUBCASE("self_assignment_move") {
     FixedVector<int, 5> vec{1, 2, 3};
+    FixedVector<int, 5> & same_vec = vec;
 
-    vec = std::move(vec);
+    vec = std::move(same_vec);
 
     REQUIRE(vec.size() == 3);
     REQUIRE(vec[0] == 1);
@@ -331,7 +363,8 @@ TEST_CASE("FixedVector assignment operators", "[core][fixed_vector]") {
     REQUIRE(vec[2] == 3);
   }
 
-  SECTION("Assignment with different types") {
+  // Assignment between different capacities.
+  SUBCASE("assignment_with_different_types") {
     FixedVector<std::string, 3> vec1{"hello", "world"};
     FixedVector<std::string, 5> vec2{"test"};
 
@@ -342,7 +375,8 @@ TEST_CASE("FixedVector assignment operators", "[core][fixed_vector]") {
     REQUIRE(vec2[1] == "world");
   }
 
-  SECTION("Assignment with complex types") {
+  // Assignment with complex types.
+  SUBCASE("assignment_with_complex_types") {
     FixedVector<std::vector<int>, 2> vec1;
     vec1.push_back(std::vector<int>{1, 2, 3});
     vec1.push_back(std::vector<int>{4, 5});
@@ -363,8 +397,10 @@ TEST_CASE("FixedVector assignment operators", "[core][fixed_vector]") {
   }
 }
 
-TEST_CASE("FixedVector assign methods", "[core][fixed_vector]") {
-  SECTION("Assign count and value") {
+// assign(count, value), assign(iter, iter), assign(init_list).
+TEST_CASE("core/fixed_vector/assign_methods") {
+  // Assign count and value.
+  SUBCASE("assign_count_and_value") {
     FixedVector<int, 5> vec{1, 2, 3};
 
     vec.assign(2, 42);
@@ -375,7 +411,8 @@ TEST_CASE("FixedVector assign methods", "[core][fixed_vector]") {
     REQUIRE(vec[1] == 42);
   }
 
-  SECTION("Assign count and value with existing elements") {
+  // Assign count and value with existing elements.
+  SUBCASE("assign_count_and_value_with_existing_elements") {
     FixedVector<int, 5> vec{1, 2, 3, 4, 5};
 
     vec.assign(3, 99);
@@ -387,7 +424,8 @@ TEST_CASE("FixedVector assign methods", "[core][fixed_vector]") {
     REQUIRE(vec[2] == 99);
   }
 
-  SECTION("Assign count and value with empty vector") {
+  // Assign count and value with empty vector.
+  SUBCASE("assign_count_and_value_with_empty_vector") {
     FixedVector<int, 5> vec;
 
     vec.assign(4, 10);
@@ -400,7 +438,8 @@ TEST_CASE("FixedVector assign methods", "[core][fixed_vector]") {
     REQUIRE(vec[3] == 10);
   }
 
-  SECTION("Assign count and value with zero count") {
+  // Assign with zero count clears vector.
+  SUBCASE("assign_count_and_value_with_zero_count") {
     FixedVector<int, 5> vec{1, 2, 3};
 
     vec.assign(0, 42);
@@ -409,7 +448,8 @@ TEST_CASE("FixedVector assign methods", "[core][fixed_vector]") {
     REQUIRE(vec.capacity() == 5);
   }
 
-  SECTION("Assign from iterator range") {
+  // Assign from iterator range.
+  SUBCASE("assign_from_iterator_range") {
     constexpr array<int, 4> source{10, 20, 30, 40};
     FixedVector<int, 5> vec{1, 2, 3};
 
@@ -423,7 +463,8 @@ TEST_CASE("FixedVector assign methods", "[core][fixed_vector]") {
     REQUIRE(vec[3] == 40);
   }
 
-  SECTION("Assign from iterator range with array") {
+  // Assign from array iterators.
+  SUBCASE("assign_from_iterator_range_with_array") {
     constexpr array<int, 3> sourceArray{100, 200, 300};
     FixedVector<int, 5> vec{1, 2, 3, 4};
 
@@ -436,7 +477,8 @@ TEST_CASE("FixedVector assign methods", "[core][fixed_vector]") {
     REQUIRE(vec[2] == 300);
   }
 
-  SECTION("Assign from empty iterator range") {
+  // Assign from empty iterator range.
+  SUBCASE("assign_from_empty_iterator_range") {
     constexpr array<int, 0> emptyArray{};
     FixedVector<int, 5> vec{1, 2, 3};
 
@@ -446,7 +488,8 @@ TEST_CASE("FixedVector assign methods", "[core][fixed_vector]") {
     REQUIRE(vec.capacity() == 5);
   }
 
-  SECTION("Assign from iterator range with different types") {
+  // Assign from iterator range with different types.
+  SUBCASE("assign_from_iterator_range_with_different_types") {
     constexpr array<FixedString<10>, 2> source{FixedString<10>("foo"), FixedString<10>("bar")};
     FixedVector<FixedString<10>, 5> vec{FixedString<10>("old")};
 
@@ -458,7 +501,8 @@ TEST_CASE("FixedVector assign methods", "[core][fixed_vector]") {
     REQUIRE(vec[1] == "bar");
   }
 
-  SECTION("Assign from initializer list") {
+  // Assign from initializer list.
+  SUBCASE("assign_from_initializer_list") {
     FixedVector<int, 5> vec{1, 2, 3};
 
     vec.assign({4, 5, 6, 7});
@@ -471,7 +515,8 @@ TEST_CASE("FixedVector assign methods", "[core][fixed_vector]") {
     REQUIRE(vec[3] == 7);
   }
 
-  SECTION("Assign from empty initializer list") {
+  // Assign from empty initializer list.
+  SUBCASE("assign_from_empty_initializer_list") {
     FixedVector<int, 5> vec{1, 2, 3, 4, 5};
 
     vec.assign({});
@@ -480,7 +525,8 @@ TEST_CASE("FixedVector assign methods", "[core][fixed_vector]") {
     REQUIRE(vec.capacity() == 5);
   }
 
-  SECTION("Assign from single element initializer list") {
+  // Assign from single element initializer list.
+  SUBCASE("assign_from_single_element_initializer_list") {
     FixedVector<int, 5> vec{1, 2, 3};
 
     vec.assign({999});
@@ -490,7 +536,8 @@ TEST_CASE("FixedVector assign methods", "[core][fixed_vector]") {
     REQUIRE(vec[0] == 999);
   }
 
-  SECTION("Assign from initializer list with different sizes") {
+  // Assign from initializer list with different sizes.
+  SUBCASE("assign_from_initializer_list_with_different_sizes") {
     FixedVector<int, 5> vec{1, 2, 3, 4, 5};
 
     vec.assign({10, 20});
@@ -508,7 +555,8 @@ TEST_CASE("FixedVector assign methods", "[core][fixed_vector]") {
     REQUIRE(vec[4] == 500);
   }
 
-  SECTION("Assign with complex types") {
+  // Assign with complex types.
+  SUBCASE("assign_with_complex_types") {
     const std::vector<std::vector<int>> source{{1, 2}, {3, 4, 5}};
     FixedVector<std::vector<int>, 3> vec;
 
@@ -525,7 +573,8 @@ TEST_CASE("FixedVector assign methods", "[core][fixed_vector]") {
     REQUIRE(vec[1][2] == 5);
   }
 
-  SECTION("Assign chained operations") {
+  // Assign chained operations.
+  SUBCASE("assign_chained_operations") {
     FixedVector<int, 5> vec;
 
     vec.assign(3, 1);
@@ -546,7 +595,8 @@ TEST_CASE("FixedVector assign methods", "[core][fixed_vector]") {
     REQUIRE(vec[1] == 20);
   }
 
-  SECTION("Assign edge cases") {
+  // Assign edge cases.
+  SUBCASE("assign_edge_cases") {
     // Maximum capacity assignment
     FixedVector<int, 1> maxVec;
     maxVec.assign(1, 999);
@@ -564,8 +614,10 @@ TEST_CASE("FixedVector assign methods", "[core][fixed_vector]") {
   }
 }
 
-TEST_CASE("FixedVector at methods", "[core][fixed_vector]") {
-  SECTION("Non-const at method") {
+// at() access; bounds behavior.
+TEST_CASE("core/fixed_vector/at_methods") {
+  // Non-const at().
+  SUBCASE("non_const_at_method") {
     FixedVector<int, 5> vec{10, 20, 30};
 
     REQUIRE(vec.at(0) == 10);
@@ -577,7 +629,8 @@ TEST_CASE("FixedVector at methods", "[core][fixed_vector]") {
     REQUIRE(vec.at(1) == 99);
   }
 
-  SECTION("Const at method") {
+  // Const at().
+  SUBCASE("const_at_method") {
     const FixedVector<int, 5> vec{10, 20, 30};
 
     REQUIRE(vec.at(0) == 10);
@@ -586,8 +639,10 @@ TEST_CASE("FixedVector at methods", "[core][fixed_vector]") {
   }
 }
 
-TEST_CASE("FixedVector operator[] methods", "[core][fixed_vector]") {
-  SECTION("Non-const operator[]") {
+// operator[] access.
+TEST_CASE("core/fixed_vector/operator_bracket_methods") {
+  // Non-const operator[].
+  SUBCASE("non_const_operator_bracket") {
     FixedVector<int, 5> vec{10, 20, 30};
 
     REQUIRE(vec[0] == 10);
@@ -599,7 +654,8 @@ TEST_CASE("FixedVector operator[] methods", "[core][fixed_vector]") {
     REQUIRE(vec[1] == 99);
   }
 
-  SECTION("Const operator[]") {
+  // Const operator[].
+  SUBCASE("const_operator_bracket") {
     const FixedVector<int, 5> vec{10, 20, 30};
 
     REQUIRE(vec[0] == 10);
@@ -607,7 +663,8 @@ TEST_CASE("FixedVector operator[] methods", "[core][fixed_vector]") {
     REQUIRE(vec[2] == 30);
   }
 
-  SECTION("String elements") {
+  // String element access and modification.
+  SUBCASE("string_elements") {
     FixedVector<std::string, 3> stringVec{"foo", "bar", "baz"};
 
     REQUIRE(stringVec[0] == "foo");
@@ -620,8 +677,10 @@ TEST_CASE("FixedVector operator[] methods", "[core][fixed_vector]") {
   }
 }
 
-TEST_CASE("FixedVector front methods", "[core][fixed_vector]") {
-  SECTION("Non-const front method") {
+// front() access.
+TEST_CASE("core/fixed_vector/front_methods") {
+  // Non-const front().
+  SUBCASE("non_const_front_method") {
     FixedVector<int, 5> vec{10, 20, 30};
 
     REQUIRE(vec.front() == 10);
@@ -632,13 +691,15 @@ TEST_CASE("FixedVector front methods", "[core][fixed_vector]") {
     REQUIRE(vec[0] == 99);
   }
 
-  SECTION("Const front method") {
+  // Const front().
+  SUBCASE("const_front_method") {
     const FixedVector<int, 5> vec{10, 20, 30};
 
     REQUIRE(vec.front() == 10);
   }
 
-  SECTION("Single element") {
+  // Single element; front equals back.
+  SUBCASE("single_element") {
     FixedVector<int, 5> vec{42};
 
     REQUIRE(vec.front() == 42);
@@ -648,7 +709,8 @@ TEST_CASE("FixedVector front methods", "[core][fixed_vector]") {
     REQUIRE(vec.front() == 100);
   }
 
-  SECTION("String elements") {
+  // String element front access.
+  SUBCASE("string_elements") {
     FixedVector<std::string, 3> stringVec{"foo", "bar", "baz"};
 
     REQUIRE(stringVec.front() == "foo");
@@ -658,8 +720,10 @@ TEST_CASE("FixedVector front methods", "[core][fixed_vector]") {
   }
 }
 
-TEST_CASE("FixedVector back methods", "[core][fixed_vector]") {
-  SECTION("Non-const back method") {
+// back() access.
+TEST_CASE("core/fixed_vector/back_methods") {
+  // Non-const back().
+  SUBCASE("non_const_back_method") {
     FixedVector<int, 5> vec{10, 20, 30};
 
     REQUIRE(vec.back() == 30);
@@ -670,13 +734,15 @@ TEST_CASE("FixedVector back methods", "[core][fixed_vector]") {
     REQUIRE(vec[2] == 99);
   }
 
-  SECTION("Const back method") {
+  // Const back().
+  SUBCASE("const_back_method") {
     const FixedVector<int, 5> vec{10, 20, 30};
 
     REQUIRE(vec.back() == 30);
   }
 
-  SECTION("Single element") {
+  // Single element; back equals front.
+  SUBCASE("single_element") {
     FixedVector<int, 5> vec{42};
 
     REQUIRE(vec.back() == 42);
@@ -686,7 +752,8 @@ TEST_CASE("FixedVector back methods", "[core][fixed_vector]") {
     REQUIRE(vec.back() == 100);
   }
 
-  SECTION("String elements") {
+  // String element back access.
+  SUBCASE("string_elements") {
     FixedVector<std::string, 3> stringVec{"foo", "bar", "baz"};
 
     REQUIRE(stringVec.back() == "baz");
@@ -695,7 +762,8 @@ TEST_CASE("FixedVector back methods", "[core][fixed_vector]") {
     REQUIRE(stringVec.back() == "qux");
   }
 
-  SECTION("Multiple elements - front and back different") {
+  // Multiple elements; front and back different.
+  SUBCASE("multiple_elements_front_and_back_different") {
     FixedVector<int, 5> vec{1, 2, 3, 4, 5};
 
     REQUIRE(vec.front() == 1);
@@ -711,8 +779,10 @@ TEST_CASE("FixedVector back methods", "[core][fixed_vector]") {
   }
 }
 
-TEST_CASE("FixedVector data methods", "[core][fixed_vector]") {
-  SECTION("Non-const data method") {
+// data() pointer access.
+TEST_CASE("core/fixed_vector/data_methods") {
+  // Non-const data().
+  SUBCASE("non_const_data_method") {
     FixedVector<int, 5> vec{10, 20, 30};
 
     int * dataPtr = vec.data();
@@ -730,7 +800,8 @@ TEST_CASE("FixedVector data methods", "[core][fixed_vector]") {
     REQUIRE(dataPtr[2] == 30);
   }
 
-  SECTION("Const data method") {
+  // Const data().
+  SUBCASE("const_data_method") {
     const FixedVector<int, 5> vec{10, 20, 30};
 
     const int * dataPtr = vec.data();
@@ -744,7 +815,8 @@ TEST_CASE("FixedVector data methods", "[core][fixed_vector]") {
     REQUIRE(dataPtr[2] == 30);
   }
 
-  SECTION("Empty vector") {
+  // Empty vector; data() may be non-null for capacity.
+  SUBCASE("empty_vector") {
     FixedVector<int, 5> emptyVec;
 
     int * dataPtr = emptyVec.data();
@@ -753,7 +825,8 @@ TEST_CASE("FixedVector data methods", "[core][fixed_vector]") {
     REQUIRE(emptyVec.size() == 0);
   }
 
-  SECTION("Single element") {
+  // Single element; data() points to one element.
+  SUBCASE("single_element") {
     FixedVector<int, 5> vec{42};
 
     int * dataPtr = vec.data();
@@ -763,7 +836,8 @@ TEST_CASE("FixedVector data methods", "[core][fixed_vector]") {
     REQUIRE(dataPtr == &vec.back());
   }
 
-  SECTION("String elements") {
+  // String elements; data() pointer.
+  SUBCASE("string_elements") {
     FixedVector<std::string, 3> stringVec{"foo", "bar", "baz"};
 
     std::string * dataPtr = stringVec.data();
@@ -778,7 +852,8 @@ TEST_CASE("FixedVector data methods", "[core][fixed_vector]") {
     REQUIRE(stringVec[1] == "qux");
   }
 
-  SECTION("Data pointer remains valid after modifications") {
+  // Data pointer remains valid after modifications.
+  SUBCASE("data_pointer_remains_valid_after_modifications") {
     FixedVector<int, 5> vec{1, 2, 3};
 
     int * dataPtr = vec.data();
@@ -795,8 +870,10 @@ TEST_CASE("FixedVector data methods", "[core][fixed_vector]") {
   }
 }
 
-TEST_CASE("FixedVector iterator methods", "[core][fixed_vector]") {
-  SECTION("Begin methods") {
+// begin, end, rbegin, rend; iteration.
+TEST_CASE("core/fixed_vector/iterator_methods") {
+  // begin() methods.
+  SUBCASE("begin_methods") {
     FixedVector<int, 5> vec{10, 20, 30};
 
     // Non-const begin
@@ -818,7 +895,8 @@ TEST_CASE("FixedVector iterator methods", "[core][fixed_vector]") {
     REQUIRE(*cbeginIt == 10);
   }
 
-  SECTION("End methods") {
+  // end() methods.
+  SUBCASE("end_methods") {
     FixedVector<int, 5> vec{10, 20, 30};
 
     // Non-const end
@@ -837,7 +915,8 @@ TEST_CASE("FixedVector iterator methods", "[core][fixed_vector]") {
     REQUIRE(cendIt == constVec.end());
   }
 
-  SECTION("Empty vector iterators") {
+  // Empty vector; begin() == end().
+  SUBCASE("empty_vector_iterators") {
     FixedVector<int, 5> emptyVec;
     REQUIRE(emptyVec.begin() == emptyVec.end());
 
@@ -846,7 +925,8 @@ TEST_CASE("FixedVector iterator methods", "[core][fixed_vector]") {
     REQUIRE(constEmptyVec.cbegin() == constEmptyVec.cend());
   }
 
-  SECTION("Forward iteration") {
+  // Forward iteration.
+  SUBCASE("forward_iteration") {
     FixedVector<int, 5> vec{10, 20, 30};
 
     auto it = vec.begin();
@@ -859,7 +939,8 @@ TEST_CASE("FixedVector iterator methods", "[core][fixed_vector]") {
     REQUIRE(it == vec.end());
   }
 
-  SECTION("Iterator dereference and modification") {
+  // Iterator dereference and modification.
+  SUBCASE("iterator_dereference_and_modification") {
     FixedVector<int, 5> vec{1, 2, 3};
 
     *vec.begin() = 99;
@@ -871,7 +952,8 @@ TEST_CASE("FixedVector iterator methods", "[core][fixed_vector]") {
     REQUIRE(vec[1] == 88);
   }
 
-  SECTION("Range-based for loop") {
+  // Range-based for loop.
+  SUBCASE("range_based_for_loop") {
     FixedVector<int, 5> vec{1, 2, 3};
     std::vector<int> result;
 
@@ -889,7 +971,8 @@ TEST_CASE("FixedVector iterator methods", "[core][fixed_vector]") {
     REQUIRE(vec[2] == 6);
   }
 
-  SECTION("Range-based for loop with const vector") {
+  // Range-based for loop with const vector.
+  SUBCASE("range_based_for_loop_with_const_vector") {
     const FixedVector<int, 5> vec{1, 2, 3};
     std::vector<int> result;
 
@@ -903,7 +986,8 @@ TEST_CASE("FixedVector iterator methods", "[core][fixed_vector]") {
     REQUIRE(result[2] == 3);
   }
 
-  SECTION("Iterator arithmetic") {
+  // Iterator arithmetic.
+  SUBCASE("iterator_arithmetic") {
     FixedVector<int, 5> vec{10, 20, 30, 40};
 
     auto it = vec.begin();
@@ -916,7 +1000,8 @@ TEST_CASE("FixedVector iterator methods", "[core][fixed_vector]") {
     REQUIRE(vec.end() - vec.begin() == 4);
   }
 
-  SECTION("Reverse begin methods") {
+  // rbegin() methods.
+  SUBCASE("reverse_begin_methods") {
     FixedVector<int, 5> vec{10, 20, 30};
 
     // Non-const rbegin
@@ -936,7 +1021,8 @@ TEST_CASE("FixedVector iterator methods", "[core][fixed_vector]") {
     REQUIRE(*rcbeginIt == 30);
   }
 
-  SECTION("Reverse end methods") {
+  // rend() methods.
+  SUBCASE("reverse_end_methods") {
     FixedVector<int, 5> vec{10, 20, 30};
 
     // Non-const rend
@@ -953,7 +1039,8 @@ TEST_CASE("FixedVector iterator methods", "[core][fixed_vector]") {
     REQUIRE(rcendIt == constVec.rend());
   }
 
-  SECTION("Reverse iteration") {
+  // Reverse iteration order.
+  SUBCASE("reverse_iteration") {
     FixedVector<int, 5> vec{10, 20, 30};
 
     auto rit = vec.rbegin();
@@ -966,7 +1053,8 @@ TEST_CASE("FixedVector iterator methods", "[core][fixed_vector]") {
     REQUIRE(rit == vec.rend());
   }
 
-  SECTION("Reverse iteration empty vector") {
+  // Reverse iteration; empty vector.
+  SUBCASE("reverse_iteration_empty_vector") {
     FixedVector<int, 5> emptyVec;
     REQUIRE(emptyVec.rbegin() == emptyVec.rend());
 
@@ -975,7 +1063,8 @@ TEST_CASE("FixedVector iterator methods", "[core][fixed_vector]") {
     REQUIRE(constEmptyVec.crbegin() == constEmptyVec.crend());
   }
 
-  SECTION("Reverse iterator modification") {
+  // Reverse iterator modification.
+  SUBCASE("reverse_iterator_modification") {
     FixedVector<int, 5> vec{10, 20, 30};
 
     *vec.rbegin() = 99;
@@ -987,7 +1076,8 @@ TEST_CASE("FixedVector iterator methods", "[core][fixed_vector]") {
     REQUIRE(vec[1] == 88);
   }
 
-  SECTION("String elements with iterators") {
+  // String elements with iterators.
+  SUBCASE("string_elements_with_iterators") {
     FixedVector<std::string, 4> stringVec{"a", "b", "c"};
 
     auto it = stringVec.begin();
@@ -1006,7 +1096,8 @@ TEST_CASE("FixedVector iterator methods", "[core][fixed_vector]") {
     REQUIRE(*rit == "a");
   }
 
-  SECTION("Iterator comparison with std algorithms") {
+  // Iterator comparison with std algorithms.
+  SUBCASE("iterator_comparison_with_std_algorithms") {
     FixedVector<int, 5> vec{3, 1, 4, 1, 5};
 
     // std::find
@@ -1025,7 +1116,8 @@ TEST_CASE("FixedVector iterator methods", "[core][fixed_vector]") {
     REQUIRE(*maxIt == 5);
   }
 
-  SECTION("Const iterator immutability") {
+  // Const iterator immutability.
+  SUBCASE("const_iterator_immutability") {
     const FixedVector<int, 5> constVec{1, 2, 3};
 
     // Should compile - reading is allowed
@@ -1036,8 +1128,10 @@ TEST_CASE("FixedVector iterator methods", "[core][fixed_vector]") {
   }
 }
 
-TEST_CASE("FixedVector size and capacity methods", "[core][fixed_vector]") {
-  SECTION("Empty method") {
+// empty(), size(), max_size(), capacity().
+TEST_CASE("core/fixed_vector/size_and_capacity_methods") {
+  // empty() method.
+  SUBCASE("empty_method") {
     FixedVector<int, 5> emptyVec{};
     REQUIRE(emptyVec.empty());
 
@@ -1054,7 +1148,8 @@ TEST_CASE("FixedVector size and capacity methods", "[core][fixed_vector]") {
     static_assert(constexprEmptyVec.empty());
   }
 
-  SECTION("Size method") {
+  // size() method.
+  SUBCASE("size_method") {
     FixedVector<int, 5> emptyVec{};
     REQUIRE(emptyVec.size() == 0);
 
@@ -1074,7 +1169,8 @@ TEST_CASE("FixedVector size and capacity methods", "[core][fixed_vector]") {
     static_assert(constexprEmptyVec.size() == 0);
   }
 
-  SECTION("Max size method") {
+  // max_size() method.
+  SUBCASE("max_size_method") {
     FixedVector<int, 5> vec{};
     REQUIRE(vec.max_size() == 5);
 
@@ -1095,7 +1191,8 @@ TEST_CASE("FixedVector size and capacity methods", "[core][fixed_vector]") {
     static_assert(constexprVec.max_size() == 5);
   }
 
-  SECTION("Capacity method") {
+  // capacity() method.
+  SUBCASE("capacity_method") {
     FixedVector<int, 5> vec{};
     REQUIRE(vec.capacity() == 5);
 
@@ -1122,7 +1219,8 @@ TEST_CASE("FixedVector size and capacity methods", "[core][fixed_vector]") {
     static_assert(constexprVec.capacity() == 5);
   }
 
-  SECTION("Size and capacity relationship") {
+  // Size and capacity relationship.
+  SUBCASE("size_and_capacity_relationship") {
     FixedVector<int, 5> vec{};
 
     // Initially empty
@@ -1151,7 +1249,8 @@ TEST_CASE("FixedVector size and capacity methods", "[core][fixed_vector]") {
     REQUIRE(vec.empty());
   }
 
-  SECTION("Max size equals capacity") {
+  // max_size() equals capacity.
+  SUBCASE("max_size_equals_capacity") {
     FixedVector<int, 5> vec{};
     REQUIRE(vec.max_size() == vec.capacity());
 
@@ -1162,7 +1261,8 @@ TEST_CASE("FixedVector size and capacity methods", "[core][fixed_vector]") {
     REQUIRE(stringVec.max_size() == stringVec.capacity());
   }
 
-  SECTION("Different template parameters") {
+  // Different template parameters.
+  SUBCASE("different_template_parameters") {
     // Different sizes
     static_assert(FixedVector<int, 1>{}.capacity() == 1);
     static_assert(FixedVector<int, 1>{}.max_size() == 1);
@@ -1182,7 +1282,8 @@ TEST_CASE("FixedVector size and capacity methods", "[core][fixed_vector]") {
     REQUIRE(stringVec.max_size() == 3);
   }
 
-  SECTION("Constexpr evaluation") {
+  // Constexpr evaluation.
+  SUBCASE("constexpr_evaluation") {
     constexpr FixedVector<int, 5> emptyVec{};
 
     static_assert(emptyVec.size() == 0);
@@ -1192,8 +1293,10 @@ TEST_CASE("FixedVector size and capacity methods", "[core][fixed_vector]") {
   }
 }
 
-TEST_CASE("FixedVector clear method", "[core][fixed_vector]") {
-  SECTION("Clear empty vector") {
+// clear(); size becomes 0, capacity unchanged.
+TEST_CASE("core/fixed_vector/clear_method") {
+  // Clear already empty vector; no-op.
+  SUBCASE("clear_empty_vector") {
     FixedVector<int, 5> emptyVec{};
 
     REQUIRE(emptyVec.empty());
@@ -1206,7 +1309,8 @@ TEST_CASE("FixedVector clear method", "[core][fixed_vector]") {
     REQUIRE(emptyVec.capacity() == 5);
   }
 
-  SECTION("Clear vector with elements") {
+  // Clear vector with elements.
+  SUBCASE("clear_vector_with_elements") {
     FixedVector<int, 5> vec{1, 2, 3};
 
     REQUIRE(vec.size() == 3);
@@ -1219,7 +1323,8 @@ TEST_CASE("FixedVector clear method", "[core][fixed_vector]") {
     REQUIRE(vec.capacity() == 5);
   }
 
-  SECTION("Capacity remains unchanged after clear") {
+  // Capacity remains unchanged after clear.
+  SUBCASE("capacity_remains_unchanged_after_clear") {
     FixedVector<int, 5> vec{1, 2, 3, 4, 5};
 
     const auto capacityBefore = vec.capacity();
@@ -1231,7 +1336,8 @@ TEST_CASE("FixedVector clear method", "[core][fixed_vector]") {
     REQUIRE(vec.capacity() == 5);
   }
 
-  SECTION("Can reuse vector after clear") {
+  // Can reuse vector after clear.
+  SUBCASE("can_reuse_vector_after_clear") {
     FixedVector<int, 5> vec{10, 20, 30};
 
     vec.clear();
@@ -1249,7 +1355,8 @@ TEST_CASE("FixedVector clear method", "[core][fixed_vector]") {
     REQUIRE(vec[1] == 200);
   }
 
-  SECTION("Clear multiple times") {
+  // Multiple clear() calls; idempotent.
+  SUBCASE("clear_multiple_times") {
     FixedVector<int, 5> vec{1, 2};
 
     vec.clear();
@@ -1267,7 +1374,8 @@ TEST_CASE("FixedVector clear method", "[core][fixed_vector]") {
     REQUIRE(vec.empty());
   }
 
-  SECTION("Clear with string elements") {
+  // Clear with string elements.
+  SUBCASE("clear_with_string_elements") {
     FixedVector<FixedString<10>, 5> stringVec{FixedString<10>("a"), FixedString<10>("b"), FixedString<10>("c")};
 
     REQUIRE(stringVec.size() == 3);
@@ -1284,7 +1392,8 @@ TEST_CASE("FixedVector clear method", "[core][fixed_vector]") {
     REQUIRE(stringVec[0] == "new");
   }
 
-  SECTION("Clear with complex types") {
+  // Clear with complex types.
+  SUBCASE("clear_with_complex_types") {
     FixedVector<std::vector<int>, 3> complexVec;
 
     complexVec.push_back(std::vector<int>{1, 2, 3});
@@ -1303,7 +1412,8 @@ TEST_CASE("FixedVector clear method", "[core][fixed_vector]") {
     REQUIRE(complexVec[0].size() == 2);
   }
 
-  SECTION("Clear preserves capacity for different sizes") {
+  // Clear preserves capacity for different sizes.
+  SUBCASE("clear_preserves_capacity_for_different_sizes") {
     FixedVector<int, 10> largeVec{1, 2, 3, 4, 5};
 
     REQUIRE(largeVec.capacity() == 10);

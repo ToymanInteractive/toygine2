@@ -18,18 +18,21 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-#include <catch2/catch_test_macros.hpp>
+#include <doctest/doctest.h>
 
 #include "core.hpp"
 
 namespace toy {
 
-TEST_CASE("CStringView constructors", "[core][c_string_view]") {
-  SECTION("Object size") {
-    static_assert(sizeof(CStringView) == sizeof(char *));
+// Default, copy, C string constructors; edge cases.
+TEST_CASE("core/c_string_view/constructors") {
+  // Object size equals pointer size.
+  SUBCASE("object_size") {
+    static_assert(sizeof(CStringView) == sizeof(char *), "CStringView must be pointer-sized");
   }
 
-  SECTION("Default constructor") {
+  // Default constructor yields empty view.
+  SUBCASE("default_constructor") {
     constexpr CStringView emptyStr;
 
     REQUIRE(emptyStr.size() == 0);
@@ -39,7 +42,8 @@ TEST_CASE("CStringView constructors", "[core][c_string_view]") {
     static_assert(cstrcmp(emptyStr.c_str(), "") == 0);
   }
 
-  SECTION("Copy constructor") {
+  // Copy constructor shares underlying pointer.
+  SUBCASE("copy_constructor") {
     constexpr CStringView original("CopyTest");
     constexpr CStringView copy1(original);
     constexpr CStringView copy2(original);
@@ -60,7 +64,8 @@ TEST_CASE("CStringView constructors", "[core][c_string_view]") {
     static_assert(cstrcmp(copy3.c_str(), "CopyTest") == 0);
   }
 
-  SECTION("C string constructor") {
+  // C string constructor; length from null terminator.
+  SUBCASE("c_string_constructor") {
     constexpr CStringView str1("Hello");
     constexpr CStringView str2("World");
     constexpr CStringView str3("Test");
@@ -85,7 +90,8 @@ TEST_CASE("CStringView constructors", "[core][c_string_view]") {
     static_assert(cstrcmp(str4.c_str(), "This is a longer string for testing") == 0);
   }
 
-  SECTION("Edge cases") {
+  // Empty string, single character.
+  SUBCASE("edge_cases") {
     // Empty string
     constexpr CStringView empty1("");
     constexpr CStringView empty2("");
@@ -106,7 +112,8 @@ TEST_CASE("CStringView constructors", "[core][c_string_view]") {
     static_assert(cstrcmp(single.c_str(), "X") == 0);
   }
 
-  SECTION("Special characters") {
+  // Newline, tab, mixed.
+  SUBCASE("special_characters") {
     constexpr CStringView newline("Line1\nLine2");
     constexpr CStringView tab("Col1\tCol2");
     constexpr CStringView mixed("Mix\t\nEnd");
@@ -126,7 +133,8 @@ TEST_CASE("CStringView constructors", "[core][c_string_view]") {
     static_assert(cstrcmp(mixed.c_str(), "Mix\t\nEnd") == 0);
   }
 
-  SECTION("Unicode content") {
+  // Unicode and emoji.
+  SUBCASE("unicode_content") {
     constexpr CStringView unicode("Привет мир");
     constexpr CStringView emoji("Hello 🌍");
 
@@ -142,8 +150,9 @@ TEST_CASE("CStringView constructors", "[core][c_string_view]") {
   }
 }
 
-TEST_CASE("CStringView operators=", "[core][c_string_view]") {
-  SECTION("C string assignment") {
+// Assignment from C string and CStringView.
+TEST_CASE("core/c_string_view/operators_assign") {
+  SUBCASE("c_string_assignment") {
     CStringView str1;
     CStringView str2;
     CStringView str3;
@@ -174,7 +183,7 @@ TEST_CASE("CStringView operators=", "[core][c_string_view]") {
     static_assert(cstrcmp(constStr1.c_str(), "This is a longer string") == 0);
   }
 
-  SECTION("CStringView assignment") {
+  SUBCASE("c_string_view_assignment") {
     CStringView str1("Hello");
     CStringView str2;
     CStringView str3("World");
@@ -198,7 +207,7 @@ TEST_CASE("CStringView operators=", "[core][c_string_view]") {
     static_assert(cstrcmp(constStr2.c_str(), "Hello") == 0);
   }
 
-  SECTION("Edge cases") {
+  SUBCASE("edge_cases") {
     CStringView str1;
     CStringView str2;
 
@@ -215,7 +224,7 @@ TEST_CASE("CStringView operators=", "[core][c_string_view]") {
     REQUIRE(std::strcmp(str1.c_str(), "") == 0);
   }
 
-  SECTION("Special characters") {
+  SUBCASE("special_characters") {
     CStringView str1;
     CStringView str2;
 
@@ -233,7 +242,7 @@ TEST_CASE("CStringView operators=", "[core][c_string_view]") {
     REQUIRE(std::strcmp(str1.c_str(), "Mix\t\nEnd") == 0);
   }
 
-  SECTION("Unicode content") {
+  SUBCASE("unicode_content") {
     CStringView str1;
     CStringView str2;
 
@@ -251,8 +260,9 @@ TEST_CASE("CStringView operators=", "[core][c_string_view]") {
   }
 }
 
-TEST_CASE("CStringView assign", "[core][c_string_view]") {
-  SECTION("C string assignment") {
+// assign() from C string and CStringView; chaining.
+TEST_CASE("core/c_string_view/assign") {
+  SUBCASE("c_string_assignment") {
     CStringView str1;
     CStringView str2;
     CStringView str3;
@@ -292,7 +302,7 @@ TEST_CASE("CStringView assign", "[core][c_string_view]") {
     static_assert(cstrcmp(constStr3.c_str(), "") == 0);
   }
 
-  SECTION("CStringView assignment") {
+  SUBCASE("c_string_view_assignment") {
     CStringView str1("Hello");
     CStringView str2("World");
     CStringView str3;
@@ -327,7 +337,7 @@ TEST_CASE("CStringView assign", "[core][c_string_view]") {
     static_assert(cstrcmp(constStr3.c_str(), "Hello") == 0);
   }
 
-  SECTION("Edge cases") {
+  SUBCASE("edge_cases") {
     CStringView str1("ABC");
     CStringView str2("ABCD");
 
@@ -349,7 +359,7 @@ TEST_CASE("CStringView assign", "[core][c_string_view]") {
     static_assert(cstrcmp(constStr2.c_str(), "") == 0);
   }
 
-  SECTION("Special characters") {
+  SUBCASE("special_characters") {
     CStringView str1;
     CStringView str2;
 
@@ -371,7 +381,7 @@ TEST_CASE("CStringView assign", "[core][c_string_view]") {
     static_assert(cstrcmp(constStr2.c_str(), "!@#$%^&*()") == 0);
   }
 
-  SECTION("Unicode content") {
+  SUBCASE("unicode_content") {
     CStringView str1;
     CStringView str2;
 
@@ -391,7 +401,7 @@ TEST_CASE("CStringView assign", "[core][c_string_view]") {
     static_assert(cstrcmp(constStr2.c_str(), "Test 🌍") == 0);
   }
 
-  SECTION("Chaining assign") {
+  SUBCASE("chaining_assign") {
     CStringView str1;
 
     // Chaining assign operations
@@ -413,8 +423,9 @@ TEST_CASE("CStringView assign", "[core][c_string_view]") {
   }
 }
 
-TEST_CASE("CStringView at", "[core][c_string_view]") {
-  SECTION("at() access") {
+// at() access; bounds-checked.
+TEST_CASE("core/c_string_view/at") {
+  SUBCASE("at_access") {
     constexpr CStringView str("World");
 
     REQUIRE(str.at(0) == 'W');
@@ -430,7 +441,7 @@ TEST_CASE("CStringView at", "[core][c_string_view]") {
     static_assert(str.at(4) == 'd');
   }
 
-  SECTION("empty string") {
+  SUBCASE("empty_string") {
     constexpr CStringView str;
 
     REQUIRE(str.at(0) == '\0');
@@ -439,8 +450,9 @@ TEST_CASE("CStringView at", "[core][c_string_view]") {
   }
 }
 
-TEST_CASE("CStringView operator[]", "[core][c_string_view]") {
-  SECTION("[] access") {
+// operator[] access.
+TEST_CASE("core/c_string_view/operator_bracket") {
+  SUBCASE("bracket_access") {
     constexpr CStringView str("Hello");
     constexpr CStringView longStr("VeryLongString");
 
@@ -472,29 +484,30 @@ TEST_CASE("CStringView operator[]", "[core][c_string_view]") {
     static_assert(longStr[13] == 'g');
   }
 
-  SECTION("empty string") {
+  SUBCASE("empty_string") {
     constexpr CStringView str;
 
     static_assert(str[0] == '\0');
   }
 }
 
-TEST_CASE("CStringView front and back", "[core][c_string_view]") {
-  SECTION("Front method") {
+// front() and back() access.
+TEST_CASE("core/c_string_view/front_and_back") {
+  SUBCASE("front_method") {
     constexpr CStringView testString("Hello World");
 
     static_assert(testString.front() == 'H');
     static_assert(testString[0] == 'H');
   }
 
-  SECTION("Back method") {
+  SUBCASE("back_method") {
     constexpr CStringView testString("Hello World");
 
     static_assert(testString.back() == 'd');
     static_assert(testString[testString.size() - 1] == 'd');
   }
 
-  SECTION("Single character string") {
+  SUBCASE("single_character_string") {
     constexpr CStringView testString("A");
 
     static_assert(testString.front() == 'A');
@@ -502,13 +515,13 @@ TEST_CASE("CStringView front and back", "[core][c_string_view]") {
     static_assert(testString.front() == testString.back());
   }
 
-  SECTION("Empty string") {
+  SUBCASE("empty_string") {
     constexpr CStringView testString;
 
     static_assert(testString.front() == '\0');
   }
 
-  SECTION("Two character string") {
+  SUBCASE("two_character_string") {
     constexpr CStringView testString("AB");
 
     static_assert(testString.front() == 'A');
@@ -516,49 +529,49 @@ TEST_CASE("CStringView front and back", "[core][c_string_view]") {
     static_assert(testString.front() != testString.back());
   }
 
-  SECTION("Const references") {
+  SUBCASE("const_references") {
     constexpr CStringView testString("Hello World");
 
     static_assert(testString.front() == 'H');
     static_assert(testString.back() == 'd');
   }
 
-  SECTION("Numeric content") {
+  SUBCASE("numeric_content") {
     constexpr CStringView testString("12345");
 
     static_assert(testString.front() == '1');
     static_assert(testString.back() == '5');
   }
 
-  SECTION("Mixed content") {
+  SUBCASE("mixed_content") {
     constexpr CStringView testString("123Hello456");
 
     static_assert(testString.front() == '1');
     static_assert(testString.back() == '6');
   }
 
-  SECTION("Long strings") {
+  SUBCASE("long_strings") {
     constexpr CStringView testString("This is a very long string for performance testing");
 
     static_assert(testString.front() == 'T');
     static_assert(testString.back() == 'g');
   }
 
-  SECTION("Case sensitivity") {
+  SUBCASE("case_sensitivity") {
     constexpr CStringView testString("Hello World");
 
     static_assert(testString.front() == 'H'); // Uppercase
     static_assert(testString.back() == 'd'); // Lowercase
   }
 
-  SECTION("Whitespace handling") {
+  SUBCASE("whitespace_handling") {
     constexpr CStringView testString(" Hello ");
 
     static_assert(testString.front() == ' ');
     static_assert(testString.back() == ' ');
   }
 
-  SECTION("Constexpr operations") {
+  SUBCASE("constexpr_operations") {
     constexpr CStringView str1("Hello");
     constexpr CStringView str2("World");
     constexpr CStringView str3("Test");
@@ -583,8 +596,9 @@ TEST_CASE("CStringView front and back", "[core][c_string_view]") {
   }
 }
 
-TEST_CASE("CStringView data", "[core][c_string_view]") {
-  SECTION("Basic data access") {
+// data() pointer access.
+TEST_CASE("core/c_string_view/data") {
+  SUBCASE("basic_data_access") {
     constexpr CStringView testString("Hello World");
     constexpr CStringView emptyString("");
     constexpr CStringView singleChar("A");
@@ -599,7 +613,7 @@ TEST_CASE("CStringView data", "[core][c_string_view]") {
     static_assert(cstrcmp(singleChar.data(), "A") == 0);
   }
 
-  SECTION("Data pointer stability") {
+  SUBCASE("data_pointer_stability") {
     constexpr CStringView testString("Stability Test");
     constexpr CStringView copy1(testString);
     constexpr CStringView copy2(testString);
@@ -623,7 +637,7 @@ TEST_CASE("CStringView data", "[core][c_string_view]") {
     static_assert(cstrcmp(copy2.data(), "Stability Test") == 0);
   }
 
-  SECTION("Empty string") {
+  SUBCASE("empty_string") {
     constexpr CStringView emptyString("");
     constexpr CStringView defaultString;
 
@@ -636,8 +650,9 @@ TEST_CASE("CStringView data", "[core][c_string_view]") {
   }
 }
 
-TEST_CASE("CStringView c_str method", "[core][c_string_view]") {
-  SECTION("Basic c_str access") {
+// c_str() null-terminated pointer.
+TEST_CASE("core/c_string_view/c_str") {
+  SUBCASE("basic_c_str_access") {
     constexpr CStringView testString("Hello World");
     constexpr CStringView emptyString("");
     constexpr CStringView singleChar("A");
@@ -661,7 +676,7 @@ TEST_CASE("CStringView c_str method", "[core][c_string_view]") {
     static_assert(cstrcmp(singleChar.c_str(), "A") == 0);
   }
 
-  SECTION("C string stability") {
+  SUBCASE("c_string_stability") {
     constexpr CStringView testString("Stability Test");
     constexpr CStringView copy1(testString);
     constexpr CStringView copy2(testString);
@@ -685,7 +700,7 @@ TEST_CASE("CStringView c_str method", "[core][c_string_view]") {
     static_assert(cstrcmp(copy2.c_str(), "Stability Test") == 0);
   }
 
-  SECTION("Empty string") {
+  SUBCASE("empty_string") {
     constexpr CStringView emptyString("");
     constexpr CStringView defaultString;
 
@@ -698,8 +713,9 @@ TEST_CASE("CStringView c_str method", "[core][c_string_view]") {
   }
 }
 
-TEST_CASE("CStringView empty method", "[core][c_string_view]") {
-  SECTION("Basic empty check") {
+// empty() query.
+TEST_CASE("core/c_string_view/empty") {
+  SUBCASE("basic_empty_check") {
     constexpr CStringView nonEmptyString("Hello World");
     constexpr CStringView emptyString("");
     constexpr CStringView defaultString;
@@ -713,7 +729,7 @@ TEST_CASE("CStringView empty method", "[core][c_string_view]") {
     static_assert(defaultString.empty());
   }
 
-  SECTION("Single character strings") {
+  SUBCASE("single_character_strings") {
     constexpr CStringView singleChar("A");
     constexpr CStringView emptyString("");
 
@@ -724,7 +740,7 @@ TEST_CASE("CStringView empty method", "[core][c_string_view]") {
     static_assert(emptyString.empty());
   }
 
-  SECTION("Different capacities") {
+  SUBCASE("different_capacities") {
     constexpr CStringView smallString("Hi");
     constexpr CStringView mediumString("Hello World");
     constexpr CStringView largeString("This is a longer string");
@@ -747,7 +763,7 @@ TEST_CASE("CStringView empty method", "[core][c_string_view]") {
     static_assert(emptyLarge.empty());
   }
 
-  SECTION("Special characters") {
+  SUBCASE("special_characters") {
     constexpr CStringView newlineString("Hello\nWorld");
     constexpr CStringView tabString("Hello\tWorld");
     constexpr CStringView specialString("!@#$%^&*()");
@@ -764,7 +780,7 @@ TEST_CASE("CStringView empty method", "[core][c_string_view]") {
     static_assert(emptyString.empty());
   }
 
-  SECTION("Unicode content") {
+  SUBCASE("unicode_content") {
     constexpr CStringView unicodeString("Привет мир");
     constexpr CStringView emojiString("Hello 🌍 World");
     constexpr CStringView mixedString("Hello 世界");
@@ -781,7 +797,7 @@ TEST_CASE("CStringView empty method", "[core][c_string_view]") {
     static_assert(emptyString.empty());
   }
 
-  SECTION("Numeric content") {
+  SUBCASE("numeric_content") {
     constexpr CStringView numericStringView("12345");
     constexpr CStringView floatString("3.14159");
     constexpr CStringView hexString("0xABCD");
@@ -798,7 +814,7 @@ TEST_CASE("CStringView empty method", "[core][c_string_view]") {
     static_assert(emptyString.empty());
   }
 
-  SECTION("Mixed content") {
+  SUBCASE("mixed_content") {
     constexpr CStringView mixedString("Hello123World!@#");
     constexpr CStringView complexString("Test\n123\t!@#");
     constexpr CStringView longString("This is a very long string with mixed content 123!@#");
@@ -815,7 +831,7 @@ TEST_CASE("CStringView empty method", "[core][c_string_view]") {
     static_assert(emptyString.empty());
   }
 
-  SECTION("Maximum length strings") {
+  SUBCASE("maximum_length_strings") {
     constexpr CStringView maxString("123456789012345"); // 15 characters
     constexpr CStringView maxSmall("1234567"); // 7 characters
     constexpr CStringView maxTiny("123"); // 3 characters
@@ -832,7 +848,7 @@ TEST_CASE("CStringView empty method", "[core][c_string_view]") {
     static_assert(emptyString.empty());
   }
 
-  SECTION("Edge cases") {
+  SUBCASE("edge_cases") {
     constexpr CStringView singleChar("A");
     constexpr CStringView twoChars("AB");
     constexpr CStringView emptyString("");
@@ -858,8 +874,9 @@ TEST_CASE("CStringView empty method", "[core][c_string_view]") {
   }
 }
 
-TEST_CASE("CStringView size method", "[core][c_string_view]") {
-  SECTION("Basic size check") {
+// size() in bytes.
+TEST_CASE("core/c_string_view/size") {
+  SUBCASE("basic_size_check") {
     constexpr CStringView testString("Hello World");
     constexpr CStringView emptyString("");
     constexpr CStringView defaultString;
@@ -873,7 +890,7 @@ TEST_CASE("CStringView size method", "[core][c_string_view]") {
     static_assert(defaultString.size() == 0);
   }
 
-  SECTION("Single character strings") {
+  SUBCASE("single_character_strings") {
     constexpr CStringView singleChar("A");
     constexpr CStringView emptyString("");
 
@@ -884,7 +901,7 @@ TEST_CASE("CStringView size method", "[core][c_string_view]") {
     static_assert(emptyString.size() == 0);
   }
 
-  SECTION("Different capacities") {
+  SUBCASE("different_capacities") {
     constexpr CStringView smallString("Hi");
     constexpr CStringView mediumString("Hello World");
     constexpr CStringView largeString("This is a longer string");
@@ -907,7 +924,7 @@ TEST_CASE("CStringView size method", "[core][c_string_view]") {
     static_assert(emptyLarge.size() == 0);
   }
 
-  SECTION("Special characters") {
+  SUBCASE("special_characters") {
     constexpr CStringView newlineString("Hello\nWorld");
     constexpr CStringView tabString("Hello\tWorld");
     constexpr CStringView specialString("!@#$%^&*()");
@@ -924,7 +941,7 @@ TEST_CASE("CStringView size method", "[core][c_string_view]") {
     static_assert(emptyString.size() == 0);
   }
 
-  SECTION("Unicode content") {
+  SUBCASE("unicode_content") {
     constexpr CStringView unicodeString("Привет мир");
     constexpr CStringView emojiString("Hello 🌍 World");
     constexpr CStringView mixedString("Hello 世界");
@@ -941,7 +958,7 @@ TEST_CASE("CStringView size method", "[core][c_string_view]") {
     static_assert(emptyString.size() == 0);
   }
 
-  SECTION("Numeric content") {
+  SUBCASE("numeric_content") {
     constexpr CStringView numericStringView("12345");
     constexpr CStringView floatString("3.14159");
     constexpr CStringView hexString("0xABCD");
@@ -958,7 +975,7 @@ TEST_CASE("CStringView size method", "[core][c_string_view]") {
     static_assert(emptyString.size() == 0);
   }
 
-  SECTION("Mixed content") {
+  SUBCASE("mixed_content") {
     constexpr CStringView mixedString("Hello123World!@#");
     constexpr CStringView complexString("Test\n123\t!@#");
     constexpr CStringView longString("This is a very long string with mixed content 123!@#");
@@ -975,7 +992,7 @@ TEST_CASE("CStringView size method", "[core][c_string_view]") {
     static_assert(emptyString.size() == 0);
   }
 
-  SECTION("Maximum length strings") {
+  SUBCASE("maximum_length_strings") {
     constexpr CStringView maxString("123456789012345"); // 15 characters
     constexpr CStringView maxSmall("1234567"); // 7 characters
     constexpr CStringView maxTiny("123"); // 3 characters
@@ -992,7 +1009,7 @@ TEST_CASE("CStringView size method", "[core][c_string_view]") {
     static_assert(emptyString.size() == 0);
   }
 
-  SECTION("Edge cases") {
+  SUBCASE("edge_cases") {
     constexpr CStringView singleChar("A");
     constexpr CStringView twoChars("AB");
     constexpr CStringView emptyString("");
@@ -1010,8 +1027,9 @@ TEST_CASE("CStringView size method", "[core][c_string_view]") {
   }
 }
 
-TEST_CASE("CStringView utf8_size", "[core][c_string_view]") {
-  SECTION("ASCII strings") {
+// utf8_size() code point count.
+TEST_CASE("core/c_string_view/utf8_size") {
+  SUBCASE("ascii_strings") {
     constexpr CStringView asciiString("Hello World");
     constexpr CStringView emptyString("");
     constexpr CStringView singleChar("A");
@@ -1026,7 +1044,7 @@ TEST_CASE("CStringView utf8_size", "[core][c_string_view]") {
     REQUIRE(singleChar.utf8_size() == singleChar.size());
   }
 
-  SECTION("UTF-8 Cyrillic text") {
+  SUBCASE("utf8_cyrillic_text") {
     // "Привет мир" in UTF-8
     static constexpr array<char, 20> cyrillicText{{char(0xD0), char(0x9F), char(0xD1), char(0x80), char(0xD0),
                                                    char(0xB8), char(0xD0), char(0xB2), char(0xD0), char(0xB5),
@@ -1039,7 +1057,7 @@ TEST_CASE("CStringView utf8_size", "[core][c_string_view]") {
     REQUIRE(cyrillicStringView.utf8_size() == 10);
   }
 
-  SECTION("Mixed ASCII and UTF-8") {
+  SUBCASE("mixed_ascii_and_utf8") {
     // "Hello 世界" in UTF-8
     static constexpr array<char, 13> mixedText{{char(0x48), char(0x65), char(0x6C), char(0x6C), char(0x6F), char(0x20),
                                                 char(0xE4), char(0xB8), char(0x96), char(0xE7), char(0x95), char(0x8C),
@@ -1051,7 +1069,7 @@ TEST_CASE("CStringView utf8_size", "[core][c_string_view]") {
     REQUIRE(mixedString.utf8_size() == 8); // 6 ASCII + 2 Chinese characters
   }
 
-  SECTION("Emoji characters") {
+  SUBCASE("emoji_characters") {
     // "Hello 🌍" in UTF-8
     static constexpr array<char, 11> emojiText{{char(0x48), char(0x65), char(0x6C), char(0x6C), char(0x6F), char(0x20),
                                                 char(0xF0), char(0x9F), char(0x8C), char(0x8D), char(0x00)}};
@@ -1062,7 +1080,7 @@ TEST_CASE("CStringView utf8_size", "[core][c_string_view]") {
     REQUIRE(emojiString.utf8_size() == 7); // 6 ASCII + 1 emoji
   }
 
-  SECTION("Special characters") {
+  SUBCASE("special_characters") {
     constexpr CStringView specialString("!@#$%^&*()");
     constexpr CStringView numericStringView("1234567890");
     constexpr CStringView punctuationString(".,;:!?");
@@ -1077,7 +1095,7 @@ TEST_CASE("CStringView utf8_size", "[core][c_string_view]") {
     REQUIRE(punctuationString.utf8_size() == punctuationString.size());
   }
 
-  SECTION("Edge cases") {
+  SUBCASE("edge_cases") {
     constexpr CStringView singleByte("A");
     constexpr CStringView twoByte("А"); // Cyrillic A
     constexpr CStringView threeByte("中"); // Chinese character
@@ -1089,7 +1107,7 @@ TEST_CASE("CStringView utf8_size", "[core][c_string_view]") {
     REQUIRE(fourByte.utf8_size() == 1);
   }
 
-  SECTION("Long UTF-8 text") {
+  SUBCASE("long_utf8_text") {
     // "ToyGine2 - Бесплатный 2D/3D игровой движок." in UTF-8
     static constexpr array<char, 67> longUtf8Text{
       {char(0x54), char(0x6F), char(0x79), char(0x47), char(0x69), char(0x6E), char(0x65), char(0x32), char(0x20),
@@ -1108,8 +1126,9 @@ TEST_CASE("CStringView utf8_size", "[core][c_string_view]") {
   }
 }
 
-TEST_CASE("CStringView length", "[core][c_string_view]") {
-  SECTION("Basic length check") {
+// length() alias for size().
+TEST_CASE("core/c_string_view/length") {
+  SUBCASE("basic_length_check") {
     constexpr CStringView testString("Hello World");
     constexpr CStringView emptyString("");
     constexpr CStringView singleChar("A");
@@ -1128,7 +1147,7 @@ TEST_CASE("CStringView length", "[core][c_string_view]") {
     static_assert(singleChar.length() == 1);
   }
 
-  SECTION("Different capacities") {
+  SUBCASE("different_capacities") {
     constexpr CStringView smallString("Hi");
     constexpr CStringView mediumString("Hello World");
     constexpr CStringView largeString("This is a longer string");
@@ -1156,7 +1175,7 @@ TEST_CASE("CStringView length", "[core][c_string_view]") {
     static_assert(largeString.length() == 23);
   }
 
-  SECTION("Special characters") {
+  SUBCASE("special_characters") {
     constexpr CStringView newlineString("Hello\nWorld");
     constexpr CStringView tabString("Hello\tWorld");
     constexpr CStringView specialString("!@#$%^&*()");
@@ -1178,7 +1197,7 @@ TEST_CASE("CStringView length", "[core][c_string_view]") {
     static_assert(specialString.length() == 10);
   }
 
-  SECTION("Unicode content") {
+  SUBCASE("unicode_content") {
     constexpr CStringView unicodeString("Привет мир");
     constexpr CStringView emojiString("Hello 🌍 World");
     constexpr CStringView mixedString("Hello 世界");
@@ -1199,7 +1218,7 @@ TEST_CASE("CStringView length", "[core][c_string_view]") {
     static_assert(mixedString.length() == std::char_traits<char>::length("Hello 世界"));
   }
 
-  SECTION("Numeric content") {
+  SUBCASE("numeric_content") {
     constexpr CStringView numericStringView("12345");
     constexpr CStringView floatString("3.14159");
     constexpr CStringView hexString("0xABCD");
@@ -1221,7 +1240,7 @@ TEST_CASE("CStringView length", "[core][c_string_view]") {
     static_assert(hexString.length() == 6);
   }
 
-  SECTION("Mixed content") {
+  SUBCASE("mixed_content") {
     constexpr CStringView mixedString("Hello123World!@#");
     constexpr CStringView complexString("Test\n123\t!@#");
     constexpr CStringView longString("This is a very long string with mixed content 123!@#");
@@ -1243,7 +1262,7 @@ TEST_CASE("CStringView length", "[core][c_string_view]") {
     static_assert(longString.length() == 52);
   }
 
-  SECTION("Edge cases") {
+  SUBCASE("edge_cases") {
     constexpr CStringView singleChar("A");
     constexpr CStringView twoChars("AB");
     constexpr CStringView emptyString("");
@@ -1267,8 +1286,9 @@ TEST_CASE("CStringView length", "[core][c_string_view]") {
   }
 }
 
-TEST_CASE("CStringView max_size", "[core][c_string_view]") {
-  SECTION("Basic max_size check") {
+// max_size() maximum view length.
+TEST_CASE("core/c_string_view/max_size") {
+  SUBCASE("basic_max_size_check") {
     constexpr CStringView smallString("Hi");
     constexpr CStringView mediumString("Hello World");
     constexpr CStringView largeString("This is a longer string");
@@ -1285,7 +1305,7 @@ TEST_CASE("CStringView max_size", "[core][c_string_view]") {
     static_assert(extraLargeString.max_size() == 41);
   }
 
-  SECTION("Empty string") {
+  SUBCASE("empty_string") {
     constexpr CStringView empty("");
 
     REQUIRE(empty.max_size() == 0);
@@ -1293,7 +1313,7 @@ TEST_CASE("CStringView max_size", "[core][c_string_view]") {
     static_assert(empty.max_size() == 0);
   }
 
-  SECTION("Default constructed string") {
+  SUBCASE("default_constructed_string") {
     constexpr CStringView defaultString;
 
     REQUIRE(defaultString.max_size() == 0);
@@ -1301,7 +1321,7 @@ TEST_CASE("CStringView max_size", "[core][c_string_view]") {
     static_assert(defaultString.max_size() == 0);
   }
 
-  SECTION("Single character string") {
+  SUBCASE("single_character_string") {
     constexpr CStringView single("A");
 
     REQUIRE(single.max_size() == 1);
@@ -1310,8 +1330,9 @@ TEST_CASE("CStringView max_size", "[core][c_string_view]") {
   }
 }
 
-TEST_CASE("CStringView capacity", "[core][c_string_view]") {
-  SECTION("Basic capacity check") {
+// capacity() (same as size for view).
+TEST_CASE("core/c_string_view/capacity") {
+  SUBCASE("basic_capacity_check") {
     constexpr CStringView smallString("Hi");
     constexpr CStringView mediumString("Hello World");
     constexpr CStringView largeString("This is a longer string");
@@ -1328,7 +1349,7 @@ TEST_CASE("CStringView capacity", "[core][c_string_view]") {
     static_assert(extraLargeString.capacity() == 41);
   }
 
-  SECTION("Empty string") {
+  SUBCASE("empty_string") {
     constexpr CStringView empty("");
 
     REQUIRE(empty.capacity() == 0);
@@ -1336,7 +1357,7 @@ TEST_CASE("CStringView capacity", "[core][c_string_view]") {
     static_assert(empty.capacity() == 0);
   }
 
-  SECTION("Default constructed string") {
+  SUBCASE("default_constructed_string") {
     constexpr CStringView defaultString;
 
     REQUIRE(defaultString.capacity() == 0);
@@ -1344,7 +1365,7 @@ TEST_CASE("CStringView capacity", "[core][c_string_view]") {
     static_assert(defaultString.capacity() == 0);
   }
 
-  SECTION("Single character string") {
+  SUBCASE("single_character_string") {
     constexpr CStringView single("A");
 
     REQUIRE(single.capacity() == 1);
@@ -1353,8 +1374,9 @@ TEST_CASE("CStringView capacity", "[core][c_string_view]") {
   }
 }
 
-TEST_CASE("CStringView clear", "[core][c_string_view]") {
-  SECTION("Basic clear functionality") {
+// clear(); view becomes empty.
+TEST_CASE("core/c_string_view/clear") {
+  SUBCASE("basic_clear_functionality") {
     CStringView testString("Hello World");
 
     REQUIRE_FALSE(testString.empty());
@@ -1366,7 +1388,7 @@ TEST_CASE("CStringView clear", "[core][c_string_view]") {
     REQUIRE(std::strcmp(testString.c_str(), "") == 0);
   }
 
-  SECTION("Clear empty string") {
+  SUBCASE("clear_empty_string") {
     CStringView emptyString("");
 
     REQUIRE(emptyString.empty());
@@ -1378,7 +1400,7 @@ TEST_CASE("CStringView clear", "[core][c_string_view]") {
     REQUIRE(std::strcmp(emptyString.c_str(), "") == 0);
   }
 
-  SECTION("Clear default constructed string") {
+  SUBCASE("clear_default_constructed_string") {
     CStringView defaultString;
 
     REQUIRE(defaultString.empty());
@@ -1390,7 +1412,7 @@ TEST_CASE("CStringView clear", "[core][c_string_view]") {
     REQUIRE(std::strcmp(defaultString.c_str(), "") == 0);
   }
 
-  SECTION("Clear single character string") {
+  SUBCASE("clear_single_character_string") {
     CStringView singleChar("A");
 
     REQUIRE_FALSE(singleChar.empty());
@@ -1402,7 +1424,7 @@ TEST_CASE("CStringView clear", "[core][c_string_view]") {
     REQUIRE(std::strcmp(singleChar.c_str(), "") == 0);
   }
 
-  SECTION("Clear longer string") {
+  SUBCASE("clear_longer_string") {
     CStringView maxString("1234567890");
 
     REQUIRE_FALSE(maxString.empty());
@@ -1414,7 +1436,7 @@ TEST_CASE("CStringView clear", "[core][c_string_view]") {
     REQUIRE(std::strcmp(maxString.c_str(), "") == 0);
   }
 
-  SECTION("Clear different capacities") {
+  SUBCASE("clear_different_capacities") {
     CStringView smallString("Hi");
     CStringView mediumString("Hello World");
     CStringView largeString("This is a longer string");
@@ -1443,7 +1465,7 @@ TEST_CASE("CStringView clear", "[core][c_string_view]") {
     REQUIRE(std::strcmp(extraLargeString.c_str(), "") == 0);
   }
 
-  SECTION("Clear special characters") {
+  SUBCASE("clear_special_characters") {
     CStringView newlineString("Hello\nWorld");
     CStringView tabString("Hello\tWorld");
     CStringView specialString("!@#$%^&*()");
@@ -1464,7 +1486,7 @@ TEST_CASE("CStringView clear", "[core][c_string_view]") {
     REQUIRE(std::strcmp(specialString.c_str(), "") == 0);
   }
 
-  SECTION("Clear Unicode content") {
+  SUBCASE("clear_unicode_content") {
     CStringView unicodeString("Привет мир");
     CStringView emojiString("Hello 🌍 World");
     CStringView mixedString("Hello 世界");
@@ -1485,7 +1507,7 @@ TEST_CASE("CStringView clear", "[core][c_string_view]") {
     REQUIRE(std::strcmp(mixedString.c_str(), "") == 0);
   }
 
-  SECTION("Clear and reassignment") {
+  SUBCASE("clear_and_reassignment") {
     CStringView testString("Original");
 
     REQUIRE_FALSE(testString.empty());
@@ -1504,7 +1526,7 @@ TEST_CASE("CStringView clear", "[core][c_string_view]") {
     REQUIRE(testString.size() == 11);
   }
 
-  SECTION("Multiple clear operations") {
+  SUBCASE("multiple_clear_operations") {
     CStringView testString("Test");
 
     // First clear
@@ -1532,8 +1554,9 @@ TEST_CASE("CStringView clear", "[core][c_string_view]") {
   }
 }
 
-TEST_CASE("CStringView swap", "[core][c_string_view]") {
-  SECTION("Swap two different strings") {
+// swap() member.
+TEST_CASE("core/c_string_view/swap") {
+  SUBCASE("swap_two_different_strings") {
     CStringView string1("Hello");
     CStringView string2("World");
 
@@ -1550,7 +1573,7 @@ TEST_CASE("CStringView swap", "[core][c_string_view]") {
     REQUIRE(string2.size() == 5);
   }
 
-  SECTION("Swap strings of different lengths") {
+  SUBCASE("swap_strings_of_different_lengths") {
     CStringView string1("Short");
     CStringView string2("This is a much longer string");
 
@@ -1567,7 +1590,7 @@ TEST_CASE("CStringView swap", "[core][c_string_view]") {
     REQUIRE(string2.size() == 5);
   }
 
-  SECTION("Swap with empty string") {
+  SUBCASE("swap_with_empty_string") {
     CStringView string1("Hello World");
     CStringView string2("");
 
@@ -1585,7 +1608,7 @@ TEST_CASE("CStringView swap", "[core][c_string_view]") {
     REQUIRE(string2.size() == 11);
   }
 
-  SECTION("Swap two empty strings") {
+  SUBCASE("swap_two_empty_strings") {
     CStringView string1("");
     CStringView string2("");
 
@@ -1604,7 +1627,7 @@ TEST_CASE("CStringView swap", "[core][c_string_view]") {
     REQUIRE(string2.size() == 0);
   }
 
-  SECTION("Self-swap (no-op)") {
+  SUBCASE("self_swap_no_op") {
     CStringView string1("Hello World");
 
     REQUIRE(string1.size() == 11);
@@ -1616,7 +1639,7 @@ TEST_CASE("CStringView swap", "[core][c_string_view]") {
     REQUIRE(string1.size() == 11);
   }
 
-  SECTION("Swap with single character strings") {
+  SUBCASE("swap_with_single_character_strings") {
     CStringView string1("A");
     CStringView string2("B");
 
@@ -1633,7 +1656,7 @@ TEST_CASE("CStringView swap", "[core][c_string_view]") {
     REQUIRE(string2.size() == 1);
   }
 
-  SECTION("Chained swap operations") {
+  SUBCASE("chained_swap_operations") {
     CStringView string1("First");
     CStringView string2("Second");
     CStringView string3("Third");
@@ -1657,7 +1680,7 @@ TEST_CASE("CStringView swap", "[core][c_string_view]") {
     REQUIRE(string3.size() == 5);
   }
 
-  SECTION("Swap with repeated characters") {
+  SUBCASE("swap_with_repeated_characters") {
     CStringView string1("AAA");
     CStringView string2("BBB");
 
@@ -1674,7 +1697,7 @@ TEST_CASE("CStringView swap", "[core][c_string_view]") {
     REQUIRE(string2.size() == 3);
   }
 
-  SECTION("Swap with special characters") {
+  SUBCASE("swap_with_special_characters") {
     CStringView string1("Hello\n\tWorld!");
     CStringView string2("Test!@#$%^&*()");
 
@@ -1691,7 +1714,7 @@ TEST_CASE("CStringView swap", "[core][c_string_view]") {
     REQUIRE(string2.size() == 13);
   }
 
-  SECTION("Swap with Unicode content") {
+  SUBCASE("swap_with_unicode_content") {
     CStringView string1("Hello 世界");
     CStringView string2("Привет мир");
 
@@ -1708,7 +1731,7 @@ TEST_CASE("CStringView swap", "[core][c_string_view]") {
     REQUIRE(string2.size() == std::char_traits<char>::length("Hello 世界"));
   }
 
-  SECTION("Swap with numeric content") {
+  SUBCASE("swap_with_numeric_content") {
     CStringView string1("12345");
     CStringView string2("67890");
 
@@ -1725,7 +1748,7 @@ TEST_CASE("CStringView swap", "[core][c_string_view]") {
     REQUIRE(string2.size() == 5);
   }
 
-  SECTION("Swap with mixed content") {
+  SUBCASE("swap_with_mixed_content") {
     CStringView string1("Hello123World!@#");
     CStringView string2("Test\n456\t!@#$");
 
@@ -1743,8 +1766,9 @@ TEST_CASE("CStringView swap", "[core][c_string_view]") {
   }
 }
 
-TEST_CASE("CStringView find", "[core][c_string_view]") {
-  SECTION("Find CStringView substring") {
+// find() substring and character.
+TEST_CASE("core/c_string_view/find") {
+  SUBCASE("find_c_string_view_substring") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.find(CStringView("World")) == 6);
@@ -1758,7 +1782,7 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
     static_assert(testString.find(CStringView("xyz")) == CStringView::npos);
   }
 
-  SECTION("Find StringLike substring") {
+  SUBCASE("find_string_like_substring") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.find(std::string("World")) == 6);
@@ -1772,7 +1796,7 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
     static_assert(testString.find(CStringView("xyz")) == CStringView::npos);
   }
 
-  SECTION("Find C string substring") {
+  SUBCASE("find_c_string_substring") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.find("World") == 6);
@@ -1786,7 +1810,7 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
     static_assert(testString.find("xyz") == CStringView::npos);
   }
 
-  SECTION("Find character") {
+  SUBCASE("find_character") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.find('H') == 0);
@@ -1804,7 +1828,7 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
     static_assert(testString.find('x') == CStringView::npos);
   }
 
-  SECTION("Find with position parameter") {
+  SUBCASE("find_with_position_parameter") {
     constexpr CStringView testString("Hello World Hello");
 
     REQUIRE(testString.find("Hello", 0) == 0);
@@ -1824,7 +1848,7 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
     static_assert(testString.find('l', 10) == 14);
   }
 
-  SECTION("Find empty substring") {
+  SUBCASE("find_empty_substring") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.find(CStringView("")) == 0);
@@ -1842,7 +1866,7 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
     static_assert(testString.find("", 12) == CStringView::npos);
   }
 
-  SECTION("Find in empty string") {
+  SUBCASE("find_in_empty_string") {
     constexpr CStringView testString("");
 
     REQUIRE(testString.find(CStringView("Hello")) == CStringView::npos);
@@ -1858,7 +1882,7 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
     static_assert(testString.find("") == 0);
   }
 
-  SECTION("Find with position beyond string size") {
+  SUBCASE("find_with_position_beyond_string_size") {
     constexpr CStringView testString("Hello");
 
     REQUIRE(testString.find("World", 10) == CStringView::npos);
@@ -1870,7 +1894,7 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
     static_assert(testString.find("", 10) == CStringView::npos);
   }
 
-  SECTION("Find substring at end") {
+  SUBCASE("find_substring_at_end") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.find("World") == 6);
@@ -1882,7 +1906,7 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
     static_assert(testString.find("ld") == 9);
   }
 
-  SECTION("Find substring at beginning") {
+  SUBCASE("find_substring_at_beginning") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.find("Hello") == 0);
@@ -1894,7 +1918,7 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
     static_assert(testString.find("He") == 0);
   }
 
-  SECTION("Find overlapping substrings") {
+  SUBCASE("find_overlapping_substrings") {
     constexpr CStringView testString("ababab");
 
     REQUIRE(testString.find("ab") == 0);
@@ -1908,7 +1932,7 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
     static_assert(testString.find("ab", 5) == CStringView::npos);
   }
 
-  SECTION("Find with repeated characters") {
+  SUBCASE("find_with_repeated_characters") {
     constexpr CStringView testString("aaaaa");
 
     REQUIRE(testString.find("aa") == 0);
@@ -1924,7 +1948,7 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
     static_assert(testString.find("aa", 4) == CStringView::npos);
   }
 
-  SECTION("Find case sensitivity") {
+  SUBCASE("find_case_sensitivity") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.find("hello") == CStringView::npos);
@@ -1938,7 +1962,7 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
     static_assert(testString.find("World") == 6);
   }
 
-  SECTION("Find with different CStringView capacities") {
+  SUBCASE("find_with_different_c_string_view_capacities") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.find(CStringView("World")) == 6);
@@ -1946,7 +1970,7 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
     static_assert(testString.find(CStringView("World")) == 6);
   }
 
-  SECTION("Find with exact match") {
+  SUBCASE("find_with_exact_match") {
     constexpr CStringView testString("Hello");
 
     REQUIRE(testString.find("Hello") == 0);
@@ -1958,7 +1982,7 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
     static_assert(testString.find("Hello", 1) == CStringView::npos);
   }
 
-  SECTION("Find with single character string") {
+  SUBCASE("find_with_single_character_string") {
     constexpr CStringView testString("A");
 
     REQUIRE(testString.find("A") == 0);
@@ -1972,7 +1996,7 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
     static_assert(testString.find('B') == CStringView::npos);
   }
 
-  SECTION("Find with special characters") {
+  SUBCASE("find_with_special_characters") {
     constexpr CStringView testString("Hello\n\tWorld!");
 
     REQUIRE(testString.find("\n") == 5);
@@ -1986,7 +2010,7 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
     static_assert(testString.find("\n\t") == 5);
   }
 
-  SECTION("Find with Unicode content") {
+  SUBCASE("find_with_unicode_content") {
     constexpr CStringView testString("Hello 世界");
 
     REQUIRE(testString.find("世界") == 6);
@@ -1998,7 +2022,7 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
     static_assert(testString.find(" ") == 5);
   }
 
-  SECTION("Find with numeric content") {
+  SUBCASE("find_with_numeric_content") {
     constexpr CStringView testString("12345Hello67890");
 
     REQUIRE(testString.find("12345") == 0);
@@ -2012,7 +2036,7 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
     static_assert(testString.find("456") == CStringView::npos);
   }
 
-  SECTION("Find with mixed content") {
+  SUBCASE("find_with_mixed_content") {
     constexpr CStringView testString("Hello123World!@#");
 
     REQUIRE(testString.find("123") == 5);
@@ -2026,7 +2050,7 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
     static_assert(testString.find("World!@#") == 8);
   }
 
-  SECTION("Find with position edge cases") {
+  SUBCASE("find_with_position_edge_cases") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.find("Hello", 0) == 0);
@@ -2047,8 +2071,9 @@ TEST_CASE("CStringView find", "[core][c_string_view]") {
   }
 }
 
-TEST_CASE("CStringView rfind", "[core][c_string_view]") {
-  SECTION("Rfind CStringView substring") {
+// rfind() from end.
+TEST_CASE("core/c_string_view/rfind") {
+  SUBCASE("rfind_c_string_view_substring") {
     constexpr CStringView testString("Hello World Hello");
 
     REQUIRE(testString.rfind(CStringView("Hello")) == 12);
@@ -2062,7 +2087,7 @@ TEST_CASE("CStringView rfind", "[core][c_string_view]") {
     static_assert(testString.rfind(CStringView("xyz")) == CStringView::npos);
   }
 
-  SECTION("Rfind StringLike substring") {
+  SUBCASE("rfind_string_like_substring") {
     constexpr CStringView testString("Hello World Hello");
 
     REQUIRE(testString.rfind(std::string("Hello")) == 12);
@@ -2076,7 +2101,7 @@ TEST_CASE("CStringView rfind", "[core][c_string_view]") {
     static_assert(testString.rfind(CStringView("xyz")) == CStringView::npos);
   }
 
-  SECTION("Rfind C string substring") {
+  SUBCASE("rfind_c_string_substring") {
     constexpr CStringView testString("Hello World Hello");
 
     REQUIRE(testString.rfind("Hello") == 12);
@@ -2090,7 +2115,7 @@ TEST_CASE("CStringView rfind", "[core][c_string_view]") {
     static_assert(testString.rfind("xyz") == CStringView::npos);
   }
 
-  SECTION("Rfind character") {
+  SUBCASE("rfind_character") {
     constexpr CStringView testString("Hello World Hello");
 
     REQUIRE(testString.rfind('H') == 12);
@@ -2108,7 +2133,7 @@ TEST_CASE("CStringView rfind", "[core][c_string_view]") {
     static_assert(testString.rfind('x') == CStringView::npos);
   }
 
-  SECTION("Rfind with position parameter") {
+  SUBCASE("rfind_with_position_parameter") {
     constexpr CStringView testString("Hello World Hello");
 
     REQUIRE(testString.rfind("Hello", 12) == 12);
@@ -2128,7 +2153,7 @@ TEST_CASE("CStringView rfind", "[core][c_string_view]") {
     static_assert(testString.rfind('l', 2) == 2);
   }
 
-  SECTION("Rfind empty substring") {
+  SUBCASE("rfind_empty_substring") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.rfind(CStringView("")) == 11);
@@ -2144,7 +2169,7 @@ TEST_CASE("CStringView rfind", "[core][c_string_view]") {
     static_assert(testString.rfind("", 0) == 0);
   }
 
-  SECTION("Rfind in empty string") {
+  SUBCASE("rfind_in_empty_string") {
     constexpr CStringView testString("");
 
     REQUIRE(testString.rfind(CStringView("Hello")) == CStringView::npos);
@@ -2160,7 +2185,7 @@ TEST_CASE("CStringView rfind", "[core][c_string_view]") {
     static_assert(testString.rfind("") == 0);
   }
 
-  SECTION("Rfind substring at end") {
+  SUBCASE("rfind_substring_at_end") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.rfind("World") == 6);
@@ -2172,7 +2197,7 @@ TEST_CASE("CStringView rfind", "[core][c_string_view]") {
     static_assert(testString.rfind("ld") == 9);
   }
 
-  SECTION("Rfind substring at beginning") {
+  SUBCASE("rfind_substring_at_beginning") {
     constexpr CStringView testString("Hello World Hello");
 
     REQUIRE(testString.rfind("Hello") == 12);
@@ -2184,7 +2209,7 @@ TEST_CASE("CStringView rfind", "[core][c_string_view]") {
     static_assert(testString.rfind("He") == 12);
   }
 
-  SECTION("Rfind overlapping substrings") {
+  SUBCASE("rfind_overlapping_substrings") {
     constexpr CStringView testString("ababab");
 
     REQUIRE(testString.rfind("ab") == 4);
@@ -2200,7 +2225,7 @@ TEST_CASE("CStringView rfind", "[core][c_string_view]") {
     static_assert(testString.rfind("ab", 5) == CStringView::npos);
   }
 
-  SECTION("Rfind with repeated characters") {
+  SUBCASE("rfind_with_repeated_characters") {
     constexpr CStringView testString("aaaaa");
 
     REQUIRE(testString.rfind("aa") == 3);
@@ -2214,7 +2239,7 @@ TEST_CASE("CStringView rfind", "[core][c_string_view]") {
     static_assert(testString.rfind("aa", 0) == 0);
   }
 
-  SECTION("Rfind case sensitivity") {
+  SUBCASE("rfind_case_sensitivity") {
     constexpr CStringView testString("Hello World Hello");
 
     REQUIRE(testString.rfind("hello") == CStringView::npos);
@@ -2228,7 +2253,7 @@ TEST_CASE("CStringView rfind", "[core][c_string_view]") {
     static_assert(testString.rfind("World") == 6);
   }
 
-  SECTION("Rfind with exact match") {
+  SUBCASE("rfind_with_exact_match") {
     constexpr CStringView testString("Hello");
 
     REQUIRE(testString.rfind("Hello") == 0);
@@ -2238,7 +2263,7 @@ TEST_CASE("CStringView rfind", "[core][c_string_view]") {
     static_assert(testString.rfind("Hello", 0) == 0);
   }
 
-  SECTION("Rfind with single character string") {
+  SUBCASE("rfind_with_single_character_string") {
     constexpr CStringView testString("A");
 
     REQUIRE(testString.rfind("A") == 0);
@@ -2252,7 +2277,7 @@ TEST_CASE("CStringView rfind", "[core][c_string_view]") {
     static_assert(testString.rfind('B') == CStringView::npos);
   }
 
-  SECTION("Rfind with position 0") {
+  SUBCASE("rfind_with_position_0") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.rfind("Hello", 0) == 0);
@@ -2266,7 +2291,7 @@ TEST_CASE("CStringView rfind", "[core][c_string_view]") {
     static_assert(testString.rfind('W', 0) == CStringView::npos);
   }
 
-  SECTION("Rfind with substring longer than string") {
+  SUBCASE("rfind_with_substring_longer_than_string") {
     constexpr CStringView testString("Hello");
 
     REQUIRE(testString.rfind("Hello World") == CStringView::npos);
@@ -2276,7 +2301,7 @@ TEST_CASE("CStringView rfind", "[core][c_string_view]") {
     static_assert(testString.rfind("Hello World", 10) == CStringView::npos);
   }
 
-  SECTION("Rfind with multiple occurrences") {
+  SUBCASE("rfind_with_multiple_occurrences") {
     constexpr CStringView testString("abababab");
 
     REQUIRE(testString.rfind("ab") == 6);
@@ -2290,7 +2315,7 @@ TEST_CASE("CStringView rfind", "[core][c_string_view]") {
     static_assert(testString.rfind("ab", 1) == 0);
   }
 
-  SECTION("Rfind with position in middle") {
+  SUBCASE("rfind_with_position_in_middle") {
     constexpr CStringView testString("Hello World Hello");
 
     REQUIRE(testString.rfind("Hello", 8) == 0);
@@ -2305,8 +2330,9 @@ TEST_CASE("CStringView rfind", "[core][c_string_view]") {
   }
 }
 
-TEST_CASE("CStringView find_first_of", "[core][c_string_view]") {
-  SECTION("Find first of CStringView characters") {
+// find_first_of() character set.
+TEST_CASE("core/c_string_view/find_first_of") {
+  SUBCASE("find_first_of_c_string_view_characters") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.find_first_of(CStringView("aeiou")) == 1); // 'e' at position 1
@@ -2320,7 +2346,7 @@ TEST_CASE("CStringView find_first_of", "[core][c_string_view]") {
     static_assert(testString.find_first_of(CStringView("xyz")) == CStringView::npos);
   }
 
-  SECTION("Find first of StringLike characters") {
+  SUBCASE("find_first_of_string_like_characters") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.find_first_of(std::string("aeiou")) == 1);
@@ -2334,7 +2360,7 @@ TEST_CASE("CStringView find_first_of", "[core][c_string_view]") {
     static_assert(testString.find_first_of(CStringView("xyz")) == CStringView::npos);
   }
 
-  SECTION("Find first of C string characters") {
+  SUBCASE("find_first_of_c_string_characters") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.find_first_of("aeiou") == 1);
@@ -2348,7 +2374,7 @@ TEST_CASE("CStringView find_first_of", "[core][c_string_view]") {
     static_assert(testString.find_first_of("xyz") == CStringView::npos);
   }
 
-  SECTION("Find first of single character") {
+  SUBCASE("find_first_of_single_character") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.find_first_of('H') == 0);
@@ -2368,7 +2394,7 @@ TEST_CASE("CStringView find_first_of", "[core][c_string_view]") {
     static_assert(testString.find_first_of('x') == CStringView::npos);
   }
 
-  SECTION("Find first of with position parameter") {
+  SUBCASE("find_first_of_with_position_parameter") {
     constexpr CStringView testString("Hello World Hello");
 
     REQUIRE(testString.find_first_of("aeiou", 0) == 1);
@@ -2386,7 +2412,7 @@ TEST_CASE("CStringView find_first_of", "[core][c_string_view]") {
     static_assert(testString.find_first_of("aeiou", 17) == CStringView::npos);
   }
 
-  SECTION("Find first of empty character set") {
+  SUBCASE("find_first_of_empty_character_set") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.find_first_of(CStringView("")) == CStringView::npos);
@@ -2398,7 +2424,7 @@ TEST_CASE("CStringView find_first_of", "[core][c_string_view]") {
     static_assert(testString.find_first_of("") == CStringView::npos);
   }
 
-  SECTION("Find first of in empty string") {
+  SUBCASE("find_first_of_in_empty_string") {
     constexpr CStringView testString("");
 
     REQUIRE(testString.find_first_of(CStringView("aeiou")) == CStringView::npos);
@@ -2412,7 +2438,7 @@ TEST_CASE("CStringView find_first_of", "[core][c_string_view]") {
     static_assert(testString.find_first_of('a') == CStringView::npos);
   }
 
-  SECTION("Find first of with position beyond string size") {
+  SUBCASE("find_first_of_with_position_beyond_string_size") {
     constexpr CStringView testString("Hello");
 
     REQUIRE(testString.find_first_of("aeiou", 10) == CStringView::npos);
@@ -2422,7 +2448,7 @@ TEST_CASE("CStringView find_first_of", "[core][c_string_view]") {
     static_assert(testString.find_first_of('a', 10) == CStringView::npos);
   }
 
-  SECTION("Find first of with repeated characters") {
+  SUBCASE("find_first_of_with_repeated_characters") {
     constexpr CStringView testString("aaaaa");
 
     REQUIRE(testString.find_first_of("a") == 0);
@@ -2434,7 +2460,7 @@ TEST_CASE("CStringView find_first_of", "[core][c_string_view]") {
     static_assert(testString.find_first_of("b") == CStringView::npos);
   }
 
-  SECTION("Find first of with multiple character sets") {
+  SUBCASE("find_first_of_with_multiple_character_sets") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.find_first_of("Hl") == 0); // 'H' at position 0
@@ -2448,7 +2474,7 @@ TEST_CASE("CStringView find_first_of", "[core][c_string_view]") {
     static_assert(testString.find_first_of("dl") == 2);
   }
 
-  SECTION("Find first of case sensitivity") {
+  SUBCASE("find_first_of_case_sensitivity") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.find_first_of("h") == CStringView::npos);
@@ -2462,7 +2488,7 @@ TEST_CASE("CStringView find_first_of", "[core][c_string_view]") {
     static_assert(testString.find_first_of("W") == 6);
   }
 
-  SECTION("Find first of with special characters") {
+  SUBCASE("find_first_of_with_special_characters") {
     constexpr CStringView testString("Hello, World!");
 
     REQUIRE(testString.find_first_of("!,") == 5); // ',' at position 5
@@ -2474,7 +2500,7 @@ TEST_CASE("CStringView find_first_of", "[core][c_string_view]") {
     static_assert(testString.find_first_of(".,!") == 5);
   }
 
-  SECTION("Find first of with numbers") {
+  SUBCASE("find_first_of_with_numbers") {
     constexpr CStringView testString("Hello123World");
 
     REQUIRE(testString.find_first_of("0123456789") == 5); // '1' at position 5
@@ -2486,7 +2512,7 @@ TEST_CASE("CStringView find_first_of", "[core][c_string_view]") {
     static_assert(testString.find_first_of("456") == CStringView::npos);
   }
 
-  SECTION("Find first of with whitespace") {
+  SUBCASE("find_first_of_with_whitespace") {
     constexpr CStringView testString("Hello World\t\n");
 
     REQUIRE(testString.find_first_of(" \t\n") == 5); // ' ' at position 5
@@ -2498,7 +2524,7 @@ TEST_CASE("CStringView find_first_of", "[core][c_string_view]") {
     static_assert(testString.find_first_of("\n") == 12);
   }
 
-  SECTION("Find first of with single character string") {
+  SUBCASE("find_first_of_with_single_character_string") {
     constexpr CStringView testString("A");
 
     REQUIRE(testString.find_first_of("A") == 0);
@@ -2512,7 +2538,7 @@ TEST_CASE("CStringView find_first_of", "[core][c_string_view]") {
     static_assert(testString.find_first_of('B') == CStringView::npos);
   }
 
-  SECTION("Find first of with position 0") {
+  SUBCASE("find_first_of_with_position_0") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.find_first_of("aeiou", 0) == 1);
@@ -2524,7 +2550,7 @@ TEST_CASE("CStringView find_first_of", "[core][c_string_view]") {
     static_assert(testString.find_first_of("xyz", 0) == CStringView::npos);
   }
 
-  SECTION("Find first of with all characters found") {
+  SUBCASE("find_first_of_with_all_characters_found") {
     constexpr CStringView testString("abcdefghijklmnopqrstuvwxyz");
 
     REQUIRE(testString.find_first_of("aeiou") == 0);
@@ -2536,7 +2562,7 @@ TEST_CASE("CStringView find_first_of", "[core][c_string_view]") {
     static_assert(testString.find_first_of("z") == 25);
   }
 
-  SECTION("Find first of with no characters found") {
+  SUBCASE("find_first_of_with_no_characters_found") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.find_first_of("0123456789") == CStringView::npos);
@@ -2549,8 +2575,9 @@ TEST_CASE("CStringView find_first_of", "[core][c_string_view]") {
   }
 }
 
-TEST_CASE("CStringView find_first_not_of", "[core][c_string_view]") {
-  SECTION("Find first not of CStringView characters") {
+// find_first_not_of() character set.
+TEST_CASE("core/c_string_view/find_first_not_of") {
+  SUBCASE("find_first_not_of_c_string_view_characters") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.find_first_not_of(CStringView("H")) == 1); // 'e' at position 1
@@ -2562,7 +2589,7 @@ TEST_CASE("CStringView find_first_not_of", "[core][c_string_view]") {
     static_assert(testString.find_first_not_of(CStringView("Helo Wrd")) == CStringView::npos);
   }
 
-  SECTION("Find first not of StringLike characters") {
+  SUBCASE("find_first_not_of_string_like_characters") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.find_first_not_of(std::string("H")) == 1); // 'e' at position 1
@@ -2574,7 +2601,7 @@ TEST_CASE("CStringView find_first_not_of", "[core][c_string_view]") {
     static_assert(testString.find_first_not_of(CStringView("Helo Wrd")) == CStringView::npos);
   }
 
-  SECTION("Find first not of C string characters") {
+  SUBCASE("find_first_not_of_c_string_characters") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.find_first_not_of("H") == 1); // 'e' at position 1
@@ -2586,7 +2613,7 @@ TEST_CASE("CStringView find_first_not_of", "[core][c_string_view]") {
     static_assert(testString.find_first_not_of("Helo Wrd") == CStringView::npos);
   }
 
-  SECTION("Find first not of single character") {
+  SUBCASE("find_first_not_of_single_character") {
     constexpr CStringView testString("aaaaab");
 
     REQUIRE(testString.find_first_not_of('a') == 5); // 'b' at position 5
@@ -2598,7 +2625,7 @@ TEST_CASE("CStringView find_first_not_of", "[core][c_string_view]") {
     static_assert(testString.find_first_not_of('x') == 0);
   }
 
-  SECTION("Find first not of with position parameter") {
+  SUBCASE("find_first_not_of_with_position_parameter") {
     constexpr CStringView testString("Hello World Hello");
 
     REQUIRE(testString.find_first_not_of("Hel", 0) == 4); // 'o' at position 4
@@ -2614,7 +2641,7 @@ TEST_CASE("CStringView find_first_not_of", "[core][c_string_view]") {
     static_assert(testString.find_first_not_of("Hel", 7) == 7);
   }
 
-  SECTION("Find first not of empty character set") {
+  SUBCASE("find_first_not_of_empty_character_set") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.find_first_not_of(CStringView("")) == 0); // 'H' at position 0
@@ -2628,7 +2655,7 @@ TEST_CASE("CStringView find_first_not_of", "[core][c_string_view]") {
     static_assert(testString.find_first_not_of("", 5) == 5);
   }
 
-  SECTION("Find first not of in empty string") {
+  SUBCASE("find_first_not_of_in_empty_string") {
     constexpr CStringView testString("");
 
     REQUIRE(testString.find_first_not_of(CStringView("aeiou")) == CStringView::npos);
@@ -2642,7 +2669,7 @@ TEST_CASE("CStringView find_first_not_of", "[core][c_string_view]") {
     static_assert(testString.find_first_not_of('a') == CStringView::npos);
   }
 
-  SECTION("Find first not of with position beyond string size") {
+  SUBCASE("find_first_not_of_with_position_beyond_string_size") {
     constexpr CStringView testString("Hello");
 
     REQUIRE(testString.find_first_not_of("aeiou", 10) == CStringView::npos);
@@ -2652,7 +2679,7 @@ TEST_CASE("CStringView find_first_not_of", "[core][c_string_view]") {
     static_assert(testString.find_first_not_of('a', 10) == CStringView::npos);
   }
 
-  SECTION("Find first not of with repeated characters") {
+  SUBCASE("find_first_not_of_with_repeated_characters") {
     constexpr CStringView testString("aaaaa");
 
     REQUIRE(testString.find_first_not_of("a") == CStringView::npos);
@@ -2664,7 +2691,7 @@ TEST_CASE("CStringView find_first_not_of", "[core][c_string_view]") {
     static_assert(testString.find_first_not_of("b") == 0);
   }
 
-  SECTION("Find first not of with multiple character sets") {
+  SUBCASE("find_first_not_of_with_multiple_character_sets") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.find_first_not_of("Hl") == 1); // 'e' at position 1
@@ -2678,7 +2705,7 @@ TEST_CASE("CStringView find_first_not_of", "[core][c_string_view]") {
     static_assert(testString.find_first_not_of("Helo ") == 6);
   }
 
-  SECTION("Find first not of case sensitivity") {
+  SUBCASE("find_first_not_of_case_sensitivity") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.find_first_not_of("h") == 0); // 'H' at position 0
@@ -2692,7 +2719,7 @@ TEST_CASE("CStringView find_first_not_of", "[core][c_string_view]") {
     static_assert(testString.find_first_not_of("W") == 0);
   }
 
-  SECTION("Find first not of with special characters") {
+  SUBCASE("find_first_not_of_with_special_characters") {
     constexpr CStringView testString("Hello, World!");
 
     REQUIRE(testString.find_first_not_of("Helo, Wrd!") == CStringView::npos);
@@ -2702,7 +2729,7 @@ TEST_CASE("CStringView find_first_not_of", "[core][c_string_view]") {
     static_assert(testString.find_first_not_of("Helo, Wrd") == 12);
   }
 
-  SECTION("Find first not of with numbers") {
+  SUBCASE("find_first_not_of_with_numbers") {
     constexpr CStringView testString("Hello123World");
 
     REQUIRE(testString.find_first_not_of("0123456789") == 0); // 'H' at position 0
@@ -2714,7 +2741,7 @@ TEST_CASE("CStringView find_first_not_of", "[core][c_string_view]") {
     static_assert(testString.find_first_not_of("Helo123Wr") == 12);
   }
 
-  SECTION("Find first not of with whitespace") {
+  SUBCASE("find_first_not_of_with_whitespace") {
     constexpr CStringView testString("Hello World\t\n");
 
     REQUIRE(testString.find_first_not_of(" \t\n") == 0); // 'H' at position 0
@@ -2726,7 +2753,7 @@ TEST_CASE("CStringView find_first_not_of", "[core][c_string_view]") {
     static_assert(testString.find_first_not_of("Helo Wrd") == 11);
   }
 
-  SECTION("Find first not of with single character string") {
+  SUBCASE("find_first_not_of_with_single_character_string") {
     constexpr CStringView testString("A");
 
     REQUIRE(testString.find_first_not_of("A") == CStringView::npos);
@@ -2740,7 +2767,7 @@ TEST_CASE("CStringView find_first_not_of", "[core][c_string_view]") {
     static_assert(testString.find_first_not_of('B') == 0);
   }
 
-  SECTION("Find first not of with position 0") {
+  SUBCASE("find_first_not_of_with_position_0") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.find_first_not_of("H", 0) == 1);
@@ -2752,7 +2779,7 @@ TEST_CASE("CStringView find_first_not_of", "[core][c_string_view]") {
     static_assert(testString.find_first_not_of("Helo Wrd", 0) == CStringView::npos);
   }
 
-  SECTION("Find first not of with all characters excluded") {
+  SUBCASE("find_first_not_of_with_all_characters_excluded") {
     constexpr CStringView testString("abcdefghijklmnopqrstuvwxyz");
 
     REQUIRE(testString.find_first_not_of("abcdefghijklmnopqrstuvwxyz") == CStringView::npos);
@@ -2764,7 +2791,7 @@ TEST_CASE("CStringView find_first_not_of", "[core][c_string_view]") {
     static_assert(testString.find_first_not_of("abcdefghijklmnopqrstuvwx") == 24);
   }
 
-  SECTION("Find first not of with no characters excluded") {
+  SUBCASE("find_first_not_of_with_no_characters_excluded") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.find_first_not_of("xyz") == 0); // 'H' at position 0
@@ -2776,7 +2803,7 @@ TEST_CASE("CStringView find_first_not_of", "[core][c_string_view]") {
     static_assert(testString.find_first_not_of("!@#$%^&*()") == 0);
   }
 
-  SECTION("Find first not of with mixed content") {
+  SUBCASE("find_first_not_of_with_mixed_content") {
     constexpr CStringView testString("Hello123World");
 
     REQUIRE(testString.find_first_not_of("Helo123Wrd") == CStringView::npos);
@@ -2788,7 +2815,7 @@ TEST_CASE("CStringView find_first_not_of", "[core][c_string_view]") {
     static_assert(testString.find_first_not_of("Helo123Wd") == 10);
   }
 
-  SECTION("Find first not of with position in middle") {
+  SUBCASE("find_first_not_of_with_position_in_middle") {
     constexpr CStringView testString("Hello World Hello");
 
     REQUIRE(testString.find_first_not_of("Hel", 4) == 4); // 'o' at position 4
@@ -2802,7 +2829,7 @@ TEST_CASE("CStringView find_first_not_of", "[core][c_string_view]") {
     static_assert(testString.find_first_not_of("Hel", 7) == 7);
   }
 
-  SECTION("Find first not of with exact match") {
+  SUBCASE("find_first_not_of_with_exact_match") {
     constexpr CStringView testString("Hello");
 
     REQUIRE(testString.find_first_not_of("Hello") == CStringView::npos);
@@ -2815,8 +2842,9 @@ TEST_CASE("CStringView find_first_not_of", "[core][c_string_view]") {
   }
 }
 
-TEST_CASE("CStringView find_last_of", "[core][c_string_view]") {
-  SECTION("Find last of CStringView characters") {
+// find_last_of() character set.
+TEST_CASE("core/c_string_view/find_last_of") {
+  SUBCASE("find_last_of_c_string_view_characters") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.find_last_of(CStringView("aeiou")) == 7); // 'o' at position 7
@@ -2830,7 +2858,7 @@ TEST_CASE("CStringView find_last_of", "[core][c_string_view]") {
     static_assert(testString.find_last_of(CStringView("d")) == 10);
   }
 
-  SECTION("Find last of StringLike characters") {
+  SUBCASE("find_last_of_string_like_characters") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.find_last_of(std::string("aeiou")) == 7); // 'o' at position 7
@@ -2844,7 +2872,7 @@ TEST_CASE("CStringView find_last_of", "[core][c_string_view]") {
     static_assert(testString.find_last_of(CStringView("d")) == 10);
   }
 
-  SECTION("Find last of C string characters") {
+  SUBCASE("find_last_of_c_string_characters") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.find_last_of("aeiou") == 7); // 'o' at position 7
@@ -2858,7 +2886,7 @@ TEST_CASE("CStringView find_last_of", "[core][c_string_view]") {
     static_assert(testString.find_last_of("d") == 10);
   }
 
-  SECTION("Find last of single character") {
+  SUBCASE("find_last_of_single_character") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.find_last_of('l') == 9); // 'l' at position 9
@@ -2872,7 +2900,7 @@ TEST_CASE("CStringView find_last_of", "[core][c_string_view]") {
     static_assert(testString.find_last_of('d') == 10);
   }
 
-  SECTION("Find last of with position parameter") {
+  SUBCASE("find_last_of_with_position_parameter") {
     constexpr CStringView testString("Hello World Hello");
 
     REQUIRE(testString.find_last_of("Hel", 8) == 3); // 'l' at position 3
@@ -2890,7 +2918,7 @@ TEST_CASE("CStringView find_last_of", "[core][c_string_view]") {
     static_assert(testString.find_last_of("Hel", 17) == CStringView::npos);
   }
 
-  SECTION("Find last of empty character set") {
+  SUBCASE("find_last_of_empty_character_set") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.find_last_of(CStringView("")) == CStringView::npos);
@@ -2902,7 +2930,7 @@ TEST_CASE("CStringView find_last_of", "[core][c_string_view]") {
     static_assert(testString.find_last_of("") == CStringView::npos);
   }
 
-  SECTION("Find last of with no characters found") {
+  SUBCASE("find_last_of_with_no_characters_found") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.find_last_of("0123456789") == CStringView::npos);
@@ -2914,7 +2942,7 @@ TEST_CASE("CStringView find_last_of", "[core][c_string_view]") {
     static_assert(testString.find_last_of("[]{}|\\:;\"'<>?/") == CStringView::npos);
   }
 
-  SECTION("Find last of with multiple character sets") {
+  SUBCASE("find_last_of_with_multiple_character_sets") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.find_last_of("Hl") == 9); // 'l' at position 9
@@ -2928,7 +2956,7 @@ TEST_CASE("CStringView find_last_of", "[core][c_string_view]") {
     static_assert(testString.find_last_of("Helo ") == 9);
   }
 
-  SECTION("Find last of case sensitivity") {
+  SUBCASE("find_last_of_case_sensitivity") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.find_last_of("h") == CStringView::npos);
@@ -2942,7 +2970,7 @@ TEST_CASE("CStringView find_last_of", "[core][c_string_view]") {
     static_assert(testString.find_last_of("W") == 6);
   }
 
-  SECTION("Find last of with special characters") {
+  SUBCASE("find_last_of_with_special_characters") {
     constexpr CStringView testString("Hello, World!");
 
     REQUIRE(testString.find_last_of("Helo, Wrd!") == 12); // '!' at position 12
@@ -2954,7 +2982,7 @@ TEST_CASE("CStringView find_last_of", "[core][c_string_view]") {
     static_assert(testString.find_last_of("Helo, Wr") == 10);
   }
 
-  SECTION("Find last of with numbers") {
+  SUBCASE("find_last_of_with_numbers") {
     constexpr CStringView testString("Hello123World");
 
     REQUIRE(testString.find_last_of("0123456789") == 7); // '3' at position 7
@@ -2966,7 +2994,7 @@ TEST_CASE("CStringView find_last_of", "[core][c_string_view]") {
     static_assert(testString.find_last_of("Helo123Wr") == 11);
   }
 
-  SECTION("Find last of with whitespace") {
+  SUBCASE("find_last_of_with_whitespace") {
     constexpr CStringView testString("Hello World\t\n");
 
     REQUIRE(testString.find_last_of(" \t\n") == 12); // '\n' at position 12
@@ -2978,7 +3006,7 @@ TEST_CASE("CStringView find_last_of", "[core][c_string_view]") {
     static_assert(testString.find_last_of("Helo Wrd") == 10);
   }
 
-  SECTION("Find last of with repeated characters") {
+  SUBCASE("find_last_of_with_repeated_characters") {
     constexpr CStringView testString("aaaaab");
 
     REQUIRE(testString.find_last_of('a') == 4); // 'a' at position 4
@@ -2990,7 +3018,7 @@ TEST_CASE("CStringView find_last_of", "[core][c_string_view]") {
     static_assert(testString.find_last_of('x') == CStringView::npos);
   }
 
-  SECTION("Find last of with single character string") {
+  SUBCASE("find_last_of_with_single_character_string") {
     constexpr CStringView testString("AAAAA");
 
     REQUIRE(testString.find_last_of("A") == 4); // 'A' at position 4
@@ -3004,7 +3032,7 @@ TEST_CASE("CStringView find_last_of", "[core][c_string_view]") {
     static_assert(testString.find_last_of('B') == CStringView::npos);
   }
 
-  SECTION("Find last of with alphabet") {
+  SUBCASE("find_last_of_with_alphabet") {
     constexpr CStringView testString("abcdefghijklmnopqrstuvwxyz");
 
     REQUIRE(testString.find_last_of("abcdefghijklmnopqrstuvwxyz") == 25); // 'z' at position 25
@@ -3016,7 +3044,7 @@ TEST_CASE("CStringView find_last_of", "[core][c_string_view]") {
     static_assert(testString.find_last_of("abcdefghijklmnopqrstuvwx") == 23);
   }
 
-  SECTION("Find last of with all characters found") {
+  SUBCASE("find_last_of_with_all_characters_found") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.find_last_of("Helo Wrd") == 10); // 'd' at position 10
@@ -3028,7 +3056,7 @@ TEST_CASE("CStringView find_last_of", "[core][c_string_view]") {
     static_assert(testString.find_last_of("Helo W") == 9);
   }
 
-  SECTION("Find last of with position in middle") {
+  SUBCASE("find_last_of_with_position_in_middle") {
     constexpr CStringView testString("Hello World Hello");
 
     REQUIRE(testString.find_last_of("Hel", 8) == 3); // 'l' at position 3
@@ -3042,7 +3070,7 @@ TEST_CASE("CStringView find_last_of", "[core][c_string_view]") {
     static_assert(testString.find_last_of("Hel", 1) == 1);
   }
 
-  SECTION("Find last of with exact match") {
+  SUBCASE("find_last_of_with_exact_match") {
     constexpr CStringView testString("Hello");
 
     REQUIRE(testString.find_last_of("Hello") == 4); // 'o' at position 4
@@ -3055,8 +3083,9 @@ TEST_CASE("CStringView find_last_of", "[core][c_string_view]") {
   }
 }
 
-TEST_CASE("CStringView find_last_not_of", "[core][c_string_view]") {
-  SECTION("Find last not of CStringView characters") {
+// find_last_not_of() character set.
+TEST_CASE("core/c_string_view/find_last_not_of") {
+  SUBCASE("find_last_not_of_c_string_view_characters") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.find_last_not_of(CStringView("d")) == 9); // 'l' at position 9
@@ -3070,7 +3099,7 @@ TEST_CASE("CStringView find_last_not_of", "[core][c_string_view]") {
     static_assert(testString.find_last_not_of(CStringView("World")) == 5);
   }
 
-  SECTION("Find last not of StringLike characters") {
+  SUBCASE("find_last_not_of_string_like_characters") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.find_last_not_of(std::string("d")) == 9); // 'l' at position 9
@@ -3084,7 +3113,7 @@ TEST_CASE("CStringView find_last_not_of", "[core][c_string_view]") {
     static_assert(testString.find_last_not_of(CStringView("World")) == 5);
   }
 
-  SECTION("Find last not of C string characters") {
+  SUBCASE("find_last_not_of_c_string_characters") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.find_last_not_of("d") == 9); // 'l' at position 9
@@ -3098,7 +3127,7 @@ TEST_CASE("CStringView find_last_not_of", "[core][c_string_view]") {
     static_assert(testString.find_last_not_of("World") == 5);
   }
 
-  SECTION("Find last not of single character") {
+  SUBCASE("find_last_not_of_single_character") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.find_last_not_of('d') == 9); // 'l' at position 9
@@ -3112,7 +3141,7 @@ TEST_CASE("CStringView find_last_not_of", "[core][c_string_view]") {
     static_assert(testString.find_last_not_of('H') == 10);
   }
 
-  SECTION("Find last not of with position parameter") {
+  SUBCASE("find_last_not_of_with_position_parameter") {
     constexpr CStringView testString("Hello World Hello");
 
     REQUIRE(testString.find_last_not_of("Hel", 8) == 8); // 'r' at position 8
@@ -3128,7 +3157,7 @@ TEST_CASE("CStringView find_last_not_of", "[core][c_string_view]") {
     static_assert(testString.find_last_not_of("Hel", 0) == CStringView::npos);
   }
 
-  SECTION("Find last not of empty character set") {
+  SUBCASE("find_last_not_of_empty_character_set") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.find_last_not_of(CStringView("")) == 10); // 'd' at position 10
@@ -3142,7 +3171,7 @@ TEST_CASE("CStringView find_last_not_of", "[core][c_string_view]") {
     static_assert(testString.find_last_not_of("", 5) == 5);
   }
 
-  SECTION("Find last not of with all characters excluded") {
+  SUBCASE("find_last_not_of_with_all_characters_excluded") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.find_last_not_of("Helo Wrd") == CStringView::npos);
@@ -3154,7 +3183,7 @@ TEST_CASE("CStringView find_last_not_of", "[core][c_string_view]") {
     static_assert(testString.find_last_not_of("Helo W") == 10);
   }
 
-  SECTION("Find last not of with multiple character sets") {
+  SUBCASE("find_last_not_of_with_multiple_character_sets") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.find_last_not_of("Hl") == 10); // 'd' at position 10
@@ -3168,7 +3197,7 @@ TEST_CASE("CStringView find_last_not_of", "[core][c_string_view]") {
     static_assert(testString.find_last_not_of("Helo ") == 10);
   }
 
-  SECTION("Find last not of case sensitivity") {
+  SUBCASE("find_last_not_of_case_sensitivity") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.find_last_not_of("h") == 10); // 'd' at position 10
@@ -3182,7 +3211,7 @@ TEST_CASE("CStringView find_last_not_of", "[core][c_string_view]") {
     static_assert(testString.find_last_not_of("W") == 10);
   }
 
-  SECTION("Find last not of with special characters") {
+  SUBCASE("find_last_not_of_with_special_characters") {
     constexpr CStringView testString("Hello, World!");
 
     REQUIRE(testString.find_last_not_of("Helo, Wrd!") == CStringView::npos);
@@ -3194,7 +3223,7 @@ TEST_CASE("CStringView find_last_not_of", "[core][c_string_view]") {
     static_assert(testString.find_last_not_of("Helo, Wr") == 12);
   }
 
-  SECTION("Find last not of with numbers") {
+  SUBCASE("find_last_not_of_with_numbers") {
     constexpr CStringView testString("Hello123World");
 
     REQUIRE(testString.find_last_not_of("0123456789") == 12); // 'd' at position 12
@@ -3206,7 +3235,7 @@ TEST_CASE("CStringView find_last_not_of", "[core][c_string_view]") {
     static_assert(testString.find_last_not_of("Helo123Wr") == 12);
   }
 
-  SECTION("Find last not of with whitespace") {
+  SUBCASE("find_last_not_of_with_whitespace") {
     constexpr CStringView testString("Hello World\t\n");
 
     REQUIRE(testString.find_last_not_of(" \t\n") == 10); // 'd' at position 10
@@ -3218,7 +3247,7 @@ TEST_CASE("CStringView find_last_not_of", "[core][c_string_view]") {
     static_assert(testString.find_last_not_of("Helo Wrd") == 12);
   }
 
-  SECTION("Find last not of with repeated characters") {
+  SUBCASE("find_last_not_of_with_repeated_characters") {
     constexpr CStringView testString("aaaaab");
 
     REQUIRE(testString.find_last_not_of('a') == 5); // 'b' at position 5
@@ -3230,7 +3259,7 @@ TEST_CASE("CStringView find_last_not_of", "[core][c_string_view]") {
     static_assert(testString.find_last_not_of('x') == 5);
   }
 
-  SECTION("Find last not of with single character string") {
+  SUBCASE("find_last_not_of_with_single_character_string") {
     constexpr CStringView testString("AAAAA");
 
     REQUIRE(testString.find_last_not_of("A") == CStringView::npos);
@@ -3244,7 +3273,7 @@ TEST_CASE("CStringView find_last_not_of", "[core][c_string_view]") {
     static_assert(testString.find_last_not_of('B') == 4);
   }
 
-  SECTION("Find last not of with alphabet") {
+  SUBCASE("find_last_not_of_with_alphabet") {
     constexpr CStringView testString("abcdefghijklmnopqrstuvwxyz");
 
     REQUIRE(testString.find_last_not_of("abcdefghijklmnopqrstuvwxyz") == CStringView::npos);
@@ -3256,7 +3285,7 @@ TEST_CASE("CStringView find_last_not_of", "[core][c_string_view]") {
     static_assert(testString.find_last_not_of("abcdefghijklmnopqrstuvwx") == 25);
   }
 
-  SECTION("Find last not of with no characters excluded") {
+  SUBCASE("find_last_not_of_with_no_characters_excluded") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.find_last_not_of("xyz") == 10); // 'd' at position 10
@@ -3268,7 +3297,7 @@ TEST_CASE("CStringView find_last_not_of", "[core][c_string_view]") {
     static_assert(testString.find_last_not_of("!@#$%^&*()") == 10);
   }
 
-  SECTION("Find last not of with position in middle") {
+  SUBCASE("find_last_not_of_with_position_in_middle") {
     constexpr CStringView testString("Hello World Hello");
 
     REQUIRE(testString.find_last_not_of("Hel", 8) == 8); // 'r' at position 8
@@ -3284,7 +3313,7 @@ TEST_CASE("CStringView find_last_not_of", "[core][c_string_view]") {
     static_assert(testString.find_last_not_of("Hel", 17) == CStringView::npos);
   }
 
-  SECTION("Find last not of with exact match") {
+  SUBCASE("find_last_not_of_with_exact_match") {
     constexpr CStringView testString("Hello");
 
     REQUIRE(testString.find_last_not_of("Hello") == CStringView::npos);
@@ -3296,7 +3325,7 @@ TEST_CASE("CStringView find_last_not_of", "[core][c_string_view]") {
     static_assert(testString.find_last_not_of("Hel") == 4);
   }
 
-  SECTION("Find last not of in empty string") {
+  SUBCASE("find_last_not_of_in_empty_string") {
     constexpr CStringView testString("");
 
     REQUIRE(testString.find_last_not_of("Hello") == CStringView::npos);
@@ -3305,8 +3334,9 @@ TEST_CASE("CStringView find_last_not_of", "[core][c_string_view]") {
   }
 }
 
-TEST_CASE("CStringView compare", "[core][c_string_view]") {
-  SECTION("Compare CStringView with CStringView") {
+// compare() three-way.
+TEST_CASE("core/c_string_view/compare") {
+  SUBCASE("compare_c_string_view_with_c_string_view") {
     constexpr CStringView testString1("Hello");
     constexpr CStringView testString2("Hello");
     constexpr CStringView testString3("World");
@@ -3321,7 +3351,7 @@ TEST_CASE("CStringView compare", "[core][c_string_view]") {
     static_assert(testString1.compare(testString4) > 0);
   }
 
-  SECTION("Compare CStringView with StringLike") {
+  SUBCASE("compare_c_string_view_with_string_like") {
     constexpr CStringView testString("Hello");
 
     REQUIRE(testString.compare(std::string("Hello")) == 0);
@@ -3333,7 +3363,7 @@ TEST_CASE("CStringView compare", "[core][c_string_view]") {
     static_assert(testString.compare(CStringView("Hell")) > 0);
   }
 
-  SECTION("Compare CStringView with C string") {
+  SUBCASE("compare_c_string_view_with_c_string") {
     constexpr CStringView testString("Hello");
 
     REQUIRE(testString.compare("Hello") == 0);
@@ -3345,7 +3375,7 @@ TEST_CASE("CStringView compare", "[core][c_string_view]") {
     static_assert(testString.compare("Hell") > 0);
   }
 
-  SECTION("Compare identical strings") {
+  SUBCASE("compare_identical_strings") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.compare(CStringView("Hello World")) == 0);
@@ -3357,7 +3387,7 @@ TEST_CASE("CStringView compare", "[core][c_string_view]") {
     static_assert(testString.compare("Hello World") == 0);
   }
 
-  SECTION("Compare with empty strings") {
+  SUBCASE("compare_with_empty_strings") {
     constexpr CStringView testString1("");
     constexpr CStringView testString2("Hello");
 
@@ -3372,7 +3402,7 @@ TEST_CASE("CStringView compare", "[core][c_string_view]") {
     static_assert(testString1.compare(CStringView("")) == 0);
   }
 
-  SECTION("Compare strings with different lengths") {
+  SUBCASE("compare_strings_with_different_lengths") {
     constexpr CStringView testString1("Hello");
     constexpr CStringView testString2("Hello World");
 
@@ -3383,7 +3413,7 @@ TEST_CASE("CStringView compare", "[core][c_string_view]") {
     static_assert(testString2.compare(testString1) > 0);
   }
 
-  SECTION("Compare strings with same prefix") {
+  SUBCASE("compare_strings_with_same_prefix") {
     constexpr CStringView testString1("Hello");
     constexpr CStringView testString2("Hell");
 
@@ -3394,7 +3424,7 @@ TEST_CASE("CStringView compare", "[core][c_string_view]") {
     static_assert(testString2.compare(testString1) < 0);
   }
 
-  SECTION("Compare strings with different first character") {
+  SUBCASE("compare_strings_with_different_first_character") {
     constexpr CStringView testString1("Apple");
     constexpr CStringView testString2("Banana");
 
@@ -3405,7 +3435,7 @@ TEST_CASE("CStringView compare", "[core][c_string_view]") {
     static_assert(testString2.compare(testString1) > 0);
   }
 
-  SECTION("Compare strings with different middle character") {
+  SUBCASE("compare_strings_with_different_middle_character") {
     constexpr CStringView testString1("Hello");
     constexpr CStringView testString2("Hallo");
 
@@ -3416,7 +3446,7 @@ TEST_CASE("CStringView compare", "[core][c_string_view]") {
     static_assert(testString2.compare(testString1) < 0);
   }
 
-  SECTION("Compare strings with different last character") {
+  SUBCASE("compare_strings_with_different_last_character") {
     constexpr CStringView testString1("Hello");
     constexpr CStringView testString2("Hellp");
 
@@ -3427,7 +3457,7 @@ TEST_CASE("CStringView compare", "[core][c_string_view]") {
     static_assert(testString2.compare(testString1) > 0);
   }
 
-  SECTION("Compare case sensitivity") {
+  SUBCASE("compare_case_sensitivity") {
     constexpr CStringView testString("Hello");
 
     REQUIRE(testString.compare("hello") < 0);
@@ -3439,7 +3469,7 @@ TEST_CASE("CStringView compare", "[core][c_string_view]") {
     static_assert(testString.compare("Hello") == 0);
   }
 
-  SECTION("Compare with single character strings") {
+  SUBCASE("compare_with_single_character_strings") {
     constexpr CStringView testString1("A");
     constexpr CStringView testString2("B");
 
@@ -3454,7 +3484,7 @@ TEST_CASE("CStringView compare", "[core][c_string_view]") {
     static_assert(testString1.compare("B") < 0);
   }
 
-  SECTION("Compare with repeated characters") {
+  SUBCASE("compare_with_repeated_characters") {
     constexpr CStringView testString1("aaa");
     constexpr CStringView testString2("aa");
 
@@ -3469,7 +3499,7 @@ TEST_CASE("CStringView compare", "[core][c_string_view]") {
     static_assert(testString1.compare("aa") > 0);
   }
 
-  SECTION("Compare with special characters") {
+  SUBCASE("compare_with_special_characters") {
     constexpr CStringView testString1("Hello!");
     constexpr CStringView testString2("Hello");
 
@@ -3484,7 +3514,7 @@ TEST_CASE("CStringView compare", "[core][c_string_view]") {
     static_assert(testString1.compare("Hello") > 0);
   }
 
-  SECTION("Compare with numbers") {
+  SUBCASE("compare_with_numbers") {
     constexpr CStringView testString1("123");
     constexpr CStringView testString2("456");
 
@@ -3499,7 +3529,7 @@ TEST_CASE("CStringView compare", "[core][c_string_view]") {
     static_assert(testString1.compare("456") < 0);
   }
 
-  SECTION("Compare with mixed content") {
+  SUBCASE("compare_with_mixed_content") {
     constexpr CStringView testString1("Hello123");
     constexpr CStringView testString2("Hello456");
 
@@ -3514,7 +3544,7 @@ TEST_CASE("CStringView compare", "[core][c_string_view]") {
     static_assert(testString1.compare("Hello456") < 0);
   }
 
-  SECTION("Compare with maximum length strings") {
+  SUBCASE("compare_with_maximum_length_strings") {
     constexpr CStringView testString1("123456789012345");
     constexpr CStringView testString2("123456789012346");
 
@@ -3529,7 +3559,7 @@ TEST_CASE("CStringView compare", "[core][c_string_view]") {
     static_assert(testString1.compare("123456789012346") < 0);
   }
 
-  SECTION("Compare with StringLike") {
+  SUBCASE("compare_with_string_like") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.compare(std::string("Hello World")) == 0);
@@ -3541,7 +3571,7 @@ TEST_CASE("CStringView compare", "[core][c_string_view]") {
     static_assert(testString.compare(FixedString<16>("World")) < 0);
   }
 
-  SECTION("Compare with array") {
+  SUBCASE("compare_with_array") {
     constexpr CStringView testString("Hello");
     constexpr array<char, 6> arr = {'H', 'e', 'l', 'l', 'o', '\0'};
 
@@ -3552,7 +3582,7 @@ TEST_CASE("CStringView compare", "[core][c_string_view]") {
     static_assert(testString.compare("Hello") == 0);
   }
 
-  SECTION("Compare edge cases") {
+  SUBCASE("compare_edge_cases") {
     constexpr CStringView testString("Hello");
 
     // Compare with null-terminated string
@@ -3567,8 +3597,9 @@ TEST_CASE("CStringView compare", "[core][c_string_view]") {
   }
 }
 
-TEST_CASE("CStringView starts_with", "[core][c_string_view]") {
-  SECTION("Starts with CStringView") {
+// starts_with() prefix check.
+TEST_CASE("core/c_string_view/starts_with") {
+  SUBCASE("starts_with_c_string_view") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.starts_with(CStringView("Hello")));
@@ -3586,7 +3617,7 @@ TEST_CASE("CStringView starts_with", "[core][c_string_view]") {
     static_assert(testString.starts_with(CStringView("")));
   }
 
-  SECTION("Starts with StringLike") {
+  SUBCASE("starts_with_string_like") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.starts_with(std::string("Hello")));
@@ -3604,7 +3635,7 @@ TEST_CASE("CStringView starts_with", "[core][c_string_view]") {
     static_assert(testString.starts_with(FixedString<16>("")));
   }
 
-  SECTION("Starts with C string") {
+  SUBCASE("starts_with_c_string") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.starts_with("Hello"));
@@ -3622,7 +3653,7 @@ TEST_CASE("CStringView starts_with", "[core][c_string_view]") {
     static_assert(testString.starts_with(""));
   }
 
-  SECTION("Starts with character") {
+  SUBCASE("starts_with_character") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.starts_with('H'));
@@ -3636,7 +3667,7 @@ TEST_CASE("CStringView starts_with", "[core][c_string_view]") {
     static_assert(testString.starts_with('x') == false);
   }
 
-  SECTION("Starts with empty string") {
+  SUBCASE("starts_with_empty_string") {
     constexpr CStringView testString("");
 
     REQUIRE(testString.starts_with(CStringView("Hello")) == false);
@@ -3652,7 +3683,7 @@ TEST_CASE("CStringView starts_with", "[core][c_string_view]") {
     static_assert(testString.starts_with(""));
   }
 
-  SECTION("Starts with single character string") {
+  SUBCASE("starts_with_single_character_string") {
     constexpr CStringView testString("A");
 
     REQUIRE(testString.starts_with("A"));
@@ -3668,7 +3699,7 @@ TEST_CASE("CStringView starts_with", "[core][c_string_view]") {
     static_assert(testString.starts_with(""));
   }
 
-  SECTION("Starts with longer prefix") {
+  SUBCASE("starts_with_longer_prefix") {
     constexpr CStringView testString("Hello");
 
     REQUIRE(testString.starts_with("Hello World") == false);
@@ -3682,7 +3713,7 @@ TEST_CASE("CStringView starts_with", "[core][c_string_view]") {
     static_assert(testString.starts_with("Hell"));
   }
 
-  SECTION("Starts with case sensitivity") {
+  SUBCASE("starts_with_case_sensitivity") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.starts_with("hello") == false);
@@ -3698,7 +3729,7 @@ TEST_CASE("CStringView starts_with", "[core][c_string_view]") {
     static_assert(testString.starts_with('H'));
   }
 
-  SECTION("Starts with repeated characters") {
+  SUBCASE("starts_with_repeated_characters") {
     constexpr CStringView testString("aaaab");
 
     REQUIRE(testString.starts_with("aaa"));
@@ -3716,7 +3747,7 @@ TEST_CASE("CStringView starts_with", "[core][c_string_view]") {
     static_assert(testString.starts_with('b') == false);
   }
 
-  SECTION("Starts with special characters") {
+  SUBCASE("starts_with_special_characters") {
     constexpr CStringView testString("!@#$%");
 
     REQUIRE(testString.starts_with("!@#"));
@@ -3732,7 +3763,7 @@ TEST_CASE("CStringView starts_with", "[core][c_string_view]") {
     static_assert(testString.starts_with('@') == false);
   }
 
-  SECTION("Starts with numbers") {
+  SUBCASE("starts_with_numbers") {
     constexpr CStringView testString("12345");
 
     REQUIRE(testString.starts_with("123"));
@@ -3748,7 +3779,7 @@ TEST_CASE("CStringView starts_with", "[core][c_string_view]") {
     static_assert(testString.starts_with('2') == false);
   }
 
-  SECTION("Starts with mixed content") {
+  SUBCASE("starts_with_mixed_content") {
     constexpr CStringView testString("Hello123");
 
     REQUIRE(testString.starts_with("Hello"));
@@ -3766,7 +3797,7 @@ TEST_CASE("CStringView starts_with", "[core][c_string_view]") {
     static_assert(testString.starts_with('1') == false);
   }
 
-  SECTION("Starts with maximum length strings") {
+  SUBCASE("starts_with_maximum_length_strings") {
     constexpr CStringView testString("123456789012345");
 
     REQUIRE(testString.starts_with("123456789012345"));
@@ -3782,7 +3813,7 @@ TEST_CASE("CStringView starts_with", "[core][c_string_view]") {
     static_assert(testString.starts_with('5') == false);
   }
 
-  SECTION("Starts with std::string") {
+  SUBCASE("starts_with_std_string") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.starts_with(std::string("Hello")));
@@ -3794,7 +3825,7 @@ TEST_CASE("CStringView starts_with", "[core][c_string_view]") {
     static_assert(testString.starts_with(FixedString<16>("World")) == false);
   }
 
-  SECTION("Starts with array") {
+  SUBCASE("starts_with_array") {
     constexpr CStringView testString("Hello");
     constexpr array<char, 4> arr = {'H', 'e', 'l', '\0'};
 
@@ -3805,7 +3836,7 @@ TEST_CASE("CStringView starts_with", "[core][c_string_view]") {
     static_assert(testString.starts_with("Hel"));
   }
 
-  SECTION("Starts with edge cases") {
+  SUBCASE("starts_with_edge_cases") {
     constexpr CStringView testString("Hello");
 
     // Test with null-terminated string
@@ -3819,7 +3850,7 @@ TEST_CASE("CStringView starts_with", "[core][c_string_view]") {
     static_assert(testStringWithNull.starts_with("Hello"));
   }
 
-  SECTION("Starts with whitespace") {
+  SUBCASE("starts_with_whitespace") {
     constexpr CStringView testString(" Hello World");
 
     REQUIRE(testString.starts_with(" "));
@@ -3835,7 +3866,7 @@ TEST_CASE("CStringView starts_with", "[core][c_string_view]") {
     static_assert(testString.starts_with('H') == false);
   }
 
-  SECTION("Starts with exact match") {
+  SUBCASE("starts_with_exact_match") {
     constexpr CStringView testString("Hello");
 
     REQUIRE(testString.starts_with("Hello"));
@@ -3850,8 +3881,9 @@ TEST_CASE("CStringView starts_with", "[core][c_string_view]") {
   }
 }
 
-TEST_CASE("CStringView ends_with", "[core][c_string_view]") {
-  SECTION("CStringView ends_with") {
+// ends_with() suffix check.
+TEST_CASE("core/c_string_view/ends_with") {
+  SUBCASE("c_string_view_ends_with") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.ends_with(CStringView("World")));
@@ -3869,7 +3901,7 @@ TEST_CASE("CStringView ends_with", "[core][c_string_view]") {
     static_assert(testString.ends_with(CStringView("")));
   }
 
-  SECTION("StringLike ends_with") {
+  SUBCASE("string_like_ends_with") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.ends_with(std::string("World")));
@@ -3887,7 +3919,7 @@ TEST_CASE("CStringView ends_with", "[core][c_string_view]") {
     static_assert(testString.ends_with(FixedString<16>("")));
   }
 
-  SECTION("C string ends_with") {
+  SUBCASE("c_string_ends_with") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.ends_with("World"));
@@ -3905,7 +3937,7 @@ TEST_CASE("CStringView ends_with", "[core][c_string_view]") {
     static_assert(testString.ends_with(""));
   }
 
-  SECTION("Character ends_with") {
+  SUBCASE("character_ends_with") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.ends_with('d'));
@@ -3919,7 +3951,7 @@ TEST_CASE("CStringView ends_with", "[core][c_string_view]") {
     static_assert(testString.ends_with('x') == false);
   }
 
-  SECTION("Empty string ends_with") {
+  SUBCASE("empty_string_ends_with") {
     constexpr CStringView testString("");
 
     REQUIRE(testString.ends_with(CStringView("Hello")) == false);
@@ -3935,7 +3967,7 @@ TEST_CASE("CStringView ends_with", "[core][c_string_view]") {
     static_assert(testString.ends_with(""));
   }
 
-  SECTION("Single character string ends_with") {
+  SUBCASE("single_character_string_ends_with") {
     constexpr CStringView testString("A");
 
     REQUIRE(testString.ends_with("A"));
@@ -3951,7 +3983,7 @@ TEST_CASE("CStringView ends_with", "[core][c_string_view]") {
     static_assert(testString.ends_with(""));
   }
 
-  SECTION("Longer suffix ends_with") {
+  SUBCASE("longer_suffix_ends_with") {
     constexpr CStringView testString("Hello");
 
     REQUIRE(testString.ends_with("Hello World") == false);
@@ -3965,7 +3997,7 @@ TEST_CASE("CStringView ends_with", "[core][c_string_view]") {
     static_assert(testString.ends_with("llo"));
   }
 
-  SECTION("Case sensitivity ends_with") {
+  SUBCASE("case_sensitivity_ends_with") {
     constexpr CStringView testString("Hello World");
 
     REQUIRE(testString.ends_with("world") == false);
@@ -3981,7 +4013,7 @@ TEST_CASE("CStringView ends_with", "[core][c_string_view]") {
     static_assert(testString.ends_with('D') == false);
   }
 
-  SECTION("Repeated characters ends_with") {
+  SUBCASE("repeated_characters_ends_with") {
     constexpr CStringView testString("baaaa");
 
     REQUIRE(testString.ends_with("aaa"));
@@ -3999,7 +4031,7 @@ TEST_CASE("CStringView ends_with", "[core][c_string_view]") {
     static_assert(testString.ends_with('b') == false);
   }
 
-  SECTION("Special characters ends_with") {
+  SUBCASE("special_characters_ends_with") {
     constexpr CStringView testString("%$#@!");
 
     REQUIRE(testString.ends_with("@!"));
@@ -4015,7 +4047,7 @@ TEST_CASE("CStringView ends_with", "[core][c_string_view]") {
     static_assert(testString.ends_with('@') == false);
   }
 
-  SECTION("Numeric content ends_with") {
+  SUBCASE("numeric_content_ends_with") {
     constexpr CStringView testString("54321");
 
     REQUIRE(testString.ends_with("321"));
@@ -4031,7 +4063,7 @@ TEST_CASE("CStringView ends_with", "[core][c_string_view]") {
     static_assert(testString.ends_with('2') == false);
   }
 
-  SECTION("Mixed content ends_with") {
+  SUBCASE("mixed_content_ends_with") {
     constexpr CStringView testString("123Hello");
 
     REQUIRE(testString.ends_with("Hello"));
@@ -4049,7 +4081,7 @@ TEST_CASE("CStringView ends_with", "[core][c_string_view]") {
     static_assert(testString.ends_with('1') == false);
   }
 
-  SECTION("Maximum length strings ends_with") {
+  SUBCASE("maximum_length_strings_ends_with") {
     constexpr CStringView testString("123456789012345");
 
     REQUIRE(testString.ends_with("123456789012345"));
@@ -4065,7 +4097,7 @@ TEST_CASE("CStringView ends_with", "[core][c_string_view]") {
     static_assert(testString.ends_with('1') == false);
   }
 
-  SECTION("Array ends_with") {
+  SUBCASE("array_ends_with") {
     constexpr CStringView testString("Hello");
     constexpr array<char, 4> arr = {'l', 'l', 'o', '\0'};
 
@@ -4076,7 +4108,7 @@ TEST_CASE("CStringView ends_with", "[core][c_string_view]") {
     static_assert(testString.ends_with("llo"));
   }
 
-  SECTION("Edge cases ends_with") {
+  SUBCASE("edge_cases_ends_with") {
     constexpr CStringView testString("Hello");
 
     // Test with null-terminated string
@@ -4090,7 +4122,7 @@ TEST_CASE("CStringView ends_with", "[core][c_string_view]") {
     static_assert(testStringWithNull.ends_with("World") == false);
   }
 
-  SECTION("Whitespace ends_with") {
+  SUBCASE("whitespace_ends_with") {
     constexpr CStringView testString("Hello World ");
 
     REQUIRE(testString.ends_with(" "));
@@ -4106,7 +4138,7 @@ TEST_CASE("CStringView ends_with", "[core][c_string_view]") {
     static_assert(testString.ends_with('d') == false);
   }
 
-  SECTION("Exact match ends_with") {
+  SUBCASE("exact_match_ends_with") {
     constexpr CStringView testString("Hello");
 
     REQUIRE(testString.ends_with("Hello"));
@@ -4120,7 +4152,7 @@ TEST_CASE("CStringView ends_with", "[core][c_string_view]") {
     static_assert(testString.ends_with(""));
   }
 
-  SECTION("Overlapping patterns ends_with") {
+  SUBCASE("overlapping_patterns_ends_with") {
     constexpr CStringView testString("ababab");
 
     REQUIRE(testString.ends_with("ab"));
@@ -4138,7 +4170,7 @@ TEST_CASE("CStringView ends_with", "[core][c_string_view]") {
     static_assert(testString.ends_with("bababab") == false);
   }
 
-  SECTION("Multiple occurrences ends_with") {
+  SUBCASE("multiple_occurrences_ends_with") {
     constexpr CStringView testString("abababab");
 
     REQUIRE(testString.ends_with("ab"));
@@ -4154,7 +4186,7 @@ TEST_CASE("CStringView ends_with", "[core][c_string_view]") {
     static_assert(testString.ends_with("abababab"));
   }
 
-  SECTION("Unicode content ends_with") {
+  SUBCASE("unicode_content_ends_with") {
     constexpr CStringView testString("Hello 世界");
 
     REQUIRE(testString.ends_with("世界"));
@@ -4172,7 +4204,7 @@ TEST_CASE("CStringView ends_with", "[core][c_string_view]") {
     static_assert(testString.ends_with(""));
   }
 
-  SECTION("Long strings ends_with") {
+  SUBCASE("long_strings_ends_with") {
     constexpr CStringView testString("This is a very long string for performance testing");
 
     REQUIRE(testString.ends_with("testing"));
@@ -4190,7 +4222,7 @@ TEST_CASE("CStringView ends_with", "[core][c_string_view]") {
     static_assert(testString.ends_with(""));
   }
 
-  SECTION("Constexpr operations ends_with") {
+  SUBCASE("constexpr_operations_ends_with") {
     constexpr CStringView str1("Hello");
     constexpr CStringView str2("World");
     constexpr CStringView str3("Test");
@@ -4215,8 +4247,9 @@ TEST_CASE("CStringView ends_with", "[core][c_string_view]") {
   }
 }
 
-TEST_CASE("CStringView contains", "[core][c_string_view]") {
-  SECTION("C string contains") {
+// contains() substring check.
+TEST_CASE("core/c_string_view/contains") {
+  SUBCASE("c_string_contains") {
     constexpr CStringView str("Hello World");
 
     // Basic contains
@@ -4235,7 +4268,7 @@ TEST_CASE("CStringView contains", "[core][c_string_view]") {
     static_assert(str.contains(""));
   }
 
-  SECTION("CStringView contains") {
+  SUBCASE("c_string_view_contains") {
     constexpr CStringView str("Hello World");
 
     // Basic contains with CStringView
@@ -4256,7 +4289,7 @@ TEST_CASE("CStringView contains", "[core][c_string_view]") {
     static_assert(str.contains(CStringView()));
   }
 
-  SECTION("StringLike contains") {
+  SUBCASE("string_like_contains") {
     constexpr CStringView str("Hello World");
 
     REQUIRE(str.contains(std::string("World")));
@@ -4274,7 +4307,7 @@ TEST_CASE("CStringView contains", "[core][c_string_view]") {
     static_assert(str.contains(FixedString<16>("")));
   }
 
-  SECTION("Character contains") {
+  SUBCASE("character_contains") {
     constexpr CStringView str("Hello World");
 
     // Character contains
@@ -4293,7 +4326,7 @@ TEST_CASE("CStringView contains", "[core][c_string_view]") {
     static_assert(str.contains('Z') == false);
   }
 
-  SECTION("Empty string contains") {
+  SUBCASE("empty_string_contains") {
     constexpr CStringView str("");
 
     // Empty string contains
@@ -4310,7 +4343,7 @@ TEST_CASE("CStringView contains", "[core][c_string_view]") {
     static_assert(str.contains(""));
   }
 
-  SECTION("Single character string contains") {
+  SUBCASE("single_character_string_contains") {
     constexpr CStringView str("A");
 
     // Single character contains
@@ -4327,7 +4360,7 @@ TEST_CASE("CStringView contains", "[core][c_string_view]") {
     static_assert(str.contains(""));
   }
 
-  SECTION("Case sensitivity") {
+  SUBCASE("case_sensitivity") {
     constexpr CStringView str("Hello World");
 
     // Case sensitive contains
@@ -4344,7 +4377,7 @@ TEST_CASE("CStringView contains", "[core][c_string_view]") {
     static_assert(str.contains('H'));
   }
 
-  SECTION("Edge cases") {
+  SUBCASE("edge_cases") {
     constexpr CStringView str("Hello");
 
     // Longer substring than string
@@ -4365,7 +4398,7 @@ TEST_CASE("CStringView contains", "[core][c_string_view]") {
     static_assert(str.contains("ell"));
   }
 
-  SECTION("Special characters") {
+  SUBCASE("special_characters") {
     constexpr CStringView str("Hello\n\tWorld!");
 
     // Special characters
@@ -4384,7 +4417,7 @@ TEST_CASE("CStringView contains", "[core][c_string_view]") {
     static_assert(str.contains("World!"));
   }
 
-  SECTION("Unicode content") {
+  SUBCASE("unicode_content") {
     constexpr CStringView str("Hello 世界");
 
     // Unicode contains
@@ -4401,7 +4434,7 @@ TEST_CASE("CStringView contains", "[core][c_string_view]") {
     static_assert(str.contains("宇宙") == false);
   }
 
-  SECTION("Repeated patterns") {
+  SUBCASE("repeated_patterns") {
     constexpr CStringView str("ababab");
 
     // Overlapping patterns
@@ -4420,7 +4453,7 @@ TEST_CASE("CStringView contains", "[core][c_string_view]") {
     static_assert(str.contains("abababa") == false);
   }
 
-  SECTION("Numeric content") {
+  SUBCASE("numeric_content") {
     constexpr CStringView str("12345");
 
     // Numeric contains
@@ -4443,7 +4476,7 @@ TEST_CASE("CStringView contains", "[core][c_string_view]") {
     static_assert(str.contains('9') == false);
   }
 
-  SECTION("Mixed content") {
+  SUBCASE("mixed_content") {
     constexpr CStringView str("123Hello456");
 
     // Mixed alphanumeric contains
@@ -4462,7 +4495,7 @@ TEST_CASE("CStringView contains", "[core][c_string_view]") {
     static_assert(str.contains("789") == false);
   }
 
-  SECTION("Position-specific contains") {
+  SUBCASE("position_specific_contains") {
     constexpr CStringView str("Hello World");
 
     // Beginning
@@ -4492,8 +4525,9 @@ TEST_CASE("CStringView contains", "[core][c_string_view]") {
   }
 }
 
-TEST_CASE("CStringView operator==", "[core][c_string_view]") {
-  SECTION("CStringView == CStringView") {
+// operator== and operator!=.
+TEST_CASE("core/c_string_view/operator_equal") {
+  SUBCASE("c_string_view_equal_c_string_view") {
     constexpr CStringView str1("Hello");
     constexpr CStringView str2("Hello");
     constexpr CStringView str3("World");
@@ -4519,7 +4553,7 @@ TEST_CASE("CStringView operator==", "[core][c_string_view]") {
     static_assert(empty1 != str1);
   }
 
-  SECTION("CStringView == StringLike") {
+  SUBCASE("c_string_view_equal_string_like") {
     constexpr CStringView str1("Hello");
     constexpr CStringView str2;
     const std::string stdStr1;
@@ -4537,7 +4571,7 @@ TEST_CASE("CStringView operator==", "[core][c_string_view]") {
     REQUIRE_FALSE(str2 == stdStr3);
   }
 
-  SECTION("CStringView == C string") {
+  SUBCASE("c_string_view_equal_c_string") {
     constexpr CStringView str1("Hello");
     constexpr CStringView empty;
 
@@ -4560,7 +4594,7 @@ TEST_CASE("CStringView operator==", "[core][c_string_view]") {
     static_assert("" != str1);
   }
 
-  SECTION("Edge cases") {
+  SUBCASE("edge_cases") {
     constexpr CStringView str("A");
     constexpr CStringView empty1;
     constexpr CStringView empty2;
@@ -4583,7 +4617,7 @@ TEST_CASE("CStringView operator==", "[core][c_string_view]") {
     static_assert(large == small);
   }
 
-  SECTION("Special characters") {
+  SUBCASE("special_characters") {
     constexpr CStringView str1("Hello\nWorld");
     constexpr CStringView str2("Hello\tWorld");
     constexpr CStringView str3("Hello World");
@@ -4598,7 +4632,7 @@ TEST_CASE("CStringView operator==", "[core][c_string_view]") {
     static_assert(str3 != str1);
   }
 
-  SECTION("Unicode content") {
+  SUBCASE("unicode_content") {
     constexpr CStringView str1("Привет");
     constexpr CStringView str2("Мир");
     constexpr CStringView str3("Привет");
@@ -4611,7 +4645,7 @@ TEST_CASE("CStringView operator==", "[core][c_string_view]") {
     static_assert(str2 != str1);
   }
 
-  SECTION("Performance test") {
+  SUBCASE("performance_test") {
     constexpr CStringView str1("This is a longer string for performance testing");
     constexpr CStringView str2("This is a longer string for performance testing");
     constexpr CStringView str3("This is a different string for performance testing");
@@ -4622,7 +4656,7 @@ TEST_CASE("CStringView operator==", "[core][c_string_view]") {
     static_assert(str3 != str1);
   }
 
-  SECTION("Constexpr operations") {
+  SUBCASE("constexpr_operations") {
     constexpr CStringView str1("Test");
     constexpr CStringView str2("Test");
     constexpr CStringView str3("Different");
@@ -4643,8 +4677,9 @@ TEST_CASE("CStringView operator==", "[core][c_string_view]") {
   }
 }
 
-TEST_CASE("CStringView operator<=>", "[core][c_string_view]") {
-  SECTION("CStringView <=> CStringView") {
+// operator<=> three-way comparison.
+TEST_CASE("core/c_string_view/operator_three_way") {
+  SUBCASE("c_string_view_three_way_c_string_view") {
     constexpr CStringView str1("Hello");
     constexpr CStringView str2("Hello");
     constexpr CStringView str3("World");
@@ -4676,7 +4711,7 @@ TEST_CASE("CStringView operator<=>", "[core][c_string_view]") {
     static_assert((str5 <=> str1) == strong_ordering::less);
   }
 
-  SECTION("CStringView <=> StringLike") {
+  SUBCASE("c_string_view_three_way_string_like") {
     constexpr CStringView str("Hello");
     constexpr CStringView empty;
     const std::string stdStr1("Hello");
@@ -4698,7 +4733,7 @@ TEST_CASE("CStringView operator<=>", "[core][c_string_view]") {
     REQUIRE((stdEmpty <=> empty) == strong_ordering::equal);
   }
 
-  SECTION("CStringView <=> C string") {
+  SUBCASE("c_string_view_three_way_c_string") {
     constexpr CStringView str1("Hello");
     constexpr const char * str2 = "Hello";
     constexpr const char * str3 = "World";
@@ -4728,7 +4763,7 @@ TEST_CASE("CStringView operator<=>", "[core][c_string_view]") {
     static_assert((str5 <=> str1) == strong_ordering::less);
   }
 
-  SECTION("Empty string comparisons") {
+  SUBCASE("empty_string_comparisons") {
     constexpr CStringView empty1("");
     constexpr CStringView empty2("");
     constexpr CStringView nonEmpty("Test");
@@ -4758,7 +4793,7 @@ TEST_CASE("CStringView operator<=>", "[core][c_string_view]") {
     static_assert((nonEmptyCStr <=> empty1) == strong_ordering::greater);
   }
 
-  SECTION("Single character strings") {
+  SUBCASE("single_character_strings") {
     constexpr CStringView str1("A");
     constexpr CStringView str2("B");
     constexpr CStringView str3("A");
@@ -4787,7 +4822,7 @@ TEST_CASE("CStringView operator<=>", "[core][c_string_view]") {
     static_assert((str4 <=> str2) == strong_ordering::greater);
   }
 
-  SECTION("Case sensitivity") {
+  SUBCASE("case_sensitivity") {
     constexpr CStringView lower("hello");
     constexpr CStringView upper("HELLO");
     constexpr CStringView mixed("Hello");
@@ -4808,7 +4843,7 @@ TEST_CASE("CStringView operator<=>", "[core][c_string_view]") {
     static_assert((mixed <=> upper) == strong_ordering::greater);
   }
 
-  SECTION("Prefix comparisons") {
+  SUBCASE("prefix_comparisons") {
     constexpr CStringView str1("Hello");
     constexpr CStringView str2("HelloWorld");
     constexpr CStringView str3("Hell");
@@ -4833,7 +4868,7 @@ TEST_CASE("CStringView operator<=>", "[core][c_string_view]") {
     static_assert((str4 <=> str1) == strong_ordering::equal);
   }
 
-  SECTION("Special characters") {
+  SUBCASE("special_characters") {
     constexpr CStringView str1("Hello\nWorld");
     constexpr CStringView str2("Hello\tWorld");
     constexpr CStringView str3("Hello World");
@@ -4862,7 +4897,7 @@ TEST_CASE("CStringView operator<=>", "[core][c_string_view]") {
     static_assert((str3 <=> str2) == strong_ordering::greater);
   }
 
-  SECTION("Unicode content") {
+  SUBCASE("unicode_content") {
     constexpr CStringView str1("Привет");
     constexpr CStringView str2("Мир");
     constexpr CStringView str3("Привет");
@@ -4887,7 +4922,7 @@ TEST_CASE("CStringView operator<=>", "[core][c_string_view]") {
     static_assert((str4 <=> str1) != strong_ordering::equal);
   }
 
-  SECTION("Numeric strings") {
+  SUBCASE("numeric_strings") {
     constexpr CStringView str1("123");
     constexpr CStringView str2("456");
     constexpr CStringView str3("123");
@@ -4917,7 +4952,7 @@ TEST_CASE("CStringView operator<=>", "[core][c_string_view]") {
     static_assert((str5 <=> str1) == strong_ordering::greater);
   }
 
-  SECTION("Constexpr operations") {
+  SUBCASE("constexpr_operations") {
     constexpr CStringView str1("Test");
     constexpr CStringView str2("Test");
     constexpr CStringView str3("Different");
@@ -4940,7 +4975,7 @@ TEST_CASE("CStringView operator<=>", "[core][c_string_view]") {
     static_assert(eq6 == strong_ordering::equal);
   }
 
-  SECTION("Performance test") {
+  SUBCASE("performance_test") {
     constexpr CStringView str1("This is a very long string for performance testing");
     constexpr CStringView str2("This is a very long string for performance testing");
     constexpr CStringView str3("This is a very long string for performance testing!");
@@ -4963,8 +4998,9 @@ TEST_CASE("CStringView operator<=>", "[core][c_string_view]") {
   }
 }
 
-TEST_CASE("CStringView std::swap", "[core][c_string_view]") {
-  SECTION("Basic swap functionality") {
+// std::swap() overload.
+TEST_CASE("core/c_string_view/std_swap") {
+  SUBCASE("basic_swap_functionality") {
     CStringView str1("Hello");
     CStringView str2("World");
 
@@ -4976,7 +5012,7 @@ TEST_CASE("CStringView std::swap", "[core][c_string_view]") {
     REQUIRE(std::strcmp(str2.c_str(), "Hello") == 0);
   }
 
-  SECTION("Swap with empty strings") {
+  SUBCASE("swap_with_empty_strings") {
     CStringView str1("Hello");
     CStringView str2("");
 
@@ -4988,7 +5024,7 @@ TEST_CASE("CStringView std::swap", "[core][c_string_view]") {
     REQUIRE(std::strcmp(str2.c_str(), "Hello") == 0);
   }
 
-  SECTION("Swap two empty strings") {
+  SUBCASE("swap_two_empty_strings") {
     CStringView str1("");
     CStringView str2("");
 
@@ -5000,7 +5036,7 @@ TEST_CASE("CStringView std::swap", "[core][c_string_view]") {
     REQUIRE(std::strcmp(str2.c_str(), "") == 0);
   }
 
-  SECTION("Self-swap") {
+  SUBCASE("self_swap") {
     CStringView str1("Hello");
 
     std::swap(str1, str1);
@@ -5009,7 +5045,7 @@ TEST_CASE("CStringView std::swap", "[core][c_string_view]") {
     REQUIRE(std::strcmp(str1.c_str(), "Hello") == 0);
   }
 
-  SECTION("Swap with different sizes") {
+  SUBCASE("swap_with_different_sizes") {
     CStringView str1("Hi");
     CStringView str2("VeryLongString");
 
@@ -5021,7 +5057,7 @@ TEST_CASE("CStringView std::swap", "[core][c_string_view]") {
     REQUIRE(std::strcmp(str2.c_str(), "Hi") == 0);
   }
 
-  SECTION("Swap with maximum length strings") {
+  SUBCASE("swap_with_maximum_length_strings") {
     CStringView str1("123456789012345"); // 15 chars
     CStringView str2("ABCDEFGHIJKLMNO"); // 15 chars
 
@@ -5033,7 +5069,7 @@ TEST_CASE("CStringView std::swap", "[core][c_string_view]") {
     REQUIRE(std::strcmp(str2.c_str(), "123456789012345") == 0);
   }
 
-  SECTION("Swap with special characters") {
+  SUBCASE("swap_with_special_characters") {
     CStringView str1("Hello,\n\t!");
     CStringView str2("World,\r\n?");
 
@@ -5045,7 +5081,7 @@ TEST_CASE("CStringView std::swap", "[core][c_string_view]") {
     REQUIRE(std::strcmp(str2.c_str(), "Hello,\n\t!") == 0);
   }
 
-  SECTION("Swap with Unicode content") {
+  SUBCASE("swap_with_unicode_content") {
     CStringView str1("Hello 世界");
     CStringView str2("World 宇宙");
 
@@ -5057,7 +5093,7 @@ TEST_CASE("CStringView std::swap", "[core][c_string_view]") {
     REQUIRE(std::strcmp(str2.c_str(), "Hello 世界") == 0);
   }
 
-  SECTION("Multiple swaps") {
+  SUBCASE("multiple_swaps") {
     CStringView str1("First");
     CStringView str2("Second");
     CStringView str3("Third");
@@ -5084,7 +5120,7 @@ TEST_CASE("CStringView std::swap", "[core][c_string_view]") {
     REQUIRE(std::strcmp(str3.c_str(), "Second") == 0);
   }
 
-  SECTION("Performance test with large strings") {
+  SUBCASE("performance_test_with_large_strings") {
     CStringView str1("This is a very long string that tests swap performance");
     CStringView str2("Another very long string for performance testing");
 
@@ -5096,7 +5132,7 @@ TEST_CASE("CStringView std::swap", "[core][c_string_view]") {
     REQUIRE(std::strcmp(str2.c_str(), "This is a very long string that tests swap performance") == 0);
   }
 
-  SECTION("Swap with single character strings") {
+  SUBCASE("swap_with_single_character_strings") {
     CStringView str1("A");
     CStringView str2("B");
 
