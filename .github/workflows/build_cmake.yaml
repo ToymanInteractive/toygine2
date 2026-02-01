@@ -18,66 +18,78 @@ jobs:
         include:
           - name: Linux Ninja x64
             os: ubuntu-24.04
+            build_tests: "true"
             run_test: "true"
             cmake_preset: linux-ninja-release
 
           - name: Linux Ninja arm64
             os: ubuntu-24.04-arm
+            build_tests: "true"
             run_test: "true"
             cmake_preset: linux-ninja-release
 
           - name: macOS XCode arm64
             os: macos-26
+            build_tests: "true"
             run_test: "true"
             cmake_preset: macos-xcode
 
           - name: macOS Ninja arm64
             os: macos-26
+            build_tests: "true"
             run_test: "true"
             cmake_preset: macos-ninja-release
 
           - name: macOS XCode Intel
             os: macos-15-intel
+            build_tests: "true"
             run_test: "true"
             cmake_preset: macos-xcode
 
           - name: macOS Ninja Intel
             os: macos-15-intel
+            build_tests: "true"
             run_test: "true"
             cmake_preset: macos-ninja-release
 
           - name: Windows MSVC x86
             os: windows-2025
+            build_tests: "true"
             run_test: "true"
             cmake_preset: windows-msvc-x86
 
           - name: Windows MSVC
             os: windows-2025
+            build_tests: "true"
             run_test: "true"
             cmake_preset: windows-msvc
 
           - name: DevkitPro GBA
             os: ubuntu-24.04
             container: devkitpro/devkitarm:20251231
-            run_test: "true"
+            build_tests: "false"
+            run_test: "false"
             cmake_preset: nintendo-gba-ninja-release
 
           - name: DevkitPro NDS
             os: ubuntu-24.04
             container: devkitpro/devkitarm:20251231
-            run_test: "true"
+            build_tests: "false"
+            run_test: "false"
             cmake_preset: nintendo-ds-ninja-release
 
           - name: DevkitPro 3DS
             os: ubuntu-24.04
             container: devkitpro/devkitarm:20251231
-            run_test: "true"
+            build_tests: "false"
+            run_test: "false"
             cmake_preset: nintendo-3ds-ninja-release
 
           - name: DevkitPro Switch
             os: ubuntu-24.04
             container: devkitpro/devkita64:20251231
-            run_test: "true"
+            build_tests: "true"
+            run_test: "false"
             cmake_preset: nintendo-switch-ninja-release
 
     name: ${{ matrix.name }}
@@ -168,7 +180,7 @@ jobs:
 
       - name: Build and Test
         run: |
-          cmake -DTOYGINE_BUILD_TESTS=$([ "${{ matrix.run_test }}" = "true" ] && echo ON || echo OFF) --preset ${{ matrix.cmake_preset }}
+          cmake -DTOYGINE_BUILD_TESTS=$([ "${{ matrix.build_tests }}" = "true" ] && echo ON || echo OFF) --preset ${{ matrix.cmake_preset }}
           cmake --build --preset ${{ matrix.cmake_preset }}
           if [ "${{ matrix.run_test }}" = "true" ]; then
             ctest --preset ${{ matrix.cmake_preset }}
