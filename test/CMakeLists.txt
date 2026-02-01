@@ -59,37 +59,20 @@ set_property(GLOBAL PROPERTY CTEST_TARGETS_ADDED 1)
 include(FetchContent)
 include(CTest)
 
-set(CATCH_INSTALL_HELPERS OFF)
-set(CATCH_BUILD_TESTING OFF)
-set(CATCH_INSTALL_DOCS OFF)
-
-FetchContent_Declare(Catch2 GIT_REPOSITORY https://github.com/catchorg/Catch2.git GIT_TAG v3.12.0)
-FetchContent_MakeAvailable(Catch2)
-
-list(APPEND CMAKE_MODULE_PATH ${Catch2_SOURCE_DIR}/extras)
-
-file(GLOB_RECURSE CATCH_TEST_SRC CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/catch/*.cpp")
-
-include(Catch)
-
-add_executable(${TOYGINE_LIBRARY_NAME}-catch2-tests ${CATCH_TEST_SRC})
-target_include_directories(${TOYGINE_LIBRARY_NAME}-catch2-tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include)
-target_link_libraries(${TOYGINE_LIBRARY_NAME}-catch2-tests PRIVATE Catch2::Catch2 ${TOYGINE_LIBRARY_NAME})
-catch_discover_tests(${TOYGINE_LIBRARY_NAME}-catch2-tests)
-
 FetchContent_Declare(doctest GIT_REPOSITORY https://github.com/doctest/doctest GIT_TAG v2.4.12)
 FetchContent_MakeAvailable(doctest)
 
 list(APPEND CMAKE_MODULE_PATH ${doctest_SOURCE_DIR}/scripts/cmake)
 
-file(GLOB_RECURSE DOCTEST_TEST_SRC CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/doctest/*.cpp")
+file(GLOB_RECURSE TEST_SRC CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp")
 
 include(doctest)
 
-add_executable(${TOYGINE_LIBRARY_NAME}-doctest-tests ${DOCTEST_TEST_SRC})
-target_include_directories(${TOYGINE_LIBRARY_NAME}-doctest-tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include)
-target_link_libraries(${TOYGINE_LIBRARY_NAME}-doctest-tests PRIVATE doctest::doctest ${TOYGINE_LIBRARY_NAME})
-doctest_discover_tests(${TOYGINE_LIBRARY_NAME}-doctest-tests)
+add_executable(${TOYGINE_LIBRARY_NAME}-tests ${TEST_SRC})
+target_compile_definitions(${TOYGINE_LIBRARY_NAME}-tests PRIVATE DOCTEST_CONFIG_SUPER_FAST_ASSERTS)
+target_include_directories(${TOYGINE_LIBRARY_NAME}-tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include)
+target_link_libraries(${TOYGINE_LIBRARY_NAME}-tests PRIVATE doctest::doctest ${TOYGINE_LIBRARY_NAME})
+doctest_discover_tests(${TOYGINE_LIBRARY_NAME}-tests)
 
 if (TOYGINE_TESTS_ENABLE_COVERAGE)
   # include the cmake code coverage module
@@ -98,8 +81,7 @@ if (TOYGINE_TESTS_ENABLE_COVERAGE)
   # Update the default compiler flags to enable coverage
   append_coverage_compiler_flags()
   append_coverage_compiler_flags_to_target(${TOYGINE_LIBRARY_NAME})
-  append_coverage_compiler_flags_to_target(${TOYGINE_LIBRARY_NAME}-catch2-tests)
-  append_coverage_compiler_flags_to_target(${TOYGINE_LIBRARY_NAME}-doctest-tests)
+  append_coverage_compiler_flags_to_target(${TOYGINE_LIBRARY_NAME}-tests)
 
   # exclude /test and /ext directories from coverage analysis
   set(COVERAGE_EXCLUDES "${CMAKE_SOURCE_DIR}/test/*" "${CMAKE_BINARY_DIR}/*" "/usr/*")
