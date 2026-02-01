@@ -17,6 +17,8 @@
 # OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 #-------------------------------------------------------------------------------------------
+set(CTEST_SUPPORT OFF)
+
 if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
   if (MSVC)
@@ -36,7 +38,11 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
     string(REGEX REPLACE "/RTCc" "" CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO}")
   endif (MSVC)
 
+  set(CTEST_SUPPORT ON)
+
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop")
+
+  set(CTEST_SUPPORT ON)
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
 
@@ -49,6 +55,8 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
   string(REGEX REPLACE "-Weverything" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
   string(REGEX REPLACE "-pedantic-errors" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
   set(CMAKE_CXX_FLAGS "-w ${CMAKE_CXX_FLAGS}")
+
+  set(CTEST_SUPPORT ON)
 
 endif ()
 #-------------------------------------------------------------------------------------------
@@ -69,10 +77,12 @@ file(GLOB_RECURSE TEST_SRC CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp"
 include(doctest)
 
 add_executable(${TOYGINE_LIBRARY_NAME}-tests ${TEST_SRC})
-target_compile_definitions(${TOYGINE_LIBRARY_NAME}-tests PRIVATE DOCTEST_CONFIG_SUPER_FAST_ASSERTS)
+target_compile_definitions(${TOYGINE_LIBRARY_NAME}-tests PRIVATE DOCTEST_CONFIG_SUPER_FAST_ASSERTS DOCTEST_CONFIG_NO_POSIX_SIGNALS)
 target_include_directories(${TOYGINE_LIBRARY_NAME}-tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include)
 target_link_libraries(${TOYGINE_LIBRARY_NAME}-tests PRIVATE doctest::doctest ${TOYGINE_LIBRARY_NAME})
-doctest_discover_tests(${TOYGINE_LIBRARY_NAME}-tests)
+if (CTEST_SUPPORT)
+  doctest_discover_tests(${TOYGINE_LIBRARY_NAME}-tests)
+endif (CTEST_SUPPORT)
 
 if (TOYGINE_TESTS_ENABLE_COVERAGE)
   # include the cmake code coverage module

@@ -171,9 +171,9 @@ TEST_CASE("core/fixed_vector/constructors") {
 
     REQUIRE(doubleVec.size() == 3);
     REQUIRE(doubleVec.capacity() == 4);
-    REQUIRE(doubleVec[0] == 3.15);
-    REQUIRE(doubleVec[1] == 3.15);
-    REQUIRE(doubleVec[2] == 3.15);
+    REQUIRE(doubleVec[0] == doctest::Approx(3.15));
+    REQUIRE(doubleVec[1] == doctest::Approx(3.15));
+    REQUIRE(doubleVec[2] == doctest::Approx(3.15));
   }
 
   // Bool type constructor.

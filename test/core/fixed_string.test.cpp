@@ -2897,7 +2897,7 @@ TEST_CASE("core/fixed_string/push_back") {
     REQUIRE(testString.empty());
     REQUIRE(testString.size() == 0);
 
-    for (int i = 0; i < 5; ++i) {
+    for (int8_t i = 0; i < 5; ++i) {
       testString.push_back('A' + i);
       REQUIRE(testString.size() == i + 1);
     }

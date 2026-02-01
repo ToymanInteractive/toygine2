@@ -4,16 +4,16 @@
 
 #include "core.hpp"
 
-[[noreturn]] bool _assertionCallback(const char * message) {
+[[noreturn]] static bool assertionCallback(const char * message) {
   throw std::runtime_error(message);
 }
 
-void _stackWalkCallback([[maybe_unused]] const char * info) {}
+static void stackWalkCallback([[maybe_unused]] const char * info) {}
 
 int main(int argc, char ** argv) {
   toy::assertion::initialize();
 
-  toy::assertion::setCallbacks(_assertionCallback, _stackWalkCallback);
+  toy::assertion::setCallbacks(assertionCallback, stackWalkCallback);
 
   doctest::Context context;
   context.applyCommandLine(argc, argv);
