@@ -80,9 +80,9 @@ add_executable(${TOYGINE_LIBRARY_NAME}-tests ${TEST_SRC})
 target_compile_definitions(${TOYGINE_LIBRARY_NAME}-tests PRIVATE DOCTEST_CONFIG_SUPER_FAST_ASSERTS DOCTEST_CONFIG_NO_POSIX_SIGNALS)
 target_include_directories(${TOYGINE_LIBRARY_NAME}-tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include)
 target_link_libraries(${TOYGINE_LIBRARY_NAME}-tests PRIVATE doctest::doctest ${TOYGINE_LIBRARY_NAME})
-if (TOP_PROJECT)
+if (CTEST_SUPPORT)
   doctest_discover_tests(${TOYGINE_LIBRARY_NAME}-tests)
-endif (TOP_PROJECT)
+endif (CTEST_SUPPORT)
 
 if (TOYGINE_TESTS_ENABLE_COVERAGE)
   # include the cmake code coverage module
