@@ -64,14 +64,15 @@ FetchContent_MakeAvailable(doctest)
 
 list(APPEND CMAKE_MODULE_PATH ${doctest_SOURCE_DIR}/scripts/cmake)
 
-file(GLOB_RECURSE DOCTEST_TEST_SRC CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/doctest/*.cpp")
+file(GLOB_RECURSE TEST_SRC CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp")
 
 include(doctest)
 
-add_executable(${TOYGINE_LIBRARY_NAME}-doctest-tests ${DOCTEST_TEST_SRC})
-target_include_directories(${TOYGINE_LIBRARY_NAME}-doctest-tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include)
-target_link_libraries(${TOYGINE_LIBRARY_NAME}-doctest-tests PRIVATE doctest::doctest ${TOYGINE_LIBRARY_NAME})
-doctest_discover_tests(${TOYGINE_LIBRARY_NAME}-doctest-tests)
+add_executable(${TOYGINE_LIBRARY_NAME}-tests ${TEST_SRC})
+target_compile_definitions(${TOYGINE_LIBRARY_NAME}-tests PRIVATE DOCTEST_CONFIG_TREAT_CHAR_STAR_AS_STRING DOCTEST_CONFIG_SUPER_FAST_ASSERTS)
+target_include_directories(${TOYGINE_LIBRARY_NAME}-tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include)
+target_link_libraries(${TOYGINE_LIBRARY_NAME}-tests PRIVATE doctest::doctest ${TOYGINE_LIBRARY_NAME})
+doctest_discover_tests(${TOYGINE_LIBRARY_NAME}-tests)
 
 if (TOYGINE_TESTS_ENABLE_COVERAGE)
   # include the cmake code coverage module

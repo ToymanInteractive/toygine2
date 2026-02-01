@@ -232,7 +232,7 @@ The goal is to keep tests:
 ## Test Framework Assumptions
 
 - DocTest-style tests are assumed.
-- `static_assert` is preferred when possible.
+- Compile-time verification (`static_assert`) is preferred whenever possible.
 
 ---
 
