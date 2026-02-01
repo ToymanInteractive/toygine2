@@ -1017,7 +1017,7 @@ constexpr size_t FixedString<allocatedSize>::_find_raw(size_t position, const ch
           : std::strstr(_storage.buffer + position, data);
   }
 
-  return occurrence != nullptr ? occurrence - _storage.buffer : npos;
+  return occurrence != nullptr ? static_cast<size_t>(occurrence - _storage.buffer) : npos;
 }
 
 template <size_t allocatedSize>
@@ -1060,7 +1060,7 @@ constexpr size_t FixedString<allocatedSize>::_find_first_of_raw(size_t position,
                                : std::strpbrk(_storage.buffer + position, data);
   }
 
-  return occurrence != nullptr ? occurrence - _storage.buffer : npos;
+  return occurrence != nullptr ? static_cast<size_t>(occurrence - _storage.buffer) : npos;
 }
 
 template <size_t allocatedSize>
