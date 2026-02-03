@@ -290,16 +290,17 @@ public:
     \brief Inserts a pointer value into the stream.
 
     This operator converts the pointer \a value to its hexadecimal string representation with "0x" prefix and appends it
-    to the stream. The pointer is formatted as a hexadecimal number, matching the standard C++ pointer output format.
+    to the stream. The value is zero-padded to the pointer width: 8 hex digits for 32-bit pointers, 16 for 64-bit,
+    so the output length is fixed for a given platform (e.g. "0x00000000" or "0x0000000000000000").
 
     \param value The pointer value to insert into the stream.
 
     \return A reference to this OStringStream, allowing operator chaining.
 
-    \post The write position is advanced by the length of the appended string.
+    \post The write position is advanced by the length of the appended string (2 + sizeof(void*) * 2 characters).
 
     \note This operator follows the same pattern as \c std::ostringstream::operator<<(const void*).
-    \note For null pointers, consider using operator<<(nullptr_t) for consistent "nullptr" output.
+    \note For null pointers, use operator<<(nullptr_t) for consistent "nullptr" output.
 
     \sa operator<<(nullptr_t)
     \sa put(char_type)

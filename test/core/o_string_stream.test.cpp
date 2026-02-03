@@ -823,7 +823,7 @@ TEST_CASE("core/o_string_stream/operator_insert") {
   }
 
   // operator<< void pointer and nullptr.
-  SUBCASE("insert_void_pointer") {
+  SUBCASE("insert_void_pointer_and_nullptr") {
     array<OStringStream<FixedString<32>>, 3> streams;
 
     constexpr int value = 42;
@@ -849,17 +849,17 @@ TEST_CASE("core/o_string_stream/operator_insert") {
 
   // operator<< pointer to stream with content.
   SUBCASE("insert_pointer_to_stream_with_content") {
-    array<OStringStream<FixedString<32>>, 2> streams
-      = {OStringStream<FixedString<32>>(CStringView("Ptr: ")), OStringStream<FixedString<32>>(CStringView("Ptr: "))};
+    auto stream0 = OStringStream<FixedString<32>>(CStringView("Ptr: "));
+    auto stream1 = OStringStream<FixedString<32>>(CStringView("Ptr: "));
 
     constexpr int value = 100;
 
-    streams[0] << &value;
-    streams[1] << nullptr;
+    stream0 << &value;
+    stream1 << nullptr;
 
-    REQUIRE(streams[0].str().starts_with("Ptr: 0x"));
-    REQUIRE(streams[0].str().size() > 6);
-    REQUIRE(streams[1].str() == "Ptr: nullptr");
+    REQUIRE(stream0.str().starts_with("Ptr: 0x"));
+    REQUIRE(stream0.str().size() > 6);
+    REQUIRE(stream1.str() == "Ptr: nullptr");
   }
 
   // operator<< char.
