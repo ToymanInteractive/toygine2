@@ -67,21 +67,21 @@ jobs:
           - name: DevkitPro GBA
             os: ubuntu-24.04
             container: devkitpro/devkitarm:20251231
-            build_tests: "false"
+            build_tests: "true"
             run_test: "false"
             cmake_preset: nintendo-gba-ninja-release
 
           - name: DevkitPro NDS
             os: ubuntu-24.04
             container: devkitpro/devkitarm:20251231
-            build_tests: "false"
+            build_tests: "true"
             run_test: "false"
             cmake_preset: nintendo-ds-ninja-release
 
           - name: DevkitPro 3DS
             os: ubuntu-24.04
             container: devkitpro/devkitarm:20251231
-            build_tests: "false"
+            build_tests: "true"
             run_test: "false"
             cmake_preset: nintendo-3ds-ninja-release
 
