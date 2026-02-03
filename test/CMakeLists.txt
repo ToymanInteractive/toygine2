@@ -18,6 +18,7 @@
 # DEALINGS IN THE SOFTWARE.
 #-------------------------------------------------------------------------------------------
 set(CTEST_SUPPORT OFF)
+set(TOYGINE_TARGET_PLATFORM_SUPPORT_POSIX_SIGNALS OFF)
 
 if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
@@ -39,10 +40,12 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
   endif (MSVC)
 
   set(CTEST_SUPPORT ON)
+  set(TOYGINE_TARGET_PLATFORM_SUPPORT_POSIX_SIGNALS ON)
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop")
 
   set(CTEST_SUPPORT ON)
+  set(TOYGINE_TARGET_PLATFORM_SUPPORT_POSIX_SIGNALS ON)
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
 
@@ -57,6 +60,7 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
   set(CMAKE_CXX_FLAGS "-w ${CMAKE_CXX_FLAGS}")
 
   set(CTEST_SUPPORT ON)
+  set(TOYGINE_TARGET_PLATFORM_SUPPORT_POSIX_SIGNALS ON)
 
 endif ()
 #-------------------------------------------------------------------------------------------
@@ -77,7 +81,10 @@ file(GLOB_RECURSE TEST_SRC CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp"
 include(doctest)
 
 add_executable(${TOYGINE_LIBRARY_NAME}-tests ${TEST_SRC})
-target_compile_definitions(${TOYGINE_LIBRARY_NAME}-tests PRIVATE DOCTEST_CONFIG_SUPER_FAST_ASSERTS DOCTEST_CONFIG_NO_POSIX_SIGNALS)
+target_compile_definitions(${TOYGINE_LIBRARY_NAME}-tests PRIVATE DOCTEST_CONFIG_SUPER_FAST_ASSERTS)
+if (NOT TOYGINE_TARGET_PLATFORM_SUPPORT_POSIX_SIGNALS)
+  target_compile_definitions(${TOYGINE_LIBRARY_NAME}-tests PRIVATE DOCTEST_CONFIG_NO_POSIX_SIGNALS)
+endif(NOT TOYGINE_TARGET_PLATFORM_SUPPORT_POSIX_SIGNALS)
 target_include_directories(${TOYGINE_LIBRARY_NAME}-tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include)
 target_link_libraries(${TOYGINE_LIBRARY_NAME}-tests PRIVATE doctest::doctest ${TOYGINE_LIBRARY_NAME})
 if (CTEST_SUPPORT)

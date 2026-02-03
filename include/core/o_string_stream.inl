@@ -46,91 +46,56 @@ constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(bool
 }
 
 template <typename StringType>
-constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(int8_t value) noexcept {
-  char buffer[5];
-
-  itoa(buffer, size(buffer), value);
-  _string.append(buffer);
-
-  return *this;
-}
-
-template <typename StringType>
-constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(int16_t value) noexcept {
-  char buffer[7];
-
-  itoa(buffer, size(buffer), value);
-  _string.append(buffer);
-
-  return *this;
-}
-
-template <typename StringType>
-constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(int32_t value) noexcept {
-  char buffer[12];
-
-  itoa(buffer, size(buffer), value);
-  _string.append(buffer);
-
-  return *this;
-}
-
-template <typename StringType>
-constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(int64_t value) noexcept {
+constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(long value) noexcept {
   char buffer[21];
 
-  itoa(buffer, size(buffer), value);
+  if constexpr (sizeof(value) == sizeof(int32_t)) {
+    itoa(buffer, size(buffer), static_cast<int32_t>(value));
+  } else if constexpr (sizeof(value) == sizeof(int64_t)) {
+    itoa(buffer, size(buffer), static_cast<int64_t>(value));
+  } else {
+    static_assert(sizeof(value) == sizeof(int32_t) || sizeof(value) == sizeof(int64_t), "Unsupported value size");
+  }
+
   _string.append(buffer);
 
   return *this;
 }
 
 template <typename StringType>
-constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(uint8_t value) noexcept {
-  char buffer[4];
-
-  utoa(buffer, size(buffer), value);
-  _string.append(buffer);
-
-  return *this;
-}
-
-template <typename StringType>
-constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(uint16_t value) noexcept {
-  char buffer[6];
-
-  utoa(buffer, size(buffer), value);
-  _string.append(buffer);
-
-  return *this;
-}
-
-template <typename StringType>
-constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(uint32_t value) noexcept {
-  char buffer[11];
-
-  utoa(buffer, size(buffer), value);
-  _string.append(buffer);
-
-  return *this;
-}
-
-template <typename StringType>
-constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(uint64_t value) noexcept {
+constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(unsigned long value) noexcept {
   char buffer[21];
 
-  utoa(buffer, size(buffer), value);
+  if constexpr (sizeof(value) == sizeof(uint32_t)) {
+    utoa(buffer, size(buffer), static_cast<uint32_t>(value));
+  } else if constexpr (sizeof(value) == sizeof(uint64_t)) {
+    utoa(buffer, size(buffer), static_cast<uint64_t>(value));
+  } else {
+    static_assert(sizeof(value) == sizeof(uint32_t) || sizeof(value) == sizeof(uint64_t), "Unsupported value size");
+  }
+
   _string.append(buffer);
 
   return *this;
 }
 
 template <typename StringType>
-constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(float value) noexcept {
-  char buffer[128];
+constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(long long value) noexcept {
+  char buffer[21];
 
-  static_assert(sizeof(value) == 4, "Unsupported value size");
-  ftoa(buffer, size(buffer), value, _precision);
+  static_assert(sizeof(value) == sizeof(int64_t), "Unsupported value size");
+  itoa(buffer, size(buffer), static_cast<int64_t>(value));
+  _string.append(buffer);
+
+  return *this;
+}
+
+template <typename StringType>
+constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(unsigned long long value) noexcept {
+  char buffer[21];
+
+  static_assert(sizeof(value) == sizeof(uint64_t), "Unsupported value size");
+  utoa(buffer, size(buffer), static_cast<uint64_t>(value));
   _string.append(buffer);
 
   return *this;
@@ -177,6 +142,83 @@ constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(cons
 template <typename StringType>
 constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(nullptr_t) noexcept {
   _string.append("nullptr");
+
+  return *this;
+}
+
+template <typename StringType>
+constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(short value) noexcept {
+  char buffer[7];
+
+  static_assert(sizeof(value) == sizeof(int16_t), "Unsupported value size");
+  itoa(buffer, size(buffer), static_cast<int16_t>(value));
+  _string.append(buffer);
+
+  return *this;
+}
+
+template <typename StringType>
+constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(int value) noexcept {
+  char buffer[12];
+
+  static_assert(sizeof(value) == sizeof(int32_t), "Unsupported value size");
+  itoa(buffer, size(buffer), static_cast<int32_t>(value));
+  _string.append(buffer);
+
+  return *this;
+}
+
+template <typename StringType>
+constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(unsigned short value) noexcept {
+  char buffer[7];
+
+  static_assert(sizeof(value) == sizeof(uint16_t), "Unsupported value size");
+  utoa(buffer, size(buffer), static_cast<uint16_t>(value));
+  _string.append(buffer);
+
+  return *this;
+}
+
+template <typename StringType>
+constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(unsigned int value) noexcept {
+  char buffer[11];
+
+  static_assert(sizeof(value) == sizeof(uint32_t), "Unsupported value size");
+  utoa(buffer, size(buffer), static_cast<uint32_t>(value));
+  _string.append(buffer);
+
+  return *this;
+}
+
+template <typename StringType>
+constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(float value) noexcept {
+  char buffer[128];
+
+  static_assert(sizeof(value) == 4, "Unsupported value size");
+  ftoa(buffer, size(buffer), value, _precision);
+  _string.append(buffer);
+
+  return *this;
+}
+
+template <typename StringType>
+constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(signed char value) noexcept {
+  char buffer[5];
+
+  static_assert(sizeof(value) == sizeof(int8_t), "Unsupported value size");
+  itoa(buffer, size(buffer), static_cast<int8_t>(value));
+  _string.append(buffer);
+
+  return *this;
+}
+
+template <typename StringType>
+constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(unsigned char value) noexcept {
+  char buffer[4];
+
+  static_assert(sizeof(value) == sizeof(uint8_t), "Unsupported value size");
+  utoa(buffer, size(buffer), static_cast<uint8_t>(value));
+  _string.append(buffer);
 
   return *this;
 }
