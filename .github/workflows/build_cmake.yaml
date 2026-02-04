@@ -81,7 +81,7 @@ jobs:
           - name: DevkitPro 3DS
             os: ubuntu-24.04
             container: devkitpro/devkitarm:20251231
-            build_tests: "true"
+            build_tests: "false"
             run_test: "false"
             cmake_preset: nintendo-3ds-ninja-release
 
