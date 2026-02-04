@@ -355,7 +355,7 @@ TEST_CASE("math/point/operators") {
     constexpr Point offset(5, 10);
 
     point += offset;
-    point *= 2;
+    point *= int32_t(2);
     point -= offset;
 
     REQUIRE(point.x == 25);
@@ -518,11 +518,11 @@ TEST_CASE("math/point/point_methods") {
     REQUIRE(point.x == 15);
     REQUIRE(point.y == 10);
 
-    point *= 2;
+    point *= int32_t(2);
     REQUIRE(point.x == 30);
     REQUIRE(point.y == 20);
 
-    point /= 3;
+    point /= int32_t(3);
     REQUIRE(point.x == 10);
     REQUIRE(point.y == 6);
 
@@ -918,9 +918,9 @@ TEST_CASE("math/point/binary_operators") {
     constexpr auto negated = -point1;
     constexpr auto sum = negated + point2;
     constexpr auto diff = sum - point2;
-    constexpr auto multInt = diff * 3;
+    constexpr auto multInt = diff * int32_t(3);
     constexpr auto multReal = multInt * 2.5f;
-    constexpr auto divInt = multReal / 3;
+    constexpr auto divInt = multReal / int32_t(3);
     constexpr auto divReal = divInt / 2.5f;
 
     REQUIRE(negated.x == -10);
