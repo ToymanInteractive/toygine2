@@ -24,11 +24,11 @@
 
 namespace toy {
 
-int callback1Count = 0;
-int callback2Count = 0;
-int callback3Count = 0;
+static int callback1Count = 0;
+static int callback2Count = 0;
+static int callback3Count = 0;
 
-int lastValue = 0;
+static int lastValue = 0;
 
 static void callback1(int value) {
   ++callback1Count;
