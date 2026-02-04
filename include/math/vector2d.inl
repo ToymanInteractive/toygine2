@@ -34,9 +34,9 @@ constexpr Vector2D::Vector2D() noexcept
   : x()
   , y() {}
 
-constexpr Vector2D::Vector2D(const real_t & x, const real_t & y) noexcept
-  : x(x)
-  , y(y) {}
+constexpr Vector2D::Vector2D(const real_t & x_, const real_t & y_) noexcept
+  : x(x_)
+  , y(y_) {}
 
 constexpr Vector2D::Vector2D(const real_t * values) noexcept
   : x()

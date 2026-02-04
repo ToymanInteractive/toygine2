@@ -34,9 +34,9 @@ constexpr Point::Point() noexcept
   : x()
   , y() {}
 
-constexpr Point::Point(const int32_t & x, const int32_t & y) noexcept
-  : x(x)
-  , y(y) {}
+constexpr Point::Point(const int32_t & x_, const int32_t & y_) noexcept
+  : x(x_)
+  , y(y_) {}
 
 constexpr Point::Point(const int32_t * values) noexcept
   : x()

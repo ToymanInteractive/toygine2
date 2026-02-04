@@ -43,8 +43,8 @@ TEST_CASE("math/vector2d/constructors") {
   SUBCASE("default_constructor") {
     constexpr Vector2D vector;
 
-    REQUIRE(vector.x == 0.0);
-    REQUIRE(vector.y == 0.0);
+    REQUIRE(vector.x == doctest::Approx(0.0));
+    REQUIRE(vector.y == doctest::Approx(0.0));
 
     static_assert(vector.x == 0.0, "default-constructed x must be 0");
     static_assert(vector.y == 0.0, "default-constructed y must be 0");
@@ -54,8 +54,8 @@ TEST_CASE("math/vector2d/constructors") {
   SUBCASE("constructor_with_positive_coordinates") {
     constexpr Vector2D vector(12, 23);
 
-    REQUIRE(vector.x == 12);
-    REQUIRE(vector.y == 23);
+    REQUIRE(vector.x == doctest::Approx(12));
+    REQUIRE(vector.y == doctest::Approx(23));
 
     static_assert(vector.x == 12, "x must match constructor argument");
     static_assert(vector.y == 23, "y must match constructor argument");
@@ -65,8 +65,8 @@ TEST_CASE("math/vector2d/constructors") {
   SUBCASE("constructor_with_negative_coordinates") {
     constexpr Vector2D vector(-5, -15);
 
-    REQUIRE(vector.x == -5);
-    REQUIRE(vector.y == -15);
+    REQUIRE(vector.x == doctest::Approx(-5));
+    REQUIRE(vector.y == doctest::Approx(-15));
 
     static_assert(vector.x == -5, "x must match constructor argument");
     static_assert(vector.y == -15, "y must match constructor argument");
@@ -76,8 +76,8 @@ TEST_CASE("math/vector2d/constructors") {
   SUBCASE("constructor_with_mixed_coordinates") {
     constexpr Vector2D vector(-100, 200);
 
-    REQUIRE(vector.x == -100);
-    REQUIRE(vector.y == 200);
+    REQUIRE(vector.x == doctest::Approx(-100));
+    REQUIRE(vector.y == doctest::Approx(200));
 
     static_assert(vector.x == -100, "x must match constructor argument");
     static_assert(vector.y == 200, "y must match constructor argument");
@@ -87,8 +87,8 @@ TEST_CASE("math/vector2d/constructors") {
   SUBCASE("constructor_with_zero_coordinates") {
     constexpr Vector2D vector(0, 0);
 
-    REQUIRE(vector.x == 0);
-    REQUIRE(vector.y == 0);
+    REQUIRE(vector.x == doctest::Approx(0));
+    REQUIRE(vector.y == doctest::Approx(0));
 
     static_assert(vector.x == 0, "x must be 0");
     static_assert(vector.y == 0, "y must be 0");
@@ -99,8 +99,8 @@ TEST_CASE("math/vector2d/constructors") {
     constexpr array<real_t, 2> arr{42, -17};
     constexpr Vector2D vector(arr.data());
 
-    REQUIRE(vector.x == 42);
-    REQUIRE(vector.y == -17);
+    REQUIRE(vector.x == doctest::Approx(42));
+    REQUIRE(vector.y == doctest::Approx(-17));
 
     static_assert(vector.x == 42, "x must match array element");
     static_assert(vector.y == -17, "y must match array element");
@@ -111,8 +111,8 @@ TEST_CASE("math/vector2d/constructors") {
     constexpr array<real_t, 2> arr{100, 200};
     constexpr Vector2D vector(arr.data());
 
-    REQUIRE(vector.x == 100);
-    REQUIRE(vector.y == 200);
+    REQUIRE(vector.x == doctest::Approx(100));
+    REQUIRE(vector.y == doctest::Approx(200));
 
     static_assert(vector.x == 100, "x must match array element");
     static_assert(vector.y == 200, "y must match array element");
@@ -123,8 +123,8 @@ TEST_CASE("math/vector2d/constructors") {
     constexpr array<real_t, 2> arr{-50, -75};
     constexpr Vector2D vector(arr.data());
 
-    REQUIRE(vector.x == -50);
-    REQUIRE(vector.y == -75);
+    REQUIRE(vector.x == doctest::Approx(-50));
+    REQUIRE(vector.y == doctest::Approx(-75));
 
     static_assert(vector.x == -50, "x must match array element");
     static_assert(vector.y == -75, "y must match array element");
@@ -135,8 +135,8 @@ TEST_CASE("math/vector2d/constructors") {
     constexpr array<real_t, 2> arr{-300, 400};
     constexpr Vector2D vector(arr.data());
 
-    REQUIRE(vector.x == -300);
-    REQUIRE(vector.y == 400);
+    REQUIRE(vector.x == doctest::Approx(-300));
+    REQUIRE(vector.y == doctest::Approx(400));
 
     static_assert(vector.x == -300, "x must match array element");
     static_assert(vector.y == 400, "y must match array element");
@@ -147,8 +147,8 @@ TEST_CASE("math/vector2d/constructors") {
     constexpr array<real_t, 2> arr{0, 0};
     constexpr Vector2D vector(arr.data());
 
-    REQUIRE(vector.x == 0);
-    REQUIRE(vector.y == 0);
+    REQUIRE(vector.x == doctest::Approx(0));
+    REQUIRE(vector.y == doctest::Approx(0));
 
     static_assert(vector.x == 0, "x must be 0");
     static_assert(vector.y == 0, "y must be 0");
@@ -157,17 +157,17 @@ TEST_CASE("math/vector2d/constructors") {
   // Runtime constructor behavior.
   SUBCASE("runtime_constructor_tests") {
     Vector2D defaultVector;
-    REQUIRE(defaultVector.x == 0);
-    REQUIRE(defaultVector.y == 0);
+    REQUIRE(defaultVector.x == doctest::Approx(0));
+    REQUIRE(defaultVector.y == doctest::Approx(0));
 
     Vector2D coordVector(123, -456);
-    REQUIRE(coordVector.x == 123);
-    REQUIRE(coordVector.y == -456);
+    REQUIRE(coordVector.x == doctest::Approx(123));
+    REQUIRE(coordVector.y == doctest::Approx(-456));
 
     constexpr array<real_t, 2> arr{789, -321};
     Vector2D arrayVector(arr.data());
-    REQUIRE(arrayVector.x == 789);
-    REQUIRE(arrayVector.y == -321);
+    REQUIRE(arrayVector.x == doctest::Approx(789));
+    REQUIRE(arrayVector.y == doctest::Approx(-321));
   }
 }
 
@@ -179,15 +179,15 @@ TEST_CASE("math/vector2d/c_arr_methods") {
     auto * arr = vector.c_arr();
 
     REQUIRE(arr != nullptr);
-    REQUIRE(arr[0] == 42);
-    REQUIRE(arr[1] == -17);
+    REQUIRE(arr[0] == doctest::Approx(42));
+    REQUIRE(arr[1] == doctest::Approx(-17));
     REQUIRE(arr == &vector.x);
 
     arr[0] = 100;
     arr[1] = -200;
 
-    REQUIRE(vector.x == 100);
-    REQUIRE(vector.y == -200);
+    REQUIRE(vector.x == doctest::Approx(100));
+    REQUIRE(vector.y == doctest::Approx(-200));
   }
 
   // Const c_arr() returns pointer to x,y.
@@ -196,19 +196,19 @@ TEST_CASE("math/vector2d/c_arr_methods") {
     const auto * arr = vector.c_arr();
 
     REQUIRE(arr != nullptr);
-    REQUIRE(arr[0] == 123);
-    REQUIRE(arr[1] == -456);
+    REQUIRE(arr[0] == doctest::Approx(123));
+    REQUIRE(arr[1] == doctest::Approx(-456));
     REQUIRE(arr == &vector.x);
-    REQUIRE(vector.x == 123);
-    REQUIRE(vector.y == -456);
+    REQUIRE(vector.x == doctest::Approx(123));
+    REQUIRE(vector.y == doctest::Approx(-456));
   }
 
   // c_arr() with default-constructed vector.
   SUBCASE("c_arr_with_default_constructor") {
     constexpr Vector2D vector;
 
-    REQUIRE(vector.c_arr()[0] == 0);
-    REQUIRE(vector.c_arr()[1] == 0);
+    REQUIRE(vector.c_arr()[0] == doctest::Approx(0));
+    REQUIRE(vector.c_arr()[1] == doctest::Approx(0));
 
     static_assert(vector.c_arr()[0] == 0, "first element must be 0 for default-constructed vector");
   }
@@ -217,8 +217,8 @@ TEST_CASE("math/vector2d/c_arr_methods") {
   SUBCASE("c_arr_with_coordinate_constructor") {
     constexpr Vector2D vector(10, 20);
 
-    REQUIRE(vector.c_arr()[0] == 10);
-    REQUIRE(vector.c_arr()[1] == 20);
+    REQUIRE(vector.c_arr()[0] == doctest::Approx(10));
+    REQUIRE(vector.c_arr()[1] == doctest::Approx(20));
 
     static_assert(vector.c_arr()[0] == 10, "first element must match x");
   }
@@ -227,8 +227,8 @@ TEST_CASE("math/vector2d/c_arr_methods") {
   SUBCASE("c_arr_with_array_constructor") {
     constexpr Vector2D vector({-50, 75});
 
-    REQUIRE(vector.c_arr()[0] == -50);
-    REQUIRE(vector.c_arr()[1] == 75);
+    REQUIRE(vector.c_arr()[0] == doctest::Approx(-50));
+    REQUIRE(vector.c_arr()[1] == doctest::Approx(75));
 
     static_assert(vector.c_arr()[0] == -50, "first element must match x");
   }
@@ -240,20 +240,20 @@ TEST_CASE("math/vector2d/c_arr_methods") {
     arr[0] = 10;
     arr[1] = 20;
 
-    REQUIRE(vector.x == 10);
-    REQUIRE(vector.y == 20);
+    REQUIRE(vector.x == doctest::Approx(10));
+    REQUIRE(vector.y == doctest::Approx(20));
 
     *arr = 30;
     *(arr + 1) = 40;
 
-    REQUIRE(vector.x == 30);
-    REQUIRE(vector.y == 40);
+    REQUIRE(vector.x == doctest::Approx(30));
+    REQUIRE(vector.y == doctest::Approx(40));
 
     arr[0] = 50;
     arr[1] = 60;
 
-    REQUIRE(vector.x == 50);
-    REQUIRE(vector.y == 60);
+    REQUIRE(vector.x == doctest::Approx(50));
+    REQUIRE(vector.y == doctest::Approx(60));
   }
 
   // Runtime c_arr() behavior.
@@ -262,21 +262,21 @@ TEST_CASE("math/vector2d/c_arr_methods") {
     auto * runtimeArr = runtimeVector.c_arr();
 
     REQUIRE(runtimeArr != nullptr);
-    REQUIRE(runtimeArr[0] == 500);
-    REQUIRE(runtimeArr[1] == -600);
+    REQUIRE(runtimeArr[0] == doctest::Approx(500));
+    REQUIRE(runtimeArr[1] == doctest::Approx(-600));
 
     runtimeArr[0] = 700;
     runtimeArr[1] = -800;
 
-    REQUIRE(runtimeVector.x == 700);
-    REQUIRE(runtimeVector.y == -800);
+    REQUIRE(runtimeVector.x == doctest::Approx(700));
+    REQUIRE(runtimeVector.y == doctest::Approx(-800));
 
     const Vector2D constRuntimeVector(900, -1000);
     const auto * constRuntimeArr = constRuntimeVector.c_arr();
 
     REQUIRE(constRuntimeArr != nullptr);
-    REQUIRE(constRuntimeArr[0] == 900);
-    REQUIRE(constRuntimeArr[1] == -1000);
+    REQUIRE(constRuntimeArr[0] == doctest::Approx(900));
+    REQUIRE(constRuntimeArr[1] == doctest::Approx(-1000));
   }
 }
 
@@ -289,8 +289,8 @@ TEST_CASE("math/vector2d/operators") {
 
     vector1 += vector2;
 
-    REQUIRE(vector1.x == 15);
-    REQUIRE(vector1.y == 10);
+    REQUIRE(vector1.x == doctest::Approx(15));
+    REQUIRE(vector1.y == doctest::Approx(10));
   }
 
   // operator-= subtracts vector.
@@ -300,8 +300,8 @@ TEST_CASE("math/vector2d/operators") {
 
     vector1 -= vector2;
 
-    REQUIRE(vector1.x == 10);
-    REQUIRE(vector1.y == 15);
+    REQUIRE(vector1.x == doctest::Approx(10));
+    REQUIRE(vector1.y == doctest::Approx(15));
   }
 
   // operator*= multiplies by scalar.
@@ -311,8 +311,8 @@ TEST_CASE("math/vector2d/operators") {
 
     vector *= scalar;
 
-    REQUIRE(vector.x == 25);
-    REQUIRE(vector.y == 50);
+    REQUIRE(vector.x == doctest::Approx(25));
+    REQUIRE(vector.y == doctest::Approx(50));
   }
 
   // operator/= divides by scalar.
@@ -322,8 +322,8 @@ TEST_CASE("math/vector2d/operators") {
 
     vector /= scalar;
 
-    REQUIRE(vector.x == 8);
-    REQUIRE(vector.y == 18);
+    REQUIRE(vector.x == doctest::Approx(8));
+    REQUIRE(vector.y == doctest::Approx(18));
   }
 
   // Chained compound assignments.
@@ -335,8 +335,8 @@ TEST_CASE("math/vector2d/operators") {
     vector *= 2;
     vector -= offset;
 
-    REQUIRE(vector.x == 25);
-    REQUIRE(vector.y == 50);
+    REQUIRE(vector.x == doctest::Approx(25));
+    REQUIRE(vector.y == doctest::Approx(50));
   }
 }
 
@@ -346,7 +346,7 @@ TEST_CASE("math/vector2d/methods") {
   SUBCASE("sqr_magnitude") {
     constexpr Vector2D vector(3, 4);
 
-    REQUIRE(vector.sqrMagnitude() == 25);
+    REQUIRE(vector.sqrMagnitude() == doctest::Approx(25));
 
     static_assert(vector.sqrMagnitude() == 25, "sqrMagnitude of (3,4) must be 25");
   }
@@ -355,7 +355,7 @@ TEST_CASE("math/vector2d/methods") {
   SUBCASE("sqr_magnitude_with_negative_coordinates") {
     constexpr Vector2D vector(-3, -4);
 
-    REQUIRE(vector.sqrMagnitude() == 25);
+    REQUIRE(vector.sqrMagnitude() == doctest::Approx(25));
 
     static_assert(vector.sqrMagnitude() == 25, "sqrMagnitude of (-3,-4) must be 25");
   }
@@ -364,7 +364,7 @@ TEST_CASE("math/vector2d/methods") {
   SUBCASE("sqr_magnitude_with_zero_coordinates") {
     constexpr Vector2D vector(0, 0);
 
-    REQUIRE(vector.sqrMagnitude() == 0);
+    REQUIRE(vector.sqrMagnitude() == doctest::Approx(0));
 
     static_assert(vector.sqrMagnitude() == 0, "sqrMagnitude of origin must be 0");
   }
@@ -373,7 +373,7 @@ TEST_CASE("math/vector2d/methods") {
   SUBCASE("sqr_magnitude_with_large_coordinates") {
     constexpr Vector2D vector(1000, 2000);
 
-    REQUIRE(vector.sqrMagnitude() == 5000000);
+    REQUIRE(vector.sqrMagnitude() == doctest::Approx(5000000));
 
     static_assert(vector.sqrMagnitude() == 5000000, "sqrMagnitude must equal x² + y²");
   }
@@ -384,8 +384,8 @@ TEST_CASE("math/vector2d/methods") {
 
     vector.setZero();
 
-    REQUIRE(vector.x == 0);
-    REQUIRE(vector.y == 0);
+    REQUIRE(vector.x == doctest::Approx(0));
+    REQUIRE(vector.y == doctest::Approx(0));
   }
 
   // isZero() true for zero vector.
@@ -492,23 +492,23 @@ TEST_CASE("math/vector2d/methods") {
     constexpr Vector2D offset(5, -10);
 
     vector += offset;
-    REQUIRE(vector.x == 15);
-    REQUIRE(vector.y == 10);
+    REQUIRE(vector.x == doctest::Approx(15));
+    REQUIRE(vector.y == doctest::Approx(10));
 
     vector *= 2;
-    REQUIRE(vector.x == 30);
-    REQUIRE(vector.y == 20);
+    REQUIRE(vector.x == doctest::Approx(30));
+    REQUIRE(vector.y == doctest::Approx(20));
 
     vector /= 4;
-    REQUIRE(vector.x == 7.5);
-    REQUIRE(vector.y == 5);
+    REQUIRE(vector.x == doctest::Approx(7.5));
+    REQUIRE(vector.y == doctest::Approx(5));
 
-    REQUIRE(vector.sqrMagnitude() == 81.25);
+    REQUIRE(vector.sqrMagnitude() == doctest::Approx(81.25));
     REQUIRE(!vector.isZero());
 
     vector.setZero();
     REQUIRE(vector.isZero());
-    REQUIRE(vector.sqrMagnitude() == 0);
+    REQUIRE(vector.sqrMagnitude() == doctest::Approx(0));
 
     constexpr Vector2D testVector(5, 5);
     REQUIRE(!vector.isEqual(testVector));
@@ -523,8 +523,8 @@ TEST_CASE("math/vector2d/binary_operators") {
     constexpr Vector2D vector(10, -20);
     constexpr auto result = -vector;
 
-    REQUIRE(result.x == -10);
-    REQUIRE(result.y == 20);
+    REQUIRE(result.x == doctest::Approx(-10));
+    REQUIRE(result.y == doctest::Approx(20));
 
     static_assert(result.x == -10, "unary minus must negate x");
     static_assert(result.y == 20, "unary minus must negate y");
@@ -535,8 +535,8 @@ TEST_CASE("math/vector2d/binary_operators") {
     constexpr Vector2D vector(0, 0);
     constexpr auto result = -vector;
 
-    REQUIRE(result.x == 0);
-    REQUIRE(result.y == 0);
+    REQUIRE(result.x == doctest::Approx(0));
+    REQUIRE(result.y == doctest::Approx(0));
 
     static_assert(result.x == 0, "unary minus of origin must remain 0");
     static_assert(result.y == 0, "unary minus of origin must remain 0");
@@ -547,8 +547,8 @@ TEST_CASE("math/vector2d/binary_operators") {
     constexpr Vector2D vector(-5, -15);
     constexpr auto result = -vector;
 
-    REQUIRE(result.x == 5);
-    REQUIRE(result.y == 15);
+    REQUIRE(result.x == doctest::Approx(5));
+    REQUIRE(result.y == doctest::Approx(15));
 
     static_assert(result.x == 5, "unary minus must negate x");
     static_assert(result.y == 15, "unary minus must negate y");
@@ -561,8 +561,8 @@ TEST_CASE("math/vector2d/binary_operators") {
 
     constexpr auto result = vector1 + vector2;
 
-    REQUIRE(result.x == 15);
-    REQUIRE(result.y == 10);
+    REQUIRE(result.x == doctest::Approx(15));
+    REQUIRE(result.y == doctest::Approx(10));
 
     static_assert(result.x == 15, "addition x must be sum of x components");
     static_assert(result.y == 10, "addition y must be sum of y components");
@@ -575,8 +575,8 @@ TEST_CASE("math/vector2d/binary_operators") {
 
     constexpr auto result = vector1 + vector2;
 
-    REQUIRE(result.x == 10);
-    REQUIRE(result.y == 20);
+    REQUIRE(result.x == doctest::Approx(10));
+    REQUIRE(result.y == doctest::Approx(20));
 
     static_assert(result.x == 10, "adding origin must preserve x");
     static_assert(result.y == 20, "adding origin must preserve y");
@@ -589,8 +589,8 @@ TEST_CASE("math/vector2d/binary_operators") {
 
     constexpr auto result = vector1 + vector2;
 
-    REQUIRE(result.x == -15);
-    REQUIRE(result.y == -35);
+    REQUIRE(result.x == doctest::Approx(-15));
+    REQUIRE(result.y == doctest::Approx(-35));
 
     static_assert(result.x == -15, "addition x must be sum of x components");
     static_assert(result.y == -35, "addition y must be sum of y components");
@@ -603,8 +603,8 @@ TEST_CASE("math/vector2d/binary_operators") {
 
     constexpr auto result = vector1 - vector2;
 
-    REQUIRE(result.x == 10);
-    REQUIRE(result.y == 15);
+    REQUIRE(result.x == doctest::Approx(10));
+    REQUIRE(result.y == doctest::Approx(15));
 
     static_assert(result.x == 10, "subtraction x must be difference of x components");
     static_assert(result.y == 15, "subtraction y must be difference of y components");
@@ -617,8 +617,8 @@ TEST_CASE("math/vector2d/binary_operators") {
 
     constexpr auto result = vector1 - vector2;
 
-    REQUIRE(result.x == 10);
-    REQUIRE(result.y == 20);
+    REQUIRE(result.x == doctest::Approx(10));
+    REQUIRE(result.y == doctest::Approx(20));
 
     static_assert(result.x == 10, "subtracting origin must preserve x");
     static_assert(result.y == 20, "subtracting origin must preserve y");
@@ -631,8 +631,8 @@ TEST_CASE("math/vector2d/binary_operators") {
 
     constexpr auto result = vector1 - vector2;
 
-    REQUIRE(result.x == -5);
-    REQUIRE(result.y == -5);
+    REQUIRE(result.x == doctest::Approx(-5));
+    REQUIRE(result.y == doctest::Approx(-5));
 
     static_assert(result.x == -5, "subtraction x must be difference of x components");
     static_assert(result.y == -5, "subtraction y must be difference of y components");
@@ -645,8 +645,8 @@ TEST_CASE("math/vector2d/binary_operators") {
 
     constexpr auto result = vector * scalar;
 
-    REQUIRE(result.x == 25);
-    REQUIRE(result.y == 50);
+    REQUIRE(result.x == doctest::Approx(25));
+    REQUIRE(result.y == doctest::Approx(50));
 
     static_assert(result.x == 25, "vector * scalar must scale x");
     static_assert(result.y == 50, "vector * scalar must scale y");
@@ -659,8 +659,8 @@ TEST_CASE("math/vector2d/binary_operators") {
 
     constexpr auto result = scalar * vector;
 
-    REQUIRE(result.x == 30);
-    REQUIRE(result.y == 45);
+    REQUIRE(result.x == doctest::Approx(30));
+    REQUIRE(result.y == doctest::Approx(45));
 
     static_assert(result.x == 30, "scalar * vector must scale x");
     static_assert(result.y == 45, "scalar * vector must scale y");
@@ -673,8 +673,8 @@ TEST_CASE("math/vector2d/binary_operators") {
 
     constexpr auto result = vector * scalar;
 
-    REQUIRE(result.x == 0);
-    REQUIRE(result.y == 0);
+    REQUIRE(result.x == doctest::Approx(0));
+    REQUIRE(result.y == doctest::Approx(0));
 
     static_assert(result.x == 0, "vector * 0 must yield 0");
     static_assert(result.y == 0, "vector * 0 must yield 0");
@@ -687,8 +687,8 @@ TEST_CASE("math/vector2d/binary_operators") {
 
     constexpr auto result = vector * scalar;
 
-    REQUIRE(result.x == -5);
-    REQUIRE(result.y == -10);
+    REQUIRE(result.x == doctest::Approx(-5));
+    REQUIRE(result.y == doctest::Approx(-10));
 
     static_assert(result.x == -5, "vector * negative scalar must scale x");
     static_assert(result.y == -10, "vector * negative scalar must scale y");
@@ -701,8 +701,8 @@ TEST_CASE("math/vector2d/binary_operators") {
 
     constexpr auto result = vector / scalar;
 
-    REQUIRE(result.x == 10);
-    REQUIRE(result.y == 20);
+    REQUIRE(result.x == doctest::Approx(10));
+    REQUIRE(result.y == doctest::Approx(20));
 
     static_assert(result.x == 10, "vector / scalar must divide x");
     static_assert(result.y == 20, "vector / scalar must divide y");
@@ -715,8 +715,8 @@ TEST_CASE("math/vector2d/binary_operators") {
 
     constexpr auto result = vector / scalar;
 
-    REQUIRE(result.x == 20);
-    REQUIRE(result.y == 40);
+    REQUIRE(result.x == doctest::Approx(20));
+    REQUIRE(result.y == doctest::Approx(40));
 
     static_assert(result.x == 20, "vector / negative scalar must divide x");
     static_assert(result.y == 40, "vector / negative scalar must divide y");
@@ -780,8 +780,8 @@ TEST_CASE("math/vector2d/binary_operators") {
 
     constexpr auto result = (vector1 + vector2) * scalar - vector1;
 
-    REQUIRE(result.x == 20);
-    REQUIRE(result.y == 40);
+    REQUIRE(result.x == doctest::Approx(20));
+    REQUIRE(result.y == doctest::Approx(40));
 
     static_assert(result.x == 20, "chained (v1+v2)*s-v1 must yield correct x");
     static_assert(result.y == 40, "chained (v1+v2)*s-v1 must yield correct y");
@@ -795,8 +795,8 @@ TEST_CASE("math/vector2d/binary_operators") {
 
     constexpr auto result = (vector1 * scalar1 + vector2) / scalar2;
 
-    REQUIRE(result.x == 100);
-    REQUIRE(result.y == 187.5);
+    REQUIRE(result.x == doctest::Approx(100));
+    REQUIRE(result.y == doctest::Approx(187.5));
 
     static_assert(result.x == 100, "chained (v1*s1+v2)/s2 must yield correct x");
     static_assert(result.y == 187.5, "chained (v1*s1+v2)/s2 must yield correct y");
@@ -813,16 +813,16 @@ TEST_CASE("math/vector2d/binary_operators") {
     constexpr auto mult = diff * 2.5f;
     constexpr auto div = mult / 5;
 
-    REQUIRE(negated.x == -10);
-    REQUIRE(negated.y == -20);
-    REQUIRE(sum.x == -5);
-    REQUIRE(sum.y == -30);
-    REQUIRE(diff.x == -10);
-    REQUIRE(diff.y == -20);
-    REQUIRE(mult.x == -25);
-    REQUIRE(mult.y == -50);
-    REQUIRE(div.x == -5);
-    REQUIRE(div.y == -10);
+    REQUIRE(negated.x == doctest::Approx(-10));
+    REQUIRE(negated.y == doctest::Approx(-20));
+    REQUIRE(sum.x == doctest::Approx(-5));
+    REQUIRE(sum.y == doctest::Approx(-30));
+    REQUIRE(diff.x == doctest::Approx(-10));
+    REQUIRE(diff.y == doctest::Approx(-20));
+    REQUIRE(mult.x == doctest::Approx(-25));
+    REQUIRE(mult.y == doctest::Approx(-50));
+    REQUIRE(div.x == doctest::Approx(-5));
+    REQUIRE(div.y == doctest::Approx(-10));
 
     static_assert(negated.x == -10, "negated x must be -10");
     static_assert(negated.y == -20, "negated y must be -20");
