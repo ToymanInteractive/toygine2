@@ -65,10 +65,12 @@ TEST_CASE("math/utils/abs") {
 
     static_assert(abs(0.0f) <= std::numeric_limits<float>::epsilon(), "abs(0.0f) must be zero within epsilon");
     static_assert(abs(1.5f) - 1.5f <= std::numeric_limits<float>::epsilon(), "abs(positive float) must be unchanged");
-    static_assert(abs(-1.5f) - 1.5f <= std::numeric_limits<float>::epsilon(), "abs(negative float) must yield positive");
+    static_assert(abs(-1.5f) - 1.5f <= std::numeric_limits<float>::epsilon(),
+                  "abs(negative float) must yield positive");
     static_assert(abs(0.0) <= std::numeric_limits<double>::epsilon(), "abs(0.0) must be zero within epsilon");
     static_assert(abs(1.5) - 1.5 <= std::numeric_limits<double>::epsilon(), "abs(positive double) must be unchanged");
-    static_assert(abs(-1.5) - 1.5 <= std::numeric_limits<double>::epsilon(), "abs(negative double) must yield positive");
+    static_assert(abs(-1.5) - 1.5 <= std::numeric_limits<double>::epsilon(),
+                  "abs(negative double) must yield positive");
   }
 }
 
