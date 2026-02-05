@@ -18,32 +18,41 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   math.hpp
-  \brief  Umbrella header for the engine mathematics module
+  \file   utils.inl
+  \brief  Inline implementations for General math utilities.
 */
 
-#ifndef INCLUDE_MATH_HPP_
-#define INCLUDE_MATH_HPP_
+#ifndef INCLUDE_MATH_UTILS_INL_
+#define INCLUDE_MATH_UTILS_INL_
 
-#include "core.hpp"
-
-/// @namespace toy::math
-/// @brief Contains all public mathematical types, constants, and utility functions of engine.
 namespace toy::math {
 
-/// Floating‑point scalar type.
-using real_t = float;
+template <std::signed_integral T>
+constexpr T abs(T value) noexcept {
+  constexpr int shift = sizeof(T) * 8 - 1;
+  T mask = value >> shift;
+  return (value + mask) ^ mask;
+}
+
+template <std::floating_point T>
+constexpr T abs(T value) noexcept {
+  if constexpr (std::same_as<T, float>) {
+    uint32_t bits = std::bit_cast<uint32_t>(value);
+
+    bits &= 0x7FFFFFFF;
+
+    return std::bit_cast<float>(bits);
+  } else if constexpr (std::same_as<T, double>) {
+    uint64_t bits = std::bit_cast<uint64_t>(value);
+
+    bits &= 0x7FFFFFFFFFFFFFFF;
+
+    return std::bit_cast<double>(bits);
+  } else { // long double
+    return value < T(0) ? -value : value;
+  }
+}
 
 } // namespace toy::math
 
-#include "math/point.hpp"
-#include "math/utils.hpp"
-#include "math/vector2d.hpp"
-
-//----------------------------------------------------------------------------------------------------------------------
-
-#include "math/point.inl"
-#include "math/utils.inl"
-#include "math/vector2d.inl"
-
-#endif // INCLUDE_MATH_HPP_
+#endif // INCLUDE_MATH_UTILS_INL_

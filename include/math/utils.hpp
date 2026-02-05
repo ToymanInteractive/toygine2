@@ -18,32 +18,40 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   math.hpp
-  \brief  Umbrella header for the engine mathematics module
+  \file   utils.hpp
+  \brief  General math utilities.
 */
 
-#ifndef INCLUDE_MATH_HPP_
-#define INCLUDE_MATH_HPP_
+#ifndef INCLUDE_MATH_UTILS_HPP_
+#define INCLUDE_MATH_UTILS_HPP_
 
-#include "core.hpp"
-
-/// @namespace toy::math
-/// @brief Contains all public mathematical types, constants, and utility functions of engine.
 namespace toy::math {
 
-/// Floating‑point scalar type.
-using real_t = float;
+/*!
+  \brief Returns the absolute value of a signed integer.
+
+  This function computes the absolute value without branches. Usable in constant expressions.
+
+  \param value The signed integer value.
+
+  \return The absolute value of \a value (unchanged if non-negative, negated if negative).
+*/
+template <std::signed_integral T>
+[[nodiscard]] constexpr T abs(T value) noexcept;
+
+/*!
+  \brief Returns the absolute value of a floating-point number.
+
+  This function computes the absolute value without branches for \c float and \c double; usable in constant
+  expressions.
+
+  \param value The floating-point value.
+
+  \return The absolute value of \a value (unchanged if non-negative, negated if negative).
+*/
+template <std::floating_point T>
+[[nodiscard]] constexpr T abs(T value) noexcept;
 
 } // namespace toy::math
 
-#include "math/point.hpp"
-#include "math/utils.hpp"
-#include "math/vector2d.hpp"
-
-//----------------------------------------------------------------------------------------------------------------------
-
-#include "math/point.inl"
-#include "math/utils.inl"
-#include "math/vector2d.inl"
-
-#endif // INCLUDE_MATH_HPP_
+#endif // INCLUDE_MATH_UTILS_HPP_
