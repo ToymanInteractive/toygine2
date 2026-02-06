@@ -37,13 +37,13 @@ constexpr T abs(T value) noexcept {
 template <std::floating_point T>
 constexpr T abs(T value) noexcept {
   if constexpr (std::same_as<T, float>) {
-    uint32_t bits = std::bit_cast<uint32_t>(value);
+    auto bits = std::bit_cast<uint32_t>(value);
 
     bits &= 0x7FFFFFFF;
 
     return std::bit_cast<float>(bits);
   } else if constexpr (std::same_as<T, double>) {
-    uint64_t bits = std::bit_cast<uint64_t>(value);
+    auto bits = std::bit_cast<uint64_t>(value);
 
     bits &= 0x7FFFFFFFFFFFFFFF;
 
