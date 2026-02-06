@@ -29,8 +29,11 @@ namespace toy::math {
 
 template <std::signed_integral T>
 constexpr T abs(T value) noexcept {
+  assert_message(value != std::numeric_limits<T>::min(), "abs() of the minimum signed integer is not representable");
+
   constexpr int shift = sizeof(T) * 8 - 1;
   T mask = value >> shift;
+
   return (value + mask) ^ mask;
 }
 
