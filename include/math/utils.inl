@@ -56,6 +56,14 @@ constexpr T abs(T value) noexcept {
   }
 }
 
+constexpr bool isEqual(float a, float b, float absEpsilon, float relEpsilon) noexcept {
+  const auto diff = abs(a - b);
+  if (diff <= absEpsilon)
+    return true;
+
+  return diff <= max(abs(a), abs(b)) * relEpsilon;
+}
+
 } // namespace toy::math
 
 #endif // INCLUDE_MATH_UTILS_INL_

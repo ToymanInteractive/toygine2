@@ -42,8 +42,7 @@ template <std::signed_integral T>
 /*!
   \brief Returns the absolute value of a floating-point number.
 
-  This function computes the absolute value without branches for \c float and \c double; usable in constant
-  expressions.
+  This function computes the absolute value without branches for \c float and \c double; usable in constant expressions.
 
   \param value The floating-point value.
 
@@ -51,6 +50,22 @@ template <std::signed_integral T>
 */
 template <std::floating_point T>
 [[nodiscard]] constexpr T abs(T value) noexcept;
+
+/*!
+  \brief Compares two single-precision floats for approximate equality.
+
+  This function uses a combined absolute and relative epsilon test. Small values are compared by absolute difference (\a
+  absEpsilon), large values by relative difference (\a relEpsilon) scaled by max(|a|, |b|).
+
+  \param a          The first value.
+  \param b          The second value.
+  \param absEpsilon The maximum absolute difference treated as equal (default: 8× machine epsilon).
+  \param relEpsilon The maximum relative difference (default: 64× machine epsilon).
+
+  \return \c true if \a a and \a b are considered equal under the chosen tolerances, \c false otherwise.
+*/
+[[nodiscard]] constexpr bool isEqual(float a, float b, float absEpsilon = 8.0f * numeric_limits<float>::epsilon(),
+                                     float relEpsilon = 64.0f * numeric_limits<float>::epsilon()) noexcept;
 
 } // namespace toy::math
 
