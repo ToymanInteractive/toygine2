@@ -233,8 +233,8 @@ TEST_CASE("core/utils/itoa_converts_integer_to_string") {
   SUBCASE("int8_t") {
     char buffer[8];
 
-    REQUIRE(strcmp(itoa(buffer, size(buffer), std::numeric_limits<int8_t>::max()), "127") == 0);
-    REQUIRE(strcmp(itoa(buffer, size(buffer), std::numeric_limits<int8_t>::min()), "-128") == 0);
+    REQUIRE(strcmp(itoa(buffer, size(buffer), numeric_limits<int8_t>::max()), "127") == 0);
+    REQUIRE(strcmp(itoa(buffer, size(buffer), numeric_limits<int8_t>::min()), "-128") == 0);
     REQUIRE(strcmp(itoa(buffer, size(buffer), static_cast<int8_t>(0)), "0") == 0);
   }
 
@@ -242,8 +242,8 @@ TEST_CASE("core/utils/itoa_converts_integer_to_string") {
   SUBCASE("int16_t") {
     char buffer[8];
 
-    REQUIRE(strcmp(itoa(buffer, size(buffer), std::numeric_limits<int16_t>::max()), "32767") == 0);
-    REQUIRE(strcmp(itoa(buffer, size(buffer), std::numeric_limits<int16_t>::min()), "-32768") == 0);
+    REQUIRE(strcmp(itoa(buffer, size(buffer), numeric_limits<int16_t>::max()), "32767") == 0);
+    REQUIRE(strcmp(itoa(buffer, size(buffer), numeric_limits<int16_t>::min()), "-32768") == 0);
     REQUIRE(strcmp(itoa(buffer, size(buffer), static_cast<int16_t>(0)), "0") == 0);
   }
 
@@ -251,8 +251,8 @@ TEST_CASE("core/utils/itoa_converts_integer_to_string") {
   SUBCASE("int32_t") {
     char buffer[12];
 
-    REQUIRE(strcmp(itoa(buffer, size(buffer), std::numeric_limits<int32_t>::max()), "2147483647") == 0);
-    REQUIRE(strcmp(itoa(buffer, size(buffer), std::numeric_limits<int32_t>::min()), "-2147483648") == 0);
+    REQUIRE(strcmp(itoa(buffer, size(buffer), numeric_limits<int32_t>::max()), "2147483647") == 0);
+    REQUIRE(strcmp(itoa(buffer, size(buffer), numeric_limits<int32_t>::min()), "-2147483648") == 0);
     REQUIRE(strcmp(itoa(buffer, size(buffer), static_cast<int32_t>(0)), "0") == 0);
   }
 
@@ -260,8 +260,8 @@ TEST_CASE("core/utils/itoa_converts_integer_to_string") {
   SUBCASE("int64_t") {
     char buffer[24];
 
-    REQUIRE(strcmp(itoa(buffer, size(buffer), std::numeric_limits<int64_t>::max()), "9223372036854775807") == 0);
-    REQUIRE(strcmp(itoa(buffer, size(buffer), std::numeric_limits<int64_t>::min()), "-9223372036854775808") == 0);
+    REQUIRE(strcmp(itoa(buffer, size(buffer), numeric_limits<int64_t>::max()), "9223372036854775807") == 0);
+    REQUIRE(strcmp(itoa(buffer, size(buffer), numeric_limits<int64_t>::min()), "-9223372036854775808") == 0);
     REQUIRE(strcmp(itoa(buffer, size(buffer), static_cast<int64_t>(0)), "0") == 0);
   }
 }
@@ -272,60 +272,59 @@ TEST_CASE("core/utils/utoa_converts_unsigned_integer_to_string") {
   SUBCASE("uint8_t") {
     char buffer[12];
 
-    REQUIRE(strcmp(utoa(buffer, size(buffer), std::numeric_limits<uint8_t>::min(), 2), "0") == 0);
-    REQUIRE(strcmp(utoa(buffer, size(buffer), std::numeric_limits<uint8_t>::min(), 8), "0") == 0);
-    REQUIRE(strcmp(utoa(buffer, size(buffer), std::numeric_limits<uint8_t>::min(), 10), "0") == 0);
-    REQUIRE(strcmp(utoa(buffer, size(buffer), std::numeric_limits<uint8_t>::min(), 16), "0") == 0);
-    REQUIRE(strcmp(utoa(buffer, size(buffer), std::numeric_limits<uint8_t>::max(), 2), "11111111") == 0);
-    REQUIRE(strcmp(utoa(buffer, size(buffer), std::numeric_limits<uint8_t>::max(), 8), "377") == 0);
-    REQUIRE(strcmp(utoa(buffer, size(buffer), std::numeric_limits<uint8_t>::max(), 10), "255") == 0);
-    REQUIRE(strcmp(utoa(buffer, size(buffer), std::numeric_limits<uint8_t>::max(), 16), "FF") == 0);
+    REQUIRE(strcmp(utoa(buffer, size(buffer), numeric_limits<uint8_t>::min(), 2), "0") == 0);
+    REQUIRE(strcmp(utoa(buffer, size(buffer), numeric_limits<uint8_t>::min(), 8), "0") == 0);
+    REQUIRE(strcmp(utoa(buffer, size(buffer), numeric_limits<uint8_t>::min(), 10), "0") == 0);
+    REQUIRE(strcmp(utoa(buffer, size(buffer), numeric_limits<uint8_t>::min(), 16), "0") == 0);
+    REQUIRE(strcmp(utoa(buffer, size(buffer), numeric_limits<uint8_t>::max(), 2), "11111111") == 0);
+    REQUIRE(strcmp(utoa(buffer, size(buffer), numeric_limits<uint8_t>::max(), 8), "377") == 0);
+    REQUIRE(strcmp(utoa(buffer, size(buffer), numeric_limits<uint8_t>::max(), 10), "255") == 0);
+    REQUIRE(strcmp(utoa(buffer, size(buffer), numeric_limits<uint8_t>::max(), 16), "FF") == 0);
   }
 
   // uint16_t min/max in radix 2, 8, 10, 16.
   SUBCASE("uint16_t") {
     char buffer[20];
 
-    REQUIRE(strcmp(utoa(buffer, size(buffer), std::numeric_limits<uint16_t>::min(), 2), "0") == 0);
-    REQUIRE(strcmp(utoa(buffer, size(buffer), std::numeric_limits<uint16_t>::min(), 8), "0") == 0);
-    REQUIRE(strcmp(utoa(buffer, size(buffer), std::numeric_limits<uint16_t>::min(), 10), "0") == 0);
-    REQUIRE(strcmp(utoa(buffer, size(buffer), std::numeric_limits<uint16_t>::min(), 16), "0") == 0);
-    REQUIRE(strcmp(utoa(buffer, size(buffer), std::numeric_limits<uint16_t>::max(), 2), "1111111111111111") == 0);
-    REQUIRE(strcmp(utoa(buffer, size(buffer), std::numeric_limits<uint16_t>::max(), 8), "177777") == 0);
-    REQUIRE(strcmp(utoa(buffer, size(buffer), std::numeric_limits<uint16_t>::max(), 10), "65535") == 0);
-    REQUIRE(strcmp(utoa(buffer, size(buffer), std::numeric_limits<uint16_t>::max(), 16), "FFFF") == 0);
+    REQUIRE(strcmp(utoa(buffer, size(buffer), numeric_limits<uint16_t>::min(), 2), "0") == 0);
+    REQUIRE(strcmp(utoa(buffer, size(buffer), numeric_limits<uint16_t>::min(), 8), "0") == 0);
+    REQUIRE(strcmp(utoa(buffer, size(buffer), numeric_limits<uint16_t>::min(), 10), "0") == 0);
+    REQUIRE(strcmp(utoa(buffer, size(buffer), numeric_limits<uint16_t>::min(), 16), "0") == 0);
+    REQUIRE(strcmp(utoa(buffer, size(buffer), numeric_limits<uint16_t>::max(), 2), "1111111111111111") == 0);
+    REQUIRE(strcmp(utoa(buffer, size(buffer), numeric_limits<uint16_t>::max(), 8), "177777") == 0);
+    REQUIRE(strcmp(utoa(buffer, size(buffer), numeric_limits<uint16_t>::max(), 10), "65535") == 0);
+    REQUIRE(strcmp(utoa(buffer, size(buffer), numeric_limits<uint16_t>::max(), 16), "FFFF") == 0);
   }
 
   // uint32_t min/max in radix 2, 8, 10, 16.
   SUBCASE("uint32_t") {
     char buffer[36];
 
-    REQUIRE(strcmp(utoa(buffer, size(buffer), std::numeric_limits<uint32_t>::min(), 2), "0") == 0);
-    REQUIRE(strcmp(utoa(buffer, size(buffer), std::numeric_limits<uint32_t>::min(), 8), "0") == 0);
-    REQUIRE(strcmp(utoa(buffer, size(buffer), std::numeric_limits<uint32_t>::min(), 10), "0") == 0);
-    REQUIRE(strcmp(utoa(buffer, size(buffer), std::numeric_limits<uint32_t>::min(), 16), "0") == 0);
-    REQUIRE(
-      strcmp(utoa(buffer, size(buffer), std::numeric_limits<uint32_t>::max(), 2), "11111111111111111111111111111111")
-      == 0);
-    REQUIRE(strcmp(utoa(buffer, size(buffer), std::numeric_limits<uint32_t>::max(), 8), "37777777777") == 0);
-    REQUIRE(strcmp(utoa(buffer, size(buffer), std::numeric_limits<uint32_t>::max(), 10), "4294967295") == 0);
-    REQUIRE(strcmp(utoa(buffer, size(buffer), std::numeric_limits<uint32_t>::max(), 16), "FFFFFFFF") == 0);
+    REQUIRE(strcmp(utoa(buffer, size(buffer), numeric_limits<uint32_t>::min(), 2), "0") == 0);
+    REQUIRE(strcmp(utoa(buffer, size(buffer), numeric_limits<uint32_t>::min(), 8), "0") == 0);
+    REQUIRE(strcmp(utoa(buffer, size(buffer), numeric_limits<uint32_t>::min(), 10), "0") == 0);
+    REQUIRE(strcmp(utoa(buffer, size(buffer), numeric_limits<uint32_t>::min(), 16), "0") == 0);
+    REQUIRE(strcmp(utoa(buffer, size(buffer), numeric_limits<uint32_t>::max(), 2), "11111111111111111111111111111111")
+            == 0);
+    REQUIRE(strcmp(utoa(buffer, size(buffer), numeric_limits<uint32_t>::max(), 8), "37777777777") == 0);
+    REQUIRE(strcmp(utoa(buffer, size(buffer), numeric_limits<uint32_t>::max(), 10), "4294967295") == 0);
+    REQUIRE(strcmp(utoa(buffer, size(buffer), numeric_limits<uint32_t>::max(), 16), "FFFFFFFF") == 0);
   }
 
   // uint64_t min/max in radix 2, 8, 10, 16.
   SUBCASE("uint64_t") {
     char buffer[68];
 
-    REQUIRE(strcmp(utoa(buffer, size(buffer), std::numeric_limits<uint64_t>::min(), 2), "0") == 0);
-    REQUIRE(strcmp(utoa(buffer, size(buffer), std::numeric_limits<uint64_t>::min(), 8), "0") == 0);
-    REQUIRE(strcmp(utoa(buffer, size(buffer), std::numeric_limits<uint64_t>::min(), 10), "0") == 0);
-    REQUIRE(strcmp(utoa(buffer, size(buffer), std::numeric_limits<uint64_t>::min(), 16), "0") == 0);
-    REQUIRE(strcmp(utoa(buffer, size(buffer), std::numeric_limits<uint64_t>::max(), 2),
+    REQUIRE(strcmp(utoa(buffer, size(buffer), numeric_limits<uint64_t>::min(), 2), "0") == 0);
+    REQUIRE(strcmp(utoa(buffer, size(buffer), numeric_limits<uint64_t>::min(), 8), "0") == 0);
+    REQUIRE(strcmp(utoa(buffer, size(buffer), numeric_limits<uint64_t>::min(), 10), "0") == 0);
+    REQUIRE(strcmp(utoa(buffer, size(buffer), numeric_limits<uint64_t>::min(), 16), "0") == 0);
+    REQUIRE(strcmp(utoa(buffer, size(buffer), numeric_limits<uint64_t>::max(), 2),
                    "1111111111111111111111111111111111111111111111111111111111111111")
             == 0);
-    REQUIRE(strcmp(utoa(buffer, size(buffer), std::numeric_limits<uint64_t>::max(), 8), "1777777777777777777777") == 0);
-    REQUIRE(strcmp(utoa(buffer, size(buffer), std::numeric_limits<uint64_t>::max(), 10), "18446744073709551615") == 0);
-    REQUIRE(strcmp(utoa(buffer, size(buffer), std::numeric_limits<uint64_t>::max(), 16), "FFFFFFFFFFFFFFFF") == 0);
+    REQUIRE(strcmp(utoa(buffer, size(buffer), numeric_limits<uint64_t>::max(), 8), "1777777777777777777777") == 0);
+    REQUIRE(strcmp(utoa(buffer, size(buffer), numeric_limits<uint64_t>::max(), 10), "18446744073709551615") == 0);
+    REQUIRE(strcmp(utoa(buffer, size(buffer), numeric_limits<uint64_t>::max(), 16), "FFFFFFFFFFFFFFFF") == 0);
   }
 }
 
@@ -351,14 +350,14 @@ TEST_CASE("core/utils/ftoa_converts_float_to_string") {
   SUBCASE("infinity and nan") {
     char buffer[32];
 
-    REQUIRE(strcmp(ftoa(buffer, size(buffer), std::numeric_limits<float>::infinity()), "+INF") == 0);
-    REQUIRE(strcmp(ftoa(buffer, size(buffer), -std::numeric_limits<float>::infinity()), "-INF") == 0);
-    REQUIRE(strcmp(ftoa(buffer, size(buffer), std::numeric_limits<float>::quiet_NaN()), "+NAN") == 0);
-    REQUIRE(strcmp(ftoa(buffer, size(buffer), -std::numeric_limits<float>::quiet_NaN()), "-NAN") == 0);
-    REQUIRE(strcmp(ftoa(buffer, size(buffer), std::numeric_limits<double>::infinity()), "+INF") == 0);
-    REQUIRE(strcmp(ftoa(buffer, size(buffer), -std::numeric_limits<double>::infinity()), "-INF") == 0);
-    REQUIRE(strcmp(ftoa(buffer, size(buffer), std::numeric_limits<double>::quiet_NaN()), "+NAN") == 0);
-    REQUIRE(strcmp(ftoa(buffer, size(buffer), -std::numeric_limits<double>::quiet_NaN()), "-NAN") == 0);
+    REQUIRE(strcmp(ftoa(buffer, size(buffer), numeric_limits<float>::infinity()), "+INF") == 0);
+    REQUIRE(strcmp(ftoa(buffer, size(buffer), -numeric_limits<float>::infinity()), "-INF") == 0);
+    REQUIRE(strcmp(ftoa(buffer, size(buffer), numeric_limits<float>::quiet_NaN()), "+NAN") == 0);
+    REQUIRE(strcmp(ftoa(buffer, size(buffer), -numeric_limits<float>::quiet_NaN()), "-NAN") == 0);
+    REQUIRE(strcmp(ftoa(buffer, size(buffer), numeric_limits<double>::infinity()), "+INF") == 0);
+    REQUIRE(strcmp(ftoa(buffer, size(buffer), -numeric_limits<double>::infinity()), "-INF") == 0);
+    REQUIRE(strcmp(ftoa(buffer, size(buffer), numeric_limits<double>::quiet_NaN()), "+NAN") == 0);
+    REQUIRE(strcmp(ftoa(buffer, size(buffer), -numeric_limits<double>::quiet_NaN()), "-NAN") == 0);
   }
 
   // Array of float and double values vs expected ASCII.

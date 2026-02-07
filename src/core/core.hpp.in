@@ -78,6 +78,10 @@ using std::array;
 //         bit_cast https://en.cppreference.com/w/cpp/numeric/bit_cast.html
 using std::bit_cast;
 
+//    Type support https://en.cppreference.com/w/cpp/types
+//  numeric_limits https://en.cppreference.com/w/cpp/types/numeric_limits
+using std::numeric_limits;
+
 #undef validate
 
 #ifdef _DEBUG

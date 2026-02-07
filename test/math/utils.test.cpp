@@ -45,18 +45,18 @@ TEST_CASE("math/utils/abs") {
 
   // All supported signed integral widths: abs of negative equals positive.
   SUBCASE("signed_integral_all_supported_widths") {
-    REQUIRE(abs(int8_t(std::numeric_limits<int8_t>::min() + 1)) == std::numeric_limits<int8_t>::max());
-    REQUIRE(abs(int16_t(std::numeric_limits<int16_t>::min() + 1)) == std::numeric_limits<int16_t>::max());
-    REQUIRE(abs(int32_t(std::numeric_limits<int32_t>::min() + 1)) == std::numeric_limits<int32_t>::max());
-    REQUIRE(abs(int64_t(std::numeric_limits<int64_t>::min() + 1)) == std::numeric_limits<int64_t>::max());
+    REQUIRE(abs(int8_t(numeric_limits<int8_t>::min() + 1)) == numeric_limits<int8_t>::max());
+    REQUIRE(abs(int16_t(numeric_limits<int16_t>::min() + 1)) == numeric_limits<int16_t>::max());
+    REQUIRE(abs(int32_t(numeric_limits<int32_t>::min() + 1)) == numeric_limits<int32_t>::max());
+    REQUIRE(abs(int64_t(numeric_limits<int64_t>::min() + 1)) == numeric_limits<int64_t>::max());
 
-    static_assert(abs(int8_t(std::numeric_limits<int8_t>::min() + 1)) == std::numeric_limits<int8_t>::max(),
+    static_assert(abs(int8_t(numeric_limits<int8_t>::min() + 1)) == numeric_limits<int8_t>::max(),
                   "abs of int8_t(min+1) must equal int8_t max");
-    static_assert(abs(int16_t(std::numeric_limits<int16_t>::min() + 1)) == std::numeric_limits<int16_t>::max(),
+    static_assert(abs(int16_t(numeric_limits<int16_t>::min() + 1)) == numeric_limits<int16_t>::max(),
                   "abs of int16_t(min+1) must equal int16_t max");
-    static_assert(abs(int32_t(std::numeric_limits<int32_t>::min() + 1)) == std::numeric_limits<int32_t>::max(),
+    static_assert(abs(int32_t(numeric_limits<int32_t>::min() + 1)) == numeric_limits<int32_t>::max(),
                   "abs of int32_t(min+1) must equal int32_t max");
-    static_assert(abs(int64_t(std::numeric_limits<int64_t>::min() + 1)) == std::numeric_limits<int64_t>::max(),
+    static_assert(abs(int64_t(numeric_limits<int64_t>::min() + 1)) == numeric_limits<int64_t>::max(),
                   "abs of int64_t(min+1) must equal int64_t max");
   }
 
@@ -69,23 +69,21 @@ TEST_CASE("math/utils/abs") {
     REQUIRE(abs(1.5) == doctest::Approx(1.5));
     REQUIRE(abs(-1.5) == doctest::Approx(1.5));
 
-    static_assert(abs(0.0f) <= std::numeric_limits<float>::epsilon()
-                    && abs(0.0f) >= -std::numeric_limits<float>::epsilon(),
+    static_assert(abs(0.0f) <= numeric_limits<float>::epsilon() && abs(0.0f) >= -numeric_limits<float>::epsilon(),
                   "abs of zero float must be zero within machine epsilon");
-    static_assert(abs(1.5f) - 1.5f <= std::numeric_limits<float>::epsilon()
-                    && abs(1.5f) - 1.5f >= -std::numeric_limits<float>::epsilon(),
+    static_assert(abs(1.5f) - 1.5f <= numeric_limits<float>::epsilon()
+                    && abs(1.5f) - 1.5f >= -numeric_limits<float>::epsilon(),
                   "abs of positive float must be unchanged within epsilon");
-    static_assert(abs(-1.5f) - 1.5f <= std::numeric_limits<float>::epsilon()
-                    && abs(-1.5f) - 1.5f >= -std::numeric_limits<float>::epsilon(),
+    static_assert(abs(-1.5f) - 1.5f <= numeric_limits<float>::epsilon()
+                    && abs(-1.5f) - 1.5f >= -numeric_limits<float>::epsilon(),
                   "abs of negative float must yield positive within epsilon");
-    static_assert(abs(0.0) <= std::numeric_limits<double>::epsilon()
-                    && abs(0.0) >= -std::numeric_limits<double>::epsilon(),
+    static_assert(abs(0.0) <= numeric_limits<double>::epsilon() && abs(0.0) >= -numeric_limits<double>::epsilon(),
                   "abs of zero double must be zero within machine epsilon");
-    static_assert(abs(1.5) - 1.5 <= std::numeric_limits<double>::epsilon()
-                    && abs(1.5) - 1.5 >= -std::numeric_limits<double>::epsilon(),
+    static_assert(abs(1.5) - 1.5 <= numeric_limits<double>::epsilon()
+                    && abs(1.5) - 1.5 >= -numeric_limits<double>::epsilon(),
                   "abs of positive double must be unchanged within epsilon");
-    static_assert(abs(-1.5) - 1.5 <= std::numeric_limits<double>::epsilon()
-                    && abs(-1.5) - 1.5 >= -std::numeric_limits<double>::epsilon(),
+    static_assert(abs(-1.5) - 1.5 <= numeric_limits<double>::epsilon()
+                    && abs(-1.5) - 1.5 >= -numeric_limits<double>::epsilon(),
                   "abs of negative double must yield positive within epsilon");
   }
 }
