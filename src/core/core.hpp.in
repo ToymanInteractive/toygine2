@@ -27,6 +27,7 @@
 
 #include <algorithm>
 #include <array>
+#include <bit>
 #include <compare>
 #include <concepts>
 #include <cstddef>
@@ -70,6 +71,8 @@ using std::size;
 using std::strong_ordering;
 
 using std::array;
+
+using std::bit_cast;
 
 #undef validate
 

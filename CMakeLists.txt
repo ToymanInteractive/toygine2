@@ -116,8 +116,8 @@ set(HDR_APP_LIST include/app.hpp include/app/version.hpp)
 set(INL_APP_LIST                 include/app/version.inl)
 
 set(SRC_MATH_LIST)
-set(HDR_MATH_LIST include/math.hpp include/math/point.hpp include/math/vector2d.hpp)
-set(INL_MATH_LIST                  include/math/point.inl include/math/vector2d.inl)
+set(HDR_MATH_LIST include/math.hpp include/math/point.hpp include/math/utils.hpp include/math/vector2d.hpp)
+set(INL_MATH_LIST                  include/math/point.inl include/math/utils.inl include/math/vector2d.inl)
 
 source_group("Core" FILES ${SRC_CORE_LIST} ${HDR_CORE_LIST} ${INL_CORE_LIST})
 source_group("App"  FILES ${SRC_APP_LIST}  ${HDR_APP_LIST}  ${INL_APP_LIST})
