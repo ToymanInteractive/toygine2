@@ -31,8 +31,7 @@ template <std::signed_integral T>
 constexpr T abs(T value) noexcept {
   assert_message(value != std::numeric_limits<T>::min(), "abs() of the minimum signed integer is not representable");
 
-  constexpr int shift = sizeof(T) * 8 - 1;
-  T mask = value >> shift;
+  T mask = value >> std::numeric_limits<T>::digits;
 
   return (value + mask) ^ mask;
 }
@@ -40,18 +39,19 @@ constexpr T abs(T value) noexcept {
 template <std::floating_point T>
 constexpr T abs(T value) noexcept {
   if constexpr (std::same_as<T, float>) {
+    // Branch-free: clear IEEE 754 sign bit via bit_cast (float is 32-bit on supported platforms).
     auto bits = std::bit_cast<uint32_t>(value);
-
     bits &= 0x7FFFFFFF;
 
     return std::bit_cast<float>(bits);
   } else if constexpr (std::same_as<T, double>) {
+    // Branch-free: clear IEEE 754 sign bit via bit_cast (double is 64-bit on supported platforms).
     auto bits = std::bit_cast<uint64_t>(value);
-
     bits &= 0x7FFFFFFFFFFFFFFF;
 
     return std::bit_cast<double>(bits);
-  } else { // long double
+  } else {
+    // Long double: platform-dependent representation; bit_cast not viable, use conditional.
     return value < T(0) ? -value : value;
   }
 }
