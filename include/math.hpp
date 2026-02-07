@@ -31,6 +31,10 @@
 /// @brief Contains all public mathematical types, constants, and utility functions of engine.
 namespace toy::math {
 
+// Algorithms library https://en.cppreference.com/w/cpp/algorithm.html
+//                max https://en.cppreference.com/w/cpp/algorithm/max.html
+using std::max;
+
 /// Floating‑point scalar type.
 using real_t = float;
 
