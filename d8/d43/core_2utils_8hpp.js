@@ -1,4 +1,4 @@
-var utils_8hpp =
+var core_2utils_8hpp =
 [
     [ "toy::formatNumberString", "d4/da9/namespacetoy.html#aeeb4febc194b23813d77b08ac4fea2d1", null ],
     [ "toy::ftoa", "d4/da9/namespacetoy.html#a153b39b476aa91d0b98f6350eeae88a2", null ],

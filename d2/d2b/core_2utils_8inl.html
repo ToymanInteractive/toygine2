@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=11" />
   <meta name="generator" content="Doxygen 1.16.1" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ToyGine2: include/core/utils.hpp File Reference</title>
+  <title>ToyGine2: include/core/utils.inl File Reference</title>
   <link href="../../tabs.css" rel="stylesheet" type="text/css" />
   <script type="text/javascript" src="../../jquery.js"></script>
   <script type="text/javascript" src="../../dynsections.js"></script>
@@ -84,7 +84,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(function(){initNavTree('df/d93/utils_8hpp.html','../../',''); });
+$(function(){initNavTree('d2/d2b/core_2utils_8inl.html','../../',''); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -110,20 +110,20 @@ $(function(){initNavTree('df/d93/utils_8hpp.html','../../',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">utils.hpp File Reference</div></div>
+  <div class="headertitle"><div class="title">utils.inl File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Core utility functions for string manipulation, encoding conversion, and number formatting.  
+<p>Inline implementations of core utility functions for string manipulation and encoding conversion.  
 <a href="#details">More...</a></p>
 <div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>This graph shows which files directly or indirectly include this file:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d8/dfa/utils_8hpp__dep__incl.svg" width="100%" height="503"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d2/d4f/core_2utils_8inl__dep__incl.svg" width="100%" height="503"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 </div>
-<p><a href="../../df/d93/utils_8hpp_source.html">Go to the source code of this file.</a></p>
+<p><a href="../../d2/d2b/core_2utils_8inl_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
@@ -132,49 +132,16 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a5ee65428f52c52934cf358eec39c55aa" id="r_a5ee65428f52c52934cf358eec39c55aa"><td class="memItemLeft">wchar_t *&#160;</td><td class="memItemRight"><a class="el" href="../../d4/da9/namespacetoy.html#a5ee65428f52c52934cf358eec39c55aa">toy::utf8toWChar</a> (wchar_t *dest, size_t destSize, const char *const src, size_t count) noexcept</td></tr>
-<tr class="memdesc:a5ee65428f52c52934cf358eec39c55aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a Unicode UTF-8 encoded C string to a wide character string with character count limit.  <br /></td></tr>
 <tr class="memitem:acf0d2ea5a12a30e6b7bdfaa9762b7ee3" id="r_acf0d2ea5a12a30e6b7bdfaa9762b7ee3"><td class="memItemLeft">constexpr wchar_t *&#160;</td><td class="memItemRight"><a class="el" href="../../d4/da9/namespacetoy.html#acf0d2ea5a12a30e6b7bdfaa9762b7ee3">toy::utf8toWChar</a> (wchar_t *dest, size_t destSize, const char *const src) noexcept</td></tr>
 <tr class="memdesc:acf0d2ea5a12a30e6b7bdfaa9762b7ee3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a Unicode UTF-8 encoded C string to a wide character string.  <br /></td></tr>
 <tr class="memitem:ad77806ddefe069afcd095c3d1ef37391" id="r_ad77806ddefe069afcd095c3d1ef37391"><td class="memTemplParams" colspan="2">template&lt;StringLike stringType&gt; </td></tr>
 <tr class="memitem:ad77806ddefe069afcd095c3d1ef37391 template"><td class="memItemLeft">constexpr wchar_t *&#160;</td><td class="memItemRight"><a class="el" href="../../d4/da9/namespacetoy.html#ad77806ddefe069afcd095c3d1ef37391">toy::utf8toWChar</a> (wchar_t *dest, size_t destSize, const stringType &amp;src) noexcept</td></tr>
 <tr class="memdesc:ad77806ddefe069afcd095c3d1ef37391"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a Unicode UTF-8 encoded <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="toy::StringLike">toy::StringLike</a> object to a wide character string.  <br /></td></tr>
-<tr class="memitem:a008aa42596921d995b66340139fd3cfb" id="r_a008aa42596921d995b66340139fd3cfb"><td class="memItemLeft">char *&#160;</td><td class="memItemRight"><a class="el" href="../../d4/da9/namespacetoy.html#a008aa42596921d995b66340139fd3cfb">toy::wcharToUtf8</a> (char *dest, size_t destSize, const wchar_t *src) noexcept</td></tr>
-<tr class="memdesc:a008aa42596921d995b66340139fd3cfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a Unicode wide character C string to a UTF-8 encoded string.  <br /></td></tr>
-<tr class="memitem:a5ab02021f4ca34e0d5b6a1b0172ebe95" id="r_a5ab02021f4ca34e0d5b6a1b0172ebe95"><td class="memItemLeft">size_t&#160;</td><td class="memItemRight"><a class="el" href="../../d4/da9/namespacetoy.html#a5ab02021f4ca34e0d5b6a1b0172ebe95">toy::utf8Len</a> (const char *string) noexcept</td></tr>
-<tr class="memdesc:a5ab02021f4ca34e0d5b6a1b0172ebe95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of Unicode characters in a UTF-8 encoded C <em class="arg">string</em>.  <br /></td></tr>
 <tr class="memitem:a2ad56b53b8cdbb022ce8ce3b2aa32503" id="r_a2ad56b53b8cdbb022ce8ce3b2aa32503"><td class="memItemLeft">constexpr char *&#160;</td><td class="memItemRight"><a class="el" href="../../d4/da9/namespacetoy.html#a2ad56b53b8cdbb022ce8ce3b2aa32503">toy::reverseString</a> (char *str, size_t count=0) noexcept</td></tr>
 <tr class="memdesc:a2ad56b53b8cdbb022ce8ce3b2aa32503"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reverses a given C string in-place.  <br /></td></tr>
-<tr class="memitem:ae8b2c5fe28a3bb8e21f377b9e8ef2bc9" id="r_ae8b2c5fe28a3bb8e21f377b9e8ef2bc9"><td class="memItemLeft">char *&#160;</td><td class="memItemRight"><a class="el" href="../../d4/da9/namespacetoy.html#ae8b2c5fe28a3bb8e21f377b9e8ef2bc9">toy::itoa</a> (char *dest, size_t destSize, int8_t value) noexcept</td></tr>
-<tr class="memdesc:ae8b2c5fe28a3bb8e21f377b9e8ef2bc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an 8-bit signed integer value to a C string representation.  <br /></td></tr>
-<tr class="memitem:a4761bfce539cb0e61b65a3573e79177f" id="r_a4761bfce539cb0e61b65a3573e79177f"><td class="memItemLeft">char *&#160;</td><td class="memItemRight"><a class="el" href="../../d4/da9/namespacetoy.html#a4761bfce539cb0e61b65a3573e79177f">toy::itoa</a> (char *dest, size_t destSize, int16_t value) noexcept</td></tr>
-<tr class="memdesc:a4761bfce539cb0e61b65a3573e79177f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a 16-bit signed integer value to a C string representation.  <br /></td></tr>
-<tr class="memitem:a0e120ac7533ff2ef21be74515b922843" id="r_a0e120ac7533ff2ef21be74515b922843"><td class="memItemLeft">char *&#160;</td><td class="memItemRight"><a class="el" href="../../d4/da9/namespacetoy.html#a0e120ac7533ff2ef21be74515b922843">toy::itoa</a> (char *dest, size_t destSize, int32_t value) noexcept</td></tr>
-<tr class="memdesc:a0e120ac7533ff2ef21be74515b922843"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a 32-bit signed integer value to a C string representation.  <br /></td></tr>
-<tr class="memitem:a8940d6802bb6b139541f903cce67ee13" id="r_a8940d6802bb6b139541f903cce67ee13"><td class="memItemLeft">char *&#160;</td><td class="memItemRight"><a class="el" href="../../d4/da9/namespacetoy.html#a8940d6802bb6b139541f903cce67ee13">toy::itoa</a> (char *dest, size_t destSize, int64_t value) noexcept</td></tr>
-<tr class="memdesc:a8940d6802bb6b139541f903cce67ee13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a 64-bit signed integer value to a C string representation.  <br /></td></tr>
-<tr class="memitem:a3896c1390775b3c0290dfb6b19cc6788" id="r_a3896c1390775b3c0290dfb6b19cc6788"><td class="memItemLeft">char *&#160;</td><td class="memItemRight"><a class="el" href="../../d4/da9/namespacetoy.html#a3896c1390775b3c0290dfb6b19cc6788">toy::utoa</a> (char *dest, size_t destSize, uint8_t value, unsigned base=10) noexcept</td></tr>
-<tr class="memdesc:a3896c1390775b3c0290dfb6b19cc6788"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an 8-bit unsigned integer to a C string representation in the specified base.  <br /></td></tr>
-<tr class="memitem:ac943fcf84753ab779d99dc2de0393662" id="r_ac943fcf84753ab779d99dc2de0393662"><td class="memItemLeft">char *&#160;</td><td class="memItemRight"><a class="el" href="../../d4/da9/namespacetoy.html#ac943fcf84753ab779d99dc2de0393662">toy::utoa</a> (char *dest, size_t destSize, uint16_t value, unsigned base=10) noexcept</td></tr>
-<tr class="memdesc:ac943fcf84753ab779d99dc2de0393662"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a 16-bit unsigned integer to a C string representation in the specified base.  <br /></td></tr>
-<tr class="memitem:a16e50f6c32e0d76220f46133a3d81592" id="r_a16e50f6c32e0d76220f46133a3d81592"><td class="memItemLeft">char *&#160;</td><td class="memItemRight"><a class="el" href="../../d4/da9/namespacetoy.html#a16e50f6c32e0d76220f46133a3d81592">toy::utoa</a> (char *dest, size_t destSize, uint32_t value, unsigned base=10) noexcept</td></tr>
-<tr class="memdesc:a16e50f6c32e0d76220f46133a3d81592"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a 32-bit unsigned integer to a C string representation in the specified base.  <br /></td></tr>
-<tr class="memitem:aa15d157e1eba61a003251489cc1ccc99" id="r_aa15d157e1eba61a003251489cc1ccc99"><td class="memItemLeft">char *&#160;</td><td class="memItemRight"><a class="el" href="../../d4/da9/namespacetoy.html#aa15d157e1eba61a003251489cc1ccc99">toy::utoa</a> (char *dest, size_t destSize, uint64_t value, unsigned base=10) noexcept</td></tr>
-<tr class="memdesc:aa15d157e1eba61a003251489cc1ccc99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a 64-bit unsigned integer to a C string representation in the specified base.  <br /></td></tr>
-<tr class="memitem:abd6a34c77550e2f8649d30d8ef1c1904" id="r_abd6a34c77550e2f8649d30d8ef1c1904"><td class="memItemLeft">char *&#160;</td><td class="memItemRight"><a class="el" href="../../d4/da9/namespacetoy.html#abd6a34c77550e2f8649d30d8ef1c1904">toy::ftoa</a> (char *dest, size_t destSize, float value, size_t precision=7) noexcept</td></tr>
-<tr class="memdesc:abd6a34c77550e2f8649d30d8ef1c1904"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a 32-bit floating-point number to its C string representation with specified precision.  <br /></td></tr>
-<tr class="memitem:a153b39b476aa91d0b98f6350eeae88a2" id="r_a153b39b476aa91d0b98f6350eeae88a2"><td class="memItemLeft">char *&#160;</td><td class="memItemRight"><a class="el" href="../../d4/da9/namespacetoy.html#a153b39b476aa91d0b98f6350eeae88a2">toy::ftoa</a> (char *dest, size_t destSize, double value, size_t precision=15) noexcept</td></tr>
-<tr class="memdesc:a153b39b476aa91d0b98f6350eeae88a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a 64-bit floating-point number to its C string representation with specified precision.  <br /></td></tr>
-<tr class="memitem:aeeb4febc194b23813d77b08ac4fea2d1" id="r_aeeb4febc194b23813d77b08ac4fea2d1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="../../d4/da9/namespacetoy.html#aeeb4febc194b23813d77b08ac4fea2d1">toy::formatNumberString</a> (char *buffer, size_t bufferSize, const char *separator) noexcept</td></tr>
-<tr class="memdesc:aeeb4febc194b23813d77b08ac4fea2d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Formats a number C string by inserting grouping separators.  <br /></td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:a15a8263a5364e1ff581cf08613b9647f" id="r_a15a8263a5364e1ff581cf08613b9647f"><td class="memItemLeft">constexpr size_t&#160;</td><td class="memItemRight"><a class="el" href="../../d4/da9/namespacetoy.html#a15a8263a5364e1ff581cf08613b9647f">toy::wcharInUtf8MaxSize</a> = 3</td></tr>
-<tr class="memdesc:a15a8263a5364e1ff581cf08613b9647f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum UTF-8 bytes required for BMP characters.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Core utility functions for string manipulation, encoding conversion, and number formatting. </p>
+<div class="textblock"><p>Inline implementations of core utility functions for string manipulation and encoding conversion. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
@@ -188,7 +155,7 @@ Variables</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="../../dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a href="../../dir_3d69f64eaf81436fe2b22361382717e5.html">core</a></li><li class="navelem"><a href="../../df/d93/utils_8hpp.html">utils.hpp</a></li>
+    <li class="navelem"><a href="../../dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a href="../../dir_3d69f64eaf81436fe2b22361382717e5.html">core</a></li><li class="navelem"><a href="../../d2/d2b/core_2utils_8inl.html">utils.inl</a></li>
     <li class="footer">Generated on <span class="timestamp"></span> for ToyGine2 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

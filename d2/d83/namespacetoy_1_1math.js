@@ -3,6 +3,8 @@ var namespacetoy_1_1math =
     [ "Point", "d3/dce/classtoy_1_1math_1_1_point.html", "d3/dce/classtoy_1_1math_1_1_point" ],
     [ "Vector2D", "d9/d85/classtoy_1_1math_1_1_vector2_d.html", "d9/d85/classtoy_1_1math_1_1_vector2_d" ],
     [ "real_t", "d2/d83/namespacetoy_1_1math.html#a928771ce74a56750dd2dcbc28e5892e0", null ],
+    [ "abs", "d2/d83/namespacetoy_1_1math.html#a5f1aaaf4c925c4be31f1b33e31062c19", null ],
+    [ "abs", "d2/d83/namespacetoy_1_1math.html#a5f1aaaf4c925c4be31f1b33e31062c19", null ],
     [ "operator*", "d2/d83/namespacetoy_1_1math.html#ac417b48ee4476520f97a0bfe39026d22", null ],
     [ "operator*", "d2/d83/namespacetoy_1_1math.html#aabf2223c75035961b42e0aab01c47303", null ],
     [ "operator*", "d2/d83/namespacetoy_1_1math.html#a64b77d367827237e4f5296e24fe488bb", null ],
