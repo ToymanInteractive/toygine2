@@ -40,16 +40,16 @@ template <std::floating_point T>
 constexpr T abs(T value) noexcept {
   if constexpr (std::same_as<T, float>) {
     // Branch-free: clear IEEE 754 sign bit via bit_cast (float is 32-bit on supported platforms).
-    auto bits = std::bit_cast<uint32_t>(value);
+    auto bits = bit_cast<uint32_t>(value);
     bits &= 0x7FFFFFFF;
 
-    return std::bit_cast<float>(bits);
+    return bit_cast<float>(bits);
   } else if constexpr (std::same_as<T, double>) {
     // Branch-free: clear IEEE 754 sign bit via bit_cast (double is 64-bit on supported platforms).
-    auto bits = std::bit_cast<uint64_t>(value);
+    auto bits = bit_cast<uint64_t>(value);
     bits &= 0x7FFFFFFFFFFFFFFF;
 
-    return std::bit_cast<double>(bits);
+    return bit_cast<double>(bits);
   } else {
     // Long double: platform-dependent representation; bit_cast not viable, use conditional.
     return value < T(0) ? -value : value;

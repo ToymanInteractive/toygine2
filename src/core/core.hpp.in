@@ -72,6 +72,10 @@ using std::strong_ordering;
 
 using std::array;
 
+// Utility library https://en.cppreference.com/w/cpp/utility.html
+
+// Bit manipulation https://en.cppreference.com/w/cpp/utility/bit.html
+//         bit_cast https://en.cppreference.com/w/cpp/numeric/bit_cast.html
 using std::bit_cast;
 
 #undef validate
