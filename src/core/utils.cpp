@@ -22,8 +22,6 @@
   \brief  Implementation of core utility functions for string manipulation, encoding conversion, and number formatting.
 */
 
-#include <cmath>
-
 #include "core.hpp"
 #include "utils_internal.inl"
 
@@ -134,7 +132,7 @@ constexpr _divmod10 _divModU10(uint32_t value) noexcept {
         not support subnormals.
 */
 constexpr int32_t _ftoa32Engine(char * buffer, float value, size_t precision) noexcept {
-  const auto uvalue = std::bit_cast<uint32_t>(value);
+  const auto uvalue = bit_cast<uint32_t>(value);
   const auto exponent = static_cast<uint8_t>((uvalue >> 23) & 0xff);
   if (exponent == 0) { // don't care about a subnormals
     buffer[0] = '0';
@@ -231,7 +229,7 @@ constexpr int32_t _ftoa32Engine(char * buffer, float value, size_t precision) no
         the string representation in the form "+d.dd...e±dd" for normalized numbers.
 */
 constexpr int32_t _ftoa64Engine(char * buffer, double value, size_t precision) noexcept {
-  const auto uvalue = std::bit_cast<uint64_t>(value);
+  const auto uvalue = bit_cast<uint64_t>(value);
   const auto exponent = static_cast<uint32_t>(uvalue >> 52) & 0x07FF;
   if (exponent == 0) { // don't care about a subnormals
     buffer[0] = '0';

@@ -9,6 +9,7 @@
         "devkit",
         "devkitarm",
         "devkitpro",
+        "doctest",
         "doxyfile",
         "endforeach",
         "endfunction",

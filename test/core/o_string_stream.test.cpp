@@ -18,7 +18,6 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-#include <limits>
 #include <numbers>
 
 #include <doctest/doctest.h>
@@ -596,38 +595,38 @@ TEST_CASE("core/o_string_stream/operator_insert") {
     streams[1] << long(-123);
     streams[2] << static_cast<unsigned long>(123);
     streams[3] << static_cast<unsigned long>(0);
-    streams[4] << std::numeric_limits<long long>::min();
-    streams[5] << std::numeric_limits<long long>::max();
-    streams[6] << std::numeric_limits<unsigned long long>::min();
-    streams[7] << std::numeric_limits<unsigned long long>::max();
-    streams[8] << std::numeric_limits<short>::min();
-    streams[9] << std::numeric_limits<short>::max();
-    streams[10] << std::numeric_limits<unsigned short>::min();
-    streams[11] << std::numeric_limits<unsigned short>::max();
-    streams[12] << std::numeric_limits<int>::min();
-    streams[13] << std::numeric_limits<int>::max();
-    streams[14] << std::numeric_limits<unsigned int>::min();
-    streams[15] << std::numeric_limits<unsigned int>::max();
-    streams[16] << std::numeric_limits<signed char>::min();
-    streams[17] << std::numeric_limits<signed char>::max();
-    streams[18] << std::numeric_limits<unsigned char>::min();
-    streams[19] << std::numeric_limits<unsigned char>::max();
-    streams[20] << std::numeric_limits<int8_t>::min();
-    streams[21] << std::numeric_limits<int8_t>::max();
-    streams[22] << std::numeric_limits<uint8_t>::min();
-    streams[23] << std::numeric_limits<uint8_t>::max();
-    streams[24] << std::numeric_limits<int16_t>::min();
-    streams[25] << std::numeric_limits<int16_t>::max();
-    streams[26] << std::numeric_limits<uint16_t>::min();
-    streams[27] << std::numeric_limits<uint16_t>::max();
-    streams[28] << std::numeric_limits<int32_t>::min();
-    streams[29] << std::numeric_limits<int32_t>::max();
-    streams[30] << std::numeric_limits<uint32_t>::min();
-    streams[31] << std::numeric_limits<uint32_t>::max();
-    streams[32] << std::numeric_limits<int64_t>::min();
-    streams[33] << std::numeric_limits<int64_t>::max();
-    streams[34] << std::numeric_limits<uint64_t>::min();
-    streams[35] << std::numeric_limits<uint64_t>::max();
+    streams[4] << numeric_limits<long long>::min();
+    streams[5] << numeric_limits<long long>::max();
+    streams[6] << numeric_limits<unsigned long long>::min();
+    streams[7] << numeric_limits<unsigned long long>::max();
+    streams[8] << numeric_limits<short>::min();
+    streams[9] << numeric_limits<short>::max();
+    streams[10] << numeric_limits<unsigned short>::min();
+    streams[11] << numeric_limits<unsigned short>::max();
+    streams[12] << numeric_limits<int>::min();
+    streams[13] << numeric_limits<int>::max();
+    streams[14] << numeric_limits<unsigned int>::min();
+    streams[15] << numeric_limits<unsigned int>::max();
+    streams[16] << numeric_limits<signed char>::min();
+    streams[17] << numeric_limits<signed char>::max();
+    streams[18] << numeric_limits<unsigned char>::min();
+    streams[19] << numeric_limits<unsigned char>::max();
+    streams[20] << numeric_limits<int8_t>::min();
+    streams[21] << numeric_limits<int8_t>::max();
+    streams[22] << numeric_limits<uint8_t>::min();
+    streams[23] << numeric_limits<uint8_t>::max();
+    streams[24] << numeric_limits<int16_t>::min();
+    streams[25] << numeric_limits<int16_t>::max();
+    streams[26] << numeric_limits<uint16_t>::min();
+    streams[27] << numeric_limits<uint16_t>::max();
+    streams[28] << numeric_limits<int32_t>::min();
+    streams[29] << numeric_limits<int32_t>::max();
+    streams[30] << numeric_limits<uint32_t>::min();
+    streams[31] << numeric_limits<uint32_t>::max();
+    streams[32] << numeric_limits<int64_t>::min();
+    streams[33] << numeric_limits<int64_t>::max();
+    streams[34] << numeric_limits<uint64_t>::min();
+    streams[35] << numeric_limits<uint64_t>::max();
 
     REQUIRE(streams[0].str() == "123");
     REQUIRE(streams[1].str() == "-123");

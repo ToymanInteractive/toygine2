@@ -29,9 +29,9 @@ namespace toy::math {
 
 template <std::signed_integral T>
 constexpr T abs(T value) noexcept {
-  assert_message(value != std::numeric_limits<T>::min(), "abs() of the minimum signed integer is not representable");
+  assert_message(value != numeric_limits<T>::min(), "abs() of the minimum signed integer is not representable");
 
-  T mask = value >> std::numeric_limits<T>::digits;
+  T mask = value >> numeric_limits<T>::digits;
 
   return (value + mask) ^ mask;
 }
@@ -40,20 +40,33 @@ template <std::floating_point T>
 constexpr T abs(T value) noexcept {
   if constexpr (std::same_as<T, float>) {
     // Branch-free: clear IEEE 754 sign bit via bit_cast (float is 32-bit on supported platforms).
-    auto bits = std::bit_cast<uint32_t>(value);
+    auto bits = bit_cast<uint32_t>(value);
     bits &= 0x7FFFFFFF;
 
-    return std::bit_cast<float>(bits);
+    return bit_cast<float>(bits);
   } else if constexpr (std::same_as<T, double>) {
     // Branch-free: clear IEEE 754 sign bit via bit_cast (double is 64-bit on supported platforms).
-    auto bits = std::bit_cast<uint64_t>(value);
+    auto bits = bit_cast<uint64_t>(value);
     bits &= 0x7FFFFFFFFFFFFFFF;
 
-    return std::bit_cast<double>(bits);
+    return bit_cast<double>(bits);
   } else {
     // Long double: platform-dependent representation; bit_cast not viable, use conditional.
     return value < T(0) ? -value : value;
   }
+}
+
+constexpr bool isEqual(float a, float b, float absEpsilon, float relEpsilon) noexcept {
+  assert_message(absEpsilon >= 0.0f && relEpsilon >= 0.0f, "absolute and relative epsilon must be non-negative");
+  if !consteval {
+    assert_message(!isnan(a) && !isnan(b), "isEqual() does not support NaN values");
+  }
+
+  const auto diff = abs(a - b);
+  if (diff <= absEpsilon)
+    return true;
+
+  return diff <= max(abs(a), abs(b)) * relEpsilon;
 }
 
 } // namespace toy::math

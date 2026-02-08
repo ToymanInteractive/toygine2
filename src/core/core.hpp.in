@@ -28,6 +28,7 @@
 #include <algorithm>
 #include <array>
 #include <bit>
+#include <cmath>
 #include <compare>
 #include <concepts>
 #include <cstddef>
@@ -36,6 +37,7 @@
 #include <cuchar>
 #include <initializer_list>
 #include <iterator>
+#include <limits>
 #include <memory>
 #include <stdexcept>
 #include <string>
@@ -72,7 +74,15 @@ using std::strong_ordering;
 
 using std::array;
 
+// Utility library https://en.cppreference.com/w/cpp/utility.html
+
+// Bit manipulation https://en.cppreference.com/w/cpp/utility/bit.html
+//         bit_cast https://en.cppreference.com/w/cpp/numeric/bit_cast.html
 using std::bit_cast;
+
+//    Type support https://en.cppreference.com/w/cpp/types
+//  numeric_limits https://en.cppreference.com/w/cpp/types/numeric_limits
+using std::numeric_limits;
 
 #undef validate
 
