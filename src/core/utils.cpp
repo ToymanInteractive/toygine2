@@ -22,8 +22,6 @@
   \brief  Implementation of core utility functions for string manipulation, encoding conversion, and number formatting.
 */
 
-#include <cmath>
-
 #include "core.hpp"
 #include "utils_internal.inl"
 
