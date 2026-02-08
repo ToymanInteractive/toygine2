@@ -157,6 +157,8 @@ Functions</h2></td></tr>
 <tr class="memitem:a5f1aaaf4c925c4be31f1b33e31062c19" id="r_a5f1aaaf4c925c4be31f1b33e31062c19"><td class="memTemplParams" colspan="2">template&lt;std::floating_point T&gt; </td></tr>
 <tr class="memitem:a5f1aaaf4c925c4be31f1b33e31062c19 template"><td class="memItemLeft">constexpr T&#160;</td><td class="memItemRight"><a class="el" href="#a5f1aaaf4c925c4be31f1b33e31062c19">abs</a> (T value) noexcept</td></tr>
 <tr class="memdesc:a5f1aaaf4c925c4be31f1b33e31062c19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the absolute value of a floating-point number.  <br /></td></tr>
+<tr class="memitem:a2814ac6d186eafcbb0e5d6e1c0437ba1" id="r_a2814ac6d186eafcbb0e5d6e1c0437ba1"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#a2814ac6d186eafcbb0e5d6e1c0437ba1">isEqual</a> (float a, float b, float absEpsilon=8.0f *numeric_limits&lt; float &gt;::epsilon(), float relEpsilon=64.0f *numeric_limits&lt; float &gt;::epsilon()) noexcept</td></tr>
+<tr class="memdesc:a2814ac6d186eafcbb0e5d6e1c0437ba1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares two single-precision floats for approximate equality.  <br /></td></tr>
 <tr class="memitem:ade9663577973a1fc3e9b8c81c5128587" id="r_ade9663577973a1fc3e9b8c81c5128587"><td class="memItemLeft">constexpr <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a>&#160;</td><td class="memItemRight"><a class="el" href="#ade9663577973a1fc3e9b8c81c5128587">operator-</a> (const <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a> &amp;vector) noexcept</td></tr>
 <tr class="memdesc:ade9663577973a1fc3e9b8c81c5128587"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unary minus operator.  <br /></td></tr>
 <tr class="memitem:abb8d19305455ffe5f57e0ca399182597" id="r_abb8d19305455ffe5f57e0ca399182597"><td class="memItemLeft">constexpr <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a>&#160;</td><td class="memItemRight"><a class="el" href="#abb8d19305455ffe5f57e0ca399182597">operator+</a> (const <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a> &amp;left, const <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a> &amp;right) noexcept</td></tr>
@@ -272,6 +274,58 @@ template&lt;std::signed_integral T&gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The absolute value of <em class="arg">value</em> (unchanged if non-negative, negated if negative). </dd></dl>
+
+</div>
+</div>
+<a id="a2814ac6d186eafcbb0e5d6e1c0437ba1" name="a2814ac6d186eafcbb0e5d6e1c0437ba1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2814ac6d186eafcbb0e5d6e1c0437ba1">&#9670;&#160;</a></span>isEqual()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool toy::math::isEqual </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>b</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>absEpsilon</em></span><span class="paramdefsep"> = </span><span class="paramdefval">8.0f&#160;*numeric_limits&lt;&#160;float&#160;&gt;::epsilon()</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>relEpsilon</em></span><span class="paramdefsep"> = </span><span class="paramdefval">64.0f&#160;*numeric_limits&lt;&#160;float&#160;&gt;::epsilon()</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Compares two single-precision floats for approximate equality. </p>
+<p>This function uses a combined absolute and relative epsilon test. Small values are compared by absolute difference (<em class="arg">absEpsilon</em>), large values by relative difference (<em class="arg">relEpsilon</em>) scaled by max(|a|, |b|).</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>The first value. </td></tr>
+    <tr><td class="paramname">b</td><td>The second value. </td></tr>
+    <tr><td class="paramname">absEpsilon</td><td>The maximum absolute difference treated as equal (default: 8× machine epsilon). </td></tr>
+    <tr><td class="paramname">relEpsilon</td><td>The maximum relative difference (default: 64× machine epsilon).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if <em class="arg">a</em> and <em class="arg">b</em> are considered equal under the chosen tolerances, <code>false</code> otherwise. </dd></dl>
 
 </div>
 </div>
