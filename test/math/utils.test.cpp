@@ -18,8 +18,6 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-#include <limits>
-
 #include <doctest/doctest.h>
 
 #include "math.hpp"
@@ -68,6 +66,9 @@ TEST_CASE("math/utils/abs") {
     REQUIRE(isEqual(abs(0.0), 0.0));
     REQUIRE(isEqual(abs(1.5), 1.5));
     REQUIRE(isEqual(abs(-1.5), 1.5));
+    REQUIRE(isEqual(abs(0.0L), 0.0L));
+    REQUIRE(isEqual(abs(1.5L), 1.5L));
+    REQUIRE(isEqual(abs(-1.5L), 1.5L));
 
     static_assert(isEqual(abs(0.0f), 0.0f), "abs of zero float must be zero within machine epsilon");
     static_assert(isEqual(abs(1.5f), 1.5f), "abs of positive float must be unchanged within epsilon");
@@ -75,6 +76,9 @@ TEST_CASE("math/utils/abs") {
     static_assert(isEqual(abs(0.0), 0.0), "abs of zero double must be zero within machine epsilon");
     static_assert(isEqual(abs(1.5), 1.5), "abs of positive double must be unchanged within epsilon");
     static_assert(isEqual(abs(-1.5), 1.5), "abs of negative double must yield positive within epsilon");
+    static_assert(isEqual(abs(0.0L), 0.0L), "abs of zero long double must be zero within machine epsilon");
+    static_assert(isEqual(abs(1.5L), 1.5L), "abs of positive long double must be unchanged within epsilon");
+    static_assert(isEqual(abs(-1.5L), 1.5L), "abs of negative long double must yield positive within epsilon");
   }
 }
 
@@ -89,17 +93,21 @@ TEST_CASE("math/utils/is_equal") {
     static_assert(isEqual(1.0f, 1.0f), "identical values must be equal");
   }
 
-  // Within default absolute epsilon: treated as equal.
+  // Within default absolute epsilon: treated as equal; beyond it (with relEpsilon zero) treated as not equal.
   SUBCASE("within_absolute_epsilon") {
     constexpr float eps = 8.0f * numeric_limits<float>::epsilon();
 
     REQUIRE(isEqual(0.0f, eps));
     REQUIRE(isEqual(0.0f, -eps));
     REQUIRE(isEqual(1.0f, 1.0f + eps * 0.5f));
+    REQUIRE(!isEqual(0.0f, eps * 1.5f, eps, 0.0f));
+    REQUIRE(!isEqual(0.0f, -eps * 1.5f, eps, 0.0f));
 
     static_assert(isEqual(0.0f, eps), "values within absolute epsilon must be equal");
     static_assert(isEqual(0.0f, -eps), "values within absolute epsilon must be equal");
     static_assert(isEqual(1.0f, 1.0f + eps * 0.5f), "values within absolute epsilon must be equal");
+    static_assert(!isEqual(0.0f, eps * 1.5f, eps, 0.0f), "values beyond absolute epsilon must not be equal");
+    static_assert(!isEqual(0.0f, -eps * 1.5f, eps, 0.0f), "values beyond absolute epsilon must not be equal");
   }
 
   // Within default relative epsilon for large values: treated as equal.

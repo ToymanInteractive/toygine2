@@ -25,6 +25,7 @@
 #ifndef INCLUDE_CORE_HPP_
 #define INCLUDE_CORE_HPP_
 
+#include <algorithm>
 #include <array>
 #include <bit>
 #include <compare>
@@ -35,6 +36,7 @@
 #include <cuchar>
 #include <initializer_list>
 #include <iterator>
+#include <limits>
 #include <memory>
 #include <stdexcept>
 #include <string>

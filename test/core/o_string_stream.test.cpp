@@ -18,7 +18,6 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-#include <limits>
 #include <numbers>
 
 #include <doctest/doctest.h>

@@ -57,6 +57,9 @@ constexpr T abs(T value) noexcept {
 }
 
 constexpr bool isEqual(float a, float b, float absEpsilon, float relEpsilon) noexcept {
+  assert_message(!isnan(a) && !isnan(b), "isEqual() does not support NaN values");
+  assert_message(absEpsilon >= 0.0f && relEpsilon >= 0.0f, "absolute and relative epsilon must be non-negative");
+
   const auto diff = abs(a - b);
   if (diff <= absEpsilon)
     return true;

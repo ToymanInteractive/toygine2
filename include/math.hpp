@@ -35,6 +35,11 @@ namespace toy::math {
 //                max https://en.cppreference.com/w/cpp/algorithm/max.html
 using std::max;
 
+//              Numerics library https://en.cppreference.com/w/cpp/numeric
+// Common mathematical functions https://en.cppreference.com/w/cpp/numeric/math
+//                         isnan https://en.cppreference.com/w/cpp/numeric/math/isnan
+using std::isnan;
+
 /// Floating‑point scalar type.
 using real_t = float;
 
