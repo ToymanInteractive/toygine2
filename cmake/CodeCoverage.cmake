@@ -214,12 +214,9 @@ endif ()
 #     NAME testrunner_coverage                    # New target name
 #     EXECUTABLE testrunner -j ${PROCESSOR_COUNT} # Executable in PROJECT_BINARY_DIR
 #     DEPENDENCIES testrunner                     # Dependencies to build first
-#     BASE_DIRECTORY "../"                        # Base directory for report
-#                                                 #  (defaults to PROJECT_SOURCE_DIR)
-#     EXCLUDE "src/dir1/*" "src/dir2/*"           # Patterns to exclude (can be relative
-#                                                 #  to BASE_DIRECTORY, with CMake 3.4+)
-#     NO_DEMANGLE                                 # Don't demangle C++ symbols
-#                                                 #  even if c++filt is found
+#     BASE_DIRECTORY "../"                        # Base directory for report (defaults to PROJECT_SOURCE_DIR)
+#     EXCLUDE "src/dir1/*" "src/dir2/*"           # Patterns to exclude (can be relative to BASE_DIRECTORY, with CMake 3.4+)
+#     NO_DEMANGLE                                 # Don't demangle C++ symbols even if c++filt is found
 # )
 function(setup_target_for_coverage_lcov)
 
@@ -566,11 +563,9 @@ endfunction() # setup_target_for_coverage_gcovr_html
 #     NAME testrunner_coverage                    # New target name
 #     EXECUTABLE testrunner -j ${PROCESSOR_COUNT} # Executable in PROJECT_BINARY_DIR
 #     DEPENDENCIES testrunner                     # Dependencies to build first
-#     BASE_DIRECTORY "../"                        # Base directory for report
-#                                                 #  (defaults to PROJECT_SOURCE_DIR)
+#     BASE_DIRECTORY "../"                        # Base directory for report (defaults to PROJECT_SOURCE_DIR)
 #     EXCLUDE "src/dir1/" "src/dir2/"             # Patterns to exclude.
-#     NO_DEMANGLE                                 # Don't demangle C++ symbols
-#                                                 #  even if c++filt is found
+#     NO_DEMANGLE                                 # Don't demangle C++ symbols even if c++filt is found
 #     SKIP_HTML                                   # Don't create html report
 #     POST_CMD perl -i -pe s!${PROJECT_SOURCE_DIR}/!!g ctest_coverage.json  # E.g. for stripping source dir from file paths
 # )

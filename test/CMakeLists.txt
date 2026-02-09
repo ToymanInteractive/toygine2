@@ -102,6 +102,6 @@ if (TOYGINE_TESTS_ENABLE_COVERAGE)
   endif ()
 
   # cmake code coverage module target
-  setup_target_for_coverage_lcov(NAME unit_tests_coverage EXECUTABLE ctest EXECUTABLE_ARGS ${COVERAGE_EXECUTABLE_ARGS})
+  setup_target_for_coverage_lcov(NAME unit_tests_coverage EXECUTABLE ctest EXECUTABLE_ARGS ${COVERAGE_EXECUTABLE_ARGS} SONARQUBE)
 
 endif ()
