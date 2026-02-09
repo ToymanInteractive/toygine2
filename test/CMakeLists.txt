@@ -66,19 +66,19 @@ file(GLOB_RECURSE TEST_SRC CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp"
 
 include(doctest)
 
-add_executable(${TOYGINE_LIBRARY_NAME}-tests ${TEST_SRC})
-target_compile_definitions(${TOYGINE_LIBRARY_NAME}-tests PRIVATE DOCTEST_CONFIG_SUPER_FAST_ASSERTS)
+add_executable(${TOYGINE_LIBRARY_NAME}-units ${TEST_SRC})
+target_compile_definitions(${TOYGINE_LIBRARY_NAME}-units PRIVATE DOCTEST_CONFIG_SUPER_FAST_ASSERTS)
 if (NOT TOYGINE_TARGET_PLATFORM_SUPPORT_MULTITHREADING)
-  target_compile_definitions(${TOYGINE_LIBRARY_NAME}-tests PRIVATE DOCTEST_CONFIG_NO_MULTITHREADING)
-endif(NOT TOYGINE_TARGET_PLATFORM_SUPPORT_MULTITHREADING)
+  target_compile_definitions(${TOYGINE_LIBRARY_NAME}-units PRIVATE DOCTEST_CONFIG_NO_MULTITHREADING)
+endif ()
 if (NOT TOYGINE_TARGET_PLATFORM_SUPPORT_POSIX_SIGNALS)
-  target_compile_definitions(${TOYGINE_LIBRARY_NAME}-tests PRIVATE DOCTEST_CONFIG_NO_POSIX_SIGNALS)
-endif(NOT TOYGINE_TARGET_PLATFORM_SUPPORT_POSIX_SIGNALS)
-target_include_directories(${TOYGINE_LIBRARY_NAME}-tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include)
-target_link_libraries(${TOYGINE_LIBRARY_NAME}-tests PRIVATE doctest::doctest ${TOYGINE_LIBRARY_NAME})
+  target_compile_definitions(${TOYGINE_LIBRARY_NAME}-units PRIVATE DOCTEST_CONFIG_NO_POSIX_SIGNALS)
+endif ()
+target_include_directories(${TOYGINE_LIBRARY_NAME}-units PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include)
+target_link_libraries(${TOYGINE_LIBRARY_NAME}-units PRIVATE doctest::doctest ${TOYGINE_LIBRARY_NAME})
 if (CTEST_SUPPORT)
-  doctest_discover_tests(${TOYGINE_LIBRARY_NAME}-tests)
-endif (CTEST_SUPPORT)
+  doctest_discover_tests(${TOYGINE_LIBRARY_NAME}-units)
+endif ()
 
 if (TOYGINE_TESTS_ENABLE_COVERAGE)
   # include the cmake code coverage module
@@ -87,7 +87,7 @@ if (TOYGINE_TESTS_ENABLE_COVERAGE)
   # Update the default compiler flags to enable coverage
   append_coverage_compiler_flags()
   append_coverage_compiler_flags_to_target(${TOYGINE_LIBRARY_NAME})
-  append_coverage_compiler_flags_to_target(${TOYGINE_LIBRARY_NAME}-tests)
+  append_coverage_compiler_flags_to_target(${TOYGINE_LIBRARY_NAME}-units)
 
   # exclude /test and /ext directories from coverage analysis
   set(COVERAGE_EXCLUDES "${CMAKE_SOURCE_DIR}/test/*" "${CMAKE_BINARY_DIR}/*" "/usr/*")
@@ -95,13 +95,13 @@ if (TOYGINE_TESTS_ENABLE_COVERAGE)
   set(COVERAGE_EXECUTABLE_ARGS "")
 
   # Determine which preset to use for testing
-  if(DEFINED CMAKE_TEST_PRESET_NAME)
+  if (DEFINED CMAKE_TEST_PRESET_NAME)
     set(COVERAGE_EXECUTABLE_ARGS "${COVERAGE_EXECUTABLE_ARGS} --preset ${CMAKE_TEST_PRESET_NAME}")
-  elseif(DEFINED CMAKE_BUILD_PRESET)
+  elseif (DEFINED CMAKE_BUILD_PRESET)
     set(COVERAGE_EXECUTABLE_ARGS "${COVERAGE_EXECUTABLE_ARGS} --preset ${CMAKE_BUILD_PRESET}")
   endif ()
 
   # cmake code coverage module target
   setup_target_for_coverage_lcov(NAME unit_tests_coverage EXECUTABLE ctest EXECUTABLE_ARGS ${COVERAGE_EXECUTABLE_ARGS})
 
-endif (TOYGINE_TESTS_ENABLE_COVERAGE)
+endif ()

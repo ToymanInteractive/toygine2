@@ -28,7 +28,7 @@ add_executable(${BINARY_NAME} ${SRC_LIST} ${HDR_LIST} ${INL_LIST})
 
 if (DEFINED PREPROCESSOR_DEFINITIONS)
   target_compile_definitions(${BINARY_NAME} PRIVATE ${PREPROCESSOR_DEFINITIONS})
-endif (DEFINED PREPROCESSOR_DEFINITIONS)
+endif ()
 
 target_link_libraries(${BINARY_NAME} PRIVATE ${LIB_LIST})
 
