@@ -125,7 +125,7 @@ if (DEVKITPRO_ROOT)
     _find_devkitpro_lib(DEVKITPRO_SWITCH switch.h nx libnx)
   endif ()
 
-else (DEVKITPRO_ROOT)
+else ()
   set(DEVKITPRO_FOUND FALSE)
   message(STATUS "No devkitPro found")
   message(STATUS "  Searched in ${_DEVKITPRO_POSSIBLE_PATHS}")
