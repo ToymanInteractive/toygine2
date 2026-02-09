@@ -147,41 +147,41 @@ find_program( GENHTML_PATH NAMES genhtml genhtml.perl genhtml.bat )
 find_program( GCOVR_PATH gcovr PATHS ${CMAKE_SOURCE_DIR}/scripts/test)
 find_program( CPPFILT_PATH NAMES c++filt )
 
-if(NOT GCOV_PATH)
+if (NOT GCOV_PATH)
     message(FATAL_ERROR "gcov not found! Aborting...")
-endif() # NOT GCOV_PATH
+endif () # NOT GCOV_PATH
 
 # Check supported compiler (Clang, GNU and Flang)
 get_property(LANGUAGES GLOBAL PROPERTY ENABLED_LANGUAGES)
 list(REMOVE_ITEM LANGUAGES NONE)
 foreach(LANG ${LANGUAGES})
-  if("${CMAKE_${LANG}_COMPILER_ID}" MATCHES "(Apple)?[Cc]lang")
-    if("${CMAKE_${LANG}_COMPILER_VERSION}" VERSION_LESS 3)
+  if ("${CMAKE_${LANG}_COMPILER_ID}" MATCHES "(Apple)?[Cc]lang")
+    if ("${CMAKE_${LANG}_COMPILER_VERSION}" VERSION_LESS 3)
       message(FATAL_ERROR "Clang version must be 3.0.0 or greater! Aborting...")
-    endif()
-  elseif(NOT "${CMAKE_${LANG}_COMPILER_ID}" MATCHES "GNU"
+    endif ()
+  elseif (NOT "${CMAKE_${LANG}_COMPILER_ID}" MATCHES "GNU"
          AND NOT "${CMAKE_${LANG}_COMPILER_ID}" MATCHES "(LLVM)?[Ff]lang")
     message(FATAL_ERROR "Compiler is not GNU or Flang! Aborting...")
-  endif()
+  endif ()
 endforeach()
 
 set(COVERAGE_COMPILER_FLAGS "-g --coverage"
     CACHE INTERNAL "")
 
-if(CMAKE_CXX_COMPILER_ID MATCHES "(GNU|Clang)")
+if (CMAKE_CXX_COMPILER_ID MATCHES "(GNU|Clang)")
     include(CheckCXXCompilerFlag)
     check_cxx_compiler_flag(-fprofile-abs-path HAVE_cxx_fprofile_abs_path)
-    if(HAVE_cxx_fprofile_abs_path)
+    if (HAVE_cxx_fprofile_abs_path)
         set(COVERAGE_CXX_COMPILER_FLAGS "${COVERAGE_COMPILER_FLAGS} -fprofile-abs-path")
-    endif()
-endif()
-if(CMAKE_C_COMPILER_ID MATCHES "(GNU|Clang)")
+    endif ()
+endif ()
+if (CMAKE_C_COMPILER_ID MATCHES "(GNU|Clang)")
     include(CheckCCompilerFlag)
     check_c_compiler_flag(-fprofile-abs-path HAVE_c_fprofile_abs_path)
-    if(HAVE_c_fprofile_abs_path)
+    if (HAVE_c_fprofile_abs_path)
         set(COVERAGE_C_COMPILER_FLAGS "${COVERAGE_COMPILER_FLAGS} -fprofile-abs-path")
-    endif()
-endif()
+    endif ()
+endif ()
 
 set(CMAKE_Fortran_FLAGS_COVERAGE
     ${COVERAGE_COMPILER_FLAGS}
@@ -211,13 +211,13 @@ mark_as_advanced(
     CMAKE_SHARED_LINKER_FLAGS_COVERAGE )
 
 get_property(GENERATOR_IS_MULTI_CONFIG GLOBAL PROPERTY GENERATOR_IS_MULTI_CONFIG)
-if(NOT (CMAKE_BUILD_TYPE STREQUAL "Debug" OR GENERATOR_IS_MULTI_CONFIG))
+if (NOT (CMAKE_BUILD_TYPE STREQUAL "Debug" OR GENERATOR_IS_MULTI_CONFIG))
     message(WARNING "Code coverage results with an optimised (non-Debug) build may be misleading")
-endif() # NOT (CMAKE_BUILD_TYPE STREQUAL "Debug" OR GENERATOR_IS_MULTI_CONFIG)
+endif () # NOT (CMAKE_BUILD_TYPE STREQUAL "Debug" OR GENERATOR_IS_MULTI_CONFIG)
 
-if(CMAKE_C_COMPILER_ID STREQUAL "GNU" OR CMAKE_Fortran_COMPILER_ID STREQUAL "GNU")
+if (CMAKE_C_COMPILER_ID STREQUAL "GNU" OR CMAKE_Fortran_COMPILER_ID STREQUAL "GNU")
     link_libraries(gcov)
-endif()
+endif ()
 
 # Defines a target for running and collection code coverage information
 # Builds dependencies, runs the given executable and outputs reports.
@@ -242,35 +242,35 @@ function(setup_target_for_coverage_lcov)
     set(multiValueArgs EXCLUDE EXECUTABLE EXECUTABLE_ARGS DEPENDENCIES LCOV_ARGS GENHTML_ARGS)
     cmake_parse_arguments(Coverage "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})
 
-    if(NOT LCOV_PATH)
+    if (NOT LCOV_PATH)
         message(FATAL_ERROR "lcov not found! Aborting...")
-    endif() # NOT LCOV_PATH
+    endif () # NOT LCOV_PATH
 
-    if(NOT GENHTML_PATH)
+    if (NOT GENHTML_PATH)
         message(FATAL_ERROR "genhtml not found! Aborting...")
-    endif() # NOT GENHTML_PATH
+    endif () # NOT GENHTML_PATH
 
     # Set base directory (as absolute path), or default to PROJECT_SOURCE_DIR
-    if(DEFINED Coverage_BASE_DIRECTORY)
+    if (DEFINED Coverage_BASE_DIRECTORY)
         get_filename_component(BASEDIR ${Coverage_BASE_DIRECTORY} ABSOLUTE)
-    else()
+    else ()
         set(BASEDIR ${PROJECT_SOURCE_DIR})
-    endif()
+    endif ()
 
     # Collect excludes (CMake 3.4+: Also compute absolute paths)
     set(LCOV_EXCLUDES "")
     foreach(EXCLUDE ${Coverage_EXCLUDE} ${COVERAGE_EXCLUDES} ${COVERAGE_LCOV_EXCLUDES})
-        if(CMAKE_VERSION VERSION_GREATER 3.4)
+        if (CMAKE_VERSION VERSION_GREATER 3.4)
             get_filename_component(EXCLUDE ${EXCLUDE} ABSOLUTE BASE_DIR ${BASEDIR})
-        endif()
+        endif ()
         list(APPEND LCOV_EXCLUDES "${EXCLUDE}")
     endforeach()
     list(REMOVE_DUPLICATES LCOV_EXCLUDES)
 
     # Conditional arguments
-    if(CPPFILT_PATH AND NOT ${Coverage_NO_DEMANGLE})
+    if (CPPFILT_PATH AND NOT ${Coverage_NO_DEMANGLE})
       set(GENHTML_EXTRA_ARGS "--demangle-cpp")
-    endif()
+    endif ()
 
     # Setting up commands which will be run to generate coverage data.
     # Cleanup lcov
@@ -307,7 +307,7 @@ function(setup_target_for_coverage_lcov)
         ${GENHTML_PATH} ${GENHTML_EXTRA_ARGS} ${Coverage_GENHTML_ARGS} -o
         ${Coverage_NAME} ${Coverage_NAME}.info
     )
-    if(${Coverage_SONARQUBE})
+    if (${Coverage_SONARQUBE})
         # Generate SonarQube output
         set(GCOVR_XML_CMD
             ${GCOVR_PATH} --sonarqube ${Coverage_NAME}_sonarqube.xml -r ${BASEDIR} ${GCOVR_ADDITIONAL_ARGS}
@@ -318,10 +318,10 @@ function(setup_target_for_coverage_lcov)
         )
         set(GCOVR_XML_CMD_BYPRODUCTS ${Coverage_NAME}_sonarqube.xml)
         set(GCOVR_XML_CMD_COMMENT COMMENT "SonarQube code coverage info report saved in ${Coverage_NAME}_sonarqube.xml.")
-    endif()
+    endif ()
 
 
-    if(CODE_COVERAGE_VERBOSE)
+    if (CODE_COVERAGE_VERBOSE)
         message(STATUS "Executed command report")
         message(STATUS "Command to clean up lcov: ")
         string(REPLACE ";" " " LCOV_CLEAN_CMD_SPACED "${LCOV_CLEAN_CMD}")
@@ -351,12 +351,12 @@ function(setup_target_for_coverage_lcov)
         string(REPLACE ";" " " LCOV_GEN_HTML_CMD_SPACED "${LCOV_GEN_HTML_CMD}")
         message(STATUS "${LCOV_GEN_HTML_CMD_SPACED}")
 
-        if(${Coverage_SONARQUBE})
+        if (${Coverage_SONARQUBE})
             message(STATUS "Command to generate SonarQube XML output: ")
             string(REPLACE ";" " " GCOVR_XML_CMD_SPACED "${GCOVR_XML_CMD}")
             message(STATUS "${GCOVR_XML_CMD_SPACED}")
-        endif()
-    endif()
+        endif ()
+    endif ()
 
     # Setup target
     add_custom_target(${Coverage_NAME}
@@ -421,23 +421,23 @@ function(setup_target_for_coverage_gcovr_xml)
     set(multiValueArgs EXCLUDE EXECUTABLE EXECUTABLE_ARGS DEPENDENCIES)
     cmake_parse_arguments(Coverage "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})
 
-    if(NOT GCOVR_PATH)
+    if (NOT GCOVR_PATH)
         message(FATAL_ERROR "gcovr not found! Aborting...")
-    endif() # NOT GCOVR_PATH
+    endif () # NOT GCOVR_PATH
 
     # Set base directory (as absolute path), or default to PROJECT_SOURCE_DIR
-    if(DEFINED Coverage_BASE_DIRECTORY)
+    if (DEFINED Coverage_BASE_DIRECTORY)
         get_filename_component(BASEDIR ${Coverage_BASE_DIRECTORY} ABSOLUTE)
-    else()
+    else ()
         set(BASEDIR ${PROJECT_SOURCE_DIR})
-    endif()
+    endif ()
 
     # Collect excludes (CMake 3.4+: Also compute absolute paths)
     set(GCOVR_EXCLUDES "")
     foreach(EXCLUDE ${Coverage_EXCLUDE} ${COVERAGE_EXCLUDES} ${COVERAGE_GCOVR_EXCLUDES})
-        if(CMAKE_VERSION VERSION_GREATER 3.4)
+        if (CMAKE_VERSION VERSION_GREATER 3.4)
             get_filename_component(EXCLUDE ${EXCLUDE} ABSOLUTE BASE_DIR ${BASEDIR})
-        endif()
+        endif ()
         list(APPEND GCOVR_EXCLUDES "${EXCLUDE}")
     endforeach()
     list(REMOVE_DUPLICATES GCOVR_EXCLUDES)
@@ -460,7 +460,7 @@ function(setup_target_for_coverage_gcovr_xml)
         ${GCOVR_EXCLUDE_ARGS} --object-directory=${PROJECT_BINARY_DIR}
     )
 
-    if(CODE_COVERAGE_VERBOSE)
+    if (CODE_COVERAGE_VERBOSE)
         message(STATUS "Executed command report")
 
         message(STATUS "Command to run tests: ")
@@ -470,7 +470,7 @@ function(setup_target_for_coverage_gcovr_xml)
         message(STATUS "Command to generate gcovr XML coverage data: ")
         string(REPLACE ";" " " GCOVR_XML_CMD_SPACED "${GCOVR_XML_CMD}")
         message(STATUS "${GCOVR_XML_CMD_SPACED}")
-    endif()
+    endif ()
 
     add_custom_target(${Coverage_NAME}
         COMMAND ${GCOVR_XML_EXEC_TESTS_CMD}
@@ -513,23 +513,23 @@ function(setup_target_for_coverage_gcovr_html)
     set(multiValueArgs EXCLUDE EXECUTABLE EXECUTABLE_ARGS DEPENDENCIES)
     cmake_parse_arguments(Coverage "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})
 
-    if(NOT GCOVR_PATH)
+    if (NOT GCOVR_PATH)
         message(FATAL_ERROR "gcovr not found! Aborting...")
-    endif() # NOT GCOVR_PATH
+    endif () # NOT GCOVR_PATH
 
     # Set base directory (as absolute path), or default to PROJECT_SOURCE_DIR
-    if(DEFINED Coverage_BASE_DIRECTORY)
+    if (DEFINED Coverage_BASE_DIRECTORY)
         get_filename_component(BASEDIR ${Coverage_BASE_DIRECTORY} ABSOLUTE)
-    else()
+    else ()
         set(BASEDIR ${PROJECT_SOURCE_DIR})
-    endif()
+    endif ()
 
     # Collect excludes (CMake 3.4+: Also compute absolute paths)
     set(GCOVR_EXCLUDES "")
     foreach(EXCLUDE ${Coverage_EXCLUDE} ${COVERAGE_EXCLUDES} ${COVERAGE_GCOVR_EXCLUDES})
-        if(CMAKE_VERSION VERSION_GREATER 3.4)
+        if (CMAKE_VERSION VERSION_GREATER 3.4)
             get_filename_component(EXCLUDE ${EXCLUDE} ABSOLUTE BASE_DIR ${BASEDIR})
-        endif()
+        endif ()
         list(APPEND GCOVR_EXCLUDES "${EXCLUDE}")
     endforeach()
     list(REMOVE_DUPLICATES GCOVR_EXCLUDES)
@@ -556,7 +556,7 @@ function(setup_target_for_coverage_gcovr_html)
         ${GCOVR_EXCLUDE_ARGS} --object-directory=${PROJECT_BINARY_DIR}
     )
 
-    if(CODE_COVERAGE_VERBOSE)
+    if (CODE_COVERAGE_VERBOSE)
         message(STATUS "Executed command report")
 
         message(STATUS "Command to run tests: ")
@@ -570,7 +570,7 @@ function(setup_target_for_coverage_gcovr_html)
         message(STATUS "Command to generate gcovr HTML coverage data: ")
         string(REPLACE ";" " " GCOVR_HTML_CMD_SPACED "${GCOVR_HTML_CMD}")
         message(STATUS "${GCOVR_HTML_CMD_SPACED}")
-    endif()
+    endif ()
 
     add_custom_target(${Coverage_NAME}
         COMMAND ${GCOVR_HTML_EXEC_TESTS_CMD}
@@ -616,20 +616,20 @@ function(setup_target_for_coverage_fastcov)
     set(multiValueArgs EXCLUDE EXECUTABLE EXECUTABLE_ARGS DEPENDENCIES FASTCOV_ARGS GENHTML_ARGS POST_CMD)
     cmake_parse_arguments(Coverage "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})
 
-    if(NOT FASTCOV_PATH)
+    if (NOT FASTCOV_PATH)
         message(FATAL_ERROR "fastcov not found! Aborting...")
-    endif()
+    endif ()
 
-    if(NOT Coverage_SKIP_HTML AND NOT GENHTML_PATH)
+    if (NOT Coverage_SKIP_HTML AND NOT GENHTML_PATH)
         message(FATAL_ERROR "genhtml not found! Aborting...")
-    endif()
+    endif ()
 
     # Set base directory (as absolute path), or default to PROJECT_SOURCE_DIR
-    if(Coverage_BASE_DIRECTORY)
+    if (Coverage_BASE_DIRECTORY)
         get_filename_component(BASEDIR ${Coverage_BASE_DIRECTORY} ABSOLUTE)
-    else()
+    else ()
         set(BASEDIR ${PROJECT_SOURCE_DIR})
-    endif()
+    endif ()
 
     # Collect excludes (Patterns, not paths, for fastcov)
     set(FASTCOV_EXCLUDES "")
@@ -639,9 +639,9 @@ function(setup_target_for_coverage_fastcov)
     list(REMOVE_DUPLICATES FASTCOV_EXCLUDES)
 
     # Conditional arguments
-    if(CPPFILT_PATH AND NOT ${Coverage_NO_DEMANGLE})
+    if (CPPFILT_PATH AND NOT ${Coverage_NO_DEMANGLE})
         set(GENHTML_EXTRA_ARGS "--demangle-cpp")
-    endif()
+    endif ()
 
     # Set up commands which will be run to generate coverage data
     set(FASTCOV_EXEC_TESTS_CMD ${Coverage_EXECUTABLE} ${Coverage_EXECUTABLE_ARGS})
@@ -657,20 +657,20 @@ function(setup_target_for_coverage_fastcov)
         -C ${Coverage_NAME}.json --lcov --output ${Coverage_NAME}.info
     )
 
-    if(Coverage_SKIP_HTML)
+    if (Coverage_SKIP_HTML)
         set(FASTCOV_HTML_CMD ";")
-    else()
+    else ()
         set(FASTCOV_HTML_CMD ${GENHTML_PATH} ${GENHTML_EXTRA_ARGS} ${Coverage_GENHTML_ARGS}
             -o ${Coverage_NAME} ${Coverage_NAME}.info
         )
-    endif()
+    endif ()
 
     set(FASTCOV_POST_CMD ";")
-    if(Coverage_POST_CMD)
+    if (Coverage_POST_CMD)
         set(FASTCOV_POST_CMD ${Coverage_POST_CMD})
-    endif()
+    endif ()
 
-    if(CODE_COVERAGE_VERBOSE)
+    if (CODE_COVERAGE_VERBOSE)
         message(STATUS "Code coverage commands for target ${Coverage_NAME} (fastcov):")
 
         message("   Running tests:")
@@ -685,17 +685,17 @@ function(setup_target_for_coverage_fastcov)
         string(REPLACE ";" " " FASTCOV_CONVERT_CMD_SPACED "${FASTCOV_CONVERT_CMD}")
         message("     ${FASTCOV_CONVERT_CMD_SPACED}")
 
-        if(NOT Coverage_SKIP_HTML)
+        if (NOT Coverage_SKIP_HTML)
             message("   Generating HTML report: ")
             string(REPLACE ";" " " FASTCOV_HTML_CMD_SPACED "${FASTCOV_HTML_CMD}")
             message("     ${FASTCOV_HTML_CMD_SPACED}")
-        endif()
-        if(Coverage_POST_CMD)
+        endif ()
+        if (Coverage_POST_CMD)
             message("   Running post command: ")
             string(REPLACE ";" " " FASTCOV_POST_CMD_SPACED "${FASTCOV_POST_CMD}")
             message("     ${FASTCOV_POST_CMD_SPACED}")
-        endif()
-    endif()
+        endif ()
+    endif ()
 
     # Setup target
     add_custom_target(${Coverage_NAME}
@@ -724,9 +724,9 @@ function(setup_target_for_coverage_fastcov)
     )
 
     set(INFO_MSG "fastcov code coverage info report saved in ${Coverage_NAME}.info and ${Coverage_NAME}.json.")
-    if(NOT Coverage_SKIP_HTML)
+    if (NOT Coverage_SKIP_HTML)
         string(APPEND INFO_MSG " Open ${PROJECT_BINARY_DIR}/${Coverage_NAME}/index.html in your browser to view the coverage report.")
-    endif()
+    endif ()
     # Show where to find the fastcov info report
     add_custom_command(TARGET ${Coverage_NAME} POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E echo ${INFO_MSG}
@@ -745,7 +745,7 @@ endfunction() # append_coverage_compiler_flags
 function(append_coverage_compiler_flags_to_target name)
     separate_arguments(_flag_list NATIVE_COMMAND "${COVERAGE_COMPILER_FLAGS}")
     target_compile_options(${name} PRIVATE ${_flag_list})
-    if(CMAKE_C_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_Fortran_COMPILER_ID STREQUAL "GNU")
+    if (CMAKE_C_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_Fortran_COMPILER_ID STREQUAL "GNU")
         target_link_libraries(${name} PRIVATE gcov)
-    endif()
+    endif ()
 endfunction()

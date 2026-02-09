@@ -113,10 +113,10 @@ constexpr bool Point::isZero() const noexcept {
   return x == 0 && y == 0;
 }
 
-inline bool Point::isEqual(const Point & point, int32_t tolerance) const noexcept {
-  assert_message(tolerance >= 0, "tolerance must be non-negative");
+inline bool Point::isEqual(const Point & point, int32_t epsilon) const noexcept {
+  assert_message(epsilon >= 0, "epsilon must be non-negative");
 
-  return abs(x - point.x) <= tolerance && abs(y - point.y) <= tolerance;
+  return abs(x - point.x) <= epsilon && abs(y - point.y) <= epsilon;
 }
 
 constexpr Point operator-(const Point & point) noexcept {

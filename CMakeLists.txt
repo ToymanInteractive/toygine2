@@ -29,7 +29,7 @@ set(TOYGINE_SOURCE_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 set(TOP_PROJECT OFF)
 if (CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
     set(TOP_PROJECT ON)
-endif (CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
+endif ()
 
 # To distinguish between debug and release builds
 set(CMAKE_DEBUG_POSTFIX "d")
@@ -51,7 +51,7 @@ set(CMAKE_CONFIGURATION_TYPES "Debug;Release;RelWithDebInfo" CACHE STRING "" FOR
 # Make default 'RelWithDebInfo' build
 if (NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE "RelWithDebInfo")
-endif (NOT CMAKE_BUILD_TYPE)
+endif ()
 
 if (TOP_PROJECT)
   include(CMakeDependentOption)
@@ -59,7 +59,7 @@ if (TOP_PROJECT)
   option(TOYGINE_BUILD_DOCS "Set when you want to build engine documentation" OFF)
   option(TOYGINE_BUILD_TESTS "Set when you want to build engine unit tests" ON)
   cmake_dependent_option(TOYGINE_TESTS_ENABLE_COVERAGE "Enable code coverage instrumentation for tests" OFF "TOYGINE_BUILD_TESTS" OFF)
-endif (TOP_PROJECT)
+endif ()
 
 #-------------------------------------------------------------------------------------------
 # Compile and linking options
@@ -136,7 +136,7 @@ target_include_directories(${TOYGINE_LIBRARY_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE
 
 if (PREPROCESSOR_DEFINITIONS)
   target_compile_definitions(${TOYGINE_LIBRARY_NAME} PRIVATE ${PREPROCESSOR_DEFINITIONS})
-endif (PREPROCESSOR_DEFINITIONS)
+endif ()
 
 target_link_libraries(${TOYGINE_LIBRARY_NAME} ${LIB_LIST})
 
@@ -147,7 +147,7 @@ target_link_libraries(${TOYGINE_LIBRARY_NAME} ${LIB_LIST})
 if (TOYGINE_BUILD_TESTS)
   enable_testing()
   add_subdirectory(test)
-endif (TOYGINE_BUILD_TESTS)
+endif ()
 
 #-------------------------------------------------------------------------------------------
 # Documentation
@@ -155,4 +155,4 @@ endif (TOYGINE_BUILD_TESTS)
 
 if (TOYGINE_BUILD_DOCS)
   add_subdirectory(docs)
-endif (TOYGINE_BUILD_DOCS)
+endif ()

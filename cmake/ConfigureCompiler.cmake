@@ -66,7 +66,7 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
     set(CMAKE_EXE_LINKER_FLAGS_DEBUG              "/INCREMENTAL:NO /LTCG:OFF /DEBUG:FULL /ASSEMBLYDEBUG")
     set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO     "/INCREMENTAL:NO /LTCG     /DEBUG:FULL /ASSEMBLYDEBUG")
     set(CMAKE_EXE_LINKER_FLAGS_RELEASE            "/INCREMENTAL:NO /LTCG     /DEBUG:NONE /ASSEMBLYDEBUG:DISABLE")
-  endif (MSVC)
+  endif ()
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop")
 
@@ -74,7 +74,7 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop")
 
   if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 13.3)
     message(FATAL_ERROR "GCC >= 13.3 required")
-  endif(CMAKE_CXX_COMPILER_VERSION VERSION_LESS 13.3)
+  endif ()
 
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/C_002b_002b-Dialect-Options.html
 #                 https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/C_002b_002b-Dialect-Options.html#Options-Controlling-C_002b_002b-Dialect
@@ -96,7 +96,7 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
 
   if (CMAKE_GENERATOR STREQUAL "Xcode")
     message(STATUS "Compiler: Xcode, version: " ${XCODE_VERSION})
-  endif(CMAKE_GENERATOR STREQUAL "Xcode")
+  endif ()
 
   message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
 
@@ -143,7 +143,7 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Game Boy Advance")
 
   if (NOT DEVKITPRO_FOUND)
     message(FATAL_ERROR "devkitPro not found. Install devkitPro and ensure DEVKITPRO is set.")
-  endif(NOT DEVKITPRO_FOUND)
+  endif ()
 
   list(APPEND CMAKE_MODULE_PATH "${DEVKITPRO_ROOT}/cmake")
 
@@ -153,7 +153,7 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Game Boy Advance")
 
   if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 15.2)
     message(FATAL_ERROR "GCC >= 15.2 required")
-  endif(CMAKE_CXX_COMPILER_VERSION VERSION_LESS 15.2)
+  endif ()
 
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/C_002b_002b-Dialect-Options.html
 
@@ -173,7 +173,7 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
 
   if (NOT DEVKITPRO_FOUND)
     message(FATAL_ERROR "devkitPro not found. Install devkitPro and ensure DEVKITPRO is set.")
-  endif(NOT DEVKITPRO_FOUND)
+  endif ()
 
   list(APPEND CMAKE_MODULE_PATH "${DEVKITPRO_ROOT}/cmake")
 
@@ -183,7 +183,7 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
 
   if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 15.2)
     message(FATAL_ERROR "GCC >= 15.2 required")
-  endif(CMAKE_CXX_COMPILER_VERSION VERSION_LESS 15.2)
+  endif ()
 
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/C_002b_002b-Dialect-Options.html
 
@@ -203,7 +203,7 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 3DS")
 
   if (NOT DEVKITPRO_FOUND)
     message(FATAL_ERROR "devkitPro not found. Install devkitPro and ensure DEVKITPRO is set.")
-  endif(NOT DEVKITPRO_FOUND)
+  endif ()
 
   list(APPEND CMAKE_MODULE_PATH "${DEVKITPRO_ROOT}/cmake")
 
@@ -213,7 +213,7 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 3DS")
 
   if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 15.2)
     message(FATAL_ERROR "GCC >= 15.2 required")
-  endif(CMAKE_CXX_COMPILER_VERSION VERSION_LESS 15.2)
+  endif ()
 
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/C_002b_002b-Dialect-Options.html
 
@@ -233,7 +233,7 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
 
   if (NOT DEVKITPRO_FOUND)
     message(FATAL_ERROR "devkitPro not found. Install devkitPro and ensure DEVKITPRO is set.")
-  endif(NOT DEVKITPRO_FOUND)
+  endif ()
 
   list(APPEND CMAKE_MODULE_PATH "${DEVKITPRO_ROOT}/cmake")
 
@@ -243,7 +243,7 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
 
   if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 15.2)
     message(FATAL_ERROR "GCC >= 15.2 required")
-  endif(CMAKE_CXX_COMPILER_VERSION VERSION_LESS 15.2)
+  endif ()
 
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/C_002b_002b-Dialect-Options.html
 
@@ -267,15 +267,15 @@ endif ()
 
 if (ToyGine2_VERSION_MAJOR)
   add_compile_definitions(TOYGINE_VERSION_MAJOR=${ToyGine2_VERSION_MAJOR})
-endif (ToyGine2_VERSION_MAJOR)
+endif ()
 
 if (ToyGine2_VERSION_MINOR)
   add_compile_definitions(TOYGINE_VERSION_MINOR=${ToyGine2_VERSION_MINOR})
-endif (ToyGine2_VERSION_MINOR)
+endif ()
 
 if (ToyGine2_VERSION_PATCH)
   add_compile_definitions(TOYGINE_VERSION_PATCH=${ToyGine2_VERSION_PATCH})
-endif (ToyGine2_VERSION_PATCH)
+endif ()
 
 message(STATUS "CMAKE_C_FLAGS=${CMAKE_C_FLAGS}")
 message(STATUS "CMAKE_C_FLAGS_DEBUG=${CMAKE_C_FLAGS_DEBUG}")
