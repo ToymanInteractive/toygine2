@@ -316,7 +316,7 @@ function(setup_target_for_coverage_lcov)
     string(REPLACE ";" " " LCOV_GEN_HTML_CMD_SPACED "${LCOV_GEN_HTML_CMD}")
     message(STATUS "${LCOV_GEN_HTML_CMD_SPACED}")
 
-    if (${Coverage_SONARQUBE})
+    if (Coverage_SONARQUBE)
       message(STATUS "Command to generate SonarQube XML output: ")
       string(REPLACE ";" " " GCOVR_XML_CMD_SPACED "${GCOVR_XML_CMD}")
       message(STATUS "${GCOVR_XML_CMD_SPACED}")
