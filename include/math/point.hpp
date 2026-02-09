@@ -281,22 +281,22 @@ public:
   [[nodiscard]] constexpr bool isZero() const noexcept;
 
   /*!
-    \brief Checks if this point is equal to another point within a \a tolerance.
+    \brief Checks if this point is equal to another point within a \a epsilon.
 
-    This method checks if this point is equal to another point within the specified \a tolerance. Two points are
-    considered equal if the absolute difference between their coordinates is less than or equal to \a tolerance.
+    This method checks if this point is equal to another point within the specified \a epsilon. Two points are
+    considered equal if the absolute difference between their coordinates is less than or equal to \a epsilon.
 
-    \param point     The point to compare with.
-    \param tolerance The tolerance for equality comparison (default: \c 0).
+    \param point   The point to compare with.
+    \param epsilon The epsilon for equality comparison (default: \c 0).
 
-    \return \c true if the points are equal within the \a tolerance, \c false otherwise.
+    \return \c true if the points are equal within the \a epsilon, \c false otherwise.
 
-    \pre The \a tolerance must be non-negative.
+    \pre The \a epsilon must be non-negative.
 
-    \note When tolerance is \c 0, this performs exact equality comparison.
-    \note When tolerance is greater than \c 0, this performs approximate equality comparison.
+    \note When epsilon is \c 0, this performs exact equality comparison.
+    \note When epsilon is greater than \c 0, this performs approximate equality comparison.
   */
-  [[nodiscard]] bool isEqual(const Point & point, int32_t tolerance = 0) const noexcept;
+  [[nodiscard]] bool isEqual(const Point & point, int32_t epsilon = 0) const noexcept;
 };
 
 /*!
@@ -420,7 +420,7 @@ public:
 
   \return \c true if both points have identical coordinates, \c false otherwise.
 
-  \note This performs exact equality comparison. For approximate comparison with tolerance, use the \a isEqual method.
+  \note This performs exact equality comparison. For approximate comparison with epsilon, use the \a isEqual method.
 */
 [[nodiscard]] constexpr bool operator==(const Point & left, const Point & right) noexcept;
 

@@ -17,38 +17,22 @@
 # OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 #-------------------------------------------------------------------------------------------
-set(CTEST_SUPPORT OFF)
-set(TOYGINE_TARGET_PLATFORM_SUPPORT_MULTITHREADING OFF)
-set(TOYGINE_TARGET_PLATFORM_SUPPORT_POSIX_SIGNALS OFF)
+set(PLATFORM_CTEST_SUPPORT OFF)
+set(PLATFORM_MULTITHREADING_SUPPORT OFF)
+set(PLATFORM_POSIX_SIGNALS_SUPPORT OFF)
 
-if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
+macro(set_platform_flag_if_supported FLAG_VAR PLATFORMS_LIST)
+  if (TOYGINE_TARGET_PLATFORM IN_LIST ${PLATFORMS_LIST})
+    set(${FLAG_VAR} ON)
+  endif (TOYGINE_TARGET_PLATFORM IN_LIST ${PLATFORMS_LIST})
+endmacro (set_platform_flag_if_supported FLAG_VAR PLATFORMS_LIST)
 
-  if (MSVC)
-    string(REGEX REPLACE "/Wall " "" CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
-    string(REGEX REPLACE "/Wall " "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-  endif (MSVC)
-
-  set(CTEST_SUPPORT ON)
-  set(TOYGINE_TARGET_PLATFORM_SUPPORT_MULTITHREADING ON)
-  set(TOYGINE_TARGET_PLATFORM_SUPPORT_POSIX_SIGNALS ON)
-
-elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop")
-
-  set(CTEST_SUPPORT ON)
-  set(TOYGINE_TARGET_PLATFORM_SUPPORT_MULTITHREADING ON)
-  set(TOYGINE_TARGET_PLATFORM_SUPPORT_POSIX_SIGNALS ON)
-
-elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
-
-  string(REGEX REPLACE "-Weverything" "" CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
-
-  string(REGEX REPLACE "-Weverything" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-
-  set(CTEST_SUPPORT ON)
-  set(TOYGINE_TARGET_PLATFORM_SUPPORT_MULTITHREADING ON)
-  set(TOYGINE_TARGET_PLATFORM_SUPPORT_POSIX_SIGNALS ON)
-
-endif ()
+set(TOYGINE_CTEST_SUPPORT_PLATFORMS "Windows Desktop" "Linux Desktop" "macOS Desktop")
+set(TOYGINE_MULTITHREADING_SUPPORT_PLATFORMS "Windows Desktop" "Linux Desktop" "macOS Desktop")
+set(TOYGINE_POSIX_SIGNALS_SUPPORT_PLATFORMS "Windows Desktop" "Linux Desktop" "macOS Desktop")
+set_platform_flag_if_supported(PLATFORM_CTEST_SUPPORT TOYGINE_CTEST_SUPPORT_PLATFORMS)
+set_platform_flag_if_supported(PLATFORM_MULTITHREADING_SUPPORT TOYGINE_MULTITHREADING_SUPPORT_PLATFORMS)
+set_platform_flag_if_supported(PLATFORM_POSIX_SIGNALS_SUPPORT TOYGINE_POSIX_SIGNALS_SUPPORT_PLATFORMS)
 #-------------------------------------------------------------------------------------------
 # Remove all of the extra targets
 set_property(GLOBAL PROPERTY CTEST_TARGETS_ADDED 1)
@@ -66,19 +50,19 @@ file(GLOB_RECURSE TEST_SRC CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp"
 
 include(doctest)
 
-add_executable(${TOYGINE_LIBRARY_NAME}-tests ${TEST_SRC})
-target_compile_definitions(${TOYGINE_LIBRARY_NAME}-tests PRIVATE DOCTEST_CONFIG_SUPER_FAST_ASSERTS)
-if (NOT TOYGINE_TARGET_PLATFORM_SUPPORT_MULTITHREADING)
-  target_compile_definitions(${TOYGINE_LIBRARY_NAME}-tests PRIVATE DOCTEST_CONFIG_NO_MULTITHREADING)
-endif(NOT TOYGINE_TARGET_PLATFORM_SUPPORT_MULTITHREADING)
-if (NOT TOYGINE_TARGET_PLATFORM_SUPPORT_POSIX_SIGNALS)
-  target_compile_definitions(${TOYGINE_LIBRARY_NAME}-tests PRIVATE DOCTEST_CONFIG_NO_POSIX_SIGNALS)
-endif(NOT TOYGINE_TARGET_PLATFORM_SUPPORT_POSIX_SIGNALS)
-target_include_directories(${TOYGINE_LIBRARY_NAME}-tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include)
-target_link_libraries(${TOYGINE_LIBRARY_NAME}-tests PRIVATE doctest::doctest ${TOYGINE_LIBRARY_NAME})
-if (CTEST_SUPPORT)
-  doctest_discover_tests(${TOYGINE_LIBRARY_NAME}-tests)
-endif (CTEST_SUPPORT)
+add_executable(${TOYGINE_LIBRARY_NAME}-units ${TEST_SRC})
+target_compile_definitions(${TOYGINE_LIBRARY_NAME}-units PRIVATE DOCTEST_CONFIG_SUPER_FAST_ASSERTS)
+if (NOT PLATFORM_MULTITHREADING_SUPPORT)
+  target_compile_definitions(${TOYGINE_LIBRARY_NAME}-units PRIVATE DOCTEST_CONFIG_NO_MULTITHREADING)
+endif(NOT PLATFORM_MULTITHREADING_SUPPORT)
+if (NOT PLATFORM_POSIX_SIGNALS_SUPPORT)
+  target_compile_definitions(${TOYGINE_LIBRARY_NAME}-units PRIVATE DOCTEST_CONFIG_NO_POSIX_SIGNALS)
+endif(NOT PLATFORM_POSIX_SIGNALS_SUPPORT)
+target_include_directories(${TOYGINE_LIBRARY_NAME}-units PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include)
+target_link_libraries(${TOYGINE_LIBRARY_NAME}-units PRIVATE doctest::doctest ${TOYGINE_LIBRARY_NAME})
+if (PLATFORM_CTEST_SUPPORT)
+  doctest_discover_tests(${TOYGINE_LIBRARY_NAME}-units)
+endif (PLATFORM_CTEST_SUPPORT)
 
 if (TOYGINE_TESTS_ENABLE_COVERAGE)
   # include the cmake code coverage module
@@ -87,7 +71,7 @@ if (TOYGINE_TESTS_ENABLE_COVERAGE)
   # Update the default compiler flags to enable coverage
   append_coverage_compiler_flags()
   append_coverage_compiler_flags_to_target(${TOYGINE_LIBRARY_NAME})
-  append_coverage_compiler_flags_to_target(${TOYGINE_LIBRARY_NAME}-tests)
+  append_coverage_compiler_flags_to_target(${TOYGINE_LIBRARY_NAME}-units)
 
   # exclude /test and /ext directories from coverage analysis
   set(COVERAGE_EXCLUDES "${CMAKE_SOURCE_DIR}/test/*" "${CMAKE_BINARY_DIR}/*" "/usr/*")
