@@ -50,19 +50,19 @@ if (NOT DEFINED TOYGINE_TARGET_PLATFORM)
   # Add devkitPro platforms if found
   if (DEVKITPRO_GBA_FOUND)
     list(APPEND AVAILABLE_PLATFORMS "Nintendo Game Boy Advance")
-  endif (DEVKITPRO_GBA_FOUND)
+  endif ()
 
   if (DEVKITPRO_NDS_FOUND)
     list(APPEND AVAILABLE_PLATFORMS "Nintendo DS")
-  endif (DEVKITPRO_NDS_FOUND)
+  endif ()
 
   if (DEVKITPRO_3DS_FOUND)
     list(APPEND AVAILABLE_PLATFORMS "Nintendo 3DS")
-  endif (DEVKITPRO_3DS_FOUND)
+  endif ()
 
   if (DEVKITPRO_SWITCH_FOUND)
     list(APPEND AVAILABLE_PLATFORMS "Nintendo Switch")
-  endif (DEVKITPRO_SWITCH_FOUND)
+  endif ()
 
   # Report available platforms
   message(STATUS "Available platforms: ${AVAILABLE_PLATFORMS}")
