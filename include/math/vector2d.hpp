@@ -253,7 +253,7 @@ public:
 
     \note This is equivalent to checking if the vector is at the origin (\c 0, \c 0).
   */
-  [[nodiscard]] constexpr bool isZero() const noexcept;
+  //  [[nodiscard]] constexpr bool isZero() const noexcept;
 
   /*!
     \brief Checks if this vector is equal to another vector within a \a tolerance.
@@ -361,7 +361,7 @@ public:
 
   \note This performs exact equality comparison. For approximate comparison with tolerance, use the \a isEqual method.
 */
-[[nodiscard]] constexpr bool operator==(const Vector2D & left, const Vector2D & right) noexcept;
+// [[nodiscard]] constexpr bool operator==(const Vector2D & left, const Vector2D & right) noexcept;
 
 } // namespace toy::math
 

@@ -93,14 +93,14 @@ constexpr void Vector2D::setZero() noexcept {
   x = y = 0;
 }
 
-constexpr bool Vector2D::isZero() const noexcept {
-  return x == 0 && y == 0;
-}
+// constexpr bool Vector2D::isZero() const noexcept {
+//   return x == 0 && y == 0;
+// }
 
 inline bool Vector2D::isEqual(const Vector2D & vector, real_t tolerance) const noexcept {
   assert_message(tolerance >= 0, "tolerance must be non-negative");
 
-  return std::abs(x - vector.x) <= tolerance && std::abs(y - vector.y) <= tolerance;
+  return abs(x - vector.x) <= tolerance && abs(y - vector.y) <= tolerance;
 }
 
 constexpr Vector2D operator-(const Vector2D & vector) noexcept {
@@ -129,9 +129,9 @@ constexpr Vector2D operator/(const Vector2D & left, real_t right) noexcept {
   return Vector2D(left.x / right, left.y / right);
 }
 
-constexpr bool operator==(const Vector2D & left, const Vector2D & right) noexcept {
-  return left.x == right.x && left.y == right.y;
-}
+// constexpr bool operator==(const Vector2D & left, const Vector2D & right) noexcept {
+//   return left.x == right.x && left.y == right.y;
+// }
 
 } // namespace toy::math
 

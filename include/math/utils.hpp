@@ -52,10 +52,10 @@ template <std::floating_point T>
 [[nodiscard]] constexpr T abs(T value) noexcept;
 
 /*!
-  \brief Compares two single-precision floats for approximate equality.
+  \brief Compares two floating-point numbers for approximate equality.
 
-  This function uses a combined absolute and relative epsilon test. Small values are compared by absolute difference (\a
-  absEpsilon), large values by relative difference (\a relEpsilon) scaled by max(|a|, |b|).
+  This function uses a combined absolute and relative epsilon test. Small values are compared by absolute difference
+  (\a absEpsilon), large values by relative difference (\a relEpsilon) scaled by max(|a|, |b|).
 
   \param a          The first value.
   \param b          The second value.
@@ -64,8 +64,9 @@ template <std::floating_point T>
 
   \return \c true if \a a and \a b are considered equal under the chosen tolerances, \c false otherwise.
 */
-[[nodiscard]] constexpr bool isEqual(float a, float b, float absEpsilon = 8.0f * numeric_limits<float>::epsilon(),
-                                     float relEpsilon = 64.0f * numeric_limits<float>::epsilon()) noexcept;
+template <std::floating_point T>
+[[nodiscard]] constexpr bool isEqual(T a, T b, T absEpsilon = 8 * numeric_limits<T>::epsilon(),
+                                     T relEpsilon = 64 * numeric_limits<T>::epsilon()) noexcept;
 
 } // namespace toy::math
 

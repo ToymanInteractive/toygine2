@@ -116,7 +116,7 @@ constexpr bool Point::isZero() const noexcept {
 inline bool Point::isEqual(const Point & point, int32_t tolerance) const noexcept {
   assert_message(tolerance >= 0, "tolerance must be non-negative");
 
-  return std::abs(x - point.x) <= tolerance && std::abs(y - point.y) <= tolerance;
+  return abs(x - point.x) <= tolerance && abs(y - point.y) <= tolerance;
 }
 
 constexpr Point operator-(const Point & point) noexcept {

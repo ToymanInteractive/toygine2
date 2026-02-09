@@ -56,8 +56,9 @@ constexpr T abs(T value) noexcept {
   }
 }
 
-constexpr bool isEqual(float a, float b, float absEpsilon, float relEpsilon) noexcept {
-  assert_message(absEpsilon >= 0.0f && relEpsilon >= 0.0f, "absolute and relative epsilon must be non-negative");
+template <std::floating_point T>
+constexpr bool isEqual(T a, T b, T absEpsilon, T relEpsilon) noexcept {
+  assert_message(absEpsilon >= 0 && relEpsilon >= 0, "absolute and relative epsilon must be non-negative");
   if !consteval {
     assert_message(!isnan(a) && !isnan(b), "isEqual() does not support NaN values");
   }
