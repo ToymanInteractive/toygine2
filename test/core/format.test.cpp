@@ -109,4 +109,31 @@ TEST_CASE("core/format_string/get_method") {
   }
 }
 
+TEST_CASE("format function", "[core][format]") {
+  SECTION("Format without arguments") {
+    FixedString<64> result;
+
+    constexpr FormatString<> formatStr("Hello World");
+    format(result, formatStr);
+    REQUIRE(result == "Hello World");
+
+    constexpr CStringView stringView("Hello World");
+    format(result, stringView);
+    REQUIRE(result == "Hello World");
+
+    format(result, "Hello World");
+    REQUIRE(result == "Hello World");
+  }
+
+  SECTION("Format with single integer argument") {
+    FixedString<64> result;
+    constexpr FormatString<int32_t> formatStr("Value: {}");
+
+    format(result, formatStr, 42);
+
+    REQUIRE(result == "Value: {}");
+    REQUIRE(result.size() == 9);
+  }
+}
+
 } // namespace toy

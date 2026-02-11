@@ -28,8 +28,10 @@
 namespace toy {
 
 template <class... Args>
-consteval FormatString<Args...>::FormatString(const CStringView & string) noexcept
-  : _string(string) {
+template <typename StringType>
+  requires std::convertible_to<StringType, CStringView>
+consteval FormatString<Args...>::FormatString(StringType string) noexcept
+  : _string{string} {
   const auto placeholderCount = _countFormatPlaceholders(string);
   if (placeholderCount == CStringView::npos)
     _compileTimeError("Invalid format string: unmatched braces");
@@ -86,6 +88,22 @@ constexpr size_t FormatString<Args...>::_countFormatPlaceholders(const CStringVi
 template <class... Args>
 inline void FormatString<Args...>::_compileTimeError([[maybe_unused]] const char * message) noexcept {
   // Intentionally cause a compile-time error
+}
+
+template <typename StringType, class... Args>
+inline StringType & format(StringType & out, FormatString<Args...> formatString, Args &&... args) {
+  const auto expectedArgs = sizeof...(args);
+
+  if (expectedArgs > 0)
+    out = formatString.get().c_str();
+
+  return out;
+}
+
+template <typename StringType, class... Args, size_t N>
+inline StringType & format(StringType & out, const char (&formatString)[N], Args &&... args) {
+  constexpr FormatString<Args...> fs(formatString);
+  return format(out, fs, std::forward<Args>(args)...);
 }
 
 } // namespace toy
