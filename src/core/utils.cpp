@@ -309,8 +309,10 @@ void _floatPostProcess(char * dest, char * srcBuffer, size_t bufferSize, int32_t
   size_t fractionDigits = digits > intDigits ? digits - intDigits : 0;
   if (intDigits > 0) {
     auto count = std::min(intDigits, digits);
-    while (count--)
+    while (count > 0) {
       *outputPointer++ = *strBegin++;
+      --count;
+    }
 
     auto trailingZeros = static_cast<int32_t>(intDigits) - static_cast<int32_t>(digits);
     while (trailingZeros-- > 0)
@@ -321,11 +323,14 @@ void _floatPostProcess(char * dest, char * srcBuffer, size_t bufferSize, int32_t
 
   if (fractionDigits > 0) {
     *outputPointer++ = '.';
-    while (leadingZeros-- > 0)
+    while (leadingZeros > 0) {
+      --leadingZeros;
       *outputPointer++ = '0';
+    }
 
-    while (fractionDigits-- > 0)
+    while (fractionDigits-- > 0) {
       *outputPointer++ = *strBegin++;
+    }
   }
 
   if (exp10 != 0) {
