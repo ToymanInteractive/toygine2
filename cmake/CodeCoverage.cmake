@@ -413,7 +413,6 @@ function(setup_target_for_coverage_lcov)
     add_custom_command(TARGET ${Coverage_NAME} POST_BUILD
         COMMAND true
         COMMENT "Lcov code coverage info report saved in ${Coverage_NAME}.info."
-        ${GCOVR_XML_CMD_COMMENT}
     )
 
     if(Coverage_SONARQUBE)
