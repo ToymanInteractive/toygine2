@@ -288,7 +288,7 @@ function(setup_target_for_coverage_lcov)
     list(REMOVE_DUPLICATES LCOV_EXCLUDES)
 
     # Conditional arguments
-    if(CPPFILT_PATH AND NOT ${Coverage_NO_DEMANGLE})
+    if(CPPFILT_PATH AND NOT Coverage_NO_DEMANGLE)
         set(GENHTML_EXTRA_ARGS "--demangle-cpp")
     endif()
 
@@ -333,7 +333,7 @@ function(setup_target_for_coverage_lcov)
         ${GENHTML_PATH} ${GENHTML_EXTRA_ARGS} ${Coverage_GENHTML_ARGS} -o
         ${Coverage_NAME} ${Coverage_NAME}.info
     )
-    if(${Coverage_SONARQUBE})
+    if(Coverage_SONARQUBE)
         # Generate SonarQube output
         set(GCOVR_XML_CMD
             ${GCOVR_PATH} --sonarqube ${Coverage_NAME}_sonarqube.xml -r ${BASEDIR} ${GCOVR_ADDITIONAL_ARGS}
@@ -377,7 +377,7 @@ function(setup_target_for_coverage_lcov)
         string(REPLACE ";" " " LCOV_GEN_HTML_CMD_SPACED "${LCOV_GEN_HTML_CMD}")
         message(STATUS "${LCOV_GEN_HTML_CMD_SPACED}")
 
-        if(${Coverage_SONARQUBE})
+        if(Coverage_SONARQUBE)
             message(STATUS "Command to generate SonarQube XML output: ")
             string(REPLACE ";" " " GCOVR_XML_CMD_SPACED "${GCOVR_XML_CMD}")
             message(STATUS "${GCOVR_XML_CMD_SPACED}")
@@ -415,6 +415,13 @@ function(setup_target_for_coverage_lcov)
         COMMENT "Lcov code coverage info report saved in ${Coverage_NAME}.info."
         ${GCOVR_XML_CMD_COMMENT}
     )
+
+    if(Coverage_SONARQUBE)
+        add_custom_command(TARGET ${Coverage_NAME} POST_BUILD
+            COMMAND true
+            COMMENT "SonarQube code coverage info report saved in ${Coverage_NAME}_sonarqube.xml."
+        )
+    endif()
 
     # Show info where to find the report
     add_custom_command(TARGET ${Coverage_NAME} POST_BUILD
@@ -665,7 +672,7 @@ function(setup_target_for_coverage_fastcov)
     list(REMOVE_DUPLICATES FASTCOV_EXCLUDES)
 
     # Conditional arguments
-    if(CPPFILT_PATH AND NOT ${Coverage_NO_DEMANGLE})
+    if(CPPFILT_PATH AND NOT Coverage_NO_DEMANGLE)
         set(GENHTML_EXTRA_ARGS "--demangle-cpp")
     endif()
 
