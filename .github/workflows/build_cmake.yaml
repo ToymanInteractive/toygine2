@@ -227,7 +227,7 @@ jobs:
             -o APT::Keep-Downloaded-Packages=true \
             -o Acquire::Retries=3 -o Dpkg::Use-Pty=0 \
             install \
-            lcov
+            lcov gcovr
 
           sudo rm -f  "$APT_CACHE/lock" || true
           sudo rm -rf "$APT_CACHE/partial" || true
