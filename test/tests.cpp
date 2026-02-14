@@ -10,7 +10,7 @@
 
 static void stackWalkCallback([[maybe_unused]] const char * info) {}
 
-int __cdecl main(int argc, char ** argv) {
+int main(int argc, char ** argv) {
   toy::assertion::initialize();
 
   toy::assertion::setCallbacks(assertionCallback, stackWalkCallback);
