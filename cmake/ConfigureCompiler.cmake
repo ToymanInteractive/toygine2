@@ -29,8 +29,8 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
     # Minimum CPU Architecture select based on https://store.steampowered.com/hwsurvey/
 
-    set(CMAKE_C_FLAGS   "/nologo /Wall /WX /wd4464 /wd4514 /wd4710 /wd4711 /wd4820 /wd5045 /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /EHsc /Zc:wchar_t /Zc:forScope /Zc:inline /Zc:rvalueCast /GR- /permissive-")
-    set(CMAKE_CXX_FLAGS "/nologo /Wall /WX /wd4464 /wd4514 /wd4710 /wd4711 /wd4820 /wd5045 /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /EHsc /Zc:wchar_t /Zc:forScope /Zc:inline /Zc:rvalueCast /GR- /permissive-")
+    set(CMAKE_C_FLAGS   "/nologo /Wall /WX /wd4007 /wd4464 /wd4514 /wd4710 /wd4711 /wd4820 /wd5045 /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /EHsc /Zc:wchar_t /Zc:forScope /Zc:inline /Zc:rvalueCast /GR- /permissive-")
+    set(CMAKE_CXX_FLAGS "/nologo /Wall /WX /wd4007 /wd4464 /wd4514 /wd4710 /wd4711 /wd4820 /wd5045 /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /EHsc /Zc:wchar_t /Zc:forScope /Zc:inline /Zc:rvalueCast /GR- /permissive-")
 
     if (CMAKE_SIZEOF_VOID_P MATCHES "8")
 
@@ -77,7 +77,7 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop")
   endif ()
 
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/C_002b_002b-Dialect-Options.html
-#                 https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/C_002b_002b-Dialect-Options.html#Options-Controlling-C_002b_002b-Dialect
+#                 https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/C_002b_002b-Dialect-Options.html#index-ffold-simple-inlines
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-14.2.0/gcc/C_002b_002b-Dialect-Options.html
 
   set(CMAKE_C_FLAGS   "-std=c17   -foffload=default -fopenmp-simd -fstrict-flex-arrays=2")

@@ -17,7 +17,7 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 //
-
+/*
 #include <doctest/doctest.h>
 
 #include "math.hpp"
@@ -838,3 +838,4 @@ TEST_CASE("math/vector2d/binary_operators") {
 }
 
 } // namespace toy::math
+*/

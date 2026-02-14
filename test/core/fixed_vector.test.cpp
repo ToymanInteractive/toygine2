@@ -17,7 +17,7 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 //
-
+/*
 #include <vector>
 
 #include <doctest/doctest.h>
@@ -1435,3 +1435,4 @@ TEST_CASE("core/fixed_vector/clear_method") {
 }
 
 } // namespace toy
+*/

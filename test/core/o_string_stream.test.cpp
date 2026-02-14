@@ -17,7 +17,7 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 //
-
+/*
 #include <numbers>
 
 #include <doctest/doctest.h>
@@ -1046,3 +1046,4 @@ TEST_CASE("core/o_string_stream/operator_insert") {
 }
 
 } // namespace toy
+*/

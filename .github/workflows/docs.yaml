@@ -22,7 +22,7 @@ jobs:
         run: |
           sudo apt-get update -y
           sudo apt-get install -y graphviz
-          pip3 install coverxygen
+          pip3 install coverxygen==1.8.1
           curl -L https://github.com/doxygen/doxygen/releases/download/Release_1_16_1/doxygen-1.16.1.linux.bin.tar.gz -o doxygen.tar.gz || { echo "Failed to download Doxygen"; exit 1; }
           tar -xzf doxygen.tar.gz || { echo "Failed to extract Doxygen"; exit 1; }
           cd doxygen-*
