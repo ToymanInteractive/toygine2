@@ -115,19 +115,24 @@ set(SRC_APP_LIST )
 set(HDR_APP_LIST include/app.hpp include/app/version.hpp)
 set(INL_APP_LIST                 include/app/version.inl)
 
-set(SRC_MATH_LIST)
+set(SRC_MATH_LIST )
 set(HDR_MATH_LIST include/math.hpp include/math/point.hpp include/math/utils.hpp include/math/vector2d.hpp)
 set(INL_MATH_LIST                  include/math/point.inl include/math/utils.inl include/math/vector2d.inl)
+
+set(SRC_PLATFORM_UI_LIST )
+set(HDR_PLATFORM_UI_LIST include/platform/ui.hpp include/platform/ui/orientation.hpp)
+set(INL_PLATFORM_UI_LIST )
 
 source_group("Core" FILES ${SRC_CORE_LIST} ${HDR_CORE_LIST} ${INL_CORE_LIST})
 source_group("App"  FILES ${SRC_APP_LIST}  ${HDR_APP_LIST}  ${INL_APP_LIST})
 source_group("Math" FILES ${SRC_MATH_LIST} ${HDR_MATH_LIST} ${INL_MATH_LIST})
+source_group("Platform\\UI" FILES ${SRC_PLATFORM_UI_LIST} ${HDR_PLATFORM_UI_LIST} ${INL_PLATFORM_UI_LIST})
 
 #-------------------------------------------------------------------------------------------
 
-list(APPEND SRC_LIST ${SRC_CORE_LIST} ${SRC_APP_LIST} ${SRC_MATH_LIST})
-list(APPEND HDR_LIST ${HDR_CORE_LIST} ${HDR_APP_LIST} ${HDR_MATH_LIST} include/toygine2.hpp)
-list(APPEND INL_LIST ${INL_CORE_LIST} ${INL_APP_LIST} ${INL_MATH_LIST})
+list(APPEND SRC_LIST ${SRC_CORE_LIST} ${SRC_APP_LIST} ${SRC_MATH_LIST} ${SRC_PLATFORM_UI_LIST})
+list(APPEND HDR_LIST ${HDR_CORE_LIST} ${HDR_APP_LIST} ${HDR_MATH_LIST} ${HDR_PLATFORM_UI_LIST} include/toygine2.hpp)
+list(APPEND INL_LIST ${INL_CORE_LIST} ${INL_APP_LIST} ${INL_MATH_LIST} ${INL_PLATFORM_UI_LIST})
 set(LIB_LIST ${LIB_LIST})
 
 add_library(${TOYGINE_LIBRARY_NAME} STATIC ${SRC_LIST} ${HDR_LIST} ${INL_LIST})
