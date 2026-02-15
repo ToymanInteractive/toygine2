@@ -17,7 +17,9 @@ var searchData=
   ['toy_3a_3aapp_14',['app',['../dc/df3/namespacetoy_1_1app.html',1,'toy']]],
   ['toy_3a_3aassertion_15',['assertion',['../d2/da2/namespacetoy_1_1assertion.html',1,'toy']]],
   ['toy_3a_3amath_16',['math',['../d2/d83/namespacetoy_1_1math.html',1,'toy']]],
-  ['toy_5fconfig_5fdebug_5fmemory_17',['TOY_CONFIG_DEBUG_MEMORY',['../da/d47/core_8hpp.html#a94a808adc84ff2a5345e7ecb00661653',1,'core.hpp']]],
-  ['toygine2_18',['ToyGine2',['../index.html',1,'']]],
-  ['toygine2_2ehpp_19',['toygine2.hpp',['../d8/d8c/toygine2_8hpp.html',1,'']]]
+  ['toy_3a_3aplatform_17',['platform',['../d4/ddd/namespacetoy_1_1platform.html',1,'toy']]],
+  ['toy_3a_3aplatform_3a_3aui_18',['ui',['../d1/d03/namespacetoy_1_1platform_1_1ui.html',1,'toy::platform']]],
+  ['toy_5fconfig_5fdebug_5fmemory_19',['TOY_CONFIG_DEBUG_MEMORY',['../da/d47/core_8hpp.html#a94a808adc84ff2a5345e7ecb00661653',1,'core.hpp']]],
+  ['toygine2_20',['ToyGine2',['../index.html',1,'']]],
+  ['toygine2_2ehpp_21',['toygine2.hpp',['../d8/d8c/toygine2_8hpp.html',1,'']]]
 ];

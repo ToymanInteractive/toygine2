@@ -1,0 +1,5 @@
+<map id="include/platform/ui.hpp" name="include/platform/ui.hpp">
+<area shape="rect" id="Node000001" title="Umbrella header for platform UI types (orientation, layout, etc.)." alt="" coords="5,5,179,31"/>
+<area shape="rect" id="Node000002" href="$d0/d24/orientation_8hpp.html" title="Screen orientation enumeration for UI layout and rotation handling." alt="" coords="23,79,161,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="95,31,95,65,89,65,89,31"/>
+</map>
