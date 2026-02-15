@@ -52,7 +52,7 @@ TEST_CASE("render/clear_flags/operator_and") {
 TEST_CASE("render/clear_flags/operator_or") {
   // Target | Depth yields combined flags.
   SUBCASE("target_or_depth") {
-    REQUIRE(static_cast<unsigned int>(ClearFlags::Target | ClearFlags::Depth) == 0x03);
+    REQUIRE(static_cast<unsigned int>(ClearFlags::Target | ClearFlags::Depth) == 0x03u);
 
     static_assert(static_cast<unsigned int>(ClearFlags::Target | ClearFlags::Depth) == 0x03u,
                   "Target | Depth must equal 0x03");
