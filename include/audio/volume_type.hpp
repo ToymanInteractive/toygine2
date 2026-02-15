@@ -18,18 +18,30 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   toygine2.hpp
-  \brief  Main umbrella header for the entire ToyGine2 engine.
+  \file   volume_type.hpp
+  \brief  Volume category enumeration for audio mixing and per-channel gain control.
 */
 
-#ifndef INCLUDE_TOYGINE2_HPP_
-#define INCLUDE_TOYGINE2_HPP_
+#ifndef INCLUDE_AUDIO_VOLUME_TYPE_HPP_
+#define INCLUDE_AUDIO_VOLUME_TYPE_HPP_
 
-#include "app.hpp"
-#include "audio.hpp"
-#include "core.hpp"
-#include "math.hpp"
-#include "platform/ui.hpp"
-#include "render.hpp"
+namespace toy::audio {
 
-#endif // INCLUDE_TOYGINE2_HPP_
+/*!
+  \enum VolumeType
+  \brief Volume category for audio mixing.
+
+  Identifies the type of audio source for independent volume control (e.g. music vs sound effects).
+*/
+enum class VolumeType {
+  /// Background music.
+  Music,
+  /// Sound effects (impacts, UI clicks, etc.).
+  Sound,
+  /// Voice or dialogue.
+  Voice,
+};
+
+} // namespace toy::audio
+
+#endif // INCLUDE_AUDIO_VOLUME_TYPE_HPP_
