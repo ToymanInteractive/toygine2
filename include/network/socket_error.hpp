@@ -55,9 +55,6 @@ enum class SocketError {
   MemoryError,
   /// Platform-specific system error.
   SystemError,
-
-  /// Sentinel for iteration or testing; not a real error.
-  Dummy
 };
 
 } // namespace toy::network
