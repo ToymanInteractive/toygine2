@@ -18,16 +18,18 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   toygine2.hpp
-  \brief  Main umbrella header for the entire ToyGine2 engine.
+  \file   ui.hpp
+  \brief  Umbrella header for platform UI types (orientation, layout, etc.).
 */
 
-#ifndef INCLUDE_TOYGINE2_HPP_
-#define INCLUDE_TOYGINE2_HPP_
+#ifndef INCLUDE_PLATFORM_UI_HPP_
+#define INCLUDE_PLATFORM_UI_HPP_
 
-#include "app.hpp"
-#include "core.hpp"
-#include "math.hpp"
-#include "platform/ui.hpp"
+/// @namespace toy::platform::ui
+/// @brief Platform UI types: screen orientation, layout hints, and related utilities.
 
-#endif // INCLUDE_TOYGINE2_HPP_
+#include "ui/orientation.hpp"
+
+//----------------------------------------------------------------------------------------------------------------------
+
+#endif // INCLUDE_PLATFORM_UI_HPP_
