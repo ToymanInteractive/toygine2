@@ -18,19 +18,18 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   toygine2.hpp
-  \brief  Main umbrella header for the entire ToyGine2 engine.
+  \file   network.hpp
+  \brief  Umbrella header for the network module (socket errors, addressing, etc.).
 */
 
-#ifndef INCLUDE_TOYGINE2_HPP_
-#define INCLUDE_TOYGINE2_HPP_
+#ifndef INCLUDE_NETWORK_HPP_
+#define INCLUDE_NETWORK_HPP_
 
-#include "app.hpp"
-#include "audio.hpp"
-#include "core.hpp"
-#include "math.hpp"
-#include "network.hpp"
-#include "platform/ui.hpp"
-#include "render.hpp"
+/// @namespace toy::network
+/// @brief Network types and utilities: socket errors, addressing, and related APIs.
 
-#endif // INCLUDE_TOYGINE2_HPP_
+#include "network/socket_error.hpp"
+
+//----------------------------------------------------------------------------------------------------------------------
+
+#endif // INCLUDE_NETWORK_HPP_

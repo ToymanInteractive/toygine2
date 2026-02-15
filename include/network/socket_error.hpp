@@ -18,19 +18,45 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   toygine2.hpp
-  \brief  Main umbrella header for the entire ToyGine2 engine.
+  \file   socket_error.hpp
+  \brief  Socket and network operation error codes.
 */
 
-#ifndef INCLUDE_TOYGINE2_HPP_
-#define INCLUDE_TOYGINE2_HPP_
+#ifndef INCLUDE_NETWORK_SOCKET_ERROR_HPP_
+#define INCLUDE_NETWORK_SOCKET_ERROR_HPP_
 
-#include "app.hpp"
-#include "audio.hpp"
-#include "core.hpp"
-#include "math.hpp"
-#include "network.hpp"
-#include "platform/ui.hpp"
-#include "render.hpp"
+namespace toy::network {
 
-#endif // INCLUDE_TOYGINE2_HPP_
+/*!
+  \enum SocketError
+  \brief Error codes for socket and network operations.
+
+  Returned by socket APIs to indicate failure reason. Use for error handling and diagnostics.
+*/
+enum class SocketError {
+  /// No error; operation succeeded.
+  None,
+
+  /// Operation not allowed in current state (e.g. send on closed socket).
+  InvalidOperation,
+  /// I/O failure during read or write.
+  IOError,
+  /// Invalid or unsupported address format.
+  InvalidAddress,
+  /// Address or port already in use.
+  AddressInUse,
+  /// Socket handle is invalid or closed.
+  SocketInvalid,
+  /// Operation would block (non-blocking mode).
+  WouldBlock,
+  /// Operation timed out.
+  Timeout,
+  /// Memory allocation failed.
+  MemoryError,
+  /// Platform-specific system error.
+  SystemError,
+};
+
+} // namespace toy::network
+
+#endif // INCLUDE_NETWORK_SOCKET_ERROR_HPP_
