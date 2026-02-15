@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['portrait_0',['Portrait',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#a183936fe4ec9c3298068c03b8677dba2a1c7444be9626d149ab598fb79b639f96',1,'toy::platform::ui']]],
-  ['portraitany_1',['PortraitAny',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#a183936fe4ec9c3298068c03b8677dba2ac5e78c85aed303934dd52012cc3bbffb',1,'toy::platform::ui']]],
-  ['portraitflipped_2',['PortraitFlipped',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#a183936fe4ec9c3298068c03b8677dba2a13be439a13712e02008085c7861871f3',1,'toy::platform::ui']]]
+  ['n3ds_0',['N3DS',['../d4/da9/namespacetoy.html#aa6f1ef0b4e0aa4864f1c8d431775bc94a91f63b3de0c255c06d76b4a195ed5b15',1,'toy']]],
+  ['nds_1',['NDS',['../d4/da9/namespacetoy.html#aa6f1ef0b4e0aa4864f1c8d431775bc94a762ba5f7878627c28916f73f55646717',1,'toy']]],
+  ['none_2',['None',['../df/d8d/namespacetoy_1_1render.html#a656a113b41be329d52f7c678d3384b4aa6adf97f83acf6453d4a6a4b1070f3754',1,'toy::render']]]
 ];

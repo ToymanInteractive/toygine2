@@ -13,6 +13,18 @@ var namespacetoy =
       [ "s_assertionCallback", "d2/da2/namespacetoy_1_1assertion.html#abf0c95a6d0312b84decc08fc040187c9", null ]
     ] ],
     [ "platform", "d4/ddd/namespacetoy_1_1platform.html", "d4/ddd/namespacetoy_1_1platform" ],
+    [ "render", "df/d8d/namespacetoy_1_1render.html", [
+      [ "ClearFlags", "df/d8d/namespacetoy_1_1render.html#a656a113b41be329d52f7c678d3384b4a", [
+        [ "None", "df/d8d/namespacetoy_1_1render.html#a656a113b41be329d52f7c678d3384b4aa6adf97f83acf6453d4a6a4b1070f3754", null ],
+        [ "Target", "df/d8d/namespacetoy_1_1render.html#a656a113b41be329d52f7c678d3384b4aac41a31890959544c6523af684561abe5", null ],
+        [ "Depth", "df/d8d/namespacetoy_1_1render.html#a656a113b41be329d52f7c678d3384b4aa675056ad1441b6375b2c5abd48c27ef1", null ],
+        [ "Stencil", "df/d8d/namespacetoy_1_1render.html#a656a113b41be329d52f7c678d3384b4aad821e7ccd4d4c25a491ba1a9ea248895", null ],
+        [ "All", "df/d8d/namespacetoy_1_1render.html#a656a113b41be329d52f7c678d3384b4aab1c94ca2fbc3e78fc30069c8d0f01680", null ]
+      ] ],
+      [ "operator&", "df/d8d/namespacetoy_1_1render.html#a8005061a10bccaf16f7b3c5b79ce5cb1", null ],
+      [ "operator^", "df/d8d/namespacetoy_1_1render.html#a5845b0dbc8efa2c63123f900399053ae", null ],
+      [ "operator|", "df/d8d/namespacetoy_1_1render.html#a5bf45a61b0453bcf4b936e835cf76371", null ]
+    ] ],
     [ "_divmod10", "d9/d10/structtoy_1_1__divmod10.html", "d9/d10/structtoy_1_1__divmod10" ],
     [ "CStringView", "d5/d03/classtoy_1_1_c_string_view.html", "d5/d03/classtoy_1_1_c_string_view" ],
     [ "CallbacksPool", "d8/dc9/classtoy_1_1_callbacks_pool.html", "d8/dc9/classtoy_1_1_callbacks_pool" ],
