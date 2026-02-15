@@ -1,0 +1,5 @@
+<map id="include/network.hpp" name="include/network.hpp">
+<area shape="rect" id="Node000001" title="Umbrella header for the network module (socket errors, addressing, etc.)." alt="" coords="21,5,176,31"/>
+<area shape="rect" id="Node000002" href="$d8/df5/socket__error_8hpp.html" title="Socket and network operation error codes." alt="" coords="5,79,192,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="101,31,101,65,96,65,96,31"/>
+</map>
