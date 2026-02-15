@@ -40,9 +40,6 @@ enum class VolumeType {
   Sound,
   /// Voice or dialogue.
   Voice,
-
-  /// Master volume affecting all channels.
-  Global
 };
 
 } // namespace toy::audio

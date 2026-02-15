@@ -136,7 +136,7 @@ source_group("Audio"        FILES ${SRC_AUDIO_LIST}       ${HDR_AUDIO_LIST}     
 source_group("Core"         FILES ${SRC_CORE_LIST}        ${HDR_CORE_LIST}        ${INL_CORE_LIST})
 source_group("Math"         FILES ${SRC_MATH_LIST}        ${HDR_MATH_LIST}        ${INL_MATH_LIST})
 source_group("Platform\\UI" FILES ${SRC_PLATFORM_UI_LIST} ${HDR_PLATFORM_UI_LIST} ${INL_PLATFORM_UI_LIST})
-source_group("Render"       FILES ${SRC_RENDER_LIST}      ${HDR_RENDER_LIST}.     ${INL_RENDER_LIST})
+source_group("Render"       FILES ${SRC_RENDER_LIST}      ${HDR_RENDER_LIST}      ${INL_RENDER_LIST})
 
 #-------------------------------------------------------------------------------------------
 
