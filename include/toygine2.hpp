@@ -29,5 +29,6 @@
 #include "core.hpp"
 #include "math.hpp"
 #include "platform/ui.hpp"
+#include "render.hpp"
 
 #endif // INCLUDE_TOYGINE2_HPP_

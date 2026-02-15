@@ -24,6 +24,30 @@
 
 namespace toy::render {
 
+// Bitwise AND: intersection of clear flags.
+TEST_CASE("render/clear_flags/operator_and") {
+  // All & Target yields Target.
+  SUBCASE("all_and_target") {
+    REQUIRE((ClearFlags::All & ClearFlags::Target) == ClearFlags::Target);
+
+    static_assert((ClearFlags::All & ClearFlags::Target) == ClearFlags::Target, "All & Target must equal Target");
+  }
+
+  // Target & Depth yields None (no common bits).
+  SUBCASE("target_and_depth") {
+    REQUIRE((ClearFlags::Target & ClearFlags::Depth) == ClearFlags::None);
+
+    static_assert((ClearFlags::Target & ClearFlags::Depth) == ClearFlags::None, "Target & Depth must equal None");
+  }
+
+  // All & All yields All.
+  SUBCASE("all_and_all") {
+    REQUIRE((ClearFlags::All & ClearFlags::All) == ClearFlags::All);
+
+    static_assert((ClearFlags::All & ClearFlags::All) == ClearFlags::All, "All & All must equal All");
+  }
+}
+
 // Bitwise OR: combines clear flags.
 TEST_CASE("render/clear_flags/operator_or") {
   // Target | Depth yields combined flags.
@@ -54,6 +78,24 @@ TEST_CASE("render/clear_flags/operator_or") {
     REQUIRE((ClearFlags::All | ClearFlags::Target) == ClearFlags::All);
 
     static_assert((ClearFlags::All | ClearFlags::Target) == ClearFlags::All, "All | Target must equal All");
+  }
+}
+
+// Bitwise XOR: symmetric difference of clear flags.
+TEST_CASE("render/clear_flags/operator_xor") {
+  // Target ^ Depth yields combined (no overlap).
+  SUBCASE("target_xor_depth") {
+    REQUIRE((ClearFlags::Target ^ ClearFlags::Depth) == (ClearFlags::Target | ClearFlags::Depth));
+
+    static_assert((ClearFlags::Target ^ ClearFlags::Depth) == (ClearFlags::Target | ClearFlags::Depth),
+                  "Target ^ Depth must equal Target | Depth");
+  }
+
+  // Target ^ Target yields None.
+  SUBCASE("target_xor_target") {
+    REQUIRE((ClearFlags::Target ^ ClearFlags::Target) == ClearFlags::None);
+
+    static_assert((ClearFlags::Target ^ ClearFlags::Target) == ClearFlags::None, "Target ^ Target must equal None");
   }
 }
 

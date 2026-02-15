@@ -31,8 +31,7 @@ namespace toy::render {
   \enum ClearFlags
   \brief Bit flags specifying which framebuffer attachments to clear.
 
-  Values can be combined with \c operator| to clear multiple buffers in one call
-  (e.g. \ref toy::render::ClearFlags::Target | \ref toy::render::ClearFlags::Depth).
+  Values can be combined with \c operator|, \c operator&, and \c operator^ for bitwise operations.
 */
 enum class ClearFlags : unsigned int {
   /// Clear nothing.
@@ -50,10 +49,25 @@ enum class ClearFlags : unsigned int {
 };
 
 /*!
+  \brief Bitwise AND of two \ref toy::render::ClearFlags values.
+
+  Returns the intersection of the bit flags in \a lhs and \a rhs. Use to test whether specific clear targets are set
+  (e.g. \a flags & \ref toy::render::ClearFlags::Depth).
+
+  \param lhs The first clear flags.
+  \param rhs The second clear flags.
+
+  \return Clear flags with only the bits set in both \a lhs and \a rhs.
+*/
+[[nodiscard]] constexpr ClearFlags operator&(ClearFlags lhs, ClearFlags rhs) noexcept {
+  return static_cast<ClearFlags>(static_cast<unsigned int>(lhs) & static_cast<unsigned int>(rhs));
+}
+
+/*!
   \brief Bitwise OR of two \ref toy::render::ClearFlags values.
 
-  Returns the union of the bit flags in \a lhs and \a rhs. Use to combine clear
-  targets (e.g. \ref toy::render::ClearFlags::Target | \ref toy::render::ClearFlags::Depth).
+  Returns the union of the bit flags in \a lhs and \a rhs. Use to combine clear targets
+  (e.g. \ref toy::render::ClearFlags::Target | \ref toy::render::ClearFlags::Depth).
 
   \param lhs The first clear flags.
   \param rhs The second clear flags.
@@ -62,6 +76,20 @@ enum class ClearFlags : unsigned int {
 */
 [[nodiscard]] constexpr ClearFlags operator|(ClearFlags lhs, ClearFlags rhs) noexcept {
   return static_cast<ClearFlags>(static_cast<unsigned int>(lhs) | static_cast<unsigned int>(rhs));
+}
+
+/*!
+  \brief Bitwise XOR of two \ref toy::render::ClearFlags values.
+
+  Returns the symmetric difference of the bit flags in \a lhs and \a rhs.
+
+  \param lhs The first clear flags.
+  \param rhs The second clear flags.
+
+  \return Clear flags with bits set in exactly one of \a lhs or \a rhs.
+*/
+[[nodiscard]] constexpr ClearFlags operator^(ClearFlags lhs, ClearFlags rhs) noexcept {
+  return static_cast<ClearFlags>(static_cast<unsigned int>(lhs) ^ static_cast<unsigned int>(rhs));
 }
 
 } // namespace toy::render
