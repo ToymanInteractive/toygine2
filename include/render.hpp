@@ -18,17 +18,18 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   toygine2.hpp
-  \brief  Main umbrella header for the entire ToyGine2 engine.
+  \file   render.hpp
+  \brief  Umbrella header for the render module (clear flags, framebuffer operations, etc.).
 */
 
-#ifndef INCLUDE_TOYGINE2_HPP_
-#define INCLUDE_TOYGINE2_HPP_
+#ifndef INCLUDE_RENDER_HPP_
+#define INCLUDE_RENDER_HPP_
 
-#include "app.hpp"
-#include "core.hpp"
-#include "math.hpp"
-#include "platform/ui.hpp"
-#include "render.hpp"
+/// @namespace toy::render
+/// @brief Rendering types and utilities: clear flags, framebuffer operations, and related APIs.
 
-#endif // INCLUDE_TOYGINE2_HPP_
+#include "render/clear_flags.hpp"
+
+//----------------------------------------------------------------------------------------------------------------------
+
+#endif // INCLUDE_RENDER_HPP_
