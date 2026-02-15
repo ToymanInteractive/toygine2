@@ -107,13 +107,17 @@ execute_process(
 
 #-------------------------------------------------------------------------------------------
 
-set(SRC_CORE_LIST                                                                                                                                                                                                         src/core/hashes.cpp                                                                                             src/core/utils.cpp     src/core/utils_internal.inl)
-set(HDR_CORE_LIST include/core.hpp include/core/assertion.hpp include/core/c_string_view.hpp include/core/callbacks_pool.hpp include/core/constexpr_utils.hpp include/core/fixed_string.hpp include/core/fixed_vector.hpp include/core/hashes.hpp include/core/o_string_stream.hpp include/core/platform.hpp include/core/string_like.hpp include/core/utils.hpp)
-set(INL_CORE_LIST                                             include/core/c_string_view.inl include/core/callbacks_pool.inl include/core/constexpr_utils.inl include/core/fixed_string.inl include/core/fixed_vector.inl                         include/core/o_string_stream.inl                                                        include/core/utils.inl)
-
 set(SRC_APP_LIST )
 set(HDR_APP_LIST include/app.hpp include/app/version.hpp)
 set(INL_APP_LIST                 include/app/version.inl)
+
+set(SRC_AUDIO_LIST )
+set(HDR_AUDIO_LIST include/audio.hpp include/audio/volume_type.hpp)
+set(INL_AUDIO_LIST )
+
+set(SRC_CORE_LIST                                                                                                                                                                                                         src/core/hashes.cpp                                                                                             src/core/utils.cpp     src/core/utils_internal.inl)
+set(HDR_CORE_LIST include/core.hpp include/core/assertion.hpp include/core/c_string_view.hpp include/core/callbacks_pool.hpp include/core/constexpr_utils.hpp include/core/fixed_string.hpp include/core/fixed_vector.hpp include/core/hashes.hpp include/core/o_string_stream.hpp include/core/platform.hpp include/core/string_like.hpp include/core/utils.hpp)
+set(INL_CORE_LIST                                             include/core/c_string_view.inl include/core/callbacks_pool.inl include/core/constexpr_utils.inl include/core/fixed_string.inl include/core/fixed_vector.inl                         include/core/o_string_stream.inl                                                        include/core/utils.inl)
 
 set(SRC_MATH_LIST )
 set(HDR_MATH_LIST include/math.hpp include/math/point.hpp include/math/utils.hpp include/math/vector2d.hpp)
@@ -127,17 +131,18 @@ set(SRC_RENDER_LIST )
 set(HDR_RENDER_LIST include/render.hpp include/render/clear_flags.hpp)
 set(INL_RENDER_LIST )
 
-source_group("Core" FILES ${SRC_CORE_LIST} ${HDR_CORE_LIST} ${INL_CORE_LIST})
-source_group("App"  FILES ${SRC_APP_LIST}  ${HDR_APP_LIST}  ${INL_APP_LIST})
-source_group("Math" FILES ${SRC_MATH_LIST} ${HDR_MATH_LIST} ${INL_MATH_LIST})
+source_group("App"          FILES ${SRC_APP_LIST}         ${HDR_APP_LIST}         ${INL_APP_LIST})
+source_group("Audio"        FILES ${SRC_AUDIO_LIST}       ${HDR_AUDIO_LIST}       ${INL_AUDIO_LIST})
+source_group("Core"         FILES ${SRC_CORE_LIST}        ${HDR_CORE_LIST}        ${INL_CORE_LIST})
+source_group("Math"         FILES ${SRC_MATH_LIST}        ${HDR_MATH_LIST}        ${INL_MATH_LIST})
 source_group("Platform\\UI" FILES ${SRC_PLATFORM_UI_LIST} ${HDR_PLATFORM_UI_LIST} ${INL_PLATFORM_UI_LIST})
-source_group("Render" FILES ${SRC_RENDER_LIST} ${HDR_RENDER_LIST} ${INL_RENDER_LIST})
+source_group("Render"       FILES ${SRC_RENDER_LIST}      ${HDR_RENDER_LIST}.     ${INL_RENDER_LIST})
 
 #-------------------------------------------------------------------------------------------
 
-list(APPEND SRC_LIST ${SRC_CORE_LIST} ${SRC_APP_LIST} ${SRC_MATH_LIST} ${SRC_PLATFORM_UI_LIST} ${SRC_RENDER_LIST} )
-list(APPEND HDR_LIST ${HDR_CORE_LIST} ${HDR_APP_LIST} ${HDR_MATH_LIST} ${HDR_PLATFORM_UI_LIST} ${HDR_RENDER_LIST} include/toygine2.hpp)
-list(APPEND INL_LIST ${INL_CORE_LIST} ${INL_APP_LIST} ${INL_MATH_LIST} ${INL_PLATFORM_UI_LIST} ${INL_RENDER_LIST} )
+list(APPEND SRC_LIST ${SRC_APP_LIST} ${SRC_AUDIO_LIST} ${SRC_CORE_LIST} ${SRC_MATH_LIST} ${SRC_PLATFORM_UI_LIST} ${SRC_RENDER_LIST} )
+list(APPEND HDR_LIST ${HDR_APP_LIST} ${HDR_AUDIO_LIST} ${HDR_CORE_LIST} ${HDR_MATH_LIST} ${HDR_PLATFORM_UI_LIST} ${HDR_RENDER_LIST} include/toygine2.hpp)
+list(APPEND INL_LIST ${INL_APP_LIST} ${INL_AUDIO_LIST} ${INL_CORE_LIST} ${INL_MATH_LIST} ${INL_PLATFORM_UI_LIST} ${INL_RENDER_LIST} )
 set(LIB_LIST ${LIB_LIST})
 
 add_library(${TOYGINE_LIBRARY_NAME} STATIC ${SRC_LIST} ${HDR_LIST} ${INL_LIST})

@@ -18,18 +18,18 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   toygine2.hpp
-  \brief  Main umbrella header for the entire ToyGine2 engine.
+  \file   audio.hpp
+  \brief  Umbrella header for the audio module (volume types, mixing, etc.).
 */
 
-#ifndef INCLUDE_TOYGINE2_HPP_
-#define INCLUDE_TOYGINE2_HPP_
+#ifndef INCLUDE_AUDIO_HPP_
+#define INCLUDE_AUDIO_HPP_
 
-#include "app.hpp"
-#include "audio.hpp"
-#include "core.hpp"
-#include "math.hpp"
-#include "platform/ui.hpp"
-#include "render.hpp"
+/// @namespace toy::audio
+/// @brief Audio types and utilities: volume categories, mixing, and related APIs.
 
-#endif // INCLUDE_TOYGINE2_HPP_
+#include "audio/volume_type.hpp"
+
+//----------------------------------------------------------------------------------------------------------------------
+
+#endif // INCLUDE_AUDIO_HPP_
