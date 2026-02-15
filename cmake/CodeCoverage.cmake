@@ -148,8 +148,8 @@ find_program( GCOVR_PATH NAMES gcovr )
 find_program( CPPFILT_PATH NAMES c++filt )
 
 if(NOT GCOV_PATH)
-    message(FATAL_ERROR "gcov not found! Aborting...")
-endif() # NOT GCOV_PATH
+  message(FATAL_ERROR "gcov not found! Aborting...")
+endif()
 
 # Check supported compiler (Clang, GNU and Flang)
 get_property(LANGUAGES GLOBAL PROPERTY ENABLED_LANGUAGES)
