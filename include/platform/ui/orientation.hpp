@@ -35,7 +35,7 @@ namespace toy::platform::ui {
   Use \ref toy::platform::ui::Orientation::LandscapeAny or \ref toy::platform::ui::Orientation::PortraitAny when the
   rotation direction does not matter.
 */
-enum class Orientation {
+enum class Orientation : unsigned int {
   /// Landscape: width greater than height (normal).
   Landscape = 1,
   /// Portrait: height greater than width (normal).
@@ -53,6 +53,49 @@ enum class Orientation {
   /// Any orientation.
   Any = LandscapeAny | PortraitAny
 };
+
+/*!
+  \brief Bitwise AND of two \ref toy::platform::ui::Orientation values.
+
+  Returns the intersection of the bit flags in \a lhs and \a rhs.
+
+  \param lhs The first orientation.
+  \param rhs The second orientation.
+
+  \return An orientation with only the bits set in both \a lhs and \a rhs.
+*/
+[[nodiscard]] constexpr Orientation operator&(Orientation lhs, Orientation rhs) noexcept {
+  return static_cast<Orientation>(static_cast<unsigned int>(lhs) & static_cast<unsigned int>(rhs));
+}
+
+/*!
+  \brief Bitwise OR of two \ref toy::platform::ui::Orientation values.
+
+  Returns the union of the bit flags in \a lhs and \a rhs. Use to combine orientations
+  (e.g. \ref toy::platform::ui::Orientation::Landscape | \ref toy::platform::ui::Orientation::LandscapeFlipped).
+
+  \param lhs The first orientation.
+  \param rhs The second orientation.
+
+  \return An orientation with all bits set in either \a lhs or \a rhs.
+*/
+[[nodiscard]] constexpr Orientation operator|(Orientation lhs, Orientation rhs) noexcept {
+  return static_cast<Orientation>(static_cast<unsigned int>(lhs) | static_cast<unsigned int>(rhs));
+}
+
+/*!
+  \brief Bitwise XOR of two \ref toy::platform::ui::Orientation values.
+
+  Returns the symmetric difference of the bit flags in \a lhs and \a rhs.
+
+  \param lhs The first orientation.
+  \param rhs The second orientation.
+
+  \return An orientation with bits set in exactly one of \a lhs or \a rhs.
+*/
+[[nodiscard]] constexpr Orientation operator^(Orientation lhs, Orientation rhs) noexcept {
+  return static_cast<Orientation>(static_cast<unsigned int>(lhs) ^ static_cast<unsigned int>(rhs));
+}
 
 } // namespace toy::platform::ui
 
