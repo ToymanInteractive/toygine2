@@ -1,0 +1,5 @@
+<map id="include/audio.hpp" name="include/audio.hpp">
+<area shape="rect" id="Node000001" title="Umbrella header for the audio module (volume types, mixing, etc.)." alt="" coords="24,5,161,31"/>
+<area shape="rect" id="Node000002" href="$db/d37/volume__type_8hpp.html" title="Volume category enumeration for audio mixing and per&#45;channel gain control." alt="" coords="5,79,180,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="95,31,95,65,90,65,90,31"/>
+</map>

@@ -1,10 +1,10 @@
 <map id="src/platforms/3ds" name="src/platforms/3ds">
 <area shape="rect" id="node1" href="dir_3c172eab3d3eff36a04ebb8e77c44848.html" title="common" alt="" coords="27,125,106,151"/>
 <area shape="rect" id="node2" href="dir_ec42ad78dd6cae3ff203004d8c882467.html" title="3ds" alt="" coords="52,52,97,77"/>
-<area shape="poly" id="edge1" href="dir_000000_000002.html" alt="" coords="76,78,72,112,67,112,71,77"/>
-<area shape="rect" id="edge1-headlabel" href="dir_000000_000002.html" title="1" alt="" coords="74,101,83,115"/>
+<area shape="poly" id="edge1" href="dir_000000_000003.html" alt="" coords="76,78,72,112,67,112,71,77"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000000_000003.html" title="1" alt="" coords="74,101,83,115"/>
 <area shape="rect" id="node3" href="dir_d44c64559bbebec7f509842c48db8b23.html" title="include" alt="" coords="131,125,200,151"/>
-<area shape="poly" id="edge2" href="dir_000000_000007.html" alt="" coords="91,75,141,114,138,119,88,79"/>
-<area shape="rect" id="edge2-headlabel" href="dir_000000_000007.html" title="1" alt="" coords="137,100,146,115"/>
+<area shape="poly" id="edge2" href="dir_000000_000008.html" alt="" coords="91,75,141,114,138,119,88,79"/>
+<area shape="rect" id="edge2-headlabel" href="dir_000000_000008.html" title="1" alt="" coords="137,100,146,115"/>
 <area shape="rect" id="clust1" href="dir_ceed1ce8f89ba04e240f3818f1ccc961.html" title="platforms" alt="" coords="16,16,117,161"/>
 </map>

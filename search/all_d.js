@@ -9,5 +9,6 @@ var searchData=
   ['memory_20and_20allocation_20rules_6',['Memory and Allocation Rules',['../df/d81/md__a_g_e_n_t_s.html#memory-and-allocation-rules',1,'']]],
   ['method_7',['method',['../d7/d9f/structtoy_1_1_callbacks_pool_1_1_static_callback.html#ab289e13f226211f85ed7646ac00f7b27',1,'toy::CallbacksPool::StaticCallback']]],
   ['minor_8',['minor',['../d7/d8d/structtoy_1_1app_1_1_version.html#a3affab6c2925bf9e43bb3bf01c30e272',1,'toy::app::Version']]],
-  ['module_20structure_9',['Module Structure',['../df/d81/md__a_g_e_n_t_s.html#module-structure',1,'']]]
+  ['module_20structure_9',['Module Structure',['../df/d81/md__a_g_e_n_t_s.html#module-structure',1,'']]],
+  ['music_10',['Music',['../dd/d77/namespacetoy_1_1audio.html#aa718b33cdae96e6832644dfc0aaa46fca47dcbd834e669233d7eb8a51456ed217',1,'toy::audio']]]
 ];

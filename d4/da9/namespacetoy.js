@@ -12,6 +12,13 @@ var namespacetoy =
       [ "setCallbacks", "d2/da2/namespacetoy_1_1assertion.html#ab92066b98ab69bcf7db8e1089ea4f755", null ],
       [ "s_assertionCallback", "d2/da2/namespacetoy_1_1assertion.html#abf0c95a6d0312b84decc08fc040187c9", null ]
     ] ],
+    [ "audio", "dd/d77/namespacetoy_1_1audio.html", [
+      [ "VolumeType", "dd/d77/namespacetoy_1_1audio.html#aa718b33cdae96e6832644dfc0aaa46fc", [
+        [ "Music", "dd/d77/namespacetoy_1_1audio.html#aa718b33cdae96e6832644dfc0aaa46fca47dcbd834e669233d7eb8a51456ed217", null ],
+        [ "Sound", "dd/d77/namespacetoy_1_1audio.html#aa718b33cdae96e6832644dfc0aaa46fca9d07e0e08af7f96cf45be0112b9ccfbe", null ],
+        [ "Voice", "dd/d77/namespacetoy_1_1audio.html#aa718b33cdae96e6832644dfc0aaa46fcad7a3fdf1351b72249a47454751549deb", null ]
+      ] ]
+    ] ],
     [ "platform", "d4/ddd/namespacetoy_1_1platform.html", "d4/ddd/namespacetoy_1_1platform" ],
     [ "render", "df/d8d/namespacetoy_1_1render.html", [
       [ "ClearFlags", "df/d8d/namespacetoy_1_1render.html#a656a113b41be329d52f7c678d3384b4a", [
