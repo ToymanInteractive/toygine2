@@ -46,14 +46,14 @@ using real_t = float;
 } // namespace toy::math
 
 #include "math/fixed.hpp"
-#include "math/point.hpp"
+// #include "math/point.hpp"
 #include "math/utils.hpp"
 #include "math/vector2d.hpp"
 
 //----------------------------------------------------------------------------------------------------------------------
 
 #include "math/fixed.inl"
-#include "math/point.inl"
+// #include "math/point.inl"
 #include "math/utils.inl"
 #include "math/vector2d.inl"
 
