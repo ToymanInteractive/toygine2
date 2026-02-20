@@ -37,7 +37,7 @@ template <typename BaseType, typename IntermediateType, unsigned int FractionBit
   requires ValidFixedPointTypes<BaseType, IntermediateType, FractionBits>
 template <std::floating_point T>
 constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding>::fixed(T value) noexcept
-  : _value(static_cast<BaseType>(EnableRounding ? (value * _fractionMult() + (value >= 0.0) ? T{0.5} : T{-0.5})
+  : _value(static_cast<BaseType>(EnableRounding ? (value * _fractionMult() + ((value >= 0.0) ? T{0.5} : T{-0.5}))
                                                 : (value * _fractionMult()))) {}
 
 template <typename BaseType, typename IntermediateType, unsigned int FractionBits, bool EnableRounding>

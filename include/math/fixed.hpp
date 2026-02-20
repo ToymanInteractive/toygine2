@@ -33,7 +33,7 @@ namespace toy::math {
 template <typename Base, typename Intermediate, unsigned int Fraction>
 concept ValidFixedPointTypes
   = std::integral<Base> && (Fraction > 0) && (Fraction <= std::numeric_limits<Base>::digits)
-    && (sizeof(Intermediate) >= sizeof(Base)) && (std::signed_integral<Base> == std::signed_integral<Intermediate>);
+    && (sizeof(Intermediate) >= sizeof(Base)) && (std::is_signed_v<Base> == std::is_signed_v<Intermediate>);
 
 /*!
   \class fixed
@@ -50,6 +50,7 @@ concept ValidFixedPointTypes
 template <typename BaseType, typename IntermediateType, unsigned int FractionBits, bool EnableRounding = true>
   requires ValidFixedPointTypes<BaseType, IntermediateType, FractionBits>
 class fixed {
+  /// Internal tag for constructing from raw storage.
   class raw_constructor_tag {};
 
 public:
@@ -106,10 +107,17 @@ public:
   [[nodiscard]] static constexpr fixed fromRawValue(BaseType value) noexcept;
 
 private:
+  /*!
+    \brief Constructs directly from raw storage value.
+
+    \param val Raw fixed-point storage value.
+  */
   constexpr fixed(BaseType val, raw_constructor_tag) noexcept;
 
+  /// Raw fixed-point storage value (scaled by 2^FractionBits).
   BaseType _value{0};
 
+  /// Compile-time scaling factor 2^FractionBits.
   static consteval IntermediateType _fractionMult() noexcept;
 };
 
