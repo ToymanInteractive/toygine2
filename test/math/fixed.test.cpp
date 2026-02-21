@@ -254,4 +254,88 @@ TEST_CASE("math/fixed/operator_minus_assign") {
   }
 }
 
+// operator*= (fixed and integral).
+TEST_CASE("math/fixed/operator_mul_assign") {
+  SUBCASE("mul_assign_same_type") {
+    Fixed a(2);
+    a *= Fixed(3);
+
+    REQUIRE(a.rawValue() == 6 * 256);
+    REQUIRE(static_cast<int>(a) == 6);
+  }
+
+  SUBCASE("mul_assign_different_rounding") {
+    Fixed a(2);
+    a *= FixedNoRounding(4);
+
+    REQUIRE(static_cast<int>(a) == 8);
+
+    FixedNoRounding b(3);
+    b *= Fixed(2);
+
+    REQUIRE(static_cast<int>(b) == 6);
+  }
+
+  SUBCASE("mul_assign_integral") {
+    Fixed a(5);
+    a *= 2;
+
+    REQUIRE(a.rawValue() == 10 * 256);
+    REQUIRE(static_cast<int>(a) == 10);
+  }
+
+  SUBCASE("mul_assign_constexpr") {
+    constexpr Fixed a = []() {
+      Fixed x(3);
+      x *= 2;
+      return x;
+    }();
+
+    REQUIRE(a.rawValue() == 6 * 256);
+    static_assert(a.rawValue() == 6 * 256, "operator*=(T) must be constexpr");
+  }
+}
+
+// operator/= (fixed and integral).
+TEST_CASE("math/fixed/operator_div_assign") {
+  SUBCASE("div_assign_same_type") {
+    Fixed a(8);
+    a /= Fixed(2);
+
+    REQUIRE(a.rawValue() == 4 * 256);
+    REQUIRE(static_cast<int>(a) == 4);
+  }
+
+  SUBCASE("div_assign_different_rounding") {
+    Fixed a(6);
+    a /= FixedNoRounding(2);
+
+    REQUIRE(static_cast<int>(a) == 3);
+
+    FixedNoRounding b(9);
+    b /= Fixed(3);
+
+    REQUIRE(static_cast<int>(b) == 3);
+  }
+
+  SUBCASE("div_assign_integral") {
+    Fixed a(10);
+    a /= 2;
+
+    REQUIRE(a.rawValue() == 5 * 256);
+    REQUIRE(static_cast<int>(a) == 5);
+  }
+
+  SUBCASE("div_assign_constexpr") {
+    constexpr Fixed a = []() {
+      Fixed x(12);
+      x /= 3;
+      return x;
+    }();
+
+    REQUIRE(a.rawValue() == 4 * 256);
+    static_assert(a.rawValue() == 4 * 256, "operator/=(T) must be constexpr");
+  }
+}
+
 } // namespace toy::math

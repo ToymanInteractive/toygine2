@@ -165,6 +165,66 @@ public:
   template <std::integral T>
   constexpr fixed & operator-=(T other) noexcept;
 
+  /*!
+    \brief Multiplies by another \ref toy::math::fixed value in place.
+
+    Accepts any \ref toy::math::fixed with the same \a BaseType, \a IntermediateType, and \a FractionBits, regardless of
+    \a EnableRounding. Uses raw storage; when \a EnableRounding is \c true, the result is rounded to the nearest
+    representable value.
+
+    \tparam OtherRounding \a EnableRounding of the right-hand side type (may differ from this instance).
+
+    \param other Value to multiply by.
+
+    \return Reference to \c *this.
+  */
+  template <bool OtherRounding>
+  constexpr fixed & operator*=(const fixed<BaseType, IntermediateType, FractionBits, OtherRounding> & other) noexcept;
+
+  /*!
+    \brief Multiplies by an integral value in place.
+
+    \a other scales the fixed-point value (whole units). Raw storage is multiplied by \a other directly.
+
+    \tparam T Integral type.
+
+    \param other Multiplier (fixed-point whole units).
+
+    \return Reference to \c *this.
+  */
+  template <std::integral T>
+  constexpr fixed & operator*=(T other) noexcept;
+
+  /*!
+    \brief Divides by another \ref toy::math::fixed value in place.
+
+    Accepts any \ref toy::math::fixed with the same \a BaseType, \a IntermediateType, and \a FractionBits, regardless of
+    \a EnableRounding. Uses raw storage; rounding policy of \a other does not affect the result. Behavior is undefined
+    if \a other is zero.
+
+    \tparam OtherRounding \a EnableRounding of the right-hand side type (may differ from this instance).
+
+    \param other Divisor (must not be zero).
+
+    \return Reference to \c *this.
+  */
+  template <bool OtherRounding>
+  constexpr fixed & operator/=(const fixed<BaseType, IntermediateType, FractionBits, OtherRounding> & other) noexcept;
+
+  /*!
+    \brief Divides by an integral value in place.
+
+    \a other is the divisor (fixed-point whole units). Behavior is undefined if \a other is zero.
+
+    \tparam T Integral type.
+
+    \param other Divisor (must not be zero).
+
+    \return Reference to \c *this.
+  */
+  template <std::integral T>
+  constexpr fixed & operator/=(T other) noexcept;
+
 private:
   /*!
     \brief Constructs directly from raw storage value.

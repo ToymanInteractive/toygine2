@@ -111,6 +111,71 @@ constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding> & fixe
 
 template <typename BaseType, typename IntermediateType, unsigned int FractionBits, bool EnableRounding>
   requires ValidFixedPointTypes<BaseType, IntermediateType, FractionBits>
+template <bool OtherRounding>
+constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding> & fixed<
+  BaseType, IntermediateType, FractionBits,
+  EnableRounding>::operator*=(const fixed<BaseType, IntermediateType, FractionBits, OtherRounding> & other) noexcept {
+  auto const otherRaw = other.rawValue();
+
+  if (EnableRounding) {
+    // To correctly round the last bit in the result, we need one more bit of information.
+    // We do this by multiplying by two before dividing and adding the LSB to the real result.
+    auto value = (static_cast<IntermediateType>(_value) * otherRaw) / (_fractionMult() / 2);
+    _value = static_cast<BaseType>((value / 2) + (value % 2));
+  } else {
+    auto value = (static_cast<IntermediateType>(_value) * otherRaw) / _fractionMult();
+    _value = static_cast<BaseType>(value);
+  }
+
+  return *this;
+}
+
+template <typename BaseType, typename IntermediateType, unsigned int FractionBits, bool EnableRounding>
+  requires ValidFixedPointTypes<BaseType, IntermediateType, FractionBits>
+template <std::integral T>
+constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding> & fixed<
+  BaseType, IntermediateType, FractionBits, EnableRounding>::operator*=(T other) noexcept {
+  _value *= other;
+
+  return *this;
+}
+
+template <typename BaseType, typename IntermediateType, unsigned int FractionBits, bool EnableRounding>
+  requires ValidFixedPointTypes<BaseType, IntermediateType, FractionBits>
+template <bool OtherRounding>
+constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding> & fixed<
+  BaseType, IntermediateType, FractionBits,
+  EnableRounding>::operator/=(const fixed<BaseType, IntermediateType, FractionBits, OtherRounding> & other) noexcept {
+  auto const divisor = other.rawValue();
+  assert_message(divisor != 0, "fixed operator/=: divisor must not be zero");
+
+  if (EnableRounding) {
+    // To correctly round the last bit in the result, we need one more bit of information.
+    // We do this by multiplying by two before dividing and adding the LSB to the real result.
+    auto value = (static_cast<IntermediateType>(_value) * _fractionMult() * 2) / divisor;
+    _value = static_cast<BaseType>((value / 2) + (value % 2));
+  } else {
+    auto value = (static_cast<IntermediateType>(_value) * _fractionMult()) / divisor;
+    _value = static_cast<BaseType>(value);
+  }
+
+  return *this;
+}
+
+template <typename BaseType, typename IntermediateType, unsigned int FractionBits, bool EnableRounding>
+  requires ValidFixedPointTypes<BaseType, IntermediateType, FractionBits>
+template <std::integral T>
+constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding> & fixed<
+  BaseType, IntermediateType, FractionBits, EnableRounding>::operator/=(T other) noexcept {
+  assert_message(other != 0, "fixed operator/=(T): integral divisor must not be zero");
+
+  _value /= other;
+
+  return *this;
+}
+
+template <typename BaseType, typename IntermediateType, unsigned int FractionBits, bool EnableRounding>
+  requires ValidFixedPointTypes<BaseType, IntermediateType, FractionBits>
 constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding>::fixed(BaseType val,
                                                                                  RawConstructorTag) noexcept
   : _value(val) {}
