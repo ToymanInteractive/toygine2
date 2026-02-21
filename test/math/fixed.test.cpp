@@ -125,4 +125,133 @@ TEST_CASE("math/fixed/raw_value") {
   }
 }
 
+// Unary operator-: negates the fixed-point value.
+TEST_CASE("math/fixed/operator_minus") {
+  SUBCASE("negate_zero") {
+    constexpr Fixed f(0);
+    constexpr auto neg = -f;
+
+    REQUIRE(neg.rawValue() == 0);
+
+    static_assert(neg.rawValue() == 0, "operator- of zero must be zero");
+  }
+
+  SUBCASE("negate_positive") {
+    constexpr Fixed f(5);
+    constexpr auto neg = -f;
+
+    REQUIRE(neg.rawValue() == -5 * 256);
+    REQUIRE(static_cast<int>(neg) == -5);
+
+    static_assert(neg.rawValue() == -5 * 256, "operator- of positive must yield negative raw");
+    static_assert(static_cast<int>(neg) == -5, "operator- of positive must yield negative int");
+  }
+
+  SUBCASE("negate_negative") {
+    constexpr Fixed f(-3);
+    constexpr auto neg = -f;
+
+    REQUIRE(neg.rawValue() == 3 * 256);
+    REQUIRE(static_cast<int>(neg) == 3);
+
+    static_assert(neg.rawValue() == 3 * 256, "operator- of negative must yield positive raw");
+    static_assert(static_cast<int>(neg) == 3, "operator- of negative must yield positive int");
+  }
+
+  SUBCASE("operand_unchanged") {
+    Fixed f(7);
+    auto neg = -f;
+
+    REQUIRE(f.rawValue() == 7 * 256);
+    REQUIRE(neg.rawValue() == -7 * 256);
+  }
+}
+
+// operator+= (fixed and integral).
+TEST_CASE("math/fixed/operator_plus_assign") {
+  SUBCASE("plus_assign_same_type") {
+    Fixed a(2);
+    a += Fixed(3);
+
+    REQUIRE(a.rawValue() == 5 * 256);
+    REQUIRE(static_cast<int>(a) == 5);
+  }
+
+  SUBCASE("plus_assign_different_rounding") {
+    Fixed a(1);
+    a += FixedNoRounding(2);
+
+    REQUIRE(a.rawValue() == 3 * 256);
+
+    FixedNoRounding b(10);
+    b += Fixed(5);
+
+    REQUIRE(b.rawValue() == 15 * 256);
+  }
+
+  SUBCASE("plus_assign_integral") {
+    Fixed a(2);
+    a += 3;
+
+    REQUIRE(a.rawValue() == 5 * 256);
+    REQUIRE(static_cast<int>(a) == 5);
+  }
+
+  SUBCASE("plus_assign_constexpr") {
+    constexpr Fixed a = []() {
+      Fixed x(1);
+      x += Fixed(2);
+      x += 3;
+      return x;
+    }();
+
+    REQUIRE(a.rawValue() == 6 * 256);
+
+    static_assert(a.rawValue() == 6 * 256, "operator+= must be constexpr");
+  }
+}
+
+// operator-= (fixed and integral).
+TEST_CASE("math/fixed/operator_minus_assign") {
+  SUBCASE("minus_assign_same_type") {
+    Fixed a(5);
+    a -= Fixed(2);
+
+    REQUIRE(a.rawValue() == 3 * 256);
+    REQUIRE(static_cast<int>(a) == 3);
+  }
+
+  SUBCASE("minus_assign_different_rounding") {
+    Fixed a(10);
+    a -= FixedNoRounding(3);
+
+    REQUIRE(a.rawValue() == 7 * 256);
+
+    FixedNoRounding b(8);
+    b -= Fixed(2);
+
+    REQUIRE(b.rawValue() == 6 * 256);
+  }
+
+  SUBCASE("minus_assign_integral") {
+    Fixed a(5);
+    a -= 2;
+
+    REQUIRE(a.rawValue() == 3 * 256);
+    REQUIRE(static_cast<int>(a) == 3);
+  }
+
+  SUBCASE("minus_assign_constexpr") {
+    constexpr Fixed a = []() {
+      Fixed x(10);
+      x -= Fixed(3);
+      x -= 2;
+      return x;
+    }();
+
+    REQUIRE(a.rawValue() == 5 * 256);
+    static_assert(a.rawValue() == 5 * 256, "operator-= must be constexpr");
+  }
+}
+
 } // namespace toy::math

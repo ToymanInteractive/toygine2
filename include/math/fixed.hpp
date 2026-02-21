@@ -51,7 +51,7 @@ template <typename BaseType, typename IntermediateType, unsigned int FractionBit
   requires ValidFixedPointTypes<BaseType, IntermediateType, FractionBits>
 class fixed {
   /// Internal tag for constructing from raw storage.
-  class raw_constructor_tag {};
+  class RawConstructorTag {};
 
 public:
   /*!
@@ -102,9 +102,68 @@ public:
     \brief Creates a fixed-point value from raw storage bits.
 
     \param value Raw fixed-point value.
+
     \return Fixed-point value with raw storage set to \a value.
   */
   [[nodiscard]] static constexpr fixed fromRawValue(BaseType value) noexcept;
+
+  /*!
+    \brief Adds another \ref toy::math::fixed value in place.
+
+    Accepts any \ref toy::math::fixed with the same \a BaseType, \a IntermediateType, and \a FractionBits, regardless of
+    \a EnableRounding. The operation uses raw storage; rounding policy of \a other does not affect the result.
+
+    \tparam OtherRounding \a EnableRounding of the right-hand side type (may differ from this instance).
+
+    \param other Value to add.
+
+    \return Reference to \c *this.
+  */
+  template <bool OtherRounding>
+  constexpr fixed & operator+=(const fixed<BaseType, IntermediateType, FractionBits, OtherRounding> & other) noexcept;
+
+  /*!
+    \brief Adds an integral value in place.
+
+    \a other is scaled by 2^\a FractionBits and added to the raw storage.
+
+    \tparam T Integral type.
+
+    \param other Value to add (interpreted as fixed-point whole units).
+
+    \return Reference to \c *this.
+  */
+  template <std::integral T>
+  constexpr fixed & operator+=(T other) noexcept;
+
+  /*!
+    \brief Subtracts another \ref toy::math::fixed value in place.
+
+    Accepts any \ref toy::math::fixed with the same \a BaseType, \a IntermediateType, and \a FractionBits, regardless of
+    \a EnableRounding. The operation uses raw storage; rounding policy of \a other does not affect the result.
+
+    \tparam OtherRounding \a EnableRounding of the right-hand side type (may differ from this instance).
+
+    \param other Value to subtract.
+
+    \return Reference to \c *this.
+  */
+  template <bool OtherRounding>
+  constexpr fixed & operator-=(const fixed<BaseType, IntermediateType, FractionBits, OtherRounding> & other) noexcept;
+
+  /*!
+    \brief Subtracts an integral value in place.
+
+    \a other is scaled by 2^\a FractionBits and subtracted from the raw storage.
+
+    \tparam T Integral type.
+
+    \param other Value to subtract (interpreted as fixed-point whole units).
+
+    \return Reference to \c *this.
+  */
+  template <std::integral T>
+  constexpr fixed & operator-=(T other) noexcept;
 
 private:
   /*!
@@ -112,7 +171,7 @@ private:
 
     \param val Raw fixed-point storage value.
   */
-  constexpr fixed(BaseType val, raw_constructor_tag) noexcept;
+  constexpr fixed(BaseType val, RawConstructorTag) noexcept;
 
   /// Raw fixed-point storage value (scaled by 2^FractionBits).
   BaseType _value{0};
@@ -120,6 +179,20 @@ private:
   /// Compile-time scaling factor 2^FractionBits.
   static consteval IntermediateType _fractionMult() noexcept;
 };
+
+/*!
+  \brief Unary minus: returns the negation of a \ref toy::math::fixed value.
+
+  The result has the same raw storage as \a value with sign flipped. The operand is not modified.
+
+  \param value Fixed-point value to negate.
+
+  \return A new \ref toy::math::fixed instance representing \c -value.
+*/
+template <typename BaseType, typename IntermediateType, unsigned int FractionBits, bool EnableRounding>
+  requires ValidFixedPointTypes<BaseType, IntermediateType, FractionBits>
+[[nodiscard]] constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding> operator-(
+  const fixed<BaseType, IntermediateType, FractionBits, EnableRounding> & value) noexcept;
 
 } // namespace toy::math
 

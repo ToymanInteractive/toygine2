@@ -64,19 +64,68 @@ template <typename BaseType, typename IntermediateType, unsigned int FractionBit
   requires ValidFixedPointTypes<BaseType, IntermediateType, FractionBits>
 constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding> fixed<
   BaseType, IntermediateType, FractionBits, EnableRounding>::fromRawValue(BaseType value) noexcept {
-  return fixed(value, raw_constructor_tag{});
+  return fixed(value, RawConstructorTag{});
+}
+
+template <typename BaseType, typename IntermediateType, unsigned int FractionBits, bool EnableRounding>
+  requires ValidFixedPointTypes<BaseType, IntermediateType, FractionBits>
+template <bool OtherRounding>
+constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding> & fixed<
+  BaseType, IntermediateType, FractionBits,
+  EnableRounding>::operator+=(const fixed<BaseType, IntermediateType, FractionBits, OtherRounding> & other) noexcept {
+  _value += other.rawValue();
+
+  return *this;
+}
+
+template <typename BaseType, typename IntermediateType, unsigned int FractionBits, bool EnableRounding>
+  requires ValidFixedPointTypes<BaseType, IntermediateType, FractionBits>
+template <std::integral T>
+constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding> & fixed<
+  BaseType, IntermediateType, FractionBits, EnableRounding>::operator+=(T other) noexcept {
+  _value += other * _fractionMult();
+
+  return *this;
+}
+
+template <typename BaseType, typename IntermediateType, unsigned int FractionBits, bool EnableRounding>
+  requires ValidFixedPointTypes<BaseType, IntermediateType, FractionBits>
+template <bool OtherRounding>
+constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding> & fixed<
+  BaseType, IntermediateType, FractionBits,
+  EnableRounding>::operator-=(const fixed<BaseType, IntermediateType, FractionBits, OtherRounding> & other) noexcept {
+  _value -= other.rawValue();
+
+  return *this;
+}
+
+template <typename BaseType, typename IntermediateType, unsigned int FractionBits, bool EnableRounding>
+  requires ValidFixedPointTypes<BaseType, IntermediateType, FractionBits>
+template <std::integral T>
+constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding> & fixed<
+  BaseType, IntermediateType, FractionBits, EnableRounding>::operator-=(T other) noexcept {
+  _value -= other * _fractionMult();
+
+  return *this;
 }
 
 template <typename BaseType, typename IntermediateType, unsigned int FractionBits, bool EnableRounding>
   requires ValidFixedPointTypes<BaseType, IntermediateType, FractionBits>
 constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding>::fixed(BaseType val,
-                                                                                 raw_constructor_tag) noexcept
+                                                                                 RawConstructorTag) noexcept
   : _value(val) {}
 
 template <typename BaseType, typename IntermediateType, unsigned int FractionBits, bool EnableRounding>
   requires ValidFixedPointTypes<BaseType, IntermediateType, FractionBits>
 consteval IntermediateType fixed<BaseType, IntermediateType, FractionBits, EnableRounding>::_fractionMult() noexcept {
   return IntermediateType(1) << FractionBits;
+}
+
+template <typename BaseType, typename IntermediateType, unsigned int FractionBits, bool EnableRounding>
+  requires ValidFixedPointTypes<BaseType, IntermediateType, FractionBits>
+constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding> operator-(
+  const fixed<BaseType, IntermediateType, FractionBits, EnableRounding> & value) noexcept {
+  return fixed<BaseType, IntermediateType, FractionBits, EnableRounding>::fromRawValue(-value.rawValue());
 }
 
 } // namespace toy::math
