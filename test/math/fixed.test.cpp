@@ -26,6 +26,8 @@ namespace toy::math {
 
 using Fixed = fixed<int32_t, int64_t, 8>;
 using FixedNoRounding = fixed<int32_t, int64_t, 8, false>;
+using Fixed4 = fixed<int32_t, int64_t, 4>;
+using Fixed16 = fixed<int32_t, int64_t, 16>;
 
 // Construction from default, integer, and floating-point.
 TEST_CASE("math/fixed/constructors") {
@@ -76,6 +78,36 @@ TEST_CASE("math/fixed/constructors") {
 
     static_assert(f_trunc.rawValue() == 128, "truncation must be applied when rounding is disabled");
   }
+
+  // Construct from another fixed type with same fraction bits (raw value preserved).
+  SUBCASE("from_fixed_same_fraction_bits") {
+    constexpr Fixed src(3);
+    constexpr Fixed f(src);
+
+    REQUIRE(f.rawValue() == 3 * 256);
+    REQUIRE(static_cast<int>(f) == 3);
+    static_assert(Fixed(Fixed(3)).rawValue() == 3 * 256, "fixed(fixed same type) must preserve value");
+  }
+
+  // Construct from fixed with fewer fraction bits (scale up).
+  SUBCASE("from_fixed_fewer_fraction_bits") {
+    constexpr Fixed4 src(1);
+    constexpr Fixed f(src);
+
+    REQUIRE(f.rawValue() == 256);
+    REQUIRE(static_cast<int>(f) == 1);
+    static_assert(Fixed(Fixed4(1)).rawValue() == 256, "fixed from 4-bit must scale up to 8-bit");
+  }
+
+  // Construct from fixed with more fraction bits (scale down, rounding when enabled).
+  SUBCASE("from_fixed_more_fraction_bits") {
+    constexpr Fixed16 src(1);
+    constexpr Fixed f(src);
+
+    REQUIRE(f.rawValue() == 256);
+    REQUIRE(static_cast<int>(f) == 1);
+    static_assert(Fixed(Fixed16(1)).rawValue() == 256, "fixed from 16-bit must scale down to 8-bit");
+  }
 }
 
 // Explicit conversion to integral and floating-point types.
@@ -122,6 +154,38 @@ TEST_CASE("math/fixed/raw_value") {
     REQUIRE(f.rawValue() == raw);
 
     static_assert(f.rawValue() == raw, "fromRawValue roundtrip must preserve raw value");
+  }
+}
+
+// fromFixedPoint: convert raw value from another fraction-bit width.
+TEST_CASE("math/fixed/from_fixed_point") {
+  // Source has fewer fraction bits: scale up (no rounding).
+  SUBCASE("from_fixed_point_scale_up") {
+    constexpr auto raw4 = 16; // 1.0 in 4-bit
+    constexpr auto f = Fixed::fromFixedPoint<4>(raw4);
+
+    REQUIRE(f.rawValue() == 256);
+    REQUIRE(static_cast<int>(f) == 1);
+    static_assert(Fixed::fromFixedPoint<4>(16).rawValue() == 256, "fromFixedPoint<4> must scale up to 8-bit");
+  }
+
+  // Source has more fraction bits: scale down (rounding when EnableRounding).
+  SUBCASE("from_fixed_point_scale_down") {
+    constexpr auto raw16 = 65536; // 1.0 in 16-bit
+    constexpr auto f = Fixed::fromFixedPoint<16>(raw16);
+
+    REQUIRE(f.rawValue() == 256);
+    REQUIRE(static_cast<int>(f) == 1);
+    static_assert(Fixed::fromFixedPoint<16>(65536).rawValue() == 256, "fromFixedPoint<16> must scale down to 8-bit");
+  }
+
+  // Same fraction bits: raw value used as-is.
+  SUBCASE("from_fixed_point_same_bits") {
+    constexpr auto raw8 = 512;
+    constexpr auto f = Fixed::fromFixedPoint<8>(raw8);
+
+    REQUIRE(f.rawValue() == 512);
+    static_assert(Fixed::fromFixedPoint<8>(512).rawValue() == 512, "fromFixedPoint<8> same bits must preserve raw");
   }
 }
 
