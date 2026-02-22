@@ -44,7 +44,7 @@ constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding>::fixed
 template <typename BaseType, typename IntermediateType, unsigned FractionBits, bool EnableRounding>
   requires ValidFixedPointTypes<BaseType, IntermediateType, FractionBits>
 template <typename B, typename I, unsigned F, bool R>
-constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding>::fixed(fixed<B, I, F, R> val) noexcept
+constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding>::fixed(const fixed<B, I, F, R> & val) noexcept
   : _value(fromFixedPoint<F>(val.rawValue()).rawValue()) {}
 
 template <typename BaseType, typename IntermediateType, unsigned FractionBits, bool EnableRounding>
@@ -76,22 +76,26 @@ constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding> fixed<
 
 template <typename BaseType, typename IntermediateType, unsigned FractionBits, bool EnableRounding>
   requires ValidFixedPointTypes<BaseType, IntermediateType, FractionBits>
-template <unsigned NumFractionBits, typename T>
+template <unsigned NumFractionBits, std::integral T>
   requires(NumFractionBits > FractionBits)
 constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding> fixed<
   BaseType, IntermediateType, FractionBits, EnableRounding>::fromFixedPoint(T value) noexcept {
-  // To correctly round the last bit in the result, we need one more bit of information.
-  // We do this by multiplying by two before dividing and adding the LSB to the real result.
-  return EnableRounding
-           ? fixed(static_cast<BaseType>(value / (T(1) << (NumFractionBits - FractionBits))
-                                         + (value / (T(1) << (NumFractionBits - FractionBits - 1)) % 2)),
-                   RawConstructorTag{})
-           : fixed(static_cast<BaseType>(value / (T(1) << (NumFractionBits - FractionBits))), RawConstructorTag{});
+  BaseType rawValue;
+
+  if constexpr (EnableRounding) {
+    // To correctly round the last bit, add the LSB of the double-scale division.
+    const auto halfScale = value / (T(1) << (NumFractionBits - FractionBits - 1));
+    rawValue = static_cast<BaseType>((value / (T(1) << (NumFractionBits - FractionBits))) + (halfScale % 2));
+  } else {
+    rawValue = static_cast<BaseType>(value / (T(1) << (NumFractionBits - FractionBits)));
+  }
+
+  return fixed(rawValue, RawConstructorTag{});
 }
 
 template <typename BaseType, typename IntermediateType, unsigned FractionBits, bool EnableRounding>
   requires ValidFixedPointTypes<BaseType, IntermediateType, FractionBits>
-template <unsigned NumFractionBits, typename T>
+template <unsigned NumFractionBits, std::integral T>
   requires(NumFractionBits <= FractionBits)
 constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding> fixed<
   BaseType, IntermediateType, FractionBits, EnableRounding>::fromFixedPoint(T value) noexcept {
@@ -218,7 +222,7 @@ consteval IntermediateType fixed<BaseType, IntermediateType, FractionBits, Enabl
 }
 
 template <typename BaseType, typename IntermediateType, unsigned FractionBits, bool EnableRounding>
-  requires ValidFixedPointTypes<BaseType, IntermediateType, FractionBits> && std::signed_integral<BaseType>
+  requires std::signed_integral<BaseType>
 constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding> operator-(
   const fixed<BaseType, IntermediateType, FractionBits, EnableRounding> & value) noexcept {
   return fixed<BaseType, IntermediateType, FractionBits, EnableRounding>::fromRawValue(-value.rawValue());
