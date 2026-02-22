@@ -1,7 +1,9 @@
 var namespacetoy_1_1math =
 [
+    [ "fixed", "dd/d5c/classtoy_1_1math_1_1fixed.html", "dd/d5c/classtoy_1_1math_1_1fixed" ],
     [ "Point", "d3/dce/classtoy_1_1math_1_1_point.html", "d3/dce/classtoy_1_1math_1_1_point" ],
     [ "Vector2D", "d9/d85/classtoy_1_1math_1_1_vector2_d.html", "d9/d85/classtoy_1_1math_1_1_vector2_d" ],
+    [ "ValidFixedPointTypes", "d7/d22/concepttoy_1_1math_1_1_valid_fixed_point_types.html", null ],
     [ "real_t", "d2/d83/namespacetoy_1_1math.html#a928771ce74a56750dd2dcbc28e5892e0", null ],
     [ "abs", "d2/d83/namespacetoy_1_1math.html#a5f1aaaf4c925c4be31f1b33e31062c19", null ],
     [ "abs", "d2/d83/namespacetoy_1_1math.html#a5f1aaaf4c925c4be31f1b33e31062c19", null ],
@@ -14,6 +16,7 @@ var namespacetoy_1_1math =
     [ "operator*", "d2/d83/namespacetoy_1_1math.html#ae60797f1d56ea3c795f635cbb5d91559", null ],
     [ "operator+", "d2/d83/namespacetoy_1_1math.html#a3a38c2b254610122be68eaa78896c558", null ],
     [ "operator+", "d2/d83/namespacetoy_1_1math.html#abb8d19305455ffe5f57e0ca399182597", null ],
+    [ "operator-", "d2/d83/namespacetoy_1_1math.html#aa2b6c786b0dad25958dd68376dae7b52", null ],
     [ "operator-", "d2/d83/namespacetoy_1_1math.html#a882eb4fb59b77829f10be9b4a76c6624", null ],
     [ "operator-", "d2/d83/namespacetoy_1_1math.html#a7c7670de85bd0e03389971e3639da65b", null ],
     [ "operator-", "d2/d83/namespacetoy_1_1math.html#a5f2927d0c8fdd61212a2353fafdfbc2c", null ],

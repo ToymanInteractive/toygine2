@@ -13,5 +13,6 @@ var searchData=
   ['_5fstorage_10',['_storage',['../d3/d7a/classtoy_1_1_fixed_string.html#a05a98b03a4e564ea5a5f26dfae56a048',1,'toy::FixedString']]],
   ['_5fstring_11',['_string',['../dc/d62/classtoy_1_1_format_string.html#aa80fa19ae3c237c10b36f9c9688e4e65',1,'toy::FormatString::_string'],['../d7/d15/classtoy_1_1_o_string_stream.html#af7b4723343300cca10a0c8178c9214af',1,'toy::OStringStream::_string']]],
   ['_5fsubscriberscount_12',['_subscribersCount',['../d8/dc9/classtoy_1_1_callbacks_pool.html#acdb9af165834d8b543c106a6fc8b9574',1,'toy::CallbacksPool']]],
-  ['_5futf8charsizetable_13',['_utf8CharSizeTable',['../d4/da9/namespacetoy.html#abaf6e43802564c3840542ee978aeb917',1,'toy']]]
+  ['_5futf8charsizetable_13',['_utf8CharSizeTable',['../d4/da9/namespacetoy.html#abaf6e43802564c3840542ee978aeb917',1,'toy']]],
+  ['_5fvalue_14',['_value',['../dd/d5c/classtoy_1_1math_1_1fixed.html#aeafa40c46d09650efc8c8f23a1d46a60',1,'toy::math::fixed']]]
 ];

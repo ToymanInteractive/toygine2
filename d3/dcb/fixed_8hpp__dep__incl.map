@@ -1,0 +1,7 @@
+<map id="include/math/fixed.hpp" name="include/math/fixed.hpp">
+<area shape="rect" id="Node000001" title="Fixed&#45;point numeric type template." alt="" coords="5,5,176,31"/>
+<area shape="rect" id="Node000002" href="$d4/d78/math_8hpp.html" title="Umbrella header for the engine mathematics module." alt="" coords="23,79,158,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="93,44,93,79,88,79,88,44"/>
+<area shape="rect" id="Node000003" href="$d8/d8c/toygine2_8hpp.html" title="Main umbrella header for the entire ToyGine2 engine." alt="" coords="11,152,170,177"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="93,118,93,152,88,152,88,118"/>
+</map>

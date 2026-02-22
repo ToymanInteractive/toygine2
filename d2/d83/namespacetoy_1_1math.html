@@ -119,10 +119,17 @@ $(function(){initNavTree('d2/d83/namespacetoy_1_1math.html','../../',''); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:fixed" id="r_fixed"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html">fixed</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fixed-point numeric type with configurable storage and fractional precision.  <a href="../../dd/d5c/classtoy_1_1math_1_1fixed.html#details">More...</a><br /></td></tr>
 <tr class="memitem:Point" id="r_Point"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">2D integer point class for UI and input handling.  <a href="../../d3/dce/classtoy_1_1math_1_1_point.html#details">More...</a><br /></td></tr>
 <tr class="memitem:Vector2D" id="r_Vector2D"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">2D floating-point vector class for interactive game objects and physics calculations.  <a href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#details">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-concepts" class="groupheader"><a id="concepts" name="concepts"></a>
+Concepts</h2></td></tr>
+<tr class="memitem:ValidFixedPointTypes" id="r_ValidFixedPointTypes"><td class="memItemLeft">concept &#160;</td><td class="memItemRight"><a class="el" href="../../d7/d22/concepttoy_1_1math_1_1_valid_fixed_point_types.html">ValidFixedPointTypes</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compile-time constraints for <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html" title="toy::math::fixed">toy::math::fixed</a> template parameters. <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -131,6 +138,9 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:aa2b6c786b0dad25958dd68376dae7b52" id="r_aa2b6c786b0dad25958dd68376dae7b52"><td class="memTemplParams" colspan="2">template&lt;typename BaseType, typename IntermediateType, unsigned int FractionBits, bool EnableRounding&gt; </td></tr>
+<tr class="memitem:aa2b6c786b0dad25958dd68376dae7b52 template"><td class="memItemLeft">constexpr <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html">fixed</a>&lt; BaseType, IntermediateType, FractionBits, EnableRounding &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aa2b6c786b0dad25958dd68376dae7b52">operator-</a> (const <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html">fixed</a>&lt; BaseType, IntermediateType, FractionBits, EnableRounding &gt; &amp;value) noexcept</td></tr>
+<tr class="memdesc:aa2b6c786b0dad25958dd68376dae7b52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unary minus: returns the negation of a <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html" title="toy::math::fixed">toy::math::fixed</a> value.  <br /></td></tr>
 <tr class="memitem:a7c7670de85bd0e03389971e3639da65b" id="r_a7c7670de85bd0e03389971e3639da65b"><td class="memItemLeft">constexpr <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a>&#160;</td><td class="memItemRight"><a class="el" href="#a7c7670de85bd0e03389971e3639da65b">operator-</a> (const <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a> &amp;point) noexcept</td></tr>
 <tr class="memdesc:a7c7670de85bd0e03389971e3639da65b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unary minus operator.  <br /></td></tr>
 <tr class="memitem:a3a38c2b254610122be68eaa78896c558" id="r_a3a38c2b254610122be68eaa78896c558"><td class="memItemLeft">constexpr <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a>&#160;</td><td class="memItemRight"><a class="el" href="#a3a38c2b254610122be68eaa78896c558">operator+</a> (const <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a> &amp;left, const <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a> &amp;right) noexcept</td></tr>
@@ -649,8 +659,45 @@ template&lt;std::signed_integral T&gt; </div>
 
 </div>
 </div>
+<a id="aa2b6c786b0dad25958dd68376dae7b52" name="aa2b6c786b0dad25958dd68376dae7b52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2b6c786b0dad25958dd68376dae7b52">&#9670;&#160;</a></span>operator-() <span class="overload">[1/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename BaseType, typename IntermediateType, unsigned int FractionBits, bool EnableRounding&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html">fixed</a>&lt; BaseType, IntermediateType, FractionBits, EnableRounding &gt; toy::math::operator- </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html">fixed</a>&lt; BaseType, IntermediateType, FractionBits, EnableRounding &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>value</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Unary minus: returns the negation of a <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html" title="toy::math::fixed">toy::math::fixed</a> value. </p>
+<p>The result has the same raw storage as <em class="arg">value</em> with sign flipped. The operand is not modified.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>Fixed-point value to negate.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A new <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html" title="toy::math::fixed">toy::math::fixed</a> instance representing <code>-value</code>. </dd></dl>
+
+</div>
+</div>
 <a id="a882eb4fb59b77829f10be9b4a76c6624" name="a882eb4fb59b77829f10be9b4a76c6624"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a882eb4fb59b77829f10be9b4a76c6624">&#9670;&#160;</a></span>operator-() <span class="overload">[1/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a882eb4fb59b77829f10be9b4a76c6624">&#9670;&#160;</a></span>operator-() <span class="overload">[2/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -690,7 +737,7 @@ template&lt;std::signed_integral T&gt; </div>
 </div>
 </div>
 <a id="a7c7670de85bd0e03389971e3639da65b" name="a7c7670de85bd0e03389971e3639da65b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7c7670de85bd0e03389971e3639da65b">&#9670;&#160;</a></span>operator-() <span class="overload">[2/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c7670de85bd0e03389971e3639da65b">&#9670;&#160;</a></span>operator-() <span class="overload">[3/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -725,7 +772,7 @@ template&lt;std::signed_integral T&gt; </div>
 </div>
 </div>
 <a id="a5f2927d0c8fdd61212a2353fafdfbc2c" name="a5f2927d0c8fdd61212a2353fafdfbc2c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5f2927d0c8fdd61212a2353fafdfbc2c">&#9670;&#160;</a></span>operator-() <span class="overload">[3/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f2927d0c8fdd61212a2353fafdfbc2c">&#9670;&#160;</a></span>operator-() <span class="overload">[4/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -765,7 +812,7 @@ template&lt;std::signed_integral T&gt; </div>
 </div>
 </div>
 <a id="ade9663577973a1fc3e9b8c81c5128587" name="ade9663577973a1fc3e9b8c81c5128587"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ade9663577973a1fc3e9b8c81c5128587">&#9670;&#160;</a></span>operator-() <span class="overload">[4/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ade9663577973a1fc3e9b8c81c5128587">&#9670;&#160;</a></span>operator-() <span class="overload">[5/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

@@ -5,6 +5,7 @@ var annotated_dup =
         [ "Version", "d7/d8d/structtoy_1_1app_1_1_version.html", "d7/d8d/structtoy_1_1app_1_1_version" ]
       ] ],
       [ "math", "d2/d83/namespacetoy_1_1math.html", [
+        [ "fixed", "dd/d5c/classtoy_1_1math_1_1fixed.html", "dd/d5c/classtoy_1_1math_1_1fixed" ],
         [ "Point", "d3/dce/classtoy_1_1math_1_1_point.html", "d3/dce/classtoy_1_1math_1_1_point" ],
         [ "Vector2D", "d9/d85/classtoy_1_1math_1_1_vector2_d.html", "d9/d85/classtoy_1_1math_1_1_vector2_d" ]
       ] ],
