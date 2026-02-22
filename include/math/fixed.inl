@@ -83,7 +83,7 @@ template <typename BaseType, typename IntermediateType, unsigned int FractionBit
 template <std::integral T>
 constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding> & fixed<
   BaseType, IntermediateType, FractionBits, EnableRounding>::operator+=(T other) noexcept {
-  _value += other * _fractionMult();
+  _value = static_cast<BaseType>(static_cast<IntermediateType>(_value) + other * _fractionMult());
 
   return *this;
 }
@@ -104,7 +104,7 @@ template <typename BaseType, typename IntermediateType, unsigned int FractionBit
 template <std::integral T>
 constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding> & fixed<
   BaseType, IntermediateType, FractionBits, EnableRounding>::operator-=(T other) noexcept {
-  _value -= other * _fractionMult();
+  _value = static_cast<BaseType>(static_cast<IntermediateType>(_value) - other * _fractionMult());
 
   return *this;
 }
@@ -117,7 +117,7 @@ constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding> & fixe
   EnableRounding>::operator*=(const fixed<BaseType, IntermediateType, FractionBits, OtherRounding> & other) noexcept {
   auto const otherRaw = other.rawValue();
 
-  if (EnableRounding) {
+  if constexpr (EnableRounding) {
     // To correctly round the last bit in the result, we need one more bit of information.
     // We do this by multiplying by two before dividing and adding the LSB to the real result.
     auto value = (static_cast<IntermediateType>(_value) * otherRaw) / (_fractionMult() / 2);
@@ -149,7 +149,7 @@ constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding> & fixe
   auto const divisor = other.rawValue();
   assert_message(divisor != 0, "fixed operator/=: divisor must not be zero");
 
-  if (EnableRounding) {
+  if constexpr (EnableRounding) {
     // To correctly round the last bit in the result, we need one more bit of information.
     // We do this by multiplying by two before dividing and adding the LSB to the real result.
     auto value = (static_cast<IntermediateType>(_value) * _fractionMult() * 2) / divisor;
@@ -187,7 +187,7 @@ consteval IntermediateType fixed<BaseType, IntermediateType, FractionBits, Enabl
 }
 
 template <typename BaseType, typename IntermediateType, unsigned int FractionBits, bool EnableRounding>
-  requires ValidFixedPointTypes<BaseType, IntermediateType, FractionBits>
+  requires ValidFixedPointTypes<BaseType, IntermediateType, FractionBits> && std::signed_integral<BaseType>
 constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding> operator-(
   const fixed<BaseType, IntermediateType, FractionBits, EnableRounding> & value) noexcept {
   return fixed<BaseType, IntermediateType, FractionBits, EnableRounding>::fromRawValue(-value.rawValue());

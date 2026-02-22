@@ -250,7 +250,7 @@ private:
   \return A new \ref toy::math::fixed instance representing \c -value.
 */
 template <typename BaseType, typename IntermediateType, unsigned int FractionBits, bool EnableRounding>
-  requires ValidFixedPointTypes<BaseType, IntermediateType, FractionBits>
+  requires ValidFixedPointTypes<BaseType, IntermediateType, FractionBits> && std::signed_integral<BaseType>
 [[nodiscard]] constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding> operator-(
   const fixed<BaseType, IntermediateType, FractionBits, EnableRounding> & value) noexcept;
 
