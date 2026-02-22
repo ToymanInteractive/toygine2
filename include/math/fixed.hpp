@@ -30,7 +30,7 @@ namespace toy::math {
 /*!
   \brief Compile-time constraints for \ref toy::math::fixed template parameters.
 */
-template <typename Base, typename Intermediate, unsigned int Fraction>
+template <typename Base, typename Intermediate, unsigned Fraction>
 concept ValidFixedPointTypes
   = std::integral<Base> && (Fraction > 0) && (Fraction <= std::numeric_limits<Base>::digits)
     && (sizeof(Intermediate) >= sizeof(Base)) && (std::is_signed_v<Base> == std::is_signed_v<Intermediate>);
@@ -47,7 +47,7 @@ concept ValidFixedPointTypes
   \tparam FractionBits Number of fractional bits.
   \tparam EnableRounding If \c true, floating-point construction rounds to nearest value.
 */
-template <typename BaseType, typename IntermediateType, unsigned int FractionBits, bool EnableRounding = true>
+template <typename BaseType, typename IntermediateType, unsigned FractionBits, bool EnableRounding = true>
   requires ValidFixedPointTypes<BaseType, IntermediateType, FractionBits>
 class fixed {
   /// Internal tag for constructing from raw storage.
@@ -78,6 +78,23 @@ public:
   constexpr explicit fixed(T value) noexcept;
 
   /*!
+    \brief Constructs by converting from another \ref toy::math::fixed type.
+
+    The source may have different \a BaseType, \a IntermediateType, fraction bits, or rounding policy. The value is
+    converted to this instance's \a FractionBits using fromFixedPoint; when the source has more fraction bits, rounding
+    is applied if \a EnableRounding is \c true.
+
+    \tparam B Storage type of the source fixed.
+    \tparam I Intermediate type of the source fixed.
+    \tparam F Number of fraction bits of the source fixed.
+    \tparam R Rounding policy of the source fixed.
+
+    \param value Source fixed-point value.
+  */
+  template <typename B, typename I, unsigned F, bool R>
+  constexpr explicit fixed(const fixed<B, I, F, R> & value) noexcept;
+
+  /*!
     \brief Converts to an integral type.
 
     \return Value converted to \a T.
@@ -106,6 +123,41 @@ public:
     \return Fixed-point value with raw storage set to \a value.
   */
   [[nodiscard]] static constexpr fixed fromRawValue(BaseType value) noexcept;
+
+  /*!
+    \brief Builds a \ref toy::math::fixed from a raw value with a different number of fraction bits.
+
+    When \a NumFractionBits is greater than \a FractionBits, the value is scaled down; if \a EnableRounding is \c true,
+    the result is rounded to the nearest representable value. When \a NumFractionBits is less than or equal to \a
+    FractionBits, the value is scaled up (no rounding).
+
+    \tparam NumFractionBits Number of fraction bits of the source raw value.
+    \tparam T Integral type of the source raw value.
+
+    \param value Raw fixed-point value in \a NumFractionBits fractional bits.
+
+    \return Fixed-point value with this instance's \a FractionBits and \a EnableRounding.
+  */
+  template <unsigned NumFractionBits, std::integral T>
+    requires(NumFractionBits > FractionBits)
+  [[nodiscard]] static constexpr fixed fromFixedPoint(T value) noexcept;
+
+  /*!
+    \brief Builds a \ref toy::math::fixed from a raw value with fewer or equal fraction bits.
+
+    When \a NumFractionBits is less than \a FractionBits, the value is scaled up (left-shifted); no rounding is needed.
+    When \a NumFractionBits equals \a FractionBits, the raw value is used as-is.
+
+    \tparam NumFractionBits Number of fraction bits of the source raw value.
+    \tparam T Integral type of the source raw value.
+
+    \param value Raw fixed-point value in \a NumFractionBits fractional bits.
+
+    \return Fixed-point value with this instance's \a FractionBits and \a EnableRounding.
+  */
+  template <unsigned NumFractionBits, std::integral T>
+    requires(NumFractionBits <= FractionBits)
+  [[nodiscard]] static constexpr fixed fromFixedPoint(T value) noexcept;
 
   /*!
     \brief Adds another \ref toy::math::fixed value in place.
@@ -249,8 +301,8 @@ private:
 
   \return A new \ref toy::math::fixed instance representing \c -value.
 */
-template <typename BaseType, typename IntermediateType, unsigned int FractionBits, bool EnableRounding>
-  requires ValidFixedPointTypes<BaseType, IntermediateType, FractionBits> && std::signed_integral<BaseType>
+template <typename BaseType, typename IntermediateType, unsigned FractionBits, bool EnableRounding>
+  requires std::signed_integral<BaseType>
 [[nodiscard]] constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding> operator-(
   const fixed<BaseType, IntermediateType, FractionBits, EnableRounding> & value) noexcept;
 
