@@ -228,6 +228,96 @@ constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding> operat
   return fixed<BaseType, IntermediateType, FractionBits, EnableRounding>::fromRawValue(-value.rawValue());
 }
 
+template <typename BaseType, typename IntermediateType, unsigned FractionBits, bool EnableRounding, bool OtherRounding>
+constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding> operator+(
+  const fixed<BaseType, IntermediateType, FractionBits, EnableRounding> & a,
+  const fixed<BaseType, IntermediateType, FractionBits, OtherRounding> & b) noexcept {
+  return fixed<BaseType, IntermediateType, FractionBits, EnableRounding>(a) += b;
+}
+
+template <typename BaseType, typename IntermediateType, unsigned FractionBits, bool EnableRounding, typename T>
+  requires std::integral<T>
+constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding> operator+(
+  const fixed<BaseType, IntermediateType, FractionBits, EnableRounding> & a, T b) noexcept {
+  return fixed<BaseType, IntermediateType, FractionBits, EnableRounding>(a) += b;
+}
+
+template <typename BaseType, typename IntermediateType, unsigned FractionBits, bool EnableRounding, typename T>
+  requires std::integral<T>
+constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding> operator+(
+  T a, const fixed<BaseType, IntermediateType, FractionBits, EnableRounding> & b) noexcept {
+  return fixed<BaseType, IntermediateType, FractionBits, EnableRounding>(a) += b;
+}
+
+template <typename BaseType, typename IntermediateType, unsigned FractionBits, bool EnableRounding, bool OtherRounding>
+constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding> operator-(
+  const fixed<BaseType, IntermediateType, FractionBits, EnableRounding> & a,
+  const fixed<BaseType, IntermediateType, FractionBits, OtherRounding> & b) noexcept {
+  return fixed<BaseType, IntermediateType, FractionBits, EnableRounding>(a) -= b;
+}
+
+template <typename BaseType, typename IntermediateType, unsigned FractionBits, bool EnableRounding, typename T>
+  requires std::integral<T>
+constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding> operator-(
+  const fixed<BaseType, IntermediateType, FractionBits, EnableRounding> & a, T b) noexcept {
+  return fixed<BaseType, IntermediateType, FractionBits, EnableRounding>(a) -= b;
+}
+
+template <typename BaseType, typename IntermediateType, unsigned FractionBits, bool EnableRounding, typename T>
+  requires std::integral<T>
+constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding> operator-(
+  T a, const fixed<BaseType, IntermediateType, FractionBits, EnableRounding> & b) noexcept {
+  return fixed<BaseType, IntermediateType, FractionBits, EnableRounding>(a) -= b;
+}
+
+template <typename BaseType, typename IntermediateType, unsigned FractionBits, bool EnableRounding, bool OtherRounding>
+constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding> operator*(
+  const fixed<BaseType, IntermediateType, FractionBits, EnableRounding> & a,
+  const fixed<BaseType, IntermediateType, FractionBits, OtherRounding> & b) noexcept {
+  return fixed<BaseType, IntermediateType, FractionBits, EnableRounding>(a) *= b;
+}
+
+template <typename BaseType, typename IntermediateType, unsigned FractionBits, bool EnableRounding, typename T>
+  requires std::integral<T>
+constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding> operator*(
+  const fixed<BaseType, IntermediateType, FractionBits, EnableRounding> & a, T b) noexcept {
+  return fixed<BaseType, IntermediateType, FractionBits, EnableRounding>(a) *= b;
+}
+
+template <typename BaseType, typename IntermediateType, unsigned FractionBits, bool EnableRounding, typename T>
+  requires std::integral<T>
+constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding> operator*(
+  T a, const fixed<BaseType, IntermediateType, FractionBits, EnableRounding> & b) noexcept {
+  return fixed<BaseType, IntermediateType, FractionBits, EnableRounding>(a) *= b;
+}
+
+template <typename BaseType, typename IntermediateType, unsigned FractionBits, bool EnableRounding, bool OtherRounding>
+constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding> operator/(
+  const fixed<BaseType, IntermediateType, FractionBits, EnableRounding> & a,
+  const fixed<BaseType, IntermediateType, FractionBits, OtherRounding> & b) noexcept {
+  assert(b.rawValue() != 0);
+
+  return fixed<BaseType, IntermediateType, FractionBits, EnableRounding>(a) /= b;
+}
+
+template <typename BaseType, typename IntermediateType, unsigned FractionBits, bool EnableRounding, typename T>
+  requires std::integral<T>
+constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding> operator/(
+  const fixed<BaseType, IntermediateType, FractionBits, EnableRounding> & a, T b) noexcept {
+  assert(b != 0);
+
+  return fixed<BaseType, IntermediateType, FractionBits, EnableRounding>(a) /= b;
+}
+
+template <typename BaseType, typename IntermediateType, unsigned FractionBits, bool EnableRounding, typename T>
+  requires std::integral<T>
+constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding> operator/(
+  T a, const fixed<BaseType, IntermediateType, FractionBits, EnableRounding> & b) noexcept {
+  assert(b.rawValue() != 0);
+
+  return fixed<BaseType, IntermediateType, FractionBits, EnableRounding>(a) /= b;
+}
+
 } // namespace toy::math
 
 #endif // INCLUDE_MATH_FIXED_INL_
