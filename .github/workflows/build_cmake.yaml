@@ -87,7 +87,7 @@ jobs:
 
           - name: DevkitPro Switch
             os: ubuntu-24.04
-            container: devkitpro/devkita64:20251231
+            container: devkitpro/devkita64:20260215
             build_tests: "true"
             run_test: "false"
             cmake_preset: nintendo-switch-ninja-release
