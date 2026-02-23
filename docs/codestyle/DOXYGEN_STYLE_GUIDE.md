@@ -113,6 +113,7 @@ Class documentation follows this order:
   - **No dynamic allocation**: All memory is on the stack
   - **Constexpr support**: Most operations are constexpr
   - **Exception safety**: All operations are noexcept
+  - **STL-compatible interface**: Supports a subset of the std::string API
 
   \section usage Usage Example
 

@@ -25,8 +25,11 @@
 #ifndef INCLUDE_NETWORK_HPP_
 #define INCLUDE_NETWORK_HPP_
 
-/// \namespace toy::network
-/// \brief Network types and utilities: socket errors, addressing, and related APIs.
+/*!
+  \namespace toy::network
+
+  \brief Network types and utilities: socket errors, addressing, and related APIs.
+*/
 
 #include "network/socket_error.hpp"
 

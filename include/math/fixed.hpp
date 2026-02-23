@@ -89,7 +89,7 @@ concept ValidFixedPointTypes
   - **C++ standard**: C++20 (concepts, \c constexpr, \c consteval).
   - **Embedded**: No heap allocation; suitable for constrained environments.
 
-  \sa ValidFixedPointTypes
+  \sa \ref toy::math::ValidFixedPointTypes
 */
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding = true>
   requires ValidFixedPointTypes<Base, Intermediate, Fraction>

@@ -27,8 +27,11 @@
 
 #include "core.hpp"
 
-/// \namespace toy::math
-/// \brief Contains all public mathematical types, constants, and utility functions of the engine.
+/*!
+  \namespace toy::math
+
+  \brief Contains all public mathematical types, constants, and utility functions of the engine.
+*/
 namespace toy::math {
 
 // C++ Standard Library headers https://en.cppreference.com/w/cpp/headers.html

@@ -29,37 +29,38 @@
 
 /*!
   \struct GBAReporter
+
   \brief No-op DocTest reporter implementing \c doctest::IReporter.
 
   Used when running tests on targets where console or file output is unavailable (e.g. GBA). All virtual methods are
   overridden with empty bodies; test execution still runs, but no output is produced.
 */
 struct GBAReporter : public doctest::IReporter {
-  explicit GBAReporter([[maybe_unused]] const doctest::ContextOptions & in_options) {}
+  explicit GBAReporter([[maybe_unused]] const doctest::ContextOptions & in_options) noexcept {}
 
   void test_run_start() override {}
 
-  void test_run_end([[maybe_unused]] const doctest::TestRunStats & stats) override {}
+  void test_run_end([[maybe_unused]] const doctest::TestRunStats & stats) noexcept override {}
 
-  void test_case_start([[maybe_unused]] const doctest::TestCaseData & data) override {}
+  void test_case_start([[maybe_unused]] const doctest::TestCaseData & data) noexcept override {}
 
-  void test_case_end([[maybe_unused]] const doctest::CurrentTestCaseStats & stats) override {}
+  void test_case_end([[maybe_unused]] const doctest::CurrentTestCaseStats & stats) noexcept override {}
 
-  void test_case_exception([[maybe_unused]] const doctest::TestCaseException & exception) override {}
+  void test_case_exception([[maybe_unused]] const doctest::TestCaseException & exception) noexcept override {}
 
-  void log_assert([[maybe_unused]] const doctest::AssertData & data) override {}
+  void log_assert([[maybe_unused]] const doctest::AssertData & data) noexcept override {}
 
-  void log_message([[maybe_unused]] const doctest::MessageData & data) override {}
+  void log_message([[maybe_unused]] const doctest::MessageData & data) noexcept override {}
 
-  void test_case_skipped([[maybe_unused]] const doctest::TestCaseData & data) override {}
+  void test_case_skipped([[maybe_unused]] const doctest::TestCaseData & data) noexcept override {}
 
-  void report_query([[maybe_unused]] const doctest::QueryData & data) override {}
+  void report_query([[maybe_unused]] const doctest::QueryData & data) noexcept override {}
 
-  void subcase_start([[maybe_unused]] const doctest::SubcaseSignature & signature) override {}
+  void subcase_start([[maybe_unused]] const doctest::SubcaseSignature & signature) noexcept override {}
 
-  void subcase_end() override {}
+  void subcase_end() noexcept override {}
 
-  void test_case_reenter([[maybe_unused]] const doctest::TestCaseData & data) override {}
+  void test_case_reenter([[maybe_unused]] const doctest::TestCaseData & data) noexcept override {}
 };
 
 #endif // TEST_GBA_REPORTER_HPP_
