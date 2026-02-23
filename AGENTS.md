@@ -56,6 +56,35 @@ Key priorities:
 - C++23 features may be used selectively where they are supported by the target toolchain.
 - Prefer standard library facilities when feasible.
 - Avoid compiler-specific extensions unless strictly required.
+- Use C++20 concepts for template constraints.
+
+---
+
+## Formatting
+
+### Indentation and Spacing
+
+- Use **2 spaces** for indentation (no tabs).
+- Maximum line width: **120 characters**.
+- Trailing whitespace is not allowed.
+
+### Braces
+
+- Use **attached brace style** (opening brace on the same line).
+- Place closing brace on its own line, aligned with the opening statement.
+
+### Pointer and Reference Alignment
+
+- Use **middle alignment** for pointers and references: `type * pointer`, `type & reference`, `const type * constPointer`.
+
+### Binary Operators
+
+- Break **before** binary operators when a line exceeds the column limit.
+
+### Empty Lines
+
+- Maximum **1 empty line** between code sections.
+- No empty lines at the start of blocks.
 
 ---
 
@@ -68,12 +97,32 @@ Key priorities:
 - Internal headers are considered implementation details and are not part of the public API.
 - Barrel headers may be precompiled.
 
+### Include Guards
+
+- Use **uppercase** include guards derived from the full file path (e.g. `INCLUDE_CORE_FIXED_STRING_HPP_`).
+
+### File Extensions
+
+- Header files: `.hpp`
+- Source files: `.cpp`
+- Template / inline implementation files: `.inl`
+
+### Include Order
+
+Organize includes in the following order (separated by blank lines):
+
+1. Corresponding header (for `.cpp` files)
+2. Standard library headers (`<...>`)
+3. Third-party headers
+4. Project headers (`"..."`)
+
 ### Headers
 
 - Public headers must be self-contained.
 - Public headers must not rely on include order.
 - Minimize includes; prefer forward declarations in public headers.
 - Internal headers may include other internal headers freely.
+- Every header file must start with a file documentation block (`\file` / `\brief`).
 
 ### Inline and Template Code
 
@@ -91,6 +140,11 @@ Key priorities:
 - `.inl` files must not be included directly by users.
 - `.inl` files must not introduce new public symbols that are not declared in the corresponding header.
 - Each `.inl` file must be included by exactly one public header.
+
+### Access Modifiers
+
+- Order: `public`, then `protected`, then `private`.
+- Access modifier labels are indented at the same level as the class keyword (offset −2 from class body).
 
 ---
 
@@ -113,6 +167,46 @@ No hidden allocations.
 - Favor value semantics.
 
 If something can be checked at compile time, it should be.
+
+---
+
+## Modern C++ Practices
+
+### noexcept
+
+- Mark all functions that do not throw with `noexcept`.
+- This project does not use exceptions — all operations should be `noexcept`.
+
+### `[[nodiscard]]`
+
+- Apply `[[nodiscard]]` to every function or method whose return value should not be ignored (getters, factory functions, pure computations, etc.).
+
+### `using` over `typedef`
+
+- Prefer `using` declarations over `typedef`.
+
+### Explicit Constructors
+
+- Mark single-parameter constructors as `explicit` to prevent implicit conversions, unless implicit conversion is intentionally part of the design.
+
+### `= default` and `= delete`
+
+- Use `= default` for default constructors and destructors when appropriate.
+- Use `= delete` to explicitly prevent unwanted operations (move, copy, etc.).
+
+### `auto`
+
+- Use `auto` when the type is obvious from context or overly verbose.
+- Avoid `auto` when it would reduce readability (e.g. the actual type is not evident from the initializer).
+
+### Range-Based For Loops
+
+- Prefer range-based for loops when iterating over containers.
+
+### Default Member Initialization
+
+- Use default member initializers (in-class) when appropriate.
+- Prefer constructor initialization lists for non-default values.
 
 ---
 
@@ -139,15 +233,28 @@ If something can be checked at compile time, it should be.
 - Types (classes, structs, enums, concepts): `PascalCase`
 - Functions and variables: `camelCase`
 - Constants: `UPPER_SNAKE_CASE` (only for true, globally visible constants)
-- Template parameters: descriptive names; avoid single-letter names unless the meaning is obvious and the scope is trivial
+- Template parameters: `PascalCase`; use descriptive names and avoid single-letter names unless the meaning is obvious and the scope is trivial
+- Type aliases: `snake_case` with `_type` suffix (e.g. `value_type`, `size_type`, `const_reference`)
+- Namespaces: `lowercase`
 
 Names must describe **intent**, not implementation details.
+
+### STL-Compatible Naming
+
+- When a class provides an STL-like interface (iterators, `push_back`, `find_first_of`, etc.), follow the standard library naming conventions for those methods.
+- Non-STL-compatible methods use `camelCase` as usual.
 
 ### Private Members
 
 - All private data members and private member functions **must** start with a leading underscore (`_`).
 - This rule applies only to private members; protected and public members must **not** use a leading underscore.
 - The leading underscore is part of the naming convention and must be preserved consistently.
+
+### Const Reference Style
+
+- When passing parameters by const reference, use the form **`const T &`** (const on the left of the type).
+- Do not use `T const &`; keep const-reference style uniform across the codebase.
+- Example: `const Foo & arg`, `const int & value`.
 
 ---
 
@@ -157,14 +264,23 @@ Names must describe **intent**, not implementation details.
 - Comments must explain *why*, not *what*.
 - Public APIs must be documented.
 
-Documentation style:
+### Documentation Tone
 
-- Concise
-- Neutral
-- Technical
-- No marketing language
+All documentation must be:
 
-**Exception**: The "Key Features" section (typically using `\section features`) may use emoji and markdown emphasis for visual clarity and readability. This exception applies only to the features list and does not extend to other documentation sections.
+- **Concise** — no filler words or redundant phrasing.
+- **Neutral** — factual descriptions, no subjective claims.
+- **Technical** — precise, uses correct terminology.
+- **No marketing language** — avoid "lightweight", "blazing-fast", "powerful", "cutting-edge", etc.
+
+**Exception**: The `\section features Key Features` list may use emoji and **bold emphasis** for visual clarity. This exception applies **only** to the features list.
+
+### Doxygen Block Style
+
+- Use `/*! ... */` for multi-line documentation blocks. Start `/*!` on its own line; align `*/` with `/*!`.
+- Use `///` for single-line documentation of member variables and brief items.
+- Use inline `//!<` comments for type aliases and simple member variable documentation after the declaration.
+- Use 2 spaces for indentation inside documentation blocks.
 
 ---
 
@@ -173,46 +289,356 @@ Documentation style:
 - Use simple, direct language.
 - Avoid verbosity.
 - Prefer bullet points over prose where appropriate.
-- Document:
-  - Purpose
-  - Constraints
-  - Usage expectations
-  - Compile-time vs runtime behavior
+- Document: purpose, constraints, usage expectations, compile-time vs runtime behavior.
+- For every documented function, constructor, or operator: include a `\param` for each parameter and a `\return` for the return value (if any). Do not omit `\param` for functions that take arguments.
+
+### Method / Function Documentation Order
+
+Always follow this order:
+
+1. `\brief` — one-line description
+2. Detailed description (1-2 sentences, if needed)
+3. `\tparam` — template parameters (if applicable)
+4. `\param` — parameters (aligned)
+5. `\return` — return value
+6. `\pre` — preconditions
+7. `\post` — postconditions (for state-changing methods)
+8. `\note` — additional notes
+9. `\warning` — warnings (if needed)
+10. `\sa` — related methods/operators
+
+### Class / Struct Documentation Order
+
+Always follow this order:
+
+1. `\class` or `\struct`
+2. `\brief` — one-line description
+3. Detailed description (2-4 sentences, does not duplicate `\brief`)
+4. `\tparam` — template parameters (if applicable)
+5. `\section features Key Features` — bullet list with emoji (**only** section with emoji)
+6. `\section usage Usage Example` — code block
+7. `\section performance Performance Characteristics` — Big-O complexity, plain text
+8. `\section safety Safety Guarantees` — safety information, plain text
+9. `\section compatibility Compatibility` — platform/standard (plain text, optional)
+10. `\note` — notes
+11. `\warning` — warnings (if needed)
+12. `\sa` — related classes/types
+
+### Parameter Documentation
+
+- Use `\a` to reference parameter names in descriptions.
+- Align descriptions when multiple parameters exist.
+- Mention default values (e.g. `(default: \c 0)`).
+- `\param` describes **what** the parameter represents. Constraints go in `\pre`, not in `\param`.
+
+### Return Value Documentation
+
+- Use `\c` for constants and literal values (`\c true`, `\c false`, `\c 0`).
+- Mention special return values (e.g. `\ref npos`).
+
+### Preconditions and Postconditions
+
+- `\pre`: document all requirements that must be met before calling a function (bounds, null checks, size limits).
+- `\post`: required for all methods that change object state. Describe the state after the call.
+
+### Template Parameters
+
+- Always document template parameters with `\tparam`.
+- Include type constraints and valid value ranges.
+
+### Notes and Warnings
+
+- `\note`: one line per note. Split complex notes into multiple `\note` tags.
+- `\warning`: use only for critical information (lifetime, ownership, misuse).
+
+### Constants and References in Text
+
+- Wrap constants and literal values with `\c` (`\c true`, `\c 0`, `\c npos`).
+- Reference parameter names with `\a` (`\a string`, `\a count`).
+
+### See-Also Tags
+
+- Use `\sa` to link related methods, operators, classes, and concepts.
+- Link between: method and its operator equivalent, const/non-const overloads, method synonyms (`size()` / `length()`), related classes.
+- 2-3 references maximum per entity.
 
 ### Cross-References
 
-- When referencing types, classes, or other non-function symbols from the codebase in documentation, **always** use the Doxygen `\ref` tag with full namespace qualification to create proper cross-references.
-- This ensures that documentation links are generated correctly and remain valid when symbols are renamed or moved.
+- When referencing types, classes, or other non-function symbols from the codebase in documentation, **always** use the Doxygen `\ref` tag with full namespace qualification.
 - Use `\ref` **only** for non-function symbols (classes, types, enums, namespaces, concepts):
   - Class/struct names: `\ref toy::ClassName`
   - Type aliases: `\ref toy::TypeAlias`
   - Enum values: `\ref toy::EnumName::Value`
   - Namespaces: `\ref toy::namespaceName`
   - Concepts: `\ref toy::ConceptName`
-- **Do not use `\ref` for functions or methods**. Reference functions and methods using plain text without `\ref`:
-  - Functions: `toy::functionName()` (not `\ref toy::functionName()`)
-  - Methods: `methodName()` (not `\ref methodName()`)
-- When using `\ref` for **classes, structs, enums, namespaces, or concepts**, **always** include the full namespace qualification in the `\ref` tag.
-- This ensures clarity and avoids ambiguity when the same symbol name exists in different namespaces.
-- Use the full qualified name: `\ref toy::ClassName` instead of `\ref ClassName`, `\ref toy::math::Vector2D` instead of `\ref Vector2D`.
-
-**Note**: For functions and methods, use plain text with optional namespace qualification: `toy::functionName()` or `functionName()` if context is clear.
-
-Examples:
-
-- `\ref toy::FixedString` instead of `\ref FixedString`
-- `\ref toy::math::Vector2D` instead of `\ref Vector2D`
-- `\ref toy::assertion::AssertionCallback` instead of `\ref AssertionCallback`
-- `\ref toy::Platform` instead of `\ref Platform`
-- `\ref toy::CpuArchitecture` instead of `\ref CpuArchitecture`
-- `toy::assertion::assertion()` instead of `\ref toy::assertion::assertion()` (no `\ref` for functions)
-- `\ref toy::Platform::Windows` instead of `\ref Platform::Windows`
+- **Do not use `\ref` for functions or methods**. Reference functions and methods using plain text:
+  - `toy::functionName()` (not `\ref toy::functionName()`)
+  - `methodName()` (not `\ref methodName()`)
+- **Always** include full namespace qualification: `\ref toy::math::Vector2D` instead of `\ref Vector2D`.
 
 **Exceptions**:
 
-- Do not use `\ref` for standard library types or functions (e.g., `std::string`, `std::vector`, `std::size_t`).
-- Do not use `\ref` in `\sa` (see also) or `\see` (see) sections. These tags automatically create cross-references, so use plain symbol names: `\sa functionName()` instead of `\sa \ref functionName()`, and `\see ClassName` instead of `\see \ref ClassName`.
-- Do not use `\ref` for functions or methods anywhere in documentation.
+- Do not use `\ref` for standard library types (`std::string`, `std::vector`, etc.).
+- Do not use `\ref` in `\sa` or `\see` sections (they auto-link).
+- Do not use `\ref` for functions or methods anywhere.
+
+### Class Sections Detail
+
+#### `\section features Key Features`
+
+- 4-8 items. Each item: emoji + **bold name** + description.
+- Most important features first.
+- **Only** section that uses emoji.
+
+Emoji reference:
+
+- ⚙️ — general feature / resource management
+- 🔧 — constexpr support, compile-time evaluation
+- 🛡️ — safety guarantees (noexcept, bounds checking)
+- 🎯 — optimization for specific use cases
+- 🔗 — compatibility (STL, standards)
+- 🌍 — internationalization (UTF-8, Unicode)
+- 🧬 — type safety (concepts, strong typing)
+- 📏 — size / layout / limitations
+- 🔒 — memory safety
+
+#### `\section usage Usage Example`
+
+- Practical, compilable example with `\code ... \endcode`.
+- Includes `#include` directive.
+
+#### `\section performance Performance Characteristics`
+
+- Big-O complexity for key operations.
+- Memory usage if relevant.
+- Plain text with **bold operation names**, no emoji.
+
+#### `\section safety Safety Guarantees`
+
+- Specific guarantees: contracts, bounds safety, type safety, exception safety.
+- Debug-mode checks and exception policy.
+- Plain text with **bold category names**, no emoji.
+
+#### `\section compatibility Compatibility` (optional)
+
+- Only for classes with special requirements.
+- C++ standard, STL integration, cross-platform, embedded suitability.
+- Plain text with **bold category names**, no emoji.
+
+---
+
+## Class Documentation Templates
+
+### Regular Class
+
+```cpp
+/*!
+  \class ClassName
+  \brief Brief one-line description of the class.
+
+  Detailed description of purpose, scope, and intended usage.
+  2-4 sentences. Do not duplicate \brief.
+
+  \section features Key Features
+
+  - ⚙️ **Feature 1**: Description
+  - 🔧 **Feature 2**: Description
+  - 🛡️ **Feature 3**: Description
+
+  \section usage Usage Example
+
+  \code
+  #include "path/to/class.hpp"
+
+  toy::namespace::ClassName obj(arg1, arg2);
+  auto result = obj.method();
+  \endcode
+
+  \section performance Performance Characteristics
+
+  - **Construction**: O(1) constant time
+  - **Assignment**: O(1) constant time
+  - **Memory usage**: X bytes
+
+  \section safety Safety Guarantees
+
+  - **Contracts**: Description of debug-mode checks
+  - **Bounds safety**: Description
+  - **Exception safety**: All operations are noexcept
+
+  \note Additional note, if necessary.
+
+  \sa RelatedClass
+*/
+class ClassName {
+  // ...
+};
+```
+
+### Template Class
+
+```cpp
+/*!
+  \class ClassName
+  \brief Brief one-line description of the template class.
+
+  Detailed description of purpose and intended usage.
+
+  \tparam Param1 Description. Constraints and valid values.
+  \tparam Param2 Description, if any.
+
+  \section features Key Features
+
+  - ⚙️ **Feature 1**: Description
+  - 🔧 **Feature 2**: Description
+  - 🛡️ **Feature 3**: Description
+  - 🔗 **Feature 4**: Description
+
+  \section usage Usage Example
+
+  \code
+  #include "path/to/class.hpp"
+
+  toy::ClassName<Type, Size> obj(arg1);
+  constexpr auto obj2 = toy::ClassName<Type, 32>("data");
+  \endcode
+
+  \section performance Performance Characteristics
+
+  - **Construction**: O(n) where n is...
+  - **Memory usage**: Fixed at compile time, no heap allocation
+
+  \section safety Safety Guarantees
+
+  - **Contracts**: Description
+  - **Type safety**: Uses C++20 concepts
+  - **Exception safety**: All operations are noexcept
+
+  \section compatibility Compatibility
+
+  - **C++ standard**: C++20 or later
+  - **Cross-platform**: Supported on all target platforms
+  - **Embedded systems**: Suitable (no dynamic allocation)
+
+  \note Additional note, if necessary.
+
+  \warning Important warning, if necessary.
+
+  \sa RelatedClass
+*/
+template <typename Param1, size_t Param2>
+class ClassName {
+  // ...
+};
+```
+
+### Struct
+
+```cpp
+/*!
+  \struct StructName
+  \brief Brief one-line description of the struct.
+
+  Detailed description of purpose and data format.
+
+  \section features Key Features
+
+  - ⚙️ **Feature 1**: Description
+  - 🔧 **Feature 2**: Description
+
+  \section usage Usage Example
+
+  \code
+  #include "path/to/struct.hpp"
+
+  toy::namespace::StructName obj{value1, value2};
+  constexpr auto obj2 = toy::namespace::StructName{1, 2};
+  \endcode
+
+  \section performance Performance Characteristics
+
+  - **Construction**: O(1) constant time
+  - **Access**: O(1) constant time
+  - **Memory usage**: X bytes
+
+  \section safety Safety Guarantees
+
+  - **Type safety**: Description
+  - **Exception safety**: All operations are noexcept
+  - **Memory safety**: No dynamic allocation
+
+  \note Additional note, if necessary.
+
+  \sa RelatedType
+*/
+struct StructName {
+  // ...
+};
+```
+
+### Simplified Class (without compatibility)
+
+```cpp
+/*!
+  \class ClassName
+  \brief Brief one-line description.
+
+  Detailed description. 2-4 sentences.
+
+  \section features Key Features
+
+  - 🔧 **Constexpr support**: Most operations are constexpr
+  - 🛡️ **Exception safety**: All operations are noexcept
+  - 🎯 **Optimized**: Designed for [specific application]
+  - 🧬 **Type safety**: Strong typing with clear [semantics]
+
+  \section usage Usage Example
+
+  \code
+  #include "path/to/class.hpp"
+
+  toy::namespace::ClassName obj(value1, value2);
+  obj.method();
+  \endcode
+
+  \section performance Performance Characteristics
+
+  - **Construction**: O(1) constant time
+  - **Arithmetic**: O(1) constant time
+  - **Memory usage**: X bytes
+
+  \section safety Safety Guarantees
+
+  - **Contracts**: Description of debug-mode checks
+  - **Type safety**: Strong typing prevents [what it prevents]
+  - **Exception safety**: All operations are noexcept
+
+  \note Additional note, if necessary.
+
+  \sa RelatedClass
+*/
+class ClassName {
+  // ...
+};
+```
+
+### Documentation Pre-Commit Checklist
+
+- `\class` / `\struct` is present
+- `\brief` is filled (one line)
+- Detailed description is present (2-4 sentences)
+- `\section features` contains 4+ items with emoji
+- `\section usage` contains a compilable code example
+- `\section performance` is filled with Big-O complexity (no emoji)
+- `\section safety` is filled with specific guarantees (no emoji)
+- `\section compatibility` is added if needed (no emoji)
+- All methods have `\brief`, `\param` (aligned), `\return`, `\tparam`
+- Constraints in `\pre`, not in `\param`
+- State-changing methods have `\post`
+- Constants wrapped with `\c`; parameter names referenced with `\a`
+- `\sa` links related entities
+- Emoji used **only** in `\section features`
+- No marketing language
 
 ---
 
@@ -383,3 +809,11 @@ If a behavior can be verified at compile time,
 it must be verified at compile time.
 
 Runtime tests exist only to cover what compile-time tests cannot.
+
+---
+
+## Tools and Automation
+
+- The project uses `.clang-format` for automatic code formatting.
+- Run `clang-format` before committing code.
+- Ensure no compiler warnings remain before committing.
