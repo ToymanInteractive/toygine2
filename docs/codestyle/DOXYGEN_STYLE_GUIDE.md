@@ -78,7 +78,7 @@ Every header file must start with a file documentation block:
 
 ## Class/Struct Documentation
 
-### Structure
+### Class Documentation Structure
 
 Class documentation follows this order:
 
@@ -95,7 +95,7 @@ Class documentation follows this order:
 11. `\warning` — warnings (if needed)
 12. `\sa` — related classes/types
 
-### Example
+### Class Documentation Example
 
 ```cpp
 /*!
@@ -162,7 +162,7 @@ Emoji reference for Key Features:
 
 ## Method/Function Documentation
 
-### Structure
+### Method Documentation Structure
 
 Method documentation follows this order:
 
@@ -177,7 +177,7 @@ Method documentation follows this order:
 9. `\sa` — related methods/operators
 10. `\warning` — warnings (if needed)
 
-### Example
+### Method Documentation Example
 
 ```cpp
 /*!
@@ -201,7 +201,7 @@ Method documentation follows this order:
 
 ## Parameter Documentation
 
-### Format
+### Parameter Format
 
 - Start with `\param`.
 - Use `\a` to reference parameter names in other descriptions.
@@ -246,7 +246,7 @@ Method documentation follows this order:
 
 ## Return Value Documentation
 
-### Format
+### Return Value Format
 
 - Start with `\return`.
 - Describe what is returned.
@@ -333,7 +333,7 @@ Link between:
 - Related classes (`Point` and `Vector2D`)
 - Similar methods (`find()` and `rfind()`)
 
-### Format
+### Cross-Reference Format
 
 ```cpp
 \sa operator+=(const stringType &)
