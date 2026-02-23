@@ -233,7 +233,7 @@ If something can be checked at compile time, it should be.
 - Types (classes, structs, enums, concepts): `PascalCase`
 - Functions and variables: `camelCase`
 - Constants: `UPPER_SNAKE_CASE` (only for true, globally visible constants)
-- Template parameters: `camelCase`; use descriptive names and avoid single-letter names unless the meaning is obvious and the scope is trivial
+- Template parameters: `PascalCase`; use descriptive names and avoid single-letter names unless the meaning is obvious and the scope is trivial
 - Type aliases: `snake_case` with `_type` suffix (e.g. `value_type`, `size_type`, `const_reference`)
 - Namespaces: `lowercase`
 
@@ -304,8 +304,8 @@ Always follow this order:
 6. `\pre` — preconditions
 7. `\post` — postconditions (for state-changing methods)
 8. `\note` — additional notes
-9. `\sa` — related methods/operators
-10. `\warning` — warnings (if needed)
+9. `\warning` — warnings (if needed)
+10. `\sa` — related methods/operators
 
 ### Class / Struct Documentation Order
 

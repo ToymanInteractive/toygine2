@@ -257,7 +257,6 @@ Emoji and **bold text** are permitted **only** in the `\section features Key Fea
 - 🌍 — internationalization (UTF-8, Unicode)
 - 🧬 — type safety (concepts, strong typing)
 - 📏 — size / layout / limitations
-- 🆕 — C++ standard requirements
 - 🔒 — memory safety
 
 ---

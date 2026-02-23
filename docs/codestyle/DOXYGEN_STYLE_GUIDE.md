@@ -149,14 +149,15 @@ Emoji are permitted **only** in `\section features Key Features`. All other sect
 
 Emoji reference for Key Features:
 
-- ⚙️ — resource management, general feature
-- 🔧 — language features (constexpr, noexcept)
-- 🛡️ — safety guarantees
-- 🔗 — compatibility, integration
-- 🌍 — internationalization, standards
-- 🧬 — type safety, concepts
-- 📏 — size, layout
-- 🎯 — purpose, optimization
+- ⚙️ — general feature / resource management
+- 🔧 — constexpr support, compile-time evaluation
+- 🛡️ — safety guarantees (noexcept, bounds checking)
+- 🎯 — optimization for specific use cases
+- 🔗 — compatibility (STL, standards)
+- 🌍 — internationalization (UTF-8, Unicode)
+- 🧬 — type safety (concepts, strong typing)
+- 📏 — size / layout / limitations
+- 🔒 — memory safety
 
 ---
 
@@ -174,8 +175,8 @@ Method documentation follows this order:
 6. `\pre` — preconditions
 7. `\post` — postconditions (for state-changing methods)
 8. `\note` — additional notes
-9. `\sa` — related methods/operators
-10. `\warning` — warnings (if needed)
+9. `\warning` — warnings (if needed)
+10. `\sa` — related methods/operators
 
 ### Method Documentation Example
 
@@ -476,8 +477,8 @@ Before committing, verify:
 \pre
 \post (for state-changing methods)
 \note
-\sa
 \warning (if needed)
+\sa
 ```
 
 ### Class Documentation Order
