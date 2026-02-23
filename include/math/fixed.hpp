@@ -29,6 +29,11 @@ namespace toy::math {
 
 /*!
   \brief Compile-time constraints for \ref toy::math::fixed template parameters.
+
+  \tparam Base Storage type; must satisfy \c std::integral.
+  \tparam Intermediate Wider type for intermediate calculations; size must be \c >= sizeof(Base), signedness must match
+  \a Base.
+  \tparam Fraction Number of fractional bits; must be in (0, std::numeric_limits<Base>::digits].
 */
 template <typename Base, typename Intermediate, unsigned Fraction>
 concept ValidFixedPointTypes
@@ -39,16 +44,53 @@ concept ValidFixedPointTypes
   \class fixed
   \brief Fixed-point numeric type with configurable storage and fractional precision.
 
-  Stores values as scaled integers using \a FractionBits fractional bits. Conversions from integral and floating-point
-  types are explicit.
+  Stores values as scaled integers using \a Fraction fractional bits. Conversions from integral and floating-point types
+  are explicit.
 
-  \tparam BaseType Storage type for raw fixed-point value.
-  \tparam IntermediateType Wider type used for intermediate calculations.
-  \tparam FractionBits Number of fractional bits.
-  \tparam EnableRounding If \c true, floating-point construction rounds to nearest value.
+  \tparam Base Storage type for raw fixed-point value.
+  \tparam Intermediate Wider type used for intermediate calculations.
+  \tparam Fraction Number of fractional bits.
+  \tparam Rounding If \c true, floating-point construction rounds to nearest value.
+
+  \section features Key Features
+
+  - 🔧 **constexpr**: All operations and constructors are \c constexpr; usable at compile time.
+  - 📏 **Configurable precision**: \a Base and \a Fraction choose storage size and fractional bits.
+  - 🛡️ **No exceptions**: All operations are \c noexcept; no dynamic allocation.
+  - 🧬 **Type safety**: \ref toy::math::ValidFixedPointTypes concept constrains template parameters.
+  - 🎯 **Rounding policy**: Optional rounding when converting from floating-point or scaling down fraction bits.
+
+  \section usage Usage Example
+
+  \code
+  #include "math.hpp"
+
+  using Fixed = toy::math::fixed<std::int32_t, std::int64_t, 8>;
+  constexpr Fixed a(2);
+  constexpr Fixed b(3);
+  constexpr auto sum = a + b;
+  constexpr auto raw = Fixed::fromRawValue(256);
+  \endcode
+
+  \section performance Performance Characteristics
+
+  - **Construction, conversion, arithmetic**: O(1). All operations are integer-based.
+  - **Memory**: sizeof(\a Base); no heap allocation.
+
+  \section safety Safety Guarantees
+
+  - **Contracts**: Division by zero is checked in debug builds via \c assert_message; undefined behavior if divisor is
+  zero in release.
+  - **Exception safety**: All operations are \c noexcept; no exceptions thrown.
+  - **Type safety**: Explicit conversions only; no implicit narrowing.
+
+  \section compatibility Compatibility
+
+  - **C++ standard**: C++20 (concepts, \c constexpr, \c consteval).
+  - **Embedded**: No heap allocation; suitable for constrained environments.
 */
-template <typename BaseType, typename IntermediateType, unsigned FractionBits, bool EnableRounding = true>
-  requires ValidFixedPointTypes<BaseType, IntermediateType, FractionBits>
+template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding = true>
+  requires ValidFixedPointTypes<Base, Intermediate, Fraction>
 class fixed {
   /// Internal tag for constructing from raw storage.
   class RawConstructorTag {};
@@ -67,7 +109,7 @@ public:
     \param value Source integral value.
   */
   template <std::integral T>
-  constexpr explicit fixed(T value) noexcept;
+  constexpr explicit fixed(const T & value) noexcept;
 
   /*!
     \brief Constructs from a floating-point value.
@@ -75,24 +117,24 @@ public:
     \param value Source floating-point value.
   */
   template <std::floating_point T>
-  constexpr explicit fixed(T value) noexcept;
+  constexpr explicit fixed(const T & value) noexcept;
 
   /*!
     \brief Constructs by converting from another \ref toy::math::fixed type.
 
-    The source may have different \a BaseType, \a IntermediateType, fraction bits, or rounding policy. The value is
-    converted to this instance's \a FractionBits using fromFixedPoint; when the source has more fraction bits, rounding
-    is applied if \a EnableRounding is \c true.
+    The source may have different \a Base, \a Intermediate, fraction bits, or rounding policy. The value is converted to
+    this instance's \a Fraction using fromFixedPoint; when the source has more fraction bits, rounding is applied if
+    \a Rounding is \c true.
 
-    \tparam B Storage type of the source fixed.
-    \tparam I Intermediate type of the source fixed.
-    \tparam F Number of fraction bits of the source fixed.
-    \tparam R Rounding policy of the source fixed.
+    \tparam OtherBase Storage type of the source fixed.
+    \tparam OtherIntermediate Intermediate type of the source fixed.
+    \tparam OtherFraction Number of fraction bits of the source fixed.
+    \tparam OtherRounding Rounding policy of the source fixed.
 
     \param value Source fixed-point value.
   */
-  template <typename B, typename I, unsigned F, bool R>
-  constexpr explicit fixed(const fixed<B, I, F, R> & value) noexcept;
+  template <typename OtherBase, typename OtherIntermediate, unsigned OtherFraction, bool OtherRounding>
+  constexpr explicit fixed(const fixed<OtherBase, OtherIntermediate, OtherFraction, OtherRounding> & value) noexcept;
 
   /*!
     \brief Converts to an integral type.
@@ -112,8 +154,10 @@ public:
 
   /*!
     \brief Returns raw fixed-point storage value.
+
+    \return Raw scaled integer (storage value).
   */
-  [[nodiscard]] constexpr BaseType rawValue() const noexcept;
+  [[nodiscard]] constexpr Base rawValue() const noexcept;
 
   /*!
     \brief Creates a fixed-point value from raw storage bits.
@@ -122,62 +166,62 @@ public:
 
     \return Fixed-point value with raw storage set to \a value.
   */
-  [[nodiscard]] static constexpr fixed fromRawValue(BaseType value) noexcept;
+  [[nodiscard]] static constexpr fixed fromRawValue(const Base & value) noexcept;
 
   /*!
     \brief Builds a \ref toy::math::fixed from a raw value with a different number of fraction bits.
 
-    When \a NumFractionBits is greater than \a FractionBits, the value is scaled down; if \a EnableRounding is \c true,
-    the result is rounded to the nearest representable value. When \a NumFractionBits is less than or equal to \a
-    FractionBits, the value is scaled up (no rounding).
+    When \a NumFractionBits is greater than \a Fraction, the value is scaled down; if \a Rounding is \c true, the
+    result is rounded to the nearest representable value. When \a NumFractionBits is less than or equal to \a Fraction,
+    the value is scaled up (no rounding).
 
     \tparam NumFractionBits Number of fraction bits of the source raw value.
     \tparam T Integral type of the source raw value.
 
     \param value Raw fixed-point value in \a NumFractionBits fractional bits.
 
-    \return Fixed-point value with this instance's \a FractionBits and \a EnableRounding.
+    \return Fixed-point value with this instance's \a Fraction and \a Rounding.
   */
   template <unsigned NumFractionBits, std::integral T>
-    requires(NumFractionBits > FractionBits)
-  [[nodiscard]] static constexpr fixed fromFixedPoint(T value) noexcept;
+    requires(NumFractionBits > Fraction)
+  [[nodiscard]] static constexpr fixed fromFixedPoint(const T & value) noexcept;
 
   /*!
     \brief Builds a \ref toy::math::fixed from a raw value with fewer or equal fraction bits.
 
-    When \a NumFractionBits is less than \a FractionBits, the value is scaled up (left-shifted); no rounding is needed.
-    When \a NumFractionBits equals \a FractionBits, the raw value is used as-is.
+    When \a NumFractionBits is less than \a Fraction, the value is scaled up (left-shifted); no rounding is needed.
+    When \a NumFractionBits equals \a Fraction, the raw value is used as-is.
 
     \tparam NumFractionBits Number of fraction bits of the source raw value.
     \tparam T Integral type of the source raw value.
 
     \param value Raw fixed-point value in \a NumFractionBits fractional bits.
 
-    \return Fixed-point value with this instance's \a FractionBits and \a EnableRounding.
+    \return Fixed-point value with this instance's \a Fraction and \a Rounding.
   */
   template <unsigned NumFractionBits, std::integral T>
-    requires(NumFractionBits <= FractionBits)
-  [[nodiscard]] static constexpr fixed fromFixedPoint(T value) noexcept;
+    requires(NumFractionBits <= Fraction)
+  [[nodiscard]] static constexpr fixed fromFixedPoint(const T & value) noexcept;
 
   /*!
     \brief Adds another \ref toy::math::fixed value in place.
 
-    Accepts any \ref toy::math::fixed with the same \a BaseType, \a IntermediateType, and \a FractionBits, regardless of
-    \a EnableRounding. The operation uses raw storage; rounding policy of \a other does not affect the result.
+    Accepts any \ref toy::math::fixed with the same \a Base, \a Intermediate, and \a Fraction, regardless of
+    \a Rounding. The operation uses raw storage; rounding policy of \a other does not affect the result.
 
-    \tparam OtherRounding \a EnableRounding of the right-hand side type (may differ from this instance).
+    \tparam OtherRounding \a Rounding of the right-hand side type (may differ from this instance).
 
     \param other Value to add.
 
     \return Reference to \c *this.
   */
   template <bool OtherRounding>
-  constexpr fixed & operator+=(const fixed<BaseType, IntermediateType, FractionBits, OtherRounding> & other) noexcept;
+  constexpr fixed & operator+=(const fixed<Base, Intermediate, Fraction, OtherRounding> & other) noexcept;
 
   /*!
     \brief Adds an integral value in place.
 
-    \a other is scaled by 2^\a FractionBits and added to the raw storage.
+    \a other is scaled by 2^\a Fraction and added to the raw storage.
 
     \tparam T Integral type.
 
@@ -186,27 +230,27 @@ public:
     \return Reference to \c *this.
   */
   template <std::integral T>
-  constexpr fixed & operator+=(T other) noexcept;
+  constexpr fixed & operator+=(const T & other) noexcept;
 
   /*!
     \brief Subtracts another \ref toy::math::fixed value in place.
 
-    Accepts any \ref toy::math::fixed with the same \a BaseType, \a IntermediateType, and \a FractionBits, regardless of
-    \a EnableRounding. The operation uses raw storage; rounding policy of \a other does not affect the result.
+    Accepts any \ref toy::math::fixed with the same \a Base, \a Intermediate, and \a Fraction, regardless of
+    \a Rounding. The operation uses raw storage; rounding policy of \a other does not affect the result.
 
-    \tparam OtherRounding \a EnableRounding of the right-hand side type (may differ from this instance).
+    \tparam OtherRounding \a Rounding of the right-hand side type (may differ from this instance).
 
     \param other Value to subtract.
 
     \return Reference to \c *this.
   */
   template <bool OtherRounding>
-  constexpr fixed & operator-=(const fixed<BaseType, IntermediateType, FractionBits, OtherRounding> & other) noexcept;
+  constexpr fixed & operator-=(const fixed<Base, Intermediate, Fraction, OtherRounding> & other) noexcept;
 
   /*!
     \brief Subtracts an integral value in place.
 
-    \a other is scaled by 2^\a FractionBits and subtracted from the raw storage.
+    \a other is scaled by 2^\a Fraction and subtracted from the raw storage.
 
     \tparam T Integral type.
 
@@ -215,23 +259,23 @@ public:
     \return Reference to \c *this.
   */
   template <std::integral T>
-  constexpr fixed & operator-=(T other) noexcept;
+  constexpr fixed & operator-=(const T & other) noexcept;
 
   /*!
     \brief Multiplies by another \ref toy::math::fixed value in place.
 
-    Accepts any \ref toy::math::fixed with the same \a BaseType, \a IntermediateType, and \a FractionBits, regardless of
-    \a EnableRounding. Uses raw storage; when \a EnableRounding is \c true, the result is rounded to the nearest
+    Accepts any \ref toy::math::fixed with the same \a Base, \a Intermediate, and \a Fraction, regardless of
+    \a Rounding. Uses raw storage; when \a Rounding is \c true, the result is rounded to the nearest
     representable value.
 
-    \tparam OtherRounding \a EnableRounding of the right-hand side type (may differ from this instance).
+    \tparam OtherRounding \a Rounding of the right-hand side type (may differ from this instance).
 
     \param other Value to multiply by.
 
     \return Reference to \c *this.
   */
   template <bool OtherRounding>
-  constexpr fixed & operator*=(const fixed<BaseType, IntermediateType, FractionBits, OtherRounding> & other) noexcept;
+  constexpr fixed & operator*=(const fixed<Base, Intermediate, Fraction, OtherRounding> & other) noexcept;
 
   /*!
     \brief Multiplies by an integral value in place.
@@ -245,23 +289,23 @@ public:
     \return Reference to \c *this.
   */
   template <std::integral T>
-  constexpr fixed & operator*=(T other) noexcept;
+  constexpr fixed & operator*=(const T & other) noexcept;
 
   /*!
     \brief Divides by another \ref toy::math::fixed value in place.
 
-    Accepts any \ref toy::math::fixed with the same \a BaseType, \a IntermediateType, and \a FractionBits, regardless of
-    \a EnableRounding. Uses raw storage; rounding policy of \a other does not affect the result. Behavior is undefined
+    Accepts any \ref toy::math::fixed with the same \a Base, \a Intermediate, and \a Fraction, regardless of
+    \a Rounding. Uses raw storage; rounding policy of \a other does not affect the result. Behavior is undefined
     if \a other is zero.
 
-    \tparam OtherRounding \a EnableRounding of the right-hand side type (may differ from this instance).
+    \tparam OtherRounding \a Rounding of the right-hand side type (may differ from this instance).
 
     \param other Divisor (must not be zero).
 
     \return Reference to \c *this.
   */
   template <bool OtherRounding>
-  constexpr fixed & operator/=(const fixed<BaseType, IntermediateType, FractionBits, OtherRounding> & other) noexcept;
+  constexpr fixed & operator/=(const fixed<Base, Intermediate, Fraction, OtherRounding> & other) noexcept;
 
   /*!
     \brief Divides by an integral value in place.
@@ -275,7 +319,7 @@ public:
     \return Reference to \c *this.
   */
   template <std::integral T>
-  constexpr fixed & operator/=(T other) noexcept;
+  constexpr fixed & operator/=(const T & other) noexcept;
 
 private:
   /*!
@@ -283,13 +327,13 @@ private:
 
     \param val Raw fixed-point storage value.
   */
-  constexpr fixed(BaseType val, RawConstructorTag) noexcept;
+  constexpr fixed(const Base & val, RawConstructorTag) noexcept;
 
-  /// Raw fixed-point storage value (scaled by 2^FractionBits).
-  BaseType _value{0};
+  /// Raw fixed-point storage value (scaled by 2^Fraction).
+  Base _value{0};
 
-  /// Compile-time scaling factor 2^FractionBits.
-  static consteval IntermediateType _fractionMult() noexcept;
+  /// Compile-time scaling factor 2^Fraction.
+  static consteval Intermediate _fractionMult() noexcept;
 };
 
 /*!
@@ -301,70 +345,219 @@ private:
 
   \return A new \ref toy::math::fixed instance representing \c -value.
 */
-template <typename BaseType, typename IntermediateType, unsigned FractionBits, bool EnableRounding>
-  requires std::signed_integral<BaseType>
-[[nodiscard]] constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding> operator-(
-  const fixed<BaseType, IntermediateType, FractionBits, EnableRounding> & value) noexcept;
+template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding>
+  requires std::signed_integral<Base>
+[[nodiscard]] constexpr fixed<Base, Intermediate, Fraction, Rounding> operator-(
+  const fixed<Base, Intermediate, Fraction, Rounding> & value) noexcept;
 
-template <typename BaseType, typename IntermediateType, unsigned FractionBits, bool EnableRounding, bool OtherRounding>
-[[nodiscard]] constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding> operator+(
-  const fixed<BaseType, IntermediateType, FractionBits, EnableRounding> & a,
-  const fixed<BaseType, IntermediateType, FractionBits, OtherRounding> & b) noexcept;
+/*!
+  \brief Returns \a a + \a b as a new \ref toy::math::fixed (same type as left operand).
 
-template <typename BaseType, typename IntermediateType, unsigned FractionBits, bool EnableRounding, typename T>
+  \a b may be a \ref toy::math::fixed with different rounding (\a OtherRounding) or an integral;
+  the result uses \a Rounding of the \ref toy::math::fixed operand.
+
+  \param a Left operand (fixed-point value).
+  \param b Right operand (fixed-point or integral whole units).
+
+  \return Sum as \ref toy::math::fixed with same type as \a a.
+*/
+template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, bool OtherRounding>
+[[nodiscard]] constexpr fixed<Base, Intermediate, Fraction, Rounding> operator+(
+  const fixed<Base, Intermediate, Fraction, Rounding> & a,
+  const fixed<Base, Intermediate, Fraction, OtherRounding> & b) noexcept;
+
+/*!
+  \brief Returns \a a + \a b as a new \ref toy::math::fixed (fixed plus integral whole units).
+
+  \param a Fixed-point value.
+  \param b Integral value (whole units).
+
+  \return Sum as \ref toy::math::fixed.
+*/
+template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, typename T>
   requires std::integral<T>
-[[nodiscard]] constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding> operator+(
-  const fixed<BaseType, IntermediateType, FractionBits, EnableRounding> & a, T b) noexcept;
+[[nodiscard]] constexpr fixed<Base, Intermediate, Fraction, Rounding> operator+(
+  const fixed<Base, Intermediate, Fraction, Rounding> & a, const T & b) noexcept;
 
-template <typename BaseType, typename IntermediateType, unsigned FractionBits, bool EnableRounding, typename T>
+/*!
+  \brief Returns \a a + \a b as a new \ref toy::math::fixed (integral whole units plus fixed).
+
+  \param a Integral value (whole units).
+  \param b Fixed-point value.
+
+  \return Sum as \ref toy::math::fixed.
+*/
+template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, typename T>
   requires std::integral<T>
-[[nodiscard]] constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding> operator+(
-  T a, const fixed<BaseType, IntermediateType, FractionBits, EnableRounding> & b) noexcept;
+[[nodiscard]] constexpr fixed<Base, Intermediate, Fraction, Rounding> operator+(
+  const T & a, const fixed<Base, Intermediate, Fraction, Rounding> & b) noexcept;
 
-template <typename BaseType, typename IntermediateType, unsigned FractionBits, bool EnableRounding, bool OtherRounding>
-[[nodiscard]] constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding> operator-(
-  const fixed<BaseType, IntermediateType, FractionBits, EnableRounding> & a,
-  const fixed<BaseType, IntermediateType, FractionBits, OtherRounding> & b) noexcept;
+/*!
+  \brief Returns \a a - \a b as a new \ref toy::math::fixed (same type as left operand).
 
-template <typename BaseType, typename IntermediateType, unsigned FractionBits, bool EnableRounding, typename T>
+  \param a Left operand (fixed-point value).
+  \param b Right operand (fixed-point value).
+
+  \return Difference as \ref toy::math::fixed with same type as \a a.
+*/
+template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, bool OtherRounding>
+[[nodiscard]] constexpr fixed<Base, Intermediate, Fraction, Rounding> operator-(
+  const fixed<Base, Intermediate, Fraction, Rounding> & a,
+  const fixed<Base, Intermediate, Fraction, OtherRounding> & b) noexcept;
+
+/*!
+  \brief Returns \a a - \a b as a new \ref toy::math::fixed (fixed minus integral whole units).
+
+  \param a Fixed-point value.
+  \param b Integral value (whole units).
+
+  \return Difference as \ref toy::math::fixed.
+*/
+template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, typename T>
   requires std::integral<T>
-[[nodiscard]] constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding> operator-(
-  const fixed<BaseType, IntermediateType, FractionBits, EnableRounding> & a, T b) noexcept;
+[[nodiscard]] constexpr fixed<Base, Intermediate, Fraction, Rounding> operator-(
+  const fixed<Base, Intermediate, Fraction, Rounding> & a, const T & b) noexcept;
 
-template <typename BaseType, typename IntermediateType, unsigned FractionBits, bool EnableRounding, typename T>
+/*!
+  \brief Returns \a a - \a b as a new \ref toy::math::fixed (integral whole units minus fixed).
+
+  \param a Integral value (whole units).
+  \param b Fixed-point value.
+
+  \return Difference as \ref toy::math::fixed.
+*/
+template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, typename T>
   requires std::integral<T>
-[[nodiscard]] constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding> operator-(
-  T a, const fixed<BaseType, IntermediateType, FractionBits, EnableRounding> & b) noexcept;
+[[nodiscard]] constexpr fixed<Base, Intermediate, Fraction, Rounding> operator-(
+  const T & a, const fixed<Base, Intermediate, Fraction, Rounding> & b) noexcept;
 
-template <typename BaseType, typename IntermediateType, unsigned FractionBits, bool EnableRounding, bool OtherRounding>
-[[nodiscard]] constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding> operator*(
-  const fixed<BaseType, IntermediateType, FractionBits, EnableRounding> & a,
-  const fixed<BaseType, IntermediateType, FractionBits, OtherRounding> & b) noexcept;
+/*!
+  \brief Returns \a a * \a b as a new \ref toy::math::fixed (same type as left \ref toy::math::fixed operand).
 
-template <typename BaseType, typename IntermediateType, unsigned FractionBits, bool EnableRounding, typename T>
+  \param a Left operand (fixed-point value).
+  \param b Right operand (fixed-point value).
+
+  \return Product as \ref toy::math::fixed with same type as \a a.
+*/
+template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, bool OtherRounding>
+[[nodiscard]] constexpr fixed<Base, Intermediate, Fraction, Rounding> operator*(
+  const fixed<Base, Intermediate, Fraction, Rounding> & a,
+  const fixed<Base, Intermediate, Fraction, OtherRounding> & b) noexcept;
+
+/*!
+  \brief Returns \a a * \a b as a new \ref toy::math::fixed (fixed times integral whole units).
+
+  \param a Fixed-point value.
+  \param b Integral value (whole units).
+
+  \return Product as \ref toy::math::fixed.
+*/
+template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, typename T>
   requires std::integral<T>
-[[nodiscard]] constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding> operator*(
-  const fixed<BaseType, IntermediateType, FractionBits, EnableRounding> & a, T b) noexcept;
+[[nodiscard]] constexpr fixed<Base, Intermediate, Fraction, Rounding> operator*(
+  const fixed<Base, Intermediate, Fraction, Rounding> & a, const T & b) noexcept;
 
-template <typename BaseType, typename IntermediateType, unsigned FractionBits, bool EnableRounding, typename T>
+/*!
+  \brief Returns \a a * \a b as a new \ref toy::math::fixed (integral whole units times fixed).
+
+  \param a Integral value (whole units).
+  \param b Fixed-point value.
+
+  \return Product as \ref toy::math::fixed.
+*/
+template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, typename T>
   requires std::integral<T>
-[[nodiscard]] constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding> operator*(
-  T a, const fixed<BaseType, IntermediateType, FractionBits, EnableRounding> & b) noexcept;
+[[nodiscard]] constexpr fixed<Base, Intermediate, Fraction, Rounding> operator*(
+  const T & a, const fixed<Base, Intermediate, Fraction, Rounding> & b) noexcept;
 
-template <typename BaseType, typename IntermediateType, unsigned FractionBits, bool EnableRounding, bool OtherRounding>
-[[nodiscard]] constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding> operator/(
-  const fixed<BaseType, IntermediateType, FractionBits, EnableRounding> & a,
-  const fixed<BaseType, IntermediateType, FractionBits, OtherRounding> & b) noexcept;
+/*!
+  \brief Returns \a a / \a b as a new \ref toy::math::fixed.
 
-template <typename BaseType, typename IntermediateType, unsigned FractionBits, bool EnableRounding, typename T>
+  Behavior is undefined if \a b is zero.
+
+  \param a Dividend (fixed-point value).
+  \param b Divisor (fixed-point value, must not be zero).
+
+  \return Quotient as \ref toy::math::fixed.
+*/
+template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, bool OtherRounding>
+[[nodiscard]] constexpr fixed<Base, Intermediate, Fraction, Rounding> operator/(
+  const fixed<Base, Intermediate, Fraction, Rounding> & a,
+  const fixed<Base, Intermediate, Fraction, OtherRounding> & b) noexcept;
+
+/*!
+  \brief Returns \a a / \a b as a new \ref toy::math::fixed (fixed divided by integral whole units).
+
+  Behavior is undefined if \a b is zero.
+
+  \param a Dividend (fixed-point value).
+  \param b Divisor (integral, must not be zero).
+
+  \return Quotient as \ref toy::math::fixed.
+*/
+template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, typename T>
   requires std::integral<T>
-[[nodiscard]] constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding> operator/(
-  const fixed<BaseType, IntermediateType, FractionBits, EnableRounding> & a, T b) noexcept;
+[[nodiscard]] constexpr fixed<Base, Intermediate, Fraction, Rounding> operator/(
+  const fixed<Base, Intermediate, Fraction, Rounding> & a, const T & b) noexcept;
 
-template <typename BaseType, typename IntermediateType, unsigned FractionBits, bool EnableRounding, typename T>
+/*!
+  \brief Returns \a a / \a b as a new \ref toy::math::fixed (integral whole units divided by fixed).
+
+  Behavior is undefined if \a b is zero.
+
+  \param a Dividend (integral value).
+  \param b Divisor (fixed-point value, must not be zero).
+
+  \return Quotient as \ref toy::math::fixed.
+*/
+template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, typename T>
   requires std::integral<T>
-[[nodiscard]] constexpr fixed<BaseType, IntermediateType, FractionBits, EnableRounding> operator/(
-  T a, const fixed<BaseType, IntermediateType, FractionBits, EnableRounding> & b) noexcept;
+[[nodiscard]] constexpr fixed<Base, Intermediate, Fraction, Rounding> operator/(
+  const T & a, const fixed<Base, Intermediate, Fraction, Rounding> & b) noexcept;
+
+/*!
+  \brief Compares two \ref toy::math::fixed values for equality.
+
+  Compares raw storage values; \a Rounding of either operand does not affect the result. Two values are equal if and
+  only if their raw values are equal.
+
+  \tparam Base Storage type (shared by both operands).
+  \tparam Intermediate Intermediate type (shared by both operands).
+  \tparam Fraction Number of fractional bits (shared by both operands).
+  \tparam Rounding Rounding policy of the left operand.
+  \tparam OtherRounding Rounding policy of the right operand.
+
+  \param a Left operand.
+  \param b Right operand.
+
+  \return \c true if \a a and \a b represent the same value, \c false otherwise.
+*/
+template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, bool OtherRounding>
+[[nodiscard]] constexpr bool operator==(const fixed<Base, Intermediate, Fraction, Rounding> & a,
+                                        const fixed<Base, Intermediate, Fraction, OtherRounding> & b) noexcept;
+
+/*!
+  \brief Three-way comparison of two \ref toy::math::fixed values.
+
+  Compares raw storage values; \a Rounding of either operand does not affect the result. Enables \c <, \c <=, \c >,
+  \c >=, and \c != via the compiler-generated operators.
+
+  \tparam Base Storage type (shared by both operands).
+  \tparam Intermediate Intermediate type (shared by both operands).
+  \tparam Fraction Number of fractional bits (shared by both operands).
+  \tparam Rounding Rounding policy of the left operand.
+  \tparam OtherRounding Rounding policy of the right operand.
+
+  \param a Left operand.
+  \param b Right operand.
+
+  \return \c std::strong_ordering::less if \a a is less than \a b, \c std::strong_ordering::equal if equal,
+          \c std::strong_ordering::greater if \a a is greater than \a b.
+*/
+template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, bool OtherRounding>
+[[nodiscard]] constexpr strong_ordering operator<=>(
+  const fixed<Base, Intermediate, Fraction, Rounding> & a,
+  const fixed<Base, Intermediate, Fraction, OtherRounding> & b) noexcept;
 
 } // namespace toy::math
 

@@ -1,14 +1,16 @@
 # Doxygen Documentation Template for Classes
 
-This file contains templates for generating Doxygen documentation for classes in the ToyGine2 project. Use these templates as a reference when creating new documentation.
+Templates for generating Doxygen class documentation in the ToyGine2 project.
 
 ## General Rules
 
-1. All sections should start with an emoji and **bold text** for the element name
-2. Code examples should be practical and clear
-3. Performance characteristics should be specified using Big-O notation
-4. Safety guarantees should be described specifically and accurately
-5. The `compatibility` section is only added for classes with special requirements
+1. Emoji and **bold text** are allowed **only** in the `\section features Key Features` list.
+2. All other sections (performance, safety, compatibility) use plain text without emoji.
+3. Code examples must be practical and compilable.
+4. Performance characteristics use Big-O notation.
+5. Safety guarantees must be specific and accurate.
+6. The `compatibility` section is only added for classes with special requirements.
+7. Documentation must be concise, neutral, and technical. Avoid marketing language.
 
 ---
 
@@ -21,50 +23,41 @@ Used for regular classes without template parameters (e.g., `Vector2D`, `Point`)
   \class ClassName
   \brief Brief one-line description of the class.
 
-  Detailed description of the class. Describe the class's purpose, main features,
-  and scope of application. This description should provide an understanding of
-  when and how to use the class. 2-4 sentences are usually sufficient.
+  Detailed description of the class purpose, scope, and intended usage.
+  2-4 sentences are usually sufficient. Do not duplicate the \brief.
 
   \section features Key Features
 
-  - ⚙️ **Feature 1**: Brief description of the first class feature
-  - 🔧 **Feature 2**: Description of the second feature (e.g., constexpr support)
-  - 🛡️ **Feature 3**: Description of the third feature (e.g., exception safety)
-  - 🎯 **Feature 4**: Description of the fourth feature (e.g., optimization for specific cases)
-  - 🧬 **Feature 5**: Description of the fifth feature (e.g., type safety)
+  - ⚙️ **Feature 1**: Brief description of the first feature
+  - 🔧 **Feature 2**: Description (e.g., constexpr support)
+  - 🛡️ **Feature 3**: Description (e.g., all operations are noexcept)
+  - 🎯 **Feature 4**: Description (e.g., optimized for a specific use case)
 
   \section usage Usage Example
 
   \code
   #include "path/to/class.hpp"
 
-  // Basic usage example
   toy::namespace::ClassName obj(arg1, arg2);
-
-  // More complex usage example
   auto result = obj.method();
-  obj.anotherMethod(param);
   \endcode
 
   \section performance Performance Characteristics
 
-  - ⚙️ **Construction**: O(1) constant time
-  - 📝 **Assignment**: O(1) constant time
-  - 🔗 **Operation1**: O(n) where n is...
-  - ⚖️ **Comparison**: O(1) constant time
-  - 💾 **Memory Usage**: X bytes (size description)
-  - ⚡ **Cache Performance**: Description (e.g., "Excellent due to small size")
-  - 📋 **Copy Performance**: Description (e.g., "Fast due to simple copying")
+  - **Construction**: O(1) constant time
+  - **Assignment**: O(1) constant time
+  - **Operation1**: O(n) where n is...
+  - **Comparison**: O(1) constant time
+  - **Memory usage**: X bytes (description)
 
   \section safety Safety Guarantees
 
-  - 🛡️ **Contracts & Debug Checks**: Description of debug mode checks
-  - 🔒 **Bounds Safety**: Description of bounds safety
-  - 📐 **Type Safety**: Description of type safety
-  - ⚠️ **Exception Safety**: Description of exception guarantees (e.g., "All operations are noexcept")
+  - **Contracts**: Description of debug-mode checks
+  - **Bounds safety**: Description of bounds checking
+  - **Type safety**: Description of type safety
+  - **Exception safety**: All operations are noexcept
 
-  \note Additional note about the class, if necessary. For example, about specific
-        usage or limitations.
+  \note Additional note about the class, if necessary.
 
   \sa RelatedClass
   \sa RelatedFunction
@@ -85,64 +78,55 @@ Used for template classes (e.g., `FixedString`, `FixedVector`).
   \class ClassName
   \brief Brief one-line description of the template class.
 
-  Detailed description of the template class. Describe the purpose, main features,
-  and scope of application. Specify what the class is designed for and in which
-  cases it should be used.
+  Detailed description of purpose, scope, and intended usage.
+  Specify what the class is designed for and when it should be used.
 
-  \tparam TemplateParam1 Description of the first template parameter. Specify constraints
-                          and possible values.
-  \tparam TemplateParam2 Description of the second template parameter, if any.
+  \tparam TemplateParam1 Description. Specify constraints and possible values.
+  \tparam TemplateParam2 Description, if any.
 
   \section features Key Features
 
-  - ⚙️ **Feature 1**: Brief description of the first feature
-  - 🔧 **Feature 2**: Description of the second feature (e.g., constexpr support)
-  - 🛡️ **Feature 3**: Description of the third feature (e.g., exception safety)
-  - 🔗 **Feature 4**: Description of the fourth feature (e.g., STL compatibility)
-  - 🌍 **Feature 5**: Description of the fifth feature (e.g., UTF-8 support)
-  - 🧬 **Feature 6**: Description of the sixth feature (e.g., type safety through concepts)
+  - ⚙️ **Feature 1**: Brief description
+  - 🔧 **Feature 2**: Description (e.g., constexpr support)
+  - 🛡️ **Feature 3**: Description (e.g., all operations are noexcept)
+  - 🔗 **Feature 4**: Description (e.g., STL compatibility)
+  - 🌍 **Feature 5**: Description (e.g., UTF-8 support)
+  - 🧬 **Feature 6**: Description (e.g., type safety through concepts)
 
   \section usage Usage Example
 
   \code
   #include "path/to/class.hpp"
 
-  // Basic usage example
   toy::ClassName<Type1, Size> obj(arg1, arg2);
-
-  // More complex usage example
   constexpr auto obj2 = toy::ClassName<Type2, 32>("data");
   \endcode
 
   \section performance Performance Characteristics
 
-  - ⚙️ **Construction**: O(1) or O(n) where n is...
-  - 📝 **Assignment**: O(n) where n is the length...
-  - 🔗 **Operation1**: O(n*m) where n is... and m is...
-  - ⚖️ **Comparison**: O(n) where n is...
-  - 💾 **Memory Usage**: Description (e.g., "Fixed at compile time, no heap allocation")
-  - ⚡ **Cache Performance**: Description
-  - 📋 **Copy Performance**: Description
+  - **Construction**: O(1) or O(n) where n is...
+  - **Assignment**: O(n) where n is the length...
+  - **Operation1**: O(n*m) where n is... and m is...
+  - **Comparison**: O(n) where n is...
+  - **Memory usage**: Fixed at compile time, no heap allocation
 
   \section safety Safety Guarantees
 
-  - 🛡️ **Contracts & Debug Checks**: Description of debug mode checks
-  - 🔒 **Bounds Safety**: Description of bounds safety
-  - 📐 **Type Safety**: Description of type safety (e.g., "Uses C++20 concepts")
-  - ⚠️ **Exception Safety**: Description of exception guarantees
+  - **Contracts**: Description of debug-mode checks
+  - **Bounds safety**: Description of bounds checking
+  - **Type safety**: Description (e.g., uses C++20 concepts)
+  - **Exception safety**: All operations are noexcept
 
   \section compatibility Compatibility
 
-  - 🆕 **C++ Standard**: C++ standard requirements (e.g., "Requires C++23 or later")
-  - 🔗 **STL Integration**: STL compatibility
-  - 🌐 **Cross-Platform**: Platform compatibility
-  - 🔧 **Embedded Systems**: Suitability for embedded systems
+  - **C++ standard**: Requires C++20 or later
+  - **STL integration**: Description
+  - **Cross-platform**: Supported on all target platforms
+  - **Embedded systems**: Suitable (no dynamic allocation)
 
-  \note Additional note, if necessary. For example, about buffer size limitations
-        or specifics of working with template parameters.
+  \note Additional note, if necessary (e.g., buffer size limitations).
 
-  \warning Important warning about features, if necessary. For example, about lifetime
-           for non-owning classes or memory limitations.
+  \warning Important warning, if necessary (e.g., lifetime or ownership semantics).
 
   \sa RelatedClass
   \sa RelatedConcept
@@ -164,60 +148,38 @@ Used for structures (e.g., `Version`).
   \struct StructName
   \brief Brief one-line description of the struct.
 
-  Detailed description of the struct. Describe the purpose, main features,
-  data format, if applicable. Specify what the struct is designed for.
+  Detailed description of purpose, data format, and intended usage.
 
   \section features Key Features
 
-  - ⚙️ **Feature 1**: Brief description of the first feature
-  - 🔧 **Feature 2**: Description of the second feature (e.g., constexpr support)
-  - 🛡️ **Feature 3**: Description of the third feature (e.g., exception safety)
-  - 🔗 **Feature 4**: Description of the fourth feature (e.g., plain struct)
-  - 🎯 **Feature 5**: Description of the fifth feature (e.g., versioning)
-  - 🧬 **Feature 6**: Description of the sixth feature (e.g., type safety)
-  - 🌍 **Feature 7**: Description of the seventh feature (e.g., standard)
-  - 📏 **Feature 8**: Description of the eighth feature (e.g., immutable design)
+  - ⚙️ **Feature 1**: Brief description
+  - 🔧 **Feature 2**: Description (e.g., constexpr support)
+  - 🛡️ **Feature 3**: Description (e.g., all operations are noexcept)
+  - 📏 **Feature 4**: Description (e.g., immutable design)
 
   \section usage Usage Example
 
   \code
   #include "path/to/struct.hpp"
 
-  // Basic usage example
   toy::namespace::StructName obj{value1, value2};
-
-  // Example usage in constexpr context
   constexpr auto obj2 = toy::namespace::StructName{1, 2, 3, 4};
-
-  // Field access
-  std::cout << obj.field1 << "." << obj.field2 << std::endl;
   \endcode
 
   \section performance Performance Characteristics
 
-  - ⚙️ **Construction**: O(1) constant time
-  - 📝 **Access**: O(1) constant time for all members
-  - 📝 **Assignment**: O(1) constant time for member assignment
-  - 🔗 **Comparison**: O(1) constant time for comparison
-  - 💾 **Memory Usage**: X bytes (size description, e.g., "4 * sizeof(type)")
-  - ⚡ **Cache Performance**: Description
-  - 📋 **Copy Performance**: Description
+  - **Construction**: O(1) constant time
+  - **Access**: O(1) constant time for all members
+  - **Comparison**: O(1) constant time
+  - **Memory usage**: X bytes (e.g., 4 * sizeof(type))
 
   \section safety Safety Guarantees
 
-  - 🛡️ **Bounds Safety**: Description of bounds safety
-  - 📐 **Type Safety**: Description of type safety
-  - ⚠️ **Exception Safety**: Description of exception guarantees
-  - 🔒 **Memory Safety**: Description of memory safety (e.g., "No dynamic allocation")
+  - **Type safety**: Description
+  - **Exception safety**: All operations are noexcept
+  - **Memory safety**: No dynamic allocation
 
-  \section compatibility Compatibility
-
-  - 🌐 **Cross-Platform**: Platform compatibility
-  - 🔧 **Embedded Systems**: Suitability for embedded systems
-  - 📱 **Mobile Platforms**: Suitability for mobile platforms
-
-  \note Additional note about the struct, if necessary. For example, that the
-        struct is designed for compile-time version management.
+  \note Additional note, if necessary.
 
   \sa RelatedStandard
 */
@@ -237,41 +199,38 @@ Used for simple classes that do not require a `compatibility` section (e.g., `Ve
   \class ClassName
   \brief Brief one-line description of the class.
 
-  Detailed description of the class. 2-4 sentences about purpose and usage.
+  Detailed description of purpose and usage. 2-4 sentences.
 
   \section features Key Features
 
-  - 🔧 **ConstExpr Support**: Most operations can be evaluated at compile time
-  - 🛡️ **Exception Safety**: All operations are noexcept
-  - 🎯 **Optimized**: Designed specifically for [specific application]
-  - 🧬 **Type Safety**: Strong typing with clear [semantics]
+  - 🔧 **Constexpr support**: Most operations can be evaluated at compile time
+  - 🛡️ **Exception safety**: All operations are noexcept
+  - 🎯 **Optimized**: Designed for [specific application]
+  - 🧬 **Type safety**: Strong typing with clear [semantics]
 
   \section usage Usage Example
 
   \code
   #include "path/to/class.hpp"
 
-  // Usage example
   toy::namespace::ClassName obj(value1, value2);
   obj.method();
   \endcode
 
   \section performance Performance Characteristics
 
-  - ⚙️ **Construction**: O(1) constant time
-  - 📝 **Assignment**: O(1) constant time
-  - 🔗 **Arithmetic Operations**: O(1) constant time
-  - ⚖️ **Comparison Operations**: O(1) constant time
-  - 💾 **Memory Usage**: X bytes
-  - ⚡ **Cache Performance**: Excellent due to small size
-  - 📋 **Copy Performance**: Fast due to simple copying
+  - **Construction**: O(1) constant time
+  - **Assignment**: O(1) constant time
+  - **Arithmetic**: O(1) constant time
+  - **Comparison**: O(1) constant time
+  - **Memory usage**: X bytes
 
   \section safety Safety Guarantees
 
-  - 🛡️ **Contracts & Debug Checks**: Description of debug checks
-  - 🔒 **Bounds Safety**: All operations are bounds-safe
-  - 📐 **Type Safety**: Strong typing prevents [what it prevents]
-  - ⚠️ **Exception Safety**: All operations are noexcept
+  - **Contracts**: Description of debug-mode checks
+  - **Bounds safety**: All operations are bounds-safe
+  - **Type safety**: Strong typing prevents [what it prevents]
+  - **Exception safety**: All operations are noexcept
 
   \note Additional note, if necessary.
 
@@ -284,47 +243,22 @@ class ClassName {
 
 ---
 
-## Emoji Usage in Sections
+## Emoji Usage
 
-### For Key Features
+Emoji and **bold text** are permitted **only** in the `\section features Key Features` list. All other sections (performance, safety, compatibility) use plain **bold text** without emoji.
 
-- ⚙️ - general feature/functionality
-- 🔧 - constexpr support, compile-time evaluation
-- 🛡️ - exception safety, safety
-- 🎯 - optimization for specific cases
-- 🔗 - compatibility (STL, standards)
-- 🌍 - international support (UTF-8, Unicode)
-- 🧬 - type safety
-- 📏 - size/limitations
-- 🆕 - C++ standard requirements
-- 🔒 - memory safety
+### Emoji Reference for Key Features
 
-### For Performance Characteristics
-
-- ⚙️ - Construction
-- 📝 - Assignment
-- 🔗 - Operations
-- ⚖️ - Comparison
-- 💾 - Memory Usage
-- ⚡ - Cache Performance
-- 📋 - Copy Performance
-- 🎯 - Class-specific operations
-
-### For Safety Guarantees
-
-- 🛡️ - Contracts & Debug Checks
-- 🔒 - Bounds Safety / Null Pointer Safety
-- 📐 - Type Safety
-- ⚠️ - Exception Safety
-- ⏰ - Lifetime Safety (for non-owning classes)
-
-### For Compatibility
-
-- 🆕 - C++ Standard
-- 🔗 - STL Integration
-- 🌐 - Cross-Platform
-- 🔧 - Embedded Systems
-- 📱 - Mobile Platforms
+- ⚙️ — general feature / resource management
+- 🔧 — constexpr support, compile-time evaluation
+- 🛡️ — safety guarantees (noexcept, bounds checking)
+- 🎯 — optimization for specific use cases
+- 🔗 — compatibility (STL, standards)
+- 🌍 — internationalization (UTF-8, Unicode)
+- 🧬 — type safety (concepts, strong typing)
+- 📏 — size / layout / limitations
+- 🆕 — C++ standard requirements
+- 🔒 — memory safety
 
 ---
 
@@ -332,64 +266,54 @@ class ClassName {
 
 ### \brief
 
-- One line
-- Brief, informative description
-- Format: "What the class does" + "what it's used for"
+- One line.
+- Format: what the class does + what it is used for.
 
 ### Detailed Description
 
-- 2-4 sentences
-- Explains purpose and scope of application
-- Does not duplicate `\brief`
+- 2-4 sentences.
+- Explains purpose and scope. Does not duplicate `\brief`.
 
 ### \section features
 
-- 4-8 items
-- Each item: emoji + **bold text** + description
-- Starts with the most important features
+- 4-8 items.
+- Each item: emoji + **bold name** + description.
+- Most important features first.
 
 ### \section usage
 
-- Practical example
-- Shows typical usage
-- Includes `#include` directive
-- Code should be compilable
+- Practical, compilable example.
+- Includes the `#include` directive.
 
 ### \section performance
 
-- Specify complexity (Big-O notation)
-- Specific memory values if important
-- Describe cache-friendly properties if applicable
+- Big-O complexity for key operations.
+- Memory usage if relevant.
+- Plain text with **bold operation names**, no emoji.
 
 ### \section safety
 
-- Specific guarantees
-- Mention debug mode checks
-- Specify exception guarantees
+- Specific guarantees.
+- Debug-mode checks, exception policy.
+- Plain text with **bold category names**, no emoji.
 
 ### \section compatibility (optional)
 
-- Only for classes with special requirements
-- Template classes usually need this section
-- Simple classes can do without it
+- Only for classes with special requirements.
+- Plain text with **bold category names**, no emoji.
 
 ### \note
 
-- Additional information
-- Does not duplicate main description
-- Useful usage tips
+- Additional information. Does not duplicate the main description.
 
 ### \warning (optional)
 
-- Important warnings
-- Rarely used, only for critical points
-- For example, lifetime issues, ownership semantics
+- Critical warnings only (lifetime, ownership, etc.).
 
 ### \sa
 
-- Related classes, functions, concepts
-- No more than 2-3 references
-- Only relevant connections
+- Related classes, functions, concepts.
+- 2-3 references maximum.
 
 ---
 
@@ -399,15 +323,16 @@ class ClassName {
 - [ ] `\brief` is filled (one line)
 - [ ] Detailed description is present (2-4 sentences)
 - [ ] `\section features` contains 4+ items with emoji
-- [ ] `\section usage` contains a working code example
-- [ ] `\section performance` is filled with complexity specification
-- [ ] `\section safety` is filled with specific guarantees
-- [ ] `\section compatibility` is added if needed
+- [ ] `\section usage` contains a compilable code example
+- [ ] `\section performance` is filled with Big-O complexity (no emoji)
+- [ ] `\section safety` is filled with specific guarantees (no emoji)
+- [ ] `\section compatibility` is added if needed (no emoji)
 - [ ] `\note` is added if there is useful information
 - [ ] `\warning` is added if there are critical warnings
 - [ ] `\sa` contains relevant references
-- [ ] Emoji are used consistently
+- [ ] Emoji are used only in `\section features`
 - [ ] All descriptions are written in English
+- [ ] No marketing language anywhere
 
 ---
 
@@ -415,7 +340,7 @@ class ClassName {
 
 For reference, see:
 
-- `FixedString` - full template for template class
-- `CStringView` - full template with `\warning`
-- `Vector2D` - simplified template without `compatibility`
-- `Version` - template for struct
+- `FixedString` — template class with compatibility section
+- `CStringView` — template class with `\warning`
+- `Vector2D` — simplified template without compatibility
+- `Version` — struct template

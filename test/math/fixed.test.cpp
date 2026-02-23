@@ -276,60 +276,6 @@ TEST_CASE("math/fixed/from_fixed_point") {
   }
 }
 
-// Unary operator- (negation).
-TEST_CASE("math/fixed/operator_minus") {
-  // Negation of zero yields zero.
-  SUBCASE("negate_zero") {
-    constexpr Fixed f(0);
-    constexpr auto neg = -f;
-
-    REQUIRE(neg.rawValue() == 0);
-
-    static_assert(neg.rawValue() == 0, "operator- of zero must be zero");
-  }
-
-  // Negation of a positive value yields negative.
-  SUBCASE("negate_positive") {
-    constexpr Fixed f(5);
-    constexpr auto neg = -f;
-
-    REQUIRE(neg.rawValue() == -5 * 256);
-    REQUIRE(static_cast<int>(neg) == -5);
-
-    static_assert(neg.rawValue() == -5 * 256, "operator- of positive must yield negative raw");
-    static_assert(static_cast<int>(neg) == -5, "operator- of positive must yield negative int");
-  }
-
-  // Negation of a negative value yields positive.
-  SUBCASE("negate_negative") {
-    constexpr Fixed f(-3);
-    constexpr auto neg = -f;
-
-    REQUIRE(neg.rawValue() == 3 * 256);
-    REQUIRE(static_cast<int>(neg) == 3);
-
-    static_assert(neg.rawValue() == 3 * 256, "operator- of negative must yield positive raw");
-    static_assert(static_cast<int>(neg) == 3, "operator- of negative must yield positive int");
-  }
-
-  // Original operand remains unchanged after unary minus.
-  SUBCASE("operand_unchanged") {
-    constexpr Fixed f(7);
-    constexpr Fixed fNeg(-4);
-    constexpr auto neg = -f;
-    constexpr auto negNeg = -fNeg;
-
-    REQUIRE(f.rawValue() == 7 * 256);
-    REQUIRE(neg.rawValue() == -7 * 256);
-    REQUIRE(fNeg.rawValue() == -4 * 256);
-    REQUIRE(negNeg.rawValue() == 4 * 256);
-
-    static_assert(f.rawValue() == 7 * 256, "operand must be unchanged after operator-");
-    static_assert(neg.rawValue() == -7 * 256, "operator- result must negate raw value");
-    static_assert((-Fixed(-4)).rawValue() == 4 * 256, "operand unchanged and negation for negative");
-  }
-}
-
 // operator+= (in-place addition with fixed or integral).
 TEST_CASE("math/fixed/operator_plus_assign") {
   // Add another fixed of the same type in place.
@@ -677,6 +623,375 @@ TEST_CASE("math/fixed/operator_div_assign") {
       }()
         == -4 * 256,
       "operator/=(T) negative must be constexpr");
+  }
+}
+
+// Unary operator- (negation).
+TEST_CASE("math/fixed/operator_unary_minus") {
+  // Negation of zero yields zero.
+  SUBCASE("negate_zero") {
+    constexpr Fixed f(0);
+    constexpr auto neg = -f;
+
+    REQUIRE(neg.rawValue() == 0);
+
+    static_assert(neg.rawValue() == 0, "operator- of zero must be zero");
+  }
+
+  // Negation of a positive value yields negative.
+  SUBCASE("negate_positive") {
+    constexpr Fixed f(5);
+    constexpr auto neg = -f;
+
+    REQUIRE(neg.rawValue() == -5 * 256);
+    REQUIRE(static_cast<int>(neg) == -5);
+
+    static_assert(neg.rawValue() == -5 * 256, "operator- of positive must yield negative raw");
+    static_assert(static_cast<int>(neg) == -5, "operator- of positive must yield negative int");
+  }
+
+  // Negation of a negative value yields positive.
+  SUBCASE("negate_negative") {
+    constexpr Fixed f(-3);
+    constexpr auto neg = -f;
+
+    REQUIRE(neg.rawValue() == 3 * 256);
+    REQUIRE(static_cast<int>(neg) == 3);
+
+    static_assert(neg.rawValue() == 3 * 256, "operator- of negative must yield positive raw");
+    static_assert(static_cast<int>(neg) == 3, "operator- of negative must yield positive int");
+  }
+
+  // Original operand remains unchanged after unary minus.
+  SUBCASE("operand_unchanged") {
+    constexpr Fixed f(7);
+    constexpr Fixed fNeg(-4);
+    constexpr auto neg = -f;
+    constexpr auto negNeg = -fNeg;
+
+    REQUIRE(f.rawValue() == 7 * 256);
+    REQUIRE(neg.rawValue() == -7 * 256);
+    REQUIRE(fNeg.rawValue() == -4 * 256);
+    REQUIRE(negNeg.rawValue() == 4 * 256);
+
+    static_assert(f.rawValue() == 7 * 256, "operand must be unchanged after operator-");
+    static_assert(neg.rawValue() == -7 * 256, "operator- result must negate raw value");
+    static_assert((-Fixed(-4)).rawValue() == 4 * 256, "operand unchanged and negation for negative");
+  }
+}
+
+// Binary operator+ (fixed + fixed, fixed + integral, integral + fixed).
+TEST_CASE("math/fixed/operator_plus") {
+  // Sum of two fixed values; supports mixed rounding.
+  SUBCASE("plus_fixed_fixed") {
+    constexpr auto sum = Fixed(2) + Fixed(3);
+    constexpr auto sumNeg = Fixed(-2) + Fixed(-3);
+    constexpr auto sumMixed = Fixed(-1) + FixedNoRounding(2);
+
+    REQUIRE(sum.rawValue() == 5 * 256);
+    REQUIRE(sumNeg.rawValue() == -5 * 256);
+    REQUIRE(sumMixed.rawValue() == 1 * 256);
+
+    static_assert(sum.rawValue() == 5 * 256, "operator+(fixed, fixed) must be constexpr");
+    static_assert(sumNeg.rawValue() == -5 * 256, "operator+(fixed, fixed) must be constexpr");
+    static_assert(sumMixed.rawValue() == 1 * 256, "operator+(fixed, fixed) must be constexpr");
+  }
+
+  // Sum of fixed and integral (whole units).
+  SUBCASE("plus_fixed_integral") {
+    constexpr auto sum = Fixed(2) + 3;
+    constexpr auto sumNeg = Fixed(-2) + -3;
+    constexpr auto sumMixed = Fixed(-1) + 2;
+
+    REQUIRE(sum.rawValue() == 5 * 256);
+    REQUIRE(sumNeg.rawValue() == -5 * 256);
+    REQUIRE(sumMixed.rawValue() == 1 * 256);
+
+    static_assert(sum.rawValue() == 5 * 256, "operator+(fixed, T) must be constexpr");
+    static_assert(sumNeg.rawValue() == -5 * 256, "operator+(fixed, T) must be constexpr");
+    static_assert(sumMixed.rawValue() == 1 * 256, "operator+(fixed, T) must be constexpr");
+  }
+
+  // Sum of integral and fixed.
+  SUBCASE("plus_integral_fixed") {
+    constexpr auto sum = 2 + Fixed(3);
+    constexpr auto sumNeg = -2 + Fixed(-3);
+    constexpr auto sumMixed = -1 + Fixed(2);
+
+    REQUIRE(sum.rawValue() == 5 * 256);
+    REQUIRE(static_cast<int>(sumNeg) == -5);
+    REQUIRE(static_cast<int>(sumMixed) == 1);
+
+    static_assert(sum.rawValue() == 5 * 256, "operator+(T, fixed) must be constexpr");
+    static_assert(sumNeg.rawValue() == -5 * 256, "operator+(T, fixed) must be constexpr");
+    static_assert(sumMixed.rawValue() == 1 * 256, "operator+(T, fixed) must be constexpr");
+  }
+}
+
+// Binary operator- (fixed - fixed, fixed - integral, integral - fixed).
+TEST_CASE("math/fixed/operator_binary_minus") {
+  // Difference of two fixed values.
+  SUBCASE("minus_fixed_fixed") {
+    constexpr auto diff = Fixed(5) - Fixed(2);
+    constexpr auto diffNeg = Fixed(-5) - Fixed(-2);
+    constexpr auto diffMixed = Fixed(2) - Fixed(5);
+
+    REQUIRE(diff.rawValue() == 3 * 256);
+    REQUIRE(diffNeg.rawValue() == -3 * 256);
+    REQUIRE(diffMixed.rawValue() == -3 * 256);
+
+    static_assert(diff.rawValue() == 3 * 256, "operator-(fixed, fixed) must be constexpr");
+    static_assert(diffNeg.rawValue() == -3 * 256, "operator-(fixed, fixed) must be constexpr");
+    static_assert(diffMixed.rawValue() == -3 * 256, "operator-(fixed, fixed) must be constexpr");
+  }
+
+  // fixed minus integral.
+  SUBCASE("minus_fixed_integral") {
+    constexpr auto diff = Fixed(5) - 2;
+    constexpr auto diffNeg = Fixed(-5) - -2;
+    constexpr auto diffMixed = Fixed(2) - 5;
+
+    REQUIRE(diff.rawValue() == 3 * 256);
+    REQUIRE(diffNeg.rawValue() == -3 * 256);
+    REQUIRE(diffMixed.rawValue() == -3 * 256);
+
+    static_assert(diff.rawValue() == 3 * 256, "operator-(fixed, T) must be constexpr");
+    static_assert(diffNeg.rawValue() == -3 * 256, "operator-(fixed, T) must be constexpr");
+    static_assert(diffMixed.rawValue() == -3 * 256, "operator-(fixed, T) must be constexpr");
+  }
+
+  // integral minus fixed.
+  SUBCASE("minus_integral_fixed") {
+    constexpr auto diff = 5 - Fixed(2);
+    constexpr auto diffNeg = -5 - Fixed(-2);
+    constexpr auto diffMixed = 2 - Fixed(5);
+
+    REQUIRE(diff.rawValue() == 3 * 256);
+    REQUIRE(diffNeg.rawValue() == -3 * 256);
+    REQUIRE(diffMixed.rawValue() == -3 * 256);
+
+    static_assert(diff.rawValue() == 3 * 256, "operator-(T, fixed) must be constexpr");
+    static_assert(diffNeg.rawValue() == -3 * 256, "operator-(T, fixed) must be constexpr");
+    static_assert(diffMixed.rawValue() == -3 * 256, "operator-(T, fixed) must be constexpr");
+  }
+}
+
+// Binary operator* (fixed * fixed, fixed * integral, integral * fixed).
+TEST_CASE("math/fixed/operator_mul") {
+  // Product of two fixed values.
+  SUBCASE("mul_fixed_fixed") {
+    constexpr auto mul = Fixed(2) * Fixed(3);
+    constexpr auto mulNeg = Fixed(-2) * Fixed(-3);
+    constexpr auto mulMixed = Fixed(2) * Fixed(-3);
+
+    REQUIRE(mul.rawValue() == 6 * 256);
+    REQUIRE(mulNeg.rawValue() == 6 * 256);
+    REQUIRE(mulMixed.rawValue() == -6 * 256);
+
+    static_assert(mul.rawValue() == 6 * 256, "operator*(fixed, fixed) must be constexpr");
+    static_assert(mulNeg.rawValue() == 6 * 256, "operator*(fixed, fixed) must be constexpr");
+    static_assert(mulMixed.rawValue() == -6 * 256, "operator*(fixed, fixed) must be constexpr");
+  }
+
+  // fixed times integral.
+  SUBCASE("mul_fixed_integral") {
+    constexpr auto mul = Fixed(2) * 3;
+    constexpr auto mulNeg = Fixed(-2) * -3;
+    constexpr auto mulMixed = Fixed(2) * -3;
+
+    REQUIRE(mul.rawValue() == 6 * 256);
+    REQUIRE(mulNeg.rawValue() == 6 * 256);
+    REQUIRE(mulMixed.rawValue() == -6 * 256);
+
+    static_assert(mul.rawValue() == 6 * 256, "operator*(fixed, T) must be constexpr");
+    static_assert(mulNeg.rawValue() == 6 * 256, "operator*(fixed, T) must be constexpr");
+    static_assert(mulMixed.rawValue() == -6 * 256, "operator*(fixed, T) must be constexpr");
+  }
+
+  // integral times fixed.
+  SUBCASE("mul_integral_fixed") {
+    constexpr auto mul = 2 * Fixed(3);
+    constexpr auto mulNeg = -2 * Fixed(-3);
+    constexpr auto mulMixed = 2 * Fixed(-3);
+
+    REQUIRE(mul.rawValue() == 6 * 256);
+    REQUIRE(mulNeg.rawValue() == 6 * 256);
+    REQUIRE(mulMixed.rawValue() == -6 * 256);
+
+    static_assert(mul.rawValue() == 6 * 256, "operator*(T, fixed) must be constexpr");
+    static_assert(mulNeg.rawValue() == 6 * 256, "operator*(T, fixed) must be constexpr");
+    static_assert(mulMixed.rawValue() == -6 * 256, "operator*(T, fixed) must be constexpr");
+  }
+}
+
+// Binary operator/ (fixed / fixed, fixed / integral, integral / fixed).
+TEST_CASE("math/fixed/operator_div") {
+  // Quotient of two fixed values; divisor must not be zero.
+  SUBCASE("div_fixed_fixed") {
+    constexpr auto div = Fixed(8) / Fixed(2);
+    constexpr auto divNeg = Fixed(-8) / Fixed(-2);
+    constexpr auto divMixed = Fixed(8) / Fixed(-2);
+
+    REQUIRE(div.rawValue() == 4 * 256);
+    REQUIRE(divNeg.rawValue() == 4 * 256);
+    REQUIRE(divMixed.rawValue() == -4 * 256);
+
+    static_assert(div.rawValue() == 4 * 256, "operator/(fixed, fixed) must be constexpr");
+    static_assert(divNeg.rawValue() == 4 * 256, "operator/(fixed, fixed) must be constexpr");
+    static_assert(divMixed.rawValue() == -4 * 256, "operator/(fixed, fixed) must be constexpr");
+  }
+
+  // fixed divided by integral.
+  SUBCASE("div_fixed_integral") {
+    constexpr auto div = Fixed(8) / 2;
+    constexpr auto divNeg = Fixed(-8) / -2;
+    constexpr auto divMixed = Fixed(8) / -2;
+
+    REQUIRE(div.rawValue() == 4 * 256);
+    REQUIRE(divNeg.rawValue() == 4 * 256);
+    REQUIRE(divMixed.rawValue() == -4 * 256);
+
+    static_assert(div.rawValue() == 4 * 256, "operator/(fixed, T) must be constexpr");
+    static_assert(divNeg.rawValue() == 4 * 256, "operator/(fixed, T) must be constexpr");
+    static_assert(divMixed.rawValue() == -4 * 256, "operator/(fixed, T) must be constexpr");
+  }
+
+  // integral divided by fixed.
+  SUBCASE("div_integral_fixed") {
+    constexpr auto div = 8 / Fixed(2);
+    constexpr auto divNeg = -8 / Fixed(-2);
+    constexpr auto divMixed = 8 / Fixed(-2);
+
+    REQUIRE(div.rawValue() == 4 * 256);
+    REQUIRE(divNeg.rawValue() == 4 * 256);
+    REQUIRE(divMixed.rawValue() == -4 * 256);
+
+    static_assert(div.rawValue() == 4 * 256, "operator/(T, fixed) must be constexpr");
+    static_assert(divNeg.rawValue() == 4 * 256, "operator/(T, fixed) must be constexpr");
+    static_assert(divMixed.rawValue() == -4 * 256, "operator/(T, fixed) must be constexpr");
+  }
+}
+
+// operator== (equality) and operator<=> (three-way comparison).
+TEST_CASE("math/fixed/operator_equality") {
+  // Equal values (same type) compare equal.
+  SUBCASE("equal_same_type") {
+    constexpr Fixed a(3);
+    constexpr Fixed b(3);
+
+    REQUIRE(a == b);
+    REQUIRE(!(a != b));
+
+    static_assert(Fixed(3) == Fixed(3), "operator== must be constexpr for equal values");
+    static_assert(!(Fixed(3) != Fixed(3)), "operator!= must be constexpr for equal values");
+  }
+
+  // Equal values with different rounding policy compare equal (raw value same).
+  SUBCASE("equal_different_rounding") {
+    constexpr Fixed a(5);
+    constexpr FixedNoRounding b(5);
+
+    REQUIRE(a == b);
+    REQUIRE(b == a);
+    REQUIRE(!(a != b));
+
+    static_assert(Fixed(5) == FixedNoRounding(5), "operator== must allow mixed rounding");
+  }
+
+  // Unequal values compare not equal.
+  SUBCASE("unequal") {
+    constexpr Fixed a(2);
+    constexpr Fixed b(3);
+
+    REQUIRE(!(a == b));
+    REQUIRE(a != b);
+    REQUIRE(!(b == a));
+    REQUIRE(b != a);
+
+    static_assert(!(Fixed(2) == Fixed(3)), "operator== must be false for unequal values");
+    static_assert(Fixed(2) != Fixed(3), "operator!= must be true for unequal values");
+  }
+
+  // Zero equals zero.
+  SUBCASE("zero_equals_zero") {
+    constexpr Fixed z(0);
+
+    REQUIRE(z == Fixed(0));
+    REQUIRE(!(z != Fixed(0)));
+
+    static_assert(Fixed(0) == Fixed(0), "operator== for zero");
+  }
+}
+
+// operator<=>, <, <=, >, >= (three-way and relational).
+TEST_CASE("math/fixed/operator_ordering") {
+  // Less-than: a < b when a.rawValue() < b.rawValue().
+  SUBCASE("less_than") {
+    constexpr Fixed a(2);
+    constexpr Fixed b(5);
+
+    REQUIRE(a < b);
+    REQUIRE(a <= b);
+    REQUIRE(!(a > b));
+    REQUIRE(!(a >= b));
+
+    static_assert(Fixed(2) < Fixed(5), "operator< must be constexpr");
+    static_assert(Fixed(2) <= Fixed(5), "operator<= must be constexpr");
+  }
+
+  // Greater-than: a > b when a.rawValue() > b.rawValue().
+  SUBCASE("greater_than") {
+    constexpr Fixed a(7);
+    constexpr Fixed b(4);
+
+    REQUIRE(a > b);
+    REQUIRE(a >= b);
+    REQUIRE(!(a < b));
+    REQUIRE(!(a <= b));
+
+    static_assert(Fixed(7) > Fixed(4), "operator> must be constexpr");
+    static_assert(Fixed(7) >= Fixed(4), "operator>= must be constexpr");
+  }
+
+  // Equal: a <= b and a >= b when equal.
+  SUBCASE("equal_ordering") {
+    constexpr Fixed a(3);
+    constexpr Fixed b(3);
+
+    REQUIRE(!(a < b));
+    REQUIRE(a <= b);
+    REQUIRE(!(a > b));
+    REQUIRE(a >= b);
+
+    static_assert(!(Fixed(3) < Fixed(3)), "operator< must be false for equal");
+    static_assert(Fixed(3) <= Fixed(3), "operator<= must be true for equal");
+    static_assert(Fixed(3) >= Fixed(3), "operator>= must be true for equal");
+  }
+
+  // Negative values: ordering follows raw value.
+  SUBCASE("negative_ordering") {
+    constexpr Fixed a(-5);
+    constexpr Fixed b(-2);
+
+    REQUIRE(a < b);
+    REQUIRE(a <= b);
+    REQUIRE(b > a);
+    REQUIRE(b >= a);
+
+    static_assert(Fixed(-5) < Fixed(-2), "operator< must order negatives correctly");
+  }
+
+  // operator<=> returns strong_ordering; mixed rounding types.
+  SUBCASE("spaceship_mixed_rounding") {
+    constexpr Fixed a(1);
+    constexpr FixedNoRounding b(2);
+
+    REQUIRE((a <=> b) == std::strong_ordering::less);
+    REQUIRE((b <=> a) == std::strong_ordering::greater);
+    REQUIRE((Fixed(2) <=> FixedNoRounding(2)) == std::strong_ordering::equal);
+
+    static_assert((Fixed(1) <=> FixedNoRounding(2)) == std::strong_ordering::less,
+                  "operator<=> must be constexpr");
   }
 }
 
