@@ -38,6 +38,12 @@
 struct GBAReporter : public doctest::IReporter {
   explicit GBAReporter([[maybe_unused]] const doctest::ContextOptions & in_options) noexcept {}
 
+  GBAReporter(const GBAReporter &) = delete;
+  GBAReporter(GBAReporter &&) = delete;
+
+  GBAReporter & operator=(const GBAReporter &) = delete;
+  GBAReporter & operator=(GBAReporter &&) = delete;
+
   void test_run_start() override {}
 
   void test_run_end([[maybe_unused]] const doctest::TestRunStats & stats) noexcept override {}
