@@ -339,6 +339,42 @@ private:
 };
 
 /*!
+  \struct is_fixed_point
+  \brief Unary type trait: \c true if \a T is an instantiation of \ref toy::math::fixed, \c false otherwise.
+
+  \tparam T Type to check.
+*/
+template <typename T>
+struct is_fixed_point : std::false_type {};
+
+/*!
+  \struct is_fixed_point
+  \brief Specialization for \ref toy::math::fixed: always \c true_type.
+
+  \tparam Base Storage type for raw fixed-point value.
+  \tparam Intermediate Intermediate type for calculations.
+  \tparam Fraction Number of fractional bits.
+  \tparam Rounding Rounding policy.
+*/
+template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding>
+  requires ValidFixedPointTypes<Base, Intermediate, Fraction>
+struct is_fixed_point<fixed<Base, Intermediate, Fraction, Rounding>> : std::true_type {};
+
+/// Helper variable template: \c true if \a T is \ref toy::math::fixed, \c false otherwise.
+template <typename T>
+inline constexpr bool is_fixed_point_v = is_fixed_point<T>::value;
+
+/*!
+  \brief Concept: \a T is an instantiation of \ref toy::math::fixed.
+
+  Use to constrain templates to fixed-point types only (analogous to \c std::floating_point for built-in floats).
+
+  \tparam T Type to check.
+*/
+template <typename T>
+concept FixedPoint = is_fixed_point_v<T>;
+
+/*!
   \brief Unary minus: returns the negation of a \ref toy::math::fixed value.
 
   The result has the same raw storage as \a value with sign flipped. The operand is not modified.

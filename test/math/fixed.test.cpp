@@ -368,6 +368,51 @@ TEST_CASE("math/fixed/operator_plus_assign") {
   }
 }
 
+// is_fixed_point trait, is_fixed_point_v, and FixedPoint concept.
+TEST_CASE("math/fixed/fixed_point_concept") {
+  // Trait is true for any fixed instantiation.
+  SUBCASE("trait_true_for_fixed") {
+    REQUIRE(is_fixed_point_v<Fixed>);
+    REQUIRE(is_fixed_point_v<FixedNoRounding>);
+    REQUIRE(is_fixed_point_v<Fixed4>);
+    REQUIRE(is_fixed_point_v<Fixed16>);
+
+    static_assert(is_fixed_point_v<Fixed>, "is_fixed_point_v must be true for fixed<int32_t, int64_t, 8>");
+    static_assert(is_fixed_point_v<FixedNoRounding>, "is_fixed_point_v must be true for fixed with Rounding false");
+    static_assert(is_fixed_point_v<Fixed4>, "is_fixed_point_v must be true for fixed with 4 fraction bits");
+    static_assert(is_fixed_point_v<Fixed16>, "is_fixed_point_v must be true for fixed with 16 fraction bits");
+  }
+
+  // Trait is false for non-fixed types.
+  SUBCASE("trait_false_for_non_fixed") {
+    REQUIRE(!is_fixed_point_v<int>);
+    REQUIRE(!is_fixed_point_v<float>);
+    REQUIRE(!is_fixed_point_v<double>);
+    REQUIRE(!is_fixed_point_v<int32_t>);
+
+    static_assert(!is_fixed_point_v<int>, "is_fixed_point_v must be false for int");
+    static_assert(!is_fixed_point_v<float>, "is_fixed_point_v must be false for float");
+    static_assert(!is_fixed_point_v<double>, "is_fixed_point_v must be false for double");
+    static_assert(!is_fixed_point_v<int32_t>, "is_fixed_point_v must be false for int32_t");
+  }
+
+  // Concept constrains template: function accepts only fixed types.
+  SUBCASE("concept_constrains_template") {
+    constexpr auto check = [](FixedPoint auto) constexpr { return true; };
+    constexpr Fixed f(1);
+
+    REQUIRE(check(f));
+
+    static_assert(check(Fixed(1)), "FixedPoint concept must accept fixed type in constrained template");
+  }
+
+  // Concept is false for non-fixed types.
+  SUBCASE("concept_false_for_non_fixed") {
+    static_assert(!FixedPoint<int>, "FixedPoint must be false for int");
+    static_assert(!FixedPoint<float>, "FixedPoint must be false for float");
+  }
+}
+
 // operator-= (in-place subtraction with fixed or integral).
 TEST_CASE("math/fixed/operator_minus_assign") {
   // Subtract another fixed of the same type in place.
