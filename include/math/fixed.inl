@@ -29,13 +29,13 @@ namespace toy::math {
 
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding>
   requires ValidFixedPointTypes<Base, Intermediate, Fraction>
-template <std::integral T>
+template <integral T>
 constexpr fixed<Base, Intermediate, Fraction, Rounding>::fixed(const T & value) noexcept
   : _value(static_cast<Base>(value * _fractionMult())) {}
 
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding>
   requires ValidFixedPointTypes<Base, Intermediate, Fraction>
-template <std::floating_point T>
+template <floating_point T>
 constexpr fixed<Base, Intermediate, Fraction, Rounding>::fixed(const T & value) noexcept
   : _value(static_cast<Base>(Rounding ? (value * static_cast<T>(_fractionMult()) + ((value >= T{0}) ? T{0.5} : T{-0.5}))
                                       : (value * static_cast<T>(_fractionMult())))) {}
@@ -49,14 +49,14 @@ constexpr fixed<Base, Intermediate, Fraction, Rounding>::fixed(
 
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding>
   requires ValidFixedPointTypes<Base, Intermediate, Fraction>
-template <std::integral T>
+template <integral T>
 constexpr fixed<Base, Intermediate, Fraction, Rounding>::operator T() const noexcept {
   return static_cast<T>(_value / _fractionMult());
 }
 
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding>
   requires ValidFixedPointTypes<Base, Intermediate, Fraction>
-template <std::floating_point T>
+template <floating_point T>
 constexpr fixed<Base, Intermediate, Fraction, Rounding>::operator T() const noexcept {
   return static_cast<T>(_value) / _fractionMult();
 }
@@ -76,7 +76,7 @@ constexpr fixed<Base, Intermediate, Fraction, Rounding> fixed<Base, Intermediate
 
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding>
   requires ValidFixedPointTypes<Base, Intermediate, Fraction>
-template <unsigned NumFractionBits, std::integral T>
+template <unsigned NumFractionBits, integral T>
   requires(NumFractionBits > Fraction)
 constexpr fixed<Base, Intermediate, Fraction, Rounding> fixed<Base, Intermediate, Fraction, Rounding>::fromFixedPoint(
   const T & value) noexcept {
@@ -95,7 +95,7 @@ constexpr fixed<Base, Intermediate, Fraction, Rounding> fixed<Base, Intermediate
 
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding>
   requires ValidFixedPointTypes<Base, Intermediate, Fraction>
-template <unsigned NumFractionBits, std::integral T>
+template <unsigned NumFractionBits, integral T>
   requires(NumFractionBits <= Fraction)
 constexpr fixed<Base, Intermediate, Fraction, Rounding> fixed<Base, Intermediate, Fraction, Rounding>::fromFixedPoint(
   const T & value) noexcept {
@@ -114,7 +114,7 @@ constexpr fixed<Base, Intermediate, Fraction, Rounding> & fixed<Base, Intermedia
 
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding>
   requires ValidFixedPointTypes<Base, Intermediate, Fraction>
-template <std::integral T>
+template <integral T>
 constexpr fixed<Base, Intermediate, Fraction, Rounding> & fixed<Base, Intermediate, Fraction, Rounding>::operator+=(
   const T & other) noexcept {
   _value = static_cast<Base>(static_cast<Intermediate>(_value) + other * _fractionMult());
@@ -134,7 +134,7 @@ constexpr fixed<Base, Intermediate, Fraction, Rounding> & fixed<Base, Intermedia
 
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding>
   requires ValidFixedPointTypes<Base, Intermediate, Fraction>
-template <std::integral T>
+template <integral T>
 constexpr fixed<Base, Intermediate, Fraction, Rounding> & fixed<Base, Intermediate, Fraction, Rounding>::operator-=(
   const T & other) noexcept {
   _value = static_cast<Base>(static_cast<Intermediate>(_value) - other * _fractionMult());
@@ -164,7 +164,7 @@ constexpr fixed<Base, Intermediate, Fraction, Rounding> & fixed<Base, Intermedia
 
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding>
   requires ValidFixedPointTypes<Base, Intermediate, Fraction>
-template <std::integral T>
+template <integral T>
 constexpr fixed<Base, Intermediate, Fraction, Rounding> & fixed<Base, Intermediate, Fraction, Rounding>::operator*=(
   const T & other) noexcept {
   _value *= other;
@@ -195,7 +195,7 @@ constexpr fixed<Base, Intermediate, Fraction, Rounding> & fixed<Base, Intermedia
 
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding>
   requires ValidFixedPointTypes<Base, Intermediate, Fraction>
-template <std::integral T>
+template <integral T>
 constexpr fixed<Base, Intermediate, Fraction, Rounding> & fixed<Base, Intermediate, Fraction, Rounding>::operator/=(
   const T & other) noexcept {
   assert_message(other != 0, "fixed operator/=(T): integral divisor must not be zero");
@@ -217,7 +217,7 @@ consteval Intermediate fixed<Base, Intermediate, Fraction, Rounding>::_fractionM
 }
 
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding>
-  requires std::signed_integral<Base>
+  requires signed_integral<Base>
 constexpr fixed<Base, Intermediate, Fraction, Rounding> operator-(
   const fixed<Base, Intermediate, Fraction, Rounding> & value) noexcept {
   return fixed<Base, Intermediate, Fraction, Rounding>::fromRawValue(-value.rawValue());
@@ -231,14 +231,14 @@ constexpr fixed<Base, Intermediate, Fraction, Rounding> operator+(
 }
 
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, typename T>
-  requires std::integral<T>
+  requires integral<T>
 constexpr fixed<Base, Intermediate, Fraction, Rounding> operator+(
   const fixed<Base, Intermediate, Fraction, Rounding> & a, const T & b) noexcept {
   return fixed<Base, Intermediate, Fraction, Rounding>(a) += b;
 }
 
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, typename T>
-  requires std::integral<T>
+  requires integral<T>
 constexpr fixed<Base, Intermediate, Fraction, Rounding> operator+(
   const T & a, const fixed<Base, Intermediate, Fraction, Rounding> & b) noexcept {
   return fixed<Base, Intermediate, Fraction, Rounding>(a) += b;
@@ -252,14 +252,14 @@ constexpr fixed<Base, Intermediate, Fraction, Rounding> operator-(
 }
 
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, typename T>
-  requires std::integral<T>
+  requires integral<T>
 constexpr fixed<Base, Intermediate, Fraction, Rounding> operator-(
   const fixed<Base, Intermediate, Fraction, Rounding> & a, const T & b) noexcept {
   return fixed<Base, Intermediate, Fraction, Rounding>(a) -= b;
 }
 
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, typename T>
-  requires std::integral<T>
+  requires integral<T>
 constexpr fixed<Base, Intermediate, Fraction, Rounding> operator-(
   const T & a, const fixed<Base, Intermediate, Fraction, Rounding> & b) noexcept {
   return fixed<Base, Intermediate, Fraction, Rounding>(a) -= b;
@@ -273,14 +273,14 @@ constexpr fixed<Base, Intermediate, Fraction, Rounding> operator*(
 }
 
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, typename T>
-  requires std::integral<T>
+  requires integral<T>
 constexpr fixed<Base, Intermediate, Fraction, Rounding> operator*(
   const fixed<Base, Intermediate, Fraction, Rounding> & a, const T & b) noexcept {
   return fixed<Base, Intermediate, Fraction, Rounding>(a) *= b;
 }
 
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, typename T>
-  requires std::integral<T>
+  requires integral<T>
 constexpr fixed<Base, Intermediate, Fraction, Rounding> operator*(
   const T & a, const fixed<Base, Intermediate, Fraction, Rounding> & b) noexcept {
   return fixed<Base, Intermediate, Fraction, Rounding>(a) *= b;
@@ -296,7 +296,7 @@ constexpr fixed<Base, Intermediate, Fraction, Rounding> operator/(
 }
 
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, typename T>
-  requires std::integral<T>
+  requires integral<T>
 constexpr fixed<Base, Intermediate, Fraction, Rounding> operator/(
   const fixed<Base, Intermediate, Fraction, Rounding> & a, const T & b) noexcept {
   assert_message(b != 0, "operator/(fixed, T): integral divisor must not be zero");
@@ -305,7 +305,7 @@ constexpr fixed<Base, Intermediate, Fraction, Rounding> operator/(
 }
 
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, typename T>
-  requires std::integral<T>
+  requires integral<T>
 constexpr fixed<Base, Intermediate, Fraction, Rounding> operator/(
   const T & a, const fixed<Base, Intermediate, Fraction, Rounding> & b) noexcept {
   assert_message(b.rawValue() != 0, "operator/(T, fixed): divisor must not be zero");

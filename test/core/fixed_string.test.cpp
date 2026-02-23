@@ -133,9 +133,9 @@ TEST_CASE("core/fixed_string/constructors") {
     constexpr FixedString<64> unicode("Привет мир");
     constexpr FixedString<32> emoji("Hello 🌍");
 
-    static_assert(unicode.size() == std::char_traits<char>::length("Привет мир"));
+    static_assert(unicode.size() == char_traits<char>::length("Привет мир"));
     static_assert(cstrcmp(unicode.c_str(), "Привет мир") == 0);
-    static_assert(emoji.size() == std::char_traits<char>::length("Hello 🌍"));
+    static_assert(emoji.size() == char_traits<char>::length("Hello 🌍"));
     static_assert(cstrcmp(emoji.c_str(), "Hello 🌍") == 0);
   }
 }
@@ -314,15 +314,15 @@ TEST_CASE("core/fixed_string/operators_assign") {
     FixedString<48> str2;
 
     str1 = "Привет";
-    REQUIRE(str1.size() == std::char_traits<char>::length("Привет"));
+    REQUIRE(str1.size() == char_traits<char>::length("Привет"));
     REQUIRE(std::strcmp(str1.c_str(), "Привет") == 0);
 
     str2 = "Hello 🌍";
-    REQUIRE(str2.size() == std::char_traits<char>::length("Hello 🌍"));
+    REQUIRE(str2.size() == char_traits<char>::length("Hello 🌍"));
     REQUIRE(std::strcmp(str2.c_str(), "Hello 🌍") == 0);
 
     str1 = str2;
-    REQUIRE(str1.size() == std::char_traits<char>::length("Hello 🌍"));
+    REQUIRE(str1.size() == char_traits<char>::length("Hello 🌍"));
     REQUIRE(std::strcmp(str1.c_str(), "Hello 🌍") == 0);
   }
 }
@@ -535,18 +535,18 @@ TEST_CASE("core/fixed_string/assign") {
 
     // Unicode characters
     str1.assign("Hello 世界");
-    REQUIRE(str1.size() == std::char_traits<char>::length("Hello 世界"));
+    REQUIRE(str1.size() == char_traits<char>::length("Hello 世界"));
     REQUIRE(std::strcmp(str1.c_str(), "Hello 世界") == 0);
 
     str2.assign("Test 🌍");
-    REQUIRE(str2.size() == std::char_traits<char>::length("Test 🌍"));
+    REQUIRE(str2.size() == char_traits<char>::length("Test 🌍"));
     REQUIRE(std::strcmp(str2.c_str(), "Test 🌍") == 0);
 
     constexpr auto constStr1 = FixedString<32>().assign("Hello 世界");
     constexpr auto constStr2 = FixedString<16>().assign("Test 🌍");
-    static_assert(constStr1.size() == std::char_traits<char>::length("Hello 世界"));
+    static_assert(constStr1.size() == char_traits<char>::length("Hello 世界"));
     static_assert(cstrcmp(constStr1.c_str(), "Hello 世界") == 0);
-    static_assert(constStr2.size() == std::char_traits<char>::length("Test 🌍"));
+    static_assert(constStr2.size() == char_traits<char>::length("Test 🌍"));
     static_assert(cstrcmp(constStr2.c_str(), "Test 🌍") == 0);
   }
 
@@ -1496,14 +1496,14 @@ TEST_CASE("core/fixed_string/size") {
     constexpr FixedString<64> mixedString("Hello 世界");
     constexpr FixedString<64> emptyString("");
 
-    REQUIRE(unicodeString.size() == std::char_traits<char>::length("Привет мир"));
-    REQUIRE(emojiString.size() == std::char_traits<char>::length("Hello 🌍 World"));
-    REQUIRE(mixedString.size() == std::char_traits<char>::length("Hello 世界"));
+    REQUIRE(unicodeString.size() == char_traits<char>::length("Привет мир"));
+    REQUIRE(emojiString.size() == char_traits<char>::length("Hello 🌍 World"));
+    REQUIRE(mixedString.size() == char_traits<char>::length("Hello 世界"));
     REQUIRE(emptyString.size() == 0);
 
-    static_assert(unicodeString.size() == std::char_traits<char>::length("Привет мир"));
-    static_assert(emojiString.size() == std::char_traits<char>::length("Hello 🌍 World"));
-    static_assert(mixedString.size() == std::char_traits<char>::length("Hello 世界"));
+    static_assert(unicodeString.size() == char_traits<char>::length("Привет мир"));
+    static_assert(emojiString.size() == char_traits<char>::length("Hello 🌍 World"));
+    static_assert(mixedString.size() == char_traits<char>::length("Hello 世界"));
     static_assert(emptyString.size() == 0);
   }
 
@@ -1599,7 +1599,7 @@ TEST_CASE("core/fixed_string/utf8_size") {
 
     constexpr FixedString<32> cyrillicString(cyrillicText);
 
-    REQUIRE(cyrillicString.size() == std::char_traits<char>::length("Привет мир"));
+    REQUIRE(cyrillicString.size() == char_traits<char>::length("Привет мир"));
     REQUIRE(cyrillicString.utf8_size() == 10);
   }
 
@@ -1609,7 +1609,7 @@ TEST_CASE("core/fixed_string/utf8_size") {
 
     constexpr FixedString<16> mixedString(mixedText);
 
-    REQUIRE(mixedString.size() == std::char_traits<char>::length("Hello 世界"));
+    REQUIRE(mixedString.size() == char_traits<char>::length("Hello 世界"));
     REQUIRE(mixedString.utf8_size() == 8); // 6 ASCII + 2 Chinese characters
   }
 
@@ -1619,7 +1619,7 @@ TEST_CASE("core/fixed_string/utf8_size") {
 
     constexpr FixedString<16> emojiString(emojiText);
 
-    REQUIRE(emojiString.size() == std::char_traits<char>::length("Hello 🌍"));
+    REQUIRE(emojiString.size() == char_traits<char>::length("Hello 🌍"));
     REQUIRE(emojiString.utf8_size() == 7); // 6 ASCII + 1 emoji
   }
 
@@ -1656,7 +1656,7 @@ TEST_CASE("core/fixed_string/utf8_size") {
 
     constexpr FixedString<80> longString(longUtf8Text);
 
-    REQUIRE(longString.size() == std::char_traits<char>::length("ToyGine2 - Бесплатный 2D/3D игровой движок."));
+    REQUIRE(longString.size() == char_traits<char>::length("ToyGine2 - Бесплатный 2D/3D игровой движок."));
     REQUIRE(longString.utf8_size() == 43); // 43 characters
   }
 }
@@ -1738,9 +1738,9 @@ TEST_CASE("core/fixed_string/length") {
     constexpr FixedString<64> mixedString("Hello 世界");
     constexpr FixedString<64> emptyString("");
 
-    REQUIRE(unicodeString.length() == std::char_traits<char>::length("Привет мир"));
-    REQUIRE(emojiString.length() == std::char_traits<char>::length("Hello 🌍 World"));
-    REQUIRE(mixedString.length() == std::char_traits<char>::length("Hello 世界"));
+    REQUIRE(unicodeString.length() == char_traits<char>::length("Привет мир"));
+    REQUIRE(emojiString.length() == char_traits<char>::length("Hello 🌍 World"));
+    REQUIRE(mixedString.length() == char_traits<char>::length("Hello 世界"));
     REQUIRE(emptyString.length() == 0);
 
     REQUIRE(unicodeString.length() == unicodeString.size());
@@ -1748,9 +1748,9 @@ TEST_CASE("core/fixed_string/length") {
     REQUIRE(mixedString.length() == mixedString.size());
     REQUIRE(emptyString.length() == emptyString.size());
 
-    static_assert(unicodeString.length() == std::char_traits<char>::length("Привет мир"));
-    static_assert(emojiString.length() == std::char_traits<char>::length("Hello 🌍 World"));
-    static_assert(mixedString.length() == std::char_traits<char>::length("Hello 世界"));
+    static_assert(unicodeString.length() == char_traits<char>::length("Привет мир"));
+    static_assert(emojiString.length() == char_traits<char>::length("Hello 🌍 World"));
+    static_assert(mixedString.length() == char_traits<char>::length("Hello 世界"));
   }
 
   SUBCASE("numeric_content") {
@@ -2510,11 +2510,11 @@ TEST_CASE("core/fixed_string/insert") {
 
     testString.insert(5, " 世界");
     REQUIRE(std::strcmp(testString.c_str(), "Hello 世界") == 0);
-    REQUIRE(testString.size() == std::char_traits<char>::length("Hello 世界"));
+    REQUIRE(testString.size() == char_traits<char>::length("Hello 世界"));
 
     testString.insert(0, "Привет ");
     REQUIRE(std::strcmp(testString.c_str(), "Привет Hello 世界") == 0);
-    REQUIRE(testString.size() == std::char_traits<char>::length("Привет Hello 世界"));
+    REQUIRE(testString.size() == char_traits<char>::length("Привет Hello 世界"));
   }
 
   SUBCASE("insert_with_different_capacities") {
@@ -2678,7 +2678,7 @@ TEST_CASE("core/fixed_string/erase") {
   SUBCASE("erase_unicode_content") {
     FixedString<64> testString("Hello 世界 World");
 
-    REQUIRE(testString.size() == std::char_traits<char>::length("Hello 世界 World"));
+    REQUIRE(testString.size() == char_traits<char>::length("Hello 世界 World"));
     REQUIRE(std::strcmp(testString.c_str(), "Hello 世界 World") == 0);
 
     testString.erase(6, 3); // Erase Chinese characters
@@ -3156,13 +3156,13 @@ TEST_CASE("core/fixed_string/utf8_pop_back") {
   SUBCASE("pop_back_utf8_cyrillic_characters") {
     FixedString<32> testString("Hello привет");
 
-    REQUIRE(testString.size() == std::char_traits<char>::length("Hello привет"));
+    REQUIRE(testString.size() == char_traits<char>::length("Hello привет"));
     REQUIRE(testString.utf8_size() == 12);
     REQUIRE(std::strcmp(testString.c_str(), "Hello привет") == 0);
 
     testString.utf8_pop_back(); // Remove 'т'
 
-    REQUIRE(testString.size() == std::char_traits<char>::length("Hello приве"));
+    REQUIRE(testString.size() == char_traits<char>::length("Hello приве"));
     REQUIRE(testString.utf8_size() == 11);
     REQUIRE(std::strcmp(testString.c_str(), "Hello приве") == 0);
   }
@@ -3170,7 +3170,7 @@ TEST_CASE("core/fixed_string/utf8_pop_back") {
   SUBCASE("pop_back_multiple_utf8_characters") {
     FixedString<32> testString("Hello привет");
 
-    REQUIRE(testString.size() == std::char_traits<char>::length("Hello привет"));
+    REQUIRE(testString.size() == char_traits<char>::length("Hello привет"));
     REQUIRE(testString.utf8_size() == 12);
     REQUIRE(std::strcmp(testString.c_str(), "Hello привет") == 0);
 
@@ -3178,7 +3178,7 @@ TEST_CASE("core/fixed_string/utf8_pop_back") {
     testString.utf8_pop_back(); // Remove 'е'
     testString.utf8_pop_back(); // Remove 'в'
 
-    REQUIRE(testString.size() == std::char_traits<char>::length("Hello при"));
+    REQUIRE(testString.size() == char_traits<char>::length("Hello при"));
     REQUIRE(testString.utf8_size() == 9);
     REQUIRE(std::strcmp(testString.c_str(), "Hello при") == 0);
   }
@@ -3186,7 +3186,7 @@ TEST_CASE("core/fixed_string/utf8_pop_back") {
   SUBCASE("pop_back_mixed_ascii_and_utf8") {
     FixedString<32> testString("Hello привет");
 
-    REQUIRE(testString.size() == std::char_traits<char>::length("Hello привет"));
+    REQUIRE(testString.size() == char_traits<char>::length("Hello привет"));
     REQUIRE(testString.utf8_size() == 12);
     REQUIRE(std::strcmp(testString.c_str(), "Hello привет") == 0);
 
@@ -3235,7 +3235,7 @@ TEST_CASE("core/fixed_string/utf8_pop_back") {
   SUBCASE("pop_back_utf8_emoji_characters") {
     FixedString<32> testString("Hello 🌍 World");
 
-    REQUIRE(testString.size() == std::char_traits<char>::length("Hello 🌍 World"));
+    REQUIRE(testString.size() == char_traits<char>::length("Hello 🌍 World"));
     REQUIRE(testString.utf8_size() == 13);
     REQUIRE(std::strcmp(testString.c_str(), "Hello 🌍 World") == 0);
 
@@ -3267,8 +3267,8 @@ TEST_CASE("core/fixed_string/utf8_pop_back") {
     REQUIRE(std::strcmp(largeString.c_str(), "Hello привет ми") == 0);
 
     REQUIRE(smallString.size() == 1);
-    REQUIRE(mediumString.size() == std::char_traits<char>::length("Hello 世"));
-    REQUIRE(largeString.size() == std::char_traits<char>::length("Hello привет ми"));
+    REQUIRE(mediumString.size() == char_traits<char>::length("Hello 世"));
+    REQUIRE(largeString.size() == char_traits<char>::length("Hello привет ми"));
 
     REQUIRE(smallString.utf8_size() == 1);
     REQUIRE(mediumString.utf8_size() == 7);
@@ -3338,14 +3338,14 @@ TEST_CASE("core/fixed_string/utf8_pop_back") {
     const auto originalCapacity = testString.capacity();
     const auto originalMaxSize = testString.max_size();
 
-    REQUIRE(testString.size() == std::char_traits<char>::length("Hello привет"));
+    REQUIRE(testString.size() == char_traits<char>::length("Hello привет"));
     REQUIRE(testString.utf8_size() == 12);
 
     testString.utf8_pop_back();
     testString.utf8_pop_back();
     testString.utf8_pop_back();
 
-    REQUIRE(testString.size() == std::char_traits<char>::length("Hello при"));
+    REQUIRE(testString.size() == char_traits<char>::length("Hello при"));
     REQUIRE(testString.utf8_size() == 9);
     REQUIRE(testString.capacity() == originalCapacity);
     REQUIRE(testString.max_size() == originalMaxSize);
@@ -3525,7 +3525,7 @@ TEST_CASE("core/fixed_string/append") {
 
     testString.append(" 世界");
 
-    REQUIRE(testString.size() == std::char_traits<char>::length("Hello 世界"));
+    REQUIRE(testString.size() == char_traits<char>::length("Hello 世界"));
     REQUIRE(std::strcmp(testString.c_str(), "Hello 世界") == 0);
   }
 
@@ -3741,7 +3741,7 @@ TEST_CASE("core/fixed_string/operators_plus_assign") {
 
     testString += " 世界";
 
-    REQUIRE(testString.size() == std::char_traits<char>::length("Hello 世界"));
+    REQUIRE(testString.size() == char_traits<char>::length("Hello 世界"));
     REQUIRE(std::strcmp(testString.c_str(), "Hello 世界") == 0);
   }
 
@@ -4551,17 +4551,17 @@ TEST_CASE("core/fixed_string/swap") {
     FixedString<64> string1("Hello 世界");
     FixedString<64> string2("Привет мир");
 
-    REQUIRE(string1.size() == std::char_traits<char>::length("Hello 世界"));
+    REQUIRE(string1.size() == char_traits<char>::length("Hello 世界"));
     REQUIRE(std::strcmp(string1.c_str(), "Hello 世界") == 0);
-    REQUIRE(string2.size() == std::char_traits<char>::length("Привет мир"));
+    REQUIRE(string2.size() == char_traits<char>::length("Привет мир"));
     REQUIRE(std::strcmp(string2.c_str(), "Привет мир") == 0);
 
     string1.swap(string2);
 
     REQUIRE(std::strcmp(string1.c_str(), "Привет мир") == 0);
-    REQUIRE(string1.size() == std::char_traits<char>::length("Привет мир"));
+    REQUIRE(string1.size() == char_traits<char>::length("Привет мир"));
     REQUIRE(std::strcmp(string2.c_str(), "Hello 世界") == 0);
-    REQUIRE(string2.size() == std::char_traits<char>::length("Hello 世界"));
+    REQUIRE(string2.size() == char_traits<char>::length("Hello 世界"));
   }
 
   SUBCASE("swap_with_numeric_content") {
@@ -9085,9 +9085,9 @@ TEST_CASE("core/fixed_string/std_swap") {
 
     std::swap(str1, str2);
 
-    REQUIRE(str1.size() == std::char_traits<char>::length("World 宇宙"));
+    REQUIRE(str1.size() == char_traits<char>::length("World 宇宙"));
     REQUIRE(std::strcmp(str1.c_str(), "World 宇宙") == 0);
-    REQUIRE(str2.size() == std::char_traits<char>::length("Hello 世界"));
+    REQUIRE(str2.size() == char_traits<char>::length("Hello 世界"));
     REQUIRE(std::strcmp(str2.c_str(), "Hello 世界") == 0);
   }
 

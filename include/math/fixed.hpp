@@ -30,15 +30,15 @@ namespace toy::math {
 /*!
   \brief Compile-time constraints for \ref toy::math::fixed template parameters.
 
-  \tparam Base Storage type; must satisfy \c std::integral.
+  \tparam Base Storage type; must satisfy \c integral.
   \tparam Intermediate Wider type for intermediate calculations; size must be \c >= sizeof(Base), signedness must match
   \a Base.
-  \tparam Fraction Number of fractional bits; must be in (0, std::numeric_limits<Base>::digits].
+  \tparam Fraction Number of fractional bits; must be in (0, numeric_limits<Base>::digits].
 */
 template <typename Base, typename Intermediate, unsigned Fraction>
 concept ValidFixedPointTypes
-  = std::integral<Base> && (Fraction > 0) && (Fraction <= std::numeric_limits<Base>::digits)
-    && (sizeof(Intermediate) >= sizeof(Base)) && (std::is_signed_v<Base> == std::is_signed_v<Intermediate>);
+  = integral<Base> && (Fraction > 0) && (Fraction <= numeric_limits<Base>::digits)
+    && (sizeof(Intermediate) >= sizeof(Base)) && (is_signed_v<Base> == is_signed_v<Intermediate>);
 
 /*!
   \class fixed
@@ -65,7 +65,7 @@ concept ValidFixedPointTypes
   \code
   #include "math.hpp"
 
-  using Fixed = toy::math::fixed<std::int32_t, std::int64_t, 8>;
+  using Fixed = toy::math::fixed<int32_t, int64_t, 8>;
   constexpr Fixed a(2);
   constexpr Fixed b(3);
   constexpr auto sum = a + b;
@@ -110,7 +110,7 @@ public:
 
     \param value Source integral value.
   */
-  template <std::integral T>
+  template <integral T>
   constexpr explicit fixed(const T & value) noexcept;
 
   /*!
@@ -118,7 +118,7 @@ public:
 
     \param value Source floating-point value.
   */
-  template <std::floating_point T>
+  template <floating_point T>
   constexpr explicit fixed(const T & value) noexcept;
 
   /*!
@@ -143,7 +143,7 @@ public:
 
     \return Value converted to \a T.
   */
-  template <std::integral T>
+  template <integral T>
   constexpr explicit operator T() const noexcept;
 
   /*!
@@ -151,7 +151,7 @@ public:
 
     \return Value converted to \a T.
   */
-  template <std::floating_point T>
+  template <floating_point T>
   constexpr explicit operator T() const noexcept;
 
   /*!
@@ -184,7 +184,7 @@ public:
 
     \return Fixed-point value with this instance's \a Fraction and \a Rounding.
   */
-  template <unsigned NumFractionBits, std::integral T>
+  template <unsigned NumFractionBits, integral T>
     requires(NumFractionBits > Fraction)
   [[nodiscard]] static constexpr fixed fromFixedPoint(const T & value) noexcept;
 
@@ -201,7 +201,7 @@ public:
 
     \return Fixed-point value with this instance's \a Fraction and \a Rounding.
   */
-  template <unsigned NumFractionBits, std::integral T>
+  template <unsigned NumFractionBits, integral T>
     requires(NumFractionBits <= Fraction)
   [[nodiscard]] static constexpr fixed fromFixedPoint(const T & value) noexcept;
 
@@ -231,7 +231,7 @@ public:
 
     \return Reference to \c *this.
   */
-  template <std::integral T>
+  template <integral T>
   constexpr fixed & operator+=(const T & other) noexcept;
 
   /*!
@@ -260,7 +260,7 @@ public:
 
     \return Reference to \c *this.
   */
-  template <std::integral T>
+  template <integral T>
   constexpr fixed & operator-=(const T & other) noexcept;
 
   /*!
@@ -290,7 +290,7 @@ public:
 
     \return Reference to \c *this.
   */
-  template <std::integral T>
+  template <integral T>
   constexpr fixed & operator*=(const T & other) noexcept;
 
   /*!
@@ -320,7 +320,7 @@ public:
 
     \return Reference to \c *this.
   */
-  template <std::integral T>
+  template <integral T>
   constexpr fixed & operator/=(const T & other) noexcept;
 
 private:
@@ -345,7 +345,7 @@ private:
   \tparam T Type to check.
 */
 template <typename T>
-struct is_fixed_point : std::false_type {};
+struct is_fixed_point : false_type {};
 
 /*!
   \struct is_fixed_point
@@ -358,7 +358,7 @@ struct is_fixed_point : std::false_type {};
 */
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding>
   requires ValidFixedPointTypes<Base, Intermediate, Fraction>
-struct is_fixed_point<fixed<Base, Intermediate, Fraction, Rounding>> : std::true_type {};
+struct is_fixed_point<fixed<Base, Intermediate, Fraction, Rounding>> : true_type {};
 
 /// Helper variable template: \c true if \a T is \ref toy::math::fixed, \c false otherwise.
 template <typename T>
@@ -367,12 +367,12 @@ inline constexpr bool is_fixed_point_v = is_fixed_point<T>::value;
 /*!
   \brief Concept: \a T is an instantiation of \ref toy::math::fixed.
 
-  Use to constrain templates to fixed-point types only (analogous to \c std::floating_point for built-in floats).
+  Use to constrain templates to fixed-point types only (analogous to \c floating_point for built-in floats).
 
   \tparam T Type to check.
 */
 template <typename T>
-concept FixedPoint = is_fixed_point_v<T>;
+concept fixed_point = is_fixed_point_v<T>;
 
 /*!
   \brief Unary minus: returns the negation of a \ref toy::math::fixed value.
@@ -384,7 +384,7 @@ concept FixedPoint = is_fixed_point_v<T>;
   \return A new \ref toy::math::fixed instance representing \c -value.
 */
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding>
-  requires std::signed_integral<Base>
+  requires signed_integral<Base>
 [[nodiscard]] constexpr fixed<Base, Intermediate, Fraction, Rounding> operator-(
   const fixed<Base, Intermediate, Fraction, Rounding> & value) noexcept;
 
@@ -413,7 +413,7 @@ template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding
   \return Sum as \ref toy::math::fixed.
 */
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, typename T>
-  requires std::integral<T>
+  requires integral<T>
 [[nodiscard]] constexpr fixed<Base, Intermediate, Fraction, Rounding> operator+(
   const fixed<Base, Intermediate, Fraction, Rounding> & a, const T & b) noexcept;
 
@@ -426,7 +426,7 @@ template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding
   \return Sum as \ref toy::math::fixed.
 */
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, typename T>
-  requires std::integral<T>
+  requires integral<T>
 [[nodiscard]] constexpr fixed<Base, Intermediate, Fraction, Rounding> operator+(
   const T & a, const fixed<Base, Intermediate, Fraction, Rounding> & b) noexcept;
 
@@ -452,7 +452,7 @@ template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding
   \return Difference as \ref toy::math::fixed.
 */
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, typename T>
-  requires std::integral<T>
+  requires integral<T>
 [[nodiscard]] constexpr fixed<Base, Intermediate, Fraction, Rounding> operator-(
   const fixed<Base, Intermediate, Fraction, Rounding> & a, const T & b) noexcept;
 
@@ -465,7 +465,7 @@ template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding
   \return Difference as \ref toy::math::fixed.
 */
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, typename T>
-  requires std::integral<T>
+  requires integral<T>
 [[nodiscard]] constexpr fixed<Base, Intermediate, Fraction, Rounding> operator-(
   const T & a, const fixed<Base, Intermediate, Fraction, Rounding> & b) noexcept;
 
@@ -491,7 +491,7 @@ template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding
   \return Product as \ref toy::math::fixed.
 */
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, typename T>
-  requires std::integral<T>
+  requires integral<T>
 [[nodiscard]] constexpr fixed<Base, Intermediate, Fraction, Rounding> operator*(
   const fixed<Base, Intermediate, Fraction, Rounding> & a, const T & b) noexcept;
 
@@ -504,7 +504,7 @@ template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding
   \return Product as \ref toy::math::fixed.
 */
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, typename T>
-  requires std::integral<T>
+  requires integral<T>
 [[nodiscard]] constexpr fixed<Base, Intermediate, Fraction, Rounding> operator*(
   const T & a, const fixed<Base, Intermediate, Fraction, Rounding> & b) noexcept;
 
@@ -534,7 +534,7 @@ template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding
   \return Quotient as \ref toy::math::fixed.
 */
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, typename T>
-  requires std::integral<T>
+  requires integral<T>
 [[nodiscard]] constexpr fixed<Base, Intermediate, Fraction, Rounding> operator/(
   const fixed<Base, Intermediate, Fraction, Rounding> & a, const T & b) noexcept;
 
@@ -549,7 +549,7 @@ template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding
   \return Quotient as \ref toy::math::fixed.
 */
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, typename T>
-  requires std::integral<T>
+  requires integral<T>
 [[nodiscard]] constexpr fixed<Base, Intermediate, Fraction, Rounding> operator/(
   const T & a, const fixed<Base, Intermediate, Fraction, Rounding> & b) noexcept;
 
@@ -589,8 +589,8 @@ template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding
   \param a Left operand.
   \param b Right operand.
 
-  \return \c std::strong_ordering::less if \a a is less than \a b, \c std::strong_ordering::equal if equal,
-          \c std::strong_ordering::greater if \a a is greater than \a b.
+  \return \c strong_ordering::less if \a a is less than \a b, \c strong_ordering::equal if equal,
+          \c strong_ordering::greater if \a a is greater than \a b.
 */
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, bool OtherRounding>
 [[nodiscard]] constexpr strong_ordering operator<=>(

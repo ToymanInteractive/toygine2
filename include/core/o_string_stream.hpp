@@ -318,7 +318,7 @@ public:
 
     \post The write position is advanced by 7 characters (length of "nullptr").
 
-    \note This operator follows the same pattern as \c std::ostringstream::operator<<(std::nullptr_t).
+    \note This operator follows the same pattern as \c std::ostringstream::operator<<(nullptr_t).
     \note The output is always the string "nullptr", regardless of the actual null pointer value.
     \note This operator is preferred over operator<<(const void*) for null pointer literals.
 

@@ -27,7 +27,7 @@
 
 namespace toy::math {
 
-template <std::signed_integral T>
+template <signed_integral T>
 constexpr T abs(T value) noexcept {
   assert_message(value != numeric_limits<T>::min(), "abs() of the minimum signed integer is not representable");
 
@@ -36,7 +36,7 @@ constexpr T abs(T value) noexcept {
   return (value + mask) ^ mask;
 }
 
-template <std::floating_point T>
+template <floating_point T>
 constexpr T abs(T value) noexcept {
   if constexpr (std::same_as<T, float>) {
     // Branch-free: clear IEEE 754 sign bit via bit_cast (float is 32-bit on supported platforms).
