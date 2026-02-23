@@ -3,6 +3,7 @@
 #include <doctest/doctest.h>
 
 #include "core.hpp"
+#include "gba_reporter.hpp"
 
 [[noreturn]] static bool assertionCallback(const char * message) {
   throw std::runtime_error(message);
