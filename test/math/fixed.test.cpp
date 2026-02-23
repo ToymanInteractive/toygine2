@@ -990,8 +990,7 @@ TEST_CASE("math/fixed/operator_ordering") {
     REQUIRE((b <=> a) == std::strong_ordering::greater);
     REQUIRE((Fixed(2) <=> FixedNoRounding(2)) == std::strong_ordering::equal);
 
-    static_assert((Fixed(1) <=> FixedNoRounding(2)) == std::strong_ordering::less,
-                  "operator<=> must be constexpr");
+    static_assert((Fixed(1) <=> FixedNoRounding(2)) == std::strong_ordering::less, "operator<=> must be constexpr");
   }
 }
 
