@@ -27,8 +27,8 @@
 
 #include "core.hpp"
 
-/// @namespace toy::math
-/// @brief Contains all public mathematical types, constants, and utility functions of engine.
+/// \namespace toy::math
+/// \brief Contains all public mathematical types, constants, and utility functions of the engine.
 namespace toy::math {
 
 // Algorithms library https://en.cppreference.com/w/cpp/algorithm.html

@@ -54,11 +54,11 @@ concept ValidFixedPointTypes
 
   \section features Key Features
 
-  - 🔧 **constexpr**: All operations and constructors are \c constexpr; usable at compile time.
-  - 📏 **Configurable precision**: \a Base and \a Fraction choose storage size and fractional bits.
-  - 🛡️ **No exceptions**: All operations are \c noexcept; no dynamic allocation.
-  - 🧬 **Type safety**: \ref toy::math::ValidFixedPointTypes concept constrains template parameters.
-  - 🎯 **Rounding policy**: Optional rounding when converting from floating-point or scaling down fraction bits.
+  - **Constexpr**: All operations and constructors are \c constexpr; usable at compile time.
+  - **Configurable precision**: \a Base and \a Fraction choose storage size and fractional bits.
+  - **No exceptions**: All operations are \c noexcept; no dynamic allocation.
+  - **Type safety**: \ref toy::math::ValidFixedPointTypes concept constrains template parameters.
+  - **Rounding policy**: Optional rounding when converting from floating-point or scaling down fraction bits.
 
   \section usage Usage Example
 
@@ -88,6 +88,8 @@ concept ValidFixedPointTypes
 
   - **C++ standard**: C++20 (concepts, \c constexpr, \c consteval).
   - **Embedded**: No heap allocation; suitable for constrained environments.
+
+  \sa ValidFixedPointTypes
 */
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding = true>
   requires ValidFixedPointTypes<Base, Intermediate, Fraction>

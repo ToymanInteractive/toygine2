@@ -25,8 +25,8 @@
 #ifndef INCLUDE_AUDIO_HPP_
 #define INCLUDE_AUDIO_HPP_
 
-/// @namespace toy::audio
-/// @brief Audio types and utilities: volume categories, mixing, and related APIs.
+/// \namespace toy::audio
+/// \brief Audio types and utilities: volume categories, mixing, and related APIs.
 
 #include "audio/volume_type.hpp"
 

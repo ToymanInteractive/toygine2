@@ -4,8 +4,8 @@ Templates for generating Doxygen class documentation in the ToyGine2 project.
 
 ## General Rules
 
-1. Emoji and **bold text** are allowed **only** in the `\section features Key Features` list.
-2. All other sections (performance, safety, compatibility) use plain text without emoji.
+1. Each item in `\section features Key Features` uses **bold** feature names.
+2. All sections use plain text without emoji.
 3. Code examples must be practical and compilable.
 4. Performance characteristics use Big-O notation.
 5. Safety guarantees must be specific and accurate.
@@ -28,10 +28,10 @@ Used for regular classes without template parameters (e.g., `Vector2D`, `Point`)
 
   \section features Key Features
 
-  - ⚙️ **Feature 1**: Brief description of the first feature
-  - 🔧 **Feature 2**: Description (e.g., constexpr support)
-  - 🛡️ **Feature 3**: Description (e.g., all operations are noexcept)
-  - 🎯 **Feature 4**: Description (e.g., optimized for a specific use case)
+  - **Feature 1**: Brief description of the first feature
+  - **Feature 2**: Description (e.g., constexpr support)
+  - **Feature 3**: Description (e.g., all operations are noexcept)
+  - **Feature 4**: Description (e.g., optimized for a specific use case)
 
   \section usage Usage Example
 
@@ -86,12 +86,12 @@ Used for template classes (e.g., `FixedString`, `FixedVector`).
 
   \section features Key Features
 
-  - ⚙️ **Feature 1**: Brief description
-  - 🔧 **Feature 2**: Description (e.g., constexpr support)
-  - 🛡️ **Feature 3**: Description (e.g., all operations are noexcept)
-  - 🔗 **Feature 4**: Description (e.g., STL compatibility)
-  - 🌍 **Feature 5**: Description (e.g., UTF-8 support)
-  - 🧬 **Feature 6**: Description (e.g., type safety through concepts)
+  - **Feature 1**: Brief description
+  - **Feature 2**: Description (e.g., constexpr support)
+  - **Feature 3**: Description (e.g., all operations are noexcept)
+  - **Feature 4**: Description (e.g., STL compatibility)
+  - **Feature 5**: Description (e.g., UTF-8 support)
+  - **Feature 6**: Description (e.g., type safety through concepts)
 
   \section usage Usage Example
 
@@ -152,10 +152,10 @@ Used for structures (e.g., `Version`).
 
   \section features Key Features
 
-  - ⚙️ **Feature 1**: Brief description
-  - 🔧 **Feature 2**: Description (e.g., constexpr support)
-  - 🛡️ **Feature 3**: Description (e.g., all operations are noexcept)
-  - 📏 **Feature 4**: Description (e.g., immutable design)
+  - **Feature 1**: Brief description
+  - **Feature 2**: Description (e.g., constexpr support)
+  - **Feature 3**: Description (e.g., all operations are noexcept)
+  - **Feature 4**: Description (e.g., immutable design)
 
   \section usage Usage Example
 
@@ -203,10 +203,10 @@ Used for simple classes that do not require a `compatibility` section (e.g., `Ve
 
   \section features Key Features
 
-  - 🔧 **Constexpr support**: Most operations can be evaluated at compile time
-  - 🛡️ **Exception safety**: All operations are noexcept
-  - 🎯 **Optimized**: Designed for [specific application]
-  - 🧬 **Type safety**: Strong typing with clear [semantics]
+  - **Constexpr support**: Most operations can be evaluated at compile time
+  - **Exception safety**: All operations are noexcept
+  - **Optimized**: Designed for [specific application]
+  - **Type safety**: Strong typing with clear [semantics]
 
   \section usage Usage Example
 
@@ -243,24 +243,6 @@ class ClassName {
 
 ---
 
-## Emoji Usage
-
-Emoji and **bold text** are permitted **only** in the `\section features Key Features` list. All other sections (performance, safety, compatibility) use plain **bold text** without emoji.
-
-### Emoji Reference for Key Features
-
-- ⚙️ — general feature / resource management
-- 🔧 — constexpr support, compile-time evaluation
-- 🛡️ — safety guarantees (noexcept, bounds checking)
-- 🎯 — optimization for specific use cases
-- 🔗 — compatibility (STL, standards)
-- 🌍 — internationalization (UTF-8, Unicode)
-- 🧬 — type safety (concepts, strong typing)
-- 📏 — size / layout / limitations
-- 🔒 — memory safety
-
----
-
 ## Filling Guidelines
 
 ### \brief
@@ -276,7 +258,7 @@ Emoji and **bold text** are permitted **only** in the `\section features Key Fea
 ### \section features
 
 - 4-8 items.
-- Each item: emoji + **bold name** + description.
+- Each item: **bold name** + description.
 - Most important features first.
 
 ### \section usage
@@ -288,18 +270,18 @@ Emoji and **bold text** are permitted **only** in the `\section features Key Fea
 
 - Big-O complexity for key operations.
 - Memory usage if relevant.
-- Plain text with **bold operation names**, no emoji.
+- Plain text with **bold operation names**.
 
 ### \section safety
 
 - Specific guarantees.
 - Debug-mode checks, exception policy.
-- Plain text with **bold category names**, no emoji.
+- Plain text with **bold category names**.
 
 ### \section compatibility (optional)
 
 - Only for classes with special requirements.
-- Plain text with **bold category names**, no emoji.
+- Plain text with **bold category names**.
 
 ### \note
 
@@ -321,15 +303,15 @@ Emoji and **bold text** are permitted **only** in the `\section features Key Fea
 - [ ] `\class` / `\struct` is present
 - [ ] `\brief` is filled (one line)
 - [ ] Detailed description is present (2-4 sentences)
-- [ ] `\section features` contains 4+ items with emoji
+- [ ] `\section features` contains 4+ items with **bold** names
 - [ ] `\section usage` contains a compilable code example
-- [ ] `\section performance` is filled with Big-O complexity (no emoji)
-- [ ] `\section safety` is filled with specific guarantees (no emoji)
-- [ ] `\section compatibility` is added if needed (no emoji)
+- [ ] `\section performance` is filled with Big-O complexity
+- [ ] `\section safety` is filled with specific guarantees
+- [ ] `\section compatibility` is added if needed
 - [ ] `\note` is added if there is useful information
 - [ ] `\warning` is added if there are critical warnings
 - [ ] `\sa` contains relevant references
-- [ ] Emoji are used only in `\section features`
+- [ ] No emoji in documentation
 - [ ] All descriptions are written in English
 - [ ] No marketing language anywhere
 
