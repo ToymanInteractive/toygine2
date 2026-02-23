@@ -41,25 +41,25 @@ jobs:
             cmake_preset: macos-ninja-release
 
           - name: macOS XCode Intel
-            os: macos-26-large
+            os: macos-15-intel
             build_tests: "true"
             run_test: "true"
             cmake_preset: macos-xcode
 
           - name: macOS Ninja Intel
-            os: macos-26-large
+            os: macos-15-intel
             build_tests: "true"
             run_test: "true"
             cmake_preset: macos-ninja-release
 
           - name: Windows MSVC x86
-            os: windows-2025-vs2026
+            os: windows-2025
             build_tests: "true"
             run_test: "true"
             cmake_preset: windows-msvc-x86
 
           - name: Windows MSVC
-            os: windows-2025-vs2026
+            os: windows-2025
             build_tests: "true"
             run_test: "true"
             cmake_preset: windows-msvc
