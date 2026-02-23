@@ -35,8 +35,10 @@
   Used when running tests on targets where console or file output is unavailable (e.g. GBA). All virtual methods are
   overridden with empty bodies; test execution still runs, but no output is produced.
 */
-struct GBAReporter : public doctest::IReporter {
-  explicit GBAReporter([[maybe_unused]] const doctest::ContextOptions & in_options) noexcept {}
+class GBAReporter : public doctest::IReporter {
+public:
+  explicit GBAReporter(const doctest::ContextOptions & options) noexcept
+    : _options(options) {}
 
   GBAReporter(const GBAReporter &) = delete;
   GBAReporter(GBAReporter &&) = delete;
@@ -67,6 +69,9 @@ struct GBAReporter : public doctest::IReporter {
   void subcase_end() noexcept override {}
 
   void test_case_reenter([[maybe_unused]] const doctest::TestCaseData & data) noexcept override {}
+
+private:
+  const doctest::ContextOptions & _options;
 };
 
 #endif // TEST_GBA_REPORTER_HPP_

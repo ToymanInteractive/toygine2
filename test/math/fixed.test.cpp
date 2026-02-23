@@ -1066,4 +1066,81 @@ TEST_CASE("math/fixed/operator_ordering") {
   }
 }
 
+// numeric_limits specialization for fixed.
+TEST_CASE("math/fixed/numeric_limits") {
+  // Core traits match fixed-point semantics.
+  SUBCASE("traits") {
+    REQUIRE(numeric_limits<Fixed>::is_specialized);
+    REQUIRE(numeric_limits<Fixed>::is_signed);
+    REQUIRE(!numeric_limits<Fixed>::is_integer);
+    REQUIRE(numeric_limits<Fixed>::is_exact);
+
+    static_assert(numeric_limits<Fixed>::is_specialized, "numeric_limits must be specialized");
+    static_assert(numeric_limits<Fixed>::is_signed, "Fixed is signed");
+    static_assert(!numeric_limits<Fixed>::is_integer, "fixed-point is not integer");
+    static_assert(numeric_limits<Fixed>::is_exact, "fixed-point is exact");
+  }
+
+  // No infinity or NaN.
+  SUBCASE("no_special_values") {
+    REQUIRE(!numeric_limits<Fixed>::has_infinity);
+    REQUIRE(!numeric_limits<Fixed>::has_quiet_NaN);
+    REQUIRE(!numeric_limits<Fixed>::has_signaling_NaN);
+
+    static_assert(!numeric_limits<Fixed>::has_infinity, "fixed-point has no infinity");
+    static_assert(!numeric_limits<Fixed>::has_quiet_NaN, "fixed-point has no NaN");
+    static_assert(!numeric_limits<Fixed>::has_signaling_NaN, "fixed-point has no signaling NaN");
+  }
+
+  // Precision and radix.
+  SUBCASE("precision") {
+    REQUIRE(numeric_limits<Fixed>::radix == 2);
+    REQUIRE(numeric_limits<Fixed>::digits == 31);
+    REQUIRE(numeric_limits<Fixed>::digits10 >= 1);
+    REQUIRE(numeric_limits<Fixed>::max_digits10 >= 1);
+
+    static_assert(numeric_limits<Fixed>::radix == 2, "radix must be 2");
+    static_assert(numeric_limits<Fixed>::digits == 31, "digits for int32_t 8 frac is 31");
+    static_assert(numeric_limits<Fixed>::digits10 >= 1, "digits10 for int32_t 8 frac is at least 1");
+    static_assert(numeric_limits<Fixed>::max_digits10 >= 1, "max_digits10 for int32_t 8 frac is at least 1");
+  }
+
+  // min, max, lowest, epsilon.
+  SUBCASE("min_max_lowest") {
+    constexpr auto minVal = numeric_limits<Fixed>::min();
+    constexpr auto maxVal = numeric_limits<Fixed>::max();
+    constexpr auto lowestVal = numeric_limits<Fixed>::lowest();
+
+    REQUIRE(minVal.rawValue() == 1);
+    REQUIRE(maxVal.rawValue() == 2147483647);
+    REQUIRE(lowestVal.rawValue() == -2147483648);
+
+    static_assert(minVal.rawValue() == 1, "min must be smallest positive");
+    static_assert(maxVal.rawValue() == 2147483647, "max must match Base::max()");
+    static_assert(lowestVal.rawValue() == -2147483648, "lowest must match Base::min()");
+  }
+
+  SUBCASE("epsilon_round_error") {
+    constexpr auto eps = numeric_limits<Fixed>::epsilon();
+    constexpr auto roundErr = numeric_limits<Fixed>::round_error();
+
+    REQUIRE(eps.rawValue() == 1);
+    REQUIRE(roundErr.rawValue() == 128);
+
+    static_assert(eps.rawValue() == 1, "epsilon is 1 LSB");
+    static_assert(roundErr.rawValue() == 128, "round_error is 0.5 in raw units");
+  }
+
+  // infinity, quiet_NaN, signaling_NaN return zero.
+  SUBCASE("stub_special_return_zero") {
+    REQUIRE(numeric_limits<Fixed>::infinity().rawValue() == 0);
+    REQUIRE(numeric_limits<Fixed>::quiet_NaN().rawValue() == 0);
+    REQUIRE(numeric_limits<Fixed>::signaling_NaN().rawValue() == 0);
+
+    static_assert(numeric_limits<Fixed>::infinity().rawValue() == 0, "infinity must return zero for fixed-point");
+    static_assert(numeric_limits<Fixed>::quiet_NaN().rawValue() == 0, "quiet_NaN must return zero for fixed-point");
+    static_assert(numeric_limits<Fixed>::signaling_NaN().rawValue() == 0, "signaling_NaN must return zero for fixed-point");
+  }
+}
+
 } // namespace toy::math

@@ -25,8 +25,11 @@
 #ifndef INCLUDE_RENDER_HPP_
 #define INCLUDE_RENDER_HPP_
 
-/// \namespace toy::render
-/// \brief Rendering types and utilities: clear flags, framebuffer operations, and related APIs.
+/*!
+  \namespace toy::render
+
+  \brief Rendering types and utilities: clear flags, framebuffer operations, and related APIs.
+*/
 
 #include "render/clear_flags.hpp"
 

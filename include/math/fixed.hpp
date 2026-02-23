@@ -599,4 +599,95 @@ template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding
 
 } // namespace toy::math
 
+namespace std {
+
+template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding>
+class numeric_limits<toy::math::fixed<Base, Intermediate, Fraction, Rounding>> {
+private:
+  /// Helper: ceil(bits * log10(2)) using fixed-point; log10(2) in 8.24 format is 5050445.
+  static consteval int _calcMaxDigits10(int bits) {
+    using T = long long;
+
+    return static_cast<int>((T{bits} * 5050445 + (T{1} << 24) - 1) >> 24);
+  }
+
+  /// Helper: floor(bits * log10(2)) using fixed-point; log10(2) in 8.24 format is 5050445.
+  static consteval int _calcDigits10(int bits) {
+    using T = long long;
+
+    return static_cast<int>((T{bits} * 5050445) >> 24);
+  }
+
+public:
+  // Core traits
+  static constexpr bool is_specialized = true;
+  static constexpr bool is_signed = numeric_limits<Base>::is_signed;
+  static constexpr bool is_integer = false;
+  static constexpr bool is_exact = true;
+
+  // Special values (fixed-point has none)
+  static constexpr bool has_infinity = false;
+  static constexpr bool has_quiet_NaN = false;
+  static constexpr bool has_signaling_NaN = false;
+  static constexpr bool has_denorm = false;
+  static constexpr bool has_denorm_loss = false;
+
+  // Rounding
+  static constexpr float_round_style round_style = round_to_nearest;
+
+  // Standards
+  static constexpr bool is_iec559 = false;
+  static constexpr bool is_bounded = true;
+  static constexpr bool is_modulo = numeric_limits<Base>::is_modulo;
+
+  // Precision
+  static constexpr int digits = numeric_limits<Base>::digits;
+  static constexpr int digits10 = 1;
+  static constexpr int max_digits10
+    = _calcMaxDigits10(numeric_limits<Base>::digits - Fraction) + _calcMaxDigits10(Fraction);
+
+  // Exponent range (in bits for fixed-point)
+  static constexpr int radix = 2;
+  static constexpr int min_exponent = 1 - Fraction;
+  static constexpr int min_exponent10 = _calcDigits10(Fraction);
+  static constexpr int max_exponent = numeric_limits<Base>::digits - Fraction;
+  static constexpr int max_exponent10 = _calcDigits10(numeric_limits<Base>::digits - Fraction);
+
+  static constexpr bool traps = true;
+  static constexpr bool tinyness_before = false;
+
+  // Value-returning functions
+  static constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding> min() noexcept {
+    return toy::math::fixed<Base, Intermediate, Fraction, Rounding>::fromRawValue(1);
+  }
+  static constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding> lowest() noexcept {
+    return toy::math::fixed<Base, Intermediate, Fraction, Rounding>::fromRawValue(numeric_limits<Base>::lowest());
+  }
+  static constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding> max() noexcept {
+    return toy::math::fixed<Base, Intermediate, Fraction, Rounding>::fromRawValue(numeric_limits<Base>::max());
+  }
+  static constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding> epsilon() noexcept {
+    return toy::math::fixed<Base, Intermediate, Fraction, Rounding>::fromRawValue(1);
+  }
+  static constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding> round_error() noexcept {
+    return toy::math::fixed<Base, Intermediate, Fraction, Rounding>(1) / 2;
+  }
+  static constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding> denorm_min() noexcept {
+    return min();
+  }
+
+  // Return zero for fixed-point (no infinity/NaN)
+  static constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding> infinity() noexcept {
+    return toy::math::fixed<Base, Intermediate, Fraction, Rounding>(0);
+  }
+  static constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding> quiet_NaN() noexcept {
+    return toy::math::fixed<Base, Intermediate, Fraction, Rounding>(0);
+  }
+  static constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding> signaling_NaN() noexcept {
+    return toy::math::fixed<Base, Intermediate, Fraction, Rounding>(0);
+  }
+};
+
+} // namespace std
+
 #endif // INCLUDE_MATH_FIXED_HPP_
