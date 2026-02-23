@@ -1,6 +1,8 @@
 var searchData=
 [
   ['unit_20test_20style_20rules_0',['Unit Test Style Rules',['../df/d81/md__a_g_e_n_t_s.html#unit-test-style-rules',1,'']]],
-  ['usage_20example_1',['Usage Example',['../d2/da2/namespacetoy_1_1assertion.html#usage',1,'']]],
-  ['utf_208_2',['String length assertions (including UTF-8)',['../df/d81/md__a_g_e_n_t_s.html#string-length-assertions-including-utf-8',1,'']]]
+  ['usage_20example_1',['Usage Example',['../df/d81/md__a_g_e_n_t_s.html#section-usage-usage-example',1,'&lt;span class=&quot;tt&quot;&gt;\\section usage Usage Example&lt;/span&gt;'],['../d2/da2/namespacetoy_1_1assertion.html#usage',1,'Usage Example']]],
+  ['usage_20usage_20example_2',['&lt;span class=&quot;tt&quot;&gt;\\section usage Usage Example&lt;/span&gt;',['../df/d81/md__a_g_e_n_t_s.html#section-usage-usage-example',1,'']]],
+  ['using_20over_20typedef_3',['&lt;span class=&quot;tt&quot;&gt;using&lt;/span&gt; over &lt;span class=&quot;tt&quot;&gt;typedef&lt;/span&gt;',['../df/d81/md__a_g_e_n_t_s.html#using-over-typedef',1,'']]],
+  ['utf_208_4',['String length assertions (including UTF-8)',['../df/d81/md__a_g_e_n_t_s.html#string-length-assertions-including-utf-8',1,'']]]
 ];

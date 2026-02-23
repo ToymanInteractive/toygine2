@@ -33,23 +33,72 @@ var NAVTREE =
       [ "Project Context", "df/d81/md__a_g_e_n_t_s.html#project-context", null ],
       [ "General Coding Principles", "df/d81/md__a_g_e_n_t_s.html#general-coding-principles", null ],
       [ "Language and Standard", "df/d81/md__a_g_e_n_t_s.html#language-and-standard", null ],
+      [ "Formatting", "df/d81/md__a_g_e_n_t_s.html#formatting", [
+        [ "Indentation and Spacing", "df/d81/md__a_g_e_n_t_s.html#indentation-and-spacing", null ],
+        [ "Braces", "df/d81/md__a_g_e_n_t_s.html#braces", null ],
+        [ "Pointer and Reference Alignment", "df/d81/md__a_g_e_n_t_s.html#pointer-and-reference-alignment", null ],
+        [ "Binary Operators", "df/d81/md__a_g_e_n_t_s.html#binary-operators", null ],
+        [ "Empty Lines", "df/d81/md__a_g_e_n_t_s.html#empty-lines", null ]
+      ] ],
       [ "Header / Source Organization", "df/d81/md__a_g_e_n_t_s.html#header--source-organization", [
         [ "Module Structure", "df/d81/md__a_g_e_n_t_s.html#module-structure", null ],
+        [ "Include Guards", "df/d81/md__a_g_e_n_t_s.html#include-guards", null ],
+        [ "File Extensions", "df/d81/md__a_g_e_n_t_s.html#file-extensions", null ],
+        [ "Include Order", "df/d81/md__a_g_e_n_t_s.html#include-order", null ],
         [ "Headers", "df/d81/md__a_g_e_n_t_s.html#headers", null ],
         [ "Inline and Template Code", "df/d81/md__a_g_e_n_t_s.html#inline-and-template-code", null ],
-        [ "<span class=\"tt\">.inl</span> Files", "df/d81/md__a_g_e_n_t_s.html#inl-files", null ]
+        [ "<span class=\"tt\">.inl</span> Files", "df/d81/md__a_g_e_n_t_s.html#inl-files", null ],
+        [ "Access Modifiers", "df/d81/md__a_g_e_n_t_s.html#access-modifiers", null ]
       ] ],
       [ "Memory and Allocation Rules", "df/d81/md__a_g_e_n_t_s.html#memory-and-allocation-rules", null ],
       [ "Constexpr-First Design", "df/d81/md__a_g_e_n_t_s.html#constexpr-first-design", null ],
+      [ "Modern C++ Practices", "df/d81/md__a_g_e_n_t_s.html#modern-c-practices", [
+        [ "noexcept", "df/d81/md__a_g_e_n_t_s.html#noexcept", null ],
+        [ "<span class=\"tt\">[[nodiscard]]</span>", "df/d81/md__a_g_e_n_t_s.html#nodiscard", null ],
+        [ "<span class=\"tt\">using</span> over <span class=\"tt\">typedef</span>", "df/d81/md__a_g_e_n_t_s.html#using-over-typedef", null ],
+        [ "Explicit Constructors", "df/d81/md__a_g_e_n_t_s.html#explicit-constructors", null ],
+        [ "<span class=\"tt\">= default</span> and <span class=\"tt\">= delete</span>", "df/d81/md__a_g_e_n_t_s.html#autotoc_md-default-and--delete", null ],
+        [ "<span class=\"tt\">auto</span>", "df/d81/md__a_g_e_n_t_s.html#auto", null ],
+        [ "Range-Based For Loops", "df/d81/md__a_g_e_n_t_s.html#range-based-for-loops", null ],
+        [ "Default Member Initialization", "df/d81/md__a_g_e_n_t_s.html#default-member-initialization", null ]
+      ] ],
       [ "Error Handling", "df/d81/md__a_g_e_n_t_s.html#error-handling", [
         [ "Assertions", "df/d81/md__a_g_e_n_t_s.html#assertions", null ]
       ] ],
       [ "Naming Conventions", "df/d81/md__a_g_e_n_t_s.html#naming-conventions", [
-        [ "Private Members", "df/d81/md__a_g_e_n_t_s.html#private-members", null ]
+        [ "STL-Compatible Naming", "df/d81/md__a_g_e_n_t_s.html#stl-compatible-naming", null ],
+        [ "Private Members", "df/d81/md__a_g_e_n_t_s.html#private-members", null ],
+        [ "Const Reference Style", "df/d81/md__a_g_e_n_t_s.html#const-reference-style", null ]
       ] ],
-      [ "Comments and Documentation", "df/d81/md__a_g_e_n_t_s.html#comments-and-documentation", null ],
+      [ "Comments and Documentation", "df/d81/md__a_g_e_n_t_s.html#comments-and-documentation", [
+        [ "Documentation Tone", "df/d81/md__a_g_e_n_t_s.html#documentation-tone", null ],
+        [ "Doxygen Block Style", "df/d81/md__a_g_e_n_t_s.html#doxygen-block-style", null ]
+      ] ],
       [ "Documentation Style Rules", "df/d81/md__a_g_e_n_t_s.html#documentation-style-rules", [
-        [ "Cross-References", "df/d81/md__a_g_e_n_t_s.html#cross-references", null ]
+        [ "Method / Function Documentation Order", "df/d81/md__a_g_e_n_t_s.html#method--function-documentation-order", null ],
+        [ "Class / Struct Documentation Order", "df/d81/md__a_g_e_n_t_s.html#class--struct-documentation-order", null ],
+        [ "Parameter Documentation", "df/d81/md__a_g_e_n_t_s.html#parameter-documentation", null ],
+        [ "Return Value Documentation", "df/d81/md__a_g_e_n_t_s.html#return-value-documentation", null ],
+        [ "Preconditions and Postconditions", "df/d81/md__a_g_e_n_t_s.html#preconditions-and-postconditions", null ],
+        [ "Template Parameters", "df/d81/md__a_g_e_n_t_s.html#template-parameters", null ],
+        [ "Notes and Warnings", "df/d81/md__a_g_e_n_t_s.html#notes-and-warnings", null ],
+        [ "Constants and References in Text", "df/d81/md__a_g_e_n_t_s.html#constants-and-references-in-text", null ],
+        [ "See-Also Tags", "df/d81/md__a_g_e_n_t_s.html#see-also-tags", null ],
+        [ "Cross-References", "df/d81/md__a_g_e_n_t_s.html#cross-references", null ],
+        [ "Class Sections Detail", "df/d81/md__a_g_e_n_t_s.html#class-sections-detail", [
+          [ "<span class=\"tt\">\\section features Key Features</span>", "df/d81/md__a_g_e_n_t_s.html#section-features-key-features", null ],
+          [ "<span class=\"tt\">\\section usage Usage Example</span>", "df/d81/md__a_g_e_n_t_s.html#section-usage-usage-example", null ],
+          [ "<span class=\"tt\">\\section performance Performance Characteristics</span>", "df/d81/md__a_g_e_n_t_s.html#section-performance-performance-characteristics", null ],
+          [ "<span class=\"tt\">\\section safety Safety Guarantees</span>", "df/d81/md__a_g_e_n_t_s.html#section-safety-safety-guarantees", null ],
+          [ "<span class=\"tt\">\\section compatibility Compatibility</span> (optional)", "df/d81/md__a_g_e_n_t_s.html#section-compatibility-compatibility-optional", null ]
+        ] ]
+      ] ],
+      [ "Class Documentation Templates", "df/d81/md__a_g_e_n_t_s.html#class-documentation-templates", [
+        [ "Regular Class", "df/d81/md__a_g_e_n_t_s.html#regular-class", null ],
+        [ "Template Class", "df/d81/md__a_g_e_n_t_s.html#template-class", null ],
+        [ "Struct", "df/d81/md__a_g_e_n_t_s.html#struct", null ],
+        [ "Simplified Class (without compatibility)", "df/d81/md__a_g_e_n_t_s.html#simplified-class-without-compatibility", null ],
+        [ "Documentation Pre-Commit Checklist", "df/d81/md__a_g_e_n_t_s.html#documentation-pre-commit-checklist", null ]
       ] ],
       [ "Unit Test Style Rules", "df/d81/md__a_g_e_n_t_s.html#unit-test-style-rules", null ],
       [ "Test Framework Assumptions", "df/d81/md__a_g_e_n_t_s.html#test-framework-assumptions", null ],
@@ -66,7 +115,8 @@ var NAVTREE =
       [ "Naming Tests", "df/d81/md__a_g_e_n_t_s.html#naming-tests", null ],
       [ "Floating-Point Rules", "df/d81/md__a_g_e_n_t_s.html#floating-point-rules", null ],
       [ "Test Independence", "df/d81/md__a_g_e_n_t_s.html#test-independence", null ],
-      [ "Final Rule", "df/d81/md__a_g_e_n_t_s.html#final-rule", null ]
+      [ "Final Rule", "df/d81/md__a_g_e_n_t_s.html#final-rule", null ],
+      [ "Tools and Automation", "df/d81/md__a_g_e_n_t_s.html#tools-and-automation", null ]
     ] ],
     [ "Topics", "topics.html", "topics" ],
     [ "Namespaces", "namespaces.html", [
@@ -104,9 +154,9 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"d4/da9/namespacetoy.html#a2ad56b53b8cdbb022ce8ce3b2aa32503",
-"d7/dec/classtoy_1_1_fixed_vector.html#a105b400ca6152f4789a31729564f809d",
-"dd/d5c/classtoy_1_1math_1_1fixed.html#a487a6b85d67edaa891850cdaf195138f"
+"d4/da9/namespacetoy.html#a00ce0b516e9a47a62227a9309afdb583",
+"d7/dad/version_8hpp_source.html",
+"dd/d5c/classtoy_1_1math_1_1fixed.html#a2c5c780e87a1b57c03fb1fe043ee8bba"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

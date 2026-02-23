@@ -1,4 +1,18 @@
 var fixed_8inl =
 [
-    [ "toy::math::operator-", "d2/d83/namespacetoy_1_1math.html#aa2b6c786b0dad25958dd68376dae7b52", null ]
+    [ "toy::math::operator*", "d2/d83/namespacetoy_1_1math.html#a0093cd8b0fc3ea4c7cdc9fe9cf8a37b5", null ],
+    [ "toy::math::operator*", "d2/d83/namespacetoy_1_1math.html#a486378f548999db466ef4f2d629c69e4", null ],
+    [ "toy::math::operator*", "d2/d83/namespacetoy_1_1math.html#a54aff8f2de32d1f29b985f9a282c5b50", null ],
+    [ "toy::math::operator+", "d2/d83/namespacetoy_1_1math.html#ae7c9f6223fd5c8c6606f00baa2b82ebc", null ],
+    [ "toy::math::operator+", "d2/d83/namespacetoy_1_1math.html#a949062cae8b5b31f16cb8642b8215a00", null ],
+    [ "toy::math::operator+", "d2/d83/namespacetoy_1_1math.html#a62ab7df556ebe8741b23e93160440030", null ],
+    [ "toy::math::operator-", "d2/d83/namespacetoy_1_1math.html#a6357bf93e2cf423732a17e4119d451a1", null ],
+    [ "toy::math::operator-", "d2/d83/namespacetoy_1_1math.html#a468cb839d8277aad00a76d9a875e7e25", null ],
+    [ "toy::math::operator-", "d2/d83/namespacetoy_1_1math.html#a3e0d06d7fe30a0c4213f7b22c43d59e4", null ],
+    [ "toy::math::operator-", "d2/d83/namespacetoy_1_1math.html#ab2119e9282da97882d4fe28fbd76ffb1", null ],
+    [ "toy::math::operator/", "d2/d83/namespacetoy_1_1math.html#a1f159ffb250b05eacfdf119664844f2b", null ],
+    [ "toy::math::operator/", "d2/d83/namespacetoy_1_1math.html#a1557a48df4a7c0f416b1b73eb81274d7", null ],
+    [ "toy::math::operator/", "d2/d83/namespacetoy_1_1math.html#a4d2eb4a917e11a760d300518aa7b1fcb", null ],
+    [ "toy::math::operator<=>", "d2/d83/namespacetoy_1_1math.html#a374fe0c873278f493cf9c1fe314d472b", null ],
+    [ "toy::math::operator==", "d2/d83/namespacetoy_1_1math.html#a093a0151366d4844bb1d337448c0b16f", null ]
 ];

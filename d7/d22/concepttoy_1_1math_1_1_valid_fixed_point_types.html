@@ -117,12 +117,20 @@ $(function(){initNavTree('d7/d22/concepttoy_1_1math_1_1_valid_fixed_point_types.
 <p>Compile-time constraints for <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html" title="toy::math::fixed">toy::math::fixed</a> template parameters.  
 <a href="#details">More...</a></p>
 <h2 id="header-conceptdef" class="groupheader">Concept definition</h2>
-<div class="fragment"><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Base, <span class="keyword">typename</span> Intermediate, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> Fraction&gt;</div>
+<div class="fragment"><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Base, <span class="keyword">typename</span> Intermediate, <span class="keywordtype">unsigned</span> Fraction&gt;</div>
 <div class="line"><span class="keyword">concept </span><a class="code hl_concept" href="../../d7/d22/concepttoy_1_1math_1_1_valid_fixed_point_types.html">ValidFixedPointTypes</a> = std::integral&lt;Base&gt; &amp;&amp; (Fraction &gt; 0) &amp;&amp; (Fraction &lt;= std::numeric_limits&lt;Base&gt;::digits)</div>
 <div class="line">    &amp;&amp; (<span class="keyword">sizeof</span>(Intermediate) &gt;= <span class="keyword">sizeof</span>(Base)) &amp;&amp; (std::is_signed_v&lt;Base&gt; == std::is_signed_v&lt;Intermediate&gt;)</div>
-<div class="ttc" id="aconcepttoy_1_1math_1_1_valid_fixed_point_types_html"><div class="ttname"><a href="../../d7/d22/concepttoy_1_1math_1_1_valid_fixed_point_types.html">toy::math::ValidFixedPointTypes</a></div><div class="ttdoc">Compile-time constraints for toy::math::fixed template parameters.</div><div class="ttdef"><b>Definition</b> fixed.hpp:35</div></div>
+<div class="ttc" id="aconcepttoy_1_1math_1_1_valid_fixed_point_types_html"><div class="ttname"><a href="../../d7/d22/concepttoy_1_1math_1_1_valid_fixed_point_types.html">toy::math::ValidFixedPointTypes</a></div><div class="ttdoc">Compile-time constraints for toy::math::fixed template parameters.</div><div class="ttdef"><b>Definition</b> fixed.hpp:40</div></div>
 </div><!-- fragment --><a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Compile-time constraints for <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html" title="toy::math::fixed">toy::math::fixed</a> template parameters. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Base</td><td>Storage type; must satisfy <code>std::integral</code>. </td></tr>
+    <tr><td class="paramname">Intermediate</td><td>Wider type for intermediate calculations; size must be <code>&gt;=</code> sizeof(Base), signedness must match <em class="arg">Base</em>. </td></tr>
+    <tr><td class="paramname">Fraction</td><td>Number of fractional bits; must be in (0, std::numeric_limits&lt;Base&gt;::digits]. </td></tr>
+  </table>
+  </dd>
+</dl>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->

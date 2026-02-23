@@ -163,6 +163,39 @@ Language and Standard</h1>
 <li>C++23 features may be used selectively where they are supported by the target toolchain.</li>
 <li>Prefer standard library facilities when feasible.</li>
 <li>Avoid compiler-specific extensions unless strictly required.</li>
+<li>Use C++20 concepts for template constraints.</li>
+</ul>
+<hr  />
+<h1 class="doxsection"><a class="anchor" id="formatting"></a>
+Formatting</h1>
+<h2 class="doxsection"><a class="anchor" id="indentation-and-spacing"></a>
+Indentation and Spacing</h2>
+<ul>
+<li>Use <b>2 spaces</b> for indentation (no tabs).</li>
+<li>Maximum line width: <b>120 characters</b>.</li>
+<li>Trailing whitespace is not allowed.</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="braces"></a>
+Braces</h2>
+<ul>
+<li>Use <b>attached brace style</b> (opening brace on the same line).</li>
+<li>Place closing brace on its own line, aligned with the opening statement.</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="pointer-and-reference-alignment"></a>
+Pointer and Reference Alignment</h2>
+<ul>
+<li>Use <b>middle alignment</b> for pointers and references: <span class="tt">type * pointer</span>, <span class="tt">type &amp; reference</span>, <span class="tt">const type * constPointer</span>.</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="binary-operators"></a>
+Binary Operators</h2>
+<ul>
+<li>Break <b>before</b> binary operators when a line exceeds the column limit.</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="empty-lines"></a>
+Empty Lines</h2>
+<ul>
+<li>Maximum <b>1 empty line</b> between code sections.</li>
+<li>No empty lines at the start of blocks.</li>
 </ul>
 <hr  />
 <h1 class="doxsection"><a class="anchor" id="header--source-organization"></a>
@@ -175,6 +208,27 @@ Module Structure</h2>
 <li>Internal headers are considered implementation details and are not part of the public API.</li>
 <li>Barrel headers may be precompiled.</li>
 </ul>
+<h2 class="doxsection"><a class="anchor" id="include-guards"></a>
+Include Guards</h2>
+<ul>
+<li>Use <b>uppercase</b> include guards derived from the full file path (e.g. <span class="tt">INCLUDE_CORE_FIXED_STRING_HPP_</span>).</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="file-extensions"></a>
+File Extensions</h2>
+<ul>
+<li>Header files: <span class="tt">.hpp</span></li>
+<li>Source files: <span class="tt">.cpp</span></li>
+<li>Template / inline implementation files: <span class="tt">.inl</span></li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="include-order"></a>
+Include Order</h2>
+<p>Organize includes in the following order (separated by blank lines):</p>
+<ol type="1">
+<li>Corresponding header (for <span class="tt">.cpp</span> files)</li>
+<li>Standard library headers (<span class="tt">&lt;...&gt;</span>)</li>
+<li>Third-party headers</li>
+<li>Project headers (<span class="tt">"..."</span>)</li>
+</ol>
 <h2 class="doxsection"><a class="anchor" id="headers"></a>
 Headers</h2>
 <ul>
@@ -182,6 +236,7 @@ Headers</h2>
 <li>Public headers must not rely on include order.</li>
 <li>Minimize includes; prefer forward declarations in public headers.</li>
 <li>Internal headers may include other internal headers freely.</li>
+<li>Every header file must start with a file documentation block (<span class="tt">\file</span> / <span class="tt">\brief</span>).</li>
 </ul>
 <h2 class="doxsection"><a class="anchor" id="inline-and-template-code"></a>
 Inline and Template Code</h2>
@@ -203,6 +258,12 @@ Inline and Template Code</h2>
 <li><span class="tt">.inl</span> files must not be included directly by users.</li>
 <li><span class="tt">.inl</span> files must not introduce new public symbols that are not declared in the corresponding header.</li>
 <li>Each <span class="tt">.inl</span> file must be included by exactly one public header.</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="access-modifiers"></a>
+Access Modifiers</h2>
+<ul>
+<li>Order: <span class="tt">public</span>, then <span class="tt">protected</span>, then <span class="tt">private</span>.</li>
+<li>Access modifier labels are indented at the same level as the class keyword (offset −2 from class body).</li>
 </ul>
 <hr  />
 <h1 class="doxsection"><a class="anchor" id="memory-and-allocation-rules"></a>
@@ -226,6 +287,53 @@ Constexpr-First Design</h1>
 <li>Favor value semantics.</li>
 </ul>
 <p>If something can be checked at compile time, it should be.</p>
+<hr  />
+<h1 class="doxsection"><a class="anchor" id="modern-c-practices"></a>
+Modern C++ Practices</h1>
+<h2 class="doxsection"><a class="anchor" id="noexcept"></a>
+noexcept</h2>
+<ul>
+<li>Mark all functions that do not throw with <span class="tt">noexcept</span>.</li>
+<li>This project does not use exceptions — all operations should be <span class="tt">noexcept</span>.</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="nodiscard"></a>
+<span class="tt">[[nodiscard]]</span></h2>
+<ul>
+<li>Apply <span class="tt">[[nodiscard]]</span> to every function or method whose return value should not be ignored (getters, factory functions, pure computations, etc.).</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="using-over-typedef"></a>
+<span class="tt">using</span> over <span class="tt">typedef</span></h2>
+<ul>
+<li>Prefer <span class="tt">using</span> declarations over <span class="tt">typedef</span>.</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="explicit-constructors"></a>
+Explicit Constructors</h2>
+<ul>
+<li>Mark single-parameter constructors as <span class="tt">explicit</span> to prevent implicit conversions, unless implicit conversion is intentionally part of the design.</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md-default-and--delete"></a>
+<span class="tt">= default</span> and <span class="tt">= delete</span></h2>
+<ul>
+<li>Use <span class="tt">= default</span> for default constructors and destructors when appropriate.</li>
+<li>Use <span class="tt">= delete</span> to explicitly prevent unwanted operations (move, copy, etc.).</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="auto"></a>
+<span class="tt">auto</span></h2>
+<ul>
+<li>Use <span class="tt">auto</span> when the type is obvious from context or overly verbose.</li>
+<li>Avoid <span class="tt">auto</span> when it would reduce readability (e.g. the actual type is not evident from the initializer).</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="range-based-for-loops"></a>
+Range-Based For Loops</h2>
+<ul>
+<li>Prefer range-based for loops when iterating over containers.</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="default-member-initialization"></a>
+Default Member Initialization</h2>
+<ul>
+<li>Use default member initializers (in-class) when appropriate.</li>
+<li>Prefer constructor initialization lists for non-default values.</li>
+</ul>
 <hr  />
 <h1 class="doxsection"><a class="anchor" id="error-handling"></a>
 Error Handling</h1>
@@ -254,15 +362,30 @@ Naming Conventions</h1>
 <li>Types (classes, structs, enums, concepts): <span class="tt">PascalCase</span></li>
 <li>Functions and variables: <span class="tt">camelCase</span></li>
 <li>Constants: <span class="tt">UPPER_SNAKE_CASE</span> (only for true, globally visible constants)</li>
-<li>Template parameters: descriptive names; avoid single-letter names unless the meaning is obvious and the scope is trivial</li>
+<li>Template parameters: <span class="tt">PascalCase</span>; use descriptive names and avoid single-letter names unless the meaning is obvious and the scope is trivial</li>
+<li>Type aliases: <span class="tt">snake_case</span> with <span class="tt">_type</span> suffix (e.g. <span class="tt">value_type</span>, <span class="tt">size_type</span>, <span class="tt">const_reference</span>)</li>
+<li>Namespaces: <span class="tt">lowercase</span></li>
 </ul>
 <p>Names must describe <b>intent</b>, not implementation details.</p>
+<h2 class="doxsection"><a class="anchor" id="stl-compatible-naming"></a>
+STL-Compatible Naming</h2>
+<ul>
+<li>When a class provides an STL-like interface (iterators, <span class="tt">push_back</span>, <span class="tt">find_first_of</span>, etc.), follow the standard library naming conventions for those methods.</li>
+<li>Non-STL-compatible methods use <span class="tt">camelCase</span> as usual.</li>
+</ul>
 <h2 class="doxsection"><a class="anchor" id="private-members"></a>
 Private Members</h2>
 <ul>
 <li>All private data members and private member functions <b>must</b> start with a leading underscore (<span class="tt">_</span>).</li>
 <li>This rule applies only to private members; protected and public members must <b>not</b> use a leading underscore.</li>
 <li>The leading underscore is part of the naming convention and must be preserved consistently.</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="const-reference-style"></a>
+Const Reference Style</h2>
+<ul>
+<li>When passing parameters by const reference, use the form <b><span class="tt">const T &amp;</span></b> (const on the left of the type).</li>
+<li>Do not use <span class="tt">T const &amp;</span>; keep const-reference style uniform across the codebase.</li>
+<li>Example: <span class="tt">const Foo &amp; arg</span>, <span class="tt">const int &amp; value</span>.</li>
 </ul>
 <hr  />
 <h1 class="doxsection"><a class="anchor" id="comments-and-documentation"></a>
@@ -272,14 +395,24 @@ Comments and Documentation</h1>
 <li>Comments must explain <em>why</em>, not <em>what</em>.</li>
 <li>Public APIs must be documented.</li>
 </ul>
-<p>Documentation style:</p>
+<h2 class="doxsection"><a class="anchor" id="documentation-tone"></a>
+Documentation Tone</h2>
+<p>All documentation must be:</p>
 <ul>
-<li>Concise</li>
-<li>Neutral</li>
-<li>Technical</li>
-<li>No marketing language</li>
+<li><b>Concise</b> — no filler words or redundant phrasing.</li>
+<li><b>Neutral</b> — factual descriptions, no subjective claims.</li>
+<li><b>Technical</b> — precise, uses correct terminology.</li>
+<li><b>No marketing language</b> — avoid "lightweight", "blazing-fast", "powerful", "cutting-edge", etc.</li>
 </ul>
-<p><b>Exception</b>: The "Key Features" section (typically using <span class="tt">\section features</span>) may use emoji and markdown emphasis for visual clarity and readability. This exception applies only to the features list and does not extend to other documentation sections.</p>
+<p><b>Exception</b>: The <span class="tt">\section features Key Features</span> list may use emoji and <b>bold emphasis</b> for visual clarity. This exception applies <b>only</b> to the features list.</p>
+<h2 class="doxsection"><a class="anchor" id="doxygen-block-style"></a>
+Doxygen Block Style</h2>
+<ul>
+<li>Use <span class="tt">/*! ... */</span> for multi-line documentation blocks. Start <span class="tt">/*!</span> on its own line; align <span class="tt">*/</span> with <span class="tt">/*!</span>.</li>
+<li>Use <span class="tt">///</span> for single-line documentation of member variables and brief items.</li>
+<li>Use inline <span class="tt">//!&lt;</span> comments for type aliases and simple member variable documentation after the declaration.</li>
+<li>Use 2 spaces for indentation inside documentation blocks.</li>
+</ul>
 <hr  />
 <h1 class="doxsection"><a class="anchor" id="documentation-style-rules"></a>
 Documentation Style Rules</h1>
@@ -287,19 +420,90 @@ Documentation Style Rules</h1>
 <li>Use simple, direct language.</li>
 <li>Avoid verbosity.</li>
 <li>Prefer bullet points over prose where appropriate.</li>
-<li>Document:<ul>
-<li>Purpose</li>
-<li>Constraints</li>
-<li>Usage expectations</li>
-<li>Compile-time vs runtime behavior</li>
+<li>Document: purpose, constraints, usage expectations, compile-time vs runtime behavior.</li>
+<li>For every documented function, constructor, or operator: include a <span class="tt">\param</span> for each parameter and a <span class="tt">\return</span> for the return value (if any). Do not omit <span class="tt">\param</span> for functions that take arguments.</li>
 </ul>
-</li>
+<h2 class="doxsection"><a class="anchor" id="method--function-documentation-order"></a>
+Method / Function Documentation Order</h2>
+<p>Always follow this order:</p>
+<ol type="1">
+<li><span class="tt">\brief</span> — one-line description</li>
+<li>Detailed description (1-2 sentences, if needed)</li>
+<li><span class="tt">\tparam</span> — template parameters (if applicable)</li>
+<li><span class="tt">\param</span> — parameters (aligned)</li>
+<li><span class="tt">\return</span> — return value</li>
+<li><span class="tt">\pre</span> — preconditions</li>
+<li><span class="tt">\post</span> — postconditions (for state-changing methods)</li>
+<li><span class="tt">\note</span> — additional notes</li>
+<li><span class="tt">\warning</span> — warnings (if needed)</li>
+<li><span class="tt">\sa</span> — related methods/operators</li>
+</ol>
+<h2 class="doxsection"><a class="anchor" id="class--struct-documentation-order"></a>
+Class / Struct Documentation Order</h2>
+<p>Always follow this order:</p>
+<ol type="1">
+<li><span class="tt">\class</span> or <span class="tt">\struct</span></li>
+<li><span class="tt">\brief</span> — one-line description</li>
+<li>Detailed description (2-4 sentences, does not duplicate <span class="tt">\brief</span>)</li>
+<li><span class="tt">\tparam</span> — template parameters (if applicable)</li>
+<li><span class="tt">\section features Key Features</span> — bullet list with emoji (<b>only</b> section with emoji)</li>
+<li><span class="tt">\section usage Usage Example</span> — code block</li>
+<li><span class="tt">\section performance Performance Characteristics</span> — Big-O complexity, plain text</li>
+<li><span class="tt">\section safety Safety Guarantees</span> — safety information, plain text</li>
+<li><span class="tt">\section compatibility Compatibility</span> — platform/standard (plain text, optional)</li>
+<li><span class="tt">\note</span> — notes</li>
+<li><span class="tt">\warning</span> — warnings (if needed)</li>
+<li><span class="tt">\sa</span> — related classes/types</li>
+</ol>
+<h2 class="doxsection"><a class="anchor" id="parameter-documentation"></a>
+Parameter Documentation</h2>
+<ul>
+<li>Use <span class="tt">\a</span> to reference parameter names in descriptions.</li>
+<li>Align descriptions when multiple parameters exist.</li>
+<li>Mention default values (e.g. <span class="tt">(default: \c 0)</span>).</li>
+<li><span class="tt">\param</span> describes <b>what</b> the parameter represents. Constraints go in <span class="tt">\pre</span>, not in <span class="tt">\param</span>.</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="return-value-documentation"></a>
+Return Value Documentation</h2>
+<ul>
+<li>Use <span class="tt">\c</span> for constants and literal values (<span class="tt">\c true</span>, <span class="tt">\c false</span>, <span class="tt">\c 0</span>).</li>
+<li>Mention special return values (e.g. <span class="tt">\ref npos</span>).</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="preconditions-and-postconditions"></a>
+Preconditions and Postconditions</h2>
+<ul>
+<li><span class="tt">\pre</span>: document all requirements that must be met before calling a function (bounds, null checks, size limits).</li>
+<li><span class="tt">\post</span>: required for all methods that change object state. Describe the state after the call.</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="template-parameters"></a>
+Template Parameters</h2>
+<ul>
+<li>Always document template parameters with <span class="tt">\tparam</span>.</li>
+<li>Include type constraints and valid value ranges.</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="notes-and-warnings"></a>
+Notes and Warnings</h2>
+<ul>
+<li><span class="tt">\note</span>: one line per note. Split complex notes into multiple <span class="tt">\note</span> tags.</li>
+<li><span class="tt">\warning</span>: use only for critical information (lifetime, ownership, misuse).</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="constants-and-references-in-text"></a>
+Constants and References in Text</h2>
+<ul>
+<li>Wrap constants and literal values with <span class="tt">\c</span> (<span class="tt">\c true</span>, <span class="tt">\c 0</span>, <span class="tt">\c npos</span>).</li>
+<li>Reference parameter names with <span class="tt">\a</span> (<span class="tt">\a string</span>, <span class="tt">\a count</span>).</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="see-also-tags"></a>
+See-Also Tags</h2>
+<ul>
+<li>Use <span class="tt">\sa</span> to link related methods, operators, classes, and concepts.</li>
+<li>Link between: method and its operator equivalent, const/non-const overloads, method synonyms (<span class="tt">size()</span> / <span class="tt">length()</span>), related classes.</li>
+<li>2-3 references maximum per entity.</li>
 </ul>
 <h2 class="doxsection"><a class="anchor" id="cross-references"></a>
 Cross-References</h2>
 <ul>
-<li>When referencing types, classes, or other non-function symbols from the codebase in documentation, <b>always</b> use the Doxygen <span class="tt">\ref</span> tag with full namespace qualification to create proper cross-references.</li>
-<li>This ensures that documentation links are generated correctly and remain valid when symbols are renamed or moved.</li>
+<li>When referencing types, classes, or other non-function symbols from the codebase in documentation, <b>always</b> use the Doxygen <span class="tt">\ref</span> tag with full namespace qualification.</li>
 <li>Use <span class="tt">\ref</span> <b>only</b> for non-function symbols (classes, types, enums, namespaces, concepts):<ul>
 <li>Class/struct names: <span class="tt">\ref toy::ClassName</span></li>
 <li>Type aliases: <span class="tt">\ref toy::TypeAlias</span></li>
@@ -308,31 +512,113 @@ Cross-References</h2>
 <li>Concepts: <span class="tt">\ref toy::ConceptName</span></li>
 </ul>
 </li>
-<li>**Do not use <span class="tt">\ref</span> for functions or methods**. Reference functions and methods using plain text without <span class="tt">\ref</span>:<ul>
-<li>Functions: <span class="tt">toy::functionName()</span> (not <span class="tt">\ref toy::functionName()</span>)</li>
-<li>Methods: <span class="tt">methodName()</span> (not <span class="tt">\ref methodName()</span>)</li>
+<li>**Do not use <span class="tt">\ref</span> for functions or methods**. Reference functions and methods using plain text:<ul>
+<li><span class="tt">toy::functionName()</span> (not <span class="tt">\ref toy::functionName()</span>)</li>
+<li><span class="tt">methodName()</span> (not <span class="tt">\ref methodName()</span>)</li>
 </ul>
 </li>
-<li>When using <span class="tt">\ref</span> for <b>classes, structs, enums, namespaces, or concepts</b>, <b>always</b> include the full namespace qualification in the <span class="tt">\ref</span> tag.</li>
-<li>This ensures clarity and avoids ambiguity when the same symbol name exists in different namespaces.</li>
-<li>Use the full qualified name: <span class="tt">\ref toy::ClassName</span> instead of <span class="tt">\ref ClassName</span>, <span class="tt">\ref <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html" title="2D floating-point vector class for interactive game objects and physics calculations.">toy::math::Vector2D</a></span> instead of <span class="tt">\ref Vector2D</span>.</li>
-</ul>
-<p><b>Note</b>: For functions and methods, use plain text with optional namespace qualification: <span class="tt">toy::functionName()</span> or <span class="tt">functionName()</span> if context is clear.</p>
-<p>Examples:</p>
-<ul>
-<li><span class="tt">\ref <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="Template string class with fixed-size character buffer.">toy::FixedString</a></span> instead of <span class="tt">\ref FixedString</span></li>
-<li><span class="tt">\ref <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html" title="2D floating-point vector class for interactive game objects and physics calculations.">toy::math::Vector2D</a></span> instead of <span class="tt">\ref Vector2D</span></li>
-<li><span class="tt">\ref <a class="el" href="../../d2/da2/namespacetoy_1_1assertion.html#a27a675a54a720bf1a098fd13be80553e" title="Callback function type for assertion failure handling.">toy::assertion::AssertionCallback</a></span> instead of <span class="tt">\ref AssertionCallback</span></li>
-<li><span class="tt">\ref <a class="el" href="../../d4/da9/namespacetoy.html#aa6f1ef0b4e0aa4864f1c8d431775bc94" title="Enumeration of target operating systems and platforms.">toy::Platform</a></span> instead of <span class="tt">\ref Platform</span></li>
-<li><span class="tt">\ref <a class="el" href="../../d4/da9/namespacetoy.html#a9fbbca3cbd855381284624d5fc830d49" title="Enumeration of CPU architectures and instruction set architectures.">toy::CpuArchitecture</a></span> instead of <span class="tt">\ref CpuArchitecture</span></li>
-<li><span class="tt"><a class="el" href="../../d2/da2/namespacetoy_1_1assertion.html#a71e8fbdc3d1a6ccee148e120d0c890db" title="Reports an assertion failure with detailed context information.">toy::assertion::assertion()</a></span> instead of <span class="tt">\ref <a class="el" href="../../d2/da2/namespacetoy_1_1assertion.html#a71e8fbdc3d1a6ccee148e120d0c890db" title="Reports an assertion failure with detailed context information.">toy::assertion::assertion()</a></span> (no <span class="tt">\ref</span> for functions)</li>
-<li><span class="tt">\ref <a class="el" href="../../d4/da9/namespacetoy.html#aa6f1ef0b4e0aa4864f1c8d431775bc94aaea23489ce3aa9b6406ebb28e0cda430" title="Microsoft Windows Desktop operating system (Windows XP, Vista, 7, 8, 8.1, 10, 11, etc....">toy::Platform::Windows</a></span> instead of <span class="tt">\ref Platform::Windows</span></li>
+<li><b>Always</b> include full namespace qualification: <span class="tt">\ref <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html" title="2D floating-point vector class for interactive game objects and physics calculations.">toy::math::Vector2D</a></span> instead of <span class="tt">\ref Vector2D</span>.</li>
 </ul>
 <p><b>Exceptions</b>:</p>
 <ul>
-<li>Do not use <span class="tt">\ref</span> for standard library types or functions (e.g., <span class="tt">std::string</span>, <span class="tt">std::vector</span>, <span class="tt">std::size_t</span>).</li>
-<li>Do not use <span class="tt">\ref</span> in <span class="tt">\sa</span> (see also) or <span class="tt">\see</span> (see) sections. These tags automatically create cross-references, so use plain symbol names: <span class="tt">\sa functionName()</span> instead of <span class="tt">\sa \ref functionName()</span>, and <span class="tt">\see ClassName</span> instead of <span class="tt">\see \ref ClassName</span>.</li>
-<li>Do not use <span class="tt">\ref</span> for functions or methods anywhere in documentation.</li>
+<li>Do not use <span class="tt">\ref</span> for standard library types (<span class="tt">std::string</span>, <span class="tt">std::vector</span>, etc.).</li>
+<li>Do not use <span class="tt">\ref</span> in <span class="tt">\sa</span> or <span class="tt">\see</span> sections (they auto-link).</li>
+<li>Do not use <span class="tt">\ref</span> for functions or methods anywhere.</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="class-sections-detail"></a>
+Class Sections Detail</h2>
+<h3 class="doxsection"><a class="anchor" id="section-features-key-features"></a>
+<span class="tt">\section features Key Features</span></h3>
+<ul>
+<li>4-8 items. Each item: emoji + <b>bold name</b> + description.</li>
+<li>Most important features first.</li>
+<li><b>Only</b> section that uses emoji.</li>
+</ul>
+<p>Emoji reference:</p>
+<ul>
+<li>⚙️ — general feature / resource management</li>
+<li>🔧 — constexpr support, compile-time evaluation</li>
+<li>🛡️ — safety guarantees (noexcept, bounds checking)</li>
+<li>🎯 — optimization for specific use cases</li>
+<li>🔗 — compatibility (STL, standards)</li>
+<li>🌍 — internationalization (UTF-8, Unicode)</li>
+<li>🧬 — type safety (concepts, strong typing)</li>
+<li>📏 — size / layout / limitations</li>
+<li>🔒 — memory safety</li>
+</ul>
+<h3 class="doxsection"><a class="anchor" id="section-usage-usage-example"></a>
+<span class="tt">\section usage Usage Example</span></h3>
+<ul>
+<li>Practical, compilable example with <span class="tt">\code ... \endcode</span>.</li>
+<li>Includes <span class="tt">#include</span> directive.</li>
+</ul>
+<h3 class="doxsection"><a class="anchor" id="section-performance-performance-characteristics"></a>
+<span class="tt">\section performance Performance Characteristics</span></h3>
+<ul>
+<li>Big-O complexity for key operations.</li>
+<li>Memory usage if relevant.</li>
+<li>Plain text with <b>bold operation names</b>, no emoji.</li>
+</ul>
+<h3 class="doxsection"><a class="anchor" id="section-safety-safety-guarantees"></a>
+<span class="tt">\section safety Safety Guarantees</span></h3>
+<ul>
+<li>Specific guarantees: contracts, bounds safety, type safety, exception safety.</li>
+<li>Debug-mode checks and exception policy.</li>
+<li>Plain text with <b>bold category names</b>, no emoji.</li>
+</ul>
+<h3 class="doxsection"><a class="anchor" id="section-compatibility-compatibility-optional"></a>
+<span class="tt">\section compatibility Compatibility</span> (optional)</h3>
+<ul>
+<li>Only for classes with special requirements.</li>
+<li>C++ standard, STL integration, cross-platform, embedded suitability.</li>
+<li>Plain text with <b>bold category names</b>, no emoji.</li>
+</ul>
+<hr  />
+<h1 class="doxsection"><a class="anchor" id="class-documentation-templates"></a>
+Class Documentation Templates</h1>
+<h2 class="doxsection"><a class="anchor" id="regular-class"></a>
+Regular Class</h2>
+<div class="fragment"><div class="line"></div>
+<div class="line"><span class="keyword">class </span>ClassName {</div>
+<div class="line">  <span class="comment">// ...</span></div>
+<div class="line">};</div>
+</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="template-class"></a>
+Template Class</h2>
+<div class="fragment"><div class="line"></div>
+<div class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Param1, <span class="keywordtype">size_t</span> Param2&gt;</div>
+<div class="line"><span class="keyword">class </span>ClassName {</div>
+<div class="line">  <span class="comment">// ...</span></div>
+<div class="line">};</div>
+</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="struct"></a>
+Struct</h2>
+<div class="fragment"><div class="line"></div>
+<div class="line"><span class="keyword">struct </span>StructName {</div>
+<div class="line">  <span class="comment">// ...</span></div>
+<div class="line">};</div>
+</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="simplified-class-without-compatibility"></a>
+Simplified Class (without compatibility)</h2>
+<div class="fragment"><div class="line"></div>
+<div class="line"><span class="keyword">class </span>ClassName {</div>
+<div class="line">  <span class="comment">// ...</span></div>
+<div class="line">};</div>
+</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="documentation-pre-commit-checklist"></a>
+Documentation Pre-Commit Checklist</h2>
+<ul>
+<li><span class="tt">\class</span> / <span class="tt">\struct</span> is present</li>
+<li><span class="tt">\brief</span> is filled (one line)</li>
+<li>Detailed description is present (2-4 sentences)</li>
+<li><span class="tt">\section features</span> contains 4+ items with emoji</li>
+<li><span class="tt">\section usage</span> contains a compilable code example</li>
+<li><span class="tt">\section performance</span> is filled with Big-O complexity (no emoji)</li>
+<li><span class="tt">\section safety</span> is filled with specific guarantees (no emoji)</li>
+<li><span class="tt">\section compatibility</span> is added if needed (no emoji)</li>
+<li>All methods have <span class="tt">\brief</span>, <span class="tt">\param</span> (aligned), <span class="tt">\return</span>, <span class="tt">\tparam</span></li>
+<li>Constraints in <span class="tt">\pre</span>, not in <span class="tt">\param</span></li>
+<li>State-changing methods have <span class="tt">\post</span></li>
+<li>Constants wrapped with <span class="tt">\c</span>; parameter names referenced with <span class="tt">\a</span></li>
+<li><span class="tt">\sa</span> links related entities</li>
+<li>Emoji used <b>only</b> in <span class="tt">\section features</span></li>
+<li>No marketing language</li>
 </ul>
 <hr  />
 <h1 class="doxsection"><a class="anchor" id="unit-test-style-rules"></a>
@@ -502,7 +788,15 @@ Test Independence</h1>
 <h1 class="doxsection"><a class="anchor" id="final-rule"></a>
 Final Rule</h1>
 <p>If a behavior can be verified at compile time, it must be verified at compile time.</p>
-<p>Runtime tests exist only to cover what compile-time tests cannot. </p>
+<p>Runtime tests exist only to cover what compile-time tests cannot.</p>
+<hr  />
+<h1 class="doxsection"><a class="anchor" id="tools-and-automation"></a>
+Tools and Automation</h1>
+<ul>
+<li>The project uses <span class="tt">.clang-format</span> for automatic code formatting.</li>
+<li>Run <span class="tt">clang-format</span> before committing code.</li>
+<li>Ensure no compiler warnings remain before committing. </li>
+</ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
