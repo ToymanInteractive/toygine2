@@ -404,7 +404,7 @@ Documentation Tone</h2>
 <li><b>Technical</b> — precise, uses correct terminology.</li>
 <li><b>No marketing language</b> — avoid "lightweight", "blazing-fast", "powerful", "cutting-edge", etc.</li>
 </ul>
-<p><b>Exception</b>: The <span class="tt">\section features Key Features</span> list may use emoji and <b>bold emphasis</b> for visual clarity. This exception applies <b>only</b> to the features list.</p>
+<p>Each item in the <span class="tt">\section features Key Features</span> list uses <b>bold emphasis</b> for the feature name.</p>
 <h2 class="doxsection"><a class="anchor" id="doxygen-block-style"></a>
 Doxygen Block Style</h2>
 <ul>
@@ -446,7 +446,7 @@ Class / Struct Documentation Order</h2>
 <li><span class="tt">\brief</span> — one-line description</li>
 <li>Detailed description (2-4 sentences, does not duplicate <span class="tt">\brief</span>)</li>
 <li><span class="tt">\tparam</span> — template parameters (if applicable)</li>
-<li><span class="tt">\section features Key Features</span> — bullet list with emoji (<b>only</b> section with emoji)</li>
+<li><span class="tt">\section features Key Features</span> — bullet list with <b>bold</b> feature names</li>
 <li><span class="tt">\section usage Usage Example</span> — code block</li>
 <li><span class="tt">\section performance Performance Characteristics</span> — Big-O complexity, plain text</li>
 <li><span class="tt">\section safety Safety Guarantees</span> — safety information, plain text</li>
@@ -530,21 +530,8 @@ Class Sections Detail</h2>
 <h3 class="doxsection"><a class="anchor" id="section-features-key-features"></a>
 <span class="tt">\section features Key Features</span></h3>
 <ul>
-<li>4-8 items. Each item: emoji + <b>bold name</b> + description.</li>
+<li>4-8 items. Each item: <b>bold name</b> + description.</li>
 <li>Most important features first.</li>
-<li><b>Only</b> section that uses emoji.</li>
-</ul>
-<p>Emoji reference:</p>
-<ul>
-<li>⚙️ — general feature / resource management</li>
-<li>🔧 — constexpr support, compile-time evaluation</li>
-<li>🛡️ — safety guarantees (noexcept, bounds checking)</li>
-<li>🎯 — optimization for specific use cases</li>
-<li>🔗 — compatibility (STL, standards)</li>
-<li>🌍 — internationalization (UTF-8, Unicode)</li>
-<li>🧬 — type safety (concepts, strong typing)</li>
-<li>📏 — size / layout / limitations</li>
-<li>🔒 — memory safety</li>
 </ul>
 <h3 class="doxsection"><a class="anchor" id="section-usage-usage-example"></a>
 <span class="tt">\section usage Usage Example</span></h3>
@@ -557,21 +544,21 @@ Class Sections Detail</h2>
 <ul>
 <li>Big-O complexity for key operations.</li>
 <li>Memory usage if relevant.</li>
-<li>Plain text with <b>bold operation names</b>, no emoji.</li>
+<li>Plain text with <b>bold operation names</b>.</li>
 </ul>
 <h3 class="doxsection"><a class="anchor" id="section-safety-safety-guarantees"></a>
 <span class="tt">\section safety Safety Guarantees</span></h3>
 <ul>
 <li>Specific guarantees: contracts, bounds safety, type safety, exception safety.</li>
 <li>Debug-mode checks and exception policy.</li>
-<li>Plain text with <b>bold category names</b>, no emoji.</li>
+<li>Plain text with <b>bold category names</b>.</li>
 </ul>
 <h3 class="doxsection"><a class="anchor" id="section-compatibility-compatibility-optional"></a>
 <span class="tt">\section compatibility Compatibility</span> (optional)</h3>
 <ul>
 <li>Only for classes with special requirements.</li>
 <li>C++ standard, STL integration, cross-platform, embedded suitability.</li>
-<li>Plain text with <b>bold category names</b>, no emoji.</li>
+<li>Plain text with <b>bold category names</b>.</li>
 </ul>
 <hr  />
 <h1 class="doxsection"><a class="anchor" id="class-documentation-templates"></a>
@@ -607,17 +594,16 @@ Documentation Pre-Commit Checklist</h2>
 <li><span class="tt">\class</span> / <span class="tt">\struct</span> is present</li>
 <li><span class="tt">\brief</span> is filled (one line)</li>
 <li>Detailed description is present (2-4 sentences)</li>
-<li><span class="tt">\section features</span> contains 4+ items with emoji</li>
+<li><span class="tt">\section features</span> contains 4+ items with <b>bold</b> names</li>
 <li><span class="tt">\section usage</span> contains a compilable code example</li>
-<li><span class="tt">\section performance</span> is filled with Big-O complexity (no emoji)</li>
-<li><span class="tt">\section safety</span> is filled with specific guarantees (no emoji)</li>
-<li><span class="tt">\section compatibility</span> is added if needed (no emoji)</li>
+<li><span class="tt">\section performance</span> is filled with Big-O complexity</li>
+<li><span class="tt">\section safety</span> is filled with specific guarantees</li>
+<li><span class="tt">\section compatibility</span> is added if needed</li>
 <li>All methods have <span class="tt">\brief</span>, <span class="tt">\param</span> (aligned), <span class="tt">\return</span>, <span class="tt">\tparam</span></li>
 <li>Constraints in <span class="tt">\pre</span>, not in <span class="tt">\param</span></li>
 <li>State-changing methods have <span class="tt">\post</span></li>
 <li>Constants wrapped with <span class="tt">\c</span>; parameter names referenced with <span class="tt">\a</span></li>
 <li><span class="tt">\sa</span> links related entities</li>
-<li>Emoji used <b>only</b> in <span class="tt">\section features</span></li>
 <li>No marketing language</li>
 </ul>
 <hr  />

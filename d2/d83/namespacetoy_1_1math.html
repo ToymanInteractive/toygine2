@@ -114,13 +114,16 @@ $(function(){initNavTree('d2/d83/namespacetoy_1_1math.html','../../',''); });
 </div><!--header-->
 <div class="contents">
 
-<p>Contains all public mathematical types, constants, and utility functions of engine.  
+<p>Contains all public mathematical types, constants, and utility functions of the engine.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:fixed" id="r_fixed"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html">fixed</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fixed-point numeric type with configurable storage and fractional precision.  <a href="../../dd/d5c/classtoy_1_1math_1_1fixed.html#details">More...</a><br /></td></tr>
+<tr class="memitem:is_5Ffixed_5Fpoint" id="r_is_5Ffixed_5Fpoint"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="../../d2/dc3/structtoy_1_1math_1_1is__fixed__point.html">is_fixed_point</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unary type trait: <code>true</code> if <em class="arg">T</em> is an instantiation of <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html" title="toy::math::fixed">toy::math::fixed</a>, <code>false</code> otherwise.  <a href="../../d2/dc3/structtoy_1_1math_1_1is__fixed__point.html#details">More...</a><br /></td></tr>
+<tr class="memitem:is_5Ffixed_5Fpoint_3C_20fixed_3C_20Base_2C_20Intermediate_2C_20Fraction_2C_20Rounding_20_3E_20_3E" id="r_is_5Ffixed_5Fpoint_3C_20fixed_3C_20Base_2C_20Intermediate_2C_20Fraction_2C_20Rounding_20_3E_20_3E"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="../../df/de5/structtoy_1_1math_1_1is__fixed__point_3_01fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html">is_fixed_point&lt; fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;</a></td></tr>
 <tr class="memitem:Point" id="r_Point"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">2D integer point class for UI and input handling.  <a href="../../d3/dce/classtoy_1_1math_1_1_point.html#details">More...</a><br /></td></tr>
 <tr class="memitem:Vector2D" id="r_Vector2D"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a></td></tr>
@@ -130,6 +133,8 @@ Classes</h2></td></tr>
 Concepts</h2></td></tr>
 <tr class="memitem:ValidFixedPointTypes" id="r_ValidFixedPointTypes"><td class="memItemLeft">concept &#160;</td><td class="memItemRight"><a class="el" href="../../d7/d22/concepttoy_1_1math_1_1_valid_fixed_point_types.html">ValidFixedPointTypes</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compile-time constraints for <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html" title="toy::math::fixed">toy::math::fixed</a> template parameters. <br /></td></tr>
+<tr class="memitem:fixed_5Fpoint" id="r_fixed_5Fpoint"><td class="memItemLeft">concept &#160;</td><td class="memItemRight"><a class="el" href="../../dd/de0/concepttoy_1_1math_1_1fixed__point.html">fixed_point</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concept: <em class="arg">T</em> is an instantiation of <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html" title="toy::math::fixed">toy::math::fixed</a>. <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -203,10 +208,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:a237969d397d856ba403536b96321a926"><td class="mdescLeft">&#160;</td><td class="mdescRight">Division operator for <em class="arg">point</em> and real <em class="arg">scalar</em>.  <br /></td></tr>
 <tr class="memitem:a77dccec38178a7b466b0658dd06fc118" id="r_a77dccec38178a7b466b0658dd06fc118"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#a77dccec38178a7b466b0658dd06fc118">operator==</a> (const <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a> &amp;left, const <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a> &amp;right) noexcept</td></tr>
 <tr class="memdesc:a77dccec38178a7b466b0658dd06fc118"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equality operator for two points.  <br /></td></tr>
-<tr class="memitem:a5f1aaaf4c925c4be31f1b33e31062c19" id="r_a5f1aaaf4c925c4be31f1b33e31062c19"><td class="memTemplParams" colspan="2">template&lt;std::signed_integral T&gt; </td></tr>
+<tr class="memitem:a5f1aaaf4c925c4be31f1b33e31062c19" id="r_a5f1aaaf4c925c4be31f1b33e31062c19"><td class="memTemplParams" colspan="2">template&lt;signed_integral T&gt; </td></tr>
 <tr class="memitem:a5f1aaaf4c925c4be31f1b33e31062c19 template"><td class="memItemLeft">constexpr T&#160;</td><td class="memItemRight"><a class="el" href="#a5f1aaaf4c925c4be31f1b33e31062c19">abs</a> (T value) noexcept</td></tr>
 <tr class="memdesc:a5f1aaaf4c925c4be31f1b33e31062c19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the absolute value of a signed integer.  <br /></td></tr>
-<tr class="memitem:a5f1aaaf4c925c4be31f1b33e31062c19" id="r_a5f1aaaf4c925c4be31f1b33e31062c19"><td class="memTemplParams" colspan="2">template&lt;std::floating_point T&gt; </td></tr>
+<tr class="memitem:a5f1aaaf4c925c4be31f1b33e31062c19" id="r_a5f1aaaf4c925c4be31f1b33e31062c19"><td class="memTemplParams" colspan="2">template&lt;floating_point T&gt; </td></tr>
 <tr class="memitem:a5f1aaaf4c925c4be31f1b33e31062c19 template"><td class="memItemLeft">constexpr T&#160;</td><td class="memItemRight"><a class="el" href="#a5f1aaaf4c925c4be31f1b33e31062c19">abs</a> (T value) noexcept</td></tr>
 <tr class="memdesc:a5f1aaaf4c925c4be31f1b33e31062c19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the absolute value of a floating-point number.  <br /></td></tr>
 <tr class="memitem:a2814ac6d186eafcbb0e5d6e1c0437ba1" id="r_a2814ac6d186eafcbb0e5d6e1c0437ba1"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#a2814ac6d186eafcbb0e5d6e1c0437ba1">isEqual</a> (float a, float b, float absEpsilon=8.0f *numeric_limits&lt; float &gt;::epsilon(), float relEpsilon=64.0f *numeric_limits&lt; float &gt;::epsilon()) noexcept</td></tr>
@@ -225,9 +230,15 @@ Functions</h2></td></tr>
 <tr class="memdesc:a7ff7043bbeb69aa907a2ae9ab3b47267"><td class="mdescLeft">&#160;</td><td class="mdescRight">Division operator for vector and scalar.  <br /></td></tr>
 <tr class="memitem:a5ace6b486275cec5dc95c653651818cd" id="r_a5ace6b486275cec5dc95c653651818cd"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#a5ace6b486275cec5dc95c653651818cd">operator==</a> (const <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a> &amp;left, const <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a> &amp;right) noexcept</td></tr>
 <tr class="memdesc:a5ace6b486275cec5dc95c653651818cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equality operator for two vectors.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a30c8861f803815d5970e4f0d7dd85334" id="r_a30c8861f803815d5970e4f0d7dd85334"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a30c8861f803815d5970e4f0d7dd85334 template"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#a30c8861f803815d5970e4f0d7dd85334">is_fixed_point_v</a> = <a class="el" href="../../d2/dc3/structtoy_1_1math_1_1is__fixed__point.html">is_fixed_point</a>&lt;T&gt;::value</td></tr>
+<tr class="memdesc:a30c8861f803815d5970e4f0d7dd85334"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper variable template: <code>true</code> if <em class="arg">T</em> is <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html" title="toy::math::fixed">toy::math::fixed</a>, <code>false</code> otherwise.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Contains all public mathematical types, constants, and utility functions of engine. </p>
+<div class="textblock"><p>Contains all public mathematical types, constants, and utility functions of the engine. </p>
 </div><a name="doc-typedef-members" id="doc-typedef-members"></a><h2 id="header-doc-typedef-members" class="groupheader">Typedef Documentation</h2>
 <a id="a928771ce74a56750dd2dcbc28e5892e0" name="a928771ce74a56750dd2dcbc28e5892e0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a928771ce74a56750dd2dcbc28e5892e0">&#9670;&#160;</a></span>real_t</h2>
@@ -252,7 +263,7 @@ Functions</h2></td></tr>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;std::floating_point T&gt; </div>
+template&lt;floating_point T&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -289,7 +300,7 @@ template&lt;std::floating_point T&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;std::signed_integral T&gt; </div>
+template&lt;signed_integral T&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1556,7 +1567,7 @@ template&lt;typename Base, typename Intermediate, unsigned Fraction, bool Roundi
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><code>std::strong_ordering::less</code> if <em class="arg">a</em> is less than <em class="arg">b</em>, <code>std::strong_ordering::equal</code> if equal, <code>std::strong_ordering::greater</code> if <em class="arg">a</em> is greater than <em class="arg">b</em>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>strong_ordering::less</code> if <em class="arg">a</em> is less than <em class="arg">b</em>, <code>strong_ordering::equal</code> if equal, <code>strong_ordering::greater</code> if <em class="arg">a</em> is greater than <em class="arg">b</em>. </dd></dl>
 
 </div>
 </div>
@@ -1691,6 +1702,33 @@ template&lt;typename Base, typename Intermediate, unsigned Fraction, bool Roundi
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if both vectors have identical coordinates, <code>false</code> otherwise.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This performs exact equality comparison. For approximate comparison with tolerance, use the <em class="arg">isEqual</em> method. </dd></dl>
+
+</div>
+</div>
+<a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
+<a id="a30c8861f803815d5970e4f0d7dd85334" name="a30c8861f803815d5970e4f0d7dd85334"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30c8861f803815d5970e4f0d7dd85334">&#9670;&#160;</a></span>is_fixed_point_v</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool toy::math::is_fixed_point_v = <a class="el" href="../../d2/dc3/structtoy_1_1math_1_1is__fixed__point.html">is_fixed_point</a>&lt;T&gt;::value</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Helper variable template: <code>true</code> if <em class="arg">T</em> is <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html" title="toy::math::fixed">toy::math::fixed</a>, <code>false</code> otherwise. </p>
 
 </div>
 </div>

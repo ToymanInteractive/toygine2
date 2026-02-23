@@ -1,5 +1,8 @@
 var NAVTREEINDEX1 =
 {
+"d4/d85/utils__internal_8inl_source.html":[6,0,1,0,2],
+"d4/da9/namespacetoy.html":[3,0,0],
+"d4/da9/namespacetoy.html#a008aa42596921d995b66340139fd3cfb":[3,0,0,76],
 "d4/da9/namespacetoy.html#a00ce0b516e9a47a62227a9309afdb583":[3,0,0,25],
 "d4/da9/namespacetoy.html#a0bd773c8ce056b71c2520fdb09b900df":[3,0,0,58],
 "d4/da9/namespacetoy.html#a0e120ac7533ff2ef21be74515b922843":[3,0,0,35],
@@ -228,7 +231,7 @@ var NAVTREEINDEX1 =
 "d7/d15/classtoy_1_1_o_string_stream.html#af453025d53b65448f3fc78468c097e8b":[2,0,4,26],
 "d7/d15/classtoy_1_1_o_string_stream.html#af7b4723343300cca10a0c8178c9214af":[2,0,4,35],
 "d7/d15/classtoy_1_1_o_string_stream.html#afd2be3bff1deb85f191aede3af35a400":[2,0,4,9],
-"d7/d22/concepttoy_1_1math_1_1_valid_fixed_point_types.html":[3,0,0,1,3],
+"d7/d22/concepttoy_1_1math_1_1_valid_fixed_point_types.html":[3,0,0,1,5],
 "d7/d22/concepttoy_1_1math_1_1_valid_fixed_point_types.html":[4,0,0,0],
 "d7/d40/fixed__string_8inl.html":[6,0,0,2,8],
 "d7/d40/fixed__string_8inl_source.html":[6,0,0,2,8],
@@ -246,8 +249,5 @@ var NAVTREEINDEX1 =
 "d7/d8d/structtoy_1_1app_1_1_version.html#af042456a2ca193c5ac419f29da0cd9ef":[5,0,0,0,0,0],
 "d7/d90/assertion__stub_8cpp.html":[6,0,1,1,6,0,0],
 "d7/d9f/structtoy_1_1_callbacks_pool_1_1_static_callback.html":[3,0,0,9,0],
-"d7/d9f/structtoy_1_1_callbacks_pool_1_1_static_callback.html":[5,0,0,4,0],
-"d7/d9f/structtoy_1_1_callbacks_pool_1_1_static_callback.html#ab289e13f226211f85ed7646ac00f7b27":[3,0,0,9,0,0],
-"d7/d9f/structtoy_1_1_callbacks_pool_1_1_static_callback.html#ab289e13f226211f85ed7646ac00f7b27":[5,0,0,4,0,0],
-"d7/dad/version_8hpp.html":[6,0,0,0,0]
+"d7/d9f/structtoy_1_1_callbacks_pool_1_1_static_callback.html":[5,0,0,4,0]
 };

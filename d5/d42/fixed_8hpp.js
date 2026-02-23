@@ -2,7 +2,10 @@ var fixed_8hpp =
 [
     [ "toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt;", "dd/d5c/classtoy_1_1math_1_1fixed.html", "dd/d5c/classtoy_1_1math_1_1fixed" ],
     [ "toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt;::RawConstructorTag", "dd/d3d/classtoy_1_1math_1_1fixed_1_1_raw_constructor_tag.html", null ],
+    [ "toy::math::is_fixed_point&lt; T &gt;", "d2/dc3/structtoy_1_1math_1_1is__fixed__point.html", null ],
+    [ "toy::math::is_fixed_point&lt; fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;", "df/de5/structtoy_1_1math_1_1is__fixed__point_3_01fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html", null ],
     [ "toy::math::ValidFixedPointTypes", "d7/d22/concepttoy_1_1math_1_1_valid_fixed_point_types.html", null ],
+    [ "toy::math::fixed_point", "dd/de0/concepttoy_1_1math_1_1fixed__point.html", null ],
     [ "toy::math::operator*", "d2/d83/namespacetoy_1_1math.html#a0093cd8b0fc3ea4c7cdc9fe9cf8a37b5", null ],
     [ "toy::math::operator*", "d2/d83/namespacetoy_1_1math.html#a486378f548999db466ef4f2d629c69e4", null ],
     [ "toy::math::operator*", "d2/d83/namespacetoy_1_1math.html#a54aff8f2de32d1f29b985f9a282c5b50", null ],
@@ -17,5 +20,6 @@ var fixed_8hpp =
     [ "toy::math::operator/", "d2/d83/namespacetoy_1_1math.html#a1557a48df4a7c0f416b1b73eb81274d7", null ],
     [ "toy::math::operator/", "d2/d83/namespacetoy_1_1math.html#a4d2eb4a917e11a760d300518aa7b1fcb", null ],
     [ "toy::math::operator<=>", "d2/d83/namespacetoy_1_1math.html#a374fe0c873278f493cf9c1fe314d472b", null ],
-    [ "toy::math::operator==", "d2/d83/namespacetoy_1_1math.html#a093a0151366d4844bb1d337448c0b16f", null ]
+    [ "toy::math::operator==", "d2/d83/namespacetoy_1_1math.html#a093a0151366d4844bb1d337448c0b16f", null ],
+    [ "toy::math::is_fixed_point_v", "d2/d83/namespacetoy_1_1math.html#a30c8861f803815d5970e4f0d7dd85334", null ]
 ];

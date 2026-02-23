@@ -1,0 +1,9 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,91,96,117"/>
+<area shape="rect" id="Node000001" href="$df/de5/structtoy_1_1math_1_1is__fixed__point_3_01fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html" title=" " alt="" coords="144,5,319,75"/>
+<area shape="poly" id="edge1_Node000000_Node000001" title=" " alt="" coords="100,84,143,69,145,74,101,89"/>
+<area shape="rect" id="Node000003" href="$d2/dc3/structtoy_1_1math_1_1is__fixed__point.html" title="Unary type trait: true if T is an instantiation of toy::math::fixed, false otherwise." alt="" coords="161,99,302,139"/>
+<area shape="poly" id="edge2_Node000000_Node000003" title=" " alt="" coords="110,106,161,110,160,116,110,111"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="9,27,93,53"/>
+<area shape="poly" id="edge3_Node000002_Node000001" title=" " alt="" coords="106,37,144,37,144,43,106,43"/>
+</map>

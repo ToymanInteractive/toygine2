@@ -1,9 +1,12 @@
 var namespacetoy_1_1math =
 [
     [ "fixed", "dd/d5c/classtoy_1_1math_1_1fixed.html", "dd/d5c/classtoy_1_1math_1_1fixed" ],
+    [ "is_fixed_point", "d2/dc3/structtoy_1_1math_1_1is__fixed__point.html", null ],
+    [ "is_fixed_point&lt; fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;", "df/de5/structtoy_1_1math_1_1is__fixed__point_3_01fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html", null ],
     [ "Point", "d3/dce/classtoy_1_1math_1_1_point.html", "d3/dce/classtoy_1_1math_1_1_point" ],
     [ "Vector2D", "d9/d85/classtoy_1_1math_1_1_vector2_d.html", "d9/d85/classtoy_1_1math_1_1_vector2_d" ],
     [ "ValidFixedPointTypes", "d7/d22/concepttoy_1_1math_1_1_valid_fixed_point_types.html", null ],
+    [ "fixed_point", "dd/de0/concepttoy_1_1math_1_1fixed__point.html", null ],
     [ "real_t", "d2/d83/namespacetoy_1_1math.html#a928771ce74a56750dd2dcbc28e5892e0", null ],
     [ "abs", "d2/d83/namespacetoy_1_1math.html#a5f1aaaf4c925c4be31f1b33e31062c19", null ],
     [ "abs", "d2/d83/namespacetoy_1_1math.html#a5f1aaaf4c925c4be31f1b33e31062c19", null ],
@@ -39,5 +42,6 @@ var namespacetoy_1_1math =
     [ "operator<=>", "d2/d83/namespacetoy_1_1math.html#a374fe0c873278f493cf9c1fe314d472b", null ],
     [ "operator==", "d2/d83/namespacetoy_1_1math.html#a093a0151366d4844bb1d337448c0b16f", null ],
     [ "operator==", "d2/d83/namespacetoy_1_1math.html#a77dccec38178a7b466b0658dd06fc118", null ],
-    [ "operator==", "d2/d83/namespacetoy_1_1math.html#a5ace6b486275cec5dc95c653651818cd", null ]
+    [ "operator==", "d2/d83/namespacetoy_1_1math.html#a5ace6b486275cec5dc95c653651818cd", null ],
+    [ "is_fixed_point_v", "d2/d83/namespacetoy_1_1math.html#a30c8861f803815d5970e4f0d7dd85334", null ]
 ];

@@ -907,7 +907,7 @@ template&lt;typename StringType&gt; </div>
 <p>This operator inserts the string "nullptr" into the stream when a null pointer literal is provided. This provides a consistent and readable representation for null pointers.</p>
 <dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Template output string stream class for building strings from various data types.">OStringStream</a>, allowing operator chaining.</dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The write position is advanced by 7 characters (length of "nullptr").</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This operator follows the same pattern as <code>std::ostringstream::operator&lt;&lt;(std::nullptr_t)</code>. </dd>
+<dl class="section note"><dt>Note</dt><dd>This operator follows the same pattern as <code>std::ostringstream::operator&lt;&lt;(nullptr_t)</code>. </dd>
 <dd>
 The output is always the string "nullptr", regardless of the actual null pointer value. </dd>
 <dd>
