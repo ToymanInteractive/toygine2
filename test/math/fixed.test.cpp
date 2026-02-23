@@ -141,6 +141,17 @@ TEST_CASE("math/fixed/constructors") {
     static_assert(static_cast<int>(f1) == 1, "fixed from 16-bit must scale down to 8-bit");
     static_assert(static_cast<int>(f2) == -1, "fixed from 16-bit must scale down to 8-bit");
   }
+
+  // Construct from fixed with more fraction bits that triggers rounding.
+  SUBCASE("from_fixed_more_fraction_bits_rounding") {
+    // Fixed16 raw = 384 → 384 / 2^(16-8) = 1.5, rounds to 2 with rounding enabled
+    constexpr auto src = Fixed16::fromRawValue(384);
+    constexpr Fixed f(src);
+
+    REQUIRE(f.rawValue() == 2);
+
+    static_assert(f.rawValue() == 2, "constructor from higher-precision must round when enabled");
+  }
 }
 
 // Explicit conversion to integral and floating-point types.

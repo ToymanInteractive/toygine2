@@ -169,11 +169,11 @@ public:
   [[nodiscard]] static constexpr fixed fromRawValue(const Base & value) noexcept;
 
   /*!
-    \brief Builds a \ref toy::math::fixed from a raw value with a different number of fraction bits.
+    \brief Builds a \ref toy::math::fixed from a raw value with a different
+    number of fraction bits.
 
-    When \a NumFractionBits is greater than \a Fraction, the value is scaled down; if \a Rounding is \c true, the
-    result is rounded to the nearest representable value. When \a NumFractionBits is less than or equal to \a Fraction,
-    the value is scaled up (no rounding).
+    When \a NumFractionBits is greater than \a Fraction, the value is scaled down (right-shifted). If \a Rounding is
+    \c true, the result is rounded to the nearest representable value, otherwise the result is truncated.
 
     \tparam NumFractionBits Number of fraction bits of the source raw value.
     \tparam T Integral type of the source raw value.
