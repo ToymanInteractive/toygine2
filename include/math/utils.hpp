@@ -36,7 +36,7 @@ namespace toy::math {
 
   \return The absolute value of \a value (unchanged if non-negative, negated if negative).
 */
-template <std::signed_integral T>
+template <signed_integral T>
 [[nodiscard]] constexpr T abs(T value) noexcept;
 
 /*!
@@ -48,7 +48,7 @@ template <std::signed_integral T>
 
   \return The absolute value of \a value (unchanged if non-negative, negated if negative).
 */
-template <std::floating_point T>
+template <floating_point T>
 [[nodiscard]] constexpr T abs(T value) noexcept;
 
 /*!

@@ -31,7 +31,7 @@ All documentation must be:
 - **Technical** — precise, uses correct terminology.
 - **No marketing language** — avoid "lightweight", "blazing-fast", "powerful", "cutting-edge", etc.
 
-**Exception**: The `\section features Key Features` list may use emoji and **bold emphasis** for visual clarity. This exception applies only to the features list.
+Each item in the `\section features Key Features` list uses **bold emphasis** for the feature name.
 
 ### Comment Blocks
 
@@ -86,7 +86,7 @@ Class documentation follows this order:
 2. `\brief` — one-line description
 3. Detailed description (2-4 sentences)
 4. `\tparam` — template parameters (if applicable)
-5. `\section features Key Features` — bullet list with emoji (only section that uses emoji)
+5. `\section features Key Features` — bullet list with **bold** feature names
 6. `\section usage Usage Example` — code block
 7. `\section performance Performance Characteristics` — complexity and memory (plain text)
 8. `\section safety Safety Guarantees` — safety information (plain text)
@@ -110,9 +110,10 @@ Class documentation follows this order:
 
   \section features Key Features
 
-  - ⚙️ **No dynamic allocation**: All memory is on the stack
-  - 🔧 **Constexpr support**: Most operations are constexpr
-  - 🛡️ **Exception safety**: All operations are noexcept
+  - **No dynamic allocation**: All memory is on the stack
+  - **Constexpr support**: Most operations are constexpr
+  - **Exception safety**: All operations are noexcept
+  - **STL-compatible interface**: Supports a subset of the std::string API
 
   \section usage Usage Example
 
@@ -142,22 +143,6 @@ Class documentation follows this order:
   \sa StringLike
 */
 ```
-
-### Emoji Usage
-
-Emoji are permitted **only** in `\section features Key Features`. All other sections use plain **bold text**.
-
-Emoji reference for Key Features:
-
-- ⚙️ — general feature / resource management
-- 🔧 — constexpr support, compile-time evaluation
-- 🛡️ — safety guarantees (noexcept, bounds checking)
-- 🎯 — optimization for specific use cases
-- 🔗 — compatibility (STL, standards)
-- 🌍 — internationalization (UTF-8, Unicode)
-- 🧬 — type safety (concepts, strong typing)
-- 📏 — size / layout / limitations
-- 🔒 — memory safety
 
 ---
 
@@ -410,7 +395,7 @@ str += " Test.";
 
 ### Standard Sections for Classes
 
-1. `\section features Key Features` — emoji + bold text (only section with emoji)
+1. `\section features Key Features` — **bold** feature names
 2. `\section usage Usage Example` — code example
 3. `\section performance Performance Characteristics` — Big-O complexity, plain text
 4. `\section safety Safety Guarantees` — guarantees, plain text
@@ -421,8 +406,8 @@ str += " Test.";
 ```cpp
 \section features Key Features
 
-- ⚙️ **Feature name**: Description
-- 🔧 **Feature name**: Description
+- **Feature name**: Description
+- **Feature name**: Description
 
 \section performance Performance Characteristics
 
@@ -459,7 +444,7 @@ Before committing, verify:
 - [ ] `\tparam` documented for all template parameters
 - [ ] `\note` tags are one line each (or split)
 - [ ] Related methods/classes have `\sa` tags
-- [ ] Emoji used only in `\section features`
+- [ ] No emoji in documentation
 - [ ] No marketing language
 
 ---

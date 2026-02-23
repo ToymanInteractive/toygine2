@@ -25,8 +25,11 @@
 #ifndef INCLUDE_PLATFORM_UI_HPP_
 #define INCLUDE_PLATFORM_UI_HPP_
 
-/// @namespace toy::platform::ui
-/// @brief Platform UI types: screen orientation, layout hints, and related utilities.
+/*!
+  \namespace toy::platform::ui
+
+  \brief Platform UI types: screen orientation, layout hints, and related utilities.
+*/
 
 #include "ui/orientation.hpp"
 

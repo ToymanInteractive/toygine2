@@ -27,17 +27,46 @@
 
 #include "core.hpp"
 
-/// @namespace toy::math
-/// @brief Contains all public mathematical types, constants, and utility functions of engine.
+/*!
+  \namespace toy::math
+
+  \brief Contains all public mathematical types, constants, and utility functions of the engine.
+*/
 namespace toy::math {
 
+// C++ Standard Library headers https://en.cppreference.com/w/cpp/headers.html
+
+// https://en.cppreference.com/w/cpp/header/type_traits.html
+using std::true_type;
+
+// https://en.cppreference.com/w/cpp/header/type_traits.html
+using std::false_type;
+
+// Metaprogramming library https://en.cppreference.com/w/cpp/meta.html
+
+// https://en.cppreference.com/w/cpp/types/is_signed.html
+using std::is_signed_v;
+
 // Algorithms library https://en.cppreference.com/w/cpp/algorithm.html
-//                max https://en.cppreference.com/w/cpp/algorithm/max.html
+
+// https://en.cppreference.com/w/cpp/algorithm/max.html
 using std::max;
+
+// Concepts library https://en.cppreference.com/w/cpp/concepts.html
+
+// https://en.cppreference.com/w/cpp/concepts/integral.html
+using std::integral;
+
+// https://en.cppreference.com/w/cpp/concepts/signed_integral.html
+using std::signed_integral;
+
+// https://en.cppreference.com/w/cpp/concepts/floating_point.html
+using std::floating_point;
 
 //              Numerics library https://en.cppreference.com/w/cpp/numeric
 // Common mathematical functions https://en.cppreference.com/w/cpp/numeric/math
-//                         isnan https://en.cppreference.com/w/cpp/numeric/math/isnan
+
+// https://en.cppreference.com/w/cpp/numeric/math/isnan
 using std::isnan;
 
 /// Floating‑point scalar type.

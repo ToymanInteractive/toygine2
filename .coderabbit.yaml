@@ -4,7 +4,7 @@ early_access: true
 enable_free_tier: true
 reviews:
   profile: "assertive"
-  request_changes_workflow: false
+  request_changes_workflow: true
   high_level_summary: true
   high_level_summary_placeholder: "@coderabbitai summary"
   high_level_summary_in_walkthrough: true
@@ -25,8 +25,8 @@ reviews:
   abort_on_close: true
   disable_cache: false
   auto_review:
-    enabled: true
-    auto_incremental_review: true
+    enabled: false
+    auto_incremental_review: false
     drafts: false
 chat:
   auto_reply: true

@@ -273,7 +273,7 @@ All documentation must be:
 - **Technical** — precise, uses correct terminology.
 - **No marketing language** — avoid "lightweight", "blazing-fast", "powerful", "cutting-edge", etc.
 
-**Exception**: The `\section features Key Features` list may use emoji and **bold emphasis** for visual clarity. This exception applies **only** to the features list.
+Each item in the `\section features Key Features` list uses **bold emphasis** for the feature name.
 
 ### Doxygen Block Style
 
@@ -315,7 +315,7 @@ Always follow this order:
 2. `\brief` — one-line description
 3. Detailed description (2-4 sentences, does not duplicate `\brief`)
 4. `\tparam` — template parameters (if applicable)
-5. `\section features Key Features` — bullet list with emoji (**only** section with emoji)
+5. `\section features Key Features` — bullet list with **bold** feature names
 6. `\section usage Usage Example` — code block
 7. `\section performance Performance Characteristics` — Big-O complexity, plain text
 8. `\section safety Safety Guarantees` — safety information, plain text
@@ -386,21 +386,8 @@ Always follow this order:
 
 #### `\section features Key Features`
 
-- 4-8 items. Each item: emoji + **bold name** + description.
+- 4-8 items. Each item: **bold name** + description.
 - Most important features first.
-- **Only** section that uses emoji.
-
-Emoji reference:
-
-- ⚙️ — general feature / resource management
-- 🔧 — constexpr support, compile-time evaluation
-- 🛡️ — safety guarantees (noexcept, bounds checking)
-- 🎯 — optimization for specific use cases
-- 🔗 — compatibility (STL, standards)
-- 🌍 — internationalization (UTF-8, Unicode)
-- 🧬 — type safety (concepts, strong typing)
-- 📏 — size / layout / limitations
-- 🔒 — memory safety
 
 #### `\section usage Usage Example`
 
@@ -411,19 +398,19 @@ Emoji reference:
 
 - Big-O complexity for key operations.
 - Memory usage if relevant.
-- Plain text with **bold operation names**, no emoji.
+- Plain text with **bold operation names**.
 
 #### `\section safety Safety Guarantees`
 
 - Specific guarantees: contracts, bounds safety, type safety, exception safety.
 - Debug-mode checks and exception policy.
-- Plain text with **bold category names**, no emoji.
+- Plain text with **bold category names**.
 
 #### `\section compatibility Compatibility` (optional)
 
 - Only for classes with special requirements.
 - C++ standard, STL integration, cross-platform, embedded suitability.
-- Plain text with **bold category names**, no emoji.
+- Plain text with **bold category names**.
 
 ---
 
@@ -441,9 +428,10 @@ Emoji reference:
 
   \section features Key Features
 
-  - ⚙️ **Feature 1**: Description
-  - 🔧 **Feature 2**: Description
-  - 🛡️ **Feature 3**: Description
+  - **Feature 1**: Description
+  - **Feature 2**: Description
+  - **Feature 3**: Description
+  - **Feature 4**: Description
 
   \section usage Usage Example
 
@@ -489,10 +477,10 @@ class ClassName {
 
   \section features Key Features
 
-  - ⚙️ **Feature 1**: Description
-  - 🔧 **Feature 2**: Description
-  - 🛡️ **Feature 3**: Description
-  - 🔗 **Feature 4**: Description
+  - **Feature 1**: Description
+  - **Feature 2**: Description
+  - **Feature 3**: Description
+  - **Feature 4**: Description
 
   \section usage Usage Example
 
@@ -543,8 +531,10 @@ class ClassName {
 
   \section features Key Features
 
-  - ⚙️ **Feature 1**: Description
-  - 🔧 **Feature 2**: Description
+  - **Feature 1**: Description
+  - **Feature 2**: Description
+  - **Feature 3**: Description
+  - **Feature 4**: Description
 
   \section usage Usage Example
 
@@ -587,10 +577,10 @@ struct StructName {
 
   \section features Key Features
 
-  - 🔧 **Constexpr support**: Most operations are constexpr
-  - 🛡️ **Exception safety**: All operations are noexcept
-  - 🎯 **Optimized**: Designed for [specific application]
-  - 🧬 **Type safety**: Strong typing with clear [semantics]
+  - **Constexpr support**: Most operations are constexpr
+  - **Exception safety**: All operations are noexcept
+  - **Optimized**: Designed for [specific application]
+  - **Type safety**: Strong typing with clear [semantics]
 
   \section usage Usage Example
 
@@ -627,17 +617,16 @@ class ClassName {
 - `\class` / `\struct` is present
 - `\brief` is filled (one line)
 - Detailed description is present (2-4 sentences)
-- `\section features` contains 4+ items with emoji
+- `\section features` contains 4+ items with **bold** names
 - `\section usage` contains a compilable code example
-- `\section performance` is filled with Big-O complexity (no emoji)
-- `\section safety` is filled with specific guarantees (no emoji)
-- `\section compatibility` is added if needed (no emoji)
+- `\section performance` is filled with Big-O complexity
+- `\section safety` is filled with specific guarantees
+- `\section compatibility` is added if needed
 - All methods have `\brief`, `\param` (aligned), `\return`, `\tparam`
 - Constraints in `\pre`, not in `\param`
 - State-changing methods have `\post`
 - Constants wrapped with `\c`; parameter names referenced with `\a`
 - `\sa` links related entities
-- Emoji used **only** in `\section features`
 - No marketing language
 
 ---

@@ -160,7 +160,7 @@ TEST_CASE("core/utils/utf8_len_returns_unicode_code_point_count") {
   SUBCASE("ASCII string length equals byte length") {
     const char * asciiSample = "Hello World!";
 
-    REQUIRE(std::char_traits<char>::length(asciiSample) == utf8Len(asciiSample));
+    REQUIRE(char_traits<char>::length(asciiSample) == utf8Len(asciiSample));
   }
 
   // Empty string has zero length.
@@ -172,7 +172,7 @@ TEST_CASE("core/utils/utf8_len_returns_unicode_code_point_count") {
 
   // Multi-byte UTF-8 length equals code point count.
   SUBCASE("multi-byte UTF-8 length equals code point count") {
-    REQUIRE(std::char_traits<char>::length(reinterpret_cast<const char *>(utf8TestData.data()))
+    REQUIRE(char_traits<char>::length(reinterpret_cast<const char *>(utf8TestData.data()))
             != utf8Len(reinterpret_cast<const char *>(utf8TestData.data())));
     REQUIRE(wcslen(unicodeTestData.data()) == utf8Len(reinterpret_cast<const char *>(utf8TestData.data())));
   }
@@ -187,7 +187,7 @@ TEST_CASE("core/utils/reverse_string_reverses_in_place") {
     memcpy(reverseBuffer, utf8TestData.data(), utf8TestData.size());
 
     REQUIRE(strcmp(reinterpret_cast<const char *>(utf8TestData.data()), reverseBuffer) == 0);
-    REQUIRE(std::char_traits<char>::length(reverseBuffer) == utf8TestData.size() - 1);
+    REQUIRE(char_traits<char>::length(reverseBuffer) == utf8TestData.size() - 1);
   }
 
   // First reverse changes content and preserves length.
@@ -195,10 +195,10 @@ TEST_CASE("core/utils/reverse_string_reverses_in_place") {
     char reverseBuffer[utf8TestData.size()];
 
     memcpy(reverseBuffer, utf8TestData.data(), utf8TestData.size());
-    reverseString(reverseBuffer, std::char_traits<char>::length(reverseBuffer));
+    reverseString(reverseBuffer, char_traits<char>::length(reverseBuffer));
 
     REQUIRE(strcmp(reverseBuffer, reinterpret_cast<const char *>(utf8TestData.data())) != 0);
-    REQUIRE(std::char_traits<char>::length(reverseBuffer) == utf8TestData.size() - 1);
+    REQUIRE(char_traits<char>::length(reverseBuffer) == utf8TestData.size() - 1);
   }
 
   // Reversed bytes match source in reverse order.
@@ -206,7 +206,7 @@ TEST_CASE("core/utils/reverse_string_reverses_in_place") {
     char reverseBuffer[utf8TestData.size()];
 
     memcpy(reverseBuffer, utf8TestData.data(), utf8TestData.size());
-    reverseString(reverseBuffer, std::char_traits<char>::length(reverseBuffer));
+    reverseString(reverseBuffer, char_traits<char>::length(reverseBuffer));
 
     for (size_t index = 0; index < (sizeof(reverseBuffer) - 1); ++index) {
       REQUIRE(utf8TestData[index] == static_cast<uint8_t>(reverseBuffer[sizeof(reverseBuffer) - index - 2]));
@@ -218,7 +218,7 @@ TEST_CASE("core/utils/reverse_string_reverses_in_place") {
     char reverseBuffer[utf8TestData.size()];
 
     memcpy(reverseBuffer, utf8TestData.data(), utf8TestData.size());
-    reverseString(reverseBuffer, std::char_traits<char>::length(reverseBuffer));
+    reverseString(reverseBuffer, char_traits<char>::length(reverseBuffer));
     reverseString(reverseBuffer);
 
     REQUIRE(strcmp(reinterpret_cast<const char *>(utf8TestData.data()), reverseBuffer) == 0);
