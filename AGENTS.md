@@ -431,6 +431,7 @@ Always follow this order:
   - **Feature 1**: Description
   - **Feature 2**: Description
   - **Feature 3**: Description
+  - **Feature 4**: Description
 
   \section usage Usage Example
 
@@ -532,6 +533,8 @@ class ClassName {
 
   - **Feature 1**: Description
   - **Feature 2**: Description
+  - **Feature 3**: Description
+  - **Feature 4**: Description
 
   \section usage Usage Example
 
