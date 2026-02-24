@@ -1164,8 +1164,7 @@ TEST_CASE("math/fixed/numeric_limits") {
     static_assert(numeric_limits<Fixed>::max_exponent == 31 - 8, "max_exponent is digits - Fraction");
     static_assert(numeric_limits<Fixed>::min_exponent10 <= 0,
                   "min_exponent10 must be non-positive for fractional resolution");
-    static_assert(numeric_limits<Fixed>::max_exponent10 >= 0,
-                  "max_exponent10 must be non-negative for integer part");
+    static_assert(numeric_limits<Fixed>::max_exponent10 >= 0, "max_exponent10 must be non-negative for integer part");
   }
 
   // denorm_min returns min().
