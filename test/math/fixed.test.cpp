@@ -1139,7 +1139,8 @@ TEST_CASE("math/fixed/numeric_limits") {
 
     static_assert(numeric_limits<Fixed>::infinity().rawValue() == 0, "infinity must return zero for fixed-point");
     static_assert(numeric_limits<Fixed>::quiet_NaN().rawValue() == 0, "quiet_NaN must return zero for fixed-point");
-    static_assert(numeric_limits<Fixed>::signaling_NaN().rawValue() == 0, "signaling_NaN must return zero for fixed-point");
+    static_assert(numeric_limits<Fixed>::signaling_NaN().rawValue() == 0,
+                  "signaling_NaN must return zero for fixed-point");
   }
 }
 
