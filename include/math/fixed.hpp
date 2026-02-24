@@ -602,22 +602,28 @@ template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding
 namespace std {
 
 /*!
+  \class numeric_limits
   \brief Specialization of \c std::numeric_limits for \c toy::math::fixed.
 
-  \see https://en.cppreference.com/w/cpp/types/numeric_limits
+  \tparam Base         Storage integral type.
+  \tparam Intermediate Wider type for intermediate calculations.
+  \tparam Fraction     Number of fractional bits.
+  \tparam Rounding     If \c true, rounds to nearest; otherwise truncates toward zero.
+
+  \sa https://en.cppreference.com/w/cpp/types/numeric_limits
 */
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding>
 class numeric_limits<toy::math::fixed<Base, Intermediate, Fraction, Rounding>> {
 private:
   /// Helper: ceil(bits * log10(2)) using fixed-point; log10(2) in 8.24 format is 5050445.
-  static consteval int _calcMaxDigits10(int bits) {
+  static consteval int _calcMaxDigits10(int bits) noexcept {
     using T = long long;
 
     return static_cast<int>((T{bits} * 5050445 + (T{1} << 24) - 1) >> 24);
   }
 
   /// Helper: floor(bits * log10(2)) using fixed-point; log10(2) in 8.24 format is 5050445.
-  static consteval int _calcDigits10(int bits) {
+  static consteval int _calcDigits10(int bits) noexcept {
     using T = long long;
 
     return static_cast<int>((T{bits} * 5050445) >> 24);
@@ -644,8 +650,8 @@ public:
   /// false.
   static constexpr bool has_denorm_loss = false;
 
-  /// \c round_to_nearest (when Rounding is true).
-  static constexpr float_round_style round_style = round_to_nearest;
+  /// \c round_to_nearest when \a Rounding is \c true; \c round_toward_zero otherwise.
+  static constexpr float_round_style round_style = Rounding ? round_to_nearest : round_toward_zero;
 
   /// false (not IEEE 754).
   static constexpr bool is_iec559 = false;
@@ -656,8 +662,8 @@ public:
 
   /// Number of radix digits in \a Base (same as \c numeric_limits<Base>::digits).
   static constexpr int digits = numeric_limits<Base>::digits;
-  /// Guaranteed decimal digits (at least 1).
-  static constexpr int digits10 = 1;
+  /// Guaranteed significant decimal digits for the full fixed-point value.
+  static constexpr int digits10 = _calcDigits10(numeric_limits<Base>::digits);
   /// Max decimal digits needed to represent any value (integer + fractional part).
   static constexpr int max_digits10
     = _calcMaxDigits10(numeric_limits<Base>::digits - Fraction) + _calcMaxDigits10(Fraction);
@@ -666,8 +672,8 @@ public:
   static constexpr int radix = 2;
   /// Minimum exponent in radix (1 - Fraction).
   static constexpr int min_exponent = 1 - Fraction;
-  /// Minimum decimal exponent (fractional part).
-  static constexpr int min_exponent10 = _calcDigits10(Fraction);
+  /// Minimum decimal exponent; negative, reflecting the fractional resolution.
+  static constexpr int min_exponent10 = -_calcDigits10(Fraction);
   /// Maximum exponent in radix (integer part bits).
   static constexpr int max_exponent = numeric_limits<Base>::digits - Fraction;
   /// Maximum decimal exponent (integer part).
@@ -679,32 +685,36 @@ public:
   static constexpr bool tinyness_before = false;
 
   /// Returns minimum positive value (1 LSB).
-  static constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding> min() noexcept {
+  [[nodiscard]] static constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding> min() noexcept {
     return toy::math::fixed<Base, Intermediate, Fraction, Rounding>::fromRawValue(1);
   }
   /// Returns lowest (most negative) value.
-  static constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding> lowest() noexcept {
+  [[nodiscard]] static constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding> lowest() noexcept {
     return toy::math::fixed<Base, Intermediate, Fraction, Rounding>::fromRawValue(numeric_limits<Base>::lowest());
   }
   /// Returns maximum finite value.
-  static constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding> max() noexcept {
+  [[nodiscard]] static constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding> max() noexcept {
     return toy::math::fixed<Base, Intermediate, Fraction, Rounding>::fromRawValue(numeric_limits<Base>::max());
   }
   /// Returns 1 LSB (smallest representable positive).
-  static constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding> epsilon() noexcept {
+  [[nodiscard]] static constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding> epsilon() noexcept {
     return toy::math::fixed<Base, Intermediate, Fraction, Rounding>::fromRawValue(1);
   }
   /// Returns 0.5 (maximum rounding error).
-  static constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding> round_error() noexcept {
-    return toy::math::fixed<Base, Intermediate, Fraction, Rounding>(1) / 2;
+  [[nodiscard]] static constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding> round_error() noexcept {
+    if constexpr (Rounding) {
+      return toy::math::fixed<Base, Intermediate, Fraction, Rounding>(1) / 2; // 0.5
+    } else {
+      return toy::math::fixed<Base, Intermediate, Fraction, Rounding>(1); // 1.0
+    }
   }
   /// Returns min() (no denormals).
-  static constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding> denorm_min() noexcept {
+  [[nodiscard]] static constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding> denorm_min() noexcept {
     return min();
   }
 
   /// Returns zero (fixed-point has no infinity).
-  static constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding> infinity() noexcept {
+  [[nodiscard]] static constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding> infinity() noexcept {
     return toy::math::fixed<Base, Intermediate, Fraction, Rounding>(0);
   }
   /// Returns zero (fixed-point has no NaN).
@@ -712,7 +722,7 @@ public:
     return toy::math::fixed<Base, Intermediate, Fraction, Rounding>(0);
   }
   /// Returns zero (fixed-point has no NaN).
-  static constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding> signaling_NaN() noexcept {
+  [[nodiscard]] static constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding> signaling_NaN() noexcept {
     return toy::math::fixed<Base, Intermediate, Fraction, Rounding>(0);
   }
 };

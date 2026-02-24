@@ -1096,30 +1096,32 @@ TEST_CASE("math/fixed/numeric_limits") {
   SUBCASE("precision") {
     REQUIRE(numeric_limits<Fixed>::radix == 2);
     REQUIRE(numeric_limits<Fixed>::digits == 31);
-    REQUIRE(numeric_limits<Fixed>::digits10 >= 1);
-    REQUIRE(numeric_limits<Fixed>::max_digits10 >= 1);
+    REQUIRE(numeric_limits<Fixed>::digits10 == 9);
+    REQUIRE(numeric_limits<Fixed>::max_digits10 == 10);
 
     static_assert(numeric_limits<Fixed>::radix == 2, "radix must be 2");
     static_assert(numeric_limits<Fixed>::digits == 31, "digits for int32_t 8 frac is 31");
-    static_assert(numeric_limits<Fixed>::digits10 >= 1, "digits10 for int32_t 8 frac is at least 1");
-    static_assert(numeric_limits<Fixed>::max_digits10 >= 1, "max_digits10 for int32_t 8 frac is at least 1");
+    static_assert(numeric_limits<Fixed>::digits10 == 9,
+                  "digits10 for fixed<int32_t,int64_t,8> must be floor(31 * log10(2)) = 9");
+    static_assert(numeric_limits<Fixed>::max_digits10 == 10, "max_digits10 for fixed<int32_t,int64_t,8> must be 10");
   }
 
-  // min, max, lowest, epsilon.
+  // min, max, lowest.
   SUBCASE("min_max_lowest") {
     constexpr auto minVal = numeric_limits<Fixed>::min();
     constexpr auto maxVal = numeric_limits<Fixed>::max();
     constexpr auto lowestVal = numeric_limits<Fixed>::lowest();
 
     REQUIRE(minVal.rawValue() == 1);
-    REQUIRE(maxVal.rawValue() == 2147483647);
-    REQUIRE(lowestVal.rawValue() == -2147483648);
+    REQUIRE(maxVal.rawValue() == numeric_limits<int32_t>::max());
+    REQUIRE(lowestVal.rawValue() == numeric_limits<int32_t>::min());
 
     static_assert(minVal.rawValue() == 1, "min must be smallest positive");
-    static_assert(maxVal.rawValue() == 2147483647, "max must match Base::max()");
-    static_assert(lowestVal.rawValue() == -2147483648, "lowest must match Base::min()");
+    static_assert(maxVal.rawValue() == numeric_limits<int32_t>::max(), "max must match Base::max()");
+    static_assert(lowestVal.rawValue() == numeric_limits<int32_t>::min(), "lowest must match Base::min()");
   }
 
+  // Epsilon equals 1 LSB; round_error is 0.5 when Rounding is true, 1.0 when false.
   SUBCASE("epsilon_round_error") {
     constexpr auto eps = numeric_limits<Fixed>::epsilon();
     constexpr auto roundErr = numeric_limits<Fixed>::round_error();
@@ -1128,7 +1130,52 @@ TEST_CASE("math/fixed/numeric_limits") {
     REQUIRE(roundErr.rawValue() == 128);
 
     static_assert(eps.rawValue() == 1, "epsilon is 1 LSB");
-    static_assert(roundErr.rawValue() == 128, "round_error is 0.5 in raw units");
+    static_assert(roundErr.rawValue() == 128, "round_error is 0.5 in raw units for Rounding true");
+  }
+
+  // round_error for FixedNoRounding returns 1.0 (raw 256).
+  SUBCASE("round_error_no_rounding") {
+    constexpr auto roundErr = numeric_limits<FixedNoRounding>::round_error();
+
+    REQUIRE(roundErr.rawValue() == 256);
+
+    static_assert(roundErr.rawValue() == 256, "round_error must be 1.0 when Rounding is false");
+  }
+
+  // round_style: round_to_nearest for Fixed, round_toward_zero for FixedNoRounding.
+  SUBCASE("round_style") {
+    REQUIRE(numeric_limits<Fixed>::round_style == std::round_to_nearest);
+    REQUIRE(numeric_limits<FixedNoRounding>::round_style == std::round_toward_zero);
+
+    static_assert(numeric_limits<Fixed>::round_style == std::round_to_nearest,
+                  "round_style must be round_to_nearest when Rounding is true");
+    static_assert(numeric_limits<FixedNoRounding>::round_style == std::round_toward_zero,
+                  "round_style must be round_toward_zero when Rounding is false");
+  }
+
+  // Exponent range: min_exponent, max_exponent, min_exponent10, max_exponent10.
+  SUBCASE("exponent_range") {
+    REQUIRE(numeric_limits<Fixed>::min_exponent == 1 - 8);
+    REQUIRE(numeric_limits<Fixed>::max_exponent == 31 - 8);
+    REQUIRE(numeric_limits<Fixed>::min_exponent10 <= 0);
+    REQUIRE(numeric_limits<Fixed>::max_exponent10 >= 0);
+
+    static_assert(numeric_limits<Fixed>::min_exponent == 1 - 8, "min_exponent is 1 - Fraction");
+    static_assert(numeric_limits<Fixed>::max_exponent == 31 - 8, "max_exponent is digits - Fraction");
+    static_assert(numeric_limits<Fixed>::min_exponent10 <= 0,
+                  "min_exponent10 must be non-positive for fractional resolution");
+    static_assert(numeric_limits<Fixed>::max_exponent10 >= 0,
+                  "max_exponent10 must be non-negative for integer part");
+  }
+
+  // denorm_min returns min().
+  SUBCASE("denorm_min") {
+    constexpr auto d = numeric_limits<Fixed>::denorm_min();
+    constexpr auto m = numeric_limits<Fixed>::min();
+
+    REQUIRE(d.rawValue() == m.rawValue());
+
+    static_assert(d.rawValue() == m.rawValue(), "denorm_min must equal min for fixed-point");
   }
 
   // infinity, quiet_NaN, signaling_NaN return zero.
