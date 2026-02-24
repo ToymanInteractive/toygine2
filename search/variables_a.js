@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['x_0',['x',['../d3/dce/classtoy_1_1math_1_1_point.html#a5b974e35db246293fe092fd51e93484e',1,'toy::math::Point::x'],['../d9/d85/classtoy_1_1math_1_1_vector2_d.html#acf1bff19cfe871fbe1818d0db3a50787',1,'toy::math::Vector2D::x']]]
+  ['s_5fassertioncallback_0',['s_assertionCallback',['../d2/da2/namespacetoy_1_1assertion.html#abf0c95a6d0312b84decc08fc040187c9',1,'toy::assertion']]],
+  ['size_1',['size',['../d5/d3b/structtoy_1_1_fixed_string_storage.html#a6449cdbdbfea41d537cdfd7bb2ffc504',1,'toy::FixedStringStorage']]]
 ];

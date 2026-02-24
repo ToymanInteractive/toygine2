@@ -9,5 +9,6 @@ var searchData=
   ['length_20assertions_20including_20utf_208_6',['String length assertions (including UTF-8)',['../df/d81/md__a_g_e_n_t_s.html#string-length-assertions-including-utf-8',1,'']]],
   ['lines_7',['Empty Lines',['../df/d81/md__a_g_e_n_t_s.html#empty-lines',1,'']]],
   ['linux_8',['Linux',['../d4/da9/namespacetoy.html#aa6f1ef0b4e0aa4864f1c8d431775bc94aedc9f0a5a5d57797bf68e37364743831',1,'toy']]],
-  ['loops_9',['Range-Based For Loops',['../df/d81/md__a_g_e_n_t_s.html#range-based-for-loops',1,'']]]
+  ['loops_9',['Range-Based For Loops',['../df/d81/md__a_g_e_n_t_s.html#range-based-for-loops',1,'']]],
+  ['lowest_10',['lowest',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a9d605ddbec7e3ae998160a72290a276d',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]]
 ];

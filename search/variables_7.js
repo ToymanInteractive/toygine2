@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['rem_0',['rem',['../d9/d10/structtoy_1_1__divmod10.html#a0a36126e3c670083dc8d95776ae1e4f4',1,'toy::_divmod10']]],
-  ['revision_1',['revision',['../d7/d8d/structtoy_1_1app_1_1_version.html#a83cf4b60f1a98acef1b7ba6ae87602e0',1,'toy::app::Version']]]
+  ['npos_0',['npos',['../d5/d03/classtoy_1_1_c_string_view.html#ad63db28d9eb901a3934303a5fda0af21',1,'toy::CStringView::npos'],['../d3/d7a/classtoy_1_1_fixed_string.html#aa67281adc0c101c3619fed8ff618ac6a',1,'toy::FixedString::npos']]]
 ];

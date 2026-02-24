@@ -1,8 +1,13 @@
 var searchData=
 [
   ['handling_0',['Error Handling',['../df/d81/md__a_g_e_n_t_s.html#error-handling',1,'']]],
-  ['hashes_2ecpp_1',['hashes.cpp',['../db/d2d/hashes_8cpp.html',1,'']]],
-  ['hashes_2ehpp_2',['hashes.hpp',['../dd/d8e/hashes_8hpp.html',1,'']]],
-  ['header_20source_20organization_3',['Header / Source Organization',['../df/d81/md__a_g_e_n_t_s.html#header--source-organization',1,'']]],
-  ['headers_4',['Headers',['../df/d81/md__a_g_e_n_t_s.html#headers',1,'']]]
+  ['has_5fdenorm_1',['has_denorm',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a342fd7ad807189a4fb34b673778d64c6',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]],
+  ['has_5fdenorm_5floss_2',['has_denorm_loss',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#ac890e8e82de6afbad143f30cfa689c92',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]],
+  ['has_5finfinity_3',['has_infinity',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a32c09571e763734c9099762fa29a57e9',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]],
+  ['has_5fquiet_5fnan_4',['has_quiet_NaN',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a2215e103803628f20a023df55cbb6e71',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]],
+  ['has_5fsignaling_5fnan_5',['has_signaling_NaN',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#af4b93bf26ebc5c9f8d317e444965deb5',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]],
+  ['hashes_2ecpp_6',['hashes.cpp',['../db/d2d/hashes_8cpp.html',1,'']]],
+  ['hashes_2ehpp_7',['hashes.hpp',['../dd/d8e/hashes_8hpp.html',1,'']]],
+  ['header_20source_20organization_8',['Header / Source Organization',['../df/d81/md__a_g_e_n_t_s.html#header--source-organization',1,'']]],
+  ['headers_9',['Headers',['../df/d81/md__a_g_e_n_t_s.html#headers',1,'']]]
 ];

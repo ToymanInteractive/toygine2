@@ -1,5 +1,8 @@
 var annotated_dup =
 [
+    [ "std", "d8/dcc/namespacestd.html", [
+      [ "numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;", "d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html", "d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4" ]
+    ] ],
     [ "toy", "d4/da9/namespacetoy.html", [
       [ "app", "dc/df3/namespacetoy_1_1app.html", [
         [ "Version", "d7/d8d/structtoy_1_1app_1_1_version.html", "d7/d8d/structtoy_1_1app_1_1_version" ]
@@ -20,5 +23,6 @@ var annotated_dup =
       [ "FormatString", "dc/d62/classtoy_1_1_format_string.html", "dc/d62/classtoy_1_1_format_string" ],
       [ "OStringStream", "d7/d15/classtoy_1_1_o_string_stream.html", "d7/d15/classtoy_1_1_o_string_stream" ],
       [ "array", "d8/d52/classtoy_1_1array.html", "d8/d52/classtoy_1_1array" ]
-    ] ]
+    ] ],
+    [ "numeric_limits", "db/dc2/classnumeric__limits.html", null ]
 ];
