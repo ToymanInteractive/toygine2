@@ -19,7 +19,10 @@
 //
 /*!
   \file   render.hpp
-  \brief  Umbrella header for the render module (clear flags, framebuffer operations, etc.).
+  \brief  Umbrella header for the render module.
+
+  Includes clear flags, pixel format, and related rendering types. Users of the render module should include this header
+  only; do not include internal headers (e.g. \c render/clear_flags.hpp, \c render/pixel_format.hpp) directly.
 */
 
 #ifndef INCLUDE_RENDER_HPP_
@@ -29,11 +32,11 @@
 
 /*!
   \namespace toy::render
-
-  \brief Rendering types and utilities: clear flags, framebuffer operations, and related APIs.
+  \brief Rendering types and utilities: clear flags, pixel formats, and related APIs.
 */
 
 #include "render/clear_flags.hpp"
+#include "render/pixel_format.hpp"
 
 //----------------------------------------------------------------------------------------------------------------------
 

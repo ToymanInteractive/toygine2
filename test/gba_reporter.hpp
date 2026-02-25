@@ -65,7 +65,7 @@ public:
 
   /// Called when the whole test run ends (caching a pointer to the input doesn't make sense here)
   void test_run_end(const doctest::TestRunStats & stats) noexcept override {
-    _report(_logLevelInfo, "===============================================================================");
+    _separatorToStream();
 
     _report(_logLevelInfo, "[doctest] test cases: %u | %u passed | %u failed | %u skipped",
             stats.numTestCasesPassingFilters, stats.numTestCasesPassingFilters - stats.numTestCasesFailed,
@@ -77,7 +77,7 @@ public:
     _report(_logLevelInfo, "[doctest] Status: %s", (stats.numTestCasesFailed > 0) ? "FAILURE!" : "SUCCESS!");
   }
 
-  // Called when a test case is started (safe to cache a pointer to the input)
+  /// Called when a test case is started (safe to cache a pointer to the input)
   void test_case_start(const doctest::TestCaseData & data) noexcept override {
     _hasLoggedCurrentTestStart = false;
     _testCaseData = &data;
@@ -85,12 +85,47 @@ public:
     _currentSubcaseLevel = 0;
   }
 
-  // Called when a test case is reentered because of unfinished subcases (safe to cache a pointer to the input)
+  /// Called when a test case is reentered because of unfinished subcases (safe to cache a pointer to the input)
   void test_case_reenter([[maybe_unused]] const doctest::TestCaseData & data) noexcept override {
     _subcasesStack.clear();
   }
 
-  void test_case_end([[maybe_unused]] const doctest::CurrentTestCaseStats & stats) noexcept override {}
+  /// Called when a test case has ended
+  void test_case_end(const doctest::CurrentTestCaseStats & stats) noexcept override {
+    if (_testCaseData->m_no_output)
+      return;
+
+    // log the preamble of the test case only if there is something else to print - something other than that an assert
+    // has failed
+    if (_options.duration
+        || (stats.failure_flags
+            && stats.failure_flags != static_cast<int>(doctest::TestCaseFailureReason::AssertFailure)))
+      _logTestStart();
+
+    if (_options.duration)
+      _report(_logLevelInfo, "%d s: %s", stats.seconds, _testCaseData->m_name);
+
+    if (stats.failure_flags & doctest::TestCaseFailureReason::Timeout)
+      _report(_logLevelInfo, "Test case exceeded time limit of %d", _testCaseData->m_timeout);
+
+    if (stats.failure_flags & doctest::TestCaseFailureReason::ShouldHaveFailedButDidnt) {
+      _report(_logLevelInfo, "Should have failed but didn't! Marking it as failed!");
+    } else if (stats.failure_flags & doctest::TestCaseFailureReason::ShouldHaveFailedAndDid) {
+      _report(_logLevelInfo, "Failed as expected so marking it as not failed");
+    } else if (stats.failure_flags & doctest::TestCaseFailureReason::CouldHaveFailedAndDid) {
+      _report(_logLevelInfo, "Allowed to fail so marking it as not failed");
+    } else if (stats.failure_flags & doctest::TestCaseFailureReason::DidntFailExactlyNumTimes) {
+      _report(_logLevelInfo, "Didn't fail exactly %i times so marking it as failed!",
+              _testCaseData->m_expected_failures);
+    } else if (stats.failure_flags & doctest::TestCaseFailureReason::FailedExactlyNumTimes) {
+      _report(_logLevelInfo, "Failed exactly %i times as expected so marking it as not failed!",
+              _testCaseData->m_expected_failures);
+    }
+
+    if (stats.failure_flags & doctest::TestCaseFailureReason::TooManyFailedAsserts) {
+      _report(_logLevelInfo, "Aborting - too many failed asserts!");
+    }
+  }
 
   void test_case_exception([[maybe_unused]] const doctest::TestCaseException & exception) noexcept override {}
 
@@ -105,6 +140,50 @@ public:
   void subcase_start([[maybe_unused]] const doctest::SubcaseSignature & signature) noexcept override {}
 
   void subcase_end() noexcept override {}
+
+  /// Logs a separator line.
+  void _separatorToStream() {
+    _report(_logLevelInfo, "===============================================================================");
+  }
+
+  /// Logs file and line (and optional tail) according to context options (GNU vs MSVC style).
+  void _fileLineToStream(const char * file, int line, const char * tail = "") {
+    _report(_logLevelInfo, "%s%s%s%s%s", file, _options.gnu_file_line ? ":" : "(", _options.no_line_numbers ? 0 : line,
+            _options.gnu_file_line ? ":" : "):", tail);
+  }
+
+  /// Logs the current test case and subcase stack once per test (idempotent).
+  void _logTestStart() {
+    if (_hasLoggedCurrentTestStart)
+      return;
+
+    _separatorToStream();
+    _fileLineToStream(_testCaseData->m_file.c_str(), _testCaseData->m_line);
+    if (_testCaseData->m_description)
+      _report(_logLevelInfo, "DESCRIPTION: %s", _testCaseData->m_description);
+    if (_testCaseData->m_test_suite && _testCaseData->m_test_suite[0] != '\0')
+      _report(_logLevelInfo, "TEST SUITE: %s", _testCaseData->m_test_suite);
+
+    _report(_logLevelInfo, "%s%s", strncmp(_testCaseData->m_name, "  Scenario:", 11) != 0 ? "TEST CASE:  " : "",
+            _testCaseData->m_name);
+
+    for (size_t i = 0; i < _currentSubcaseLevel; ++i) {
+      if (_subcasesStack[i].m_name[0] != '\0')
+        _report(_logLevelInfo, "%s", _subcasesStack[i].m_name);
+    }
+
+    if (_currentSubcaseLevel != _subcasesStack.size()) {
+      _report(_logLevelInfo, "\nDEEPEST SUBCASE STACK REACHED (DIFFERENT FROM THE CURRENT ONE):\n");
+      for (size_t i = 0; i < _subcasesStack.size(); ++i) {
+        if (_subcasesStack[i].m_name[0] != '\0')
+          _report(_logLevelInfo, "%s", _subcasesStack[i].m_name);
+      }
+    }
+
+    _report(_logLevelInfo, "");
+
+    _hasLoggedCurrentTestStart = true;
+  }
 
 private:
   GBAReporter(const GBAReporter &) = delete;
