@@ -103,10 +103,10 @@ public:
       _logTestStart();
 
     if (_options.duration)
-      _report(_logLevelInfo, "%d s: %s", stats.seconds, _testCaseData->m_name);
+      _report(_logLevelInfo, "%f s: %s", stats.seconds, _testCaseData->m_name);
 
     if (stats.failure_flags & doctest::TestCaseFailureReason::Timeout)
-      _report(_logLevelInfo, "Test case exceeded time limit of %d", _testCaseData->m_timeout);
+      _report(_logLevelInfo, "Test case exceeded time limit of %f", _testCaseData->m_timeout);
 
     if (stats.failure_flags & doctest::TestCaseFailureReason::ShouldHaveFailedButDidnt) {
       _report(_logLevelInfo, "Should have failed but didn't! Marking it as failed!");
@@ -140,50 +140,6 @@ public:
   void subcase_start([[maybe_unused]] const doctest::SubcaseSignature & signature) noexcept override {}
 
   void subcase_end() noexcept override {}
-
-  /// Logs a separator line.
-  void _separatorToStream() {
-    _report(_logLevelInfo, "===============================================================================");
-  }
-
-  /// Logs file and line (and optional tail) according to context options (GNU vs MSVC style).
-  void _fileLineToStream(const char * file, int line, const char * tail = "") {
-    _report(_logLevelInfo, "%s%s%s%s%s", file, _options.gnu_file_line ? ":" : "(", _options.no_line_numbers ? 0 : line,
-            _options.gnu_file_line ? ":" : "):", tail);
-  }
-
-  /// Logs the current test case and subcase stack once per test (idempotent).
-  void _logTestStart() {
-    if (_hasLoggedCurrentTestStart)
-      return;
-
-    _separatorToStream();
-    _fileLineToStream(_testCaseData->m_file.c_str(), _testCaseData->m_line);
-    if (_testCaseData->m_description)
-      _report(_logLevelInfo, "DESCRIPTION: %s", _testCaseData->m_description);
-    if (_testCaseData->m_test_suite && _testCaseData->m_test_suite[0] != '\0')
-      _report(_logLevelInfo, "TEST SUITE: %s", _testCaseData->m_test_suite);
-
-    _report(_logLevelInfo, "%s%s", strncmp(_testCaseData->m_name, "  Scenario:", 11) != 0 ? "TEST CASE:  " : "",
-            _testCaseData->m_name);
-
-    for (size_t i = 0; i < _currentSubcaseLevel; ++i) {
-      if (_subcasesStack[i].m_name[0] != '\0')
-        _report(_logLevelInfo, "%s", _subcasesStack[i].m_name);
-    }
-
-    if (_currentSubcaseLevel != _subcasesStack.size()) {
-      _report(_logLevelInfo, "\nDEEPEST SUBCASE STACK REACHED (DIFFERENT FROM THE CURRENT ONE):\n");
-      for (size_t i = 0; i < _subcasesStack.size(); ++i) {
-        if (_subcasesStack[i].m_name[0] != '\0')
-          _report(_logLevelInfo, "%s", _subcasesStack[i].m_name);
-      }
-    }
-
-    _report(_logLevelInfo, "");
-
-    _hasLoggedCurrentTestStart = true;
-  }
 
 private:
   GBAReporter(const GBAReporter &) = delete;
@@ -265,6 +221,50 @@ private:
     std::cout << buffer << "\n";
 
     va_end(args);
+  }
+
+  /// Logs a separator line.
+  void _separatorToStream() {
+    _report(_logLevelInfo, "===============================================================================");
+  }
+
+  /// Logs file and line (and optional tail) according to context options (GNU vs MSVC style).
+  void _fileLineToStream(const char * file, int line, const char * tail = "") {
+    _report(_logLevelInfo, "%s%s%d%s%s", file, _options.gnu_file_line ? ":" : "(", _options.no_line_numbers ? 0 : line,
+            _options.gnu_file_line ? ":" : "):", tail);
+  }
+
+  /// Logs the current test case and subcase stack once per test (idempotent).
+  void _logTestStart() {
+    if (_hasLoggedCurrentTestStart)
+      return;
+
+    _separatorToStream();
+    _fileLineToStream(_testCaseData->m_file.c_str(), _testCaseData->m_line);
+    if (_testCaseData->m_description)
+      _report(_logLevelInfo, "DESCRIPTION: %s", _testCaseData->m_description);
+    if (_testCaseData->m_test_suite && _testCaseData->m_test_suite[0] != '\0')
+      _report(_logLevelInfo, "TEST SUITE: %s", _testCaseData->m_test_suite);
+
+    _report(_logLevelInfo, "%s%s", strncmp(_testCaseData->m_name, "  Scenario:", 11) != 0 ? "TEST CASE:  " : "",
+            _testCaseData->m_name);
+
+    for (size_t i = 0; i < _currentSubcaseLevel; ++i) {
+      if (_subcasesStack[i].m_name[0] != '\0')
+        _report(_logLevelInfo, "%s", _subcasesStack[i].m_name);
+    }
+
+    if (_currentSubcaseLevel != _subcasesStack.size()) {
+      _report(_logLevelInfo, "\nDEEPEST SUBCASE STACK REACHED (DIFFERENT FROM THE CURRENT ONE):\n");
+      for (size_t i = 0; i < _subcasesStack.size(); ++i) {
+        if (_subcasesStack[i].m_name[0] != '\0')
+          _report(_logLevelInfo, "%s", _subcasesStack[i].m_name);
+      }
+    }
+
+    _report(_logLevelInfo, "");
+
+    _hasLoggedCurrentTestStart = true;
   }
 };
 
