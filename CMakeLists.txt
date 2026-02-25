@@ -120,8 +120,8 @@ set(HDR_CORE_LIST include/core.hpp include/core/assertion.hpp include/core/c_str
 set(INL_CORE_LIST                                             include/core/c_string_view.inl include/core/callbacks_pool.inl include/core/constexpr_utils.inl include/core/fixed_string.inl include/core/fixed_vector.inl                         include/core/o_string_stream.inl                                                        include/core/utils.inl)
 
 set(SRC_MATH_LIST )
-set(HDR_MATH_LIST include/math.hpp include/math/point.hpp include/math/utils.hpp include/math/vector2d.hpp)
-set(INL_MATH_LIST                  include/math/point.inl include/math/utils.inl include/math/vector2d.inl)
+set(HDR_MATH_LIST include/math.hpp include/math/fixed.hpp include/math/fixed_std_extension.hpp include/math/point.hpp include/math/utils.hpp include/math/vector2d.hpp)
+set(INL_MATH_LIST                  include/math/fixed.inl                                      include/math/point.inl include/math/utils.inl include/math/vector2d.inl)
 
 set(SRC_NETWORK_LIST )
 set(HDR_NETWORK_LIST include/network.hpp include/network/socket_error.hpp)

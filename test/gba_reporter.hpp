@@ -26,27 +26,44 @@
 #define TEST_GBA_REPORTER_HPP_
 
 #include <doctest/doctest.h>
+#include <stdarg.h>
 
 /*!
   \struct GBAReporter
 
   \brief No-op DocTest reporter implementing \c doctest::IReporter.
 
-  Used when running tests on targets where console or file output is unavailable (e.g. GBA). All virtual methods are
-  overridden with empty bodies; test execution still runs, but no output is produced.
+  Used when running tests on targets where console or file output is
+  unavailable (e.g. GBA). All virtual methods are overridden with empty
+  bodies; test execution still runs, but no output is produced.
 */
 class GBAReporter : public doctest::IReporter {
+  /// mGBA log level: fatal (0x100).
+  static constexpr uint16_t _logLevelFatal = 0x100;
+  /// mGBA log level: error (0x101).
+  static constexpr uint16_t _logLevelError = 0x101;
+  /// mGBA log level: warning (0x102).
+  static constexpr uint16_t _logLevelWarn = 0x102;
+  /// mGBA log level: info (0x103).
+  static constexpr uint16_t _logLevelInfo = 0x103;
+  /// mGBA log level: debug (0x104).
+  static constexpr uint16_t _logLevelDebug = 0x104;
+
 public:
+  /*!
+    \brief Constructs the reporter with the given DocTest context options.
+
+    \param options DocTest context options (e.g. from the running test run).
+  */
   explicit GBAReporter(const doctest::ContextOptions & options) noexcept
     : _options(options) {}
 
-  GBAReporter(const GBAReporter &) = delete;
-  GBAReporter(GBAReporter &&) = delete;
-
-  GBAReporter & operator=(const GBAReporter &) = delete;
-  GBAReporter & operator=(GBAReporter &&) = delete;
-
-  void test_run_start() override {}
+  /*!
+    \brief Logs DocTest version at run start.
+  */
+  void test_run_start() override {
+    _report(_logLevelInfo, "[doctest] doctest version is %s", DOCTEST_VERSION_STR);
+  }
 
   void test_run_end([[maybe_unused]] const doctest::TestRunStats & stats) noexcept override {}
 
@@ -71,7 +88,77 @@ public:
   void test_case_reenter([[maybe_unused]] const doctest::TestCaseData & data) noexcept override {}
 
 private:
+  GBAReporter(const GBAReporter &) = delete;
+  GBAReporter(GBAReporter &&) = delete;
+
+  GBAReporter & operator=(const GBAReporter &) = delete;
+  GBAReporter & operator=(GBAReporter &&) = delete;
+
+  /// DocTest context options passed at construction.
   const doctest::ContextOptions & _options;
+
+  /*!
+    \brief Detects whether the code is running under the mGBA emulator.
+
+    Writes a magic value to the mGBA debug register and reads it back; mGBA
+    rewrites it to a known response. On non-GBA builds always returns \c false.
+
+    \return \c true if mGBA debug protocol is present, \c false otherwise.
+  */
+  static inline bool _mGbaDetect() noexcept {
+#if defined(__GBA__)
+    // mGBA debug register
+    (*(volatile uint16_t *)0x04FFF780) = 0xC0DE;
+
+    return (*(volatile uint16_t *)0x04FFF780) == 0x1DEA;
+#else
+    return false;
+#endif
+  }
+
+  /*!
+    \brief Sends a formatted message to mGBA (if present) and to stdout.
+
+    Uses mGBA log level and string registers when \c _mGbaDetect() is true.
+    On GBA, long strings are truncated to 30 characters for display.
+
+    \param level mGBA log level (e.g. \c _logLevelInfo).
+    \param fmt \c printf-style format string.
+    \param ... Format arguments.
+  */
+  static inline void _report(uint16_t level, const char * fmt, ...) noexcept {
+    va_list args;
+    va_start(args, fmt);
+
+    char buffer[256];
+
+    vsnprintf(buffer, sizeof(buffer), fmt, args);
+
+    if (_mGbaDetect()) {
+      (*(volatile uint16_t *)0x04FFF700) = level; // MGBA Log Level Register
+
+      char * dst = ((char *)0x04FFF600); // MGBA Log String Register
+      const char * src = buffer;
+      while (*src) {
+        *dst++ = *src++;
+      }
+      *dst = 0;
+    }
+
+#if defined(__GBA__)
+    if (std::strlen(buffer) > 30) {
+      // Truncate long strings for GBA on-screen log
+      buffer[27] = '.';
+      buffer[28] = '.';
+      buffer[29] = '.';
+      buffer[30] = '\0';
+    }
+#endif
+
+    std::cout << buffer << "\n";
+
+    va_end(args);
+  }
 };
 
 #endif // TEST_GBA_REPORTER_HPP_

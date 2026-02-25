@@ -157,8 +157,8 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Game Boy Advance")
 
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/C_002b_002b-Dialect-Options.html
 
-  set(CMAKE_C_FLAGS   "-std=c17   -fstrict-flex-arrays=2")
-  set(CMAKE_CXX_FLAGS "-std=c++23 -fstrict-flex-arrays=2 -fno-rtti -fno-threadsafe-statics")
+  set(CMAKE_C_FLAGS   "-D__GBA__ -std=c17   -fstrict-flex-arrays=2")
+  set(CMAKE_CXX_FLAGS "-D__GBA__ -std=c++23 -fstrict-flex-arrays=2 -fno-rtti -fno-threadsafe-statics")
 
   set(CMAKE_C_FLAGS_DEBUG            "    -g -D_DEBUG")
   set(CMAKE_CXX_FLAGS_DEBUG          "    -g -D_DEBUG")
