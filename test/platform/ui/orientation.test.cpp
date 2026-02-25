@@ -71,9 +71,9 @@ TEST_CASE("platform/ui/orientation/operator_and") {
 
   // Landscape & Portrait yields no common bits.
   SUBCASE("landscape_and_portrait") {
-    REQUIRE(static_cast<unsigned int>(Orientation::Landscape & Orientation::Portrait) == 0);
+    REQUIRE(static_cast<uint8_t>(Orientation::Landscape & Orientation::Portrait) == 0);
 
-    static_assert(static_cast<unsigned int>(Orientation::Landscape & Orientation::Portrait) == 0,
+    static_assert(static_cast<uint8_t>(Orientation::Landscape & Orientation::Portrait) == 0,
                   "Landscape & Portrait must have no common bits");
   }
 }
@@ -90,9 +90,9 @@ TEST_CASE("platform/ui/orientation/operator_xor") {
 
   // Same value XOR same value yields zero.
   SUBCASE("same_xor_same") {
-    REQUIRE(static_cast<unsigned int>(Orientation::Landscape ^ Orientation::Landscape) == 0);
+    REQUIRE(static_cast<uint8_t>(Orientation::Landscape ^ Orientation::Landscape) == 0);
 
-    static_assert(static_cast<unsigned int>(Orientation::Landscape ^ Orientation::Landscape) == 0,
+    static_assert(static_cast<uint8_t>(Orientation::Landscape ^ Orientation::Landscape) == 0,
                   "Landscape ^ Landscape must be zero");
   }
 }
