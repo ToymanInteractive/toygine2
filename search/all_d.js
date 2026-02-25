@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['macos_0',['MacOS',['../d4/da9/namespacetoy.html#aa6f1ef0b4e0aa4864f1c8d431775bc94a0a5b7edb55b772c60bfa8af868b679cf',1,'toy']]],
+  ['macos_0',['MacOS',['../d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aa0a5b7edb55b772c60bfa8af868b679cf',1,'toy']]],
   ['maintenance_1',['maintenance',['../d7/d8d/structtoy_1_1app_1_1_version.html#af042456a2ca193c5ac419f29da0cd9ef',1,'toy::app::Version']]],
   ['major_2',['major',['../d7/d8d/structtoy_1_1app_1_1_version.html#a6b5b6d465a6bcc1bd6bf2487632f0789',1,'toy::app::Version']]],
   ['math_2ehpp_3',['math.hpp',['../d4/d78/math_8hpp.html',1,'']]],
@@ -22,5 +22,5 @@ var searchData=
   ['modern_20c_20practices_19',['Modern C++ Practices',['../df/d81/md__a_g_e_n_t_s.html#modern-c-practices',1,'']]],
   ['modifiers_20',['Access Modifiers',['../df/d81/md__a_g_e_n_t_s.html#access-modifiers',1,'']]],
   ['module_20structure_21',['Module Structure',['../df/d81/md__a_g_e_n_t_s.html#module-structure',1,'']]],
-  ['music_22',['Music',['../dd/d77/namespacetoy_1_1audio.html#aa718b33cdae96e6832644dfc0aaa46fca47dcbd834e669233d7eb8a51456ed217',1,'toy::audio']]]
+  ['music_22',['Music',['../dd/d77/namespacetoy_1_1audio.html#afca9143e3b169f77784310a3b384261ca47dcbd834e669233d7eb8a51456ed217',1,'toy::audio']]]
 ];

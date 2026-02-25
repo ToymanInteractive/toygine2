@@ -157,8 +157,8 @@ var NAVTREEINDEX =
 "annotated.html",
 "d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a139f367e02a2aee18847150bd54856f9",
 "d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725ea6adf97f83acf6453d4a6a4b1070f3754",
-"d9/d85/classtoy_1_1math_1_1_vector2_d.html#a7ebd2a5734c1a75a0481980081e4e210",
-"dir_3d69f64eaf81436fe2b22361382717e5.html"
+"d9/d85/classtoy_1_1math_1_1_vector2_d.html#a08d80e077f40d501f74dece9ea00eaf9",
+"df/db1/gba_2platform__config_8hpp.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

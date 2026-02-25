@@ -23,7 +23,7 @@ var searchData=
   ['optional_20',['&lt;span class=&quot;tt&quot;&gt;\\section compatibility Compatibility&lt;/span&gt; (optional)',['../df/d81/md__a_g_e_n_t_s.html#section-compatibility-compatibility-optional',1,'']]],
   ['order_21',['Order',['../df/d81/md__a_g_e_n_t_s.html#class--struct-documentation-order',1,'Class / Struct Documentation Order'],['../df/d81/md__a_g_e_n_t_s.html#include-order',1,'Include Order'],['../df/d81/md__a_g_e_n_t_s.html#method--function-documentation-order',1,'Method / Function Documentation Order']]],
   ['organization_22',['Header / Source Organization',['../df/d81/md__a_g_e_n_t_s.html#header--source-organization',1,'']]],
-  ['orientation_23',['Orientation',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#a183936fe4ec9c3298068c03b8677dba2',1,'toy::platform::ui']]],
+  ['orientation_23',['Orientation',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#aab7a6848d6656e7540fb1d6d72116e02',1,'toy::platform::ui']]],
   ['orientation_2ehpp_24',['orientation.hpp',['../d0/d24/orientation_8hpp.html',1,'']]],
   ['ostringstream_25',['OStringStream',['../d7/d15/classtoy_1_1_o_string_stream.html',1,'toy::OStringStream&lt; StringType &gt;'],['../d7/d15/classtoy_1_1_o_string_stream.html#a801c0cef8d956fb69fd8f89bc3c9ac52',1,'toy::OStringStream::OStringStream() noexcept=default'],['../d7/d15/classtoy_1_1_o_string_stream.html#aa2931e4bbba8ed4f268dcf64dbe971c5',1,'toy::OStringStream::OStringStream(const SourceStringType &amp;string) noexcept']]],
   ['over_20typedef_26',['&lt;span class=&quot;tt&quot;&gt;using&lt;/span&gt; over &lt;span class=&quot;tt&quot;&gt;typedef&lt;/span&gt;',['../df/d81/md__a_g_e_n_t_s.html#using-over-typedef',1,'']]]

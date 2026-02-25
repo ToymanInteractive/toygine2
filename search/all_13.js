@@ -14,7 +14,7 @@ var searchData=
   ['socket_5ferror_2ehpp_11',['socket_error.hpp',['../d8/df5/socket__error_8hpp.html',1,'']]],
   ['socketerror_12',['SocketError',['../d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725e',1,'toy::network']]],
   ['socketinvalid_13',['SocketInvalid',['../d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725ea00b7ae176d07d00500fef827f193da59',1,'toy::network']]],
-  ['sound_14',['Sound',['../dd/d77/namespacetoy_1_1audio.html#aa718b33cdae96e6832644dfc0aaa46fca9d07e0e08af7f96cf45be0112b9ccfbe',1,'toy::audio']]],
+  ['sound_14',['Sound',['../dd/d77/namespacetoy_1_1audio.html#afca9143e3b169f77784310a3b384261ca9d07e0e08af7f96cf45be0112b9ccfbe',1,'toy::audio']]],
   ['source_20organization_15',['Header / Source Organization',['../df/d81/md__a_g_e_n_t_s.html#header--source-organization',1,'']]],
   ['spacing_16',['Indentation and Spacing',['../df/d81/md__a_g_e_n_t_s.html#indentation-and-spacing',1,'']]],
   ['sqrmagnitude_17',['sqrMagnitude',['../d3/dce/classtoy_1_1math_1_1_point.html#a0454d2639eb29492706c8c082e0ee4c4',1,'toy::math::Point::sqrMagnitude()'],['../d9/d85/classtoy_1_1math_1_1_vector2_d.html#ad241a1b3b6db0b748c50b6b4cc316ffb',1,'toy::math::Vector2D::sqrMagnitude()']]],
@@ -24,7 +24,7 @@ var searchData=
   ['starts_5fwith_21',['starts_with',['../d5/d03/classtoy_1_1_c_string_view.html#a690dc08abeb1cd6ffc0a81e14d5703f2',1,'toy::CStringView::starts_with(const stringType &amp;string) const noexcept'],['../d5/d03/classtoy_1_1_c_string_view.html#aeeaf609b797459bacd751dd62a314392',1,'toy::CStringView::starts_with(const char *string) const noexcept'],['../d5/d03/classtoy_1_1_c_string_view.html#af13ff57be547b364b7d255eebe7de185',1,'toy::CStringView::starts_with(char character) const noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#a616ed816856ff2ca07bb80da0199fc95',1,'toy::FixedString::starts_with(const FixedString&lt; allocatedSize &gt; &amp;string) const noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#ae2773eb44a0dcd5301f41dc1b0f776af',1,'toy::FixedString::starts_with(const stringType &amp;string) const noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#ac1fa1fe5dd1b7b4a923886b0544f4250',1,'toy::FixedString::starts_with(const char *string) const noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#a50f3a0981ef8977421e7ca9b26716799',1,'toy::FixedString::starts_with(char character) const noexcept']]],
   ['staticcallback_22',['StaticCallback',['../d7/d9f/structtoy_1_1_callbacks_pool_1_1_static_callback.html',1,'toy::CallbacksPool']]],
   ['std_23',['std',['../d8/dcc/namespacestd.html',1,'']]],
-  ['stencil_24',['Stencil',['../df/d8d/namespacetoy_1_1render.html#a656a113b41be329d52f7c678d3384b4aad821e7ccd4d4c25a491ba1a9ea248895',1,'toy::render']]],
+  ['stencil_24',['Stencil',['../df/d8d/namespacetoy_1_1render.html#ae44fe0c1053121f38b8544a8684ee4e1ad821e7ccd4d4c25a491ba1a9ea248895',1,'toy::render']]],
   ['stl_20compatible_20naming_25',['STL-Compatible Naming',['../df/d81/md__a_g_e_n_t_s.html#stl-compatible-naming',1,'']]],
   ['str_26',['str',['../d7/d15/classtoy_1_1_o_string_stream.html#a88ac692738f862730436cfa29e0159fe',1,'toy::OStringStream::str() const noexcept'],['../d7/d15/classtoy_1_1_o_string_stream.html#acbabf124a32a172c880497f3257967e7',1,'toy::OStringStream::str(const SourceStringType &amp;string) noexcept']]],
   ['string_20length_20assertions_20including_20utf_208_27',['String length assertions (including UTF-8)',['../df/d81/md__a_g_e_n_t_s.html#string-length-assertions-including-utf-8',1,'']]],
@@ -41,7 +41,7 @@ var searchData=
   ['supported_20c_20compilers_38',['Supported C++ compilers',['../index.html#supported-c-compilers',1,'']]],
   ['supported_20systems_39',['Supported Systems',['../index.html#supported-systems',1,'']]],
   ['swap_40',['swap',['../d5/d03/classtoy_1_1_c_string_view.html#a61dbfbf58ac6f2ab042774a2c3e81e6b',1,'toy::CStringView::swap()'],['../d3/d7a/classtoy_1_1_fixed_string.html#a0d6b3d27deeefe85c8422cff605adcbc',1,'toy::FixedString::swap()'],['../d7/d15/classtoy_1_1_o_string_stream.html#a33e8b57da620ae99a9c03612bb2dbbcb',1,'toy::OStringStream::swap()']]],
-  ['switch_41',['Switch',['../d4/da9/namespacetoy.html#aa6f1ef0b4e0aa4864f1c8d431775bc94abbc155fb2b111bf61c4f5ff892915e6b',1,'toy']]],
+  ['switch_41',['Switch',['../d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aabbc155fb2b111bf61c4f5ff892915e6b',1,'toy']]],
   ['systemerror_42',['SystemError',['../d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725eab932b91f686c2aa588adfd9a407155ca',1,'toy::network']]],
   ['systems_43',['Supported Systems',['../index.html#supported-systems',1,'']]]
 ];

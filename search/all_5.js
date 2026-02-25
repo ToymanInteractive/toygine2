@@ -6,7 +6,7 @@ var searchData=
   ['deinitialize_3',['deInitialize',['../d2/da2/namespacetoy_1_1assertion.html#a82b42cf518871245c19337431cfe63e5',1,'toy::assertion']]],
   ['delete_4',['&lt;span class=&quot;tt&quot;&gt;= default&lt;/span&gt; and &lt;span class=&quot;tt&quot;&gt;= delete&lt;/span&gt;',['../df/d81/md__a_g_e_n_t_s.html#autotoc_md-default-and--delete',1,'']]],
   ['denorm_5fmin_5',['denorm_min',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a582b3db515a99717044cb5276d56795b',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]],
-  ['depth_6',['Depth',['../df/d8d/namespacetoy_1_1render.html#a656a113b41be329d52f7c678d3384b4aa675056ad1441b6375b2c5abd48c27ef1',1,'toy::render']]],
+  ['depth_6',['Depth',['../df/d8d/namespacetoy_1_1render.html#ae44fe0c1053121f38b8544a8684ee4e1a675056ad1441b6375b2c5abd48c27ef1',1,'toy::render']]],
   ['design_7',['Constexpr-First Design',['../df/d81/md__a_g_e_n_t_s.html#constexpr-first-design',1,'']]],
   ['detail_8',['Class Sections Detail',['../df/d81/md__a_g_e_n_t_s.html#class-sections-detail',1,'']]],
   ['difference_5ftype_9',['difference_type',['../d3/d7a/classtoy_1_1_fixed_string.html#af0a932d6255074d2eeb76fe6264b8598',1,'toy::FixedString::difference_type'],['../d7/dec/classtoy_1_1_fixed_vector.html#a8f4d0bbecd1cae924c3f72beca3b0b13',1,'toy::FixedVector::difference_type']]],

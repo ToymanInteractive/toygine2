@@ -1,19 +1,30 @@
 <map id="include/core/format.hpp" name="include/core/format.hpp">
-<area shape="rect" id="Node000001" title="Compile&#45;time format string validation class." alt="" coords="267,5,445,31"/>
-<area shape="rect" id="Node000002" href="$da/d47/core_8hpp.html" title="Umbrella header for the engine core module." alt="" coords="291,79,421,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="359,44,359,79,353,79,353,44"/>
+<area shape="rect" id="Node000001" title="Compile&#45;time format string validation class." alt="" coords="599,5,777,31"/>
+<area shape="rect" id="Node000002" href="$da/d47/core_8hpp.html" title="Umbrella header for the engine core module." alt="" coords="623,79,753,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="691,44,691,79,685,79,685,44"/>
 <area shape="rect" id="Node000003" href="$d6/d2c/app_8hpp.html" title="Umbrella header for the engine application module." alt="" coords="5,159,131,185"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="302,110,111,162,109,157,300,105"/>
-<area shape="rect" id="Node000004" href="$d8/d8c/toygine2_8hpp.html" title="Main umbrella header for the entire ToyGine2 engine." alt="" coords="89,240,247,265"/>
-<area shape="poly" id="edge6_Node000002_Node000004" title=" " alt="" coords="279,108,235,125,214,138,197,154,183,175,175,198,170,240,165,240,170,197,178,172,193,150,211,134,232,121,277,103"/>
-<area shape="rect" id="Node000005" href="$d4/d78/math_8hpp.html" title="Umbrella header for the engine mathematics module." alt="" coords="206,159,341,185"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="336,115,287,161,284,157,332,112"/>
-<area shape="rect" id="Node000006" href="$db/d2d/hashes_8cpp.html" title="Implementation of CRC hash functions with lookup tables for optimal performance." alt="" coords="365,159,515,185"/>
-<area shape="poly" id="edge7_Node000002_Node000006" title=" " alt="" coords="380,112,429,157,426,161,377,115"/>
-<area shape="rect" id="Node000007" href="$de/d06/utils_8cpp.html" title="Implementation of core utility functions for string manipulation, encoding conversion,..." alt="" coords="539,159,671,185"/>
-<area shape="poly" id="edge8_Node000002_Node000007" title=" " alt="" coords="406,106,570,157,568,162,404,111"/>
-<area shape="rect" id="Node000008" href="$d7/d90/assertion__stub_8cpp.html" title="Stub implementation of assertion system for platforms without native assertion support." alt="" coords="695,152,875,192"/>
-<area shape="poly" id="edge9_Node000002_Node000008" title=" " alt="" coords="433,104,684,149,696,151,695,157,684,155,432,109"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="95,191,155,238,152,242,92,195"/>
-<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="249,195,185,242,182,238,245,191"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="610,101,401,121,275,136,150,155,114,162,113,157,149,149,275,131,401,115,609,96"/>
+<area shape="rect" id="Node000004" href="$d8/d8c/toygine2_8hpp.html" title="Main umbrella header for the entire ToyGine2 engine." alt="" coords="357,240,515,265"/>
+<area shape="poly" id="edge13_Node000002_Node000004" title=" " alt="" coords="609,99,492,107,362,118,252,134,215,144,195,154,184,173,187,189,200,202,223,214,287,232,357,242,356,248,286,237,221,219,197,207,182,191,179,172,191,150,213,139,251,129,361,113,492,101,609,94"/>
+<area shape="rect" id="Node000005" href="$d1/d71/audio_8hpp.html" title="Umbrella header for the audio module (volume types, mixing, etc.)." alt="" coords="206,159,343,185"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="610,108,357,155,323,162,322,157,355,149,609,103"/>
+<area shape="rect" id="Node000006" href="$d8/d39/game_8hpp.html" title="Umbrella header for the game module." alt="" coords="368,159,507,185"/>
+<area shape="poly" id="edge6_Node000002_Node000006" title=" " alt="" coords="639,111,475,162,473,157,638,106"/>
+<area shape="rect" id="Node000007" href="$d4/d78/math_8hpp.html" title="Umbrella header for the engine mathematics module." alt="" coords="531,159,666,185"/>
+<area shape="poly" id="edge7_Node000002_Node000007" title=" " alt="" coords="666,115,614,161,610,157,663,111"/>
+<area shape="rect" id="Node000008" href="$de/dd6/ui_8hpp.html" title="Umbrella header for platform UI types (orientation, layout, etc.)." alt="" coords="691,159,864,185"/>
+<area shape="poly" id="edge9_Node000002_Node000008" title=" " alt="" coords="713,111,766,157,762,161,710,115"/>
+<area shape="rect" id="Node000009" href="$d6/d4b/render_8hpp.html" title="Umbrella header for the render module (clear flags, framebuffer operations, etc.)." alt="" coords="889,159,1031,185"/>
+<area shape="poly" id="edge11_Node000002_Node000009" title=" " alt="" coords="741,105,921,157,920,162,740,110"/>
+<area shape="rect" id="Node000010" href="$db/d2d/hashes_8cpp.html" title="Implementation of CRC hash functions with lookup tables for optimal performance." alt="" coords="1055,159,1206,185"/>
+<area shape="poly" id="edge14_Node000002_Node000010" title=" " alt="" coords="767,102,1044,149,1080,157,1079,162,1044,155,766,107"/>
+<area shape="rect" id="Node000011" href="$de/d06/utils_8cpp.html" title="Implementation of core utility functions for string manipulation, encoding conversion,..." alt="" coords="1230,159,1362,185"/>
+<area shape="poly" id="edge15_Node000002_Node000011" title=" " alt="" coords="767,96,972,115,1096,130,1219,149,1253,157,1252,162,1218,155,1095,136,971,120,766,101"/>
+<area shape="rect" id="Node000012" href="$d7/d90/assertion__stub_8cpp.html" title="Stub implementation of assertion system for platforms without native assertion support." alt="" coords="1386,152,1566,192"/>
+<area shape="poly" id="edge16_Node000002_Node000012" title=" " alt="" coords="767,94,1036,114,1205,129,1375,149,1386,151,1385,156,1374,155,1205,135,1036,119,766,100"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="131,185,150,189,380,237,379,243,149,195,130,190"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="311,188,414,238,411,242,309,193"/>
+<area shape="poly" id="edge8_Node000007_Node000004" title=" " alt="" coords="564,193,461,242,459,238,562,188"/>
+<area shape="poly" id="edge10_Node000008_Node000004" title=" " alt="" coords="715,190,486,243,485,237,714,185"/>
+<area shape="poly" id="edge12_Node000009_Node000004" title=" " alt="" coords="899,190,876,195,682,225,516,245,515,240,681,219,876,189,898,185"/>
 </map>

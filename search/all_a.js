@@ -16,7 +16,7 @@ var searchData=
   ['invalidaddress_13',['InvalidAddress',['../d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725ea66196dd9678aef4aaad947e7181049c0',1,'toy::network']]],
   ['invalidoperation_14',['InvalidOperation',['../d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725ea1cd5ecce6fe138df5c3f7e8854a1a66d',1,'toy::network']]],
   ['ioerror_15',['IOError',['../d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725ea5206bd7472156351d2d9a99633ac9580',1,'toy::network']]],
-  ['ios_16',['iOS',['../d4/da9/namespacetoy.html#aa6f1ef0b4e0aa4864f1c8d431775bc94a1bdf605991920db11cbdf8508204c4eb',1,'toy']]],
+  ['ios_16',['iOS',['../d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aa1bdf605991920db11cbdf8508204c4eb',1,'toy']]],
   ['is_5fbounded_17',['is_bounded',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a223b881d63a48157c1e04838cd1e5227',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]],
   ['is_5fexact_18',['is_exact',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a9bc0c6c6f1310656a6676db0b500a1d1',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]],
   ['is_5ffixed_5fpoint_19',['is_fixed_point',['../d2/dc3/structtoy_1_1math_1_1is__fixed__point.html',1,'toy::math']]],

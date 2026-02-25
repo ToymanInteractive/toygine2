@@ -1,14 +1,15 @@
 var searchData=
 [
-  ['landscape_0',['Landscape',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#a183936fe4ec9c3298068c03b8677dba2a815dff01257e5ef182b25d4c1ef0a7a0',1,'toy::platform::ui']]],
-  ['landscapeany_1',['LandscapeAny',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#a183936fe4ec9c3298068c03b8677dba2a5eafe6d4dcf78b6f44747be42858d963',1,'toy::platform::ui']]],
-  ['landscapeflipped_2',['LandscapeFlipped',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#a183936fe4ec9c3298068c03b8677dba2a9db9cbc8918c4496bbd0c683ff964e79',1,'toy::platform::ui']]],
+  ['landscape_0',['Landscape',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#aab7a6848d6656e7540fb1d6d72116e02a815dff01257e5ef182b25d4c1ef0a7a0',1,'toy::platform::ui']]],
+  ['landscapeany_1',['LandscapeAny',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#aab7a6848d6656e7540fb1d6d72116e02a5eafe6d4dcf78b6f44747be42858d963',1,'toy::platform::ui']]],
+  ['landscapeflipped_2',['LandscapeFlipped',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#aab7a6848d6656e7540fb1d6d72116e02a9db9cbc8918c4496bbd0c683ff964e79',1,'toy::platform::ui']]],
   ['language_20and_20standard_3',['Language and Standard',['../df/d81/md__a_g_e_n_t_s.html#language-and-standard',1,'']]],
   ['length_4',['length',['../d5/d03/classtoy_1_1_c_string_view.html#a6120478d89996e674d30f8398ccfbc51',1,'toy::CStringView::length()'],['../d3/d7a/classtoy_1_1_fixed_string.html#a40f234d8be756c3babc9a5945e241dcd',1,'toy::FixedString::length()']]],
   ['length_20and_20structure_5',['Test Length and Structure',['../df/d81/md__a_g_e_n_t_s.html#test-length-and-structure',1,'']]],
   ['length_20assertions_20including_20utf_208_6',['String length assertions (including UTF-8)',['../df/d81/md__a_g_e_n_t_s.html#string-length-assertions-including-utf-8',1,'']]],
   ['lines_7',['Empty Lines',['../df/d81/md__a_g_e_n_t_s.html#empty-lines',1,'']]],
-  ['linux_8',['Linux',['../d4/da9/namespacetoy.html#aa6f1ef0b4e0aa4864f1c8d431775bc94aedc9f0a5a5d57797bf68e37364743831',1,'toy']]],
-  ['loops_9',['Range-Based For Loops',['../df/d81/md__a_g_e_n_t_s.html#range-based-for-loops',1,'']]],
-  ['lowest_10',['lowest',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a9d605ddbec7e3ae998160a72290a276d',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]]
+  ['linux_8',['Linux',['../d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aaedc9f0a5a5d57797bf68e37364743831',1,'toy']]],
+  ['locked_9',['Locked',['../d8/d25/namespacetoy_1_1game.html#ac8a6f36358f3ac99f55a1db9c3827edaad0f2e5376298c880665077b565ffd7dd',1,'toy::game']]],
+  ['loops_10',['Range-Based For Loops',['../df/d81/md__a_g_e_n_t_s.html#range-based-for-loops',1,'']]],
+  ['lowest_11',['lowest',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a9d605ddbec7e3ae998160a72290a276d',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]]
 ];

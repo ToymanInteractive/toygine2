@@ -13,8 +13,8 @@ var searchData=
   ['version_2ehpp_10',['version.hpp',['../d7/dad/version_8hpp.html',1,'']]],
   ['version_2einl_11',['version.inl',['../d2/dbe/version_8inl.html',1,'']]],
   ['view_12',['view',['../d7/d15/classtoy_1_1_o_string_stream.html#a8e0df79bdfbb170c35f4218a25ade3a5',1,'toy::OStringStream']]],
-  ['voice_13',['Voice',['../dd/d77/namespacetoy_1_1audio.html#aa718b33cdae96e6832644dfc0aaa46fcad7a3fdf1351b72249a47454751549deb',1,'toy::audio']]],
+  ['voice_13',['Voice',['../dd/d77/namespacetoy_1_1audio.html#afca9143e3b169f77784310a3b384261cad7a3fdf1351b72249a47454751549deb',1,'toy::audio']]],
   ['volume_5ftype_2ehpp_14',['volume_type.hpp',['../db/d37/volume__type_8hpp.html',1,'']]],
-  ['volumetype_15',['VolumeType',['../dd/d77/namespacetoy_1_1audio.html#aa718b33cdae96e6832644dfc0aaa46fc',1,'toy::audio']]],
+  ['volumetype_15',['VolumeType',['../dd/d77/namespacetoy_1_1audio.html#afca9143e3b169f77784310a3b384261c',1,'toy::audio']]],
   ['vs_20runtime_20testing_16',['Compile-Time vs Runtime Testing',['../df/d81/md__a_g_e_n_t_s.html#compile-time-vs-runtime-testing',1,'']]]
 ];

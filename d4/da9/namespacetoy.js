@@ -13,10 +13,17 @@ var namespacetoy =
       [ "s_assertionCallback", "d2/da2/namespacetoy_1_1assertion.html#abf0c95a6d0312b84decc08fc040187c9", null ]
     ] ],
     [ "audio", "dd/d77/namespacetoy_1_1audio.html", [
-      [ "VolumeType", "dd/d77/namespacetoy_1_1audio.html#aa718b33cdae96e6832644dfc0aaa46fc", [
-        [ "Music", "dd/d77/namespacetoy_1_1audio.html#aa718b33cdae96e6832644dfc0aaa46fca47dcbd834e669233d7eb8a51456ed217", null ],
-        [ "Sound", "dd/d77/namespacetoy_1_1audio.html#aa718b33cdae96e6832644dfc0aaa46fca9d07e0e08af7f96cf45be0112b9ccfbe", null ],
-        [ "Voice", "dd/d77/namespacetoy_1_1audio.html#aa718b33cdae96e6832644dfc0aaa46fcad7a3fdf1351b72249a47454751549deb", null ]
+      [ "VolumeType", "dd/d77/namespacetoy_1_1audio.html#afca9143e3b169f77784310a3b384261c", [
+        [ "Music", "dd/d77/namespacetoy_1_1audio.html#afca9143e3b169f77784310a3b384261ca47dcbd834e669233d7eb8a51456ed217", null ],
+        [ "Sound", "dd/d77/namespacetoy_1_1audio.html#afca9143e3b169f77784310a3b384261ca9d07e0e08af7f96cf45be0112b9ccfbe", null ],
+        [ "Voice", "dd/d77/namespacetoy_1_1audio.html#afca9143e3b169f77784310a3b384261cad7a3fdf1351b72249a47454751549deb", null ]
+      ] ]
+    ] ],
+    [ "game", "d8/d25/namespacetoy_1_1game.html", [
+      [ "AchievementState", "d8/d25/namespacetoy_1_1game.html#ac8a6f36358f3ac99f55a1db9c3827eda", [
+        [ "Hidden", "d8/d25/namespacetoy_1_1game.html#ac8a6f36358f3ac99f55a1db9c3827edaa7acdf85c69cc3c5305456a293524386e", null ],
+        [ "Locked", "d8/d25/namespacetoy_1_1game.html#ac8a6f36358f3ac99f55a1db9c3827edaad0f2e5376298c880665077b565ffd7dd", null ],
+        [ "Unlocked", "d8/d25/namespacetoy_1_1game.html#ac8a6f36358f3ac99f55a1db9c3827edaac76fd517e45cc95709f4ac106efa4a94", null ]
       ] ]
     ] ],
     [ "network", "d6/d2c/namespacetoy_1_1network.html", [
@@ -35,12 +42,12 @@ var namespacetoy =
     ] ],
     [ "platform", "d4/ddd/namespacetoy_1_1platform.html", "d4/ddd/namespacetoy_1_1platform" ],
     [ "render", "df/d8d/namespacetoy_1_1render.html", [
-      [ "ClearFlags", "df/d8d/namespacetoy_1_1render.html#a656a113b41be329d52f7c678d3384b4a", [
-        [ "None", "df/d8d/namespacetoy_1_1render.html#a656a113b41be329d52f7c678d3384b4aa6adf97f83acf6453d4a6a4b1070f3754", null ],
-        [ "Target", "df/d8d/namespacetoy_1_1render.html#a656a113b41be329d52f7c678d3384b4aac41a31890959544c6523af684561abe5", null ],
-        [ "Depth", "df/d8d/namespacetoy_1_1render.html#a656a113b41be329d52f7c678d3384b4aa675056ad1441b6375b2c5abd48c27ef1", null ],
-        [ "Stencil", "df/d8d/namespacetoy_1_1render.html#a656a113b41be329d52f7c678d3384b4aad821e7ccd4d4c25a491ba1a9ea248895", null ],
-        [ "All", "df/d8d/namespacetoy_1_1render.html#a656a113b41be329d52f7c678d3384b4aab1c94ca2fbc3e78fc30069c8d0f01680", null ]
+      [ "ClearFlags", "df/d8d/namespacetoy_1_1render.html#ae44fe0c1053121f38b8544a8684ee4e1", [
+        [ "None", "df/d8d/namespacetoy_1_1render.html#ae44fe0c1053121f38b8544a8684ee4e1a6adf97f83acf6453d4a6a4b1070f3754", null ],
+        [ "Target", "df/d8d/namespacetoy_1_1render.html#ae44fe0c1053121f38b8544a8684ee4e1ac41a31890959544c6523af684561abe5", null ],
+        [ "Depth", "df/d8d/namespacetoy_1_1render.html#ae44fe0c1053121f38b8544a8684ee4e1a675056ad1441b6375b2c5abd48c27ef1", null ],
+        [ "Stencil", "df/d8d/namespacetoy_1_1render.html#ae44fe0c1053121f38b8544a8684ee4e1ad821e7ccd4d4c25a491ba1a9ea248895", null ],
+        [ "All", "df/d8d/namespacetoy_1_1render.html#ae44fe0c1053121f38b8544a8684ee4e1ab1c94ca2fbc3e78fc30069c8d0f01680", null ]
       ] ],
       [ "operator&", "df/d8d/namespacetoy_1_1render.html#a8005061a10bccaf16f7b3c5b79ce5cb1", null ],
       [ "operator^", "df/d8d/namespacetoy_1_1render.html#a5845b0dbc8efa2c63123f900399053ae", null ],
@@ -56,23 +63,23 @@ var namespacetoy =
     [ "OStringStream", "d7/d15/classtoy_1_1_o_string_stream.html", "d7/d15/classtoy_1_1_o_string_stream" ],
     [ "array", "d8/d52/classtoy_1_1array.html", "d8/d52/classtoy_1_1array" ],
     [ "StringLike", "df/d77/concepttoy_1_1_string_like.html", null ],
-    [ "CpuArchitecture", "d4/da9/namespacetoy.html#a9fbbca3cbd855381284624d5fc830d49", [
-      [ "x86", "d4/da9/namespacetoy.html#a9fbbca3cbd855381284624d5fc830d49a8a9da7865483c5fd359f3acef178d26d", null ],
-      [ "x64", "d4/da9/namespacetoy.html#a9fbbca3cbd855381284624d5fc830d49a9c16d991c79c6330e655aa29ea623492", null ],
-      [ "Arm32", "d4/da9/namespacetoy.html#a9fbbca3cbd855381284624d5fc830d49a044fc9e908d0f160ae1a8ac300eb2b3d", null ],
-      [ "Arm64", "d4/da9/namespacetoy.html#a9fbbca3cbd855381284624d5fc830d49ac42c3b5bc3b4234ee7823388012368d6", null ],
-      [ "Unknown", "d4/da9/namespacetoy.html#a9fbbca3cbd855381284624d5fc830d49a88183b946cc5f0e8c96b2e66e1c74a7e", null ]
+    [ "CpuArchitecture", "d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341", [
+      [ "x86", "d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341a8a9da7865483c5fd359f3acef178d26d", null ],
+      [ "x64", "d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341a9c16d991c79c6330e655aa29ea623492", null ],
+      [ "Arm32", "d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341a044fc9e908d0f160ae1a8ac300eb2b3d", null ],
+      [ "Arm64", "d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341ac42c3b5bc3b4234ee7823388012368d6", null ],
+      [ "Unknown", "d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341a88183b946cc5f0e8c96b2e66e1c74a7e", null ]
     ] ],
-    [ "Platform", "d4/da9/namespacetoy.html#aa6f1ef0b4e0aa4864f1c8d431775bc94", [
-      [ "Windows", "d4/da9/namespacetoy.html#aa6f1ef0b4e0aa4864f1c8d431775bc94aaea23489ce3aa9b6406ebb28e0cda430", null ],
-      [ "Linux", "d4/da9/namespacetoy.html#aa6f1ef0b4e0aa4864f1c8d431775bc94aedc9f0a5a5d57797bf68e37364743831", null ],
-      [ "MacOS", "d4/da9/namespacetoy.html#aa6f1ef0b4e0aa4864f1c8d431775bc94a0a5b7edb55b772c60bfa8af868b679cf", null ],
-      [ "iOS", "d4/da9/namespacetoy.html#aa6f1ef0b4e0aa4864f1c8d431775bc94a1bdf605991920db11cbdf8508204c4eb", null ],
-      [ "Android", "d4/da9/namespacetoy.html#aa6f1ef0b4e0aa4864f1c8d431775bc94ae84e30b9390cdb64db6db2c9ab87846d", null ],
-      [ "GBA", "d4/da9/namespacetoy.html#aa6f1ef0b4e0aa4864f1c8d431775bc94ad61abb0698c83433ab6b11ab3d68447d", null ],
-      [ "NDS", "d4/da9/namespacetoy.html#aa6f1ef0b4e0aa4864f1c8d431775bc94a762ba5f7878627c28916f73f55646717", null ],
-      [ "N3DS", "d4/da9/namespacetoy.html#aa6f1ef0b4e0aa4864f1c8d431775bc94a91f63b3de0c255c06d76b4a195ed5b15", null ],
-      [ "Switch", "d4/da9/namespacetoy.html#aa6f1ef0b4e0aa4864f1c8d431775bc94abbc155fb2b111bf61c4f5ff892915e6b", null ]
+    [ "Platform", "d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55a", [
+      [ "Windows", "d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aaaea23489ce3aa9b6406ebb28e0cda430", null ],
+      [ "Linux", "d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aaedc9f0a5a5d57797bf68e37364743831", null ],
+      [ "MacOS", "d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aa0a5b7edb55b772c60bfa8af868b679cf", null ],
+      [ "iOS", "d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aa1bdf605991920db11cbdf8508204c4eb", null ],
+      [ "Android", "d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aae84e30b9390cdb64db6db2c9ab87846d", null ],
+      [ "GBA", "d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aad61abb0698c83433ab6b11ab3d68447d", null ],
+      [ "NDS", "d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aa762ba5f7878627c28916f73f55646717", null ],
+      [ "N3DS", "d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aa91f63b3de0c255c06d76b4a195ed5b15", null ],
+      [ "Switch", "d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aabbc155fb2b111bf61c4f5ff892915e6b", null ]
     ] ],
     [ "_divModU10", "d4/da9/namespacetoy.html#ad95906de2f58b602b9ee9f16708f15b4", null ],
     [ "_floatPostProcess", "d4/da9/namespacetoy.html#a1398396b240f9a663cdedc2a077edfb3", null ],

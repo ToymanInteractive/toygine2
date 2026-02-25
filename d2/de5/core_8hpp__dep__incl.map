@@ -1,17 +1,28 @@
 <map id="include/core.hpp" name="include/core.hpp">
-<area shape="rect" id="Node000001" title="Umbrella header for the engine core module." alt="" coords="291,5,421,31"/>
+<area shape="rect" id="Node000001" title="Umbrella header for the engine core module." alt="" coords="623,5,753,31"/>
 <area shape="rect" id="Node000002" href="$d6/d2c/app_8hpp.html" title="Umbrella header for the engine application module." alt="" coords="5,86,131,111"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="302,37,111,89,109,83,300,32"/>
-<area shape="rect" id="Node000003" href="$d8/d8c/toygine2_8hpp.html" title="Main umbrella header for the entire ToyGine2 engine." alt="" coords="89,167,247,192"/>
-<area shape="poly" id="edge5_Node000001_Node000003" title=" " alt="" coords="279,35,235,52,214,65,197,80,183,101,175,125,170,167,165,166,170,124,178,99,193,77,211,60,232,47,277,30"/>
-<area shape="rect" id="Node000004" href="$d4/d78/math_8hpp.html" title="Umbrella header for the engine mathematics module." alt="" coords="206,86,341,111"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="336,42,287,88,284,84,332,38"/>
-<area shape="rect" id="Node000005" href="$db/d2d/hashes_8cpp.html" title="Implementation of CRC hash functions with lookup tables for optimal performance." alt="" coords="365,86,515,111"/>
-<area shape="poly" id="edge6_Node000001_Node000005" title=" " alt="" coords="380,38,429,84,426,88,377,42"/>
-<area shape="rect" id="Node000006" href="$de/d06/utils_8cpp.html" title="Implementation of core utility functions for string manipulation, encoding conversion,..." alt="" coords="539,86,671,111"/>
-<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="406,32,570,83,568,89,404,37"/>
-<area shape="rect" id="Node000007" href="$d7/d90/assertion__stub_8cpp.html" title="Stub implementation of assertion system for platforms without native assertion support." alt="" coords="695,79,875,119"/>
-<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="433,31,684,76,696,78,695,83,684,81,432,36"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="95,118,155,164,152,169,92,122"/>
-<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="249,122,185,169,182,164,245,117"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="610,28,401,47,275,63,150,81,114,89,113,83,149,76,275,57,401,42,609,22"/>
+<area shape="rect" id="Node000003" href="$d8/d8c/toygine2_8hpp.html" title="Main umbrella header for the entire ToyGine2 engine." alt="" coords="357,167,515,192"/>
+<area shape="poly" id="edge12_Node000001_Node000003" title=" " alt="" coords="609,26,492,33,362,45,252,61,215,70,195,81,184,99,187,115,200,129,223,141,287,158,357,169,356,174,286,164,221,146,197,133,182,118,179,98,191,77,213,65,251,56,361,40,492,28,609,20"/>
+<area shape="rect" id="Node000004" href="$d1/d71/audio_8hpp.html" title="Umbrella header for the audio module (volume types, mixing, etc.)." alt="" coords="206,86,343,111"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="610,35,357,81,323,89,322,83,355,76,609,30"/>
+<area shape="rect" id="Node000005" href="$d8/d39/game_8hpp.html" title="Umbrella header for the game module." alt="" coords="368,86,507,111"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="639,37,475,89,473,83,638,32"/>
+<area shape="rect" id="Node000006" href="$d4/d78/math_8hpp.html" title="Umbrella header for the engine mathematics module." alt="" coords="531,86,666,111"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="666,42,614,88,610,84,663,38"/>
+<area shape="rect" id="Node000007" href="$de/dd6/ui_8hpp.html" title="Umbrella header for platform UI types (orientation, layout, etc.)." alt="" coords="691,86,864,111"/>
+<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="713,38,766,84,762,88,710,42"/>
+<area shape="rect" id="Node000008" href="$d6/d4b/render_8hpp.html" title="Umbrella header for the render module (clear flags, framebuffer operations, etc.)." alt="" coords="889,86,1031,111"/>
+<area shape="poly" id="edge10_Node000001_Node000008" title=" " alt="" coords="741,32,921,83,920,89,740,37"/>
+<area shape="rect" id="Node000009" href="$db/d2d/hashes_8cpp.html" title="Implementation of CRC hash functions with lookup tables for optimal performance." alt="" coords="1055,86,1206,111"/>
+<area shape="poly" id="edge13_Node000001_Node000009" title=" " alt="" coords="767,29,1044,76,1080,83,1079,89,1044,81,766,34"/>
+<area shape="rect" id="Node000010" href="$de/d06/utils_8cpp.html" title="Implementation of core utility functions for string manipulation, encoding conversion,..." alt="" coords="1230,86,1362,111"/>
+<area shape="poly" id="edge14_Node000001_Node000010" title=" " alt="" coords="767,22,972,42,1096,57,1219,76,1253,83,1252,89,1218,81,1095,62,971,47,766,28"/>
+<area shape="rect" id="Node000011" href="$d7/d90/assertion__stub_8cpp.html" title="Stub implementation of assertion system for platforms without native assertion support." alt="" coords="1386,79,1566,119"/>
+<area shape="poly" id="edge15_Node000001_Node000011" title=" " alt="" coords="767,21,1036,40,1205,56,1375,76,1386,78,1385,83,1374,81,1205,61,1036,46,766,26"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="131,112,150,116,380,164,379,169,149,121,130,117"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="311,115,414,164,411,169,309,120"/>
+<area shape="poly" id="edge7_Node000006_Node000003" title=" " alt="" coords="564,120,461,169,459,164,562,115"/>
+<area shape="poly" id="edge9_Node000007_Node000003" title=" " alt="" coords="715,117,486,169,485,164,714,112"/>
+<area shape="poly" id="edge11_Node000008_Node000003" title=" " alt="" coords="899,117,876,121,682,151,516,172,515,167,681,146,876,116,898,112"/>
 </map>
