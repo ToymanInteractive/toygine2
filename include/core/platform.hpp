@@ -19,7 +19,7 @@
 //
 /*!
   \file   platform.hpp
-  \brief  Platform and CPU architecture enumerations with compile-time and runtime detection utilities.
+  \brief  Platform and CPU architecture enumerations with compile-time and runtime detection.
 */
 
 #ifndef INCLUDE_CORE_PLATFORM_HPP_
@@ -31,16 +31,16 @@ namespace toy {
   \enum Platform
   \brief Enumeration of target operating systems and platforms.
 
-  Identifies the target platform for compile-time and runtime platform detection. Values use hexadecimal identifiers
-  starting from \c 0x1000, with each platform family assigned a distinct range. This design enables compile-time
-  platform checks and potential combination with CPU architecture identifiers.
+  Identifies the target platform for compile-time and runtime detection. Values use hexadecimal identifiers from
+  \c 0x1000, with each platform family in a distinct range, enabling compile-time checks and combination with
+  \ref toy::CpuArchitecture.
 
   \section features Key Features
 
-  - 🔧 **Constexpr Support**: All values are usable in constexpr contexts
-  - 🎯 **Compile-Time Detection**: Enables compile-time conditional compilation via \c if \c constexpr
-  - 📐 **Type Safety**: Strongly-typed enum class prevents implicit conversions
-  - 🔗 **Architecture Integration**: Hex values designed to combine with \ref toy::CpuArchitecture identifiers
+  - **Constexpr**: All values are usable in constexpr contexts.
+  - **Compile-time detection**: Enables \c if \c constexpr conditional compilation.
+  - **Type safety**: Enum class prevents implicit conversions.
+  - **Architecture integration**: Hex layout allows combining with \ref toy::CpuArchitecture.
 
   \section usage Usage Example
 

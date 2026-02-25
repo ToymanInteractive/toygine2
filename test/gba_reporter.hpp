@@ -85,6 +85,11 @@ public:
     _currentSubcaseLevel = 0;
   }
 
+  // Called when a test case is reentered because of unfinished subcases (safe to cache a pointer to the input)
+  void test_case_reenter([[maybe_unused]] const doctest::TestCaseData & data) noexcept override {
+    _subcasesStack.clear();
+  }
+
   void test_case_end([[maybe_unused]] const doctest::CurrentTestCaseStats & stats) noexcept override {}
 
   void test_case_exception([[maybe_unused]] const doctest::TestCaseException & exception) noexcept override {}
@@ -100,8 +105,6 @@ public:
   void subcase_start([[maybe_unused]] const doctest::SubcaseSignature & signature) noexcept override {}
 
   void subcase_end() noexcept override {}
-
-  void test_case_reenter([[maybe_unused]] const doctest::TestCaseData & data) noexcept override {}
 
 private:
   GBAReporter(const GBAReporter &) = delete;

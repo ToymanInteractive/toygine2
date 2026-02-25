@@ -19,7 +19,7 @@
 //
 /*!
   \file   version.hpp
-  \brief  Application version management utilities.
+  \brief  Application version type and comparison operators.
 */
 
 #ifndef INCLUDE_APP_VERSION_HPP_
@@ -31,120 +31,85 @@ namespace toy::app {
   \struct Version
   \brief Application version information structure.
 
-  Version represents a semantic version number following the major.minor.maintenance.revision format. This structure is
-  designed for compile-time version management and provides a simple way to track application versions throughout the
+  Version represents a semantic version number following the major.minor.maintenance.revision format. This structure
+  is designed for compile-time version management and provides a simple way to track application versions throughout the
   development lifecycle.
 
   \section features Key Features
 
-  - ⚙️ **Semantic Versioning**: Follows major.minor.maintenance.revision format
-  - 🔧 **ConstExpr Support**: All operations can be evaluated at compile time
-  - 🛡️ **Exception Safety**: All operations are noexcept
-  - 🔗 **Simple Structure**: Plain struct with public members for easy access
-  - 🎯 **Version Management**: Designed for application version tracking
-  - 🧬 **Type Safety**: Uses uint32_t for all version components
-  - 🌍 **Standard Compliance**: Follows semantic versioning standards
-  - 📏 **Immutable Design**: Structure designed for compile-time version constants
+  - **Semantic versioning**: major.minor.maintenance.revision format.
+  - **Constexpr**: Usable in constexpr contexts; comparison operators are constexpr.
+  - **Exception safety**: All operations are \c noexcept.
+  - **Type safety**: \c uint32_t components; no implicit conversions.
 
   \section usage Usage Example
 
   \code
   #include "app.hpp"
 
-  // Default version (0.0.0.0)
   constexpr toy::app::Version version;
-
-  // Custom version
   constexpr toy::app::Version customVersion{1, 2, 3, 4};
 
-  // Access version components
-  std::cout << "Version: " << customVersion.major << "."
-            << customVersion.minor << "."
-            << customVersion.maintenance << "."
-            << customVersion.revision << std::endl;
+  if (customVersion >= toy::app::Version{1, 0, 0, 0}) {
+    // API 1.x or later
+  }
   \endcode
 
   \section performance Performance Characteristics
 
-  - ⚙️ **Construction**: O(1) constant time
-  - 📝 **Access**: O(1) constant time for all members
-  - 📝 **Assignment**: O(1) constant time for member assignment
-  - 🔗 **Comparison**: O(1) constant time for version comparison
-  - 💾 **Memory Usage**: 16 bytes (4 * uint32_t)
-  - ⚡ **Cache Performance**: Excellent due to small size and contiguous layout
-  - 📋 **Copy Performance**: Fast due to simple integer copying
-  - 🎯 **Version Operations**: Optimized for compile-time evaluation
+  - **Construction**: O(1).
+  - **Access**: O(1) for all members.
+  - **Comparison**: O(1) for \c operator== and \c operator<=>.
+  - **Memory**: 16 bytes (4 × \c uint32_t).
 
   \section safety Safety Guarantees
 
-  - 🛡️ **Bounds Safety**: All operations are bounds-safe
-  - 📐 **Type Safety**: Strong typing with uint32_t components
-  - ⚠️ **Exception Safety**: All operations are noexcept, no exceptions thrown
-  - 🔒 **Memory Safety**: No dynamic allocation, stack-only structure
+  - **Type safety**: Strong typing; no overflow in normal version ranges.
+  - **Exception safety**: All operations are \c noexcept; no dynamic allocation.
+  - **Thread safety**: Trivially copyable; safe to copy across threads.
 
   \section compatibility Compatibility
 
-  - 🌐 **Cross-Platform**: Works on all platforms supported by the compiler
-  - 🔧 **Embedded Systems**: Suitable for resource-constrained environments
-  - 📱 **Mobile Platforms**: Lightweight and efficient for mobile applications
+  - **Semantic versioning**: Aligns with semver.org (major.minor.patch); \c maintenance and \c revision map to
+    patch/build.
+  - **ABI**: Plain layout; safe to pass across translation units and use in stable ABIs.
 
-  \note This structure is designed for compile-time version management.
-  \note For runtime version parsing from strings, consider implementing additional utility functions.
-
-  \sa Semantic Versioning (https://semver.org/)
+  \note For runtime parsing from strings, use separate utility functions.
+  \sa https://semver.org/
 */
 struct Version {
-  /*!
-     \brief Major version number.
-     \details Indicates incompatible API changes.
-  */
+  /// Major version; incompatible API changes.
   uint32_t major = 0;
 
-  /*!
-   \brief Minor version number.
-   \details Indicates backward-compatible functionality additions.
-  */
+  /// Minor version; backward-compatible additions.
   uint32_t minor = 0;
 
-  /*!
-   \brief Maintenance version number.
-   \details Indicates backward-compatible bug fixes.
-  */
+  /// Maintenance version; backward-compatible fixes.
   uint32_t maintenance = 0;
 
-  /*!
-   \brief Revision number.
-   \details Indicates build number or patch level.
-  */
+  /// Revision (e.g. build or patch level).
   uint32_t revision = 0;
 };
 
 /*!
-  \brief Equality operator for two versions.
+  \brief Equality of two \ref toy::app::Version values.
 
-  Compares two versions for exact equality of all components.
+  \param lhs Left-hand side version.
+  \param rhs Right-hand side version.
 
-  \param lhs The left-hand side version.
-  \param rhs The right-hand side version.
-
-  \return true if all version components are identical, false otherwise.
-
-  \note This performs exact equality comparison. For semantic versioning compatibility, consider using the three-way
-        comparison operator.
+  \return \c true if all components are equal, \c false otherwise.
 */
 [[nodiscard]] constexpr bool operator==(const Version & lhs, const Version & rhs) noexcept;
 
 /*!
-  \brief Three-way comparison operator for two versions.
+  \brief Three-way comparison of two \ref toy::app::Version values (lexicographic order).
 
-  Compares two versions using lexicographical ordering following semantic versioning principles. The comparison
-  prioritizes major version over minor, minor over maintenance, and maintenance over revision.
+  Compares major, then minor, then maintenance, then revision.
 
-  \param lhs The left-hand side version.
-  \param rhs The right-hand side version.
+  \param lhs Left-hand side version.
+  \param rhs Right-hand side version.
 
-  \return \c strong_ordering::less if lhs < rhs, \c strong_ordering::greater if lhs > rhs, \c strong_ordering::equal if
-          lhs == rhs.
+  \return \c strong_ordering::less, \c strong_ordering::equal, or \c strong_ordering::greater.
 */
 [[nodiscard]] constexpr strong_ordering operator<=>(const Version & lhs, const Version & rhs) noexcept;
 
