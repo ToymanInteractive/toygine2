@@ -144,7 +144,7 @@ public:
     return toy::math::fixed<Base, Intermediate, Fraction, Rounding>(0);
   }
   /// Returns zero (fixed-point has no NaN).
-  static constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding> quiet_NaN() noexcept {
+  [[nodiscard]] static constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding> quiet_NaN() noexcept {
     return toy::math::fixed<Base, Intermediate, Fraction, Rounding>(0);
   }
   /// Returns zero (fixed-point has no NaN).
