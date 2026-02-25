@@ -65,7 +65,7 @@ enum class Orientation : uint8_t {
   \return An orientation with only the bits set in both \a lhs and \a rhs.
 */
 [[nodiscard]] constexpr Orientation operator&(Orientation lhs, Orientation rhs) noexcept {
-  return static_cast<Orientation>(static_cast<unsigned int>(lhs) & static_cast<unsigned int>(rhs));
+  return static_cast<Orientation>(static_cast<uint8_t>(lhs) & static_cast<uint8_t>(rhs));
 }
 
 /*!
@@ -80,7 +80,7 @@ enum class Orientation : uint8_t {
   \return An orientation with all bits set in either \a lhs or \a rhs.
 */
 [[nodiscard]] constexpr Orientation operator|(Orientation lhs, Orientation rhs) noexcept {
-  return static_cast<Orientation>(static_cast<unsigned int>(lhs) | static_cast<unsigned int>(rhs));
+  return static_cast<Orientation>(static_cast<uint8_t>(lhs) | static_cast<uint8_t>(rhs));
 }
 
 /*!
@@ -94,7 +94,7 @@ enum class Orientation : uint8_t {
   \return An orientation with bits set in exactly one of \a lhs or \a rhs.
 */
 [[nodiscard]] constexpr Orientation operator^(Orientation lhs, Orientation rhs) noexcept {
-  return static_cast<Orientation>(static_cast<unsigned int>(lhs) ^ static_cast<unsigned int>(rhs));
+  return static_cast<Orientation>(static_cast<uint8_t>(lhs) ^ static_cast<uint8_t>(rhs));
 }
 
 } // namespace toy::platform::ui
