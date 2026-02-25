@@ -33,7 +33,7 @@ namespace toy::audio {
 
   Identifies the type of audio source for independent volume control (e.g. music vs sound effects).
 */
-enum class VolumeType {
+enum class VolumeType : uint8_t {
   /// Background music.
   Music,
   /// Sound effects (impacts, UI clicks, etc.).

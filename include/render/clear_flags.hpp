@@ -33,7 +33,7 @@ namespace toy::render {
 
   Values can be combined with \c operator|, \c operator&, and \c operator^ for bitwise operations.
 */
-enum class ClearFlags : unsigned int {
+enum class ClearFlags : uint8_t {
   /// Clear nothing.
   None = 0x00,
 

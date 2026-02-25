@@ -33,7 +33,7 @@ namespace toy::game {
 
   Used to drive UI (e.g. show, grey out, or hide) and logic (e.g. grant rewards only when \c Unlocked).
 */
-enum class AchievementState {
+enum class AchievementState : uint8_t {
   /// Achievement is not shown to the user (e.g. secret or not yet available).
   Hidden,
   /// Achievement is visible but not yet earned.

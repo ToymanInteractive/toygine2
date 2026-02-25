@@ -35,7 +35,7 @@ namespace toy::platform::ui {
   Use \ref toy::platform::ui::Orientation::LandscapeAny or \ref toy::platform::ui::Orientation::PortraitAny when the
   rotation direction does not matter.
 */
-enum class Orientation : unsigned int {
+enum class Orientation : uint8_t {
   /// Landscape: width greater than height (normal).
   Landscape = 1,
   /// Portrait: height greater than width (normal).
