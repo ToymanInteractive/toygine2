@@ -18,8 +18,8 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   fixed.hpp
-  \brief  Fixed-point numeric type template.
+  \file   fixed_std_extension.hpp
+  \brief  Standard library extensions for \ref toy::math::fixed: \c numeric_limits.
 */
 
 #ifndef INCLUDE_MATH_FIXED_STD_EXTENSION_HPP_
