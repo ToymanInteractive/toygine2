@@ -136,7 +136,7 @@ set(HDR_NETWORK_LIST include/network.hpp include/network/socket_error.hpp)
 set(INL_NETWORK_LIST )
 
 set(SRC_PLATFORM_UI_LIST )
-set(HDR_PLATFORM_UI_LIST include/platform/ui.hpp include/platform/ui/orientation.hpp)
+set(HDR_PLATFORM_UI_LIST include/platform/ui.hpp include/platform/ui/message_box_return.hpp include/platform/ui/orientation.hpp)
 set(INL_PLATFORM_UI_LIST )
 
 set(SRC_RENDER_LIST )
