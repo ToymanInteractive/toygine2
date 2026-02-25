@@ -58,14 +58,24 @@ public:
   explicit GBAReporter(const doctest::ContextOptions & options) noexcept
     : _options(options) {}
 
-  /*!
-    \brief Logs DocTest version at run start.
-  */
+  /// Сalled when the whole test run starts.
   void test_run_start() override {
     _report(_logLevelInfo, "[doctest] doctest version is %s", DOCTEST_VERSION_STR);
   }
 
-  void test_run_end([[maybe_unused]] const doctest::TestRunStats & stats) noexcept override {}
+  /// Called when the whole test run ends (caching a pointer to the input doesn't make sense here)
+  void test_run_end(const doctest::TestRunStats & stats) noexcept override {
+    _report(_logLevelInfo, "===============================================================================");
+
+    _report(_logLevelInfo, "[doctest] test cases: %u | %u passed | %u failed | %u skipped",
+            stats.numTestCasesPassingFilters, stats.numTestCasesPassingFilters - stats.numTestCasesFailed,
+            stats.numTestCasesFailed, stats.numTestCases - stats.numTestCasesPassingFilters);
+
+    _report(_logLevelInfo, "[doctest] assertions: %i | %i passed | %i failed |", stats.numAsserts,
+            stats.numAsserts - stats.numAssertsFailed, stats.numAssertsFailed);
+
+    _report(_logLevelInfo, "[doctest] Status: %s", (stats.numTestCasesFailed > 0) ? "FAILURE!" : "SUCCESS!");
+  }
 
   void test_case_start([[maybe_unused]] const doctest::TestCaseData & data) noexcept override {}
 
