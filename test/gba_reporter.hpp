@@ -113,14 +113,14 @@ private:
   /// DocTest context options passed at construction.
   const doctest::ContextOptions & _options;
   /// Pointer to the currently running test case data (set in test_case_start; valid until test_case_end).
-  const doctest::TestCaseData * _testCaseData;
+  const doctest::TestCaseData * _testCaseData = nullptr;
 
   /// \c true once the start of the current test case has been logged (avoids duplicate run-start messages).
-  bool _hasLoggedCurrentTestStart;
+  bool _hasLoggedCurrentTestStart = false;
   /// Stack of active subcase signatures for the current test case.
-  std::vector<doctest::SubcaseSignature> _subcasesStack;
+  std::vector<doctest::SubcaseSignature> _subcasesStack{};
   /// Current subcase nesting level (0 = test case root).
-  size_t _currentSubcaseLevel;
+  size_t _currentSubcaseLevel = 0U;
 
   /*!
     \brief Detects whether the code is running under the mGBA emulator.
