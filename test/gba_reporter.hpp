@@ -58,7 +58,7 @@ public:
   explicit GBAReporter(const doctest::ContextOptions & options) noexcept
     : _options(options) {}
 
-  /// Сalled when the whole test run starts.
+  /// Called when the whole test run starts.
   void test_run_start() override {
     _report(_logLevelInfo, "[doctest] doctest version is %s", DOCTEST_VERSION_STR);
   }

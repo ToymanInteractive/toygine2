@@ -21,16 +21,17 @@
   \file   game.hpp
   \brief  Umbrella header for the game module.
 
-  Includes all public game types and utilities: achievement state, game loop, and related APIs. Users of the game module
-  should include this header only.
+  Includes all public game types and utilities. Users of the game module should include this header only.
 */
 
 #ifndef INCLUDE_GAME_HPP_
 #define INCLUDE_GAME_HPP_
 
+#include "core.hpp"
+
 /*!
   \namespace toy::game
-  \brief Game types and utilities: game state, achievement state, and related APIs.
+  \brief Game types and utilities: achievement state and related APIs.
 */
 
 #include "game/achievement_state.hpp"
