@@ -155,10 +155,10 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a139f367e02a2aee18847150bd54856f9",
-"d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725ea6adf97f83acf6453d4a6a4b1070f3754",
-"d9/d85/classtoy_1_1math_1_1_vector2_d.html#a08d80e077f40d501f74dece9ea00eaf9",
-"df/db1/gba_2platform__config_8hpp.html"
+"d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html",
+"d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725ea5206bd7472156351d2d9a99633ac9580",
+"d9/d85/classtoy_1_1math_1_1_vector2_d.html#a02296944400a3102d5d200a77219629a",
+"df/d81/md__a_g_e_n_t_s.html#using-over-typedef"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

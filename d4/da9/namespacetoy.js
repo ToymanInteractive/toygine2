@@ -19,6 +19,16 @@ var namespacetoy =
         [ "Voice", "dd/d77/namespacetoy_1_1audio.html#afca9143e3b169f77784310a3b384261cad7a3fdf1351b72249a47454751549deb", null ]
       ] ]
     ] ],
+    [ "filesystem", "da/d98/namespacetoy_1_1filesystem.html", [
+      [ "OpenFileMode", "da/d98/namespacetoy_1_1filesystem.html#acdb0fddd61b902c502183b9c4bde188f", [
+        [ "Read", "da/d98/namespacetoy_1_1filesystem.html#acdb0fddd61b902c502183b9c4bde188fa7a1a5f3e79fdc91edf2f5ead9d66abb4", null ],
+        [ "WriteEmpty", "da/d98/namespacetoy_1_1filesystem.html#acdb0fddd61b902c502183b9c4bde188fa73fd8e5dbdd94b8cbc784c0dc4adc2c1", null ],
+        [ "WriteAppend", "da/d98/namespacetoy_1_1filesystem.html#acdb0fddd61b902c502183b9c4bde188fa98ea53108a053293ee1d388d6b88564c", null ],
+        [ "ReadWrite", "da/d98/namespacetoy_1_1filesystem.html#acdb0fddd61b902c502183b9c4bde188fa70a2a84088d405a2e3f1e3accaa16723", null ],
+        [ "ReadWriteEmpty", "da/d98/namespacetoy_1_1filesystem.html#acdb0fddd61b902c502183b9c4bde188fa72fe3751eef2635f596acece048d5dd9", null ],
+        [ "ReadWriteAppend", "da/d98/namespacetoy_1_1filesystem.html#acdb0fddd61b902c502183b9c4bde188fa05c7383bb9bd4e8458aa92a458db5286", null ]
+      ] ]
+    ] ],
     [ "game", "d8/d25/namespacetoy_1_1game.html", [
       [ "AchievementState", "d8/d25/namespacetoy_1_1game.html#ac8a6f36358f3ac99f55a1db9c3827eda", [
         [ "Hidden", "d8/d25/namespacetoy_1_1game.html#ac8a6f36358f3ac99f55a1db9c3827edaa7acdf85c69cc3c5305456a293524386e", null ],
