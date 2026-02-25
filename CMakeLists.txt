@@ -140,7 +140,7 @@ set(HDR_PLATFORM_UI_LIST include/platform/ui.hpp include/platform/ui/message_box
 set(INL_PLATFORM_UI_LIST )
 
 set(SRC_RENDER_LIST )
-set(HDR_RENDER_LIST include/render.hpp include/render/clear_flags.hpp)
+set(HDR_RENDER_LIST include/render.hpp include/render/clear_flags.hpp include/render/pixel_format.hpp)
 set(INL_RENDER_LIST )
 
 source_group("App"          FILES ${SRC_APP_LIST}         ${HDR_APP_LIST}         ${INL_APP_LIST})
