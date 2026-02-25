@@ -31,8 +31,16 @@ namespace toy::app {
   \struct Version
   \brief Application version information structure.
 
-  Plain struct for compile-time version constants. All members are \c uint32_t; default construction yields 0.0.0.0.
-  Comparison uses lexicographic order (major then minor then maintenance then revision).
+  Version represents a semantic version number following the major.minor.maintenance.revision format. This structure
+  is designed for compile-time version management and provides a simple way to track application versions throughout the
+  development lifecycle.
+
+  \section features Key Features
+
+  - **Semantic versioning**: major.minor.maintenance.revision format.
+  - **Constexpr**: Usable in constexpr contexts; comparison operators are constexpr.
+  - **Exception safety**: All operations are \c noexcept.
+  - **Type safety**: \c uint32_t components; no implicit conversions.
 
   \section usage Usage Example
 
@@ -42,13 +50,32 @@ namespace toy::app {
   constexpr toy::app::Version version;
   constexpr toy::app::Version customVersion{1, 2, 3, 4};
 
-  if (customVersion >= Version{1, 0, 0, 0}) {
+  if (customVersion >= toy::app::Version{1, 0, 0, 0}) {
     // API 1.x or later
   }
   \endcode
 
+  \section performance Performance Characteristics
+
+  - **Construction**: O(1).
+  - **Access**: O(1) for all members.
+  - **Comparison**: O(1) for \c operator== and \c operator<=>.
+  - **Memory**: 16 bytes (4 × \c uint32_t).
+
+  \section safety Safety Guarantees
+
+  - **Type safety**: Strong typing; no overflow in normal version ranges.
+  - **Exception safety**: All operations are \c noexcept; no dynamic allocation.
+  - **Thread safety**: Trivially copyable; safe to copy across threads.
+
+  \section compatibility Compatibility
+
+  - **Semantic versioning**: Aligns with semver.org (major.minor.patch); \c maintenance and \c revision map to
+    patch/build.
+  - **ABI**: Plain layout; safe to pass across translation units and use in stable ABIs.
+
   \note For runtime parsing from strings, use separate utility functions.
-  \sa Semantic Versioning (https://semver.org/)
+  \sa https://semver.org/
 */
 struct Version {
   /// Major version; incompatible API changes.
