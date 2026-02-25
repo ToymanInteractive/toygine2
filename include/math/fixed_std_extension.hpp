@@ -97,13 +97,13 @@ public:
   /// 2 (binary radix).
   static constexpr int radix = 2;
   /// Minimum exponent in radix (1 - Fraction).
-  static constexpr int min_exponent = 1 - Fraction;
+  static constexpr int min_exponent = 1 - static_cast<int>(Fraction);
   /// Minimum decimal exponent; negative, reflecting the fractional resolution.
-  static constexpr int min_exponent10 = -_calcDigits10(Fraction);
+  static constexpr int min_exponent10 = -_calcDigits10(static_cast<int>(Fraction));
   /// Maximum exponent in radix (integer part bits).
-  static constexpr int max_exponent = numeric_limits<Base>::digits - Fraction;
+  static constexpr int max_exponent = numeric_limits<Base>::digits - static_cast<int>(Fraction);
   /// Maximum decimal exponent (integer part).
-  static constexpr int max_exponent10 = _calcDigits10(numeric_limits<Base>::digits - Fraction);
+  static constexpr int max_exponent10 = _calcDigits10(numeric_limits<Base>::digits - static_cast<int>(Fraction));
 
   /// true (arithmetic can trap).
   static constexpr bool traps = true;
