@@ -68,7 +68,7 @@ namespace toy {
   \note Platform families use distinct hex ranges: desktop (\c 0x1000-\c 0x3000), mobile (\c 0x3100-\c 0x4000),
         consoles (\c 0x5000-\c 0x8000). iOS (\c 0x3100) shares the Apple family range with macOS (\c 0x3000).
 */
-enum class Platform : unsigned int {
+enum class Platform : uint16_t {
   /// Microsoft Windows Desktop operating system (Windows XP, Vista, 7, 8, 8.1, 10, 11, etc.)
   Windows = 0x1000,
 
@@ -141,7 +141,7 @@ enum class Platform : unsigned int {
   \note Architecture families use distinct hex ranges: Intel (\c 0x0014-\c 0x0018), ARM (\c 0x0024-\c 0x0028).
   \note Architecture values can be combined with platform values for combined platform-architecture identification.
 */
-enum class CpuArchitecture : unsigned int {
+enum class CpuArchitecture : uint16_t {
   /// Intel x86 32-bit instruction set architecture (IA-32)
   x86 = 0x0014,
 

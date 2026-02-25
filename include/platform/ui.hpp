@@ -25,6 +25,8 @@
 #ifndef INCLUDE_PLATFORM_UI_HPP_
 #define INCLUDE_PLATFORM_UI_HPP_
 
+#include "core.hpp"
+
 /*!
   \namespace toy::platform::ui
 

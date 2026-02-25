@@ -18,30 +18,30 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   volume_type.hpp
-  \brief  Volume category enumeration for audio mixing and per-channel gain control.
+  \file   achievement_state.hpp
+  \brief  Achievement visibility and unlock state for the game module.
 */
 
-#ifndef INCLUDE_AUDIO_VOLUME_TYPE_HPP_
-#define INCLUDE_AUDIO_VOLUME_TYPE_HPP_
+#ifndef INCLUDE_GAME_ACHIEVEMENT_STATE_HPP_
+#define INCLUDE_GAME_ACHIEVEMENT_STATE_HPP_
 
-namespace toy::audio {
+namespace toy::game {
 
 /*!
-  \enum VolumeType
-  \brief Volume category for audio mixing.
+  \enum AchievementState
+  \brief State of an achievement: visibility and whether it is unlocked.
 
-  Identifies the type of audio source for independent volume control (e.g. music vs sound effects).
+  Used to drive UI (e.g. show, grey out, or hide) and logic (e.g. grant rewards only when \c Unlocked).
 */
-enum class VolumeType : uint8_t {
-  /// Background music.
-  Music,
-  /// Sound effects (impacts, UI clicks, etc.).
-  Sound,
-  /// Voice or dialogue.
-  Voice,
+enum class AchievementState : uint8_t {
+  /// Achievement is not shown to the user (e.g. secret or not yet available).
+  Hidden,
+  /// Achievement is visible but not yet earned.
+  Locked,
+  /// Achievement has been earned.
+  Unlocked
 };
 
-} // namespace toy::audio
+} // namespace toy::game
 
-#endif // INCLUDE_AUDIO_VOLUME_TYPE_HPP_
+#endif // INCLUDE_GAME_ACHIEVEMENT_STATE_HPP_

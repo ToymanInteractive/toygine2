@@ -33,7 +33,7 @@ namespace toy::render {
 
   Values can be combined with \c operator|, \c operator&, and \c operator^ for bitwise operations.
 */
-enum class ClearFlags : unsigned int {
+enum class ClearFlags : uint8_t {
   /// Clear nothing.
   None = 0x00,
 
@@ -60,7 +60,7 @@ enum class ClearFlags : unsigned int {
   \return Clear flags with only the bits set in both \a lhs and \a rhs.
 */
 [[nodiscard]] constexpr ClearFlags operator&(ClearFlags lhs, ClearFlags rhs) noexcept {
-  return static_cast<ClearFlags>(static_cast<unsigned int>(lhs) & static_cast<unsigned int>(rhs));
+  return static_cast<ClearFlags>(static_cast<uint8_t>(lhs) & static_cast<uint8_t>(rhs));
 }
 
 /*!
@@ -75,7 +75,7 @@ enum class ClearFlags : unsigned int {
   \return Clear flags with all bits set in either \a lhs or \a rhs.
 */
 [[nodiscard]] constexpr ClearFlags operator|(ClearFlags lhs, ClearFlags rhs) noexcept {
-  return static_cast<ClearFlags>(static_cast<unsigned int>(lhs) | static_cast<unsigned int>(rhs));
+  return static_cast<ClearFlags>(static_cast<uint8_t>(lhs) | static_cast<uint8_t>(rhs));
 }
 
 /*!
@@ -89,7 +89,7 @@ enum class ClearFlags : unsigned int {
   \return Clear flags with bits set in exactly one of \a lhs or \a rhs.
 */
 [[nodiscard]] constexpr ClearFlags operator^(ClearFlags lhs, ClearFlags rhs) noexcept {
-  return static_cast<ClearFlags>(static_cast<unsigned int>(lhs) ^ static_cast<unsigned int>(rhs));
+  return static_cast<ClearFlags>(static_cast<uint8_t>(lhs) ^ static_cast<uint8_t>(rhs));
 }
 
 } // namespace toy::render

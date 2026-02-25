@@ -18,30 +18,24 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   volume_type.hpp
-  \brief  Volume category enumeration for audio mixing and per-channel gain control.
+  \file   game.hpp
+  \brief  Umbrella header for the game module.
+
+  Includes all public game types and utilities. Users of the game module should include this header only.
 */
 
-#ifndef INCLUDE_AUDIO_VOLUME_TYPE_HPP_
-#define INCLUDE_AUDIO_VOLUME_TYPE_HPP_
+#ifndef INCLUDE_GAME_HPP_
+#define INCLUDE_GAME_HPP_
 
-namespace toy::audio {
+#include "core.hpp"
 
 /*!
-  \enum VolumeType
-  \brief Volume category for audio mixing.
-
-  Identifies the type of audio source for independent volume control (e.g. music vs sound effects).
+  \namespace toy::game
+  \brief Game types and utilities: achievement state and related APIs.
 */
-enum class VolumeType : uint8_t {
-  /// Background music.
-  Music,
-  /// Sound effects (impacts, UI clicks, etc.).
-  Sound,
-  /// Voice or dialogue.
-  Voice,
-};
 
-} // namespace toy::audio
+#include "game/achievement_state.hpp"
 
-#endif // INCLUDE_AUDIO_VOLUME_TYPE_HPP_
+//----------------------------------------------------------------------------------------------------------------------
+
+#endif // INCLUDE_GAME_HPP_

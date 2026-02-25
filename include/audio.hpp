@@ -25,6 +25,8 @@
 #ifndef INCLUDE_AUDIO_HPP_
 #define INCLUDE_AUDIO_HPP_
 
+#include "core.hpp"
+
 /*!
   \namespace toy::audio
 
