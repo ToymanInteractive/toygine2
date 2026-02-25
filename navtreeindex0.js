@@ -9,8 +9,8 @@ var NAVTREEINDEX0 =
 "d0/d67/format_8inl_source.html":[6,0,0,2,12],
 "d0/d74/clear__flags_8hpp.html":[6,0,0,6,0],
 "d0/d74/clear__flags_8hpp_source.html":[6,0,0,6,0],
-"d0/de4/point_8hpp.html":[6,0,0,3,2],
-"d0/de4/point_8hpp_source.html":[6,0,0,3,2],
+"d0/de4/point_8hpp.html":[6,0,0,3,3],
+"d0/de4/point_8hpp_source.html":[6,0,0,3,3],
 "d1/d03/namespacetoy_1_1platform_1_1ui.html":[3,0,1,5,0],
 "d1/d03/namespacetoy_1_1platform_1_1ui.html#a183936fe4ec9c3298068c03b8677dba2":[3,0,1,5,0,0],
 "d1/d03/namespacetoy_1_1platform_1_1ui.html#a183936fe4ec9c3298068c03b8677dba2a13be439a13712e02008085c7861871f3":[3,0,1,5,0,0,3],
@@ -84,6 +84,8 @@ var NAVTREEINDEX0 =
 "d2/dbe/version_8inl_source.html":[6,0,0,0,1],
 "d2/dc3/structtoy_1_1math_1_1is__fixed__point.html":[3,0,1,1,1],
 "d2/dc3/structtoy_1_1math_1_1is__fixed__point.html":[5,0,1,1,1],
+"d3/d21/fixed__std__extension_8hpp.html":[6,0,0,3,2],
+"d3/d21/fixed__std__extension_8hpp_source.html":[6,0,0,3,2],
 "d3/d60/platform_8hpp.html":[6,0,0,2,16],
 "d3/d60/platform_8hpp_source.html":[6,0,0,2,16],
 "d3/d7a/classtoy_1_1_fixed_string.html":[2,0,2],
@@ -247,7 +249,5 @@ var NAVTREEINDEX0 =
 "d4/d0a/format_8hpp_source.html":[6,0,0,2,11],
 "d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html":[3,0,0,0],
 "d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html":[5,0,0,0],
-"d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a139f367e02a2aee18847150bd54856f9":[3,0,0,0,22],
-"d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a139f367e02a2aee18847150bd54856f9":[5,0,0,0,22],
-"d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a17f9df2f3872f0b6549c76daa479fa56":[3,0,0,0,0]
+"d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a139f367e02a2aee18847150bd54856f9":[3,0,0,0,22]
 };

@@ -171,13 +171,13 @@ Static Public Attributes</h2></td></tr>
 <tr class="memdesc:a8a3a43a4b271ce4b5e1a3578176273d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Max decimal digits needed to represent any value (integer + fractional part).  <br /></td></tr>
 <tr class="memitem:a4e315a22a0727c409b1e0582d45950c3" id="r_a4e315a22a0727c409b1e0582d45950c3"><td class="memItemLeft">static constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a4e315a22a0727c409b1e0582d45950c3">radix</a> = 2</td></tr>
 <tr class="memdesc:a4e315a22a0727c409b1e0582d45950c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">2 (binary radix).  <br /></td></tr>
-<tr class="memitem:af3aab85040f4b751e1be4d02c92f2e18" id="r_af3aab85040f4b751e1be4d02c92f2e18"><td class="memItemLeft">static constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#af3aab85040f4b751e1be4d02c92f2e18">min_exponent</a> = 1 - Fraction</td></tr>
+<tr class="memitem:af3aab85040f4b751e1be4d02c92f2e18" id="r_af3aab85040f4b751e1be4d02c92f2e18"><td class="memItemLeft">static constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#af3aab85040f4b751e1be4d02c92f2e18">min_exponent</a> = 1 - static_cast&lt;int&gt;(Fraction)</td></tr>
 <tr class="memdesc:af3aab85040f4b751e1be4d02c92f2e18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Minimum exponent in radix (1 - Fraction).  <br /></td></tr>
-<tr class="memitem:afd4bd4aa4395324969e56e7cbb743058" id="r_afd4bd4aa4395324969e56e7cbb743058"><td class="memItemLeft">static constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#afd4bd4aa4395324969e56e7cbb743058">min_exponent10</a> = -<a class="el" href="#a17f9df2f3872f0b6549c76daa479fa56">_calcDigits10</a>(Fraction)</td></tr>
+<tr class="memitem:afd4bd4aa4395324969e56e7cbb743058" id="r_afd4bd4aa4395324969e56e7cbb743058"><td class="memItemLeft">static constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#afd4bd4aa4395324969e56e7cbb743058">min_exponent10</a> = -<a class="el" href="#a17f9df2f3872f0b6549c76daa479fa56">_calcDigits10</a>(static_cast&lt;int&gt;(Fraction))</td></tr>
 <tr class="memdesc:afd4bd4aa4395324969e56e7cbb743058"><td class="mdescLeft">&#160;</td><td class="mdescRight">Minimum decimal exponent; negative, reflecting the fractional resolution.  <br /></td></tr>
-<tr class="memitem:af69882a8411e7282e583d718a6891060" id="r_af69882a8411e7282e583d718a6891060"><td class="memItemLeft">static constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#af69882a8411e7282e583d718a6891060">max_exponent</a> = <a class="el" href="../../db/dc2/classnumeric__limits.html">numeric_limits</a>&lt;Base&gt;<a class="el" href="#af72edb17450ef46df574d2dbe7a69b49">::digits</a> - Fraction</td></tr>
+<tr class="memitem:af69882a8411e7282e583d718a6891060" id="r_af69882a8411e7282e583d718a6891060"><td class="memItemLeft">static constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#af69882a8411e7282e583d718a6891060">max_exponent</a> = <a class="el" href="../../db/dc2/classnumeric__limits.html">numeric_limits</a>&lt;Base&gt;<a class="el" href="#af72edb17450ef46df574d2dbe7a69b49">::digits</a> - static_cast&lt;int&gt;(Fraction)</td></tr>
 <tr class="memdesc:af69882a8411e7282e583d718a6891060"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum exponent in radix (integer part bits).  <br /></td></tr>
-<tr class="memitem:a9ac3dbeab2f534db78e7acca403e23f1" id="r_a9ac3dbeab2f534db78e7acca403e23f1"><td class="memItemLeft">static constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a9ac3dbeab2f534db78e7acca403e23f1">max_exponent10</a> = <a class="el" href="#a17f9df2f3872f0b6549c76daa479fa56">_calcDigits10</a>(<a class="el" href="../../db/dc2/classnumeric__limits.html">numeric_limits</a>&lt;Base&gt;<a class="el" href="#af72edb17450ef46df574d2dbe7a69b49">::digits</a> - Fraction)</td></tr>
+<tr class="memitem:a9ac3dbeab2f534db78e7acca403e23f1" id="r_a9ac3dbeab2f534db78e7acca403e23f1"><td class="memItemLeft">static constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a9ac3dbeab2f534db78e7acca403e23f1">max_exponent10</a> = <a class="el" href="#a17f9df2f3872f0b6549c76daa479fa56">_calcDigits10</a>(<a class="el" href="../../db/dc2/classnumeric__limits.html">numeric_limits</a>&lt;Base&gt;<a class="el" href="#af72edb17450ef46df574d2dbe7a69b49">::digits</a> - static_cast&lt;int&gt;(Fraction))</td></tr>
 <tr class="memdesc:a9ac3dbeab2f534db78e7acca403e23f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum decimal exponent (integer part).  <br /></td></tr>
 <tr class="memitem:a4cf571b8d53ef6d6d221857eff804cf3" id="r_a4cf571b8d53ef6d6d221857eff804cf3"><td class="memItemLeft">static constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#a4cf571b8d53ef6d6d221857eff804cf3">traps</a> = true</td></tr>
 <tr class="memdesc:a4cf571b8d53ef6d6d221857eff804cf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">true (arithmetic can trap).  <br /></td></tr>
@@ -444,7 +444,7 @@ template&lt;typename Base, typename Intermediate, unsigned Fraction, bool Roundi
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -914,7 +914,7 @@ template&lt;typename Base, typename Intermediate, unsigned Fraction, bool Roundi
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int std::numeric_limits&lt; <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html">toy::math::fixed</a>&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;::max_exponent = <a class="el" href="../../db/dc2/classnumeric__limits.html">numeric_limits</a>&lt;Base&gt;<a class="el" href="#af72edb17450ef46df574d2dbe7a69b49">::digits</a> - Fraction</td>
+          <td class="memname">int std::numeric_limits&lt; <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html">toy::math::fixed</a>&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;::max_exponent = <a class="el" href="../../db/dc2/classnumeric__limits.html">numeric_limits</a>&lt;Base&gt;<a class="el" href="#af72edb17450ef46df574d2dbe7a69b49">::digits</a> - static_cast&lt;int&gt;(Fraction)</td>
         </tr>
       </table>
   </td>
@@ -940,7 +940,7 @@ template&lt;typename Base, typename Intermediate, unsigned Fraction, bool Roundi
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int std::numeric_limits&lt; <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html">toy::math::fixed</a>&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;::max_exponent10 = <a class="el" href="#a17f9df2f3872f0b6549c76daa479fa56">_calcDigits10</a>(<a class="el" href="../../db/dc2/classnumeric__limits.html">numeric_limits</a>&lt;Base&gt;<a class="el" href="#af72edb17450ef46df574d2dbe7a69b49">::digits</a> - Fraction)</td>
+          <td class="memname">int std::numeric_limits&lt; <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html">toy::math::fixed</a>&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;::max_exponent10 = <a class="el" href="#a17f9df2f3872f0b6549c76daa479fa56">_calcDigits10</a>(<a class="el" href="../../db/dc2/classnumeric__limits.html">numeric_limits</a>&lt;Base&gt;<a class="el" href="#af72edb17450ef46df574d2dbe7a69b49">::digits</a> - static_cast&lt;int&gt;(Fraction))</td>
         </tr>
       </table>
   </td>
@@ -966,7 +966,7 @@ template&lt;typename Base, typename Intermediate, unsigned Fraction, bool Roundi
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int std::numeric_limits&lt; <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html">toy::math::fixed</a>&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;::min_exponent = 1 - Fraction</td>
+          <td class="memname">int std::numeric_limits&lt; <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html">toy::math::fixed</a>&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;::min_exponent = 1 - static_cast&lt;int&gt;(Fraction)</td>
         </tr>
       </table>
   </td>
@@ -992,7 +992,7 @@ template&lt;typename Base, typename Intermediate, unsigned Fraction, bool Roundi
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int std::numeric_limits&lt; <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html">toy::math::fixed</a>&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;::min_exponent10 = -<a class="el" href="#a17f9df2f3872f0b6549c76daa479fa56">_calcDigits10</a>(Fraction)</td>
+          <td class="memname">int std::numeric_limits&lt; <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html">toy::math::fixed</a>&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;::min_exponent10 = -<a class="el" href="#a17f9df2f3872f0b6549c76daa479fa56">_calcDigits10</a>(static_cast&lt;int&gt;(Fraction))</td>
         </tr>
       </table>
   </td>
@@ -1111,7 +1111,7 @@ template&lt;typename Base, typename Intermediate, unsigned Fraction, bool Roundi
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/math/<a class="el" href="../../d5/d42/fixed_8hpp_source.html">fixed.hpp</a></li>
+<li>include/math/<a class="el" href="../../d3/d21/fixed__std__extension_8hpp_source.html">fixed_std_extension.hpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

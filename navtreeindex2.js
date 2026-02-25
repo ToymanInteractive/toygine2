@@ -1,5 +1,7 @@
 var NAVTREEINDEX2 =
 {
+"d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725ea6adf97f83acf6453d4a6a4b1070f3754":[3,0,1,4,0,0],
+"d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725eab932b91f686c2aa588adfd9a407155ca":[3,0,1,4,0,9],
 "d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725eac85a251cc457840f1e032f1b733e9398":[3,0,1,4,0,7],
 "d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725eacedcbd07d779d35295f55a5b5de1e855":[3,0,1,4,0,8],
 "d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725eae799f8e2bec1c2593f034ec5060229e6":[3,0,1,4,0,6],
@@ -10,8 +12,8 @@ var NAVTREEINDEX2 =
 "d6/d67/network_8hpp_source.html":[6,0,0,11],
 "d6/ddb/callbacks__pool_8inl.html":[6,0,0,2,4],
 "d6/ddb/callbacks__pool_8inl_source.html":[6,0,0,2,4],
-"d6/de1/vector2d_8hpp.html":[6,0,0,3,6],
-"d6/de1/vector2d_8hpp_source.html":[6,0,0,3,6],
+"d6/de1/vector2d_8hpp.html":[6,0,0,3,7],
+"d6/de1/vector2d_8hpp_source.html":[6,0,0,3,7],
 "d7/d02/classtoy_1_1array_1_1iterator.html":[3,0,1,15,0],
 "d7/d02/classtoy_1_1array_1_1iterator.html":[5,0,1,10,0],
 "d7/d15/classtoy_1_1_o_string_stream.html":[2,0,4],
@@ -206,8 +208,8 @@ var NAVTREEINDEX2 =
 "d8/d80/macos_2platform__config_8hpp_source.html":[6,0,1,1,4,0],
 "d8/d8c/toygine2_8hpp.html":[6,0,0,13],
 "d8/d8c/toygine2_8hpp_source.html":[6,0,0,13],
-"d8/dbd/math_2utils_8hpp.html":[6,0,0,3,4],
-"d8/dbd/math_2utils_8hpp_source.html":[6,0,0,3,4],
+"d8/dbd/math_2utils_8hpp.html":[6,0,0,3,5],
+"d8/dbd/math_2utils_8hpp_source.html":[6,0,0,3,5],
 "d8/dc9/classtoy_1_1_callbacks_pool.html":[3,0,1,9],
 "d8/dc9/classtoy_1_1_callbacks_pool.html":[5,0,1,4],
 "d8/dc9/classtoy_1_1_callbacks_pool.html#a0a43af989c25f5748843913a48bdc167":[3,0,1,9,6],
@@ -247,7 +249,5 @@ var NAVTREEINDEX2 =
 "d9/d85/classtoy_1_1math_1_1_vector2_d.html#a1df4504e7ac11a9cc9fde29b56eacfc2":[5,0,1,1,4,10],
 "d9/d85/classtoy_1_1math_1_1_vector2_d.html#a2cf2330d222c7afd28339150099ca014":[3,0,1,1,4,7],
 "d9/d85/classtoy_1_1math_1_1_vector2_d.html#a2cf2330d222c7afd28339150099ca014":[5,0,1,1,4,7],
-"d9/d85/classtoy_1_1math_1_1_vector2_d.html#a7ebd2a5734c1a75a0481980081e4e210":[3,0,1,1,4,1],
-"d9/d85/classtoy_1_1math_1_1_vector2_d.html#a7ebd2a5734c1a75a0481980081e4e210":[5,0,1,1,4,1],
-"d9/d85/classtoy_1_1math_1_1_vector2_d.html#a88b198de48d4239a2d2d9026dff3b461":[3,0,1,1,4,2]
+"d9/d85/classtoy_1_1math_1_1_vector2_d.html#a7ebd2a5734c1a75a0481980081e4e210":[3,0,1,1,4,1]
 };

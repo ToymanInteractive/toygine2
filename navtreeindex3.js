@@ -1,5 +1,7 @@
 var NAVTREEINDEX3 =
 {
+"d9/d85/classtoy_1_1math_1_1_vector2_d.html#a7ebd2a5734c1a75a0481980081e4e210":[5,0,1,1,4,1],
+"d9/d85/classtoy_1_1math_1_1_vector2_d.html#a88b198de48d4239a2d2d9026dff3b461":[3,0,1,1,4,2],
 "d9/d85/classtoy_1_1math_1_1_vector2_d.html#a88b198de48d4239a2d2d9026dff3b461":[5,0,1,1,4,2],
 "d9/d85/classtoy_1_1math_1_1_vector2_d.html#a8ec062ff1e135a16912bd94e79b5f73c":[3,0,1,1,4,15],
 "d9/d85/classtoy_1_1math_1_1_vector2_d.html#a8ec062ff1e135a16912bd94e79b5f73c":[5,0,1,1,4,15],
@@ -62,8 +64,8 @@ var NAVTREEINDEX3 =
 "dc/df3/namespacetoy_1_1app.html#accd3d4d4c107af42972b37be954d25b7":[3,0,1,0,1],
 "dd/d3d/classtoy_1_1math_1_1fixed_1_1_raw_constructor_tag.html":[3,0,1,1,0,0],
 "dd/d3d/classtoy_1_1math_1_1fixed_1_1_raw_constructor_tag.html":[5,0,1,1,0,0],
-"dd/d53/vector2d_8inl.html":[6,0,0,3,7],
-"dd/d53/vector2d_8inl_source.html":[6,0,0,3,7],
+"dd/d53/vector2d_8inl.html":[6,0,0,3,8],
+"dd/d53/vector2d_8inl_source.html":[6,0,0,3,8],
 "dd/d5c/classtoy_1_1math_1_1fixed.html":[3,0,1,1,0],
 "dd/d5c/classtoy_1_1math_1_1fixed.html":[5,0,1,1,0],
 "dd/d5c/classtoy_1_1math_1_1fixed.html#a0a0b78041fd2282f5650a6fce295ff32":[3,0,1,1,0,28],
@@ -142,8 +144,8 @@ var NAVTREEINDEX3 =
 "de/d06/utils_8cpp.html":[6,0,1,0,1],
 "de/d2d/o__string__stream_8hpp.html":[6,0,0,2,14],
 "de/d2d/o__string__stream_8hpp_source.html":[6,0,0,2,14],
-"de/d5d/math_2utils_8inl.html":[6,0,0,3,5],
-"de/d5d/math_2utils_8inl_source.html":[6,0,0,3,5],
+"de/d5d/math_2utils_8inl.html":[6,0,0,3,6],
+"de/d5d/math_2utils_8inl_source.html":[6,0,0,3,6],
 "de/dd6/ui_8hpp.html":[6,0,0,5,1],
 "de/dd6/ui_8hpp_source.html":[6,0,0,5,1],
 "de/deb/string__like_8hpp.html":[6,0,0,2,17],
@@ -247,7 +249,5 @@ var NAVTREEINDEX3 =
 "dir_0a18029368813177489ba7a997da11e8.html":[6,0,1,1,8],
 "dir_169513a5e8dfd029eb46d45e91eaaf0b.html":[6,0,1,1,6,0],
 "dir_2ddc4bd1c9638660b0dec9084e710279.html":[6,0,1,1,5],
-"dir_3c172eab3d3eff36a04ebb8e77c44848.html":[6,0,1,1,1],
-"dir_3d69f64eaf81436fe2b22361382717e5.html":[6,0,0,2],
-"dir_68267d1309a1af8e8297ef4c3efbcdba.html":[6,0,1]
+"dir_3c172eab3d3eff36a04ebb8e77c44848.html":[6,0,1,1,1]
 };

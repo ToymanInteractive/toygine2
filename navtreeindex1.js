@@ -1,5 +1,7 @@
 var NAVTREEINDEX1 =
 {
+"d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a139f367e02a2aee18847150bd54856f9":[5,0,0,0,22],
+"d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a17f9df2f3872f0b6549c76daa479fa56":[3,0,0,0,0],
 "d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a17f9df2f3872f0b6549c76daa479fa56":[5,0,0,0,0],
 "d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a2215e103803628f20a023df55cbb6e71":[3,0,0,0,16],
 "d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a2215e103803628f20a023df55cbb6e71":[5,0,0,0,16],
@@ -156,7 +158,7 @@ var NAVTREEINDEX1 =
 "d4/dc0/constexpr__utils_8hpp.html":[6,0,0,2,5],
 "d4/dc0/constexpr__utils_8hpp_source.html":[6,0,0,2,5],
 "d4/ddd/namespacetoy_1_1platform.html":[3,0,1,5],
-"d4/dee/point_8inl.html":[6,0,0,3,3],
+"d4/dee/point_8inl.html":[6,0,0,3,4],
 "d5/d03/classtoy_1_1_c_string_view.html":[2,0,1],
 "d5/d03/classtoy_1_1_c_string_view.html#a024f2f89ea991e6afc1f049d08a41bf6":[2,0,1,31],
 "d5/d03/classtoy_1_1_c_string_view.html#a0872c0a0c69b98837828e7d67211d6d9":[2,0,1,64],
@@ -247,7 +249,5 @@ var NAVTREEINDEX1 =
 "d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725ea00b7ae176d07d00500fef827f193da59":[3,0,1,4,0,5],
 "d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725ea1cd5ecce6fe138df5c3f7e8854a1a66d":[3,0,1,4,0,1],
 "d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725ea5206bd7472156351d2d9a99633ac9580":[3,0,1,4,0,2],
-"d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725ea66196dd9678aef4aaad947e7181049c0":[3,0,1,4,0,3],
-"d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725ea6adf97f83acf6453d4a6a4b1070f3754":[3,0,1,4,0,0],
-"d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725eab932b91f686c2aa588adfd9a407155ca":[3,0,1,4,0,9]
+"d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725ea66196dd9678aef4aaad947e7181049c0":[3,0,1,4,0,3]
 };
