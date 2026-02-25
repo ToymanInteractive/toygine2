@@ -119,6 +119,10 @@ set(SRC_CORE_LIST                                                               
 set(HDR_CORE_LIST include/core.hpp include/core/assertion.hpp include/core/c_string_view.hpp include/core/callbacks_pool.hpp include/core/constexpr_utils.hpp include/core/fixed_string.hpp include/core/fixed_vector.hpp include/core/hashes.hpp include/core/o_string_stream.hpp include/core/platform.hpp include/core/string_like.hpp include/core/utils.hpp)
 set(INL_CORE_LIST                                             include/core/c_string_view.inl include/core/callbacks_pool.inl include/core/constexpr_utils.inl include/core/fixed_string.inl include/core/fixed_vector.inl                         include/core/o_string_stream.inl                                                        include/core/utils.inl)
 
+set(SRC_FILESYSTEM_LIST )
+set(HDR_FILESYSTEM_LIST include/filesystem.hpp include/filesystem/open_file_mode.hpp)
+set(INL_FILESYSTEM_LIST )
+
 set(SRC_GAME_LIST )
 set(HDR_GAME_LIST include/game.hpp include/game/achievement_state.hpp)
 set(INL_GAME_LIST )
@@ -142,6 +146,7 @@ set(INL_RENDER_LIST )
 source_group("App"          FILES ${SRC_APP_LIST}         ${HDR_APP_LIST}         ${INL_APP_LIST})
 source_group("Audio"        FILES ${SRC_AUDIO_LIST}       ${HDR_AUDIO_LIST}       ${INL_AUDIO_LIST})
 source_group("Core"         FILES ${SRC_CORE_LIST}        ${HDR_CORE_LIST}        ${INL_CORE_LIST})
+source_group("Filesystem"   FILES ${SRC_FILESYSTEM_LIST}  ${HDR_FILESYSTEM_LIST}  ${INL_FILESYSTEM_LIST})
 source_group("Game"         FILES ${SRC_GAME_LIST}        ${HDR_GAME_LIST}        ${INL_GAME_LIST})
 source_group("Math"         FILES ${SRC_MATH_LIST}        ${HDR_MATH_LIST}        ${INL_MATH_LIST})
 source_group("Network"      FILES ${SRC_NETWORK_LIST}     ${HDR_NETWORK_LIST}     ${INL_NETWORK_LIST})
@@ -150,9 +155,9 @@ source_group("Render"       FILES ${SRC_RENDER_LIST}      ${HDR_RENDER_LIST}    
 
 #-------------------------------------------------------------------------------------------
 
-list(APPEND SRC_LIST ${SRC_APP_LIST} ${SRC_AUDIO_LIST} ${SRC_CORE_LIST} ${SRC_GAME_LIST} ${SRC_MATH_LIST} ${SRC_NETWORK_LIST} ${SRC_PLATFORM_UI_LIST} ${SRC_RENDER_LIST} )
-list(APPEND HDR_LIST ${HDR_APP_LIST} ${HDR_AUDIO_LIST} ${HDR_CORE_LIST} ${HDR_GAME_LIST} ${HDR_MATH_LIST} ${HDR_NETWORK_LIST} ${HDR_PLATFORM_UI_LIST} ${HDR_RENDER_LIST} include/toygine2.hpp)
-list(APPEND INL_LIST ${INL_APP_LIST} ${INL_AUDIO_LIST} ${INL_CORE_LIST} ${INL_GAME_LIST} ${INL_MATH_LIST} ${INL_NETWORK_LIST} ${INL_PLATFORM_UI_LIST} ${INL_RENDER_LIST} )
+list(APPEND SRC_LIST ${SRC_APP_LIST} ${SRC_AUDIO_LIST} ${SRC_CORE_LIST} ${SRC_FILESYSTEM_LIST} ${SRC_GAME_LIST} ${SRC_MATH_LIST} ${SRC_NETWORK_LIST} ${SRC_PLATFORM_UI_LIST} ${SRC_RENDER_LIST} )
+list(APPEND HDR_LIST ${HDR_APP_LIST} ${HDR_AUDIO_LIST} ${HDR_CORE_LIST} ${HDR_FILESYSTEM_LIST} ${HDR_GAME_LIST} ${HDR_MATH_LIST} ${HDR_NETWORK_LIST} ${HDR_PLATFORM_UI_LIST} ${HDR_RENDER_LIST} include/toygine2.hpp)
+list(APPEND INL_LIST ${INL_APP_LIST} ${INL_AUDIO_LIST} ${INL_CORE_LIST} ${INL_FILESYSTEM_LIST} ${INL_GAME_LIST} ${INL_MATH_LIST} ${INL_NETWORK_LIST} ${INL_PLATFORM_UI_LIST} ${INL_RENDER_LIST} )
 set(LIB_LIST ${LIB_LIST})
 
 add_library(${TOYGINE_LIBRARY_NAME} STATIC ${SRC_LIST} ${HDR_LIST} ${INL_LIST})
