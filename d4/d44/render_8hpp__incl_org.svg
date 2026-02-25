@@ -11,9 +11,9 @@
 <!-- Node1 -->
 <g id="Node000001" class="node">
 <title>Node1</title>
-<g id="a_Node000001"><a xlink:title="Umbrella header for the render module (clear flags, framebuffer operations, etc.).">
-<polygon fill="#999999" stroke="#666666" points="1517.5,-217 1410.5,-217 1410.5,-198 1517.5,-198 1517.5,-217"/>
-<text text-anchor="middle" x="1464" y="-205" font-family="Helvetica,sans-Serif" font-size="10.00">include/render.hpp</text>
+<g id="a_Node000001"><a xlink:title="Umbrella header for the render module.">
+<polygon fill="#999999" stroke="#666666" points="1572.5,-217 1465.5,-217 1465.5,-198 1572.5,-198 1572.5,-217"/>
+<text text-anchor="middle" x="1519" y="-205" font-family="Helvetica,sans-Serif" font-size="10.00">include/render.hpp</text>
 </a>
 </g>
 </g>
@@ -30,8 +30,8 @@
 <g id="edge1_Node000001_Node000002" class="edge">
 <title>Node1&#45;&gt;Node2</title>
 <g id="a_edge1_Node000001_Node000002"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M1454.92,-197.75C1446.91,-190.03 1435.04,-178.6 1425.38,-169.28"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="1427.54,-166.51 1417.91,-162.09 1422.69,-171.55 1427.54,-166.51"/>
+<path fill="none" stroke="#63b8ff" d="M1501.33,-197.98C1483.71,-189.5 1456.42,-176.35 1436.07,-166.54"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="1437.52,-163.36 1426.99,-162.17 1434.48,-169.66 1437.52,-163.36"/>
 </a>
 </g>
 </g>
@@ -48,8 +48,26 @@
 <g id="edge47_Node000001_Node000043" class="edge">
 <title>Node1&#45;&gt;Node43</title>
 <g id="a_edge47_Node000001_Node000043"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M1473.08,-197.75C1481.09,-190.03 1492.96,-178.6 1502.62,-169.28"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="1505.31,-171.55 1510.09,-162.09 1500.46,-166.51 1505.31,-171.55"/>
+<path fill="none" stroke="#63b8ff" d="M1519,-197.75C1519,-190.8 1519,-180.85 1519,-172.13"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="1522.5,-172.09 1519,-162.09 1515.5,-172.09 1522.5,-172.09"/>
+</a>
+</g>
+</g>
+<!-- Node44 -->
+<g id="Node000044" class="node">
+<title>Node44</title>
+<g id="a_Node000044"><a xlink:href="../../d2/d8d/pixel__format_8hpp.html" target="_top" xlink:title="Pixel format enumeration for render targets and textures.">
+<polygon fill="white" stroke="#666666" points="1734,-162 1600,-162 1600,-143 1734,-143 1734,-162"/>
+<text text-anchor="middle" x="1667" y="-150" font-family="Helvetica,sans-Serif" font-size="10.00">render/pixel_format.hpp</text>
+</a>
+</g>
+</g>
+<!-- Node1&#45;&gt;Node44 -->
+<g id="edge48_Node000001_Node000044" class="edge">
+<title>Node1&#45;&gt;Node44</title>
+<g id="a_edge48_Node000001_Node000044"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M1542.78,-197.98C1567.23,-189.23 1605.53,-175.51 1633.15,-165.62"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="1634.55,-168.84 1642.79,-162.17 1632.19,-162.25 1634.55,-168.84"/>
 </a>
 </g>
 </g>

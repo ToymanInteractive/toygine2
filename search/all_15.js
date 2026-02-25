@@ -2,7 +2,7 @@ var searchData=
 [
   ['ui_2ehpp_0',['ui.hpp',['../de/dd6/ui_8hpp.html',1,'']]],
   ['unit_20test_20style_20rules_1',['Unit Test Style Rules',['../df/d81/md__a_g_e_n_t_s.html#unit-test-style-rules',1,'']]],
-  ['unknown_2',['Unknown',['../d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341a88183b946cc5f0e8c96b2e66e1c74a7e',1,'toy']]],
+  ['unknown_2',['Unknown',['../d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341a88183b946cc5f0e8c96b2e66e1c74a7e',1,'toy::Unknown'],['../df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7a88183b946cc5f0e8c96b2e66e1c74a7e',1,'toy::render::Unknown']]],
   ['unlocked_3',['Unlocked',['../d8/d25/namespacetoy_1_1game.html#ac8a6f36358f3ac99f55a1db9c3827edaac76fd517e45cc95709f4ac106efa4a94',1,'toy::game']]],
   ['usage_20example_4',['Usage Example',['../df/d81/md__a_g_e_n_t_s.html#section-usage-usage-example',1,'&lt;span class=&quot;tt&quot;&gt;\\section usage Usage Example&lt;/span&gt;'],['../d2/da2/namespacetoy_1_1assertion.html#usage',1,'Usage Example']]],
   ['usage_20usage_20example_5',['&lt;span class=&quot;tt&quot;&gt;\\section usage Usage Example&lt;/span&gt;',['../df/d81/md__a_g_e_n_t_s.html#section-usage-usage-example',1,'']]],

@@ -114,7 +114,7 @@ $(function(){initNavTree('df/d8d/namespacetoy_1_1render.html','../../',''); });
 </div><!--header-->
 <div class="contents">
 
-<p>Rendering types and utilities: clear flags, framebuffer operations, and related APIs.  
+<p>Rendering types and utilities: clear flags, pixel formats, and related APIs.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
@@ -129,6 +129,31 @@ Enumerations</h2></td></tr>
 <br />
  }</td></tr>
 <tr class="memdesc:ae44fe0c1053121f38b8544a8684ee4e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit flags specifying which framebuffer attachments to clear.  <a href="#ae44fe0c1053121f38b8544a8684ee4e1">More...</a><br /></td></tr>
+<tr class="memitem:a82ca1093cb1208d1e11ce49147678da7" id="r_a82ca1093cb1208d1e11ce49147678da7"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a82ca1093cb1208d1e11ce49147678da7">PixelFormat</a> { <br />
+&#160;&#160;<a class="el" href="#a82ca1093cb1208d1e11ce49147678da7a88183b946cc5f0e8c96b2e66e1c74a7e">Unknown</a> = 0
+, <a class="el" href="#a82ca1093cb1208d1e11ce49147678da7aca88c661141ffa0559f581536bd1da14">A8R8G8B8</a>
+, <a class="el" href="#a82ca1093cb1208d1e11ce49147678da7a08621a79896977cc5f97853284adc2a9">X8R8G8B8</a>
+, <a class="el" href="#a82ca1093cb1208d1e11ce49147678da7aec4ed8a15cef294974fb3f4007649fea">A4R4G4B4</a>
+, <br />
+&#160;&#160;<a class="el" href="#a82ca1093cb1208d1e11ce49147678da7a824e86ad7ef467815efe26bec67e07fa">R5G6B5</a>
+, <a class="el" href="#a82ca1093cb1208d1e11ce49147678da7afd301d675be7b677ba979a430a80c010">A8</a>
+, <a class="el" href="#a82ca1093cb1208d1e11ce49147678da7a5b61c8b1e8dbd2962e7f664dc82ecd20">S3TC1</a>
+, <a class="el" href="#a82ca1093cb1208d1e11ce49147678da7afc196e710778fdfbda5e79a913b48db9">S3TC5</a>
+, <br />
+&#160;&#160;<a class="el" href="#a82ca1093cb1208d1e11ce49147678da7aa54f5bdd6d55a32997d1352a5c8234a4">PVRTC2</a>
+, <a class="el" href="#a82ca1093cb1208d1e11ce49147678da7a759978c6ff5b5e0ce1720f8dd863e3bf">PVRTC4</a>
+, <a class="el" href="#a82ca1093cb1208d1e11ce49147678da7a6938551dfe2951837f896da35ad7983d">D16Lockable</a>
+, <a class="el" href="#a82ca1093cb1208d1e11ce49147678da7aa6b2eecc4252564f599b9a979e4e0602">D32</a>
+, <br />
+&#160;&#160;<a class="el" href="#a82ca1093cb1208d1e11ce49147678da7aef69088e32e8a16fabd675c63a4392df">D15S1</a>
+, <a class="el" href="#a82ca1093cb1208d1e11ce49147678da7a2468f278a5fb00d246360a43b4c39f31">D24S8</a>
+, <a class="el" href="#a82ca1093cb1208d1e11ce49147678da7ae64207a55998a9e09cbe2f190926d1ee">D24X8</a>
+, <a class="el" href="#a82ca1093cb1208d1e11ce49147678da7ad8e0efa43d87bdbf29e62e036107a0d7">D24X4S4</a>
+, <br />
+&#160;&#160;<a class="el" href="#a82ca1093cb1208d1e11ce49147678da7a6fd9ec81643ee5a57f85a71951bfe13d">D16</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:a82ca1093cb1208d1e11ce49147678da7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pixel or surface format for colour, compression, or depth/stencil.  <a href="#a82ca1093cb1208d1e11ce49147678da7">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -140,7 +165,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:a5845b0dbc8efa2c63123f900399053ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bitwise XOR of two <a class="el" href="#ae44fe0c1053121f38b8544a8684ee4e1" title="toy::render::ClearFlags">toy::render::ClearFlags</a> values.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Rendering types and utilities: clear flags, framebuffer operations, and related APIs. </p>
+<div class="textblock"><p>Rendering types and utilities: clear flags, pixel formats, and related APIs. </p>
 </div><a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Enumeration Type Documentation</h2>
 <a id="ae44fe0c1053121f38b8544a8684ee4e1" name="ae44fe0c1053121f38b8544a8684ee4e1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae44fe0c1053121f38b8544a8684ee4e1">&#9670;&#160;</a></span>ClearFlags</h2>
@@ -174,6 +199,67 @@ Functions</h2></td></tr>
 <tr><td class="fieldname"><a id="ae44fe0c1053121f38b8544a8684ee4e1ad821e7ccd4d4c25a491ba1a9ea248895" name="ae44fe0c1053121f38b8544a8684ee4e1ad821e7ccd4d4c25a491ba1a9ea248895"></a>Stencil&#160;</td><td class="fielddoc"><p>Clear the stencil buffer. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="ae44fe0c1053121f38b8544a8684ee4e1ab1c94ca2fbc3e78fc30069c8d0f01680" name="ae44fe0c1053121f38b8544a8684ee4e1ab1c94ca2fbc3e78fc30069c8d0f01680"></a>All&#160;</td><td class="fielddoc"><p>Clear color, depth, and stencil. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="a82ca1093cb1208d1e11ce49147678da7" name="a82ca1093cb1208d1e11ce49147678da7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82ca1093cb1208d1e11ce49147678da7">&#9670;&#160;</a></span>PixelFormat</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#a82ca1093cb1208d1e11ce49147678da7">toy::render::PixelFormat</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Pixel or surface format for colour, compression, or depth/stencil. </p>
+<p>Covers common formats: 32-bit ARGB/XRGB, 16-bit, alpha-only, block-compressed (S3TC, PVRTC), and depth/stencil. Exact interpretation is backend-dependent. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a82ca1093cb1208d1e11ce49147678da7a88183b946cc5f0e8c96b2e66e1c74a7e" name="a82ca1093cb1208d1e11ce49147678da7a88183b946cc5f0e8c96b2e66e1c74a7e"></a>Unknown&#160;</td><td class="fielddoc"><p>Format not specified or unknown. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a82ca1093cb1208d1e11ce49147678da7aca88c661141ffa0559f581536bd1da14" name="a82ca1093cb1208d1e11ce49147678da7aca88c661141ffa0559f581536bd1da14"></a>A8R8G8B8&#160;</td><td class="fielddoc"><p>32-bit ARGB (8 bits per channel, alpha premultiplied or straight). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a82ca1093cb1208d1e11ce49147678da7a08621a79896977cc5f97853284adc2a9" name="a82ca1093cb1208d1e11ce49147678da7a08621a79896977cc5f97853284adc2a9"></a>X8R8G8B8&#160;</td><td class="fielddoc"><p>32-bit XRGB (8 bits per channel; alpha unused). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a82ca1093cb1208d1e11ce49147678da7aec4ed8a15cef294974fb3f4007649fea" name="a82ca1093cb1208d1e11ce49147678da7aec4ed8a15cef294974fb3f4007649fea"></a>A4R4G4B4&#160;</td><td class="fielddoc"><p>16-bit ARGB (4 bits per channel). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a82ca1093cb1208d1e11ce49147678da7a824e86ad7ef467815efe26bec67e07fa" name="a82ca1093cb1208d1e11ce49147678da7a824e86ad7ef467815efe26bec67e07fa"></a>R5G6B5&#160;</td><td class="fielddoc"><p>16-bit RGB (5-6-5). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a82ca1093cb1208d1e11ce49147678da7afd301d675be7b677ba979a430a80c010" name="a82ca1093cb1208d1e11ce49147678da7afd301d675be7b677ba979a430a80c010"></a>A8&#160;</td><td class="fielddoc"><p>8-bit alpha only. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a82ca1093cb1208d1e11ce49147678da7a5b61c8b1e8dbd2962e7f664dc82ecd20" name="a82ca1093cb1208d1e11ce49147678da7a5b61c8b1e8dbd2962e7f664dc82ecd20"></a>S3TC1&#160;</td><td class="fielddoc"><p>S3TC/BC1 block-compressed (e.g. DXT1). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a82ca1093cb1208d1e11ce49147678da7afc196e710778fdfbda5e79a913b48db9" name="a82ca1093cb1208d1e11ce49147678da7afc196e710778fdfbda5e79a913b48db9"></a>S3TC5&#160;</td><td class="fielddoc"><p>S3TC/BC3 block-compressed (e.g. DXT5). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a82ca1093cb1208d1e11ce49147678da7aa54f5bdd6d55a32997d1352a5c8234a4" name="a82ca1093cb1208d1e11ce49147678da7aa54f5bdd6d55a32997d1352a5c8234a4"></a>PVRTC2&#160;</td><td class="fielddoc"><p>PVRTC 2 bpp. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a82ca1093cb1208d1e11ce49147678da7a759978c6ff5b5e0ce1720f8dd863e3bf" name="a82ca1093cb1208d1e11ce49147678da7a759978c6ff5b5e0ce1720f8dd863e3bf"></a>PVRTC4&#160;</td><td class="fielddoc"><p>PVRTC 4 bpp. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a82ca1093cb1208d1e11ce49147678da7a6938551dfe2951837f896da35ad7983d" name="a82ca1093cb1208d1e11ce49147678da7a6938551dfe2951837f896da35ad7983d"></a>D16Lockable&#160;</td><td class="fielddoc"><p>16-bit lockable depth. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a82ca1093cb1208d1e11ce49147678da7aa6b2eecc4252564f599b9a979e4e0602" name="a82ca1093cb1208d1e11ce49147678da7aa6b2eecc4252564f599b9a979e4e0602"></a>D32&#160;</td><td class="fielddoc"><p>32-bit depth. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a82ca1093cb1208d1e11ce49147678da7aef69088e32e8a16fabd675c63a4392df" name="a82ca1093cb1208d1e11ce49147678da7aef69088e32e8a16fabd675c63a4392df"></a>D15S1&#160;</td><td class="fielddoc"><p>15-bit depth, 1-bit stencil. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a82ca1093cb1208d1e11ce49147678da7a2468f278a5fb00d246360a43b4c39f31" name="a82ca1093cb1208d1e11ce49147678da7a2468f278a5fb00d246360a43b4c39f31"></a>D24S8&#160;</td><td class="fielddoc"><p>24-bit depth, 8-bit stencil. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a82ca1093cb1208d1e11ce49147678da7ae64207a55998a9e09cbe2f190926d1ee" name="a82ca1093cb1208d1e11ce49147678da7ae64207a55998a9e09cbe2f190926d1ee"></a>D24X8&#160;</td><td class="fielddoc"><p>24-bit depth (stencil unused). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a82ca1093cb1208d1e11ce49147678da7ad8e0efa43d87bdbf29e62e036107a0d7" name="a82ca1093cb1208d1e11ce49147678da7ad8e0efa43d87bdbf29e62e036107a0d7"></a>D24X4S4&#160;</td><td class="fielddoc"><p>24-bit depth, 4-bit stencil. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a82ca1093cb1208d1e11ce49147678da7a6fd9ec81643ee5a57f85a71951bfe13d" name="a82ca1093cb1208d1e11ce49147678da7a6fd9ec81643ee5a57f85a71951bfe13d"></a>D16&#160;</td><td class="fielddoc"><p>16-bit depth. </p>
 </td></tr>
 </table>
 

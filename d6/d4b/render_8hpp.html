@@ -114,10 +114,11 @@ $(function(){initNavTree('d6/d4b/render_8hpp.html','../../',''); });
 </div><!--header-->
 <div class="contents">
 
-<p>Umbrella header for the render module (clear flags, framebuffer operations, etc.).  
+<p>Umbrella header for the render module.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="../../da/d47/core_8hpp_source.html">core.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d0/d74/clear__flags_8hpp_source.html">render/clear_flags.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d2/d8d/pixel__format_8hpp_source.html">render/pixel_format.hpp</a>&quot;</code><br />
 </div><div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Include dependency graph for render.hpp:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
@@ -136,10 +137,11 @@ $(function(){initNavTree('d6/d4b/render_8hpp.html','../../',''); });
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:toy_3A_3Arender" id="r_toy_3A_3Arender"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="../../df/d8d/namespacetoy_1_1render.html">toy::render</a></td></tr>
-<tr class="memdesc:df/d8d/namespacetoy_1_1render"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rendering types and utilities: clear flags, framebuffer operations, and related APIs. <br /></td></tr>
+<tr class="memdesc:df/d8d/namespacetoy_1_1render"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rendering types and utilities: clear flags, pixel formats, and related APIs. <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Umbrella header for the render module (clear flags, framebuffer operations, etc.). </p>
+<div class="textblock"><p>Umbrella header for the render module. </p>
+<p>Includes clear flags, pixel format, and related rendering types. Users of the render module should include this header only; do not include internal headers (e.g. <code><a class="el" href="../../d0/d74/clear__flags_8hpp.html" title="Bit flags for framebuffer clear operations (color, depth, stencil).">render/clear_flags.hpp</a></code>, <code><a class="el" href="../../d2/d8d/pixel__format_8hpp.html" title="Pixel format enumeration for render targets and textures.">render/pixel_format.hpp</a></code>) directly. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">

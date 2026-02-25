@@ -1,9 +1,11 @@
 <map id="include/render.hpp" name="include/render.hpp">
-<area shape="rect" id="Node000001" title="Umbrella header for the render module (clear flags, framebuffer operations, etc.)." alt="" coords="1886,5,2029,31"/>
+<area shape="rect" id="Node000001" title="Umbrella header for the render module." alt="" coords="1959,5,2102,31"/>
 <area shape="rect" id="Node000002" href="$da/d47/core_8hpp.html" title="Umbrella header for the engine core module." alt="" coords="1845,79,1923,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1947,33,1908,71,1904,67,1943,29"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="2008,33,1921,75,1919,70,2006,28"/>
 <area shape="rect" id="Node000043" href="$d0/d74/clear__flags_8hpp.html" title="Bit flags for framebuffer clear operations (color, depth, stencil)." alt="" coords="1947,79,2114,104"/>
-<area shape="poly" id="edge47_Node000001_Node000043" title=" " alt="" coords="1971,29,2011,67,2007,71,1968,33"/>
+<area shape="poly" id="edge47_Node000001_Node000043" title=" " alt="" coords="2033,31,2033,65,2028,65,2028,31"/>
+<area shape="rect" id="Node000044" href="$d2/d8d/pixel__format_8hpp.html" title="Pixel format enumeration for render targets and textures." alt="" coords="2139,79,2317,104"/>
+<area shape="poly" id="edge48_Node000001_Node000044" title=" " alt="" coords="2063,28,2184,71,2182,76,2061,33"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="5,167,91,192"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1845,96,1493,100,947,110,414,128,218,140,103,155,80,163,78,158,102,149,217,135,414,123,947,105,1493,95,1845,90"/>
 <area shape="rect" id="Node000004" title=" " alt="" coords="115,167,171,192"/>

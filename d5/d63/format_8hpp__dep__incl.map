@@ -14,7 +14,7 @@
 <area shape="poly" id="edge7_Node000002_Node000007" title=" " alt="" coords="666,115,614,161,610,157,663,111"/>
 <area shape="rect" id="Node000008" href="$de/dd6/ui_8hpp.html" title="Umbrella header for platform UI types." alt="" coords="691,159,864,185"/>
 <area shape="poly" id="edge9_Node000002_Node000008" title=" " alt="" coords="713,111,766,157,762,161,710,115"/>
-<area shape="rect" id="Node000009" href="$d6/d4b/render_8hpp.html" title="Umbrella header for the render module (clear flags, framebuffer operations, etc.)." alt="" coords="889,159,1031,185"/>
+<area shape="rect" id="Node000009" href="$d6/d4b/render_8hpp.html" title="Umbrella header for the render module." alt="" coords="889,159,1031,185"/>
 <area shape="poly" id="edge11_Node000002_Node000009" title=" " alt="" coords="741,105,921,157,920,162,740,110"/>
 <area shape="rect" id="Node000010" href="$db/d2d/hashes_8cpp.html" title="Implementation of CRC hash functions with lookup tables for optimal performance." alt="" coords="1055,159,1206,185"/>
 <area shape="poly" id="edge14_Node000002_Node000010" title=" " alt="" coords="767,102,1044,149,1080,157,1079,162,1044,155,766,107"/>

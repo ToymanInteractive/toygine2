@@ -59,6 +59,25 @@ var namespacetoy =
         [ "Stencil", "df/d8d/namespacetoy_1_1render.html#ae44fe0c1053121f38b8544a8684ee4e1ad821e7ccd4d4c25a491ba1a9ea248895", null ],
         [ "All", "df/d8d/namespacetoy_1_1render.html#ae44fe0c1053121f38b8544a8684ee4e1ab1c94ca2fbc3e78fc30069c8d0f01680", null ]
       ] ],
+      [ "PixelFormat", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7", [
+        [ "Unknown", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7a88183b946cc5f0e8c96b2e66e1c74a7e", null ],
+        [ "A8R8G8B8", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7aca88c661141ffa0559f581536bd1da14", null ],
+        [ "X8R8G8B8", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7a08621a79896977cc5f97853284adc2a9", null ],
+        [ "A4R4G4B4", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7aec4ed8a15cef294974fb3f4007649fea", null ],
+        [ "R5G6B5", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7a824e86ad7ef467815efe26bec67e07fa", null ],
+        [ "A8", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7afd301d675be7b677ba979a430a80c010", null ],
+        [ "S3TC1", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7a5b61c8b1e8dbd2962e7f664dc82ecd20", null ],
+        [ "S3TC5", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7afc196e710778fdfbda5e79a913b48db9", null ],
+        [ "PVRTC2", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7aa54f5bdd6d55a32997d1352a5c8234a4", null ],
+        [ "PVRTC4", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7a759978c6ff5b5e0ce1720f8dd863e3bf", null ],
+        [ "D16Lockable", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7a6938551dfe2951837f896da35ad7983d", null ],
+        [ "D32", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7aa6b2eecc4252564f599b9a979e4e0602", null ],
+        [ "D15S1", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7aef69088e32e8a16fabd675c63a4392df", null ],
+        [ "D24S8", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7a2468f278a5fb00d246360a43b4c39f31", null ],
+        [ "D24X8", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7ae64207a55998a9e09cbe2f190926d1ee", null ],
+        [ "D24X4S4", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7ad8e0efa43d87bdbf29e62e036107a0d7", null ],
+        [ "D16", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7a6fd9ec81643ee5a57f85a71951bfe13d", null ]
+      ] ],
       [ "operator&", "df/d8d/namespacetoy_1_1render.html#a8005061a10bccaf16f7b3c5b79ce5cb1", null ],
       [ "operator^", "df/d8d/namespacetoy_1_1render.html#a5845b0dbc8efa2c63123f900399053ae", null ],
       [ "operator|", "df/d8d/namespacetoy_1_1render.html#a5bf45a61b0453bcf4b936e835cf76371", null ]
