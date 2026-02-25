@@ -74,6 +74,9 @@ target_link_libraries(${TOYGINE_LIBRARY_NAME}-units PRIVATE doctest::doctest ${T
 if (CTEST_SUPPORT)
   doctest_discover_tests(${TOYGINE_LIBRARY_NAME}-units)
 endif ()
+if (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Game Boy Advance")
+  gba_create_rom(${TOYGINE_LIBRARY_NAME}-units)
+endif ()
 
 if (TOYGINE_TESTS_ENABLE_COVERAGE)
   # include the cmake code coverage module
