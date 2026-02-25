@@ -77,7 +77,13 @@ public:
     _report(_logLevelInfo, "[doctest] Status: %s", (stats.numTestCasesFailed > 0) ? "FAILURE!" : "SUCCESS!");
   }
 
-  void test_case_start([[maybe_unused]] const doctest::TestCaseData & data) noexcept override {}
+  // Called when a test case is started (safe to cache a pointer to the input)
+  void test_case_start(const doctest::TestCaseData & data) noexcept override {
+    _hasLoggedCurrentTestStart = false;
+    _testCaseData = &data;
+    _subcasesStack.clear();
+    _currentSubcaseLevel = 0;
+  }
 
   void test_case_end([[maybe_unused]] const doctest::CurrentTestCaseStats & stats) noexcept override {}
 
@@ -106,6 +112,15 @@ private:
 
   /// DocTest context options passed at construction.
   const doctest::ContextOptions & _options;
+  /// Pointer to the currently running test case data (set in test_case_start; valid until test_case_end).
+  const doctest::TestCaseData * _testCaseData;
+
+  /// \c true once the start of the current test case has been logged (avoids duplicate run-start messages).
+  bool _hasLoggedCurrentTestStart;
+  /// Stack of active subcase signatures for the current test case.
+  std::vector<doctest::SubcaseSignature> _subcasesStack;
+  /// Current subcase nesting level (0 = test case root).
+  size_t _currentSubcaseLevel;
 
   /*!
     \brief Detects whether the code is running under the mGBA emulator.
