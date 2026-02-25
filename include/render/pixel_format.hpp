@@ -38,6 +38,9 @@ namespace toy::render {
   interpretation is backend-dependent.
 */
 enum class PixelFormat {
+  /// Format not specified or unknown.
+  Unknown = 0,
+
   /// 32-bit ARGB (8 bits per channel, alpha premultiplied or straight).
   A8R8G8B8,
   /// 32-bit XRGB (8 bits per channel; alpha unused).
@@ -74,9 +77,6 @@ enum class PixelFormat {
   D24X4S4,
   /// 16-bit depth.
   D16,
-
-  /// Format not specified or unknown.
-  Unknown,
 };
 
 } // namespace toy::render

@@ -25,6 +25,8 @@
 #ifndef TEST_GBA_REPORTER_HPP_
 #define TEST_GBA_REPORTER_HPP_
 
+#include <cstring>
+
 #include <doctest/doctest.h>
 #include <stdarg.h>
 
@@ -97,13 +99,14 @@ public:
 
     // log the preamble of the test case only if there is something else to print - something other than that an assert
     // has failed
-    if (_options.duration
-        || (stats.failure_flags
-            && stats.failure_flags != static_cast<int>(doctest::TestCaseFailureReason::AssertFailure)))
+    if (_options.duration || stats.failure_flags)
       _logTestStart();
 
     if (_options.duration)
       _report(_logLevelInfo, "%f s: %s", stats.seconds, _testCaseData->m_name);
+
+    if (stats.failure_flags & doctest::TestCaseFailureReason::AssertFailure)
+      _report(_logLevelInfo, "One or more assertions failed");
 
     if (stats.failure_flags & doctest::TestCaseFailureReason::Timeout)
       _report(_logLevelInfo, "Test case exceeded time limit of %f", _testCaseData->m_timeout);
@@ -246,7 +249,7 @@ private:
     if (_testCaseData->m_test_suite && _testCaseData->m_test_suite[0] != '\0')
       _report(_logLevelInfo, "TEST SUITE: %s", _testCaseData->m_test_suite);
 
-    _report(_logLevelInfo, "%s%s", strncmp(_testCaseData->m_name, "  Scenario:", 11) != 0 ? "TEST CASE:  " : "",
+    _report(_logLevelInfo, "%s%s", std::strncmp(_testCaseData->m_name, "  Scenario:", 11) != 0 ? "TEST CASE:  " : "",
             _testCaseData->m_name);
 
     for (size_t i = 0; i < _currentSubcaseLevel; ++i) {
