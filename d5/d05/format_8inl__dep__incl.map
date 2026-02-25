@@ -12,7 +12,7 @@
 <area shape="poly" id="edge6_Node000002_Node000006" title=" " alt="" coords="639,111,475,162,473,157,638,106"/>
 <area shape="rect" id="Node000007" href="$d4/d78/math_8hpp.html" title="Umbrella header for the engine mathematics module." alt="" coords="531,159,666,185"/>
 <area shape="poly" id="edge7_Node000002_Node000007" title=" " alt="" coords="666,115,614,161,610,157,663,111"/>
-<area shape="rect" id="Node000008" href="$de/dd6/ui_8hpp.html" title="Umbrella header for platform UI types (orientation, layout, etc.)." alt="" coords="691,159,864,185"/>
+<area shape="rect" id="Node000008" href="$de/dd6/ui_8hpp.html" title="Umbrella header for platform UI types." alt="" coords="691,159,864,185"/>
 <area shape="poly" id="edge9_Node000002_Node000008" title=" " alt="" coords="713,111,766,157,762,161,710,115"/>
 <area shape="rect" id="Node000009" href="$d6/d4b/render_8hpp.html" title="Umbrella header for the render module (clear flags, framebuffer operations, etc.)." alt="" coords="889,159,1031,185"/>
 <area shape="poly" id="edge11_Node000002_Node000009" title=" " alt="" coords="741,105,921,157,920,162,740,110"/>

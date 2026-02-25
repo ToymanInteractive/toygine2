@@ -114,11 +114,28 @@ $(function(){initNavTree('d1/d03/namespacetoy_1_1platform_1_1ui.html','../../','
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="../../d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55a" title="Enumeration of target operating systems and platforms.">Platform</a> UI types: screen orientation, layout hints, and related utilities.  
+<p><a class="el" href="../../d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55a" title="Enumeration of target operating systems and platforms.">Platform</a> UI types: orientation, message box return values, and related utilities.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
+<tr class="memitem:acd712dd388168864cc984d43e23e41d2" id="r_acd712dd388168864cc984d43e23e41d2"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#acd712dd388168864cc984d43e23e41d2">MessageBoxReturn</a> { <br />
+&#160;&#160;<a class="el" href="#acd712dd388168864cc984d43e23e41d2aa60852f204ed8028c1c58808b746d115">Ok</a>
+, <a class="el" href="#acd712dd388168864cc984d43e23e41d2aea4788705e6873b424c65e91c2846b19">Cancel</a>
+, <a class="el" href="#acd712dd388168864cc984d43e23e41d2a727b63583e01fa2b3952dab580c84dc2">Abort</a>
+, <a class="el" href="#acd712dd388168864cc984d43e23e41d2a6327b4e59f58137083214a1fec358855">Retry</a>
+, <br />
+&#160;&#160;<a class="el" href="#acd712dd388168864cc984d43e23e41d2afd038fc7f319e48f3115d92bf5bdbef9">Ignore</a>
+, <a class="el" href="#acd712dd388168864cc984d43e23e41d2a93cba07454f06a4a960172bbd6e2a435">Yes</a>
+, <a class="el" href="#acd712dd388168864cc984d43e23e41d2abafd7322c6e97d25b6299b5d6fe8920b">No</a>
+, <a class="el" href="#acd712dd388168864cc984d43e23e41d2ad3d2e617335f08df83599665eef8a418">Close</a>
+, <br />
+&#160;&#160;<a class="el" href="#acd712dd388168864cc984d43e23e41d2a6a26f548831e6a8c26bfbbd9f6ec61e0">Help</a>
+, <a class="el" href="#acd712dd388168864cc984d43e23e41d2aebd61744195aaefd6ea1e66a92e25589">TryAgain</a>
+, <a class="el" href="#acd712dd388168864cc984d43e23e41d2aa0bfb8e59e6c13fc8d990781f77694fe">Continue</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:acd712dd388168864cc984d43e23e41d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">User choice when dismissing a message box or dialog.  <a href="#acd712dd388168864cc984d43e23e41d2">More...</a><br /></td></tr>
 <tr class="memitem:aab7a6848d6656e7540fb1d6d72116e02" id="r_aab7a6848d6656e7540fb1d6d72116e02"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#aab7a6848d6656e7540fb1d6d72116e02">Orientation</a> : uint8_t { <br />
 &#160;&#160;<a class="el" href="#aab7a6848d6656e7540fb1d6d72116e02a815dff01257e5ef182b25d4c1ef0a7a0">Landscape</a> = 1
 , <a class="el" href="#aab7a6848d6656e7540fb1d6d72116e02a1c7444be9626d149ab598fb79b639f96">Portrait</a> = 2
@@ -142,8 +159,57 @@ Functions</h2></td></tr>
 <tr class="memdesc:af43dc4e8ee989cde743f42c1832a5ef0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bitwise XOR of two <a class="el" href="#aab7a6848d6656e7540fb1d6d72116e02" title="toy::platform::ui::Orientation">toy::platform::ui::Orientation</a> values.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="../../d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55a" title="Enumeration of target operating systems and platforms.">Platform</a> UI types: screen orientation, layout hints, and related utilities. </p>
+<div class="textblock"><p><a class="el" href="../../d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55a" title="Enumeration of target operating systems and platforms.">Platform</a> UI types: orientation, message box return values, and related utilities. </p>
 </div><a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Enumeration Type Documentation</h2>
+<a id="acd712dd388168864cc984d43e23e41d2" name="acd712dd388168864cc984d43e23e41d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd712dd388168864cc984d43e23e41d2">&#9670;&#160;</a></span>MessageBoxReturn</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#acd712dd388168864cc984d43e23e41d2">toy::platform::ui::MessageBoxReturn</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>User choice when dismissing a message box or dialog. </p>
+<p>Maps to common dialog button results (OK, Cancel, Yes/No, Abort/Retry/Ignore, etc.). Exact semantics are platform-dependent; use for branching after showing a message box. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="acd712dd388168864cc984d43e23e41d2aa60852f204ed8028c1c58808b746d115" name="acd712dd388168864cc984d43e23e41d2aa60852f204ed8028c1c58808b746d115"></a>Ok&#160;</td><td class="fielddoc"><p>User confirmed (OK button). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="acd712dd388168864cc984d43e23e41d2aea4788705e6873b424c65e91c2846b19" name="acd712dd388168864cc984d43e23e41d2aea4788705e6873b424c65e91c2846b19"></a>Cancel&#160;</td><td class="fielddoc"><p>User cancelled the dialog. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="acd712dd388168864cc984d43e23e41d2a727b63583e01fa2b3952dab580c84dc2" name="acd712dd388168864cc984d43e23e41d2a727b63583e01fa2b3952dab580c84dc2"></a>Abort&#160;</td><td class="fielddoc"><p>User chose Abort (e.g. Abort/Retry/Ignore). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="acd712dd388168864cc984d43e23e41d2a6327b4e59f58137083214a1fec358855" name="acd712dd388168864cc984d43e23e41d2a6327b4e59f58137083214a1fec358855"></a>Retry&#160;</td><td class="fielddoc"><p>User chose Retry. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="acd712dd388168864cc984d43e23e41d2afd038fc7f319e48f3115d92bf5bdbef9" name="acd712dd388168864cc984d43e23e41d2afd038fc7f319e48f3115d92bf5bdbef9"></a>Ignore&#160;</td><td class="fielddoc"><p>User chose Ignore. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="acd712dd388168864cc984d43e23e41d2a93cba07454f06a4a960172bbd6e2a435" name="acd712dd388168864cc984d43e23e41d2a93cba07454f06a4a960172bbd6e2a435"></a>Yes&#160;</td><td class="fielddoc"><p>User chose Yes. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="acd712dd388168864cc984d43e23e41d2abafd7322c6e97d25b6299b5d6fe8920b" name="acd712dd388168864cc984d43e23e41d2abafd7322c6e97d25b6299b5d6fe8920b"></a>No&#160;</td><td class="fielddoc"><p>User chose No. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="acd712dd388168864cc984d43e23e41d2ad3d2e617335f08df83599665eef8a418" name="acd712dd388168864cc984d43e23e41d2ad3d2e617335f08df83599665eef8a418"></a>Close&#160;</td><td class="fielddoc"><p>User closed the dialog (e.g. window close). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="acd712dd388168864cc984d43e23e41d2a6a26f548831e6a8c26bfbbd9f6ec61e0" name="acd712dd388168864cc984d43e23e41d2a6a26f548831e6a8c26bfbbd9f6ec61e0"></a>Help&#160;</td><td class="fielddoc"><p>User requested help. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="acd712dd388168864cc984d43e23e41d2aebd61744195aaefd6ea1e66a92e25589" name="acd712dd388168864cc984d43e23e41d2aebd61744195aaefd6ea1e66a92e25589"></a>TryAgain&#160;</td><td class="fielddoc"><p>User chose Try Again. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="acd712dd388168864cc984d43e23e41d2aa0bfb8e59e6c13fc8d990781f77694fe" name="acd712dd388168864cc984d43e23e41d2aa0bfb8e59e6c13fc8d990781f77694fe"></a>Continue&#160;</td><td class="fielddoc"><p>User chose Continue. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 <a id="aab7a6848d6656e7540fb1d6d72116e02" name="aab7a6848d6656e7540fb1d6d72116e02"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aab7a6848d6656e7540fb1d6d72116e02">&#9670;&#160;</a></span>Orientation</h2>
 

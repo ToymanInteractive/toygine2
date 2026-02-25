@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['socketerror_0',['SocketError',['../d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725e',1,'toy::network']]]
+  ['platform_0',['Platform',['../d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55a',1,'toy']]]
 ];

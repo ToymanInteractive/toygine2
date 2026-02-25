@@ -11,7 +11,7 @@
 <!-- Node1 -->
 <g id="Node000001" class="node">
 <title>Node1</title>
-<g id="a_Node000001"><a xlink:title="Application version management utilities.">
+<g id="a_Node000001"><a xlink:title="Application version type and comparison operators.">
 <polygon fill="#999999" stroke="#666666" points="133,-129 0,-129 0,-110 133,-110 133,-129"/>
 <text text-anchor="middle" x="66.5" y="-117" font-family="Helvetica,sans-Serif" font-size="10.00">include/app/version.hpp</text>
 </a>

@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['depth_0',['Depth',['../df/d8d/namespacetoy_1_1render.html#ae44fe0c1053121f38b8544a8684ee4e1a675056ad1441b6375b2c5abd48c27ef1',1,'toy::render']]]
+  ['cancel_0',['Cancel',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#acd712dd388168864cc984d43e23e41d2aea4788705e6873b424c65e91c2846b19',1,'toy::platform::ui']]],
+  ['close_1',['Close',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#acd712dd388168864cc984d43e23e41d2ad3d2e617335f08df83599665eef8a418',1,'toy::platform::ui']]],
+  ['continue_2',['Continue',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#acd712dd388168864cc984d43e23e41d2aa0bfb8e59e6c13fc8d990781f77694fe',1,'toy::platform::ui']]]
 ];

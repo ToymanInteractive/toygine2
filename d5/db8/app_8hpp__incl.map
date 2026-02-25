@@ -2,7 +2,7 @@
 <area shape="rect" id="Node000001" title="Umbrella header for the engine application module." alt="" coords="1948,5,2073,31"/>
 <area shape="rect" id="Node000002" href="$da/d47/core_8hpp.html" title="Umbrella header for the engine core module." alt="" coords="1845,79,1923,104"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1992,33,1918,74,1915,69,1989,28"/>
-<area shape="rect" id="Node000043" href="$d7/dad/version_8hpp.html" title="Application version management utilities." alt="" coords="1947,79,2074,104"/>
+<area shape="rect" id="Node000043" href="$d7/dad/version_8hpp.html" title="Application version type and comparison operators." alt="" coords="1947,79,2074,104"/>
 <area shape="poly" id="edge47_Node000001_Node000043" title=" " alt="" coords="2013,31,2013,65,2008,65,2008,31"/>
 <area shape="rect" id="Node000044" href="$d2/dbe/version_8inl.html" title="Implementation of application version management utilities." alt="" coords="2098,79,2217,104"/>
 <area shape="poly" id="edge48_Node000001_Node000044" title=" " alt="" coords="2035,28,2122,70,2120,75,2033,33"/>
@@ -44,7 +44,7 @@
 <area shape="poly" id="edge19_Node000002_Node000020" title=" " alt="" coords="1850,107,1725,154,1708,163,1706,158,1723,150,1848,102"/>
 <area shape="rect" id="Node000021" href="$dd/d9e/linux_2platform__config_8hpp.html" title="additional linux platform header" alt="" coords="1781,152,1987,207"/>
 <area shape="poly" id="edge20_Node000002_Node000021" title=" " alt="" coords="1887,104,1887,138,1881,138,1881,104"/>
-<area shape="rect" id="Node000022" href="$d3/d60/platform_8hpp.html" title="Platform and CPU architecture enumerations with compile&#45;time and runtime detection utilities." alt="" coords="1674,255,1811,295"/>
+<area shape="rect" id="Node000022" href="$d3/d60/platform_8hpp.html" title="Platform and CPU architecture enumerations with compile&#45;time and runtime detection." alt="" coords="1674,255,1811,295"/>
 <area shape="poly" id="edge36_Node000002_Node000022" title=" " alt="" coords="1845,106,1805,124,1786,137,1770,154,1758,174,1751,197,1745,241,1739,241,1746,196,1753,172,1766,150,1783,133,1802,119,1843,101"/>
 <area shape="rect" id="Node000024" href="$d5/d96/assertion_8hpp.html" title="Assertion system for runtime and compile&#45;time validation of engine invariants." alt="" coords="2011,167,2154,192"/>
 <area shape="poly" id="edge23_Node000002_Node000024" title=" " alt="" coords="1912,102,2044,159,2042,163,1910,107"/>

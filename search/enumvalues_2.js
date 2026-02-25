@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['gba_0',['GBA',['../d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aad61abb0698c83433ab6b11ab3d68447d',1,'toy']]]
+  ['depth_0',['Depth',['../df/d8d/namespacetoy_1_1render.html#ae44fe0c1053121f38b8544a8684ee4e1a675056ad1441b6375b2c5abd48c27ef1',1,'toy::render']]]
 ];

@@ -38,5 +38,6 @@ var searchData=
   ['toygine2_35',['ToyGine2',['../index.html',1,'']]],
   ['toygine2_2ehpp_36',['toygine2.hpp',['../d8/d8c/toygine2_8hpp.html',1,'']]],
   ['traps_37',['traps',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a4cf571b8d53ef6d6d221857eff804cf3',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]],
-  ['typedef_38',['&lt;span class=&quot;tt&quot;&gt;using&lt;/span&gt; over &lt;span class=&quot;tt&quot;&gt;typedef&lt;/span&gt;',['../df/d81/md__a_g_e_n_t_s.html#using-over-typedef',1,'']]]
+  ['tryagain_38',['TryAgain',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#acd712dd388168864cc984d43e23e41d2aebd61744195aaefd6ea1e66a92e25589',1,'toy::platform::ui']]],
+  ['typedef_39',['&lt;span class=&quot;tt&quot;&gt;using&lt;/span&gt; over &lt;span class=&quot;tt&quot;&gt;typedef&lt;/span&gt;',['../df/d81/md__a_g_e_n_t_s.html#using-over-typedef',1,'']]]
 ];

@@ -120,13 +120,13 @@ $(function(){initNavTree('d7/d8d/structtoy_1_1app_1_1_version.html','../../','d6
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a6b5b6d465a6bcc1bd6bf2487632f0789" id="r_a6b5b6d465a6bcc1bd6bf2487632f0789"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a6b5b6d465a6bcc1bd6bf2487632f0789">major</a> = 0</td></tr>
-<tr class="memdesc:a6b5b6d465a6bcc1bd6bf2487632f0789"><td class="mdescLeft">&#160;</td><td class="mdescRight">Major version number.  <br /></td></tr>
+<tr class="memdesc:a6b5b6d465a6bcc1bd6bf2487632f0789"><td class="mdescLeft">&#160;</td><td class="mdescRight">Major version; incompatible API changes.  <br /></td></tr>
 <tr class="memitem:a3affab6c2925bf9e43bb3bf01c30e272" id="r_a3affab6c2925bf9e43bb3bf01c30e272"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a3affab6c2925bf9e43bb3bf01c30e272">minor</a> = 0</td></tr>
-<tr class="memdesc:a3affab6c2925bf9e43bb3bf01c30e272"><td class="mdescLeft">&#160;</td><td class="mdescRight">Minor version number.  <br /></td></tr>
+<tr class="memdesc:a3affab6c2925bf9e43bb3bf01c30e272"><td class="mdescLeft">&#160;</td><td class="mdescRight">Minor version; backward-compatible additions.  <br /></td></tr>
 <tr class="memitem:af042456a2ca193c5ac419f29da0cd9ef" id="r_af042456a2ca193c5ac419f29da0cd9ef"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#af042456a2ca193c5ac419f29da0cd9ef">maintenance</a> = 0</td></tr>
-<tr class="memdesc:af042456a2ca193c5ac419f29da0cd9ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maintenance version number.  <br /></td></tr>
+<tr class="memdesc:af042456a2ca193c5ac419f29da0cd9ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maintenance version; backward-compatible fixes.  <br /></td></tr>
 <tr class="memitem:a83cf4b60f1a98acef1b7ba6ae87602e0" id="r_a83cf4b60f1a98acef1b7ba6ae87602e0"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a83cf4b60f1a98acef1b7ba6ae87602e0">revision</a> = 0</td></tr>
-<tr class="memdesc:a83cf4b60f1a98acef1b7ba6ae87602e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Revision number.  <br /></td></tr>
+<tr class="memdesc:a83cf4b60f1a98acef1b7ba6ae87602e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Revision (e.g. build or patch level).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Application version information structure. </p>
@@ -134,67 +134,46 @@ Public Attributes</h2></td></tr>
 <h1 class="doxsection"><a class="anchor" id="features"></a>
 Key Features</h1>
 <ul>
-<li>⚙️ <b>Semantic Versioning</b>: Follows major.minor.maintenance.revision format</li>
-<li>🔧 <b>ConstExpr Support</b>: All operations can be evaluated at compile time</li>
-<li>🛡️ <b>Exception Safety</b>: All operations are noexcept</li>
-<li>🔗 <b>Simple Structure</b>: Plain struct with public members for easy access</li>
-<li>🎯 <b><a class="el" href="../../d7/d8d/structtoy_1_1app_1_1_version.html" title="Application version information structure.">Version</a> Management</b>: Designed for application version tracking</li>
-<li>🧬 <b>Type Safety</b>: Uses uint32_t for all version components</li>
-<li>🌍 <b>Standard Compliance</b>: Follows semantic versioning standards</li>
-<li>📏 <b>Immutable Design</b>: Structure designed for compile-time version constants</li>
+<li><b>Semantic versioning</b>: major.minor.maintenance.revision format.</li>
+<li><b>Constexpr</b>: Usable in constexpr contexts; comparison operators are constexpr.</li>
+<li><b>Exception safety</b>: All operations are <code>noexcept</code>.</li>
+<li><b>Type safety</b>: <code>uint32_t</code> components; no implicit conversions.</li>
 </ul>
 <h1 class="doxsection"><a class="anchor" id="usage"></a>
 Usage Example</h1>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="../../d6/d2c/app_8hpp.html">app.hpp</a>&quot;</span></div>
 <div class="line"> </div>
-<div class="line"><span class="comment">// Default version (0.0.0.0)</span></div>
 <div class="line"><span class="keyword">constexpr</span> <a class="code hl_struct" href="../../d7/d8d/structtoy_1_1app_1_1_version.html">toy::app::Version</a> version;</div>
-<div class="line"> </div>
-<div class="line"><span class="comment">// Custom version</span></div>
 <div class="line"><span class="keyword">constexpr</span> <a class="code hl_struct" href="../../d7/d8d/structtoy_1_1app_1_1_version.html">toy::app::Version</a> customVersion{1, 2, 3, 4};</div>
 <div class="line"> </div>
-<div class="line"><span class="comment">// Access version components</span></div>
-<div class="line">std::cout &lt;&lt; <span class="stringliteral">&quot;Version: &quot;</span> &lt;&lt; customVersion.<a class="code hl_variable" href="#a6b5b6d465a6bcc1bd6bf2487632f0789">major</a> &lt;&lt; <span class="stringliteral">&quot;.&quot;</span></div>
-<div class="line">          &lt;&lt; customVersion.<a class="code hl_variable" href="#a3affab6c2925bf9e43bb3bf01c30e272">minor</a> &lt;&lt; <span class="stringliteral">&quot;.&quot;</span></div>
-<div class="line">          &lt;&lt; customVersion.<a class="code hl_variable" href="#af042456a2ca193c5ac419f29da0cd9ef">maintenance</a> &lt;&lt; <span class="stringliteral">&quot;.&quot;</span></div>
-<div class="line">          &lt;&lt; customVersion.<a class="code hl_variable" href="#a83cf4b60f1a98acef1b7ba6ae87602e0">revision</a> &lt;&lt; std::endl;</div>
+<div class="line"><span class="keywordflow">if</span> (customVersion &gt;= <a class="code hl_struct" href="../../d7/d8d/structtoy_1_1app_1_1_version.html">toy::app::Version</a>{1, 0, 0, 0}) {</div>
+<div class="line">  <span class="comment">// API 1.x or later</span></div>
+<div class="line">}</div>
 <div class="ttc" id="aapp_8hpp_html"><div class="ttname"><a href="../../d6/d2c/app_8hpp.html">app.hpp</a></div><div class="ttdoc">Umbrella header for the engine application module.</div></div>
-<div class="ttc" id="astructtoy_1_1app_1_1_version_html"><div class="ttname"><a href="../../d7/d8d/structtoy_1_1app_1_1_version.html">toy::app::Version</a></div><div class="ttdoc">Application version information structure.</div><div class="ttdef"><b>Definition</b> version.hpp:96</div></div>
-<div class="ttc" id="astructtoy_1_1app_1_1_version_html_a3affab6c2925bf9e43bb3bf01c30e272"><div class="ttname"><a href="#a3affab6c2925bf9e43bb3bf01c30e272">toy::app::Version::minor</a></div><div class="ttdeci">uint32_t minor</div><div class="ttdoc">Minor version number.</div><div class="ttdef"><b>Definition</b> version.hpp:107</div></div>
-<div class="ttc" id="astructtoy_1_1app_1_1_version_html_a6b5b6d465a6bcc1bd6bf2487632f0789"><div class="ttname"><a href="#a6b5b6d465a6bcc1bd6bf2487632f0789">toy::app::Version::major</a></div><div class="ttdeci">uint32_t major</div><div class="ttdoc">Major version number.</div><div class="ttdef"><b>Definition</b> version.hpp:101</div></div>
-<div class="ttc" id="astructtoy_1_1app_1_1_version_html_a83cf4b60f1a98acef1b7ba6ae87602e0"><div class="ttname"><a href="#a83cf4b60f1a98acef1b7ba6ae87602e0">toy::app::Version::revision</a></div><div class="ttdeci">uint32_t revision</div><div class="ttdoc">Revision number.</div><div class="ttdef"><b>Definition</b> version.hpp:119</div></div>
-<div class="ttc" id="astructtoy_1_1app_1_1_version_html_af042456a2ca193c5ac419f29da0cd9ef"><div class="ttname"><a href="#af042456a2ca193c5ac419f29da0cd9ef">toy::app::Version::maintenance</a></div><div class="ttdeci">uint32_t maintenance</div><div class="ttdoc">Maintenance version number.</div><div class="ttdef"><b>Definition</b> version.hpp:113</div></div>
+<div class="ttc" id="astructtoy_1_1app_1_1_version_html"><div class="ttname"><a href="../../d7/d8d/structtoy_1_1app_1_1_version.html">toy::app::Version</a></div><div class="ttdoc">Application version information structure.</div><div class="ttdef"><b>Definition</b> version.hpp:80</div></div>
 </div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="performance"></a>
 Performance Characteristics</h1>
 <ul>
-<li>⚙️ <b>Construction</b>: O(1) constant time</li>
-<li>📝 <b>Access</b>: O(1) constant time for all members</li>
-<li>📝 <b>Assignment</b>: O(1) constant time for member assignment</li>
-<li>🔗 <b>Comparison</b>: O(1) constant time for version comparison</li>
-<li>💾 <b>Memory Usage</b>: 16 bytes (4 * uint32_t)</li>
-<li>⚡ <b>Cache Performance</b>: Excellent due to small size and contiguous layout</li>
-<li>📋 <b>Copy Performance</b>: Fast due to simple integer copying</li>
-<li>🎯 <b><a class="el" href="../../d7/d8d/structtoy_1_1app_1_1_version.html" title="Application version information structure.">Version</a> Operations</b>: Optimized for compile-time evaluation</li>
+<li><b>Construction</b>: O(1).</li>
+<li><b>Access</b>: O(1) for all members.</li>
+<li><b>Comparison</b>: O(1) for <code>operator==</code> and <code>operator&lt;=&gt;</code>.</li>
+<li><b>Memory</b>: 16 bytes (4 × <code>uint32_t</code>).</li>
 </ul>
 <h1 class="doxsection"><a class="anchor" id="safety"></a>
 Safety Guarantees</h1>
 <ul>
-<li>🛡️ <b>Bounds Safety</b>: All operations are bounds-safe</li>
-<li>📐 <b>Type Safety</b>: Strong typing with uint32_t components</li>
-<li>⚠️ <b>Exception Safety</b>: All operations are noexcept, no exceptions thrown</li>
-<li>🔒 <b>Memory Safety</b>: No dynamic allocation, stack-only structure</li>
+<li><b>Type safety</b>: Strong typing; no overflow in normal version ranges.</li>
+<li><b>Exception safety</b>: All operations are <code>noexcept</code>; no dynamic allocation.</li>
+<li><b>Thread safety</b>: Trivially copyable; safe to copy across threads.</li>
 </ul>
 <h1 class="doxsection"><a class="anchor" id="compatibility"></a>
 Compatibility</h1>
 <ul>
-<li>🌐 <b>Cross-Platform</b>: Works on all platforms supported by the compiler</li>
-<li>🔧 <b>Embedded Systems</b>: Suitable for resource-constrained environments</li>
-<li>📱 <b>Mobile Platforms</b>: Lightweight and efficient for mobile applications</li>
+<li><b>Semantic versioning</b>: Aligns with semver.org (major.minor.patch); <code>maintenance</code> and <code>revision</code> map to patch/build.</li>
+<li><b>ABI</b>: Plain layout; safe to pass across translation units and use in stable ABIs.</li>
 </ul>
-<dl class="section note"><dt>Note</dt><dd>This structure is designed for compile-time version management. </dd>
-<dd>
-For runtime version parsing from strings, consider implementing additional utility functions.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd>Semantic Versioning (<a href="https://semver.org/">https://semver.org/</a>) </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>For runtime parsing from strings, use separate utility functions. </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://semver.org/">https://semver.org/</a> </dd></dl>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="af042456a2ca193c5ac419f29da0cd9ef" name="af042456a2ca193c5ac419f29da0cd9ef"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af042456a2ca193c5ac419f29da0cd9ef">&#9670;&#160;</a></span>maintenance</h2>
@@ -208,8 +187,7 @@ For runtime version parsing from strings, consider implementing additional utili
       </table>
 </div><div class="memdoc">
 
-<p>Maintenance version number. </p>
-<p>Indicates backward-compatible bug fixes. </p>
+<p>Maintenance version; backward-compatible fixes. </p>
 
 </div>
 </div>
@@ -225,8 +203,7 @@ For runtime version parsing from strings, consider implementing additional utili
       </table>
 </div><div class="memdoc">
 
-<p>Major version number. </p>
-<p>Indicates incompatible API changes. </p>
+<p>Major version; incompatible API changes. </p>
 
 </div>
 </div>
@@ -242,8 +219,7 @@ For runtime version parsing from strings, consider implementing additional utili
       </table>
 </div><div class="memdoc">
 
-<p>Minor version number. </p>
-<p>Indicates backward-compatible functionality additions. </p>
+<p>Minor version; backward-compatible additions. </p>
 
 </div>
 </div>
@@ -259,8 +235,7 @@ For runtime version parsing from strings, consider implementing additional utili
       </table>
 </div><div class="memdoc">
 
-<p>Revision number. </p>
-<p>Indicates build number or patch level. </p>
+<p>Revision (e.g. build or patch level). </p>
 
 </div>
 </div>

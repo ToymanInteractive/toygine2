@@ -429,7 +429,7 @@ var sectionId = 'dynsection-0';
 <!-- Node22 -->
 <g id="Node000022" class="node">
 <title>Node22</title>
-<g id="a_Node000022"><a xlink:href="../../d3/d60/platform_8hpp.html" target="_top" xlink:title="Platform and CPU architecture enumerations with compile&#45;time and runtime detection utilities.">
+<g id="a_Node000022"><a xlink:href="../../d3/d60/platform_8hpp.html" target="_top" xlink:title="Platform and CPU architecture enumerations with compile&#45;time and runtime detection.">
 <polygon fill="white" stroke="#666666" points="1354.5,-30 1251.5,-30 1251.5,0 1354.5,0 1354.5,-30"/>
 <text text-anchor="start" x="1259.5" y="-18" font-family="Helvetica,sans-Serif" font-size="10.00">../../../include/core</text>
 <text text-anchor="middle" x="1303" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">/platform.hpp</text>

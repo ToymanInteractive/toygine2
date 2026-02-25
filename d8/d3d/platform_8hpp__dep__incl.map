@@ -1,5 +1,5 @@
 <map id="include/core/platform.hpp" name="include/core/platform.hpp">
-<area shape="rect" id="Node000001" title="Platform and CPU architecture enumerations with compile&#45;time and runtime detection utilities." alt="" coords="960,5,1149,31"/>
+<area shape="rect" id="Node000001" title="Platform and CPU architecture enumerations with compile&#45;time and runtime detection." alt="" coords="960,5,1149,31"/>
 <area shape="rect" id="Node000002" href="$da/d47/core_8hpp.html" title="Umbrella header for the engine core module." alt="" coords="623,167,753,192"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="946,25,800,31,641,41,507,58,462,68,438,81,426,101,430,118,447,132,474,144,547,162,623,171,623,176,546,167,472,149,444,137,426,120,421,100,434,77,460,63,506,52,640,36,800,25,946,19"/>
 <area shape="rect" id="Node000013" href="$d5/d82/3ds_2platform__config_8hpp.html" title="additional nintendo 3ds platform header" alt="" coords="448,79,643,119"/>
@@ -26,7 +26,7 @@
 <area shape="poly" id="edge6_Node000002_Node000006" title=" " alt="" coords="639,199,475,250,473,245,638,194"/>
 <area shape="rect" id="Node000007" href="$d4/d78/math_8hpp.html" title="Umbrella header for the engine mathematics module." alt="" coords="531,247,666,273"/>
 <area shape="poly" id="edge7_Node000002_Node000007" title=" " alt="" coords="666,203,614,249,610,245,663,199"/>
-<area shape="rect" id="Node000008" href="$de/dd6/ui_8hpp.html" title="Umbrella header for platform UI types (orientation, layout, etc.)." alt="" coords="691,247,864,273"/>
+<area shape="rect" id="Node000008" href="$de/dd6/ui_8hpp.html" title="Umbrella header for platform UI types." alt="" coords="691,247,864,273"/>
 <area shape="poly" id="edge9_Node000002_Node000008" title=" " alt="" coords="713,199,766,245,762,249,710,203"/>
 <area shape="rect" id="Node000009" href="$d6/d4b/render_8hpp.html" title="Umbrella header for the render module (clear flags, framebuffer operations, etc.)." alt="" coords="889,247,1031,273"/>
 <area shape="poly" id="edge11_Node000002_Node000009" title=" " alt="" coords="741,193,921,245,920,250,740,198"/>

@@ -125,9 +125,9 @@ Classes</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a59a8db7ab2490402a962f92c1b7e055e" id="r_a59a8db7ab2490402a962f92c1b7e055e"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#a59a8db7ab2490402a962f92c1b7e055e">operator==</a> (const <a class="el" href="../../d7/d8d/structtoy_1_1app_1_1_version.html">Version</a> &amp;lhs, const <a class="el" href="../../d7/d8d/structtoy_1_1app_1_1_version.html">Version</a> &amp;rhs) noexcept</td></tr>
-<tr class="memdesc:a59a8db7ab2490402a962f92c1b7e055e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equality operator for two versions.  <br /></td></tr>
+<tr class="memdesc:a59a8db7ab2490402a962f92c1b7e055e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equality of two <a class="el" href="../../d7/d8d/structtoy_1_1app_1_1_version.html" title="toy::app::Version">toy::app::Version</a> values.  <br /></td></tr>
 <tr class="memitem:accd3d4d4c107af42972b37be954d25b7" id="r_accd3d4d4c107af42972b37be954d25b7"><td class="memItemLeft">constexpr strong_ordering&#160;</td><td class="memItemRight"><a class="el" href="#accd3d4d4c107af42972b37be954d25b7">operator&lt;=&gt;</a> (const <a class="el" href="../../d7/d8d/structtoy_1_1app_1_1_version.html">Version</a> &amp;lhs, const <a class="el" href="../../d7/d8d/structtoy_1_1app_1_1_version.html">Version</a> &amp;rhs) noexcept</td></tr>
-<tr class="memdesc:accd3d4d4c107af42972b37be954d25b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Three-way comparison operator for two versions.  <br /></td></tr>
+<tr class="memdesc:accd3d4d4c107af42972b37be954d25b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Three-way comparison of two <a class="el" href="../../d7/d8d/structtoy_1_1app_1_1_version.html" title="toy::app::Version">toy::app::Version</a> values (lexicographic order).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Contains all public application-level types, utilities, and management functions of engine. </p>
@@ -159,16 +159,16 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Three-way comparison operator for two versions. </p>
-<p>Compares two versions using lexicographical ordering following semantic versioning principles. The comparison prioritizes major version over minor, minor over maintenance, and maintenance over revision.</p>
+<p>Three-way comparison of two <a class="el" href="../../d7/d8d/structtoy_1_1app_1_1_version.html" title="toy::app::Version">toy::app::Version</a> values (lexicographic order). </p>
+<p>Compares major, then minor, then maintenance, then revision.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">lhs</td><td>The left-hand side version. </td></tr>
-    <tr><td class="paramname">rhs</td><td>The right-hand side version.</td></tr>
+    <tr><td class="paramname">lhs</td><td>Left-hand side version. </td></tr>
+    <tr><td class="paramname">rhs</td><td>Right-hand side version.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><code>strong_ordering::less</code> if lhs &lt; rhs, <code>strong_ordering::greater</code> if lhs &gt; rhs, <code>strong_ordering::equal</code> if lhs == rhs. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>strong_ordering::less</code>, <code>strong_ordering::equal</code>, or <code>strong_ordering::greater</code>. </dd></dl>
 
 </div>
 </div>
@@ -199,17 +199,15 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Equality operator for two versions. </p>
-<p>Compares two versions for exact equality of all components.</p>
+<p>Equality of two <a class="el" href="../../d7/d8d/structtoy_1_1app_1_1_version.html" title="toy::app::Version">toy::app::Version</a> values. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">lhs</td><td>The left-hand side version. </td></tr>
-    <tr><td class="paramname">rhs</td><td>The right-hand side version.</td></tr>
+    <tr><td class="paramname">lhs</td><td>Left-hand side version. </td></tr>
+    <tr><td class="paramname">rhs</td><td>Right-hand side version.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>true if all version components are identical, false otherwise.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This performs exact equality comparison. For semantic versioning compatibility, consider using the three-way comparison operator. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if all components are equal, <code>false</code> otherwise. </dd></dl>
 
 </div>
 </div>
