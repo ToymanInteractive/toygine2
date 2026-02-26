@@ -19,7 +19,10 @@
 //
 /*!
   \file   math.hpp
-  \brief  Umbrella header for the engine mathematics module
+  \brief  Umbrella header for the math module.
+
+  Provides fixed-point, vectors, utils, and related types. Include this header only; do not include internal headers
+  (e.g. \c math/fixed.hpp, \c math/vector2d.hpp) directly.
 */
 
 #ifndef INCLUDE_MATH_HPP_
@@ -31,8 +34,7 @@
 
 /*!
   \namespace toy::math
-
-  \brief Contains all public mathematical types, constants, and utility functions of the engine.
+  \brief Mathematical types, constants, and utilities (fixed-point, vectors, etc.).
 */
 namespace toy::math {
 

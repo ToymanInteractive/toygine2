@@ -19,15 +19,19 @@
 //
 /*!
   \file   toygine2.hpp
-  \brief  Main umbrella header for the entire ToyGine2 engine.
+  \brief  Main umbrella header for the engine.
+
+  Include this header to pull in all public modules (application, audio, core, geometry, math, network, platform,
+  render). Prefer including a specific module header (e.g. \c math.hpp) when only one module is needed.
 */
 
 #ifndef INCLUDE_TOYGINE2_HPP_
 #define INCLUDE_TOYGINE2_HPP_
 
-#include "app.hpp"
+#include "application.hpp"
 #include "audio.hpp"
 #include "core.hpp"
+#include "geometry.hpp"
 #include "math.hpp"
 #include "network.hpp"
 #include "platform/ui.hpp"

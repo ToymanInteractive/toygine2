@@ -20,9 +20,9 @@
 
 #include <doctest/doctest.h>
 
-#include "app.hpp"
+#include "application.hpp"
 
-namespace toy::app {
+namespace toy::application {
 
 // Version constructors and initialization variants.
 TEST_CASE("app/version/constructors") {
@@ -351,4 +351,4 @@ TEST_CASE("app/version/runtime_tests") {
   REQUIRE(v1 != v2);
 }
 
-} // namespace toy::app
+} // namespace toy::application

@@ -18,25 +18,27 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   audio.hpp
-  \brief  Umbrella header for the audio module.
+  \file   application.hpp
+  \brief  Umbrella header for the app module.
 
-  Provides volume types and audio utilities. Include this header only; do not include internal headers (e.g.
-  \c audio/volume_type.hpp) directly.
+  Provides version and application-level types. Include this header only; do not include internal headers (e.g.
+  \c app/version.hpp) directly.
 */
 
-#ifndef INCLUDE_AUDIO_HPP_
-#define INCLUDE_AUDIO_HPP_
+#ifndef INCLUDE_APPLICATION_HPP_
+#define INCLUDE_APPLICATION_HPP_
 
 #include "core.hpp"
 
 /*!
-  \namespace toy::audio
-  \brief Audio types and utilities: volume categories, mixing, and related APIs.
+  \namespace toy::application
+  \brief Application-level types and utilities (version, etc.).
 */
 
-#include "audio/volume_type.hpp"
+#include "application/version.hpp"
 
 //----------------------------------------------------------------------------------------------------------------------
 
-#endif // INCLUDE_AUDIO_HPP_
+#include "application/version.inl"
+
+#endif // INCLUDE_APPLICATION_HPP_

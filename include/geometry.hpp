@@ -18,36 +18,30 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   version.inl
-  \brief  Implementation of application version management utilities.
+  \file   geometry.hpp
+  \brief  Umbrella header for the geometry module.
+
+  Provides \ref toy::geometry::Section and related types. Depends on \ref toy::math (for
+  \ref toy::geometry::SectionScalar). Include this header only; do not include internal headers
+  (e.g. \c geometry/section.hpp) directly.
 */
 
-#ifndef INCLUDE_APP_VERSION_INL_
-#define INCLUDE_APP_VERSION_INL_
+#ifndef INCLUDE_GEOMETRY_HPP_
+#define INCLUDE_GEOMETRY_HPP_
 
-namespace toy::app {
+#include "math.hpp"
 
-constexpr bool operator==(const Version & lhs, const Version & rhs) noexcept {
-  return lhs.major == rhs.major && lhs.minor == rhs.minor && lhs.maintenance == rhs.maintenance
-         && lhs.revision == rhs.revision;
-}
+/*!
+  \namespace toy::geometry
+  \brief Geometry types and utilities: sections (intervals) and related APIs.
+*/
 
-constexpr strong_ordering operator<=>(const Version & lhs, const Version & rhs) noexcept {
-  if (auto cmp = lhs.major <=> rhs.major; cmp != strong_ordering::equal) {
-    return cmp;
-  }
+//----------------------------------------------------------------------------------------------------------------------
 
-  if (auto cmp = lhs.minor <=> rhs.minor; cmp != strong_ordering::equal) {
-    return cmp;
-  }
+#include "geometry/section.hpp"
 
-  if (auto cmp = lhs.maintenance <=> rhs.maintenance; cmp != strong_ordering::equal) {
-    return cmp;
-  }
+//----------------------------------------------------------------------------------------------------------------------
 
-  return lhs.revision <=> rhs.revision;
-}
+#include "geometry/section.inl"
 
-} // namespace toy::app
-
-#endif // INCLUDE_APP_VERSION_INL_
+#endif // INCLUDE_GEOMETRY_HPP_
