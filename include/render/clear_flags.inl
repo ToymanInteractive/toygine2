@@ -18,28 +18,27 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   render.hpp
-  \brief  Umbrella header for the render module.
-
-  Includes clear flags, pixel format, and related rendering types. Users of the render module should include this header
-  only; do not include internal headers (e.g. \c render/clear_flags.hpp, \c render/pixel_format.hpp) directly.
+  \file   clear_flags.inl
+  \brief  Inline implementations for \ref toy::render::ClearFlags.
 */
 
-#ifndef INCLUDE_RENDER_HPP_
-#define INCLUDE_RENDER_HPP_
+#ifndef INCLUDE_RENDER_CLEAR_FLAGS_INL_
+#define INCLUDE_RENDER_CLEAR_FLAGS_INL_
 
-#include "core.hpp"
+namespace toy::render {
 
-/*!
-  \namespace toy::render
-  \brief Rendering types and utilities: clear flags, pixel formats, and related APIs.
-*/
+constexpr ClearFlags operator&(ClearFlags lhs, ClearFlags rhs) noexcept {
+  return static_cast<ClearFlags>(static_cast<uint8_t>(lhs) & static_cast<uint8_t>(rhs));
+}
 
-#include "render/clear_flags.hpp"
-#include "render/pixel_format.hpp"
+constexpr ClearFlags operator|(ClearFlags lhs, ClearFlags rhs) noexcept {
+  return static_cast<ClearFlags>(static_cast<uint8_t>(lhs) | static_cast<uint8_t>(rhs));
+}
 
-//----------------------------------------------------------------------------------------------------------------------
+constexpr ClearFlags operator^(ClearFlags lhs, ClearFlags rhs) noexcept {
+  return static_cast<ClearFlags>(static_cast<uint8_t>(lhs) ^ static_cast<uint8_t>(rhs));
+}
 
-#include "render/clear_flags.inl"
+} // namespace toy::render
 
-#endif // INCLUDE_RENDER_HPP_
+#endif // INCLUDE_RENDER_CLEAR_FLAGS_INL_
