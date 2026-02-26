@@ -18,27 +18,42 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   network.hpp
-  \brief  Umbrella header for the network module.
+  \file   socket_flags.hpp
+  \brief  Socket option and mode flags for the network module.
 
-  Includes socket error types, socket flags, and related networking types. Users of the network module should include
-  this header only; do not include internal headers (e.g. \c network/socket_error.hpp, \c network/socket_flags.hpp)
-  directly.
+  Defines \ref toy::network::SocketFlags: bitmask flags for non-blocking mode, address
+  reuse, broadcast, listen, and bind. Used when creating or configuring sockets.
 */
 
-#ifndef INCLUDE_NETWORK_HPP_
-#define INCLUDE_NETWORK_HPP_
+#ifndef INCLUDE_NETWORK_SOCKET_FLAGS_HPP_
+#define INCLUDE_NETWORK_SOCKET_FLAGS_HPP_
 
-#include "core.hpp"
+namespace toy::network {
 
 /*!
-  \namespace toy::network
-  \brief Network types and utilities: socket errors, socket flags, and related APIs.
+  \enum SocketFlags
+  \brief Bitmask flags for socket options and operating mode.
+
+  Values can be combined (e.g. \c NonBlocking | \c ReuseAddress). Interpretation is
+  platform-dependent; maps to socket options and flags such as \c O_NONBLOCK, \c SO_REUSEADDR.
 */
+enum class SocketFlags : uint8_t {
+  /// No flags set.
+  None = 0x00,
 
-#include "network/socket_error.hpp"
-#include "network/socket_flags.hpp"
+  /// Socket operates in non-blocking mode.
+  NonBlocking = 0x01,
+  /// Allow local address reuse (e.g. \c SO_REUSEADDR).
+  ReuseAddress = 0x02,
+  /// Enable broadcast send/receive.
+  Broadcast = 0x04,
+  /// Socket is in listen state (for accepting connections).
+  Listen = 0x08,
 
-//----------------------------------------------------------------------------------------------------------------------
+  /// Socket is bound to a local address.
+  Bind = 0x10
+};
 
-#endif // INCLUDE_NETWORK_HPP_
+} // namespace toy::network
+
+#endif // INCLUDE_NETWORK_SOCKET_FLAGS_HPP_
