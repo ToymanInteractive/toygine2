@@ -184,14 +184,10 @@ private:
     \return \c true if mGBA debug protocol is present, \c false otherwise.
   */
   static inline bool _mGbaDetect() noexcept {
-#if defined(__GBA__)
     // mGBA debug register
     (*(volatile uint16_t *)0x04FFF780) = 0xC0DE;
 
     return (*(volatile uint16_t *)0x04FFF780) == 0x1DEA;
-#else
-    return false;
-#endif
   }
 
   /*!
@@ -223,7 +219,6 @@ private:
       *dst = 0;
     }
 
-#if defined(__GBA__)
     if (std::strlen(buffer) > 30) {
       // Truncate long strings for GBA on-screen log
       buffer[27] = '.';
@@ -231,7 +226,6 @@ private:
       buffer[29] = '.';
       buffer[30] = '\0';
     }
-#endif
 
     std::cout << buffer << "\n";
 

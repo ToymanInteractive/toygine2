@@ -133,11 +133,11 @@ set(INL_MATH_LIST                  include/math/fixed.inl                       
 
 set(SRC_NETWORK_LIST )
 set(HDR_NETWORK_LIST include/network.hpp include/network/socket_error.hpp include/network/socket_flags.hpp)
-set(INL_NETWORK_LIST )
+set(INL_NETWORK_LIST                                                      include/network/socket_flags.inl)
 
 set(SRC_PLATFORM_UI_LIST )
 set(HDR_PLATFORM_UI_LIST include/platform/ui.hpp include/platform/ui/message_box_return.hpp include/platform/ui/orientation.hpp)
-set(INL_PLATFORM_UI_LIST )
+set(INL_PLATFORM_UI_LIST                                                                    include/platform/ui/orientation.inl)
 
 set(SRC_RENDER_LIST )
 set(HDR_RENDER_LIST include/render.hpp include/render/clear_flags.hpp include/render/pixel_format.hpp)

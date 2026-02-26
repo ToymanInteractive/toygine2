@@ -18,29 +18,27 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   network.hpp
-  \brief  Umbrella header for the network module.
-
-  Includes socket error types, socket flags, and related networking types. Users of the network module should include
-  this header only; do not include internal headers (e.g. \c network/socket_error.hpp, \c network/socket_flags.hpp)
-  directly.
+  \file   orientation.inl
+  \brief  Inline implementations for \ref toy::platform::ui::Orientation.
 */
 
-#ifndef INCLUDE_NETWORK_HPP_
-#define INCLUDE_NETWORK_HPP_
+#ifndef INCLUDE_PLATFORM_UI_ORIENTATION_INL_
+#define INCLUDE_PLATFORM_UI_ORIENTATION_INL_
 
-#include "core.hpp"
+namespace toy::platform::ui {
 
-/*!
-  \namespace toy::network
-  \brief Network types and utilities: socket errors, socket flags, and related APIs.
-*/
+constexpr Orientation operator&(Orientation lhs, Orientation rhs) noexcept {
+  return static_cast<Orientation>(static_cast<uint8_t>(lhs) & static_cast<uint8_t>(rhs));
+}
 
-#include "network/socket_error.hpp"
-#include "network/socket_flags.hpp"
+constexpr Orientation operator|(Orientation lhs, Orientation rhs) noexcept {
+  return static_cast<Orientation>(static_cast<uint8_t>(lhs) | static_cast<uint8_t>(rhs));
+}
 
-//----------------------------------------------------------------------------------------------------------------------
+constexpr Orientation operator^(Orientation lhs, Orientation rhs) noexcept {
+  return static_cast<Orientation>(static_cast<uint8_t>(lhs) ^ static_cast<uint8_t>(rhs));
+}
 
-#include "network/socket_flags.inl"
+} // namespace toy::platform::ui
 
-#endif // INCLUDE_NETWORK_HPP_
+#endif // INCLUDE_PLATFORM_UI_ORIENTATION_INL_
