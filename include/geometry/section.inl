@@ -49,7 +49,7 @@ constexpr T Section<T>::midpoint() const noexcept {
 template <typename T>
   requires SectionScalar<T>
 constexpr T Section<T>::length() const noexcept {
-  assert_message(isValid(), "midpoint() requires a valid section");
+  assert_message(isValid(), "length() requires a valid section");
 
   return maximum - minimum;
 }
@@ -106,7 +106,7 @@ constexpr bool operator==(const Section<T> & a, const Section<T> & b) noexcept {
   return a.minimum == b.minimum && a.maximum == b.maximum;
 }
 
-// float, double, long double: exact comparison (no isEqual overload in math yet).
+// float, double, long double: approximate comparison via math::isEqual.
 template <typename T>
   requires SectionScalar<T> && std::floating_point<T>
 constexpr bool operator==(const Section<T> & a, const Section<T> & b) noexcept {
