@@ -351,4 +351,4 @@ TEST_CASE("app/version/runtime_tests") {
   REQUIRE(v1 != v2);
 }
 
-} // namespace toy::app
+} // namespace toy::application

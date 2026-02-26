@@ -152,14 +152,18 @@ public:
 
   void report_query([[maybe_unused]] const doctest::QueryData & data) noexcept override {}
 
-  /// Сalled whenever a subcase is entered (don't cache pointers to the input)
+  /// Called whenever a subcase is entered (don't cache pointers to the input)
   void subcase_start(const doctest::SubcaseSignature & signature) noexcept override {
     _subcasesStack.push_back(signature);
     ++_currentSubcaseLevel;
     _hasLoggedCurrentTestStart = false;
   }
 
-  void subcase_end() noexcept override {}
+  // Called whenever a subcase is exited (don't cache pointers to the input)
+  void subcase_end() noexcept override {
+    --_currentSubcaseLevel;
+    _hasLoggedCurrentTestStart = false;
+  }
 
 private:
   GBAReporter(const GBAReporter &) = delete;
