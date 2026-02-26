@@ -2,6 +2,63 @@ var namespacetoy =
 [
     [ "app", "dc/df3/namespacetoy_1_1app.html", "dc/df3/namespacetoy_1_1app" ],
     [ "math", "d2/d83/namespacetoy_1_1math.html", "d2/d83/namespacetoy_1_1math" ],
+    [ "network", "d6/d2c/namespacetoy_1_1network.html", [
+      [ "SocketError", "d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725e", [
+        [ "None", "d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725ea6adf97f83acf6453d4a6a4b1070f3754", null ],
+        [ "InvalidOperation", "d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725ea1cd5ecce6fe138df5c3f7e8854a1a66d", null ],
+        [ "IOError", "d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725ea5206bd7472156351d2d9a99633ac9580", null ],
+        [ "InvalidAddress", "d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725ea66196dd9678aef4aaad947e7181049c0", null ],
+        [ "AddressInUse", "d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725eaf05e778bc960135cd2482522a98db05e", null ],
+        [ "SocketInvalid", "d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725ea00b7ae176d07d00500fef827f193da59", null ],
+        [ "WouldBlock", "d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725eae799f8e2bec1c2593f034ec5060229e6", null ],
+        [ "Timeout", "d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725eac85a251cc457840f1e032f1b733e9398", null ],
+        [ "MemoryError", "d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725eacedcbd07d779d35295f55a5b5de1e855", null ],
+        [ "SystemError", "d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725eab932b91f686c2aa588adfd9a407155ca", null ]
+      ] ],
+      [ "SocketFlags", "d6/d2c/namespacetoy_1_1network.html#af5b032f86c2c00ee1f7c873271b57abf", [
+        [ "None", "d6/d2c/namespacetoy_1_1network.html#af5b032f86c2c00ee1f7c873271b57abfa6adf97f83acf6453d4a6a4b1070f3754", null ],
+        [ "NonBlocking", "d6/d2c/namespacetoy_1_1network.html#af5b032f86c2c00ee1f7c873271b57abfa20a6cf714cbf179298b4d850849847b8", null ],
+        [ "ReuseAddress", "d6/d2c/namespacetoy_1_1network.html#af5b032f86c2c00ee1f7c873271b57abfa6435aa2b98dc40822eb614686e9540f9", null ],
+        [ "Broadcast", "d6/d2c/namespacetoy_1_1network.html#af5b032f86c2c00ee1f7c873271b57abfabe55b6387170df0ca68f41225268e842", null ],
+        [ "Listen", "d6/d2c/namespacetoy_1_1network.html#af5b032f86c2c00ee1f7c873271b57abface6802b46091c31e2ec2363883fe8369", null ],
+        [ "Bind", "d6/d2c/namespacetoy_1_1network.html#af5b032f86c2c00ee1f7c873271b57abfa0b172674284d79079624051d2ae11581", null ]
+      ] ],
+      [ "operator&", "d6/d2c/namespacetoy_1_1network.html#a755ac8096485c06bdd996e03ccd05151", null ],
+      [ "operator^", "d6/d2c/namespacetoy_1_1network.html#a31d7b508bc7c001ce23457ad2e90c806", null ],
+      [ "operator|", "d6/d2c/namespacetoy_1_1network.html#a8b41df8b3140b92d1ffd344cbb1f111a", null ]
+    ] ],
+    [ "platform", "d4/ddd/namespacetoy_1_1platform.html", "d4/ddd/namespacetoy_1_1platform" ],
+    [ "render", "df/d8d/namespacetoy_1_1render.html", [
+      [ "ClearFlags", "df/d8d/namespacetoy_1_1render.html#ae44fe0c1053121f38b8544a8684ee4e1", [
+        [ "None", "df/d8d/namespacetoy_1_1render.html#ae44fe0c1053121f38b8544a8684ee4e1a6adf97f83acf6453d4a6a4b1070f3754", null ],
+        [ "Target", "df/d8d/namespacetoy_1_1render.html#ae44fe0c1053121f38b8544a8684ee4e1ac41a31890959544c6523af684561abe5", null ],
+        [ "Depth", "df/d8d/namespacetoy_1_1render.html#ae44fe0c1053121f38b8544a8684ee4e1a675056ad1441b6375b2c5abd48c27ef1", null ],
+        [ "Stencil", "df/d8d/namespacetoy_1_1render.html#ae44fe0c1053121f38b8544a8684ee4e1ad821e7ccd4d4c25a491ba1a9ea248895", null ],
+        [ "All", "df/d8d/namespacetoy_1_1render.html#ae44fe0c1053121f38b8544a8684ee4e1ab1c94ca2fbc3e78fc30069c8d0f01680", null ]
+      ] ],
+      [ "PixelFormat", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7", [
+        [ "Unknown", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7a88183b946cc5f0e8c96b2e66e1c74a7e", null ],
+        [ "A8R8G8B8", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7aca88c661141ffa0559f581536bd1da14", null ],
+        [ "X8R8G8B8", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7a08621a79896977cc5f97853284adc2a9", null ],
+        [ "A4R4G4B4", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7aec4ed8a15cef294974fb3f4007649fea", null ],
+        [ "R5G6B5", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7a824e86ad7ef467815efe26bec67e07fa", null ],
+        [ "A8", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7afd301d675be7b677ba979a430a80c010", null ],
+        [ "S3TC1", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7a5b61c8b1e8dbd2962e7f664dc82ecd20", null ],
+        [ "S3TC5", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7afc196e710778fdfbda5e79a913b48db9", null ],
+        [ "PVRTC2", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7aa54f5bdd6d55a32997d1352a5c8234a4", null ],
+        [ "PVRTC4", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7a759978c6ff5b5e0ce1720f8dd863e3bf", null ],
+        [ "D16Lockable", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7a6938551dfe2951837f896da35ad7983d", null ],
+        [ "D32", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7aa6b2eecc4252564f599b9a979e4e0602", null ],
+        [ "D15S1", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7aef69088e32e8a16fabd675c63a4392df", null ],
+        [ "D24S8", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7a2468f278a5fb00d246360a43b4c39f31", null ],
+        [ "D24X8", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7ae64207a55998a9e09cbe2f190926d1ee", null ],
+        [ "D24X4S4", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7ad8e0efa43d87bdbf29e62e036107a0d7", null ],
+        [ "D16", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7a6fd9ec81643ee5a57f85a71951bfe13d", null ]
+      ] ],
+      [ "operator&", "df/d8d/namespacetoy_1_1render.html#a8005061a10bccaf16f7b3c5b79ce5cb1", null ],
+      [ "operator^", "df/d8d/namespacetoy_1_1render.html#a5845b0dbc8efa2c63123f900399053ae", null ],
+      [ "operator|", "df/d8d/namespacetoy_1_1render.html#a5bf45a61b0453bcf4b936e835cf76371", null ]
+    ] ],
     [ "assertion", "d2/da2/namespacetoy_1_1assertion.html", [
       [ "AssertionCallback", "d2/da2/namespacetoy_1_1assertion.html#a27a675a54a720bf1a098fd13be80553e", null ],
       [ "StackWalkCallback", "d2/da2/namespacetoy_1_1assertion.html#af491e4e307d14db3efeafb9a77ae76ef", null ],
@@ -35,52 +92,6 @@ var namespacetoy =
         [ "Locked", "d8/d25/namespacetoy_1_1game.html#ac8a6f36358f3ac99f55a1db9c3827edaad0f2e5376298c880665077b565ffd7dd", null ],
         [ "Unlocked", "d8/d25/namespacetoy_1_1game.html#ac8a6f36358f3ac99f55a1db9c3827edaac76fd517e45cc95709f4ac106efa4a94", null ]
       ] ]
-    ] ],
-    [ "network", "d6/d2c/namespacetoy_1_1network.html", [
-      [ "SocketError", "d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725e", [
-        [ "None", "d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725ea6adf97f83acf6453d4a6a4b1070f3754", null ],
-        [ "InvalidOperation", "d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725ea1cd5ecce6fe138df5c3f7e8854a1a66d", null ],
-        [ "IOError", "d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725ea5206bd7472156351d2d9a99633ac9580", null ],
-        [ "InvalidAddress", "d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725ea66196dd9678aef4aaad947e7181049c0", null ],
-        [ "AddressInUse", "d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725eaf05e778bc960135cd2482522a98db05e", null ],
-        [ "SocketInvalid", "d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725ea00b7ae176d07d00500fef827f193da59", null ],
-        [ "WouldBlock", "d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725eae799f8e2bec1c2593f034ec5060229e6", null ],
-        [ "Timeout", "d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725eac85a251cc457840f1e032f1b733e9398", null ],
-        [ "MemoryError", "d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725eacedcbd07d779d35295f55a5b5de1e855", null ],
-        [ "SystemError", "d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725eab932b91f686c2aa588adfd9a407155ca", null ]
-      ] ]
-    ] ],
-    [ "platform", "d4/ddd/namespacetoy_1_1platform.html", "d4/ddd/namespacetoy_1_1platform" ],
-    [ "render", "df/d8d/namespacetoy_1_1render.html", [
-      [ "ClearFlags", "df/d8d/namespacetoy_1_1render.html#ae44fe0c1053121f38b8544a8684ee4e1", [
-        [ "None", "df/d8d/namespacetoy_1_1render.html#ae44fe0c1053121f38b8544a8684ee4e1a6adf97f83acf6453d4a6a4b1070f3754", null ],
-        [ "Target", "df/d8d/namespacetoy_1_1render.html#ae44fe0c1053121f38b8544a8684ee4e1ac41a31890959544c6523af684561abe5", null ],
-        [ "Depth", "df/d8d/namespacetoy_1_1render.html#ae44fe0c1053121f38b8544a8684ee4e1a675056ad1441b6375b2c5abd48c27ef1", null ],
-        [ "Stencil", "df/d8d/namespacetoy_1_1render.html#ae44fe0c1053121f38b8544a8684ee4e1ad821e7ccd4d4c25a491ba1a9ea248895", null ],
-        [ "All", "df/d8d/namespacetoy_1_1render.html#ae44fe0c1053121f38b8544a8684ee4e1ab1c94ca2fbc3e78fc30069c8d0f01680", null ]
-      ] ],
-      [ "PixelFormat", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7", [
-        [ "Unknown", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7a88183b946cc5f0e8c96b2e66e1c74a7e", null ],
-        [ "A8R8G8B8", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7aca88c661141ffa0559f581536bd1da14", null ],
-        [ "X8R8G8B8", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7a08621a79896977cc5f97853284adc2a9", null ],
-        [ "A4R4G4B4", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7aec4ed8a15cef294974fb3f4007649fea", null ],
-        [ "R5G6B5", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7a824e86ad7ef467815efe26bec67e07fa", null ],
-        [ "A8", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7afd301d675be7b677ba979a430a80c010", null ],
-        [ "S3TC1", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7a5b61c8b1e8dbd2962e7f664dc82ecd20", null ],
-        [ "S3TC5", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7afc196e710778fdfbda5e79a913b48db9", null ],
-        [ "PVRTC2", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7aa54f5bdd6d55a32997d1352a5c8234a4", null ],
-        [ "PVRTC4", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7a759978c6ff5b5e0ce1720f8dd863e3bf", null ],
-        [ "D16Lockable", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7a6938551dfe2951837f896da35ad7983d", null ],
-        [ "D32", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7aa6b2eecc4252564f599b9a979e4e0602", null ],
-        [ "D15S1", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7aef69088e32e8a16fabd675c63a4392df", null ],
-        [ "D24S8", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7a2468f278a5fb00d246360a43b4c39f31", null ],
-        [ "D24X8", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7ae64207a55998a9e09cbe2f190926d1ee", null ],
-        [ "D24X4S4", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7ad8e0efa43d87bdbf29e62e036107a0d7", null ],
-        [ "D16", "df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7a6fd9ec81643ee5a57f85a71951bfe13d", null ]
-      ] ],
-      [ "operator&", "df/d8d/namespacetoy_1_1render.html#a8005061a10bccaf16f7b3c5b79ce5cb1", null ],
-      [ "operator^", "df/d8d/namespacetoy_1_1render.html#a5845b0dbc8efa2c63123f900399053ae", null ],
-      [ "operator|", "df/d8d/namespacetoy_1_1render.html#a5bf45a61b0453bcf4b936e835cf76371", null ]
     ] ],
     [ "_divmod10", "d9/d10/structtoy_1_1__divmod10.html", "d9/d10/structtoy_1_1__divmod10" ],
     [ "CStringView", "d5/d03/classtoy_1_1_c_string_view.html", "d5/d03/classtoy_1_1_c_string_view" ],

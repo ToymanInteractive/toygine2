@@ -1,11 +1,13 @@
 <map id="include/render.hpp" name="include/render.hpp">
-<area shape="rect" id="Node000001" title="Umbrella header for the render module." alt="" coords="1959,5,2102,31"/>
+<area shape="rect" id="Node000001" title="Umbrella header for the render module." alt="" coords="2058,5,2201,31"/>
 <area shape="rect" id="Node000002" href="$da/d47/core_8hpp.html" title="Umbrella header for the engine core module." alt="" coords="1845,79,1923,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="2008,33,1921,75,1919,70,2006,28"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="2091,33,1937,77,1936,72,2089,28"/>
 <area shape="rect" id="Node000043" href="$d0/d74/clear__flags_8hpp.html" title="Bit flags for framebuffer clear operations (color, depth, stencil)." alt="" coords="1947,79,2114,104"/>
-<area shape="poly" id="edge47_Node000001_Node000043" title=" " alt="" coords="2033,31,2033,65,2028,65,2028,31"/>
+<area shape="poly" id="edge47_Node000001_Node000043" title=" " alt="" coords="2115,33,2059,73,2056,68,2112,29"/>
 <area shape="rect" id="Node000044" href="$d2/d8d/pixel__format_8hpp.html" title="Pixel format enumeration for render targets and textures." alt="" coords="2139,79,2317,104"/>
-<area shape="poly" id="edge48_Node000001_Node000044" title=" " alt="" coords="2063,28,2184,71,2182,76,2061,33"/>
+<area shape="poly" id="edge48_Node000001_Node000044" title=" " alt="" coords="2147,29,2202,68,2199,73,2144,33"/>
+<area shape="rect" id="Node000045" href="$d4/d2f/clear__flags_8inl.html" title="Inline implementations for toy::render::ClearFlags." alt="" coords="2342,79,2501,104"/>
+<area shape="poly" id="edge49_Node000001_Node000045" title=" " alt="" coords="2177,28,2362,73,2360,78,2176,33"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="5,167,91,192"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1845,96,1493,100,947,110,414,128,218,140,103,155,80,163,78,158,102,149,217,135,414,123,947,105,1493,95,1845,90"/>
 <area shape="rect" id="Node000004" title=" " alt="" coords="115,167,171,192"/>

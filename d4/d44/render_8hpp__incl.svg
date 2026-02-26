@@ -59,8 +59,8 @@ var sectionId = 'dynsection-0';
 <g id="Node000001" class="node">
 <title>Node1</title>
 <g id="a_Node000001"><a xlink:title="Umbrella header for the render module.">
-<polygon fill="#999999" stroke="#666666" points="1572.5,-217 1465.5,-217 1465.5,-198 1572.5,-198 1572.5,-217"/>
-<text text-anchor="middle" x="1519" y="-205" font-family="Helvetica,sans-Serif" font-size="10.00">include/render.hpp</text>
+<polygon fill="#999999" stroke="#666666" points="1646.5,-217 1539.5,-217 1539.5,-198 1646.5,-198 1646.5,-217"/>
+<text text-anchor="middle" x="1593" y="-205" font-family="Helvetica,sans-Serif" font-size="10.00">include/render.hpp</text>
 </a>
 </g>
 </g>
@@ -77,8 +77,8 @@ var sectionId = 'dynsection-0';
 <g id="edge1_Node000001_Node000002" class="edge">
 <title>Node1&#45;&gt;Node2</title>
 <g id="a_edge1_Node000001_Node000002"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M1501.33,-197.98C1483.71,-189.5 1456.42,-176.35 1436.07,-166.54"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="1437.52,-163.36 1426.99,-162.17 1434.48,-169.66 1437.52,-163.36"/>
+<path fill="none" stroke="#63b8ff" d="M1563.44,-197.98C1532.28,-189.01 1483.03,-174.82 1448.54,-164.89"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="1449.37,-161.49 1438.79,-162.08 1447.43,-168.21 1449.37,-161.49"/>
 </a>
 </g>
 </g>
@@ -95,8 +95,8 @@ var sectionId = 'dynsection-0';
 <g id="edge47_Node000001_Node000043" class="edge">
 <title>Node1&#45;&gt;Node43</title>
 <g id="a_edge47_Node000001_Node000043"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M1519,-197.75C1519,-190.8 1519,-180.85 1519,-172.13"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="1522.5,-172.09 1519,-162.09 1515.5,-172.09 1522.5,-172.09"/>
+<path fill="none" stroke="#63b8ff" d="M1581.11,-197.98C1569.85,-189.92 1552.71,-177.65 1539.29,-168.03"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="1541.27,-165.15 1531.11,-162.17 1537.2,-170.84 1541.27,-165.15"/>
 </a>
 </g>
 </g>
@@ -113,8 +113,26 @@ var sectionId = 'dynsection-0';
 <g id="edge48_Node000001_Node000044" class="edge">
 <title>Node1&#45;&gt;Node44</title>
 <g id="a_edge48_Node000001_Node000044"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M1542.78,-197.98C1567.23,-189.23 1605.53,-175.51 1633.15,-165.62"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="1634.55,-168.84 1642.79,-162.17 1632.19,-162.25 1634.55,-168.84"/>
+<path fill="none" stroke="#63b8ff" d="M1604.89,-197.98C1616.15,-189.92 1633.29,-177.65 1646.71,-168.03"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="1648.8,-170.84 1654.89,-162.17 1644.73,-165.15 1648.8,-170.84"/>
+</a>
+</g>
+</g>
+<!-- Node45 -->
+<g id="Node000045" class="node">
+<title>Node45</title>
+<g id="a_Node000045"><a xlink:href="../../d4/d2f/clear__flags_8inl.html" target="_top" xlink:title="Inline implementations for toy::render::ClearFlags.">
+<polygon fill="white" stroke="#666666" points="1871.5,-162 1752.5,-162 1752.5,-143 1871.5,-143 1871.5,-162"/>
+<text text-anchor="middle" x="1812" y="-150" font-family="Helvetica,sans-Serif" font-size="10.00">render/clear_flags.inl</text>
+</a>
+</g>
+</g>
+<!-- Node1&#45;&gt;Node45 -->
+<g id="edge49_Node000001_Node000045" class="edge">
+<title>Node1&#45;&gt;Node45</title>
+<g id="a_edge49_Node000001_Node000045"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M1628.19,-197.98C1665.83,-188.87 1725.66,-174.4 1766.77,-164.45"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="1767.64,-167.84 1776.54,-162.08 1766,-161.03 1767.64,-167.84"/>
 </a>
 </g>
 </g>

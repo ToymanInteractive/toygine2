@@ -12,8 +12,8 @@
 <g id="Node000001" class="node">
 <title>Node1</title>
 <g id="a_Node000001"><a xlink:title="Umbrella header for platform UI types.">
-<polygon fill="#999999" stroke="#666666" points="1598,-217 1468,-217 1468,-198 1598,-198 1598,-217"/>
-<text text-anchor="middle" x="1533" y="-205" font-family="Helvetica,sans-Serif" font-size="10.00">include/platform/ui.hpp</text>
+<polygon fill="#999999" stroke="#666666" points="1671,-217 1541,-217 1541,-198 1671,-198 1671,-217"/>
+<text text-anchor="middle" x="1606" y="-205" font-family="Helvetica,sans-Serif" font-size="10.00">include/platform/ui.hpp</text>
 </a>
 </g>
 </g>
@@ -30,8 +30,8 @@
 <g id="edge1_Node000001_Node000002" class="edge">
 <title>Node1&#45;&gt;Node2</title>
 <g id="a_edge1_Node000001_Node000002"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M1513.08,-197.98C1492.95,-189.38 1461.62,-175.99 1438.59,-166.15"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="1439.86,-162.88 1429.29,-162.17 1437.1,-169.32 1439.86,-162.88"/>
+<path fill="none" stroke="#63b8ff" d="M1574.35,-197.98C1540.15,-188.78 1485.59,-174.11 1448.58,-164.15"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="1449.21,-160.69 1438.64,-161.47 1447.39,-167.45 1449.21,-160.69"/>
 </a>
 </g>
 </g>
@@ -48,8 +48,8 @@
 <g id="edge47_Node000001_Node000043" class="edge">
 <title>Node1&#45;&gt;Node43</title>
 <g id="a_edge47_Node000001_Node000043"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M1533,-197.75C1533,-190.8 1533,-180.85 1533,-172.13"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="1536.5,-172.09 1533,-162.09 1529.5,-172.09 1536.5,-172.09"/>
+<path fill="none" stroke="#63b8ff" d="M1594.27,-197.98C1583.27,-190 1566.58,-177.88 1553.4,-168.31"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="1555.09,-165.21 1544.94,-162.17 1550.98,-170.88 1555.09,-165.21"/>
 </a>
 </g>
 </g>
@@ -66,8 +66,26 @@
 <g id="edge48_Node000001_Node000044" class="edge">
 <title>Node1&#45;&gt;Node44</title>
 <g id="a_edge48_Node000001_Node000044"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M1556.46,-197.98C1580.58,-189.23 1618.37,-175.51 1645.6,-165.62"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="1646.91,-168.87 1655.12,-162.17 1644.52,-162.29 1646.91,-168.87"/>
+<path fill="none" stroke="#63b8ff" d="M1617.73,-197.98C1628.73,-190 1645.42,-177.88 1658.6,-168.31"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="1661.02,-170.88 1667.06,-162.17 1656.91,-165.21 1661.02,-170.88"/>
+</a>
+</g>
+</g>
+<!-- Node45 -->
+<g id="Node000045" class="node">
+<title>Node45</title>
+<g id="a_Node000045"><a xlink:href="../../d8/d31/orientation_8inl.html" target="_top" xlink:title="Inline implementations for toy::platform::ui::Orientation.">
+<polygon fill="white" stroke="#666666" points="1845.5,-162 1748.5,-162 1748.5,-143 1845.5,-143 1845.5,-162"/>
+<text text-anchor="middle" x="1797" y="-150" font-family="Helvetica,sans-Serif" font-size="10.00">ui/orientation.inl</text>
+</a>
+</g>
+</g>
+<!-- Node1&#45;&gt;Node45 -->
+<g id="edge49_Node000001_Node000045" class="edge">
+<title>Node1&#45;&gt;Node45</title>
+<g id="a_edge49_Node000001_Node000045"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M1636.69,-197.98C1669.17,-188.97 1720.6,-174.7 1756.41,-164.76"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="1757.37,-168.13 1766.07,-162.08 1755.5,-161.38 1757.37,-168.13"/>
 </a>
 </g>
 </g>

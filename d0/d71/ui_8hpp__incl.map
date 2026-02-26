@@ -1,11 +1,13 @@
 <map id="include/platform/ui.hpp" name="include/platform/ui.hpp">
-<area shape="rect" id="Node000001" title="Umbrella header for platform UI types." alt="" coords="1963,5,2136,31"/>
+<area shape="rect" id="Node000001" title="Umbrella header for platform UI types." alt="" coords="2060,5,2233,31"/>
 <area shape="rect" id="Node000002" href="$da/d47/core_8hpp.html" title="Umbrella header for the engine core module." alt="" coords="1845,79,1923,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="2024,33,1925,76,1922,71,2022,28"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="2105,33,1937,78,1936,73,2104,28"/>
 <area shape="rect" id="Node000043" href="$d0/d68/message__box__return_8hpp.html" title="Return value for message box / dialog interactions." alt="" coords="1948,79,2151,104"/>
-<area shape="poly" id="edge47_Node000001_Node000043" title=" " alt="" coords="2052,31,2052,65,2047,65,2047,31"/>
+<area shape="poly" id="edge47_Node000001_Node000043" title=" " alt="" coords="2133,33,2078,72,2075,68,2129,29"/>
 <area shape="rect" id="Node000044" href="$d0/d24/orientation_8hpp.html" title="Screen orientation enumeration for UI layout and rotation handling." alt="" coords="2175,79,2313,104"/>
-<area shape="poly" id="edge48_Node000001_Node000044" title=" " alt="" coords="2082,28,2200,71,2199,76,2080,33"/>
+<area shape="poly" id="edge48_Node000001_Node000044" title=" " alt="" coords="2164,29,2218,68,2215,72,2161,33"/>
+<area shape="rect" id="Node000045" href="$d8/d31/orientation_8inl.html" title="Inline implementations for toy::platform::ui::Orientation." alt="" coords="2337,79,2466,104"/>
+<area shape="poly" id="edge49_Node000001_Node000045" title=" " alt="" coords="2188,28,2348,72,2347,78,2187,33"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="5,167,91,192"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1845,96,1493,100,947,110,414,128,218,140,103,155,80,163,78,158,102,149,217,135,414,123,947,105,1493,95,1845,90"/>
 <area shape="rect" id="Node000004" title=" " alt="" coords="115,167,171,192"/>

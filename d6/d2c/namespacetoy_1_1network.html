@@ -114,7 +114,7 @@ $(function(){initNavTree('d6/d2c/namespacetoy_1_1network.html','../../',''); });
 </div><!--header-->
 <div class="contents">
 
-<p>Network types and utilities: socket errors, addressing, and related APIs.  
+<p>Network types and utilities: socket errors, socket flags, and related APIs.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
@@ -135,9 +135,29 @@ Enumerations</h2></td></tr>
 <br />
  }</td></tr>
 <tr class="memdesc:a00dea18c86b981e289de2ab40d78725e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Error codes for socket and network operations.  <a href="#a00dea18c86b981e289de2ab40d78725e">More...</a><br /></td></tr>
+<tr class="memitem:af5b032f86c2c00ee1f7c873271b57abf" id="r_af5b032f86c2c00ee1f7c873271b57abf"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#af5b032f86c2c00ee1f7c873271b57abf">SocketFlags</a> : uint8_t { <br />
+&#160;&#160;<a class="el" href="#af5b032f86c2c00ee1f7c873271b57abfa6adf97f83acf6453d4a6a4b1070f3754">None</a> = 0x00
+, <a class="el" href="#af5b032f86c2c00ee1f7c873271b57abfa20a6cf714cbf179298b4d850849847b8">NonBlocking</a> = 0x01
+, <a class="el" href="#af5b032f86c2c00ee1f7c873271b57abfa6435aa2b98dc40822eb614686e9540f9">ReuseAddress</a> = 0x02
+, <a class="el" href="#af5b032f86c2c00ee1f7c873271b57abfabe55b6387170df0ca68f41225268e842">Broadcast</a> = 0x04
+, <br />
+&#160;&#160;<a class="el" href="#af5b032f86c2c00ee1f7c873271b57abface6802b46091c31e2ec2363883fe8369">Listen</a> = 0x08
+, <a class="el" href="#af5b032f86c2c00ee1f7c873271b57abfa0b172674284d79079624051d2ae11581">Bind</a> = 0x10
+<br />
+ }</td></tr>
+<tr class="memdesc:af5b032f86c2c00ee1f7c873271b57abf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bitmask flags for socket options and operating mode.  <a href="#af5b032f86c2c00ee1f7c873271b57abf">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a8b41df8b3140b92d1ffd344cbb1f111a" id="r_a8b41df8b3140b92d1ffd344cbb1f111a"><td class="memItemLeft">constexpr <a class="el" href="#af5b032f86c2c00ee1f7c873271b57abf">SocketFlags</a>&#160;</td><td class="memItemRight"><a class="el" href="#a8b41df8b3140b92d1ffd344cbb1f111a">operator|</a> (<a class="el" href="#af5b032f86c2c00ee1f7c873271b57abf">SocketFlags</a> lhs, <a class="el" href="#af5b032f86c2c00ee1f7c873271b57abf">SocketFlags</a> rhs) noexcept</td></tr>
+<tr class="memdesc:a8b41df8b3140b92d1ffd344cbb1f111a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bitwise OR of two <a class="el" href="#af5b032f86c2c00ee1f7c873271b57abf" title="toy::network::SocketFlags">toy::network::SocketFlags</a> values.  <br /></td></tr>
+<tr class="memitem:a755ac8096485c06bdd996e03ccd05151" id="r_a755ac8096485c06bdd996e03ccd05151"><td class="memItemLeft">constexpr <a class="el" href="#af5b032f86c2c00ee1f7c873271b57abf">SocketFlags</a>&#160;</td><td class="memItemRight"><a class="el" href="#a755ac8096485c06bdd996e03ccd05151">operator&amp;</a> (<a class="el" href="#af5b032f86c2c00ee1f7c873271b57abf">SocketFlags</a> lhs, <a class="el" href="#af5b032f86c2c00ee1f7c873271b57abf">SocketFlags</a> rhs) noexcept</td></tr>
+<tr class="memdesc:a755ac8096485c06bdd996e03ccd05151"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bitwise AND of two <a class="el" href="#af5b032f86c2c00ee1f7c873271b57abf" title="toy::network::SocketFlags">toy::network::SocketFlags</a> values.  <br /></td></tr>
+<tr class="memitem:a31d7b508bc7c001ce23457ad2e90c806" id="r_a31d7b508bc7c001ce23457ad2e90c806"><td class="memItemLeft">constexpr <a class="el" href="#af5b032f86c2c00ee1f7c873271b57abf">SocketFlags</a>&#160;</td><td class="memItemRight"><a class="el" href="#a31d7b508bc7c001ce23457ad2e90c806">operator^</a> (<a class="el" href="#af5b032f86c2c00ee1f7c873271b57abf">SocketFlags</a> lhs, <a class="el" href="#af5b032f86c2c00ee1f7c873271b57abf">SocketFlags</a> rhs) noexcept</td></tr>
+<tr class="memdesc:a31d7b508bc7c001ce23457ad2e90c806"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bitwise XOR of two <a class="el" href="#af5b032f86c2c00ee1f7c873271b57abf" title="toy::network::SocketFlags">toy::network::SocketFlags</a> values.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Network types and utilities: socket errors, addressing, and related APIs. </p>
+<div class="textblock"><p>Network types and utilities: socket errors, socket flags, and related APIs. </p>
 </div><a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Enumeration Type Documentation</h2>
 <a id="a00dea18c86b981e289de2ab40d78725e" name="a00dea18c86b981e289de2ab40d78725e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a00dea18c86b981e289de2ab40d78725e">&#9670;&#160;</a></span>SocketError</h2>
@@ -183,6 +203,163 @@ Enumerations</h2></td></tr>
 <tr><td class="fieldname"><a id="a00dea18c86b981e289de2ab40d78725eab932b91f686c2aa588adfd9a407155ca" name="a00dea18c86b981e289de2ab40d78725eab932b91f686c2aa588adfd9a407155ca"></a>SystemError&#160;</td><td class="fielddoc"><p>Platform-specific system error. </p>
 </td></tr>
 </table>
+
+</div>
+</div>
+<a id="af5b032f86c2c00ee1f7c873271b57abf" name="af5b032f86c2c00ee1f7c873271b57abf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5b032f86c2c00ee1f7c873271b57abf">&#9670;&#160;</a></span>SocketFlags</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#af5b032f86c2c00ee1f7c873271b57abf">toy::network::SocketFlags</a> : uint8_t</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Bitmask flags for socket options and operating mode. </p>
+<p>Values can be combined (e.g. <code>NonBlocking</code> | <code>ReuseAddress</code>). Interpretation is platform-dependent; maps to socket options and flags such as <code>O_NONBLOCK</code>, <code>SO_REUSEADDR</code>. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="af5b032f86c2c00ee1f7c873271b57abfa6adf97f83acf6453d4a6a4b1070f3754" name="af5b032f86c2c00ee1f7c873271b57abfa6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"><p>No flags set. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af5b032f86c2c00ee1f7c873271b57abfa20a6cf714cbf179298b4d850849847b8" name="af5b032f86c2c00ee1f7c873271b57abfa20a6cf714cbf179298b4d850849847b8"></a>NonBlocking&#160;</td><td class="fielddoc"><p>Socket operates in non-blocking mode. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af5b032f86c2c00ee1f7c873271b57abfa6435aa2b98dc40822eb614686e9540f9" name="af5b032f86c2c00ee1f7c873271b57abfa6435aa2b98dc40822eb614686e9540f9"></a>ReuseAddress&#160;</td><td class="fielddoc"><p>Allow local address reuse (e.g. <code>SO_REUSEADDR</code>). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af5b032f86c2c00ee1f7c873271b57abfabe55b6387170df0ca68f41225268e842" name="af5b032f86c2c00ee1f7c873271b57abfabe55b6387170df0ca68f41225268e842"></a>Broadcast&#160;</td><td class="fielddoc"><p>Enable broadcast send/receive. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af5b032f86c2c00ee1f7c873271b57abface6802b46091c31e2ec2363883fe8369" name="af5b032f86c2c00ee1f7c873271b57abface6802b46091c31e2ec2363883fe8369"></a>Listen&#160;</td><td class="fielddoc"><p>Socket is in listen state (for accepting connections). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af5b032f86c2c00ee1f7c873271b57abfa0b172674284d79079624051d2ae11581" name="af5b032f86c2c00ee1f7c873271b57abfa0b172674284d79079624051d2ae11581"></a>Bind&#160;</td><td class="fielddoc"><p>Socket is bound to a local address. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a755ac8096485c06bdd996e03ccd05151" name="a755ac8096485c06bdd996e03ccd05151"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a755ac8096485c06bdd996e03ccd05151">&#9670;&#160;</a></span>operator&amp;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#af5b032f86c2c00ee1f7c873271b57abf">SocketFlags</a> toy::network::operator&amp; </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#af5b032f86c2c00ee1f7c873271b57abf">SocketFlags</a></td>          <td class="paramname"><span class="paramname"><em>lhs</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#af5b032f86c2c00ee1f7c873271b57abf">SocketFlags</a></td>          <td class="paramname"><span class="paramname"><em>rhs</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Bitwise AND of two <a class="el" href="#af5b032f86c2c00ee1f7c873271b57abf" title="toy::network::SocketFlags">toy::network::SocketFlags</a> values. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lhs</td><td>First operand. </td></tr>
+    <tr><td class="paramname">rhs</td><td>Second operand.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Only bits set in both <em class="arg">lhs</em> and <em class="arg">rhs</em>. </dd></dl>
+
+</div>
+</div>
+<a id="a31d7b508bc7c001ce23457ad2e90c806" name="a31d7b508bc7c001ce23457ad2e90c806"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31d7b508bc7c001ce23457ad2e90c806">&#9670;&#160;</a></span>operator^()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#af5b032f86c2c00ee1f7c873271b57abf">SocketFlags</a> toy::network::operator^ </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#af5b032f86c2c00ee1f7c873271b57abf">SocketFlags</a></td>          <td class="paramname"><span class="paramname"><em>lhs</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#af5b032f86c2c00ee1f7c873271b57abf">SocketFlags</a></td>          <td class="paramname"><span class="paramname"><em>rhs</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Bitwise XOR of two <a class="el" href="#af5b032f86c2c00ee1f7c873271b57abf" title="toy::network::SocketFlags">toy::network::SocketFlags</a> values. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lhs</td><td>First operand. </td></tr>
+    <tr><td class="paramname">rhs</td><td>Second operand.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Bits set in exactly one of <em class="arg">lhs</em> or <em class="arg">rhs</em>. </dd></dl>
+
+</div>
+</div>
+<a id="a8b41df8b3140b92d1ffd344cbb1f111a" name="a8b41df8b3140b92d1ffd344cbb1f111a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b41df8b3140b92d1ffd344cbb1f111a">&#9670;&#160;</a></span>operator|()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#af5b032f86c2c00ee1f7c873271b57abf">SocketFlags</a> toy::network::operator| </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#af5b032f86c2c00ee1f7c873271b57abf">SocketFlags</a></td>          <td class="paramname"><span class="paramname"><em>lhs</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#af5b032f86c2c00ee1f7c873271b57abf">SocketFlags</a></td>          <td class="paramname"><span class="paramname"><em>rhs</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Bitwise OR of two <a class="el" href="#af5b032f86c2c00ee1f7c873271b57abf" title="toy::network::SocketFlags">toy::network::SocketFlags</a> values. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lhs</td><td>First operand. </td></tr>
+    <tr><td class="paramname">rhs</td><td>Second operand.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Combination of all bits set in <em class="arg">lhs</em> or <em class="arg">rhs</em>. </dd></dl>
 
 </div>
 </div>

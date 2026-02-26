@@ -1,9 +1,8 @@
 var searchData=
 [
-  ['r5g6b5_0',['R5G6B5',['../df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7a824e86ad7ef467815efe26bec67e07fa',1,'toy::render']]],
-  ['read_1',['Read',['../da/d98/namespacetoy_1_1filesystem.html#acdb0fddd61b902c502183b9c4bde188fa7a1a5f3e79fdc91edf2f5ead9d66abb4',1,'toy::filesystem']]],
-  ['readwrite_2',['ReadWrite',['../da/d98/namespacetoy_1_1filesystem.html#acdb0fddd61b902c502183b9c4bde188fa70a2a84088d405a2e3f1e3accaa16723',1,'toy::filesystem']]],
-  ['readwriteappend_3',['ReadWriteAppend',['../da/d98/namespacetoy_1_1filesystem.html#acdb0fddd61b902c502183b9c4bde188fa05c7383bb9bd4e8458aa92a458db5286',1,'toy::filesystem']]],
-  ['readwriteempty_4',['ReadWriteEmpty',['../da/d98/namespacetoy_1_1filesystem.html#acdb0fddd61b902c502183b9c4bde188fa72fe3751eef2635f596acece048d5dd9',1,'toy::filesystem']]],
-  ['retry_5',['Retry',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#acd712dd388168864cc984d43e23e41d2a6327b4e59f58137083214a1fec358855',1,'toy::platform::ui']]]
+  ['portrait_0',['Portrait',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#aab7a6848d6656e7540fb1d6d72116e02a1c7444be9626d149ab598fb79b639f96',1,'toy::platform::ui']]],
+  ['portraitany_1',['PortraitAny',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#aab7a6848d6656e7540fb1d6d72116e02ac5e78c85aed303934dd52012cc3bbffb',1,'toy::platform::ui']]],
+  ['portraitflipped_2',['PortraitFlipped',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#aab7a6848d6656e7540fb1d6d72116e02a13be439a13712e02008085c7861871f3',1,'toy::platform::ui']]],
+  ['pvrtc2_3',['PVRTC2',['../df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7aa54f5bdd6d55a32997d1352a5c8234a4',1,'toy::render']]],
+  ['pvrtc4_4',['PVRTC4',['../df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7a759978c6ff5b5e0ce1720f8dd863e3bf',1,'toy::render']]]
 ];

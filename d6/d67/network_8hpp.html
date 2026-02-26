@@ -114,14 +114,17 @@ $(function(){initNavTree('d6/d67/network_8hpp.html','../../',''); });
 </div><!--header-->
 <div class="contents">
 
-<p>Umbrella header for the network module (socket errors, addressing, etc.).  
+<p>Umbrella header for the network module.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="../../d8/df5/socket__error_8hpp_source.html">network/socket_error.hpp</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="../../da/d47/core_8hpp_source.html">core.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d8/df5/socket__error_8hpp_source.html">network/socket_error.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d7/d5a/socket__flags_8hpp_source.html">network/socket_flags.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d0/db4/socket__flags_8inl_source.html">network/socket_flags.inl</a>&quot;</code><br />
 </div><div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Include dependency graph for network.hpp:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d9/df7/network_8hpp__incl.svg" width="198" height="110"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d9/df7/network_8hpp__incl.svg" width="100%" height="525"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 </div><div class="textblock"><div id="dynsection-1" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>This graph shows which files directly or indirectly include this file:</div>
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
@@ -135,10 +138,11 @@ $(function(){initNavTree('d6/d67/network_8hpp.html','../../',''); });
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:toy_3A_3Anetwork" id="r_toy_3A_3Anetwork"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="../../d6/d2c/namespacetoy_1_1network.html">toy::network</a></td></tr>
-<tr class="memdesc:d6/d2c/namespacetoy_1_1network"><td class="mdescLeft">&#160;</td><td class="mdescRight">Network types and utilities: socket errors, addressing, and related APIs. <br /></td></tr>
+<tr class="memdesc:d6/d2c/namespacetoy_1_1network"><td class="mdescLeft">&#160;</td><td class="mdescRight">Network types and utilities: socket errors, socket flags, and related APIs. <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Umbrella header for the network module (socket errors, addressing, etc.). </p>
+<div class="textblock"><p>Umbrella header for the network module. </p>
+<p>Includes socket error types, socket flags, and related networking types. Users of the network module should include this header only; do not include internal headers (e.g. <code><a class="el" href="../../d8/df5/socket__error_8hpp.html" title="Socket and network operation error codes.">network/socket_error.hpp</a></code>, <code><a class="el" href="../../d7/d5a/socket__flags_8hpp.html" title="Socket option and mode flags for the network module.">network/socket_flags.hpp</a></code>) directly. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
