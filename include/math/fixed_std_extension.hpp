@@ -19,7 +19,8 @@
 //
 /*!
   \file   fixed_std_extension.hpp
-  \brief  Standard library extensions for \ref toy::math::fixed: \c numeric_limits.
+  \brief  Standard library extensions for \ref toy::math::fixed: \c numeric_limits and \c std::numbers mathematical
+          constants.
 */
 
 #ifndef INCLUDE_MATH_FIXED_STD_EXTENSION_HPP_
@@ -152,6 +153,106 @@ public:
     return toy::math::fixed<Base, Intermediate, Fraction, Rounding>(0);
   }
 };
+
+namespace numbers {
+
+/*!
+  \brief Variable template specializations of \c std::numbers for \ref toy::math::fixed.
+
+  Values are computed in 61 fractional bits and scaled to the target \a Fraction via fromFixedPoint<61>. Analogous to
+  the standard specializations for \c float, \c double, \c long double.
+
+  | Constant       | Description |
+  |----------------|-------------|
+  | \c e_v         | The mathematical constant \a e |
+  | \c pi_v        | The mathematical constant π |
+  | \c log2e_v     | \f$ \log_2 e \f$ |
+  | \c log10e_v    | \f$ \log_{10} e \f$ |
+  | \c sqrt2_v     | \f$ \sqrt{2} \f$ |
+  | \c sqrt3_v     | \f$ \sqrt{3} \f$ |
+  | \c inv_pi_v    | \f$ 1/\pi \f$ |
+  | \c inv_sqrtpi_v| \f$ 1/\sqrt{\pi} \f$ |
+  | \c ln2_v       | \f$ \ln 2 \f$ |
+  | \c ln10_v      | \f$ \ln 10 \f$ |
+  | \c egamma_v    | Euler–Mascheroni constant γ |
+  | \c phi_v       | Golden ratio Φ |
+
+  \sa https://en.cppreference.com/w/cpp/numeric/constants
+*/
+
+/// The mathematical constant \a e (variable template).
+template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding>
+inline constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding>
+  e_v<toy::math::fixed<Base, Intermediate, Fraction, Rounding>>
+  = toy::math::fixed<Base, Intermediate, Fraction, Rounding>::template fromFixedPoint<61>(6267931151224907085ll);
+
+/// The mathematical constant π (variable template).
+template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding>
+inline constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding>
+  pi_v<toy::math::fixed<Base, Intermediate, Fraction, Rounding>>
+  = toy::math::fixed<Base, Intermediate, Fraction, Rounding>::template fromFixedPoint<61>(7244019458077122842ll);
+
+/// \f$ \log_2 e \f$ (variable template).
+template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding>
+inline constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding>
+  log2e_v<toy::math::fixed<Base, Intermediate, Fraction, Rounding>>
+  = toy::math::fixed<Base, Intermediate, Fraction, Rounding>::template fromFixedPoint<61>(3325293374471142210ll);
+
+/// \f$ \log_{10} e \f$ (variable template).
+template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding>
+inline constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding>
+  log10e_v<toy::math::fixed<Base, Intermediate, Fraction, Rounding>>
+  = toy::math::fixed<Base, Intermediate, Fraction, Rounding>::template fromFixedPoint<61>(1000000000000000000ll);
+
+/// \f$ \sqrt{2} \f$ (variable template).
+template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding>
+inline constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding>
+  sqrt2_v<toy::math::fixed<Base, Intermediate, Fraction, Rounding>>
+  = toy::math::fixed<Base, Intermediate, Fraction, Rounding>::template fromFixedPoint<61>(3258317096819076951ll);
+
+/// \f$ \sqrt{3} \f$ (variable template).
+template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding>
+inline constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding>
+  sqrt3_v<toy::math::fixed<Base, Intermediate, Fraction, Rounding>>
+  = toy::math::fixed<Base, Intermediate, Fraction, Rounding>::template fromFixedPoint<61>(3991298917422632215ll);
+
+/// \f$ 1/\pi \f$ (variable template).
+template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding>
+inline constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding>
+  inv_pi_v<toy::math::fixed<Base, Intermediate, Fraction, Rounding>>
+  = toy::math::fixed<Base, Intermediate, Fraction, Rounding>::template fromFixedPoint<61>(733622946985496431ll);
+
+/// \f$ 1/\sqrt{\pi} \f$ (variable template).
+template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding>
+inline constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding>
+  inv_sqrtpi_v<toy::math::fixed<Base, Intermediate, Fraction, Rounding>>
+  = toy::math::fixed<Base, Intermediate, Fraction, Rounding>::template fromFixedPoint<61>(1299841168473242345ll);
+
+/// \f$ \ln 2 \f$ (variable template).
+template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding>
+inline constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding>
+  ln2_v<toy::math::fixed<Base, Intermediate, Fraction, Rounding>>
+  = toy::math::fixed<Base, Intermediate, Fraction, Rounding>::template fromFixedPoint<61>(1596283050423551251ll);
+
+/// \f$ \ln 10 \f$ (variable template).
+template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding>
+inline constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding>
+  ln10_v<toy::math::fixed<Base, Intermediate, Fraction, Rounding>>
+  = toy::math::fixed<Base, Intermediate, Fraction, Rounding>::template fromFixedPoint<61>(5303011615414783041ll);
+
+/// Euler–Mascheroni constant γ (variable template).
+template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding>
+inline constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding>
+  egamma_v<toy::math::fixed<Base, Intermediate, Fraction, Rounding>>
+  = toy::math::fixed<Base, Intermediate, Fraction, Rounding>::template fromFixedPoint<61>(1329106104699904413ll);
+
+/// Golden ratio Φ (variable template).
+template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding>
+inline constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding>
+  phi_v<toy::math::fixed<Base, Intermediate, Fraction, Rounding>>
+  = toy::math::fixed<Base, Intermediate, Fraction, Rounding>::template fromFixedPoint<61>(3727499783512469839ll);
+
+} // namespace numbers
 
 } // namespace std
 

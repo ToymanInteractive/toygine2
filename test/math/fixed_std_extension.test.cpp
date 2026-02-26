@@ -153,4 +153,62 @@ TEST_CASE("math/fixed/numeric_limits") {
   }
 }
 
+// std::numbers variable template specializations for fixed.
+TEST_CASE("math/fixed_std_extension/numbers_constants") {
+  // All constants are constexpr and positive where expected.
+  SUBCASE("constexpr_and_sign") {
+    constexpr auto e = std::numbers::e_v<Fixed>;
+    constexpr auto pi = std::numbers::pi_v<Fixed>;
+    constexpr auto sqrt2 = std::numbers::sqrt2_v<Fixed>;
+    constexpr auto ln2 = std::numbers::ln2_v<Fixed>;
+    constexpr auto inv_pi = std::numbers::inv_pi_v<Fixed>;
+
+    REQUIRE(e.rawValue() > 0);
+    REQUIRE(pi.rawValue() > 0);
+    REQUIRE(sqrt2.rawValue() > 0);
+    REQUIRE(ln2.rawValue() > 0);
+    REQUIRE(inv_pi.rawValue() > 0);
+
+    static_assert(std::numbers::e_v<Fixed>.rawValue() > 0, "e must be positive");
+    static_assert(std::numbers::pi_v<Fixed>.rawValue() > 0, "pi must be positive");
+    static_assert(std::numbers::sqrt2_v<Fixed>.rawValue() > 0, "sqrt2 must be positive");
+  }
+
+  // e and pi are close to std double constants when cast to double.
+  SUBCASE("e_pi_near_std") {
+    const double eDouble = static_cast<double>(std::numbers::e_v<Fixed>);
+    const double piDouble = static_cast<double>(std::numbers::pi_v<Fixed>);
+
+    REQUIRE(eDouble > 2.0);
+    REQUIRE(eDouble < 3.5);
+    REQUIRE(std::abs(eDouble - std::numbers::e_v<double>) < 0.1);
+
+    REQUIRE(piDouble > 3.0);
+    REQUIRE(piDouble < 3.5);
+    REQUIRE(std::abs(piDouble - std::numbers::pi_v<double>) < 0.1);
+  }
+
+  // All 12 constants instantiate for Fixed and FixedNoRounding and are non-zero where expected.
+  SUBCASE("all_constants_instantiate") {
+    REQUIRE(std::numbers::e_v<Fixed>.rawValue() != 0);
+    REQUIRE(std::numbers::pi_v<Fixed>.rawValue() != 0);
+    REQUIRE(std::numbers::log2e_v<Fixed>.rawValue() != 0);
+    REQUIRE(std::numbers::log10e_v<Fixed>.rawValue() != 0);
+    REQUIRE(std::numbers::sqrt2_v<Fixed>.rawValue() != 0);
+    REQUIRE(std::numbers::sqrt3_v<Fixed>.rawValue() != 0);
+    REQUIRE(std::numbers::inv_pi_v<Fixed>.rawValue() != 0);
+    REQUIRE(std::numbers::inv_sqrtpi_v<Fixed>.rawValue() != 0);
+    REQUIRE(std::numbers::ln2_v<Fixed>.rawValue() != 0);
+    REQUIRE(std::numbers::ln10_v<Fixed>.rawValue() != 0);
+    REQUIRE(std::numbers::egamma_v<Fixed>.rawValue() != 0);
+    REQUIRE(std::numbers::phi_v<Fixed>.rawValue() != 0);
+
+    REQUIRE(std::numbers::e_v<FixedNoRounding>.rawValue() != 0);
+    REQUIRE(std::numbers::pi_v<FixedNoRounding>.rawValue() != 0);
+
+    static_assert(std::numbers::e_v<Fixed>.rawValue() != 0, "e must be non-zero");
+    static_assert(std::numbers::pi_v<Fixed>.rawValue() != 0, "pi must be non-zero");
+  }
+}
+
 } // namespace toy::math
