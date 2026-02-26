@@ -18,25 +18,36 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   audio.hpp
-  \brief  Umbrella header for the audio module.
-
-  Provides volume types and audio utilities. Include this header only; do not include internal headers (e.g.
-  \c audio/volume_type.hpp) directly.
+  \file   version.inl
+  \brief  Implementation of application version management utilities.
 */
 
-#ifndef INCLUDE_AUDIO_HPP_
-#define INCLUDE_AUDIO_HPP_
+#ifndef INCLUDE_APPLICATION_VERSION_INL_
+#define INCLUDE_APPLICATION_VERSION_INL_
 
-#include "core.hpp"
+namespace toy::application {
 
-/*!
-  \namespace toy::audio
-  \brief Audio types and utilities: volume categories, mixing, and related APIs.
-*/
+constexpr bool operator==(const Version & lhs, const Version & rhs) noexcept {
+  return lhs.major == rhs.major && lhs.minor == rhs.minor && lhs.maintenance == rhs.maintenance
+         && lhs.revision == rhs.revision;
+}
 
-#include "audio/volume_type.hpp"
+constexpr strong_ordering operator<=>(const Version & lhs, const Version & rhs) noexcept {
+  if (auto cmp = lhs.major <=> rhs.major; cmp != strong_ordering::equal) {
+    return cmp;
+  }
 
-//----------------------------------------------------------------------------------------------------------------------
+  if (auto cmp = lhs.minor <=> rhs.minor; cmp != strong_ordering::equal) {
+    return cmp;
+  }
 
-#endif // INCLUDE_AUDIO_HPP_
+  if (auto cmp = lhs.maintenance <=> rhs.maintenance; cmp != strong_ordering::equal) {
+    return cmp;
+  }
+
+  return lhs.revision <=> rhs.revision;
+}
+
+} // namespace toy::application
+
+#endif // INCLUDE_APPLICATION_VERSION_INL_

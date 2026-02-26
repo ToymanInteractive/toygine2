@@ -18,36 +18,27 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   version.inl
-  \brief  Implementation of application version management utilities.
+  \file   application.hpp
+  \brief  Umbrella header for the app module.
+
+  Provides version and application-level types. Include this header only; do not include internal headers (e.g.
+  \c app/version.hpp) directly.
 */
 
-#ifndef INCLUDE_APP_VERSION_INL_
-#define INCLUDE_APP_VERSION_INL_
+#ifndef INCLUDE_APP_HPP_
+#define INCLUDE_APP_HPP_
 
-namespace toy::app {
+#include "core.hpp"
 
-constexpr bool operator==(const Version & lhs, const Version & rhs) noexcept {
-  return lhs.major == rhs.major && lhs.minor == rhs.minor && lhs.maintenance == rhs.maintenance
-         && lhs.revision == rhs.revision;
-}
+/*!
+  \namespace toy::application
+  \brief Application-level types and utilities (version, etc.).
+*/
 
-constexpr strong_ordering operator<=>(const Version & lhs, const Version & rhs) noexcept {
-  if (auto cmp = lhs.major <=> rhs.major; cmp != strong_ordering::equal) {
-    return cmp;
-  }
+#include "application/version.hpp"
 
-  if (auto cmp = lhs.minor <=> rhs.minor; cmp != strong_ordering::equal) {
-    return cmp;
-  }
+//----------------------------------------------------------------------------------------------------------------------
 
-  if (auto cmp = lhs.maintenance <=> rhs.maintenance; cmp != strong_ordering::equal) {
-    return cmp;
-  }
+#include "application/version.inl"
 
-  return lhs.revision <=> rhs.revision;
-}
-
-} // namespace toy::app
-
-#endif // INCLUDE_APP_VERSION_INL_
+#endif // INCLUDE_APP_HPP_

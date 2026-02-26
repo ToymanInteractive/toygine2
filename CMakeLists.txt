@@ -107,9 +107,9 @@ execute_process(
 
 #-------------------------------------------------------------------------------------------
 
-set(SRC_APP_LIST )
-set(HDR_APP_LIST include/app.hpp include/app/version.hpp)
-set(INL_APP_LIST                 include/app/version.inl)
+set(SRC_APPLICATION_LIST )
+set(HDR_APPLICATION_LIST include/application.hpp include/application/version.hpp)
+set(INL_APPLICATION_LIST                         include/application/version.inl)
 
 set(SRC_AUDIO_LIST )
 set(HDR_AUDIO_LIST include/audio.hpp include/audio/volume_type.hpp)
@@ -127,6 +127,10 @@ set(SRC_GAME_LIST )
 set(HDR_GAME_LIST include/game.hpp include/game/achievement_state.hpp)
 set(INL_GAME_LIST )
 
+set(SRC_GEOMETRY_LIST )
+set(HDR_GEOMETRY_LIST include/geometry.hpp include/geometry/section.hpp)
+set(INL_GEOMETRY_LIST                      include/geometry/section.inl)
+
 set(SRC_MATH_LIST )
 set(HDR_MATH_LIST include/math.hpp include/math/fixed.hpp include/math/fixed_std_extension.hpp include/math/point.hpp include/math/utils.hpp include/math/vector2d.hpp)
 set(INL_MATH_LIST                  include/math/fixed.inl                                      include/math/point.inl include/math/utils.inl include/math/vector2d.inl)
@@ -143,11 +147,12 @@ set(SRC_RENDER_LIST )
 set(HDR_RENDER_LIST include/render.hpp include/render/clear_flags.hpp include/render/pixel_format.hpp)
 set(INL_RENDER_LIST                    include/render/clear_flags.inl)
 
-source_group("App"          FILES ${SRC_APP_LIST}         ${HDR_APP_LIST}         ${INL_APP_LIST})
+source_group("Application"  FILES ${SRC_APPLICATION_LIST} ${HDR_APPLICATION_LIST} ${INL_APPLICATION_LIST})
 source_group("Audio"        FILES ${SRC_AUDIO_LIST}       ${HDR_AUDIO_LIST}       ${INL_AUDIO_LIST})
 source_group("Core"         FILES ${SRC_CORE_LIST}        ${HDR_CORE_LIST}        ${INL_CORE_LIST})
 source_group("Filesystem"   FILES ${SRC_FILESYSTEM_LIST}  ${HDR_FILESYSTEM_LIST}  ${INL_FILESYSTEM_LIST})
 source_group("Game"         FILES ${SRC_GAME_LIST}        ${HDR_GAME_LIST}        ${INL_GAME_LIST})
+source_group("Geometry"     FILES ${SRC_GEOMETRY_LIST}    ${HDR_GEOMETRY_LIST}    ${INL_GEOMETRY_LIST})
 source_group("Math"         FILES ${SRC_MATH_LIST}        ${HDR_MATH_LIST}        ${INL_MATH_LIST})
 source_group("Network"      FILES ${SRC_NETWORK_LIST}     ${HDR_NETWORK_LIST}     ${INL_NETWORK_LIST})
 source_group("Platform\\UI" FILES ${SRC_PLATFORM_UI_LIST} ${HDR_PLATFORM_UI_LIST} ${INL_PLATFORM_UI_LIST})
@@ -155,9 +160,9 @@ source_group("Render"       FILES ${SRC_RENDER_LIST}      ${HDR_RENDER_LIST}    
 
 #-------------------------------------------------------------------------------------------
 
-list(APPEND SRC_LIST ${SRC_APP_LIST} ${SRC_AUDIO_LIST} ${SRC_CORE_LIST} ${SRC_FILESYSTEM_LIST} ${SRC_GAME_LIST} ${SRC_MATH_LIST} ${SRC_NETWORK_LIST} ${SRC_PLATFORM_UI_LIST} ${SRC_RENDER_LIST} )
-list(APPEND HDR_LIST ${HDR_APP_LIST} ${HDR_AUDIO_LIST} ${HDR_CORE_LIST} ${HDR_FILESYSTEM_LIST} ${HDR_GAME_LIST} ${HDR_MATH_LIST} ${HDR_NETWORK_LIST} ${HDR_PLATFORM_UI_LIST} ${HDR_RENDER_LIST} include/toygine2.hpp)
-list(APPEND INL_LIST ${INL_APP_LIST} ${INL_AUDIO_LIST} ${INL_CORE_LIST} ${INL_FILESYSTEM_LIST} ${INL_GAME_LIST} ${INL_MATH_LIST} ${INL_NETWORK_LIST} ${INL_PLATFORM_UI_LIST} ${INL_RENDER_LIST} )
+list(APPEND SRC_LIST ${SRC_APPLICATION_LIST} ${SRC_AUDIO_LIST} ${SRC_CORE_LIST} ${SRC_FILESYSTEM_LIST} ${SRC_GAME_LIST} ${SRC_GEOMETRY_LIST} ${SRC_MATH_LIST} ${SRC_NETWORK_LIST} ${SRC_PLATFORM_UI_LIST} ${SRC_RENDER_LIST} )
+list(APPEND HDR_LIST ${HDR_APPLICATION_LIST} ${HDR_AUDIO_LIST} ${HDR_CORE_LIST} ${HDR_FILESYSTEM_LIST} ${HDR_GAME_LIST} ${HDR_GEOMETRY_LIST} ${HDR_MATH_LIST} ${HDR_NETWORK_LIST} ${HDR_PLATFORM_UI_LIST} ${HDR_RENDER_LIST} include/toygine2.hpp)
+list(APPEND INL_LIST ${INL_APPLICATION_LIST} ${INL_AUDIO_LIST} ${INL_CORE_LIST} ${INL_FILESYSTEM_LIST} ${INL_GAME_LIST} ${INL_GEOMETRY_LIST} ${INL_MATH_LIST} ${INL_NETWORK_LIST} ${INL_PLATFORM_UI_LIST} ${INL_RENDER_LIST})
 set(LIB_LIST ${LIB_LIST})
 
 add_library(${TOYGINE_LIBRARY_NAME} STATIC ${SRC_LIST} ${HDR_LIST} ${INL_LIST})

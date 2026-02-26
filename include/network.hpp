@@ -21,9 +21,8 @@
   \file   network.hpp
   \brief  Umbrella header for the network module.
 
-  Includes socket error types, socket flags, and related networking types. Users of the network module should include
-  this header only; do not include internal headers (e.g. \c network/socket_error.hpp, \c network/socket_flags.hpp)
-  directly.
+  Provides socket error, socket flags, and related networking types. Include this header only; do not include internal
+  headers (e.g. \c network/socket_error.hpp, \c network/socket_flags.hpp) directly.
 */
 
 #ifndef INCLUDE_NETWORK_HPP_

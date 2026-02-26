@@ -21,9 +21,8 @@
   \file   filesystem.hpp
   \brief  Umbrella header for the filesystem module.
 
-  Includes all public filesystem types and utilities (e.g. \ref toy::filesystem::OpenFileMode).
-  Users of the filesystem module should include this header only; do not include internal
-  headers such as \c filesystem/open_file_mode.hpp directly.
+  Provides open file mode and filesystem utilities. Include this header only; do not include internal headers (e.g.
+  \c filesystem/open_file_mode.hpp) directly.
 */
 
 #ifndef INCLUDE_FILESYSTEM_HPP_

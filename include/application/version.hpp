@@ -22,10 +22,10 @@
   \brief  Application version type and comparison operators.
 */
 
-#ifndef INCLUDE_APP_VERSION_HPP_
-#define INCLUDE_APP_VERSION_HPP_
+#ifndef INCLUDE_APPLICATION_VERSION_HPP_
+#define INCLUDE_APPLICATION_VERSION_HPP_
 
-namespace toy::app {
+namespace toy::application {
 
 /*!
   \struct Version
@@ -113,6 +113,6 @@ struct Version {
 */
 [[nodiscard]] constexpr strong_ordering operator<=>(const Version & lhs, const Version & rhs) noexcept;
 
-} // namespace toy::app
+} // namespace toy::application
 
-#endif // INCLUDE_APP_VERSION_HPP_
+#endif // INCLUDE_APPLICATION_VERSION_HPP_

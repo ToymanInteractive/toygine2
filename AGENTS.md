@@ -92,10 +92,10 @@ Key priorities:
 
 ### Module Structure
 
-- Each module exposes a single public *barrel header* that acts as the module entry point.
+- Each module exposes a single public *umbrella header* that acts as the module entry point.
 - Users of the library must include **only** the module header and must not depend on internal headers.
 - Internal headers are considered implementation details and are not part of the public API.
-- Barrel headers may be precompiled.
+- Umbrella headers may be precompiled.
 
 ### Include Guards
 

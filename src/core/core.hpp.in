@@ -20,6 +20,9 @@
 /*!
   \file   core.hpp
   \brief  Umbrella header for the engine core module
+
+  Provides platform, string, assertion, and core utilities. Include this header only; do not include internal headers
+  (e.g. \c core/fixed_string.hpp, \c core/platform.hpp) directly.
 */
 
 #ifndef INCLUDE_CORE_HPP_
@@ -50,8 +53,10 @@
 
 //----------------------------------------------------------------------------------------------------------------------
 
-/// @namespace toy
-/// @brief Root namespace containing all engine modules.
+/*!
+  \namespace toy
+  \brief Root namespace containing all engine modules.
+*/
 namespace toy {
 
 using std::size_t;

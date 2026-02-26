@@ -18,23 +18,30 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   app.hpp
-  \brief  Umbrella header for the engine application module
+  \file   geometry.hpp
+  \brief  Umbrella header for the geometry module.
+
+  Provides \ref toy::geometry::Section and related types. Depends on \ref toy::math (for
+  \ref toy::geometry::SectionScalar). Include this header only; do not include internal headers
+  (e.g. \c geometry/section.hpp) directly.
 */
 
-#ifndef INCLUDE_APP_HPP_
-#define INCLUDE_APP_HPP_
+#ifndef INCLUDE_GEOMETRY_HPP_
+#define INCLUDE_GEOMETRY_HPP_
 
-#include "core.hpp"
+#include "math.hpp"
 
-/// @namespace toy::app
-/// @brief Contains all public application-level types, utilities, and management functions of engine.
-namespace toy::app {} // namespace toy::app
-
-#include "app/version.hpp"
+/*!
+  \namespace toy::geometry
+  \brief Geometry types and utilities: sections (intervals) and related APIs.
+*/
 
 //----------------------------------------------------------------------------------------------------------------------
 
-#include "app/version.inl"
+#include "geometry/section.hpp"
 
-#endif // INCLUDE_APP_HPP_
+//----------------------------------------------------------------------------------------------------------------------
+
+#include "geometry/section.inl"
+
+#endif // INCLUDE_GEOMETRY_HPP_
