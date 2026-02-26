@@ -51,7 +51,7 @@ enum class OpenFileMode {
   /// Create or truncate and open for reading and writing.
   ReadWriteEmpty,
   /// Open for reading and writing at end of file; create if not present.
-  ReadWriteAppend
+  ReadWriteAppend,
 };
 
 } // namespace toy::filesystem

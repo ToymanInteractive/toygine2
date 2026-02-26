@@ -59,7 +59,7 @@ enum class MessageBoxReturn {
   /// User chose Try Again.
   TryAgain,
   /// User chose Continue.
-  Continue
+  Continue,
 };
 
 } // namespace toy::platform::ui

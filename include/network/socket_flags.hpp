@@ -51,7 +51,7 @@ enum class SocketFlags : uint8_t {
   Listen = 0x08,
 
   /// Socket is bound to a local address.
-  Bind = 0x10
+  Bind = 0x10,
 };
 
 /*!

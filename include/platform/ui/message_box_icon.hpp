@@ -47,7 +47,7 @@ enum class MessageBoxIcon {
   /// Warning icon (e.g. caution).
   Warning,
   /// Information icon (e.g. info).
-  Information
+  Information,
 };
 
 } // namespace toy::platform::ui

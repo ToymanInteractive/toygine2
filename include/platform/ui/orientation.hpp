@@ -51,7 +51,7 @@ enum class Orientation : uint8_t {
   PortraitAny = Portrait | PortraitFlipped,
 
   /// Any orientation.
-  Any = LandscapeAny | PortraitAny
+  Any = LandscapeAny | PortraitAny,
 };
 
 /*!

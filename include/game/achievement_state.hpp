@@ -39,7 +39,7 @@ enum class AchievementState : uint8_t {
   /// Achievement is visible but not yet earned.
   Locked,
   /// Achievement has been earned.
-  Unlocked
+  Unlocked,
 };
 
 } // namespace toy::game
