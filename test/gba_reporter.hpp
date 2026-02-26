@@ -130,7 +130,7 @@ public:
     }
   }
 
-  // called when an exception is thrown from the test case (or it crashes)
+  /// Called when an exception is thrown from the test case (or it crashes)
   void test_case_exception(const doctest::TestCaseException & exception) noexcept override {
     if (_testCaseData->m_no_output)
       return;
@@ -152,7 +152,12 @@ public:
 
   void report_query([[maybe_unused]] const doctest::QueryData & data) noexcept override {}
 
-  void subcase_start([[maybe_unused]] const doctest::SubcaseSignature & signature) noexcept override {}
+  /// Сalled whenever a subcase is entered (don't cache pointers to the input)
+  void subcase_start(const doctest::SubcaseSignature & signature) noexcept override {
+    _subcasesStack.push_back(signature);
+    ++_currentSubcaseLevel;
+    _hasLoggedCurrentTestStart = false;
+  }
 
   void subcase_end() noexcept override {}
 

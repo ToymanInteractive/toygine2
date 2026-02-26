@@ -25,6 +25,8 @@
 #ifndef INCLUDE_MATH_HPP_
 #define INCLUDE_MATH_HPP_
 
+#include <numbers>
+
 #include "core.hpp"
 
 /*!
