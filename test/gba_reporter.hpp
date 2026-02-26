@@ -148,6 +148,14 @@ public:
 
   void log_message([[maybe_unused]] const doctest::MessageData & data) noexcept override {}
 
+  /*!
+   \brief Called when a test case is skipped.
+
+   Invoked when a test case doesn't pass filters, has a skip decorator, or isn't in the execution range (between first
+   and last).
+
+   \param data Test case metadata (safe to cache a pointer to the input).
+ */
   void test_case_skipped([[maybe_unused]] const doctest::TestCaseData & data) noexcept override {}
 
   void report_query([[maybe_unused]] const doctest::QueryData & data) noexcept override {}

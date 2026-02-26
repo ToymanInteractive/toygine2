@@ -45,7 +45,7 @@ enum class ClearFlags : uint8_t {
   Stencil = 0x04,
 
   /// Clear color, depth, and stencil.
-  All = Target | Depth | Stencil
+  All = Target | Depth | Stencil,
 };
 
 /*!

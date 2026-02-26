@@ -18,30 +18,38 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   achievement_state.hpp
-  \brief  Achievement visibility and unlock state for the game module.
+  \file   message_box_icon.hpp
+  \brief  Icon type for message box / dialog.
+
+  Defines \ref toy::platform::ui::MessageBoxIcon: which icon is displayed in a message box (none, error, question,
+  warning, information). Used by platform UI APIs that show dialogs.
 */
 
-#ifndef INCLUDE_GAME_ACHIEVEMENT_STATE_HPP_
-#define INCLUDE_GAME_ACHIEVEMENT_STATE_HPP_
+#ifndef INCLUDE_PLATFORM_UI_MESSAGE_BOX_ICON_HPP_
+#define INCLUDE_PLATFORM_UI_MESSAGE_BOX_ICON_HPP_
 
-namespace toy::game {
+namespace toy::platform::ui {
 
 /*!
-  \enum AchievementState
-  \brief State of an achievement: visibility and whether it is unlocked.
+  \enum MessageBoxIcon
+  \brief Icon shown in a message box or dialog.
 
-  Used to drive UI (e.g. show, grey out, or hide) and logic (e.g. grant rewards only when \c Unlocked).
+  Used when displaying a native message box to indicate severity or kind of message. Exact appearance is
+  platform-dependent.
 */
-enum class AchievementState : uint8_t {
-  /// Achievement is not shown to the user (e.g. secret or not yet available).
-  Hidden,
-  /// Achievement is visible but not yet earned.
-  Locked,
-  /// Achievement has been earned.
-  Unlocked,
+enum class MessageBoxIcon {
+  /// No icon.
+  None,
+  /// Error icon (e.g. stop/critical).
+  Error,
+  /// Question icon (e.g. help/inquiry).
+  Question,
+  /// Warning icon (e.g. caution).
+  Warning,
+  /// Information icon (e.g. info).
+  Information,
 };
 
-} // namespace toy::game
+} // namespace toy::platform::ui
 
-#endif // INCLUDE_GAME_ACHIEVEMENT_STATE_HPP_
+#endif // INCLUDE_PLATFORM_UI_MESSAGE_BOX_ICON_HPP_

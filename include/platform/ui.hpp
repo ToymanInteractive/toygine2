@@ -21,8 +21,9 @@
   \file   ui.hpp
   \brief  Umbrella header for platform UI types.
 
-  Includes orientation, message box return type, and related UI types. Users of the platform UI module should include
-  this header only; do not include internal headers (e.g. \c ui/message_box_return.hpp, \c ui/orientation.hpp) directly.
+  Includes orientation, message box icon and return types, and related UI types. Users of the platform UI module should
+  include this header only; do not include internal headers (e.g. \c ui/message_box_icon.hpp,
+  \c ui/message_box_return.hpp, \c ui/orientation.hpp) directly.
 */
 
 #ifndef INCLUDE_PLATFORM_UI_HPP_
@@ -32,9 +33,10 @@
 
 /*!
   \namespace toy::platform::ui
-  \brief Platform UI types: orientation, message box return values, and related utilities.
+  \brief Platform UI types: orientation, message box icon and return values, and related utilities.
 */
 
+#include "ui/message_box_icon.hpp"
 #include "ui/message_box_return.hpp"
 #include "ui/orientation.hpp"
 
