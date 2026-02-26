@@ -130,7 +130,19 @@ public:
     }
   }
 
-  void test_case_exception([[maybe_unused]] const doctest::TestCaseException & exception) noexcept override {}
+  // called when an exception is thrown from the test case (or it crashes)
+  void test_case_exception(const doctest::TestCaseException & exception) noexcept override {
+    if (_testCaseData->m_no_output)
+      return;
+
+    _logTestStart();
+    _fileLineToStream(_testCaseData->m_file.c_str(), _testCaseData->m_line, " ");
+
+    _report(_logLevelInfo, "%s: %s: %s",
+            _successOrFailString(false,
+                                 exception.is_crash ? doctest::assertType::is_require : doctest::assertType::is_check),
+            exception.is_crash ? "test case CRASHED" : "test case THREW exception", exception.error_string.c_str());
+  }
 
   void log_assert([[maybe_unused]] const doctest::AssertData & data) noexcept override {}
 
@@ -172,14 +184,10 @@ private:
     \return \c true if mGBA debug protocol is present, \c false otherwise.
   */
   static inline bool _mGbaDetect() noexcept {
-#if defined(__GBA__)
     // mGBA debug register
     (*(volatile uint16_t *)0x04FFF780) = 0xC0DE;
 
     return (*(volatile uint16_t *)0x04FFF780) == 0x1DEA;
-#else
-    return false;
-#endif
   }
 
   /*!
@@ -211,7 +219,6 @@ private:
       *dst = 0;
     }
 
-#if defined(__GBA__)
     if (std::strlen(buffer) > 30) {
       // Truncate long strings for GBA on-screen log
       buffer[27] = '.';
@@ -219,7 +226,6 @@ private:
       buffer[29] = '.';
       buffer[30] = '\0';
     }
-#endif
 
     std::cout << buffer << "\n";
 
@@ -268,6 +274,22 @@ private:
     _report(_logLevelInfo, "");
 
     _hasLoggedCurrentTestStart = true;
+  }
+
+  /// Returns a label for the assertion result: success string, "WARNING", "ERROR", "FATAL ERROR", or empty.
+  [[nodiscard]] const char * _successOrFailString(bool success, doctest::assertType::Enum at,
+                                                  const char * successString = "SUCCESS") noexcept {
+    if (success)
+      return successString;
+
+    if (at & doctest::assertType::is_warn)
+      return "WARNING";
+    if (at & doctest::assertType::is_check)
+      return "ERROR";
+    if (at & doctest::assertType::is_require)
+      return "FATAL ERROR";
+
+    return "";
   }
 };
 

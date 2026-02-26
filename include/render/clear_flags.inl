@@ -18,29 +18,27 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   network.hpp
-  \brief  Umbrella header for the network module.
-
-  Includes socket error types, socket flags, and related networking types. Users of the network module should include
-  this header only; do not include internal headers (e.g. \c network/socket_error.hpp, \c network/socket_flags.hpp)
-  directly.
+  \file   clear_flags.inl
+  \brief  Inline implementations for \ref toy::render::ClearFlags.
 */
 
-#ifndef INCLUDE_NETWORK_HPP_
-#define INCLUDE_NETWORK_HPP_
+#ifndef INCLUDE_RENDER_CLEAR_FLAGS_INL_
+#define INCLUDE_RENDER_CLEAR_FLAGS_INL_
 
-#include "core.hpp"
+namespace toy::render {
 
-/*!
-  \namespace toy::network
-  \brief Network types and utilities: socket errors, socket flags, and related APIs.
-*/
+constexpr ClearFlags operator&(ClearFlags lhs, ClearFlags rhs) noexcept {
+  return static_cast<ClearFlags>(static_cast<uint8_t>(lhs) & static_cast<uint8_t>(rhs));
+}
 
-#include "network/socket_error.hpp"
-#include "network/socket_flags.hpp"
+constexpr ClearFlags operator|(ClearFlags lhs, ClearFlags rhs) noexcept {
+  return static_cast<ClearFlags>(static_cast<uint8_t>(lhs) | static_cast<uint8_t>(rhs));
+}
 
-//----------------------------------------------------------------------------------------------------------------------
+constexpr ClearFlags operator^(ClearFlags lhs, ClearFlags rhs) noexcept {
+  return static_cast<ClearFlags>(static_cast<uint8_t>(lhs) ^ static_cast<uint8_t>(rhs));
+}
 
-#include "network/socket_flags.inl"
+} // namespace toy::render
 
-#endif // INCLUDE_NETWORK_HPP_
+#endif // INCLUDE_RENDER_CLEAR_FLAGS_INL_

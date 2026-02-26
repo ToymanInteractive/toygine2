@@ -59,9 +59,7 @@ enum class ClearFlags : uint8_t {
 
   \return Clear flags with only the bits set in both \a lhs and \a rhs.
 */
-[[nodiscard]] constexpr ClearFlags operator&(ClearFlags lhs, ClearFlags rhs) noexcept {
-  return static_cast<ClearFlags>(static_cast<uint8_t>(lhs) & static_cast<uint8_t>(rhs));
-}
+[[nodiscard]] constexpr ClearFlags operator&(ClearFlags lhs, ClearFlags rhs) noexcept;
 
 /*!
   \brief Bitwise OR of two \ref toy::render::ClearFlags values.
@@ -74,9 +72,7 @@ enum class ClearFlags : uint8_t {
 
   \return Clear flags with all bits set in either \a lhs or \a rhs.
 */
-[[nodiscard]] constexpr ClearFlags operator|(ClearFlags lhs, ClearFlags rhs) noexcept {
-  return static_cast<ClearFlags>(static_cast<uint8_t>(lhs) | static_cast<uint8_t>(rhs));
-}
+[[nodiscard]] constexpr ClearFlags operator|(ClearFlags lhs, ClearFlags rhs) noexcept;
 
 /*!
   \brief Bitwise XOR of two \ref toy::render::ClearFlags values.
@@ -88,9 +84,7 @@ enum class ClearFlags : uint8_t {
 
   \return Clear flags with bits set in exactly one of \a lhs or \a rhs.
 */
-[[nodiscard]] constexpr ClearFlags operator^(ClearFlags lhs, ClearFlags rhs) noexcept {
-  return static_cast<ClearFlags>(static_cast<uint8_t>(lhs) ^ static_cast<uint8_t>(rhs));
-}
+[[nodiscard]] constexpr ClearFlags operator^(ClearFlags lhs, ClearFlags rhs) noexcept;
 
 } // namespace toy::render
 
