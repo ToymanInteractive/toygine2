@@ -11,7 +11,7 @@
 <!-- Node1 -->
 <g id="Node000001" class="node">
 <title>Node1</title>
-<g id="a_Node000001"><a xlink:title="Umbrella header for the engine mathematics module.">
+<g id="a_Node000001"><a xlink:title="Umbrella header for the math module.">
 <polygon fill="#999999" stroke="#666666" points="1838.5,-217 1737.5,-217 1737.5,-198 1838.5,-198 1838.5,-217"/>
 <text text-anchor="middle" x="1788" y="-205" font-family="Helvetica,sans-Serif" font-size="10.00">include/math.hpp</text>
 </a>

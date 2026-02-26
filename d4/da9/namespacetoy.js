@@ -1,6 +1,7 @@
 var namespacetoy =
 [
-    [ "app", "dc/df3/namespacetoy_1_1app.html", "dc/df3/namespacetoy_1_1app" ],
+    [ "application", "d0/d3e/namespacetoy_1_1application.html", "d0/d3e/namespacetoy_1_1application" ],
+    [ "geometry", "da/d08/namespacetoy_1_1geometry.html", "da/d08/namespacetoy_1_1geometry" ],
     [ "math", "d2/d83/namespacetoy_1_1math.html", "d2/d83/namespacetoy_1_1math" ],
     [ "network", "d6/d2c/namespacetoy_1_1network.html", [
       [ "SocketError", "d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725e", [

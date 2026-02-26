@@ -21,7 +21,7 @@
 <!-- Node2 -->
 <g id="Node000002" class="node">
 <title>Node2</title>
-<g id="a_Node000002"><a xlink:href="../../d1/d71/audio_8hpp.html" target="_top" xlink:title="Umbrella header for the audio module (volume types, mixing, etc.).">
+<g id="a_Node000002"><a xlink:href="../../d1/d71/audio_8hpp.html" target="_top" xlink:title="Umbrella header for the audio module.">
 <polygon fill="white" stroke="#666666" points="112.5,-74 9.5,-74 9.5,-55 112.5,-55 112.5,-74"/>
 <text text-anchor="middle" x="61" y="-62" font-family="Helvetica,sans-Serif" font-size="10.00">include/audio.hpp</text>
 </a>
@@ -39,7 +39,7 @@
 <!-- Node3 -->
 <g id="Node000003" class="node">
 <title>Node3</title>
-<g id="a_Node000003"><a xlink:href="../../d8/d8c/toygine2_8hpp.html" target="_top" xlink:title="Main umbrella header for the entire ToyGine2 engine.">
+<g id="a_Node000003"><a xlink:href="../../d8/d8c/toygine2_8hpp.html" target="_top" xlink:title="Main umbrella header for the engine.">
 <polygon fill="white" stroke="#666666" points="120.5,-19 1.5,-19 1.5,0 120.5,0 120.5,-19"/>
 <text text-anchor="middle" x="61" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">include/toygine2.hpp</text>
 </a>

@@ -203,10 +203,10 @@ Header / Source Organization</h1>
 <h2 class="doxsection"><a class="anchor" id="module-structure"></a>
 Module Structure</h2>
 <ul>
-<li>Each module exposes a single public <em>barrel header</em> that acts as the module entry point.</li>
+<li>Each module exposes a single public <em>umbrella header</em> that acts as the module entry point.</li>
 <li>Users of the library must include <b>only</b> the module header and must not depend on internal headers.</li>
 <li>Internal headers are considered implementation details and are not part of the public API.</li>
-<li>Barrel headers may be precompiled.</li>
+<li>Umbrella headers may be precompiled.</li>
 </ul>
 <h2 class="doxsection"><a class="anchor" id="include-guards"></a>
 Include Guards</h2>

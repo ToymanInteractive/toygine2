@@ -1,0 +1,7 @@
+<map id="include/geometry/section.inl" name="include/geometry/section.inl">
+<area shape="rect" id="Node000001" title="Inline implementations for toy::geometry::Section." alt="" coords="5,5,212,31"/>
+<area shape="rect" id="Node000002" href="$db/dbb/geometry_8hpp.html" title="Umbrella header for the geometry module." alt="" coords="27,79,190,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="111,44,111,79,106,79,106,44"/>
+<area shape="rect" id="Node000003" href="$d8/d8c/toygine2_8hpp.html" title="Main umbrella header for the engine." alt="" coords="29,152,188,177"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="111,118,111,152,106,152,106,118"/>
+</map>

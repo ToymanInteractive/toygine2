@@ -1,7 +1,10 @@
 <map id="include/math/fixed_std_extension.hpp" name="include/math/fixed_std_extension.hpp">
-<area shape="rect" id="Node000001" title="Standard library extensions for toy::math::fixed: numeric_limits and std::numbers mathematical consta..." alt="" coords="11,5,159,45"/>
-<area shape="rect" id="Node000002" href="$d4/d78/math_8hpp.html" title="Umbrella header for the engine mathematics module." alt="" coords="17,93,152,119"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="87,59,87,93,82,93,82,59"/>
-<area shape="rect" id="Node000003" href="$d8/d8c/toygine2_8hpp.html" title="Main umbrella header for the entire ToyGine2 engine." alt="" coords="5,167,164,192"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="87,132,87,167,82,167,82,132"/>
+<area shape="rect" id="Node000001" title="Standard library extensions for toy::math::fixed: numeric_limits and std::numbers mathematical consta..." alt="" coords="71,5,219,45"/>
+<area shape="rect" id="Node000002" href="$d4/d78/math_8hpp.html" title="Umbrella header for the math module." alt="" coords="78,93,213,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="148,59,148,93,143,93,143,59"/>
+<area shape="rect" id="Node000003" href="$db/dbb/geometry_8hpp.html" title="Umbrella header for the geometry module." alt="" coords="5,167,168,192"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="129,131,98,168,94,165,125,128"/>
+<area shape="rect" id="Node000004" href="$d8/d8c/toygine2_8hpp.html" title="Main umbrella header for the engine." alt="" coords="66,240,225,265"/>
+<area shape="poly" id="edge4_Node000002_Node000004" title=" " alt="" coords="165,129,183,166,184,187,178,208,158,241,153,238,173,206,178,187,177,167,160,131"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="107,201,138,238,134,242,103,204"/>
 </map>
