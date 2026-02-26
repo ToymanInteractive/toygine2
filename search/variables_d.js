@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['x_0',['x',['../d3/dce/classtoy_1_1math_1_1_point.html#a5b974e35db246293fe092fd51e93484e',1,'toy::math::Point::x'],['../d9/d85/classtoy_1_1math_1_1_vector2_d.html#acf1bff19cfe871fbe1818d0db3a50787',1,'toy::math::Vector2D::x']]]
+  ['tinyness_5fbefore_0',['tinyness_before',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#abccc51e90196cc95513450b20567f4bd',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]],
+  ['traps_1',['traps',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a4cf571b8d53ef6d6d221857eff804cf3',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]]
 ];
