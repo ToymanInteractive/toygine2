@@ -176,16 +176,18 @@ TEST_CASE("math/fixed_std_extension/numbers_constants") {
 
   // e and pi are close to std double constants when cast to double.
   SUBCASE("e_pi_near_std") {
+    constexpr double kTolerance = 1.0 / 256.0;
+
     const double eDouble = static_cast<double>(std::numbers::e_v<Fixed>);
     const double piDouble = static_cast<double>(std::numbers::pi_v<Fixed>);
 
     REQUIRE(eDouble > 2.0);
     REQUIRE(eDouble < 3.5);
-    REQUIRE(std::abs(eDouble - std::numbers::e_v<double>) < 0.1);
+    REQUIRE(std::abs(eDouble - std::numbers::e_v<double>) < kTolerance);
 
     REQUIRE(piDouble > 3.0);
     REQUIRE(piDouble < 3.5);
-    REQUIRE(std::abs(piDouble - std::numbers::pi_v<double>) < 0.1);
+    REQUIRE(std::abs(piDouble - std::numbers::pi_v<double>) < kTolerance);
   }
 
   // All 12 constants instantiate for Fixed and FixedNoRounding and are non-zero where expected.
