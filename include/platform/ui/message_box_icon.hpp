@@ -18,30 +18,38 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   ui.hpp
-  \brief  Umbrella header for platform UI types.
+  \file   message_box_icon.hpp
+  \brief  Icon type for message box / dialog.
 
-  Includes orientation, message box icon and return types, and related UI types. Users of the platform UI module should
-  include this header only; do not include internal headers (e.g. \c ui/message_box_icon.hpp,
-  \c ui/message_box_return.hpp, \c ui/orientation.hpp) directly.
+  Defines \ref toy::platform::ui::MessageBoxIcon: which icon is displayed in a message box (none, error, question,
+  warning, information). Used by platform UI APIs that show dialogs.
 */
 
-#ifndef INCLUDE_PLATFORM_UI_HPP_
-#define INCLUDE_PLATFORM_UI_HPP_
+#ifndef INCLUDE_PLATFORM_UI_MESSAGE_BOX_ICON_HPP_
+#define INCLUDE_PLATFORM_UI_MESSAGE_BOX_ICON_HPP_
 
-#include "core.hpp"
+namespace toy::platform::ui {
 
 /*!
-  \namespace toy::platform::ui
-  \brief Platform UI types: orientation, message box icon and return values, and related utilities.
+  \enum MessageBoxIcon
+  \brief Icon shown in a message box or dialog.
+
+  Used when displaying a native message box to indicate severity or kind of message. Exact appearance is
+  platform-dependent.
 */
+enum class MessageBoxIcon {
+  /// No icon.
+  None,
+  /// Error icon (e.g. stop/critical).
+  Error,
+  /// Question icon (e.g. help/inquiry).
+  Question,
+  /// Warning icon (e.g. caution).
+  Warning,
+  /// Information icon (e.g. info).
+  Information
+};
 
-#include "ui/message_box_icon.hpp"
-#include "ui/message_box_return.hpp"
-#include "ui/orientation.hpp"
+} // namespace toy::platform::ui
 
-//----------------------------------------------------------------------------------------------------------------------
-
-#include "ui/orientation.inl"
-
-#endif // INCLUDE_PLATFORM_UI_HPP_
+#endif // INCLUDE_PLATFORM_UI_MESSAGE_BOX_ICON_HPP_
