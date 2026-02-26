@@ -28,6 +28,7 @@ using Fixed = math::fixed<std::int32_t, std::int32_t, 8>;
 
 // Default-constructed section is in reset state; bounds are numeric_limits extremes.
 TEST_CASE("geometry/section/default_constructor") {
+  // integer scalar
   SUBCASE("int") {
     constexpr Section<int> s;
 
@@ -42,6 +43,7 @@ TEST_CASE("geometry/section/default_constructor") {
     static_assert(s.maximum == numeric_limits<int>::lowest(), "default maximum must be lowest()");
   }
 
+  // float scalar
   SUBCASE("float") {
     constexpr Section<float> s;
 
@@ -56,6 +58,7 @@ TEST_CASE("geometry/section/default_constructor") {
     static_assert(math::isEqual(s.maximum, numeric_limits<float>::lowest()), "default float maximum must be lowest()");
   }
 
+  // fixed-point scalar
   SUBCASE("fixed") {
     constexpr Section<Fixed> s;
 
@@ -73,6 +76,7 @@ TEST_CASE("geometry/section/default_constructor") {
 
 // Section(min, max) stores bounds; valid when min <= max.
 TEST_CASE("geometry/section/constructor_bounds") {
+  // integer scalar
   SUBCASE("int") {
     constexpr Section s(10, 20);
 
@@ -87,6 +91,7 @@ TEST_CASE("geometry/section/constructor_bounds") {
     static_assert(!s.isReset(), "Section(10,20) must not be reset");
   }
 
+  // float scalar
   SUBCASE("float") {
     constexpr Section s(10.0f, 20.0f);
 
@@ -101,6 +106,7 @@ TEST_CASE("geometry/section/constructor_bounds") {
     static_assert(!s.isReset(), "Section(10,20) float must not be reset");
   }
 
+  // fixed-point scalar
   SUBCASE("fixed") {
     constexpr Section s(Fixed(10), Fixed(20));
 
@@ -118,6 +124,7 @@ TEST_CASE("geometry/section/constructor_bounds") {
 
 // midpoint() returns (minimum + maximum) / 2.
 TEST_CASE("geometry/section/midpoint") {
+  // integer scalar
   SUBCASE("int") {
     constexpr Section s(10, 20);
 
@@ -126,6 +133,7 @@ TEST_CASE("geometry/section/midpoint") {
     static_assert(s.midpoint() == 15, "midpoint of [10,20] must be 15");
   }
 
+  // float scalar
   SUBCASE("float") {
     constexpr Section s(1.0f, 3.0f);
 
@@ -134,6 +142,7 @@ TEST_CASE("geometry/section/midpoint") {
     static_assert(math::isEqual(s.midpoint(), 2.0f), "midpoint of [1,3] float must be 2");
   }
 
+  // fixed-point scalar
   SUBCASE("fixed") {
     constexpr Section s(Fixed(1), Fixed(3));
 
@@ -145,6 +154,7 @@ TEST_CASE("geometry/section/midpoint") {
 
 // length() returns maximum - minimum.
 TEST_CASE("geometry/section/length") {
+  // integer scalar
   SUBCASE("int") {
     constexpr Section s(10, 20);
 
@@ -153,6 +163,7 @@ TEST_CASE("geometry/section/length") {
     static_assert(s.length() == 10, "length of [10,20] must be 10");
   }
 
+  // float scalar
   SUBCASE("float") {
     constexpr Section s(7.0f, 7.0f);
 
@@ -161,6 +172,7 @@ TEST_CASE("geometry/section/length") {
     static_assert(math::isEqual(s.length(), 0.0f), "length of point section float must be 0");
   }
 
+  // fixed-point scalar
   SUBCASE("fixed") {
     constexpr Section s(Fixed(1), Fixed(3));
 
@@ -172,6 +184,7 @@ TEST_CASE("geometry/section/length") {
 
 // reset() puts section in empty state (min/max extremes, isReset true).
 TEST_CASE("geometry/section/reset") {
+  // integer scalar
   SUBCASE("int") {
     Section s(1, 10);
 
@@ -183,6 +196,7 @@ TEST_CASE("geometry/section/reset") {
     REQUIRE(s.maximum == numeric_limits<int>::lowest());
   }
 
+  // float scalar
   SUBCASE("float") {
     Section s(1.0f, 10.0f);
 
@@ -194,6 +208,7 @@ TEST_CASE("geometry/section/reset") {
     REQUIRE(math::isEqual(s.maximum, numeric_limits<float>::lowest()));
   }
 
+  // fixed-point scalar
   SUBCASE("fixed") {
     Section s(Fixed(1), Fixed(10));
 
@@ -208,6 +223,7 @@ TEST_CASE("geometry/section/reset") {
 
 // expand(T value) extends interval to include value.
 TEST_CASE("geometry/section/expand_value") {
+  // integer scalar
   SUBCASE("int") {
     Section s(10, 20);
 
@@ -227,6 +243,7 @@ TEST_CASE("geometry/section/expand_value") {
     REQUIRE(s.maximum == 25);
   }
 
+  // float scalar
   SUBCASE("float") {
     Section s(10.0f, 20.0f);
 
@@ -246,6 +263,7 @@ TEST_CASE("geometry/section/expand_value") {
     REQUIRE(math::isEqual(s.maximum, 25.0f));
   }
 
+  // fixed-point scalar
   SUBCASE("fixed") {
     Section s(Fixed(10), Fixed(20));
 
@@ -268,6 +286,7 @@ TEST_CASE("geometry/section/expand_value") {
 
 // expand(Section) merges the other interval (union).
 TEST_CASE("geometry/section/expand_section") {
+  // integer scalar
   SUBCASE("int") {
     Section s(0, 10);
     Section t(0, 15);
@@ -281,6 +300,7 @@ TEST_CASE("geometry/section/expand_section") {
     REQUIRE(t.maximum == 25);
   }
 
+  // float scalar
   SUBCASE("float") {
     Section s(0.0f, 10.0f);
     Section t(0.0f, 15.0f);
@@ -294,6 +314,7 @@ TEST_CASE("geometry/section/expand_section") {
     REQUIRE(math::isEqual(t.maximum, 25.0f));
   }
 
+  // fixed-point scalar
   SUBCASE("fixed") {
     Section s(Fixed(0), Fixed(10));
     Section t(Fixed(0), Fixed(15));
@@ -310,6 +331,7 @@ TEST_CASE("geometry/section/expand_section") {
 
 // isReset() is true when minimum > maximum.
 TEST_CASE("geometry/section/is_reset") {
+  // integer scalar
   SUBCASE("int") {
     constexpr Section<int> empty;
     constexpr Section valid(1, 2);
@@ -321,6 +343,7 @@ TEST_CASE("geometry/section/is_reset") {
     static_assert(!valid.isReset(), "valid Section<int> must not be reset");
   }
 
+  // float scalar
   SUBCASE("float") {
     constexpr Section<float> empty;
     constexpr Section valid(1.0f, 2.0f);
@@ -332,6 +355,7 @@ TEST_CASE("geometry/section/is_reset") {
     static_assert(!valid.isReset(), "valid Section<float> must not be reset");
   }
 
+  // fixed-point scalar
   SUBCASE("fixed") {
     constexpr Section<Fixed> empty;
     constexpr Section valid(Fixed(1), Fixed(2));
@@ -346,6 +370,7 @@ TEST_CASE("geometry/section/is_reset") {
 
 // isValid() is true when minimum <= maximum.
 TEST_CASE("geometry/section/is_valid") {
+  // integer scalar
   SUBCASE("int") {
     constexpr Section<int> empty;
     constexpr Section valid(1, 2);
@@ -357,6 +382,7 @@ TEST_CASE("geometry/section/is_valid") {
     static_assert(valid.isValid(), "Section(1,2) must be valid");
   }
 
+  // float scalar
   SUBCASE("float") {
     constexpr Section<float> empty;
     constexpr Section valid(1.0f, 2.0f);
@@ -368,6 +394,7 @@ TEST_CASE("geometry/section/is_valid") {
     static_assert(valid.isValid(), "Section(1,2) float must be valid");
   }
 
+  // fixed-point scalar
   SUBCASE("fixed") {
     constexpr Section<Fixed> empty;
     constexpr Section valid(Fixed(1), Fixed(2));
@@ -382,6 +409,7 @@ TEST_CASE("geometry/section/is_valid") {
 
 // isContains(T value) is true when value is in [minimum, maximum] inclusive.
 TEST_CASE("geometry/section/is_contains") {
+  // integer scalar
   SUBCASE("int") {
     constexpr Section s(10, 20);
 
@@ -398,6 +426,7 @@ TEST_CASE("geometry/section/is_contains") {
     static_assert(!s.isContains(21), "21 must be outside [10,20]");
   }
 
+  // float scalar
   SUBCASE("float") {
     constexpr Section s(10.0f, 20.0f);
 
@@ -414,6 +443,7 @@ TEST_CASE("geometry/section/is_contains") {
     static_assert(!s.isContains(21.0f), "21 must be outside [10,20] float");
   }
 
+  // fixed-point scalar
   SUBCASE("fixed") {
     constexpr Section s(Fixed(10), Fixed(20));
 
@@ -433,6 +463,7 @@ TEST_CASE("geometry/section/is_contains") {
 
 // operator== returns true when both bounds match (exact for int/fixed, isEqual for float).
 TEST_CASE("geometry/section/operator_eq") {
+  // integer scalar
   SUBCASE("int") {
     constexpr Section a(1, 2);
     constexpr Section b(1, 2);
@@ -449,6 +480,7 @@ TEST_CASE("geometry/section/operator_eq") {
     static_assert(!(a == c), "different sections must not be equal");
   }
 
+  // float scalar
   SUBCASE("float") {
     constexpr Section a(1.0f, 2.0f);
     constexpr Section b(1.0f, 2.0f);
@@ -465,6 +497,7 @@ TEST_CASE("geometry/section/operator_eq") {
     static_assert(!(a == c), "different float sections must not be equal");
   }
 
+  // fixed-point scalar
   SUBCASE("fixed") {
     constexpr Section a(Fixed(1), Fixed(2));
     constexpr Section b(Fixed(1), Fixed(2));
@@ -484,6 +517,7 @@ TEST_CASE("geometry/section/operator_eq") {
 
 // operator!= returns true when bounds differ; consistent with operator==.
 TEST_CASE("geometry/section/operator_ne") {
+  // integer scalar
   SUBCASE("int") {
     constexpr Section a(1, 2);
     constexpr Section b(1, 3);
@@ -497,6 +531,7 @@ TEST_CASE("geometry/section/operator_ne") {
     static_assert(a == a, "same section must be equal to self");
   }
 
+  // float scalar
   SUBCASE("float") {
     constexpr Section a(1.0f, 2.0f);
     constexpr Section b(1.0f, 3.0f);
@@ -510,6 +545,7 @@ TEST_CASE("geometry/section/operator_ne") {
     static_assert(a == a, "same float section must be equal to self");
   }
 
+  // fixed-point scalar
   SUBCASE("fixed") {
     constexpr Section a(Fixed(1), Fixed(2));
     constexpr Section b(Fixed(1), Fixed(3));

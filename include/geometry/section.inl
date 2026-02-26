@@ -28,8 +28,7 @@
 #ifndef INCLUDE_GEOMETRY_SECTION_INL_
 #define INCLUDE_GEOMETRY_SECTION_INL_
 
-namespace toy {
-namespace geometry {
+namespace toy::geometry {
 
 template <typename T>
   requires SectionScalar<T>
@@ -42,12 +41,16 @@ constexpr Section<T>::Section(const T & min, const T & max) noexcept
 template <typename T>
   requires SectionScalar<T>
 constexpr T Section<T>::midpoint() const noexcept {
-  return (minimum + maximum) / 2;
+  assert_message(isValid(), "midpoint() requires a valid section");
+
+  return minimum + (maximum - minimum) / 2;
 }
 
 template <typename T>
   requires SectionScalar<T>
 constexpr T Section<T>::length() const noexcept {
+  assert_message(isValid(), "midpoint() requires a valid section");
+
   return maximum - minimum;
 }
 
@@ -116,7 +119,6 @@ constexpr bool operator!=(const Section<T> & a, const Section<T> & b) noexcept {
   return !(a == b);
 }
 
-} // namespace geometry
-} // namespace toy
+} // namespace toy::geometry
 
 #endif // INCLUDE_GEOMETRY_SECTION_INL_

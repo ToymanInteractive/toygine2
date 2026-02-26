@@ -159,7 +159,7 @@ public:
     _hasLoggedCurrentTestStart = false;
   }
 
-  // Called whenever a subcase is exited (don't cache pointers to the input)
+  /// Called whenever a subcase is exited (don't cache pointers to the input)
   void subcase_end() noexcept override {
     --_currentSubcaseLevel;
     _hasLoggedCurrentTestStart = false;

@@ -159,7 +159,7 @@ public:
 };
 
 /*!
-  \brief Equality: same minimum and maximum.
+  \brief Equality for integral and fixed-point sections: exact comparison of bounds.
 
   \param a First section.
   \param b Second section.
@@ -169,7 +169,21 @@ public:
   \sa operator!=()
 */
 template <typename T>
-  requires SectionScalar<T>
+  requires SectionScalar<T> && (std::integral<T> || math::fixed_point<T>)
+[[nodiscard]] constexpr bool operator==(const Section<T> & a, const Section<T> & b) noexcept;
+
+/*!
+  \brief Equality for floating-point sections: approximate comparison of bounds via math::isEqual.
+
+  \param a First section.
+  \param b Second section.
+
+  \return \c true if both bounds are equal within the default epsilon (math::isEqual).
+
+  \sa operator!=()
+*/
+template <typename T>
+  requires SectionScalar<T> && std::floating_point<T>
 [[nodiscard]] constexpr bool operator==(const Section<T> & a, const Section<T> & b) noexcept;
 
 /*!

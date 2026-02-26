@@ -45,12 +45,12 @@ namespace toy::application {
   \section usage Usage Example
 
   \code
-  #include "app.hpp"
+  #include "application.hpp"
 
-  constexpr toy::app::Version version;
-  constexpr toy::app::Version customVersion{1, 2, 3, 4};
+  constexpr toy::application::Version version;
+  constexpr toy::application::Version customVersion{1, 2, 3, 4};
 
-  if (customVersion >= toy::app::Version{1, 0, 0, 0}) {
+  if (customVersion >= toy::application::Version{1, 0, 0, 0}) {
     // API 1.x or later
   }
   \endcode
@@ -92,7 +92,7 @@ struct Version {
 };
 
 /*!
-  \brief Equality of two \ref toy::app::Version values.
+  \brief Equality of two \ref toy::application::Version values.
 
   \param lhs Left-hand side version.
   \param rhs Right-hand side version.
@@ -102,7 +102,7 @@ struct Version {
 [[nodiscard]] constexpr bool operator==(const Version & lhs, const Version & rhs) noexcept;
 
 /*!
-  \brief Three-way comparison of two \ref toy::app::Version values (lexicographic order).
+  \brief Three-way comparison of two \ref toy::application::Version values (lexicographic order).
 
   Compares major, then minor, then maintenance, then revision.
 

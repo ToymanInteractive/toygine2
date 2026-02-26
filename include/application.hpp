@@ -25,8 +25,8 @@
   \c app/version.hpp) directly.
 */
 
-#ifndef INCLUDE_APP_HPP_
-#define INCLUDE_APP_HPP_
+#ifndef INCLUDE_APPLICATION_HPP_
+#define INCLUDE_APPLICATION_HPP_
 
 #include "core.hpp"
 
@@ -41,4 +41,4 @@
 
 #include "application/version.inl"
 
-#endif // INCLUDE_APP_HPP_
+#endif // INCLUDE_APPLICATION_HPP_
