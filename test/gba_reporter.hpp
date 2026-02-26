@@ -277,8 +277,8 @@ private:
   }
 
   /// Returns a label for the assertion result: success string, "WARNING", "ERROR", "FATAL ERROR", or empty.
-  const char * _successOrFailString(bool success, doctest::assertType::Enum at,
-                                    const char * successString = "SUCCESS") {
+  [[nodiscard]] const char * _successOrFailString(bool success, doctest::assertType::Enum at,
+                                                  const char * successString = "SUCCESS") noexcept {
     if (success)
       return successString;
 

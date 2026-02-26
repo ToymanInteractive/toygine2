@@ -26,6 +26,7 @@ namespace toy::network {
 
 // Bitwise OR: combines socket flags.
 TEST_CASE("network/socket_flags/operator_or") {
+  // None | NonBlocking yields NonBlocking.
   SUBCASE("none_or_non_blocking") {
     constexpr auto result = SocketFlags::None | SocketFlags::NonBlocking;
 
@@ -34,6 +35,7 @@ TEST_CASE("network/socket_flags/operator_or") {
     static_assert(result == SocketFlags::NonBlocking, "None | NonBlocking must equal NonBlocking");
   }
 
+  // NonBlocking | ReuseAddress yields 0x03.
   SUBCASE("non_blocking_or_reuse_address") {
     REQUIRE(static_cast<uint8_t>(SocketFlags::NonBlocking | SocketFlags::ReuseAddress) == 0x03);
 
@@ -41,6 +43,7 @@ TEST_CASE("network/socket_flags/operator_or") {
                   "NonBlocking | ReuseAddress must equal 0x03");
   }
 
+  // NonBlocking | ReuseAddress | Listen yields 0x0b.
   SUBCASE("combine_three_flags") {
     constexpr auto combined = SocketFlags::NonBlocking | SocketFlags::ReuseAddress | SocketFlags::Listen;
 
@@ -52,6 +55,7 @@ TEST_CASE("network/socket_flags/operator_or") {
 
 // Bitwise AND: intersection of socket flags.
 TEST_CASE("network/socket_flags/operator_and") {
+  // NonBlocking & (NonBlocking | ReuseAddress) yields NonBlocking.
   SUBCASE("non_blocking_and_combined") {
     constexpr auto combined = SocketFlags::NonBlocking | SocketFlags::ReuseAddress;
 
@@ -61,6 +65,7 @@ TEST_CASE("network/socket_flags/operator_and") {
                   "NonBlocking & (NonBlocking | ReuseAddress) must equal NonBlocking");
   }
 
+  // None & Bind yields None.
   SUBCASE("none_and_bind") {
     constexpr auto combined = SocketFlags::None & SocketFlags::Bind;
 
@@ -69,6 +74,7 @@ TEST_CASE("network/socket_flags/operator_and") {
     static_assert(combined == SocketFlags::None, "None & Bind must equal None");
   }
 
+  // Listen & Listen yields Listen.
   SUBCASE("same_and_same") {
     constexpr auto combined = SocketFlags::Listen & SocketFlags::Listen;
 
@@ -80,6 +86,7 @@ TEST_CASE("network/socket_flags/operator_and") {
 
 // Bitwise XOR: symmetric difference of socket flags.
 TEST_CASE("network/socket_flags/operator_xor") {
+  // NonBlocking ^ NonBlocking yields None.
   SUBCASE("non_blocking_xor_non_blocking") {
     constexpr auto combined = SocketFlags::NonBlocking ^ SocketFlags::NonBlocking;
 
@@ -88,6 +95,7 @@ TEST_CASE("network/socket_flags/operator_xor") {
     static_assert(combined == SocketFlags::None, "NonBlocking ^ NonBlocking must equal None");
   }
 
+  // NonBlocking ^ ReuseAddress yields 0x03.
   SUBCASE("non_blocking_xor_reuse_address") {
     constexpr auto combined = SocketFlags::NonBlocking ^ SocketFlags::ReuseAddress;
 
@@ -96,6 +104,7 @@ TEST_CASE("network/socket_flags/operator_xor") {
     static_assert(static_cast<uint8_t>(combined) == 0x03, "NonBlocking ^ ReuseAddress must equal 0x03");
   }
 
+  // (NonBlocking | ReuseAddress) ^ NonBlocking yields ReuseAddress.
   SUBCASE("combined_xor_one_flag") {
     constexpr auto combined = SocketFlags::NonBlocking | SocketFlags::ReuseAddress;
 
