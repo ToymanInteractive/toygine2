@@ -114,11 +114,21 @@ $(function(){initNavTree('d1/d03/namespacetoy_1_1platform_1_1ui.html','../../','
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="../../d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55a" title="Enumeration of target operating systems and platforms.">Platform</a> UI types: orientation, message box return values, and related utilities.  
+<p><a class="el" href="../../d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55a" title="Enumeration of target operating systems and platforms.">Platform</a> UI types: orientation, message box icon and return values, and related utilities.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
+<tr class="memitem:aa258d6860405ac17c387232bff26a6fa" id="r_aa258d6860405ac17c387232bff26a6fa"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#aa258d6860405ac17c387232bff26a6fa">MessageBoxIcon</a> { <br />
+&#160;&#160;<a class="el" href="#aa258d6860405ac17c387232bff26a6faa6adf97f83acf6453d4a6a4b1070f3754">None</a>
+, <a class="el" href="#aa258d6860405ac17c387232bff26a6faa902b0d55fddef6f8d651fe1035b7d4bd">Error</a>
+, <a class="el" href="#aa258d6860405ac17c387232bff26a6faaa97ea56b0e00b2379736ae60869ff66a">Question</a>
+, <a class="el" href="#aa258d6860405ac17c387232bff26a6faa0eaadb4fcb48a0a0ed7bc9868be9fbaa">Warning</a>
+, <br />
+&#160;&#160;<a class="el" href="#aa258d6860405ac17c387232bff26a6faaa82be0f551b8708bc08eb33cd9ded0cf">Information</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:aa258d6860405ac17c387232bff26a6fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Icon shown in a message box or dialog.  <a href="#aa258d6860405ac17c387232bff26a6fa">More...</a><br /></td></tr>
 <tr class="memitem:acd712dd388168864cc984d43e23e41d2" id="r_acd712dd388168864cc984d43e23e41d2"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#acd712dd388168864cc984d43e23e41d2">MessageBoxReturn</a> { <br />
 &#160;&#160;<a class="el" href="#acd712dd388168864cc984d43e23e41d2aa60852f204ed8028c1c58808b746d115">Ok</a>
 , <a class="el" href="#acd712dd388168864cc984d43e23e41d2aea4788705e6873b424c65e91c2846b19">Cancel</a>
@@ -159,8 +169,45 @@ Functions</h2></td></tr>
 <tr class="memdesc:af43dc4e8ee989cde743f42c1832a5ef0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bitwise XOR of two <a class="el" href="#aab7a6848d6656e7540fb1d6d72116e02" title="toy::platform::ui::Orientation">toy::platform::ui::Orientation</a> values.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="../../d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55a" title="Enumeration of target operating systems and platforms.">Platform</a> UI types: orientation, message box return values, and related utilities. </p>
+<div class="textblock"><p><a class="el" href="../../d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55a" title="Enumeration of target operating systems and platforms.">Platform</a> UI types: orientation, message box icon and return values, and related utilities. </p>
 </div><a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Enumeration Type Documentation</h2>
+<a id="aa258d6860405ac17c387232bff26a6fa" name="aa258d6860405ac17c387232bff26a6fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa258d6860405ac17c387232bff26a6fa">&#9670;&#160;</a></span>MessageBoxIcon</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#aa258d6860405ac17c387232bff26a6fa">toy::platform::ui::MessageBoxIcon</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Icon shown in a message box or dialog. </p>
+<p>Used when displaying a native message box to indicate severity or kind of message. Exact appearance is platform-dependent. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aa258d6860405ac17c387232bff26a6faa6adf97f83acf6453d4a6a4b1070f3754" name="aa258d6860405ac17c387232bff26a6faa6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"><p>No icon. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aa258d6860405ac17c387232bff26a6faa902b0d55fddef6f8d651fe1035b7d4bd" name="aa258d6860405ac17c387232bff26a6faa902b0d55fddef6f8d651fe1035b7d4bd"></a>Error&#160;</td><td class="fielddoc"><p>Error icon (e.g. stop/critical). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aa258d6860405ac17c387232bff26a6faaa97ea56b0e00b2379736ae60869ff66a" name="aa258d6860405ac17c387232bff26a6faaa97ea56b0e00b2379736ae60869ff66a"></a>Question&#160;</td><td class="fielddoc"><p>Question icon (e.g. help/inquiry). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aa258d6860405ac17c387232bff26a6faa0eaadb4fcb48a0a0ed7bc9868be9fbaa" name="aa258d6860405ac17c387232bff26a6faa0eaadb4fcb48a0a0ed7bc9868be9fbaa"></a>Warning&#160;</td><td class="fielddoc"><p>Warning icon (e.g. caution). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aa258d6860405ac17c387232bff26a6faaa82be0f551b8708bc08eb33cd9ded0cf" name="aa258d6860405ac17c387232bff26a6faaa82be0f551b8708bc08eb33cd9ded0cf"></a>Information&#160;</td><td class="fielddoc"><p>Information icon (e.g. info). </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 <a id="acd712dd388168864cc984d43e23e41d2" name="acd712dd388168864cc984d43e23e41d2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acd712dd388168864cc984d43e23e41d2">&#9670;&#160;</a></span>MessageBoxReturn</h2>
 

@@ -1,6 +1,13 @@
 var namespacetoy_1_1platform =
 [
     [ "ui", "d1/d03/namespacetoy_1_1platform_1_1ui.html", [
+      [ "MessageBoxIcon", "d1/d03/namespacetoy_1_1platform_1_1ui.html#aa258d6860405ac17c387232bff26a6fa", [
+        [ "None", "d1/d03/namespacetoy_1_1platform_1_1ui.html#aa258d6860405ac17c387232bff26a6faa6adf97f83acf6453d4a6a4b1070f3754", null ],
+        [ "Error", "d1/d03/namespacetoy_1_1platform_1_1ui.html#aa258d6860405ac17c387232bff26a6faa902b0d55fddef6f8d651fe1035b7d4bd", null ],
+        [ "Question", "d1/d03/namespacetoy_1_1platform_1_1ui.html#aa258d6860405ac17c387232bff26a6faaa97ea56b0e00b2379736ae60869ff66a", null ],
+        [ "Warning", "d1/d03/namespacetoy_1_1platform_1_1ui.html#aa258d6860405ac17c387232bff26a6faa0eaadb4fcb48a0a0ed7bc9868be9fbaa", null ],
+        [ "Information", "d1/d03/namespacetoy_1_1platform_1_1ui.html#aa258d6860405ac17c387232bff26a6faaa82be0f551b8708bc08eb33cd9ded0cf", null ]
+      ] ],
       [ "MessageBoxReturn", "d1/d03/namespacetoy_1_1platform_1_1ui.html#acd712dd388168864cc984d43e23e41d2", [
         [ "Ok", "d1/d03/namespacetoy_1_1platform_1_1ui.html#acd712dd388168864cc984d43e23e41d2aa60852f204ed8028c1c58808b746d115", null ],
         [ "Cancel", "d1/d03/namespacetoy_1_1platform_1_1ui.html#acd712dd388168864cc984d43e23e41d2aea4788705e6873b424c65e91c2846b19", null ],
