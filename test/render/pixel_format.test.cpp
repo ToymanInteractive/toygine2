@@ -55,9 +55,9 @@ TEST_CASE("render/pixel_format/format_name") {
 TEST_CASE("render/pixel_format/format_from_name") {
   // known names return correct format
   SUBCASE("known_names") {
-    REQUIRE(pixelFormatFromName("A8R8G8B8") == PixelFormat::A8R8G8B8);
-    REQUIRE(pixelFormatFromName("D24S8") == PixelFormat::D24S8);
-    REQUIRE(pixelFormatFromName("S3TC5") == PixelFormat::S3TC5);
+    REQUIRE_EQ(pixelFormatFromName("A8R8G8B8"), PixelFormat::A8R8G8B8);
+    REQUIRE_EQ(pixelFormatFromName("D24S8"), PixelFormat::D24S8);
+    REQUIRE_EQ(pixelFormatFromName("S3TC5"), PixelFormat::S3TC5);
   }
 
   // "Unknown" string returns Unknown enum
