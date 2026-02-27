@@ -143,7 +143,7 @@ set(SRC_PLATFORM_UI_LIST )
 set(HDR_PLATFORM_UI_LIST include/platform/ui.hpp include/platform/ui/message_box_return.hpp include/platform/ui/orientation.hpp)
 set(INL_PLATFORM_UI_LIST                                                                    include/platform/ui/orientation.inl)
 
-set(SRC_RENDER_LIST )
+set(SRC_RENDER_LIST                                                   src/render/pixel_format.cpp)
 set(HDR_RENDER_LIST include/render.hpp include/render/clear_flags.hpp include/render/pixel_format.hpp)
 set(INL_RENDER_LIST                    include/render/clear_flags.inl)
 
@@ -160,7 +160,7 @@ source_group("Render"       FILES ${SRC_RENDER_LIST}      ${HDR_RENDER_LIST}    
 
 #-------------------------------------------------------------------------------------------
 
-list(APPEND SRC_LIST ${SRC_APPLICATION_LIST} ${SRC_AUDIO_LIST} ${SRC_CORE_LIST} ${SRC_FILESYSTEM_LIST} ${SRC_GAME_LIST} ${SRC_GEOMETRY_LIST} ${SRC_MATH_LIST} ${SRC_NETWORK_LIST} ${SRC_PLATFORM_UI_LIST} ${SRC_RENDER_LIST} )
+list(APPEND SRC_LIST ${SRC_APPLICATION_LIST} ${SRC_AUDIO_LIST} ${SRC_CORE_LIST} ${SRC_FILESYSTEM_LIST} ${SRC_GAME_LIST} ${SRC_GEOMETRY_LIST} ${SRC_MATH_LIST} ${SRC_NETWORK_LIST} ${SRC_PLATFORM_UI_LIST} ${SRC_RENDER_LIST})
 list(APPEND HDR_LIST ${HDR_APPLICATION_LIST} ${HDR_AUDIO_LIST} ${HDR_CORE_LIST} ${HDR_FILESYSTEM_LIST} ${HDR_GAME_LIST} ${HDR_GEOMETRY_LIST} ${HDR_MATH_LIST} ${HDR_NETWORK_LIST} ${HDR_PLATFORM_UI_LIST} ${HDR_RENDER_LIST} include/toygine2.hpp)
 list(APPEND INL_LIST ${INL_APPLICATION_LIST} ${INL_AUDIO_LIST} ${INL_CORE_LIST} ${INL_FILESYSTEM_LIST} ${INL_GAME_LIST} ${INL_GEOMETRY_LIST} ${INL_MATH_LIST} ${INL_NETWORK_LIST} ${INL_PLATFORM_UI_LIST} ${INL_RENDER_LIST})
 set(LIB_LIST ${LIB_LIST})
