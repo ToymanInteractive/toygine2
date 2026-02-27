@@ -153,7 +153,6 @@ public:
     _fileLineToStream(data.m_file, data.m_line, " ");
 
     _report(_logLevelInfo, "%s", _successOrFailString(!data.m_failed, data.m_at));
-
   }
 
   void log_message(const doctest::MessageData & data) noexcept override {
