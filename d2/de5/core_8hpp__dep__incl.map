@@ -1,34 +1,36 @@
 <map id="include/core.hpp" name="include/core.hpp">
-<area shape="rect" id="Node000001" title="Umbrella header for the engine core module." alt="" coords="610,5,739,31"/>
+<area shape="rect" id="Node000001" title="Umbrella header for the engine core module." alt="" coords="631,5,761,31"/>
 <area shape="rect" id="Node000002" href="$d4/d01/application_8hpp.html" title="Umbrella header for the app module." alt="" coords="5,167,179,192"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="597,26,379,44,273,60,230,70,198,81,168,100,140,124,102,168,98,165,137,120,164,96,196,76,229,65,272,55,379,39,596,21"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="618,25,511,32,389,43,277,59,232,69,198,81,168,100,140,124,102,168,98,165,136,120,164,96,196,76,231,64,276,54,389,38,511,27,617,20"/>
 <area shape="rect" id="Node000003" href="$d8/d8c/toygine2_8hpp.html" title="Main umbrella header for the engine." alt="" coords="409,240,567,265"/>
-<area shape="poly" id="edge16_Node000001_Node000003" title=" " alt="" coords="597,28,435,47,360,62,308,81,283,99,267,116,256,138,245,167,241,180,245,190,269,207,310,221,409,240,408,245,309,226,267,212,241,194,236,180,240,166,251,136,263,113,280,95,305,76,358,57,434,41,596,22"/>
+<area shape="poly" id="edge17_Node000001_Node000003" title=" " alt="" coords="618,28,454,48,377,63,324,81,294,98,274,115,258,137,244,168,240,180,243,190,268,207,309,221,409,240,408,245,308,227,266,212,239,194,235,180,239,166,253,134,270,112,291,94,322,76,376,58,453,43,617,23"/>
 <area shape="rect" id="Node000004" href="$d1/d71/audio_8hpp.html" title="Umbrella header for the audio module." alt="" coords="254,167,391,192"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="596,24,520,30,440,40,371,56,346,67,329,80,318,101,315,124,322,166,316,167,310,124,313,99,325,77,343,63,370,51,439,34,520,24,596,19"/>
-<area shape="rect" id="Node000005" href="$d8/d39/game_8hpp.html" title="Umbrella header for the game module." alt="" coords="339,86,477,111"/>
-<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="623,37,448,89,446,83,622,32"/>
-<area shape="rect" id="Node000006" href="$d4/d78/math_8hpp.html" title="Umbrella header for the math module." alt="" coords="502,86,637,111"/>
-<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="650,41,587,88,583,84,647,37"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="618,26,543,32,464,42,394,58,368,69,350,81,336,100,328,124,325,167,319,166,323,123,331,98,346,77,366,64,393,53,463,37,542,26,617,20"/>
+<area shape="rect" id="Node000005" href="$d8/d39/game_8hpp.html" title="Umbrella header for the game module." alt="" coords="360,86,499,111"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="645,37,469,89,467,83,643,32"/>
+<area shape="rect" id="Node000006" href="$d4/d78/math_8hpp.html" title="Umbrella header for the math module." alt="" coords="523,86,658,111"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="671,41,608,88,605,84,668,37"/>
 <area shape="rect" id="Node000008" href="$d6/d67/network_8hpp.html" title="Umbrella header for the network module." alt="" coords="653,167,808,192"/>
-<area shape="poly" id="edge10_Node000001_Node000008" title=" " alt="" coords="685,43,709,118,728,165,723,167,704,120,680,45"/>
+<area shape="poly" id="edge10_Node000001_Node000008" title=" " alt="" coords="704,44,731,166,725,167,699,45"/>
 <area shape="rect" id="Node000009" href="$de/dd6/ui_8hpp.html" title="Umbrella header for platform UI types." alt="" coords="832,167,1005,192"/>
-<area shape="poly" id="edge12_Node000001_Node000009" title=" " alt="" coords="691,41,720,79,759,117,814,146,869,164,867,169,811,150,756,121,716,83,687,44"/>
-<area shape="rect" id="Node000010" href="$d6/d4b/render_8hpp.html" title="Umbrella header for the render module." alt="" coords="1030,167,1173,192"/>
-<area shape="poly" id="edge14_Node000001_Node000010" title=" " alt="" coords="703,37,756,77,779,99,804,116,845,130,903,144,1030,165,1029,171,902,149,843,135,801,121,776,103,753,81,700,41"/>
-<area shape="rect" id="Node000011" href="$db/d2d/hashes_8cpp.html" title="Implementation of CRC hash functions with lookup tables for optimal performance." alt="" coords="814,86,965,111"/>
-<area shape="poly" id="edge17_Node000001_Node000011" title=" " alt="" coords="720,33,859,83,857,88,718,38"/>
-<area shape="rect" id="Node000012" href="$de/d06/utils_8cpp.html" title="Implementation of core utility functions for string manipulation, encoding conversion,..." alt="" coords="989,86,1121,111"/>
-<area shape="poly" id="edge18_Node000001_Node000012" title=" " alt="" coords="751,31,978,76,1010,83,1008,89,977,81,750,36"/>
-<area shape="rect" id="Node000013" href="$d7/d90/assertion__stub_8cpp.html" title="Stub implementation of assertion system for platforms without native assertion support." alt="" coords="1145,79,1325,119"/>
-<area shape="poly" id="edge19_Node000001_Node000013" title=" " alt="" coords="753,26,928,47,1134,76,1145,78,1144,83,1133,81,927,52,753,31"/>
+<area shape="poly" id="edge12_Node000001_Node000009" title=" " alt="" coords="711,41,738,79,775,117,825,145,875,164,873,169,823,150,772,121,734,83,707,44"/>
+<area shape="rect" id="Node000010" href="$d6/d4b/render_8hpp.html" title="Umbrella header for the render module." alt="" coords="785,86,927,111"/>
+<area shape="poly" id="edge14_Node000001_Node000010" title=" " alt="" coords="733,34,834,84,832,88,730,39"/>
+<area shape="rect" id="Node000012" href="$db/d2d/hashes_8cpp.html" title="Implementation of CRC hash functions with lookup tables for optimal performance." alt="" coords="951,86,1102,111"/>
+<area shape="poly" id="edge18_Node000001_Node000012" title=" " alt="" coords="758,31,979,83,978,89,757,36"/>
+<area shape="rect" id="Node000013" href="$de/d06/utils_8cpp.html" title="Implementation of core utility functions for string manipulation, encoding conversion,..." alt="" coords="1126,86,1258,111"/>
+<area shape="poly" id="edge19_Node000001_Node000013" title=" " alt="" coords="775,26,932,46,1115,76,1149,83,1147,89,1114,81,932,51,774,31"/>
+<area shape="rect" id="Node000014" href="$d7/d90/assertion__stub_8cpp.html" title="Stub implementation of assertion system for platforms without native assertion support." alt="" coords="1282,79,1462,119"/>
+<area shape="poly" id="edge20_Node000001_Node000014" title=" " alt="" coords="774,23,998,43,1271,76,1282,78,1281,83,1270,81,997,49,774,28"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="170,192,424,237,423,243,169,197"/>
 <area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="363,195,462,237,460,242,361,200"/>
-<area shape="poly" id="edge9_Node000006_Node000003" title=" " alt="" coords="519,119,484,139,469,152,457,168,453,186,458,205,479,238,475,241,453,207,448,186,452,166,465,149,481,135,516,114"/>
+<area shape="poly" id="edge9_Node000006_Node000003" title=" " alt="" coords="526,118,487,138,470,151,457,168,452,186,457,205,479,238,475,241,452,207,447,186,452,165,467,148,484,133,524,113"/>
 <area shape="rect" id="Node000007" href="$db/dbb/geometry_8hpp.html" title="Umbrella header for the geometry module." alt="" coords="467,167,629,192"/>
-<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="565,125,554,167,549,166,560,124"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="580,125,557,168,552,165,576,122"/>
 <area shape="poly" id="edge8_Node000007_Node000003" title=" " alt="" coords="531,204,500,242,496,238,527,201"/>
 <area shape="poly" id="edge11_Node000008_Node000003" title=" " alt="" coords="680,198,528,242,527,237,678,193"/>
 <area shape="poly" id="edge13_Node000009_Node000003" title=" " alt="" coords="836,197,558,243,557,237,835,192"/>
-<area shape="poly" id="edge15_Node000010_Node000003" title=" " alt="" coords="1017,195,568,246,567,240,1016,189"/>
+<area shape="poly" id="edge15_Node000010_Node000003" title=" " alt="" coords="911,113,976,136,1003,150,1020,165,1025,180,1019,194,996,206,955,216,834,233,693,244,567,251,567,246,693,239,834,227,954,211,994,201,1015,190,1020,180,1015,168,1000,155,974,141,910,118"/>
+<area shape="rect" id="Node000011" href="$db/d3d/pixel__format_8cpp.html" title="Implementation of pixelFormatName() and pixelFormatFromName()." alt="" coords="1080,167,1280,192"/>
+<area shape="poly" id="edge16_Node000010_Node000011" title=" " alt="" coords="917,112,1133,164,1132,169,916,117"/>
 </map>

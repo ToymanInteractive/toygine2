@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['r5g6b5_0',['R5G6B5',['../df/d8d/namespacetoy_1_1render.html#a82ca1093cb1208d1e11ce49147678da7a824e86ad7ef467815efe26bec67e07fa',1,'toy::render']]],
+  ['r5g6b5_0',['R5G6B5',['../df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3fa824e86ad7ef467815efe26bec67e07fa',1,'toy::render']]],
   ['read_1',['Read',['../da/d98/namespacetoy_1_1filesystem.html#acdb0fddd61b902c502183b9c4bde188fa7a1a5f3e79fdc91edf2f5ead9d66abb4',1,'toy::filesystem']]],
   ['readwrite_2',['ReadWrite',['../da/d98/namespacetoy_1_1filesystem.html#acdb0fddd61b902c502183b9c4bde188fa70a2a84088d405a2e3f1e3accaa16723',1,'toy::filesystem']]],
   ['readwriteappend_3',['ReadWriteAppend',['../da/d98/namespacetoy_1_1filesystem.html#acdb0fddd61b902c502183b9c4bde188fa05c7383bb9bd4e8458aa92a458db5286',1,'toy::filesystem']]],

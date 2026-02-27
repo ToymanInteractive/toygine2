@@ -122,6 +122,7 @@ var NAVTREEINDEX3 =
 "db/d2d/hashes_8cpp.html":[6,0,1,0,0],
 "db/d37/volume__type_8hpp.html":[6,0,0,1,0],
 "db/d37/volume__type_8hpp_source.html":[6,0,0,1,0],
+"db/d3d/pixel__format_8cpp.html":[6,0,1,2,0],
 "db/d6f/classtoy_1_1geometry_1_1_section.html":[3,0,1,1,0],
 "db/d6f/classtoy_1_1geometry_1_1_section.html":[5,0,1,1,0],
 "db/d6f/classtoy_1_1geometry_1_1_section.html#a0a011c561366be8d0f2a1e4920201ca9":[3,0,1,1,0,5],
@@ -248,6 +249,5 @@ var NAVTREEINDEX3 =
 "dd/d9e/linux_2platform__config_8hpp_source.html":[6,0,1,1,3,0],
 "dd/de0/concepttoy_1_1math_1_1fixed__point.html":[3,0,1,2,6],
 "dd/de0/concepttoy_1_1math_1_1fixed__point.html":[4,0,1,1],
-"dd/ded/c__string__view_8hpp.html":[6,0,0,2,1],
-"dd/ded/c__string__view_8hpp_source.html":[6,0,0,2,1]
+"dd/ded/c__string__view_8hpp.html":[6,0,0,2,1]
 };
