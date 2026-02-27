@@ -144,9 +144,30 @@ public:
             exception.is_crash ? "test case CRASHED" : "test case THREW exception", exception.error_string.c_str());
   }
 
-  void log_assert([[maybe_unused]] const doctest::AssertData & data) noexcept override {}
+  void log_assert(const doctest::AssertData & data) noexcept override {
+    if ((!data.m_failed && !_options.success) || _testCaseData->m_no_output)
+      return;
 
-  void log_message([[maybe_unused]] const doctest::MessageData & data) noexcept override {}
+    _logTestStart();
+
+    _fileLineToStream(data.m_file, data.m_line, " ");
+
+    _report(_logLevelInfo, "%s", _successOrFailString(!data.m_failed, data.m_at));
+
+  }
+
+  void log_message(const doctest::MessageData & data) noexcept override {
+    if (_testCaseData->m_no_output)
+      return;
+
+    _logTestStart();
+
+    _fileLineToStream(data.m_file, data.m_line, " ");
+
+    _report(_logLevelInfo, "%s: %s",
+            _successOrFailString(data.m_severity & doctest::assertType::is_warn, data.m_severity, "MESSAGE"),
+            data.m_string.c_str());
+  }
 
   /*!
    \brief Called when a test case is skipped.

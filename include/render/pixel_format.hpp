@@ -37,10 +37,7 @@ namespace toy::render {
   Covers common formats: 32-bit ARGB/XRGB, 16-bit, alpha-only, block-compressed (S3TC, PVRTC), and depth/stencil. Exact
   interpretation is backend-dependent.
 */
-enum class PixelFormat {
-  /// Format not specified or unknown.
-  Unknown = 0,
-
+enum class PixelFormat : uint8_t {
   /// 32-bit ARGB (8 bits per channel, alpha premultiplied or straight).
   A8R8G8B8,
   /// 32-bit XRGB (8 bits per channel; alpha unused).
@@ -77,7 +74,29 @@ enum class PixelFormat {
   D24X4S4,
   /// 16-bit depth.
   D16,
+
+  /// Format not specified or unknown.
+  Unknown,
 };
+
+/*!
+  \brief Returns the canonical string name for a pixel format.
+
+  \param format The format to name.
+
+  \return A non-null view of the format name (e.g. "A8R8G8B8", "D24S8"). For \ref toy::render::PixelFormat::Unknown
+          returns "Unknown".
+*/
+[[nodiscard]] CStringView pixelFormatName(PixelFormat format) noexcept;
+
+/*!
+  \brief Parses a format name and returns the corresponding \ref toy::render::PixelFormat.
+
+  \param name The format name (case-sensitive). Empty or unknown names yield \ref toy::render::PixelFormat::Unknown.
+
+  \return The matching format, or \ref toy::render::PixelFormat::Unknown if no format matches.
+*/
+[[nodiscard]] PixelFormat pixelFormatFromName(CStringView name) noexcept;
 
 } // namespace toy::render
 
