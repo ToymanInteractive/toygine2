@@ -171,6 +171,8 @@ public:
 /*!
   \brief Deduction guide for \ref toy::geometry::Section: enables \c Section(min, max) without an explicit template
          argument when both arguments have the same \ref toy::geometry::SectionScalar type.
+
+  \tparam T Scalar type; must satisfy \ref toy::geometry::SectionScalar.
 */
 template <typename T>
   requires SectionScalar<T>
