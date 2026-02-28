@@ -84,10 +84,11 @@ template <floating_point T>
 
   \param angle Angle in degrees.
 
-  \return Angle in radians (\a angle × π / 180). Supports \c float, \c double, \c long \c double, and \ref toy::math::fixed.
+  \return Angle in radians (\a angle × π / 180). Supports \c float, \c double, \c long \c double, and
+          \ref toy::math::fixed.
 */
 template <typename T>
-  requires (floating_point<T> || fixed_point<T>)
+  requires(floating_point<T> || fixed_point<T>)
 [[nodiscard]] constexpr T deg2rad(T angle) noexcept;
 
 /*!
@@ -95,10 +96,11 @@ template <typename T>
 
   \param angle Angle in radians.
 
-  \return Angle in degrees (\a angle × 180 / π). Supports \c float, \c double, \c long \c double, and \ref toy::math::fixed.
+  \return Angle in degrees (\a angle × 180 / π). Supports \c float, \c double, \c long \c double, and
+          \ref toy::math::fixed.
 */
 template <typename T>
-  requires (floating_point<T> || fixed_point<T>)
+  requires(floating_point<T> || fixed_point<T>)
 [[nodiscard]] constexpr T rad2deg(T angle) noexcept;
 
 } // namespace toy::math
