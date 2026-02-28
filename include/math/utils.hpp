@@ -79,6 +79,28 @@ template <floating_point T>
 [[nodiscard]] constexpr bool isEqual(T a, T b, T absEpsilon = 8 * numeric_limits<T>::epsilon(),
                                      T relEpsilon = 64 * numeric_limits<T>::epsilon()) noexcept;
 
+/*!
+  \brief Converts angle from degrees to radians.
+
+  \param angle Angle in degrees.
+
+  \return Angle in radians (\a angle × π / 180). Supports \c float, \c double, \c long \c double, and \ref toy::math::fixed.
+*/
+template <typename T>
+  requires (floating_point<T> || fixed_point<T>)
+[[nodiscard]] constexpr T deg2rad(T angle) noexcept;
+
+/*!
+  \brief Converts angle from radians to degrees.
+
+  \param angle Angle in radians.
+
+  \return Angle in degrees (\a angle × 180 / π). Supports \c float, \c double, \c long \c double, and \ref toy::math::fixed.
+*/
+template <typename T>
+  requires (floating_point<T> || fixed_point<T>)
+[[nodiscard]] constexpr T rad2deg(T angle) noexcept;
+
 } // namespace toy::math
 
 #endif // INCLUDE_MATH_UTILS_HPP_

@@ -205,4 +205,55 @@ TEST_CASE("math/utils/is_equal") {
   }
 }
 
+// Degree–radian conversion: deg2rad(angle) = angle * π/180, rad2deg(angle) = angle * 180/π.
+TEST_CASE("math/utils/deg2rad_rad2deg") {
+  // Zero: deg2rad(0) and rad2deg(0) are zero.
+  SUBCASE("zero") {
+    REQUIRE(isEqual(deg2rad(0.0f), 0.0f));
+    REQUIRE(isEqual(rad2deg(0.0f), 0.0f));
+    REQUIRE(isEqual(deg2rad(0.0), 0.0));
+    REQUIRE(isEqual(rad2deg(0.0), 0.0));
+    REQUIRE(deg2rad(Fixed(0)) == Fixed(0));
+    REQUIRE(rad2deg(Fixed(0)) == Fixed(0));
+
+    static_assert(isEqual(deg2rad(0.0f), 0.0f), "deg2rad(0) float must be zero");
+    static_assert(isEqual(rad2deg(0.0f), 0.0f), "rad2deg(0) float must be zero");
+    static_assert(deg2rad(Fixed(0)) == Fixed(0), "deg2rad(0) fixed must be zero");
+    static_assert(rad2deg(Fixed(0)) == Fixed(0), "rad2deg(0) fixed must be zero");
+  }
+
+  // 180 degrees equals π radians; π radians equals 180 degrees.
+  SUBCASE("half_turn") {
+    REQUIRE(isEqual(deg2rad(180.0f), std::numbers::pi_v<float>));
+    REQUIRE(isEqual(rad2deg(std::numbers::pi_v<float>), 180.0f));
+    REQUIRE(isEqual(deg2rad(180.0), std::numbers::pi_v<double>));
+    REQUIRE(isEqual(rad2deg(std::numbers::pi_v<double>), 180.0));
+
+    static_assert(isEqual(deg2rad(180.0f), std::numbers::pi_v<float>), "deg2rad(180) float must equal π");
+    static_assert(isEqual(rad2deg(std::numbers::pi_v<float>), 180.0f), "rad2deg(π) float must equal 180");
+  }
+
+  // Round-trip: rad2deg(deg2rad(x)) ≈ x for float and double.
+  SUBCASE("round_trip_float_double") {
+    REQUIRE(isEqual(rad2deg(deg2rad(90.0f)), 90.0f));
+    REQUIRE(isEqual(rad2deg(deg2rad(45.0f)), 45.0f));
+    REQUIRE(isEqual(rad2deg(deg2rad(360.0)), 360.0));
+
+    static_assert(isEqual(rad2deg(deg2rad(90.0f)), 90.0f), "round-trip 90 deg float must be 90");
+    static_assert(isEqual(rad2deg(deg2rad(360.0)), 360.0), "round-trip 360 deg double must be 360");
+  }
+
+  // Fixed-point: 180 deg → π, round-trip 90 deg.
+  SUBCASE("fixed_point") {
+    constexpr Fixed halfTurn = deg2rad(Fixed(180));
+    REQUIRE(halfTurn == std::numbers::pi_v<Fixed>);
+    REQUIRE(rad2deg(std::numbers::pi_v<Fixed>) == Fixed(180));
+    REQUIRE(rad2deg(deg2rad(Fixed(90))) == Fixed(90));
+
+    static_assert(deg2rad(Fixed(180)) == std::numbers::pi_v<Fixed>, "deg2rad(180) fixed must equal π");
+    static_assert(rad2deg(std::numbers::pi_v<Fixed>) == Fixed(180), "rad2deg(π) fixed must equal 180");
+    static_assert(rad2deg(deg2rad(Fixed(90))) == Fixed(90), "round-trip 90 deg fixed must be 90");
+  }
+}
+
 } // namespace toy::math

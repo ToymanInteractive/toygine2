@@ -81,6 +81,18 @@ constexpr bool isEqual(T a, T b, T absEpsilon, T relEpsilon) noexcept {
   return diff <= max(abs(a), abs(b)) * relEpsilon;
 }
 
+template <typename T>
+  requires(floating_point<T> || fixed_point<T>)
+constexpr T deg2rad(T angle) noexcept {
+  return angle * std::numbers::pi_v<T> / 180;
+}
+
+template <typename T>
+  requires(floating_point<T> || fixed_point<T>)
+constexpr T rad2deg(T angle) noexcept {
+  return angle * 180 / std::numbers::pi_v<T>;
+}
+
 } // namespace toy::math
 
 #endif // INCLUDE_MATH_UTILS_INL_
