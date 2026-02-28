@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['section_0',['Section',['../db/d6f/classtoy_1_1geometry_1_1_section.html#ac7df188937defa68d39455e5f8a866dc',1,'toy::geometry::Section::Section() noexcept=default'],['../db/d6f/classtoy_1_1geometry_1_1_section.html#aac80f4567a8c718c91e530a0ef79ae85',1,'toy::geometry::Section::Section(const T &amp;min, const T &amp;max) noexcept']]],
+  ['section_0',['Section',['../db/d6f/classtoy_1_1geometry_1_1_section.html#ac7df188937defa68d39455e5f8a866dc',1,'toy::geometry::Section::Section() noexcept=default'],['../db/d6f/classtoy_1_1geometry_1_1_section.html#aac80f4567a8c718c91e530a0ef79ae85',1,'toy::geometry::Section::Section(const T &amp;min, const T &amp;max) noexcept'],['../da/d08/namespacetoy_1_1geometry.html#ac9aa400e5e2d35d5c6029dae023185c7',1,'toy::geometry::Section()']]],
   ['setcallbacks_1',['setCallbacks',['../d2/da2/namespacetoy_1_1assertion.html#ab92066b98ab69bcf7db8e1089ea4f755',1,'toy::assertion']]],
   ['setzero_2',['setZero',['../d3/dce/classtoy_1_1math_1_1_point.html#a6abe66bb39eead8a572c4275c8b87c09',1,'toy::math::Point::setZero()'],['../d9/d85/classtoy_1_1math_1_1_vector2_d.html#ab48c54624d9c924f38bbbdc8c3f8bc49',1,'toy::math::Vector2D::setZero()']]],
   ['signaling_5fnan_3',['signaling_NaN',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#ad9a27b589ba6c71c87ef9505a0239dd7',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]],

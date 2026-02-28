@@ -77,17 +77,7 @@ var NAVTREE =
       [ "Documentation Style Rules", "df/d81/md__a_g_e_n_t_s.html#documentation-style-rules", [
         [ "Method / Function Documentation Order", "df/d81/md__a_g_e_n_t_s.html#method--function-documentation-order", null ],
         [ "Class / Struct Documentation Order", "df/d81/md__a_g_e_n_t_s.html#class--struct-documentation-order", null ],
-        [ "Parameter Documentation", "df/d81/md__a_g_e_n_t_s.html#parameter-documentation", null ],
-        [ "Return Value Documentation", "df/d81/md__a_g_e_n_t_s.html#return-value-documentation", null ],
-        [ "Preconditions and Postconditions", "df/d81/md__a_g_e_n_t_s.html#preconditions-and-postconditions", null ],
-        [ "Template Parameters", "df/d81/md__a_g_e_n_t_s.html#template-parameters", null ],
-        [ "Notes and Warnings", "df/d81/md__a_g_e_n_t_s.html#notes-and-warnings", null ],
-        [ "Constants and References in Text", "df/d81/md__a_g_e_n_t_s.html#constants-and-references-in-text", null ],
-        [ "See-Also Tags", "df/d81/md__a_g_e_n_t_s.html#see-also-tags", null ],
-        [ "Cross-References", "df/d81/md__a_g_e_n_t_s.html#cross-references", null ],
-        [ "Class Sections Detail", "df/d81/md__a_g_e_n_t_s.html#class-sections-detail", [
-          [ "<span class=\"tt\">\\section features Key Features</span>", "df/d81/md__a_g_e_n_t_s.html#section-features-key-features", null ],
-          [ "<span class=\"tt\">\\section usage Usage Example</span>", "df/d81/md__a_g_e_n_t_s.html#section-usage-usage-example", null ],
+        [ "Concept Documentation", "df/d81/md__a_g_e_n_t_s.html#concept-documentation", [
           [ "<span class=\"tt\">\\section performance Performance Characteristics</span>", "df/d81/md__a_g_e_n_t_s.html#section-performance-performance-characteristics", null ],
           [ "<span class=\"tt\">\\section safety Safety Guarantees</span>", "df/d81/md__a_g_e_n_t_s.html#section-safety-safety-guarantees", null ],
           [ "<span class=\"tt\">\\section compatibility Compatibility</span> (optional)", "df/d81/md__a_g_e_n_t_s.html#section-compatibility-compatibility-optional", null ]
@@ -95,6 +85,7 @@ var NAVTREE =
       ] ],
       [ "Class Documentation Templates", "df/d81/md__a_g_e_n_t_s.html#class-documentation-templates", [
         [ "Regular Class", "df/d81/md__a_g_e_n_t_s.html#regular-class", null ],
+        [ "Concept", "df/d81/md__a_g_e_n_t_s.html#concept", null ],
         [ "Template Class", "df/d81/md__a_g_e_n_t_s.html#template-class", null ],
         [ "Struct", "df/d81/md__a_g_e_n_t_s.html#struct", null ],
         [ "Simplified Class (without compatibility)", "df/d81/md__a_g_e_n_t_s.html#simplified-class-without-compatibility", null ],
@@ -158,7 +149,7 @@ var NAVTREEINDEX =
 "d3/dce/classtoy_1_1math_1_1_point.html#a32bc8d8a0ae4ef71e7c164401a68ac8f",
 "d5/d03/classtoy_1_1_c_string_view.html#ae69e623d93e4bd89a026dcfea4bffeeb",
 "d8/d43/core_2utils_8hpp.html",
-"dd/ded/c__string__view_8hpp_source.html"
+"dd/ded/c__string__view_8hpp.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

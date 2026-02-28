@@ -114,24 +114,26 @@ $(function(){initNavTree('d7/d22/concepttoy_1_1math_1_1_valid_fixed_point_types.
 </div><!--header-->
 <div class="contents">
 
-<p>Compile-time constraints for <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html" title="toy::math::fixed">toy::math::fixed</a> template parameters.  
+<p>Concept constraining template parameters for <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html" title="toy::math::fixed">toy::math::fixed</a>.  
 <a href="#details">More...</a></p>
 <h2 id="header-conceptdef" class="groupheader">Concept definition</h2>
 <div class="fragment"><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Base, <span class="keyword">typename</span> Intermediate, <span class="keywordtype">unsigned</span> Fraction&gt;</div>
 <div class="line"><span class="keyword">concept </span><a class="code hl_concept" href="../../d7/d22/concepttoy_1_1math_1_1_valid_fixed_point_types.html">ValidFixedPointTypes</a> = integral&lt;Base&gt; &amp;&amp; (Fraction &gt; 0) &amp;&amp; (Fraction &lt;= <a class="code hl_class" href="../../db/dc2/classnumeric__limits.html">numeric_limits&lt;Base&gt;::digits</a>)</div>
 <div class="line">    &amp;&amp; (<span class="keyword">sizeof</span>(Intermediate) &gt;= <span class="keyword">sizeof</span>(Base)) &amp;&amp; (is_signed_v&lt;Base&gt; == is_signed_v&lt;Intermediate&gt;)</div>
 <div class="ttc" id="aclassnumeric__limits_html"><div class="ttname"><a href="../../db/dc2/classnumeric__limits.html">numeric_limits</a></div><div class="ttdoc">Specialization of std::numeric_limits for toy::math::fixed.</div></div>
-<div class="ttc" id="aconcepttoy_1_1math_1_1_valid_fixed_point_types_html"><div class="ttname"><a href="../../d7/d22/concepttoy_1_1math_1_1_valid_fixed_point_types.html">toy::math::ValidFixedPointTypes</a></div><div class="ttdoc">Compile-time constraints for toy::math::fixed template parameters.</div><div class="ttdef"><b>Definition</b> fixed.hpp:40</div></div>
+<div class="ttc" id="aconcepttoy_1_1math_1_1_valid_fixed_point_types_html"><div class="ttname"><a href="../../d7/d22/concepttoy_1_1math_1_1_valid_fixed_point_types.html">toy::math::ValidFixedPointTypes</a></div><div class="ttdoc">Concept constraining template parameters for toy::math::fixed.</div><div class="ttdef"><b>Definition</b> fixed.hpp:50</div></div>
 </div><!-- fragment --><a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Compile-time constraints for <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html" title="toy::math::fixed">toy::math::fixed</a> template parameters. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">Base</td><td>Storage type; must satisfy <code>integral</code>. </td></tr>
-    <tr><td class="paramname">Intermediate</td><td>Wider type for intermediate calculations; size must be <code>&gt;=</code> sizeof(Base), signedness must match <em class="arg">Base</em>. </td></tr>
-    <tr><td class="paramname">Fraction</td><td>Number of fractional bits; must be in (0, numeric_limits&lt;Base&gt;::digits]. </td></tr>
-  </table>
-  </dd>
-</dl>
+<div class="textblock"><p>Concept constraining template parameters for <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html" title="toy::math::fixed">toy::math::fixed</a>. </p>
+<p>This concept defines the compile-time requirements for the three template parameters of <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html" title="toy::math::fixed">toy::math::fixed</a>. It ensures that <em class="arg">Base</em> is an integral storage type, <em class="arg">Fraction</em> is within the valid bit range, and <em class="arg">Intermediate</em> is wide enough and has matching signedness for correct intermediate calculations.</p>
+<h1 class="doxsection"><a class="anchor" id="requirements"></a>
+Requirements</h1>
+<p>A set of types (<em class="arg">Base</em>, <em class="arg">Intermediate</em>, <em class="arg">Fraction</em>) satisfies ValidFixedPointTypes if and only if:</p><ul>
+<li><em class="arg">Base</em> satisfies <code>integral</code>.</li>
+<li><em class="arg">Fraction</em> is greater than 0 and at most <code>numeric_limits&lt;Base&gt;::digits</code>.</li>
+<li><code>sizeof(Intermediate)</code> &gt;= sizeof(Base).</li>
+<li><em class="arg">Intermediate</em> has the same signedness as <em class="arg">Base</em> (<code>is_signed_v</code>).</li>
+</ul>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html" title="Fixed-point numeric type with configurable storage and fractional precision.">toy::math::fixed</a> </dd></dl>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->

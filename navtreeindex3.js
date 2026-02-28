@@ -82,6 +82,7 @@ var NAVTREEINDEX3 =
 "da/d08/namespacetoy_1_1geometry.html":[3,0,1,1],
 "da/d08/namespacetoy_1_1geometry.html#a53336dfb63b0925b90a0e2c34c7e6758":[3,0,1,1,2],
 "da/d08/namespacetoy_1_1geometry.html#ab1c24341562abc2d89d35030b97ee816":[3,0,1,1,3],
+"da/d08/namespacetoy_1_1geometry.html#ac9aa400e5e2d35d5c6029dae023185c7":[3,0,1,1,4],
 "da/d47/core_8hpp.html":[6,0,0,12],
 "da/d47/core_8hpp.html#a12cf99d5743dc2301359b6c2724fe48a":[6,0,0,12,3],
 "da/d47/core_8hpp.html#a94a808adc84ff2a5345e7ecb00661653":[6,0,0,12,1],
@@ -248,6 +249,5 @@ var NAVTREEINDEX3 =
 "dd/d9e/linux_2platform__config_8hpp.html":[6,0,1,1,3,0],
 "dd/d9e/linux_2platform__config_8hpp_source.html":[6,0,1,1,3,0],
 "dd/de0/concepttoy_1_1math_1_1fixed__point.html":[3,0,1,2,6],
-"dd/de0/concepttoy_1_1math_1_1fixed__point.html":[4,0,1,1],
-"dd/ded/c__string__view_8hpp.html":[6,0,0,2,1]
+"dd/de0/concepttoy_1_1math_1_1fixed__point.html":[4,0,1,1]
 };

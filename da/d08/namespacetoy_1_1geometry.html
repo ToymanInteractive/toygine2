@@ -125,7 +125,7 @@ Classes</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-concepts" class="groupheader"><a id="concepts" name="concepts"></a>
 Concepts</h2></td></tr>
 <tr class="memitem:SectionScalar" id="r_SectionScalar"><td class="memItemLeft">concept &#160;</td><td class="memItemRight"><a class="el" href="../../dc/de6/concepttoy_1_1geometry_1_1_section_scalar.html">SectionScalar</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concept restricting <a class="el" href="../../db/d6f/classtoy_1_1geometry_1_1_section.html" title="toy::geometry::Section">toy::geometry::Section</a> scalar type to integral, floating-point, or <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html" title="toy::math::fixed">toy::math::fixed</a>. <br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concept satisfied when <em class="arg">T</em> is a scalar type allowed as <a class="el" href="../../db/d6f/classtoy_1_1geometry_1_1_section.html" title="toy::geometry::Section">toy::geometry::Section</a> template parameter. <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -135,6 +135,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a53336dfb63b0925b90a0e2c34c7e6758" id="r_a53336dfb63b0925b90a0e2c34c7e6758"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
 <tr class="memitem:a53336dfb63b0925b90a0e2c34c7e6758 template"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#a53336dfb63b0925b90a0e2c34c7e6758">operator!=</a> (const <a class="el" href="../../db/d6f/classtoy_1_1geometry_1_1_section.html">Section</a>&lt; T &gt; &amp;a, const <a class="el" href="../../db/d6f/classtoy_1_1geometry_1_1_section.html">Section</a>&lt; T &gt; &amp;b) noexcept</td></tr>
 <tr class="memdesc:a53336dfb63b0925b90a0e2c34c7e6758"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inequality: different bounds.  <br /></td></tr>
+<tr class="memitem:ac9aa400e5e2d35d5c6029dae023185c7" id="r_ac9aa400e5e2d35d5c6029dae023185c7"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
+<tr class="memitem:ac9aa400e5e2d35d5c6029dae023185c7 template"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ac9aa400e5e2d35d5c6029dae023185c7">Section</a> (const T &amp;, const T &amp;) -&gt; Section&lt; T &gt;</td></tr>
+<tr class="memdesc:ac9aa400e5e2d35d5c6029dae023185c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deduction guide for toy::geometry::Section: enables <code>Section(min, max)</code> without an explicit template argument when both arguments have the same <a class="el" href="../../dc/de6/concepttoy_1_1geometry_1_1_section_scalar.html" title="toy::geometry::SectionScalar">toy::geometry::SectionScalar</a> type.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Geometry types and utilities: sections (intervals) and related APIs. </p>
@@ -230,6 +233,37 @@ template&lt;typename T&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if both bounds are equal within the default epsilon (<a class="el" href="../../d2/d83/namespacetoy_1_1math.html#a2814ac6d186eafcbb0e5d6e1c0437ba1" title="Compares two single-precision floats for approximate equality.">math::isEqual</a>).</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#a53336dfb63b0925b90a0e2c34c7e6758" title="Inequality: different bounds.">operator!=()</a> </dd></dl>
+
+</div>
+</div>
+<a id="ac9aa400e5e2d35d5c6029dae023185c7" name="ac9aa400e5e2d35d5c6029dae023185c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9aa400e5e2d35d5c6029dae023185c7">&#9670;&#160;</a></span>Section()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">toy::geometry::Section </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const T &amp;</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;) -&gt;  Section&lt; T &gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Deduction guide for toy::geometry::Section: enables <code>Section(min, max)</code> without an explicit template argument when both arguments have the same <a class="el" href="../../dc/de6/concepttoy_1_1geometry_1_1_section_scalar.html" title="toy::geometry::SectionScalar">toy::geometry::SectionScalar</a> type. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Scalar type; must satisfy <a class="el" href="../../dc/de6/concepttoy_1_1geometry_1_1_section_scalar.html" title="toy::geometry::SectionScalar">toy::geometry::SectionScalar</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

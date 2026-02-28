@@ -455,53 +455,58 @@ Class / Struct Documentation Order</h2>
 <li><span class="tt">\warning</span> — warnings (if needed)</li>
 <li><span class="tt">\sa</span> — related classes/types</li>
 </ol>
-<h2 class="doxsection"><a class="anchor" id="parameter-documentation"></a>
-Parameter Documentation</h2>
+<h2 class="doxsection"><a class="anchor" id="concept-documentation"></a>
+Concept Documentation</h2>
+<ul>
+<li>Use <span class="tt">\concept ConceptName</span> so Doxygen treats the block as concept documentation.</li>
+<li><span class="tt">\brief</span> — one-line description of when the concept is satisfied (e.g. "Concept satisfied when \a T is an instantiation of \ref toy::namespace::Type").</li>
+<li>Add a short paragraph explaining purpose and typical use (e.g. constraining template parameters, analogy to standard concepts).</li>
+<li>Use <span class="tt">\section requirements Requirements</span> with a bullet list of conditions that must hold. Prefer this over repeating the same information in <span class="tt">\tparam</span>.</li>
+<li>Do <b>not</b> use <span class="tt">\tparam</span> for concept template parameters when the requirements are already fully described in <span class="tt">\section requirements</span>; the requirements section is the single source of truth and avoids duplication.</li>
+<li>Use <span class="tt">\ref</span> with full namespace qualification when referencing types or concepts in the description (e.g. <span class="tt">\ref <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html" title="Fixed-point numeric type with configurable storage and fractional precision.">toy::math::fixed</a></span>).</li>
+<li><span class="tt">\sa</span> — link to related types or concepts that use or are used with this concept (do not use <span class="tt">\ref</span> inside <span class="tt">\sa</span>; Doxygen auto-links).</li>
+<li>Optional <span class="tt">\section usage Usage Example</span> with a short <span class="tt">\code</span> block for concepts that benefit from an example (e.g. <span class="tt">static_assert(ConceptName&lt;T&gt;);</span>).</li>
+</ul>
+<p>### Parameter Documentation</p>
 <ul>
 <li>Use <span class="tt">\a</span> to reference parameter names in descriptions.</li>
 <li>Align descriptions when multiple parameters exist.</li>
 <li>Mention default values (e.g. <span class="tt">(default: \c 0)</span>).</li>
 <li><span class="tt">\param</span> describes <b>what</b> the parameter represents. Constraints go in <span class="tt">\pre</span>, not in <span class="tt">\param</span>.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="return-value-documentation"></a>
-Return Value Documentation</h2>
+<p>### Return Value Documentation</p>
 <ul>
 <li>Use <span class="tt">\c</span> for constants and literal values (<span class="tt">\c true</span>, <span class="tt">\c false</span>, <span class="tt">\c 0</span>).</li>
 <li>Mention special return values (e.g. <span class="tt">\ref npos</span>).</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="preconditions-and-postconditions"></a>
-Preconditions and Postconditions</h2>
+<p>### Preconditions and Postconditions</p>
 <ul>
 <li><span class="tt">\pre</span>: document all requirements that must be met before calling a function (bounds, null checks, size limits).</li>
 <li><span class="tt">\post</span>: required for all methods that change object state. Describe the state after the call.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="template-parameters"></a>
-Template Parameters</h2>
+<p>### Template Parameters</p>
 <ul>
-<li>Always document template parameters with <span class="tt">\tparam</span>.</li>
+<li>Always document template parameters with <span class="tt">\tparam</span> for classes, structs, and function templates.</li>
+<li>For <b>concepts</b>, prefer <span class="tt">\section requirements</span> and omit <span class="tt">\tparam</span> when the conditions fully describe the template parameters (see <b>Concept Documentation</b>).</li>
 <li>Include type constraints and valid value ranges.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="notes-and-warnings"></a>
-Notes and Warnings</h2>
+<p>### Notes and Warnings</p>
 <ul>
 <li><span class="tt">\note</span>: one line per note. Split complex notes into multiple <span class="tt">\note</span> tags.</li>
 <li><span class="tt">\warning</span>: use only for critical information (lifetime, ownership, misuse).</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="constants-and-references-in-text"></a>
-Constants and References in Text</h2>
+<p>### Constants and References in Text</p>
 <ul>
 <li>Wrap constants and literal values with <span class="tt">\c</span> (<span class="tt">\c true</span>, <span class="tt">\c 0</span>, <span class="tt">\c npos</span>).</li>
 <li>Reference parameter names with <span class="tt">\a</span> (<span class="tt">\a string</span>, <span class="tt">\a count</span>).</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="see-also-tags"></a>
-See-Also Tags</h2>
+<p>### See-Also Tags</p>
 <ul>
 <li>Use <span class="tt">\sa</span> to link related methods, operators, classes, and concepts.</li>
 <li>Link between: method and its operator equivalent, const/non-const overloads, method synonyms (<span class="tt">size()</span> / <span class="tt">length()</span>), related classes.</li>
 <li>2-3 references maximum per entity.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="cross-references"></a>
-Cross-References</h2>
+<p>### Cross-References</p>
 <ul>
 <li>When referencing types, classes, or other non-function symbols from the codebase in documentation, <b>always</b> use the Doxygen <span class="tt">\ref</span> tag with full namespace qualification.</li>
 <li>Use <span class="tt">\ref</span> <b>only</b> for non-function symbols (classes, types, enums, namespaces, concepts):<ul>
@@ -525,16 +530,13 @@ Cross-References</h2>
 <li>Do not use <span class="tt">\ref</span> in <span class="tt">\sa</span> or <span class="tt">\see</span> sections (they auto-link).</li>
 <li>Do not use <span class="tt">\ref</span> for functions or methods anywhere.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="class-sections-detail"></a>
-Class Sections Detail</h2>
-<h3 class="doxsection"><a class="anchor" id="section-features-key-features"></a>
-<span class="tt">\section features Key Features</span></h3>
+<p>### Class Sections Detail</p>
+<p>#### <span class="tt">\section features Key Features</span></p>
 <ul>
 <li>4-8 items. Each item: <b>bold name</b> + description.</li>
 <li>Most important features first.</li>
 </ul>
-<h3 class="doxsection"><a class="anchor" id="section-usage-usage-example"></a>
-<span class="tt">\section usage Usage Example</span></h3>
+<p>#### <span class="tt">\section usage Usage Example</span></p>
 <ul>
 <li>Practical, compilable example with <span class="tt">\code ... \endcode</span>.</li>
 <li>Includes <span class="tt">#include</span> directive.</li>
@@ -569,6 +571,11 @@ Regular Class</h2>
 <div class="line"><span class="keyword">class </span>ClassName {</div>
 <div class="line">  <span class="comment">// ...</span></div>
 <div class="line">};</div>
+</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="concept"></a>
+Concept</h2>
+<div class="fragment"><div class="line"></div>
+<div class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><span class="keyword">concept </span>ConceptName = <span class="comment">/* ... */</span>;</div>
 </div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="template-class"></a>
 Template Class</h2>
 <div class="fragment"><div class="line"></div>

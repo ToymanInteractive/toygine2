@@ -2,7 +2,7 @@ var searchData=
 [
   ['empty_20lines_0',['Empty Lines',['../df/d81/md__a_g_e_n_t_s.html#empty-lines',1,'']]],
   ['error_20handling_1',['Error Handling',['../df/d81/md__a_g_e_n_t_s.html#error-handling',1,'']]],
-  ['example_2',['Example',['../df/d81/md__a_g_e_n_t_s.html#section-usage-usage-example',1,'&lt;span class=&quot;tt&quot;&gt;\\section usage Usage Example&lt;/span&gt;'],['../d2/da2/namespacetoy_1_1assertion.html#usage',1,'Usage Example']]],
+  ['example_2',['Usage Example',['../d2/da2/namespacetoy_1_1assertion.html#usage',1,'']]],
   ['explicit_20constructors_3',['Explicit Constructors',['../df/d81/md__a_g_e_n_t_s.html#explicit-constructors',1,'']]],
   ['extensions_4',['File Extensions',['../df/d81/md__a_g_e_n_t_s.html#file-extensions',1,'']]]
 ];

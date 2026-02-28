@@ -11,7 +11,7 @@ var searchData=
   ['erase_8',['erase',['../d3/d7a/classtoy_1_1_fixed_string.html#a0e22ed47bb862ef020b23cd685f9ac56',1,'toy::FixedString']]],
   ['error_9',['Error',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#aa258d6860405ac17c387232bff26a6faa902b0d55fddef6f8d651fe1035b7d4bd',1,'toy::platform::ui']]],
   ['error_20handling_10',['Error Handling',['../df/d81/md__a_g_e_n_t_s.html#error-handling',1,'']]],
-  ['example_11',['Example',['../df/d81/md__a_g_e_n_t_s.html#section-usage-usage-example',1,'&lt;span class=&quot;tt&quot;&gt;\\section usage Usage Example&lt;/span&gt;'],['../d2/da2/namespacetoy_1_1assertion.html#usage',1,'Usage Example']]],
+  ['example_11',['Usage Example',['../d2/da2/namespacetoy_1_1assertion.html#usage',1,'']]],
   ['expand_12',['expand',['../db/d6f/classtoy_1_1geometry_1_1_section.html#ab93fe647a2132bcec9475dc07436be4f',1,'toy::geometry::Section::expand(const T &amp;value) noexcept'],['../db/d6f/classtoy_1_1geometry_1_1_section.html#ac41e8ef5d949f060004098070aa70062',1,'toy::geometry::Section::expand(const Section&lt; T &gt; &amp;section) noexcept']]],
   ['explicit_13',['explicit',['../d5/d03/classtoy_1_1_c_string_view.html#a38cada806f591cf55cdcb411d8210fae',1,'toy::CStringView::explicit()'],['../dc/d62/classtoy_1_1_format_string.html#a8bddc50cb2304cfc22f2f5fdc201dfc5',1,'toy::FormatString::explicit()']]],
   ['explicit_20constructors_14',['Explicit Constructors',['../df/d81/md__a_g_e_n_t_s.html#explicit-constructors',1,'']]],
