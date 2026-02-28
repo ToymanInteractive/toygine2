@@ -35,8 +35,8 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
 
-  set(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}   -Wno-documentation -Wno-ctad-maybe-unsupported")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-documentation -Wno-ctad-maybe-unsupported")
+  set(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}   -Wno-documentation -Wno-ctad-maybe-unsupported -Wno-double-promotion")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-documentation -Wno-ctad-maybe-unsupported -Wno-double-promotion")
 
   set(CTEST_SUPPORT ON)
   set(TOYGINE_TARGET_PLATFORM_SUPPORT_MULTITHREADING ON)
