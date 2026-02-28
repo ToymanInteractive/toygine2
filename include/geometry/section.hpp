@@ -29,10 +29,20 @@ namespace toy {
 namespace geometry {
 
 /*!
-  \brief Concept restricting \ref toy::geometry::Section scalar type to integral, floating-point, or \ref
-  toy::math::fixed.
+  \concept SectionScalar
+  \brief Concept satisfied when \a T is a scalar type allowed as \ref toy::geometry::Section template parameter.
 
-  \tparam T Type to check.
+  Use to constrain the scalar type of \ref toy::geometry::Section to integral, floating-point, or
+  \ref toy::math::fixed_point types only.
+
+  \section requirements Requirements
+
+  A type \a T satisfies SectionScalar if and only if at least one of the following holds:
+  - \a T satisfies \c std::integral.
+  - \a T satisfies \c std::floating_point.
+  - \a T satisfies \ref toy::math::fixed_point.
+
+  \sa toy::geometry::Section
 */
 template <typename T>
 concept SectionScalar = std::integral<T> || std::floating_point<T> || math::fixed_point<T>;
@@ -157,6 +167,16 @@ public:
   */
   [[nodiscard]] constexpr bool isContains(const T & value) const noexcept;
 };
+
+/*!
+  \brief Deduction guide for \ref toy::geometry::Section: enables \c Section(min, max) without an explicit template
+         argument when both arguments have the same \ref toy::geometry::SectionScalar type.
+
+  \tparam T Scalar type; must satisfy \ref toy::geometry::SectionScalar.
+*/
+template <typename T>
+  requires SectionScalar<T>
+Section(const T &, const T &) -> Section<T>;
 
 /*!
   \brief Equality for integral and fixed-point sections: exact comparison of bounds.

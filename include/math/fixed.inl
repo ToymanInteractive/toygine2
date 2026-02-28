@@ -37,7 +37,8 @@ template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding
   requires ValidFixedPointTypes<Base, Intermediate, Fraction>
 template <floating_point T>
 constexpr fixed<Base, Intermediate, Fraction, Rounding>::fixed(const T & value) noexcept
-  : _value(static_cast<Base>(Rounding ? (value * static_cast<T>(_fractionMult()) + ((value >= T{0}) ? T{0.5} : T{-0.5}))
+  : _value(static_cast<Base>(Rounding ? (value * static_cast<T>(_fractionMult())
+                                         + ((value >= T{0}) ? static_cast<T>(0.5) : static_cast<T>(-0.5)))
                                       : (value * static_cast<T>(_fractionMult())))) {}
 
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding>
