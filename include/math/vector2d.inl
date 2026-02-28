@@ -94,7 +94,7 @@ constexpr void Vector2D::setZero() noexcept {
 }
 
 constexpr bool Vector2D::isZero() const noexcept {
-  return x == 0 && y == 0;
+  return math::isEqual(x, 0.0f) && math::isEqual(y, 0.0f);
 }
 
 inline bool Vector2D::isEqual(const Vector2D & vector, real_t tolerance) const noexcept {
@@ -130,7 +130,7 @@ constexpr Vector2D operator/(const Vector2D & left, real_t right) noexcept {
 }
 
 constexpr bool operator==(const Vector2D & left, const Vector2D & right) noexcept {
-  return left.x == right.x && left.y == right.y;
+  return math::isEqual(left.x, right.x) && math::isEqual(left.y, right.y);
 }
 
 } // namespace toy::math
