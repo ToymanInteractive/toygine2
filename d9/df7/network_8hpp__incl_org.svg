@@ -12,8 +12,8 @@
 <g id="Node000001" class="node">
 <title>Node1</title>
 <g id="a_Node000001"><a xlink:title="Umbrella header for the network module.">
-<polygon fill="#999999" stroke="#666666" points="1664,-217 1548,-217 1548,-198 1664,-198 1664,-217"/>
-<text text-anchor="middle" x="1606" y="-205" font-family="Helvetica,sans-Serif" font-size="10.00">include/network.hpp</text>
+<polygon fill="#999999" stroke="#666666" points="1743,-217 1627,-217 1627,-198 1743,-198 1743,-217"/>
+<text text-anchor="middle" x="1685" y="-205" font-family="Helvetica,sans-Serif" font-size="10.00">include/network.hpp</text>
 </a>
 </g>
 </g>
@@ -30,8 +30,8 @@
 <g id="edge1_Node000001_Node000002" class="edge">
 <title>Node1&#45;&gt;Node2</title>
 <g id="a_edge1_Node000001_Node000002"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M1574.35,-197.98C1540.15,-188.78 1485.59,-174.11 1448.58,-164.15"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="1449.21,-160.69 1438.64,-161.47 1447.39,-167.45 1449.21,-160.69"/>
+<path fill="none" stroke="#63b8ff" d="M1637.26,-197.96C1591.49,-189.67 1520.2,-176.52 1448.86,-162.13"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="1449.29,-158.64 1438.79,-160.09 1447.9,-165.5 1449.29,-158.64"/>
 </a>
 </g>
 </g>
@@ -48,8 +48,8 @@
 <g id="edge47_Node000001_Node000043" class="edge">
 <title>Node1&#45;&gt;Node43</title>
 <g id="a_edge47_Node000001_Node000043"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M1593.31,-197.98C1581.17,-189.84 1562.64,-177.41 1548.25,-167.76"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="1550.18,-164.84 1539.92,-162.17 1546.28,-170.65 1550.18,-164.84"/>
+<path fill="none" stroke="#63b8ff" d="M1659.61,-197.98C1633.2,-189.13 1591.65,-175.19 1562.11,-165.28"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="1563.18,-161.94 1552.58,-162.08 1560.95,-168.58 1563.18,-161.94"/>
 </a>
 </g>
 </g>
@@ -66,17 +66,17 @@
 <g id="edge48_Node000001_Node000044" class="edge">
 <title>Node1&#45;&gt;Node44</title>
 <g id="a_edge48_Node000001_Node000044"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M1618.69,-197.98C1630.83,-189.84 1649.36,-177.41 1663.75,-167.76"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="1665.72,-170.65 1672.08,-162.17 1661.82,-164.84 1665.72,-170.65"/>
+<path fill="none" stroke="#63b8ff" d="M1685,-197.75C1685,-190.8 1685,-180.85 1685,-172.13"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="1688.5,-172.09 1685,-162.09 1681.5,-172.09 1688.5,-172.09"/>
 </a>
 </g>
 </g>
 <!-- Node45 -->
 <g id="Node000045" class="node">
 <title>Node45</title>
-<g id="a_Node000045"><a xlink:href="../../d0/db4/socket__flags_8inl.html" target="_top" xlink:title="Inline implementations for toy::network::SocketFlags bitwise operators.">
-<polygon fill="white" stroke="#666666" points="1907,-162 1773,-162 1773,-143 1907,-143 1907,-162"/>
-<text text-anchor="middle" x="1840" y="-150" font-family="Helvetica,sans-Serif" font-size="10.00">network/socket_flags.inl</text>
+<g id="a_Node000045"><a xlink:href="../../d3/d4e/socket__type_8hpp.html" target="_top" xlink:title="Socket type enumeration for network APIs.">
+<polygon fill="white" stroke="#666666" points="1912.5,-162 1773.5,-162 1773.5,-143 1912.5,-143 1912.5,-162"/>
+<text text-anchor="middle" x="1843" y="-150" font-family="Helvetica,sans-Serif" font-size="10.00">network/socket_type.hpp</text>
 </a>
 </g>
 </g>
@@ -84,8 +84,26 @@
 <g id="edge49_Node000001_Node000045" class="edge">
 <title>Node1&#45;&gt;Node45</title>
 <g id="a_edge49_Node000001_Node000045"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M1643.6,-197.98C1683.99,-188.84 1748.28,-174.27 1792.23,-164.32"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="1793.13,-167.7 1802.11,-162.08 1791.58,-160.88 1793.13,-167.7"/>
+<path fill="none" stroke="#63b8ff" d="M1710.39,-197.98C1736.8,-189.13 1778.35,-175.19 1807.89,-165.28"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="1809.05,-168.58 1817.42,-162.08 1806.82,-161.94 1809.05,-168.58"/>
+</a>
+</g>
+</g>
+<!-- Node46 -->
+<g id="Node000046" class="node">
+<title>Node46</title>
+<g id="a_Node000046"><a xlink:href="../../d0/db4/socket__flags_8inl.html" target="_top" xlink:title="Inline implementations for toy::network::SocketFlags bitwise operators.">
+<polygon fill="white" stroke="#666666" points="2065,-162 1931,-162 1931,-143 2065,-143 2065,-162"/>
+<text text-anchor="middle" x="1998" y="-150" font-family="Helvetica,sans-Serif" font-size="10.00">network/socket_flags.inl</text>
+</a>
+</g>
+</g>
+<!-- Node1&#45;&gt;Node46 -->
+<g id="edge50_Node000001_Node000046" class="edge">
+<title>Node1&#45;&gt;Node46</title>
+<g id="a_edge50_Node000001_Node000046"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M1735.29,-197.98C1790.42,-188.65 1878.85,-173.67 1937.68,-163.71"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="1938.3,-167.16 1947.58,-162.04 1937.13,-160.26 1938.3,-167.16"/>
 </a>
 </g>
 </g>

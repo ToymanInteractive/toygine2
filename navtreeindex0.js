@@ -115,6 +115,8 @@ var NAVTREEINDEX0 =
 "d2/dc3/structtoy_1_1math_1_1is__fixed__point.html":[5,0,1,2,1],
 "d3/d21/fixed__std__extension_8hpp.html":[6,0,0,6,2],
 "d3/d21/fixed__std__extension_8hpp_source.html":[6,0,0,6,2],
+"d3/d4e/socket__type_8hpp.html":[6,0,0,7,3],
+"d3/d4e/socket__type_8hpp_source.html":[6,0,0,7,3],
 "d3/d60/platform_8hpp.html":[6,0,0,2,16],
 "d3/d60/platform_8hpp_source.html":[6,0,0,2,16],
 "d3/d7a/classtoy_1_1_fixed_string.html":[2,0,2],
@@ -247,7 +249,5 @@ var NAVTREEINDEX0 =
 "d3/dce/classtoy_1_1math_1_1_point.html#a14f983c739d0f0f45554b5b175ac20d4":[3,0,1,2,3,5],
 "d3/dce/classtoy_1_1math_1_1_point.html#a14f983c739d0f0f45554b5b175ac20d4":[5,0,1,2,3,5],
 "d3/dce/classtoy_1_1math_1_1_point.html#a16a9bcbf33f0b89d4bc63ca32d7ef08e":[3,0,1,2,3,1],
-"d3/dce/classtoy_1_1math_1_1_point.html#a16a9bcbf33f0b89d4bc63ca32d7ef08e":[5,0,1,2,3,1],
-"d3/dce/classtoy_1_1math_1_1_point.html#a2839107cd0aab1cfc3aced9ed8807c2f":[3,0,1,2,3,12],
-"d3/dce/classtoy_1_1math_1_1_point.html#a2839107cd0aab1cfc3aced9ed8807c2f":[5,0,1,2,3,12]
+"d3/dce/classtoy_1_1math_1_1_point.html#a16a9bcbf33f0b89d4bc63ca32d7ef08e":[5,0,1,2,3,1]
 };

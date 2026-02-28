@@ -1,5 +1,11 @@
 var NAVTREEINDEX3 =
 {
+"d8/d25/namespacetoy_1_1game.html#ac8a6f36358f3ac99f55a1db9c3827edaac76fd517e45cc95709f4ac106efa4a94":[3,0,1,9,0,2],
+"d8/d25/namespacetoy_1_1game.html#ac8a6f36358f3ac99f55a1db9c3827edaad0f2e5376298c880665077b565ffd7dd":[3,0,1,9,0,1],
+"d8/d31/orientation_8inl.html":[6,0,0,8,0,3],
+"d8/d31/orientation_8inl_source.html":[6,0,0,8,0,3],
+"d8/d39/game_8hpp.html":[6,0,0,14],
+"d8/d39/game_8hpp_source.html":[6,0,0,14],
 "d8/d43/core_2utils_8hpp.html":[6,0,0,2,18],
 "d8/d43/core_2utils_8hpp_source.html":[6,0,0,2,18],
 "d8/d52/classtoy_1_1array.html":[3,0,1,18],
@@ -243,11 +249,5 @@ var NAVTREEINDEX3 =
 "dd/d77/namespacetoy_1_1audio.html#afca9143e3b169f77784310a3b384261c":[3,0,1,7,0],
 "dd/d77/namespacetoy_1_1audio.html#afca9143e3b169f77784310a3b384261ca47dcbd834e669233d7eb8a51456ed217":[3,0,1,7,0,0],
 "dd/d77/namespacetoy_1_1audio.html#afca9143e3b169f77784310a3b384261ca9d07e0e08af7f96cf45be0112b9ccfbe":[3,0,1,7,0,1],
-"dd/d77/namespacetoy_1_1audio.html#afca9143e3b169f77784310a3b384261cad7a3fdf1351b72249a47454751549deb":[3,0,1,7,0,2],
-"dd/d8e/hashes_8hpp.html":[6,0,0,2,13],
-"dd/d8e/hashes_8hpp_source.html":[6,0,0,2,13],
-"dd/d9e/linux_2platform__config_8hpp.html":[6,0,1,1,3,0],
-"dd/d9e/linux_2platform__config_8hpp_source.html":[6,0,1,1,3,0],
-"dd/de0/concepttoy_1_1math_1_1fixed__point.html":[3,0,1,2,6],
-"dd/de0/concepttoy_1_1math_1_1fixed__point.html":[4,0,1,1]
+"dd/d77/namespacetoy_1_1audio.html#afca9143e3b169f77784310a3b384261cad7a3fdf1351b72249a47454751549deb":[3,0,1,7,0,2]
 };

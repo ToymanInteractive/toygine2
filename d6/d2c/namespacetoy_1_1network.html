@@ -114,7 +114,7 @@ $(function(){initNavTree('d6/d2c/namespacetoy_1_1network.html','../../',''); });
 </div><!--header-->
 <div class="contents">
 
-<p>Network types and utilities: socket errors, socket flags, and related APIs.  
+<p>Network types and utilities: socket errors, socket flags, socket type, and related APIs.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
@@ -146,6 +146,11 @@ Enumerations</h2></td></tr>
 <br />
  }</td></tr>
 <tr class="memdesc:af5b032f86c2c00ee1f7c873271b57abf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bitmask flags for socket options and operating mode.  <a href="#af5b032f86c2c00ee1f7c873271b57abf">More...</a><br /></td></tr>
+<tr class="memitem:a465745810e1e093a3e2aaa44ba340b8e" id="r_a465745810e1e093a3e2aaa44ba340b8e"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a465745810e1e093a3e2aaa44ba340b8e">SocketType</a> : uint8_t { <a class="el" href="#a465745810e1e093a3e2aaa44ba340b8ea640931067618ca3bc723805cb196e22f">Datagram</a>
+, <a class="el" href="#a465745810e1e093a3e2aaa44ba340b8eaeae835e83c0494a376229f254f7d3392">Stream</a>
+, <a class="el" href="#a465745810e1e093a3e2aaa44ba340b8eabcf036b6f33e182d4705f4f5b1af13ac">Dummy</a>
+ }</td></tr>
+<tr class="memdesc:a465745810e1e093a3e2aaa44ba340b8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Kind of socket or socket-like endpoint.  <a href="#a465745810e1e093a3e2aaa44ba340b8e">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -157,7 +162,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:a31d7b508bc7c001ce23457ad2e90c806"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bitwise XOR of two <a class="el" href="#af5b032f86c2c00ee1f7c873271b57abf" title="toy::network::SocketFlags">toy::network::SocketFlags</a> values.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Network types and utilities: socket errors, socket flags, and related APIs. </p>
+<div class="textblock"><p>Network types and utilities: socket errors, socket flags, socket type, and related APIs. </p>
 </div><a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Enumeration Type Documentation</h2>
 <a id="a00dea18c86b981e289de2ab40d78725e" name="a00dea18c86b981e289de2ab40d78725e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a00dea18c86b981e289de2ab40d78725e">&#9670;&#160;</a></span>SocketError</h2>
@@ -240,6 +245,39 @@ Functions</h2></td></tr>
 <tr><td class="fieldname"><a id="af5b032f86c2c00ee1f7c873271b57abface6802b46091c31e2ec2363883fe8369" name="af5b032f86c2c00ee1f7c873271b57abface6802b46091c31e2ec2363883fe8369"></a>Listen&#160;</td><td class="fielddoc"><p>Socket is in listen state (for accepting connections). </p>
 </td></tr>
 <tr><td class="fieldname"><a id="af5b032f86c2c00ee1f7c873271b57abfa0b172674284d79079624051d2ae11581" name="af5b032f86c2c00ee1f7c873271b57abfa0b172674284d79079624051d2ae11581"></a>Bind&#160;</td><td class="fielddoc"><p>Socket is bound to a local address. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="a465745810e1e093a3e2aaa44ba340b8e" name="a465745810e1e093a3e2aaa44ba340b8e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a465745810e1e093a3e2aaa44ba340b8e">&#9670;&#160;</a></span>SocketType</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#a465745810e1e093a3e2aaa44ba340b8e">toy::network::SocketType</a> : uint8_t</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Kind of socket or socket-like endpoint. </p>
+<p>Used to distinguish datagram (UDP-style) vs stream (TCP-style) sockets. <a class="el" href="#a465745810e1e093a3e2aaa44ba340b8eabcf036b6f33e182d4705f4f5b1af13ac" title="toy::network::SocketType::Dummy">toy::network::SocketType::Dummy</a> is for tests or stubs that do not perform real I/O. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a465745810e1e093a3e2aaa44ba340b8ea640931067618ca3bc723805cb196e22f" name="a465745810e1e093a3e2aaa44ba340b8ea640931067618ca3bc723805cb196e22f"></a>Datagram&#160;</td><td class="fielddoc"><p>Datagram socket (e.g. UDP); message-oriented, unreliable. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a465745810e1e093a3e2aaa44ba340b8eaeae835e83c0494a376229f254f7d3392" name="a465745810e1e093a3e2aaa44ba340b8eaeae835e83c0494a376229f254f7d3392"></a>Stream&#160;</td><td class="fielddoc"><p>Stream socket (e.g. TCP); connection-oriented, reliable byte stream. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a465745810e1e093a3e2aaa44ba340b8eabcf036b6f33e182d4705f4f5b1af13ac" name="a465745810e1e093a3e2aaa44ba340b8eabcf036b6f33e182d4705f4f5b1af13ac"></a>Dummy&#160;</td><td class="fielddoc"><p>Dummy socket for tests or stubs; no real network I/O. </p>
 </td></tr>
 </table>
 

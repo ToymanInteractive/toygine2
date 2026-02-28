@@ -5,6 +5,7 @@ var searchData=
   ['socketinvalid_2',['SocketInvalid',['../d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725ea00b7ae176d07d00500fef827f193da59',1,'toy::network']]],
   ['sound_3',['Sound',['../dd/d77/namespacetoy_1_1audio.html#afca9143e3b169f77784310a3b384261ca9d07e0e08af7f96cf45be0112b9ccfbe',1,'toy::audio']]],
   ['stencil_4',['Stencil',['../df/d8d/namespacetoy_1_1render.html#ae44fe0c1053121f38b8544a8684ee4e1ad821e7ccd4d4c25a491ba1a9ea248895',1,'toy::render']]],
-  ['switch_5',['Switch',['../d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aabbc155fb2b111bf61c4f5ff892915e6b',1,'toy']]],
-  ['systemerror_6',['SystemError',['../d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725eab932b91f686c2aa588adfd9a407155ca',1,'toy::network']]]
+  ['stream_5',['Stream',['../d6/d2c/namespacetoy_1_1network.html#a465745810e1e093a3e2aaa44ba340b8eaeae835e83c0494a376229f254f7d3392',1,'toy::network']]],
+  ['switch_6',['Switch',['../d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aabbc155fb2b111bf61c4f5ff892915e6b',1,'toy']]],
+  ['systemerror_7',['SystemError',['../d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725eab932b91f686c2aa588adfd9a407155ca',1,'toy::network']]]
 ];

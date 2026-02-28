@@ -1,5 +1,7 @@
 var NAVTREEINDEX2 =
 {
+"d5/d03/classtoy_1_1_c_string_view.html#adce5aa064a0cc176db13a67dc0f45fb5":[2,0,1,34],
+"d5/d03/classtoy_1_1_c_string_view.html#ade7a652f601a4fb2bded6aaeeb01bd3e":[2,0,1,65],
 "d5/d03/classtoy_1_1_c_string_view.html#ae69e623d93e4bd89a026dcfea4bffeeb":[2,0,1,17],
 "d5/d03/classtoy_1_1_c_string_view.html#ae8aa2c5de0844a0ffcf80e748e9d3c7a":[2,0,1,30],
 "d5/d03/classtoy_1_1_c_string_view.html#aec73450f59b93644f6e14917ea1654bc":[2,0,1,60],
@@ -37,9 +39,13 @@ var NAVTREEINDEX2 =
 "d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725eacedcbd07d779d35295f55a5b5de1e855":[3,0,1,3,0,8],
 "d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725eae799f8e2bec1c2593f034ec5060229e6":[3,0,1,3,0,6],
 "d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725eaf05e778bc960135cd2482522a98db05e":[3,0,1,3,0,4],
-"d6/d2c/namespacetoy_1_1network.html#a31d7b508bc7c001ce23457ad2e90c806":[3,0,1,3,3],
-"d6/d2c/namespacetoy_1_1network.html#a755ac8096485c06bdd996e03ccd05151":[3,0,1,3,2],
-"d6/d2c/namespacetoy_1_1network.html#a8b41df8b3140b92d1ffd344cbb1f111a":[3,0,1,3,4],
+"d6/d2c/namespacetoy_1_1network.html#a31d7b508bc7c001ce23457ad2e90c806":[3,0,1,3,4],
+"d6/d2c/namespacetoy_1_1network.html#a465745810e1e093a3e2aaa44ba340b8e":[3,0,1,3,2],
+"d6/d2c/namespacetoy_1_1network.html#a465745810e1e093a3e2aaa44ba340b8ea640931067618ca3bc723805cb196e22f":[3,0,1,3,2,0],
+"d6/d2c/namespacetoy_1_1network.html#a465745810e1e093a3e2aaa44ba340b8eabcf036b6f33e182d4705f4f5b1af13ac":[3,0,1,3,2,2],
+"d6/d2c/namespacetoy_1_1network.html#a465745810e1e093a3e2aaa44ba340b8eaeae835e83c0494a376229f254f7d3392":[3,0,1,3,2,1],
+"d6/d2c/namespacetoy_1_1network.html#a755ac8096485c06bdd996e03ccd05151":[3,0,1,3,3],
+"d6/d2c/namespacetoy_1_1network.html#a8b41df8b3140b92d1ffd344cbb1f111a":[3,0,1,3,5],
 "d6/d2c/namespacetoy_1_1network.html#af5b032f86c2c00ee1f7c873271b57abf":[3,0,1,3,1],
 "d6/d2c/namespacetoy_1_1network.html#af5b032f86c2c00ee1f7c873271b57abfa0b172674284d79079624051d2ae11581":[3,0,1,3,1,5],
 "d6/d2c/namespacetoy_1_1network.html#af5b032f86c2c00ee1f7c873271b57abfa20a6cf714cbf179298b4d850849847b8":[3,0,1,3,1,1],
@@ -243,11 +249,5 @@ var NAVTREEINDEX2 =
 "d7/dec/classtoy_1_1_fixed_vector.html#af41f645630eaed35f734c222c05ba49a":[5,0,1,8,13],
 "d8/d25/namespacetoy_1_1game.html":[3,0,1,9],
 "d8/d25/namespacetoy_1_1game.html#ac8a6f36358f3ac99f55a1db9c3827eda":[3,0,1,9,0],
-"d8/d25/namespacetoy_1_1game.html#ac8a6f36358f3ac99f55a1db9c3827edaa7acdf85c69cc3c5305456a293524386e":[3,0,1,9,0,0],
-"d8/d25/namespacetoy_1_1game.html#ac8a6f36358f3ac99f55a1db9c3827edaac76fd517e45cc95709f4ac106efa4a94":[3,0,1,9,0,2],
-"d8/d25/namespacetoy_1_1game.html#ac8a6f36358f3ac99f55a1db9c3827edaad0f2e5376298c880665077b565ffd7dd":[3,0,1,9,0,1],
-"d8/d31/orientation_8inl.html":[6,0,0,8,0,3],
-"d8/d31/orientation_8inl_source.html":[6,0,0,8,0,3],
-"d8/d39/game_8hpp.html":[6,0,0,14],
-"d8/d39/game_8hpp_source.html":[6,0,0,14]
+"d8/d25/namespacetoy_1_1game.html#ac8a6f36358f3ac99f55a1db9c3827edaa7acdf85c69cc3c5305456a293524386e":[3,0,1,9,0,0]
 };

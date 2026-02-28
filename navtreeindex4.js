@@ -1,5 +1,11 @@
 var NAVTREEINDEX4 =
 {
+"dd/d8e/hashes_8hpp.html":[6,0,0,2,13],
+"dd/d8e/hashes_8hpp_source.html":[6,0,0,2,13],
+"dd/d9e/linux_2platform__config_8hpp.html":[6,0,1,1,3,0],
+"dd/d9e/linux_2platform__config_8hpp_source.html":[6,0,1,1,3,0],
+"dd/de0/concepttoy_1_1math_1_1fixed__point.html":[3,0,1,2,6],
+"dd/de0/concepttoy_1_1math_1_1fixed__point.html":[4,0,1,1],
 "dd/ded/c__string__view_8hpp.html":[6,0,0,2,1],
 "dd/ded/c__string__view_8hpp_source.html":[6,0,0,2,1],
 "de/d06/utils_8cpp.html":[6,0,1,0,1],

@@ -7,5 +7,7 @@ var searchData=
   ['d24x4s4_4',['D24X4S4',['../df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3fad8e0efa43d87bdbf29e62e036107a0d7',1,'toy::render']]],
   ['d24x8_5',['D24X8',['../df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3fae64207a55998a9e09cbe2f190926d1ee',1,'toy::render']]],
   ['d32_6',['D32',['../df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3faa6b2eecc4252564f599b9a979e4e0602',1,'toy::render']]],
-  ['depth_7',['Depth',['../df/d8d/namespacetoy_1_1render.html#ae44fe0c1053121f38b8544a8684ee4e1a675056ad1441b6375b2c5abd48c27ef1',1,'toy::render']]]
+  ['datagram_7',['Datagram',['../d6/d2c/namespacetoy_1_1network.html#a465745810e1e093a3e2aaa44ba340b8ea640931067618ca3bc723805cb196e22f',1,'toy::network']]],
+  ['depth_8',['Depth',['../df/d8d/namespacetoy_1_1render.html#ae44fe0c1053121f38b8544a8684ee4e1a675056ad1441b6375b2c5abd48c27ef1',1,'toy::render']]],
+  ['dummy_9',['Dummy',['../d6/d2c/namespacetoy_1_1network.html#a465745810e1e093a3e2aaa44ba340b8eabcf036b6f33e182d4705f4f5b1af13ac',1,'toy::network']]]
 ];
