@@ -159,6 +159,14 @@ public:
 };
 
 /*!
+  \brief Deduction guide for \ref toy::geometry::Section: enables \c Section(min, max) without an explicit template
+         argument when both arguments have the same \ref toy::geometry::SectionScalar type.
+*/
+template <typename T>
+  requires SectionScalar<T>
+Section(const T &, const T &) -> Section<T>;
+
+/*!
   \brief Equality for integral and fixed-point sections: exact comparison of bounds.
 
   \param a First section.
