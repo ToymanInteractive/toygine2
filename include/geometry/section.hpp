@@ -29,10 +29,20 @@ namespace toy {
 namespace geometry {
 
 /*!
-  \brief Concept restricting \ref toy::geometry::Section scalar type to integral, floating-point, or \ref
-  toy::math::fixed.
+  \concept SectionScalar
+  \brief Concept satisfied when \a T is a scalar type allowed as \ref toy::geometry::Section template parameter.
 
-  \tparam T Type to check.
+  Use to constrain the scalar type of \ref toy::geometry::Section to integral, floating-point, or \ref toy::math::fixed
+  types only.
+
+  \section requirements Requirements
+
+  A type \a T satisfies SectionScalar if and only if at least one of the following holds:
+  - \a T satisfies \c std::integral.
+  - \a T satisfies \c std::floating_point.
+  - \a T satisfies \ref toy::math::fixed_point.
+
+  \sa toy::geometry::Section
 */
 template <typename T>
 concept SectionScalar = std::integral<T> || std::floating_point<T> || math::fixed_point<T>;

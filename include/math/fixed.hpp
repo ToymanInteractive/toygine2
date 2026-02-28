@@ -28,12 +28,22 @@
 namespace toy::math {
 
 /*!
-  \brief Compile-time constraints for \ref toy::math::fixed template parameters.
+  \concept ValidFixedPointTypes
+  \brief Concept constraining template parameters for \ref toy::math::fixed.
 
-  \tparam Base Storage type; must satisfy \c integral.
-  \tparam Intermediate Wider type for intermediate calculations; size must be \c >= sizeof(Base), signedness must match
-  \a Base.
-  \tparam Fraction Number of fractional bits; must be in (0, numeric_limits<Base>::digits].
+  This concept defines the compile-time requirements for the three template parameters of \ref toy::math::fixed. It
+  ensures that \a Base is an integral storage type, \a Fraction is within the valid bit range, and \a Intermediate is
+  wide enough and has matching signedness for correct intermediate calculations.
+
+  \section requirements Requirements
+
+  A set of types (\a Base, \a Intermediate, \a Fraction) satisfies ValidFixedPointTypes if and only if:
+  - \a Base satisfies \c integral.
+  - \a Fraction is greater than 0 and at most \c numeric_limits<Base>::digits.
+  - \c sizeof(Intermediate) >= sizeof(Base).
+  - \a Intermediate has the same signedness as \a Base (\c is_signed_v).
+
+  \sa toy::math::fixed
 */
 template <typename Base, typename Intermediate, unsigned Fraction>
 concept ValidFixedPointTypes
@@ -339,7 +349,6 @@ private:
 };
 
 /*!
-  \struct is_fixed_point
   \brief Unary type trait: \c true if \a T is an instantiation of \ref toy::math::fixed, \c false otherwise.
 
   \tparam T Type to check.
@@ -365,11 +374,13 @@ template <typename T>
 inline constexpr bool is_fixed_point_v = is_fixed_point<T>::value;
 
 /*!
-  \brief Concept: \a T is an instantiation of \ref toy::math::fixed.
+  \concept fixed_point
+  \brief Concept satisfied when \a T is an instantiation of \ref toy::math::fixed.
 
-  Use to constrain templates to fixed-point types only (analogous to \c floating_point for built-in floats).
+  Use to constrain template parameters to fixed-point types only (analogous to \c std::floating_point for built-in
+  floating-point types). Equivalent to \c is_fixed_point_v<T>.
 
-  \tparam T Type to check.
+  \sa toy::math::fixed
 */
 template <typename T>
 concept fixed_point = is_fixed_point_v<T>;

@@ -324,6 +324,17 @@ Always follow this order:
 11. `\warning` — warnings (if needed)
 12. `\sa` — related classes/types
 
+### Concept Documentation
+
+- Use `\concept ConceptName` so Doxygen treats the block as concept documentation.
+- `\brief` — one-line description of when the concept is satisfied (e.g. "Concept satisfied when \a T is an instantiation of \ref toy::namespace::Type").
+- Add a short paragraph explaining purpose and typical use (e.g. constraining template parameters, analogy to standard concepts).
+- Use `\section requirements Requirements` with a bullet list of conditions that must hold. Prefer this over repeating the same information in `\tparam`.
+- Do **not** use `\tparam` for concept template parameters when the requirements are already fully described in `\section requirements`; the requirements section is the single source of truth and avoids duplication.
+- Use `\ref` with full namespace qualification when referencing types or concepts in the description (e.g. `\ref toy::math::fixed`).
+- `\sa` — link to related types or concepts that use or are used with this concept (do not use `\ref` inside `\sa`; Doxygen auto-links).
+- Optional `\section usage Usage Example` with a short `\code` block for concepts that benefit from an example (e.g. `static_assert(ConceptName<T>);`).
+
 ### Parameter Documentation
 
 - Use `\a` to reference parameter names in descriptions.
@@ -343,7 +354,8 @@ Always follow this order:
 
 ### Template Parameters
 
-- Always document template parameters with `\tparam`.
+- Always document template parameters with `\tparam` for classes, structs, and function templates.
+- For **concepts**, prefer `\section requirements` and omit `\tparam` when the conditions fully describe the template parameters (see **Concept Documentation**).
 - Include type constraints and valid value ranges.
 
 ### Notes and Warnings
@@ -461,6 +473,28 @@ Always follow this order:
 class ClassName {
   // ...
 };
+```
+
+### Concept
+
+```cpp
+/*!
+  \concept ConceptName
+  \brief Concept satisfied when [condition on template argument(s)].
+
+  [Optional paragraph: purpose and typical use, e.g. constraining templates or analogy to std concept.]
+
+  \section requirements Requirements
+
+  [Type/expression] satisfies ConceptName if and only if:
+  - [Condition 1.]
+  - [Condition 2.]
+  - [Condition 3.]
+
+  \sa toy::namespace::RelatedType
+*/
+template <typename T>
+concept ConceptName = /* ... */;
 ```
 
 ### Template Class
