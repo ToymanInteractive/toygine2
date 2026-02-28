@@ -8,9 +8,11 @@ var namespacetoy_1_1math =
     [ "ValidFixedPointTypes", "d7/d22/concepttoy_1_1math_1_1_valid_fixed_point_types.html", null ],
     [ "fixed_point", "dd/de0/concepttoy_1_1math_1_1fixed__point.html", null ],
     [ "real_t", "d2/d83/namespacetoy_1_1math.html#a928771ce74a56750dd2dcbc28e5892e0", null ],
-    [ "abs", "d2/d83/namespacetoy_1_1math.html#a5f1aaaf4c925c4be31f1b33e31062c19", null ],
-    [ "abs", "d2/d83/namespacetoy_1_1math.html#a5f1aaaf4c925c4be31f1b33e31062c19", null ],
-    [ "isEqual", "d2/d83/namespacetoy_1_1math.html#a2814ac6d186eafcbb0e5d6e1c0437ba1", null ],
+    [ "abs", "d2/d83/namespacetoy_1_1math.html#a00391a62294376916bf5df2d9b9ae00c", null ],
+    [ "abs", "d2/d83/namespacetoy_1_1math.html#a00391a62294376916bf5df2d9b9ae00c", null ],
+    [ "abs", "d2/d83/namespacetoy_1_1math.html#a00391a62294376916bf5df2d9b9ae00c", null ],
+    [ "deg2rad", "d2/d83/namespacetoy_1_1math.html#ab57f825520a446db045607567ead63ae", null ],
+    [ "isEqual", "d2/d83/namespacetoy_1_1math.html#a87de74562ad3760848978f298c4bd505", null ],
     [ "operator*", "d2/d83/namespacetoy_1_1math.html#a0093cd8b0fc3ea4c7cdc9fe9cf8a37b5", null ],
     [ "operator*", "d2/d83/namespacetoy_1_1math.html#a486378f548999db466ef4f2d629c69e4", null ],
     [ "operator*", "d2/d83/namespacetoy_1_1math.html#ac417b48ee4476520f97a0bfe39026d22", null ],
@@ -43,5 +45,6 @@ var namespacetoy_1_1math =
     [ "operator==", "d2/d83/namespacetoy_1_1math.html#a093a0151366d4844bb1d337448c0b16f", null ],
     [ "operator==", "d2/d83/namespacetoy_1_1math.html#a77dccec38178a7b466b0658dd06fc118", null ],
     [ "operator==", "d2/d83/namespacetoy_1_1math.html#a5ace6b486275cec5dc95c653651818cd", null ],
+    [ "rad2deg", "d2/d83/namespacetoy_1_1math.html#ab2df9ff2e4f2067d2694fabf929380e6", null ],
     [ "is_fixed_point_v", "d2/d83/namespacetoy_1_1math.html#a30c8861f803815d5970e4f0d7dd85334", null ]
 ];

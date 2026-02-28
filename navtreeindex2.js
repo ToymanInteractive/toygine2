@@ -1,5 +1,8 @@
 var NAVTREEINDEX2 =
 {
+"d5/d03/classtoy_1_1_c_string_view.html#ad8e07a5be8e6cf0e4b1a6c853107f702":[2,0,1,61],
+"d5/d03/classtoy_1_1_c_string_view.html#ada601aeb8a74b2f93c11b58bff50f50b":[2,0,1,49],
+"d5/d03/classtoy_1_1_c_string_view.html#adb54f0951dc63d5cc1466ae61e941df5":[2,0,1,13],
 "d5/d03/classtoy_1_1_c_string_view.html#adce5aa064a0cc176db13a67dc0f45fb5":[2,0,1,34],
 "d5/d03/classtoy_1_1_c_string_view.html#ade7a652f601a4fb2bded6aaeeb01bd3e":[2,0,1,65],
 "d5/d03/classtoy_1_1_c_string_view.html#ae69e623d93e4bd89a026dcfea4bffeeb":[2,0,1,17],
@@ -246,8 +249,5 @@ var NAVTREEINDEX2 =
 "d7/dec/classtoy_1_1_fixed_vector.html#af18fa1c4ace6ecae4d26a70a560f306b":[3,0,1,15,52],
 "d7/dec/classtoy_1_1_fixed_vector.html#af18fa1c4ace6ecae4d26a70a560f306b":[5,0,1,8,52],
 "d7/dec/classtoy_1_1_fixed_vector.html#af41f645630eaed35f734c222c05ba49a":[3,0,1,15,13],
-"d7/dec/classtoy_1_1_fixed_vector.html#af41f645630eaed35f734c222c05ba49a":[5,0,1,8,13],
-"d8/d25/namespacetoy_1_1game.html":[3,0,1,9],
-"d8/d25/namespacetoy_1_1game.html#ac8a6f36358f3ac99f55a1db9c3827eda":[3,0,1,9,0],
-"d8/d25/namespacetoy_1_1game.html#ac8a6f36358f3ac99f55a1db9c3827edaa7acdf85c69cc3c5305456a293524386e":[3,0,1,9,0,0]
+"d7/dec/classtoy_1_1_fixed_vector.html#af41f645630eaed35f734c222c05ba49a":[5,0,1,8,13]
 };

@@ -1,5 +1,8 @@
 var NAVTREEINDEX4 =
 {
+"dd/d77/namespacetoy_1_1audio.html#afca9143e3b169f77784310a3b384261ca47dcbd834e669233d7eb8a51456ed217":[3,0,1,7,0,0],
+"dd/d77/namespacetoy_1_1audio.html#afca9143e3b169f77784310a3b384261ca9d07e0e08af7f96cf45be0112b9ccfbe":[3,0,1,7,0,1],
+"dd/d77/namespacetoy_1_1audio.html#afca9143e3b169f77784310a3b384261cad7a3fdf1351b72249a47454751549deb":[3,0,1,7,0,2],
 "dd/d8e/hashes_8hpp.html":[6,0,0,2,13],
 "dd/d8e/hashes_8hpp_source.html":[6,0,0,2,13],
 "dd/d9e/linux_2platform__config_8hpp.html":[6,0,1,1,3,0],

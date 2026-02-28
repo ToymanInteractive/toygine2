@@ -4,7 +4,7 @@ var searchData=
   ['a8_1',['A8',['../df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3fafd301d675be7b677ba979a430a80c010',1,'toy::render']]],
   ['a8r8g8b8_2',['A8R8G8B8',['../df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3faca88c661141ffa0559f581536bd1da14',1,'toy::render']]],
   ['abort_3',['Abort',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#acd712dd388168864cc984d43e23e41d2a727b63583e01fa2b3952dab580c84dc2',1,'toy::platform::ui']]],
-  ['abs_4',['abs',['../d2/d83/namespacetoy_1_1math.html#a5f1aaaf4c925c4be31f1b33e31062c19',1,'toy::math::abs(T value) noexcept'],['../d2/d83/namespacetoy_1_1math.html#a5f1aaaf4c925c4be31f1b33e31062c19',1,'toy::math::abs(T value) noexcept']]],
+  ['abs_4',['abs',['../d2/d83/namespacetoy_1_1math.html#a00391a62294376916bf5df2d9b9ae00c',1,'toy::math::abs(const T &amp;value) noexcept'],['../d2/d83/namespacetoy_1_1math.html#a00391a62294376916bf5df2d9b9ae00c',1,'toy::math::abs(const T &amp;value) noexcept'],['../d2/d83/namespacetoy_1_1math.html#a00391a62294376916bf5df2d9b9ae00c',1,'toy::math::abs(const T &amp;value) noexcept']]],
   ['access_20modifiers_5',['Access Modifiers',['../df/d81/md__a_g_e_n_t_s.html#access-modifiers',1,'']]],
   ['achievement_5fstate_2ehpp_6',['achievement_state.hpp',['../dc/d15/achievement__state_8hpp.html',1,'']]],
   ['achievementstate_7',['AchievementState',['../d8/d25/namespacetoy_1_1game.html#ac8a6f36358f3ac99f55a1db9c3827eda',1,'toy::game']]],
