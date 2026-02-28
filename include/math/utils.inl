@@ -28,7 +28,7 @@
 namespace toy::math {
 
 template <signed_integral T>
-constexpr T abs(T value) noexcept {
+constexpr T abs(const T & value) noexcept {
   assert_message(value != numeric_limits<T>::min(), "abs() of the minimum signed integer is not representable");
 
   T mask = value >> numeric_limits<T>::digits;
@@ -37,7 +37,7 @@ constexpr T abs(T value) noexcept {
 }
 
 template <floating_point T>
-constexpr T abs(T value) noexcept {
+constexpr T abs(const T & value) noexcept {
   if constexpr (std::same_as<T, float>) {
     // Branch-free: clear IEEE 754 sign bit via bit_cast (float is 32-bit on supported platforms).
     auto bits = bit_cast<uint32_t>(value);
@@ -56,13 +56,25 @@ constexpr T abs(T value) noexcept {
   }
 }
 
-constexpr bool isEqual(float a, float b, float absEpsilon, float relEpsilon) noexcept {
-  assert_message(absEpsilon >= 0.0f && relEpsilon >= 0.0f, "absolute and relative epsilon must be non-negative");
+template <fixed_point T>
+constexpr T abs(const T & value) noexcept {
+  using Base = decltype(value.rawValue());
+  constexpr int digits = numeric_limits<Base>::digits;
+  auto raw = value.rawValue();
+  assert_message(raw != numeric_limits<Base>::min(), "abs() of the minimum fixed-point value is not representable");
+  Base mask = raw >> digits;
+
+  return T::fromRawValue(static_cast<Base>((raw + mask) ^ mask));
+}
+
+template <floating_point T>
+constexpr bool isEqual(T a, T b, T absEpsilon, T relEpsilon) noexcept {
+  assert_message(absEpsilon >= T{0} && relEpsilon >= T{0}, "absolute and relative epsilon must be non-negative");
   if !consteval {
     assert_message(!isnan(a) && !isnan(b), "isEqual() does not support NaN values");
   }
 
-  const auto diff = abs(a - b);
+  const T diff = abs(a - b);
   if (diff <= absEpsilon)
     return true;
 

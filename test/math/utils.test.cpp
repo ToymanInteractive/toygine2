@@ -17,12 +17,14 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 //
-/*
+
 #include <doctest/doctest.h>
 
 #include "math.hpp"
 
 namespace toy::math {
+
+using Fixed = fixed<std::int32_t, std::int64_t, 8>;
 
 // Absolute value of integers and floating-point numbers: non-negative unchanged, negative yields positive.
 TEST_CASE("math/utils/abs") {
@@ -80,17 +82,40 @@ TEST_CASE("math/utils/abs") {
     static_assert(isEqual(abs(1.5L), 1.5L), "abs of positive long double must be unchanged within epsilon");
     static_assert(isEqual(abs(-1.5L), 1.5L), "abs of negative long double must yield positive within epsilon");
   }
+
+  // Fixed-point: non-negative unchanged, negative yields positive.
+  SUBCASE("fixed_point") {
+    REQUIRE(abs(Fixed(0)) == Fixed(0));
+    REQUIRE(abs(Fixed(2)) == Fixed(2));
+    REQUIRE(abs(Fixed(-2)) == Fixed(2));
+    REQUIRE(abs(Fixed(10)) == Fixed(10));
+    REQUIRE(abs(Fixed(-10)) == Fixed(10));
+
+    static_assert(abs(Fixed(0)) == Fixed(0), "abs of zero fixed must remain zero");
+    static_assert(abs(Fixed(2)) == Fixed(2), "abs of positive fixed must be unchanged");
+    static_assert(abs(Fixed(-2)) == Fixed(2), "abs of negative fixed must yield positive");
+    static_assert(abs(Fixed(10)) == Fixed(10), "abs of positive fixed must be unchanged");
+    static_assert(abs(Fixed(-10)) == Fixed(10), "abs of negative fixed must yield positive");
+  }
 }
 
-// Approximate equality of two floats: absolute and relative epsilon.
+// Approximate equality of two floating-point values: absolute and relative epsilon (float, double, long double).
 TEST_CASE("math/utils/is_equal") {
-  // Identical values are equal.
+  // Identical values are equal (float).
   SUBCASE("identical_values") {
     REQUIRE(isEqual(0.0f, 0.0f));
     REQUIRE(isEqual(1.0f, 1.0f));
+    REQUIRE(isEqual(0.0, 0.0));
+    REQUIRE(isEqual(1.0, 1.0));
+    REQUIRE(isEqual(0.0L, 0.0L));
+    REQUIRE(isEqual(1.0L, 1.0L));
 
-    static_assert(isEqual(0.0f, 0.0f), "identical values must be equal");
-    static_assert(isEqual(1.0f, 1.0f), "identical values must be equal");
+    static_assert(isEqual(0.0f, 0.0f), "identical float values must be equal");
+    static_assert(isEqual(1.0f, 1.0f), "identical float values must be equal");
+    static_assert(isEqual(0.0, 0.0), "identical double values must be equal");
+    static_assert(isEqual(1.0, 1.0), "identical double values must be equal");
+    static_assert(isEqual(0.0L, 0.0L), "identical long double values must be equal");
+    static_assert(isEqual(1.0L, 1.0L), "identical long double values must be equal");
   }
 
   // Within default absolute epsilon: treated as equal; beyond it (with relEpsilon zero) treated as not equal.
@@ -110,6 +135,18 @@ TEST_CASE("math/utils/is_equal") {
     static_assert(!isEqual(0.0f, -eps * 1.5f, eps, 0.0f), "values beyond absolute epsilon must not be equal");
   }
 
+  // Double: within absolute epsilon using type-specific epsilon.
+  SUBCASE("within_absolute_epsilon_double") {
+    constexpr double eps = 8.0 * numeric_limits<double>::epsilon();
+
+    REQUIRE(isEqual(0.0, eps));
+    REQUIRE(isEqual(0.0, -eps));
+    REQUIRE(!isEqual(0.0, eps * 1.5, eps, 0.0));
+
+    static_assert(isEqual(0.0, eps), "double values within absolute epsilon must be equal");
+    static_assert(!isEqual(0.0, eps * 1.5, eps, 0.0), "double values beyond absolute epsilon must not be equal");
+  }
+
   // Within default relative epsilon for large values: treated as equal.
   SUBCASE("within_relative_epsilon") {
     constexpr float big = 1e6f;
@@ -120,15 +157,29 @@ TEST_CASE("math/utils/is_equal") {
     static_assert(isEqual(big, big * (1.0f + relEps * 0.5f)), "large values within relative epsilon must be equal");
   }
 
+  // Double: relative epsilon for large values.
+  SUBCASE("within_relative_epsilon_double") {
+    constexpr double big = 1e10;
+    constexpr double relEps = 64.0 * numeric_limits<double>::epsilon();
+
+    REQUIRE(isEqual(big, big * (1.0 + relEps * 0.5)));
+
+    static_assert(isEqual(big, big * (1.0 + relEps * 0.5)),
+                  "large double values within relative epsilon must be equal");
+  }
+
   // Clearly different values: not equal.
   SUBCASE("clearly_different") {
     REQUIRE(!isEqual(0.0f, 1.0f));
     REQUIRE(!isEqual(1.0f, 2.0f));
     REQUIRE(!isEqual(-1.0f, 1.0f));
+    REQUIRE(!isEqual(0.0, 1.0));
+    REQUIRE(!isEqual(-1.0L, 1.0L));
 
     static_assert(!isEqual(0.0f, 1.0f), "clearly different values must not be equal");
     static_assert(!isEqual(1.0f, 2.0f), "clearly different values must not be equal");
     static_assert(!isEqual(-1.0f, 1.0f), "clearly different values must not be equal");
+    static_assert(!isEqual(0.0, 1.0), "clearly different double values must not be equal");
   }
 
   // Custom epsilons: absolute only.
@@ -141,7 +192,17 @@ TEST_CASE("math/utils/is_equal") {
     static_assert(isEqual(0.0f, 0.005f, absEps, 0.0f), "values within custom absolute epsilon must be equal");
     static_assert(!isEqual(0.0f, 0.02f, absEps, 0.0f), "values beyond custom absolute epsilon must not be equal");
   }
+
+  // Double: custom epsilons.
+  SUBCASE("custom_epsilons_double") {
+    constexpr double absEps = 0.01;
+
+    REQUIRE(isEqual(0.0, 0.005, absEps, 0.0));
+    REQUIRE(!isEqual(0.0, 0.02, absEps, 0.0));
+
+    static_assert(isEqual(0.0, 0.005, absEps, 0.0), "double values within custom absolute epsilon must be equal");
+    static_assert(!isEqual(0.0, 0.02, absEps, 0.0), "double values beyond custom absolute epsilon must not be equal");
+  }
 }
 
 } // namespace toy::math
-*/

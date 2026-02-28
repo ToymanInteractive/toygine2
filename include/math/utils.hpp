@@ -37,7 +37,7 @@ namespace toy::math {
   \return The absolute value of \a value (unchanged if non-negative, negated if negative).
 */
 template <signed_integral T>
-[[nodiscard]] constexpr T abs(T value) noexcept;
+[[nodiscard]] constexpr T abs(const T & value) noexcept;
 
 /*!
   \brief Returns the absolute value of a floating-point number.
@@ -49,23 +49,35 @@ template <signed_integral T>
   \return The absolute value of \a value (unchanged if non-negative, negated if negative).
 */
 template <floating_point T>
-[[nodiscard]] constexpr T abs(T value) noexcept;
+[[nodiscard]] constexpr T abs(const T & value) noexcept;
 
 /*!
-  \brief Compares two single-precision floats for approximate equality.
+  \brief Returns the absolute value of a \ref toy::math::fixed value.
 
-  This function uses a combined absolute and relative epsilon test. Small values are compared by absolute difference (\a
-  absEpsilon), large values by relative difference (\a relEpsilon) scaled by max(|a|, |b|).
+  \param value The fixed-point value.
+
+  \return The absolute value of \a value (unchanged if non-negative, negated if negative).
+*/
+template <fixed_point T>
+[[nodiscard]] constexpr T abs(const T & value) noexcept;
+
+/*!
+  \brief Compares two floating-point values for approximate equality.
+
+  This function uses a combined absolute and relative epsilon test. Small values are compared by absolute difference
+  (\a absEpsilon), large values by relative difference (\a relEpsilon) scaled by max(|a|, |b|). Supports \c float,
+  \c double, and \c long \c double.
 
   \param a          The first value.
   \param b          The second value.
-  \param absEpsilon The maximum absolute difference treated as equal (default: 8× machine epsilon).
-  \param relEpsilon The maximum relative difference (default: 64× machine epsilon).
+  \param absEpsilon The maximum absolute difference treated as equal (default: 8× machine epsilon for \a T).
+  \param relEpsilon The maximum relative difference (default: 64× machine epsilon for \a T).
 
   \return \c true if \a a and \a b are considered equal under the chosen tolerances, \c false otherwise.
 */
-[[nodiscard]] constexpr bool isEqual(float a, float b, float absEpsilon = 8.0f * numeric_limits<float>::epsilon(),
-                                     float relEpsilon = 64.0f * numeric_limits<float>::epsilon()) noexcept;
+template <floating_point T>
+[[nodiscard]] constexpr bool isEqual(T a, T b, T absEpsilon = 8 * numeric_limits<T>::epsilon(),
+                                     T relEpsilon = 64 * numeric_limits<T>::epsilon()) noexcept;
 
 } // namespace toy::math
 
