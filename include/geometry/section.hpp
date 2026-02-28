@@ -32,8 +32,8 @@ namespace geometry {
   \concept SectionScalar
   \brief Concept satisfied when \a T is a scalar type allowed as \ref toy::geometry::Section template parameter.
 
-  Use to constrain the scalar type of \ref toy::geometry::Section to integral, floating-point, or \ref toy::math::fixed
-  types only.
+  Use to constrain the scalar type of \ref toy::geometry::Section to integral, floating-point, or
+  \ref toy::math::fixed_point types only.
 
   \section requirements Requirements
 
