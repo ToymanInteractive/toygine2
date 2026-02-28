@@ -77,11 +77,11 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop")
   endif ()
 
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/C_002b_002b-Dialect-Options.html
-#                 https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/C_002b_002b-Dialect-Options.html#index-Wrange-loop-construct
+#                 https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/C_002b_002b-Dialect-Options.html#index-Wsubobject-linkage
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-14.2.0/gcc/C_002b_002b-Dialect-Options.html
 
-  set(CMAKE_C_FLAGS   "-std=c17   -Wall -Wextra -Wpedantic -Werror                                -foffload=default -fopenmp-simd -fstrict-flex-arrays=2")
-  set(CMAKE_CXX_FLAGS "-std=c++23 -Wall -Wextra -Wpedantic -Werror -Winvalid-constexpr -Wnoexcept -foffload=default -fopenmp-simd -fstrict-flex-arrays=2")
+  set(CMAKE_C_FLAGS   "-std=c17   -Wall -Wextra -Wpedantic -Werror                                                 -foffload=default -fopenmp-simd -fstrict-flex-arrays=2")
+  set(CMAKE_CXX_FLAGS "-std=c++23 -Wall -Wextra -Wpedantic -Werror -Winvalid-constexpr -Wnoexcept -Wredundant-tags -foffload=default -fopenmp-simd -fstrict-flex-arrays=2")
 
   set(CMAKE_C_FLAGS_DEBUG            "    -g -D_DEBUG")
   set(CMAKE_CXX_FLAGS_DEBUG          "    -g -D_DEBUG")
@@ -107,8 +107,8 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
   set(CMAKE_C_FLAGS   "-Werror -Weverything -pedantic-errors -Wno-missing-prototypes                                                                -Wno-missing-include-dirs -Wno-padded -Wno-poison-system-directories -fshow-column -fshow-source-location -fcaret-diagnostics -fcolor-diagnostics -fdiagnostics-format=clang -fdiagnostics-show-option -fdiagnostics-show-category=id -fdiagnostics-fixit-info -fdiagnostics-print-source-range-info -fdiagnostics-parseable-fixits -fno-rounding-math -fexcess-precision=standard")
   set(CMAKE_CXX_FLAGS "-Werror -Weverything -pedantic-errors -Wno-missing-prototypes -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-c++20-compat -Wno-missing-include-dirs -Wno-padded -Wno-poison-system-directories -fshow-column -fshow-source-location -fcaret-diagnostics -fcolor-diagnostics -fdiagnostics-format=clang -fdiagnostics-show-option -fdiagnostics-show-category=id -fdiagnostics-fixit-info -fdiagnostics-print-source-range-info -fdiagnostics-parseable-fixits -fno-rounding-math -fexcess-precision=standard")
 
-  set(CMAKE_C_FLAGS_DEBUG            "    -g -D_DEBUG -fno-fast-math -fstrict-float-cast-overflow    -fmath-errno -fno-unsafe-math-optimizations -ffp-model=precise -ffp-exception-behavior=strict -fprotect-parens                                                                            -fsanitize=address -fsanitize=alignment -fsanitize=bool -fsanitize=builtin -fsanitize=bounds -fsanitize=enum -fsanitize=float-cast-overflow -fsanitize=float-divide-by-zero -fsanitize=function -fsanitize=nonnull-attribute -fsanitize=null -fsanitize=objc-cast                        -fsanitize=pointer-overflow -fsanitize=return -fsanitize=returns-nonnull-attribute -fsanitize=unsigned-shift-base -fsanitize=unreachable -fsanitize=vla-bound -fsanitize=vptr -fsanitize=integer -fsanitize=nullability")
-  set(CMAKE_CXX_FLAGS_DEBUG          "    -g -D_DEBUG -fno-fast-math -fstrict-float-cast-overflow    -fmath-errno -fno-unsafe-math-optimizations -ffp-model=precise -ffp-exception-behavior=strict -fprotect-parens                                                                            -fsanitize=address -fsanitize=alignment -fsanitize=bool -fsanitize=builtin -fsanitize=bounds -fsanitize=enum -fsanitize=float-cast-overflow -fsanitize=float-divide-by-zero -fsanitize=function -fsanitize=nonnull-attribute -fsanitize=null -fsanitize=objc-cast                        -fsanitize=pointer-overflow -fsanitize=return -fsanitize=returns-nonnull-attribute -fsanitize=unsigned-shift-base -fsanitize=unreachable -fsanitize=vla-bound -fsanitize=vptr -fsanitize=integer -fsanitize=nullability")
+  set(CMAKE_C_FLAGS_DEBUG            "    -g -D_DEBUG -fno-fast-math -fstrict-float-cast-overflow -fmath-errno -fno-unsafe-math-optimizations -ffp-model=precise -ffp-exception-behavior=strict -fprotect-parens                                                                            -fsanitize=address -fsanitize=alignment -fsanitize=bool -fsanitize=builtin -fsanitize=bounds -fsanitize=enum -fsanitize=float-cast-overflow -fsanitize=float-divide-by-zero -fsanitize=function -fsanitize=nonnull-attribute -fsanitize=null -fsanitize=objc-cast                        -fsanitize=pointer-overflow -fsanitize=return -fsanitize=returns-nonnull-attribute -fsanitize=unsigned-shift-base -fsanitize=unreachable -fsanitize=vla-bound -fsanitize=vptr -fsanitize=integer -fsanitize=nullability")
+  set(CMAKE_CXX_FLAGS_DEBUG          "    -g -D_DEBUG -fno-fast-math -fstrict-float-cast-overflow -fmath-errno -fno-unsafe-math-optimizations -ffp-model=precise -ffp-exception-behavior=strict -fprotect-parens                                                                            -fsanitize=address -fsanitize=alignment -fsanitize=bool -fsanitize=builtin -fsanitize=bounds -fsanitize=enum -fsanitize=float-cast-overflow -fsanitize=float-divide-by-zero -fsanitize=function -fsanitize=nonnull-attribute -fsanitize=null -fsanitize=objc-cast                        -fsanitize=pointer-overflow -fsanitize=return -fsanitize=returns-nonnull-attribute -fsanitize=unsigned-shift-base -fsanitize=unreachable -fsanitize=vla-bound -fsanitize=vptr -fsanitize=integer -fsanitize=nullability")
 
   set(CMAKE_C_FLAGS_RELWITHDEBINFO   "-O3 -g -D_DEBUG")
   set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O3 -g -D_DEBUG")
@@ -157,8 +157,8 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Game Boy Advance")
 
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/C_002b_002b-Dialect-Options.html
 
-  set(CMAKE_C_FLAGS   "-D__GBA__ -std=c17   -Wall -Wextra -Wpedantic -Werror                                -fstrict-flex-arrays=2")
-  set(CMAKE_CXX_FLAGS "-D__GBA__ -std=c++23 -Wall -Wextra -Wpedantic -Werror -Winvalid-constexpr -Wnoexcept -fstrict-flex-arrays=2 -fno-rtti -fno-threadsafe-statics")
+  set(CMAKE_C_FLAGS   "-D__GBA__ -std=c17   -Wall -Wextra -Wpedantic -Werror                                                 -fstrict-flex-arrays=2")
+  set(CMAKE_CXX_FLAGS "-D__GBA__ -std=c++23 -Wall -Wextra -Wpedantic -Werror -Winvalid-constexpr -Wnoexcept -Wredundant-tags -fstrict-flex-arrays=2 -fno-rtti -fno-threadsafe-statics")
 
   set(CMAKE_C_FLAGS_DEBUG            "    -g -D_DEBUG")
   set(CMAKE_CXX_FLAGS_DEBUG          "    -g -D_DEBUG")
@@ -187,8 +187,8 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
 
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/C_002b_002b-Dialect-Options.html
 
-  set(CMAKE_C_FLAGS   "-std=c17   -Wall -Wextra -Wpedantic -Werror                                -fstrict-flex-arrays=2")
-  set(CMAKE_CXX_FLAGS "-std=c++23 -Wall -Wextra -Wpedantic -Werror -Winvalid-constexpr -Wnoexcept -fstrict-flex-arrays=2 -fno-rtti -fno-threadsafe-statics")
+  set(CMAKE_C_FLAGS   "-std=c17   -Wall -Wextra -Wpedantic -Werror                                                 -fstrict-flex-arrays=2")
+  set(CMAKE_CXX_FLAGS "-std=c++23 -Wall -Wextra -Wpedantic -Werror -Winvalid-constexpr -Wnoexcept -Wredundant-tags -fstrict-flex-arrays=2 -fno-rtti -fno-threadsafe-statics")
 
   set(CMAKE_C_FLAGS_DEBUG            "    -g -D_DEBUG")
   set(CMAKE_CXX_FLAGS_DEBUG          "    -g -D_DEBUG")
@@ -217,8 +217,8 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 3DS")
 
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/C_002b_002b-Dialect-Options.html
 
-  set(CMAKE_C_FLAGS   "-std=c17   -Wall -Wextra -Wpedantic -Werror                                -fstrict-flex-arrays=2")
-  set(CMAKE_CXX_FLAGS "-std=c++23 -Wall -Wextra -Wpedantic -Werror -Winvalid-constexpr -Wnoexcept -fstrict-flex-arrays=2 -fno-rtti")
+  set(CMAKE_C_FLAGS   "-std=c17   -Wall -Wextra -Wpedantic -Werror                                                 -fstrict-flex-arrays=2")
+  set(CMAKE_CXX_FLAGS "-std=c++23 -Wall -Wextra -Wpedantic -Werror -Winvalid-constexpr -Wnoexcept -Wredundant-tags -fstrict-flex-arrays=2 -fno-rtti")
 
   set(CMAKE_C_FLAGS_DEBUG            "    -g -D_DEBUG")
   set(CMAKE_CXX_FLAGS_DEBUG          "    -g -D_DEBUG")
@@ -247,8 +247,8 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
 
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/C_002b_002b-Dialect-Options.html
 
-  set(CMAKE_C_FLAGS   "-std=c17   -Wall -Wextra -Wpedantic -Werror                                -fstrict-flex-arrays=2")
-  set(CMAKE_CXX_FLAGS "-std=c++23 -Wall -Wextra -Wpedantic -Werror -Winvalid-constexpr -Wnoexcept -fstrict-flex-arrays=2 -fno-rtti")
+  set(CMAKE_C_FLAGS   "-std=c17   -Wall -Wextra -Wpedantic -Werror                                                 -fstrict-flex-arrays=2")
+  set(CMAKE_CXX_FLAGS "-std=c++23 -Wall -Wextra -Wpedantic -Werror -Winvalid-constexpr -Wnoexcept -Wredundant-tags -fstrict-flex-arrays=2 -fno-rtti")
 
   set(CMAKE_C_FLAGS_DEBUG            "    -g -D_DEBUG")
   set(CMAKE_CXX_FLAGS_DEBUG          "    -g -D_DEBUG")
