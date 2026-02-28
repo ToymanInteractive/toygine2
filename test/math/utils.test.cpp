@@ -17,12 +17,14 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 //
-/*
+
 #include <doctest/doctest.h>
 
 #include "math.hpp"
 
 namespace toy::math {
+
+using Fixed = fixed<std::int32_t, std::int64_t, 8>;
 
 // Absolute value of integers and floating-point numbers: non-negative unchanged, negative yields positive.
 TEST_CASE("math/utils/abs") {
@@ -80,17 +82,40 @@ TEST_CASE("math/utils/abs") {
     static_assert(isEqual(abs(1.5L), 1.5L), "abs of positive long double must be unchanged within epsilon");
     static_assert(isEqual(abs(-1.5L), 1.5L), "abs of negative long double must yield positive within epsilon");
   }
+
+  // Fixed-point: non-negative unchanged, negative yields positive.
+  SUBCASE("fixed_point") {
+    REQUIRE(abs(Fixed(0)) == Fixed(0));
+    REQUIRE(abs(Fixed(2)) == Fixed(2));
+    REQUIRE(abs(Fixed(-2)) == Fixed(2));
+    REQUIRE(abs(Fixed(10)) == Fixed(10));
+    REQUIRE(abs(Fixed(-10)) == Fixed(10));
+
+    static_assert(abs(Fixed(0)) == Fixed(0), "abs of zero fixed must remain zero");
+    static_assert(abs(Fixed(2)) == Fixed(2), "abs of positive fixed must be unchanged");
+    static_assert(abs(Fixed(-2)) == Fixed(2), "abs of negative fixed must yield positive");
+    static_assert(abs(Fixed(10)) == Fixed(10), "abs of positive fixed must be unchanged");
+    static_assert(abs(Fixed(-10)) == Fixed(10), "abs of negative fixed must yield positive");
+  }
 }
 
-// Approximate equality of two floats: absolute and relative epsilon.
+// Approximate equality of two floating-point values: absolute and relative epsilon (float, double, long double).
 TEST_CASE("math/utils/is_equal") {
-  // Identical values are equal.
+  // Identical values are equal (float).
   SUBCASE("identical_values") {
     REQUIRE(isEqual(0.0f, 0.0f));
     REQUIRE(isEqual(1.0f, 1.0f));
+    REQUIRE(isEqual(0.0, 0.0));
+    REQUIRE(isEqual(1.0, 1.0));
+    REQUIRE(isEqual(0.0L, 0.0L));
+    REQUIRE(isEqual(1.0L, 1.0L));
 
-    static_assert(isEqual(0.0f, 0.0f), "identical values must be equal");
-    static_assert(isEqual(1.0f, 1.0f), "identical values must be equal");
+    static_assert(isEqual(0.0f, 0.0f), "identical float values must be equal");
+    static_assert(isEqual(1.0f, 1.0f), "identical float values must be equal");
+    static_assert(isEqual(0.0, 0.0), "identical double values must be equal");
+    static_assert(isEqual(1.0, 1.0), "identical double values must be equal");
+    static_assert(isEqual(0.0L, 0.0L), "identical long double values must be equal");
+    static_assert(isEqual(1.0L, 1.0L), "identical long double values must be equal");
   }
 
   // Within default absolute epsilon: treated as equal; beyond it (with relEpsilon zero) treated as not equal.
@@ -110,6 +135,18 @@ TEST_CASE("math/utils/is_equal") {
     static_assert(!isEqual(0.0f, -eps * 1.5f, eps, 0.0f), "values beyond absolute epsilon must not be equal");
   }
 
+  // Double: within absolute epsilon using type-specific epsilon.
+  SUBCASE("within_absolute_epsilon_double") {
+    constexpr double eps = 8.0 * numeric_limits<double>::epsilon();
+
+    REQUIRE(isEqual(0.0, eps));
+    REQUIRE(isEqual(0.0, -eps));
+    REQUIRE(!isEqual(0.0, eps * 1.5, eps, 0.0));
+
+    static_assert(isEqual(0.0, eps), "double values within absolute epsilon must be equal");
+    static_assert(!isEqual(0.0, eps * 1.5, eps, 0.0), "double values beyond absolute epsilon must not be equal");
+  }
+
   // Within default relative epsilon for large values: treated as equal.
   SUBCASE("within_relative_epsilon") {
     constexpr float big = 1e6f;
@@ -120,15 +157,29 @@ TEST_CASE("math/utils/is_equal") {
     static_assert(isEqual(big, big * (1.0f + relEps * 0.5f)), "large values within relative epsilon must be equal");
   }
 
+  // Double: relative epsilon for large values.
+  SUBCASE("within_relative_epsilon_double") {
+    constexpr double big = 1e10;
+    constexpr double relEps = 64.0 * numeric_limits<double>::epsilon();
+
+    REQUIRE(isEqual(big, big * (1.0 + relEps * 0.5)));
+
+    static_assert(isEqual(big, big * (1.0 + relEps * 0.5)),
+                  "large double values within relative epsilon must be equal");
+  }
+
   // Clearly different values: not equal.
   SUBCASE("clearly_different") {
     REQUIRE(!isEqual(0.0f, 1.0f));
     REQUIRE(!isEqual(1.0f, 2.0f));
     REQUIRE(!isEqual(-1.0f, 1.0f));
+    REQUIRE(!isEqual(0.0, 1.0));
+    REQUIRE(!isEqual(-1.0L, 1.0L));
 
     static_assert(!isEqual(0.0f, 1.0f), "clearly different values must not be equal");
     static_assert(!isEqual(1.0f, 2.0f), "clearly different values must not be equal");
     static_assert(!isEqual(-1.0f, 1.0f), "clearly different values must not be equal");
+    static_assert(!isEqual(0.0, 1.0), "clearly different double values must not be equal");
   }
 
   // Custom epsilons: absolute only.
@@ -141,7 +192,68 @@ TEST_CASE("math/utils/is_equal") {
     static_assert(isEqual(0.0f, 0.005f, absEps, 0.0f), "values within custom absolute epsilon must be equal");
     static_assert(!isEqual(0.0f, 0.02f, absEps, 0.0f), "values beyond custom absolute epsilon must not be equal");
   }
+
+  // Double: custom epsilons.
+  SUBCASE("custom_epsilons_double") {
+    constexpr double absEps = 0.01;
+
+    REQUIRE(isEqual(0.0, 0.005, absEps, 0.0));
+    REQUIRE(!isEqual(0.0, 0.02, absEps, 0.0));
+
+    static_assert(isEqual(0.0, 0.005, absEps, 0.0), "double values within custom absolute epsilon must be equal");
+    static_assert(!isEqual(0.0, 0.02, absEps, 0.0), "double values beyond custom absolute epsilon must not be equal");
+  }
+}
+
+// Degree–radian conversion: deg2rad(angle) = angle * π/180, rad2deg(angle) = angle * 180/π.
+TEST_CASE("math/utils/deg2rad_rad2deg") {
+  // Zero: deg2rad(0) and rad2deg(0) are zero.
+  SUBCASE("zero") {
+    REQUIRE(isEqual(deg2rad(0.0f), 0.0f));
+    REQUIRE(isEqual(rad2deg(0.0f), 0.0f));
+    REQUIRE(isEqual(deg2rad(0.0), 0.0));
+    REQUIRE(isEqual(rad2deg(0.0), 0.0));
+    REQUIRE(deg2rad(Fixed(0)) == Fixed(0));
+    REQUIRE(rad2deg(Fixed(0)) == Fixed(0));
+
+    static_assert(isEqual(deg2rad(0.0f), 0.0f), "deg2rad(0) float must be zero");
+    static_assert(isEqual(rad2deg(0.0f), 0.0f), "rad2deg(0) float must be zero");
+    static_assert(deg2rad(Fixed(0)) == Fixed(0), "deg2rad(0) fixed must be zero");
+    static_assert(rad2deg(Fixed(0)) == Fixed(0), "rad2deg(0) fixed must be zero");
+  }
+
+  // 180 degrees equals π radians; π radians equals 180 degrees.
+  SUBCASE("half_turn") {
+    REQUIRE(isEqual(deg2rad(180.0f), std::numbers::pi_v<float>));
+    REQUIRE(isEqual(rad2deg(std::numbers::pi_v<float>), 180.0f));
+    REQUIRE(isEqual(deg2rad(180.0), std::numbers::pi_v<double>));
+    REQUIRE(isEqual(rad2deg(std::numbers::pi_v<double>), 180.0));
+
+    static_assert(isEqual(deg2rad(180.0f), std::numbers::pi_v<float>), "deg2rad(180) float must equal π");
+    static_assert(isEqual(rad2deg(std::numbers::pi_v<float>), 180.0f), "rad2deg(π) float must equal 180");
+  }
+
+  // Round-trip: rad2deg(deg2rad(x)) ≈ x for float and double.
+  SUBCASE("round_trip_float_double") {
+    REQUIRE(isEqual(rad2deg(deg2rad(90.0f)), 90.0f));
+    REQUIRE(isEqual(rad2deg(deg2rad(45.0f)), 45.0f));
+    REQUIRE(isEqual(rad2deg(deg2rad(360.0)), 360.0));
+
+    static_assert(isEqual(rad2deg(deg2rad(90.0f)), 90.0f), "round-trip 90 deg float must be 90");
+    static_assert(isEqual(rad2deg(deg2rad(360.0)), 360.0), "round-trip 360 deg double must be 360");
+  }
+
+  // Fixed-point: 180 deg → π, round-trip 90 deg.
+  SUBCASE("fixed_point") {
+    constexpr Fixed halfTurn = deg2rad(Fixed(180));
+    REQUIRE(halfTurn == std::numbers::pi_v<Fixed>);
+    REQUIRE(rad2deg(std::numbers::pi_v<Fixed>) == Fixed(180));
+    REQUIRE(rad2deg(deg2rad(Fixed(90))) == Fixed(90));
+
+    static_assert(deg2rad(Fixed(180)) == std::numbers::pi_v<Fixed>, "deg2rad(180) fixed must equal π");
+    static_assert(rad2deg(std::numbers::pi_v<Fixed>) == Fixed(180), "rad2deg(π) fixed must equal 180");
+    static_assert(rad2deg(deg2rad(Fixed(90))) == Fixed(90), "round-trip 90 deg fixed must be 90");
+  }
 }
 
 } // namespace toy::math
-*/

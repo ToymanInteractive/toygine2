@@ -224,9 +224,9 @@ private:
   */
   static inline bool _mGbaDetect() noexcept {
     // mGBA debug register
-    (*(volatile uint16_t *)0x04FFF780) = 0xC0DE;
+    *reinterpret_cast<volatile uint16_t *>(0x04FFF780) = 0xC0DE;
 
-    return (*(volatile uint16_t *)0x04FFF780) == 0x1DEA;
+    return *reinterpret_cast<volatile uint16_t *>(0x04FFF780) == 0x1DEA;
   }
 
   /*!
@@ -248,9 +248,9 @@ private:
     vsnprintf(buffer, sizeof(buffer), fmt, args);
 
     if (_mGbaDetect()) {
-      (*(volatile uint16_t *)0x04FFF700) = level; // MGBA Log Level Register
+      *reinterpret_cast<volatile uint16_t *>(0x04FFF700) = level; // MGBA Log Level Register
 
-      char * dst = ((char *)0x04FFF600); // MGBA Log String Register
+      char * dst = reinterpret_cast<char *>(0x04FFF600); // MGBA Log String Register
       const char * src = buffer;
       while (*src) {
         *dst++ = *src++;
