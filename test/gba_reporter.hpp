@@ -67,7 +67,7 @@ public:
 
   /// Called when the whole test run ends (caching a pointer to the input doesn't make sense here)
   void test_run_end(const doctest::TestRunStats & stats) noexcept override {
-    _separatorToStream();
+    _printSeparator();
 
     _report(_logLevelInfo, "[doctest] test cases: %u | %u passed | %u failed | %u skipped",
             stats.numTestCasesPassingFilters, stats.numTestCasesPassingFilters - stats.numTestCasesFailed,
@@ -136,7 +136,7 @@ public:
       return;
 
     _logTestStart();
-    _fileLineToStream(_testCaseData->m_file.c_str(), _testCaseData->m_line, " ");
+    _printFileLine(_testCaseData->m_file.c_str(), _testCaseData->m_line, " ");
 
     _report(_logLevelInfo, "%s: %s: %s",
             _successOrFailString(false,
@@ -144,24 +144,26 @@ public:
             exception.is_crash ? "test case CRASHED" : "test case THREW exception", exception.error_string.c_str());
   }
 
+  /// Called for each assert (don't cache pointers to the input)
   void log_assert(const doctest::AssertData & data) noexcept override {
     if ((!data.m_failed && !_options.success) || _testCaseData->m_no_output)
       return;
 
     _logTestStart();
 
-    _fileLineToStream(data.m_file, data.m_line, " ");
+    _printFileLine(data.m_file, data.m_line, " ");
 
     _report(_logLevelInfo, "%s", _successOrFailString(!data.m_failed, data.m_at));
   }
 
+  /// Called for each message (don't cache pointers to the input)
   void log_message(const doctest::MessageData & data) noexcept override {
     if (_testCaseData->m_no_output)
       return;
 
     _logTestStart();
 
-    _fileLineToStream(data.m_file, data.m_line, " ");
+    _printFileLine(data.m_file, data.m_line, " ");
 
     _report(_logLevelInfo, "%s: %s",
             _successOrFailString(data.m_severity & doctest::assertType::is_warn, data.m_severity, "MESSAGE"),
@@ -270,23 +272,23 @@ private:
   }
 
   /// Logs a separator line.
-  void _separatorToStream() {
+  inline void _printSeparator() noexcept {
     _report(_logLevelInfo, "===============================================================================");
   }
 
   /// Logs file and line (and optional tail) according to context options (GNU vs MSVC style).
-  void _fileLineToStream(const char * file, int line, const char * tail = "") {
+  inline void _printFileLine(const char * file, int line, const char * tail = "") noexcept {
     _report(_logLevelInfo, "%s%s%d%s%s", file, _options.gnu_file_line ? ":" : "(", _options.no_line_numbers ? 0 : line,
             _options.gnu_file_line ? ":" : "):", tail);
   }
 
   /// Logs the current test case and subcase stack once per test (idempotent).
-  void _logTestStart() {
+  inline void _logTestStart() noexcept {
     if (_hasLoggedCurrentTestStart)
       return;
 
-    _separatorToStream();
-    _fileLineToStream(_testCaseData->m_file.c_str(), _testCaseData->m_line);
+    _printSeparator();
+    _printFileLine(_testCaseData->m_file.c_str(), _testCaseData->m_line);
     if (_testCaseData->m_description)
       _report(_logLevelInfo, "DESCRIPTION: %s", _testCaseData->m_description);
     if (_testCaseData->m_test_suite && _testCaseData->m_test_suite[0] != '\0')

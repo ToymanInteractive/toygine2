@@ -18,30 +18,36 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   network.hpp
-  \brief  Umbrella header for the network module.
+  \file   socket_type.hpp
+  \brief  Socket type enumeration for network APIs.
 
-  Provides socket error, socket flags, socket type, and related networking types. Include this header only; do not
-  include internal headers (e.g. \c network/socket_error.hpp, \c network/socket_flags.hpp, \c network/socket_type.hpp)
-  directly.
+  Defines \ref toy::network::SocketType: kind of socket (datagram, stream, or dummy). Used when creating or
+  configuring sockets.
 */
 
-#ifndef INCLUDE_NETWORK_HPP_
-#define INCLUDE_NETWORK_HPP_
+#ifndef INCLUDE_NETWORK_SOCKET_TYPE_HPP_
+#define INCLUDE_NETWORK_SOCKET_TYPE_HPP_
 
-#include "core.hpp"
+namespace toy::network {
 
 /*!
-  \namespace toy::network
-  \brief Network types and utilities: socket errors, socket flags, socket type, and related APIs.
+  \enum SocketType
+  \brief Kind of socket or socket-like endpoint.
+
+  Used to distinguish datagram (UDP-style) vs stream (TCP-style) sockets. \ref toy::network::SocketType::Dummy is for
+  tests or stubs that do not perform real I/O.
 */
+enum class SocketType : uint8_t {
+  /// Datagram socket (e.g. UDP); message-oriented, unreliable.
+  Datagram,
 
-#include "network/socket_error.hpp"
-#include "network/socket_flags.hpp"
-#include "network/socket_type.hpp"
+  /// Stream socket (e.g. TCP); connection-oriented, reliable byte stream.
+  Stream,
 
-//----------------------------------------------------------------------------------------------------------------------
+  /// Dummy socket for tests or stubs; no real network I/O.
+  Dummy,
+};
 
-#include "network/socket_flags.inl"
+} // namespace toy::network
 
-#endif // INCLUDE_NETWORK_HPP_
+#endif // INCLUDE_NETWORK_SOCKET_TYPE_HPP_

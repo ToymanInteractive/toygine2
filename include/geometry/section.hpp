@@ -91,10 +91,18 @@ template <typename T>
   requires SectionScalar<T>
 class Section {
 public:
+  /// Lower bound of the interval. Default-constructed: \c numeric_limits<T>::max() (reset state).
   T minimum{numeric_limits<T>::max()};
+  /// Upper bound of the interval. Default-constructed: \c numeric_limits<T>::lowest() (reset state).
   T maximum{numeric_limits<T>::lowest()};
 
 public:
+  /*!
+    \brief Default constructor; section is in reset (empty) state.
+
+    \post isReset() is \c true, isValid() is \c false, \a minimum is \c numeric_limits<T>::max(), \a maximum is
+         \c numeric_limits<T>::lowest().
+  */
   constexpr Section() noexcept = default;
 
   /*!
