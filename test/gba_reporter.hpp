@@ -272,18 +272,18 @@ private:
   }
 
   /// Logs a separator line.
-  void inline _printSeparator() noexcept {
+  inline void _printSeparator() noexcept {
     _report(_logLevelInfo, "===============================================================================");
   }
 
   /// Logs file and line (and optional tail) according to context options (GNU vs MSVC style).
-  void inline _printFileLine(const char * file, int line, const char * tail = "") noexcept {
+  inline void _printFileLine(const char * file, int line, const char * tail = "") noexcept {
     _report(_logLevelInfo, "%s%s%d%s%s", file, _options.gnu_file_line ? ":" : "(", _options.no_line_numbers ? 0 : line,
             _options.gnu_file_line ? ":" : "):", tail);
   }
 
   /// Logs the current test case and subcase stack once per test (idempotent).
-  void inline _logTestStart() noexcept {
+  inline void _logTestStart() noexcept {
     if (_hasLoggedCurrentTestStart)
       return;
 
