@@ -1,6 +1,6 @@
 var constants_8hpp =
 [
-    [ "toy::math::NumericConstantType", "d0/d1d/concepttoy_1_1math_1_1_numeric_constant_type.html", null ],
+    [ "toy::math::MathConstantType", "d5/dc1/concepttoy_1_1math_1_1_math_constant_type.html", null ],
     [ "toy::math::constants::e_v", "dd/d71/namespacetoy_1_1math_1_1constants.html#a870f438caa43ad6edd8abd27c4da64e8", null ],
     [ "toy::math::constants::egamma_v", "dd/d71/namespacetoy_1_1math_1_1constants.html#a164a3ab76b32c5d49335a9be8c1921e0", null ],
     [ "toy::math::constants::inv_pi_v", "dd/d71/namespacetoy_1_1math_1_1constants.html#ab7e1662f6e0c6623036dd03eddcd3ef3", null ],

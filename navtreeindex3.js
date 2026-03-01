@@ -1,6 +1,5 @@
 var NAVTREEINDEX3 =
 {
-"d7/dec/classtoy_1_1_fixed_vector.html#af099d9be0e468c575d5f2e018a95bb27":[3,0,1,15,41],
 "d7/dec/classtoy_1_1_fixed_vector.html#af099d9be0e468c575d5f2e018a95bb27":[5,0,1,8,41],
 "d7/dec/classtoy_1_1_fixed_vector.html#af18fa1c4ace6ecae4d26a70a560f306b":[3,0,1,15,52],
 "d7/dec/classtoy_1_1_fixed_vector.html#af18fa1c4ace6ecae4d26a70a560f306b":[5,0,1,8,52],
@@ -178,12 +177,12 @@ var NAVTREEINDEX3 =
 "dc/d15/achievement__state_8hpp_source.html":[6,0,0,4,0],
 "dc/d28/constexpr__utils_8inl.html":[6,0,0,2,6],
 "dc/d28/constexpr__utils_8inl_source.html":[6,0,0,2,6],
-"dc/d62/classtoy_1_1_format_string.html":[2,2,3],
-"dc/d62/classtoy_1_1_format_string.html#a6f166d073b247194d6c6fc290e537791":[2,2,3,1],
-"dc/d62/classtoy_1_1_format_string.html#a8bddc50cb2304cfc22f2f5fdc201dfc5":[2,2,3,2],
-"dc/d62/classtoy_1_1_format_string.html#aa80fa19ae3c237c10b36f9c9688e4e65":[2,2,3,4],
-"dc/d62/classtoy_1_1_format_string.html#aad2ddbdff43aae3fa0d453ec2196a339":[2,2,3,3],
-"dc/d62/classtoy_1_1_format_string.html#afd793fd7ecad4136327c535a8e2d6602":[2,2,3,0],
+"dc/d62/classtoy_1_1_format_string.html":[2,1,3],
+"dc/d62/classtoy_1_1_format_string.html#a6f166d073b247194d6c6fc290e537791":[2,1,3,1],
+"dc/d62/classtoy_1_1_format_string.html#a8bddc50cb2304cfc22f2f5fdc201dfc5":[2,1,3,2],
+"dc/d62/classtoy_1_1_format_string.html#aa80fa19ae3c237c10b36f9c9688e4e65":[2,1,3,4],
+"dc/d62/classtoy_1_1_format_string.html#aad2ddbdff43aae3fa0d453ec2196a339":[2,1,3,3],
+"dc/d62/classtoy_1_1_format_string.html#afd793fd7ecad4136327c535a8e2d6602":[2,1,3,0],
 "dc/d74/nds_2platform__config_8hpp.html":[6,0,1,1,5,0],
 "dc/d74/nds_2platform__config_8hpp_source.html":[6,0,1,1,5,0],
 "dc/de6/concepttoy_1_1geometry_1_1_section_scalar.html":[3,0,1,1,1],
@@ -249,5 +248,6 @@ var NAVTREEINDEX3 =
 "dd/d5c/classtoy_1_1math_1_1fixed.html#aec32d080e1c8eb43388fedb74d590ea0":[3,0,1,2,1,2],
 "dd/d5c/classtoy_1_1math_1_1fixed.html#aec32d080e1c8eb43388fedb74d590ea0":[3,0,1,2,1,3],
 "dd/d5c/classtoy_1_1math_1_1fixed.html#aec32d080e1c8eb43388fedb74d590ea0":[5,0,1,2,0,2],
-"dd/d5c/classtoy_1_1math_1_1fixed.html#aec32d080e1c8eb43388fedb74d590ea0":[5,0,1,2,0,3]
+"dd/d5c/classtoy_1_1math_1_1fixed.html#aec32d080e1c8eb43388fedb74d590ea0":[5,0,1,2,0,3],
+"dd/d5c/classtoy_1_1math_1_1fixed.html#aede01f077c6fcef55acfe6fd665e4fc7":[3,0,1,2,1,27]
 };

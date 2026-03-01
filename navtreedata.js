@@ -146,8 +146,8 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"d3/dce/classtoy_1_1math_1_1_point.html#a14f983c739d0f0f45554b5b175ac20d4",
-"d5/d03/classtoy_1_1_c_string_view.html#ad8e07a5be8e6cf0e4b1a6c853107f702",
+"d3/dce/classtoy_1_1math_1_1_point.html#a16a9bcbf33f0b89d4bc63ca32d7ef08e",
+"d5/d03/classtoy_1_1_c_string_view.html#adb54f0951dc63d5cc1466ae61e941df5",
 "d7/dec/classtoy_1_1_fixed_vector.html#af099d9be0e468c575d5f2e018a95bb27",
 "dd/d5c/classtoy_1_1math_1_1fixed.html#aede01f077c6fcef55acfe6fd665e4fc7"
 ];

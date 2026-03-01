@@ -4,7 +4,7 @@ var searchData=
   ['maintenance_1',['maintenance',['../d7/d33/structtoy_1_1application_1_1_version.html#aff8d29c2da041885b199f74ec68dc658',1,'toy::application::Version']]],
   ['major_2',['major',['../d7/d33/structtoy_1_1application_1_1_version.html#a960eb5b40df2d8de0d99075d270ce537',1,'toy::application::Version']]],
   ['math_2ehpp_3',['math.hpp',['../d4/d78/math_8hpp.html',1,'']]],
-  ['mathematical_20constants_4',['Mathematical constants',['../d6/d3a/group___math_constants.html',1,'']]],
+  ['mathconstanttype_4',['MathConstantType',['../d5/dc1/concepttoy_1_1math_1_1_math_constant_type.html',1,'toy::math']]],
   ['mathematical_20functions_5',['Common mathematical functions',['../d5/d12/group___math_functions.html',1,'']]],
   ['max_6',['max',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#af7d651a5a22b4bcafa92a8df141a55b3',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]],
   ['max_5fdigits10_7',['max_digits10',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a8a3a43a4b271ce4b5e1a3578176273d9',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]],

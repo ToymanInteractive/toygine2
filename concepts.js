@@ -5,7 +5,7 @@ var concepts =
         [ "SectionScalar", "dc/de6/concepttoy_1_1geometry_1_1_section_scalar.html", null ]
       ] ],
       [ "math", "d2/d83/namespacetoy_1_1math.html", [
-        [ "NumericConstantType", "d0/d1d/concepttoy_1_1math_1_1_numeric_constant_type.html", null ],
+        [ "MathConstantType", "d5/dc1/concepttoy_1_1math_1_1_math_constant_type.html", null ],
         [ "ValidFixedPointTypes", "d7/d22/concepttoy_1_1math_1_1_valid_fixed_point_types.html", null ],
         [ "fixed_point", "dd/de0/concepttoy_1_1math_1_1fixed__point.html", null ]
       ] ],

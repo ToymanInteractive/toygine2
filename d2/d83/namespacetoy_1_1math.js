@@ -19,7 +19,7 @@ var namespacetoy_1_1math =
     [ "is_fixed_point&lt; fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;", "df/de5/structtoy_1_1math_1_1is__fixed__point_3_01fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html", null ],
     [ "Point", "d3/dce/classtoy_1_1math_1_1_point.html", "d3/dce/classtoy_1_1math_1_1_point" ],
     [ "Vector2D", "d9/d85/classtoy_1_1math_1_1_vector2_d.html", "d9/d85/classtoy_1_1math_1_1_vector2_d" ],
-    [ "NumericConstantType", "d0/d1d/concepttoy_1_1math_1_1_numeric_constant_type.html", null ],
+    [ "MathConstantType", "d5/dc1/concepttoy_1_1math_1_1_math_constant_type.html", null ],
     [ "ValidFixedPointTypes", "d7/d22/concepttoy_1_1math_1_1_valid_fixed_point_types.html", null ],
     [ "fixed_point", "dd/de0/concepttoy_1_1math_1_1fixed__point.html", null ],
     [ "real_t", "d2/d83/namespacetoy_1_1math.html#a928771ce74a56750dd2dcbc28e5892e0", null ],
