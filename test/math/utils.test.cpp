@@ -247,11 +247,11 @@ TEST_CASE("math/utils/deg2rad_rad2deg") {
   SUBCASE("fixed_point") {
     constexpr auto halfTurn = deg2rad(Fixed(180));
 
-    REQUIRE(halfTurn == std::numbers::pi_v<Fixed>);
+    REQUIRE(halfTurn == constants::pi_v<Fixed>);
     REQUIRE(rad2deg(constants::pi_v<Fixed>) == Fixed(180));
     REQUIRE(rad2deg(deg2rad(Fixed(90))) == Fixed(90));
 
-    static_assert(deg2rad(Fixed(180)) == std::numbers::pi_v<Fixed>, "deg2rad(180) fixed must equal π");
+    static_assert(deg2rad(Fixed(180)) == constants::pi_v<Fixed>, "deg2rad(180) fixed must equal π");
     static_assert(rad2deg(constants::pi_v<Fixed>) == Fixed(180), "rad2deg(π) fixed must equal 180");
     static_assert(rad2deg(deg2rad(Fixed(90))) == Fixed(90), "round-trip 90 deg fixed must be 90");
   }
