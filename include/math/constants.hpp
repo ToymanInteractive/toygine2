@@ -41,8 +41,6 @@
   | \c ln10_v       | \f$ \ln 10 \f$ |
   | \c egamma_v     | Euler–Mascheroni constant γ |
   | \c phi_v        | Golden ratio Φ |
-  | \c rad_per_deg_v| \f$ \pi/180 \f$ (radians per degree, for deg2rad) |
-  | \c deg_per_rad_v| \f$ 180/\pi \f$ (degrees per radian, for rad2deg) |
 
   \sa https://en.cppreference.com/w/cpp/numeric/constants
 */
@@ -65,6 +63,14 @@ namespace toy::math {
 template <typename T>
 concept NumericConstantType = std::floating_point<T> || fixed_point<T>;
 
+/*!
+  \namespace toy::math::constants
+  \brief Variable templates for mathematical constants.
+
+  Single API for \ref toy::math::NumericConstantType: \c float, \c double, \c long \c double, and \ref toy::math::fixed.
+  Values forward to \c std::numbers for built-in floating-point types and to \c std::numbers specializations for
+  \ref toy::math::fixed (see \c math/fixed_std_extension.hpp).
+*/
 namespace constants {
 
 /// The mathematical constant \a e.
