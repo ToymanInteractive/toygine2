@@ -235,19 +235,15 @@ Usage Example</h1>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Get the result</span></div>
 <div class="line"><span class="keyword">const</span> <span class="keyword">auto</span> result = stream.<a class="code hl_function" href="#a88ac692738f862730436cfa29e0159fe">str</a>();</div>
-<div class="ttc" id="aclasstoy_1_1_c_string_view_html"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html">toy::CStringView</a></div><div class="ttdoc">Non-owning string view class for C-style strings.</div><div class="ttdef"><b>Definition</b> c_string_view.hpp:107</div></div>
-<div class="ttc" id="aclasstoy_1_1_o_string_stream_html"><div class="ttname"><a href="../../d7/d15/classtoy_1_1_o_string_stream.html">toy::OStringStream</a></div><div class="ttdoc">Template output string stream class for building strings from various data types.</div><div class="ttdef"><b>Definition</b> o_string_stream.hpp:77</div></div>
+<div class="ttc" id="aclasstoy_1_1_c_string_view_html"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html">toy::CStringView</a></div><div class="ttdoc">Non-owning string view class for C-style strings.</div><div class="ttdef"><b>Definition</b> c_string_view.hpp:105</div></div>
+<div class="ttc" id="aclasstoy_1_1_o_string_stream_html"><div class="ttname"><a href="../../d7/d15/classtoy_1_1_o_string_stream.html">toy::OStringStream</a></div><div class="ttdoc">Template output string stream class for building strings from various data types.</div><div class="ttdef"><b>Definition</b> o_string_stream.hpp:75</div></div>
 <div class="ttc" id="aclasstoy_1_1_o_string_stream_html_a88ac692738f862730436cfa29e0159fe"><div class="ttname"><a href="#a88ac692738f862730436cfa29e0159fe">toy::OStringStream::str</a></div><div class="ttdeci">constexpr const StringType &amp; str() const noexcept</div><div class="ttdoc">Returns a const reference to the underlying string.</div><div class="ttdef"><b>Definition</b> o_string_stream.inl:251</div></div>
 <div class="ttc" id="afixed__string_8hpp_html"><div class="ttname"><a href="../../d7/d7f/fixed__string_8hpp.html">fixed_string.hpp</a></div><div class="ttdoc">Template string class with fixed-size character buffer.</div></div>
 <div class="ttc" id="ao__string__stream_8hpp_html"><div class="ttname"><a href="../../de/d2d/o__string__stream_8hpp.html">o_string_stream.hpp</a></div><div class="ttdoc">Output string stream class for building strings from various data types.</div></div>
 </div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>The stream only supports appending operations. All writes go to the end of the string. </dd>
 <dd>
 The write position always equals the size of the underlying string.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="Template string class with fixed-size character buffer.">toy::FixedString</a> </dd>
-<dd>
-<a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">toy::StringLike</a> </dd>
-<dd>
-<a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">toy::CStringView</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="Template string class with fixed-size character buffer.">toy::FixedString</a>, <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">toy::StringLike</a>, <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">toy::CStringView</a> </dd></dl>
 </div><a name="doc-typedef-members" id="doc-typedef-members"></a><h2 id="header-doc-typedef-members" class="groupheader">Member Typedef Documentation</h2>
 <a id="a38e47228545b1a975f1dfe899f0dac0a" name="a38e47228545b1a975f1dfe899f0dac0a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a38e47228545b1a975f1dfe899f0dac0a">&#9670;&#160;</a></span>char_type</h2>
@@ -1589,11 +1585,7 @@ template&lt;typename StringType&gt; </div>
 <p>This method returns the position where the next write operation will append data. Since <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Template output string stream class for building strings from various data types.">OStringStream</a> only supports appending operations (all writes go to the end), the write position always equals the number of characters currently in the stream, which is the same as the size of the underlying string.</p>
 <dl class="section return"><dt>Returns</dt><dd>The current write position, representing the index where the next character will be appended. This value is always equal to the number of characters written so far and to <code><a class="el" href="#a88ac692738f862730436cfa29e0159fe" title="Returns a const reference to the underlying string.">str()</a></code>.size().</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Since all operations append to the end, the write position is always equal to the stream size.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a88ac692738f862730436cfa29e0159fe" title="Returns a const reference to the underlying string.">str() const</a> </dd>
-<dd>
-<a class="el" href="#a7224f6c06dce9faf3b17ac798ac4f553" title="Appends a single character to the end of the stream.">put(char_type)</a> </dd>
-<dd>
-<a class="el" href="#a1e91c2bfd60f8b0e6c19e03fd5377801" title="Writes a specified number of characters from a buffer to the stream.">write(const char_type *, size_t)</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a88ac692738f862730436cfa29e0159fe" title="Returns a const reference to the underlying string.">str() const</a>, <a class="el" href="#a7224f6c06dce9faf3b17ac798ac4f553" title="Appends a single character to the end of the stream.">put(char_type)</a>, <a class="el" href="#a1e91c2bfd60f8b0e6c19e03fd5377801" title="Writes a specified number of characters from a buffer to the stream.">write(const char_type *, size_t)</a> </dd></dl>
 
 </div>
 </div>
@@ -1686,9 +1678,7 @@ The write position is advanced by <em class="arg">count</em> characters.</dd></d
 <dl class="section note"><dt>Note</dt><dd>This method is useful for writing binary data or partial strings that may not be null-terminated. </dd>
 <dd>
 If <em class="arg">count</em> is zero, the method returns without modifying the stream.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a7224f6c06dce9faf3b17ac798ac4f553" title="Appends a single character to the end of the stream.">put(char_type)</a> </dd>
-<dd>
-<a class="el" href="#a6e53656cd017b708a4b95850e6923dcb" title="Returns the current write position in the stream.">tellp()</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a7224f6c06dce9faf3b17ac798ac4f553" title="Appends a single character to the end of the stream.">put(char_type)</a>, <a class="el" href="#a6e53656cd017b708a4b95850e6923dcb" title="Returns the current write position in the stream.">tellp()</a> </dd></dl>
 
 </div>
 </div>

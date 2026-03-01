@@ -415,7 +415,7 @@ Usage Example</h1>
 <div class="line"><span class="keyword">constexpr</span> <span class="keyword">auto</span> greeting = <a class="code hl_class" href="../../d3/d7a/classtoy_1_1_fixed_string.html">toy::FixedString&lt;16&gt;</a>(<span class="stringliteral">&quot;Hello&quot;</span>);</div>
 <div class="line"><span class="keyword">constexpr</span> <span class="keyword">auto</span> world = <a class="code hl_class" href="../../d3/d7a/classtoy_1_1_fixed_string.html">toy::FixedString&lt;16&gt;</a>(<span class="stringliteral">&quot;World&quot;</span>);</div>
 <div class="line"><span class="keyword">constexpr</span> <span class="keyword">auto</span> combined = greeting + <span class="stringliteral">&quot; &quot;</span> + world;</div>
-<div class="ttc" id="aclasstoy_1_1_fixed_string_html"><div class="ttname"><a href="../../d3/d7a/classtoy_1_1_fixed_string.html">toy::FixedString</a></div><div class="ttdoc">Template string class with fixed-size character buffer.</div><div class="ttdef"><b>Definition</b> fixed_string.hpp:115</div></div>
+<div class="ttc" id="aclasstoy_1_1_fixed_string_html"><div class="ttname"><a href="../../d3/d7a/classtoy_1_1_fixed_string.html">toy::FixedString</a></div><div class="ttdoc">Template string class with fixed-size character buffer.</div><div class="ttdef"><b>Definition</b> fixed_string.hpp:113</div></div>
 <div class="ttc" id="afixed__string_8hpp_html"><div class="ttname"><a href="../../d7/d7f/fixed__string_8hpp.html">fixed_string.hpp</a></div><div class="ttdoc">Template string class with fixed-size character buffer.</div></div>
 </div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="performance"></a>
 Performance Characteristics</h1>
@@ -447,11 +447,7 @@ Compatibility</h1>
 <li>🔧 <b>Embedded Systems</b>: Suitable for resource-constrained environments</li>
 </ul>
 <dl class="section note"><dt>Note</dt><dd>The internal buffer size is allocatedSize, but the maximum string length is allocatedSize - 1 (null terminator).</dd></dl>
-<dl class="section see"><dt>See also</dt><dd>std::string </dd>
-<dd>
-<a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">toy::StringLike</a> </dd>
-<dd>
-<a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">toy::CStringView</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd>std::string, <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">toy::StringLike</a>, <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">toy::CStringView</a> </dd></dl>
 </div><a name="doc-typedef-members" id="doc-typedef-members"></a><h2 id="header-doc-typedef-members" class="groupheader">Member Typedef Documentation</h2>
 <a id="ac96a63a5b42f04cd0b95ad9ea177ebf2" name="ac96a63a5b42f04cd0b95ad9ea177ebf2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac96a63a5b42f04cd0b95ad9ea177ebf2">&#9670;&#160;</a></span>const_iterator</h2>
@@ -2435,9 +2431,7 @@ template&lt;size_t allocatedSize&gt; </div>
 The returned pointer allows modification of the string contents. </dd>
 <dd>
 Use const version for read-only access.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="#af8ae7971d636e51ae7025f0510adc186" title="Returns a constant pointer to the data of the string.">data() const</a> </dd>
-<dd>
-<a class="el" href="#a9bc4221a5a20d3a2a43f2e3ab011dace" title="Returns a constant pointer to the C string representation of this string.">c_str()</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#af8ae7971d636e51ae7025f0510adc186" title="Returns a constant pointer to the data of the string.">data() const</a>, <a class="el" href="#a9bc4221a5a20d3a2a43f2e3ab011dace" title="Returns a constant pointer to the C string representation of this string.">c_str()</a> </dd></dl>
 
 </div>
 </div>
@@ -4451,9 +4445,7 @@ template&lt;size_t allocatedSize&gt; </div>
 <dl class="section note"><dt>Note</dt><dd>The returned reference allows modification of the character. </dd>
 <dd>
 Use const version for read-only access.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a63a582a6a6199f521d12735079bab7c2" title="Access a character in the string at a given offset.">operator[](size_t offset) const</a> </dd>
-<dd>
-<a class="el" href="#ad69a62527d383f5e55695755d70c5e13" title="Access a character in the string at a given offset.">at()</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a63a582a6a6199f521d12735079bab7c2" title="Access a character in the string at a given offset.">operator[](size_t offset) const</a>, <a class="el" href="#ad69a62527d383f5e55695755d70c5e13" title="Access a character in the string at a given offset.">at()</a> </dd></dl>
 
 </div>
 </div>

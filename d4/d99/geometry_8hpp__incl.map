@@ -64,9 +64,9 @@
 <area shape="poly" id="edge21_Node000004_Node000022" title=" " alt="" coords="2043,178,2031,180,1944,192,1876,197,1809,206,1725,228,1706,236,1704,231,1723,223,1808,200,1875,192,1944,187,2030,175,2042,172"/>
 <area shape="rect" id="Node000023" href="$dd/d9e/linux_2platform__config_8hpp.html" title="additional linux platform header" alt="" coords="1781,225,1987,280"/>
 <area shape="poly" id="edge22_Node000004_Node000023" title=" " alt="" coords="2057,180,1958,222,1956,218,2055,175"/>
-<area shape="rect" id="Node000024" href="$d3/d60/platform_8hpp.html" title="Platform and CPU architecture enumerations with compile&#45;time and runtime detection." alt="" coords="1674,328,1811,368"/>
+<area shape="rect" id="Node000024" href="$d3/d60/platform_8hpp.html" title="Platform and CPU architecture enums with compile&#45;time and runtime detection." alt="" coords="1674,328,1811,368"/>
 <area shape="poly" id="edge38_Node000004_Node000024" title=" " alt="" coords="2043,177,2031,180,1990,185,1952,186,1888,182,1858,183,1829,189,1800,203,1770,227,1756,246,1748,269,1743,314,1738,314,1743,267,1751,244,1766,223,1797,198,1828,184,1857,177,1888,176,1953,180,1989,180,2030,175,2042,172"/>
-<area shape="rect" id="Node000026" href="$d5/d96/assertion_8hpp.html" title="Assertion system for runtime and compile&#45;time validation of engine invariants." alt="" coords="2011,240,2154,265"/>
+<area shape="rect" id="Node000026" href="$d5/d96/assertion_8hpp.html" title="Assertion system: callbacks, initialize/shutdown, and assertion() entry point." alt="" coords="2011,240,2154,265"/>
 <area shape="poly" id="edge25_Node000004_Node000026" title=" " alt="" coords="2085,178,2085,226,2080,226,2080,178"/>
 <area shape="rect" id="Node000027" href="$dd/ded/c__string__view_8hpp.html" title="Non&#45;owning string view class for C&#45;style strings." alt="" coords="2179,240,2349,265"/>
 <area shape="poly" id="edge26_Node000004_Node000027" title=" " alt="" coords="2108,175,2228,232,2226,236,2106,180"/>

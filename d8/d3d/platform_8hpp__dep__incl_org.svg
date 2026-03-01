@@ -11,7 +11,7 @@
 <!-- Node1 -->
 <g id="Node000001" class="node">
 <title>Node1</title>
-<g id="a_Node000001"><a xlink:title="Platform and CPU architecture enumerations with compile&#45;time and runtime detection.">
+<g id="a_Node000001"><a xlink:title="Platform and CPU architecture enums with compile&#45;time and runtime detection.">
 <polygon fill="#999999" stroke="#666666" points="864,-316 722,-316 722,-297 864,-297 864,-316"/>
 <text text-anchor="middle" x="793" y="-304" font-family="Helvetica,sans-Serif" font-size="10.00">include/core/platform.hpp</text>
 </a>

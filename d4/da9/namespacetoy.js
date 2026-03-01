@@ -122,7 +122,7 @@ var namespacetoy =
     [ "Platform", "d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55a", [
       [ "Windows", "d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aaaea23489ce3aa9b6406ebb28e0cda430", null ],
       [ "Linux", "d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aaedc9f0a5a5d57797bf68e37364743831", null ],
-      [ "MacOS", "d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aa0a5b7edb55b772c60bfa8af868b679cf", null ],
+      [ "macOS", "d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aa8b06df0295926efcdcc1f9e13c49848e", null ],
       [ "iOS", "d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aa1bdf605991920db11cbdf8508204c4eb", null ],
       [ "Android", "d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aae84e30b9390cdb64db6db2c9ab87846d", null ],
       [ "GBA", "d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aad61abb0698c83433ab6b11ab3d68447d", null ],

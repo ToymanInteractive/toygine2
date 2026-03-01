@@ -59,9 +59,9 @@
 <area shape="poly" id="edge20_Node000003_Node000021" title=" " alt="" coords="2520,243,2364,248,2146,258,1927,275,1837,287,1769,301,1750,309,1748,304,1768,296,1836,282,1927,270,2146,253,2364,242,2520,238"/>
 <area shape="rect" id="Node000022" href="$dd/d9e/linux_2platform__config_8hpp.html" title="additional linux platform header" alt="" coords="1825,299,2032,353"/>
 <area shape="poly" id="edge21_Node000003_Node000022" title=" " alt="" coords="2520,245,2320,264,2186,280,2046,301,2045,296,2185,275,2320,259,2519,240"/>
-<area shape="rect" id="Node000023" href="$d3/d60/platform_8hpp.html" title="Platform and CPU architecture enumerations with compile&#45;time and runtime detection." alt="" coords="1719,401,1856,441"/>
+<area shape="rect" id="Node000023" href="$d3/d60/platform_8hpp.html" title="Platform and CPU architecture enums with compile&#45;time and runtime detection." alt="" coords="1719,401,1856,441"/>
 <area shape="poly" id="edge37_Node000003_Node000023" title=" " alt="" coords="2520,242,2355,246,2131,255,2021,263,1925,273,1853,285,1829,293,1814,301,1800,319,1792,341,1787,388,1782,387,1786,340,1795,317,1811,297,1827,288,1852,280,1925,267,2021,257,2131,250,2355,240,2520,237"/>
-<area shape="rect" id="Node000025" href="$d5/d96/assertion_8hpp.html" title="Assertion system for runtime and compile&#45;time validation of engine invariants." alt="" coords="2056,313,2199,339"/>
+<area shape="rect" id="Node000025" href="$d5/d96/assertion_8hpp.html" title="Assertion system: callbacks, initialize/shutdown, and assertion() entry point." alt="" coords="2056,313,2199,339"/>
 <area shape="poly" id="edge24_Node000003_Node000025" title=" " alt="" coords="2520,247,2383,267,2212,301,2174,312,2173,307,2211,296,2382,262,2519,242"/>
 <area shape="rect" id="Node000026" href="$dd/ded/c__string__view_8hpp.html" title="Non&#45;owning string view class for C&#45;style strings." alt="" coords="2818,313,2989,339"/>
 <area shape="poly" id="edge25_Node000003_Node000026" title=" " alt="" coords="2599,246,2800,296,2845,307,2844,313,2799,301,2598,252"/>

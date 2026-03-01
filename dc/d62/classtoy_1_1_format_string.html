@@ -171,16 +171,14 @@ Usage Example</h1>
 <div class="line"><span class="comment">// FormatString&lt;int&gt; format1(CStringView(&quot;Value: {}&quot;)); // OK</span></div>
 <div class="line"><span class="comment">// FormatString&lt;int&gt; format2(CStringView(&quot;Value: {}, {}&quot;)); // Compile error: count mismatch</span></div>
 <div class="line"><span class="comment">// FormatString&lt;int&gt; format3(CStringView(&quot;Value: {&quot;)); // Compile error: unmatched brace</span></div>
-<div class="ttc" id="aclasstoy_1_1_c_string_view_html"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html">toy::CStringView</a></div><div class="ttdoc">Non-owning string view class for C-style strings.</div><div class="ttdef"><b>Definition</b> c_string_view.hpp:107</div></div>
-<div class="ttc" id="aclasstoy_1_1_format_string_html"><div class="ttname"><a href="../../dc/d62/classtoy_1_1_format_string.html">toy::FormatString</a></div><div class="ttdoc">Compile-time validated format string wrapper.</div><div class="ttdef"><b>Definition</b> format.hpp:74</div></div>
+<div class="ttc" id="aclasstoy_1_1_c_string_view_html"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html">toy::CStringView</a></div><div class="ttdoc">Non-owning string view class for C-style strings.</div><div class="ttdef"><b>Definition</b> c_string_view.hpp:105</div></div>
+<div class="ttc" id="aclasstoy_1_1_format_string_html"><div class="ttname"><a href="../../dc/d62/classtoy_1_1_format_string.html">toy::FormatString</a></div><div class="ttdoc">Compile-time validated format string wrapper.</div><div class="ttdef"><b>Definition</b> format.hpp:73</div></div>
 </div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>The constructor is marked as <code>consteval</code>, meaning it must be evaluated at compile time. </dd>
 <dd>
 Invalid format strings result in compile-time errors, not runtime exceptions. </dd>
 <dd>
 This class is similar to <code>std::format_string</code> but designed for use with <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="toy::CStringView">toy::CStringView</a>.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">toy::CStringView</a> </dd>
-<dd>
-<a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">toy::StringLike</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">toy::CStringView</a>, <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">toy::StringLike</a> </dd></dl>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
 <a id="afd793fd7ecad4136327c535a8e2d6602" name="afd793fd7ecad4136327c535a8e2d6602"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afd793fd7ecad4136327c535a8e2d6602">&#9670;&#160;</a></span>_compileTimeError()</h2>
@@ -345,9 +343,7 @@ template&lt;class... Args&gt; </div>
 <dl class="section note"><dt>Note</dt><dd>This method is constexpr-compatible and can be used in compile-time contexts. </dd>
 <dd>
 The returned <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="toy::CStringView">toy::CStringView</a> is a non-owning view and does not copy the underlying string data.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd>FormatString(const CStringView &amp;) </dd>
-<dd>
-<a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">toy::CStringView</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd>FormatString(const CStringView &amp;), <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">toy::CStringView</a> </dd></dl>
 
 </div>
 </div>

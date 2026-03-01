@@ -4,7 +4,7 @@ var searchData=
   ['unit_20test_20style_20rules_1',['Unit Test Style Rules',['../df/d81/md__a_g_e_n_t_s.html#unit-test-style-rules',1,'']]],
   ['unknown_2',['Unknown',['../d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341a88183b946cc5f0e8c96b2e66e1c74a7e',1,'toy::Unknown'],['../df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3fa88183b946cc5f0e8c96b2e66e1c74a7e',1,'toy::render::Unknown']]],
   ['unlocked_3',['Unlocked',['../d8/d25/namespacetoy_1_1game.html#ac8a6f36358f3ac99f55a1db9c3827edaac76fd517e45cc95709f4ac106efa4a94',1,'toy::game']]],
-  ['usage_20example_4',['Usage Example',['../d2/da2/namespacetoy_1_1assertion.html#usage',1,'']]],
+  ['usage_20example_4',['Usage Example',['../d4/da9/namespacetoy.html#usage',1,'']]],
   ['using_20over_20typedef_5',['&lt;span class=&quot;tt&quot;&gt;using&lt;/span&gt; over &lt;span class=&quot;tt&quot;&gt;typedef&lt;/span&gt;',['../df/d81/md__a_g_e_n_t_s.html#using-over-typedef',1,'']]],
   ['utf_208_6',['String length assertions (including UTF-8)',['../df/d81/md__a_g_e_n_t_s.html#string-length-assertions-including-utf-8',1,'']]],
   ['utf8_5fpop_5fback_7',['utf8_pop_back',['../d3/d7a/classtoy_1_1_fixed_string.html#aca80fc41b7a1fbf52786e1c66f837977',1,'toy::FixedString']]],

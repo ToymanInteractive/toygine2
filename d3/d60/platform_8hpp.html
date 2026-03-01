@@ -114,7 +114,7 @@ $(function(){initNavTree('d3/d60/platform_8hpp.html','../../',''); });
 </div><!--header-->
 <div class="contents">
 
-<p>Platform and CPU architecture enumerations with compile-time and runtime detection.  
+<p>Platform and CPU architecture enums with compile-time and runtime detection.  
 <a href="#details">More...</a></p>
 <div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>This graph shows which files directly or indirectly include this file:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -135,7 +135,7 @@ Enumerations</h2></td></tr>
 <tr class="memitem:aac9dbb8926274f6a556489c529f4b55a" id="r_aac9dbb8926274f6a556489c529f4b55a"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="../../d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55a">toy::Platform</a> : uint16_t { <br />
 &#160;&#160;<a class="el" href="../../d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aaaea23489ce3aa9b6406ebb28e0cda430">toy::Windows</a> = 0x1000
 , <a class="el" href="../../d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aaedc9f0a5a5d57797bf68e37364743831">toy::Linux</a> = 0x2000
-, <a class="el" href="../../d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aa0a5b7edb55b772c60bfa8af868b679cf">toy::MacOS</a> = 0x3000
+, <a class="el" href="../../d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aa8b06df0295926efcdcc1f9e13c49848e">toy::macOS</a> = 0x3000
 , <a class="el" href="../../d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aa1bdf605991920db11cbdf8508204c4eb">toy::iOS</a> = 0x3100
 , <br />
 &#160;&#160;<a class="el" href="../../d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aae84e30b9390cdb64db6db2c9ab87846d">toy::Android</a> = 0x4000
@@ -146,7 +146,7 @@ Enumerations</h2></td></tr>
 &#160;&#160;<a class="el" href="../../d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aabbc155fb2b111bf61c4f5ff892915e6b">toy::Switch</a> = 0x8000
 <br />
  }</td></tr>
-<tr class="memdesc:aac9dbb8926274f6a556489c529f4b55a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumeration of target operating systems and platforms.  <a href="../../d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55a">More...</a><br /></td></tr>
+<tr class="memdesc:aac9dbb8926274f6a556489c529f4b55a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Target operating system or platform identifier.  <a href="../../d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55a">More...</a><br /></td></tr>
 <tr class="memitem:a3035878faaa5b79577c9d9f218e0b341" id="r_a3035878faaa5b79577c9d9f218e0b341"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="../../d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341">toy::CpuArchitecture</a> : uint16_t { <br />
 &#160;&#160;<a class="el" href="../../d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341a8a9da7865483c5fd359f3acef178d26d">toy::x86</a> = 0x0014
 , <a class="el" href="../../d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341a9c16d991c79c6330e655aa29ea623492">toy::x64</a> = 0x0018
@@ -156,10 +156,11 @@ Enumerations</h2></td></tr>
 &#160;&#160;<a class="el" href="../../d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341a88183b946cc5f0e8c96b2e66e1c74a7e">toy::Unknown</a> = 0x0000
 <br />
  }</td></tr>
-<tr class="memdesc:a3035878faaa5b79577c9d9f218e0b341"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumeration of CPU architectures and instruction set architectures.  <a href="../../d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341">More...</a><br /></td></tr>
+<tr class="memdesc:a3035878faaa5b79577c9d9f218e0b341"><td class="mdescLeft">&#160;</td><td class="mdescRight">CPU or instruction-set architecture identifier.  <a href="../../d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341">More...</a><br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Platform and CPU architecture enumerations with compile-time and runtime detection. </p>
+<div class="textblock"><p>Platform and CPU architecture enums with compile-time and runtime detection. </p>
+<p>Defines <a class="el" href="../../d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55a" title="toy::Platform">toy::Platform</a> (OS/target) and <a class="el" href="../../d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341" title="toy::CpuArchitecture">toy::CpuArchitecture</a> (ISA). Values use distinct hex ranges so they can be combined for conditional compilation. Use getCurrentPlatform() and getCurrentArchitecture() for runtime detection. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">

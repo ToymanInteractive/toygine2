@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['macos_0',['MacOS',['../d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aa0a5b7edb55b772c60bfa8af868b679cf',1,'toy']]],
+  ['macos_0',['macOS',['../d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aa8b06df0295926efcdcc1f9e13c49848e',1,'toy']]],
   ['maintenance_1',['maintenance',['../d7/d33/structtoy_1_1application_1_1_version.html#aff8d29c2da041885b199f74ec68dc658',1,'toy::application::Version']]],
   ['major_2',['major',['../d7/d33/structtoy_1_1application_1_1_version.html#a960eb5b40df2d8de0d99075d270ce537',1,'toy::application::Version']]],
   ['math_2ehpp_3',['math.hpp',['../d4/d78/math_8hpp.html',1,'']]],

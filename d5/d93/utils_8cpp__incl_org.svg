@@ -400,7 +400,7 @@
 <!-- Node22 -->
 <g id="Node000022" class="node">
 <title>Node22</title>
-<g id="a_Node000022"><a xlink:href="../../d3/d60/platform_8hpp.html" target="_top" xlink:title="Platform and CPU architecture enumerations with compile&#45;time and runtime detection.">
+<g id="a_Node000022"><a xlink:href="../../d3/d60/platform_8hpp.html" target="_top" xlink:title="Platform and CPU architecture enums with compile&#45;time and runtime detection.">
 <polygon fill="white" stroke="#666666" points="1354.5,-30 1251.5,-30 1251.5,0 1354.5,0 1354.5,-30"/>
 <text text-anchor="start" x="1259.5" y="-18" font-family="Helvetica,sans-Serif" font-size="10.00">../../../include/core</text>
 <text text-anchor="middle" x="1303" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">/platform.hpp</text>
@@ -419,7 +419,7 @@
 <!-- Node24 -->
 <g id="Node000024" class="node">
 <title>Node24</title>
-<g id="a_Node000024"><a xlink:href="../../d5/d96/assertion_8hpp.html" target="_top" xlink:title="Assertion system for runtime and compile&#45;time validation of engine invariants.">
+<g id="a_Node000024"><a xlink:href="../../d5/d96/assertion_8hpp.html" target="_top" xlink:title="Assertion system: callbacks, initialize/shutdown, and assertion() entry point.">
 <polygon fill="white" stroke="#666666" points="1611.5,-96 1504.5,-96 1504.5,-77 1611.5,-77 1611.5,-96"/>
 <text text-anchor="middle" x="1558" y="-84" font-family="Helvetica,sans-Serif" font-size="10.00">core/assertion.hpp</text>
 </a>

@@ -183,12 +183,14 @@ Namespaces</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:afbb70fd2dfa1856485dbfd775fb527d9" id="r_afbb70fd2dfa1856485dbfd775fb527d9"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#afbb70fd2dfa1856485dbfd775fb527d9">validate</a>(expression)</td></tr>
+<tr class="memdesc:afbb70fd2dfa1856485dbfd775fb527d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">When <code>_DEBUG</code> is defined: expands to <code><a class="el" href="../../d1/d5f/assertion__macro__gcc__clang_8hpp.html#a0041af519e0e7d47c9bcc83760c4669e" title="Debug assertion macro for runtime expression checking.">assert(expression)</a></code>.  <br /></td></tr>
 <tr class="memitem:a12cf99d5743dc2301359b6c2724fe48a" id="r_a12cf99d5743dc2301359b6c2724fe48a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a12cf99d5743dc2301359b6c2724fe48a">validate_message</a>(expression,  message)</td></tr>
+<tr class="memdesc:a12cf99d5743dc2301359b6c2724fe48a"><td class="mdescLeft">&#160;</td><td class="mdescRight">When <code>_DEBUG</code> is defined: expands to <code><a class="el" href="../../d1/d5f/assertion__macro__gcc__clang_8hpp.html#a672330c2fecd516f254162cd9611d91a" title="Debug assertion macro with custom message for runtime expression checking.">assert_message(expression, message)</a></code>.  <br /></td></tr>
 <tr class="memitem:a94a808adc84ff2a5345e7ecb00661653" id="r_a94a808adc84ff2a5345e7ecb00661653"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a94a808adc84ff2a5345e7ecb00661653">TOY_CONFIG_DEBUG_MEMORY</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Umbrella header for the engine core module. </p>
-<p>Provides platform, string, assertion, and core utilities. Include this header only; do not include internal headers (e.g. <code><a class="el" href="../../d7/d7f/fixed__string_8hpp.html" title="Template string class with fixed-size character buffer.">core/fixed_string.hpp</a></code>, <code><a class="el" href="../../d3/d60/platform_8hpp.html" title="Platform and CPU architecture enumerations with compile-time and runtime detection.">core/platform.hpp</a></code>) directly. </p>
+<p>Provides platform, string, assertion, and core utilities. Include this header only; do not include internal headers (e.g. <code><a class="el" href="../../d7/d7f/fixed__string_8hpp.html" title="Template string class with fixed-size character buffer.">core/fixed_string.hpp</a></code>, <code><a class="el" href="../../d3/d60/platform_8hpp.html" title="Platform and CPU architecture enums with compile-time and runtime detection.">core/platform.hpp</a></code>) directly. </p>
 </div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
 <a id="a94a808adc84ff2a5345e7ecb00661653" name="a94a808adc84ff2a5345e7ecb00661653"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a94a808adc84ff2a5345e7ecb00661653">&#9670;&#160;</a></span>TOY_CONFIG_DEBUG_MEMORY</h2>
@@ -219,8 +221,18 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="../../d1/d5f/assertion__macro__gcc__clang_8hpp.html#a0041af519e0e7d47c9bcc83760c4669e">assert</a>(expression)</div>
-<div class="ttc" id="aassertion__macro__gcc__clang_8hpp_html_a0041af519e0e7d47c9bcc83760c4669e"><div class="ttname"><a href="../../d1/d5f/assertion__macro__gcc__clang_8hpp.html#a0041af519e0e7d47c9bcc83760c4669e">assert</a></div><div class="ttdeci">#define assert(expression)</div><div class="ttdoc">Debug assertion macro for runtime expression checking.</div><div class="ttdef"><b>Definition</b> assertion_macro_gcc_clang.hpp:55</div></div>
+<div class="ttc" id="aassertion__macro__gcc__clang_8hpp_html_a0041af519e0e7d47c9bcc83760c4669e"><div class="ttname"><a href="../../d1/d5f/assertion__macro__gcc__clang_8hpp.html#a0041af519e0e7d47c9bcc83760c4669e">assert</a></div><div class="ttdeci">#define assert(expression)</div><div class="ttdoc">Debug assertion macro for runtime expression checking.</div><div class="ttdef"><b>Definition</b> assertion_macro_gcc_clang.hpp:54</div></div>
 </div><!-- fragment -->
+<p>When <code>_DEBUG</code> is defined: expands to <code><a class="el" href="../../d1/d5f/assertion__macro__gcc__clang_8hpp.html#a0041af519e0e7d47c9bcc83760c4669e" title="Debug assertion macro for runtime expression checking.">assert(expression)</a></code>. </p>
+<p>Evaluates <em class="arg">expression</em> and triggers an assertion failure (via <code><a class="el" href="../../d2/da2/namespacetoy_1_1assertion.html#a71e8fbdc3d1a6ccee148e120d0c890db" title="Handles a failed assertion: formats code, message, fileName, functionName, lineNumber and invokes the...">toy::assertion::assertion</a></code>) if it is false. When <code>_DEBUG</code> is not defined, the other definition applies: expands to <code></code>(expression) (evaluated, no check).</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">expression</td><td>Boolean expression to check. Prefer side-effect-free.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a12cf99d5743dc2301359b6c2724fe48a" title="When _DEBUG is defined: expands to assert_message(expression, message).">validate_message</a>, <a class="el" href="../../d1/d5f/assertion__macro__gcc__clang_8hpp.html#a0041af519e0e7d47c9bcc83760c4669e" title="Debug assertion macro for runtime expression checking.">assert</a> </dd></dl>
+
 </div>
 </div>
 <a id="a12cf99d5743dc2301359b6c2724fe48a" name="a12cf99d5743dc2301359b6c2724fe48a"></a>
@@ -242,8 +254,19 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="../../d1/d5f/assertion__macro__gcc__clang_8hpp.html#a672330c2fecd516f254162cd9611d91a">assert_message</a>(expression, message)</div>
-<div class="ttc" id="aassertion__macro__gcc__clang_8hpp_html_a672330c2fecd516f254162cd9611d91a"><div class="ttname"><a href="../../d1/d5f/assertion__macro__gcc__clang_8hpp.html#a672330c2fecd516f254162cd9611d91a">assert_message</a></div><div class="ttdeci">#define assert_message(expression, message)</div><div class="ttdoc">Debug assertion macro with custom message for runtime expression checking.</div><div class="ttdef"><b>Definition</b> assertion_macro_gcc_clang.hpp:90</div></div>
+<div class="ttc" id="aassertion__macro__gcc__clang_8hpp_html_a672330c2fecd516f254162cd9611d91a"><div class="ttname"><a href="../../d1/d5f/assertion__macro__gcc__clang_8hpp.html#a672330c2fecd516f254162cd9611d91a">assert_message</a></div><div class="ttdeci">#define assert_message(expression, message)</div><div class="ttdoc">Debug assertion macro with custom message for runtime expression checking.</div><div class="ttdef"><b>Definition</b> assertion_macro_gcc_clang.hpp:88</div></div>
 </div><!-- fragment -->
+<p>When <code>_DEBUG</code> is defined: expands to <code><a class="el" href="../../d1/d5f/assertion__macro__gcc__clang_8hpp.html#a672330c2fecd516f254162cd9611d91a" title="Debug assertion macro with custom message for runtime expression checking.">assert_message(expression, message)</a></code>. </p>
+<p>Same as <code>validate</code> but passes <em class="arg">message</em> to the assertion handler for a clearer failure report. When <code>_DEBUG</code> is not defined, expands to <code></code>(expression); <em class="arg">message</em> is unused.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">expression</td><td>Boolean expression to check. Prefer side-effect-free. </td></tr>
+    <tr><td class="paramname">message</td><td>A custom error message to display on assertion failure. Must be a C string literal.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#afbb70fd2dfa1856485dbfd775fb527d9" title="When _DEBUG is defined: expands to assert(expression).">validate</a>, <a class="el" href="../../d1/d5f/assertion__macro__gcc__clang_8hpp.html#a672330c2fecd516f254162cd9611d91a" title="Debug assertion macro with custom message for runtime expression checking.">assert_message</a> </dd></dl>
+
 </div>
 </div>
 </div><!-- contents -->

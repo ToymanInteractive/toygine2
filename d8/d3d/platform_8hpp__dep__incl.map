@@ -1,5 +1,5 @@
 <map id="include/core/platform.hpp" name="include/core/platform.hpp">
-<area shape="rect" id="Node000001" title="Platform and CPU architecture enumerations with compile&#45;time and runtime detection." alt="" coords="968,5,1157,31"/>
+<area shape="rect" id="Node000001" title="Platform and CPU architecture enums with compile&#45;time and runtime detection." alt="" coords="968,5,1157,31"/>
 <area shape="rect" id="Node000002" href="$da/d47/core_8hpp.html" title="Umbrella header for the engine core module." alt="" coords="631,167,761,192"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="954,25,808,31,649,41,515,58,470,68,446,81,434,101,438,118,455,132,482,144,555,162,631,171,631,176,554,167,480,149,452,137,434,120,429,100,442,77,468,63,514,52,648,36,808,25,954,19"/>
 <area shape="rect" id="Node000016" href="$d5/d82/3ds_2platform__config_8hpp.html" title="additional nintendo 3ds platform header" alt="" coords="456,79,651,119"/>
