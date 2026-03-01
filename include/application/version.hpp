@@ -75,6 +75,7 @@ namespace toy::application {
   - **ABI**: Plain layout; safe to pass across translation units and use in stable ABIs.
 
   \note For runtime parsing from strings, use separate utility functions.
+
   \sa https://semver.org/
 */
 struct Version {

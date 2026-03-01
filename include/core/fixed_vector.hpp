@@ -743,8 +743,7 @@ public:
     \note The size is always less than or equal to the capacity.
     \note For an empty vector, this method returns \c 0.
 
-    \sa capacity()
-    \sa empty()
+    \sa capacity(), empty()
   */
   [[nodiscard]] constexpr size_type size() const noexcept;
 

@@ -371,6 +371,7 @@ Always follow this order:
 ### See-Also Tags
 
 - Use `\sa` to link related methods, operators, classes, and concepts.
+- Add a blank line immediately before the `\sa` tag in documentation blocks.
 - Link between: method and its operator equivalent, const/non-const overloads, method synonyms (`size()` / `length()`), related classes.
 - 2-3 references maximum per entity.
 

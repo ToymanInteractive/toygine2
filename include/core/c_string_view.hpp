@@ -100,9 +100,7 @@ namespace toy {
   \warning The underlying C string must remain valid for the lifetime of the CStringView object.
            CStringView does not own the string data and will not manage its lifetime.
 
-  \sa std::string_view
-  \sa toy::StringLike
-  \sa toy::FixedString
+  \sa std::string_view, toy::StringLike, toy::FixedString
 */
 class CStringView {
 public:

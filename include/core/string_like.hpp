@@ -66,8 +66,7 @@ namespace toy {
   \note Common types that satisfy this concept include \c std::string, \ref toy::CStringView, \ref toy::FixedString, and
         custom string types that provide the required interface.
 
-  \sa toy::CStringView
-  \sa toy::FixedString
+  \sa toy::CStringView, toy::FixedString
 */
 template <typename T>
 concept StringLike = requires(const T & str) {

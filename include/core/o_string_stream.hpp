@@ -69,9 +69,7 @@ namespace toy {
   \note The stream only supports appending operations. All writes go to the end of the string.
   \note The write position always equals the size of the underlying string.
 
-  \sa toy::FixedString
-  \sa toy::StringLike
-  \sa toy::CStringView
+  \sa toy::FixedString, toy::StringLike, toy::CStringView
 */
 template <typename StringType>
 class OStringStream {
@@ -644,8 +642,7 @@ public:
     \note This method is useful for writing binary data or partial strings that may not be null-terminated.
     \note If \a count is zero, the method returns without modifying the stream.
 
-    \sa put(char_type)
-    \sa tellp()
+    \sa put(char_type), tellp()
   */
   constexpr OStringStream & write(const char_type * string, size_t count) noexcept;
 
@@ -661,9 +658,7 @@ public:
 
     \note Since all operations append to the end, the write position is always equal to the stream size.
 
-    \sa str() const
-    \sa put(char_type)
-    \sa write(const char_type *, size_t)
+    \sa str() const, put(char_type), write(const char_type *, size_t)
   */
   [[nodiscard]] constexpr pos_type tellp() const noexcept;
 

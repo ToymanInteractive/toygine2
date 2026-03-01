@@ -32,7 +32,7 @@
 
 namespace toy {
 
-inline constexpr auto currentPlatform = Platform::MacOS;
+inline constexpr auto currentPlatform = Platform::macOS;
 
 #if defined(__aarch64__)
 inline constexpr auto currentCpuArchitecture = CpuArchitecture::Arm64;

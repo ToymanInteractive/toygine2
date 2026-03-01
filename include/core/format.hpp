@@ -67,8 +67,7 @@ namespace toy {
   \note Invalid format strings result in compile-time errors, not runtime exceptions.
   \note This class is similar to \c std::format_string but designed for use with \ref toy::CStringView.
 
-  \sa toy::CStringView
-  \sa toy::StringLike
+  \sa toy::CStringView, toy::StringLike
 */
 template <class... Args>
 class FormatString {
@@ -106,8 +105,7 @@ public:
     \note This method is constexpr-compatible and can be used in compile-time contexts.
     \note The returned \ref toy::CStringView is a non-owning view and does not copy the underlying string data.
 
-    \sa FormatString(const CStringView &)
-    \sa toy::CStringView
+    \sa FormatString(const CStringView &), toy::CStringView
   */
   [[nodiscard]] constexpr CStringView get() const noexcept;
 
