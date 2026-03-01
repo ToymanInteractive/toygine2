@@ -29,6 +29,7 @@ namespace toy::math {
 
 /*!
   \brief Returns the absolute value of a signed integer.
+  \ingroup MathFunctions
 
   This function computes the absolute value without branches. Usable in constant expressions.
 
@@ -41,6 +42,7 @@ template <signed_integral T>
 
 /*!
   \brief Returns the absolute value of a floating-point number.
+  \ingroup MathFunctions
 
   This function computes the absolute value without branches for \c float and \c double; usable in constant expressions.
 
@@ -53,6 +55,7 @@ template <floating_point T>
 
 /*!
   \brief Returns the absolute value of a \ref toy::math::fixed value.
+  \ingroup MathFunctions
 
   \param value The fixed-point value.
 
@@ -63,6 +66,7 @@ template <fixed_point T>
 
 /*!
   \brief Compares two floating-point values for approximate equality.
+  \ingroup MathFunctions
 
   This function uses a combined absolute and relative epsilon test. Small values are compared by absolute difference
   (\a absEpsilon), large values by relative difference (\a relEpsilon) scaled by max(|a|, |b|). Supports \c float,
@@ -81,6 +85,7 @@ template <floating_point T>
 
 /*!
   \brief Converts angle from degrees to radians.
+  \ingroup MathFunctions
 
   \param angle Angle in degrees.
 
@@ -93,6 +98,7 @@ template <typename T>
 
 /*!
   \brief Converts angle from radians to degrees.
+  \ingroup MathFunctions
 
   \param angle Angle in radians.
 

@@ -24,7 +24,7 @@
 
 namespace toy::math {
 
-using Fixed = fixed<std::int32_t, std::int64_t, 8>;
+using Fixed = fixed<int32_t, int32_t, 8>;
 
 // Absolute value of integers and floating-point numbers: non-negative unchanged, negative yields positive.
 TEST_CASE("math/utils/abs") {
@@ -224,13 +224,13 @@ TEST_CASE("math/utils/deg2rad_rad2deg") {
 
   // 180 degrees equals π radians; π radians equals 180 degrees.
   SUBCASE("half_turn") {
-    REQUIRE(isEqual(deg2rad(180.0f), std::numbers::pi_v<float>));
-    REQUIRE(isEqual(rad2deg(std::numbers::pi_v<float>), 180.0f));
-    REQUIRE(isEqual(deg2rad(180.0), std::numbers::pi_v<double>));
-    REQUIRE(isEqual(rad2deg(std::numbers::pi_v<double>), 180.0));
+    REQUIRE(isEqual(deg2rad(180.0f), constants::pi_v<float>));
+    REQUIRE(isEqual(rad2deg(constants::pi_v<float>), 180.0f));
+    REQUIRE(isEqual(deg2rad(180.0), constants::pi_v<double>));
+    REQUIRE(isEqual(rad2deg(constants::pi_v<double>), 180.0));
 
-    static_assert(isEqual(deg2rad(180.0f), std::numbers::pi_v<float>), "deg2rad(180) float must equal π");
-    static_assert(isEqual(rad2deg(std::numbers::pi_v<float>), 180.0f), "rad2deg(π) float must equal 180");
+    static_assert(isEqual(deg2rad(180.0f), constants::pi_v<float>), "deg2rad(180) float must equal π");
+    static_assert(isEqual(rad2deg(constants::pi_v<float>), 180.0f), "rad2deg(π) float must equal 180");
   }
 
   // Round-trip: rad2deg(deg2rad(x)) ≈ x for float and double.
@@ -245,13 +245,14 @@ TEST_CASE("math/utils/deg2rad_rad2deg") {
 
   // Fixed-point: 180 deg → π, round-trip 90 deg.
   SUBCASE("fixed_point") {
-    constexpr Fixed halfTurn = deg2rad(Fixed(180));
-    REQUIRE(halfTurn == std::numbers::pi_v<Fixed>);
-    REQUIRE(rad2deg(std::numbers::pi_v<Fixed>) == Fixed(180));
+    constexpr auto halfTurn = deg2rad(Fixed(180));
+
+    REQUIRE(halfTurn == constants::pi_v<Fixed>);
+    REQUIRE(rad2deg(constants::pi_v<Fixed>) == Fixed(180));
     REQUIRE(rad2deg(deg2rad(Fixed(90))) == Fixed(90));
 
-    static_assert(deg2rad(Fixed(180)) == std::numbers::pi_v<Fixed>, "deg2rad(180) fixed must equal π");
-    static_assert(rad2deg(std::numbers::pi_v<Fixed>) == Fixed(180), "rad2deg(π) fixed must equal 180");
+    static_assert(deg2rad(Fixed(180)) == constants::pi_v<Fixed>, "deg2rad(180) fixed must equal π");
+    static_assert(rad2deg(constants::pi_v<Fixed>) == Fixed(180), "rad2deg(π) fixed must equal 180");
     static_assert(rad2deg(deg2rad(Fixed(90))) == Fixed(90), "round-trip 90 deg fixed must be 90");
   }
 }
