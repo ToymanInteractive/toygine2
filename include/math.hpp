@@ -99,10 +99,10 @@ using real_t = float;
 
   \section features Key Features
 
-  - Constexpr support where possible
-  - Exception safety (noexcept operations)
-  - Type safety through C++20 concepts
-  - No dynamic allocation in core math types
+  - **Constexpr Support**: Available where logically feasible.
+  - **Exception Safety**: Uses \c noexcept operations.
+  - **Type Safety**: Enforced through C++20 concepts.
+  - **Allocation-Free Core Types**: No dynamic allocation in core math types.
 */
 
 //--------------------------------------------------------------------------------------------------------------------

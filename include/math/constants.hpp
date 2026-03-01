@@ -25,22 +25,20 @@
   \ref toy::math::fixed. Values for built-in floating-point types come from the standard library; values for
   \ref toy::math::fixed come from \c std::numbers specializations in \c math/fixed_std_extension.hpp.
 
-  \defgroup MathConstants Mathematical constants
-
-  | Constant        | Description |
-  |-----------------|-------------|
-  | \c e_v          | The mathematical constant \a e |
-  | \c pi_v         | The mathematical constant π |
-  | \c log2e_v      | \f$ \log_2 e \f$ |
-  | \c log10e_v     | \f$ \log_{10} e \f$ |
-  | \c sqrt2_v      | \f$ \sqrt{2} \f$ |
-  | \c sqrt3_v      | \f$ \sqrt{3} \f$ |
-  | \c inv_pi_v     | \f$ 1/\pi \f$ |
-  | \c inv_sqrtpi_v | \f$ 1/\sqrt{\pi} \f$ |
-  | \c ln2_v        | \f$ \ln 2 \f$ |
-  | \c ln10_v       | \f$ \ln 10 \f$ |
-  | \c egamma_v     | Euler–Mascheroni constant γ |
-  | \c phi_v        | Golden ratio Φ |
+  | Constant        | Description                  |
+  |-----------------|------------------------------|
+  | \c e_v          | The mathematical constant e. |
+  | \c pi_v         | The mathematical constant π. |
+  | \c log2e_v      | Base-2 logarithm of e.       |
+  | \c log10e_v     | Base-10 logarithm of e.      |
+  | \c sqrt2_v      | Square root of 2             |
+  | \c sqrt3_v      | Square root of 3             |
+  | \c inv_pi_v     | 1 over π.                    |
+  | \c inv_sqrtpi_v | 1 over square root of π.     |
+  | \c ln2_v        | Natural logarithm of 2.      |
+  | \c ln10_v       | Natural logarithm of 10.     |
+  | \c egamma_v     | Euler–Mascheroni constant γ. |
+  | \c phi_v        | Golden ratio Φ.              |
 
   \sa https://en.cppreference.com/w/cpp/numeric/constants
 */
@@ -54,71 +52,77 @@
 namespace toy::math {
 
 /*!
-  \concept NumericConstantType
+  \concept MathConstantType
   \brief Type that can be used with \ref toy::math::constants variable templates.
 
   Satisfied for \c std::floating_point types (\c float, \c double, \c long \c double) and \ref toy::math::fixed_point
   types (\ref toy::math::fixed).
+
+  \section requirements Requirements
+
+  A type \a T satisfies MathConstantType if and only if at least one of the following holds:
+  - \a T satisfies \c std::floating_point.
+  - \a T satisfies \ref toy::math::fixed_point.
 */
 template <typename T>
-concept NumericConstantType = std::floating_point<T> || fixed_point<T>;
+concept MathConstantType = std::floating_point<T> || fixed_point<T>;
 
 /*!
   \namespace toy::math::constants
   \brief Variable templates for mathematical constants.
 
-  Single API for \ref toy::math::NumericConstantType: \c float, \c double, \c long \c double, and \ref toy::math::fixed.
+  Single API for \ref toy::math::MathConstantType: \c float, \c double, \c long \c double, and \ref toy::math::fixed.
   Values forward to \c std::numbers for built-in floating-point types and to \c std::numbers specializations for
   \ref toy::math::fixed (see \c math/fixed_std_extension.hpp).
 */
 namespace constants {
 
-/// The mathematical constant \a e.
-template <NumericConstantType T>
+/// Mathematical constant e.
+template <MathConstantType T>
 constexpr T e_v = std::numbers::e_v<T>;
 
-/// The mathematical constant π.
-template <NumericConstantType T>
+/// Mathematical constant π.
+template <MathConstantType T>
 constexpr T pi_v = std::numbers::pi_v<T>;
 
-/// \f$ \log_2 e \f$
-template <NumericConstantType T>
+/// Base-2 logarithm of e.
+template <MathConstantType T>
 constexpr T log2e_v = std::numbers::log2e_v<T>;
 
-/// \f$ \log_{10} e \f$
-template <NumericConstantType T>
+/// Base-10 logarithm of e.
+template <MathConstantType T>
 constexpr T log10e_v = std::numbers::log10e_v<T>;
 
-/// \f$ \sqrt{2} \f$
-template <NumericConstantType T>
+/// Square root of 2.
+template <MathConstantType T>
 constexpr T sqrt2_v = std::numbers::sqrt2_v<T>;
 
-/// \f$ \sqrt{3} \f$
-template <NumericConstantType T>
+/// Square root of 3.
+template <MathConstantType T>
 constexpr T sqrt3_v = std::numbers::sqrt3_v<T>;
 
-/// \f$ 1/\pi \f$
-template <NumericConstantType T>
+/// 1 over π.
+template <MathConstantType T>
 constexpr T inv_pi_v = std::numbers::inv_pi_v<T>;
 
-/// \f$ 1/\sqrt{\pi} \f$
-template <NumericConstantType T>
+/// 1 over square root of π.
+template <MathConstantType T>
 constexpr T inv_sqrtpi_v = std::numbers::inv_sqrtpi_v<T>;
 
-/// \f$ \ln 2 \f$
-template <NumericConstantType T>
+/// Natural logarithm of 2.
+template <MathConstantType T>
 constexpr T ln2_v = std::numbers::ln2_v<T>;
 
-/// \f$ \ln 10 \f$
-template <NumericConstantType T>
+/// Natural logarithm of 10.
+template <MathConstantType T>
 constexpr T ln10_v = std::numbers::ln10_v<T>;
 
 /// Euler–Mascheroni constant γ.
-template <NumericConstantType T>
+template <MathConstantType T>
 constexpr T egamma_v = std::numbers::egamma_v<T>;
 
 /// Golden ratio Φ.
-template <NumericConstantType T>
+template <MathConstantType T>
 constexpr T phi_v = std::numbers::phi_v<T>;
 
 } // namespace constants
