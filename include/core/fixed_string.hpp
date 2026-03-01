@@ -107,9 +107,7 @@ struct FixedStringStorage {
 
   \note The internal buffer size is allocatedSize, but the maximum string length is allocatedSize - 1 (null terminator).
 
-  \sa std::string
-  \sa toy::StringLike
-  \sa toy::CStringView
+  \sa std::string, toy::StringLike, toy::CStringView
 */
 template <size_t allocatedSize>
 class FixedString {
@@ -421,8 +419,7 @@ public:
     \note The returned reference allows modification of the character.
     \note Use const version for read-only access.
 
-    \sa operator[](size_t offset) const
-    \sa at()
+    \sa operator[](size_t offset) const, at()
   */
   [[nodiscard]] constexpr char & operator[](size_t offset) noexcept;
 
@@ -518,8 +515,7 @@ public:
     \note The returned pointer allows modification of the string contents.
     \note Use const version for read-only access.
 
-    \sa data() const
-    \sa c_str()
+    \sa data() const, c_str()
   */
   [[nodiscard]] constexpr char * data() noexcept;
 

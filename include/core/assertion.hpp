@@ -19,7 +19,10 @@
 //
 /*!
   \file   assertion.hpp
-  \brief  Assertion system for runtime and compile-time validation of engine invariants.
+  \brief  Assertion system: callbacks, initialize/shutdown, and assertion() entry point.
+
+  Used by \c assert and \c assert_message macros. In debug builds assertion() formats failure context and invokes the
+  registered callback; in release it is a no-op. Supports custom stack-walk callback for trace output.
 */
 
 #ifndef INCLUDE_CORE_ASSERTION_HPP_
@@ -27,140 +30,90 @@
 
 /*!
   \namespace toy::assertion
-  \brief Assertion utilities for validating engine invariants and runtime conditions.
+  \brief Configurable assertion failure handling and optional stack trace.
 
-  This namespace provides a configurable assertion system that supports runtime assertions (in debug builds). The system
-  allows custom callback registration for handling assertion failures and stack trace generation.
+  Call initialize() before using assertion macros; register callbacks with setCallbacks(). assertion() is invoked by
+  \c assert / \c assert_message when a check fails (debug only). assertCompileTimeError() forces a compile-time error in
+  unreachable branches.
 
   \section features Key Features
 
-  - 🔧 **Configurable Callbacks**: Custom assertion and stack walk handlers
-  - 🎯 **Debug/Release Support**: Runtime assertions only in debug builds
-
-  \section usage Usage Example
-
-  \code
-  #include "core/assertion.hpp"
-
-  // Initialize assertion system
-  toy::assertion::initialize();
-
-  // Set custom callbacks
-  toy::assertion::setCallbacks(myAssertionHandler, myStackWalkHandler);
-
-  // Runtime assertion (debug builds only)
-  #ifdef _DEBUG
-  toy::assertion::assertion("value > 0", nullptr, __FILE__, __FUNCTION__, __LINE__);
-  #endif
-
-  // Cleanup
-  toy::assertion::deInitialize();
-  \endcode
+  - **Callbacks**: AssertionCallback for failure handling, StackWalkCallback for stack frames.
+  - **Debug-only**: assertion() does real work only when \c _DEBUG is defined; otherwise no-op.
 */
 namespace toy::assertion {
 
 /*!
-  \brief Callback function type for assertion failure handling.
+  \brief Called on assertion failure; receives a single formatted string (expression, message, file, function, line).
 
-  This callback is invoked when an assertion fails. The callback receives a formatted assertion string containing the
-  assertion code, message (if any), file name, function name, and line number.
+  \param assertionString Formatted failure description; valid only for the duration of the callback.
 
-  \param assertionString The formatted assertion string describing the failure.
+  \return \c true to treat the assertion as ignored (caller may continue), \c false otherwise.
 
-  \return \c true if the assertion should be ignored, \c false otherwise.
-
-  \note The callback should not throw exceptions.
-  \note The assertion string pointer is valid only during the callback invocation.
+  \note Must not throw. Prefer setCallbacks() to register after initialize().
 */
 using AssertionCallback = bool (*)(const char * assertionString);
 
 /*!
-  \brief Callback function type for stack trace generation.
+  \brief Called for each stack frame when generating a trace; receives one formatted frame string.
 
-  This callback is invoked to output stack trace information. The callback receives a formatted string containing stack
-  frame information.
+  \param stackFrameString Formatted frame; valid only for the duration of the callback.
 
-  \param stackFrameString The formatted string for a single stack frame.
-
-  \note The callback should not throw exceptions.
-  \note The stack frame string pointer is valid only during the callback invocation.
+  \note Must not throw.
 */
 using StackWalkCallback = void (*)(const char * stackFrameString);
 
 /*!
-  \brief Initializes the assertion system.
+  \brief Prepares the assertion system; call before using assertion macros or setCallbacks().
 
-  This function must be called before using any assertion functionality. It prepares the internal state of the
-  assertion system for use.
+  \post Callbacks are reset to \c nullptr; system is ready for setCallbacks() and assertion().
 
-  \post The assertion system is ready for use.
-  \post All callbacks are reset to nullptr.
+  \note Safe to call multiple times.
 
-  \note This function is safe to call multiple times.
-  \note Must be paired with a call to deInitialize().
-
-  \sa deInitialize()
-  \sa setCallbacks()
+  \sa deInitialize(), setCallbacks()
 */
 void initialize();
 
 /*!
-  \brief Shuts down the assertion system.
+  \brief Shuts down the assertion system and clears callbacks.
 
-  This function cleans up the assertion system and should be called when assertions are no longer needed. It resets all
-  callbacks and releases any resources held by the assertion system.
+  \post Callbacks are \c nullptr; no resources held.
 
-  \post The assertion system is no longer active.
-  \post All callbacks are reset to \c nullptr.
-
-  \note This function is safe to call multiple times.
-  \note Should be called after initialize() when assertions are no longer needed.
+  \note Safe to call multiple times.
 
   \sa initialize()
 */
 void deInitialize();
 
 /*!
-  \brief Sets the assertion and stack walk callbacks.
+  \brief Registers the assertion and stack-walk callbacks.
 
-  This function registers custom callback functions for handling assertion failures and stack trace generation. The
-  callbacks are invoked when assertions are triggered, allowing custom error handling and logging.
+  \param assertionCallback Invoked on assertion failure; may be \c nullptr to disable.
+  \param stackWalkCallback  Invoked per stack frame when walking; may be \c nullptr to disable.
 
-  \param assertionCallback The callback function to invoke on assertion failure. Can be nullptr to disable.
-  \param stackWalkCallback The callback function to invoke for stack trace output. Can be nullptr to disable.
+  \pre initialize() must have been called.
 
-  \pre The assertion system must be initialized (via initialize()).
+  \note Assertion callback returns \c true to ignore the failure, \c false otherwise. Callbacks must not throw.
 
-  \note Callbacks can be set to nullptr to disable them.
-  \note Callbacks are invoked synchronously during assertion processing.
-  \note The assertion callback should return \c true to ignore the assertion, \c false otherwise.
-
-  \sa initialize()
-  \sa toy::assertion::AssertionCallback
-  \sa toy::assertion::StackWalkCallback
+  \sa initialize(), AssertionCallback, StackWalkCallback
 */
 void setCallbacks(AssertionCallback assertionCallback, StackWalkCallback stackWalkCallback);
 
 #ifdef _DEBUG
 
 /*!
-  \brief Reports an assertion failure with detailed context information.
+  \brief Handles a failed assertion: formats \a code, \a message, \a fileName, \a functionName, \a lineNumber and
+         invokes the registered AssertionCallback if set.
 
-  This function is called when an assertion fails in debug builds. It formats the assertion information and invokes the
-  registered assertion callback (if set). This function is typically invoked by assertion macros, not directly by user
-  code.
+  Called by the \c assert / \c assert_message macros. Only compiled when \c _DEBUG is defined.
 
-  \param code         The assertion expression as a string (e.g., "value > 0").
-  \param message      Optional custom message string, or nullptr if no message is provided.
-  \param fileName     The source file name where the assertion failed.
-  \param functionName The function name where the assertion failed.
-  \param lineNumber   The line number where the assertion failed.
+  \param code         Assertion expression as string (e.g. "x != nullptr").
+  \param message      Optional message or \c nullptr.
+  \param fileName     Source file where the assertion failed.
+  \param functionName Function name where the assertion failed.
+  \param lineNumber   Source line number.
 
-  \pre The assertion system must be initialized (via initialize()).
-
-  \note This function is only available in debug builds (_DEBUG defined).
-  \note In release builds, this function is replaced with an inline no-op.
-  \note The function invokes the registered assertion callback if one is set.
+  \pre initialize() must have been called.
 
   \sa setCallbacks()
 */
@@ -170,13 +123,9 @@ void assertion(const char * code, const char * message, const char * fileName, c
 #else // _DEBUG
 
 /*!
-  \brief No-op assertion function for release builds.
+  \brief No-op in release builds; provided so call sites compile without \c _DEBUG.
 
-  In release builds, assertions are disabled and this function does nothing. This allows assertion code to compile
-  without overhead in release builds.
-
-  \note This function is only available in release builds (when _DEBUG is not defined).
-  \note This function has no effect and is completely optimized away by the compiler.
+  Parameters are unused. The call is optimized away.
 */
 inline void assertion(const char *, const char *, const char *, const char *, size_t) {
   // Intentionally empty - no-op in release builds
@@ -185,16 +134,12 @@ inline void assertion(const char *, const char *, const char *, const char *, si
 #endif // _DEBUG
 
 /*!
-  \brief Forces a compile-time error when called.
+  \brief Intentionally causes a compile-time error when instantiated or evaluated in a constexpr context.
 
-  This function is designed to be used in template metaprogramming and constexpr contexts to force a compile-time
-  error. When called, it triggers a compilation failure, which can be useful for static_assert-like behavior in
-  contexts where static_assert cannot be used.
+  Use in unreachable template branches or constexpr branches that must never be taken (e.g. exhaustive switch
+  default). Marked \c [[noreturn]]; does not return.
 
-  \note This function should never be called in valid code. It is intended to be used in template specializations or
-        constexpr branches that should never be reached.
-  \note The function is marked as \c [[noreturn]] to indicate it never returns normally.
-  \note This function causes a compile-time error when evaluated in constexpr contexts.
+  \note For valid code this function should never be called at runtime.
 */
 inline void assertCompileTimeError() noexcept {
   // Intentionally cause a compile-time error

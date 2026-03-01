@@ -39,7 +39,7 @@
   This macro provides runtime assertion checking in debug builds. It evaluates the given \a expression and triggers an
   assertion failure if the \a expression is false. In release builds, this macro expands to nothing.
 
-  \param expression The boolean expression to evaluate. Must be convertible to bool.
+  \param expression Boolean expression to check. Prefer side-effect-free.
 
   \note This macro is only active in debug builds (_DEBUG defined).
   \note In release builds, this macro expands to ((void)0) and has no effect.
@@ -49,8 +49,7 @@
   \warning Do not rely on the \a expression being evaluated in release builds.
   \warning The \a expression should not have side effects as it may not be evaluated in release builds.
 
-  \sa assert_message
-  \sa toy::assertion::assertion
+  \sa assert_message, toy::assertion::assertion
 */
 #define assert(expression)                                                                                             \
   do {                                                                                                                 \
@@ -71,7 +70,7 @@
   \a expression and triggers an assertion failure with the provided \a message if the \a expression is false. In release
   builds, this macro expands to nothing.
 
-  \param expression The boolean expression to evaluate. Must be convertible to bool.
+  \param expression Boolean expression to check. Prefer side-effect-free.
   \param message    A custom error message to display on assertion failure. Must be a C string literal.
 
   \note This macro is only active in debug builds (_DEBUG defined).
@@ -84,8 +83,7 @@
   \warning The \a expression should not have side effects as it may not be evaluated in release builds.
   \warning The \a message should be a C string literal for optimal performance.
 
-  \sa assert
-  \sa toy::assertion::assertion
+  \sa assert, toy::assertion::assertion
 */
 #define assert_message(expression, message)                                                                            \
   do {                                                                                                                 \
@@ -106,7 +104,7 @@
 
   In release builds, this macro expands to nothing and has no effect. The \a expression is not evaluated.
 
-  \param expression The boolean expression (ignored in release builds).
+  \param expression Boolean expression (ignored in release builds).
 
   \note This macro is only defined in release builds (!_DEBUG).
   \note The \a expression parameter is ignored and not evaluated.
@@ -123,7 +121,7 @@
   In release builds, this macro expands to nothing and has no effect. Neither the \a expression nor the \a message are
   evaluated.
 
-  \param expression The boolean expression (ignored in release builds).
+  \param expression Boolean expression (ignored in release builds).
   \param message    The custom error message (ignored in release builds).
 
   \note This macro is only defined in release builds (!_DEBUG).

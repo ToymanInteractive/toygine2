@@ -19,7 +19,10 @@
 //
 /*!
   \file   platform.hpp
-  \brief  Platform and CPU architecture enumerations with compile-time and runtime detection.
+  \brief  Platform and CPU architecture enums with compile-time and runtime detection.
+
+  Defines \ref toy::Platform (OS/target) and \ref toy::CpuArchitecture (ISA). Values use distinct hex ranges so they can
+  be combined for conditional compilation. Use getCurrentPlatform() and getCurrentArchitecture() for runtime detection.
 */
 
 #ifndef INCLUDE_CORE_PLATFORM_HPP_
@@ -29,44 +32,35 @@ namespace toy {
 
 /*!
   \enum Platform
-  \brief Enumeration of target operating systems and platforms.
+  \brief Target operating system or platform identifier.
 
-  Identifies the target platform for compile-time and runtime detection. Values use hexadecimal identifiers from
-  \c 0x1000, with each platform family in a distinct range, enabling compile-time checks and combination with
-  \ref toy::CpuArchitecture.
+  Hex values in distinct ranges (desktop \c 0x1000-\c 0x3000, mobile \c 0x3100-\c 0x4000, consoles
+  \c 0x5000-\c 0x8000) allow compile-time \c if \c constexpr and combination with \ref toy::CpuArchitecture.
 
   \section features Key Features
 
-  - **Constexpr**: All values are usable in constexpr contexts.
+  - **Constexpr**: All values usable in constexpr contexts.
   - **Compile-time detection**: Enables \c if \c constexpr conditional compilation.
-  - **Type safety**: Enum class prevents implicit conversions.
-  - **Architecture integration**: Hex layout allows combining with \ref toy::CpuArchitecture.
+  - **Type safety**: Enum class prevents implicit conversion.
+  - **Combination**: Hex layout allows combining with \ref toy::CpuArchitecture.
 
   \section usage Usage Example
 
   \code
   #include "core.hpp"
 
-  // Compile-time platform detection
-  constexpr Platform currentPlatform = Platform::MacOS;
-
-  if constexpr (currentPlatform == Platform::MacOS) {
-    // macOS-specific code (evaluated at compile time)
-  } else if constexpr (currentPlatform == Platform::Windows) {
-    // Windows-specific code (evaluated at compile time)
-  } else if constexpr (currentPlatform == Platform::Linux) {
-    // Linux-specific code (evaluated at compile time)
+  constexpr Platform currentPlatform = Platform::macOS;
+  if constexpr (currentPlatform == Platform::macOS) {
+    // macOS-specific code
   }
-
-  // Runtime platform checking
   const Platform runtimePlatform = getCurrentPlatform();
-  if (runtimePlatform == Platform::Linux) {
-    // Linux-specific logic
+  if (runtimePlatform == Platform::Linux) {  // Linux-specific logic
   }
   \endcode
 
-  \note Platform families use distinct hex ranges: desktop (\c 0x1000-\c 0x3000), mobile (\c 0x3100-\c 0x4000),
-        consoles (\c 0x5000-\c 0x8000). iOS (\c 0x3100) shares the Apple family range with macOS (\c 0x3000).
+  \note iOS (\c 0x3100) shares the Apple range with macOS (\c 0x3000).
+
+  \sa CpuArchitecture, getCurrentPlatform()
 */
 enum class Platform : uint16_t {
   /// Microsoft Windows Desktop operating system (Windows XP, Vista, 7, 8, 8.1, 10, 11, etc.)
@@ -76,7 +70,7 @@ enum class Platform : uint16_t {
   Linux = 0x2000,
 
   /// Apple macOS desktop operating system
-  MacOS = 0x3000,
+  macOS = 0x3000,
 
   /// Apple iOS mobile operating system
   iOS = 0x3100,
@@ -99,47 +93,36 @@ enum class Platform : uint16_t {
 
 /*!
   \enum CpuArchitecture
-  \brief Enumeration of CPU architectures and instruction set architectures.
+  \brief CPU or instruction-set architecture identifier.
 
-  Identifies the target CPU architecture for compile-time and runtime architecture detection. Values use hexadecimal
-  identifiers starting from \c 0x0014, with each architecture family assigned a distinct range. This design enables
-  compile-time architecture checks and combination with platform identifiers.
+  Hex values in distinct ranges (Intel \c 0x0014-\c 0x0018, ARM \c 0x0024-\c 0x0028) allow compile-time checks and
+  combination with \ref toy::Platform for platform-and-architecture conditional code.
 
   \section features Key Features
 
-  - 🔧 **Constexpr Support**: All values are usable in constexpr contexts
-  - 🎯 **Compile-Time Detection**: Enables compile-time conditional compilation via \c if \c constexpr
-  - 📐 **Type Safety**: Strongly-typed enum class prevents implicit conversions
-  - 🔗 **Platform Integration**: Hex values designed to combine with \ref toy::Platform identifiers
+  - **Constexpr**: All values usable in constexpr contexts.
+  - **Compile-time detection**: Enables \c if \c constexpr conditional compilation.
+  - **Type safety**: Enum class prevents implicit conversion.
+  - **Combination**: Hex layout combines with \ref toy::Platform identifiers.
 
   \section usage Usage Example
 
   \code
   #include "core.hpp"
 
-  // Compile-time architecture detection
   constexpr CpuArchitecture currentArch = CpuArchitecture::x64;
-
   if constexpr (currentArch == CpuArchitecture::x64) {
-    // x64-specific optimizations (evaluated at compile time)
-  } else if constexpr (currentArch == CpuArchitecture::Arm64) {
-    // ARM64-specific optimizations (evaluated at compile time)
+    // x64-specific code
   }
-
-  // Runtime architecture checking
   const CpuArchitecture runtimeArch = getCurrentArchitecture();
-  if (runtimeArch == CpuArchitecture::Arm64) {
-    // ARM64-specific logic
-  }
-
-  // Combined platform and architecture detection
-  if constexpr (currentPlatform == Platform::MacOS && currentArch == CpuArchitecture::Arm64) {
-    // Apple Silicon specific code
+  if constexpr (currentPlatform == Platform::macOS && currentArch == CpuArchitecture::Arm64) {
+    // Apple Silicon
   }
   \endcode
 
-  \note Architecture families use distinct hex ranges: Intel (\c 0x0014-\c 0x0018), ARM (\c 0x0024-\c 0x0028).
-  \note Architecture values can be combined with platform values for combined platform-architecture identification.
+  \note Architecture values can be combined with platform values for combined identification.
+
+  \sa Platform, getCurrentArchitecture()
 */
 enum class CpuArchitecture : uint16_t {
   /// Intel x86 32-bit instruction set architecture (IA-32)

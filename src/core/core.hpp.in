@@ -92,15 +92,63 @@ using std::bit_cast;
 using std::numeric_limits;
 
 #undef validate
+#undef validate_message
 
 #ifdef _DEBUG
 
+/*!
+  \def validate(expression)
+  \brief When \c _DEBUG is defined: expands to \c assert(expression).
+
+  Evaluates \a expression and triggers an assertion failure (via \c toy::assertion::assertion) if it is false.
+  When \c _DEBUG is not defined, the other definition applies: expands to \c (expression) (evaluated, no check).
+
+  \param expression Boolean expression to check. Prefer side-effect-free.
+
+  \sa validate_message, assert
+*/
 #define validate(expression) assert(expression)
+
+/*!
+  \def validate_message(expression, message)
+  \brief When \c _DEBUG is defined: expands to \c assert_message(expression, message).
+
+  Same as \c validate but passes \a message to the assertion handler for a clearer failure report. When \c _DEBUG is not
+  defined, expands to \c (expression); \a message is unused.
+
+  \param expression Boolean expression to check. Prefer side-effect-free.
+  \param message    A custom error message to display on assertion failure. Must be a C string literal.
+
+  \sa validate, assert_message
+*/
 #define validate_message(expression, message) assert_message(expression, message)
 
 #else
 
+/*!
+  \def validate(expression)
+  \brief When \c _DEBUG is not defined: expands to \c (expression).
+
+  The expression is evaluated but the result is discarded; no assertion is performed. Use for checks that are
+  expensive or only needed in debug; the compiler may optimize away the evaluation if the result is unused.
+
+  \param expression Boolean expression to check. Prefer side-effect-free. (evaluated, result discarded)
+
+  \sa validate_message
+*/
 #define validate(expression) (expression)
+
+/*!
+  \def validate_message(expression, message)
+  \brief When \c _DEBUG is not defined: expands to \c (expression).
+
+  Same as \c validate; \a message is not used. The expression is evaluated, result discarded, no assertion.
+
+  \param expression Boolean expression to check. Prefer side-effect-free. (evaluated, result discarded)
+  \param message    The custom error message (ignored in release builds).
+
+  \sa validate
+*/
 #define validate_message(expression, message) (expression)
 
 #endif
