@@ -24,7 +24,7 @@
 
 namespace toy::geometry {
 
-using Fixed = math::fixed<std::int32_t, std::int32_t, 8>;
+using Fixed = math::fixed<int32_t, int32_t, 24>;
 
 // Default-constructed section is in reset state; bounds are numeric_limits extremes.
 TEST_CASE("geometry/section/default_constructor") {
