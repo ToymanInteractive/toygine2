@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['features_0',['Key Features',['../d4/d6e/group___string.html#features',1,'']]],
+  ['features_0',['Key Features',['../d5/d12/group___math_functions.html#features',1,'']]],
   ['file_20extensions_1',['File Extensions',['../df/d81/md__a_g_e_n_t_s.html#file-extensions',1,'']]],
   ['files_2',['&lt;span class=&quot;tt&quot;&gt;.inl&lt;/span&gt; Files',['../df/d81/md__a_g_e_n_t_s.html#inl-files',1,'']]],
   ['final_20rule_3',['Final Rule',['../df/d81/md__a_g_e_n_t_s.html#final-rule',1,'']]],

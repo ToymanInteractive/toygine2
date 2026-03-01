@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['key_20features_0',['Key Features',['../d4/d6e/group___string.html#features',1,'']]]
+  ['key_20features_0',['Key Features',['../d5/d12/group___math_functions.html#features',1,'']]]
 ];

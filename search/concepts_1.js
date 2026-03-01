@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['sectionscalar_0',['SectionScalar',['../dc/de6/concepttoy_1_1geometry_1_1_section_scalar.html',1,'toy::geometry']]],
-  ['stringlike_1',['StringLike',['../df/d77/concepttoy_1_1_string_like.html',1,'toy']]]
+  ['numericconstanttype_0',['NumericConstantType',['../d0/d1d/concepttoy_1_1math_1_1_numeric_constant_type.html',1,'toy::math']]]
 ];

@@ -11,7 +11,7 @@ var searchData=
   ['datagram_8',['Datagram',['../d6/d2c/namespacetoy_1_1network.html#a465745810e1e093a3e2aaa44ba340b8ea640931067618ca3bc723805cb196e22f',1,'toy::network']]],
   ['default_20and_20delete_9',['&lt;span class=&quot;tt&quot;&gt;= default&lt;/span&gt; and &lt;span class=&quot;tt&quot;&gt;= delete&lt;/span&gt;',['../df/d81/md__a_g_e_n_t_s.html#autotoc_md-default-and--delete',1,'']]],
   ['default_20member_20initialization_10',['Default Member Initialization',['../df/d81/md__a_g_e_n_t_s.html#default-member-initialization',1,'']]],
-  ['deg2rad_11',['deg2rad',['../d2/d83/namespacetoy_1_1math.html#ab57f825520a446db045607567ead63ae',1,'toy::math']]],
+  ['deg2rad_11',['deg2rad',['../d5/d12/group___math_functions.html#gab57f825520a446db045607567ead63ae',1,'toy::math']]],
   ['deinitialize_12',['deInitialize',['../d2/da2/namespacetoy_1_1assertion.html#a82b42cf518871245c19337431cfe63e5',1,'toy::assertion']]],
   ['delete_13',['&lt;span class=&quot;tt&quot;&gt;= default&lt;/span&gt; and &lt;span class=&quot;tt&quot;&gt;= delete&lt;/span&gt;',['../df/d81/md__a_g_e_n_t_s.html#autotoc_md-default-and--delete',1,'']]],
   ['denorm_5fmin_14',['denorm_min',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a582b3db515a99717044cb5276d56795b',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]],

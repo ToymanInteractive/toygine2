@@ -1,7 +1,7 @@
 var searchData=
 [
   ['r5g6b5_0',['R5G6B5',['../df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3fa824e86ad7ef467815efe26bec67e07fa',1,'toy::render']]],
-  ['rad2deg_1',['rad2deg',['../d2/d83/namespacetoy_1_1math.html#ab2df9ff2e4f2067d2694fabf929380e6',1,'toy::math']]],
+  ['rad2deg_1',['rad2deg',['../d5/d12/group___math_functions.html#gab2df9ff2e4f2067d2694fabf929380e6',1,'toy::math']]],
   ['radix_2',['radix',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a4e315a22a0727c409b1e0582d45950c3',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]],
   ['range_20based_20for_20loops_3',['Range-Based For Loops',['../df/d81/md__a_g_e_n_t_s.html#range-based-for-loops',1,'']]],
   ['rawconstructortag_4',['RawConstructorTag',['../dd/d3d/classtoy_1_1math_1_1fixed_1_1_raw_constructor_tag.html',1,'toy::math::fixed']]],
