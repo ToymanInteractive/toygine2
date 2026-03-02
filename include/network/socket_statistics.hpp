@@ -18,33 +18,29 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   network.hpp
-  \brief  Umbrella header for the network module.
+  \file   socket_statistics.hpp
+  \brief  Socket traffic statistics: bytes sent and received.
 
-  Provides \ref toy::network::SocketError, \ref toy::network::SocketFlags, \ref toy::network::SocketStatistics,
-  \ref toy::network::SocketType, and related networking types. Include this header only; do not include internal headers
-  (e.g. \c network/socket_error.hpp, \c network/socket_flags.hpp) directly.
+  Defines \ref toy::network::SocketStatistics with byte counters for sent and received data. Used to track traffic per
+  socket or aggregate across connections.
 */
 
-#ifndef INCLUDE_NETWORK_HPP_
-#define INCLUDE_NETWORK_HPP_
+#ifndef INCLUDE_NETWORK_SOCKET_STATISTICS_HPP_
+#define INCLUDE_NETWORK_SOCKET_STATISTICS_HPP_
 
-#include "core.hpp"
+namespace toy::network {
 
 /*!
-  \namespace toy::network
-  \brief Network types: socket error, flags, statistics, type, and related APIs.
-
-  \sa SocketError, SocketFlags, SocketStatistics, SocketType
+  \struct SocketStatistics
+  \brief Byte counters for socket traffic (sent and received).
 */
+struct SocketStatistics {
+  /// Total bytes sent on the socket.
+  size_t bytesSent;
+  /// Total bytes received on the socket.
+  size_t bytesReceived;
+};
 
-#include "network/socket_error.hpp"
-#include "network/socket_flags.hpp"
-#include "network/socket_statistics.hpp"
-#include "network/socket_type.hpp"
+} // namespace toy::network
 
-//----------------------------------------------------------------------------------------------------------------------
-
-#include "network/socket_flags.inl"
-
-#endif // INCLUDE_NETWORK_HPP_
+#endif // INCLUDE_NETWORK_SOCKET_STATISTICS_HPP_
