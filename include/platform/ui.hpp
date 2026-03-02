@@ -35,7 +35,8 @@
   \namespace toy::platform::ui
   \brief Platform UI: orientation, message box (icon, button set, return value), and related types.
 
-  \sa Orientation, MessageBoxIcon, MessageBoxButtons, MessageBoxReturn
+  \sa toy::platform::ui::Orientation, toy::platform::ui::MessageBoxIcon, toy::platform::ui::MessageBoxButtons,
+      toy::platform::ui::MessageBoxReturn
 */
 
 #include "ui/message_box_buttons.hpp"
