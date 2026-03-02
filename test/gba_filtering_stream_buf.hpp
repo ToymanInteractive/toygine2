@@ -18,34 +18,20 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   ui.hpp
-  \brief  Umbrella header for platform UI types.
-
-  Provides \ref toy::platform::ui::Orientation, \ref toy::platform::ui::MessageBoxIcon,
-  \ref toy::platform::ui::MessageBoxButtons, \ref toy::platform::ui::MessageBoxReturn, and related UI. Include this
-  header only; do not include internal headers (e.g. \c ui/message_box_icon.hpp, \c ui/orientation.hpp) directly.
+  \file   gba_reporter.hpp
 */
 
-#ifndef INCLUDE_PLATFORM_UI_HPP_
-#define INCLUDE_PLATFORM_UI_HPP_
+#ifndef TEST_GBA_FILTERING_STREAM_BUF_HPP_
+#define TEST_GBA_FILTERING_STREAM_BUF_HPP_
 
-#include "core.hpp"
+#include <iostream>
+#include <streambuf>
 
-/*!
-  \namespace toy::platform::ui
-  \brief Platform UI: orientation, message box (icon, button set, return value), and related types.
+class GbaFilteringStreamBuf final : public std::streambuf {
+protected:
+  int_type overflow(int_type c) noexcept override;
+  std::streamsize xsputn(const char * s, std::streamsize n) noexcept override;
+  int sync() noexcept override;
+};
 
-  \sa toy::platform::ui::Orientation, toy::platform::ui::MessageBoxIcon, toy::platform::ui::MessageBoxButtons,
-      toy::platform::ui::MessageBoxReturn
-*/
-
-#include "ui/message_box_buttons.hpp"
-#include "ui/message_box_icon.hpp"
-#include "ui/message_box_return.hpp"
-#include "ui/orientation.hpp"
-
-//----------------------------------------------------------------------------------------------------------------------
-
-#include "ui/orientation.inl"
-
-#endif // INCLUDE_PLATFORM_UI_HPP_
+#endif // TEST_GBA_FILTERING_STREAM_BUF_HPP_
