@@ -18,7 +18,8 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   gba_reporter.hpp
+  \file   gba_filtering_stream_buf.hpp
+  \brief  Minimal DocTest reporter for Nintendo GBA.
 */
 
 #ifndef TEST_GBA_FILTERING_STREAM_BUF_HPP_
@@ -27,11 +28,22 @@
 #include <iostream>
 #include <streambuf>
 
+/*!
+  \brief Filters ANSI escape sequences (CSI, including SGR color codes) so only plain text is forwarded to the
+         underlying stream.
+*/
 class GbaFilteringStreamBuf final : public std::streambuf {
 protected:
   int_type overflow(int_type c) noexcept override;
   std::streamsize xsputn(const char * s, std::streamsize n) noexcept override;
   int sync() noexcept override;
+
+private:
+  enum class State { Normal, Escape, Csi };
+
+  State _state{State::Normal};
+
+  bool _shouldPass(int_type c);
 };
 
 #endif // TEST_GBA_FILTERING_STREAM_BUF_HPP_

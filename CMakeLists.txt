@@ -136,7 +136,7 @@ set(HDR_MATH_LIST include/math.hpp include/math/fixed.hpp include/math/fixed_std
 set(INL_MATH_LIST                  include/math/fixed.inl                                      include/math/point.inl include/math/utils.inl include/math/vector2d.inl)
 
 set(SRC_NETWORK_LIST )
-set(HDR_NETWORK_LIST include/network.hpp include/network/socket_error.hpp include/network/socket_flags.hpp)
+set(HDR_NETWORK_LIST include/network.hpp include/network/socket_error.hpp include/network/socket_flags.hpp include/network/socket_statistics.hpp include/network/socket_type.hpp)
 set(INL_NETWORK_LIST                                                      include/network/socket_flags.inl)
 
 set(SRC_PLATFORM_UI_LIST )
