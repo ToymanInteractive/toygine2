@@ -23,7 +23,7 @@
 
 #include "gba_filtering_stream_buf.hpp"
 
-std::streambuf::int_type GbaFilteringStreamBuf::overflow(int_type c) {
+std::streambuf::int_type GbaFilteringStreamBuf::overflow(int_type c) noexcept {
   if (c != traits_type::eof()) {
     char ch = traits_type::to_char_type(c);
     std::cout.put(ch);
@@ -32,13 +32,13 @@ std::streambuf::int_type GbaFilteringStreamBuf::overflow(int_type c) {
   return c;
 }
 
-std::streamsize GbaFilteringStreamBuf::xsputn(const char * s, std::streamsize n) {
+std::streamsize GbaFilteringStreamBuf::xsputn(const char * s, std::streamsize n) noexcept {
   std::cout.write(s, n);
 
   return n;
 }
 
-int GbaFilteringStreamBuf::sync() {
+int GbaFilteringStreamBuf::sync() noexcept {
   std::cout.flush();
 
   return 0;
