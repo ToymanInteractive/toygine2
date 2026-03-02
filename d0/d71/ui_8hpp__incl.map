@@ -1,15 +1,17 @@
 <map id="include/platform/ui.hpp" name="include/platform/ui.hpp">
-<area shape="rect" id="Node000001" title="Umbrella header for platform UI types." alt="" coords="2177,5,2351,31"/>
+<area shape="rect" id="Node000001" title="Umbrella header for platform UI types." alt="" coords="2303,5,2476,31"/>
 <area shape="rect" id="Node000002" href="$da/d47/core_8hpp.html" title="Umbrella header for the engine core module." alt="" coords="1845,79,1923,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="2197,33,1938,81,1937,76,2196,28"/>
-<area shape="rect" id="Node000043" href="$de/d20/message__box__icon_8hpp.html" title="Icon type for message box / dialog." alt="" coords="1947,79,2138,104"/>
-<area shape="poly" id="edge47_Node000001_Node000043" title=" " alt="" coords="2229,33,2092,77,2090,72,2228,28"/>
-<area shape="rect" id="Node000044" href="$d0/d68/message__box__return_8hpp.html" title="Return value for message box / dialog interactions." alt="" coords="2163,79,2365,104"/>
-<area shape="poly" id="edge48_Node000001_Node000044" title=" " alt="" coords="2267,31,2267,65,2261,65,2261,31"/>
-<area shape="rect" id="Node000045" href="$d0/d24/orientation_8hpp.html" title="Screen orientation enumeration for UI layout and rotation handling." alt="" coords="2390,79,2527,104"/>
-<area shape="poly" id="edge49_Node000001_Node000045" title=" " alt="" coords="2296,28,2415,71,2413,76,2294,33"/>
-<area shape="rect" id="Node000046" href="$d8/d31/orientation_8inl.html" title="Inline implementations for toy::platform::ui::Orientation." alt="" coords="2551,79,2681,104"/>
-<area shape="poly" id="edge50_Node000001_Node000046" title=" " alt="" coords="2321,28,2546,73,2545,79,2320,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="2303,31,2137,51,1938,81,1937,76,2137,46,2302,26"/>
+<area shape="rect" id="Node000043" href="$d6/d4d/message__box__buttons_8hpp.html" title="Button set configuration for message boxes / dialogs." alt="" coords="1947,79,2159,104"/>
+<area shape="poly" id="edge47_Node000001_Node000043" title=" " alt="" coords="2336,33,2122,78,2121,73,2335,28"/>
+<area shape="rect" id="Node000044" href="$de/d20/message__box__icon_8hpp.html" title="Icon type for message box / dialog." alt="" coords="2183,79,2374,104"/>
+<area shape="poly" id="edge48_Node000001_Node000044" title=" " alt="" coords="2373,33,2310,73,2307,69,2370,28"/>
+<area shape="rect" id="Node000045" href="$d0/d68/message__box__return_8hpp.html" title="Return value for message box / dialog interactions." alt="" coords="2399,79,2601,104"/>
+<area shape="poly" id="edge49_Node000001_Node000045" title=" " alt="" coords="2409,28,2472,69,2469,73,2406,33"/>
+<area shape="rect" id="Node000046" href="$d0/d24/orientation_8hpp.html" title="Screen orientation enumeration for UI layout and rotation handling." alt="" coords="2626,79,2763,104"/>
+<area shape="poly" id="edge50_Node000001_Node000046" title=" " alt="" coords="2439,28,2633,73,2631,78,2438,33"/>
+<area shape="rect" id="Node000047" href="$d8/d31/orientation_8inl.html" title="Inline implementations for toy::platform::ui::Orientation." alt="" coords="2787,79,2917,104"/>
+<area shape="poly" id="edge51_Node000001_Node000047" title=" " alt="" coords="2464,28,2774,75,2773,81,2463,33"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="5,167,91,192"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1845,96,1493,100,947,110,414,128,218,140,103,155,80,163,78,158,102,149,217,135,414,123,947,105,1493,95,1845,90"/>
 <area shape="rect" id="Node000004" title=" " alt="" coords="115,167,171,192"/>

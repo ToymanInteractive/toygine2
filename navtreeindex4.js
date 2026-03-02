@@ -1,5 +1,16 @@
 var NAVTREEINDEX4 =
 {
+"dd/d5c/classtoy_1_1math_1_1fixed.html#ae3eac34801c31fa5b33b82ef0fb1f5f9":[3,0,1,2,1,19],
+"dd/d5c/classtoy_1_1math_1_1fixed.html#ae3eac34801c31fa5b33b82ef0fb1f5f9":[5,0,1,2,0,19],
+"dd/d5c/classtoy_1_1math_1_1fixed.html#ae66dab135e7d69d49a3f49a201851847":[3,0,1,2,1,26],
+"dd/d5c/classtoy_1_1math_1_1fixed.html#ae66dab135e7d69d49a3f49a201851847":[5,0,1,2,0,26],
+"dd/d5c/classtoy_1_1math_1_1fixed.html#aeada81089692445c73f6701c6230d9cf":[3,0,1,2,1,5],
+"dd/d5c/classtoy_1_1math_1_1fixed.html#aeada81089692445c73f6701c6230d9cf":[5,0,1,2,0,5],
+"dd/d5c/classtoy_1_1math_1_1fixed.html#aec32d080e1c8eb43388fedb74d590ea0":[3,0,1,2,1,2],
+"dd/d5c/classtoy_1_1math_1_1fixed.html#aec32d080e1c8eb43388fedb74d590ea0":[3,0,1,2,1,3],
+"dd/d5c/classtoy_1_1math_1_1fixed.html#aec32d080e1c8eb43388fedb74d590ea0":[5,0,1,2,0,2],
+"dd/d5c/classtoy_1_1math_1_1fixed.html#aec32d080e1c8eb43388fedb74d590ea0":[5,0,1,2,0,3],
+"dd/d5c/classtoy_1_1math_1_1fixed.html#aede01f077c6fcef55acfe6fd665e4fc7":[3,0,1,2,1,27],
 "dd/d5c/classtoy_1_1math_1_1fixed.html#aede01f077c6fcef55acfe6fd665e4fc7":[5,0,1,2,0,27],
 "dd/d5c/classtoy_1_1math_1_1fixed.html#af54231e21b2aec1996fb2711a3036d08":[3,0,1,2,1,4],
 "dd/d5c/classtoy_1_1math_1_1fixed.html#af54231e21b2aec1996fb2711a3036d08":[5,0,1,2,0,4],
@@ -30,8 +41,8 @@ var NAVTREEINDEX4 =
 "dd/ded/c__string__view_8hpp.html":[6,0,0,2,1],
 "dd/ded/c__string__view_8hpp_source.html":[6,0,0,2,1],
 "de/d06/utils_8cpp.html":[6,0,1,0,1],
-"de/d20/message__box__icon_8hpp.html":[6,0,0,8,0,0],
-"de/d20/message__box__icon_8hpp_source.html":[6,0,0,8,0,0],
+"de/d20/message__box__icon_8hpp.html":[6,0,0,8,0,1],
+"de/d20/message__box__icon_8hpp_source.html":[6,0,0,8,0,1],
 "de/d2d/o__string__stream_8hpp.html":[6,0,0,2,14],
 "de/d2d/o__string__stream_8hpp_source.html":[6,0,0,2,14],
 "de/d5d/math_2utils_8inl.html":[6,0,0,6,7],
@@ -238,8 +249,5 @@ var NAVTREEINDEX4 =
 "namespacemembers_enum.html":[3,1,4],
 "namespacemembers_func.html":[3,1,1],
 "namespacemembers_type.html":[3,1,3],
-"namespacemembers_vars.html":[3,1,2],
-"namespaces.html":[3,0],
-"pages.html":[],
-"topics.html":[2]
+"namespacemembers_vars.html":[3,1,2]
 };

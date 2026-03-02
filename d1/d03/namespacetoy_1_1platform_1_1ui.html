@@ -114,11 +114,24 @@ $(function(){initNavTree('d1/d03/namespacetoy_1_1platform_1_1ui.html','../../','
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="../../d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55a" title="Target operating system or platform identifier.">Platform</a> UI types: orientation, message box icon and return values, and related utilities.  
+<p><a class="el" href="../../d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55a" title="Target operating system or platform identifier.">Platform</a> UI: orientation, message box (icon, button set, return value), and related types.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
+<tr class="memitem:a4f41eacedb4fa2744ba9f594b0832445" id="r_a4f41eacedb4fa2744ba9f594b0832445"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a4f41eacedb4fa2744ba9f594b0832445">MessageBoxButtons</a> { <br />
+&#160;&#160;<a class="el" href="#a4f41eacedb4fa2744ba9f594b0832445aa60852f204ed8028c1c58808b746d115">Ok</a>
+, <a class="el" href="#a4f41eacedb4fa2744ba9f594b0832445a4b116999b87115628973f2e30b59fd08">OkCancel</a>
+, <a class="el" href="#a4f41eacedb4fa2744ba9f594b0832445a080cccc8400ed0226bf270eadb078851">AbortRetryIgnore</a>
+, <a class="el" href="#a4f41eacedb4fa2744ba9f594b0832445a71fc7b7aece69111c0b6967de4b101c5">YesNoCancel</a>
+, <br />
+&#160;&#160;<a class="el" href="#a4f41eacedb4fa2744ba9f594b0832445ab65ffbcb4dcfb93ecdc257d6e4ba42c4">YesNo</a>
+, <a class="el" href="#a4f41eacedb4fa2744ba9f594b0832445a5d1f937d009d6f924b50b9e742ecc8ac">RetryCancel</a>
+, <a class="el" href="#a4f41eacedb4fa2744ba9f594b0832445a1150839156005b4c6153e3e530011a6f">CancelTryContinue</a>
+, <a class="el" href="#a4f41eacedb4fa2744ba9f594b0832445ace2feb7d8ab6fb9022ec4bf4995be3ab">OkHelp</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:a4f41eacedb4fa2744ba9f594b0832445"><td class="mdescLeft">&#160;</td><td class="mdescRight">Which buttons to show on a message box or dialog.  <a href="#a4f41eacedb4fa2744ba9f594b0832445">More...</a><br /></td></tr>
 <tr class="memitem:aa258d6860405ac17c387232bff26a6fa" id="r_aa258d6860405ac17c387232bff26a6fa"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#aa258d6860405ac17c387232bff26a6fa">MessageBoxIcon</a> { <br />
 &#160;&#160;<a class="el" href="#aa258d6860405ac17c387232bff26a6faa6adf97f83acf6453d4a6a4b1070f3754">None</a>
 , <a class="el" href="#aa258d6860405ac17c387232bff26a6faa902b0d55fddef6f8d651fe1035b7d4bd">Error</a>
@@ -169,8 +182,52 @@ Functions</h2></td></tr>
 <tr class="memdesc:af43dc4e8ee989cde743f42c1832a5ef0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bitwise XOR of two <a class="el" href="#aab7a6848d6656e7540fb1d6d72116e02" title="toy::platform::ui::Orientation">toy::platform::ui::Orientation</a> values.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="../../d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55a" title="Target operating system or platform identifier.">Platform</a> UI types: orientation, message box icon and return values, and related utilities. </p>
+<div class="textblock"><p><a class="el" href="../../d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55a" title="Target operating system or platform identifier.">Platform</a> UI: orientation, message box (icon, button set, return value), and related types. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#aab7a6848d6656e7540fb1d6d72116e02" title="Screen orientation for UI layout and device rotation.">toy::platform::ui::Orientation</a>, <a class="el" href="#aa258d6860405ac17c387232bff26a6fa" title="Icon shown in a message box or dialog.">toy::platform::ui::MessageBoxIcon</a>, <a class="el" href="#a4f41eacedb4fa2744ba9f594b0832445" title="Which buttons to show on a message box or dialog.">toy::platform::ui::MessageBoxButtons</a>, <a class="el" href="#acd712dd388168864cc984d43e23e41d2" title="User choice when dismissing a message box or dialog.">toy::platform::ui::MessageBoxReturn</a> </dd></dl>
 </div><a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Enumeration Type Documentation</h2>
+<a id="a4f41eacedb4fa2744ba9f594b0832445" name="a4f41eacedb4fa2744ba9f594b0832445"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f41eacedb4fa2744ba9f594b0832445">&#9670;&#160;</a></span>MessageBoxButtons</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#a4f41eacedb4fa2744ba9f594b0832445">toy::platform::ui::MessageBoxButtons</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Which buttons to show on a message box or dialog. </p>
+<p><a class="el" href="../../d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55a" title="Target operating system or platform identifier.">Platform</a> APIs take a value to configure the button set. Exact layout and labels are platform-dependent; use for branching after showing a message box together with <a class="el" href="#acd712dd388168864cc984d43e23e41d2" title="toy::platform::ui::MessageBoxReturn">toy::platform::ui::MessageBoxReturn</a>. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a4f41eacedb4fa2744ba9f594b0832445aa60852f204ed8028c1c58808b746d115" name="a4f41eacedb4fa2744ba9f594b0832445aa60852f204ed8028c1c58808b746d115"></a>Ok&#160;</td><td class="fielddoc"><p>Single OK button. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4f41eacedb4fa2744ba9f594b0832445a4b116999b87115628973f2e30b59fd08" name="a4f41eacedb4fa2744ba9f594b0832445a4b116999b87115628973f2e30b59fd08"></a>OkCancel&#160;</td><td class="fielddoc"><p>OK and Cancel. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4f41eacedb4fa2744ba9f594b0832445a080cccc8400ed0226bf270eadb078851" name="a4f41eacedb4fa2744ba9f594b0832445a080cccc8400ed0226bf270eadb078851"></a>AbortRetryIgnore&#160;</td><td class="fielddoc"><p>Abort, Retry, and Ignore. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4f41eacedb4fa2744ba9f594b0832445a71fc7b7aece69111c0b6967de4b101c5" name="a4f41eacedb4fa2744ba9f594b0832445a71fc7b7aece69111c0b6967de4b101c5"></a>YesNoCancel&#160;</td><td class="fielddoc"><p>Yes, No, and Cancel. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4f41eacedb4fa2744ba9f594b0832445ab65ffbcb4dcfb93ecdc257d6e4ba42c4" name="a4f41eacedb4fa2744ba9f594b0832445ab65ffbcb4dcfb93ecdc257d6e4ba42c4"></a>YesNo&#160;</td><td class="fielddoc"><p>Yes and No. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4f41eacedb4fa2744ba9f594b0832445a5d1f937d009d6f924b50b9e742ecc8ac" name="a4f41eacedb4fa2744ba9f594b0832445a5d1f937d009d6f924b50b9e742ecc8ac"></a>RetryCancel&#160;</td><td class="fielddoc"><p>Retry and Cancel. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4f41eacedb4fa2744ba9f594b0832445a1150839156005b4c6153e3e530011a6f" name="a4f41eacedb4fa2744ba9f594b0832445a1150839156005b4c6153e3e530011a6f"></a>CancelTryContinue&#160;</td><td class="fielddoc"><p>Cancel, Try Again, and Continue. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4f41eacedb4fa2744ba9f594b0832445ace2feb7d8ab6fb9022ec4bf4995be3ab" name="a4f41eacedb4fa2744ba9f594b0832445ace2feb7d8ab6fb9022ec4bf4995be3ab"></a>OkHelp&#160;</td><td class="fielddoc"><p>OK and Help. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 <a id="aa258d6860405ac17c387232bff26a6fa" name="aa258d6860405ac17c387232bff26a6fa"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa258d6860405ac17c387232bff26a6fa">&#9670;&#160;</a></span>MessageBoxIcon</h2>
 

@@ -12,8 +12,8 @@
 <g id="Node000001" class="node">
 <title>Node1</title>
 <g id="a_Node000001"><a xlink:title="Umbrella header for platform UI types.">
-<polygon fill="#999999" stroke="#666666" points="1759,-217 1629,-217 1629,-198 1759,-198 1759,-217"/>
-<text text-anchor="middle" x="1694" y="-205" font-family="Helvetica,sans-Serif" font-size="10.00">include/platform/ui.hpp</text>
+<polygon fill="#999999" stroke="#666666" points="1853,-217 1723,-217 1723,-198 1853,-198 1853,-217"/>
+<text text-anchor="middle" x="1788" y="-205" font-family="Helvetica,sans-Serif" font-size="10.00">include/platform/ui.hpp</text>
 </a>
 </g>
 </g>
@@ -30,17 +30,17 @@
 <g id="edge1_Node000001_Node000002" class="edge">
 <title>Node1&#45;&gt;Node2</title>
 <g id="a_edge1_Node000001_Node000002"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M1643.27,-198C1595.5,-189.85 1521.7,-176.89 1449.08,-162.36"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="1449.34,-158.84 1438.85,-160.3 1447.96,-165.7 1449.34,-158.84"/>
+<path fill="none" stroke="#63b8ff" d="M1723,-199.78C1656.4,-192.51 1549.69,-179.74 1448.87,-162.2"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="1449.27,-158.72 1438.82,-160.44 1448.06,-165.62 1449.27,-158.72"/>
 </a>
 </g>
 </g>
 <!-- Node43 -->
 <g id="Node000043" class="node">
 <title>Node43</title>
-<g id="a_Node000043"><a xlink:href="../../de/d20/message__box__icon_8hpp.html" target="_top" xlink:title="Icon type for message box / dialog.">
-<polygon fill="white" stroke="#666666" points="1599.5,-162 1456.5,-162 1456.5,-143 1599.5,-143 1599.5,-162"/>
-<text text-anchor="middle" x="1528" y="-150" font-family="Helvetica,sans-Serif" font-size="10.00">ui/message_box_icon.hpp</text>
+<g id="a_Node000043"><a xlink:href="../../d6/d4d/message__box__buttons_8hpp.html" target="_top" xlink:title="Button set configuration for message boxes / dialogs.">
+<polygon fill="white" stroke="#666666" points="1615.5,-162 1456.5,-162 1456.5,-143 1615.5,-143 1615.5,-162"/>
+<text text-anchor="middle" x="1536" y="-150" font-family="Helvetica,sans-Serif" font-size="10.00">ui/message_box_buttons.hpp</text>
 </a>
 </g>
 </g>
@@ -48,17 +48,17 @@
 <g id="edge47_Node000001_Node000043" class="edge">
 <title>Node1&#45;&gt;Node43</title>
 <g id="a_edge47_Node000001_Node000043"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M1667.33,-197.98C1639.46,-189.09 1595.55,-175.07 1564.48,-165.15"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="1565.47,-161.79 1554.88,-162.08 1563.34,-168.46 1565.47,-161.79"/>
+<path fill="none" stroke="#63b8ff" d="M1747.51,-197.98C1703.83,-188.8 1634.19,-174.15 1586.85,-164.19"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="1587.31,-160.72 1576.81,-162.08 1585.87,-167.57 1587.31,-160.72"/>
 </a>
 </g>
 </g>
 <!-- Node44 -->
 <g id="Node000044" class="node">
 <title>Node44</title>
-<g id="a_Node000044"><a xlink:href="../../d0/d68/message__box__return_8hpp.html" target="_top" xlink:title="Return value for message box / dialog interactions.">
-<polygon fill="white" stroke="#666666" points="1770,-162 1618,-162 1618,-143 1770,-143 1770,-162"/>
-<text text-anchor="middle" x="1694" y="-150" font-family="Helvetica,sans-Serif" font-size="10.00">ui/message_box_return.hpp</text>
+<g id="a_Node000044"><a xlink:href="../../de/d20/message__box__icon_8hpp.html" target="_top" xlink:title="Icon type for message box / dialog.">
+<polygon fill="white" stroke="#666666" points="1776.5,-162 1633.5,-162 1633.5,-143 1776.5,-143 1776.5,-162"/>
+<text text-anchor="middle" x="1705" y="-150" font-family="Helvetica,sans-Serif" font-size="10.00">ui/message_box_icon.hpp</text>
 </a>
 </g>
 </g>
@@ -66,17 +66,17 @@
 <g id="edge48_Node000001_Node000044" class="edge">
 <title>Node1&#45;&gt;Node44</title>
 <g id="a_edge48_Node000001_Node000044"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M1694,-197.75C1694,-190.8 1694,-180.85 1694,-172.13"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="1697.5,-172.09 1694,-162.09 1690.5,-172.09 1697.5,-172.09"/>
+<path fill="none" stroke="#63b8ff" d="M1774.66,-197.98C1761.91,-189.84 1742.45,-177.41 1727.33,-167.76"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="1728.89,-164.6 1718.58,-162.17 1725.12,-170.5 1728.89,-164.6"/>
 </a>
 </g>
 </g>
 <!-- Node45 -->
 <g id="Node000045" class="node">
 <title>Node45</title>
-<g id="a_Node000045"><a xlink:href="../../d0/d24/orientation_8hpp.html" target="_top" xlink:title="Screen orientation enumeration for UI layout and rotation handling.">
-<polygon fill="white" stroke="#666666" points="1891.5,-162 1788.5,-162 1788.5,-143 1891.5,-143 1891.5,-162"/>
-<text text-anchor="middle" x="1840" y="-150" font-family="Helvetica,sans-Serif" font-size="10.00">ui/orientation.hpp</text>
+<g id="a_Node000045"><a xlink:href="../../d0/d68/message__box__return_8hpp.html" target="_top" xlink:title="Return value for message box / dialog interactions.">
+<polygon fill="white" stroke="#666666" points="1947,-162 1795,-162 1795,-143 1947,-143 1947,-162"/>
+<text text-anchor="middle" x="1871" y="-150" font-family="Helvetica,sans-Serif" font-size="10.00">ui/message_box_return.hpp</text>
 </a>
 </g>
 </g>
@@ -84,17 +84,17 @@
 <g id="edge49_Node000001_Node000045" class="edge">
 <title>Node1&#45;&gt;Node45</title>
 <g id="a_edge49_Node000001_Node000045"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M1717.46,-197.98C1741.58,-189.23 1779.37,-175.51 1806.6,-165.62"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="1807.91,-168.87 1816.12,-162.17 1805.52,-162.29 1807.91,-168.87"/>
+<path fill="none" stroke="#63b8ff" d="M1801.34,-197.98C1814.09,-189.84 1833.55,-177.41 1848.67,-167.76"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="1850.88,-170.5 1857.42,-162.17 1847.11,-164.6 1850.88,-170.5"/>
 </a>
 </g>
 </g>
 <!-- Node46 -->
 <g id="Node000046" class="node">
 <title>Node46</title>
-<g id="a_Node000046"><a xlink:href="../../d8/d31/orientation_8inl.html" target="_top" xlink:title="Inline implementations for toy::platform::ui::Orientation.">
-<polygon fill="white" stroke="#666666" points="2006.5,-162 1909.5,-162 1909.5,-143 2006.5,-143 2006.5,-162"/>
-<text text-anchor="middle" x="1958" y="-150" font-family="Helvetica,sans-Serif" font-size="10.00">ui/orientation.inl</text>
+<g id="a_Node000046"><a xlink:href="../../d0/d24/orientation_8hpp.html" target="_top" xlink:title="Screen orientation enumeration for UI layout and rotation handling.">
+<polygon fill="white" stroke="#666666" points="2068.5,-162 1965.5,-162 1965.5,-143 2068.5,-143 2068.5,-162"/>
+<text text-anchor="middle" x="2017" y="-150" font-family="Helvetica,sans-Serif" font-size="10.00">ui/orientation.hpp</text>
 </a>
 </g>
 </g>
@@ -102,8 +102,26 @@
 <g id="edge50_Node000001_Node000046" class="edge">
 <title>Node1&#45;&gt;Node46</title>
 <g id="a_edge50_Node000001_Node000046"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M1736.42,-197.98C1782.37,-188.76 1855.75,-174.03 1905.35,-164.07"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="1906.14,-167.48 1915.25,-162.08 1904.76,-160.62 1906.14,-167.48"/>
+<path fill="none" stroke="#63b8ff" d="M1824.79,-197.98C1864.24,-188.86 1926.98,-174.33 1969.98,-164.38"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="1970.97,-167.75 1979.92,-162.08 1969.39,-160.93 1970.97,-167.75"/>
+</a>
+</g>
+</g>
+<!-- Node47 -->
+<g id="Node000047" class="node">
+<title>Node47</title>
+<g id="a_Node000047"><a xlink:href="../../d8/d31/orientation_8inl.html" target="_top" xlink:title="Inline implementations for toy::platform::ui::Orientation.">
+<polygon fill="white" stroke="#666666" points="2183.5,-162 2086.5,-162 2086.5,-143 2183.5,-143 2183.5,-162"/>
+<text text-anchor="middle" x="2135" y="-150" font-family="Helvetica,sans-Serif" font-size="10.00">ui/orientation.inl</text>
+</a>
+</g>
+</g>
+<!-- Node1&#45;&gt;Node47 -->
+<g id="edge51_Node000001_Node000047" class="edge">
+<title>Node1&#45;&gt;Node47</title>
+<g id="a_edge51_Node000001_Node000047"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M1843.75,-197.98C1907.49,-188.25 2011.37,-172.38 2076.31,-162.46"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="2077.03,-165.89 2086.39,-160.92 2075.98,-158.97 2077.03,-165.89"/>
 </a>
 </g>
 </g>

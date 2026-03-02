@@ -1,6 +1,16 @@
 var namespacetoy_1_1platform =
 [
     [ "ui", "d1/d03/namespacetoy_1_1platform_1_1ui.html", [
+      [ "MessageBoxButtons", "d1/d03/namespacetoy_1_1platform_1_1ui.html#a4f41eacedb4fa2744ba9f594b0832445", [
+        [ "Ok", "d1/d03/namespacetoy_1_1platform_1_1ui.html#a4f41eacedb4fa2744ba9f594b0832445aa60852f204ed8028c1c58808b746d115", null ],
+        [ "OkCancel", "d1/d03/namespacetoy_1_1platform_1_1ui.html#a4f41eacedb4fa2744ba9f594b0832445a4b116999b87115628973f2e30b59fd08", null ],
+        [ "AbortRetryIgnore", "d1/d03/namespacetoy_1_1platform_1_1ui.html#a4f41eacedb4fa2744ba9f594b0832445a080cccc8400ed0226bf270eadb078851", null ],
+        [ "YesNoCancel", "d1/d03/namespacetoy_1_1platform_1_1ui.html#a4f41eacedb4fa2744ba9f594b0832445a71fc7b7aece69111c0b6967de4b101c5", null ],
+        [ "YesNo", "d1/d03/namespacetoy_1_1platform_1_1ui.html#a4f41eacedb4fa2744ba9f594b0832445ab65ffbcb4dcfb93ecdc257d6e4ba42c4", null ],
+        [ "RetryCancel", "d1/d03/namespacetoy_1_1platform_1_1ui.html#a4f41eacedb4fa2744ba9f594b0832445a5d1f937d009d6f924b50b9e742ecc8ac", null ],
+        [ "CancelTryContinue", "d1/d03/namespacetoy_1_1platform_1_1ui.html#a4f41eacedb4fa2744ba9f594b0832445a1150839156005b4c6153e3e530011a6f", null ],
+        [ "OkHelp", "d1/d03/namespacetoy_1_1platform_1_1ui.html#a4f41eacedb4fa2744ba9f594b0832445ace2feb7d8ab6fb9022ec4bf4995be3ab", null ]
+      ] ],
       [ "MessageBoxIcon", "d1/d03/namespacetoy_1_1platform_1_1ui.html#aa258d6860405ac17c387232bff26a6fa", [
         [ "None", "d1/d03/namespacetoy_1_1platform_1_1ui.html#aa258d6860405ac17c387232bff26a6faa6adf97f83acf6453d4a6a4b1070f3754", null ],
         [ "Error", "d1/d03/namespacetoy_1_1platform_1_1ui.html#aa258d6860405ac17c387232bff26a6faa902b0d55fddef6f8d651fe1035b7d4bd", null ],
