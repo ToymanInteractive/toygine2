@@ -29,6 +29,7 @@
 #ifndef TEST_GBA_FILTERING_STREAM_BUF_HPP_
 #define TEST_GBA_FILTERING_STREAM_BUF_HPP_
 
+#include <cstddef>
 #include <iostream>
 #include <streambuf>
 
@@ -36,26 +37,35 @@
   \brief Filters ANSI escape sequences (CSI, including SGR color codes) so only plain text is forwarded to the
          underlying stream.
 
-  Filters \c ESC [... and SGR parameter sequences. Used for test output on GBA where ANSI is not supported.
+  Filters \c ESC [... and SGR parameter sequences. Output is line-buffered: filtered characters are accumulated in a
+  fixed buffer and written to the underlying stream on newline, when the buffer is full, or on sync().
+  Used for test output on GBA where ANSI is not supported.
 */
 class GbaFilteringStreamBuf final : public std::streambuf {
 protected:
-  /// Forwards character if not part of an ANSI sequence.
+  /// Accumulates character in line buffer; flushes on newline or buffer full.
   int_type overflow(int_type c) noexcept override;
 
-  /// Filters buffer and forwards plain text only.
+  /// Filters and accumulates buffer; flushes on newline or buffer full.
   std::streamsize xsputn(const char * s, std::streamsize n) noexcept override;
 
-  /// Flushes the underlying stream.
+  /// Flushes the line buffer to the underlying stream, then flushes the stream.
   int sync() noexcept override;
 
 private:
+  static constexpr std::size_t kLineBufferSize = 1024;
+
   /// FSM states for parsing ESC and CSI sequences.
   enum class State { Normal, Escape, Csi };
 
   State _state{State::Normal};
 
+  char _lineBuffer[kLineBufferSize];
+  std::size_t _lineBufferDataSize{0};
+
   [[nodiscard]] bool _shouldPass(int_type c) noexcept;
+
+  void _flushLine() noexcept;
 };
 
 #endif // TEST_GBA_FILTERING_STREAM_BUF_HPP_
