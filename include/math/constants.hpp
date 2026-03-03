@@ -25,20 +25,22 @@
   \ref toy::math::fixed. Values for built-in floating-point types come from the standard library; values for
   \ref toy::math::fixed come from \c std::numbers specializations in \c math/fixed_std_extension.hpp.
 
-  | Constant        | Description                  |
-  |-----------------|------------------------------|
-  | \c e_v          | The mathematical constant e. |
-  | \c pi_v         | The mathematical constant π. |
-  | \c log2e_v      | Base-2 logarithm of e.       |
-  | \c log10e_v     | Base-10 logarithm of e.      |
-  | \c sqrt2_v      | Square root of 2             |
-  | \c sqrt3_v      | Square root of 3             |
-  | \c inv_pi_v     | 1 over π.                    |
-  | \c inv_sqrtpi_v | 1 over square root of π.     |
-  | \c ln2_v        | Natural logarithm of 2.      |
-  | \c ln10_v       | Natural logarithm of 10.     |
-  | \c egamma_v     | Euler–Mascheroni constant γ. |
-  | \c phi_v        | Golden ratio Φ.              |
+  | Constant         | Description                     |
+  |------------------|---------------------------------|
+  | \c e_v           | The mathematical constant e.    |
+  | \c pi_v          | The mathematical constant π.    |
+  | \c log2e_v       | Base-2 logarithm of e.          |
+  | \c log10e_v      | Base-10 logarithm of e.         |
+  | \c sqrt2_v       | Square root of 2                |
+  | \c sqrt3_v       | Square root of 3.               |
+  | \c inv_pi_v      | 1 over π.                       |
+  | \c inv_sqrtpi_v  | 1 over square root of π.        |
+  | \c ln2_v         | Natural logarithm of 2.         |
+  | \c ln10_v        | Natural logarithm of 10.        |
+  | \c egamma_v      | Euler–Mascheroni constant γ.    |
+  | \c phi_v         | Golden ratio Φ.                 |
+  | \c rad_per_deg_v | π over 180 (radians per degree) |
+  | \c deg_per_rad_v | 180 over π (degrees per radian) |
 
   \sa https://en.cppreference.com/w/cpp/numeric/constants
 */
@@ -124,6 +126,14 @@ constexpr T egamma_v = std::numbers::egamma_v<T>;
 /// Golden ratio Φ.
 template <MathConstantType T>
 constexpr T phi_v = std::numbers::phi_v<T>;
+
+/// π over 180 (radians per degree).
+template <MathConstantType T>
+constexpr T rad_per_deg_v = static_cast<T>(std::numbers::pi_v<long double> / 180l);
+
+/// 180 over π (degrees per radian).
+template <MathConstantType T>
+constexpr T deg_per_rad_v = static_cast<T>(180l / std::numbers::pi_v<long double>);
 
 } // namespace constants
 

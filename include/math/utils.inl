@@ -81,6 +81,17 @@ constexpr bool isEqual(T a, T b, T absEpsilon, T relEpsilon) noexcept {
   return diff <= max(abs(a), abs(b)) * relEpsilon;
 }
 
+template <fixed_point T>
+constexpr bool isEqual(T a, T b, T absEpsilon, T relEpsilon) noexcept {
+  assert_message(absEpsilon >= T{0} && relEpsilon >= T{0}, "absolute and relative epsilon must be non-negative");
+
+  const T diff = abs(a - b);
+  if (diff <= absEpsilon)
+    return true;
+
+  return diff <= max(abs(a), abs(b)) * relEpsilon;
+}
+
 template <typename T>
   requires(floating_point<T> || fixed_point<T>)
 constexpr T deg2rad(T angle) noexcept {

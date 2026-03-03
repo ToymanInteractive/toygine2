@@ -84,6 +84,25 @@ template <floating_point T>
                                      T relEpsilon = 64 * numeric_limits<T>::epsilon()) noexcept;
 
 /*!
+  \brief Compares two fixed-point values for approximate equality.
+  \ingroup MathFunctions
+
+  Uses the same combined absolute and relative epsilon test as the floating-point overload: small values are compared by
+  absolute difference (\a absEpsilon), large values by relative difference (\a relEpsilon) scaled by max(|a|, |b|).
+  Applicable to any \ref toy::math::fixed_point type; defaults use \c numeric_limits<T>::epsilon() for \a T.
+
+  \param a          The first value.
+  \param b          The second value.
+  \param absEpsilon The maximum absolute difference treated as equal (default: 8× \c numeric_limits<T>::epsilon()).
+  \param relEpsilon The maximum relative difference (default: 64× \c numeric_limits<T>::epsilon()).
+
+  \return \c true if \a a and \a b are considered equal under the chosen tolerances, \c false otherwise.
+*/
+template <fixed_point T>
+[[nodiscard]] constexpr bool isEqual(T a, T b, T absEpsilon = 8 * numeric_limits<T>::epsilon(),
+                                     T relEpsilon = 64 * numeric_limits<T>::epsilon()) noexcept;
+
+/*!
   \brief Converts angle from degrees to radians.
   \ingroup MathFunctions
 
