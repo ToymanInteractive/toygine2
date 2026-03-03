@@ -129,11 +129,11 @@ constexpr T phi_v = std::numbers::phi_v<T>;
 
 /// π over 180 (radians per degree).
 template <MathConstantType T>
-constexpr T rad_per_deg_v = static_cast<T>(std::numbers::pi_v<long double> / 180l);
+constexpr T rad_per_deg_v = static_cast<T>(std::numbers::pi_v<long double> / 180.0L);
 
 /// 180 over π (degrees per radian).
 template <MathConstantType T>
-constexpr T deg_per_rad_v = static_cast<T>(180l / std::numbers::pi_v<long double>);
+constexpr T deg_per_rad_v = static_cast<T>(180.0L / std::numbers::pi_v<long double>);
 
 } // namespace constants
 
