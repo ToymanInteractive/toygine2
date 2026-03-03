@@ -19,21 +19,35 @@
 //
 /*!
   \file   gba_filtering_stream_buf.cpp
+  \brief  Implementation of GbaFilteringStreamBuf: ANSI escape filter for GBA test output.
 */
 
 #include "gba_filtering_stream_buf.hpp"
 
+namespace ansi_filter {
+
+constexpr std::streambuf::int_type kEsc = 0x1b;
+constexpr std::streambuf::int_type kCsiFinalMin = 0x40;
+constexpr std::streambuf::int_type kCsiFinalMax = 0x7E;
+
+} // namespace ansi_filter
+
 std::streambuf::int_type GbaFilteringStreamBuf::overflow(int_type c) noexcept {
   if (c != traits_type::eof()) {
     char ch = traits_type::to_char_type(c);
-    std::cout.put(ch);
+    if (_shouldPass(c))
+      std::cout.put(ch);
   }
 
   return c;
 }
 
 std::streamsize GbaFilteringStreamBuf::xsputn(const char * s, std::streamsize n) noexcept {
-  std::cout.write(s, n);
+  for (std::streamsize i = 0; i < n; ++i) {
+    int_type c = traits_type::to_int_type(static_cast<char_type>(s[i]));
+    if (_shouldPass(c))
+      std::cout.put(s[i]);
+  }
 
   return n;
 }
@@ -42,4 +56,40 @@ int GbaFilteringStreamBuf::sync() noexcept {
   std::cout.flush();
 
   return 0;
+}
+
+bool GbaFilteringStreamBuf::_shouldPass(int_type c) noexcept {
+  if (c == traits_type::eof())
+    return false;
+
+  switch (_state) {
+  case State::Escape:
+    if (c == '[') {
+      _state = State::Csi;
+
+      return false;
+    }
+
+    _state = State::Normal;
+
+    return true;
+
+  case State::Csi:
+    if (c >= ansi_filter::kCsiFinalMin && c <= ansi_filter::kCsiFinalMax)
+      _state = State::Normal;
+
+    return false;
+
+  case State::Normal:
+    if (c == ansi_filter::kEsc) {
+      _state = State::Escape;
+
+      return false;
+    }
+
+    return true;
+
+  default:
+    return true;
+  }
 }
