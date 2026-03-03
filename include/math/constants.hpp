@@ -25,22 +25,22 @@
   \ref toy::math::fixed. Values for built-in floating-point types come from the standard library; values for
   \ref toy::math::fixed come from \c std::numbers specializations in \c math/fixed_std_extension.hpp.
 
-  | Constant         | Description                     |
-  |------------------|---------------------------------|
-  | \c e_v           | The mathematical constant e.    |
-  | \c pi_v          | The mathematical constant π.    |
-  | \c log2e_v       | Base-2 logarithm of e.          |
-  | \c log10e_v      | Base-10 logarithm of e.         |
-  | \c sqrt2_v       | Square root of 2                |
-  | \c sqrt3_v       | Square root of 3.               |
-  | \c inv_pi_v      | 1 over π.                       |
-  | \c inv_sqrtpi_v  | 1 over square root of π.        |
-  | \c ln2_v         | Natural logarithm of 2.         |
-  | \c ln10_v        | Natural logarithm of 10.        |
-  | \c egamma_v      | Euler–Mascheroni constant γ.    |
-  | \c phi_v         | Golden ratio Φ.                 |
-  | \c rad_per_deg_v | π over 180 (radians per degree) |
-  | \c deg_per_rad_v | 180 over π (degrees per radian) |
+  | Constant         | Description                        |
+  |------------------|------------------------------------|
+  | \c e_v           | The mathematical constant e.       |
+  | \c pi_v          | The mathematical constant π.       |
+  | \c log2e_v       | Base-2 logarithm of e.             |
+  | \c log10e_v      | Base-10 logarithm of e.            |
+  | \c sqrt2_v       | Square root of \c 2                |
+  | \c sqrt3_v       | Square root of \c 3.               |
+  | \c inv_pi_v      | 1 over π.                          |
+  | \c inv_sqrtpi_v  | 1 over square root of π.           |
+  | \c ln2_v         | Natural logarithm of \c 2.         |
+  | \c ln10_v        | Natural logarithm of \c 10.        |
+  | \c egamma_v      | Euler–Mascheroni constant γ.       |
+  | \c phi_v         | Golden ratio Φ.                    |
+  | \c rad_per_deg_v | π over \c 180 (radians per degree) |
+  | \c deg_per_rad_v | \c 180 over π (degrees per radian) |
 
   \sa https://en.cppreference.com/w/cpp/numeric/constants
 */
