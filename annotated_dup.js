@@ -17,6 +17,9 @@ var annotated_dup =
         [ "Point", "d3/dce/classtoy_1_1math_1_1_point.html", "d3/dce/classtoy_1_1math_1_1_point" ],
         [ "Vector2D", "d9/d85/classtoy_1_1math_1_1_vector2_d.html", "d9/d85/classtoy_1_1math_1_1_vector2_d" ]
       ] ],
+      [ "network", "d6/d2c/namespacetoy_1_1network.html", [
+        [ "SocketStatistics", "df/d86/structtoy_1_1network_1_1_socket_statistics.html", "df/d86/structtoy_1_1network_1_1_socket_statistics" ]
+      ] ],
       [ "_divmod10", "d9/d10/structtoy_1_1__divmod10.html", "d9/d10/structtoy_1_1__divmod10" ],
       [ "CStringView", "d5/d03/classtoy_1_1_c_string_view.html", "d5/d03/classtoy_1_1_c_string_view" ],
       [ "CallbacksPool", "d8/dc9/classtoy_1_1_callbacks_pool.html", "d8/dc9/classtoy_1_1_callbacks_pool" ],

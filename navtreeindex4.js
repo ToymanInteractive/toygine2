@@ -1,5 +1,7 @@
 var NAVTREEINDEX4 =
 {
+"dd/d5c/classtoy_1_1math_1_1fixed.html#ad778f046de6593aa218f230a048b1d86":[3,0,1,2,1,15],
+"dd/d5c/classtoy_1_1math_1_1fixed.html#ad778f046de6593aa218f230a048b1d86":[5,0,1,2,0,15],
 "dd/d5c/classtoy_1_1math_1_1fixed.html#ae3eac34801c31fa5b33b82ef0fb1f5f9":[3,0,1,2,1,19],
 "dd/d5c/classtoy_1_1math_1_1fixed.html#ae3eac34801c31fa5b33b82ef0fb1f5f9":[5,0,1,2,0,19],
 "dd/d5c/classtoy_1_1math_1_1fixed.html#ae66dab135e7d69d49a3f49a201851847":[3,0,1,2,1,26],
@@ -125,6 +127,12 @@ var NAVTREEINDEX4 =
 "df/d81/md__a_g_e_n_t_s.html#unit-test-style-rules":[1,13],
 "df/d81/md__a_g_e_n_t_s.html#using-over-typedef":[1,7,2],
 "df/d81/md__a_g_e_n_t_s.html#value-based-assertions":[1,19],
+"df/d86/structtoy_1_1network_1_1_socket_statistics.html":[3,0,1,3,0],
+"df/d86/structtoy_1_1network_1_1_socket_statistics.html":[5,0,1,3,0],
+"df/d86/structtoy_1_1network_1_1_socket_statistics.html#a2c4c0e28d01df55670efc539774de999":[3,0,1,3,0,1],
+"df/d86/structtoy_1_1network_1_1_socket_statistics.html#a2c4c0e28d01df55670efc539774de999":[5,0,1,3,0,1],
+"df/d86/structtoy_1_1network_1_1_socket_statistics.html#a3c3c99231dc867832329d1e75aab25a5":[3,0,1,3,0,0],
+"df/d86/structtoy_1_1network_1_1_socket_statistics.html#a3c3c99231dc867832329d1e75aab25a5":[5,0,1,3,0,0],
 "df/d8d/namespacetoy_1_1render.html":[3,0,1,5],
 "df/d8d/namespacetoy_1_1render.html#a5845b0dbc8efa2c63123f900399053ae":[3,0,1,5,3],
 "df/d8d/namespacetoy_1_1render.html#a5bf45a61b0453bcf4b936e835cf76371":[3,0,1,5,4],
@@ -241,13 +249,5 @@ var NAVTREEINDEX4 =
 "globals.html":[6,1,0],
 "globals_defs.html":[6,1,1],
 "hierarchy.html":[5,2],
-"index.html":[],
-"index.html#supported-c-compilers":[0,0],
-"index.html#supported-systems":[0],
-"index.html#tools":[0,1],
-"namespacemembers.html":[3,1,0],
-"namespacemembers_enum.html":[3,1,4],
-"namespacemembers_func.html":[3,1,1],
-"namespacemembers_type.html":[3,1,3],
-"namespacemembers_vars.html":[3,1,2]
+"index.html":[]
 };

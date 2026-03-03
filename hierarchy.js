@@ -25,6 +25,7 @@ var hierarchy =
     [ "toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt;::RawConstructorTag", "dd/d3d/classtoy_1_1math_1_1fixed_1_1_raw_constructor_tag.html", null ],
     [ "toy::math::Point", "d3/dce/classtoy_1_1math_1_1_point.html", null ],
     [ "toy::math::Vector2D", "d9/d85/classtoy_1_1math_1_1_vector2_d.html", null ],
+    [ "toy::network::SocketStatistics", "df/d86/structtoy_1_1network_1_1_socket_statistics.html", null ],
     [ "toy::OStringStream&lt; StringType &gt;", "d7/d15/classtoy_1_1_o_string_stream.html", null ],
     [ "true_type", null, [
       [ "toy::math::is_fixed_point< fixed< Base, Intermediate, Fraction, Rounding > >", "df/de5/structtoy_1_1math_1_1is__fixed__point_3_01fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html", null ]

@@ -9,5 +9,7 @@ var searchData=
   ['block_20style_6',['Doxygen Block Style',['../df/d81/md__a_g_e_n_t_s.html#doxygen-block-style',1,'']]],
   ['braces_7',['Braces',['../df/d81/md__a_g_e_n_t_s.html#braces',1,'']]],
   ['broadcast_8',['Broadcast',['../d6/d2c/namespacetoy_1_1network.html#af5b032f86c2c00ee1f7c873271b57abfabe55b6387170df0ca68f41225268e842',1,'toy::network']]],
-  ['buffer_9',['buffer',['../d5/d3b/structtoy_1_1_fixed_string_storage.html#addbaaa07f3ec92ff02f36411920f040f',1,'toy::FixedStringStorage']]]
+  ['buffer_9',['buffer',['../d5/d3b/structtoy_1_1_fixed_string_storage.html#addbaaa07f3ec92ff02f36411920f040f',1,'toy::FixedStringStorage']]],
+  ['bytesreceived_10',['bytesReceived',['../df/d86/structtoy_1_1network_1_1_socket_statistics.html#a3c3c99231dc867832329d1e75aab25a5',1,'toy::network::SocketStatistics']]],
+  ['bytessent_11',['bytesSent',['../df/d86/structtoy_1_1network_1_1_socket_statistics.html#a2c4c0e28d01df55670efc539774de999',1,'toy::network::SocketStatistics']]]
 ];

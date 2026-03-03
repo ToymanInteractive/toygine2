@@ -112,6 +112,8 @@ var NAVTREEINDEX1 =
 "d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#af7d651a5a22b4bcafa92a8df141a55b3":[5,0,0,0,6],
 "d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#afd4bd4aa4395324969e56e7cbb743058":[3,0,0,1,29],
 "d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#afd4bd4aa4395324969e56e7cbb743058":[5,0,0,0,29],
+"d4/d5f/socket__statistics_8hpp.html":[6,0,0,7,3],
+"d4/d5f/socket__statistics_8hpp_source.html":[6,0,0,7,3],
 "d4/d6e/group___string.html":[2,1],
 "d4/d78/math_8hpp.html":[6,0,0,16],
 "d4/d78/math_8hpp_source.html":[6,0,0,16],
@@ -247,7 +249,5 @@ var NAVTREEINDEX1 =
 "d5/d03/classtoy_1_1_c_string_view.html#aa768a7b7f720466490f0ff8db015b605":[2,1,1,59],
 "d5/d03/classtoy_1_1_c_string_view.html#aad95e80a56dc5edd7b1fa6158175163b":[2,1,1,45],
 "d5/d03/classtoy_1_1_c_string_view.html#ab53650610cda4e34ef495396d81c846e":[2,1,1,16],
-"d5/d03/classtoy_1_1_c_string_view.html#ab799b965b3feaa3c80dc38e6296744e5":[2,1,1,62],
-"d5/d03/classtoy_1_1_c_string_view.html#abc21bf7f8e4d58c5a5834e16bba65208":[2,1,1,48],
-"d5/d03/classtoy_1_1_c_string_view.html#abda51f62f9b4d536e8491f89c7eae7da":[2,1,1,18]
+"d5/d03/classtoy_1_1_c_string_view.html#ab799b965b3feaa3c80dc38e6296744e5":[2,1,1,62]
 };
