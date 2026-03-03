@@ -33,29 +33,38 @@ constexpr std::streambuf::int_type kCsiFinalMax = 0x7E;
 } // namespace ansi_filter
 
 std::streambuf::int_type GbaFilteringStreamBuf::overflow(int_type c) noexcept {
-  if (c != traits_type::eof()) {
-    char ch = traits_type::to_char_type(c);
-    if (_shouldPass(c))
-      std::cout.put(ch);
+  if (traits_type::eq_int_type(c, traits_type::eof()))
+    return traits_type::not_eof(c);
+
+  if (_shouldPass(c)) {
+    std::cout.put(traits_type::to_char_type(c));
+    if (!std::cout)
+      return traits_type::eof();
   }
 
-  return c;
+  return traits_type::not_eof(c);
 }
 
 std::streamsize GbaFilteringStreamBuf::xsputn(const char * s, std::streamsize n) noexcept {
+  std::streamsize processed = 0;
+
   for (std::streamsize i = 0; i < n; ++i) {
     int_type c = traits_type::to_int_type(static_cast<char_type>(s[i]));
-    if (_shouldPass(c))
+    if (_shouldPass(c)) {
       std::cout.put(s[i]);
+      if (!std::cout)
+        return processed;
+    }
+    ++processed;
   }
 
-  return n;
+  return processed;
 }
 
 int GbaFilteringStreamBuf::sync() noexcept {
   std::cout.flush();
 
-  return 0;
+  return std::cout ? 0 : -1;
 }
 
 bool GbaFilteringStreamBuf::_shouldPass(int_type c) noexcept {
