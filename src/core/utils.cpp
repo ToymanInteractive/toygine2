@@ -391,7 +391,7 @@ wchar_t * utf8toWChar(wchar_t * dest, size_t destSize, const char * src, size_t 
         return dest;
       }
 
-      codePoint = (codePoint << 6) | std::to_integer<wchar_t>(cont & std::byte{0x3F});
+      codePoint = static_cast<wchar_t>((codePoint << 6) | std::to_integer<wchar_t>(cont & std::byte{0x3F}));
     }
 
     *destPointer++ = codePoint;
