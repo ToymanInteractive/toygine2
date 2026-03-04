@@ -31,8 +31,6 @@
   \defgroup MathFunctions Common mathematical functions
   \brief Math utilities, fixed-point arithmetic, and related types.
 
-  Includes the general math utilities from \ref toy::math (see \c math/utils.hpp):
-
   - **abs**: Absolute value for signed integers, floating-point (\c float, \c double, \c long \c double), and
     \ref toy::math::fixed; branch-free for integral and common float types where applicable.
   - **isEqual**: Approximate equality with configurable absolute and relative epsilon (default 8× and 64×
@@ -41,13 +39,11 @@
 
   \section features Key Features
 
-  - **Constexpr Support**: Available where logically feasible.
-  - **Exception Safety**: Uses \c noexcept operations.
-  - **Type Safety**: Enforced through C++20 concepts.
+  - **Constexpr support**: Available where logically feasible.
+  - **Exception safety**: Uses \c noexcept operations.
+  - **Type safety**: Enforced through C++20 concepts.
   - **Allocation-Free Core Types**: No dynamic allocation in core math types.
 */
-
-//--------------------------------------------------------------------------------------------------------------------
 
 namespace toy::math {
 

@@ -126,8 +126,16 @@ void assertion(const char * code, const char * message, const char * fileName, c
   \brief No-op in release builds; provided so call sites compile without \c _DEBUG.
 
   Parameters are unused. The call is optimized away.
+
+  \param code         Assertion expression as string (e.g. "x != nullptr").
+  \param message      Optional message or \c nullptr.
+  \param fileName     Source file where the assertion failed.
+  \param functionName Function name where the assertion failed.
+  \param lineNumber   Source line number.
 */
-inline void assertion(const char *, const char *, const char *, const char *, size_t) {
+inline void assertion([[maybe_unused]] const char * code, [[maybe_unused]] const char * message,
+                      [[maybe_unused]] const char * fileName, [[maybe_unused]] const char * functionName,
+                      [[maybe_unused]] size_t lineNumber) {
   // Intentionally empty - no-op in release builds
 }
 

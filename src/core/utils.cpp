@@ -372,7 +372,7 @@ wchar_t * utf8toWChar(wchar_t * dest, size_t destSize, const char * const src, s
         size_t charBytes = 0;
         while ((symbol & 0x80) != 0) {
           ++charBytes;
-          symbol <<= 1;
+          symbol = static_cast<uint8_t>(symbol << 1);
         }
 
         auto unicodeChar = static_cast<wchar_t>(symbol >> charBytes);
