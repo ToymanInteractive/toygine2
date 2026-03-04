@@ -24,10 +24,8 @@
 
 namespace toy::math {
 
-using Fixed = fixed<int32_t, int64_t, 8>;
-using FixedNoRounding = fixed<int32_t, int64_t, 8, false>;
-using Fixed4 = fixed<int32_t, int64_t, 4>;
-using Fixed16 = fixed<int32_t, int64_t, 16>;
+using Fixed = fixed<int32_t, int32_t, 16>;
+using FixedNoRounding = fixed<int32_t, int32_t, 16, false>;
 
 // numeric_limits specialization for fixed.
 TEST_CASE("math/fixed/numeric_limits") {
@@ -65,8 +63,8 @@ TEST_CASE("math/fixed/numeric_limits") {
     static_assert(numeric_limits<Fixed>::radix == 2, "radix must be 2");
     static_assert(numeric_limits<Fixed>::digits == 31, "digits for int32_t 8 frac is 31");
     static_assert(numeric_limits<Fixed>::digits10 == 9,
-                  "digits10 for fixed<int32_t,int64_t,8> must be floor(31 * log10(2)) = 9");
-    static_assert(numeric_limits<Fixed>::max_digits10 == 10, "max_digits10 for fixed<int32_t,int64_t,8> must be 10");
+                  "digits10 for fixed<int32_t,int32_t,16> must be floor(31 * log10(2)) = 9");
+    static_assert(numeric_limits<Fixed>::max_digits10 == 10, "max_digits10 for fixed<int32_t,int32_t,16> must be 10");
   }
 
   // min, max, lowest.
@@ -90,19 +88,19 @@ TEST_CASE("math/fixed/numeric_limits") {
     constexpr auto roundErr = numeric_limits<Fixed>::round_error();
 
     REQUIRE(eps.rawValue() == 1);
-    REQUIRE(roundErr.rawValue() == 128);
+    REQUIRE(roundErr.rawValue() == 32768);
 
     static_assert(eps.rawValue() == 1, "epsilon is 1 LSB");
-    static_assert(roundErr.rawValue() == 128, "round_error is 0.5 in raw units for Rounding true");
+    static_assert(roundErr.rawValue() == 32768, "round_error is 0.5 in raw units for Rounding true");
   }
 
   // round_error for FixedNoRounding returns 1.0 (raw 256).
   SUBCASE("round_error_no_rounding") {
     constexpr auto roundErr = numeric_limits<FixedNoRounding>::round_error();
 
-    REQUIRE(roundErr.rawValue() == 256);
+    REQUIRE(roundErr.rawValue() == 65536);
 
-    static_assert(roundErr.rawValue() == 256, "round_error must be 1.0 when Rounding is false");
+    static_assert(roundErr.rawValue() == 65536, "round_error must be 1.0 when Rounding is false");
   }
 
   // round_style: round_to_nearest for Fixed, round_toward_zero for FixedNoRounding.
@@ -118,13 +116,13 @@ TEST_CASE("math/fixed/numeric_limits") {
 
   // Exponent range: min_exponent, max_exponent, min_exponent10, max_exponent10.
   SUBCASE("exponent_range") {
-    REQUIRE(numeric_limits<Fixed>::min_exponent == 1 - 8);
-    REQUIRE(numeric_limits<Fixed>::max_exponent == 31 - 8);
+    REQUIRE(numeric_limits<Fixed>::min_exponent == 1 - 16);
+    REQUIRE(numeric_limits<Fixed>::max_exponent == 31 - 16);
     REQUIRE(numeric_limits<Fixed>::min_exponent10 <= 0);
     REQUIRE(numeric_limits<Fixed>::max_exponent10 >= 0);
 
-    static_assert(numeric_limits<Fixed>::min_exponent == 1 - 8, "min_exponent is 1 - Fraction");
-    static_assert(numeric_limits<Fixed>::max_exponent == 31 - 8, "max_exponent is digits - Fraction");
+    static_assert(numeric_limits<Fixed>::min_exponent == 1 - 16, "min_exponent is 1 - Fraction");
+    static_assert(numeric_limits<Fixed>::max_exponent == 31 - 16, "max_exponent is digits - Fraction");
     static_assert(numeric_limits<Fixed>::min_exponent10 <= 0,
                   "min_exponent10 must be non-positive for fractional resolution");
     static_assert(numeric_limits<Fixed>::max_exponent10 >= 0, "max_exponent10 must be non-negative for integer part");
@@ -178,16 +176,16 @@ TEST_CASE("math/fixed_std_extension/numbers_constants") {
   SUBCASE("e_pi_near_std") {
     constexpr double kTolerance = 1.0 / 256.0;
 
-    const double eDouble = static_cast<double>(std::numbers::e_v<Fixed>);
-    const double piDouble = static_cast<double>(std::numbers::pi_v<Fixed>);
+    const auto eDouble = static_cast<double>(std::numbers::e_v<Fixed>);
+    const auto piDouble = static_cast<double>(std::numbers::pi_v<Fixed>);
 
     REQUIRE(eDouble > 2.0);
     REQUIRE(eDouble < 3.5);
-    REQUIRE(std::abs(eDouble - std::numbers::e_v<double>) < kTolerance);
+    REQUIRE(abs(eDouble - std::numbers::e_v<double>) < kTolerance);
 
     REQUIRE(piDouble > 3.0);
     REQUIRE(piDouble < 3.5);
-    REQUIRE(std::abs(piDouble - std::numbers::pi_v<double>) < kTolerance);
+    REQUIRE(abs(piDouble - std::numbers::pi_v<double>) < kTolerance);
   }
 
   // All 12 constants instantiate for Fixed and FixedNoRounding and are non-zero where expected.

@@ -80,33 +80,6 @@ using real_t = float;
 
 //--------------------------------------------------------------------------------------------------------------------
 
-/*!
-  \defgroup MathFunctions Common mathematical functions
-  \brief Mathematical functions, fixed-point arithmetic, and numeric utilities.
-
-  Includes the general math utilities from \ref toy::math (see \c math/utils.hpp):
-
-  - **abs**: Absolute value for signed integers, floating-point (\c float, \c double, \c long \c double), and
-    \ref toy::math::fixed; branch-free where applicable.
-  - **isEqual**: Approximate equality for two floating-point values with configurable absolute and relative epsilon
-    (default 8× and 64× machine epsilon); supports \c float, \c double, \c long \c double.
-  - **deg2rad**, **rad2deg**: Angle conversion (degrees ↔ radians) for floating-point and \ref toy::math::fixed;
-    use \ref toy::math::constants (e.g. \c constants::pi_v) for the conversion factor.
-
-  Also in this group: \ref toy::math::fixed, \ref toy::math::ValidFixedPointTypes, \ref toy::math::fixed_point;
-  mathematical constants in \ref toy::math::constants (\c pi_v, \c e_v, etc.) for \ref toy::math::fixed_point and
-  standard floating-point types; \ref toy::math::Vector2D, \ref toy::math::real_t.
-
-  \section features Key Features
-
-  - **Constexpr Support**: Available where logically feasible.
-  - **Exception Safety**: Uses \c noexcept operations.
-  - **Type Safety**: Enforced through C++20 concepts.
-  - **Allocation-Free Core Types**: No dynamic allocation in core math types.
-*/
-
-//--------------------------------------------------------------------------------------------------------------------
-
 #include "math/constants.hpp"
 #include "math/fixed.hpp"
 #include "math/fixed_std_extension.hpp"

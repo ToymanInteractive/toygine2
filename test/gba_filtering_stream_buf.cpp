@@ -33,14 +33,19 @@ constexpr std::streambuf::int_type kCsiFinalMax = 0x7E;
 } // namespace ansi_filter
 
 std::streambuf::int_type GbaFilteringStreamBuf::overflow(int_type c) noexcept {
-  if (traits_type::eq_int_type(c, traits_type::eof()))
+  if (traits_type::eq_int_type(c, traits_type::eof()) || !_shouldPass(c))
     return traits_type::not_eof(c);
 
-  if (_shouldPass(c)) {
-    std::cout.put(traits_type::to_char_type(c));
-    if (!std::cout)
-      return traits_type::eof();
-  }
+  if (_lineBufferDataSize == kLineBufferSize)
+    _flushLine();
+
+  _lineBuffer[_lineBufferDataSize++] = traits_type::to_char_type(c);
+
+  if (c == traits_type::to_int_type('\n'))
+    _flushLine();
+
+  if (!std::cout)
+    return traits_type::eof();
 
   return traits_type::not_eof(c);
 }
@@ -49,9 +54,15 @@ std::streamsize GbaFilteringStreamBuf::xsputn(const char * s, std::streamsize n)
   std::streamsize processed = 0;
 
   for (std::streamsize i = 0; i < n; ++i) {
-    int_type c = traits_type::to_int_type(static_cast<char_type>(s[i]));
-    if (_shouldPass(c)) {
-      std::cout.put(s[i]);
+    if (const auto c = traits_type::to_int_type(s[i]); _shouldPass(c)) {
+      if (_lineBufferDataSize == kLineBufferSize)
+        _flushLine();
+
+      _lineBuffer[_lineBufferDataSize++] = s[i];
+
+      if (c == traits_type::to_int_type('\n'))
+        _flushLine();
+
       if (!std::cout)
         return processed;
     }
@@ -62,6 +73,8 @@ std::streamsize GbaFilteringStreamBuf::xsputn(const char * s, std::streamsize n)
 }
 
 int GbaFilteringStreamBuf::sync() noexcept {
+  _flushLine();
+
   std::cout.flush();
 
   return std::cout ? 0 : -1;
@@ -101,4 +114,13 @@ bool GbaFilteringStreamBuf::_shouldPass(int_type c) noexcept {
   default:
     return true;
   }
+}
+
+void GbaFilteringStreamBuf::_flushLine() noexcept {
+  if (_lineBufferDataSize == 0)
+    return;
+
+  std::cout.write(_lineBuffer, static_cast<std::streamsize>(_lineBufferDataSize));
+
+  _lineBufferDataSize = 0;
 }

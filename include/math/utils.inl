@@ -68,7 +68,7 @@ constexpr T abs(const T & value) noexcept {
 }
 
 template <floating_point T>
-constexpr bool isEqual(T a, T b, T absEpsilon, T relEpsilon) noexcept {
+constexpr bool isEqual(const T & a, const T & b, T absEpsilon, T relEpsilon) noexcept {
   assert_message(absEpsilon >= T{0} && relEpsilon >= T{0}, "absolute and relative epsilon must be non-negative");
   if !consteval {
     assert_message(!isnan(a) && !isnan(b), "isEqual() does not support NaN values");
@@ -81,15 +81,26 @@ constexpr bool isEqual(T a, T b, T absEpsilon, T relEpsilon) noexcept {
   return diff <= max(abs(a), abs(b)) * relEpsilon;
 }
 
+template <fixed_point T>
+constexpr bool isEqual(const T & a, const T & b, T absEpsilon, T relEpsilon) noexcept {
+  assert_message(absEpsilon >= T{0} && relEpsilon >= T{0}, "absolute and relative epsilon must be non-negative");
+
+  const T diff = abs(a - b);
+  if (diff <= absEpsilon)
+    return true;
+
+  return diff <= max(abs(a), abs(b)) * relEpsilon;
+}
+
 template <typename T>
   requires(floating_point<T> || fixed_point<T>)
-constexpr T deg2rad(T angle) noexcept {
+constexpr T deg2rad(const T & angle) noexcept {
   return angle * constants::pi_v<T> / 180;
 }
 
 template <typename T>
   requires(floating_point<T> || fixed_point<T>)
-constexpr T rad2deg(T angle) noexcept {
+constexpr T rad2deg(const T & angle) noexcept {
   return angle * 180 / constants::pi_v<T>;
 }
 
