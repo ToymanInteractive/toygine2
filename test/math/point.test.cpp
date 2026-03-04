@@ -34,7 +34,7 @@ TEST_CASE("math/point/object_structure") {
 
   REQUIRE(arr == &point.x);
   REQUIRE(arr + 1 == &point.y);
-  REQUIRE(reinterpret_cast<const std::byte *>(arr + 1) - reinterpret_cast<const std::byte *>(arr) == sizeof(int32_t));
+  REQUIRE(reinterpret_cast<const byte *>(arr + 1) - reinterpret_cast<const byte *>(arr) == sizeof(int32_t));
 }
 
 // Default, coordinate, and array constructors.

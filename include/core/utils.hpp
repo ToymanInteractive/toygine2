@@ -76,7 +76,7 @@ constexpr size_t wcharInUtf8MaxSize = 3;
 
   \post On success, \a dest is null-terminated. On overflow or invalid input, returns \c nullptr.
 */
-wchar_t * utf8toWChar(wchar_t * dest, size_t destSize, const char * const src, size_t count) noexcept;
+wchar_t * utf8toWChar(wchar_t * dest, size_t destSize, const char * src, size_t count) noexcept;
 
 /*!
   \brief Converts a UTF-8 C string to a wide-character string (full source length).
@@ -97,7 +97,7 @@ wchar_t * utf8toWChar(wchar_t * dest, size_t destSize, const char * const src, s
 
   \sa utf8toWChar(dest, destSize, src, count)
 */
-constexpr wchar_t * utf8toWChar(wchar_t * dest, size_t destSize, const char * const src) noexcept;
+constexpr wchar_t * utf8toWChar(wchar_t * dest, size_t destSize, const char * src) noexcept;
 
 /*!
   \brief Converts a UTF-8 \ref toy::StringLike object to a wide-character string.

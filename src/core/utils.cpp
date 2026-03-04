@@ -356,7 +356,7 @@ void _floatPostProcess(char * dest, char * srcBuffer, size_t bufferSize, int32_t
   *outputPointer = '\0';
 }
 
-wchar_t * utf8toWChar(wchar_t * dest, size_t destSize, const char * const src, size_t count) noexcept {
+wchar_t * utf8toWChar(wchar_t * dest, size_t destSize, const char * src, size_t count) noexcept {
   if (dest == nullptr || destSize == 0)
     return nullptr;
 
@@ -366,13 +366,14 @@ wchar_t * utf8toWChar(wchar_t * dest, size_t destSize, const char * const src, s
     size_t srcIterator = 0;
 
     while (srcIterator < count && destPointer < unicodeEndPos) {
-      if (auto symbol = static_cast<uint8_t>(src[srcIterator++]); symbol <= 0x7F) {
-        *destPointer = symbol;
+      if (const auto symbol = static_cast<byte>(src[srcIterator++]); std::to_integer<uint8_t>(symbol) <= 0x7F) {
+        *destPointer = std::to_integer<wchar_t>(symbol);
       } else {
         size_t charBytes = 0;
-        while ((symbol & 0x80) != 0) {
+        byte byteVal = symbol;
+        while ((byteVal & byte{0x80}) != byte{0}) {
           ++charBytes;
-          symbol = static_cast<uint8_t>(symbol << 1);
+          byteVal = byteVal << 1;
         }
 
         if (charBytes <= 1 || srcIterator + (charBytes - 1) > count) {
@@ -381,17 +382,17 @@ wchar_t * utf8toWChar(wchar_t * dest, size_t destSize, const char * const src, s
           return nullptr;
         }
 
-        auto unicodeChar = static_cast<wchar_t>(symbol >> charBytes);
+        auto unicodeChar = std::to_integer<wchar_t>(symbol >> charBytes);
         while (charBytes-- > 1) {
-          const auto continuation = static_cast<uint8_t>(src[srcIterator++]);
-          if ((continuation & 0xC0) != 0x80) {
+          const auto continuation = static_cast<byte>(src[srcIterator++]);
+          if ((continuation & byte{0xC0}) != byte{0x80}) {
             *destPointer = L'\0';
 
             return nullptr;
           }
 
           unicodeChar <<= 6;
-          unicodeChar |= continuation & 0x3F;
+          unicodeChar |= std::to_integer<wchar_t>(continuation & byte{0x3F});
         }
 
         *destPointer = unicodeChar;

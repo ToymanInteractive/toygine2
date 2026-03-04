@@ -34,7 +34,7 @@ TEST_CASE("math/vector2d/object_structure") {
 
   REQUIRE(arr == &vector.x);
   REQUIRE(arr + 1 == &vector.y);
-  REQUIRE(reinterpret_cast<const std::byte *>(arr + 1) - reinterpret_cast<const std::byte *>(arr) == sizeof(real_t));
+  REQUIRE(reinterpret_cast<const byte *>(arr + 1) - reinterpret_cast<const byte *>(arr) == sizeof(real_t));
 }
 
 // Default, coordinate, and array constructors.

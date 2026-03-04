@@ -803,7 +803,7 @@ private:
   static_assert(allocatedSize > 0, "FixedVector capacity must be greater than zero.");
 
   /// Internal buffer for storing elements.
-  std::byte _data[allocatedSize * sizeof(type)];
+  byte _data[allocatedSize * sizeof(type)];
 
   /// Current number of elements in the vector.
   size_type _size = 0;
