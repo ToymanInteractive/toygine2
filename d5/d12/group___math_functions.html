@@ -114,7 +114,7 @@ $(function(){initNavTree('d5/d12/group___math_functions.html','../../',''); });
 </div><!--header-->
 <div class="contents">
 
-<p>Mathematical functions, fixed-point arithmetic, and numeric utilities.  
+<p>Math utilities, fixed-point arithmetic, and related types.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
@@ -122,25 +122,24 @@ Functions</h2></td></tr>
 <tr class="memitem:ga00391a62294376916bf5df2d9b9ae00c" id="r_ga00391a62294376916bf5df2d9b9ae00c"><td class="memTemplParams" colspan="2">template&lt;signed_integral T&gt; </td></tr>
 <tr class="memitem:ga00391a62294376916bf5df2d9b9ae00c template"><td class="memItemLeft">constexpr T&#160;</td><td class="memItemRight"><a class="el" href="#ga00391a62294376916bf5df2d9b9ae00c">toy::math::abs</a> (const T &amp;value) noexcept</td></tr>
 <tr class="memdesc:ga00391a62294376916bf5df2d9b9ae00c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the absolute value of a signed integer.  <br /></td></tr>
-<tr class="memitem:ga87de74562ad3760848978f298c4bd505" id="r_ga87de74562ad3760848978f298c4bd505"><td class="memTemplParams" colspan="2">template&lt;floating_point T&gt; </td></tr>
-<tr class="memitem:ga87de74562ad3760848978f298c4bd505 template"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#ga87de74562ad3760848978f298c4bd505">toy::math::isEqual</a> (T a, T b, T absEpsilon=8 *<a class="el" href="../../db/dc2/classnumeric__limits.html">numeric_limits</a>&lt; T &gt;::epsilon(), T relEpsilon=64 *<a class="el" href="../../db/dc2/classnumeric__limits.html">numeric_limits</a>&lt; T &gt;::epsilon()) noexcept</td></tr>
-<tr class="memdesc:ga87de74562ad3760848978f298c4bd505"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares two floating-point values for approximate equality.  <br /></td></tr>
-<tr class="memitem:gab57f825520a446db045607567ead63ae" id="r_gab57f825520a446db045607567ead63ae"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
-<tr class="memitem:gab57f825520a446db045607567ead63ae template"><td class="memItemLeft">constexpr T&#160;</td><td class="memItemRight"><a class="el" href="#gab57f825520a446db045607567ead63ae">toy::math::deg2rad</a> (T angle) noexcept</td></tr>
-<tr class="memdesc:gab57f825520a446db045607567ead63ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts angle from degrees to radians.  <br /></td></tr>
-<tr class="memitem:gab2df9ff2e4f2067d2694fabf929380e6" id="r_gab2df9ff2e4f2067d2694fabf929380e6"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
-<tr class="memitem:gab2df9ff2e4f2067d2694fabf929380e6 template"><td class="memItemLeft">constexpr T&#160;</td><td class="memItemRight"><a class="el" href="#gab2df9ff2e4f2067d2694fabf929380e6">toy::math::rad2deg</a> (T angle) noexcept</td></tr>
-<tr class="memdesc:gab2df9ff2e4f2067d2694fabf929380e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts angle from radians to degrees.  <br /></td></tr>
+<tr class="memitem:gaec0e5508b638d5599c59593e4afc7ee4" id="r_gaec0e5508b638d5599c59593e4afc7ee4"><td class="memTemplParams" colspan="2">template&lt;floating_point T&gt; </td></tr>
+<tr class="memitem:gaec0e5508b638d5599c59593e4afc7ee4 template"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#gaec0e5508b638d5599c59593e4afc7ee4">toy::math::isEqual</a> (const T &amp;a, const T &amp;b, T absEpsilon=8 *<a class="el" href="../../db/dc2/classnumeric__limits.html">numeric_limits</a>&lt; T &gt;::epsilon(), T relEpsilon=64 *<a class="el" href="../../db/dc2/classnumeric__limits.html">numeric_limits</a>&lt; T &gt;::epsilon()) noexcept</td></tr>
+<tr class="memdesc:gaec0e5508b638d5599c59593e4afc7ee4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares two floating-point values for approximate equality.  <br /></td></tr>
+<tr class="memitem:gaa069db95661e6893b90c9538fe32fb2b" id="r_gaa069db95661e6893b90c9538fe32fb2b"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
+<tr class="memitem:gaa069db95661e6893b90c9538fe32fb2b template"><td class="memItemLeft">constexpr T&#160;</td><td class="memItemRight"><a class="el" href="#gaa069db95661e6893b90c9538fe32fb2b">toy::math::deg2rad</a> (const T &amp;angle) noexcept</td></tr>
+<tr class="memdesc:gaa069db95661e6893b90c9538fe32fb2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts angle from degrees to radians.  <br /></td></tr>
+<tr class="memitem:ga763a7f5881c51b1853dbb74cf59e1208" id="r_ga763a7f5881c51b1853dbb74cf59e1208"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
+<tr class="memitem:ga763a7f5881c51b1853dbb74cf59e1208 template"><td class="memItemLeft">constexpr T&#160;</td><td class="memItemRight"><a class="el" href="#ga763a7f5881c51b1853dbb74cf59e1208">toy::math::rad2deg</a> (const T &amp;angle) noexcept</td></tr>
+<tr class="memdesc:ga763a7f5881c51b1853dbb74cf59e1208"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts angle from radians to degrees.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Mathematical functions, fixed-point arithmetic, and numeric utilities. </p>
-<p>Includes the general math utilities from <a class="el" href="../../d2/d83/namespacetoy_1_1math.html" title="toy::math">toy::math</a> (see <code><a class="el" href="../../d8/dbd/math_2utils_8hpp.html" title="General math utilities.">math/utils.hpp</a></code>):</p>
+<div class="textblock"><p>Math utilities, fixed-point arithmetic, and related types. </p>
+<p>Includes the general math utilities from <a class="el" href="../../d2/d83/namespacetoy_1_1math.html" title="toy::math">toy::math</a> (see <code><a class="el" href="../../d8/dbd/math_2utils_8hpp.html" title="General math utilities: abs, isEqual, deg2rad, rad2deg.">math/utils.hpp</a></code>):</p>
 <ul>
-<li><b>abs</b>: Absolute value for signed integers, floating-point (<code>float</code>, <code>double</code>, <code>long</code> <code>double</code>), and <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html" title="toy::math::fixed">toy::math::fixed</a>; branch-free where applicable.</li>
-<li><b>isEqual</b>: Approximate equality for two floating-point values with configurable absolute and relative epsilon (default 8× and 64× machine epsilon); supports <code>float</code>, <code>double</code>, <code>long</code> <code>double</code>.</li>
-<li><b>deg2rad</b>, <b>rad2deg</b>: Angle conversion (degrees ↔ radians) for floating-point and <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html" title="toy::math::fixed">toy::math::fixed</a>; use <a class="el" href="../../dd/d71/namespacetoy_1_1math_1_1constants.html" title="toy::math::constants">toy::math::constants</a> (e.g. <code>constants::pi_v</code>) for the conversion factor.</li>
+<li><b>abs</b>: Absolute value for signed integers, floating-point (<code>float</code>, <code>double</code>, <code>long</code> <code>double</code>), and <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html" title="toy::math::fixed">toy::math::fixed</a>; branch-free for integral and common float types where applicable.</li>
+<li><b>isEqual</b>: Approximate equality with configurable absolute and relative epsilon (default 8× and 64× <code>numeric_limits&lt;T&gt;::epsilon()</code>); overloads for standard floating-point types and <a class="el" href="../../dd/de0/concepttoy_1_1math_1_1fixed__point.html" title="toy::math::fixed_point">toy::math::fixed_point</a>.</li>
+<li><b>deg2rad</b>, <b>rad2deg</b>: Angle conversion (degrees ↔ radians) for floating-point and <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html" title="toy::math::fixed">toy::math::fixed</a>.</li>
 </ul>
-<p>Also in this group: <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html" title="toy::math::fixed">toy::math::fixed</a>, <a class="el" href="../../d7/d22/concepttoy_1_1math_1_1_valid_fixed_point_types.html" title="toy::math::ValidFixedPointTypes">toy::math::ValidFixedPointTypes</a>, <a class="el" href="../../dd/de0/concepttoy_1_1math_1_1fixed__point.html" title="toy::math::fixed_point">toy::math::fixed_point</a>; mathematical constants in <a class="el" href="../../dd/d71/namespacetoy_1_1math_1_1constants.html" title="toy::math::constants">toy::math::constants</a> (<code>pi_v</code>, <code>e_v</code>, etc.) for <a class="el" href="../../dd/de0/concepttoy_1_1math_1_1fixed__point.html" title="toy::math::fixed_point">toy::math::fixed_point</a> and standard floating-point types; <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html" title="toy::math::Vector2D">toy::math::Vector2D</a>, <a class="el" href="../../d2/d83/namespacetoy_1_1math.html#a928771ce74a56750dd2dcbc28e5892e0" title="toy::math::real_t">toy::math::real_t</a>.</p>
 <h1 class="doxsection"><a class="anchor" id="features"></a>
 Key Features</h1>
 <ul>
@@ -178,7 +177,13 @@ template&lt;signed_integral T&gt; </div>
 <p>Returns the absolute value of a signed integer. </p>
 <p>Returns the absolute value of a <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html" title="toy::math::fixed">toy::math::fixed</a> value.</p>
 <p>Returns the absolute value of a floating-point number.</p>
-<p>This function computes the absolute value without branches. Usable in constant expressions.</p>
+<p>Computes absolute value without branches. Usable in constant expressions.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Signed integer type; must satisfy <code>signed_integral</code>.</td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">value</td><td>The signed integer value.</td></tr>
@@ -186,7 +191,13 @@ template&lt;signed_integral T&gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The absolute value of <em class="arg">value</em> (unchanged if non-negative, negated if negative).</dd></dl>
-<p>This function computes the absolute value without branches for <code>float</code> and <code>double</code>; usable in constant expressions.</p>
+<p>Branch-free for <code>float</code> and <code>double</code>; <code>long</code> <code>double</code> uses a conditional. Usable in constant expressions.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Floating-point type; must satisfy <code>floating_point</code>.</td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">value</td><td>The floating-point value.</td></tr>
@@ -194,6 +205,12 @@ template&lt;signed_integral T&gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The absolute value of <em class="arg">value</em> (unchanged if non-negative, negated if negative).</dd></dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Fixed-point type; must satisfy <a class="el" href="../../dd/de0/concepttoy_1_1math_1_1fixed__point.html" title="toy::math::fixed_point">toy::math::fixed_point</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">value</td><td>The fixed-point value.</td></tr>
@@ -204,8 +221,8 @@ template&lt;signed_integral T&gt; </div>
 
 </div>
 </div>
-<a id="gab57f825520a446db045607567ead63ae" name="gab57f825520a446db045607567ead63ae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gab57f825520a446db045607567ead63ae">&#9670;&#160;</a></span>deg2rad()</h2>
+<a id="gaa069db95661e6893b90c9538fe32fb2b" name="gaa069db95661e6893b90c9538fe32fb2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa069db95661e6893b90c9538fe32fb2b">&#9670;&#160;</a></span>deg2rad()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -218,7 +235,7 @@ template&lt;typename T&gt; </div>
         <tr>
           <td class="memname">T toy::math::deg2rad </td>
           <td>(</td>
-          <td class="paramtype">T</td>          <td class="paramname"><span class="paramname"><em>angle</em></span></td><td>)</td>
+          <td class="paramtype">const T &amp;</td>          <td class="paramname"><span class="paramname"><em>angle</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -230,18 +247,25 @@ template&lt;typename T&gt; </div>
 </div><div class="memdoc">
 
 <p>Converts angle from degrees to radians. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Scalar type; must satisfy <code>floating_point</code> or <a class="el" href="../../dd/de0/concepttoy_1_1math_1_1fixed__point.html" title="toy::math::fixed_point">toy::math::fixed_point</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">angle</td><td>Angle in degrees.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Angle in radians (<em class="arg">angle</em> × π / 180). Supports <code>float</code>, <code>double</code>, <code>long</code> <code>double</code>, and <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html" title="toy::math::fixed">toy::math::fixed</a>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Angle in radians (<em class="arg">angle</em> × π / 180). Supports <code>float</code>, <code>double</code>, <code>long</code> <code>double</code>, and <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html" title="toy::math::fixed">toy::math::fixed</a>.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#ga763a7f5881c51b1853dbb74cf59e1208" title="Converts angle from radians to degrees.">rad2deg</a> </dd></dl>
 
 </div>
 </div>
-<a id="ga87de74562ad3760848978f298c4bd505" name="ga87de74562ad3760848978f298c4bd505"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga87de74562ad3760848978f298c4bd505">&#9670;&#160;</a></span>isEqual()</h2>
+<a id="gaec0e5508b638d5599c59593e4afc7ee4" name="gaec0e5508b638d5599c59593e4afc7ee4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaec0e5508b638d5599c59593e4afc7ee4">&#9670;&#160;</a></span>isEqual()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -254,12 +278,12 @@ template&lt;floating_point T&gt; </div>
         <tr>
           <td class="memname">bool toy::math::isEqual </td>
           <td>(</td>
-          <td class="paramtype">T</td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+          <td class="paramtype">const T &amp;</td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">T</td>          <td class="paramname"><span class="paramname"><em>b</em></span>, </td>
+          <td class="paramtype">const T &amp;</td>          <td class="paramname"><span class="paramname"><em>b</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -280,13 +304,37 @@ template&lt;floating_point T&gt; </div>
 </div><div class="memdoc">
 
 <p>Compares two floating-point values for approximate equality. </p>
-<p>This function uses a combined absolute and relative epsilon test. Small values are compared by absolute difference (<em class="arg">absEpsilon</em>), large values by relative difference (<em class="arg">relEpsilon</em>) scaled by max(|a|, |b|). Supports <code>float</code>, <code>double</code>, and <code>long</code> <code>double</code>.</p>
+<p>Compares two fixed-point values for approximate equality.</p>
+<p>Combined absolute and relative epsilon test: small values by <em class="arg">absEpsilon</em>, large values by <em class="arg">relEpsilon</em> scaled by max(|a|, |b|). Supports <code>float</code>, <code>double</code>, and <code>long</code> <code>double</code>.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Floating-point type; must satisfy <code>floating_point</code>.</td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">a</td><td>The first value. </td></tr>
     <tr><td class="paramname">b</td><td>The second value. </td></tr>
-    <tr><td class="paramname">absEpsilon</td><td>The maximum absolute difference treated as equal (default: 8× machine epsilon for <em class="arg">T</em>). </td></tr>
-    <tr><td class="paramname">relEpsilon</td><td>The maximum relative difference (default: 64× machine epsilon for <em class="arg">T</em>).</td></tr>
+    <tr><td class="paramname">absEpsilon</td><td>The maximum absolute difference treated as equal (default: 8× <code>numeric_limits&lt;T&gt;::epsilon()</code>). </td></tr>
+    <tr><td class="paramname">relEpsilon</td><td>The maximum relative difference (default: 64× <code>numeric_limits&lt;T&gt;::epsilon()</code>).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if <em class="arg">a</em> and <em class="arg">b</em> are considered equal under the chosen tolerances, <code>false</code> otherwise.</dd></dl>
+<p>Same combined absolute and relative epsilon test as the floating-point overload: small values by <em class="arg">absEpsilon</em>, large values by <em class="arg">relEpsilon</em> scaled by max(|a|, |b|). Applicable to any <a class="el" href="../../dd/de0/concepttoy_1_1math_1_1fixed__point.html" title="toy::math::fixed_point">toy::math::fixed_point</a> type.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Fixed-point type; must satisfy <a class="el" href="../../dd/de0/concepttoy_1_1math_1_1fixed__point.html" title="toy::math::fixed_point">toy::math::fixed_point</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>The first value. </td></tr>
+    <tr><td class="paramname">b</td><td>The second value. </td></tr>
+    <tr><td class="paramname">absEpsilon</td><td>The maximum absolute difference treated as equal (default: 8× <code>numeric_limits&lt;T&gt;::epsilon()</code>). </td></tr>
+    <tr><td class="paramname">relEpsilon</td><td>The maximum relative difference (default: 64× <code>numeric_limits&lt;T&gt;::epsilon()</code>).</td></tr>
   </table>
   </dd>
 </dl>
@@ -294,8 +342,8 @@ template&lt;floating_point T&gt; </div>
 
 </div>
 </div>
-<a id="gab2df9ff2e4f2067d2694fabf929380e6" name="gab2df9ff2e4f2067d2694fabf929380e6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gab2df9ff2e4f2067d2694fabf929380e6">&#9670;&#160;</a></span>rad2deg()</h2>
+<a id="ga763a7f5881c51b1853dbb74cf59e1208" name="ga763a7f5881c51b1853dbb74cf59e1208"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga763a7f5881c51b1853dbb74cf59e1208">&#9670;&#160;</a></span>rad2deg()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -308,7 +356,7 @@ template&lt;typename T&gt; </div>
         <tr>
           <td class="memname">T toy::math::rad2deg </td>
           <td>(</td>
-          <td class="paramtype">T</td>          <td class="paramname"><span class="paramname"><em>angle</em></span></td><td>)</td>
+          <td class="paramtype">const T &amp;</td>          <td class="paramname"><span class="paramname"><em>angle</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -320,13 +368,20 @@ template&lt;typename T&gt; </div>
 </div><div class="memdoc">
 
 <p>Converts angle from radians to degrees. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Scalar type; must satisfy <code>floating_point</code> or <a class="el" href="../../dd/de0/concepttoy_1_1math_1_1fixed__point.html" title="toy::math::fixed_point">toy::math::fixed_point</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">angle</td><td>Angle in radians.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Angle in degrees (<em class="arg">angle</em> × 180 / π). Supports <code>float</code>, <code>double</code>, <code>long</code> <code>double</code>, and <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html" title="toy::math::fixed">toy::math::fixed</a>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Angle in degrees (<em class="arg">angle</em> × 180 / π). Supports <code>float</code>, <code>double</code>, <code>long</code> <code>double</code>, and <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html" title="toy::math::fixed">toy::math::fixed</a>.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#gaa069db95661e6893b90c9538fe32fb2b" title="Converts angle from degrees to radians.">deg2rad</a> </dd></dl>
 
 </div>
 </div>

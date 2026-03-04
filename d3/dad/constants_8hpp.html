@@ -185,6 +185,12 @@ Variables</h2></td></tr>
 <tr class="memitem:ae86d51e3de21dfeea848b396d99306ac" id="r_ae86d51e3de21dfeea848b396d99306ac"><td class="memTemplParams" colspan="2">template&lt;MathConstantType T&gt; </td></tr>
 <tr class="memitem:ae86d51e3de21dfeea848b396d99306ac template"><td class="memItemLeft">constexpr T&#160;</td><td class="memItemRight"><a class="el" href="../../dd/d71/namespacetoy_1_1math_1_1constants.html#ae86d51e3de21dfeea848b396d99306ac">toy::math::constants::phi_v</a> = std::numbers::phi_v&lt;T&gt;</td></tr>
 <tr class="memdesc:ae86d51e3de21dfeea848b396d99306ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Golden ratio Φ.  <br /></td></tr>
+<tr class="memitem:a35b52d17a247dc7aec6c494854fa77fd" id="r_a35b52d17a247dc7aec6c494854fa77fd"><td class="memTemplParams" colspan="2">template&lt;MathConstantType T&gt; </td></tr>
+<tr class="memitem:a35b52d17a247dc7aec6c494854fa77fd template"><td class="memItemLeft">constexpr T&#160;</td><td class="memItemRight"><a class="el" href="../../dd/d71/namespacetoy_1_1math_1_1constants.html#a35b52d17a247dc7aec6c494854fa77fd">toy::math::constants::rad_per_deg_v</a> = static_cast&lt;T&gt;(std::numbers::pi_v&lt;long double&gt; / 180.0L)</td></tr>
+<tr class="memdesc:a35b52d17a247dc7aec6c494854fa77fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">π over 180 (radians per degree).  <br /></td></tr>
+<tr class="memitem:a44402595bdc2ebc7dfc6690f37aed9e3" id="r_a44402595bdc2ebc7dfc6690f37aed9e3"><td class="memTemplParams" colspan="2">template&lt;MathConstantType T&gt; </td></tr>
+<tr class="memitem:a44402595bdc2ebc7dfc6690f37aed9e3 template"><td class="memItemLeft">constexpr T&#160;</td><td class="memItemRight"><a class="el" href="../../dd/d71/namespacetoy_1_1math_1_1constants.html#a44402595bdc2ebc7dfc6690f37aed9e3">toy::math::constants::deg_per_rad_v</a> = static_cast&lt;T&gt;(180.0L / std::numbers::pi_v&lt;long double&gt;)</td></tr>
+<tr class="memdesc:a44402595bdc2ebc7dfc6690f37aed9e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">180 over π (degrees per radian).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Mathematical constants for floating-point and <a class="el" href="../../dd/de0/concepttoy_1_1math_1_1fixed__point.html" title="toy::math::fixed_point">toy::math::fixed_point</a> types. </p>
@@ -201,21 +207,25 @@ Variables</h2></td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><code>log10e_v</code>  </td><td class="markdownTableBodyNone">Base-10 logarithm of e.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><code>sqrt2_v</code>  </td><td class="markdownTableBodyNone">Square root of 2  </td></tr>
+<td class="markdownTableBodyNone"><code>sqrt2_v</code>  </td><td class="markdownTableBodyNone">Square root of <code>2</code>  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><code>sqrt3_v</code>  </td><td class="markdownTableBodyNone">Square root of 3  </td></tr>
+<td class="markdownTableBodyNone"><code>sqrt3_v</code>  </td><td class="markdownTableBodyNone">Square root of <code>3</code>.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><code>inv_pi_v</code>  </td><td class="markdownTableBodyNone">1 over π.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><code>inv_sqrtpi_v</code>  </td><td class="markdownTableBodyNone">1 over square root of π.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><code>ln2_v</code>  </td><td class="markdownTableBodyNone">Natural logarithm of 2.  </td></tr>
+<td class="markdownTableBodyNone"><code>ln2_v</code>  </td><td class="markdownTableBodyNone">Natural logarithm of <code>2</code>.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><code>ln10_v</code>  </td><td class="markdownTableBodyNone">Natural logarithm of 10.  </td></tr>
+<td class="markdownTableBodyNone"><code>ln10_v</code>  </td><td class="markdownTableBodyNone">Natural logarithm of <code>10</code>.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><code>egamma_v</code>  </td><td class="markdownTableBodyNone">Euler–Mascheroni constant γ.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><code>phi_v</code>  </td><td class="markdownTableBodyNone">Golden ratio Φ.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><code>rad_per_deg_v</code>  </td><td class="markdownTableBodyNone">π over <code>180</code> (radians per degree)  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><code>deg_per_rad_v</code>  </td><td class="markdownTableBodyNone"><code>180</code> over π (degrees per radian)  </td></tr>
 </table>
 <dl class="section see"><dt>See also</dt><dd><a href="https://en.cppreference.com/w/cpp/numeric/constants">https://en.cppreference.com/w/cpp/numeric/constants</a> </dd></dl>
 </div></div><!-- contents -->

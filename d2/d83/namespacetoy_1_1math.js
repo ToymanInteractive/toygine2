@@ -1,6 +1,7 @@
 var namespacetoy_1_1math =
 [
     [ "constants", "dd/d71/namespacetoy_1_1math_1_1constants.html", [
+      [ "deg_per_rad_v", "dd/d71/namespacetoy_1_1math_1_1constants.html#a44402595bdc2ebc7dfc6690f37aed9e3", null ],
       [ "e_v", "dd/d71/namespacetoy_1_1math_1_1constants.html#a870f438caa43ad6edd8abd27c4da64e8", null ],
       [ "egamma_v", "dd/d71/namespacetoy_1_1math_1_1constants.html#a164a3ab76b32c5d49335a9be8c1921e0", null ],
       [ "inv_pi_v", "dd/d71/namespacetoy_1_1math_1_1constants.html#ab7e1662f6e0c6623036dd03eddcd3ef3", null ],
@@ -11,6 +12,7 @@ var namespacetoy_1_1math =
       [ "log2e_v", "dd/d71/namespacetoy_1_1math_1_1constants.html#ae83c50755717cb12272f7c667085ad1c", null ],
       [ "phi_v", "dd/d71/namespacetoy_1_1math_1_1constants.html#ae86d51e3de21dfeea848b396d99306ac", null ],
       [ "pi_v", "dd/d71/namespacetoy_1_1math_1_1constants.html#aa386bcc63af4cf420bac521cb769e6bc", null ],
+      [ "rad_per_deg_v", "dd/d71/namespacetoy_1_1math_1_1constants.html#a35b52d17a247dc7aec6c494854fa77fd", null ],
       [ "sqrt2_v", "dd/d71/namespacetoy_1_1math_1_1constants.html#a7e1c56ee16f6775476a908030aedb4a2", null ],
       [ "sqrt3_v", "dd/d71/namespacetoy_1_1math_1_1constants.html#aa4c99dfc6e76f4ca84633f52d18f5c5a", null ]
     ] ],
@@ -26,8 +28,9 @@ var namespacetoy_1_1math =
     [ "abs", "d2/d83/namespacetoy_1_1math.html#ga00391a62294376916bf5df2d9b9ae00c", null ],
     [ "abs", "d2/d83/namespacetoy_1_1math.html#ga00391a62294376916bf5df2d9b9ae00c", null ],
     [ "abs", "d5/d12/group___math_functions.html#ga00391a62294376916bf5df2d9b9ae00c", null ],
-    [ "deg2rad", "d5/d12/group___math_functions.html#gab57f825520a446db045607567ead63ae", null ],
-    [ "isEqual", "d5/d12/group___math_functions.html#ga87de74562ad3760848978f298c4bd505", null ],
+    [ "deg2rad", "d5/d12/group___math_functions.html#gaa069db95661e6893b90c9538fe32fb2b", null ],
+    [ "isEqual", "d2/d83/namespacetoy_1_1math.html#gaec0e5508b638d5599c59593e4afc7ee4", null ],
+    [ "isEqual", "d5/d12/group___math_functions.html#gaec0e5508b638d5599c59593e4afc7ee4", null ],
     [ "operator*", "d2/d83/namespacetoy_1_1math.html#a0093cd8b0fc3ea4c7cdc9fe9cf8a37b5", null ],
     [ "operator*", "d2/d83/namespacetoy_1_1math.html#a486378f548999db466ef4f2d629c69e4", null ],
     [ "operator*", "d2/d83/namespacetoy_1_1math.html#ac417b48ee4476520f97a0bfe39026d22", null ],
@@ -60,6 +63,6 @@ var namespacetoy_1_1math =
     [ "operator==", "d2/d83/namespacetoy_1_1math.html#a093a0151366d4844bb1d337448c0b16f", null ],
     [ "operator==", "d2/d83/namespacetoy_1_1math.html#a77dccec38178a7b466b0658dd06fc118", null ],
     [ "operator==", "d2/d83/namespacetoy_1_1math.html#a5ace6b486275cec5dc95c653651818cd", null ],
-    [ "rad2deg", "d5/d12/group___math_functions.html#gab2df9ff2e4f2067d2694fabf929380e6", null ],
+    [ "rad2deg", "d5/d12/group___math_functions.html#ga763a7f5881c51b1853dbb74cf59e1208", null ],
     [ "is_fixed_point_v", "d2/d83/namespacetoy_1_1math.html#a30c8861f803815d5970e4f0d7dd85334", null ]
 ];

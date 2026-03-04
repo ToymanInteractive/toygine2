@@ -1,5 +1,6 @@
 var NAVTREEINDEX3 =
 {
+"d7/dec/classtoy_1_1_fixed_vector.html#ad2d35c3e377890c5951616c6bb235181":[5,0,1,9,27],
 "d7/dec/classtoy_1_1_fixed_vector.html#ad98be7eb41babb07b9bc52d57783ef03":[3,0,1,15,12],
 "d7/dec/classtoy_1_1_fixed_vector.html#ad98be7eb41babb07b9bc52d57783ef03":[5,0,1,9,12],
 "d7/dec/classtoy_1_1_fixed_vector.html#ad9a73bb841a3c9f159db82bcbbbe7d57":[3,0,1,15,42],
@@ -248,6 +249,5 @@ var NAVTREEINDEX3 =
 "dd/d5c/classtoy_1_1math_1_1fixed.html#ad56ecdbd3f0602b0bf6f21a93af39546":[5,0,1,2,0,6],
 "dd/d5c/classtoy_1_1math_1_1fixed.html#ad5d55d4bb51abce6897a9a74ef25285e":[3,0,1,2,1,16],
 "dd/d5c/classtoy_1_1math_1_1fixed.html#ad5d55d4bb51abce6897a9a74ef25285e":[5,0,1,2,0,16],
-"dd/d5c/classtoy_1_1math_1_1fixed.html#ad6a37661d807655086fb7e938cc6e021":[3,0,1,2,1,25],
-"dd/d5c/classtoy_1_1math_1_1fixed.html#ad6a37661d807655086fb7e938cc6e021":[5,0,1,2,0,25]
+"dd/d5c/classtoy_1_1math_1_1fixed.html#ad6a37661d807655086fb7e938cc6e021":[3,0,1,2,1,25]
 };

@@ -10,7 +10,7 @@
 <area shape="poly" id="edge51_Node000001_Node000045" title=" " alt="" coords="5442,29,5336,48,5291,62,5274,71,5264,80,5257,98,5262,118,5273,138,5288,155,5284,159,5269,141,5257,120,5252,98,5259,77,5271,66,5289,57,5335,42,5441,24"/>
 <area shape="rect" id="Node000046" href="$d3/d21/fixed__std__extension_8hpp.html" title="Standard library extensions for toy::math::fixed: numeric_limits and std::numbers mathematical consta..." alt="" coords="5393,167,5610,192"/>
 <area shape="poly" id="edge52_Node000001_Node000046" title=" " alt="" coords="5506,32,5491,79,5490,118,5496,153,5491,154,5485,118,5485,78,5501,30"/>
-<area shape="rect" id="Node000047" href="$d8/dbd/math_2utils_8hpp.html" title="General math utilities." alt="" coords="5499,79,5615,104"/>
+<area shape="rect" id="Node000047" href="$d8/dbd/math_2utils_8hpp.html" title="General math utilities: abs, isEqual, deg2rad, rad2deg." alt="" coords="5499,79,5615,104"/>
 <area shape="poly" id="edge53_Node000001_Node000047" title=" " alt="" coords="5519,30,5544,66,5540,69,5515,33"/>
 <area shape="rect" id="Node000048" href="$d6/de1/vector2d_8hpp.html" title="2D floating&#45;point vector class for interactive game objects and physics calculations." alt="" coords="5639,79,5785,104"/>
 <area shape="poly" id="edge54_Node000001_Node000048" title=" " alt="" coords="5543,28,5667,72,5666,77,5541,33"/>
