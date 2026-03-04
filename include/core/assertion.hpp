@@ -135,7 +135,7 @@ void assertion(const char * code, const char * message, const char * fileName, c
 */
 inline void assertion([[maybe_unused]] const char * code, [[maybe_unused]] const char * message,
                       [[maybe_unused]] const char * fileName, [[maybe_unused]] const char * functionName,
-                      [[maybe_unused]] size_t lineNumber) {
+                      [[maybe_unused]] size_t lineNumber) noexcept {
   // Intentionally empty - no-op in release builds
 }
 

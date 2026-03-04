@@ -375,10 +375,23 @@ wchar_t * utf8toWChar(wchar_t * dest, size_t destSize, const char * const src, s
           symbol = static_cast<uint8_t>(symbol << 1);
         }
 
+        if (charBytes <= 1 || srcIterator + (charBytes - 1) > count) {
+          *destPointer = L'\0';
+
+          return nullptr;
+        }
+
         auto unicodeChar = static_cast<wchar_t>(symbol >> charBytes);
         while (charBytes-- > 1) {
+          const auto continuation = static_cast<uint8_t>(src[srcIterator++]);
+          if ((continuation & 0xC0) != 0x80) {
+            *destPointer = L'\0';
+
+            return nullptr;
+          }
+
           unicodeChar <<= 6;
-          unicodeChar |= static_cast<uint8_t>(src[srcIterator++]) & 0x3F;
+          unicodeChar |= continuation & 0x3F;
         }
 
         *destPointer = unicodeChar;

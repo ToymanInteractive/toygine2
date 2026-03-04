@@ -158,7 +158,7 @@ char * wcharToUtf8(char * dest, size_t destSize, const wchar_t * src) noexcept;
 
   \note Multi-byte sequences (2–3 bytes) count as one code point. BMP only.
 */
-size_t utf8Len(const char * string) noexcept;
+[[nodiscard]] size_t utf8Len(const char * string) noexcept;
 
 /*!
   \brief Reverses a C string in-place.
