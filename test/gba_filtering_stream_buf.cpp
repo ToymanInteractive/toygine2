@@ -120,7 +120,12 @@ void GbaFilteringStreamBuf::_flushLine() noexcept {
   if (_lineBufferDataSize == 0)
     return;
 
-  std::cout.write(_lineBuffer, static_cast<std::streamsize>(_lineBufferDataSize));
+  if (_lineBufferDataSize < 30) {
+    std::cout.write(_lineBuffer, static_cast<std::streamsize>(_lineBufferDataSize));
+  } else {
+    std::cout.write(_lineBuffer, 27);
+    std::cout << "...\n";
+  }
 
   _lineBufferDataSize = 0;
 }
