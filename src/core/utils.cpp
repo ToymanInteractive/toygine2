@@ -361,49 +361,43 @@ wchar_t * utf8toWChar(wchar_t * dest, size_t destSize, const char * src, size_t 
     return nullptr;
 
   wchar_t * destPointer = dest;
-  if (count > 0 && src != nullptr) {
-    const wchar_t * unicodeEndPos = dest + (destSize - 1);
-    size_t srcIterator = 0;
+  if (count == 0 || src == nullptr) {
+    *destPointer = L'\0';
 
-    while (srcIterator < count && destPointer < unicodeEndPos) {
-      if (const auto symbol = static_cast<byte>(src[srcIterator++]); std::to_integer<uint8_t>(symbol) <= 0x7F) {
-        *destPointer = std::to_integer<wchar_t>(symbol);
-      } else {
-        size_t charBytes = 0;
-        byte byteVal = symbol;
-        while ((byteVal & byte{0x80}) != byte{0}) {
-          ++charBytes;
-          byteVal = byteVal << 1;
-        }
+    return dest;
+  }
 
-        if (charBytes <= 1 || srcIterator + (charBytes - 1) > count) {
-          *destPointer = L'\0';
+  const wchar_t * const unicodeEndPos = dest + (destSize - 1);
 
-          return nullptr;
-        }
+  size_t srcIterator = 0;
+  while (srcIterator < count && destPointer < unicodeEndPos) {
+    const auto lead = static_cast<byte>(src[srcIterator++]);
+    const auto seqLen = _utf8CharSizeTable[std::to_integer<size_t>(lead)];
+    if (seqLen == 0 || seqLen > 3 || srcIterator + (seqLen - 1) > count) {
+      break;
+    } else if (seqLen == 1) {
+      *destPointer++ = std::to_integer<wchar_t>(lead);
+      continue;
+    }
 
-        auto unicodeChar = std::to_integer<wchar_t>(symbol >> charBytes);
-        while (charBytes-- > 1) {
-          const auto continuation = static_cast<byte>(src[srcIterator++]);
-          if ((continuation & byte{0xC0}) != byte{0x80}) {
-            *destPointer = L'\0';
+    const auto leadMask = seqLen == 2 ? byte{0x1F} : byte{0x0F};
+    wchar_t codePoint = std::to_integer<wchar_t>(lead & leadMask);
 
-            return nullptr;
-          }
+    for (size_t i = 1; i < seqLen; ++i) {
+      const auto cont = static_cast<std::byte>(src[srcIterator++]);
+      if ((cont & std::byte{0xC0}) != std::byte{0x80}) {
+        *destPointer = L'\0';
 
-          unicodeChar <<= 6;
-          unicodeChar |= std::to_integer<wchar_t>(continuation & byte{0x3F});
-        }
-
-        *destPointer = unicodeChar;
+        return dest;
       }
 
-      ++destPointer;
+      codePoint = (codePoint << 6) | std::to_integer<wchar_t>(cont & std::byte{0x3F});
     }
+
+    *destPointer++ = codePoint;
   }
 
   *destPointer = L'\0';
-
   return dest;
 }
 
