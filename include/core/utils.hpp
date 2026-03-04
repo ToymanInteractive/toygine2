@@ -37,7 +37,7 @@
   - **utf8Len**: Unicode code point count in a UTF-8 C string.
   - **reverseString**: In-place reversal of a C string.
 
-  Related: \ref toy::StringLike, \ref toy::FixedString; constant \c wcharInUtf8MaxSize.
+  Related: \ref toy::StringLike, \ref toy::FixedString; constant \c WCHAR_IN_UTF8_MAX_SIZE.
 
   \section features Key Features
 
@@ -55,19 +55,19 @@ namespace toy {
 
   One wide character in the BMP (≤ 0xFFFF) encodes to at most 3 UTF-8 bytes.
 */
-constexpr size_t wcharInUtf8MaxSize = 3;
+constexpr size_t WCHAR_IN_UTF8_MAX_SIZE = 3;
 
 /*!
   \brief Converts a UTF-8 C string to a wide-character string with a character count limit.
   \ingroup TextFunctions
 
-  Writes the converted wide-character string into \a dest. Stops when \a count characters have been converted, \a dest
-  is full, or the source ends. Only BMP (≤ 0xFFFF) is supported; invalid UTF-8 sequences are skipped.
+  Writes the converted wide-character string into \a dest. Stops when \a count source bytes have been processed, \a dest
+  is full, or the source ends. Only BMP (≤ 0xFFFF) is supported.
 
   \param dest     Destination buffer for the wide-character string.
   \param destSize Size of \a dest in wide characters (not bytes).
   \param src      Source UTF-8 encoded C string.
-  \param count    Maximum number of characters to convert.
+  \param count    Maximum number of source bytes to process.
 
   \return Pointer to \a dest, or \c nullptr if \a dest or \a destSize is invalid.
 

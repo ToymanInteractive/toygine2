@@ -117,7 +117,7 @@ TEST_CASE("core/utils/utf8_to_wchar_converts_utf8_to_wide_string") {
 TEST_CASE("core/utils/wchar_to_utf8_converts_wide_to_utf8_string") {
   // nullptr input yields empty UTF-8 string.
   SUBCASE("nullptr input") {
-    char testBuffer[unicodeTestData.size() * wcharInUtf8MaxSize];
+    char testBuffer[unicodeTestData.size() * WCHAR_IN_UTF8_MAX_SIZE];
 
     REQUIRE(strcmp("", wcharToUtf8(testBuffer, size(testBuffer), nullptr)) == 0);
     REQUIRE(strcmp(testBuffer, "") == 0);
@@ -125,7 +125,7 @@ TEST_CASE("core/utils/wchar_to_utf8_converts_wide_to_utf8_string") {
 
   // Empty wide string yields empty UTF-8 string.
   SUBCASE("empty string") {
-    char testBuffer[unicodeTestData.size() * wcharInUtf8MaxSize];
+    char testBuffer[unicodeTestData.size() * WCHAR_IN_UTF8_MAX_SIZE];
 
     REQUIRE(strcmp("", wcharToUtf8(testBuffer, size(testBuffer), L"")) == 0);
     REQUIRE(strcmp(testBuffer, "") == 0);
@@ -133,7 +133,7 @@ TEST_CASE("core/utils/wchar_to_utf8_converts_wide_to_utf8_string") {
 
   // Wide C string converts to UTF-8.
   SUBCASE("wchar C string") {
-    char testBuffer[unicodeTestData.size() * wcharInUtf8MaxSize];
+    char testBuffer[unicodeTestData.size() * WCHAR_IN_UTF8_MAX_SIZE];
 
     REQUIRE(strcmp(reinterpret_cast<const char *>(utf8TestData.data()),
                    wcharToUtf8(testBuffer, size(testBuffer), unicodeTestData.data()))
@@ -143,7 +143,7 @@ TEST_CASE("core/utils/wchar_to_utf8_converts_wide_to_utf8_string") {
 
   // Buffer size limits; insufficient buffer yields empty.
   SUBCASE("buffer size limits") {
-    char testBuffer[unicodeTestData.size() * wcharInUtf8MaxSize];
+    char testBuffer[unicodeTestData.size() * WCHAR_IN_UTF8_MAX_SIZE];
 
     REQUIRE(strcmp("", wcharToUtf8(testBuffer, 1, L"A")) == 0);
     REQUIRE(strcmp(testBuffer, "") == 0);
