@@ -11,7 +11,7 @@
 <!-- Node1 -->
 <g id="Node000001" class="node">
 <title>Node1</title>
-<g id="a_Node000001"><a xlink:title="Core utility functions for string manipulation, encoding conversion, and number formatting.">
+<g id="a_Node000001"><a xlink:title="Core utilities: string encoding conversion, length, reversal, and number formatting.">
 <polygon fill="#999999" stroke="#666666" points="578.5,-250 457.5,-250 457.5,-231 578.5,-231 578.5,-250"/>
 <text text-anchor="middle" x="518" y="-238" font-family="Helvetica,sans-Serif" font-size="10.00">include/core/utils.hpp</text>
 </a>

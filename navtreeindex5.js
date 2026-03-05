@@ -1,5 +1,6 @@
 var NAVTREEINDEX5 =
 {
+"globals.html":[6,1,0],
 "globals_defs.html":[6,1,1],
 "hierarchy.html":[5,2],
 "index.html":[],

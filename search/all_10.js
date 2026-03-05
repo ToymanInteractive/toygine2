@@ -31,9 +31,10 @@ var searchData=
   ['precision_28',['precision',['../d7/d15/classtoy_1_1_o_string_stream.html#af342cc7f7897db17de97a0d7295f2e7d',1,'toy::OStringStream::precision() const noexcept'],['../d7/d15/classtoy_1_1_o_string_stream.html#af453025d53b65448f3fc78468c097e8b',1,'toy::OStringStream::precision(int newPrecision) noexcept']]],
   ['principles_29',['Principles',['../df/d81/md__a_g_e_n_t_s.html#general-coding-principles',1,'General Coding Principles'],['../df/d81/md__a_g_e_n_t_s.html#general-test-principles',1,'General Test Principles']]],
   ['private_20members_30',['Private Members',['../df/d81/md__a_g_e_n_t_s.html#private-members',1,'']]],
-  ['project_20context_31',['Project Context',['../df/d81/md__a_g_e_n_t_s.html#project-context',1,'']]],
-  ['push_5fback_32',['push_back',['../d3/d7a/classtoy_1_1_fixed_string.html#a35cb76db06e5d0fc94a6fc01b7fa161d',1,'toy::FixedString::push_back()'],['../d7/dec/classtoy_1_1_fixed_vector.html#ad1b12283014e9694c538c41a6b4d854b',1,'toy::FixedVector::push_back()']]],
-  ['put_33',['put',['../d7/d15/classtoy_1_1_o_string_stream.html#a7224f6c06dce9faf3b17ac798ac4f553',1,'toy::OStringStream']]],
-  ['pvrtc2_34',['PVRTC2',['../df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3faa54f5bdd6d55a32997d1352a5c8234a4',1,'toy::render']]],
-  ['pvrtc4_35',['PVRTC4',['../df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3fa759978c6ff5b5e0ce1720f8dd863e3bf',1,'toy::render']]]
+  ['processing_20functions_31',['Common text processing functions',['../d8/d90/group___text_functions.html',1,'']]],
+  ['project_20context_32',['Project Context',['../df/d81/md__a_g_e_n_t_s.html#project-context',1,'']]],
+  ['push_5fback_33',['push_back',['../d3/d7a/classtoy_1_1_fixed_string.html#a35cb76db06e5d0fc94a6fc01b7fa161d',1,'toy::FixedString::push_back()'],['../d7/dec/classtoy_1_1_fixed_vector.html#ad1b12283014e9694c538c41a6b4d854b',1,'toy::FixedVector::push_back()']]],
+  ['put_34',['put',['../d7/d15/classtoy_1_1_o_string_stream.html#a7224f6c06dce9faf3b17ac798ac4f553',1,'toy::OStringStream']]],
+  ['pvrtc2_35',['PVRTC2',['../df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3faa54f5bdd6d55a32997d1352a5c8234a4',1,'toy::render']]],
+  ['pvrtc4_36',['PVRTC4',['../df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3fa759978c6ff5b5e0ce1720f8dd863e3bf',1,'toy::render']]]
 ];

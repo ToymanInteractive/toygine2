@@ -265,13 +265,13 @@ Functions</h2></td></tr>
 <tr class="memitem:a43b66e65ca273e28eb053c19537093c9" id="r_a43b66e65ca273e28eb053c19537093c9"><td class="memTemplParams" colspan="2">template&lt;size_t allocatedSize&gt; </td></tr>
 <tr class="memitem:a43b66e65ca273e28eb053c19537093c9 template"><td class="memItemLeft">constexpr strong_ordering&#160;</td><td class="memItemRight"><a class="el" href="#a43b66e65ca273e28eb053c19537093c9">operator&lt;=&gt;</a> (const char *lhs, const <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html">FixedString</a>&lt; allocatedSize &gt; &amp;rhs) noexcept</td></tr>
 <tr class="memdesc:a43b66e65ca273e28eb053c19537093c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Three-way comparison operator for C string and <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="Template string class with fixed-size character buffer.">FixedString</a>.  <br /></td></tr>
-<tr class="memitem:acf0d2ea5a12a30e6b7bdfaa9762b7ee3" id="r_acf0d2ea5a12a30e6b7bdfaa9762b7ee3"><td class="memItemLeft">constexpr wchar_t *&#160;</td><td class="memItemRight"><a class="el" href="#acf0d2ea5a12a30e6b7bdfaa9762b7ee3">utf8toWChar</a> (wchar_t *dest, size_t destSize, const char *const src) noexcept</td></tr>
-<tr class="memdesc:acf0d2ea5a12a30e6b7bdfaa9762b7ee3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a Unicode UTF-8 encoded C string to a wide character string.  <br /></td></tr>
-<tr class="memitem:ad77806ddefe069afcd095c3d1ef37391" id="r_ad77806ddefe069afcd095c3d1ef37391"><td class="memTemplParams" colspan="2">template&lt;StringLike stringType&gt; </td></tr>
-<tr class="memitem:ad77806ddefe069afcd095c3d1ef37391 template"><td class="memItemLeft">constexpr wchar_t *&#160;</td><td class="memItemRight"><a class="el" href="#ad77806ddefe069afcd095c3d1ef37391">utf8toWChar</a> (wchar_t *dest, size_t destSize, const stringType &amp;src) noexcept</td></tr>
-<tr class="memdesc:ad77806ddefe069afcd095c3d1ef37391"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a Unicode UTF-8 encoded <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="toy::StringLike">toy::StringLike</a> object to a wide character string.  <br /></td></tr>
-<tr class="memitem:a2ad56b53b8cdbb022ce8ce3b2aa32503" id="r_a2ad56b53b8cdbb022ce8ce3b2aa32503"><td class="memItemLeft">constexpr char *&#160;</td><td class="memItemRight"><a class="el" href="#a2ad56b53b8cdbb022ce8ce3b2aa32503">reverseString</a> (char *str, size_t count=0) noexcept</td></tr>
-<tr class="memdesc:a2ad56b53b8cdbb022ce8ce3b2aa32503"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reverses a given C string in-place.  <br /></td></tr>
+<tr class="memitem:ga2bc2dc2817640958352b4e80ec99b2be" id="r_ga2bc2dc2817640958352b4e80ec99b2be"><td class="memItemLeft">constexpr wchar_t *&#160;</td><td class="memItemRight"><a class="el" href="../../d8/d90/group___text_functions.html#ga2bc2dc2817640958352b4e80ec99b2be">utf8toWChar</a> (wchar_t *dest, size_t destSize, const char *src) noexcept</td></tr>
+<tr class="memdesc:ga2bc2dc2817640958352b4e80ec99b2be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a UTF-8 C string to a wide-character string (full source length).  <br /></td></tr>
+<tr class="memitem:gaa0dda7b7f9781bc3cd35484ce3e5282e" id="r_gaa0dda7b7f9781bc3cd35484ce3e5282e"><td class="memTemplParams" colspan="2">template&lt;StringLike T&gt; </td></tr>
+<tr class="memitem:gaa0dda7b7f9781bc3cd35484ce3e5282e template"><td class="memItemLeft">constexpr wchar_t *&#160;</td><td class="memItemRight"><a class="el" href="../../d8/d90/group___text_functions.html#gaa0dda7b7f9781bc3cd35484ce3e5282e">utf8toWChar</a> (wchar_t *dest, size_t destSize, const T &amp;src) noexcept</td></tr>
+<tr class="memdesc:gaa0dda7b7f9781bc3cd35484ce3e5282e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a UTF-8 <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="toy::StringLike">toy::StringLike</a> object to a wide-character string.  <br /></td></tr>
+<tr class="memitem:ga2ad56b53b8cdbb022ce8ce3b2aa32503" id="r_ga2ad56b53b8cdbb022ce8ce3b2aa32503"><td class="memItemLeft">constexpr char *&#160;</td><td class="memItemRight"><a class="el" href="../../d8/d90/group___text_functions.html#ga2ad56b53b8cdbb022ce8ce3b2aa32503">reverseString</a> (char *str, size_t count=0) noexcept</td></tr>
+<tr class="memdesc:ga2ad56b53b8cdbb022ce8ce3b2aa32503"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reverses a C string in-place.  <br /></td></tr>
 <tr class="memitem:a00ce0b516e9a47a62227a9309afdb583" id="r_a00ce0b516e9a47a62227a9309afdb583"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#a00ce0b516e9a47a62227a9309afdb583">crc8</a> (const void *src, size_t size, uint8_t crc=0x00) noexcept</td></tr>
 <tr class="memdesc:a00ce0b516e9a47a62227a9309afdb583"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates CRC-8 checksum using Dallas/Maxim polynomial.  <br /></td></tr>
 <tr class="memitem:aa63c971425cb6819414030806927a68a" id="r_aa63c971425cb6819414030806927a68a"><td class="memItemLeft">uint16_t&#160;</td><td class="memItemRight"><a class="el" href="#aa63c971425cb6819414030806927a68a">crc16</a> (const void *src, size_t size, uint16_t crc=0x0000) noexcept</td></tr>
@@ -286,12 +286,12 @@ Functions</h2></td></tr>
 <tr class="memdesc:a23cb859f41bbfdd0562927582baec660"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a 64-bit floating-point number to its string representation with specified precision.  <br /></td></tr>
 <tr class="memitem:a1398396b240f9a663cdedc2a077edfb3" id="r_a1398396b240f9a663cdedc2a077edfb3"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1398396b240f9a663cdedc2a077edfb3">_floatPostProcess</a> (char *dest, char *srcBuffer, size_t bufferSize, int32_t exp10, size_t precision) noexcept</td></tr>
 <tr class="memdesc:a1398396b240f9a663cdedc2a077edfb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes a string representation of a floating-point number, adjusting the exponent, and stripping trailing zeros.  <br /></td></tr>
-<tr class="memitem:a5ee65428f52c52934cf358eec39c55aa" id="r_a5ee65428f52c52934cf358eec39c55aa"><td class="memItemLeft">wchar_t *&#160;</td><td class="memItemRight"><a class="el" href="#a5ee65428f52c52934cf358eec39c55aa">utf8toWChar</a> (wchar_t *dest, size_t destSize, const char *const src, size_t count) noexcept</td></tr>
-<tr class="memdesc:a5ee65428f52c52934cf358eec39c55aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a Unicode UTF-8 encoded C string to a wide character string with character count limit.  <br /></td></tr>
-<tr class="memitem:a008aa42596921d995b66340139fd3cfb" id="r_a008aa42596921d995b66340139fd3cfb"><td class="memItemLeft">char *&#160;</td><td class="memItemRight"><a class="el" href="#a008aa42596921d995b66340139fd3cfb">wcharToUtf8</a> (char *dest, size_t destSize, const wchar_t *src) noexcept</td></tr>
-<tr class="memdesc:a008aa42596921d995b66340139fd3cfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a Unicode wide character C string to a UTF-8 encoded string.  <br /></td></tr>
-<tr class="memitem:a5ab02021f4ca34e0d5b6a1b0172ebe95" id="r_a5ab02021f4ca34e0d5b6a1b0172ebe95"><td class="memItemLeft">size_t&#160;</td><td class="memItemRight"><a class="el" href="#a5ab02021f4ca34e0d5b6a1b0172ebe95">utf8Len</a> (const char *string) noexcept</td></tr>
-<tr class="memdesc:a5ab02021f4ca34e0d5b6a1b0172ebe95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of Unicode characters in a UTF-8 encoded C <em class="arg">string</em>.  <br /></td></tr>
+<tr class="memitem:gaf944593cdbcc7eef7bf2a0e9ed116c8c" id="r_gaf944593cdbcc7eef7bf2a0e9ed116c8c"><td class="memItemLeft">wchar_t *&#160;</td><td class="memItemRight"><a class="el" href="../../d8/d90/group___text_functions.html#gaf944593cdbcc7eef7bf2a0e9ed116c8c">utf8toWChar</a> (wchar_t *dest, size_t destSize, const char *src, size_t count) noexcept</td></tr>
+<tr class="memdesc:gaf944593cdbcc7eef7bf2a0e9ed116c8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a UTF-8 C string to a wide-character string with a character count limit.  <br /></td></tr>
+<tr class="memitem:ga008aa42596921d995b66340139fd3cfb" id="r_ga008aa42596921d995b66340139fd3cfb"><td class="memItemLeft">char *&#160;</td><td class="memItemRight"><a class="el" href="../../d8/d90/group___text_functions.html#ga008aa42596921d995b66340139fd3cfb">wcharToUtf8</a> (char *dest, size_t destSize, const wchar_t *src) noexcept</td></tr>
+<tr class="memdesc:ga008aa42596921d995b66340139fd3cfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a wide-character C string to UTF-8.  <br /></td></tr>
+<tr class="memitem:ga5ab02021f4ca34e0d5b6a1b0172ebe95" id="r_ga5ab02021f4ca34e0d5b6a1b0172ebe95"><td class="memItemLeft">size_t&#160;</td><td class="memItemRight"><a class="el" href="../../d8/d90/group___text_functions.html#ga5ab02021f4ca34e0d5b6a1b0172ebe95">utf8Len</a> (const char *string) noexcept</td></tr>
+<tr class="memdesc:ga5ab02021f4ca34e0d5b6a1b0172ebe95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of Unicode code points in a UTF-8 encoded C string.  <br /></td></tr>
 <tr class="memitem:ae8b2c5fe28a3bb8e21f377b9e8ef2bc9" id="r_ae8b2c5fe28a3bb8e21f377b9e8ef2bc9"><td class="memItemLeft">char *&#160;</td><td class="memItemRight"><a class="el" href="#ae8b2c5fe28a3bb8e21f377b9e8ef2bc9">itoa</a> (char *dest, size_t destSize, int8_t value) noexcept</td></tr>
 <tr class="memdesc:ae8b2c5fe28a3bb8e21f377b9e8ef2bc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an 8-bit signed integer value to a C string representation.  <br /></td></tr>
 <tr class="memitem:a4761bfce539cb0e61b65a3573e79177f" id="r_a4761bfce539cb0e61b65a3573e79177f"><td class="memItemLeft">char *&#160;</td><td class="memItemRight"><a class="el" href="#a4761bfce539cb0e61b65a3573e79177f">itoa</a> (char *dest, size_t destSize, int16_t value) noexcept</td></tr>
@@ -336,8 +336,8 @@ Variables</h2></td></tr>
 <tr class="memdesc:abaf6e43802564c3840542ee978aeb917"><td class="mdescLeft">&#160;</td><td class="mdescRight">UTF-8 character size lookup table for efficient UTF-8 parsing.  <br /></td></tr>
 <tr class="memitem:a347e818bfb701d85aaa994862433373d" id="r_a347e818bfb701d85aaa994862433373d"><td class="memItemLeft">constexpr array&lt; uint32_t, 32 &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a347e818bfb701d85aaa994862433373d">_exponentTable</a></td></tr>
 <tr class="memdesc:a347e818bfb701d85aaa994862433373d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Precomputed exponent lookup table for efficient binary-to-decimal floating-point conversion.  <br /></td></tr>
-<tr class="memitem:a15a8263a5364e1ff581cf08613b9647f" id="r_a15a8263a5364e1ff581cf08613b9647f"><td class="memItemLeft">constexpr size_t&#160;</td><td class="memItemRight"><a class="el" href="#a15a8263a5364e1ff581cf08613b9647f">wcharInUtf8MaxSize</a> = 3</td></tr>
-<tr class="memdesc:a15a8263a5364e1ff581cf08613b9647f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum UTF-8 bytes required for BMP characters.  <br /></td></tr>
+<tr class="memitem:ga2a4051deac87f3522fdd2a2c55d1a79c" id="r_ga2a4051deac87f3522fdd2a2c55d1a79c"><td class="memItemLeft">constexpr size_t&#160;</td><td class="memItemRight"><a class="el" href="../../d8/d90/group___text_functions.html#ga2a4051deac87f3522fdd2a2c55d1a79c">WCHAR_IN_UTF8_MAX_SIZE</a> = 3</td></tr>
+<tr class="memdesc:ga2a4051deac87f3522fdd2a2c55d1a79c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum UTF-8 byte length for one BMP character.  <br /></td></tr>
 <tr class="memitem:a7e08bb0700f4c81f7fd28710e2e61e9e" id="r_a7e08bb0700f4c81f7fd28710e2e61e9e"><td class="memItemLeft">static constexpr array&lt; char, 36 &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a7e08bb0700f4c81f7fd28710e2e61e9e">_ansiDigits</a></td></tr>
 <tr class="memdesc:a7e08bb0700f4c81f7fd28710e2e61e9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">ANSI digit lookup table for base conversion.  <br /></td></tr>
 </table>
@@ -2888,274 +2888,6 @@ Empty strings are considered equal.</dd></dl>
 
 </div>
 </div>
-<a id="a2ad56b53b8cdbb022ce8ce3b2aa32503" name="a2ad56b53b8cdbb022ce8ce3b2aa32503"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2ad56b53b8cdbb022ce8ce3b2aa32503">&#9670;&#160;</a></span>reverseString()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">char * toy::reverseString </td>
-          <td>(</td>
-          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>str</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>count</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Reverses a given C string in-place. </p>
-<p>This function reverses a given C string in-place by swapping characters from both ends towards the center. It can be used to reverse a string of a specified length, or to reverse a null-terminated string when count is <code>0</code>.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">str</td><td>A pointer to the C string to reverse. </td></tr>
-    <tr><td class="paramname">count</td><td>The length of the C string to reverse (default: <code>0</code>).</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A pointer to the reversed C string (same as input pointer).</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The function modifies the original string directly. </dd>
-<dd>
-When count = <code>0</code>, the function calls strlen() to determine the string length. </dd></dl>
-
-</div>
-</div>
-<a id="a5ab02021f4ca34e0d5b6a1b0172ebe95" name="a5ab02021f4ca34e0d5b6a1b0172ebe95"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5ab02021f4ca34e0d5b6a1b0172ebe95">&#9670;&#160;</a></span>utf8Len()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">size_t toy::utf8Len </td>
-          <td>(</td>
-          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>string</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the number of Unicode characters in a UTF-8 encoded C <em class="arg">string</em>. </p>
-<p>This function counts the number of Unicode characters in a UTF-8 encoded C <em class="arg">string</em> by parsing UTF-8 sequences. It stops counting when the null character is encountered.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">string</td><td>A pointer to the source UTF-8 encoded C string.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The number of Unicode characters in the C <em class="arg">string</em>, or 0 if the <em class="arg">string</em> is invalid or null.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The function validates UTF-8 sequences during counting. </dd>
-<dd>
-Multi-byte sequences (2-3 bytes) are counted as single Unicode characters. </dd>
-<dd>
-Invalid UTF-8 sequences cause the function to return 0. </dd></dl>
-
-</div>
-</div>
-<a id="acf0d2ea5a12a30e6b7bdfaa9762b7ee3" name="acf0d2ea5a12a30e6b7bdfaa9762b7ee3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acf0d2ea5a12a30e6b7bdfaa9762b7ee3">&#9670;&#160;</a></span>utf8toWChar() <span class="overload">[1/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">wchar_t * toy::utf8toWChar </td>
-          <td>(</td>
-          <td class="paramtype">wchar_t *</td>          <td class="paramname"><span class="paramname"><em>dest</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>destSize</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const char *const</td>          <td class="paramname"><span class="paramname"><em>src</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Converts a Unicode UTF-8 encoded C string to a wide character string. </p>
-<p>This function translates a UTF-8 encoded C string into a wide character string. The conversion stops when the source string ends or the destination buffer is filled.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">dest</td><td>A pointer to the destination buffer where the converted wide character string will be stored. </td></tr>
-    <tr><td class="paramname">destSize</td><td>The size of the destination buffer in wide characters (not bytes). </td></tr>
-    <tr><td class="paramname">src</td><td>A pointer to the source UTF-8 encoded C string.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A pointer to the destination wide character string, or nullptr if the destination buffer is invalid.</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd>The destination buffer must be valid and have sufficient capacity. </dd>
-<dd>
-The source C string must be a valid UTF-8 encoded string.</dd></dl>
-<dl class="section post"><dt>Postcondition</dt><dd>The destination string is null-terminated. </dd>
-<dd>
-The function returns <code>nullptr</code> on buffer overflow or invalid input.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Only BMP (≤ 0xFFFF) characters are supported by design; 4-byte UTF-8 sequences are not produced. </dd>
-<dd>
-This is an inline wrapper around the main utf8toWChar function. </dd>
-<dd>
-The function automatically determines the source string length. </dd></dl>
-
-</div>
-</div>
-<a id="a5ee65428f52c52934cf358eec39c55aa" name="a5ee65428f52c52934cf358eec39c55aa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5ee65428f52c52934cf358eec39c55aa">&#9670;&#160;</a></span>utf8toWChar() <span class="overload">[2/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">wchar_t * toy::utf8toWChar </td>
-          <td>(</td>
-          <td class="paramtype">wchar_t *</td>          <td class="paramname"><span class="paramname"><em>dest</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>destSize</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const char *const</td>          <td class="paramname"><span class="paramname"><em>src</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>count</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Converts a Unicode UTF-8 encoded C string to a wide character string with character count limit. </p>
-<p>This function translates a UTF-8 encoded C string into a wide character string stored in the destination buffer. The conversion stops when the specified number of characters have been converted, the destination buffer is filled, or the source string ends.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">dest</td><td>A pointer to the destination buffer where the converted wide character string will be stored. </td></tr>
-    <tr><td class="paramname">destSize</td><td>The size of the destination buffer in wide characters (not bytes). </td></tr>
-    <tr><td class="paramname">src</td><td>A pointer to the source UTF-8 encoded C string. </td></tr>
-    <tr><td class="paramname">count</td><td>The maximum number of characters to convert from the source string.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A pointer to the destination wide character string, or nullptr if the destination buffer is invalid.</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd>The destination buffer must be valid and have sufficient capacity. </dd>
-<dd>
-The source C string must be a valid UTF-8 encoded string. </dd>
-<dd>
-The count parameter must be reasonable (typically ≤ source string length).</dd></dl>
-<dl class="section post"><dt>Postcondition</dt><dd>The destination string is null-terminated. </dd>
-<dd>
-The function returns <code>nullptr</code> on buffer overflow or invalid input.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Only BMP (≤ 0xFFFF) characters are supported by design; 4-byte UTF-8 sequences are not produced. </dd>
-<dd>
-The function handles UTF-8 validation and skips invalid sequences. </dd>
-<dd>
-If count exceeds the available characters, conversion stops at the end of the source string. </dd></dl>
-
-</div>
-</div>
-<a id="ad77806ddefe069afcd095c3d1ef37391" name="ad77806ddefe069afcd095c3d1ef37391"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad77806ddefe069afcd095c3d1ef37391">&#9670;&#160;</a></span>utf8toWChar() <span class="overload">[3/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;StringLike stringType&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">wchar_t * toy::utf8toWChar </td>
-          <td>(</td>
-          <td class="paramtype">wchar_t *</td>          <td class="paramname"><span class="paramname"><em>dest</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>destSize</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const stringType &amp;</td>          <td class="paramname"><span class="paramname"><em>src</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Converts a Unicode UTF-8 encoded <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="toy::StringLike">toy::StringLike</a> object to a wide character string. </p>
-<p>This template function translates a UTF-8 encoded <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="toy::StringLike">toy::StringLike</a> object into a wide character string. The conversion stops when the source string ends or the destination buffer is filled.</p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">stringType</td><td>The type of the source string. Must satisfy the <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="toy::StringLike">toy::StringLike</a> concept.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">dest</td><td>A pointer to the destination buffer where the converted wide character string will be stored. </td></tr>
-    <tr><td class="paramname">destSize</td><td>The size of the destination buffer in wide characters (not bytes). </td></tr>
-    <tr><td class="paramname">src</td><td>A reference to a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="toy::StringLike">toy::StringLike</a> object with UTF-8 encoded content.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A pointer to the destination wide character string, or nullptr if the destination buffer is invalid.</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd>The destination buffer must be valid and have sufficient capacity. </dd>
-<dd>
-The source <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="toy::StringLike">toy::StringLike</a> object must provide UTF-8 encoded string data via c_str().</dd></dl>
-<dl class="section post"><dt>Postcondition</dt><dd>The destination string is null-terminated. </dd>
-<dd>
-The function returns <code>nullptr</code> on buffer overflow or invalid input.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Only BMP (≤ 0xFFFF) characters are supported by design; 4-byte UTF-8 sequences are not produced. </dd>
-<dd>
-This template works with <code>std::string</code>, <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="toy::FixedString">toy::FixedString</a>, and other string-like types. </dd></dl>
-
-</div>
-</div>
 <a id="ac943fcf84753ab779d99dc2de0393662" name="ac943fcf84753ab779d99dc2de0393662"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac943fcf84753ab779d99dc2de0393662">&#9670;&#160;</a></span>utoa() <span class="overload">[1/4]</span></h2>
 
@@ -3441,63 +3173,6 @@ The base must be between 2 and 36 inclusive. </dd></dl>
 
 </div>
 </div>
-<a id="a008aa42596921d995b66340139fd3cfb" name="a008aa42596921d995b66340139fd3cfb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a008aa42596921d995b66340139fd3cfb">&#9670;&#160;</a></span>wcharToUtf8()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">char * toy::wcharToUtf8 </td>
-          <td>(</td>
-          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>dest</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>destSize</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const wchar_t *</td>          <td class="paramname"><span class="paramname"><em>src</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Converts a Unicode wide character C string to a UTF-8 encoded string. </p>
-<p>This function translates a wide character C string into a UTF-8 encoded string stored in the destination buffer. The conversion stops when the source string ends or the destination buffer is filled.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">dest</td><td>A pointer to the destination buffer where the converted UTF-8 encoded string will be stored. </td></tr>
-    <tr><td class="paramname">destSize</td><td>The size of the destination buffer in bytes (not wide characters). </td></tr>
-    <tr><td class="paramname">src</td><td>A pointer to the source wide character C string.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A pointer to the destination UTF-8 encoded string, or nullptr if the destination buffer is invalid.</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd>The destination buffer must be valid and have sufficient capacity. </dd>
-<dd>
-The source C string must be a valid wide character string. </dd>
-<dd>
-The destination buffer size should account for potential UTF-8 expansion.</dd></dl>
-<dl class="section post"><dt>Postcondition</dt><dd>The destination string is null-terminated. </dd>
-<dd>
-The function returns <code>nullptr</code> on buffer overflow or invalid input.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The function handles wide character to UTF-8 conversion efficiently. </dd>
-<dd>
-UTF-8 sequences may require 1-3 bytes per wide character. </dd></dl>
-
-</div>
-</div>
 <a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
 <a id="a7e08bb0700f4c81f7fd28710e2e61e9e" name="a7e08bb0700f4c81f7fd28710e2e61e9e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7e08bb0700f4c81f7fd28710e2e61e9e">&#9670;&#160;</a></span>_ansiDigits</h2>
@@ -3719,30 +3394,6 @@ This table enables O(1) lookup instead of expensive runtime power-of-10 calculat
 <p>UTF-8 character size lookup table for efficient UTF-8 parsing. </p>
 <p>This lookup table contains precomputed UTF-8 character sizes for all possible byte values (0-255). The table maps each byte to the number of bytes required to represent a complete UTF-8 character sequence. Using this table allows for O(1) UTF-8 character size determination instead of O(n) bit-by-bit analysis.</p>
 <dl class="section note"><dt>Note</dt><dd>Values: 0x01 = 1-byte ASCII character, 0x02-0x04 = multi-byte UTF-8 sequence, 0x00 = invalid/incomplete. </dd></dl>
-
-</div>
-</div>
-<a id="a15a8263a5364e1ff581cf08613b9647f" name="a15a8263a5364e1ff581cf08613b9647f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a15a8263a5364e1ff581cf08613b9647f">&#9670;&#160;</a></span>wcharInUtf8MaxSize</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">size_t toy::wcharInUtf8MaxSize = 3</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Maximum UTF-8 bytes required for BMP characters. </p>
 
 </div>
 </div>

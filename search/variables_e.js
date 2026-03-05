@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['wcharinutf8maxsize_0',['wcharInUtf8MaxSize',['../d4/da9/namespacetoy.html#a15a8263a5364e1ff581cf08613b9647f',1,'toy']]]
+  ['wchar_5fin_5futf8_5fmax_5fsize_0',['WCHAR_IN_UTF8_MAX_SIZE',['../d8/d90/group___text_functions.html#ga2a4051deac87f3522fdd2a2c55d1a79c',1,'toy']]]
 ];

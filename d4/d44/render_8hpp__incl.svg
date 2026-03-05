@@ -682,7 +682,7 @@ var sectionId = 'dynsection-0';
 <!-- Node34 -->
 <g id="Node000034" class="node">
 <title>Node34</title>
-<g id="a_Node000034"><a xlink:href="../../d8/d43/core_2utils_8hpp.html" target="_top" xlink:title="Core utility functions for string manipulation, encoding conversion, and number formatting.">
+<g id="a_Node000034"><a xlink:href="../../d8/d43/core_2utils_8hpp.html" target="_top" xlink:title="Core utilities: string encoding conversion, length, reversal, and number formatting.">
 <polygon fill="white" stroke="#666666" points="2863.5,-96 2780.5,-96 2780.5,-77 2863.5,-77 2863.5,-96"/>
 <text text-anchor="middle" x="2822" y="-84" font-family="Helvetica,sans-Serif" font-size="10.00">core/utils.hpp</text>
 </a>

@@ -1,5 +1,6 @@
 var NAVTREEINDEX4 =
 {
+"dd/d5c/classtoy_1_1math_1_1fixed.html#ad6a37661d807655086fb7e938cc6e021":[3,0,1,2,1,25],
 "dd/d5c/classtoy_1_1math_1_1fixed.html#ad6a37661d807655086fb7e938cc6e021":[5,0,1,2,0,25],
 "dd/d5c/classtoy_1_1math_1_1fixed.html#ad778f046de6593aa218f230a048b1d86":[3,0,1,2,1,15],
 "dd/d5c/classtoy_1_1math_1_1fixed.html#ad778f046de6593aa218f230a048b1d86":[5,0,1,2,0,15],
@@ -60,7 +61,7 @@ var NAVTREEINDEX4 =
 "de/deb/string__like_8hpp_source.html":[6,0,0,2,17],
 "df/d4a/c__string__view_8inl.html":[6,0,0,2,2],
 "df/d4a/c__string__view_8inl_source.html":[6,0,0,2,2],
-"df/d77/concepttoy_1_1_string_like.html":[2,1,0],
+"df/d77/concepttoy_1_1_string_like.html":[2,2,0],
 "df/d81/md__a_g_e_n_t_s.html":[1],
 "df/d81/md__a_g_e_n_t_s.html#access-modifiers":[1,4,7],
 "df/d81/md__a_g_e_n_t_s.html#assertions":[1,8,0],
@@ -248,6 +249,5 @@ var NAVTREEINDEX4 =
 "functions_w.html":[5,3,0,21],
 "functions_x.html":[5,3,0,22],
 "functions_y.html":[5,3,0,23],
-"functions_~.html":[5,3,0,24],
-"globals.html":[6,1,0]
+"functions_~.html":[5,3,0,24]
 };

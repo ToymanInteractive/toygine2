@@ -1,5 +1,5 @@
 <map id="include/core/utils.hpp" name="include/core/utils.hpp">
-<area shape="rect" id="Node000001" title="Core utility functions for string manipulation, encoding conversion, and number formatting." alt="" coords="615,5,777,31"/>
+<area shape="rect" id="Node000001" title="Core utilities: string encoding conversion, length, reversal, and number formatting." alt="" coords="615,5,777,31"/>
 <area shape="rect" id="Node000002" href="$da/d47/core_8hpp.html" title="Umbrella header for the engine core module." alt="" coords="631,79,761,104"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="699,44,699,79,693,79,693,44"/>
 <area shape="rect" id="Node000003" href="$d4/d01/application_8hpp.html" title="Umbrella header for the app module." alt="" coords="5,240,179,265"/>

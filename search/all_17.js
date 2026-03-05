@@ -1,8 +1,8 @@
 var searchData=
 [
   ['warning_0',['Warning',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#aa258d6860405ac17c387232bff26a6faa0eaadb4fcb48a0a0ed7bc9868be9fbaa',1,'toy::platform::ui']]],
-  ['wcharinutf8maxsize_1',['wcharInUtf8MaxSize',['../d4/da9/namespacetoy.html#a15a8263a5364e1ff581cf08613b9647f',1,'toy']]],
-  ['wchartoutf8_2',['wcharToUtf8',['../d4/da9/namespacetoy.html#a008aa42596921d995b66340139fd3cfb',1,'toy']]],
+  ['wchar_5fin_5futf8_5fmax_5fsize_1',['WCHAR_IN_UTF8_MAX_SIZE',['../d8/d90/group___text_functions.html#ga2a4051deac87f3522fdd2a2c55d1a79c',1,'toy']]],
+  ['wchartoutf8_2',['wcharToUtf8',['../d8/d90/group___text_functions.html#ga008aa42596921d995b66340139fd3cfb',1,'toy']]],
   ['windows_3',['Windows',['../d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aaaea23489ce3aa9b6406ebb28e0cda430',1,'toy']]],
   ['without_20compatibility_4',['Simplified Class (without compatibility)',['../df/d81/md__a_g_e_n_t_s.html#simplified-class-without-compatibility',1,'']]],
   ['wouldblock_5',['WouldBlock',['../d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725eae799f8e2bec1c2593f034ec5060229e6',1,'toy::network']]],

@@ -80,7 +80,7 @@
 <area shape="poly" id="edge34_Node000003_Node000033" title=" " alt="" coords="2122,90,2356,94,2708,104,3071,121,3223,134,3337,149,3374,159,3372,165,3335,155,3222,139,3071,127,2708,109,2356,99,2122,96"/>
 <area shape="rect" id="Node000034" href="$de/d2d/o__string__stream_8hpp.html" title="Output string stream class for building strings from various data types." alt="" coords="3501,167,3688,192"/>
 <area shape="poly" id="edge35_Node000003_Node000034" title=" " alt="" coords="2122,91,2777,106,3188,124,3360,136,3490,149,3544,161,3543,166,3489,155,3360,141,3188,129,2777,112,2122,96"/>
-<area shape="rect" id="Node000035" href="$d8/d43/core_2utils_8hpp.html" title="Core utility functions for string manipulation, encoding conversion, and number formatting." alt="" coords="3713,167,3823,192"/>
+<area shape="rect" id="Node000035" href="$d8/d43/core_2utils_8hpp.html" title="Core utilities: string encoding conversion, length, reversal, and number formatting." alt="" coords="3713,167,3823,192"/>
 <area shape="poly" id="edge39_Node000003_Node000035" title=" " alt="" coords="2122,90,2416,89,2874,95,3120,102,3351,113,3551,128,3701,149,3732,159,3731,164,3699,155,3550,134,3351,118,3119,107,2874,100,2416,95,2122,95"/>
 <area shape="rect" id="Node000036" href="$df/d4a/c__string__view_8inl.html" title="Inline implementations for CStringView class." alt="" coords="3848,167,4011,192"/>
 <area shape="poly" id="edge40_Node000003_Node000036" title=" " alt="" coords="2122,90,2437,92,2934,100,3453,118,3671,132,3835,149,3883,160,3882,165,3834,155,3671,137,3453,123,2934,106,2437,98,2122,95"/>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['string_20utilities_0',['String Utilities',['../d4/d6e/group___string.html',1,'']]]
+  ['processing_20functions_0',['Common text processing functions',['../d8/d90/group___text_functions.html',1,'']]]
 ];
