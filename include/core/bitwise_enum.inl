@@ -19,7 +19,7 @@
 //
 /*!
   \file   bitwise_enum.inl
-  \brief  Inline implementations for \ref toy::enable_bitwise_operators bitwise operators.
+  \brief  Inline implementations for \ref toy::EnableBitwiseOperators bitwise operators.
 */
 
 #ifndef INCLUDE_CORE_BITWISE_ENUM_INL_
@@ -28,43 +28,43 @@
 namespace toy {
 
 template <typename T>
-  requires enable_bitwise_operators<T>::enable
+  requires EnableBitwiseOperators<T>::enable
 [[nodiscard]] constexpr T operator|(T lhs, T rhs) noexcept {
   return static_cast<T>(std::to_underlying(lhs) | std::to_underlying(rhs));
 }
 
 template <typename T>
-  requires enable_bitwise_operators<T>::enable
+  requires EnableBitwiseOperators<T>::enable
 [[nodiscard]] constexpr T operator&(T lhs, T rhs) noexcept {
   return static_cast<T>(std::to_underlying(lhs) & std::to_underlying(rhs));
 }
 
 template <typename T>
-  requires enable_bitwise_operators<T>::enable
+  requires EnableBitwiseOperators<T>::enable
 [[nodiscard]] constexpr T operator^(T lhs, T rhs) noexcept {
   return static_cast<T>(std::to_underlying(lhs) ^ std::to_underlying(rhs));
 }
 
 template <typename T>
-  requires enable_bitwise_operators<T>::enable
+  requires EnableBitwiseOperators<T>::enable
 [[nodiscard]] constexpr T operator~(T lhs) noexcept {
   return static_cast<T>(~std::to_underlying(lhs));
 }
 
 template <typename T>
-  requires enable_bitwise_operators<T>::enable
+  requires EnableBitwiseOperators<T>::enable
 constexpr T & operator|=(T & lhs, T rhs) noexcept {
   return lhs = lhs | rhs;
 }
 
 template <typename T>
-  requires enable_bitwise_operators<T>::enable
+  requires EnableBitwiseOperators<T>::enable
 constexpr T & operator&=(T & lhs, T rhs) noexcept {
   return lhs = lhs & rhs;
 }
 
 template <typename T>
-  requires enable_bitwise_operators<T>::enable
+  requires EnableBitwiseOperators<T>::enable
 constexpr T & operator^=(T & lhs, T rhs) noexcept {
   return lhs = lhs ^ rhs;
 }

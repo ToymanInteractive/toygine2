@@ -21,11 +21,11 @@
   \file   bitwise_enum.hpp
   \brief  Trait and generic bitwise operators for scoped enums.
 
-  \ref toy::enable_bitwise_operators is a trait that gates bitwise operator overloads for an enum type.
+  \ref toy::EnableBitwiseOperators is a trait that gates bitwise operator overloads for an enum type.
   Use macro ENABLE_BITWISE_OPERATORS to enable operator|, operator&, operator^, operator~ and compound
   operator|=, operator&=, operator^= for a given enum. All operations are constexpr and noexcept.
 
-  \sa toy::enable_bitwise_operators, ENABLE_BITWISE_OPERATORS
+  \sa toy::EnableBitwiseOperators, ENABLE_BITWISE_OPERATORS
 */
 
 #ifndef INCLUDE_CORE_BITWISE_ENUM_HPP_
@@ -44,7 +44,7 @@ namespace toy {
   \sa ENABLE_BITWISE_OPERATORS
 */
 template <typename T>
-struct enable_bitwise_operators {
+struct EnableBitwiseOperators {
   /// Enables bitwise operators.
   static constexpr bool enable = false;
 };
@@ -58,7 +58,7 @@ struct enable_bitwise_operators {
   \return A value of type \a T with bits set in either \a lhs or \a rhs.
 */
 template <typename T>
-  requires enable_bitwise_operators<T>::enable
+  requires EnableBitwiseOperators<T>::enable
 [[nodiscard]] constexpr T operator|(T lhs, T rhs) noexcept;
 
 /*!
@@ -70,7 +70,7 @@ template <typename T>
   \return A value of type \a T with only the bits set in both \a lhs and \a rhs.
 */
 template <typename T>
-  requires enable_bitwise_operators<T>::enable
+  requires EnableBitwiseOperators<T>::enable
 [[nodiscard]] constexpr T operator&(T lhs, T rhs) noexcept;
 
 /*!
@@ -82,7 +82,7 @@ template <typename T>
   \return A value of type \a T with bits set in exactly one of \a lhs or \a rhs.
 */
 template <typename T>
-  requires enable_bitwise_operators<T>::enable
+  requires EnableBitwiseOperators<T>::enable
 [[nodiscard]] constexpr T operator^(T lhs, T rhs) noexcept;
 
 /*!
@@ -93,7 +93,7 @@ template <typename T>
   \return A value of type \a T with all bits of the underlying value inverted.
 */
 template <typename T>
-  requires enable_bitwise_operators<T>::enable
+  requires EnableBitwiseOperators<T>::enable
 [[nodiscard]] constexpr T operator~(T lhs) noexcept;
 
 /*!
@@ -105,7 +105,7 @@ template <typename T>
   \return Reference to \a lhs.
 */
 template <typename T>
-  requires enable_bitwise_operators<T>::enable
+  requires EnableBitwiseOperators<T>::enable
 constexpr T & operator|=(T & lhs, T rhs) noexcept;
 
 /*!
@@ -117,7 +117,7 @@ constexpr T & operator|=(T & lhs, T rhs) noexcept;
   \return Reference to \a lhs.
 */
 template <typename T>
-  requires enable_bitwise_operators<T>::enable
+  requires EnableBitwiseOperators<T>::enable
 constexpr T & operator&=(T & lhs, T rhs) noexcept;
 
 /*!
@@ -129,7 +129,7 @@ constexpr T & operator&=(T & lhs, T rhs) noexcept;
   \return Reference to \a lhs.
 */
 template <typename T>
-  requires enable_bitwise_operators<T>::enable
+  requires EnableBitwiseOperators<T>::enable
 constexpr T & operator^=(T & lhs, T rhs) noexcept;
 
 } // namespace toy
@@ -138,17 +138,17 @@ constexpr T & operator^=(T & lhs, T rhs) noexcept;
   \def ENABLE_BITWISE_OPERATORS
   \brief Enables bitwise operators for the scoped enum type \a T.
 
-  Expands to a full specialization of \ref toy::enable_bitwise_operators with \a enable set to \c true. Must be used in
+  Expands to a full specialization of \ref toy::EnableBitwiseOperators with \a enable set to \c true. Must be used in
   the global namespace after the enum definition. Include \c core/bitwise_enum.hpp so that the trait and operators are
   visible.
 
   \param T Scoped enum type (e.g. \ref toy::render::ClearFlags).
 
-  \sa toy::enable_bitwise_operators
+  \sa toy::EnableBitwiseOperators
 */
 #define ENABLE_BITWISE_OPERATORS(T)                                                                                    \
   template <>                                                                                                          \
-  struct toy::enable_bitwise_operators<T> {                                                                            \
+  struct toy::EnableBitwiseOperators<T> {                                                                              \
     static constexpr bool enable = true;                                                                               \
   };
 

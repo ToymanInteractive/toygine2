@@ -32,23 +32,24 @@ ENABLE_BITWISE_OPERATORS(toy::TestFlags)
 
 namespace toy {
 
-// Trait enable_bitwise_operators: enabled for specialized enum, disabled otherwise.
+// Trait EnableBitwiseOperators: enabled for specialized enum, disabled otherwise.
 TEST_CASE("core/bitwise_enum/trait") {
   // Specialized enum has enable == true.
   SUBCASE("enabled_for_specialized_enum") {
-    REQUIRE(enable_bitwise_operators<TestFlags>::enable == true);
+    REQUIRE(EnableBitwiseOperators<TestFlags>::enable == true);
 
-    static_assert(enable_bitwise_operators<TestFlags>::enable == true,
-                  "enable_bitwise_operators<TestFlags>::enable must be true after ENABLE_BITWISE_OPERATORS");
+    static_assert(EnableBitwiseOperators<TestFlags>::enable == true,
+                  "EnableBitwiseOperators<TestFlags>::enable must be true after ENABLE_BITWISE_OPERATORS");
   }
 
   // Non-specialized type has enable == false.
   SUBCASE("disabled_for_other_types") {
     struct S {};
-    REQUIRE(enable_bitwise_operators<S>::enable == false);
 
-    static_assert(enable_bitwise_operators<S>::enable == false,
-                  "enable_bitwise_operators for non-specialized type must be false");
+    REQUIRE(EnableBitwiseOperators<S>::enable == false);
+
+    static_assert(EnableBitwiseOperators<S>::enable == false,
+                  "EnableBitwiseOperators for non-specialized type must be false");
   }
 }
 
@@ -56,7 +57,7 @@ TEST_CASE("core/bitwise_enum/trait") {
 TEST_CASE("core/bitwise_enum/operator_or") {
   // TestFlags::A | TestFlags::B combines bits.
   SUBCASE("or_combines_bits") {
-    constexpr TestFlags combined = TestFlags::A | TestFlags::B;
+    constexpr auto combined = TestFlags::A | TestFlags::B;
 
     REQUIRE(std::to_underlying(combined) == 3);
 
@@ -65,10 +66,11 @@ TEST_CASE("core/bitwise_enum/operator_or") {
 
   // TestFlags::None | TestFlags::A yields TestFlags::A (TestFlags::None is zero).
   SUBCASE("or_with_TestFlags::None_preserves_other") {
-    REQUIRE((TestFlags::None | TestFlags::A) == TestFlags::A);
+    constexpr auto combined = TestFlags::None | TestFlags::A;
 
-    static_assert((TestFlags::None | TestFlags::A) == TestFlags::A,
-                  "TestFlags::None | TestFlags::A must equal TestFlags::A");
+    REQUIRE(combined == TestFlags::A);
+
+    static_assert(combined == TestFlags::A, "TestFlags::None | TestFlags::A must equal TestFlags::A");
   }
 }
 
@@ -76,7 +78,7 @@ TEST_CASE("core/bitwise_enum/operator_or") {
 TEST_CASE("core/bitwise_enum/operator_and") {
   // (TestFlags::A | TestFlags::B) & TestFlags::A yields TestFlags::A.
   SUBCASE("and_intersection") {
-    constexpr TestFlags combined = TestFlags::A | TestFlags::B;
+    constexpr auto combined = TestFlags::A | TestFlags::B;
 
     REQUIRE((combined & TestFlags::A) == TestFlags::A);
 
