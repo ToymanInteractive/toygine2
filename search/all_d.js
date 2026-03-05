@@ -29,9 +29,10 @@ var searchData=
   ['min_5fexponent_26',['min_exponent',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#af3aab85040f4b751e1be4d02c92f2e18',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]],
   ['min_5fexponent10_27',['min_exponent10',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#afd4bd4aa4395324969e56e7cbb743058',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]],
   ['minimum_28',['minimum',['../db/d6f/classtoy_1_1geometry_1_1_section.html#add8e462337a78bf66c0426c15153a176',1,'toy::geometry::Section']]],
-  ['minor_29',['minor',['../d7/d33/structtoy_1_1application_1_1_version.html#a2dbf72695a2ef59f90d1728bf12029fd',1,'toy::application::Version']]],
-  ['modern_20c_20practices_30',['Modern C++ Practices',['../df/d81/md__a_g_e_n_t_s.html#modern-c-practices',1,'']]],
-  ['modifiers_31',['Access Modifiers',['../df/d81/md__a_g_e_n_t_s.html#access-modifiers',1,'']]],
-  ['module_20structure_32',['Module Structure',['../df/d81/md__a_g_e_n_t_s.html#module-structure',1,'']]],
-  ['music_33',['Music',['../dd/d77/namespacetoy_1_1audio.html#afca9143e3b169f77784310a3b384261ca47dcbd834e669233d7eb8a51456ed217',1,'toy::audio']]]
+  ['minmax_29',['MinMax',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#aa6c677b8c744b89734e11ea340507a72ab3599ae8afe8304462dbdbd42d791488',1,'toy::platform::ui']]],
+  ['minor_30',['minor',['../d7/d33/structtoy_1_1application_1_1_version.html#a2dbf72695a2ef59f90d1728bf12029fd',1,'toy::application::Version']]],
+  ['modern_20c_20practices_31',['Modern C++ Practices',['../df/d81/md__a_g_e_n_t_s.html#modern-c-practices',1,'']]],
+  ['modifiers_32',['Access Modifiers',['../df/d81/md__a_g_e_n_t_s.html#access-modifiers',1,'']]],
+  ['module_20structure_33',['Module Structure',['../df/d81/md__a_g_e_n_t_s.html#module-structure',1,'']]],
+  ['music_34',['Music',['../dd/d77/namespacetoy_1_1audio.html#afca9143e3b169f77784310a3b384261ca47dcbd834e669233d7eb8a51456ed217',1,'toy::audio']]]
 ];

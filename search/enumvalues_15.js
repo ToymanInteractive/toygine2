@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['yes_0',['Yes',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#acd712dd388168864cc984d43e23e41d2a93cba07454f06a4a960172bbd6e2a435',1,'toy::platform::ui']]],
-  ['yesno_1',['YesNo',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#a4f41eacedb4fa2744ba9f594b0832445ab65ffbcb4dcfb93ecdc257d6e4ba42c4',1,'toy::platform::ui']]],
-  ['yesnocancel_2',['YesNoCancel',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#a4f41eacedb4fa2744ba9f594b0832445a71fc7b7aece69111c0b6967de4b101c5',1,'toy::platform::ui']]]
+  ['x64_0',['x64',['../d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341a9c16d991c79c6330e655aa29ea623492',1,'toy']]],
+  ['x86_1',['x86',['../d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341a8a9da7865483c5fd359f3acef178d26d',1,'toy']]],
+  ['x8r8g8b8_2',['X8R8G8B8',['../df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3fa08621a79896977cc5f97853284adc2a9',1,'toy::render']]]
 ];

@@ -114,7 +114,7 @@ $(function(){initNavTree('d1/d03/namespacetoy_1_1platform_1_1ui.html','../../','
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="../../d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55a" title="Target operating system or platform identifier.">Platform</a> UI: orientation, message box (icon, button set, return value), and related types.  
+<p><a class="el" href="../../d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55a" title="Target operating system or platform identifier.">Platform</a> UI: orientation, window style flags, message box (icon, buttons, return value), and related types.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
@@ -171,6 +171,18 @@ Enumerations</h2></td></tr>
 <br />
  }</td></tr>
 <tr class="memdesc:aab7a6848d6656e7540fb1d6d72116e02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Screen orientation for UI layout and device rotation.  <a href="#aab7a6848d6656e7540fb1d6d72116e02">More...</a><br /></td></tr>
+<tr class="memitem:aa6c677b8c744b89734e11ea340507a72" id="r_aa6c677b8c744b89734e11ea340507a72"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#aa6c677b8c744b89734e11ea340507a72">WindowStyle</a> : uint8_t { <br />
+&#160;&#160;<a class="el" href="#aa6c677b8c744b89734e11ea340507a72a1fbb1e3943c2c6c560247ac8f9289780">Simple</a> = 0x00
+, <a class="el" href="#aa6c677b8c744b89734e11ea340507a72ad3d2e617335f08df83599665eef8a418">Close</a> = 0x01
+, <a class="el" href="#aa6c677b8c744b89734e11ea340507a72ab3599ae8afe8304462dbdbd42d791488">MinMax</a> = 0x02
+, <a class="el" href="#aa6c677b8c744b89734e11ea340507a72a0d4c14a20b4d98a5de54e1480bf99a25">Popup</a> = 0x04
+, <br />
+&#160;&#160;<a class="el" href="#aa6c677b8c744b89734e11ea340507a72acfd9b513b2198fd455b9f598d696222b">TopMost</a> = 0x08
+, <a class="el" href="#aa6c677b8c744b89734e11ea340507a72ae7ec409749889353b8f83a6b04159420">FullScreen</a> = 0x10
+, <a class="el" href="#aa6c677b8c744b89734e11ea340507a72a22995988de764d7a8cb4165fbff371cb">Resized</a> = 0x20
+<br />
+ }</td></tr>
+<tr class="memdesc:aa6c677b8c744b89734e11ea340507a72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bitmask flags for window decoration, modality, and display mode.  <a href="#aa6c677b8c744b89734e11ea340507a72">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -180,10 +192,16 @@ Functions</h2></td></tr>
 <tr class="memdesc:a7865b5932f8f093b63b52c900d3bdf16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bitwise OR of two <a class="el" href="#aab7a6848d6656e7540fb1d6d72116e02" title="toy::platform::ui::Orientation">toy::platform::ui::Orientation</a> values.  <br /></td></tr>
 <tr class="memitem:af43dc4e8ee989cde743f42c1832a5ef0" id="r_af43dc4e8ee989cde743f42c1832a5ef0"><td class="memItemLeft">constexpr <a class="el" href="#aab7a6848d6656e7540fb1d6d72116e02">Orientation</a>&#160;</td><td class="memItemRight"><a class="el" href="#af43dc4e8ee989cde743f42c1832a5ef0">operator^</a> (<a class="el" href="#aab7a6848d6656e7540fb1d6d72116e02">Orientation</a> lhs, <a class="el" href="#aab7a6848d6656e7540fb1d6d72116e02">Orientation</a> rhs) noexcept</td></tr>
 <tr class="memdesc:af43dc4e8ee989cde743f42c1832a5ef0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bitwise XOR of two <a class="el" href="#aab7a6848d6656e7540fb1d6d72116e02" title="toy::platform::ui::Orientation">toy::platform::ui::Orientation</a> values.  <br /></td></tr>
+<tr class="memitem:aa7702b9f5b239d96766354de96bc6ba4" id="r_aa7702b9f5b239d96766354de96bc6ba4"><td class="memItemLeft">constexpr <a class="el" href="#aa6c677b8c744b89734e11ea340507a72">WindowStyle</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa7702b9f5b239d96766354de96bc6ba4">operator&amp;</a> (<a class="el" href="#aa6c677b8c744b89734e11ea340507a72">WindowStyle</a> lhs, <a class="el" href="#aa6c677b8c744b89734e11ea340507a72">WindowStyle</a> rhs) noexcept</td></tr>
+<tr class="memdesc:aa7702b9f5b239d96766354de96bc6ba4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bitwise AND of two <a class="el" href="#aa6c677b8c744b89734e11ea340507a72" title="toy::platform::ui::WindowStyle">toy::platform::ui::WindowStyle</a> values.  <br /></td></tr>
+<tr class="memitem:ac9629cc18f923d6e4735bf154eda352b" id="r_ac9629cc18f923d6e4735bf154eda352b"><td class="memItemLeft">constexpr <a class="el" href="#aa6c677b8c744b89734e11ea340507a72">WindowStyle</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac9629cc18f923d6e4735bf154eda352b">operator|</a> (<a class="el" href="#aa6c677b8c744b89734e11ea340507a72">WindowStyle</a> lhs, <a class="el" href="#aa6c677b8c744b89734e11ea340507a72">WindowStyle</a> rhs) noexcept</td></tr>
+<tr class="memdesc:ac9629cc18f923d6e4735bf154eda352b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bitwise OR of two <a class="el" href="#aa6c677b8c744b89734e11ea340507a72" title="toy::platform::ui::WindowStyle">toy::platform::ui::WindowStyle</a> values.  <br /></td></tr>
+<tr class="memitem:ac188cad17d9e5d58d629a085e48d1c84" id="r_ac188cad17d9e5d58d629a085e48d1c84"><td class="memItemLeft">constexpr <a class="el" href="#aa6c677b8c744b89734e11ea340507a72">WindowStyle</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac188cad17d9e5d58d629a085e48d1c84">operator^</a> (<a class="el" href="#aa6c677b8c744b89734e11ea340507a72">WindowStyle</a> lhs, <a class="el" href="#aa6c677b8c744b89734e11ea340507a72">WindowStyle</a> rhs) noexcept</td></tr>
+<tr class="memdesc:ac188cad17d9e5d58d629a085e48d1c84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bitwise XOR of two <a class="el" href="#aa6c677b8c744b89734e11ea340507a72" title="toy::platform::ui::WindowStyle">toy::platform::ui::WindowStyle</a> values.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="../../d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55a" title="Target operating system or platform identifier.">Platform</a> UI: orientation, message box (icon, button set, return value), and related types. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="#aab7a6848d6656e7540fb1d6d72116e02" title="Screen orientation for UI layout and device rotation.">toy::platform::ui::Orientation</a>, <a class="el" href="#aa258d6860405ac17c387232bff26a6fa" title="Icon shown in a message box or dialog.">toy::platform::ui::MessageBoxIcon</a>, <a class="el" href="#a4f41eacedb4fa2744ba9f594b0832445" title="Which buttons to show on a message box or dialog.">toy::platform::ui::MessageBoxButtons</a>, <a class="el" href="#acd712dd388168864cc984d43e23e41d2" title="User choice when dismissing a message box or dialog.">toy::platform::ui::MessageBoxReturn</a> </dd></dl>
+<div class="textblock"><p><a class="el" href="../../d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55a" title="Target operating system or platform identifier.">Platform</a> UI: orientation, window style flags, message box (icon, buttons, return value), and related types. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#aab7a6848d6656e7540fb1d6d72116e02" title="Screen orientation for UI layout and device rotation.">toy::platform::ui::Orientation</a>, <a class="el" href="#aa6c677b8c744b89734e11ea340507a72" title="Bitmask flags for window decoration, modality, and display mode.">toy::platform::ui::WindowStyle</a>, <a class="el" href="#aa258d6860405ac17c387232bff26a6fa" title="Icon shown in a message box or dialog.">toy::platform::ui::MessageBoxIcon</a>, <a class="el" href="#a4f41eacedb4fa2744ba9f594b0832445" title="Which buttons to show on a message box or dialog.">toy::platform::ui::MessageBoxButtons</a>, <a class="el" href="#acd712dd388168864cc984d43e23e41d2" title="User choice when dismissing a message box or dialog.">toy::platform::ui::MessageBoxReturn</a> </dd></dl>
 </div><a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Enumeration Type Documentation</h2>
 <a id="a4f41eacedb4fa2744ba9f594b0832445" name="a4f41eacedb4fa2744ba9f594b0832445"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4f41eacedb4fa2744ba9f594b0832445">&#9670;&#160;</a></span>MessageBoxButtons</h2>
@@ -355,9 +373,51 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="aa6c677b8c744b89734e11ea340507a72" name="aa6c677b8c744b89734e11ea340507a72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6c677b8c744b89734e11ea340507a72">&#9670;&#160;</a></span>WindowStyle</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#aa6c677b8c744b89734e11ea340507a72">toy::platform::ui::WindowStyle</a> : uint8_t</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Bitmask flags for window decoration, modality, and display mode. </p>
+<p>Values can be combined (e.g. <code>Close</code> | <code>MinMax</code> for a standard title bar). Used when creating or configuring platform windows.</p>
+<dl class="section see"><dt>See also</dt><dd>operator&amp;, operator|, operator^ </dd></dl>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aa6c677b8c744b89734e11ea340507a72a1fbb1e3943c2c6c560247ac8f9289780" name="aa6c677b8c744b89734e11ea340507a72a1fbb1e3943c2c6c560247ac8f9289780"></a>Simple&#160;</td><td class="fielddoc"><p>No decoration (plain window). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aa6c677b8c744b89734e11ea340507a72ad3d2e617335f08df83599665eef8a418" name="aa6c677b8c744b89734e11ea340507a72ad3d2e617335f08df83599665eef8a418"></a>Close&#160;</td><td class="fielddoc"><p>Close button on title bar. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aa6c677b8c744b89734e11ea340507a72ab3599ae8afe8304462dbdbd42d791488" name="aa6c677b8c744b89734e11ea340507a72ab3599ae8afe8304462dbdbd42d791488"></a>MinMax&#160;</td><td class="fielddoc"><p>Minimize and maximize buttons. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aa6c677b8c744b89734e11ea340507a72a0d4c14a20b4d98a5de54e1480bf99a25" name="aa6c677b8c744b89734e11ea340507a72a0d4c14a20b4d98a5de54e1480bf99a25"></a>Popup&#160;</td><td class="fielddoc"><p>Popup/modal behavior. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aa6c677b8c744b89734e11ea340507a72acfd9b513b2198fd455b9f598d696222b" name="aa6c677b8c744b89734e11ea340507a72acfd9b513b2198fd455b9f598d696222b"></a>TopMost&#160;</td><td class="fielddoc"><p>Window stays above others. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aa6c677b8c744b89734e11ea340507a72ae7ec409749889353b8f83a6b04159420" name="aa6c677b8c744b89734e11ea340507a72ae7ec409749889353b8f83a6b04159420"></a>FullScreen&#160;</td><td class="fielddoc"><p>Full-screen mode. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aa6c677b8c744b89734e11ea340507a72a22995988de764d7a8cb4165fbff371cb" name="aa6c677b8c744b89734e11ea340507a72a22995988de764d7a8cb4165fbff371cb"></a>Resized&#160;</td><td class="fielddoc"><p>Window has been resized. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a3e89eb3201c3119b7450a21a1ef80a24" name="a3e89eb3201c3119b7450a21a1ef80a24"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3e89eb3201c3119b7450a21a1ef80a24">&#9670;&#160;</a></span>operator&amp;()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e89eb3201c3119b7450a21a1ef80a24">&#9670;&#160;</a></span>operator&amp;() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -396,8 +456,47 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="aa7702b9f5b239d96766354de96bc6ba4" name="aa7702b9f5b239d96766354de96bc6ba4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7702b9f5b239d96766354de96bc6ba4">&#9670;&#160;</a></span>operator&amp;() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#aa6c677b8c744b89734e11ea340507a72">WindowStyle</a> toy::platform::ui::operator&amp; </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#aa6c677b8c744b89734e11ea340507a72">WindowStyle</a></td>          <td class="paramname"><span class="paramname"><em>lhs</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#aa6c677b8c744b89734e11ea340507a72">WindowStyle</a></td>          <td class="paramname"><span class="paramname"><em>rhs</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Bitwise AND of two <a class="el" href="#aa6c677b8c744b89734e11ea340507a72" title="toy::platform::ui::WindowStyle">toy::platform::ui::WindowStyle</a> values. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lhs</td><td>First operand. </td></tr>
+    <tr><td class="paramname">rhs</td><td>Second operand.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="#aa6c677b8c744b89734e11ea340507a72" title="toy::platform::ui::WindowStyle">toy::platform::ui::WindowStyle</a> with only the bits set in both <em class="arg">lhs</em> and <em class="arg">rhs</em>. </dd></dl>
+
+</div>
+</div>
 <a id="af43dc4e8ee989cde743f42c1832a5ef0" name="af43dc4e8ee989cde743f42c1832a5ef0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af43dc4e8ee989cde743f42c1832a5ef0">&#9670;&#160;</a></span>operator^()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af43dc4e8ee989cde743f42c1832a5ef0">&#9670;&#160;</a></span>operator^() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -436,8 +535,47 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ac188cad17d9e5d58d629a085e48d1c84" name="ac188cad17d9e5d58d629a085e48d1c84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac188cad17d9e5d58d629a085e48d1c84">&#9670;&#160;</a></span>operator^() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#aa6c677b8c744b89734e11ea340507a72">WindowStyle</a> toy::platform::ui::operator^ </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#aa6c677b8c744b89734e11ea340507a72">WindowStyle</a></td>          <td class="paramname"><span class="paramname"><em>lhs</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#aa6c677b8c744b89734e11ea340507a72">WindowStyle</a></td>          <td class="paramname"><span class="paramname"><em>rhs</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Bitwise XOR of two <a class="el" href="#aa6c677b8c744b89734e11ea340507a72" title="toy::platform::ui::WindowStyle">toy::platform::ui::WindowStyle</a> values. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lhs</td><td>First operand. </td></tr>
+    <tr><td class="paramname">rhs</td><td>Second operand.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="#aa6c677b8c744b89734e11ea340507a72" title="toy::platform::ui::WindowStyle">toy::platform::ui::WindowStyle</a> with bits set in exactly one of <em class="arg">lhs</em> or <em class="arg">rhs</em>. </dd></dl>
+
+</div>
+</div>
 <a id="a7865b5932f8f093b63b52c900d3bdf16" name="a7865b5932f8f093b63b52c900d3bdf16"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7865b5932f8f093b63b52c900d3bdf16">&#9670;&#160;</a></span>operator|()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7865b5932f8f093b63b52c900d3bdf16">&#9670;&#160;</a></span>operator|() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -473,6 +611,45 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>An orientation with all bits set in either <em class="arg">lhs</em> or <em class="arg">rhs</em>. </dd></dl>
+
+</div>
+</div>
+<a id="ac9629cc18f923d6e4735bf154eda352b" name="ac9629cc18f923d6e4735bf154eda352b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9629cc18f923d6e4735bf154eda352b">&#9670;&#160;</a></span>operator|() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#aa6c677b8c744b89734e11ea340507a72">WindowStyle</a> toy::platform::ui::operator| </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#aa6c677b8c744b89734e11ea340507a72">WindowStyle</a></td>          <td class="paramname"><span class="paramname"><em>lhs</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#aa6c677b8c744b89734e11ea340507a72">WindowStyle</a></td>          <td class="paramname"><span class="paramname"><em>rhs</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Bitwise OR of two <a class="el" href="#aa6c677b8c744b89734e11ea340507a72" title="toy::platform::ui::WindowStyle">toy::platform::ui::WindowStyle</a> values. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lhs</td><td>First operand. </td></tr>
+    <tr><td class="paramname">rhs</td><td>Second operand.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="#aa6c677b8c744b89734e11ea340507a72" title="toy::platform::ui::WindowStyle">toy::platform::ui::WindowStyle</a> with all bits set in either <em class="arg">lhs</em> or <em class="arg">rhs</em>. </dd></dl>
 
 </div>
 </div>

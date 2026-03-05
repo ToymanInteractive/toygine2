@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['gba_0',['GBA',['../d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aad61abb0698c83433ab6b11ab3d68447d',1,'toy']]]
+  ['fullscreen_0',['FullScreen',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#aa6c677b8c744b89734e11ea340507a72ae7ec409749889353b8f83a6b04159420',1,'toy::platform::ui']]]
 ];

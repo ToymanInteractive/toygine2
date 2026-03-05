@@ -26,7 +26,7 @@ var searchData=
   ['clear_5fflags_2ehpp_23',['clear_flags.hpp',['../d0/d74/clear__flags_8hpp.html',1,'']]],
   ['clear_5fflags_2einl_24',['clear_flags.inl',['../d4/d2f/clear__flags_8inl.html',1,'']]],
   ['clearflags_25',['ClearFlags',['../df/d8d/namespacetoy_1_1render.html#ae44fe0c1053121f38b8544a8684ee4e1',1,'toy::render']]],
-  ['close_26',['Close',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#acd712dd388168864cc984d43e23e41d2ad3d2e617335f08df83599665eef8a418',1,'toy::platform::ui']]],
+  ['close_26',['Close',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#acd712dd388168864cc984d43e23e41d2ad3d2e617335f08df83599665eef8a418',1,'toy::platform::ui::Close'],['../d1/d03/namespacetoy_1_1platform_1_1ui.html#aa6c677b8c744b89734e11ea340507a72ad3d2e617335f08df83599665eef8a418',1,'toy::platform::ui::Close']]],
   ['code_27',['Inline and Template Code',['../df/d81/md__a_g_e_n_t_s.html#inline-and-template-code',1,'']]],
   ['coding_20principles_28',['General Coding Principles',['../df/d81/md__a_g_e_n_t_s.html#general-coding-principles',1,'']]],
   ['comments_20and_20documentation_29',['Comments and Documentation',['../df/d81/md__a_g_e_n_t_s.html#comments-and-documentation',1,'']]],
