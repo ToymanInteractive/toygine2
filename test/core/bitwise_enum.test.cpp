@@ -115,11 +115,9 @@ TEST_CASE("core/bitwise_enum/operator_xor") {
 // Bitwise NOT.
 TEST_CASE("core/bitwise_enum/operator_not") {
   // ~TestFlags::None has all bits set for underlying type.
-  SUBCASE("not_TestFlags::None") {
-    REQUIRE(std::to_underlying(~TestFlags::None) == 0xFF);
+  REQUIRE(std::to_underlying(~TestFlags::None) == 0xFF);
 
-    static_assert(std::to_underlying(~TestFlags::None) == 0xFF, "~TestFlags::None must have all bits set for uint8_t");
-  }
+  static_assert(std::to_underlying(~TestFlags::None) == 0xFF, "~TestFlags::None must have all bits set for uint8_t");
 }
 
 // Compound assignment operators.
