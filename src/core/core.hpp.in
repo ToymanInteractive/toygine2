@@ -182,6 +182,7 @@ using std::numeric_limits;
 //--------------------------------------------------------------------------------------------------------------------
 
 #include "core/assertion.hpp"
+#include "core/bitwise_enum.hpp"
 #include "core/c_string_view.hpp"
 #include "core/callbacks_pool.hpp"
 #include "core/constexpr_utils.hpp"

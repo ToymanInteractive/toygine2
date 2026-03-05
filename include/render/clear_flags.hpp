@@ -48,44 +48,8 @@ enum class ClearFlags : uint8_t {
   All = Target | Depth | Stencil,
 };
 
-/*!
-  \brief Bitwise AND of two \ref toy::render::ClearFlags values.
-
-  Returns the intersection of the bit flags in \a lhs and \a rhs. Use to test whether specific clear targets are set
-  (e.g. \a flags & \ref toy::render::ClearFlags::Depth).
-
-  \param lhs The first clear flags.
-  \param rhs The second clear flags.
-
-  \return Clear flags with only the bits set in both \a lhs and \a rhs.
-*/
-[[nodiscard]] constexpr ClearFlags operator&(ClearFlags lhs, ClearFlags rhs) noexcept;
-
-/*!
-  \brief Bitwise OR of two \ref toy::render::ClearFlags values.
-
-  Returns the union of the bit flags in \a lhs and \a rhs. Use to combine clear targets
-  (e.g. \ref toy::render::ClearFlags::Target | \ref toy::render::ClearFlags::Depth).
-
-  \param lhs The first clear flags.
-  \param rhs The second clear flags.
-
-  \return Clear flags with all bits set in either \a lhs or \a rhs.
-*/
-[[nodiscard]] constexpr ClearFlags operator|(ClearFlags lhs, ClearFlags rhs) noexcept;
-
-/*!
-  \brief Bitwise XOR of two \ref toy::render::ClearFlags values.
-
-  Returns the symmetric difference of the bit flags in \a lhs and \a rhs.
-
-  \param lhs The first clear flags.
-  \param rhs The second clear flags.
-
-  \return Clear flags with bits set in exactly one of \a lhs or \a rhs.
-*/
-[[nodiscard]] constexpr ClearFlags operator^(ClearFlags lhs, ClearFlags rhs) noexcept;
-
 } // namespace toy::render
+
+ENABLE_BITWISE_OPERATORS(toy::render::ClearFlags)
 
 #endif // INCLUDE_RENDER_CLEAR_FLAGS_HPP_

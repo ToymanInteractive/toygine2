@@ -54,36 +54,8 @@ enum class SocketFlags : uint8_t {
   Bind = 0x10,
 };
 
-/*!
-  \brief Bitwise OR of two \ref toy::network::SocketFlags values.
-
-  \param lhs First operand.
-  \param rhs Second operand.
-
-  \return Combination of all bits set in \a lhs or \a rhs.
-*/
-[[nodiscard]] constexpr SocketFlags operator|(SocketFlags lhs, SocketFlags rhs) noexcept;
-
-/*!
-  \brief Bitwise AND of two \ref toy::network::SocketFlags values.
-
-  \param lhs First operand.
-  \param rhs Second operand.
-
-  \return Only bits set in both \a lhs and \a rhs.
-*/
-[[nodiscard]] constexpr SocketFlags operator&(SocketFlags lhs, SocketFlags rhs) noexcept;
-
-/*!
-  \brief Bitwise XOR of two \ref toy::network::SocketFlags values.
-
-  \param lhs First operand.
-  \param rhs Second operand.
-
-  \return Bits set in exactly one of \a lhs or \a rhs.
-*/
-[[nodiscard]] constexpr SocketFlags operator^(SocketFlags lhs, SocketFlags rhs) noexcept;
-
 } // namespace toy::network
+
+ENABLE_BITWISE_OPERATORS(toy::network::SocketFlags)
 
 #endif // INCLUDE_NETWORK_SOCKET_FLAGS_HPP_

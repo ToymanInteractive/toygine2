@@ -137,7 +137,7 @@ set(INL_MATH_LIST                  include/math/fixed.inl                       
 
 set(SRC_NETWORK_LIST )
 set(HDR_NETWORK_LIST include/network.hpp include/network/socket_error.hpp include/network/socket_flags.hpp include/network/socket_statistics.hpp include/network/socket_type.hpp)
-set(INL_NETWORK_LIST                                                      include/network/socket_flags.inl)
+set(INL_NETWORK_LIST )
 
 set(SRC_PLATFORM_UI_LIST )
 set(HDR_PLATFORM_UI_LIST include/platform/ui.hpp include/platform/ui/message_box_buttons.hpp include/platform/ui/message_box_icon.hpp include/platform/ui/message_box_return.hpp include/platform/ui/orientation.hpp include/platform/ui/window_style.hpp)
@@ -145,7 +145,7 @@ set(INL_PLATFORM_UI_LIST                                                        
 
 set(SRC_RENDER_LIST                                                   src/render/pixel_format.cpp)
 set(HDR_RENDER_LIST include/render.hpp include/render/clear_flags.hpp include/render/pixel_format.hpp)
-set(INL_RENDER_LIST                    include/render/clear_flags.inl)
+set(INL_RENDER_LIST )
 
 source_group("Application"  FILES ${SRC_APPLICATION_LIST} ${HDR_APPLICATION_LIST} ${INL_APPLICATION_LIST})
 source_group("Audio"        FILES ${SRC_AUDIO_LIST}       ${HDR_AUDIO_LIST}       ${INL_AUDIO_LIST})
