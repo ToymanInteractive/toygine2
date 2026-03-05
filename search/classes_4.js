@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['is_5ffixed_5fpoint_0',['is_fixed_point',['../d2/dc3/structtoy_1_1math_1_1is__fixed__point.html',1,'toy::math']]],
-  ['is_5ffixed_5fpoint_3c_20fixed_3c_20base_2c_20intermediate_2c_20fraction_2c_20rounding_20_3e_20_3e_1',['is_fixed_point&lt; fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;',['../df/de5/structtoy_1_1math_1_1is__fixed__point_3_01fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html',1,'toy::math']]],
-  ['iterator_2',['iterator',['../d7/d02/classtoy_1_1array_1_1iterator.html',1,'toy::array']]]
+  ['fixed_0',['fixed',['../dd/d5c/classtoy_1_1math_1_1fixed.html',1,'toy::math']]],
+  ['fixedstring_1',['FixedString',['../d3/d7a/classtoy_1_1_fixed_string.html',1,'toy']]],
+  ['fixedstringstorage_2',['FixedStringStorage',['../d5/d3b/structtoy_1_1_fixed_string_storage.html',1,'toy']]],
+  ['fixedvector_3',['FixedVector',['../d7/dec/classtoy_1_1_fixed_vector.html',1,'toy']]],
+  ['formatstring_4',['FormatString',['../dc/d62/classtoy_1_1_format_string.html',1,'toy']]]
 ];

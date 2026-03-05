@@ -3,8 +3,17 @@ var namespacetoy =
     [ "application", "d0/d3e/namespacetoy_1_1application.html", "d0/d3e/namespacetoy_1_1application" ],
     [ "geometry", "da/d08/namespacetoy_1_1geometry.html", "da/d08/namespacetoy_1_1geometry" ],
     [ "math", "d2/d83/namespacetoy_1_1math.html", "d2/d83/namespacetoy_1_1math" ],
-    [ "network", "d6/d2c/namespacetoy_1_1network.html", "d6/d2c/namespacetoy_1_1network" ],
     [ "platform", "d4/ddd/namespacetoy_1_1platform.html", "d4/ddd/namespacetoy_1_1platform" ],
+    [ "assertion", "d2/da2/namespacetoy_1_1assertion.html", [
+      [ "AssertionCallback", "d2/da2/namespacetoy_1_1assertion.html#a27a675a54a720bf1a098fd13be80553e", null ],
+      [ "StackWalkCallback", "d2/da2/namespacetoy_1_1assertion.html#af491e4e307d14db3efeafb9a77ae76ef", null ],
+      [ "assertCompileTimeError", "d2/da2/namespacetoy_1_1assertion.html#ab81e4cad6984d23abbdd51bb7af03593", null ],
+      [ "assertion", "d2/da2/namespacetoy_1_1assertion.html#a71e8fbdc3d1a6ccee148e120d0c890db", null ],
+      [ "deInitialize", "d2/da2/namespacetoy_1_1assertion.html#a82b42cf518871245c19337431cfe63e5", null ],
+      [ "initialize", "d2/da2/namespacetoy_1_1assertion.html#a1586eee3b9f8e4fc0b659ff2d402e28a", null ],
+      [ "setCallbacks", "d2/da2/namespacetoy_1_1assertion.html#ab92066b98ab69bcf7db8e1089ea4f755", null ],
+      [ "s_assertionCallback", "d2/da2/namespacetoy_1_1assertion.html#abf0c95a6d0312b84decc08fc040187c9", null ]
+    ] ],
     [ "render", "df/d8d/namespacetoy_1_1render.html", [
       [ "ClearFlags", "df/d8d/namespacetoy_1_1render.html#ae44fe0c1053121f38b8544a8684ee4e1", [
         [ "None", "df/d8d/namespacetoy_1_1render.html#ae44fe0c1053121f38b8544a8684ee4e1a6adf97f83acf6453d4a6a4b1070f3754", null ],
@@ -32,22 +41,9 @@ var namespacetoy =
         [ "D16", "df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3fa6fd9ec81643ee5a57f85a71951bfe13d", null ],
         [ "Unknown", "df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3fa88183b946cc5f0e8c96b2e66e1c74a7e", null ]
       ] ],
-      [ "operator&", "df/d8d/namespacetoy_1_1render.html#a8005061a10bccaf16f7b3c5b79ce5cb1", null ],
-      [ "operator^", "df/d8d/namespacetoy_1_1render.html#a5845b0dbc8efa2c63123f900399053ae", null ],
-      [ "operator|", "df/d8d/namespacetoy_1_1render.html#a5bf45a61b0453bcf4b936e835cf76371", null ],
       [ "pixelFormatFromName", "df/d8d/namespacetoy_1_1render.html#ad177a2d4fd6b16cdcbe90782265fe556", null ],
       [ "pixelFormatName", "df/d8d/namespacetoy_1_1render.html#ae01c124c6fb7eab3d4dd8d7d321406b9", null ],
       [ "_formatNames", "df/d8d/namespacetoy_1_1render.html#a81a08c0aeeaa5f25f70d62e328c41b3c", null ]
-    ] ],
-    [ "assertion", "d2/da2/namespacetoy_1_1assertion.html", [
-      [ "AssertionCallback", "d2/da2/namespacetoy_1_1assertion.html#a27a675a54a720bf1a098fd13be80553e", null ],
-      [ "StackWalkCallback", "d2/da2/namespacetoy_1_1assertion.html#af491e4e307d14db3efeafb9a77ae76ef", null ],
-      [ "assertCompileTimeError", "d2/da2/namespacetoy_1_1assertion.html#ab81e4cad6984d23abbdd51bb7af03593", null ],
-      [ "assertion", "d2/da2/namespacetoy_1_1assertion.html#a71e8fbdc3d1a6ccee148e120d0c890db", null ],
-      [ "deInitialize", "d2/da2/namespacetoy_1_1assertion.html#a82b42cf518871245c19337431cfe63e5", null ],
-      [ "initialize", "d2/da2/namespacetoy_1_1assertion.html#a1586eee3b9f8e4fc0b659ff2d402e28a", null ],
-      [ "setCallbacks", "d2/da2/namespacetoy_1_1assertion.html#ab92066b98ab69bcf7db8e1089ea4f755", null ],
-      [ "s_assertionCallback", "d2/da2/namespacetoy_1_1assertion.html#abf0c95a6d0312b84decc08fc040187c9", null ]
     ] ],
     [ "audio", "dd/d77/namespacetoy_1_1audio.html", [
       [ "VolumeType", "dd/d77/namespacetoy_1_1audio.html#afca9143e3b169f77784310a3b384261c", [
@@ -73,7 +69,9 @@ var namespacetoy =
         [ "Unlocked", "d8/d25/namespacetoy_1_1game.html#ac8a6f36358f3ac99f55a1db9c3827edaac76fd517e45cc95709f4ac106efa4a94", null ]
       ] ]
     ] ],
+    [ "network", "d6/d2c/namespacetoy_1_1network.html", "d6/d2c/namespacetoy_1_1network" ],
     [ "_divmod10", "d9/d10/structtoy_1_1__divmod10.html", "d9/d10/structtoy_1_1__divmod10" ],
+    [ "EnableBitwiseOperators", "db/deb/structtoy_1_1_enable_bitwise_operators.html", "db/deb/structtoy_1_1_enable_bitwise_operators" ],
     [ "CStringView", "d5/d03/classtoy_1_1_c_string_view.html", "d5/d03/classtoy_1_1_c_string_view" ],
     [ "CallbacksPool", "d8/dc9/classtoy_1_1_callbacks_pool.html", "d8/dc9/classtoy_1_1_callbacks_pool" ],
     [ "FixedStringStorage", "d5/d3b/structtoy_1_1_fixed_string_storage.html", "d5/d3b/structtoy_1_1_fixed_string_storage" ],
@@ -121,6 +119,8 @@ var namespacetoy =
     [ "itoa", "d4/da9/namespacetoy.html#a8940d6802bb6b139541f903cce67ee13", null ],
     [ "itoa", "d4/da9/namespacetoy.html#ae8b2c5fe28a3bb8e21f377b9e8ef2bc9", null ],
     [ "itoaImplementation", "d4/da9/namespacetoy.html#ac7e6ab0756e81280710cbab536e6a030", null ],
+    [ "operator&", "d4/da9/namespacetoy.html#a2969305409fc34874d0e0f512a028aa8", null ],
+    [ "operator&=", "d4/da9/namespacetoy.html#ae92e06198838e677bdbadbdb6d089b8c", null ],
     [ "operator+", "d4/da9/namespacetoy.html#a356a3fceab84ce068ff702d19893708b", null ],
     [ "operator+", "d4/da9/namespacetoy.html#a2fef40d514c1a38e96d004926fe183d6", null ],
     [ "operator+", "d4/da9/namespacetoy.html#a326a560f0c3c0d12d9c7a8642d001e6d", null ],
@@ -148,6 +148,11 @@ var namespacetoy =
     [ "operator==", "d4/da9/namespacetoy.html#acf758a094d8de5ef108ef3e984c37cf1", null ],
     [ "operator==", "d4/da9/namespacetoy.html#ad6d2b3dad381a4caa6e84a33f62a26d4", null ],
     [ "operator==", "d4/da9/namespacetoy.html#a300e65bc1fbafecbcf63f47317198ec4", null ],
+    [ "operator^", "d4/da9/namespacetoy.html#a15035c6e2ccc42ef559d75d6736f3e93", null ],
+    [ "operator^=", "d4/da9/namespacetoy.html#a7ba64242ee51c646fa371436ad5f27d7", null ],
+    [ "operator|", "d4/da9/namespacetoy.html#a3724753f210f39ad2e52f143afc828d1", null ],
+    [ "operator|=", "d4/da9/namespacetoy.html#aeeed3f4f4b4225cdb2e0077e6f8187ea", null ],
+    [ "operator~", "d4/da9/namespacetoy.html#a9e3f4e8e0e45319c488dd4c1a8006b10", null ],
     [ "reverseString", "d8/d90/group___text_functions.html#ga2ad56b53b8cdbb022ce8ce3b2aa32503", null ],
     [ "utf8Len", "d8/d90/group___text_functions.html#ga5ab02021f4ca34e0d5b6a1b0172ebe95", null ],
     [ "utf8toWChar", "d8/d90/group___text_functions.html#ga2bc2dc2817640958352b4e80ec99b2be", null ],

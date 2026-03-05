@@ -25,8 +25,5 @@ var namespacetoy_1_1network =
       [ "Datagram", "d6/d2c/namespacetoy_1_1network.html#a465745810e1e093a3e2aaa44ba340b8ea640931067618ca3bc723805cb196e22f", null ],
       [ "Stream", "d6/d2c/namespacetoy_1_1network.html#a465745810e1e093a3e2aaa44ba340b8eaeae835e83c0494a376229f254f7d3392", null ],
       [ "Dummy", "d6/d2c/namespacetoy_1_1network.html#a465745810e1e093a3e2aaa44ba340b8eabcf036b6f33e182d4705f4f5b1af13ac", null ]
-    ] ],
-    [ "operator&", "d6/d2c/namespacetoy_1_1network.html#a755ac8096485c06bdd996e03ccd05151", null ],
-    [ "operator^", "d6/d2c/namespacetoy_1_1network.html#a31d7b508bc7c001ce23457ad2e90c806", null ],
-    [ "operator|", "d6/d2c/namespacetoy_1_1network.html#a8b41df8b3140b92d1ffd344cbb1f111a", null ]
+    ] ]
 ];

@@ -1,13 +1,5 @@
 var searchData=
 [
-  ['c_5fstring_5fview_2ehpp_0',['c_string_view.hpp',['../dd/ded/c__string__view_8hpp.html',1,'']]],
-  ['c_5fstring_5fview_2einl_1',['c_string_view.inl',['../df/d4a/c__string__view_8inl.html',1,'']]],
-  ['callbacks_5fpool_2ehpp_2',['callbacks_pool.hpp',['../d1/d5c/callbacks__pool_8hpp.html',1,'']]],
-  ['callbacks_5fpool_2einl_3',['callbacks_pool.inl',['../d6/ddb/callbacks__pool_8inl.html',1,'']]],
-  ['clear_5fflags_2ehpp_4',['clear_flags.hpp',['../d0/d74/clear__flags_8hpp.html',1,'']]],
-  ['clear_5fflags_2einl_5',['clear_flags.inl',['../d4/d2f/clear__flags_8inl.html',1,'']]],
-  ['constants_2ehpp_6',['constants.hpp',['../d3/dad/constants_8hpp.html',1,'']]],
-  ['constexpr_5futils_2ehpp_7',['constexpr_utils.hpp',['../d4/dc0/constexpr__utils_8hpp.html',1,'']]],
-  ['constexpr_5futils_2einl_8',['constexpr_utils.inl',['../dc/d28/constexpr__utils_8inl.html',1,'']]],
-  ['core_2ehpp_9',['core.hpp',['../da/d47/core_8hpp.html',1,'']]]
+  ['bitwise_5fenum_2ehpp_0',['bitwise_enum.hpp',['../df/d61/bitwise__enum_8hpp.html',1,'']]],
+  ['bitwise_5fenum_2einl_1',['bitwise_enum.inl',['../dd/d61/bitwise__enum_8inl.html',1,'']]]
 ];

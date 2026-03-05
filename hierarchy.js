@@ -16,6 +16,7 @@ var hierarchy =
     [ "toy::CallbacksPool&lt; type, allocatedSize &gt;", "d8/dc9/classtoy_1_1_callbacks_pool.html", null ],
     [ "toy::CallbacksPool&lt; type, allocatedSize &gt;::StaticCallback", "d7/d9f/structtoy_1_1_callbacks_pool_1_1_static_callback.html", null ],
     [ "toy::CStringView", "d5/d03/classtoy_1_1_c_string_view.html", null ],
+    [ "toy::EnableBitwiseOperators&lt; T &gt;", "db/deb/structtoy_1_1_enable_bitwise_operators.html", null ],
     [ "toy::FixedString&lt; allocatedSize &gt;", "d3/d7a/classtoy_1_1_fixed_string.html", null ],
     [ "toy::FixedStringStorage&lt; allocatedSize &gt;", "d5/d3b/structtoy_1_1_fixed_string_storage.html", null ],
     [ "toy::FixedVector&lt; type, allocatedSize &gt;", "d7/dec/classtoy_1_1_fixed_vector.html", null ],

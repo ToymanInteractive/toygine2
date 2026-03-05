@@ -1,6 +1,8 @@
 var dir_3d69f64eaf81436fe2b22361382717e5 =
 [
     [ "assertion.hpp", "d5/d96/assertion_8hpp.html", "d5/d96/assertion_8hpp" ],
+    [ "bitwise_enum.hpp", "df/d61/bitwise__enum_8hpp.html", "df/d61/bitwise__enum_8hpp" ],
+    [ "bitwise_enum.inl", "dd/d61/bitwise__enum_8inl.html", "dd/d61/bitwise__enum_8inl" ],
     [ "c_string_view.hpp", "dd/ded/c__string__view_8hpp.html", null ],
     [ "c_string_view.inl", "df/d4a/c__string__view_8inl.html", "df/d4a/c__string__view_8inl" ],
     [ "callbacks_pool.hpp", "d1/d5c/callbacks__pool_8hpp.html", "d1/d5c/callbacks__pool_8hpp" ],
