@@ -43,8 +43,4 @@
 #include "network/socket_statistics.hpp"
 #include "network/socket_type.hpp"
 
-//----------------------------------------------------------------------------------------------------------------------
-
-#include "network/socket_flags.inl"
-
 #endif // INCLUDE_NETWORK_HPP_

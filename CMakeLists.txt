@@ -115,9 +115,9 @@ set(SRC_AUDIO_LIST )
 set(HDR_AUDIO_LIST include/audio.hpp include/audio/volume_type.hpp)
 set(INL_AUDIO_LIST )
 
-set(SRC_CORE_LIST                                                                                                                                                                                                         src/core/hashes.cpp                                                                                             src/core/utils.cpp     src/core/utils_internal.inl)
-set(HDR_CORE_LIST include/core.hpp include/core/assertion.hpp include/core/c_string_view.hpp include/core/callbacks_pool.hpp include/core/constexpr_utils.hpp include/core/fixed_string.hpp include/core/fixed_vector.hpp include/core/hashes.hpp include/core/o_string_stream.hpp include/core/platform.hpp include/core/string_like.hpp include/core/utils.hpp)
-set(INL_CORE_LIST                                             include/core/c_string_view.inl include/core/callbacks_pool.inl include/core/constexpr_utils.inl include/core/fixed_string.inl include/core/fixed_vector.inl                         include/core/o_string_stream.inl                                                        include/core/utils.inl)
+set(SRC_CORE_LIST                                                                                                                                                                                                                                                               src/core/hashes.cpp                                                                                             src/core/utils.cpp     src/core/utils_internal.inl)
+set(HDR_CORE_LIST include/core.hpp include/core/assertion.hpp include/core/bitwise_enum.hpp include/core/c_string_view.hpp include/core/callbacks_pool.hpp include/core/constexpr_utils.hpp include/core/fixed_string.hpp include/core/fixed_vector.hpp include/core/format.hpp include/core/hashes.hpp include/core/o_string_stream.hpp include/core/platform.hpp include/core/string_like.hpp include/core/utils.hpp)
+set(INL_CORE_LIST                                             include/core/bitwise_enum.inl include/core/c_string_view.inl include/core/callbacks_pool.inl include/core/constexpr_utils.inl include/core/fixed_string.inl include/core/fixed_vector.inl include/core/format.inl                         include/core/o_string_stream.inl                                                        include/core/utils.inl)
 
 set(SRC_FILESYSTEM_LIST )
 set(HDR_FILESYSTEM_LIST include/filesystem.hpp include/filesystem/open_file_mode.hpp)
@@ -137,7 +137,7 @@ set(INL_MATH_LIST                  include/math/fixed.inl                       
 
 set(SRC_NETWORK_LIST )
 set(HDR_NETWORK_LIST include/network.hpp include/network/socket_error.hpp include/network/socket_flags.hpp include/network/socket_statistics.hpp include/network/socket_type.hpp)
-set(INL_NETWORK_LIST                                                      include/network/socket_flags.inl)
+set(INL_NETWORK_LIST )
 
 set(SRC_PLATFORM_UI_LIST )
 set(HDR_PLATFORM_UI_LIST include/platform/ui.hpp include/platform/ui/message_box_buttons.hpp include/platform/ui/message_box_icon.hpp include/platform/ui/message_box_return.hpp include/platform/ui/orientation.hpp include/platform/ui/window_style.hpp)
@@ -145,7 +145,7 @@ set(INL_PLATFORM_UI_LIST                                                        
 
 set(SRC_RENDER_LIST                                                   src/render/pixel_format.cpp)
 set(HDR_RENDER_LIST include/render.hpp include/render/clear_flags.hpp include/render/pixel_format.hpp)
-set(INL_RENDER_LIST                    include/render/clear_flags.inl)
+set(INL_RENDER_LIST )
 
 source_group("Application"  FILES ${SRC_APPLICATION_LIST} ${HDR_APPLICATION_LIST} ${INL_APPLICATION_LIST})
 source_group("Audio"        FILES ${SRC_AUDIO_LIST}       ${HDR_AUDIO_LIST}       ${INL_AUDIO_LIST})

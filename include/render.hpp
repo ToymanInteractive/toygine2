@@ -38,8 +38,4 @@
 #include "render/clear_flags.hpp"
 #include "render/pixel_format.hpp"
 
-//----------------------------------------------------------------------------------------------------------------------
-
-#include "render/clear_flags.inl"
-
 #endif // INCLUDE_RENDER_HPP_
