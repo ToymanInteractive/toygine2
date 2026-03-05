@@ -197,6 +197,7 @@ using std::numeric_limits;
 
 //----------------------------------------------------------------------------------------------------------------------
 
+#include "core/bitwise_enum.inl"
 #include "core/c_string_view.inl"
 #include "core/callbacks_pool.inl"
 #include "core/constexpr_utils.inl"

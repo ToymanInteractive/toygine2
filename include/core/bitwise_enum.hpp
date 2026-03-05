@@ -59,9 +59,7 @@ struct enable_bitwise_operators {
 */
 template <typename T>
   requires enable_bitwise_operators<T>::enable
-constexpr T operator|(T lhs, T rhs) noexcept {
-  return static_cast<T>(std::to_underlying(lhs) | std::to_underlying(rhs));
-}
+[[nodiscard]] constexpr T operator|(T lhs, T rhs) noexcept;
 
 /*!
   \brief Bitwise AND of two enum values.
@@ -73,9 +71,7 @@ constexpr T operator|(T lhs, T rhs) noexcept {
 */
 template <typename T>
   requires enable_bitwise_operators<T>::enable
-constexpr T operator&(T lhs, T rhs) noexcept {
-  return static_cast<T>(std::to_underlying(lhs) & std::to_underlying(rhs));
-}
+[[nodiscard]] constexpr T operator&(T lhs, T rhs) noexcept;
 
 /*!
   \brief Bitwise XOR of two enum values.
@@ -87,9 +83,7 @@ constexpr T operator&(T lhs, T rhs) noexcept {
 */
 template <typename T>
   requires enable_bitwise_operators<T>::enable
-constexpr T operator^(T lhs, T rhs) noexcept {
-  return static_cast<T>(std::to_underlying(lhs) ^ std::to_underlying(rhs));
-}
+[[nodiscard]] constexpr T operator^(T lhs, T rhs) noexcept;
 
 /*!
   \brief Bitwise NOT (one's complement) of an enum value.
@@ -100,9 +94,7 @@ constexpr T operator^(T lhs, T rhs) noexcept {
 */
 template <typename T>
   requires enable_bitwise_operators<T>::enable
-constexpr T operator~(T lhs) noexcept {
-  return static_cast<T>(~std::to_underlying(lhs));
-}
+[[nodiscard]] constexpr T operator~(T lhs) noexcept;
 
 /*!
   \brief Compound bitwise OR assignment.
@@ -114,9 +106,7 @@ constexpr T operator~(T lhs) noexcept {
 */
 template <typename T>
   requires enable_bitwise_operators<T>::enable
-constexpr T & operator|=(T & lhs, T rhs) noexcept {
-  return lhs = lhs | rhs;
-}
+constexpr T & operator|=(T & lhs, T rhs) noexcept;
 
 /*!
   \brief Compound bitwise AND assignment.
@@ -128,9 +118,7 @@ constexpr T & operator|=(T & lhs, T rhs) noexcept {
 */
 template <typename T>
   requires enable_bitwise_operators<T>::enable
-constexpr T & operator&=(T & lhs, T rhs) noexcept {
-  return lhs = lhs & rhs;
-}
+constexpr T & operator&=(T & lhs, T rhs) noexcept;
 
 /*!
   \brief Compound bitwise XOR assignment.
@@ -142,9 +130,7 @@ constexpr T & operator&=(T & lhs, T rhs) noexcept {
 */
 template <typename T>
   requires enable_bitwise_operators<T>::enable
-constexpr T & operator^=(T & lhs, T rhs) noexcept {
-  return lhs = lhs ^ rhs;
-}
+constexpr T & operator^=(T & lhs, T rhs) noexcept;
 
 } // namespace toy
 
