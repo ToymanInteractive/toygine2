@@ -45,6 +45,7 @@ namespace toy {
 */
 template <typename T>
 struct enable_bitwise_operators {
+  /// Enables bitwise operators.
   static constexpr bool enable = false;
 };
 
