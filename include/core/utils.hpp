@@ -19,147 +19,161 @@
 //
 /*!
   \file   utils.hpp
-  \brief  Core utility functions for string manipulation, encoding conversion, and number formatting.
+  \brief  Core utilities: string encoding conversion, length, reversal, and number formatting.
+
+  UTF-8 ↔ wide conversion, utf8Len, reverseString, itoa, utoa, ftoa, formatNumberString. Implementations may be in
+  \c core/utils.cpp or inline. All functions write into caller-provided buffers; no dynamic allocation.
 */
 
 #ifndef INCLUDE_CORE_UTILS_HPP_
 #define INCLUDE_CORE_UTILS_HPP_
 
+/*!
+  \defgroup TextFunctions Common text processing functions
+  \brief String encoding conversion, length and reversal.
+
+  - **utf8toWChar**: UTF-8 C string or \ref toy::StringLike to wide-character string (with optional character limit).
+  - **wcharToUtf8**: Wide-character C string to UTF-8.
+  - **utf8Len**: Unicode code point count in a UTF-8 C string.
+  - **reverseString**: In-place reversal of a C string.
+
+  Related: \ref toy::StringLike, \ref toy::FixedString; constant \c WCHAR_IN_UTF8_MAX_SIZE.
+
+  \section features Key Features
+
+  - **UTF-8 / wide conversion**: BMP-only; invalid UTF-8 skipped; destination null-terminated on success.
+  - **No allocation**: All functions write into caller-provided buffers.
+  - **Constexpr**: utf8toWChar overloads and reverseString where applicable.
+  - **Exception safety**: All operations are \c noexcept.
+*/
+
 namespace toy {
 
-/// Maximum UTF-8 bytes required for BMP characters.
-constexpr size_t wcharInUtf8MaxSize = 3;
-
 /*!
-  \brief Converts a Unicode UTF-8 encoded C string to a wide character string with character count limit.
+  \brief Maximum UTF-8 byte length for one BMP character.
+  \ingroup TextFunctions
 
-  This function translates a UTF-8 encoded C string into a wide character string stored in the destination buffer. The
-  conversion stops when the specified number of characters have been converted, the destination buffer is filled, or the
-  source string ends.
-
-  \param dest     A pointer to the destination buffer where the converted wide character string will be stored.
-  \param destSize The size of the destination buffer in wide characters (not bytes).
-  \param src      A pointer to the source UTF-8 encoded C string.
-  \param count    The maximum number of characters to convert from the source string.
-
-  \return A pointer to the destination wide character string, or nullptr if the destination buffer is invalid.
-
-  \pre The destination buffer must be valid and have sufficient capacity.
-  \pre The source C string must be a valid UTF-8 encoded string.
-  \pre The count parameter must be reasonable (typically ≤ source string length).
-
-  \post The destination string is null-terminated.
-  \post The function returns \c nullptr on buffer overflow or invalid input.
-
-  \note Only BMP (≤ 0xFFFF) characters are supported by design; 4-byte UTF-8 sequences are not produced.
-  \note The function handles UTF-8 validation and skips invalid sequences.
-  \note If count exceeds the available characters, conversion stops at the end of the source string.
+  One wide character in the BMP (≤ 0xFFFF) encodes to at most 3 UTF-8 bytes.
 */
-wchar_t * utf8toWChar(wchar_t * dest, size_t destSize, const char * const src, size_t count) noexcept;
+constexpr size_t WCHAR_IN_UTF8_MAX_SIZE = 3;
 
 /*!
-  \brief Converts a Unicode UTF-8 encoded C string to a wide character string.
+  \brief Converts a UTF-8 C string to a wide-character string with a character count limit.
+  \ingroup TextFunctions
 
-  This function translates a UTF-8 encoded C string into a wide character string. The conversion stops when the source
-  string ends or the destination buffer is filled.
+  Writes the converted wide-character string into \a dest. Stops when \a count source bytes have been processed, \a dest
+  is full, or the source ends. Only BMP (≤ 0xFFFF) is supported.
 
-  \param dest     A pointer to the destination buffer where the converted wide character string will be stored.
-  \param destSize The size of the destination buffer in wide characters (not bytes).
-  \param src      A pointer to the source UTF-8 encoded C string.
+  \param dest     Destination buffer for the wide-character string.
+  \param destSize Size of \a dest in wide characters (not bytes).
+  \param src      Source UTF-8 encoded C string.
+  \param count    Maximum number of source bytes to process.
 
-  \return A pointer to the destination wide character string, or nullptr if the destination buffer is invalid.
+  \return Pointer to \a dest, or \c nullptr if \a dest or \a destSize is invalid.
 
-  \pre The destination buffer must be valid and have sufficient capacity.
-  \pre The source C string must be a valid UTF-8 encoded string.
+  \pre \a dest points to a valid buffer with capacity \a destSize; \a src is valid UTF-8.
+  \pre \a count is at most the number of code points in \a src (if bounded).
 
-  \post The destination string is null-terminated.
-  \post The function returns \c nullptr on buffer overflow or invalid input.
-
-  \note Only BMP (≤ 0xFFFF) characters are supported by design; 4-byte UTF-8 sequences are not produced.
-  \note This is an inline wrapper around the main utf8toWChar function.
-  \note The function automatically determines the source string length.
+  \post On success, \a dest is null-terminated. On overflow or invalid input, returns \c nullptr.
 */
-constexpr wchar_t * utf8toWChar(wchar_t * dest, size_t destSize, const char * const src) noexcept;
+wchar_t * utf8toWChar(wchar_t * dest, size_t destSize, const char * src, size_t count) noexcept;
 
 /*!
-  \brief Converts a Unicode UTF-8 encoded \ref toy::StringLike object to a wide character string.
+  \brief Converts a UTF-8 C string to a wide-character string (full source length).
+  \ingroup TextFunctions
 
-  This template function translates a UTF-8 encoded \ref toy::StringLike object into a wide character string. The
-  conversion stops when the source string ends or the destination buffer is filled.
+  Same as utf8toWChar(dest, destSize, src, count) with \a count set to the length of \a src. Stops when the source ends
+  or \a dest is full. BMP-only; invalid UTF-8 sequences are skipped.
 
-  \tparam stringType The type of the source string. Must satisfy the \ref toy::StringLike concept.
+  \param dest     Destination buffer for the wide-character string.
+  \param destSize Size of \a dest in wide characters (not bytes).
+  \param src      Source UTF-8 encoded C string.
 
-  \param dest     A pointer to the destination buffer where the converted wide character string will be stored.
-  \param destSize The size of the destination buffer in wide characters (not bytes).
-  \param src      A reference to a \ref toy::StringLike object with UTF-8 encoded content.
+  \return Pointer to \a dest, or \c nullptr if \a dest or \a destSize is invalid.
 
-  \return A pointer to the destination wide character string, or nullptr if the destination buffer is invalid.
+  \pre \a dest points to a valid buffer with capacity \a destSize; \a src is valid UTF-8.
 
-  \pre The destination buffer must be valid and have sufficient capacity.
-  \pre The source \ref toy::StringLike object must provide UTF-8 encoded string data via c_str().
+  \post On success, \a dest is null-terminated. On overflow or invalid input, returns \c nullptr.
 
-  \post The destination string is null-terminated.
-  \post The function returns \c nullptr on buffer overflow or invalid input.
-
-  \note Only BMP (≤ 0xFFFF) characters are supported by design; 4-byte UTF-8 sequences are not produced.
-  \note This template works with \c std::string, \ref toy::FixedString, and other string-like types.
+  \sa utf8toWChar(dest, destSize, src, count)
 */
-template <StringLike stringType>
-constexpr wchar_t * utf8toWChar(wchar_t * dest, size_t destSize, const stringType & src) noexcept;
+constexpr wchar_t * utf8toWChar(wchar_t * dest, size_t destSize, const char * src) noexcept;
 
 /*!
-  \brief Converts a Unicode wide character C string to a UTF-8 encoded string.
+  \brief Converts a UTF-8 \ref toy::StringLike object to a wide-character string.
+  \ingroup TextFunctions
 
-  This function translates a wide character C string into a UTF-8 encoded string stored in the destination buffer. The
-  conversion stops when the source string ends or the destination buffer is filled.
+  Converts the UTF-8 content of \a src (via c_str()) into \a dest. Stops when the source ends or \a dest is full.
+  BMP-only; invalid UTF-8 sequences are skipped.
 
-  \param dest     A pointer to the destination buffer where the converted UTF-8 encoded string will be stored.
-  \param destSize The size of the destination buffer in bytes (not wide characters).
-  \param src      A pointer to the source wide character C string.
+  \tparam T Type satisfying \ref toy::StringLike (e.g. \ref toy::FixedString, \c std::string).
 
-  \return A pointer to the destination UTF-8 encoded string, or nullptr if the destination buffer is invalid.
+  \param dest     Destination buffer for the wide-character string.
+  \param destSize Size of \a dest in wide characters (not bytes).
+  \param src      Source object with UTF-8 encoded content.
 
-  \pre The destination buffer must be valid and have sufficient capacity.
-  \pre The source C string must be a valid wide character string.
-  \pre The destination buffer size should account for potential UTF-8 expansion.
+  \return Pointer to \a dest, or \c nullptr if \a dest or \a destSize is invalid.
 
-  \post The destination string is null-terminated.
-  \post The function returns \c nullptr on buffer overflow or invalid input.
+  \pre \a dest points to a valid buffer with capacity \a destSize; \a src.c_str() returns valid UTF-8.
 
-  \note The function handles wide character to UTF-8 conversion efficiently.
-  \note UTF-8 sequences may require 1-3 bytes per wide character.
+  \post On success, \a dest is null-terminated. On overflow or invalid input, returns \c nullptr.
+
+  \sa utf8toWChar (C string overloads)
+*/
+template <StringLike T>
+constexpr wchar_t * utf8toWChar(wchar_t * dest, size_t destSize, const T & src) noexcept;
+
+/*!
+  \brief Converts a wide-character C string to UTF-8.
+  \ingroup TextFunctions
+
+  Writes the UTF-8 encoding of \a src into \a dest. Stops when the source ends or \a dest is full. Each wide character
+  may produce 1–3 UTF-8 bytes.
+
+  \param dest     Destination buffer for the UTF-8 string.
+  \param destSize Size of \a dest in bytes (not wide characters).
+  \param src      Source wide-character C string.
+
+  \return Pointer to \a dest, or \c nullptr if \a dest or \a destSize is invalid.
+
+  \pre \a dest points to a valid buffer with capacity \a destSize; \a src is a valid wide-character string.
+  \pre \a destSize accounts for possible UTF-8 expansion (e.g. 3× wide length for BMP).
+
+  \post On success, \a dest is null-terminated. On overflow or invalid input, returns \c nullptr.
+
+  \sa utf8toWChar
 */
 char * wcharToUtf8(char * dest, size_t destSize, const wchar_t * src) noexcept;
 
 /*!
-  \brief Returns the number of Unicode characters in a UTF-8 encoded C \a string.
+  \brief Returns the number of Unicode code points in a UTF-8 encoded C string.
+  \ingroup TextFunctions
 
-  This function counts the number of Unicode characters in a UTF-8 encoded C \a string by parsing UTF-8 sequences. It
-  stops counting when the null character is encountered.
+  Parses UTF-8 sequences in \a string and counts code points. Stops at the first null byte. Invalid sequences cause the
+  function to return \c 0.
 
-  \param string A pointer to the source UTF-8 encoded C string.
+  \param string Source UTF-8 encoded C string (may be null).
 
-  \return The number of Unicode characters in the C \a string, or 0 if the \a string is invalid or null.
+  \return Number of Unicode code points, or \c 0 if \a string is \c nullptr or contains invalid UTF-8.
 
-  \note The function validates UTF-8 sequences during counting.
-  \note Multi-byte sequences (2-3 bytes) are counted as single Unicode characters.
-  \note Invalid UTF-8 sequences cause the function to return 0.
+  \note Multi-byte sequences (2–3 bytes) count as one code point. BMP only.
 */
-size_t utf8Len(const char * string) noexcept;
+[[nodiscard]] size_t utf8Len(const char * string) noexcept;
 
 /*!
-  \brief Reverses a given C string in-place.
+  \brief Reverses a C string in-place.
+  \ingroup TextFunctions
 
-  This function reverses a given C string in-place by swapping characters from both ends towards the center. It can be
-  used to reverse a string of a specified length, or to reverse a null-terminated string when count is \c 0.
+  Swaps characters from both ends toward the center. If \a count is \c 0, the length is obtained via strlen(\a str).
 
-  \param str   A pointer to the C string to reverse.
-  \param count The length of the C string to reverse (default: \c 0).
+  \param str   C string to reverse (must be writable).
+  \param count Number of characters to reverse (default: \c 0 for null-terminated length).
 
-  \return A pointer to the reversed C string (same as input pointer).
+  \return Pointer to \a str (the reversed string).
 
-  \note The function modifies the original string directly.
-  \note When count = \c 0, the function calls strlen() to determine the string length.
+  \pre If \a count > 0, \a str has at least \a count valid characters. If \a count is \c 0, \a str is null-terminated.
+
+  \post Characters in the reversed range are swapped in place; \a str is still null-terminated when \a count was \c 0.
 */
 constexpr char * reverseString(char * str, size_t count = 0) noexcept;
 

@@ -27,14 +27,14 @@
 
 namespace toy {
 
-constexpr wchar_t * utf8toWChar(wchar_t * dest, size_t destSize, const char * const src) noexcept {
+constexpr wchar_t * utf8toWChar(wchar_t * dest, size_t destSize, const char * src) noexcept {
   assert_message(src != nullptr, "The source must not be null.");
 
   return src != nullptr ? utf8toWChar(dest, destSize, src, char_traits<char>::length(src)) : nullptr;
 }
 
-template <StringLike stringType>
-constexpr wchar_t * utf8toWChar(wchar_t * dest, size_t destSize, const stringType & src) noexcept {
+template <StringLike T>
+constexpr wchar_t * utf8toWChar(wchar_t * dest, size_t destSize, const T & src) noexcept {
   return utf8toWChar(dest, destSize, src.c_str(), src.size());
 }
 

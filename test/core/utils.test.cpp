@@ -17,7 +17,6 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 //
-/*
 #include <doctest/doctest.h>
 
 #include "core.hpp"
@@ -44,6 +43,7 @@ constexpr array<wchar_t, 86> unicodeTestData{{
   0x30EDU, 0x30FCU, 0x30EFU, 0x30FCU, 0x30EBU, 0x30C9U, 0x0021U, 0x0000,
 }};
 
+/*
 constexpr array<float, 16> floatTestValues{{0.0f, -0.0f, 10000000.0f, -10000000.0f, 100000.0f, -100000.0f, 4200.0f,
                                             -4200.0f, 42.0f, -42.0f, 0.042f, -0.042f, 0.000042f, -0.000042f,
                                             0.00000042f, -0.00000042f}};
@@ -55,6 +55,7 @@ constexpr array<double, 16> doubleTestValues{{0.0, -0.0, 10000000.0, -10000000.0
 constexpr array<const char *, 16> asciiTestValues{{"0", "0", "1e+7", "-1e+7", "100000", "-100000", "4200", "-4200",
                                                    "42", "-42", "0.042", "-0.042", "0.000042", "-0.000042", "4.2e-7",
                                                    "-4.2e-7"}};
+*/
 
 // UTF-8 to wide character conversion.
 TEST_CASE("core/utils/utf8_to_wchar_converts_utf8_to_wide_string") {
@@ -116,7 +117,7 @@ TEST_CASE("core/utils/utf8_to_wchar_converts_utf8_to_wide_string") {
 TEST_CASE("core/utils/wchar_to_utf8_converts_wide_to_utf8_string") {
   // nullptr input yields empty UTF-8 string.
   SUBCASE("nullptr input") {
-    char testBuffer[unicodeTestData.size() * wcharInUtf8MaxSize];
+    char testBuffer[unicodeTestData.size() * WCHAR_IN_UTF8_MAX_SIZE];
 
     REQUIRE(strcmp("", wcharToUtf8(testBuffer, size(testBuffer), nullptr)) == 0);
     REQUIRE(strcmp(testBuffer, "") == 0);
@@ -124,7 +125,7 @@ TEST_CASE("core/utils/wchar_to_utf8_converts_wide_to_utf8_string") {
 
   // Empty wide string yields empty UTF-8 string.
   SUBCASE("empty string") {
-    char testBuffer[unicodeTestData.size() * wcharInUtf8MaxSize];
+    char testBuffer[unicodeTestData.size() * WCHAR_IN_UTF8_MAX_SIZE];
 
     REQUIRE(strcmp("", wcharToUtf8(testBuffer, size(testBuffer), L"")) == 0);
     REQUIRE(strcmp(testBuffer, "") == 0);
@@ -132,7 +133,7 @@ TEST_CASE("core/utils/wchar_to_utf8_converts_wide_to_utf8_string") {
 
   // Wide C string converts to UTF-8.
   SUBCASE("wchar C string") {
-    char testBuffer[unicodeTestData.size() * wcharInUtf8MaxSize];
+    char testBuffer[unicodeTestData.size() * WCHAR_IN_UTF8_MAX_SIZE];
 
     REQUIRE(strcmp(reinterpret_cast<const char *>(utf8TestData.data()),
                    wcharToUtf8(testBuffer, size(testBuffer), unicodeTestData.data()))
@@ -142,7 +143,7 @@ TEST_CASE("core/utils/wchar_to_utf8_converts_wide_to_utf8_string") {
 
   // Buffer size limits; insufficient buffer yields empty.
   SUBCASE("buffer size limits") {
-    char testBuffer[unicodeTestData.size() * wcharInUtf8MaxSize];
+    char testBuffer[unicodeTestData.size() * WCHAR_IN_UTF8_MAX_SIZE];
 
     REQUIRE(strcmp("", wcharToUtf8(testBuffer, 1, L"A")) == 0);
     REQUIRE(strcmp(testBuffer, "") == 0);
@@ -225,6 +226,7 @@ TEST_CASE("core/utils/reverse_string_reverses_in_place") {
   }
 }
 
+/*
 // Signed integer to string conversion.
 TEST_CASE("core/utils/itoa_converts_integer_to_string") {
   // int8_t min, max, zero.
@@ -395,6 +397,6 @@ TEST_CASE("core/utils/format_number_string_adds_thousand_separator") {
     REQUIRE(strcmp(buffer, parsedNumbers[index]) == 0);
   }
 }
+*/
 
 } // namespace toy
-*/

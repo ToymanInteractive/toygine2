@@ -356,40 +356,48 @@ void _floatPostProcess(char * dest, char * srcBuffer, size_t bufferSize, int32_t
   *outputPointer = '\0';
 }
 
-wchar_t * utf8toWChar(wchar_t * dest, size_t destSize, const char * const src, size_t count) noexcept {
+wchar_t * utf8toWChar(wchar_t * dest, size_t destSize, const char * src, size_t count) noexcept {
   if (dest == nullptr || destSize == 0)
     return nullptr;
 
   wchar_t * destPointer = dest;
-  if (count > 0 && src != nullptr) {
-    const wchar_t * unicodeEndPos = dest + (destSize - 1);
-    size_t srcIterator = 0;
+  if (count == 0 || src == nullptr) {
+    *destPointer = L'\0';
 
-    while (srcIterator < count && destPointer < unicodeEndPos) {
-      if (auto symbol = static_cast<uint8_t>(src[srcIterator++]); symbol <= 0x7F) {
-        *destPointer = symbol;
-      } else {
-        size_t charBytes = 0;
-        while ((symbol & 0x80) != 0) {
-          ++charBytes;
-          symbol <<= 1;
-        }
+    return dest;
+  }
 
-        auto unicodeChar = static_cast<wchar_t>(symbol >> charBytes);
-        while (charBytes-- > 1) {
-          unicodeChar <<= 6;
-          unicodeChar |= static_cast<uint8_t>(src[srcIterator++]) & 0x3F;
-        }
+  const wchar_t * const unicodeEndPos = dest + (destSize - 1);
 
-        *destPointer = unicodeChar;
+  size_t srcIterator = 0;
+  while (srcIterator < count && destPointer < unicodeEndPos) {
+    const auto lead = static_cast<byte>(src[srcIterator++]);
+    const auto seqLen = _utf8CharSizeTable[std::to_integer<size_t>(lead)];
+    if (seqLen == 0 || seqLen > 3 || srcIterator + (seqLen - 1) > count) {
+      break;
+    } else if (seqLen == 1) {
+      *destPointer++ = std::to_integer<wchar_t>(lead);
+      continue;
+    }
+
+    const auto leadMask = seqLen == 2 ? byte{0x1F} : byte{0x0F};
+    wchar_t codePoint = std::to_integer<wchar_t>(lead & leadMask);
+
+    for (size_t i = 1; i < seqLen; ++i) {
+      const auto cont = static_cast<std::byte>(src[srcIterator++]);
+      if ((cont & std::byte{0xC0}) != std::byte{0x80}) {
+        *destPointer = L'\0';
+
+        return dest;
       }
 
-      ++destPointer;
+      codePoint = static_cast<wchar_t>((codePoint << 6) | std::to_integer<wchar_t>(cont & std::byte{0x3F}));
     }
+
+    *destPointer++ = codePoint;
   }
 
   *destPointer = L'\0';
-
   return dest;
 }
 
