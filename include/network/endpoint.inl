@@ -18,27 +18,23 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   orientation.inl
-  \brief  Inline implementations for \ref toy::platform::ui::Orientation.
+  \file   endpoint.inl
+  \brief  Inline implementations for \ref toy::network::Endpoint port accessors.
 */
 
-#ifndef INCLUDE_PLATFORM_UI_ORIENTATION_INL_
-#define INCLUDE_PLATFORM_UI_ORIENTATION_INL_
+#ifndef INCLUDE_NETWORK_ENDPOINT_INL_
+#define INCLUDE_NETWORK_ENDPOINT_INL_
 
-namespace toy::platform::ui {
+namespace toy::network {
 
-constexpr Orientation operator&(Orientation lhs, Orientation rhs) noexcept {
-  return static_cast<Orientation>(static_cast<uint8_t>(lhs) & static_cast<uint8_t>(rhs));
+constexpr uint16_t Endpoint::port() const noexcept {
+  return _port;
 }
 
-constexpr Orientation operator|(Orientation lhs, Orientation rhs) noexcept {
-  return static_cast<Orientation>(static_cast<uint8_t>(lhs) | static_cast<uint8_t>(rhs));
+constexpr void Endpoint::setPort(uint16_t port) noexcept {
+  _port = port;
 }
 
-constexpr Orientation operator^(Orientation lhs, Orientation rhs) noexcept {
-  return static_cast<Orientation>(static_cast<uint8_t>(lhs) ^ static_cast<uint8_t>(rhs));
-}
+} // namespace toy::network
 
-} // namespace toy::platform::ui
-
-#endif // INCLUDE_PLATFORM_UI_ORIENTATION_INL_
+#endif // INCLUDE_NETWORK_ENDPOINT_INL_

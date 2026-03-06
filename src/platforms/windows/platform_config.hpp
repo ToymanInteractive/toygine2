@@ -31,16 +31,16 @@
 
 namespace toy {
 
-inline constexpr auto currentPlatform = Platform::Windows;
+constexpr auto currentPlatform = Platform::Windows;
 
 #if defined(_M_X64) || defined(__x86_64__)
-inline constexpr auto currentCpuArchitecture = CpuArchitecture::x64;
+constexpr auto currentCpuArchitecture = CpuArchitecture::x64;
 #elif defined(_M_ARM64) || defined(__aarch64__)
-inline constexpr auto currentCpuArchitecture = CpuArchitecture::Arm64;
+constexpr auto currentCpuArchitecture = CpuArchitecture::Arm64;
 #elif defined(_M_IX86) || defined(__i386__)
-inline constexpr auto currentCpuArchitecture = CpuArchitecture::x86;
+constexpr auto currentCpuArchitecture = CpuArchitecture::x86;
 #else
-inline constexpr auto currentCpuArchitecture = CpuArchitecture::Unknown;
+constexpr auto currentCpuArchitecture = CpuArchitecture::Unknown;
 #endif
 
 } // namespace toy

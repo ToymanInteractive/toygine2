@@ -135,13 +135,13 @@ set(SRC_MATH_LIST )
 set(HDR_MATH_LIST include/math.hpp include/math/fixed.hpp include/math/fixed_std_extension.hpp include/math/point.hpp include/math/utils.hpp include/math/vector2d.hpp)
 set(INL_MATH_LIST                  include/math/fixed.inl                                      include/math/point.inl include/math/utils.inl include/math/vector2d.inl)
 
-set(SRC_NETWORK_LIST )
-set(HDR_NETWORK_LIST include/network.hpp include/network/socket_error.hpp include/network/socket_flags.hpp include/network/socket_statistics.hpp include/network/socket_type.hpp)
-set(INL_NETWORK_LIST )
+set(SRC_NETWORK_LIST src/network/endpoint.cpp)
+set(HDR_NETWORK_LIST include/network/endpoint.hpp include/network.hpp include/network/socket_error.hpp include/network/socket_flags.hpp include/network/socket_statistics.hpp include/network/socket_type.hpp)
+set(INL_NETWORK_LIST include/network/endpoint.inl)
 
 set(SRC_PLATFORM_UI_LIST )
 set(HDR_PLATFORM_UI_LIST include/platform/ui.hpp include/platform/ui/message_box_buttons.hpp include/platform/ui/message_box_icon.hpp include/platform/ui/message_box_return.hpp include/platform/ui/orientation.hpp include/platform/ui/window_style.hpp)
-set(INL_PLATFORM_UI_LIST                                                                                                                                                         include/platform/ui/orientation.inl include/platform/ui/window_style.inl)
+set(INL_PLATFORM_UI_LIST )
 
 set(SRC_RENDER_LIST                                                   src/render/pixel_format.cpp)
 set(HDR_RENDER_LIST include/render.hpp include/render/clear_flags.hpp include/render/pixel_format.hpp)

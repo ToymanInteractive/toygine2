@@ -46,9 +46,4 @@
 #include "ui/orientation.hpp"
 #include "ui/window_style.hpp"
 
-//----------------------------------------------------------------------------------------------------------------------
-
-#include "ui/orientation.inl"
-#include "ui/window_style.inl"
-
 #endif // INCLUDE_PLATFORM_UI_HPP_

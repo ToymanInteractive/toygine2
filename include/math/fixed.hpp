@@ -371,7 +371,7 @@ struct is_fixed_point<fixed<Base, Intermediate, Fraction, Rounding>> : true_type
 
 /// Helper variable template: \c true if \a T is \ref toy::math::fixed, \c false otherwise.
 template <typename T>
-inline constexpr bool is_fixed_point_v = is_fixed_point<T>::value;
+constexpr bool is_fixed_point_v = is_fixed_point<T>::value;
 
 /*!
   \concept fixed_point

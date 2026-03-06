@@ -182,73 +182,73 @@ namespace numbers {
 
 /// The mathematical constant \a e (variable template).
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding>
-inline constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding>
+constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding>
   e_v<toy::math::fixed<Base, Intermediate, Fraction, Rounding>>
   = toy::math::fixed<Base, Intermediate, Fraction, Rounding>(e_v<long double>);
 
 /// The mathematical constant π (variable template).
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding>
-inline constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding>
+constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding>
   pi_v<toy::math::fixed<Base, Intermediate, Fraction, Rounding>>
   = toy::math::fixed<Base, Intermediate, Fraction, Rounding>(pi_v<long double>);
 
 /// \f$ \log_2 e \f$ (variable template).
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding>
-inline constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding>
+constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding>
   log2e_v<toy::math::fixed<Base, Intermediate, Fraction, Rounding>>
   = toy::math::fixed<Base, Intermediate, Fraction, Rounding>(log2e_v<long double>);
 
 /// \f$ \log_{10} e \f$ (variable template).
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding>
-inline constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding>
+constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding>
   log10e_v<toy::math::fixed<Base, Intermediate, Fraction, Rounding>>
   = toy::math::fixed<Base, Intermediate, Fraction, Rounding>(log10e_v<long double>);
 
 /// \f$ \sqrt{2} \f$ (variable template).
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding>
-inline constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding>
+constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding>
   sqrt2_v<toy::math::fixed<Base, Intermediate, Fraction, Rounding>>
   = toy::math::fixed<Base, Intermediate, Fraction, Rounding>(sqrt2_v<long double>);
 
 /// \f$ \sqrt{3} \f$ (variable template).
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding>
-inline constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding>
+constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding>
   sqrt3_v<toy::math::fixed<Base, Intermediate, Fraction, Rounding>>
   = toy::math::fixed<Base, Intermediate, Fraction, Rounding>(sqrt3_v<long double>);
 
 /// \f$ 1/\pi \f$ (variable template).
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding>
-inline constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding>
+constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding>
   inv_pi_v<toy::math::fixed<Base, Intermediate, Fraction, Rounding>>
   = toy::math::fixed<Base, Intermediate, Fraction, Rounding>(inv_pi_v<long double>);
 
 /// \f$ 1/\sqrt{\pi} \f$ (variable template).
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding>
-inline constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding>
+constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding>
   inv_sqrtpi_v<toy::math::fixed<Base, Intermediate, Fraction, Rounding>>
   = toy::math::fixed<Base, Intermediate, Fraction, Rounding>(inv_sqrtpi_v<long double>);
 
 /// \f$ \ln 2 \f$ (variable template).
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding>
-inline constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding>
+constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding>
   ln2_v<toy::math::fixed<Base, Intermediate, Fraction, Rounding>>
   = toy::math::fixed<Base, Intermediate, Fraction, Rounding>(ln2_v<long double>);
 
 /// \f$ \ln 10 \f$ (variable template).
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding>
-inline constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding>
+constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding>
   ln10_v<toy::math::fixed<Base, Intermediate, Fraction, Rounding>>
   = toy::math::fixed<Base, Intermediate, Fraction, Rounding>(ln10_v<long double>);
 
 /// Euler–Mascheroni constant γ (variable template).
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding>
-inline constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding>
+constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding>
   egamma_v<toy::math::fixed<Base, Intermediate, Fraction, Rounding>>
   = toy::math::fixed<Base, Intermediate, Fraction, Rounding>(egamma_v<long double>);
 
 /// Golden ratio Φ (variable template).
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding>
-inline constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding>
+constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding>
   phi_v<toy::math::fixed<Base, Intermediate, Fraction, Rounding>>
   = toy::math::fixed<Base, Intermediate, Fraction, Rounding>(phi_v<long double>);
 

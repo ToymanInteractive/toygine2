@@ -21,9 +21,9 @@
   \file   network.hpp
   \brief  Umbrella header for the network module.
 
-  Provides \ref toy::network::SocketError, \ref toy::network::SocketFlags, \ref toy::network::SocketStatistics,
-  \ref toy::network::SocketType, and related networking types. Include this header only; do not include internal headers
-  (e.g. \c network/socket_error.hpp, \c network/socket_flags.hpp) directly.
+  Provides \ref toy::network::Endpoint, \ref toy::network::SocketError, \ref toy::network::SocketFlags,
+  \ref toy::network::SocketStatistics, \ref toy::network::SocketType, and related networking types. Include this header
+  only; do not include internal headers (e.g. \c network/endpoint.hpp, \c network/socket_flags.hpp) directly.
 */
 
 #ifndef INCLUDE_NETWORK_HPP_
@@ -33,14 +33,20 @@
 
 /*!
   \namespace toy::network
-  \brief Network types: socket error, flags, statistics, type, and related APIs.
+  \brief Network types: endpoint, socket error, flags, statistics, type, and related APIs.
 
-  \sa SocketError, SocketFlags, SocketStatistics, SocketType
+  \sa toy::network::Endpoint, toy::network::SocketError, toy::network::SocketFlags, toy::network::SocketStatistics,
+      toy::network::SocketType
 */
 
+#include "network/endpoint.hpp"
 #include "network/socket_error.hpp"
 #include "network/socket_flags.hpp"
 #include "network/socket_statistics.hpp"
 #include "network/socket_type.hpp"
+
+//--------------------------------------------------------------------------------------------------------------------
+
+#include "network/endpoint.inl"
 
 #endif // INCLUDE_NETWORK_HPP_
