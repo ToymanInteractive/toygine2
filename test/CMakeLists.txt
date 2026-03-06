@@ -40,7 +40,18 @@ FetchContent_MakeAvailable(doctest)
 
 list(APPEND CMAKE_MODULE_PATH ${doctest_SOURCE_DIR}/scripts/cmake)
 
+# Collect all test .cpp files from subdirectories (core/, network/, render/, etc.).
 file(GLOB_RECURSE TEST_SRC CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp")
+
+# Root-level .cpp are excluded so TEST_SRC contains only module test files
+file(GLOB ROOT_SRC CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp")
+list(REMOVE_ITEM TEST_SRC ${ROOT_SRC})
+
+if (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Game Boy Advance")
+  list(APPEND TEST_SRC gba_filtering_stream_buf.cpp)
+endif ()
+
+list(APPEND TEST_SRC tests.cpp)
 
 include(doctest)
 

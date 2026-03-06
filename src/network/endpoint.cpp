@@ -18,27 +18,14 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   window_style.inl
-  \brief  Inline implementations for \ref toy::platform::ui::WindowStyle bitwise operators.
+  \file   endpoint.cpp
+  \brief  Implementation of \ref toy::network::Endpoint destructor.
 */
 
-#ifndef INCLUDE_PLATFORM_UI_WINDOW_STYLE_INL_
-#define INCLUDE_PLATFORM_UI_WINDOW_STYLE_INL_
+#include "network.hpp"
 
-namespace toy::platform::ui {
+namespace toy::network {
 
-constexpr WindowStyle operator&(WindowStyle lhs, WindowStyle rhs) noexcept {
-  return static_cast<WindowStyle>(static_cast<uint8_t>(lhs) & static_cast<uint8_t>(rhs));
-}
+Endpoint::~Endpoint() noexcept = default;
 
-constexpr WindowStyle operator|(WindowStyle lhs, WindowStyle rhs) noexcept {
-  return static_cast<WindowStyle>(static_cast<uint8_t>(lhs) | static_cast<uint8_t>(rhs));
-}
-
-constexpr WindowStyle operator^(WindowStyle lhs, WindowStyle rhs) noexcept {
-  return static_cast<WindowStyle>(static_cast<uint8_t>(lhs) ^ static_cast<uint8_t>(rhs));
-}
-
-} // namespace toy::platform::ui
-
-#endif // INCLUDE_PLATFORM_UI_WINDOW_STYLE_INL_
+} // namespace toy::network

@@ -62,36 +62,8 @@ enum class WindowStyle : uint8_t {
   Resized = 0x20
 };
 
-/*!
-  \brief Bitwise AND of two \ref toy::platform::ui::WindowStyle values.
-
-  \param lhs First operand.
-  \param rhs Second operand.
-
-  \return A \ref toy::platform::ui::WindowStyle with only the bits set in both \a lhs and \a rhs.
-*/
-[[nodiscard]] constexpr WindowStyle operator&(WindowStyle lhs, WindowStyle rhs) noexcept;
-
-/*!
-  \brief Bitwise OR of two \ref toy::platform::ui::WindowStyle values.
-
-  \param lhs First operand.
-  \param rhs Second operand.
-
-  \return A \ref toy::platform::ui::WindowStyle with all bits set in either \a lhs or \a rhs.
-*/
-[[nodiscard]] constexpr WindowStyle operator|(WindowStyle lhs, WindowStyle rhs) noexcept;
-
-/*!
-  \brief Bitwise XOR of two \ref toy::platform::ui::WindowStyle values.
-
-  \param lhs First operand.
-  \param rhs Second operand.
-
-  \return A \ref toy::platform::ui::WindowStyle with bits set in exactly one of \a lhs or \a rhs.
-*/
-[[nodiscard]] constexpr WindowStyle operator^(WindowStyle lhs, WindowStyle rhs) noexcept;
-
 } // namespace toy::platform::ui
+
+ENABLE_BITWISE_OPERATORS(toy::platform::ui::WindowStyle)
 
 #endif // INCLUDE_PLATFORM_UI_WINDOW_STYLE_HPP_

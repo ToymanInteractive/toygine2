@@ -18,9 +18,7 @@ static void stackWalkCallback([[maybe_unused]] const char * info) {}
 #include <gba_video.h>
 #include <stdio.h>
 
-#include "gba_reporter.hpp"
-
-REGISTER_REPORTER("gba", 1, GBAReporter);
+#include "gba_filtering_stream_buf.hpp"
 
 int main() {
   irqInit();
@@ -32,8 +30,12 @@ int main() {
 
   toy::assertion::setCallbacks(assertionCallback, stackWalkCallback);
 
+  GbaFilteringStreamBuf gbaStreamBuf;
+  auto gbaStream = std::ostream(&gbaStreamBuf);
+
   doctest::Context context;
-  context.setOption("reporters", "gba");
+  context.setCout(&gbaStream);
+
   //  context.applyCommandLine(argc, argv);
 
   int res = context.run(); // run doctest
@@ -57,6 +59,7 @@ int main(int argc, char ** argv) {
   toy::assertion::setCallbacks(assertionCallback, stackWalkCallback);
 
   doctest::Context context;
+
   context.applyCommandLine(argc, argv);
 
   int res = context.run(); // run doctest

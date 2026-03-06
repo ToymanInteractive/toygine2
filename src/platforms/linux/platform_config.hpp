@@ -28,7 +28,6 @@
 #include "../../../include/core/platform.hpp"
 #include "../common/assertion_macro_gcc_clang.hpp"
 
-
 #if defined(__linux__)
 
 namespace toy {

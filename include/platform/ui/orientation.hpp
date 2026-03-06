@@ -54,43 +54,8 @@ enum class Orientation : uint8_t {
   Any = LandscapeAny | PortraitAny,
 };
 
-/*!
-  \brief Bitwise AND of two \ref toy::platform::ui::Orientation values.
-
-  Returns the intersection of the bit flags in \a lhs and \a rhs.
-
-  \param lhs The first orientation.
-  \param rhs The second orientation.
-
-  \return An orientation with only the bits set in both \a lhs and \a rhs.
-*/
-[[nodiscard]] constexpr Orientation operator&(Orientation lhs, Orientation rhs) noexcept;
-
-/*!
-  \brief Bitwise OR of two \ref toy::platform::ui::Orientation values.
-
-  Returns the union of the bit flags in \a lhs and \a rhs. Use to combine orientations
-  (e.g. \ref toy::platform::ui::Orientation::Landscape | \ref toy::platform::ui::Orientation::LandscapeFlipped).
-
-  \param lhs The first orientation.
-  \param rhs The second orientation.
-
-  \return An orientation with all bits set in either \a lhs or \a rhs.
-*/
-[[nodiscard]] constexpr Orientation operator|(Orientation lhs, Orientation rhs) noexcept;
-
-/*!
-  \brief Bitwise XOR of two \ref toy::platform::ui::Orientation values.
-
-  Returns the symmetric difference of the bit flags in \a lhs and \a rhs.
-
-  \param lhs The first orientation.
-  \param rhs The second orientation.
-
-  \return An orientation with bits set in exactly one of \a lhs or \a rhs.
-*/
-[[nodiscard]] constexpr Orientation operator^(Orientation lhs, Orientation rhs) noexcept;
-
 } // namespace toy::platform::ui
+
+ENABLE_BITWISE_OPERATORS(toy::platform::ui::Orientation)
 
 #endif // INCLUDE_PLATFORM_UI_ORIENTATION_HPP_
