@@ -59,7 +59,7 @@ TEST_CASE("network/endpoint/port_default") {
 }
 
 // setPort stores the value; port() returns it.
-TEST_CASE("network/endpoint/setPort_and_port") {
+TEST_CASE("network/endpoint/set_port_and_port") {
   endpoint_test::TestEndpoint ep;
 
   ep.setPort(8080);
@@ -68,7 +68,7 @@ TEST_CASE("network/endpoint/setPort_and_port") {
 }
 
 // setPort can overwrite the previous value.
-TEST_CASE("network/endpoint/setPort_overwrite") {
+TEST_CASE("network/endpoint/set_port_overwrite") {
   endpoint_test::TestEndpoint ep;
 
   ep.setPort(80);

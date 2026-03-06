@@ -32,9 +32,9 @@
 
 namespace toy {
 
-constexpr auto currentPlatform = Platform::N3DS;
+inline constexpr auto currentPlatform = Platform::N3DS;
 
-constexpr auto currentCpuArchitecture = CpuArchitecture::Arm32;
+inline constexpr auto currentCpuArchitecture = CpuArchitecture::Arm32;
 
 } // namespace toy
 

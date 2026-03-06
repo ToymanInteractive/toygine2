@@ -32,9 +32,9 @@
 
 namespace toy {
 
-constexpr auto currentPlatform = Platform::Switch;
+inline constexpr auto currentPlatform = Platform::Switch;
 
-constexpr auto currentCpuArchitecture = CpuArchitecture::Arm64;
+inline constexpr auto currentCpuArchitecture = CpuArchitecture::Arm64;
 
 } // namespace toy
 

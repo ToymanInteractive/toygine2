@@ -32,18 +32,18 @@
 
 namespace toy {
 
-constexpr auto currentPlatform = Platform::Linux;
+inline constexpr auto currentPlatform = Platform::Linux;
 
 #if defined(__aarch64__)
-constexpr auto currentCpuArchitecture = CpuArchitecture::Arm64;
+inline constexpr auto currentCpuArchitecture = CpuArchitecture::Arm64;
 #elif defined(__x86_64__)
-constexpr auto currentCpuArchitecture = CpuArchitecture::x64;
+inline constexpr auto currentCpuArchitecture = CpuArchitecture::x64;
 #elif defined(__arm__)
-constexpr auto currentCpuArchitecture = CpuArchitecture::Arm32;
+inline constexpr auto currentCpuArchitecture = CpuArchitecture::Arm32;
 #elif defined(__i386__)
-constexpr auto currentCpuArchitecture = CpuArchitecture::x86;
+inline constexpr auto currentCpuArchitecture = CpuArchitecture::x86;
 #else
-constexpr auto currentCpuArchitecture = CpuArchitecture::Unknown;
+inline constexpr auto currentCpuArchitecture = CpuArchitecture::Unknown;
 #endif
 
 } // namespace toy

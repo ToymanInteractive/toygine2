@@ -47,8 +47,10 @@ namespace toy::network {
 
   void configureEndpoint(toy::network::Endpoint * ep) {
     ep->setPort(8080);
-    ep->setHostname("example.com");
-    const char* host = ep->hostnameAsText();
+    if (ep->setHostname("example.com")) {
+      const char* host = ep->hostnameAsText();
+      (void)host;
+    }
   }
   \endcode
 
@@ -88,7 +90,12 @@ public:
 
     \param name Null-terminated hostname string.
 
-    \return \c true on success, \c false on failure.
+    \pre \a name != nullptr.
+
+    \post On success, hostnameAsText() returns a string equal to \a name and the object is in a valid state.
+
+    \return \c true on success; \c false on invalid input or resolution failure. Caller should check before using
+            hostnameAsText().
   */
   virtual bool setHostname(const char * name) noexcept = 0;
 

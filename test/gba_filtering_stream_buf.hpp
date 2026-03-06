@@ -66,6 +66,8 @@ private:
   [[nodiscard]] bool _shouldPass(int_type c) noexcept;
 
   void _flushLine() noexcept;
+
+  bool _mGbaDetected = false;
 };
 
 #endif // TEST_GBA_FILTERING_STREAM_BUF_HPP_
