@@ -16,7 +16,7 @@ var searchData=
   ['cbegin_13',['cbegin',['../d7/dec/classtoy_1_1_fixed_vector.html#a3aa792a563dc682204213d3811d33b6e',1,'toy::FixedVector']]],
   ['cend_14',['cend',['../d7/dec/classtoy_1_1_fixed_vector.html#a105b400ca6152f4789a31729564f809d',1,'toy::FixedVector']]],
   ['char_5ftype_15',['char_type',['../d7/d15/classtoy_1_1_o_string_stream.html#a38e47228545b1a975f1dfe899f0dac0a',1,'toy::OStringStream']]],
-  ['characteristics_16',['Characteristics',['../df/d81/md__a_g_e_n_t_s.html#section-performance-performance-characteristics',1,'&lt;span class=&quot;tt&quot;&gt;\\section performance Performance Characteristics&lt;/span&gt;'],['../d9/d85/classtoy_1_1math_1_1_vector2_d.html#performance',1,'Performance Characteristics']]],
+  ['characteristics_16',['Characteristics',['../df/d81/md__a_g_e_n_t_s.html#section-performance-performance-characteristics',1,'&lt;span class=&quot;tt&quot;&gt;\\section performance Performance Characteristics&lt;/span&gt;'],['../d3/d53/classtoy_1_1network_1_1_endpoint.html#performance',1,'Performance Characteristics']]],
   ['checklist_17',['Documentation Pre-Commit Checklist',['../df/d81/md__a_g_e_n_t_s.html#documentation-pre-commit-checklist',1,'']]],
   ['class_18',['Class',['../df/d81/md__a_g_e_n_t_s.html#regular-class',1,'Regular Class'],['../df/d81/md__a_g_e_n_t_s.html#template-class',1,'Template Class']]],
   ['class_20documentation_20templates_19',['Class Documentation Templates',['../df/d81/md__a_g_e_n_t_s.html#class-documentation-templates',1,'']]],

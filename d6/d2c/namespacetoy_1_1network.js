@@ -1,5 +1,6 @@
 var namespacetoy_1_1network =
 [
+    [ "Endpoint", "d3/d53/classtoy_1_1network_1_1_endpoint.html", "d3/d53/classtoy_1_1network_1_1_endpoint" ],
     [ "SocketStatistics", "df/d86/structtoy_1_1network_1_1_socket_statistics.html", "df/d86/structtoy_1_1network_1_1_socket_statistics" ],
     [ "SocketError", "d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725e", [
       [ "None", "d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725ea6adf97f83acf6453d4a6a4b1070f3754", null ],

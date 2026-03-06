@@ -1,7 +1,7 @@
 var searchData=
 [
   ['parity_0',['Constexpr + Runtime Parity',['../df/d81/md__a_g_e_n_t_s.html#constexpr--runtime-parity',1,'']]],
-  ['performance_20characteristics_1',['Performance Characteristics',['../df/d81/md__a_g_e_n_t_s.html#section-performance-performance-characteristics',1,'&lt;span class=&quot;tt&quot;&gt;\\section performance Performance Characteristics&lt;/span&gt;'],['../d9/d85/classtoy_1_1math_1_1_vector2_d.html#performance',1,'Performance Characteristics']]],
+  ['performance_20characteristics_1',['Performance Characteristics',['../df/d81/md__a_g_e_n_t_s.html#section-performance-performance-characteristics',1,'&lt;span class=&quot;tt&quot;&gt;\\section performance Performance Characteristics&lt;/span&gt;'],['../d3/d53/classtoy_1_1network_1_1_endpoint.html#performance',1,'Performance Characteristics']]],
   ['performance_20performance_20characteristics_2',['&lt;span class=&quot;tt&quot;&gt;\\section performance Performance Characteristics&lt;/span&gt;',['../df/d81/md__a_g_e_n_t_s.html#section-performance-performance-characteristics',1,'']]],
   ['point_20rules_3',['Floating-Point Rules',['../df/d81/md__a_g_e_n_t_s.html#floating-point-rules',1,'']]],
   ['pointer_20and_20reference_20alignment_4',['Pointer and Reference Alignment',['../df/d81/md__a_g_e_n_t_s.html#pointer-and-reference-alignment',1,'']]],

@@ -2,7 +2,7 @@ var searchData=
 [
   ['c_20compilers_0',['Supported C++ compilers',['../index.html#supported-c-compilers',1,'']]],
   ['c_20practices_1',['Modern C++ Practices',['../df/d81/md__a_g_e_n_t_s.html#modern-c-practices',1,'']]],
-  ['characteristics_2',['Characteristics',['../df/d81/md__a_g_e_n_t_s.html#section-performance-performance-characteristics',1,'&lt;span class=&quot;tt&quot;&gt;\\section performance Performance Characteristics&lt;/span&gt;'],['../d9/d85/classtoy_1_1math_1_1_vector2_d.html#performance',1,'Performance Characteristics']]],
+  ['characteristics_2',['Characteristics',['../df/d81/md__a_g_e_n_t_s.html#section-performance-performance-characteristics',1,'&lt;span class=&quot;tt&quot;&gt;\\section performance Performance Characteristics&lt;/span&gt;'],['../d3/d53/classtoy_1_1network_1_1_endpoint.html#performance',1,'Performance Characteristics']]],
   ['checklist_3',['Documentation Pre-Commit Checklist',['../df/d81/md__a_g_e_n_t_s.html#documentation-pre-commit-checklist',1,'']]],
   ['class_4',['Class',['../df/d81/md__a_g_e_n_t_s.html#regular-class',1,'Regular Class'],['../df/d81/md__a_g_e_n_t_s.html#template-class',1,'Template Class']]],
   ['class_20documentation_20templates_5',['Class Documentation Templates',['../df/d81/md__a_g_e_n_t_s.html#class-documentation-templates',1,'']]],

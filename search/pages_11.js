@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['safety_20guarantees_0',['Safety Guarantees',['../df/d81/md__a_g_e_n_t_s.html#section-safety-safety-guarantees',1,'&lt;span class=&quot;tt&quot;&gt;\\section safety Safety Guarantees&lt;/span&gt;'],['../d9/d85/classtoy_1_1math_1_1_vector2_d.html#safety',1,'Safety Guarantees']]],
+  ['safety_20guarantees_0',['Safety Guarantees',['../df/d81/md__a_g_e_n_t_s.html#section-safety-safety-guarantees',1,'&lt;span class=&quot;tt&quot;&gt;\\section safety Safety Guarantees&lt;/span&gt;'],['../d3/d53/classtoy_1_1network_1_1_endpoint.html#safety',1,'Safety Guarantees']]],
   ['safety_20safety_20guarantees_1',['&lt;span class=&quot;tt&quot;&gt;\\section safety Safety Guarantees&lt;/span&gt;',['../df/d81/md__a_g_e_n_t_s.html#section-safety-safety-guarantees',1,'']]],
   ['simplified_20class_20without_20compatibility_2',['Simplified Class (without compatibility)',['../df/d81/md__a_g_e_n_t_s.html#simplified-class-without-compatibility',1,'']]],
   ['source_20organization_3',['Header / Source Organization',['../df/d81/md__a_g_e_n_t_s.html#header--source-organization',1,'']]],

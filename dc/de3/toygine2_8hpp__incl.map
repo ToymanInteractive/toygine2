@@ -1,26 +1,26 @@
 <map id="include/toygine2.hpp" name="include/toygine2.hpp">
-<area shape="rect" id="Node000001" title="Main umbrella header for the engine." alt="" coords="2403,5,2561,31"/>
-<area shape="rect" id="Node000002" href="$d4/d01/application_8hpp.html" title="Umbrella header for the app module." alt="" coords="4081,79,4203,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="2562,20,4067,84,4067,89,2561,25"/>
+<area shape="rect" id="Node000001" title="Main umbrella header for the engine." alt="" coords="2663,5,2821,31"/>
+<area shape="rect" id="Node000002" href="$d4/d01/application_8hpp.html" title="Umbrella header for the app module." alt="" coords="4123,79,4246,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="2822,21,4110,84,4110,89,2821,26"/>
 <area shape="rect" id="Node000003" href="$da/d47/core_8hpp.html" title="Umbrella header for the engine core module." alt="" coords="2737,225,2816,251"/>
-<area shape="poly" id="edge55_Node000001_Node000003" title=" " alt="" coords="2562,17,2899,20,3377,29,3861,47,4063,60,4216,76,4261,80,4302,81,4374,81,4406,86,4438,98,4468,118,4498,151,4504,165,4497,179,4471,191,4419,200,4250,215,4017,226,3747,233,3201,239,2830,240,2830,234,3201,234,3747,228,4017,221,4250,210,4418,195,4469,186,4493,175,4498,165,4493,153,4464,122,4435,103,4405,92,4373,87,4302,86,4261,86,4215,81,4063,65,3861,52,3377,35,2899,26,2562,22"/>
-<area shape="rect" id="Node000048" href="$d1/d71/audio_8hpp.html" title="Umbrella header for the audio module." alt="" coords="2144,79,2231,104"/>
-<area shape="poly" id="edge52_Node000001_Node000048" title=" " alt="" coords="2435,33,2244,79,2243,74,2434,28"/>
+<area shape="poly" id="edge55_Node000001_Node000003" title=" " alt="" coords="2822,18,3121,22,3536,32,3953,50,4127,62,4258,76,4370,86,4482,97,4525,107,4553,123,4560,134,4560,147,4554,162,4540,179,4513,191,4459,201,4286,216,4047,227,3769,234,3209,240,2830,240,2830,234,3209,234,3769,229,4046,221,4286,211,4459,195,4511,186,4536,175,4549,159,4555,146,4555,135,4549,127,4523,112,4481,102,4369,92,4258,81,4126,67,3953,55,3536,38,3121,27,2822,23"/>
+<area shape="rect" id="Node000048" href="$d1/d71/audio_8hpp.html" title="Umbrella header for the audio module." alt="" coords="2512,79,2599,104"/>
+<area shape="poly" id="edge52_Node000001_Node000048" title=" " alt="" coords="2713,33,2599,76,2598,71,2711,28"/>
 <area shape="rect" id="Node000050" href="$db/dbb/geometry_8hpp.html" title="Umbrella header for the geometry module." alt="" coords="835,79,945,104"/>
-<area shape="poly" id="edge56_Node000001_Node000050" title=" " alt="" coords="2403,26,959,90,959,84,2402,20"/>
+<area shape="poly" id="edge56_Node000001_Node000050" title=" " alt="" coords="2663,25,959,90,959,85,2662,20"/>
 <area shape="rect" id="Node000051" href="$d4/d78/math_8hpp.html" title="Umbrella header for the math module." alt="" coords="576,152,660,177"/>
-<area shape="poly" id="edge72_Node000001_Node000051" title=" " alt="" coords="2403,23,1554,41,1091,59,922,69,823,81,775,95,728,112,652,148,650,143,726,107,773,89,821,76,921,64,1091,53,1554,36,2402,18"/>
-<area shape="rect" id="Node000063" href="$d6/d67/network_8hpp.html" title="Umbrella header for the network module." alt="" coords="1483,79,1585,104"/>
-<area shape="poly" id="edge73_Node000001_Node000063" title=" " alt="" coords="2403,28,1599,88,1599,83,2402,23"/>
-<area shape="rect" id="Node000068" href="$de/dd6/ui_8hpp.html" title="Umbrella header for platform UI types." alt="" coords="2717,79,2839,104"/>
-<area shape="poly" id="edge79_Node000001_Node000068" title=" " alt="" coords="2530,28,2717,73,2716,78,2529,33"/>
-<area shape="rect" id="Node000076" href="$d6/d4b/render_8hpp.html" title="Umbrella header for the render module." alt="" coords="3649,79,3739,104"/>
-<area shape="poly" id="edge88_Node000001_Node000076" title=" " alt="" coords="2562,21,3635,84,3634,89,2561,27"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="4136,106,4105,144,4082,164,4055,180,4025,189,3978,196,3847,210,3677,220,3484,227,3101,236,2830,239,2830,234,3101,231,3484,222,3676,214,3846,204,3978,191,4023,183,4053,175,4079,160,4101,140,4132,102"/>
-<area shape="rect" id="Node000046" href="$d7/dad/version_8hpp.html" title="Application version type and comparison operators." alt="" coords="4117,152,4292,177"/>
-<area shape="poly" id="edge50_Node000002_Node000046" title=" " alt="" coords="4154,103,4187,140,4183,143,4150,106"/>
-<area shape="rect" id="Node000047" href="$d2/dbe/version_8inl.html" title="Implementation of application version management utilities." alt="" coords="4316,152,4483,177"/>
-<area shape="poly" id="edge51_Node000002_Node000047" title=" " alt="" coords="4184,101,4345,146,4344,151,4183,107"/>
+<area shape="poly" id="edge72_Node000001_Node000051" title=" " alt="" coords="2662,23,2257,28,1683,39,1139,56,940,68,823,81,775,94,728,112,652,148,650,143,726,107,773,89,821,76,939,62,1138,51,1683,33,2257,23,2662,17"/>
+<area shape="rect" id="Node000063" href="$d6/d67/network_8hpp.html" title="Umbrella header for the network module." alt="" coords="1671,79,1773,104"/>
+<area shape="poly" id="edge73_Node000001_Node000063" title=" " alt="" coords="2663,28,1787,88,1787,83,2662,22"/>
+<area shape="rect" id="Node000070" href="$de/dd6/ui_8hpp.html" title="Umbrella header for platform UI types." alt="" coords="2867,79,2990,104"/>
+<area shape="poly" id="edge81_Node000001_Node000070" title=" " alt="" coords="2773,28,2886,71,2885,76,2771,33"/>
+<area shape="rect" id="Node000076" href="$d6/d4b/render_8hpp.html" title="Umbrella header for the render module." alt="" coords="3691,79,3782,104"/>
+<area shape="poly" id="edge88_Node000001_Node000076" title=" " alt="" coords="2822,22,3678,83,3677,88,2822,28"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="4179,106,4147,144,4124,164,4098,180,4066,189,4018,197,3882,210,3705,221,3506,228,3109,237,2830,239,2830,234,3109,231,3506,223,3705,215,3882,205,4018,192,4065,184,4096,175,4121,160,4144,140,4175,102"/>
+<area shape="rect" id="Node000046" href="$d7/dad/version_8hpp.html" title="Application version type and comparison operators." alt="" coords="4160,152,4335,177"/>
+<area shape="poly" id="edge50_Node000002_Node000046" title=" " alt="" coords="4197,103,4230,140,4226,143,4193,106"/>
+<area shape="rect" id="Node000047" href="$d2/dbe/version_8inl.html" title="Implementation of application version management utilities." alt="" coords="4359,152,4525,177"/>
+<area shape="poly" id="edge51_Node000002_Node000047" title=" " alt="" coords="4227,101,4388,146,4387,151,4225,107"/>
 <area shape="rect" id="Node000004" title=" " alt="" coords="5682,313,5767,339"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="2816,236,3359,236,4257,240,4726,247,5148,258,5478,274,5594,284,5671,296,5695,305,5693,310,5669,301,5593,289,5477,279,5148,263,4726,252,4257,245,3359,241,2816,242"/>
 <area shape="rect" id="Node000005" title=" " alt="" coords="5791,313,5847,339"/>
@@ -110,9 +110,9 @@
 <area shape="poly" id="edge31_Node000031_Node000028" title=" " alt="" coords="2716,336,2829,400,2827,404,2713,341"/>
 <area shape="poly" id="edge34_Node000033_Node000028" title=" " alt="" coords="2863,339,2863,395,2858,395,2858,339"/>
 <area shape="poly" id="edge37_Node000035_Node000028" title=" " alt="" coords="3021,341,2896,405,2894,400,3019,336"/>
-<area shape="poly" id="edge53_Node000048_Node000003" title=" " alt="" coords="2195,103,2216,140,2233,160,2253,175,2291,190,2343,203,2474,220,2612,229,2724,233,2724,239,2612,235,2474,225,2342,208,2289,195,2250,180,2229,163,2212,143,2190,106"/>
-<area shape="rect" id="Node000049" href="$db/d37/volume__type_8hpp.html" title="Volume category enumeration for audio mixing and per&#45;channel gain control." alt="" coords="1975,152,2149,177"/>
-<area shape="poly" id="edge54_Node000048_Node000049" title=" " alt="" coords="2169,106,2096,147,2093,143,2166,102"/>
+<area shape="poly" id="edge53_Node000048_Node000003" title=" " alt="" coords="2563,103,2586,138,2602,158,2621,175,2672,204,2725,222,2723,227,2670,209,2618,179,2598,162,2582,141,2559,106"/>
+<area shape="rect" id="Node000049" href="$db/d37/volume__type_8hpp.html" title="Volume category enumeration for audio mixing and per&#45;channel gain control." alt="" coords="2343,152,2517,177"/>
+<area shape="poly" id="edge54_Node000048_Node000049" title=" " alt="" coords="2537,106,2464,147,2461,143,2534,102"/>
 <area shape="poly" id="edge57_Node000050_Node000051" title=" " alt="" coords="847,107,674,152,673,146,846,101"/>
 <area shape="rect" id="Node000061" href="$d9/dc5/section_8hpp.html" title="toy::geometry::Section and toy::geometry::SectionScalar declarations." alt="" coords="684,152,848,177"/>
 <area shape="poly" id="edge70_Node000050_Node000061" title=" " alt="" coords="871,106,799,147,797,143,869,102"/>
@@ -139,33 +139,33 @@
 <area shape="poly" id="edge69_Node000051_Node000060" title=" " alt="" coords="661,172,672,175,901,220,900,225,671,180,660,178"/>
 <area shape="poly" id="edge61_Node000053_Node000054" title=" " alt="" coords="164,253,92,307,89,303,161,249"/>
 <area shape="poly" id="edge62_Node000053_Node000055" title=" " alt="" coords="191,249,239,301,235,305,187,253"/>
-<area shape="poly" id="edge74_Node000063_Node000003" title=" " alt="" coords="1482,94,1384,95,1266,102,1210,110,1160,121,1119,135,1093,154,1088,165,1093,175,1117,185,1167,195,1332,209,1559,220,1824,227,2358,234,2723,234,2723,240,2358,239,1824,233,1559,225,1331,215,1166,200,1115,190,1089,179,1083,165,1089,150,1117,130,1158,116,1209,105,1266,97,1384,90,1482,89"/>
-<area shape="rect" id="Node000064" href="$d8/df5/socket__error_8hpp.html" title="Socket and network operation error codes." alt="" coords="1763,152,1950,177"/>
-<area shape="poly" id="edge75_Node000063_Node000064" title=" " alt="" coords="1586,101,1792,146,1791,152,1585,107"/>
-<area shape="rect" id="Node000065" href="$d7/d5a/socket__flags_8hpp.html" title="Socket option and mode flags for the network module." alt="" coords="1103,152,1290,177"/>
-<area shape="poly" id="edge76_Node000063_Node000065" title=" " alt="" coords="1483,106,1265,152,1264,147,1482,101"/>
-<area shape="rect" id="Node000066" href="$d4/d5f/socket__statistics_8hpp.html" title="Socket traffic statistics: bytes sent and received." alt="" coords="1315,152,1529,177"/>
-<area shape="poly" id="edge77_Node000063_Node000066" title=" " alt="" coords="1517,106,1454,147,1451,142,1515,102"/>
-<area shape="rect" id="Node000067" href="$d3/d4e/socket__type_8hpp.html" title="Socket type enumeration for network APIs." alt="" coords="1553,152,1739,177"/>
-<area shape="poly" id="edge78_Node000063_Node000067" title=" " alt="" coords="1553,102,1617,142,1614,147,1551,106"/>
-<area shape="poly" id="edge80_Node000068_Node000003" title=" " alt="" coords="2716,98,2595,105,2452,116,2329,133,2287,143,2265,154,2259,165,2262,174,2272,183,2290,192,2344,206,2417,217,2583,229,2724,234,2724,239,2583,235,2416,222,2343,212,2288,197,2269,188,2257,177,2254,164,2261,150,2285,138,2328,127,2452,111,2595,99,2716,93"/>
-<area shape="rect" id="Node000069" href="$d6/d4d/message__box__buttons_8hpp.html" title="Button set configuration for message boxes / dialogs." alt="" coords="2447,152,2659,177"/>
-<area shape="poly" id="edge81_Node000068_Node000069" title=" " alt="" coords="2743,107,2603,150,2601,145,2741,101"/>
-<area shape="rect" id="Node000070" href="$de/d20/message__box__icon_8hpp.html" title="Icon type for message box / dialog." alt="" coords="2683,152,2873,177"/>
-<area shape="poly" id="edge82_Node000068_Node000070" title=" " alt="" coords="2781,104,2781,138,2775,138,2775,104"/>
-<area shape="rect" id="Node000071" href="$d0/d68/message__box__return_8hpp.html" title="Return value for message box / dialog interactions." alt="" coords="2898,152,3101,177"/>
-<area shape="poly" id="edge83_Node000068_Node000071" title=" " alt="" coords="2814,101,2952,145,2950,150,2813,107"/>
-<area shape="rect" id="Node000072" href="$d0/d24/orientation_8hpp.html" title="Screen orientation enumeration for UI layout and rotation handling." alt="" coords="3125,152,3263,177"/>
-<area shape="poly" id="edge84_Node000068_Node000072" title=" " alt="" coords="2840,100,3114,147,3113,152,2839,106"/>
-<area shape="rect" id="Node000073" href="$d2/d63/window__style_8hpp.html" title="Bitmask enumeration for window decoration and mode." alt="" coords="3287,152,3442,177"/>
-<area shape="poly" id="edge85_Node000068_Node000073" title=" " alt="" coords="2840,97,3274,149,3273,155,2839,103"/>
-<area shape="rect" id="Node000074" href="$d8/d31/orientation_8inl.html" title="Inline implementations for toy::platform::ui::Orientation." alt="" coords="3467,152,3596,177"/>
-<area shape="poly" id="edge86_Node000068_Node000074" title=" " alt="" coords="2840,94,3102,115,3453,149,3453,155,3102,120,2839,100"/>
-<area shape="rect" id="Node000075" href="$de/ddd/window__style_8inl.html" title="Inline implementations for toy::platform::ui::WindowStyle bitwise operators." alt="" coords="2275,152,2422,177"/>
-<area shape="poly" id="edge87_Node000068_Node000075" title=" " alt="" coords="2717,105,2431,152,2431,147,2716,100"/>
-<area shape="poly" id="edge89_Node000076_Node000003" title=" " alt="" coords="3688,106,3657,144,3634,164,3608,180,3561,191,3481,202,3257,219,2830,238,2830,232,3257,213,3480,196,3560,186,3606,175,3631,160,3653,140,3684,103"/>
-<area shape="rect" id="Node000077" href="$d0/d74/clear__flags_8hpp.html" title="Bit flags for framebuffer clear operations (color, depth, stencil)." alt="" coords="3672,152,3839,177"/>
-<area shape="poly" id="edge90_Node000076_Node000077" title=" " alt="" coords="3706,103,3738,140,3734,143,3702,106"/>
-<area shape="rect" id="Node000078" href="$d2/d8d/pixel__format_8hpp.html" title="Pixel format enumeration for render targets and textures." alt="" coords="3863,152,4042,177"/>
-<area shape="poly" id="edge91_Node000076_Node000078" title=" " alt="" coords="3736,101,3898,146,3897,151,3735,107"/>
+<area shape="poly" id="edge74_Node000063_Node000003" title=" " alt="" coords="1671,95,1499,95,1289,105,1196,115,1125,130,1102,140,1088,151,1085,162,1093,175,1117,185,1167,195,1332,209,1559,220,1824,227,2358,234,2723,234,2723,240,2358,239,1824,233,1559,225,1331,215,1166,200,1115,190,1090,179,1080,163,1084,148,1099,135,1123,125,1195,110,1288,99,1499,90,1671,89"/>
+<area shape="rect" id="Node000064" href="$d7/dbd/endpoint_8hpp.html" title="Base type for network endpoint (host and port)." alt="" coords="1732,152,1896,177"/>
+<area shape="poly" id="edge75_Node000063_Node000064" title=" " alt="" coords="1738,102,1790,141,1787,146,1735,106"/>
+<area shape="rect" id="Node000065" href="$d8/df5/socket__error_8hpp.html" title="Socket and network operation error codes." alt="" coords="1921,152,2107,177"/>
+<area shape="poly" id="edge76_Node000063_Node000065" title=" " alt="" coords="1770,101,1954,146,1953,151,1768,107"/>
+<area shape="rect" id="Node000066" href="$d7/d5a/socket__flags_8hpp.html" title="Socket option and mode flags for the network module." alt="" coords="2131,152,2318,177"/>
+<area shape="poly" id="edge77_Node000063_Node000066" title=" " alt="" coords="1774,97,2131,147,2130,153,1773,103"/>
+<area shape="rect" id="Node000067" href="$d4/d5f/socket__statistics_8hpp.html" title="Socket traffic statistics: bytes sent and received." alt="" coords="1104,152,1319,177"/>
+<area shape="poly" id="edge78_Node000063_Node000067" title=" " alt="" coords="1671,102,1307,153,1307,147,1670,97"/>
+<area shape="rect" id="Node000068" href="$d3/d4e/socket__type_8hpp.html" title="Socket type enumeration for network APIs." alt="" coords="1343,152,1528,177"/>
+<area shape="poly" id="edge79_Node000063_Node000068" title=" " alt="" coords="1677,107,1496,151,1494,146,1675,101"/>
+<area shape="rect" id="Node000069" href="$d9/d88/endpoint_8inl.html" title="Inline implementations for toy::network::Endpoint port accessors." alt="" coords="1552,152,1708,177"/>
+<area shape="poly" id="edge80_Node000063_Node000069" title=" " alt="" coords="1709,106,1657,146,1654,141,1706,102"/>
+<area shape="poly" id="edge82_Node000070_Node000003" title=" " alt="" coords="2868,99,2802,105,2732,115,2670,132,2648,142,2633,154,2627,166,2628,177,2635,187,2648,196,2684,212,2725,224,2723,229,2682,217,2645,201,2631,191,2623,179,2622,165,2629,150,2645,137,2669,126,2730,110,2801,99,2867,93"/>
+<area shape="rect" id="Node000071" href="$d6/d4d/message__box__buttons_8hpp.html" title="Button set configuration for message boxes / dialogs." alt="" coords="2823,152,3035,177"/>
+<area shape="poly" id="edge83_Node000070_Node000071" title=" " alt="" coords="2931,104,2931,138,2926,138,2926,104"/>
+<area shape="rect" id="Node000072" href="$de/d20/message__box__icon_8hpp.html" title="Icon type for message box / dialog." alt="" coords="3059,152,3249,177"/>
+<area shape="poly" id="edge84_Node000070_Node000072" title=" " alt="" coords="2966,101,3105,145,3104,150,2964,107"/>
+<area shape="rect" id="Node000073" href="$d0/d68/message__box__return_8hpp.html" title="Return value for message box / dialog interactions." alt="" coords="3274,152,3477,177"/>
+<area shape="poly" id="edge85_Node000070_Node000073" title=" " alt="" coords="2991,100,3290,147,3290,152,2990,105"/>
+<area shape="rect" id="Node000074" href="$d0/d24/orientation_8hpp.html" title="Screen orientation enumeration for UI layout and rotation handling." alt="" coords="3501,152,3639,177"/>
+<area shape="poly" id="edge86_Node000070_Node000074" title=" " alt="" coords="2990,96,3206,118,3488,149,3487,155,3205,123,2990,101"/>
+<area shape="rect" id="Node000075" href="$d2/d63/window__style_8hpp.html" title="Bitmask enumeration for window decoration and mode." alt="" coords="2643,152,2798,177"/>
+<area shape="poly" id="edge87_Node000070_Node000075" title=" " alt="" coords="2896,107,2768,150,2767,145,2894,101"/>
+<area shape="poly" id="edge89_Node000076_Node000003" title=" " alt="" coords="3731,106,3700,144,3677,164,3651,180,3601,192,3516,202,3279,219,2830,238,2830,233,3279,214,3515,197,3600,187,3649,175,3674,160,3696,140,3727,103"/>
+<area shape="rect" id="Node000077" href="$d0/d74/clear__flags_8hpp.html" title="Bit flags for framebuffer clear operations (color, depth, stencil)." alt="" coords="3715,152,3881,177"/>
+<area shape="poly" id="edge90_Node000076_Node000077" title=" " alt="" coords="3749,103,3781,140,3777,143,3745,106"/>
+<area shape="rect" id="Node000078" href="$d2/d8d/pixel__format_8hpp.html" title="Pixel format enumeration for render targets and textures." alt="" coords="3906,152,4085,177"/>
+<area shape="poly" id="edge91_Node000076_Node000078" title=" " alt="" coords="3779,101,3941,146,3940,151,3778,107"/>
 </map>

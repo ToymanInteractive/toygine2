@@ -12,8 +12,8 @@
 <g id="Node000001" class="node">
 <title>Node1</title>
 <g id="a_Node000001"><a xlink:title="Umbrella header for platform UI types.">
-<polygon fill="#999999" stroke="#666666" points="2163,-217 2033,-217 2033,-198 2163,-198 2163,-217"/>
-<text text-anchor="middle" x="2098" y="-205" font-family="Helvetica,sans-Serif" font-size="10.00">include/platform/ui.hpp</text>
+<polygon fill="#999999" stroke="#666666" points="2007,-217 1877,-217 1877,-198 2007,-198 2007,-217"/>
+<text text-anchor="middle" x="1942" y="-205" font-family="Helvetica,sans-Serif" font-size="10.00">include/platform/ui.hpp</text>
 </a>
 </g>
 </g>
@@ -30,8 +30,8 @@
 <g id="edge1_Node000001_Node000002" class="edge">
 <title>Node1&#45;&gt;Node2</title>
 <g id="a_edge1_Node000001_Node000002"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M2032.62,-202.86C1939.3,-197.17 1762.38,-184.57 1602.25,-162.03"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="1602.61,-158.55 1592.21,-160.6 1601.62,-165.48 1602.61,-158.55"/>
+<path fill="none" stroke="#63b8ff" d="M1876.76,-199.27C1810.21,-191.61 1703.73,-178.54 1602.34,-162.13"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="1602.66,-158.63 1592.23,-160.48 1601.54,-165.54 1602.66,-158.63"/>
 </a>
 </g>
 </g>
@@ -48,8 +48,8 @@
 <g id="edge49_Node000001_Node000045" class="edge">
 <title>Node1&#45;&gt;Node45</title>
 <g id="a_edge49_Node000001_Node000045"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M2032.9,-198.04C1960.12,-188.59 1842.44,-173.3 1765.63,-163.32"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="1765.91,-159.83 1755.54,-162.01 1765.01,-166.77 1765.91,-159.83"/>
+<path fill="none" stroke="#63b8ff" d="M1901.51,-197.98C1857.83,-188.8 1788.19,-174.15 1740.85,-164.19"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="1741.31,-160.72 1730.81,-162.08 1739.87,-167.57 1741.31,-160.72"/>
 </a>
 </g>
 </g>
@@ -66,8 +66,8 @@
 <g id="edge50_Node000001_Node000046" class="edge">
 <title>Node1&#45;&gt;Node46</title>
 <g id="a_edge50_Node000001_Node000046"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M2059.6,-197.98C2018.26,-188.82 1952.4,-174.21 1907.51,-164.26"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="1908.22,-160.83 1897.7,-162.08 1906.71,-167.66 1908.22,-160.83"/>
+<path fill="none" stroke="#63b8ff" d="M1928.66,-197.98C1915.91,-189.84 1896.45,-177.41 1881.33,-167.76"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="1882.89,-164.6 1872.58,-162.17 1879.12,-170.5 1882.89,-164.6"/>
 </a>
 </g>
 </g>
@@ -84,8 +84,8 @@
 <g id="edge51_Node000001_Node000047" class="edge">
 <title>Node1&#45;&gt;Node47</title>
 <g id="a_edge51_Node000001_Node000047"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M2086.27,-197.98C2075.27,-190 2058.58,-177.88 2045.4,-168.31"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="2047.09,-165.21 2036.94,-162.17 2042.98,-170.88 2047.09,-165.21"/>
+<path fill="none" stroke="#63b8ff" d="M1955.34,-197.98C1968.09,-189.84 1987.55,-177.41 2002.67,-167.76"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="2004.88,-170.5 2011.42,-162.17 2001.11,-164.6 2004.88,-170.5"/>
 </a>
 </g>
 </g>
@@ -102,8 +102,8 @@
 <g id="edge52_Node000001_Node000048" class="edge">
 <title>Node1&#45;&gt;Node48</title>
 <g id="a_edge52_Node000001_Node000048"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M2109.73,-197.98C2120.73,-190 2137.42,-177.88 2150.6,-168.31"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="2153.02,-170.88 2159.06,-162.17 2148.91,-165.21 2153.02,-170.88"/>
+<path fill="none" stroke="#63b8ff" d="M1978.79,-197.98C2018.24,-188.86 2080.98,-174.33 2123.98,-164.38"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="2124.97,-167.75 2133.92,-162.08 2123.39,-160.93 2124.97,-167.75"/>
 </a>
 </g>
 </g>
@@ -120,44 +120,8 @@
 <g id="edge53_Node000001_Node000049" class="edge">
 <title>Node1&#45;&gt;Node49</title>
 <g id="a_edge53_Node000001_Node000049"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M2130.29,-197.98C2164.62,-188.93 2219.06,-174.58 2256.77,-164.64"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="2257.68,-168.02 2266.45,-162.08 2255.89,-161.25 2257.68,-168.02"/>
-</a>
-</g>
-</g>
-<!-- Node50 -->
-<g id="Node000050" class="node">
-<title>Node50</title>
-<g id="a_Node000050"><a xlink:href="../../d8/d31/orientation_8inl.html" target="_top" xlink:title="Inline implementations for toy::platform::ui::Orientation.">
-<polygon fill="white" stroke="#666666" points="2472.5,-162 2375.5,-162 2375.5,-143 2472.5,-143 2472.5,-162"/>
-<text text-anchor="middle" x="2424" y="-150" font-family="Helvetica,sans-Serif" font-size="10.00">ui/orientation.inl</text>
-</a>
-</g>
-</g>
-<!-- Node1&#45;&gt;Node50 -->
-<g id="edge54_Node000001_Node000050" class="edge">
-<title>Node1&#45;&gt;Node50</title>
-<g id="a_edge54_Node000001_Node000050"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M2150.38,-197.98C2209.2,-188.42 2304.41,-172.94 2365.59,-163"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="2366.17,-166.45 2375.48,-161.39 2365.05,-159.54 2366.17,-166.45"/>
-</a>
-</g>
-</g>
-<!-- Node51 -->
-<g id="Node000051" class="node">
-<title>Node51</title>
-<g id="a_Node000051"><a xlink:href="../../de/ddd/window__style_8inl.html" target="_top" xlink:title="Inline implementations for toy::platform::ui::WindowStyle bitwise operators.">
-<polygon fill="white" stroke="#666666" points="2601,-162 2491,-162 2491,-143 2601,-143 2601,-162"/>
-<text text-anchor="middle" x="2546" y="-150" font-family="Helvetica,sans-Serif" font-size="10.00">ui/window_style.inl</text>
-</a>
-</g>
-</g>
-<!-- Node1&#45;&gt;Node51 -->
-<g id="edge55_Node000001_Node000051" class="edge">
-<title>Node1&#45;&gt;Node51</title>
-<g id="a_edge55_Node000001_Node000051"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M2163.27,-199.27C2237.61,-190.96 2363.02,-176.72 2480.92,-162.12"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="2481.36,-165.59 2490.85,-160.88 2480.49,-158.64 2481.36,-165.59"/>
+<path fill="none" stroke="#63b8ff" d="M1999.36,-197.98C2062.63,-188.59 2164.36,-173.49 2231.44,-163.53"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="2232.11,-166.97 2241.49,-162.04 2231.08,-160.04 2232.11,-166.97"/>
 </a>
 </g>
 </g>

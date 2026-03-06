@@ -1,7 +1,9 @@
 <map id="include/network/socket_flags.hpp" name="include/network/socket_flags.hpp">
-<area shape="rect" id="Node000001" title="Socket option and mode flags for the network module." alt="" coords="5,5,177,45"/>
-<area shape="rect" id="Node000002" href="$d6/d67/network_8hpp.html" title="Umbrella header for the network module." alt="" coords="14,93,169,119"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="94,59,94,93,89,93,89,59"/>
-<area shape="rect" id="Node000003" href="$d8/d8c/toygine2_8hpp.html" title="Main umbrella header for the engine." alt="" coords="12,167,171,192"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="94,132,94,167,89,167,89,132"/>
+<area shape="rect" id="Node000001" title="Socket option and mode flags for the network module." alt="" coords="97,5,269,45"/>
+<area shape="rect" id="Node000002" href="$d6/d67/network_8hpp.html" title="Umbrella header for the network module." alt="" coords="106,93,261,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="186,59,186,93,181,93,181,59"/>
+<area shape="rect" id="Node000003" href="$d8/d8c/toygine2_8hpp.html" title="Main umbrella header for the engine." alt="" coords="5,167,164,192"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="158,129,102,169,99,164,155,124"/>
+<area shape="rect" id="Node000004" href="$d3/d80/endpoint_8cpp.html" title="Implementation of toy::network::Endpoint destructor." alt="" coords="189,167,375,192"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="212,124,267,164,264,169,208,129"/>
 </map>

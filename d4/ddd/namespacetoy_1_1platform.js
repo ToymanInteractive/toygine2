@@ -48,12 +48,6 @@ var namespacetoy_1_1platform =
         [ "TopMost", "d1/d03/namespacetoy_1_1platform_1_1ui.html#aa6c677b8c744b89734e11ea340507a72acfd9b513b2198fd455b9f598d696222b", null ],
         [ "FullScreen", "d1/d03/namespacetoy_1_1platform_1_1ui.html#aa6c677b8c744b89734e11ea340507a72ae7ec409749889353b8f83a6b04159420", null ],
         [ "Resized", "d1/d03/namespacetoy_1_1platform_1_1ui.html#aa6c677b8c744b89734e11ea340507a72a22995988de764d7a8cb4165fbff371cb", null ]
-      ] ],
-      [ "operator&", "d1/d03/namespacetoy_1_1platform_1_1ui.html#a3e89eb3201c3119b7450a21a1ef80a24", null ],
-      [ "operator&", "d1/d03/namespacetoy_1_1platform_1_1ui.html#aa7702b9f5b239d96766354de96bc6ba4", null ],
-      [ "operator^", "d1/d03/namespacetoy_1_1platform_1_1ui.html#af43dc4e8ee989cde743f42c1832a5ef0", null ],
-      [ "operator^", "d1/d03/namespacetoy_1_1platform_1_1ui.html#ac188cad17d9e5d58d629a085e48d1c84", null ],
-      [ "operator|", "d1/d03/namespacetoy_1_1platform_1_1ui.html#a7865b5932f8f093b63b52c900d3bdf16", null ],
-      [ "operator|", "d1/d03/namespacetoy_1_1platform_1_1ui.html#ac9629cc18f923d6e4735bf154eda352b", null ]
+      ] ]
     ] ]
 ];
