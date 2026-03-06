@@ -45,7 +45,7 @@ namespace toy::network {
   \code
   #include "network.hpp"
 
-  void configureEndpoint(toy::network::Endpoint* ep) {
+  void configureEndpoint(toy::network::Endpoint * ep) {
     ep->setPort(8080);
     ep->setHostname("example.com");
     const char* host = ep->hostnameAsText();
@@ -90,31 +90,32 @@ public:
 
     \return \c true on success, \c false on failure.
   */
-  virtual bool setHostname(const char * name) = 0;
+  virtual bool setHostname(const char * name) noexcept = 0;
 
   /*!
     \brief Returns whether the endpoint represents the local host.
 
     \return \c true if local host, \c false otherwise.
   */
-  virtual bool isLocalHost() const = 0;
+  [[nodiscard]] virtual bool isLocalHost() const noexcept = 0;
 
   /*!
     \brief Sets the endpoint to the local host.
   */
-  virtual void setLocalHost() = 0;
+  virtual void setLocalHost() noexcept = 0;
 
   /*!
     \brief Returns the hostname as a C string.
 
     \return Null-terminated hostname, or empty string if none set. Valid until the endpoint is modified or destroyed.
   */
-  virtual const char * hostnameAsText() const = 0;
+  [[nodiscard]] virtual const char * hostnameAsText() const noexcept = 0;
 
 protected:
   constexpr Endpoint() noexcept = default;
 
 private:
+  /// Port in host byte order.
   uint16_t _port = 0;
 };
 

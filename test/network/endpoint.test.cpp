@@ -29,23 +29,23 @@ namespace endpoint_test {
 // Concrete Endpoint implementation for testing port() and setPort(); virtuals are stubs.
 class TestEndpoint : public Endpoint {
 public:
-  bool setHostname(const char *) override;
-  bool isLocalHost() const override;
-  void setLocalHost() override;
-  const char * hostnameAsText() const override;
+  bool setHostname(const char *) noexcept override;
+  bool isLocalHost() const noexcept override;
+  void setLocalHost() noexcept override;
+  const char * hostnameAsText() const noexcept override;
 };
 
-bool TestEndpoint::setHostname(const char *) {
+bool TestEndpoint::setHostname(const char *) noexcept {
   return true;
 }
 
-bool TestEndpoint::isLocalHost() const {
+bool TestEndpoint::isLocalHost() const noexcept {
   return false;
 }
 
-void TestEndpoint::setLocalHost() {}
+void TestEndpoint::setLocalHost() noexcept {}
 
-const char * TestEndpoint::hostnameAsText() const {
+const char * TestEndpoint::hostnameAsText() const noexcept {
   return "";
 }
 
