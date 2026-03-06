@@ -42,6 +42,9 @@
   Used for test output on GBA where ANSI is not supported.
 */
 class GbaFilteringStreamBuf final : public std::streambuf {
+public:
+  GbaFilteringStreamBuf() noexcept;
+
 protected:
   /// Accumulates character in line buffer; flushes on newline or buffer full.
   int_type overflow(int_type c) noexcept override;

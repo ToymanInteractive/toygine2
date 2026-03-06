@@ -32,6 +32,30 @@ constexpr std::streambuf::int_type kCsiFinalMax = 0x7E;
 
 } // namespace ansi_filter
 
+/// mGBA log level: fatal (0x100).
+static constexpr uint16_t mGbaLogLevelFatal = 0x100;
+/// mGBA log level: error (0x101).
+static constexpr uint16_t mGbaLogLevelError = 0x101;
+/// mGBA log level: warning (0x102).
+static constexpr uint16_t mGbaLogLevelWarn = 0x102;
+/// mGBA log level: info (0x103).
+static constexpr uint16_t mGbaLogLevelInfo = 0x103;
+/// mGBA log level: debug (0x104).
+static constexpr uint16_t mGbaLogLevelDebug = 0x104;
+
+static bool mGbaDetect() noexcept {
+  // mGBA debug register
+  *reinterpret_cast<volatile uint16_t *>(0x04FFF780) = 0xC0DE;
+
+  return *reinterpret_cast<volatile uint16_t *>(0x04FFF780) == 0x1DEA;
+}
+
+GbaFilteringStreamBuf::GbaFilteringStreamBuf() noexcept {
+#ifdef __GBA__
+  _mGbaDetected = mGbaDetect();
+#endif
+}
+
 std::streambuf::int_type GbaFilteringStreamBuf::overflow(int_type c) noexcept {
   if (traits_type::eq_int_type(c, traits_type::eof()) || !_shouldPass(c))
     return traits_type::not_eof(c);
@@ -119,6 +143,17 @@ bool GbaFilteringStreamBuf::_shouldPass(int_type c) noexcept {
 void GbaFilteringStreamBuf::_flushLine() noexcept {
   if (_lineBufferDataSize == 0)
     return;
+
+  if (_mGbaDetected) {
+    *reinterpret_cast<volatile uint16_t *>(0x04FFF700) = mGbaLogLevelInfo;
+
+    char * dst = reinterpret_cast<char *>(0x04FFF600); // MGBA Log String Register
+    const char * src = _lineBuffer;
+    while (*src) {
+      *dst++ = *src++;
+    }
+    *dst = '\0';
+  }
 
   if (_lineBufferDataSize <= 30) {
     std::cout.write(_lineBuffer, static_cast<std::streamsize>(_lineBufferDataSize));

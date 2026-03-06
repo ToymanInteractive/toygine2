@@ -53,18 +53,12 @@ int main() {
 
 #else
 
-#include "gba_filtering_stream_buf.hpp"
-
 int main(int argc, char ** argv) {
   toy::assertion::initialize();
 
   toy::assertion::setCallbacks(assertionCallback, stackWalkCallback);
 
-  GbaFilteringStreamBuf gbaStreamBuf;
-  auto gbaStream = std::ostream(&gbaStreamBuf);
-
   doctest::Context context;
-  context.setCout(&gbaStream);
 
   context.applyCommandLine(argc, argv);
 
