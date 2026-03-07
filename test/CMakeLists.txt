@@ -35,7 +35,7 @@ set_property(GLOBAL PROPERTY CTEST_TARGETS_ADDED 1)
 include(FetchContent)
 include(CTest)
 
-FetchContent_Declare(doctest GIT_REPOSITORY https://github.com/doctest/doctest GIT_TAG v2.4.12)
+FetchContent_Declare(doctest GIT_REPOSITORY https://github.com/doctest/doctest GIT_TAG v2.4.12 GIT_SHALLOW TRUE)
 FetchContent_MakeAvailable(doctest)
 
 list(APPEND CMAKE_MODULE_PATH ${doctest_SOURCE_DIR}/scripts/cmake)
