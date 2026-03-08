@@ -66,28 +66,28 @@ jobs:
 
           - name: DevkitPro GBA
             os: ubuntu-24.04
-            container: devkitpro/devkitarm:20251231
+            container: devkitpro/devkitarm:20260221
             build_tests: "true"
             run_test: "false"
             cmake_preset: nintendo-gba-ninja-release
 
           - name: DevkitPro NDS
             os: ubuntu-24.04
-            container: devkitpro/devkitarm:20251231
+            container: devkitpro/devkitarm:20260221
             build_tests: "true"
             run_test: "false"
             cmake_preset: nintendo-ds-ninja-release
 
           - name: DevkitPro 3DS
             os: ubuntu-24.04
-            container: devkitpro/devkitarm:20251231
+            container: devkitpro/devkitarm:20260221
             build_tests: "false"
             run_test: "false"
             cmake_preset: nintendo-3ds-ninja-release
 
           - name: DevkitPro Switch
             os: ubuntu-24.04
-            container: devkitpro/devkita64:20260215
+            container: devkitpro/devkita64:20260219
             build_tests: "true"
             run_test: "false"
             cmake_preset: nintendo-switch-ninja-release
@@ -186,7 +186,7 @@ jobs:
             ctest --preset ${{ matrix.cmake_preset }}
           fi
 
-  unit-test:
+  unit-tests:
     name: Collect unit tests
     runs-on: ubuntu-24.04
     timeout-minutes: 30
@@ -207,9 +207,9 @@ jobs:
         uses: actions/cache/restore@v5.0.3
         with:
           path: ${{ runner.temp }}/apt-cache
-          key: unit-test-apt
+          key: unit-tests-apt
           restore-keys: |
-            unit-test-apt
+            unit-tests-apt
 
       - name: Prepare CI
         run: |
@@ -242,29 +242,29 @@ jobs:
 
       - name: Configure
         run: |
-          cmake -DTOYGINE_BUILD_TESTS=ON -DTOYGINE_TESTS_ENABLE_COVERAGE=ON --preset linux-ninja-test-coverage
+          cmake -DTOYGINE_BUILD_TESTS=ON -DTOYGINE_TESTS_ENABLE_COVERAGE=ON --preset linux-ninja-tests-coverage
 
       - name: Collect JUnit
         run: |
-          cmake --build --preset linux-ninja-test-coverage
-          ctest --preset linux-ninja-test-coverage
+          cmake --build --preset linux-ninja-tests-coverage
+          ctest --preset linux-ninja-tests-coverage
 
       - name: Upload JUnit report to Codecov
         uses: codecov/test-results-action@v1.2.1
         with:
-          files: out/junit/linux-ninja-test-coverage.xml
+          files: out/junit/linux-ninja-tests-coverage.xml
           flags: units
           token: ${{ secrets.CODECOV_TOKEN }}
 
       - name: Collect coverage
         run: |
-          cmake --build --preset linux-ninja-test-coverage --target unit_tests_coverage
+          cmake --build --preset linux-ninja-tests-coverage --target unit_tests_coverage
 
       - name: Upload coverage report to Codecov
         uses: codecov/codecov-action@v5.5.2
         with:
           disable_search: true
-          files: out/build/linux-ninja-test-coverage/unit_tests_coverage.info
+          files: out/build/linux-ninja-tests-coverage/unit_tests_coverage.info
           flags: units
           token: ${{ secrets.CODECOV_TOKEN }}
 

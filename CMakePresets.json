@@ -144,7 +144,7 @@
             }
         },
         {
-            "name": "linux-ninja-test-coverage",
+            "name": "linux-ninja-tests-coverage",
             "displayName": "Linux Ninja Tests Coverage",
             "description": "ToyGine 2 Linux Ninja (Test Coverage)",
             "inherits": "linux-ninja-debug"
@@ -217,8 +217,8 @@
             "inherits": "default-debug"
         },
         {
-            "name": "linux-ninja-test-coverage",
-            "configurePreset": "linux-ninja-test-coverage",
+            "name": "linux-ninja-tests-coverage",
+            "configurePreset": "linux-ninja-tests-coverage",
             "inherits": "linux-ninja-debug"
         }
     ],
@@ -290,8 +290,8 @@
             "inherits": "default-debug"
         },
         {
-            "name": "linux-ninja-test-coverage",
-            "configurePreset": "linux-ninja-test-coverage",
+            "name": "linux-ninja-tests-coverage",
+            "configurePreset": "linux-ninja-tests-coverage",
             "inherits": "linux-ninja-debug",
             "output": {
                 "shortProgress": true,
