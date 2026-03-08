@@ -95,13 +95,13 @@ constexpr bool isEqual(const T & a, const T & b, T absEpsilon, T relEpsilon) noe
 template <typename T>
   requires(floating_point<T> || fixed_point<T>)
 constexpr T deg2rad(const T & angle) noexcept {
-  return angle * constants::pi_v<T> / 180;
+  return angle * constants::rad_per_deg_v<T>;
 }
 
 template <typename T>
   requires(floating_point<T> || fixed_point<T>)
 constexpr T rad2deg(const T & angle) noexcept {
-  return angle * 180 / constants::pi_v<T>;
+  return angle * constants::deg_per_rad_v<T>;
 }
 
 } // namespace toy::math

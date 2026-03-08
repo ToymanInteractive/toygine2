@@ -262,15 +262,15 @@ TEST_CASE("math/utils/deg2rad_rad2deg") {
     REQUIRE(isEqual(rad2deg(constants::pi_v<float>), 180.0f));
     REQUIRE(isEqual(deg2rad(180.0), constants::pi_v<double>));
     REQUIRE(isEqual(rad2deg(constants::pi_v<double>), 180.0));
-    REQUIRE(deg2rad(Fixed(180)) == constants::pi_v<Fixed>);
-    REQUIRE(rad2deg(constants::pi_v<Fixed>) == Fixed(180));
+    REQUIRE(isEqual(deg2rad(Fixed(180)), constants::pi_v<Fixed>));
+    REQUIRE(isEqual(rad2deg(constants::pi_v<Fixed>), Fixed(180)));
 
     static_assert(isEqual(deg2rad(180.0f), constants::pi_v<float>), "deg2rad(180) float must equal π");
     static_assert(isEqual(rad2deg(constants::pi_v<float>), 180.0f), "rad2deg(π) float must equal 180");
     static_assert(isEqual(deg2rad(180.0), constants::pi_v<double>), "deg2rad(180) double must equal π");
     static_assert(isEqual(rad2deg(constants::pi_v<double>), 180.0), "rad2deg(π) double must equal 180");
-    static_assert(deg2rad(Fixed(180)) == constants::pi_v<Fixed>, "deg2rad(180) fixed must equal π");
-    static_assert(rad2deg(constants::pi_v<Fixed>) == Fixed(180), "rad2deg(π) fixed must equal 180");
+    static_assert(isEqual(deg2rad(Fixed(180)), constants::pi_v<Fixed>), "deg2rad(180) fixed must equal π");
+    static_assert(isEqual(rad2deg(constants::pi_v<Fixed>), Fixed(180)), "rad2deg(π) fixed must equal 180");
   }
 
   // Round-trip: rad2deg(deg2rad(x)) ≈ x.
