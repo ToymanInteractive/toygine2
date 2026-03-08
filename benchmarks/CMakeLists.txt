@@ -17,7 +17,11 @@
 # OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 #-------------------------------------------------------------------------------------------
-if (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
+if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
+
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4625")
+
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
 
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-switch-default")
 
