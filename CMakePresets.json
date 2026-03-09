@@ -111,7 +111,6 @@
             "inherits": "base-release",
             "toolchainFile": "$env{DEVKITPRO}/cmake/3DS.cmake",
             "cacheVariables": {
-                "TOYGINE_BUILD_TESTS": "ON",
                 "TOYGINE_TARGET_PLATFORM": "Nintendo 3DS"
             }
         },
