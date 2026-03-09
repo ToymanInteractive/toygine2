@@ -18,11 +18,13 @@ jobs:
         include:
           - name: Linux Ninja x64
             os: ubuntu-24.04
+            run_benchmarks: "true"
             run_test: "true"
             cmake_preset: linux-ninja-release
 
           - name: Linux Ninja arm64
             os: ubuntu-24.04-arm
+            run_benchmarks: "true"
             run_test: "true"
             cmake_preset: linux-ninja-release
 
@@ -33,6 +35,7 @@ jobs:
 
           - name: macOS Ninja arm64
             os: macos-26
+            run_benchmarks: "true"
             run_test: "true"
             cmake_preset: macos-ninja-release
 
@@ -43,16 +46,19 @@ jobs:
 
           - name: macOS Ninja Intel
             os: macos-15-intel
+            run_benchmarks: "true"
             run_test: "true"
             cmake_preset: macos-ninja-release
 
           - name: Windows MSVC x86
             os: windows-2025
+            run_benchmarks: "true"
             run_test: "true"
             cmake_preset: windows-msvc-x86
 
           - name: Windows MSVC
             os: windows-2025
+            run_benchmarks: "true"
             run_test: "true"
             cmake_preset: windows-msvc
 
@@ -172,6 +178,9 @@ jobs:
           cmake --build --preset ${{ matrix.cmake_preset }}
           if [ "${{ matrix.run_test }}" = "true" ]; then
             ctest --preset ${{ matrix.cmake_preset }}
+          fi
+          if [ "${{ matrix.run_benchmarks }}" = "true" ]; then
+            cmake --build --preset ${{ matrix.cmake_preset }} --target benchmarks_run
           fi
 
   unit-tests:

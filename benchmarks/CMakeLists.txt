@@ -39,3 +39,9 @@ file(GLOB_RECURSE BENCHMARKS_SRC CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/
 
 add_executable(${TOYGINE_LIBRARY_NAME}-benchmarks ${BENCHMARKS_SRC})
 target_link_libraries(${TOYGINE_LIBRARY_NAME}-benchmarks PRIVATE nanobench ${TOYGINE_LIBRARY_NAME})
+
+add_custom_target(benchmarks_run
+    COMMAND toygine_benchmarks
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+    COMMENT "Running benchmarks and saving results"
+)
