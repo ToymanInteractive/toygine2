@@ -32,6 +32,7 @@ jobs:
 
           - name: macOS XCode arm64
             os: macos-26
+            build_benchmarks: "false"
             build_tests: "true"
             run_test: "true"
             cmake_preset: macos-xcode
@@ -45,6 +46,7 @@ jobs:
 
           - name: macOS XCode Intel
             os: macos-15-intel
+            build_benchmarks: "false"
             build_tests: "true"
             run_test: "true"
             cmake_preset: macos-xcode
@@ -73,6 +75,7 @@ jobs:
           - name: DevkitPro GBA
             os: ubuntu-24.04
             container: devkitpro/devkitarm:20260221
+            build_benchmarks: "false"
             build_tests: "true"
             run_test: "false"
             cmake_preset: nintendo-gba-ninja-release
@@ -80,6 +83,7 @@ jobs:
           - name: DevkitPro NDS
             os: ubuntu-24.04
             container: devkitpro/devkitarm:20260221
+            build_benchmarks: "false"
             build_tests: "true"
             run_test: "false"
             cmake_preset: nintendo-ds-ninja-release
@@ -87,6 +91,7 @@ jobs:
           - name: DevkitPro 3DS
             os: ubuntu-24.04
             container: devkitpro/devkitarm:20260221
+            build_benchmarks: "false"
             build_tests: "false"
             run_test: "false"
             cmake_preset: nintendo-3ds-ninja-release
@@ -94,6 +99,7 @@ jobs:
           - name: DevkitPro Switch
             os: ubuntu-24.04
             container: devkitpro/devkita64:20260219
+            build_benchmarks: "false"
             build_tests: "true"
             run_test: "false"
             cmake_preset: nintendo-switch-ninja-release
