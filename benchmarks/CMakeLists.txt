@@ -30,6 +30,8 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
 
 endif ()
 
+set(BENCHMARKS_OUTPUT_FILE "" CACHE STRING "Output file for benchmarks (empty = stdout)")
+
 include(FetchContent)
 
 FetchContent_Declare(nanobench GIT_REPOSITORY https://github.com/martinus/nanobench.git GIT_TAG v4.3.11 GIT_SHALLOW TRUE)
@@ -40,8 +42,14 @@ file(GLOB_RECURSE BENCHMARKS_SRC CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/
 add_executable(${TOYGINE_LIBRARY_NAME}-benchmarks ${BENCHMARKS_SRC})
 target_link_libraries(${TOYGINE_LIBRARY_NAME}-benchmarks PRIVATE nanobench ${TOYGINE_LIBRARY_NAME})
 
+if(BENCHMARKS_OUTPUT_FILE)
+    set(BENCHMARK_OUTPUT_REDIRECT "> ${BENCHMARKS_OUTPUT_FILE}")
+else()
+    set(BENCHMARK_OUTPUT_REDIRECT "")
+endif()
+
 add_custom_target(benchmarks_run
-    COMMAND $<TARGET_FILE:${TOYGINE_LIBRARY_NAME}-benchmarks>
+    COMMAND $<TARGET_FILE:${TOYGINE_LIBRARY_NAME}-benchmarks> ${BENCHMARK_OUTPUT_REDIRECT}
     WORKING_DIRECTORY $<TARGET_FILE_DIR:${TOYGINE_LIBRARY_NAME}-benchmarks>
     COMMENT "Running benchmarks and saving results"
 )
