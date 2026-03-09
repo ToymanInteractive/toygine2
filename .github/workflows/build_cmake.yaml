@@ -180,7 +180,7 @@ jobs:
             ctest --preset ${{ matrix.cmake_preset }}
           fi
           if [ "${{ matrix.run_benchmarks }}" = "true" ]; then
-            cmake -DBENCHMARK_OUTPUT_FILE=./benchmarks_results.txt --preset ${{ matrix.cmake_preset }}
+            cmake -DBENCHMARKS_OUTPUT_FILE=./benchmarks_results.txt --preset ${{ matrix.cmake_preset }}
             cmake --build --preset ${{ matrix.cmake_preset }} --target benchmarks_run
           fi
 
