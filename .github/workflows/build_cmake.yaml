@@ -180,7 +180,7 @@ jobs:
             ctest --preset ${{ matrix.cmake_preset }}
           fi
           if [ "${{ matrix.run_benchmarks }}" = "true" ]; then
-            cmake -DBENCHMARKS_OUTPUT_FILE=${{ github.workspace }}/out/benchmarks_results.txt --preset ${{ matrix.cmake_preset }}
+            cmake -DBENCHMARKS_OUTPUT_FILE=out/benchmarks_results.txt --preset ${{ matrix.cmake_preset }}
             cmake --build --preset ${{ matrix.cmake_preset }} --target benchmarks_run
           fi
 
@@ -190,7 +190,7 @@ jobs:
         with:
           name: ToyGine2 Performance
           tool: "customSmallerIsBetter"
-          output-file-path: ${{ github.workflow }}/out/benchmarks_results.txt
+          output-file-path: out/benchmarks_results.txt
           github-token: ${{ secrets.GITHUB_TOKEN }}
           auto-push: true
           alert-threshold: "150%"
