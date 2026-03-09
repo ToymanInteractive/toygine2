@@ -174,7 +174,7 @@ jobs:
 
       - name: Build and Test
         run: |
-          cmake ${{ matrix.run_benchmarks == 'true' && '-DBENCHMARKS_OUTPUT_FILE=benchmarks_results.txt' || '' }} --preset ${{ matrix.cmake_preset }}
+          cmake ${{ matrix.run_benchmarks == 'true' && '-DBENCHMARKS_OUTPUT_FILE=${{ github.workflow }}/out/benchmarks_results.txt' || '' }} --preset ${{ matrix.cmake_preset }}
           cmake --build --preset ${{ matrix.cmake_preset }}
           if [ "${{ matrix.run_test }}" = "true" ]; then
             ctest --preset ${{ matrix.cmake_preset }}
@@ -182,6 +182,21 @@ jobs:
           if [ "${{ matrix.run_benchmarks }}" = "true" ]; then
             cmake --build --preset ${{ matrix.cmake_preset }} --target benchmarks_run
           fi
+
+      - name: Store benchmark result
+        uses: benchmark-action/github-action-benchmark@v1.21.0
+        if: ${{ matrix.run_benchmarks == 'true' }}
+        with:
+          name: ToyGine2 Performance
+          tool: "customSmallerIsBetter"
+          output-file-path: ${{ github.workflow }}/out/benchmarks_results.txt
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          auto-push: true
+          alert-threshold: "150%"
+          comment-on-alert: true
+          fail-on-alert: false
+          gh-pages-branch: gh-pages
+          benchmark-data-dir-path: dev/bench
 
   unit-tests:
     name: Collect unit tests
