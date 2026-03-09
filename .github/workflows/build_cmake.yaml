@@ -174,7 +174,7 @@ jobs:
 
       - name: Build and Test
         run: |
-          cmake ${{ matrix.run_benchmarks == 'true' && '-DBENCHMARKS_OUTPUT_FILE=${{ github.workflow }}/out/benchmarks_results.txt' || '' }} --preset ${{ matrix.cmake_preset }}
+          cmake ${{ matrix.run_benchmarks == 'true' && '-DBENCHMARKS_OUTPUT_FILE=$GITHUB_WORKFLOW/out/benchmarks_results.txt' || '' }} --preset ${{ matrix.cmake_preset }}
           cmake --build --preset ${{ matrix.cmake_preset }}
           if [ "${{ matrix.run_test }}" = "true" ]; then
             ctest --preset ${{ matrix.cmake_preset }}
