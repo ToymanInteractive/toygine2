@@ -18,12 +18,14 @@ jobs:
         include:
           - name: Linux Ninja x64
             os: ubuntu-24.04
+            build_benchmarks: "true"
             build_tests: "true"
             run_test: "true"
             cmake_preset: linux-ninja-release
 
           - name: Linux Ninja arm64
             os: ubuntu-24.04-arm
+            build_benchmarks: "true"
             build_tests: "true"
             run_test: "true"
             cmake_preset: linux-ninja-release
@@ -36,6 +38,7 @@ jobs:
 
           - name: macOS Ninja arm64
             os: macos-26
+            build_benchmarks: "true"
             build_tests: "true"
             run_test: "true"
             cmake_preset: macos-ninja-release
@@ -48,18 +51,21 @@ jobs:
 
           - name: macOS Ninja Intel
             os: macos-15-intel
+            build_benchmarks: "true"
             build_tests: "true"
             run_test: "true"
             cmake_preset: macos-ninja-release
 
           - name: Windows MSVC x86
             os: windows-2025
+            build_benchmarks: "true"
             build_tests: "true"
             run_test: "true"
             cmake_preset: windows-msvc-x86
 
           - name: Windows MSVC
             os: windows-2025
+            build_benchmarks: "true"
             build_tests: "true"
             run_test: "true"
             cmake_preset: windows-msvc
@@ -180,7 +186,7 @@ jobs:
 
       - name: Build and Test
         run: |
-          cmake -DTOYGINE_BUILD_TESTS=$([ "${{ matrix.build_tests }}" = "true" ] && echo ON || echo OFF) --preset ${{ matrix.cmake_preset }}
+          cmake -DTOYGINE_BUILD_BENCHMARKS==$([ "${{ matrix.build_benchmarks }}" = "true" ] && echo ON || echo OFF) -DTOYGINE_BUILD_TESTS=$([ "${{ matrix.build_tests }}" = "true" ] && echo ON || echo OFF) --preset ${{ matrix.cmake_preset }}
           cmake --build --preset ${{ matrix.cmake_preset }}
           if [ "${{ matrix.run_test }}" = "true" ]; then
             ctest --preset ${{ matrix.cmake_preset }}
