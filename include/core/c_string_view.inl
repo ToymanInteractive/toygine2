@@ -28,7 +28,7 @@
 namespace toy {
 
 constexpr CStringView::CStringView() noexcept
-  : _data(_emptyString) {};
+  : _data(_emptyString) {}
 
 constexpr CStringView::CStringView(const char * string) noexcept
   : _data(string) {
