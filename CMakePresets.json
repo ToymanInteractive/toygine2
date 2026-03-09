@@ -94,8 +94,8 @@
             "inherits": "base-release",
             "toolchainFile": "$env{DEVKITPRO}/cmake/GBA.cmake",
             "cacheVariables": {
-                "TOYGINE_TARGET_PLATFORM": "Nintendo Game Boy Advance",
-                "TOYGINE_BUILD_TESTS": "ON"
+                "TOYGINE_BUILD_TESTS": "ON",
+                "TOYGINE_TARGET_PLATFORM": "Nintendo Game Boy Advance"
             }
         },
         {
@@ -105,6 +105,7 @@
             "inherits": "base-release",
             "toolchainFile": "$env{DEVKITPRO}/cmake/NDS.cmake",
             "cacheVariables": {
+                "TOYGINE_BUILD_TESTS": "ON",
                 "TOYGINE_TARGET_PLATFORM": "Nintendo DS"
             }
         },
@@ -125,6 +126,7 @@
             "inherits": "base-release",
             "toolchainFile": "$env{DEVKITPRO}/cmake/Switch.cmake",
             "cacheVariables": {
+                "TOYGINE_BUILD_TESTS": "ON",
                 "TOYGINE_TARGET_PLATFORM": "Nintendo Switch"
             }
         },
