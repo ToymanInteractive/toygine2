@@ -83,6 +83,7 @@
                 "strategy": "set"
             },
             "cacheVariables": {
+                "TOYGINE_BUILD_BENCHMARKS": "ON",
                 "TOYGINE_BUILD_TESTS": "ON"
             }
         },
