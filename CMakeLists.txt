@@ -56,6 +56,7 @@ endif ()
 if (TOP_PROJECT)
   include(CMakeDependentOption)
 
+  option(TOYGINE_BUILD_BENCHMARKS "Set when you want to build engine benchmarks" ON)
   option(TOYGINE_BUILD_DOCS "Set when you want to build engine documentation" OFF)
   option(TOYGINE_BUILD_TESTS "Set when you want to build engine unit tests" ON)
   cmake_dependent_option(TOYGINE_TESTS_ENABLE_COVERAGE "Enable code coverage instrumentation for tests" OFF "TOYGINE_BUILD_TESTS" OFF)
@@ -174,6 +175,14 @@ if (PREPROCESSOR_DEFINITIONS)
 endif ()
 
 target_link_libraries(${TOYGINE_LIBRARY_NAME} ${LIB_LIST})
+
+#-------------------------------------------------------------------------------------------
+# Benchmarks
+#-------------------------------------------------------------------------------------------
+
+if (TOYGINE_BUILD_BENCHMARKS)
+  add_subdirectory(benchmarks)
+endif ()
 
 #-------------------------------------------------------------------------------------------
 # Documentation

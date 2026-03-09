@@ -21,6 +21,7 @@
                 "PACKAGE_FILE_NAME": "$env{BUILD_FILE_NAME}",
                 "PACKAGE_NAME_SUFFIX": "$env{BUILD_NAME_SUFFIX}",
                 "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+                "TOYGINE_BUILD_BENCHMARKS": "OFF",
                 "TOYGINE_BUILD_TESTS": "OFF",
                 "ENABLE_PUBLIC_RELEASE": "$env{ENABLE_PUBLIC_RELEASE}",
                 "ENABLE_PCH": "OFF"
@@ -32,6 +33,7 @@
             "description": "ToyGine 2 Linux Ninja",
             "inherits": "base-release",
             "cacheVariables": {
+                "TOYGINE_BUILD_BENCHMARKS": "ON",
                 "TOYGINE_BUILD_TESTS": "ON"
             }
         },
@@ -41,6 +43,7 @@
             "description": "ToyGine 2 MacOS Ninja",
             "inherits": "base-release",
             "cacheVariables": {
+                "TOYGINE_BUILD_BENCHMARKS": "ON",
                 "TOYGINE_BUILD_TESTS": "ON"
             }
         },
@@ -51,6 +54,7 @@
             "inherits": "base-release",
             "generator": "Xcode",
             "cacheVariables": {
+                "TOYGINE_BUILD_BENCHMARKS": "ON",
                 "TOYGINE_BUILD_TESTS": "ON"
             }
         },
@@ -65,6 +69,7 @@
                 "strategy": "set"
             },
             "cacheVariables": {
+                "TOYGINE_BUILD_BENCHMARKS": "ON",
                 "TOYGINE_BUILD_TESTS": "ON"
             }
         },
@@ -79,6 +84,7 @@
                 "strategy": "set"
             },
             "cacheVariables": {
+                "TOYGINE_BUILD_BENCHMARKS": "ON",
                 "TOYGINE_BUILD_TESTS": "ON"
             }
         },
@@ -89,6 +95,7 @@
             "inherits": "base-release",
             "toolchainFile": "$env{DEVKITPRO}/cmake/GBA.cmake",
             "cacheVariables": {
+                "TOYGINE_BUILD_BENCHMARKS": "ON",
                 "TOYGINE_BUILD_TESTS": "ON",
                 "TOYGINE_TARGET_PLATFORM": "Nintendo Game Boy Advance"
             }
@@ -100,6 +107,7 @@
             "inherits": "base-release",
             "toolchainFile": "$env{DEVKITPRO}/cmake/NDS.cmake",
             "cacheVariables": {
+                "TOYGINE_BUILD_BENCHMARKS": "ON",
                 "TOYGINE_BUILD_TESTS": "ON",
                 "TOYGINE_TARGET_PLATFORM": "Nintendo DS"
             }
@@ -121,6 +129,7 @@
             "inherits": "base-release",
             "toolchainFile": "$env{DEVKITPRO}/cmake/Switch.cmake",
             "cacheVariables": {
+                "TOYGINE_BUILD_BENCHMARKS": "ON",
                 "TOYGINE_BUILD_TESTS": "ON",
                 "TOYGINE_TARGET_PLATFORM": "Nintendo Switch"
             }

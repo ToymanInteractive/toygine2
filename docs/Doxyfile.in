@@ -1130,7 +1130,8 @@ RECURSIVE              = YES
 # Note that relative paths are relative to the directory from which Doxygen is
 # run.
 
-EXCLUDE                = ./docs/ \
+EXCLUDE                = ./benchmarks/ \
+                         ./docs/ \
                          ./out/ \
                          ./tests/ \
                          ./CODE_OF_CONDUCT.md \
