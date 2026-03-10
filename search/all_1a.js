@@ -5,6 +5,5 @@ var searchData=
   ['_7eendpoint_2',['~Endpoint',['../d3/d53/classtoy_1_1network_1_1_endpoint.html#a3a5c211d613ec9855027fe877c931c3c',1,'toy::network::Endpoint']]],
   ['_7efixedstring_3',['~FixedString',['../d3/d7a/classtoy_1_1_fixed_string.html#a98d7d5a78401b79437b808d6fb40c682',1,'toy::FixedString']]],
   ['_7efixedvector_4',['~FixedVector',['../d7/dec/classtoy_1_1_fixed_vector.html#ad98be7eb41babb07b9bc52d57783ef03',1,'toy::FixedVector']]],
-  ['_7epoint_5',['~Point',['../d3/dce/classtoy_1_1math_1_1_point.html#ac477f1c9b232dd4ae14272116425c9c9',1,'toy::math::Point']]],
-  ['_7evector2d_6',['~Vector2D',['../d9/d85/classtoy_1_1math_1_1_vector2_d.html#ab4e6ed91b6ac71ef4cb643a8d45e7eca',1,'toy::math::Vector2D']]]
+  ['_7evector2d_5',['~Vector2D',['../d9/d85/classtoy_1_1math_1_1_vector2_d.html#ab4e6ed91b6ac71ef4cb643a8d45e7eca',1,'toy::math::Vector2D']]]
 ];

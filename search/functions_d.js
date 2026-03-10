@@ -2,7 +2,7 @@ var searchData=
 [
   ['pixelformatfromname_0',['pixelFormatFromName',['../df/d8d/namespacetoy_1_1render.html#ad177a2d4fd6b16cdcbe90782265fe556',1,'toy::render']]],
   ['pixelformatname_1',['pixelFormatName',['../df/d8d/namespacetoy_1_1render.html#ae01c124c6fb7eab3d4dd8d7d321406b9',1,'toy::render']]],
-  ['point_2',['Point',['../d3/dce/classtoy_1_1math_1_1_point.html#a00eb7547258cbc716c627f4dd39b6151',1,'toy::math::Point::Point() noexcept'],['../d3/dce/classtoy_1_1math_1_1_point.html#a16a9bcbf33f0b89d4bc63ca32d7ef08e',1,'toy::math::Point::Point(const int32_t &amp;x, const int32_t &amp;y) noexcept'],['../d3/dce/classtoy_1_1math_1_1_point.html#ae341cc34086733703f2a04a2df8ace17',1,'toy::math::Point::Point(const int32_t *values) noexcept']]],
+  ['point_2',['Point',['../d3/dce/classtoy_1_1math_1_1_point.html#a60b124887f05f5fffb919b6dd1a8722c',1,'toy::math::Point::Point() noexcept=default'],['../d3/dce/classtoy_1_1math_1_1_point.html#a16a9bcbf33f0b89d4bc63ca32d7ef08e',1,'toy::math::Point::Point(const int32_t &amp;x, const int32_t &amp;y) noexcept'],['../d3/dce/classtoy_1_1math_1_1_point.html#ae341cc34086733703f2a04a2df8ace17',1,'toy::math::Point::Point(const int32_t *values) noexcept']]],
   ['pop_5fback_3',['pop_back',['../d3/d7a/classtoy_1_1_fixed_string.html#a69b12da8842982ecea01b163f7029ac3',1,'toy::FixedString']]],
   ['port_4',['port',['../d3/d53/classtoy_1_1network_1_1_endpoint.html#abf56393ed3978bafc32cd630fd417ef9',1,'toy::network::Endpoint']]],
   ['precision_5',['precision',['../d7/d15/classtoy_1_1_o_string_stream.html#af342cc7f7897db17de97a0d7295f2e7d',1,'toy::OStringStream::precision() const noexcept'],['../d7/d15/classtoy_1_1_o_string_stream.html#af453025d53b65448f3fc78468c097e8b',1,'toy::OStringStream::precision(int newPrecision) noexcept']]],

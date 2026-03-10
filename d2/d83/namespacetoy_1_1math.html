@@ -114,7 +114,7 @@ $(function(){initNavTree('d2/d83/namespacetoy_1_1math.html','../../',''); });
 </div><!--header-->
 <div class="contents">
 
-<p>Mathematical types, constants, and utilities (fixed-point, vectors, etc.).  
+<p>Mathematical types, constants, and utilities: fixed-point, vectors, point.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
@@ -130,7 +130,7 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unary type trait: <code>true</code> if <em class="arg">T</em> is an instantiation of <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html" title="toy::math::fixed">toy::math::fixed</a>, <code>false</code> otherwise.  <a href="../../d2/dc3/structtoy_1_1math_1_1is__fixed__point.html#details">More...</a><br /></td></tr>
 <tr class="memitem:is_5Ffixed_5Fpoint_3C_20fixed_3C_20Base_2C_20Intermediate_2C_20Fraction_2C_20Rounding_20_3E_20_3E" id="r_is_5Ffixed_5Fpoint_3C_20fixed_3C_20Base_2C_20Intermediate_2C_20Fraction_2C_20Rounding_20_3E_20_3E"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="../../df/de5/structtoy_1_1math_1_1is__fixed__point_3_01fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html">is_fixed_point&lt; fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;</a></td></tr>
 <tr class="memitem:Point" id="r_Point"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">2D integer point class for UI and input handling.  <a href="../../d3/dce/classtoy_1_1math_1_1_point.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">2D integer point for UI and input coordinates.  <a href="../../d3/dce/classtoy_1_1math_1_1_point.html#details">More...</a><br /></td></tr>
 <tr class="memitem:Vector2D" id="r_Vector2D"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">2D floating-point vector class for interactive game objects and physics calculations.  <a href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
@@ -142,6 +142,8 @@ Concepts</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concept constraining template parameters for <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html" title="toy::math::fixed">toy::math::fixed</a>. <br /></td></tr>
 <tr class="memitem:fixed_5Fpoint" id="r_fixed_5Fpoint"><td class="memItemLeft">concept &#160;</td><td class="memItemRight"><a class="el" href="../../dd/de0/concepttoy_1_1math_1_1fixed__point.html">fixed_point</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concept satisfied when <em class="arg">T</em> is an instantiation of <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html" title="toy::math::fixed">toy::math::fixed</a>. <br /></td></tr>
+<tr class="memitem:PointScalar" id="r_PointScalar"><td class="memItemLeft">concept &#160;</td><td class="memItemRight"><a class="el" href="../../d1/dca/concepttoy_1_1math_1_1_point_scalar.html">PointScalar</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concept satisfied when <em class="arg">T</em> is integral, floating-point, or a fixed-point type. <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -196,25 +198,22 @@ Functions</h2></td></tr>
 <tr class="memitem:a374fe0c873278f493cf9c1fe314d472b template"><td class="memItemLeft">constexpr strong_ordering&#160;</td><td class="memItemRight"><a class="el" href="#a374fe0c873278f493cf9c1fe314d472b">operator&lt;=&gt;</a> (const <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html">fixed</a>&lt; Base, Intermediate, Fraction, Rounding &gt; &amp;a, const <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html">fixed</a>&lt; Base, Intermediate, Fraction, OtherRounding &gt; &amp;b) noexcept</td></tr>
 <tr class="memdesc:a374fe0c873278f493cf9c1fe314d472b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Three-way comparison of two <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html" title="toy::math::fixed">toy::math::fixed</a> values.  <br /></td></tr>
 <tr class="memitem:a7c7670de85bd0e03389971e3639da65b" id="r_a7c7670de85bd0e03389971e3639da65b"><td class="memItemLeft">constexpr <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a>&#160;</td><td class="memItemRight"><a class="el" href="#a7c7670de85bd0e03389971e3639da65b">operator-</a> (const <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a> &amp;point) noexcept</td></tr>
-<tr class="memdesc:a7c7670de85bd0e03389971e3639da65b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unary minus operator.  <br /></td></tr>
+<tr class="memdesc:a7c7670de85bd0e03389971e3639da65b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unary minus: negated coordinates.  <br /></td></tr>
 <tr class="memitem:a3a38c2b254610122be68eaa78896c558" id="r_a3a38c2b254610122be68eaa78896c558"><td class="memItemLeft">constexpr <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a>&#160;</td><td class="memItemRight"><a class="el" href="#a3a38c2b254610122be68eaa78896c558">operator+</a> (const <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a> &amp;left, const <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a> &amp;right) noexcept</td></tr>
-<tr class="memdesc:a3a38c2b254610122be68eaa78896c558"><td class="mdescLeft">&#160;</td><td class="mdescRight">Addition operator for two points.  <br /></td></tr>
+<tr class="memdesc:a3a38c2b254610122be68eaa78896c558"><td class="mdescLeft">&#160;</td><td class="mdescRight">Addition of two points.  <br /></td></tr>
 <tr class="memitem:a882eb4fb59b77829f10be9b4a76c6624" id="r_a882eb4fb59b77829f10be9b4a76c6624"><td class="memItemLeft">constexpr <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a>&#160;</td><td class="memItemRight"><a class="el" href="#a882eb4fb59b77829f10be9b4a76c6624">operator-</a> (const <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a> &amp;left, const <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a> &amp;right) noexcept</td></tr>
-<tr class="memdesc:a882eb4fb59b77829f10be9b4a76c6624"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subtraction operator for two points.  <br /></td></tr>
-<tr class="memitem:ac417b48ee4476520f97a0bfe39026d22" id="r_ac417b48ee4476520f97a0bfe39026d22"><td class="memItemLeft">constexpr <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac417b48ee4476520f97a0bfe39026d22">operator*</a> (const <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a> &amp;point, int32_t scalar) noexcept</td></tr>
-<tr class="memdesc:ac417b48ee4476520f97a0bfe39026d22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiplication operator for <em class="arg">point</em> and integer <em class="arg">scalar</em>.  <br /></td></tr>
-<tr class="memitem:a0ebcb0c243be286d415822f0d823dc85" id="r_a0ebcb0c243be286d415822f0d823dc85"><td class="memItemLeft">constexpr <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0ebcb0c243be286d415822f0d823dc85">operator*</a> (int32_t scalar, const <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a> &amp;point) noexcept</td></tr>
-<tr class="memdesc:a0ebcb0c243be286d415822f0d823dc85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiplication operator for integer <em class="arg">scalar</em> and <em class="arg">point</em>.  <br /></td></tr>
-<tr class="memitem:aabf2223c75035961b42e0aab01c47303" id="r_aabf2223c75035961b42e0aab01c47303"><td class="memItemLeft">constexpr <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a>&#160;</td><td class="memItemRight"><a class="el" href="#aabf2223c75035961b42e0aab01c47303">operator*</a> (const <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a> &amp;point, <a class="el" href="#a928771ce74a56750dd2dcbc28e5892e0">real_t</a> scalar) noexcept</td></tr>
-<tr class="memdesc:aabf2223c75035961b42e0aab01c47303"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiplication operator for <em class="arg">point</em> and real <em class="arg">scalar</em>.  <br /></td></tr>
-<tr class="memitem:ae60797f1d56ea3c795f635cbb5d91559" id="r_ae60797f1d56ea3c795f635cbb5d91559"><td class="memItemLeft">constexpr <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a>&#160;</td><td class="memItemRight"><a class="el" href="#ae60797f1d56ea3c795f635cbb5d91559">operator*</a> (<a class="el" href="#a928771ce74a56750dd2dcbc28e5892e0">real_t</a> scalar, const <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a> &amp;point) noexcept</td></tr>
-<tr class="memdesc:ae60797f1d56ea3c795f635cbb5d91559"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiplication operator for real <em class="arg">scalar</em> and <em class="arg">point</em>.  <br /></td></tr>
-<tr class="memitem:a30cd8fbc29cbc192779776a285182fc2" id="r_a30cd8fbc29cbc192779776a285182fc2"><td class="memItemLeft">constexpr <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a>&#160;</td><td class="memItemRight"><a class="el" href="#a30cd8fbc29cbc192779776a285182fc2">operator/</a> (const <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a> &amp;point, int32_t scalar) noexcept</td></tr>
-<tr class="memdesc:a30cd8fbc29cbc192779776a285182fc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Division operator for <em class="arg">point</em> and integer <em class="arg">scalar</em>.  <br /></td></tr>
-<tr class="memitem:a237969d397d856ba403536b96321a926" id="r_a237969d397d856ba403536b96321a926"><td class="memItemLeft">constexpr <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a>&#160;</td><td class="memItemRight"><a class="el" href="#a237969d397d856ba403536b96321a926">operator/</a> (const <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a> &amp;point, <a class="el" href="#a928771ce74a56750dd2dcbc28e5892e0">real_t</a> scalar) noexcept</td></tr>
-<tr class="memdesc:a237969d397d856ba403536b96321a926"><td class="mdescLeft">&#160;</td><td class="mdescRight">Division operator for <em class="arg">point</em> and real <em class="arg">scalar</em>.  <br /></td></tr>
+<tr class="memdesc:a882eb4fb59b77829f10be9b4a76c6624"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subtraction of two points.  <br /></td></tr>
+<tr class="memitem:a56742980deebb8afc130517aa78dc6a1" id="r_a56742980deebb8afc130517aa78dc6a1"><td class="memTemplParams" colspan="2">template&lt;PointScalar T&gt; </td></tr>
+<tr class="memitem:a56742980deebb8afc130517aa78dc6a1 template"><td class="memItemLeft">constexpr <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a>&#160;</td><td class="memItemRight"><a class="el" href="#a56742980deebb8afc130517aa78dc6a1">operator*</a> (const <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a> &amp;point, const T &amp;scalar) noexcept</td></tr>
+<tr class="memdesc:a56742980deebb8afc130517aa78dc6a1"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html" title="2D integer point for UI and input coordinates.">Point</a> scaled by scalar and truncated to integer.  <br /></td></tr>
+<tr class="memitem:a03e54579723278ba0046712777b2ecac" id="r_a03e54579723278ba0046712777b2ecac"><td class="memTemplParams" colspan="2">template&lt;PointScalar T&gt; </td></tr>
+<tr class="memitem:a03e54579723278ba0046712777b2ecac template"><td class="memItemLeft">constexpr <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a>&#160;</td><td class="memItemRight"><a class="el" href="#a03e54579723278ba0046712777b2ecac">operator*</a> (const T &amp;scalar, const <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a> &amp;point) noexcept</td></tr>
+<tr class="memdesc:a03e54579723278ba0046712777b2ecac"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html" title="2D integer point for UI and input coordinates.">Point</a> scaled by scalar (scalar on the left).  <br /></td></tr>
+<tr class="memitem:afffacfe885672a3174b4ffe14ec4d0b0" id="r_afffacfe885672a3174b4ffe14ec4d0b0"><td class="memTemplParams" colspan="2">template&lt;PointScalar T&gt; </td></tr>
+<tr class="memitem:afffacfe885672a3174b4ffe14ec4d0b0 template"><td class="memItemLeft">constexpr <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a>&#160;</td><td class="memItemRight"><a class="el" href="#afffacfe885672a3174b4ffe14ec4d0b0">operator/</a> (const <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a> &amp;point, const T &amp;scalar) noexcept</td></tr>
+<tr class="memdesc:afffacfe885672a3174b4ffe14ec4d0b0"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html" title="2D integer point for UI and input coordinates.">Point</a> divided by scalar and truncated to integer.  <br /></td></tr>
 <tr class="memitem:a77dccec38178a7b466b0658dd06fc118" id="r_a77dccec38178a7b466b0658dd06fc118"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#a77dccec38178a7b466b0658dd06fc118">operator==</a> (const <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a> &amp;left, const <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a> &amp;right) noexcept</td></tr>
-<tr class="memdesc:a77dccec38178a7b466b0658dd06fc118"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equality operator for two points.  <br /></td></tr>
+<tr class="memdesc:a77dccec38178a7b466b0658dd06fc118"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exact equality of two points.  <br /></td></tr>
 <tr class="memitem:ga00391a62294376916bf5df2d9b9ae00c" id="r_ga00391a62294376916bf5df2d9b9ae00c"><td class="memTemplParams" colspan="2">template&lt;signed_integral T&gt; </td></tr>
 <tr class="memitem:ga00391a62294376916bf5df2d9b9ae00c template"><td class="memItemLeft">constexpr T&#160;</td><td class="memItemRight"><a class="el" href="../../d5/d12/group___math_functions.html#ga00391a62294376916bf5df2d9b9ae00c">abs</a> (const T &amp;value) noexcept</td></tr>
 <tr class="memdesc:ga00391a62294376916bf5df2d9b9ae00c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the absolute value of a signed integer.  <br /></td></tr>
@@ -258,7 +257,8 @@ Variables</h2></td></tr>
 <tr class="memdesc:a30c8861f803815d5970e4f0d7dd85334"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper variable template: <code>true</code> if <em class="arg">T</em> is <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html" title="toy::math::fixed">toy::math::fixed</a>, <code>false</code> otherwise.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Mathematical types, constants, and utilities (fixed-point, vectors, etc.). </p>
+<div class="textblock"><p>Mathematical types, constants, and utilities: fixed-point, vectors, point. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html" title="2D integer point for UI and input coordinates.">toy::math::Point</a>, <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html" title="2D floating-point vector class for interactive game objects and physics calculations.">toy::math::Vector2D</a>, toy::math::Fixed </dd></dl>
 </div><a name="doc-typedef-members" id="doc-typedef-members"></a><h2 id="header-doc-typedef-members" class="groupheader">Typedef Documentation</h2>
 <a id="a928771ce74a56750dd2dcbc28e5892e0" name="a928771ce74a56750dd2dcbc28e5892e0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a928771ce74a56750dd2dcbc28e5892e0">&#9670;&#160;</a></span>real_t</h2>
@@ -423,7 +423,7 @@ template&lt;fixed_point T&gt; </div>
 </div>
 </div>
 <a id="a0093cd8b0fc3ea4c7cdc9fe9cf8a37b5" name="a0093cd8b0fc3ea4c7cdc9fe9cf8a37b5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0093cd8b0fc3ea4c7cdc9fe9cf8a37b5">&#9670;&#160;</a></span>operator*() <span class="overload">[1/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0093cd8b0fc3ea4c7cdc9fe9cf8a37b5">&#9670;&#160;</a></span>operator*() <span class="overload">[1/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -464,7 +464,7 @@ template&lt;typename Base, typename Intermediate, unsigned Fraction, bool Roundi
 </div>
 </div>
 <a id="a486378f548999db466ef4f2d629c69e4" name="a486378f548999db466ef4f2d629c69e4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a486378f548999db466ef4f2d629c69e4">&#9670;&#160;</a></span>operator*() <span class="overload">[2/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a486378f548999db466ef4f2d629c69e4">&#9670;&#160;</a></span>operator*() <span class="overload">[2/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -504,11 +504,13 @@ template&lt;typename Base, typename Intermediate, unsigned Fraction, bool Roundi
 
 </div>
 </div>
-<a id="ac417b48ee4476520f97a0bfe39026d22" name="ac417b48ee4476520f97a0bfe39026d22"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac417b48ee4476520f97a0bfe39026d22">&#9670;&#160;</a></span>operator*() <span class="overload">[3/9]</span></h2>
+<a id="a56742980deebb8afc130517aa78dc6a1" name="a56742980deebb8afc130517aa78dc6a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56742980deebb8afc130517aa78dc6a1">&#9670;&#160;</a></span>operator*() <span class="overload">[3/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;PointScalar T&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -521,7 +523,7 @@ template&lt;typename Base, typename Intermediate, unsigned Fraction, bool Roundi
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int32_t</td>          <td class="paramname"><span class="paramname"><em>scalar</em></span>&#160;)</td>
+          <td class="paramtype">const T &amp;</td>          <td class="paramname"><span class="paramname"><em>scalar</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -531,61 +533,26 @@ template&lt;typename Base, typename Intermediate, unsigned Fraction, bool Roundi
 </table>
 </div><div class="memdoc">
 
-<p>Multiplication operator for <em class="arg">point</em> and integer <em class="arg">scalar</em>. </p>
-<p>Multiplies each coordinate of the <em class="arg">point</em> by the <em class="arg">scalar</em> value.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">point</td><td>The point to multiply. </td></tr>
-    <tr><td class="paramname">scalar</td><td>The integer scalar value.</td></tr>
+<p><a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html" title="2D integer point for UI and input coordinates.">Point</a> scaled by scalar and truncated to integer. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Type satisfying <a class="el" href="../../d1/dca/concepttoy_1_1math_1_1_point_scalar.html" title="toy::math::PointScalar">toy::math::PointScalar</a> (integral, floating-point, or fixed-point).</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A new point with coordinates multiplied by the <em class="arg">scalar</em>. </dd></dl>
-
-</div>
-</div>
-<a id="aabf2223c75035961b42e0aab01c47303" name="aabf2223c75035961b42e0aab01c47303"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aabf2223c75035961b42e0aab01c47303">&#9670;&#160;</a></span>operator*() <span class="overload">[4/9]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a> toy::math::operator* </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>point</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="#a928771ce74a56750dd2dcbc28e5892e0">real_t</a></td>          <td class="paramname"><span class="paramname"><em>scalar</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Multiplication operator for <em class="arg">point</em> and real <em class="arg">scalar</em>. </p>
-<p>Multiplies each coordinate of the <em class="arg">point</em> by the <em class="arg">scalar</em> value.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">point</td><td>The point to multiply. </td></tr>
-    <tr><td class="paramname">scalar</td><td>The real scalar value.</td></tr>
+    <tr><td class="paramname">point</td><td>Operand. </td></tr>
+    <tr><td class="paramname">scalar</td><td>Scale factor.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A new point with coordinates multiplied by the <em class="arg">scalar</em>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html" title="toy::math::Point">toy::math::Point</a> with coordinates multiplied by <em class="arg">scalar</em> then cast to <code>int32_t</code>. </dd></dl>
 
 </div>
 </div>
 <a id="a54aff8f2de32d1f29b985f9a282c5b50" name="a54aff8f2de32d1f29b985f9a282c5b50"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a54aff8f2de32d1f29b985f9a282c5b50">&#9670;&#160;</a></span>operator*() <span class="overload">[5/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a54aff8f2de32d1f29b985f9a282c5b50">&#9670;&#160;</a></span>operator*() <span class="overload">[4/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -625,8 +592,55 @@ template&lt;typename Base, typename Intermediate, unsigned Fraction, bool Roundi
 
 </div>
 </div>
+<a id="a03e54579723278ba0046712777b2ecac" name="a03e54579723278ba0046712777b2ecac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03e54579723278ba0046712777b2ecac">&#9670;&#160;</a></span>operator*() <span class="overload">[5/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;PointScalar T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a> toy::math::operator* </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;</td>          <td class="paramname"><span class="paramname"><em>scalar</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>point</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html" title="2D integer point for UI and input coordinates.">Point</a> scaled by scalar (scalar on the left). </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Type satisfying <a class="el" href="../../d1/dca/concepttoy_1_1math_1_1_point_scalar.html" title="toy::math::PointScalar">toy::math::PointScalar</a> (integral, floating-point, or fixed-point).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">scalar</td><td>Scale factor. </td></tr>
+    <tr><td class="paramname">point</td><td>Operand.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html" title="toy::math::Point">toy::math::Point</a> with coordinates multiplied by <em class="arg">scalar</em> then cast to <code>int32_t</code>. </dd></dl>
+
+</div>
+</div>
 <a id="a64b77d367827237e4f5296e24fe488bb" name="a64b77d367827237e4f5296e24fe488bb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a64b77d367827237e4f5296e24fe488bb">&#9670;&#160;</a></span>operator*() <span class="overload">[6/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a64b77d367827237e4f5296e24fe488bb">&#9670;&#160;</a></span>operator*() <span class="overload">[6/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -665,48 +679,8 @@ template&lt;typename Base, typename Intermediate, unsigned Fraction, bool Roundi
 
 </div>
 </div>
-<a id="a0ebcb0c243be286d415822f0d823dc85" name="a0ebcb0c243be286d415822f0d823dc85"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0ebcb0c243be286d415822f0d823dc85">&#9670;&#160;</a></span>operator*() <span class="overload">[7/9]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a> toy::math::operator* </td>
-          <td>(</td>
-          <td class="paramtype">int32_t</td>          <td class="paramname"><span class="paramname"><em>scalar</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>point</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Multiplication operator for integer <em class="arg">scalar</em> and <em class="arg">point</em>. </p>
-<p>Multiplies each coordinate of the <em class="arg">point</em> by the <em class="arg">scalar</em> value.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">scalar</td><td>The integer scalar value. </td></tr>
-    <tr><td class="paramname">point</td><td>The point to multiply.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A new point with coordinates multiplied by the <em class="arg">scalar</em>. </dd></dl>
-
-</div>
-</div>
 <a id="ab46d6b569e95030e8c3c2a0256595dbb" name="ab46d6b569e95030e8c3c2a0256595dbb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab46d6b569e95030e8c3c2a0256595dbb">&#9670;&#160;</a></span>operator*() <span class="overload">[8/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab46d6b569e95030e8c3c2a0256595dbb">&#9670;&#160;</a></span>operator*() <span class="overload">[7/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -742,46 +716,6 @@ template&lt;typename Base, typename Intermediate, unsigned Fraction, bool Roundi
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A new vector with coordinates multiplied by the scalar. </dd></dl>
-
-</div>
-</div>
-<a id="ae60797f1d56ea3c795f635cbb5d91559" name="ae60797f1d56ea3c795f635cbb5d91559"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae60797f1d56ea3c795f635cbb5d91559">&#9670;&#160;</a></span>operator*() <span class="overload">[9/9]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a> toy::math::operator* </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="#a928771ce74a56750dd2dcbc28e5892e0">real_t</a></td>          <td class="paramname"><span class="paramname"><em>scalar</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>point</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Multiplication operator for real <em class="arg">scalar</em> and <em class="arg">point</em>. </p>
-<p>Multiplies each coordinate of the <em class="arg">point</em> by the <em class="arg">scalar</em> value.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">scalar</td><td>The real scalar value. </td></tr>
-    <tr><td class="paramname">point</td><td>The point to multiply.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A new point with coordinates multiplied by the <em class="arg">scalar</em>. </dd></dl>
 
 </div>
 </div>
@@ -895,16 +829,15 @@ template&lt;typename Base, typename Intermediate, unsigned Fraction, bool Roundi
 </table>
 </div><div class="memdoc">
 
-<p>Addition operator for two points. </p>
-<p>Adds the coordinates of two points together.</p>
+<p>Addition of two points. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">left</td><td>The first point. </td></tr>
-    <tr><td class="paramname">right</td><td>The second point.</td></tr>
+    <tr><td class="paramname">left</td><td>First operand. </td></tr>
+    <tr><td class="paramname">right</td><td>Second operand.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A new point with coordinates equal to the sum of the input points. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html" title="toy::math::Point">toy::math::Point</a> with (left.x + right.x, left.y + right.y). </dd></dl>
 
 </div>
 </div>
@@ -1135,16 +1068,15 @@ template&lt;typename Base, typename Intermediate, unsigned Fraction, bool Roundi
 </table>
 </div><div class="memdoc">
 
-<p>Subtraction operator for two points. </p>
-<p>Subtracts the coordinates of the second point from the first point.</p>
+<p>Subtraction of two points. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">left</td><td>The first point. </td></tr>
-    <tr><td class="paramname">right</td><td>The second point.</td></tr>
+    <tr><td class="paramname">left</td><td>First operand. </td></tr>
+    <tr><td class="paramname">right</td><td>Second operand.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A new point with coordinates equal to the difference of the input points. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html" title="toy::math::Point">toy::math::Point</a> with (left.x - right.x, left.y - right.y). </dd></dl>
 
 </div>
 </div>
@@ -1171,15 +1103,14 @@ template&lt;typename Base, typename Intermediate, unsigned Fraction, bool Roundi
 </table>
 </div><div class="memdoc">
 
-<p>Unary minus operator. </p>
-<p>Returns a <em class="arg">point</em> with negated coordinates.</p>
+<p>Unary minus: negated coordinates. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">point</td><td>The point to negate.</td></tr>
+    <tr><td class="paramname">point</td><td>Operand.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A new point with negated x and y coordinates. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html" title="toy::math::Point">toy::math::Point</a> with (-point.x, -point.y). </dd></dl>
 
 </div>
 </div>
@@ -1300,7 +1231,7 @@ template&lt;typename Base, typename Intermediate, unsigned Fraction, bool Roundi
 </div>
 </div>
 <a id="a1f159ffb250b05eacfdf119664844f2b" name="a1f159ffb250b05eacfdf119664844f2b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1f159ffb250b05eacfdf119664844f2b">&#9670;&#160;</a></span>operator/() <span class="overload">[1/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f159ffb250b05eacfdf119664844f2b">&#9670;&#160;</a></span>operator/() <span class="overload">[1/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1342,7 +1273,7 @@ template&lt;typename Base, typename Intermediate, unsigned Fraction, bool Roundi
 </div>
 </div>
 <a id="a1557a48df4a7c0f416b1b73eb81274d7" name="a1557a48df4a7c0f416b1b73eb81274d7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1557a48df4a7c0f416b1b73eb81274d7">&#9670;&#160;</a></span>operator/() <span class="overload">[2/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1557a48df4a7c0f416b1b73eb81274d7">&#9670;&#160;</a></span>operator/() <span class="overload">[2/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1383,11 +1314,13 @@ template&lt;typename Base, typename Intermediate, unsigned Fraction, bool Roundi
 
 </div>
 </div>
-<a id="a30cd8fbc29cbc192779776a285182fc2" name="a30cd8fbc29cbc192779776a285182fc2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a30cd8fbc29cbc192779776a285182fc2">&#9670;&#160;</a></span>operator/() <span class="overload">[3/6]</span></h2>
+<a id="afffacfe885672a3174b4ffe14ec4d0b0" name="afffacfe885672a3174b4ffe14ec4d0b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afffacfe885672a3174b4ffe14ec4d0b0">&#9670;&#160;</a></span>operator/() <span class="overload">[3/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;PointScalar T&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1400,7 +1333,7 @@ template&lt;typename Base, typename Intermediate, unsigned Fraction, bool Roundi
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int32_t</td>          <td class="paramname"><span class="paramname"><em>scalar</em></span>&#160;)</td>
+          <td class="paramtype">const T &amp;</td>          <td class="paramname"><span class="paramname"><em>scalar</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -1410,63 +1343,27 @@ template&lt;typename Base, typename Intermediate, unsigned Fraction, bool Roundi
 </table>
 </div><div class="memdoc">
 
-<p>Division operator for <em class="arg">point</em> and integer <em class="arg">scalar</em>. </p>
-<p>Divides each coordinate of the <em class="arg">point</em> by the <em class="arg">scalar</em> value.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">point</td><td>The point to divide. </td></tr>
-    <tr><td class="paramname">scalar</td><td>The integer scalar value.</td></tr>
+<p><a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html" title="2D integer point for UI and input coordinates.">Point</a> divided by scalar and truncated to integer. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Type satisfying <a class="el" href="../../d1/dca/concepttoy_1_1math_1_1_point_scalar.html" title="toy::math::PointScalar">toy::math::PointScalar</a> (integral, floating-point, or fixed-point).</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A new point with coordinates divided by the <em class="arg">scalar</em>.</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">scalar</em> must not be zero. </dd></dl>
-
-</div>
-</div>
-<a id="a237969d397d856ba403536b96321a926" name="a237969d397d856ba403536b96321a926"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a237969d397d856ba403536b96321a926">&#9670;&#160;</a></span>operator/() <span class="overload">[4/6]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a> toy::math::operator/ </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>point</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="#a928771ce74a56750dd2dcbc28e5892e0">real_t</a></td>          <td class="paramname"><span class="paramname"><em>scalar</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Division operator for <em class="arg">point</em> and real <em class="arg">scalar</em>. </p>
-<p>Divides each coordinate of the <em class="arg">point</em> by the <em class="arg">scalar</em> value.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">point</td><td>The point to divide. </td></tr>
-    <tr><td class="paramname">scalar</td><td>The real scalar value.</td></tr>
+    <tr><td class="paramname">point</td><td>Operand. </td></tr>
+    <tr><td class="paramname">scalar</td><td>Divisor.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A new point with coordinates divided by the <em class="arg">scalar</em>.</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">scalar</em> must not be zero. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html" title="toy::math::Point">toy::math::Point</a> with coordinates divided by <em class="arg">scalar</em> then cast to <code>int32_t</code>.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd><em class="arg">scalar</em> != <code>0</code>. </dd></dl>
 
 </div>
 </div>
 <a id="a4d2eb4a917e11a760d300518aa7b1fcb" name="a4d2eb4a917e11a760d300518aa7b1fcb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4d2eb4a917e11a760d300518aa7b1fcb">&#9670;&#160;</a></span>operator/() <span class="overload">[5/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d2eb4a917e11a760d300518aa7b1fcb">&#9670;&#160;</a></span>operator/() <span class="overload">[4/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1508,7 +1405,7 @@ template&lt;typename Base, typename Intermediate, unsigned Fraction, bool Roundi
 </div>
 </div>
 <a id="a7ff7043bbeb69aa907a2ae9ab3b47267" name="a7ff7043bbeb69aa907a2ae9ab3b47267"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7ff7043bbeb69aa907a2ae9ab3b47267">&#9670;&#160;</a></span>operator/() <span class="overload">[6/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ff7043bbeb69aa907a2ae9ab3b47267">&#9670;&#160;</a></span>operator/() <span class="overload">[5/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1680,17 +1577,16 @@ template&lt;typename Base, typename Intermediate, unsigned Fraction, bool Roundi
 </table>
 </div><div class="memdoc">
 
-<p>Equality operator for two points. </p>
-<p>Compares two points for exact equality.</p>
+<p>Exact equality of two points. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">left</td><td>The first point. </td></tr>
-    <tr><td class="paramname">right</td><td>The second point.</td></tr>
+    <tr><td class="paramname">left</td><td>First operand. </td></tr>
+    <tr><td class="paramname">right</td><td>Second operand.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> if both points have identical coordinates, <code>false</code> otherwise.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This performs exact equality comparison. For approximate comparison with tolerance, use the <em class="arg">isEqual</em> method. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if left.x == right.x and left.y == right.y, <code>false</code> otherwise.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d5/d12/group___math_functions.html#gaec0e5508b638d5599c59593e4afc7ee4" title="Compares two floating-point values for approximate equality.">isEqual()</a> for tolerance-based comparison. </dd></dl>
 
 </div>
 </div>

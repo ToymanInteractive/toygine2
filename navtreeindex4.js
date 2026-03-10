@@ -1,11 +1,5 @@
 var NAVTREEINDEX4 =
 {
-"dd/d5c/classtoy_1_1math_1_1fixed.html#a2c5c780e87a1b57c03fb1fe043ee8bba":[3,0,1,2,1,13],
-"dd/d5c/classtoy_1_1math_1_1fixed.html#a2c5c780e87a1b57c03fb1fe043ee8bba":[5,0,1,2,0,13],
-"dd/d5c/classtoy_1_1math_1_1fixed.html#a387e4afcaf2c9a38c5b1f7efcf25cebc":[3,0,1,2,1,9],
-"dd/d5c/classtoy_1_1math_1_1fixed.html#a387e4afcaf2c9a38c5b1f7efcf25cebc":[5,0,1,2,0,9],
-"dd/d5c/classtoy_1_1math_1_1fixed.html#a3ce6046b6af782f07d157653a7087e76":[3,0,1,2,1,7],
-"dd/d5c/classtoy_1_1math_1_1fixed.html#a3ce6046b6af782f07d157653a7087e76":[3,0,1,2,1,8],
 "dd/d5c/classtoy_1_1math_1_1fixed.html#a3ce6046b6af782f07d157653a7087e76":[5,0,1,2,0,7],
 "dd/d5c/classtoy_1_1math_1_1fixed.html#a3ce6046b6af782f07d157653a7087e76":[5,0,1,2,0,8],
 "dd/d5c/classtoy_1_1math_1_1fixed.html#a47197aed7ac1c9333600b8cb37fb7757":[3,0,1,2,1,10],
@@ -249,5 +243,11 @@ var NAVTREEINDEX4 =
 "functions_func_a.html":[5,3,1,1],
 "functions_func_b.html":[5,3,1,2],
 "functions_func_c.html":[5,3,1,3],
-"functions_func_d.html":[5,3,1,4]
+"functions_func_d.html":[5,3,1,4],
+"functions_func_e.html":[5,3,1,5],
+"functions_func_f.html":[5,3,1,6],
+"functions_func_g.html":[5,3,1,7],
+"functions_func_h.html":[5,3,1,8],
+"functions_func_i.html":[5,3,1,9],
+"functions_func_l.html":[5,3,1,10]
 };
