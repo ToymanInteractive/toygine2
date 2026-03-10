@@ -29,8 +29,8 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
     # Minimum CPU Architecture select based on https://store.steampowered.com/hwsurvey/
 
-    set(CMAKE_C_FLAGS   "/nologo /Wall /WX /wd4007 /wd4464 /wd4514 /wd4710 /wd4711 /wd4820 /wd4866 /wd5045 /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /EHsc /Zc:wchar_t /Zc:forScope /Zc:inline /Zc:rvalueCast /GR- /permissive-")
-    set(CMAKE_CXX_FLAGS "/nologo /Wall /WX /wd4007 /wd4464 /wd4514 /wd4710 /wd4711 /wd4820 /wd4866 /wd5045 /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /EHsc /Zc:wchar_t /Zc:forScope /Zc:inline /Zc:rvalueCast /GR- /permissive-")
+    set(CMAKE_C_FLAGS   "/nologo /Wall /WX /wd4007 /wd4464 /wd4514 /wd4710 /wd4711 /wd4820 /wd4866 /wd5045 /wd5219 /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /EHsc /Zc:wchar_t /Zc:forScope /Zc:inline /Zc:rvalueCast /GR- /permissive-")
+    set(CMAKE_CXX_FLAGS "/nologo /Wall /WX /wd4007 /wd4464 /wd4514 /wd4710 /wd4711 /wd4820 /wd4866 /wd5045 /wd5219 /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /EHsc /Zc:wchar_t /Zc:forScope /Zc:inline /Zc:rvalueCast /GR- /permissive-")
 
     if (CMAKE_SIZEOF_VOID_P MATCHES "8")
 
@@ -77,11 +77,11 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop")
   endif ()
 
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/C_002b_002b-Dialect-Options.html
-#                 https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/C_002b_002b-Dialect-Options.html#index-Wsuggest-override
+#                 https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/C_002b_002b-Dialect-Options.html#index-Wuse-after-free
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-14.2.0/gcc/C_002b_002b-Dialect-Options.html
 
-  set(CMAKE_C_FLAGS   "-std=c17   -Wall -Wextra -Wpedantic -Werror                                                                                                                                                                                                                    -Wextra-semi                                               -foffload=default -fopenmp-simd -fstrict-flex-arrays=2")
-  set(CMAKE_CXX_FLAGS "-std=c++23 -Wall -Wextra -Wpedantic -Werror -Winvalid-constexpr -Wnoexcept -Wredundant-tags -Wold-style-cast -Woverloaded-virtual=2 -Wsign-promo -Wmismatched-tags -Wzero-as-null-pointer-constant -Wplacement-new=2 -Wcatch-value=2 -Wconditionally-supported -Wextra-semi -Wsuggest-final-types -Wsuggest-final-methods -foffload=default -fopenmp-simd -fstrict-flex-arrays=2")
+  set(CMAKE_C_FLAGS   "-std=c17   -Wall -Wextra -Wpedantic -Werror                                                                                                                                                                                                                    -Wextra-semi                                                                  -foffload=default -fopenmp-simd -fstrict-flex-arrays=2")
+  set(CMAKE_CXX_FLAGS "-std=c++23 -Wall -Wextra -Wpedantic -Werror -Winvalid-constexpr -Wnoexcept -Wredundant-tags -Wold-style-cast -Woverloaded-virtual=2 -Wsign-promo -Wmismatched-tags -Wzero-as-null-pointer-constant -Wplacement-new=2 -Wcatch-value=2 -Wconditionally-supported -Wextra-semi -Wsuggest-final-types -Wsuggest-final-methods -Wsuggest-override -foffload=default -fopenmp-simd -fstrict-flex-arrays=2")
 
   set(CMAKE_C_FLAGS_DEBUG            "    -g -D_DEBUG")
   set(CMAKE_CXX_FLAGS_DEBUG          "    -g -D_DEBUG")
@@ -157,8 +157,8 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Game Boy Advance")
 
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/C_002b_002b-Dialect-Options.html
 
-  set(CMAKE_C_FLAGS   "-D__GBA__ -std=c17   -Wall -Wextra -Wpedantic -Werror                                                                                                                                                                                                                    -Wextra-semi                                               -fstrict-flex-arrays=2")
-  set(CMAKE_CXX_FLAGS "-D__GBA__ -std=c++23 -Wall -Wextra -Wpedantic -Werror -Winvalid-constexpr -Wnoexcept -Wredundant-tags -Wold-style-cast -Woverloaded-virtual=2 -Wsign-promo -Wmismatched-tags -Wzero-as-null-pointer-constant -Wplacement-new=2 -Wcatch-value=2 -Wconditionally-supported -Wextra-semi -Wsuggest-final-types -Wsuggest-final-methods -fstrict-flex-arrays=2 -fno-rtti -fno-threadsafe-statics")
+  set(CMAKE_C_FLAGS   "-D__GBA__ -std=c17   -Wall -Wextra -Wpedantic -Werror                                                                                                                                                                                                                    -Wextra-semi                                                                  -fstrict-flex-arrays=2")
+  set(CMAKE_CXX_FLAGS "-D__GBA__ -std=c++23 -Wall -Wextra -Wpedantic -Werror -Winvalid-constexpr -Wnoexcept -Wredundant-tags -Wold-style-cast -Woverloaded-virtual=2 -Wsign-promo -Wmismatched-tags -Wzero-as-null-pointer-constant -Wplacement-new=2 -Wcatch-value=2 -Wconditionally-supported -Wextra-semi -Wsuggest-final-types -Wsuggest-final-methods -Wsuggest-override -fstrict-flex-arrays=2 -fno-rtti -fno-threadsafe-statics")
 
   set(CMAKE_C_FLAGS_DEBUG            "    -g -D_DEBUG")
   set(CMAKE_CXX_FLAGS_DEBUG          "    -g -D_DEBUG")
@@ -187,8 +187,8 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
 
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/C_002b_002b-Dialect-Options.html
 
-  set(CMAKE_C_FLAGS   "-std=c17   -Wall -Wextra -Wpedantic -Werror                                                                                                                                                                                                                    -Wextra-semi                                               -fstrict-flex-arrays=2")
-  set(CMAKE_CXX_FLAGS "-std=c++23 -Wall -Wextra -Wpedantic -Werror -Winvalid-constexpr -Wnoexcept -Wredundant-tags -Wold-style-cast -Woverloaded-virtual=2 -Wsign-promo -Wmismatched-tags -Wzero-as-null-pointer-constant -Wplacement-new=2 -Wcatch-value=2 -Wconditionally-supported -Wextra-semi -Wsuggest-final-types -Wsuggest-final-methods -fstrict-flex-arrays=2 -fno-rtti -fno-threadsafe-statics")
+  set(CMAKE_C_FLAGS   "-std=c17   -Wall -Wextra -Wpedantic -Werror                                                                                                                                                                                                                    -Wextra-semi                                                                  -fstrict-flex-arrays=2")
+  set(CMAKE_CXX_FLAGS "-std=c++23 -Wall -Wextra -Wpedantic -Werror -Winvalid-constexpr -Wnoexcept -Wredundant-tags -Wold-style-cast -Woverloaded-virtual=2 -Wsign-promo -Wmismatched-tags -Wzero-as-null-pointer-constant -Wplacement-new=2 -Wcatch-value=2 -Wconditionally-supported -Wextra-semi -Wsuggest-final-types -Wsuggest-final-methods -Wsuggest-override -fstrict-flex-arrays=2 -fno-rtti -fno-threadsafe-statics")
 
   set(CMAKE_C_FLAGS_DEBUG            "    -g -D_DEBUG")
   set(CMAKE_CXX_FLAGS_DEBUG          "    -g -D_DEBUG")
@@ -217,8 +217,8 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 3DS")
 
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/C_002b_002b-Dialect-Options.html
 
-  set(CMAKE_C_FLAGS   "-std=c17   -Wall -Wextra -Wpedantic -Werror                                                                                                                                                                                                                    -Wextra-semi                                               -fstrict-flex-arrays=2")
-  set(CMAKE_CXX_FLAGS "-std=c++23 -Wall -Wextra -Wpedantic -Werror -Winvalid-constexpr -Wnoexcept -Wredundant-tags -Wold-style-cast -Woverloaded-virtual=2 -Wsign-promo -Wmismatched-tags -Wzero-as-null-pointer-constant -Wplacement-new=2 -Wcatch-value=2 -Wconditionally-supported -Wextra-semi -Wsuggest-final-types -Wsuggest-final-methods -fstrict-flex-arrays=2 -fno-rtti")
+  set(CMAKE_C_FLAGS   "-std=c17   -Wall -Wextra -Wpedantic -Werror                                                                                                                                                                                                                    -Wextra-semi                                                                  -fstrict-flex-arrays=2")
+  set(CMAKE_CXX_FLAGS "-std=c++23 -Wall -Wextra -Wpedantic -Werror -Winvalid-constexpr -Wnoexcept -Wredundant-tags -Wold-style-cast -Woverloaded-virtual=2 -Wsign-promo -Wmismatched-tags -Wzero-as-null-pointer-constant -Wplacement-new=2 -Wcatch-value=2 -Wconditionally-supported -Wextra-semi -Wsuggest-final-types -Wsuggest-final-methods -Wsuggest-override -fstrict-flex-arrays=2 -fno-rtti")
 
   set(CMAKE_C_FLAGS_DEBUG            "    -g -D_DEBUG")
   set(CMAKE_CXX_FLAGS_DEBUG          "    -g -D_DEBUG")
@@ -247,8 +247,8 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
 
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/C_002b_002b-Dialect-Options.html
 
-  set(CMAKE_C_FLAGS   "-std=c17   -Wall -Wextra -Wpedantic -Werror                                                                                                                                                                                                                    -Wextra-semi                                               -fstrict-flex-arrays=2")
-  set(CMAKE_CXX_FLAGS "-std=c++23 -Wall -Wextra -Wpedantic -Werror -Winvalid-constexpr -Wnoexcept -Wredundant-tags -Wold-style-cast -Woverloaded-virtual=2 -Wsign-promo -Wmismatched-tags -Wzero-as-null-pointer-constant -Wplacement-new=2 -Wcatch-value=2 -Wconditionally-supported -Wextra-semi -Wsuggest-final-types -Wsuggest-final-methods -fstrict-flex-arrays=2 -fno-rtti")
+  set(CMAKE_C_FLAGS   "-std=c17   -Wall -Wextra -Wpedantic -Werror                                                                                                                                                                                                                    -Wextra-semi                                                                  -fstrict-flex-arrays=2")
+  set(CMAKE_CXX_FLAGS "-std=c++23 -Wall -Wextra -Wpedantic -Werror -Winvalid-constexpr -Wnoexcept -Wredundant-tags -Wold-style-cast -Woverloaded-virtual=2 -Wsign-promo -Wmismatched-tags -Wzero-as-null-pointer-constant -Wplacement-new=2 -Wcatch-value=2 -Wconditionally-supported -Wextra-semi -Wsuggest-final-types -Wsuggest-final-methods -Wsuggest-override -fstrict-flex-arrays=2 -fno-rtti")
 
   set(CMAKE_C_FLAGS_DEBUG            "    -g -D_DEBUG")
   set(CMAKE_CXX_FLAGS_DEBUG          "    -g -D_DEBUG")

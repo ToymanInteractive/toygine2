@@ -19,20 +19,18 @@
 //
 /*!
   \file   point.inl
-  \brief  Inline implementations for 2D integer point class.
+  \brief  Inline implementations for \ref toy::math::Point.
 */
 
 #ifndef INCLUDE_MATH_POINT_INL_
 #define INCLUDE_MATH_POINT_INL_
 
+#include "utils.inl"
+
 namespace toy::math {
 
 static_assert(sizeof(Point) == 2 * sizeof(int32_t), "Point must be tightly packed");
 static_assert(offsetof(Point, y) == sizeof(int32_t), "y must follow x contiguously");
-
-constexpr Point::Point() noexcept
-  : x()
-  , y() {}
 
 constexpr Point::Point(const int32_t & x_, const int32_t & y_) noexcept
   : x(x_)
@@ -69,31 +67,23 @@ constexpr Point & Point::operator-=(const Point & point) noexcept {
   return *this;
 }
 
-constexpr Point & Point::operator*=(int32_t scalar) noexcept {
-  x *= scalar;
-  y *= scalar;
-
-  return *this;
-}
-
-constexpr Point & Point::operator*=(real_t scalar) noexcept {
+template <PointScalar T>
+constexpr Point & Point::operator*=(const T & scalar) noexcept {
   x = static_cast<int32_t>(x * scalar);
   y = static_cast<int32_t>(y * scalar);
 
   return *this;
 }
 
-constexpr Point & Point::operator/=(int32_t scalar) noexcept {
-  assert_message(scalar != 0, "scalar must be non-zero");
-
-  x /= scalar;
-  y /= scalar;
-
-  return *this;
-}
-
-constexpr Point & Point::operator/=(real_t scalar) noexcept {
-  assert_message(scalar > 0 || scalar < 0, "scalar must be non-zero");
+template <PointScalar T>
+constexpr Point & Point::operator/=(const T & scalar) noexcept {
+  if constexpr (integral<T>) {
+    assert_message(scalar != 0, "scalar must be non-zero");
+  } else if constexpr (fixed_point<T>) {
+    assert_message(scalar.rawValue() != 0, "scalar must be non-zero");
+  } else {
+    assert_message(scalar > 0 || scalar < 0, "scalar must be non-zero");
+  }
 
   x = static_cast<int32_t>(x / scalar);
   y = static_cast<int32_t>(y / scalar);
@@ -113,10 +103,10 @@ constexpr bool Point::isZero() const noexcept {
   return x == 0 && y == 0;
 }
 
-inline bool Point::isEqual(const Point & point, int32_t tolerance) const noexcept {
-  assert_message(tolerance >= 0, "tolerance must be non-negative");
+constexpr bool Point::isEqual(const Point & point, int32_t epsilon) const noexcept {
+  assert_message(epsilon >= 0, "epsilon must be non-negative");
 
-  return std::abs(x - point.x) <= tolerance && std::abs(y - point.y) <= tolerance;
+  return abs(x - point.x) <= epsilon && abs(y - point.y) <= epsilon;
 }
 
 constexpr Point operator-(const Point & point) noexcept {
@@ -131,30 +121,25 @@ constexpr Point operator-(const Point & left, const Point & right) noexcept {
   return Point(left.x - right.x, left.y - right.y);
 }
 
-constexpr Point operator*(const Point & point, int32_t scalar) noexcept {
-  return Point(point.x * scalar, point.y * scalar);
-}
-
-constexpr Point operator*(int32_t scalar, const Point & point) noexcept {
-  return point * scalar;
-}
-
-constexpr Point operator*(const Point & point, real_t scalar) noexcept {
+template <PointScalar T>
+constexpr Point operator*(const Point & point, const T & scalar) noexcept {
   return Point(static_cast<int32_t>(point.x * scalar), static_cast<int32_t>(point.y * scalar));
 }
 
-constexpr Point operator*(real_t scalar, const Point & point) noexcept {
+template <PointScalar T>
+constexpr Point operator*(const T & scalar, const Point & point) noexcept {
   return point * scalar;
 }
 
-constexpr Point operator/(const Point & point, int32_t scalar) noexcept {
-  assert_message(scalar != 0, "scalar must be non-zero");
-
-  return Point(point.x / scalar, point.y / scalar);
-}
-
-constexpr Point operator/(const Point & point, real_t scalar) noexcept {
-  assert_message(scalar > 0 || scalar < 0, "scalar must be non-zero");
+template <PointScalar T>
+constexpr Point operator/(const Point & point, const T & scalar) noexcept {
+  if constexpr (integral<T>) {
+    assert_message(scalar != 0, "scalar must be non-zero");
+  } else if constexpr (fixed_point<T>) {
+    assert_message(scalar.rawValue() != 0, "scalar must be non-zero");
+  } else {
+    assert_message(scalar > 0 || scalar < 0, "scalar must be non-zero");
+  }
 
   return Point(static_cast<int32_t>(point.x / scalar), static_cast<int32_t>(point.y / scalar));
 }
