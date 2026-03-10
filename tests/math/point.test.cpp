@@ -65,7 +65,7 @@ TEST_CASE("math/point/constructors") {
 
   // Constructor from pointer to two-element array.
   SUBCASE("constructor_from_pointer_to_array") {
-    constexpr array<int32_t, 2> arr{42, -17};
+    constexpr array<int32_t, 2> arr{{42, -17}};
     constexpr Point point(arr.data());
 
     REQUIRE(point.x == 42);
@@ -85,7 +85,7 @@ TEST_CASE("math/point/constructors") {
     REQUIRE(coordPoint.x == 123);
     REQUIRE(coordPoint.y == -456);
 
-    constexpr array<int32_t, 2> arr{789, -321};
+    constexpr array<int32_t, 2> arr{{789, -321}};
     Point arrayPoint(arr.data());
     REQUIRE(arrayPoint.x == 789);
     REQUIRE(arrayPoint.y == -321);
