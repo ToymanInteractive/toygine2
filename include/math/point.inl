@@ -78,7 +78,7 @@ constexpr Point & Point::operator*=(const T & scalar) noexcept {
 template <PointScalar T>
 constexpr Point & Point::operator/=(const T & scalar) noexcept {
   if constexpr (integral<T>) {
-    assert_message(scalar != 0, "unsigned divisor must be non-zero");
+    assert_message(scalar != 0, "scalar must be non-zero");
   } else if constexpr (fixed_point<T>) {
     assert_message(scalar.rawValue() != 0, "scalar must be non-zero");
   } else {
@@ -104,7 +104,7 @@ constexpr bool Point::isZero() const noexcept {
 }
 
 constexpr bool Point::isEqual(const Point & point, int32_t epsilon) const noexcept {
-  assert_message(epsilon >= 0, "tolerance must be non-negative");
+  assert_message(epsilon >= 0, "epsilon must be non-negative");
 
   return abs(x - point.x) <= epsilon && abs(y - point.y) <= epsilon;
 }
@@ -134,7 +134,7 @@ constexpr Point operator*(const T & scalar, const Point & point) noexcept {
 template <PointScalar T>
 constexpr Point operator/(const Point & point, const T & scalar) noexcept {
   if constexpr (integral<T>) {
-    assert_message(scalar != 0, "unsigned divisor must be non-zero");
+    assert_message(scalar != 0, "scalar must be non-zero");
   } else if constexpr (fixed_point<T>) {
     assert_message(scalar.rawValue() != 0, "scalar must be non-zero");
   } else {
