@@ -23,7 +23,6 @@
 */
 
 #include "core.hpp"
-#include "utils_internal.inl"
 
 namespace toy {
 
@@ -450,48 +449,6 @@ size_t utf8Len(const char * string) noexcept {
   }
 
   return size;
-}
-
-char * itoa(char * dest, size_t destSize, int8_t value) noexcept {
-  assert_message(destSize >= 5, "The destination buffer size must be at least 5 characters for worst case -128");
-
-  return itoaImplementation(dest, destSize, value);
-}
-
-char * itoa(char * dest, size_t destSize, int16_t value) noexcept {
-  assert_message(destSize >= 7, "The destination buffer size must be at least 7 characters for worst case -32768");
-
-  return itoaImplementation(dest, destSize, value);
-}
-
-char * itoa(char * dest, size_t destSize, int32_t value) noexcept {
-  assert_message(destSize >= 12,
-                 "The destination buffer size must be at least 12 characters for worst case -2147483648");
-
-  return itoaImplementation(dest, destSize, value);
-}
-
-char * itoa(char * dest, size_t destSize, int64_t value) noexcept {
-  assert_message(destSize >= 21,
-                 "The destination buffer size must be at least 21 characters for worst case -9223372036854775808");
-
-  return itoaImplementation(dest, destSize, value);
-}
-
-char * utoa(char * dest, size_t destSize, uint8_t value, unsigned base) noexcept {
-  return utoaImplementation(dest, destSize, value, base);
-}
-
-char * utoa(char * dest, size_t destSize, uint16_t value, unsigned base) noexcept {
-  return utoaImplementation(dest, destSize, value, base);
-}
-
-char * utoa(char * dest, size_t destSize, uint32_t value, unsigned base) noexcept {
-  return utoaImplementation(dest, destSize, value, base);
-}
-
-char * utoa(char * dest, size_t destSize, uint64_t value, unsigned base) noexcept {
-  return utoaImplementation(dest, destSize, value, base);
 }
 
 char * ftoa(char * dest, size_t destSize, float value, size_t precision) noexcept {

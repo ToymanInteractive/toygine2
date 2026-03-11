@@ -18,9 +18,11 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
+void runCoreBenchmarks();
 void runMathBenchmarks();
 
 int main() {
+  runCoreBenchmarks();
   runMathBenchmarks();
 
   return 0;

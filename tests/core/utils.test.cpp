@@ -226,7 +226,6 @@ TEST_CASE("core/utils/reverse_string_reverses_in_place") {
   }
 }
 
-/*
 // Signed integer to string conversion.
 TEST_CASE("core/utils/itoa_converts_integer_to_string") {
   // int8_t min, max, zero.
@@ -328,74 +327,75 @@ TEST_CASE("core/utils/utoa_converts_unsigned_integer_to_string") {
   }
 }
 
+/*
 // Floating-point to string conversion.
 TEST_CASE("core/utils/ftoa_converts_float_to_string") {
   // Float and double positive values.
-  SUBCASE("float and double positive") {
-    char buffer[32];
+SUBCASE("float and double positive") {
+char buffer[32];
 
-    REQUIRE(strcmp(ftoa(buffer, size(buffer), 3.1415926535897932384626433832795f), "3.141592") == 0);
-    REQUIRE(strcmp(ftoa(buffer, size(buffer), 3.1415926535897932384626433832795), "3.14159244298935") == 0);
-  }
+REQUIRE(strcmp(ftoa(buffer, size(buffer), 3.1415926535897932384626433832795f), "3.141592") == 0);
+REQUIRE(strcmp(ftoa(buffer, size(buffer), 3.1415926535897932384626433832795), "3.14159244298935") == 0);
+}
 
-  // Float and double negative values.
-  SUBCASE("float and double negative") {
-    char buffer[32];
+// Float and double negative values.
+SUBCASE("float and double negative") {
+char buffer[32];
 
-    REQUIRE(strcmp(ftoa(buffer, size(buffer), -3.1415926535897932384626433832795f), "-3.141592") == 0);
-    REQUIRE(strcmp(ftoa(buffer, size(buffer), -3.1415926535897932384626433832795), "-3.14159244298935") == 0);
-  }
+REQUIRE(strcmp(ftoa(buffer, size(buffer), -3.1415926535897932384626433832795f), "-3.141592") == 0);
+REQUIRE(strcmp(ftoa(buffer, size(buffer), -3.1415926535897932384626433832795), "-3.14159244298935") == 0);
+}
 
-  // Infinity and NaN formatting.
-  SUBCASE("infinity and nan") {
-    char buffer[32];
+// Infinity and NaN formatting.
+SUBCASE("infinity and nan") {
+char buffer[32];
 
-    REQUIRE(strcmp(ftoa(buffer, size(buffer), numeric_limits<float>::infinity()), "+INF") == 0);
-    REQUIRE(strcmp(ftoa(buffer, size(buffer), -numeric_limits<float>::infinity()), "-INF") == 0);
-    REQUIRE(strcmp(ftoa(buffer, size(buffer), numeric_limits<float>::quiet_NaN()), "+NAN") == 0);
-    REQUIRE(strcmp(ftoa(buffer, size(buffer), -numeric_limits<float>::quiet_NaN()), "-NAN") == 0);
-    REQUIRE(strcmp(ftoa(buffer, size(buffer), numeric_limits<double>::infinity()), "+INF") == 0);
-    REQUIRE(strcmp(ftoa(buffer, size(buffer), -numeric_limits<double>::infinity()), "-INF") == 0);
-    REQUIRE(strcmp(ftoa(buffer, size(buffer), numeric_limits<double>::quiet_NaN()), "+NAN") == 0);
-    REQUIRE(strcmp(ftoa(buffer, size(buffer), -numeric_limits<double>::quiet_NaN()), "-NAN") == 0);
-  }
+REQUIRE(strcmp(ftoa(buffer, size(buffer), numeric_limits<float>::infinity()), "+INF") == 0);
+REQUIRE(strcmp(ftoa(buffer, size(buffer), -numeric_limits<float>::infinity()), "-INF") == 0);
+REQUIRE(strcmp(ftoa(buffer, size(buffer), numeric_limits<float>::quiet_NaN()), "+NAN") == 0);
+REQUIRE(strcmp(ftoa(buffer, size(buffer), -numeric_limits<float>::quiet_NaN()), "-NAN") == 0);
+REQUIRE(strcmp(ftoa(buffer, size(buffer), numeric_limits<double>::infinity()), "+INF") == 0);
+REQUIRE(strcmp(ftoa(buffer, size(buffer), -numeric_limits<double>::infinity()), "-INF") == 0);
+REQUIRE(strcmp(ftoa(buffer, size(buffer), numeric_limits<double>::quiet_NaN()), "+NAN") == 0);
+REQUIRE(strcmp(ftoa(buffer, size(buffer), -numeric_limits<double>::quiet_NaN()), "-NAN") == 0);
+}
 
-  // Array of float and double values vs expected ASCII.
-  SUBCASE("array of float and double values") {
-    char buffer[32];
+// Array of float and double values vs expected ASCII.
+SUBCASE("array of float and double values") {
+char buffer[32];
 
-    static_assert(floatTestValues.size() == doubleTestValues.size() && floatTestValues.size() == asciiTestValues.size(),
-                  "float, double and expected ASCII arrays must have same size");
+static_assert(floatTestValues.size() == doubleTestValues.size() && floatTestValues.size() == asciiTestValues.size(),
+"float, double and expected ASCII arrays must have same size");
 
-    for (size_t index = 0; index < floatTestValues.size(); ++index) {
-      REQUIRE(strcmp(ftoa(buffer, size(buffer), floatTestValues[index]), asciiTestValues[index]) == 0);
-      REQUIRE(strcmp(ftoa(buffer, size(buffer), doubleTestValues[index], 7), asciiTestValues[index]) == 0);
-    }
-  }
+for (size_t index = 0; index < floatTestValues.size(); ++index) {
+REQUIRE(strcmp(ftoa(buffer, size(buffer), floatTestValues[index]), asciiTestValues[index]) == 0);
+REQUIRE(strcmp(ftoa(buffer, size(buffer), doubleTestValues[index], 7), asciiTestValues[index]) == 0);
+}
+}
 }
 
 // Format number string with thousand separator.
 TEST_CASE("core/utils/format_number_string_adds_thousand_separator") {
-  constexpr array<const char *, 14> numbers{{"", "Hello World", "-256192.12", "32", "4192", "+2561921.2", "1", "12",
-                                             "123", "12345678", "-1234567890", "+0", "-0", "0.0"}};
+constexpr array<const char *, 14> numbers{{"", "Hello World", "-256192.12", "32", "4192", "+2561921.2", "1", "12",
+                         "123", "12345678", "-1234567890", "+0", "-0", "0.0"}};
 
-  constexpr array<const char *, 14> parsedNumbers{{"", "Hello World", "-256 192.12", "32", "4 192", "+2 561 921.2", "1",
-                                                   "12", "123", "12 345 678", "-1 234 567 890", "+0", "-0", "0.0"}};
+constexpr array<const char *, 14> parsedNumbers{{"", "Hello World", "-256 192.12", "32", "4 192", "+2 561 921.2", "1",
+                               "12", "123", "12 345 678", "-1 234 567 890", "+0", "-0", "0.0"}};
 
-  static_assert(numbers.size() == parsedNumbers.size(), "input and expected arrays must have same size");
+static_assert(numbers.size() == parsedNumbers.size(), "input and expected arrays must have same size");
 
-  for (size_t index = 0; index < parsedNumbers.size(); ++index) {
-    char buffer[128];
+for (size_t index = 0; index < parsedNumbers.size(); ++index) {
+char buffer[128];
 
 #ifdef _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES
-    strcpy_s<sizeof(buffer)>(buffer, numbers[index]);
+strcpy_s<sizeof(buffer)>(buffer, numbers[index]);
 #else
-    strncpy(buffer, numbers[index], sizeof(buffer));
+strncpy(buffer, numbers[index], sizeof(buffer));
 #endif // _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES
 
-    formatNumberString(buffer, sizeof(buffer), " ");
-    REQUIRE(strcmp(buffer, parsedNumbers[index]) == 0);
-  }
+formatNumberString(buffer, sizeof(buffer), " ");
+REQUIRE(strcmp(buffer, parsedNumbers[index]) == 0);
+}
 }
 */
 

@@ -116,7 +116,7 @@ set(SRC_AUDIO_LIST )
 set(HDR_AUDIO_LIST include/audio.hpp include/audio/volume_type.hpp)
 set(INL_AUDIO_LIST )
 
-set(SRC_CORE_LIST                                                                                                                                                                                                                                                               src/core/hashes.cpp                                                                                             src/core/utils.cpp     src/core/utils_internal.inl)
+set(SRC_CORE_LIST                                                                                                                                                                                                                                                               src/core/hashes.cpp                                                                                             src/core/utils.cpp)
 set(HDR_CORE_LIST include/core.hpp include/core/assertion.hpp include/core/bitwise_enum.hpp include/core/c_string_view.hpp include/core/callbacks_pool.hpp include/core/constexpr_utils.hpp include/core/fixed_string.hpp include/core/fixed_vector.hpp include/core/format.hpp include/core/hashes.hpp include/core/o_string_stream.hpp include/core/platform.hpp include/core/string_like.hpp include/core/utils.hpp)
 set(INL_CORE_LIST                                             include/core/bitwise_enum.inl include/core/c_string_view.inl include/core/callbacks_pool.inl include/core/constexpr_utils.inl include/core/fixed_string.inl include/core/fixed_vector.inl include/core/format.inl                         include/core/o_string_stream.inl                                                        include/core/utils.inl)
 
