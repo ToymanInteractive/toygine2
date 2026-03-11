@@ -24,6 +24,10 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
   # MSVC x86
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4738")
 
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop")
+
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-useless-cast")
+
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
 
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-switch-default")
