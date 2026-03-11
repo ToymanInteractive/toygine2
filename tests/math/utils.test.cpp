@@ -45,18 +45,18 @@ TEST_CASE("math/utils/abs") {
 
   // All supported signed integral widths: abs of negative equals positive.
   SUBCASE("signed_integral_all_supported_widths") {
-    REQUIRE(abs(int8_t(numeric_limits<int8_t>::min() + 1)) == numeric_limits<int8_t>::max());
-    REQUIRE(abs(int16_t(numeric_limits<int16_t>::min() + 1)) == numeric_limits<int16_t>::max());
-    REQUIRE(abs(int32_t(numeric_limits<int32_t>::min() + 1)) == numeric_limits<int32_t>::max());
-    REQUIRE(abs(int64_t(numeric_limits<int64_t>::min() + 1)) == numeric_limits<int64_t>::max());
+    REQUIRE(abs(numeric_limits<int8_t>::min() + int8_t(1)) == numeric_limits<int8_t>::max());
+    REQUIRE(abs(numeric_limits<int16_t>::min() + int16_t(1)) == numeric_limits<int16_t>::max());
+    REQUIRE(abs(numeric_limits<int32_t>::min() + int32_t(1)) == numeric_limits<int32_t>::max());
+    REQUIRE(abs(numeric_limits<int64_t>::min() + int64_t(1)) == numeric_limits<int64_t>::max());
 
-    static_assert(abs(int8_t(numeric_limits<int8_t>::min() + 1)) == numeric_limits<int8_t>::max(),
+    static_assert(abs(numeric_limits<int8_t>::min() + int8_t(1)) == numeric_limits<int8_t>::max(),
                   "abs of int8_t(min+1) must equal int8_t max");
-    static_assert(abs(int16_t(numeric_limits<int16_t>::min() + 1)) == numeric_limits<int16_t>::max(),
+    static_assert(abs(numeric_limits<int16_t>::min() + int16_t(1)) == numeric_limits<int16_t>::max(),
                   "abs of int16_t(min+1) must equal int16_t max");
-    static_assert(abs(int32_t(numeric_limits<int32_t>::min() + 1)) == numeric_limits<int32_t>::max(),
+    static_assert(abs(numeric_limits<int32_t>::min() + int32_t(1)) == numeric_limits<int32_t>::max(),
                   "abs of int32_t(min+1) must equal int32_t max");
-    static_assert(abs(int64_t(numeric_limits<int64_t>::min() + 1)) == numeric_limits<int64_t>::max(),
+    static_assert(abs(numeric_limits<int64_t>::min() + int64_t(1)) == numeric_limits<int64_t>::max(),
                   "abs of int64_t(min+1) must equal int64_t max");
   }
 
