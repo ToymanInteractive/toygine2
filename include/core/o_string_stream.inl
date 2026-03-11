@@ -122,7 +122,7 @@ constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(cons
   if constexpr (sizeof(value) == 4) {
     utoa(buffer, size(buffer), static_cast<uint32_t>(reinterpret_cast<uintptr_t>(value)), 16);
   } else if constexpr (sizeof(value) == 8) {
-    utoa(buffer, size(buffer), static_cast<uint64_t>(reinterpret_cast<uintptr_t>(value)), 16);
+    utoa(buffer, size(buffer), reinterpret_cast<uintptr_t>(value), 16);
   } else {
     static_assert(sizeof(value) == 4 || sizeof(value) == 8, "Unsupported pointer size");
   }
