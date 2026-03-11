@@ -100,7 +100,7 @@ constexpr char * utoa(char * dest, size_t destSize, type value, unsigned base) n
 
   do {
     dest[symbols++] = _ansiDigits[value % base];
-  } while ((value /= base) > 0 && symbols < destSize);
+  } while ((value /= static_cast<type>(base)) > 0 && symbols < destSize);
 
   dest[symbols] = '\0';
   reverseString(dest, symbols);

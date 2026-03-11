@@ -234,7 +234,7 @@ TEST_CASE("core/utils/itoa_converts_integer_to_string") {
 
     REQUIRE(strcmp(itoa(buffer, size(buffer), numeric_limits<int8_t>::max()), "127") == 0);
     REQUIRE(strcmp(itoa(buffer, size(buffer), numeric_limits<int8_t>::min()), "-128") == 0);
-    REQUIRE(strcmp(itoa(buffer, size(buffer), static_cast<int8_t>(0)), "0") == 0);
+    REQUIRE(strcmp(itoa(buffer, size(buffer), int8_t(0)), "0") == 0);
   }
 
   // int16_t min, max, zero.
@@ -243,7 +243,7 @@ TEST_CASE("core/utils/itoa_converts_integer_to_string") {
 
     REQUIRE(strcmp(itoa(buffer, size(buffer), numeric_limits<int16_t>::max()), "32767") == 0);
     REQUIRE(strcmp(itoa(buffer, size(buffer), numeric_limits<int16_t>::min()), "-32768") == 0);
-    REQUIRE(strcmp(itoa(buffer, size(buffer), static_cast<int16_t>(0)), "0") == 0);
+    REQUIRE(strcmp(itoa(buffer, size(buffer), int16_t(0)), "0") == 0);
   }
 
   // int32_t min, max, zero.
@@ -252,7 +252,7 @@ TEST_CASE("core/utils/itoa_converts_integer_to_string") {
 
     REQUIRE(strcmp(itoa(buffer, size(buffer), numeric_limits<int32_t>::max()), "2147483647") == 0);
     REQUIRE(strcmp(itoa(buffer, size(buffer), numeric_limits<int32_t>::min()), "-2147483648") == 0);
-    REQUIRE(strcmp(itoa(buffer, size(buffer), static_cast<int32_t>(0)), "0") == 0);
+    REQUIRE(strcmp(itoa(buffer, size(buffer), int32_t(0)), "0") == 0);
   }
 
   // int64_t min, max, zero.
@@ -261,7 +261,7 @@ TEST_CASE("core/utils/itoa_converts_integer_to_string") {
 
     REQUIRE(strcmp(itoa(buffer, size(buffer), numeric_limits<int64_t>::max()), "9223372036854775807") == 0);
     REQUIRE(strcmp(itoa(buffer, size(buffer), numeric_limits<int64_t>::min()), "-9223372036854775808") == 0);
-    REQUIRE(strcmp(itoa(buffer, size(buffer), static_cast<int64_t>(0)), "0") == 0);
+    REQUIRE(strcmp(itoa(buffer, size(buffer), int64_t(0)), "0") == 0);
   }
 }
 
