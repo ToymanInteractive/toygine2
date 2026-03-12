@@ -21,7 +21,7 @@
 #include "benchmark_factory.hpp"
 #include "core.hpp"
 
-void runCoreBenchmarks() {
+void runCoreBenchmarks() noexcept {
   auto bench = createBench("Core module");
 
   constexpr size_t bufSize = 32;

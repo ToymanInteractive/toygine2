@@ -325,6 +325,14 @@ TEST_CASE("core/utils/utoa_converts_unsigned_integer_to_string") {
     REQUIRE(strcmp(utoa(buffer, size(buffer), numeric_limits<uint64_t>::max(), 10), "18446744073709551615") == 0);
     REQUIRE(strcmp(utoa(buffer, size(buffer), numeric_limits<uint64_t>::max(), 16), "FFFFFFFFFFFFFFFF") == 0);
   }
+
+  // utoa with destSize 1 returns empty string; with sufficient size writes the value.
+  SUBCASE("small_buffer") {
+    char buffer[8];
+
+    REQUIRE(strcmp(utoa(buffer, 1, 123U), "") == 0);
+    REQUIRE(strcmp(utoa(buffer, size(buffer), 123U), "123") == 0);
+  }
 }
 
 /*

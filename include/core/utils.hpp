@@ -183,7 +183,7 @@ constexpr char * reverseString(char * str, size_t count = 0) noexcept;
   Writes the decimal representation of \a value into \a dest, null-terminated. Negative values are prefixed with a minus
   sign.
 
-  \tparam type Signed integer type; must satisfy \c std::signed_integral (e.g. \c int8_t, \c int32_t, \c int64_t).
+  \tparam T Signed integer type; must satisfy \c std::signed_integral (e.g. \c int8_t, \c int32_t, \c int64_t).
 
   \param dest     Destination buffer for the result.
   \param destSize Size of \a dest in characters.
@@ -193,8 +193,8 @@ constexpr char * reverseString(char * str, size_t count = 0) noexcept;
 
   \pre \a dest is not null and \a destSize is sufficient (e.g. at least 5 for \c int8_t, 22 for \c int64_t worst case).
 */
-template <std::signed_integral type>
-constexpr char * itoa(char * dest, size_t destSize, type value) noexcept;
+template <std::signed_integral T>
+constexpr char * itoa(char * dest, size_t destSize, T value) noexcept;
 
 /*!
   \brief Converts an unsigned integer to its C string representation in the given base.
@@ -202,8 +202,7 @@ constexpr char * itoa(char * dest, size_t destSize, type value) noexcept;
   Writes the representation of \a value in base \a base into \a dest, null-terminated. Digits above 9 use uppercase
   letters A–Z.
 
-  \tparam type Unsigned integer type; must satisfy \c std::unsigned_integral
-               (e.g. \c uint8_t, \c uint32_t, \c uint64_t).
+  \tparam T Unsigned integer type; must satisfy \c std::unsigned_integral (e.g. \c uint8_t, \c uint32_t, \c uint64_t).
 
   \param dest     Destination buffer for the result.
   \param destSize Size of \a dest in characters.
@@ -214,8 +213,8 @@ constexpr char * itoa(char * dest, size_t destSize, type value) noexcept;
 
   \pre \a dest is not null; \a destSize is sufficient for the output; \a base is between \c 2 and \c 36.
 */
-template <std::unsigned_integral type>
-constexpr char * utoa(char * dest, size_t destSize, type value, unsigned base = 10) noexcept;
+template <std::unsigned_integral T>
+constexpr char * utoa(char * dest, size_t destSize, T value, unsigned base = 10) noexcept;
 
 /*!
   \brief Converts a 32-bit floating-point number to its C string representation with specified precision.
