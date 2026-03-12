@@ -139,6 +139,12 @@ Functions</h2></td></tr>
 <tr class="memdesc:gaa0dda7b7f9781bc3cd35484ce3e5282e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a UTF-8 <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="toy::StringLike">toy::StringLike</a> object to a wide-character string.  <br /></td></tr>
 <tr class="memitem:ga2ad56b53b8cdbb022ce8ce3b2aa32503" id="r_ga2ad56b53b8cdbb022ce8ce3b2aa32503"><td class="memItemLeft">constexpr char *&#160;</td><td class="memItemRight"><a class="el" href="../../d8/d90/group___text_functions.html#ga2ad56b53b8cdbb022ce8ce3b2aa32503">toy::reverseString</a> (char *str, size_t count=0) noexcept</td></tr>
 <tr class="memdesc:ga2ad56b53b8cdbb022ce8ce3b2aa32503"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reverses a C string in-place.  <br /></td></tr>
+<tr class="memitem:ad9154c389294cb443faa03c20893f91c" id="r_ad9154c389294cb443faa03c20893f91c"><td class="memTemplParams" colspan="2">template&lt;std::signed_integral T&gt; </td></tr>
+<tr class="memitem:ad9154c389294cb443faa03c20893f91c template"><td class="memItemLeft">constexpr char *&#160;</td><td class="memItemRight"><a class="el" href="../../d4/da9/namespacetoy.html#ad9154c389294cb443faa03c20893f91c">toy::itoa</a> (char *dest, size_t destSize, T value) noexcept</td></tr>
+<tr class="memdesc:ad9154c389294cb443faa03c20893f91c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a signed integer to its decimal C string representation.  <br /></td></tr>
+<tr class="memitem:a14ccea4a485c2aa69412836a22a6cdda" id="r_a14ccea4a485c2aa69412836a22a6cdda"><td class="memTemplParams" colspan="2">template&lt;std::unsigned_integral T&gt; </td></tr>
+<tr class="memitem:a14ccea4a485c2aa69412836a22a6cdda template"><td class="memItemLeft">constexpr char *&#160;</td><td class="memItemRight"><a class="el" href="../../d4/da9/namespacetoy.html#a14ccea4a485c2aa69412836a22a6cdda">toy::utoa</a> (char *dest, size_t destSize, T value, unsigned base=10) noexcept</td></tr>
+<tr class="memdesc:a14ccea4a485c2aa69412836a22a6cdda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an unsigned integer to its C string representation in the given base.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Inline implementations of core utility functions for string manipulation and encoding conversion. </p>

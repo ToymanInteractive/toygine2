@@ -15,7 +15,5 @@ var searchData=
   ['utils_2ecpp_12',['utils.cpp',['../de/d06/utils_8cpp.html',1,'']]],
   ['utils_2ehpp_13',['utils.hpp',['../d8/d43/core_2utils_8hpp.html',1,'(Global Namespace)'],['../d8/dbd/math_2utils_8hpp.html',1,'(Global Namespace)']]],
   ['utils_2einl_14',['utils.inl',['../d2/d2b/core_2utils_8inl.html',1,'(Global Namespace)'],['../de/d5d/math_2utils_8inl.html',1,'(Global Namespace)']]],
-  ['utils_5finternal_2einl_15',['utils_internal.inl',['../d4/d85/utils__internal_8inl.html',1,'']]],
-  ['utoa_16',['utoa',['../d4/da9/namespacetoy.html#a3896c1390775b3c0290dfb6b19cc6788',1,'toy::utoa(char *dest, size_t destSize, uint8_t value, unsigned base=10) noexcept'],['../d4/da9/namespacetoy.html#ac943fcf84753ab779d99dc2de0393662',1,'toy::utoa(char *dest, size_t destSize, uint16_t value, unsigned base=10) noexcept'],['../d4/da9/namespacetoy.html#a16e50f6c32e0d76220f46133a3d81592',1,'toy::utoa(char *dest, size_t destSize, uint32_t value, unsigned base=10) noexcept'],['../d4/da9/namespacetoy.html#aa15d157e1eba61a003251489cc1ccc99',1,'toy::utoa(char *dest, size_t destSize, uint64_t value, unsigned base=10) noexcept']]],
-  ['utoaimplementation_17',['utoaImplementation',['../d4/da9/namespacetoy.html#a10d90a55c9c7b54190a445f8fabaa599',1,'toy']]]
+  ['utoa_15',['utoa',['../d4/da9/namespacetoy.html#a14ccea4a485c2aa69412836a22a6cdda',1,'toy']]]
 ];

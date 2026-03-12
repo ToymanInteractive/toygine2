@@ -295,6 +295,12 @@ Functions</h2></td></tr>
 <tr class="memdesc:gaa0dda7b7f9781bc3cd35484ce3e5282e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a UTF-8 <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="toy::StringLike">toy::StringLike</a> object to a wide-character string.  <br /></td></tr>
 <tr class="memitem:ga2ad56b53b8cdbb022ce8ce3b2aa32503" id="r_ga2ad56b53b8cdbb022ce8ce3b2aa32503"><td class="memItemLeft">constexpr char *&#160;</td><td class="memItemRight"><a class="el" href="../../d8/d90/group___text_functions.html#ga2ad56b53b8cdbb022ce8ce3b2aa32503">reverseString</a> (char *str, size_t count=0) noexcept</td></tr>
 <tr class="memdesc:ga2ad56b53b8cdbb022ce8ce3b2aa32503"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reverses a C string in-place.  <br /></td></tr>
+<tr class="memitem:ad9154c389294cb443faa03c20893f91c" id="r_ad9154c389294cb443faa03c20893f91c"><td class="memTemplParams" colspan="2">template&lt;std::signed_integral T&gt; </td></tr>
+<tr class="memitem:ad9154c389294cb443faa03c20893f91c template"><td class="memItemLeft">constexpr char *&#160;</td><td class="memItemRight"><a class="el" href="#ad9154c389294cb443faa03c20893f91c">itoa</a> (char *dest, size_t destSize, T value) noexcept</td></tr>
+<tr class="memdesc:ad9154c389294cb443faa03c20893f91c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a signed integer to its decimal C string representation.  <br /></td></tr>
+<tr class="memitem:a14ccea4a485c2aa69412836a22a6cdda" id="r_a14ccea4a485c2aa69412836a22a6cdda"><td class="memTemplParams" colspan="2">template&lt;std::unsigned_integral T&gt; </td></tr>
+<tr class="memitem:a14ccea4a485c2aa69412836a22a6cdda template"><td class="memItemLeft">constexpr char *&#160;</td><td class="memItemRight"><a class="el" href="#a14ccea4a485c2aa69412836a22a6cdda">utoa</a> (char *dest, size_t destSize, T value, unsigned base=10) noexcept</td></tr>
+<tr class="memdesc:a14ccea4a485c2aa69412836a22a6cdda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an unsigned integer to its C string representation in the given base.  <br /></td></tr>
 <tr class="memitem:a00ce0b516e9a47a62227a9309afdb583" id="r_a00ce0b516e9a47a62227a9309afdb583"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#a00ce0b516e9a47a62227a9309afdb583">crc8</a> (const void *src, size_t size, uint8_t crc=0x00) noexcept</td></tr>
 <tr class="memdesc:a00ce0b516e9a47a62227a9309afdb583"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates CRC-8 checksum using Dallas/Maxim polynomial.  <br /></td></tr>
 <tr class="memitem:aa63c971425cb6819414030806927a68a" id="r_aa63c971425cb6819414030806927a68a"><td class="memItemLeft">uint16_t&#160;</td><td class="memItemRight"><a class="el" href="#aa63c971425cb6819414030806927a68a">crc16</a> (const void *src, size_t size, uint16_t crc=0x0000) noexcept</td></tr>
@@ -315,37 +321,12 @@ Functions</h2></td></tr>
 <tr class="memdesc:ga008aa42596921d995b66340139fd3cfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a wide-character C string to UTF-8.  <br /></td></tr>
 <tr class="memitem:ga5ab02021f4ca34e0d5b6a1b0172ebe95" id="r_ga5ab02021f4ca34e0d5b6a1b0172ebe95"><td class="memItemLeft">size_t&#160;</td><td class="memItemRight"><a class="el" href="../../d8/d90/group___text_functions.html#ga5ab02021f4ca34e0d5b6a1b0172ebe95">utf8Len</a> (const char *string) noexcept</td></tr>
 <tr class="memdesc:ga5ab02021f4ca34e0d5b6a1b0172ebe95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of Unicode code points in a UTF-8 encoded C string.  <br /></td></tr>
-<tr class="memitem:ae8b2c5fe28a3bb8e21f377b9e8ef2bc9" id="r_ae8b2c5fe28a3bb8e21f377b9e8ef2bc9"><td class="memItemLeft">char *&#160;</td><td class="memItemRight"><a class="el" href="#ae8b2c5fe28a3bb8e21f377b9e8ef2bc9">itoa</a> (char *dest, size_t destSize, int8_t value) noexcept</td></tr>
-<tr class="memdesc:ae8b2c5fe28a3bb8e21f377b9e8ef2bc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an 8-bit signed integer value to a C string representation.  <br /></td></tr>
-<tr class="memitem:a4761bfce539cb0e61b65a3573e79177f" id="r_a4761bfce539cb0e61b65a3573e79177f"><td class="memItemLeft">char *&#160;</td><td class="memItemRight"><a class="el" href="#a4761bfce539cb0e61b65a3573e79177f">itoa</a> (char *dest, size_t destSize, int16_t value) noexcept</td></tr>
-<tr class="memdesc:a4761bfce539cb0e61b65a3573e79177f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a 16-bit signed integer value to a C string representation.  <br /></td></tr>
-<tr class="memitem:a0e120ac7533ff2ef21be74515b922843" id="r_a0e120ac7533ff2ef21be74515b922843"><td class="memItemLeft">char *&#160;</td><td class="memItemRight"><a class="el" href="#a0e120ac7533ff2ef21be74515b922843">itoa</a> (char *dest, size_t destSize, int32_t value) noexcept</td></tr>
-<tr class="memdesc:a0e120ac7533ff2ef21be74515b922843"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a 32-bit signed integer value to a C string representation.  <br /></td></tr>
-<tr class="memitem:a8940d6802bb6b139541f903cce67ee13" id="r_a8940d6802bb6b139541f903cce67ee13"><td class="memItemLeft">char *&#160;</td><td class="memItemRight"><a class="el" href="#a8940d6802bb6b139541f903cce67ee13">itoa</a> (char *dest, size_t destSize, int64_t value) noexcept</td></tr>
-<tr class="memdesc:a8940d6802bb6b139541f903cce67ee13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a 64-bit signed integer value to a C string representation.  <br /></td></tr>
-<tr class="memitem:a3896c1390775b3c0290dfb6b19cc6788" id="r_a3896c1390775b3c0290dfb6b19cc6788"><td class="memItemLeft">char *&#160;</td><td class="memItemRight"><a class="el" href="#a3896c1390775b3c0290dfb6b19cc6788">utoa</a> (char *dest, size_t destSize, uint8_t value, unsigned base=10) noexcept</td></tr>
-<tr class="memdesc:a3896c1390775b3c0290dfb6b19cc6788"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an 8-bit unsigned integer to a C string representation in the specified base.  <br /></td></tr>
-<tr class="memitem:ac943fcf84753ab779d99dc2de0393662" id="r_ac943fcf84753ab779d99dc2de0393662"><td class="memItemLeft">char *&#160;</td><td class="memItemRight"><a class="el" href="#ac943fcf84753ab779d99dc2de0393662">utoa</a> (char *dest, size_t destSize, uint16_t value, unsigned base=10) noexcept</td></tr>
-<tr class="memdesc:ac943fcf84753ab779d99dc2de0393662"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a 16-bit unsigned integer to a C string representation in the specified base.  <br /></td></tr>
-<tr class="memitem:a16e50f6c32e0d76220f46133a3d81592" id="r_a16e50f6c32e0d76220f46133a3d81592"><td class="memItemLeft">char *&#160;</td><td class="memItemRight"><a class="el" href="#a16e50f6c32e0d76220f46133a3d81592">utoa</a> (char *dest, size_t destSize, uint32_t value, unsigned base=10) noexcept</td></tr>
-<tr class="memdesc:a16e50f6c32e0d76220f46133a3d81592"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a 32-bit unsigned integer to a C string representation in the specified base.  <br /></td></tr>
-<tr class="memitem:aa15d157e1eba61a003251489cc1ccc99" id="r_aa15d157e1eba61a003251489cc1ccc99"><td class="memItemLeft">char *&#160;</td><td class="memItemRight"><a class="el" href="#aa15d157e1eba61a003251489cc1ccc99">utoa</a> (char *dest, size_t destSize, uint64_t value, unsigned base=10) noexcept</td></tr>
-<tr class="memdesc:aa15d157e1eba61a003251489cc1ccc99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a 64-bit unsigned integer to a C string representation in the specified base.  <br /></td></tr>
 <tr class="memitem:abd6a34c77550e2f8649d30d8ef1c1904" id="r_abd6a34c77550e2f8649d30d8ef1c1904"><td class="memItemLeft">char *&#160;</td><td class="memItemRight"><a class="el" href="#abd6a34c77550e2f8649d30d8ef1c1904">ftoa</a> (char *dest, size_t destSize, float value, size_t precision=7) noexcept</td></tr>
 <tr class="memdesc:abd6a34c77550e2f8649d30d8ef1c1904"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a 32-bit floating-point number to its C string representation with specified precision.  <br /></td></tr>
 <tr class="memitem:a153b39b476aa91d0b98f6350eeae88a2" id="r_a153b39b476aa91d0b98f6350eeae88a2"><td class="memItemLeft">char *&#160;</td><td class="memItemRight"><a class="el" href="#a153b39b476aa91d0b98f6350eeae88a2">ftoa</a> (char *dest, size_t destSize, double value, size_t precision=15) noexcept</td></tr>
 <tr class="memdesc:a153b39b476aa91d0b98f6350eeae88a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a 64-bit floating-point number to its C string representation with specified precision.  <br /></td></tr>
 <tr class="memitem:aeeb4febc194b23813d77b08ac4fea2d1" id="r_aeeb4febc194b23813d77b08ac4fea2d1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aeeb4febc194b23813d77b08ac4fea2d1">formatNumberString</a> (char *buffer, size_t bufferSize, const char *separator) noexcept</td></tr>
 <tr class="memdesc:aeeb4febc194b23813d77b08ac4fea2d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Formats a number C string by inserting grouping separators.  <br /></td></tr>
-<tr class="memitem:af111340cdbc50c7d6bd94225a55b32c7" id="r_af111340cdbc50c7d6bd94225a55b32c7"><td class="memTemplParams" colspan="2">template&lt;typename type&gt; </td></tr>
-<tr class="memitem:af111340cdbc50c7d6bd94225a55b32c7 template"><td class="memItemLeft">constexpr size_t&#160;</td><td class="memItemRight"><a class="el" href="#af111340cdbc50c7d6bd94225a55b32c7">integerToSymbols</a> (char *dest, size_t destSize, type value, unsigned base)</td></tr>
-<tr class="memdesc:af111340cdbc50c7d6bd94225a55b32c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an integer value to a string representation in a specified base.  <br /></td></tr>
-<tr class="memitem:ac7e6ab0756e81280710cbab536e6a030" id="r_ac7e6ab0756e81280710cbab536e6a030"><td class="memTemplParams" colspan="2">template&lt;typename type&gt; </td></tr>
-<tr class="memitem:ac7e6ab0756e81280710cbab536e6a030 template"><td class="memItemLeft">char *&#160;</td><td class="memItemRight"><a class="el" href="#ac7e6ab0756e81280710cbab536e6a030">itoaImplementation</a> (char *dest, size_t destSize, type value)</td></tr>
-<tr class="memdesc:ac7e6ab0756e81280710cbab536e6a030"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an integer value to a string representation.  <br /></td></tr>
-<tr class="memitem:a10d90a55c9c7b54190a445f8fabaa599" id="r_a10d90a55c9c7b54190a445f8fabaa599"><td class="memTemplParams" colspan="2">template&lt;typename type&gt; </td></tr>
-<tr class="memitem:a10d90a55c9c7b54190a445f8fabaa599 template"><td class="memItemLeft">char *&#160;</td><td class="memItemRight"><a class="el" href="#a10d90a55c9c7b54190a445f8fabaa599">utoaImplementation</a> (char *dest, size_t destSize, type value, unsigned base)</td></tr>
-<tr class="memdesc:a10d90a55c9c7b54190a445f8fabaa599"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an unsigned integer value to a string representation in a specified base.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -361,8 +342,6 @@ Variables</h2></td></tr>
 <tr class="memdesc:a347e818bfb701d85aaa994862433373d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Precomputed exponent lookup table for efficient binary-to-decimal floating-point conversion.  <br /></td></tr>
 <tr class="memitem:ga2a4051deac87f3522fdd2a2c55d1a79c" id="r_ga2a4051deac87f3522fdd2a2c55d1a79c"><td class="memItemLeft">constexpr size_t&#160;</td><td class="memItemRight"><a class="el" href="../../d8/d90/group___text_functions.html#ga2a4051deac87f3522fdd2a2c55d1a79c">WCHAR_IN_UTF8_MAX_SIZE</a> = 3</td></tr>
 <tr class="memdesc:ga2a4051deac87f3522fdd2a2c55d1a79c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum UTF-8 byte length for one BMP character.  <br /></td></tr>
-<tr class="memitem:a7e08bb0700f4c81f7fd28710e2e61e9e" id="r_a7e08bb0700f4c81f7fd28710e2e61e9e"><td class="memItemLeft">static constexpr array&lt; char, 36 &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a7e08bb0700f4c81f7fd28710e2e61e9e">_ansiDigits</a></td></tr>
-<tr class="memdesc:a7e08bb0700f4c81f7fd28710e2e61e9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">ANSI digit lookup table for base conversion.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Root namespace containing all engine modules. </p>
@@ -1249,19 +1228,19 @@ The function uses efficient bit manipulation for conversion. </dd></dl>
 
 </div>
 </div>
-<a id="af111340cdbc50c7d6bd94225a55b32c7" name="af111340cdbc50c7d6bd94225a55b32c7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af111340cdbc50c7d6bd94225a55b32c7">&#9670;&#160;</a></span>integerToSymbols()</h2>
+<a id="ad9154c389294cb443faa03c20893f91c" name="ad9154c389294cb443faa03c20893f91c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9154c389294cb443faa03c20893f91c">&#9670;&#160;</a></span>itoa()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename type&gt; </div>
+template&lt;std::signed_integral T&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">size_t toy::integerToSymbols </td>
+          <td class="memname">char * toy::itoa </td>
           <td>(</td>
           <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>dest</em></span>, </td>
         </tr>
@@ -1273,299 +1252,34 @@ template&lt;typename type&gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">type</td>          <td class="paramname"><span class="paramname"><em>value</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned</td>          <td class="paramname"><span class="paramname"><em>base</em></span>&#160;)</td>
+          <td class="paramtype">T</td>          <td class="paramname"><span class="paramname"><em>value</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
+<span class="mlabels"><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Converts an integer value to a string representation in a specified base. </p>
-<p>This function converts a given integer value into its string representation in the specified base, storing the result in the provided destination buffer.</p>
+<p>Converts a signed integer to its decimal C string representation. </p>
+<p>Writes the decimal representation of <em class="arg">value</em> into <em class="arg">dest</em>, null-terminated. Negative values are prefixed with a minus sign.</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">type</td><td>The type of the integer value to be converted.</td></tr>
+    <tr><td class="paramname">T</td><td>Signed integer type; must satisfy <code>std::signed_integral</code> (e.g. <code>int8_t</code>, <code>int32_t</code>, <code>int64_t</code>).</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">dest</td><td>The destination buffer where the converted string is stored. </td></tr>
-    <tr><td class="paramname">destSize</td><td>The size of the destination buffer. </td></tr>
-    <tr><td class="paramname">value</td><td>The integer value to be converted. </td></tr>
-    <tr><td class="paramname">base</td><td>The numerical base for the conversion, e.g., 10 for decimal, 16 for hexadecimal.</td></tr>
+    <tr><td class="paramname">dest</td><td>Destination buffer for the result. </td></tr>
+    <tr><td class="paramname">destSize</td><td>Size of <em class="arg">dest</em> in characters. </td></tr>
+    <tr><td class="paramname">value</td><td>Value to convert.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The number of characters written to the destination buffer.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The function assumes that the destination buffer is large enough to hold the converted string. </dd>
-<dd>
-The function does not null-terminate the string. </dd>
-<dd>
-The base must be between 2 and 36 inclusive. </dd></dl>
-
-</div>
-</div>
-<a id="a4761bfce539cb0e61b65a3573e79177f" name="a4761bfce539cb0e61b65a3573e79177f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4761bfce539cb0e61b65a3573e79177f">&#9670;&#160;</a></span>itoa() <span class="overload">[1/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">char * toy::itoa </td>
-          <td>(</td>
-          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>dest</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>destSize</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int16_t</td>          <td class="paramname"><span class="paramname"><em>value</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Converts a 16-bit signed integer value to a C string representation. </p>
-<p>This function converts a given 16-bit signed integer value into its decimal C string representation, storing the result in the provided destination buffer.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">dest</td><td>A pointer to the destination buffer where the converted C string is stored. </td></tr>
-    <tr><td class="paramname">destSize</td><td>The size of the destination buffer in characters. </td></tr>
-    <tr><td class="paramname">value</td><td>The 16-bit signed integer value to be converted.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A pointer to the destination buffer containing the converted C string.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The function handles negative values correctly. </dd>
-<dd>
-The destination buffer must have sufficient capacity (at least 7 characters for worst case -32768). </dd></dl>
-
-</div>
-</div>
-<a id="a0e120ac7533ff2ef21be74515b922843" name="a0e120ac7533ff2ef21be74515b922843"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0e120ac7533ff2ef21be74515b922843">&#9670;&#160;</a></span>itoa() <span class="overload">[2/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">char * toy::itoa </td>
-          <td>(</td>
-          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>dest</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>destSize</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int32_t</td>          <td class="paramname"><span class="paramname"><em>value</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Converts a 32-bit signed integer value to a C string representation. </p>
-<p>This function converts a given 32-bit signed integer value into its decimal C string representation, storing the result in the provided destination buffer.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">dest</td><td>A pointer to the destination buffer where the converted C string is stored. </td></tr>
-    <tr><td class="paramname">destSize</td><td>The size of the destination buffer in characters. </td></tr>
-    <tr><td class="paramname">value</td><td>The 32-bit signed integer value to be converted.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A pointer to the destination buffer containing the converted C string.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The function handles negative values correctly. </dd>
-<dd>
-The destination buffer must have sufficient capacity (at least 12 characters for worst case -2147483648). </dd></dl>
-
-</div>
-</div>
-<a id="a8940d6802bb6b139541f903cce67ee13" name="a8940d6802bb6b139541f903cce67ee13"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8940d6802bb6b139541f903cce67ee13">&#9670;&#160;</a></span>itoa() <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">char * toy::itoa </td>
-          <td>(</td>
-          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>dest</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>destSize</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int64_t</td>          <td class="paramname"><span class="paramname"><em>value</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Converts a 64-bit signed integer value to a C string representation. </p>
-<p>This function converts a given 64-bit signed integer value into its decimal C string representation, storing the result in the provided destination buffer.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">dest</td><td>A pointer to the destination buffer where the converted C string is stored. </td></tr>
-    <tr><td class="paramname">destSize</td><td>The size of the destination buffer in characters. </td></tr>
-    <tr><td class="paramname">value</td><td>The 64-bit signed integer value to be converted.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A pointer to the destination buffer containing the converted C string.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The function handles negative values correctly. </dd>
-<dd>
-The destination buffer must have sufficient capacity (at least 21 characters for worst case -9223372036854775808). </dd></dl>
-
-</div>
-</div>
-<a id="ae8b2c5fe28a3bb8e21f377b9e8ef2bc9" name="ae8b2c5fe28a3bb8e21f377b9e8ef2bc9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae8b2c5fe28a3bb8e21f377b9e8ef2bc9">&#9670;&#160;</a></span>itoa() <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">char * toy::itoa </td>
-          <td>(</td>
-          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>dest</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>destSize</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int8_t</td>          <td class="paramname"><span class="paramname"><em>value</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Converts an 8-bit signed integer value to a C string representation. </p>
-<p>This function converts a given 8-bit signed integer value into its decimal C string representation, storing the result in the provided destination buffer.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">dest</td><td>A pointer to the destination buffer where the converted C string is stored. </td></tr>
-    <tr><td class="paramname">destSize</td><td>The size of the destination buffer in characters. </td></tr>
-    <tr><td class="paramname">value</td><td>The 8-bit signed integer value to be converted.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A pointer to the destination buffer containing the converted C string.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The function handles negative values correctly. </dd>
-<dd>
-The destination buffer must have sufficient capacity (at least 5 characters for worst case -128). </dd></dl>
-
-</div>
-</div>
-<a id="ac7e6ab0756e81280710cbab536e6a030" name="ac7e6ab0756e81280710cbab536e6a030"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac7e6ab0756e81280710cbab536e6a030">&#9670;&#160;</a></span>itoaImplementation()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename type&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">char * toy::itoaImplementation </td>
-          <td>(</td>
-          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>dest</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>destSize</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">type</td>          <td class="paramname"><span class="paramname"><em>value</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Converts an integer value to a string representation. </p>
-<p>This function converts a given integer value into its string representation, storing the result in the provided destination buffer.</p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">type</td><td>The type of the integer value to be converted.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">dest</td><td>The destination buffer where the converted string is stored. </td></tr>
-    <tr><td class="paramname">destSize</td><td>The size of the destination buffer. </td></tr>
-    <tr><td class="paramname">value</td><td>The integer value to be converted.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A pointer to the destination buffer containing the converted string.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The function assumes that the destination buffer is large enough to hold the converted string. </dd>
-<dd>
-If the destination buffer size is 1, only a null terminator is written. </dd>
-<dd>
-The function reverses the string in-place. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to <em class="arg">dest</em>.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd><em class="arg">dest</em> is not null and <em class="arg">destSize</em> is sufficient (e.g. at least 5 for <code>int8_t</code>, 22 for <code>int64_t</code> worst case). </dd></dl>
 
 </div>
 </div>
@@ -3193,239 +2907,19 @@ template&lt;typename T&gt; </div>
 
 </div>
 </div>
-<a id="ac943fcf84753ab779d99dc2de0393662" name="ac943fcf84753ab779d99dc2de0393662"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac943fcf84753ab779d99dc2de0393662">&#9670;&#160;</a></span>utoa() <span class="overload">[1/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">char * toy::utoa </td>
-          <td>(</td>
-          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>dest</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>destSize</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>value</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned</td>          <td class="paramname"><span class="paramname"><em>base</em></span><span class="paramdefsep"> = </span><span class="paramdefval">10</span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Converts a 16-bit unsigned integer to a C string representation in the specified base. </p>
-<p>This function converts a given 16-bit unsigned integer value into its C string representation in the specified numerical base, storing the result in the provided destination buffer. Supports bases from 2 to 36.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">dest</td><td>A pointer to the destination buffer where the converted C string is stored. </td></tr>
-    <tr><td class="paramname">destSize</td><td>The size of the destination buffer in characters. </td></tr>
-    <tr><td class="paramname">value</td><td>The 16-bit unsigned integer value to be converted. </td></tr>
-    <tr><td class="paramname">base</td><td>The numerical base for the conversion (2-36). Common values: 2 (binary), 10 (decimal), 16 (hex).</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A pointer to the destination buffer containing the converted C string.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The function supports bases 2-36 with digits 0-9 and letters A-Z. </dd>
-<dd>
-Hexadecimal values use uppercase letters (A-F). </dd></dl>
-
-</div>
-</div>
-<a id="a16e50f6c32e0d76220f46133a3d81592" name="a16e50f6c32e0d76220f46133a3d81592"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a16e50f6c32e0d76220f46133a3d81592">&#9670;&#160;</a></span>utoa() <span class="overload">[2/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">char * toy::utoa </td>
-          <td>(</td>
-          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>dest</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>destSize</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>value</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned</td>          <td class="paramname"><span class="paramname"><em>base</em></span><span class="paramdefsep"> = </span><span class="paramdefval">10</span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Converts a 32-bit unsigned integer to a C string representation in the specified base. </p>
-<p>This function converts a given 32-bit unsigned integer value into its C string representation in the specified numerical base, storing the result in the provided destination buffer. Supports bases from 2 to 36.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">dest</td><td>A pointer to the destination buffer where the converted C string is stored. </td></tr>
-    <tr><td class="paramname">destSize</td><td>The size of the destination buffer in characters. </td></tr>
-    <tr><td class="paramname">value</td><td>The 32-bit unsigned integer value to be converted. </td></tr>
-    <tr><td class="paramname">base</td><td>The numerical base for the conversion (2-36). Common values: 2 (binary), 10 (decimal), 16 (hex).</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A pointer to the destination buffer containing the converted C string.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The function supports bases 2-36 with digits 0-9 and letters A-Z. </dd>
-<dd>
-Hexadecimal values use uppercase letters (A-F). </dd></dl>
-
-</div>
-</div>
-<a id="aa15d157e1eba61a003251489cc1ccc99" name="aa15d157e1eba61a003251489cc1ccc99"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa15d157e1eba61a003251489cc1ccc99">&#9670;&#160;</a></span>utoa() <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">char * toy::utoa </td>
-          <td>(</td>
-          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>dest</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>destSize</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint64_t</td>          <td class="paramname"><span class="paramname"><em>value</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned</td>          <td class="paramname"><span class="paramname"><em>base</em></span><span class="paramdefsep"> = </span><span class="paramdefval">10</span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Converts a 64-bit unsigned integer to a C string representation in the specified base. </p>
-<p>This function converts a given 64-bit unsigned integer value into its C string representation in the specified numerical base, storing the result in the provided destination buffer. Supports bases from 2 to 36.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">dest</td><td>A pointer to the destination buffer where the converted C string is stored. </td></tr>
-    <tr><td class="paramname">destSize</td><td>The size of the destination buffer in characters. </td></tr>
-    <tr><td class="paramname">value</td><td>The 64-bit unsigned integer value to be converted. </td></tr>
-    <tr><td class="paramname">base</td><td>The numerical base for the conversion (2-36). Common values: 2 (binary), 10 (decimal), 16 (hex).</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A pointer to the destination buffer containing the converted C string.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The function supports bases 2-36 with digits 0-9 and letters A-Z. </dd>
-<dd>
-Hexadecimal values use uppercase letters (A-F). </dd></dl>
-
-</div>
-</div>
-<a id="a3896c1390775b3c0290dfb6b19cc6788" name="a3896c1390775b3c0290dfb6b19cc6788"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3896c1390775b3c0290dfb6b19cc6788">&#9670;&#160;</a></span>utoa() <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">char * toy::utoa </td>
-          <td>(</td>
-          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>dest</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>destSize</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>value</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned</td>          <td class="paramname"><span class="paramname"><em>base</em></span><span class="paramdefsep"> = </span><span class="paramdefval">10</span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Converts an 8-bit unsigned integer to a C string representation in the specified base. </p>
-<p>This function converts a given 8-bit unsigned integer value into its C string representation in the specified numerical base, storing the result in the provided destination buffer. Supports bases from 2 to 36.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">dest</td><td>A pointer to the destination buffer where the converted C string is stored. </td></tr>
-    <tr><td class="paramname">destSize</td><td>The size of the destination buffer in characters. </td></tr>
-    <tr><td class="paramname">value</td><td>The 8-bit unsigned integer value to be converted. </td></tr>
-    <tr><td class="paramname">base</td><td>The numerical base for the conversion (2-36). Common values: 2 (binary), 10 (decimal), 16 (hex).</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A pointer to the destination buffer containing the converted C string.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The function supports bases 2-36 with digits 0-9 and letters A-Z. </dd>
-<dd>
-Hexadecimal values use uppercase letters (A-F). </dd></dl>
-
-</div>
-</div>
-<a id="a10d90a55c9c7b54190a445f8fabaa599" name="a10d90a55c9c7b54190a445f8fabaa599"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a10d90a55c9c7b54190a445f8fabaa599">&#9670;&#160;</a></span>utoaImplementation()</h2>
+<a id="a14ccea4a485c2aa69412836a22a6cdda" name="a14ccea4a485c2aa69412836a22a6cdda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14ccea4a485c2aa69412836a22a6cdda">&#9670;&#160;</a></span>utoa()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename type&gt; </div>
+template&lt;std::unsigned_integral T&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char * toy::utoaImplementation </td>
+          <td class="memname">char * toy::utoa </td>
           <td>(</td>
           <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>dest</em></span>, </td>
         </tr>
@@ -3437,78 +2931,44 @@ template&lt;typename type&gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">type</td>          <td class="paramname"><span class="paramname"><em>value</em></span>, </td>
+          <td class="paramtype">T</td>          <td class="paramname"><span class="paramname"><em>value</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">unsigned</td>          <td class="paramname"><span class="paramname"><em>base</em></span>&#160;)</td>
+          <td class="paramtype">unsigned</td>          <td class="paramname"><span class="paramname"><em>base</em></span><span class="paramdefsep"> = </span><span class="paramdefval">10</span>&#160;)</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Converts an unsigned integer value to a string representation in a specified base. </p>
-<p>This function converts a given unsigned integer value into its string representation in the specified numerical base, storing the result in the provided destination buffer. The resulting string is reversed in place and null-terminated.</p>
+<p>Converts an unsigned integer to its C string representation in the given base. </p>
+<p>Writes the representation of <em class="arg">value</em> in base <em class="arg">base</em> into <em class="arg">dest</em>, null-terminated. Digits above 9 use uppercase letters A–Z.</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">type</td><td>The type of the unsigned integer value to be converted.</td></tr>
+    <tr><td class="paramname">T</td><td>Unsigned integer type; must satisfy <code>std::unsigned_integral</code> (e.g. <code>uint8_t</code>, <code>uint32_t</code>, <code>uint64_t</code>).</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">dest</td><td>The destination buffer where the converted string is stored. </td></tr>
-    <tr><td class="paramname">destSize</td><td>The size of the destination buffer. </td></tr>
-    <tr><td class="paramname">value</td><td>The unsigned integer value to be converted. </td></tr>
-    <tr><td class="paramname">base</td><td>The numerical base for the conversion, e.g., 10 for decimal, 16 for hexadecimal.</td></tr>
+    <tr><td class="paramname">dest</td><td>Destination buffer for the result. </td></tr>
+    <tr><td class="paramname">destSize</td><td>Size of <em class="arg">dest</em> in characters. </td></tr>
+    <tr><td class="paramname">value</td><td>Value to convert. </td></tr>
+    <tr><td class="paramname">base</td><td>Numerical base (default: <code>10</code>). Supported range <code>2–<code>36</code>.</code> </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A pointer to the destination buffer containing the converted string.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The function assumes that the destination buffer is large enough to hold the converted string. </dd>
-<dd>
-If the destination buffer size is 1, only a null terminator is written. </dd>
-<dd>
-The base must be between 2 and 36 inclusive. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to <em class="arg">dest</em>.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd><em class="arg">dest</em> is not null; <em class="arg">destSize</em> is sufficient for the output; <em class="arg">base</em> is between <code>2</code> and <code>36</code>. </dd></dl>
 
 </div>
 </div>
 <a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
-<a id="a7e08bb0700f4c81f7fd28710e2e61e9e" name="a7e08bb0700f4c81f7fd28710e2e61e9e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7e08bb0700f4c81f7fd28710e2e61e9e">&#9670;&#160;</a></span>_ansiDigits</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr array&lt; char, 36 &gt; toy::_ansiDigits</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel constexpr">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">{{</div>
-<div class="line">  <span class="charliteral">&#39;0&#39;</span>, <span class="charliteral">&#39;1&#39;</span>, <span class="charliteral">&#39;2&#39;</span>, <span class="charliteral">&#39;3&#39;</span>, <span class="charliteral">&#39;4&#39;</span>, <span class="charliteral">&#39;5&#39;</span>, <span class="charliteral">&#39;6&#39;</span>, <span class="charliteral">&#39;7&#39;</span>, <span class="charliteral">&#39;8&#39;</span>, <span class="charliteral">&#39;9&#39;</span>, <span class="charliteral">&#39;A&#39;</span>, <span class="charliteral">&#39;B&#39;</span>, <span class="charliteral">&#39;C&#39;</span>, <span class="charliteral">&#39;D&#39;</span>, <span class="charliteral">&#39;E&#39;</span>, <span class="charliteral">&#39;F&#39;</span>, <span class="charliteral">&#39;G&#39;</span>, <span class="charliteral">&#39;H&#39;</span>,</div>
-<div class="line">  <span class="charliteral">&#39;I&#39;</span>, <span class="charliteral">&#39;J&#39;</span>, <span class="charliteral">&#39;K&#39;</span>, <span class="charliteral">&#39;L&#39;</span>, <span class="charliteral">&#39;M&#39;</span>, <span class="charliteral">&#39;N&#39;</span>, <span class="charliteral">&#39;O&#39;</span>, <span class="charliteral">&#39;P&#39;</span>, <span class="charliteral">&#39;Q&#39;</span>, <span class="charliteral">&#39;R&#39;</span>, <span class="charliteral">&#39;S&#39;</span>, <span class="charliteral">&#39;T&#39;</span>, <span class="charliteral">&#39;U&#39;</span>, <span class="charliteral">&#39;V&#39;</span>, <span class="charliteral">&#39;W&#39;</span>, <span class="charliteral">&#39;X&#39;</span>, <span class="charliteral">&#39;Y&#39;</span>, <span class="charliteral">&#39;Z&#39;</span>,</div>
-<div class="line">}}</div>
-</div><!-- fragment -->
-<p>ANSI digit lookup table for base conversion. </p>
-<p>This lookup table contains the characters used for representing digits in different numerical bases. It supports bases from 2 to 36, using digits '0'-'9' and 'A'-'Z'.</p>
-<dl class="section note"><dt>Note</dt><dd>The table contains 36 characters: '0'-'9' and 'A'-'Z'. </dd></dl>
-
-</div>
-</div>
 <a id="a1c66eabbb0dea6bd870920a6585afbf4" name="a1c66eabbb0dea6bd870920a6585afbf4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1c66eabbb0dea6bd870920a6585afbf4">&#9670;&#160;</a></span>_crc16Table</h2>
 
