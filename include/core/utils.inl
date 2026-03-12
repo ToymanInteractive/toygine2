@@ -59,7 +59,7 @@ constexpr char * itoa(char * dest, size_t destSize, T value) noexcept {
   assert_message(destSize >= numeric_limits<T>::digits10 + 2,
                  "The destination buffer is too small for the given type.");
 
-  if (destSize == 0)
+  if (dest == nullptr || destSize == 0)
     return dest;
   else if (destSize == 1) {
     *dest = '\0';
@@ -79,9 +79,10 @@ constexpr char * itoa(char * dest, size_t destSize, T value) noexcept {
 
 template <std::unsigned_integral T>
 constexpr char * utoa(char * dest, size_t destSize, T value, unsigned base) noexcept {
-  assert_message(dest != nullptr && destSize > 0, "The destination buffer must not be null.");
+  assert_message(dest != nullptr, "The destination buffer must not be null.");
+  assert_message(destSize > 0, "The destination buffer size must be greater than zero.");
 
-  if (destSize == 0)
+  if (dest == nullptr || destSize == 0)
     return dest;
   else if (destSize == 1) {
     *dest = '\0';

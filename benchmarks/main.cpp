@@ -21,7 +21,7 @@
 void runCoreBenchmarks() noexcept;
 void runMathBenchmarks() noexcept;
 
-int main() {
+int main() noexcept {
   runCoreBenchmarks();
   runMathBenchmarks();
 
