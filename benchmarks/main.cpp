@@ -18,9 +18,11 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-void runMathBenchmarks();
+void runCoreBenchmarks() noexcept;
+void runMathBenchmarks() noexcept;
 
-int main() {
+int main() noexcept {
+  runCoreBenchmarks();
   runMathBenchmarks();
 
   return 0;

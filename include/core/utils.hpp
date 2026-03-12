@@ -178,145 +178,43 @@ char * wcharToUtf8(char * dest, size_t destSize, const wchar_t * src) noexcept;
 constexpr char * reverseString(char * str, size_t count = 0) noexcept;
 
 /*!
-  \brief Converts an 8-bit signed integer value to a C string representation.
+  \brief Converts a signed integer to its decimal C string representation.
 
-  This function converts a given 8-bit signed integer value into its decimal C string representation, storing the result
-  in the provided destination buffer.
+  Writes the decimal representation of \a value into \a dest, null-terminated. Negative values are prefixed with a minus
+  sign.
 
-  \param dest     A pointer to the destination buffer where the converted C string is stored.
-  \param destSize The size of the destination buffer in characters.
-  \param value    The 8-bit signed integer value to be converted.
+  \tparam T Signed integer type; must satisfy \c std::signed_integral (e.g. \c int8_t, \c int32_t, \c int64_t).
 
-  \return A pointer to the destination buffer containing the converted C string.
+  \param dest     Destination buffer for the result.
+  \param destSize Size of \a dest in characters.
+  \param value    Value to convert.
 
-  \note The function handles negative values correctly.
-  \note The destination buffer must have sufficient capacity (at least 5 characters for worst case -128).
+  \return Pointer to \a dest.
+
+  \pre \a dest is not null and \a destSize is sufficient (e.g. at least 5 for \c int8_t, 22 for \c int64_t worst case).
 */
-char * itoa(char * dest, size_t destSize, int8_t value) noexcept;
+template <std::signed_integral T>
+constexpr char * itoa(char * dest, size_t destSize, T value) noexcept;
 
 /*!
-  \brief Converts a 16-bit signed integer value to a C string representation.
+  \brief Converts an unsigned integer to its C string representation in the given base.
 
-  This function converts a given 16-bit signed integer value into its decimal C string representation, storing the
-  result in the provided destination buffer.
+  Writes the representation of \a value in base \a base into \a dest, null-terminated. Digits above 9 use uppercase
+  letters A–Z.
 
-  \param dest     A pointer to the destination buffer where the converted C string is stored.
-  \param destSize The size of the destination buffer in characters.
-  \param value    The 16-bit signed integer value to be converted.
+  \tparam T Unsigned integer type; must satisfy \c std::unsigned_integral (e.g. \c uint8_t, \c uint32_t, \c uint64_t).
 
-  \return A pointer to the destination buffer containing the converted C string.
+  \param dest     Destination buffer for the result.
+  \param destSize Size of \a dest in characters.
+  \param value    Value to convert.
+  \param base     Numerical base (default: \c 10). Supported range \c 2–\c 36.
 
-  \note The function handles negative values correctly.
-  \note The destination buffer must have sufficient capacity (at least 7 characters for worst case -32768).
+  \return Pointer to \a dest.
+
+  \pre \a dest is not null; \a destSize is sufficient for the output; \a base is between \c 2 and \c 36.
 */
-char * itoa(char * dest, size_t destSize, int16_t value) noexcept;
-
-/*!
-  \brief Converts a 32-bit signed integer value to a C string representation.
-
-  This function converts a given 32-bit signed integer value into its decimal C string representation, storing the
-  result in the provided destination buffer.
-
-  \param dest     A pointer to the destination buffer where the converted C string is stored.
-  \param destSize The size of the destination buffer in characters.
-  \param value    The 32-bit signed integer value to be converted.
-
-  \return A pointer to the destination buffer containing the converted C string.
-
-  \note The function handles negative values correctly.
-  \note The destination buffer must have sufficient capacity (at least 12 characters for worst case -2147483648).
-*/
-char * itoa(char * dest, size_t destSize, int32_t value) noexcept;
-
-/*!
-  \brief Converts a 64-bit signed integer value to a C string representation.
-
-  This function converts a given 64-bit signed integer value into its decimal C string representation, storing the
-  result in the provided destination buffer.
-
-  \param dest     A pointer to the destination buffer where the converted C string is stored.
-  \param destSize The size of the destination buffer in characters.
-  \param value    The 64-bit signed integer value to be converted.
-
-  \return A pointer to the destination buffer containing the converted C string.
-
-  \note The function handles negative values correctly.
-  \note The destination buffer must have sufficient capacity (at least 21 characters for worst case
-        -9223372036854775808).
-*/
-char * itoa(char * dest, size_t destSize, int64_t value) noexcept;
-
-/*!
-  \brief Converts an 8-bit unsigned integer to a C string representation in the specified base.
-
-  This function converts a given 8-bit unsigned integer value into its C string representation in the specified
-  numerical base, storing the result in the provided destination buffer. Supports bases from 2 to 36.
-
-  \param dest     A pointer to the destination buffer where the converted C string is stored.
-  \param destSize The size of the destination buffer in characters.
-  \param value    The 8-bit unsigned integer value to be converted.
-  \param base     The numerical base for the conversion (2-36). Common values: 2 (binary), 10 (decimal), 16 (hex).
-
-  \return A pointer to the destination buffer containing the converted C string.
-
-  \note The function supports bases 2-36 with digits 0-9 and letters A-Z.
-  \note Hexadecimal values use uppercase letters (A-F).
-*/
-char * utoa(char * dest, size_t destSize, uint8_t value, unsigned base = 10) noexcept;
-
-/*!
-  \brief Converts a 16-bit unsigned integer to a C string representation in the specified base.
-
-  This function converts a given 16-bit unsigned integer value into its C string representation in the specified
-  numerical base, storing the result in the provided destination buffer. Supports bases from 2 to 36.
-
-  \param dest     A pointer to the destination buffer where the converted C string is stored.
-  \param destSize The size of the destination buffer in characters.
-  \param value    The 16-bit unsigned integer value to be converted.
-  \param base     The numerical base for the conversion (2-36). Common values: 2 (binary), 10 (decimal), 16 (hex).
-
-  \return A pointer to the destination buffer containing the converted C string.
-
-  \note The function supports bases 2-36 with digits 0-9 and letters A-Z.
-  \note Hexadecimal values use uppercase letters (A-F).
-*/
-char * utoa(char * dest, size_t destSize, uint16_t value, unsigned base = 10) noexcept;
-
-/*!
-  \brief Converts a 32-bit unsigned integer to a C string representation in the specified base.
-
-  This function converts a given 32-bit unsigned integer value into its C string representation in the specified
-  numerical base, storing the result in the provided destination buffer. Supports bases from 2 to 36.
-
-  \param dest     A pointer to the destination buffer where the converted C string is stored.
-  \param destSize The size of the destination buffer in characters.
-  \param value    The 32-bit unsigned integer value to be converted.
-  \param base     The numerical base for the conversion (2-36). Common values: 2 (binary), 10 (decimal), 16 (hex).
-
-  \return A pointer to the destination buffer containing the converted C string.
-
-  \note The function supports bases 2-36 with digits 0-9 and letters A-Z.
-  \note Hexadecimal values use uppercase letters (A-F).
-*/
-char * utoa(char * dest, size_t destSize, uint32_t value, unsigned base = 10) noexcept;
-
-/*!
-  \brief Converts a 64-bit unsigned integer to a C string representation in the specified base.
-
-  This function converts a given 64-bit unsigned integer value into its C string representation in the specified
-  numerical base, storing the result in the provided destination buffer. Supports bases from 2 to 36.
-
-  \param dest     A pointer to the destination buffer where the converted C string is stored.
-  \param destSize The size of the destination buffer in characters.
-  \param value    The 64-bit unsigned integer value to be converted.
-  \param base     The numerical base for the conversion (2-36). Common values: 2 (binary), 10 (decimal), 16 (hex).
-
-  \return A pointer to the destination buffer containing the converted C string.
-
-  \note The function supports bases 2-36 with digits 0-9 and letters A-Z.
-  \note Hexadecimal values use uppercase letters (A-F).
-*/
-char * utoa(char * dest, size_t destSize, uint64_t value, unsigned base = 10) noexcept;
+template <std::unsigned_integral T>
+constexpr char * utoa(char * dest, size_t destSize, T value, unsigned base = 10) noexcept;
 
 /*!
   \brief Converts a 32-bit floating-point number to its C string representation with specified precision.

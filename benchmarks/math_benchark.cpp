@@ -25,7 +25,7 @@ using namespace toy::math;
 
 using Fixed = fixed<int32_t, int64_t, 24>;
 
-void runMathBenchmarks() {
+void runMathBenchmarks() noexcept {
   auto bench = createBench("Math module");
 
   // Utils benchmarks

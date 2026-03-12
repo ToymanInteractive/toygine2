@@ -53,6 +53,66 @@ constexpr char * reverseString(char * string, size_t stringLength) noexcept {
   return string;
 }
 
+template <std::signed_integral T>
+constexpr char * itoa(char * dest, size_t destSize, T value) noexcept {
+  assert_message(dest != nullptr, "The destination buffer must not be null.");
+  assert_message(destSize >= numeric_limits<T>::digits10 + 2,
+                 "The destination buffer is too small for the given type.");
+
+  if (dest == nullptr || destSize == 0)
+    return dest;
+  else if (destSize == 1) {
+    *dest = '\0';
+
+    return dest;
+  }
+
+  if (value < 0) {
+    *dest = '-';
+    utoa(dest + 1, destSize - 1, static_cast<std::make_unsigned_t<T>>(-(value + 1)) + 1U, 10);
+  } else {
+    utoa(dest, destSize, static_cast<std::make_unsigned_t<T>>(value), 10);
+  }
+
+  return dest;
+}
+
+template <std::unsigned_integral T>
+constexpr char * utoa(char * dest, size_t destSize, T value, unsigned base) noexcept {
+  assert_message(dest != nullptr, "The destination buffer must not be null.");
+  assert_message(destSize > 0, "The destination buffer size must be greater than zero.");
+
+  if (dest == nullptr || destSize == 0)
+    return dest;
+  else if (destSize == 1) {
+    *dest = '\0';
+
+    return dest;
+  }
+
+  // ANSI digit lookup table for base conversion.
+  static constexpr array<char, 36> ansiDigits{{
+    '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
+    'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+  }};
+
+  assert_message(base >= 2 && base <= ansiDigits.size(), "The base must be between 2 and 36 inclusive.");
+
+  // decrease dest size for '\0' symbol
+  --destSize;
+
+  size_t symbols = 0;
+
+  do {
+    dest[symbols++] = ansiDigits[value % base];
+  } while ((value /= static_cast<T>(base)) > 0 && symbols < destSize);
+
+  dest[symbols] = '\0';
+  reverseString(dest, symbols);
+
+  return dest;
+}
+
 } // namespace toy
 
 #endif // INCLUDE_CORE_UTILS_INL_
