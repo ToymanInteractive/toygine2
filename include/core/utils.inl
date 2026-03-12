@@ -59,7 +59,9 @@ constexpr char * itoa(char * dest, size_t destSize, T value) noexcept {
   assert_message(destSize >= numeric_limits<T>::digits10 + 2,
                  "The destination buffer is too small for the given type.");
 
-  if (destSize == 1) {
+  if (destSize == 0)
+    return dest;
+  else if (destSize == 1) {
     *dest = '\0';
 
     return dest;
