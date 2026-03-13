@@ -37,8 +37,8 @@ namespace toy::math {
 
   \section requirements Requirements
 
-  - \a T satisfies \c signed_integral, or
-  - \a T satisfies \c floating_point, or
+  - \a T satisfies \ref toy::math::signed_integral, or
+  - \a T satisfies \ref toy::math::floating_point, or
   - \a T satisfies \ref toy::math::fixed_point.
 
   \sa toy::math::Point, toy::math::Vector2D

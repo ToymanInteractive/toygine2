@@ -38,8 +38,8 @@ namespace geometry {
   \section requirements Requirements
 
   A type \a T satisfies SectionEndpoint if and only if at least one of the following holds:
-  - \a T satisfies \c math::signed_integral.
-  - \a T satisfies \c math::floating_point.
+  - \a T satisfies \ref toy::math::signed_integral.
+  - \a T satisfies \ref toy::math::floating_point.
   - \a T satisfies \ref toy::math::fixed_point.
 
   \sa toy::geometry::Section
