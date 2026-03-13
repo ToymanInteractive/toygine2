@@ -92,7 +92,7 @@ constexpr bool Section<T>::isContains(const T & value) const noexcept {
 
 // int and fixed: exact comparison via operator==.
 template <SectionEndpoint T>
-  requires(math::integral<T> || math::fixed_point<T>)
+  requires(math::signed_integral<T> || math::fixed_point<T>)
 constexpr bool operator==(const Section<T> & a, const Section<T> & b) noexcept {
   return a.start == b.start && a.end == b.end;
 }
