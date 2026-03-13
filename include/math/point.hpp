@@ -44,7 +44,7 @@ namespace toy::math {
   \sa toy::math::Point, toy::math::Vector2D
 */
 template <typename T>
-concept PointScalar = (integral<T> && signed_integral<T>) || floating_point<T> || fixed_point<T>;
+concept PointScalar = signed_integral<T> || floating_point<T> || fixed_point<T>;
 
 /*!
   \class Point
