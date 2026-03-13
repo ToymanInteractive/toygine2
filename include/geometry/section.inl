@@ -41,7 +41,7 @@ template <SectionEndpoint T>
 constexpr T Section<T>::midpoint() const noexcept {
   assert_message(isValid(), "midpoint() requires a valid section");
 
-  return start + (end - start) / 2;
+  return start + length() / 2;
 }
 
 template <SectionEndpoint T>

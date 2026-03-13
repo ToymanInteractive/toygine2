@@ -30,15 +30,15 @@ namespace geometry {
 
 /*!
   \concept SectionEndpoint
-  \brief Concept satisfied when \a T is a scalar type allowed as \ref toy::geometry::Section template parameter.
+  \brief Concept satisfied when \a T is a endpoint type allowed as \ref toy::geometry::Section template parameter.
 
-  Use to constrain the scalar type of \ref toy::geometry::Section to integral, floating-point, or
+  Use to constrain the endpoint type of \ref toy::geometry::Section to signed_integral, floating-point, or
   \ref toy::math::fixed_point types only.
 
   \section requirements Requirements
 
   A type \a T satisfies SectionEndpoint if and only if at least one of the following holds:
-  - \a T satisfies \c math::integral.
+  - \a T satisfies \c math::signed_integral.
   - \a T satisfies \c math::floating_point.
   - \a T satisfies \ref toy::math::fixed_point.
 
@@ -49,18 +49,18 @@ concept SectionEndpoint = math::signed_integral<T> || math::floating_point<T> ||
 
 /*!
   \class Section
-  \brief One-dimensional interval [start, end] over a numeric scalar type.
+  \brief One-dimensional interval [start, end] over a numeric endpoint type.
 
   Represents a closed interval on a numeric type. Default-constructed section is in reset (empty) state:
   \a start > \a end, isValid() returns \c false. Use reset() to clear, or construct with (min, max) for a valid
   interval.
 
-  \tparam T Scalar type; must satisfy \ref toy::geometry::SectionEndpoint (integral, floating-point, or \ref
-          toy::math::fixed).
+  \tparam T Endpoint type; must satisfy \ref toy::geometry::SectionEndpoint (signed integral, floating-point, or
+            \ref toy::math::fixed_point).
 
   \section features Key Features
 
-  - **Numeric scalar only**: \a T constrained by \ref toy::geometry::SectionEndpoint.
+  - **Numeric endpoint only**: \a T constrained by \ref toy::geometry::SectionEndpoint.
   - **Reset state**: Empty interval represented by start > end; reset() restores it.
   - **Expand**: expand() extends bounds to include a value or another section (union).
   - **Constexpr**: All operations are constexpr and noexcept where applicable.
@@ -179,7 +179,7 @@ public:
   \brief Deduction guide for \ref toy::geometry::Section: enables \c Section(min, max) without an explicit template
          argument when both arguments have the same \ref toy::geometry::SectionEndpoint type.
 
-  \tparam T Scalar type; must satisfy \ref toy::geometry::SectionEndpoint.
+  \tparam T Endpoint type; must satisfy \ref toy::geometry::SectionEndpoint.
 */
 template <SectionEndpoint T>
 Section(const T &, const T &) -> Section<T>;

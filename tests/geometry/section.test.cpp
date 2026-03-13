@@ -26,6 +26,11 @@ namespace toy::geometry {
 
 using Fixed = math::fixed<int32_t, int32_t, 24>;
 
+static_assert(SectionEndpoint<int>, "int must satisfy SectionEndpoint");
+static_assert(SectionEndpoint<float>, "float must satisfy SectionEndpoint");
+static_assert(SectionEndpoint<Fixed>, "Fixed must satisfy SectionEndpoint");
+static_assert(!SectionEndpoint<unsigned int>, "unsigned endpoints must remain rejected");
+
 // Default-constructed section is in reset state; bounds are numeric_limits extremes.
 TEST_CASE("geometry/section/default_constructor") {
   // integer scalar
@@ -288,44 +293,44 @@ TEST_CASE("geometry/section/expand_value") {
 TEST_CASE("geometry/section/expand_section") {
   // integer scalar
   SUBCASE("int") {
-    Section s(0, 10);
-    Section t(0, 15);
+    Section s(5, 10);
+    Section t(5, 15);
 
     s.expand(Section(20, 30));
-    t.expand(Section(10, 25));
+    t.expand(Section(1, 3));
 
-    REQUIRE(s.start == 0);
+    REQUIRE(s.start == 5);
     REQUIRE(s.end == 30);
-    REQUIRE(t.start == 0);
-    REQUIRE(t.end == 25);
+    REQUIRE(t.start == 1);
+    REQUIRE(t.end == 15);
   }
 
   // float scalar
   SUBCASE("float") {
-    Section s(0.0f, 10.0f);
-    Section t(0.0f, 15.0f);
+    Section s(5.0f, 10.0f);
+    Section t(5.0f, 15.0f);
 
     s.expand(Section(20.0f, 30.0f));
-    t.expand(Section(10.0f, 25.0f));
+    t.expand(Section(1.0f, 3.0f));
 
-    REQUIRE(math::isEqual(s.start, 0.0f));
+    REQUIRE(math::isEqual(s.start, 5.0f));
     REQUIRE(math::isEqual(s.end, 30.0f));
-    REQUIRE(math::isEqual(t.start, 0.0f));
-    REQUIRE(math::isEqual(t.end, 25.0f));
+    REQUIRE(math::isEqual(t.start, 1.0f));
+    REQUIRE(math::isEqual(t.end, 15.0f));
   }
 
   // fixed-point scalar
   SUBCASE("fixed") {
-    Section s(Fixed(0), Fixed(10));
-    Section t(Fixed(0), Fixed(15));
+    Section s(Fixed(5), Fixed(10));
+    Section t(Fixed(5), Fixed(15));
 
     s.expand(Section(Fixed(20), Fixed(30)));
-    t.expand(Section(Fixed(10), Fixed(25)));
+    t.expand(Section(Fixed(1), Fixed(3)));
 
-    REQUIRE(s.start == Fixed(0));
+    REQUIRE(s.start == Fixed(5));
     REQUIRE(s.end == Fixed(30));
-    REQUIRE(t.start == Fixed(0));
-    REQUIRE(t.end == Fixed(25));
+    REQUIRE(t.start == Fixed(1));
+    REQUIRE(t.end == Fixed(15));
   }
 }
 
