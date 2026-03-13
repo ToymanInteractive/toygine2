@@ -19,7 +19,7 @@
 //
 /*!
   \file   section.hpp
-  \brief  \ref toy::geometry::Section and \ref toy::geometry::SectionScalar declarations.
+  \brief  \ref toy::geometry::Section and \ref toy::geometry::SectionEndpoint declarations.
 */
 
 #ifndef INCLUDE_GEOMETRY_SECTION_HPP_
@@ -29,39 +29,39 @@ namespace toy {
 namespace geometry {
 
 /*!
-  \concept SectionScalar
-  \brief Concept satisfied when \a T is a scalar type allowed as \ref toy::geometry::Section template parameter.
+  \concept SectionEndpoint
+  \brief Concept satisfied when \a T is an endpoint type allowed as \ref toy::geometry::Section template parameter.
 
-  Use to constrain the scalar type of \ref toy::geometry::Section to integral, floating-point, or
-  \ref toy::math::fixed_point types only.
+  Use to constrain the endpoint type of \ref toy::geometry::Section to signed-integral, floating-point, or fixed-point
+  types only.
 
   \section requirements Requirements
 
-  A type \a T satisfies SectionScalar if and only if at least one of the following holds:
-  - \a T satisfies \c std::integral.
-  - \a T satisfies \c std::floating_point.
+  A type \a T satisfies SectionEndpoint if and only if at least one of the following holds:
+  - \a T satisfies \ref toy::math::signed_integral.
+  - \a T satisfies \ref toy::math::floating_point.
   - \a T satisfies \ref toy::math::fixed_point.
 
   \sa toy::geometry::Section
 */
 template <typename T>
-concept SectionScalar = std::integral<T> || std::floating_point<T> || math::fixed_point<T>;
+concept SectionEndpoint = math::signed_integral<T> || math::floating_point<T> || math::fixed_point<T>;
 
 /*!
   \class Section
-  \brief One-dimensional interval [minimum, maximum] over a numeric scalar type.
+  \brief One-dimensional interval [start, end] over a numeric endpoint type.
 
   Represents a closed interval on a numeric type. Default-constructed section is in reset (empty) state:
-  \a minimum > \a maximum, isValid() returns \c false. Use reset() to clear, or construct with (min, max)
-  for a valid interval.
+  \a start > \a end, isValid() returns \c false. Use reset() to clear, or construct with (min, max) for a valid
+  interval.
 
-  \tparam T Scalar type; must satisfy \ref toy::geometry::SectionScalar (integral, floating-point, or \ref
-          toy::math::fixed).
+  \tparam T Endpoint type; must satisfy \ref toy::geometry::SectionEndpoint (signed integral, floating-point, or
+            fixed-point).
 
   \section features Key Features
 
-  - **Numeric scalar only**: \a T constrained by \ref toy::geometry::SectionScalar.
-  - **Reset state**: Empty interval represented by minimum > maximum; reset() restores it.
+  - **Numeric endpoint only**: \a T constrained by \ref toy::geometry::SectionEndpoint.
+  - **Reset state**: Empty interval represented by start > end; reset() restores it.
   - **Expand**: expand() extends bounds to include a value or another section (union).
   - **Constexpr**: All operations are constexpr and noexcept where applicable.
 
@@ -87,21 +87,20 @@ concept SectionScalar = std::integral<T> || std::floating_point<T> || math::fixe
 
   \sa operator==(), operator!=()
 */
-template <typename T>
-  requires SectionScalar<T>
+template <SectionEndpoint T>
 class Section {
 public:
   /// Lower bound of the interval. Default-constructed: \c numeric_limits<T>::max() (reset state).
-  T minimum{numeric_limits<T>::max()};
+  T start{numeric_limits<T>::max()};
   /// Upper bound of the interval. Default-constructed: \c numeric_limits<T>::lowest() (reset state).
-  T maximum{numeric_limits<T>::lowest()};
+  T end{numeric_limits<T>::lowest()};
 
 public:
   /*!
     \brief Default constructor; section is in reset (empty) state.
 
-    \post isReset() is \c true, isValid() is \c false, \a minimum is \c numeric_limits<T>::max(), \a maximum is
-         \c numeric_limits<T>::lowest().
+    \post isReset() is \c true, isValid() is \c false, \a start is \c numeric_limits<T>::max(), \a end is
+          \c numeric_limits<T>::lowest().
   */
   constexpr Section() noexcept = default;
 
@@ -116,14 +115,14 @@ public:
   /*!
     \brief Returns the midpoint of the interval.
 
-    \return (minimum + maximum) / 2.
+    \return (start + end) / 2.
   */
   [[nodiscard]] constexpr T midpoint() const noexcept;
 
   /*!
     \brief Returns the length of the interval.
 
-    \return maximum - minimum.
+    \return end - start.
   */
   [[nodiscard]] constexpr T length() const noexcept;
 
@@ -155,49 +154,48 @@ public:
   /*!
     \brief Returns \c true if the section is in reset (empty) state.
 
-    \return \c true when minimum > maximum.
+    \return \c true when start > end.
   */
   [[nodiscard]] constexpr bool isReset() const noexcept;
 
   /*!
     \brief Returns \c true if the section represents a valid non-empty interval.
 
-    \return \c true when minimum <= maximum.
+    \return \c true when start <= end.
   */
   [[nodiscard]] constexpr bool isValid() const noexcept;
 
   /*!
-    \brief Returns \c true if \a value lies inside [minimum, maximum] (inclusive).
+    \brief Returns \c true if \a value lies inside [start, end] (inclusive).
 
     \param value Value to test.
 
-    \return \c true when minimum <= value <= maximum.
+    \return \c true when start <= value <= end.
   */
   [[nodiscard]] constexpr bool isContains(const T & value) const noexcept;
 };
 
 /*!
   \brief Deduction guide for \ref toy::geometry::Section: enables \c Section(min, max) without an explicit template
-         argument when both arguments have the same \ref toy::geometry::SectionScalar type.
+         argument when both arguments have the same \ref toy::geometry::SectionEndpoint type.
 
-  \tparam T Scalar type; must satisfy \ref toy::geometry::SectionScalar.
+  \tparam T Endpoint type; must satisfy \ref toy::geometry::SectionEndpoint.
 */
-template <typename T>
-  requires SectionScalar<T>
+template <SectionEndpoint T>
 Section(const T &, const T &) -> Section<T>;
 
 /*!
-  \brief Equality for integral and fixed-point sections: exact comparison of bounds.
+  \brief Equality for signed-integral and fixed-point sections: exact comparison of bounds.
 
   \param a First section.
   \param b Second section.
 
-  \return \c true if a.minimum == b.minimum and a.maximum == b.maximum.
+  \return \c true if a.start == b.start and a.end == b.end.
 
   \sa operator!=()
 */
-template <typename T>
-  requires SectionScalar<T> && (std::integral<T> || math::fixed_point<T>)
+template <SectionEndpoint T>
+  requires(math::signed_integral<T> || math::fixed_point<T>)
 [[nodiscard]] constexpr bool operator==(const Section<T> & a, const Section<T> & b) noexcept;
 
 /*!
@@ -210,8 +208,8 @@ template <typename T>
 
   \sa operator!=()
 */
-template <typename T>
-  requires SectionScalar<T> && std::floating_point<T>
+template <SectionEndpoint T>
+  requires math::floating_point<T>
 [[nodiscard]] constexpr bool operator==(const Section<T> & a, const Section<T> & b) noexcept;
 
 /*!
@@ -224,8 +222,7 @@ template <typename T>
 
   \sa operator==()
 */
-template <typename T>
-  requires SectionScalar<T>
+template <SectionEndpoint T>
 [[nodiscard]] constexpr bool operator!=(const Section<T> & a, const Section<T> & b) noexcept;
 
 } // namespace geometry

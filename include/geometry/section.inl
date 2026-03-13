@@ -30,91 +30,81 @@
 
 namespace toy::geometry {
 
-template <typename T>
-  requires SectionScalar<T>
-constexpr Section<T>::Section(const T & min, const T & max) noexcept
-  : minimum(min)
-  , maximum(max) {
-  assert_message(isValid(), "Section bounds must satisfy minimum <= maximum");
+template <SectionEndpoint T>
+constexpr Section<T>::Section(const T & s, const T & e) noexcept
+  : start(s)
+  , end(e) {
+  assert_message(isValid(), "Section bounds must satisfy start <= end");
 }
 
-template <typename T>
-  requires SectionScalar<T>
+template <SectionEndpoint T>
 constexpr T Section<T>::midpoint() const noexcept {
   assert_message(isValid(), "midpoint() requires a valid section");
 
-  return minimum + (maximum - minimum) / 2;
+  return start + length() / 2;
 }
 
-template <typename T>
-  requires SectionScalar<T>
+template <SectionEndpoint T>
 constexpr T Section<T>::length() const noexcept {
   assert_message(isValid(), "length() requires a valid section");
 
-  return maximum - minimum;
+  return end - start;
 }
 
-template <typename T>
-  requires SectionScalar<T>
+template <SectionEndpoint T>
 constexpr void Section<T>::reset() noexcept {
-  minimum = numeric_limits<T>::max();
-  maximum = numeric_limits<T>::lowest();
+  start = numeric_limits<T>::max();
+  end = numeric_limits<T>::lowest();
 }
 
-template <typename T>
-  requires SectionScalar<T>
+template <SectionEndpoint T>
 constexpr void Section<T>::expand(const T & value) noexcept {
-  if (value < minimum)
-    minimum = value;
-  if (value > maximum)
-    maximum = value;
+  if (value < start)
+    start = value;
+  if (value > end)
+    end = value;
 }
 
-template <typename T>
-  requires SectionScalar<T>
+template <SectionEndpoint T>
 constexpr void Section<T>::expand(const Section<T> & section) noexcept {
-  assert_message(section.isValid(), "Section argument to expand() must be valid (minimum <= maximum)");
+  assert_message(section.isValid(), "Section argument to expand() must be valid (start <= end)");
 
-  if (section.minimum < minimum)
-    minimum = section.minimum;
-  if (section.maximum > maximum)
-    maximum = section.maximum;
+  if (section.start < start)
+    start = section.start;
+  if (section.end > end)
+    end = section.end;
 }
 
-template <typename T>
-  requires SectionScalar<T>
+template <SectionEndpoint T>
 constexpr bool Section<T>::isReset() const noexcept {
-  return minimum > maximum;
+  return start > end;
 }
 
-template <typename T>
-  requires SectionScalar<T>
+template <SectionEndpoint T>
 constexpr bool Section<T>::isValid() const noexcept {
-  return minimum <= maximum;
+  return start <= end;
 }
 
-template <typename T>
-  requires SectionScalar<T>
+template <SectionEndpoint T>
 constexpr bool Section<T>::isContains(const T & value) const noexcept {
-  return minimum <= value && value <= maximum;
+  return start <= value && value <= end;
 }
 
 // int and fixed: exact comparison via operator==.
-template <typename T>
-  requires SectionScalar<T> && (std::integral<T> || math::fixed_point<T>)
+template <SectionEndpoint T>
+  requires(math::signed_integral<T> || math::fixed_point<T>)
 constexpr bool operator==(const Section<T> & a, const Section<T> & b) noexcept {
-  return a.minimum == b.minimum && a.maximum == b.maximum;
+  return a.start == b.start && a.end == b.end;
 }
 
 // float, double, long double: approximate comparison via math::isEqual.
-template <typename T>
-  requires SectionScalar<T> && std::floating_point<T>
+template <SectionEndpoint T>
+  requires math::floating_point<T>
 constexpr bool operator==(const Section<T> & a, const Section<T> & b) noexcept {
-  return math::isEqual(a.minimum, b.minimum) && math::isEqual(a.maximum, b.maximum);
+  return math::isEqual(a.start, b.start) && math::isEqual(a.end, b.end);
 }
 
-template <typename T>
-  requires SectionScalar<T>
+template <SectionEndpoint T>
 constexpr bool operator!=(const Section<T> & a, const Section<T> & b) noexcept {
   return !(a == b);
 }

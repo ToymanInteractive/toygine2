@@ -29,22 +29,22 @@ namespace toy::math {
 
 /*!
   \concept PointScalar
-  \brief Concept satisfied when \a T is integral, floating-point, or a fixed-point type.
+  \brief Concept satisfied when \a T is a signed integral, floating-point, or fixed-point type.
 
-  Used to constrain scalar arguments for \ref toy::math::Point multiplication and division operators.
-  Accepts integral types (e.g. \c int32_t), standard floating-point types (\c float, \c double,
-  \c long \c double), and types satisfying \ref toy::math::fixed_point.
+  Used to constrain scalar arguments for \ref toy::math::Point multiplication and division operators. Accepts signed
+  integral types only (e.g. \c int32_t; unsigned integral is excluded), standard floating-point types ( \c float,
+  \c double, \c long \c double), and fixed-point types.
 
   \section requirements Requirements
 
-  - \a T satisfies \c integral, or
-  - \a T satisfies \c floating_point, or
+  - \a T satisfies \ref toy::math::signed_integral, or
+  - \a T satisfies \ref toy::math::floating_point, or
   - \a T satisfies \ref toy::math::fixed_point.
 
   \sa toy::math::Point, toy::math::Vector2D
 */
 template <typename T>
-concept PointScalar = (integral<T> && signed_integral<T>) || floating_point<T> || fixed_point<T>;
+concept PointScalar = signed_integral<T> || floating_point<T> || fixed_point<T>;
 
 /*!
   \class Point
@@ -161,7 +161,7 @@ public:
   /*!
     \brief Multiplies both coordinates by \a scalar and truncates to integer.
 
-    \tparam T Type satisfying \ref toy::math::PointScalar (integral, floating-point, or fixed-point).
+    \tparam T Type satisfying \ref toy::math::PointScalar (signed integral, floating-point, or fixed-point).
 
     \param scalar Scale factor.
 
@@ -173,7 +173,7 @@ public:
   /*!
     \brief Divides both coordinates by \a scalar and truncates to integer.
 
-    \tparam T Type satisfying \ref toy::math::PointScalar (integral, floating-point, or fixed-point).
+    \tparam T Type satisfying \ref toy::math::PointScalar (signed integral, floating-point, or fixed-point).
 
     \param scalar Divisor.
 
@@ -250,7 +250,7 @@ public:
 /*!
   \brief Point scaled by scalar and truncated to integer.
 
-  \tparam T Type satisfying \ref toy::math::PointScalar (integral, floating-point, or fixed-point).
+  \tparam T Type satisfying \ref toy::math::PointScalar (signed integral, floating-point, or fixed-point).
 
   \param point  Operand.
   \param scalar Scale factor.
@@ -263,7 +263,7 @@ template <PointScalar T>
 /*!
   \brief Point scaled by scalar (scalar on the left).
 
-  \tparam T Type satisfying \ref toy::math::PointScalar (integral, floating-point, or fixed-point).
+  \tparam T Type satisfying \ref toy::math::PointScalar (signed integral, floating-point, or fixed-point).
 
   \param scalar Scale factor.
   \param point  Operand.
@@ -276,7 +276,7 @@ template <PointScalar T>
 /*!
   \brief Point divided by scalar and truncated to integer.
 
-  \tparam T Type satisfying \ref toy::math::PointScalar (integral, floating-point, or fixed-point).
+  \tparam T Type satisfying \ref toy::math::PointScalar (signed integral, floating-point, or fixed-point).
 
   \param point  Operand.
   \param scalar Divisor.

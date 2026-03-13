@@ -26,6 +26,11 @@ namespace toy::geometry {
 
 using Fixed = math::fixed<int32_t, int32_t, 24>;
 
+static_assert(SectionEndpoint<int>, "int must satisfy SectionEndpoint");
+static_assert(SectionEndpoint<float>, "float must satisfy SectionEndpoint");
+static_assert(SectionEndpoint<Fixed>, "Fixed must satisfy SectionEndpoint");
+static_assert(!SectionEndpoint<unsigned int>, "unsigned endpoints must remain rejected");
+
 // Default-constructed section is in reset state; bounds are numeric_limits extremes.
 TEST_CASE("geometry/section/default_constructor") {
   // integer scalar
@@ -34,13 +39,13 @@ TEST_CASE("geometry/section/default_constructor") {
 
     REQUIRE(s.isReset());
     REQUIRE(!s.isValid());
-    REQUIRE(s.minimum == numeric_limits<int>::max());
-    REQUIRE(s.maximum == numeric_limits<int>::lowest());
+    REQUIRE(s.start == numeric_limits<int>::max());
+    REQUIRE(s.end == numeric_limits<int>::lowest());
 
     static_assert(s.isReset(), "default Section<int> must be reset");
     static_assert(!s.isValid(), "default Section<int> must be invalid");
-    static_assert(s.minimum == numeric_limits<int>::max(), "default minimum must be max()");
-    static_assert(s.maximum == numeric_limits<int>::lowest(), "default maximum must be lowest()");
+    static_assert(s.start == numeric_limits<int>::max(), "default start must be max()");
+    static_assert(s.end == numeric_limits<int>::lowest(), "default end must be lowest()");
   }
 
   // float scalar
@@ -49,13 +54,13 @@ TEST_CASE("geometry/section/default_constructor") {
 
     REQUIRE(s.isReset());
     REQUIRE(!s.isValid());
-    REQUIRE(math::isEqual(s.minimum, numeric_limits<float>::max()));
-    REQUIRE(math::isEqual(s.maximum, numeric_limits<float>::lowest()));
+    REQUIRE(math::isEqual(s.start, numeric_limits<float>::max()));
+    REQUIRE(math::isEqual(s.end, numeric_limits<float>::lowest()));
 
     static_assert(s.isReset(), "default Section<float> must be reset");
     static_assert(!s.isValid(), "default Section<float> must be invalid");
-    static_assert(math::isEqual(s.minimum, numeric_limits<float>::max()), "default float minimum must be max()");
-    static_assert(math::isEqual(s.maximum, numeric_limits<float>::lowest()), "default float maximum must be lowest()");
+    static_assert(math::isEqual(s.start, numeric_limits<float>::max()), "default float start must be max()");
+    static_assert(math::isEqual(s.end, numeric_limits<float>::lowest()), "default float end must be lowest()");
   }
 
   // fixed-point scalar
@@ -64,13 +69,13 @@ TEST_CASE("geometry/section/default_constructor") {
 
     REQUIRE(s.isReset());
     REQUIRE(!s.isValid());
-    REQUIRE(s.minimum == numeric_limits<Fixed>::max());
-    REQUIRE(s.maximum == numeric_limits<Fixed>::lowest());
+    REQUIRE(s.start == numeric_limits<Fixed>::max());
+    REQUIRE(s.end == numeric_limits<Fixed>::lowest());
 
     static_assert(s.isReset(), "default Section<Fixed> must be reset");
     static_assert(!s.isValid(), "default Section<Fixed> must be invalid");
-    static_assert(s.minimum == numeric_limits<Fixed>::max(), "default fixed minimum must be max()");
-    static_assert(s.maximum == numeric_limits<Fixed>::lowest(), "default fixed maximum must be lowest()");
+    static_assert(s.start == numeric_limits<Fixed>::max(), "default fixed start must be max()");
+    static_assert(s.end == numeric_limits<Fixed>::lowest(), "default fixed end must be lowest()");
   }
 }
 
@@ -80,13 +85,13 @@ TEST_CASE("geometry/section/constructor_bounds") {
   SUBCASE("int") {
     constexpr Section s(10, 20);
 
-    REQUIRE(s.minimum == 10);
-    REQUIRE(s.maximum == 20);
+    REQUIRE(s.start == 10);
+    REQUIRE(s.end == 20);
     REQUIRE(s.isValid());
     REQUIRE(!s.isReset());
 
-    static_assert(s.minimum == 10, "constructor must store minimum");
-    static_assert(s.maximum == 20, "constructor must store maximum");
+    static_assert(s.start == 10, "constructor must store start");
+    static_assert(s.end == 20, "constructor must store end");
     static_assert(s.isValid(), "Section(10,20) must be valid");
     static_assert(!s.isReset(), "Section(10,20) must not be reset");
   }
@@ -95,13 +100,13 @@ TEST_CASE("geometry/section/constructor_bounds") {
   SUBCASE("float") {
     constexpr Section s(10.0f, 20.0f);
 
-    REQUIRE(math::isEqual(s.minimum, 10.0f));
-    REQUIRE(math::isEqual(s.maximum, 20.0f));
+    REQUIRE(math::isEqual(s.start, 10.0f));
+    REQUIRE(math::isEqual(s.end, 20.0f));
     REQUIRE(s.isValid());
     REQUIRE(!s.isReset());
 
-    static_assert(math::isEqual(s.minimum, 10.0f), "constructor must store minimum");
-    static_assert(math::isEqual(s.maximum, 20.0f), "constructor must store maximum");
+    static_assert(math::isEqual(s.start, 10.0f), "constructor must store start");
+    static_assert(math::isEqual(s.end, 20.0f), "constructor must store end");
     static_assert(s.isValid(), "Section(10,20) float must be valid");
     static_assert(!s.isReset(), "Section(10,20) float must not be reset");
   }
@@ -110,19 +115,19 @@ TEST_CASE("geometry/section/constructor_bounds") {
   SUBCASE("fixed") {
     constexpr Section s(Fixed(10), Fixed(20));
 
-    REQUIRE(s.minimum == Fixed(10));
-    REQUIRE(s.maximum == Fixed(20));
+    REQUIRE(s.start == Fixed(10));
+    REQUIRE(s.end == Fixed(20));
     REQUIRE(s.isValid());
     REQUIRE(!s.isReset());
 
-    static_assert(s.minimum == Fixed(10), "constructor must store minimum");
-    static_assert(s.maximum == Fixed(20), "constructor must store maximum");
+    static_assert(s.start == Fixed(10), "constructor must store start");
+    static_assert(s.end == Fixed(20), "constructor must store end");
     static_assert(s.isValid(), "Section(10,20) fixed must be valid");
     static_assert(!s.isReset(), "Section(10,20) fixed must not be reset");
   }
 }
 
-// midpoint() returns (minimum + maximum) / 2.
+// midpoint() returns (start + end) / 2.
 TEST_CASE("geometry/section/midpoint") {
   // integer scalar
   SUBCASE("int") {
@@ -152,7 +157,7 @@ TEST_CASE("geometry/section/midpoint") {
   }
 }
 
-// length() returns maximum - minimum.
+// length() returns end - start.
 TEST_CASE("geometry/section/length") {
   // integer scalar
   SUBCASE("int") {
@@ -192,8 +197,8 @@ TEST_CASE("geometry/section/reset") {
 
     REQUIRE(s.isReset());
     REQUIRE(!s.isValid());
-    REQUIRE(s.minimum == numeric_limits<int>::max());
-    REQUIRE(s.maximum == numeric_limits<int>::lowest());
+    REQUIRE(s.start == numeric_limits<int>::max());
+    REQUIRE(s.end == numeric_limits<int>::lowest());
   }
 
   // float scalar
@@ -204,8 +209,8 @@ TEST_CASE("geometry/section/reset") {
 
     REQUIRE(s.isReset());
     REQUIRE(!s.isValid());
-    REQUIRE(math::isEqual(s.minimum, numeric_limits<float>::max()));
-    REQUIRE(math::isEqual(s.maximum, numeric_limits<float>::lowest()));
+    REQUIRE(math::isEqual(s.start, numeric_limits<float>::max()));
+    REQUIRE(math::isEqual(s.end, numeric_limits<float>::lowest()));
   }
 
   // fixed-point scalar
@@ -216,8 +221,8 @@ TEST_CASE("geometry/section/reset") {
 
     REQUIRE(s.isReset());
     REQUIRE(!s.isValid());
-    REQUIRE(s.minimum == numeric_limits<Fixed>::max());
-    REQUIRE(s.maximum == numeric_limits<Fixed>::lowest());
+    REQUIRE(s.start == numeric_limits<Fixed>::max());
+    REQUIRE(s.end == numeric_limits<Fixed>::lowest());
   }
 }
 
@@ -229,18 +234,18 @@ TEST_CASE("geometry/section/expand_value") {
 
     s.expand(5);
 
-    REQUIRE(s.minimum == 5);
-    REQUIRE(s.maximum == 20);
+    REQUIRE(s.start == 5);
+    REQUIRE(s.end == 20);
 
     s.expand(25);
 
-    REQUIRE(s.minimum == 5);
-    REQUIRE(s.maximum == 25);
+    REQUIRE(s.start == 5);
+    REQUIRE(s.end == 25);
 
     s.expand(15);
 
-    REQUIRE(s.minimum == 5);
-    REQUIRE(s.maximum == 25);
+    REQUIRE(s.start == 5);
+    REQUIRE(s.end == 25);
   }
 
   // float scalar
@@ -249,18 +254,18 @@ TEST_CASE("geometry/section/expand_value") {
 
     s.expand(5.0f);
 
-    REQUIRE(math::isEqual(s.minimum, 5.0f));
-    REQUIRE(math::isEqual(s.maximum, 20.0f));
+    REQUIRE(math::isEqual(s.start, 5.0f));
+    REQUIRE(math::isEqual(s.end, 20.0f));
 
     s.expand(25.0f);
 
-    REQUIRE(math::isEqual(s.minimum, 5.0f));
-    REQUIRE(math::isEqual(s.maximum, 25.0f));
+    REQUIRE(math::isEqual(s.start, 5.0f));
+    REQUIRE(math::isEqual(s.end, 25.0f));
 
     s.expand(15.0f);
 
-    REQUIRE(math::isEqual(s.minimum, 5.0f));
-    REQUIRE(math::isEqual(s.maximum, 25.0f));
+    REQUIRE(math::isEqual(s.start, 5.0f));
+    REQUIRE(math::isEqual(s.end, 25.0f));
   }
 
   // fixed-point scalar
@@ -269,18 +274,18 @@ TEST_CASE("geometry/section/expand_value") {
 
     s.expand(Fixed(5));
 
-    REQUIRE(s.minimum == Fixed(5));
-    REQUIRE(s.maximum == Fixed(20));
+    REQUIRE(s.start == Fixed(5));
+    REQUIRE(s.end == Fixed(20));
 
     s.expand(Fixed(25));
 
-    REQUIRE(s.minimum == Fixed(5));
-    REQUIRE(s.maximum == Fixed(25));
+    REQUIRE(s.start == Fixed(5));
+    REQUIRE(s.end == Fixed(25));
 
     s.expand(Fixed(15));
 
-    REQUIRE(s.minimum == Fixed(5));
-    REQUIRE(s.maximum == Fixed(25));
+    REQUIRE(s.start == Fixed(5));
+    REQUIRE(s.end == Fixed(25));
   }
 }
 
@@ -288,48 +293,48 @@ TEST_CASE("geometry/section/expand_value") {
 TEST_CASE("geometry/section/expand_section") {
   // integer scalar
   SUBCASE("int") {
-    Section s(0, 10);
-    Section t(0, 15);
+    Section s(5, 10);
+    Section t(5, 15);
 
     s.expand(Section(20, 30));
-    t.expand(Section(10, 25));
+    t.expand(Section(1, 3));
 
-    REQUIRE(s.minimum == 0);
-    REQUIRE(s.maximum == 30);
-    REQUIRE(t.minimum == 0);
-    REQUIRE(t.maximum == 25);
+    REQUIRE(s.start == 5);
+    REQUIRE(s.end == 30);
+    REQUIRE(t.start == 1);
+    REQUIRE(t.end == 15);
   }
 
   // float scalar
   SUBCASE("float") {
-    Section s(0.0f, 10.0f);
-    Section t(0.0f, 15.0f);
+    Section s(5.0f, 10.0f);
+    Section t(5.0f, 15.0f);
 
     s.expand(Section(20.0f, 30.0f));
-    t.expand(Section(10.0f, 25.0f));
+    t.expand(Section(1.0f, 3.0f));
 
-    REQUIRE(math::isEqual(s.minimum, 0.0f));
-    REQUIRE(math::isEqual(s.maximum, 30.0f));
-    REQUIRE(math::isEqual(t.minimum, 0.0f));
-    REQUIRE(math::isEqual(t.maximum, 25.0f));
+    REQUIRE(math::isEqual(s.start, 5.0f));
+    REQUIRE(math::isEqual(s.end, 30.0f));
+    REQUIRE(math::isEqual(t.start, 1.0f));
+    REQUIRE(math::isEqual(t.end, 15.0f));
   }
 
   // fixed-point scalar
   SUBCASE("fixed") {
-    Section s(Fixed(0), Fixed(10));
-    Section t(Fixed(0), Fixed(15));
+    Section s(Fixed(5), Fixed(10));
+    Section t(Fixed(5), Fixed(15));
 
     s.expand(Section(Fixed(20), Fixed(30)));
-    t.expand(Section(Fixed(10), Fixed(25)));
+    t.expand(Section(Fixed(1), Fixed(3)));
 
-    REQUIRE(s.minimum == Fixed(0));
-    REQUIRE(s.maximum == Fixed(30));
-    REQUIRE(t.minimum == Fixed(0));
-    REQUIRE(t.maximum == Fixed(25));
+    REQUIRE(s.start == Fixed(5));
+    REQUIRE(s.end == Fixed(30));
+    REQUIRE(t.start == Fixed(1));
+    REQUIRE(t.end == Fixed(15));
   }
 }
 
-// isReset() is true when minimum > maximum.
+// isReset() is true when start > end.
 TEST_CASE("geometry/section/is_reset") {
   // integer scalar
   SUBCASE("int") {
@@ -368,7 +373,7 @@ TEST_CASE("geometry/section/is_reset") {
   }
 }
 
-// isValid() is true when minimum <= maximum.
+// isValid() is true when start <= end.
 TEST_CASE("geometry/section/is_valid") {
   // integer scalar
   SUBCASE("int") {
@@ -407,7 +412,7 @@ TEST_CASE("geometry/section/is_valid") {
   }
 }
 
-// isContains(T value) is true when value is in [minimum, maximum] inclusive.
+// isContains(T value) is true when value is in [start, end] inclusive.
 TEST_CASE("geometry/section/is_contains") {
   // integer scalar
   SUBCASE("int") {

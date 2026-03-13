@@ -377,8 +377,8 @@ inline constexpr bool is_fixed_point_v = is_fixed_point<T>::value;
   \concept fixed_point
   \brief Concept satisfied when \a T is an instantiation of \ref toy::math::fixed.
 
-  Use to constrain template parameters to fixed-point types only (analogous to \c std::floating_point for built-in
-  floating-point types). Equivalent to \c is_fixed_point_v<T>.
+  Use to constrain template parameters to fixed-point types only (analogous to \ref toy::math::floating_point for
+  built-in floating-point types). Equivalent to \c is_fixed_point_v<T>.
 
   \sa toy::math::fixed
 */
