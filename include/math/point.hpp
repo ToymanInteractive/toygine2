@@ -31,9 +31,9 @@ namespace toy::math {
   \concept PointScalar
   \brief Concept satisfied when \a T is a signed integral, floating-point, or fixed-point type.
 
-  Used to constrain scalar arguments for \ref toy::math::Point multiplication and division operators.
-  Accepts signed integral types only (e.g. \c int32_t; unsigned integral is excluded), standard floating-point types
-  (\c float, \c double, \c long \c double), and types satisfying \ref toy::math::fixed_point.
+  Used to constrain scalar arguments for \ref toy::math::Point multiplication and division operators. Accepts signed
+  integral types only (e.g. \c int32_t; unsigned integral is excluded), standard floating-point types ( \c float,
+  \c double, \c long \c double), and fixed-point types.
 
   \section requirements Requirements
 

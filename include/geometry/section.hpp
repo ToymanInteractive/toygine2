@@ -30,10 +30,10 @@ namespace geometry {
 
 /*!
   \concept SectionEndpoint
-  \brief Concept satisfied when \a T is a endpoint type allowed as \ref toy::geometry::Section template parameter.
+  \brief Concept satisfied when \a T is an endpoint type allowed as \ref toy::geometry::Section template parameter.
 
-  Use to constrain the endpoint type of \ref toy::geometry::Section to signed_integral, floating-point, or
-  \ref toy::math::fixed_point types only.
+  Use to constrain the endpoint type of \ref toy::geometry::Section to signed-integral, floating-point, or fixed-point
+  types only.
 
   \section requirements Requirements
 
@@ -56,7 +56,7 @@ concept SectionEndpoint = math::signed_integral<T> || math::floating_point<T> ||
   interval.
 
   \tparam T Endpoint type; must satisfy \ref toy::geometry::SectionEndpoint (signed integral, floating-point, or
-            \ref toy::math::fixed_point).
+            fixed-point).
 
   \section features Key Features
 
@@ -185,7 +185,7 @@ template <SectionEndpoint T>
 Section(const T &, const T &) -> Section<T>;
 
 /*!
-  \brief Equality for integral and fixed-point sections: exact comparison of bounds.
+  \brief Equality for signed-integral and fixed-point sections: exact comparison of bounds.
 
   \param a First section.
   \param b Second section.
@@ -195,7 +195,7 @@ Section(const T &, const T &) -> Section<T>;
   \sa operator!=()
 */
 template <SectionEndpoint T>
-  requires(math::integral<T> || math::fixed_point<T>)
+  requires(math::signed_integral<T> || math::fixed_point<T>)
 [[nodiscard]] constexpr bool operator==(const Section<T> & a, const Section<T> & b) noexcept;
 
 /*!

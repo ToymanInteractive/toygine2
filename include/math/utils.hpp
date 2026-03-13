@@ -21,7 +21,7 @@
   \file   utils.hpp
   \brief  General math utilities: abs, isEqual, deg2rad, rad2deg.
 
-  Declares overloads for signed integers, floating-point types, and \ref toy::math::fixed_point.
+  Declares overloads for signed integers, floating-point, and fixed-point types.
 */
 
 #ifndef INCLUDE_MATH_UTILS_HPP_
@@ -32,10 +32,10 @@
   \brief Math utilities, fixed-point arithmetic, and related types.
 
   - **abs**: Absolute value for signed integers, floating-point (\c float, \c double, \c long \c double), and
-    \ref toy::math::fixed; branch-free for integral and common float types where applicable.
+             fixed-point; branch-free for integral and common float types where applicable.
   - **isEqual**: Approximate equality with configurable absolute and relative epsilon (default 8× and 64×
-    \c numeric_limits<T>::epsilon()); overloads for standard floating-point types and \ref toy::math::fixed_point.
-  - **deg2rad**, **rad2deg**: Angle conversion (degrees ↔ radians) for floating-point and \ref toy::math::fixed.
+                 \c numeric_limits<T>::epsilon()); overloads for standard floating-point and fixed-point types.
+  - **deg2rad**, **rad2deg**: Angle conversion (degrees ↔ radians) for floating-point and fixed-point.
 
   \section features Key Features
 
@@ -53,7 +53,7 @@ namespace toy::math {
 
   Computes absolute value without branches. Usable in constant expressions.
 
-  \tparam T Signed integer type; must satisfy \c signed_integral.
+  \tparam T Signed integer type; must satisfy \ref toy::math::signed_integral.
 
   \param value The signed integer value.
 
@@ -68,7 +68,7 @@ template <signed_integral T>
 
   Branch-free for \c float and \c double; \c long \c double uses a conditional. Usable in constant expressions.
 
-  \tparam T Floating-point type; must satisfy \c floating_point.
+  \tparam T Floating-point type; must satisfy \ref toy::math::floating_point.
 
   \param value The floating-point value.
 
@@ -97,7 +97,7 @@ template <fixed_point T>
   Combined absolute and relative epsilon test: small values by \a absEpsilon, large values by \a relEpsilon scaled by
   max(|a|, |b|). Supports \c float, \c double, and \c long \c double.
 
-  \tparam T Floating-point type; must satisfy \c floating_point.
+  \tparam T Floating-point type; must satisfy \ref toy::math::floating_point.
 
   \param a          The first value.
   \param b          The second value.
@@ -114,8 +114,8 @@ template <floating_point T>
   \brief Compares two fixed-point values for approximate equality.
   \ingroup MathFunctions
 
-  Same combined absolute and relative epsilon test as the floating-point overload: small values by \a absEpsilon, large
-  values by \a relEpsilon scaled by max(|a|, |b|). Applicable to any \ref toy::math::fixed_point type.
+  Combined absolute and relative epsilon test: small values by \a absEpsilon, large values by \a relEpsilon scaled by
+  max(|a|, |b|). Supports \ref toy::math::fixed_point.
 
   \tparam T Fixed-point type; must satisfy \ref toy::math::fixed_point.
 
@@ -134,7 +134,7 @@ template <fixed_point T>
   \brief Converts angle from degrees to radians.
   \ingroup MathFunctions
 
-  \tparam T Scalar type; must satisfy \c floating_point or \ref toy::math::fixed_point.
+  \tparam T Scalar type; must satisfy \ref toy::math::floating_point or \ref toy::math::fixed_point.
 
   \param angle Angle in degrees.
 
@@ -151,7 +151,7 @@ template <typename T>
   \brief Converts angle from radians to degrees.
   \ingroup MathFunctions
 
-  \tparam T Scalar type; must satisfy \c floating_point or \ref toy::math::fixed_point.
+  \tparam T Scalar type; must satisfy \ref toy::math::floating_point or \ref toy::math::fixed_point.
 
   \param angle Angle in radians.
 

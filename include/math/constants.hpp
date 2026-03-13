@@ -57,13 +57,13 @@ namespace toy::math {
   \concept FractionalConstantType
   \brief Type that can be used with \ref toy::math::constants variable templates.
 
-  Satisfied for \c std::floating_point types (\c float, \c double, \c long \c double) and \ref toy::math::fixed_point
-  types (\ref toy::math::fixed).
+  Satisfied for \ref toy::math::floating_point types (\c float, \c double, \c long \c double) and
+  \ref toy::math::fixed_point types (\ref toy::math::fixed).
 
   \section requirements Requirements
 
   A type \a T satisfies FractionalConstantType if and only if at least one of the following holds:
-  - \a T satisfies \c std::floating_point.
+  - \a T satisfies \ref toy::math::floating_point.
   - \a T satisfies \ref toy::math::fixed_point.
 */
 template <typename T>
