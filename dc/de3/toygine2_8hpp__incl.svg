@@ -1097,7 +1097,7 @@ var sectionId = 'dynsection-0';
 <!-- Node63 -->
 <g id="Node000063" class="node">
 <title>Node63</title>
-<g id="a_Node000063"><a xlink:href="../../d9/dc5/section_8hpp.html" target="_top" xlink:title="toy::geometry::Section and toy::geometry::SectionScalar declarations.">
+<g id="a_Node000063"><a xlink:href="../../d9/dc5/section_8hpp.html" target="_top" xlink:title="toy::geometry::Section and toy::geometry::SectionEndpoint declarations.">
 <polygon fill="white" stroke="#666666" points="734,-217 611,-217 611,-198 734,-198 734,-217"/>
 <text text-anchor="middle" x="672.5" y="-205" font-family="Helvetica,sans-Serif" font-size="10.00">geometry/section.hpp</text>
 </a>

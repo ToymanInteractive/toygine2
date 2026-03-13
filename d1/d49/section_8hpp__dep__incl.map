@@ -1,5 +1,5 @@
 <map id="include/geometry/section.hpp" name="include/geometry/section.hpp">
-<area shape="rect" id="Node000001" title="toy::geometry::Section and toy::geometry::SectionScalar declarations." alt="" coords="5,5,220,31"/>
+<area shape="rect" id="Node000001" title="toy::geometry::Section and toy::geometry::SectionEndpoint declarations." alt="" coords="5,5,220,31"/>
 <area shape="rect" id="Node000002" href="$db/dbb/geometry_8hpp.html" title="Umbrella header for the geometry module." alt="" coords="31,79,194,104"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="115,44,115,79,110,79,110,44"/>
 <area shape="rect" id="Node000003" href="$d8/d8c/toygine2_8hpp.html" title="Main umbrella header for the engine." alt="" coords="33,152,192,177"/>

@@ -10,7 +10,7 @@ var searchData=
   ['enable_7',['enable',['../db/deb/structtoy_1_1_enable_bitwise_operators.html#a73c936e06cab1aea0e6d53f22b468836',1,'toy::EnableBitwiseOperators']]],
   ['enable_5fbitwise_5foperators_8',['ENABLE_BITWISE_OPERATORS',['../df/d61/bitwise__enum_8hpp.html#aeef6a9a97e9b8d6f238e592b2e566abf',1,'bitwise_enum.hpp']]],
   ['enablebitwiseoperators_9',['EnableBitwiseOperators',['../db/deb/structtoy_1_1_enable_bitwise_operators.html',1,'toy']]],
-  ['end_10',['end',['../d7/dec/classtoy_1_1_fixed_vector.html#aa284ff8b315f0aeafd58b0c4ecede634',1,'toy::FixedVector::end() noexcept'],['../d7/dec/classtoy_1_1_fixed_vector.html#a4b891a0a6ccc5dcc75f11c30752e5674',1,'toy::FixedVector::end() const noexcept']]],
+  ['end_10',['end',['../db/d6f/classtoy_1_1geometry_1_1_section.html#a6949a8b757b025718ee4ecff441ca008',1,'toy::geometry::Section::end'],['../d7/dec/classtoy_1_1_fixed_vector.html#aa284ff8b315f0aeafd58b0c4ecede634',1,'toy::FixedVector::end() noexcept'],['../d7/dec/classtoy_1_1_fixed_vector.html#a4b891a0a6ccc5dcc75f11c30752e5674',1,'toy::FixedVector::end() const noexcept']]],
   ['endpoint_11',['Endpoint',['../d3/d53/classtoy_1_1network_1_1_endpoint.html',1,'toy::network::Endpoint'],['../d3/d53/classtoy_1_1network_1_1_endpoint.html#a9f06b6b1f2b0ddf7ae2546abdc469d03',1,'toy::network::Endpoint::Endpoint()']]],
   ['endpoint_2ecpp_12',['endpoint.cpp',['../d3/d80/endpoint_8cpp.html',1,'']]],
   ['endpoint_2ehpp_13',['endpoint.hpp',['../d7/dbd/endpoint_8hpp.html',1,'']]],

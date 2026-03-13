@@ -50,8 +50,6 @@ var NAVTREEINDEX2 =
 "d5/d82/3ds_2platform__config_8hpp_source.html":[6,0,1,2,0,0],
 "d5/d96/assertion_8hpp.html":[6,0,0,2,0],
 "d5/d96/assertion_8hpp_source.html":[6,0,0,2,0],
-"d5/dc1/concepttoy_1_1math_1_1_math_constant_type.html":[3,0,1,2,6],
-"d5/dc1/concepttoy_1_1math_1_1_math_constant_type.html":[4,0,1,0],
 "d6/d2c/namespacetoy_1_1network.html":[3,0,1,3],
 "d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725e":[3,0,1,3,2],
 "d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725ea00b7ae176d07d00500fef827f193da59":[3,0,1,3,2,5],
@@ -249,5 +247,7 @@ var NAVTREEINDEX2 =
 "d7/dec/classtoy_1_1_fixed_vector.html#ac66fdf023303871d1e81d4f32fe1437c":[5,0,1,10,0],
 "d7/dec/classtoy_1_1_fixed_vector.html#ac7b8218dba3672ac58881b354217bf92":[3,0,1,16,2],
 "d7/dec/classtoy_1_1_fixed_vector.html#ac7b8218dba3672ac58881b354217bf92":[5,0,1,10,2],
-"d7/dec/classtoy_1_1_fixed_vector.html#ace34713255569c65489f876f6c0b1b27":[3,0,1,16,15]
+"d7/dec/classtoy_1_1_fixed_vector.html#ace34713255569c65489f876f6c0b1b27":[3,0,1,16,15],
+"d7/dec/classtoy_1_1_fixed_vector.html#ace34713255569c65489f876f6c0b1b27":[5,0,1,10,15],
+"d7/dec/classtoy_1_1_fixed_vector.html#ad1b12283014e9694c538c41a6b4d854b":[3,0,1,16,51]
 };

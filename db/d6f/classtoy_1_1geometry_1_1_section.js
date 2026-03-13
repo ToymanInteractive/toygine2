@@ -10,6 +10,6 @@ var classtoy_1_1geometry_1_1_section =
     [ "length", "db/d6f/classtoy_1_1geometry_1_1_section.html#a4efee9d8e3cf44bb07fbeed822858b7f", null ],
     [ "midpoint", "db/d6f/classtoy_1_1geometry_1_1_section.html#a77ce1da6011210c5247d0c334a1c53d8", null ],
     [ "reset", "db/d6f/classtoy_1_1geometry_1_1_section.html#ad9674e1bc236eacc544d96cc8e7b019a", null ],
-    [ "maximum", "db/d6f/classtoy_1_1geometry_1_1_section.html#a4aba5fac6b7bffd630253c029c49b3f5", null ],
-    [ "minimum", "db/d6f/classtoy_1_1geometry_1_1_section.html#add8e462337a78bf66c0426c15153a176", null ]
+    [ "end", "db/d6f/classtoy_1_1geometry_1_1_section.html#a6949a8b757b025718ee4ecff441ca008", null ],
+    [ "start", "db/d6f/classtoy_1_1geometry_1_1_section.html#a2fe9f7aba81fafc2d1708e61cccf409b", null ]
 ];

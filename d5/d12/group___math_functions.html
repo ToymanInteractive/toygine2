@@ -135,9 +135,9 @@ Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Math utilities, fixed-point arithmetic, and related types. </p>
 <ul>
-<li><b>abs</b>: Absolute value for signed integers, floating-point (<code>float</code>, <code>double</code>, <code>long</code> <code>double</code>), and <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html" title="toy::math::fixed">toy::math::fixed</a>; branch-free for integral and common float types where applicable.</li>
-<li><b>isEqual</b>: Approximate equality with configurable absolute and relative epsilon (default 8× and 64× <code>numeric_limits&lt;T&gt;::epsilon()</code>); overloads for standard floating-point types and <a class="el" href="../../dd/de0/concepttoy_1_1math_1_1fixed__point.html" title="toy::math::fixed_point">toy::math::fixed_point</a>.</li>
-<li><b>deg2rad</b>, <b>rad2deg</b>: Angle conversion (degrees ↔ radians) for floating-point and <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html" title="toy::math::fixed">toy::math::fixed</a>.</li>
+<li><b>abs</b>: Absolute value for signed integers, floating-point (<code>float</code>, <code>double</code>, <code>long</code> <code>double</code>), and fixed-point; branch-free for integral and common float types where applicable.</li>
+<li><b>isEqual</b>: Approximate equality with configurable absolute and relative epsilon (default 8× and 64× <code>numeric_limits&lt;T&gt;::epsilon()</code>); overloads for standard floating-point and fixed-point types.</li>
+<li><b>deg2rad</b>, <b>rad2deg</b>: Angle conversion (degrees ↔ radians) for floating-point and fixed-point.</li>
 </ul>
 <h1 class="doxsection"><a class="anchor" id="features"></a>
 Key Features</h1>
@@ -179,7 +179,7 @@ template&lt;signed_integral T&gt; </div>
 <p>Computes absolute value without branches. Usable in constant expressions.</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">T</td><td>Signed integer type; must satisfy <code>signed_integral</code>.</td></tr>
+    <tr><td class="paramname">T</td><td>Signed integer type; must satisfy toy::math::signed_integral.</td></tr>
   </table>
   </dd>
 </dl>
@@ -193,7 +193,7 @@ template&lt;signed_integral T&gt; </div>
 <p>Branch-free for <code>float</code> and <code>double</code>; <code>long</code> <code>double</code> uses a conditional. Usable in constant expressions.</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">T</td><td>Floating-point type; must satisfy <code>floating_point</code>.</td></tr>
+    <tr><td class="paramname">T</td><td>Floating-point type; must satisfy toy::math::floating_point.</td></tr>
   </table>
   </dd>
 </dl>
@@ -248,7 +248,7 @@ template&lt;typename T&gt; </div>
 <p>Converts angle from degrees to radians. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">T</td><td>Scalar type; must satisfy <code>floating_point</code> or <a class="el" href="../../dd/de0/concepttoy_1_1math_1_1fixed__point.html" title="toy::math::fixed_point">toy::math::fixed_point</a>.</td></tr>
+    <tr><td class="paramname">T</td><td>Scalar type; must satisfy toy::math::floating_point or <a class="el" href="../../dd/de0/concepttoy_1_1math_1_1fixed__point.html" title="toy::math::fixed_point">toy::math::fixed_point</a>.</td></tr>
   </table>
   </dd>
 </dl>
@@ -307,7 +307,7 @@ template&lt;floating_point T&gt; </div>
 <p>Combined absolute and relative epsilon test: small values by <em class="arg">absEpsilon</em>, large values by <em class="arg">relEpsilon</em> scaled by max(|a|, |b|). Supports <code>float</code>, <code>double</code>, and <code>long</code> <code>double</code>.</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">T</td><td>Floating-point type; must satisfy <code>floating_point</code>.</td></tr>
+    <tr><td class="paramname">T</td><td>Floating-point type; must satisfy toy::math::floating_point.</td></tr>
   </table>
   </dd>
 </dl>
@@ -321,7 +321,7 @@ template&lt;floating_point T&gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if <em class="arg">a</em> and <em class="arg">b</em> are considered equal under the chosen tolerances, <code>false</code> otherwise.</dd></dl>
-<p>Same combined absolute and relative epsilon test as the floating-point overload: small values by <em class="arg">absEpsilon</em>, large values by <em class="arg">relEpsilon</em> scaled by max(|a|, |b|). Applicable to any <a class="el" href="../../dd/de0/concepttoy_1_1math_1_1fixed__point.html" title="toy::math::fixed_point">toy::math::fixed_point</a> type.</p>
+<p>Combined absolute and relative epsilon test: small values by <em class="arg">absEpsilon</em>, large values by <em class="arg">relEpsilon</em> scaled by max(|a|, |b|). Supports <a class="el" href="../../dd/de0/concepttoy_1_1math_1_1fixed__point.html" title="toy::math::fixed_point">toy::math::fixed_point</a>.</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">T</td><td>Fixed-point type; must satisfy <a class="el" href="../../dd/de0/concepttoy_1_1math_1_1fixed__point.html" title="toy::math::fixed_point">toy::math::fixed_point</a>.</td></tr>
@@ -369,7 +369,7 @@ template&lt;typename T&gt; </div>
 <p>Converts angle from radians to degrees. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">T</td><td>Scalar type; must satisfy <code>floating_point</code> or <a class="el" href="../../dd/de0/concepttoy_1_1math_1_1fixed__point.html" title="toy::math::fixed_point">toy::math::fixed_point</a>.</td></tr>
+    <tr><td class="paramname">T</td><td>Scalar type; must satisfy toy::math::floating_point or <a class="el" href="../../dd/de0/concepttoy_1_1math_1_1fixed__point.html" title="toy::math::fixed_point">toy::math::fixed_point</a>.</td></tr>
   </table>
   </dd>
 </dl>
