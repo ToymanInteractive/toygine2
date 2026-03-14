@@ -114,11 +114,11 @@ public:
   /*!
     \brief Constructs a point from an array.
 
-    \param values Array of at least two elements; values[0] is \a x, values[1] is \a y.
+    \param values Pointer to at least two elements; \a values[0] is \a x, \a values[1] is \a y.
 
     \pre \a values != nullptr; array has at least two elements.
 
-    \post \a x == values[0], \a y == values[1].
+    \post \a x == \a values[0], \a y == \a values[1].
   */
   explicit constexpr Point(const int32_t * values) noexcept;
 
@@ -201,7 +201,7 @@ public:
   /*!
     \brief Returns whether both coordinates are zero.
 
-    \return \c true if \a x == \c 0 and \a y == \c 0, \c false otherwise.
+    \return \c true if \a x and \a y are zero, \c false otherwise.
   */
   [[nodiscard]] constexpr bool isZero() const noexcept;
 
@@ -250,9 +250,9 @@ public:
 /*!
   \brief Point scaled by scalar and truncated to integer.
 
-  \tparam T Type satisfying \ref toy::math::PointScalar (signed integral, floating-point, or fixed-point).
+  \tparam T Type satisfying \ref toy::math::PointScalar.
 
-  \param point  Operand.
+  \param point  Point operand.
   \param scalar Scale factor.
 
   \return \ref toy::math::Point with coordinates multiplied by \a scalar then cast to \c int32_t.
@@ -266,7 +266,7 @@ template <PointScalar T>
   \tparam T Type satisfying \ref toy::math::PointScalar (signed integral, floating-point, or fixed-point).
 
   \param scalar Scale factor.
-  \param point  Operand.
+  \param point  Point operand.
 
   \return \ref toy::math::Point with coordinates multiplied by \a scalar then cast to \c int32_t.
 */
@@ -278,7 +278,7 @@ template <PointScalar T>
 
   \tparam T Type satisfying \ref toy::math::PointScalar (signed integral, floating-point, or fixed-point).
 
-  \param point  Operand.
+  \param point  Point operand.
   \param scalar Divisor.
 
   \return \ref toy::math::Point with coordinates divided by \a scalar then cast to \c int32_t.
