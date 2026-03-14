@@ -98,11 +98,7 @@ public:
   T y;
 
 public:
-  /*!
-    \brief Default constructor.
-
-    \post \a x and \a y are zero.
-  */
+  /// Default constructor.
   constexpr Vector2D() noexcept;
 
   /*!

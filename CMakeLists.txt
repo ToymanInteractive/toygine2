@@ -129,8 +129,8 @@ set(HDR_GAME_LIST include/game.hpp include/game/achievement_state.hpp)
 set(INL_GAME_LIST )
 
 set(SRC_GEOMETRY_LIST )
-set(HDR_GEOMETRY_LIST include/geometry.hpp include/geometry/section.hpp)
-set(INL_GEOMETRY_LIST                      include/geometry/section.inl)
+set(HDR_GEOMETRY_LIST include/geometry.hpp include/geometry/circle.hpp include/geometry/section.hpp)
+set(INL_GEOMETRY_LIST                      include/geometry/circle.inl include/geometry/section.inl)
 
 set(SRC_MATH_LIST )
 set(HDR_MATH_LIST include/math.hpp include/math/fixed.hpp include/math/fixed_std_extension.hpp include/math/point.hpp include/math/utils.hpp include/math/vector2d.hpp)

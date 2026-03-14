@@ -28,6 +28,109 @@ using Fixed = toy::math::fixed<int32_t, int64_t, 24>;
 void runGeometryBenchmarks() noexcept {
   auto bench = createBench("Geometry module");
 
+  // Circle benchmarks
+  {
+    bench.run("Circle<float> default construct", [] {
+      Circle<float> c;
+      doNotOptimize(c);
+    });
+    bench.run("Circle<Fixed> default construct", [] {
+      Circle<Fixed> c;
+      doNotOptimize(c);
+    });
+
+    bench.run("Circle<float> construct center radius", [] {
+      Circle c(toy::math::Vector2D(5.0f, 10.0f), 3.0f);
+      doNotOptimize(c);
+    });
+    bench.run("Circle<Fixed> construct center radius", [] {
+      Circle c(toy::math::Vector2D(Fixed(5), Fixed(10)), Fixed(3));
+      doNotOptimize(c);
+    });
+
+    bench.run("Circle<float> area", [] {
+      Circle c(toy::math::Vector2D(0.0f, 0.0f), 10.0f);
+      auto r = c.area();
+      doNotOptimize(r);
+    });
+    bench.run("Circle<Fixed> area", [] {
+      Circle c(toy::math::Vector2D(Fixed(0), Fixed(0)), Fixed(10));
+      auto r = c.area();
+      doNotOptimize(r);
+    });
+
+    bench.run("Circle<float> reset", [] {
+      Circle c(toy::math::Vector2D(10.0f, 20.0f), 5.0f);
+      c.reset();
+      doNotOptimize(c);
+    });
+    bench.run("Circle<Fixed> reset", [] {
+      Circle c(toy::math::Vector2D(Fixed(10), Fixed(20)), Fixed(5));
+      c.reset();
+      doNotOptimize(c);
+    });
+
+    bench.run("Circle<float> isReset", [] {
+      Circle<float> c;
+      c.reset();
+      auto r = c.isReset();
+      doNotOptimize(r);
+    });
+    bench.run("Circle<Fixed> isReset", [] {
+      Circle<Fixed> c;
+      auto r = c.isReset();
+      doNotOptimize(r);
+    });
+
+    bench.run("Circle<float> isValid", [] {
+      Circle c(toy::math::Vector2D(0.0f, 0.0f), 1.0f);
+      auto r = c.isValid();
+      doNotOptimize(r);
+    });
+    bench.run("Circle<Fixed> isValid", [] {
+      Circle c(toy::math::Vector2D(Fixed(0), Fixed(0)), Fixed(1));
+      auto r = c.isValid();
+      doNotOptimize(r);
+    });
+
+    bench.run("Circle<float> isContain", [] {
+      Circle c(toy::math::Vector2D(0.0f, 0.0f), 10.0f);
+      auto r = c.isContain(toy::math::Vector2D(5.0f, 0.0f));
+      doNotOptimize(r);
+    });
+    bench.run("Circle<Fixed> isContain", [] {
+      Circle c(toy::math::Vector2D(Fixed(0), Fixed(0)), Fixed(10));
+      auto r = c.isContain(toy::math::Vector2D(Fixed(5), Fixed(0)));
+      doNotOptimize(r);
+    });
+
+    bench.run("Circle<float> operator==", [] {
+      Circle a(toy::math::Vector2D(1.0f, 2.0f), 3.0f);
+      Circle b(toy::math::Vector2D(1.0f, 2.0f), 3.0f);
+      auto r = (a == b);
+      doNotOptimize(r);
+    });
+    bench.run("Circle<Fixed> operator==", [] {
+      Circle a(toy::math::Vector2D(Fixed(1), Fixed(2)), Fixed(3));
+      Circle b(toy::math::Vector2D(Fixed(1), Fixed(2)), Fixed(3));
+      auto r = (a == b);
+      doNotOptimize(r);
+    });
+
+    bench.run("Circle<float> operator!=", [] {
+      Circle a(toy::math::Vector2D(1.0f, 2.0f), 3.0f);
+      Circle b(toy::math::Vector2D(1.0f, 2.0f), 4.0f);
+      auto r = (a != b);
+      doNotOptimize(r);
+    });
+    bench.run("Circle<Fixed> operator!=", [] {
+      Circle a(toy::math::Vector2D(Fixed(1), Fixed(2)), Fixed(3));
+      Circle b(toy::math::Vector2D(Fixed(1), Fixed(2)), Fixed(4));
+      auto r = (a != b);
+      doNotOptimize(r);
+    });
+  }
+
   // Section benchmarks
   {
     bench.run("Section<int> default construct", [] {

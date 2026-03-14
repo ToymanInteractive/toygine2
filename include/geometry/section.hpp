@@ -96,12 +96,7 @@ public:
   T end;
 
 public:
-  /*!
-    \brief Default constructor; section is in reset (empty) state.
-
-    \post isReset() is \c true, isValid() is \c false, \a start is \c numeric_limits<T>::max(), \a end is
-          \c numeric_limits<T>::lowest().
-  */
+  /// Default constructor.
   constexpr Section() noexcept;
 
   /*!
@@ -185,50 +180,38 @@ template <SectionEndpoint T>
 Section(const T &, const T &) -> Section<T>;
 
 /*!
-  \brief Equality for signed integral and fixed-point sections: exact comparison of bounds.
+  \brief Equality of two sections: exact comparison for integral and fixed-point, approximate for floating-point.
 
-  \tparam T Endpoint type; must satisfy \ref toy::geometry::SectionEndpoint and \ref toy::math::signed_integral or
-            \ref toy::math::fixed_point.
+  For floating-point \a T compares bounds with math::isEqual. For signed integral and fixed-point \a T compares
+  \a left.start with \a right.start and \a left.end with \a right.end exactly.
 
-  \param a First section.
-  \param b Second section.
+  \tparam T Endpoint type; must satisfy \ref toy::geometry::SectionEndpoint.
 
-  \return \c true if \a a.start == \a b.start and \a a.end == \a b.end.
+  \param left  First section.
+  \param right Second section.
 
-  \sa operator!=()
-*/
-template <SectionEndpoint T>
-  requires(math::signed_integral<T> || math::fixed_point<T>)
-[[nodiscard]] constexpr bool operator==(const Section<T> & a, const Section<T> & b) noexcept;
-
-/*!
-  \brief Equality for floating-point sections: approximate comparison via math::isEqual.
-
-  \tparam T Endpoint type; must satisfy \ref toy::geometry::SectionEndpoint and \ref toy::math::floating_point.
-
-  \param a First section.
-  \param b Second section.
-
-  \return \c true if both bounds are equal within default epsilon (math::isEqual).
+  \return \c true if \a left and \a right have equal bounds (exact for integral/fixed-point, within default epsilon
+          for floating-point).
 
   \sa operator!=()
 */
 template <SectionEndpoint T>
-  requires math::floating_point<T>
-[[nodiscard]] constexpr bool operator==(const Section<T> & a, const Section<T> & b) noexcept;
+[[nodiscard]] constexpr bool operator==(const Section<T> & left, const Section<T> & right) noexcept;
 
 /*!
-  \brief Inequality: \c true when bounds differ.
+  \brief Inequality of two sections.
 
-  \param a First section.
-  \param b Second section.
+  \tparam T Endpoint type; must satisfy \ref toy::geometry::SectionEndpoint.
 
-  \return \c true if \c !(a == b).
+  \param left First section.
+  \param right Second section.
+
+  \return \c true if \a left and \a right have different bounds, i.e. \c !(\a left == \a right).
 
   \sa operator==()
 */
 template <SectionEndpoint T>
-[[nodiscard]] constexpr bool operator!=(const Section<T> & a, const Section<T> & b) noexcept;
+[[nodiscard]] constexpr bool operator!=(const Section<T> & left, const Section<T> & right) noexcept;
 
 } // namespace toy::geometry
 

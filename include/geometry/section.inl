@@ -99,23 +99,18 @@ constexpr bool Section<T>::isContains(const T & value) const noexcept {
   return start <= value && value <= end;
 }
 
-// int and fixed: exact comparison via operator==.
 template <SectionEndpoint T>
-  requires(math::signed_integral<T> || math::fixed_point<T>)
-constexpr bool operator==(const Section<T> & a, const Section<T> & b) noexcept {
-  return a.start == b.start && a.end == b.end;
-}
-
-// float, double, long double: approximate comparison via math::isEqual.
-template <SectionEndpoint T>
-  requires math::floating_point<T>
-constexpr bool operator==(const Section<T> & a, const Section<T> & b) noexcept {
-  return math::isEqual(a.start, b.start) && math::isEqual(a.end, b.end);
+constexpr bool operator==(const Section<T> & left, const Section<T> & right) noexcept {
+  if constexpr (math::floating_point<T>) {
+    return math::isEqual(left.start, right.start) && math::isEqual(left.end, right.end);
+  } else {
+    return left.start == right.start && left.end == right.end;
+  }
 }
 
 template <SectionEndpoint T>
-constexpr bool operator!=(const Section<T> & a, const Section<T> & b) noexcept {
-  return !(a == b);
+constexpr bool operator!=(const Section<T> & left, const Section<T> & right) noexcept {
+  return !(left == right);
 }
 
 } // namespace toy::geometry

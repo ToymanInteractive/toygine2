@@ -169,7 +169,7 @@ constexpr bool operator==(const Vector2D<T> & left, const Vector2D<T> & right) n
   if constexpr (floating_point<T>) {
     return left.isEqual(right);
   } else if constexpr (fixed_point<T>) {
-    return left.x.rawValue() == right.x.rawValue() && left.y.rawValue() == right.y.rawValue();
+    return left.x == right.x && left.y == right.y;
   }
 }
 

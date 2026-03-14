@@ -97,11 +97,7 @@ public:
   int32_t y;
 
 public:
-  /*!
-    \brief Default constructor.
-
-    \post \a x and \a y are zero.
-  */
+  /// Default constructor.
   constexpr Point() noexcept = default;
 
   /*!
