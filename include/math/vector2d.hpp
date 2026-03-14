@@ -300,12 +300,16 @@ template <Vector2DComponent T>
 /*!
   \brief Exact equality of two vectors.
 
+  For floating-point \a T, delegates to isEqual() with default epsilons. For fixed-point \a T, compares raw storage of
+  both components.
+
   \param left  First operand.
   \param right Second operand.
 
-  \return \c true if components are equal within default tolerances, \c false otherwise.
+  \return For floating-point \a T: \c true if isEqual(\a right) with default tolerances. For fixed-point \a T: \c true
+          if \a left and \a right have equal raw component values.
 
-  \sa isEqual() for custom tolerances.
+  \sa isEqual() for custom tolerances (floating-point).
 */
 template <Vector2DComponent T>
 [[nodiscard]] constexpr bool operator==(const Vector2D<T> & left, const Vector2D<T> & right) noexcept;

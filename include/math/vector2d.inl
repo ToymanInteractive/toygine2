@@ -144,7 +144,11 @@ constexpr Vector2D<T> operator/(const Vector2D<T> & left, const T & right) noexc
 
 template <Vector2DComponent T>
 constexpr bool operator==(const Vector2D<T> & left, const Vector2D<T> & right) noexcept {
-  return left.isEqual(right);
+  if constexpr (floating_point<T>) {
+    return left.isEqual(right);
+  } else if constexpr (fixed_point<T>) {
+    return left.x.rawValue() == right.x.rawValue() && left.y.rawValue() == right.y.rawValue();
+  }
 }
 
 } // namespace toy::math

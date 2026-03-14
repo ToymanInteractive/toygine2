@@ -30,10 +30,8 @@ TEST_CASE("math/vector2d/object_structure") {
   constexpr Vector2D<float> vectorFloat;
   constexpr Vector2D<Fixed> vectorFixed;
 
-  static_assert(sizeof(vectorFloat) == sizeof(float) * 2,
-                "Vector2D<float> object size must equal twice the component type size");
-  static_assert(sizeof(vectorFixed) == sizeof(Fixed) * 2,
-                "Vector2D<Fixed> object size must equal twice the component type size");
+  static_assert(sizeof(vectorFloat) == sizeof(float) * 2, "Vector2D size must be 2× component size");
+  static_assert(sizeof(vectorFixed) == sizeof(Fixed) * 2, "Vector2D size must be 2× component size");
 
   const auto * arrFloat = vectorFloat.c_arr();
   const auto * arrFixed = vectorFixed.c_arr();
@@ -394,8 +392,7 @@ TEST_CASE("math/vector2d/methods") {
     REQUIRE(!v1Float.isEqual(v3Float, toleranceTooSmall));
 
     static_assert(v1Float.isEqual(v2Float, toleranceOk), "isEqual with sufficient tolerance must return true");
-    static_assert(!v1Float.isEqual(v3Float, toleranceTooSmall),
-                  "isEqual with insufficient tolerance must return false");
+    static_assert(!v1Float.isEqual(v3Float, toleranceTooSmall), "isEqual with too small tolerance must be false");
   }
 
   // isEqual() with zero tolerance requires exact match.
@@ -541,6 +538,16 @@ TEST_CASE("math/vector2d/binary_operators") {
     static_assert(aFloat != cFloat, "different vectors must not compare equal");
     static_assert(aFixed == bFixed, "identical vectors must compare equal");
     static_assert(aFixed != cFixed, "different vectors must not compare equal");
+  }
+
+  // operator== for float uses default tolerances (same as isEqual with defaults); near-equal vectors compare equal.
+  SUBCASE("equality_float_within_default_tolerance") {
+    constexpr Vector2D a(10.0f, 20.0f);
+    constexpr Vector2D b(10.0f + 1e-6f, 20.0f - 1e-6f);
+
+    REQUIRE(a == b);
+
+    static_assert(a == b, "operator== must treat near-equal float vectors as equal");
   }
 
   // Chained binary operations.
