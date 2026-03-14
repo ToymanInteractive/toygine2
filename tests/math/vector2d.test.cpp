@@ -129,7 +129,7 @@ TEST_CASE("math/vector2d/constructors") {
 
   // Constructor from pointer to two-element array.
   SUBCASE("constructor_from_pointer_to_array") {
-    constexpr array<float, 2> arrFloat{42, -17};
+    constexpr array<float, 2> arrFloat{{42.0f, -17.0f}};
     constexpr array<Fixed, 2> arrFixed{Fixed(42), Fixed(-17)};
     constexpr Vector2D vectorFloat(arrFloat.data());
     constexpr Vector2D vectorFixed(arrFixed.data());
@@ -161,7 +161,7 @@ TEST_CASE("math/vector2d/constructors") {
     REQUIRE(vectorFixed.x == 123);
     REQUIRE(vectorFixed.y == -456);
 
-    constexpr array<float, 2> arrFloat{789.0f, -321.0f};
+    constexpr array<float, 2> arrFloat{{789.0f, -321.0f}};
     constexpr array<Fixed, 2> arrFixed{Fixed(789), Fixed(-321)};
     Vector2D arrayFloat(arrFloat.data());
     Vector2D arrayFixed(arrFixed.data());
