@@ -29,9 +29,9 @@ namespace toy::math {
 
 /*!
   \concept Vector2DComponent
-  \brief Concept satisfied when \a T is an component type allowed as \ref toy::math::Vector2D template parameter.
+  \brief Concept satisfied when \a T is a component type allowed as \ref toy::math::Vector2D template parameter.
 
-  Use to constrain the component type of \ref toy::math::Vector2D to floating-point, or fixed-point types only.
+  Use to constrain the component type of \ref toy::math::Vector2D to floating-point or fixed-point types only.
 
   \section requirements Requirements
 
@@ -46,339 +46,273 @@ concept Vector2DComponent = floating_point<T> || fixed_point<T>;
 
 /*!
   \class Vector2D
-  \brief 2D floating-point vector class for interactive game objects and physics calculations.
+  \brief 2D vector with floating-point or fixed-point components for positions, movement, and physics.
 
-  Vector2D represents a 2D vector with floating-point coordinates, designed for interactive game objects, sprite
-  positioning, character movement, particle systems, physics calculations, and world coordinate transformations where
-  sub-pixel precision is required.
+  Represents a 2D vector with \a x and \a y components. Suited for world/screen coordinates, velocity, forces, and
+  transformations where sub-pixel or fractional precision is needed. For integer pixel coordinates use
+  \ref toy::math::Point.
 
   \section features Key Features
 
-  - ⚙️ **Floating-Point Precision**: Uses \a real_t (float) for sub-pixel positioning and smooth movement
-  - 🔧 **ConstExpr Support**: Most operations can be evaluated at compile time
-  - 🛡️ **Exception Safety**: All operations are noexcept
-  - 🎯 **Game Optimized**: Designed specifically for interactive game objects and physics
-  - 🧬 **Type Safety**: Strong typing with clear vector semantics
+  - **Precision**: Component type \a T is \ref toy::math::Vector2DComponent (float, double, or fixed-point).
+  - **Constexpr**: Most operations are constexpr.
+  - **Exception safety**: All operations are noexcept.
+  - **Small size**: Two components; stack-friendly.
 
   \section usage Usage Example
 
   \code
-  #include "math/vector2d.hpp"
+  #include "math.hpp"
 
-  // Sprite positioning
-  toy::math::Vector2D spritePos(100.5f, 200.3f);
-
-  // Character movement
+  toy::math::Vector2D pos(100.5f, 200.3f);
   toy::math::Vector2D velocity(50.0f, -25.0f);
-  spritePos += velocity * deltaTime;
+  auto deltaTime = 0.5f;
+  pos += velocity * deltaTime;
 
-  // Physics calculations
   toy::math::Vector2D force(10.0f, 0.0f);
-  toy::math::Vector2D acceleration = force / mass;
-
-  // Particle system
-  std::vector<toy::math::Vector2D> particles;
-  for (auto& particle : particles) {
-      particle += velocity * deltaTime;
-  }
+  auto mass = 2.0f;
+  auto acceleration = force / mass;
   \endcode
 
   \section performance Performance Characteristics
 
-  - ⚙️ **Construction**: O(1) constant time
-  - 📝 **Assignment**: O(1) constant time
-  - 🔗 **Arithmetic Operations**: O(1) constant time
-  - ⚖️ **Comparison Operations**: O(1) constant time
-  - 💾 **Memory Usage**: 8 bytes (2 * sizeof(real_t))
-  - ⚡ **Cache Performance**: Excellent due to small size and stack allocation
-  - 📋 **Copy Performance**: Fast due to simple floating-point copying
+  - **Construction, assignment, arithmetic, comparison**: O(1).
+  - **Memory**: 2 × sizeof(\a T).
 
   \section safety Safety Guarantees
 
-  - 🛡️ **Contracts & Debug Checks**: Division by zero is asserted in debug
-  - 🔒 **Bounds Safety**: All operations are bounds-safe
-  - 📐 **Type Safety**: Strong typing prevents coordinate mixing
-  - ⚠️ **Exception Safety**: All operations are noexcept, no exceptions thrown
+  - **Contracts**: Division by zero is asserted in debug.
+  - **Exception safety**: noexcept; no exceptions thrown.
 
-  \note This class is specifically designed for interactive game objects and physics calculations.
-  \note For UI positioning and pixel-perfect coordinates, consider using Point with integer coordinates.
+  \note For pixel-aligned UI coordinates use \ref toy::math::Point.
 
   \sa toy::math::Point
 */
+template <Vector2DComponent T>
 class Vector2D {
 public:
-  /// X coordinate.
-  real_t x;
+  /// X component of the vector.
+  T x{constants::zero_v<T>};
 
-  /// Y coordinate.
-  real_t y;
+  /// Y component of the vector.
+  T y{constants::zero_v<T>};
 
   /*!
     \brief Default constructor.
 
-    This constructor initializes a Vector2D with zero coordinates.
-
-    \post The vector is initialized with x = \c 0 and y = \c 0.
+    \post \a x and \a y are zero.
   */
-  constexpr Vector2D() noexcept;
+  constexpr Vector2D() noexcept = default;
 
   /*!
-    \brief Constructs a Vector2D with specified coordinates.
+    \brief Constructs a vector with the given components.
 
-    This constructor initializes a Vector2D with the provided \a x and \a y coordinates.
-
-    \param x The x-coordinate of the vector.
-    \param y The y-coordinate of the vector.
+    \param x X component.
+    \param y Y component.
   */
-  constexpr Vector2D(const real_t & x, const real_t & y) noexcept;
+  constexpr Vector2D(const T & x, const T & y) noexcept;
 
   /*!
-    \brief Constructs a Vector2D from an array of \a values.
+    \brief Constructs a vector from an array.
 
-    This constructor initializes a Vector2D with coordinates from the provided array. The array must contain at least
-    two elements where values[0] is x and values[1] is y.
+    \param values Pointer to at least two elements; \a values[0] is \a x, \a values[1] is \a y.
 
-    \param values Pointer to an array containing the x and y coordinates.
+    \pre \a values != nullptr; array has at least two elements.
 
-    \pre The \a values pointer must not be null.
-    \pre The array must contain at least two elements.
-
-    \post The vector is initialized with x = values[0] and y = values[1].
+    \post \a x == \a values[0], \a y == \a values[1].
   */
-  explicit constexpr Vector2D(const real_t * values) noexcept;
+  explicit constexpr Vector2D(const T * values) noexcept;
 
   /*!
-    \brief Destructor for the vector.
+    \brief Pointer to the component array (\a x, then \a y).
 
-    \note Since the Vector2D does not manage dynamic memory, no special cleanup is required.
-    */
-  constexpr ~Vector2D() noexcept = default;
-
-  /*!
-    \brief Returns a pointer to the array representation of this vector.
-
-    This method provides direct access to the internal array representation of the vector coordinates. The returned
-    pointer points to the x coordinate, and the y coordinate follows immediately after.
-
-    \return A pointer to the array representation of this vector.
-
-    \note The returned pointer points to the x coordinate.
-    \note The y coordinate can be accessed at pointer + 1.
-    \note The returned pointer allows modification of the vector coordinates.
-    \note Use const version for read-only access.
-    */
-  [[nodiscard]] constexpr real_t * c_arr() noexcept;
-
-  /*!
-    \brief Returns a constant pointer to the array representation of this vector.
-
-    This method provides read-only access to the internal array representation of the vector coordinates. The returned
-    pointer points to the x coordinate, and the y coordinate follows immediately after.
-
-    \return A constant pointer to the array representation of this vector.
-
-    \note The returned pointer points to the x coordinate.
-    \note The y coordinate can be accessed at pointer + 1.
-    \note The returned pointer is read-only and cannot modify the vector coordinates.
-    \note Use the non-const overload to allow modification.
+    \return Pointer to \a x; \a y follows contiguously.
   */
-  [[nodiscard]] constexpr const real_t * c_arr() const noexcept;
+  [[nodiscard]] constexpr T * c_arr() noexcept;
 
   /*!
-    \brief Adds another \a vector to this vector.
+    \brief Read-only pointer to the component array (\a x, then \a y).
 
-    This operator adds the coordinates of another \a vector to this vector's coordinates.
+    \return Pointer to \a x; \a y follows contiguously.
+  */
+  [[nodiscard]] constexpr const T * c_arr() const noexcept;
 
-    \param vector The vector to add to this vector.
+  /*!
+    \brief Adds \a vector to this vector.
 
-    \return A reference to this vector after addition.
+    \param vector Vector to add.
 
-    \post This vector's coordinates are the sum of the original coordinates and the other vector's coordinates.
+    \return Reference to \c *this.
+
+    \post Components are the sum of the previous values and \a vector.
   */
   constexpr Vector2D & operator+=(const Vector2D & vector) noexcept;
 
   /*!
-    \brief Subtracts another \a vector from this vector.
+    \brief Subtracts \a vector from this vector.
 
-    This operator subtracts the coordinates of another \a vector from this vector's coordinates.
+    \param vector Vector to subtract.
 
-    \param vector The vector to subtract from this vector.
+    \return Reference to \c *this.
 
-    \return A reference to this vector after subtraction.
-
-    \post This vector's coordinates are the difference of the original coordinates and the other vector's coordinates.
+    \post Components are the difference of the previous values and \a vector.
   */
   constexpr Vector2D & operator-=(const Vector2D & vector) noexcept;
 
   /*!
-    \brief Multiplies this vector by a real \a scalar.
+    \brief Multiplies both components by \a scalar.
 
-    This operator multiplies both coordinates of this vector by the specified real \a scalar.
+    \param scalar Scale factor.
 
-    \param scalar The real scalar to multiply by.
-
-    \return A reference to this vector after multiplication.
-
-    \post This vector's coordinates are multiplied by the \a scalar.
+    \return Reference to \c *this.
   */
-  constexpr Vector2D & operator*=(real_t scalar) noexcept;
+  constexpr Vector2D & operator*=(const T & scalar) noexcept;
 
   /*!
-    \brief Divides this vector by a real \a scalar.
+    \brief Divides both components by \a scalar.
 
-    This operator divides both coordinates of this vector by the specified real \a scalar.
+    \param scalar Divisor.
 
-    \param scalar The real scalar to divide by.
+    \return Reference to \c *this.
 
-    \return A reference to this vector after division.
-
-    \pre The \a scalar must not be zero.
-
-    \post This vector's coordinates are divided by the \a scalar.
+    \pre \a scalar != \c 0.
   */
-  constexpr Vector2D & operator/=(real_t scalar) noexcept;
+  constexpr Vector2D & operator/=(const T & scalar) noexcept;
 
   /*!
-    \brief Calculates the squared magnitude of this vector.
+    \brief Squared Euclidean length (x² + y²).
 
-    This method calculates the squared magnitude (length) of the vector represented by this vector.
-    The squared magnitude is calculated as x² + y².
-
-    \return The squared magnitude of this vector.
-
-    \note This method avoids the expensive square root operation by returning the squared value.
-    \note Use this method when comparing magnitudes for performance reasons.
+    \return Squared magnitude; avoids sqrt for comparisons.
   */
-  [[nodiscard]] constexpr real_t sqrMagnitude() const noexcept;
+  [[nodiscard]] constexpr T sqrMagnitude() const noexcept;
 
   /*!
-    \brief Sets this vector to zero coordinates.
+    \brief Sets \a x and \a y to zero.
 
-    This method sets both x and y coordinates of this vector to zero.
-
-    \post This vector's coordinates are set to x = \c 0 and y = \c 0.
-    \post The vector is at the origin.
+    \post Vector is at the origin.
   */
   constexpr void setZero() noexcept;
 
   /*!
-    \brief Checks if this vector is at the origin.
+    \brief Returns whether both components are zero.
 
-    This method checks if both coordinates of this vector are zero.
-
-    \return \c true if both coordinates are zero, \c false otherwise.
-
-    \note This is equivalent to checking if the vector is at the origin (\c 0, \c 0).
+    \return \c true if \a x and \a y are zero, \c false otherwise.
   */
   [[nodiscard]] constexpr bool isZero() const noexcept;
 
   /*!
-    \brief Checks if this vector is equal to another vector within a \a tolerance.
+    \brief Equality within absolute and relative epsilon.
 
-    This method checks if this vector is equal to another vector within the specified \a tolerance. Two vectors are
-    considered equal if the absolute difference between their coordinates is less than or equal to \a tolerance.
+    \param vector     Other vector.
+    \param absEpsilon Maximum absolute difference per component (default: 8× \c numeric_limits<T>::epsilon()).
+    \param relEpsilon Maximum relative difference (default: 64× \c numeric_limits<T>::epsilon()).
 
-    \param vector    The vector to compare with.
-    \param tolerance The tolerance for equality comparison (default: \c 0).
+    \return \c true if both components are equal within tolerances, \c false otherwise.
 
-    \return \c true if the vector are equal within the \a tolerance, \c false otherwise.
-
-    \pre The \a tolerance must be non-negative.
-
-    \note When tolerance is \c 0, this performs exact equality comparison.
-    \note When tolerance is greater than \c 0, this performs approximate equality comparison.
+    \pre \a absEpsilon ≥ \c 0 and \a relEpsilon ≥ \c 0.
   */
-  [[nodiscard]] bool isEqual(const Vector2D & vector, real_t tolerance = 0) const noexcept;
+  [[nodiscard]] constexpr bool isEqual(const Vector2D & vector, T absEpsilon = 8 * numeric_limits<T>::epsilon(),
+                                       T relEpsilon = 64 * numeric_limits<T>::epsilon()) const noexcept;
 };
 
 /*!
-  \brief Unary minus operator.
+  \brief Deduction guide: enables \c Vector2D(x, y) without an explicit template argument when both arguments have the
+         same \ref toy::math::Vector2DComponent type.
 
-  Returns a \a vector with negated coordinates.
-
-  \param vector The vector to negate.
-
-  \return A new vector with negated x and y coordinates.
+  \tparam T Component type; must satisfy \ref toy::math::Vector2DComponent.
 */
-[[nodiscard]] constexpr Vector2D operator-(const Vector2D & vector) noexcept;
+template <Vector2DComponent T>
+Vector2D(const T &, const T &) -> Vector2D<T>;
 
 /*!
-  \brief Addition operator for two vectors.
+  \brief Unary minus: negated components.
 
-  Adds the coordinates of two vectors together.
+  \param vector Operand.
 
-  \param left  The first vector.
-  \param right The second vector.
-
-  \return A new vector with coordinates equal to the sum of the input vectors.
+  \return \ref toy::math::Vector2D with (-vector.x, -vector.y).
 */
-[[nodiscard]] constexpr Vector2D operator+(const Vector2D & left, const Vector2D & right) noexcept;
+template <Vector2DComponent T>
+[[nodiscard]] constexpr Vector2D<T> operator-(const Vector2D<T> & vector) noexcept;
 
 /*!
-  \brief Subtraction operator for two vectors.
+  \brief Addition of two vectors.
 
-  Subtracts the coordinates of the second vector from the first vector.
+  \param left  First operand.
+  \param right Second operand.
 
-  \param left  The first vector.
-  \param right The second vector.
-
-  \return A new vector with coordinates equal to the difference of the input vectors.
+  \return \ref toy::math::Vector2D with (left.x + right.x, left.y + right.y).
 */
-[[nodiscard]] constexpr Vector2D operator-(const Vector2D & left, const Vector2D & right) noexcept;
+template <Vector2DComponent T>
+[[nodiscard]] constexpr Vector2D<T> operator+(const Vector2D<T> & left, const Vector2D<T> & right) noexcept;
 
 /*!
-  \brief Multiplication operator for vector and scalar.
+  \brief Subtraction of two vectors.
 
-  Multiplies each coordinate of the vector by the scalar value.
+  \param left  First operand.
+  \param right Second operand.
 
-  \param left  The vector to multiply.
-  \param right The scalar value.
-
-  \return A new vector with coordinates multiplied by the scalar.
+  \return \ref toy::math::Vector2D with (left.x - right.x, left.y - right.y).
 */
-[[nodiscard]] constexpr Vector2D operator*(const Vector2D & left, real_t right) noexcept;
+template <Vector2DComponent T>
+[[nodiscard]] constexpr Vector2D<T> operator-(const Vector2D<T> & left, const Vector2D<T> & right) noexcept;
 
 /*!
-  \brief Multiplication operator for scalar and vector.
+  \brief Vector scaled by scalar.
 
-  Multiplies each coordinate of the vector by the scalar value.
+  \tparam T Component type satisfy \ref toy::math::Vector2DComponent.
 
-  \param left  The scalar value.
-  \param right The vector to multiply.
+  \param left  Vector operand.
+  \param right Scale factor.
 
-  \return A new vector with coordinates multiplied by the scalar.
+  \return \ref toy::math::Vector2D with components multiplied by \a scalar.
 */
-[[nodiscard]] constexpr Vector2D operator*(real_t left, const Vector2D & right) noexcept;
+template <Vector2DComponent T>
+[[nodiscard]] constexpr Vector2D<T> operator*(const Vector2D<T> & left, const T & right) noexcept;
 
 /*!
-  \brief Division operator for vector and scalar.
+  \brief Vector scaled by scalar (scalar on the left).
 
-  Divides each coordinate of the vector by the scalar value.
+  \tparam T Component type satisfy \ref toy::math::Vector2DComponent.
 
-  \param left  The vector to divide.
-  \param right The scalar value.
+  \param left  Scale factor.
+  \param right Vector operand.
 
-  \return A new vector with coordinates divided by the scalar.
-
-  \pre The \a right scalar must not be zero.
-
-  \note Division by zero will trigger an assertion in debug mode.
+  \return \ref toy::math::Vector2D with components multiplied by \a scalar.
 */
-[[nodiscard]] constexpr Vector2D operator/(const Vector2D & left, real_t right) noexcept;
+template <Vector2DComponent T>
+[[nodiscard]] constexpr Vector2D<T> operator*(const T & left, const Vector2D<T> & right) noexcept;
 
 /*!
-  \brief Equality operator for two vectors.
+  \brief Vector divided by scalar.
 
-  Compares two vectors for exact equality.
+  \tparam T Component type satisfy \ref toy::math::Vector2DComponent.
 
-  \param left  The first vector.
-  \param right The second vector.
+  \param left  Vector operand.
+  \param right Divisor.
 
-  \return \c true if both vectors have identical coordinates, \c false otherwise.
+  \return \ref toy::math::Vector2D with components divided by \a scalar.
 
-  \note This performs exact equality comparison. For approximate comparison with tolerance, use the \a isEqual method.
+  \pre \a right != \c 0.
 */
-[[nodiscard]] constexpr bool operator==(const Vector2D & left, const Vector2D & right) noexcept;
+template <Vector2DComponent T>
+[[nodiscard]] constexpr Vector2D<T> operator/(const Vector2D<T> & left, const T & right) noexcept;
+
+/*!
+  \brief Exact equality of two vectors.
+
+  For floating-point \a T, delegates to isEqual() with default epsilons. For fixed-point \a T, compares raw storage of
+  both components.
+
+  \param left  First operand.
+  \param right Second operand.
+
+  \return For floating-point \a T: \c true if isEqual(\a right) with default tolerances. For fixed-point \a T: \c true
+          if \a left and \a right have equal raw component values.
+
+  \sa isEqual() for custom tolerances (floating-point).
+*/
+template <Vector2DComponent T>
+[[nodiscard]] constexpr bool operator==(const Vector2D<T> & left, const Vector2D<T> & right) noexcept;
 
 } // namespace toy::math
 

@@ -20,9 +20,6 @@
 /*!
   \file   section.inl
   \brief  Inline implementations for \ref toy::geometry::Section.
-
-  Implements constructors, midpoint(), length(), reset(), expand(), isReset(), isValid(), isContains(),
-  operator==(), operator!=(). Included by the geometry umbrella header; do not include directly.
 */
 
 #ifndef INCLUDE_GEOMETRY_SECTION_INL_

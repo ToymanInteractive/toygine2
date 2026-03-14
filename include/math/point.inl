@@ -91,10 +91,6 @@ constexpr Point & Point::operator/=(const T & scalar) noexcept {
   return *this;
 }
 
-constexpr int32_t Point::sqrMagnitude() const noexcept {
-  return x * x + y * y;
-}
-
 constexpr void Point::setZero() noexcept {
   x = y = 0;
 }

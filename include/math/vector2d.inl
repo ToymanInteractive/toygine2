@@ -19,7 +19,7 @@
 //
 /*!
   \file   vector2d.inl
-  \brief  Inline implementations for 2D floating-point vector class.
+  \brief  Inline implementations for \ref toy::math::Vector2D.
 */
 
 #ifndef INCLUDE_MATH_VECTOR2D_INL_
@@ -27,18 +27,13 @@
 
 namespace toy::math {
 
-static_assert(sizeof(Vector2D) == 2 * sizeof(real_t), "Vector2D must be tightly packed");
-static_assert(offsetof(Vector2D, y) == sizeof(real_t), "y must follow x contiguously");
+template <Vector2DComponent T>
+constexpr Vector2D<T>::Vector2D(const T & _x, const T & _y) noexcept
+  : x(_x)
+  , y(_y) {}
 
-constexpr Vector2D::Vector2D() noexcept
-  : x()
-  , y() {}
-
-constexpr Vector2D::Vector2D(const real_t & x_, const real_t & y_) noexcept
-  : x(x_)
-  , y(y_) {}
-
-constexpr Vector2D::Vector2D(const real_t * values) noexcept
+template <Vector2DComponent T>
+constexpr Vector2D<T>::Vector2D(const T * values) noexcept
   : x()
   , y() {
   assert_message(values != nullptr, "values cannot be null");
@@ -47,36 +42,42 @@ constexpr Vector2D::Vector2D(const real_t * values) noexcept
   y = values[1];
 }
 
-constexpr real_t * Vector2D::c_arr() noexcept {
+template <Vector2DComponent T>
+constexpr T * Vector2D<T>::c_arr() noexcept {
   return &x;
 }
 
-constexpr const real_t * Vector2D::c_arr() const noexcept {
+template <Vector2DComponent T>
+constexpr const T * Vector2D<T>::c_arr() const noexcept {
   return &x;
 }
 
-constexpr Vector2D & Vector2D::operator+=(const Vector2D & vector) noexcept {
+template <Vector2DComponent T>
+constexpr Vector2D<T> & Vector2D<T>::operator+=(const Vector2D<T> & vector) noexcept {
   x += vector.x;
   y += vector.y;
 
   return *this;
 }
 
-constexpr Vector2D & Vector2D::operator-=(const Vector2D & vector) noexcept {
+template <Vector2DComponent T>
+constexpr Vector2D<T> & Vector2D<T>::operator-=(const Vector2D<T> & vector) noexcept {
   x -= vector.x;
   y -= vector.y;
 
   return *this;
 }
 
-constexpr Vector2D & Vector2D::operator*=(real_t scalar) noexcept {
+template <Vector2DComponent T>
+constexpr Vector2D<T> & Vector2D<T>::operator*=(const T & scalar) noexcept {
   x *= scalar;
   y *= scalar;
 
   return *this;
 }
 
-constexpr Vector2D & Vector2D::operator/=(real_t scalar) noexcept {
+template <Vector2DComponent T>
+constexpr Vector2D<T> & Vector2D<T>::operator/=(const T & scalar) noexcept {
   assert_message(scalar > 0 || scalar < 0, "scalar must be non-zero");
 
   x /= scalar;
@@ -85,52 +86,69 @@ constexpr Vector2D & Vector2D::operator/=(real_t scalar) noexcept {
   return *this;
 }
 
-constexpr real_t Vector2D::sqrMagnitude() const noexcept {
+template <Vector2DComponent T>
+constexpr T Vector2D<T>::sqrMagnitude() const noexcept {
   return x * x + y * y;
 }
 
-constexpr void Vector2D::setZero() noexcept {
+template <Vector2DComponent T>
+constexpr void Vector2D<T>::setZero() noexcept {
   x = y = 0;
 }
 
-constexpr bool Vector2D::isZero() const noexcept {
-  return math::isEqual(x, 0.0f) && math::isEqual(y, 0.0f);
+template <Vector2DComponent T>
+constexpr bool Vector2D<T>::isZero() const noexcept {
+  if constexpr (floating_point<T>) {
+    return math::isEqual(x, 0.0f) && math::isEqual(y, 0.0f);
+  } else if constexpr (fixed_point<T>) {
+    return x.rawValue() == 0 && y.rawValue() == 0;
+  }
 }
 
-inline bool Vector2D::isEqual(const Vector2D & vector, real_t tolerance) const noexcept {
-  assert_message(tolerance >= 0, "tolerance must be non-negative");
-
-  return std::abs(x - vector.x) <= tolerance && std::abs(y - vector.y) <= tolerance;
+template <Vector2DComponent T>
+constexpr bool Vector2D<T>::isEqual(const Vector2D<T> & vector, T absEpsilon, T relEpsilon) const noexcept {
+  return math::isEqual(x, vector.x, absEpsilon, relEpsilon) && math::isEqual(y, vector.y, absEpsilon, relEpsilon);
 }
 
-constexpr Vector2D operator-(const Vector2D & vector) noexcept {
+template <Vector2DComponent T>
+constexpr Vector2D<T> operator-(const Vector2D<T> & vector) noexcept {
   return Vector2D(-vector.x, -vector.y);
 }
 
-constexpr Vector2D operator+(const Vector2D & left, const Vector2D & right) noexcept {
+template <Vector2DComponent T>
+constexpr Vector2D<T> operator+(const Vector2D<T> & left, const Vector2D<T> & right) noexcept {
   return Vector2D(left.x + right.x, left.y + right.y);
 }
 
-constexpr Vector2D operator-(const Vector2D & left, const Vector2D & right) noexcept {
+template <Vector2DComponent T>
+constexpr Vector2D<T> operator-(const Vector2D<T> & left, const Vector2D<T> & right) noexcept {
   return Vector2D(left.x - right.x, left.y - right.y);
 }
 
-constexpr Vector2D operator*(const Vector2D & left, real_t right) noexcept {
+template <Vector2DComponent T>
+constexpr Vector2D<T> operator*(const Vector2D<T> & left, const T & right) noexcept {
   return Vector2D(left.x * right, left.y * right);
 }
 
-constexpr Vector2D operator*(real_t left, const Vector2D & right) noexcept {
+template <Vector2DComponent T>
+constexpr Vector2D<T> operator*(const T & left, const Vector2D<T> & right) noexcept {
   return right * left;
 }
 
-constexpr Vector2D operator/(const Vector2D & left, real_t right) noexcept {
+template <Vector2DComponent T>
+constexpr Vector2D<T> operator/(const Vector2D<T> & left, const T & right) noexcept {
   assert_message(right > 0 || right < 0, "right must be non-zero");
 
   return Vector2D(left.x / right, left.y / right);
 }
 
-constexpr bool operator==(const Vector2D & left, const Vector2D & right) noexcept {
-  return math::isEqual(left.x, right.x) && math::isEqual(left.y, right.y);
+template <Vector2DComponent T>
+constexpr bool operator==(const Vector2D<T> & left, const Vector2D<T> & right) noexcept {
+  if constexpr (floating_point<T>) {
+    return left.isEqual(right);
+  } else if constexpr (fixed_point<T>) {
+    return left.x.rawValue() == right.x.rawValue() && left.y.rawValue() == right.y.rawValue();
+  }
 }
 
 } // namespace toy::math

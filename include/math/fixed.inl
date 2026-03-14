@@ -106,6 +106,26 @@ constexpr fixed<Base, Intermediate, Fraction, Rounding> fixed<Base, Intermediate
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding>
   requires ValidFixedPointTypes<Base, Intermediate, Fraction>
 template <bool OtherRounding>
+constexpr fixed<Base, Intermediate, Fraction, Rounding> & fixed<Base, Intermediate, Fraction, Rounding>::operator=(
+  const fixed<Base, Intermediate, Fraction, OtherRounding> & other) noexcept {
+  _value = other.rawValue();
+
+  return *this;
+}
+
+template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding>
+  requires ValidFixedPointTypes<Base, Intermediate, Fraction>
+template <integral T>
+constexpr fixed<Base, Intermediate, Fraction, Rounding> & fixed<Base, Intermediate, Fraction, Rounding>::operator=(
+  const T & other) noexcept {
+  _value = fixed<Base, Intermediate, Fraction, Rounding>(other).rawValue();
+
+  return *this;
+}
+
+template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding>
+  requires ValidFixedPointTypes<Base, Intermediate, Fraction>
+template <bool OtherRounding>
 constexpr fixed<Base, Intermediate, Fraction, Rounding> & fixed<Base, Intermediate, Fraction, Rounding>::operator+=(
   const fixed<Base, Intermediate, Fraction, OtherRounding> & other) noexcept {
   _value += other.rawValue();
@@ -334,6 +354,16 @@ template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding
 constexpr strong_ordering operator<=>(const fixed<Base, Intermediate, Fraction, Rounding> & a,
                                       const fixed<Base, Intermediate, Fraction, OtherRounding> & b) noexcept {
   return a.rawValue() <=> b.rawValue();
+}
+
+template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, integral T>
+constexpr strong_ordering operator<=>(const fixed<Base, Intermediate, Fraction, Rounding> & a, const T & b) noexcept {
+  return a.rawValue() <=> fixed<Base, Intermediate, Fraction, Rounding>(b).rawValue();
+}
+
+template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, integral T>
+constexpr strong_ordering operator<=>(const T & a, const fixed<Base, Intermediate, Fraction, Rounding> & b) noexcept {
+  return fixed<Base, Intermediate, Fraction, Rounding>(a).rawValue() <=> b.rawValue();
 }
 
 } // namespace toy::math

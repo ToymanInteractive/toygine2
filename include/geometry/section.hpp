@@ -31,7 +31,7 @@ namespace toy::geometry {
   \concept SectionEndpoint
   \brief Concept satisfied when \a T is an endpoint type allowed as \ref toy::geometry::Section template parameter.
 
-  Use to constrain the endpoint type of \ref toy::geometry::Section to signed-integral, floating-point, or fixed-point
+  Use to constrain the endpoint type of \ref toy::geometry::Section to signed integral, floating-point, or fixed-point
   types only.
 
   \section requirements Requirements
@@ -59,8 +59,9 @@ concept SectionEndpoint = math::signed_integral<T> || math::floating_point<T> ||
 
   \section features Key Features
 
-  - **Numeric endpoint only**: \a T constrained by \ref toy::geometry::SectionEndpoint.
-  - **Reset state**: Empty interval represented by start > end; reset() restores it.
+  - **Numeric endpoint only**: \a T constrained by \ref toy::geometry::SectionEndpoint (signed integral, floating-point,
+    or fixed-point only; unsigned integral is not allowed).
+  - **Reset state**: Empty interval represented by \a start > \a end; reset() restores it.
   - **Expand**: expand() extends bounds to include a value or another section (union).
   - **Constexpr**: All operations are constexpr and noexcept where applicable.
 
@@ -81,8 +82,8 @@ concept SectionEndpoint = math::signed_integral<T> || math::floating_point<T> ||
 
   \section safety Safety Guarantees
 
-  **Preconditions**: expand(const Section<T>&) requires the argument to satisfy isValid() (assert in debug).
-  **Exception safety**: All operations are noexcept.
+  - **Preconditions**: expand(const Section<T> &) requires the argument to satisfy isValid() (assert in debug).
+  - **Exception safety**: All operations are noexcept.
 
   \sa operator==(), operator!=()
 */
@@ -113,14 +114,14 @@ public:
   /*!
     \brief Returns the midpoint of the interval.
 
-    \return (start + end) / 2.
+    \return (\a start + \a end) / 2.
   */
   [[nodiscard]] constexpr T midpoint() const noexcept;
 
   /*!
     \brief Returns the length of the interval.
 
-    \return end - start.
+    \return \a end - \a start.
   */
   [[nodiscard]] constexpr T length() const noexcept;
 
@@ -152,30 +153,30 @@ public:
   /*!
     \brief Returns \c true if the section is in reset (empty) state.
 
-    \return \c true when start > end.
+    \return \c true when \a start > \a end.
   */
   [[nodiscard]] constexpr bool isReset() const noexcept;
 
   /*!
     \brief Returns \c true if the section represents a valid non-empty interval.
 
-    \return \c true when start <= end.
+    \return \c true when \a start <= \a end.
   */
   [[nodiscard]] constexpr bool isValid() const noexcept;
 
   /*!
-    \brief Returns \c true if \a value lies inside [start, end] (inclusive).
+    \brief Returns \c true if \a value lies inside [\a start, \a end] (inclusive).
 
     \param value Value to test.
 
-    \return \c true when start <= value <= end.
+    \return \c true when \a start <= \a value <= \a end.
   */
   [[nodiscard]] constexpr bool isContains(const T & value) const noexcept;
 };
 
 /*!
-  \brief Deduction guide for \ref toy::geometry::Section: enables \c Section(min, max) without an explicit template
-         argument when both arguments have the same \ref toy::geometry::SectionEndpoint type.
+  \brief Deduction guide: enables \c Section(a, b) without an explicit template argument when both arguments have the
+         same \ref toy::geometry::SectionEndpoint type.
 
   \tparam T Endpoint type; must satisfy \ref toy::geometry::SectionEndpoint.
 */
@@ -183,12 +184,15 @@ template <SectionEndpoint T>
 Section(const T &, const T &) -> Section<T>;
 
 /*!
-  \brief Equality for signed-integral and fixed-point sections: exact comparison of bounds.
+  \brief Equality for signed integral and fixed-point sections: exact comparison of bounds.
+
+  \tparam T Endpoint type; must satisfy \ref toy::geometry::SectionEndpoint and \ref toy::math::signed_integral or
+            \ref toy::math::fixed_point.
 
   \param a First section.
   \param b Second section.
 
-  \return \c true if a.start == b.start and a.end == b.end.
+  \return \c true if \a a.start == \a b.start and \a a.end == \a b.end.
 
   \sa operator!=()
 */
@@ -197,12 +201,14 @@ template <SectionEndpoint T>
 [[nodiscard]] constexpr bool operator==(const Section<T> & a, const Section<T> & b) noexcept;
 
 /*!
-  \brief Equality for floating-point sections: approximate comparison of bounds via math::isEqual.
+  \brief Equality for floating-point sections: approximate comparison via math::isEqual.
+
+  \tparam T Endpoint type; must satisfy \ref toy::geometry::SectionEndpoint and \ref toy::math::floating_point.
 
   \param a First section.
   \param b Second section.
 
-  \return \c true if both bounds are equal within the default epsilon (math::isEqual).
+  \return \c true if both bounds are equal within default epsilon (math::isEqual).
 
   \sa operator!=()
 */
@@ -211,7 +217,7 @@ template <SectionEndpoint T>
 [[nodiscard]] constexpr bool operator==(const Section<T> & a, const Section<T> & b) noexcept;
 
 /*!
-  \brief Inequality: different bounds.
+  \brief Inequality: \c true when bounds differ.
 
   \param a First section.
   \param b Second section.
