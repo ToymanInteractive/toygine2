@@ -27,6 +27,20 @@
 
 namespace toy::math {
 
+/*!
+  \concept Vector2DComponent
+  \brief Concept satisfied when \a T is an component type allowed as \ref toy::math::Vector2D template parameter.
+
+  Use to constrain the component type of \ref toy::math::Vector2D to floating-point, or fixed-point types only.
+
+  \section requirements Requirements
+
+  A type \a T satisfies Vector2DComponent if and only if at least one of the following holds:
+  - \a T satisfies \ref toy::math::floating_point.
+  - \a T satisfies \ref toy::math::fixed_point.
+
+  \sa toy::math::Vector2D
+*/
 template <typename T>
 concept Vector2DComponent = floating_point<T> || fixed_point<T>;
 

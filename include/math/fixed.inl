@@ -327,7 +327,7 @@ constexpr bool operator==(const fixed<Base, Intermediate, Fraction, Rounding> & 
 
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, integral T>
 constexpr bool operator==(const T & a, const fixed<Base, Intermediate, Fraction, Rounding> & b) noexcept {
-  return fixed<Base, Intermediate, Fraction, Rounding>(a).rawValue() == b.rawValue();
+  return b == a;
 }
 
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, bool OtherRounding>
