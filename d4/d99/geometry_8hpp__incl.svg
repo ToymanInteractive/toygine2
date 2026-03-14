@@ -247,7 +247,7 @@ var sectionId = 'dynsection-0';
 <!-- Node52 -->
 <g id="Node000052" class="node">
 <title>Node52</title>
-<g id="a_Node000052"><a xlink:href="../../d6/de1/vector2d_8hpp.html" target="_top" xlink:title="2D floating&#45;point vector class for interactive game objects and physics calculations.">
+<g id="a_Node000052"><a xlink:href="../../d6/de1/vector2d_8hpp.html" target="_top" xlink:title="2D vector class for interactive game objects and physics calculations.">
 <polygon fill="white" stroke="#666666" points="4733.5,-162 4624.5,-162 4624.5,-143 4733.5,-143 4733.5,-162"/>
 <text text-anchor="middle" x="4679" y="-150" font-family="Helvetica,sans-Serif" font-size="10.00">math/vector2d.hpp</text>
 </a>

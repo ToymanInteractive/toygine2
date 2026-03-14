@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=11" />
   <meta name="generator" content="Doxygen 1.16.1" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ToyGine2: toy::geometry::SectionEndpoint Concept Reference</title>
+  <title>ToyGine2: toy::math::Vector2DComponent Concept Reference</title>
   <link href="../../tabs.css" rel="stylesheet" type="text/css" />
   <script type="text/javascript" src="../../jquery.js"></script>
   <script type="text/javascript" src="../../dynsections.js"></script>
@@ -84,7 +84,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(function(){initNavTree('d9/def/concepttoy_1_1geometry_1_1_section_endpoint.html','../../',''); });
+$(function(){initNavTree('d3/d79/concepttoy_1_1math_1_1_vector2_d_component.html','../../',''); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -110,35 +110,34 @@ $(function(){initNavTree('d9/def/concepttoy_1_1geometry_1_1_section_endpoint.htm
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">toy::geometry::SectionEndpoint Concept Reference</div></div>
+  <div class="headertitle"><div class="title">toy::math::Vector2DComponent Concept Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Concept satisfied when <em class="arg">T</em> is an endpoint type allowed as <a class="el" href="../../db/d6f/classtoy_1_1geometry_1_1_section.html" title="toy::geometry::Section">toy::geometry::Section</a> template parameter.  
+<p>Concept satisfied when <em class="arg">T</em> is an component type allowed as <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html" title="toy::math::Vector2D">toy::math::Vector2D</a> template parameter.  
 <a href="#details">More...</a></p>
 <h2 id="header-conceptdef" class="groupheader">Concept definition</h2>
 <div class="fragment"><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><span class="keyword">concept </span><a class="code hl_concept" href="../../d9/def/concepttoy_1_1geometry_1_1_section_endpoint.html">SectionEndpoint</a> = math::signed_integral&lt;T&gt; || math::floating_point&lt;T&gt; || <a class="code hl_concept" href="../../dd/de0/concepttoy_1_1math_1_1fixed__point.html">math::fixed_point&lt;T&gt;</a></div>
-<div class="ttc" id="aconcepttoy_1_1geometry_1_1_section_endpoint_html"><div class="ttname"><a href="../../d9/def/concepttoy_1_1geometry_1_1_section_endpoint.html">toy::geometry::SectionEndpoint</a></div><div class="ttdoc">Concept satisfied when T is an endpoint type allowed as toy::geometry::Section template parameter.</div><div class="ttdef"><b>Definition</b> section.hpp:47</div></div>
+<div class="line"><span class="keyword">concept </span><a class="code hl_concept" href="../../d3/d79/concepttoy_1_1math_1_1_vector2_d_component.html">Vector2DComponent</a> = floating_point&lt;T&gt; || <a class="code hl_concept" href="../../dd/de0/concepttoy_1_1math_1_1fixed__point.html">fixed_point&lt;T&gt;</a></div>
+<div class="ttc" id="aconcepttoy_1_1math_1_1_vector2_d_component_html"><div class="ttname"><a href="../../d3/d79/concepttoy_1_1math_1_1_vector2_d_component.html">toy::math::Vector2DComponent</a></div><div class="ttdoc">Concept satisfied when T is an component type allowed as toy::math::Vector2D template parameter.</div><div class="ttdef"><b>Definition</b> vector2d.hpp:45</div></div>
 <div class="ttc" id="aconcepttoy_1_1math_1_1fixed__point_html"><div class="ttname"><a href="../../dd/de0/concepttoy_1_1math_1_1fixed__point.html">toy::math::fixed_point</a></div><div class="ttdoc">Concept satisfied when T is an instantiation of toy::math::fixed.</div><div class="ttdef"><b>Definition</b> fixed.hpp:386</div></div>
 </div><!-- fragment --><a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Concept satisfied when <em class="arg">T</em> is an endpoint type allowed as <a class="el" href="../../db/d6f/classtoy_1_1geometry_1_1_section.html" title="toy::geometry::Section">toy::geometry::Section</a> template parameter. </p>
-<p>Use to constrain the endpoint type of <a class="el" href="../../db/d6f/classtoy_1_1geometry_1_1_section.html" title="toy::geometry::Section">toy::geometry::Section</a> to signed-integral, floating-point, or fixed-point types only.</p>
+<div class="textblock"><p>Concept satisfied when <em class="arg">T</em> is an component type allowed as <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html" title="toy::math::Vector2D">toy::math::Vector2D</a> template parameter. </p>
+<p>Use to constrain the component type of <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html" title="toy::math::Vector2D">toy::math::Vector2D</a> to floating-point, or fixed-point types only.</p>
 <h1 class="doxsection"><a class="anchor" id="requirements"></a>
 Requirements</h1>
-<p>A type <em class="arg">T</em> satisfies SectionEndpoint if and only if at least one of the following holds:</p><ul>
-<li><em class="arg">T</em> satisfies toy::math::signed_integral.</li>
+<p>A type <em class="arg">T</em> satisfies Vector2DComponent if and only if at least one of the following holds:</p><ul>
 <li><em class="arg">T</em> satisfies toy::math::floating_point.</li>
 <li><em class="arg">T</em> satisfies <a class="el" href="../../dd/de0/concepttoy_1_1math_1_1fixed__point.html" title="toy::math::fixed_point">toy::math::fixed_point</a>.</li>
 </ul>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../db/d6f/classtoy_1_1geometry_1_1_section.html" title="One-dimensional interval [start, end] over a numeric endpoint type.">toy::geometry::Section</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html" title="2D floating-point vector class for interactive game objects and physics calculations.">toy::math::Vector2D</a> </dd></dl>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="../../d4/da9/namespacetoy.html">toy</a></li><li class="navelem"><a href="../../da/d08/namespacetoy_1_1geometry.html">geometry</a></li><li class="navelem"><a href="../../d9/def/concepttoy_1_1geometry_1_1_section_endpoint.html">SectionEndpoint</a></li>
+    <li class="navelem"><a href="../../d4/da9/namespacetoy.html">toy</a></li><li class="navelem"><a href="../../d2/d83/namespacetoy_1_1math.html">math</a></li><li class="navelem"><a href="../../d3/d79/concepttoy_1_1math_1_1_vector2_d_component.html">Vector2DComponent</a></li>
     <li class="footer">Generated on <span class="timestamp"></span> for ToyGine2 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

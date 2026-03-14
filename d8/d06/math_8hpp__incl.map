@@ -14,7 +14,7 @@
 <area shape="poly" id="edge55_Node000001_Node000049" title=" " alt="" coords="6008,33,5970,71,5966,67,6004,29"/>
 <area shape="rect" id="Node000050" href="$d8/dbd/math_2utils_8hpp.html" title="General math utilities: abs, isEqual, deg2rad, rad2deg." alt="" coords="6031,79,6147,104"/>
 <area shape="poly" id="edge56_Node000001_Node000050" title=" " alt="" coords="6031,29,6070,67,6066,71,6027,33"/>
-<area shape="rect" id="Node000051" href="$d6/de1/vector2d_8hpp.html" title="2D floating&#45;point vector class for interactive game objects and physics calculations." alt="" coords="6171,79,6317,104"/>
+<area shape="rect" id="Node000051" href="$d6/de1/vector2d_8hpp.html" title="2D vector class for interactive game objects and physics calculations." alt="" coords="6171,79,6317,104"/>
 <area shape="poly" id="edge57_Node000001_Node000051" title=" " alt="" coords="6055,28,6195,72,6193,77,6053,33"/>
 <area shape="rect" id="Node000052" href="$d3/d86/fixed_8inl.html" title="Inline implementations for toy::math::fixed." alt="" coords="6341,79,6451,104"/>
 <area shape="poly" id="edge58_Node000001_Node000052" title=" " alt="" coords="6079,28,6327,75,6327,80,6078,33"/>

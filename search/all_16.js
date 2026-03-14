@@ -8,12 +8,13 @@ var searchData=
   ['vector2d_5',['Vector2D',['../d9/d85/classtoy_1_1math_1_1_vector2_d.html',1,'toy::math::Vector2D'],['../d9/d85/classtoy_1_1math_1_1_vector2_d.html#a08d80e077f40d501f74dece9ea00eaf9',1,'toy::math::Vector2D::Vector2D() noexcept'],['../d9/d85/classtoy_1_1math_1_1_vector2_d.html#a7ebd2a5734c1a75a0481980081e4e210',1,'toy::math::Vector2D::Vector2D(const real_t &amp;x, const real_t &amp;y) noexcept'],['../d9/d85/classtoy_1_1math_1_1_vector2_d.html#a88b198de48d4239a2d2d9026dff3b461',1,'toy::math::Vector2D::Vector2D(const real_t *values) noexcept']]],
   ['vector2d_2ehpp_6',['vector2d.hpp',['../d6/de1/vector2d_8hpp.html',1,'']]],
   ['vector2d_2einl_7',['vector2d.inl',['../dd/d53/vector2d_8inl.html',1,'']]],
-  ['version_8',['Version',['../d7/d33/structtoy_1_1application_1_1_version.html',1,'toy::application']]],
-  ['version_2ehpp_9',['version.hpp',['../d7/dad/version_8hpp.html',1,'']]],
-  ['version_2einl_10',['version.inl',['../d2/dbe/version_8inl.html',1,'']]],
-  ['view_11',['view',['../d7/d15/classtoy_1_1_o_string_stream.html#a8e0df79bdfbb170c35f4218a25ade3a5',1,'toy::OStringStream']]],
-  ['voice_12',['Voice',['../dd/d77/namespacetoy_1_1audio.html#afca9143e3b169f77784310a3b384261cad7a3fdf1351b72249a47454751549deb',1,'toy::audio']]],
-  ['volume_5ftype_2ehpp_13',['volume_type.hpp',['../db/d37/volume__type_8hpp.html',1,'']]],
-  ['volumetype_14',['VolumeType',['../dd/d77/namespacetoy_1_1audio.html#afca9143e3b169f77784310a3b384261c',1,'toy::audio']]],
-  ['vs_20runtime_20testing_15',['Compile-Time vs Runtime Testing',['../df/d81/md__a_g_e_n_t_s.html#compile-time-vs-runtime-testing',1,'']]]
+  ['vector2dcomponent_8',['Vector2DComponent',['../d3/d79/concepttoy_1_1math_1_1_vector2_d_component.html',1,'toy::math']]],
+  ['version_9',['Version',['../d7/d33/structtoy_1_1application_1_1_version.html',1,'toy::application']]],
+  ['version_2ehpp_10',['version.hpp',['../d7/dad/version_8hpp.html',1,'']]],
+  ['version_2einl_11',['version.inl',['../d2/dbe/version_8inl.html',1,'']]],
+  ['view_12',['view',['../d7/d15/classtoy_1_1_o_string_stream.html#a8e0df79bdfbb170c35f4218a25ade3a5',1,'toy::OStringStream']]],
+  ['voice_13',['Voice',['../dd/d77/namespacetoy_1_1audio.html#afca9143e3b169f77784310a3b384261cad7a3fdf1351b72249a47454751549deb',1,'toy::audio']]],
+  ['volume_5ftype_2ehpp_14',['volume_type.hpp',['../db/d37/volume__type_8hpp.html',1,'']]],
+  ['volumetype_15',['VolumeType',['../dd/d77/namespacetoy_1_1audio.html#afca9143e3b169f77784310a3b384261c',1,'toy::audio']]],
+  ['vs_20runtime_20testing_16',['Compile-Time vs Runtime Testing',['../df/d81/md__a_g_e_n_t_s.html#compile-time-vs-runtime-testing',1,'']]]
 ];

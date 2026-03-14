@@ -1,5 +1,5 @@
 <map id="include/math/vector2d.hpp" name="include/math/vector2d.hpp">
-<area shape="rect" id="Node000001" title="2D floating&#45;point vector class for interactive game objects and physics calculations." alt="" coords="47,5,243,31"/>
+<area shape="rect" id="Node000001" title="2D vector class for interactive game objects and physics calculations." alt="" coords="47,5,243,31"/>
 <area shape="rect" id="Node000002" href="$d4/d78/math_8hpp.html" title="Umbrella header for the math module." alt="" coords="78,79,213,104"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="148,44,148,79,143,79,143,44"/>
 <area shape="rect" id="Node000003" href="$db/dbb/geometry_8hpp.html" title="Umbrella header for the geometry module." alt="" coords="5,152,168,177"/>

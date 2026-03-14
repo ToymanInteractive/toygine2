@@ -14,7 +14,8 @@ var namespacetoy_1_1math =
       [ "pi_v", "dd/d71/namespacetoy_1_1math_1_1constants.html#aa386bcc63af4cf420bac521cb769e6bc", null ],
       [ "rad_per_deg_v", "dd/d71/namespacetoy_1_1math_1_1constants.html#a35b52d17a247dc7aec6c494854fa77fd", null ],
       [ "sqrt2_v", "dd/d71/namespacetoy_1_1math_1_1constants.html#a7e1c56ee16f6775476a908030aedb4a2", null ],
-      [ "sqrt3_v", "dd/d71/namespacetoy_1_1math_1_1constants.html#aa4c99dfc6e76f4ca84633f52d18f5c5a", null ]
+      [ "sqrt3_v", "dd/d71/namespacetoy_1_1math_1_1constants.html#aa4c99dfc6e76f4ca84633f52d18f5c5a", null ],
+      [ "zero_v", "dd/d71/namespacetoy_1_1math_1_1constants.html#a46b43828504af817c557b6169c1e3f24", null ]
     ] ],
     [ "fixed", "dd/d5c/classtoy_1_1math_1_1fixed.html", "dd/d5c/classtoy_1_1math_1_1fixed" ],
     [ "is_fixed_point", "d2/dc3/structtoy_1_1math_1_1is__fixed__point.html", null ],
@@ -25,6 +26,7 @@ var namespacetoy_1_1math =
     [ "ValidFixedPointTypes", "d7/d22/concepttoy_1_1math_1_1_valid_fixed_point_types.html", null ],
     [ "fixed_point", "dd/de0/concepttoy_1_1math_1_1fixed__point.html", null ],
     [ "PointScalar", "d1/dca/concepttoy_1_1math_1_1_point_scalar.html", null ],
+    [ "Vector2DComponent", "d3/d79/concepttoy_1_1math_1_1_vector2_d_component.html", null ],
     [ "real_t", "d2/d83/namespacetoy_1_1math.html#a928771ce74a56750dd2dcbc28e5892e0", null ],
     [ "abs", "d2/d83/namespacetoy_1_1math.html#ga00391a62294376916bf5df2d9b9ae00c", null ],
     [ "abs", "d2/d83/namespacetoy_1_1math.html#ga00391a62294376916bf5df2d9b9ae00c", null ],
@@ -59,7 +61,9 @@ var namespacetoy_1_1math =
     [ "operator/", "d2/d83/namespacetoy_1_1math.html#a7ff7043bbeb69aa907a2ae9ab3b47267", null ],
     [ "operator<=>", "d2/d83/namespacetoy_1_1math.html#a374fe0c873278f493cf9c1fe314d472b", null ],
     [ "operator==", "d2/d83/namespacetoy_1_1math.html#a093a0151366d4844bb1d337448c0b16f", null ],
+    [ "operator==", "d2/d83/namespacetoy_1_1math.html#ad062ffd35ee9ef577ddd9ac0175dee46", null ],
     [ "operator==", "d2/d83/namespacetoy_1_1math.html#a77dccec38178a7b466b0658dd06fc118", null ],
+    [ "operator==", "d2/d83/namespacetoy_1_1math.html#a0bbfb9006386fe67b3a8607c97487ea8", null ],
     [ "operator==", "d2/d83/namespacetoy_1_1math.html#a5ace6b486275cec5dc95c653651818cd", null ],
     [ "rad2deg", "d5/d12/group___math_functions.html#ga763a7f5881c51b1853dbb74cf59e1208", null ],
     [ "is_fixed_point_v", "d2/d83/namespacetoy_1_1math.html#a30c8861f803815d5970e4f0d7dd85334", null ]

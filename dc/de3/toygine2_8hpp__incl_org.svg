@@ -1203,7 +1203,7 @@
 <!-- Node58 -->
 <g id="Node000058" class="node">
 <title>Node58</title>
-<g id="a_Node000058"><a xlink:href="../../d6/de1/vector2d_8hpp.html" target="_top" xlink:title="2D floating&#45;point vector class for interactive game objects and physics calculations.">
+<g id="a_Node000058"><a xlink:href="../../d6/de1/vector2d_8hpp.html" target="_top" xlink:title="2D vector class for interactive game objects and physics calculations.">
 <polygon fill="white" stroke="#666666" points="559,-162 450,-162 450,-143 559,-143 559,-162"/>
 <text text-anchor="middle" x="504.5" y="-150" font-family="Helvetica,sans-Serif" font-size="10.00">math/vector2d.hpp</text>
 </a>

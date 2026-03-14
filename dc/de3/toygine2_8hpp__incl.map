@@ -131,7 +131,7 @@
 <area shape="poly" id="edge65_Node000051_Node000056" title=" " alt="" coords="712,177,455,225,454,220,711,171"/>
 <area shape="rect" id="Node000057" href="$d8/dbd/math_2utils_8hpp.html" title="General math utilities: abs, isEqual, deg2rad, rad2deg." alt="" coords="465,225,581,251"/>
 <area shape="poly" id="edge66_Node000051_Node000057" title=" " alt="" coords="718,180,574,224,573,219,716,175"/>
-<area shape="rect" id="Node000058" href="$d6/de1/vector2d_8hpp.html" title="2D floating&#45;point vector class for interactive game objects and physics calculations." alt="" coords="605,225,751,251"/>
+<area shape="rect" id="Node000058" href="$d6/de1/vector2d_8hpp.html" title="2D vector class for interactive game objects and physics calculations." alt="" coords="605,225,751,251"/>
 <area shape="poly" id="edge67_Node000051_Node000058" title=" " alt="" coords="744,179,702,218,699,214,740,175"/>
 <area shape="rect" id="Node000059" href="$d3/d86/fixed_8inl.html" title="Inline implementations for toy::math::fixed." alt="" coords="775,225,885,251"/>
 <area shape="poly" id="edge68_Node000051_Node000059" title=" " alt="" coords="768,175,809,214,806,218,764,179"/>
