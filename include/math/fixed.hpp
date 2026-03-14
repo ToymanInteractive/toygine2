@@ -606,6 +606,26 @@ template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding
 [[nodiscard]] constexpr bool operator==(const fixed<Base, Intermediate, Fraction, Rounding> & a, const T & b) noexcept;
 
 /*!
+  \brief Compares an integral with a \ref toy::math::fixed value for equality.
+
+  Converts \a a to the same \ref toy::math::fixed type as \a b and compares raw storage values. Two values are equal if
+  and only if their raw values are equal.
+
+  \tparam Base         Storage type of the fixed operand.
+  \tparam Intermediate Intermediate type (shared).
+  \tparam Fraction     Number of fractional bits.
+  \tparam Rounding     Rounding policy of the fixed operand.
+  \tparam T            Integral type; must satisfy \c integral.
+
+  \param a Left operand (integral whole units).
+  \param b Right operand (fixed-point).
+
+  \return \c true if \a a and \a b represent the same value, \c false otherwise.
+*/
+template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, integral T>
+[[nodiscard]] constexpr bool operator==(const T & a, const fixed<Base, Intermediate, Fraction, Rounding> & b) noexcept;
+
+/*!
   \brief Three-way comparison of two \ref toy::math::fixed values.
 
   Compares raw storage values; \a Rounding of either operand does not affect the result. Enables \c <, \c <=, \c >,

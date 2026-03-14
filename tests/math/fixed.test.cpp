@@ -993,9 +993,18 @@ TEST_CASE("math/fixed/operator_equality") {
     REQUIRE(b == 0);
     REQUIRE(!(Fixed(5) == 4));
 
+    REQUIRE(2 == a);
+    REQUIRE(0 == b);
+    REQUIRE(!(3 == a));
+    REQUIRE(!(4 == Fixed(5)));
+
     static_assert(Fixed(2) == 2, "fixed equal to same integral must compare equal");
     static_assert(Fixed(0) == 0, "fixed zero equal to integral zero");
     static_assert(!(Fixed(3) == 2), "fixed not equal to different integral must compare unequal");
+
+    static_assert(2 == Fixed(2), "integral equal to same fixed must compare equal");
+    static_assert(0 == Fixed(0), "integral zero equal to fixed zero");
+    static_assert(!(3 == Fixed(2)), "integral not equal to different fixed must compare unequal");
   }
 }
 
