@@ -30,8 +30,10 @@ TEST_CASE("math/vector2d/object_structure") {
   constexpr Vector2D<float> vectorFloat;
   constexpr Vector2D<Fixed> vectorFixed;
 
-  static_assert(sizeof(vectorFloat) == sizeof(float) * 2, "Vector2D<float> object size must equal twice the component type size");
-  static_assert(sizeof(vectorFixed) == sizeof(Fixed) * 2, "Vector2D<Fixed> object size must equal twice the component type size");
+  static_assert(sizeof(vectorFloat) == sizeof(float) * 2,
+                "Vector2D<float> object size must equal twice the component type size");
+  static_assert(sizeof(vectorFixed) == sizeof(Fixed) * 2,
+                "Vector2D<Fixed> object size must equal twice the component type size");
 
   const auto * arrFloat = vectorFloat.c_arr();
   const auto * arrFixed = vectorFixed.c_arr();
@@ -392,7 +394,8 @@ TEST_CASE("math/vector2d/methods") {
     REQUIRE(!v1Float.isEqual(v3Float, toleranceTooSmall));
 
     static_assert(v1Float.isEqual(v2Float, toleranceOk), "isEqual with sufficient tolerance must return true");
-    static_assert(!v1Float.isEqual(v3Float, toleranceTooSmall), "isEqual with insufficient tolerance must return false");
+    static_assert(!v1Float.isEqual(v3Float, toleranceTooSmall),
+                  "isEqual with insufficient tolerance must return false");
   }
 
   // isEqual() with zero tolerance requires exact match.
