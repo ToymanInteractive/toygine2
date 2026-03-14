@@ -55,13 +55,13 @@ TEST_CASE("math/vector2d/constructors") {
 
     REQUIRE(vectorFloat.x == doctest::Approx(0.0));
     REQUIRE(vectorFloat.y == doctest::Approx(0.0));
-    REQUIRE(vectorFixed.x.rawValue() == 0);
-    REQUIRE(vectorFixed.y.rawValue() == 0);
+    REQUIRE(vectorFixed.x == 0);
+    REQUIRE(vectorFixed.y == 0);
 
     static_assert(isEqual(vectorFloat.x, 0.0f), "default-constructed x must be 0");
     static_assert(isEqual(vectorFloat.y, 0.0f), "default-constructed y must be 0");
-    static_assert(vectorFixed.x.rawValue() == 0, "default-constructed x must be 0");
-    static_assert(vectorFixed.y.rawValue() == 0, "default-constructed y must be 0");
+    static_assert(vectorFixed.x == 0, "default-constructed x must be 0");
+    static_assert(vectorFixed.y == 0, "default-constructed y must be 0");
   }
   // Constructor with positive x, y.
   SUBCASE("constructor_with_positive_coordinates") {
@@ -151,8 +151,8 @@ TEST_CASE("math/vector2d/constructors") {
     Vector2D<Fixed> defaultFixed;
     REQUIRE(defaultFloat.x == doctest::Approx(0));
     REQUIRE(defaultFloat.y == doctest::Approx(0));
-    REQUIRE(defaultFixed.x.rawValue() == 0);
-    REQUIRE(defaultFixed.y.rawValue() == 0);
+    REQUIRE(defaultFixed.x == 0);
+    REQUIRE(defaultFixed.y == 0);
 
     Vector2D vectorFloat(123.0f, -456.0f);
     Vector2D vectorFixed(Fixed(123), Fixed(-456));

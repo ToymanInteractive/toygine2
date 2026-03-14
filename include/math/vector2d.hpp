@@ -70,6 +70,7 @@ concept Vector2DComponent = floating_point<T> || fixed_point<T>;
   pos += velocity * deltaTime;
 
   toy::math::Vector2D force(10.0f, 0.0f);
+  auto mass = 2.0f;
   auto acceleration = force / mass;
   \endcode
 

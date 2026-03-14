@@ -306,8 +306,9 @@ TEST_CASE("math/fixed/operator_assign") {
   SUBCASE("assign_from_fixed_different_rounding") {
     Fixed a(0);
     FixedNoRounding src(7);
-    a = src;
 
+    const Fixed & ref = (a = src);
+    REQUIRE(&ref == &a);
     REQUIRE(a.rawValue() == src.rawValue());
 
     FixedNoRounding b(0);
