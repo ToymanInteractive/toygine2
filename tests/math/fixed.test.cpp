@@ -287,6 +287,63 @@ TEST_CASE("math/fixed/from_fixed_point") {
   }
 }
 
+// operator= (assignment from fixed or integral).
+TEST_CASE("math/fixed/operator_assign") {
+  // Assign from fixed with same type.
+  SUBCASE("assign_from_fixed_same_type") {
+    Fixed a(10);
+    Fixed b(3);
+    a = b;
+
+    REQUIRE(a.rawValue() == b.rawValue());
+
+    Fixed x(-5);
+    a = x;
+    REQUIRE(a.rawValue() == x.rawValue());
+  }
+
+  // Assign from fixed with different rounding policy (raw value copied).
+  SUBCASE("assign_from_fixed_different_rounding") {
+    Fixed a(0);
+    FixedNoRounding src(7);
+    a = src;
+
+    REQUIRE(a.rawValue() == src.rawValue());
+
+    FixedNoRounding b(0);
+    b = a;
+    REQUIRE(b.rawValue() == a.rawValue());
+  }
+
+  // Assign from integral.
+  SUBCASE("assign_from_integral") {
+    Fixed a(100);
+    a = 5;
+
+    REQUIRE(static_cast<int>(a) == 5);
+
+    a = -3;
+    REQUIRE(static_cast<int>(a) == -3);
+
+    a = 0;
+    REQUIRE(static_cast<int>(a) == 0);
+  }
+
+  // operator= returns reference to *this; constexpr for fixed and integral.
+  SUBCASE("assign_returns_reference_and_constexpr") {
+    Fixed a(1);
+    Fixed b(2);
+    Fixed & ref = (a = b);
+    REQUIRE(&ref == &a);
+    REQUIRE(a.rawValue() == b.rawValue());
+
+    Fixed c(10);
+    Fixed & ref2 = (c = 20);
+    REQUIRE(&ref2 == &c);
+    REQUIRE(c.rawValue() == 20 * 256);
+  }
+}
+
 // operator+= (in-place addition with fixed or integral).
 TEST_CASE("math/fixed/operator_plus_assign") {
   // Add another fixed of the same type in place.

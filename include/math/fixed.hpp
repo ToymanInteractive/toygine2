@@ -216,6 +216,35 @@ public:
   [[nodiscard]] static constexpr fixed fromFixedPoint(const T & value) noexcept;
 
   /*!
+    \brief Assigns from another \ref toy::math::fixed with the same \a Base, \a Intermediate, and \a Fraction.
+
+    Copies raw storage from \a other; \a Rounding of \a other does not affect the result. Accepts any fixed with the
+    same representation (including different \a OtherRounding).
+
+    \tparam OtherRounding Rounding policy of the source (may differ from this instance).
+
+    \param other Source value.
+
+    \return Reference to \c *this.
+  */
+  template <bool OtherRounding>
+  constexpr fixed & operator=(const fixed<Base, Intermediate, Fraction, OtherRounding> & other) noexcept;
+
+  /*!
+    \brief Assigns from an integral value.
+
+    \a other is scaled by 2^\a Fraction and stored as raw value (same as constructing from \a other).
+
+    \tparam T Integral type; must satisfy \c integral.
+
+    \param other Integral value in whole units.
+
+    \return Reference to \c *this.
+  */
+  template <integral T>
+  constexpr fixed & operator=(const T & other) noexcept;
+
+  /*!
     \brief Adds another \ref toy::math::fixed value in place.
 
     Accepts any \ref toy::math::fixed with the same \a Base, \a Intermediate, and \a Fraction, regardless of

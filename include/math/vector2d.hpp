@@ -210,8 +210,8 @@ public:
 
     \pre \a absEpsilon ≥ \c 0 and \a relEpsilon ≥ \c 0.
   */
-  [[nodiscard]] bool isEqual(const Vector2D & vector, T absEpsilon = 8 * numeric_limits<T>::epsilon(),
-                             T relEpsilon = 64 * numeric_limits<T>::epsilon()) const noexcept;
+  [[nodiscard]] constexpr bool isEqual(const Vector2D & vector, T absEpsilon = 8 * numeric_limits<T>::epsilon(),
+                                       T relEpsilon = 64 * numeric_limits<T>::epsilon()) const noexcept;
 };
 
 /*!

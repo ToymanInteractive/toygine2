@@ -106,8 +106,8 @@ constexpr bool Vector2D<T>::isZero() const noexcept {
 }
 
 template <Vector2DComponent T>
-inline bool Vector2D<T>::isEqual(const Vector2D<T> & vector, T absEpsilon, T relEpsilon) const noexcept {
-  return isEqual(x, vector.x, absEpsilon, relEpsilon) && isEqual(y, vector.y, absEpsilon, relEpsilon);
+constexpr bool Vector2D<T>::isEqual(const Vector2D<T> & vector, T absEpsilon, T relEpsilon) const noexcept {
+  return math::isEqual(x, vector.x, absEpsilon, relEpsilon) && math::isEqual(y, vector.y, absEpsilon, relEpsilon);
 }
 
 template <Vector2DComponent T>

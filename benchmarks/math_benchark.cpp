@@ -30,6 +30,18 @@ void runMathBenchmarks() noexcept {
 
   // fixed benchmarks
   {
+    bench.run("fixed = fixed", [] {
+      Fixed a(0);
+      Fixed b(42);
+      a = b;
+      doNotOptimize(a);
+    });
+    bench.run("fixed = int", [] {
+      Fixed a(0);
+      a = 42;
+      doNotOptimize(a);
+    });
+
     bench.run("fixed == fixed", [] {
       Fixed a(42);
       Fixed b(42);
@@ -221,6 +233,211 @@ void runMathBenchmarks() noexcept {
       Point p(42, -17);
       auto * arr = p.c_arr();
       doNotOptimize(arr);
+    });
+  }
+
+  // Vector2D benchmarks (float and Fixed)
+  {
+    bench.run("Vector2D<float> default construct", [] {
+      Vector2D<float> v;
+      doNotOptimize(v);
+    });
+    bench.run("Vector2D<Fixed> default construct", [] {
+      Vector2D<Fixed> v;
+      doNotOptimize(v);
+    });
+
+    bench.run("Vector2D<float> coordinate construct", [] {
+      Vector2D v(10.0f, 20.0f);
+      doNotOptimize(v);
+    });
+    bench.run("Vector2D<Fixed> coordinate construct", [] {
+      Vector2D v(Fixed(10), Fixed(20));
+      doNotOptimize(v);
+    });
+
+    bench.run("Vector2D<float> operator+=", [] {
+      Vector2D v(10.0f, 20.0f);
+      v += Vector2D(5.0f, -10.0f);
+      doNotOptimize(v);
+    });
+    bench.run("Vector2D<Fixed> operator+=", [] {
+      Vector2D<Fixed> v(Fixed(10), Fixed(20));
+      v += Vector2D<Fixed>(Fixed(5), Fixed(-10));
+      doNotOptimize(v);
+    });
+
+    bench.run("Vector2D<float> operator-=", [] {
+      Vector2D v(15.0f, 25.0f);
+      v -= Vector2D(5.0f, 10.0f);
+      doNotOptimize(v);
+    });
+    bench.run("Vector2D<Fixed> operator-=", [] {
+      Vector2D v(Fixed(15), Fixed(25));
+      v -= Vector2D(Fixed(5), Fixed(10));
+      doNotOptimize(v);
+    });
+
+    bench.run("Vector2D<float> operator*=", [] {
+      Vector2D v(10.0f, 20.0f);
+      v *= 2.5f;
+      doNotOptimize(v);
+    });
+    bench.run("Vector2D<Fixed> operator*=", [] {
+      Vector2D v(Fixed(10), Fixed(20));
+      v *= Fixed(2);
+      doNotOptimize(v);
+    });
+
+    bench.run("Vector2D<float> operator/=", [] {
+      Vector2D v(20.0f, 45.0f);
+      v /= 2.5f;
+      doNotOptimize(v);
+    });
+    bench.run("Vector2D<Fixed> operator/=", [] {
+      Vector2D v(Fixed(20), Fixed(45));
+      v /= Fixed(2);
+      doNotOptimize(v);
+    });
+
+    bench.run("Vector2D<float> sqrMagnitude", [] {
+      Vector2D v(3.0f, 4.0f);
+      auto r = v.sqrMagnitude();
+      doNotOptimize(r);
+    });
+    bench.run("Vector2D<Fixed> sqrMagnitude", [] {
+      Vector2D v(Fixed(3), Fixed(4));
+      auto r = v.sqrMagnitude();
+      doNotOptimize(r);
+    });
+
+    bench.run("Vector2D<float> setZero", [] {
+      Vector2D v(100.0f, 200.0f);
+      v.setZero();
+      doNotOptimize(v);
+    });
+    bench.run("Vector2D<Fixed> setZero", [] {
+      Vector2D v(Fixed(100), Fixed(200));
+      v.setZero();
+      doNotOptimize(v);
+    });
+
+    bench.run("Vector2D<float> isZero", [] {
+      Vector2D v(0.0f, 0.0f);
+      auto r = v.isZero();
+      doNotOptimize(r);
+    });
+    bench.run("Vector2D<Fixed> isZero", [] {
+      Vector2D v(Fixed(0), Fixed(0));
+      auto r = v.isZero();
+      doNotOptimize(r);
+    });
+
+    bench.run("Vector2D<float> isEqual", [] {
+      Vector2D a(10.0f, 20.0f);
+      Vector2D b(10.0f, 20.0f);
+      auto r = a.isEqual(b);
+      doNotOptimize(r);
+    });
+    bench.run("Vector2D<Fixed> isEqual", [] {
+      Vector2D a(Fixed(10), Fixed(20));
+      Vector2D b(Fixed(10), Fixed(20));
+      auto r = a.isEqual(b);
+      doNotOptimize(r);
+    });
+
+    bench.run("Vector2D<float> c_arr", [] {
+      Vector2D v(42.0f, -17.0f);
+      auto * arr = v.c_arr();
+      doNotOptimize(arr);
+    });
+    bench.run("Vector2D<Fixed> c_arr", [] {
+      Vector2D v(Fixed(42), Fixed(-17));
+      auto * arr = v.c_arr();
+      doNotOptimize(arr);
+    });
+
+    bench.run("Vector2D<float> operator+", [] {
+      Vector2D a(10.0f, 20.0f);
+      Vector2D b(5.0f, -10.0f);
+      auto r = a + b;
+      doNotOptimize(r);
+    });
+    bench.run("Vector2D<Fixed> operator+", [] {
+      Vector2D a(Fixed(10), Fixed(20));
+      Vector2D b(Fixed(5), Fixed(-10));
+      auto r = a + b;
+      doNotOptimize(r);
+    });
+
+    bench.run("Vector2D<float> operator-", [] {
+      Vector2D a(15.0f, 25.0f);
+      Vector2D b(5.0f, 10.0f);
+      auto r = a - b;
+      doNotOptimize(r);
+    });
+    bench.run("Vector2D<Fixed> operator-", [] {
+      Vector2D a(Fixed(15), Fixed(25));
+      Vector2D b(Fixed(5), Fixed(10));
+      auto r = a - b;
+      doNotOptimize(r);
+    });
+
+    bench.run("Vector2D<float> operator- unary", [] {
+      Vector2D v(10.0f, -20.0f);
+      auto r = -v;
+      doNotOptimize(r);
+    });
+    bench.run("Vector2D<Fixed> operator- unary", [] {
+      Vector2D v(Fixed(10), Fixed(-20));
+      auto r = -v;
+      doNotOptimize(r);
+    });
+
+    bench.run("Vector2D<float> operator* scalar", [] {
+      Vector2D v(10.0f, 20.0f);
+      auto r = v * 2.5f;
+      doNotOptimize(r);
+    });
+    bench.run("Vector2D<Fixed> operator* scalar", [] {
+      Vector2D v(Fixed(10), Fixed(20));
+      auto r = v * Fixed(2);
+      doNotOptimize(r);
+    });
+
+    bench.run("Vector2D<float> scalar * vector", [] {
+      Vector2D v(10.0f, 20.0f);
+      auto r = 2.5f * v;
+      doNotOptimize(r);
+    });
+    bench.run("Vector2D<Fixed> scalar * vector", [] {
+      Vector2D v(Fixed(10), Fixed(20));
+      auto r = Fixed(2) * v;
+      doNotOptimize(r);
+    });
+
+    bench.run("Vector2D<float> operator/", [] {
+      Vector2D v(25.0f, 50.0f);
+      auto r = v / 2.5f;
+      doNotOptimize(r);
+    });
+    bench.run("Vector2D<Fixed> operator/", [] {
+      Vector2D v(Fixed(25), Fixed(50));
+      auto r = v / Fixed(2);
+      doNotOptimize(r);
+    });
+
+    bench.run("Vector2D<float> operator==", [] {
+      Vector2D a(10.0f, 20.0f);
+      Vector2D b(10.0f, 20.0f);
+      auto r = (a == b);
+      doNotOptimize(r);
+    });
+    bench.run("Vector2D<Fixed> operator==", [] {
+      Vector2D a(Fixed(10), Fixed(20));
+      Vector2D b(Fixed(10), Fixed(20));
+      auto r = (a == b);
+      doNotOptimize(r);
     });
   }
 
