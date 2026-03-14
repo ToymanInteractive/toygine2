@@ -30,17 +30,41 @@ void runMathBenchmarks() noexcept {
 
   // fixed benchmarks
   {
+    bench.run("fixed == fixed", [] {
+      Fixed a(42);
+      Fixed b(42);
+      auto r = (a == b);
+      doNotOptimize(r);
+    });
     bench.run("fixed == int", [] {
       Fixed f(42);
       int i = 42;
       auto r = (f == i);
       doNotOptimize(r);
     });
-
     bench.run("int == fixed", [] {
       int i = 42;
       Fixed f(42);
       auto r = (i == f);
+      doNotOptimize(r);
+    });
+
+    bench.run("fixed <=> fixed", [] {
+      Fixed a(42);
+      Fixed b(42);
+      auto r = (a <=> b);
+      doNotOptimize(r);
+    });
+    bench.run("fixed <=> int", [] {
+      Fixed f(42);
+      int i = 42;
+      auto r = (f <=> i);
+      doNotOptimize(r);
+    });
+    bench.run("int <=> fixed", [] {
+      int i = 42;
+      Fixed f(42);
+      auto r = (i <=> f);
       doNotOptimize(r);
     });
   }

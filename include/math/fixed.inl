@@ -336,6 +336,16 @@ constexpr strong_ordering operator<=>(const fixed<Base, Intermediate, Fraction, 
   return a.rawValue() <=> b.rawValue();
 }
 
+template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, integral T>
+constexpr strong_ordering operator<=>(const fixed<Base, Intermediate, Fraction, Rounding> & a, const T & b) noexcept {
+  return a.rawValue() <=> fixed<Base, Intermediate, Fraction, Rounding>(b).rawValue();
+}
+
+template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, integral T>
+constexpr strong_ordering operator<=>(const T & a, const fixed<Base, Intermediate, Fraction, Rounding> & b) noexcept {
+  return fixed<Base, Intermediate, Fraction, Rounding>(a).rawValue() <=> b.rawValue();
+}
+
 } // namespace toy::math
 
 #endif // INCLUDE_MATH_FIXED_INL_

@@ -648,6 +648,50 @@ template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding
   const fixed<Base, Intermediate, Fraction, Rounding> & a,
   const fixed<Base, Intermediate, Fraction, OtherRounding> & b) noexcept;
 
+/*!
+  \brief Three-way comparison of a \ref toy::math::fixed value with an integral.
+
+  Converts \a b to the same \ref toy::math::fixed type and compares raw storage values. Enables \c <, \c <=, \c >,
+  \c >=, and \c != for fixed and integral operands.
+
+  \tparam Base         Storage type of the fixed operand.
+  \tparam Intermediate Intermediate type of the fixed operand.
+  \tparam Fraction     Number of fractional bits of the fixed operand.
+  \tparam Rounding     Rounding policy of the fixed operand.
+  \tparam T            Integral type; must satisfy \c integral.
+
+  \param a Left operand (fixed-point).
+  \param b Right operand (integral whole units).
+
+  \return \c strong_ordering::less if \a a is less than \a b, \c strong_ordering::equal if equal,
+          \c strong_ordering::greater if \a a is greater than \a b.
+*/
+template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, integral T>
+[[nodiscard]] constexpr strong_ordering operator<=>(const fixed<Base, Intermediate, Fraction, Rounding> & a,
+                                                    const T & b) noexcept;
+
+/*!
+  \brief Three-way comparison of an integral with a \ref toy::math::fixed value.
+
+  Converts \a a to the same \ref toy::math::fixed type as \a b and compares raw storage values. Enables \c <, \c <=,
+  \c >, \c >=, and \c != for integral and fixed operands.
+
+  \tparam Base         Storage type of the fixed operand.
+  \tparam Intermediate Intermediate type of the fixed operand.
+  \tparam Fraction     Number of fractional bits of the fixed operand.
+  \tparam Rounding     Rounding policy of the fixed operand.
+  \tparam T            Integral type; must satisfy \c integral.
+
+  \param a Left operand (integral whole units).
+  \param b Right operand (fixed-point).
+
+  \return \c strong_ordering::less if \a a is less than \a b, \c strong_ordering::equal if equal,
+          \c strong_ordering::greater if \a a is greater than \a b.
+*/
+template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, integral T>
+[[nodiscard]] constexpr strong_ordering operator<=>(const T & a,
+                                                    const fixed<Base, Intermediate, Fraction, Rounding> & b) noexcept;
+
 } // namespace toy::math
 
 #endif // INCLUDE_MATH_FIXED_HPP_

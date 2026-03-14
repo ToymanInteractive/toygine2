@@ -1016,14 +1016,30 @@ TEST_CASE("math/fixed/operator_ordering") {
     constexpr Fixed b(5);
 
     REQUIRE(a < b);
+    REQUIRE(2 < b);
+    REQUIRE((a < 5));
     REQUIRE(a <= b);
+    REQUIRE(2 <= b);
+    REQUIRE(a <= 5);
     REQUIRE(!(a > b));
+    REQUIRE(!(2 > b));
+    REQUIRE(!(a > 5));
     REQUIRE(!(a >= b));
+    REQUIRE(!(2 >= b));
+    REQUIRE(!(a >= 5));
 
     static_assert(a < b, "operator< must be constexpr");
+    static_assert(2 < b, "operator< must be constexpr");
+    static_assert(a < 5, "operator< must be constexpr");
     static_assert(a <= b, "operator<= must be constexpr");
+    static_assert(2 <= b, "operator<= must be constexpr");
+    static_assert(a <= 5, "operator<= must be constexpr");
     static_assert(!(a > b), "operator> must be constexpr");
+    static_assert(!(2 > b), "operator> must be constexpr");
+    static_assert(!(a > 5), "operator> must be constexpr");
     static_assert(!(a >= b), "operator>= must be constexpr");
+    static_assert(!(2 >= b), "operator>= must be constexpr");
+    static_assert(!(a >= 5), "operator>= must be constexpr");
   }
 
   // Greater-than: a > b when a.rawValue() > b.rawValue().
@@ -1032,14 +1048,30 @@ TEST_CASE("math/fixed/operator_ordering") {
     constexpr Fixed b(4);
 
     REQUIRE(a > b);
+    REQUIRE(7 > b);
+    REQUIRE(a > 4);
     REQUIRE(a >= b);
+    REQUIRE(7 >= b);
+    REQUIRE(a >= 4);
     REQUIRE(!(a < b));
+    REQUIRE(!(7 < b));
+    REQUIRE(!(a < 4));
     REQUIRE(!(a <= b));
+    REQUIRE(!(7 <= b));
+    REQUIRE(!(a <= 4));
 
     static_assert(a > b, "operator> must be constexpr");
+    static_assert(7 > b, "operator> must be constexpr");
+    static_assert(a > 4, "operator> must be constexpr");
     static_assert(a >= b, "operator>= must be constexpr");
+    static_assert(7 >= b, "operator>= must be constexpr");
+    static_assert(a >= 4, "operator>= must be constexpr");
     static_assert(!(a < b), "operator< must be constexpr");
+    static_assert(!(7 < b), "operator< must be constexpr");
+    static_assert(!(a < 4), "operator< must be constexpr");
     static_assert(!(a <= b), "operator<= must be constexpr");
+    static_assert(!(7 <= b), "operator<= must be constexpr");
+    static_assert(!(a <= 4), "operator<= must be constexpr");
   }
 
   // Equal: a <= b and a >= b when equal.
@@ -1048,14 +1080,30 @@ TEST_CASE("math/fixed/operator_ordering") {
     constexpr Fixed b(3);
 
     REQUIRE(!(a < b));
+    REQUIRE(!(3 < b));
+    REQUIRE(!(a < 3));
     REQUIRE(a <= b);
+    REQUIRE(3 <= b);
+    REQUIRE(a <= 3);
     REQUIRE(!(a > b));
+    REQUIRE(!(3 > b));
+    REQUIRE(!(a > 3));
     REQUIRE(a >= b);
+    REQUIRE(3 >= b);
+    REQUIRE(a >= 3);
 
     static_assert(!(a < b), "operator< must be false for equal");
+    static_assert(!(3 < b), "operator< must be false for equal");
+    static_assert(!(a < 3), "operator< must be false for equal");
     static_assert(a <= b, "operator<= must be true for equal");
+    static_assert(3 <= b, "operator<= must be true for equal");
+    static_assert(a <= 3, "operator<= must be true for equal");
     static_assert(!(a > b), "operator> must be false for equal");
+    static_assert(!(3 > b), "operator> must be false for equal");
+    static_assert(!(a > 3), "operator> must be false for equal");
     static_assert(a >= b, "operator>= must be true for equal");
+    static_assert(3 >= b, "operator>= must be true for equal");
+    static_assert(a >= 3, "operator>= must be true for equal");
   }
 
   // Negative values: ordering follows raw value.
@@ -1064,14 +1112,30 @@ TEST_CASE("math/fixed/operator_ordering") {
     constexpr Fixed b(-2);
 
     REQUIRE(a < b);
+    REQUIRE(-5 < b);
+    REQUIRE(a < -2);
     REQUIRE(a <= b);
+    REQUIRE(-5 <= b);
+    REQUIRE(a <= -2);
     REQUIRE(b > a);
+    REQUIRE(b > -5);
+    REQUIRE(-2 > a);
     REQUIRE(b >= a);
+    REQUIRE(b >= -5);
+    REQUIRE(-2 >= a);
 
     static_assert(a < b, "operator< must order negatives correctly");
+    static_assert(-5 < b, "operator< must order negatives correctly");
+    static_assert(a < -2, "operator< must order negatives correctly");
     static_assert(a <= b, "operator<= must order negatives correctly");
+    static_assert(-5 <= b, "operator<= must order negatives correctly");
+    static_assert(a <= -2, "operator<= must order negatives correctly");
     static_assert(b > a, "operator> must order negatives correctly");
+    static_assert(b > -5, "operator> must order negatives correctly");
+    static_assert(-2 > a, "operator> must order negatives correctly");
     static_assert(b >= a, "operator>= must order negatives correctly");
+    static_assert(b >= -5, "operator>= must order negatives correctly");
+    static_assert(-2 >= a, "operator>= must order negatives correctly");
   }
 
   // operator<=> returns strong_ordering; mixed rounding types.
@@ -1080,11 +1144,19 @@ TEST_CASE("math/fixed/operator_ordering") {
     constexpr FixedNoRounding b(2);
 
     REQUIRE((a <=> b) == strong_ordering::less);
+    REQUIRE((1 <=> b) == strong_ordering::less);
+    REQUIRE((a <=> 2) == strong_ordering::less);
     REQUIRE((b <=> a) == strong_ordering::greater);
+    REQUIRE((b <=> 1) == strong_ordering::greater);
+    REQUIRE((2 <=> a) == strong_ordering::greater);
     REQUIRE((Fixed(2) <=> FixedNoRounding(2)) == strong_ordering::equal);
 
     static_assert((a <=> b) == strong_ordering::less, "operator<=> must be constexpr");
+    static_assert((1 <=> b) == strong_ordering::less, "operator<=> must be constexpr");
+    static_assert((a <=> 2) == strong_ordering::less, "operator<=> must be constexpr");
     static_assert((b <=> a) == strong_ordering::greater, "operator<=> must be constexpr");
+    static_assert((b <=> 1) == strong_ordering::greater, "operator<=> must be constexpr");
+    static_assert((2 <=> a) == strong_ordering::greater, "operator<=> must be constexpr");
     static_assert((Fixed(2) <=> FixedNoRounding(2)) == strong_ordering::equal,
                   "operator<=> must be constexpr for equal values");
   }
