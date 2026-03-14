@@ -185,13 +185,6 @@ public:
   constexpr Point & operator/=(const T & scalar) noexcept;
 
   /*!
-    \brief Squared Euclidean length (x² + y²).
-
-    \return Squared magnitude; avoids sqrt for comparisons.
-  */
-  [[nodiscard]] constexpr int32_t sqrMagnitude() const noexcept;
-
-  /*!
     \brief Sets \a x and \a y to zero.
 
     \post Point is at the origin.

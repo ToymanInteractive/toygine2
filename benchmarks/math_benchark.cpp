@@ -203,12 +203,6 @@ void runMathBenchmarks() noexcept {
       doNotOptimize(r);
     });
 
-    bench.run("Point sqrMagnitude", [] {
-      Point p(3, 4);
-      auto r = p.sqrMagnitude();
-      doNotOptimize(r);
-    });
-
     bench.run("Point isZero", [] {
       Point p(0, 0);
       auto r = p.isZero();

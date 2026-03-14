@@ -250,18 +250,8 @@ TEST_CASE("math/point/operators") {
   }
 }
 
-// sqrMagnitude, setZero, isZero, isEqual.
+// setZero, isZero, isEqual.
 TEST_CASE("math/point/point_methods") {
-  // sqrMagnitude() returns x² + y².
-  SUBCASE("sqr_magnitude") {
-    constexpr Point point(3, 4);
-
-    REQUIRE(point.sqrMagnitude() == 25);
-
-    static_assert(point.sqrMagnitude() == 25, "sqrMagnitude of (3,4) must be 25");
-    static_assert(Point().sqrMagnitude() == 0, "sqrMagnitude of origin must be 0");
-  }
-
   // setZero() sets x, y to zero.
   SUBCASE("set_zero") {
     Point point(100, 200);
@@ -334,12 +324,10 @@ TEST_CASE("math/point/point_methods") {
     REQUIRE(point.x == 10);
     REQUIRE(point.y == 6);
 
-    REQUIRE(point.sqrMagnitude() == 136);
     REQUIRE(!point.isZero());
 
     point.setZero();
     REQUIRE(point.isZero());
-    REQUIRE(point.sqrMagnitude() == 0);
 
     constexpr Point testPoint(5, 5);
     REQUIRE(point.isEqual(testPoint) == false);
