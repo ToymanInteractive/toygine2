@@ -29,6 +29,10 @@ var classtoy_1_1math_1_1fixed =
     [ "operator/=", "dd/d5c/classtoy_1_1math_1_1fixed.html#ae66dab135e7d69d49a3f49a201851847", null ],
     [ "operator/=", "dd/d5c/classtoy_1_1math_1_1fixed.html#aede01f077c6fcef55acfe6fd665e4fc7", null ],
     [ "operator/=", "dd/d5c/classtoy_1_1math_1_1fixed.html#a0a0b78041fd2282f5650a6fce295ff32", null ],
+    [ "operator=", "dd/d5c/classtoy_1_1math_1_1fixed.html#a547dca099cb8e9a273c9f9d37d38b2df", null ],
+    [ "operator=", "dd/d5c/classtoy_1_1math_1_1fixed.html#a275321e17686f0651b92ee3251cc63bd", null ],
+    [ "operator=", "dd/d5c/classtoy_1_1math_1_1fixed.html#a748f8a2111f082f4d9db803470fbc4e7", null ],
+    [ "operator=", "dd/d5c/classtoy_1_1math_1_1fixed.html#a57b1fa81616d77f88410a628143d9650", null ],
     [ "rawValue", "dd/d5c/classtoy_1_1math_1_1fixed.html#a9cf5bfce4fcaeea6f46e81b4ce481f6e", null ],
     [ "_value", "dd/d5c/classtoy_1_1math_1_1fixed.html#a0c5dc943d74bacd02cb3cea35dfa4e7f", null ]
 ];

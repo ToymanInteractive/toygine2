@@ -143,6 +143,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a8c95caeee789dbeb3b1376d32657cce3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts to a floating-point type.  <br /></td></tr>
 <tr class="memitem:a9cf5bfce4fcaeea6f46e81b4ce481f6e" id="r_a9cf5bfce4fcaeea6f46e81b4ce481f6e"><td class="memItemLeft">constexpr Base&#160;</td><td class="memItemRight"><a class="el" href="#a9cf5bfce4fcaeea6f46e81b4ce481f6e">rawValue</a> () const noexcept</td></tr>
 <tr class="memdesc:a9cf5bfce4fcaeea6f46e81b4ce481f6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns raw fixed-point storage value.  <br /></td></tr>
+<tr class="memitem:a547dca099cb8e9a273c9f9d37d38b2df" id="r_a547dca099cb8e9a273c9f9d37d38b2df"><td class="memTemplParams" colspan="2">template&lt;bool OtherRounding&gt; </td></tr>
+<tr class="memitem:a547dca099cb8e9a273c9f9d37d38b2df template"><td class="memItemLeft">constexpr <a class="el" href="#abcc3a58967fa38c0071acbac7d71db78">fixed</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a547dca099cb8e9a273c9f9d37d38b2df">operator=</a> (const <a class="el" href="#abcc3a58967fa38c0071acbac7d71db78">fixed</a>&lt; Base, Intermediate, Fraction, OtherRounding &gt; &amp;other) noexcept</td></tr>
+<tr class="memdesc:a547dca099cb8e9a273c9f9d37d38b2df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigns from another <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html" title="toy::math::fixed">toy::math::fixed</a> with the same <em class="arg">Base</em>, <em class="arg">Intermediate</em>, and <em class="arg">Fraction</em>.  <br /></td></tr>
+<tr class="memitem:a748f8a2111f082f4d9db803470fbc4e7" id="r_a748f8a2111f082f4d9db803470fbc4e7"><td class="memTemplParams" colspan="2">template&lt;integral T&gt; </td></tr>
+<tr class="memitem:a748f8a2111f082f4d9db803470fbc4e7 template"><td class="memItemLeft">constexpr <a class="el" href="#abcc3a58967fa38c0071acbac7d71db78">fixed</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a748f8a2111f082f4d9db803470fbc4e7">operator=</a> (const T &amp;other) noexcept</td></tr>
+<tr class="memdesc:a748f8a2111f082f4d9db803470fbc4e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigns from an integral value.  <br /></td></tr>
 <tr class="memitem:a0a8665a73979bcb3805ac6d7eee4e04b" id="r_a0a8665a73979bcb3805ac6d7eee4e04b"><td class="memTemplParams" colspan="2">template&lt;bool OtherRounding&gt; </td></tr>
 <tr class="memitem:a0a8665a73979bcb3805ac6d7eee4e04b template"><td class="memItemLeft">constexpr <a class="el" href="#abcc3a58967fa38c0071acbac7d71db78">fixed</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a0a8665a73979bcb3805ac6d7eee4e04b">operator+=</a> (const <a class="el" href="#abcc3a58967fa38c0071acbac7d71db78">fixed</a>&lt; Base, Intermediate, Fraction, OtherRounding &gt; &amp;other) noexcept</td></tr>
 <tr class="memdesc:a0a8665a73979bcb3805ac6d7eee4e04b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds another <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html" title="toy::math::fixed">toy::math::fixed</a> value in place.  <br /></td></tr>
@@ -169,6 +175,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:aede01f077c6fcef55acfe6fd665e4fc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Divides by an integral value in place.  <br /></td></tr>
 <tr class="memitem:a387e4afcaf2c9a38c5b1f7efcf25cebc" id="r_a387e4afcaf2c9a38c5b1f7efcf25cebc"><td class="memTemplParams" colspan="2">template&lt;unsigned NumFractionBits, integral T&gt; </td></tr>
 <tr class="memitem:a387e4afcaf2c9a38c5b1f7efcf25cebc template"><td class="memItemLeft">constexpr <a class="el" href="#abcc3a58967fa38c0071acbac7d71db78">fixed</a>&lt; Base, Intermediate, Fraction, Rounding &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a387e4afcaf2c9a38c5b1f7efcf25cebc">fromFixedPoint</a> (const T &amp;value) noexcept</td></tr>
+<tr class="memitem:a275321e17686f0651b92ee3251cc63bd" id="r_a275321e17686f0651b92ee3251cc63bd"><td class="memTemplParams" colspan="2">template&lt;bool OtherRounding&gt; </td></tr>
+<tr class="memitem:a275321e17686f0651b92ee3251cc63bd template"><td class="memItemLeft">constexpr <a class="el" href="#abcc3a58967fa38c0071acbac7d71db78">fixed</a>&lt; Base, Intermediate, Fraction, Rounding &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a275321e17686f0651b92ee3251cc63bd">operator=</a> (const <a class="el" href="#abcc3a58967fa38c0071acbac7d71db78">fixed</a>&lt; Base, Intermediate, Fraction, OtherRounding &gt; &amp;other) noexcept</td></tr>
+<tr class="memitem:a57b1fa81616d77f88410a628143d9650" id="r_a57b1fa81616d77f88410a628143d9650"><td class="memTemplParams" colspan="2">template&lt;integral T&gt; </td></tr>
+<tr class="memitem:a57b1fa81616d77f88410a628143d9650 template"><td class="memItemLeft">constexpr <a class="el" href="#abcc3a58967fa38c0071acbac7d71db78">fixed</a>&lt; Base, Intermediate, Fraction, Rounding &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a57b1fa81616d77f88410a628143d9650">operator=</a> (const T &amp;other) noexcept</td></tr>
 <tr class="memitem:ac166b07d98a6be8517bd5f38bb62e483" id="r_ac166b07d98a6be8517bd5f38bb62e483"><td class="memTemplParams" colspan="2">template&lt;bool OtherRounding&gt; </td></tr>
 <tr class="memitem:ac166b07d98a6be8517bd5f38bb62e483 template"><td class="memItemLeft">constexpr <a class="el" href="#abcc3a58967fa38c0071acbac7d71db78">fixed</a>&lt; Base, Intermediate, Fraction, Rounding &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ac166b07d98a6be8517bd5f38bb62e483">operator+=</a> (const <a class="el" href="#abcc3a58967fa38c0071acbac7d71db78">fixed</a>&lt; Base, Intermediate, Fraction, OtherRounding &gt; &amp;other) noexcept</td></tr>
 <tr class="memitem:a0cee2ec0a730001778611ad2a5737e9d" id="r_a0cee2ec0a730001778611ad2a5737e9d"><td class="memTemplParams" colspan="2">template&lt;integral T&gt; </td></tr>
@@ -1286,6 +1296,154 @@ template&lt;integral T&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="#abcc3a58967fa38c0071acbac7d71db78">fixed</a>&lt; Base, Intermediate, Fraction, Rounding &gt; &amp; <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html">toy::math::fixed</a>&lt; Base, Intermediate, Fraction, Rounding &gt;::operator/= </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;</td>          <td class="paramname"><span class="paramname"><em>other</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a547dca099cb8e9a273c9f9d37d38b2df" name="a547dca099cb8e9a273c9f9d37d38b2df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a547dca099cb8e9a273c9f9d37d38b2df">&#9670;&#160;</a></span>operator=() <span class="overload">[1/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Base, typename Intermediate, unsigned Fraction, bool Rounding = true&gt; </div>
+<div class="memtemplate">
+template&lt;bool OtherRounding&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#abcc3a58967fa38c0071acbac7d71db78">fixed</a> &amp; <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html">toy::math::fixed</a>&lt; Base, Intermediate, Fraction, Rounding &gt;::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="#abcc3a58967fa38c0071acbac7d71db78">fixed</a>&lt; Base, Intermediate, Fraction, OtherRounding &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>other</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Assigns from another <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html" title="toy::math::fixed">toy::math::fixed</a> with the same <em class="arg">Base</em>, <em class="arg">Intermediate</em>, and <em class="arg">Fraction</em>. </p>
+<p>Copies raw storage from <em class="arg">other</em>; <em class="arg">Rounding</em> of <em class="arg">other</em> does not affect the result. Accepts any fixed with the same representation (including different <em class="arg">OtherRounding</em>).</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">OtherRounding</td><td>Rounding policy of the source (may differ from this instance).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>Source value.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Reference to <code>*this</code>. </dd></dl>
+
+</div>
+</div>
+<a id="a275321e17686f0651b92ee3251cc63bd" name="a275321e17686f0651b92ee3251cc63bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a275321e17686f0651b92ee3251cc63bd">&#9670;&#160;</a></span>operator=() <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Base, typename Intermediate, unsigned Fraction, bool Rounding = true&gt; </div>
+<div class="memtemplate">
+template&lt;bool OtherRounding&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#abcc3a58967fa38c0071acbac7d71db78">fixed</a>&lt; Base, Intermediate, Fraction, Rounding &gt; &amp; <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html">toy::math::fixed</a>&lt; Base, Intermediate, Fraction, Rounding &gt;::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="#abcc3a58967fa38c0071acbac7d71db78">fixed</a>&lt; Base, Intermediate, Fraction, OtherRounding &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>other</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a748f8a2111f082f4d9db803470fbc4e7" name="a748f8a2111f082f4d9db803470fbc4e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a748f8a2111f082f4d9db803470fbc4e7">&#9670;&#160;</a></span>operator=() <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Base, typename Intermediate, unsigned Fraction, bool Rounding = true&gt; </div>
+<div class="memtemplate">
+template&lt;integral T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#abcc3a58967fa38c0071acbac7d71db78">fixed</a> &amp; <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html">toy::math::fixed</a>&lt; Base, Intermediate, Fraction, Rounding &gt;::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;</td>          <td class="paramname"><span class="paramname"><em>other</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Assigns from an integral value. </p>
+<p><em class="arg">other</em> is scaled by 2^<em class="arg">Fraction</em> and stored as raw value (same as constructing from <em class="arg">other</em>).</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Integral type; must satisfy <code>integral</code>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>Integral value in whole units.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Reference to <code>*this</code>. </dd></dl>
+
+</div>
+</div>
+<a id="a57b1fa81616d77f88410a628143d9650" name="a57b1fa81616d77f88410a628143d9650"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57b1fa81616d77f88410a628143d9650">&#9670;&#160;</a></span>operator=() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Base, typename Intermediate, unsigned Fraction, bool Rounding = true&gt; </div>
+<div class="memtemplate">
+template&lt;integral T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#abcc3a58967fa38c0071acbac7d71db78">fixed</a>&lt; Base, Intermediate, Fraction, Rounding &gt; &amp; <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html">toy::math::fixed</a>&lt; Base, Intermediate, Fraction, Rounding &gt;::operator= </td>
           <td>(</td>
           <td class="paramtype">const T &amp;</td>          <td class="paramname"><span class="paramname"><em>other</em></span></td><td>)</td>
           <td></td>

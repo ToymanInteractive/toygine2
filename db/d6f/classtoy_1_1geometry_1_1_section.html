@@ -144,7 +144,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac89405e58b918bd661c132029356df38" id="r_ac89405e58b918bd661c132029356df38"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#ac89405e58b918bd661c132029356df38">isValid</a> () const noexcept</td></tr>
 <tr class="memdesc:ac89405e58b918bd661c132029356df38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns <code>true</code> if the section represents a valid non-empty interval.  <br /></td></tr>
 <tr class="memitem:a195fe743b6a5d26df7e20ab2cdf97237" id="r_a195fe743b6a5d26df7e20ab2cdf97237"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#a195fe743b6a5d26df7e20ab2cdf97237">isContains</a> (const T &amp;value) const noexcept</td></tr>
-<tr class="memdesc:a195fe743b6a5d26df7e20ab2cdf97237"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns <code>true</code> if <em class="arg">value</em> lies inside [start, end] (inclusive).  <br /></td></tr>
+<tr class="memdesc:a195fe743b6a5d26df7e20ab2cdf97237"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns <code>true</code> if <em class="arg">value</em> lies inside [<em class="arg">start</em>, <em class="arg">end</em>] (inclusive).  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -166,8 +166,8 @@ class toy::geometry::Section&lt; T &gt;</div><p>One-dimensional interval [start,
 <h1 class="doxsection"><a class="anchor" id="features"></a>
 Key Features</h1>
 <ul>
-<li><b>Numeric endpoint only</b>: <em class="arg">T</em> constrained by <a class="el" href="../../d9/def/concepttoy_1_1geometry_1_1_section_endpoint.html" title="toy::geometry::SectionEndpoint">toy::geometry::SectionEndpoint</a>.</li>
-<li><b>Reset state</b>: Empty interval represented by start &gt; end; <a class="el" href="#ad9674e1bc236eacc544d96cc8e7b019a" title="Puts the section in reset (empty) state.">reset()</a> restores it.</li>
+<li><b>Numeric endpoint only</b>: <em class="arg">T</em> constrained by <a class="el" href="../../d9/def/concepttoy_1_1geometry_1_1_section_endpoint.html" title="toy::geometry::SectionEndpoint">toy::geometry::SectionEndpoint</a> (signed integral, floating-point, or fixed-point only; unsigned integral is not allowed).</li>
+<li><b>Reset state</b>: Empty interval represented by <em class="arg">start</em> &gt; <em class="arg">end</em>; <a class="el" href="#ad9674e1bc236eacc544d96cc8e7b019a" title="Puts the section in reset (empty) state.">reset()</a> restores it.</li>
 <li><b>Expand</b>: <a class="el" href="#ab93fe647a2132bcec9475dc07436be4f" title="Extends the interval to include value if outside current bounds.">expand()</a> extends bounds to include a value or another section (union).</li>
 <li><b>Constexpr</b>: All operations are constexpr and noexcept where applicable.</li>
 </ul>
@@ -179,15 +179,18 @@ Usage Example</h1>
 <div class="line"> </div>
 <div class="line">s.expand(5);   <span class="comment">// now [5, 20]</span></div>
 <div class="line">s.expand(<a class="code hl_class" href="../../db/d6f/classtoy_1_1geometry_1_1_section.html">toy::geometry::Section&lt;int&gt;</a>(25, 30)); <span class="comment">// now [5, 30]</span></div>
-<div class="ttc" id="aclasstoy_1_1geometry_1_1_section_html"><div class="ttname"><a href="../../db/d6f/classtoy_1_1geometry_1_1_section.html">toy::geometry::Section</a></div><div class="ttdoc">One-dimensional interval [start, end] over a numeric endpoint type.</div><div class="ttdef"><b>Definition</b> section.hpp:90</div></div>
+<div class="ttc" id="aclasstoy_1_1geometry_1_1_section_html"><div class="ttname"><a href="../../db/d6f/classtoy_1_1geometry_1_1_section.html">toy::geometry::Section</a></div><div class="ttdoc">One-dimensional interval [start, end] over a numeric endpoint type.</div><div class="ttdef"><b>Definition</b> section.hpp:91</div></div>
 <div class="ttc" id="ageometry_8hpp_html"><div class="ttname"><a href="../../db/dbb/geometry_8hpp.html">geometry.hpp</a></div><div class="ttdoc">Umbrella header for the geometry module.</div></div>
 </div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="performance"></a>
 Performance Characteristics</h1>
 <p>Operations**: O(1). No allocations.</p>
 <h1 class="doxsection"><a class="anchor" id="safety"></a>
 Safety Guarantees</h1>
-<p>Preconditions**: <a class="el" href="#ac41e8ef5d949f060004098070aa70062" title="Merges section into this interval (union of two intervals).">expand(const Section&lt;T&gt;&amp;)</a> requires the argument to satisfy <a class="el" href="#ac89405e58b918bd661c132029356df38" title="Returns true if the section represents a valid non-empty interval.">isValid()</a> (assert in debug). Exception safety**: All operations are noexcept.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../da/d08/namespacetoy_1_1geometry.html#ab1c24341562abc2d89d35030b97ee816" title="Equality for signed-integral and fixed-point sections: exact comparison of bounds.">operator==()</a>, <a class="el" href="../../da/d08/namespacetoy_1_1geometry.html#a53336dfb63b0925b90a0e2c34c7e6758" title="Inequality: different bounds.">operator!=()</a> </dd></dl>
+<ul>
+<li><b>Preconditions</b>: <a class="el" href="#ac41e8ef5d949f060004098070aa70062" title="Merges section into this interval (union of two intervals).">expand(const Section&lt;T&gt; &amp;)</a> requires the argument to satisfy <a class="el" href="#ac89405e58b918bd661c132029356df38" title="Returns true if the section represents a valid non-empty interval.">isValid()</a> (assert in debug).</li>
+<li><b>Exception safety</b>: All operations are noexcept.</li>
+</ul>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../da/d08/namespacetoy_1_1geometry.html#ab1c24341562abc2d89d35030b97ee816" title="Equality for signed integral and fixed-point sections: exact comparison of bounds.">operator==()</a>, <a class="el" href="../../da/d08/namespacetoy_1_1geometry.html#a53336dfb63b0925b90a0e2c34c7e6758" title="Inequality: true when bounds differ.">operator!=()</a> </dd></dl>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ac7df188937defa68d39455e5f8a866dc" name="ac7df188937defa68d39455e5f8a866dc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac7df188937defa68d39455e5f8a866dc">&#9670;&#160;</a></span>Section() <span class="overload">[1/2]</span></h2>
@@ -357,14 +360,14 @@ template&lt;SectionEndpoint T&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Returns <code>true</code> if <em class="arg">value</em> lies inside [start, end] (inclusive). </p>
+<p>Returns <code>true</code> if <em class="arg">value</em> lies inside [<em class="arg">start</em>, <em class="arg">end</em>] (inclusive). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">value</td><td>Value to test.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> when start &lt;= value &lt;= end. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> when <em class="arg">start</em> &lt;= <em class="arg">value</em> &lt;= <em class="arg">end</em>. </dd></dl>
 
 </div>
 </div>
@@ -394,7 +397,7 @@ template&lt;SectionEndpoint T&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns <code>true</code> if the section is in reset (empty) state. </p>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> when start &gt; end. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> when <em class="arg">start</em> &gt; <em class="arg">end</em>. </dd></dl>
 
 </div>
 </div>
@@ -424,7 +427,7 @@ template&lt;SectionEndpoint T&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns <code>true</code> if the section represents a valid non-empty interval. </p>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> when start &lt;= end. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> when <em class="arg">start</em> &lt;= <em class="arg">end</em>. </dd></dl>
 
 </div>
 </div>
@@ -454,7 +457,7 @@ template&lt;SectionEndpoint T&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns the length of the interval. </p>
-<dl class="section return"><dt>Returns</dt><dd>end - start. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><em class="arg">end</em> - <em class="arg">start</em>. </dd></dl>
 
 </div>
 </div>
@@ -484,7 +487,7 @@ template&lt;SectionEndpoint T&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns the midpoint of the interval. </p>
-<dl class="section return"><dt>Returns</dt><dd>(start + end) / 2. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>(<em class="arg">start</em> + <em class="arg">end</em>) / 2. </dd></dl>
 
 </div>
 </div>

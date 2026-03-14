@@ -272,7 +272,7 @@
 <!-- Node56 -->
 <g id="Node000056" class="node">
 <title>Node56</title>
-<g id="a_Node000056"><a xlink:href="../../dd/d53/vector2d_8inl.html" target="_top" xlink:title="Inline implementations for 2D floating&#45;point vector class.">
+<g id="a_Node000056"><a xlink:href="../../dd/d53/vector2d_8inl.html" target="_top" xlink:title="Inline implementations for toy::math::Vector2D.">
 <polygon fill="white" stroke="#666666" points="5097.5,-162 4994.5,-162 4994.5,-143 5097.5,-143 5097.5,-162"/>
 <text text-anchor="middle" x="5046" y="-150" font-family="Helvetica,sans-Serif" font-size="10.00">math/vector2d.inl</text>
 </a>

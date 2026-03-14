@@ -12,7 +12,6 @@ var classtoy_1_1math_1_1_point =
     [ "operator-=", "d3/dce/classtoy_1_1math_1_1_point.html#a3b92ef9444920073362d85dee1512bb9", null ],
     [ "operator/=", "d3/dce/classtoy_1_1math_1_1_point.html#a0e2b8d8b83c834d32bc08a46ba3b00e2", null ],
     [ "setZero", "d3/dce/classtoy_1_1math_1_1_point.html#a6abe66bb39eead8a572c4275c8b87c09", null ],
-    [ "sqrMagnitude", "d3/dce/classtoy_1_1math_1_1_point.html#a0454d2639eb29492706c8c082e0ee4c4", null ],
     [ "x", "d3/dce/classtoy_1_1math_1_1_point.html#a5b974e35db246293fe092fd51e93484e", null ],
     [ "y", "d3/dce/classtoy_1_1math_1_1_point.html#ac66eace842a226ea3e0284c6c4111ead", null ]
 ];

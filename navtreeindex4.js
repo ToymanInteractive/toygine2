@@ -1,12 +1,19 @@
 var NAVTREEINDEX4 =
 {
+"dd/d5c/classtoy_1_1math_1_1fixed.html#a748f8a2111f082f4d9db803470fbc4e7":[3,0,1,2,1,31],
+"dd/d5c/classtoy_1_1math_1_1fixed.html#a748f8a2111f082f4d9db803470fbc4e7":[5,0,1,2,0,31],
+"dd/d5c/classtoy_1_1math_1_1fixed.html#a7ca71fe08937a3935590b2b5edb11fa6":[3,0,1,2,1,22],
+"dd/d5c/classtoy_1_1math_1_1fixed.html#a7ca71fe08937a3935590b2b5edb11fa6":[5,0,1,2,0,22],
+"dd/d5c/classtoy_1_1math_1_1fixed.html#a8166e8f6b25ef376a837a4a00f9fb465":[3,0,1,2,1,24],
+"dd/d5c/classtoy_1_1math_1_1fixed.html#a8166e8f6b25ef376a837a4a00f9fb465":[5,0,1,2,0,24],
+"dd/d5c/classtoy_1_1math_1_1fixed.html#a8c95caeee789dbeb3b1376d32657cce3":[3,0,1,2,1,11],
 "dd/d5c/classtoy_1_1math_1_1fixed.html#a8c95caeee789dbeb3b1376d32657cce3":[3,0,1,2,1,12],
 "dd/d5c/classtoy_1_1math_1_1fixed.html#a8c95caeee789dbeb3b1376d32657cce3":[5,0,1,2,0,11],
 "dd/d5c/classtoy_1_1math_1_1fixed.html#a8c95caeee789dbeb3b1376d32657cce3":[5,0,1,2,0,12],
 "dd/d5c/classtoy_1_1math_1_1fixed.html#a9565f03b6e9d30e7a2c8b499fd33ebf0":[3,0,1,2,1,21],
 "dd/d5c/classtoy_1_1math_1_1fixed.html#a9565f03b6e9d30e7a2c8b499fd33ebf0":[5,0,1,2,0,21],
-"dd/d5c/classtoy_1_1math_1_1fixed.html#a9cf5bfce4fcaeea6f46e81b4ce481f6e":[3,0,1,2,1,29],
-"dd/d5c/classtoy_1_1math_1_1fixed.html#a9cf5bfce4fcaeea6f46e81b4ce481f6e":[5,0,1,2,0,29],
+"dd/d5c/classtoy_1_1math_1_1fixed.html#a9cf5bfce4fcaeea6f46e81b4ce481f6e":[3,0,1,2,1,33],
+"dd/d5c/classtoy_1_1math_1_1fixed.html#a9cf5bfce4fcaeea6f46e81b4ce481f6e":[5,0,1,2,0,33],
 "dd/d5c/classtoy_1_1math_1_1fixed.html#aaad007d60de32125cb7d987a30c36aed":[3,0,1,2,1,23],
 "dd/d5c/classtoy_1_1math_1_1fixed.html#aaad007d60de32125cb7d987a30c36aed":[5,0,1,2,0,23],
 "dd/d5c/classtoy_1_1math_1_1fixed.html#abcc3a58967fa38c0071acbac7d71db78":[3,0,1,2,1,1],
@@ -242,12 +249,5 @@ var NAVTREEINDEX4 =
 "functions_func_h.html":[5,3,1,8],
 "functions_func_i.html":[5,3,1,9],
 "functions_func_l.html":[5,3,1,10],
-"functions_func_m.html":[5,3,1,11],
-"functions_func_o.html":[5,3,1,12],
-"functions_func_p.html":[5,3,1,13],
-"functions_func_q.html":[5,3,1,14],
-"functions_func_r.html":[5,3,1,15],
-"functions_func_s.html":[5,3,1,16],
-"functions_func_t.html":[5,3,1,17],
-"functions_func_u.html":[5,3,1,18]
+"functions_func_m.html":[5,3,1,11]
 };

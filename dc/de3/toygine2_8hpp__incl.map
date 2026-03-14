@@ -139,7 +139,7 @@
 <area shape="poly" id="edge69_Node000051_Node000060" title=" " alt="" coords="797,175,963,219,961,224,796,180"/>
 <area shape="rect" id="Node000061" href="$de/d5d/math_2utils_8inl.html" title="Inline implementations for General math utilities." alt="" coords="888,313,959,339"/>
 <area shape="poly" id="edge71_Node000051_Node000061" title=" " alt="" coords="792,175,854,197,881,210,899,223,910,241,918,261,925,299,920,300,913,262,906,244,895,227,878,215,852,202,791,180"/>
-<area shape="rect" id="Node000062" href="$dd/d53/vector2d_8inl.html" title="Inline implementations for 2D floating&#45;point vector class." alt="" coords="1099,225,1236,251"/>
+<area shape="rect" id="Node000062" href="$dd/d53/vector2d_8inl.html" title="Inline implementations for toy::math::Vector2D." alt="" coords="1099,225,1236,251"/>
 <area shape="poly" id="edge72_Node000051_Node000062" title=" " alt="" coords="797,173,808,175,1086,222,1085,227,807,180,796,178"/>
 <area shape="poly" id="edge61_Node000053_Node000054" title=" " alt="" coords="156,253,91,307,88,302,153,249"/>
 <area shape="poly" id="edge62_Node000053_Node000055" title=" " alt="" coords="185,249,251,302,247,307,181,253"/>

@@ -20,6 +20,8 @@ var fixed_8hpp =
     [ "toy::math::operator/", "d2/d83/namespacetoy_1_1math.html#a1557a48df4a7c0f416b1b73eb81274d7", null ],
     [ "toy::math::operator/", "d2/d83/namespacetoy_1_1math.html#a4d2eb4a917e11a760d300518aa7b1fcb", null ],
     [ "toy::math::operator<=>", "d2/d83/namespacetoy_1_1math.html#a374fe0c873278f493cf9c1fe314d472b", null ],
+    [ "toy::math::operator<=>", "d2/d83/namespacetoy_1_1math.html#abe372769c197ef311720261d735939c7", null ],
+    [ "toy::math::operator<=>", "d2/d83/namespacetoy_1_1math.html#a2ea293404c44ad3b5c616e7ed4c87166", null ],
     [ "toy::math::operator==", "d2/d83/namespacetoy_1_1math.html#a093a0151366d4844bb1d337448c0b16f", null ],
     [ "toy::math::operator==", "d2/d83/namespacetoy_1_1math.html#ad062ffd35ee9ef577ddd9ac0175dee46", null ],
     [ "toy::math::operator==", "d2/d83/namespacetoy_1_1math.html#a0bbfb9006386fe67b3a8607c97487ea8", null ],
