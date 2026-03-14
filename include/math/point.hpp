@@ -91,11 +91,12 @@ concept PointScalar = signed_integral<T> || floating_point<T> || fixed_point<T>;
 class Point {
 public:
   /// X coordinate.
-  int32_t x = 0;
+  int32_t x;
 
   /// Y coordinate.
-  int32_t y = 0;
+  int32_t y;
 
+public:
   /*!
     \brief Default constructor.
 

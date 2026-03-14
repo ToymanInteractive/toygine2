@@ -91,10 +91,11 @@ template <SectionEndpoint T>
 class Section {
 public:
   /// Lower bound of the interval. Default-constructed: \c numeric_limits<T>::max() (reset state).
-  T start{numeric_limits<T>::max()};
+  T start;
   /// Upper bound of the interval. Default-constructed: \c numeric_limits<T>::lowest() (reset state).
-  T end{numeric_limits<T>::lowest()};
+  T end;
 
+public:
   /*!
     \brief Default constructor; section is in reset (empty) state.
 

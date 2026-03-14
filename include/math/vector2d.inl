@@ -28,6 +28,18 @@
 namespace toy::math {
 
 template <Vector2DComponent T>
+constexpr Vector2D<T>::Vector2D() noexcept
+  : x()
+  , y() {
+#ifdef _DEBUG
+  if constexpr (floating_point<T>) {
+    x = numeric_limits<T>::signaling_NaN();
+    y = numeric_limits<T>::signaling_NaN();
+  }
+#endif
+}
+
+template <Vector2DComponent T>
 constexpr Vector2D<T>::Vector2D(const T & _x, const T & _y) noexcept
   : x(_x)
   , y(_y) {}
@@ -80,8 +92,10 @@ template <Vector2DComponent T>
 constexpr Vector2D<T> & Vector2D<T>::operator/=(const T & scalar) noexcept {
   assert_message(scalar > 0 || scalar < 0, "scalar must be non-zero");
 
-  x /= scalar;
-  y /= scalar;
+  constexpr T one{1};
+  const T invScalar = one / scalar;
+
+  *this *= invScalar;
 
   return *this;
 }
@@ -93,13 +107,13 @@ constexpr T Vector2D<T>::sqrMagnitude() const noexcept {
 
 template <Vector2DComponent T>
 constexpr void Vector2D<T>::setZero() noexcept {
-  x = y = 0;
+  x = y = T{0};
 }
 
 template <Vector2DComponent T>
 constexpr bool Vector2D<T>::isZero() const noexcept {
   if constexpr (floating_point<T>) {
-    return math::isEqual(x, 0.0f) && math::isEqual(y, 0.0f);
+    return math::isEqual(x, T{0}) && math::isEqual(y, T{0});
   } else if constexpr (fixed_point<T>) {
     return x.rawValue() == 0 && y.rawValue() == 0;
   }
@@ -136,10 +150,18 @@ constexpr Vector2D<T> operator*(const T & left, const Vector2D<T> & right) noexc
 }
 
 template <Vector2DComponent T>
+constexpr T operator*(const Vector2D<T> & left, const Vector2D<T> & right) noexcept {
+  return left.x * right.x + left.y * right.y;
+}
+
+template <Vector2DComponent T>
 constexpr Vector2D<T> operator/(const Vector2D<T> & left, const T & right) noexcept {
   assert_message(right > 0 || right < 0, "right must be non-zero");
 
-  return Vector2D(left.x / right, left.y / right);
+  constexpr T one{1};
+  const T invScalar = one / right;
+
+  return Vector2D(left.x * invScalar, left.y * invScalar);
 }
 
 template <Vector2DComponent T>
@@ -149,6 +171,16 @@ constexpr bool operator==(const Vector2D<T> & left, const Vector2D<T> & right) n
   } else if constexpr (fixed_point<T>) {
     return left.x.rawValue() == right.x.rawValue() && left.y.rawValue() == right.y.rawValue();
   }
+}
+
+template <Vector2DComponent T>
+constexpr bool operator!=(const Vector2D<T> & left, const Vector2D<T> & right) noexcept {
+  return !(left == right);
+}
+
+template <Vector2DComponent T>
+constexpr T cross(const Vector2D<T> & left, const Vector2D<T> & right) noexcept {
+  return left.x * right.y - left.y * right.x;
 }
 
 } // namespace toy::math

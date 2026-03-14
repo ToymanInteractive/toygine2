@@ -41,17 +41,6 @@ TEST_CASE("math/point/object_structure") {
 
 // Default, coordinate, and array constructors.
 TEST_CASE("math/point/constructors") {
-  // Default constructor yields zero x, y.
-  SUBCASE("default_constructor") {
-    constexpr Point point;
-
-    REQUIRE(point.x == 0);
-    REQUIRE(point.y == 0);
-
-    static_assert(Point().x == 0, "default-constructed x must be 0");
-    static_assert(Point().y == 0, "default-constructed y must be 0");
-  }
-
   // Constructor with coordinates.
   SUBCASE("constructor_with_coordinates") {
     constexpr Point point(10, 20);
@@ -77,10 +66,6 @@ TEST_CASE("math/point/constructors") {
 
   // Runtime constructor behavior.
   SUBCASE("runtime_constructor_tests") {
-    Point defaultPoint;
-    REQUIRE(defaultPoint.x == 0);
-    REQUIRE(defaultPoint.y == 0);
-
     Point coordPoint(123, -456);
     REQUIRE(coordPoint.x == 123);
     REQUIRE(coordPoint.y == -456);

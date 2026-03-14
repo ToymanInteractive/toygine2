@@ -92,17 +92,18 @@ template <Vector2DComponent T>
 class Vector2D {
 public:
   /// X component of the vector.
-  T x{constants::zero_v<T>};
+  T x;
 
   /// Y component of the vector.
-  T y{constants::zero_v<T>};
+  T y;
 
+public:
   /*!
     \brief Default constructor.
 
     \post \a x and \a y are zero.
   */
-  constexpr Vector2D() noexcept = default;
+  constexpr Vector2D() noexcept;
 
   /*!
     \brief Constructs a vector with the given components.
@@ -283,6 +284,17 @@ template <Vector2DComponent T>
 [[nodiscard]] constexpr Vector2D<T> operator*(const T & left, const Vector2D<T> & right) noexcept;
 
 /*!
+  \brief Dot product of two vectors.
+
+  \param left  First operand.
+  \param right Second operand.
+
+  \return \a left.x * \a right.x + \a left.y * \a right.y.
+*/
+template <Vector2DComponent T>
+[[nodiscard]] constexpr T operator*(const Vector2D<T> & left, const Vector2D<T> & right) noexcept;
+
+/*!
   \brief Vector divided by scalar.
 
   \tparam T Component type satisfy \ref toy::math::Vector2DComponent.
@@ -313,6 +325,28 @@ template <Vector2DComponent T>
 */
 template <Vector2DComponent T>
 [[nodiscard]] constexpr bool operator==(const Vector2D<T> & left, const Vector2D<T> & right) noexcept;
+
+/*!
+  \brief Inequality of two vectors.
+
+  \param left  First operand.
+  \param right Second operand.
+
+  \return \c true if \c !(left == right).
+*/
+template <Vector2DComponent T>
+[[nodiscard]] constexpr bool operator!=(const Vector2D<T> & left, const Vector2D<T> & right) noexcept;
+
+/*!
+  \brief 2D cross product (scalar result).
+
+  \param left  First operand.
+  \param right Second operand.
+
+  \return \a left.x * \a right.y - \a left.y * \a right.x.
+*/
+template <Vector2DComponent T>
+[[nodiscard]] constexpr T cross(const Vector2D<T> & left, const Vector2D<T> & right) noexcept;
 
 } // namespace toy::math
 

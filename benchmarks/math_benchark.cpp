@@ -410,6 +410,19 @@ void runMathBenchmarks() noexcept {
       doNotOptimize(r);
     });
 
+    bench.run("Vector2D<float> dot product", [] {
+      Vector2D a(10.0f, 20.0f);
+      Vector2D b(5.0f, 10.0f);
+      auto r = a * b;
+      doNotOptimize(r);
+    });
+    bench.run("Vector2D<Fixed> dot product", [] {
+      Vector2D a(Fixed(10), Fixed(20));
+      Vector2D b(Fixed(5), Fixed(10));
+      auto r = a * b;
+      doNotOptimize(r);
+    });
+
     bench.run("Vector2D<float> operator/", [] {
       Vector2D v(25.0f, 50.0f);
       auto r = v / 2.5f;
@@ -431,6 +444,32 @@ void runMathBenchmarks() noexcept {
       Vector2D a(Fixed(10), Fixed(20));
       Vector2D b(Fixed(10), Fixed(20));
       auto r = (a == b);
+      doNotOptimize(r);
+    });
+
+    bench.run("Vector2D<float> operator!=", [] {
+      Vector2D a(10.0f, 20.0f);
+      Vector2D b(11.0f, 20.0f);
+      auto r = (a != b);
+      doNotOptimize(r);
+    });
+    bench.run("Vector2D<Fixed> operator!=", [] {
+      Vector2D a(Fixed(10), Fixed(20));
+      Vector2D b(Fixed(11), Fixed(20));
+      auto r = (a != b);
+      doNotOptimize(r);
+    });
+
+    bench.run("Vector2D<float> cross", [] {
+      Vector2D a(3.0f, 4.0f);
+      Vector2D b(1.0f, 0.0f);
+      auto r = cross(a, b);
+      doNotOptimize(r);
+    });
+    bench.run("Vector2D<Fixed> cross", [] {
+      Vector2D a(Fixed(3), Fixed(4));
+      Vector2D b(Fixed(1), Fixed(0));
+      auto r = cross(a, b);
       doNotOptimize(r);
     });
   }
