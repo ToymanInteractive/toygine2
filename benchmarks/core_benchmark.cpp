@@ -24,56 +24,65 @@
 void runCoreBenchmarks() noexcept {
   auto bench = createBench("Core module");
 
-  constexpr size_t bufSize = 32;
-  char buf[bufSize];
+  // itoa benchmarks
+  {
+    constexpr size_t bufSize = 32;
+    char buf[bufSize];
 
-  bench.run("itoa int8_t", [&] {
-    char * r = toy::itoa(buf, bufSize, int8_t{42});
-    doNotOptimize(r);
-  });
+    bench.run("itoa int8_t", [&] {
+      char * r = toy::itoa(buf, bufSize, int8_t{42});
+      doNotOptimize(r);
+    });
 
-  bench.run("itoa int16_t", [&] {
-    char * r = toy::itoa(buf, bufSize, int16_t{-1234});
-    doNotOptimize(r);
-  });
+    bench.run("itoa int16_t", [&] {
+      char * r = toy::itoa(buf, bufSize, int16_t{-1234});
+      doNotOptimize(r);
+    });
 
-  bench.run("itoa int32_t", [&] {
-    char * r = toy::itoa(buf, bufSize, int32_t{12345678});
-    doNotOptimize(r);
-  });
+    bench.run("itoa int32_t", [&] {
+      char * r = toy::itoa(buf, bufSize, int32_t{12345678});
+      doNotOptimize(r);
+    });
 
-  bench.run("itoa int64_t", [&] {
-    char * r = toy::itoa(buf, bufSize, int64_t{-9223372036854775807LL});
-    doNotOptimize(r);
-  });
+    bench.run("itoa int64_t", [&] {
+      char * r = toy::itoa(buf, bufSize, int64_t{-9223372036854775807LL});
+      doNotOptimize(r);
+    });
+  }
 
-  bench.run("utoa uint8_t base 10", [&] {
-    char * r = toy::utoa(buf, bufSize, uint8_t{200}, 10u);
-    doNotOptimize(r);
-  });
+  // utoa benchmarks
+  {
+    constexpr size_t bufSize = 32;
+    char buf[bufSize];
 
-  bench.run("utoa uint16_t base 10", [&] {
-    char * r = toy::utoa(buf, bufSize, uint16_t{65535}, 10u);
-    doNotOptimize(r);
-  });
+    bench.run("utoa uint8_t base 10", [&] {
+      char * r = toy::utoa(buf, bufSize, uint8_t{200}, 10u);
+      doNotOptimize(r);
+    });
 
-  bench.run("utoa uint32_t base 10", [&] {
-    char * r = toy::utoa(buf, bufSize, uint32_t{4000000000u}, 10);
-    doNotOptimize(r);
-  });
+    bench.run("utoa uint16_t base 10", [&] {
+      char * r = toy::utoa(buf, bufSize, uint16_t{65535}, 10u);
+      doNotOptimize(r);
+    });
 
-  bench.run("utoa uint64_t base 10", [&] {
-    char * r = toy::utoa(buf, bufSize, uint64_t{18446744073709551615ULL}, 10);
-    doNotOptimize(r);
-  });
+    bench.run("utoa uint32_t base 10", [&] {
+      char * r = toy::utoa(buf, bufSize, uint32_t{4000000000u}, 10);
+      doNotOptimize(r);
+    });
 
-  bench.run("utoa uint32_t base 16", [&] {
-    char * r = toy::utoa(buf, bufSize, uint32_t{0xDEADBEEFu}, 16);
-    doNotOptimize(r);
-  });
+    bench.run("utoa uint64_t base 10", [&] {
+      char * r = toy::utoa(buf, bufSize, uint64_t{18446744073709551615ULL}, 10);
+      doNotOptimize(r);
+    });
 
-  bench.run("utoa uint64_t base 16", [&] {
-    char * r = toy::utoa(buf, bufSize, uint64_t{0xFFFFFFFFFFFFFFFFULL}, 16);
-    doNotOptimize(r);
-  });
+    bench.run("utoa uint32_t base 16", [&] {
+      char * r = toy::utoa(buf, bufSize, uint32_t{0xDEADBEEFu}, 16);
+      doNotOptimize(r);
+    });
+
+    bench.run("utoa uint64_t base 16", [&] {
+      char * r = toy::utoa(buf, bufSize, uint64_t{0xFFFFFFFFFFFFFFFFULL}, 16);
+      doNotOptimize(r);
+    });
+  }
 }

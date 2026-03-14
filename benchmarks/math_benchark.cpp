@@ -28,19 +28,20 @@ using Fixed = fixed<int32_t, int64_t, 24>;
 void runMathBenchmarks() noexcept {
   auto bench = createBench("Math module");
 
-  // Utils benchmarks
+  // fixed benchmarks
   {
-    float angle = 15.0f;
-    float angleRad = 1.25f;
-
-    bench.run("deg2rad float", [&] {
-      auto result = deg2rad(angle);
-      doNotOptimize(result);
+    bench.run("fixed == int", [] {
+      Fixed f(42);
+      int i = 42;
+      auto r = (f == i);
+      doNotOptimize(r);
     });
 
-    bench.run("rad2deg float", [&] {
-      auto result = rad2deg(angleRad);
-      doNotOptimize(result);
+    bench.run("int == fixed", [] {
+      int i = 42;
+      Fixed f(42);
+      auto r = (i == f);
+      doNotOptimize(r);
     });
   }
 
@@ -196,6 +197,22 @@ void runMathBenchmarks() noexcept {
       Point p(42, -17);
       auto * arr = p.c_arr();
       doNotOptimize(arr);
+    });
+  }
+
+  // Utils benchmarks
+  {
+    float angle = 15.0f;
+    float angleRad = 1.25f;
+
+    bench.run("deg2rad float", [&] {
+      auto result = deg2rad(angle);
+      doNotOptimize(result);
+    });
+
+    bench.run("rad2deg float", [&] {
+      auto result = rad2deg(angleRad);
+      doNotOptimize(result);
     });
   }
 }

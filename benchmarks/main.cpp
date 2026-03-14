@@ -19,10 +19,12 @@
 //
 
 void runCoreBenchmarks() noexcept;
+void runGeometryBenchmarks() noexcept;
 void runMathBenchmarks() noexcept;
 
 int main() noexcept {
   runCoreBenchmarks();
+  runGeometryBenchmarks();
   runMathBenchmarks();
 
   return 0;
