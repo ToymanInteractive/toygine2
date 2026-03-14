@@ -135,6 +135,10 @@ constexpr T rad_per_deg_v = static_cast<T>(std::numbers::pi_v<long double> / 180
 template <FractionalConstantType T>
 constexpr T deg_per_rad_v = static_cast<T>(180.0L / std::numbers::pi_v<long double>);
 
+/// 180 over π (degrees per radian).
+template <FractionalConstantType T>
+constexpr T zero_v = static_cast<T>(0.0L);
+
 } // namespace constants
 
 } // namespace toy::math

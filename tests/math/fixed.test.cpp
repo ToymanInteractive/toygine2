@@ -982,6 +982,21 @@ TEST_CASE("math/fixed/operator_equality") {
     static_assert(z == Fixed(0), "operator== for zero");
     static_assert(!(z != Fixed(0)), "operator!= for zero");
   }
+
+  // fixed == integral: compares fixed with integral after converting integral to fixed.
+  SUBCASE("fixed_equals_integral") {
+    constexpr Fixed a(2);
+    constexpr Fixed b(0);
+
+    REQUIRE(a == 2);
+    REQUIRE(!(a == 3));
+    REQUIRE(b == 0);
+    REQUIRE(!(Fixed(5) == 4));
+
+    static_assert(Fixed(2) == 2, "fixed equal to same integral must compare equal");
+    static_assert(Fixed(0) == 0, "fixed zero equal to integral zero");
+    static_assert(!(Fixed(3) == 2), "fixed not equal to different integral must compare unequal");
+  }
 }
 
 // operator<=>, <, <=, >, >= (three-way and relational).

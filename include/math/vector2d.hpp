@@ -19,13 +19,16 @@
 //
 /*!
   \file   vector2d.hpp
-  \brief  2D floating-point vector class for interactive game objects and physics calculations.
+  \brief  2D vector class for interactive game objects and physics calculations.
 */
 
 #ifndef INCLUDE_MATH_VECTOR2D_HPP_
 #define INCLUDE_MATH_VECTOR2D_HPP_
 
 namespace toy::math {
+
+template <typename T>
+concept Vector2DComponent = floating_point<T> || fixed_point<T>;
 
 /*!
   \class Vector2D

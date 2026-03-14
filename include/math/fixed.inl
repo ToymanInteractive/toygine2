@@ -320,6 +320,12 @@ constexpr bool operator==(const fixed<Base, Intermediate, Fraction, Rounding> & 
   return a.rawValue() == b.rawValue();
 }
 
+template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, integral T>
+constexpr bool operator==(const fixed<Base, Intermediate, Fraction, Rounding> & a, const T & b) noexcept {
+  return a.rawValue() ==
+         fixed<Base, Intermediate, Fraction, Rounding>(b).rawValue();
+}
+
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, bool OtherRounding>
 constexpr strong_ordering operator<=>(const fixed<Base, Intermediate, Fraction, Rounding> & a,
                                       const fixed<Base, Intermediate, Fraction, OtherRounding> & b) noexcept {
