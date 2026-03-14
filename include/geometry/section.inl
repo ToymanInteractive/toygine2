@@ -28,6 +28,18 @@
 namespace toy::geometry {
 
 template <SectionEndpoint T>
+constexpr Section<T>::Section() noexcept
+  : start()
+  , end() {
+#ifdef _DEBUG
+  if constexpr (math::floating_point<T>) {
+    start = numeric_limits<T>::signaling_NaN();
+    end = numeric_limits<T>::signaling_NaN();
+  }
+#endif
+}
+
+template <SectionEndpoint T>
 constexpr Section<T>::Section(const T & s, const T & e) noexcept
   : start(s)
   , end(e) {

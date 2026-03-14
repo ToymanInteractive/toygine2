@@ -102,7 +102,7 @@ public:
     \post isReset() is \c true, isValid() is \c false, \a start is \c numeric_limits<T>::max(), \a end is
           \c numeric_limits<T>::lowest().
   */
-  constexpr Section() noexcept = default;
+  constexpr Section() noexcept;
 
   /*!
     \brief Constructs a section with the given bounds.
