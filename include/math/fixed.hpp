@@ -57,10 +57,10 @@ concept ValidFixedPointTypes
   Stores values as scaled integers using \a Fraction fractional bits. Conversions from integral and floating-point types
   are explicit.
 
-  \tparam Base Storage type for raw fixed-point value.
+  \tparam Base         Storage type for raw fixed-point value.
   \tparam Intermediate Wider type used for intermediate calculations.
-  \tparam Fraction Number of fractional bits.
-  \tparam Rounding If \c true, floating-point construction rounds to nearest value.
+  \tparam Fraction     Number of fractional bits.
+  \tparam Rounding     If \c true, floating-point construction rounds to nearest value.
 
   \section features Key Features
 
@@ -138,10 +138,10 @@ public:
     this instance's \a Fraction using fromFixedPoint; when the source has more fraction bits, rounding is applied if
     \a Rounding is \c true.
 
-    \tparam OtherBase Storage type of the source fixed.
+    \tparam OtherBase         Storage type of the source fixed.
     \tparam OtherIntermediate Intermediate type of the source fixed.
-    \tparam OtherFraction Number of fraction bits of the source fixed.
-    \tparam OtherRounding Rounding policy of the source fixed.
+    \tparam OtherFraction     Number of fraction bits of the source fixed.
+    \tparam OtherRounding     Rounding policy of the source fixed.
 
     \param value Source fixed-point value.
   */
@@ -188,7 +188,7 @@ public:
     \c true, the result is rounded to the nearest representable value, otherwise the result is truncated.
 
     \tparam NumFractionBits Number of fraction bits of the source raw value.
-    \tparam T Integral type of the source raw value.
+    \tparam T               Integral type of the source raw value.
 
     \param value Raw fixed-point value in \a NumFractionBits fractional bits.
 
@@ -205,7 +205,7 @@ public:
     When \a NumFractionBits equals \a Fraction, the raw value is used as-is.
 
     \tparam NumFractionBits Number of fraction bits of the source raw value.
-    \tparam T Integral type of the source raw value.
+    \tparam T               Integral type of the source raw value.
 
     \param value Raw fixed-point value in \a NumFractionBits fractional bits.
 
@@ -360,10 +360,10 @@ struct is_fixed_point : false_type {};
   \struct is_fixed_point
   \brief Specialization for \ref toy::math::fixed: always \c true_type.
 
-  \tparam Base Storage type for raw fixed-point value.
+  \tparam Base         Storage type for raw fixed-point value.
   \tparam Intermediate Intermediate type for calculations.
-  \tparam Fraction Number of fractional bits.
-  \tparam Rounding Rounding policy.
+  \tparam Fraction     Number of fractional bits.
+  \tparam Rounding     Rounding policy.
 */
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding>
   requires ValidFixedPointTypes<Base, Intermediate, Fraction>
@@ -570,10 +570,10 @@ template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding
   Compares raw storage values; \a Rounding of either operand does not affect the result. Two values are equal if and
   only if their raw values are equal.
 
-  \tparam Base Storage type (shared by both operands).
-  \tparam Intermediate Intermediate type (shared by both operands).
-  \tparam Fraction Number of fractional bits (shared by both operands).
-  \tparam Rounding Rounding policy of the left operand.
+  \tparam Base          Storage type (shared by both operands).
+  \tparam Intermediate  Intermediate type (shared by both operands).
+  \tparam Fraction      Number of fractional bits (shared by both operands).
+  \tparam Rounding      Rounding policy of the left operand.
   \tparam OtherRounding Rounding policy of the right operand.
 
   \param a Left operand.
@@ -586,15 +586,55 @@ template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding
                                         const fixed<Base, Intermediate, Fraction, OtherRounding> & b) noexcept;
 
 /*!
+  \brief Compares a \ref toy::math::fixed value with an integral for equality.
+
+  Converts \a b to the same \ref toy::math::fixed type and compares raw storage values. Two values are equal if and only
+  if their raw values are equal.
+
+  \tparam Base         Storage type of the fixed operand.
+  \tparam Intermediate Intermediate type (shared).
+  \tparam Fraction     Number of fractional bits.
+  \tparam Rounding     Rounding policy of the fixed operand.
+  \tparam T            Integral type; must satisfy \c integral.
+
+  \param a Left operand (fixed-point).
+  \param b Right operand (integral whole units).
+
+  \return \c true if \a a and \a b represent the same value, \c false otherwise.
+*/
+template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, integral T>
+[[nodiscard]] constexpr bool operator==(const fixed<Base, Intermediate, Fraction, Rounding> & a, const T & b) noexcept;
+
+/*!
+  \brief Compares an integral with a \ref toy::math::fixed value for equality.
+
+  Converts \a a to the same \ref toy::math::fixed type as \a b and compares raw storage values. Two values are equal if
+  and only if their raw values are equal.
+
+  \tparam Base         Storage type of the fixed operand.
+  \tparam Intermediate Intermediate type (shared).
+  \tparam Fraction     Number of fractional bits.
+  \tparam Rounding     Rounding policy of the fixed operand.
+  \tparam T            Integral type; must satisfy \c integral.
+
+  \param a Left operand (integral whole units).
+  \param b Right operand (fixed-point).
+
+  \return \c true if \a a and \a b represent the same value, \c false otherwise.
+*/
+template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, integral T>
+[[nodiscard]] constexpr bool operator==(const T & a, const fixed<Base, Intermediate, Fraction, Rounding> & b) noexcept;
+
+/*!
   \brief Three-way comparison of two \ref toy::math::fixed values.
 
   Compares raw storage values; \a Rounding of either operand does not affect the result. Enables \c <, \c <=, \c >,
   \c >=, and \c != via the compiler-generated operators.
 
-  \tparam Base Storage type (shared by both operands).
-  \tparam Intermediate Intermediate type (shared by both operands).
-  \tparam Fraction Number of fractional bits (shared by both operands).
-  \tparam Rounding Rounding policy of the left operand.
+  \tparam Base          Storage type (shared by both operands).
+  \tparam Intermediate  Intermediate type (shared by both operands).
+  \tparam Fraction      Number of fractional bits (shared by both operands).
+  \tparam Rounding      Rounding policy of the left operand.
   \tparam OtherRounding Rounding policy of the right operand.
 
   \param a Left operand.

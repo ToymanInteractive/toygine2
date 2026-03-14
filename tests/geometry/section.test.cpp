@@ -21,7 +21,6 @@
 #include <doctest/doctest.h>
 
 #include "geometry.hpp"
-
 namespace toy::geometry {
 
 using Fixed = math::fixed<int32_t, int32_t, 24>;

@@ -2028,7 +2028,7 @@ template <size_t allocatedSize1, size_t allocatedSize2>
   The result will contain the characters from the left-hand side followed by the characters from the right-hand side.
 
   \tparam allocatedSize The size of the FixedString's internal buffer.
-  \tparam stringType The type of the \ref toy::StringLike object. Must satisfy the \ref toy::StringLike concept.
+  \tparam stringType    The type of the \ref toy::StringLike object. Must satisfy the \ref toy::StringLike concept.
 
   \param lhs The left-hand side FixedString object.
   \param rhs The right-hand side \ref toy::StringLike object.
@@ -2047,7 +2047,7 @@ template <size_t allocatedSize, StringLike stringType>
   This operator creates a new FixedString object by concatenating any \ref toy::StringLike object with a FixedString.
   The result will contain the characters from the left-hand side followed by the characters from the right-hand side.
 
-  \tparam stringType The type of the \ref toy::StringLike object. Must satisfy the \ref toy::StringLike concept.
+  \tparam stringType    The type of the \ref toy::StringLike object. Must satisfy the \ref toy::StringLike concept.
   \tparam allocatedSize The size of the FixedString's internal buffer.
 
   \param lhs The left-hand side \ref toy::StringLike object.
@@ -2163,7 +2163,7 @@ template <size_t allocatedSize1, size_t allocatedSize2>
   This operator compares a FixedString object with a \ref toy::StringLike object for equality.
 
   \tparam allocatedSize The size of the FixedString's internal buffer.
-  \tparam stringType The type of the \ref toy::StringLike object. Must satisfy the \ref toy::StringLike concept.
+  \tparam stringType    The type of the \ref toy::StringLike object. Must satisfy the \ref toy::StringLike concept.
 
   \param lhs The FixedString object.
   \param rhs The \ref toy::StringLike object.
@@ -2183,7 +2183,7 @@ template <size_t allocatedSize, StringLike stringType>
 
   This operator compares a \ref toy::StringLike object with a FixedString object for equality.
 
-  \tparam stringType The type of the \ref toy::StringLike object. Must satisfy the \ref toy::StringLike concept.
+  \tparam stringType    The type of the \ref toy::StringLike object. Must satisfy the \ref toy::StringLike concept.
   \tparam allocatedSize The size of the FixedString's internal buffer.
 
   \param lhs The \ref toy::StringLike object.
@@ -2275,7 +2275,7 @@ template <size_t allocatedSize1, size_t allocatedSize2>
   returns a strong_ordering value that indicates the relationship between the strings.
 
   \tparam allocatedSize The size of the FixedString's internal buffer.
-  \tparam stringType The type of the \ref toy::StringLike object. Must satisfy the \ref toy::StringLike concept.
+  \tparam stringType    The type of the \ref toy::StringLike object. Must satisfy the \ref toy::StringLike concept.
 
   \param lhs The FixedString object to compare.
   \param rhs The \ref toy::StringLike object to compare.
@@ -2299,7 +2299,7 @@ template <size_t allocatedSize, StringLike stringType>
   This operator provides a three-way comparison between a \ref toy::StringLike object and a FixedString object. It
   returns a strong_ordering value that indicates the relationship between the strings.
 
-  \tparam stringType The type of the \ref toy::StringLike object. Must satisfy the \ref toy::StringLike concept.
+  \tparam stringType    The type of the \ref toy::StringLike object. Must satisfy the \ref toy::StringLike concept.
   \tparam allocatedSize The size of the FixedString's internal buffer.
 
   \param lhs The \ref toy::StringLike object to compare.

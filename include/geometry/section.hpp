@@ -25,8 +25,7 @@
 #ifndef INCLUDE_GEOMETRY_SECTION_HPP_
 #define INCLUDE_GEOMETRY_SECTION_HPP_
 
-namespace toy {
-namespace geometry {
+namespace toy::geometry {
 
 /*!
   \concept SectionEndpoint
@@ -95,7 +94,6 @@ public:
   /// Upper bound of the interval. Default-constructed: \c numeric_limits<T>::lowest() (reset state).
   T end{numeric_limits<T>::lowest()};
 
-public:
   /*!
     \brief Default constructor; section is in reset (empty) state.
 
@@ -225,7 +223,6 @@ template <SectionEndpoint T>
 template <SectionEndpoint T>
 [[nodiscard]] constexpr bool operator!=(const Section<T> & a, const Section<T> & b) noexcept;
 
-} // namespace geometry
-} // namespace toy
+} // namespace toy::geometry
 
 #endif // INCLUDE_GEOMETRY_SECTION_HPP_
