@@ -1,17 +1,19 @@
 <map id="include/platform/ui.hpp" name="include/platform/ui.hpp">
-<area shape="rect" id="Node000001" title="Umbrella header for platform UI types." alt="" coords="2508,5,2681,31"/>
+<area shape="rect" id="Node000001" title="Umbrella header for platform UI types." alt="" coords="2619,5,2792,31"/>
 <area shape="rect" id="Node000002" href="$da/d47/core_8hpp.html" title="Umbrella header for the engine core module." alt="" coords="2037,79,2128,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="2508,32,2343,52,2142,81,2141,76,2342,47,2507,26"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="2619,29,2406,48,2142,81,2141,76,2405,43,2618,23"/>
 <area shape="rect" id="Node000045" href="$d6/d4d/message__box__buttons_8hpp.html" title="Button set configuration for message boxes / dialogs." alt="" coords="2153,79,2365,104"/>
-<area shape="poly" id="edge49_Node000001_Node000045" title=" " alt="" coords="2541,33,2327,78,2326,73,2540,28"/>
+<area shape="poly" id="edge49_Node000001_Node000045" title=" " alt="" coords="2634,33,2345,79,2344,74,2633,28"/>
 <area shape="rect" id="Node000046" href="$de/d20/message__box__icon_8hpp.html" title="Icon type for message box / dialog." alt="" coords="2389,79,2579,104"/>
-<area shape="poly" id="edge50_Node000001_Node000046" title=" " alt="" coords="2578,33,2515,73,2512,69,2575,28"/>
+<area shape="poly" id="edge50_Node000001_Node000046" title=" " alt="" coords="2671,33,2533,77,2532,72,2669,28"/>
 <area shape="rect" id="Node000047" href="$d0/d68/message__box__return_8hpp.html" title="Return value for message box / dialog interactions." alt="" coords="2604,79,2807,104"/>
-<area shape="poly" id="edge51_Node000001_Node000047" title=" " alt="" coords="2614,28,2677,69,2674,73,2611,33"/>
+<area shape="poly" id="edge51_Node000001_Node000047" title=" " alt="" coords="2708,31,2708,65,2703,65,2703,31"/>
 <area shape="rect" id="Node000048" href="$d0/d24/orientation_8hpp.html" title="Screen orientation enumeration for UI layout and rotation handling." alt="" coords="2831,79,2969,104"/>
-<area shape="poly" id="edge52_Node000001_Node000048" title=" " alt="" coords="2644,28,2838,73,2837,78,2643,33"/>
-<area shape="rect" id="Node000049" href="$d2/d63/window__style_8hpp.html" title="Bitmask enumeration for window decoration and mode." alt="" coords="2993,79,3148,104"/>
-<area shape="poly" id="edge53_Node000001_Node000049" title=" " alt="" coords="2672,28,2981,74,2980,79,2671,33"/>
+<area shape="poly" id="edge52_Node000001_Node000048" title=" " alt="" coords="2738,28,2856,71,2855,76,2736,33"/>
+<area shape="rect" id="Node000049" href="$dd/dbb/window__show__state_8hpp.html" title="Window visibility and display state enumeration." alt="" coords="2993,79,3191,104"/>
+<area shape="poly" id="edge53_Node000001_Node000049" title=" " alt="" coords="2768,28,3017,74,3016,79,2767,33"/>
+<area shape="rect" id="Node000050" href="$d2/d63/window__style_8hpp.html" title="Bitmask enumeration for window decoration and mode." alt="" coords="3215,79,3369,104"/>
+<area shape="poly" id="edge54_Node000001_Node000050" title=" " alt="" coords="2792,27,3202,76,3201,81,2792,32"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="5,167,91,192"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="2037,96,1645,99,1038,108,448,126,230,139,154,146,103,155,80,163,78,158,102,149,153,141,230,133,447,121,1038,103,1645,94,2037,90"/>
 <area shape="rect" id="Node000004" title=" " alt="" coords="115,167,171,192"/>

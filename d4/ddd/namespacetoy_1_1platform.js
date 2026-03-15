@@ -40,6 +40,12 @@ var namespacetoy_1_1platform =
         [ "PortraitAny", "d1/d03/namespacetoy_1_1platform_1_1ui.html#aab7a6848d6656e7540fb1d6d72116e02ac5e78c85aed303934dd52012cc3bbffb", null ],
         [ "Any", "d1/d03/namespacetoy_1_1platform_1_1ui.html#aab7a6848d6656e7540fb1d6d72116e02aed36a1ef76a59ee3f15180e0441188ad", null ]
       ] ],
+      [ "WindowShowState", "d1/d03/namespacetoy_1_1platform_1_1ui.html#af1575b610ba458b6ebdcb8763c30a9ec", [
+        [ "Hidden", "d1/d03/namespacetoy_1_1platform_1_1ui.html#af1575b610ba458b6ebdcb8763c30a9eca7acdf85c69cc3c5305456a293524386e", null ],
+        [ "Normal", "d1/d03/namespacetoy_1_1platform_1_1ui.html#af1575b610ba458b6ebdcb8763c30a9eca960b44c579bc2f6818d2daaf9e4c16f0", null ],
+        [ "Maximized", "d1/d03/namespacetoy_1_1platform_1_1ui.html#af1575b610ba458b6ebdcb8763c30a9eca49d903a5c02560cf79bf6b516cc89457", null ],
+        [ "Minimized", "d1/d03/namespacetoy_1_1platform_1_1ui.html#af1575b610ba458b6ebdcb8763c30a9eca074afcc50ae51f248cbae4950845549e", null ]
+      ] ],
       [ "WindowStyle", "d1/d03/namespacetoy_1_1platform_1_1ui.html#aa6c677b8c744b89734e11ea340507a72", [
         [ "Simple", "d1/d03/namespacetoy_1_1platform_1_1ui.html#aa6c677b8c744b89734e11ea340507a72a1fbb1e3943c2c6c560247ac8f9289780", null ],
         [ "Close", "d1/d03/namespacetoy_1_1platform_1_1ui.html#aa6c677b8c744b89734e11ea340507a72ad3d2e617335f08df83599665eef8a418", null ],

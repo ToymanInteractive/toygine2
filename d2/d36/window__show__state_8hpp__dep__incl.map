@@ -1,0 +1,7 @@
+<map id="include/platform/ui/window_show_state.hpp" name="include/platform/ui/window_show_state.hpp">
+<area shape="rect" id="Node000001" title="Window visibility and display state enumeration." alt="" coords="5,5,191,45"/>
+<area shape="rect" id="Node000002" href="$de/dd6/ui_8hpp.html" title="Umbrella header for platform UI types." alt="" coords="11,93,185,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="101,59,101,93,95,93,95,59"/>
+<area shape="rect" id="Node000003" href="$d8/d8c/toygine2_8hpp.html" title="Main umbrella header for the engine." alt="" coords="19,167,177,192"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="101,132,101,167,95,167,95,132"/>
+</map>
