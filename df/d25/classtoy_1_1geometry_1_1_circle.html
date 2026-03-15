@@ -162,7 +162,7 @@ Key Features</h1>
 <ul>
 <li><b>Center and radius</b>: <em class="arg">center</em> and <em class="arg">radius</em> are public; <em class="arg">T</em> is floating-point or fixed-point.</li>
 <li><b>Reset state</b>: <a class="el" href="#a939c8acdddfa45cf5273af6170470020" title="Puts the circle in reset state (center zero, radius zero).">reset()</a> sets center to zero and radius to zero; <a class="el" href="#a40dea567e12d34e2b40ddb83e8c1c02e" title="Returns true if the circle is in reset state (center zero, radius zero).">isReset()</a> detects it.</li>
-<li><b>Validity</b>: <a class="el" href="#a46e3304a9bbbc28f7277f511c1ffe1de" title="Returns true if the circle has valid state (radius &gt; 0).">isValid()</a> is <code>true</code> when <em class="arg">radius</em> &gt; <code>0</code>; constructor asserts <em class="arg">radius</em> &gt;= <code>0</code> in debug.</li>
+<li><b>Validity</b>: <a class="el" href="#a46e3304a9bbbc28f7277f511c1ffe1de" title="Returns true if the circle has valid state (radius &gt; 0).">isValid()</a> is <code>true</code> when <em class="arg">radius</em> &gt; <code>0</code>; constructor asserts <em class="arg">radius</em> &gt; <code>0</code> in debug.</li>
 <li><b>Containment</b>: <a class="el" href="#aa7384f10495b4d5fb95bd249e59ab08b" title="Returns true if vector lies inside or on the circle.">isContain()</a> tests whether a point lies inside or on the circle (squared distance).</li>
 <li><b>Constexpr</b>: All operations are constexpr and noexcept.</li>
 </ul>
@@ -182,7 +182,7 @@ Performance Characteristics</h1>
 <h1 class="doxsection"><a class="anchor" id="safety"></a>
 Safety Guarantees</h1>
 <ul>
-<li><b>Preconditions</b>: Constructor (center, radius) requires <em class="arg">radius</em> &gt;= <code>0</code> (assert in debug).</li>
+<li><b>Preconditions</b>: Constructor (center, radius) requires <em class="arg">radius</em> &gt; <code>0</code> (assert in debug).</li>
 <li><b>Exception safety</b>: All operations are noexcept.</li>
 </ul>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/dde/concepttoy_1_1geometry_1_1_circle_component.html" title="Concept satisfied when T is a component type allowed as toy::geometry::Circle template parameter.">CircleComponent</a> </dd>
@@ -251,7 +251,7 @@ template&lt;CircleComponent T&gt; </div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname"><a class="el" href="#a5720662eccfa75d8145f5c29a6735f75" title="Center of the circle.">center</a></td><td>Center of the circle. </td></tr>
-    <tr><td class="paramname"><a class="el" href="#a5be25ce523ff8f1bd225ceb1b8cd3625" title="Radius of the circle.">radius</a></td><td>Radius; must be <code>&gt;=</code> <code>0</code> (asserted in debug).</td></tr>
+    <tr><td class="paramname"><a class="el" href="#a5be25ce523ff8f1bd225ceb1b8cd3625" title="Radius of the circle.">radius</a></td><td>Radius; must be <code>&gt;</code> <code>0</code> (asserted in debug).</td></tr>
   </table>
   </dd>
 </dl>

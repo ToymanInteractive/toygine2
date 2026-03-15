@@ -322,9 +322,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga5ab02021f4ca34e0d5b6a1b0172ebe95" id="r_ga5ab02021f4ca34e0d5b6a1b0172ebe95"><td class="memItemLeft">size_t&#160;</td><td class="memItemRight"><a class="el" href="../../d8/d90/group___text_functions.html#ga5ab02021f4ca34e0d5b6a1b0172ebe95">utf8Len</a> (const char *string) noexcept</td></tr>
 <tr class="memdesc:ga5ab02021f4ca34e0d5b6a1b0172ebe95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of Unicode code points in a UTF-8 encoded C string.  <br /></td></tr>
 <tr class="memitem:abd6a34c77550e2f8649d30d8ef1c1904" id="r_abd6a34c77550e2f8649d30d8ef1c1904"><td class="memItemLeft">char *&#160;</td><td class="memItemRight"><a class="el" href="#abd6a34c77550e2f8649d30d8ef1c1904">ftoa</a> (char *dest, size_t destSize, float value, size_t precision=7) noexcept</td></tr>
-<tr class="memdesc:abd6a34c77550e2f8649d30d8ef1c1904"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a 32-bit floating-point number to its C string representation with specified precision.  <br /></td></tr>
+<tr class="memdesc:abd6a34c77550e2f8649d30d8ef1c1904"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a <code>float</code> to its decimal C string representation with specified precision.  <br /></td></tr>
 <tr class="memitem:a153b39b476aa91d0b98f6350eeae88a2" id="r_a153b39b476aa91d0b98f6350eeae88a2"><td class="memItemLeft">char *&#160;</td><td class="memItemRight"><a class="el" href="#a153b39b476aa91d0b98f6350eeae88a2">ftoa</a> (char *dest, size_t destSize, double value, size_t precision=15) noexcept</td></tr>
-<tr class="memdesc:a153b39b476aa91d0b98f6350eeae88a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a 64-bit floating-point number to its C string representation with specified precision.  <br /></td></tr>
+<tr class="memdesc:a153b39b476aa91d0b98f6350eeae88a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a <code>double</code> to its decimal C string representation with specified precision.  <br /></td></tr>
 <tr class="memitem:aeeb4febc194b23813d77b08ac4fea2d1" id="r_aeeb4febc194b23813d77b08ac4fea2d1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aeeb4febc194b23813d77b08ac4fea2d1">formatNumberString</a> (char *buffer, size_t bufferSize, const char *separator) noexcept</td></tr>
 <tr class="memdesc:aeeb4febc194b23813d77b08ac4fea2d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Formats a number C string by inserting grouping separators.  <br /></td></tr>
 </table><table class="memberdecls">
@@ -1147,25 +1147,19 @@ The function does not validate that the input is purely numeric. </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p>Converts a 64-bit floating-point number to its C string representation with specified precision. </p>
-<p>This function converts a given 64-bit floating-point number into its decimal C string representation, storing the result in the provided destination buffer. The conversion supports configurable precision and handles special values.</p>
+<p>Converts a <code>double</code> to its decimal C string representation with specified precision. </p>
+<p>Writes the decimal representation of <em class="arg">value</em> into <em class="arg">dest</em>, null-terminated. Handles infinity and NaN; subnormals are not supported. Practical precision limit is about 15–17 fractional digits for <code>double</code>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">dest</td><td>A pointer to the destination buffer where the converted C string is stored. </td></tr>
-    <tr><td class="paramname">destSize</td><td>The size of the destination buffer in characters. </td></tr>
-    <tr><td class="paramname">value</td><td>The 64-bit floating-point number to be converted. </td></tr>
-    <tr><td class="paramname">precision</td><td>The precision (digits after the decimal point). Default is 15, practical limit is ~15–17 digits.</td></tr>
+    <tr><td class="paramname">dest</td><td>Destination buffer for the result. </td></tr>
+    <tr><td class="paramname">destSize</td><td>Size of <em class="arg">dest</em> in characters. </td></tr>
+    <tr><td class="paramname">value</td><td>The <code>double</code> value to convert. </td></tr>
+    <tr><td class="paramname">precision</td><td>Number of digits after the decimal point (default <code>15</code>).</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A pointer to the destination buffer containing the converted C string.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The function handles special IEEE-754 values (infinity, NaN). </dd>
-<dd>
-The function does not support subnormal numbers. </dd>
-<dd>
-Precision beyond ~15–17 digits may not be meaningful for double. </dd>
-<dd>
-The function uses efficient bit manipulation for conversion. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to <em class="arg">dest</em>.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd><em class="arg">dest</em> is not null; <em class="arg">destSize</em> is sufficient for the output (including sign, digits, decimal point, and terminator). </dd></dl>
 
 </div>
 </div>
@@ -1206,25 +1200,19 @@ The function uses efficient bit manipulation for conversion. </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p>Converts a 32-bit floating-point number to its C string representation with specified precision. </p>
-<p>This function converts a given 32-bit floating-point number into its decimal C string representation, storing the result in the provided destination buffer. The conversion supports configurable precision and handles special values.</p>
+<p>Converts a <code>float</code> to its decimal C string representation with specified precision. </p>
+<p>Writes the decimal representation of <em class="arg">value</em> into <em class="arg">dest</em>, null-terminated. Handles infinity and NaN; subnormals are not supported. Practical precision limit is about 7–9 fractional digits for <code>float</code>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">dest</td><td>A pointer to the destination buffer where the converted C string is stored. </td></tr>
-    <tr><td class="paramname">destSize</td><td>The size of the destination buffer in characters. </td></tr>
-    <tr><td class="paramname">value</td><td>The 32-bit floating-point number to be converted. </td></tr>
-    <tr><td class="paramname">precision</td><td>The precision (digits after the decimal point). Default is 7, practical limit is ~7-9 digits.</td></tr>
+    <tr><td class="paramname">dest</td><td>Destination buffer for the result. </td></tr>
+    <tr><td class="paramname">destSize</td><td>Size of <em class="arg">dest</em> in characters. </td></tr>
+    <tr><td class="paramname">value</td><td>The <code>float</code> value to convert. </td></tr>
+    <tr><td class="paramname">precision</td><td>Number of digits after the decimal point (default <code>7</code>).</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A pointer to the destination buffer containing the converted C string.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The function handles special IEEE-754 values (infinity, NaN). </dd>
-<dd>
-The function does not support subnormal numbers. </dd>
-<dd>
-Precision beyond ~7-9 digits may not be meaningful for float. </dd>
-<dd>
-The function uses efficient bit manipulation for conversion. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to <em class="arg">dest</em>.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd><em class="arg">dest</em> is not null; <em class="arg">destSize</em> is sufficient for the output (including sign, digits, decimal point, and terminator). </dd></dl>
 
 </div>
 </div>
