@@ -418,11 +418,11 @@ TEST_CASE("core/utils/format_number_string_adds_thousand_separator") {
   for (size_t index = 0; index < parsedNumbers.size(); ++index) {
     char buffer[128];
 
-#ifdef _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES
+#if defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)
     strcpy_s<sizeof(buffer)>(buffer, numbers[index]);
-#else
-    strncpy(buffer, numbers[index], sizeof(buffer) - 1);
-#endif // _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES
+#else // defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)
+    std::strncpy(buffer, numbers[index], sizeof(buffer) - 1);
+#endif
     buffer[sizeof(buffer) - 1] = '\0';
 
     formatNumberString(buffer, sizeof(buffer), "");
