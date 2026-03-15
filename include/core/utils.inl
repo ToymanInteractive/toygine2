@@ -114,7 +114,7 @@ constexpr char * utoa(char * dest, size_t destSize, T value, unsigned base) noex
 }
 
 inline size_t highestBit(const uint64_t & value) noexcept {
-  assert(value != 0);
+  assert_message(value != 0, "highestBit requires non-zero value (no highest set bit when value is zero)");
 
 #if defined(_MSC_VER)
   unsigned long index;
