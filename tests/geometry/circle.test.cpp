@@ -234,8 +234,8 @@ TEST_CASE("geometry/circle/operator_equality") {
     REQUIRE(!(af != bf));
 
     static_assert(a == b, "identical circles must compare equal");
-    static_assert(!(a != b), "equal circles must not be unequal");
-    static_assert(af == bf, "identical fixed circles must compare equal");
+    static_assert(!(a != b), "identical circles must not be unequal");
+    static_assert(af == bf, "equal fixed circles must compare equal");
     static_assert(!(af != bf), "equal fixed circles must not be unequal");
   }
 
