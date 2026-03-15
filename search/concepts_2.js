@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['pointscalar_0',['PointScalar',['../d1/dca/concepttoy_1_1math_1_1_point_scalar.html',1,'toy::math']]]
+  ['fixed_5fpoint_0',['fixed_point',['../dd/de0/concepttoy_1_1math_1_1fixed__point.html',1,'toy::math']]],
+  ['fractionalconstanttype_1',['FractionalConstantType',['../d8/d2a/concepttoy_1_1math_1_1_fractional_constant_type.html',1,'toy::math']]]
 ];

@@ -138,6 +138,8 @@ var NAVTREEINDEX0 =
 "d2/dc3/structtoy_1_1math_1_1is__fixed__point.html":[5,0,1,2,1],
 "d3/d21/fixed__std__extension_8hpp.html":[6,0,0,6,3],
 "d3/d21/fixed__std__extension_8hpp_source.html":[6,0,0,6,3],
+"d3/d28/ellipse_8hpp.html":[6,0,0,5,2],
+"d3/d28/ellipse_8hpp_source.html":[6,0,0,5,2],
 "d3/d4e/socket__type_8hpp.html":[6,0,0,7,5],
 "d3/d4e/socket__type_8hpp_source.html":[6,0,0,7,5],
 "d3/d53/classtoy_1_1network_1_1_endpoint.html":[3,0,1,3,0],
@@ -247,7 +249,5 @@ var NAVTREEINDEX0 =
 "d3/d7a/classtoy_1_1_fixed_string.html#ab32593e12733514f8ca98d7855afd512":[2,2,2,110],
 "d3/d7a/classtoy_1_1_fixed_string.html#ab6e6024e5b0be04a1757987e76e7bc64":[2,2,2,10],
 "d3/d7a/classtoy_1_1_fixed_string.html#ab868a6d54e643a6b752a7b7ccdc5af28":[2,2,2,76],
-"d3/d7a/classtoy_1_1_fixed_string.html#ab9c8ca05cc927ce86fe321182a91f565":[2,2,2,90],
-"d3/d7a/classtoy_1_1_fixed_string.html#abe68aa4a2150aa06fa49a844aae5aff0":[2,2,2,71],
-"d3/d7a/classtoy_1_1_fixed_string.html#ac0fb8affc96410c2c78456a4c8ee29f0":[2,2,2,101]
+"d3/d7a/classtoy_1_1_fixed_string.html#ab9c8ca05cc927ce86fe321182a91f565":[2,2,2,90]
 };

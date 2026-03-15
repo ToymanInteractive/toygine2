@@ -15,7 +15,7 @@ var searchData=
   ['capacity_12',['capacity',['../d5/d03/classtoy_1_1_c_string_view.html#a648369b58f6c23f223fbaca2ce7dfc68',1,'toy::CStringView::capacity()'],['../d3/d7a/classtoy_1_1_fixed_string.html#a2dc44bfd2b98aebdbedb969009dbb6dd',1,'toy::FixedString::capacity()'],['../d7/dec/classtoy_1_1_fixed_vector.html#a0fc22ea0d90028f12998680b66e146c6',1,'toy::FixedVector::capacity() const noexcept']]],
   ['cbegin_13',['cbegin',['../d7/dec/classtoy_1_1_fixed_vector.html#a3aa792a563dc682204213d3811d33b6e',1,'toy::FixedVector']]],
   ['cend_14',['cend',['../d7/dec/classtoy_1_1_fixed_vector.html#a105b400ca6152f4789a31729564f809d',1,'toy::FixedVector']]],
-  ['center_15',['center',['../df/d25/classtoy_1_1geometry_1_1_circle.html#a5720662eccfa75d8145f5c29a6735f75',1,'toy::geometry::Circle']]],
+  ['center_15',['center',['../df/d25/classtoy_1_1geometry_1_1_circle.html#a5720662eccfa75d8145f5c29a6735f75',1,'toy::geometry::Circle::center'],['../d9/dd1/classtoy_1_1geometry_1_1_ellipse.html#a8075dda85ebfc242834b5e4ecdd26748',1,'toy::geometry::Ellipse::center']]],
   ['char_5ftype_16',['char_type',['../d7/d15/classtoy_1_1_o_string_stream.html#a38e47228545b1a975f1dfe899f0dac0a',1,'toy::OStringStream']]],
   ['characteristics_17',['Characteristics',['../df/d81/md__a_g_e_n_t_s.html#section-performance-performance-characteristics',1,'&lt;span class=&quot;tt&quot;&gt;\\section performance Performance Characteristics&lt;/span&gt;'],['../d3/d53/classtoy_1_1network_1_1_endpoint.html#performance',1,'Performance Characteristics']]],
   ['checklist_18',['Documentation Pre-Commit Checklist',['../df/d81/md__a_g_e_n_t_s.html#documentation-pre-commit-checklist',1,'']]],

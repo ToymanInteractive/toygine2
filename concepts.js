@@ -3,6 +3,7 @@ var concepts =
     [ "toy", "d4/da9/namespacetoy.html", [
       [ "geometry", "da/d08/namespacetoy_1_1geometry.html", [
         [ "CircleComponent", "dc/dde/concepttoy_1_1geometry_1_1_circle_component.html", null ],
+        [ "EllipseComponent", "dc/dec/concepttoy_1_1geometry_1_1_ellipse_component.html", null ],
         [ "SectionEndpoint", "d9/def/concepttoy_1_1geometry_1_1_section_endpoint.html", null ]
       ] ],
       [ "math", "d2/d83/namespacetoy_1_1math.html", [

@@ -13,7 +13,7 @@ var indexSectionsWithContent =
   10: "_aetv",
   11: "cfmpstu",
   12: "8abcdefghiklmnoprstuvw",
-  13: "cfpsv"
+  13: "cefpsv"
 };
 
 var indexSectionNames =

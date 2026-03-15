@@ -9,6 +9,7 @@ var annotated_dup =
       ] ],
       [ "geometry", "da/d08/namespacetoy_1_1geometry.html", [
         [ "Circle", "df/d25/classtoy_1_1geometry_1_1_circle.html", "df/d25/classtoy_1_1geometry_1_1_circle" ],
+        [ "Ellipse", "d9/dd1/classtoy_1_1geometry_1_1_ellipse.html", "d9/dd1/classtoy_1_1geometry_1_1_ellipse" ],
         [ "Section", "db/d6f/classtoy_1_1geometry_1_1_section.html", "db/d6f/classtoy_1_1geometry_1_1_section" ]
       ] ],
       [ "math", "d2/d83/namespacetoy_1_1math.html", [
