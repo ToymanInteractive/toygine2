@@ -111,7 +111,7 @@ public:
   /*!
     \brief Default constructor.
 
-    Initializes value to zero.
+    Leaves storage uninitialized. Use explicit construction or assignment before use.
   */
   constexpr fixed() noexcept = default;
 
@@ -371,7 +371,7 @@ private:
   constexpr fixed(const Base & val, RawConstructorTag) noexcept;
 
   /// Raw fixed-point storage value (scaled by 2^Fraction).
-  Base _value{0};
+  Base _value;
 
   /// Compile-time scaling factor 2^Fraction.
   static consteval Intermediate _fractionMult() noexcept;

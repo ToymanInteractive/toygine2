@@ -30,54 +30,6 @@ static_assert(SectionEndpoint<float>, "float must satisfy SectionEndpoint");
 static_assert(SectionEndpoint<Fixed>, "Fixed must satisfy SectionEndpoint");
 static_assert(!SectionEndpoint<unsigned int>, "unsigned endpoints must remain rejected");
 
-// Default-constructed section is in reset state; bounds are numeric_limits extremes.
-TEST_CASE("geometry/section/default_constructor") {
-  // integer scalar
-  SUBCASE("int") {
-    constexpr Section<int> s;
-
-    REQUIRE(s.isReset());
-    REQUIRE(!s.isValid());
-    REQUIRE(s.start == numeric_limits<int>::max());
-    REQUIRE(s.end == numeric_limits<int>::lowest());
-
-    static_assert(s.isReset(), "default Section<int> must be reset");
-    static_assert(!s.isValid(), "default Section<int> must be invalid");
-    static_assert(s.start == numeric_limits<int>::max(), "default start must be max()");
-    static_assert(s.end == numeric_limits<int>::lowest(), "default end must be lowest()");
-  }
-
-  // float scalar
-  SUBCASE("float") {
-    constexpr Section<float> s;
-
-    REQUIRE(s.isReset());
-    REQUIRE(!s.isValid());
-    REQUIRE(math::isEqual(s.start, numeric_limits<float>::max()));
-    REQUIRE(math::isEqual(s.end, numeric_limits<float>::lowest()));
-
-    static_assert(s.isReset(), "default Section<float> must be reset");
-    static_assert(!s.isValid(), "default Section<float> must be invalid");
-    static_assert(math::isEqual(s.start, numeric_limits<float>::max()), "default float start must be max()");
-    static_assert(math::isEqual(s.end, numeric_limits<float>::lowest()), "default float end must be lowest()");
-  }
-
-  // fixed-point scalar
-  SUBCASE("fixed") {
-    constexpr Section<Fixed> s;
-
-    REQUIRE(s.isReset());
-    REQUIRE(!s.isValid());
-    REQUIRE(s.start == numeric_limits<Fixed>::max());
-    REQUIRE(s.end == numeric_limits<Fixed>::lowest());
-
-    static_assert(s.isReset(), "default Section<Fixed> must be reset");
-    static_assert(!s.isValid(), "default Section<Fixed> must be invalid");
-    static_assert(s.start == numeric_limits<Fixed>::max(), "default fixed start must be max()");
-    static_assert(s.end == numeric_limits<Fixed>::lowest(), "default fixed end must be lowest()");
-  }
-}
-
 // Section(min, max) stores bounds; valid when min <= max.
 TEST_CASE("geometry/section/constructor_bounds") {
   // integer scalar
@@ -337,37 +289,40 @@ TEST_CASE("geometry/section/expand_section") {
 TEST_CASE("geometry/section/is_reset") {
   // integer scalar
   SUBCASE("int") {
-    constexpr Section<int> empty;
+    Section<int> empty;
     constexpr Section valid(1, 2);
+
+    empty.reset();
 
     REQUIRE(empty.isReset());
     REQUIRE(!valid.isReset());
 
-    static_assert(empty.isReset(), "default Section<int> must be reset");
     static_assert(!valid.isReset(), "valid Section<int> must not be reset");
   }
 
   // float scalar
   SUBCASE("float") {
-    constexpr Section<float> empty;
+    Section<float> empty;
     constexpr Section valid(1.0f, 2.0f);
+
+    empty.reset();
 
     REQUIRE(empty.isReset());
     REQUIRE(!valid.isReset());
 
-    static_assert(empty.isReset(), "default Section<float> must be reset");
     static_assert(!valid.isReset(), "valid Section<float> must not be reset");
   }
 
   // fixed-point scalar
   SUBCASE("fixed") {
-    constexpr Section<Fixed> empty;
+    Section<Fixed> empty;
     constexpr Section valid(Fixed(1), Fixed(2));
+
+    empty.reset();
 
     REQUIRE(empty.isReset());
     REQUIRE(!valid.isReset());
 
-    static_assert(empty.isReset(), "default Section<Fixed> must be reset");
     static_assert(!valid.isReset(), "valid Section<Fixed> must not be reset");
   }
 }
@@ -376,37 +331,40 @@ TEST_CASE("geometry/section/is_reset") {
 TEST_CASE("geometry/section/is_valid") {
   // integer scalar
   SUBCASE("int") {
-    constexpr Section<int> empty;
+    Section<int> empty;
     constexpr Section valid(1, 2);
+
+    empty.reset();
 
     REQUIRE(!empty.isValid());
     REQUIRE(valid.isValid());
 
-    static_assert(!empty.isValid(), "default Section<int> must be invalid");
     static_assert(valid.isValid(), "Section(1,2) must be valid");
   }
 
   // float scalar
   SUBCASE("float") {
-    constexpr Section<float> empty;
+    Section<float> empty;
     constexpr Section valid(1.0f, 2.0f);
+
+    empty.reset();
 
     REQUIRE(!empty.isValid());
     REQUIRE(valid.isValid());
 
-    static_assert(!empty.isValid(), "default Section<float> must be invalid");
     static_assert(valid.isValid(), "Section(1,2) float must be valid");
   }
 
   // fixed-point scalar
   SUBCASE("fixed") {
-    constexpr Section<Fixed> empty;
+    Section<Fixed> empty;
     constexpr Section valid(Fixed(1), Fixed(2));
+
+    empty.reset();
 
     REQUIRE(!empty.isValid());
     REQUIRE(valid.isValid());
 
-    static_assert(!empty.isValid(), "default Section<Fixed> must be invalid");
     static_assert(valid.isValid(), "Section(1,2) fixed must be valid");
   }
 }

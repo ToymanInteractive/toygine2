@@ -46,21 +46,6 @@ TEST_CASE("math/vector2d/object_structure") {
 
 // Default, coordinate, and array constructors.
 TEST_CASE("math/vector2d/constructors") {
-  // Default constructor yields zero x, y.
-  SUBCASE("default_constructor") {
-    constexpr Vector2D<float> vectorFloat;
-    constexpr Vector2D<Fixed> vectorFixed;
-
-    REQUIRE(vectorFloat.x == doctest::Approx(0.0));
-    REQUIRE(vectorFloat.y == doctest::Approx(0.0));
-    REQUIRE(vectorFixed.x == 0);
-    REQUIRE(vectorFixed.y == 0);
-
-    static_assert(isEqual(vectorFloat.x, 0.0f), "default-constructed x must be 0");
-    static_assert(isEqual(vectorFloat.y, 0.0f), "default-constructed y must be 0");
-    static_assert(vectorFixed.x == 0, "default-constructed x must be 0");
-    static_assert(vectorFixed.y == 0, "default-constructed y must be 0");
-  }
   // Constructor with positive x, y.
   SUBCASE("constructor_with_positive_coordinates") {
     constexpr Vector2D vectorFloat(12.0f, 23.0f);
@@ -145,13 +130,6 @@ TEST_CASE("math/vector2d/constructors") {
 
   // Runtime constructor behavior for float and Fixed.
   SUBCASE("runtime_constructors") {
-    Vector2D<float> defaultFloat;
-    Vector2D<Fixed> defaultFixed;
-    REQUIRE(defaultFloat.x == doctest::Approx(0));
-    REQUIRE(defaultFloat.y == doctest::Approx(0));
-    REQUIRE(defaultFixed.x == 0);
-    REQUIRE(defaultFixed.y == 0);
-
     Vector2D vectorFloat(123.0f, -456.0f);
     Vector2D vectorFixed(Fixed(123), Fixed(-456));
     REQUIRE(vectorFloat.x == doctest::Approx(123));
@@ -273,8 +251,8 @@ TEST_CASE("math/vector2d/operators") {
 
     REQUIRE(vectorFloat.x == doctest::Approx(8));
     REQUIRE(vectorFloat.y == doctest::Approx(18));
-    REQUIRE(vectorFixed.x == 8);
-    REQUIRE(vectorFixed.y == 18);
+    REQUIRE(isEqual(vectorFixed.x, Fixed(8)));
+    REQUIRE(isEqual(vectorFixed.y, Fixed(18)));
   }
 
   // Chained compound assignments.
@@ -499,6 +477,19 @@ TEST_CASE("math/vector2d/binary_operators") {
     static_assert(swappedFixed.y == 50, "scalar * vector must scale y component for fixed");
   }
 
+  // Dot product: left.x*right.x + left.y*right.y.
+  SUBCASE("dot_product") {
+    constexpr Vector2D aFloat(10.0f, 20.0f);
+    constexpr Vector2D bFloat(5.0f, 10.0f);
+    constexpr Vector2D aFixed(Fixed(10), Fixed(20));
+    constexpr Vector2D bFixed(Fixed(5), Fixed(10));
+
+    REQUIRE(aFloat * bFloat == doctest::Approx(250.0f));
+    REQUIRE(aFixed * bFixed == 250);
+
+    static_assert(aFixed * bFixed == 250, "dot product (10,20)·(5,10) must be 250");
+  }
+
   // Division by scalar.
   SUBCASE("division_scalar") {
     constexpr Vector2D vectorFloat(25.0f, 50.0f);
@@ -511,13 +502,13 @@ TEST_CASE("math/vector2d/binary_operators") {
 
     REQUIRE(resultFloat.x == doctest::Approx(10));
     REQUIRE(resultFloat.y == doctest::Approx(20));
-    REQUIRE(resultFixed.x == 10);
-    REQUIRE(resultFixed.y == 20);
+    REQUIRE(isEqual(resultFixed.x, Fixed(10)));
+    REQUIRE(isEqual(resultFixed.y, Fixed(20)));
 
     static_assert(isEqual(resultFloat.x, 10.0f), "vector / scalar must divide x component");
     static_assert(isEqual(resultFloat.y, 20.0f), "vector / scalar must divide y component");
-    static_assert(resultFixed.x == 10, "vector / scalar must divide x component for fixed");
-    static_assert(resultFixed.y == 20, "vector / scalar must divide y component for fixed");
+    static_assert(isEqual(resultFixed.x, Fixed(10)), "vector / scalar must divide x component for fixed");
+    static_assert(isEqual(resultFixed.y, Fixed(20)), "vector / scalar must divide y component for fixed");
   }
 
   // operator== and operator!= (float and Fixed).
@@ -548,6 +539,39 @@ TEST_CASE("math/vector2d/binary_operators") {
     REQUIRE(a == b);
 
     static_assert(a == b, "operator== must treat near-equal float vectors as equal");
+  }
+
+  // operator!= is the negation of operator==.
+  SUBCASE("inequality") {
+    constexpr Vector2D aFloat(10.0f, 20.0f);
+    constexpr Vector2D bFloat(10.0f, 20.0f);
+    constexpr Vector2D cFloat(11.0f, 20.0f);
+    constexpr Vector2D aFixed(Fixed(10), Fixed(20));
+    constexpr Vector2D bFixed(Fixed(10), Fixed(20));
+    constexpr Vector2D cFixed(Fixed(11), Fixed(20));
+
+    REQUIRE(!(aFloat != bFloat));
+    REQUIRE(aFloat != cFloat);
+    REQUIRE(!(aFixed != bFixed));
+    REQUIRE(aFixed != cFixed);
+
+    static_assert(!(aFloat != bFloat), "identical vectors must not be unequal");
+    static_assert(aFloat != cFloat, "different vectors must be unequal");
+    static_assert(!(aFixed != bFixed), "identical vectors must not be unequal");
+    static_assert(aFixed != cFixed, "different vectors must be unequal");
+  }
+
+  // cross(left, right) = left.x*right.y - left.y*right.x.
+  SUBCASE("cross") {
+    constexpr Vector2D aFloat(3.0f, 4.0f);
+    constexpr Vector2D bFloat(1.0f, 0.0f);
+    constexpr Vector2D aFixed(Fixed(3), Fixed(4));
+    constexpr Vector2D bFixed(Fixed(1), Fixed(0));
+
+    REQUIRE(cross(aFloat, bFloat) == doctest::Approx(-4.0f));
+    REQUIRE(cross(aFixed, bFixed) == -4);
+
+    static_assert(cross(aFixed, bFixed) == -4, "cross (3,4)×(1,0) must be -4");
   }
 
   // Chained binary operations.

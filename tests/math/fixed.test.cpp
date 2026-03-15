@@ -31,15 +31,6 @@ using Fixed16 = fixed<int32_t, int64_t, 16>;
 
 // Construction from default, integer, and floating-point.
 TEST_CASE("math/fixed/constructors") {
-  // Default-constructed value must have zero raw storage.
-  SUBCASE("default_constructor") {
-    constexpr Fixed f;
-
-    REQUIRE(f.rawValue() == 0);
-
-    static_assert(f.rawValue() == 0, "default-constructed raw value must be 0");
-  }
-
   // Integer constructor scales by 2^FractionBits.
   SUBCASE("from_integer") {
     constexpr Fixed f0(0);
