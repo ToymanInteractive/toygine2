@@ -21,8 +21,8 @@
   \file   math.hpp
   \brief  Umbrella header for the math module.
 
-  Provides \ref toy::math::Point, \ref toy::math::Vector2D, \ref toy::math::Fixed, constants, and utilities. Include
-  this header only; do not include internal headers (e.g. \c math/point.hpp, \c math/vector2d.hpp) directly.
+  Provides \ref toy::math::Point, \ref toy::math::Vector2, \ref toy::math::Fixed, constants, and utilities. Include this
+  header only; do not include internal headers (e.g. \c math/point.hpp, \c math/Vector2.hpp) directly.
 */
 
 #ifndef INCLUDE_MATH_HPP_
@@ -36,7 +36,7 @@
   \namespace toy::math
   \brief Mathematical types, constants, and utilities: fixed-point, vectors, point.
 
-  \sa toy::math::Point, toy::math::Vector2D, toy::math::Fixed
+  \sa toy::math::Point, toy::math::Vector2, toy::math::Fixed
 */
 namespace toy::math {
 
@@ -87,13 +87,13 @@ using real_t = float;
 #include "math/fixed_std_extension.hpp"
 #include "math/point.hpp"
 #include "math/utils.hpp"
-#include "math/vector2d.hpp"
+#include "math/vector2.hpp"
 
 //----------------------------------------------------------------------------------------------------------------------
 
 #include "math/fixed.inl"
 #include "math/point.inl"
 #include "math/utils.inl"
-#include "math/vector2d.inl"
+#include "math/vector2.inl"
 
 #endif // INCLUDE_MATH_HPP_

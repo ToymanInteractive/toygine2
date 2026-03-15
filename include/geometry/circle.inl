@@ -39,7 +39,7 @@ constexpr Circle<T>::Circle() noexcept
 }
 
 template <CircleComponent T>
-constexpr Circle<T>::Circle(const math::Vector2D<T> & c, const T & r) noexcept
+constexpr Circle<T>::Circle(const math::Vector2<T> & c, const T & r) noexcept
   : center(c)
   , radius(r) {
   assert_message(isValid(), "Circle radius must satisfy radius > 0");
@@ -78,7 +78,7 @@ constexpr bool Circle<T>::isValid() const noexcept {
 }
 
 template <CircleComponent T>
-constexpr bool Circle<T>::isContain(const math::Vector2D<T> & vector) const noexcept {
+constexpr bool Circle<T>::isContain(const math::Vector2<T> & vector) const noexcept {
   const auto distanceSqr = (vector - center).sqrMagnitude();
 
   return distanceSqr <= (radius * radius);

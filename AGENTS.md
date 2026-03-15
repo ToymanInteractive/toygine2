@@ -387,7 +387,7 @@ Always follow this order:
 - **Do not use `\ref` for functions or methods**. Reference functions and methods using plain text:
   - `toy::functionName()` (not `\ref toy::functionName()`)
   - `methodName()` (not `\ref methodName()`)
-- **Always** include full namespace qualification: `\ref toy::math::Vector2D` instead of `\ref Vector2D`.
+- **Always** include full namespace qualification: `\ref toy::math::Vector2` instead of `\ref Vector2`.
 
 **Exceptions**:
 

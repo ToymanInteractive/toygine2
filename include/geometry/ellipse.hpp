@@ -48,7 +48,7 @@ concept EllipseComponent = math::floating_point<T> || math::fixed_point<T>;
   \class Ellipse
   \brief Axis-aligned ellipse in 2D with center and semi-axes.
 
-  Represents an ellipse by center (\ref toy::math::Vector2D) and \a radiuses (semi-axes: \a radiuses.x along x,
+  Represents an ellipse by center (\ref toy::math::Vector2) and \a radiuses (semi-axes: \a radiuses.x along x,
   \a radiuses.y along y). Default-constructed ellipse is in reset state; use reset() to clear or construct with (center,
   radiuses) for a valid ellipse. operator== compares center and radiuses (tolerance-based for float, exact for
   fixed-point).
@@ -71,9 +71,9 @@ concept EllipseComponent = math::floating_point<T> || math::fixed_point<T>;
   \code
   #include "geometry.hpp"
 
-  toy::geometry::Ellipse<float> e(toy::math::Vector2D(0.0f, 0.0f), toy::math::Vector2D(10.0f, 5.0f));
+  toy::geometry::Ellipse<float> e(toy::math::Vector2(0.0f, 0.0f), toy::math::Vector2(10.0f, 5.0f));
   auto a = e.area();
-  bool inside = e.isContain(toy::math::Vector2D(3.0f, 2.0f));
+  bool inside = e.isContain(toy::math::Vector2(3.0f, 2.0f));
   \endcode
 
   \section performance Performance Characteristics
@@ -87,15 +87,15 @@ concept EllipseComponent = math::floating_point<T> || math::fixed_point<T>;
   - **Exception safety**: All operations are noexcept.
 
   \sa EllipseComponent
-  \sa toy::math::Vector2D
+  \sa toy::math::Vector2
 */
 template <EllipseComponent T>
 class Ellipse {
 public:
   /// Center of the ellipse.
-  math::Vector2D<T> center;
+  math::Vector2<T> center;
   /// Semi-axes of the ellipse (\a radiuses.x along x, \a radiuses.y along y).
-  math::Vector2D<T> radiuses;
+  math::Vector2<T> radiuses;
 
 public:
   /// Default constructor.
@@ -109,7 +109,7 @@ public:
 
     \pre \a radiuses.x \c > \c 0 and \a radiuses.y \c > \c 0.
   */
-  constexpr Ellipse(const math::Vector2D<T> & center, const math::Vector2D<T> & radiuses) noexcept;
+  constexpr Ellipse(const math::Vector2<T> & center, const math::Vector2<T> & radiuses) noexcept;
 
   /*!
     \brief Returns the area (π × radiuses.x × radiuses.y).
@@ -149,7 +149,7 @@ public:
 
     \return \c true when the point satisfies the ellipse inequality.
   */
-  [[nodiscard]] constexpr bool isContain(const math::Vector2D<T> & vector) const noexcept;
+  [[nodiscard]] constexpr bool isContain(const math::Vector2<T> & vector) const noexcept;
 };
 
 /*!
@@ -159,7 +159,7 @@ public:
   \tparam T Component type; must satisfy \ref toy::geometry::EllipseComponent.
 */
 template <EllipseComponent T>
-Ellipse(const math::Vector2D<T> &, const math::Vector2D<T> &) -> Ellipse<T>;
+Ellipse(const math::Vector2<T> &, const math::Vector2<T> &) -> Ellipse<T>;
 
 /*!
   \brief Equality of two ellipses: same center and radiuses (tolerance-based for float, exact for fixed-point).

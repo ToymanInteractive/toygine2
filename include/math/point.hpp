@@ -41,7 +41,7 @@ namespace toy::math {
   - \a T satisfies \ref toy::math::floating_point, or
   - \a T satisfies \ref toy::math::fixed_point.
 
-  \sa toy::math::Point, toy::math::Vector2D
+  \sa toy::math::Point, toy::math::Vector2
 */
 template <typename T>
 concept PointScalar = signed_integral<T> || floating_point<T> || fixed_point<T>;
@@ -50,8 +50,8 @@ concept PointScalar = signed_integral<T> || floating_point<T> || fixed_point<T>;
   \class Point
   \brief 2D integer point for UI and input coordinates.
 
-  Lightweight value type with \c x and \c y. Suitable for pixel positions, mouse coordinates, and layout.
-  Prefer \ref toy::math::Vector2D for floating-point or world coordinates.
+  Lightweight value type with \c x and \c y. Suitable for pixel positions, mouse coordinates, and layout. Prefer
+  \ref toy::math::Vector2 for floating-point or world coordinates.
 
   \section features Key Features
 
@@ -86,7 +86,7 @@ concept PointScalar = signed_integral<T> || floating_point<T> || fixed_point<T>;
 
   \note For approximate equality use isEqual() with a tolerance.
 
-  \sa toy::math::Vector2D
+  \sa toy::math::Vector2
 */
 class Point {
 public:

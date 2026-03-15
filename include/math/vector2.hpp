@@ -18,34 +18,34 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   vector2d.hpp
+  \file   vector2.hpp
   \brief  2D vector class for interactive game objects and physics calculations.
 */
 
-#ifndef INCLUDE_MATH_VECTOR2D_HPP_
-#define INCLUDE_MATH_VECTOR2D_HPP_
+#ifndef INCLUDE_MATH_VECTOR2_HPP_
+#define INCLUDE_MATH_VECTOR2_HPP_
 
 namespace toy::math {
 
 /*!
-  \concept Vector2DComponent
-  \brief Concept satisfied when \a T is a component type allowed as \ref toy::math::Vector2D template parameter.
+  \concept Vector2Component
+  \brief Concept satisfied when \a T is a component type allowed as \ref toy::math::Vector2 template parameter.
 
-  Use to constrain the component type of \ref toy::math::Vector2D to floating-point or fixed-point types only.
+  Use to constrain the component type of \ref toy::math::Vector2 to floating-point or fixed-point types only.
 
   \section requirements Requirements
 
-  A type \a T satisfies Vector2DComponent if and only if at least one of the following holds:
+  A type \a T satisfies Vector2Component if and only if at least one of the following holds:
   - \a T satisfies \ref toy::math::floating_point.
   - \a T satisfies \ref toy::math::fixed_point.
 
-  \sa toy::math::Vector2D
+  \sa toy::math::Vector2
 */
 template <typename T>
-concept Vector2DComponent = floating_point<T> || fixed_point<T>;
+concept Vector2Component = floating_point<T> || fixed_point<T>;
 
 /*!
-  \class Vector2D
+  \class Vector2
   \brief 2D vector with floating-point or fixed-point components for positions, movement, and physics.
 
   Represents a 2D vector with \a x and \a y components. Suited for world/screen coordinates, velocity, forces, and
@@ -54,7 +54,7 @@ concept Vector2DComponent = floating_point<T> || fixed_point<T>;
 
   \section features Key Features
 
-  - **Precision**: Component type \a T is \ref toy::math::Vector2DComponent (float, double, or fixed-point).
+  - **Precision**: Component type \a T is \ref toy::math::Vector2Component (float, double, or fixed-point).
   - **Constexpr**: Most operations are constexpr.
   - **Exception safety**: All operations are noexcept.
   - **Small size**: Two components; stack-friendly.
@@ -64,12 +64,12 @@ concept Vector2DComponent = floating_point<T> || fixed_point<T>;
   \code
   #include "math.hpp"
 
-  toy::math::Vector2D pos(100.5f, 200.3f);
-  toy::math::Vector2D velocity(50.0f, -25.0f);
+  toy::math::Vector2 pos(100.5f, 200.3f);
+  toy::math::Vector2 velocity(50.0f, -25.0f);
   auto deltaTime = 0.5f;
   pos += velocity * deltaTime;
 
-  toy::math::Vector2D force(10.0f, 0.0f);
+  toy::math::Vector2 force(10.0f, 0.0f);
   auto mass = 2.0f;
   auto acceleration = force / mass;
   \endcode
@@ -88,8 +88,8 @@ concept Vector2DComponent = floating_point<T> || fixed_point<T>;
 
   \sa toy::math::Point
 */
-template <Vector2DComponent T>
-class Vector2D {
+template <Vector2Component T>
+class Vector2 {
 public:
   /// X component of the vector.
   T x;
@@ -99,7 +99,7 @@ public:
 
 public:
   /// Default constructor.
-  constexpr Vector2D() noexcept;
+  constexpr Vector2() noexcept;
 
   /*!
     \brief Constructs a vector with the given components.
@@ -107,7 +107,7 @@ public:
     \param x X component.
     \param y Y component.
   */
-  constexpr Vector2D(const T & x, const T & y) noexcept;
+  constexpr Vector2(const T & x, const T & y) noexcept;
 
   /*!
     \brief Constructs a vector from an array.
@@ -118,7 +118,7 @@ public:
 
     \post \a x == \a values[0], \a y == \a values[1].
   */
-  explicit constexpr Vector2D(const T * values) noexcept;
+  explicit constexpr Vector2(const T * values) noexcept;
 
   /*!
     \brief Pointer to the component array (\a x, then \a y).
@@ -143,7 +143,7 @@ public:
 
     \post Components are the sum of the previous values and \a vector.
   */
-  constexpr Vector2D & operator+=(const Vector2D & vector) noexcept;
+  constexpr Vector2 & operator+=(const Vector2 & vector) noexcept;
 
   /*!
     \brief Subtracts \a vector from this vector.
@@ -154,7 +154,7 @@ public:
 
     \post Components are the difference of the previous values and \a vector.
   */
-  constexpr Vector2D & operator-=(const Vector2D & vector) noexcept;
+  constexpr Vector2 & operator-=(const Vector2 & vector) noexcept;
 
   /*!
     \brief Multiplies both components by \a scalar.
@@ -163,7 +163,7 @@ public:
 
     \return Reference to \c *this.
   */
-  constexpr Vector2D & operator*=(const T & scalar) noexcept;
+  constexpr Vector2 & operator*=(const T & scalar) noexcept;
 
   /*!
     \brief Divides both components by \a scalar.
@@ -174,7 +174,7 @@ public:
 
     \pre \a scalar != \c 0.
   */
-  constexpr Vector2D & operator/=(const T & scalar) noexcept;
+  constexpr Vector2 & operator/=(const T & scalar) noexcept;
 
   /*!
     \brief Squared Euclidean length (x² + y²).
@@ -208,28 +208,28 @@ public:
 
     \pre \a absEpsilon ≥ \c 0 and \a relEpsilon ≥ \c 0.
   */
-  [[nodiscard]] constexpr bool isEqual(const Vector2D & vector, T absEpsilon = 8 * numeric_limits<T>::epsilon(),
+  [[nodiscard]] constexpr bool isEqual(const Vector2 & vector, T absEpsilon = 8 * numeric_limits<T>::epsilon(),
                                        T relEpsilon = 64 * numeric_limits<T>::epsilon()) const noexcept;
 };
 
 /*!
-  \brief Deduction guide: enables \c Vector2D(x, y) without an explicit template argument when both arguments have the
-         same \ref toy::math::Vector2DComponent type.
+  \brief Deduction guide: enables \c Vector2(x, y) without an explicit template argument when both arguments have the
+         same \ref toy::math::Vector2Component type.
 
-  \tparam T Component type; must satisfy \ref toy::math::Vector2DComponent.
+  \tparam T Component type; must satisfy \ref toy::math::Vector2Component.
 */
-template <Vector2DComponent T>
-Vector2D(const T &, const T &) -> Vector2D<T>;
+template <Vector2Component T>
+Vector2(const T &, const T &) -> Vector2<T>;
 
 /*!
   \brief Unary minus: negated components.
 
   \param vector Operand.
 
-  \return \ref toy::math::Vector2D with (-vector.x, -vector.y).
+  \return \ref toy::math::Vector2 with (-vector.x, -vector.y).
 */
-template <Vector2DComponent T>
-[[nodiscard]] constexpr Vector2D<T> operator-(const Vector2D<T> & vector) noexcept;
+template <Vector2Component T>
+[[nodiscard]] constexpr Vector2<T> operator-(const Vector2<T> & vector) noexcept;
 
 /*!
   \brief Addition of two vectors.
@@ -237,10 +237,10 @@ template <Vector2DComponent T>
   \param left  First operand.
   \param right Second operand.
 
-  \return \ref toy::math::Vector2D with (left.x + right.x, left.y + right.y).
+  \return \ref toy::math::Vector2 with (left.x + right.x, left.y + right.y).
 */
-template <Vector2DComponent T>
-[[nodiscard]] constexpr Vector2D<T> operator+(const Vector2D<T> & left, const Vector2D<T> & right) noexcept;
+template <Vector2Component T>
+[[nodiscard]] constexpr Vector2<T> operator+(const Vector2<T> & left, const Vector2<T> & right) noexcept;
 
 /*!
   \brief Subtraction of two vectors.
@@ -248,36 +248,36 @@ template <Vector2DComponent T>
   \param left  First operand.
   \param right Second operand.
 
-  \return \ref toy::math::Vector2D with (left.x - right.x, left.y - right.y).
+  \return \ref toy::math::Vector2 with (left.x - right.x, left.y - right.y).
 */
-template <Vector2DComponent T>
-[[nodiscard]] constexpr Vector2D<T> operator-(const Vector2D<T> & left, const Vector2D<T> & right) noexcept;
+template <Vector2Component T>
+[[nodiscard]] constexpr Vector2<T> operator-(const Vector2<T> & left, const Vector2<T> & right) noexcept;
 
 /*!
   \brief Vector scaled by scalar.
 
-  \tparam T Component type satisfy \ref toy::math::Vector2DComponent.
+  \tparam T Component type satisfy \ref toy::math::Vector2Component.
 
   \param left  Vector operand.
   \param right Scale factor.
 
-  \return \ref toy::math::Vector2D with components multiplied by \a scalar.
+  \return \ref toy::math::Vector2 with components multiplied by \a scalar.
 */
-template <Vector2DComponent T>
-[[nodiscard]] constexpr Vector2D<T> operator*(const Vector2D<T> & left, const T & right) noexcept;
+template <Vector2Component T>
+[[nodiscard]] constexpr Vector2<T> operator*(const Vector2<T> & left, const T & right) noexcept;
 
 /*!
   \brief Vector scaled by scalar (scalar on the left).
 
-  \tparam T Component type satisfy \ref toy::math::Vector2DComponent.
+  \tparam T Component type satisfy \ref toy::math::Vector2Component.
 
   \param left  Scale factor.
   \param right Vector operand.
 
-  \return \ref toy::math::Vector2D with components multiplied by \a scalar.
+  \return \ref toy::math::Vector2 with components multiplied by \a scalar.
 */
-template <Vector2DComponent T>
-[[nodiscard]] constexpr Vector2D<T> operator*(const T & left, const Vector2D<T> & right) noexcept;
+template <Vector2Component T>
+[[nodiscard]] constexpr Vector2<T> operator*(const T & left, const Vector2<T> & right) noexcept;
 
 /*!
   \brief Dot product of two vectors.
@@ -287,23 +287,23 @@ template <Vector2DComponent T>
 
   \return \a left.x * \a right.x + \a left.y * \a right.y.
 */
-template <Vector2DComponent T>
-[[nodiscard]] constexpr T operator*(const Vector2D<T> & left, const Vector2D<T> & right) noexcept;
+template <Vector2Component T>
+[[nodiscard]] constexpr T operator*(const Vector2<T> & left, const Vector2<T> & right) noexcept;
 
 /*!
   \brief Vector divided by scalar.
 
-  \tparam T Component type satisfy \ref toy::math::Vector2DComponent.
+  \tparam T Component type satisfy \ref toy::math::Vector2Component.
 
   \param left  Vector operand.
   \param right Divisor.
 
-  \return \ref toy::math::Vector2D with components divided by \a scalar.
+  \return \ref toy::math::Vector2 with components divided by \a scalar.
 
   \pre \a right != \c 0.
 */
-template <Vector2DComponent T>
-[[nodiscard]] constexpr Vector2D<T> operator/(const Vector2D<T> & left, const T & right) noexcept;
+template <Vector2Component T>
+[[nodiscard]] constexpr Vector2<T> operator/(const Vector2<T> & left, const T & right) noexcept;
 
 /*!
   \brief Exact equality of two vectors.
@@ -319,8 +319,8 @@ template <Vector2DComponent T>
 
   \sa isEqual() for custom tolerances (floating-point).
 */
-template <Vector2DComponent T>
-[[nodiscard]] constexpr bool operator==(const Vector2D<T> & left, const Vector2D<T> & right) noexcept;
+template <Vector2Component T>
+[[nodiscard]] constexpr bool operator==(const Vector2<T> & left, const Vector2<T> & right) noexcept;
 
 /*!
   \brief Inequality of two vectors.
@@ -330,8 +330,8 @@ template <Vector2DComponent T>
 
   \return \c true if \c !(left == right).
 */
-template <Vector2DComponent T>
-[[nodiscard]] constexpr bool operator!=(const Vector2D<T> & left, const Vector2D<T> & right) noexcept;
+template <Vector2Component T>
+[[nodiscard]] constexpr bool operator!=(const Vector2<T> & left, const Vector2<T> & right) noexcept;
 
 /*!
   \brief 2D cross product (scalar result).
@@ -341,9 +341,9 @@ template <Vector2DComponent T>
 
   \return \a left.x * \a right.y - \a left.y * \a right.x.
 */
-template <Vector2DComponent T>
-[[nodiscard]] constexpr T cross(const Vector2D<T> & left, const Vector2D<T> & right) noexcept;
+template <Vector2Component T>
+[[nodiscard]] constexpr T cross(const Vector2<T> & left, const Vector2<T> & right) noexcept;
 
 } // namespace toy::math
 
-#endif // INCLUDE_MATH_VECTOR2D_HPP_
+#endif // INCLUDE_MATH_VECTOR2_HPP_
