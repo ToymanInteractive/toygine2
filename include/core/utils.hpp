@@ -254,34 +254,30 @@ char * ftoa(char * dest, size_t destSize, float value, size_t precision = 7) noe
 char * ftoa(char * dest, size_t destSize, double value, size_t precision = 15) noexcept;
 
 /*!
-  \brief Formats a number C string by inserting grouping separators.
+  \brief Inserts a grouping separator into a number C string every three digits from the right.
 
-  This function inserts a grouping \a separator (e.g., comma, space, or dot) into a number C string every three digits,
-  starting from the right. This is commonly used for formatting large numbers to improve readability (e.g.,
-  "1,234,567").
+  Modifies \a buffer in-place. Typically used to improve readability of large numbers (e.g. "1,234,567"). Does not
+  validate that the buffer content is purely numeric.
 
-  \param buffer     A pointer to the buffer where the formatted C string is stored.
-  \param bufferSize The size of the buffer in characters.
-  \param separator  A pointer to the grouping separator C string to insert (e.g., ",", " ", ".").
+  \param buffer     Destination buffer for the formatted C string.
+  \param bufferSize Size of \a buffer in characters.
+  \param separator  C string used as grouping separator (e.g. ",", " ", ".").
 
-  \note The function modifies the \a buffer in-place.
-  \note Grouping separators are inserted every three digits from the right.
-  \note The function handles edge cases gracefully (empty string, single digits, etc.).
-  \note The function does not validate that the input is purely numeric.
+  \pre \a buffer is not null; \a bufferSize \c > \c 0; \a separator is not null; length of \a separator is at most 8
+  (asserted in debug).
 */
 void formatNumberString(char * buffer, size_t bufferSize, const char * separator) noexcept;
 
 /*!
   \brief Returns the 0-based index of the highest set bit in \a value.
 
-  Uses platform intrinsics (e.g. \c _BitScanReverse64, \c __builtin_clzll). Useful for log2-style queries or bit-scan
-  operations. Undefined if \a value is zero (assert in debug).
+  Intended for log2-style queries and bit-scan operations. Implementation uses platform intrinsics where available.
 
   \param value Non-zero 64-bit unsigned value.
 
   \return Index of the highest set bit in the range \c [0, 63] (bit 0 is the least significant).
 
-  \pre \a value \c != \c 0.
+  \pre \a value is non-zero (asserted in debug).
 */
 [[nodiscard]] size_t highestBit(uint64_t value) noexcept;
 

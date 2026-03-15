@@ -505,8 +505,14 @@ char * ftoa(char * dest, size_t destSize, double value, size_t precision) noexce
 
 void formatNumberString(char * buffer, size_t bufferSize, const char * separator) noexcept {
   assert_message(buffer != nullptr && bufferSize > 0, "The destination buffer must not be null.");
-  assert_message(separator != nullptr && char_traits<char>::length(separator) <= 8,
-                 "The grouping separator must not be null and must not exceed 8 characters.");
+  assert_message(separator != nullptr, "The grouping separator must not be null.");
+  if (separator == nullptr)
+    return;
+
+  const auto separatorLen = char_traits<char>::length(separator);
+  assert_message(separatorLen <= 8, "The grouping separator must not exceed 8 characters.");
+  if (separatorLen == 0)
+    return;
 
   constexpr size_t groupSize = 3;
 
@@ -522,31 +528,27 @@ void formatNumberString(char * buffer, size_t bufferSize, const char * separator
   if (digitsCount <= groupSize) // Nothing to format.
     return;
 
-  const auto separatorLen = char_traits<char>::length(separator);
-  if (separatorLen == 0)
-    return;
-
+  auto groupsCount = (digitsCount - 1U) / groupSize;
   const auto ansiStringLen = char_traits<char>::length(buffer);
-  auto groupSeparatorsCount = (digitsCount - 1U) / groupSize;
-  const auto requiredSize = ansiStringLen + groupSeparatorsCount * separatorLen;
-  assert_message(requiredSize < bufferSize, "Buffer size is too low.");
-  if (requiredSize >= bufferSize)
+  const auto requiredBufferSize = ansiStringLen + groupsCount * separatorLen;
+  assert_message(requiredBufferSize < bufferSize, "Buffer size is too low.");
+  if (requiredBufferSize >= bufferSize)
     return;
 
-  buffer[ansiStringLen + groupSeparatorsCount * separatorLen] = '\0';
+  buffer[ansiStringLen + groupsCount * separatorLen] = '\0';
 
   if (digitsCount != (ansiStringLen - 1))
-    std::memmove(buffer + (digitsCount + groupSeparatorsCount * separatorLen), buffer + digitsCount,
+    std::memmove(buffer + (digitsCount + groupsCount * separatorLen), buffer + digitsCount,
                  ansiStringLen - digitsCount);
 
   auto scanChars = digitsCount;
-  while (groupSeparatorsCount > 0) {
-    std::memmove(buffer + (scanChars + groupSeparatorsCount * separatorLen - groupSize),
-                 buffer + (scanChars - groupSize), groupSize);
-    const auto destBufferShift = scanChars + (groupSeparatorsCount - 1) * separatorLen - groupSize;
+  while (groupsCount > 0) {
+    std::memmove(buffer + (scanChars + groupsCount * separatorLen - groupSize), buffer + (scanChars - groupSize),
+                 groupSize);
+    const auto destBufferShift = scanChars + (groupsCount - 1) * separatorLen - groupSize;
     char_traits<char>::copy(buffer + destBufferShift, separator, separatorLen);
     scanChars -= groupSize;
-    --groupSeparatorsCount;
+    --groupsCount;
   }
 }
 
