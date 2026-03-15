@@ -18,32 +18,39 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   ui.hpp
-  \brief  Umbrella header for platform UI types.
+  \file   window_show_state.hpp
+  \brief  Window visibility and display state enumeration.
 
-  Provides \ref toy::platform::ui::Orientation, \ref toy::platform::ui::WindowShowState,
-  \ref toy::platform::ui::WindowStyle, \ref toy::platform::ui::MessageBoxIcon,
-  \ref toy::platform::ui::MessageBoxButtons, \ref toy::platform::ui::MessageBoxReturn, and related UI. Include this
-  header only; do not include internal headers (e.g. \c ui/orientation.hpp, \c ui/window_show_state.hpp) directly.
+  Defines \ref toy::platform::ui::WindowShowState: mutually exclusive states for show/hide, normal, maximized, and
+  minimized. Used when showing a window or querying its current state.
 */
 
-#ifndef INCLUDE_PLATFORM_UI_HPP_
-#define INCLUDE_PLATFORM_UI_HPP_
+#ifndef INCLUDE_PLATFORM_UI_WINDOW_SHOW_STATE_HPP_
+#define INCLUDE_PLATFORM_UI_WINDOW_SHOW_STATE_HPP_
 
-#include "../core.hpp"
+namespace toy::platform::ui {
 
 /*!
-  \namespace toy::platform::ui
-  \brief Platform UI: orientation, window show state, window style flags, message box (icon, buttons, return value).
+  \enum WindowShowState
+  \brief Visibility and display state of a window.
 
-  \sa toy::platform::ui::WindowShowState, toy::platform::ui::WindowStyle, toy::platform::ui::MessageBoxButtons
+  Values are mutually exclusive. Typical use: pass to platform show-window APIs or store the result of a
+  get-window-state query.
 */
+enum class WindowShowState : uint8_t {
+  /// Window is not visible.
+  Hidden,
 
-#include "ui/message_box_buttons.hpp"
-#include "ui/message_box_icon.hpp"
-#include "ui/message_box_return.hpp"
-#include "ui/orientation.hpp"
-#include "ui/window_show_state.hpp"
-#include "ui/window_style.hpp"
+  /// Window is visible in normal (restored) size and position.
+  Normal,
 
-#endif // INCLUDE_PLATFORM_UI_HPP_
+  /// Window is visible and maximized (fills the work area or screen).
+  Maximized,
+
+  /// Window is visible but minimized (e.g. to taskbar or dock).
+  Minimized,
+};
+
+} // namespace toy::platform::ui
+
+#endif // INCLUDE_PLATFORM_UI_WINDOW_SHOW_STATE_HPP_
