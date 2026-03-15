@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['abs_0',['abs',['../d5/d12/group___math_functions.html#ga00391a62294376916bf5df2d9b9ae00c',1,'toy::math::abs(const T &amp;value) noexcept'],['../d2/d83/namespacetoy_1_1math.html#ga00391a62294376916bf5df2d9b9ae00c',1,'toy::math::abs(const T &amp;value) noexcept'],['../d2/d83/namespacetoy_1_1math.html#ga00391a62294376916bf5df2d9b9ae00c',1,'toy::math::abs(const T &amp;value) noexcept']]],
+  ['abs_0',['abs',['../d5/d12/group___math_functions.html#ga00391a62294376916bf5df2d9b9ae00c',1,'toy::math']]],
   ['add_1',['add',['../d8/dc9/classtoy_1_1_callbacks_pool.html#a4ed62a797abc836ae90a905894234bf6',1,'toy::CallbacksPool']]],
   ['append_2',['append',['../d3/d7a/classtoy_1_1_fixed_string.html#adbb286024fb0ed5c832d29ed9701046d',1,'toy::FixedString::append(size_type count, char character) noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#a2512493e108e9c272f1685e46f6ae8fd',1,'toy::FixedString::append(const char *string, size_type count) noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#a91164b48eea66fabbf553ec8563e741c',1,'toy::FixedString::append(const char *string) noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#a8a08c2c46a3a9c9222f5f4c05cb10ddc',1,'toy::FixedString::append(const FixedString&lt; allocatedSize &gt; &amp;string) noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#a38f0a05db9dc1625048db4a8aa9d30c5',1,'toy::FixedString::append(const stringType &amp;string) noexcept']]],
   ['area_3',['area',['../df/d25/classtoy_1_1geometry_1_1_circle.html#a473e338e2fd998233c4fca9996c5d266',1,'toy::geometry::Circle']]],

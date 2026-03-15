@@ -301,6 +301,8 @@ Functions</h2></td></tr>
 <tr class="memitem:a14ccea4a485c2aa69412836a22a6cdda" id="r_a14ccea4a485c2aa69412836a22a6cdda"><td class="memTemplParams" colspan="2">template&lt;std::unsigned_integral T&gt; </td></tr>
 <tr class="memitem:a14ccea4a485c2aa69412836a22a6cdda template"><td class="memItemLeft">constexpr char *&#160;</td><td class="memItemRight"><a class="el" href="#a14ccea4a485c2aa69412836a22a6cdda">utoa</a> (char *dest, size_t destSize, T value, unsigned base=10) noexcept</td></tr>
 <tr class="memdesc:a14ccea4a485c2aa69412836a22a6cdda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an unsigned integer to its C string representation in the given base.  <br /></td></tr>
+<tr class="memitem:adb88a3717143c42b9d24c5a8bf553b2d" id="r_adb88a3717143c42b9d24c5a8bf553b2d"><td class="memItemLeft">size_t&#160;</td><td class="memItemRight"><a class="el" href="#adb88a3717143c42b9d24c5a8bf553b2d">highestBit</a> (uint64_t value) noexcept</td></tr>
+<tr class="memdesc:adb88a3717143c42b9d24c5a8bf553b2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the 0-based index of the highest set bit in <em class="arg">value</em>.  <br /></td></tr>
 <tr class="memitem:a00ce0b516e9a47a62227a9309afdb583" id="r_a00ce0b516e9a47a62227a9309afdb583"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#a00ce0b516e9a47a62227a9309afdb583">crc8</a> (const void *src, size_t size, uint8_t crc=0x00) noexcept</td></tr>
 <tr class="memdesc:a00ce0b516e9a47a62227a9309afdb583"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates CRC-8 checksum using Dallas/Maxim polynomial.  <br /></td></tr>
 <tr class="memitem:aa63c971425cb6819414030806927a68a" id="r_aa63c971425cb6819414030806927a68a"><td class="memItemLeft">uint16_t&#160;</td><td class="memItemRight"><a class="el" href="#aa63c971425cb6819414030806927a68a">crc16</a> (const void *src, size_t size, uint16_t crc=0x0000) noexcept</td></tr>
@@ -1213,6 +1215,42 @@ The function does not validate that the input is purely numeric. </dd></dl>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Pointer to <em class="arg">dest</em>.</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd><em class="arg">dest</em> is not null; <em class="arg">destSize</em> is sufficient for the output (including sign, digits, decimal point, and terminator). </dd></dl>
+
+</div>
+</div>
+<a id="adb88a3717143c42b9d24c5a8bf553b2d" name="adb88a3717143c42b9d24c5a8bf553b2d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb88a3717143c42b9d24c5a8bf553b2d">&#9670;&#160;</a></span>highestBit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t toy::highestBit </td>
+          <td>(</td>
+          <td class="paramtype">uint64_t</td>          <td class="paramname"><span class="paramname"><em>value</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the 0-based index of the highest set bit in <em class="arg">value</em>. </p>
+<p>Uses platform intrinsics (e.g. <code>_BitScanReverse64</code>, <code>__builtin_clzll</code>). Useful for log2-style queries or bit-scan operations. Undefined if <em class="arg">value</em> is zero (assert in debug).</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>Non-zero 64-bit unsigned value.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Index of the highest set bit in the range <code></code>[0, 63] (bit 0 is the least significant).</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd><em class="arg">value</em> <code>!=</code> <code>0</code>. </dd></dl>
 
 </div>
 </div>

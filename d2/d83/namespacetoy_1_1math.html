@@ -228,21 +228,12 @@ Functions</h2></td></tr>
 <tr class="memdesc:afffacfe885672a3174b4ffe14ec4d0b0"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html" title="2D integer point for UI and input coordinates.">Point</a> divided by scalar and truncated to integer.  <br /></td></tr>
 <tr class="memitem:a77dccec38178a7b466b0658dd06fc118" id="r_a77dccec38178a7b466b0658dd06fc118"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#a77dccec38178a7b466b0658dd06fc118">operator==</a> (const <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a> &amp;left, const <a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a> &amp;right) noexcept</td></tr>
 <tr class="memdesc:a77dccec38178a7b466b0658dd06fc118"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exact equality of two points.  <br /></td></tr>
-<tr class="memitem:ga00391a62294376916bf5df2d9b9ae00c" id="r_ga00391a62294376916bf5df2d9b9ae00c"><td class="memTemplParams" colspan="2">template&lt;signed_integral T&gt; </td></tr>
+<tr class="memitem:ga00391a62294376916bf5df2d9b9ae00c" id="r_ga00391a62294376916bf5df2d9b9ae00c"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
 <tr class="memitem:ga00391a62294376916bf5df2d9b9ae00c template"><td class="memItemLeft">constexpr T&#160;</td><td class="memItemRight"><a class="el" href="../../d5/d12/group___math_functions.html#ga00391a62294376916bf5df2d9b9ae00c">abs</a> (const T &amp;value) noexcept</td></tr>
-<tr class="memdesc:ga00391a62294376916bf5df2d9b9ae00c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the absolute value of a signed integer.  <br /></td></tr>
-<tr class="memitem:ga00391a62294376916bf5df2d9b9ae00c" id="r_ga00391a62294376916bf5df2d9b9ae00c"><td class="memTemplParams" colspan="2">template&lt;floating_point T&gt; </td></tr>
-<tr class="memitem:ga00391a62294376916bf5df2d9b9ae00c template"><td class="memItemLeft">constexpr T&#160;</td><td class="memItemRight"><a class="el" href="#ga00391a62294376916bf5df2d9b9ae00c">abs</a> (const T &amp;value) noexcept</td></tr>
-<tr class="memdesc:ga00391a62294376916bf5df2d9b9ae00c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the absolute value of a floating-point number.  <br /></td></tr>
-<tr class="memitem:ga00391a62294376916bf5df2d9b9ae00c" id="r_ga00391a62294376916bf5df2d9b9ae00c"><td class="memTemplParams" colspan="2">template&lt;fixed_point T&gt; </td></tr>
-<tr class="memitem:ga00391a62294376916bf5df2d9b9ae00c template"><td class="memItemLeft">constexpr T&#160;</td><td class="memItemRight"><a class="el" href="#ga00391a62294376916bf5df2d9b9ae00c">abs</a> (const T &amp;value) noexcept</td></tr>
-<tr class="memdesc:ga00391a62294376916bf5df2d9b9ae00c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the absolute value of a <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html" title="toy::math::fixed">toy::math::fixed</a> value.  <br /></td></tr>
-<tr class="memitem:gaec0e5508b638d5599c59593e4afc7ee4" id="r_gaec0e5508b638d5599c59593e4afc7ee4"><td class="memTemplParams" colspan="2">template&lt;floating_point T&gt; </td></tr>
+<tr class="memdesc:ga00391a62294376916bf5df2d9b9ae00c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the absolute value of <em class="arg">value</em>.  <br /></td></tr>
+<tr class="memitem:gaec0e5508b638d5599c59593e4afc7ee4" id="r_gaec0e5508b638d5599c59593e4afc7ee4"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
 <tr class="memitem:gaec0e5508b638d5599c59593e4afc7ee4 template"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="../../d5/d12/group___math_functions.html#gaec0e5508b638d5599c59593e4afc7ee4">isEqual</a> (const T &amp;a, const T &amp;b, T absEpsilon=8 *<a class="el" href="../../db/dc2/classnumeric__limits.html">numeric_limits</a>&lt; T &gt;::epsilon(), T relEpsilon=64 *<a class="el" href="../../db/dc2/classnumeric__limits.html">numeric_limits</a>&lt; T &gt;::epsilon()) noexcept</td></tr>
-<tr class="memdesc:gaec0e5508b638d5599c59593e4afc7ee4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares two floating-point values for approximate equality.  <br /></td></tr>
-<tr class="memitem:gaec0e5508b638d5599c59593e4afc7ee4" id="r_gaec0e5508b638d5599c59593e4afc7ee4"><td class="memTemplParams" colspan="2">template&lt;fixed_point T&gt; </td></tr>
-<tr class="memitem:gaec0e5508b638d5599c59593e4afc7ee4 template"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#gaec0e5508b638d5599c59593e4afc7ee4">isEqual</a> (const T &amp;a, const T &amp;b, T absEpsilon=8 *<a class="el" href="../../db/dc2/classnumeric__limits.html">numeric_limits</a>&lt; T &gt;::epsilon(), T relEpsilon=64 *<a class="el" href="../../db/dc2/classnumeric__limits.html">numeric_limits</a>&lt; T &gt;::epsilon()) noexcept</td></tr>
-<tr class="memdesc:gaec0e5508b638d5599c59593e4afc7ee4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares two fixed-point values for approximate equality.  <br /></td></tr>
+<tr class="memdesc:gaec0e5508b638d5599c59593e4afc7ee4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares two values for approximate equality.  <br /></td></tr>
 <tr class="memitem:gaa069db95661e6893b90c9538fe32fb2b" id="r_gaa069db95661e6893b90c9538fe32fb2b"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
 <tr class="memitem:gaa069db95661e6893b90c9538fe32fb2b template"><td class="memItemLeft">constexpr T&#160;</td><td class="memItemRight"><a class="el" href="../../d5/d12/group___math_functions.html#gaa069db95661e6893b90c9538fe32fb2b">deg2rad</a> (const T &amp;angle) noexcept</td></tr>
 <tr class="memdesc:gaa069db95661e6893b90c9538fe32fb2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts angle from degrees to radians.  <br /></td></tr>
@@ -310,91 +301,6 @@ Variables</h2></td></tr>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="ga00391a62294376916bf5df2d9b9ae00c" name="ga00391a62294376916bf5df2d9b9ae00c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga00391a62294376916bf5df2d9b9ae00c">&#9670;&#160;</a></span>abs() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;fixed_point T&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">T toy::math::abs </td>
-          <td>(</td>
-          <td class="paramtype">const T &amp;</td>          <td class="paramname"><span class="paramname"><em>value</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the absolute value of a <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html" title="toy::math::fixed">toy::math::fixed</a> value. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>Fixed-point type; must satisfy <a class="el" href="../../dd/de0/concepttoy_1_1math_1_1fixed__point.html" title="toy::math::fixed_point">toy::math::fixed_point</a>.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">value</td><td>The fixed-point value.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The absolute value of <em class="arg">value</em> (unchanged if non-negative, negated if negative). </dd></dl>
-
-</div>
-</div>
-<a id="ga00391a62294376916bf5df2d9b9ae00c" name="ga00391a62294376916bf5df2d9b9ae00c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga00391a62294376916bf5df2d9b9ae00c">&#9670;&#160;</a></span>abs() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;floating_point T&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">T toy::math::abs </td>
-          <td>(</td>
-          <td class="paramtype">const T &amp;</td>          <td class="paramname"><span class="paramname"><em>value</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the absolute value of a floating-point number. </p>
-<p>Branch-free for <code>float</code> and <code>double</code>; <code>long</code> <code>double</code> uses a conditional. Usable in constant expressions.</p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>Floating-point type; must satisfy toy::math::floating_point.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">value</td><td>The floating-point value.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The absolute value of <em class="arg">value</em> (unchanged if non-negative, negated if negative). </dd></dl>
-
-</div>
-</div>
 <a id="a288d7dcbbb7c5f46e99c192e07b349c4" name="a288d7dcbbb7c5f46e99c192e07b349c4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a288d7dcbbb7c5f46e99c192e07b349c4">&#9670;&#160;</a></span>cross()</h2>
 
@@ -433,66 +339,6 @@ template&lt;Vector2DComponent T&gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><em class="arg">left.x</em> * <em class="arg">right.y</em> - <em class="arg">left.y</em> * <em class="arg">right.x</em>. </dd></dl>
-
-</div>
-</div>
-<a id="gaec0e5508b638d5599c59593e4afc7ee4" name="gaec0e5508b638d5599c59593e4afc7ee4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaec0e5508b638d5599c59593e4afc7ee4">&#9670;&#160;</a></span>isEqual()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;fixed_point T&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool toy::math::isEqual </td>
-          <td>(</td>
-          <td class="paramtype">const T &amp;</td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const T &amp;</td>          <td class="paramname"><span class="paramname"><em>b</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">T</td>          <td class="paramname"><span class="paramname"><em>absEpsilon</em></span><span class="paramdefsep"> = </span><span class="paramdefval">8&#160;*<a class="el" href="../../db/dc2/classnumeric__limits.html">numeric_limits</a>&lt;&#160;T&#160;&gt;::epsilon()</span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">T</td>          <td class="paramname"><span class="paramname"><em>relEpsilon</em></span><span class="paramdefsep"> = </span><span class="paramdefval">64&#160;*<a class="el" href="../../db/dc2/classnumeric__limits.html">numeric_limits</a>&lt;&#160;T&#160;&gt;::epsilon()</span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Compares two fixed-point values for approximate equality. </p>
-<p>Combined absolute and relative epsilon test: small values by <em class="arg">absEpsilon</em>, large values by <em class="arg">relEpsilon</em> scaled by max(|a|, |b|). Supports <a class="el" href="../../dd/de0/concepttoy_1_1math_1_1fixed__point.html" title="toy::math::fixed_point">toy::math::fixed_point</a>.</p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>Fixed-point type; must satisfy <a class="el" href="../../dd/de0/concepttoy_1_1math_1_1fixed__point.html" title="toy::math::fixed_point">toy::math::fixed_point</a>.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">a</td><td>The first value. </td></tr>
-    <tr><td class="paramname">b</td><td>The second value. </td></tr>
-    <tr><td class="paramname">absEpsilon</td><td>The maximum absolute difference treated as equal (default: 8× <code>numeric_limits&lt;T&gt;::epsilon()</code>). </td></tr>
-    <tr><td class="paramname">relEpsilon</td><td>The maximum relative difference (default: 64× <code>numeric_limits&lt;T&gt;::epsilon()</code>).</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> if <em class="arg">a</em> and <em class="arg">b</em> are considered equal under the chosen tolerances, <code>false</code> otherwise. </dd></dl>
 
 </div>
 </div>
@@ -1921,7 +1767,7 @@ template&lt;typename Base, typename Intermediate, unsigned Fraction, bool Roundi
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if left.x == right.x and left.y == right.y, <code>false</code> otherwise.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d5/d12/group___math_functions.html#gaec0e5508b638d5599c59593e4afc7ee4" title="Compares two floating-point values for approximate equality.">isEqual()</a> for tolerance-based comparison. </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d5/d12/group___math_functions.html#gaec0e5508b638d5599c59593e4afc7ee4" title="Compares two values for approximate equality.">isEqual()</a> for tolerance-based comparison. </dd></dl>
 
 </div>
 </div>
@@ -2007,7 +1853,7 @@ template&lt;Vector2DComponent T&gt; </div>
 </div><div class="memdoc">
 
 <p>Exact equality of two vectors. </p>
-<p>For floating-point <em class="arg">T</em>, delegates to <a class="el" href="../../d5/d12/group___math_functions.html#gaec0e5508b638d5599c59593e4afc7ee4" title="Compares two floating-point values for approximate equality.">isEqual()</a> with default epsilons. For fixed-point <em class="arg">T</em>, compares raw storage of both components.</p>
+<p>For floating-point <em class="arg">T</em>, delegates to <a class="el" href="../../d5/d12/group___math_functions.html#gaec0e5508b638d5599c59593e4afc7ee4" title="Compares two values for approximate equality.">isEqual()</a> with default epsilons. For fixed-point <em class="arg">T</em>, compares raw storage of both components.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">left</td><td>First operand. </td></tr>
@@ -2016,7 +1862,7 @@ template&lt;Vector2DComponent T&gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>For floating-point <em class="arg">T:</em> <code>true</code> if isEqual(<em class="arg">right</em>) with default tolerances. For fixed-point <em class="arg">T:</em> <code>true</code> if <em class="arg">left</em> and <em class="arg">right</em> have equal raw component values.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d5/d12/group___math_functions.html#gaec0e5508b638d5599c59593e4afc7ee4" title="Compares two floating-point values for approximate equality.">isEqual()</a> for custom tolerances (floating-point). </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d5/d12/group___math_functions.html#gaec0e5508b638d5599c59593e4afc7ee4" title="Compares two values for approximate equality.">isEqual()</a> for custom tolerances (floating-point). </dd></dl>
 
 </div>
 </div>
