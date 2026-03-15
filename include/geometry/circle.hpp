@@ -78,7 +78,7 @@ concept CircleComponent = math::floating_point<T> || math::fixed_point<T>;
 
   \section safety Safety Guarantees
 
-  - **Preconditions**: Constructor (center, radius) requires \a radius >= \c 0 (assert in debug).
+  - **Preconditions**: Constructor (center, radius) requires \a radius > \c 0 (assert in debug).
   - **Exception safety**: All operations are noexcept.
 
   \sa CircleComponent
@@ -100,7 +100,7 @@ public:
     \brief Constructs a circle with the given center and radius.
 
     \param center Center of the circle.
-    \param radius Radius; must be \c >= \c 0 (asserted in debug).
+    \param radius Radius; must be \c > \c 0 (asserted in debug).
 
     \pre \a radius > \c 0 (circle must be valid).
   */

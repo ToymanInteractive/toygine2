@@ -258,11 +258,11 @@ TEST_CASE("geometry/circle/operator_equality") {
     REQUIRE(!(af == cf));
 
     static_assert(a != b, "circles with different radius must be unequal");
-    static_assert(a != c, "circles with different radius must be unequal");
+    static_assert(a != c, "circles with different center must be unequal");
     static_assert(!(a == b), "unequal circles must not compare equal");
     static_assert(!(a == c), "unequal circles must not compare equal");
     static_assert(af != bf, "fixed circles with different radius must be unequal");
-    static_assert(af != cf, "fixed circles with different radius must be unequal");
+    static_assert(af != cf, "fixed circles with different center must be unequal");
     static_assert(!(af == bf), "unequal fixed circles must not compare equal");
     static_assert(!(af == cf), "unequal fixed circles must not compare equal");
   }
