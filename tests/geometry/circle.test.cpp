@@ -216,18 +216,28 @@ TEST_CASE("geometry/circle/operator_equality") {
   SUBCASE("not_equal") {
     constexpr Circle a(math::Vector2D(1.0f, 2.0f), 3.0f);
     constexpr Circle b(math::Vector2D(1.0f, 2.0f), 4.0f);
+    constexpr Circle c(math::Vector2D(1.0f, 3.0f), 3.0f);
     constexpr Circle af(math::Vector2D(Fixed(1), Fixed(2)), Fixed(3));
     constexpr Circle bf(math::Vector2D(Fixed(1), Fixed(2)), Fixed(4));
+    constexpr Circle cf(math::Vector2D(Fixed(1), Fixed(3)), Fixed(3));
 
     REQUIRE(a != b);
+    REQUIRE(a != c);
     REQUIRE(!(a == b));
+    REQUIRE(!(a == c));
     REQUIRE(af != bf);
+    REQUIRE(af != cf);
     REQUIRE(!(af == bf));
+    REQUIRE(!(af == cf));
 
     static_assert(a != b, "circles with different radius must be unequal");
+    static_assert(a != c, "circles with different radius must be unequal");
     static_assert(!(a == b), "unequal circles must not compare equal");
+    static_assert(!(a == c), "unequal circles must not compare equal");
     static_assert(af != bf, "fixed circles with different radius must be unequal");
+    static_assert(af != cf, "fixed circles with different radius must be unequal");
     static_assert(!(af == bf), "unequal fixed circles must not compare equal");
+    static_assert(!(af == cf), "unequal fixed circles must not compare equal");
   }
 }
 
