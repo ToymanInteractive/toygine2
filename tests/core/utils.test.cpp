@@ -405,30 +405,28 @@ TEST_CASE("core/utils/highest_bit") {
   }
 }
 
-/*
 // Format number string with thousand separator.
 TEST_CASE("core/utils/format_number_string_adds_thousand_separator") {
-constexpr array<const char *, 14> numbers{{"", "Hello World", "-256192.12", "32", "4192", "+2561921.2", "1", "12",
-                     "123", "12345678", "-1234567890", "+0", "-0", "0.0"}};
+  constexpr array<const char *, 14> numbers{{"", "Hello World", "-256192.12", "32", "4192", "+2561921.2", "1", "12",
+                                             "123", "12345678", "-1234567890", "+0", "-0", "0.0"}};
 
-constexpr array<const char *, 14> parsedNumbers{{"", "Hello World", "-256 192.12", "32", "4 192", "+2 561 921.2", "1",
-                           "12", "123", "12 345 678", "-1 234 567 890", "+0", "-0", "0.0"}};
+  constexpr array<const char *, 14> parsedNumbers{{"", "Hello World", "-256 192.12", "32", "4 192", "+2 561 921.2", "1",
+                                                   "12", "123", "12 345 678", "-1 234 567 890", "+0", "-0", "0.0"}};
 
-static_assert(numbers.size() == parsedNumbers.size(), "input and expected arrays must have same size");
+  static_assert(numbers.size() == parsedNumbers.size(), "input and expected arrays must have same size");
 
-for (size_t index = 0; index < parsedNumbers.size(); ++index) {
-char buffer[128];
+  for (size_t index = 0; index < parsedNumbers.size(); ++index) {
+    char buffer[128];
 
 #ifdef _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES
-strcpy_s<sizeof(buffer)>(buffer, numbers[index]);
+    strcpy_s<sizeof(buffer)>(buffer, numbers[index]);
 #else
-strncpy(buffer, numbers[index], sizeof(buffer));
+    strncpy(buffer, numbers[index], sizeof(buffer));
 #endif // _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES
 
-formatNumberString(buffer, sizeof(buffer), " ");
-REQUIRE(strcmp(buffer, parsedNumbers[index]) == 0);
+    formatNumberString(buffer, sizeof(buffer), " ");
+    REQUIRE(strcmp(buffer, parsedNumbers[index]) == 0);
+  }
 }
-}
-*/
 
 } // namespace toy
