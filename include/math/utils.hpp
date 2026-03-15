@@ -48,56 +48,32 @@
 namespace toy::math {
 
 /*!
-  \brief Returns the absolute value of a signed integer.
+  \brief Returns the absolute value of \a value.
   \ingroup MathFunctions
 
-  Computes absolute value without branches. Usable in constant expressions.
+  Supports signed integers, floating-point, and fixed-point. Branch-free for signed integrals and fixed-point, for
+  floating-point uses a conditional. Usable in constant expressions.
 
-  \tparam T Signed integer type; must satisfy \ref toy::math::signed_integral.
+  \tparam T Must satisfy \ref toy::math::signed_integral, \ref toy::math::floating_point, or
+            \ref toy::math::fixed_point.
 
-  \param value The signed integer value.
+  \param value The value (signed integer, floating-point, or fixed-point).
 
   \return The absolute value of \a value (unchanged if non-negative, negated if negative).
 */
-template <signed_integral T>
+template <typename T>
+  requires(signed_integral<T> || floating_point<T> || fixed_point<T>)
 [[nodiscard]] constexpr T abs(const T & value) noexcept;
 
 /*!
-  \brief Returns the absolute value of a floating-point number.
-  \ingroup MathFunctions
-
-  Branch-free for \c float and \c double; \c long \c double uses a conditional. Usable in constant expressions.
-
-  \tparam T Floating-point type; must satisfy \ref toy::math::floating_point.
-
-  \param value The floating-point value.
-
-  \return The absolute value of \a value (unchanged if non-negative, negated if negative).
-*/
-template <floating_point T>
-[[nodiscard]] constexpr T abs(const T & value) noexcept;
-
-/*!
-  \brief Returns the absolute value of a \ref toy::math::fixed value.
-  \ingroup MathFunctions
-
-  \tparam T Fixed-point type; must satisfy \ref toy::math::fixed_point.
-
-  \param value The fixed-point value.
-
-  \return The absolute value of \a value (unchanged if non-negative, negated if negative).
-*/
-template <fixed_point T>
-[[nodiscard]] constexpr T abs(const T & value) noexcept;
-
-/*!
-  \brief Compares two floating-point values for approximate equality.
+  \brief Compares two values for approximate equality.
   \ingroup MathFunctions
 
   Combined absolute and relative epsilon test: small values by \a absEpsilon, large values by \a relEpsilon scaled by
-  max(|a|, |b|). Supports \c float, \c double, and \c long \c double.
+  max(|a|, |b|). Supports floating-point and fixed-point. For floating-point, does not support NaN inputs (assert in
+  debug).
 
-  \tparam T Floating-point type; must satisfy \ref toy::math::floating_point.
+  \tparam T Must satisfy \ref toy::math::floating_point or \ref toy::math::fixed_point.
 
   \param a          The first value.
   \param b          The second value.
@@ -106,27 +82,8 @@ template <fixed_point T>
 
   \return \c true if \a a and \a b are considered equal under the chosen tolerances, \c false otherwise.
 */
-template <floating_point T>
-[[nodiscard]] constexpr bool isEqual(const T & a, const T & b, T absEpsilon = 8 * numeric_limits<T>::epsilon(),
-                                     T relEpsilon = 64 * numeric_limits<T>::epsilon()) noexcept;
-
-/*!
-  \brief Compares two fixed-point values for approximate equality.
-  \ingroup MathFunctions
-
-  Combined absolute and relative epsilon test: small values by \a absEpsilon, large values by \a relEpsilon scaled by
-  max(|a|, |b|). Supports \ref toy::math::fixed_point.
-
-  \tparam T Fixed-point type; must satisfy \ref toy::math::fixed_point.
-
-  \param a          The first value.
-  \param b          The second value.
-  \param absEpsilon The maximum absolute difference treated as equal (default: 8× \c numeric_limits<T>::epsilon()).
-  \param relEpsilon The maximum relative difference (default: 64× \c numeric_limits<T>::epsilon()).
-
-  \return \c true if \a a and \a b are considered equal under the chosen tolerances, \c false otherwise.
-*/
-template <fixed_point T>
+template <typename T>
+  requires(floating_point<T> || fixed_point<T>)
 [[nodiscard]] constexpr bool isEqual(const T & a, const T & b, T absEpsilon = 8 * numeric_limits<T>::epsilon(),
                                      T relEpsilon = 64 * numeric_limits<T>::epsilon()) noexcept;
 
