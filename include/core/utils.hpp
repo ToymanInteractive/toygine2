@@ -283,7 +283,7 @@ void formatNumberString(char * buffer, size_t bufferSize, const char * separator
 
   \pre \a value \c != \c 0.
 */
-[[nodiscard]] size_t highestBit(const uint64_t & value) noexcept;
+[[nodiscard]] size_t highestBit(uint64_t value) noexcept;
 
 } // namespace toy
 
