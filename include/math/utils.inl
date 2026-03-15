@@ -27,63 +27,47 @@
 
 namespace toy::math {
 
-template <signed_integral T>
+template <typename T>
+  requires(signed_integral<T> || floating_point<T> || fixed_point<T>)
 constexpr T abs(const T & value) noexcept {
-  assert_message(value != numeric_limits<T>::min(), "abs() of the minimum signed integer is not representable");
-
-  T mask = value >> numeric_limits<T>::digits;
-
-  return (value + mask) ^ mask;
-}
-
-template <floating_point T>
-constexpr T abs(const T & value) noexcept {
-  if constexpr (std::same_as<T, float>) {
-    // Branch-free: clear IEEE 754 sign bit via bit_cast (float is 32-bit on supported platforms).
-    auto bits = bit_cast<uint32_t>(value);
-    bits &= 0x7FFFFFFF;
-
-    return bit_cast<float>(bits);
-  } else if constexpr (std::same_as<T, double>) {
-    // Branch-free: clear IEEE 754 sign bit via bit_cast (double is 64-bit on supported platforms).
-    auto bits = bit_cast<uint64_t>(value);
-    bits &= 0x7FFFFFFFFFFFFFFF;
-
-    return bit_cast<double>(bits);
-  } else {
-    // Long double: platform-dependent representation; bit_cast not viable, use conditional.
-    return value < T(0) ? -value : value;
+  if constexpr (signed_integral<T>) {
+    assert_message(value != numeric_limits<T>::min(), "abs() of the minimum signed integer is not representable");
+    T mask = value >> numeric_limits<T>::digits;
+    return (value + mask) ^ mask;
+  } else if constexpr (floating_point<T>) {
+    if constexpr (std::same_as<T, float>) {
+      // Branch-free: clear sign bit (float has fixed 32-bit representation on supported platforms).
+      auto bits = bit_cast<uint32_t>(value);
+      bits &= 0x7FFFFFFF;
+      return bit_cast<float>(bits);
+    } else if constexpr (std::same_as<T, double>) {
+      // Branch-free: clear sign bit (double has fixed 64-bit representation on supported platforms).
+      auto bits = bit_cast<uint64_t>(value);
+      bits &= 0x7FFFFFFFFFFFFFFF;
+      return bit_cast<double>(bits);
+    } else {
+      // long double layout is platform-dependent; bit_cast not portable.
+      return value < T(0) ? -value : value;
+    }
+  } else if constexpr (fixed_point<T>) {
+    using Base = decltype(value.rawValue());
+    constexpr int digits = numeric_limits<Base>::digits;
+    auto raw = value.rawValue();
+    assert_message(raw != numeric_limits<Base>::min(), "abs() of the minimum fixed-point value is not representable");
+    Base mask = raw >> digits;
+    return T::fromRawValue(static_cast<Base>((raw + mask) ^ mask));
   }
 }
 
-template <fixed_point T>
-constexpr T abs(const T & value) noexcept {
-  using Base = decltype(value.rawValue());
-  constexpr int digits = numeric_limits<Base>::digits;
-  auto raw = value.rawValue();
-  assert_message(raw != numeric_limits<Base>::min(), "abs() of the minimum fixed-point value is not representable");
-  Base mask = raw >> digits;
-
-  return T::fromRawValue(static_cast<Base>((raw + mask) ^ mask));
-}
-
-template <floating_point T>
+template <typename T>
+  requires(floating_point<T> || fixed_point<T>)
 constexpr bool isEqual(const T & a, const T & b, T absEpsilon, T relEpsilon) noexcept {
   assert_message(absEpsilon >= T{0} && relEpsilon >= T{0}, "absolute and relative epsilon must be non-negative");
-  if !consteval {
-    assert_message(!isnan(a) && !isnan(b), "isEqual() does not support NaN values");
+  if constexpr (floating_point<T>) {
+    if !consteval {
+      assert_message(!isnan(a) && !isnan(b), "isEqual() does not support NaN values");
+    }
   }
-
-  const T diff = abs(a - b);
-  if (diff <= absEpsilon)
-    return true;
-
-  return diff <= max(abs(a), abs(b)) * relEpsilon;
-}
-
-template <fixed_point T>
-constexpr bool isEqual(const T & a, const T & b, T absEpsilon, T relEpsilon) noexcept {
-  assert_message(absEpsilon >= T{0} && relEpsilon >= T{0}, "absolute and relative epsilon must be non-negative");
 
   const T diff = abs(a - b);
   if (diff <= absEpsilon)

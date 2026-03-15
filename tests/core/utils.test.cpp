@@ -375,6 +375,36 @@ TEST_CASE("core/utils/ftoa_converts_float_to_string") {
   }
 }
 
+// highestBit(value) returns 0-based index of the highest set bit; value must be non-zero.
+TEST_CASE("core/utils/highest_bit") {
+  // Single bit set: index equals bit position.
+  SUBCASE("single_bit") {
+    REQUIRE(highestBit(1ULL) == 0);
+    REQUIRE(highestBit(2ULL) == 1);
+    REQUIRE(highestBit(4ULL) == 2);
+    REQUIRE(highestBit(8ULL) == 3);
+    REQUIRE(highestBit(0x80000000ULL) == 31);
+    REQUIRE(highestBit(0x8000000000000000ULL) == 63);
+  }
+
+  // Multiple bits set: returns index of the highest set bit.
+  SUBCASE("multiple_bits") {
+    REQUIRE(highestBit(3ULL) == 1);
+    REQUIRE(highestBit(5ULL) == 2);
+    REQUIRE(highestBit(0xFFULL) == 7);
+    REQUIRE(highestBit(0xFFFFFFFFULL) == 31);
+    REQUIRE(highestBit(0xFFFFFFFFFFFFFFFFULL) == 63);
+  }
+
+  // Powers of two across the range.
+  SUBCASE("powers_of_two") {
+    for (size_t i = 0; i < 64; ++i) {
+      const uint64_t v = 1ULL << i;
+      REQUIRE(highestBit(v) == i);
+    }
+  }
+}
+
 /*
 // Format number string with thousand separator.
 TEST_CASE("core/utils/format_number_string_adds_thousand_separator") {
