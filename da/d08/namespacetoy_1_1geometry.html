@@ -114,36 +114,128 @@ $(function(){initNavTree('da/d08/namespacetoy_1_1geometry.html','../../',''); })
 </div><!--header-->
 <div class="contents">
 
-<p>Geometry types and utilities: sections (intervals) and related APIs.  
+<p>Geometry types and utilities: sections (intervals), circles, and related APIs.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:Circle" id="r_Circle"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../df/d25/classtoy_1_1geometry_1_1_circle.html">Circle</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../df/d25/classtoy_1_1geometry_1_1_circle.html" title="Circle in 2D with center and radius.">Circle</a> in 2D with center and radius.  <a href="../../df/d25/classtoy_1_1geometry_1_1_circle.html#details">More...</a><br /></td></tr>
 <tr class="memitem:Section" id="r_Section"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../db/d6f/classtoy_1_1geometry_1_1_section.html">Section</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">One-dimensional interval [start, end] over a numeric endpoint type.  <a href="../../db/d6f/classtoy_1_1geometry_1_1_section.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-concepts" class="groupheader"><a id="concepts" name="concepts"></a>
 Concepts</h2></td></tr>
+<tr class="memitem:CircleComponent" id="r_CircleComponent"><td class="memItemLeft">concept &#160;</td><td class="memItemRight"><a class="el" href="../../dc/dde/concepttoy_1_1geometry_1_1_circle_component.html">CircleComponent</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concept satisfied when <em class="arg">T</em> is a component type allowed as <a class="el" href="../../df/d25/classtoy_1_1geometry_1_1_circle.html" title="toy::geometry::Circle">toy::geometry::Circle</a> template parameter. <br /></td></tr>
 <tr class="memitem:SectionEndpoint" id="r_SectionEndpoint"><td class="memItemLeft">concept &#160;</td><td class="memItemRight"><a class="el" href="../../d9/def/concepttoy_1_1geometry_1_1_section_endpoint.html">SectionEndpoint</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concept satisfied when <em class="arg">T</em> is an endpoint type allowed as <a class="el" href="../../db/d6f/classtoy_1_1geometry_1_1_section.html" title="toy::geometry::Section">toy::geometry::Section</a> template parameter. <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ab1c24341562abc2d89d35030b97ee816" id="r_ab1c24341562abc2d89d35030b97ee816"><td class="memTemplParams" colspan="2">template&lt;SectionEndpoint T&gt; </td></tr>
-<tr class="memitem:ab1c24341562abc2d89d35030b97ee816 template"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#ab1c24341562abc2d89d35030b97ee816">operator==</a> (const <a class="el" href="../../db/d6f/classtoy_1_1geometry_1_1_section.html">Section</a>&lt; T &gt; &amp;a, const <a class="el" href="../../db/d6f/classtoy_1_1geometry_1_1_section.html">Section</a>&lt; T &gt; &amp;b) noexcept</td></tr>
-<tr class="memdesc:ab1c24341562abc2d89d35030b97ee816"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equality for signed integral and fixed-point sections: exact comparison of bounds.  <br /></td></tr>
-<tr class="memitem:a53336dfb63b0925b90a0e2c34c7e6758" id="r_a53336dfb63b0925b90a0e2c34c7e6758"><td class="memTemplParams" colspan="2">template&lt;SectionEndpoint T&gt; </td></tr>
-<tr class="memitem:a53336dfb63b0925b90a0e2c34c7e6758 template"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#a53336dfb63b0925b90a0e2c34c7e6758">operator!=</a> (const <a class="el" href="../../db/d6f/classtoy_1_1geometry_1_1_section.html">Section</a>&lt; T &gt; &amp;a, const <a class="el" href="../../db/d6f/classtoy_1_1geometry_1_1_section.html">Section</a>&lt; T &gt; &amp;b) noexcept</td></tr>
-<tr class="memdesc:a53336dfb63b0925b90a0e2c34c7e6758"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inequality: <code>true</code> when bounds differ.  <br /></td></tr>
+<tr class="memitem:a9767f23d2139162b7cd69b920b810d25" id="r_a9767f23d2139162b7cd69b920b810d25"><td class="memTemplParams" colspan="2">template&lt;CircleComponent T&gt; </td></tr>
+<tr class="memitem:a9767f23d2139162b7cd69b920b810d25 template"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#a9767f23d2139162b7cd69b920b810d25">operator==</a> (const <a class="el" href="../../df/d25/classtoy_1_1geometry_1_1_circle.html">Circle</a>&lt; T &gt; &amp;left, const <a class="el" href="../../df/d25/classtoy_1_1geometry_1_1_circle.html">Circle</a>&lt; T &gt; &amp;right) noexcept</td></tr>
+<tr class="memdesc:a9767f23d2139162b7cd69b920b810d25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equality of two circles: same center and radius (tolerance-based for float, exact for fixed-point).  <br /></td></tr>
+<tr class="memitem:ac61dbd228686991c2d3f71ea1ad8e81f" id="r_ac61dbd228686991c2d3f71ea1ad8e81f"><td class="memTemplParams" colspan="2">template&lt;CircleComponent T&gt; </td></tr>
+<tr class="memitem:ac61dbd228686991c2d3f71ea1ad8e81f template"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#ac61dbd228686991c2d3f71ea1ad8e81f">operator!=</a> (const <a class="el" href="../../df/d25/classtoy_1_1geometry_1_1_circle.html">Circle</a>&lt; T &gt; &amp;left, const <a class="el" href="../../df/d25/classtoy_1_1geometry_1_1_circle.html">Circle</a>&lt; T &gt; &amp;right) noexcept</td></tr>
+<tr class="memdesc:ac61dbd228686991c2d3f71ea1ad8e81f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inequality of two circles.  <br /></td></tr>
+<tr class="memitem:ac96ec8691993b9edd8c37636db9f910c" id="r_ac96ec8691993b9edd8c37636db9f910c"><td class="memTemplParams" colspan="2">template&lt;SectionEndpoint T&gt; </td></tr>
+<tr class="memitem:ac96ec8691993b9edd8c37636db9f910c template"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#ac96ec8691993b9edd8c37636db9f910c">operator==</a> (const <a class="el" href="../../db/d6f/classtoy_1_1geometry_1_1_section.html">Section</a>&lt; T &gt; &amp;left, const <a class="el" href="../../db/d6f/classtoy_1_1geometry_1_1_section.html">Section</a>&lt; T &gt; &amp;right) noexcept</td></tr>
+<tr class="memdesc:ac96ec8691993b9edd8c37636db9f910c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equality of two sections: exact comparison for integral and fixed-point, approximate for floating-point.  <br /></td></tr>
+<tr class="memitem:ae2baf29b34806b82b36ed672b17b840a" id="r_ae2baf29b34806b82b36ed672b17b840a"><td class="memTemplParams" colspan="2">template&lt;SectionEndpoint T&gt; </td></tr>
+<tr class="memitem:ae2baf29b34806b82b36ed672b17b840a template"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#ae2baf29b34806b82b36ed672b17b840a">operator!=</a> (const <a class="el" href="../../db/d6f/classtoy_1_1geometry_1_1_section.html">Section</a>&lt; T &gt; &amp;left, const <a class="el" href="../../db/d6f/classtoy_1_1geometry_1_1_section.html">Section</a>&lt; T &gt; &amp;right) noexcept</td></tr>
+<tr class="memdesc:ae2baf29b34806b82b36ed672b17b840a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inequality of two sections.  <br /></td></tr>
+<tr class="memitem:ad808a17cf782c6642b1e2d8cffcb2a5b" id="r_ad808a17cf782c6642b1e2d8cffcb2a5b"><td class="memTemplParams" colspan="2">template&lt;CircleComponent T&gt; </td></tr>
+<tr class="memitem:ad808a17cf782c6642b1e2d8cffcb2a5b template"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad808a17cf782c6642b1e2d8cffcb2a5b">Circle</a> (const <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">math::Vector2D</a>&lt; T &gt; &amp;, const T &amp;) -&gt; Circle&lt; T &gt;</td></tr>
+<tr class="memdesc:ad808a17cf782c6642b1e2d8cffcb2a5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deduction guide: enables <code>Circle(center, radius)</code> without an explicit template argument when both arguments have the same <a class="el" href="../../dc/dde/concepttoy_1_1geometry_1_1_circle_component.html" title="toy::geometry::CircleComponent">toy::geometry::CircleComponent</a> type.  <br /></td></tr>
 <tr class="memitem:ac9aa400e5e2d35d5c6029dae023185c7" id="r_ac9aa400e5e2d35d5c6029dae023185c7"><td class="memTemplParams" colspan="2">template&lt;SectionEndpoint T&gt; </td></tr>
 <tr class="memitem:ac9aa400e5e2d35d5c6029dae023185c7 template"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ac9aa400e5e2d35d5c6029dae023185c7">Section</a> (const T &amp;, const T &amp;) -&gt; Section&lt; T &gt;</td></tr>
 <tr class="memdesc:ac9aa400e5e2d35d5c6029dae023185c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deduction guide: enables <code>Section(a, b)</code> without an explicit template argument when both arguments have the same <a class="el" href="../../d9/def/concepttoy_1_1geometry_1_1_section_endpoint.html" title="toy::geometry::SectionEndpoint">toy::geometry::SectionEndpoint</a> type.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Geometry types and utilities: sections (intervals) and related APIs. </p>
+<div class="textblock"><p>Geometry types and utilities: sections (intervals), circles, and related APIs. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="a53336dfb63b0925b90a0e2c34c7e6758" name="a53336dfb63b0925b90a0e2c34c7e6758"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a53336dfb63b0925b90a0e2c34c7e6758">&#9670;&#160;</a></span>operator!=()</h2>
+<a id="ad808a17cf782c6642b1e2d8cffcb2a5b" name="ad808a17cf782c6642b1e2d8cffcb2a5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad808a17cf782c6642b1e2d8cffcb2a5b">&#9670;&#160;</a></span>Circle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;CircleComponent T&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">toy::geometry::Circle </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">math::Vector2D</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const T &amp;</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;) -&gt;  Circle&lt; T &gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Deduction guide: enables <code>Circle(center, radius)</code> without an explicit template argument when both arguments have the same <a class="el" href="../../dc/dde/concepttoy_1_1geometry_1_1_circle_component.html" title="toy::geometry::CircleComponent">toy::geometry::CircleComponent</a> type. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Component type; must satisfy <a class="el" href="../../dc/dde/concepttoy_1_1geometry_1_1_circle_component.html" title="toy::geometry::CircleComponent">toy::geometry::CircleComponent</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ac61dbd228686991c2d3f71ea1ad8e81f" name="ac61dbd228686991c2d3f71ea1ad8e81f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac61dbd228686991c2d3f71ea1ad8e81f">&#9670;&#160;</a></span>operator!=() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;CircleComponent T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool toy::geometry::operator!= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../df/d25/classtoy_1_1geometry_1_1_circle.html">Circle</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>left</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="../../df/d25/classtoy_1_1geometry_1_1_circle.html">Circle</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>right</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Inequality of two circles. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Component type; must satisfy <a class="el" href="../../dc/dde/concepttoy_1_1geometry_1_1_circle_component.html" title="toy::geometry::CircleComponent">toy::geometry::CircleComponent</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">left</td><td>First circle. </td></tr>
+    <tr><td class="paramname">right</td><td>Second circle.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if <em class="arg">left</em> and <em class="arg">right</em> differ, i.e. <code>!</code>(<em class="arg">left</em> == <em class="arg">right</em>).</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a9767f23d2139162b7cd69b920b810d25" title="Equality of two circles: same center and radius (tolerance-based for float, exact for fixed-point).">operator==()</a> </dd></dl>
+
+</div>
+</div>
+<a id="ae2baf29b34806b82b36ed672b17b840a" name="ae2baf29b34806b82b36ed672b17b840a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2baf29b34806b82b36ed672b17b840a">&#9670;&#160;</a></span>operator!=() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -156,12 +248,12 @@ template&lt;SectionEndpoint T&gt; </div>
         <tr>
           <td class="memname">bool toy::geometry::operator!= </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../db/d6f/classtoy_1_1geometry_1_1_section.html">Section</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+          <td class="paramtype">const <a class="el" href="../../db/d6f/classtoy_1_1geometry_1_1_section.html">Section</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>left</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="../../db/d6f/classtoy_1_1geometry_1_1_section.html">Section</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
+          <td class="paramtype">const <a class="el" href="../../db/d6f/classtoy_1_1geometry_1_1_section.html">Section</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>right</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -171,21 +263,75 @@ template&lt;SectionEndpoint T&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Inequality: <code>true</code> when bounds differ. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">a</td><td>First section. </td></tr>
-    <tr><td class="paramname">b</td><td>Second section.</td></tr>
+<p>Inequality of two sections. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Endpoint type; must satisfy <a class="el" href="../../d9/def/concepttoy_1_1geometry_1_1_section_endpoint.html" title="toy::geometry::SectionEndpoint">toy::geometry::SectionEndpoint</a>.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> if <code>!</code>(a == b).</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="#ab1c24341562abc2d89d35030b97ee816" title="Equality for signed integral and fixed-point sections: exact comparison of bounds.">operator==()</a> </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">left</td><td>First section. </td></tr>
+    <tr><td class="paramname">right</td><td>Second section.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if <em class="arg">left</em> and <em class="arg">right</em> have different bounds, i.e. <code>!</code>(<em class="arg">left</em> == <em class="arg">right</em>).</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a9767f23d2139162b7cd69b920b810d25" title="Equality of two circles: same center and radius (tolerance-based for float, exact for fixed-point).">operator==()</a> </dd></dl>
 
 </div>
 </div>
-<a id="ab1c24341562abc2d89d35030b97ee816" name="ab1c24341562abc2d89d35030b97ee816"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab1c24341562abc2d89d35030b97ee816">&#9670;&#160;</a></span>operator==()</h2>
+<a id="a9767f23d2139162b7cd69b920b810d25" name="a9767f23d2139162b7cd69b920b810d25"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9767f23d2139162b7cd69b920b810d25">&#9670;&#160;</a></span>operator==() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;CircleComponent T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool toy::geometry::operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../df/d25/classtoy_1_1geometry_1_1_circle.html">Circle</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>left</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="../../df/d25/classtoy_1_1geometry_1_1_circle.html">Circle</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>right</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Equality of two circles: same center and radius (tolerance-based for float, exact for fixed-point). </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Component type; must satisfy <a class="el" href="../../dc/dde/concepttoy_1_1geometry_1_1_circle_component.html" title="toy::geometry::CircleComponent">toy::geometry::CircleComponent</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">left</td><td>First circle. </td></tr>
+    <tr><td class="paramname">right</td><td>Second circle.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if <em class="arg">left</em> and <em class="arg">right</em> have equal center and radius.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#ac61dbd228686991c2d3f71ea1ad8e81f" title="Inequality of two circles.">operator!=()</a> </dd></dl>
+
+</div>
+</div>
+<a id="ac96ec8691993b9edd8c37636db9f910c" name="ac96ec8691993b9edd8c37636db9f910c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac96ec8691993b9edd8c37636db9f910c">&#9670;&#160;</a></span>operator==() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -198,12 +344,12 @@ template&lt;SectionEndpoint T&gt; </div>
         <tr>
           <td class="memname">bool toy::geometry::operator== </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../db/d6f/classtoy_1_1geometry_1_1_section.html">Section</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+          <td class="paramtype">const <a class="el" href="../../db/d6f/classtoy_1_1geometry_1_1_section.html">Section</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>left</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="../../db/d6f/classtoy_1_1geometry_1_1_section.html">Section</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
+          <td class="paramtype">const <a class="el" href="../../db/d6f/classtoy_1_1geometry_1_1_section.html">Section</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>right</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -213,38 +359,23 @@ template&lt;SectionEndpoint T&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Equality for signed integral and fixed-point sections: exact comparison of bounds. </p>
-<p>Equality for floating-point sections: approximate comparison via <a class="el" href="../../d5/d12/group___math_functions.html#gaec0e5508b638d5599c59593e4afc7ee4" title="Compares two floating-point values for approximate equality.">math::isEqual</a>.</p>
+<p>Equality of two sections: exact comparison for integral and fixed-point, approximate for floating-point. </p>
+<p>For floating-point <em class="arg">T</em> compares bounds with <a class="el" href="../../d5/d12/group___math_functions.html#gaec0e5508b638d5599c59593e4afc7ee4" title="Compares two floating-point values for approximate equality.">math::isEqual</a>. For signed integral and fixed-point <em class="arg">T</em> compares <em class="arg">left.start</em> with <em class="arg">right.start</em> and <em class="arg">left.end</em> with <em class="arg">right.end</em> exactly.</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">T</td><td>Endpoint type; must satisfy <a class="el" href="../../d9/def/concepttoy_1_1geometry_1_1_section_endpoint.html" title="toy::geometry::SectionEndpoint">toy::geometry::SectionEndpoint</a> and toy::math::signed_integral or <a class="el" href="../../dd/de0/concepttoy_1_1math_1_1fixed__point.html" title="toy::math::fixed_point">toy::math::fixed_point</a>.</td></tr>
+    <tr><td class="paramname">T</td><td>Endpoint type; must satisfy <a class="el" href="../../d9/def/concepttoy_1_1geometry_1_1_section_endpoint.html" title="toy::geometry::SectionEndpoint">toy::geometry::SectionEndpoint</a>.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">a</td><td>First section. </td></tr>
-    <tr><td class="paramname">b</td><td>Second section.</td></tr>
+    <tr><td class="paramname">left</td><td>First section. </td></tr>
+    <tr><td class="paramname">right</td><td>Second section.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> if <em class="arg">a.start</em> == <em class="arg">b.start</em> and <em class="arg">a.end</em> == <em class="arg">b.end</em>.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a53336dfb63b0925b90a0e2c34c7e6758" title="Inequality: true when bounds differ.">operator!=()</a></dd></dl>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>Endpoint type; must satisfy <a class="el" href="../../d9/def/concepttoy_1_1geometry_1_1_section_endpoint.html" title="toy::geometry::SectionEndpoint">toy::geometry::SectionEndpoint</a> and toy::math::floating_point.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">a</td><td>First section. </td></tr>
-    <tr><td class="paramname">b</td><td>Second section.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> if both bounds are equal within default epsilon (<a class="el" href="../../d5/d12/group___math_functions.html#gaec0e5508b638d5599c59593e4afc7ee4" title="Compares two floating-point values for approximate equality.">math::isEqual</a>).</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a53336dfb63b0925b90a0e2c34c7e6758" title="Inequality: true when bounds differ.">operator!=()</a> </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if <em class="arg">left</em> and <em class="arg">right</em> have equal bounds (exact for integral/fixed-point, within default epsilon for floating-point).</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#ac61dbd228686991c2d3f71ea1ad8e81f" title="Inequality of two circles.">operator!=()</a> </dd></dl>
 
 </div>
 </div>

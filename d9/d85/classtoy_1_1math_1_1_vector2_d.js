@@ -1,6 +1,6 @@
 var classtoy_1_1math_1_1_vector2_d =
 [
-    [ "Vector2D", "d9/d85/classtoy_1_1math_1_1_vector2_d.html#aa41ae38402aeafb1864e7d5907b5b46c", null ],
+    [ "Vector2D", "d9/d85/classtoy_1_1math_1_1_vector2_d.html#a1ffd1ff78c809fefc54bb3ebeca99ffa", null ],
     [ "Vector2D", "d9/d85/classtoy_1_1math_1_1_vector2_d.html#a6a4337ee44c41e9fa40e17d97523fb51", null ],
     [ "Vector2D", "d9/d85/classtoy_1_1math_1_1_vector2_d.html#a71cff1e6c40ce47cdbc56198954a9173", null ],
     [ "c_arr", "d9/d85/classtoy_1_1math_1_1_vector2_d.html#a9f8d731226edb757d34dbce350e7433a", null ],

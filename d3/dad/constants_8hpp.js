@@ -14,6 +14,5 @@ var constants_8hpp =
     [ "toy::math::constants::pi_v", "dd/d71/namespacetoy_1_1math_1_1constants.html#aa386bcc63af4cf420bac521cb769e6bc", null ],
     [ "toy::math::constants::rad_per_deg_v", "dd/d71/namespacetoy_1_1math_1_1constants.html#a35b52d17a247dc7aec6c494854fa77fd", null ],
     [ "toy::math::constants::sqrt2_v", "dd/d71/namespacetoy_1_1math_1_1constants.html#a7e1c56ee16f6775476a908030aedb4a2", null ],
-    [ "toy::math::constants::sqrt3_v", "dd/d71/namespacetoy_1_1math_1_1constants.html#aa4c99dfc6e76f4ca84633f52d18f5c5a", null ],
-    [ "toy::math::constants::zero_v", "dd/d71/namespacetoy_1_1math_1_1constants.html#a46b43828504af817c557b6169c1e3f24", null ]
+    [ "toy::math::constants::sqrt3_v", "dd/d71/namespacetoy_1_1math_1_1constants.html#aa4c99dfc6e76f4ca84633f52d18f5c5a", null ]
 ];

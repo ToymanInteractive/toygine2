@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['fixed_5fpoint_0',['fixed_point',['../dd/de0/concepttoy_1_1math_1_1fixed__point.html',1,'toy::math']]],
-  ['fractionalconstanttype_1',['FractionalConstantType',['../d8/d2a/concepttoy_1_1math_1_1_fractional_constant_type.html',1,'toy::math']]]
+  ['circlecomponent_0',['CircleComponent',['../dc/dde/concepttoy_1_1geometry_1_1_circle_component.html',1,'toy::geometry']]]
 ];

@@ -1,11 +1,15 @@
 <map id="include/geometry.hpp" name="include/geometry.hpp">
-<area shape="rect" id="Node000001" title="Umbrella header for the geometry module." alt="" coords="6084,5,6247,31"/>
+<area shape="rect" id="Node000001" title="Umbrella header for the geometry module." alt="" coords="6261,5,6424,31"/>
 <area shape="rect" id="Node000002" href="$d4/d78/math_8hpp.html" title="Umbrella header for the math module." alt="" coords="5975,79,6059,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="6143,33,6055,75,6053,70,6140,28"/>
-<area shape="rect" id="Node000057" href="$d9/dc5/section_8hpp.html" title="toy::geometry::Section and toy::geometry::SectionEndpoint declarations." alt="" coords="6083,79,6247,104"/>
-<area shape="poly" id="edge64_Node000001_Node000057" title=" " alt="" coords="6168,31,6168,65,6163,65,6163,31"/>
-<area shape="rect" id="Node000058" href="$db/d7c/section_8inl.html" title="Inline implementations for toy::geometry::Section." alt="" coords="6271,79,6427,104"/>
-<area shape="poly" id="edge65_Node000001_Node000058" title=" " alt="" coords="6196,28,6307,71,6305,76,6194,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="6291,33,6073,81,6072,75,6290,28"/>
+<area shape="rect" id="Node000057" href="$d6/d0e/circle_8hpp.html" title="Declarations for toy::geometry::Circle and toy::geometry::CircleComponent." alt="" coords="6084,79,6236,104"/>
+<area shape="poly" id="edge64_Node000001_Node000057" title=" " alt="" coords="6314,33,6204,76,6202,71,6312,28"/>
+<area shape="rect" id="Node000058" href="$d9/dc5/section_8hpp.html" title="toy::geometry::Section and toy::geometry::SectionEndpoint declarations." alt="" coords="6261,79,6425,104"/>
+<area shape="poly" id="edge65_Node000001_Node000058" title=" " alt="" coords="6345,31,6345,65,6340,65,6340,31"/>
+<area shape="rect" id="Node000059" href="$dc/d16/circle_8inl.html" title="Inline implementations for toy::geometry::Circle." alt="" coords="6449,79,6593,104"/>
+<area shape="poly" id="edge66_Node000001_Node000059" title=" " alt="" coords="6372,28,6481,71,6479,76,6370,33"/>
+<area shape="rect" id="Node000060" href="$db/d7c/section_8inl.html" title="Inline implementations for toy::geometry::Section." alt="" coords="6618,79,6774,104"/>
+<area shape="poly" id="edge67_Node000001_Node000060" title=" " alt="" coords="6400,28,6626,73,6625,79,6399,33"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="2123,152,2202,177"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="5975,95,5288,99,4120,108,2940,126,2491,139,2216,155,2216,149,2491,134,2939,121,4120,103,5288,93,5975,90"/>
 <area shape="rect" id="Node000004" href="$da/d47/core_8hpp.html" title="Umbrella header for the engine core module." alt="" coords="2226,152,2305,177"/>
@@ -23,13 +27,13 @@
 <area shape="rect" id="Node000052" href="$d6/de1/vector2d_8hpp.html" title="2D vector class for interactive game objects and physics calculations." alt="" coords="6171,152,6317,177"/>
 <area shape="poly" id="edge58_Node000002_Node000052" title=" " alt="" coords="6055,101,6195,145,6193,150,6053,107"/>
 <area shape="rect" id="Node000053" href="$d3/d86/fixed_8inl.html" title="Inline implementations for toy::math::fixed." alt="" coords="6341,152,6451,177"/>
-<area shape="poly" id="edge59_Node000002_Node000053" title=" " alt="" coords="6060,99,6071,101,6328,149,6327,154,6070,107,6059,104"/>
+<area shape="poly" id="edge59_Node000002_Node000053" title=" " alt="" coords="6060,99,6073,101,6327,149,6326,154,6071,107,6059,104"/>
 <area shape="rect" id="Node000054" href="$d4/dee/point_8inl.html" title="Inline implementations for toy::math::Point." alt="" coords="6475,152,6589,177"/>
-<area shape="poly" id="edge60_Node000002_Node000054" title=" " alt="" coords="6060,99,6071,101,6179,117,6264,127,6462,149,6462,155,6264,132,6178,123,6070,107,6059,105"/>
+<area shape="poly" id="edge60_Node000002_Node000054" title=" " alt="" coords="6060,99,6072,101,6180,117,6265,127,6462,149,6462,155,6264,132,6179,122,6072,107,6059,104"/>
 <area shape="rect" id="Node000055" href="$de/d5d/math_2utils_8inl.html" title="Inline implementations for General math utilities." alt="" coords="6545,240,6615,265"/>
-<area shape="poly" id="edge62_Node000002_Node000055" title=" " alt="" coords="6060,100,6071,101,6173,106,6343,112,6510,125,6570,135,6591,142,6603,150,6613,169,6613,190,6606,211,6597,229,6593,227,6601,209,6607,189,6607,170,6599,154,6588,147,6569,140,6509,130,6343,118,6173,112,6070,107,6059,105"/>
+<area shape="poly" id="edge62_Node000002_Node000055" title=" " alt="" coords="6060,99,6072,101,6174,106,6344,112,6510,125,6570,135,6591,142,6603,150,6613,169,6613,190,6606,211,6597,229,6593,227,6601,209,6607,189,6607,170,6599,154,6588,147,6569,140,6510,130,6343,118,6174,112,6072,107,6059,105"/>
 <area shape="rect" id="Node000056" href="$dd/d53/vector2d_8inl.html" title="Inline implementations for toy::math::Vector2D." alt="" coords="6665,152,6802,177"/>
-<area shape="poly" id="edge63_Node000002_Node000056" title=" " alt="" coords="6060,100,6071,101,6232,121,6358,129,6484,136,6646,149,6651,150,6650,155,6645,155,6483,141,6357,135,6231,126,6070,107,6059,105"/>
+<area shape="poly" id="edge63_Node000002_Node000056" title=" " alt="" coords="6060,99,6072,101,6233,121,6358,129,6484,136,6646,149,6651,150,6650,155,6645,155,6484,141,6358,134,6232,126,6072,107,6059,105"/>
 <area shape="rect" id="Node000005" title=" " alt="" coords="5,240,91,265"/>
 <area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="2226,178,2214,180,2065,188,1817,192,1156,194,809,196,496,202,249,211,162,219,103,228,80,236,78,231,102,223,161,214,249,206,496,196,809,191,1156,189,1817,186,2065,182,2213,175,2225,173"/>
 <area shape="rect" id="Node000006" title=" " alt="" coords="115,240,171,265"/>

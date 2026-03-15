@@ -8,6 +8,7 @@ var annotated_dup =
         [ "Version", "d7/d33/structtoy_1_1application_1_1_version.html", "d7/d33/structtoy_1_1application_1_1_version" ]
       ] ],
       [ "geometry", "da/d08/namespacetoy_1_1geometry.html", [
+        [ "Circle", "df/d25/classtoy_1_1geometry_1_1_circle.html", "df/d25/classtoy_1_1geometry_1_1_circle" ],
         [ "Section", "db/d6f/classtoy_1_1geometry_1_1_section.html", "db/d6f/classtoy_1_1geometry_1_1_section" ]
       ] ],
       [ "math", "d2/d83/namespacetoy_1_1math.html", [

@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['section_0',['Section',['../db/d6f/classtoy_1_1geometry_1_1_section.html#ac7df188937defa68d39455e5f8a866dc',1,'toy::geometry::Section::Section() noexcept=default'],['../db/d6f/classtoy_1_1geometry_1_1_section.html#aac80f4567a8c718c91e530a0ef79ae85',1,'toy::geometry::Section::Section(const T &amp;min, const T &amp;max) noexcept'],['../da/d08/namespacetoy_1_1geometry.html#ac9aa400e5e2d35d5c6029dae023185c7',1,'toy::geometry::Section()']]],
+  ['section_0',['Section',['../db/d6f/classtoy_1_1geometry_1_1_section.html#a2d077511e29f9fa80e66e0faa7359811',1,'toy::geometry::Section::Section() noexcept'],['../db/d6f/classtoy_1_1geometry_1_1_section.html#aac80f4567a8c718c91e530a0ef79ae85',1,'toy::geometry::Section::Section(const T &amp;min, const T &amp;max) noexcept'],['../da/d08/namespacetoy_1_1geometry.html#ac9aa400e5e2d35d5c6029dae023185c7',1,'toy::geometry::Section()']]],
   ['setcallbacks_1',['setCallbacks',['../d2/da2/namespacetoy_1_1assertion.html#ab92066b98ab69bcf7db8e1089ea4f755',1,'toy::assertion']]],
   ['sethostname_2',['setHostname',['../d3/d53/classtoy_1_1network_1_1_endpoint.html#a2aed2f6fe32de88310592999e2e36853',1,'toy::network::Endpoint']]],
   ['setlocalhost_3',['setLocalHost',['../d3/d53/classtoy_1_1network_1_1_endpoint.html#acc709757f99125b51610ae78967f318d',1,'toy::network::Endpoint']]],

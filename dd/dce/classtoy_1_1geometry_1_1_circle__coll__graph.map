@@ -1,0 +1,5 @@
+<map id="toy::geometry::Circle&lt; T &gt;" name="toy::geometry::Circle&lt; T &gt;">
+<area shape="rect" id="Node000001" title="Circle in 2D with center and radius." alt="" coords="5,101,200,127"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="83,5,122,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="105,45,105,101,100,101,100,45"/>
+</map>
