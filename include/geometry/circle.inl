@@ -70,7 +70,11 @@ constexpr bool Circle<T>::isReset() const noexcept {
 
 template <CircleComponent T>
 constexpr bool Circle<T>::isValid() const noexcept {
-  return radius > 0;
+  if constexpr (math::floating_point<T>) {
+    return radius > T{0};
+  } else if constexpr (math::fixed_point<T>) {
+    return radius.rawValue() > 0;
+  }
 }
 
 template <CircleComponent T>

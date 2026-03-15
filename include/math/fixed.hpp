@@ -111,7 +111,7 @@ public:
   /*!
     \brief Default constructor.
 
-    Initializes value to zero.
+    Leaves storage uninitialized. Use explicit construction or assignment before use.
   */
   constexpr fixed() noexcept = default;
 

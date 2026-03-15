@@ -102,7 +102,7 @@ public:
     \param center Center of the circle.
     \param radius Radius; must be \c >= \c 0 (asserted in debug).
 
-    \pre \a radius >= \c 0.
+    \pre \a radius > \c 0 (circle must be valid).
   */
   constexpr Circle(const math::Vector2D<T> & center, const T & radius) noexcept;
 
@@ -151,7 +151,7 @@ public:
   \tparam T Component type; must satisfy \ref toy::geometry::CircleComponent.
 */
 template <CircleComponent T>
-Circle(const T &, const T &) -> Circle<T>;
+Circle(const math::Vector2D<T> &, const T &) -> Circle<T>;
 
 /*!
   \brief Equality of two circles: same center and radius (tolerance-based for float, exact for fixed-point).

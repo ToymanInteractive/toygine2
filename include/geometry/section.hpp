@@ -90,9 +90,9 @@ concept SectionEndpoint = math::signed_integral<T> || math::floating_point<T> ||
 template <SectionEndpoint T>
 class Section {
 public:
-  /// Lower bound of the interval. Default-constructed: \c numeric_limits<T>::max() (reset state).
+  /// Lower bound of the interval.
   T start;
-  /// Upper bound of the interval. Default-constructed: \c numeric_limits<T>::lowest() (reset state).
+  /// Upper bound of the interval.
   T end;
 
 public:
