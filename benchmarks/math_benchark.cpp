@@ -83,11 +83,6 @@ void runMathBenchmarks() noexcept {
 
   // Point benchmarks
   {
-    bench.run("Point default construct", [] {
-      Point p;
-      doNotOptimize(p);
-    });
-
     bench.run("Point coordinate construct", [] {
       Point p(10, 20);
       doNotOptimize(p);
@@ -232,15 +227,6 @@ void runMathBenchmarks() noexcept {
 
   // Vector2D benchmarks (float and Fixed)
   {
-    bench.run("Vector2D<float> default construct", [] {
-      Vector2D<float> v;
-      doNotOptimize(v);
-    });
-    bench.run("Vector2D<Fixed> default construct", [] {
-      Vector2D<Fixed> v;
-      doNotOptimize(v);
-    });
-
     bench.run("Vector2D<float> coordinate construct", [] {
       Vector2D v(10.0f, 20.0f);
       doNotOptimize(v);

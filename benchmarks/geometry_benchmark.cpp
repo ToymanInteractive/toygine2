@@ -30,15 +30,6 @@ void runGeometryBenchmarks() noexcept {
 
   // Circle benchmarks
   {
-    bench.run("Circle<float> default construct", [] {
-      Circle<float> c;
-      doNotOptimize(c);
-    });
-    bench.run("Circle<Fixed> default construct", [] {
-      Circle<Fixed> c;
-      doNotOptimize(c);
-    });
-
     bench.run("Circle<float> construct center radius", [] {
       Circle c(toy::math::Vector2D(5.0f, 10.0f), 3.0f);
       doNotOptimize(c);
@@ -133,19 +124,6 @@ void runGeometryBenchmarks() noexcept {
 
   // Section benchmarks
   {
-    bench.run("Section<int> default construct", [] {
-      Section<int> s;
-      doNotOptimize(s);
-    });
-    bench.run("Section<float> default construct", [] {
-      Section<float> s;
-      doNotOptimize(s);
-    });
-    bench.run("Section<Fixed> default construct", [] {
-      Section<Fixed> s;
-      doNotOptimize(s);
-    });
-
     bench.run("Section<int> construct min max", [] {
       Section s(10, 20);
       doNotOptimize(s);
