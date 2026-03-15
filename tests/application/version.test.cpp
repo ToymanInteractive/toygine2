@@ -24,7 +24,16 @@
 
 namespace toy::application {
 
-// Version constructors and initialization variants.
+// Version has fixed size and contiguous layout (four uint32_t components).
+TEST_CASE("app/version/object_structure") {
+  static_assert(sizeof(Version) == sizeof(uint32_t) * 4, "Version size must be 4× component size");
+
+  static_assert(!std::is_trivial_v<Version>, "Version must not be trivial (has non-trivial default init)");
+  static_assert(std::is_trivially_copyable_v<Version>, "Version must be trivially copyable");
+  static_assert(std::is_standard_layout_v<Version>, "Version must have standard layout");
+}
+
+// Constructors and initialization set major, minor, maintenance, revision.
 TEST_CASE("app/version/constructors") {
   // Default constructed version is zeroed.
   SUBCASE("default") {
@@ -57,7 +66,7 @@ TEST_CASE("app/version/constructors") {
   }
 }
 
-// Equality operator comparisons across version fields.
+// operator== compares all four version fields.
 TEST_CASE("app/version/equality_operator") {
   // Identical versions compare equal.
   SUBCASE("identical") {
@@ -123,7 +132,7 @@ TEST_CASE("app/version/equality_operator") {
   }
 }
 
-// Three-way comparison ordering behavior.
+// operator<=> orders by major, then minor, then maintenance, then revision.
 TEST_CASE("app/version/three_way_comparison_operator") {
   // Equal versions yield strong_ordering::equal.
   SUBCASE("equal_versions") {
@@ -204,7 +213,7 @@ TEST_CASE("app/version/three_way_comparison_operator") {
   }
 }
 
-// Relational and equality operators consistency checks.
+// <, <=, >, >=, != consistent with operator<=> and operator==.
 TEST_CASE("app/version/comparison_operators") {
   // Less-than operator orders by version fields.
   SUBCASE("less_than_operator") {
@@ -257,7 +266,7 @@ TEST_CASE("app/version/comparison_operators") {
   }
 }
 
-// Semantic versioning precedence scenarios.
+// Ordering precedence: major > minor > maintenance > revision.
 TEST_CASE("app/version/semantic_scenarios") {
   // Major version has highest precedence.
   SUBCASE("major_version_precedence") {
@@ -312,7 +321,7 @@ TEST_CASE("app/version/semantic_scenarios") {
   }
 }
 
-// Runtime-only comparisons that cannot be constexpr.
+// Runtime comparison chain and equality (non-constexpr path).
 TEST_CASE("app/version/runtime_tests") {
   Version v1{1, 0, 0, 0};
   Version v2{1, 1, 0, 0};
@@ -345,7 +354,7 @@ TEST_CASE("app/version/runtime_tests") {
   REQUIRE(v3 != v4);
   REQUIRE(v4 != v5);
 
-  // Test equality
+  // Equal versions compare equal.
   Version v6{1, 0, 0, 0};
   REQUIRE(v1 == v6);
   REQUIRE(v1 != v2);

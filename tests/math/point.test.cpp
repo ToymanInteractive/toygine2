@@ -28,18 +28,21 @@ using Fixed = fixed<int32_t, int64_t, 24>;
 
 // Point has fixed size and contiguous x,y layout.
 TEST_CASE("math/point/object_structure") {
+  static_assert(sizeof(Point) == sizeof(int32_t) * 2, "Point must have size of two int32_t");
+
   constexpr Point point(111, 222);
-
-  static_assert(sizeof(point) == sizeof(int32_t) * 2, "Point must have size of two int32_t");
-
   const auto * arr = point.c_arr();
 
   REQUIRE(arr == &point.x);
   REQUIRE(arr + 1 == &point.y);
   REQUIRE(reinterpret_cast<const byte *>(arr + 1) - reinterpret_cast<const byte *>(arr) == sizeof(int32_t));
+
+  static_assert(std::is_trivial_v<Point>, "Point must be trivial");
+  static_assert(std::is_trivially_copyable_v<Point>, "Point must be trivially copyable");
+  static_assert(std::is_standard_layout_v<Point>, "Point must have standard layout");
 }
 
-// Default, coordinate, and array constructors.
+// Constructors set x, y from coordinates or from pointer to two-element array.
 TEST_CASE("math/point/constructors") {
   // Constructor with coordinates.
   SUBCASE("constructor_with_coordinates") {
@@ -77,7 +80,7 @@ TEST_CASE("math/point/constructors") {
   }
 }
 
-// c_arr returns pointer to contiguous x,y.
+// c_arr() returns pointer to contiguous x, y; layout matches struct order.
 TEST_CASE("math/point/c_arr_methods") {
   // c_arr() returns pointer to x, y; layout is contiguous.
   SUBCASE("c_arr_layout") {
@@ -117,7 +120,7 @@ TEST_CASE("math/point/c_arr_methods") {
   }
 }
 
-// +=, -=, *=, /= and chaining.
+// operator+=, -=, *=, /= and chaining.
 TEST_CASE("math/point/operators") {
   // operator+= adds vector.
   SUBCASE("operator_plus_assign") {
@@ -235,7 +238,7 @@ TEST_CASE("math/point/operators") {
   }
 }
 
-// setZero, isZero, isEqual.
+// setZero(), isZero(), isEqual() behavior.
 TEST_CASE("math/point/point_methods") {
   // setZero() sets x, y to zero.
   SUBCASE("set_zero") {
@@ -320,7 +323,7 @@ TEST_CASE("math/point/point_methods") {
   }
 }
 
-// +, -, *, /, unary minus, ==.
+// Binary +, -, *, /, unary minus, operator==.
 TEST_CASE("math/point/binary_operators") {
   // Unary minus negates x, y.
   SUBCASE("unary_minus") {

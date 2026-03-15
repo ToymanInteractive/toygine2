@@ -58,7 +58,7 @@ concept CircleComponent = math::floating_point<T> || math::fixed_point<T>;
 
   - **Center and radius**: \a center and \a radius are public; \a T is floating-point or fixed-point.
   - **Reset state**: reset() sets center to zero and radius to zero; isReset() detects it.
-  - **Validity**: isValid() is \c true when \a radius > \c 0; constructor asserts \a radius >= \c 0 in debug.
+  - **Validity**: isValid() is \c true when \a radius > \c 0; constructor asserts \a radius > \c 0 in debug.
   - **Containment**: isContain() tests whether a point lies inside or on the circle (squared distance).
   - **Constexpr**: All operations are constexpr and noexcept.
 
