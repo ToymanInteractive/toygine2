@@ -85,4 +85,30 @@ void runCoreBenchmarks() noexcept {
       doNotOptimize(r);
     });
   }
+
+  // ftoa benchmarks
+  {
+    constexpr size_t bufSize = 64;
+    char buf[bufSize];
+
+    bench.run("ftoa float default precision", [&] {
+      char * r = toy::ftoa(buf, bufSize, 3.14159265f);
+      doNotOptimize(r);
+    });
+
+    bench.run("ftoa float custom precision", [&] {
+      char * r = toy::ftoa(buf, bufSize, -123.456f, 4);
+      doNotOptimize(r);
+    });
+
+    bench.run("ftoa double default precision", [&] {
+      char * r = toy::ftoa(buf, bufSize, 3.14159265358979);
+      doNotOptimize(r);
+    });
+
+    bench.run("ftoa double custom precision", [&] {
+      char * r = toy::ftoa(buf, bufSize, -12345.6789012345, 8);
+      doNotOptimize(r);
+    });
+  }
 }
