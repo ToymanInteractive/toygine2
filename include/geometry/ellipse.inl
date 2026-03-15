@@ -31,7 +31,7 @@ template <EllipseComponent T>
 constexpr Ellipse<T>::Ellipse(const math::Vector2D<T> & c, const math::Vector2D<T> & r) noexcept
   : center(c)
   , radiuses(r) {
-  assert_message(isValid(), "Ellipse radiuses must satisfy radius > 0");
+  assert_message(isValid(), "Ellipse radiuses must satisfy radiuses.x > 0 and radiuses.y > 0");
 }
 
 template <EllipseComponent T>
@@ -63,6 +63,8 @@ constexpr bool Ellipse<T>::isValid() const noexcept {
 
 template <EllipseComponent T>
 constexpr bool Ellipse<T>::isContain(const math::Vector2D<T> & vector) const noexcept {
+  assert_message(isValid(), "isContain requires a valid ellipse (both semi-axes positive)");
+
   const auto normalized = vector - center;
 
   return ((normalized.x * normalized.x) / (radiuses.x * radiuses.x)

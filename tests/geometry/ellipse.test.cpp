@@ -58,12 +58,12 @@ TEST_CASE("geometry/ellipse/constructor_center_radiuses") {
     REQUIRE(e.isValid());
     REQUIRE(!e.isReset());
 
-    static_assert(math::isEqual(e.center.x, 5.0f));
-    static_assert(math::isEqual(e.center.y, 10.0f));
-    static_assert(math::isEqual(e.radiuses.x, 3.0f));
-    static_assert(math::isEqual(e.radiuses.y, 4.0f));
-    static_assert(e.isValid());
-    static_assert(!e.isReset());
+    static_assert(math::isEqual(e.center.x, 5.0f), "constructor must store center.x");
+    static_assert(math::isEqual(e.center.y, 10.0f), "constructor must store center.y");
+    static_assert(math::isEqual(e.radiuses.x, 3.0f), "constructor must store radiuses.x");
+    static_assert(math::isEqual(e.radiuses.y, 4.0f), "constructor must store radiuses.y");
+    static_assert(e.isValid(), "ellipse with positive semi-axes must be valid");
+    static_assert(!e.isReset(), "ellipse with non-zero radiuses must not be reset");
   }
 
   // Fixed-point component type.
@@ -77,12 +77,12 @@ TEST_CASE("geometry/ellipse/constructor_center_radiuses") {
     REQUIRE(e.isValid());
     REQUIRE(!e.isReset());
 
-    static_assert(e.center.x == 5);
-    static_assert(e.center.y == 10);
-    static_assert(e.radiuses.x == 3);
-    static_assert(e.radiuses.y == 4);
-    static_assert(e.isValid());
-    static_assert(!e.isReset());
+    static_assert(e.center.x == 5, "constructor must store center.x");
+    static_assert(e.center.y == 10, "constructor must store center.y");
+    static_assert(e.radiuses.x == 3, "constructor must store radiuses.x");
+    static_assert(e.radiuses.y == 4, "constructor must store radiuses.y");
+    static_assert(e.isValid(), "ellipse with positive semi-axes must be valid");
+    static_assert(!e.isReset(), "ellipse with non-zero radiuses must not be reset");
   }
 }
 
@@ -94,7 +94,7 @@ TEST_CASE("geometry/ellipse/area") {
 
     REQUIRE(e.area() == doctest::Approx(157.07963268f));
 
-    static_assert(math::isEqual(e.area(), 157.07963268f), "area of unit semi-axes must be π");
+    static_assert(math::isEqual(e.area(), 157.07963268f), "area with semi-axes 10 and 5 must equal π×10×5");
   }
 
   // Fixed-point component type.
@@ -103,7 +103,7 @@ TEST_CASE("geometry/ellipse/area") {
 
     REQUIRE(math::isEqual(e.area(), Fixed(157.07963268f)));
 
-    static_assert(math::isEqual(e.area(), Fixed(157.07963268f)), "area of unit semi-axes must be positive");
+    static_assert(math::isEqual(e.area(), Fixed(157.07963268f)), "area with semi-axes 10 and 5 must equal π×10×5");
   }
 }
 
@@ -205,12 +205,12 @@ TEST_CASE("geometry/ellipse/is_contain") {
     REQUIRE(!e.isContain(math::Vector2D(11.0f, 0.0f)));
     REQUIRE(!e.isContain(math::Vector2D(0.0f, 6.0f)));
 
-    static_assert(e.isContain(math::Vector2D(0.0f, 0.0f)));
-    static_assert(e.isContain(math::Vector2D(5.0f, 0.0f)));
-    static_assert(e.isContain(math::Vector2D(10.0f, 0.0f)));
-    static_assert(e.isContain(math::Vector2D(0.0f, 5.0f)));
-    static_assert(!e.isContain(math::Vector2D(11.0f, 0.0f)));
-    static_assert(!e.isContain(math::Vector2D(0.0f, 6.0f)));
+    static_assert(e.isContain(math::Vector2D(0.0f, 0.0f)), "center must be contained");
+    static_assert(e.isContain(math::Vector2D(5.0f, 0.0f)), "point inside must be contained");
+    static_assert(e.isContain(math::Vector2D(10.0f, 0.0f)), "point on boundary (x-axis) must be contained");
+    static_assert(e.isContain(math::Vector2D(0.0f, 5.0f)), "point on boundary (y-axis) must be contained");
+    static_assert(!e.isContain(math::Vector2D(11.0f, 0.0f)), "point outside must not be contained");
+    static_assert(!e.isContain(math::Vector2D(0.0f, 6.0f)), "point outside must not be contained");
   }
 
   // Fixed-point component type.
@@ -224,12 +224,12 @@ TEST_CASE("geometry/ellipse/is_contain") {
     REQUIRE(!e.isContain(math::Vector2D(Fixed(11), Fixed(0))));
     REQUIRE(!e.isContain(math::Vector2D(Fixed(0), Fixed(6))));
 
-    static_assert(e.isContain(math::Vector2D(Fixed(0), Fixed(0))));
-    static_assert(e.isContain(math::Vector2D(Fixed(5), Fixed(0))));
-    static_assert(e.isContain(math::Vector2D(Fixed(10), Fixed(0))));
-    static_assert(e.isContain(math::Vector2D(Fixed(0), Fixed(5))));
-    static_assert(!e.isContain(math::Vector2D(Fixed(11), Fixed(0))));
-    static_assert(!e.isContain(math::Vector2D(Fixed(0), Fixed(6))));
+    static_assert(e.isContain(math::Vector2D(Fixed(0), Fixed(0))), "center must be contained");
+    static_assert(e.isContain(math::Vector2D(Fixed(5), Fixed(0))), "point inside must be contained");
+    static_assert(e.isContain(math::Vector2D(Fixed(10), Fixed(0))), "point on boundary (x-axis) must be contained");
+    static_assert(e.isContain(math::Vector2D(Fixed(0), Fixed(5))), "point on boundary (y-axis) must be contained");
+    static_assert(!e.isContain(math::Vector2D(Fixed(11), Fixed(0))), "point outside must not be contained");
+    static_assert(!e.isContain(math::Vector2D(Fixed(0), Fixed(6))), "point outside must not be contained");
   }
 }
 
