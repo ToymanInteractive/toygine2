@@ -328,7 +328,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a153b39b476aa91d0b98f6350eeae88a2" id="r_a153b39b476aa91d0b98f6350eeae88a2"><td class="memItemLeft">char *&#160;</td><td class="memItemRight"><a class="el" href="#a153b39b476aa91d0b98f6350eeae88a2">ftoa</a> (char *dest, size_t destSize, double value, size_t precision=15) noexcept</td></tr>
 <tr class="memdesc:a153b39b476aa91d0b98f6350eeae88a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a <code>double</code> to its decimal C string representation with specified precision.  <br /></td></tr>
 <tr class="memitem:aeeb4febc194b23813d77b08ac4fea2d1" id="r_aeeb4febc194b23813d77b08ac4fea2d1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aeeb4febc194b23813d77b08ac4fea2d1">formatNumberString</a> (char *buffer, size_t bufferSize, const char *separator) noexcept</td></tr>
-<tr class="memdesc:aeeb4febc194b23813d77b08ac4fea2d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Formats a number C string by inserting grouping separators.  <br /></td></tr>
+<tr class="memdesc:aeeb4febc194b23813d77b08ac4fea2d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts a grouping separator into a number C string every three digits from the right.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -1092,23 +1092,17 @@ This function is constexpr-compatible and can be used in compile-time contexts.<
 </table>
 </div><div class="memdoc">
 
-<p>Formats a number C string by inserting grouping separators. </p>
-<p>This function inserts a grouping <em class="arg">separator</em> (e.g., comma, space, or dot) into a number C string every three digits, starting from the right. This is commonly used for formatting large numbers to improve readability (e.g., "1,234,567").</p>
+<p>Inserts a grouping separator into a number C string every three digits from the right. </p>
+<p>Modifies <em class="arg">buffer</em> in-place. Typically used to improve readability of large numbers (e.g. "1,234,567"). Does not validate that the buffer content is purely numeric.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">buffer</td><td>A pointer to the buffer where the formatted C string is stored. </td></tr>
-    <tr><td class="paramname">bufferSize</td><td>The size of the buffer in characters. </td></tr>
-    <tr><td class="paramname">separator</td><td>A pointer to the grouping separator C string to insert (e.g., ",", " ", ".").</td></tr>
+    <tr><td class="paramname">buffer</td><td>Destination buffer for the formatted C string. </td></tr>
+    <tr><td class="paramname">bufferSize</td><td>Size of <em class="arg">buffer</em> in characters. </td></tr>
+    <tr><td class="paramname">separator</td><td>C string used as grouping separator (e.g. ",", " ", ".").</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>The function modifies the <em class="arg">buffer</em> in-place. </dd>
-<dd>
-Grouping separators are inserted every three digits from the right. </dd>
-<dd>
-The function handles edge cases gracefully (empty string, single digits, etc.). </dd>
-<dd>
-The function does not validate that the input is purely numeric. </dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd><em class="arg">buffer</em> is not null; <em class="arg">bufferSize</em> <code>&gt;</code> <code>0</code>; <em class="arg">separator</em> is not null; length of <em class="arg">separator</em> is at most 8 (asserted in debug). </dd></dl>
 
 </div>
 </div>
@@ -1242,7 +1236,7 @@ The function does not validate that the input is purely numeric. </dd></dl>
 </div><div class="memdoc">
 
 <p>Returns the 0-based index of the highest set bit in <em class="arg">value</em>. </p>
-<p>Uses platform intrinsics (e.g. <code>_BitScanReverse64</code>, <code>__builtin_clzll</code>). Useful for log2-style queries or bit-scan operations. Undefined if <em class="arg">value</em> is zero (assert in debug).</p>
+<p>Intended for log2-style queries and bit-scan operations. Implementation uses platform intrinsics where available.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">value</td><td>Non-zero 64-bit unsigned value.</td></tr>
@@ -1250,7 +1244,7 @@ The function does not validate that the input is purely numeric. </dd></dl>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Index of the highest set bit in the range <code></code>[0, 63] (bit 0 is the least significant).</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd><em class="arg">value</em> <code>!=</code> <code>0</code>. </dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd><em class="arg">value</em> is non-zero (asserted in debug). </dd></dl>
 
 </div>
 </div>
