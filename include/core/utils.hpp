@@ -21,8 +21,9 @@
   \file   utils.hpp
   \brief  Core utilities: string encoding conversion, length, reversal, and number formatting.
 
-  UTF-8 ↔ wide conversion, utf8Len, reverseString, itoa, utoa, ftoa, formatNumberString. Implementations may be in
-  \c core/utils.cpp or inline. All functions write into caller-provided buffers; no dynamic allocation.
+  UTF-8 ↔ wide conversion, utf8Len, reverseString, itoa, utoa, ftoa, formatNumberString, highestBit. Implementations may
+  be in \c core/utils.cpp or inline. All functions write into caller-provided buffers where applicable; no dynamic
+  allocation.
 */
 
 #ifndef INCLUDE_CORE_UTILS_HPP_
@@ -269,6 +270,20 @@ char * ftoa(char * dest, size_t destSize, double value, size_t precision = 15) n
   \note The function does not validate that the input is purely numeric.
 */
 void formatNumberString(char * buffer, size_t bufferSize, const char * separator) noexcept;
+
+/*!
+  \brief Returns the 0-based index of the highest set bit in \a value.
+
+  Uses platform intrinsics (e.g. \c _BitScanReverse64, \c __builtin_clzll). Useful for log2-style queries or bit-scan
+  operations. Undefined if \a value is zero (assert in debug).
+
+  \param value Non-zero 64-bit unsigned value.
+
+  \return Index of the highest set bit in the range \c [0, 63] (bit 0 is the least significant).
+
+  \pre \a value \c != \c 0.
+*/
+[[nodiscard]] size_t highestBit(const uint64_t & value) noexcept;
 
 } // namespace toy
 

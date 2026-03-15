@@ -111,4 +111,12 @@ void runCoreBenchmarks() noexcept {
       doNotOptimize(r);
     });
   }
+
+  // highestBit benchmarks
+  {
+    bench.run("highestBit high bits", [] {
+      auto r = toy::highestBit(0x8000000000000000ULL);
+      doNotOptimize(r);
+    });
+  }
 }
