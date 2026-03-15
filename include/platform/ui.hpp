@@ -21,10 +21,10 @@
   \file   ui.hpp
   \brief  Umbrella header for platform UI types.
 
-  Provides \ref toy::platform::ui::Orientation, \ref toy::platform::ui::WindowStyle,
-  \ref toy::platform::ui::MessageBoxIcon, \ref toy::platform::ui::MessageBoxButtons,
-  \ref toy::platform::ui::MessageBoxReturn, and related UI. Include this header only; do not include internal headers
-  (e.g. \c ui/orientation.hpp, \c ui/window_style.hpp) directly.
+  Provides \ref toy::platform::ui::Orientation, \ref toy::platform::ui::WindowShowState,
+  \ref toy::platform::ui::WindowStyle, \ref toy::platform::ui::MessageBoxIcon,
+  \ref toy::platform::ui::MessageBoxButtons, \ref toy::platform::ui::MessageBoxReturn, and related UI. Include this
+  header only; do not include internal headers (e.g. \c ui/orientation.hpp, \c ui/window_show_state.hpp) directly.
 */
 
 #ifndef INCLUDE_PLATFORM_UI_HPP_
@@ -34,16 +34,17 @@
 
 /*!
   \namespace toy::platform::ui
-  \brief Platform UI: orientation, window style flags, message box (icon, buttons, return value), and related types.
+  \brief Platform UI: orientation, window show state, window style flags, message box (icon, buttons, return value).
 
-  \sa toy::platform::ui::Orientation, toy::platform::ui::WindowStyle, toy::platform::ui::MessageBoxIcon,
-      toy::platform::ui::MessageBoxButtons, toy::platform::ui::MessageBoxReturn
+  \sa toy::platform::ui::Orientation, toy::platform::ui::WindowShowState, toy::platform::ui::WindowStyle,
+      toy::platform::ui::MessageBoxIcon, toy::platform::ui::MessageBoxButtons, toy::platform::ui::MessageBoxReturn
 */
 
 #include "ui/message_box_buttons.hpp"
 #include "ui/message_box_icon.hpp"
 #include "ui/message_box_return.hpp"
 #include "ui/orientation.hpp"
+#include "ui/window_show_state.hpp"
 #include "ui/window_style.hpp"
 
 #endif // INCLUDE_PLATFORM_UI_HPP_

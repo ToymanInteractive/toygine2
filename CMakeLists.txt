@@ -141,7 +141,7 @@ set(HDR_NETWORK_LIST include/network/endpoint.hpp include/network.hpp include/ne
 set(INL_NETWORK_LIST include/network/endpoint.inl)
 
 set(SRC_PLATFORM_UI_LIST )
-set(HDR_PLATFORM_UI_LIST include/platform/ui.hpp include/platform/ui/message_box_buttons.hpp include/platform/ui/message_box_icon.hpp include/platform/ui/message_box_return.hpp include/platform/ui/orientation.hpp include/platform/ui/window_style.hpp)
+set(HDR_PLATFORM_UI_LIST include/platform/ui.hpp include/platform/ui/message_box_buttons.hpp include/platform/ui/message_box_icon.hpp include/platform/ui/message_box_return.hpp include/platform/ui/orientation.hpp include/platform/ui/window_show_state.hpp include/platform/ui/window_style.hpp)
 set(INL_PLATFORM_UI_LIST )
 
 set(SRC_RENDER_LIST                                                   src/render/pixel_format.cpp)
