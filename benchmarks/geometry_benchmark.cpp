@@ -122,6 +122,109 @@ void runGeometryBenchmarks() noexcept {
     });
   }
 
+  // Ellipse benchmarks
+  {
+    bench.run("Ellipse<float> default construct", [] {
+      Ellipse<float> e;
+      doNotOptimize(e);
+    });
+    bench.run("Ellipse<Fixed> default construct", [] {
+      Ellipse<Fixed> e;
+      doNotOptimize(e);
+    });
+
+    bench.run("Ellipse<float> construct center radiuses", [] {
+      Ellipse e(toy::math::Vector2D(5.0f, 10.0f), toy::math::Vector2D(3.0f, 4.0f));
+      doNotOptimize(e);
+    });
+    bench.run("Ellipse<Fixed> construct center radiuses", [] {
+      Ellipse e(toy::math::Vector2D(Fixed(5), Fixed(10)), toy::math::Vector2D(Fixed(3), Fixed(4)));
+      doNotOptimize(e);
+    });
+
+    bench.run("Ellipse<float> area", [] {
+      Ellipse e(toy::math::Vector2D(0.0f, 0.0f), toy::math::Vector2D(10.0f, 5.0f));
+      auto r = e.area();
+      doNotOptimize(r);
+    });
+    bench.run("Ellipse<Fixed> area", [] {
+      Ellipse e(toy::math::Vector2D(Fixed(0), Fixed(0)), toy::math::Vector2D(Fixed(10), Fixed(5)));
+      auto r = e.area();
+      doNotOptimize(r);
+    });
+
+    bench.run("Ellipse<float> reset", [] {
+      Ellipse e(toy::math::Vector2D(10.0f, 20.0f), toy::math::Vector2D(5.0f, 3.0f));
+      e.reset();
+      doNotOptimize(e);
+    });
+    bench.run("Ellipse<Fixed> reset", [] {
+      Ellipse e(toy::math::Vector2D(Fixed(10), Fixed(20)), toy::math::Vector2D(Fixed(5), Fixed(3)));
+      e.reset();
+      doNotOptimize(e);
+    });
+
+    bench.run("Ellipse<float> isReset", [] {
+      Ellipse<float> e;
+      e.reset();
+      auto r = e.isReset();
+      doNotOptimize(r);
+    });
+    bench.run("Ellipse<Fixed> isReset", [] {
+      Ellipse<Fixed> e;
+      auto r = e.isReset();
+      doNotOptimize(r);
+    });
+
+    bench.run("Ellipse<float> isValid", [] {
+      Ellipse e(toy::math::Vector2D(0.0f, 0.0f), toy::math::Vector2D(1.0f, 1.0f));
+      auto r = e.isValid();
+      doNotOptimize(r);
+    });
+    bench.run("Ellipse<Fixed> isValid", [] {
+      Ellipse e(toy::math::Vector2D(Fixed(0), Fixed(0)), toy::math::Vector2D(Fixed(1), Fixed(1)));
+      auto r = e.isValid();
+      doNotOptimize(r);
+    });
+
+    bench.run("Ellipse<float> isContain", [] {
+      Ellipse e(toy::math::Vector2D(0.0f, 0.0f), toy::math::Vector2D(10.0f, 5.0f));
+      auto r = e.isContain(toy::math::Vector2D(5.0f, 2.0f));
+      doNotOptimize(r);
+    });
+    bench.run("Ellipse<Fixed> isContain", [] {
+      Ellipse e(toy::math::Vector2D(Fixed(0), Fixed(0)), toy::math::Vector2D(Fixed(10), Fixed(5)));
+      auto r = e.isContain(toy::math::Vector2D(Fixed(5), Fixed(2)));
+      doNotOptimize(r);
+    });
+
+    bench.run("Ellipse<float> operator==", [] {
+      Ellipse a(toy::math::Vector2D(1.0f, 2.0f), toy::math::Vector2D(3.0f, 4.0f));
+      Ellipse b(toy::math::Vector2D(1.0f, 2.0f), toy::math::Vector2D(3.0f, 4.0f));
+      auto r = (a == b);
+      doNotOptimize(r);
+    });
+    bench.run("Ellipse<Fixed> operator==", [] {
+      Ellipse a(toy::math::Vector2D(Fixed(1), Fixed(2)), toy::math::Vector2D(Fixed(3), Fixed(4)));
+      Ellipse b(toy::math::Vector2D(Fixed(1), Fixed(2)), toy::math::Vector2D(Fixed(3), Fixed(4)));
+      auto r = (a == b);
+      doNotOptimize(r);
+    });
+
+    bench.run("Ellipse<float> operator!=", [] {
+      Ellipse a(toy::math::Vector2D(1.0f, 2.0f), toy::math::Vector2D(3.0f, 4.0f));
+      Ellipse b(toy::math::Vector2D(1.0f, 2.0f), toy::math::Vector2D(3.0f, 5.0f));
+      auto r = (a != b);
+      doNotOptimize(r);
+    });
+    bench.run("Ellipse<Fixed> operator!=", [] {
+      Ellipse a(toy::math::Vector2D(Fixed(1), Fixed(2)), toy::math::Vector2D(Fixed(3), Fixed(4)));
+      Ellipse b(toy::math::Vector2D(Fixed(1), Fixed(2)), toy::math::Vector2D(Fixed(3), Fixed(5)));
+      auto r = (a != b);
+      doNotOptimize(r);
+    });
+  }
+
   // Section benchmarks
   {
     bench.run("Section<int> construct min max", [] {

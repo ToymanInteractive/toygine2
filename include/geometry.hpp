@@ -21,8 +21,9 @@
   \file   geometry.hpp
   \brief  Umbrella header for the geometry module.
 
-  Provides \ref toy::geometry::Section, \ref toy::geometry::Circle, and related types. Depends on \ref toy::math.
-  Include this header only; do not include internal headers (e.g. \c geometry/section.hpp) directly.
+  Provides \ref toy::geometry::Section, \ref toy::geometry::Circle, \ref toy::geometry::Ellipse, and related types.
+  Depends on \ref toy::math. Include this header only; do not include internal headers (e.g. \c geometry/ellipse.hpp)
+  directly.
 */
 
 #ifndef INCLUDE_GEOMETRY_HPP_
@@ -32,17 +33,19 @@
 
 /*!
   \namespace toy::geometry
-  \brief Geometry types and utilities: sections (intervals), circles, and related APIs.
+  \brief Geometry types and utilities: sections (intervals), circles, ellipses, and related APIs.
 */
 
 //----------------------------------------------------------------------------------------------------------------------
 
 #include "geometry/circle.hpp"
+#include "geometry/ellipse.hpp"
 #include "geometry/section.hpp"
 
 //----------------------------------------------------------------------------------------------------------------------
 
 #include "geometry/circle.inl"
+#include "geometry/ellipse.inl"
 #include "geometry/section.inl"
 
 #endif // INCLUDE_GEOMETRY_HPP_
