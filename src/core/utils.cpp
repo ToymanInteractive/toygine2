@@ -506,6 +506,8 @@ char * ftoa(char * dest, size_t destSize, double value, size_t precision) noexce
 void formatNumberString(char * buffer, size_t bufferSize, const char * separator) noexcept {
   assert_message(buffer != nullptr && bufferSize > 0, "The destination buffer must not be null.");
   assert_message(separator != nullptr, "The grouping separator must not be null.");
+  if (separator == nullptr)
+    return;
 
   const auto separatorLen = char_traits<char>::length(separator);
   assert_message(separatorLen <= 8, "The grouping separator must not exceed 8 characters.");

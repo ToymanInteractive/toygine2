@@ -421,8 +421,12 @@ TEST_CASE("core/utils/format_number_string_adds_thousand_separator") {
 #ifdef _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES
     strcpy_s<sizeof(buffer)>(buffer, numbers[index]);
 #else
-    strncpy(buffer, numbers[index], sizeof(buffer));
+    strncpy(buffer, numbers[index], sizeof(buffer) - 1);
 #endif // _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES
+    buffer[sizeof(buffer) - 1] = '\0';
+
+    formatNumberString(buffer, sizeof(buffer), "");
+    REQUIRE(strcmp(buffer, numbers[index]) == 0);
 
     formatNumberString(buffer, sizeof(buffer), " ");
     REQUIRE(strcmp(buffer, parsedNumbers[index]) == 0);

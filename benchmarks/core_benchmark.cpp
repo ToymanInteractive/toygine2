@@ -112,6 +112,24 @@ void runCoreBenchmarks() noexcept {
     });
   }
 
+  // formatNumberString benchmarks
+  {
+    constexpr size_t bufSize = 32;
+    char buf[bufSize];
+
+    bench.run("formatNumberString long comma", [&] {
+      static const char digits[] = "123456789012345";
+      size_t i = 0;
+      while (digits[i] != '\0') {
+        buf[i] = digits[i];
+        ++i;
+      }
+      buf[i] = '\0';
+      toy::formatNumberString(buf, bufSize, ",");
+      doNotOptimize(buf);
+    });
+  }
+
   // highestBit benchmarks
   {
     bench.run("highestBit high bits", [] {
