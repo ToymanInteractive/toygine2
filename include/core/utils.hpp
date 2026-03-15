@@ -217,42 +217,38 @@ template <std::unsigned_integral T>
 constexpr char * utoa(char * dest, size_t destSize, T value, unsigned base = 10) noexcept;
 
 /*!
-  \brief Converts a 32-bit floating-point number to its C string representation with specified precision.
+  \brief Converts a \c float to its decimal C string representation with specified precision.
 
-  This function converts a given 32-bit floating-point number into its decimal C string representation, storing the
-  result in the provided destination buffer. The conversion supports configurable precision and handles special values.
+  Writes the decimal representation of \a value into \a dest, null-terminated. Handles infinity and NaN; subnormals are
+  not supported. Practical precision limit is about 7–9 fractional digits for \c float.
 
-  \param dest      A pointer to the destination buffer where the converted C string is stored.
-  \param destSize  The size of the destination buffer in characters.
-  \param value     The 32-bit floating-point number to be converted.
-  \param precision The precision (digits after the decimal point). Default is 7, practical limit is ~7-9 digits.
+  \param dest      Destination buffer for the result.
+  \param destSize  Size of \a dest in characters.
+  \param value     The \c float value to convert.
+  \param precision Number of digits after the decimal point (default \c 7).
 
-  \return A pointer to the destination buffer containing the converted C string.
+  \return Pointer to \a dest.
 
-  \note The function handles special IEEE-754 values (infinity, NaN).
-  \note The function does not support subnormal numbers.
-  \note Precision beyond ~7-9 digits may not be meaningful for float.
-  \note The function uses efficient bit manipulation for conversion.
+  \pre \a dest is not null; \a destSize is sufficient for the output (including sign, digits, decimal point, and
+  terminator).
 */
 char * ftoa(char * dest, size_t destSize, float value, size_t precision = 7) noexcept;
 
 /*!
-  \brief Converts a 64-bit floating-point number to its C string representation with specified precision.
+  \brief Converts a \c double to its decimal C string representation with specified precision.
 
-  This function converts a given 64-bit floating-point number into its decimal C string representation, storing the
-  result in the provided destination buffer. The conversion supports configurable precision and handles special values.
+  Writes the decimal representation of \a value into \a dest, null-terminated. Handles infinity and NaN; subnormals are
+  not supported. Practical precision limit is about 15–17 fractional digits for \c double.
 
-  \param dest      A pointer to the destination buffer where the converted C string is stored.
-  \param destSize  The size of the destination buffer in characters.
-  \param value     The 64-bit floating-point number to be converted.
-  \param precision The precision (digits after the decimal point). Default is 15, practical limit is ~15–17 digits.
+  \param dest      Destination buffer for the result.
+  \param destSize  Size of \a dest in characters.
+  \param value     The \c double value to convert.
+  \param precision Number of digits after the decimal point (default \c 15).
 
-  \return A pointer to the destination buffer containing the converted C string.
+  \return Pointer to \a dest.
 
-  \note The function handles special IEEE-754 values (infinity, NaN).
-  \note The function does not support subnormal numbers.
-  \note Precision beyond ~15–17 digits may not be meaningful for double.
-  \note The function uses efficient bit manipulation for conversion.
+  \pre \a dest is not null; \a destSize is sufficient for the output (including sign, digits, decimal point, and
+  terminator).
 */
 char * ftoa(char * dest, size_t destSize, double value, size_t precision = 15) noexcept;
 

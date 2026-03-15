@@ -30,8 +30,22 @@ static_assert(CircleComponent<float>, "float must satisfy CircleComponent");
 static_assert(CircleComponent<Fixed>, "Fixed must satisfy CircleComponent");
 static_assert(!CircleComponent<int>, "int must not satisfy CircleComponent");
 
+// Circle has fixed size and contiguous layout.
+TEST_CASE("geometry/circle/object_structure") {
+  static_assert(sizeof(Circle<float>) == sizeof(float) * 3, "Circle size must be 3× component size");
+  static_assert(sizeof(Circle<Fixed>) == sizeof(Fixed) * 3, "Circle size must be 3× component size");
+
+  static_assert(!std::is_trivial_v<Circle<float>>, "Circle<float> must not be trivial");
+  static_assert(!std::is_trivial_v<Circle<Fixed>>, "Circle<Fixed> must not be trivial");
+  static_assert(std::is_trivially_copyable_v<Circle<float>>, "Circle<float> must be trivially copyable");
+  static_assert(std::is_trivially_copyable_v<Circle<Fixed>>, "Circle<Fixed> must be trivially copyable");
+  static_assert(std::is_standard_layout_v<Circle<float>>, "Circle<float> must have standard layout");
+  static_assert(std::is_standard_layout_v<Circle<Fixed>>, "Circle<Fixed> must have standard layout");
+}
+
 // Constructor (center, radius) stores center and radius; valid when radius > 0.
 TEST_CASE("geometry/circle/constructor_center_radius") {
+  // Floating-point component type.
   SUBCASE("float") {
     constexpr Circle c(math::Vector2D(5.0f, 10.0f), 3.0f);
 
@@ -48,6 +62,7 @@ TEST_CASE("geometry/circle/constructor_center_radius") {
     static_assert(!c.isReset(), "circle with positive radius must not be reset");
   }
 
+  // Fixed-point component type.
   SUBCASE("fixed") {
     constexpr Circle c(math::Vector2D(Fixed(5), Fixed(10)), Fixed(3));
 
@@ -67,6 +82,7 @@ TEST_CASE("geometry/circle/constructor_center_radius") {
 
 // area() returns π * radius².
 TEST_CASE("geometry/circle/area") {
+  // Floating-point component type.
   SUBCASE("float") {
     constexpr Circle c(math::Vector2D(0.0f, 0.0f), 10.0f);
 
@@ -75,6 +91,7 @@ TEST_CASE("geometry/circle/area") {
     static_assert(math::isEqual(c.area(), 314.159265f), "area of radius 10 must be π*100");
   }
 
+  // Fixed-point component type.
   SUBCASE("fixed") {
     constexpr Circle c(math::Vector2D(Fixed(0), Fixed(0)), Fixed(10));
 
@@ -86,6 +103,7 @@ TEST_CASE("geometry/circle/area") {
 
 // reset() sets center to zero and radius to zero.
 TEST_CASE("geometry/circle/reset") {
+  // Floating-point component type.
   SUBCASE("float") {
     Circle c(math::Vector2D(10.0f, 20.0f), 5.0f);
 
@@ -97,6 +115,7 @@ TEST_CASE("geometry/circle/reset") {
     REQUIRE(!c.isValid());
   }
 
+  // Fixed-point component type.
   SUBCASE("fixed") {
     Circle c(math::Vector2D(Fixed(10), Fixed(20)), Fixed(5));
 
@@ -109,8 +128,9 @@ TEST_CASE("geometry/circle/reset") {
   }
 }
 
-// isReset() true for default, false after construct with positive radius.
+// isReset() true after reset, false when radius > 0.
 TEST_CASE("geometry/circle/is_reset") {
+  // Floating-point component type.
   SUBCASE("float") {
     Circle<float> cZero;
     constexpr Circle cPos(math::Vector2D(0.0f, 0.0f), 1.0f);
@@ -123,6 +143,7 @@ TEST_CASE("geometry/circle/is_reset") {
     static_assert(!cPos.isReset(), "circle with positive radius must not be reset");
   }
 
+  // Fixed-point component type.
   SUBCASE("fixed") {
     Circle<Fixed> cZero;
     constexpr Circle cPos(math::Vector2D(Fixed(0), Fixed(0)), Fixed(1));
@@ -138,6 +159,7 @@ TEST_CASE("geometry/circle/is_reset") {
 
 // isValid() true when radius > 0.
 TEST_CASE("geometry/circle/is_valid") {
+  // Floating-point component type.
   SUBCASE("float") {
     Circle<float> cZero;
     constexpr Circle cPos(math::Vector2D(0.0f, 0.0f), 1.0f);
@@ -150,6 +172,7 @@ TEST_CASE("geometry/circle/is_valid") {
     static_assert(cPos.isValid(), "circle with positive radius must be valid");
   }
 
+  // Fixed-point component type.
   SUBCASE("fixed") {
     Circle<Fixed> cZero;
     constexpr Circle cPos(math::Vector2D(Fixed(0), Fixed(0)), Fixed(1));
@@ -165,6 +188,7 @@ TEST_CASE("geometry/circle/is_valid") {
 
 // isContain() true when point inside or on circle, false when outside.
 TEST_CASE("geometry/circle/is_contain") {
+  // Floating-point component type.
   SUBCASE("float") {
     constexpr Circle c(math::Vector2D(0.0f, 0.0f), 10.0f);
 
@@ -179,6 +203,7 @@ TEST_CASE("geometry/circle/is_contain") {
     static_assert(!c.isContain(math::Vector2D(10.01f, 0.0f)), "point outside must not be contained");
   }
 
+  // Fixed-point component type.
   SUBCASE("fixed") {
     constexpr Circle c(math::Vector2D(Fixed(0), Fixed(0)), Fixed(10));
 
@@ -196,6 +221,7 @@ TEST_CASE("geometry/circle/is_contain") {
 
 // operator== and operator!= compare center and radius.
 TEST_CASE("geometry/circle/operator_equality") {
+  // Identical center and radius yield equality.
   SUBCASE("equal") {
     constexpr Circle a(math::Vector2D(1.0f, 2.0f), 3.0f);
     constexpr Circle b(math::Vector2D(1.0f, 2.0f), 3.0f);
@@ -213,6 +239,7 @@ TEST_CASE("geometry/circle/operator_equality") {
     static_assert(!(af != bf), "equal fixed circles must not be unequal");
   }
 
+  // Different center or radius yield inequality.
   SUBCASE("not_equal") {
     constexpr Circle a(math::Vector2D(1.0f, 2.0f), 3.0f);
     constexpr Circle b(math::Vector2D(1.0f, 2.0f), 4.0f);
@@ -231,11 +258,11 @@ TEST_CASE("geometry/circle/operator_equality") {
     REQUIRE(!(af == cf));
 
     static_assert(a != b, "circles with different radius must be unequal");
-    static_assert(a != c, "circles with different radius must be unequal");
+    static_assert(a != c, "circles with different center must be unequal");
     static_assert(!(a == b), "unequal circles must not compare equal");
     static_assert(!(a == c), "unequal circles must not compare equal");
     static_assert(af != bf, "fixed circles with different radius must be unequal");
-    static_assert(af != cf, "fixed circles with different radius must be unequal");
+    static_assert(af != cf, "fixed circles with different center must be unequal");
     static_assert(!(af == bf), "unequal fixed circles must not compare equal");
     static_assert(!(af == cf), "unequal fixed circles must not compare equal");
   }

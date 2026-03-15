@@ -29,7 +29,24 @@ using FixedNoRounding = fixed<int32_t, int64_t, 8, false>;
 using Fixed4 = fixed<int32_t, int64_t, 4>;
 using Fixed16 = fixed<int32_t, int64_t, 16>;
 
-// Construction from default, integer, and floating-point.
+// Fixed type has fixed size and contiguous layout (single base integer).
+TEST_CASE("math/fixed/object_structure") {
+  static_assert(sizeof(fixed<int32_t, int64_t, 16>) == sizeof(int32_t), "fixed size must be Base component size");
+  static_assert(sizeof(fixed<int16_t, int32_t, 12>) == sizeof(int16_t), "fixed size must be Base component size");
+  static_assert(sizeof(fixed<int64_t, int64_t, 32>) == sizeof(int64_t), "fixed size must be Base component size");
+
+  static_assert(std::is_trivial_v<fixed<int32_t, int64_t, 16>>, "fixed must be trivial");
+  static_assert(std::is_trivial_v<fixed<int16_t, int32_t, 12>>, "fixed must be trivial");
+  static_assert(std::is_trivial_v<fixed<int64_t, int64_t, 32>>, "fixed must be trivial");
+  static_assert(std::is_trivially_copyable_v<fixed<int32_t, int64_t, 16>>, "fixed must be trivially copyable");
+  static_assert(std::is_trivially_copyable_v<fixed<int16_t, int32_t, 12>>, "fixed must be trivially copyable");
+  static_assert(std::is_trivially_copyable_v<fixed<int64_t, int64_t, 32>>, "fixed must be trivially copyable");
+  static_assert(std::is_standard_layout_v<fixed<int32_t, int64_t, 16>>, "fixed must have standard layout");
+  static_assert(std::is_standard_layout_v<fixed<int16_t, int32_t, 12>>, "fixed must have standard layout");
+  static_assert(std::is_standard_layout_v<fixed<int64_t, int64_t, 32>>, "fixed must have standard layout");
+}
+
+// Construction from integer and floating-point.
 TEST_CASE("math/fixed/constructors") {
   // Integer constructor scales by 2^FractionBits.
   SUBCASE("from_integer") {

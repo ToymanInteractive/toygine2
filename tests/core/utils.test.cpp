@@ -43,19 +43,14 @@ constexpr array<wchar_t, 86> unicodeTestData{{
   0x30EDU, 0x30FCU, 0x30EFU, 0x30FCU, 0x30EBU, 0x30C9U, 0x0021U, 0x0000,
 }};
 
-/*
-constexpr array<float, 16> floatTestValues{{0.0f, -0.0f, 10000000.0f, -10000000.0f, 100000.0f, -100000.0f, 4200.0f,
-                                            -4200.0f, 42.0f, -42.0f, 0.042f, -0.042f, 0.000042f, -0.000042f,
-                                            0.00000042f, -0.00000042f}};
+constexpr array<float, 16> floats{{0.0f, -0.0f, 10000000.0f, -10000000.0f, 100000.0f, -100000.0f, 4200.0f, -4200.0f,
+                                   42.0f, -42.0f, 0.042f, -0.042f, 0.000042f, -0.000042f, 0.00000042f, -0.00000042f}};
 
-constexpr array<double, 16> doubleTestValues{{0.0, -0.0, 10000000.0, -10000000.0, 100000.0, -100000.0, 4200.0, -4200.0,
-                                              42.0, -42.0, 0.042, -0.042, 0.000042, -0.000042, 0.00000042,
-                                              -0.00000042}};
+constexpr array<double, 16> doubles{{0.0, -0.0, 10000000.0, -10000000.0, 100000.0, -100000.0, 4200.0, -4200.0, 42.0,
+                                     -42.0, 0.042, -0.042, 0.000042, -0.000042, 0.00000042, -0.00000042}};
 
-constexpr array<const char *, 16> asciiTestValues{{"0", "0", "1e+7", "-1e+7", "100000", "-100000", "4200", "-4200",
-                                                   "42", "-42", "0.042", "-0.042", "0.000042", "-0.000042", "4.2e-7",
-                                                   "-4.2e-7"}};
-*/
+constexpr array<const char *, 16> asciis{{"0", "0", "1e+7", "-1e+7", "100000", "-100000", "4200", "-4200", "42", "-42",
+                                          "0.042", "-0.042", "0.000042", "-0.000042", "4.2e-7", "-4.2e-7"}};
 
 // UTF-8 to wide character conversion.
 TEST_CASE("core/utils/utf8_to_wchar_converts_utf8_to_wide_string") {
@@ -335,60 +330,59 @@ TEST_CASE("core/utils/utoa_converts_unsigned_integer_to_string") {
   }
 }
 
-/*
-// Floating-point to string conversion.
+// ftoa() writes decimal C string for float and double; default precision, infinity, NaN.
 TEST_CASE("core/utils/ftoa_converts_float_to_string") {
-  // Float and double positive values.
-SUBCASE("float and double positive") {
-char buffer[32];
+  // Positive float and double with default precision.
+  SUBCASE("float and double positive") {
+    char buffer[32];
 
-REQUIRE(strcmp(ftoa(buffer, size(buffer), 3.1415926535897932384626433832795f), "3.141592") == 0);
-REQUIRE(strcmp(ftoa(buffer, size(buffer), 3.1415926535897932384626433832795), "3.14159244298935") == 0);
+    REQUIRE(strcmp(ftoa(buffer, size(buffer), 3.1415926535897932384626433832795f), "3.141592") == 0);
+    REQUIRE(strcmp(ftoa(buffer, size(buffer), 3.1415926535897932384626433832795), "3.14159244298935") == 0);
+  }
+
+  // Negative float and double with default precision.
+  SUBCASE("float and double negative") {
+    char buffer[32];
+
+    REQUIRE(strcmp(ftoa(buffer, size(buffer), -3.1415926535897932384626433832795f), "-3.141592") == 0);
+    REQUIRE(strcmp(ftoa(buffer, size(buffer), -3.1415926535897932384626433832795), "-3.14159244298935") == 0);
+  }
+
+  // Special values: +INF, -INF, +NAN, -NAN for float and double.
+  SUBCASE("infinity and nan") {
+    char buffer[32];
+
+    REQUIRE(strcmp(ftoa(buffer, size(buffer), numeric_limits<float>::infinity()), "+INF") == 0);
+    REQUIRE(strcmp(ftoa(buffer, size(buffer), -numeric_limits<float>::infinity()), "-INF") == 0);
+    REQUIRE(strcmp(ftoa(buffer, size(buffer), numeric_limits<float>::quiet_NaN()), "+NAN") == 0);
+    REQUIRE(strcmp(ftoa(buffer, size(buffer), -numeric_limits<float>::quiet_NaN()), "-NAN") == 0);
+    REQUIRE(strcmp(ftoa(buffer, size(buffer), numeric_limits<double>::infinity()), "+INF") == 0);
+    REQUIRE(strcmp(ftoa(buffer, size(buffer), -numeric_limits<double>::infinity()), "-INF") == 0);
+    REQUIRE(strcmp(ftoa(buffer, size(buffer), numeric_limits<double>::quiet_NaN()), "+NAN") == 0);
+    REQUIRE(strcmp(ftoa(buffer, size(buffer), -numeric_limits<double>::quiet_NaN()), "-NAN") == 0);
+  }
+
+  // Table-driven: float and double values match expected ASCII strings.
+  SUBCASE("array of float and double values") {
+    char buffer[32];
+
+    static_assert(floats.size() == doubles.size() && floats.size() == asciis.size(), "arrays must have same size");
+
+    for (size_t index = 0; index < floats.size(); ++index) {
+      REQUIRE(strcmp(ftoa(buffer, size(buffer), floats[index]), asciis[index]) == 0);
+      REQUIRE(strcmp(ftoa(buffer, size(buffer), doubles[index], 7), asciis[index]) == 0);
+    }
+  }
 }
 
-// Float and double negative values.
-SUBCASE("float and double negative") {
-char buffer[32];
-
-REQUIRE(strcmp(ftoa(buffer, size(buffer), -3.1415926535897932384626433832795f), "-3.141592") == 0);
-REQUIRE(strcmp(ftoa(buffer, size(buffer), -3.1415926535897932384626433832795), "-3.14159244298935") == 0);
-}
-
-// Infinity and NaN formatting.
-SUBCASE("infinity and nan") {
-char buffer[32];
-
-REQUIRE(strcmp(ftoa(buffer, size(buffer), numeric_limits<float>::infinity()), "+INF") == 0);
-REQUIRE(strcmp(ftoa(buffer, size(buffer), -numeric_limits<float>::infinity()), "-INF") == 0);
-REQUIRE(strcmp(ftoa(buffer, size(buffer), numeric_limits<float>::quiet_NaN()), "+NAN") == 0);
-REQUIRE(strcmp(ftoa(buffer, size(buffer), -numeric_limits<float>::quiet_NaN()), "-NAN") == 0);
-REQUIRE(strcmp(ftoa(buffer, size(buffer), numeric_limits<double>::infinity()), "+INF") == 0);
-REQUIRE(strcmp(ftoa(buffer, size(buffer), -numeric_limits<double>::infinity()), "-INF") == 0);
-REQUIRE(strcmp(ftoa(buffer, size(buffer), numeric_limits<double>::quiet_NaN()), "+NAN") == 0);
-REQUIRE(strcmp(ftoa(buffer, size(buffer), -numeric_limits<double>::quiet_NaN()), "-NAN") == 0);
-}
-
-// Array of float and double values vs expected ASCII.
-SUBCASE("array of float and double values") {
-char buffer[32];
-
-static_assert(floatTestValues.size() == doubleTestValues.size() && floatTestValues.size() == asciiTestValues.size(),
-"float, double and expected ASCII arrays must have same size");
-
-for (size_t index = 0; index < floatTestValues.size(); ++index) {
-REQUIRE(strcmp(ftoa(buffer, size(buffer), floatTestValues[index]), asciiTestValues[index]) == 0);
-REQUIRE(strcmp(ftoa(buffer, size(buffer), doubleTestValues[index], 7), asciiTestValues[index]) == 0);
-}
-}
-}
-
+/*
 // Format number string with thousand separator.
 TEST_CASE("core/utils/format_number_string_adds_thousand_separator") {
 constexpr array<const char *, 14> numbers{{"", "Hello World", "-256192.12", "32", "4192", "+2561921.2", "1", "12",
-                         "123", "12345678", "-1234567890", "+0", "-0", "0.0"}};
+                     "123", "12345678", "-1234567890", "+0", "-0", "0.0"}};
 
 constexpr array<const char *, 14> parsedNumbers{{"", "Hello World", "-256 192.12", "32", "4 192", "+2 561 921.2", "1",
-                               "12", "123", "12 345 678", "-1 234 567 890", "+0", "-0", "0.0"}};
+                           "12", "123", "12 345 678", "-1 234 567 890", "+0", "-0", "0.0"}};
 
 static_assert(numbers.size() == parsedNumbers.size(), "input and expected arrays must have same size");
 

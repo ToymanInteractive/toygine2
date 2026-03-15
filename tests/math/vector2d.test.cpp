@@ -25,13 +25,13 @@ namespace toy::math {
 
 using Fixed = fixed<int32_t, int64_t, 24>;
 
-// Vector2D has fixed size and contiguous x,y layout.
+// Vector2D has fixed size and contiguous x, y layout (two components).
 TEST_CASE("math/vector2d/object_structure") {
+  static_assert(sizeof(Vector2D<float>) == sizeof(float) * 2, "Vector2D size must be 2× component size");
+  static_assert(sizeof(Vector2D<Fixed>) == sizeof(Fixed) * 2, "Vector2D size must be 2× component size");
+
   constexpr Vector2D<float> vectorFloat;
   constexpr Vector2D<Fixed> vectorFixed;
-
-  static_assert(sizeof(vectorFloat) == sizeof(float) * 2, "Vector2D size must be 2× component size");
-  static_assert(sizeof(vectorFixed) == sizeof(Fixed) * 2, "Vector2D size must be 2× component size");
 
   const auto * arrFloat = vectorFloat.c_arr();
   const auto * arrFixed = vectorFixed.c_arr();
@@ -42,9 +42,16 @@ TEST_CASE("math/vector2d/object_structure") {
   REQUIRE(arrFixed == &vectorFixed.x);
   REQUIRE(arrFixed + 1 == &vectorFixed.y);
   REQUIRE(reinterpret_cast<const byte *>(arrFixed + 1) - reinterpret_cast<const byte *>(arrFixed) == sizeof(Fixed));
+
+  static_assert(!std::is_trivial_v<Vector2D<float>>, "Vector2D<float> must not be trivial");
+  static_assert(!std::is_trivial_v<Vector2D<Fixed>>, "Vector2D<Fixed> must not be trivial");
+  static_assert(std::is_trivially_copyable_v<Vector2D<float>>, "Vector2D<float> must be trivially copyable");
+  static_assert(std::is_trivially_copyable_v<Vector2D<Fixed>>, "Vector2D<Fixed> must be trivially copyable");
+  static_assert(std::is_standard_layout_v<Vector2D<float>>, "Vector2D<float> must have standard layout");
+  static_assert(std::is_standard_layout_v<Vector2D<Fixed>>, "Vector2D<Fixed> must have standard layout");
 }
 
-// Default, coordinate, and array constructors.
+// Constructors set x, y from coordinates or from pointer to two-element array.
 TEST_CASE("math/vector2d/constructors") {
   // Constructor with positive x, y.
   SUBCASE("constructor_with_positive_coordinates") {
@@ -148,7 +155,7 @@ TEST_CASE("math/vector2d/constructors") {
   }
 }
 
-// c_arr returns pointer to contiguous x,y.
+// c_arr() returns pointer to contiguous x, y; layout matches struct order.
 TEST_CASE("math/vector2d/c_arr_methods") {
   // Non-const c_arr() returns writable pointer to x,y (float and Fixed).
   SUBCASE("non_const_c_arr") {
@@ -189,7 +196,7 @@ TEST_CASE("math/vector2d/c_arr_methods") {
   }
 }
 
-// +=, -=, *=, /= and chaining.
+// operator+=, -=, *=, /= and chaining.
 TEST_CASE("math/vector2d/operators") {
   // operator+= adds vector (float and Fixed).
   SUBCASE("operator_plus_assign") {
@@ -276,7 +283,7 @@ TEST_CASE("math/vector2d/operators") {
   }
 }
 
-// sqrMagnitude, setZero, isZero, isEqual.
+// sqrMagnitude(), setZero(), isZero(), isEqual() behavior.
 TEST_CASE("math/vector2d/methods") {
   // sqrMagnitude() returns x² + y² (float and Fixed).
   SUBCASE("sqr_magnitude") {
@@ -385,7 +392,7 @@ TEST_CASE("math/vector2d/methods") {
   }
 }
 
-// +, -, *, /, unary minus, ==.
+// Binary +, -, *, /, unary minus, operator==, operator!=, cross().
 TEST_CASE("math/vector2d/binary_operators") {
   // Unary minus negates x, y (float and Fixed).
   SUBCASE("unary_minus") {

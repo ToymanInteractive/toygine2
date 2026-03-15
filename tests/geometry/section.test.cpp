@@ -30,9 +30,26 @@ static_assert(SectionEndpoint<float>, "float must satisfy SectionEndpoint");
 static_assert(SectionEndpoint<Fixed>, "Fixed must satisfy SectionEndpoint");
 static_assert(!SectionEndpoint<unsigned int>, "unsigned endpoints must remain rejected");
 
-// Section(min, max) stores bounds; valid when min <= max.
+// Section has fixed size and contiguous layout.
+TEST_CASE("geometry/section/object_structure") {
+  static_assert(sizeof(Section<int>) == sizeof(int) * 2, "Section size must be 2× component size");
+  static_assert(sizeof(Section<float>) == sizeof(float) * 2, "Section size must be 2× component size");
+  static_assert(sizeof(Section<Fixed>) == sizeof(Fixed) * 2, "Section size must be 2× component size");
+
+  static_assert(!std::is_trivial_v<Section<int>>, "Section<int> must not be trivial");
+  static_assert(!std::is_trivial_v<Section<float>>, "Section<float> must not be trivial");
+  static_assert(!std::is_trivial_v<Section<Fixed>>, "Section<Fixed> must not be trivial");
+  static_assert(std::is_trivially_copyable_v<Section<int>>, "Section<int> must be trivially copyable");
+  static_assert(std::is_trivially_copyable_v<Section<float>>, "Section<float> must be trivially copyable");
+  static_assert(std::is_trivially_copyable_v<Section<Fixed>>, "Section<Fixed> must be trivially copyable");
+  static_assert(std::is_standard_layout_v<Section<int>>, "Section<int> must have standard layout");
+  static_assert(std::is_standard_layout_v<Section<float>>, "Section<float> must have standard layout");
+  static_assert(std::is_standard_layout_v<Section<Fixed>>, "Section<Fixed> must have standard layout");
+}
+
+// Section(start, end) stores bounds; valid when start <= end.
 TEST_CASE("geometry/section/constructor_bounds") {
-  // integer scalar
+  // Integer endpoint type.
   SUBCASE("int") {
     constexpr Section s(10, 20);
 
@@ -47,7 +64,7 @@ TEST_CASE("geometry/section/constructor_bounds") {
     static_assert(!s.isReset(), "Section(10,20) must not be reset");
   }
 
-  // float scalar
+  // Floating-point endpoint type.
   SUBCASE("float") {
     constexpr Section s(10.0f, 20.0f);
 
@@ -62,7 +79,7 @@ TEST_CASE("geometry/section/constructor_bounds") {
     static_assert(!s.isReset(), "Section(10,20) float must not be reset");
   }
 
-  // fixed-point scalar
+  // Fixed-point endpoint type.
   SUBCASE("fixed") {
     constexpr Section s(Fixed(10), Fixed(20));
 
@@ -80,7 +97,7 @@ TEST_CASE("geometry/section/constructor_bounds") {
 
 // midpoint() returns (start + end) / 2.
 TEST_CASE("geometry/section/midpoint") {
-  // integer scalar
+  // Integer endpoint type.
   SUBCASE("int") {
     constexpr Section s(10, 20);
 
@@ -89,7 +106,7 @@ TEST_CASE("geometry/section/midpoint") {
     static_assert(s.midpoint() == 15, "midpoint of [10,20] must be 15");
   }
 
-  // float scalar
+  // Floating-point endpoint type.
   SUBCASE("float") {
     constexpr Section s(1.0f, 3.0f);
 
@@ -98,7 +115,7 @@ TEST_CASE("geometry/section/midpoint") {
     static_assert(math::isEqual(s.midpoint(), 2.0f), "midpoint of [1,3] float must be 2");
   }
 
-  // fixed-point scalar
+  // Fixed-point endpoint type.
   SUBCASE("fixed") {
     constexpr Section s(Fixed(1), Fixed(3));
 
@@ -110,7 +127,7 @@ TEST_CASE("geometry/section/midpoint") {
 
 // length() returns end - start.
 TEST_CASE("geometry/section/length") {
-  // integer scalar
+  // Integer endpoint type.
   SUBCASE("int") {
     constexpr Section s(10, 20);
 
@@ -119,7 +136,7 @@ TEST_CASE("geometry/section/length") {
     static_assert(s.length() == 10, "length of [10,20] must be 10");
   }
 
-  // float scalar
+  // Floating-point endpoint type.
   SUBCASE("float") {
     constexpr Section s(7.0f, 7.0f);
 
@@ -128,7 +145,7 @@ TEST_CASE("geometry/section/length") {
     static_assert(math::isEqual(s.length(), 0.0f), "length of point section float must be 0");
   }
 
-  // fixed-point scalar
+  // Fixed-point endpoint type.
   SUBCASE("fixed") {
     constexpr Section s(Fixed(1), Fixed(3));
 
@@ -138,9 +155,9 @@ TEST_CASE("geometry/section/length") {
   }
 }
 
-// reset() puts section in empty state (min/max extremes, isReset true).
+// reset() puts section in empty state (start/end extremes, isReset true).
 TEST_CASE("geometry/section/reset") {
-  // integer scalar
+  // Integer endpoint type.
   SUBCASE("int") {
     Section s(1, 10);
 
@@ -152,7 +169,7 @@ TEST_CASE("geometry/section/reset") {
     REQUIRE(s.end == numeric_limits<int>::lowest());
   }
 
-  // float scalar
+  // Floating-point endpoint type.
   SUBCASE("float") {
     Section s(1.0f, 10.0f);
 
@@ -164,7 +181,7 @@ TEST_CASE("geometry/section/reset") {
     REQUIRE(math::isEqual(s.end, numeric_limits<float>::lowest()));
   }
 
-  // fixed-point scalar
+  // Fixed-point endpoint type.
   SUBCASE("fixed") {
     Section s(Fixed(1), Fixed(10));
 
@@ -179,7 +196,7 @@ TEST_CASE("geometry/section/reset") {
 
 // expand(T value) extends interval to include value.
 TEST_CASE("geometry/section/expand_value") {
-  // integer scalar
+  // Integer endpoint type.
   SUBCASE("int") {
     Section s(10, 20);
 
@@ -199,7 +216,7 @@ TEST_CASE("geometry/section/expand_value") {
     REQUIRE(s.end == 25);
   }
 
-  // float scalar
+  // Floating-point endpoint type.
   SUBCASE("float") {
     Section s(10.0f, 20.0f);
 
@@ -219,7 +236,7 @@ TEST_CASE("geometry/section/expand_value") {
     REQUIRE(math::isEqual(s.end, 25.0f));
   }
 
-  // fixed-point scalar
+  // Fixed-point endpoint type.
   SUBCASE("fixed") {
     Section s(Fixed(10), Fixed(20));
 
@@ -242,7 +259,7 @@ TEST_CASE("geometry/section/expand_value") {
 
 // expand(Section) merges the other interval (union).
 TEST_CASE("geometry/section/expand_section") {
-  // integer scalar
+  // Integer endpoint type.
   SUBCASE("int") {
     Section s(5, 10);
     Section t(5, 15);
@@ -256,7 +273,7 @@ TEST_CASE("geometry/section/expand_section") {
     REQUIRE(t.end == 15);
   }
 
-  // float scalar
+  // Floating-point endpoint type.
   SUBCASE("float") {
     Section s(5.0f, 10.0f);
     Section t(5.0f, 15.0f);
@@ -270,7 +287,7 @@ TEST_CASE("geometry/section/expand_section") {
     REQUIRE(math::isEqual(t.end, 15.0f));
   }
 
-  // fixed-point scalar
+  // Fixed-point endpoint type.
   SUBCASE("fixed") {
     Section s(Fixed(5), Fixed(10));
     Section t(Fixed(5), Fixed(15));
@@ -285,9 +302,9 @@ TEST_CASE("geometry/section/expand_section") {
   }
 }
 
-// isReset() is true when start > end.
+// isReset() true after reset, false when start <= end.
 TEST_CASE("geometry/section/is_reset") {
-  // integer scalar
+  // Integer endpoint type.
   SUBCASE("int") {
     Section<int> empty;
     constexpr Section valid(1, 2);
@@ -300,7 +317,7 @@ TEST_CASE("geometry/section/is_reset") {
     static_assert(!valid.isReset(), "valid Section<int> must not be reset");
   }
 
-  // float scalar
+  // Floating-point endpoint type.
   SUBCASE("float") {
     Section<float> empty;
     constexpr Section valid(1.0f, 2.0f);
@@ -313,7 +330,7 @@ TEST_CASE("geometry/section/is_reset") {
     static_assert(!valid.isReset(), "valid Section<float> must not be reset");
   }
 
-  // fixed-point scalar
+  // Fixed-point endpoint type.
   SUBCASE("fixed") {
     Section<Fixed> empty;
     constexpr Section valid(Fixed(1), Fixed(2));
@@ -327,9 +344,9 @@ TEST_CASE("geometry/section/is_reset") {
   }
 }
 
-// isValid() is true when start <= end.
+// isValid() true when start <= end.
 TEST_CASE("geometry/section/is_valid") {
-  // integer scalar
+  // Integer endpoint type.
   SUBCASE("int") {
     Section<int> empty;
     constexpr Section valid(1, 2);
@@ -342,7 +359,7 @@ TEST_CASE("geometry/section/is_valid") {
     static_assert(valid.isValid(), "Section(1,2) must be valid");
   }
 
-  // float scalar
+  // Floating-point endpoint type.
   SUBCASE("float") {
     Section<float> empty;
     constexpr Section valid(1.0f, 2.0f);
@@ -355,7 +372,7 @@ TEST_CASE("geometry/section/is_valid") {
     static_assert(valid.isValid(), "Section(1,2) float must be valid");
   }
 
-  // fixed-point scalar
+  // Fixed-point endpoint type.
   SUBCASE("fixed") {
     Section<Fixed> empty;
     constexpr Section valid(Fixed(1), Fixed(2));
@@ -369,9 +386,9 @@ TEST_CASE("geometry/section/is_valid") {
   }
 }
 
-// isContains(T value) is true when value is in [start, end] inclusive.
+// isContains(T value) true when value in [start, end] inclusive.
 TEST_CASE("geometry/section/is_contains") {
-  // integer scalar
+  // Integer endpoint type.
   SUBCASE("int") {
     constexpr Section s(10, 20);
 
@@ -388,7 +405,7 @@ TEST_CASE("geometry/section/is_contains") {
     static_assert(!s.isContains(21), "21 must be outside [10,20]");
   }
 
-  // float scalar
+  // Floating-point endpoint type.
   SUBCASE("float") {
     constexpr Section s(10.0f, 20.0f);
 
@@ -405,7 +422,7 @@ TEST_CASE("geometry/section/is_contains") {
     static_assert(!s.isContains(21.0f), "21 must be outside [10,20] float");
   }
 
-  // fixed-point scalar
+  // Fixed-point endpoint type.
   SUBCASE("fixed") {
     constexpr Section s(Fixed(10), Fixed(20));
 
@@ -423,9 +440,9 @@ TEST_CASE("geometry/section/is_contains") {
   }
 }
 
-// operator== returns true when both bounds match (exact for int/fixed, isEqual for float).
+// operator== true when both bounds match (exact for int/fixed, tolerance for float).
 TEST_CASE("geometry/section/operator_eq") {
-  // integer scalar
+  // Integer endpoint type.
   SUBCASE("int") {
     constexpr Section a(1, 2);
     constexpr Section b(1, 2);
@@ -442,7 +459,7 @@ TEST_CASE("geometry/section/operator_eq") {
     static_assert(!(a == c), "different sections must not be equal");
   }
 
-  // float scalar
+  // Floating-point endpoint type.
   SUBCASE("float") {
     constexpr Section a(1.0f, 2.0f);
     constexpr Section b(1.0f, 2.0f);
@@ -459,7 +476,7 @@ TEST_CASE("geometry/section/operator_eq") {
     static_assert(!(a == c), "different float sections must not be equal");
   }
 
-  // fixed-point scalar
+  // Fixed-point endpoint type.
   SUBCASE("fixed") {
     constexpr Section a(Fixed(1), Fixed(2));
     constexpr Section b(Fixed(1), Fixed(2));
@@ -477,9 +494,9 @@ TEST_CASE("geometry/section/operator_eq") {
   }
 }
 
-// operator!= returns true when bounds differ; consistent with operator==.
+// operator!= true when bounds differ; consistent with operator==.
 TEST_CASE("geometry/section/operator_ne") {
-  // integer scalar
+  // Integer endpoint type.
   SUBCASE("int") {
     constexpr Section a(1, 2);
     constexpr Section b(1, 3);
@@ -493,7 +510,7 @@ TEST_CASE("geometry/section/operator_ne") {
     static_assert(a == a, "same section must be equal to self");
   }
 
-  // float scalar
+  // Floating-point endpoint type.
   SUBCASE("float") {
     constexpr Section a(1.0f, 2.0f);
     constexpr Section b(1.0f, 3.0f);
@@ -507,7 +524,7 @@ TEST_CASE("geometry/section/operator_ne") {
     static_assert(a == a, "same float section must be equal to self");
   }
 
-  // fixed-point scalar
+  // Fixed-point endpoint type.
   SUBCASE("fixed") {
     constexpr Section a(Fixed(1), Fixed(2));
     constexpr Section b(Fixed(1), Fixed(3));
