@@ -148,8 +148,8 @@ var NAVTREEINDEX =
 "annotated.html",
 "d3/d7a/classtoy_1_1_fixed_string.html#abe68aa4a2150aa06fa49a844aae5aff0",
 "d5/d03/classtoy_1_1_c_string_view.html#a6354e478ad35f159833948e7951f671c",
-"d7/dec/classtoy_1_1_fixed_vector.html#aa610304b854d065790d877acdf3f340a",
-"dc/d28/constexpr__utils_8inl.html",
+"d7/dec/classtoy_1_1_fixed_vector.html#a668bf255d5c4ab7568fe4e0c98eaef5a",
+"dc/d16/circle_8inl.html",
 "df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3faec4ed8a15cef294974fb3f4007649fea"
 ];
 

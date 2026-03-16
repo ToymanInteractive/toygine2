@@ -11,7 +11,7 @@ var concepts =
         [ "ValidFixedPointTypes", "d7/d22/concepttoy_1_1math_1_1_valid_fixed_point_types.html", null ],
         [ "fixed_point", "dd/de0/concepttoy_1_1math_1_1fixed__point.html", null ],
         [ "PointScalar", "d1/dca/concepttoy_1_1math_1_1_point_scalar.html", null ],
-        [ "Vector2DComponent", "d3/d79/concepttoy_1_1math_1_1_vector2_d_component.html", null ]
+        [ "Vector2Component", "d8/d34/concepttoy_1_1math_1_1_vector2_component.html", null ]
       ] ],
       [ "StringLike", "df/d77/concepttoy_1_1_string_like.html", null ]
     ] ]

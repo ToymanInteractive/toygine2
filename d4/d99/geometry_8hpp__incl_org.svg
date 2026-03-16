@@ -272,9 +272,9 @@
 <!-- Node52 -->
 <g id="Node000052" class="node">
 <title>Node52</title>
-<g id="a_Node000052"><a xlink:href="../../d6/de1/vector2d_8hpp.html" target="_top" xlink:title="2D vector class for interactive game objects and physics calculations.">
-<polygon fill="white" stroke="#666666" points="4733.5,-162 4624.5,-162 4624.5,-143 4733.5,-143 4733.5,-162"/>
-<text text-anchor="middle" x="4679" y="-150" font-family="Helvetica,sans-Serif" font-size="10.00">math/vector2d.hpp</text>
+<g id="a_Node000052"><a xlink:href="../../d9/de5/vector2_8hpp.html" target="_top" xlink:title="2D vector class for interactive game objects and physics calculations.">
+<polygon fill="white" stroke="#666666" points="4727.5,-162 4624.5,-162 4624.5,-143 4727.5,-143 4727.5,-162"/>
+<text text-anchor="middle" x="4676" y="-150" font-family="Helvetica,sans-Serif" font-size="10.00">math/vector2.hpp</text>
 </a>
 </g>
 </g>
@@ -282,8 +282,8 @@
 <g id="edge58_Node000002_Node000052" class="edge">
 <title>Node2&#45;&gt;Node52</title>
 <g id="a_edge58_Node000002_Node000052"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M4536.31,-197.98C4564.85,-189.09 4609.83,-175.07 4641.64,-165.15"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="4642.97,-168.4 4651.47,-162.08 4640.88,-161.72 4642.97,-168.4"/>
+<path fill="none" stroke="#63b8ff" d="M4535.83,-197.98C4563.87,-189.09 4608.05,-175.07 4639.3,-165.15"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="4640.49,-168.44 4648.96,-162.08 4638.37,-161.77 4640.49,-168.44"/>
 </a>
 </g>
 </g>
@@ -291,8 +291,8 @@
 <g id="Node000053" class="node">
 <title>Node53</title>
 <g id="a_Node000053"><a xlink:href="../../d3/d86/fixed_8inl.html" target="_top" xlink:title="Inline implementations for toy::math::fixed.">
-<polygon fill="white" stroke="#666666" points="4834.5,-162 4751.5,-162 4751.5,-143 4834.5,-143 4834.5,-162"/>
-<text text-anchor="middle" x="4793" y="-150" font-family="Helvetica,sans-Serif" font-size="10.00">math/fixed.inl</text>
+<polygon fill="white" stroke="#666666" points="4828.5,-162 4745.5,-162 4745.5,-143 4828.5,-143 4828.5,-162"/>
+<text text-anchor="middle" x="4787" y="-150" font-family="Helvetica,sans-Serif" font-size="10.00">math/fixed.inl</text>
 </a>
 </g>
 </g>
@@ -300,8 +300,8 @@
 <g id="edge59_Node000002_Node000053" class="edge">
 <title>Node2&#45;&gt;Node53</title>
 <g id="a_edge59_Node000002_Node000053"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M4540.77,-199.84C4543.89,-199.21 4547,-198.58 4550,-198 4615.83,-185.15 4691.9,-171.4 4741.15,-162.63"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="4742,-166.04 4751.24,-160.84 4740.78,-159.15 4742,-166.04"/>
+<path fill="none" stroke="#63b8ff" d="M4540.77,-199.85C4543.89,-199.22 4547,-198.59 4550,-198 4613.84,-185.39 4687.53,-171.69 4735.58,-162.87"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="4736.22,-166.31 4745.43,-161.06 4734.96,-159.42 4736.22,-166.31"/>
 </a>
 </g>
 </g>
@@ -309,8 +309,8 @@
 <g id="Node000054" class="node">
 <title>Node54</title>
 <g id="a_Node000054"><a xlink:href="../../d4/dee/point_8inl.html" target="_top" xlink:title="Inline implementations for toy::math::Point.">
-<polygon fill="white" stroke="#666666" points="4937.5,-162 4852.5,-162 4852.5,-143 4937.5,-143 4937.5,-162"/>
-<text text-anchor="middle" x="4895" y="-150" font-family="Helvetica,sans-Serif" font-size="10.00">math/point.inl</text>
+<polygon fill="white" stroke="#666666" points="4931.5,-162 4846.5,-162 4846.5,-143 4931.5,-143 4931.5,-162"/>
+<text text-anchor="middle" x="4889" y="-150" font-family="Helvetica,sans-Serif" font-size="10.00">math/point.inl</text>
 </a>
 </g>
 </g>
@@ -318,8 +318,8 @@
 <g id="edge60_Node000002_Node000054" class="edge">
 <title>Node2&#45;&gt;Node54</title>
 <g id="a_edge60_Node000002_Node000054"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M4540.74,-199.65C4543.86,-199.06 4546.99,-198.5 4550,-198 4676.29,-177.19 4711.42,-180.41 4842.44,-162.02"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="4843.05,-165.47 4852.45,-160.6 4842.06,-158.54 4843.05,-165.47"/>
+<path fill="none" stroke="#63b8ff" d="M4540.74,-199.66C4543.86,-199.07 4546.99,-198.5 4550,-198 4673.6,-177.47 4708.03,-180.21 4836.24,-162.05"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="4837.05,-165.47 4846.45,-160.59 4836.06,-158.54 4837.05,-165.47"/>
 </a>
 </g>
 </g>
@@ -327,8 +327,8 @@
 <g id="Node000055" class="node">
 <title>Node55</title>
 <g id="a_Node000055"><a xlink:href="../../de/d5d/math_2utils_8inl.html" target="_top" xlink:title="Inline implementations for General math utilities.">
-<polygon fill="white" stroke="#666666" points="4957.5,-96 4904.5,-96 4904.5,-77 4957.5,-77 4957.5,-96"/>
-<text text-anchor="middle" x="4931" y="-84" font-family="Helvetica,sans-Serif" font-size="10.00">utils.inl</text>
+<polygon fill="white" stroke="#666666" points="4951.5,-96 4898.5,-96 4898.5,-77 4951.5,-77 4951.5,-96"/>
+<text text-anchor="middle" x="4925" y="-84" font-family="Helvetica,sans-Serif" font-size="10.00">utils.inl</text>
 </a>
 </g>
 </g>
@@ -336,17 +336,17 @@
 <g id="edge62_Node000002_Node000055" class="edge">
 <title>Node2&#45;&gt;Node55</title>
 <g id="a_edge62_Node000002_Node000055"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M4540.72,-199.55C4543.85,-198.98 4546.98,-198.45 4550,-198 4593.81,-191.49 4917.13,-194.7 4947,-162 4961.17,-146.49 4951.6,-121.55 4942.29,-104.85"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="4945.18,-102.86 4937.02,-96.1 4939.18,-106.47 4945.18,-102.86"/>
+<path fill="none" stroke="#63b8ff" d="M4540.72,-199.56C4543.85,-198.98 4546.98,-198.45 4550,-198 4593.15,-191.56 4911.6,-194.23 4941,-162 4955.16,-146.48 4945.59,-121.54 4936.29,-104.84"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="4939.18,-102.86 4931.02,-96.1 4933.18,-106.47 4939.18,-102.86"/>
 </a>
 </g>
 </g>
 <!-- Node56 -->
 <g id="Node000056" class="node">
 <title>Node56</title>
-<g id="a_Node000056"><a xlink:href="../../dd/d53/vector2d_8inl.html" target="_top" xlink:title="Inline implementations for toy::math::Vector2D.">
-<polygon fill="white" stroke="#666666" points="5097.5,-162 4994.5,-162 4994.5,-143 5097.5,-143 5097.5,-162"/>
-<text text-anchor="middle" x="5046" y="-150" font-family="Helvetica,sans-Serif" font-size="10.00">math/vector2d.inl</text>
+<g id="a_Node000056"><a xlink:href="../../d3/d06/vector2_8inl.html" target="_top" xlink:title="Inline implementations for toy::math::Vector2.">
+<polygon fill="white" stroke="#666666" points="5085.5,-162 4988.5,-162 4988.5,-143 5085.5,-143 5085.5,-162"/>
+<text text-anchor="middle" x="5037" y="-150" font-family="Helvetica,sans-Serif" font-size="10.00">math/vector2.inl</text>
 </a>
 </g>
 </g>
@@ -354,8 +354,8 @@
 <g id="edge63_Node000002_Node000056" class="edge">
 <title>Node2&#45;&gt;Node56</title>
 <g id="a_edge63_Node000002_Node000056"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M4540.72,-199.53C4543.84,-198.96 4546.98,-198.44 4550,-198 4739.8,-170.48 4789.29,-182.25 4980,-162 4981.29,-161.86 4982.6,-161.72 4983.92,-161.58"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="4984.61,-165.02 4994.14,-160.4 4983.81,-158.06 4984.61,-165.02"/>
+<path fill="none" stroke="#63b8ff" d="M4540.72,-199.53C4543.85,-198.96 4546.98,-198.44 4550,-198 4737.15,-170.76 4786.01,-182.65 4974,-162 4975.3,-161.86 4976.61,-161.71 4977.93,-161.56"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="4978.68,-164.99 4988.19,-160.33 4977.84,-158.04 4978.68,-164.99"/>
 </a>
 </g>
 </g>
@@ -1186,8 +1186,8 @@
 <g id="edge61_Node000054_Node000055" class="edge">
 <title>Node54&#45;&gt;Node55</title>
 <g id="a_edge61_Node000054_Node000055"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M4899.86,-142.87C4905.25,-133.28 4914.1,-117.55 4920.99,-105.3"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="4924.14,-106.84 4925.99,-96.41 4918.04,-103.41 4924.14,-106.84"/>
+<path fill="none" stroke="#63b8ff" d="M4893.86,-142.87C4899.25,-133.28 4908.1,-117.55 4914.99,-105.3"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="4918.14,-106.84 4919.99,-96.41 4912.04,-103.41 4918.14,-106.84"/>
 </a>
 </g>
 </g>

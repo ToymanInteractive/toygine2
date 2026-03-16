@@ -17,7 +17,7 @@ var annotated_dup =
         [ "is_fixed_point", "d2/dc3/structtoy_1_1math_1_1is__fixed__point.html", null ],
         [ "is_fixed_point&lt; fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;", "df/de5/structtoy_1_1math_1_1is__fixed__point_3_01fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html", null ],
         [ "Point", "d3/dce/classtoy_1_1math_1_1_point.html", "d3/dce/classtoy_1_1math_1_1_point" ],
-        [ "Vector2D", "d9/d85/classtoy_1_1math_1_1_vector2_d.html", "d9/d85/classtoy_1_1math_1_1_vector2_d" ]
+        [ "Vector2", "d6/dff/classtoy_1_1math_1_1_vector2.html", "d6/dff/classtoy_1_1math_1_1_vector2" ]
       ] ],
       [ "network", "d6/d2c/namespacetoy_1_1network.html", [
         [ "Endpoint", "d3/d53/classtoy_1_1network_1_1_endpoint.html", "d3/d53/classtoy_1_1network_1_1_endpoint" ],

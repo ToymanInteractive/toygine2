@@ -131,8 +131,8 @@ Classes</h2></td></tr>
 <tr class="memitem:is_5Ffixed_5Fpoint_3C_20fixed_3C_20Base_2C_20Intermediate_2C_20Fraction_2C_20Rounding_20_3E_20_3E" id="r_is_5Ffixed_5Fpoint_3C_20fixed_3C_20Base_2C_20Intermediate_2C_20Fraction_2C_20Rounding_20_3E_20_3E"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="../../df/de5/structtoy_1_1math_1_1is__fixed__point_3_01fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html">is_fixed_point&lt; fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;</a></td></tr>
 <tr class="memitem:Point" id="r_Point"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html">Point</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">2D integer point for UI and input coordinates.  <a href="../../d3/dce/classtoy_1_1math_1_1_point.html#details">More...</a><br /></td></tr>
-<tr class="memitem:Vector2D" id="r_Vector2D"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">2D vector with floating-point or fixed-point components for positions, movement, and physics.  <a href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html#details">More...</a><br /></td></tr>
+<tr class="memitem:Vector2" id="r_Vector2"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html">Vector2</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">2D vector with floating-point or fixed-point components for positions, movement, and physics.  <a href="../../d6/dff/classtoy_1_1math_1_1_vector2.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-concepts" class="groupheader"><a id="concepts" name="concepts"></a>
 Concepts</h2></td></tr>
@@ -144,8 +144,8 @@ Concepts</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concept satisfied when <em class="arg">T</em> is an instantiation of <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html" title="toy::math::fixed">toy::math::fixed</a>. <br /></td></tr>
 <tr class="memitem:PointScalar" id="r_PointScalar"><td class="memItemLeft">concept &#160;</td><td class="memItemRight"><a class="el" href="../../d1/dca/concepttoy_1_1math_1_1_point_scalar.html">PointScalar</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concept satisfied when <em class="arg">T</em> is a signed integral, floating-point, or fixed-point type. <br /></td></tr>
-<tr class="memitem:Vector2DComponent" id="r_Vector2DComponent"><td class="memItemLeft">concept &#160;</td><td class="memItemRight"><a class="el" href="../../d3/d79/concepttoy_1_1math_1_1_vector2_d_component.html">Vector2DComponent</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concept satisfied when <em class="arg">T</em> is a component type allowed as <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html" title="toy::math::Vector2D">toy::math::Vector2D</a> template parameter. <br /></td></tr>
+<tr class="memitem:Vector2Component" id="r_Vector2Component"><td class="memItemLeft">concept &#160;</td><td class="memItemRight"><a class="el" href="../../d8/d34/concepttoy_1_1math_1_1_vector2_component.html">Vector2Component</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concept satisfied when <em class="arg">T</em> is a component type allowed as <a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html" title="toy::math::Vector2">toy::math::Vector2</a> template parameter. <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -240,39 +240,39 @@ Functions</h2></td></tr>
 <tr class="memitem:ga763a7f5881c51b1853dbb74cf59e1208" id="r_ga763a7f5881c51b1853dbb74cf59e1208"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
 <tr class="memitem:ga763a7f5881c51b1853dbb74cf59e1208 template"><td class="memItemLeft">constexpr T&#160;</td><td class="memItemRight"><a class="el" href="../../d5/d12/group___math_functions.html#ga763a7f5881c51b1853dbb74cf59e1208">rad2deg</a> (const T &amp;angle) noexcept</td></tr>
 <tr class="memdesc:ga763a7f5881c51b1853dbb74cf59e1208"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts angle from radians to degrees.  <br /></td></tr>
-<tr class="memitem:a9e2fbdf57da4dccb48cc0eec4b335bb5" id="r_a9e2fbdf57da4dccb48cc0eec4b335bb5"><td class="memTemplParams" colspan="2">template&lt;Vector2DComponent T&gt; </td></tr>
-<tr class="memitem:a9e2fbdf57da4dccb48cc0eec4b335bb5 template"><td class="memItemLeft">constexpr <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a>&lt; T &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a9e2fbdf57da4dccb48cc0eec4b335bb5">operator-</a> (const <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a>&lt; T &gt; &amp;vector) noexcept</td></tr>
-<tr class="memdesc:a9e2fbdf57da4dccb48cc0eec4b335bb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unary minus: negated components.  <br /></td></tr>
-<tr class="memitem:abd9a9f8f8291b33ff81708089def8692" id="r_abd9a9f8f8291b33ff81708089def8692"><td class="memTemplParams" colspan="2">template&lt;Vector2DComponent T&gt; </td></tr>
-<tr class="memitem:abd9a9f8f8291b33ff81708089def8692 template"><td class="memItemLeft">constexpr <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a>&lt; T &gt;&#160;</td><td class="memItemRight"><a class="el" href="#abd9a9f8f8291b33ff81708089def8692">operator+</a> (const <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a>&lt; T &gt; &amp;left, const <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a>&lt; T &gt; &amp;right) noexcept</td></tr>
-<tr class="memdesc:abd9a9f8f8291b33ff81708089def8692"><td class="mdescLeft">&#160;</td><td class="mdescRight">Addition of two vectors.  <br /></td></tr>
-<tr class="memitem:acb1c3c5ea32bb68b27dce9c2130b6d1c" id="r_acb1c3c5ea32bb68b27dce9c2130b6d1c"><td class="memTemplParams" colspan="2">template&lt;Vector2DComponent T&gt; </td></tr>
-<tr class="memitem:acb1c3c5ea32bb68b27dce9c2130b6d1c template"><td class="memItemLeft">constexpr <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a>&lt; T &gt;&#160;</td><td class="memItemRight"><a class="el" href="#acb1c3c5ea32bb68b27dce9c2130b6d1c">operator-</a> (const <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a>&lt; T &gt; &amp;left, const <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a>&lt; T &gt; &amp;right) noexcept</td></tr>
-<tr class="memdesc:acb1c3c5ea32bb68b27dce9c2130b6d1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subtraction of two vectors.  <br /></td></tr>
-<tr class="memitem:a524eabe52c31659896953f77f189e6a4" id="r_a524eabe52c31659896953f77f189e6a4"><td class="memTemplParams" colspan="2">template&lt;Vector2DComponent T&gt; </td></tr>
-<tr class="memitem:a524eabe52c31659896953f77f189e6a4 template"><td class="memItemLeft">constexpr <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a>&lt; T &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a524eabe52c31659896953f77f189e6a4">operator*</a> (const <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a>&lt; T &gt; &amp;left, const T &amp;right) noexcept</td></tr>
-<tr class="memdesc:a524eabe52c31659896953f77f189e6a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector scaled by scalar.  <br /></td></tr>
-<tr class="memitem:a5bdd394e017561186a6c73d60d9f2cc3" id="r_a5bdd394e017561186a6c73d60d9f2cc3"><td class="memTemplParams" colspan="2">template&lt;Vector2DComponent T&gt; </td></tr>
-<tr class="memitem:a5bdd394e017561186a6c73d60d9f2cc3 template"><td class="memItemLeft">constexpr <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a>&lt; T &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a5bdd394e017561186a6c73d60d9f2cc3">operator*</a> (const T &amp;left, const <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a>&lt; T &gt; &amp;right) noexcept</td></tr>
-<tr class="memdesc:a5bdd394e017561186a6c73d60d9f2cc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector scaled by scalar (scalar on the left).  <br /></td></tr>
-<tr class="memitem:ae089705451e477d094ce26e934e6ebd9" id="r_ae089705451e477d094ce26e934e6ebd9"><td class="memTemplParams" colspan="2">template&lt;Vector2DComponent T&gt; </td></tr>
-<tr class="memitem:ae089705451e477d094ce26e934e6ebd9 template"><td class="memItemLeft">constexpr T&#160;</td><td class="memItemRight"><a class="el" href="#ae089705451e477d094ce26e934e6ebd9">operator*</a> (const <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a>&lt; T &gt; &amp;left, const <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a>&lt; T &gt; &amp;right) noexcept</td></tr>
-<tr class="memdesc:ae089705451e477d094ce26e934e6ebd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dot product of two vectors.  <br /></td></tr>
-<tr class="memitem:a83b059f9919b3c8a7784b1fa283a442b" id="r_a83b059f9919b3c8a7784b1fa283a442b"><td class="memTemplParams" colspan="2">template&lt;Vector2DComponent T&gt; </td></tr>
-<tr class="memitem:a83b059f9919b3c8a7784b1fa283a442b template"><td class="memItemLeft">constexpr <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a>&lt; T &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a83b059f9919b3c8a7784b1fa283a442b">operator/</a> (const <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a>&lt; T &gt; &amp;left, const T &amp;right) noexcept</td></tr>
-<tr class="memdesc:a83b059f9919b3c8a7784b1fa283a442b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector divided by scalar.  <br /></td></tr>
-<tr class="memitem:a6ae54badcdcd842e561af10d818e43bd" id="r_a6ae54badcdcd842e561af10d818e43bd"><td class="memTemplParams" colspan="2">template&lt;Vector2DComponent T&gt; </td></tr>
-<tr class="memitem:a6ae54badcdcd842e561af10d818e43bd template"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#a6ae54badcdcd842e561af10d818e43bd">operator==</a> (const <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a>&lt; T &gt; &amp;left, const <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a>&lt; T &gt; &amp;right) noexcept</td></tr>
-<tr class="memdesc:a6ae54badcdcd842e561af10d818e43bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exact equality of two vectors.  <br /></td></tr>
-<tr class="memitem:a305825aeda5b23497aba7c256bf0a7f2" id="r_a305825aeda5b23497aba7c256bf0a7f2"><td class="memTemplParams" colspan="2">template&lt;Vector2DComponent T&gt; </td></tr>
-<tr class="memitem:a305825aeda5b23497aba7c256bf0a7f2 template"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#a305825aeda5b23497aba7c256bf0a7f2">operator!=</a> (const <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a>&lt; T &gt; &amp;left, const <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a>&lt; T &gt; &amp;right) noexcept</td></tr>
-<tr class="memdesc:a305825aeda5b23497aba7c256bf0a7f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inequality of two vectors.  <br /></td></tr>
-<tr class="memitem:a288d7dcbbb7c5f46e99c192e07b349c4" id="r_a288d7dcbbb7c5f46e99c192e07b349c4"><td class="memTemplParams" colspan="2">template&lt;Vector2DComponent T&gt; </td></tr>
-<tr class="memitem:a288d7dcbbb7c5f46e99c192e07b349c4 template"><td class="memItemLeft">constexpr T&#160;</td><td class="memItemRight"><a class="el" href="#a288d7dcbbb7c5f46e99c192e07b349c4">cross</a> (const <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a>&lt; T &gt; &amp;left, const <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a>&lt; T &gt; &amp;right) noexcept</td></tr>
-<tr class="memdesc:a288d7dcbbb7c5f46e99c192e07b349c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">2D cross product (scalar result).  <br /></td></tr>
-<tr class="memitem:af547cf7458d548eaf068395cb46c474b" id="r_af547cf7458d548eaf068395cb46c474b"><td class="memTemplParams" colspan="2">template&lt;Vector2DComponent T&gt; </td></tr>
-<tr class="memitem:af547cf7458d548eaf068395cb46c474b template"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af547cf7458d548eaf068395cb46c474b">Vector2D</a> (const T &amp;, const T &amp;) -&gt; Vector2D&lt; T &gt;</td></tr>
-<tr class="memdesc:af547cf7458d548eaf068395cb46c474b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deduction guide: enables <code>Vector2D(x, y)</code> without an explicit template argument when both arguments have the same <a class="el" href="../../d3/d79/concepttoy_1_1math_1_1_vector2_d_component.html" title="toy::math::Vector2DComponent">toy::math::Vector2DComponent</a> type.  <br /></td></tr>
+<tr class="memitem:a0aa71847430ff9d356bb99e103281c21" id="r_a0aa71847430ff9d356bb99e103281c21"><td class="memTemplParams" colspan="2">template&lt;Vector2Component T&gt; </td></tr>
+<tr class="memitem:a0aa71847430ff9d356bb99e103281c21 template"><td class="memItemLeft">constexpr <a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html">Vector2</a>&lt; T &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a0aa71847430ff9d356bb99e103281c21">operator-</a> (const <a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html">Vector2</a>&lt; T &gt; &amp;vector) noexcept</td></tr>
+<tr class="memdesc:a0aa71847430ff9d356bb99e103281c21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unary minus: negated components.  <br /></td></tr>
+<tr class="memitem:a3ff4e66b42d808cdd1a0966156d279a1" id="r_a3ff4e66b42d808cdd1a0966156d279a1"><td class="memTemplParams" colspan="2">template&lt;Vector2Component T&gt; </td></tr>
+<tr class="memitem:a3ff4e66b42d808cdd1a0966156d279a1 template"><td class="memItemLeft">constexpr <a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html">Vector2</a>&lt; T &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a3ff4e66b42d808cdd1a0966156d279a1">operator+</a> (const <a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html">Vector2</a>&lt; T &gt; &amp;left, const <a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html">Vector2</a>&lt; T &gt; &amp;right) noexcept</td></tr>
+<tr class="memdesc:a3ff4e66b42d808cdd1a0966156d279a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Addition of two vectors.  <br /></td></tr>
+<tr class="memitem:a1dcd11938b598983d3a0a7ff94d0648f" id="r_a1dcd11938b598983d3a0a7ff94d0648f"><td class="memTemplParams" colspan="2">template&lt;Vector2Component T&gt; </td></tr>
+<tr class="memitem:a1dcd11938b598983d3a0a7ff94d0648f template"><td class="memItemLeft">constexpr <a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html">Vector2</a>&lt; T &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a1dcd11938b598983d3a0a7ff94d0648f">operator-</a> (const <a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html">Vector2</a>&lt; T &gt; &amp;left, const <a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html">Vector2</a>&lt; T &gt; &amp;right) noexcept</td></tr>
+<tr class="memdesc:a1dcd11938b598983d3a0a7ff94d0648f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subtraction of two vectors.  <br /></td></tr>
+<tr class="memitem:a43e8c4a616d21c9f413e99279c9c4a7b" id="r_a43e8c4a616d21c9f413e99279c9c4a7b"><td class="memTemplParams" colspan="2">template&lt;Vector2Component T&gt; </td></tr>
+<tr class="memitem:a43e8c4a616d21c9f413e99279c9c4a7b template"><td class="memItemLeft">constexpr <a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html">Vector2</a>&lt; T &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a43e8c4a616d21c9f413e99279c9c4a7b">operator*</a> (const <a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html">Vector2</a>&lt; T &gt; &amp;left, const T &amp;right) noexcept</td></tr>
+<tr class="memdesc:a43e8c4a616d21c9f413e99279c9c4a7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector scaled by scalar.  <br /></td></tr>
+<tr class="memitem:a5340897a4389ef09f9fcb8746f65216a" id="r_a5340897a4389ef09f9fcb8746f65216a"><td class="memTemplParams" colspan="2">template&lt;Vector2Component T&gt; </td></tr>
+<tr class="memitem:a5340897a4389ef09f9fcb8746f65216a template"><td class="memItemLeft">constexpr <a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html">Vector2</a>&lt; T &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a5340897a4389ef09f9fcb8746f65216a">operator*</a> (const T &amp;left, const <a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html">Vector2</a>&lt; T &gt; &amp;right) noexcept</td></tr>
+<tr class="memdesc:a5340897a4389ef09f9fcb8746f65216a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector scaled by scalar (scalar on the left).  <br /></td></tr>
+<tr class="memitem:a080eab5b1b9850ce3869e04a5f7bdd99" id="r_a080eab5b1b9850ce3869e04a5f7bdd99"><td class="memTemplParams" colspan="2">template&lt;Vector2Component T&gt; </td></tr>
+<tr class="memitem:a080eab5b1b9850ce3869e04a5f7bdd99 template"><td class="memItemLeft">constexpr T&#160;</td><td class="memItemRight"><a class="el" href="#a080eab5b1b9850ce3869e04a5f7bdd99">operator*</a> (const <a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html">Vector2</a>&lt; T &gt; &amp;left, const <a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html">Vector2</a>&lt; T &gt; &amp;right) noexcept</td></tr>
+<tr class="memdesc:a080eab5b1b9850ce3869e04a5f7bdd99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dot product of two vectors.  <br /></td></tr>
+<tr class="memitem:ab028de0b6d762edffd6775605933e010" id="r_ab028de0b6d762edffd6775605933e010"><td class="memTemplParams" colspan="2">template&lt;Vector2Component T&gt; </td></tr>
+<tr class="memitem:ab028de0b6d762edffd6775605933e010 template"><td class="memItemLeft">constexpr <a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html">Vector2</a>&lt; T &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab028de0b6d762edffd6775605933e010">operator/</a> (const <a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html">Vector2</a>&lt; T &gt; &amp;left, const T &amp;right) noexcept</td></tr>
+<tr class="memdesc:ab028de0b6d762edffd6775605933e010"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector divided by scalar.  <br /></td></tr>
+<tr class="memitem:a73965d1828a7926890687b304c2654dd" id="r_a73965d1828a7926890687b304c2654dd"><td class="memTemplParams" colspan="2">template&lt;Vector2Component T&gt; </td></tr>
+<tr class="memitem:a73965d1828a7926890687b304c2654dd template"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#a73965d1828a7926890687b304c2654dd">operator==</a> (const <a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html">Vector2</a>&lt; T &gt; &amp;left, const <a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html">Vector2</a>&lt; T &gt; &amp;right) noexcept</td></tr>
+<tr class="memdesc:a73965d1828a7926890687b304c2654dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exact equality of two vectors.  <br /></td></tr>
+<tr class="memitem:a4ebb178693061b16b4909e5e871ad3b8" id="r_a4ebb178693061b16b4909e5e871ad3b8"><td class="memTemplParams" colspan="2">template&lt;Vector2Component T&gt; </td></tr>
+<tr class="memitem:a4ebb178693061b16b4909e5e871ad3b8 template"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#a4ebb178693061b16b4909e5e871ad3b8">operator!=</a> (const <a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html">Vector2</a>&lt; T &gt; &amp;left, const <a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html">Vector2</a>&lt; T &gt; &amp;right) noexcept</td></tr>
+<tr class="memdesc:a4ebb178693061b16b4909e5e871ad3b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inequality of two vectors.  <br /></td></tr>
+<tr class="memitem:a82a4d27006c739fa91ddb30dc271e927" id="r_a82a4d27006c739fa91ddb30dc271e927"><td class="memTemplParams" colspan="2">template&lt;Vector2Component T&gt; </td></tr>
+<tr class="memitem:a82a4d27006c739fa91ddb30dc271e927 template"><td class="memItemLeft">constexpr T&#160;</td><td class="memItemRight"><a class="el" href="#a82a4d27006c739fa91ddb30dc271e927">cross</a> (const <a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html">Vector2</a>&lt; T &gt; &amp;left, const <a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html">Vector2</a>&lt; T &gt; &amp;right) noexcept</td></tr>
+<tr class="memdesc:a82a4d27006c739fa91ddb30dc271e927"><td class="mdescLeft">&#160;</td><td class="mdescRight">2D cross product (scalar result).  <br /></td></tr>
+<tr class="memitem:aa98423d123dbd11c048cb1caa94e9f5a" id="r_aa98423d123dbd11c048cb1caa94e9f5a"><td class="memTemplParams" colspan="2">template&lt;Vector2Component T&gt; </td></tr>
+<tr class="memitem:aa98423d123dbd11c048cb1caa94e9f5a template"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aa98423d123dbd11c048cb1caa94e9f5a">Vector2</a> (const T &amp;, const T &amp;) -&gt; Vector2&lt; T &gt;</td></tr>
+<tr class="memdesc:aa98423d123dbd11c048cb1caa94e9f5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deduction guide: enables <code>Vector2(x, y)</code> without an explicit template argument when both arguments have the same <a class="el" href="../../d8/d34/concepttoy_1_1math_1_1_vector2_component.html" title="toy::math::Vector2Component">toy::math::Vector2Component</a> type.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -282,7 +282,7 @@ Variables</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Mathematical types, constants, and utilities: fixed-point, vectors, point. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html" title="2D integer point for UI and input coordinates.">toy::math::Point</a>, <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html" title="2D vector with floating-point or fixed-point components for positions, movement, and physics.">toy::math::Vector2D</a>, toy::math::Fixed </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d3/dce/classtoy_1_1math_1_1_point.html" title="2D integer point for UI and input coordinates.">toy::math::Point</a>, <a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html" title="2D vector with floating-point or fixed-point components for positions, movement, and physics.">toy::math::Vector2</a>, toy::math::Fixed </dd></dl>
 </div><a name="doc-typedef-members" id="doc-typedef-members"></a><h2 id="header-doc-typedef-members" class="groupheader">Typedef Documentation</h2>
 <a id="a928771ce74a56750dd2dcbc28e5892e0" name="a928771ce74a56750dd2dcbc28e5892e0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a928771ce74a56750dd2dcbc28e5892e0">&#9670;&#160;</a></span>real_t</h2>
@@ -301,13 +301,13 @@ Variables</h2></td></tr>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="a288d7dcbbb7c5f46e99c192e07b349c4" name="a288d7dcbbb7c5f46e99c192e07b349c4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a288d7dcbbb7c5f46e99c192e07b349c4">&#9670;&#160;</a></span>cross()</h2>
+<a id="a82a4d27006c739fa91ddb30dc271e927" name="a82a4d27006c739fa91ddb30dc271e927"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82a4d27006c739fa91ddb30dc271e927">&#9670;&#160;</a></span>cross()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;Vector2DComponent T&gt; </div>
+template&lt;Vector2Component T&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -315,12 +315,12 @@ template&lt;Vector2DComponent T&gt; </div>
         <tr>
           <td class="memname">T toy::math::cross </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>left</em></span>, </td>
+          <td class="paramtype">const <a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html">Vector2</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>left</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>right</em></span>&#160;)</td>
+          <td class="paramtype">const <a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html">Vector2</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>right</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -342,13 +342,13 @@ template&lt;Vector2DComponent T&gt; </div>
 
 </div>
 </div>
-<a id="a305825aeda5b23497aba7c256bf0a7f2" name="a305825aeda5b23497aba7c256bf0a7f2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a305825aeda5b23497aba7c256bf0a7f2">&#9670;&#160;</a></span>operator!=()</h2>
+<a id="a4ebb178693061b16b4909e5e871ad3b8" name="a4ebb178693061b16b4909e5e871ad3b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ebb178693061b16b4909e5e871ad3b8">&#9670;&#160;</a></span>operator!=()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;Vector2DComponent T&gt; </div>
+template&lt;Vector2Component T&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -356,12 +356,12 @@ template&lt;Vector2DComponent T&gt; </div>
         <tr>
           <td class="memname">bool toy::math::operator!= </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>left</em></span>, </td>
+          <td class="paramtype">const <a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html">Vector2</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>left</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>right</em></span>&#160;)</td>
+          <td class="paramtype">const <a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html">Vector2</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>right</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -553,26 +553,26 @@ template&lt;typename Base, typename Intermediate, unsigned Fraction, bool Roundi
 
 </div>
 </div>
-<a id="a5bdd394e017561186a6c73d60d9f2cc3" name="a5bdd394e017561186a6c73d60d9f2cc3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5bdd394e017561186a6c73d60d9f2cc3">&#9670;&#160;</a></span>operator*() <span class="overload">[5/8]</span></h2>
+<a id="a5340897a4389ef09f9fcb8746f65216a" name="a5340897a4389ef09f9fcb8746f65216a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5340897a4389ef09f9fcb8746f65216a">&#9670;&#160;</a></span>operator*() <span class="overload">[5/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;Vector2DComponent T&gt; </div>
+template&lt;Vector2Component T&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a>&lt; T &gt; toy::math::operator* </td>
+          <td class="memname"><a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html">Vector2</a>&lt; T &gt; toy::math::operator* </td>
           <td>(</td>
           <td class="paramtype">const T &amp;</td>          <td class="paramname"><span class="paramname"><em>left</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>right</em></span>&#160;)</td>
+          <td class="paramtype">const <a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html">Vector2</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>right</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -585,7 +585,7 @@ template&lt;Vector2DComponent T&gt; </div>
 <p>Vector scaled by scalar (scalar on the left). </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">T</td><td>Component type satisfy <a class="el" href="../../d3/d79/concepttoy_1_1math_1_1_vector2_d_component.html" title="toy::math::Vector2DComponent">toy::math::Vector2DComponent</a>.</td></tr>
+    <tr><td class="paramname">T</td><td>Component type satisfy <a class="el" href="../../d8/d34/concepttoy_1_1math_1_1_vector2_component.html" title="toy::math::Vector2Component">toy::math::Vector2Component</a>.</td></tr>
   </table>
   </dd>
 </dl>
@@ -596,7 +596,7 @@ template&lt;Vector2DComponent T&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html" title="toy::math::Vector2D">toy::math::Vector2D</a> with components multiplied by <em class="arg">scalar</em>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html" title="toy::math::Vector2">toy::math::Vector2</a> with components multiplied by <em class="arg">scalar</em>. </dd></dl>
 
 </div>
 </div>
@@ -647,21 +647,21 @@ template&lt;PointScalar T&gt; </div>
 
 </div>
 </div>
-<a id="a524eabe52c31659896953f77f189e6a4" name="a524eabe52c31659896953f77f189e6a4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a524eabe52c31659896953f77f189e6a4">&#9670;&#160;</a></span>operator*() <span class="overload">[7/8]</span></h2>
+<a id="a43e8c4a616d21c9f413e99279c9c4a7b" name="a43e8c4a616d21c9f413e99279c9c4a7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43e8c4a616d21c9f413e99279c9c4a7b">&#9670;&#160;</a></span>operator*() <span class="overload">[7/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;Vector2DComponent T&gt; </div>
+template&lt;Vector2Component T&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a>&lt; T &gt; toy::math::operator* </td>
+          <td class="memname"><a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html">Vector2</a>&lt; T &gt; toy::math::operator* </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>left</em></span>, </td>
+          <td class="paramtype">const <a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html">Vector2</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>left</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -679,7 +679,7 @@ template&lt;Vector2DComponent T&gt; </div>
 <p>Vector scaled by scalar. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">T</td><td>Component type satisfy <a class="el" href="../../d3/d79/concepttoy_1_1math_1_1_vector2_d_component.html" title="toy::math::Vector2DComponent">toy::math::Vector2DComponent</a>.</td></tr>
+    <tr><td class="paramname">T</td><td>Component type satisfy <a class="el" href="../../d8/d34/concepttoy_1_1math_1_1_vector2_component.html" title="toy::math::Vector2Component">toy::math::Vector2Component</a>.</td></tr>
   </table>
   </dd>
 </dl>
@@ -690,17 +690,17 @@ template&lt;Vector2DComponent T&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html" title="toy::math::Vector2D">toy::math::Vector2D</a> with components multiplied by <em class="arg">scalar</em>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html" title="toy::math::Vector2">toy::math::Vector2</a> with components multiplied by <em class="arg">scalar</em>. </dd></dl>
 
 </div>
 </div>
-<a id="ae089705451e477d094ce26e934e6ebd9" name="ae089705451e477d094ce26e934e6ebd9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae089705451e477d094ce26e934e6ebd9">&#9670;&#160;</a></span>operator*() <span class="overload">[8/8]</span></h2>
+<a id="a080eab5b1b9850ce3869e04a5f7bdd99" name="a080eab5b1b9850ce3869e04a5f7bdd99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a080eab5b1b9850ce3869e04a5f7bdd99">&#9670;&#160;</a></span>operator*() <span class="overload">[8/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;Vector2DComponent T&gt; </div>
+template&lt;Vector2Component T&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -708,12 +708,12 @@ template&lt;Vector2DComponent T&gt; </div>
         <tr>
           <td class="memname">T toy::math::operator* </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>left</em></span>, </td>
+          <td class="paramtype">const <a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html">Vector2</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>left</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>right</em></span>&#160;)</td>
+          <td class="paramtype">const <a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html">Vector2</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>right</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -898,26 +898,26 @@ template&lt;typename Base, typename Intermediate, unsigned Fraction, bool Roundi
 
 </div>
 </div>
-<a id="abd9a9f8f8291b33ff81708089def8692" name="abd9a9f8f8291b33ff81708089def8692"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abd9a9f8f8291b33ff81708089def8692">&#9670;&#160;</a></span>operator+() <span class="overload">[5/5]</span></h2>
+<a id="a3ff4e66b42d808cdd1a0966156d279a1" name="a3ff4e66b42d808cdd1a0966156d279a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ff4e66b42d808cdd1a0966156d279a1">&#9670;&#160;</a></span>operator+() <span class="overload">[5/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;Vector2DComponent T&gt; </div>
+template&lt;Vector2Component T&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a>&lt; T &gt; toy::math::operator+ </td>
+          <td class="memname"><a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html">Vector2</a>&lt; T &gt; toy::math::operator+ </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>left</em></span>, </td>
+          <td class="paramtype">const <a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html">Vector2</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>left</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>right</em></span>&#160;)</td>
+          <td class="paramtype">const <a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html">Vector2</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>right</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -935,7 +935,7 @@ template&lt;Vector2DComponent T&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html" title="toy::math::Vector2D">toy::math::Vector2D</a> with (left.x + right.x, left.y + right.y). </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html" title="toy::math::Vector2">toy::math::Vector2</a> with (left.x + right.x, left.y + right.y). </dd></dl>
 
 </div>
 </div>
@@ -1172,26 +1172,26 @@ template&lt;typename Base, typename Intermediate, unsigned Fraction, bool Roundi
 
 </div>
 </div>
-<a id="acb1c3c5ea32bb68b27dce9c2130b6d1c" name="acb1c3c5ea32bb68b27dce9c2130b6d1c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acb1c3c5ea32bb68b27dce9c2130b6d1c">&#9670;&#160;</a></span>operator-() <span class="overload">[7/8]</span></h2>
+<a id="a1dcd11938b598983d3a0a7ff94d0648f" name="a1dcd11938b598983d3a0a7ff94d0648f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1dcd11938b598983d3a0a7ff94d0648f">&#9670;&#160;</a></span>operator-() <span class="overload">[7/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;Vector2DComponent T&gt; </div>
+template&lt;Vector2Component T&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a>&lt; T &gt; toy::math::operator- </td>
+          <td class="memname"><a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html">Vector2</a>&lt; T &gt; toy::math::operator- </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>left</em></span>, </td>
+          <td class="paramtype">const <a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html">Vector2</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>left</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>right</em></span>&#160;)</td>
+          <td class="paramtype">const <a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html">Vector2</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>right</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -1209,25 +1209,25 @@ template&lt;Vector2DComponent T&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html" title="toy::math::Vector2D">toy::math::Vector2D</a> with (left.x - right.x, left.y - right.y). </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html" title="toy::math::Vector2">toy::math::Vector2</a> with (left.x - right.x, left.y - right.y). </dd></dl>
 
 </div>
 </div>
-<a id="a9e2fbdf57da4dccb48cc0eec4b335bb5" name="a9e2fbdf57da4dccb48cc0eec4b335bb5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9e2fbdf57da4dccb48cc0eec4b335bb5">&#9670;&#160;</a></span>operator-() <span class="overload">[8/8]</span></h2>
+<a id="a0aa71847430ff9d356bb99e103281c21" name="a0aa71847430ff9d356bb99e103281c21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0aa71847430ff9d356bb99e103281c21">&#9670;&#160;</a></span>operator-() <span class="overload">[8/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;Vector2DComponent T&gt; </div>
+template&lt;Vector2Component T&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a>&lt; T &gt; toy::math::operator- </td>
+          <td class="memname"><a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html">Vector2</a>&lt; T &gt; toy::math::operator- </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>vector</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html">Vector2</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>vector</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1245,7 +1245,7 @@ template&lt;Vector2DComponent T&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html" title="toy::math::Vector2D">toy::math::Vector2D</a> with (-vector.x, -vector.y). </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html" title="toy::math::Vector2">toy::math::Vector2</a> with (-vector.x, -vector.y). </dd></dl>
 
 </div>
 </div>
@@ -1423,21 +1423,21 @@ template&lt;typename Base, typename Intermediate, unsigned Fraction, bool Roundi
 
 </div>
 </div>
-<a id="a83b059f9919b3c8a7784b1fa283a442b" name="a83b059f9919b3c8a7784b1fa283a442b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a83b059f9919b3c8a7784b1fa283a442b">&#9670;&#160;</a></span>operator/() <span class="overload">[5/5]</span></h2>
+<a id="ab028de0b6d762edffd6775605933e010" name="ab028de0b6d762edffd6775605933e010"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab028de0b6d762edffd6775605933e010">&#9670;&#160;</a></span>operator/() <span class="overload">[5/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;Vector2DComponent T&gt; </div>
+template&lt;Vector2Component T&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a>&lt; T &gt; toy::math::operator/ </td>
+          <td class="memname"><a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html">Vector2</a>&lt; T &gt; toy::math::operator/ </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>left</em></span>, </td>
+          <td class="paramtype">const <a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html">Vector2</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>left</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1455,7 +1455,7 @@ template&lt;Vector2DComponent T&gt; </div>
 <p>Vector divided by scalar. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">T</td><td>Component type satisfy <a class="el" href="../../d3/d79/concepttoy_1_1math_1_1_vector2_d_component.html" title="toy::math::Vector2DComponent">toy::math::Vector2DComponent</a>.</td></tr>
+    <tr><td class="paramname">T</td><td>Component type satisfy <a class="el" href="../../d8/d34/concepttoy_1_1math_1_1_vector2_component.html" title="toy::math::Vector2Component">toy::math::Vector2Component</a>.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1466,7 +1466,7 @@ template&lt;Vector2DComponent T&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html" title="toy::math::Vector2D">toy::math::Vector2D</a> with components divided by <em class="arg">scalar</em>.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html" title="toy::math::Vector2">toy::math::Vector2</a> with components divided by <em class="arg">scalar</em>.</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd><em class="arg">right</em> != <code>0</code>. </dd></dl>
 
 </div>
@@ -1823,13 +1823,13 @@ template&lt;typename Base, typename Intermediate, unsigned Fraction, bool Roundi
 
 </div>
 </div>
-<a id="a6ae54badcdcd842e561af10d818e43bd" name="a6ae54badcdcd842e561af10d818e43bd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ae54badcdcd842e561af10d818e43bd">&#9670;&#160;</a></span>operator==() <span class="overload">[5/5]</span></h2>
+<a id="a73965d1828a7926890687b304c2654dd" name="a73965d1828a7926890687b304c2654dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73965d1828a7926890687b304c2654dd">&#9670;&#160;</a></span>operator==() <span class="overload">[5/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;Vector2DComponent T&gt; </div>
+template&lt;Vector2Component T&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1837,12 +1837,12 @@ template&lt;Vector2DComponent T&gt; </div>
         <tr>
           <td class="memname">bool toy::math::operator== </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>left</em></span>, </td>
+          <td class="paramtype">const <a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html">Vector2</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>left</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="../../d9/d85/classtoy_1_1math_1_1_vector2_d.html">Vector2D</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>right</em></span>&#160;)</td>
+          <td class="paramtype">const <a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html">Vector2</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>right</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -1866,31 +1866,31 @@ template&lt;Vector2DComponent T&gt; </div>
 
 </div>
 </div>
-<a id="af547cf7458d548eaf068395cb46c474b" name="af547cf7458d548eaf068395cb46c474b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af547cf7458d548eaf068395cb46c474b">&#9670;&#160;</a></span>Vector2D()</h2>
+<a id="aa98423d123dbd11c048cb1caa94e9f5a" name="aa98423d123dbd11c048cb1caa94e9f5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa98423d123dbd11c048cb1caa94e9f5a">&#9670;&#160;</a></span>Vector2()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;Vector2DComponent T&gt; </div>
+template&lt;Vector2Component T&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">toy::math::Vector2D </td>
+          <td class="memname">toy::math::Vector2 </td>
           <td>(</td>
           <td class="paramtype">const T &amp;</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const T &amp;</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;) -&gt;  Vector2D&lt; T &gt;</td>
+          <td class="paramtype">const T &amp;</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;) -&gt;  Vector2&lt; T &gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Deduction guide: enables <code>Vector2D(x, y)</code> without an explicit template argument when both arguments have the same <a class="el" href="../../d3/d79/concepttoy_1_1math_1_1_vector2_d_component.html" title="toy::math::Vector2DComponent">toy::math::Vector2DComponent</a> type. </p>
+<p>Deduction guide: enables <code>Vector2(x, y)</code> without an explicit template argument when both arguments have the same <a class="el" href="../../d8/d34/concepttoy_1_1math_1_1_vector2_component.html" title="toy::math::Vector2Component">toy::math::Vector2Component</a> type. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">T</td><td>Component type; must satisfy <a class="el" href="../../d3/d79/concepttoy_1_1math_1_1_vector2_d_component.html" title="toy::math::Vector2DComponent">toy::math::Vector2DComponent</a>. </td></tr>
+    <tr><td class="paramname">T</td><td>Component type; must satisfy <a class="el" href="../../d8/d34/concepttoy_1_1math_1_1_vector2_component.html" title="toy::math::Vector2Component">toy::math::Vector2Component</a>. </td></tr>
   </table>
   </dd>
 </dl>
