@@ -129,22 +129,22 @@ constexpr bool Vector2<T>::isEqual(const Vector2<T> & vector, T absEpsilon, T re
 
 template <Vector2Component T>
 constexpr Vector2<T> operator-(const Vector2<T> & vector) noexcept {
-  return Vector2(-vector.x, -vector.y);
+  return Vector2<T>(-vector.x, -vector.y);
 }
 
 template <Vector2Component T>
 constexpr Vector2<T> operator+(const Vector2<T> & left, const Vector2<T> & right) noexcept {
-  return Vector2(left.x + right.x, left.y + right.y);
+  return Vector2<T>(left.x + right.x, left.y + right.y);
 }
 
 template <Vector2Component T>
 constexpr Vector2<T> operator-(const Vector2<T> & left, const Vector2<T> & right) noexcept {
-  return Vector2(left.x - right.x, left.y - right.y);
+  return Vector2<T>(left.x - right.x, left.y - right.y);
 }
 
 template <Vector2Component T>
 constexpr Vector2<T> operator*(const Vector2<T> & left, const T & right) noexcept {
-  return Vector2(left.x * right, left.y * right);
+  return Vector2<T>(left.x * right, left.y * right);
 }
 
 template <Vector2Component T>
