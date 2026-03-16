@@ -48,7 +48,7 @@ concept CircleComponent = math::floating_point<T> || math::fixed_point<T>;
   \class Circle
   \brief Circle in 2D with center and radius.
 
-  Represents a circle by center (\ref toy::math::Vector2D) and radius. Default-constructed circle is in reset state; use
+  Represents a circle by center (\ref toy::math::Vector2) and radius. Default-constructed circle is in reset state; use
   reset() to clear or construct with (center, radius) for a valid circle. operator== compares center and radius
   (tolerance-based for float, exact for fixed-point).
 
@@ -67,9 +67,9 @@ concept CircleComponent = math::floating_point<T> || math::fixed_point<T>;
   \code
   #include "geometry.hpp"
 
-  toy::geometry::Circle<float> c(toy::math::Vector2D(0.0f, 0.0f), 10.0f);
+  toy::geometry::Circle<float> c(toy::math::Vector2(0.0f, 0.0f), 10.0f);
   auto a = c.area();
-  bool inside = c.isContain(toy::math::Vector2D(5.0f, 0.0f));
+  bool inside = c.isContain(toy::math::Vector2(5.0f, 0.0f));
   \endcode
 
   \section performance Performance Characteristics
@@ -82,13 +82,13 @@ concept CircleComponent = math::floating_point<T> || math::fixed_point<T>;
   - **Exception safety**: All operations are noexcept.
 
   \sa CircleComponent
-  \sa toy::math::Vector2D
+  \sa toy::math::Vector2
 */
 template <CircleComponent T>
 class Circle {
 public:
   /// Center of the circle.
-  math::Vector2D<T> center;
+  math::Vector2<T> center;
   /// Radius of the circle.
   T radius;
 
@@ -104,7 +104,7 @@ public:
 
     \pre \a radius > \c 0 (circle must be valid).
   */
-  constexpr Circle(const math::Vector2D<T> & center, const T & radius) noexcept;
+  constexpr Circle(const math::Vector2<T> & center, const T & radius) noexcept;
 
   /*!
     \brief Returns the area (π * radius²).
@@ -141,7 +141,7 @@ public:
 
     \return \c true when squared distance from \a vector to \a center is <= radius².
   */
-  [[nodiscard]] constexpr bool isContain(const math::Vector2D<T> & vector) const noexcept;
+  [[nodiscard]] constexpr bool isContain(const math::Vector2<T> & vector) const noexcept;
 };
 
 /*!
@@ -151,7 +151,7 @@ public:
   \tparam T Component type; must satisfy \ref toy::geometry::CircleComponent.
 */
 template <CircleComponent T>
-Circle(const math::Vector2D<T> &, const T &) -> Circle<T>;
+Circle(const math::Vector2<T> &, const T &) -> Circle<T>;
 
 /*!
   \brief Equality of two circles: same center and radius (tolerance-based for float, exact for fixed-point).

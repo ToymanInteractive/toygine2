@@ -16,7 +16,7 @@ Templates for generating Doxygen class documentation in the ToyGine2 project.
 
 ## Template 1: Regular Class (non-template)
 
-Used for regular classes without template parameters (e.g., `Vector2D`, `Point`).
+Used for regular classes without template parameters (e.g., `Vector2`, `Point`).
 
 ```cpp
 /*!
@@ -192,7 +192,7 @@ struct StructName {
 
 ## Template 4: Simplified Version (without compatibility)
 
-Used for simple classes that do not require a `compatibility` section (e.g., `Vector2D`, `Point`).
+Used for simple classes that do not require a `compatibility` section (e.g., `Vector2`, `Point`).
 
 ```cpp
 /*!
@@ -323,5 +323,5 @@ For reference, see:
 
 - `FixedString` — template class with compatibility section
 - `CStringView` — template class with `\warning`
-- `Vector2D` — simplified template without compatibility
+- `Vector2` — simplified template without compatibility
 - `Version` — struct template

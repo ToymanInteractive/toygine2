@@ -111,7 +111,7 @@ result = value1 +
 
 ```cpp
 class FixedString;
-class Vector2D;
+class Vector2;
 struct Version;
 ```
 
@@ -176,7 +176,7 @@ enum class Color { RED, GREEN, BLUE };
 ```cpp
 namespace toy {
   namespace math {
-    class Vector2D;
+    class Vector2;
   }
   namespace app {
     struct Version;

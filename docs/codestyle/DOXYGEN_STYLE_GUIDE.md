@@ -316,7 +316,7 @@ Link between:
 - Methods and their equivalent operators (`append()` and `operator+=()`)
 - Const and non-const overloads
 - Method synonyms (`size()` and `length()`)
-- Related classes (`Point` and `Vector2D`)
+- Related classes (`Point` and `Vector2`)
 - Similar methods (`find()` and `rfind()`)
 
 ### Cross-Reference Format

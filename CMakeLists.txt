@@ -133,8 +133,8 @@ set(HDR_GEOMETRY_LIST include/geometry.hpp include/geometry/circle.hpp include/g
 set(INL_GEOMETRY_LIST                      include/geometry/circle.inl include/geometry/ellipse.inl include/geometry/section.inl)
 
 set(SRC_MATH_LIST )
-set(HDR_MATH_LIST include/math.hpp include/math/fixed.hpp include/math/fixed_std_extension.hpp include/math/point.hpp include/math/utils.hpp include/math/vector2d.hpp)
-set(INL_MATH_LIST                  include/math/fixed.inl                                      include/math/point.inl include/math/utils.inl include/math/vector2d.inl)
+set(HDR_MATH_LIST include/math.hpp include/math/fixed.hpp include/math/fixed_std_extension.hpp include/math/point.hpp include/math/utils.hpp include/math/vector2.hpp)
+set(INL_MATH_LIST                  include/math/fixed.inl                                      include/math/point.inl include/math/utils.inl include/math/vector2.inl)
 
 set(SRC_NETWORK_LIST src/network/endpoint.cpp)
 set(HDR_NETWORK_LIST include/network/endpoint.hpp include/network.hpp include/network/socket_error.hpp include/network/socket_flags.hpp include/network/socket_statistics.hpp include/network/socket_type.hpp)
