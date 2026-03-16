@@ -22,7 +22,7 @@
   \brief  Umbrella header for the math module.
 
   Provides \ref toy::math::Point, \ref toy::math::Vector2, \ref toy::math::Fixed, constants, and utilities. Include this
-  header only; do not include internal headers (e.g. \c math/point.hpp, \c math/Vector2.hpp) directly.
+  header only; do not include internal headers (e.g. \c math/point.hpp, \c math/vector2.hpp) directly.
 */
 
 #ifndef INCLUDE_MATH_HPP_

@@ -155,7 +155,7 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Game Boy Advance")
     message(FATAL_ERROR "GCC >= 15.2 required")
   endif ()
 
-# Option Summary  https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/Warning-Options.html
+# Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/Warning-Options.html
 
   set(CMAKE_C_FLAGS   "-D__GBA__ -std=c17   -Wall -Wextra -Wpedantic -Werror -Wfatal-errors -Wdouble-promotion -Wformat=2                                                                                                                        -Wzero-as-null-pointer-constant                                                             -Wextra-semi                                                                  -Wuse-after-free=3 -Wuseless-cast                                                                    -fstrict-flex-arrays=2")
   set(CMAKE_CXX_FLAGS "-D__GBA__ -std=c++23 -Wall -Wextra -Wpedantic -Werror -Wfatal-errors -Wdouble-promotion -Wformat=2 -Winvalid-constexpr -Wnoexcept -Wredundant-tags -Wold-style-cast -Woverloaded-virtual=2 -Wsign-promo -Wmismatched-tags -Wzero-as-null-pointer-constant -Wplacement-new=2 -Wcatch-value=2 -Wconditionally-supported -Wextra-semi -Wsuggest-final-types -Wsuggest-final-methods -Wsuggest-override -Wuse-after-free=3 -Wuseless-cast -Wdeprecated-literal-operator -Wdeprecated-variadic-comma-omission -fstrict-flex-arrays=2 -fno-rtti -fno-threadsafe-statics")
@@ -185,7 +185,7 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
     message(FATAL_ERROR "GCC >= 15.2 required")
   endif ()
 
-# Option Summary  https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/Warning-Options.html
+# Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/Warning-Options.html
 
   set(CMAKE_C_FLAGS   "-std=c17   -Wall -Wextra -Wpedantic -Werror -Wfatal-errors -Wdouble-promotion -Wformat=2                                                                                                                        -Wzero-as-null-pointer-constant                                                             -Wextra-semi                                                                  -Wuse-after-free=3 -Wuseless-cast                                                                    -fstrict-flex-arrays=2")
   set(CMAKE_CXX_FLAGS "-std=c++23 -Wall -Wextra -Wpedantic -Werror -Wfatal-errors -Wdouble-promotion -Wformat=2 -Winvalid-constexpr -Wnoexcept -Wredundant-tags -Wold-style-cast -Woverloaded-virtual=2 -Wsign-promo -Wmismatched-tags -Wzero-as-null-pointer-constant -Wplacement-new=2 -Wcatch-value=2 -Wconditionally-supported -Wextra-semi -Wsuggest-final-types -Wsuggest-final-methods -Wsuggest-override -Wuse-after-free=3 -Wuseless-cast -Wdeprecated-literal-operator -Wdeprecated-variadic-comma-omission -fstrict-flex-arrays=2 -fno-rtti -fno-threadsafe-statics")
@@ -215,7 +215,7 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 3DS")
     message(FATAL_ERROR "GCC >= 15.2 required")
   endif ()
 
-# Option Summary  https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/Warning-Options.html
+# Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/Warning-Options.html
 
   set(CMAKE_C_FLAGS   "-std=c17   -Wall -Wextra -Wpedantic -Werror -Wfatal-errors -Wdouble-promotion -Wformat=2                                                                                                                        -Wzero-as-null-pointer-constant                                                             -Wextra-semi                                                                  -Wuse-after-free=3 -Wuseless-cast                                                                    -fstrict-flex-arrays=2")
   set(CMAKE_CXX_FLAGS "-std=c++23 -Wall -Wextra -Wpedantic -Werror -Wfatal-errors -Wdouble-promotion -Wformat=2 -Winvalid-constexpr -Wnoexcept -Wredundant-tags -Wold-style-cast -Woverloaded-virtual=2 -Wsign-promo -Wmismatched-tags -Wzero-as-null-pointer-constant -Wplacement-new=2 -Wcatch-value=2 -Wconditionally-supported -Wextra-semi -Wsuggest-final-types -Wsuggest-final-methods -Wsuggest-override -Wuse-after-free=3 -Wuseless-cast -Wdeprecated-literal-operator -Wdeprecated-variadic-comma-omission -fstrict-flex-arrays=2 -fno-rtti")
@@ -245,7 +245,7 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
     message(FATAL_ERROR "GCC >= 15.2 required")
   endif ()
 
-# Option Summary  https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/Warning-Options.html
+# Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/Warning-Options.html
 
   set(CMAKE_C_FLAGS   "-std=c17   -Wall -Wextra -Wpedantic -Werror -Wfatal-errors -Wdouble-promotion -Wformat=2                                                                                                                        -Wzero-as-null-pointer-constant                                                             -Wextra-semi                                                                  -Wuse-after-free=3 -Wuseless-cast                                                                    -fstrict-flex-arrays=2")
   set(CMAKE_CXX_FLAGS "-std=c++23 -Wall -Wextra -Wpedantic -Werror -Wfatal-errors -Wdouble-promotion -Wformat=2 -Winvalid-constexpr -Wnoexcept -Wredundant-tags -Wold-style-cast -Woverloaded-virtual=2 -Wsign-promo -Wmismatched-tags -Wzero-as-null-pointer-constant -Wplacement-new=2 -Wcatch-value=2 -Wconditionally-supported -Wextra-semi -Wsuggest-final-types -Wsuggest-final-methods -Wsuggest-override -Wuse-after-free=3 -Wuseless-cast -Wdeprecated-literal-operator -Wdeprecated-variadic-comma-omission -fstrict-flex-arrays=2 -fno-rtti")

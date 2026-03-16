@@ -92,10 +92,8 @@ template <Vector2Component T>
 constexpr Vector2<T> & Vector2<T>::operator/=(const T & scalar) noexcept {
   assert_message(scalar > 0 || scalar < 0, "scalar must be non-zero");
 
-  constexpr T one{1};
-  const T invScalar = one / scalar;
-
-  *this *= invScalar;
+  x /= scalar;
+  y /= scalar;
 
   return *this;
 }
@@ -121,6 +119,9 @@ constexpr bool Vector2<T>::isZero() const noexcept {
 
 template <Vector2Component T>
 constexpr bool Vector2<T>::isEqual(const Vector2<T> & vector, T absEpsilon, T relEpsilon) const noexcept {
+  assert_message(absEpsilon >= T{0}, "absEpsilon must be non-negative");
+  assert_message(relEpsilon >= T{0}, "relEpsilon must be non-negative");
+
   return math::isEqual(x, vector.x, absEpsilon, relEpsilon) && math::isEqual(y, vector.y, absEpsilon, relEpsilon);
 }
 
@@ -158,10 +159,7 @@ template <Vector2Component T>
 constexpr Vector2<T> operator/(const Vector2<T> & left, const T & right) noexcept {
   assert_message(right > 0 || right < 0, "right must be non-zero");
 
-  constexpr T one{1};
-  const T invScalar = one / right;
-
-  return left * invScalar;
+  return Vector2<T>(left.x / right, left.y / right);
 }
 
 template <Vector2Component T>

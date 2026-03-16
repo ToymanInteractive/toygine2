@@ -26,7 +26,7 @@ namespace toy::math {
 using Fixed = fixed<int32_t, int64_t, 24>;
 
 // Vector2 has fixed size and contiguous x, y layout (two components).
-TEST_CASE("math/Vector2/object_structure") {
+TEST_CASE("math/vector2/object_structure") {
   static_assert(sizeof(Vector2<float>) == sizeof(float) * 2, "Vector2 size must be 2× component size");
   static_assert(sizeof(Vector2<Fixed>) == sizeof(Fixed) * 2, "Vector2 size must be 2× component size");
 
@@ -52,7 +52,7 @@ TEST_CASE("math/Vector2/object_structure") {
 }
 
 // Constructors set x, y from coordinates or from pointer to two-element array.
-TEST_CASE("math/Vector2/constructors") {
+TEST_CASE("math/vector2/constructors") {
   // Constructor with positive x, y.
   SUBCASE("constructor_with_positive_coordinates") {
     constexpr Vector2 vectorFloat(12.0f, 23.0f);
@@ -156,7 +156,7 @@ TEST_CASE("math/Vector2/constructors") {
 }
 
 // c_arr() returns pointer to contiguous x, y; layout matches struct order.
-TEST_CASE("math/Vector2/c_arr_methods") {
+TEST_CASE("math/vector2/c_arr_methods") {
   // Non-const c_arr() returns writable pointer to x,y (float and Fixed).
   SUBCASE("non_const_c_arr") {
     Vector2 vectorFloat(42.0f, -17.0f);
@@ -197,7 +197,7 @@ TEST_CASE("math/Vector2/c_arr_methods") {
 }
 
 // operator+=, -=, *=, /= and chaining.
-TEST_CASE("math/Vector2/operators") {
+TEST_CASE("math/vector2/operators") {
   // operator+= adds vector (float and Fixed).
   SUBCASE("operator_plus_assign") {
     Vector2 vectorFloat(10.0f, 20.0f);
@@ -284,7 +284,7 @@ TEST_CASE("math/Vector2/operators") {
 }
 
 // sqrMagnitude(), setZero(), isZero(), isEqual() behavior.
-TEST_CASE("math/Vector2/methods") {
+TEST_CASE("math/vector2/methods") {
   // sqrMagnitude() returns x² + y² (float and Fixed).
   SUBCASE("sqr_magnitude") {
     constexpr Vector2 vectorFloat(3.0f, 4.0f);
@@ -393,7 +393,7 @@ TEST_CASE("math/Vector2/methods") {
 }
 
 // Binary +, -, *, /, unary minus, operator==, operator!=, cross().
-TEST_CASE("math/Vector2/binary_operators") {
+TEST_CASE("math/vector2/binary_operators") {
   // Unary minus negates x, y (float and Fixed).
   SUBCASE("unary_minus") {
     constexpr Vector2 vectorFloat(10.0f, -20.0f);

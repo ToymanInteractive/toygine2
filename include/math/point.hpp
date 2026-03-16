@@ -50,8 +50,8 @@ concept PointScalar = signed_integral<T> || floating_point<T> || fixed_point<T>;
   \class Point
   \brief 2D integer point for UI and input coordinates.
 
-  Lightweight value type with \c x and \c y. Suitable for pixel positions, mouse coordinates, and layout. Prefer
-  \ref toy::math::Vector2 for floating-point or world coordinates.
+  Value type with \c x and \c y for pixel positions, mouse coordinates, and layout. Prefer \ref toy::math::Vector2 for
+  floating-point or world coordinates.
 
   \section features Key Features
 
