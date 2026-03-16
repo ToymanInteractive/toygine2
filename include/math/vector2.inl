@@ -114,6 +114,8 @@ constexpr bool Vector2<T>::isZero() const noexcept {
     return math::isEqual(x, T{0}) && math::isEqual(y, T{0});
   } else if constexpr (fixed_point<T>) {
     return x.rawValue() == 0 && y.rawValue() == 0;
+  } else {
+    static_assert(floating_point<T> || fixed_point<T>, "unsupported component type");
   }
 }
 
@@ -168,6 +170,8 @@ constexpr bool operator==(const Vector2<T> & left, const Vector2<T> & right) noe
     return left.isEqual(right);
   } else if constexpr (fixed_point<T>) {
     return left.x == right.x && left.y == right.y;
+  } else {
+    static_assert(floating_point<T> || fixed_point<T>, "unsupported component type");
   }
 }
 
