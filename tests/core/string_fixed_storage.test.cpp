@@ -22,8 +22,6 @@
   \brief  Unit tests for \ref toy::StringFixedStorage.
 */
 
-#include <cstring>
-
 #include <doctest/doctest.h>
 
 #include "core.hpp"

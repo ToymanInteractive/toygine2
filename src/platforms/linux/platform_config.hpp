@@ -21,8 +21,8 @@
   \file   platform_config.hpp
   \brief  Compile-time platform and CPU bindings for Linux.
 
-  Defines \ref toy::Platform and \ref toy::CpuArchitecture values (\c currentPlatform, \c currentCpuArchitecture) for Linux
-  targets.
+  Defines \ref toy::Platform and \ref toy::CpuArchitecture values (\c currentPlatform, \c currentCpuArchitecture) for
+  Linux targets.
 
   Included by Linux platform translation units; not a public module header.
 */

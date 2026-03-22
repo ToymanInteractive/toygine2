@@ -29,28 +29,28 @@
 
 namespace toy {
 
-template <size_t allocatedSize>
-constexpr size_t StringFixedStorage<allocatedSize>::capacity() noexcept {
-  return allocatedSize - 1;
+template <size_t AllocatedSize>
+constexpr size_t StringFixedStorage<AllocatedSize>::capacity() noexcept {
+  return AllocatedSize - 1;
 }
 
-template <size_t allocatedSize>
-constexpr size_t StringFixedStorage<allocatedSize>::size() const noexcept {
+template <size_t AllocatedSize>
+constexpr size_t StringFixedStorage<AllocatedSize>::size() const noexcept {
   return _size;
 }
 
-template <size_t allocatedSize>
-constexpr char * StringFixedStorage<allocatedSize>::data() noexcept {
+template <size_t AllocatedSize>
+constexpr char * StringFixedStorage<AllocatedSize>::data() noexcept {
   return _buffer;
 }
 
-template <size_t allocatedSize>
-constexpr const char * StringFixedStorage<allocatedSize>::data() const noexcept {
+template <size_t AllocatedSize>
+constexpr const char * StringFixedStorage<AllocatedSize>::data() const noexcept {
   return _buffer;
 }
 
-template <size_t allocatedSize>
-constexpr void StringFixedStorage<allocatedSize>::setSize(size_t newSize) noexcept {
+template <size_t AllocatedSize>
+constexpr void StringFixedStorage<AllocatedSize>::setSize(size_t newSize) noexcept {
   assert_message(newSize <= capacity(), "newSize must be less or equal than capacity");
   _size = newSize;
   _buffer[_size] = '\0';

@@ -32,12 +32,11 @@
 namespace toy {
 
 /*!
-  \struct EnableBitwiseOperators
+  \class EnableBitwiseOperators
   \brief Primary template: disables generic bitwise operators for \a T unless specialized.
 
-  Specialize (manually or with \c ENABLE_BITWISE_OPERATORS(T)) so that \c enable is \c true for a given scoped enum.
-  The generic operator overloads in this header are only instantiated when `EnableBitwiseOperators<T>::enable` is
-  true.
+  Specialize (manually or with \c ENABLE_BITWISE_OPERATORS(T)) so that \c enable is \c true for a given scoped enum. The
+  generic operator overloads in this header are only instantiated when `EnableBitwiseOperators<T>::enable` is true.
 
   \section features Key Features
 
@@ -54,8 +53,8 @@ namespace toy {
 
   \section performance Performance Characteristics
 
-  Each operation is a short inline forwarding to one or two integer operations; complexity is O(1) per call with no
-  heap use.
+  Each operation is a short inline forwarding to one or two integer operations; complexity is O(1) per call with no heap
+  use.
 
   \section safety Safety Guarantees
 
@@ -70,7 +69,8 @@ namespace toy {
   \see ENABLE_BITWISE_OPERATORS
 */
 template <typename T>
-struct EnableBitwiseOperators {
+class EnableBitwiseOperators {
+public:
   /// When \c true, the bitwise operator overloads in this header apply to \a T. The primary template sets \c false.
   static constexpr bool enable = false;
 };

@@ -21,8 +21,8 @@
   \file   platform_config.hpp
   \brief  Compile-time platform and CPU bindings for Nintendo DS.
 
-  Defines \ref toy::Platform and \ref toy::CpuArchitecture values (\c currentPlatform, \c currentCpuArchitecture) for NDS
-  toolchains.
+  Defines \ref toy::Platform and \ref toy::CpuArchitecture values (\c currentPlatform, \c currentCpuArchitecture) for
+  NDS toolchains.
 
   Included by NDS platform translation units; not a public module header.
 */

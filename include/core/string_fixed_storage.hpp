@@ -36,19 +36,19 @@ namespace toy {
   \ingroup String
   \brief Fixed-size character storage with a tracked length and implicit null terminator at \c data()[size()].
 
-  Holds \c allocatedSize bytes (including space for a terminating \c '\\0' after the logical string). The usable
-  character count is capacity() = \c allocatedSize - 1. size() is the number of characters before that terminator;
+  Holds \c AllocatedSize bytes (including space for a terminating \c '\\0' after the logical string). The usable
+  character count is capacity() = \c AllocatedSize - 1. size() is the number of characters before that terminator;
   setSize() updates the length and writes \c '\\0' at \c data()[size()]. Callers fill \c data()[0] … \c data()[size()-1]
   when \c size() \c > \c 0.
 
-  \tparam allocatedSize Total byte count of the internal buffer. Must be \c > \c 0 (compile-time check).
+  \tparam AllocatedSize Total byte count of the internal buffer. Must be \c > \c 0 (compile-time check).
 
   \section features Key Features
 
   - **No heap**: Storage is inline; suitable for embedded and deterministic code paths.
   - **Explicit length**: size() and setSize() separate from buffer contents (caller maintains valid UTF-8 or other
     encoding as needed).
-  - **Null-terminated**: After setSize(\a n), \c data()[\a n] is \c '\\0' when \a n \c < \c allocatedSize.
+  - **Null-terminated**: After setSize(\a n), \c data()[\a n] is \c '\\0' when \a n \c < \c AllocatedSize.
 
   \section usage Usage Example
 
@@ -68,27 +68,27 @@ namespace toy {
 
   \section safety Safety Guarantees
 
-  - **Preconditions**: setSize(\a newSize) requires \a newSize \c < \c allocatedSize (asserted in debug) so the
+  - **Preconditions**: setSize(\a newSize) requires \a newSize \c < \c AllocatedSize (asserted in debug) so the
     written terminator stays within the buffer.
   - **Exception safety**: All operations are noexcept.
 
   \note This type does not validate encoding or copy characters; higher-level types (e.g. \ref toy::FixedString) build
         on similar storage patterns.
 */
-template <size_t allocatedSize>
+template <size_t AllocatedSize>
 class StringFixedStorage {
-  static_assert(allocatedSize > 0, "StringFixedStorage capacity must be greater than zero.");
+  static_assert(AllocatedSize > 0, "StringFixedStorage capacity must be greater than zero.");
 
 public:
   /*!
     \brief Returns the maximum number of characters that fit before the mandatory null terminator.
 
-    Evaluated entirely at compile time from \a allocatedSize. The buffer holds \c allocatedSize bytes; one byte is
+    Evaluated entirely at compile time from \a AllocatedSize. The buffer holds \c AllocatedSize bytes; one byte is
     reserved for \c '\\0' at index capacity(), so the usable span for character data is \c [0, capacity()).
 
-    \return \c allocatedSize - 1.
+    \return \c AllocatedSize - 1.
 
-    \note \c static \c constexpr; same for all instances of \ref toy::StringFixedStorage with this \a allocatedSize.
+    \note \c static \c constexpr; same for all instances of \ref toy::StringFixedStorage with this \a AllocatedSize.
   */
   [[nodiscard]] static constexpr size_t capacity() noexcept;
 
@@ -135,10 +135,10 @@ public:
     Sets the tracked length to \a newSize and assigns \c '\\0' to \c data()[newSize]. Does not clear or copy the range
     \c [0, newSize); callers must have written valid content there if \a newSize \c > \c 0.
 
-    \param newSize New character count. Must be strictly less than \a allocatedSize so the terminator fits in the
+    \param newSize New character count. Must be strictly less than \a AllocatedSize so the terminator fits in the
     buffer.
 
-    \pre \a newSize \c < \c allocatedSize (checked with assert_message in debug builds).
+    \pre \a newSize \c < \c AllocatedSize (checked with assert_message in debug builds).
 
     \post size() equals \a newSize and \c data()[newSize] is \c '\\0'.
 
@@ -147,7 +147,7 @@ public:
   constexpr void setSize(size_t newSize) noexcept;
 
 private:
-  char _buffer[allocatedSize] = {'\0'};
+  char _buffer[AllocatedSize] = {'\0'};
 
   size_t _size{0};
 };
