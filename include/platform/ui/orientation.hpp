@@ -23,7 +23,7 @@
 
   Defines \ref toy::platform::ui::Orientation.
 
-  Included by \ref platform/ui.hpp; do not include this file directly.
+  Included by platform/ui.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_PLATFORM_UI_ORIENTATION_HPP_

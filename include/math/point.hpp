@@ -23,7 +23,7 @@
 
   Defines \ref toy::math::Point.
 
-  Included by \ref math.hpp; do not include this file directly.
+  Included by math.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_MATH_POINT_HPP_

@@ -23,7 +23,7 @@
 
   Defines \ref toy::application::Version and declares comparison operators.
 
-  Included by \ref application.hpp; do not include this file directly.
+  Included by application.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_APPLICATION_VERSION_HPP_

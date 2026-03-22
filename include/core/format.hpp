@@ -23,7 +23,7 @@
 
   Defines \ref toy::FormatString and related helpers.
 
-  Included by \ref core.hpp; do not include this file directly.
+  Included by core.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_FORMAT_HPP_

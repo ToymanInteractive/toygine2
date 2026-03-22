@@ -507,7 +507,12 @@ char * ftoa(char * dest, size_t destSize, double value, size_t precision) noexce
   return dest;
 }
 
-constexpr size_t c_numberGroupSize = 3;
+/*!
+  \brief Number of decimal digits per group when \c formatNumberString() inserts the caller-supplied separator.
+
+  Fixed at three so grouping matches common thousands-style splitting from the right.
+*/
+constexpr size_t _decimalDigitsPerGroup = 3;
 
 void formatNumberString(char * buffer, size_t bufferSize, const char * separator) noexcept {
   assert_message(buffer != nullptr && bufferSize > 0, "The destination buffer must not be null.");
@@ -529,10 +534,10 @@ void formatNumberString(char * buffer, size_t bufferSize, const char * separator
   while (buffer[digitsCount] >= '0' && buffer[digitsCount] <= '9')
     ++digitsCount;
 
-  if (digitsCount <= c_numberGroupSize) // Nothing to format.
+  if (digitsCount <= _decimalDigitsPerGroup) // Nothing to format.
     return;
 
-  auto groupsCount = (digitsCount - 1U) / c_numberGroupSize;
+  auto groupsCount = (digitsCount - 1U) / _decimalDigitsPerGroup;
   const auto ansiStringLen = char_traits<char>::length(buffer);
   const auto requiredBufferSize = ansiStringLen + groupsCount * separatorLen;
   assert_message(requiredBufferSize < bufferSize, "Buffer size is too low.");
@@ -547,11 +552,11 @@ void formatNumberString(char * buffer, size_t bufferSize, const char * separator
 
   auto scanChars = digitsCount;
   while (groupsCount > 0) {
-    std::memmove(buffer + (scanChars + groupsCount * separatorLen - c_numberGroupSize),
-                 buffer + (scanChars - c_numberGroupSize), c_numberGroupSize);
-    const auto destBufferShift = scanChars + (groupsCount - 1) * separatorLen - c_numberGroupSize;
+    std::memmove(buffer + (scanChars + groupsCount * separatorLen - _decimalDigitsPerGroup),
+                 buffer + (scanChars - _decimalDigitsPerGroup), _decimalDigitsPerGroup);
+    const auto destBufferShift = scanChars + (groupsCount - 1) * separatorLen - _decimalDigitsPerGroup;
     char_traits<char>::copy(buffer + destBufferShift, separator, separatorLen);
-    scanChars -= c_numberGroupSize;
+    scanChars -= _decimalDigitsPerGroup;
     --groupsCount;
   }
 }

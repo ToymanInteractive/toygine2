@@ -23,7 +23,7 @@
 
   Defines \ref toy::audio::VolumeType.
 
-  Included by \ref audio.hpp; do not include this file directly.
+  Included by audio.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_AUDIO_VOLUME_TYPE_HPP_

@@ -23,7 +23,7 @@
 
   Defines \ref toy::geometry::Section and \ref toy::geometry::SectionEndpoint.
 
-  Included by \ref geometry.hpp; do not include this file directly.
+  Included by geometry.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_GEOMETRY_SECTION_HPP_

@@ -21,7 +21,7 @@
   \file   utils.inl
   \brief  Inline implementations for utilities declared in \c utils.hpp.
 
-  Included by \ref core.hpp only; do not include this file directly.
+  Included by core.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_UTILS_INL_

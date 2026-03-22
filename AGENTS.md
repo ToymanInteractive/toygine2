@@ -312,7 +312,7 @@ Every header (and each translation unit that carries a file block) should start 
   Defines \ref toy::namespace::MainSymbol: what it represents and how it fits the API. Used when <typical action> or
   <consumer context>.
 
-  Included by \ref module.hpp only; do not include this file directly.
+  Included by module.hpp only; do not include this file directly.
 */
 ```
 
@@ -334,7 +334,7 @@ Every header (and each translation unit that carries a file block) should start 
   \file   module_name.inl
   \brief  Inline implementations for \ref toy::namespace::Type <narrow scope, e.g. accessors or operators>.
 
-  Included by \ref module.hpp only; do not include this file directly.
+  Included by module.hpp only; do not include this file directly.
 */
 ```
 

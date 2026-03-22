@@ -21,7 +21,7 @@
   \file   version.inl
   \brief  Inline implementations for \ref toy::application::Version comparison operators.
 
-  Included by \ref application.hpp only; do not include this file directly.
+  Included by application.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_APPLICATION_VERSION_INL_

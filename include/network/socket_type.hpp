@@ -24,7 +24,7 @@
   Defines \ref toy::network::SocketType: kind of socket (datagram, stream, or dummy). Used when creating or configuring
   sockets.
 
-  Included by \ref network.hpp; do not include this file directly.
+  Included by network.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_NETWORK_SOCKET_TYPE_HPP_

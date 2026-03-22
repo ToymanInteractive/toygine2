@@ -23,7 +23,7 @@
 
   Declares crc8(), crc16(), and crc32() in namespace \ref toy.
 
-  Included by \ref core.hpp; do not include this file directly.
+  Included by core.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_HASHES_HPP_

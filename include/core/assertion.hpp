@@ -25,7 +25,7 @@
   builds assertion() formats failure context and invokes the registered callback; in release it is a no-op. Supports
   optional stack-walk callback for trace output.
 
-  Included by \ref core.hpp; do not include this file directly.
+  Included by core.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_ASSERTION_HPP_

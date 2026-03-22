@@ -23,7 +23,7 @@
 
   Defines \ref toy::EnableBitwiseOperators and constrained operator overloads.
 
-  Included by \ref core.hpp; do not include this file directly.
+  Included by core.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_BITWISE_ENUM_HPP_

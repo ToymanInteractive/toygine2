@@ -21,7 +21,7 @@
   \file   vector2.inl
   \brief  Inline implementations for \ref toy::math::Vector2.
 
-  Included by \ref math.hpp only; do not include this file directly.
+  Included by math.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_MATH_VECTOR2_INL_

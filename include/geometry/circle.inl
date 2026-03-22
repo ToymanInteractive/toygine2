@@ -21,7 +21,7 @@
   \file   circle.inl
   \brief  Inline implementations for \ref toy::geometry::Circle.
 
-  Included by \ref geometry.hpp only; do not include this file directly.
+  Included by geometry.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_GEOMETRY_CIRCLE_INL_

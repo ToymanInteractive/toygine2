@@ -21,7 +21,7 @@
   \file   fixed_string.inl
   \brief  Inline implementations for \ref toy::FixedString.
 
-  Included by \ref core.hpp only; do not include this file directly.
+  Included by core.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_FIXED_STRING_INL_

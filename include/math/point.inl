@@ -21,7 +21,7 @@
   \file   point.inl
   \brief  Inline implementations for \ref toy::math::Point.
 
-  Included by \ref math.hpp only; do not include this file directly.
+  Included by math.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_MATH_POINT_INL_

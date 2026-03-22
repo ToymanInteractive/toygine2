@@ -23,7 +23,7 @@
 
   Declares overloads in namespace \ref toy::math for signed integers, floating-point, and fixed-point types.
 
-  Included by \ref math.hpp; do not include this file directly.
+  Included by math.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_MATH_UTILS_HPP_

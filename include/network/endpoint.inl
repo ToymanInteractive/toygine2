@@ -21,7 +21,7 @@
   \file   endpoint.inl
   \brief  Inline implementations for \ref toy::network::Endpoint port accessors.
 
-  Included by \ref network.hpp only; do not include this file directly.
+  Included by network.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_NETWORK_ENDPOINT_INL_

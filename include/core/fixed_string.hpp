@@ -23,7 +23,7 @@
 
   Defines \ref toy::FixedString and related APIs.
 
-  Included by \ref core.hpp; do not include this file directly.
+  Included by core.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_FIXED_STRING_HPP_

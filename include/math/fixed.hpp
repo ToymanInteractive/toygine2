@@ -23,7 +23,7 @@
 
   Defines \ref toy::math::fixed, \ref toy::math::fixed_point, and supporting traits.
 
-  Included by \ref math.hpp; do not include this file directly.
+  Included by math.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_MATH_FIXED_HPP_

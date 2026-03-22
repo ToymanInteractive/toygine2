@@ -21,7 +21,7 @@
   \file   string_fixed_storage.inl
   \brief  Inline implementations for \ref toy::StringFixedStorage.
 
-  Included by \ref core.hpp only; do not include this file directly.
+  Included by core.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_STRING_FIXED_STORAGE_INL_

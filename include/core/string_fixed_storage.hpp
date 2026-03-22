@@ -23,7 +23,7 @@
 
   Defines \ref toy::StringFixedStorage.
 
-  Included by \ref core.hpp; do not include this file directly.
+  Included by core.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_STRING_FIXED_STORAGE_HPP_
@@ -147,8 +147,10 @@ public:
   constexpr void setSize(size_t newSize) noexcept;
 
 private:
+  /// Inline storage: characters live in \c [0, size()).
   char _buffer[AllocatedSize] = {'\0'};
 
+  /// Logical length in bytes (not including the terminator)
   size_t _size{0};
 };
 

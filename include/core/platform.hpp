@@ -24,7 +24,7 @@
   Defines \ref toy::Platform (OS/target) and \ref toy::CpuArchitecture (ISA). Values use distinct hex ranges for
   conditional compilation; use getCurrentPlatform() and getCurrentArchitecture() for runtime detection.
 
-  Included by \ref core.hpp; do not include this file directly.
+  Included by core.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_PLATFORM_HPP_
