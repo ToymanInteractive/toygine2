@@ -19,7 +19,7 @@
 //
 /*!
   \file   pixel_format.cpp
-  \brief  Implementation of pixelFormatName() and pixelFormatFromName().
+  \brief  Definitions for \c pixelFormatName() and \c pixelFormatFromName() declared in \c render/pixel_format.hpp.
 */
 
 #include "render.hpp"

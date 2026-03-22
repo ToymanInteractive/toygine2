@@ -19,11 +19,13 @@
 //
 /*!
   \file   utils.hpp
-  \brief  Core utilities: string encoding conversion, length, reversal, and number formatting.
+  \brief  Core utilities: encoding conversion, string metrics, and number formatting.
 
-  UTF-8 ↔ wide conversion, utf8Len, reverseString, itoa, utoa, ftoa, formatNumberString, highestBit. Implementations may
-  be in \c core/utils.cpp or inline. All functions write into caller-provided buffers where applicable; no dynamic
-  allocation.
+  Declares utf8toWChar, wcharToUtf8, utf8Len, reverseString, itoa, utoa, ftoa, formatNumberString, highestBit, and
+  related free functions in namespace \ref toy. Non-inline definitions live in \c utils.cpp; callers supply buffers. No
+  dynamic allocation in these APIs.
+
+  Included by \ref core.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_UTILS_HPP_

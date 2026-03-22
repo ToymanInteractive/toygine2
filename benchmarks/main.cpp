@@ -17,6 +17,10 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 //
+/*!
+  \file   main.cpp
+  \brief  Entry point for nanobench benchmarks (core, geometry, math).
+*/
 
 void runCoreBenchmarks() noexcept;
 void runGeometryBenchmarks() noexcept;

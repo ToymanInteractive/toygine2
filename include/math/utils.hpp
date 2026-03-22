@@ -21,7 +21,9 @@
   \file   utils.hpp
   \brief  General math utilities: abs, isEqual, deg2rad, rad2deg.
 
-  Declares overloads for signed integers, floating-point, and fixed-point types.
+  Declares overloads in namespace \ref toy::math for signed integers, floating-point, and fixed-point types.
+
+  Included by \ref math.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_MATH_UTILS_HPP_

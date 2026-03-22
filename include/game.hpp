@@ -21,8 +21,9 @@
   \file   game.hpp
   \brief  Umbrella header for the game module.
 
-  Provides achievement state and game utilities. Include this header only; do not include internal headers (e.g.
-  \c game/achievement_state.hpp) directly.
+  Defines achievement state and game utilities.
+
+  Include this header only; do not include internal headers directly.
 */
 
 #ifndef INCLUDE_GAME_HPP_

@@ -19,13 +19,11 @@
 //
 /*!
   \file   bitwise_enum.hpp
-  \brief  Trait and generic bitwise operators for scoped enums.
+  \brief  Opt-in bitwise operators for scoped enumerations used as flag sets.
 
-  \ref toy::EnableBitwiseOperators is a trait that gates bitwise operator overloads for an enum type.
-  Use macro ENABLE_BITWISE_OPERATORS to enable operator|, operator&, operator^, operator~ and compound
-  operator|=, operator&=, operator^= for a given enum. All operations are constexpr and noexcept.
+  Defines \ref toy::EnableBitwiseOperators and constrained operator overloads.
 
-  \sa toy::EnableBitwiseOperators, ENABLE_BITWISE_OPERATORS
+  Included by \ref core.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_BITWISE_ENUM_HPP_
@@ -34,73 +32,113 @@
 namespace toy {
 
 /*!
-  \brief Trait that enables bitwise operator overloads for an enum type \a T.
+  \struct EnableBitwiseOperators
+  \brief Primary template: disables generic bitwise operators for \a T unless specialized.
 
-  Default specialization has \a enable equal to \c false. Specialize via ENABLE_BITWISE_OPERATORS(T) to set \a enable to
-  \c true and enable operator|, operator&, operator^, operator~ and compound forms for \a T.
+  Specialize (manually or with \c ENABLE_BITWISE_OPERATORS(T)) so that \c enable is \c true for a given scoped enum.
+  The generic operator overloads in this header are only instantiated when `EnableBitwiseOperators<T>::enable` is
+  true.
 
-  \tparam T Scoped enum type.
+  \section features Key Features
 
-  \sa ENABLE_BITWISE_OPERATORS
+  - ⚙️ **Opt-in**: No operators are added until you specialize the trait (typically via \c ENABLE_BITWISE_OPERATORS).
+  - **Constrained overloads**: Participation is explicit (`requires EnableBitwiseOperators<T>::enable`).
+  - **constexpr / noexcept**: Usable in constant evaluation when operands and the underlying type allow it.
+  - **No allocation**: Pure forwarding to integral bitwise operations on the underlying type.
+
+  \section usage Usage
+
+  After defining an `enum class` with power-of-two enumerators (and a suitable underlying type), add
+  \c ENABLE_BITWISE_OPERATORS(MyEnum) at namespace scope in the global namespace. Then use `|`, `&`, `^`, `~`, and
+  `|=`, `&=`, `^=` on values of \c MyEnum like ordinary flag types.
+
+  \section performance Performance Characteristics
+
+  Each operation is a short inline forwarding to one or two integer operations; complexity is O(1) per call with no
+  heap use.
+
+  \section safety Safety Guarantees
+
+  - The trait does not check that enumerators are disjoint bits; mixing overlapping values is a logic error.
+  - All declared operations are noexcept.
+  - For signed underlying types, unary `~` follows the usual two's-complement bit pattern for the underlying width.
+
+  \tparam T Scoped enumeration type (`enum class`).
+
+  \note Prefer an unsigned underlying type for flag enums to reduce surprises with `~` and with mixing signed literals.
+
+  \see ENABLE_BITWISE_OPERATORS
 */
 template <typename T>
 struct EnableBitwiseOperators {
-  /// Enables bitwise operators.
+  /// When \c true, the bitwise operator overloads in this header apply to \a T. The primary template sets \c false.
   static constexpr bool enable = false;
 };
 
 /*!
-  \brief Bitwise OR of two enum values.
+  \brief Computes bitwise OR on the underlying integers, then casts back to \a T.
+
+  \tparam T Scoped enum for which \ref toy::EnableBitwiseOperators is specialized with \c enable == \c true.
 
   \param lhs First operand.
   \param rhs Second operand.
 
-  \return A value of type \a T with bits set in either \a lhs or \a rhs.
+  \return \c static_cast<T>(std::to_underlying(lhs) | std::to_underlying(rhs)).
 */
 template <typename T>
   requires EnableBitwiseOperators<T>::enable
 [[nodiscard]] constexpr T operator|(T lhs, T rhs) noexcept;
 
 /*!
-  \brief Bitwise AND of two enum values.
+  \brief Computes bitwise AND on the underlying integers, then casts back to \a T.
+
+  \tparam T Scoped enum for which \ref toy::EnableBitwiseOperators is specialized with \c enable == \c true.
 
   \param lhs First operand.
   \param rhs Second operand.
 
-  \return A value of type \a T with only the bits set in both \a lhs and \a rhs.
+  \return \c static_cast<T>(std::to_underlying(lhs) & std::to_underlying(rhs)).
 */
 template <typename T>
   requires EnableBitwiseOperators<T>::enable
 [[nodiscard]] constexpr T operator&(T lhs, T rhs) noexcept;
 
 /*!
-  \brief Bitwise XOR of two enum values.
+  \brief Computes bitwise XOR on the underlying integers, then casts back to \a T.
+
+  \tparam T Scoped enum for which \ref toy::EnableBitwiseOperators is specialized with \c enable == \c true.
 
   \param lhs First operand.
   \param rhs Second operand.
 
-  \return A value of type \a T with bits set in exactly one of \a lhs or \a rhs.
+  \return \c static_cast<T>(std::to_underlying(lhs) ^ std::to_underlying(rhs)).
 */
 template <typename T>
   requires EnableBitwiseOperators<T>::enable
 [[nodiscard]] constexpr T operator^(T lhs, T rhs) noexcept;
 
 /*!
-  \brief Bitwise NOT (one's complement) of an enum value.
+  \brief Computes bitwise NOT of the underlying integer, then casts back to \a T.
+
+  \tparam T Scoped enum for which \ref toy::EnableBitwiseOperators is specialized with \c enable == \c true.
 
   \param lhs Operand.
 
-  \return A value of type \a T with all bits of the underlying value inverted.
+  \return \c static_cast<T>(~std::to_underlying(lhs)).
+
+  \note Inverts every bit of the underlying representation; meaning as a flag set depends on width and signedness.
 */
 template <typename T>
   requires EnableBitwiseOperators<T>::enable
 [[nodiscard]] constexpr T operator~(T lhs) noexcept;
 
 /*!
-  \brief Compound bitwise OR assignment.
+  \brief Compound OR: \a lhs becomes \a lhs | \a rhs.
 
-  \param lhs Left operand (modified).
-  \param rhs Right operand.
+  \tparam T Scoped enum for which \ref toy::EnableBitwiseOperators is specialized with \c enable == \c true.
+
+  \param lhs Reference to the left-hand value (updated).
+  \param rhs Right-hand operand.
 
   \return Reference to \a lhs.
 */
@@ -109,10 +147,12 @@ template <typename T>
 constexpr T & operator|=(T & lhs, T rhs) noexcept;
 
 /*!
-  \brief Compound bitwise AND assignment.
+  \brief Compound AND: \a lhs becomes \a lhs & \a rhs.
 
-  \param lhs Left operand (modified).
-  \param rhs Right operand.
+  \tparam T Scoped enum for which \ref toy::EnableBitwiseOperators is specialized with \c enable == \c true.
+
+  \param lhs Reference to the left-hand value (updated).
+  \param rhs Right-hand operand.
 
   \return Reference to \a lhs.
 */
@@ -121,10 +161,12 @@ template <typename T>
 constexpr T & operator&=(T & lhs, T rhs) noexcept;
 
 /*!
-  \brief Compound bitwise XOR assignment.
+  \brief Compound XOR: \a lhs becomes \a lhs ^ \a rhs.
 
-  \param lhs Left operand (modified).
-  \param rhs Right operand.
+  \tparam T Scoped enum for which \ref toy::EnableBitwiseOperators is specialized with \c enable == \c true.
+
+  \param lhs Reference to the left-hand value (updated).
+  \param rhs Right-hand operand.
 
   \return Reference to \a lhs.
 */
@@ -136,15 +178,16 @@ constexpr T & operator^=(T & lhs, T rhs) noexcept;
 
 /*!
   \def ENABLE_BITWISE_OPERATORS
-  \brief Enables bitwise operators for the scoped enum type \a T.
+  \brief Specializes \ref toy::EnableBitwiseOperators so that \c enable is \c true for the scoped enum \a T.
 
-  Expands to a full specialization of \ref toy::EnableBitwiseOperators with \a enable set to \c true. Must be used in
-  the global namespace after the enum definition. Include \c core/bitwise_enum.hpp so that the trait and operators are
-  visible.
+  The macro expands to a full class template specialization in namespace \ref toy. Place it in the global namespace
+  after \a T is complete so the specialization is visible when instantiating the generic operators.
 
-  \param T Scoped enum type (e.g. \ref toy::render::ClearFlags).
+  \param T The scoped enumeration type (may be qualified with its namespace).
 
-  \sa toy::EnableBitwiseOperators
+  \pre \a T names a complete `enum class` type intended for use as a bit-flag set.
+
+  \see EnableBitwiseOperators
 */
 #define ENABLE_BITWISE_OPERATORS(T)                                                                                    \
   template <>                                                                                                          \

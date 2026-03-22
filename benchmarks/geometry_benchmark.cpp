@@ -17,6 +17,10 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 //
+/*!
+  \file   geometry_benchmark.cpp
+  \brief  Nanobench benchmarks for the geometry module (Circle, Ellipse, Section, etc.).
+*/
 
 #include "benchmark_factory.hpp"
 #include "geometry.hpp"

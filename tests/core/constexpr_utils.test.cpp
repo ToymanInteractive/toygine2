@@ -17,6 +17,11 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 //
+/*!
+  \file   constexpr_utils.test.cpp
+  \brief  Unit tests for constexpr algorithms and helpers in \c core/constexpr_utils.hpp.
+*/
+
 /*
 #include <doctest/doctest.h>
 

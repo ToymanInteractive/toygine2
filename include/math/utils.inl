@@ -19,7 +19,9 @@
 //
 /*!
   \file   utils.inl
-  \brief  Inline implementations for General math utilities.
+  \brief  Inline implementations for utilities declared in \c math/utils.hpp.
+
+  Included by \ref math.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_MATH_UTILS_INL_

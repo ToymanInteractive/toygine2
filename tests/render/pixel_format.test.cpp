@@ -17,6 +17,10 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 //
+/*!
+  \file   pixel_format.test.cpp
+  \brief  Unit tests for \ref toy::render::PixelFormat name mapping.
+*/
 
 #include <doctest/doctest.h>
 

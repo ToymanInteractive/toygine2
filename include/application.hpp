@@ -21,8 +21,9 @@
   \file   application.hpp
   \brief  Umbrella header for the app module.
 
-  Provides version and application-level types. Include this header only; do not include internal headers (e.g.
-  \c app/version.hpp) directly.
+  Defines version and application-level types.
+
+  Include this header only; do not include internal headers directly.
 */
 
 #ifndef INCLUDE_APPLICATION_HPP_

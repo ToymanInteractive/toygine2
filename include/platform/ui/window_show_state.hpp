@@ -23,6 +23,8 @@
 
   Defines \ref toy::platform::ui::WindowShowState: mutually exclusive states for show/hide, normal, maximized, and
   minimized. Used when showing a window or querying its current state.
+
+  Included by \ref platform/ui.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_PLATFORM_UI_WINDOW_SHOW_STATE_HPP_

@@ -21,8 +21,10 @@
   \file   socket_flags.hpp
   \brief  Socket option and mode flags for the network module.
 
-  Defines \ref toy::network::SocketFlags: bitmask flags for non-blocking mode, address
-  reuse, broadcast, listen, and bind. Used when creating or configuring sockets.
+  Defines \ref toy::network::SocketFlags: bitmask flags for non-blocking mode, address reuse, broadcast, listen, and
+  bind. Used when creating or configuring sockets.
+
+  Included by \ref network.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_NETWORK_SOCKET_FLAGS_HPP_

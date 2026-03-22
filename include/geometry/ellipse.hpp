@@ -19,7 +19,11 @@
 //
 /*!
   \file   ellipse.hpp
-  \brief  Declarations for \ref toy::geometry::Ellipse and \ref toy::geometry::EllipseComponent.
+  \brief  Axis-aligned ellipse with center and semi-axes.
+
+  Defines \ref toy::geometry::Ellipse and \ref toy::geometry::EllipseComponent.
+
+  Included by \ref geometry.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_GEOMETRY_ELLIPSE_HPP_

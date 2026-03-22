@@ -19,7 +19,11 @@
 //
 /*!
   \file   fixed_string.hpp
-  \brief  Template string class with fixed-size character buffer.
+  \brief  Fixed-capacity string with stack storage.
+
+  Defines \ref toy::FixedString and related APIs.
+
+  Included by \ref core.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_FIXED_STRING_HPP_

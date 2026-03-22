@@ -19,7 +19,11 @@
 //
 /*!
   \file   circle.hpp
-  \brief  Declarations for \ref toy::geometry::Circle and \ref toy::geometry::CircleComponent.
+  \brief  Circle in 2D with center and radius.
+
+  Defines \ref toy::geometry::Circle and \ref toy::geometry::CircleComponent.
+
+  Included by \ref geometry.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_GEOMETRY_CIRCLE_HPP_

@@ -19,11 +19,10 @@
 //
 /*!
   \file   gba_filtering_stream_buf.hpp
-  \brief  ANSI escape sequence filter streambuf for Nintendo GBA.
+  \brief  ANSI escape filter \c std::streambuf for Nintendo GBA test output.
 
-  Defines GbaFilteringStreamBuf, a \c std::streambuf that strips CSI (Control Sequence Introducer) and SGR (Select
-  Graphic Rendition) codes so that only plain text is forwarded to the underlying stream. Intended for test output on
-  GBA hardware, where ANSI escapes are not supported.
+  Defines \c GbaFilteringStreamBuf: strips CSI and SGR sequences so only plain text reaches the underlying stream. Used
+  when routing doctest output on GBA hardware without ANSI support.
 */
 
 #ifndef TEST_GBA_FILTERING_STREAM_BUF_HPP_

@@ -18,40 +18,44 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   message_box_icon.hpp
-  \brief  Icon type for message box / dialog.
+  \file   string_fixed_storage.inl
+  \brief  Inline implementations for \ref toy::StringFixedStorage.
 
-  Defines \ref toy::platform::ui::MessageBoxIcon: which icon is displayed in a message box (none, error, question,
-  warning, information). Used by platform UI APIs that show dialogs.
-
-  Included by \ref platform/ui.hpp; do not include this file directly.
+  Included by \ref core.hpp only; do not include this file directly.
 */
 
-#ifndef INCLUDE_PLATFORM_UI_MESSAGE_BOX_ICON_HPP_
-#define INCLUDE_PLATFORM_UI_MESSAGE_BOX_ICON_HPP_
+#ifndef INCLUDE_CORE_STRING_FIXED_STORAGE_INL_
+#define INCLUDE_CORE_STRING_FIXED_STORAGE_INL_
 
-namespace toy::platform::ui {
+namespace toy {
 
-/*!
-  \enum MessageBoxIcon
-  \brief Icon shown in a message box or dialog.
+template <size_t allocatedSize>
+constexpr size_t StringFixedStorage<allocatedSize>::capacity() noexcept {
+  return allocatedSize - 1;
+}
 
-  Used when displaying a native message box to indicate severity or kind of message. Exact appearance is
-  platform-dependent.
-*/
-enum class MessageBoxIcon {
-  /// No icon.
-  None,
-  /// Error icon (e.g. stop/critical).
-  Error,
-  /// Question icon (e.g. help/inquiry).
-  Question,
-  /// Warning icon (e.g. caution).
-  Warning,
-  /// Information icon (e.g. info).
-  Information,
-};
+template <size_t allocatedSize>
+constexpr size_t StringFixedStorage<allocatedSize>::size() const noexcept {
+  return _size;
+}
 
-} // namespace toy::platform::ui
+template <size_t allocatedSize>
+constexpr char * StringFixedStorage<allocatedSize>::data() noexcept {
+  return _buffer;
+}
 
-#endif // INCLUDE_PLATFORM_UI_MESSAGE_BOX_ICON_HPP_
+template <size_t allocatedSize>
+constexpr const char * StringFixedStorage<allocatedSize>::data() const noexcept {
+  return _buffer;
+}
+
+template <size_t allocatedSize>
+constexpr void StringFixedStorage<allocatedSize>::setSize(size_t newSize) noexcept {
+  assert_message(newSize <= capacity(), "newSize must be less or equal than capacity");
+  _size = newSize;
+  _buffer[_size] = '\0';
+}
+
+} // namespace toy
+
+#endif // INCLUDE_CORE_STRING_FIXED_STORAGE_INL_

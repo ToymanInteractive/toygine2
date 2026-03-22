@@ -19,7 +19,12 @@
 //
 /*!
   \file   platform_config.hpp
-  \brief  additional nintendo switch platform header
+  \brief  Compile-time platform and CPU bindings for Nintendo Switch.
+
+  Defines \ref toy::Platform and \ref toy::CpuArchitecture values (\c currentPlatform, \c currentCpuArchitecture) for
+  Switch toolchains.
+
+  Included by Switch platform translation units; not a public module header.
 */
 
 #ifndef SRC_PLATFORMS_SWITCH_PLATFORM_CONFIG_HPP_

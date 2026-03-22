@@ -21,8 +21,8 @@
   \file   toygine2.hpp
   \brief  Main umbrella header for the engine.
 
-  Include this header to pull in all public modules (application, audio, core, geometry, math, network, platform,
-  render). Prefer including a specific module header (e.g. \c math.hpp) when only one module is needed.
+  Defines the default engine surface: pulls in application, audio, core, geometry, math, network, \ref platform/ui.hpp,
+  and render. Prefer a specific module header when only one module is needed.
 */
 
 #ifndef INCLUDE_TOYGINE2_HPP_

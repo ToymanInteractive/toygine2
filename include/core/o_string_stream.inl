@@ -19,7 +19,9 @@
 //
 /*!
   \file   o_string_stream.inl
-  \brief  Implementation of OStringStream template methods.
+  \brief  Inline implementations for \ref toy::OStringStream.
+
+  Included by \ref core.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_O_STRING_STREAM_INL_

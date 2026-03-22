@@ -21,8 +21,9 @@
   \file   render.hpp
   \brief  Umbrella header for the render module.
 
-  Provides clear flags, pixel format, and related rendering types. Include this header only; do not include internal
-  headers (e.g. \c render/clear_flags.hpp, \c render/pixel_format.hpp) directly.
+  Defines clear flags, pixel format, and related rendering types.
+
+  Include this header only; do not include internal headers directly.
 */
 
 #ifndef INCLUDE_RENDER_HPP_

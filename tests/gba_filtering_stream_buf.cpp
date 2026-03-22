@@ -19,7 +19,7 @@
 //
 /*!
   \file   gba_filtering_stream_buf.cpp
-  \brief  Implementation of GbaFilteringStreamBuf: ANSI escape filter for GBA test output.
+  \brief  Definitions for \c GbaFilteringStreamBuf declared in \c gba_filtering_stream_buf.hpp.
 */
 
 #include "gba_filtering_stream_buf.hpp"

@@ -21,8 +21,10 @@
   \file   pixel_format.hpp
   \brief  Pixel format enumeration for render targets and textures.
 
-  Defines \ref toy::render::PixelFormat: colour, compressed, and depth/stencil formats
-  used by the rendering API. Used when creating surfaces or specifying buffer layout.
+  Defines \ref toy::render::PixelFormat: colour, compressed, and depth/stencil formats used by the rendering API. Used
+  when creating surfaces or specifying buffer layout.
+
+  Included by \ref render.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_RENDER_PIXEL_FORMAT_HPP_

@@ -19,7 +19,11 @@
 //
 /*!
   \file   fixed_vector.hpp
-  \brief  TODO
+  \brief  Fixed-capacity vector with inline storage.
+
+  Defines the \ref toy::FixedVector template.
+
+  Included by \ref core.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_FIXED_VECTOR_HPP_

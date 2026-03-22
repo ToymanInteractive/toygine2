@@ -17,6 +17,10 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 //
+/*!
+  \file   version.test.cpp
+  \brief  Unit tests for \ref toy::application::Version.
+*/
 
 #include <doctest/doctest.h>
 

@@ -19,7 +19,9 @@
 //
 /*!
   \file   hashes.cpp
-  \brief  Implementation of CRC hash functions with lookup tables for optimal performance.
+  \brief  Table-driven implementations of \c toy::crc8(), \c toy::crc16(), and \c toy::crc32().
+
+  Uses static lookup tables (no heap). Declarations are in \c hashes.hpp.
 */
 
 #include "core.hpp"

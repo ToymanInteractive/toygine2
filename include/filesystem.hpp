@@ -21,8 +21,9 @@
   \file   filesystem.hpp
   \brief  Umbrella header for the filesystem module.
 
-  Provides open file mode and filesystem utilities. Include this header only; do not include internal headers (e.g.
-  \c filesystem/open_file_mode.hpp) directly.
+  Defines open file mode and filesystem utilities.
+
+  Include this header only; do not include internal headers directly.
 */
 
 #ifndef INCLUDE_FILESYSTEM_HPP_

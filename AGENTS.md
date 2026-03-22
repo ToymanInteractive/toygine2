@@ -292,6 +292,54 @@ Each item in the `\section features Key Features` list uses **bold emphasis** fo
 - Document: purpose, constraints, usage expectations, compile-time vs runtime behavior.
 - For every documented function, constructor, or operator: include a `\param` for each parameter and a `\return` for the return value (if any). Do not omit `\param` for functions that take arguments.
 
+### File documentation (`\file`)
+
+Every header (and each translation unit that carries a file block) should start with a `\file` block after the license header. Use the patterns below; `\ref` follows **Cross-References** (types, enums, namespaces, concepts only—not functions).
+
+- **`\file`** — file name only, as it appears under `include/` or `src/` (e.g. `window_show_state.hpp`), not a full path.
+- **`\brief`** — one line: what this file *is* (role of the translation unit), not a repetition of the file name as a title.
+- **`.hpp`** (including internal headers under `include/`): after `\brief`, add one short paragraph (often starting with **Defines `\ref ...`:**) naming the primary type(s) or enum(s) and how they are used (call sites, platform API, etc.).
+- **`.inl`** — keep the `\brief` short: **Inline implementations for `\ref` …** plus a narrow scope (e.g. “port accessors”, “comparison operators”). Add a second sentence that the file is included only by the module barrel header and must not be included directly by users (match the wording used in that module).
+- **`.cpp`** — keep the `\brief` short:  “Implementation of …” or “Definitions for …” with `\ref` to the declarations in the corresponding header when it helps navigation; not all `.cpp` files require the same depth.
+
+#### Template: public header (`.hpp`)
+
+```cpp
+/*!
+  \file   module_name.hpp
+  \brief  One-line description of what this header declares (role, not the filename).
+
+  Defines \ref toy::namespace::MainSymbol: what it represents and how it fits the API. Used when <typical action> or
+  <consumer context>.
+
+  Included by \ref module.hpp only; do not include this file directly.
+*/
+```
+
+(If the module does not use a barrel name `module.hpp`, replace the second sentence with the actual barrel or public header that includes this `.inl`.)
+
+#### Template: implementation (`.cpp`)
+
+```cpp
+/*!
+  \file   module_name.cpp
+  \brief  Implementations for \ref toy::namespace::Type <narrow scope, e.g. accessors or operators>.
+*/
+```
+
+#### Template: inline implementation (`.inl`)
+
+```cpp
+/*!
+  \file   module_name.inl
+  \brief  Inline implementations for \ref toy::namespace::Type <narrow scope, e.g. accessors or operators>.
+
+  Included by \ref module.hpp only; do not include this file directly.
+*/
+```
+
+(If the module does not use a barrel name `module.hpp`, replace the second sentence with the actual barrel or public header that includes this `.inl`.)
+
 ### Method / Function Documentation Order
 
 Always follow this order:

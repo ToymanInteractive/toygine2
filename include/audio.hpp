@@ -21,8 +21,9 @@
   \file   audio.hpp
   \brief  Umbrella header for the audio module.
 
-  Provides volume types and audio utilities. Include this header only; do not include internal headers (e.g.
-  \c audio/volume_type.hpp) directly.
+  Defines volume types and audio utilities.
+
+  Include this header only; do not include internal headers directly.
 */
 
 #ifndef INCLUDE_AUDIO_HPP_

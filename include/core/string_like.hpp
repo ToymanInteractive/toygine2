@@ -19,7 +19,11 @@
 //
 /*!
   \file   string_like.hpp
-  \brief  C++ concept for string-like types with size() and c_str() methods.
+  \brief  String-like concept for types with \c size() and \c c_str().
+
+  Defines \ref toy::StringLike.
+
+  Included by \ref core.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_STRING_LIKE_HPP_

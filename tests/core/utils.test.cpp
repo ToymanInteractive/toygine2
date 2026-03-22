@@ -17,6 +17,11 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 //
+/*!
+  \file   utils.test.cpp
+  \brief  Unit tests for core string and encoding utilities.
+*/
+
 #include <doctest/doctest.h>
 
 #include "core.hpp"

@@ -17,7 +17,11 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 //
-/*
+/*!
+  \file   hashes.test.cpp
+  \brief  Unit tests for \c toy::crc8(), \c toy::crc16(), and \c toy::crc32().
+*/
+
 #include <doctest/doctest.h>
 
 #include "core.hpp"
@@ -57,8 +61,7 @@ TEST_CASE("core/hashes/crc8_function") {
   // Long string input.
   SUBCASE("long_string") {
     constexpr CStringView longStr(
-      "This is a very long string that contains multiple words and should test the CRC8 algorithm with a substantial
-amount of data to process.");
+      "This is a very long string that contains multiple words and should test the CRC8 algorithm with a substantial amount of data to process.");
 
     REQUIRE(crc8(longStr.c_str(), longStr.size()) == 0xAA);
   }
@@ -210,8 +213,7 @@ TEST_CASE("core/hashes/crc16_function") {
   // Long string input.
   SUBCASE("long_string") {
     constexpr CStringView longStr(
-      "This is a very long string that contains multiple words and should test the CRC16 algorithm with a substantial
-amount of data to process.");
+      "This is a very long string that contains multiple words and should test the CRC16 algorithm with a substantial amount of data to process.");
 
     REQUIRE(crc16(longStr.c_str(), longStr.size()) == 0xB504);
   }
@@ -363,8 +365,7 @@ TEST_CASE("core/hashes/crc32_function") {
   // Long string input.
   SUBCASE("long_string") {
     constexpr CStringView longStr(
-      "This is a very long string that contains multiple words and should test the CRC32 algorithm with a substantial
-amount of data to process.");
+      "This is a very long string that contains multiple words and should test the CRC32 algorithm with a substantial amount of data to process.");
 
     REQUIRE(crc32(longStr.c_str(), longStr.size()) == 0x9fd194da);
   }
@@ -484,4 +485,3 @@ amount of data to process.");
 }
 
 } // namespace toy
-*/

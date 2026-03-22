@@ -19,7 +19,11 @@
 //
 /*!
   \file   constexpr_utils.hpp
-  \brief  Constexpr utility functions for compile-time operations.
+  \brief  Constexpr helpers for compile-time string and buffer operations.
+
+  Defines constexpr algorithms and helpers declared in this header.
+
+  Included by \ref core.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_CONSTEXPR_UTILS_HPP_

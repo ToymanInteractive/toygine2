@@ -20,6 +20,10 @@
 /*!
   \file   achievement_state.hpp
   \brief  Achievement visibility and unlock state for the game module.
+
+  Defines \ref toy::game::AchievementState.
+
+  Included by \ref game.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_GAME_ACHIEVEMENT_STATE_HPP_

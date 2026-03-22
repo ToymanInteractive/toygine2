@@ -19,7 +19,9 @@
 //
 /*!
   \file   format.inl
-  \brief  Inline implementations for FormatString class.
+  \brief  Inline implementations for \ref toy::FormatString.
+
+  Included by \ref core.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_FORMAT_INL_

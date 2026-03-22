@@ -19,7 +19,9 @@
 //
 /*!
   \file   version.inl
-  \brief  Implementation of application version management utilities.
+  \brief  Inline implementations for \ref toy::application::Version comparison operators.
+
+  Included by \ref application.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_APPLICATION_VERSION_INL_

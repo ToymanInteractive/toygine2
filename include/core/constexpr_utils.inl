@@ -19,7 +19,9 @@
 //
 /*!
   \file   constexpr_utils.inl
-  \brief  Inline implementations for constexpr utility functions.
+  \brief  Inline implementations for constexpr helpers declared in \c constexpr_utils.hpp.
+
+  Included by \ref core.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_CONSTEXPR_UTILS_INL_
