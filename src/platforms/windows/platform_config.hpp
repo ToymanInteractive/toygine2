@@ -24,7 +24,7 @@
   Defines \ref toy::Platform and \ref toy::CpuArchitecture values (\c currentPlatform, \c currentCpuArchitecture) for
   Windows targets.
 
-  Included by Windows platform translation units; not a public module header.
+  \note Included by Windows platform translation units; not a public module header.
 */
 
 #ifndef SRC_PLATFORMS_WINDOWS_PLATFORM_CONFIG_HPP_

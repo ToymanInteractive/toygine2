@@ -23,7 +23,7 @@
 
   Defines \ref toy::geometry::Ellipse and \ref toy::geometry::EllipseComponent.
 
-  Included by geometry.hpp; do not include this file directly.
+  \note Included by geometry.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_GEOMETRY_ELLIPSE_HPP_

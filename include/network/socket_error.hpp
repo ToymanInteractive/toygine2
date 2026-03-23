@@ -23,7 +23,7 @@
 
   Defines \ref toy::network::SocketError.
 
-  Included by network.hpp; do not include this file directly.
+  \note Included by network.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_NETWORK_SOCKET_ERROR_HPP_

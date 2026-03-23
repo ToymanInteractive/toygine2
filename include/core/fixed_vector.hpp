@@ -23,7 +23,7 @@
 
   Defines the \ref toy::FixedVector template.
 
-  Included by core.hpp; do not include this file directly.
+  \note Included by core.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_FIXED_VECTOR_HPP_

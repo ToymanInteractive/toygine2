@@ -24,7 +24,7 @@
   Defines \ref toy::Platform and \ref toy::CpuArchitecture values (\c currentPlatform, \c currentCpuArchitecture) for
   3DS toolchains.
 
-  Included by 3DS platform translation units; not a public module header.
+  \note Included by 3DS platform translation units; not a public module header.
 */
 
 #ifndef SRC_PLATFORMS_3DS_PLATFORM_CONFIG_HPP_

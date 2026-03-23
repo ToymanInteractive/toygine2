@@ -21,7 +21,7 @@
   \file   utils.inl
   \brief  Inline implementations for utilities declared in \c math/utils.hpp.
 
-  Included by math.hpp only; do not include this file directly.
+  \note Included by math.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_MATH_UTILS_INL_

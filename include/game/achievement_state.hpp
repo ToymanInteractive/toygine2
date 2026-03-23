@@ -23,7 +23,7 @@
 
   Defines \ref toy::game::AchievementState.
 
-  Included by game.hpp; do not include this file directly.
+  \note Included by game.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_GAME_ACHIEVEMENT_STATE_HPP_

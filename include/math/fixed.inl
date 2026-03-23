@@ -21,7 +21,7 @@
   \file   fixed.inl
   \brief  Inline implementations for \ref toy::math::fixed.
 
-  Included by math.hpp only; do not include this file directly.
+  \note Included by math.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_MATH_FIXED_INL_

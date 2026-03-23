@@ -23,7 +23,7 @@
 
   Defines the \ref toy::CallbacksPool template for subscriber lists with bounded storage.
 
-  Included by core.hpp; do not include this file directly.
+  \note Included by core.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_CALLBACKS_POOL_HPP_

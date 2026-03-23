@@ -21,7 +21,7 @@
   \file   callbacks_pool.inl
   \brief  Inline implementations for \ref toy::CallbacksPool.
 
-  Included by core.hpp only; do not include this file directly.
+  \note Included by core.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_CALLBACKS_POOL_INL_

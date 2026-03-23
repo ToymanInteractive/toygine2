@@ -23,7 +23,7 @@
 
   Defines \ref toy::network::Endpoint.
 
-  Included by network.hpp; do not include this file directly.
+  \note Included by network.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_NETWORK_ENDPOINT_HPP_

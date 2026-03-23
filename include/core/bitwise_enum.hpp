@@ -23,7 +23,7 @@
 
   Defines \ref toy::EnableBitwiseOperators and constrained operator overloads.
 
-  Included by core.hpp; do not include this file directly.
+  \note Included by core.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_BITWISE_ENUM_HPP_
@@ -38,18 +38,36 @@ namespace toy {
   Specialize (manually or with \c ENABLE_BITWISE_OPERATORS(T)) so that \c enable is \c true for a given scoped enum. The
   generic operator overloads in this header are only instantiated when `EnableBitwiseOperators<T>::enable` is true.
 
+  \tparam T Scoped enumeration type (`enum class`).
+
+  \section usage Usage Example
+
+  \code
+  #include "core.hpp"
+
+  namespace toy {
+
+  enum class MyFlags : unsigned { a = 1u, b = 2u, c = 4u };
+
+  } // namespace toy
+
+  ENABLE_BITWISE_OPERATORS(toy::MyFlags)
+
+  namespace toy {
+
+  constexpr MyFlags combined = MyFlags::a | MyFlags::b;
+  constexpr MyFlags masked = combined & MyFlags::a;
+  constexpr MyFlags inverted = ~MyFlags::a;
+
+  } // namespace toy
+  \endcode
+
   \section features Key Features
 
   - ⚙️ **Opt-in**: No operators are added until you specialize the trait (typically via \c ENABLE_BITWISE_OPERATORS).
   - **Constrained overloads**: Participation is explicit (`requires EnableBitwiseOperators<T>::enable`).
   - **constexpr / noexcept**: Usable in constant evaluation when operands and the underlying type allow it.
   - **No allocation**: Pure forwarding to integral bitwise operations on the underlying type.
-
-  \section usage Usage
-
-  After defining an `enum class` with power-of-two enumerators (and a suitable underlying type), add
-  \c ENABLE_BITWISE_OPERATORS(MyEnum) at namespace scope in the global namespace. Then use `|`, `&`, `^`, `~`, and
-  `|=`, `&=`, `^=` on values of \c MyEnum like ordinary flag types.
 
   \section performance Performance Characteristics
 
@@ -62,11 +80,9 @@ namespace toy {
   - All declared operations are noexcept.
   - For signed underlying types, unary `~` follows the usual two's-complement bit pattern for the underlying width.
 
-  \tparam T Scoped enumeration type (`enum class`).
-
   \note Prefer an unsigned underlying type for flag enums to reduce surprises with `~` and with mixing signed literals.
 
-  \see ENABLE_BITWISE_OPERATORS
+  \sa ENABLE_BITWISE_OPERATORS
 */
 template <typename T>
 class EnableBitwiseOperators {

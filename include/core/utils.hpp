@@ -25,7 +25,7 @@
   related free functions in namespace \ref toy. Non-inline definitions live in \c utils.cpp; callers supply buffers. No
   dynamic allocation in these APIs.
 
-  Included by core.hpp; do not include this file directly.
+  \note Included by core.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_UTILS_HPP_
@@ -135,14 +135,18 @@ constexpr wchar_t * utf8toWChar(wchar_t * dest, size_t destSize, const T & src) 
 
   \param dest     Destination buffer for the UTF-8 string.
   \param destSize Size of \a dest in bytes (not wide characters).
-  \param src      Source wide-character C string.
+  \param src      Source wide-character C string, or \c nullptr to write an empty UTF-8 string.
 
-  \return Pointer to \a dest, or \c nullptr if \a dest or \a destSize is invalid.
+  \return Pointer to \a dest, or \c nullptr only if \a dest is \c nullptr or \a destSize is \c 0.
 
-  \pre \a dest points to a valid buffer with capacity \a destSize; \a src is a valid wide-character string.
-  \pre \a destSize accounts for possible UTF-8 expansion (e.g. 3× wide length for BMP).
+  \pre \a dest points to a valid writable buffer of at least \a destSize bytes (the function always writes at least a
+       null terminator when it returns a non-null pointer).
+  \pre If \a src is not \c nullptr, it must point to a null-terminated wide-character string.
+  \pre When \a src is not \c nullptr, \a destSize must account for possible UTF-8 expansion (e.g. 3× wide length for BMP).
 
-  \post On success, \a dest is null-terminated. On overflow or invalid input, returns \c nullptr.
+  \post If \a src is \c nullptr, writes \c '\\0' to \c *dest (empty UTF-8) and returns \a dest.
+  \post If \a src is not \c nullptr, \a dest is null-terminated UTF-8; output may be truncated if the buffer fills before
+        the wide string ends.
 
   \sa utf8toWChar
 */

@@ -21,7 +21,7 @@
   \file   fixed_vector.inl
   \brief  Inline implementations for \ref toy::FixedVector.
 
-  Included by core.hpp only; do not include this file directly.
+  \note Included by core.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_FIXED_VECTOR_INL_

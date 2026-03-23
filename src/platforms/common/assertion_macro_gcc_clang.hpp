@@ -23,7 +23,7 @@
 
   Supplies \c assert and related debugging macros for Debug and Release builds.
 
-  Included by \c platform_config.hpp on platforms that use this implementation; not a public module header.
+  \note Included by \c platform_config.hpp on platforms that use this implementation; not a public module header.
 */
 
 #ifndef SRC_PLATFORMS_COMMON_ASSERTION_MACRO_GCC_CLANG_HPP_

@@ -24,7 +24,7 @@
   Defines \ref toy::network::SocketFlags: bitmask flags for non-blocking mode, address reuse, broadcast, listen, and
   bind. Used when creating or configuring sockets.
 
-  Included by network.hpp; do not include this file directly.
+  \note Included by network.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_NETWORK_SOCKET_FLAGS_HPP_

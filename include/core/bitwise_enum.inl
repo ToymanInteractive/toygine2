@@ -21,7 +21,7 @@
   \file   bitwise_enum.inl
   \brief  Inline implementations for \ref toy::EnableBitwiseOperators and scoped-enum bitwise operators.
 
-  Included by core.hpp only; do not include this file directly.
+  \note Included by core.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_BITWISE_ENUM_INL_

@@ -24,7 +24,7 @@
   Defines \ref toy::Platform and \ref toy::CpuArchitecture values (\c currentPlatform, \c currentCpuArchitecture) for
   macOS targets.
 
-  Included by macOS platform translation units; not a public module header.
+  \note Included by macOS platform translation units; not a public module header.
 */
 
 #ifndef SRC_PLATFORMS_MACOS_PLATFORM_CONFIG_HPP_
