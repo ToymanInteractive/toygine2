@@ -42,6 +42,8 @@
   | \c rad_per_deg_v | π over \c 180 (radians per degree) |
   | \c deg_per_rad_v | \c 180 over π (degrees per radian) |
 
+  \note Included by math.hpp; do not include this file directly.
+
   \sa https://en.cppreference.com/w/cpp/numeric/constants
 */
 

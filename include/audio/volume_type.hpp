@@ -20,6 +20,10 @@
 /*!
   \file   volume_type.hpp
   \brief  Volume category enumeration for audio mixing and per-channel gain control.
+
+  Defines \ref toy::audio::VolumeType.
+
+  \note Included by audio.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_AUDIO_VOLUME_TYPE_HPP_

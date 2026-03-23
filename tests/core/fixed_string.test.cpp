@@ -17,6 +17,11 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 //
+/*!
+  \file   fixed_string.test.cpp
+  \brief  Unit tests for \ref toy::FixedString.
+*/
+
 /*
 #include <doctest/doctest.h>
 

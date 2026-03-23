@@ -19,7 +19,7 @@
 //
 /*!
   \file   endpoint.cpp
-  \brief  Implementation of \ref toy::network::Endpoint destructor.
+  \brief  Definitions for the \ref toy::network::Endpoint destructor declared in network/endpoint.hpp.
 */
 
 #include "network.hpp"

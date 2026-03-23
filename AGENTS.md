@@ -122,7 +122,6 @@ Organize includes in the following order (separated by blank lines):
 - Public headers must not rely on include order.
 - Minimize includes; prefer forward declarations in public headers.
 - Internal headers may include other internal headers freely.
-- Every header file must start with a file documentation block (`\file` / `\brief`).
 
 ### Inline and Template Code
 
@@ -230,12 +229,12 @@ If something can be checked at compile time, it should be.
 
 ## Naming Conventions
 
-- Types (classes, structs, enums, concepts): `PascalCase`
-- Functions and variables: `camelCase`
-- Constants: `UPPER_SNAKE_CASE` (only for true, globally visible constants)
-- Template parameters: `PascalCase`; use descriptive names and avoid single-letter names unless the meaning is obvious and the scope is trivial
-- Type aliases: `snake_case` with `_type` suffix (e.g. `value_type`, `size_type`, `const_reference`)
-- Namespaces: `lowercase`
+- Types (classes, structs, enums, concepts): **`PascalCase`**
+- Functions and variables: **`camelCase`**
+- Constants (`constexpr` / `const`): **`camelCase`** with **`c_`** (namespace, file `static`, or non-`private` members, e.g. `c_maxLabelLength`) or **`_`** (only `private` members, e.g. `_tileSize`; never at namespace/file scope). Inside a function, local `const` / `constexpr` may omit the prefix.
+- Template parameters: **`PascalCase`**; use descriptive names and avoid single-letter names unless the meaning is obvious and the scope is trivial
+- Type aliases: **`snake_case`** with **`_type`** suffix (e.g. `value_type`, `size_type`, `const_reference`)
+- Namespaces: **`snake_case`**
 
 Names must describe **intent**, not implementation details.
 
@@ -291,6 +290,54 @@ Each item in the `\section features Key Features` list uses **bold emphasis** fo
 - Prefer bullet points over prose where appropriate.
 - Document: purpose, constraints, usage expectations, compile-time vs runtime behavior.
 - For every documented function, constructor, or operator: include a `\param` for each parameter and a `\return` for the return value (if any). Do not omit `\param` for functions that take arguments.
+
+### File documentation (`\file`)
+
+Every header file (`.hpp` and `.inl`) must start with a `\file` block after the license header. Translation units (`.cpp`) should include a `\file` block when they provide non-trivial implementations or when navigation clarity is needed.
+
+- **`\file`** — file name only, as it appears under `include/` or `src/` (e.g. `window_show_state.hpp`), not a full path.
+- **`\brief`** — one line: what this file *is* (role of the translation unit), not a repetition of the file name as a title.
+- **`.hpp`** (including internal headers under `include/`): after `\brief`, add one short paragraph (often starting with **Defines `\ref ...`:**) naming the primary type(s) or enum(s) and how they are used (call sites, platform API, etc.).
+- **`.inl`** — keep the `\brief` short: **Inline implementations for `\ref` …** plus a narrow scope (e.g. “constructors and accessors”, “comparison operators”). Add a second sentence that the file is included only by the module barrel header and must not be included directly by users (match the wording used in that module).
+- **`.cpp`** — keep the `\brief` short:  “Implementation of …” or “Definitions for …” with `\ref` to the declarations in the corresponding header when it helps navigation; not all `.cpp` files require the same depth.
+
+#### Template: public header (`.hpp`)
+
+```cpp
+/*!
+  \file   module_name.hpp
+  \brief  One-line description of what this header declares (role, not the filename).
+
+  Defines \ref toy::namespace::MainSymbol: what it represents and how it fits the API. Used when <typical action> or
+  <consumer context>.
+
+  \note Included by module.hpp only; do not include this file directly.
+*/
+```
+
+(If the module does not use a barrel name `module.hpp`, replace the second sentence with the actual barrel or public header that includes this `.inl`.)
+
+#### Template: implementation (`.cpp`)
+
+```cpp
+/*!
+  \file   module_name.cpp
+  \brief  Implementations for \ref toy::namespace::Type <narrow scope, e.g. accessors or operators>.
+*/
+```
+
+#### Template: inline implementation (`.inl`)
+
+```cpp
+/*!
+  \file   module_name.inl
+  \brief  Inline implementations for \ref toy::namespace::Type <narrow scope, e.g. accessors or operators>.
+
+  \note Included by module.hpp only; do not include this file directly.
+*/
+```
+
+(If the module does not use a barrel name `module.hpp`, replace the second sentence with the actual barrel or public header that includes this `.inl`.)
 
 ### Method / Function Documentation Order
 

@@ -20,6 +20,10 @@
 /*!
   \file   orientation.hpp
   \brief  Screen orientation enumeration for UI layout and rotation handling.
+
+  Defines \ref toy::platform::ui::Orientation.
+
+  \note Included by platform/ui.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_PLATFORM_UI_ORIENTATION_HPP_

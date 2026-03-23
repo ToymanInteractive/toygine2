@@ -18,24 +18,44 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   filesystem.hpp
-  \brief  Umbrella header for the filesystem module.
+  \file   string_fixed_storage.inl
+  \brief  Inline implementations for \ref toy::StringFixedStorage.
 
-  Defines open file mode and filesystem utilities.
-
-  \note Include this header only; do not include internal headers directly.
+  \note Included by core.hpp only; do not include this file directly.
 */
 
-#ifndef INCLUDE_FILESYSTEM_HPP_
-#define INCLUDE_FILESYSTEM_HPP_
+#ifndef INCLUDE_CORE_STRING_FIXED_STORAGE_INL_
+#define INCLUDE_CORE_STRING_FIXED_STORAGE_INL_
 
-/*!
-  \namespace toy::filesystem
-  \brief Filesystem types and utilities: file open modes, paths, and related APIs.
-*/
+namespace toy {
 
-#include "filesystem/open_file_mode.hpp"
+template <size_t AllocatedSize>
+constexpr size_t StringFixedStorage<AllocatedSize>::capacity() noexcept {
+  return AllocatedSize - 1;
+}
 
-//----------------------------------------------------------------------------------------------------------------------
+template <size_t AllocatedSize>
+constexpr size_t StringFixedStorage<AllocatedSize>::size() const noexcept {
+  return _size;
+}
 
-#endif // INCLUDE_FILESYSTEM_HPP_
+template <size_t AllocatedSize>
+constexpr char * StringFixedStorage<AllocatedSize>::data() noexcept {
+  return _buffer;
+}
+
+template <size_t AllocatedSize>
+constexpr const char * StringFixedStorage<AllocatedSize>::data() const noexcept {
+  return _buffer;
+}
+
+template <size_t AllocatedSize>
+constexpr void StringFixedStorage<AllocatedSize>::setSize(size_t newSize) noexcept {
+  assert_message(newSize <= capacity(), "newSize must be less or equal than capacity");
+  _size = newSize;
+  _buffer[_size] = '\0';
+}
+
+} // namespace toy
+
+#endif // INCLUDE_CORE_STRING_FIXED_STORAGE_INL_

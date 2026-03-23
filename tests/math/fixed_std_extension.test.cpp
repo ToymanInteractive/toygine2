@@ -17,6 +17,10 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 //
+/*!
+  \file   fixed_std_extension.test.cpp
+  \brief  Unit tests for fixed-point interoperability with the C++ standard library (\ref toy::math namespace).
+*/
 
 #include <doctest/doctest.h>
 

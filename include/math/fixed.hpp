@@ -19,7 +19,11 @@
 //
 /*!
   \file   fixed.hpp
-  \brief  Fixed-point numeric type template.
+  \brief  Fixed-point numeric type template and related concepts.
+
+  Defines \ref toy::math::fixed, \ref toy::math::fixed_point, and supporting traits.
+
+  \note Included by math.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_MATH_FIXED_HPP_

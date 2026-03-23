@@ -19,7 +19,11 @@
 //
 /*!
   \file   callbacks_pool.hpp
-  \brief  Template callback pool class with fixed-size callback storage.
+  \brief  Fixed-capacity pool of typed callbacks.
+
+  Defines the \ref toy::CallbacksPool template for subscriber lists with bounded storage.
+
+  \note Included by core.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_CALLBACKS_POOL_HPP_

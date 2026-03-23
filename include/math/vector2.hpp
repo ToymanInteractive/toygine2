@@ -19,7 +19,11 @@
 //
 /*!
   \file   vector2.hpp
-  \brief  2D vector class for interactive game objects and physics calculations.
+  \brief  2D vector for game math and physics.
+
+  Defines \ref toy::math::Vector2.
+
+  \note Included by math.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_MATH_VECTOR2_HPP_

@@ -21,9 +21,10 @@
   \file   open_file_mode.hpp
   \brief  File open mode enumeration for the filesystem module.
 
-  Defines \ref toy::filesystem::OpenFileMode: how a file is opened (read-only, write,
-  append, or read-write variants). Used by file open APIs to select semantics and platform
-  flags.
+  Defines \ref toy::filesystem::OpenFileMode: how a file is opened (read-only, write, append, or read-write variants).
+  Used by file open APIs to select semantics and platform flags.
+
+  \note Included by filesystem.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_FILESYSTEM_OPEN_FILE_MODE_HPP_

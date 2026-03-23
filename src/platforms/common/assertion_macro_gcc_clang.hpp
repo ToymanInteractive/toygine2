@@ -20,6 +20,10 @@
 /*!
   \file   assertion_macro_gcc_clang.hpp
   \brief  Debug and Release assertion macro implementations for GCC/Clang platforms.
+
+  Supplies \c assert and related debugging macros for Debug and Release builds.
+
+  \note Included by platform_config.hpp on platforms that use this implementation; not a public module header.
 */
 
 #ifndef SRC_PLATFORMS_COMMON_ASSERTION_MACRO_GCC_CLANG_HPP_

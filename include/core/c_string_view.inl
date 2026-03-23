@@ -19,7 +19,9 @@
 //
 /*!
   \file   c_string_view.inl
-  \brief  Inline implementations for CStringView class.
+  \brief  Inline implementations for \ref toy::CStringView.
+
+  \note Included by core.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_C_STRING_VIEW_INL_

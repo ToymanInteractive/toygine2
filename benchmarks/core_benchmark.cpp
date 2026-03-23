@@ -17,12 +17,84 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 //
+/*!
+  \file   core_benchmark.cpp
+  \brief  Nanobench benchmarks for the core module (CRC, containers, strings, etc.).
+*/
 
 #include "benchmark_factory.hpp"
 #include "core.hpp"
 
 void runCoreBenchmarks() noexcept {
   auto bench = createBench("Core module");
+
+  // CRC benchmarks (toy::crc8, crc16, crc32)
+  {
+    static unsigned char crcPayload512[512];
+    static const bool crcPayload512Init = []() noexcept {
+      for (size_t i = 0; i < 512; ++i) {
+        crcPayload512[i] = static_cast<unsigned char>(i ^ 0xA5U);
+      }
+      return true;
+    }();
+    (void)crcPayload512Init;
+
+    bench.run("crc8 short string", [] {
+      static const char s[] = "Hello";
+      auto r = toy::crc8(s, sizeof(s) - 1);
+      doNotOptimize(r);
+    });
+
+    bench.run("crc8 medium string", [] {
+      static const char s[] = "Toygine2 - Free 2D/3D game engine.";
+      auto r = toy::crc8(s, sizeof(s) - 1);
+      doNotOptimize(r);
+    });
+
+    bench.run("crc16 medium string", [] {
+      static const char s[] = "Toygine2 - Free 2D/3D game engine.";
+      auto r = toy::crc16(s, sizeof(s) - 1);
+      doNotOptimize(r);
+    });
+
+    bench.run("crc32 medium string", [] {
+      static const char s[] = "Toygine2 - Free 2D/3D game engine.";
+      auto r = toy::crc32(s, sizeof(s) - 1);
+      doNotOptimize(r);
+    });
+
+    bench.run("crc32 512 byte buffer", [] {
+      auto r = toy::crc32(crcPayload512, sizeof(crcPayload512));
+      doNotOptimize(r);
+    });
+  }
+
+  // StringFixedStorage benchmarks
+  {
+    bench.run("StringFixedStorage<32> default construct", [] {
+      toy::StringFixedStorage<32> s;
+      doNotOptimize(s.data());
+    });
+
+    bench.run("StringFixedStorage<256> capacity", [] {
+      auto c = toy::StringFixedStorage<256>::capacity();
+      doNotOptimize(c);
+    });
+
+    bench.run("StringFixedStorage<8> size", [] {
+      toy::StringFixedStorage<8> s;
+      auto n = s.size();
+      doNotOptimize(n);
+    });
+
+    bench.run("StringFixedStorage<32> setSize", [] {
+      toy::StringFixedStorage<32> s;
+      s.data()[0] = 'a';
+      s.data()[1] = 'b';
+      s.setSize(2);
+      doNotOptimize(s.data());
+    });
+  }
 
   // itoa benchmarks
   {

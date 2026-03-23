@@ -19,7 +19,11 @@
 //
 /*!
   \file   section.hpp
-  \brief  \ref toy::geometry::Section and \ref toy::geometry::SectionEndpoint declarations.
+  \brief  One-dimensional interval (section) on a numeric line.
+
+  Defines \ref toy::geometry::Section and \ref toy::geometry::SectionEndpoint.
+
+  \note Included by geometry.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_GEOMETRY_SECTION_HPP_

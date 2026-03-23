@@ -20,6 +20,10 @@
 /*!
   \file   socket_error.hpp
   \brief  Socket and network operation error codes.
+
+  Defines \ref toy::network::SocketError.
+
+  \note Included by network.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_NETWORK_SOCKET_ERROR_HPP_

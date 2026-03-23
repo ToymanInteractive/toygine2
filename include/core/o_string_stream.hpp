@@ -19,7 +19,11 @@
 //
 /*!
   \file   o_string_stream.hpp
-  \brief  Output string stream class for building strings from various data types.
+  \brief  Allocator-free stream that writes into a string-like destination.
+
+  Defines \ref toy::OStringStream.
+
+  \note Included by core.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_O_STRING_STREAM_HPP_

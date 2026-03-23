@@ -19,7 +19,12 @@
 //
 /*!
   \file   platform_config.hpp
-  \brief  additional linux platform header
+  \brief  Compile-time platform and CPU bindings for Linux.
+
+  Defines \ref toy::Platform and \ref toy::CpuArchitecture values (\c currentPlatform, \c currentCpuArchitecture) for
+  Linux targets.
+
+  \note Included by Linux platform translation units; not a public module header.
 */
 
 #ifndef SRC_PLATFORMS_LINUX_PLATFORM_CONFIG_HPP_

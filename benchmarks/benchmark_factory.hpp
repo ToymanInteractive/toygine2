@@ -19,7 +19,9 @@
 //
 /*!
   \file   benchmark_factory.hpp
-  \brief  Helper to create a nanobench benchmark runner with common settings.
+  \brief  Factory for a preconfigured \c ankerl::nanobench::Bench instance.
+
+  Used by benchmark translation units under \c benchmarks/ to share warmup, epoch, and reporting defaults.
 */
 
 #ifndef BENCHMARKS_BENCHMARK_FACTORY_HPP_

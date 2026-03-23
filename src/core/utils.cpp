@@ -19,7 +19,7 @@
 //
 /*!
   \file   utils.cpp
-  \brief  Implementation of core utility functions for string manipulation, encoding conversion, and number formatting.
+  \brief  Definitions for string, encoding, and number utilities declared in \c core/utils.hpp.
 */
 
 #include "core.hpp"
@@ -404,27 +404,31 @@ char * wcharToUtf8(char * dest, size_t destSize, const wchar_t * src) noexcept {
   if (dest == nullptr || destSize == 0)
     return nullptr;
 
+  if (src == nullptr) {
+    *dest = '\0';
+
+    return dest;
+  }
+
   char * destPointer = dest;
-  if (src != nullptr) {
-    const char * const utf8EndPos = dest + (destSize - 1);
+  const char * const utf8EndPos = dest + (destSize - 1);
 
-    while (*src != L'\0' && destPointer < utf8EndPos) {
-      if (const auto symbol = static_cast<uint32_t>(*src++); symbol <= 0x7F) {
-        *destPointer = static_cast<char>(symbol);
+  while (*src != L'\0' && destPointer < utf8EndPos) {
+    if (const auto symbol = static_cast<uint32_t>(*src++); symbol <= 0x7F) {
+      *destPointer = static_cast<char>(symbol);
+    } else {
+      if (symbol <= 0x7FF) {
+        *destPointer = static_cast<char>(((symbol & 0x07C0) >> 6) | 0xC0);
       } else {
-        if (symbol <= 0x7FF) {
-          *destPointer = static_cast<char>(((symbol & 0x07C0) >> 6) | 0xC0);
-        } else {
-          *destPointer = static_cast<char>(((symbol & 0xF000) >> 12) | 0xE0);
-          ++destPointer;
-          *destPointer = static_cast<char>(((symbol & 0x0FC0) >> 6) | 0x80);
-        }
-
+        *destPointer = static_cast<char>(((symbol & 0xF000) >> 12) | 0xE0);
         ++destPointer;
-        *destPointer = static_cast<char>((symbol & 0x003F) | 0x80);
+        *destPointer = static_cast<char>(((symbol & 0x0FC0) >> 6) | 0x80);
       }
+
       ++destPointer;
+      *destPointer = static_cast<char>((symbol & 0x003F) | 0x80);
     }
+    ++destPointer;
   }
 
   *destPointer = '\0';
@@ -503,6 +507,13 @@ char * ftoa(char * dest, size_t destSize, double value, size_t precision) noexce
   return dest;
 }
 
+/*!
+  \brief Number of decimal digits per group when \c formatNumberString() inserts the caller-supplied separator.
+
+  Fixed at three so grouping matches common thousands-style splitting from the right.
+*/
+constexpr size_t _decimalDigitsPerGroup = 3;
+
 void formatNumberString(char * buffer, size_t bufferSize, const char * separator) noexcept {
   assert_message(buffer != nullptr && bufferSize > 0, "The destination buffer must not be null.");
   assert_message(separator != nullptr, "The grouping separator must not be null.");
@@ -514,8 +525,6 @@ void formatNumberString(char * buffer, size_t bufferSize, const char * separator
   if (separatorLen == 0)
     return;
 
-  constexpr size_t groupSize = 3;
-
   if (*buffer == '-' || *buffer == '+') {
     ++buffer;
     --bufferSize;
@@ -525,10 +534,10 @@ void formatNumberString(char * buffer, size_t bufferSize, const char * separator
   while (buffer[digitsCount] >= '0' && buffer[digitsCount] <= '9')
     ++digitsCount;
 
-  if (digitsCount <= groupSize) // Nothing to format.
+  if (digitsCount <= _decimalDigitsPerGroup) // Nothing to format.
     return;
 
-  auto groupsCount = (digitsCount - 1U) / groupSize;
+  auto groupsCount = (digitsCount - 1U) / _decimalDigitsPerGroup;
   const auto ansiStringLen = char_traits<char>::length(buffer);
   const auto requiredBufferSize = ansiStringLen + groupsCount * separatorLen;
   assert_message(requiredBufferSize < bufferSize, "Buffer size is too low.");
@@ -543,11 +552,11 @@ void formatNumberString(char * buffer, size_t bufferSize, const char * separator
 
   auto scanChars = digitsCount;
   while (groupsCount > 0) {
-    std::memmove(buffer + (scanChars + groupsCount * separatorLen - groupSize), buffer + (scanChars - groupSize),
-                 groupSize);
-    const auto destBufferShift = scanChars + (groupsCount - 1) * separatorLen - groupSize;
+    std::memmove(buffer + (scanChars + groupsCount * separatorLen - _decimalDigitsPerGroup),
+                 buffer + (scanChars - _decimalDigitsPerGroup), _decimalDigitsPerGroup);
+    const auto destBufferShift = scanChars + (groupsCount - 1) * separatorLen - _decimalDigitsPerGroup;
     char_traits<char>::copy(buffer + destBufferShift, separator, separatorLen);
-    scanChars -= groupSize;
+    scanChars -= _decimalDigitsPerGroup;
     --groupsCount;
   }
 }

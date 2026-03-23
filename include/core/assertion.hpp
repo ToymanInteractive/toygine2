@@ -21,8 +21,11 @@
   \file   assertion.hpp
   \brief  Assertion system: callbacks, initialize/shutdown, and assertion() entry point.
 
-  Used by \c assert and \c assert_message macros. In debug builds assertion() formats failure context and invokes the
-  registered callback; in release it is a no-op. Supports custom stack-walk callback for trace output.
+  Defines the \ref toy::assertion namespace and assertion() entry used by \c assert and \c assert_message. In debug
+  builds assertion() formats failure context and invokes the registered callback; in release it is a no-op. Supports
+  optional stack-walk callback for trace output.
+
+  \note Included by core.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_ASSERTION_HPP_

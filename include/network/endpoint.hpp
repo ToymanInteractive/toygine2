@@ -19,7 +19,11 @@
 //
 /*!
   \file   endpoint.hpp
-  \brief  Base type for network endpoint (host and port).
+  \brief  Network endpoint (host and port).
+
+  Defines \ref toy::network::Endpoint.
+
+  \note Included by network.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_NETWORK_ENDPOINT_HPP_

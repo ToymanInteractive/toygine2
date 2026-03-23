@@ -20,6 +20,8 @@
 /*!
   \file   section.inl
   \brief  Inline implementations for \ref toy::geometry::Section.
+
+  \note Included by geometry.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_GEOMETRY_SECTION_INL_

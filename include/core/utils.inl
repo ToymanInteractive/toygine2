@@ -19,7 +19,9 @@
 //
 /*!
   \file   utils.inl
-  \brief  Inline implementations of core utility functions for string manipulation and encoding conversion.
+  \brief  Inline implementations for utilities declared in \c utils.hpp.
+
+  \note Included by core.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_UTILS_INL_

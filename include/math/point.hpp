@@ -20,6 +20,10 @@
 /*!
   \file   point.hpp
   \brief  2D integer point for UI and input coordinates.
+
+  Defines \ref toy::math::Point.
+
+  \note Included by math.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_MATH_POINT_HPP_

@@ -20,6 +20,10 @@
 /*!
   \file   clear_flags.hpp
   \brief  Bit flags for framebuffer clear operations (color, depth, stencil).
+
+  Defines \ref toy::render::ClearFlags.
+
+  \note Included by render.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_RENDER_CLEAR_FLAGS_HPP_

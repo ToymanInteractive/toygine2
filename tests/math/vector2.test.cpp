@@ -17,6 +17,11 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 //
+/*!
+  \file   vector2.test.cpp
+  \brief  Unit tests for \ref toy::math::Vector2D.
+*/
+
 #include <doctest/doctest.h>
 
 #include "math.hpp"

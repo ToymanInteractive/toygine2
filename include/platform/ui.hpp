@@ -21,10 +21,11 @@
   \file   ui.hpp
   \brief  Umbrella header for platform UI types.
 
-  Provides \ref toy::platform::ui::Orientation, \ref toy::platform::ui::WindowShowState,
+  Defines \ref toy::platform::ui::Orientation, \ref toy::platform::ui::WindowShowState,
   \ref toy::platform::ui::WindowStyle, \ref toy::platform::ui::MessageBoxIcon,
-  \ref toy::platform::ui::MessageBoxButtons, \ref toy::platform::ui::MessageBoxReturn, and related UI. Include this
-  header only; do not include internal headers (e.g. \c ui/orientation.hpp, \c ui/window_show_state.hpp) directly.
+  \ref toy::platform::ui::MessageBoxButtons, \ref toy::platform::ui::MessageBoxReturn, and related UI.
+
+  Include this header only; do not include internal headers directly.
 */
 
 #ifndef INCLUDE_PLATFORM_UI_HPP_

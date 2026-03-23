@@ -20,6 +20,8 @@
 /*!
   \file   ellipse.inl
   \brief  Inline implementations for \ref toy::geometry::Ellipse.
+
+  \note Included by geometry.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_GEOMETRY_ELLIPSE_INL_

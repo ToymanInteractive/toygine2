@@ -17,6 +17,11 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 //
+/*!
+  \file   format.test.cpp
+  \brief  Unit tests for \c toy::format() and related formatting helpers.
+*/
+
 /*
 #include <doctest/doctest.h>
 

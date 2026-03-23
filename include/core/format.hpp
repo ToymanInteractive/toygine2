@@ -19,7 +19,11 @@
 //
 /*!
   \file   format.hpp
-  \brief  Compile-time format string validation class.
+  \brief  Compile-time format string validation.
+
+  Defines \ref toy::FormatString and related helpers.
+
+  \note Included by core.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_FORMAT_HPP_

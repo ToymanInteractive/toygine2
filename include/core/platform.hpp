@@ -21,8 +21,10 @@
   \file   platform.hpp
   \brief  Platform and CPU architecture enums with compile-time and runtime detection.
 
-  Defines \ref toy::Platform (OS/target) and \ref toy::CpuArchitecture (ISA). Values use distinct hex ranges so they can
-  be combined for conditional compilation. Use getCurrentPlatform() and getCurrentArchitecture() for runtime detection.
+  Defines \ref toy::Platform (OS/target) and \ref toy::CpuArchitecture (ISA). Values use distinct hex ranges for
+  conditional compilation; use getCurrentPlatform() and getCurrentArchitecture() for runtime detection.
+
+  \note Included by core.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_PLATFORM_HPP_

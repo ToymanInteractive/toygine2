@@ -19,7 +19,12 @@
 //
 /*!
   \file   platform_config.hpp
-  \brief  additional windows platform header
+  \brief  Compile-time platform and CPU bindings for Windows.
+
+  Defines \ref toy::Platform and \ref toy::CpuArchitecture values (\c currentPlatform, \c currentCpuArchitecture) for
+  Windows targets.
+
+  \note Included by Windows platform translation units; not a public module header.
 */
 
 #ifndef SRC_PLATFORMS_WINDOWS_PLATFORM_CONFIG_HPP_

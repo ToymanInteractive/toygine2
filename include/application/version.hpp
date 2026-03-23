@@ -20,6 +20,10 @@
 /*!
   \file   version.hpp
   \brief  Application version type and comparison operators.
+
+  Defines \ref toy::application::Version and declares comparison operators.
+
+  \note Included by application.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_APPLICATION_VERSION_HPP_

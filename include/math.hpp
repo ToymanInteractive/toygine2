@@ -21,8 +21,9 @@
   \file   math.hpp
   \brief  Umbrella header for the math module.
 
-  Provides \ref toy::math::Point, \ref toy::math::Vector2, \ref toy::math::Fixed, constants, and utilities. Include this
-  header only; do not include internal headers (e.g. \c math/point.hpp, \c math/vector2.hpp) directly.
+  Defines \ref toy::math::Point, \ref toy::math::Vector2, \ref toy::math::fixed, constants, and utilities.
+
+  \note Include this header only; do not include internal headers directly.
 */
 
 #ifndef INCLUDE_MATH_HPP_

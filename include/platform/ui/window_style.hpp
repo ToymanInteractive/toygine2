@@ -23,6 +23,8 @@
 
   Defines \ref toy::platform::ui::WindowStyle: flags for title bar buttons, popup/topmost/fullscreen behavior, and
   resize state. Values can be combined with operator&, operator|, operator^.
+
+  \note Included by platform/ui.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_PLATFORM_UI_WINDOW_STYLE_HPP_

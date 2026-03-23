@@ -17,6 +17,11 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 //
+/*!
+  \file   o_string_stream.test.cpp
+  \brief  Unit tests for \ref toy::OStringStream.
+*/
+
 /*
 #include <numbers>
 

@@ -21,8 +21,10 @@
   \file   socket_type.hpp
   \brief  Socket type enumeration for network APIs.
 
-  Defines \ref toy::network::SocketType: kind of socket (datagram, stream, or dummy). Used when creating or
-  configuring sockets.
+  Defines \ref toy::network::SocketType: kind of socket (datagram, stream, or dummy). Used when creating or configuring
+  sockets.
+
+  \note Included by network.hpp; do not include this file directly.
 */
 
 #ifndef INCLUDE_NETWORK_SOCKET_TYPE_HPP_

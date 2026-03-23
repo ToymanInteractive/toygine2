@@ -21,9 +21,10 @@
   \file   network.hpp
   \brief  Umbrella header for the network module.
 
-  Provides \ref toy::network::Endpoint, \ref toy::network::SocketError, \ref toy::network::SocketFlags,
-  \ref toy::network::SocketStatistics, \ref toy::network::SocketType, and related networking types. Include this header
-  only; do not include internal headers (e.g. \c network/endpoint.hpp, \c network/socket_flags.hpp) directly.
+  Defines \ref toy::network::Endpoint, \ref toy::network::SocketError, \ref toy::network::SocketFlags,
+  \ref toy::network::SocketStatistics, \ref toy::network::SocketType, and related networking types.
+
+  \note Include this header only; do not include internal headers directly.
 */
 
 #ifndef INCLUDE_NETWORK_HPP_

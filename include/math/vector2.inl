@@ -20,6 +20,8 @@
 /*!
   \file   vector2.inl
   \brief  Inline implementations for \ref toy::math::Vector2.
+
+  \note Included by math.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_MATH_VECTOR2_INL_

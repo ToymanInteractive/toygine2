@@ -19,7 +19,7 @@
 //
 /*!
   \file   assertion_stub.cpp
-  \brief  Stub implementation of assertion system for platforms without native assertion support.
+  \brief  Stub definitions for the assertion callback API declared in \c core/assertion.hpp.
 */
 
 #include <cstdio>

@@ -17,6 +17,11 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 //
+/*!
+  \file   c_string_view.test.cpp
+  \brief  Unit tests for \ref toy::CStringView.
+*/
+
 /*
 #include <doctest/doctest.h>
 

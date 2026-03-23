@@ -17,6 +17,10 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 //
+/*!
+  \file   math_benchark.cpp
+  \brief  Nanobench benchmarks for the math module (fixed, Point, Vector2, etc.).
+*/
 
 #include "benchmark_factory.hpp"
 #include "math.hpp"
