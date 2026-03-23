@@ -11,7 +11,7 @@
 <!-- Node1 -->
 <g id="Node000001" class="node">
 <title>Node1</title>
-<g id="a_Node000001"><a xlink:title="additional nintendo ds platform header">
+<g id="a_Node000001"><a xlink:title="Compile&#45;time platform and CPU bindings for Nintendo DS.">
 <polygon fill="#999999" stroke="#666666" points="190.5,-96 44.5,-96 44.5,-66 190.5,-66 190.5,-96"/>
 <text text-anchor="start" x="52.5" y="-84" font-family="Helvetica,sans-Serif" font-size="10.00">src/platforms/nds/platform</text>
 <text text-anchor="middle" x="117.5" y="-73" font-family="Helvetica,sans-Serif" font-size="10.00">_config.hpp</text>

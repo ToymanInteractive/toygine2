@@ -154,7 +154,8 @@ Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Assertion system: callbacks, initialize/shutdown, and assertion() entry point. </p>
-<p>Used by <code>assert</code> and <code>assert_message</code> macros. In debug builds assertion() formats failure context and invokes the registered callback; in release it is a no-op. Supports custom stack-walk callback for trace output. </p>
+<p>Defines the <a class="el" href="../../d2/da2/namespacetoy_1_1assertion.html" title="toy::assertion">toy::assertion</a> namespace and assertion() entry used by <code>assert</code> and <code>assert_message</code>. In debug builds assertion() formats failure context and invokes the registered callback; in release it is a no-op. Supports optional stack-walk callback for trace output.</p>
+<dl class="section note"><dt>Note</dt><dd>Included by <a class="el" href="../../da/d47/core_8hpp.html" title="Umbrella header for the engine core module.">core.hpp</a>; do not include this file directly. </dd></dl>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">

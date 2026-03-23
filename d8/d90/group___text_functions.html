@@ -434,15 +434,19 @@ template&lt;StringLike T&gt; </div>
   <table class="params">
     <tr><td class="paramname">dest</td><td>Destination buffer for the UTF-8 string. </td></tr>
     <tr><td class="paramname">destSize</td><td>Size of <em class="arg">dest</em> in bytes (not wide characters). </td></tr>
-    <tr><td class="paramname">src</td><td>Source wide-character C string.</td></tr>
+    <tr><td class="paramname">src</td><td>Source wide-character C string, or <code>nullptr</code> to write an empty UTF-8 string.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Pointer to <em class="arg">dest</em>, or <code>nullptr</code> if <em class="arg">dest</em> or <em class="arg">destSize</em> is invalid.</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd><em class="arg">dest</em> points to a valid buffer with capacity <em class="arg">destSize</em>; <em class="arg">src</em> is a valid wide-character string. </dd>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to <em class="arg">dest</em>, or <code>nullptr</code> only if <em class="arg">dest</em> is <code>nullptr</code> or <em class="arg">destSize</em> is <code>0</code>.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd><em class="arg">dest</em> points to a valid writable buffer of at least <em class="arg">destSize</em> bytes (the function always writes at least a null terminator when it returns a non-null pointer). </dd>
 <dd>
-<em class="arg">destSize</em> accounts for possible UTF-8 expansion (e.g. 3× wide length for BMP).</dd></dl>
-<dl class="section post"><dt>Postcondition</dt><dd>On success, <em class="arg">dest</em> is null-terminated. On overflow or invalid input, returns <code>nullptr</code>.</dd></dl>
+If <em class="arg">src</em> is not <code>nullptr</code>, it must point to a null-terminated wide-character string. </dd>
+<dd>
+When <em class="arg">src</em> is not <code>nullptr</code>, <em class="arg">destSize</em> must account for possible UTF-8 expansion (e.g. 3× wide length for BMP).</dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>If <em class="arg">src</em> is <code>nullptr</code>, writes <code>'\0'</code> to <code>*dest</code> (empty UTF-8) and returns <em class="arg">dest</em>. </dd>
+<dd>
+If <em class="arg">src</em> is not <code>nullptr</code>, <em class="arg">dest</em> is null-terminated UTF-8; output may be truncated if the buffer fills before the wide string ends.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#ga2bc2dc2817640958352b4e80ec99b2be" title="Converts a UTF-8 C string to a wide-character string (full source length).">utf8toWChar</a> </dd></dl>
 
 </div>

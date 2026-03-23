@@ -11,7 +11,7 @@
 <!-- Node1 -->
 <g id="Node000001" class="node">
 <title>Node1</title>
-<g id="a_Node000001"><a xlink:title="Template string class with fixed&#45;size character buffer.">
+<g id="a_Node000001"><a xlink:title="Fixed&#45;capacity string with stack storage.">
 <polygon fill="#999999" stroke="#666666" points="102,-85 0,-85 0,-55 102,-55 102,-85"/>
 <text text-anchor="start" x="8" y="-73" font-family="Helvetica,sans-Serif" font-size="10.00">include/core/fixed</text>
 <text text-anchor="middle" x="51" y="-62" font-family="Helvetica,sans-Serif" font-size="10.00">_string.hpp</text>
@@ -21,7 +21,7 @@
 <!-- Node2 -->
 <g id="Node000002" class="node">
 <title>Node2</title>
-<g id="a_Node000002"><a xlink:href="../../de/deb/string__like_8hpp.html" target="_top" xlink:title="C++ concept for string&#45;like types with size() and c_str() methods.">
+<g id="a_Node000002"><a xlink:href="../../de/deb/string__like_8hpp.html" target="_top" xlink:title="String&#45;like concept for types with size() and c_str().">
 <polygon fill="white" stroke="#666666" points="95,-19 7,-19 7,0 95,0 95,-19"/>
 <text text-anchor="middle" x="51" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">string_like.hpp</text>
 </a>

@@ -142,8 +142,8 @@ Namespaces</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:_5Fdivmod10" id="r__5Fdivmod10"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="../../d9/d10/structtoy_1_1__divmod10.html">_divmod10</a></td></tr>
-<tr class="memitem:EnableBitwiseOperators" id="r_EnableBitwiseOperators"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="../../db/deb/structtoy_1_1_enable_bitwise_operators.html">EnableBitwiseOperators</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trait that enables bitwise operator overloads for an enum type <em class="arg">T</em>.  <a href="../../db/deb/structtoy_1_1_enable_bitwise_operators.html#details">More...</a><br /></td></tr>
+<tr class="memitem:EnableBitwiseOperators" id="r_EnableBitwiseOperators"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../dc/d6d/classtoy_1_1_enable_bitwise_operators.html">EnableBitwiseOperators</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Primary template: disables generic bitwise operators for <em class="arg">T</em> unless specialized.  <a href="../../dc/d6d/classtoy_1_1_enable_bitwise_operators.html#details">More...</a><br /></td></tr>
 <tr class="memitem:CStringView" id="r_CStringView"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Non-owning string view class for C-style strings.  <a href="../../d5/d03/classtoy_1_1_c_string_view.html#details">More...</a><br /></td></tr>
 <tr class="memitem:CallbacksPool" id="r_CallbacksPool"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../d8/dc9/classtoy_1_1_callbacks_pool.html">CallbacksPool</a></td></tr>
@@ -156,6 +156,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compile-time validated format string wrapper.  <a href="../../dc/d62/classtoy_1_1_format_string.html#details">More...</a><br /></td></tr>
 <tr class="memitem:OStringStream" id="r_OStringStream"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html">OStringStream</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Template output string stream class for building strings from various data types.  <a href="../../d7/d15/classtoy_1_1_o_string_stream.html#details">More...</a><br /></td></tr>
+<tr class="memitem:StringFixedStorage" id="r_StringFixedStorage"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../d0/d21/classtoy_1_1_string_fixed_storage.html">StringFixedStorage</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fixed-size character storage with a tracked length and implicit null terminator at <code><a class="el" href="../../d0/d21/classtoy_1_1_string_fixed_storage.html#ae7e8490f333fb1065ec9bafb97609c56" title="Mutable pointer to the inline character buffer.">data()</a></code>[<a class="el" href="../../d0/d21/classtoy_1_1_string_fixed_storage.html#afffe5c7ce202a335498acba9427fa36f" title="Returns the current logical string length in bytes (not including the terminator).">size()</a>].  <a href="../../d0/d21/classtoy_1_1_string_fixed_storage.html#details">More...</a><br /></td></tr>
 <tr class="memitem:array" id="r_array"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../d8/d52/classtoy_1_1array.html">array</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">STL class.  <a href="../../d8/d52/classtoy_1_1array.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
@@ -196,25 +198,25 @@ Enumerations</h2></td></tr>
 Functions</h2></td></tr>
 <tr class="memitem:a3724753f210f39ad2e52f143afc828d1" id="r_a3724753f210f39ad2e52f143afc828d1"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
 <tr class="memitem:a3724753f210f39ad2e52f143afc828d1 template"><td class="memItemLeft">constexpr T&#160;</td><td class="memItemRight"><a class="el" href="#a3724753f210f39ad2e52f143afc828d1">operator|</a> (T lhs, T rhs) noexcept</td></tr>
-<tr class="memdesc:a3724753f210f39ad2e52f143afc828d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bitwise OR of two enum values.  <br /></td></tr>
+<tr class="memdesc:a3724753f210f39ad2e52f143afc828d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes bitwise OR on the underlying integers, then casts back to <em class="arg">T</em>.  <br /></td></tr>
 <tr class="memitem:a2969305409fc34874d0e0f512a028aa8" id="r_a2969305409fc34874d0e0f512a028aa8"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
 <tr class="memitem:a2969305409fc34874d0e0f512a028aa8 template"><td class="memItemLeft">constexpr T&#160;</td><td class="memItemRight"><a class="el" href="#a2969305409fc34874d0e0f512a028aa8">operator&amp;</a> (T lhs, T rhs) noexcept</td></tr>
-<tr class="memdesc:a2969305409fc34874d0e0f512a028aa8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bitwise AND of two enum values.  <br /></td></tr>
+<tr class="memdesc:a2969305409fc34874d0e0f512a028aa8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes bitwise AND on the underlying integers, then casts back to <em class="arg">T</em>.  <br /></td></tr>
 <tr class="memitem:a15035c6e2ccc42ef559d75d6736f3e93" id="r_a15035c6e2ccc42ef559d75d6736f3e93"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
 <tr class="memitem:a15035c6e2ccc42ef559d75d6736f3e93 template"><td class="memItemLeft">constexpr T&#160;</td><td class="memItemRight"><a class="el" href="#a15035c6e2ccc42ef559d75d6736f3e93">operator^</a> (T lhs, T rhs) noexcept</td></tr>
-<tr class="memdesc:a15035c6e2ccc42ef559d75d6736f3e93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bitwise XOR of two enum values.  <br /></td></tr>
+<tr class="memdesc:a15035c6e2ccc42ef559d75d6736f3e93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes bitwise XOR on the underlying integers, then casts back to <em class="arg">T</em>.  <br /></td></tr>
 <tr class="memitem:a9e3f4e8e0e45319c488dd4c1a8006b10" id="r_a9e3f4e8e0e45319c488dd4c1a8006b10"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
 <tr class="memitem:a9e3f4e8e0e45319c488dd4c1a8006b10 template"><td class="memItemLeft">constexpr T&#160;</td><td class="memItemRight"><a class="el" href="#a9e3f4e8e0e45319c488dd4c1a8006b10">operator~</a> (T lhs) noexcept</td></tr>
-<tr class="memdesc:a9e3f4e8e0e45319c488dd4c1a8006b10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bitwise NOT (one's complement) of an enum value.  <br /></td></tr>
+<tr class="memdesc:a9e3f4e8e0e45319c488dd4c1a8006b10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes bitwise NOT of the underlying integer, then casts back to <em class="arg">T</em>.  <br /></td></tr>
 <tr class="memitem:aeeed3f4f4b4225cdb2e0077e6f8187ea" id="r_aeeed3f4f4b4225cdb2e0077e6f8187ea"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
 <tr class="memitem:aeeed3f4f4b4225cdb2e0077e6f8187ea template"><td class="memItemLeft">constexpr T &amp;&#160;</td><td class="memItemRight"><a class="el" href="#aeeed3f4f4b4225cdb2e0077e6f8187ea">operator|=</a> (T &amp;lhs, T rhs) noexcept</td></tr>
-<tr class="memdesc:aeeed3f4f4b4225cdb2e0077e6f8187ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compound bitwise OR assignment.  <br /></td></tr>
+<tr class="memdesc:aeeed3f4f4b4225cdb2e0077e6f8187ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compound OR: <em class="arg">lhs</em> becomes <em class="arg">lhs</em> | <em class="arg">rhs</em>.  <br /></td></tr>
 <tr class="memitem:ae92e06198838e677bdbadbdb6d089b8c" id="r_ae92e06198838e677bdbadbdb6d089b8c"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
 <tr class="memitem:ae92e06198838e677bdbadbdb6d089b8c template"><td class="memItemLeft">constexpr T &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ae92e06198838e677bdbadbdb6d089b8c">operator&amp;=</a> (T &amp;lhs, T rhs) noexcept</td></tr>
-<tr class="memdesc:ae92e06198838e677bdbadbdb6d089b8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compound bitwise AND assignment.  <br /></td></tr>
+<tr class="memdesc:ae92e06198838e677bdbadbdb6d089b8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compound AND: <em class="arg">lhs</em> becomes <em class="arg">lhs</em> &amp; <em class="arg">rhs</em>.  <br /></td></tr>
 <tr class="memitem:a7ba64242ee51c646fa371436ad5f27d7" id="r_a7ba64242ee51c646fa371436ad5f27d7"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
 <tr class="memitem:a7ba64242ee51c646fa371436ad5f27d7 template"><td class="memItemLeft">constexpr T &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a7ba64242ee51c646fa371436ad5f27d7">operator^=</a> (T &amp;lhs, T rhs) noexcept</td></tr>
-<tr class="memdesc:a7ba64242ee51c646fa371436ad5f27d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compound bitwise XOR assignment.  <br /></td></tr>
+<tr class="memdesc:a7ba64242ee51c646fa371436ad5f27d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compound XOR: <em class="arg">lhs</em> becomes <em class="arg">lhs</em> ^ <em class="arg">rhs</em>.  <br /></td></tr>
 <tr class="memitem:af1c89e92e67487a8e2f12a1842085bb8" id="r_af1c89e92e67487a8e2f12a1842085bb8"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#af1c89e92e67487a8e2f12a1842085bb8">operator==</a> (const <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a> &amp;lhs, const <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a> &amp;rhs)</td></tr>
 <tr class="memitem:af032ad4928608bfaf27241733fcd3f41" id="r_af032ad4928608bfaf27241733fcd3f41"><td class="memTemplParams" colspan="2">template&lt;StringLike stringType&gt; </td></tr>
 <tr class="memitem:af032ad4928608bfaf27241733fcd3f41 template"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#af032ad4928608bfaf27241733fcd3f41">operator==</a> (const <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a> &amp;lhs, const stringType &amp;rhs)</td></tr>
@@ -304,11 +306,11 @@ Functions</h2></td></tr>
 <tr class="memitem:adb88a3717143c42b9d24c5a8bf553b2d" id="r_adb88a3717143c42b9d24c5a8bf553b2d"><td class="memItemLeft">size_t&#160;</td><td class="memItemRight"><a class="el" href="#adb88a3717143c42b9d24c5a8bf553b2d">highestBit</a> (uint64_t value) noexcept</td></tr>
 <tr class="memdesc:adb88a3717143c42b9d24c5a8bf553b2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the 0-based index of the highest set bit in <em class="arg">value</em>.  <br /></td></tr>
 <tr class="memitem:a00ce0b516e9a47a62227a9309afdb583" id="r_a00ce0b516e9a47a62227a9309afdb583"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#a00ce0b516e9a47a62227a9309afdb583">crc8</a> (const void *src, size_t size, uint8_t crc=0x00) noexcept</td></tr>
-<tr class="memdesc:a00ce0b516e9a47a62227a9309afdb583"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates CRC-8 checksum using Dallas/Maxim polynomial.  <br /></td></tr>
+<tr class="memdesc:a00ce0b516e9a47a62227a9309afdb583"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Dallas/Maxim CRC-8 (polynomial 0x31, reflected 8-bit CRC).  <br /></td></tr>
 <tr class="memitem:aa63c971425cb6819414030806927a68a" id="r_aa63c971425cb6819414030806927a68a"><td class="memItemLeft">uint16_t&#160;</td><td class="memItemRight"><a class="el" href="#aa63c971425cb6819414030806927a68a">crc16</a> (const void *src, size_t size, uint16_t crc=0x0000) noexcept</td></tr>
-<tr class="memdesc:aa63c971425cb6819414030806927a68a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates CRC-16 checksum using IBM/ARC polynomial.  <br /></td></tr>
+<tr class="memdesc:aa63c971425cb6819414030806927a68a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes CRC-16-IBM / ARC (polynomial 0x8005, reflected).  <br /></td></tr>
 <tr class="memitem:a17983e173fb5e8cf5baaab61a78a402e" id="r_a17983e173fb5e8cf5baaab61a78a402e"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a17983e173fb5e8cf5baaab61a78a402e">crc32</a> (const void *src, size_t size, uint32_t crc=0x00000000) noexcept</td></tr>
-<tr class="memdesc:a17983e173fb5e8cf5baaab61a78a402e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates CRC-32 checksum using IEEE 802.3 polynomial.  <br /></td></tr>
+<tr class="memdesc:a17983e173fb5e8cf5baaab61a78a402e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes CRC-32 per IEEE 802.3 / Ethernet (polynomial 0x04C11DB7, reflected).  <br /></td></tr>
 <tr class="memitem:ad95906de2f58b602b9ee9f16708f15b4" id="r_ad95906de2f58b602b9ee9f16708f15b4"><td class="memItemLeft">constexpr <a class="el" href="../../d9/d10/structtoy_1_1__divmod10.html">_divmod10</a>&#160;</td><td class="memItemRight"><a class="el" href="#ad95906de2f58b602b9ee9f16708f15b4">_divModU10</a> (uint32_t value) noexcept</td></tr>
 <tr class="memdesc:ad95906de2f58b602b9ee9f16708f15b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Divides a given 32-bit unsigned integer by 10 and returns the quotient and remainder.  <br /></td></tr>
 <tr class="memitem:a5c08dafb841b59caed6996f17b8baebc" id="r_a5c08dafb841b59caed6996f17b8baebc"><td class="memItemLeft">constexpr int32_t&#160;</td><td class="memItemRight"><a class="el" href="#a5c08dafb841b59caed6996f17b8baebc">_ftoa32Engine</a> (char *buffer, float value, size_t precision) noexcept</td></tr>
@@ -342,6 +344,8 @@ Variables</h2></td></tr>
 <tr class="memdesc:abaf6e43802564c3840542ee978aeb917"><td class="mdescLeft">&#160;</td><td class="mdescRight">UTF-8 character size lookup table for efficient UTF-8 parsing.  <br /></td></tr>
 <tr class="memitem:a347e818bfb701d85aaa994862433373d" id="r_a347e818bfb701d85aaa994862433373d"><td class="memItemLeft">constexpr array&lt; uint32_t, 32 &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a347e818bfb701d85aaa994862433373d">_exponentTable</a></td></tr>
 <tr class="memdesc:a347e818bfb701d85aaa994862433373d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Precomputed exponent lookup table for efficient binary-to-decimal floating-point conversion.  <br /></td></tr>
+<tr class="memitem:a5a201490c0074b46a75d3053aef1850a" id="r_a5a201490c0074b46a75d3053aef1850a"><td class="memItemLeft">constexpr size_t&#160;</td><td class="memItemRight"><a class="el" href="#a5a201490c0074b46a75d3053aef1850a">_decimalDigitsPerGroup</a> = 3</td></tr>
+<tr class="memdesc:a5a201490c0074b46a75d3053aef1850a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of decimal digits per group when <code><a class="el" href="#aeeb4febc194b23813d77b08ac4fea2d1" title="Inserts a grouping separator into a number C string every three digits from the right.">formatNumberString()</a></code> inserts the caller-supplied separator.  <br /></td></tr>
 <tr class="memitem:ga2a4051deac87f3522fdd2a2c55d1a79c" id="r_ga2a4051deac87f3522fdd2a2c55d1a79c"><td class="memItemLeft">constexpr size_t&#160;</td><td class="memItemRight"><a class="el" href="../../d8/d90/group___text_functions.html#ga2a4051deac87f3522fdd2a2c55d1a79c">WCHAR_IN_UTF8_MAX_SIZE</a> = 3</td></tr>
 <tr class="memdesc:ga2a4051deac87f3522fdd2a2c55d1a79c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum UTF-8 byte length for one BMP character.  <br /></td></tr>
 </table>
@@ -391,10 +395,10 @@ Usage Example</h1>
 <div class="line">  <span class="comment">// Apple Silicon</span></div>
 <div class="line">}</div>
 <div class="ttc" id="acore_8hpp_html"><div class="ttname"><a href="../../da/d47/core_8hpp.html">core.hpp</a></div><div class="ttdoc">Umbrella header for the engine core module.</div></div>
-<div class="ttc" id="anamespacetoy_html_a3035878faaa5b79577c9d9f218e0b341"><div class="ttname"><a href="#a3035878faaa5b79577c9d9f218e0b341">toy::CpuArchitecture</a></div><div class="ttdeci">CpuArchitecture</div><div class="ttdoc">CPU or instruction-set architecture identifier.</div><div class="ttdef"><b>Definition</b> platform.hpp:127</div></div>
-<div class="ttc" id="anamespacetoy_html_a3035878faaa5b79577c9d9f218e0b341a9c16d991c79c6330e655aa29ea623492"><div class="ttname"><a href="#a3035878faaa5b79577c9d9f218e0b341a9c16d991c79c6330e655aa29ea623492">toy::CpuArchitecture::x64</a></div><div class="ttdeci">@ x64</div><div class="ttdoc">Intel x64 64-bit instruction set architecture (x86-64, AMD64).</div><div class="ttdef"><b>Definition</b> platform.hpp:132</div></div>
-<div class="ttc" id="anamespacetoy_html_a3035878faaa5b79577c9d9f218e0b341ac42c3b5bc3b4234ee7823388012368d6"><div class="ttname"><a href="#a3035878faaa5b79577c9d9f218e0b341ac42c3b5bc3b4234ee7823388012368d6">toy::CpuArchitecture::Arm64</a></div><div class="ttdeci">@ Arm64</div><div class="ttdoc">ARM 64-bit instruction set architecture (ARMv8-A AArch64, ARM64).</div><div class="ttdef"><b>Definition</b> platform.hpp:138</div></div>
-<div class="ttc" id="anamespacetoy_html_aac9dbb8926274f6a556489c529f4b55aa8b06df0295926efcdcc1f9e13c49848e"><div class="ttname"><a href="#aac9dbb8926274f6a556489c529f4b55aa8b06df0295926efcdcc1f9e13c49848e">toy::Platform::macOS</a></div><div class="ttdeci">@ macOS</div><div class="ttdoc">Apple macOS desktop operating system.</div><div class="ttdef"><b>Definition</b> platform.hpp:73</div></div>
+<div class="ttc" id="anamespacetoy_html_a3035878faaa5b79577c9d9f218e0b341"><div class="ttname"><a href="#a3035878faaa5b79577c9d9f218e0b341">toy::CpuArchitecture</a></div><div class="ttdeci">CpuArchitecture</div><div class="ttdoc">CPU or instruction-set architecture identifier.</div><div class="ttdef"><b>Definition</b> platform.hpp:129</div></div>
+<div class="ttc" id="anamespacetoy_html_a3035878faaa5b79577c9d9f218e0b341a9c16d991c79c6330e655aa29ea623492"><div class="ttname"><a href="#a3035878faaa5b79577c9d9f218e0b341a9c16d991c79c6330e655aa29ea623492">toy::CpuArchitecture::x64</a></div><div class="ttdeci">@ x64</div><div class="ttdoc">Intel x64 64-bit instruction set architecture (x86-64, AMD64).</div><div class="ttdef"><b>Definition</b> platform.hpp:134</div></div>
+<div class="ttc" id="anamespacetoy_html_a3035878faaa5b79577c9d9f218e0b341ac42c3b5bc3b4234ee7823388012368d6"><div class="ttname"><a href="#a3035878faaa5b79577c9d9f218e0b341ac42c3b5bc3b4234ee7823388012368d6">toy::CpuArchitecture::Arm64</a></div><div class="ttdeci">@ Arm64</div><div class="ttdoc">ARM 64-bit instruction set architecture (ARMv8-A AArch64, ARM64).</div><div class="ttdef"><b>Definition</b> platform.hpp:140</div></div>
+<div class="ttc" id="anamespacetoy_html_aac9dbb8926274f6a556489c529f4b55aa8b06df0295926efcdcc1f9e13c49848e"><div class="ttname"><a href="#aac9dbb8926274f6a556489c529f4b55aa8b06df0295926efcdcc1f9e13c49848e">toy::Platform::macOS</a></div><div class="ttdeci">@ macOS</div><div class="ttdoc">Apple macOS desktop operating system.</div><div class="ttdef"><b>Definition</b> platform.hpp:75</div></div>
 </div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>Architecture values can be combined with platform values for combined identification.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#aac9dbb8926274f6a556489c529f4b55a" title="Target operating system or platform identifier.">Platform</a>, getCurrentArchitecture() </dd></dl>
 <table class="fieldtable">
@@ -453,8 +457,8 @@ Usage Example</h1>
 <div class="line"><span class="keyword">const</span> <a class="code hl_enumeration" href="#aac9dbb8926274f6a556489c529f4b55a">Platform</a> runtimePlatform = getCurrentPlatform();</div>
 <div class="line"><span class="keywordflow">if</span> (runtimePlatform == <a class="code hl_enumvalue" href="#aac9dbb8926274f6a556489c529f4b55aaedc9f0a5a5d57797bf68e37364743831">Platform::Linux</a>) {  <span class="comment">// Linux-specific logic</span></div>
 <div class="line">}</div>
-<div class="ttc" id="anamespacetoy_html_aac9dbb8926274f6a556489c529f4b55a"><div class="ttname"><a href="#aac9dbb8926274f6a556489c529f4b55a">toy::Platform</a></div><div class="ttdeci">Platform</div><div class="ttdoc">Target operating system or platform identifier.</div><div class="ttdef"><b>Definition</b> platform.hpp:65</div></div>
-<div class="ttc" id="anamespacetoy_html_aac9dbb8926274f6a556489c529f4b55aaedc9f0a5a5d57797bf68e37364743831"><div class="ttname"><a href="#aac9dbb8926274f6a556489c529f4b55aaedc9f0a5a5d57797bf68e37364743831">toy::Platform::Linux</a></div><div class="ttdeci">@ Linux</div><div class="ttdoc">GNU/Linux operating system and Linux-based distributions.</div><div class="ttdef"><b>Definition</b> platform.hpp:70</div></div>
+<div class="ttc" id="anamespacetoy_html_aac9dbb8926274f6a556489c529f4b55a"><div class="ttname"><a href="#aac9dbb8926274f6a556489c529f4b55a">toy::Platform</a></div><div class="ttdeci">Platform</div><div class="ttdoc">Target operating system or platform identifier.</div><div class="ttdef"><b>Definition</b> platform.hpp:67</div></div>
+<div class="ttc" id="anamespacetoy_html_aac9dbb8926274f6a556489c529f4b55aaedc9f0a5a5d57797bf68e37364743831"><div class="ttname"><a href="#aac9dbb8926274f6a556489c529f4b55aaedc9f0a5a5d57797bf68e37364743831">toy::Platform::Linux</a></div><div class="ttdeci">@ Linux</div><div class="ttdoc">GNU/Linux operating system and Linux-based distributions.</div><div class="ttdef"><b>Definition</b> platform.hpp:72</div></div>
 </div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>iOS (<code>0x3100</code>) shares the Apple range with macOS (<code>0x3000</code>).</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#a3035878faaa5b79577c9d9f218e0b341" title="CPU or instruction-set architecture identifier.">CpuArchitecture</a>, getCurrentPlatform() </dd></dl>
 <table class="fieldtable">
@@ -702,35 +706,21 @@ Usage Example</h1>
 </table>
 </div><div class="memdoc">
 
-<p>Calculates CRC-16 checksum using IBM/ARC polynomial. </p>
-<p>This function computes a CRC-16 checksum for the given data using the IBM/ARC polynomial (x¹⁶ + x¹⁵ + x² + 1, 0x8005). The CRC-16 algorithm provides a reliable way to detect data corruption and is widely used in communication protocols, file systems, and data integrity verification systems.</p>
-<p>The CRC-16-IBM/ARC algorithm is one of the most commonly used CRC-16 variants and is supported by many standards including:</p><ul>
-<li>IBM SNA (Systems Network Architecture)</li>
-<li>ARC (Archive) file format</li>
-<li>LHA compression format</li>
-<li>Modbus RTU protocol</li>
-<li>USB data packets</li>
-</ul>
+<p>Computes CRC-16-IBM / ARC (polynomial 0x8005, reflected). </p>
+<p>Processes bytes from low to high address. The <em class="arg">crc</em> argument carries state for chained updates: first chunk uses the default initial value, subsequent chunks pass the previous result as <em class="arg">crc</em>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">src</td><td>The source data to calculate CRC-16 for. </td></tr>
-    <tr><td class="paramname">size</td><td>The size of the data in bytes. </td></tr>
-    <tr><td class="paramname">crc</td><td>The initial CRC value (default: <code>0x0000</code>).</td></tr>
+    <tr><td class="paramname">src</td><td>Pointer to the first byte; must not be null (asserted in debug). </td></tr>
+    <tr><td class="paramname">size</td><td>Byte length of the range. </td></tr>
+    <tr><td class="paramname">crc</td><td>Running CRC; default initial value <code>0x0000</code>.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The calculated CRC-16 checksum value.</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">src</em> pointer must not be null. </dd>
+<dl class="section return"><dt>Returns</dt><dd>Updated CRC-16 value.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd><em class="arg">src</em> is not null. <em class="arg">size</em> is the length of readable memory at <em class="arg">src</em>.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If <em class="arg">size</em> is <code>0</code>, the return value equals the initial <em class="arg">crc</em> argument (no input bytes).</dd>
 <dd>
-The <em class="arg">size</em> must be valid for the data pointed to by <em class="arg">src</em>.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This function uses the IBM/ARC CRC-16 polynomial (0x8005), which is commonly used in communication protocols and file systems. </dd>
-<dd>
-The function is noexcept and does not throw exceptions. </dd>
-<dd>
-For empty data (size = <code>0</code>), the function returns the initial CRC value.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a href="https://en.wikipedia.org/wiki/Cyclic_redundancy_check">https://en.wikipedia.org/wiki/Cyclic_redundancy_check</a> </dd>
-<dd>
-<a href="https://reveng.sourceforge.io/crc-catalogue/16.htm#crc.cat.crc-16-arc">https://reveng.sourceforge.io/crc-catalogue/16.htm#crc.cat.crc-16-arc</a> </dd></dl>
+Polynomial is CRC-16-IBM / ARC; confirm against Modbus, ARC, or other specs that name this variant. </dd></dl>
 
 </div>
 </div>
@@ -766,36 +756,21 @@ For empty data (size = <code>0</code>), the function returns the initial CRC val
 </table>
 </div><div class="memdoc">
 
-<p>Calculates CRC-32 checksum using IEEE 802.3 polynomial. </p>
-<p>This function computes a CRC-32 checksum for the given data using the IEEE 802.3 polynomial (x³² + x²⁶ + x²³ + x²² + x¹⁶ + x¹² + x¹¹ + x¹⁰ + x⁸ + x⁷ + x⁵ + x⁴ + x² + x + 1, 0x04C11DB7). The CRC-32 algorithm provides excellent error detection capabilities and is widely used in networking protocols, file systems, and data integrity verification.</p>
-<p>The CRC-32-IEEE 802.3 algorithm is the most commonly used CRC-32 variant and is supported by many standards including:</p><ul>
-<li>IEEE 802.3 (Ethernet)</li>
-<li>ZIP file format</li>
-<li>PNG image format</li>
-<li>MPEG-2 transport streams</li>
-<li>SATA disk drives</li>
-<li>IEEE 1394 (FireWire)</li>
-</ul>
+<p>Computes CRC-32 per IEEE 802.3 / Ethernet (polynomial 0x04C11DB7, reflected). </p>
+<p>Processes bytes from low to high address. The <em class="arg">crc</em> argument carries state for chained updates: first chunk uses the default initial value, subsequent chunks pass the previous result as <em class="arg">crc</em>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">src</td><td>The source data to calculate CRC-32 for. </td></tr>
-    <tr><td class="paramname">size</td><td>The size of the data in bytes. </td></tr>
-    <tr><td class="paramname">crc</td><td>The initial CRC value (default: <code>0x00000000</code>).</td></tr>
+    <tr><td class="paramname">src</td><td>Pointer to the first byte; must not be null (asserted in debug). </td></tr>
+    <tr><td class="paramname">size</td><td>Byte length of the range. </td></tr>
+    <tr><td class="paramname">crc</td><td>Running CRC; default initial value <code>0x00000000</code>.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The calculated CRC-32 checksum value.</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">src</em> pointer must not be null. </dd>
+<dl class="section return"><dt>Returns</dt><dd>Updated CRC-32 value.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd><em class="arg">src</em> is not null. <em class="arg">size</em> is the length of readable memory at <em class="arg">src</em>.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If <em class="arg">size</em> is <code>0</code>, the return value equals the initial <em class="arg">crc</em> argument (no input bytes).</dd>
 <dd>
-The <em class="arg">size</em> must be valid for the data pointed to by <em class="arg">src</em>.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This function uses the IEEE 802.3 CRC-32 polynomial (0x04C11DB7), which is the most widely used CRC-32 variant. </dd>
-<dd>
-The function is noexcept and does not throw exceptions. </dd>
-<dd>
-For empty data (size = <code>0</code>), the function returns the initial CRC value.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a href="https://en.wikipedia.org/wiki/Cyclic_redundancy_check">https://en.wikipedia.org/wiki/Cyclic_redundancy_check</a> </dd>
-<dd>
-<a href="https://reveng.sourceforge.io/crc-catalogue/17plus.htm#crc.cat-bits.32">https://reveng.sourceforge.io/crc-catalogue/17plus.htm#crc.cat-bits.32</a> </dd></dl>
+Result matches common IEEE 802.3 / Ethernet / PKZIP polynomial; parameterization (init, xorout) may differ by protocol—use known test vectors for integration. </dd></dl>
 
 </div>
 </div>
@@ -831,28 +806,21 @@ For empty data (size = <code>0</code>), the function returns the initial CRC val
 </table>
 </div><div class="memdoc">
 
-<p>Calculates CRC-8 checksum using Dallas/Maxim polynomial. </p>
-<p>This function computes a CRC-8 checksum for the given data using the Dallas/Maxim polynomial (x⁸ + x⁵ + x⁴ + 1, 0x31). The CRC-8 algorithm provides a fast and efficient way to detect data corruption and is widely used in embedded systems, communication protocols, and data integrity verification.</p>
+<p>Computes Dallas/Maxim CRC-8 (polynomial 0x31, reflected 8-bit CRC). </p>
+<p>Processes bytes from low to high address. The <em class="arg">crc</em> argument carries state for chained updates: first chunk uses the default initial value, subsequent chunks pass the previous result as <em class="arg">crc</em>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">src</td><td>The source data to calculate CRC-8 for. </td></tr>
-    <tr><td class="paramname">size</td><td>The size of the data in bytes. </td></tr>
-    <tr><td class="paramname">crc</td><td>The initial CRC value (default: <code>0x00</code>).</td></tr>
+    <tr><td class="paramname">src</td><td>Pointer to the first byte; must not be null (asserted in debug). </td></tr>
+    <tr><td class="paramname">size</td><td>Byte length of the range. </td></tr>
+    <tr><td class="paramname">crc</td><td>Running CRC; default initial value <code>0x00</code>.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The calculated CRC-8 checksum value.</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">src</em> pointer must not be null. </dd>
+<dl class="section return"><dt>Returns</dt><dd>Updated CRC-8 value.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd><em class="arg">src</em> is not null. <em class="arg">size</em> is the length of readable memory at <em class="arg">src</em>.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If <em class="arg">size</em> is <code>0</code>, the return value equals the initial <em class="arg">crc</em> argument (no input bytes).</dd>
 <dd>
-The <em class="arg">size</em> must be valid for the data pointed to by <em class="arg">src</em>.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This function uses the Dallas/Maxim CRC-8 polynomial (0x31), which is commonly used in 1-Wire protocols and embedded systems. </dd>
-<dd>
-The function is noexcept and does not throw exceptions. </dd>
-<dd>
-For empty data (size = <code>0</code>), the function returns the initial CRC value.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a href="https://en.wikipedia.org/wiki/Cyclic_redundancy_check">https://en.wikipedia.org/wiki/Cyclic_redundancy_check</a> </dd>
-<dd>
-<a href="https://reveng.sourceforge.io/crc-catalogue/1-15.htm#crc.cat-bits.8">https://reveng.sourceforge.io/crc-catalogue/1-15.htm#crc.cat-bits.8</a> </dd></dl>
+Polynomial matches Dallas/Maxim style CRC-8 (0x31 reflected); compare vectors with your protocol’s CRC catalogue entry. </dd></dl>
 
 </div>
 </div>
@@ -1332,7 +1300,13 @@ template&lt;typename T&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Bitwise AND of two enum values. </p>
+<p>Computes bitwise AND on the underlying integers, then casts back to <em class="arg">T</em>. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Scoped enum for which <a class="el" href="../../dc/d6d/classtoy_1_1_enable_bitwise_operators.html" title="toy::EnableBitwiseOperators">toy::EnableBitwiseOperators</a> is specialized with <code>enable</code> == <code>true</code>.</td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">lhs</td><td>First operand. </td></tr>
@@ -1340,7 +1314,7 @@ template&lt;typename T&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A value of type <em class="arg">T</em> with only the bits set in both <em class="arg">lhs</em> and <em class="arg">rhs</em>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>static_cast&lt;T&gt;</code>(std::to_underlying(lhs) &amp; std::to_underlying(rhs)). </dd></dl>
 
 </div>
 </div>
@@ -1373,11 +1347,17 @@ template&lt;typename T&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Compound bitwise AND assignment. </p>
+<p>Compound AND: <em class="arg">lhs</em> becomes <em class="arg">lhs</em> &amp; <em class="arg">rhs</em>. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Scoped enum for which <a class="el" href="../../dc/d6d/classtoy_1_1_enable_bitwise_operators.html" title="toy::EnableBitwiseOperators">toy::EnableBitwiseOperators</a> is specialized with <code>enable</code> == <code>true</code>.</td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">lhs</td><td>Left operand (modified). </td></tr>
-    <tr><td class="paramname">rhs</td><td>Right operand.</td></tr>
+    <tr><td class="paramname">lhs</td><td>Reference to the left-hand value (updated). </td></tr>
+    <tr><td class="paramname">rhs</td><td>Right-hand operand.</td></tr>
   </table>
   </dd>
 </dl>
@@ -2756,7 +2736,13 @@ template&lt;typename T&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Bitwise XOR of two enum values. </p>
+<p>Computes bitwise XOR on the underlying integers, then casts back to <em class="arg">T</em>. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Scoped enum for which <a class="el" href="../../dc/d6d/classtoy_1_1_enable_bitwise_operators.html" title="toy::EnableBitwiseOperators">toy::EnableBitwiseOperators</a> is specialized with <code>enable</code> == <code>true</code>.</td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">lhs</td><td>First operand. </td></tr>
@@ -2764,7 +2750,7 @@ template&lt;typename T&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A value of type <em class="arg">T</em> with bits set in exactly one of <em class="arg">lhs</em> or <em class="arg">rhs</em>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>static_cast&lt;T&gt;</code>(std::to_underlying(lhs) ^ std::to_underlying(rhs)). </dd></dl>
 
 </div>
 </div>
@@ -2797,11 +2783,17 @@ template&lt;typename T&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Compound bitwise XOR assignment. </p>
+<p>Compound XOR: <em class="arg">lhs</em> becomes <em class="arg">lhs</em> ^ <em class="arg">rhs</em>. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Scoped enum for which <a class="el" href="../../dc/d6d/classtoy_1_1_enable_bitwise_operators.html" title="toy::EnableBitwiseOperators">toy::EnableBitwiseOperators</a> is specialized with <code>enable</code> == <code>true</code>.</td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">lhs</td><td>Left operand (modified). </td></tr>
-    <tr><td class="paramname">rhs</td><td>Right operand.</td></tr>
+    <tr><td class="paramname">lhs</td><td>Reference to the left-hand value (updated). </td></tr>
+    <tr><td class="paramname">rhs</td><td>Right-hand operand.</td></tr>
   </table>
   </dd>
 </dl>
@@ -2838,7 +2830,13 @@ template&lt;typename T&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Bitwise OR of two enum values. </p>
+<p>Computes bitwise OR on the underlying integers, then casts back to <em class="arg">T</em>. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Scoped enum for which <a class="el" href="../../dc/d6d/classtoy_1_1_enable_bitwise_operators.html" title="toy::EnableBitwiseOperators">toy::EnableBitwiseOperators</a> is specialized with <code>enable</code> == <code>true</code>.</td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">lhs</td><td>First operand. </td></tr>
@@ -2846,7 +2844,7 @@ template&lt;typename T&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A value of type <em class="arg">T</em> with bits set in either <em class="arg">lhs</em> or <em class="arg">rhs</em>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>static_cast&lt;T&gt;</code>(std::to_underlying(lhs) | std::to_underlying(rhs)). </dd></dl>
 
 </div>
 </div>
@@ -2879,11 +2877,17 @@ template&lt;typename T&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Compound bitwise OR assignment. </p>
+<p>Compound OR: <em class="arg">lhs</em> becomes <em class="arg">lhs</em> | <em class="arg">rhs</em>. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Scoped enum for which <a class="el" href="../../dc/d6d/classtoy_1_1_enable_bitwise_operators.html" title="toy::EnableBitwiseOperators">toy::EnableBitwiseOperators</a> is specialized with <code>enable</code> == <code>true</code>.</td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">lhs</td><td>Left operand (modified). </td></tr>
-    <tr><td class="paramname">rhs</td><td>Right operand.</td></tr>
+    <tr><td class="paramname">lhs</td><td>Reference to the left-hand value (updated). </td></tr>
+    <tr><td class="paramname">rhs</td><td>Right-hand operand.</td></tr>
   </table>
   </dd>
 </dl>
@@ -2916,14 +2920,21 @@ template&lt;typename T&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Bitwise NOT (one's complement) of an enum value. </p>
+<p>Computes bitwise NOT of the underlying integer, then casts back to <em class="arg">T</em>. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Scoped enum for which <a class="el" href="../../dc/d6d/classtoy_1_1_enable_bitwise_operators.html" title="toy::EnableBitwiseOperators">toy::EnableBitwiseOperators</a> is specialized with <code>enable</code> == <code>true</code>.</td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">lhs</td><td>Operand.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A value of type <em class="arg">T</em> with all bits of the underlying value inverted. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>static_cast&lt;T&gt;</code>(~std::to_underlying(lhs)).</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Inverts every bit of the underlying representation; meaning as a flag set depends on width and signedness. </dd></dl>
 
 </div>
 </div>
@@ -3098,6 +3109,31 @@ template&lt;std::unsigned_integral T&gt; </div>
 </div><!-- fragment -->
 <p>CRC-8 lookup table using Dallas/Maxim polynomial (0x31). </p>
 <p>This lookup table contains precomputed CRC-8 values for all possible byte values (0-255). The table is generated using the Dallas/Maxim polynomial (x⁸ + x⁵ + x⁴ + 1, 0x31). Using this table allows for O(1) CRC calculation per byte instead of O(8) bit-by-bit calculation. </p>
+
+</div>
+</div>
+<a id="a5a201490c0074b46a75d3053aef1850a" name="a5a201490c0074b46a75d3053aef1850a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a201490c0074b46a75d3053aef1850a">&#9670;&#160;</a></span>_decimalDigitsPerGroup</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t toy::_decimalDigitsPerGroup = 3</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Number of decimal digits per group when <code><a class="el" href="#aeeb4febc194b23813d77b08ac4fea2d1" title="Inserts a grouping separator into a number C string every three digits from the right.">formatNumberString()</a></code> inserts the caller-supplied separator. </p>
+<p>Fixed at three so grouping matches common thousands-style splitting from the right. </p>
 
 </div>
 </div>

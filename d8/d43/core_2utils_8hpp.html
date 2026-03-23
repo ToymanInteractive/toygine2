@@ -114,7 +114,7 @@ $(function(){initNavTree('d8/d43/core_2utils_8hpp.html','../../',''); });
 </div><!--header-->
 <div class="contents">
 
-<p>Core utilities: string encoding conversion, length, reversal, and number formatting.  
+<p>Core utilities: encoding conversion, string metrics, and number formatting.  
 <a href="#details">More...</a></p>
 <div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>This graph shows which files directly or indirectly include this file:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -166,8 +166,9 @@ Variables</h2></td></tr>
 <tr class="memdesc:ga2a4051deac87f3522fdd2a2c55d1a79c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum UTF-8 byte length for one BMP character.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Core utilities: string encoding conversion, length, reversal, and number formatting. </p>
-<p>UTF-8 ↔ wide conversion, utf8Len, reverseString, itoa, utoa, ftoa, formatNumberString, highestBit. Implementations may be in <code><a class="el" href="../../de/d06/utils_8cpp.html" title="Implementation of core utility functions for string manipulation, encoding conversion,...">core/utils.cpp</a></code> or inline. All functions write into caller-provided buffers where applicable; no dynamic allocation. </p>
+<div class="textblock"><p>Core utilities: encoding conversion, string metrics, and number formatting. </p>
+<p>Declares utf8toWChar, wcharToUtf8, utf8Len, reverseString, itoa, utoa, ftoa, formatNumberString, highestBit, and related free functions in namespace <a class="el" href="../../d4/da9/namespacetoy.html" title="toy">toy</a>. Non-inline definitions live in <code><a class="el" href="../../de/d06/utils_8cpp.html" title="Definitions for string, encoding, and number utilities declared in core/utils.hpp.">utils.cpp</a></code>; callers supply buffers. No dynamic allocation in these APIs.</p>
+<dl class="section note"><dt>Note</dt><dd>Included by <a class="el" href="../../da/d47/core_8hpp.html" title="Umbrella header for the engine core module.">core.hpp</a>; do not include this file directly. </dd></dl>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">

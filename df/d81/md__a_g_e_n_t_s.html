@@ -236,7 +236,6 @@ Headers</h2>
 <li>Public headers must not rely on include order.</li>
 <li>Minimize includes; prefer forward declarations in public headers.</li>
 <li>Internal headers may include other internal headers freely.</li>
-<li>Every header file must start with a file documentation block (<span class="tt">\file</span> / <span class="tt">\brief</span>).</li>
 </ul>
 <h2 class="doxsection"><a class="anchor" id="inline-and-template-code"></a>
 Inline and Template Code</h2>
@@ -359,12 +358,12 @@ Assertions</h2>
 <h1 class="doxsection"><a class="anchor" id="naming-conventions"></a>
 Naming Conventions</h1>
 <ul>
-<li>Types (classes, structs, enums, concepts): <span class="tt">PascalCase</span></li>
-<li>Functions and variables: <span class="tt">camelCase</span></li>
-<li>Constants: <span class="tt">UPPER_SNAKE_CASE</span> (only for true, globally visible constants)</li>
-<li>Template parameters: <span class="tt">PascalCase</span>; use descriptive names and avoid single-letter names unless the meaning is obvious and the scope is trivial</li>
-<li>Type aliases: <span class="tt">snake_case</span> with <span class="tt">_type</span> suffix (e.g. <span class="tt">value_type</span>, <span class="tt">size_type</span>, <span class="tt">const_reference</span>)</li>
-<li>Namespaces: <span class="tt">lowercase</span></li>
+<li>Types (classes, structs, enums, concepts): <b><span class="tt">PascalCase</span></b></li>
+<li>Functions and variables: <b><span class="tt">camelCase</span></b></li>
+<li>Constants (<span class="tt">constexpr</span> / <span class="tt">const</span>): <b><span class="tt">camelCase</span></b> with <b><span class="tt">c_</span></b> (namespace, file <span class="tt">static</span>, or non-<span class="tt">private</span> members, e.g. <span class="tt">c_maxLabelLength</span>) or <b><span class="tt">_</span></b> (only <span class="tt">private</span> members, e.g. <span class="tt">_tileSize</span>; never at namespace/file scope). Inside a function, local <span class="tt">const</span> / <span class="tt">constexpr</span> may omit the prefix.</li>
+<li>Template parameters: <b><span class="tt">PascalCase</span></b>; use descriptive names and avoid single-letter names unless the meaning is obvious and the scope is trivial</li>
+<li>Type aliases: <b><span class="tt">snake_case</span></b> with <b><span class="tt">_type</span></b> suffix (e.g. <span class="tt">value_type</span>, <span class="tt">size_type</span>, <span class="tt">const_reference</span>)</li>
+<li>Namespaces: <b><span class="tt">snake_case</span></b></li>
 </ul>
 <p>Names must describe <b>intent</b>, not implementation details.</p>
 <h2 class="doxsection"><a class="anchor" id="stl-compatible-naming"></a>
@@ -423,6 +422,27 @@ Documentation Style Rules</h1>
 <li>Document: purpose, constraints, usage expectations, compile-time vs runtime behavior.</li>
 <li>For every documented function, constructor, or operator: include a <span class="tt">\param</span> for each parameter and a <span class="tt">\return</span> for the return value (if any). Do not omit <span class="tt">\param</span> for functions that take arguments.</li>
 </ul>
+<h2 class="doxsection"><a class="anchor" id="file-documentation-file"></a>
+File documentation (<span class="tt">\file</span>)</h2>
+<p>Every header file (<span class="tt">.hpp</span> and <span class="tt">.inl</span>) must start with a <span class="tt">\file</span> block after the license header. Translation units (<span class="tt">.cpp</span>) should include a <span class="tt">\file</span> block when they provide non-trivial implementations or when navigation clarity is needed.</p>
+<ul>
+<li>**<span class="tt">\file</span>** — file name only, as it appears under <span class="tt">include/</span> or <span class="tt">src/</span> (e.g. <span class="tt"><a class="el" href="../../dd/dbb/window__show__state_8hpp.html" title="Window visibility and display state enumeration.">window_show_state.hpp</a></span>), not a full path.</li>
+<li>**<span class="tt">\brief</span>** — one line: what this file <em>is</em> (role of the translation unit), not a repetition of the file name as a title.</li>
+<li><b><span class="tt">.hpp</span></b> (including internal headers under <span class="tt">include/</span>): after <span class="tt">\brief</span>, add one short paragraph (often starting with **Defines <span class="tt">\ref ...</span>:**) naming the primary type(s) or enum(s) and how they are used (call sites, platform API, etc.).</li>
+<li><b><span class="tt">.inl</span></b> — keep the <span class="tt">\brief</span> short: **Inline implementations for <span class="tt">\ref</span> …** plus a narrow scope (e.g. “constructors and accessors”, “comparison operators”). Add a second sentence that the file is included only by the module barrel header and must not be included directly by users (match the wording used in that module).</li>
+<li><b><span class="tt">.cpp</span></b> — keep the <span class="tt">\brief</span> short: “Implementation of …” or “Definitions for …” with <span class="tt">\ref</span> to the declarations in the corresponding header when it helps navigation; not all <span class="tt">.cpp</span> files require the same depth.</li>
+</ul>
+<h3 class="doxsection"><a class="anchor" id="template-public-header-hpp"></a>
+Template: public header (<span class="tt">.hpp</span>)</h3>
+<div class="fragment"><div class="line"></div>
+</div><!-- fragment --><p>(If the module does not use a barrel name <span class="tt">module.hpp</span>, replace the second sentence with the actual barrel or public header that includes this <span class="tt">.inl</span>.)</p>
+<h3 class="doxsection"><a class="anchor" id="template-implementation-cpp"></a>
+Template: implementation (<span class="tt">.cpp</span>)</h3>
+<div class="fragment"><div class="line"></div>
+</div><!-- fragment --><h3 class="doxsection"><a class="anchor" id="template-inline-implementation-inl"></a>
+Template: inline implementation (<span class="tt">.inl</span>)</h3>
+<div class="fragment"><div class="line"></div>
+</div><!-- fragment --><p>(If the module does not use a barrel name <span class="tt">module.hpp</span>, replace the second sentence with the actual barrel or public header that includes this <span class="tt">.inl</span>.)</p>
 <h2 class="doxsection"><a class="anchor" id="method--function-documentation-order"></a>
 Method / Function Documentation Order</h2>
 <p>Always follow this order:</p>

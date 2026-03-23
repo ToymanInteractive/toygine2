@@ -24,7 +24,7 @@ var annotated_dup =
         [ "SocketStatistics", "df/d86/structtoy_1_1network_1_1_socket_statistics.html", "df/d86/structtoy_1_1network_1_1_socket_statistics" ]
       ] ],
       [ "_divmod10", "d9/d10/structtoy_1_1__divmod10.html", "d9/d10/structtoy_1_1__divmod10" ],
-      [ "EnableBitwiseOperators", "db/deb/structtoy_1_1_enable_bitwise_operators.html", "db/deb/structtoy_1_1_enable_bitwise_operators" ],
+      [ "EnableBitwiseOperators", "dc/d6d/classtoy_1_1_enable_bitwise_operators.html", "dc/d6d/classtoy_1_1_enable_bitwise_operators" ],
       [ "CStringView", "d5/d03/classtoy_1_1_c_string_view.html", "d5/d03/classtoy_1_1_c_string_view" ],
       [ "CallbacksPool", "d8/dc9/classtoy_1_1_callbacks_pool.html", "d8/dc9/classtoy_1_1_callbacks_pool" ],
       [ "FixedStringStorage", "d5/d3b/structtoy_1_1_fixed_string_storage.html", "d5/d3b/structtoy_1_1_fixed_string_storage" ],
@@ -32,6 +32,7 @@ var annotated_dup =
       [ "FixedVector", "d7/dec/classtoy_1_1_fixed_vector.html", "d7/dec/classtoy_1_1_fixed_vector" ],
       [ "FormatString", "dc/d62/classtoy_1_1_format_string.html", "dc/d62/classtoy_1_1_format_string" ],
       [ "OStringStream", "d7/d15/classtoy_1_1_o_string_stream.html", "d7/d15/classtoy_1_1_o_string_stream" ],
+      [ "StringFixedStorage", "d0/d21/classtoy_1_1_string_fixed_storage.html", "d0/d21/classtoy_1_1_string_fixed_storage" ],
       [ "array", "d8/d52/classtoy_1_1array.html", "d8/d52/classtoy_1_1array" ]
     ] ],
     [ "numeric_limits", "db/dc2/classnumeric__limits.html", null ]

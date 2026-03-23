@@ -16,7 +16,7 @@ var hierarchy =
     [ "toy::CallbacksPool&lt; type, allocatedSize &gt;", "d8/dc9/classtoy_1_1_callbacks_pool.html", null ],
     [ "toy::CallbacksPool&lt; type, allocatedSize &gt;::StaticCallback", "d7/d9f/structtoy_1_1_callbacks_pool_1_1_static_callback.html", null ],
     [ "toy::CStringView", "d5/d03/classtoy_1_1_c_string_view.html", null ],
-    [ "toy::EnableBitwiseOperators&lt; T &gt;", "db/deb/structtoy_1_1_enable_bitwise_operators.html", null ],
+    [ "toy::EnableBitwiseOperators&lt; T &gt;", "dc/d6d/classtoy_1_1_enable_bitwise_operators.html", null ],
     [ "toy::FixedString&lt; allocatedSize &gt;", "d3/d7a/classtoy_1_1_fixed_string.html", null ],
     [ "toy::FixedStringStorage&lt; allocatedSize &gt;", "d5/d3b/structtoy_1_1_fixed_string_storage.html", null ],
     [ "toy::FixedVector&lt; type, allocatedSize &gt;", "d7/dec/classtoy_1_1_fixed_vector.html", null ],
@@ -31,6 +31,7 @@ var hierarchy =
     [ "toy::network::Endpoint", "d3/d53/classtoy_1_1network_1_1_endpoint.html", null ],
     [ "toy::network::SocketStatistics", "df/d86/structtoy_1_1network_1_1_socket_statistics.html", null ],
     [ "toy::OStringStream&lt; StringType &gt;", "d7/d15/classtoy_1_1_o_string_stream.html", null ],
+    [ "toy::StringFixedStorage&lt; AllocatedSize &gt;", "d0/d21/classtoy_1_1_string_fixed_storage.html", null ],
     [ "true_type", null, [
       [ "toy::math::is_fixed_point< fixed< Base, Intermediate, Fraction, Rounding > >", "df/de5/structtoy_1_1math_1_1is__fixed__point_3_01fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html", null ]
     ] ]

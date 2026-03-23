@@ -71,7 +71,7 @@ var namespacetoy =
     ] ],
     [ "platform", "d4/ddd/namespacetoy_1_1platform.html", "d4/ddd/namespacetoy_1_1platform" ],
     [ "_divmod10", "d9/d10/structtoy_1_1__divmod10.html", "d9/d10/structtoy_1_1__divmod10" ],
-    [ "EnableBitwiseOperators", "db/deb/structtoy_1_1_enable_bitwise_operators.html", "db/deb/structtoy_1_1_enable_bitwise_operators" ],
+    [ "EnableBitwiseOperators", "dc/d6d/classtoy_1_1_enable_bitwise_operators.html", "dc/d6d/classtoy_1_1_enable_bitwise_operators" ],
     [ "CStringView", "d5/d03/classtoy_1_1_c_string_view.html", "d5/d03/classtoy_1_1_c_string_view" ],
     [ "CallbacksPool", "d8/dc9/classtoy_1_1_callbacks_pool.html", "d8/dc9/classtoy_1_1_callbacks_pool" ],
     [ "FixedStringStorage", "d5/d3b/structtoy_1_1_fixed_string_storage.html", "d5/d3b/structtoy_1_1_fixed_string_storage" ],
@@ -79,6 +79,7 @@ var namespacetoy =
     [ "FixedVector", "d7/dec/classtoy_1_1_fixed_vector.html", "d7/dec/classtoy_1_1_fixed_vector" ],
     [ "FormatString", "dc/d62/classtoy_1_1_format_string.html", "dc/d62/classtoy_1_1_format_string" ],
     [ "OStringStream", "d7/d15/classtoy_1_1_o_string_stream.html", "d7/d15/classtoy_1_1_o_string_stream" ],
+    [ "StringFixedStorage", "d0/d21/classtoy_1_1_string_fixed_storage.html", "d0/d21/classtoy_1_1_string_fixed_storage" ],
     [ "array", "d8/d52/classtoy_1_1array.html", "d8/d52/classtoy_1_1array" ],
     [ "StringLike", "df/d77/concepttoy_1_1_string_like.html", null ],
     [ "CpuArchitecture", "d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341", [
@@ -159,6 +160,7 @@ var namespacetoy =
     [ "_crc16Table", "d4/da9/namespacetoy.html#a1c66eabbb0dea6bd870920a6585afbf4", null ],
     [ "_crc32Table", "d4/da9/namespacetoy.html#a2700f13c2a45a3d51f7f770b487fdea1", null ],
     [ "_crc8Table", "d4/da9/namespacetoy.html#a8c48bd85be2362df34afbf1e4cb72f9d", null ],
+    [ "_decimalDigitsPerGroup", "d4/da9/namespacetoy.html#a5a201490c0074b46a75d3053aef1850a", null ],
     [ "_exponentTable", "d4/da9/namespacetoy.html#a347e818bfb701d85aaa994862433373d", null ],
     [ "_utf8CharSizeTable", "d4/da9/namespacetoy.html#abaf6e43802564c3840542ee978aeb917", null ],
     [ "WCHAR_IN_UTF8_MAX_SIZE", "d8/d90/group___text_functions.html#ga2a4051deac87f3522fdd2a2c55d1a79c", null ]

@@ -85,7 +85,7 @@ var sectionId = 'dynsection-0';
 <!-- Node17 -->
 <g id="Node000017" class="node">
 <title>Node17</title>
-<g id="a_Node000017"><a xlink:href="../../d5/d82/3ds_2platform__config_8hpp.html" target="_top" xlink:title="additional nintendo 3ds platform header">
+<g id="a_Node000017"><a xlink:href="../../d5/d82/3ds_2platform__config_8hpp.html" target="_top" xlink:title="Compile&#45;time platform and CPU bindings for Nintendo 3DS.">
 <polygon fill="white" stroke="#666666" points="516,-261 370,-261 370,-231 516,-231 516,-261"/>
 <text text-anchor="start" x="378" y="-249" font-family="Helvetica,sans-Serif" font-size="10.00">src/platforms/3ds/platform</text>
 <text text-anchor="middle" x="443" y="-238" font-family="Helvetica,sans-Serif" font-size="10.00">_config.hpp</text>
@@ -104,7 +104,7 @@ var sectionId = 'dynsection-0';
 <!-- Node18 -->
 <g id="Node000018" class="node">
 <title>Node18</title>
-<g id="a_Node000018"><a xlink:href="../../df/db1/gba_2platform__config_8hpp.html" target="_top" xlink:title="additional nintendo game boy advance platform header">
+<g id="a_Node000018"><a xlink:href="../../df/db1/gba_2platform__config_8hpp.html" target="_top" xlink:title="Compile&#45;time platform and CPU bindings for Nintendo GBA.">
 <polygon fill="white" stroke="#666666" points="681.5,-261 534.5,-261 534.5,-231 681.5,-231 681.5,-261"/>
 <text text-anchor="start" x="542.5" y="-249" font-family="Helvetica,sans-Serif" font-size="10.00">src/platforms/gba/platform</text>
 <text text-anchor="middle" x="608" y="-238" font-family="Helvetica,sans-Serif" font-size="10.00">_config.hpp</text>
@@ -123,7 +123,7 @@ var sectionId = 'dynsection-0';
 <!-- Node19 -->
 <g id="Node000019" class="node">
 <title>Node19</title>
-<g id="a_Node000019"><a xlink:href="../../dd/d9e/linux_2platform__config_8hpp.html" target="_top" xlink:title="additional linux platform header">
+<g id="a_Node000019"><a xlink:href="../../dd/d9e/linux_2platform__config_8hpp.html" target="_top" xlink:title="Compile&#45;time platform and CPU bindings for Linux.">
 <polygon fill="white" stroke="#666666" points="816.5,-261 699.5,-261 699.5,-231 816.5,-231 816.5,-261"/>
 <text text-anchor="start" x="707.5" y="-249" font-family="Helvetica,sans-Serif" font-size="10.00">src/platforms/linux</text>
 <text text-anchor="middle" x="758" y="-238" font-family="Helvetica,sans-Serif" font-size="10.00">/platform_config.hpp</text>
@@ -142,7 +142,7 @@ var sectionId = 'dynsection-0';
 <!-- Node20 -->
 <g id="Node000020" class="node">
 <title>Node20</title>
-<g id="a_Node000020"><a xlink:href="../../d8/d80/macos_2platform__config_8hpp.html" target="_top" xlink:title="additional macOS platform header">
+<g id="a_Node000020"><a xlink:href="../../d8/d80/macos_2platform__config_8hpp.html" target="_top" xlink:title="Compile&#45;time platform and CPU bindings for macOS.">
 <polygon fill="white" stroke="#666666" points="951.5,-261 834.5,-261 834.5,-231 951.5,-231 951.5,-261"/>
 <text text-anchor="start" x="842.5" y="-249" font-family="Helvetica,sans-Serif" font-size="10.00">src/platforms/macos</text>
 <text text-anchor="middle" x="893" y="-238" font-family="Helvetica,sans-Serif" font-size="10.00">/platform_config.hpp</text>
@@ -161,7 +161,7 @@ var sectionId = 'dynsection-0';
 <!-- Node21 -->
 <g id="Node000021" class="node">
 <title>Node21</title>
-<g id="a_Node000021"><a xlink:href="../../dc/d74/nds_2platform__config_8hpp.html" target="_top" xlink:title="additional nintendo ds platform header">
+<g id="a_Node000021"><a xlink:href="../../dc/d74/nds_2platform__config_8hpp.html" target="_top" xlink:title="Compile&#45;time platform and CPU bindings for Nintendo DS.">
 <polygon fill="white" stroke="#666666" points="1116,-261 970,-261 970,-231 1116,-231 1116,-261"/>
 <text text-anchor="start" x="978" y="-249" font-family="Helvetica,sans-Serif" font-size="10.00">src/platforms/nds/platform</text>
 <text text-anchor="middle" x="1043" y="-238" font-family="Helvetica,sans-Serif" font-size="10.00">_config.hpp</text>
@@ -180,7 +180,7 @@ var sectionId = 'dynsection-0';
 <!-- Node22 -->
 <g id="Node000022" class="node">
 <title>Node22</title>
-<g id="a_Node000022"><a xlink:href="../../db/d83/switch_2platform__config_8hpp.html" target="_top" xlink:title="additional nintendo switch platform header">
+<g id="a_Node000022"><a xlink:href="../../db/d83/switch_2platform__config_8hpp.html" target="_top" xlink:title="Compile&#45;time platform and CPU bindings for Nintendo Switch.">
 <polygon fill="white" stroke="#666666" points="1251.5,-261 1134.5,-261 1134.5,-231 1251.5,-231 1251.5,-261"/>
 <text text-anchor="start" x="1142.5" y="-249" font-family="Helvetica,sans-Serif" font-size="10.00">src/platforms/switch</text>
 <text text-anchor="middle" x="1193" y="-238" font-family="Helvetica,sans-Serif" font-size="10.00">/platform_config.hpp</text>
@@ -199,7 +199,7 @@ var sectionId = 'dynsection-0';
 <!-- Node23 -->
 <g id="Node000023" class="node">
 <title>Node23</title>
-<g id="a_Node000023"><a xlink:href="../../db/d29/windows_2platform__config_8hpp.html" target="_top" xlink:title="additional windows platform header">
+<g id="a_Node000023"><a xlink:href="../../db/d29/windows_2platform__config_8hpp.html" target="_top" xlink:title="Compile&#45;time platform and CPU bindings for Windows.">
 <polygon fill="white" stroke="#666666" points="1396.5,-261 1269.5,-261 1269.5,-231 1396.5,-231 1396.5,-261"/>
 <text text-anchor="start" x="1277.5" y="-249" font-family="Helvetica,sans-Serif" font-size="10.00">src/platforms/windows</text>
 <text text-anchor="middle" x="1333" y="-238" font-family="Helvetica,sans-Serif" font-size="10.00">/platform_config.hpp</text>
@@ -362,7 +362,7 @@ var sectionId = 'dynsection-0';
 <!-- Node14 -->
 <g id="Node000014" class="node">
 <title>Node14</title>
-<g id="a_Node000014"><a xlink:href="../../db/d2d/hashes_8cpp.html" target="_top" xlink:title="Implementation of CRC hash functions with lookup tables for optimal performance.">
+<g id="a_Node000014"><a xlink:href="../../db/d2d/hashes_8cpp.html" target="_top" xlink:title="Table&#45;driven implementations of toy::crc8(), toy::crc16(), and toy::crc32().">
 <polygon fill="white" stroke="#666666" points="902.5,-134.5 789.5,-134.5 789.5,-115.5 902.5,-115.5 902.5,-134.5"/>
 <text text-anchor="middle" x="846" y="-122.5" font-family="Helvetica,sans-Serif" font-size="10.00">src/core/hashes.cpp</text>
 </a>
@@ -380,7 +380,7 @@ var sectionId = 'dynsection-0';
 <!-- Node15 -->
 <g id="Node000015" class="node">
 <title>Node15</title>
-<g id="a_Node000015"><a xlink:href="../../de/d06/utils_8cpp.html" target="_top" xlink:title="Implementation of core utility functions for string manipulation, encoding conversion,...">
+<g id="a_Node000015"><a xlink:href="../../de/d06/utils_8cpp.html" target="_top" xlink:title="Definitions for string, encoding, and number utilities declared in core/utils.hpp.">
 <polygon fill="white" stroke="#666666" points="1019.5,-134.5 920.5,-134.5 920.5,-115.5 1019.5,-115.5 1019.5,-134.5"/>
 <text text-anchor="middle" x="970" y="-122.5" font-family="Helvetica,sans-Serif" font-size="10.00">src/core/utils.cpp</text>
 </a>
@@ -398,7 +398,7 @@ var sectionId = 'dynsection-0';
 <!-- Node16 -->
 <g id="Node000016" class="node">
 <title>Node16</title>
-<g id="a_Node000016"><a xlink:href="../../d7/d90/assertion__stub_8cpp.html" target="_top" xlink:title="Stub implementation of assertion system for platforms without native assertion support.">
+<g id="a_Node000016"><a xlink:href="../../d7/d90/assertion__stub_8cpp.html" target="_top" xlink:title="Stub definitions for the assertion callback API declared in core/assertion.hpp.">
 <polygon fill="white" stroke="#666666" points="1172.5,-140 1037.5,-140 1037.5,-110 1172.5,-110 1172.5,-140"/>
 <text text-anchor="start" x="1045.5" y="-128" font-family="Helvetica,sans-Serif" font-size="10.00">src/platforms/stub</text>
 <text text-anchor="middle" x="1105" y="-117" font-family="Helvetica,sans-Serif" font-size="10.00">/core/assertion_stub.cpp</text>
@@ -480,7 +480,7 @@ var sectionId = 'dynsection-0';
 <!-- Node10 -->
 <g id="Node000010" class="node">
 <title>Node10</title>
-<g id="a_Node000010"><a xlink:href="../../d3/d80/endpoint_8cpp.html" target="_top" xlink:title="Implementation of toy::network::Endpoint destructor.">
+<g id="a_Node000010"><a xlink:href="../../d3/d80/endpoint_8cpp.html" target="_top" xlink:title="Definitions for the toy::network::Endpoint destructor declared in network/endpoint....">
 <polygon fill="white" stroke="#666666" points="664,-74 524,-74 524,-55 664,-55 664,-74"/>
 <text text-anchor="middle" x="594" y="-62" font-family="Helvetica,sans-Serif" font-size="10.00">src/network/endpoint.cpp</text>
 </a>
@@ -516,7 +516,7 @@ var sectionId = 'dynsection-0';
 <!-- Node13 -->
 <g id="Node000013" class="node">
 <title>Node13</title>
-<g id="a_Node000013"><a xlink:href="../../db/d3d/pixel__format_8cpp.html" target="_top" xlink:title="Implementation of pixelFormatName() and pixelFormatFromName().">
+<g id="a_Node000013"><a xlink:href="../../db/d3d/pixel__format_8cpp.html" target="_top" xlink:title="Definitions for pixelFormatName() and pixelFormatFromName() declared in render/pixel_format....">
 <polygon fill="white" stroke="#666666" points="1018,-74 868,-74 868,-55 1018,-55 1018,-74"/>
 <text text-anchor="middle" x="943" y="-62" font-family="Helvetica,sans-Serif" font-size="10.00">src/render/pixel_format.cpp</text>
 </a>

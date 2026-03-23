@@ -58,7 +58,7 @@ var sectionId = 'dynsection-1';
 <!-- Node1 -->
 <g id="Node000001" class="node">
 <title>Node1</title>
-<g id="a_Node000001"><a xlink:title="Compile&#45;time format string validation class.">
+<g id="a_Node000001"><a xlink:title="Compile&#45;time format string validation.">
 <polygon fill="#999999" stroke="#666666" points="616.5,-250 483.5,-250 483.5,-231 616.5,-231 616.5,-250"/>
 <text text-anchor="middle" x="550" y="-238" font-family="Helvetica,sans-Serif" font-size="10.00">include/core/format.hpp</text>
 </a>
@@ -229,7 +229,7 @@ var sectionId = 'dynsection-1';
 <!-- Node14 -->
 <g id="Node000014" class="node">
 <title>Node14</title>
-<g id="a_Node000014"><a xlink:href="../../db/d2d/hashes_8cpp.html" target="_top" xlink:title="Implementation of CRC hash functions with lookup tables for optimal performance.">
+<g id="a_Node000014"><a xlink:href="../../db/d2d/hashes_8cpp.html" target="_top" xlink:title="Table&#45;driven implementations of toy::crc8(), toy::crc16(), and toy::crc32().">
 <polygon fill="white" stroke="#666666" points="902.5,-134.5 789.5,-134.5 789.5,-115.5 902.5,-115.5 902.5,-134.5"/>
 <text text-anchor="middle" x="846" y="-122.5" font-family="Helvetica,sans-Serif" font-size="10.00">src/core/hashes.cpp</text>
 </a>
@@ -247,7 +247,7 @@ var sectionId = 'dynsection-1';
 <!-- Node15 -->
 <g id="Node000015" class="node">
 <title>Node15</title>
-<g id="a_Node000015"><a xlink:href="../../de/d06/utils_8cpp.html" target="_top" xlink:title="Implementation of core utility functions for string manipulation, encoding conversion,...">
+<g id="a_Node000015"><a xlink:href="../../de/d06/utils_8cpp.html" target="_top" xlink:title="Definitions for string, encoding, and number utilities declared in core/utils.hpp.">
 <polygon fill="white" stroke="#666666" points="1019.5,-134.5 920.5,-134.5 920.5,-115.5 1019.5,-115.5 1019.5,-134.5"/>
 <text text-anchor="middle" x="970" y="-122.5" font-family="Helvetica,sans-Serif" font-size="10.00">src/core/utils.cpp</text>
 </a>
@@ -265,7 +265,7 @@ var sectionId = 'dynsection-1';
 <!-- Node16 -->
 <g id="Node000016" class="node">
 <title>Node16</title>
-<g id="a_Node000016"><a xlink:href="../../d7/d90/assertion__stub_8cpp.html" target="_top" xlink:title="Stub implementation of assertion system for platforms without native assertion support.">
+<g id="a_Node000016"><a xlink:href="../../d7/d90/assertion__stub_8cpp.html" target="_top" xlink:title="Stub definitions for the assertion callback API declared in core/assertion.hpp.">
 <polygon fill="white" stroke="#666666" points="1172.5,-140 1037.5,-140 1037.5,-110 1172.5,-110 1172.5,-140"/>
 <text text-anchor="start" x="1045.5" y="-128" font-family="Helvetica,sans-Serif" font-size="10.00">src/platforms/stub</text>
 <text text-anchor="middle" x="1105" y="-117" font-family="Helvetica,sans-Serif" font-size="10.00">/core/assertion_stub.cpp</text>
@@ -347,7 +347,7 @@ var sectionId = 'dynsection-1';
 <!-- Node10 -->
 <g id="Node000010" class="node">
 <title>Node10</title>
-<g id="a_Node000010"><a xlink:href="../../d3/d80/endpoint_8cpp.html" target="_top" xlink:title="Implementation of toy::network::Endpoint destructor.">
+<g id="a_Node000010"><a xlink:href="../../d3/d80/endpoint_8cpp.html" target="_top" xlink:title="Definitions for the toy::network::Endpoint destructor declared in network/endpoint....">
 <polygon fill="white" stroke="#666666" points="664,-74 524,-74 524,-55 664,-55 664,-74"/>
 <text text-anchor="middle" x="594" y="-62" font-family="Helvetica,sans-Serif" font-size="10.00">src/network/endpoint.cpp</text>
 </a>
@@ -383,7 +383,7 @@ var sectionId = 'dynsection-1';
 <!-- Node13 -->
 <g id="Node000013" class="node">
 <title>Node13</title>
-<g id="a_Node000013"><a xlink:href="../../db/d3d/pixel__format_8cpp.html" target="_top" xlink:title="Implementation of pixelFormatName() and pixelFormatFromName().">
+<g id="a_Node000013"><a xlink:href="../../db/d3d/pixel__format_8cpp.html" target="_top" xlink:title="Definitions for pixelFormatName() and pixelFormatFromName() declared in render/pixel_format....">
 <polygon fill="white" stroke="#666666" points="1018,-74 868,-74 868,-55 1018,-55 1018,-74"/>
 <text text-anchor="middle" x="943" y="-62" font-family="Helvetica,sans-Serif" font-size="10.00">src/render/pixel_format.cpp</text>
 </a>

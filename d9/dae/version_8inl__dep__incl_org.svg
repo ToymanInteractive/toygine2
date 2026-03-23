@@ -11,7 +11,7 @@
 <!-- Node1 -->
 <g id="Node000001" class="node">
 <title>Node1</title>
-<g id="a_Node000001"><a xlink:title="Implementation of application version management utilities.">
+<g id="a_Node000001"><a xlink:title="Inline implementations for toy::application::Version comparison operators.">
 <polygon fill="#999999" stroke="#666666" points="119.5,-140 10.5,-140 10.5,-110 119.5,-110 119.5,-140"/>
 <text text-anchor="start" x="18.5" y="-128" font-family="Helvetica,sans-Serif" font-size="10.00">include/application</text>
 <text text-anchor="middle" x="65" y="-117" font-family="Helvetica,sans-Serif" font-size="10.00">/version.inl</text>

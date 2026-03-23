@@ -67,7 +67,7 @@
 <!-- Node4 -->
 <g id="Node000004" class="node">
 <title>Node4</title>
-<g id="a_Node000004"><a xlink:href="../../d3/d80/endpoint_8cpp.html" target="_top" xlink:title="Implementation of toy::network::Endpoint destructor.">
+<g id="a_Node000004"><a xlink:href="../../d3/d80/endpoint_8cpp.html" target="_top" xlink:title="Definitions for the toy::network::Endpoint destructor declared in network/endpoint....">
 <polygon fill="white" stroke="#666666" points="277.5,-19 137.5,-19 137.5,0 277.5,0 277.5,-19"/>
 <text text-anchor="middle" x="207.5" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">src/network/endpoint.cpp</text>
 </a>

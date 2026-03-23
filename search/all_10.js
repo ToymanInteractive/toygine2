@@ -1,7 +1,7 @@
 var searchData=
 [
   ['parity_0',['Constexpr + Runtime Parity',['../df/d81/md__a_g_e_n_t_s.html#constexpr--runtime-parity',1,'']]],
-  ['performance_20characteristics_1',['Performance Characteristics',['../df/d81/md__a_g_e_n_t_s.html#section-performance-performance-characteristics',1,'&lt;span class=&quot;tt&quot;&gt;\\section performance Performance Characteristics&lt;/span&gt;'],['../d3/d53/classtoy_1_1network_1_1_endpoint.html#performance',1,'Performance Characteristics']]],
+  ['performance_20characteristics_1',['Performance Characteristics',['../df/d81/md__a_g_e_n_t_s.html#section-performance-performance-characteristics',1,'&lt;span class=&quot;tt&quot;&gt;\\section performance Performance Characteristics&lt;/span&gt;'],['../d0/d21/classtoy_1_1_string_fixed_storage.html#performance',1,'Performance Characteristics']]],
   ['performance_20performance_20characteristics_2',['&lt;span class=&quot;tt&quot;&gt;\\section performance Performance Characteristics&lt;/span&gt;',['../df/d81/md__a_g_e_n_t_s.html#section-performance-performance-characteristics',1,'']]],
   ['phi_5fv_3',['phi_v',['../dd/d71/namespacetoy_1_1math_1_1constants.html#ae86d51e3de21dfeea848b396d99306ac',1,'toy::math::constants']]],
   ['phi_5fv_3c_20toy_3a_3amath_3a_3afixed_3c_20base_2c_20intermediate_2c_20fraction_2c_20rounding_20_3e_20_3e_4',['phi_v&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;',['../da/d94/namespacestd_1_1numbers.html#a5cfec7b8b2c8bc445ed8619a3c15d48c',1,'std::numbers']]],
@@ -36,8 +36,9 @@ var searchData=
   ['private_20members_33',['Private Members',['../df/d81/md__a_g_e_n_t_s.html#private-members',1,'']]],
   ['processing_20functions_34',['Common text processing functions',['../d8/d90/group___text_functions.html',1,'']]],
   ['project_20context_35',['Project Context',['../df/d81/md__a_g_e_n_t_s.html#project-context',1,'']]],
-  ['push_5fback_36',['push_back',['../d3/d7a/classtoy_1_1_fixed_string.html#a35cb76db06e5d0fc94a6fc01b7fa161d',1,'toy::FixedString::push_back()'],['../d7/dec/classtoy_1_1_fixed_vector.html#ad1b12283014e9694c538c41a6b4d854b',1,'toy::FixedVector::push_back()']]],
-  ['put_37',['put',['../d7/d15/classtoy_1_1_o_string_stream.html#a7224f6c06dce9faf3b17ac798ac4f553',1,'toy::OStringStream']]],
-  ['pvrtc2_38',['PVRTC2',['../df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3faa54f5bdd6d55a32997d1352a5c8234a4',1,'toy::render']]],
-  ['pvrtc4_39',['PVRTC4',['../df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3fa759978c6ff5b5e0ce1720f8dd863e3bf',1,'toy::render']]]
+  ['public_20header_20hpp_36',['Template: public header (&lt;span class=&quot;tt&quot;&gt;.hpp&lt;/span&gt;)',['../df/d81/md__a_g_e_n_t_s.html#template-public-header-hpp',1,'']]],
+  ['push_5fback_37',['push_back',['../d3/d7a/classtoy_1_1_fixed_string.html#a35cb76db06e5d0fc94a6fc01b7fa161d',1,'toy::FixedString::push_back()'],['../d7/dec/classtoy_1_1_fixed_vector.html#ad1b12283014e9694c538c41a6b4d854b',1,'toy::FixedVector::push_back()']]],
+  ['put_38',['put',['../d7/d15/classtoy_1_1_o_string_stream.html#a7224f6c06dce9faf3b17ac798ac4f553',1,'toy::OStringStream']]],
+  ['pvrtc2_39',['PVRTC2',['../df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3faa54f5bdd6d55a32997d1352a5c8234a4',1,'toy::render']]],
+  ['pvrtc4_40',['PVRTC4',['../df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3fa759978c6ff5b5e0ce1720f8dd863e3bf',1,'toy::render']]]
 ];

@@ -1,5 +1,5 @@
 <map id="include/math/utils.inl" name="include/math/utils.inl">
-<area shape="rect" id="Node000001" title="Inline implementations for General math utilities." alt="" coords="66,5,225,31"/>
+<area shape="rect" id="Node000001" title="Inline implementations for utilities declared in math/utils.hpp." alt="" coords="66,5,225,31"/>
 <area shape="rect" id="Node000002" href="$d4/d78/math_8hpp.html" title="Umbrella header for the math module." alt="" coords="78,152,213,177"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="131,43,113,79,112,99,118,118,137,150,133,153,113,120,107,99,108,78,126,41"/>
 <area shape="rect" id="Node000005" href="$d4/dee/point_8inl.html" title="Inline implementations for toy::math::Point." alt="" coords="123,79,287,104"/>

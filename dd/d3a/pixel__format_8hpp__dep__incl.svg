@@ -68,7 +68,7 @@
 <!-- Node4 -->
 <g id="Node000004" class="node">
 <title>Node4</title>
-<g id="a_Node000004"><a xlink:href="../../db/d3d/pixel__format_8cpp.html" target="_top" xlink:title="Implementation of pixelFormatName() and pixelFormatFromName().">
+<g id="a_Node000004"><a xlink:href="../../db/d3d/pixel__format_8cpp.html" target="_top" xlink:title="Definitions for pixelFormatName() and pixelFormatFromName() declared in render/pixel_format....">
 <polygon fill="white" stroke="#666666" points="287.5,-19 137.5,-19 137.5,0 287.5,0 287.5,-19"/>
 <text text-anchor="middle" x="212.5" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">src/render/pixel_format.cpp</text>
 </a>

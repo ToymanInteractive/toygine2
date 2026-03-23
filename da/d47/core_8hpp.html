@@ -146,6 +146,7 @@ $(function(){initNavTree('da/d47/core_8hpp.html','../../',''); });
 <code>#include &quot;<a class="el" href="../../dd/d8e/hashes_8hpp_source.html">core/hashes.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../de/d2d/o__string__stream_8hpp_source.html">core/o_string_stream.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d3/d60/platform_8hpp_source.html">core/platform.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d2/dd2/string__fixed__storage_8hpp_source.html">core/string_fixed_storage.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../de/deb/string__like_8hpp_source.html">core/string_like.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d8/d43/core_2utils_8hpp_source.html">core/utils.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../dd/d61/bitwise__enum_8inl_source.html">core/bitwise_enum.inl</a>&quot;</code><br />
@@ -156,6 +157,7 @@ $(function(){initNavTree('da/d47/core_8hpp.html','../../',''); });
 <code>#include &quot;<a class="el" href="../../da/dc9/fixed__vector_8inl_source.html">core/fixed_vector.inl</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d0/d67/format_8inl_source.html">core/format.inl</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d9/dcb/o__string__stream_8inl_source.html">core/o_string_stream.inl</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../db/d33/string__fixed__storage_8inl_source.html">core/string_fixed_storage.inl</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d2/d2b/core_2utils_8inl_source.html">core/utils.inl</a>&quot;</code><br />
 </div><div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Include dependency graph for core.hpp:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -192,7 +194,8 @@ Macros</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Umbrella header for the engine core module. </p>
-<p>Provides platform, string, assertion, and core utilities. Include this header only; do not include internal headers (e.g. <code><a class="el" href="../../d7/d7f/fixed__string_8hpp.html" title="Template string class with fixed-size character buffer.">core/fixed_string.hpp</a></code>, <code><a class="el" href="../../d3/d60/platform_8hpp.html" title="Platform and CPU architecture enums with compile-time and runtime detection.">core/platform.hpp</a></code>) directly. </p>
+<p>Provides platform, string, assertion, and core utilities.</p>
+<dl class="section note"><dt>Note</dt><dd>Include this header only; do not include internal headers directly. </dd></dl>
 </div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
 <a id="a94a808adc84ff2a5345e7ecb00661653" name="a94a808adc84ff2a5345e7ecb00661653"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a94a808adc84ff2a5345e7ecb00661653">&#9670;&#160;</a></span>TOY_CONFIG_DEBUG_MEMORY</h2>
@@ -223,7 +226,7 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="../../d1/d5f/assertion__macro__gcc__clang_8hpp.html#a0041af519e0e7d47c9bcc83760c4669e">assert</a>(expression)</div>
-<div class="ttc" id="aassertion__macro__gcc__clang_8hpp_html_a0041af519e0e7d47c9bcc83760c4669e"><div class="ttname"><a href="../../d1/d5f/assertion__macro__gcc__clang_8hpp.html#a0041af519e0e7d47c9bcc83760c4669e">assert</a></div><div class="ttdeci">#define assert(expression)</div><div class="ttdoc">Debug assertion macro for runtime expression checking.</div><div class="ttdef"><b>Definition</b> assertion_macro_gcc_clang.hpp:54</div></div>
+<div class="ttc" id="aassertion__macro__gcc__clang_8hpp_html_a0041af519e0e7d47c9bcc83760c4669e"><div class="ttname"><a href="../../d1/d5f/assertion__macro__gcc__clang_8hpp.html#a0041af519e0e7d47c9bcc83760c4669e">assert</a></div><div class="ttdeci">#define assert(expression)</div><div class="ttdoc">Debug assertion macro for runtime expression checking.</div><div class="ttdef"><b>Definition</b> assertion_macro_gcc_clang.hpp:58</div></div>
 </div><!-- fragment -->
 <p>When <code>_DEBUG</code> is defined: expands to <code><a class="el" href="../../d1/d5f/assertion__macro__gcc__clang_8hpp.html#a0041af519e0e7d47c9bcc83760c4669e" title="Debug assertion macro for runtime expression checking.">assert(expression)</a></code>. </p>
 <p>Evaluates <em class="arg">expression</em> and triggers an assertion failure (via <code><a class="el" href="../../d2/da2/namespacetoy_1_1assertion.html#a71e8fbdc3d1a6ccee148e120d0c890db" title="Handles a failed assertion: formats code, message, fileName, functionName, lineNumber and invokes the...">toy::assertion::assertion</a></code>) if it is false. When <code>_DEBUG</code> is not defined, the other definition applies: expands to <code></code>(expression) (evaluated, no check).</p>
@@ -256,7 +259,7 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="../../d1/d5f/assertion__macro__gcc__clang_8hpp.html#a672330c2fecd516f254162cd9611d91a">assert_message</a>(expression, message)</div>
-<div class="ttc" id="aassertion__macro__gcc__clang_8hpp_html_a672330c2fecd516f254162cd9611d91a"><div class="ttname"><a href="../../d1/d5f/assertion__macro__gcc__clang_8hpp.html#a672330c2fecd516f254162cd9611d91a">assert_message</a></div><div class="ttdeci">#define assert_message(expression, message)</div><div class="ttdoc">Debug assertion macro with custom message for runtime expression checking.</div><div class="ttdef"><b>Definition</b> assertion_macro_gcc_clang.hpp:88</div></div>
+<div class="ttc" id="aassertion__macro__gcc__clang_8hpp_html_a672330c2fecd516f254162cd9611d91a"><div class="ttname"><a href="../../d1/d5f/assertion__macro__gcc__clang_8hpp.html#a672330c2fecd516f254162cd9611d91a">assert_message</a></div><div class="ttdeci">#define assert_message(expression, message)</div><div class="ttdoc">Debug assertion macro with custom message for runtime expression checking.</div><div class="ttdef"><b>Definition</b> assertion_macro_gcc_clang.hpp:92</div></div>
 </div><!-- fragment -->
 <p>When <code>_DEBUG</code> is defined: expands to <code><a class="el" href="../../d1/d5f/assertion__macro__gcc__clang_8hpp.html#a672330c2fecd516f254162cd9611d91a" title="Debug assertion macro with custom message for runtime expression checking.">assert_message(expression, message)</a></code>. </p>
 <p>Same as <code>validate</code> but passes <em class="arg">message</em> to the assertion handler for a clearer failure report. When <code>_DEBUG</code> is not defined, expands to <code></code>(expression); <em class="arg">message</em> is unused.</p>

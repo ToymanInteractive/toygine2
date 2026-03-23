@@ -75,6 +75,11 @@ var NAVTREE =
         [ "Doxygen Block Style", "df/d81/md__a_g_e_n_t_s.html#doxygen-block-style", null ]
       ] ],
       [ "Documentation Style Rules", "df/d81/md__a_g_e_n_t_s.html#documentation-style-rules", [
+        [ "File documentation (<span class=\"tt\">\\file</span>)", "df/d81/md__a_g_e_n_t_s.html#file-documentation-file", [
+          [ "Template: public header (<span class=\"tt\">.hpp</span>)", "df/d81/md__a_g_e_n_t_s.html#template-public-header-hpp", null ],
+          [ "Template: implementation (<span class=\"tt\">.cpp</span>)", "df/d81/md__a_g_e_n_t_s.html#template-implementation-cpp", null ],
+          [ "Template: inline implementation (<span class=\"tt\">.inl</span>)", "df/d81/md__a_g_e_n_t_s.html#template-inline-implementation-inl", null ]
+        ] ],
         [ "Method / Function Documentation Order", "df/d81/md__a_g_e_n_t_s.html#method--function-documentation-order", null ],
         [ "Class / Struct Documentation Order", "df/d81/md__a_g_e_n_t_s.html#class--struct-documentation-order", null ],
         [ "Concept Documentation", "df/d81/md__a_g_e_n_t_s.html#concept-documentation", [
@@ -146,11 +151,11 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"d3/d7a/classtoy_1_1_fixed_string.html#abe68aa4a2150aa06fa49a844aae5aff0",
-"d5/d03/classtoy_1_1_c_string_view.html#a6354e478ad35f159833948e7951f671c",
-"d7/dec/classtoy_1_1_fixed_vector.html#a668bf255d5c4ab7568fe4e0c98eaef5a",
-"dc/d16/circle_8inl.html",
-"df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3faec4ed8a15cef294974fb3f4007649fea"
+"d3/d7a/classtoy_1_1_fixed_string.html#a9d66437fa1cf74987dda6274667e5dcd",
+"d5/d03/classtoy_1_1_c_string_view.html#a3fd727898d1fd0d4261e894033c3396b",
+"d7/dec/classtoy_1_1_fixed_vector.html#a54b2b2db7a31500c6daf4e5ef12a55f3",
+"db/d83/switch_2platform__config_8hpp.html",
+"df/d86/structtoy_1_1network_1_1_socket_statistics.html#a3c3c99231dc867832329d1e75aab25a5"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

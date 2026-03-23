@@ -114,7 +114,7 @@ $(function(){initNavTree('dd/d8e/hashes_8hpp.html','../../',''); });
 </div><!--header-->
 <div class="contents">
 
-<p>CRC hash functions.  
+<p>Table-driven CRC-8, CRC-16, and CRC-32 over byte buffers.  
 <a href="#details">More...</a></p>
 <div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>This graph shows which files directly or indirectly include this file:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -133,14 +133,16 @@ Namespaces</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a00ce0b516e9a47a62227a9309afdb583" id="r_a00ce0b516e9a47a62227a9309afdb583"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="../../d4/da9/namespacetoy.html#a00ce0b516e9a47a62227a9309afdb583">toy::crc8</a> (const void *src, size_t size, uint8_t crc=0x00) noexcept</td></tr>
-<tr class="memdesc:a00ce0b516e9a47a62227a9309afdb583"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates CRC-8 checksum using Dallas/Maxim polynomial.  <br /></td></tr>
+<tr class="memdesc:a00ce0b516e9a47a62227a9309afdb583"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Dallas/Maxim CRC-8 (polynomial 0x31, reflected 8-bit CRC).  <br /></td></tr>
 <tr class="memitem:aa63c971425cb6819414030806927a68a" id="r_aa63c971425cb6819414030806927a68a"><td class="memItemLeft">uint16_t&#160;</td><td class="memItemRight"><a class="el" href="../../d4/da9/namespacetoy.html#aa63c971425cb6819414030806927a68a">toy::crc16</a> (const void *src, size_t size, uint16_t crc=0x0000) noexcept</td></tr>
-<tr class="memdesc:aa63c971425cb6819414030806927a68a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates CRC-16 checksum using IBM/ARC polynomial.  <br /></td></tr>
+<tr class="memdesc:aa63c971425cb6819414030806927a68a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes CRC-16-IBM / ARC (polynomial 0x8005, reflected).  <br /></td></tr>
 <tr class="memitem:a17983e173fb5e8cf5baaab61a78a402e" id="r_a17983e173fb5e8cf5baaab61a78a402e"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="../../d4/da9/namespacetoy.html#a17983e173fb5e8cf5baaab61a78a402e">toy::crc32</a> (const void *src, size_t size, uint32_t crc=0x00000000) noexcept</td></tr>
-<tr class="memdesc:a17983e173fb5e8cf5baaab61a78a402e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates CRC-32 checksum using IEEE 802.3 polynomial.  <br /></td></tr>
+<tr class="memdesc:a17983e173fb5e8cf5baaab61a78a402e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes CRC-32 per IEEE 802.3 / Ethernet (polynomial 0x04C11DB7, reflected).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>CRC hash functions. </p>
+<div class="textblock"><p>Table-driven CRC-8, CRC-16, and CRC-32 over byte buffers. </p>
+<p>Declares crc8(), crc16(), and crc32() in namespace <a class="el" href="../../d4/da9/namespacetoy.html" title="toy">toy</a>.</p>
+<dl class="section note"><dt>Note</dt><dd>Included by <a class="el" href="../../da/d47/core_8hpp.html" title="Umbrella header for the engine core module.">core.hpp</a>; do not include this file directly. </dd></dl>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">

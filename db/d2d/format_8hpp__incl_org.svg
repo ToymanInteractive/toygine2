@@ -11,7 +11,7 @@
 <!-- Node1 -->
 <g id="Node000001" class="node">
 <title>Node1</title>
-<g id="a_Node000001"><a xlink:title="Compile&#45;time format string validation class.">
+<g id="a_Node000001"><a xlink:title="Compile&#45;time format string validation.">
 <polygon fill="#999999" stroke="#666666" points="133,-74 0,-74 0,-55 133,-55 133,-74"/>
 <text text-anchor="middle" x="66.5" y="-62" font-family="Helvetica,sans-Serif" font-size="10.00">include/core/format.hpp</text>
 </a>
@@ -20,7 +20,7 @@
 <!-- Node2 -->
 <g id="Node000002" class="node">
 <title>Node2</title>
-<g id="a_Node000002"><a xlink:href="../../de/deb/string__like_8hpp.html" target="_top" xlink:title="C++ concept for string&#45;like types with size() and c_str() methods.">
+<g id="a_Node000002"><a xlink:href="../../de/deb/string__like_8hpp.html" target="_top" xlink:title="String&#45;like concept for types with size() and c_str().">
 <polygon fill="white" stroke="#666666" points="110.5,-19 22.5,-19 22.5,0 110.5,0 110.5,-19"/>
 <text text-anchor="middle" x="66.5" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">string_like.hpp</text>
 </a>

@@ -1,5 +1,5 @@
 <map id="include/math/fixed.hpp" name="include/math/fixed.hpp">
-<area shape="rect" id="Node000001" title="Fixed&#45;point numeric type template." alt="" coords="60,5,231,31"/>
+<area shape="rect" id="Node000001" title="Fixed&#45;point numeric type template and related concepts." alt="" coords="60,5,231,31"/>
 <area shape="rect" id="Node000002" href="$d4/d78/math_8hpp.html" title="Umbrella header for the math module." alt="" coords="78,152,213,177"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="126,42,113,60,104,79,103,99,110,118,135,150,130,153,105,121,97,100,99,78,109,57,122,39"/>
 <area shape="rect" id="Node000005" href="$d3/dad/constants_8hpp.html" title="Mathematical constants for floating&#45;point and toy::math::fixed_point types." alt="" coords="113,79,316,104"/>

@@ -1,6 +1,6 @@
 var bitwise__enum_8hpp =
 [
-    [ "toy::EnableBitwiseOperators&lt; T &gt;", "db/deb/structtoy_1_1_enable_bitwise_operators.html", "db/deb/structtoy_1_1_enable_bitwise_operators" ],
+    [ "toy::EnableBitwiseOperators&lt; T &gt;", "dc/d6d/classtoy_1_1_enable_bitwise_operators.html", "dc/d6d/classtoy_1_1_enable_bitwise_operators" ],
     [ "ENABLE_BITWISE_OPERATORS", "df/d61/bitwise__enum_8hpp.html#aeef6a9a97e9b8d6f238e592b2e566abf", null ],
     [ "toy::operator&", "d4/da9/namespacetoy.html#a2969305409fc34874d0e0f512a028aa8", null ],
     [ "toy::operator&=", "d4/da9/namespacetoy.html#ae92e06198838e677bdbadbdb6d089b8c", null ],
