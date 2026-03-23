@@ -25,7 +25,7 @@
 
   Depends on \ref toy::math.
 
-  Include this header only; do not include internal headers directly.
+  \note Include this header only; do not include internal headers directly.
 */
 
 #ifndef INCLUDE_GEOMETRY_HPP_

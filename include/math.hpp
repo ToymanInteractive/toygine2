@@ -23,7 +23,7 @@
 
   Defines \ref toy::math::Point, \ref toy::math::Vector2, \ref toy::math::fixed, constants, and utilities.
 
-  Include this header only; do not include internal headers directly.
+  \note Include this header only; do not include internal headers directly.
 */
 
 #ifndef INCLUDE_MATH_HPP_

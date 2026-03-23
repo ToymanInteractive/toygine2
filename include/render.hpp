@@ -23,7 +23,7 @@
 
   Defines clear flags, pixel format, and related rendering types.
 
-  Include this header only; do not include internal headers directly.
+  \note Include this header only; do not include internal headers directly.
 */
 
 #ifndef INCLUDE_RENDER_HPP_

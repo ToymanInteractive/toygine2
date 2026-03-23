@@ -23,7 +23,7 @@
 
   Defines open file mode and filesystem utilities.
 
-  Include this header only; do not include internal headers directly.
+  \note Include this header only; do not include internal headers directly.
 */
 
 #ifndef INCLUDE_FILESYSTEM_HPP_

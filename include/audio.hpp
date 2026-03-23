@@ -23,7 +23,7 @@
 
   Defines volume types and audio utilities.
 
-  Include this header only; do not include internal headers directly.
+  \note Include this header only; do not include internal headers directly.
 */
 
 #ifndef INCLUDE_AUDIO_HPP_

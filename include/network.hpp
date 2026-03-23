@@ -24,7 +24,7 @@
   Defines \ref toy::network::Endpoint, \ref toy::network::SocketError, \ref toy::network::SocketFlags,
   \ref toy::network::SocketStatistics, \ref toy::network::SocketType, and related networking types.
 
-  Include this header only; do not include internal headers directly.
+  \note Include this header only; do not include internal headers directly.
 */
 
 #ifndef INCLUDE_NETWORK_HPP_

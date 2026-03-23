@@ -110,13 +110,18 @@ public:
   /*!
     \brief Mutable pointer to the inline character buffer.
 
-    Use this to write bytes \c [0, capacity()) before calling setSize(). Until setSize() runs, the buffer may be
-    uninitialized except for default zero-initialization. After setSize(\a n), bytes \c [0, n) form the string and
-    \c data()[n] is \c '\\0'.
+    Use this to fill the bytes that will form the logical string: write payload in \c [0, \a newSize), then call
+    \c setSize(\a newSize) with the same \a newSize (with \a newSize \c <= \c capacity()). Do not write a null
+    terminator in place of \c setSize(): \c setSize(\a newSize) sets \c data()[\a newSize] \c = \c '\\0'.
+
+    Until \c setSize() runs after your writes, only bytes you have written are defined; default construction
+    zero-initializes the whole buffer. After \c setSize(\a n), \c [0, \a n) is the string and \c data()[\a n] is
+    \c '\\0'.
 
     \return Pointer to the first element of the storage array.
 
-    \pre If you write past index \c capacity()-1 or omit the terminator before setSize, behavior is undefined.
+    \pre Writing payload past index \c capacity()-1, or calling \c setSize(\a newSize) with
+         \a newSize \c > \c capacity(), is undefined behavior.
 
     \note Same address as the const overload on the same object.
   */
