@@ -49,6 +49,7 @@ namespace toy {
   - **Explicit length**: size() and setSize() separate from buffer contents (caller maintains valid UTF-8 or other
     encoding as needed).
   - **Null-terminated**: After setSize(\a n), \c data()[\a n] is \c '\\0' when \a n \c < \c AllocatedSize.
+  - **Compile-time capacity**: \c AllocatedSize is a template constant validated with a compile-time assertion.
 
   \section usage Usage Example
 
@@ -74,6 +75,8 @@ namespace toy {
 
   \note This type does not validate encoding or copy characters; higher-level types (e.g. \ref toy::FixedString) build
         on similar storage patterns.
+
+  \sa toy::FixedString
 */
 template <size_t AllocatedSize>
 class StringFixedStorage {

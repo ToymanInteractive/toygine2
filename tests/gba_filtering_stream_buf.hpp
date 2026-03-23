@@ -21,8 +21,8 @@
   \file   gba_filtering_stream_buf.hpp
   \brief  ANSI escape filter \c std::streambuf for Nintendo GBA test output.
 
-  Defines \c GbaFilteringStreamBuf: strips CSI and SGR sequences so only plain text reaches the underlying stream. Used
-  when routing doctest output on GBA hardware without ANSI support.
+  Defines \ref GbaFilteringStreamBuf: strips CSI and SGR sequences so only plain text reaches the underlying stream.
+  Used when routing doctest output on GBA hardware without ANSI support.
 */
 
 #ifndef TEST_GBA_FILTERING_STREAM_BUF_HPP_

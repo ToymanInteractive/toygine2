@@ -21,7 +21,7 @@
   \file   c_string_view.hpp
   \brief  Non-owning view over null-terminated C strings.
 
-  Defines \ref toy::CStringView and related APIs. Used for lightweight string inspection without allocation.
+  Defines \ref toy::CStringView and related APIs. Used for non-owning string inspection without allocation.
 
   Included by core.hpp; do not include this file directly.
 */
