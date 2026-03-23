@@ -142,11 +142,12 @@ constexpr wchar_t * utf8toWChar(wchar_t * dest, size_t destSize, const T & src) 
   \pre \a dest points to a valid writable buffer of at least \a destSize bytes (the function always writes at least a
        null terminator when it returns a non-null pointer).
   \pre If \a src is not \c nullptr, it must point to a null-terminated wide-character string.
-  \pre When \a src is not \c nullptr, \a destSize must account for possible UTF-8 expansion (e.g. 3× wide length for BMP).
+  \pre When \a src is not \c nullptr, \a destSize must account for possible UTF-8 expansion (e.g. 3× wide length for
+       BMP).
 
   \post If \a src is \c nullptr, writes \c '\\0' to \c *dest (empty UTF-8) and returns \a dest.
-  \post If \a src is not \c nullptr, \a dest is null-terminated UTF-8; output may be truncated if the buffer fills before
-        the wide string ends.
+  \post If \a src is not \c nullptr, \a dest is null-terminated UTF-8; output may be truncated if the buffer fills
+        before the wide string ends.
 
   \sa utf8toWChar
 */
