@@ -19,9 +19,10 @@
 //
 /*!
   \file   core.hpp
-  \brief  Umbrella header for the engine core module
+  \brief  Umbrella header for the engine core module.
 
-  Provides platform, string, assertion, and core utilities.
+  Defines the public core surface: platform, assertions, string utilities, callbacks pool, fixed strings and vectors,
+  hashing, formatting, and general utilities.
 
   \note Include this header only; do not include internal headers directly.
 */

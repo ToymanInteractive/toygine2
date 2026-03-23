@@ -29,13 +29,13 @@
 
 namespace toy {
 
-template <typename type, size_t allocatedSize>
-constexpr CallbacksPool<type, allocatedSize>::CallbacksPool() noexcept {
+template <typename T, size_t AllocatedSize>
+constexpr CallbacksPool<T, AllocatedSize>::CallbacksPool() noexcept {
   _callbacks.fill(StaticCallback());
 }
 
-template <typename type, size_t allocatedSize>
-constexpr bool CallbacksPool<type, allocatedSize>::add(void (*method)(type arg)) noexcept {
+template <typename T, size_t AllocatedSize>
+constexpr bool CallbacksPool<T, AllocatedSize>::add(void (*method)(T arg)) noexcept {
   assert_message(method != nullptr, "Cannot add null callback");
 
   // Check if the method already exists
@@ -44,16 +44,16 @@ constexpr bool CallbacksPool<type, allocatedSize>::add(void (*method)(type arg))
       return true;
   }
 
-  assert_message(_subscribersCount < allocatedSize, "No room for new callback, increase pool size");
-  if (_subscribersCount >= allocatedSize)
+  assert_message(_subscribersCount < AllocatedSize, "No room for new callback, increase pool size");
+  if (_subscribersCount >= AllocatedSize)
     return false;
 
   _callbacks[_subscribersCount++].method = method;
   return true;
 }
 
-template <typename type, size_t allocatedSize>
-constexpr bool CallbacksPool<type, allocatedSize>::remove(void (*method)(type arg)) noexcept {
+template <typename T, size_t AllocatedSize>
+constexpr bool CallbacksPool<T, AllocatedSize>::remove(void (*method)(T arg)) noexcept {
   for (size_t index = 0; index < _subscribersCount; ++index) {
     if (_callbacks[index].method == method) {
       _callbacks[index].method = _callbacks[--_subscribersCount].method;
@@ -64,18 +64,18 @@ constexpr bool CallbacksPool<type, allocatedSize>::remove(void (*method)(type ar
   return false;
 }
 
-template <typename type, size_t allocatedSize>
-constexpr void CallbacksPool<type, allocatedSize>::reset() noexcept {
+template <typename T, size_t AllocatedSize>
+constexpr void CallbacksPool<T, AllocatedSize>::reset() noexcept {
   _subscribersCount = 0;
 }
 
-template <typename type, size_t allocatedSize>
-[[nodiscard]] constexpr size_t CallbacksPool<type, allocatedSize>::subscribersAmount() const noexcept {
+template <typename T, size_t AllocatedSize>
+[[nodiscard]] constexpr size_t CallbacksPool<T, AllocatedSize>::subscribersAmount() const noexcept {
   return _subscribersCount;
 }
 
-template <typename type, size_t allocatedSize>
-constexpr void CallbacksPool<type, allocatedSize>::call(type arg) const noexcept {
+template <typename T, size_t AllocatedSize>
+constexpr void CallbacksPool<T, AllocatedSize>::call(T arg) const noexcept {
   for (size_t index = 0; index < _subscribersCount; ++index) {
     (*_callbacks[index].method)(arg);
   }

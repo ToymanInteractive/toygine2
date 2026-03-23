@@ -19,9 +19,9 @@
 //
 /*!
   \file   callbacks_pool.hpp
-  \brief  Fixed-capacity pool of typed callbacks.
+  \brief  Fixed-capacity pool of function-pointer callbacks.
 
-  Defines the \ref toy::CallbacksPool template for subscriber lists with bounded storage.
+  Defines \ref toy::CallbacksPool for bounded subscriber lists without heap allocation.
 
   \note Included by core.hpp; do not include this file directly.
 */
@@ -33,97 +33,62 @@ namespace toy {
 
 /*!
   \class CallbacksPool
-  \brief Template callback pool class with fixed-size callback storage.
+  \brief Fixed-capacity array of function pointers for observer-style notification.
 
-  CallbacksPool is a lightweight, high-performance callback pool class that uses a fixed-size array to store function
-  pointers. It provides a simple observer pattern implementation without dynamic memory allocation, making it suitable
-  for embedded systems, real-time applications, and performance-critical code where memory allocation overhead must be
-  minimized.
+  Stores up to \a AllocatedSize callbacks of type \c void (*)(T). No heap allocation: storage is inline in the object.
+  \c add duplicates are ignored (same pointer not stored twice). \c remove swaps the last subscriber into the removed
+  slot. \c call invokes subscribers in registration order.
 
-  \tparam type          The type of the callback parameter. Must be a copyable type.
-  \tparam allocatedSize The maximum number of callbacks that can be stored in the pool. Must be greater than zero
-                        (default: \c 4).
+  \tparam T             Callback argument type (passed by value to \c call()).
+  \tparam AllocatedSize Maximum number of subscribers. Must be \c > \c 0 (default \c 4).
 
   \section features Key Features
 
-  - ⚙️ **Zero Dynamic Allocation**: All memory is allocated on the stack at compile time
-  - 🔧 **ConstExpr Support**: All operations can be evaluated at compile time
-  - 🛡️ **Exception Safety**: All operations are noexcept
-  - 🔗 **Simple Interface**: Easy-to-use callback subscription and invocation
-  - 🧬 **Type Safety**: Strong typing with template parameters
+  - **Bounded storage**: Capacity fixed at compile time; \c add returns \c false when full (assert in debug).
+  - **constexpr**: Construction, \c add, \c remove, \c reset, \c subscribersAmount, and \c call are usable in constant
+    evaluation when the callbacks allow it.
+  - **noexcept**: All members are \c noexcept.
 
   \section usage Usage Example
 
   \code
-  #include "core/callbacks_pool.hpp"
+  #include "core.hpp"
 
-  // Define callback function
-  void onEvent(int value) {
-    // Handle event
-  }
+  void onEvent(int value) { (void)value; }
 
-  // Create a callback pool with default size (4 callbacks)
   toy::CallbacksPool<int> pool;
-
-  // Subscribe to events
   pool.add(onEvent);
-
-  // Invoke all registered callbacks
   pool.call(42);
-
-  // Check subscriber count
-  auto count = pool.subscribersAmount();
-
-  // Unsubscribe
   pool.remove(onEvent);
-
-  // Clear all subscriptions
   pool.reset();
   \endcode
 
   \section performance Performance Characteristics
 
-  - ⚙️ **Construction**: O(1) constant time
-  - 📝 **Adding Callback**: O(n) where n is the number of registered callbacks (for duplicate check)
-  - 🔗 **Removing Callback**: O(n) where n is the number of registered callbacks
-  - 🔍 **Calling Callbacks**: O(n) where n is the number of registered callbacks
-  - 📊 **Subscriber Count**: O(1) constant time (cached count)
-  - 💾 **Memory Usage**: Fixed at compile time
-  - ⚡ **Cache Performance**: Excellent due to stack allocation and contiguous memory layout
-  - 📋 **Copy Performance**: Fast due to array-based storage
+  - **Construction / reset**: O(1).
+  - **add**: O(\a n) in current subscriber count (linear scan for duplicate).
+  - **remove**: O(\a n) worst case (linear search).
+  - **call**: O(\a n) invocations for \a n subscribers.
+  - **subscribersAmount**: O(1).
 
   \section safety Safety Guarantees
 
-  - 🛡️ **Contracts & Debug Checks**: Null pointer checks are asserted in debug; in release, violating preconditions is UB
-  - 🔒 **Bounds Safety**: Pool capacity is fixed at compile time; adding beyond capacity is asserted in debug
-  - 📐 **Type Safety**: Template parameters ensure type-safe callback invocation
-  - ⚠️ **Exception Safety**: All operations are noexcept, no exceptions thrown
+  - **Preconditions**: \c nullptr passed to \c add is asserted in debug; otherwise undefined behavior.
+  - **Full pool**: \c add when full returns \c false; asserted in debug.
+  - **Lifetime**: The pool stores raw function pointers only; it does not manage callee lifetime.
 
-  \note The pool does not prevent duplicate subscriptions - adding the same callback multiple times will only register
-        it once and return \c true.
-  \note When the pool is full, attempts to add new callbacks will fail (asserted in debug mode).
+  \note Registering the same function pointer twice does not increase the subscriber count; the second \c add returns
+        \c true without adding a duplicate.
 
-  \warning Callbacks must remain valid for the lifetime of the CallbacksPool object. The pool does not manage callback
-           lifetime.
+  \warning Function pointers must remain valid for as long as they may be invoked through the pool.
 */
-template <typename type, size_t allocatedSize = 4>
+template <typename T, size_t AllocatedSize = 4>
 class CallbacksPool {
+  static_assert(AllocatedSize > 0, "CallbacksPool capacity must be greater than zero");
+
 public:
-  /*!
-    \brief Default constructor.
-
-    Creates an empty callback pool with all slots available.
-
-    \post The pool is empty (no callbacks registered).
-  */
+  /// Default constructor.
   constexpr CallbacksPool() noexcept;
-
-  /*!
-    \brief Destructor for the callback pool.
-
-    \note Since the CallbacksPool does not manage callback lifetime, no special cleanup is required.
-  */
-  constexpr ~CallbacksPool() noexcept = default;
 
   /*!
     \brief Adds a callback to the pool.
@@ -140,7 +105,7 @@ public:
     \note If the callback is already registered, the method returns \c true without adding a duplicate.
     \note If the pool is full, the method returns \c false and asserts in debug mode.
   */
-  constexpr bool add(void (*method)(type arg)) noexcept;
+  constexpr bool add(void (*method)(T arg)) noexcept;
 
   /*!
     \brief Removes a callback from the pool.
@@ -154,7 +119,7 @@ public:
 
     \note Removing a non-existent callback is safe and returns \c false.
   */
-  constexpr bool remove(void (*method)(type arg)) noexcept;
+  constexpr bool remove(void (*method)(T arg)) noexcept;
 
   /*!
     \brief Clears all callbacks from the pool.
@@ -173,7 +138,7 @@ public:
 
     \return The number of registered callbacks.
 
-    \note The count is maintained internally for optimal performance.
+    \note Matches the number of slots filled by successful \c add operations (excluding duplicate adds).
   */
   [[nodiscard]] constexpr size_t subscribersAmount() const noexcept;
 
@@ -185,18 +150,19 @@ public:
 
     \param parameter The parameter value to pass to all registered callbacks.
   */
-  constexpr void call(type parameter) const noexcept;
+  constexpr void call(T parameter) const noexcept;
 
 private:
-  static_assert(allocatedSize > 0, "CallbacksPool capacity must be greater than zero");
-
   //! Internal structure to store a callback function pointer.
   struct StaticCallback {
-    void (*method)(type arg) = nullptr; //!< Pointer to the callback function.
+    void (*method)(T arg) = nullptr; //!< Pointer to the callback function.
   };
 
-  array<StaticCallback, allocatedSize> _callbacks; //!< Fixed-size array storing registered callbacks.
-  size_t _subscribersCount = 0; //!< Active callbacks count.
+  //!< Fixed-size array storing registered callbacks.
+  array<StaticCallback, AllocatedSize> _callbacks;
+
+  //!< Active callbacks count.
+  size_t _subscribersCount = 0;
 };
 
 } // namespace toy

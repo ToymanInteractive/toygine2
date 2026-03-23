@@ -22,7 +22,6 @@
   \brief  Unit tests for \ref toy::CallbacksPool.
 */
 
-/*
 #include <doctest/doctest.h>
 
 #include "core.hpp"
@@ -543,4 +542,3 @@ TEST_CASE("core/callbacks_pool/integration") {
 }
 
 } // namespace toy
-*/
