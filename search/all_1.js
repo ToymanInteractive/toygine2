@@ -5,7 +5,7 @@ var searchData=
   ['_5fbuffer_2',['_buffer',['../d0/d21/classtoy_1_1_string_fixed_storage.html#a04a6ac50095c17febfa4f5d99e15885c',1,'toy::StringFixedStorage']]],
   ['_5fcalcdigits10_3',['_calcDigits10',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a17f9df2f3872f0b6549c76daa479fa56',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]],
   ['_5fcalcmaxdigits10_4',['_calcMaxDigits10',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a9e022bee7e6efdf09b64ad8d5ed86138',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]],
-  ['_5fcallbacks_5',['_callbacks',['../d8/dc9/classtoy_1_1_callbacks_pool.html#a895b8b542599dcf8328fdab1ed15dc2e',1,'toy::CallbacksPool']]],
+  ['_5fcallbacks_5',['_callbacks',['../d8/dc9/classtoy_1_1_callbacks_pool.html#a550c223b02bad3e20b3fbb9ce8a29c85',1,'toy::CallbacksPool']]],
   ['_5fcompiletimeerror_6',['_compileTimeError',['../dc/d62/classtoy_1_1_format_string.html#afd793fd7ecad4136327c535a8e2d6602',1,'toy::FormatString']]],
   ['_5fcountformatplaceholders_7',['_countFormatPlaceholders',['../dc/d62/classtoy_1_1_format_string.html#a6f166d073b247194d6c6fc290e537791',1,'toy::FormatString']]],
   ['_5fcrc16table_8',['_crc16Table',['../d4/da9/namespacetoy.html#a1c66eabbb0dea6bd870920a6585afbf4',1,'toy']]],
@@ -35,7 +35,7 @@ var searchData=
   ['_5fsize_32',['_size',['../d7/dec/classtoy_1_1_fixed_vector.html#a566cdb40d2ac367a8db078ee5ee18945',1,'toy::FixedVector::_size'],['../d0/d21/classtoy_1_1_string_fixed_storage.html#a4bbfe824896a73aa8bb30049d0857757',1,'toy::StringFixedStorage::_size']]],
   ['_5fstorage_33',['_storage',['../d3/d7a/classtoy_1_1_fixed_string.html#a05a98b03a4e564ea5a5f26dfae56a048',1,'toy::FixedString']]],
   ['_5fstring_34',['_string',['../dc/d62/classtoy_1_1_format_string.html#aa80fa19ae3c237c10b36f9c9688e4e65',1,'toy::FormatString::_string'],['../d7/d15/classtoy_1_1_o_string_stream.html#af7b4723343300cca10a0c8178c9214af',1,'toy::OStringStream::_string']]],
-  ['_5fsubscriberscount_35',['_subscribersCount',['../d8/dc9/classtoy_1_1_callbacks_pool.html#acdb9af165834d8b543c106a6fc8b9574',1,'toy::CallbacksPool']]],
+  ['_5fsubscriberscount_35',['_subscribersCount',['../d8/dc9/classtoy_1_1_callbacks_pool.html#a1d5084e0f05efc83f2a78e460db9e4c9',1,'toy::CallbacksPool']]],
   ['_5futf8charsizetable_36',['_utf8CharSizeTable',['../d4/da9/namespacetoy.html#abaf6e43802564c3840542ee978aeb917',1,'toy']]],
   ['_5fvalue_37',['_value',['../dd/d5c/classtoy_1_1math_1_1fixed.html#a0c5dc943d74bacd02cb3cea35dfa4e7f',1,'toy::math::fixed']]]
 ];

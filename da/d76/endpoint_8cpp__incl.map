@@ -64,7 +64,7 @@
 <area shape="poly" id="edge26_Node000003_Node000027" title=" " alt="" coords="2293,175,2423,232,2421,237,2291,180"/>
 <area shape="rect" id="Node000028" href="$de/deb/string__like_8hpp.html" title="String&#45;like concept for types with size() and c_str()." alt="" coords="3049,335,3167,361"/>
 <area shape="poly" id="edge40_Node000003_Node000028" title=" " alt="" coords="2306,172,2316,175,2386,184,2442,187,2496,196,2526,206,2560,223,2577,237,2586,252,2595,265,2611,278,2644,291,2690,302,2805,320,2929,333,3036,340,3035,346,2928,338,2804,326,2689,307,2643,296,2608,282,2591,269,2582,254,2573,240,2557,228,2524,211,2495,201,2441,192,2386,190,2316,180,2305,178"/>
-<area shape="rect" id="Node000029" href="$d1/d5c/callbacks__pool_8hpp.html" title="Fixed&#45;capacity pool of typed callbacks." alt="" coords="2621,240,2800,265"/>
+<area shape="rect" id="Node000029" href="$d1/d5c/callbacks__pool_8hpp.html" title="Fixed&#45;capacity pool of function&#45;pointer callbacks." alt="" coords="2621,240,2800,265"/>
 <area shape="poly" id="edge28_Node000003_Node000029" title=" " alt="" coords="2306,173,2316,175,2460,198,2603,223,2654,234,2652,239,2602,228,2459,204,2316,180,2305,178"/>
 <area shape="rect" id="Node000030" href="$d4/dc0/constexpr__utils_8hpp.html" title="Constexpr helpers for compile&#45;time string and buffer operations." alt="" coords="2824,240,3005,265"/>
 <area shape="poly" id="edge29_Node000003_Node000030" title=" " alt="" coords="2306,173,2316,175,2455,192,2564,198,2673,204,2812,223,2863,234,2862,239,2812,228,2673,209,2564,203,2455,197,2316,180,2305,178"/>

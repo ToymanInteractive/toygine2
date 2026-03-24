@@ -1,7 +1,5 @@
 var NAVTREEINDEX4 =
 {
-"db/d83/switch_2platform__config_8hpp.html":[6,0,1,2,7,0],
-"db/d83/switch_2platform__config_8hpp_source.html":[6,0,1,2,7,0],
 "db/d8a/ellipse_8inl.html":[6,0,0,5,3],
 "db/d8a/ellipse_8inl_source.html":[6,0,0,5,3],
 "db/dbb/geometry_8hpp.html":[6,0,0,15],
@@ -249,5 +247,7 @@ var NAVTREEINDEX4 =
 "df/d86/structtoy_1_1network_1_1_socket_statistics.html":[5,0,1,3,1],
 "df/d86/structtoy_1_1network_1_1_socket_statistics.html#a2c4c0e28d01df55670efc539774de999":[3,0,1,3,1,1],
 "df/d86/structtoy_1_1network_1_1_socket_statistics.html#a2c4c0e28d01df55670efc539774de999":[5,0,1,3,1,1],
-"df/d86/structtoy_1_1network_1_1_socket_statistics.html#a3c3c99231dc867832329d1e75aab25a5":[3,0,1,3,1,0]
+"df/d86/structtoy_1_1network_1_1_socket_statistics.html#a3c3c99231dc867832329d1e75aab25a5":[3,0,1,3,1,0],
+"df/d86/structtoy_1_1network_1_1_socket_statistics.html#a3c3c99231dc867832329d1e75aab25a5":[5,0,1,3,1,0],
+"df/d8d/namespacetoy_1_1render.html":[3,0,1,5]
 };

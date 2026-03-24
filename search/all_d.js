@@ -21,7 +21,7 @@ var searchData=
   ['messageboxbuttons_18',['MessageBoxButtons',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#a4f41eacedb4fa2744ba9f594b0832445',1,'toy::platform::ui']]],
   ['messageboxicon_19',['MessageBoxIcon',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#aa258d6860405ac17c387232bff26a6fa',1,'toy::platform::ui']]],
   ['messageboxreturn_20',['MessageBoxReturn',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#acd712dd388168864cc984d43e23e41d2',1,'toy::platform::ui']]],
-  ['method_21',['method',['../d7/d9f/structtoy_1_1_callbacks_pool_1_1_static_callback.html#ab289e13f226211f85ed7646ac00f7b27',1,'toy::CallbacksPool::StaticCallback']]],
+  ['method_21',['method',['../d7/d9f/structtoy_1_1_callbacks_pool_1_1_static_callback.html#a2daa47db698bea337308bf1cd933c73a',1,'toy::CallbacksPool::StaticCallback']]],
   ['method_20function_20documentation_20order_22',['Method / Function Documentation Order',['../df/d81/md__a_g_e_n_t_s.html#method--function-documentation-order',1,'']]],
   ['midpoint_23',['midpoint',['../db/d6f/classtoy_1_1geometry_1_1_section.html#a77ce1da6011210c5247d0c334a1c53d8',1,'toy::geometry::Section']]],
   ['min_24',['min',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#ada85b455412a9f8fdd901ff8ca9bcdcb',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]],

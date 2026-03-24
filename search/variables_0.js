@@ -1,7 +1,7 @@
 var searchData=
 [
   ['_5fbuffer_0',['_buffer',['../d0/d21/classtoy_1_1_string_fixed_storage.html#a04a6ac50095c17febfa4f5d99e15885c',1,'toy::StringFixedStorage']]],
-  ['_5fcallbacks_1',['_callbacks',['../d8/dc9/classtoy_1_1_callbacks_pool.html#a895b8b542599dcf8328fdab1ed15dc2e',1,'toy::CallbacksPool']]],
+  ['_5fcallbacks_1',['_callbacks',['../d8/dc9/classtoy_1_1_callbacks_pool.html#a550c223b02bad3e20b3fbb9ce8a29c85',1,'toy::CallbacksPool']]],
   ['_5fcrc16table_2',['_crc16Table',['../d4/da9/namespacetoy.html#a1c66eabbb0dea6bd870920a6585afbf4',1,'toy']]],
   ['_5fcrc32table_3',['_crc32Table',['../d4/da9/namespacetoy.html#a2700f13c2a45a3d51f7f770b487fdea1',1,'toy']]],
   ['_5fcrc8table_4',['_crc8Table',['../d4/da9/namespacetoy.html#a8c48bd85be2362df34afbf1e4cb72f9d',1,'toy']]],
@@ -15,7 +15,7 @@ var searchData=
   ['_5fsize_12',['_size',['../d7/dec/classtoy_1_1_fixed_vector.html#a566cdb40d2ac367a8db078ee5ee18945',1,'toy::FixedVector::_size'],['../d0/d21/classtoy_1_1_string_fixed_storage.html#a4bbfe824896a73aa8bb30049d0857757',1,'toy::StringFixedStorage::_size']]],
   ['_5fstorage_13',['_storage',['../d3/d7a/classtoy_1_1_fixed_string.html#a05a98b03a4e564ea5a5f26dfae56a048',1,'toy::FixedString']]],
   ['_5fstring_14',['_string',['../dc/d62/classtoy_1_1_format_string.html#aa80fa19ae3c237c10b36f9c9688e4e65',1,'toy::FormatString::_string'],['../d7/d15/classtoy_1_1_o_string_stream.html#af7b4723343300cca10a0c8178c9214af',1,'toy::OStringStream::_string']]],
-  ['_5fsubscriberscount_15',['_subscribersCount',['../d8/dc9/classtoy_1_1_callbacks_pool.html#acdb9af165834d8b543c106a6fc8b9574',1,'toy::CallbacksPool']]],
+  ['_5fsubscriberscount_15',['_subscribersCount',['../d8/dc9/classtoy_1_1_callbacks_pool.html#a1d5084e0f05efc83f2a78e460db9e4c9',1,'toy::CallbacksPool']]],
   ['_5futf8charsizetable_16',['_utf8CharSizeTable',['../d4/da9/namespacetoy.html#abaf6e43802564c3840542ee978aeb917',1,'toy']]],
   ['_5fvalue_17',['_value',['../dd/d5c/classtoy_1_1math_1_1fixed.html#a0c5dc943d74bacd02cb3cea35dfa4e7f',1,'toy::math::fixed']]]
 ];

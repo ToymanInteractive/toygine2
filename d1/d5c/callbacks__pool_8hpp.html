@@ -114,7 +114,7 @@ $(function(){initNavTree('d1/d5c/callbacks__pool_8hpp.html','../../',''); });
 </div><!--header-->
 <div class="contents">
 
-<p>Fixed-capacity pool of typed callbacks.  
+<p>Fixed-capacity pool of function-pointer callbacks.  
 <a href="#details">More...</a></p>
 <div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>This graph shows which files directly or indirectly include this file:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -127,9 +127,9 @@ $(function(){initNavTree('d1/d5c/callbacks__pool_8hpp.html','../../',''); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:toy_3A_3ACallbacksPool_3C_20type_2C_20allocatedSize_20_3E" id="r_toy_3A_3ACallbacksPool_3C_20type_2C_20allocatedSize_20_3E"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../d8/dc9/classtoy_1_1_callbacks_pool.html">toy::CallbacksPool&lt; type, allocatedSize &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Template callback pool class with fixed-size callback storage.  <a href="../../d8/dc9/classtoy_1_1_callbacks_pool.html#details">More...</a><br /></td></tr>
-<tr class="memitem:toy_3A_3ACallbacksPool_3C_20type_2C_20allocatedSize_20_3E_3A_3AStaticCallback" id="r_toy_3A_3ACallbacksPool_3C_20type_2C_20allocatedSize_20_3E_3A_3AStaticCallback"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="../../d7/d9f/structtoy_1_1_callbacks_pool_1_1_static_callback.html">toy::CallbacksPool&lt; type, allocatedSize &gt;::StaticCallback</a></td></tr>
+<tr class="memitem:toy_3A_3ACallbacksPool_3C_20T_2C_20AllocatedSize_20_3E" id="r_toy_3A_3ACallbacksPool_3C_20T_2C_20AllocatedSize_20_3E"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../d8/dc9/classtoy_1_1_callbacks_pool.html">toy::CallbacksPool&lt; T, AllocatedSize &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fixed-capacity array of function pointers for observer-style notification.  <a href="../../d8/dc9/classtoy_1_1_callbacks_pool.html#details">More...</a><br /></td></tr>
+<tr class="memitem:toy_3A_3ACallbacksPool_3C_20T_2C_20AllocatedSize_20_3E_3A_3AStaticCallback" id="r_toy_3A_3ACallbacksPool_3C_20T_2C_20AllocatedSize_20_3E_3A_3AStaticCallback"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="../../d7/d9f/structtoy_1_1_callbacks_pool_1_1_static_callback.html">toy::CallbacksPool&lt; T, AllocatedSize &gt;::StaticCallback</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal structure to store a callback function pointer.  <a href="../../d7/d9f/structtoy_1_1_callbacks_pool_1_1_static_callback.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
@@ -138,8 +138,8 @@ Namespaces</h2></td></tr>
 <tr class="memdesc:d4/da9/namespacetoy"><td class="mdescLeft">&#160;</td><td class="mdescRight">Root namespace containing all engine modules. <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Fixed-capacity pool of typed callbacks. </p>
-<p>Defines the <a class="el" href="../../d8/dc9/classtoy_1_1_callbacks_pool.html" title="toy::CallbacksPool">toy::CallbacksPool</a> template for subscriber lists with bounded storage.</p>
+<div class="textblock"><p>Fixed-capacity pool of function-pointer callbacks. </p>
+<p>Defines <a class="el" href="../../d8/dc9/classtoy_1_1_callbacks_pool.html" title="toy::CallbacksPool">toy::CallbacksPool</a> for bounded subscriber lists without heap allocation.</p>
 <dl class="section note"><dt>Note</dt><dd>Included by <a class="el" href="../../da/d47/core_8hpp.html" title="Umbrella header for the engine core module.">core.hpp</a>; do not include this file directly. </dd></dl>
 </div></div><!-- contents -->
 </div><!-- doc-content -->

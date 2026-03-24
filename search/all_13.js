@@ -60,7 +60,7 @@ var searchData=
   ['structure_57',['Structure',['../df/d81/md__a_g_e_n_t_s.html#module-structure',1,'Module Structure'],['../df/d81/md__a_g_e_n_t_s.html#test-length-and-structure',1,'Test Length and Structure']]],
   ['style_58',['Style',['../df/d81/md__a_g_e_n_t_s.html#const-reference-style',1,'Const Reference Style'],['../df/d81/md__a_g_e_n_t_s.html#doxygen-block-style',1,'Doxygen Block Style']]],
   ['style_20rules_59',['Style Rules',['../df/d81/md__a_g_e_n_t_s.html#documentation-style-rules',1,'Documentation Style Rules'],['../df/d81/md__a_g_e_n_t_s.html#unit-test-style-rules',1,'Unit Test Style Rules']]],
-  ['subscribersamount_60',['subscribersAmount',['../d8/dc9/classtoy_1_1_callbacks_pool.html#a24cab7bff4bd2278b995a4395ef4c904',1,'toy::CallbacksPool']]],
+  ['subscribersamount_60',['subscribersAmount',['../d8/dc9/classtoy_1_1_callbacks_pool.html#a3923a8cb92518448108f801c00fddea5',1,'toy::CallbacksPool']]],
   ['substr_61',['substr',['../d3/d7a/classtoy_1_1_fixed_string.html#ab32593e12733514f8ca98d7855afd512',1,'toy::FixedString']]],
   ['supported_20c_20compilers_62',['Supported C++ compilers',['../index.html#supported-c-compilers',1,'']]],
   ['supported_20systems_63',['Supported Systems',['../index.html#supported-systems',1,'']]],

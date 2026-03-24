@@ -11,7 +11,7 @@
 <!-- Node1 -->
 <g id="Node000001" class="node">
 <title>Node1</title>
-<g id="a_Node000001"><a xlink:title="Fixed&#45;capacity pool of typed callbacks.">
+<g id="a_Node000001"><a xlink:title="Fixed&#45;capacity pool of function&#45;pointer callbacks.">
 <polygon fill="#999999" stroke="#666666" points="612.5,-261 487.5,-261 487.5,-231 612.5,-231 612.5,-261"/>
 <text text-anchor="start" x="495.5" y="-249" font-family="Helvetica,sans-Serif" font-size="10.00">include/core/callbacks</text>
 <text text-anchor="middle" x="550" y="-238" font-family="Helvetica,sans-Serif" font-size="10.00">_pool.hpp</text>
