@@ -149,9 +149,9 @@ public:
     This method calls all registered callback functions with the specified parameter value. Callbacks are invoked in the
     order they were added to the pool.
 
-    \param parameter The parameter value to pass to all registered callbacks.
+    \param arg The parameter value to pass to all registered callbacks.
   */
-  constexpr void call(T parameter) const noexcept;
+  constexpr void call(T arg) const noexcept;
 
 private:
   //! Internal structure to store a callback function pointer.
