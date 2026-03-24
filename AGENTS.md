@@ -298,7 +298,7 @@ Every header file (`.hpp` and `.inl`) must start with a `\file` block after the 
 - **`\file`** — file name only, as it appears under `include/` or `src/` (e.g. `window_show_state.hpp`), not a full path.
 - **`\brief`** — one line: what this file *is* (role of the translation unit), not a repetition of the file name as a title.
 - **`.hpp`** (including internal headers under `include/`): after `\brief`, add one short paragraph (often starting with **Defines `\ref ...`:**) naming the primary type(s) or enum(s) and how they are used (call sites, platform API, etc.).
-- **`.inl`** — keep the `\brief` short: **Inline implementations for `\ref` …** plus a narrow scope (e.g. “constructors and accessors”, “comparison operators”). Add a second sentence that the file is included only by the module barrel header and must not be included directly by users (match the wording used in that module).
+- **`.inl`** — keep the `\brief` short: **Inline implementations for `\ref` …** plus a narrow scope (e.g. “constructors and accessors”, “comparison operators”). Add the **`\note Included by …`** line exactly as in the template below (second paragraph): barrel name as **plain text** (e.g. `core.hpp`), **not** `\ref`—see **Cross-References** exceptions.
 - **`.cpp`** — keep the `\brief` short:  “Implementation of …” or “Definitions for …” with `\ref` to the declarations in the corresponding header when it helps navigation; not all `.cpp` files require the same depth.
 
 #### Template: public header (`.hpp`)
@@ -441,6 +441,7 @@ Always follow this order:
 - Do not use `\ref` for standard library types (`std::string`, `std::vector`, etc.).
 - Do not use `\ref` in `\sa` or `\see` sections (they auto-link).
 - Do not use `\ref` for functions or methods anywhere.
+- **Barrel include policy** (`.inl` and internal `.hpp` `\file` blocks): the line `\note Included by <barrel>.hpp only; do not include this file directly.` must use the real barrel filename as **plain text** (or `\c <barrel>.hpp` if monospace helps). **Do not** write `\ref core.hpp` (or similar) there—the filename is not a documented symbol; `\ref` is reserved for types, enums, namespaces, and concepts as above.
 
 ### Class Sections Detail
 
