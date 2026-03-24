@@ -48,6 +48,7 @@ namespace toy {
   - **constexpr**: Construction, \c add, \c remove, \c reset, \c subscribersAmount, and \c call are usable in constant
     evaluation when the callbacks allow it.
   - **noexcept**: All members are \c noexcept.
+  - **Duplicate prevention**: Registering the same function pointer twice is a no-op; no duplicate entries.
 
   \section usage Usage Example
 
