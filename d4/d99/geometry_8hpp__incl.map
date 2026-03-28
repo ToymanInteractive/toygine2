@@ -84,7 +84,7 @@
 <area shape="poly" id="edge26_Node000004_Node000027" title=" " alt="" coords="2436,180,2305,237,2303,232,2434,175"/>
 <area shape="rect" id="Node000028" href="$dd/ded/c__string__view_8hpp.html" title="Non&#45;owning view over null&#45;terminated C strings." alt="" coords="2376,240,2547,265"/>
 <area shape="poly" id="edge27_Node000004_Node000028" title=" " alt="" coords="2464,178,2464,226,2459,226,2459,178"/>
-<area shape="rect" id="Node000029" href="$de/deb/string__like_8hpp.html" title="String&#45;like concept for types with size() and c_str()." alt="" coords="3049,335,3167,361"/>
+<area shape="rect" id="Node000029" href="$de/deb/string__like_8hpp.html" title="Concept for read&#45;only C&#45;string views with explicit length." alt="" coords="3049,335,3167,361"/>
 <area shape="poly" id="edge41_Node000004_Node000029" title=" " alt="" coords="2485,175,2521,196,2560,223,2575,239,2585,253,2594,266,2611,278,2644,291,2690,302,2805,320,2929,333,3036,340,3035,346,2928,338,2804,326,2689,307,2643,296,2608,282,2591,270,2580,256,2571,242,2557,227,2519,200,2482,180"/>
 <area shape="rect" id="Node000030" href="$d1/d5c/callbacks__pool_8hpp.html" title="Fixed&#45;capacity pool of function&#45;pointer callbacks." alt="" coords="2621,240,2800,265"/>
 <area shape="poly" id="edge29_Node000004_Node000030" title=" " alt="" coords="2496,175,2665,233,2663,238,2494,180"/>
@@ -98,7 +98,7 @@
 <area shape="poly" id="edge34_Node000004_Node000034" title=" " alt="" coords="2501,164,2935,182,3194,200,3302,210,3383,223,3419,233,3418,238,3382,228,3301,216,3193,205,2935,188,2501,170"/>
 <area shape="rect" id="Node000035" href="$dd/d8e/hashes_8hpp.html" title="Table&#45;driven CRC&#45;8, CRC&#45;16, and CRC&#45;32 over byte buffers." alt="" coords="3547,240,3675,265"/>
 <area shape="poly" id="edge36_Node000004_Node000035" title=" " alt="" coords="2501,164,3004,180,3310,198,3438,209,3534,223,3571,233,3570,238,3533,228,3437,214,3310,203,3004,185,2501,169"/>
-<area shape="rect" id="Node000036" href="$de/d2d/o__string__stream_8hpp.html" title="Allocator&#45;free stream that writes into a string&#45;like destination." alt="" coords="3699,240,3885,265"/>
+<area shape="rect" id="Node000036" href="$de/d2d/o__string__stream_8hpp.html" title="Allocator&#45;free output stream that appends into string&#45;like storage." alt="" coords="3699,240,3885,265"/>
 <area shape="poly" id="edge37_Node000004_Node000036" title=" " alt="" coords="2501,164,3074,182,3427,200,3575,210,3687,223,3741,234,3740,239,3686,228,3575,216,3427,205,3074,187,2501,170"/>
 <area shape="rect" id="Node000037" href="$d2/dd2/string__fixed__storage_8hpp.html" title="Fixed&#45;size raw character buffer with explicit length for string&#45;like containers." alt="" coords="3909,240,4123,265"/>
 <area shape="poly" id="edge40_Node000004_Node000037" title=" " alt="" coords="2501,164,3169,181,3589,199,3765,210,3898,223,3960,234,3959,240,3897,228,3765,215,3589,204,3169,186,2501,169"/>

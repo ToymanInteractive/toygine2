@@ -437,7 +437,7 @@
 <!-- Node26 -->
 <g id="Node000026" class="node">
 <title>Node26</title>
-<g id="a_Node000026"><a xlink:href="../../de/deb/string__like_8hpp.html" target="_top" xlink:title="String&#45;like concept for types with size() and c_str().">
+<g id="a_Node000026"><a xlink:href="../../de/deb/string__like_8hpp.html" target="_top" xlink:title="Concept for read&#45;only C&#45;string views with explicit length.">
 <polygon fill="white" stroke="#666666" points="2371,-24.5 2283,-24.5 2283,-5.5 2371,-5.5 2371,-24.5"/>
 <text text-anchor="middle" x="2327" y="-12.5" font-family="Helvetica,sans-Serif" font-size="10.00">string_like.hpp</text>
 </a>
@@ -563,7 +563,7 @@
 <!-- Node33 -->
 <g id="Node000033" class="node">
 <title>Node33</title>
-<g id="a_Node000033"><a xlink:href="../../de/d2d/o__string__stream_8hpp.html" target="_top" xlink:title="Allocator&#45;free stream that writes into a string&#45;like destination.">
+<g id="a_Node000033"><a xlink:href="../../de/d2d/o__string__stream_8hpp.html" target="_top" xlink:title="Allocator&#45;free output stream that appends into string&#45;like storage.">
 <polygon fill="white" stroke="#666666" points="2910,-96 2770,-96 2770,-77 2910,-77 2910,-96"/>
 <text text-anchor="middle" x="2840" y="-84" font-family="Helvetica,sans-Serif" font-size="10.00">core/o_string_stream.hpp</text>
 </a>

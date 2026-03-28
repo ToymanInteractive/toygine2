@@ -114,7 +114,7 @@ $(function(){initNavTree('de/deb/string__like_8hpp.html','../../',''); });
 </div><!--header-->
 <div class="contents">
 
-<p>String-like concept for types with <code>size()</code> and <code>c_str()</code>.  
+<p>Concept for read-only C-string views with explicit length.  
 <a href="#details">More...</a></p>
 <div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>This graph shows which files directly or indirectly include this file:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -133,10 +133,10 @@ Namespaces</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-concepts" class="groupheader"><a id="concepts" name="concepts"></a>
 Concepts</h2></td></tr>
 <tr class="memitem:toy_3A_3AStringLike" id="r_toy_3A_3AStringLike"><td class="memItemLeft">concept &#160;</td><td class="memItemRight"><a class="el" href="../../df/d77/concepttoy_1_1_string_like.html">toy::StringLike</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concept defining the requirements for string-like types. <br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concept satisfied when <em class="arg">T</em> exposes <code>size()</code> as <code>size_t</code> and <code>c_str()</code> as a pointer to null-terminated characters. <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>String-like concept for types with <code>size()</code> and <code>c_str()</code>. </p>
+<div class="textblock"><p>Concept for read-only C-string views with explicit length. </p>
 <p>Defines <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="toy::StringLike">toy::StringLike</a>.</p>
 <dl class="section note"><dt>Note</dt><dd>Included by <a class="el" href="../../da/d47/core_8hpp.html" title="Umbrella header for the engine core module.">core.hpp</a>; do not include this file directly. </dd></dl>
 </div></div><!-- contents -->

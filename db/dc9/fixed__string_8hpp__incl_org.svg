@@ -21,7 +21,7 @@
 <!-- Node2 -->
 <g id="Node000002" class="node">
 <title>Node2</title>
-<g id="a_Node000002"><a xlink:href="../../de/deb/string__like_8hpp.html" target="_top" xlink:title="String&#45;like concept for types with size() and c_str().">
+<g id="a_Node000002"><a xlink:href="../../de/deb/string__like_8hpp.html" target="_top" xlink:title="Concept for read&#45;only C&#45;string views with explicit length.">
 <polygon fill="white" stroke="#666666" points="95,-19 7,-19 7,0 95,0 95,-19"/>
 <text text-anchor="middle" x="51" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">string_like.hpp</text>
 </a>

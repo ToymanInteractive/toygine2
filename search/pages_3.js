@@ -12,7 +12,7 @@ var searchData=
   ['coding_20principles_9',['General Coding Principles',['../df/d81/md__a_g_e_n_t_s.html#general-coding-principles',1,'']]],
   ['comments_20and_20documentation_10',['Comments and Documentation',['../df/d81/md__a_g_e_n_t_s.html#comments-and-documentation',1,'']]],
   ['commit_20checklist_11',['Documentation Pre-Commit Checklist',['../df/d81/md__a_g_e_n_t_s.html#documentation-pre-commit-checklist',1,'']]],
-  ['compatibility_12',['Compatibility',['../dd/d5c/classtoy_1_1math_1_1fixed.html#compatibility',1,'']]],
+  ['compatibility_12',['Compatibility',['../d7/d15/classtoy_1_1_o_string_stream.html#compatibility',1,'']]],
   ['compatibility_13',['Simplified Class (without compatibility)',['../df/d81/md__a_g_e_n_t_s.html#simplified-class-without-compatibility',1,'']]],
   ['compatibility_20compatibility_20optional_14',['&lt;span class=&quot;tt&quot;&gt;\\section compatibility Compatibility&lt;/span&gt; (optional)',['../df/d81/md__a_g_e_n_t_s.html#section-compatibility-compatibility-optional',1,'']]],
   ['compatibility_20optional_15',['&lt;span class=&quot;tt&quot;&gt;\\section compatibility Compatibility&lt;/span&gt; (optional)',['../df/d81/md__a_g_e_n_t_s.html#section-compatibility-compatibility-optional',1,'']]],

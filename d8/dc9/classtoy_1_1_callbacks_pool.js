@@ -1,7 +1,6 @@
 var classtoy_1_1_callbacks_pool =
 [
     [ "StaticCallback", "d7/d9f/structtoy_1_1_callbacks_pool_1_1_static_callback.html", "d7/d9f/structtoy_1_1_callbacks_pool_1_1_static_callback" ],
-    [ "CallbacksPool", "d8/dc9/classtoy_1_1_callbacks_pool.html#a3e4f9f4e9c1f88b08c1b2bb5a20df15b", null ],
     [ "add", "d8/dc9/classtoy_1_1_callbacks_pool.html#a4b427da1cd9a1d520003c44483d907e2", null ],
     [ "call", "d8/dc9/classtoy_1_1_callbacks_pool.html#afbf11e66fe30cee36532f4e7963a3ce3", null ],
     [ "remove", "d8/dc9/classtoy_1_1_callbacks_pool.html#a5282447d94b743b9e8025737e514685e", null ],

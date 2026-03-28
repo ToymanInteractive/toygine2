@@ -58,7 +58,7 @@ var sectionId = 'dynsection-0';
 <!-- Node1 -->
 <g id="Node000001" class="node">
 <title>Node1</title>
-<g id="a_Node000001"><a xlink:title="String&#45;like concept for types with size() and c_str().">
+<g id="a_Node000001"><a xlink:title="Concept for read&#45;only C&#45;string views with explicit length.">
 <polygon fill="#999999" stroke="#666666" points="603.5,-327 496.5,-327 496.5,-297 603.5,-297 603.5,-327"/>
 <text text-anchor="start" x="504.5" y="-315" font-family="Helvetica,sans-Serif" font-size="10.00">include/core/string</text>
 <text text-anchor="middle" x="550" y="-304" font-family="Helvetica,sans-Serif" font-size="10.00">_like.hpp</text>
@@ -142,7 +142,7 @@ var sectionId = 'dynsection-0';
 <!-- Node20 -->
 <g id="Node000020" class="node">
 <title>Node20</title>
-<g id="a_Node000020"><a xlink:href="../../de/d2d/o__string__stream_8hpp.html" target="_top" xlink:title="Allocator&#45;free stream that writes into a string&#45;like destination.">
+<g id="a_Node000020"><a xlink:href="../../de/d2d/o__string__stream_8hpp.html" target="_top" xlink:title="Allocator&#45;free output stream that appends into string&#45;like storage.">
 <polygon fill="white" stroke="#666666" points="889,-261 771,-261 771,-231 889,-231 889,-261"/>
 <text text-anchor="start" x="779" y="-249" font-family="Helvetica,sans-Serif" font-size="10.00">include/core/o_string</text>
 <text text-anchor="middle" x="830" y="-238" font-family="Helvetica,sans-Serif" font-size="10.00">_stream.hpp</text>

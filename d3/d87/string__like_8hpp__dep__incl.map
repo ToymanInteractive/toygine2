@@ -1,5 +1,5 @@
 <map id="include/core/string_like.hpp" name="include/core/string_like.hpp">
-<area shape="rect" id="Node000001" title="String&#45;like concept for types with size() and c_str()." alt="" coords="667,5,810,45"/>
+<area shape="rect" id="Node000001" title="Concept for read&#45;only C&#45;string views with explicit length." alt="" coords="667,5,810,45"/>
 <area shape="rect" id="Node000002" href="$da/d47/core_8hpp.html" title="Umbrella header for the engine core module." alt="" coords="674,181,803,207"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="654,35,579,46,511,65,487,77,472,93,469,110,479,132,491,142,509,151,559,166,617,177,674,184,673,190,617,182,558,171,507,156,488,146,475,135,463,111,467,90,484,73,509,60,578,41,653,30"/>
 <area shape="rect" id="Node000017" href="$dd/ded/c__string__view_8hpp.html" title="Non&#45;owning view over null&#45;terminated C strings." alt="" coords="490,93,646,133"/>
@@ -8,7 +8,7 @@
 <area shape="poly" id="edge25_Node000001_Node000018" title=" " alt="" coords="741,59,741,93,736,93,736,59"/>
 <area shape="rect" id="Node000019" href="$d4/d0a/format_8hpp.html" title="Compile&#45;time format string validation." alt="" coords="831,101,1009,126"/>
 <area shape="poly" id="edge27_Node000001_Node000019" title=" " alt="" coords="792,49,897,98,895,103,790,54"/>
-<area shape="rect" id="Node000020" href="$de/d2d/o__string__stream_8hpp.html" title="Allocator&#45;free stream that writes into a string&#45;like destination." alt="" coords="1033,93,1191,133"/>
+<area shape="rect" id="Node000020" href="$de/d2d/o__string__stream_8hpp.html" title="Allocator&#45;free output stream that appends into string&#45;like storage." alt="" coords="1033,93,1191,133"/>
 <area shape="poly" id="edge29_Node000001_Node000020" title=" " alt="" coords="824,43,1034,91,1032,97,823,49"/>
 <area shape="rect" id="Node000003" href="$d4/d01/application_8hpp.html" title="Umbrella header for the app module." alt="" coords="5,343,179,368"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="660,200,545,206,411,217,286,233,236,244,198,257,167,276,140,300,102,344,98,341,136,296,164,272,196,252,234,239,285,228,410,212,544,201,660,195"/>

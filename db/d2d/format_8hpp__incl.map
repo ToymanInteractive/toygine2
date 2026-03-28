@@ -1,5 +1,5 @@
 <map id="include/core/format.hpp" name="include/core/format.hpp">
 <area shape="rect" id="Node000001" title="Compile&#45;time format string validation." alt="" coords="5,5,183,31"/>
-<area shape="rect" id="Node000002" href="$de/deb/string__like_8hpp.html" title="String&#45;like concept for types with size() and c_str()." alt="" coords="35,79,153,104"/>
+<area shape="rect" id="Node000002" href="$de/deb/string__like_8hpp.html" title="Concept for read&#45;only C&#45;string views with explicit length." alt="" coords="35,79,153,104"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="97,31,97,65,91,65,91,31"/>
 </map>

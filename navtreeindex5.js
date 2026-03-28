@@ -1,7 +1,5 @@
 var NAVTREEINDEX5 =
 {
-"df/d8d/namespacetoy_1_1render.html#a81a08c0aeeaa5f25f70d62e328c41b3c":[3,0,1,5,4],
-"df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3f":[3,0,1,5,1],
 "df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3fa08621a79896977cc5f97853284adc2a9":[3,0,1,5,1,1],
 "df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3fa2468f278a5fb00d246360a43b4c39f31":[3,0,1,5,1,12],
 "df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3fa5b61c8b1e8dbd2962e7f664dc82ecd20":[3,0,1,5,1,5],

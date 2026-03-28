@@ -114,7 +114,7 @@ $(function(){initNavTree('d7/d15/classtoy_1_1_o_string_stream.html','../../','d7
 </div><!--header-->
 <div class="contents">
 
-<p>Template output string stream class for building strings from various data types.  
+<p>Output stream that appends formatted values into a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="toy::StringLike">toy::StringLike</a> backend.  
  <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-types" class="groupheader"><a id="pub-types" name="pub-types"></a>
@@ -130,7 +130,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a801c0cef8d956fb69fd8f89bc3c9ac52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <br /></td></tr>
 <tr class="memitem:aa2931e4bbba8ed4f268dcf64dbe971c5" id="r_aa2931e4bbba8ed4f268dcf64dbe971c5"><td class="memTemplParams" colspan="2">template&lt;StringLike SourceStringType&gt; </td></tr>
 <tr class="memitem:aa2931e4bbba8ed4f268dcf64dbe971c5 template"><td class="memItemLeft">constexpr&#160;</td><td class="memItemRight"><a class="el" href="#aa2931e4bbba8ed4f268dcf64dbe971c5">OStringStream</a> (const SourceStringType &amp;string) noexcept</td></tr>
-<tr class="memdesc:aa2931e4bbba8ed4f268dcf64dbe971c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Template output string stream class for building strings from various data types.">OStringStream</a> from a string-like object.  <br /></td></tr>
+<tr class="memdesc:aa2931e4bbba8ed4f268dcf64dbe971c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Output stream that appends formatted values into a toy::StringLike backend.">OStringStream</a> from a string-like object.  <br /></td></tr>
 <tr class="memitem:a9b17de47a18c66a539582b74cced3405" id="r_a9b17de47a18c66a539582b74cced3405"><td class="memItemLeft">constexpr <a class="el" href="#a801c0cef8d956fb69fd8f89bc3c9ac52">OStringStream</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a9b17de47a18c66a539582b74cced3405">operator=</a> (const <a class="el" href="#a801c0cef8d956fb69fd8f89bc3c9ac52">OStringStream</a> &amp;other) noexcept=default</td></tr>
 <tr class="memdesc:a9b17de47a18c66a539582b74cced3405"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy assignment operator.  <br /></td></tr>
 <tr class="memitem:ad9efb1a4a81478f2d911d9314c63b3ee" id="r_ad9efb1a4a81478f2d911d9314c63b3ee"><td class="memItemLeft">constexpr <a class="el" href="#a801c0cef8d956fb69fd8f89bc3c9ac52">OStringStream</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ad9efb1a4a81478f2d911d9314c63b3ee">operator=</a> (<a class="el" href="#a801c0cef8d956fb69fd8f89bc3c9ac52">OStringStream</a> &amp;&amp;other) noexcept=default</td></tr>
@@ -203,47 +203,58 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename StringType&gt;<br />
-class toy::OStringStream&lt; StringType &gt;</div><p>Template output string stream class for building strings from various data types. </p>
-<p><a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Template output string stream class for building strings from various data types.">OStringStream</a> is a lightweight, high-performance output stream class that provides a <code>std::ostringstream-like</code> interface while using a fixed-size or custom string storage type. It supports formatting and inserting various data types into a string buffer, including integers, floating-point numbers, booleans, pointers, and string-like objects.</p>
+class toy::OStringStream&lt; StringType &gt;</div><p>Output stream that appends formatted values into a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="toy::StringLike">toy::StringLike</a> backend. </p>
+<p><a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Output stream that appends formatted values into a toy::StringLike backend.">OStringStream</a> provides a <code>std::ostringstream-like</code> <code>operator&lt;&lt;</code> surface; allocation and capacity follow <em class="arg">StringType</em> (e.g. <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="toy::FixedString">toy::FixedString</a>). Integral, floating-point, boolean, pointer, character, C-string, and string-like inserts are supported where exposed by the template API.</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">StringType</td><td>The type of the underlying string storage. Must satisfy the <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="toy::StringLike">toy::StringLike</a> concept.</td></tr>
+    <tr><td class="paramname">StringType</td><td>The type of the underlying storage. Must satisfy the <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="toy::StringLike">toy::StringLike</a> concept.</td></tr>
   </table>
   </dd>
 </dl>
 <h1 class="doxsection"><a class="anchor" id="features"></a>
 Key Features</h1>
 <ul>
-<li>⚙️ <b>Zero or Minimal Dynamic Allocation</b>: Uses the provided StringType for storage (e.g., <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="toy::FixedString">toy::FixedString</a>)</li>
-<li>🔧 <b>ConstExpr Support</b>: Most operations can be evaluated at compile time</li>
-<li>🛡️ <b>Exception Safety</b>: All operations are noexcept</li>
-<li>🔗 <b>STL Compatibility</b>: Provides <code>std::ostringstream-like</code> interface</li>
-<li>📝 <b>Type Safety</b>: Uses C++20 concepts for type safety</li>
-<li>🎯 <b>Precision Control</b>: Configurable precision for floating-point formatting</li>
+<li><b>Storage policy</b>: No separate allocator; behavior and limits come from <em class="arg">StringType</em>.</li>
+<li><b>constexpr</b>: Construction and many inserts are usable in constant evaluation when <em class="arg">StringType</em> allows it.</li>
+<li><b>noexcept</b>: Members are <code>noexcept</code>; failed capacity is handled per <em class="arg">StringType</em> (typically debug assertions).</li>
+<li><b>Floating-point precision</b>: <code><a class="el" href="#af342cc7f7897db17de97a0d7295f2e7d" title="Returns the current floating-point precision setting.">precision()</a></code> / <code>setPrecision()</code> affect subsequent floating inserts.</li>
 </ul>
 <h1 class="doxsection"><a class="anchor" id="usage"></a>
 Usage Example</h1>
-<div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="../../de/d2d/o__string__stream_8hpp.html">o_string_stream.hpp</a>&quot;</span></div>
-<div class="line"><span class="preprocessor">#include &quot;<a class="code" href="../../d7/d7f/fixed__string_8hpp.html">fixed_string.hpp</a>&quot;</span></div>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="../../da/d47/core_8hpp.html">core.hpp</a>&quot;</span></div>
 <div class="line"> </div>
-<div class="line"><span class="comment">// Create a stream with FixedString storage</span></div>
 <div class="line"><a class="code hl_class" href="../../d7/d15/classtoy_1_1_o_string_stream.html">toy::OStringStream&lt;toy::FixedString&lt;64&gt;</a>&gt; stream;</div>
-<div class="line"> </div>
-<div class="line"><span class="comment">// Insert various types</span></div>
 <div class="line">stream &lt;&lt; <span class="stringliteral">&quot;Value: &quot;</span> &lt;&lt; 42 &lt;&lt; <span class="stringliteral">&quot;, Pi: &quot;</span> &lt;&lt; 3.14159;</div>
-<div class="line">stream &lt;&lt; <span class="charliteral">&#39;!&#39;</span> &lt;&lt; <a class="code hl_class" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a>(<span class="stringliteral">&quot; Result: &quot;</span>) &lt;&lt; <span class="keyword">true</span>;</div>
-<div class="line"> </div>
-<div class="line"><span class="comment">// Get the result</span></div>
+<div class="line">stream &lt;&lt; <span class="charliteral">&#39;!&#39;</span> &lt;&lt; <a class="code hl_class" href="../../d5/d03/classtoy_1_1_c_string_view.html">toy::CStringView</a>(<span class="stringliteral">&quot; ok: &quot;</span>) &lt;&lt; <span class="keyword">true</span>;</div>
 <div class="line"><span class="keyword">const</span> <span class="keyword">auto</span> result = stream.<a class="code hl_function" href="#a88ac692738f862730436cfa29e0159fe">str</a>();</div>
+<div class="line">(void)result;</div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html">toy::CStringView</a></div><div class="ttdoc">Non-owning string view class for C-style strings.</div><div class="ttdef"><b>Definition</b> c_string_view.hpp:109</div></div>
-<div class="ttc" id="aclasstoy_1_1_o_string_stream_html"><div class="ttname"><a href="../../d7/d15/classtoy_1_1_o_string_stream.html">toy::OStringStream</a></div><div class="ttdoc">Template output string stream class for building strings from various data types.</div><div class="ttdef"><b>Definition</b> o_string_stream.hpp:79</div></div>
+<div class="ttc" id="aclasstoy_1_1_o_string_stream_html"><div class="ttname"><a href="../../d7/d15/classtoy_1_1_o_string_stream.html">toy::OStringStream</a></div><div class="ttdoc">Output stream that appends formatted values into a toy::StringLike backend.</div><div class="ttdef"><b>Definition</b> o_string_stream.hpp:89</div></div>
 <div class="ttc" id="aclasstoy_1_1_o_string_stream_html_a88ac692738f862730436cfa29e0159fe"><div class="ttname"><a href="#a88ac692738f862730436cfa29e0159fe">toy::OStringStream::str</a></div><div class="ttdeci">constexpr const StringType &amp; str() const noexcept</div><div class="ttdoc">Returns a const reference to the underlying string.</div><div class="ttdef"><b>Definition</b> o_string_stream.inl:253</div></div>
-<div class="ttc" id="afixed__string_8hpp_html"><div class="ttname"><a href="../../d7/d7f/fixed__string_8hpp.html">fixed_string.hpp</a></div><div class="ttdoc">Fixed-capacity string with stack storage.</div></div>
-<div class="ttc" id="ao__string__stream_8hpp_html"><div class="ttname"><a href="../../de/d2d/o__string__stream_8hpp.html">o_string_stream.hpp</a></div><div class="ttdoc">Allocator-free stream that writes into a string-like destination.</div></div>
-</div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>The stream only supports appending operations. All writes go to the end of the string. </dd>
+<div class="ttc" id="acore_8hpp_html"><div class="ttname"><a href="../../da/d47/core_8hpp.html">core.hpp</a></div><div class="ttdoc">Umbrella header for the engine core module.</div></div>
+</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="performance"></a>
+Performance Characteristics</h1>
+<ul>
+<li><b>Construction / swap</b>: O(1) relative to string state.</li>
+<li><b>Append</b>: Depends on <em class="arg">StringType</em> growth and content; each <code>operator&lt;&lt;</code> forwards to string append or formatting helpers.</li>
+<li><b><a class="el" href="#a88ac692738f862730436cfa29e0159fe" title="Returns a const reference to the underlying string.">str()</a></b>: Returns a view or copy per <em class="arg">StringType</em>; typically O(1) or O(n) with <em class="arg">n</em> the current length.</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="safety"></a>
+Safety Guarantees</h1>
+<ul>
+<li><b>Bounds</b>: Overflow is governed by <em class="arg">StringType</em>; violating capacity is undefined if assertions are disabled.</li>
+<li><b>Exception safety</b>: No exceptions; all operations are <code>noexcept</code>.</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="compatibility"></a>
+Compatibility</h1>
+<ul>
+<li><b>C++ standard</b>: C++20 or later (concepts, <code>constexpr</code> usage as implemented).</li>
+<li><b>Embedded</b>: Suitable when <em class="arg">StringType</em> uses fixed storage (e.g. <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="toy::FixedString">toy::FixedString</a>).</li>
+</ul>
+<dl class="section note"><dt>Note</dt><dd>Only end-of-string appends are supported; there is no seek or insert-at-offset API. </dd>
 <dd>
-The write position always equals the size of the underlying string.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="Template string class with fixed-size character buffer.">toy::FixedString</a>, <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept defining the requirements for string-like types.">toy::StringLike</a>, <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">toy::CStringView</a> </dd></dl>
+The effective write position matches the end of the underlying string after each successful append.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="Template string class with fixed-size character buffer.">FixedString</a>, <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept satisfied when T exposes size() as size_t and c_str() as a pointer to null-terminated charact...">StringLike</a>, <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> </dd></dl>
 </div><a name="doc-typedef-members" id="doc-typedef-members"></a><h2 id="header-doc-typedef-members" class="groupheader">Member Typedef Documentation</h2>
 <a id="a38e47228545b1a975f1dfe899f0dac0a" name="a38e47228545b1a975f1dfe899f0dac0a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a38e47228545b1a975f1dfe899f0dac0a">&#9670;&#160;</a></span>char_type</h2>
@@ -308,7 +319,7 @@ template&lt;typename StringType&gt; </div>
 </div><div class="memdoc">
 
 <p>Default constructor. </p>
-<p>Constructs an empty <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Template output string stream class for building strings from various data types.">OStringStream</a> with default-initialized string storage.</p>
+<p>Constructs an empty <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Output stream that appends formatted values into a toy::StringLike backend.">OStringStream</a> with default-initialized string storage.</p>
 <dl class="section post"><dt>Postcondition</dt><dd>The stream contains an empty string. </dd></dl>
 
 </div>
@@ -340,7 +351,7 @@ template&lt;StringLike SourceStringType&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Constructs an <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Template output string stream class for building strings from various data types.">OStringStream</a> from a string-like object. </p>
+<p>Constructs an <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Output stream that appends formatted values into a toy::StringLike backend.">OStringStream</a> from a string-like object. </p>
 <p>This constructor initializes the stream by copying the content from a string-like object.</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
@@ -396,7 +407,7 @@ template&lt;typename StringType&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Template output string stream class for building strings from various data types.">OStringStream</a>, allowing operator chaining.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Output stream that appends formatted values into a toy::StringLike backend.">OStringStream</a>, allowing operator chaining.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This operator follows the same pattern as <code>std::ostringstream::operator&lt;&lt;(bool)</code>.</dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The write position is advanced by the length of the appended string (4 for "true", 5 for "false").</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#a7224f6c06dce9faf3b17ac798ac4f553" title="Appends a single character to the end of the stream.">put(char_type)</a> </dd>
@@ -440,7 +451,7 @@ template&lt;typename StringType&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Template output string stream class for building strings from various data types.">OStringStream</a>, allowing operator chaining.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Output stream that appends formatted values into a toy::StringLike backend.">OStringStream</a>, allowing operator chaining.</dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The write position is advanced by one character.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This operator follows the same pattern as <code>std::ostringstream::operator&lt;&lt;(char_type)</code>.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#a8b0a7426288ed6786f6f5fc0caf1a566" title="Inserts a C string into the stream.">operator&lt;&lt;(const char_type *)</a> </dd>
@@ -486,7 +497,7 @@ template&lt;typename StringType&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Template output string stream class for building strings from various data types.">OStringStream</a>, allowing operator chaining.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Output stream that appends formatted values into a toy::StringLike backend.">OStringStream</a>, allowing operator chaining.</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">value</em> must not be null.</dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The write position is advanced by the length of the appended string (excluding the null terminator).</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This operator follows the same pattern as <code>std::ostringstream::operator&lt;&lt;(const char*)</code>. </dd>
@@ -547,7 +558,7 @@ template&lt;StringLike SourceStringType&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Template output string stream class for building strings from various data types.">OStringStream</a>, allowing operator chaining.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Output stream that appends formatted values into a toy::StringLike backend.">OStringStream</a>, allowing operator chaining.</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">value</em> must be valid and properly initialized.</dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The write position is advanced by the length of the appended string.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This operator follows the same pattern as <code>std::ostringstream::operator&lt;&lt;(const std::string&amp;)</code>. </dd>
@@ -629,7 +640,7 @@ template&lt;typename StringType&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Template output string stream class for building strings from various data types.">OStringStream</a>, allowing operator chaining.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Output stream that appends formatted values into a toy::StringLike backend.">OStringStream</a>, allowing operator chaining.</dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The write position is advanced by the length of the appended string (2 + sizeof(void*) * 2 characters).</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This operator follows the same pattern as <code>std::ostringstream::operator&lt;&lt;(const void*)</code>. </dd>
 <dd>
@@ -675,7 +686,7 @@ template&lt;typename StringType&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Template output string stream class for building strings from various data types.">OStringStream</a>, allowing operator chaining.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Output stream that appends formatted values into a toy::StringLike backend.">OStringStream</a>, allowing operator chaining.</dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The write position is advanced by the length of the appended string.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This operator follows the same pattern as <code>std::ostringstream::operator&lt;&lt;(double)</code>. </dd>
 <dd>
@@ -725,7 +736,7 @@ template&lt;typename StringType&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Template output string stream class for building strings from various data types.">OStringStream</a>, allowing operator chaining.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Output stream that appends formatted values into a toy::StringLike backend.">OStringStream</a>, allowing operator chaining.</dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The write position is advanced by the length of the appended string.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This operator follows the same pattern as <code>std::ostringstream::operator&lt;&lt;(float)</code>. </dd>
 <dd>
@@ -775,7 +786,7 @@ template&lt;typename StringType&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Template output string stream class for building strings from various data types.">OStringStream</a>, allowing operator chaining.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Output stream that appends formatted values into a toy::StringLike backend.">OStringStream</a>, allowing operator chaining.</dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The write position is advanced by the length of the appended string.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This operator follows the same pattern as <code>std::ostringstream::operator&lt;&lt;(int)</code>.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#a90fa6798e6c0aaa6493ae77743f2f26e" title="Inserts an unsigned integer value into the stream.">operator&lt;&lt;(unsigned int)</a> </dd>
@@ -819,7 +830,7 @@ template&lt;typename StringType&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Template output string stream class for building strings from various data types.">OStringStream</a>, allowing operator chaining.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Output stream that appends formatted values into a toy::StringLike backend.">OStringStream</a>, allowing operator chaining.</dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The write position is advanced by the length of the appended string.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This operator follows the same pattern as <code>std::ostringstream::operator&lt;&lt;(long long)</code>.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#a5d7dc506c965fafe575fd6cefeceece9" title="Inserts an unsigned long long integer value into the stream.">operator&lt;&lt;(unsigned long long)</a> </dd>
@@ -863,7 +874,7 @@ template&lt;typename StringType&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Template output string stream class for building strings from various data types.">OStringStream</a>, allowing operator chaining.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Output stream that appends formatted values into a toy::StringLike backend.">OStringStream</a>, allowing operator chaining.</dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The write position is advanced by the length of the appended string.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This operator follows the same pattern as <code>std::ostringstream::operator&lt;&lt;(long)</code>.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#aadda64d5cd1132f9d9ec57b82c976a7d" title="Inserts an unsigned long integer value into the stream.">operator&lt;&lt;(unsigned long)</a> </dd>
@@ -901,7 +912,7 @@ template&lt;typename StringType&gt; </div>
 
 <p>Inserts a null pointer literal into the stream. </p>
 <p>This operator inserts the string "nullptr" into the stream when a null pointer literal is provided. This provides a consistent and readable representation for null pointers.</p>
-<dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Template output string stream class for building strings from various data types.">OStringStream</a>, allowing operator chaining.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Output stream that appends formatted values into a toy::StringLike backend.">OStringStream</a>, allowing operator chaining.</dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The write position is advanced by 7 characters (length of "nullptr").</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This operator follows the same pattern as <code>std::ostringstream::operator&lt;&lt;(nullptr_t)</code>. </dd>
 <dd>
@@ -949,7 +960,7 @@ template&lt;typename StringType&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Template output string stream class for building strings from various data types.">OStringStream</a>, allowing operator chaining.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Output stream that appends formatted values into a toy::StringLike backend.">OStringStream</a>, allowing operator chaining.</dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The write position is advanced by the length of the appended string.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This operator follows the same pattern as <code>std::ostringstream::operator&lt;&lt;(short)</code>.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#a99aa5e2802056289e416384f72dfd548" title="Inserts an unsigned short integer value into the stream.">operator&lt;&lt;(unsigned short)</a> </dd>
@@ -993,7 +1004,7 @@ template&lt;typename StringType&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Template output string stream class for building strings from various data types.">OStringStream</a>, allowing operator chaining.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Output stream that appends formatted values into a toy::StringLike backend.">OStringStream</a>, allowing operator chaining.</dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The write position is advanced by the length of the appended string.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This operator follows the same pattern as <code>std::ostringstream::operator&lt;&lt;(signed char)</code>.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#abd57463091b0d54732e9facedcff2526" title="Inserts an unsigned 8-bit integer value into the stream.">operator&lt;&lt;(unsigned char)</a> </dd>
@@ -1037,7 +1048,7 @@ template&lt;typename StringType&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Template output string stream class for building strings from various data types.">OStringStream</a>, allowing operator chaining.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Output stream that appends formatted values into a toy::StringLike backend.">OStringStream</a>, allowing operator chaining.</dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The write position is advanced by the length of the appended string.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This operator follows the same pattern as <code>std::ostringstream::operator&lt;&lt;(unsigned char)</code>.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#a296bd4d295964f0f5a4a080b1a044219" title="Inserts a signed 8-bit integer value into the stream.">operator&lt;&lt;(signed char)</a> </dd>
@@ -1081,7 +1092,7 @@ template&lt;typename StringType&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Template output string stream class for building strings from various data types.">OStringStream</a>, allowing operator chaining.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Output stream that appends formatted values into a toy::StringLike backend.">OStringStream</a>, allowing operator chaining.</dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The write position is advanced by the length of the appended string.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This operator follows the same pattern as <code>std::ostringstream::operator&lt;&lt;(unsigned int)</code>.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#a5db07a21dd0ca2d8c52df605efa75b61" title="Inserts a signed integer value into the stream.">operator&lt;&lt;(int)</a> </dd>
@@ -1125,7 +1136,7 @@ template&lt;typename StringType&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Template output string stream class for building strings from various data types.">OStringStream</a>, allowing operator chaining.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Output stream that appends formatted values into a toy::StringLike backend.">OStringStream</a>, allowing operator chaining.</dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The write position is advanced by the length of the appended string.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This operator follows the same pattern as <code>std::ostringstream::operator&lt;&lt;(unsigned long long)</code>.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#ab4ae390e5e1af3f903291ed14a9e4f48" title="Inserts a signed long long integer value into the stream.">operator&lt;&lt;(long long)</a> </dd>
@@ -1169,7 +1180,7 @@ template&lt;typename StringType&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Template output string stream class for building strings from various data types.">OStringStream</a>, allowing operator chaining.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Output stream that appends formatted values into a toy::StringLike backend.">OStringStream</a>, allowing operator chaining.</dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The write position is advanced by the length of the appended string.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This operator follows the same pattern as <code>std::ostringstream::operator&lt;&lt;(unsigned long)</code>.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#a56705691e0fba35909c0b1262d765198" title="Inserts a signed long integer value into the stream.">operator&lt;&lt;(long)</a> </dd>
@@ -1213,7 +1224,7 @@ template&lt;typename StringType&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Template output string stream class for building strings from various data types.">OStringStream</a>, allowing operator chaining.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Output stream that appends formatted values into a toy::StringLike backend.">OStringStream</a>, allowing operator chaining.</dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The write position is advanced by the length of the appended string.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This operator follows the same pattern as <code>std::ostringstream::operator&lt;&lt;(unsigned short)</code>.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#aa11023ef1a0efcd4e8eed2100094afee" title="Inserts a signed short integer value into the stream.">operator&lt;&lt;(short)</a> </dd>
@@ -1250,14 +1261,14 @@ template&lt;typename StringType&gt; </div>
 </div><div class="memdoc">
 
 <p>Copy assignment operator. </p>
-<p>Assigns the contents of another <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Template output string stream class for building strings from various data types.">OStringStream</a> to this stream. The assignment performs a deep copy of the underlying string.</p>
+<p>Assigns the contents of another <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Output stream that appends formatted values into a toy::StringLike backend.">OStringStream</a> to this stream. The assignment performs a deep copy of the underlying string.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">other</td><td>The source <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Template output string stream class for building strings from various data types.">OStringStream</a> to copy from.</td></tr>
+    <tr><td class="paramname">other</td><td>The source <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Output stream that appends formatted values into a toy::StringLike backend.">OStringStream</a> to copy from.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Template output string stream class for building strings from various data types.">OStringStream</a> after assignment.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Output stream that appends formatted values into a toy::StringLike backend.">OStringStream</a> after assignment.</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">other</em> stream must be valid and properly initialized.</dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>This stream contains the same content as the source <em class="arg">other</em> stream. </dd>
 <dd>
@@ -1292,14 +1303,14 @@ template&lt;typename StringType&gt; </div>
 </div><div class="memdoc">
 
 <p>Move assignment operator. </p>
-<p>Assigns the contents of another <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Template output string stream class for building strings from various data types.">OStringStream</a> to this stream using move semantics. The source stream is left in a valid but unspecified state.</p>
+<p>Assigns the contents of another <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Output stream that appends formatted values into a toy::StringLike backend.">OStringStream</a> to this stream using move semantics. The source stream is left in a valid but unspecified state.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">other</td><td>The source <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Template output string stream class for building strings from various data types.">OStringStream</a> to move from.</td></tr>
+    <tr><td class="paramname">other</td><td>The source <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Output stream that appends formatted values into a toy::StringLike backend.">OStringStream</a> to move from.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Template output string stream class for building strings from various data types.">OStringStream</a> after assignment.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Output stream that appends formatted values into a toy::StringLike backend.">OStringStream</a> after assignment.</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">other</em> stream must be valid and properly initialized.</dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>This stream contains the same content as the source <em class="arg">other</em> stream. </dd>
 <dd>
@@ -1414,7 +1425,7 @@ template&lt;typename StringType&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Template output string stream class for building strings from various data types.">OStringStream</a>, allowing method chaining.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Output stream that appends formatted values into a toy::StringLike backend.">OStringStream</a>, allowing method chaining.</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">character</em> must not be the null character ('\0').</dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The <em class="arg">character</em> is appended to the end of the stream content. </dd>
 <dd>
@@ -1453,7 +1464,7 @@ template&lt;typename StringType&gt; </div>
 <p>Returns a const reference to the underlying string. </p>
 <p>This method provides read-only access to the internal string storage.</p>
 <dl class="section return"><dt>Returns</dt><dd>A const reference to the underlying string.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The returned reference is valid for the lifetime of the <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Template output string stream class for building strings from various data types.">OStringStream</a> object.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The returned reference is valid for the lifetime of the <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Output stream that appends formatted values into a toy::StringLike backend.">OStringStream</a> object.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#a8e0df79bdfbb170c35f4218a25ade3a5" title="Returns a non-owning view of the underlying string.">view()</a> </dd></dl>
 
 </div>
@@ -1582,7 +1593,7 @@ template&lt;typename StringType&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns the current write position in the stream. </p>
-<p>This method returns the position where the next write operation will append data. Since <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Template output string stream class for building strings from various data types.">OStringStream</a> only supports appending operations (all writes go to the end), the write position always equals the number of characters currently in the stream, which is the same as the size of the underlying string.</p>
+<p>This method returns the position where the next write operation will append data. Since <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Output stream that appends formatted values into a toy::StringLike backend.">OStringStream</a> only supports appending operations (all writes go to the end), the write position always equals the number of characters currently in the stream, which is the same as the size of the underlying string.</p>
 <dl class="section return"><dt>Returns</dt><dd>The current write position, representing the index where the next character will be appended. This value is always equal to the number of characters written so far and to <code><a class="el" href="#a88ac692738f862730436cfa29e0159fe" title="Returns a const reference to the underlying string.">str()</a></code>.size().</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Since all operations append to the end, the write position is always equal to the stream size.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#a88ac692738f862730436cfa29e0159fe" title="Returns a const reference to the underlying string.">str() const</a>, <a class="el" href="#a7224f6c06dce9faf3b17ac798ac4f553" title="Appends a single character to the end of the stream.">put(char_type)</a>, <a class="el" href="#a1e91c2bfd60f8b0e6c19e03fd5377801" title="Writes a specified number of characters from a buffer to the stream.">write(const char_type *, size_t)</a> </dd></dl>
@@ -1617,9 +1628,9 @@ template&lt;typename StringType&gt; </div>
 <p>Returns a non-owning view of the underlying string. </p>
 <p>This method creates and returns a <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="toy::CStringView">toy::CStringView</a> that provides read-only access to the underlying string storage without copying the content. The view is lightweight and does not own the string data.</p>
 <dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="toy::CStringView">toy::CStringView</a> representing the current content of the stream.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The returned view is valid for the lifetime of the <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Template output string stream class for building strings from various data types.">OStringStream</a> object. </dd>
+<dl class="section note"><dt>Note</dt><dd>The returned view is valid for the lifetime of the <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Output stream that appends formatted values into a toy::StringLike backend.">OStringStream</a> object. </dd>
 <dd>
-The view does not own the string data and should not be used after the <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Template output string stream class for building strings from various data types.">OStringStream</a> is destroyed. </dd>
+The view does not own the string data and should not be used after the <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Output stream that appends formatted values into a toy::StringLike backend.">OStringStream</a> is destroyed. </dd>
 <dd>
 This method is useful for passing the stream content to functions that accept <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="toy::CStringView">toy::CStringView</a> without creating a copy. </dd>
 <dd>
@@ -1668,7 +1679,7 @@ template&lt;typename StringType&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Template output string stream class for building strings from various data types.">OStringStream</a>, allowing method chaining.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Output stream that appends formatted values into a toy::StringLike backend.">OStringStream</a>, allowing method chaining.</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>If <em class="arg">count</em> is greater than zero, <em class="arg">string</em> must not be null and must point to a valid buffer of at least <em class="arg">count</em> characters. </dd>
 <dd>
 All characters in the buffer must not be null characters ('\0').</dd></dl>
