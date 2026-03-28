@@ -28,6 +28,14 @@
 
 namespace toy {
 
+// Check object structure.
+TEST_CASE("core/o_string_stream/object_structure") {
+  static_assert(!std::is_trivial_v<StringFixedStorage<8>>,
+                "StringFixedStorage must not be trivial (has non-trivial default init)");
+  static_assert(std::is_trivially_copyable_v<StringFixedStorage<8>>, "StringFixedStorage must be trivially copyable");
+  static_assert(std::is_standard_layout_v<StringFixedStorage<8>>, "StringFixedStorage must have standard layout");
+}
+
 // capacity() is allocatedSize minus one (room for null terminator).
 TEST_CASE("core/string_fixed_storage/capacity") {
   REQUIRE(StringFixedStorage<1>::capacity() == 0);

@@ -56,6 +56,14 @@ static void resetCounters() {
   lastValue = 0;
 }
 
+// Check object structure.
+TEST_CASE("core/callbacks_pool/object_structure") {
+  static_assert(!std::is_trivial_v<CallbacksPool<int>>,
+                "CallbacksPool must not be trivial (has non-trivial default init)");
+  static_assert(std::is_trivially_copyable_v<CallbacksPool<int>>, "CallbacksPool must be trivially copyable");
+  static_assert(std::is_standard_layout_v<CallbacksPool<int>>, "CallbacksPool must have standard layout");
+}
+
 // Default and template-parameterized constructors.
 TEST_CASE("core/callbacks_pool/constructors") {
   // Default constructor yields zero subscribers.

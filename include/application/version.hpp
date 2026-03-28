@@ -84,16 +84,16 @@ namespace toy::application {
 */
 struct Version {
   /// Major version; incompatible API changes.
-  uint32_t major = 0;
+  uint32_t major{0};
 
   /// Minor version; backward-compatible additions.
-  uint32_t minor = 0;
+  uint32_t minor{0};
 
   /// Maintenance version; backward-compatible fixes.
-  uint32_t maintenance = 0;
+  uint32_t maintenance{0};
 
   /// Revision (e.g. build or patch level).
-  uint32_t revision = 0;
+  uint32_t revision{0};
 };
 
 /*!

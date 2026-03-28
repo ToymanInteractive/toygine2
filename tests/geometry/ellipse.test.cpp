@@ -22,8 +22,6 @@
   \brief  Unit tests for \ref toy::geometry::Ellipse.
 */
 
-#include <numbers>
-
 #include <doctest/doctest.h>
 
 #include "geometry.hpp"

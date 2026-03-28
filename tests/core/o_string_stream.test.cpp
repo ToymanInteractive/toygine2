@@ -31,6 +31,15 @@
 
 namespace toy {
 
+// Check object structure.
+TEST_CASE("core/o_string_stream/object_structure") {
+  static_assert(!std::is_trivial_v<OStringStream<FixedString<8>>>,
+                "OStringStream must not be trivial (has non-trivial default init)");
+  static_assert(!std::is_trivially_copyable_v<OStringStream<FixedString<8>>>,
+                "OStringStream must not be trivially copyable");
+  static_assert(std::is_standard_layout_v<OStringStream<FixedString<8>>>, "OStringStream must have standard layout");
+}
+
 // Constructors from default, FixedString, std::string, CStringView.
 TEST_CASE("core/o_string_stream/constructors") {
   // Default constructor yields empty string.
