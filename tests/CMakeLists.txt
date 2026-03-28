@@ -28,8 +28,6 @@ if (TOYGINE_TARGET_PLATFORM IN_LIST TOYGINE_DESKTOP_PLATFORMS)
   set(TOYGINE_TARGET_PLATFORM_SUPPORT_POSIX_SIGNALS ON)
 endif ()
 
-string(REPLACE "-Wsuggest-final-methods" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-
 #-------------------------------------------------------------------------------------------
 # Remove all of the extra targets
 set_property(GLOBAL PROPERTY CTEST_TARGETS_ADDED 1)
@@ -38,7 +36,7 @@ set_property(GLOBAL PROPERTY CTEST_TARGETS_ADDED 1)
 include(FetchContent)
 include(CTest)
 
-FetchContent_Declare(doctest GIT_REPOSITORY https://github.com/doctest/doctest GIT_TAG v2.5.0 GIT_SHALLOW TRUE)
+FetchContent_Declare(doctest GIT_REPOSITORY https://github.com/doctest/doctest GIT_TAG v2.4.12 GIT_SHALLOW TRUE)
 FetchContent_MakeAvailable(doctest)
 
 list(APPEND CMAKE_MODULE_PATH ${doctest_SOURCE_DIR}/scripts/cmake)
