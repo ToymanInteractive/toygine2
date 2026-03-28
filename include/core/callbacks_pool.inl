@@ -30,11 +30,6 @@
 namespace toy {
 
 template <typename T, size_t AllocatedSize>
-constexpr CallbacksPool<T, AllocatedSize>::CallbacksPool() noexcept {
-  _callbacks.fill(StaticCallback());
-}
-
-template <typename T, size_t AllocatedSize>
 constexpr bool CallbacksPool<T, AllocatedSize>::add(void (*method)(T arg)) noexcept {
   assert_message(method != nullptr, "Cannot add null callback");
 

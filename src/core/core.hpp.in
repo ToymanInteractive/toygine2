@@ -21,8 +21,8 @@
   \file   core.hpp
   \brief  Umbrella header for the engine core module.
 
-  Defines the public core surface: platform, assertions, string utilities, callbacks pool, fixed strings and vectors,
-  hashing, formatting, and general utilities.
+  Defines the public core surface: platform, assertions, string utilities, output string stream, callbacks pool, fixed
+  strings and vectors, hashing, formatting, and general utilities.
 
   \note Include this header only; do not include internal headers directly.
 */

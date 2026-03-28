@@ -19,7 +19,7 @@
 //
 /*!
   \file   o_string_stream.hpp
-  \brief  Allocator-free stream that writes into a string-like destination.
+  \brief  Allocator-free output stream that appends into string-like storage.
 
   Defines \ref toy::OStringStream.
 
@@ -36,51 +36,63 @@ namespace toy {
 /*!
   \class OStringStream
   \ingroup String
-  \brief Template output string stream class for building strings from various data types.
+  \brief Output stream that appends formatted values into a \ref toy::StringLike backend.
 
-  OStringStream is a lightweight, high-performance output stream class that provides a \c std::ostringstream-like
-  interface while using a fixed-size or custom string storage type. It supports formatting and inserting various data
-  types into a string buffer, including integers, floating-point numbers, booleans, pointers, and string-like objects.
+  OStringStream provides a \c std::ostringstream-like \c operator<< surface; allocation and capacity follow
+  \a StringType (e.g. \ref toy::FixedString). Integral, floating-point, boolean, pointer, character, C-string, and
+  string-like inserts are supported where exposed by the template API.
 
-  \tparam StringType The type of the underlying string storage. Must satisfy the \ref toy::StringLike concept.
+  \tparam StringType The type of the underlying storage. Must satisfy the \ref toy::StringLike concept.
 
   \section features Key Features
 
-  - ⚙️ **Zero or Minimal Dynamic Allocation**: Uses the provided StringType for storage (e.g., \ref toy::FixedString)
-  - 🔧 **ConstExpr Support**: Most operations can be evaluated at compile time
-  - 🛡️ **Exception Safety**: All operations are noexcept
-  - 🔗 **STL Compatibility**: Provides \c std::ostringstream-like interface
-  - 📝 **Type Safety**: Uses C++20 concepts for type safety
-  - 🎯 **Precision Control**: Configurable precision for floating-point formatting
+  - **Storage policy**: No separate allocator; behavior and limits come from \a StringType.
+  - **constexpr**: Construction and many inserts are usable in constant evaluation when \a StringType allows it.
+  - **noexcept**: Members are \c noexcept; failed capacity is handled per \a StringType (typically debug assertions).
+  - **Floating-point precision**: \c precision() / \c setPrecision() affect subsequent floating inserts.
 
   \section usage Usage Example
 
   \code
-  #include "o_string_stream.hpp"
-  #include "fixed_string.hpp"
+  #include "core.hpp"
 
-  // Create a stream with FixedString storage
   toy::OStringStream<toy::FixedString<64>> stream;
-
-  // Insert various types
   stream << "Value: " << 42 << ", Pi: " << 3.14159;
-  stream << '!' << CStringView(" Result: ") << true;
-
-  // Get the result
+  stream << '!' << toy::CStringView(" ok: ") << true;
   const auto result = stream.str();
+  (void)result;
   \endcode
 
-  \note The stream only supports appending operations. All writes go to the end of the string.
-  \note The write position always equals the size of the underlying string.
+  \section performance Performance Characteristics
 
-  \sa toy::FixedString, toy::StringLike, toy::CStringView
+  - **Construction / swap**: O(1) relative to string state.
+  - **Append**: Depends on \a StringType growth and content; each \c operator<< forwards to string append or formatting
+    helpers.
+  - **str()**: Returns a view or copy per \a StringType; typically O(1) or O(n) with \a n the current length.
+
+  \section safety Safety Guarantees
+
+  - **Bounds**: Overflow is governed by \a StringType; violating capacity is undefined if assertions are disabled.
+  - **Exception safety**: No exceptions; all operations are \c noexcept.
+
+  \section compatibility Compatibility
+
+  - **C++ standard**: C++20 or later (concepts, \c constexpr usage as implemented).
+  - **Embedded**: Suitable when \a StringType uses fixed storage (e.g. \ref toy::FixedString).
+
+  \note Only end-of-string appends are supported; there is no seek or insert-at-offset API.
+  \note The effective write position matches the end of the underlying string after each successful append.
+
+  \sa FixedString, StringLike, CStringView
 */
 template <typename StringType>
 class OStringStream {
 public:
-  using char_type = char; //!< Type of characters stored in the string.
+  //! Type of characters stored in the string.
+  using char_type = char;
 
-  using pos_type = size_t; //!< Type of positions in the string.
+  //! Type of positions in the string.
+  using pos_type = size_t;
 
   /*!
     \brief Default constructor.
@@ -699,7 +711,8 @@ public:
   constexpr int precision(int newPrecision) noexcept;
 
 private:
-  StringType _string; //!< Internal string storage for the stream content.
+  //! Internal string storage for the stream content.
+  StringType _string;
 
   int _precision = 6; //!< Floating-point precision value used for number formatting.
 };

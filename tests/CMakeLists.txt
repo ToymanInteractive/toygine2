@@ -27,6 +27,7 @@ if (TOYGINE_TARGET_PLATFORM IN_LIST TOYGINE_DESKTOP_PLATFORMS)
   set(TOYGINE_TARGET_PLATFORM_SUPPORT_MULTITHREADING ON)
   set(TOYGINE_TARGET_PLATFORM_SUPPORT_POSIX_SIGNALS ON)
 endif ()
+
 #-------------------------------------------------------------------------------------------
 # Remove all of the extra targets
 set_property(GLOBAL PROPERTY CTEST_TARGETS_ADDED 1)

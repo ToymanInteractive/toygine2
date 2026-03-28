@@ -55,6 +55,13 @@ const char * TestEndpoint::hostnameAsText() const noexcept {
 
 } // namespace endpoint_test
 
+// Check object structure.
+TEST_CASE("network/endpoint/object_structure") {
+  static_assert(!std::is_trivial_v<Endpoint>, "Endpoint must not be trivial (has non-trivial default init)");
+  static_assert(!std::is_trivially_copyable_v<Endpoint>, "Endpoint must not be trivially copyable");
+  static_assert(!std::is_standard_layout_v<Endpoint>, "Endpoint must not have standard layout");
+}
+
 // Default port is zero.
 TEST_CASE("network/endpoint/port_default") {
   endpoint_test::TestEndpoint ep;

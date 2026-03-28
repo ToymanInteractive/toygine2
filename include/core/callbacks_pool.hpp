@@ -88,9 +88,6 @@ class CallbacksPool {
   static_assert(AllocatedSize > 0, "CallbacksPool capacity must be greater than zero");
 
 public:
-  /// Default constructor.
-  constexpr CallbacksPool() noexcept;
-
   /*!
     \brief Adds a callback to the pool.
 
@@ -164,7 +161,7 @@ private:
   array<StaticCallback, AllocatedSize> _callbacks;
 
   //! Active callbacks count.
-  size_t _subscribersCount = 0;
+  size_t _subscribersCount{0};
 };
 
 } // namespace toy

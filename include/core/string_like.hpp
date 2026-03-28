@@ -19,7 +19,7 @@
 //
 /*!
   \file   string_like.hpp
-  \brief  String-like concept for types with \c size() and \c c_str().
+  \brief  Concept for read-only C-string views with explicit length.
 
   Defines \ref toy::StringLike.
 
@@ -34,7 +34,8 @@ namespace toy {
 /*!
   \concept StringLike
   \ingroup String
-  \brief Concept defining the requirements for string-like types.
+  \brief Concept satisfied when \a T exposes \c size() as \c size_t and \c c_str() as a pointer to null-terminated
+         characters.
 
   This concept defines the interface that any type must satisfy to be considered string-like. It requires the type to
   have a \c size() method that returns a value convertible to \c size_t, and a \c c_str() method that returns a value
@@ -43,32 +44,30 @@ namespace toy {
   \section requirements Requirements
 
   A type \a T satisfies StringLike if and only if:
-  - \c T::size() returns \c std::same_as<size_t>
-  - \c T::c_str() returns \c std::convertible_to<const char*>
+  - \c T::size() returns \c size_t (\c std::same_as<size_t>).
+  - \c T::c_str() returns \c std::convertible_to<const char *>.
 
   \section usage Usage Example
 
   \code
   #include "core.hpp"
 
-  // std::string satisfies StringLike
   std::string stdStr = "Hello";
   static_assert(StringLike<decltype(stdStr)>);
 
-  // FixedString satisfies StringLike
+  constexpr toy::CStringView view("Hi");
+  static_assert(StringLike<decltype(view)>);
+
   toy::FixedString<32> fixedStr = "World";
   static_assert(StringLike<decltype(fixedStr)>);
 
-  // Use with FixedString methods
   toy::FixedString<64> result;
-  result.assign(stdStr);  // Works with std::string
-  result += fixedStr;     // Works with FixedString
+  result.assign(stdStr);
+  result += fixedStr;
   \endcode
 
-  \note The concept ensures type safety and provides a compile-time guarantee that the required methods exist and return
-        compatible types.
-  \note Common types that satisfy this concept include \c std::string, \ref toy::CStringView, \ref toy::FixedString, and
-        custom string types that provide the required interface.
+  \note \c std::string, \ref toy::CStringView, and \ref toy::FixedString are typical representatives; other types
+        qualify if they match the expression requirements above.
 
   \sa toy::CStringView, toy::FixedString
 */
