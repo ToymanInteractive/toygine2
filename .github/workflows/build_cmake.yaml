@@ -259,7 +259,7 @@ jobs:
           cmake --build --preset linux-ninja-tests-coverage --target unit_tests_coverage
 
       - name: Upload coverage report to Codecov
-        uses: codecov/codecov-action@v5.5.3
+        uses: codecov/codecov-action@v6.0.0
         with:
           disable_search: true
           files: out/build/linux-ninja-tests-coverage/unit_tests_coverage.info
