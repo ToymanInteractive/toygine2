@@ -205,25 +205,6 @@ public:
   constexpr explicit FixedString(const char * string) noexcept;
 
   /*!
-    \brief Copy assigns other \a string to this string.
-
-    This operator assigns the contents of another \a string to this string. The assignment operation performs a deep
-    copy of the string data and updates the size accordingly.
-
-    \param string The source string to copy content from.
-
-    \return A reference to this string after assignment.
-
-    \pre The source \a string must be valid and properly initialized.
-
-    \post This string contains the same content as the source \a string.
-    \post The size of this string equals the size of the source \a string.
-
-    \note Self-assignment is handled correctly and safely.
-  */
-  constexpr FixedString<allocatedSize> & operator=(const FixedString<allocatedSize> & string) noexcept;
-
-  /*!
     \brief Copy assigns a \ref toy::StringLike object to this string.
 
     This operator assigns the content from a \ref toy::StringLike object to this string. The assignment operation
