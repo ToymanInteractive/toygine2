@@ -18,7 +18,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   format.test.cpp
+  \file   format_string.test.cpp
   \brief  Unit tests for \ref toy::FormatString.
 */
 
