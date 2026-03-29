@@ -11,7 +11,7 @@
 <!-- Node1 -->
 <g id="Node000001" class="node">
 <title>Node1</title>
-<g id="a_Node000001"><a xlink:title="Allocator&#45;free output stream that appends into string&#45;like storage.">
+<g id="a_Node000001"><a xlink:title="Allocator&#45;free output string stream that appends into string&#45;like storage.">
 <polygon fill="#999999" stroke="#666666" points="609,-261 491,-261 491,-231 609,-231 609,-261"/>
 <text text-anchor="start" x="499" y="-249" font-family="Helvetica,sans-Serif" font-size="10.00">include/core/o_string</text>
 <text text-anchor="middle" x="550" y="-238" font-family="Helvetica,sans-Serif" font-size="10.00">_stream.hpp</text>

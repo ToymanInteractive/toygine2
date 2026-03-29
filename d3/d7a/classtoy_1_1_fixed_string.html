@@ -146,17 +146,15 @@ Public Types</h2></td></tr>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a44fdfe5e1658ec2f72943c72ced11f36" id="r_a44fdfe5e1658ec2f72943c72ced11f36"><td class="memItemLeft">constexpr&#160;</td><td class="memItemRight"><a class="el" href="#a44fdfe5e1658ec2f72943c72ced11f36">FixedString</a> () noexcept=default</td></tr>
 <tr class="memdesc:a44fdfe5e1658ec2f72943c72ced11f36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <br /></td></tr>
-<tr class="memitem:a98d7d5a78401b79437b808d6fb40c682" id="r_a98d7d5a78401b79437b808d6fb40c682"><td class="memItemLeft">constexpr&#160;</td><td class="memItemRight"><a class="el" href="#a98d7d5a78401b79437b808d6fb40c682">~FixedString</a> () noexcept=default</td></tr>
-<tr class="memdesc:a98d7d5a78401b79437b808d6fb40c682"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor for the fixed string.  <br /></td></tr>
 <tr class="memitem:adf1ec74de29144993eb7806c1e05a6d3" id="r_adf1ec74de29144993eb7806c1e05a6d3"><td class="memItemLeft">constexpr&#160;</td><td class="memItemRight"><a class="el" href="#adf1ec74de29144993eb7806c1e05a6d3">FixedString</a> (<a class="el" href="#a45c1ee3b58eac68636bc64d12e66cb39">size_type</a> count, char character) noexcept</td></tr>
 <tr class="memdesc:adf1ec74de29144993eb7806c1e05a6d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a string of the given <em class="arg">count</em> of <em class="arg">character</em>.  <br /></td></tr>
 <tr class="memitem:a3e6bf6517c287249c3afc8feb87dd785" id="r_a3e6bf6517c287249c3afc8feb87dd785"><td class="memTemplParams" colspan="2">template&lt;StringLike stringType&gt; </td></tr>
 <tr class="memitem:a3e6bf6517c287249c3afc8feb87dd785 template"><td class="memItemLeft">constexpr&#160;</td><td class="memItemRight"><a class="el" href="#a3e6bf6517c287249c3afc8feb87dd785">FixedString</a> (const stringType &amp;string) noexcept</td></tr>
 <tr class="memdesc:a3e6bf6517c287249c3afc8feb87dd785"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a string initialized with a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="toy::StringLike">toy::StringLike</a> object.  <br /></td></tr>
+<tr class="memitem:a39e3e79f9c5c792d78d301065573eea4" id="r_a39e3e79f9c5c792d78d301065573eea4"><td class="memTemplParams" colspan="2">template&lt;StringLike stringType&gt; </td></tr>
+<tr class="memitem:a39e3e79f9c5c792d78d301065573eea4 template"><td class="memItemLeft">constexpr&#160;</td><td class="memItemRight"><a class="el" href="#a39e3e79f9c5c792d78d301065573eea4">FixedString</a> (stringType &amp;&amp;string) noexcept</td></tr>
 <tr class="memitem:a0160e6ffc7ab6ab9c16f72b81bd778a7" id="r_a0160e6ffc7ab6ab9c16f72b81bd778a7"><td class="memItemLeft">constexpr&#160;</td><td class="memItemRight"><a class="el" href="#a0160e6ffc7ab6ab9c16f72b81bd778a7">FixedString</a> (const char *string) noexcept</td></tr>
 <tr class="memdesc:a0160e6ffc7ab6ab9c16f72b81bd778a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a string initialized with the C <em class="arg">string</em>.  <br /></td></tr>
-<tr class="memitem:aaaa657bbe8b56ac0af57a600bd979540" id="r_aaaa657bbe8b56ac0af57a600bd979540"><td class="memItemLeft">constexpr <a class="el" href="#a44fdfe5e1658ec2f72943c72ced11f36">FixedString</a>&lt; allocatedSize &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#aaaa657bbe8b56ac0af57a600bd979540">operator=</a> (const <a class="el" href="#a44fdfe5e1658ec2f72943c72ced11f36">FixedString</a>&lt; allocatedSize &gt; &amp;string) noexcept</td></tr>
-<tr class="memdesc:aaaa657bbe8b56ac0af57a600bd979540"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy assigns other <em class="arg">string</em> to this string.  <br /></td></tr>
 <tr class="memitem:a636f60554c4415bdcd77034106a2ae0f" id="r_a636f60554c4415bdcd77034106a2ae0f"><td class="memTemplParams" colspan="2">template&lt;StringLike stringType&gt; </td></tr>
 <tr class="memitem:a636f60554c4415bdcd77034106a2ae0f template"><td class="memItemLeft">constexpr <a class="el" href="#a44fdfe5e1658ec2f72943c72ced11f36">FixedString</a>&lt; allocatedSize &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a636f60554c4415bdcd77034106a2ae0f">operator=</a> (const stringType &amp;string) noexcept</td></tr>
 <tr class="memdesc:a636f60554c4415bdcd77034106a2ae0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy assigns a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="toy::StringLike">toy::StringLike</a> object to this string.  <br /></td></tr>
@@ -649,7 +647,7 @@ template&lt;size_t allocatedSize&gt; </div>
 </div>
 <a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a44fdfe5e1658ec2f72943c72ced11f36" name="a44fdfe5e1658ec2f72943c72ced11f36"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a44fdfe5e1658ec2f72943c72ced11f36">&#9670;&#160;</a></span>FixedString() <span class="overload">[1/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a44fdfe5e1658ec2f72943c72ced11f36">&#9670;&#160;</a></span>FixedString() <span class="overload">[1/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -678,37 +676,8 @@ template&lt;size_t allocatedSize&gt; </div>
 
 </div>
 </div>
-<a id="a98d7d5a78401b79437b808d6fb40c682" name="a98d7d5a78401b79437b808d6fb40c682"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a98d7d5a78401b79437b808d6fb40c682">&#9670;&#160;</a></span>~FixedString()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;size_t allocatedSize&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html">toy::FixedString</a>&lt; allocatedSize &gt;::~<a class="el" href="#a44fdfe5e1658ec2f72943c72ced11f36">FixedString</a> </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel constexpr">constexpr</span><span class="mlabel default">default</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Destructor for the fixed string. </p>
-
-</div>
-</div>
 <a id="adf1ec74de29144993eb7806c1e05a6d3" name="adf1ec74de29144993eb7806c1e05a6d3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adf1ec74de29144993eb7806c1e05a6d3">&#9670;&#160;</a></span>FixedString() <span class="overload">[2/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#adf1ec74de29144993eb7806c1e05a6d3">&#9670;&#160;</a></span>FixedString() <span class="overload">[2/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -754,7 +723,7 @@ The string size equals the <em class="arg">count</em>.</dd></dl>
 </div>
 </div>
 <a id="a3e6bf6517c287249c3afc8feb87dd785" name="a3e6bf6517c287249c3afc8feb87dd785"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3e6bf6517c287249c3afc8feb87dd785">&#9670;&#160;</a></span>FixedString() <span class="overload">[3/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e6bf6517c287249c3afc8feb87dd785">&#9670;&#160;</a></span>FixedString() <span class="overload">[3/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -801,8 +770,37 @@ The source <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" tit
 
 </div>
 </div>
+<a id="a39e3e79f9c5c792d78d301065573eea4" name="a39e3e79f9c5c792d78d301065573eea4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39e3e79f9c5c792d78d301065573eea4">&#9670;&#160;</a></span>FixedString() <span class="overload">[4/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;size_t allocatedSize&gt; </div>
+<div class="memtemplate">
+template&lt;StringLike stringType&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html">toy::FixedString</a>&lt; allocatedSize &gt;::FixedString </td>
+          <td>(</td>
+          <td class="paramtype">stringType &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>string</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel explicit">explicit</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a0160e6ffc7ab6ab9c16f72b81bd778a7" name="a0160e6ffc7ab6ab9c16f72b81bd778a7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0160e6ffc7ab6ab9c16f72b81bd778a7">&#9670;&#160;</a></span>FixedString() <span class="overload">[4/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0160e6ffc7ab6ab9c16f72b81bd778a7">&#9670;&#160;</a></span>FixedString() <span class="overload">[5/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1668,7 +1666,7 @@ The size of this string equals the size of the source <em class="arg">string</em
 <dl class="section note"><dt>Note</dt><dd>Self-assignment is handled correctly and safely. </dd>
 <dd>
 This method is equivalent to the copy assignment operator.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="#aaaa657bbe8b56ac0af57a600bd979540" title="Copy assigns other string to this string.">operator=(const FixedString&lt;allocatedSize&gt; &amp; string)</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd>operator=(const FixedString&lt;allocatedSize&gt; &amp; string) </dd></dl>
 
 </div>
 </div>
@@ -4186,7 +4184,7 @@ template&lt;StringLike stringType&gt; </div>
 </div>
 </div>
 <a id="a7d74c11c3411509cc5aa4a654f8f4515" name="a7d74c11c3411509cc5aa4a654f8f4515"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7d74c11c3411509cc5aa4a654f8f4515">&#9670;&#160;</a></span>operator=() <span class="overload">[1/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d74c11c3411509cc5aa4a654f8f4515">&#9670;&#160;</a></span>operator=() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -4227,7 +4225,7 @@ The string size equals <code>1</code>.</dd></dl>
 </div>
 </div>
 <a id="ab9c8ca05cc927ce86fe321182a91f565" name="ab9c8ca05cc927ce86fe321182a91f565"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab9c8ca05cc927ce86fe321182a91f565">&#9670;&#160;</a></span>operator=() <span class="overload">[2/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9c8ca05cc927ce86fe321182a91f565">&#9670;&#160;</a></span>operator=() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -4271,50 +4269,8 @@ The size of this string equals the size of the source C <em class="arg">string</
 
 </div>
 </div>
-<a id="aaaa657bbe8b56ac0af57a600bd979540" name="aaaa657bbe8b56ac0af57a600bd979540"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaaa657bbe8b56ac0af57a600bd979540">&#9670;&#160;</a></span>operator=() <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;size_t allocatedSize&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="#a44fdfe5e1658ec2f72943c72ced11f36">FixedString</a>&lt; allocatedSize &gt; &amp; <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html">toy::FixedString</a>&lt; allocatedSize &gt;::operator= </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="#a44fdfe5e1658ec2f72943c72ced11f36">FixedString</a>&lt; allocatedSize &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>string</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Copy assigns other <em class="arg">string</em> to this string. </p>
-<p>This operator assigns the contents of another <em class="arg">string</em> to this string. The assignment operation performs a deep copy of the string data and updates the size accordingly.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">string</td><td>The source string to copy content from.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A reference to this string after assignment.</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd>The source <em class="arg">string</em> must be valid and properly initialized.</dd></dl>
-<dl class="section post"><dt>Postcondition</dt><dd>This string contains the same content as the source <em class="arg">string</em>. </dd>
-<dd>
-The size of this string equals the size of the source <em class="arg">string</em>.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Self-assignment is handled correctly and safely. </dd></dl>
-
-</div>
-</div>
 <a id="a636f60554c4415bdcd77034106a2ae0f" name="a636f60554c4415bdcd77034106a2ae0f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a636f60554c4415bdcd77034106a2ae0f">&#9670;&#160;</a></span>operator=() <span class="overload">[4/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a636f60554c4415bdcd77034106a2ae0f">&#9670;&#160;</a></span>operator=() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

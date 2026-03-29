@@ -62,7 +62,7 @@
 <area shape="poly" id="edge32_Node000002_Node000032" title=" " alt="" coords="2305,91,2517,95,2829,106,3149,123,3283,135,3383,149,3419,159,3418,165,3382,155,3282,140,3149,129,2829,111,2517,101,2305,96"/>
 <area shape="rect" id="Node000033" href="$dd/d8e/hashes_8hpp.html" title="Table&#45;driven CRC&#45;8, CRC&#45;16, and CRC&#45;32 over byte buffers." alt="" coords="3547,167,3675,192"/>
 <area shape="poly" id="edge34_Node000002_Node000033" title=" " alt="" coords="2305,90,2541,94,2898,103,3266,121,3420,134,3535,149,3571,159,3570,165,3534,155,3419,139,3266,126,2898,108,2541,99,2305,96"/>
-<area shape="rect" id="Node000034" href="$de/d2d/o__string__stream_8hpp.html" title="Allocator&#45;free output stream that appends into string&#45;like storage." alt="" coords="3699,167,3885,192"/>
+<area shape="rect" id="Node000034" href="$de/d2d/o__string__stream_8hpp.html" title="Allocator&#45;free output string stream that appends into string&#45;like storage." alt="" coords="3699,167,3885,192"/>
 <area shape="poly" id="edge35_Node000002_Node000034" title=" " alt="" coords="2305,91,2967,106,3382,124,3556,136,3687,149,3741,161,3740,166,3686,155,3556,141,3382,129,2967,112,2305,96"/>
 <area shape="rect" id="Node000035" href="$d2/dd2/string__fixed__storage_8hpp.html" title="Fixed&#45;size raw character buffer with explicit length for string&#45;like containers." alt="" coords="3909,167,4123,192"/>
 <area shape="poly" id="edge38_Node000002_Node000035" title=" " alt="" coords="2305,90,3062,106,3543,123,3746,135,3898,149,3960,161,3959,166,3897,155,3745,141,3543,129,3062,111,2305,96"/>

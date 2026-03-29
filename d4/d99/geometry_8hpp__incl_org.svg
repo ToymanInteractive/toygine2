@@ -905,7 +905,7 @@
 <!-- Node36 -->
 <g id="Node000036" class="node">
 <title>Node36</title>
-<g id="a_Node000036"><a xlink:href="../../de/d2d/o__string__stream_8hpp.html" target="_top" xlink:title="Allocator&#45;free output stream that appends into string&#45;like storage.">
+<g id="a_Node000036"><a xlink:href="../../de/d2d/o__string__stream_8hpp.html" target="_top" xlink:title="Allocator&#45;free output string stream that appends into string&#45;like storage.">
 <polygon fill="white" stroke="#666666" points="2910,-96 2770,-96 2770,-77 2910,-77 2910,-96"/>
 <text text-anchor="middle" x="2840" y="-84" font-family="Helvetica,sans-Serif" font-size="10.00">core/o_string_stream.hpp</text>
 </a>

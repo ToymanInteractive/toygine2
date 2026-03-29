@@ -131,10 +131,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa2931e4bbba8ed4f268dcf64dbe971c5" id="r_aa2931e4bbba8ed4f268dcf64dbe971c5"><td class="memTemplParams" colspan="2">template&lt;StringLike SourceStringType&gt; </td></tr>
 <tr class="memitem:aa2931e4bbba8ed4f268dcf64dbe971c5 template"><td class="memItemLeft">constexpr&#160;</td><td class="memItemRight"><a class="el" href="#aa2931e4bbba8ed4f268dcf64dbe971c5">OStringStream</a> (const SourceStringType &amp;string) noexcept</td></tr>
 <tr class="memdesc:aa2931e4bbba8ed4f268dcf64dbe971c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Output stream that appends formatted values into a toy::StringLike backend.">OStringStream</a> from a string-like object.  <br /></td></tr>
-<tr class="memitem:a9b17de47a18c66a539582b74cced3405" id="r_a9b17de47a18c66a539582b74cced3405"><td class="memItemLeft">constexpr <a class="el" href="#a801c0cef8d956fb69fd8f89bc3c9ac52">OStringStream</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a9b17de47a18c66a539582b74cced3405">operator=</a> (const <a class="el" href="#a801c0cef8d956fb69fd8f89bc3c9ac52">OStringStream</a> &amp;other) noexcept=default</td></tr>
-<tr class="memdesc:a9b17de47a18c66a539582b74cced3405"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy assignment operator.  <br /></td></tr>
-<tr class="memitem:ad9efb1a4a81478f2d911d9314c63b3ee" id="r_ad9efb1a4a81478f2d911d9314c63b3ee"><td class="memItemLeft">constexpr <a class="el" href="#a801c0cef8d956fb69fd8f89bc3c9ac52">OStringStream</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ad9efb1a4a81478f2d911d9314c63b3ee">operator=</a> (<a class="el" href="#a801c0cef8d956fb69fd8f89bc3c9ac52">OStringStream</a> &amp;&amp;other) noexcept=default</td></tr>
-<tr class="memdesc:ad9efb1a4a81478f2d911d9314c63b3ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move assignment operator.  <br /></td></tr>
 <tr class="memitem:a33e8b57da620ae99a9c03612bb2dbbcb" id="r_a33e8b57da620ae99a9c03612bb2dbbcb"><td class="memItemLeft">constexpr void&#160;</td><td class="memItemRight"><a class="el" href="#a33e8b57da620ae99a9c03612bb2dbbcb">swap</a> (<a class="el" href="#a801c0cef8d956fb69fd8f89bc3c9ac52">OStringStream</a> &amp;other) noexcept</td></tr>
 <tr class="memdesc:a33e8b57da620ae99a9c03612bb2dbbcb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Swaps the contents of this stream with another stream.  <br /></td></tr>
 <tr class="memitem:a1b9276a8b9fc927747dfff67a55bcd22" id="r_a1b9276a8b9fc927747dfff67a55bcd22"><td class="memItemLeft">constexpr <a class="el" href="#a801c0cef8d956fb69fd8f89bc3c9ac52">OStringStream</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a1b9276a8b9fc927747dfff67a55bcd22">operator&lt;&lt;</a> (bool value) noexcept</td></tr>
@@ -187,10 +183,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a1e91c2bfd60f8b0e6c19e03fd5377801"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes a specified number of characters from a buffer to the stream.  <br /></td></tr>
 <tr class="memitem:a6e53656cd017b708a4b95850e6923dcb" id="r_a6e53656cd017b708a4b95850e6923dcb"><td class="memItemLeft">constexpr <a class="el" href="#ab383b8e1334ba8e40ad4ddbac105c8a0">pos_type</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6e53656cd017b708a4b95850e6923dcb">tellp</a> () const noexcept</td></tr>
 <tr class="memdesc:a6e53656cd017b708a4b95850e6923dcb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current write position in the stream.  <br /></td></tr>
-<tr class="memitem:af342cc7f7897db17de97a0d7295f2e7d" id="r_af342cc7f7897db17de97a0d7295f2e7d"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#af342cc7f7897db17de97a0d7295f2e7d">precision</a> () const noexcept</td></tr>
-<tr class="memdesc:af342cc7f7897db17de97a0d7295f2e7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current floating-point precision setting.  <br /></td></tr>
-<tr class="memitem:af453025d53b65448f3fc78468c097e8b" id="r_af453025d53b65448f3fc78468c097e8b"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#af453025d53b65448f3fc78468c097e8b">precision</a> (int newPrecision) noexcept</td></tr>
-<tr class="memdesc:af453025d53b65448f3fc78468c097e8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the floating-point precision and returns the previous value.  <br /></td></tr>
+<tr class="memitem:a8418ba84a110893df5597fdfcb1c412b" id="r_a8418ba84a110893df5597fdfcb1c412b"><td class="memItemLeft">constexpr size_t&#160;</td><td class="memItemRight"><a class="el" href="#a8418ba84a110893df5597fdfcb1c412b">precision</a> () const noexcept</td></tr>
+<tr class="memdesc:a8418ba84a110893df5597fdfcb1c412b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current floating-point precision setting.  <br /></td></tr>
+<tr class="memitem:ab0b39934312ee4bd06e2e3d6574e7127" id="r_ab0b39934312ee4bd06e2e3d6574e7127"><td class="memItemLeft">constexpr size_t&#160;</td><td class="memItemRight"><a class="el" href="#ab0b39934312ee4bd06e2e3d6574e7127">setPrecision</a> (size_t newPrecision) noexcept</td></tr>
+<tr class="memdesc:ab0b39934312ee4bd06e2e3d6574e7127"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the floating-point precision and returns the previous value.  <br /></td></tr>
 <tr class="memitem:a2771f205d9b13c0281df543a5c50254f" id="r_a2771f205d9b13c0281df543a5c50254f"><td class="memTemplParams" colspan="2">template&lt;StringLike SourceStringType&gt; </td></tr>
 <tr class="memitem:a2771f205d9b13c0281df543a5c50254f template"><td class="memItemLeft">constexpr <a class="el" href="#a801c0cef8d956fb69fd8f89bc3c9ac52">OStringStream</a>&lt; StringType &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a2771f205d9b13c0281df543a5c50254f">operator&lt;&lt;</a> (const SourceStringType &amp;value) noexcept</td></tr>
 </table><table class="memberdecls">
@@ -198,8 +194,8 @@ Public Member Functions</h2></td></tr>
 Private Attributes</h2></td></tr>
 <tr class="memitem:af7b4723343300cca10a0c8178c9214af" id="r_af7b4723343300cca10a0c8178c9214af"><td class="memItemLeft">StringType&#160;</td><td class="memItemRight"><a class="el" href="#af7b4723343300cca10a0c8178c9214af">_string</a></td></tr>
 <tr class="memdesc:af7b4723343300cca10a0c8178c9214af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal string storage for the stream content.  <br /></td></tr>
-<tr class="memitem:a1a58f761bb99962d859ca509a08b2377" id="r_a1a58f761bb99962d859ca509a08b2377"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a1a58f761bb99962d859ca509a08b2377">_precision</a> = 6</td></tr>
-<tr class="memdesc:a1a58f761bb99962d859ca509a08b2377"><td class="mdescLeft">&#160;</td><td class="mdescRight">Floating-point precision value used for number formatting.  <br /></td></tr>
+<tr class="memitem:a15ba5808a5106de3bd7fd34ad8d0fc34" id="r_a15ba5808a5106de3bd7fd34ad8d0fc34"><td class="memItemLeft">size_t&#160;</td><td class="memItemRight"><a class="el" href="#a15ba5808a5106de3bd7fd34ad8d0fc34">_precision</a> = 6</td></tr>
+<tr class="memdesc:a15ba5808a5106de3bd7fd34ad8d0fc34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Floating-point precision value used for number formatting.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename StringType&gt;<br />
@@ -217,7 +213,7 @@ Key Features</h1>
 <li><b>Storage policy</b>: No separate allocator; behavior and limits come from <em class="arg">StringType</em>.</li>
 <li><b>constexpr</b>: Construction and many inserts are usable in constant evaluation when <em class="arg">StringType</em> allows it.</li>
 <li><b>noexcept</b>: Members are <code>noexcept</code>; failed capacity is handled per <em class="arg">StringType</em> (typically debug assertions).</li>
-<li><b>Floating-point precision</b>: <code><a class="el" href="#af342cc7f7897db17de97a0d7295f2e7d" title="Returns the current floating-point precision setting.">precision()</a></code> / <code>setPrecision()</code> affect subsequent floating inserts.</li>
+<li><b>Floating-point precision</b>: <code><a class="el" href="#a8418ba84a110893df5597fdfcb1c412b" title="Returns the current floating-point precision setting.">precision()</a></code> / <code><a class="el" href="#ab0b39934312ee4bd06e2e3d6574e7127" title="Sets the floating-point precision and returns the previous value.">setPrecision()</a></code> affect subsequent floating inserts.</li>
 </ul>
 <h1 class="doxsection"><a class="anchor" id="usage"></a>
 Usage Example</h1>
@@ -690,10 +686,10 @@ template&lt;typename StringType&gt; </div>
 <dl class="section post"><dt>Postcondition</dt><dd>The write position is advanced by the length of the appended string.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This operator follows the same pattern as <code>std::ostringstream::operator&lt;&lt;(double)</code>. </dd>
 <dd>
-The precision is controlled by <a class="el" href="#af453025d53b65448f3fc78468c097e8b" title="Sets the floating-point precision and returns the previous value.">precision(int)</a> and defaults to 6 digits.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="#af342cc7f7897db17de97a0d7295f2e7d" title="Returns the current floating-point precision setting.">precision() const</a> </dd>
+The precision is controlled by <a class="el" href="#ab0b39934312ee4bd06e2e3d6574e7127" title="Sets the floating-point precision and returns the previous value.">setPrecision(size_t)</a> and defaults to 6 digits.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a8418ba84a110893df5597fdfcb1c412b" title="Returns the current floating-point precision setting.">precision() const</a> </dd>
 <dd>
-<a class="el" href="#af453025d53b65448f3fc78468c097e8b" title="Sets the floating-point precision and returns the previous value.">precision(int)</a> </dd>
+<a class="el" href="#ab0b39934312ee4bd06e2e3d6574e7127" title="Sets the floating-point precision and returns the previous value.">setPrecision(size_t)</a> </dd>
 <dd>
 <a class="el" href="#aa10e17b69886f27149ea75b89c6e3cc7" title="Inserts a single-precision floating-point value into the stream.">operator&lt;&lt;(float)</a> </dd>
 <dd>
@@ -740,10 +736,10 @@ template&lt;typename StringType&gt; </div>
 <dl class="section post"><dt>Postcondition</dt><dd>The write position is advanced by the length of the appended string.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This operator follows the same pattern as <code>std::ostringstream::operator&lt;&lt;(float)</code>. </dd>
 <dd>
-The precision is controlled by <a class="el" href="#af342cc7f7897db17de97a0d7295f2e7d" title="Returns the current floating-point precision setting.">precision()</a> and defaults to 6 digits.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="#af342cc7f7897db17de97a0d7295f2e7d" title="Returns the current floating-point precision setting.">precision() const</a> </dd>
+The precision is controlled by <a class="el" href="#ab0b39934312ee4bd06e2e3d6574e7127" title="Sets the floating-point precision and returns the previous value.">setPrecision()</a> and defaults to 6 digits.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a8418ba84a110893df5597fdfcb1c412b" title="Returns the current floating-point precision setting.">precision() const</a> </dd>
 <dd>
-<a class="el" href="#af453025d53b65448f3fc78468c097e8b" title="Sets the floating-point precision and returns the previous value.">precision(int)</a> </dd>
+<a class="el" href="#ab0b39934312ee4bd06e2e3d6574e7127" title="Sets the floating-point precision and returns the previous value.">setPrecision(size_t)</a> </dd>
 <dd>
 <a class="el" href="#aaa72b4361926f5c39a2c376f700cacc4" title="Inserts a double-precision floating-point value into the stream.">operator&lt;&lt;(double)</a> </dd>
 <dd>
@@ -1235,8 +1231,8 @@ template&lt;typename StringType&gt; </div>
 
 </div>
 </div>
-<a id="a9b17de47a18c66a539582b74cced3405" name="a9b17de47a18c66a539582b74cced3405"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9b17de47a18c66a539582b74cced3405">&#9670;&#160;</a></span>operator=() <span class="overload">[1/2]</span></h2>
+<a id="a8418ba84a110893df5597fdfcb1c412b" name="a8418ba84a110893df5597fdfcb1c412b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8418ba84a110893df5597fdfcb1c412b">&#9670;&#160;</a></span>precision()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1247,91 +1243,7 @@ template&lt;typename StringType&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="#a801c0cef8d956fb69fd8f89bc3c9ac52">OStringStream</a> &amp; <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html">toy::OStringStream</a>&lt; StringType &gt;::operator= </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="#a801c0cef8d956fb69fd8f89bc3c9ac52">OStringStream</a>&lt; StringType &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>other</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel constexpr">constexpr</span><span class="mlabel default">default</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Copy assignment operator. </p>
-<p>Assigns the contents of another <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Output stream that appends formatted values into a toy::StringLike backend.">OStringStream</a> to this stream. The assignment performs a deep copy of the underlying string.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">other</td><td>The source <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Output stream that appends formatted values into a toy::StringLike backend.">OStringStream</a> to copy from.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Output stream that appends formatted values into a toy::StringLike backend.">OStringStream</a> after assignment.</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">other</em> stream must be valid and properly initialized.</dd></dl>
-<dl class="section post"><dt>Postcondition</dt><dd>This stream contains the same content as the source <em class="arg">other</em> stream. </dd>
-<dd>
-The underlying string is a copy of the source string.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Self-assignment is handled correctly and safely. </dd></dl>
-
-</div>
-</div>
-<a id="ad9efb1a4a81478f2d911d9314c63b3ee" name="ad9efb1a4a81478f2d911d9314c63b3ee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad9efb1a4a81478f2d911d9314c63b3ee">&#9670;&#160;</a></span>operator=() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename StringType&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="#a801c0cef8d956fb69fd8f89bc3c9ac52">OStringStream</a> &amp; <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html">toy::OStringStream</a>&lt; StringType &gt;::operator= </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="#a801c0cef8d956fb69fd8f89bc3c9ac52">OStringStream</a>&lt; StringType &gt; &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>other</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel constexpr">constexpr</span><span class="mlabel default">default</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Move assignment operator. </p>
-<p>Assigns the contents of another <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Output stream that appends formatted values into a toy::StringLike backend.">OStringStream</a> to this stream using move semantics. The source stream is left in a valid but unspecified state.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">other</td><td>The source <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Output stream that appends formatted values into a toy::StringLike backend.">OStringStream</a> to move from.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Output stream that appends formatted values into a toy::StringLike backend.">OStringStream</a> after assignment.</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">other</em> stream must be valid and properly initialized.</dd></dl>
-<dl class="section post"><dt>Postcondition</dt><dd>This stream contains the same content as the source <em class="arg">other</em> stream. </dd>
-<dd>
-The source <em class="arg">other</em> stream is left in a valid but unspecified state.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Self-assignment is handled correctly and safely. </dd></dl>
-
-</div>
-</div>
-<a id="af342cc7f7897db17de97a0d7295f2e7d" name="af342cc7f7897db17de97a0d7295f2e7d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af342cc7f7897db17de97a0d7295f2e7d">&#9670;&#160;</a></span>precision() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename StringType&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html">toy::OStringStream</a>&lt; StringType &gt;::precision </td>
+          <td class="memname">size_t <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html">toy::OStringStream</a>&lt; StringType &gt;::precision </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
@@ -1348,47 +1260,7 @@ template&lt;typename StringType&gt; </div>
 <p>This method returns the precision value that will be used for formatting floating-point numbers when writing to the stream. The precision specifies the number of digits to display.</p>
 <dl class="section return"><dt>Returns</dt><dd>The current precision value.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The precision value affects how floating-point numbers are formatted when written to the stream.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="#af453025d53b65448f3fc78468c097e8b" title="Sets the floating-point precision and returns the previous value.">precision(int)</a> </dd></dl>
-
-</div>
-</div>
-<a id="af453025d53b65448f3fc78468c097e8b" name="af453025d53b65448f3fc78468c097e8b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af453025d53b65448f3fc78468c097e8b">&#9670;&#160;</a></span>precision() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename StringType&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html">toy::OStringStream</a>&lt; StringType &gt;::precision </td>
-          <td>(</td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>newPrecision</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Sets the floating-point precision and returns the previous value. </p>
-<p>This method sets the precision value that will be used for formatting floating-point numbers when writing to the stream. The precision specifies the number of digits to display.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">newPrecision</td><td>The new precision value to set.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The previous precision value before the change.</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">newPrecision</em> must be non-negative.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The precision value affects how floating-point numbers are formatted when written to the stream.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="#af342cc7f7897db17de97a0d7295f2e7d" title="Returns the current floating-point precision setting.">precision() const</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#ab0b39934312ee4bd06e2e3d6574e7127" title="Sets the floating-point precision and returns the previous value.">setPrecision(size_t)</a> </dd></dl>
 
 </div>
 </div>
@@ -1433,6 +1305,46 @@ The write position is advanced by one character.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#a1e91c2bfd60f8b0e6c19e03fd5377801" title="Writes a specified number of characters from a buffer to the stream.">write(const char_type *, size_t)</a> </dd>
 <dd>
 <a class="el" href="#a6e53656cd017b708a4b95850e6923dcb" title="Returns the current write position in the stream.">tellp()</a> </dd></dl>
+
+</div>
+</div>
+<a id="ab0b39934312ee4bd06e2e3d6574e7127" name="ab0b39934312ee4bd06e2e3d6574e7127"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0b39934312ee4bd06e2e3d6574e7127">&#9670;&#160;</a></span>setPrecision()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename StringType&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html">toy::OStringStream</a>&lt; StringType &gt;::setPrecision </td>
+          <td>(</td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>newPrecision</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets the floating-point precision and returns the previous value. </p>
+<p>This method sets the precision value that will be used for formatting floating-point numbers when writing to the stream. The precision specifies the number of digits to display.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">newPrecision</td><td>The new precision value to set.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The previous precision value before the change.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">newPrecision</em> must be lower than or equal to the maximum supported digits for long double.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The precision value affects how floating-point numbers are formatted when written to the stream.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a8418ba84a110893df5597fdfcb1c412b" title="Returns the current floating-point precision setting.">precision() const</a> </dd></dl>
 
 </div>
 </div>
@@ -1694,8 +1606,8 @@ If <em class="arg">count</em> is zero, the method returns without modifying the 
 </div>
 </div>
 <a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
-<a id="a1a58f761bb99962d859ca509a08b2377" name="a1a58f761bb99962d859ca509a08b2377"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1a58f761bb99962d859ca509a08b2377">&#9670;&#160;</a></span>_precision</h2>
+<a id="a15ba5808a5106de3bd7fd34ad8d0fc34" name="a15ba5808a5106de3bd7fd34ad8d0fc34"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15ba5808a5106de3bd7fd34ad8d0fc34">&#9670;&#160;</a></span>_precision</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1706,7 +1618,7 @@ template&lt;typename StringType&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html">toy::OStringStream</a>&lt; StringType &gt;::_precision = 6</td>
+          <td class="memname">size_t <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html">toy::OStringStream</a>&lt; StringType &gt;::_precision = 6</td>
         </tr>
       </table>
   </td>

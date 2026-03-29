@@ -31,7 +31,7 @@ var searchData=
   ['pos_5ftype_28',['pos_type',['../d7/d15/classtoy_1_1_o_string_stream.html#ab383b8e1334ba8e40ad4ddbac105c8a0',1,'toy::OStringStream']]],
   ['practices_29',['Modern C++ Practices',['../df/d81/md__a_g_e_n_t_s.html#modern-c-practices',1,'']]],
   ['pre_20commit_20checklist_30',['Documentation Pre-Commit Checklist',['../df/d81/md__a_g_e_n_t_s.html#documentation-pre-commit-checklist',1,'']]],
-  ['precision_31',['precision',['../d7/d15/classtoy_1_1_o_string_stream.html#af342cc7f7897db17de97a0d7295f2e7d',1,'toy::OStringStream::precision() const noexcept'],['../d7/d15/classtoy_1_1_o_string_stream.html#af453025d53b65448f3fc78468c097e8b',1,'toy::OStringStream::precision(int newPrecision) noexcept']]],
+  ['precision_31',['precision',['../d7/d15/classtoy_1_1_o_string_stream.html#a8418ba84a110893df5597fdfcb1c412b',1,'toy::OStringStream']]],
   ['principles_32',['Principles',['../df/d81/md__a_g_e_n_t_s.html#general-coding-principles',1,'General Coding Principles'],['../df/d81/md__a_g_e_n_t_s.html#general-test-principles',1,'General Test Principles']]],
   ['private_20members_33',['Private Members',['../df/d81/md__a_g_e_n_t_s.html#private-members',1,'']]],
   ['processing_20functions_34',['Common text processing functions',['../d8/d90/group___text_functions.html',1,'']]],
