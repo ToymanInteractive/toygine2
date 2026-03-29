@@ -22,7 +22,7 @@
   \brief  Umbrella header for the engine core module.
 
   Defines the public core surface: platform, assertions, string utilities, output string stream, callbacks pool, fixed
-  strings and vectors, hashing, formatting, and general utilities.
+  strings and vectors, hashing, formatting helpers, and general utilities.
 
   \note Include this header only; do not include internal headers directly.
 */
@@ -190,7 +190,7 @@ using std::numeric_limits;
 #include "core/constexpr_utils.hpp"
 #include "core/fixed_string.hpp"
 #include "core/fixed_vector.hpp"
-#include "core/format.hpp"
+#include "core/format_string.hpp"
 #include "core/hashes.hpp"
 #include "core/o_string_stream.hpp"
 #include "core/platform.hpp"
@@ -206,7 +206,7 @@ using std::numeric_limits;
 #include "core/constexpr_utils.inl"
 #include "core/fixed_string.inl"
 #include "core/fixed_vector.inl"
-#include "core/format.inl"
+#include "core/format_string.inl"
 #include "core/o_string_stream.inl"
 #include "core/string_fixed_storage.inl"
 #include "core/utils.inl"

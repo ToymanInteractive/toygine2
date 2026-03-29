@@ -77,7 +77,7 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop")
   endif ()
 
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/Warning-Options.html
-#                 https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/Warning-Options.html#index-Wno-format-zero-length
+#                 https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/Warning-Options.html#index-Wformat-nonliteral
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-14.2.0/gcc/Warning-Options.html
 
   set(CMAKE_C_FLAGS   "-std=c17   -Wall -Wextra -Wpedantic -Werror -Wfatal-errors -Wdouble-promotion -Wformat=2 -Wformat-overflow=2                                                                                                                                                                                                                    -Wextra-semi                                                                                                    -foffload=default -fopenmp-simd -fstrict-flex-arrays=2")

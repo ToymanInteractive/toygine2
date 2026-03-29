@@ -19,10 +19,9 @@
 //
 /*!
   \file   format.test.cpp
-  \brief  Unit tests for \c toy::format() and related formatting helpers.
+  \brief  Unit tests for \ref toy::FormatString (compile-time validation and \c get()).
 */
 
-/*
 #include <doctest/doctest.h>
 
 #include "core.hpp"
@@ -115,4 +114,3 @@ TEST_CASE("core/format_string/get_method") {
 }
 
 } // namespace toy
-*/

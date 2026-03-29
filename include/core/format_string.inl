@@ -18,7 +18,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   format.inl
+  \file   format_string.inl
   \brief  Inline implementations for \ref toy::FormatString.
 
   \note Included by core.hpp only; do not include this file directly.
