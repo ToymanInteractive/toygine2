@@ -145,11 +145,6 @@ public:
   constexpr FixedString() noexcept = default;
 
   /*!
-    \brief Destructor for the fixed string.
-  */
-  constexpr ~FixedString() noexcept = default;
-
-  /*!
     \brief Constructs a string of the given \a count of \a character.
 
     This constructor initializes a string with a \a character repeated the given \a count of times.
@@ -182,6 +177,9 @@ public:
   */
   template <StringLike stringType>
   constexpr explicit FixedString(const stringType & string) noexcept;
+
+  template <StringLike stringType>
+  constexpr explicit FixedString(stringType && string) noexcept;
 
   /*!
     \brief Constructs a string initialized with the C \a string.

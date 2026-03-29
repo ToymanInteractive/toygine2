@@ -54,6 +54,16 @@ constexpr FixedString<allocatedSize>::FixedString(const stringType & string) noe
 }
 
 template <size_t allocatedSize>
+template <StringLike stringType>
+constexpr FixedString<allocatedSize>::FixedString(stringType && string) noexcept {
+  assert_message(string.size() < allocatedSize, "String size must not exceed capacity");
+
+  _storage.size = string.size();
+
+  char_traits<char>::move(_storage.buffer, string.c_str(), _storage.size + 1);
+}
+
+template <size_t allocatedSize>
 constexpr FixedString<allocatedSize>::FixedString(const char * string) noexcept {
   assert_message(string != nullptr, "C string must not be null");
 

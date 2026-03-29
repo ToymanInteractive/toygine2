@@ -22,7 +22,6 @@
   \brief  Unit tests for \ref toy::OStringStream.
 */
 
-/*
 #include <numbers>
 
 #include <doctest/doctest.h>
@@ -1060,4 +1059,3 @@ TEST_CASE("core/o_string_stream/operator_insert") {
 }
 
 } // namespace toy
-*/

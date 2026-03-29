@@ -25,6 +25,12 @@
 #include "benchmark_factory.hpp"
 #include "core.hpp"
 
+namespace toy {
+
+void oStringStreamCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
+
+} // namespace toy
+
 void runCoreBenchmarks() noexcept {
   auto bench = createBench("Core module");
 
@@ -95,6 +101,8 @@ void runCoreBenchmarks() noexcept {
       doNotOptimize(s.data());
     });
   }
+
+  toy::oStringStreamCoreBenchmarks(bench);
 
   // itoa benchmarks
   {

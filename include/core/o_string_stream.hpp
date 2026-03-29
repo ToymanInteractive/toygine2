@@ -19,7 +19,7 @@
 //
 /*!
   \file   o_string_stream.hpp
-  \brief  Allocator-free output stream that appends into string-like storage.
+  \brief  Allocator-free output string stream that appends into string-like storage.
 
   Defines \ref toy::OStringStream.
 
@@ -688,9 +688,9 @@ public:
 
     \note The precision value affects how floating-point numbers are formatted when written to the stream.
 
-    \sa precision(int)
+    \sa precision(size_t)
   */
-  [[nodiscard]] constexpr int precision() const noexcept;
+  [[nodiscard]] constexpr size_t precision() const noexcept;
 
   /*!
     \brief Sets the floating-point precision and returns the previous value.
@@ -708,13 +708,14 @@ public:
 
     \sa precision() const
   */
-  constexpr int precision(int newPrecision) noexcept;
+  constexpr size_t precision(size_t newPrecision) noexcept;
 
 private:
   //! Internal string storage for the stream content.
   StringType _string;
 
-  int _precision = 6; //!< Floating-point precision value used for number formatting.
+  //! Floating-point precision value used for number formatting.
+  size_t _precision = 6;
 };
 
 } // namespace toy
