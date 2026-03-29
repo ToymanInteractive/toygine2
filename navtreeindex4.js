@@ -7,11 +7,13 @@ var NAVTREEINDEX4 =
 "dc/d28/constexpr__utils_8inl.html":[6,0,0,2,8],
 "dc/d28/constexpr__utils_8inl_source.html":[6,0,0,2,8],
 "dc/d62/classtoy_1_1_format_string.html":[2,2,3],
-"dc/d62/classtoy_1_1_format_string.html#a6f166d073b247194d6c6fc290e537791":[2,2,3,1],
-"dc/d62/classtoy_1_1_format_string.html#a8bddc50cb2304cfc22f2f5fdc201dfc5":[2,2,3,2],
-"dc/d62/classtoy_1_1_format_string.html#aa80fa19ae3c237c10b36f9c9688e4e65":[2,2,3,4],
-"dc/d62/classtoy_1_1_format_string.html#aad2ddbdff43aae3fa0d453ec2196a339":[2,2,3,3],
-"dc/d62/classtoy_1_1_format_string.html#afd793fd7ecad4136327c535a8e2d6602":[2,2,3,0],
+"dc/d62/classtoy_1_1_format_string.html#a06c00dea813cc4f7fcee89cc35ce9370":[2,2,3,0],
+"dc/d62/classtoy_1_1_format_string.html#a6f166d073b247194d6c6fc290e537791":[2,2,3,2],
+"dc/d62/classtoy_1_1_format_string.html#a8bddc50cb2304cfc22f2f5fdc201dfc5":[2,2,3,3],
+"dc/d62/classtoy_1_1_format_string.html#aa80fa19ae3c237c10b36f9c9688e4e65":[2,2,3,6],
+"dc/d62/classtoy_1_1_format_string.html#aad2ddbdff43aae3fa0d453ec2196a339":[2,2,3,4],
+"dc/d62/classtoy_1_1_format_string.html#abe2285a11ce2d6e7bf602112536103bc":[2,2,3,5],
+"dc/d62/classtoy_1_1_format_string.html#afd793fd7ecad4136327c535a8e2d6602":[2,2,3,1],
 "dc/d6d/classtoy_1_1_enable_bitwise_operators.html":[3,0,1,11],
 "dc/d6d/classtoy_1_1_enable_bitwise_operators.html":[5,0,1,5],
 "dc/d6d/classtoy_1_1_enable_bitwise_operators.html#a73c936e06cab1aea0e6d53f22b468836":[3,0,1,11,0],
@@ -247,7 +249,5 @@ var NAVTREEINDEX4 =
 "df/d8d/namespacetoy_1_1render.html":[3,0,1,5],
 "df/d8d/namespacetoy_1_1render.html#a81a08c0aeeaa5f25f70d62e328c41b3c":[3,0,1,5,4],
 "df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3f":[3,0,1,5,1],
-"df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3fa08621a79896977cc5f97853284adc2a9":[3,0,1,5,1,1],
-"df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3fa2468f278a5fb00d246360a43b4c39f31":[3,0,1,5,1,12],
-"df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3fa5b61c8b1e8dbd2962e7f664dc82ecd20":[3,0,1,5,1,5]
+"df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3fa08621a79896977cc5f97853284adc2a9":[3,0,1,5,1,1]
 };

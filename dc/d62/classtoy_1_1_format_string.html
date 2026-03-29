@@ -114,7 +114,7 @@ $(function(){initNavTree('dc/d62/classtoy_1_1_format_string.html','../../','d3/d
 </div><!--header-->
 <div class="contents">
 
-<p>Compile-time validated format string wrapper.  
+<p>Wrapper around a <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="toy::CStringView">toy::CStringView</a> pattern with <code>consteval</code> validation of <code>`{}`</code> placeholders.  
  <a href="#details">More...</a></p>
 <div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Collaboration diagram for toy::FormatString&lt; Args &gt;:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -125,17 +125,21 @@ $(function(){initNavTree('dc/d62/classtoy_1_1_format_string.html','../../','d3/d
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a8bddc50cb2304cfc22f2f5fdc201dfc5" id="r_a8bddc50cb2304cfc22f2f5fdc201dfc5"><td class="memItemLeft">consteval&#160;</td><td class="memItemRight"><a class="el" href="#a8bddc50cb2304cfc22f2f5fdc201dfc5">explicit</a> (false) <a class="el" href="../../dc/d62/classtoy_1_1_format_string.html">FormatString</a>(const <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a> &amp;string) noexcept</td></tr>
-<tr class="memdesc:a8bddc50cb2304cfc22f2f5fdc201dfc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="../../dc/d62/classtoy_1_1_format_string.html" title="Compile-time validated format string wrapper.">FormatString</a> with compile-time validation.  <br /></td></tr>
+<tr class="memitem:a8bddc50cb2304cfc22f2f5fdc201dfc5" id="r_a8bddc50cb2304cfc22f2f5fdc201dfc5"><td class="memItemLeft">consteval&#160;</td><td class="memItemRight"><a class="el" href="#a8bddc50cb2304cfc22f2f5fdc201dfc5">explicit</a> (false) <a class="el" href="#a06c00dea813cc4f7fcee89cc35ce9370">FormatString</a>(const <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a> &amp;string) noexcept</td></tr>
+<tr class="memdesc:a8bddc50cb2304cfc22f2f5fdc201dfc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates <em class="arg">string</em> at compile time and stores it as a <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="toy::CStringView">toy::CStringView</a>.  <br /></td></tr>
+<tr class="memitem:a06c00dea813cc4f7fcee89cc35ce9370" id="r_a06c00dea813cc4f7fcee89cc35ce9370"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a06c00dea813cc4f7fcee89cc35ce9370">FormatString</a> (const FormatString &amp;other) noexcept=default</td></tr>
+<tr class="memdesc:a06c00dea813cc4f7fcee89cc35ce9370"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a copy that holds the same format pattern view as <em class="arg">other</em>.  <br /></td></tr>
+<tr class="memitem:abe2285a11ce2d6e7bf602112536103bc" id="r_abe2285a11ce2d6e7bf602112536103bc"><td class="memItemLeft"><a class="el" href="#a06c00dea813cc4f7fcee89cc35ce9370">FormatString</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#abe2285a11ce2d6e7bf602112536103bc">operator=</a> (const <a class="el" href="#a06c00dea813cc4f7fcee89cc35ce9370">FormatString</a> &amp;)=delete</td></tr>
+<tr class="memdesc:abe2285a11ce2d6e7bf602112536103bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy assignment is deleted.  <br /></td></tr>
 <tr class="memitem:aad2ddbdff43aae3fa0d453ec2196a339" id="r_aad2ddbdff43aae3fa0d453ec2196a339"><td class="memItemLeft">constexpr <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a>&#160;</td><td class="memItemRight"><a class="el" href="#aad2ddbdff43aae3fa0d453ec2196a339">get</a> () const noexcept</td></tr>
-<tr class="memdesc:aad2ddbdff43aae3fa0d453ec2196a339"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a copy of the stored format string.  <br /></td></tr>
+<tr class="memdesc:aad2ddbdff43aae3fa0d453ec2196a339"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the stored format pattern as a <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="toy::CStringView">toy::CStringView</a>.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-static-methods" class="groupheader"><a id="pri-static-methods" name="pri-static-methods"></a>
 Static Private Member Functions</h2></td></tr>
 <tr class="memitem:a6f166d073b247194d6c6fc290e537791" id="r_a6f166d073b247194d6c6fc290e537791"><td class="memItemLeft">static constexpr size_t&#160;</td><td class="memItemRight"><a class="el" href="#a6f166d073b247194d6c6fc290e537791">_countFormatPlaceholders</a> (const <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a> &amp;string) noexcept</td></tr>
-<tr class="memdesc:a6f166d073b247194d6c6fc290e537791"><td class="mdescLeft">&#160;</td><td class="mdescRight">Counts the number of format placeholders in a format string.  <br /></td></tr>
+<tr class="memdesc:a6f166d073b247194d6c6fc290e537791"><td class="mdescLeft">&#160;</td><td class="mdescRight">Counts <code>{}</code> placeholders in <em class="arg">string</em> (escaped <code>{{</code> / <code>}}</code> are literals).  <br /></td></tr>
 <tr class="memitem:afd793fd7ecad4136327c535a8e2d6602" id="r_afd793fd7ecad4136327c535a8e2d6602"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#afd793fd7ecad4136327c535a8e2d6602">_compileTimeError</a> (const char *message) noexcept</td></tr>
-<tr class="memdesc:afd793fd7ecad4136327c535a8e2d6602"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggers a compile-time error when format string validation fails.  <br /></td></tr>
+<tr class="memdesc:afd793fd7ecad4136327c535a8e2d6602"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stub used when validation fails; the program should be ill-formed before a call is needed.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -144,9 +148,8 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;class... Args&gt;<br />
-class toy::FormatString&lt; Args &gt;</div><p>Compile-time validated format string wrapper. </p>
-<p><a class="el" href="../../dc/d62/classtoy_1_1_format_string.html" title="Compile-time validated format string wrapper.">FormatString</a> is a template class that provides compile-time validation of format strings, similar to <code>std::format_string</code>. It ensures that the format string has valid syntax and that the number of placeholders matches the number of template arguments.</p>
-<p>The format string uses <span class="tt">{}</span> as placeholders, following the same rules as <code>std::format</code>. Escaped braces <span class="tt">{{</span> and <span class="tt">}}</span> are treated as literal braces and do not count as placeholders.</p>
+class toy::FormatString&lt; Args &gt;</div><p>Wrapper around a <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="toy::CStringView">toy::CStringView</a> pattern with <code>consteval</code> validation of <code>`{}`</code> placeholders. </p>
+<p>Placeholders are exactly the two-character sequence <code>{}</code>; <code>{{</code> and <code>}}</code> are literals and do not increase the placeholder count. The number of placeholders must equal <code>sizeof</code>...(Args). Unmatched <code>{</code> or <code>}</code> makes construction ill-formed. This type does not perform value formatting; it only stores and returns the pattern.</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">Args</td><td>Template parameter pack representing the types of arguments that will be formatted.</td></tr>
@@ -156,30 +159,83 @@ class toy::FormatString&lt; Args &gt;</div><p>Compile-time validated format stri
 <h1 class="doxsection"><a class="anchor" id="features"></a>
 Key Features</h1>
 <ul>
-<li>🔍 <b>Compile-Time Validation</b>: Format string syntax and placeholder count verified at compile time</li>
-<li>🎯 <b>Placeholder Verification</b>: Ensures placeholder count matches template arguments</li>
-<li>🔧 <b>ConstExpr Support</b>: Constructor and methods can be evaluated at compile time</li>
-<li>🛡️ <b>Exception Safety</b>: All operations are noexcept</li>
-<li>🔗 <b>STL Compatibility</b>: Similar interface to <code>std::format_string</code> </li>
+<li><b>Compile-time checks</b>: <code>consteval</code> constructor; mismatch or bad braces fail at compile time.</li>
+<li><b>Storage</b>: Holds a <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="toy::CStringView">toy::CStringView</a> to the pattern; no allocation.</li>
+<li><b><a class="el" href="#aad2ddbdff43aae3fa0d453ec2196a339" title="Returns the stored format pattern as a toy::CStringView.">get()</a></b>: Returns the same view; <code>constexpr</code> <code>noexcept</code>.</li>
+<li>**Alignment with <code>std::format</code> rules**: Placeholder and escape rules mirror the subset described above.</li>
 </ul>
 <h1 class="doxsection"><a class="anchor" id="usage"></a>
 Usage Example</h1>
-<div class="fragment"><div class="line"><span class="keyword">constexpr</span> <a class="code hl_class" href="../../dc/d62/classtoy_1_1_format_string.html">FormatString&lt;int, float&gt;</a> format(<a class="code hl_class" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a>(<span class="stringliteral">&quot;Value: {}, Float: {}&quot;</span>));</div>
-<div class="line"><span class="keyword">constexpr</span> <span class="keyword">auto</span> str = format.get(); <span class="comment">// Returns CStringView(&quot;Value: {}, Float: {}&quot;)</span></div>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="../../da/d47/core_8hpp.html">core.hpp</a>&quot;</span></div>
 <div class="line"> </div>
-<div class="line"><span class="comment">// Invalid format strings cause compile-time errors:</span></div>
-<div class="line"><span class="comment">// FormatString&lt;int&gt; format1(CStringView(&quot;Value: {}&quot;)); // OK</span></div>
-<div class="line"><span class="comment">// FormatString&lt;int&gt; format2(CStringView(&quot;Value: {}, {}&quot;)); // Compile error: count mismatch</span></div>
-<div class="line"><span class="comment">// FormatString&lt;int&gt; format3(CStringView(&quot;Value: {&quot;)); // Compile error: unmatched brace</span></div>
+<div class="line"><span class="keyword">constexpr</span> <a class="code hl_class" href="../../dc/d62/classtoy_1_1_format_string.html">toy::FormatString&lt;int, float&gt;</a> format(<a class="code hl_class" href="../../d5/d03/classtoy_1_1_c_string_view.html">toy::CStringView</a>(<span class="stringliteral">&quot;Value: {}, Float: {}&quot;</span>));</div>
+<div class="line"><span class="keyword">constexpr</span> <a class="code hl_class" href="../../d5/d03/classtoy_1_1_c_string_view.html">toy::CStringView</a> str = format.get();</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Ill-formed examples (do not compile):</span></div>
+<div class="line"><span class="comment">// toy::FormatString&lt;int&gt; bad(toy::CStringView(&quot;{}, {}&quot;)); // too many placeholders</span></div>
+<div class="line"><span class="comment">// toy::FormatString&lt;&gt; bad2(toy::CStringView(&quot;{&quot;));        // unmatched brace</span></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html">toy::CStringView</a></div><div class="ttdoc">Non-owning string view class for C-style strings.</div><div class="ttdef"><b>Definition</b> c_string_view.hpp:109</div></div>
-<div class="ttc" id="aclasstoy_1_1_format_string_html"><div class="ttname"><a href="../../dc/d62/classtoy_1_1_format_string.html">toy::FormatString</a></div><div class="ttdoc">Compile-time validated format string wrapper.</div><div class="ttdef"><b>Definition</b> format.hpp:77</div></div>
-</div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>The constructor is marked as <code>consteval</code>, meaning it must be evaluated at compile time. </dd>
-<dd>
-Invalid format strings result in compile-time errors, not runtime exceptions. </dd>
-<dd>
-This class is similar to <code>std::format_string</code> but designed for use with <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="toy::CStringView">toy::CStringView</a>.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">toy::CStringView</a>, <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="Concept satisfied when T exposes size() as size_t and c_str() as a pointer to null-terminated charact...">toy::StringLike</a> </dd></dl>
-</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<div class="ttc" id="aclasstoy_1_1_format_string_html"><div class="ttname"><a href="../../dc/d62/classtoy_1_1_format_string.html">toy::FormatString</a></div><div class="ttdoc">Wrapper around a toy::CStringView pattern with consteval validation of `{}` placeholders.</div><div class="ttdef"><b>Definition</b> format_string.hpp:88</div></div>
+<div class="ttc" id="acore_8hpp_html"><div class="ttname"><a href="../../da/d47/core_8hpp.html">core.hpp</a></div><div class="ttdoc">Umbrella header for the engine core module.</div></div>
+</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="performance"></a>
+Performance Characteristics</h1>
+<ul>
+<li><b>Construction</b>: Work is done at compile time (<code>consteval</code>).</li>
+<li><b><a class="el" href="#aad2ddbdff43aae3fa0d453ec2196a339" title="Returns the stored format pattern as a toy::CStringView.">get()</a></b>: O(1); returns the stored <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="toy::CStringView">toy::CStringView</a>.</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="safety"></a>
+Safety Guarantees</h1>
+<ul>
+<li><b>Invalid patterns</b>: Diagnosed at compile time when the <code>consteval</code> constructor runs.</li>
+<li><b>Exception safety</b>: All operations are <code>noexcept</code>; this type does not throw.</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="compatibility"></a>
+Compatibility</h1>
+<ul>
+<li><b>C++23</b>: <code>consteval</code> constructor and <code>constexpr</code> <code><a class="el" href="#aad2ddbdff43aae3fa0d453ec2196a339" title="Returns the stored format pattern as a toy::CStringView.">get()</a></code> as implemented.</li>
+<li><b><a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a></b>: Pattern must be reachable as a <code>const</code> <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="toy::CStringView">toy::CStringView</a> at the call site.</li>
+</ul>
+<dl class="section note"><dt>Note</dt><dd>Value substitution is out of scope; pair with formatting utilities that consume the pattern separately.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> </dd></dl>
+</div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a06c00dea813cc4f7fcee89cc35ce9370" name="a06c00dea813cc4f7fcee89cc35ce9370"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a06c00dea813cc4f7fcee89cc35ce9370">&#9670;&#160;</a></span>FormatString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class... Args&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dc/d62/classtoy_1_1_format_string.html">toy::FormatString</a>&lt; Args &gt;::FormatString </td>
+          <td>(</td>
+          <td class="paramtype">const FormatString&lt; Args &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>other</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel consteval">consteval</span><span class="mlabel default">default</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructs a copy that holds the same format pattern view as <em class="arg">other</em>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>Source object.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Copies the non-owning view only; does not duplicate string storage.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd>FormatString(const CStringView &amp;) </dd></dl>
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
 <a id="afd793fd7ecad4136327c535a8e2d6602" name="afd793fd7ecad4136327c535a8e2d6602"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afd793fd7ecad4136327c535a8e2d6602">&#9670;&#160;</a></span>_compileTimeError()</h2>
 
@@ -205,17 +261,14 @@ template&lt;class... Args&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Triggers a compile-time error when format string validation fails. </p>
-<p>Called from within the <code>consteval</code> constructor to generate compile-time errors for invalid format strings.</p>
+<p>Stub used when validation fails; the program should be ill-formed before a call is needed. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">message</td><td>Error message describing the validation failure.</td></tr>
+    <tr><td class="paramname">message</td><td>Diagnostic text for implementations that surface it.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>Only called from <code>consteval</code> contexts. </dd>
-<dd>
-Causes compilation to fail when executed.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Intended only from the <code>consteval</code> constructor path.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd>FormatString(const CStringView &amp;) </dd></dl>
 
 </div>
@@ -245,21 +298,15 @@ template&lt;class... Args&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Counts the number of format placeholders in a format string. </p>
-<p>This function counts the number of <span class="tt">{}</span> placeholders in the format string, ignoring escaped braces <span class="tt">{{</span> and <span class="tt">}}</span>. The function follows the same rules as <code>std::format</code> for placeholder counting.</p>
+<p>Counts <code>{}</code> placeholders in <em class="arg">string</em> (escaped <code>{{</code> / <code>}}</code> are literals). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">string</td><td>The format string to analyze.</td></tr>
+    <tr><td class="paramname">string</td><td>Pattern to scan.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The number of format placeholders found in the string, or <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html#ad63db28d9eb901a3934303a5fda0af21" title="toy::CStringView::npos">toy::CStringView::npos</a> if the format string contains unmatched braces.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Escaped braces <span class="tt">{{</span> and <span class="tt">}}</span> are not counted as placeholders. </dd>
-<dd>
-This function is constexpr-compatible and can be used in compile-time contexts. </dd>
-<dd>
-Returns <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html#ad63db28d9eb901a3934303a5fda0af21" title="toy::CStringView::npos">toy::CStringView::npos</a> if unmatched braces are detected.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html#ad63db28d9eb901a3934303a5fda0af21" title="The special value, its exact meaning depends on the context.">toy::CStringView::npos</a> </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Placeholder count, or <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html#ad63db28d9eb901a3934303a5fda0af21" title="toy::CStringView::npos">toy::CStringView::npos</a> if braces are unmatched.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html#ad63db28d9eb901a3934303a5fda0af21" title="The special value, its exact meaning depends on the context.">CStringView::npos</a> </dd></dl>
 
 </div>
 </div>
@@ -288,27 +335,21 @@ template&lt;class... Args&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Constructs a <a class="el" href="../../dc/d62/classtoy_1_1_format_string.html" title="Compile-time validated format string wrapper.">FormatString</a> with compile-time validation. </p>
-<p>This constructor validates the format string at compile time, ensuring:</p><ul>
-<li>The format string has valid brace matching (no unmatched braces)</li>
-<li>The number of placeholders <span class="tt">{}</span> matches the number of template arguments</li>
-</ul>
+<p>Validates <em class="arg">string</em> at compile time and stores it as a <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="toy::CStringView">toy::CStringView</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">string</td><td>The format string to validate and store.</td></tr>
+    <tr><td class="paramname">string</td><td>Format pattern to validate and store.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section pre"><dt>Precondition</dt><dd>The <em class="arg">string</em> must be a valid format string with proper brace matching. </dd>
+<dl class="section pre"><dt>Precondition</dt><dd>Braces in <em class="arg">string</em> are balanced; <code>{{</code> and <code>}}</code> are literals. </dd>
 <dd>
-The number of placeholders in <em class="arg">string</em> must equal <code>sizeof</code>...(Args).</dd></dl>
-<dl class="section post"><dt>Postcondition</dt><dd>The format string is stored and can be retrieved via <a class="el" href="#aad2ddbdff43aae3fa0d453ec2196a339" title="Returns a copy of the stored format string.">get()</a>.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>If validation fails, a compile-time error is generated. </dd>
+Placeholder count (pairs <code>{}</code>) equals <code>sizeof</code>...(Args).</dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>The pattern is stored and can be read with <a class="el" href="#aad2ddbdff43aae3fa0d453ec2196a339" title="Returns the stored format pattern as a toy::CStringView.">get()</a>.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd><code>consteval</code>; ill-formed patterns make the program ill-formed. </dd>
 <dd>
-Escaped braces <span class="tt">{{</span> and <span class="tt">}}</span> are not counted as placeholders. </dd>
-<dd>
-The constructor is <code>consteval</code>, so it must be evaluated at compile time.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="#aad2ddbdff43aae3fa0d453ec2196a339" title="Returns a copy of the stored format string.">get()</a> </dd></dl>
+Escaped <code>{{</code> and <code>}}</code> do not count as placeholders.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#aad2ddbdff43aae3fa0d453ec2196a339" title="Returns the stored format pattern as a toy::CStringView.">get()</a> </dd></dl>
 
 </div>
 </div>
@@ -337,13 +378,39 @@ template&lt;class... Args&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Returns a copy of the stored format string. </p>
-<p>This method returns a copy of the <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="toy::CStringView">toy::CStringView</a> containing the format string. Since <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="toy::CStringView">toy::CStringView</a> is a lightweight non-owning view, copying it is inexpensive and does not involve memory allocation.</p>
-<dl class="section return"><dt>Returns</dt><dd>A copy of the <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="toy::CStringView">toy::CStringView</a> containing the format string.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This method is constexpr-compatible and can be used in compile-time contexts. </dd>
-<dd>
-The returned <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="toy::CStringView">toy::CStringView</a> is a non-owning view and does not copy the underlying string data.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd>FormatString(const CStringView &amp;), <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">toy::CStringView</a> </dd></dl>
+<p>Returns the stored format pattern as a <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="toy::CStringView">toy::CStringView</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>The same view stored at construction time.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd><code>constexpr</code>; safe in constant evaluation.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd>FormatString(const CStringView &amp;) </dd></dl>
+
+</div>
+</div>
+<a id="abe2285a11ce2d6e7bf602112536103bc" name="abe2285a11ce2d6e7bf602112536103bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe2285a11ce2d6e7bf602112536103bc">&#9670;&#160;</a></span>operator=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class... Args&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a06c00dea813cc4f7fcee89cc35ce9370">FormatString</a> &amp; <a class="el" href="../../dc/d62/classtoy_1_1_format_string.html">toy::FormatString</a>&lt; Args &gt;::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="#a06c00dea813cc4f7fcee89cc35ce9370">FormatString</a>&lt; Args &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel delete">delete</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Copy assignment is deleted. </p>
 
 </div>
 </div>
@@ -375,8 +442,8 @@ template&lt;class... Args&gt; </div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/core/<a class="el" href="../../d4/d0a/format_8hpp_source.html">format.hpp</a></li>
-<li>include/core/<a class="el" href="../../d0/d67/format_8inl_source.html">format.inl</a></li>
+<li>include/core/<a class="el" href="../../d9/d6a/format__string_8hpp_source.html">format_string.hpp</a></li>
+<li>include/core/<a class="el" href="../../d4/d97/format__string_8inl_source.html">format_string.inl</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
