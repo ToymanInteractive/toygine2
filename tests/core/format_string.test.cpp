@@ -19,7 +19,7 @@
 //
 /*!
   \file   format.test.cpp
-  \brief  Unit tests for \ref toy::FormatString (compile-time validation and \c get()).
+  \brief  Unit tests for \ref toy::FormatString.
 */
 
 #include <doctest/doctest.h>
@@ -27,6 +27,13 @@
 #include "core.hpp"
 
 namespace toy {
+
+// Check object structure.
+TEST_CASE("core/o_string_stream/object_structure") {
+  static_assert(!std::is_trivial_v<FormatString<>>, "FormatString must not be trivial (has non-trivial default init)");
+  static_assert(!std::is_trivially_copyable_v<FormatString<>>, "FormatString must be trivially copyable");
+  static_assert(std::is_standard_layout_v<FormatString<>>, "FormatString must have standard layout");
+}
 
 // FormatString constructor stores the format pattern.
 TEST_CASE("core/format_string/constructor") {

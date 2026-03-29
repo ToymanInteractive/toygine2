@@ -27,8 +27,8 @@
   \note Included by core.hpp; do not include this file directly.
 */
 
-#ifndef INCLUDE_CORE_FORMAT_HPP_
-#define INCLUDE_CORE_FORMAT_HPP_
+#ifndef INCLUDE_CORE_FORMAT_STRING_HPP_
+#define INCLUDE_CORE_FORMAT_STRING_HPP_
 
 #include "string_like.hpp"
 
@@ -144,4 +144,4 @@ private:
 
 } // namespace toy
 
-#endif // INCLUDE_CORE_FORMAT_HPP_
+#endif // INCLUDE_CORE_FORMAT_STRING_HPP_

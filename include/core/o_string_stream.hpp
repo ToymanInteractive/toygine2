@@ -94,13 +94,7 @@ public:
   /// Type of positions in the string.
   using pos_type = size_t;
 
-  /*!
-    \brief Default constructor.
-
-    Constructs an empty OStringStream with default-initialized string storage.
-
-    \post The stream contains an empty string.
-  */
+  /// Default constructor.
   constexpr OStringStream() noexcept = default;
 
   /*!

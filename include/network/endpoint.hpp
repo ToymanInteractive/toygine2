@@ -123,6 +123,7 @@ public:
   [[nodiscard]] virtual const char * hostnameAsText() const noexcept = 0;
 
 protected:
+  /// Default constructor.
   constexpr Endpoint() noexcept = default;
 
 private:
