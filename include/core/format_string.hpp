@@ -104,6 +104,10 @@ public:
   */
   consteval explicit(false) FormatString(const CStringView & string) noexcept;
 
+  FormatString(const FormatString &) = default;
+
+  FormatString & operator=(const FormatString &) = delete;
+
   /*!
     \brief Returns the stored format pattern as a \ref toy::CStringView.
 
