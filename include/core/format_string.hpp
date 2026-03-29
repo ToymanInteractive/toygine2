@@ -104,8 +104,18 @@ public:
   */
   consteval explicit(false) FormatString(const CStringView & string) noexcept;
 
-  FormatString(const FormatString &) = default;
+  /*!
+    \brief Constructs a copy that holds the same format pattern view as \a other.
 
+    \param other Source object.
+
+    \note Copies the non-owning view only; does not duplicate string storage.
+
+    \sa FormatString(const CStringView &)
+  */
+  FormatString(const FormatString & other) noexcept = default;
+
+  /// Copy assignment is deleted.
   FormatString & operator=(const FormatString &) = delete;
 
   /*!
