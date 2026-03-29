@@ -19,7 +19,7 @@
 //
 /*!
   \file   geometry_benchmark.cpp
-  \brief  Nanobench benchmarks for the geometry module (Circle, Ellipse, Section, etc.).
+  \brief  Implementation of nanobench benchmarks for the geometry module.
 */
 
 #include "benchmark_factory.hpp"
@@ -27,7 +27,7 @@
 
 using namespace toy::geometry;
 
-using Fixed = toy::math::fixed<int32_t, int64_t, 24>;
+using fixed_type = toy::math::fixed<int32_t, int64_t, 24>;
 
 void runGeometryBenchmarks() noexcept {
   auto bench = createBench("Geometry module");
@@ -38,8 +38,8 @@ void runGeometryBenchmarks() noexcept {
       Circle c(toy::math::Vector2(5.0f, 10.0f), 3.0f);
       doNotOptimize(c);
     });
-    bench.run("Circle<Fixed> construct center radius", [] {
-      Circle c(toy::math::Vector2(Fixed(5), Fixed(10)), Fixed(3));
+    bench.run("Circle<fixed_type> construct center radius", [] {
+      Circle c(toy::math::Vector2(fixed_type(5), fixed_type(10)), fixed_type(3));
       doNotOptimize(c);
     });
 
@@ -48,8 +48,8 @@ void runGeometryBenchmarks() noexcept {
       auto r = c.area();
       doNotOptimize(r);
     });
-    bench.run("Circle<Fixed> area", [] {
-      Circle c(toy::math::Vector2(Fixed(0), Fixed(0)), Fixed(10));
+    bench.run("Circle<fixed_type> area", [] {
+      Circle c(toy::math::Vector2(fixed_type(0), fixed_type(0)), fixed_type(10));
       auto r = c.area();
       doNotOptimize(r);
     });
@@ -59,8 +59,8 @@ void runGeometryBenchmarks() noexcept {
       c.reset();
       doNotOptimize(c);
     });
-    bench.run("Circle<Fixed> reset", [] {
-      Circle c(toy::math::Vector2(Fixed(10), Fixed(20)), Fixed(5));
+    bench.run("Circle<fixed_type> reset", [] {
+      Circle c(toy::math::Vector2(fixed_type(10), fixed_type(20)), fixed_type(5));
       c.reset();
       doNotOptimize(c);
     });
@@ -71,8 +71,8 @@ void runGeometryBenchmarks() noexcept {
       auto r = c.isReset();
       doNotOptimize(r);
     });
-    bench.run("Circle<Fixed> isReset", [] {
-      Circle<Fixed> c;
+    bench.run("Circle<fixed_type> isReset", [] {
+      Circle<fixed_type> c;
       auto r = c.isReset();
       doNotOptimize(r);
     });
@@ -82,8 +82,8 @@ void runGeometryBenchmarks() noexcept {
       auto r = c.isValid();
       doNotOptimize(r);
     });
-    bench.run("Circle<Fixed> isValid", [] {
-      Circle c(toy::math::Vector2(Fixed(0), Fixed(0)), Fixed(1));
+    bench.run("Circle<fixed_type> isValid", [] {
+      Circle c(toy::math::Vector2(fixed_type(0), fixed_type(0)), fixed_type(1));
       auto r = c.isValid();
       doNotOptimize(r);
     });
@@ -93,9 +93,9 @@ void runGeometryBenchmarks() noexcept {
       auto r = c.isContain(toy::math::Vector2(5.0f, 0.0f));
       doNotOptimize(r);
     });
-    bench.run("Circle<Fixed> isContain", [] {
-      Circle c(toy::math::Vector2(Fixed(0), Fixed(0)), Fixed(10));
-      auto r = c.isContain(toy::math::Vector2(Fixed(5), Fixed(0)));
+    bench.run("Circle<fixed_type> isContain", [] {
+      Circle c(toy::math::Vector2(fixed_type(0), fixed_type(0)), fixed_type(10));
+      auto r = c.isContain(toy::math::Vector2(fixed_type(5), fixed_type(0)));
       doNotOptimize(r);
     });
 
@@ -105,9 +105,9 @@ void runGeometryBenchmarks() noexcept {
       auto r = (a == b);
       doNotOptimize(r);
     });
-    bench.run("Circle<Fixed> operator==", [] {
-      Circle a(toy::math::Vector2(Fixed(1), Fixed(2)), Fixed(3));
-      Circle b(toy::math::Vector2(Fixed(1), Fixed(2)), Fixed(3));
+    bench.run("Circle<fixed_type> operator==", [] {
+      Circle a(toy::math::Vector2(fixed_type(1), fixed_type(2)), fixed_type(3));
+      Circle b(toy::math::Vector2(fixed_type(1), fixed_type(2)), fixed_type(3));
       auto r = (a == b);
       doNotOptimize(r);
     });
@@ -118,9 +118,9 @@ void runGeometryBenchmarks() noexcept {
       auto r = (a != b);
       doNotOptimize(r);
     });
-    bench.run("Circle<Fixed> operator!=", [] {
-      Circle a(toy::math::Vector2(Fixed(1), Fixed(2)), Fixed(3));
-      Circle b(toy::math::Vector2(Fixed(1), Fixed(2)), Fixed(4));
+    bench.run("Circle<fixed_type> operator!=", [] {
+      Circle a(toy::math::Vector2(fixed_type(1), fixed_type(2)), fixed_type(3));
+      Circle b(toy::math::Vector2(fixed_type(1), fixed_type(2)), fixed_type(4));
       auto r = (a != b);
       doNotOptimize(r);
     });
@@ -132,8 +132,8 @@ void runGeometryBenchmarks() noexcept {
       Ellipse<float> e;
       doNotOptimize(e);
     });
-    bench.run("Ellipse<Fixed> default construct", [] {
-      Ellipse<Fixed> e;
+    bench.run("Ellipse<fixed_type> default construct", [] {
+      Ellipse<fixed_type> e;
       doNotOptimize(e);
     });
 
@@ -141,8 +141,8 @@ void runGeometryBenchmarks() noexcept {
       Ellipse e(toy::math::Vector2(5.0f, 10.0f), toy::math::Vector2(3.0f, 4.0f));
       doNotOptimize(e);
     });
-    bench.run("Ellipse<Fixed> construct center radiuses", [] {
-      Ellipse e(toy::math::Vector2(Fixed(5), Fixed(10)), toy::math::Vector2(Fixed(3), Fixed(4)));
+    bench.run("Ellipse<fixed_type> construct center radiuses", [] {
+      Ellipse e(toy::math::Vector2(fixed_type(5), fixed_type(10)), toy::math::Vector2(fixed_type(3), fixed_type(4)));
       doNotOptimize(e);
     });
 
@@ -151,8 +151,8 @@ void runGeometryBenchmarks() noexcept {
       auto r = e.area();
       doNotOptimize(r);
     });
-    bench.run("Ellipse<Fixed> area", [] {
-      Ellipse e(toy::math::Vector2(Fixed(0), Fixed(0)), toy::math::Vector2(Fixed(10), Fixed(5)));
+    bench.run("Ellipse<fixed_type> area", [] {
+      Ellipse e(toy::math::Vector2(fixed_type(0), fixed_type(0)), toy::math::Vector2(fixed_type(10), fixed_type(5)));
       auto r = e.area();
       doNotOptimize(r);
     });
@@ -162,8 +162,8 @@ void runGeometryBenchmarks() noexcept {
       e.reset();
       doNotOptimize(e);
     });
-    bench.run("Ellipse<Fixed> reset", [] {
-      Ellipse e(toy::math::Vector2(Fixed(10), Fixed(20)), toy::math::Vector2(Fixed(5), Fixed(3)));
+    bench.run("Ellipse<fixed_type> reset", [] {
+      Ellipse e(toy::math::Vector2(fixed_type(10), fixed_type(20)), toy::math::Vector2(fixed_type(5), fixed_type(3)));
       e.reset();
       doNotOptimize(e);
     });
@@ -174,8 +174,8 @@ void runGeometryBenchmarks() noexcept {
       auto r = e.isReset();
       doNotOptimize(r);
     });
-    bench.run("Ellipse<Fixed> isReset", [] {
-      Ellipse<Fixed> e;
+    bench.run("Ellipse<fixed_type> isReset", [] {
+      Ellipse<fixed_type> e;
       auto r = e.isReset();
       doNotOptimize(r);
     });
@@ -185,8 +185,8 @@ void runGeometryBenchmarks() noexcept {
       auto r = e.isValid();
       doNotOptimize(r);
     });
-    bench.run("Ellipse<Fixed> isValid", [] {
-      Ellipse e(toy::math::Vector2(Fixed(0), Fixed(0)), toy::math::Vector2(Fixed(1), Fixed(1)));
+    bench.run("Ellipse<fixed_type> isValid", [] {
+      Ellipse e(toy::math::Vector2(fixed_type(0), fixed_type(0)), toy::math::Vector2(fixed_type(1), fixed_type(1)));
       auto r = e.isValid();
       doNotOptimize(r);
     });
@@ -196,9 +196,9 @@ void runGeometryBenchmarks() noexcept {
       auto r = e.isContain(toy::math::Vector2(5.0f, 2.0f));
       doNotOptimize(r);
     });
-    bench.run("Ellipse<Fixed> isContain", [] {
-      Ellipse e(toy::math::Vector2(Fixed(0), Fixed(0)), toy::math::Vector2(Fixed(10), Fixed(5)));
-      auto r = e.isContain(toy::math::Vector2(Fixed(5), Fixed(2)));
+    bench.run("Ellipse<fixed_type> isContain", [] {
+      Ellipse e(toy::math::Vector2(fixed_type(0), fixed_type(0)), toy::math::Vector2(fixed_type(10), fixed_type(5)));
+      auto r = e.isContain(toy::math::Vector2(fixed_type(5), fixed_type(2)));
       doNotOptimize(r);
     });
 
@@ -208,9 +208,9 @@ void runGeometryBenchmarks() noexcept {
       auto r = (a == b);
       doNotOptimize(r);
     });
-    bench.run("Ellipse<Fixed> operator==", [] {
-      Ellipse a(toy::math::Vector2(Fixed(1), Fixed(2)), toy::math::Vector2(Fixed(3), Fixed(4)));
-      Ellipse b(toy::math::Vector2(Fixed(1), Fixed(2)), toy::math::Vector2(Fixed(3), Fixed(4)));
+    bench.run("Ellipse<fixed_type> operator==", [] {
+      Ellipse a(toy::math::Vector2(fixed_type(1), fixed_type(2)), toy::math::Vector2(fixed_type(3), fixed_type(4)));
+      Ellipse b(toy::math::Vector2(fixed_type(1), fixed_type(2)), toy::math::Vector2(fixed_type(3), fixed_type(4)));
       auto r = (a == b);
       doNotOptimize(r);
     });
@@ -221,9 +221,9 @@ void runGeometryBenchmarks() noexcept {
       auto r = (a != b);
       doNotOptimize(r);
     });
-    bench.run("Ellipse<Fixed> operator!=", [] {
-      Ellipse a(toy::math::Vector2(Fixed(1), Fixed(2)), toy::math::Vector2(Fixed(3), Fixed(4)));
-      Ellipse b(toy::math::Vector2(Fixed(1), Fixed(2)), toy::math::Vector2(Fixed(3), Fixed(5)));
+    bench.run("Ellipse<fixed_type> operator!=", [] {
+      Ellipse a(toy::math::Vector2(fixed_type(1), fixed_type(2)), toy::math::Vector2(fixed_type(3), fixed_type(4)));
+      Ellipse b(toy::math::Vector2(fixed_type(1), fixed_type(2)), toy::math::Vector2(fixed_type(3), fixed_type(5)));
       auto r = (a != b);
       doNotOptimize(r);
     });
@@ -239,8 +239,8 @@ void runGeometryBenchmarks() noexcept {
       Section s(10.0f, 20.0f);
       doNotOptimize(s);
     });
-    bench.run("Section<Fixed> construct min max", [] {
-      Section s(Fixed(10), Fixed(20));
+    bench.run("Section<fixed_type> construct min max", [] {
+      Section s(fixed_type(10), fixed_type(20));
       doNotOptimize(s);
     });
 
@@ -254,8 +254,8 @@ void runGeometryBenchmarks() noexcept {
       auto r = s.midpoint();
       doNotOptimize(r);
     });
-    bench.run("Section<Fixed> midpoint", [] {
-      Section s(Fixed(10), Fixed(20));
+    bench.run("Section<fixed_type> midpoint", [] {
+      Section s(fixed_type(10), fixed_type(20));
       auto r = s.midpoint();
       doNotOptimize(r);
     });
@@ -270,8 +270,8 @@ void runGeometryBenchmarks() noexcept {
       auto r = s.length();
       doNotOptimize(r);
     });
-    bench.run("Section<Fixed> length", [] {
-      Section s(Fixed(10), Fixed(20));
+    bench.run("Section<fixed_type> length", [] {
+      Section s(fixed_type(10), fixed_type(20));
       auto r = s.length();
       doNotOptimize(r);
     });
@@ -286,8 +286,8 @@ void runGeometryBenchmarks() noexcept {
       s.reset();
       doNotOptimize(s);
     });
-    bench.run("Section<Fixed> reset", [] {
-      Section s(Fixed(10), Fixed(20));
+    bench.run("Section<fixed_type> reset", [] {
+      Section s(fixed_type(10), fixed_type(20));
       s.reset();
       doNotOptimize(s);
     });
@@ -302,9 +302,9 @@ void runGeometryBenchmarks() noexcept {
       s.expand(5.0f);
       doNotOptimize(s);
     });
-    bench.run("Section<Fixed> expand value", [] {
-      Section s(Fixed(10), Fixed(20));
-      s.expand(Fixed(5));
+    bench.run("Section<fixed_type> expand value", [] {
+      Section s(fixed_type(10), fixed_type(20));
+      s.expand(fixed_type(5));
       doNotOptimize(s);
     });
 
@@ -320,9 +320,9 @@ void runGeometryBenchmarks() noexcept {
       s.expand(other);
       doNotOptimize(s);
     });
-    bench.run("Section<Fixed> expand section", [] {
-      Section s(Fixed(10), Fixed(20));
-      Section other(Fixed(25), Fixed(30));
+    bench.run("Section<fixed_type> expand section", [] {
+      Section s(fixed_type(10), fixed_type(20));
+      Section other(fixed_type(25), fixed_type(30));
       s.expand(other);
       doNotOptimize(s);
     });
@@ -337,8 +337,8 @@ void runGeometryBenchmarks() noexcept {
       auto r = s.isReset();
       doNotOptimize(r);
     });
-    bench.run("Section<Fixed> isReset", [] {
-      Section<Fixed> s;
+    bench.run("Section<fixed_type> isReset", [] {
+      Section<fixed_type> s;
       auto r = s.isReset();
       doNotOptimize(r);
     });
@@ -353,8 +353,8 @@ void runGeometryBenchmarks() noexcept {
       auto r = s.isValid();
       doNotOptimize(r);
     });
-    bench.run("Section<Fixed> isValid", [] {
-      Section s(Fixed(10), Fixed(20));
+    bench.run("Section<fixed_type> isValid", [] {
+      Section s(fixed_type(10), fixed_type(20));
       auto r = s.isValid();
       doNotOptimize(r);
     });
@@ -369,9 +369,9 @@ void runGeometryBenchmarks() noexcept {
       auto r = s.isContains(15.0f);
       doNotOptimize(r);
     });
-    bench.run("Section<Fixed> isContains", [] {
-      Section s(Fixed(10), Fixed(20));
-      auto r = s.isContains(Fixed(15));
+    bench.run("Section<fixed_type> isContains", [] {
+      Section s(fixed_type(10), fixed_type(20));
+      auto r = s.isContains(fixed_type(15));
       doNotOptimize(r);
     });
 
@@ -387,9 +387,9 @@ void runGeometryBenchmarks() noexcept {
       auto r = (a == b);
       doNotOptimize(r);
     });
-    bench.run("Section<Fixed> operator==", [] {
-      Section a(Fixed(10), Fixed(20));
-      Section b(Fixed(10), Fixed(20));
+    bench.run("Section<fixed_type> operator==", [] {
+      Section a(fixed_type(10), fixed_type(20));
+      Section b(fixed_type(10), fixed_type(20));
       auto r = (a == b);
       doNotOptimize(r);
     });
@@ -406,9 +406,9 @@ void runGeometryBenchmarks() noexcept {
       auto r = (a != b);
       doNotOptimize(r);
     });
-    bench.run("Section<Fixed> operator!=", [] {
-      Section a(Fixed(10), Fixed(20));
-      Section b(Fixed(15), Fixed(25));
+    bench.run("Section<fixed_type> operator!=", [] {
+      Section a(fixed_type(10), fixed_type(20));
+      Section b(fixed_type(15), fixed_type(25));
       auto r = (a != b);
       doNotOptimize(r);
     });

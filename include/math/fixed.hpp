@@ -79,11 +79,11 @@ concept ValidFixedPointTypes
   \code
   #include "math.hpp"
 
-  using Fixed = toy::math::fixed<int32_t, int64_t, 8>;
-  constexpr Fixed a(2);
-  constexpr Fixed b(3);
+  using fixed_type = toy::math::fixed<int32_t, int64_t, 8>;
+  constexpr fixed_type a(2);
+  constexpr fixed_type b(3);
   constexpr auto sum = a + b;
-  constexpr auto raw = Fixed::fromRawValue(256);
+  constexpr auto raw = fixed_type::fromRawValue(256);
   \endcode
 
   \section performance Performance Characteristics

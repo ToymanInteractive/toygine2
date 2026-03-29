@@ -19,7 +19,7 @@
 //
 /*!
   \file   math_benchark.cpp
-  \brief  Nanobench benchmarks for the math module (Point, Vector2, etc.).
+  \brief  Implementation of nanobench benchmarks for the math module.
 */
 
 #include "benchmark_factory.hpp"
@@ -33,7 +33,7 @@ void fixedMathBenchmarks(ankerl::nanobench::Bench &) noexcept;
 
 using namespace toy::math;
 
-using Fixed = fixed<int32_t, int64_t, 24>;
+using fixed_type = fixed<int32_t, int64_t, 24>;
 
 void runMathBenchmarks() noexcept {
   auto bench = createBench("Math module");
@@ -71,9 +71,9 @@ void runMathBenchmarks() noexcept {
       doNotOptimize(p);
     });
 
-    bench.run("Point operator*= Fixed", [] {
+    bench.run("Point operator*= fixed_type", [] {
       Point p(10, 20);
-      p *= Fixed(2);
+      p *= fixed_type(2);
       doNotOptimize(p);
     });
 
@@ -89,9 +89,9 @@ void runMathBenchmarks() noexcept {
       doNotOptimize(p);
     });
 
-    bench.run("Point operator/= Fixed", [] {
+    bench.run("Point operator/= fixed_type", [] {
       Point p(30, 60);
-      p /= Fixed(3);
+      p /= fixed_type(3);
       doNotOptimize(p);
     });
 
@@ -127,15 +127,15 @@ void runMathBenchmarks() noexcept {
       doNotOptimize(r);
     });
 
-    bench.run("Point operator* Fixed", [] {
+    bench.run("Point operator* fixed_type", [] {
       Point p(10, 20);
-      auto r = p * Fixed(2);
+      auto r = p * fixed_type(2);
       doNotOptimize(r);
     });
 
-    bench.run("Point Fixed * point", [] {
+    bench.run("Point fixed_type * point", [] {
       Point p(5, 10);
-      auto r = Fixed(3) * p;
+      auto r = fixed_type(3) * p;
       doNotOptimize(r);
     });
 
@@ -151,9 +151,9 @@ void runMathBenchmarks() noexcept {
       doNotOptimize(r);
     });
 
-    bench.run("Point operator/ Fixed", [] {
+    bench.run("Point operator/ fixed_type", [] {
       Point p(30, 60);
-      auto r = p / Fixed(3);
+      auto r = p / fixed_type(3);
       doNotOptimize(r);
     });
 
@@ -184,14 +184,14 @@ void runMathBenchmarks() noexcept {
     });
   }
 
-  // Vector2 benchmarks (float and Fixed)
+  // Vector2 benchmarks (float and fixed_type)
   {
     bench.run("Vector2<float> coordinate construct", [] {
       Vector2 v(10.0f, 20.0f);
       doNotOptimize(v);
     });
-    bench.run("Vector2<Fixed> coordinate construct", [] {
-      Vector2 v(Fixed(10), Fixed(20));
+    bench.run("Vector2<fixed_type> coordinate construct", [] {
+      Vector2 v(fixed_type(10), fixed_type(20));
       doNotOptimize(v);
     });
 
@@ -200,9 +200,9 @@ void runMathBenchmarks() noexcept {
       v += Vector2(5.0f, -10.0f);
       doNotOptimize(v);
     });
-    bench.run("Vector2<Fixed> operator+=", [] {
-      Vector2<Fixed> v(Fixed(10), Fixed(20));
-      v += Vector2<Fixed>(Fixed(5), Fixed(-10));
+    bench.run("Vector2<fixed_type> operator+=", [] {
+      Vector2<fixed_type> v(fixed_type(10), fixed_type(20));
+      v += Vector2<fixed_type>(fixed_type(5), fixed_type(-10));
       doNotOptimize(v);
     });
 
@@ -211,9 +211,9 @@ void runMathBenchmarks() noexcept {
       v -= Vector2(5.0f, 10.0f);
       doNotOptimize(v);
     });
-    bench.run("Vector2<Fixed> operator-=", [] {
-      Vector2 v(Fixed(15), Fixed(25));
-      v -= Vector2(Fixed(5), Fixed(10));
+    bench.run("Vector2<fixed_type> operator-=", [] {
+      Vector2 v(fixed_type(15), fixed_type(25));
+      v -= Vector2(fixed_type(5), fixed_type(10));
       doNotOptimize(v);
     });
 
@@ -222,9 +222,9 @@ void runMathBenchmarks() noexcept {
       v *= 2.5f;
       doNotOptimize(v);
     });
-    bench.run("Vector2<Fixed> operator*=", [] {
-      Vector2 v(Fixed(10), Fixed(20));
-      v *= Fixed(2);
+    bench.run("Vector2<fixed_type> operator*=", [] {
+      Vector2 v(fixed_type(10), fixed_type(20));
+      v *= fixed_type(2);
       doNotOptimize(v);
     });
 
@@ -233,9 +233,9 @@ void runMathBenchmarks() noexcept {
       v /= 2.5f;
       doNotOptimize(v);
     });
-    bench.run("Vector2<Fixed> operator/=", [] {
-      Vector2 v(Fixed(20), Fixed(45));
-      v /= Fixed(2);
+    bench.run("Vector2<fixed_type> operator/=", [] {
+      Vector2 v(fixed_type(20), fixed_type(45));
+      v /= fixed_type(2);
       doNotOptimize(v);
     });
 
@@ -244,8 +244,8 @@ void runMathBenchmarks() noexcept {
       auto r = v.sqrMagnitude();
       doNotOptimize(r);
     });
-    bench.run("Vector2<Fixed> sqrMagnitude", [] {
-      Vector2 v(Fixed(3), Fixed(4));
+    bench.run("Vector2<fixed_type> sqrMagnitude", [] {
+      Vector2 v(fixed_type(3), fixed_type(4));
       auto r = v.sqrMagnitude();
       doNotOptimize(r);
     });
@@ -255,8 +255,8 @@ void runMathBenchmarks() noexcept {
       v.setZero();
       doNotOptimize(v);
     });
-    bench.run("Vector2<Fixed> setZero", [] {
-      Vector2 v(Fixed(100), Fixed(200));
+    bench.run("Vector2<fixed_type> setZero", [] {
+      Vector2 v(fixed_type(100), fixed_type(200));
       v.setZero();
       doNotOptimize(v);
     });
@@ -266,8 +266,8 @@ void runMathBenchmarks() noexcept {
       auto r = v.isZero();
       doNotOptimize(r);
     });
-    bench.run("Vector2<Fixed> isZero", [] {
-      Vector2 v(Fixed(0), Fixed(0));
+    bench.run("Vector2<fixed_type> isZero", [] {
+      Vector2 v(fixed_type(0), fixed_type(0));
       auto r = v.isZero();
       doNotOptimize(r);
     });
@@ -278,9 +278,9 @@ void runMathBenchmarks() noexcept {
       auto r = a.isEqual(b);
       doNotOptimize(r);
     });
-    bench.run("Vector2<Fixed> isEqual", [] {
-      Vector2 a(Fixed(10), Fixed(20));
-      Vector2 b(Fixed(10), Fixed(20));
+    bench.run("Vector2<fixed_type> isEqual", [] {
+      Vector2 a(fixed_type(10), fixed_type(20));
+      Vector2 b(fixed_type(10), fixed_type(20));
       auto r = a.isEqual(b);
       doNotOptimize(r);
     });
@@ -290,8 +290,8 @@ void runMathBenchmarks() noexcept {
       auto * arr = v.c_arr();
       doNotOptimize(arr);
     });
-    bench.run("Vector2<Fixed> c_arr", [] {
-      Vector2 v(Fixed(42), Fixed(-17));
+    bench.run("Vector2<fixed_type> c_arr", [] {
+      Vector2 v(fixed_type(42), fixed_type(-17));
       auto * arr = v.c_arr();
       doNotOptimize(arr);
     });
@@ -302,9 +302,9 @@ void runMathBenchmarks() noexcept {
       auto r = a + b;
       doNotOptimize(r);
     });
-    bench.run("Vector2<Fixed> operator+", [] {
-      Vector2 a(Fixed(10), Fixed(20));
-      Vector2 b(Fixed(5), Fixed(-10));
+    bench.run("Vector2<fixed_type> operator+", [] {
+      Vector2 a(fixed_type(10), fixed_type(20));
+      Vector2 b(fixed_type(5), fixed_type(-10));
       auto r = a + b;
       doNotOptimize(r);
     });
@@ -315,9 +315,9 @@ void runMathBenchmarks() noexcept {
       auto r = a - b;
       doNotOptimize(r);
     });
-    bench.run("Vector2<Fixed> operator-", [] {
-      Vector2 a(Fixed(15), Fixed(25));
-      Vector2 b(Fixed(5), Fixed(10));
+    bench.run("Vector2<fixed_type> operator-", [] {
+      Vector2 a(fixed_type(15), fixed_type(25));
+      Vector2 b(fixed_type(5), fixed_type(10));
       auto r = a - b;
       doNotOptimize(r);
     });
@@ -327,8 +327,8 @@ void runMathBenchmarks() noexcept {
       auto r = -v;
       doNotOptimize(r);
     });
-    bench.run("Vector2<Fixed> operator- unary", [] {
-      Vector2 v(Fixed(10), Fixed(-20));
+    bench.run("Vector2<fixed_type> operator- unary", [] {
+      Vector2 v(fixed_type(10), fixed_type(-20));
       auto r = -v;
       doNotOptimize(r);
     });
@@ -338,9 +338,9 @@ void runMathBenchmarks() noexcept {
       auto r = v * 2.5f;
       doNotOptimize(r);
     });
-    bench.run("Vector2<Fixed> operator* scalar", [] {
-      Vector2 v(Fixed(10), Fixed(20));
-      auto r = v * Fixed(2);
+    bench.run("Vector2<fixed_type> operator* scalar", [] {
+      Vector2 v(fixed_type(10), fixed_type(20));
+      auto r = v * fixed_type(2);
       doNotOptimize(r);
     });
 
@@ -349,9 +349,9 @@ void runMathBenchmarks() noexcept {
       auto r = 2.5f * v;
       doNotOptimize(r);
     });
-    bench.run("Vector2<Fixed> scalar * vector", [] {
-      Vector2 v(Fixed(10), Fixed(20));
-      auto r = Fixed(2) * v;
+    bench.run("Vector2<fixed_type> scalar * vector", [] {
+      Vector2 v(fixed_type(10), fixed_type(20));
+      auto r = fixed_type(2) * v;
       doNotOptimize(r);
     });
 
@@ -361,9 +361,9 @@ void runMathBenchmarks() noexcept {
       auto r = a * b;
       doNotOptimize(r);
     });
-    bench.run("Vector2<Fixed> dot product", [] {
-      Vector2 a(Fixed(10), Fixed(20));
-      Vector2 b(Fixed(5), Fixed(10));
+    bench.run("Vector2<fixed_type> dot product", [] {
+      Vector2 a(fixed_type(10), fixed_type(20));
+      Vector2 b(fixed_type(5), fixed_type(10));
       auto r = a * b;
       doNotOptimize(r);
     });
@@ -373,9 +373,9 @@ void runMathBenchmarks() noexcept {
       auto r = v / 2.5f;
       doNotOptimize(r);
     });
-    bench.run("Vector2<Fixed> operator/", [] {
-      Vector2 v(Fixed(25), Fixed(50));
-      auto r = v / Fixed(2);
+    bench.run("Vector2<fixed_type> operator/", [] {
+      Vector2 v(fixed_type(25), fixed_type(50));
+      auto r = v / fixed_type(2);
       doNotOptimize(r);
     });
 
@@ -385,9 +385,9 @@ void runMathBenchmarks() noexcept {
       auto r = (a == b);
       doNotOptimize(r);
     });
-    bench.run("Vector2<Fixed> operator==", [] {
-      Vector2 a(Fixed(10), Fixed(20));
-      Vector2 b(Fixed(10), Fixed(20));
+    bench.run("Vector2<fixed_type> operator==", [] {
+      Vector2 a(fixed_type(10), fixed_type(20));
+      Vector2 b(fixed_type(10), fixed_type(20));
       auto r = (a == b);
       doNotOptimize(r);
     });
@@ -398,9 +398,9 @@ void runMathBenchmarks() noexcept {
       auto r = (a != b);
       doNotOptimize(r);
     });
-    bench.run("Vector2<Fixed> operator!=", [] {
-      Vector2 a(Fixed(10), Fixed(20));
-      Vector2 b(Fixed(11), Fixed(20));
+    bench.run("Vector2<fixed_type> operator!=", [] {
+      Vector2 a(fixed_type(10), fixed_type(20));
+      Vector2 b(fixed_type(11), fixed_type(20));
       auto r = (a != b);
       doNotOptimize(r);
     });
@@ -411,9 +411,9 @@ void runMathBenchmarks() noexcept {
       auto r = cross(a, b);
       doNotOptimize(r);
     });
-    bench.run("Vector2<Fixed> cross", [] {
-      Vector2 a(Fixed(3), Fixed(4));
-      Vector2 b(Fixed(1), Fixed(0));
+    bench.run("Vector2<fixed_type> cross", [] {
+      Vector2 a(fixed_type(3), fixed_type(4));
+      Vector2 b(fixed_type(1), fixed_type(0));
       auto r = cross(a, b);
       doNotOptimize(r);
     });

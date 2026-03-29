@@ -19,7 +19,7 @@
 //
 /*!
   \file   fixed_benchmark.cpp
-  \brief  Nanobench benchmarks for fixed point from the math module.
+  \brief  Implementation of fixed-point nanobench benchmarks for the math module.
 */
 
 #include "../benchmark_factory.hpp"
@@ -27,56 +27,56 @@
 
 namespace toy::math {
 
-using Fixed = fixed<int32_t, int64_t, 24>;
+using fixed_type = fixed<int32_t, int64_t, 24>;
 
 // fixed benchmarks
 void fixedMathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   bench.run("fixed = fixed", [] {
-    Fixed a(0);
-    Fixed b(42);
+    fixed_type a(0);
+    fixed_type b(42);
     a = b;
     doNotOptimize(a);
   });
   bench.run("fixed = int", [] {
-    Fixed a(0);
+    fixed_type a(0);
     a = 42;
     doNotOptimize(a);
   });
 
   bench.run("fixed == fixed", [] {
-    Fixed a(42);
-    Fixed b(42);
+    fixed_type a(42);
+    fixed_type b(42);
     auto r = (a == b);
     doNotOptimize(r);
   });
   bench.run("fixed == int", [] {
-    Fixed f(42);
+    fixed_type f(42);
     int i = 42;
     auto r = (f == i);
     doNotOptimize(r);
   });
   bench.run("int == fixed", [] {
     int i = 42;
-    Fixed f(42);
+    fixed_type f(42);
     auto r = (i == f);
     doNotOptimize(r);
   });
 
   bench.run("fixed <=> fixed", [] {
-    Fixed a(42);
-    Fixed b(42);
+    fixed_type a(42);
+    fixed_type b(42);
     auto r = (a <=> b);
     doNotOptimize(r);
   });
   bench.run("fixed <=> int", [] {
-    Fixed f(42);
+    fixed_type f(42);
     int i = 42;
     auto r = (f <=> i);
     doNotOptimize(r);
   });
   bench.run("int <=> fixed", [] {
     int i = 42;
-    Fixed f(42);
+    fixed_type f(42);
     auto r = (i <=> f);
     doNotOptimize(r);
   });

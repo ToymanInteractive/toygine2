@@ -19,7 +19,7 @@
 //
 /*!
   \file   core_benchmark.cpp
-  \brief  Nanobench benchmarks for the core module (CRC, strings, itoa/utoa/ftoa, etc.).
+  \brief  Implementation of nanobench benchmarks for the core module.
 */
 
 #include "benchmark_factory.hpp"

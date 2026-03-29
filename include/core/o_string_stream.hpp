@@ -664,7 +664,7 @@ public:
 
     \return The previous precision value before the change.
 
-    \pre The \a newPrecision must be non-negative.
+    \pre The \a newPrecision must be lower than or equal to the maximum supported digits for long double.
 
     \note The precision value affects how floating-point numbers are formatted when written to the stream.
 
