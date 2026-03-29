@@ -114,7 +114,8 @@ public:
   [[nodiscard]] constexpr CStringView get() const noexcept;
 
 private:
-  const CStringView _string; //!< The stored format string.
+  /// The stored format string.
+  const CStringView _string;
 
   /*!
     \brief Counts the number of format placeholders in a format string.

@@ -22,7 +22,6 @@
   \brief  Unit tests for \ref toy::OStringStream.
 */
 
-/*
 #include <numbers>
 
 #include <doctest/doctest.h>
@@ -35,8 +34,8 @@ namespace toy {
 TEST_CASE("core/o_string_stream/object_structure") {
   static_assert(!std::is_trivial_v<OStringStream<FixedString<8>>>,
                 "OStringStream must not be trivial (has non-trivial default init)");
-  static_assert(!std::is_trivially_copyable_v<OStringStream<FixedString<8>>>,
-                "OStringStream must not be trivially copyable");
+  static_assert(std::is_trivially_copyable_v<OStringStream<FixedString<8>>>,
+                "OStringStream must be trivially copyable");
   static_assert(std::is_standard_layout_v<OStringStream<FixedString<8>>>, "OStringStream must have standard layout");
 }
 
@@ -121,8 +120,8 @@ TEST_CASE("core/o_string_stream/swap") {
     OStringStream<FixedString<32>> stream1(FixedString<16>("First"));
     OStringStream<FixedString<32>> stream2(FixedString<16>("Second"));
 
-    stream1.precision(3);
-    stream2.precision(9);
+    stream1.setPrecision(3);
+    stream2.setPrecision(9);
 
     stream1.swap(stream2);
 
@@ -137,7 +136,7 @@ TEST_CASE("core/o_string_stream/swap") {
     OStringStream<FixedString<32>> stream1(FixedString<16>("Content"));
     OStringStream<FixedString<32>> stream2;
 
-    stream1.precision(5);
+    stream1.setPrecision(5);
 
     stream1.swap(stream2);
 
@@ -151,7 +150,7 @@ TEST_CASE("core/o_string_stream/swap") {
   SUBCASE("self_swap") {
     OStringStream<FixedString<32>> stream(FixedString<16>("Test"));
 
-    stream.precision(8);
+    stream.setPrecision(8);
     stream.swap(stream);
 
     REQUIRE(stream.str() == "Test");
@@ -162,8 +161,8 @@ TEST_CASE("core/o_string_stream/swap") {
   SUBCASE("swap_empty_streams") {
     array<OStringStream<FixedString<32>>, 2> streams;
 
-    streams[0].precision(2);
-    streams[1].precision(10);
+    streams[0].setPrecision(2);
+    streams[1].setPrecision(10);
 
     streams[0].swap(streams[1]);
 
@@ -505,7 +504,7 @@ TEST_CASE("core/o_string_stream/precision") {
 
     REQUIRE(stream.precision() == 6);
 
-    const auto oldPrecision = stream.precision(10);
+    const auto oldPrecision = stream.setPrecision(10);
 
     REQUIRE(oldPrecision == 6);
     REQUIRE(stream.precision() == 10);
@@ -517,15 +516,15 @@ TEST_CASE("core/o_string_stream/precision") {
 
     REQUIRE(stream.precision() == 6);
 
-    auto prev = stream.precision(2);
+    auto prev = stream.setPrecision(2);
     REQUIRE(prev == 6);
     REQUIRE(stream.precision() == 2);
 
-    prev = stream.precision(15);
+    prev = stream.setPrecision(15);
     REQUIRE(prev == 2);
     REQUIRE(stream.precision() == 15);
 
-    prev = stream.precision(0);
+    prev = stream.setPrecision(0);
     REQUIRE(prev == 15);
     REQUIRE(stream.precision() == 0);
   }
@@ -539,7 +538,7 @@ TEST_CASE("core/o_string_stream/precision") {
     stream.put('A').put('B');
     REQUIRE(stream.precision() == 6);
 
-    stream.precision(3);
+    stream.setPrecision(3);
     REQUIRE(stream.precision() == 3);
     REQUIRE(stream.str() == "AB");
   }
@@ -605,8 +604,8 @@ TEST_CASE("core/o_string_stream/operator_insert") {
   SUBCASE("insert_integers") {
     array<OStringStream<FixedString<24>>, 36> streams;
 
-    streams[0] << long(123);
-    streams[1] << long(-123);
+    streams[0] << long{123};
+    streams[1] << long{-123};
     streams[2] << static_cast<unsigned long>(123);
     streams[3] << static_cast<unsigned long>(0);
     streams[4] << numeric_limits<long long>::min();
@@ -691,7 +690,7 @@ TEST_CASE("core/o_string_stream/operator_insert") {
     streams[4] << -123.456;
     streams[5] << 0.0;
 
-    constexpr std::array<const char *, 6> expects = {"123.456", "-123.456", "0", "123.456", "-123.456", "0"};
+    constexpr std::array<const char *, 6> expects = {{"123.456", "-123.456", "0", "123.456", "-123.456", "0"}};
     for (size_t index = 0; index < expects.size(); ++index)
       REQUIRE(streams[index].str() == expects[index]);
   }
@@ -700,10 +699,10 @@ TEST_CASE("core/o_string_stream/operator_insert") {
   SUBCASE("insert_zero_values") {
     OStringStream<FixedString<24>> stream;
 
-    stream << long(0) << static_cast<unsigned long>(0) << static_cast<long long>(0)
-           << static_cast<unsigned long long>(0) << short(0) << static_cast<unsigned short>(0) << int(0)
-           << static_cast<unsigned int>(0) << static_cast<signed char>(0) << static_cast<unsigned char>(0) << int8_t(0)
-           << uint8_t(0) << int16_t(0) << uint16_t(0) << int32_t(0) << uint32_t(0) << int64_t(0) << uint64_t(0) << 0.0f
+    stream << long{0} << static_cast<unsigned long>(0) << static_cast<long long>(0)
+           << static_cast<unsigned long long>(0) << short{0} << static_cast<unsigned short>(0) << int{0}
+           << static_cast<unsigned int>(0) << static_cast<signed char>(0) << static_cast<unsigned char>(0) << int8_t{0}
+           << uint8_t{0} << int16_t{0} << uint16_t{0} << int32_t{0} << uint32_t{0} << int64_t{0} << uint64_t{0} << 0.0f
            << 0.0;
 
     REQUIRE(stream.str() == "00000000000000000000");
@@ -716,13 +715,13 @@ TEST_CASE("core/o_string_stream/operator_insert") {
     for (auto & s : streams)
       s = OStringStream<FixedString<16>>(prefix);
 
-    streams[0] << long(123);
+    streams[0] << long{123};
     streams[1] << static_cast<unsigned long>(123);
     streams[2] << static_cast<long long>(123);
     streams[3] << static_cast<unsigned long long>(123);
     streams[4] << 123.0;
-    streams[5] << short(123);
-    streams[6] << int(123);
+    streams[5] << short{123};
+    streams[6] << int{123};
     streams[7] << static_cast<unsigned short>(123);
     streams[8] << static_cast<unsigned int>(123);
     streams[9] << 123.0f;
@@ -738,13 +737,13 @@ TEST_CASE("core/o_string_stream/operator_insert") {
   SUBCASE("insert_numbers_returns_reference_for_chaining") {
     array<OStringStream<FixedString<4>>, 12> streams;
 
-    auto & ref0 = streams[0] << long(123);
+    auto & ref0 = streams[0] << long{123};
     auto & ref1 = streams[1] << static_cast<unsigned long>(234);
     auto & ref2 = streams[2] << static_cast<long long>(345);
     auto & ref3 = streams[3] << static_cast<unsigned long long>(456);
     auto & ref4 = streams[4] << 567.0;
-    auto & ref5 = streams[5] << short(678);
-    auto & ref6 = streams[6] << int(789);
+    auto & ref5 = streams[5] << short{678};
+    auto & ref6 = streams[6] << int{789};
     auto & ref7 = streams[7] << static_cast<unsigned short>(890);
     auto & ref8 = streams[8] << static_cast<unsigned int>(901);
     auto & ref9 = streams[9] << 012.0f;
@@ -782,7 +781,7 @@ TEST_CASE("core/o_string_stream/operator_insert") {
   SUBCASE("insert_int8_uint8_min_max_with_separator") {
     OStringStream<FixedString<48>> stream;
 
-    stream << long(123);
+    stream << long{123};
     stream.put(' ');
     stream << static_cast<unsigned long>(234);
     stream.put(' ');
@@ -792,9 +791,9 @@ TEST_CASE("core/o_string_stream/operator_insert") {
     stream.put(' ');
     stream << 567.0;
     stream.put(' ');
-    stream << short(678);
+    stream << short{678};
     stream.put(' ');
-    stream << int(789);
+    stream << int{789};
     stream.put(' ');
     stream << static_cast<unsigned short>(890);
     stream.put(' ');
@@ -813,12 +812,12 @@ TEST_CASE("core/o_string_stream/operator_insert") {
   SUBCASE("insert_natural_numbers_with_custom_precision") {
     array<OStringStream<FixedString<24>>, 8> streams;
 
-    streams[1].precision(3);
-    streams[2].precision(1);
-    streams[3].precision(15);
-    streams[5].precision(3);
-    streams[6].precision(1);
-    streams[7].precision(15);
+    streams[1].setPrecision(3);
+    streams[2].setPrecision(1);
+    streams[3].setPrecision(15);
+    streams[5].setPrecision(3);
+    streams[6].setPrecision(1);
+    streams[7].setPrecision(15);
 
     streams[0] << std::numbers::pi_v<float>;
     streams[1] << std::numbers::pi_v<float>;
@@ -1060,4 +1059,3 @@ TEST_CASE("core/o_string_stream/operator_insert") {
 }
 
 } // namespace toy
-*/

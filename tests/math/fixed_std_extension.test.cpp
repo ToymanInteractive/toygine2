@@ -28,54 +28,55 @@
 
 namespace toy::math {
 
-using Fixed = fixed<int32_t, int32_t, 16>;
-using FixedNoRounding = fixed<int32_t, int32_t, 16, false>;
+using fixed_type = fixed<int32_t, int32_t, 16>;
+using fixed_type_no_rounding = fixed<int32_t, int32_t, 16, false>;
 
 // numeric_limits specialization for fixed.
 TEST_CASE("math/fixed/numeric_limits") {
-  // Core traits match fixed-point semantics.
+  // Core traits match Fixed-point semantics.
   SUBCASE("traits") {
-    REQUIRE(numeric_limits<Fixed>::is_specialized);
-    REQUIRE(numeric_limits<Fixed>::is_signed);
-    REQUIRE(!numeric_limits<Fixed>::is_integer);
-    REQUIRE(numeric_limits<Fixed>::is_exact);
+    REQUIRE(numeric_limits<fixed_type>::is_specialized);
+    REQUIRE(numeric_limits<fixed_type>::is_signed);
+    REQUIRE(!numeric_limits<fixed_type>::is_integer);
+    REQUIRE(numeric_limits<fixed_type>::is_exact);
 
-    static_assert(numeric_limits<Fixed>::is_specialized, "numeric_limits must be specialized");
-    static_assert(numeric_limits<Fixed>::is_signed, "Fixed is signed");
-    static_assert(!numeric_limits<Fixed>::is_integer, "fixed-point is not integer");
-    static_assert(numeric_limits<Fixed>::is_exact, "fixed-point is exact");
+    static_assert(numeric_limits<fixed_type>::is_specialized, "numeric_limits must be specialized");
+    static_assert(numeric_limits<fixed_type>::is_signed, "fixed_type is signed");
+    static_assert(!numeric_limits<fixed_type>::is_integer, "fixed_type is not integer");
+    static_assert(numeric_limits<fixed_type>::is_exact, "fixed_type is exact");
   }
 
   // No infinity or NaN.
   SUBCASE("no_special_values") {
-    REQUIRE(!numeric_limits<Fixed>::has_infinity);
-    REQUIRE(!numeric_limits<Fixed>::has_quiet_NaN);
-    REQUIRE(!numeric_limits<Fixed>::has_signaling_NaN);
+    REQUIRE(!numeric_limits<fixed_type>::has_infinity);
+    REQUIRE(!numeric_limits<fixed_type>::has_quiet_NaN);
+    REQUIRE(!numeric_limits<fixed_type>::has_signaling_NaN);
 
-    static_assert(!numeric_limits<Fixed>::has_infinity, "fixed-point has no infinity");
-    static_assert(!numeric_limits<Fixed>::has_quiet_NaN, "fixed-point has no NaN");
-    static_assert(!numeric_limits<Fixed>::has_signaling_NaN, "fixed-point has no signaling NaN");
+    static_assert(!numeric_limits<fixed_type>::has_infinity, "fixed-point has no infinity");
+    static_assert(!numeric_limits<fixed_type>::has_quiet_NaN, "fixed-point has no NaN");
+    static_assert(!numeric_limits<fixed_type>::has_signaling_NaN, "fixed-point has no signaling NaN");
   }
 
   // Precision and radix.
   SUBCASE("precision") {
-    REQUIRE(numeric_limits<Fixed>::radix == 2);
-    REQUIRE(numeric_limits<Fixed>::digits == 31);
-    REQUIRE(numeric_limits<Fixed>::digits10 == 9);
-    REQUIRE(numeric_limits<Fixed>::max_digits10 == 10);
+    REQUIRE(numeric_limits<fixed_type>::radix == 2);
+    REQUIRE(numeric_limits<fixed_type>::digits == 31);
+    REQUIRE(numeric_limits<fixed_type>::digits10 == 9);
+    REQUIRE(numeric_limits<fixed_type>::max_digits10 == 10);
 
-    static_assert(numeric_limits<Fixed>::radix == 2, "radix must be 2");
-    static_assert(numeric_limits<Fixed>::digits == 31, "digits for int32_t 8 frac is 31");
-    static_assert(numeric_limits<Fixed>::digits10 == 9,
+    static_assert(numeric_limits<fixed_type>::radix == 2, "radix must be 2");
+    static_assert(numeric_limits<fixed_type>::digits == 31, "digits for int32_t 8 frac is 31");
+    static_assert(numeric_limits<fixed_type>::digits10 == 9,
                   "digits10 for fixed<int32_t,int32_t,16> must be floor(31 * log10(2)) = 9");
-    static_assert(numeric_limits<Fixed>::max_digits10 == 10, "max_digits10 for fixed<int32_t,int32_t,16> must be 10");
+    static_assert(numeric_limits<fixed_type>::max_digits10 == 10,
+                  "max_digits10 for fixed<int32_t,int32_t,16> must be 10");
   }
 
   // min, max, lowest.
   SUBCASE("min_max_lowest") {
-    constexpr auto minVal = numeric_limits<Fixed>::min();
-    constexpr auto maxVal = numeric_limits<Fixed>::max();
-    constexpr auto lowestVal = numeric_limits<Fixed>::lowest();
+    constexpr auto minVal = numeric_limits<fixed_type>::min();
+    constexpr auto maxVal = numeric_limits<fixed_type>::max();
+    constexpr auto lowestVal = numeric_limits<fixed_type>::lowest();
 
     REQUIRE(minVal.rawValue() == 1);
     REQUIRE(maxVal.rawValue() == numeric_limits<int32_t>::max());
@@ -88,8 +89,8 @@ TEST_CASE("math/fixed/numeric_limits") {
 
   // Epsilon equals 1 LSB; round_error is 0.5 when Rounding is true, 1.0 when false.
   SUBCASE("epsilon_round_error") {
-    constexpr auto eps = numeric_limits<Fixed>::epsilon();
-    constexpr auto roundErr = numeric_limits<Fixed>::round_error();
+    constexpr auto eps = numeric_limits<fixed_type>::epsilon();
+    constexpr auto roundErr = numeric_limits<fixed_type>::round_error();
 
     REQUIRE(eps.rawValue() == 1);
     REQUIRE(roundErr.rawValue() == 32768);
@@ -98,44 +99,45 @@ TEST_CASE("math/fixed/numeric_limits") {
     static_assert(roundErr.rawValue() == 32768, "round_error is 0.5 in raw units for Rounding true");
   }
 
-  // round_error for FixedNoRounding returns 1.0 (raw 256).
+  // round_error for fixed_type_no_rounding returns 1.0 (raw 256).
   SUBCASE("round_error_no_rounding") {
-    constexpr auto roundErr = numeric_limits<FixedNoRounding>::round_error();
+    constexpr auto roundErr = numeric_limits<fixed_type_no_rounding>::round_error();
 
     REQUIRE(roundErr.rawValue() == 65536);
 
     static_assert(roundErr.rawValue() == 65536, "round_error must be 1.0 when Rounding is false");
   }
 
-  // round_style: round_to_nearest for Fixed, round_toward_zero for FixedNoRounding.
+  // round_style: round_to_nearest for fixed_type, round_toward_zero for fixed_type_no_rounding.
   SUBCASE("round_style") {
-    REQUIRE(numeric_limits<Fixed>::round_style == std::round_to_nearest);
-    REQUIRE(numeric_limits<FixedNoRounding>::round_style == std::round_toward_zero);
+    REQUIRE(numeric_limits<fixed_type>::round_style == std::round_to_nearest);
+    REQUIRE(numeric_limits<fixed_type_no_rounding>::round_style == std::round_toward_zero);
 
-    static_assert(numeric_limits<Fixed>::round_style == std::round_to_nearest,
+    static_assert(numeric_limits<fixed_type>::round_style == std::round_to_nearest,
                   "round_style must be round_to_nearest when Rounding is true");
-    static_assert(numeric_limits<FixedNoRounding>::round_style == std::round_toward_zero,
+    static_assert(numeric_limits<fixed_type_no_rounding>::round_style == std::round_toward_zero,
                   "round_style must be round_toward_zero when Rounding is false");
   }
 
   // Exponent range: min_exponent, max_exponent, min_exponent10, max_exponent10.
   SUBCASE("exponent_range") {
-    REQUIRE(numeric_limits<Fixed>::min_exponent == 1 - 16);
-    REQUIRE(numeric_limits<Fixed>::max_exponent == 31 - 16);
-    REQUIRE(numeric_limits<Fixed>::min_exponent10 <= 0);
-    REQUIRE(numeric_limits<Fixed>::max_exponent10 >= 0);
+    REQUIRE(numeric_limits<fixed_type>::min_exponent == 1 - 16);
+    REQUIRE(numeric_limits<fixed_type>::max_exponent == 31 - 16);
+    REQUIRE(numeric_limits<fixed_type>::min_exponent10 <= 0);
+    REQUIRE(numeric_limits<fixed_type>::max_exponent10 >= 0);
 
-    static_assert(numeric_limits<Fixed>::min_exponent == 1 - 16, "min_exponent is 1 - Fraction");
-    static_assert(numeric_limits<Fixed>::max_exponent == 31 - 16, "max_exponent is digits - Fraction");
-    static_assert(numeric_limits<Fixed>::min_exponent10 <= 0,
+    static_assert(numeric_limits<fixed_type>::min_exponent == 1 - 16, "min_exponent is 1 - Fraction");
+    static_assert(numeric_limits<fixed_type>::max_exponent == 31 - 16, "max_exponent is digits - Fraction");
+    static_assert(numeric_limits<fixed_type>::min_exponent10 <= 0,
                   "min_exponent10 must be non-positive for fractional resolution");
-    static_assert(numeric_limits<Fixed>::max_exponent10 >= 0, "max_exponent10 must be non-negative for integer part");
+    static_assert(numeric_limits<fixed_type>::max_exponent10 >= 0,
+                  "max_exponent10 must be non-negative for integer part");
   }
 
   // denorm_min returns min().
   SUBCASE("denorm_min") {
-    constexpr auto d = numeric_limits<Fixed>::denorm_min();
-    constexpr auto m = numeric_limits<Fixed>::min();
+    constexpr auto d = numeric_limits<fixed_type>::denorm_min();
+    constexpr auto m = numeric_limits<fixed_type>::min();
 
     REQUIRE(d.rawValue() == m.rawValue());
 
@@ -144,13 +146,14 @@ TEST_CASE("math/fixed/numeric_limits") {
 
   // infinity, quiet_NaN, signaling_NaN return zero.
   SUBCASE("stub_special_return_zero") {
-    REQUIRE(numeric_limits<Fixed>::infinity().rawValue() == 0);
-    REQUIRE(numeric_limits<Fixed>::quiet_NaN().rawValue() == 0);
-    REQUIRE(numeric_limits<Fixed>::signaling_NaN().rawValue() == 0);
+    REQUIRE(numeric_limits<fixed_type>::infinity().rawValue() == 0);
+    REQUIRE(numeric_limits<fixed_type>::quiet_NaN().rawValue() == 0);
+    REQUIRE(numeric_limits<fixed_type>::signaling_NaN().rawValue() == 0);
 
-    static_assert(numeric_limits<Fixed>::infinity().rawValue() == 0, "infinity must return zero for fixed-point");
-    static_assert(numeric_limits<Fixed>::quiet_NaN().rawValue() == 0, "quiet_NaN must return zero for fixed-point");
-    static_assert(numeric_limits<Fixed>::signaling_NaN().rawValue() == 0,
+    static_assert(numeric_limits<fixed_type>::infinity().rawValue() == 0, "infinity must return zero for fixed-point");
+    static_assert(numeric_limits<fixed_type>::quiet_NaN().rawValue() == 0,
+                  "quiet_NaN must return zero for fixed-point");
+    static_assert(numeric_limits<fixed_type>::signaling_NaN().rawValue() == 0,
                   "signaling_NaN must return zero for fixed-point");
   }
 }
@@ -159,11 +162,11 @@ TEST_CASE("math/fixed/numeric_limits") {
 TEST_CASE("math/fixed_std_extension/numbers_constants") {
   // All constants are constexpr and positive where expected.
   SUBCASE("constexpr_and_sign") {
-    constexpr auto e = std::numbers::e_v<Fixed>;
-    constexpr auto pi = std::numbers::pi_v<Fixed>;
-    constexpr auto sqrt2 = std::numbers::sqrt2_v<Fixed>;
-    constexpr auto ln2 = std::numbers::ln2_v<Fixed>;
-    constexpr auto inv_pi = std::numbers::inv_pi_v<Fixed>;
+    constexpr auto e = std::numbers::e_v<fixed_type>;
+    constexpr auto pi = std::numbers::pi_v<fixed_type>;
+    constexpr auto sqrt2 = std::numbers::sqrt2_v<fixed_type>;
+    constexpr auto ln2 = std::numbers::ln2_v<fixed_type>;
+    constexpr auto inv_pi = std::numbers::inv_pi_v<fixed_type>;
 
     REQUIRE(e.rawValue() > 0);
     REQUIRE(pi.rawValue() > 0);
@@ -171,17 +174,17 @@ TEST_CASE("math/fixed_std_extension/numbers_constants") {
     REQUIRE(ln2.rawValue() > 0);
     REQUIRE(inv_pi.rawValue() > 0);
 
-    static_assert(std::numbers::e_v<Fixed>.rawValue() > 0, "e must be positive");
-    static_assert(std::numbers::pi_v<Fixed>.rawValue() > 0, "pi must be positive");
-    static_assert(std::numbers::sqrt2_v<Fixed>.rawValue() > 0, "sqrt2 must be positive");
+    static_assert(std::numbers::e_v<fixed_type>.rawValue() > 0, "e must be positive");
+    static_assert(std::numbers::pi_v<fixed_type>.rawValue() > 0, "pi must be positive");
+    static_assert(std::numbers::sqrt2_v<fixed_type>.rawValue() > 0, "sqrt2 must be positive");
   }
 
   // e and pi are close to std double constants when cast to double.
   SUBCASE("e_pi_near_std") {
     constexpr double kTolerance = 1.0 / 256.0;
 
-    const auto eDouble = static_cast<double>(std::numbers::e_v<Fixed>);
-    const auto piDouble = static_cast<double>(std::numbers::pi_v<Fixed>);
+    const auto eDouble = static_cast<double>(std::numbers::e_v<fixed_type>);
+    const auto piDouble = static_cast<double>(std::numbers::pi_v<fixed_type>);
 
     REQUIRE(eDouble > 2.0);
     REQUIRE(eDouble < 3.5);
@@ -192,26 +195,26 @@ TEST_CASE("math/fixed_std_extension/numbers_constants") {
     REQUIRE(abs(piDouble - std::numbers::pi_v<double>) < kTolerance);
   }
 
-  // All 12 constants instantiate for Fixed and FixedNoRounding and are non-zero where expected.
+  // All 12 constants instantiate for fixed_type and fixed_type_no_rounding and are non-zero where expected.
   SUBCASE("all_constants_instantiate") {
-    REQUIRE(std::numbers::e_v<Fixed>.rawValue() != 0);
-    REQUIRE(std::numbers::pi_v<Fixed>.rawValue() != 0);
-    REQUIRE(std::numbers::log2e_v<Fixed>.rawValue() != 0);
-    REQUIRE(std::numbers::log10e_v<Fixed>.rawValue() != 0);
-    REQUIRE(std::numbers::sqrt2_v<Fixed>.rawValue() != 0);
-    REQUIRE(std::numbers::sqrt3_v<Fixed>.rawValue() != 0);
-    REQUIRE(std::numbers::inv_pi_v<Fixed>.rawValue() != 0);
-    REQUIRE(std::numbers::inv_sqrtpi_v<Fixed>.rawValue() != 0);
-    REQUIRE(std::numbers::ln2_v<Fixed>.rawValue() != 0);
-    REQUIRE(std::numbers::ln10_v<Fixed>.rawValue() != 0);
-    REQUIRE(std::numbers::egamma_v<Fixed>.rawValue() != 0);
-    REQUIRE(std::numbers::phi_v<Fixed>.rawValue() != 0);
+    REQUIRE(std::numbers::e_v<fixed_type>.rawValue() != 0);
+    REQUIRE(std::numbers::pi_v<fixed_type>.rawValue() != 0);
+    REQUIRE(std::numbers::log2e_v<fixed_type>.rawValue() != 0);
+    REQUIRE(std::numbers::log10e_v<fixed_type>.rawValue() != 0);
+    REQUIRE(std::numbers::sqrt2_v<fixed_type>.rawValue() != 0);
+    REQUIRE(std::numbers::sqrt3_v<fixed_type>.rawValue() != 0);
+    REQUIRE(std::numbers::inv_pi_v<fixed_type>.rawValue() != 0);
+    REQUIRE(std::numbers::inv_sqrtpi_v<fixed_type>.rawValue() != 0);
+    REQUIRE(std::numbers::ln2_v<fixed_type>.rawValue() != 0);
+    REQUIRE(std::numbers::ln10_v<fixed_type>.rawValue() != 0);
+    REQUIRE(std::numbers::egamma_v<fixed_type>.rawValue() != 0);
+    REQUIRE(std::numbers::phi_v<fixed_type>.rawValue() != 0);
 
-    REQUIRE(std::numbers::e_v<FixedNoRounding>.rawValue() != 0);
-    REQUIRE(std::numbers::pi_v<FixedNoRounding>.rawValue() != 0);
+    REQUIRE(std::numbers::e_v<fixed_type_no_rounding>.rawValue() != 0);
+    REQUIRE(std::numbers::pi_v<fixed_type_no_rounding>.rawValue() != 0);
 
-    static_assert(std::numbers::e_v<Fixed>.rawValue() != 0, "e must be non-zero");
-    static_assert(std::numbers::pi_v<Fixed>.rawValue() != 0, "pi must be non-zero");
+    static_assert(std::numbers::e_v<fixed_type>.rawValue() != 0, "e must be non-zero");
+    static_assert(std::numbers::pi_v<fixed_type>.rawValue() != 0, "pi must be non-zero");
   }
 }
 

@@ -28,23 +28,23 @@
 
 namespace toy::geometry {
 
-using Fixed = math::fixed<int32_t, int64_t, 20>;
+using fixed_type = math::fixed<int32_t, int64_t, 20>;
 
 static_assert(CircleComponent<float>, "float must satisfy CircleComponent");
-static_assert(CircleComponent<Fixed>, "Fixed must satisfy CircleComponent");
+static_assert(CircleComponent<fixed_type>, "math::fixed must satisfy CircleComponent");
 static_assert(!CircleComponent<int>, "int must not satisfy CircleComponent");
 
 // Circle has fixed size and contiguous layout.
 TEST_CASE("geometry/circle/object_structure") {
   static_assert(sizeof(Circle<float>) == sizeof(float) * 3, "Circle size must be 3× component size");
-  static_assert(sizeof(Circle<Fixed>) == sizeof(Fixed) * 3, "Circle size must be 3× component size");
+  static_assert(sizeof(Circle<fixed_type>) == sizeof(fixed_type) * 3, "Circle size must be 3× component size");
 
   static_assert(!std::is_trivial_v<Circle<float>>, "Circle<float> must not be trivial");
-  static_assert(!std::is_trivial_v<Circle<Fixed>>, "Circle<Fixed> must not be trivial");
+  static_assert(!std::is_trivial_v<Circle<fixed_type>>, "Circle<fixed_type> must not be trivial");
   static_assert(std::is_trivially_copyable_v<Circle<float>>, "Circle<float> must be trivially copyable");
-  static_assert(std::is_trivially_copyable_v<Circle<Fixed>>, "Circle<Fixed> must be trivially copyable");
+  static_assert(std::is_trivially_copyable_v<Circle<fixed_type>>, "Circle<fixed_type> must be trivially copyable");
   static_assert(std::is_standard_layout_v<Circle<float>>, "Circle<float> must have standard layout");
-  static_assert(std::is_standard_layout_v<Circle<Fixed>>, "Circle<Fixed> must have standard layout");
+  static_assert(std::is_standard_layout_v<Circle<fixed_type>>, "Circle<fixed_type> must have standard layout");
 }
 
 // Constructor (center, radius) stores center and radius; valid when radius > 0.
@@ -68,7 +68,7 @@ TEST_CASE("geometry/circle/constructor_center_radius") {
 
   // Fixed-point component type.
   SUBCASE("fixed") {
-    constexpr Circle c(math::Vector2(Fixed(5), Fixed(10)), Fixed(3));
+    constexpr Circle c(math::Vector2(fixed_type(5), fixed_type(10)), fixed_type(3));
 
     REQUIRE(c.center.x == 5);
     REQUIRE(c.center.y == 10);
@@ -97,11 +97,11 @@ TEST_CASE("geometry/circle/area") {
 
   // Fixed-point component type.
   SUBCASE("fixed") {
-    constexpr Circle c(math::Vector2(Fixed(0), Fixed(0)), Fixed(10));
+    constexpr Circle c(math::Vector2(fixed_type(0), fixed_type(0)), fixed_type(10));
 
-    REQUIRE(math::isEqual(c.area(), Fixed(314.159265f)));
+    REQUIRE(math::isEqual(c.area(), fixed_type(314.159265f)));
 
-    static_assert(math::isEqual(c.area(), Fixed(314.159265f)), "area of radius 10 must be π*100");
+    static_assert(math::isEqual(c.area(), fixed_type(314.159265f)), "area of radius 10 must be π*100");
   }
 }
 
@@ -121,7 +121,7 @@ TEST_CASE("geometry/circle/reset") {
 
   // Fixed-point component type.
   SUBCASE("fixed") {
-    Circle c(math::Vector2(Fixed(10), Fixed(20)), Fixed(5));
+    Circle c(math::Vector2(fixed_type(10), fixed_type(20)), fixed_type(5));
 
     c.reset();
 
@@ -149,8 +149,8 @@ TEST_CASE("geometry/circle/is_reset") {
 
   // Fixed-point component type.
   SUBCASE("fixed") {
-    Circle<Fixed> cZero;
-    constexpr Circle cPos(math::Vector2(Fixed(0), Fixed(0)), Fixed(1));
+    Circle<fixed_type> cZero;
+    constexpr Circle cPos(math::Vector2(fixed_type(0), fixed_type(0)), fixed_type(1));
 
     cZero.reset();
 
@@ -178,8 +178,8 @@ TEST_CASE("geometry/circle/is_valid") {
 
   // Fixed-point component type.
   SUBCASE("fixed") {
-    Circle<Fixed> cZero;
-    constexpr Circle cPos(math::Vector2(Fixed(0), Fixed(0)), Fixed(1));
+    Circle<fixed_type> cZero;
+    constexpr Circle cPos(math::Vector2(fixed_type(0), fixed_type(0)), fixed_type(1));
 
     cZero.reset();
 
@@ -209,17 +209,17 @@ TEST_CASE("geometry/circle/is_contain") {
 
   // Fixed-point component type.
   SUBCASE("fixed") {
-    constexpr Circle c(math::Vector2(Fixed(0), Fixed(0)), Fixed(10));
+    constexpr Circle c(math::Vector2(fixed_type(0), fixed_type(0)), fixed_type(10));
 
-    REQUIRE(c.isContain(math::Vector2(Fixed(0), Fixed(0))));
-    REQUIRE(c.isContain(math::Vector2(Fixed(5), Fixed(0))));
-    REQUIRE(c.isContain(math::Vector2(Fixed(10), Fixed(0))));
-    REQUIRE(!c.isContain(math::Vector2(Fixed(11), Fixed(0))));
+    REQUIRE(c.isContain(math::Vector2(fixed_type(0), fixed_type(0))));
+    REQUIRE(c.isContain(math::Vector2(fixed_type(5), fixed_type(0))));
+    REQUIRE(c.isContain(math::Vector2(fixed_type(10), fixed_type(0))));
+    REQUIRE(!c.isContain(math::Vector2(fixed_type(11), fixed_type(0))));
 
-    static_assert(c.isContain(math::Vector2(Fixed(0), Fixed(0))), "center must be contained");
-    static_assert(c.isContain(math::Vector2(Fixed(5), Fixed(0))), "point inside must be contained");
-    static_assert(c.isContain(math::Vector2(Fixed(10), Fixed(0))), "point on boundary must be contained");
-    static_assert(!c.isContain(math::Vector2(Fixed(11), Fixed(0))), "point outside must not be contained");
+    static_assert(c.isContain(math::Vector2(fixed_type(0), fixed_type(0))), "center must be contained");
+    static_assert(c.isContain(math::Vector2(fixed_type(5), fixed_type(0))), "point inside must be contained");
+    static_assert(c.isContain(math::Vector2(fixed_type(10), fixed_type(0))), "point on boundary must be contained");
+    static_assert(!c.isContain(math::Vector2(fixed_type(11), fixed_type(0))), "point outside must not be contained");
   }
 }
 
@@ -229,8 +229,8 @@ TEST_CASE("geometry/circle/operator_equality") {
   SUBCASE("equal") {
     constexpr Circle a(math::Vector2(1.0f, 2.0f), 3.0f);
     constexpr Circle b(math::Vector2(1.0f, 2.0f), 3.0f);
-    constexpr Circle af(math::Vector2(Fixed(1), Fixed(2)), Fixed(3));
-    constexpr Circle bf(math::Vector2(Fixed(1), Fixed(2)), Fixed(3));
+    constexpr Circle af(math::Vector2(fixed_type(1), fixed_type(2)), fixed_type(3));
+    constexpr Circle bf(math::Vector2(fixed_type(1), fixed_type(2)), fixed_type(3));
 
     REQUIRE(a == b);
     REQUIRE(!(a != b));
@@ -248,9 +248,9 @@ TEST_CASE("geometry/circle/operator_equality") {
     constexpr Circle a(math::Vector2(1.0f, 2.0f), 3.0f);
     constexpr Circle b(math::Vector2(1.0f, 2.0f), 4.0f);
     constexpr Circle c(math::Vector2(1.0f, 3.0f), 3.0f);
-    constexpr Circle af(math::Vector2(Fixed(1), Fixed(2)), Fixed(3));
-    constexpr Circle bf(math::Vector2(Fixed(1), Fixed(2)), Fixed(4));
-    constexpr Circle cf(math::Vector2(Fixed(1), Fixed(3)), Fixed(3));
+    constexpr Circle af(math::Vector2(fixed_type(1), fixed_type(2)), fixed_type(3));
+    constexpr Circle bf(math::Vector2(fixed_type(1), fixed_type(2)), fixed_type(4));
+    constexpr Circle cf(math::Vector2(fixed_type(1), fixed_type(3)), fixed_type(3));
 
     REQUIRE(a != b);
     REQUIRE(a != c);

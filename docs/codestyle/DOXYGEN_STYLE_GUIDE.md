@@ -36,8 +36,7 @@ Each item in the `\section features Key Features` list uses **bold emphasis** fo
 ### Comment Blocks
 
 - Use `/*! ... */` for multi-line documentation blocks.
-- Use `///` for single-line comments (typically for member variables).
-- Use `//!<` for inline documentation after a declaration (type aliases, simple members).
+- Use `///` for single-line documentation, always placed before the declaration.
 - Always start with `/*!` on a new line.
 - Align closing `*/` with the opening `/*!`.
 

@@ -28,7 +28,7 @@
 
 namespace toy::math {
 
-using Fixed = fixed<int32_t, int64_t, 20>;
+using fixed_type = fixed<int32_t, int64_t, 20>;
 
 // Absolute value of integers and floating-point numbers: non-negative unchanged, negative yields positive.
 TEST_CASE("math/utils/abs") {
@@ -89,17 +89,17 @@ TEST_CASE("math/utils/abs") {
 
   // Fixed-point: non-negative unchanged, negative yields positive.
   SUBCASE("fixed_point") {
-    REQUIRE(abs(Fixed(0)) == Fixed(0));
-    REQUIRE(abs(Fixed(2)) == Fixed(2));
-    REQUIRE(abs(Fixed(-2)) == Fixed(2));
-    REQUIRE(abs(Fixed(10)) == Fixed(10));
-    REQUIRE(abs(Fixed(-10)) == Fixed(10));
+    REQUIRE(abs(fixed_type(0)) == fixed_type(0));
+    REQUIRE(abs(fixed_type(2)) == fixed_type(2));
+    REQUIRE(abs(fixed_type(-2)) == fixed_type(2));
+    REQUIRE(abs(fixed_type(10)) == fixed_type(10));
+    REQUIRE(abs(fixed_type(-10)) == fixed_type(10));
 
-    static_assert(abs(Fixed(0)) == Fixed(0), "abs of zero fixed must remain zero");
-    static_assert(abs(Fixed(2)) == Fixed(2), "abs of positive fixed must be unchanged");
-    static_assert(abs(Fixed(-2)) == Fixed(2), "abs of negative fixed must yield positive");
-    static_assert(abs(Fixed(10)) == Fixed(10), "abs of positive fixed must be unchanged");
-    static_assert(abs(Fixed(-10)) == Fixed(10), "abs of negative fixed must yield positive");
+    static_assert(abs(fixed_type(0)) == fixed_type(0), "abs of zero fixed must remain zero");
+    static_assert(abs(fixed_type(2)) == fixed_type(2), "abs of positive fixed must be unchanged");
+    static_assert(abs(fixed_type(-2)) == fixed_type(2), "abs of negative fixed must yield positive");
+    static_assert(abs(fixed_type(10)) == fixed_type(10), "abs of positive fixed must be unchanged");
+    static_assert(abs(fixed_type(-10)) == fixed_type(10), "abs of negative fixed must yield positive");
   }
 }
 
@@ -113,8 +113,8 @@ TEST_CASE("math/utils/is_equal") {
     REQUIRE(isEqual(1.0, 1.0));
     REQUIRE(isEqual(0.0L, 0.0L));
     REQUIRE(isEqual(1.0L, 1.0L));
-    REQUIRE(isEqual(Fixed(0), Fixed(0)));
-    REQUIRE(isEqual(Fixed(1), Fixed(1)));
+    REQUIRE(isEqual(fixed_type(0), fixed_type(0)));
+    REQUIRE(isEqual(fixed_type(1), fixed_type(1)));
 
     static_assert(isEqual(0.0f, 0.0f), "identical float values must be equal");
     static_assert(isEqual(1.0f, 1.0f), "identical float values must be equal");
@@ -122,8 +122,8 @@ TEST_CASE("math/utils/is_equal") {
     static_assert(isEqual(1.0, 1.0), "identical double values must be equal");
     static_assert(isEqual(0.0L, 0.0L), "identical long double values must be equal");
     static_assert(isEqual(1.0L, 1.0L), "identical long double values must be equal");
-    static_assert(isEqual(Fixed(0), Fixed(0)), "identical fixed values must be equal");
-    static_assert(isEqual(Fixed(1), Fixed(1)), "identical fixed values must be equal");
+    static_assert(isEqual(fixed_type(0), fixed_type(0)), "identical fixed values must be equal");
+    static_assert(isEqual(fixed_type(1), fixed_type(1)), "identical fixed values must be equal");
   }
 
   // Within default absolute epsilon: treated as equal; beyond it (with relEpsilon zero) treated as not equal.
@@ -214,29 +214,29 @@ TEST_CASE("math/utils/is_equal") {
 
   // Fixed-point: identical, absolute epsilon, clearly different, custom epsilons.
   SUBCASE("fixed_point") {
-    constexpr auto eps = numeric_limits<Fixed>::epsilon();
-    constexpr auto absEps8 = Fixed(8) * eps;
+    constexpr auto eps = numeric_limits<fixed_type>::epsilon();
+    constexpr auto absEps8 = fixed_type(8) * eps;
 
-    REQUIRE(isEqual(Fixed(0), eps));
-    REQUIRE(isEqual(Fixed(0), -eps));
-    REQUIRE(isEqual(Fixed(0), Fixed::fromRawValue(4), absEps8, Fixed(0)));
-    REQUIRE(!isEqual(Fixed(0), Fixed::fromRawValue(9), absEps8, Fixed(0)));
+    REQUIRE(isEqual(fixed_type(0), eps));
+    REQUIRE(isEqual(fixed_type(0), -eps));
+    REQUIRE(isEqual(fixed_type(0), fixed_type::fromRawValue(4), absEps8, fixed_type(0)));
+    REQUIRE(!isEqual(fixed_type(0), fixed_type::fromRawValue(9), absEps8, fixed_type(0)));
 
-    static_assert(isEqual(Fixed(0), eps), "fixed values within default absolute epsilon must be equal");
-    static_assert(isEqual(Fixed(0), -eps), "fixed values within default absolute epsilon must be equal");
-    static_assert(!isEqual(Fixed(0), Fixed(1)), "clearly different fixed values must not be equal");
+    static_assert(isEqual(fixed_type(0), eps), "fixed values within default absolute epsilon must be equal");
+    static_assert(isEqual(fixed_type(0), -eps), "fixed values within default absolute epsilon must be equal");
+    static_assert(!isEqual(fixed_type(0), fixed_type(1)), "clearly different fixed values must not be equal");
 
-    REQUIRE(!isEqual(Fixed(0), Fixed(1)));
-    REQUIRE(!isEqual(Fixed(1), Fixed(2)));
+    REQUIRE(!isEqual(fixed_type(0), fixed_type(1)));
+    REQUIRE(!isEqual(fixed_type(1), fixed_type(2)));
 
-    constexpr Fixed customAbs(1);
-    REQUIRE(isEqual(Fixed(0), Fixed(0), customAbs, Fixed(0)));
-    REQUIRE(isEqual(Fixed(0), Fixed(1), customAbs, Fixed(0)));
-    REQUIRE(!isEqual(Fixed(0), Fixed(2), customAbs, Fixed(0)));
+    constexpr fixed_type customAbs(1);
+    REQUIRE(isEqual(fixed_type(0), fixed_type(0), customAbs, fixed_type(0)));
+    REQUIRE(isEqual(fixed_type(0), fixed_type(1), customAbs, fixed_type(0)));
+    REQUIRE(!isEqual(fixed_type(0), fixed_type(2), customAbs, fixed_type(0)));
 
-    static_assert(isEqual(Fixed(0), Fixed(1), Fixed(1), Fixed(0)),
+    static_assert(isEqual(fixed_type(0), fixed_type(1), fixed_type(1), fixed_type(0)),
                   "fixed within custom absolute epsilon must be equal");
-    static_assert(!isEqual(Fixed(0), Fixed(2), Fixed(1), Fixed(0)),
+    static_assert(!isEqual(fixed_type(0), fixed_type(2), fixed_type(1), fixed_type(0)),
                   "fixed beyond custom absolute epsilon must not be equal");
   }
 }
@@ -249,15 +249,15 @@ TEST_CASE("math/utils/deg2rad_rad2deg") {
     REQUIRE(isEqual(rad2deg(0.0f), 0.0f));
     REQUIRE(isEqual(deg2rad(0.0), 0.0));
     REQUIRE(isEqual(rad2deg(0.0), 0.0));
-    REQUIRE(deg2rad(Fixed(0)) == Fixed(0));
-    REQUIRE(rad2deg(Fixed(0)) == Fixed(0));
+    REQUIRE(deg2rad(fixed_type(0)) == fixed_type(0));
+    REQUIRE(rad2deg(fixed_type(0)) == fixed_type(0));
 
     static_assert(isEqual(deg2rad(0.0f), 0.0f), "deg2rad(0) float must be zero");
     static_assert(isEqual(rad2deg(0.0f), 0.0f), "rad2deg(0) float must be zero");
     static_assert(isEqual(deg2rad(0.0), 0.0), "deg2rad(0) double must be zero");
     static_assert(isEqual(rad2deg(0.0), 0.0), "rad2deg(0) double must be zero");
-    static_assert(deg2rad(Fixed(0)) == Fixed(0), "deg2rad(0) fixed must be zero");
-    static_assert(rad2deg(Fixed(0)) == Fixed(0), "rad2deg(0) fixed must be zero");
+    static_assert(deg2rad(fixed_type(0)) == fixed_type(0), "deg2rad(0) fixed must be zero");
+    static_assert(rad2deg(fixed_type(0)) == fixed_type(0), "rad2deg(0) fixed must be zero");
   }
 
   // 180 degrees equals π radians; π radians equals 180 degrees.
@@ -266,15 +266,15 @@ TEST_CASE("math/utils/deg2rad_rad2deg") {
     REQUIRE(isEqual(rad2deg(constants::pi_v<float>), 180.0f));
     REQUIRE(isEqual(deg2rad(180.0), constants::pi_v<double>));
     REQUIRE(isEqual(rad2deg(constants::pi_v<double>), 180.0));
-    REQUIRE(isEqual(deg2rad(Fixed(180)), constants::pi_v<Fixed>));
-    REQUIRE(isEqual(rad2deg(constants::pi_v<Fixed>), Fixed(180)));
+    REQUIRE(isEqual(deg2rad(fixed_type(180)), constants::pi_v<fixed_type>));
+    REQUIRE(isEqual(rad2deg(constants::pi_v<fixed_type>), fixed_type(180)));
 
     static_assert(isEqual(deg2rad(180.0f), constants::pi_v<float>), "deg2rad(180) float must equal π");
     static_assert(isEqual(rad2deg(constants::pi_v<float>), 180.0f), "rad2deg(π) float must equal 180");
     static_assert(isEqual(deg2rad(180.0), constants::pi_v<double>), "deg2rad(180) double must equal π");
     static_assert(isEqual(rad2deg(constants::pi_v<double>), 180.0), "rad2deg(π) double must equal 180");
-    static_assert(isEqual(deg2rad(Fixed(180)), constants::pi_v<Fixed>), "deg2rad(180) fixed must equal π");
-    static_assert(isEqual(rad2deg(constants::pi_v<Fixed>), Fixed(180)), "rad2deg(π) fixed must equal 180");
+    static_assert(isEqual(deg2rad(fixed_type(180)), constants::pi_v<fixed_type>), "deg2rad(180) fixed must equal π");
+    static_assert(isEqual(rad2deg(constants::pi_v<fixed_type>), fixed_type(180)), "rad2deg(π) fixed must equal 180");
   }
 
   // Round-trip: rad2deg(deg2rad(x)) ≈ x.
@@ -289,11 +289,11 @@ TEST_CASE("math/utils/deg2rad_rad2deg") {
     REQUIRE(isEqual(rad2deg(deg2rad(90.0)), 90.0));
     REQUIRE(isEqual(rad2deg(deg2rad(180.0)), 180.0));
     REQUIRE(isEqual(rad2deg(deg2rad(360.0)), 360.0));
-    REQUIRE(rad2deg(deg2rad(Fixed(0))) == Fixed(0));
-    REQUIRE(isEqual(rad2deg(deg2rad(Fixed(45))), Fixed(45)));
-    REQUIRE(isEqual(rad2deg(deg2rad(Fixed(90))), Fixed(90)));
-    REQUIRE(isEqual(rad2deg(deg2rad(Fixed(180))), Fixed(180)));
-    REQUIRE(isEqual(rad2deg(deg2rad(Fixed(360))), Fixed(360)));
+    REQUIRE(rad2deg(deg2rad(fixed_type(0))) == fixed_type(0));
+    REQUIRE(isEqual(rad2deg(deg2rad(fixed_type(45))), fixed_type(45)));
+    REQUIRE(isEqual(rad2deg(deg2rad(fixed_type(90))), fixed_type(90)));
+    REQUIRE(isEqual(rad2deg(deg2rad(fixed_type(180))), fixed_type(180)));
+    REQUIRE(isEqual(rad2deg(deg2rad(fixed_type(360))), fixed_type(360)));
 
     static_assert(isEqual(rad2deg(deg2rad(0.0f)), 0.0f), "round-trip 0 deg float must be 0");
     static_assert(isEqual(rad2deg(deg2rad(45.0f)), 45.0f), "round-trip 45 deg float must be 45");
@@ -305,11 +305,11 @@ TEST_CASE("math/utils/deg2rad_rad2deg") {
     static_assert(isEqual(rad2deg(deg2rad(90.0)), 90.0), "round-trip 90 deg double must be 90");
     static_assert(isEqual(rad2deg(deg2rad(180.0)), 180.0), "round-trip 180 deg double must be 180");
     static_assert(isEqual(rad2deg(deg2rad(360.0)), 360.0), "round-trip 360 deg double must be 360");
-    static_assert(rad2deg(deg2rad(Fixed(0))) == Fixed(0), "round-trip 0 deg fixed must be 0");
-    static_assert(isEqual(rad2deg(deg2rad(Fixed(45))), Fixed(45)), "round-trip 45 deg fixed must be 45");
-    static_assert(isEqual(rad2deg(deg2rad(Fixed(90))), Fixed(90)), "round-trip 90 deg fixed must be 90");
-    static_assert(isEqual(rad2deg(deg2rad(Fixed(180))), Fixed(180)), "round-trip 180 deg fixed must be 180");
-    static_assert(isEqual(rad2deg(deg2rad(Fixed(360))), Fixed(360)), "round-trip 360 deg fixed must be 360");
+    static_assert(rad2deg(deg2rad(fixed_type(0))) == fixed_type(0), "round-trip 0 deg fixed must be 0");
+    static_assert(isEqual(rad2deg(deg2rad(fixed_type(45))), fixed_type(45)), "round-trip 45 deg fixed must be 45");
+    static_assert(isEqual(rad2deg(deg2rad(fixed_type(90))), fixed_type(90)), "round-trip 90 deg fixed must be 90");
+    static_assert(isEqual(rad2deg(deg2rad(fixed_type(180))), fixed_type(180)), "round-trip 180 deg fixed must be 180");
+    static_assert(isEqual(rad2deg(deg2rad(fixed_type(360))), fixed_type(360)), "round-trip 360 deg fixed must be 360");
   }
 }
 

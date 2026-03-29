@@ -54,6 +54,16 @@ constexpr FixedString<allocatedSize>::FixedString(const stringType & string) noe
 }
 
 template <size_t allocatedSize>
+template <StringLike stringType>
+constexpr FixedString<allocatedSize>::FixedString(stringType && string) noexcept {
+  assert_message(string.size() < allocatedSize, "String size must not exceed capacity");
+
+  _storage.size = string.size();
+
+  char_traits<char>::move(_storage.buffer, string.c_str(), _storage.size + 1);
+}
+
+template <size_t allocatedSize>
 constexpr FixedString<allocatedSize>::FixedString(const char * string) noexcept {
   assert_message(string != nullptr, "C string must not be null");
 
@@ -61,18 +71,6 @@ constexpr FixedString<allocatedSize>::FixedString(const char * string) noexcept 
   assert_message(_storage.size < allocatedSize, "String length must not exceed capacity");
 
   char_traits<char>::copy(_storage.buffer, string, _storage.size + 1);
-}
-
-template <size_t allocatedSize>
-constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::operator=(
-  const FixedString<allocatedSize> & string) noexcept {
-  if (this == std::addressof(string))
-    return *this;
-
-  _storage.size = string._storage.size;
-  char_traits<char>::move(_storage.buffer, string._storage.buffer, _storage.size + 1);
-
-  return *this;
 }
 
 template <size_t allocatedSize>

@@ -277,8 +277,7 @@ Each item in the `\section features Key Features` list uses **bold emphasis** fo
 ### Doxygen Block Style
 
 - Use `/*! ... */` for multi-line documentation blocks. Start `/*!` on its own line; align `*/` with `/*!`.
-- Use `///` for single-line documentation of member variables and brief items.
-- Use inline `//!<` comments for type aliases and simple member variable documentation after the declaration.
+- Use `///` for single-line documentation, always placed before the declaration.
 - Use 2 spaces for indentation inside documentation blocks.
 
 ---

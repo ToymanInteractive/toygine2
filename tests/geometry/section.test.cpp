@@ -28,28 +28,28 @@
 
 namespace toy::geometry {
 
-using Fixed = math::fixed<int32_t, int32_t, 24>;
+using fixed_type = math::fixed<int32_t, int32_t, 24>;
 
 static_assert(SectionEndpoint<int>, "int must satisfy SectionEndpoint");
 static_assert(SectionEndpoint<float>, "float must satisfy SectionEndpoint");
-static_assert(SectionEndpoint<Fixed>, "Fixed must satisfy SectionEndpoint");
+static_assert(SectionEndpoint<fixed_type>, "fixed_type must satisfy SectionEndpoint");
 static_assert(!SectionEndpoint<unsigned int>, "unsigned endpoints must remain rejected");
 
 // Section has fixed size and contiguous layout.
 TEST_CASE("geometry/section/object_structure") {
   static_assert(sizeof(Section<int>) == sizeof(int) * 2, "Section size must be 2× component size");
   static_assert(sizeof(Section<float>) == sizeof(float) * 2, "Section size must be 2× component size");
-  static_assert(sizeof(Section<Fixed>) == sizeof(Fixed) * 2, "Section size must be 2× component size");
+  static_assert(sizeof(Section<fixed_type>) == sizeof(fixed_type) * 2, "Section size must be 2× component size");
 
   static_assert(!std::is_trivial_v<Section<int>>, "Section<int> must not be trivial");
   static_assert(!std::is_trivial_v<Section<float>>, "Section<float> must not be trivial");
-  static_assert(!std::is_trivial_v<Section<Fixed>>, "Section<Fixed> must not be trivial");
+  static_assert(!std::is_trivial_v<Section<fixed_type>>, "Section<fixed_type> must not be trivial");
   static_assert(std::is_trivially_copyable_v<Section<int>>, "Section<int> must be trivially copyable");
   static_assert(std::is_trivially_copyable_v<Section<float>>, "Section<float> must be trivially copyable");
-  static_assert(std::is_trivially_copyable_v<Section<Fixed>>, "Section<Fixed> must be trivially copyable");
+  static_assert(std::is_trivially_copyable_v<Section<fixed_type>>, "Section<fixed_type> must be trivially copyable");
   static_assert(std::is_standard_layout_v<Section<int>>, "Section<int> must have standard layout");
   static_assert(std::is_standard_layout_v<Section<float>>, "Section<float> must have standard layout");
-  static_assert(std::is_standard_layout_v<Section<Fixed>>, "Section<Fixed> must have standard layout");
+  static_assert(std::is_standard_layout_v<Section<fixed_type>>, "Section<fixed_type> must have standard layout");
 }
 
 // Section(start, end) stores bounds; valid when start <= end.
@@ -86,15 +86,15 @@ TEST_CASE("geometry/section/constructor_bounds") {
 
   // Fixed-point endpoint type.
   SUBCASE("fixed") {
-    constexpr Section s(Fixed(10), Fixed(20));
+    constexpr Section s(fixed_type(10), fixed_type(20));
 
-    REQUIRE(s.start == Fixed(10));
-    REQUIRE(s.end == Fixed(20));
+    REQUIRE(s.start == fixed_type(10));
+    REQUIRE(s.end == fixed_type(20));
     REQUIRE(s.isValid());
     REQUIRE(!s.isReset());
 
-    static_assert(s.start == Fixed(10), "constructor must store start");
-    static_assert(s.end == Fixed(20), "constructor must store end");
+    static_assert(s.start == fixed_type(10), "constructor must store start");
+    static_assert(s.end == fixed_type(20), "constructor must store end");
     static_assert(s.isValid(), "Section(10,20) fixed must be valid");
     static_assert(!s.isReset(), "Section(10,20) fixed must not be reset");
   }
@@ -122,11 +122,11 @@ TEST_CASE("geometry/section/midpoint") {
 
   // Fixed-point endpoint type.
   SUBCASE("fixed") {
-    constexpr Section s(Fixed(1), Fixed(3));
+    constexpr Section s(fixed_type(1), fixed_type(3));
 
-    REQUIRE(s.midpoint() == Fixed(2));
+    REQUIRE(s.midpoint() == fixed_type(2));
 
-    static_assert(s.midpoint() == Fixed(2), "midpoint of [1,3] must be 2");
+    static_assert(s.midpoint() == fixed_type(2), "midpoint of [1,3] must be 2");
   }
 }
 
@@ -152,11 +152,11 @@ TEST_CASE("geometry/section/length") {
 
   // Fixed-point endpoint type.
   SUBCASE("fixed") {
-    constexpr Section s(Fixed(1), Fixed(3));
+    constexpr Section s(fixed_type(1), fixed_type(3));
 
-    REQUIRE(s.length() == Fixed(2));
+    REQUIRE(s.length() == fixed_type(2));
 
-    static_assert(s.length() == Fixed(2), "length of [1,3] must be 2");
+    static_assert(s.length() == fixed_type(2), "length of [1,3] must be 2");
   }
 }
 
@@ -188,14 +188,14 @@ TEST_CASE("geometry/section/reset") {
 
   // Fixed-point endpoint type.
   SUBCASE("fixed") {
-    Section s(Fixed(1), Fixed(10));
+    Section s(fixed_type(1), fixed_type(10));
 
     s.reset();
 
     REQUIRE(s.isReset());
     REQUIRE(!s.isValid());
-    REQUIRE(s.start == numeric_limits<Fixed>::max());
-    REQUIRE(s.end == numeric_limits<Fixed>::lowest());
+    REQUIRE(s.start == numeric_limits<fixed_type>::max());
+    REQUIRE(s.end == numeric_limits<fixed_type>::lowest());
   }
 }
 
@@ -243,22 +243,22 @@ TEST_CASE("geometry/section/expand_value") {
 
   // Fixed-point endpoint type.
   SUBCASE("fixed") {
-    Section s(Fixed(10), Fixed(20));
+    Section s(fixed_type(10), fixed_type(20));
 
-    s.expand(Fixed(5));
+    s.expand(fixed_type(5));
 
-    REQUIRE(s.start == Fixed(5));
-    REQUIRE(s.end == Fixed(20));
+    REQUIRE(s.start == fixed_type(5));
+    REQUIRE(s.end == fixed_type(20));
 
-    s.expand(Fixed(25));
+    s.expand(fixed_type(25));
 
-    REQUIRE(s.start == Fixed(5));
-    REQUIRE(s.end == Fixed(25));
+    REQUIRE(s.start == fixed_type(5));
+    REQUIRE(s.end == fixed_type(25));
 
-    s.expand(Fixed(15));
+    s.expand(fixed_type(15));
 
-    REQUIRE(s.start == Fixed(5));
-    REQUIRE(s.end == Fixed(25));
+    REQUIRE(s.start == fixed_type(5));
+    REQUIRE(s.end == fixed_type(25));
   }
 }
 
@@ -294,16 +294,16 @@ TEST_CASE("geometry/section/expand_section") {
 
   // Fixed-point endpoint type.
   SUBCASE("fixed") {
-    Section s(Fixed(5), Fixed(10));
-    Section t(Fixed(5), Fixed(15));
+    Section s(fixed_type(5), fixed_type(10));
+    Section t(fixed_type(5), fixed_type(15));
 
-    s.expand(Section(Fixed(20), Fixed(30)));
-    t.expand(Section(Fixed(1), Fixed(3)));
+    s.expand(Section(fixed_type(20), fixed_type(30)));
+    t.expand(Section(fixed_type(1), fixed_type(3)));
 
-    REQUIRE(s.start == Fixed(5));
-    REQUIRE(s.end == Fixed(30));
-    REQUIRE(t.start == Fixed(1));
-    REQUIRE(t.end == Fixed(15));
+    REQUIRE(s.start == fixed_type(5));
+    REQUIRE(s.end == fixed_type(30));
+    REQUIRE(t.start == fixed_type(1));
+    REQUIRE(t.end == fixed_type(15));
   }
 }
 
@@ -337,15 +337,15 @@ TEST_CASE("geometry/section/is_reset") {
 
   // Fixed-point endpoint type.
   SUBCASE("fixed") {
-    Section<Fixed> empty;
-    constexpr Section valid(Fixed(1), Fixed(2));
+    Section<fixed_type> empty;
+    constexpr Section valid(fixed_type(1), fixed_type(2));
 
     empty.reset();
 
     REQUIRE(empty.isReset());
     REQUIRE(!valid.isReset());
 
-    static_assert(!valid.isReset(), "valid Section<Fixed> must not be reset");
+    static_assert(!valid.isReset(), "valid Section<fixed_type> must not be reset");
   }
 }
 
@@ -379,8 +379,8 @@ TEST_CASE("geometry/section/is_valid") {
 
   // Fixed-point endpoint type.
   SUBCASE("fixed") {
-    Section<Fixed> empty;
-    constexpr Section valid(Fixed(1), Fixed(2));
+    Section<fixed_type> empty;
+    constexpr Section valid(fixed_type(1), fixed_type(2));
 
     empty.reset();
 
@@ -429,19 +429,19 @@ TEST_CASE("geometry/section/is_contains") {
 
   // Fixed-point endpoint type.
   SUBCASE("fixed") {
-    constexpr Section s(Fixed(10), Fixed(20));
+    constexpr Section s(fixed_type(10), fixed_type(20));
 
-    REQUIRE(s.isContains(Fixed(10)));
-    REQUIRE(s.isContains(Fixed(15)));
-    REQUIRE(s.isContains(Fixed(20)));
-    REQUIRE(!s.isContains(Fixed(9)));
-    REQUIRE(!s.isContains(Fixed(21)));
+    REQUIRE(s.isContains(fixed_type(10)));
+    REQUIRE(s.isContains(fixed_type(15)));
+    REQUIRE(s.isContains(fixed_type(20)));
+    REQUIRE(!s.isContains(fixed_type(9)));
+    REQUIRE(!s.isContains(fixed_type(21)));
 
-    static_assert(s.isContains(Fixed(10)), "10 must be inside [10,20] fixed");
-    static_assert(s.isContains(Fixed(15)), "Fixed(15) must be inside [10,20]");
-    static_assert(s.isContains(Fixed(20)), "20 must be inside [10,20] fixed");
-    static_assert(!s.isContains(Fixed(9)), "9 must be outside [10,20] fixed");
-    static_assert(!s.isContains(Fixed(21)), "21 must be outside [10,20] fixed");
+    static_assert(s.isContains(fixed_type(10)), "10 must be inside [10,20] fixed");
+    static_assert(s.isContains(fixed_type(15)), "fixed_type(15) must be inside [10,20]");
+    static_assert(s.isContains(fixed_type(20)), "20 must be inside [10,20] fixed");
+    static_assert(!s.isContains(fixed_type(9)), "9 must be outside [10,20] fixed");
+    static_assert(!s.isContains(fixed_type(21)), "21 must be outside [10,20] fixed");
   }
 }
 
@@ -483,9 +483,9 @@ TEST_CASE("geometry/section/operator_eq") {
 
   // Fixed-point endpoint type.
   SUBCASE("fixed") {
-    constexpr Section a(Fixed(1), Fixed(2));
-    constexpr Section b(Fixed(1), Fixed(2));
-    constexpr Section c(Fixed(1), Fixed(3));
+    constexpr Section a(fixed_type(1), fixed_type(2));
+    constexpr Section b(fixed_type(1), fixed_type(2));
+    constexpr Section c(fixed_type(1), fixed_type(3));
 
     REQUIRE(a == b);
     REQUIRE(!(a != b));
@@ -531,8 +531,8 @@ TEST_CASE("geometry/section/operator_ne") {
 
   // Fixed-point endpoint type.
   SUBCASE("fixed") {
-    constexpr Section a(Fixed(1), Fixed(2));
-    constexpr Section b(Fixed(1), Fixed(3));
+    constexpr Section a(fixed_type(1), fixed_type(2));
+    constexpr Section b(fixed_type(1), fixed_type(3));
 
     REQUIRE(a != b);
     REQUIRE(!(a == b));

@@ -28,7 +28,7 @@
 
 namespace toy::math {
 
-using Fixed = fixed<int32_t, int64_t, 24>;
+using fixed_type = fixed<int32_t, int64_t, 24>;
 
 // Point has fixed size and contiguous x,y layout.
 TEST_CASE("math/point/object_structure") {
@@ -180,7 +180,7 @@ TEST_CASE("math/point/operators") {
   // operator*= with fixed_point scalar.
   SUBCASE("operator_times_assign_with_fixed") {
     Point point(10, 20);
-    constexpr Fixed scalar(2);
+    constexpr fixed_type scalar(2);
 
     point *= scalar;
 
@@ -220,7 +220,7 @@ TEST_CASE("math/point/operators") {
   // operator/= with fixed_point scalar.
   SUBCASE("operator_div_assign_with_fixed") {
     Point point(20, 40);
-    constexpr Fixed scalar(2);
+    constexpr fixed_type scalar(2);
 
     point /= scalar;
 
@@ -428,30 +428,30 @@ TEST_CASE("math/point/binary_operators") {
     static_assert(negLongDoubleResult.x == -20, "point * negative long double must scale x");
     static_assert(negLongDoubleResult.y == -40, "point * negative long double must scale y");
 
-    constexpr auto negFixedResult = point * Fixed(-2);
+    constexpr auto negFixedResult = point * fixed_type(-2);
 
     REQUIRE(negFixedResult.x == -20);
     REQUIRE(negFixedResult.y == -40);
 
-    static_assert(negFixedResult.x == -20, "point * negative Fixed must scale x");
-    static_assert(negFixedResult.y == -40, "point * negative Fixed must scale y");
+    static_assert(negFixedResult.x == -20, "point * negative fixed_type must scale x");
+    static_assert(negFixedResult.y == -40, "point * negative fixed_type must scale y");
 
     REQUIRE((-2 * point).x == -20);
     REQUIRE((-2 * point).y == -40);
     REQUIRE((-1.5f * point).x == -15);
     REQUIRE((-1.5f * point).y == -30);
-    REQUIRE((Fixed(-3) * point).x == -30);
-    REQUIRE((Fixed(-3) * point).y == -60);
+    REQUIRE((fixed_type(-3) * point).x == -30);
+    REQUIRE((fixed_type(-3) * point).y == -60);
 
     static_assert((-2 * point).x == -20, "negative int * point must negate and scale x");
     static_assert((-2 * point).y == -40, "negative int * point must negate and scale y");
     static_assert((-1.5f * point).x == -15, "negative float * point must scale x");
     static_assert((-1.5f * point).y == -30, "negative float * point must scale y");
-    static_assert((Fixed(-3) * point).x == -30, "negative Fixed * point must scale x");
-    static_assert((Fixed(-3) * point).y == -60, "negative Fixed * point must scale y");
+    static_assert((fixed_type(-3) * point).x == -30, "negative fixed_type * point must scale x");
+    static_assert((fixed_type(-3) * point).y == -60, "negative fixed_type * point must scale y");
   }
 
-  // Point * float, double, long double and Fixed; scalar * point.
+  // Point * float, double, long double and fixed_type; scalar * point.
   SUBCASE("multiplication_point_times_floating_and_fixed") {
     constexpr Point p(10, 20);
 
@@ -465,23 +465,23 @@ TEST_CASE("math/point/binary_operators") {
     static_assert((p * 2.5).x == 25, "point * double must scale x");
     static_assert((p * 2.5L).y == 50, "point * long double must scale y");
 
-    constexpr auto fixedResult = p * Fixed(2);
+    constexpr auto fixedResult = p * fixed_type(2);
 
     REQUIRE(fixedResult.x == 20);
     REQUIRE(fixedResult.y == 40);
 
-    static_assert(fixedResult.x == 20, "point * Fixed must scale x");
-    static_assert(fixedResult.y == 40, "point * Fixed must scale y");
+    static_assert(fixedResult.x == 20, "point * fixed_type must scale x");
+    static_assert(fixedResult.y == 40, "point * fixed_type must scale y");
 
     REQUIRE((1.5f * Point(20, 30)).x == 30);
     REQUIRE((1.5 * Point(20, 40)).y == 60);
-    REQUIRE((Fixed(3) * Point(5, 10)).x == 15);
-    REQUIRE((Fixed(3) * Point(5, 10)).y == 30);
+    REQUIRE((fixed_type(3) * Point(5, 10)).x == 15);
+    REQUIRE((fixed_type(3) * Point(5, 10)).y == 30);
 
     static_assert((1.5f * Point(20, 30)).x == 30, "float * point must scale x");
     static_assert((1.5 * Point(20, 40)).y == 60, "double * point must scale y");
-    static_assert((Fixed(3) * Point(5, 10)).x == 15, "Fixed * point must scale x");
-    static_assert((Fixed(3) * Point(5, 10)).y == 30, "Fixed * point must scale y");
+    static_assert((fixed_type(3) * Point(5, 10)).x == 15, "fixed_type * point must scale x");
+    static_assert((fixed_type(3) * Point(5, 10)).y == 30, "fixed_type * point must scale y");
   }
 
   // Division by integer scalar.
@@ -507,7 +507,7 @@ TEST_CASE("math/point/binary_operators") {
     static_assert(negDivResult.y == 20, "point / negative int must divide y");
   }
 
-  // Division by float, double, long double and Fixed.
+  // Division by float, double, long double and fixed_type.
   SUBCASE("division_by_floating_and_fixed") {
     constexpr Point point(25, 50);
 
@@ -523,11 +523,11 @@ TEST_CASE("math/point/binary_operators") {
 
     constexpr Point p2(30, 60);
 
-    REQUIRE((p2 / Fixed(3)).x == 10);
-    REQUIRE((p2 / Fixed(3)).y == 20);
+    REQUIRE((p2 / fixed_type(3)).x == 10);
+    REQUIRE((p2 / fixed_type(3)).y == 20);
 
-    static_assert((p2 / Fixed(3)).x == 10, "point / Fixed must divide x");
-    static_assert((p2 / Fixed(3)).y == 20, "point / Fixed must divide y");
+    static_assert((p2 / fixed_type(3)).x == 10, "point / fixed_type must divide x");
+    static_assert((p2 / fixed_type(3)).y == 20, "point / fixed_type must divide y");
 
     constexpr Point neg(-30, -60);
 
@@ -547,13 +547,13 @@ TEST_CASE("math/point/binary_operators") {
 
     REQUIRE((Point(30, 60) / -2.0).x == -15);
     REQUIRE((Point(30, 60) / -2.0).y == -30);
-    REQUIRE((Point(-60, -90) / Fixed(-3)).x == 20);
-    REQUIRE((Point(-60, -90) / Fixed(-3)).y == 30);
+    REQUIRE((Point(-60, -90) / fixed_type(-3)).x == 20);
+    REQUIRE((Point(-60, -90) / fixed_type(-3)).y == 30);
 
     static_assert((Point(30, 60) / -2.0).x == -15, "point / negative double must divide x");
     static_assert((Point(30, 60) / -2.0).y == -30, "point / negative double must divide y");
-    static_assert((Point(-60, -90) / Fixed(-3)).x == 20, "point / negative Fixed must divide x");
-    static_assert((Point(-60, -90) / Fixed(-3)).y == 30, "point / negative Fixed must divide y");
+    static_assert((Point(-60, -90) / fixed_type(-3)).x == 20, "point / negative fixed_type must divide x");
+    static_assert((Point(-60, -90) / fixed_type(-3)).y == 30, "point / negative fixed_type must divide y");
   }
 
   // operator== and operator!=.

@@ -118,23 +118,32 @@ class FixedString {
   static_assert(allocatedSize > 0, "FixedString capacity must be greater than zero.");
 
 public:
-  using value_type = char; //!< Type of characters stored in the string.
+  /// Type of characters stored in the string.
+  using value_type = char;
 
-  using size_type = size_t; //!< Type used for string size and capacity.
-  using difference_type = std::ptrdiff_t; //!< Type used for pointer differences.
+  /// Type used for string size and capacity.
+  using size_type = size_t;
+  /// Type used for pointer differences.
+  using difference_type = std::ptrdiff_t;
 
-  using reference = value_type &; //!< Reference to string character.
-  using const_reference = const value_type &; //!< Const reference to string character.
+  /// Reference to string character.
+  using reference = value_type &;
+  /// Const reference to string character.
+  using const_reference = const value_type &;
 
-  using pointer = value_type *; //!< Pointer to string character.
-  using const_pointer = const value_type *; //!< Const pointer to string character.
+  /// Pointer to string character.
+  using pointer = value_type *;
+  /// Const pointer to string character.
+  using const_pointer = const value_type *;
 
-  using iterator = value_type *; //!< Iterator type for string characters.
-  using const_iterator = const value_type *; //!< Const iterator type for string characters.
+  /// Iterator type for string characters.
+  using iterator = value_type *;
+  /// Const iterator type for string characters.
+  using const_iterator = const value_type *;
 
-  //! Reverse iterator type for string characters.
+  /// Reverse iterator type for string characters.
   using reverse_iterator = std::reverse_iterator<iterator>;
-  //! Const reverse iterator type for string characters.
+  /// Const reverse iterator type for string characters.
   using const_reverse_iterator = std::reverse_iterator<const_iterator>;
 
   /*!
@@ -143,11 +152,6 @@ public:
     \post The string is empty and ready for use.
   */
   constexpr FixedString() noexcept = default;
-
-  /*!
-    \brief Destructor for the fixed string.
-  */
-  constexpr ~FixedString() noexcept = default;
 
   /*!
     \brief Constructs a string of the given \a count of \a character.
@@ -183,6 +187,9 @@ public:
   template <StringLike stringType>
   constexpr explicit FixedString(const stringType & string) noexcept;
 
+  template <StringLike stringType>
+  constexpr explicit FixedString(stringType && string) noexcept;
+
   /*!
     \brief Constructs a string initialized with the C \a string.
 
@@ -196,25 +203,6 @@ public:
     \post The new string is created with the contents of the source C \a string.
   */
   constexpr explicit FixedString(const char * string) noexcept;
-
-  /*!
-    \brief Copy assigns other \a string to this string.
-
-    This operator assigns the contents of another \a string to this string. The assignment operation performs a deep
-    copy of the string data and updates the size accordingly.
-
-    \param string The source string to copy content from.
-
-    \return A reference to this string after assignment.
-
-    \pre The source \a string must be valid and properly initialized.
-
-    \post This string contains the same content as the source \a string.
-    \post The size of this string equals the size of the source \a string.
-
-    \note Self-assignment is handled correctly and safely.
-  */
-  constexpr FixedString<allocatedSize> & operator=(const FixedString<allocatedSize> & string) noexcept;
 
   /*!
     \brief Copy assigns a \ref toy::StringLike object to this string.

@@ -19,7 +19,7 @@
 //
 /*!
   \file   o_string_stream.hpp
-  \brief  Allocator-free output stream that appends into string-like storage.
+  \brief  Allocator-free output string stream that appends into string-like storage.
 
   Defines \ref toy::OStringStream.
 
@@ -88,10 +88,10 @@ namespace toy {
 template <typename StringType>
 class OStringStream {
 public:
-  //! Type of characters stored in the string.
+  /// Type of characters stored in the string.
   using char_type = char;
 
-  //! Type of positions in the string.
+  /// Type of positions in the string.
   using pos_type = size_t;
 
   /*!
@@ -121,44 +121,6 @@ public:
   */
   template <StringLike SourceStringType>
   explicit constexpr OStringStream(const SourceStringType & string) noexcept;
-
-  /*!
-    \brief Copy assignment operator.
-
-    Assigns the contents of another OStringStream to this stream. The assignment performs a deep copy of the underlying
-    string.
-
-    \param other The source OStringStream to copy from.
-
-    \return A reference to this OStringStream after assignment.
-
-    \pre The \a other stream must be valid and properly initialized.
-
-    \post This stream contains the same content as the source \a other stream.
-    \post The underlying string is a copy of the source string.
-
-    \note Self-assignment is handled correctly and safely.
-  */
-  constexpr OStringStream & operator=(const OStringStream & other) noexcept = default;
-
-  /*!
-    \brief Move assignment operator.
-
-    Assigns the contents of another OStringStream to this stream using move semantics. The source stream is left in a
-    valid but unspecified state.
-
-    \param other The source OStringStream to move from.
-
-    \return A reference to this OStringStream after assignment.
-
-    \pre The \a other stream must be valid and properly initialized.
-
-    \post This stream contains the same content as the source \a other stream.
-    \post The source \a other stream is left in a valid but unspecified state.
-
-    \note Self-assignment is handled correctly and safely.
-  */
-  constexpr OStringStream & operator=(OStringStream && other) noexcept = default;
 
   /*!
     \brief Swaps the contents of this stream with another stream.
@@ -290,10 +252,10 @@ public:
     \post The write position is advanced by the length of the appended string.
 
     \note This operator follows the same pattern as \c std::ostringstream::operator<<(double).
-    \note The precision is controlled by precision(int) and defaults to 6 digits.
+    \note The precision is controlled by setPrecision(size_t) and defaults to 6 digits.
 
     \sa precision() const
-    \sa precision(int)
+    \sa setPrecision(size_t)
     \sa operator<<(float)
     \sa put(char_type)
     \sa tellp()
@@ -435,10 +397,10 @@ public:
     \post The write position is advanced by the length of the appended string.
 
     \note This operator follows the same pattern as \c std::ostringstream::operator<<(float).
-    \note The precision is controlled by precision() and defaults to 6 digits.
+    \note The precision is controlled by setPrecision() and defaults to 6 digits.
 
     \sa precision() const
-    \sa precision(int)
+    \sa setPrecision(size_t)
     \sa operator<<(double)
     \sa put(char_type)
     \sa tellp()
@@ -688,9 +650,9 @@ public:
 
     \note The precision value affects how floating-point numbers are formatted when written to the stream.
 
-    \sa precision(int)
+    \sa setPrecision(size_t)
   */
-  [[nodiscard]] constexpr int precision() const noexcept;
+  [[nodiscard]] constexpr size_t precision() const noexcept;
 
   /*!
     \brief Sets the floating-point precision and returns the previous value.
@@ -702,19 +664,20 @@ public:
 
     \return The previous precision value before the change.
 
-    \pre The \a newPrecision must be non-negative.
+    \pre The \a newPrecision must be lower than or equal to the maximum supported digits for long double.
 
     \note The precision value affects how floating-point numbers are formatted when written to the stream.
 
     \sa precision() const
   */
-  constexpr int precision(int newPrecision) noexcept;
+  constexpr size_t setPrecision(size_t newPrecision) noexcept;
 
 private:
-  //! Internal string storage for the stream content.
+  /// Internal string storage for the stream content.
   StringType _string;
 
-  int _precision = 6; //!< Floating-point precision value used for number formatting.
+  /// Floating-point precision value used for number formatting.
+  size_t _precision = 6;
 };
 
 } // namespace toy

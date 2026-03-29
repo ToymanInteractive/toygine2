@@ -134,7 +134,7 @@ constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(cons
   const auto bufferDataLen = char_traits<char>::length(buffer);
   const int leadingZeros = static_cast<int>(sizeof(value)) * 2 - static_cast<int>(bufferDataLen);
   if (leadingZeros > 0)
-    _string.append(leadingZeros, '0');
+    _string.append(static_cast<size_t>(leadingZeros), '0');
 
   _string.append(buffer);
 
@@ -290,13 +290,14 @@ constexpr OStringStream<StringType>::pos_type OStringStream<StringType>::tellp()
 }
 
 template <typename StringType>
-constexpr int OStringStream<StringType>::precision() const noexcept {
+constexpr size_t OStringStream<StringType>::precision() const noexcept {
   return _precision;
 }
 
 template <typename StringType>
-constexpr int OStringStream<StringType>::precision(int newPrecision) noexcept {
-  assert_message(newPrecision >= 0, "Precision must be non-negative.");
+constexpr size_t OStringStream<StringType>::setPrecision(size_t newPrecision) noexcept {
+  assert_message(newPrecision <= std::numeric_limits<long double>::digits10,
+                 "Precision must not exceed maximum supported digits for long double");
 
   const auto oldPrecision = _precision;
 
