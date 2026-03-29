@@ -690,7 +690,7 @@ TEST_CASE("core/o_string_stream/operator_insert") {
     streams[4] << -123.456;
     streams[5] << 0.0;
 
-    constexpr std::array<const char *, 6> expects = {"123.456", "-123.456", "0", "123.456", "-123.456", "0"};
+    constexpr std::array<const char *, 6> expects = {{"123.456", "-123.456", "0", "123.456", "-123.456", "0"}};
     for (size_t index = 0; index < expects.size(); ++index)
       REQUIRE(streams[index].str() == expects[index]);
   }
