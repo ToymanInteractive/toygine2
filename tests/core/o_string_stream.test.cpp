@@ -700,7 +700,7 @@ TEST_CASE("core/o_string_stream/operator_insert") {
     OStringStream<FixedString<24>> stream;
 
     stream << long(0) << static_cast<unsigned long>(0) << static_cast<long long>(0)
-           << static_cast<unsigned long long>(0) << short(0) << static_cast<unsigned short>(0) << int(0)
+           << static_cast<unsigned long long>(0) << short(0) << static_cast<unsigned short>(0) << 0
            << static_cast<unsigned int>(0) << static_cast<signed char>(0) << static_cast<unsigned char>(0) << int8_t(0)
            << uint8_t(0) << int16_t(0) << uint16_t(0) << int32_t(0) << uint32_t(0) << int64_t(0) << uint64_t(0) << 0.0f
            << 0.0;
