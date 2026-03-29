@@ -604,8 +604,8 @@ TEST_CASE("core/o_string_stream/operator_insert") {
   SUBCASE("insert_integers") {
     array<OStringStream<FixedString<24>>, 36> streams;
 
-    streams[0] << long(123);
-    streams[1] << long(-123);
+    streams[0] << long{123};
+    streams[1] << long{-123};
     streams[2] << static_cast<unsigned long>(123);
     streams[3] << static_cast<unsigned long>(0);
     streams[4] << numeric_limits<long long>::min();
@@ -715,13 +715,13 @@ TEST_CASE("core/o_string_stream/operator_insert") {
     for (auto & s : streams)
       s = OStringStream<FixedString<16>>(prefix);
 
-    streams[0] << long(123);
+    streams[0] << long{123};
     streams[1] << static_cast<unsigned long>(123);
     streams[2] << static_cast<long long>(123);
     streams[3] << static_cast<unsigned long long>(123);
     streams[4] << 123.0;
-    streams[5] << short(123);
-    streams[6] << int(123);
+    streams[5] << short{123};
+    streams[6] << int{123};
     streams[7] << static_cast<unsigned short>(123);
     streams[8] << static_cast<unsigned int>(123);
     streams[9] << 123.0f;
@@ -737,13 +737,13 @@ TEST_CASE("core/o_string_stream/operator_insert") {
   SUBCASE("insert_numbers_returns_reference_for_chaining") {
     array<OStringStream<FixedString<4>>, 12> streams;
 
-    auto & ref0 = streams[0] << long(123);
+    auto & ref0 = streams[0] << long{123};
     auto & ref1 = streams[1] << static_cast<unsigned long>(234);
     auto & ref2 = streams[2] << static_cast<long long>(345);
     auto & ref3 = streams[3] << static_cast<unsigned long long>(456);
     auto & ref4 = streams[4] << 567.0;
-    auto & ref5 = streams[5] << short(678);
-    auto & ref6 = streams[6] << int(789);
+    auto & ref5 = streams[5] << short{678};
+    auto & ref6 = streams[6] << int{789};
     auto & ref7 = streams[7] << static_cast<unsigned short>(890);
     auto & ref8 = streams[8] << static_cast<unsigned int>(901);
     auto & ref9 = streams[9] << 012.0f;
@@ -781,7 +781,7 @@ TEST_CASE("core/o_string_stream/operator_insert") {
   SUBCASE("insert_int8_uint8_min_max_with_separator") {
     OStringStream<FixedString<48>> stream;
 
-    stream << long(123);
+    stream << long{123};
     stream.put(' ');
     stream << static_cast<unsigned long>(234);
     stream.put(' ');
@@ -791,9 +791,9 @@ TEST_CASE("core/o_string_stream/operator_insert") {
     stream.put(' ');
     stream << 567.0;
     stream.put(' ');
-    stream << short(678);
+    stream << short{678};
     stream.put(' ');
-    stream << int(789);
+    stream << int{789};
     stream.put(' ');
     stream << static_cast<unsigned short>(890);
     stream.put(' ');
