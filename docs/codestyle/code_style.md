@@ -342,7 +342,7 @@ When creating new documentation:
 
 ### Member Variable Documentation
 
-- Use inline `///` comments for type aliases and simple member variables
+- Use `///` comments immediately before type aliases and simple member variable declarations
 
 ```cpp
 /// Type of elements stored in the vector.
