@@ -18,14 +18,14 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   format.inl
+  \file   format_string.inl
   \brief  Inline implementations for \ref toy::FormatString.
 
   \note Included by core.hpp only; do not include this file directly.
 */
 
-#ifndef INCLUDE_CORE_FORMAT_INL_
-#define INCLUDE_CORE_FORMAT_INL_
+#ifndef INCLUDE_CORE_FORMAT_STRING_INL_
+#define INCLUDE_CORE_FORMAT_STRING_INL_
 
 namespace toy {
 
@@ -92,4 +92,4 @@ inline void FormatString<Args...>::_compileTimeError([[maybe_unused]] const char
 
 } // namespace toy
 
-#endif // INCLUDE_CORE_FORMAT_INL_
+#endif // INCLUDE_CORE_FORMAT_STRING_INL_

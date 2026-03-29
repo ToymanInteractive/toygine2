@@ -18,68 +18,54 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   fixed_benchmark.cpp
-  \brief  Implementation of fixed-point nanobench benchmarks for the math module.
+  \file   hashes.benchmark.cpp
+  \brief  Implementation of hashes nanobench benchmarks for the core module.
 */
 
 #include "../benchmark_factory.hpp"
-#include "math.hpp"
+#include "core.hpp"
 
-namespace toy::math {
+namespace toy {
 
-using fixed_type = fixed<int32_t, int64_t, 24>;
+// Hashes benchmarks (toy::crc8, crc16, crc32)
+void hashesCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
+  static unsigned char crcPayload512[512];
+  static const bool crcPayload512Init = []() noexcept {
+    for (size_t i = 0; i < 512; ++i) {
+      crcPayload512[i] = static_cast<unsigned char>(i ^ 0xA5U);
+    }
+    return true;
+  }();
+  (void)crcPayload512Init;
 
-// fixed benchmarks
-void fixedMathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
-  bench.run("fixed = fixed", [] {
-    fixed_type a(0);
-    fixed_type b(42);
-    a = b;
-    doNotOptimize(a);
-  });
-  bench.run("fixed = int", [] {
-    fixed_type a(0);
-    a = 42;
-    doNotOptimize(a);
-  });
-
-  bench.run("fixed == fixed", [] {
-    fixed_type a(42);
-    fixed_type b(42);
-    auto r = (a == b);
-    doNotOptimize(r);
-  });
-  bench.run("fixed == int", [] {
-    fixed_type f(42);
-    int i = 42;
-    auto r = (f == i);
-    doNotOptimize(r);
-  });
-  bench.run("int == fixed", [] {
-    int i = 42;
-    fixed_type f(42);
-    auto r = (i == f);
+  bench.run("crc8 short string", [] {
+    static const char s[] = "Hello";
+    auto r = toy::crc8(s, sizeof(s) - 1);
     doNotOptimize(r);
   });
 
-  bench.run("fixed <=> fixed", [] {
-    fixed_type a(42);
-    fixed_type b(42);
-    auto r = (a <=> b);
+  bench.run("crc8 medium string", [] {
+    static const char s[] = "Toygine2 - Free 2D/3D game engine.";
+    auto r = toy::crc8(s, sizeof(s) - 1);
     doNotOptimize(r);
   });
-  bench.run("fixed <=> int", [] {
-    fixed_type f(42);
-    int i = 42;
-    auto r = (f <=> i);
+
+  bench.run("crc16 medium string", [] {
+    static const char s[] = "Toygine2 - Free 2D/3D game engine.";
+    auto r = toy::crc16(s, sizeof(s) - 1);
     doNotOptimize(r);
   });
-  bench.run("int <=> fixed", [] {
-    int i = 42;
-    fixed_type f(42);
-    auto r = (i <=> f);
+
+  bench.run("crc32 medium string", [] {
+    static const char s[] = "Toygine2 - Free 2D/3D game engine.";
+    auto r = toy::crc32(s, sizeof(s) - 1);
+    doNotOptimize(r);
+  });
+
+  bench.run("crc32 512 byte buffer", [] {
+    auto r = toy::crc32(crcPayload512, sizeof(crcPayload512));
     doNotOptimize(r);
   });
 }
 
-} // namespace toy::math
+} // namespace toy

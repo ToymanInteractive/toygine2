@@ -146,11 +146,7 @@ public:
   /// Const reverse iterator type for string characters.
   using const_reverse_iterator = std::reverse_iterator<const_iterator>;
 
-  /*!
-    \brief Default constructor.
-
-    \post The string is empty and ready for use.
-  */
+  /// Default constructor.
   constexpr FixedString() noexcept = default;
 
   /*!

@@ -18,7 +18,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   o_string_stream_benchmark.cpp
+  \file   o_string_stream.benchmark.cpp
   \brief  Implementation of output string stream nanobench benchmarks for the core module.
 */
 
