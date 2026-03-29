@@ -31,19 +31,19 @@ namespace toy {
 void oStringStreamCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   bench.run("OStringStream<FixedString<64>> default construct", [] {
     toy::OStringStream<toy::FixedString<64>> s;
-    doNotOptimize(s.str().data());
+    doNotOptimize(s);
   });
 
   bench.run("OStringStream<FixedString<64>> literal and int", [] {
     toy::OStringStream<toy::FixedString<64>> s;
     s << "n=" << 12345;
-    doNotOptimize(s.str().data());
+    doNotOptimize(s);
   });
 
   bench.run("OStringStream<FixedString<64>> chained mixed", [] {
     toy::OStringStream<toy::FixedString<64>> s;
     s << "v=" << -42 << ' ' << 3.14f << toy::CStringView(" end");
-    doNotOptimize(s.str().data());
+    doNotOptimize(s);
   });
 }
 

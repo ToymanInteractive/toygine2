@@ -252,10 +252,10 @@ public:
     \post The write position is advanced by the length of the appended string.
 
     \note This operator follows the same pattern as \c std::ostringstream::operator<<(double).
-    \note The precision is controlled by precision(size_t) and defaults to 6 digits.
+    \note The precision is controlled by setPrecision(size_t) and defaults to 6 digits.
 
     \sa precision() const
-    \sa precision(size_t)
+    \sa setPrecision(size_t)
     \sa operator<<(float)
     \sa put(char_type)
     \sa tellp()
@@ -397,10 +397,10 @@ public:
     \post The write position is advanced by the length of the appended string.
 
     \note This operator follows the same pattern as \c std::ostringstream::operator<<(float).
-    \note The precision is controlled by precision() and defaults to 6 digits.
+    \note The precision is controlled by setPrecision() and defaults to 6 digits.
 
     \sa precision() const
-    \sa precision(size_t)
+    \sa setPrecision(size_t)
     \sa operator<<(double)
     \sa put(char_type)
     \sa tellp()
@@ -650,7 +650,7 @@ public:
 
     \note The precision value affects how floating-point numbers are formatted when written to the stream.
 
-    \sa precision(size_t)
+    \sa setPrecision(size_t)
   */
   [[nodiscard]] constexpr size_t precision() const noexcept;
 
@@ -670,7 +670,7 @@ public:
 
     \sa precision() const
   */
-  constexpr size_t precision(size_t newPrecision) noexcept;
+  constexpr size_t setPrecision(size_t newPrecision) noexcept;
 
 private:
   /// Internal string storage for the stream content.

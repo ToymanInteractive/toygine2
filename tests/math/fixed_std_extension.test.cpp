@@ -42,7 +42,7 @@ TEST_CASE("math/fixed/numeric_limits") {
 
     static_assert(numeric_limits<fixed_type>::is_specialized, "numeric_limits must be specialized");
     static_assert(numeric_limits<fixed_type>::is_signed, "fixed_type is signed");
-    static_assert(!numeric_limits<fixed_type>::is_integer, "ffixed_type is not integer");
+    static_assert(!numeric_limits<fixed_type>::is_integer, "fixed_type is not integer");
     static_assert(numeric_limits<fixed_type>::is_exact, "fixed_type is exact");
   }
 

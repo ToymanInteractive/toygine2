@@ -120,8 +120,8 @@ TEST_CASE("core/o_string_stream/swap") {
     OStringStream<FixedString<32>> stream1(FixedString<16>("First"));
     OStringStream<FixedString<32>> stream2(FixedString<16>("Second"));
 
-    stream1.precision(3);
-    stream2.precision(9);
+    stream1.setPrecision(3);
+    stream2.setPrecision(9);
 
     stream1.swap(stream2);
 
@@ -136,7 +136,7 @@ TEST_CASE("core/o_string_stream/swap") {
     OStringStream<FixedString<32>> stream1(FixedString<16>("Content"));
     OStringStream<FixedString<32>> stream2;
 
-    stream1.precision(5);
+    stream1.setPrecision(5);
 
     stream1.swap(stream2);
 
@@ -150,7 +150,7 @@ TEST_CASE("core/o_string_stream/swap") {
   SUBCASE("self_swap") {
     OStringStream<FixedString<32>> stream(FixedString<16>("Test"));
 
-    stream.precision(8);
+    stream.setPrecision(8);
     stream.swap(stream);
 
     REQUIRE(stream.str() == "Test");
@@ -161,8 +161,8 @@ TEST_CASE("core/o_string_stream/swap") {
   SUBCASE("swap_empty_streams") {
     array<OStringStream<FixedString<32>>, 2> streams;
 
-    streams[0].precision(2);
-    streams[1].precision(10);
+    streams[0].setPrecision(2);
+    streams[1].setPrecision(10);
 
     streams[0].swap(streams[1]);
 
@@ -504,7 +504,7 @@ TEST_CASE("core/o_string_stream/precision") {
 
     REQUIRE(stream.precision() == 6);
 
-    const auto oldPrecision = stream.precision(10);
+    const auto oldPrecision = stream.setPrecision(10);
 
     REQUIRE(oldPrecision == 6);
     REQUIRE(stream.precision() == 10);
@@ -516,15 +516,15 @@ TEST_CASE("core/o_string_stream/precision") {
 
     REQUIRE(stream.precision() == 6);
 
-    auto prev = stream.precision(2);
+    auto prev = stream.setPrecision(2);
     REQUIRE(prev == 6);
     REQUIRE(stream.precision() == 2);
 
-    prev = stream.precision(15);
+    prev = stream.setPrecision(15);
     REQUIRE(prev == 2);
     REQUIRE(stream.precision() == 15);
 
-    prev = stream.precision(0);
+    prev = stream.setPrecision(0);
     REQUIRE(prev == 15);
     REQUIRE(stream.precision() == 0);
   }
@@ -538,7 +538,7 @@ TEST_CASE("core/o_string_stream/precision") {
     stream.put('A').put('B');
     REQUIRE(stream.precision() == 6);
 
-    stream.precision(3);
+    stream.setPrecision(3);
     REQUIRE(stream.precision() == 3);
     REQUIRE(stream.str() == "AB");
   }
@@ -812,12 +812,12 @@ TEST_CASE("core/o_string_stream/operator_insert") {
   SUBCASE("insert_natural_numbers_with_custom_precision") {
     array<OStringStream<FixedString<24>>, 8> streams;
 
-    streams[1].precision(3);
-    streams[2].precision(1);
-    streams[3].precision(15);
-    streams[5].precision(3);
-    streams[6].precision(1);
-    streams[7].precision(15);
+    streams[1].setPrecision(3);
+    streams[2].setPrecision(1);
+    streams[3].setPrecision(15);
+    streams[5].setPrecision(3);
+    streams[6].setPrecision(1);
+    streams[7].setPrecision(15);
 
     streams[0] << std::numbers::pi_v<float>;
     streams[1] << std::numbers::pi_v<float>;
