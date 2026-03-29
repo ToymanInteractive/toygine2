@@ -342,11 +342,14 @@ When creating new documentation:
 
 ### Member Variable Documentation
 
-- Use inline `//!<` comments for type aliases and simple member variables
+- Use inline `///` comments for type aliases and simple member variables
 
 ```cpp
-using value_type = type;  //!< Type of elements stored in the vector.
-using size_type = size_t;  //!< Type used for vector size and capacity.
+/// Type of elements stored in the vector.
+using value_type = type;
+
+/// Type used for vector size and capacity.
+using size_type = size_t;
 ```
 
 ---

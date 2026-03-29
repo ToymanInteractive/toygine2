@@ -151,16 +151,16 @@ public:
   constexpr void call(T arg) const noexcept;
 
 private:
-  //! Internal structure to store a callback function pointer.
+  /// Internal structure to store a callback function pointer.
   struct StaticCallback {
-    //! Pointer to the callback function.
+    /// Pointer to the callback function.
     void (*method)(T arg) = nullptr;
   };
 
-  //! Fixed-size array storing registered callbacks.
+  /// Fixed-size array storing registered callbacks.
   array<StaticCallback, AllocatedSize> _callbacks;
 
-  //! Active callbacks count.
+  /// Active callbacks count.
   size_t _subscribersCount{0};
 };
 

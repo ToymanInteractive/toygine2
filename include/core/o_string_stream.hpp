@@ -88,10 +88,10 @@ namespace toy {
 template <typename StringType>
 class OStringStream {
 public:
-  //! Type of characters stored in the string.
+  /// Type of characters stored in the string.
   using char_type = char;
 
-  //! Type of positions in the string.
+  /// Type of positions in the string.
   using pos_type = size_t;
 
   /*!
@@ -290,10 +290,10 @@ public:
     \post The write position is advanced by the length of the appended string.
 
     \note This operator follows the same pattern as \c std::ostringstream::operator<<(double).
-    \note The precision is controlled by precision(int) and defaults to 6 digits.
+    \note The precision is controlled by precision(size_t) and defaults to 6 digits.
 
     \sa precision() const
-    \sa precision(int)
+    \sa precision(size_t)
     \sa operator<<(float)
     \sa put(char_type)
     \sa tellp()
@@ -438,7 +438,7 @@ public:
     \note The precision is controlled by precision() and defaults to 6 digits.
 
     \sa precision() const
-    \sa precision(int)
+    \sa precision(size_t)
     \sa operator<<(double)
     \sa put(char_type)
     \sa tellp()
@@ -711,10 +711,10 @@ public:
   constexpr size_t precision(size_t newPrecision) noexcept;
 
 private:
-  //! Internal string storage for the stream content.
+  /// Internal string storage for the stream content.
   StringType _string;
 
-  //! Floating-point precision value used for number formatting.
+  /// Floating-point precision value used for number formatting.
   size_t _precision = 6;
 };
 

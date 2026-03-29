@@ -34,23 +34,32 @@ namespace toy {
 template <typename type, size_t allocatedSize>
 class FixedVector {
 public:
-  using value_type = type; //!< Type of elements stored in the vector.
+  /// Type of elements stored in the vector.
+  using value_type = type;
 
-  using size_type = size_t; //!< Type used for vector size and capacity.
-  using difference_type = std::ptrdiff_t; //!< Type used for pointer differences.
+  /// Type used for vector size and capacity.
+  using size_type = size_t;
+  /// Type used for pointer differences.
+  using difference_type = std::ptrdiff_t;
 
-  using reference = value_type &; //!< Reference to vector element.
-  using const_reference = const value_type &; //!< Const reference to vector element.
+  /// Reference to vector element.
+  using reference = value_type &;
+  /// Const reference to vector element.
+  using const_reference = const value_type &;
 
-  using pointer = type *; //!< Pointer to vector element.
-  using const_pointer = const type *; //!< Const pointer to vector element.
+  /// Pointer to vector element.
+  using pointer = type *;
+  /// Const pointer to vector element.
+  using const_pointer = const type *;
 
-  using iterator = value_type *; //!< Iterator type for vector elements.
-  using const_iterator = const value_type *; //!< Const iterator type for vector elements.
+  /// Iterator type for vector elements.
+  using iterator = value_type *;
+  /// Const iterator type for vector elements.
+  using const_iterator = const value_type *;
 
-  //! Reverse iterator type for vector elements.
+  /// Reverse iterator type for vector elements.
   using reverse_iterator = std::reverse_iterator<iterator>;
-  //! Const reverse iterator type for vector elements.
+  /// Const reverse iterator type for vector elements.
   using const_reverse_iterator = std::reverse_iterator<const_iterator>;
 
   /*!
