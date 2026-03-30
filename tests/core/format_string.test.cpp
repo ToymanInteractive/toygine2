@@ -120,4 +120,45 @@ TEST_CASE("core/format_string/get_method") {
   }
 }
 
+// Positional {N} placeholders: pattern stored unchanged.
+TEST_CASE("core/format_string/positional_single") {
+  constexpr FormatString<int> format("{0}");
+
+  REQUIRE(format.get() == "{0}");
+
+  static_assert(format.get() == "{0}", "positional placeholder must be preserved");
+}
+
+TEST_CASE("core/format_string/positional_multiple") {
+  constexpr FormatString<int, float> format("{0}, {1}");
+
+  REQUIRE(format.get() == "{0}, {1}");
+
+  static_assert(format.get() == "{0}, {1}", "multiple positional placeholders preserved");
+}
+
+TEST_CASE("core/format_string/positional_reorder") {
+  constexpr FormatString<int, float> format("{1} then {0}");
+
+  REQUIRE(format.get() == "{1} then {0}");
+
+  static_assert(format.get() == "{1} then {0}", "reordered indices preserved");
+}
+
+TEST_CASE("core/format_string/positional_repeat") {
+  constexpr FormatString<int> format("{0}{0}");
+
+  REQUIRE(format.get() == "{0}{0}");
+
+  static_assert(format.get() == "{0}{0}", "repeated index preserved");
+}
+
+TEST_CASE("core/format_string/positional_with_escapes") {
+  constexpr FormatString<int> format("{{{0}}}");
+
+  REQUIRE(format.get() == "{{{0}}}");
+
+  static_assert(format.get() == "{{{0}}}", "escaped braces with positional index preserved");
+}
+
 } // namespace toy
