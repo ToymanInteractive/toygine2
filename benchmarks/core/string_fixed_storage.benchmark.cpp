@@ -18,8 +18,8 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   o_string_stream.benchmark.cpp
-  \brief  Implementations for output string stream nanobench benchmarks in the core module.
+  \file   string_fixed_storage.benchmark.cpp
+  \brief  Implementations for string fixed storage nanobench benchmarks in the core module.
 */
 
 #include "../benchmark_factory.hpp"
@@ -27,23 +27,30 @@
 
 namespace toy {
 
-// OStringStream benchmarks (FixedString backend)
-void oStringStreamCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
-  bench.run("OStringStream<FixedString<64>> default construct", [] {
-    toy::OStringStream<toy::FixedString<64>> s;
-    doNotOptimize(s);
+// StringFixedStorage benchmarks
+void stringFixedStorageCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
+  bench.run("StringFixedStorage<32> default construct", [] {
+    toy::StringFixedStorage<32> s;
+    doNotOptimize(s.data());
   });
 
-  bench.run("OStringStream<FixedString<64>> literal and int", [] {
-    toy::OStringStream<toy::FixedString<64>> s;
-    s << "n=" << 12345;
-    doNotOptimize(s);
+  bench.run("StringFixedStorage<256> capacity", [] {
+    auto c = toy::StringFixedStorage<256>::capacity();
+    doNotOptimize(c);
   });
 
-  bench.run("OStringStream<FixedString<64>> chained mixed", [] {
-    toy::OStringStream<toy::FixedString<64>> s;
-    s << "v=" << -42 << ' ' << 3.14f << toy::CStringView(" end");
-    doNotOptimize(s);
+  bench.run("StringFixedStorage<8> size", [] {
+    toy::StringFixedStorage<8> s;
+    auto n = s.size();
+    doNotOptimize(n);
+  });
+
+  bench.run("StringFixedStorage<32> setSize", [] {
+    toy::StringFixedStorage<32> s;
+    s.data()[0] = 'a';
+    s.data()[1] = 'b';
+    s.setSize(2);
+    doNotOptimize(s.data());
   });
 }
 

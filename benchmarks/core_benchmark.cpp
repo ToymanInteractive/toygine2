@@ -29,6 +29,7 @@ namespace toy {
 
 void hashesCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
 void oStringStreamCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
+void stringFixedStorageCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
 
 } // namespace toy
 
@@ -37,33 +38,7 @@ void runCoreBenchmarks() noexcept {
 
   toy::hashesCoreBenchmarks(bench);
   toy::oStringStreamCoreBenchmarks(bench);
-
-  // StringFixedStorage benchmarks
-  {
-    bench.run("StringFixedStorage<32> default construct", [] {
-      toy::StringFixedStorage<32> s;
-      doNotOptimize(s.data());
-    });
-
-    bench.run("StringFixedStorage<256> capacity", [] {
-      auto c = toy::StringFixedStorage<256>::capacity();
-      doNotOptimize(c);
-    });
-
-    bench.run("StringFixedStorage<8> size", [] {
-      toy::StringFixedStorage<8> s;
-      auto n = s.size();
-      doNotOptimize(n);
-    });
-
-    bench.run("StringFixedStorage<32> setSize", [] {
-      toy::StringFixedStorage<32> s;
-      s.data()[0] = 'a';
-      s.data()[1] = 'b';
-      s.setSize(2);
-      doNotOptimize(s.data());
-    });
-  }
+  toy::stringFixedStorageCoreBenchmarks(bench);
 
   // itoa benchmarks
   {

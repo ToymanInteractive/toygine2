@@ -19,7 +19,7 @@
 //
 /*!
   \file   fixed.benchmark.cpp
-  \brief  Implementation of fixed-point nanobench benchmarks for the math module.
+  \brief  Implementations for fixed-point nanobench benchmarks in the math module.
 */
 
 #include "../benchmark_factory.hpp"

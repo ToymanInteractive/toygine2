@@ -19,10 +19,10 @@
 //
 /*!
   \file   format_string.hpp
-  \brief  Compile-time validated format-string wrapper for \c {} placeholders.
+  \brief  Compile-time validated format-string wrapper for auto \c {} and positional \c {N} placeholders.
 
-  Defines \ref toy::FormatString for checking brace pairing and placeholder count against the template argument pack at
-  compile time.
+  Defines \ref toy::FormatString for checking brace pairing, placeholder mode (auto vs positional), and consistency with
+  \c sizeof...(Args) at compile time.
 
   \note Included by core.hpp; do not include this file directly.
 */
@@ -37,32 +37,35 @@ namespace toy {
 /*!
   \class FormatString
   \ingroup String
-  \brief Wrapper around a \ref toy::CStringView pattern with \c consteval validation of \c `{}` placeholders.
+  \brief Wrapper around a \ref toy::CStringView pattern with \c consteval validation of placeholders.
 
-  Placeholders are exactly the two-character sequence \c {}; \c {{ and \c }} are literals and do not increase the
-  placeholder count. The number of placeholders must equal \c sizeof...(Args). Unmatched \c { or \c } makes construction
-  ill-formed. This type does not perform value formatting; it only stores and returns the pattern.
+  Two modes are supported, not mixed in one pattern: **auto-indexed** placeholders are exactly \c {}; **positional**
+  placeholders are \c {0}, \c {1}, … (decimal digits only, no format type). \c {{ and \c }} are literal braces. In auto
+  mode the number of \c {} must equal \c sizeof...(Args). In positional mode each index must be \c < sizeof...(Args);
+  repeating an index is allowed and not every index need appear. Unmatched \c { or \c } makes construction ill-formed.
 
   \tparam Args Template parameter pack representing the types of arguments that will be formatted.
 
   \section features Key Features
 
-  - **Compile-time checks**: \c consteval constructor; mismatch or bad braces fail at compile time.
+  - **Compile-time checks**: \c consteval constructor; invalid patterns fail at compile time.
+  - **Auto and positional modes**: \c {} vs \c {N}; mixing both in one string is ill-formed.
   - **Storage**: Holds a \ref toy::CStringView to the pattern; no allocation.
   - **get()**: Returns the same view; \c constexpr \c noexcept.
-  - **Alignment with \c std::format rules**: Placeholder and escape rules mirror the subset described above.
+  - **No format types**: \c {:…} and similar are rejected (ill-formed).
 
   \section usage Usage Example
 
   \code
   #include "core.hpp"
 
-  constexpr toy::FormatString<int, float> format(toy::CStringView("Value: {}, Float: {}"));
-  constexpr toy::CStringView str = format.get();
+  constexpr toy::FormatString<int, float> autoFmt(toy::CStringView("Value: {}, Float: {}"));
+  constexpr toy::FormatString<int, float> posFmt(toy::CStringView("Float: {1}, Value: {0}"));
 
   // Ill-formed examples (do not compile):
-  // toy::FormatString<int> bad(toy::CStringView("{}, {}")); // too many placeholders
-  // toy::FormatString<> bad2(toy::CStringView("{"));        // unmatched brace
+  // toy::FormatString<int, int>(toy::CStringView("{} {0}")); // mixed auto and positional
+  // toy::FormatString<int>(toy::CStringView("{0:d}"));       // format type not supported
+  // toy::FormatString<int>(toy::CStringView("{"));           // unmatched brace
   \endcode
 
   \section performance Performance Characteristics
@@ -93,25 +96,22 @@ public:
     \param string Format pattern to validate and store.
 
     \pre Braces in \a string are balanced; \c {{ and \c }} are literals.
-    \pre Placeholder count (pairs \c {}) equals \c sizeof...(Args).
+    \pre Either: auto mode — number of \c {} equals \c sizeof...(Args); or positional mode — each \c {N} has \c N \c <
+         \c sizeof...(Args), and the pattern does not mix \c {} with \c {N}.
 
     \post The pattern is stored and can be read with get().
 
     \note \c consteval; ill-formed patterns make the program ill-formed.
-    \note Escaped \c {{ and \c }} do not count as placeholders.
+    \note Escaped \c {{ and \c }} are not placeholders.
 
     \sa get()
   */
   consteval explicit(false) FormatString(const CStringView & string) noexcept;
 
   /*!
-    \brief Constructs a copy that holds the same format pattern view as \a other.
+    \brief Default copy constructor.
 
-    \param other Source object.
-
-    \note Copies the non-owning view only; does not duplicate string storage.
-
-    \sa FormatString(const CStringView &)
+    \param other FormatString to copy.
   */
   FormatString(const FormatString & other) noexcept = default;
 
@@ -130,19 +130,113 @@ public:
   [[nodiscard]] constexpr CStringView get() const noexcept;
 
 private:
+  /// Status from \c _validateFormat(); internal detail, not public API.
+  enum class ValidationError {
+    /// Pattern passes validation for the expected argument count.
+    none,
+    /// Stray or incomplete \c { / \c } (not \c {{, \c }}, \c {}, or \c {N}).
+    unmatchedBrace,
+    /// Positional \c {N…} not closed by \c }, or disallowed characters after the index.
+    invalidContent,
+    /// Mixed auto \c {} and positional \c {N} in one pattern.
+    mixedPlaceholders,
+    /// Placeholder count vs expected argument count mismatch (including empty pattern with arguments).
+    argCountMismatch,
+    /// Positional index out of range or overflow while parsing digits.
+    indexOutOfRange
+  };
+
+  /// Auto vs positional placeholder mode while scanning; internal to \c _validateFormat.
+  enum class PlaceholderMode {
+    /// No \c {} or \c {N} placeholder has been seen yet.
+    none,
+    /// Only auto \c {} placeholders appear in the pattern.
+    autoIndex,
+    /// Only positional \c {N} placeholders appear in the pattern.
+    positional
+  };
+
   /// The stored format string.
   const CStringView _string;
 
   /*!
-    \brief Counts \c {} placeholders in \a string (escaped \c {{ / \c }} are literals).
+    \brief Validates auto-indexed \c {} and positional \c {N} placeholders (no format types).
 
     \param string Pattern to scan.
 
-    \return Placeholder count, or \ref toy::CStringView::npos if braces are unmatched.
+    \param argCount Expected \c sizeof...(Args).
 
-    \sa CStringView::npos
+    \return Error code; \c ValidationError::none when the pattern is consistent with \a argCount.
   */
-  [[nodiscard]] static constexpr size_t _countFormatPlaceholders(const CStringView & string) noexcept;
+  [[nodiscard]] static constexpr ValidationError _validateFormat(const CStringView & string, size_t argCount) noexcept;
+
+  /*!
+    \brief Consumes a literal \c {{ or \c }} pair at \a position when present.
+
+    \param string   Pattern being scanned.
+    \param length   Byte length of \a string (same value as \c string.size()).
+    \param position Current index; advanced by \c 2 when a doubled brace is consumed.
+    \param brace    \c '{' to match \c {{, or \c '}' to match \c }}.
+
+    \return \c true if a pair was consumed; \c false if \a position does not start a doubled brace.
+
+    \note Internal helper for \c _validateFormat; not part of the public API.
+  */
+  [[nodiscard]] static constexpr bool _consumeEscapedBrace(const CStringView & string, size_t length, size_t & position,
+                                                           char brace) noexcept;
+
+  /*!
+    \brief Parses a non-escaped opening brace: auto \c {}, positional \c {N}, or a structural error.
+
+    \param string   Pattern being scanned.
+    \param length   Byte length of \a string.
+    \param position Index of \c {; updated past the placeholder on success.
+    \param autoCount Incremented for each auto \c {} placeholder.
+    \param mode       Updated when the pattern uses auto or positional placeholders.
+    \param argCount   Upper bound for valid positional indices (\c N must be less than \a argCount).
+
+    \return First \c ValidationError encountered, or \c ValidationError::none when the placeholder is well-formed.
+
+    \pre \a string at \a position is \c { and not the start of \c {{.
+
+    \note Internal helper for \c _validateFormat; not part of the public API.
+  */
+  [[nodiscard]] static constexpr ValidationError _parseOpeningBrace(const CStringView & string, size_t length,
+                                                                    size_t & position, size_t & autoCount,
+                                                                    PlaceholderMode & mode, size_t argCount) noexcept;
+
+  /*!
+    \brief Reads the decimal index and closing \c } for a positional placeholder.
+
+    \param string   Pattern being scanned.
+    \param length   Byte length of \a string.
+    \param position Index of the first digit inside \c {…}; updated past the closing \c } on success.
+    \param argCount Upper bound for valid indices (\c N must be less than \a argCount).
+
+    \return \c ValidationError::none on success; \c ValidationError::invalidContent when digits or closing \c } are
+            missing; \c ValidationError::indexOutOfRange when digit overflow occurs or the index is not less than
+            \a argCount.
+
+    \pre \a position refers to a decimal digit in \a string.
+
+    \note Internal helper for \c _parseOpeningBrace; not part of the public API.
+  */
+  [[nodiscard]] static constexpr ValidationError _parsePositionalIndex(const CStringView & string, size_t length,
+                                                                       size_t & position, size_t argCount) noexcept;
+
+  /*!
+    \brief Verifies placeholder counts against \a argCount after the whole pattern has been scanned.
+
+    \param mode       Whether the pattern used no placeholders, auto \c {}, or positional \c {N}.
+    \param autoCount  Number of \c {} placeholders when in auto mode.
+    \param argCount   Expected \c sizeof...(Args).
+
+    \return \c ValidationError::none or \c ValidationError::argCountMismatch.
+
+    \note Internal helper for \c _validateFormat; not part of the public API.
+  */
+  [[nodiscard]] static constexpr ValidationError _reconcilePlaceholderMode(PlaceholderMode mode, size_t autoCount,
+                                                                           size_t argCount) noexcept;
 
   /*!
     \brief Stub used when validation fails; the program should be ill-formed before a call is needed.
