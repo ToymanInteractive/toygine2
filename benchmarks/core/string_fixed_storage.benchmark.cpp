@@ -18,45 +18,40 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   math_benchark.cpp
-  \brief  Implementation of nanobench benchmarks for the math module.
+  \file   string_fixed_storage.benchmark.cpp
+  \brief  Implementation of string fixed storage nanobench benchmarks for the core module.
 */
 
-#include "benchmark_factory.hpp"
-#include "math.hpp"
+#include "../benchmark_factory.hpp"
+#include "core.hpp"
 
-namespace toy::math {
+namespace toy {
 
-void fixedMathBenchmarks(ankerl::nanobench::Bench &) noexcept;
-void pointMathBenchmarks(ankerl::nanobench::Bench &) noexcept;
-void vector2MathBenchmarks(ankerl::nanobench::Bench &) noexcept;
+// StringFixedStorage benchmarks
+void stringFixedStorageCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
+  bench.run("StringFixedStorage<32> default construct", [] {
+    toy::StringFixedStorage<32> s;
+    doNotOptimize(s.data());
+  });
 
-} // namespace toy::math
+  bench.run("StringFixedStorage<256> capacity", [] {
+    auto c = toy::StringFixedStorage<256>::capacity();
+    doNotOptimize(c);
+  });
 
-using namespace toy::math;
+  bench.run("StringFixedStorage<8> size", [] {
+    toy::StringFixedStorage<8> s;
+    auto n = s.size();
+    doNotOptimize(n);
+  });
 
-using fixed_type = fixed<int32_t, int64_t, 24>;
-
-void runMathBenchmarks() noexcept {
-  auto bench = createBench("Math module");
-
-  toy::math::fixedMathBenchmarks(bench);
-  toy::math::pointMathBenchmarks(bench);
-  toy::math::vector2MathBenchmarks(bench);
-
-  // Utils benchmarks
-  {
-    float angle = 15.0f;
-    float angleRad = 1.25f;
-
-    bench.run("deg2rad float", [&] {
-      auto result = deg2rad(angle);
-      doNotOptimize(result);
-    });
-
-    bench.run("rad2deg float", [&] {
-      auto result = rad2deg(angleRad);
-      doNotOptimize(result);
-    });
-  }
+  bench.run("StringFixedStorage<32> setSize", [] {
+    toy::StringFixedStorage<32> s;
+    s.data()[0] = 'a';
+    s.data()[1] = 'b';
+    s.setSize(2);
+    doNotOptimize(s.data());
+  });
 }
+
+} // namespace toy
