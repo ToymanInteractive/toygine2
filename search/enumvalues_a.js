@@ -5,5 +5,6 @@ var searchData=
   ['memoryerror_2',['MemoryError',['../d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725eacedcbd07d779d35295f55a5b5de1e855',1,'toy::network']]],
   ['minimized_3',['Minimized',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#af1575b610ba458b6ebdcb8763c30a9eca074afcc50ae51f248cbae4950845549e',1,'toy::platform::ui']]],
   ['minmax_4',['MinMax',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#aa6c677b8c744b89734e11ea340507a72ab3599ae8afe8304462dbdbd42d791488',1,'toy::platform::ui']]],
-  ['music_5',['Music',['../dd/d77/namespacetoy_1_1audio.html#afca9143e3b169f77784310a3b384261ca47dcbd834e669233d7eb8a51456ed217',1,'toy::audio']]]
+  ['mixedplaceholders_5',['mixedPlaceholders',['../dc/d62/classtoy_1_1_format_string.html#abd7d8e2e4a5402e0915921678e83ef0bad7c32cf534a3d6a8398859a49a749133',1,'toy::FormatString']]],
+  ['music_6',['Music',['../dd/d77/namespacetoy_1_1audio.html#afca9143e3b169f77784310a3b384261ca47dcbd834e669233d7eb8a51456ed217',1,'toy::audio']]]
 ];

@@ -6,7 +6,7 @@
 <area shape="poly" id="edge23_Node000001_Node000017" title=" " alt="" coords="690,54,607,96,604,91,688,49"/>
 <area shape="rect" id="Node000018" href="$d7/d7f/fixed__string_8hpp.html" title="Fixed&#45;capacity string with stack storage." alt="" coords="671,93,807,133"/>
 <area shape="poly" id="edge25_Node000001_Node000018" title=" " alt="" coords="741,59,741,93,736,93,736,59"/>
-<area shape="rect" id="Node000019" href="$d9/d6a/format__string_8hpp.html" title="Compile&#45;time validated format&#45;string wrapper for {} placeholders." alt="" coords="831,93,980,133"/>
+<area shape="rect" id="Node000019" href="$d9/d6a/format__string_8hpp.html" title="Compile&#45;time validated format&#45;string wrapper for auto {} and positional {N} placeholders." alt="" coords="831,93,980,133"/>
 <area shape="poly" id="edge27_Node000001_Node000019" title=" " alt="" coords="788,49,870,91,868,96,786,54"/>
 <area shape="rect" id="Node000020" href="$de/d2d/o__string__stream_8hpp.html" title="Allocator&#45;free output string stream that appends into string&#45;like storage." alt="" coords="1004,93,1161,133"/>
 <area shape="poly" id="edge29_Node000001_Node000020" title=" " alt="" coords="824,45,1008,91,1006,96,823,50"/>

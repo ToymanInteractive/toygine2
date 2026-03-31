@@ -716,7 +716,7 @@
 <!-- Node33 -->
 <g id="Node000033" class="node">
 <title>Node33</title>
-<g id="a_Node000033"><a xlink:href="../../d9/d6a/format__string_8hpp.html" target="_top" xlink:title="Compile&#45;time validated format&#45;string wrapper for {} placeholders.">
+<g id="a_Node000033"><a xlink:href="../../d9/d6a/format__string_8hpp.html" target="_top" xlink:title="Compile&#45;time validated format&#45;string wrapper for auto {} and positional {N} placeholders.">
 <polygon fill="white" stroke="#666666" points="2014.5,-96 1886.5,-96 1886.5,-77 2014.5,-77 2014.5,-96"/>
 <text text-anchor="middle" x="1950.5" y="-84" font-family="Helvetica,sans-Serif" font-size="10.00">core/format_string.hpp</text>
 </a>

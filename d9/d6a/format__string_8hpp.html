@@ -114,7 +114,7 @@ $(function(){initNavTree('d9/d6a/format__string_8hpp.html','../../',''); });
 </div><!--header-->
 <div class="contents">
 
-<p>Compile-time validated format-string wrapper for <code>{}</code> placeholders.  
+<p>Compile-time validated format-string wrapper for auto <code>{}</code> and positional <code>{N}</code> placeholders.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="../../de/deb/string__like_8hpp_source.html">string_like.hpp</a>&quot;</code><br />
 </div><div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Include dependency graph for format_string.hpp:</div>
@@ -135,7 +135,7 @@ $(function(){initNavTree('d9/d6a/format__string_8hpp.html','../../',''); });
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:toy_3A_3AFormatString_3C_20Args_20_3E" id="r_toy_3A_3AFormatString_3C_20Args_20_3E"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../dc/d62/classtoy_1_1_format_string.html">toy::FormatString&lt; Args &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper around a <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="toy::CStringView">toy::CStringView</a> pattern with <code>consteval</code> validation of <code>`{}`</code> placeholders.  <a href="../../dc/d62/classtoy_1_1_format_string.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper around a <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="toy::CStringView">toy::CStringView</a> pattern with <code>consteval</code> validation of placeholders.  <a href="../../dc/d62/classtoy_1_1_format_string.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
@@ -143,8 +143,8 @@ Namespaces</h2></td></tr>
 <tr class="memdesc:d4/da9/namespacetoy"><td class="mdescLeft">&#160;</td><td class="mdescRight">Root namespace containing all engine modules. <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Compile-time validated format-string wrapper for <code>{}</code> placeholders. </p>
-<p>Defines <a class="el" href="../../dc/d62/classtoy_1_1_format_string.html" title="toy::FormatString">toy::FormatString</a> for checking brace pairing and placeholder count against the template argument pack at compile time.</p>
+<div class="textblock"><p>Compile-time validated format-string wrapper for auto <code>{}</code> and positional <code>{N}</code> placeholders. </p>
+<p>Defines <a class="el" href="../../dc/d62/classtoy_1_1_format_string.html" title="toy::FormatString">toy::FormatString</a> for checking brace pairing, placeholder mode (auto vs positional), and consistency with <code>sizeof</code>...(Args) at compile time.</p>
 <dl class="section note"><dt>Note</dt><dd>Included by <a class="el" href="../../da/d47/core_8hpp.html" title="Umbrella header for the engine core module.">core.hpp</a>; do not include this file directly. </dd></dl>
 </div></div><!-- contents -->
 </div><!-- doc-content -->

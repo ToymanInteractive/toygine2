@@ -77,7 +77,7 @@
 <!-- Node19 -->
 <g id="Node000019" class="node">
 <title>Node19</title>
-<g id="a_Node000019"><a xlink:href="../../d9/d6a/format__string_8hpp.html" target="_top" xlink:title="Compile&#45;time validated format&#45;string wrapper for {} placeholders.">
+<g id="a_Node000019"><a xlink:href="../../d9/d6a/format__string_8hpp.html" target="_top" xlink:title="Compile&#45;time validated format&#45;string wrapper for auto {} and positional {N} placeholders.">
 <polygon fill="white" stroke="#666666" points="731,-261 619,-261 619,-231 731,-231 731,-261"/>
 <text text-anchor="start" x="627" y="-249" font-family="Helvetica,sans-Serif" font-size="10.00">include/core/format</text>
 <text text-anchor="middle" x="675" y="-238" font-family="Helvetica,sans-Serif" font-size="10.00">_string.hpp</text>

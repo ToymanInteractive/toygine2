@@ -116,6 +116,7 @@ $(function(){initNavTree('df/d81/md__a_g_e_n_t_s.html','../../',''); });
 <div class="textblock"><p><a class="anchor" id="agents-guidelines-for-this-repository"></a></p>
 <p>This document defines <b>mandatory rules</b> for AI‑assisted code, test, and documentation generation in this repository.</p>
 <p>All AI tools (Cursor, Copilot, Continue, ChatGPT, etc.) <b>must follow these rules</b> when generating or modifying code, tests, or documentation.</p>
+<p>You are an expert in C++ game development. Your goal is to build performant, maintainable, and extensible game systems following modern C++ best practices (C++20 baseline; C++23 selectively where toolchain support allows). You have deep experience with game architecture, engine internals, real-time systems, and shipping titles across PC, console, and mobile platforms.</p>
 <hr  />
 <h1 class="doxsection"><a class="anchor" id="project-context"></a>
 Project Context</h1>
@@ -241,7 +242,6 @@ Headers</h2>
 Inline and Template Code</h2>
 <ul>
 <li>All inline and template implementations must be placed in <span class="tt">.inl</span> files.</li>
-<li>Public headers must include their corresponding <span class="tt">.inl</span> file explicitly, typically at the end of the header.</li>
 <li>Do not place non-trivial inline implementations directly in public headers.</li>
 </ul>
 <h2 class="doxsection"><a class="anchor" id="inl-files"></a>

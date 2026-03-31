@@ -574,7 +574,7 @@ var sectionId = 'dynsection-0';
 <!-- Node31 -->
 <g id="Node000031" class="node">
 <title>Node31</title>
-<g id="a_Node000031"><a xlink:href="../../d9/d6a/format__string_8hpp.html" target="_top" xlink:title="Compile&#45;time validated format&#45;string wrapper for {} placeholders.">
+<g id="a_Node000031"><a xlink:href="../../d9/d6a/format__string_8hpp.html" target="_top" xlink:title="Compile&#45;time validated format&#45;string wrapper for auto {} and positional {N} placeholders.">
 <polygon fill="white" stroke="#666666" points="2670,-96 2542,-96 2542,-77 2670,-77 2670,-96"/>
 <text text-anchor="middle" x="2606" y="-84" font-family="Helvetica,sans-Serif" font-size="10.00">core/format_string.hpp</text>
 </a>

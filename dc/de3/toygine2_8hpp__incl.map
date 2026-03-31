@@ -77,7 +77,7 @@
 <area shape="poly" id="edge30_Node000003_Node000031" title=" " alt="" coords="3885,244,3653,259,3498,276,3341,301,3298,312,3296,307,3340,296,3497,271,3653,254,3885,238"/>
 <area shape="rect" id="Node000032" href="$d7/dea/fixed__vector_8hpp.html" title="Fixed&#45;capacity vector with inline storage." alt="" coords="3761,313,3921,339"/>
 <area shape="poly" id="edge32_Node000003_Node000032" title=" " alt="" coords="3915,253,3864,305,3860,301,3911,249"/>
-<area shape="rect" id="Node000033" href="$d9/d6a/format__string_8hpp.html" title="Compile&#45;time validated format&#45;string wrapper for {} placeholders." alt="" coords="2521,313,2691,339"/>
+<area shape="rect" id="Node000033" href="$d9/d6a/format__string_8hpp.html" title="Compile&#45;time validated format&#45;string wrapper for auto {} and positional {N} placeholders." alt="" coords="2521,313,2691,339"/>
 <area shape="poly" id="edge33_Node000003_Node000033" title=" " alt="" coords="3885,243,3314,260,2962,277,2815,288,2704,301,2655,312,2654,307,2703,296,2814,283,2962,272,3314,254,3885,237"/>
 <area shape="rect" id="Node000034" href="$dd/d8e/hashes_8hpp.html" title="Table&#45;driven CRC&#45;8, CRC&#45;16, and CRC&#45;32 over byte buffers." alt="" coords="3945,313,4073,339"/>
 <area shape="poly" id="edge35_Node000003_Node000034" title=" " alt="" coords="3938,249,3989,301,3985,305,3934,253"/>
