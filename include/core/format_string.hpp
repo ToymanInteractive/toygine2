@@ -130,12 +130,19 @@ public:
   [[nodiscard]] constexpr CStringView get() const noexcept;
 
 private:
+  /// Status from \c _validateFormat(); internal detail, not public API.
   enum class ValidationError {
+    /// Pattern passes validation for the expected argument count.
     none,
+    /// Stray or incomplete \c { / \c } (not \c {{, \c }}, \c {}, or \c {N}).
     unmatchedBrace,
+    /// Positional \c {N…} not closed by \c }, or disallowed characters after the index.
     invalidContent,
+    /// Mixed auto \c {} and positional \c {N} in one pattern.
     mixedPlaceholders,
+    /// Placeholder count vs expected argument count mismatch (including empty pattern with arguments).
     argCountMismatch,
+    /// Positional index out of range or overflow while parsing digits.
     indexOutOfRange
   };
 

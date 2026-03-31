@@ -88,7 +88,7 @@ constexpr typename FormatString<Args...>::ValidationError FormatString<Args...>:
 
           anyDigit = true;
           const auto digit = static_cast<unsigned>(d - '0');
-          if (index > (static_cast<size_t>(SIZE_MAX) - digit) / 10U)
+          if (index > (SIZE_MAX - digit) / 10U)
             return ValidationError::indexOutOfRange;
 
           index = index * 10U + digit;
