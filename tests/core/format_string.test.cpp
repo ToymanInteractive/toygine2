@@ -161,4 +161,12 @@ TEST_CASE("core/format_string/positional_with_escapes") {
   static_assert(format.get() == "{{{0}}}", "escaped braces with positional index preserved");
 }
 
+TEST_CASE("core/format_string/positional_sparse") {
+  constexpr FormatString<int, float, double> format("{2}");
+
+  REQUIRE(format.get() == "{2}");
+
+  static_assert(format.get() == "{2}", "sparse positional index must be preserved");
+}
+
 } // namespace toy

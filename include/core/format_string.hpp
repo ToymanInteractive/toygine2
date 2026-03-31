@@ -30,6 +30,8 @@
 #ifndef INCLUDE_CORE_FORMAT_STRING_HPP_
 #define INCLUDE_CORE_FORMAT_STRING_HPP_
 
+#include <cstdint>
+
 #include "string_like.hpp"
 
 namespace toy {
@@ -146,6 +148,9 @@ private:
     indexOutOfRange
   };
 
+  /// Auto vs positional placeholder mode while scanning; internal to \c _validateFormat.
+  enum class PlaceholderMode { none, autoIndex, positional };
+
   /// The stored format string.
   const CStringView _string;
 
@@ -159,6 +164,74 @@ private:
     \return Error code; \c ValidationError::none when the pattern is consistent with \a argCount.
   */
   [[nodiscard]] static constexpr ValidationError _validateFormat(const CStringView & string, size_t argCount) noexcept;
+
+  /*!
+    \brief Consumes a literal \c {{ or \c }} pair at \a position when present.
+
+    \param string   Pattern being scanned.
+    \param length   Byte length of \a string (same value as \c string.size()).
+    \param position Current index; advanced by \c 2 when a doubled brace is consumed.
+    \param brace    \c '{' to match \c {{, or \c '}' to match \c }}.
+
+    \return \c true if a pair was consumed; \c false if \a position does not start a doubled brace.
+
+    \note Internal helper for \c _validateFormat; not part of the public API.
+  */
+  [[nodiscard]] static constexpr bool _consumeEscapedBrace(const CStringView & string, size_t length, size_t & position,
+                                                           char brace) noexcept;
+
+  /*!
+    \brief Parses a non-escaped opening brace: auto \c {}, positional \c {N}, or a structural error.
+
+    \param string   Pattern being scanned.
+    \param length   Byte length of \a string.
+    \param position Index of \c {; updated past the placeholder on success.
+    \param autoCount Incremented for each auto \c {} placeholder.
+    \param mode       Updated when the pattern uses auto or positional placeholders.
+    \param argCount   Upper bound for valid positional indices (\c N must be less than \a argCount).
+
+    \return First \c ValidationError encountered, or \c ValidationError::none when the placeholder is well-formed.
+
+    \pre \a string at \a position is \c { and not the start of \c {{.
+
+    \note Internal helper for \c _validateFormat; not part of the public API.
+  */
+  [[nodiscard]] static constexpr ValidationError _parseOpeningBrace(const CStringView & string, size_t length,
+                                                                    size_t & position, size_t & autoCount,
+                                                                    PlaceholderMode & mode, size_t argCount) noexcept;
+
+  /*!
+    \brief Reads the decimal index and closing \c } for a positional placeholder.
+
+    \param string   Pattern being scanned.
+    \param length   Byte length of \a string.
+    \param position Index of the first digit inside \c {…}; updated past the closing \c } on success.
+    \param argCount Upper bound for valid indices (\c N must be less than \a argCount).
+
+    \return \c ValidationError::none on success; \c ValidationError::invalidContent when digits or closing \c } are
+            missing; \c ValidationError::indexOutOfRange when digit overflow occurs or the index is not less than
+            \a argCount.
+
+    \pre \a position refers to a decimal digit in \a string.
+
+    \note Internal helper for \c _parseOpeningBrace; not part of the public API.
+  */
+  [[nodiscard]] static constexpr ValidationError _parsePositionalIndex(const CStringView & string, size_t length,
+                                                                       size_t & position, size_t argCount) noexcept;
+
+  /*!
+    \brief Verifies placeholder counts against \a argCount after the whole pattern has been scanned.
+
+    \param mode       Whether the pattern used no placeholders, auto \c {}, or positional \c {N}.
+    \param autoCount  Number of \c {} placeholders when in auto mode.
+    \param argCount   Expected \c sizeof...(Args).
+
+    \return \c ValidationError::none or \c ValidationError::argCountMismatch.
+
+    \note Internal helper for \c _validateFormat; not part of the public API.
+  */
+  [[nodiscard]] static constexpr ValidationError _reconcilePlaceholderMode(PlaceholderMode mode, size_t autoCount,
+                                                                           size_t argCount) noexcept;
 
   /*!
     \brief Stub used when validation fails; the program should be ill-formed before a call is needed.

@@ -19,7 +19,7 @@
 //
 /*!
   \file   vector2.benchmark.cpp
-  \brief  Implementation of vector2 nanobench benchmarks for the math module.
+  \brief  Implementations for vector2 nanobench benchmarks in the math module.
 */
 
 #include "../benchmark_factory.hpp"

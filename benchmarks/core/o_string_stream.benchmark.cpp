@@ -19,7 +19,7 @@
 //
 /*!
   \file   o_string_stream.benchmark.cpp
-  \brief  Implementation of output string stream nanobench benchmarks for the core module.
+  \brief  Implementations for output string stream nanobench benchmarks in the core module.
 */
 
 #include "../benchmark_factory.hpp"

@@ -32,9 +32,26 @@ namespace toy {
 template <class... Args>
 consteval FormatString<Args...>::FormatString(const CStringView & string) noexcept
   : _string(string) {
-  const auto error = _validateFormat(string, sizeof...(Args));
-  if (error != ValidationError::none)
-    _compileTimeError("invalid format string: check braces, auto {} vs positional {N}, argument count, indices");
+  switch (const auto error = _validateFormat(string, sizeof...(Args)); error) {
+  case ValidationError::unmatchedBrace:
+    _compileTimeError("invalid format string: unmatched or incomplete braces");
+    break;
+  case ValidationError::invalidContent:
+    _compileTimeError("invalid format string: invalid content inside braces (expected } after index)");
+    break;
+  case ValidationError::mixedPlaceholders:
+    _compileTimeError("invalid format string: cannot mix auto {} and positional {N} placeholders");
+    break;
+  case ValidationError::argCountMismatch:
+    _compileTimeError("invalid format string: placeholder count does not match the number of arguments");
+    break;
+  case ValidationError::indexOutOfRange:
+    _compileTimeError("invalid format string: positional index out of range");
+    break;
+  case ValidationError::none:
+  default:
+    break;
+  }
 }
 
 template <class... Args>
@@ -45,9 +62,7 @@ constexpr CStringView FormatString<Args...>::get() const noexcept {
 template <class... Args>
 constexpr typename FormatString<Args...>::ValidationError FormatString<Args...>::_validateFormat(
   const CStringView & string, size_t argCount) noexcept {
-  enum class Mode { none, autoIndex, positional };
-
-  Mode mode = Mode::none;
+  auto mode = PlaceholderMode::none;
   size_t autoCount = 0;
   size_t position = 0;
   const auto length = string.size();
@@ -55,67 +70,19 @@ constexpr typename FormatString<Args...>::ValidationError FormatString<Args...>:
   while (position < length) {
     const char c = string.at(position);
     if (c == '{') {
-      if (position + 1 < length && string.at(position + 1) == '{') {
-        position += 2;
+      if (_consumeEscapedBrace(string, length, position, '{'))
         continue;
-      }
 
-      if (position + 1 >= length)
-        return ValidationError::unmatchedBrace;
+      const auto err = _parseOpeningBrace(string, length, position, autoCount, mode, argCount);
+      if (err != ValidationError::none)
+        return err;
 
-      if (string.at(position + 1) == '}') {
-        if (mode == Mode::positional)
-          return ValidationError::mixedPlaceholders;
-
-        mode = Mode::autoIndex;
-        ++autoCount;
-        position += 2;
-        continue;
-      }
-
-      if (string.at(position + 1) >= '0' && string.at(position + 1) <= '9') {
-        if (mode == Mode::autoIndex)
-          return ValidationError::mixedPlaceholders;
-
-        mode = Mode::positional;
-        ++position;
-        size_t index = 0;
-        bool anyDigit = false;
-        while (position < length) {
-          const char d = string.at(position);
-          if (d < '0' || d > '9')
-            break;
-
-          anyDigit = true;
-          const auto digit = static_cast<unsigned>(d - '0');
-          if (index > (SIZE_MAX - digit) / 10U)
-            return ValidationError::indexOutOfRange;
-
-          index = index * 10U + digit;
-          ++position;
-        }
-
-        if (!anyDigit)
-          return ValidationError::invalidContent;
-
-        if (position >= length || string.at(position) != '}')
-          return ValidationError::invalidContent;
-
-        if (index >= argCount)
-          return ValidationError::indexOutOfRange;
-
-        ++position;
-        continue;
-      }
-
-      return ValidationError::unmatchedBrace;
+      continue;
     }
 
     if (c == '}') {
-      if (position + 1 < length && string.at(position + 1) == '}') {
-        position += 2;
+      if (_consumeEscapedBrace(string, length, position, '}'))
         continue;
-      }
 
       return ValidationError::unmatchedBrace;
     }
@@ -123,14 +90,97 @@ constexpr typename FormatString<Args...>::ValidationError FormatString<Args...>:
     ++position;
   }
 
-  if (mode == Mode::none) {
+  return _reconcilePlaceholderMode(mode, autoCount, argCount);
+}
+
+template <class... Args>
+constexpr bool FormatString<Args...>::_consumeEscapedBrace(const CStringView & string, size_t length, size_t & position,
+                                                           char brace) noexcept {
+  if (position + 1 < length && string.at(position) == brace && string.at(position + 1) == brace) {
+    position += 2;
+
+    return true;
+  }
+
+  return false;
+}
+
+template <class... Args>
+constexpr typename FormatString<Args...>::ValidationError FormatString<Args...>::_parseOpeningBrace(
+  const CStringView & string, size_t length, size_t & position, size_t & autoCount, PlaceholderMode & mode,
+  size_t argCount) noexcept {
+  if (position + 1 >= length)
+    return ValidationError::unmatchedBrace;
+
+  const char next = string.at(position + 1);
+  if (next == '}') {
+    if (mode == PlaceholderMode::positional)
+      return ValidationError::mixedPlaceholders;
+
+    mode = PlaceholderMode::autoIndex;
+    ++autoCount;
+    position += 2;
+
+    return ValidationError::none;
+  }
+
+  if (next >= '0' && next <= '9') {
+    if (mode == PlaceholderMode::autoIndex)
+      return ValidationError::mixedPlaceholders;
+
+    mode = PlaceholderMode::positional;
+    ++position;
+
+    return _parsePositionalIndex(string, length, position, argCount);
+  }
+
+  return ValidationError::unmatchedBrace;
+}
+
+template <class... Args>
+constexpr typename FormatString<Args...>::ValidationError FormatString<Args...>::_parsePositionalIndex(
+  const CStringView & string, size_t length, size_t & position, size_t argCount) noexcept {
+  size_t index = 0;
+  bool anyDigit = false;
+  while (position < length) {
+    const char d = string.at(position);
+    if (d < '0' || d > '9')
+      break;
+
+    anyDigit = true;
+    const auto digit = static_cast<unsigned>(d - '0');
+    if (index > (SIZE_MAX - digit) / 10U)
+      return ValidationError::indexOutOfRange;
+
+    index = index * 10U + digit;
+    ++position;
+  }
+
+  if (!anyDigit)
+    return ValidationError::invalidContent;
+
+  if (position >= length || string.at(position) != '}')
+    return ValidationError::invalidContent;
+
+  if (index >= argCount)
+    return ValidationError::indexOutOfRange;
+
+  ++position;
+
+  return ValidationError::none;
+}
+
+template <class... Args>
+constexpr typename FormatString<Args...>::ValidationError FormatString<Args...>::_reconcilePlaceholderMode(
+  PlaceholderMode mode, size_t autoCount, size_t argCount) noexcept {
+  if (mode == PlaceholderMode::none) {
     if (argCount != 0)
       return ValidationError::argCountMismatch;
 
     return ValidationError::none;
   }
 
-  if (mode == Mode::autoIndex) {
+  if (mode == PlaceholderMode::autoIndex) {
     if (autoCount != argCount)
       return ValidationError::argCountMismatch;
 

@@ -19,7 +19,7 @@
 //
 /*!
   \file   hashes.benchmark.cpp
-  \brief  Implementation of hashes nanobench benchmarks for the core module.
+  \brief  Implementations for hashes nanobench benchmarks in the core module.
 */
 
 #include "../benchmark_factory.hpp"
