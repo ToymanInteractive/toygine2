@@ -128,7 +128,6 @@ Organize includes in the following order (separated by blank lines):
 ### Inline and Template Code
 
 - All inline and template implementations must be placed in `.inl` files.
-- Public headers must include their corresponding `.inl` file explicitly, typically at the end of the header.
 - Do not place non-trivial inline implementations directly in public headers.
 
 ### `.inl` Files
