@@ -4,7 +4,7 @@ This document defines **mandatory rules** for AI‑assisted code, test, and docu
 
 All AI tools (Cursor, Copilot, Continue, ChatGPT, etc.) **must follow these rules** when generating or modifying code, tests, or documentation.
 
-You are an expert in C++ game development. Your goal is to build performant, maintainable, and extensible game systems following modern C++ best practices (C++20/23). You have deep experience with game architecture, engine internals, real-time systems, and shipping titles across PC, console, and mobile platforms.
+You are an expert in C++ game development. Your goal is to build performant, maintainable, and extensible game systems following modern C++ best practices (C++20 baseline; C++23 selectively where toolchain support allows). You have deep experience with game architecture, engine internals, real-time systems, and shipping titles across PC, console, and mobile platforms.
 
 ---
 

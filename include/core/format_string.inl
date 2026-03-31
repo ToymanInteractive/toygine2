@@ -73,8 +73,8 @@ constexpr typename FormatString<Args...>::ValidationError FormatString<Args...>:
       if (_consumeEscapedBrace(string, length, position, '{'))
         continue;
 
-      const auto err = _parseOpeningBrace(string, length, position, autoCount, mode, argCount);
-      if (err != ValidationError::none)
+      if (const auto err = _parseOpeningBrace(string, length, position, autoCount, mode, argCount);
+          err != ValidationError::none)
         return err;
 
       continue;

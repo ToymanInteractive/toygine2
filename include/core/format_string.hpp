@@ -30,8 +30,6 @@
 #ifndef INCLUDE_CORE_FORMAT_STRING_HPP_
 #define INCLUDE_CORE_FORMAT_STRING_HPP_
 
-#include <cstdint>
-
 #include "string_like.hpp"
 
 namespace toy {
@@ -149,7 +147,14 @@ private:
   };
 
   /// Auto vs positional placeholder mode while scanning; internal to \c _validateFormat.
-  enum class PlaceholderMode { none, autoIndex, positional };
+  enum class PlaceholderMode {
+    /// No \c {} or \c {N} placeholder has been seen yet.
+    none,
+    /// Only auto \c {} placeholders appear in the pattern.
+    autoIndex,
+    /// Only positional \c {N} placeholders appear in the pattern.
+    positional
+  };
 
   /// The stored format string.
   const CStringView _string;
