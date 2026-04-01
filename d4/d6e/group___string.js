@@ -191,26 +191,8 @@ var group___string =
       [ "npos", "d3/d7a/classtoy_1_1_fixed_string.html#aa67281adc0c101c3619fed8ff618ac6a", null ]
     ] ],
     [ "toy::FormatString&lt; Args &gt;", "dc/d62/classtoy_1_1_format_string.html", [
-      [ "PlaceholderMode", "dc/d62/classtoy_1_1_format_string.html#acdc2725ef4191b0075d96282e646346f", [
-        [ "none", "dc/d62/classtoy_1_1_format_string.html#acdc2725ef4191b0075d96282e646346fa334c4a4c42fdb79d7ebc3e73b517e6f8", null ],
-        [ "autoIndex", "dc/d62/classtoy_1_1_format_string.html#acdc2725ef4191b0075d96282e646346faf14ff6e92748524adb72f48fbb544aec", null ],
-        [ "positional", "dc/d62/classtoy_1_1_format_string.html#acdc2725ef4191b0075d96282e646346fae2d45ea19c2efd31814277330dcdb556", null ]
-      ] ],
-      [ "ValidationError", "dc/d62/classtoy_1_1_format_string.html#abd7d8e2e4a5402e0915921678e83ef0b", [
-        [ "none", "dc/d62/classtoy_1_1_format_string.html#abd7d8e2e4a5402e0915921678e83ef0ba334c4a4c42fdb79d7ebc3e73b517e6f8", null ],
-        [ "unmatchedBrace", "dc/d62/classtoy_1_1_format_string.html#abd7d8e2e4a5402e0915921678e83ef0baeb42ad13d59146d74f9573ea3a2dbd79", null ],
-        [ "invalidContent", "dc/d62/classtoy_1_1_format_string.html#abd7d8e2e4a5402e0915921678e83ef0ba04d8a8f389b0468423db7dbc6bae6b47", null ],
-        [ "mixedPlaceholders", "dc/d62/classtoy_1_1_format_string.html#abd7d8e2e4a5402e0915921678e83ef0bad7c32cf534a3d6a8398859a49a749133", null ],
-        [ "argCountMismatch", "dc/d62/classtoy_1_1_format_string.html#abd7d8e2e4a5402e0915921678e83ef0bac1de17fa49444b70937363bb45671095", null ],
-        [ "indexOutOfRange", "dc/d62/classtoy_1_1_format_string.html#abd7d8e2e4a5402e0915921678e83ef0ba84198e7bcd7cdb94a436ef786a514a49", null ]
-      ] ],
       [ "FormatString", "dc/d62/classtoy_1_1_format_string.html#a06c00dea813cc4f7fcee89cc35ce9370", null ],
       [ "_compileTimeError", "dc/d62/classtoy_1_1_format_string.html#afd793fd7ecad4136327c535a8e2d6602", null ],
-      [ "_consumeEscapedBrace", "dc/d62/classtoy_1_1_format_string.html#a5badad22a923afaba9fbd9101e9179f3", null ],
-      [ "_parseOpeningBrace", "dc/d62/classtoy_1_1_format_string.html#ad213cd7f067cfaaefd370d6990b5bbad", null ],
-      [ "_parsePositionalIndex", "dc/d62/classtoy_1_1_format_string.html#ae45b3dfab10ce5ea9b5a785c8d7218a6", null ],
-      [ "_reconcilePlaceholderMode", "dc/d62/classtoy_1_1_format_string.html#a81a3504f278850dc63e6282b8923d2dc", null ],
-      [ "_validateFormat", "dc/d62/classtoy_1_1_format_string.html#ae4908200cc20a2897f76c1c00bfdc5df", null ],
       [ "explicit", "dc/d62/classtoy_1_1_format_string.html#a8bddc50cb2304cfc22f2f5fdc201dfc5", null ],
       [ "get", "dc/d62/classtoy_1_1_format_string.html#aad2ddbdff43aae3fa0d453ec2196a339", null ],
       [ "operator=", "dc/d62/classtoy_1_1_format_string.html#abe2285a11ce2d6e7bf602112536103bc", null ],
@@ -260,5 +242,15 @@ var group___string =
       [ "size", "d0/d21/classtoy_1_1_string_fixed_storage.html#afffe5c7ce202a335498acba9427fa36f", null ],
       [ "_buffer", "d0/d21/classtoy_1_1_string_fixed_storage.html#a04a6ac50095c17febfa4f5d99e15885c", null ],
       [ "_size", "d0/d21/classtoy_1_1_string_fixed_storage.html#a4bbfe824896a73aa8bb30049d0857757", null ]
-    ] ]
+    ] ],
+    [ "toy::FormatPatternValidationError", "d4/d6e/group___string.html#ga47774805e63ecbede7f9cbfa12168c41", [
+      [ "toy::FormatPatternValidationError::none", "d4/d6e/group___string.html#gga47774805e63ecbede7f9cbfa12168c41a334c4a4c42fdb79d7ebc3e73b517e6f8", null ],
+      [ "toy::FormatPatternValidationError::unmatchedBrace", "d4/d6e/group___string.html#gga47774805e63ecbede7f9cbfa12168c41aeb42ad13d59146d74f9573ea3a2dbd79", null ],
+      [ "toy::FormatPatternValidationError::invalidContent", "d4/d6e/group___string.html#gga47774805e63ecbede7f9cbfa12168c41a04d8a8f389b0468423db7dbc6bae6b47", null ],
+      [ "toy::FormatPatternValidationError::mixedPlaceholders", "d4/d6e/group___string.html#gga47774805e63ecbede7f9cbfa12168c41ad7c32cf534a3d6a8398859a49a749133", null ],
+      [ "toy::FormatPatternValidationError::argCountMismatch", "d4/d6e/group___string.html#gga47774805e63ecbede7f9cbfa12168c41ac1de17fa49444b70937363bb45671095", null ],
+      [ "toy::FormatPatternValidationError::indexOutOfRange", "d4/d6e/group___string.html#gga47774805e63ecbede7f9cbfa12168c41a84198e7bcd7cdb94a436ef786a514a49", null ]
+    ] ],
+    [ "toy::anonymous_namespace{format_pattern.inl}::validateFormatImpl", "d4/d6e/group___string.html#ga001484b1a940bb2691fdd2d66c1a14c9", null ],
+    [ "toy::validateFormatPattern", "d4/d6e/group___string.html#ga5b1768ae7cdfb38447089aca42336c1e", null ]
 ];

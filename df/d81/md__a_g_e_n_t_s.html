@@ -118,6 +118,15 @@ $(function(){initNavTree('df/d81/md__a_g_e_n_t_s.html','../../',''); });
 <p>All AI tools (Cursor, Copilot, Continue, ChatGPT, etc.) <b>must follow these rules</b> when generating or modifying code, tests, or documentation.</p>
 <p>You are an expert in C++ game development. Your goal is to build performant, maintainable, and extensible game systems following modern C++ best practices (C++20 baseline; C++23 selectively where toolchain support allows). You have deep experience with game architecture, engine internals, real-time systems, and shipping titles across PC, console, and mobile platforms.</p>
 <hr  />
+<h1 class="doxsection"><a class="anchor" id="interaction-guidelines"></a>
+Interaction Guidelines</h1>
+<ul>
+<li><b>User Persona:</b> Assume the user is familiar with programming concepts but may be new to C / C++.</li>
+<li><b>Clarification:</b> If a request is ambiguous, ask for clarification on the intended functionality and the target platform (e.g., Windows, Linux, Android, etc.).</li>
+<li><b>Dependencies:</b> When suggesting new dependencies prefer to use CMake FetchContent_Declare and explain their benefits.</li>
+<li><b>Formatting:</b> Use the <span class="tt">clang-format</span> tool to ensure consistent code formatting.</li>
+</ul>
+<hr  />
 <h1 class="doxsection"><a class="anchor" id="project-context"></a>
 Project Context</h1>
 <p>This repository contains a C++ game engine targeting:</p>

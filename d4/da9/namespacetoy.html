@@ -121,6 +121,7 @@ $(function(){initNavTree('d4/da9/namespacetoy.html','../../',''); });
 Namespaces</h2></td></tr>
 <tr class="memitem:application" id="r_application"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="../../d0/d3e/namespacetoy_1_1application.html">application</a></td></tr>
 <tr class="memdesc:d0/d3e/namespacetoy_1_1application"><td class="mdescLeft">&#160;</td><td class="mdescRight">Application-level types and utilities (version, etc.). <br /></td></tr>
+<tr class="memitem:anonymous_5Fnamespace_7Bformat_5Fpattern_2Einl_7D" id="r_anonymous_5Fnamespace_7Bformat_5Fpattern_2Einl_7D"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="../../d7/d66/namespacetoy_1_1anonymous__namespace_02format__pattern_8inl_03.html">anonymous_namespace{format_pattern.inl}</a></td></tr>
 <tr class="memitem:geometry" id="r_geometry"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="../../da/d08/namespacetoy_1_1geometry.html">geometry</a></td></tr>
 <tr class="memdesc:da/d08/namespacetoy_1_1geometry"><td class="mdescLeft">&#160;</td><td class="mdescRight">Geometry types and utilities: sections (intervals), circles, ellipses, and related APIs. <br /></td></tr>
 <tr class="memitem:math" id="r_math"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="../../d2/d83/namespacetoy_1_1math.html">math</a></td></tr>
@@ -168,6 +169,17 @@ Concepts</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
+<tr class="memitem:ga47774805e63ecbede7f9cbfa12168c41" id="r_ga47774805e63ecbede7f9cbfa12168c41"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="../../d4/d6e/group___string.html#ga47774805e63ecbede7f9cbfa12168c41">FormatPatternValidationError</a> { <br />
+&#160;&#160;<a class="el" href="../../d4/d6e/group___string.html#gga47774805e63ecbede7f9cbfa12168c41a334c4a4c42fdb79d7ebc3e73b517e6f8">FormatPatternValidationError::none</a>
+, <a class="el" href="../../d4/d6e/group___string.html#gga47774805e63ecbede7f9cbfa12168c41aeb42ad13d59146d74f9573ea3a2dbd79">FormatPatternValidationError::unmatchedBrace</a>
+, <a class="el" href="../../d4/d6e/group___string.html#gga47774805e63ecbede7f9cbfa12168c41a04d8a8f389b0468423db7dbc6bae6b47">FormatPatternValidationError::invalidContent</a>
+, <a class="el" href="../../d4/d6e/group___string.html#gga47774805e63ecbede7f9cbfa12168c41ad7c32cf534a3d6a8398859a49a749133">FormatPatternValidationError::mixedPlaceholders</a>
+, <br />
+&#160;&#160;<a class="el" href="../../d4/d6e/group___string.html#gga47774805e63ecbede7f9cbfa12168c41ac1de17fa49444b70937363bb45671095">FormatPatternValidationError::argCountMismatch</a>
+, <a class="el" href="../../d4/d6e/group___string.html#gga47774805e63ecbede7f9cbfa12168c41a84198e7bcd7cdb94a436ef786a514a49">FormatPatternValidationError::indexOutOfRange</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:ga47774805e63ecbede7f9cbfa12168c41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Result of validating a format pattern against an expected argument count.  <a href="../../d4/d6e/group___string.html#ga47774805e63ecbede7f9cbfa12168c41">More...</a><br /></td></tr>
 <tr class="memitem:aac9dbb8926274f6a556489c529f4b55a" id="r_aac9dbb8926274f6a556489c529f4b55a"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#aac9dbb8926274f6a556489c529f4b55a">Platform</a> : uint16_t { <br />
 &#160;&#160;<a class="el" href="#aac9dbb8926274f6a556489c529f4b55aaaea23489ce3aa9b6406ebb28e0cda430">Windows</a> = 0x1000
 , <a class="el" href="#aac9dbb8926274f6a556489c529f4b55aaedc9f0a5a5d57797bf68e37364743831">Linux</a> = 0x2000
@@ -290,6 +302,8 @@ Functions</h2></td></tr>
 <tr class="memitem:a43b66e65ca273e28eb053c19537093c9" id="r_a43b66e65ca273e28eb053c19537093c9"><td class="memTemplParams" colspan="2">template&lt;size_t allocatedSize&gt; </td></tr>
 <tr class="memitem:a43b66e65ca273e28eb053c19537093c9 template"><td class="memItemLeft">constexpr strong_ordering&#160;</td><td class="memItemRight"><a class="el" href="#a43b66e65ca273e28eb053c19537093c9">operator&lt;=&gt;</a> (const char *lhs, const <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html">FixedString</a>&lt; allocatedSize &gt; &amp;rhs) noexcept</td></tr>
 <tr class="memdesc:a43b66e65ca273e28eb053c19537093c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Three-way comparison operator for C string and <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="Template string class with fixed-size character buffer.">FixedString</a>.  <br /></td></tr>
+<tr class="memitem:ga5b1768ae7cdfb38447089aca42336c1e" id="r_ga5b1768ae7cdfb38447089aca42336c1e"><td class="memItemLeft">constexpr <a class="el" href="../../d4/d6e/group___string.html#ga47774805e63ecbede7f9cbfa12168c41">FormatPatternValidationError</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d6e/group___string.html#ga5b1768ae7cdfb38447089aca42336c1e">validateFormatPattern</a> (const <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a> &amp;string, size_t argCount) noexcept</td></tr>
+<tr class="memdesc:ga5b1768ae7cdfb38447089aca42336c1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates auto-indexed <code>{}</code> and positional <code>{N}</code> placeholders for <em class="arg">argCount</em> arguments.  <br /></td></tr>
 <tr class="memitem:ga2bc2dc2817640958352b4e80ec99b2be" id="r_ga2bc2dc2817640958352b4e80ec99b2be"><td class="memItemLeft">constexpr wchar_t *&#160;</td><td class="memItemRight"><a class="el" href="../../d8/d90/group___text_functions.html#ga2bc2dc2817640958352b4e80ec99b2be">utf8toWChar</a> (wchar_t *dest, size_t destSize, const char *src) noexcept</td></tr>
 <tr class="memdesc:ga2bc2dc2817640958352b4e80ec99b2be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a UTF-8 C string to a wide-character string (full source length).  <br /></td></tr>
 <tr class="memitem:gaa0dda7b7f9781bc3cd35484ce3e5282e" id="r_gaa0dda7b7f9781bc3cd35484ce3e5282e"><td class="memTemplParams" colspan="2">template&lt;StringLike T&gt; </td></tr>

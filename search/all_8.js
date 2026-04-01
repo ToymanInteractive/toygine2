@@ -8,5 +8,6 @@ var searchData=
   ['get_5',['get',['../dc/d62/classtoy_1_1_format_string.html#aad2ddbdff43aae3fa0d453ec2196a339',1,'toy::FormatString']]],
   ['guarantees_6',['Guarantees',['../df/d81/md__a_g_e_n_t_s.html#section-safety-safety-guarantees',1,'&lt;span class=&quot;tt&quot;&gt;\\section safety Safety Guarantees&lt;/span&gt;'],['../d0/d21/classtoy_1_1_string_fixed_storage.html#safety',1,'Safety Guarantees']]],
   ['guards_7',['Include Guards',['../df/d81/md__a_g_e_n_t_s.html#include-guards',1,'']]],
-  ['guidelines_20for_20this_20repository_8',['AGENTS Guidelines for This Repository',['../df/d81/md__a_g_e_n_t_s.html',1,'']]]
+  ['guidelines_8',['Interaction Guidelines',['../df/d81/md__a_g_e_n_t_s.html#interaction-guidelines',1,'']]],
+  ['guidelines_20for_20this_20repository_9',['AGENTS Guidelines for This Repository',['../df/d81/md__a_g_e_n_t_s.html',1,'']]]
 ];

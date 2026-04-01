@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['socketerror_0',['SocketError',['../d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725e',1,'toy::network']]],
-  ['socketflags_1',['SocketFlags',['../d6/d2c/namespacetoy_1_1network.html#af5b032f86c2c00ee1f7c873271b57abf',1,'toy::network']]],
-  ['sockettype_2',['SocketType',['../d6/d2c/namespacetoy_1_1network.html#a465745810e1e093a3e2aaa44ba340b8e',1,'toy::network']]]
+  ['pixelformat_0',['PixelFormat',['../df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3f',1,'toy::render']]],
+  ['placeholdermode_1',['PlaceholderMode',['../d7/d66/namespacetoy_1_1anonymous__namespace_02format__pattern_8inl_03.html#ab8ad9fba3dcf7942f6c05538bc6c60c4',1,'toy::anonymous_namespace{format_pattern.inl}']]],
+  ['platform_2',['Platform',['../d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55a',1,'toy']]]
 ];

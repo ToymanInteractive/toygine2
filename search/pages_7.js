@@ -4,5 +4,6 @@ var searchData=
   ['general_20test_20principles_1',['General Test Principles',['../df/d81/md__a_g_e_n_t_s.html#general-test-principles',1,'']]],
   ['guarantees_2',['Guarantees',['../df/d81/md__a_g_e_n_t_s.html#section-safety-safety-guarantees',1,'&lt;span class=&quot;tt&quot;&gt;\\section safety Safety Guarantees&lt;/span&gt;'],['../d0/d21/classtoy_1_1_string_fixed_storage.html#safety',1,'Safety Guarantees']]],
   ['guards_3',['Include Guards',['../df/d81/md__a_g_e_n_t_s.html#include-guards',1,'']]],
-  ['guidelines_20for_20this_20repository_4',['AGENTS Guidelines for This Repository',['../df/d81/md__a_g_e_n_t_s.html',1,'']]]
+  ['guidelines_4',['Interaction Guidelines',['../df/d81/md__a_g_e_n_t_s.html#interaction-guidelines',1,'']]],
+  ['guidelines_20for_20this_20repository_5',['AGENTS Guidelines for This Repository',['../df/d81/md__a_g_e_n_t_s.html',1,'']]]
 ];

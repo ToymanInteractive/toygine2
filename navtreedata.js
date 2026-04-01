@@ -30,6 +30,7 @@ var NAVTREE =
       [ "Tools", "index.html#tools", null ]
     ] ],
     [ "AGENTS Guidelines for This Repository", "df/d81/md__a_g_e_n_t_s.html", [
+      [ "Interaction Guidelines", "df/d81/md__a_g_e_n_t_s.html#interaction-guidelines", null ],
       [ "Project Context", "df/d81/md__a_g_e_n_t_s.html#project-context", null ],
       [ "General Coding Principles", "df/d81/md__a_g_e_n_t_s.html#general-coding-principles", null ],
       [ "Language and Standard", "df/d81/md__a_g_e_n_t_s.html#language-and-standard", null ],
@@ -135,7 +136,6 @@ var NAVTREE =
         [ "Functions", "functions_func.html", "functions_func" ],
         [ "Variables", "functions_vars.html", null ],
         [ "Typedefs", "functions_type.html", null ],
-        [ "Enumerations", "functions_enum.html", null ],
         [ "Related Symbols", "functions_rela.html", null ]
       ] ]
     ] ],
@@ -153,10 +153,10 @@ var NAVTREEINDEX =
 [
 "annotated.html",
 "d3/d7a/classtoy_1_1_fixed_string.html#aa4b86510c375d714170f043387bea09c",
-"d5/d03/classtoy_1_1_c_string_view.html#a54972f3bc3b2429b287548f27f684fad",
-"d7/dec/classtoy_1_1_fixed_vector.html#a5ae89743b5bf48d51270730a216c1e2d",
-"dc/d15/achievement__state_8hpp.html",
-"df/d81/md__a_g_e_n_t_s.html#test-length-and-structure"
+"d5/d03/classtoy_1_1_c_string_view.html#a2ab165dc724a2f3d057f782e30ad8959",
+"d7/dec/classtoy_1_1_fixed_vector.html#a41ce3fc124ed7c8f2d46f0f619dde153",
+"db/d6f/classtoy_1_1geometry_1_1_section.html#a77ce1da6011210c5247d0c334a1c53d8",
+"df/d81/md__a_g_e_n_t_s.html#struct"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

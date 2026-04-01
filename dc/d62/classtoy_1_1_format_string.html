@@ -134,37 +134,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aad2ddbdff43aae3fa0d453ec2196a339" id="r_aad2ddbdff43aae3fa0d453ec2196a339"><td class="memItemLeft">constexpr <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a>&#160;</td><td class="memItemRight"><a class="el" href="#aad2ddbdff43aae3fa0d453ec2196a339">get</a> () const noexcept</td></tr>
 <tr class="memdesc:aad2ddbdff43aae3fa0d453ec2196a339"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the stored format pattern as a <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="toy::CStringView">toy::CStringView</a>.  <br /></td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-pri-types" class="groupheader"><a id="pri-types" name="pri-types"></a>
-Private Types</h2></td></tr>
-<tr class="memitem:abd7d8e2e4a5402e0915921678e83ef0b" id="r_abd7d8e2e4a5402e0915921678e83ef0b"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#abd7d8e2e4a5402e0915921678e83ef0b">ValidationError</a> { <br />
-&#160;&#160;<a class="el" href="#abd7d8e2e4a5402e0915921678e83ef0ba334c4a4c42fdb79d7ebc3e73b517e6f8">none</a>
-, <a class="el" href="#abd7d8e2e4a5402e0915921678e83ef0baeb42ad13d59146d74f9573ea3a2dbd79">unmatchedBrace</a>
-, <a class="el" href="#abd7d8e2e4a5402e0915921678e83ef0ba04d8a8f389b0468423db7dbc6bae6b47">invalidContent</a>
-, <a class="el" href="#abd7d8e2e4a5402e0915921678e83ef0bad7c32cf534a3d6a8398859a49a749133">mixedPlaceholders</a>
-, <br />
-&#160;&#160;<a class="el" href="#abd7d8e2e4a5402e0915921678e83ef0bac1de17fa49444b70937363bb45671095">argCountMismatch</a>
-, <a class="el" href="#abd7d8e2e4a5402e0915921678e83ef0ba84198e7bcd7cdb94a436ef786a514a49">indexOutOfRange</a>
-<br />
- }</td></tr>
-<tr class="memdesc:abd7d8e2e4a5402e0915921678e83ef0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Status from <code><a class="el" href="#ae4908200cc20a2897f76c1c00bfdc5df" title="Validates auto-indexed {} and positional {N} placeholders (no format types).">_validateFormat()</a></code>; internal detail, not public API.  <a href="#abd7d8e2e4a5402e0915921678e83ef0b">More...</a><br /></td></tr>
-<tr class="memitem:acdc2725ef4191b0075d96282e646346f" id="r_acdc2725ef4191b0075d96282e646346f"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#acdc2725ef4191b0075d96282e646346f">PlaceholderMode</a> { <a class="el" href="#acdc2725ef4191b0075d96282e646346fa334c4a4c42fdb79d7ebc3e73b517e6f8">none</a>
-, <a class="el" href="#acdc2725ef4191b0075d96282e646346faf14ff6e92748524adb72f48fbb544aec">autoIndex</a>
-, <a class="el" href="#acdc2725ef4191b0075d96282e646346fae2d45ea19c2efd31814277330dcdb556">positional</a>
- }</td></tr>
-<tr class="memdesc:acdc2725ef4191b0075d96282e646346f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Auto vs positional placeholder mode while scanning; internal to <code>_validateFormat</code>.  <a href="#acdc2725ef4191b0075d96282e646346f">More...</a><br /></td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-static-methods" class="groupheader"><a id="pri-static-methods" name="pri-static-methods"></a>
 Static Private Member Functions</h2></td></tr>
-<tr class="memitem:ae4908200cc20a2897f76c1c00bfdc5df" id="r_ae4908200cc20a2897f76c1c00bfdc5df"><td class="memItemLeft">static constexpr <a class="el" href="#abd7d8e2e4a5402e0915921678e83ef0b">ValidationError</a>&#160;</td><td class="memItemRight"><a class="el" href="#ae4908200cc20a2897f76c1c00bfdc5df">_validateFormat</a> (const <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a> &amp;string, size_t argCount) noexcept</td></tr>
-<tr class="memdesc:ae4908200cc20a2897f76c1c00bfdc5df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates auto-indexed <code>{}</code> and positional <code>{N}</code> placeholders (no format types).  <br /></td></tr>
-<tr class="memitem:a5badad22a923afaba9fbd9101e9179f3" id="r_a5badad22a923afaba9fbd9101e9179f3"><td class="memItemLeft">static constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#a5badad22a923afaba9fbd9101e9179f3">_consumeEscapedBrace</a> (const <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a> &amp;string, size_t length, size_t &amp;position, char brace) noexcept</td></tr>
-<tr class="memdesc:a5badad22a923afaba9fbd9101e9179f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Consumes a literal <code>{{</code> or <code>}}</code> pair at <em class="arg">position</em> when present.  <br /></td></tr>
-<tr class="memitem:ad213cd7f067cfaaefd370d6990b5bbad" id="r_ad213cd7f067cfaaefd370d6990b5bbad"><td class="memItemLeft">static constexpr <a class="el" href="#abd7d8e2e4a5402e0915921678e83ef0b">ValidationError</a>&#160;</td><td class="memItemRight"><a class="el" href="#ad213cd7f067cfaaefd370d6990b5bbad">_parseOpeningBrace</a> (const <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a> &amp;string, size_t length, size_t &amp;position, size_t &amp;autoCount, <a class="el" href="#acdc2725ef4191b0075d96282e646346f">PlaceholderMode</a> &amp;mode, size_t argCount) noexcept</td></tr>
-<tr class="memdesc:ad213cd7f067cfaaefd370d6990b5bbad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses a non-escaped opening brace: auto <code>{}</code>, positional <code>{N}</code>, or a structural error.  <br /></td></tr>
-<tr class="memitem:ae45b3dfab10ce5ea9b5a785c8d7218a6" id="r_ae45b3dfab10ce5ea9b5a785c8d7218a6"><td class="memItemLeft">static constexpr <a class="el" href="#abd7d8e2e4a5402e0915921678e83ef0b">ValidationError</a>&#160;</td><td class="memItemRight"><a class="el" href="#ae45b3dfab10ce5ea9b5a785c8d7218a6">_parsePositionalIndex</a> (const <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a> &amp;string, size_t length, size_t &amp;position, size_t argCount) noexcept</td></tr>
-<tr class="memdesc:ae45b3dfab10ce5ea9b5a785c8d7218a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the decimal index and closing <code>}</code> for a positional placeholder.  <br /></td></tr>
-<tr class="memitem:a81a3504f278850dc63e6282b8923d2dc" id="r_a81a3504f278850dc63e6282b8923d2dc"><td class="memItemLeft">static constexpr <a class="el" href="#abd7d8e2e4a5402e0915921678e83ef0b">ValidationError</a>&#160;</td><td class="memItemRight"><a class="el" href="#a81a3504f278850dc63e6282b8923d2dc">_reconcilePlaceholderMode</a> (<a class="el" href="#acdc2725ef4191b0075d96282e646346f">PlaceholderMode</a> mode, size_t autoCount, size_t argCount) noexcept</td></tr>
-<tr class="memdesc:a81a3504f278850dc63e6282b8923d2dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Verifies placeholder counts against <em class="arg">argCount</em> after the whole pattern has been scanned.  <br /></td></tr>
 <tr class="memitem:afd793fd7ecad4136327c535a8e2d6602" id="r_afd793fd7ecad4136327c535a8e2d6602"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#afd793fd7ecad4136327c535a8e2d6602">_compileTimeError</a> (const char *message) noexcept</td></tr>
 <tr class="memdesc:afd793fd7ecad4136327c535a8e2d6602"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stub used when validation fails; the program should be ill-formed before a call is needed.  <br /></td></tr>
 </table><table class="memberdecls">
@@ -176,7 +147,7 @@ Private Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;class... Args&gt;<br />
 class toy::FormatString&lt; Args &gt;</div><p>Wrapper around a <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="toy::CStringView">toy::CStringView</a> pattern with <code>consteval</code> validation of placeholders. </p>
-<p>Two modes are supported, not mixed in one pattern: <b>auto-indexed</b> placeholders are exactly <code>{}</code>; <b>positional</b> placeholders are <code>{0}</code>, <code>{1}</code>, … (decimal digits only, no format type). <code>{{</code> and <code>}}</code> are literal braces. In auto mode the number of <code>{}</code> must equal <code>sizeof</code>...(Args). In positional mode each index must be <code>&lt;</code> sizeof...(Args); repeating an index is allowed and not every index need appear. Unmatched <code>{</code> or <code>}</code> makes construction ill-formed.</p>
+<p>Two modes are supported, not mixed in one pattern: <b>auto-indexed</b> placeholders are exactly <code>{}</code>; <b>positional</b> placeholders are <code>{0}</code>, <code>{1}</code>, … (decimal digits only). <code>{{</code> and <code>}}</code> are literal braces. In auto mode the number of <code>{}</code> must equal <code>sizeof</code>...(Args). In positional mode each index must be <code>&lt;</code> sizeof...(Args); repeating an index is allowed and not every index need appear. Unmatched <code>{</code> or <code>}</code> makes construction ill-formed.</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">Args</td><td>Template parameter pack representing the types of arguments that will be formatted.</td></tr>
@@ -190,7 +161,6 @@ Key Features</h1>
 <li><b>Auto and positional modes</b>: <code>{}</code> vs <code>{N}</code>; mixing both in one string is ill-formed.</li>
 <li><b>Storage</b>: Holds a <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="toy::CStringView">toy::CStringView</a> to the pattern; no allocation.</li>
 <li><b><a class="el" href="#aad2ddbdff43aae3fa0d453ec2196a339" title="Returns the stored format pattern as a toy::CStringView.">get()</a></b>: Returns the same view; <code>constexpr</code> <code>noexcept</code>.</li>
-<li><b>No format types</b>: <code>{</code>:…} and similar are rejected (ill-formed).</li>
 </ul>
 <h1 class="doxsection"><a class="anchor" id="usage"></a>
 Usage Example</h1>
@@ -201,10 +171,9 @@ Usage Example</h1>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Ill-formed examples (do not compile):</span></div>
 <div class="line"><span class="comment">// toy::FormatString&lt;int, int&gt;(toy::CStringView(&quot;{} {0}&quot;)); // mixed auto and positional</span></div>
-<div class="line"><span class="comment">// toy::FormatString&lt;int&gt;(toy::CStringView(&quot;{0:d}&quot;));       // format type not supported</span></div>
 <div class="line"><span class="comment">// toy::FormatString&lt;int&gt;(toy::CStringView(&quot;{&quot;));           // unmatched brace</span></div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html">toy::CStringView</a></div><div class="ttdoc">Non-owning string view class for C-style strings.</div><div class="ttdef"><b>Definition</b> c_string_view.hpp:109</div></div>
-<div class="ttc" id="aclasstoy_1_1_format_string_html"><div class="ttname"><a href="../../dc/d62/classtoy_1_1_format_string.html">toy::FormatString</a></div><div class="ttdoc">Wrapper around a toy::CStringView pattern with consteval validation of placeholders.</div><div class="ttdef"><b>Definition</b> format_string.hpp:91</div></div>
+<div class="ttc" id="aclasstoy_1_1_format_string_html"><div class="ttname"><a href="../../dc/d62/classtoy_1_1_format_string.html">toy::FormatString</a></div><div class="ttdoc">Wrapper around a toy::CStringView pattern with consteval validation of placeholders.</div><div class="ttdef"><b>Definition</b> format_string.hpp:87</div></div>
 <div class="ttc" id="acore_8hpp_html"><div class="ttname"><a href="../../da/d47/core_8hpp.html">core.hpp</a></div><div class="ttdoc">Umbrella header for the engine core module.</div></div>
 </div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="performance"></a>
 Performance Characteristics</h1>
@@ -224,84 +193,8 @@ Compatibility</h1>
 <li><b>C++23</b>: <code>consteval</code> constructor and <code>constexpr</code> <code><a class="el" href="#aad2ddbdff43aae3fa0d453ec2196a339" title="Returns the stored format pattern as a toy::CStringView.">get()</a></code> as implemented.</li>
 <li><b><a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a></b>: Pattern must be reachable as a <code>const</code> <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="toy::CStringView">toy::CStringView</a> at the call site.</li>
 </ul>
-<dl class="section note"><dt>Note</dt><dd>Value substitution is out of scope; pair with formatting utilities that consume the pattern separately.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">CStringView</a> </dd></dl>
-</div><a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Member Enumeration Documentation</h2>
-<a id="acdc2725ef4191b0075d96282e646346f" name="acdc2725ef4191b0075d96282e646346f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acdc2725ef4191b0075d96282e646346f">&#9670;&#160;</a></span>PlaceholderMode</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class... Args&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum class <a class="el" href="#acdc2725ef4191b0075d96282e646346f">toy::FormatString::PlaceholderMode</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel strong">strong</span><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Auto vs positional placeholder mode while scanning; internal to <code>_validateFormat</code>. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="acdc2725ef4191b0075d96282e646346fa334c4a4c42fdb79d7ebc3e73b517e6f8" name="acdc2725ef4191b0075d96282e646346fa334c4a4c42fdb79d7ebc3e73b517e6f8"></a>none&#160;</td><td class="fielddoc"><p>No <code>{}</code> or <code>{N}</code> placeholder has been seen yet. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="acdc2725ef4191b0075d96282e646346faf14ff6e92748524adb72f48fbb544aec" name="acdc2725ef4191b0075d96282e646346faf14ff6e92748524adb72f48fbb544aec"></a>autoIndex&#160;</td><td class="fielddoc"><p>Only auto <code>{}</code> placeholders appear in the pattern. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="acdc2725ef4191b0075d96282e646346fae2d45ea19c2efd31814277330dcdb556" name="acdc2725ef4191b0075d96282e646346fae2d45ea19c2efd31814277330dcdb556"></a>positional&#160;</td><td class="fielddoc"><p>Only positional <code>{N}</code> placeholders appear in the pattern. </p>
-</td></tr>
-</table>
-
-</div>
-</div>
-<a id="abd7d8e2e4a5402e0915921678e83ef0b" name="abd7d8e2e4a5402e0915921678e83ef0b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abd7d8e2e4a5402e0915921678e83ef0b">&#9670;&#160;</a></span>ValidationError</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class... Args&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum class <a class="el" href="#abd7d8e2e4a5402e0915921678e83ef0b">toy::FormatString::ValidationError</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel strong">strong</span><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Status from <code><a class="el" href="#ae4908200cc20a2897f76c1c00bfdc5df" title="Validates auto-indexed {} and positional {N} placeholders (no format types).">_validateFormat()</a></code>; internal detail, not public API. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="abd7d8e2e4a5402e0915921678e83ef0ba334c4a4c42fdb79d7ebc3e73b517e6f8" name="abd7d8e2e4a5402e0915921678e83ef0ba334c4a4c42fdb79d7ebc3e73b517e6f8"></a>none&#160;</td><td class="fielddoc"><p>Pattern passes validation for the expected argument count. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="abd7d8e2e4a5402e0915921678e83ef0baeb42ad13d59146d74f9573ea3a2dbd79" name="abd7d8e2e4a5402e0915921678e83ef0baeb42ad13d59146d74f9573ea3a2dbd79"></a>unmatchedBrace&#160;</td><td class="fielddoc"><p>Stray or incomplete <code>{</code> / <code>}</code> (not <code>{{</code>, <code>}}</code>, <code>{}</code>, or <code>{N}</code>). </p>
-</td></tr>
-<tr><td class="fieldname"><a id="abd7d8e2e4a5402e0915921678e83ef0ba04d8a8f389b0468423db7dbc6bae6b47" name="abd7d8e2e4a5402e0915921678e83ef0ba04d8a8f389b0468423db7dbc6bae6b47"></a>invalidContent&#160;</td><td class="fielddoc"><p>Positional <code>{N…}</code> not closed by <code>}</code>, or disallowed characters after the index. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="abd7d8e2e4a5402e0915921678e83ef0bad7c32cf534a3d6a8398859a49a749133" name="abd7d8e2e4a5402e0915921678e83ef0bad7c32cf534a3d6a8398859a49a749133"></a>mixedPlaceholders&#160;</td><td class="fielddoc"><p>Mixed auto <code>{}</code> and positional <code>{N}</code> in one pattern. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="abd7d8e2e4a5402e0915921678e83ef0bac1de17fa49444b70937363bb45671095" name="abd7d8e2e4a5402e0915921678e83ef0bac1de17fa49444b70937363bb45671095"></a>argCountMismatch&#160;</td><td class="fielddoc"><p>Placeholder count vs expected argument count mismatch (including empty pattern with arguments). </p>
-</td></tr>
-<tr><td class="fieldname"><a id="abd7d8e2e4a5402e0915921678e83ef0ba84198e7bcd7cdb94a436ef786a514a49" name="abd7d8e2e4a5402e0915921678e83ef0ba84198e7bcd7cdb94a436ef786a514a49"></a>indexOutOfRange&#160;</td><td class="fielddoc"><p>Positional index out of range or overflow while parsing digits. </p>
-</td></tr>
-</table>
-
-</div>
-</div>
-<a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
+</div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a06c00dea813cc4f7fcee89cc35ce9370" name="a06c00dea813cc4f7fcee89cc35ce9370"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a06c00dea813cc4f7fcee89cc35ce9370">&#9670;&#160;</a></span>FormatString()</h2>
 
@@ -372,271 +265,6 @@ template&lt;class... Args&gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>Intended only from the <code>consteval</code> constructor path.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd>FormatString(const CStringView &amp;) </dd></dl>
-
-</div>
-</div>
-<a id="a5badad22a923afaba9fbd9101e9179f3" name="a5badad22a923afaba9fbd9101e9179f3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5badad22a923afaba9fbd9101e9179f3">&#9670;&#160;</a></span>_consumeEscapedBrace()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class... Args&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool <a class="el" href="../../dc/d62/classtoy_1_1_format_string.html">toy::FormatString</a>&lt; Args &gt;::_consumeEscapedBrace </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>string</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>length</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t &amp;</td>          <td class="paramname"><span class="paramname"><em>position</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">char</td>          <td class="paramname"><span class="paramname"><em>brace</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel private">private</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Consumes a literal <code>{{</code> or <code>}}</code> pair at <em class="arg">position</em> when present. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">string</td><td>Pattern being scanned. </td></tr>
-    <tr><td class="paramname">length</td><td>Byte length of <em class="arg">string</em> (same value as <code>string.size()</code>). </td></tr>
-    <tr><td class="paramname">position</td><td>Current index; advanced by <code>2</code> when a doubled brace is consumed. </td></tr>
-    <tr><td class="paramname">brace</td><td><code>'{'</code> to match <code>{{</code>, or <code>'}'</code> to match <code>}}</code>.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> if a pair was consumed; <code>false</code> if <em class="arg">position</em> does not start a doubled brace.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Internal helper for <code>_validateFormat</code>; not part of the public API. </dd></dl>
-
-</div>
-</div>
-<a id="ad213cd7f067cfaaefd370d6990b5bbad" name="ad213cd7f067cfaaefd370d6990b5bbad"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad213cd7f067cfaaefd370d6990b5bbad">&#9670;&#160;</a></span>_parseOpeningBrace()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class... Args&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="#a06c00dea813cc4f7fcee89cc35ce9370">FormatString</a>&lt; Args... &gt;<a class="el" href="#abd7d8e2e4a5402e0915921678e83ef0b">::ValidationError</a> <a class="el" href="../../dc/d62/classtoy_1_1_format_string.html">toy::FormatString</a>&lt; Args &gt;::_parseOpeningBrace </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>string</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>length</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t &amp;</td>          <td class="paramname"><span class="paramname"><em>position</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t &amp;</td>          <td class="paramname"><span class="paramname"><em>autoCount</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="#acdc2725ef4191b0075d96282e646346f">PlaceholderMode</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>mode</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>argCount</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel private">private</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Parses a non-escaped opening brace: auto <code>{}</code>, positional <code>{N}</code>, or a structural error. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">string</td><td>Pattern being scanned. </td></tr>
-    <tr><td class="paramname">length</td><td>Byte length of <em class="arg">string</em>. </td></tr>
-    <tr><td class="paramname">position</td><td>Index of <code>{</code>; updated past the placeholder on success. </td></tr>
-    <tr><td class="paramname">autoCount</td><td>Incremented for each auto <code>{}</code> placeholder. </td></tr>
-    <tr><td class="paramname">mode</td><td>Updated when the pattern uses auto or positional placeholders. </td></tr>
-    <tr><td class="paramname">argCount</td><td>Upper bound for valid positional indices (<code>N</code> must be less than <em class="arg">argCount</em>).</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>First <code><a class="el" href="#abd7d8e2e4a5402e0915921678e83ef0b" title="Status from _validateFormat(); internal detail, not public API.">ValidationError</a></code> encountered, or <code><a class="el" href="#abd7d8e2e4a5402e0915921678e83ef0ba334c4a4c42fdb79d7ebc3e73b517e6f8" title="Pattern passes validation for the expected argument count.">ValidationError::none</a></code> when the placeholder is well-formed.</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd><em class="arg">string</em> at <em class="arg">position</em> is <code>{</code> and not the start of <code>{{</code>.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Internal helper for <code>_validateFormat</code>; not part of the public API. </dd></dl>
-
-</div>
-</div>
-<a id="ae45b3dfab10ce5ea9b5a785c8d7218a6" name="ae45b3dfab10ce5ea9b5a785c8d7218a6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae45b3dfab10ce5ea9b5a785c8d7218a6">&#9670;&#160;</a></span>_parsePositionalIndex()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class... Args&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="#a06c00dea813cc4f7fcee89cc35ce9370">FormatString</a>&lt; Args... &gt;<a class="el" href="#abd7d8e2e4a5402e0915921678e83ef0b">::ValidationError</a> <a class="el" href="../../dc/d62/classtoy_1_1_format_string.html">toy::FormatString</a>&lt; Args &gt;::_parsePositionalIndex </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>string</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>length</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t &amp;</td>          <td class="paramname"><span class="paramname"><em>position</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>argCount</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel private">private</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Reads the decimal index and closing <code>}</code> for a positional placeholder. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">string</td><td>Pattern being scanned. </td></tr>
-    <tr><td class="paramname">length</td><td>Byte length of <em class="arg">string</em>. </td></tr>
-    <tr><td class="paramname">position</td><td>Index of the first digit inside <code>{…}</code>; updated past the closing <code>}</code> on success. </td></tr>
-    <tr><td class="paramname">argCount</td><td>Upper bound for valid indices (<code>N</code> must be less than <em class="arg">argCount</em>).</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><code><a class="el" href="#abd7d8e2e4a5402e0915921678e83ef0ba334c4a4c42fdb79d7ebc3e73b517e6f8" title="Pattern passes validation for the expected argument count.">ValidationError::none</a></code> on success; <code><a class="el" href="#abd7d8e2e4a5402e0915921678e83ef0ba04d8a8f389b0468423db7dbc6bae6b47" title="Positional {N…} not closed by }, or disallowed characters after the index.">ValidationError::invalidContent</a></code> when digits or closing <code>}</code> are missing; <code><a class="el" href="#abd7d8e2e4a5402e0915921678e83ef0ba84198e7bcd7cdb94a436ef786a514a49" title="Positional index out of range or overflow while parsing digits.">ValidationError::indexOutOfRange</a></code> when digit overflow occurs or the index is not less than <em class="arg">argCount</em>.</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd><em class="arg">position</em> refers to a decimal digit in <em class="arg">string</em>.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Internal helper for <code>_parseOpeningBrace</code>; not part of the public API. </dd></dl>
-
-</div>
-</div>
-<a id="a81a3504f278850dc63e6282b8923d2dc" name="a81a3504f278850dc63e6282b8923d2dc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a81a3504f278850dc63e6282b8923d2dc">&#9670;&#160;</a></span>_reconcilePlaceholderMode()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class... Args&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="#a06c00dea813cc4f7fcee89cc35ce9370">FormatString</a>&lt; Args... &gt;<a class="el" href="#abd7d8e2e4a5402e0915921678e83ef0b">::ValidationError</a> <a class="el" href="../../dc/d62/classtoy_1_1_format_string.html">toy::FormatString</a>&lt; Args &gt;::_reconcilePlaceholderMode </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="#acdc2725ef4191b0075d96282e646346f">PlaceholderMode</a></td>          <td class="paramname"><span class="paramname"><em>mode</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>autoCount</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>argCount</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel private">private</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Verifies placeholder counts against <em class="arg">argCount</em> after the whole pattern has been scanned. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">mode</td><td>Whether the pattern used no placeholders, auto <code>{}</code>, or positional <code>{N}</code>. </td></tr>
-    <tr><td class="paramname">autoCount</td><td>Number of <code>{}</code> placeholders when in auto mode. </td></tr>
-    <tr><td class="paramname">argCount</td><td>Expected <code>sizeof</code>...(Args).</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><code><a class="el" href="#abd7d8e2e4a5402e0915921678e83ef0ba334c4a4c42fdb79d7ebc3e73b517e6f8" title="Pattern passes validation for the expected argument count.">ValidationError::none</a></code> or <code><a class="el" href="#abd7d8e2e4a5402e0915921678e83ef0bac1de17fa49444b70937363bb45671095" title="Placeholder count vs expected argument count mismatch (including empty pattern with arguments).">ValidationError::argCountMismatch</a></code>.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Internal helper for <code>_validateFormat</code>; not part of the public API. </dd></dl>
-
-</div>
-</div>
-<a id="ae4908200cc20a2897f76c1c00bfdc5df" name="ae4908200cc20a2897f76c1c00bfdc5df"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae4908200cc20a2897f76c1c00bfdc5df">&#9670;&#160;</a></span>_validateFormat()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class... Args&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="#a06c00dea813cc4f7fcee89cc35ce9370">FormatString</a>&lt; Args... &gt;<a class="el" href="#abd7d8e2e4a5402e0915921678e83ef0b">::ValidationError</a> <a class="el" href="../../dc/d62/classtoy_1_1_format_string.html">toy::FormatString</a>&lt; Args &gt;::_validateFormat </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>string</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>argCount</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel private">private</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Validates auto-indexed <code>{}</code> and positional <code>{N}</code> placeholders (no format types). </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">string</td><td>Pattern to scan.</td></tr>
-    <tr><td class="paramname">argCount</td><td>Expected <code>sizeof</code>...(Args).</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Error code; <code><a class="el" href="#abd7d8e2e4a5402e0915921678e83ef0ba334c4a4c42fdb79d7ebc3e73b517e6f8" title="Pattern passes validation for the expected argument count.">ValidationError::none</a></code> when the pattern is consistent with <em class="arg">argCount</em>. </dd></dl>
 
 </div>
 </div>

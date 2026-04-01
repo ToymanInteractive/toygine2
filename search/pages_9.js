@@ -11,5 +11,6 @@ var searchData=
   ['inl_8',['Template: inline implementation (&lt;span class=&quot;tt&quot;&gt;.inl&lt;/span&gt;)',['../df/d81/md__a_g_e_n_t_s.html#template-inline-implementation-inl',1,'']]],
   ['inl_20files_9',['&lt;span class=&quot;tt&quot;&gt;.inl&lt;/span&gt; Files',['../df/d81/md__a_g_e_n_t_s.html#inl-files',1,'']]],
   ['inline_20and_20template_20code_10',['Inline and Template Code',['../df/d81/md__a_g_e_n_t_s.html#inline-and-template-code',1,'']]],
-  ['inline_20implementation_20inl_11',['Template: inline implementation (&lt;span class=&quot;tt&quot;&gt;.inl&lt;/span&gt;)',['../df/d81/md__a_g_e_n_t_s.html#template-inline-implementation-inl',1,'']]]
+  ['inline_20implementation_20inl_11',['Template: inline implementation (&lt;span class=&quot;tt&quot;&gt;.inl&lt;/span&gt;)',['../df/d81/md__a_g_e_n_t_s.html#template-inline-implementation-inl',1,'']]],
+  ['interaction_20guidelines_12',['Interaction Guidelines',['../df/d81/md__a_g_e_n_t_s.html#interaction-guidelines',1,'']]]
 ];

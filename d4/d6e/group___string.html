@@ -134,6 +134,27 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output stream that appends formatted values into a <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="toy::StringLike">toy::StringLike</a> backend.  <a href="../../d7/d15/classtoy_1_1_o_string_stream.html#details">More...</a><br /></td></tr>
 <tr class="memitem:toy_3A_3AStringFixedStorage_3C_20AllocatedSize_20_3E" id="r_toy_3A_3AStringFixedStorage_3C_20AllocatedSize_20_3E"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../d0/d21/classtoy_1_1_string_fixed_storage.html">toy::StringFixedStorage&lt; AllocatedSize &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fixed-size character storage with a tracked length and implicit null terminator at <code><a class="el" href="../../d0/d21/classtoy_1_1_string_fixed_storage.html#ae7e8490f333fb1065ec9bafb97609c56" title="Mutable pointer to the inline character buffer.">data()</a></code>[<a class="el" href="../../d0/d21/classtoy_1_1_string_fixed_storage.html#afffe5c7ce202a335498acba9427fa36f" title="Returns the current logical string length in bytes (not including the terminator).">size()</a>].  <a href="../../d0/d21/classtoy_1_1_string_fixed_storage.html#details">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:ga47774805e63ecbede7f9cbfa12168c41" id="r_ga47774805e63ecbede7f9cbfa12168c41"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#ga47774805e63ecbede7f9cbfa12168c41">toy::FormatPatternValidationError</a> { <br />
+&#160;&#160;<a class="el" href="#gga47774805e63ecbede7f9cbfa12168c41a334c4a4c42fdb79d7ebc3e73b517e6f8">toy::FormatPatternValidationError::none</a>
+, <a class="el" href="#gga47774805e63ecbede7f9cbfa12168c41aeb42ad13d59146d74f9573ea3a2dbd79">toy::FormatPatternValidationError::unmatchedBrace</a>
+, <a class="el" href="#gga47774805e63ecbede7f9cbfa12168c41a04d8a8f389b0468423db7dbc6bae6b47">toy::FormatPatternValidationError::invalidContent</a>
+, <a class="el" href="#gga47774805e63ecbede7f9cbfa12168c41ad7c32cf534a3d6a8398859a49a749133">toy::FormatPatternValidationError::mixedPlaceholders</a>
+, <br />
+&#160;&#160;<a class="el" href="#gga47774805e63ecbede7f9cbfa12168c41ac1de17fa49444b70937363bb45671095">toy::FormatPatternValidationError::argCountMismatch</a>
+, <a class="el" href="#gga47774805e63ecbede7f9cbfa12168c41a84198e7bcd7cdb94a436ef786a514a49">toy::FormatPatternValidationError::indexOutOfRange</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:ga47774805e63ecbede7f9cbfa12168c41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Result of validating a format pattern against an expected argument count.  <a href="#ga47774805e63ecbede7f9cbfa12168c41">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga001484b1a940bb2691fdd2d66c1a14c9" id="r_ga001484b1a940bb2691fdd2d66c1a14c9"><td class="memItemLeft">constexpr <a class="el" href="#ga47774805e63ecbede7f9cbfa12168c41">FormatPatternValidationError</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga001484b1a940bb2691fdd2d66c1a14c9">toy::anonymous_namespace{format_pattern.inl}::validateFormatImpl</a> (const <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a> &amp;string, size_t argCount) noexcept</td></tr>
+<tr class="memdesc:ga001484b1a940bb2691fdd2d66c1a14c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates auto-indexed <code>{}</code> and positional <code>{N}</code> placeholders for <em class="arg">argCount</em> arguments.  <br /></td></tr>
+<tr class="memitem:ga5b1768ae7cdfb38447089aca42336c1e" id="r_ga5b1768ae7cdfb38447089aca42336c1e"><td class="memItemLeft">constexpr <a class="el" href="#ga47774805e63ecbede7f9cbfa12168c41">FormatPatternValidationError</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga5b1768ae7cdfb38447089aca42336c1e">toy::validateFormatPattern</a> (const <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a> &amp;string, size_t argCount) noexcept</td></tr>
+<tr class="memdesc:ga5b1768ae7cdfb38447089aca42336c1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates auto-indexed <code>{}</code> and positional <code>{N}</code> placeholders for <em class="arg">argCount</em> arguments.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Classes and concepts for string manipulation and formatting. </p>
@@ -147,7 +168,126 @@ Key Features</h1>
 <li>Type safety through C++20 concepts</li>
 <li>Cross-platform compatibility </li>
 </ul>
-</div></div><!-- contents -->
+</div><a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Enumeration Type Documentation</h2>
+<a id="ga47774805e63ecbede7f9cbfa12168c41" name="ga47774805e63ecbede7f9cbfa12168c41"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga47774805e63ecbede7f9cbfa12168c41">&#9670;&#160;</a></span>FormatPatternValidationError</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#ga47774805e63ecbede7f9cbfa12168c41">toy::FormatPatternValidationError</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Result of validating a format pattern against an expected argument count. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga47774805e63ecbede7f9cbfa12168c41a334c4a4c42fdb79d7ebc3e73b517e6f8" name="gga47774805e63ecbede7f9cbfa12168c41a334c4a4c42fdb79d7ebc3e73b517e6f8"></a>none&#160;</td><td class="fielddoc"><p>Pattern is valid for the given argument count. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga47774805e63ecbede7f9cbfa12168c41aeb42ad13d59146d74f9573ea3a2dbd79" name="gga47774805e63ecbede7f9cbfa12168c41aeb42ad13d59146d74f9573ea3a2dbd79"></a>unmatchedBrace&#160;</td><td class="fielddoc"><p>Stray or incomplete <code>{</code> / <code>}</code> (not <code>{{</code>, <code>}}</code>, <code>{}</code>, or <code>{N}</code>). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga47774805e63ecbede7f9cbfa12168c41a04d8a8f389b0468423db7dbc6bae6b47" name="gga47774805e63ecbede7f9cbfa12168c41a04d8a8f389b0468423db7dbc6bae6b47"></a>invalidContent&#160;</td><td class="fielddoc"><p>Positional <code>{N…}</code> not closed by <code>}</code>, or disallowed characters after the index. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga47774805e63ecbede7f9cbfa12168c41ad7c32cf534a3d6a8398859a49a749133" name="gga47774805e63ecbede7f9cbfa12168c41ad7c32cf534a3d6a8398859a49a749133"></a>mixedPlaceholders&#160;</td><td class="fielddoc"><p>Mixed auto <code>{}</code> and positional <code>{N}</code> in one pattern. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga47774805e63ecbede7f9cbfa12168c41ac1de17fa49444b70937363bb45671095" name="gga47774805e63ecbede7f9cbfa12168c41ac1de17fa49444b70937363bb45671095"></a>argCountMismatch&#160;</td><td class="fielddoc"><p>Placeholder count vs expected argument count mismatch (including empty pattern with arguments). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga47774805e63ecbede7f9cbfa12168c41a84198e7bcd7cdb94a436ef786a514a49" name="gga47774805e63ecbede7f9cbfa12168c41a84198e7bcd7cdb94a436ef786a514a49"></a>indexOutOfRange&#160;</td><td class="fielddoc"><p>Positional index out of range or overflow while parsing digits. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="ga001484b1a940bb2691fdd2d66c1a14c9" name="ga001484b1a940bb2691fdd2d66c1a14c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga001484b1a940bb2691fdd2d66c1a14c9">&#9670;&#160;</a></span>validateFormatImpl()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#ga47774805e63ecbede7f9cbfa12168c41">FormatPatternValidationError</a> toy::anonymous_namespace{format_pattern.inl}::validateFormatImpl </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>string</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>argCount</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Validates auto-indexed <code>{}</code> and positional <code>{N}</code> placeholders for <em class="arg">argCount</em> arguments. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">string</td><td>Pattern to scan. </td></tr>
+    <tr><td class="paramname">argCount</td><td>Number of format arguments.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code><a class="el" href="#gga47774805e63ecbede7f9cbfa12168c41a334c4a4c42fdb79d7ebc3e73b517e6f8" title="Pattern is valid for the given argument count.">FormatPatternValidationError::none</a></code> when the pattern is valid; otherwise the first validation error encountered.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Internal implementation for <code>validateFormatPattern</code>; not part of the public API. </dd></dl>
+
+</div>
+</div>
+<a id="ga5b1768ae7cdfb38447089aca42336c1e" name="ga5b1768ae7cdfb38447089aca42336c1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5b1768ae7cdfb38447089aca42336c1e">&#9670;&#160;</a></span>validateFormatPattern()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#ga47774805e63ecbede7f9cbfa12168c41">FormatPatternValidationError</a> toy::validateFormatPattern </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>string</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>argCount</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Validates auto-indexed <code>{}</code> and positional <code>{N}</code> placeholders for <em class="arg">argCount</em> arguments. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">string</td><td>Pattern to scan. </td></tr>
+    <tr><td class="paramname">argCount</td><td>Number of format arguments.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Error code; <code><a class="el" href="#gga47774805e63ecbede7f9cbfa12168c41a334c4a4c42fdb79d7ebc3e73b517e6f8" title="Pattern is valid for the given argument count.">FormatPatternValidationError::none</a></code> when the pattern is consistent with <em class="arg">argCount</em>. </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>

@@ -31,7 +31,7 @@ var searchData=
   ['append_28',['append',['../d3/d7a/classtoy_1_1_fixed_string.html#adbb286024fb0ed5c832d29ed9701046d',1,'toy::FixedString::append(size_type count, char character) noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#a2512493e108e9c272f1685e46f6ae8fd',1,'toy::FixedString::append(const char *string, size_type count) noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#a91164b48eea66fabbf553ec8563e741c',1,'toy::FixedString::append(const char *string) noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#a8a08c2c46a3a9c9222f5f4c05cb10ddc',1,'toy::FixedString::append(const FixedString&lt; allocatedSize &gt; &amp;string) noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#a38f0a05db9dc1625048db4a8aa9d30c5',1,'toy::FixedString::append(const stringType &amp;string) noexcept']]],
   ['application_2ehpp_29',['application.hpp',['../d4/d01/application_8hpp.html',1,'']]],
   ['area_30',['area',['../df/d25/classtoy_1_1geometry_1_1_circle.html#a473e338e2fd998233c4fca9996c5d266',1,'toy::geometry::Circle::area()'],['../d9/dd1/classtoy_1_1geometry_1_1_ellipse.html#a783e3e28e2f215016649bb717c48860e',1,'toy::geometry::Ellipse::area()']]],
-  ['argcountmismatch_31',['argCountMismatch',['../dc/d62/classtoy_1_1_format_string.html#abd7d8e2e4a5402e0915921678e83ef0bac1de17fa49444b70937363bb45671095',1,'toy::FormatString']]],
+  ['argcountmismatch_31',['argCountMismatch',['../d4/d6e/group___string.html#gga47774805e63ecbede7f9cbfa12168c41ac1de17fa49444b70937363bb45671095',1,'toy']]],
   ['arm32_32',['Arm32',['../d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341a044fc9e908d0f160ae1a8ac300eb2b3d',1,'toy']]],
   ['arm64_33',['Arm64',['../d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341ac42c3b5bc3b4234ee7823388012368d6',1,'toy']]],
   ['array_34',['array',['../d8/d52/classtoy_1_1array.html',1,'toy']]],
@@ -50,6 +50,6 @@ var searchData=
   ['at_47',['at',['../d5/d03/classtoy_1_1_c_string_view.html#ad3f48510eebdc40744aca52b31bfee3c',1,'toy::CStringView::at()'],['../d3/d7a/classtoy_1_1_fixed_string.html#ad69a62527d383f5e55695755d70c5e13',1,'toy::FixedString::at(size_t offset) noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#a8f5146b0a05e009bf97b518cff584ca2',1,'toy::FixedString::at(size_t offset) const noexcept'],['../d7/dec/classtoy_1_1_fixed_vector.html#a70de75bb05cc09aefa48483784ee0465',1,'toy::FixedVector::at(size_type pos) noexcept'],['../d7/dec/classtoy_1_1_fixed_vector.html#a35ce62f26e17fd89274d23b657d3a49f',1,'toy::FixedVector::at(size_type pos) const noexcept']]],
   ['audio_2ehpp_48',['audio.hpp',['../d1/d71/audio_8hpp.html',1,'']]],
   ['auto_49',['&lt;span class=&quot;tt&quot;&gt;auto&lt;/span&gt;',['../df/d81/md__a_g_e_n_t_s.html#auto',1,'']]],
-  ['autoindex_50',['autoIndex',['../dc/d62/classtoy_1_1_format_string.html#acdc2725ef4191b0075d96282e646346faf14ff6e92748524adb72f48fbb544aec',1,'toy::FormatString']]],
+  ['autoindex_50',['autoIndex',['../d7/d66/namespacetoy_1_1anonymous__namespace_02format__pattern_8inl_03.html#ab8ad9fba3dcf7942f6c05538bc6c60c4af14ff6e92748524adb72f48fbb544aec',1,'toy::anonymous_namespace{format_pattern.inl}']]],
   ['automation_51',['Tools and Automation',['../df/d81/md__a_g_e_n_t_s.html#tools-and-automation',1,'']]]
 ];

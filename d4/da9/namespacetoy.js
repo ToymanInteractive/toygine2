@@ -1,6 +1,18 @@
 var namespacetoy =
 [
     [ "application", "d0/d3e/namespacetoy_1_1application.html", "d0/d3e/namespacetoy_1_1application" ],
+    [ "anonymous_namespace{format_pattern.inl}", "d7/d66/namespacetoy_1_1anonymous__namespace_02format__pattern_8inl_03.html", [
+      [ "PlaceholderMode", "d7/d66/namespacetoy_1_1anonymous__namespace_02format__pattern_8inl_03.html#ab8ad9fba3dcf7942f6c05538bc6c60c4", [
+        [ "none", "d7/d66/namespacetoy_1_1anonymous__namespace_02format__pattern_8inl_03.html#ab8ad9fba3dcf7942f6c05538bc6c60c4a334c4a4c42fdb79d7ebc3e73b517e6f8", null ],
+        [ "autoIndex", "d7/d66/namespacetoy_1_1anonymous__namespace_02format__pattern_8inl_03.html#ab8ad9fba3dcf7942f6c05538bc6c60c4af14ff6e92748524adb72f48fbb544aec", null ],
+        [ "positional", "d7/d66/namespacetoy_1_1anonymous__namespace_02format__pattern_8inl_03.html#ab8ad9fba3dcf7942f6c05538bc6c60c4ae2d45ea19c2efd31814277330dcdb556", null ]
+      ] ],
+      [ "consumeEscapedBrace", "d7/d66/namespacetoy_1_1anonymous__namespace_02format__pattern_8inl_03.html#aee7684eee724db0f6db5f3f399e17319", null ],
+      [ "parseOpeningBrace", "d7/d66/namespacetoy_1_1anonymous__namespace_02format__pattern_8inl_03.html#a0f82587d8d5aaf1da9464ef76ca87f28", null ],
+      [ "parsePositionalIndex", "d7/d66/namespacetoy_1_1anonymous__namespace_02format__pattern_8inl_03.html#ab0eb14490eec8d8639d98e9a344eb021", null ],
+      [ "reconcilePlaceholderMode", "d7/d66/namespacetoy_1_1anonymous__namespace_02format__pattern_8inl_03.html#aa43d54757a290c5ec80b3a5770c95df3", null ],
+      [ "validateFormatImpl", "d4/d6e/group___string.html#ga001484b1a940bb2691fdd2d66c1a14c9", null ]
+    ] ],
     [ "geometry", "da/d08/namespacetoy_1_1geometry.html", "da/d08/namespacetoy_1_1geometry" ],
     [ "math", "d2/d83/namespacetoy_1_1math.html", "d2/d83/namespacetoy_1_1math" ],
     [ "network", "d6/d2c/namespacetoy_1_1network.html", "d6/d2c/namespacetoy_1_1network" ],
@@ -89,6 +101,14 @@ var namespacetoy =
       [ "Arm64", "d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341ac42c3b5bc3b4234ee7823388012368d6", null ],
       [ "Unknown", "d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341a88183b946cc5f0e8c96b2e66e1c74a7e", null ]
     ] ],
+    [ "FormatPatternValidationError", "d4/d6e/group___string.html#ga47774805e63ecbede7f9cbfa12168c41", [
+      [ "none", "d4/d6e/group___string.html#gga47774805e63ecbede7f9cbfa12168c41a334c4a4c42fdb79d7ebc3e73b517e6f8", null ],
+      [ "unmatchedBrace", "d4/d6e/group___string.html#gga47774805e63ecbede7f9cbfa12168c41aeb42ad13d59146d74f9573ea3a2dbd79", null ],
+      [ "invalidContent", "d4/d6e/group___string.html#gga47774805e63ecbede7f9cbfa12168c41a04d8a8f389b0468423db7dbc6bae6b47", null ],
+      [ "mixedPlaceholders", "d4/d6e/group___string.html#gga47774805e63ecbede7f9cbfa12168c41ad7c32cf534a3d6a8398859a49a749133", null ],
+      [ "argCountMismatch", "d4/d6e/group___string.html#gga47774805e63ecbede7f9cbfa12168c41ac1de17fa49444b70937363bb45671095", null ],
+      [ "indexOutOfRange", "d4/d6e/group___string.html#gga47774805e63ecbede7f9cbfa12168c41a84198e7bcd7cdb94a436ef786a514a49", null ]
+    ] ],
     [ "Platform", "d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55a", [
       [ "Windows", "d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aaaea23489ce3aa9b6406ebb28e0cda430", null ],
       [ "Linux", "d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aaedc9f0a5a5d57797bf68e37364743831", null ],
@@ -156,6 +176,7 @@ var namespacetoy =
     [ "utf8toWChar", "d8/d90/group___text_functions.html#gaf944593cdbcc7eef7bf2a0e9ed116c8c", null ],
     [ "utf8toWChar", "d8/d90/group___text_functions.html#gaa0dda7b7f9781bc3cd35484ce3e5282e", null ],
     [ "utoa", "d4/da9/namespacetoy.html#a14ccea4a485c2aa69412836a22a6cdda", null ],
+    [ "validateFormatPattern", "d4/d6e/group___string.html#ga5b1768ae7cdfb38447089aca42336c1e", null ],
     [ "wcharToUtf8", "d8/d90/group___text_functions.html#ga008aa42596921d995b66340139fd3cfb", null ],
     [ "_crc16Table", "d4/da9/namespacetoy.html#a1c66eabbb0dea6bd870920a6585afbf4", null ],
     [ "_crc32Table", "d4/da9/namespacetoy.html#a2700f13c2a45a3d51f7f770b487fdea1", null ],
