@@ -18,45 +18,39 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   math_benchark.cpp
-  \brief  Implementation of nanobench benchmarks for the math module.
+  \file   itoa.benchmark.cpp
+  \brief  Implementations for itoa nanobench benchmarks in the core module.
 */
 
-#include "benchmark_factory.hpp"
-#include "math.hpp"
+#include "../benchmark_factory.hpp"
+#include "core.hpp"
 
-namespace toy::math {
+namespace toy {
 
-void fixedMathBenchmarks(ankerl::nanobench::Bench &) noexcept;
-void pointMathBenchmarks(ankerl::nanobench::Bench &) noexcept;
-void vector2MathBenchmarks(ankerl::nanobench::Bench &) noexcept;
+// itoa benchmarks
+void itoaCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
+  constexpr size_t bufSize = 32;
+  char buf[bufSize];
 
-} // namespace toy::math
+  bench.run("itoa int8_t", [&] {
+    char * r = toy::itoa(buf, bufSize, int8_t{42});
+    doNotOptimize(r);
+  });
 
-using namespace toy::math;
+  bench.run("itoa int16_t", [&] {
+    char * r = toy::itoa(buf, bufSize, int16_t{-1234});
+    doNotOptimize(r);
+  });
 
-using fixed_type = fixed<int32_t, int64_t, 24>;
+  bench.run("itoa int32_t", [&] {
+    char * r = toy::itoa(buf, bufSize, int32_t{12345678});
+    doNotOptimize(r);
+  });
 
-void runMathBenchmarks() noexcept {
-  auto bench = createBench("Math module");
-
-  toy::math::fixedMathBenchmarks(bench);
-  toy::math::pointMathBenchmarks(bench);
-  toy::math::vector2MathBenchmarks(bench);
-
-  // Utils benchmarks
-  {
-    float angle = 15.0f;
-    float angleRad = 1.25f;
-
-    bench.run("deg2rad float", [&] {
-      auto result = deg2rad(angle);
-      doNotOptimize(result);
-    });
-
-    bench.run("rad2deg float", [&] {
-      auto result = rad2deg(angleRad);
-      doNotOptimize(result);
-    });
-  }
+  bench.run("itoa int64_t", [&] {
+    char * r = toy::itoa(buf, bufSize, int64_t{-9223372036854775807LL});
+    doNotOptimize(r);
+  });
 }
+
+} // namespace toy

@@ -28,6 +28,7 @@
 namespace toy {
 
 void hashesCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
+void itoaCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
 void oStringStreamCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
 void stringFixedStorageCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
 
@@ -37,34 +38,9 @@ void runCoreBenchmarks() noexcept {
   auto bench = createBench("Core module");
 
   toy::hashesCoreBenchmarks(bench);
+  toy::itoaCoreBenchmarks(bench);
   toy::oStringStreamCoreBenchmarks(bench);
   toy::stringFixedStorageCoreBenchmarks(bench);
-
-  // itoa benchmarks
-  {
-    constexpr size_t bufSize = 32;
-    char buf[bufSize];
-
-    bench.run("itoa int8_t", [&] {
-      char * r = toy::itoa(buf, bufSize, int8_t{42});
-      doNotOptimize(r);
-    });
-
-    bench.run("itoa int16_t", [&] {
-      char * r = toy::itoa(buf, bufSize, int16_t{-1234});
-      doNotOptimize(r);
-    });
-
-    bench.run("itoa int32_t", [&] {
-      char * r = toy::itoa(buf, bufSize, int32_t{12345678});
-      doNotOptimize(r);
-    });
-
-    bench.run("itoa int64_t", [&] {
-      char * r = toy::itoa(buf, bufSize, int64_t{-9223372036854775807LL});
-      doNotOptimize(r);
-    });
-  }
 
   // utoa benchmarks
   {
