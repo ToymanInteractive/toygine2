@@ -58,6 +58,8 @@ enum class FormatPatternValidationError {
 };
 
 /*!
+  \ingroup String
+  
   \brief Validates auto-indexed \c {} and positional \c {N} placeholders for \a argCount arguments.
 
   \param string   Pattern to scan.

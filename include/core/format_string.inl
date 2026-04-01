@@ -33,22 +33,23 @@ template <class... Args>
 consteval FormatString<Args...>::FormatString(const CStringView & string) noexcept
   : _string(string) {
   switch (const auto error = validateFormatPattern(string, sizeof...(Args)); error) {
-  case FormatPatternValidationError::unmatchedBrace:
+    using enum FormatPatternValidationError;
+  case unmatchedBrace:
     _compileTimeError("invalid format string: unmatched or incomplete braces");
     break;
-  case FormatPatternValidationError::invalidContent:
+  case invalidContent:
     _compileTimeError("invalid format string: invalid content inside braces (expected } after index)");
     break;
-  case FormatPatternValidationError::mixedPlaceholders:
+  case mixedPlaceholders:
     _compileTimeError("invalid format string: cannot mix auto {} and positional {N} placeholders");
     break;
-  case FormatPatternValidationError::argCountMismatch:
+  case argCountMismatch:
     _compileTimeError("invalid format string: placeholder count does not match the number of arguments");
     break;
-  case FormatPatternValidationError::indexOutOfRange:
+  case indexOutOfRange:
     _compileTimeError("invalid format string: positional index out of range");
     break;
-  case FormatPatternValidationError::none:
+  case none:
   default:
     break;
   }
