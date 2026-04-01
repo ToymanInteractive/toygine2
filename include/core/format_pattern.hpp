@@ -21,7 +21,7 @@
   \file   format_pattern.hpp
   \brief  Shared compile-time validation for format patterns using \c {} and \c {N} placeholders.
 
-  Declares \ref toy::FormatPatternValidationError and \ref toy::validateFormatPattern used by \ref toy::FormatString and
+  Declares \ref toy::FormatPatternValidationError and toy::validateFormatPattern() used by \ref toy::FormatString and
   runtime formatting APIs.
 
   \note Included by core.hpp; do not include this file directly.

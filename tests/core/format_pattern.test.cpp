@@ -139,6 +139,14 @@ TEST_CASE("core/format_pattern/invalid_content_unclosed_index") {
                 "unclosed positional index must be invalid content");
 }
 
+// Characters after a positional index are invalid.
+TEST_CASE("core/format_pattern/invalid_content_trailing_chars") {
+  REQUIRE(validateFormatPattern(CStringView("{0x}"), 1) == FormatPatternValidationError::invalidContent);
+
+  static_assert(validateFormatPattern(CStringView("{0x}"), 1) == FormatPatternValidationError::invalidContent,
+                "characters after a positional index must be rejected");
+}
+
 // Positional index must be less than argCount.
 TEST_CASE("core/format_pattern/index_out_of_range") {
   REQUIRE(validateFormatPattern(CStringView("{0}"), 0) == FormatPatternValidationError::indexOutOfRange);

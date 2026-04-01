@@ -19,7 +19,7 @@
 //
 /*!
   \file   format_pattern.inl
-  \brief  Inline implementations for \ref toy::validateFormatPattern.
+  \brief  Inline implementations for toy::validateFormatPattern().
 
   Scanning helpers live in an unnamed namespace so they are not named \c toy sub-entities in the include graph.
 
@@ -195,6 +195,9 @@ enum class PlaceholderMode {
 
   \param string   Pattern to scan.
   \param argCount Number of format arguments.
+
+  \return \c FormatPatternValidationError::none when the pattern is valid; otherwise the first validation error
+          encountered.
 
   \note Internal implementation for \c validateFormatPattern; not part of the public API.
 */
