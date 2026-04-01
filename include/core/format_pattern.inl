@@ -21,6 +21,8 @@
   \file   format_pattern.inl
   \brief  Inline implementations for \ref toy::validateFormatPattern.
 
+  Scanning helpers live in an unnamed namespace so they are not named \c toy sub-entities in the include graph.
+
   \note Included by core.hpp only; do not include this file directly.
 */
 
@@ -29,14 +31,7 @@
 
 namespace toy {
 
-/*!
-  \namespace format_pattern_detail
-  \ingroup String
-  \brief Implementation details for \ref toy::validateFormatPattern (pattern scan and placeholder checks).
-
-  Not part of the public API: do not reference these symbols from application code or depend on them from other code.
-*/
-namespace format_pattern_detail {
+namespace {
 
 /// Auto vs positional placeholder mode while scanning; used only inside \c validateFormatImpl().
 enum class PlaceholderMode {
@@ -237,10 +232,10 @@ enum class PlaceholderMode {
   return reconcilePlaceholderMode(mode, autoCount, argCount);
 }
 
-} // namespace format_pattern_detail
+} // namespace
 
 constexpr FormatPatternValidationError validateFormatPattern(const CStringView & string, size_t argCount) noexcept {
-  return format_pattern_detail::validateFormatImpl(string, argCount);
+  return validateFormatImpl(string, argCount);
 }
 
 } // namespace toy
