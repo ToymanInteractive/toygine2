@@ -42,7 +42,7 @@ FetchContent_MakeAvailable(doctest)
 # doctest 2.5.1 splits implementation into .cpp files built as a separate target.
 # Patch it here — after FetchContent_MakeAvailable — so the options reach the target.
 if (TARGET doctest_with_main)
-  target_compile_options(doctest_with_main PRIVATE -Wno-suggest-final-methods -Wno-suggest-final-types)
+  target_compile_options(doctest_with_main PRIVATE -w)
   if (NOT TOYGINE_TARGET_PLATFORM_SUPPORT_MULTITHREADING)
     target_compile_definitions(doctest_with_main PRIVATE DOCTEST_CONFIG_NO_MULTITHREADING)
   endif ()
