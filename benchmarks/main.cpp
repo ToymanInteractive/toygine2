@@ -25,12 +25,12 @@
   When omitted results are only printed to stdout (default nanobench output).
 */
 
-#include <nanobench.h>
-
 #include <cstring>
 #include <fstream>
 #include <sstream>
 #include <string>
+
+#include <nanobench.h>
 
 ankerl::nanobench::Bench runCoreBenchmarks() noexcept;
 ankerl::nanobench::Bench runGeometryBenchmarks() noexcept;

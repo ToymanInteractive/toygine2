@@ -278,7 +278,7 @@ constexpr int32_t _ftoa64Engine(char * buffer, double value, size_t precision) n
         contain the string representation in the form "+d.dd...e±dd" for normalized numbers.
 */
 void _floatPostProcess(char * dest, char * srcBuffer, size_t bufferSize, int32_t exp10, size_t precision) noexcept {
-  char const * strBegin = srcBuffer + 2;
+  const char * strBegin = srcBuffer + 2;
   if (srcBuffer[1] != '0') {
     // Carry propagated into the integer position at [1] (e.g., 0.999.. -> 1.000..).
     // Include that '1' in the mantissa by shifting strBegin left, and bump exp10 to keep
