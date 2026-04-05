@@ -71,8 +71,13 @@ constexpr Point & Point::operator-=(const Point & point) noexcept {
 
 template <PointScalar T>
 constexpr Point & Point::operator*=(const T & scalar) noexcept {
-  x = static_cast<int32_t>(x * scalar);
-  y = static_cast<int32_t>(y * scalar);
+  if constexpr (floating_point<T>) {
+    x = static_cast<int32_t>(static_cast<T>(x) * scalar);
+    y = static_cast<int32_t>(static_cast<T>(y) * scalar);
+  } else {
+    x = static_cast<int32_t>(x * scalar);
+    y = static_cast<int32_t>(y * scalar);
+  }
 
   return *this;
 }
@@ -87,8 +92,13 @@ constexpr Point & Point::operator/=(const T & scalar) noexcept {
     assert_message(scalar > 0 || scalar < 0, "scalar must be non-zero");
   }
 
-  x = static_cast<int32_t>(x / scalar);
-  y = static_cast<int32_t>(y / scalar);
+  if constexpr (floating_point<T>) {
+    x = static_cast<int32_t>(static_cast<T>(x) / scalar);
+    y = static_cast<int32_t>(static_cast<T>(y) / scalar);
+  } else {
+    x = static_cast<int32_t>(x / scalar);
+    y = static_cast<int32_t>(y / scalar);
+  }
 
   return *this;
 }
@@ -121,7 +131,12 @@ constexpr Point operator-(const Point & left, const Point & right) noexcept {
 
 template <PointScalar T>
 constexpr Point operator*(const Point & point, const T & scalar) noexcept {
-  return Point(static_cast<int32_t>(point.x * scalar), static_cast<int32_t>(point.y * scalar));
+  if constexpr (floating_point<T>) {
+    return Point(static_cast<int32_t>(static_cast<T>(point.x) * scalar),
+                 static_cast<int32_t>(static_cast<T>(point.y) * scalar));
+  } else {
+    return Point(static_cast<int32_t>(point.x * scalar), static_cast<int32_t>(point.y * scalar));
+  }
 }
 
 template <PointScalar T>
@@ -139,7 +154,12 @@ constexpr Point operator/(const Point & point, const T & scalar) noexcept {
     assert_message(scalar > 0 || scalar < 0, "scalar must be non-zero");
   }
 
-  return Point(static_cast<int32_t>(point.x / scalar), static_cast<int32_t>(point.y / scalar));
+  if constexpr (floating_point<T>) {
+    return Point(static_cast<int32_t>(static_cast<T>(point.x) / scalar),
+                 static_cast<int32_t>(static_cast<T>(point.y) / scalar));
+  } else {
+    return Point(static_cast<int32_t>(point.x / scalar), static_cast<int32_t>(point.y / scalar));
+  }
 }
 
 constexpr bool operator==(const Point & left, const Point & right) noexcept {
