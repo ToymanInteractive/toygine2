@@ -34,7 +34,7 @@ void stringFixedStorageCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
 
 } // namespace toy
 
-void runCoreBenchmarks() noexcept {
+ankerl::nanobench::Bench runCoreBenchmarks() noexcept {
   auto bench = createBench("Core module");
 
   toy::hashesCoreBenchmarks(bench);
@@ -129,4 +129,6 @@ void runCoreBenchmarks() noexcept {
       doNotOptimize(r);
     });
   }
+
+  return bench;
 }

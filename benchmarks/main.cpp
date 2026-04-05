@@ -22,9 +22,11 @@
   \brief  Entry point for nanobench benchmarks (core, geometry, math).
 */
 
-void runCoreBenchmarks() noexcept;
-void runGeometryBenchmarks() noexcept;
-void runMathBenchmarks() noexcept;
+#include <nanobench.h>
+
+ankerl::nanobench::Bench runCoreBenchmarks() noexcept;
+ankerl::nanobench::Bench runGeometryBenchmarks() noexcept;
+ankerl::nanobench::Bench runMathBenchmarks() noexcept;
 
 int main() noexcept {
   runCoreBenchmarks();

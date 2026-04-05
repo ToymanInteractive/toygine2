@@ -18,6 +18,7 @@
         "ftoa",
         "metaprogramming",
         "msvc",
+        "nanobench",
         "ndebug",
         "relwithdebinfo",
         "sarif",

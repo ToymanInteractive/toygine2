@@ -29,7 +29,7 @@ using namespace toy::geometry;
 
 using fixed_type = toy::math::fixed<int32_t, int64_t, 24>;
 
-void runGeometryBenchmarks() noexcept {
+ankerl::nanobench::Bench runGeometryBenchmarks() noexcept {
   auto bench = createBench("Geometry module");
 
   // Circle benchmarks
@@ -413,4 +413,6 @@ void runGeometryBenchmarks() noexcept {
       doNotOptimize(r);
     });
   }
+
+  return bench;
 }

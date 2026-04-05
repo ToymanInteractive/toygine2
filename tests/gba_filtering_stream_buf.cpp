@@ -109,34 +109,34 @@ bool GbaFilteringStreamBuf::_shouldPass(int_type c) noexcept {
     return false;
 
   switch (_state) {
-  case State::Escape:
-    if (c == '[') {
-      _state = State::Csi;
+    case State::Escape:
+      if (c == '[') {
+        _state = State::Csi;
 
-      return false;
-    }
+        return false;
+      }
 
-    _state = State::Normal;
-
-    return true;
-
-  case State::Csi:
-    if (c >= ansi_filter::kCsiFinalMin && c <= ansi_filter::kCsiFinalMax)
       _state = State::Normal;
 
-    return false;
+      return true;
 
-  case State::Normal:
-    if (c == ansi_filter::kEsc) {
-      _state = State::Escape;
+    case State::Csi:
+      if (c >= ansi_filter::kCsiFinalMin && c <= ansi_filter::kCsiFinalMax)
+        _state = State::Normal;
 
       return false;
-    }
 
-    return true;
+    case State::Normal:
+      if (c == ansi_filter::kEsc) {
+        _state = State::Escape;
 
-  default:
-    return true;
+        return false;
+      }
+
+      return true;
+
+    default:
+      return true;
   }
 }
 
