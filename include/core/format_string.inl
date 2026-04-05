@@ -34,26 +34,26 @@ consteval FormatString<Args...>::FormatString(const CStringView & string) noexce
   : _string(string) {
   switch (const auto error = validateFormatPattern(string, sizeof...(Args)); error) {
     using enum FormatPatternValidationError;
-  case none:
-    return;
-  case unmatchedBrace:
-    _compileTimeError("invalid format string: unmatched or incomplete braces");
-    return;
-  case invalidContent:
-    _compileTimeError("invalid format string: invalid content inside braces (expected } after index)");
-    return;
-  case mixedPlaceholders:
-    _compileTimeError("invalid format string: cannot mix auto {} and positional {N} placeholders");
-    return;
-  case argCountMismatch:
-    _compileTimeError("invalid format string: placeholder count does not match the number of arguments");
-    return;
-  case indexOutOfRange:
-    _compileTimeError("invalid format string: positional index out of range");
-    return;
-  default:
-    _compileTimeError("invalid format string: unhandled validation error");
-    return;
+    case none:
+      return;
+    case unmatchedBrace:
+      _compileTimeError("invalid format string: unmatched or incomplete braces");
+      return;
+    case invalidContent:
+      _compileTimeError("invalid format string: invalid content inside braces (expected } after index)");
+      return;
+    case mixedPlaceholders:
+      _compileTimeError("invalid format string: cannot mix auto {} and positional {N} placeholders");
+      return;
+    case argCountMismatch:
+      _compileTimeError("invalid format string: placeholder count does not match the number of arguments");
+      return;
+    case indexOutOfRange:
+      _compileTimeError("invalid format string: positional index out of range");
+      return;
+    default:
+      _compileTimeError("invalid format string: unhandled validation error");
+      return;
   }
 }
 
