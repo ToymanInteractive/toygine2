@@ -1,7 +1,7 @@
 # Documentation: https://releases.llvm.org/17.0.1/tools/clang/docs/ClangFormatStyleOptions.html
 ---
 Language: Cpp
-Standard: c++23
+Standard: Latest
 AccessModifierOffset: -2
 AlignAfterOpenBracket: Align
 AlignConsecutiveAssignments:
@@ -47,7 +47,7 @@ IncludeCategories:
     Priority: 1
   - Regex: "^<"
     Priority: 2
-  - Regex: '^"'
+  - Regex: "^\""
     Priority: 4
 IndentCaseLabels: true
 IndentWidth: 2
