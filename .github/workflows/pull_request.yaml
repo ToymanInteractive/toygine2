@@ -54,7 +54,7 @@ jobs:
     name: Code quality check
     needs:
       - dispatcher
-    uses: ./.github/workflows/check_codeql_check.yaml
+    uses: ./.github/workflows/code_quality_check.yaml
     secrets: inherit
 
   build:
