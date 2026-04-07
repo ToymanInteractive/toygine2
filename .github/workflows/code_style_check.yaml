@@ -26,6 +26,7 @@ jobs:
           sudo ./llvm.sh 21
           sudo apt install -y clang-format-21
           sudo update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-21 210
+          clang-format --version
 
       - name: Check code format
         run: |

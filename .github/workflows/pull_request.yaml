@@ -11,13 +11,14 @@ concurrency:
 
 permissions:
   contents: read
-  security-events: write
 
 jobs:
   dispatcher:
     name: Job dispatcher
     runs-on: ubuntu-slim
     timeout-minutes: 10
+    permissions:
+      security-events: write
     defaults:
       run:
         shell: bash
