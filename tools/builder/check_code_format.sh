@@ -27,6 +27,8 @@
 
 set -e -o pipefail
 
+clang-format --version
+
 # Get all modified files in the current branch compared to base branch
 FILES_TO_CHECK=$(git diff --name-only HEAD^ | (grep -E ".*\.(cpp|cc|c\+\+|cxx|c|h|hpp|inl|java|js)$" || true) \
                                             | (grep -v "^src/thirdparty/.*/.*" || true))
@@ -35,8 +37,6 @@ if [[ -z "$FILES_TO_CHECK" ]]; then
   echo "There is no source code to check the formatting."
   exit 0
 fi
-
-clang-format --version
 
 echo "Checking formatting for files in branch..."
 echo "$FILES_TO_CHECK"
