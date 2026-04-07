@@ -36,6 +36,8 @@ if [[ -z "$FILES_TO_CHECK" ]]; then
   exit 0
 fi
 
+clang-format --version
+
 echo "Checking formatting for files in branch..."
 echo "$FILES_TO_CHECK"
 
