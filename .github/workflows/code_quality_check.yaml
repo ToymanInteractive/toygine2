@@ -104,6 +104,7 @@ jobs:
         run: |
           mkdir -p clang-tidy-results
           run-clang-tidy \
+            -clang-tidy-binary clang-tidy-22 \
             -p out/build/linux-ninja-debug \
             -header-filter='${{ github.workspace }}/(src|include|tests|benchmarks)/.*' \
             -j$(nproc) \
