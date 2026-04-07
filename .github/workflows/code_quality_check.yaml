@@ -3,7 +3,9 @@ name: Code quality check
 on:
   workflow_call:
 
-permissions: {}
+permissions:
+  actions: read
+  packages: read
 
 jobs:
   analyze:
