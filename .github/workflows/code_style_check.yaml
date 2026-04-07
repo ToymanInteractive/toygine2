@@ -25,7 +25,7 @@ jobs:
           chmod +x llvm.sh
           sudo ./llvm.sh 23
           sudo apt install -y clang-format-23
-          sudo update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-23 230
+          sudo update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-23 100
 
       - name: Check code format
         run: |
