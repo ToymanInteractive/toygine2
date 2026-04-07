@@ -50,6 +50,13 @@ jobs:
     uses: ./.github/workflows/code_style_check.yaml
     secrets: inherit
 
+  linting:
+    name: Code quality check
+    needs:
+      - dispatcher
+    uses: ./.github/workflows/check_codeql_check.yaml
+    secrets: inherit
+
   build:
     name: Build with CMake
     needs:
