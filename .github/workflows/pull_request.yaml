@@ -10,13 +10,17 @@ concurrency:
   cancel-in-progress: true
 
 permissions:
+  actions: read
   contents: read
+  packages: read
 
 jobs:
   dispatcher:
     name: Job dispatcher
     runs-on: ubuntu-slim
     timeout-minutes: 10
+    permissions:
+      security-events: write
     defaults:
       run:
         shell: bash
