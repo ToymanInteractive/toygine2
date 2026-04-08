@@ -1,9 +1,9 @@
-# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html
+# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#alignarrayofstructures
 ---
 Language: Cpp
 Standard: Latest
 AccessModifierOffset: -2
-AlignAfterOpenBracket: Align
+AlignAfterOpenBracket: true
 AlignConsecutiveAssignments:
   Enabled: false
 AlignConsecutiveDeclarations:
