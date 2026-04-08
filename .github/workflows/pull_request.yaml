@@ -55,6 +55,7 @@ jobs:
       - dispatcher
     uses: ./.github/workflows/code_quality_check.yaml
     permissions:
+      contents: read
       security-events: write
     secrets: inherit
 
