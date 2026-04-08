@@ -20,6 +20,18 @@
 
 cmake_minimum_required(VERSION 3.31.0 FATAL_ERROR)
 
+set(MSVC_CMAKE_C_FLAGS   "/nologo /Wall /WX /wd4007 /wd4464 /wd4514 /wd4710 /wd4711 /wd4820 /wd4866 /wd5045 /wd5219 /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /EHsc /Zc:wchar_t /Zc:forScope /Zc:inline /Zc:rvalueCast /GR- /permissive-")
+set(MSVC_CMAKE_CXX_FLAGS "/nologo /Wall /WX /wd4007 /wd4464 /wd4514 /wd4710 /wd4711 /wd4820 /wd4866 /wd5045 /wd5219 /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /EHsc /Zc:wchar_t /Zc:forScope /Zc:inline /Zc:rvalueCast /GR- /permissive-")
+
+set(MSVC_CMAKE_C_FLAGS_DEBUG            "/ZI /diagnostics:caret   /sdl                     /fsanitize=fuzzer /Od /Ob0 /Oi-     /Oy-         /D_DEBUG /GF- /RTCc /D_ALLOW_RTCc_IN_STL /RTCsu /MTd /GS  /guard:cf- /Gy  /Qpar- /arch:SSE2 /fp:strict  /fp:except  /Gd /MP")
+set(MSVC_CMAKE_CXX_FLAGS_DEBUG          "/ZI /diagnostics:caret   /sdl                     /fsanitize=fuzzer /Od /Ob0 /Oi-     /Oy-         /D_DEBUG /GF- /RTCc /D_ALLOW_RTCc_IN_STL /RTCsu /MTd /GS  /guard:cf- /Gy  /Qpar- /arch:SSE2 /fp:strict  /fp:except  /Gd /MP")
+
+set(MSVC_CMAKE_C_FLAGS_RELWITHDEBINFO   "/Zi /diagnostics:column  /sdl  /fsanitize=address /fsanitize=fuzzer /Ox /Ob3 /Oi  /Ot /Oy- /GT /GL /D_DEBUG /GF                                    /MTd /GS  /guard:cf  /Gy- /Qpar- /arch:SSE2 /fp:precise /fp:except  /Gr")
+set(MSVC_CMAKE_CXX_FLAGS_RELWITHDEBINFO "/Zi /diagnostics:column  /sdl  /fsanitize=address /fsanitize=fuzzer /Ox /Ob3 /Oi  /Ot /Oy- /GT /GL /D_DEBUG /GF                                    /MTd /GS  /guard:cf  /Gy- /Qpar- /arch:SSE2 /fp:precise /fp:except  /Gr")
+
+set(MSVC_CMAKE_C_FLAGS_RELEASE          "    /diagnostics:classic /sdl-                                      /Ox /Ob3 /Oi  /Ot /Oy  /GT /GL /DNDEBUG /GF                                    /MT  /GS- /guard:cf- /Gy- /Qpar  /arch:SSE2 /fp:fast    /fp:except- /Gr")
+set(MSVC_CMAKE_CXX_FLAGS_RELEASE        "    /diagnostics:classic /sdl-                                      /Ox /Ob3 /Oi  /Ot /Oy  /GT /GL /DNDEBUG /GF                                    /MT  /GS- /guard:cf- /Gy- /Qpar  /arch:SSE2 /fp:fast    /fp:except- /Gr")
+
 if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
   if (MSVC)
@@ -29,30 +41,22 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
     # Minimum CPU Architecture select based on https://store.steampowered.com/hwsurvey/
 
-    set(CMAKE_C_FLAGS   "/nologo /Wall /WX /wd4007 /wd4464 /wd4514 /wd4710 /wd4711 /wd4820 /wd4866 /wd5045 /wd5219 /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /EHsc /Zc:wchar_t /Zc:forScope /Zc:inline /Zc:rvalueCast /GR- /permissive-")
-    set(CMAKE_CXX_FLAGS "/nologo /Wall /WX /wd4007 /wd4464 /wd4514 /wd4710 /wd4711 /wd4820 /wd4866 /wd5045 /wd5219 /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /EHsc /Zc:wchar_t /Zc:forScope /Zc:inline /Zc:rvalueCast /GR- /permissive-")
+    set(CMAKE_C_FLAGS   "${MSVC_CMAKE_C_FLAGS}")
+    set(CMAKE_CXX_FLAGS "${MSVC_CMAKE_CXX_FLAGS}")
 
-    if (CMAKE_SIZEOF_VOID_P MATCHES "8")
+    set(CMAKE_C_FLAGS_DEBUG            "${MSVC_CMAKE_C_FLAGS_DEBUG}")
+    set(CMAKE_CXX_FLAGS_DEBUG          "${MSVC_CMAKE_CXX_FLAGS_DEBUG}")
 
-      set(CMAKE_C_FLAGS_DEBUG            "/ZI /diagnostics:caret   /sdl                     /fsanitize=fuzzer /Od /Ob0 /Oi-     /Oy-         /D_DEBUG /GF- /RTCc /D_ALLOW_RTCc_IN_STL /RTCsu /MTd /GS  /guard:cf- /Gy  /Qpar- /arch:SSE2 /fp:strict  /fp:except            /Gr /MP")
-      set(CMAKE_CXX_FLAGS_DEBUG          "/ZI /diagnostics:caret   /sdl                     /fsanitize=fuzzer /Od /Ob0 /Oi-     /Oy-         /D_DEBUG /GF- /RTCc /D_ALLOW_RTCc_IN_STL /RTCsu /MTd /GS  /guard:cf- /Gy  /Qpar- /arch:SSE2 /fp:strict  /fp:except            /Gd /MP")
+    set(CMAKE_C_FLAGS_RELWITHDEBINFO   "${MSVC_CMAKE_C_FLAGS_RELWITHDEBINFO}")
+    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${MSVC_CMAKE_CXX_FLAGS_RELWITHDEBINFO}")
 
-      set(CMAKE_C_FLAGS_RELWITHDEBINFO   "/Zi /diagnostics:column  /sdl  /fsanitize=address /fsanitize=fuzzer /Ox /Ob3 /Oi  /Ot /Oy- /GT /GL /D_DEBUG /GF                                    /MTd /GS  /guard:cf  /Gy- /Qpar- /arch:SSE2 /fp:precise /fp:except            /Gr")
-      set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "/Zi /diagnostics:column  /sdl  /fsanitize=address /fsanitize=fuzzer /Ox /Ob3 /Oi  /Ot /Oy- /GT /GL /D_DEBUG /GF                                    /MTd /GS  /guard:cf  /Gy- /Qpar- /arch:SSE2 /fp:precise /fp:except            /Gr")
+    set(CMAKE_C_FLAGS_RELEASE          "${MSVC_CMAKE_C_FLAGS_RELEASE}")
+    set(CMAKE_CXX_FLAGS_RELEASE        "${MSVC_CMAKE_CXX_FLAGS_RELEASE}")
 
-      set(CMAKE_C_FLAGS_RELEASE          "    /diagnostics:classic /sdl-                                      /Ox /Ob3 /Oi  /Ot /Oy  /GT /GL /DNDEBUG /GF                                    /MT  /GS- /guard:cf- /Gy- /Qpar  /arch:SSE2 /fp:fast    /fp:except-           /Gr")
-      set(CMAKE_CXX_FLAGS_RELEASE        "    /diagnostics:classic /sdl-                                      /Ox /Ob3 /Oi  /Ot /Oy  /GT /GL /DNDEBUG /GF                                    /MT  /GS- /guard:cf- /Gy- /Qpar  /arch:SSE2 /fp:fast    /fp:except-           /Gr")
+    if (CMAKE_SIZEOF_VOID_P MATCHES "4")
 
-    else ()
-
-      set(CMAKE_C_FLAGS_DEBUG            "/ZI /diagnostics:caret   /sdl                     /fsanitize=fuzzer /Od /Ob0 /Oi-     /Oy-         /D_DEBUG /GF- /RTCc /D_ALLOW_RTCc_IN_STL /RTCsu /MTd /GS  /guard:cf- /Gy  /Qpar- /arch:IA32 /fp:strict  /fp:except  /hotpatch /Gd /MP")
-      set(CMAKE_CXX_FLAGS_DEBUG          "/ZI /diagnostics:caret   /sdl                     /fsanitize=fuzzer /Od /Ob0 /Oi-     /Oy-         /D_DEBUG /GF- /RTCc /D_ALLOW_RTCc_IN_STL /RTCsu /MTd /GS  /guard:cf- /Gy  /Qpar- /arch:IA32 /fp:strict  /fp:except  /hotpatch /Gd /MP")
-
-      set(CMAKE_C_FLAGS_RELWITHDEBINFO   "/Zi /diagnostics:column  /sdl  /fsanitize=address /fsanitize=fuzzer /Ox /Ob3 /Oi  /Ot /Oy- /GT /GL /D_DEBUG /GF                                    /MTd /GS  /guard:cf  /Gy- /Qpar- /arch:SSE2 /fp:precise /fp:except            /Gr")
-      set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "/Zi /diagnostics:column  /sdl  /fsanitize=address /fsanitize=fuzzer /Ox /Ob3 /Oi  /Ot /Oy- /GT /GL /D_DEBUG /GF                                    /MTd /GS  /guard:cf  /Gy- /Qpar- /arch:SSE2 /fp:precise /fp:except            /Gr")
-
-      set(CMAKE_C_FLAGS_RELEASE          "    /diagnostics:classic /sdl-                                      /Ox /Ob3 /Oi  /Ot /Oy  /GT /GL /DNDEBUG /GF                                    /MT  /GS- /guard:cf- /Gy- /Qpar  /arch:SSE2 /fp:fast    /fp:except-           /Gr")
-      set(CMAKE_CXX_FLAGS_RELEASE        "    /diagnostics:classic /sdl-                                      /Ox /Ob3 /Oi  /Ot /Oy  /GT /GL /DNDEBUG /GF                                    /MT  /GS- /guard:cf- /Gy- /Qpar  /arch:SSE2 /fp:fast    /fp:except-           /Gr")
+      set(CMAKE_C_FLAGS_DEBUG   "${MSVC_CMAKE_C_FLAGS_DEBUG}   /hotpatch")
+      set(CMAKE_CXX_FLAGS_DEBUG "${MSVC_CMAKE_CXX_FLAGS_DEBUG} /hotpatch")
 
     endif ()
 
@@ -77,11 +81,11 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop")
   endif ()
 
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/Warning-Options.html
-#                 https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/Warning-Options.html#index-Winfinite-recursion
+#                 https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/Warning-Options.html#index-Wimplicit-int
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-14.2.0/gcc/Warning-Options.html
 
-  set(CMAKE_C_FLAGS   "-std=c17   -Wall -Wextra -Wpedantic -Werror -Wfatal-errors -Wdouble-promotion -Wformat=2 -Wformat-overflow=2 -Wformat-signedness -Wformat-truncation=2                                -Wnull-dereference                                                                                                                                                                                     -Wextra-semi                                                                                                    -foffload=default -fopenmp-simd -fstrict-flex-arrays=2")
-  set(CMAKE_CXX_FLAGS "-std=c++23 -Wall -Wextra -Wpedantic -Werror -Wfatal-errors -Wdouble-promotion -Wformat=2 -Wformat-overflow=2 -Wformat-signedness -Wformat-truncation=2 -Winvalid-constexpr -Wnoexcept -Wnull-dereference -Wredundant-tags -Wold-style-cast -Woverloaded-virtual=2 -Wsign-promo -Wmismatched-tags -Wzero-as-null-pointer-constant -Wplacement-new=2 -Wcatch-value=2 -Wconditionally-supported -Wextra-semi -Wsuggest-final-types -Wsuggest-final-methods -Wsuggest-override -Wuse-after-free=3 -Wuseless-cast -foffload=default -fopenmp-simd -fstrict-flex-arrays=2")
+  set(CMAKE_C_FLAGS   "-std=c17   -Wall -Wextra -Wpedantic -Werror -Wfatal-errors -Wdouble-promotion -Wformat=2 -Wformat-overflow=2 -Wformat-signedness -Wformat-truncation=2 -Winit-self                                -Wnull-dereference                                                                                                                                                                                     -Wextra-semi                                                                                                    -foffload=default -fopenmp-simd -fstrict-flex-arrays=2")
+  set(CMAKE_CXX_FLAGS "-std=c++23 -Wall -Wextra -Wpedantic -Werror -Wfatal-errors -Wdouble-promotion -Wformat=2 -Wformat-overflow=2 -Wformat-signedness -Wformat-truncation=2             -Winvalid-constexpr -Wnoexcept -Wnull-dereference -Wredundant-tags -Wold-style-cast -Woverloaded-virtual=2 -Wsign-promo -Wmismatched-tags -Wzero-as-null-pointer-constant -Wplacement-new=2 -Wcatch-value=2 -Wconditionally-supported -Wextra-semi -Wsuggest-final-types -Wsuggest-final-methods -Wsuggest-override -Wuse-after-free=3 -Wuseless-cast -foffload=default -fopenmp-simd -fstrict-flex-arrays=2")
 
   set(CMAKE_C_FLAGS_DEBUG            "    -g -D_DEBUG")
   set(CMAKE_CXX_FLAGS_DEBUG          "    -g -D_DEBUG")
@@ -157,8 +161,8 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Game Boy Advance")
 
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/Warning-Options.html
 
-  set(CMAKE_C_FLAGS   "-D__GBA__ -std=c17   -Wall -Wextra -Wpedantic -Werror -Wfatal-errors -Wdouble-promotion -Wformat=2 -Wformat-overflow=2 -Wformat-signedness -Wformat-truncation=2                                -Wnull-dereference                                                                                         -Wzero-as-null-pointer-constant                                                             -Wextra-semi                                                                  -Wuse-after-free=3 -Wuseless-cast                                                                    -fstrict-flex-arrays=2")
-  set(CMAKE_CXX_FLAGS "-D__GBA__ -std=c++23 -Wall -Wextra -Wpedantic -Werror -Wfatal-errors -Wdouble-promotion -Wformat=2 -Wformat-overflow=2 -Wformat-signedness -Wformat-truncation=2 -Winvalid-constexpr -Wnoexcept -Wnull-dereference -Wredundant-tags -Wold-style-cast -Woverloaded-virtual=2 -Wsign-promo -Wmismatched-tags -Wzero-as-null-pointer-constant -Wplacement-new=2 -Wcatch-value=2 -Wconditionally-supported -Wextra-semi -Wsuggest-final-types -Wsuggest-final-methods -Wsuggest-override -Wuse-after-free=3 -Wuseless-cast -Wdeprecated-literal-operator -Wdeprecated-variadic-comma-omission -fstrict-flex-arrays=2 -fno-rtti -fno-threadsafe-statics")
+  set(CMAKE_C_FLAGS   "-D__GBA__ -std=c17   -Wall -Wextra -Wpedantic -Werror -Wfatal-errors -Wdouble-promotion -Wformat=2 -Wformat-overflow=2 -Wformat-signedness -Wformat-truncation=2 -Winit-self                                -Wnull-dereference                                                                                         -Wzero-as-null-pointer-constant                                                             -Wextra-semi                                                                  -Wuse-after-free=3 -Wuseless-cast                                                                    -fstrict-flex-arrays=2")
+  set(CMAKE_CXX_FLAGS "-D__GBA__ -std=c++23 -Wall -Wextra -Wpedantic -Werror -Wfatal-errors -Wdouble-promotion -Wformat=2 -Wformat-overflow=2 -Wformat-signedness -Wformat-truncation=2             -Winvalid-constexpr -Wnoexcept -Wnull-dereference -Wredundant-tags -Wold-style-cast -Woverloaded-virtual=2 -Wsign-promo -Wmismatched-tags -Wzero-as-null-pointer-constant -Wplacement-new=2 -Wcatch-value=2 -Wconditionally-supported -Wextra-semi -Wsuggest-final-types -Wsuggest-final-methods -Wsuggest-override -Wuse-after-free=3 -Wuseless-cast -Wdeprecated-literal-operator -Wdeprecated-variadic-comma-omission -fstrict-flex-arrays=2 -fno-rtti -fno-threadsafe-statics")
 
   set(CMAKE_C_FLAGS_DEBUG            "    -g -D_DEBUG")
   set(CMAKE_CXX_FLAGS_DEBUG          "    -g -D_DEBUG")
@@ -187,8 +191,8 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
 
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/Warning-Options.html
 
-  set(CMAKE_C_FLAGS   "-std=c17   -Wall -Wextra -Wpedantic -Werror -Wfatal-errors -Wdouble-promotion -Wformat=2 -Wformat-overflow=2 -Wformat-signedness -Wformat-truncation=2                                -Wnull-dereference                                                                                         -Wzero-as-null-pointer-constant                                                             -Wextra-semi                                                                  -Wuse-after-free=3 -Wuseless-cast                                                                    -fstrict-flex-arrays=2")
-  set(CMAKE_CXX_FLAGS "-std=c++23 -Wall -Wextra -Wpedantic -Werror -Wfatal-errors -Wdouble-promotion -Wformat=2 -Wformat-overflow=2 -Wformat-signedness -Wformat-truncation=2 -Winvalid-constexpr -Wnoexcept -Wnull-dereference -Wredundant-tags -Wold-style-cast -Woverloaded-virtual=2 -Wsign-promo -Wmismatched-tags -Wzero-as-null-pointer-constant -Wplacement-new=2 -Wcatch-value=2 -Wconditionally-supported -Wextra-semi -Wsuggest-final-types -Wsuggest-final-methods -Wsuggest-override -Wuse-after-free=3 -Wuseless-cast -Wdeprecated-literal-operator -Wdeprecated-variadic-comma-omission -fstrict-flex-arrays=2 -fno-rtti -fno-threadsafe-statics")
+  set(CMAKE_C_FLAGS   "-std=c17   -Wall -Wextra -Wpedantic -Werror -Wfatal-errors -Wdouble-promotion -Wformat=2 -Wformat-overflow=2 -Wformat-signedness -Wformat-truncation=2 -Winit-self                                -Wnull-dereference                                                                                         -Wzero-as-null-pointer-constant                                                             -Wextra-semi                                                                  -Wuse-after-free=3 -Wuseless-cast                                                                    -fstrict-flex-arrays=2")
+  set(CMAKE_CXX_FLAGS "-std=c++23 -Wall -Wextra -Wpedantic -Werror -Wfatal-errors -Wdouble-promotion -Wformat=2 -Wformat-overflow=2 -Wformat-signedness -Wformat-truncation=2             -Winvalid-constexpr -Wnoexcept -Wnull-dereference -Wredundant-tags -Wold-style-cast -Woverloaded-virtual=2 -Wsign-promo -Wmismatched-tags -Wzero-as-null-pointer-constant -Wplacement-new=2 -Wcatch-value=2 -Wconditionally-supported -Wextra-semi -Wsuggest-final-types -Wsuggest-final-methods -Wsuggest-override -Wuse-after-free=3 -Wuseless-cast -Wdeprecated-literal-operator -Wdeprecated-variadic-comma-omission -fstrict-flex-arrays=2 -fno-rtti -fno-threadsafe-statics")
 
   set(CMAKE_C_FLAGS_DEBUG            "    -g -D_DEBUG")
   set(CMAKE_CXX_FLAGS_DEBUG          "    -g -D_DEBUG")
@@ -217,8 +221,8 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 3DS")
 
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/Warning-Options.html
 
-  set(CMAKE_C_FLAGS   "-std=c17   -Wall -Wextra -Wpedantic -Werror -Wfatal-errors -Wdouble-promotion -Wformat=2 -Wformat-overflow=2 -Wformat-signedness -Wformat-truncation=2                                -Wnull-dereference                                                                                         -Wzero-as-null-pointer-constant                                                             -Wextra-semi                                                                  -Wuse-after-free=3 -Wuseless-cast                                                                    -fstrict-flex-arrays=2")
-  set(CMAKE_CXX_FLAGS "-std=c++23 -Wall -Wextra -Wpedantic -Werror -Wfatal-errors -Wdouble-promotion -Wformat=2 -Wformat-overflow=2 -Wformat-signedness -Wformat-truncation=2 -Winvalid-constexpr -Wnoexcept -Wnull-dereference -Wredundant-tags -Wold-style-cast -Woverloaded-virtual=2 -Wsign-promo -Wmismatched-tags -Wzero-as-null-pointer-constant -Wplacement-new=2 -Wcatch-value=2 -Wconditionally-supported -Wextra-semi -Wsuggest-final-types -Wsuggest-final-methods -Wsuggest-override -Wuse-after-free=3 -Wuseless-cast -Wdeprecated-literal-operator -Wdeprecated-variadic-comma-omission -fstrict-flex-arrays=2 -fno-rtti")
+  set(CMAKE_C_FLAGS   "-std=c17   -Wall -Wextra -Wpedantic -Werror -Wfatal-errors -Wdouble-promotion -Wformat=2 -Wformat-overflow=2 -Wformat-signedness -Wformat-truncation=2 -Winit-self                                -Wnull-dereference                                                                                         -Wzero-as-null-pointer-constant                                                             -Wextra-semi                                                                  -Wuse-after-free=3 -Wuseless-cast                                                                    -fstrict-flex-arrays=2")
+  set(CMAKE_CXX_FLAGS "-std=c++23 -Wall -Wextra -Wpedantic -Werror -Wfatal-errors -Wdouble-promotion -Wformat=2 -Wformat-overflow=2 -Wformat-signedness -Wformat-truncation=2             -Winvalid-constexpr -Wnoexcept -Wnull-dereference -Wredundant-tags -Wold-style-cast -Woverloaded-virtual=2 -Wsign-promo -Wmismatched-tags -Wzero-as-null-pointer-constant -Wplacement-new=2 -Wcatch-value=2 -Wconditionally-supported -Wextra-semi -Wsuggest-final-types -Wsuggest-final-methods -Wsuggest-override -Wuse-after-free=3 -Wuseless-cast -Wdeprecated-literal-operator -Wdeprecated-variadic-comma-omission -fstrict-flex-arrays=2 -fno-rtti")
 
   set(CMAKE_C_FLAGS_DEBUG            "    -g -D_DEBUG")
   set(CMAKE_CXX_FLAGS_DEBUG          "    -g -D_DEBUG")
@@ -247,8 +251,8 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
 
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/Warning-Options.html
 
-  set(CMAKE_C_FLAGS   "-std=c17   -Wall -Wextra -Wpedantic -Werror -Wfatal-errors -Wdouble-promotion -Wformat=2 -Wformat-overflow=2 -Wformat-signedness -Wformat-truncation=2                                -Wnull-dereference                                                                                         -Wzero-as-null-pointer-constant                                                             -Wextra-semi                                                                  -Wuse-after-free=3 -Wuseless-cast                                                                    -fstrict-flex-arrays=2")
-  set(CMAKE_CXX_FLAGS "-std=c++23 -Wall -Wextra -Wpedantic -Werror -Wfatal-errors -Wdouble-promotion -Wformat=2 -Wformat-overflow=2 -Wformat-signedness -Wformat-truncation=2 -Winvalid-constexpr -Wnoexcept -Wnull-dereference -Wredundant-tags -Wold-style-cast -Woverloaded-virtual=2 -Wsign-promo -Wmismatched-tags -Wzero-as-null-pointer-constant -Wplacement-new=2 -Wcatch-value=2 -Wconditionally-supported -Wextra-semi -Wsuggest-final-types -Wsuggest-final-methods -Wsuggest-override -Wuse-after-free=3 -Wuseless-cast -Wdeprecated-literal-operator -Wdeprecated-variadic-comma-omission -fstrict-flex-arrays=2 -fno-rtti")
+  set(CMAKE_C_FLAGS   "-std=c17   -Wall -Wextra -Wpedantic -Werror -Wfatal-errors -Wdouble-promotion -Wformat=2 -Wformat-overflow=2 -Wformat-signedness -Wformat-truncation=2 -Winit-self                                -Wnull-dereference                                                                                         -Wzero-as-null-pointer-constant                                                             -Wextra-semi                                                                  -Wuse-after-free=3 -Wuseless-cast                                                                    -fstrict-flex-arrays=2")
+  set(CMAKE_CXX_FLAGS "-std=c++23 -Wall -Wextra -Wpedantic -Werror -Wfatal-errors -Wdouble-promotion -Wformat=2 -Wformat-overflow=2 -Wformat-signedness -Wformat-truncation=2             -Winvalid-constexpr -Wnoexcept -Wnull-dereference -Wredundant-tags -Wold-style-cast -Woverloaded-virtual=2 -Wsign-promo -Wmismatched-tags -Wzero-as-null-pointer-constant -Wplacement-new=2 -Wcatch-value=2 -Wconditionally-supported -Wextra-semi -Wsuggest-final-types -Wsuggest-final-methods -Wsuggest-override -Wuse-after-free=3 -Wuseless-cast -Wdeprecated-literal-operator -Wdeprecated-variadic-comma-omission -fstrict-flex-arrays=2 -fno-rtti")
 
   set(CMAKE_C_FLAGS_DEBUG            "    -g -D_DEBUG")
   set(CMAKE_CXX_FLAGS_DEBUG          "    -g -D_DEBUG")
