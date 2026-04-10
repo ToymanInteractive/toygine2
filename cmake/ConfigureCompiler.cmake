@@ -20,17 +20,19 @@
 
 cmake_minimum_required(VERSION 3.31.0 FATAL_ERROR)
 
-set(MSVC_CMAKE_C_FLAGS   "/nologo /Wall /WX /wd4007 /wd4464 /wd4514 /wd4710 /wd4711 /wd4820 /wd4866 /wd5045 /wd5219 /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /EHsc /Zc:wchar_t /Zc:forScope /Zc:inline /Zc:rvalueCast /GR- /permissive-")
-set(MSVC_CMAKE_CXX_FLAGS "/nologo /Wall /WX /wd4007 /wd4464 /wd4514 /wd4710 /wd4711 /wd4820 /wd4866 /wd5045 /wd5219 /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /EHsc /Zc:wchar_t /Zc:forScope /Zc:inline /Zc:rvalueCast /GR- /permissive-")
+# Minimum CPU Architecture select based on https://store.steampowered.com/hwsurvey/
 
-set(MSVC_CMAKE_C_FLAGS_DEBUG            "/ZI /diagnostics:caret   /sdl                     /fsanitize=fuzzer /Od /Ob0 /Oi-     /Oy-         /D_DEBUG /GF- /RTCc /D_ALLOW_RTCc_IN_STL /RTCsu /MTd /GS  /guard:cf- /Gy  /Qpar- /arch:SSE2 /fp:strict  /fp:except  /Gd /MP")
-set(MSVC_CMAKE_CXX_FLAGS_DEBUG          "/ZI /diagnostics:caret   /sdl                     /fsanitize=fuzzer /Od /Ob0 /Oi-     /Oy-         /D_DEBUG /GF- /RTCc /D_ALLOW_RTCc_IN_STL /RTCsu /MTd /GS  /guard:cf- /Gy  /Qpar- /arch:SSE2 /fp:strict  /fp:except  /Gd /MP")
+set(MSVC_C_FLAGS   "/nologo /Wall /WX /wd4007 /wd4464 /wd4514 /wd4710 /wd4711 /wd4820 /wd4866 /wd5045 /wd5219 /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /EHsc /Zc:wchar_t /Zc:forScope /Zc:inline /Zc:rvalueCast /GR- /permissive- /arch:SSE2")
+set(MSVC_CXX_FLAGS "/nologo /Wall /WX /wd4007 /wd4464 /wd4514 /wd4710 /wd4711 /wd4820 /wd4866 /wd5045 /wd5219 /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /EHsc /Zc:wchar_t /Zc:forScope /Zc:inline /Zc:rvalueCast /GR- /permissive- /arch:SSE2")
 
-set(MSVC_CMAKE_C_FLAGS_RELWITHDEBINFO   "/Zi /diagnostics:column  /sdl  /fsanitize=address /fsanitize=fuzzer /Ox /Ob3 /Oi  /Ot /Oy- /GT /GL /D_DEBUG /GF                                    /MTd /GS  /guard:cf  /Gy- /Qpar- /arch:SSE2 /fp:precise /fp:except  /Gr")
-set(MSVC_CMAKE_CXX_FLAGS_RELWITHDEBINFO "/Zi /diagnostics:column  /sdl  /fsanitize=address /fsanitize=fuzzer /Ox /Ob3 /Oi  /Ot /Oy- /GT /GL /D_DEBUG /GF                                    /MTd /GS  /guard:cf  /Gy- /Qpar- /arch:SSE2 /fp:precise /fp:except  /Gr")
+set(MSVC_C_FLAGS_DEBUG            "/ZI /diagnostics:caret   /sdl                     /fsanitize=fuzzer /Od /Ob0 /Oi-     /Oy-         /D_DEBUG /GF- /RTCc /D_ALLOW_RTCc_IN_STL /RTCsu /MTd /GS  /guard:cf- /Gy  /Qpar- /fp:strict  /fp:except  /Gd /MP")
+set(MSVC_CXX_FLAGS_DEBUG          "/ZI /diagnostics:caret   /sdl                     /fsanitize=fuzzer /Od /Ob0 /Oi-     /Oy-         /D_DEBUG /GF- /RTCc /D_ALLOW_RTCc_IN_STL /RTCsu /MTd /GS  /guard:cf- /Gy  /Qpar- /fp:strict  /fp:except  /Gd /MP")
 
-set(MSVC_CMAKE_C_FLAGS_RELEASE          "    /diagnostics:classic /sdl-                                      /Ox /Ob3 /Oi  /Ot /Oy  /GT /GL /DNDEBUG /GF                                    /MT  /GS- /guard:cf- /Gy- /Qpar  /arch:SSE2 /fp:fast    /fp:except- /Gr")
-set(MSVC_CMAKE_CXX_FLAGS_RELEASE        "    /diagnostics:classic /sdl-                                      /Ox /Ob3 /Oi  /Ot /Oy  /GT /GL /DNDEBUG /GF                                    /MT  /GS- /guard:cf- /Gy- /Qpar  /arch:SSE2 /fp:fast    /fp:except- /Gr")
+set(MSVC_C_FLAGS_RELWITHDEBINFO   "/Zi /diagnostics:column  /sdl  /fsanitize=address /fsanitize=fuzzer /Ox /Ob3 /Oi  /Ot /Oy- /GT /GL /D_DEBUG /GF                                    /MTd /GS  /guard:cf  /Gy- /Qpar- /fp:precise /fp:except  /Gr")
+set(MSVC_CXX_FLAGS_RELWITHDEBINFO "/Zi /diagnostics:column  /sdl  /fsanitize=address /fsanitize=fuzzer /Ox /Ob3 /Oi  /Ot /Oy- /GT /GL /D_DEBUG /GF                                    /MTd /GS  /guard:cf  /Gy- /Qpar- /fp:precise /fp:except  /Gr")
+
+set(MSVC_C_FLAGS_RELEASE          "    /diagnostics:classic /sdl-                                      /Ox /Ob3 /Oi  /Ot /Oy  /GT /GL /DNDEBUG /GF                                    /MT  /GS- /guard:cf- /Gy- /Qpar  /fp:fast    /fp:except- /Gr")
+set(MSVC_CXX_FLAGS_RELEASE        "    /diagnostics:classic /sdl-                                      /Ox /Ob3 /Oi  /Ot /Oy  /GT /GL /DNDEBUG /GF                                    /MT  /GS- /guard:cf- /Gy- /Qpar  /fp:fast    /fp:except- /Gr")
 
 if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
@@ -39,24 +41,22 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
     set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:Debug>")
 
-    # Minimum CPU Architecture select based on https://store.steampowered.com/hwsurvey/
+    set(CMAKE_C_FLAGS                  "${MSVC_C_FLAGS}")
+    set(CMAKE_CXX_FLAGS                "${MSVC_CXX_FLAGS}")
 
-    set(CMAKE_C_FLAGS   "${MSVC_CMAKE_C_FLAGS}")
-    set(CMAKE_CXX_FLAGS "${MSVC_CMAKE_CXX_FLAGS}")
+    set(CMAKE_C_FLAGS_DEBUG            "${MSVC_C_FLAGS_DEBUG}")
+    set(CMAKE_CXX_FLAGS_DEBUG          "${MSVC_CXX_FLAGS_DEBUG}")
 
-    set(CMAKE_C_FLAGS_DEBUG            "${MSVC_CMAKE_C_FLAGS_DEBUG}")
-    set(CMAKE_CXX_FLAGS_DEBUG          "${MSVC_CMAKE_CXX_FLAGS_DEBUG}")
+    set(CMAKE_C_FLAGS_RELWITHDEBINFO   "${MSVC_C_FLAGS_RELWITHDEBINFO}")
+    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${MSVC_CXX_FLAGS_RELWITHDEBINFO}")
 
-    set(CMAKE_C_FLAGS_RELWITHDEBINFO   "${MSVC_CMAKE_C_FLAGS_RELWITHDEBINFO}")
-    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${MSVC_CMAKE_CXX_FLAGS_RELWITHDEBINFO}")
-
-    set(CMAKE_C_FLAGS_RELEASE          "${MSVC_CMAKE_C_FLAGS_RELEASE}")
-    set(CMAKE_CXX_FLAGS_RELEASE        "${MSVC_CMAKE_CXX_FLAGS_RELEASE}")
+    set(CMAKE_C_FLAGS_RELEASE          "${MSVC_C_FLAGS_RELEASE}")
+    set(CMAKE_CXX_FLAGS_RELEASE        "${MSVC_CXX_FLAGS_RELEASE}")
 
     if (CMAKE_SIZEOF_VOID_P MATCHES "4")
 
-      set(CMAKE_C_FLAGS_DEBUG   "${MSVC_CMAKE_C_FLAGS_DEBUG}   /hotpatch")
-      set(CMAKE_CXX_FLAGS_DEBUG "${MSVC_CMAKE_CXX_FLAGS_DEBUG} /hotpatch")
+      set(CMAKE_C_FLAGS_DEBUG   "${MSVC_C_FLAGS_DEBUG}   /hotpatch")
+      set(CMAKE_CXX_FLAGS_DEBUG "${MSVC_CXX_FLAGS_DEBUG} /hotpatch")
 
     endif ()
 
