@@ -1,9 +1,10 @@
-# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#alignarrayofstructures
+# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#alignconsecutiveassignments
 ---
 Language: Cpp
 Standard: Latest
 AccessModifierOffset: -2
 AlignAfterOpenBracket: true
+AlignArrayOfStructures: AIAS_Right,
 AlignConsecutiveAssignments:
   Enabled: false
 AlignConsecutiveDeclarations:
