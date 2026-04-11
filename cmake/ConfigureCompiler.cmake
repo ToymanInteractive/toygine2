@@ -50,6 +50,9 @@ set(GCC_CXX_FLAGS_RELWITHDEBINFO "-O3 -g -D_DEBUG")
 set(GCC_C_FLAGS_RELEASE          "-O3    -DNDEBUG")
 set(GCC_CXX_FLAGS_RELEASE        "-O3    -DNDEBUG")
 
+set(CLANG_C_FLAGS   "-Werror -Weverything -pedantic-errors -Wno-missing-prototypes                                                                 -Wno-missing-include-dirs -Wno-padded -Wno-poison-system-directories -Wno-covered-switch-default -fshow-column -fshow-source-location -fcaret-diagnostics -fcolor-diagnostics -fdiagnostics-format=clang -fdiagnostics-show-option -fdiagnostics-show-category=id -fdiagnostics-fixit-info -fdiagnostics-print-source-range-info -fdiagnostics-parseable-fixits -fno-rounding-math -fexcess-precision=standard")
+set(CLANG_CXX_FLAGS "-Werror -Weverything -pedantic-errors -Wno-missing-prototypes  -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-c++20-compat -Wno-missing-include-dirs -Wno-padded -Wno-poison-system-directories -Wno-covered-switch-default -fshow-column -fshow-source-location -fcaret-diagnostics -fcolor-diagnostics -fdiagnostics-format=clang -fdiagnostics-show-option -fdiagnostics-show-category=id -fdiagnostics-fixit-info -fdiagnostics-print-source-range-info -fdiagnostics-parseable-fixits -fno-rounding-math -fexcess-precision=standard")
+
 if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
   if (MSVC)
@@ -116,12 +119,12 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
 
   message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
 
-  # XCode 16.4 contains AppleClang version: 17.0.0.17000013
+  # XCode 16.4 contains AppleClang version: 17.0.0.17000604
   # Clang 17.0.1 documentation. https://releases.llvm.org/17.0.1/tools/clang/docs/UsersManual.html
   # Clang 17.0.1 diagnostic flags. https://releases.llvm.org/17.0.1/tools/clang/docs/DiagnosticsReference.html
 
-  set(CMAKE_C_FLAGS   "-Werror -Weverything -pedantic-errors -Wno-missing-prototypes                                                                -Wno-missing-include-dirs -Wno-padded -Wno-poison-system-directories -Wno-covered-switch-default -fshow-column -fshow-source-location -fcaret-diagnostics -fcolor-diagnostics -fdiagnostics-format=clang -fdiagnostics-show-option -fdiagnostics-show-category=id -fdiagnostics-fixit-info -fdiagnostics-print-source-range-info -fdiagnostics-parseable-fixits -fno-rounding-math -fexcess-precision=standard")
-  set(CMAKE_CXX_FLAGS "-Werror -Weverything -pedantic-errors -Wno-missing-prototypes -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-c++20-compat -Wno-missing-include-dirs -Wno-padded -Wno-poison-system-directories -Wno-covered-switch-default -fshow-column -fshow-source-location -fcaret-diagnostics -fcolor-diagnostics -fdiagnostics-format=clang -fdiagnostics-show-option -fdiagnostics-show-category=id -fdiagnostics-fixit-info -fdiagnostics-print-source-range-info -fdiagnostics-parseable-fixits -fno-rounding-math -fexcess-precision=standard")
+  set(CMAKE_C_FLAGS   "${CLANG_C_FLAGS}")
+  set(CMAKE_CXX_FLAGS "${CLANG_CXX_FLAGS}")
 
   set(CMAKE_C_FLAGS_DEBUG            "    -g -D_DEBUG -fno-fast-math -fstrict-float-cast-overflow -fmath-errno -fno-unsafe-math-optimizations -ffp-model=precise -ffp-exception-behavior=strict -fprotect-parens                                                                            -fsanitize=address -fsanitize=alignment -fsanitize=bool -fsanitize=builtin -fsanitize=bounds -fsanitize=enum -fsanitize=float-cast-overflow -fsanitize=float-divide-by-zero -fsanitize=function -fsanitize=nonnull-attribute -fsanitize=null -fsanitize=objc-cast                        -fsanitize=pointer-overflow -fsanitize=return -fsanitize=returns-nonnull-attribute -fsanitize=unsigned-shift-base -fsanitize=unreachable -fsanitize=vla-bound -fsanitize=vptr -fsanitize=integer -fsanitize=nullability")
   set(CMAKE_CXX_FLAGS_DEBUG          "    -g -D_DEBUG -fno-fast-math -fstrict-float-cast-overflow -fmath-errno -fno-unsafe-math-optimizations -ffp-model=precise -ffp-exception-behavior=strict -fprotect-parens                                                                            -fsanitize=address -fsanitize=alignment -fsanitize=bool -fsanitize=builtin -fsanitize=bounds -fsanitize=enum -fsanitize=float-cast-overflow -fsanitize=float-divide-by-zero -fsanitize=function -fsanitize=nonnull-attribute -fsanitize=null -fsanitize=objc-cast                        -fsanitize=pointer-overflow -fsanitize=return -fsanitize=returns-nonnull-attribute -fsanitize=unsigned-shift-base -fsanitize=unreachable -fsanitize=vla-bound -fsanitize=vptr -fsanitize=integer -fsanitize=nullability")
