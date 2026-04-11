@@ -20,17 +20,38 @@
 
 cmake_minimum_required(VERSION 3.31.0 FATAL_ERROR)
 
-set(MSVC_CMAKE_C_FLAGS   "/nologo /Wall /WX /wd4007 /wd4464 /wd4514 /wd4710 /wd4711 /wd4820 /wd4866 /wd5045 /wd5219 /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /EHsc /Zc:wchar_t /Zc:forScope /Zc:inline /Zc:rvalueCast /GR- /permissive-")
-set(MSVC_CMAKE_CXX_FLAGS "/nologo /Wall /WX /wd4007 /wd4464 /wd4514 /wd4710 /wd4711 /wd4820 /wd4866 /wd5045 /wd5219 /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /EHsc /Zc:wchar_t /Zc:forScope /Zc:inline /Zc:rvalueCast /GR- /permissive-")
+# Minimum CPU Architecture select based on https://store.steampowered.com/hwsurvey/
 
-set(MSVC_CMAKE_C_FLAGS_DEBUG            "/ZI /diagnostics:caret   /sdl                     /fsanitize=fuzzer /Od /Ob0 /Oi-     /Oy-         /D_DEBUG /GF- /RTCc /D_ALLOW_RTCc_IN_STL /RTCsu /MTd /GS  /guard:cf- /Gy  /Qpar- /arch:SSE2 /fp:strict  /fp:except  /Gd /MP")
-set(MSVC_CMAKE_CXX_FLAGS_DEBUG          "/ZI /diagnostics:caret   /sdl                     /fsanitize=fuzzer /Od /Ob0 /Oi-     /Oy-         /D_DEBUG /GF- /RTCc /D_ALLOW_RTCc_IN_STL /RTCsu /MTd /GS  /guard:cf- /Gy  /Qpar- /arch:SSE2 /fp:strict  /fp:except  /Gd /MP")
+set(MSVC_C_FLAGS   "/nologo /Wall /WX /wd4007 /wd4464 /wd4514 /wd4710 /wd4711 /wd4820 /wd4866 /wd5045 /wd5219 /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /EHsc /Zc:wchar_t /Zc:forScope /Zc:inline /Zc:rvalueCast /GR- /permissive- /arch:SSE2")
+set(MSVC_CXX_FLAGS "/nologo /Wall /WX /wd4007 /wd4464 /wd4514 /wd4710 /wd4711 /wd4820 /wd4866 /wd5045 /wd5219 /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /EHsc /Zc:wchar_t /Zc:forScope /Zc:inline /Zc:rvalueCast /GR- /permissive- /arch:SSE2")
 
-set(MSVC_CMAKE_C_FLAGS_RELWITHDEBINFO   "/Zi /diagnostics:column  /sdl  /fsanitize=address /fsanitize=fuzzer /Ox /Ob3 /Oi  /Ot /Oy- /GT /GL /D_DEBUG /GF                                    /MTd /GS  /guard:cf  /Gy- /Qpar- /arch:SSE2 /fp:precise /fp:except  /Gr")
-set(MSVC_CMAKE_CXX_FLAGS_RELWITHDEBINFO "/Zi /diagnostics:column  /sdl  /fsanitize=address /fsanitize=fuzzer /Ox /Ob3 /Oi  /Ot /Oy- /GT /GL /D_DEBUG /GF                                    /MTd /GS  /guard:cf  /Gy- /Qpar- /arch:SSE2 /fp:precise /fp:except  /Gr")
+set(MSVC_C_FLAGS_DEBUG            "/ZI /diagnostics:caret   /sdl                     /fsanitize=fuzzer /Od /Ob0 /Oi-     /Oy-         /D_DEBUG /GF- /RTCc /D_ALLOW_RTCc_IN_STL /RTCsu /MTd /GS  /guard:cf- /Gy  /Qpar- /fp:strict  /fp:except  /Gd /MP")
+set(MSVC_CXX_FLAGS_DEBUG          "/ZI /diagnostics:caret   /sdl                     /fsanitize=fuzzer /Od /Ob0 /Oi-     /Oy-         /D_DEBUG /GF- /RTCc /D_ALLOW_RTCc_IN_STL /RTCsu /MTd /GS  /guard:cf- /Gy  /Qpar- /fp:strict  /fp:except  /Gd /MP")
 
-set(MSVC_CMAKE_C_FLAGS_RELEASE          "    /diagnostics:classic /sdl-                                      /Ox /Ob3 /Oi  /Ot /Oy  /GT /GL /DNDEBUG /GF                                    /MT  /GS- /guard:cf- /Gy- /Qpar  /arch:SSE2 /fp:fast    /fp:except- /Gr")
-set(MSVC_CMAKE_CXX_FLAGS_RELEASE        "    /diagnostics:classic /sdl-                                      /Ox /Ob3 /Oi  /Ot /Oy  /GT /GL /DNDEBUG /GF                                    /MT  /GS- /guard:cf- /Gy- /Qpar  /arch:SSE2 /fp:fast    /fp:except- /Gr")
+set(MSVC_C_FLAGS_RELWITHDEBINFO   "/Zi /diagnostics:column  /sdl  /fsanitize=address /fsanitize=fuzzer /Ox /Ob3 /Oi  /Ot /Oy- /GT /GL /D_DEBUG /GF                                    /MTd /GS  /guard:cf  /Gy- /Qpar- /fp:precise /fp:except  /Gr")
+set(MSVC_CXX_FLAGS_RELWITHDEBINFO "/Zi /diagnostics:column  /sdl  /fsanitize=address /fsanitize=fuzzer /Ox /Ob3 /Oi  /Ot /Oy- /GT /GL /D_DEBUG /GF                                    /MTd /GS  /guard:cf  /Gy- /Qpar- /fp:precise /fp:except  /Gr")
+
+set(MSVC_C_FLAGS_RELEASE          "    /diagnostics:classic /sdl-                                      /Ox /Ob3 /Oi  /Ot /Oy  /GT /GL /DNDEBUG /GF                                    /MT  /GS- /guard:cf- /Gy- /Qpar  /fp:fast    /fp:except- /Gr")
+set(MSVC_CXX_FLAGS_RELEASE        "    /diagnostics:classic /sdl-                                      /Ox /Ob3 /Oi  /Ot /Oy  /GT /GL /DNDEBUG /GF                                    /MT  /GS- /guard:cf- /Gy- /Qpar  /fp:fast    /fp:except- /Gr")
+
+# Option Summary  https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/Warning-Options.html
+#                 https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/Warning-Options.html#index-Wif-not-aligned
+# Option Summary  https://gcc.gnu.org/onlinedocs/gcc-14.2.0/gcc/Warning-Options.html
+
+set(GCC_C_FLAGS   "-std=c17   -Wall -Wextra -Wpedantic -Werror -Wfatal-errors -Wdouble-promotion -Wformat=2 -Wformat-overflow=2 -Wformat-signedness -Wformat-truncation=2 -Winit-self                     -Wimplicit-fallthrough=5            -Wnull-dereference                                                                                                                                                                                     -Wextra-semi                                                                                                    -fstrict-flex-arrays=2")
+set(GCC_CXX_FLAGS "-std=c++23 -Wall -Wextra -Wpedantic -Werror -Wfatal-errors -Wdouble-promotion -Wformat=2 -Wformat-overflow=2 -Wformat-signedness -Wformat-truncation=2             -Winvalid-constexpr -Wimplicit-fallthrough=5 -Wnoexcept -Wnull-dereference -Wredundant-tags -Wold-style-cast -Woverloaded-virtual=2 -Wsign-promo -Wmismatched-tags -Wzero-as-null-pointer-constant -Wplacement-new=2 -Wcatch-value=2 -Wconditionally-supported -Wextra-semi -Wsuggest-final-types -Wsuggest-final-methods -Wsuggest-override -Wuse-after-free=3 -Wuseless-cast -fstrict-flex-arrays=2")
+
+set(GCC_C_FLAGS_DEBUG            "    -g -D_DEBUG")
+set(GCC_CXX_FLAGS_DEBUG          "    -g -D_DEBUG")
+
+set(GCC_C_FLAGS_RELWITHDEBINFO   "-O3 -g -D_DEBUG")
+set(GCC_CXX_FLAGS_RELWITHDEBINFO "-O3 -g -D_DEBUG")
+
+set(GCC_C_FLAGS_RELEASE          "-O3    -DNDEBUG")
+set(GCC_CXX_FLAGS_RELEASE        "-O3    -DNDEBUG")
+
+set(CLANG_C_FLAGS   "-Werror -Weverything -pedantic-errors -Wno-missing-prototypes                                                                 -Wno-missing-include-dirs -Wno-padded -Wno-poison-system-directories -Wno-covered-switch-default -fshow-column -fshow-source-location -fcaret-diagnostics -fcolor-diagnostics -fdiagnostics-format=clang -fdiagnostics-show-option -fdiagnostics-show-category=id -fdiagnostics-fixit-info -fdiagnostics-print-source-range-info -fdiagnostics-parseable-fixits -fno-rounding-math -fexcess-precision=standard")
+set(CLANG_CXX_FLAGS "-Werror -Weverything -pedantic-errors -Wno-missing-prototypes  -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-c++20-compat -Wno-missing-include-dirs -Wno-padded -Wno-poison-system-directories -Wno-covered-switch-default -fshow-column -fshow-source-location -fcaret-diagnostics -fcolor-diagnostics -fdiagnostics-format=clang -fdiagnostics-show-option -fdiagnostics-show-category=id -fdiagnostics-fixit-info -fdiagnostics-print-source-range-info -fdiagnostics-parseable-fixits -fno-rounding-math -fexcess-precision=standard")
 
 if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
@@ -39,24 +60,22 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
     set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:Debug>")
 
-    # Minimum CPU Architecture select based on https://store.steampowered.com/hwsurvey/
+    set(CMAKE_C_FLAGS                  "${MSVC_C_FLAGS}")
+    set(CMAKE_CXX_FLAGS                "${MSVC_CXX_FLAGS}")
 
-    set(CMAKE_C_FLAGS   "${MSVC_CMAKE_C_FLAGS}")
-    set(CMAKE_CXX_FLAGS "${MSVC_CMAKE_CXX_FLAGS}")
+    set(CMAKE_C_FLAGS_DEBUG            "${MSVC_C_FLAGS_DEBUG}")
+    set(CMAKE_CXX_FLAGS_DEBUG          "${MSVC_CXX_FLAGS_DEBUG}")
 
-    set(CMAKE_C_FLAGS_DEBUG            "${MSVC_CMAKE_C_FLAGS_DEBUG}")
-    set(CMAKE_CXX_FLAGS_DEBUG          "${MSVC_CMAKE_CXX_FLAGS_DEBUG}")
+    set(CMAKE_C_FLAGS_RELWITHDEBINFO   "${MSVC_C_FLAGS_RELWITHDEBINFO}")
+    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${MSVC_CXX_FLAGS_RELWITHDEBINFO}")
 
-    set(CMAKE_C_FLAGS_RELWITHDEBINFO   "${MSVC_CMAKE_C_FLAGS_RELWITHDEBINFO}")
-    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${MSVC_CMAKE_CXX_FLAGS_RELWITHDEBINFO}")
-
-    set(CMAKE_C_FLAGS_RELEASE          "${MSVC_CMAKE_C_FLAGS_RELEASE}")
-    set(CMAKE_CXX_FLAGS_RELEASE        "${MSVC_CMAKE_CXX_FLAGS_RELEASE}")
+    set(CMAKE_C_FLAGS_RELEASE          "${MSVC_C_FLAGS_RELEASE}")
+    set(CMAKE_CXX_FLAGS_RELEASE        "${MSVC_CXX_FLAGS_RELEASE}")
 
     if (CMAKE_SIZEOF_VOID_P MATCHES "4")
 
-      set(CMAKE_C_FLAGS_DEBUG   "${MSVC_CMAKE_C_FLAGS_DEBUG}   /hotpatch")
-      set(CMAKE_CXX_FLAGS_DEBUG "${MSVC_CMAKE_CXX_FLAGS_DEBUG} /hotpatch")
+      set(CMAKE_C_FLAGS_DEBUG   "${MSVC_C_FLAGS_DEBUG}   /hotpatch")
+      set(CMAKE_CXX_FLAGS_DEBUG "${MSVC_CXX_FLAGS_DEBUG} /hotpatch")
 
     endif ()
 
@@ -80,21 +99,17 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop")
     message(FATAL_ERROR "GCC >= 13.3 required")
   endif ()
 
-# Option Summary  https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/Warning-Options.html
-#                 https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/Warning-Options.html#index-Wimplicit-int
-# Option Summary  https://gcc.gnu.org/onlinedocs/gcc-14.2.0/gcc/Warning-Options.html
+  set(CMAKE_C_FLAGS   "${GCC_C_FLAGS}   -foffload=default -fopenmp-simd")
+  set(CMAKE_CXX_FLAGS "${GCC_CXX_FLAGS} -foffload=default -fopenmp-simd")
 
-  set(CMAKE_C_FLAGS   "-std=c17   -Wall -Wextra -Wpedantic -Werror -Wfatal-errors -Wdouble-promotion -Wformat=2 -Wformat-overflow=2 -Wformat-signedness -Wformat-truncation=2 -Winit-self                                -Wnull-dereference                                                                                                                                                                                     -Wextra-semi                                                                                                    -foffload=default -fopenmp-simd -fstrict-flex-arrays=2")
-  set(CMAKE_CXX_FLAGS "-std=c++23 -Wall -Wextra -Wpedantic -Werror -Wfatal-errors -Wdouble-promotion -Wformat=2 -Wformat-overflow=2 -Wformat-signedness -Wformat-truncation=2             -Winvalid-constexpr -Wnoexcept -Wnull-dereference -Wredundant-tags -Wold-style-cast -Woverloaded-virtual=2 -Wsign-promo -Wmismatched-tags -Wzero-as-null-pointer-constant -Wplacement-new=2 -Wcatch-value=2 -Wconditionally-supported -Wextra-semi -Wsuggest-final-types -Wsuggest-final-methods -Wsuggest-override -Wuse-after-free=3 -Wuseless-cast -foffload=default -fopenmp-simd -fstrict-flex-arrays=2")
+  set(CMAKE_C_FLAGS_DEBUG            "${GCC_C_FLAGS_DEBUG}")
+  set(CMAKE_CXX_FLAGS_DEBUG          "${GCC_CXX_FLAGS_DEBUG}")
 
-  set(CMAKE_C_FLAGS_DEBUG            "    -g -D_DEBUG")
-  set(CMAKE_CXX_FLAGS_DEBUG          "    -g -D_DEBUG")
+  set(CMAKE_C_FLAGS_RELWITHDEBINFO   "${GCC_C_FLAGS_RELWITHDEBINFO}")
+  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${GCC_CXX_FLAGS_RELWITHDEBINFO}")
 
-  set(CMAKE_C_FLAGS_RELWITHDEBINFO   "-O3 -g -D_DEBUG")
-  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O3 -g -D_DEBUG")
-
-  set(CMAKE_C_FLAGS_RELEASE          "-O3    -DNDEBUG")
-  set(CMAKE_CXX_FLAGS_RELEASE        "-O3    -DNDEBUG")
+  set(CMAKE_C_FLAGS_RELEASE          "${GCC_C_FLAGS_RELEASE}")
+  set(CMAKE_CXX_FLAGS_RELEASE        "${GCC_CXX_FLAGS_RELEASE}")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
 
@@ -104,12 +119,12 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
 
   message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
 
-  # XCode 16.4 contains AppleClang version: 17.0.0.17000013
+  # XCode 16.4 contains AppleClang version: 17.0.0.17000604
   # Clang 17.0.1 documentation. https://releases.llvm.org/17.0.1/tools/clang/docs/UsersManual.html
   # Clang 17.0.1 diagnostic flags. https://releases.llvm.org/17.0.1/tools/clang/docs/DiagnosticsReference.html
 
-  set(CMAKE_C_FLAGS   "-Werror -Weverything -pedantic-errors -Wno-missing-prototypes                                                                -Wno-missing-include-dirs -Wno-padded -Wno-poison-system-directories -Wno-covered-switch-default -fshow-column -fshow-source-location -fcaret-diagnostics -fcolor-diagnostics -fdiagnostics-format=clang -fdiagnostics-show-option -fdiagnostics-show-category=id -fdiagnostics-fixit-info -fdiagnostics-print-source-range-info -fdiagnostics-parseable-fixits -fno-rounding-math -fexcess-precision=standard")
-  set(CMAKE_CXX_FLAGS "-Werror -Weverything -pedantic-errors -Wno-missing-prototypes -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-c++20-compat -Wno-missing-include-dirs -Wno-padded -Wno-poison-system-directories -Wno-covered-switch-default -fshow-column -fshow-source-location -fcaret-diagnostics -fcolor-diagnostics -fdiagnostics-format=clang -fdiagnostics-show-option -fdiagnostics-show-category=id -fdiagnostics-fixit-info -fdiagnostics-print-source-range-info -fdiagnostics-parseable-fixits -fno-rounding-math -fexcess-precision=standard")
+  set(CMAKE_C_FLAGS   "${CLANG_C_FLAGS}")
+  set(CMAKE_CXX_FLAGS "${CLANG_CXX_FLAGS}")
 
   set(CMAKE_C_FLAGS_DEBUG            "    -g -D_DEBUG -fno-fast-math -fstrict-float-cast-overflow -fmath-errno -fno-unsafe-math-optimizations -ffp-model=precise -ffp-exception-behavior=strict -fprotect-parens                                                                            -fsanitize=address -fsanitize=alignment -fsanitize=bool -fsanitize=builtin -fsanitize=bounds -fsanitize=enum -fsanitize=float-cast-overflow -fsanitize=float-divide-by-zero -fsanitize=function -fsanitize=nonnull-attribute -fsanitize=null -fsanitize=objc-cast                        -fsanitize=pointer-overflow -fsanitize=return -fsanitize=returns-nonnull-attribute -fsanitize=unsigned-shift-base -fsanitize=unreachable -fsanitize=vla-bound -fsanitize=vptr -fsanitize=integer -fsanitize=nullability")
   set(CMAKE_CXX_FLAGS_DEBUG          "    -g -D_DEBUG -fno-fast-math -fstrict-float-cast-overflow -fmath-errno -fno-unsafe-math-optimizations -ffp-model=precise -ffp-exception-behavior=strict -fprotect-parens                                                                            -fsanitize=address -fsanitize=alignment -fsanitize=bool -fsanitize=builtin -fsanitize=bounds -fsanitize=enum -fsanitize=float-cast-overflow -fsanitize=float-divide-by-zero -fsanitize=function -fsanitize=nonnull-attribute -fsanitize=null -fsanitize=objc-cast                        -fsanitize=pointer-overflow -fsanitize=return -fsanitize=returns-nonnull-attribute -fsanitize=unsigned-shift-base -fsanitize=unreachable -fsanitize=vla-bound -fsanitize=vptr -fsanitize=integer -fsanitize=nullability")
@@ -161,17 +176,17 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Game Boy Advance")
 
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/Warning-Options.html
 
-  set(CMAKE_C_FLAGS   "-D__GBA__ -std=c17   -Wall -Wextra -Wpedantic -Werror -Wfatal-errors -Wdouble-promotion -Wformat=2 -Wformat-overflow=2 -Wformat-signedness -Wformat-truncation=2 -Winit-self                                -Wnull-dereference                                                                                         -Wzero-as-null-pointer-constant                                                             -Wextra-semi                                                                  -Wuse-after-free=3 -Wuseless-cast                                                                    -fstrict-flex-arrays=2")
-  set(CMAKE_CXX_FLAGS "-D__GBA__ -std=c++23 -Wall -Wextra -Wpedantic -Werror -Wfatal-errors -Wdouble-promotion -Wformat=2 -Wformat-overflow=2 -Wformat-signedness -Wformat-truncation=2             -Winvalid-constexpr -Wnoexcept -Wnull-dereference -Wredundant-tags -Wold-style-cast -Woverloaded-virtual=2 -Wsign-promo -Wmismatched-tags -Wzero-as-null-pointer-constant -Wplacement-new=2 -Wcatch-value=2 -Wconditionally-supported -Wextra-semi -Wsuggest-final-types -Wsuggest-final-methods -Wsuggest-override -Wuse-after-free=3 -Wuseless-cast -Wdeprecated-literal-operator -Wdeprecated-variadic-comma-omission -fstrict-flex-arrays=2 -fno-rtti -fno-threadsafe-statics")
+  set(CMAKE_C_FLAGS   "-D__GBA__ ${GCC_C_FLAGS}   -Wzero-as-null-pointer-constant -Wuse-after-free=3 -Wuseless-cast")
+  set(CMAKE_CXX_FLAGS "-D__GBA__ ${GCC_CXX_FLAGS}                                                                   -Wdeprecated-literal-operator -Wdeprecated-variadic-comma-omission -fno-rtti -fno-threadsafe-statics")
 
-  set(CMAKE_C_FLAGS_DEBUG            "    -g -D_DEBUG")
-  set(CMAKE_CXX_FLAGS_DEBUG          "    -g -D_DEBUG")
+  set(CMAKE_C_FLAGS_DEBUG            "${GCC_C_FLAGS_DEBUG}")
+  set(CMAKE_CXX_FLAGS_DEBUG          "${GCC_CXX_FLAGS_DEBUG}")
 
-  set(CMAKE_C_FLAGS_RELWITHDEBINFO   "-O3 -g -D_DEBUG")
-  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O3 -g -D_DEBUG")
+  set(CMAKE_C_FLAGS_RELWITHDEBINFO   "${GCC_C_FLAGS_RELWITHDEBINFO}")
+  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${GCC_CXX_FLAGS_RELWITHDEBINFO}")
 
-  set(CMAKE_C_FLAGS_RELEASE          "-O3    -DNDEBUG")
-  set(CMAKE_CXX_FLAGS_RELEASE        "-O3    -DNDEBUG")
+  set(CMAKE_C_FLAGS_RELEASE          "${GCC_C_FLAGS_RELEASE}")
+  set(CMAKE_CXX_FLAGS_RELEASE        "${GCC_CXX_FLAGS_RELEASE}")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
 
@@ -191,17 +206,17 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
 
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/Warning-Options.html
 
-  set(CMAKE_C_FLAGS   "-std=c17   -Wall -Wextra -Wpedantic -Werror -Wfatal-errors -Wdouble-promotion -Wformat=2 -Wformat-overflow=2 -Wformat-signedness -Wformat-truncation=2 -Winit-self                                -Wnull-dereference                                                                                         -Wzero-as-null-pointer-constant                                                             -Wextra-semi                                                                  -Wuse-after-free=3 -Wuseless-cast                                                                    -fstrict-flex-arrays=2")
-  set(CMAKE_CXX_FLAGS "-std=c++23 -Wall -Wextra -Wpedantic -Werror -Wfatal-errors -Wdouble-promotion -Wformat=2 -Wformat-overflow=2 -Wformat-signedness -Wformat-truncation=2             -Winvalid-constexpr -Wnoexcept -Wnull-dereference -Wredundant-tags -Wold-style-cast -Woverloaded-virtual=2 -Wsign-promo -Wmismatched-tags -Wzero-as-null-pointer-constant -Wplacement-new=2 -Wcatch-value=2 -Wconditionally-supported -Wextra-semi -Wsuggest-final-types -Wsuggest-final-methods -Wsuggest-override -Wuse-after-free=3 -Wuseless-cast -Wdeprecated-literal-operator -Wdeprecated-variadic-comma-omission -fstrict-flex-arrays=2 -fno-rtti -fno-threadsafe-statics")
+  set(CMAKE_C_FLAGS   "${GCC_C_FLAGS}   -Wzero-as-null-pointer-constant -Wuse-after-free=3 -Wuseless-cast")
+  set(CMAKE_CXX_FLAGS "${GCC_CXX_FLAGS}                                                                   -Wdeprecated-literal-operator -Wdeprecated-variadic-comma-omission -fno-rtti -fno-threadsafe-statics")
 
-  set(CMAKE_C_FLAGS_DEBUG            "    -g -D_DEBUG")
-  set(CMAKE_CXX_FLAGS_DEBUG          "    -g -D_DEBUG")
+  set(CMAKE_C_FLAGS_DEBUG            "${GCC_C_FLAGS_DEBUG}")
+  set(CMAKE_CXX_FLAGS_DEBUG          "${GCC_CXX_FLAGS_DEBUG}")
 
-  set(CMAKE_C_FLAGS_RELWITHDEBINFO   "-O3 -g -D_DEBUG")
-  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O3 -g -D_DEBUG")
+  set(CMAKE_C_FLAGS_RELWITHDEBINFO   "${GCC_C_FLAGS_RELWITHDEBINFO}")
+  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${GCC_CXX_FLAGS_RELWITHDEBINFO}")
 
-  set(CMAKE_C_FLAGS_RELEASE          "-O3    -DNDEBUG")
-  set(CMAKE_CXX_FLAGS_RELEASE        "-O3    -DNDEBUG")
+  set(CMAKE_C_FLAGS_RELEASE          "${GCC_C_FLAGS_RELEASE}")
+  set(CMAKE_CXX_FLAGS_RELEASE        "${GCC_CXX_FLAGS_RELEASE}")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 3DS")
 
@@ -221,17 +236,17 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 3DS")
 
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/Warning-Options.html
 
-  set(CMAKE_C_FLAGS   "-std=c17   -Wall -Wextra -Wpedantic -Werror -Wfatal-errors -Wdouble-promotion -Wformat=2 -Wformat-overflow=2 -Wformat-signedness -Wformat-truncation=2 -Winit-self                                -Wnull-dereference                                                                                         -Wzero-as-null-pointer-constant                                                             -Wextra-semi                                                                  -Wuse-after-free=3 -Wuseless-cast                                                                    -fstrict-flex-arrays=2")
-  set(CMAKE_CXX_FLAGS "-std=c++23 -Wall -Wextra -Wpedantic -Werror -Wfatal-errors -Wdouble-promotion -Wformat=2 -Wformat-overflow=2 -Wformat-signedness -Wformat-truncation=2             -Winvalid-constexpr -Wnoexcept -Wnull-dereference -Wredundant-tags -Wold-style-cast -Woverloaded-virtual=2 -Wsign-promo -Wmismatched-tags -Wzero-as-null-pointer-constant -Wplacement-new=2 -Wcatch-value=2 -Wconditionally-supported -Wextra-semi -Wsuggest-final-types -Wsuggest-final-methods -Wsuggest-override -Wuse-after-free=3 -Wuseless-cast -Wdeprecated-literal-operator -Wdeprecated-variadic-comma-omission -fstrict-flex-arrays=2 -fno-rtti")
+  set(CMAKE_C_FLAGS   "${GCC_C_FLAGS}   -Wzero-as-null-pointer-constant -Wuse-after-free=3 -Wuseless-cast")
+  set(CMAKE_CXX_FLAGS "${GCC_CXX_FLAGS}                                                                   -Wdeprecated-literal-operator -Wdeprecated-variadic-comma-omission -fno-rtti")
 
-  set(CMAKE_C_FLAGS_DEBUG            "    -g -D_DEBUG")
-  set(CMAKE_CXX_FLAGS_DEBUG          "    -g -D_DEBUG")
+  set(CMAKE_C_FLAGS_DEBUG            "${GCC_C_FLAGS_DEBUG}")
+  set(CMAKE_CXX_FLAGS_DEBUG          "${GCC_CXX_FLAGS_DEBUG}")
 
-  set(CMAKE_C_FLAGS_RELWITHDEBINFO   "-O3 -g -D_DEBUG")
-  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O3 -g -D_DEBUG")
+  set(CMAKE_C_FLAGS_RELWITHDEBINFO   "${GCC_C_FLAGS_RELWITHDEBINFO}")
+  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${GCC_CXX_FLAGS_RELWITHDEBINFO}")
 
-  set(CMAKE_C_FLAGS_RELEASE          "-O3    -DNDEBUG")
-  set(CMAKE_CXX_FLAGS_RELEASE        "-O3    -DNDEBUG")
+  set(CMAKE_C_FLAGS_RELEASE          "${GCC_C_FLAGS_RELEASE}")
+  set(CMAKE_CXX_FLAGS_RELEASE        "${GCC_CXX_FLAGS_RELEASE}")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
 
@@ -251,17 +266,17 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
 
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/Warning-Options.html
 
-  set(CMAKE_C_FLAGS   "-std=c17   -Wall -Wextra -Wpedantic -Werror -Wfatal-errors -Wdouble-promotion -Wformat=2 -Wformat-overflow=2 -Wformat-signedness -Wformat-truncation=2 -Winit-self                                -Wnull-dereference                                                                                         -Wzero-as-null-pointer-constant                                                             -Wextra-semi                                                                  -Wuse-after-free=3 -Wuseless-cast                                                                    -fstrict-flex-arrays=2")
-  set(CMAKE_CXX_FLAGS "-std=c++23 -Wall -Wextra -Wpedantic -Werror -Wfatal-errors -Wdouble-promotion -Wformat=2 -Wformat-overflow=2 -Wformat-signedness -Wformat-truncation=2             -Winvalid-constexpr -Wnoexcept -Wnull-dereference -Wredundant-tags -Wold-style-cast -Woverloaded-virtual=2 -Wsign-promo -Wmismatched-tags -Wzero-as-null-pointer-constant -Wplacement-new=2 -Wcatch-value=2 -Wconditionally-supported -Wextra-semi -Wsuggest-final-types -Wsuggest-final-methods -Wsuggest-override -Wuse-after-free=3 -Wuseless-cast -Wdeprecated-literal-operator -Wdeprecated-variadic-comma-omission -fstrict-flex-arrays=2 -fno-rtti")
+  set(CMAKE_C_FLAGS   "${GCC_C_FLAGS}   -Wzero-as-null-pointer-constant -Wuse-after-free=3 -Wuseless-cast")
+  set(CMAKE_CXX_FLAGS "${GCC_CXX_FLAGS}                                                                   -Wdeprecated-literal-operator -Wdeprecated-variadic-comma-omission -fno-rtti")
 
-  set(CMAKE_C_FLAGS_DEBUG            "    -g -D_DEBUG")
-  set(CMAKE_CXX_FLAGS_DEBUG          "    -g -D_DEBUG")
+  set(CMAKE_C_FLAGS_DEBUG            "${GCC_C_FLAGS_DEBUG}")
+  set(CMAKE_CXX_FLAGS_DEBUG          "${GCC_CXX_FLAGS_DEBUG}")
 
-  set(CMAKE_C_FLAGS_RELWITHDEBINFO   "-O3 -g -D_DEBUG")
-  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O3 -g -D_DEBUG")
+  set(CMAKE_C_FLAGS_RELWITHDEBINFO   "${GCC_C_FLAGS_RELWITHDEBINFO}")
+  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${GCC_CXX_FLAGS_RELWITHDEBINFO}")
 
-  set(CMAKE_C_FLAGS_RELEASE          "-O3    -DNDEBUG")
-  set(CMAKE_CXX_FLAGS_RELEASE        "-O3    -DNDEBUG")
+  set(CMAKE_C_FLAGS_RELEASE          "${GCC_C_FLAGS_RELEASE}")
+  set(CMAKE_CXX_FLAGS_RELEASE        "${GCC_CXX_FLAGS_RELEASE}")
 
 else ()
 
