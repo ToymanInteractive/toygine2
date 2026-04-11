@@ -4,7 +4,7 @@ Language: Cpp
 Standard: Latest
 AccessModifierOffset: -2
 AlignAfterOpenBracket: true
-AlignArrayOfStructures: AIAS_Right,
+AlignArrayOfStructures: Right,
 AlignConsecutiveAssignments:
   Enabled: false
 AlignConsecutiveDeclarations:
