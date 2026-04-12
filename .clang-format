@@ -1,4 +1,4 @@
-# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#alignconsecutivebitfields
+# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#alignconsecutivedeclarations
 ---
 Language: Cpp
 Standard: Latest
@@ -7,8 +7,15 @@ AlignAfterOpenBracket: true
 AlignArrayOfStructures: Right
 AlignConsecutiveAssignments:
   Enabled: true
-  AcrossEmptyLines: true
-  AcrossComments: false
+  AcrossEmptyLines: false
+  AcrossComments: true
+  AlignCompound: true
+  AlignFunctionPointers: false
+  PadOperators: true
+AlignConsecutiveBitFields:
+  Enabled: true
+  AcrossEmptyLines: false
+  AcrossComments: true
   AlignCompound: true
   AlignFunctionPointers: false
   PadOperators: true
