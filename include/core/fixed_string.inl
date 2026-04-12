@@ -103,7 +103,7 @@ template <size_t allocatedSize>
 constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::operator=(char character) noexcept {
   static_assert(allocatedSize > 1, "FixedString capacity must be greater than one.");
 
-  _storage.size = 1;
+  _storage.size      = 1;
   _storage.buffer[0] = character;
   _storage.buffer[1] = '\0';
 
@@ -264,7 +264,7 @@ constexpr size_t FixedString<allocatedSize>::capacity() const noexcept {
 
 template <size_t allocatedSize>
 constexpr void FixedString<allocatedSize>::clear() noexcept {
-  _storage.size = 0;
+  _storage.size    = 0;
   *_storage.buffer = '\0';
 }
 
@@ -313,8 +313,8 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::insert(size_t
       std::memset(_storage.buffer + index, character, count);
     }
 
-    _storage.size += count;
-    _storage.buffer[_storage.size] = '\0';
+    _storage.size                  += count;
+    _storage.buffer[_storage.size]  = '\0';
   } else {
     char_traits<char>::move(_storage.buffer + index + count, _storage.buffer + index, _storage.size - index + 1);
 
@@ -357,7 +357,7 @@ constexpr void FixedString<allocatedSize>::push_back(char character) noexcept {
   assert_message(_storage.size + 1 < allocatedSize, "String must have space for new character");
 
   _storage.buffer[_storage.size++] = character;
-  _storage.buffer[_storage.size] = '\0';
+  _storage.buffer[_storage.size]   = '\0';
 }
 
 template <size_t allocatedSize>
@@ -374,7 +374,7 @@ constexpr void FixedString<allocatedSize>::utf8_pop_back() noexcept {
 
   while (_storage.size > 0) {
     --_storage.size;
-    const auto byte = static_cast<unsigned char>(_storage.buffer[_storage.size]);
+    const auto byte                = static_cast<unsigned char>(_storage.buffer[_storage.size]);
     _storage.buffer[_storage.size] = '\0';
     if ((byte & 0xC0) != 0x80)
       break;
@@ -395,8 +395,8 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::append(size_t
     std::memset(_storage.buffer + _storage.size, character, count);
   }
 
-  _storage.size += count;
-  _storage.buffer[_storage.size] = '\0';
+  _storage.size                  += count;
+  _storage.buffer[_storage.size]  = '\0';
 
   return *this;
 }
@@ -417,16 +417,19 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::append(const 
   }
 
   char_traits<char>::move(_storage.buffer + _storage.size, string, count);
-  _storage.size += count;
-  _storage.buffer[_storage.size] = '\0';
+  _storage.size                  += count;
+  _storage.buffer[_storage.size]  = '\0';
 
   return *this;
 }
 
 template <size_t allocatedSize>
 constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::append(const char * string) noexcept {
-  assert_message(_storage.buffer != string, "Cannot append string into itself");
   assert_message(string != nullptr, "C string must not be null");
+
+  if !consteval {
+    assert_message(_storage.buffer != string, "Cannot append string into itself");
+  }
 
   _append_raw(string, char_traits<char>::length(string));
 
@@ -446,7 +449,9 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::append(
 template <size_t allocatedSize>
 template <StringLike stringType>
 constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::append(const stringType & string) noexcept {
-  assert_message(_storage.buffer != string.c_str(), "Cannot append string into itself");
+  if !consteval {
+    assert_message(_storage.buffer != string.c_str(), "Cannot append string into itself");
+  }
 
   _append_raw(string.c_str(), string.size());
 
@@ -498,7 +503,7 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::operator+=(ch
   assert_message(_storage.size + 1 < allocatedSize, "Appended string must fit in capacity");
 
   _storage.buffer[_storage.size++] = character;
-  _storage.buffer[_storage.size] = '\0';
+  _storage.buffer[_storage.size]   = '\0';
 
   return *this;
 }
@@ -1359,7 +1364,7 @@ constexpr strong_ordering operator<=>(const FixedString<allocatedSize> & lhs, co
     return strong_ordering::greater;
 
   const auto rhsLen = char_traits<char>::length(rhs);
-  const int result = char_traits<char>::compare(lhs.c_str(), rhs, std::min(lhs.size(), rhsLen));
+  const int result  = char_traits<char>::compare(lhs.c_str(), rhs, std::min(lhs.size(), rhsLen));
   if (result < 0)
     return strong_ordering::less;
   else if (result > 0)

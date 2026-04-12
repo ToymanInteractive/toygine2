@@ -34,7 +34,9 @@ namespace toy {
 
 /*!
   \enum FormatPatternValidationError
+
   \ingroup String
+
   \brief Result of validating a format pattern against an expected argument count.
 */
 enum class FormatPatternValidationError {

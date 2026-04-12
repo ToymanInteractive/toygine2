@@ -33,7 +33,9 @@ namespace toy {
 
 /*!
   \concept StringLike
+
   \ingroup String
+
   \brief Concept satisfied when \a T exposes \c size() as \c size_t and \c c_str() as a pointer to null-terminated
          characters.
 

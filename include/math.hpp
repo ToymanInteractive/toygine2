@@ -41,7 +41,7 @@
 */
 namespace toy::math {
 
-// C++ Standard Library headers https://en.cppreference.com/w/cpp/headers.html
+// (lvl 1)  C++ Standard Library headers https://en.cppreference.com/w/cpp/headers.html
 
 // https://en.cppreference.com/w/cpp/header/type_traits.html
 using std::true_type;
@@ -49,17 +49,17 @@ using std::true_type;
 // https://en.cppreference.com/w/cpp/header/type_traits.html
 using std::false_type;
 
-// Metaprogramming library https://en.cppreference.com/w/cpp/meta.html
+// (lvl 1)       Metaprogramming library https://en.cppreference.com/w/cpp/meta.html
 
 // https://en.cppreference.com/w/cpp/types/is_signed.html
 using std::is_signed_v;
 
-// Algorithms library https://en.cppreference.com/w/cpp/algorithm.html
+// (lvl 1)            Algorithms library https://en.cppreference.com/w/cpp/algorithm.html
 
 // https://en.cppreference.com/w/cpp/algorithm/max.html
 using std::max;
 
-// Concepts library https://en.cppreference.com/w/cpp/concepts.html
+// (lvl 1)              Concepts library https://en.cppreference.com/w/cpp/concepts.html
 
 // https://en.cppreference.com/w/cpp/concepts/integral.html
 using std::integral;
@@ -70,8 +70,9 @@ using std::signed_integral;
 // https://en.cppreference.com/w/cpp/concepts/floating_point.html
 using std::floating_point;
 
-//              Numerics library https://en.cppreference.com/w/cpp/numeric
-// Common mathematical functions https://en.cppreference.com/w/cpp/numeric/math
+// (lvl 1)              Numerics library https://en.cppreference.com/w/cpp/numeric
+
+// (lvl 2) Common mathematical functions https://en.cppreference.com/w/cpp/numeric/math
 
 // https://en.cppreference.com/w/cpp/numeric/math/isnan
 using std::isnan;

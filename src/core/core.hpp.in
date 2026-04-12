@@ -22,7 +22,7 @@
   \brief  Umbrella header for the engine core module.
 
   Defines the public core surface: platform, assertions, string utilities, output string stream, callbacks pool, fixed
-  strings and vectors, hashing, formatting helpers, and general utilities.
+  strings and vectors, hashing, formatting, and general utilities.
 
   \note Include this header only; do not include internal headers directly.
 */
@@ -83,17 +83,22 @@ using std::strong_ordering;
 
 using std::array;
 
-// Utility library https://en.cppreference.com/w/cpp/utility.html
+// (lvl 1)                  Utility library https://en.cppreference.com/w/cpp/utility.html
 
-// Bit manipulation https://en.cppreference.com/w/cpp/utility/bit.html
+// (lvl 2)                 Bit manipulation https://en.cppreference.com/w/cpp/utility/bit.html
 
 // https://en.cppreference.com/w/cpp/numeric/bit_cast.html
 using std::bit_cast;
 
-//    Type support https://en.cppreference.com/w/cpp/types
+// (lvl 2) Type support (basic types, RTTI) https://en.cppreference.com/w/cpp/utility/rtti.html
 
-// https://en.cppreference.com/w/cpp/types/numeric_limits
+// https://en.cppreference.com/w/cpp/types/numeric_limits.html
 using std::numeric_limits;
+
+// (lvl 1).         Metaprogramming library https://en.cppreference.com/w/cpp/meta.html
+
+// https://en.cppreference.com/w/cpp/types/type_identity.html
+using std::type_identity_t;
 
 #undef validate
 #undef validate_message
@@ -190,6 +195,7 @@ using std::numeric_limits;
 #include "core/constexpr_utils.hpp"
 #include "core/fixed_string.hpp"
 #include "core/fixed_vector.hpp"
+#include "core/format.hpp"
 #include "core/format_pattern.hpp"
 #include "core/format_string.hpp"
 #include "core/hashes.hpp"
@@ -207,6 +213,7 @@ using std::numeric_limits;
 #include "core/constexpr_utils.inl"
 #include "core/fixed_string.inl"
 #include "core/fixed_vector.inl"
+#include "core/format.inl"
 #include "core/format_pattern.inl"
 #include "core/format_string.inl"
 #include "core/o_string_stream.inl"

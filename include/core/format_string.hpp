@@ -36,7 +36,9 @@ namespace toy {
 
 /*!
   \class FormatString
+
   \ingroup String
+
   \brief Wrapper around a \ref toy::CStringView pattern with \c consteval validation of placeholders.
 
   Two modes are supported, not mixed in one pattern: **auto-indexed** placeholders are exactly \c {}; **positional**
