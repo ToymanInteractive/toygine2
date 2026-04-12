@@ -34,17 +34,51 @@
 namespace toy {
 
 /*!
+  \concept OStringStreamBackend
+
+  \ingroup String
+
+  \brief Concept satisfied when \a T can serve as the backing storage for \ref toy::OStringStream.
+
+  Expresses the mutable string interface that \ref toy::OStringStream requires from its template argument. Types
+  satisfying this concept support character-by-character append, block appends with and without a repetition count,
+  null-terminated read access, and swap. \ref toy::FixedString is the canonical representative.
+
+  \section requirements Requirements
+
+  A type \a T satisfies OStringStreamBackend if and only if:
+  - \c T::size() returns \c size_t.
+  - \c T::c_str() returns a value convertible to \c const \c char*.
+  - \c T::push_back(char) is a valid expression.
+  - \c T::append(const char *) is a valid expression.
+  - \c T::append(const char *, size_t) is a valid expression.
+  - \c T::append(size_t, char) is a valid expression.
+  - \a T satisfies \c std::swappable.
+
+  \sa toy::OStringStream
+*/
+template <typename T>
+concept OStringStreamBackend = requires(T str, const char * cstr, size_t count, char ch) {
+  { str.size() } -> std::same_as<size_t>;
+  { str.c_str() } -> std::convertible_to<const char *>;
+  str.push_back(ch);
+  str.append(cstr);
+  str.append(cstr, count);
+  str.append(count, ch);
+} && std::swappable<T>;
+
+/*!
   \class OStringStream
 
   \ingroup String
 
-  \brief Output stream that appends formatted values into a \ref toy::StringLike backend.
+  \brief Output stream that appends formatted values into a \ref toy::OStringStreamBackend backend.
 
   OStringStream provides a \c std::ostringstream-like \c operator<< surface; allocation and capacity follow
   \a StringType (e.g. \ref toy::FixedString). Integral, floating-point, boolean, pointer, character, C-string, and
   string-like inserts are supported where exposed by the template API.
 
-  \tparam StringType The type of the underlying storage. Must satisfy the \ref toy::StringLike concept.
+  \tparam StringType The type of the underlying storage. Must satisfy the \ref toy::OStringStreamBackend concept.
 
   \section features Key Features
 
@@ -85,9 +119,9 @@ namespace toy {
   \note Only end-of-string appends are supported; there is no seek or insert-at-offset API.
   \note The effective write position matches the end of the underlying string after each successful append.
 
-  \sa FixedString, StringLike, CStringView
+  \sa OStringStreamBackend, StringLike
 */
-template <typename StringType>
+template <OStringStreamBackend StringType>
 class OStringStream {
 public:
   /// Type of characters stored in the string.

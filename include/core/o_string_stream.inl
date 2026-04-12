@@ -29,25 +29,25 @@
 
 namespace toy {
 
-template <typename StringType>
+template <OStringStreamBackend StringType>
 template <StringLike SourceStringType>
 constexpr OStringStream<StringType>::OStringStream(const SourceStringType & string) noexcept
   : _string(string) {}
 
-template <typename StringType>
+template <OStringStreamBackend StringType>
 constexpr void OStringStream<StringType>::swap(OStringStream & other) noexcept {
   std::swap(_string, other._string);
   std::swap(_precision, other._precision);
 }
 
-template <typename StringType>
+template <OStringStreamBackend StringType>
 constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(bool value) noexcept {
   _string.append(value ? "true" : "false");
 
   return *this;
 }
 
-template <typename StringType>
+template <OStringStreamBackend StringType>
 constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(long value) noexcept {
   char buffer[21];
 
@@ -64,7 +64,7 @@ constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(long
   return *this;
 }
 
-template <typename StringType>
+template <OStringStreamBackend StringType>
 constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(unsigned long value) noexcept {
   char buffer[21];
 
@@ -81,7 +81,7 @@ constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(unsi
   return *this;
 }
 
-template <typename StringType>
+template <OStringStreamBackend StringType>
 constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(long long value) noexcept {
   char buffer[21];
 
@@ -92,7 +92,7 @@ constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(long
   return *this;
 }
 
-template <typename StringType>
+template <OStringStreamBackend StringType>
 constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(unsigned long long value) noexcept {
   char buffer[21];
 
@@ -103,7 +103,7 @@ constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(unsi
   return *this;
 }
 
-template <typename StringType>
+template <OStringStreamBackend StringType>
 constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(double value) noexcept {
   char buffer[128];
 
@@ -114,7 +114,7 @@ constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(doub
   return *this;
 }
 
-template <typename StringType>
+template <OStringStreamBackend StringType>
 constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(const void * value) noexcept {
   if (value == nullptr)
     return *this << nullptr;
@@ -132,7 +132,7 @@ constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(cons
   _string.append("0x");
 
   const auto bufferDataLen = char_traits<char>::length(buffer);
-  const int leadingZeros = static_cast<int>(sizeof(value)) * 2 - static_cast<int>(bufferDataLen);
+  const int leadingZeros   = static_cast<int>(sizeof(value)) * 2 - static_cast<int>(bufferDataLen);
   if (leadingZeros > 0)
     _string.append(static_cast<size_t>(leadingZeros), '0');
 
@@ -141,14 +141,14 @@ constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(cons
   return *this;
 }
 
-template <typename StringType>
+template <OStringStreamBackend StringType>
 constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(nullptr_t) noexcept {
   _string.append("nullptr");
 
   return *this;
 }
 
-template <typename StringType>
+template <OStringStreamBackend StringType>
 constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(short value) noexcept {
   char buffer[7];
 
@@ -159,7 +159,7 @@ constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(shor
   return *this;
 }
 
-template <typename StringType>
+template <OStringStreamBackend StringType>
 constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(int value) noexcept {
   char buffer[12];
 
@@ -170,7 +170,7 @@ constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(int 
   return *this;
 }
 
-template <typename StringType>
+template <OStringStreamBackend StringType>
 constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(unsigned short value) noexcept {
   char buffer[7];
 
@@ -181,7 +181,7 @@ constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(unsi
   return *this;
 }
 
-template <typename StringType>
+template <OStringStreamBackend StringType>
 constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(unsigned int value) noexcept {
   char buffer[11];
 
@@ -192,7 +192,7 @@ constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(unsi
   return *this;
 }
 
-template <typename StringType>
+template <OStringStreamBackend StringType>
 constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(float value) noexcept {
   char buffer[128];
 
@@ -203,7 +203,7 @@ constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(floa
   return *this;
 }
 
-template <typename StringType>
+template <OStringStreamBackend StringType>
 constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(signed char value) noexcept {
   char buffer[5];
 
@@ -214,7 +214,7 @@ constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(sign
   return *this;
 }
 
-template <typename StringType>
+template <OStringStreamBackend StringType>
 constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(unsigned char value) noexcept {
   char buffer[4];
 
@@ -225,14 +225,14 @@ constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(unsi
   return *this;
 }
 
-template <typename StringType>
+template <OStringStreamBackend StringType>
 constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(char_type value) noexcept {
   _string.push_back(value);
 
   return *this;
 }
 
-template <typename StringType>
+template <OStringStreamBackend StringType>
 template <StringLike SourceStringType>
 constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(const SourceStringType & value) noexcept {
   _string.append(value);
@@ -240,7 +240,7 @@ constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(cons
   return *this;
 }
 
-template <typename StringType>
+template <OStringStreamBackend StringType>
 constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(const char_type * value) noexcept {
   assert_message(value != nullptr, "String pointer must not be null.");
 
@@ -249,23 +249,23 @@ constexpr OStringStream<StringType> & OStringStream<StringType>::operator<<(cons
   return *this;
 }
 
-template <typename StringType>
+template <OStringStreamBackend StringType>
 constexpr const StringType & OStringStream<StringType>::str() const noexcept {
   return _string;
 }
 
-template <typename StringType>
+template <OStringStreamBackend StringType>
 template <StringLike SourceStringType>
 constexpr void OStringStream<StringType>::str(const SourceStringType & string) noexcept {
   _string = string;
 }
 
-template <typename StringType>
+template <OStringStreamBackend StringType>
 constexpr CStringView OStringStream<StringType>::view() const noexcept {
   return CStringView(_string.c_str());
 }
 
-template <typename StringType>
+template <OStringStreamBackend StringType>
 constexpr OStringStream<StringType> & OStringStream<StringType>::put(char_type character) noexcept {
   assert_message(character != '\0', "Character must not be null.");
 
@@ -274,7 +274,7 @@ constexpr OStringStream<StringType> & OStringStream<StringType>::put(char_type c
   return *this;
 }
 
-template <typename StringType>
+template <OStringStreamBackend StringType>
 constexpr OStringStream<StringType> & OStringStream<StringType>::write(const char_type * string,
                                                                        size_t count) noexcept {
   assert_message(string != nullptr, "Source string must not be null.");
@@ -284,17 +284,17 @@ constexpr OStringStream<StringType> & OStringStream<StringType>::write(const cha
   return *this;
 }
 
-template <typename StringType>
+template <OStringStreamBackend StringType>
 constexpr OStringStream<StringType>::pos_type OStringStream<StringType>::tellp() const noexcept {
   return _string.size();
 }
 
-template <typename StringType>
+template <OStringStreamBackend StringType>
 constexpr size_t OStringStream<StringType>::precision() const noexcept {
   return _precision;
 }
 
-template <typename StringType>
+template <OStringStreamBackend StringType>
 constexpr size_t OStringStream<StringType>::setPrecision(size_t newPrecision) noexcept {
   assert_message(newPrecision <= std::numeric_limits<long double>::digits10,
                  "Precision must not exceed maximum supported digits for long double");
