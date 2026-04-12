@@ -193,6 +193,7 @@ var group___string =
     [ "toy::FormatString&lt; Args &gt;", "dc/d62/classtoy_1_1_format_string.html", [
       [ "FormatString", "dc/d62/classtoy_1_1_format_string.html#a06c00dea813cc4f7fcee89cc35ce9370", null ],
       [ "_compileTimeError", "dc/d62/classtoy_1_1_format_string.html#afd793fd7ecad4136327c535a8e2d6602", null ],
+      [ "explicit", "dc/d62/classtoy_1_1_format_string.html#ae9f7ccd81d1fee26c76f681030297d1c", null ],
       [ "explicit", "dc/d62/classtoy_1_1_format_string.html#a8bddc50cb2304cfc22f2f5fdc201dfc5", null ],
       [ "get", "dc/d62/classtoy_1_1_format_string.html#aad2ddbdff43aae3fa0d453ec2196a339", null ],
       [ "operator=", "dc/d62/classtoy_1_1_format_string.html#abe2285a11ce2d6e7bf602112536103bc", null ],

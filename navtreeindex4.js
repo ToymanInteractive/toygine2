@@ -30,10 +30,11 @@ var NAVTREEINDEX4 =
 "dc/d28/constexpr__utils_8inl_source.html":[6,0,0,2,8],
 "dc/d62/classtoy_1_1_format_string.html":[2,2,3],
 "dc/d62/classtoy_1_1_format_string.html#a06c00dea813cc4f7fcee89cc35ce9370":[2,2,3,0],
-"dc/d62/classtoy_1_1_format_string.html#a8bddc50cb2304cfc22f2f5fdc201dfc5":[2,2,3,2],
-"dc/d62/classtoy_1_1_format_string.html#aa80fa19ae3c237c10b36f9c9688e4e65":[2,2,3,5],
-"dc/d62/classtoy_1_1_format_string.html#aad2ddbdff43aae3fa0d453ec2196a339":[2,2,3,3],
-"dc/d62/classtoy_1_1_format_string.html#abe2285a11ce2d6e7bf602112536103bc":[2,2,3,4],
+"dc/d62/classtoy_1_1_format_string.html#a8bddc50cb2304cfc22f2f5fdc201dfc5":[2,2,3,3],
+"dc/d62/classtoy_1_1_format_string.html#aa80fa19ae3c237c10b36f9c9688e4e65":[2,2,3,6],
+"dc/d62/classtoy_1_1_format_string.html#aad2ddbdff43aae3fa0d453ec2196a339":[2,2,3,4],
+"dc/d62/classtoy_1_1_format_string.html#abe2285a11ce2d6e7bf602112536103bc":[2,2,3,5],
+"dc/d62/classtoy_1_1_format_string.html#ae9f7ccd81d1fee26c76f681030297d1c":[2,2,3,2],
 "dc/d62/classtoy_1_1_format_string.html#afd793fd7ecad4136327c535a8e2d6602":[2,2,3,1],
 "dc/d6d/classtoy_1_1_enable_bitwise_operators.html":[3,0,1,12],
 "dc/d6d/classtoy_1_1_enable_bitwise_operators.html":[5,0,1,5],
@@ -248,6 +249,5 @@ var NAVTREEINDEX4 =
 "df/d81/md__a_g_e_n_t_s.html#section-performance-performance-characteristics":[1,12,3,0],
 "df/d81/md__a_g_e_n_t_s.html#section-safety-safety-guarantees":[1,12,3,1],
 "df/d81/md__a_g_e_n_t_s.html#simplified-class-without-compatibility":[1,13,4],
-"df/d81/md__a_g_e_n_t_s.html#stl-compatible-naming":[1,10,0],
-"df/d81/md__a_g_e_n_t_s.html#string-length-assertions-including-utf-8":[1,21]
+"df/d81/md__a_g_e_n_t_s.html#stl-compatible-naming":[1,10,0]
 };

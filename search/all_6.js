@@ -26,7 +26,7 @@ var searchData=
   ['error_20handling_23',['Error Handling',['../df/d81/md__a_g_e_n_t_s.html#error-handling',1,'']]],
   ['example_24',['Usage Example',['../d4/da9/namespacetoy.html#usage',1,'']]],
   ['expand_25',['expand',['../db/d6f/classtoy_1_1geometry_1_1_section.html#ab93fe647a2132bcec9475dc07436be4f',1,'toy::geometry::Section::expand(const T &amp;value) noexcept'],['../db/d6f/classtoy_1_1geometry_1_1_section.html#ac41e8ef5d949f060004098070aa70062',1,'toy::geometry::Section::expand(const Section&lt; T &gt; &amp;section) noexcept']]],
-  ['explicit_26',['explicit',['../d5/d03/classtoy_1_1_c_string_view.html#a38cada806f591cf55cdcb411d8210fae',1,'toy::CStringView::explicit()'],['../dc/d62/classtoy_1_1_format_string.html#a8bddc50cb2304cfc22f2f5fdc201dfc5',1,'toy::FormatString::explicit()']]],
+  ['explicit_26',['explicit',['../d5/d03/classtoy_1_1_c_string_view.html#a38cada806f591cf55cdcb411d8210fae',1,'toy::CStringView::explicit()'],['../dc/d62/classtoy_1_1_format_string.html#a8bddc50cb2304cfc22f2f5fdc201dfc5',1,'toy::FormatString::explicit(false) FormatString(const CStringView &amp;string) noexcept'],['../dc/d62/classtoy_1_1_format_string.html#ae9f7ccd81d1fee26c76f681030297d1c',1,'toy::FormatString::explicit(false) FormatString(const char *string) noexcept']]],
   ['explicit_20constructors_27',['Explicit Constructors',['../df/d81/md__a_g_e_n_t_s.html#explicit-constructors',1,'']]],
   ['extensions_28',['File Extensions',['../df/d81/md__a_g_e_n_t_s.html#file-extensions',1,'']]]
 ];
