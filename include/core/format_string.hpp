@@ -100,9 +100,33 @@ public:
     \note \c consteval; ill-formed patterns make the program ill-formed.
     \note Escaped \c {{ and \c }} are not placeholders.
 
+    \sa FormatString(const char *)
     \sa get()
   */
   consteval explicit(false) FormatString(const CStringView & string) noexcept;
+
+  /*!
+    \brief Validates \a string at compile time and stores it as a \ref toy::CStringView.
+
+    Convenience overload accepting a null-terminated C string directly, avoiding the two-step implicit conversion
+    through \ref toy::CStringView that would otherwise be needed at call sites.
+
+    \param string Null-terminated format pattern to validate and store.
+
+    \pre \a string is not null and is a valid null-terminated character sequence.
+    \pre Braces in \a string are balanced; \c {{ and \c }} are literals.
+    \pre Either: auto mode — number of \c {} equals \c sizeof...(Args); or positional mode — each \c {N} has \c N \c <
+         \c sizeof...(Args), and the pattern does not mix \c {} with \c {N}.
+
+    \post The pattern is stored and can be read with get().
+
+    \note \c consteval; ill-formed patterns make the program ill-formed.
+    \note Escaped \c {{ and \c }} are not placeholders.
+
+    \sa FormatString(const CStringView &)
+    \sa get()
+  */
+  consteval explicit(false) FormatString(const char * string) noexcept;
 
   /*!
     \brief Default copy constructor.

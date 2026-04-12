@@ -58,6 +58,10 @@ consteval FormatString<Args...>::FormatString(const CStringView & string) noexce
 }
 
 template <class... Args>
+consteval FormatString<Args...>::FormatString(const char * string) noexcept
+  : FormatString(CStringView(string)) {}
+
+template <class... Args>
 constexpr CStringView FormatString<Args...>::get() const noexcept {
   return _string;
 }
