@@ -27,21 +27,7 @@
 #ifndef BENCHMARKS_BENCHMARK_FACTORY_HPP_
 #define BENCHMARKS_BENCHMARK_FACTORY_HPP_
 
-#include <iostream>
-
 #include <nanobench.h>
-
-constexpr auto bencherTemplate = R"TMPL(
-{
-{{#result}}  "{{{name}}}": {
-    "latency": {
-      "value": {{median(elapsed)}}
-    }
-  }{{^-last}},
-{{/-last}}
-{{/result}}
-}
-)TMPL";
 
 /*!
   \brief Creates an ankerl::nanobench::Bench configured with default warmup, epochs, and relative results.
@@ -51,13 +37,7 @@ constexpr auto bencherTemplate = R"TMPL(
   \return A Bench instance with warmup(100), epochs(100), minEpochIterations(1000), relative(true).
 */
 inline ankerl::nanobench::Bench createBench(const char * title) noexcept {
-  const auto bench
-    = ankerl::nanobench::Bench().title(title).warmup(100).epochs(100).minEpochIterations(1000).relative(true);
-
-  //  ankerl::nanobench::render(bencherTemplate, bench, std::ofstream("results.json"));
-  ankerl::nanobench::render(bencherTemplate, bench, std::cout);
-
-  return bench;
+  return ankerl::nanobench::Bench().title(title).warmup(100).epochs(100).minEpochIterations(1000).relative(true);
 }
 
 /*!
