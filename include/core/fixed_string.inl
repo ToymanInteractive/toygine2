@@ -449,7 +449,9 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::append(
 template <size_t allocatedSize>
 template <StringLike stringType>
 constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::append(const stringType & string) noexcept {
-  assert_message(_storage.buffer != string.c_str(), "Cannot append string into itself");
+  if !consteval {
+    assert_message(_storage.buffer != string.c_str(), "Cannot append string into itself");
+  }
 
   _append_raw(string.c_str(), string.size());
 

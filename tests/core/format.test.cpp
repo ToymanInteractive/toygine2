@@ -194,9 +194,9 @@ TEST_CASE("core/format_to/replaces_output") {
 // formatTo with positional placeholders.
 TEST_CASE("core/format_to/positional") {
   FixedString<32> output;
-  formatTo(output, "{1}/{0}", 2024, 12);
+  formatTo(output, "{{{1}/{0}}}", 2024, 12);
 
-  REQUIRE(output == "12/2024");
+  REQUIRE(output == "{12/2024}");
 }
 
 } // namespace toy
