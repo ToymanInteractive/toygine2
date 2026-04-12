@@ -1041,7 +1041,7 @@ constexpr size_t FixedString<allocatedSize>::_rfind_raw(size_t position, const c
   for (size_t i = 0; i <= position; ++i) {
     const auto offset = position - i;
 
-    const auto found  = char_traits<char>::compare(_storage.buffer + offset, data, dataSize) == 0;
+    const auto found = char_traits<char>::compare(_storage.buffer + offset, data, dataSize) == 0;
     if (found)
       return offset;
   }
