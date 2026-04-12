@@ -65,6 +65,29 @@ constexpr void dispatchFormatArg(size_t index, OStringStream<StringType> & strea
     dispatchFormatArg(index - 1, stream, rest...);
 }
 
+/*!
+  \brief Resolves the argument index for a single `\{ ... \}` placeholder body.
+
+  An empty body (`{}`) selects the next automatic index. Otherwise the body is read as a decimal numeral and returned as
+  the zero-based argument index.
+
+  \tparam PatternType Type that provides \c at(size_t) for indexed access to the pattern's code units.
+
+  \param pattern   Format pattern string.
+  \param start     Inclusive index of the first code unit inside the opening brace.
+  \param end       Exclusive index of the closing brace; the examined range is \c [start, end).
+  \param autoIndex Next index to use for an empty placeholder; updated when \a start equals \a end.
+
+  \return Zero-based argument index to pass to the formatting dispatch.
+
+  \pre \a start <= \a end. Both indices refer to valid positions in \a pattern for the range \c [start, end). When
+       \a start < \a end, code units in that range are decimal digits; this holds for patterns accepted by
+       \ref toy::FormatString.
+
+  \post If \a start == \a end, \a autoIndex is incremented by \c 1. Otherwise \a autoIndex is unchanged.
+
+  \note Internal helper for toy::formatTo(); not part of the public API.
+*/
 template <typename PatternType>
 constexpr size_t parseArgIndex(const PatternType & pattern, size_t start, size_t end, size_t & autoIndex) noexcept {
   if (start == end)
