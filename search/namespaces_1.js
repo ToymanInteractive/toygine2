@@ -1,17 +1,18 @@
 var searchData=
 [
   ['toy_0',['toy',['../d4/da9/namespacetoy.html',1,'']]],
-  ['toy_3a_3aanonymous_5fnamespace_7bformat_5fpattern_2einl_7d_1',['anonymous_namespace{format_pattern.inl}',['../d7/d66/namespacetoy_1_1anonymous__namespace_02format__pattern_8inl_03.html',1,'toy']]],
-  ['toy_3a_3aapplication_2',['application',['../d0/d3e/namespacetoy_1_1application.html',1,'toy']]],
-  ['toy_3a_3aassertion_3',['assertion',['../d2/da2/namespacetoy_1_1assertion.html',1,'toy']]],
-  ['toy_3a_3aaudio_4',['audio',['../dd/d77/namespacetoy_1_1audio.html',1,'toy']]],
-  ['toy_3a_3afilesystem_5',['filesystem',['../da/d98/namespacetoy_1_1filesystem.html',1,'toy']]],
-  ['toy_3a_3agame_6',['game',['../d8/d25/namespacetoy_1_1game.html',1,'toy']]],
-  ['toy_3a_3ageometry_7',['geometry',['../da/d08/namespacetoy_1_1geometry.html',1,'toy']]],
-  ['toy_3a_3amath_8',['math',['../d2/d83/namespacetoy_1_1math.html',1,'toy']]],
-  ['toy_3a_3amath_3a_3aconstants_9',['constants',['../dd/d71/namespacetoy_1_1math_1_1constants.html',1,'toy::math']]],
-  ['toy_3a_3anetwork_10',['network',['../d6/d2c/namespacetoy_1_1network.html',1,'toy']]],
-  ['toy_3a_3aplatform_11',['platform',['../d4/ddd/namespacetoy_1_1platform.html',1,'toy']]],
-  ['toy_3a_3aplatform_3a_3aui_12',['ui',['../d1/d03/namespacetoy_1_1platform_1_1ui.html',1,'toy::platform']]],
-  ['toy_3a_3arender_13',['render',['../df/d8d/namespacetoy_1_1render.html',1,'toy']]]
+  ['toy_3a_3aanonymous_5fnamespace_7bformat_2einl_7d_1',['anonymous_namespace{format.inl}',['../d8/de4/namespacetoy_1_1anonymous__namespace_02format_8inl_03.html',1,'toy']]],
+  ['toy_3a_3aanonymous_5fnamespace_7bformat_5fpattern_2einl_7d_2',['anonymous_namespace{format_pattern.inl}',['../d7/d66/namespacetoy_1_1anonymous__namespace_02format__pattern_8inl_03.html',1,'toy']]],
+  ['toy_3a_3aapplication_3',['application',['../d0/d3e/namespacetoy_1_1application.html',1,'toy']]],
+  ['toy_3a_3aassertion_4',['assertion',['../d2/da2/namespacetoy_1_1assertion.html',1,'toy']]],
+  ['toy_3a_3aaudio_5',['audio',['../dd/d77/namespacetoy_1_1audio.html',1,'toy']]],
+  ['toy_3a_3afilesystem_6',['filesystem',['../da/d98/namespacetoy_1_1filesystem.html',1,'toy']]],
+  ['toy_3a_3agame_7',['game',['../d8/d25/namespacetoy_1_1game.html',1,'toy']]],
+  ['toy_3a_3ageometry_8',['geometry',['../da/d08/namespacetoy_1_1geometry.html',1,'toy']]],
+  ['toy_3a_3amath_9',['math',['../d2/d83/namespacetoy_1_1math.html',1,'toy']]],
+  ['toy_3a_3amath_3a_3aconstants_10',['constants',['../dd/d71/namespacetoy_1_1math_1_1constants.html',1,'toy::math']]],
+  ['toy_3a_3anetwork_11',['network',['../d6/d2c/namespacetoy_1_1network.html',1,'toy']]],
+  ['toy_3a_3aplatform_12',['platform',['../d4/ddd/namespacetoy_1_1platform.html',1,'toy']]],
+  ['toy_3a_3aplatform_3a_3aui_13',['ui',['../d1/d03/namespacetoy_1_1platform_1_1ui.html',1,'toy::platform']]],
+  ['toy_3a_3arender_14',['render',['../df/d8d/namespacetoy_1_1render.html',1,'toy']]]
 ];

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['validfixedpointtypes_0',['ValidFixedPointTypes',['../d7/d22/concepttoy_1_1math_1_1_valid_fixed_point_types.html',1,'toy::math']]],
-  ['vector2component_1',['Vector2Component',['../d8/d34/concepttoy_1_1math_1_1_vector2_component.html',1,'toy::math']]]
+  ['sectionendpoint_0',['SectionEndpoint',['../d9/def/concepttoy_1_1geometry_1_1_section_endpoint.html',1,'toy::geometry']]],
+  ['stringlike_1',['StringLike',['../df/d77/concepttoy_1_1_string_like.html',1,'toy']]]
 ];

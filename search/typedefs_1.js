@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['char_5ftype_0',['char_type',['../d7/d15/classtoy_1_1_o_string_stream.html#a38e47228545b1a975f1dfe899f0dac0a',1,'toy::OStringStream']]],
+  ['char_5ftype_0',['char_type',['../d7/d15/classtoy_1_1_o_string_stream.html#a4723c09169f143844092a6f2cce1bbea',1,'toy::OStringStream']]],
   ['const_5fiterator_1',['const_iterator',['../d3/d7a/classtoy_1_1_fixed_string.html#ac96a63a5b42f04cd0b95ad9ea177ebf2',1,'toy::FixedString::const_iterator'],['../d7/dec/classtoy_1_1_fixed_vector.html#ac66fdf023303871d1e81d4f32fe1437c',1,'toy::FixedVector::const_iterator']]],
   ['const_5fpointer_2',['const_pointer',['../d3/d7a/classtoy_1_1_fixed_string.html#af0590cf259faacbb2999219c71d248cd',1,'toy::FixedString::const_pointer'],['../d7/dec/classtoy_1_1_fixed_vector.html#a24493c98e46094de18403d96126c31d2',1,'toy::FixedVector::const_pointer']]],
   ['const_5freference_3',['const_reference',['../d3/d7a/classtoy_1_1_fixed_string.html#a9d66437fa1cf74987dda6274667e5dcd',1,'toy::FixedString::const_reference'],['../d7/dec/classtoy_1_1_fixed_vector.html#ac7b8218dba3672ac58881b354217bf92',1,'toy::FixedVector::const_reference']]],

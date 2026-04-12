@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['pointscalar_0',['PointScalar',['../d1/dca/concepttoy_1_1math_1_1_point_scalar.html',1,'toy::math']]]
+  ['ostringstreambackend_0',['OStringStreamBackend',['../d0/d5a/concepttoy_1_1_o_string_stream_backend.html',1,'toy']]]
 ];

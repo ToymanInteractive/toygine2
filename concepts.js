@@ -13,6 +13,7 @@ var concepts =
         [ "PointScalar", "d1/dca/concepttoy_1_1math_1_1_point_scalar.html", null ],
         [ "Vector2Component", "d8/d34/concepttoy_1_1math_1_1_vector2_component.html", null ]
       ] ],
+      [ "OStringStreamBackend", "d0/d5a/concepttoy_1_1_o_string_stream_backend.html", null ],
       [ "StringLike", "df/d77/concepttoy_1_1_string_like.html", null ]
     ] ]
 ];

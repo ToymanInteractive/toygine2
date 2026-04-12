@@ -1,6 +1,10 @@
 var namespacetoy =
 [
     [ "application", "d0/d3e/namespacetoy_1_1application.html", "d0/d3e/namespacetoy_1_1application" ],
+    [ "anonymous_namespace{format.inl}", "d8/de4/namespacetoy_1_1anonymous__namespace_02format_8inl_03.html", [
+      [ "dispatchFormatArg", "d8/de4/namespacetoy_1_1anonymous__namespace_02format_8inl_03.html#a95f15086e82bf0c62e07dbf71dc2b4e9", null ],
+      [ "parseArgIndex", "d8/de4/namespacetoy_1_1anonymous__namespace_02format_8inl_03.html#af5a101da1b38edd3c4d02acf12441202", null ]
+    ] ],
     [ "anonymous_namespace{format_pattern.inl}", "d7/d66/namespacetoy_1_1anonymous__namespace_02format__pattern_8inl_03.html", [
       [ "PlaceholderMode", "d7/d66/namespacetoy_1_1anonymous__namespace_02format__pattern_8inl_03.html#ab8ad9fba3dcf7942f6c05538bc6c60c4", [
         [ "none", "d7/d66/namespacetoy_1_1anonymous__namespace_02format__pattern_8inl_03.html#ab8ad9fba3dcf7942f6c05538bc6c60c4a334c4a4c42fdb79d7ebc3e73b517e6f8", null ],
@@ -93,6 +97,7 @@ var namespacetoy =
     [ "OStringStream", "d7/d15/classtoy_1_1_o_string_stream.html", "d7/d15/classtoy_1_1_o_string_stream" ],
     [ "StringFixedStorage", "d0/d21/classtoy_1_1_string_fixed_storage.html", "d0/d21/classtoy_1_1_string_fixed_storage" ],
     [ "array", "d8/d52/classtoy_1_1array.html", "d8/d52/classtoy_1_1array" ],
+    [ "OStringStreamBackend", "d0/d5a/concepttoy_1_1_o_string_stream_backend.html", null ],
     [ "StringLike", "df/d77/concepttoy_1_1_string_like.html", null ],
     [ "CpuArchitecture", "d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341", [
       [ "x86", "d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341a8a9da7865483c5fd359f3acef178d26d", null ],
@@ -131,7 +136,9 @@ var namespacetoy =
     [ "cstrcmp", "d4/da9/namespacetoy.html#a28fad381ee4d8415699e790432777471", null ],
     [ "cstrpbrk", "d4/da9/namespacetoy.html#adaa16f254dc6bc99679971d96bd87a66", null ],
     [ "cstrstr", "d4/da9/namespacetoy.html#a58d00a4a7bbd87ef48d346903b5a8c78", null ],
+    [ "format", "d4/d6e/group___string.html#ga79f053b92ccd3b7259a353d890a22cf5", null ],
     [ "formatNumberString", "d4/da9/namespacetoy.html#aeeb4febc194b23813d77b08ac4fea2d1", null ],
+    [ "formatTo", "d4/d6e/group___string.html#ga57e1d4d264063d67be1cfee4e45a66ad", null ],
     [ "ftoa", "d4/da9/namespacetoy.html#a153b39b476aa91d0b98f6350eeae88a2", null ],
     [ "ftoa", "d4/da9/namespacetoy.html#abd6a34c77550e2f8649d30d8ef1c1904", null ],
     [ "highestBit", "d4/da9/namespacetoy.html#adb88a3717143c42b9d24c5a8bf553b2d", null ],

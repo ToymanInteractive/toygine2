@@ -30,7 +30,7 @@ var hierarchy =
     [ "toy::math::Vector2&lt; T &gt;", "d6/dff/classtoy_1_1math_1_1_vector2.html", null ],
     [ "toy::network::Endpoint", "d3/d53/classtoy_1_1network_1_1_endpoint.html", null ],
     [ "toy::network::SocketStatistics", "df/d86/structtoy_1_1network_1_1_socket_statistics.html", null ],
-    [ "toy::OStringStream&lt; StringType &gt;", "d7/d15/classtoy_1_1_o_string_stream.html", null ],
+    [ "toy::OStringStream&lt; BackendType &gt;", "d7/d15/classtoy_1_1_o_string_stream.html", null ],
     [ "toy::StringFixedStorage&lt; AllocatedSize &gt;", "d0/d21/classtoy_1_1_string_fixed_storage.html", null ],
     [ "true_type", null, [
       [ "toy::math::is_fixed_point< fixed< Base, Intermediate, Fraction, Rounding > >", "df/de5/structtoy_1_1math_1_1is__fixed__point_3_01fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html", null ]
