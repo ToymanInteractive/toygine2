@@ -35,7 +35,9 @@ namespace toy {
 
 /*!
   \class OStringStream
+
   \ingroup String
+
   \brief Output stream that appends formatted values into a \ref toy::StringLike backend.
 
   OStringStream provides a \c std::ostringstream-like \c operator<< surface; allocation and capacity follow

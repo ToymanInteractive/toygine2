@@ -33,7 +33,9 @@ namespace toy {
 
 /*!
   \class StringFixedStorage
+
   \ingroup String
+
   \brief Fixed-size character storage with a tracked length and implicit null terminator at \c data()[size()].
 
   Holds \c AllocatedSize bytes (including space for a terminating \c '\\0' after the logical string). The usable
