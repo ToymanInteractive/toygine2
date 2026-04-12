@@ -8,7 +8,7 @@ AlignArrayOfStructures: Right
 AlignConsecutiveAssignments:
   Enabled: true
   AcrossEmptyLines: true
-  AcrossComments: true
+  AcrossComments: false
   AlignCompound: true
   AlignFunctionPointers: false
   PadOperators: true
