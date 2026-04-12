@@ -47,13 +47,15 @@ namespace toy {
   \section requirements Requirements
 
   A type \a T satisfies OStringStreamBackend if and only if:
+  - \a T is default-initializable.
+  - \a T is assignable from \c const \c T \c &.
   - \c T::size() returns \c size_t.
   - \c T::c_str() returns a value convertible to \c const \c char*.
   - \c T::push_back(char) is a valid expression.
   - \c T::append(const char *) is a valid expression.
   - \c T::append(const char *, size_t) is a valid expression.
   - \c T::append(size_t, char) is a valid expression.
-  - \a T satisfies \c std::swappable.
+  - \a T is nothrow-swappable.
 
   \sa toy::OStringStream
 */
