@@ -106,7 +106,7 @@ concept OStringStreamBackend
   - **Construction / swap**: O(1) relative to string state.
   - **Append**: Depends on \a BackendType growth and content; each \c operator<< forwards to string append or formatting
     helpers.
-  - **str()**: Returns a view or copy per \a BackendType; typically O(1) or O(n) with \a n the current length.
+  - **str()**: Returns \c const \a BackendType \c &; O(1) constant time (no copy).
 
   \section safety Safety Guarantees
 
