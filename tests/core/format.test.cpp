@@ -185,7 +185,8 @@ TEST_CASE("core/format/empty_pattern") {
 
 // formatTo replaces the content of an existing string.
 TEST_CASE("core/format_to/replaces_output") {
-  FixedString<64> output;
+  FixedString<64> output("stale-content");
+
   formatTo(output, "{} + {} = {}", 1, 2, 3);
 
   REQUIRE(output == "1 + 2 = 3");
@@ -193,7 +194,8 @@ TEST_CASE("core/format_to/replaces_output") {
 
 // formatTo with positional placeholders.
 TEST_CASE("core/format_to/positional") {
-  FixedString<32> output;
+  FixedString<32> output("");
+
   formatTo(output, "{{{1}/{0}}}", 2024, 12);
 
   REQUIRE(output == "{12/2024}");

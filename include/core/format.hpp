@@ -83,7 +83,7 @@ template <size_t BufferSize, typename... Args>
   \pre Each argument type supports \c operator<< on \ref toy::OStringStream.
   \pre \a fmt is a valid \ref toy::FormatString; validation occurs at compile time.
 
-  \post \a output holds the fully formatted result.
+  \post \a output holds the formatted result, subject to \a StringType capacity/overflow semantics.
 
   \note \c {{ and \c }} in the pattern emit a literal \c { and \c } respectively.
   \note Overflow semantics match those of \a StringType.

@@ -65,6 +65,18 @@ constexpr void dispatchFormatArg(size_t index, OStringStream<StringType> & strea
     dispatchFormatArg(index - 1, stream, rest...);
 }
 
+template <typename PatternType>
+constexpr size_t parseArgIndex(const PatternType & pattern, size_t start, size_t end, size_t & autoIndex) noexcept {
+  if (start == end)
+    return autoIndex++;
+
+  size_t argIndex = 0;
+  for (size_t i = start; i < end; ++i)
+    argIndex = argIndex * 10U + static_cast<size_t>(pattern.at(i) - '0');
+
+  return argIndex;
+}
+
 } // namespace
 
 template <size_t BufferSize, typename... Args>
@@ -103,16 +115,7 @@ constexpr void formatTo(StringType & output, type_identity_t<FormatString<Args..
       while (end < length && pattern.at(end) != '}')
         ++end;
 
-      size_t argIndex;
-      if (start == end) {
-        argIndex = autoIndex++;
-      } else {
-        argIndex = 0;
-
-        for (size_t i = start; i < end; ++i) {
-          argIndex = argIndex * 10U + static_cast<size_t>(pattern.at(i) - '0');
-        }
-      }
+      const auto argIndex = parseArgIndex(pattern, start, end, autoIndex);
 
       if constexpr (sizeof...(Args) > 0)
         dispatchFormatArg(argIndex, stream, args...);
