@@ -235,7 +235,7 @@ constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(ch
 template <OStringStreamBackend BackendType>
 template <StringLike SourceStringType>
 constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(const SourceStringType & value) noexcept {
-  _string.append(value);
+  _string.append(value.c_str(), value.size());
 
   return *this;
 }

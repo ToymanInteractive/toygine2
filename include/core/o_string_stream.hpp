@@ -58,14 +58,16 @@ namespace toy {
   \sa toy::OStringStream
 */
 template <typename T>
-concept OStringStreamBackend = requires(T str, const char * cstr, size_t count, char ch) {
-  { str.size() } -> std::same_as<size_t>;
-  { str.c_str() } -> std::convertible_to<const char *>;
-  str.push_back(ch);
-  str.append(cstr);
-  str.append(cstr, count);
-  str.append(count, ch);
-} && std::swappable<T>;
+concept OStringStreamBackend
+  = std::default_initializable<T> && std::assignable_from<T &, const T &> && std::is_nothrow_swappable_v<T>
+    && requires(T str, const char * cstr, size_t count, char ch) {
+         { str.size() } noexcept -> std::same_as<size_t>;
+         { str.c_str() } noexcept -> std::convertible_to<const char *>;
+         { str.push_back(ch) } noexcept;
+         { str.append(cstr) } noexcept;
+         { str.append(cstr, count) } noexcept;
+         { str.append(count, ch) } noexcept;
+       };
 
 /*!
   \class OStringStream
