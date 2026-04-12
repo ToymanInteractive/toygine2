@@ -32,6 +32,7 @@
 #define INCLUDE_CORE_FORMAT_HPP_
 
 #include "format_string.hpp"
+#include "o_string_stream.hpp"
 
 namespace toy {
 
@@ -73,8 +74,8 @@ template <size_t BufferSize, typename... Args>
   verbatim; \c {} and \c {N} placeholders are replaced by the corresponding argument formatted via \c operator<< on
   \ref toy::OStringStream.
 
-  \tparam StringType Type of the output string. Must satisfy the \ref toy::StringLike concept.
-  \tparam Args       Types of format arguments; deduced from \a args.
+  \tparam BackendType Type of the output string. Must satisfy the \ref toy::OStringStreamBackend concept.
+  \tparam Args        Types of format arguments; deduced from \a args.
 
   \param output Destination string; its previous content is replaced.
   \param fmt    Compile-time validated format pattern.
@@ -83,15 +84,16 @@ template <size_t BufferSize, typename... Args>
   \pre Each argument type supports \c operator<< on \ref toy::OStringStream.
   \pre \a fmt is a valid \ref toy::FormatString; validation occurs at compile time.
 
-  \post \a output holds the formatted result, subject to \a StringType capacity/overflow semantics.
+  \post \a output holds the formatted result, subject to \a BackendType capacity/overflow semantics.
 
   \note \c {{ and \c }} in the pattern emit a literal \c { and \c } respectively.
-  \note Overflow semantics match those of \a StringType.
+  \note Overflow semantics match those of \a BackendType.
 
   \sa format()
 */
-template <StringLike StringType, typename... Args>
-constexpr void formatTo(StringType & output, type_identity_t<FormatString<Args...>> fmt, const Args &... args) noexcept;
+template <OStringStreamBackend BackendType, typename... Args>
+constexpr void formatTo(BackendType & output, type_identity_t<FormatString<Args...>> fmt,
+                        const Args &... args) noexcept;
 
 } // namespace toy
 

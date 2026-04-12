@@ -276,7 +276,7 @@ constexpr OStringStream<BackendType> & OStringStream<BackendType>::put(char_type
 
 template <OStringStreamBackend BackendType>
 constexpr OStringStream<BackendType> & OStringStream<BackendType>::write(const char_type * string,
-                                                                       size_t count) noexcept {
+                                                                         size_t count) noexcept {
   assert_message(string != nullptr, "Source string must not be null.");
   if (string != nullptr && count > 0)
     _string.append(string, count);

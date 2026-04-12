@@ -113,10 +113,10 @@ template <size_t BufferSize, typename... Args>
   return result;
 }
 
-template <StringLike StringType, typename... Args>
-constexpr void formatTo(StringType & output, type_identity_t<FormatString<Args...>> fmt,
+template <OStringStreamBackend BackendType, typename... Args>
+constexpr void formatTo(BackendType & output, type_identity_t<FormatString<Args...>> fmt,
                         const Args &... args) noexcept {
-  OStringStream<StringType> stream;
+  OStringStream<BackendType> stream;
 
   const auto pattern = fmt.get();
   const auto length  = pattern.size();
