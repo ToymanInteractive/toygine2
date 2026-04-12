@@ -296,7 +296,7 @@ constexpr size_t OStringStream<BackendType>::precision() const noexcept {
 
 template <OStringStreamBackend BackendType>
 constexpr size_t OStringStream<BackendType>::setPrecision(size_t newPrecision) noexcept {
-  assert_message(newPrecision <= std::numeric_limits<long double>::digits10,
+  assert_message(newPrecision <= numeric_limits<long double>::digits10,
                  "Precision must not exceed maximum supported digits for long double");
 
   const auto oldPrecision = _precision;
