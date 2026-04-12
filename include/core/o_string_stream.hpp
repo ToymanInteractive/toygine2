@@ -75,16 +75,16 @@ concept OStringStreamBackend = requires(T str, const char * cstr, size_t count, 
   \brief Output stream that appends formatted values into a \ref toy::OStringStreamBackend backend.
 
   OStringStream provides a \c std::ostringstream-like \c operator<< surface; allocation and capacity follow
-  \a StringType (e.g. \ref toy::FixedString). Integral, floating-point, boolean, pointer, character, C-string, and
+  \a BackendType (e.g. \ref toy::FixedString). Integral, floating-point, boolean, pointer, character, C-string, and
   string-like inserts are supported where exposed by the template API.
 
-  \tparam StringType The type of the underlying storage. Must satisfy the \ref toy::OStringStreamBackend concept.
+  \tparam BackendType The type of the underlying storage. Must satisfy the \ref toy::OStringStreamBackend concept.
 
   \section features Key Features
 
-  - **Storage policy**: No separate allocator; behavior and limits come from \a StringType.
-  - **constexpr**: Construction and many inserts are usable in constant evaluation when \a StringType allows it.
-  - **noexcept**: Members are \c noexcept; failed capacity is handled per \a StringType (typically debug assertions).
+  - **Storage policy**: No separate allocator; behavior and limits come from \a BackendType.
+  - **constexpr**: Construction and many inserts are usable in constant evaluation when \a BackendType allows it.
+  - **noexcept**: Members are \c noexcept; failed capacity is handled per \a BackendType (typically debug assertions).
   - **Floating-point precision**: \c precision() / \c setPrecision() affect subsequent floating inserts.
 
   \section usage Usage Example
@@ -102,26 +102,26 @@ concept OStringStreamBackend = requires(T str, const char * cstr, size_t count, 
   \section performance Performance Characteristics
 
   - **Construction / swap**: O(1) relative to string state.
-  - **Append**: Depends on \a StringType growth and content; each \c operator<< forwards to string append or formatting
+  - **Append**: Depends on \a BackendType growth and content; each \c operator<< forwards to string append or formatting
     helpers.
-  - **str()**: Returns a view or copy per \a StringType; typically O(1) or O(n) with \a n the current length.
+  - **str()**: Returns a view or copy per \a BackendType; typically O(1) or O(n) with \a n the current length.
 
   \section safety Safety Guarantees
 
-  - **Bounds**: Overflow is governed by \a StringType; violating capacity is undefined if assertions are disabled.
+  - **Bounds**: Overflow is governed by \a BackendType; violating capacity is undefined if assertions are disabled.
   - **Exception safety**: No exceptions; all operations are \c noexcept.
 
   \section compatibility Compatibility
 
   - **C++ standard**: C++20 or later (concepts, \c constexpr usage as implemented).
-  - **Embedded**: Suitable when \a StringType uses fixed storage (e.g. \ref toy::FixedString).
+  - **Embedded**: Suitable when \a BackendType uses fixed storage (e.g. \ref toy::FixedString).
 
   \note Only end-of-string appends are supported; there is no seek or insert-at-offset API.
   \note The effective write position matches the end of the underlying string after each successful append.
 
   \sa OStringStreamBackend, StringLike
 */
-template <OStringStreamBackend StringType>
+template <OStringStreamBackend BackendType>
 class OStringStream {
 public:
   /// Type of characters stored in the string.
@@ -147,7 +147,7 @@ public:
     \post The stream contains a copy of the source string content.
 
     \note The constructor performs a deep copy of the string content.
-    \note The source string type can be different from StringType as long as both satisfy \ref toy::StringLike.
+    \note The source string type can be different from \a BackendType as long as both satisfy \ref toy::StringLike.
   */
   template <StringLike SourceStringType>
   explicit constexpr OStringStream(const SourceStringType & string) noexcept;
@@ -156,7 +156,7 @@ public:
     \brief Swaps the contents of this stream with another stream.
 
     This method exchanges the underlying string storage between this stream and the \a other stream. Both streams must
-    have the same StringType template parameter.
+    have the same \a BackendType template parameter.
 
     \param other The stream to swap contents with.
 
@@ -515,7 +515,7 @@ public:
     \post The write position is advanced by the length of the appended string.
 
     \note This operator follows the same pattern as \c std::ostringstream::operator<<(const std::string&).
-    \note The source string type can be different from StringType as long as both satisfy \ref toy::StringLike.
+    \note The source string type can be different from \a BackendType as long as both satisfy \ref toy::StringLike.
     \note This operator is useful for inserting string literals, \ref toy::FixedString objects, and other string-like
     types.
 
@@ -565,7 +565,7 @@ public:
 
     \sa view()
   */
-  [[nodiscard]] constexpr const StringType & str() const noexcept;
+  [[nodiscard]] constexpr const BackendType & str() const noexcept;
 
   /*!
     \brief Sets the content of the stream from a string-like object.
@@ -582,7 +582,7 @@ public:
     \post The previous content of the stream is replaced.
 
     \note The method performs a deep copy of the string content.
-    \note The source string type can be different from StringType as long as both satisfy \ref toy::StringLike.
+    \note The source string type can be different from \a BackendType as long as both satisfy \ref toy::StringLike.
     \note This method provides a convenient way to update the stream content after construction.
 
     \sa str() const
@@ -704,7 +704,7 @@ public:
 
 private:
   /// Internal string storage for the stream content.
-  StringType _string;
+  BackendType _string;
 
   /// Floating-point precision value used for number formatting.
   size_t _precision = 6;
