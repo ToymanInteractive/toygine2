@@ -89,7 +89,8 @@ constexpr void dispatchFormatArg(size_t index, OStringStream<StringType> & strea
   \note Internal helper for toy::formatTo(); not part of the public API.
 */
 template <typename PatternType>
-constexpr size_t parseArgIndex(const PatternType & pattern, size_t start, size_t end, size_t & autoIndex) noexcept {
+[[nodiscard]] constexpr size_t parseArgIndex(const PatternType & pattern, size_t start, size_t end,
+                                             size_t & autoIndex) noexcept {
   if (start == end)
     return autoIndex++;
 
