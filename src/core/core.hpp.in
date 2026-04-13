@@ -81,6 +81,9 @@ using std::char_traits;
 using std::size;
 using std::strong_ordering;
 
+// (lvl 1)               Containers library https://en.cppreference.com/w/cpp/container.html
+
+// https://en.cppreference.com/w/cpp/container/array.html
 using std::array;
 
 // (lvl 1)                  Utility library https://en.cppreference.com/w/cpp/utility.html
@@ -196,6 +199,7 @@ using std::type_identity_t;
 #include "core/fixed_string.hpp"
 #include "core/fixed_vector.hpp"
 #include "core/format.hpp"
+#include "core/format_context.hpp"
 #include "core/format_pattern.hpp"
 #include "core/format_string.hpp"
 #include "core/hashes.hpp"
@@ -214,6 +218,7 @@ using std::type_identity_t;
 #include "core/fixed_string.inl"
 #include "core/fixed_vector.inl"
 #include "core/format.inl"
+#include "core/format_context.inl"
 #include "core/format_pattern.inl"
 #include "core/format_string.inl"
 #include "core/o_string_stream.inl"
