@@ -35,6 +35,10 @@ constexpr FormatContext<BackendType>::FormatContext(BackendType & output) noexce
 
 template <OStringStreamBackend BackendType>
 constexpr void FormatContext<BackendType>::write(const char * data, size_t count) noexcept {
+  assert_message((data != nullptr) || (count == 0), "FormatContext::write expects non-null data when count > 0");
+  if (count == 0U)
+    return;
+
   _output.append(data, count);
 }
 
