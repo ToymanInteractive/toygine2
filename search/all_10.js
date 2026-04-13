@@ -43,7 +43,7 @@ var searchData=
   ['project_20context_40',['Project Context',['../df/d81/md__a_g_e_n_t_s.html#project-context',1,'']]],
   ['public_20header_20hpp_41',['Template: public header (&lt;span class=&quot;tt&quot;&gt;.hpp&lt;/span&gt;)',['../df/d81/md__a_g_e_n_t_s.html#template-public-header-hpp',1,'']]],
   ['push_5fback_42',['push_back',['../d3/d7a/classtoy_1_1_fixed_string.html#a35cb76db06e5d0fc94a6fc01b7fa161d',1,'toy::FixedString::push_back()'],['../d7/dec/classtoy_1_1_fixed_vector.html#ad1b12283014e9694c538c41a6b4d854b',1,'toy::FixedVector::push_back()']]],
-  ['put_43',['put',['../d7/d15/classtoy_1_1_o_string_stream.html#a84e9f199109fe3472a46fd57b0667b57',1,'toy::OStringStream']]],
+  ['put_43',['put',['../d8/dde/classtoy_1_1_format_context.html#acc11f7106eefb820bf86b7d4cbf2ebb4',1,'toy::FormatContext::put()'],['../d7/d15/classtoy_1_1_o_string_stream.html#a84e9f199109fe3472a46fd57b0667b57',1,'toy::OStringStream::put()']]],
   ['pvrtc2_44',['PVRTC2',['../df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3faa54f5bdd6d55a32997d1352a5c8234a4',1,'toy::render']]],
   ['pvrtc4_45',['PVRTC4',['../df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3fa759978c6ff5b5e0ce1720f8dd863e3bf',1,'toy::render']]]
 ];

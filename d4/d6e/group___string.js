@@ -191,6 +191,14 @@ var group___string =
       [ "_storage", "d3/d7a/classtoy_1_1_fixed_string.html#a05a98b03a4e564ea5a5f26dfae56a048", null ],
       [ "npos", "d3/d7a/classtoy_1_1_fixed_string.html#aa67281adc0c101c3619fed8ff618ac6a", null ]
     ] ],
+    [ "toy::FormatContext&lt; BackendType &gt;", "d8/dde/classtoy_1_1_format_context.html", [
+      [ "FormatContext", "d8/dde/classtoy_1_1_format_context.html#a3bf403fae296348368cf12d44a893d26", null ],
+      [ "backend", "d8/dde/classtoy_1_1_format_context.html#a1d9303f3936e67b8986cd593a28015ea", null ],
+      [ "backend", "d8/dde/classtoy_1_1_format_context.html#a3d9826213a0e16d45f5c1bf055a98f6a", null ],
+      [ "put", "d8/dde/classtoy_1_1_format_context.html#acc11f7106eefb820bf86b7d4cbf2ebb4", null ],
+      [ "write", "d8/dde/classtoy_1_1_format_context.html#a03b99b779ad80d50445583238976602d", null ],
+      [ "_output", "d8/dde/classtoy_1_1_format_context.html#a651ca22eb06185dc7bd134421cd6906b", null ]
+    ] ],
     [ "toy::FormatString&lt; Args &gt;", "dc/d62/classtoy_1_1_format_string.html", [
       [ "FormatString", "dc/d62/classtoy_1_1_format_string.html#a06c00dea813cc4f7fcee89cc35ce9370", null ],
       [ "_compileTimeError", "dc/d62/classtoy_1_1_format_string.html#afd793fd7ecad4136327c535a8e2d6602", null ],

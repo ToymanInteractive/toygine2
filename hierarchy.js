@@ -20,6 +20,7 @@ var hierarchy =
     [ "toy::FixedString&lt; allocatedSize &gt;", "d3/d7a/classtoy_1_1_fixed_string.html", null ],
     [ "toy::FixedStringStorage&lt; allocatedSize &gt;", "d5/d3b/structtoy_1_1_fixed_string_storage.html", null ],
     [ "toy::FixedVector&lt; type, allocatedSize &gt;", "d7/dec/classtoy_1_1_fixed_vector.html", null ],
+    [ "toy::FormatContext&lt; BackendType &gt;", "d8/dde/classtoy_1_1_format_context.html", null ],
     [ "toy::FormatString&lt; Args &gt;", "dc/d62/classtoy_1_1_format_string.html", null ],
     [ "toy::geometry::Circle&lt; T &gt;", "df/d25/classtoy_1_1geometry_1_1_circle.html", null ],
     [ "toy::geometry::Ellipse&lt; T &gt;", "d9/dd1/classtoy_1_1geometry_1_1_ellipse.html", null ],

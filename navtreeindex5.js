@@ -1,5 +1,16 @@
 var NAVTREEINDEX5 =
 {
+"df/d81/md__a_g_e_n_t_s.html#language-and-standard":[1,3],
+"df/d81/md__a_g_e_n_t_s.html#memory-and-allocation-rules":[1,6],
+"df/d81/md__a_g_e_n_t_s.html#method--function-documentation-order":[1,12,1],
+"df/d81/md__a_g_e_n_t_s.html#modern-c-practices":[1,8],
+"df/d81/md__a_g_e_n_t_s.html#module-structure":[1,5,0],
+"df/d81/md__a_g_e_n_t_s.html#naming-conventions":[1,10],
+"df/d81/md__a_g_e_n_t_s.html#naming-tests":[1,23],
+"df/d81/md__a_g_e_n_t_s.html#nodiscard":[1,8,1],
+"df/d81/md__a_g_e_n_t_s.html#noexcept":[1,8,0],
+"df/d81/md__a_g_e_n_t_s.html#pointer-and-reference-alignment":[1,4,2],
+"df/d81/md__a_g_e_n_t_s.html#private-members":[1,10,1],
 "df/d81/md__a_g_e_n_t_s.html#project-context":[1,1],
 "df/d81/md__a_g_e_n_t_s.html#range-based-for-loops":[1,8,6],
 "df/d81/md__a_g_e_n_t_s.html#redundancy-and-duplication":[1,19],

@@ -15,6 +15,8 @@ var dir_3d69f64eaf81436fe2b22361382717e5 =
     [ "fixed_vector.inl", "da/dc9/fixed__vector_8inl.html", null ],
     [ "format.hpp", "d4/d0a/format_8hpp.html", "d4/d0a/format_8hpp" ],
     [ "format.inl", "d0/d67/format_8inl.html", "d0/d67/format_8inl" ],
+    [ "format_context.hpp", "d8/d0d/format__context_8hpp.html", null ],
+    [ "format_context.inl", "d0/d27/format__context_8inl.html", null ],
     [ "format_pattern.hpp", "d7/d5b/format__pattern_8hpp.html", "d7/d5b/format__pattern_8hpp" ],
     [ "format_pattern.inl", "d5/d9f/format__pattern_8inl.html", "d5/d9f/format__pattern_8inl" ],
     [ "format_string.hpp", "d9/d6a/format__string_8hpp.html", null ],

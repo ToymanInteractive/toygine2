@@ -1,0 +1,7 @@
+<map id="include/core/format_context.hpp" name="include/core/format_context.hpp">
+<area shape="rect" id="Node000001" title="Typed format context that binds a formatting pass to a concrete output backend." alt="" coords="8,5,157,45"/>
+<area shape="rect" id="Node000002" href="$de/d2d/o__string__stream_8hpp.html" title="Allocator&#45;free output string stream that appends into string&#45;like storage." alt="" coords="5,93,160,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="85,46,85,79,80,79,80,46"/>
+<area shape="rect" id="Node000003" href="$de/deb/string__like_8hpp.html" title="Concept for read&#45;only C&#45;string views with explicit length." alt="" coords="24,167,141,192"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="85,119,85,153,80,153,80,119"/>
+</map>
