@@ -142,6 +142,7 @@ public:
   [[nodiscard]] constexpr const BackendType & backend() const noexcept;
 
 private:
+  /// Non-owning reference to the output storage; set at construction, never reseated.
   BackendType & _output;
 };
 
