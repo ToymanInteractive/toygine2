@@ -11,7 +11,7 @@
 <!-- Node1 -->
 <g id="Node000001" class="node">
 <title>Node1</title>
-<g id="a_Node000001"><a xlink:title="Typed format context that binds a formatting pass to a concrete output backend.">
+<g id="a_Node000001"><a xlink:title="Type&#45;erased write sink for the runtime formatting path.">
 <polygon fill="#999999" stroke="#666666" points="606,-261 494,-261 494,-231 606,-231 606,-261"/>
 <text text-anchor="start" x="502" y="-249" font-family="Helvetica,sans-Serif" font-size="10.00">include/core/format</text>
 <text text-anchor="middle" x="550" y="-238" font-family="Helvetica,sans-Serif" font-size="10.00">_context.hpp</text>

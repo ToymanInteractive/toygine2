@@ -127,6 +127,17 @@ Interaction Guidelines</h1>
 <li><b>Formatting:</b> Use the <span class="tt">clang-format</span> tool to ensure consistent code formatting.</li>
 </ul>
 <hr  />
+<h1 class="doxsection"><a class="anchor" id="project-structure"></a>
+Project Structure</h1>
+<p>The project is organized into named modules. Each module follows this layout:</p>
+<ul>
+<li><span class="tt">src/&lt;module&gt;/</span> — <span class="tt">.cpp</span> files; <span class="tt">include/&lt;module&gt;/</span> — <span class="tt">.hpp</span> and <span class="tt">.inl</span> files.</li>
+<li><span class="tt">tests/&lt;module&gt;/</span> — <span class="tt">&lt;name&gt;.test.cpp</span>; <span class="tt">benchmarks/&lt;module&gt;/</span> — <span class="tt">&lt;name&gt;.benchmark.cpp</span>.</li>
+<li><span class="tt">include/&lt;module&gt;.hpp</span> — single umbrella header per module (some may be generated during configure/build, e.g. from templates); <span class="tt"><a class="el" href="../../d8/d8c/toygine2_8hpp.html" title="Main umbrella header for the engine.">include/toygine2.hpp</a></span> — root umbrella.</li>
+</ul>
+<p><span class="tt">src/platforms/</span> holds platform-specific implementations and per-target <span class="tt">platform_config.hpp</span>; it is not a module.</p>
+<p>Other top-level directories: <span class="tt">cmake/</span> (build scripts), <span class="tt">docs/</span> (documentation), <span class="tt">extern/</span> (vendored deps), <span class="tt">tools/</span> (CI scripts), <span class="tt">.github/</span> (GitHub Actions), <span class="tt">.vscode/</span> (editor settings).</p>
+<hr  />
 <h1 class="doxsection"><a class="anchor" id="project-context"></a>
 Project Context</h1>
 <p>This repository contains a C++ game engine targeting:</p>
@@ -213,7 +224,6 @@ Header / Source Organization</h1>
 <h2 class="doxsection"><a class="anchor" id="module-structure"></a>
 Module Structure</h2>
 <ul>
-<li>Each module exposes a single public <em>umbrella header</em> that acts as the module entry point.</li>
 <li>Users of the library must include <b>only</b> the module header and must not depend on internal headers.</li>
 <li>Internal headers are considered implementation details and are not part of the public API.</li>
 <li>Umbrella headers may be precompiled.</li>

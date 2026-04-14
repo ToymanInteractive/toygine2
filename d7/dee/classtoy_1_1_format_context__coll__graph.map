@@ -1,5 +1,0 @@
-<map id="toy::FormatContext&lt; BackendType &gt;" name="toy::FormatContext&lt; BackendType &gt;">
-<area shape="rect" id="Node000001" title="Zero&#45;overhead format context that binds a formatting pass to a concrete output backend." alt="" coords="5,101,152,141"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="25,5,132,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="81,45,81,101,76,101,76,45"/>
-</map>

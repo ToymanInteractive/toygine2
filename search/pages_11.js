@@ -10,7 +10,7 @@ var searchData=
   ['string_20length_20assertions_20including_20utf_208_7',['String length assertions (including UTF-8)',['../df/d81/md__a_g_e_n_t_s.html#string-length-assertions-including-utf-8',1,'']]],
   ['struct_8',['Struct',['../df/d81/md__a_g_e_n_t_s.html#struct',1,'']]],
   ['struct_20documentation_20order_9',['Class / Struct Documentation Order',['../df/d81/md__a_g_e_n_t_s.html#class--struct-documentation-order',1,'']]],
-  ['structure_10',['Structure',['../df/d81/md__a_g_e_n_t_s.html#module-structure',1,'Module Structure'],['../df/d81/md__a_g_e_n_t_s.html#test-length-and-structure',1,'Test Length and Structure']]],
+  ['structure_10',['Structure',['../df/d81/md__a_g_e_n_t_s.html#module-structure',1,'Module Structure'],['../df/d81/md__a_g_e_n_t_s.html#project-structure',1,'Project Structure'],['../df/d81/md__a_g_e_n_t_s.html#test-length-and-structure',1,'Test Length and Structure']]],
   ['style_11',['Style',['../df/d81/md__a_g_e_n_t_s.html#const-reference-style',1,'Const Reference Style'],['../df/d81/md__a_g_e_n_t_s.html#doxygen-block-style',1,'Doxygen Block Style']]],
   ['style_20rules_12',['Style Rules',['../df/d81/md__a_g_e_n_t_s.html#documentation-style-rules',1,'Documentation Style Rules'],['../df/d81/md__a_g_e_n_t_s.html#unit-test-style-rules',1,'Unit Test Style Rules']]],
   ['supported_20c_20compilers_13',['Supported C++ compilers',['../index.html#supported-c-compilers',1,'']]],

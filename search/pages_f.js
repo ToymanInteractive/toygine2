@@ -10,5 +10,6 @@ var searchData=
   ['principles_7',['Principles',['../df/d81/md__a_g_e_n_t_s.html#general-coding-principles',1,'General Coding Principles'],['../df/d81/md__a_g_e_n_t_s.html#general-test-principles',1,'General Test Principles']]],
   ['private_20members_8',['Private Members',['../df/d81/md__a_g_e_n_t_s.html#private-members',1,'']]],
   ['project_20context_9',['Project Context',['../df/d81/md__a_g_e_n_t_s.html#project-context',1,'']]],
-  ['public_20header_20hpp_10',['Template: public header (&lt;span class=&quot;tt&quot;&gt;.hpp&lt;/span&gt;)',['../df/d81/md__a_g_e_n_t_s.html#template-public-header-hpp',1,'']]]
+  ['project_20structure_10',['Project Structure',['../df/d81/md__a_g_e_n_t_s.html#project-structure',1,'']]],
+  ['public_20header_20hpp_11',['Template: public header (&lt;span class=&quot;tt&quot;&gt;.hpp&lt;/span&gt;)',['../df/d81/md__a_g_e_n_t_s.html#template-public-header-hpp',1,'']]]
 ];

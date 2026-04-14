@@ -31,6 +31,7 @@ var NAVTREE =
     ] ],
     [ "AGENTS Guidelines for This Repository", "df/d81/md__a_g_e_n_t_s.html", [
       [ "Interaction Guidelines", "df/d81/md__a_g_e_n_t_s.html#interaction-guidelines", null ],
+      [ "Project Structure", "df/d81/md__a_g_e_n_t_s.html#project-structure", null ],
       [ "Project Context", "df/d81/md__a_g_e_n_t_s.html#project-context", null ],
       [ "General Coding Principles", "df/d81/md__a_g_e_n_t_s.html#general-coding-principles", null ],
       [ "Language and Standard", "df/d81/md__a_g_e_n_t_s.html#language-and-standard", null ],

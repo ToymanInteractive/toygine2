@@ -114,19 +114,12 @@ $(function(){initNavTree('d8/d0d/format__context_8hpp.html','../../',''); });
 </div><!--header-->
 <div class="contents">
 
-<p>Typed format context that binds a formatting pass to a concrete output backend.  
+<p>Type-erased write sink for the runtime formatting path.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="../../de/d2d/o__string__stream_8hpp_source.html">o_string_stream.hpp</a>&quot;</code><br />
-</div><div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Include dependency graph for format_context.hpp:</div>
+<div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>This graph shows which files directly or indirectly include this file:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../df/d13/format__context_8hpp__incl.svg" width="166" height="198"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-</div><div class="textblock"><div id="dynsection-1" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>This graph shows which files directly or indirectly include this file:</div>
-<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-1-content" class="dyncontent" style="display:none;">
 <div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../dc/d8d/format__context_8hpp__dep__incl.svg" width="100%" height="569"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 </div>
@@ -134,8 +127,8 @@ $(function(){initNavTree('d8/d0d/format__context_8hpp.html','../../',''); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:toy_3A_3AFormatContext_3C_20BackendType_20_3E" id="r_toy_3A_3AFormatContext_3C_20BackendType_20_3E"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../d8/dde/classtoy_1_1_format_context.html">toy::FormatContext&lt; BackendType &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Zero-overhead format context that binds a formatting pass to a concrete output backend.  <a href="../../d8/dde/classtoy_1_1_format_context.html#details">More...</a><br /></td></tr>
+<tr class="memitem:toy_3A_3AFormatContext" id="r_toy_3A_3AFormatContext"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../d8/dde/classtoy_1_1_format_context.html">toy::FormatContext</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type-erased write sink.  <a href="../../d8/dde/classtoy_1_1_format_context.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
@@ -143,8 +136,8 @@ Namespaces</h2></td></tr>
 <tr class="memdesc:d4/da9/namespacetoy"><td class="mdescLeft">&#160;</td><td class="mdescRight">Root namespace containing all engine modules. <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Typed format context that binds a formatting pass to a concrete output backend. </p>
-<p>Defines toy::FormatContext: a zero-overhead wrapper that holds a reference to an <a class="el" href="../../d0/d5a/concepttoy_1_1_o_string_stream_backend.html" title="toy::OStringStreamBackend">toy::OStringStreamBackend</a> storage and exposes write() / put() for the formatting engine.</p>
+<div class="textblock"><p>Type-erased write sink for the runtime formatting path. </p>
+<p>Defines <a class="el" href="../../d8/dde/classtoy_1_1_format_context.html" title="toy::FormatContext">toy::FormatContext</a>, the concrete type used by toy::vformat() and toy::vformatTo() to write formatted output without exposing the backing storage type.</p>
 <dl class="section note"><dt>Note</dt><dd>Included by <a class="el" href="../../da/d47/core_8hpp.html" title="Umbrella header for the engine core module.">core.hpp</a>; do not include this file directly. </dd></dl>
 </div></div><!-- contents -->
 </div><!-- doc-content -->

@@ -58,7 +58,7 @@ var searchData=
   ['stringlike_55',['StringLike',['../df/d77/concepttoy_1_1_string_like.html',1,'toy']]],
   ['struct_56',['Struct',['../df/d81/md__a_g_e_n_t_s.html#struct',1,'']]],
   ['struct_20documentation_20order_57',['Class / Struct Documentation Order',['../df/d81/md__a_g_e_n_t_s.html#class--struct-documentation-order',1,'']]],
-  ['structure_58',['Structure',['../df/d81/md__a_g_e_n_t_s.html#module-structure',1,'Module Structure'],['../df/d81/md__a_g_e_n_t_s.html#test-length-and-structure',1,'Test Length and Structure']]],
+  ['structure_58',['Structure',['../df/d81/md__a_g_e_n_t_s.html#module-structure',1,'Module Structure'],['../df/d81/md__a_g_e_n_t_s.html#project-structure',1,'Project Structure'],['../df/d81/md__a_g_e_n_t_s.html#test-length-and-structure',1,'Test Length and Structure']]],
   ['style_59',['Style',['../df/d81/md__a_g_e_n_t_s.html#const-reference-style',1,'Const Reference Style'],['../df/d81/md__a_g_e_n_t_s.html#doxygen-block-style',1,'Doxygen Block Style']]],
   ['style_20rules_60',['Style Rules',['../df/d81/md__a_g_e_n_t_s.html#documentation-style-rules',1,'Documentation Style Rules'],['../df/d81/md__a_g_e_n_t_s.html#unit-test-style-rules',1,'Unit Test Style Rules']]],
   ['subscribersamount_61',['subscribersAmount',['../d8/dc9/classtoy_1_1_callbacks_pool.html#a3923a8cb92518448108f801c00fddea5',1,'toy::CallbacksPool']]],

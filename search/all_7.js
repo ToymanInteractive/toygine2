@@ -36,7 +36,7 @@ var searchData=
   ['format_5fpattern_2einl_33',['format_pattern.inl',['../d5/d9f/format__pattern_8inl.html',1,'']]],
   ['format_5fstring_2ehpp_34',['format_string.hpp',['../d9/d6a/format__string_8hpp.html',1,'']]],
   ['format_5fstring_2einl_35',['format_string.inl',['../d4/d97/format__string_8inl.html',1,'']]],
-  ['formatcontext_36',['FormatContext',['../d8/dde/classtoy_1_1_format_context.html',1,'toy::FormatContext&lt; BackendType &gt;'],['../d8/dde/classtoy_1_1_format_context.html#a3bf403fae296348368cf12d44a893d26',1,'toy::FormatContext::FormatContext()']]],
+  ['formatcontext_36',['FormatContext',['../d8/dde/classtoy_1_1_format_context.html',1,'toy::FormatContext'],['../d8/dde/classtoy_1_1_format_context.html#a563b1266c7cb345dedfb5753de8b9436',1,'toy::FormatContext::FormatContext()']]],
   ['formatnumberstring_37',['formatNumberString',['../d4/da9/namespacetoy.html#aeeb4febc194b23813d77b08ac4fea2d1',1,'toy']]],
   ['formatpatternvalidationerror_38',['FormatPatternValidationError',['../d4/d6e/group___string.html#ga47774805e63ecbede7f9cbfa12168c41',1,'toy']]],
   ['formatstring_39',['FormatString',['../dc/d62/classtoy_1_1_format_string.html',1,'toy::FormatString&lt; Args &gt;'],['../dc/d62/classtoy_1_1_format_string.html#a06c00dea813cc4f7fcee89cc35ce9370',1,'toy::FormatString::FormatString()']]],
