@@ -23,7 +23,7 @@ The project is organized into named modules. Each module follows this layout:
 
 - `src/<module>/` — `.cpp` files; `include/<module>/` — `.hpp` and `.inl` files.
 - `tests/<module>/` — `<name>.test.cpp`; `benchmarks/<module>/` — `<name>.benchmark.cpp`.
-- `include/<module>.hpp` — single umbrella header per module; `include/toygine2.hpp` — root umbrella.
+- `include/<module>.hpp` — single umbrella header per module (some may be generated during configure/build, e.g. from templates); `include/toygine2.hpp` — root umbrella.
 
 `src/platforms/` holds platform-specific implementations and per-target `platform_config.hpp`; it is not a module.
 
