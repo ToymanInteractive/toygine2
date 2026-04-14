@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['x_0',['x',['../d3/dce/classtoy_1_1math_1_1_point.html#a5b974e35db246293fe092fd51e93484e',1,'toy::math::Point::x'],['../d6/dff/classtoy_1_1math_1_1_vector2.html#a999f72ff14195736f631b8aba1f91d92',1,'toy::math::Vector2::x']]]
+  ['value_0',['value',['../df/d0c/structtoy_1_1_format_argument.html#a3ffa8d0f7b1b42a98bc7858a62f3573f',1,'toy::FormatArgument']]]
 ];

@@ -191,6 +191,10 @@ var group___string =
       [ "_storage", "d3/d7a/classtoy_1_1_fixed_string.html#a05a98b03a4e564ea5a5f26dfae56a048", null ],
       [ "npos", "d3/d7a/classtoy_1_1_fixed_string.html#aa67281adc0c101c3619fed8ff618ac6a", null ]
     ] ],
+    [ "toy::FormatArgument", "df/d0c/structtoy_1_1_format_argument.html", [
+      [ "formatFn", "df/d0c/structtoy_1_1_format_argument.html#a16d45a8e825d95c51ce89cb11d213f26", null ],
+      [ "value", "df/d0c/structtoy_1_1_format_argument.html#a3ffa8d0f7b1b42a98bc7858a62f3573f", null ]
+    ] ],
     [ "toy::FormatContext", "d8/dde/classtoy_1_1_format_context.html", [
       [ "WriteFunction", "d8/dde/classtoy_1_1_format_context.html#aa3393abf300d9f40eeb142ab589da7a3", null ],
       [ "FormatContext", "d8/dde/classtoy_1_1_format_context.html#a563b1266c7cb345dedfb5753de8b9436", null ],

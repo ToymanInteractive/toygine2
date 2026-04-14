@@ -1,12 +1,11 @@
 var searchData=
 [
-  ['maintenance_0',['maintenance',['../d7/d33/structtoy_1_1application_1_1_version.html#aff8d29c2da041885b199f74ec68dc658',1,'toy::application::Version']]],
-  ['major_1',['major',['../d7/d33/structtoy_1_1application_1_1_version.html#a960eb5b40df2d8de0d99075d270ce537',1,'toy::application::Version']]],
-  ['max_5fdigits10_2',['max_digits10',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a8a3a43a4b271ce4b5e1a3578176273d9',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]],
-  ['max_5fexponent_3',['max_exponent',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#af69882a8411e7282e583d718a6891060',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]],
-  ['max_5fexponent10_4',['max_exponent10',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a9ac3dbeab2f534db78e7acca403e23f1',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]],
-  ['method_5',['method',['../d7/d9f/structtoy_1_1_callbacks_pool_1_1_static_callback.html#a2daa47db698bea337308bf1cd933c73a',1,'toy::CallbacksPool::StaticCallback']]],
-  ['min_5fexponent_6',['min_exponent',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#af3aab85040f4b751e1be4d02c92f2e18',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]],
-  ['min_5fexponent10_7',['min_exponent10',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#afd4bd4aa4395324969e56e7cbb743058',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]],
-  ['minor_8',['minor',['../d7/d33/structtoy_1_1application_1_1_version.html#a2dbf72695a2ef59f90d1728bf12029fd',1,'toy::application::Version']]]
+  ['ln10_5fv_0',['ln10_v',['../dd/d71/namespacetoy_1_1math_1_1constants.html#add95d20e458994ed0765f85726db39c0',1,'toy::math::constants']]],
+  ['ln10_5fv_3c_20toy_3a_3amath_3a_3afixed_3c_20base_2c_20intermediate_2c_20fraction_2c_20rounding_20_3e_20_3e_1',['ln10_v&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;',['../da/d94/namespacestd_1_1numbers.html#a03180a12f32604d4459b57622a17a009',1,'std::numbers']]],
+  ['ln2_5fv_2',['ln2_v',['../dd/d71/namespacetoy_1_1math_1_1constants.html#a913bb6ad666b957629a53e6cad4d69b0',1,'toy::math::constants']]],
+  ['ln2_5fv_3c_20toy_3a_3amath_3a_3afixed_3c_20base_2c_20intermediate_2c_20fraction_2c_20rounding_20_3e_20_3e_3',['ln2_v&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;',['../da/d94/namespacestd_1_1numbers.html#a65366a9b895f051acf042caf224bb386',1,'std::numbers']]],
+  ['log10e_5fv_4',['log10e_v',['../dd/d71/namespacetoy_1_1math_1_1constants.html#a16c4cba10c74affb05bed5f20217a658',1,'toy::math::constants']]],
+  ['log10e_5fv_3c_20toy_3a_3amath_3a_3afixed_3c_20base_2c_20intermediate_2c_20fraction_2c_20rounding_20_3e_20_3e_5',['log10e_v&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;',['../da/d94/namespacestd_1_1numbers.html#a641eeadb865224c847c02050eecff9a9',1,'std::numbers']]],
+  ['log2e_5fv_6',['log2e_v',['../dd/d71/namespacetoy_1_1math_1_1constants.html#ae83c50755717cb12272f7c667085ad1c',1,'toy::math::constants']]],
+  ['log2e_5fv_3c_20toy_3a_3amath_3a_3afixed_3c_20base_2c_20intermediate_2c_20fraction_2c_20rounding_20_3e_20_3e_7',['log2e_v&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;',['../da/d94/namespacestd_1_1numbers.html#a26fe7e89dc6344f8737e06e2285e2f93',1,'std::numbers']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['y_0',['y',['../d3/dce/classtoy_1_1math_1_1_point.html#ac66eace842a226ea3e0284c6c4111ead',1,'toy::math::Point::y'],['../d6/dff/classtoy_1_1math_1_1_vector2.html#afd80ea55a99384c8e879b362bf895913',1,'toy::math::Vector2::y']]]
+  ['wchar_5fin_5futf8_5fmax_5fsize_0',['WCHAR_IN_UTF8_MAX_SIZE',['../d8/d90/group___text_functions.html#ga2a4051deac87f3522fdd2a2c55d1a79c',1,'toy']]]
 ];

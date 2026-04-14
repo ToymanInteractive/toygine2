@@ -93,6 +93,7 @@ var namespacetoy =
     [ "FixedStringStorage", "d5/d3b/structtoy_1_1_fixed_string_storage.html", "d5/d3b/structtoy_1_1_fixed_string_storage" ],
     [ "FixedString", "d3/d7a/classtoy_1_1_fixed_string.html", "d3/d7a/classtoy_1_1_fixed_string" ],
     [ "FixedVector", "d7/dec/classtoy_1_1_fixed_vector.html", "d7/dec/classtoy_1_1_fixed_vector" ],
+    [ "FormatArgument", "df/d0c/structtoy_1_1_format_argument.html", "df/d0c/structtoy_1_1_format_argument" ],
     [ "FormatContext", "d8/dde/classtoy_1_1_format_context.html", "d8/dde/classtoy_1_1_format_context" ],
     [ "FormatString", "dc/d62/classtoy_1_1_format_string.html", "dc/d62/classtoy_1_1_format_string" ],
     [ "OStringStream", "d7/d15/classtoy_1_1_o_string_stream.html", "d7/d15/classtoy_1_1_o_string_stream" ],
