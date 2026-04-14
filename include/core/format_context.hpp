@@ -39,16 +39,16 @@ namespace toy {
 
   \brief Type-erased write sink.
 
-  Stores a \c void* context and a \c noexcept function-pointer callback so that the formatting engine can append
-  bytes to any backing storage without knowing its concrete type. Exposes write() and put() to match the interface
-  required by \ref toy::FormatContext, delegating both to the stored callback.
+  Stores a \c void* context and a \c noexcept function-pointer callback so that the formatting engine can append bytes
+  to any backing storage without knowing its concrete type. Used by toy::vformat() and toy::vformatTo() as the output
+  target; both write() and put() delegate to the stored callback.
 
   \section features Key Features
 
   - **Type erasure**: Decouples the formatting loop from the concrete output type via a function pointer.
-  - **FormatContext conformance**: Satisfies \ref toy::FormatContext; usable wherever a context is expected.
-  - **No allocation**: Two-pointer class; constructed on the stack at each call site.
-  - **noexcept**: Both write() and put() are \c noexcept; the stored callback must also be \c noexcept.
+  - **Minimal footprint**: Two-pointer aggregate; constructed on the stack at each call site.
+  - **No allocation**: Does not perform any dynamic allocation.
+  - **noexcept guarantee**: Both write() and put() are \c noexcept; the stored callback must also be \c noexcept.
 
   \section usage Usage Example
 
@@ -74,8 +74,10 @@ namespace toy {
   \section safety Safety Guarantees
 
   - **Exception safety**: write() and put() are \c noexcept; the stored callback must honour this contract.
-  - **Lifetime**: The context pointer must remain valid for the lifetime of the \c FormatContext.
-  - **Null safety**: Both \a context and \a writeFn must be non-null before write() or put() is called.
+  - **Lifetime**: The context pointer must remain valid for the lifetime of the object.
+  - **Null safety**: Both the context pointer and the write callback must be non-null before write() or put() is called.
+
+  \sa VFormatArg, VFormatArgs
 */
 class FormatContext {
 public:
@@ -115,7 +117,9 @@ public:
   void put(char character) noexcept;
 
 private:
+  /// Opaque pointer to the backing output object.
   void *        _context;
+  /// Callback invoked by write() and put() to append data.
   WriteFunction _writeFn;
 };
 
