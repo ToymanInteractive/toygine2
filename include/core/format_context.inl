@@ -31,9 +31,15 @@ namespace toy {
 
 constexpr FormatContext::FormatContext(void * context, WriteFunction writeFn) noexcept
   : _context(context)
-  , _writeFn(writeFn) {}
+  , _writeFn(writeFn) {
+  assert_message(writeFn != nullptr, "FormatContext requires a non-null write callback");
+}
 
 inline void FormatContext::write(const char * data, size_t count) noexcept {
+  if (count == 0)
+    return;
+
+  assert_message(data != nullptr, "FormatContext::write requires non-null data when count > 0");
   _writeFn(_context, data, count);
 }
 
