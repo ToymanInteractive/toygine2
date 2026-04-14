@@ -29,32 +29,16 @@
 
 namespace toy {
 
-template <OStringStreamBackend BackendType>
-constexpr FormatContext<BackendType>::FormatContext(BackendType & output) noexcept
-  : _output(output) {}
+constexpr FormatContext::FormatContext(void * context, WriteFunction writeFn) noexcept
+  : _context(context)
+  , _writeFn(writeFn) {}
 
-template <OStringStreamBackend BackendType>
-constexpr void FormatContext<BackendType>::write(const char * data, size_t count) noexcept {
-  assert_message((data != nullptr) || (count == 0), "FormatContext::write expects non-null data when count > 0");
-  if (count == 0U)
-    return;
-
-  _output.append(data, count);
+inline void FormatContext::write(const char * data, size_t count) noexcept {
+  _writeFn(_context, data, count);
 }
 
-template <OStringStreamBackend BackendType>
-constexpr void FormatContext<BackendType>::put(char character) noexcept {
-  _output.push_back(character);
-}
-
-template <OStringStreamBackend BackendType>
-constexpr BackendType & FormatContext<BackendType>::backend() noexcept {
-  return _output;
-}
-
-template <OStringStreamBackend BackendType>
-constexpr const BackendType & FormatContext<BackendType>::backend() const noexcept {
-  return _output;
+inline void FormatContext::put(char character) noexcept {
+  _writeFn(_context, &character, 1);
 }
 
 } // namespace toy
