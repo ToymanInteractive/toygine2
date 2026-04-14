@@ -1,4 +1,4 @@
-# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#alignconsecutiveshortcasestatements
+# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#alignconsecutivetablegenbreakingdagargcolons
 ---
 Language: Cpp
 Standard: Latest
@@ -24,6 +24,12 @@ AlignConsecutiveMacros:
   Enabled: true
   AcrossEmptyLines: false
   AcrossComments: true
+AlignConsecutiveShortCaseStatements:
+  Enabled: true
+  AcrossEmptyLines: true
+  AcrossComments: true
+  AlignCaseArrows: true
+  AlignCaseColons: true
 AlignEscapedNewlines: Right
 AlignOperands: Align
 AlignTrailingComments: false

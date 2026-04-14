@@ -148,7 +148,7 @@ using std::type_identity_t;
 
   \sa validate_message
 */
-#define validate(expression) (expression)
+#define validate(expression)                  (expression)
 
 /*!
   \def validate_message(expression, message)
@@ -199,6 +199,7 @@ using std::type_identity_t;
 #include "core/fixed_string.hpp"
 #include "core/fixed_vector.hpp"
 #include "core/format.hpp"
+#include "core/format_argument.hpp"
 #include "core/format_context.hpp"
 #include "core/format_pattern.hpp"
 #include "core/format_string.hpp"
