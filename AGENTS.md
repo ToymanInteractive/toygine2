@@ -20,13 +20,14 @@ You are an expert in C++ game development. Your goal is to build performant, mai
 ## Project Structure
 
 The project is organized into named modules. Each module follows this layout:
+
 - `src/<module>/` — `.cpp` files; `include/<module>/` — `.hpp` and `.inl` files.
 - `tests/<module>/` — `<name>.test.cpp`; `benchmarks/<module>/` — `<name>.benchmark.cpp`.
 - `include/<module>.hpp` — single umbrella header per module; `include/toygine2.hpp` — root umbrella.
 
 `src/platforms/` holds platform-specific implementations and per-target `platform_config.hpp`; it is not a module.
 
-Other top-level directories: `cmake/` (build scripts), `docs/` (documentation), `extern/` (vendored deps), `tools/` (CI scripts), `.github/` (Actions), `.vscode/` (editor settings).
+Other top-level directories: `cmake/` (build scripts), `docs/` (documentation), `extern/` (vendored deps), `tools/` (CI scripts), `.github/` (GitHub Actions), `.vscode/` (editor settings).
 
 ---
 
