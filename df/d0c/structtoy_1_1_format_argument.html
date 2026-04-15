@@ -126,12 +126,12 @@ Public Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Single type-erased format argument carrying a value pointer and a formatter callback. </p>
-<p>Stores a pointer to the original argument value alongside a stateless formatter that knows the concrete type and can write a formatted representation to any <a class="el" href="../../d8/dde/classtoy_1_1_format_context.html" title="toy::FormatContext">toy::FormatContext</a>. Created internally by toy::makeVFormatArgs(); users rarely construct <code><a class="el" href="../../df/d0c/structtoy_1_1_format_argument.html" title="Single type-erased format argument carrying a value pointer and a formatter callback.">FormatArgument</a></code> directly.</p>
+<p>Stores a pointer to the original argument value alongside a stateless formatter that knows the concrete type and can write a formatted representation to any <a class="el" href="../../d8/dde/classtoy_1_1_format_context.html" title="toy::FormatContext">toy::FormatContext</a>. Created internally by <a class="el" href="../../d4/d6e/group___string.html#ga0b041b467d640188e4722fb47fbdb320" title="Constructs an array of toy::FormatArgument from a pack of arguments by type-erasing each one.">toy::makeVFormatArguments()</a> and toy::makeVFormatArgs(); users rarely construct <code><a class="el" href="../../df/d0c/structtoy_1_1_format_argument.html" title="Single type-erased format argument carrying a value pointer and a formatter callback.">FormatArgument</a></code> directly.</p>
 <h1 class="doxsection"><a class="anchor" id="features"></a>
 Key Features</h1>
 <ul>
 <li><b>Type erasure</b>: Holds any formattable value without templates at the call site.</li>
-<li><b>No allocation</b>: Two-pointer aggregate stored inline in toy::VFormatArgs.</li>
+<li><b>No allocation</b>: Two-pointer aggregate stored inline in toy::FormatArguments or <code>std::array</code>.</li>
 <li><b>noexcept formatter</b>: The formatFn must not throw.</li>
 <li><b>Lifetime coupling</b>: <em class="arg">value</em> must remain valid as long as the <code><a class="el" href="../../df/d0c/structtoy_1_1_format_argument.html" title="Single type-erased format argument carrying a value pointer and a formatter callback.">FormatArgument</a></code> is used.</li>
 </ul>
@@ -180,7 +180,7 @@ Safety Guarantees</h1>
 <li><b>Lifetime</b>: <em class="arg">value</em> must remain valid for the duration of the format operation.</li>
 <li><b>Null safety</b>: Neither <em class="arg">value</em> nor <em class="arg">formatFn</em> may be null when the argument is dispatched.</li>
 </ul>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d8/dde/classtoy_1_1_format_context.html" title="Type-erased write sink.">FormatContext</a>, VFormatArgs </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d8/dde/classtoy_1_1_format_context.html" title="Type-erased write sink.">FormatContext</a>, FormatArguments </dd></dl>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="a16d45a8e825d95c51ce89cb11d213f26" name="a16d45a8e825d95c51ce89cb11d213f26"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a16d45a8e825d95c51ce89cb11d213f26">&#9670;&#160;</a></span>formatFn</h2>

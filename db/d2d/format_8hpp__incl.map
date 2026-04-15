@@ -1,10 +1,14 @@
 <map id="include/core/format.hpp" name="include/core/format.hpp">
-<area shape="rect" id="Node000001" title="Format functions for substituting arguments into {} and {N} placeholders." alt="" coords="71,5,249,31"/>
-<area shape="rect" id="Node000002" href="$d9/d6a/format__string_8hpp.html" title="Compile&#45;time validated format&#45;string wrapper for auto {} and positional {N} placeholders." alt="" coords="5,79,144,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="148,33,101,72,97,68,145,29"/>
-<area shape="rect" id="Node000004" href="$de/d2d/o__string__stream_8hpp.html" title="Allocator&#45;free output string stream that appends into string&#45;like storage." alt="" coords="168,79,323,104"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="175,29,223,68,219,72,172,33"/>
-<area shape="rect" id="Node000003" href="$de/deb/string__like_8hpp.html" title="Concept for read&#45;only C&#45;string views with explicit length." alt="" coords="101,152,219,177"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="90,102,137,141,134,145,87,106"/>
-<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="233,106,186,145,183,141,230,102"/>
+<area shape="rect" id="Node000001" title="Format functions for substituting arguments into {} and {N} placeholders." alt="" coords="175,5,352,31"/>
+<area shape="rect" id="Node000002" href="$d5/d0e/format__argument_8hpp.html" title="Type&#45;erased format argument for the runtime formatting path." alt="" coords="5,79,169,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="236,33,130,76,128,71,234,28"/>
+<area shape="rect" id="Node000004" href="$d9/d6a/format__string_8hpp.html" title="Compile&#45;time validated format&#45;string wrapper for auto {} and positional {N} placeholders." alt="" coords="194,79,333,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="266,31,266,65,261,65,261,31"/>
+<area shape="rect" id="Node000006" href="$de/d2d/o__string__stream_8hpp.html" title="Allocator&#45;free output string stream that appends into string&#45;like storage." alt="" coords="357,79,511,104"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="292,28,395,71,393,76,290,33"/>
+<area shape="rect" id="Node000003" href="$d8/d0d/format__context_8hpp.html" title="Type&#45;erased write sink for the runtime formatting path." alt="" coords="12,152,163,177"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="90,104,90,138,85,138,85,104"/>
+<area shape="rect" id="Node000005" href="$de/deb/string__like_8hpp.html" title="Concept for read&#45;only C&#45;string views with explicit length." alt="" coords="290,152,407,177"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="279,102,326,141,323,145,275,106"/>
+<area shape="poly" id="edge6_Node000006_Node000005" title=" " alt="" coords="422,106,375,145,371,141,419,102"/>
 </map>

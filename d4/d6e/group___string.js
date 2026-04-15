@@ -267,6 +267,7 @@ var group___string =
     ] ],
     [ "toy::format", "d4/d6e/group___string.html#ga79f053b92ccd3b7259a353d890a22cf5", null ],
     [ "toy::formatTo", "d4/d6e/group___string.html#ga57e1d4d264063d67be1cfee4e45a66ad", null ],
+    [ "toy::makeVFormatArguments", "d4/d6e/group___string.html#ga0b041b467d640188e4722fb47fbdb320", null ],
     [ "toy::anonymous_namespace{format_pattern.inl}::validateFormatImpl", "d4/d6e/group___string.html#ga001484b1a940bb2691fdd2d66c1a14c9", null ],
     [ "toy::validateFormatPattern", "d4/d6e/group___string.html#ga5b1768ae7cdfb38447089aca42336c1e", null ]
 ];

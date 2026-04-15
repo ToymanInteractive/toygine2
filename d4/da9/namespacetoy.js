@@ -145,6 +145,7 @@ var namespacetoy =
     [ "ftoa", "d4/da9/namespacetoy.html#abd6a34c77550e2f8649d30d8ef1c1904", null ],
     [ "highestBit", "d4/da9/namespacetoy.html#adb88a3717143c42b9d24c5a8bf553b2d", null ],
     [ "itoa", "d4/da9/namespacetoy.html#ad9154c389294cb443faa03c20893f91c", null ],
+    [ "makeVFormatArguments", "d4/d6e/group___string.html#ga0b041b467d640188e4722fb47fbdb320", null ],
     [ "operator&", "d4/da9/namespacetoy.html#a2969305409fc34874d0e0f512a028aa8", null ],
     [ "operator&=", "d4/da9/namespacetoy.html#ae92e06198838e677bdbadbdb6d089b8c", null ],
     [ "operator+", "d4/da9/namespacetoy.html#a356a3fceab84ce068ff702d19893708b", null ],
