@@ -163,7 +163,7 @@ constexpr void formatTo(BackendType & output, type_identity_t<FormatString<Args.
 
 template <typename... Args>
 array<FormatArgument, sizeof...(Args)> makeVFormatArguments(const Args &... args) noexcept {
-  return {[]<typename T>(const T & value) noexcept -> FormatArgument {
+  return {[]<typename T>(const T & value) noexcept {
     return FormatArgument{static_cast<const void *>(&value), [](const void * v, FormatContext & out) noexcept {
                             const T & arg = *static_cast<const T *>(v);
                             if constexpr (StringLike<T>) {
