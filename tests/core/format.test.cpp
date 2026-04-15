@@ -203,6 +203,13 @@ TEST_CASE("core/format_to/positional") {
 
 // ----- makeVFormatArguments -----
 
+template <size_t N>
+FormatContext makeTestCtx(FixedString<N> & buf) noexcept {
+  return FormatContext{static_cast<void *>(&buf), [](void * c, const char * data, size_t n) noexcept {
+                         static_cast<FixedString<N> *>(c)->append(data, n);
+                       }};
+}
+
 // Zero arguments produces a zero-length array.
 TEST_CASE("core/make_v_format_arguments/empty") {
   auto args = makeVFormatArguments();
@@ -225,9 +232,7 @@ TEST_CASE("core/make_v_format_arguments/single_int_format") {
   auto      args = makeVFormatArguments(x);
 
   FixedString<32> buf;
-  FormatContext   ctx{static_cast<void *>(&buf), [](void * c, const char * data, size_t n) noexcept {
-                      static_cast<FixedString<32> *>(c)->append(data, n);
-                      }};
+  auto            ctx = makeTestCtx(buf);
 
   args[0].formatFn(args[0].value, ctx);
 
@@ -240,9 +245,7 @@ TEST_CASE("core/make_v_format_arguments/negative_int") {
   auto      args = makeVFormatArguments(x);
 
   FixedString<32> buf;
-  FormatContext   ctx{static_cast<void *>(&buf), [](void * c, const char * data, size_t n) noexcept {
-                      static_cast<FixedString<32> *>(c)->append(data, n);
-                      }};
+  auto            ctx = makeTestCtx(buf);
 
   args[0].formatFn(args[0].value, ctx);
 
@@ -255,9 +258,7 @@ TEST_CASE("core/make_v_format_arguments/bool_true") {
   auto       args = makeVFormatArguments(v);
 
   FixedString<16> buf;
-  FormatContext   ctx{static_cast<void *>(&buf), [](void * c, const char * data, size_t n) noexcept {
-                      static_cast<FixedString<16> *>(c)->append(data, n);
-                      }};
+  auto            ctx = makeTestCtx(buf);
 
   args[0].formatFn(args[0].value, ctx);
 
@@ -270,9 +271,7 @@ TEST_CASE("core/make_v_format_arguments/bool_false") {
   auto       args = makeVFormatArguments(v);
 
   FixedString<16> buf;
-  FormatContext   ctx{static_cast<void *>(&buf), [](void * c, const char * data, size_t n) noexcept {
-                      static_cast<FixedString<16> *>(c)->append(data, n);
-                      }};
+  auto            ctx = makeTestCtx(buf);
 
   args[0].formatFn(args[0].value, ctx);
 
@@ -285,9 +284,7 @@ TEST_CASE("core/make_v_format_arguments/char") {
   auto       args = makeVFormatArguments(ch);
 
   FixedString<8> buf;
-  FormatContext  ctx{static_cast<void *>(&buf), [](void * c, const char * data, size_t n) noexcept {
-                      static_cast<FixedString<8> *>(c)->append(data, n);
-                     }};
+  auto           ctx = makeTestCtx(buf);
 
   args[0].formatFn(args[0].value, ctx);
 
@@ -300,9 +297,7 @@ TEST_CASE("core/make_v_format_arguments/c_string") {
   auto         args = makeVFormatArguments(msg);
 
   FixedString<32> buf;
-  FormatContext   ctx{static_cast<void *>(&buf), [](void * c, const char * data, size_t n) noexcept {
-                      static_cast<FixedString<32> *>(c)->append(data, n);
-                      }};
+  auto            ctx = makeTestCtx(buf);
 
   args[0].formatFn(args[0].value, ctx);
 
@@ -315,9 +310,7 @@ TEST_CASE("core/make_v_format_arguments/null_c_string") {
   auto         args = makeVFormatArguments(msg);
 
   FixedString<16> buf;
-  FormatContext   ctx{static_cast<void *>(&buf), [](void * c, const char * data, size_t n) noexcept {
-                      static_cast<FixedString<16> *>(c)->append(data, n);
-                      }};
+  auto            ctx = makeTestCtx(buf);
 
   args[0].formatFn(args[0].value, ctx);
 
@@ -331,9 +324,7 @@ TEST_CASE("core/make_v_format_arguments/fixed_string") {
   auto args = makeVFormatArguments(str);
 
   FixedString<32> buf;
-  FormatContext   ctx{static_cast<void *>(&buf), [](void * c, const char * data, size_t n) noexcept {
-                      static_cast<FixedString<32> *>(c)->append(data, n);
-                      }};
+  auto            ctx = makeTestCtx(buf);
 
   args[0].formatFn(args[0].value, ctx);
 
@@ -346,9 +337,7 @@ TEST_CASE("core/make_v_format_arguments/c_string_view") {
   auto        args = makeVFormatArguments(sv);
 
   FixedString<32> buf;
-  FormatContext   ctx{static_cast<void *>(&buf), [](void * c, const char * data, size_t n) noexcept {
-                      static_cast<FixedString<32> *>(c)->append(data, n);
-                      }};
+  auto            ctx = makeTestCtx(buf);
 
   args[0].formatFn(args[0].value, ctx);
 
@@ -389,9 +378,7 @@ TEST_CASE("core/make_v_format_arguments/multiple_format_output") {
 
   for (size_t i = 0; i < args.size(); ++i) {
     FixedString<32> buf;
-    FormatContext   ctx{static_cast<void *>(&buf), [](void * out, const char * data, size_t n) noexcept {
-                        static_cast<FixedString<32> *>(out)->append(data, n);
-                        }};
+    auto            ctx = makeTestCtx(buf);
 
     args[i].formatFn(args[i].value, ctx);
 
@@ -405,9 +392,7 @@ TEST_CASE("core/make_v_format_arguments/unsigned_int") {
   auto               args = makeVFormatArguments(x);
 
   FixedString<16> buf;
-  FormatContext   ctx{static_cast<void *>(&buf), [](void * c, const char * data, size_t n) noexcept {
-                      static_cast<FixedString<16> *>(c)->append(data, n);
-                      }};
+  auto            ctx = makeTestCtx(buf);
 
   args[0].formatFn(args[0].value, ctx);
 
