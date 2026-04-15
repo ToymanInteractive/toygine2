@@ -100,6 +100,37 @@ constexpr void formatTo(BackendType & output, type_identity_t<FormatString<Args.
 /*!
   \ingroup String
 
+  \brief Formats type-erased arguments into \a output using a runtime pattern.
+
+  Iterates \a pattern, copies literal text to \a output verbatim, and substitutes each \c {} or \c {N} placeholder by
+  calling the corresponding entry in \a args. Output is written through a \ref toy::FormatContext backed by \a output,
+  so the formatting loop is decoupled from the concrete backend type. The pattern is validated at runtime; an invalid
+  pattern triggers a debug assertion.
+
+  \tparam BackendType Type of the output string. Must satisfy the \ref toy::OStringStreamBackend concept.
+  \tparam MaximumArgs Number of type-erased arguments; deduced from \a args.
+
+  \param output  Destination string; its previous content is replaced.
+  \param pattern Runtime format pattern; may be a variable or computed string.
+  \param args    Type-erased arguments produced by toy::makeVFormatArguments().
+
+  \pre \a pattern must be a valid format pattern consistent with \a MaximumArgs (same rules as \ref toy::FormatString).
+  \pre Each \ref toy::FormatArgument in \a args must remain valid for the duration of the call.
+
+  \post \a output holds the formatted result, subject to \a BackendType capacity semantics.
+
+  \note \c {{ and \c }} in the pattern emit a literal \c { and \c } respectively.
+  \note Pattern validity is checked at runtime via \c assert_message with validateFormatPattern(); use toy::formatTo()
+        for compile-time checks.
+
+  \sa toy::vformat(), toy::vformatTo(BackendType &, CStringView, const Args &...), toy::makeVFormatArguments()
+*/
+template <OStringStreamBackend BackendType, size_t MaximumArgs>
+void vformatTo(BackendType & output, CStringView pattern, const array<FormatArgument, MaximumArgs> & args) noexcept;
+
+/*!
+  \ingroup String
+
   \brief Constructs an array of \ref toy::FormatArgument from a pack of arguments by type-erasing each one.
 
   For each argument a \ref toy::FormatArgument is created that stores a pointer to the original value and a stateless

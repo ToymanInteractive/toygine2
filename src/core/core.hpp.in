@@ -78,12 +78,15 @@ using std::nullptr_t;
 
 using std::char_traits;
 
-using std::size;
-
 // (lvl 1)               Containers library https://en.cppreference.com/w/cpp/container.html
 
 // https://en.cppreference.com/w/cpp/container/array.html
 using std::array;
+
+// (lvl 1)                 Iterator library https://en.cppreference.com/w/cpp/iterator.html
+
+// https://en.cppreference.com/w/cpp/iterator/size.html
+using std::size;
 
 // (lvl 1)                  Utility library https://en.cppreference.com/w/cpp/utility.html
 

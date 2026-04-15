@@ -19,7 +19,7 @@
 //
 /*!
   \file   format.test.cpp
-  \brief  Unit tests for toy::format() and toy::formatTo().
+  \brief  Unit tests for toy::format(), toy::formatTo(), toy::vformatTo(), and toy::makeVFormatArguments().
 */
 
 #include <doctest/doctest.h>
@@ -199,6 +199,311 @@ TEST_CASE("core/format_to/positional") {
   formatTo(output, "{{{1}/{0}}}", 2024, 12);
 
   REQUIRE(output == "{12/2024}");
+}
+
+// ----- vformatTo (array overload) -----
+
+// Literal-only pattern is copied verbatim.
+TEST_CASE("core/vformat_to/no_placeholders") {
+  FixedString<32> output;
+  auto            args = makeVFormatArguments();
+
+  vformatTo(output, CStringView("Hello World"), args);
+
+  REQUIRE(output == "Hello World");
+}
+
+// Empty pattern produces an empty output.
+TEST_CASE("core/vformat_to/empty_pattern") {
+  FixedString<16> output;
+  auto            args = makeVFormatArguments();
+
+  vformatTo(output, CStringView(""), args);
+
+  REQUIRE(output.empty());
+}
+
+// Single auto placeholder substitutes an integer.
+TEST_CASE("core/vformat_to/auto_single_int") {
+  FixedString<32> output;
+
+  const int x    = 42;
+  auto      args = makeVFormatArguments(x);
+
+  vformatTo(output, CStringView("value: {}"), args);
+
+  REQUIRE(output == "value: 42");
+}
+
+// Negative integer includes the minus sign.
+TEST_CASE("core/vformat_to/auto_negative_int") {
+  FixedString<32> output;
+
+  const int x    = -7;
+  auto      args = makeVFormatArguments(x);
+
+  vformatTo(output, CStringView("{}"), args);
+
+  REQUIRE(output == "-7");
+}
+
+// Unsigned integer formats correctly.
+TEST_CASE("core/vformat_to/auto_unsigned_int") {
+  FixedString<16> output;
+
+  const unsigned int x    = 255U;
+  auto               args = makeVFormatArguments(x);
+
+  vformatTo(output, CStringView("{}"), args);
+
+  REQUIRE(output == "255");
+}
+
+// Bool true formats as "true" and false as "false".
+TEST_CASE("core/vformat_to/auto_bool") {
+  FixedString<16> outTrue;
+  FixedString<16> outFalse;
+
+  const bool t         = true;
+  const bool f         = false;
+  auto       argsTrue  = makeVFormatArguments(t);
+  auto       argsFalse = makeVFormatArguments(f);
+
+  vformatTo(outTrue, CStringView("{}"), argsTrue);
+  vformatTo(outFalse, CStringView("{}"), argsFalse);
+
+  REQUIRE(outTrue == "true");
+  REQUIRE(outFalse == "false");
+}
+
+// Char argument inserts the character directly.
+TEST_CASE("core/vformat_to/auto_char") {
+  FixedString<8> output;
+
+  const char ch   = 'X';
+  auto       args = makeVFormatArguments(ch);
+
+  vformatTo(output, CStringView("{}"), args);
+
+  REQUIRE(output == "X");
+}
+
+// C string argument formats correctly.
+TEST_CASE("core/vformat_to/auto_c_string") {
+  FixedString<32> output;
+
+  const char * msg  = "hello";
+  auto         args = makeVFormatArguments(msg);
+
+  vformatTo(output, CStringView("say: {}"), args);
+
+  REQUIRE(output == "say: hello");
+}
+
+// FixedString argument formats correctly.
+TEST_CASE("core/vformat_to/auto_fixed_string") {
+  FixedString<32> output;
+
+  FixedString<16> name;
+  name.append("engine");
+  auto args = makeVFormatArguments(name);
+
+  vformatTo(output, CStringView("toy {}"), args);
+
+  REQUIRE(output == "toy engine");
+}
+
+// CStringView argument formats correctly.
+TEST_CASE("core/vformat_to/auto_c_string_view") {
+  FixedString<32> output;
+
+  CStringView sv("world");
+  auto        args = makeVFormatArguments(sv);
+
+  vformatTo(output, CStringView("hello {}"), args);
+
+  REQUIRE(output == "hello world");
+}
+
+// Multiple auto placeholders are substituted left to right.
+TEST_CASE("core/vformat_to/auto_multiple") {
+  FixedString<64> output;
+
+  const int a    = 1;
+  const int b    = 2;
+  auto      args = makeVFormatArguments(a, b);
+
+  vformatTo(output, CStringView("{} and {}"), args);
+
+  REQUIRE(output == "1 and 2");
+}
+
+// Multiple arguments of different types format correctly.
+TEST_CASE("core/vformat_to/auto_mixed_types") {
+  FixedString<64> output;
+
+  const int    a    = 10;
+  const char * b    = "mid";
+  const bool   c    = false;
+  auto         args = makeVFormatArguments(a, b, c);
+
+  vformatTo(output, CStringView("{} {} {}"), args);
+
+  REQUIRE(output == "10 mid false");
+}
+
+// Positional placeholders in declaration order.
+TEST_CASE("core/vformat_to/positional_direct") {
+  FixedString<32> output;
+
+  const int a    = 10;
+  const int b    = 20;
+  auto      args = makeVFormatArguments(a, b);
+
+  vformatTo(output, CStringView("{0} {1}"), args);
+
+  REQUIRE(output == "10 20");
+}
+
+// Positional placeholders in reverse order swap arguments.
+TEST_CASE("core/vformat_to/positional_reorder") {
+  FixedString<32> output;
+
+  const int a    = 10;
+  const int b    = 20;
+  auto      args = makeVFormatArguments(a, b);
+
+  vformatTo(output, CStringView("{1} {0}"), args);
+
+  REQUIRE(output == "20 10");
+}
+
+// Same positional index repeated substitutes the same argument.
+TEST_CASE("core/vformat_to/positional_repeat") {
+  FixedString<16> output;
+
+  const int x    = 7;
+  auto      args = makeVFormatArguments(x);
+
+  vformatTo(output, CStringView("{0}{0}{0}"), args);
+
+  REQUIRE(output == "777");
+}
+
+// Escaped {{ emits a literal left brace.
+TEST_CASE("core/vformat_to/escaped_open_brace") {
+  FixedString<8> output;
+  auto           args = makeVFormatArguments();
+
+  vformatTo(output, CStringView("{{"), args);
+
+  REQUIRE(output == "{");
+}
+
+// Escaped }} emits a literal right brace.
+TEST_CASE("core/vformat_to/escaped_close_brace") {
+  FixedString<8> output;
+  auto           args = makeVFormatArguments();
+
+  vformatTo(output, CStringView("}}"), args);
+
+  REQUIRE(output == "}");
+}
+
+// Escaped braces surrounding a placeholder emit literal braces around the value.
+TEST_CASE("core/vformat_to/escaped_around_placeholder") {
+  FixedString<16> output;
+
+  const int x    = 42;
+  auto      args = makeVFormatArguments(x);
+
+  vformatTo(output, CStringView("{{{}}}"), args);
+
+  REQUIRE(output == "{42}");
+}
+
+// Previous content of output is replaced.
+TEST_CASE("core/vformat_to/replaces_output") {
+  FixedString<64> output;
+  output.append("stale-content");
+
+  const int a    = 1;
+  const int b    = 2;
+  const int c    = 3;
+  auto      args = makeVFormatArguments(a, b, c);
+
+  vformatTo(output, CStringView("{} + {} = {}"), args);
+
+  REQUIRE(output == "1 + 2 = 3");
+}
+
+// Pattern built at runtime formats correctly.
+TEST_CASE("core/vformat_to/runtime_pattern") {
+  FixedString<32> pattern;
+  pattern.append("x=");
+  pattern.append("{}");
+
+  FixedString<32> output;
+  const int       x    = 99;
+  auto            args = makeVFormatArguments(x);
+
+  vformatTo(output, CStringView(pattern.c_str()), args);
+
+  REQUIRE(output == "x=99");
+}
+
+// Literal text after the last placeholder is preserved.
+TEST_CASE("core/vformat_to/trailing_literal") {
+  FixedString<32> output;
+
+  const int x    = 5;
+  auto      args = makeVFormatArguments(x);
+
+  vformatTo(output, CStringView("{} items remaining"), args);
+
+  REQUIRE(output == "5 items remaining");
+}
+
+// Null C string argument produces no output for that placeholder.
+TEST_CASE("core/vformat_to/null_c_string") {
+  FixedString<32> output;
+
+  const char * msg  = nullptr;
+  auto         args = makeVFormatArguments(msg);
+
+  vformatTo(output, CStringView("[{}]"), args);
+
+  REQUIRE(output == "[]");
+}
+
+// ----- vformatTo (convenience overload) -----
+
+// Convenience overload formats a single integer.
+TEST_CASE("core/vformat_to/variadic_single_int") {
+  FixedString<32> output;
+
+  vformatTo(output, CStringView("value: {}"), 42);
+
+  REQUIRE(output == "value: 42");
+}
+
+// Convenience overload replaces existing output content.
+TEST_CASE("core/vformat_to/variadic_replaces_output") {
+  FixedString<32> output;
+  output.append("old content");
+
+  vformatTo(output, CStringView("new: {}"), 5);
+
+  REQUIRE(output == "new: 5");
+}
+
+// Convenience overload formats multiple arguments of mixed types.
+TEST_CASE("core/vformat_to/variadic_mixed_types") {
+  FixedString<64> output;
+
+  vformatTo(output, CStringView("{} + {} = {}"), 1, 2, 3);
+
+  REQUIRE(output == "1 + 2 = 3");
 }
 
 // ----- makeVFormatArguments -----

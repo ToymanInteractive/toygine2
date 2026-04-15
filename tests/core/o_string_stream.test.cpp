@@ -52,7 +52,7 @@ TEST_CASE("core/o_string_stream/constructors") {
 
   // Constructor from FixedString.
   SUBCASE("constructor_from_fixed_string") {
-    constexpr FixedString<16> source("Hello");
+    constexpr FixedString<16>                source("Hello");
     constexpr OStringStream<FixedString<32>> stream(source);
 
     REQUIRE(stream.str() == "Hello");
@@ -62,7 +62,7 @@ TEST_CASE("core/o_string_stream/constructors") {
 
   // Constructor from std::string.
   SUBCASE("constructor_from_std_string") {
-    std::string source = "World";
+    std::string                    source = "World";
     OStringStream<FixedString<64>> stream(source);
 
     REQUIRE(stream.str() == "World");
@@ -70,7 +70,7 @@ TEST_CASE("core/o_string_stream/constructors") {
 
   // Constructor from CStringView.
   SUBCASE("constructor_from_c_string_view") {
-    constexpr CStringView view("Test");
+    constexpr CStringView                    view("Test");
     constexpr OStringStream<FixedString<32>> stream(view);
 
     REQUIRE(stream.str() == "Test");
@@ -80,7 +80,7 @@ TEST_CASE("core/o_string_stream/constructors") {
 
   // Constructor with empty string.
   SUBCASE("constructor_with_empty_string") {
-    constexpr FixedString<16> empty;
+    constexpr FixedString<16>                empty;
     constexpr OStringStream<FixedString<32>> stream(empty);
 
     REQUIRE(stream.str() == "");
@@ -94,7 +94,7 @@ TEST_CASE("core/o_string_stream/assignment_operators") {
   // Copy assignment copies content.
   SUBCASE("copy_assignment") {
     constexpr OStringStream<FixedString<32>> source(FixedString<16>("Source"));
-    OStringStream<FixedString<32>> target;
+    OStringStream<FixedString<32>>           target;
 
     target = source;
 
@@ -178,7 +178,7 @@ TEST_CASE("core/o_string_stream/str_setter") {
   // str() setter from FixedString.
   SUBCASE("set_from_fixed_string") {
     OStringStream<FixedString<64>> stream(FixedString<16>("Old"));
-    constexpr FixedString<16> source("NewContent");
+    constexpr FixedString<16>      source("NewContent");
 
     stream.str(source);
 
@@ -188,7 +188,7 @@ TEST_CASE("core/o_string_stream/str_setter") {
   // str() setter from CStringView.
   SUBCASE("set_from_c_string_view") {
     OStringStream<FixedString<64>> stream(FixedString<16>("Old"));
-    constexpr CStringView view("NewContent");
+    constexpr CStringView          view("NewContent");
 
     stream.str(view);
 
@@ -198,7 +198,7 @@ TEST_CASE("core/o_string_stream/str_setter") {
   // str() setter from std::string.
   SUBCASE("set_from_std_string") {
     OStringStream<FixedString<64>> stream(FixedString<16>("Old"));
-    std::string source = "NewContent";
+    std::string                    source = "NewContent";
 
     stream.str(source);
 
@@ -208,7 +208,7 @@ TEST_CASE("core/o_string_stream/str_setter") {
   // str() setter to empty string.
   SUBCASE("set_empty_string") {
     OStringStream<FixedString<32>> stream(FixedString<16>("Content"));
-    constexpr FixedString<16> empty;
+    constexpr FixedString<16>      empty;
 
     stream.str(empty);
 
@@ -218,9 +218,9 @@ TEST_CASE("core/o_string_stream/str_setter") {
   // str() setter multiple times.
   SUBCASE("set_multiple_times") {
     OStringStream<FixedString<32>> stream;
-    constexpr FixedString<16> first("First");
-    constexpr FixedString<16> second("Second");
-    constexpr FixedString<16> third("Third");
+    constexpr FixedString<16>      first("First");
+    constexpr FixedString<16>      second("Second");
+    constexpr FixedString<16>      third("Third");
 
     stream.str(first);
     REQUIRE(stream.str() == "First");
@@ -238,7 +238,7 @@ TEST_CASE("core/o_string_stream/view") {
   // view() with content.
   SUBCASE("view_with_content") {
     constexpr OStringStream<FixedString<32>> stream(FixedString<16>("Hello"));
-    auto view = stream.view();
+    auto                                     view = stream.view();
 
     REQUIRE(view == "Hello");
   }
@@ -246,7 +246,7 @@ TEST_CASE("core/o_string_stream/view") {
   // view() with empty stream.
   SUBCASE("view_with_empty_stream") {
     constexpr OStringStream<FixedString<32>> stream;
-    auto view = stream.view();
+    auto                                     view = stream.view();
 
     REQUIRE(view.empty());
   }
@@ -254,7 +254,7 @@ TEST_CASE("core/o_string_stream/view") {
   // view() reflects current content after str().
   SUBCASE("view_reflects_current_content") {
     OStringStream<FixedString<32>> stream(FixedString<16>("Initial"));
-    auto view1 = stream.view();
+    auto                           view1 = stream.view();
 
     REQUIRE(view1 == "Initial");
 
@@ -267,8 +267,8 @@ TEST_CASE("core/o_string_stream/view") {
   // Multiple views of same stream are equal.
   SUBCASE("multiple_views_of_same_stream") {
     OStringStream<FixedString<32>> stream(FixedString<16>("Content"));
-    auto view1 = stream.view();
-    auto view2 = stream.view();
+    auto                           view1 = stream.view();
+    auto                           view2 = stream.view();
 
     REQUIRE(view1 == view2);
   }
@@ -344,7 +344,7 @@ TEST_CASE("core/o_string_stream/write") {
   // write() to empty stream.
   SUBCASE("write_to_empty_stream") {
     OStringStream<FixedString<32>> stream;
-    const char * buffer = "Hello";
+    const char *                   buffer = "Hello";
 
     stream.write(buffer, 5);
 
@@ -354,7 +354,7 @@ TEST_CASE("core/o_string_stream/write") {
   // write() to stream with content.
   SUBCASE("write_to_stream_with_content") {
     OStringStream<FixedString<32>> stream(FixedString<16>("Test"));
-    const char * buffer = "123";
+    const char *                   buffer = "123";
 
     stream.write(buffer, 3);
 
@@ -364,7 +364,7 @@ TEST_CASE("core/o_string_stream/write") {
   // write() with zero count leaves content unchanged.
   SUBCASE("write_zero_count") {
     OStringStream<FixedString<32>> stream(FixedString<16>("Initial"));
-    const char * buffer = "Data";
+    const char *                   buffer = "Data";
 
     stream.write(buffer, 0);
 
@@ -374,7 +374,7 @@ TEST_CASE("core/o_string_stream/write") {
   // write() partial string.
   SUBCASE("write_partial_string") {
     OStringStream<FixedString<32>> stream;
-    const char * buffer = "Hello World";
+    const char *                   buffer = "Hello World";
 
     stream.write(buffer, 5);
 
@@ -384,8 +384,8 @@ TEST_CASE("core/o_string_stream/write") {
   // write() multiple times with chaining.
   SUBCASE("write_multiple_times_with_chaining") {
     OStringStream<FixedString<32>> stream;
-    const char * buffer1 = "Hello";
-    const char * buffer2 = " World";
+    const char *                   buffer1 = "Hello";
+    const char *                   buffer2 = " World";
 
     stream.write(buffer1, 5).write(buffer2, 6);
 
@@ -395,7 +395,7 @@ TEST_CASE("core/o_string_stream/write") {
   // write() binary data.
   SUBCASE("write_binary_data") {
     OStringStream<FixedString<32>> stream;
-    constexpr const char buffer[] = {'H', 'e', 'l', 'l', 'o'};
+    constexpr const char           buffer[] = {'H', 'e', 'l', 'l', 'o'};
 
     stream.write(buffer, 5);
 
@@ -452,7 +452,7 @@ TEST_CASE("core/o_string_stream/tellp") {
   // tellp() after write().
   SUBCASE("tellp_after_write") {
     OStringStream<FixedString<32>> stream;
-    const char * buffer = "Hello";
+    const char *                   buffer = "Hello";
 
     REQUIRE(stream.tellp() == 0);
 
@@ -690,7 +690,9 @@ TEST_CASE("core/o_string_stream/operator_insert") {
     streams[4] << -123.456;
     streams[5] << 0.0;
 
-    constexpr std::array<const char *, 6> expects = {{"123.456", "-123.456", "0", "123.456", "-123.456", "0"}};
+    constexpr array<const char *, 6> expects = {
+      {"123.456", "-123.456", "0", "123.456", "-123.456", "0"}
+    };
     for (size_t index = 0; index < expects.size(); ++index)
       REQUIRE(streams[index].str() == expects[index]);
   }
@@ -711,7 +713,7 @@ TEST_CASE("core/o_string_stream/operator_insert") {
   // operator<< numbers to stream with content.
   SUBCASE("insert_numbers_to_stream_with_content") {
     array<OStringStream<FixedString<16>>, 12> streams;
-    constexpr CStringView prefix("Value: ");
+    constexpr CStringView                     prefix("Value: ");
     for (auto & s : streams)
       s = OStringStream<FixedString<16>>(prefix);
 
@@ -737,16 +739,16 @@ TEST_CASE("core/o_string_stream/operator_insert") {
   SUBCASE("insert_numbers_returns_reference_for_chaining") {
     array<OStringStream<FixedString<4>>, 12> streams;
 
-    auto & ref0 = streams[0] << long{123};
-    auto & ref1 = streams[1] << static_cast<unsigned long>(234);
-    auto & ref2 = streams[2] << static_cast<long long>(345);
-    auto & ref3 = streams[3] << static_cast<unsigned long long>(456);
-    auto & ref4 = streams[4] << 567.0;
-    auto & ref5 = streams[5] << short{678};
-    auto & ref6 = streams[6] << int{789};
-    auto & ref7 = streams[7] << static_cast<unsigned short>(890);
-    auto & ref8 = streams[8] << static_cast<unsigned int>(901);
-    auto & ref9 = streams[9] << 012.0f;
+    auto & ref0  = streams[0] << long{123};
+    auto & ref1  = streams[1] << static_cast<unsigned long>(234);
+    auto & ref2  = streams[2] << static_cast<long long>(345);
+    auto & ref3  = streams[3] << static_cast<unsigned long long>(456);
+    auto & ref4  = streams[4] << 567.0;
+    auto & ref5  = streams[5] << short{678};
+    auto & ref6  = streams[6] << int{789};
+    auto & ref7  = streams[7] << static_cast<unsigned short>(890);
+    auto & ref8  = streams[8] << static_cast<unsigned int>(901);
+    auto & ref9  = streams[9] << 012.0f;
     auto & ref10 = streams[10] << static_cast<signed char>(123);
     auto & ref11 = streams[11] << static_cast<unsigned char>(234);
 
@@ -828,8 +830,9 @@ TEST_CASE("core/o_string_stream/operator_insert") {
     streams[6] << std::numbers::pi;
     streams[7] << std::numbers::pi;
 
-    const std::array<const char *, 8> expects
-      = {"3.14159", "3.14", "3", "3.14159244298935", "3.14159", "3.14", "3", "3.14159244298935"};
+    constexpr array<const char *, 8> expects{
+      {"3.14159", "3.14", "3", "3.14159244298935", "3.14159", "3.14", "3", "3.14159244298935"}
+    };
     for (size_t index = 0; index < expects.size(); ++index)
       REQUIRE(streams[index].str() == expects[index]);
   }
@@ -838,8 +841,8 @@ TEST_CASE("core/o_string_stream/operator_insert") {
   SUBCASE("insert_void_pointer_and_nullptr") {
     array<OStringStream<FixedString<32>>, 3> streams;
 
-    constexpr int value = 42;
-    constexpr const int * ptr = nullptr;
+    constexpr int         value = 42;
+    constexpr const int * ptr   = nullptr;
 
     streams[0] << &value;
     streams[1] << ptr;
@@ -973,7 +976,7 @@ TEST_CASE("core/o_string_stream/operator_insert") {
     OStringStream<FixedString<64>> stream;
 
     const FixedString<16> hello("Hello");
-    const CStringView space(" ");
+    const CStringView     space(" ");
     const FixedString<16> world("World");
 
     stream << hello << space << world;
