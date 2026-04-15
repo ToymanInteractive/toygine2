@@ -179,9 +179,7 @@ void vformatTo(BackendType & output, CStringView pattern, const array<FormatArgu
   size_t             litStart  = 0;
 
   while (position < length) {
-    const char c = data[position];
-
-    if (c == '{') {
+    if (const char c = data[position]; c == '{') {
       if (position + 1 < length && data[position + 1] == '{') {
         out.write(data + litStart, position - litStart);
         out.put('{');
@@ -197,15 +195,7 @@ void vformatTo(BackendType & output, CStringView pattern, const array<FormatArgu
       while (end < length && data[end] != '}')
         ++end;
 
-      size_t argIndex;
-      if (start == end) {
-        argIndex = autoIndex++;
-      } else {
-        argIndex = 0;
-        for (size_t i = start; i < end; ++i)
-          argIndex = argIndex * 10 + static_cast<size_t>(data[i] - '0');
-      }
-
+      const auto argIndex = parseArgIndex(pattern, start, end, autoIndex);
       if (argIndex < MaximumArgs)
         args[argIndex].formatFn(args[argIndex].value, out);
 
