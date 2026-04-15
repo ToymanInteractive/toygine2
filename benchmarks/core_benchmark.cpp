@@ -27,6 +27,7 @@
 
 namespace toy {
 
+void formatCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
 void hashesCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
 void itoaCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
 void oStringStreamCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
@@ -37,6 +38,7 @@ void stringFixedStorageCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
 ankerl::nanobench::Bench runCoreBenchmarks() noexcept {
   auto bench = createBench("Core module");
 
+  toy::formatCoreBenchmarks(bench);
   toy::hashesCoreBenchmarks(bench);
   toy::itoaCoreBenchmarks(bench);
   toy::oStringStreamCoreBenchmarks(bench);

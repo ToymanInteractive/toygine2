@@ -118,10 +118,10 @@ constexpr void formatTo(BackendType & output, type_identity_t<FormatString<Args.
                         const Args &... args) noexcept {
   OStringStream<BackendType> stream;
 
-  const auto pattern = fmt.get();
-  const auto length  = pattern.size();
-  size_t position    = 0;
-  size_t autoIndex   = 0;
+  const auto pattern   = fmt.get();
+  const auto length    = pattern.size();
+  size_t     position  = 0;
+  size_t     autoIndex = 0;
 
   while (position < length) {
     const char c = pattern.at(position);
@@ -135,7 +135,7 @@ constexpr void formatTo(BackendType & output, type_identity_t<FormatString<Args.
 
       // Find the closing brace and extract the content between { and }.
       const size_t start = position + 1;
-      auto end           = start;
+      auto         end   = start;
       while (end < length && pattern.at(end) != '}')
         ++end;
 
@@ -159,6 +159,30 @@ constexpr void formatTo(BackendType & output, type_identity_t<FormatString<Args.
   }
 
   output = stream.str();
+}
+
+template <typename... Args>
+array<FormatArgument, sizeof...(Args)> makeVFormatArguments(const Args &... args) noexcept {
+  return {[]<typename T>(const T & value) noexcept -> FormatArgument {
+    return FormatArgument{
+      static_cast<const void *>(&value),
+      [](const void * v, FormatContext & out) noexcept {
+        const T & arg = *static_cast<const T *>(v);
+        if constexpr (StringLike<T>) {
+          out.write(arg.c_str(), arg.size());
+        } else if constexpr (std::is_pointer_v<T>
+                             && std::is_same_v<std::remove_cv_t<std::remove_pointer_t<T>>, char>) {
+          if (arg != nullptr)
+            out.write(arg, char_traits<char>::length(arg));
+        } else {
+          OStringStream<FixedString<128>> stream;
+          stream << arg;
+          const auto & str = stream.str();
+          out.write(str.c_str(), str.size());
+        }
+      }
+    };
+  }(args)...};
 }
 
 } // namespace toy

@@ -86,7 +86,7 @@ TEST_CASE("core/format/auto_c_string") {
 // Auto placeholder with a CStringView argument.
 TEST_CASE("core/format/auto_string_view") {
   constexpr CStringView greeting("hi");
-  constexpr auto result = format<16>("{}", greeting);
+  constexpr auto        result = format<16>("{}", greeting);
 
   REQUIRE(result == "hi");
 
@@ -199,6 +199,219 @@ TEST_CASE("core/format_to/positional") {
   formatTo(output, "{{{1}/{0}}}", 2024, 12);
 
   REQUIRE(output == "{12/2024}");
+}
+
+// ----- makeVFormatArguments -----
+
+// Zero arguments produces a zero-length array.
+TEST_CASE("core/make_v_format_arguments/empty") {
+  auto args = makeVFormatArguments();
+
+  REQUIRE(args.size() == 0);
+}
+
+// Single int argument: array has one entry with the correct value pointer.
+TEST_CASE("core/make_v_format_arguments/single_int_pointer") {
+  const int x    = 42;
+  auto      args = makeVFormatArguments(x);
+
+  REQUIRE(args.size() == 1);
+  REQUIRE(args[0].value == static_cast<const void *>(&x));
+}
+
+// Single int argument: formatFn produces the correct decimal representation.
+TEST_CASE("core/make_v_format_arguments/single_int_format") {
+  const int x    = 42;
+  auto      args = makeVFormatArguments(x);
+
+  FixedString<32> buf;
+  FormatContext   ctx{static_cast<void *>(&buf), [](void * c, const char * data, size_t n) noexcept {
+                      static_cast<FixedString<32> *>(c)->append(data, n);
+                      }};
+
+  args[0].formatFn(args[0].value, ctx);
+
+  REQUIRE(buf == "42");
+}
+
+// Negative integer includes the minus sign.
+TEST_CASE("core/make_v_format_arguments/negative_int") {
+  const int x    = -7;
+  auto      args = makeVFormatArguments(x);
+
+  FixedString<32> buf;
+  FormatContext   ctx{static_cast<void *>(&buf), [](void * c, const char * data, size_t n) noexcept {
+                      static_cast<FixedString<32> *>(c)->append(data, n);
+                      }};
+
+  args[0].formatFn(args[0].value, ctx);
+
+  REQUIRE(buf == "-7");
+}
+
+// Bool true formats as "true".
+TEST_CASE("core/make_v_format_arguments/bool_true") {
+  const bool v    = true;
+  auto       args = makeVFormatArguments(v);
+
+  FixedString<16> buf;
+  FormatContext   ctx{static_cast<void *>(&buf), [](void * c, const char * data, size_t n) noexcept {
+                      static_cast<FixedString<16> *>(c)->append(data, n);
+                      }};
+
+  args[0].formatFn(args[0].value, ctx);
+
+  REQUIRE(buf == "true");
+}
+
+// Bool false formats as "false".
+TEST_CASE("core/make_v_format_arguments/bool_false") {
+  const bool v    = false;
+  auto       args = makeVFormatArguments(v);
+
+  FixedString<16> buf;
+  FormatContext   ctx{static_cast<void *>(&buf), [](void * c, const char * data, size_t n) noexcept {
+                      static_cast<FixedString<16> *>(c)->append(data, n);
+                      }};
+
+  args[0].formatFn(args[0].value, ctx);
+
+  REQUIRE(buf == "false");
+}
+
+// Char argument formats as a single character.
+TEST_CASE("core/make_v_format_arguments/char") {
+  const char ch   = 'Z';
+  auto       args = makeVFormatArguments(ch);
+
+  FixedString<8> buf;
+  FormatContext  ctx{static_cast<void *>(&buf), [](void * c, const char * data, size_t n) noexcept {
+                      static_cast<FixedString<8> *>(c)->append(data, n);
+                     }};
+
+  args[0].formatFn(args[0].value, ctx);
+
+  REQUIRE(buf == "Z");
+}
+
+// C string argument takes the char-pointer path.
+TEST_CASE("core/make_v_format_arguments/c_string") {
+  const char * msg  = "hello";
+  auto         args = makeVFormatArguments(msg);
+
+  FixedString<32> buf;
+  FormatContext   ctx{static_cast<void *>(&buf), [](void * c, const char * data, size_t n) noexcept {
+                      static_cast<FixedString<32> *>(c)->append(data, n);
+                      }};
+
+  args[0].formatFn(args[0].value, ctx);
+
+  REQUIRE(buf == "hello");
+}
+
+// Null char pointer produces no output.
+TEST_CASE("core/make_v_format_arguments/null_c_string") {
+  const char * msg  = nullptr;
+  auto         args = makeVFormatArguments(msg);
+
+  FixedString<16> buf;
+  FormatContext   ctx{static_cast<void *>(&buf), [](void * c, const char * data, size_t n) noexcept {
+                      static_cast<FixedString<16> *>(c)->append(data, n);
+                      }};
+
+  args[0].formatFn(args[0].value, ctx);
+
+  REQUIRE(buf.empty());
+}
+
+// StringLike argument (FixedString) takes the direct c_str/size path.
+TEST_CASE("core/make_v_format_arguments/fixed_string") {
+  FixedString<16> str;
+  str.append("engine");
+  auto args = makeVFormatArguments(str);
+
+  FixedString<32> buf;
+  FormatContext   ctx{static_cast<void *>(&buf), [](void * c, const char * data, size_t n) noexcept {
+                      static_cast<FixedString<32> *>(c)->append(data, n);
+                      }};
+
+  args[0].formatFn(args[0].value, ctx);
+
+  REQUIRE(buf == "engine");
+}
+
+// StringLike argument (CStringView) takes the direct c_str/size path.
+TEST_CASE("core/make_v_format_arguments/c_string_view") {
+  CStringView sv("world");
+  auto        args = makeVFormatArguments(sv);
+
+  FixedString<32> buf;
+  FormatContext   ctx{static_cast<void *>(&buf), [](void * c, const char * data, size_t n) noexcept {
+                      static_cast<FixedString<32> *>(c)->append(data, n);
+                      }};
+
+  args[0].formatFn(args[0].value, ctx);
+
+  REQUIRE(buf == "world");
+}
+
+// Multiple arguments: each entry points to the correct original.
+TEST_CASE("core/make_v_format_arguments/multiple_pointers") {
+  const int    a    = 1;
+  const char * b    = "two";
+  const bool   c    = true;
+  auto         args = makeVFormatArguments(a, b, c);
+
+  REQUIRE(args.size() == 3);
+  REQUIRE(args[0].value == static_cast<const void *>(&a));
+  REQUIRE(args[1].value == static_cast<const void *>(&b));
+  REQUIRE(args[2].value == static_cast<const void *>(&c));
+}
+
+// Multiple arguments: each formatFn is non-null.
+TEST_CASE("core/make_v_format_arguments/multiple_format_fn") {
+  const int a    = 1;
+  const int b    = 2;
+  auto      args = makeVFormatArguments(a, b);
+
+  REQUIRE(args[0].formatFn != nullptr);
+  REQUIRE(args[1].formatFn != nullptr);
+}
+
+// Multiple arguments: formatting each produces the expected text in order.
+TEST_CASE("core/make_v_format_arguments/multiple_format_output") {
+  const int    a    = 10;
+  const char * b    = "mid";
+  const bool   c    = false;
+  auto         args = makeVFormatArguments(a, b, c);
+
+  const char * expected[] = {"10", "mid", "false"};
+
+  for (size_t i = 0; i < args.size(); ++i) {
+    FixedString<32> buf;
+    FormatContext   ctx{static_cast<void *>(&buf), [](void * out, const char * data, size_t n) noexcept {
+                        static_cast<FixedString<32> *>(out)->append(data, n);
+                        }};
+
+    args[i].formatFn(args[i].value, ctx);
+
+    REQUIRE(buf == expected[i]);
+  }
+}
+
+// Unsigned integer argument formats correctly through OStringStream path.
+TEST_CASE("core/make_v_format_arguments/unsigned_int") {
+  const unsigned int x    = 255U;
+  auto               args = makeVFormatArguments(x);
+
+  FixedString<16> buf;
+  FormatContext   ctx{static_cast<void *>(&buf), [](void * c, const char * data, size_t n) noexcept {
+                      static_cast<FixedString<16> *>(c)->append(data, n);
+                      }};
+
+  args[0].formatFn(args[0].value, ctx);
+
+  REQUIRE(buf == "255");
 }
 
 } // namespace toy
