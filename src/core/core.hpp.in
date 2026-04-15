@@ -79,7 +79,6 @@ using std::nullptr_t;
 using std::char_traits;
 
 using std::size;
-using std::strong_ordering;
 
 // (lvl 1)               Containers library https://en.cppreference.com/w/cpp/container.html
 
@@ -87,6 +86,9 @@ using std::strong_ordering;
 using std::array;
 
 // (lvl 1)                  Utility library https://en.cppreference.com/w/cpp/utility.html
+
+// https://en.cppreference.com/w/cpp/utility/compare/strong_ordering.html
+using std::strong_ordering;
 
 // (lvl 2)                 Bit manipulation https://en.cppreference.com/w/cpp/utility/bit.html
 

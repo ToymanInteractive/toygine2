@@ -21,9 +21,10 @@
   \file   format.hpp
   \brief  Format functions for substituting arguments into \c {} and \c {N} placeholders.
 
-  Defines toy::format() and toy::formatTo() for building formatted strings at runtime using compile-time validated
-  \ref toy::FormatString patterns. Both auto-indexed \c {} and positional \c {N} modes are supported. Escaped \c {{ and
-  \c }} emit literal braces.
+  Defines toy::format() and toy::formatTo() for building formatted strings using compile-time validated
+  \ref toy::FormatString patterns (auto-indexed \c {} and positional \c {N} modes; escaped \c {{ and \c }} emit
+  literal braces). Also defines toy::makeVFormatArguments() which type-erases a parameter pack into a array of
+  \ref toy::FormatArgument for use with toy::vformat() and toy::vformatTo().
 
   \note Included by core.hpp; do not include this file directly.
 */
@@ -31,6 +32,7 @@
 #ifndef INCLUDE_CORE_FORMAT_HPP_
 #define INCLUDE_CORE_FORMAT_HPP_
 
+#include "format_argument.hpp"
 #include "format_string.hpp"
 #include "o_string_stream.hpp"
 
@@ -94,6 +96,37 @@ template <size_t BufferSize, typename... Args>
 template <OStringStreamBackend BackendType, typename... Args>
 constexpr void formatTo(BackendType & output, type_identity_t<FormatString<Args...>> fmt,
                         const Args &... args) noexcept;
+
+/*!
+  \ingroup String
+
+  \brief Constructs an array of \ref toy::FormatArgument from a pack of arguments by type-erasing each one.
+
+  For each argument a \ref toy::FormatArgument is created that stores a pointer to the original value and a stateless
+  formatter callback that knows the concrete type. Three formatting paths are selected at compile time:
+  \ref toy::StringLike arguments write \c c_str() / \c size() directly, null-terminated \c char pointers write via
+  \c std::char_traits<char>::length(), and all other types are serialized through a temporary \ref toy::OStringStream
+  backed by a \ref toy::FixedString<128>. The returned array borrows references to the original arguments and must not
+  outlive them.
+
+  \tparam Args Types of the format arguments; deduced from \a args.
+
+  \param args Values to type-erase.
+
+  \return A \c std::array<FormatArgument, \c sizeof...(Args)> with one entry per argument, ready to be passed to
+          toy::vformat() or toy::vformatTo().
+
+  \pre Each type in \a Args must be formattable via \c operator<< on \ref toy::OStringStream, or must satisfy
+       \ref toy::StringLike, or must be a null-terminated \c char pointer.
+  \pre The returned object must not be used after any of the original \a args go out of scope.
+
+  \note When called with an empty argument pack the returned array has zero elements and the function body is a no-op.
+  \note A null \c char pointer argument produces no output when the corresponding \a formatFn is invoked.
+
+  \sa FormatArgument, FormatContext, toy::makeVFormatArgs()
+*/
+template <typename... Args>
+[[nodiscard]] array<FormatArgument, sizeof...(Args)> makeVFormatArguments(const Args &... args) noexcept;
 
 } // namespace toy
 

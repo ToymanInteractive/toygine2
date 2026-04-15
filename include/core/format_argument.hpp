@@ -22,8 +22,8 @@
   \brief  Type-erased format argument for the runtime formatting path.
 
   Defines \ref toy::FormatArgument: a two-pointer aggregate that pairs a value pointer with a stateless formatter
-  callback. Used internally by toy::makeVFormatArgs() to build \ref toy::VFormatArgs arrays consumed by toy::vformat()
-  and toy::vformatTo().
+  callback. Used internally by toy::makeVFormatArguments() and toy::makeVFormatArgs() to build argument arrays and
+  \ref toy::FormatArguments collections consumed by toy::vformat() and toy::vformatTo().
 
   \note Included by core.hpp; do not include this file directly.
 */
@@ -43,13 +43,13 @@ namespace toy {
   \brief Single type-erased format argument carrying a value pointer and a formatter callback.
 
   Stores a pointer to the original argument value alongside a stateless formatter that knows the concrete type and can
-  write a formatted representation to any \ref toy::FormatContext. Created internally by toy::makeVFormatArgs(); users
-  rarely construct \c FormatArgument directly.
+  write a formatted representation to any \ref toy::FormatContext. Created internally by toy::makeVFormatArguments() and
+  toy::makeVFormatArgs(); users rarely construct \c FormatArgument directly.
 
   \section features Key Features
 
   - **Type erasure**: Holds any formattable value without templates at the call site.
-  - **No allocation**: Two-pointer aggregate stored inline in \ref toy::VFormatArgs.
+  - **No allocation**: Two-pointer aggregate stored inline in \ref toy::FormatArguments or \c std::array.
   - **noexcept formatter**: The formatFn must not throw.
   - **Lifetime coupling**: \a value must remain valid as long as the \c FormatArgument is used.
 
@@ -90,7 +90,7 @@ namespace toy {
   - **Lifetime**: \a value must remain valid for the duration of the format operation.
   - **Null safety**: Neither \a value nor \a formatFn may be null when the argument is dispatched.
 
-  \sa FormatContext, VFormatArgs
+  \sa FormatContext, FormatArguments
 */
 struct FormatArgument {
   /// Pointer to the original argument value.

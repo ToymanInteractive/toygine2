@@ -77,7 +77,7 @@ namespace toy {
   - **Lifetime**: The context pointer must remain valid for the lifetime of the object.
   - **Null safety**: Both the context pointer and the write callback must be non-null before write() or put() is called.
 
-  \sa FormatArgument, VFormatArgs
+  \sa FormatArgument
 */
 class FormatContext {
 public:
