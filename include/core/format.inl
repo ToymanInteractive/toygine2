@@ -164,24 +164,21 @@ constexpr void formatTo(BackendType & output, type_identity_t<FormatString<Args.
 template <typename... Args>
 array<FormatArgument, sizeof...(Args)> makeVFormatArguments(const Args &... args) noexcept {
   return {[]<typename T>(const T & value) noexcept -> FormatArgument {
-    return FormatArgument{
-      static_cast<const void *>(&value),
-      [](const void * v, FormatContext & out) noexcept {
-        const T & arg = *static_cast<const T *>(v);
-        if constexpr (StringLike<T>) {
-          out.write(arg.c_str(), arg.size());
-        } else if constexpr (std::is_pointer_v<T>
-                             && std::is_same_v<std::remove_cv_t<std::remove_pointer_t<T>>, char>) {
-          if (arg != nullptr)
-            out.write(arg, char_traits<char>::length(arg));
-        } else {
-          OStringStream<FixedString<128>> stream;
-          stream << arg;
-          const auto & str = stream.str();
-          out.write(str.c_str(), str.size());
-        }
-      }
-    };
+    return FormatArgument{static_cast<const void *>(&value), [](const void * v, FormatContext & out) noexcept {
+                            const T & arg = *static_cast<const T *>(v);
+                            if constexpr (StringLike<T>) {
+                              out.write(arg.c_str(), arg.size());
+                            } else if constexpr (std::is_pointer_v<T>
+                                                 && std::is_same_v<std::remove_cv_t<std::remove_pointer_t<T>>, char>) {
+                              if (arg != nullptr)
+                                out.write(arg, char_traits<char>::length(arg));
+                            } else {
+                              OStringStream<FixedString<128>> stream;
+                              stream << arg;
+                              const auto & str = stream.str();
+                              out.write(str.c_str(), str.size());
+                            }
+                          }};
   }(args)...};
 }
 

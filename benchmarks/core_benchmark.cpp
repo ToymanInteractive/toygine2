@@ -47,7 +47,7 @@ ankerl::nanobench::Bench runCoreBenchmarks() noexcept {
   // utoa benchmarks
   {
     constexpr size_t bufSize = 32;
-    char buf[bufSize];
+    char             buf[bufSize];
 
     bench.run("utoa uint8_t base 10", [&] {
       char * r = toy::utoa(buf, bufSize, uint8_t{200}, 10u);
@@ -83,7 +83,7 @@ ankerl::nanobench::Bench runCoreBenchmarks() noexcept {
   // ftoa benchmarks
   {
     constexpr size_t bufSize = 64;
-    char buf[bufSize];
+    char             buf[bufSize];
 
     bench.run("ftoa float default precision", [&] {
       char * r = toy::ftoa(buf, bufSize, 3.14159265f);
@@ -109,11 +109,11 @@ ankerl::nanobench::Bench runCoreBenchmarks() noexcept {
   // formatNumberString benchmarks
   {
     constexpr size_t bufSize = 32;
-    char buf[bufSize];
+    char             buf[bufSize];
 
     bench.run("formatNumberString long comma", [&] {
       static const char digits[] = "123456789012345";
-      size_t i = 0;
+      size_t            i        = 0;
       while (digits[i] != '\0') {
         buf[i] = digits[i];
         ++i;
