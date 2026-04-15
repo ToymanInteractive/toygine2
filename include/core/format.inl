@@ -196,8 +196,11 @@ void vformatTo(BackendType & output, CStringView pattern, const array<FormatArgu
         ++end;
 
       const auto argIndex = parseArgIndex(pattern, start, end, autoIndex);
-      if (argIndex < MaximumArgs)
-        args[argIndex].formatFn(args[argIndex].value, out);
+      if (argIndex < MaximumArgs) {
+        const auto & argument = args[argIndex];
+        assert_message(argument.formatFn != nullptr, "vformatTo: format callback must not be null");
+        argument.formatFn(argument.value, out);
+      }
 
       position = end + 1;
       litStart = position;
