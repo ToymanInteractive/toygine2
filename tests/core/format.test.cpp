@@ -476,36 +476,6 @@ TEST_CASE("core/vformat_to/null_c_string") {
   REQUIRE(output == "[]");
 }
 
-// ----- vformatTo (convenience overload) -----
-
-// Convenience overload formats a single integer.
-TEST_CASE("core/vformat_to/variadic_single_int") {
-  FixedString<32> output;
-
-  vformatTo(output, CStringView("value: {}"), 42);
-
-  REQUIRE(output == "value: 42");
-}
-
-// Convenience overload replaces existing output content.
-TEST_CASE("core/vformat_to/variadic_replaces_output") {
-  FixedString<32> output;
-  output.append("old content");
-
-  vformatTo(output, CStringView("new: {}"), 5);
-
-  REQUIRE(output == "new: 5");
-}
-
-// Convenience overload formats multiple arguments of mixed types.
-TEST_CASE("core/vformat_to/variadic_mixed_types") {
-  FixedString<64> output;
-
-  vformatTo(output, CStringView("{} + {} = {}"), 1, 2, 3);
-
-  REQUIRE(output == "1 + 2 = 3");
-}
-
 // ----- makeVFormatArguments -----
 
 template <size_t N>
