@@ -16,7 +16,7 @@ var dir_d44c64559bbebec7f509842c48db8b23 =
     [ "filesystem.hpp", "d1/d85/filesystem_8hpp.html", null ],
     [ "game.hpp", "d8/d39/game_8hpp.html", null ],
     [ "geometry.hpp", "db/dbb/geometry_8hpp.html", null ],
-    [ "math.hpp", "d4/d78/math_8hpp.html", "d4/d78/math_8hpp" ],
+    [ "math.hpp", "d4/d78/math_8hpp.html", null ],
     [ "network.hpp", "d6/d67/network_8hpp.html", null ],
     [ "render.hpp", "d6/d4b/render_8hpp.html", null ],
     [ "toygine2.hpp", "d8/d8c/toygine2_8hpp.html", null ]

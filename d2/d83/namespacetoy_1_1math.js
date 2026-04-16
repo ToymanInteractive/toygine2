@@ -26,7 +26,6 @@ var namespacetoy_1_1math =
     [ "fixed_point", "dd/de0/concepttoy_1_1math_1_1fixed__point.html", null ],
     [ "PointScalar", "d1/dca/concepttoy_1_1math_1_1_point_scalar.html", null ],
     [ "Vector2Component", "d8/d34/concepttoy_1_1math_1_1_vector2_component.html", null ],
-    [ "real_t", "d2/d83/namespacetoy_1_1math.html#a928771ce74a56750dd2dcbc28e5892e0", null ],
     [ "abs", "d5/d12/group___math_functions.html#ga00391a62294376916bf5df2d9b9ae00c", null ],
     [ "cross", "d2/d83/namespacetoy_1_1math.html#a82a4d27006c739fa91ddb30dc271e927", null ],
     [ "deg2rad", "d5/d12/group___math_functions.html#gaa069db95661e6893b90c9538fe32fb2b", null ],
