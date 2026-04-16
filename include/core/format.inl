@@ -161,6 +161,66 @@ constexpr void formatTo(BackendType & output, type_identity_t<FormatString<Args.
   output = stream.str();
 }
 
+template <OStringStreamBackend BackendType, size_t MaximumArgs>
+void vformatTo(BackendType & output, CStringView pattern, const array<FormatArgument, MaximumArgs> & args) noexcept {
+  assert_message(validateFormatPattern(pattern, MaximumArgs) == FormatPatternValidationError::none,
+                 "vformatTo: pattern is invalid or inconsistent with the argument count");
+
+  FormatContext out{static_cast<void *>(&output), [](void * ctx, const char * data, size_t count) noexcept {
+                      static_cast<BackendType *>(ctx)->append(data, count);
+                    }};
+
+  output = BackendType{};
+
+  const char * const data      = pattern.c_str();
+  const auto         length    = pattern.size();
+  size_t             position  = 0;
+  size_t             autoIndex = 0;
+  size_t             litStart  = 0;
+
+  while (position < length) {
+    if (const char c = data[position]; c == '{') {
+      if (position + 1 < length && data[position + 1] == '{') {
+        out.write(data + litStart, position - litStart);
+        out.put('{');
+        position += 2;
+        litStart  = position;
+        continue;
+      }
+
+      out.write(data + litStart, position - litStart);
+
+      const size_t start = position + 1;
+      auto         end   = start;
+      while (end < length && data[end] != '}')
+        ++end;
+
+      if (const auto argIndex = parseArgIndex(pattern, start, end, autoIndex); argIndex < MaximumArgs) {
+        const auto & argument = args[argIndex];
+        assert_message(argument.formatFn != nullptr, "vformatTo: format callback must not be null");
+        argument.formatFn(argument.value, out);
+      }
+
+      position = end + 1;
+      litStart = position;
+
+      continue;
+    } else if (c == '}' && position + 1 < length && data[position + 1] == '}') {
+      out.write(data + litStart, position - litStart);
+      out.put('}');
+      position += 2;
+      litStart  = position;
+
+      continue;
+    }
+
+    ++position;
+  }
+
+  if (position > litStart)
+    out.write(data + litStart, position - litStart);
+}
+
 template <typename... Args>
 [[nodiscard]] array<FormatArgument, sizeof...(Args)> makeVFormatArguments(const Args &... args) noexcept {
   return {[]<typename T>(const T & value) noexcept {

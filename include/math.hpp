@@ -77,9 +77,6 @@ using std::floating_point;
 // https://en.cppreference.com/w/cpp/numeric/math/isnan
 using std::isnan;
 
-/// Floating‑point scalar type.
-using real_t = float;
-
 } // namespace toy::math
 
 //--------------------------------------------------------------------------------------------------------------------
