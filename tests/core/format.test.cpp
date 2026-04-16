@@ -201,6 +201,173 @@ TEST_CASE("core/format_to/positional") {
   REQUIRE(output == "{12/2024}");
 }
 
+// ----- vformatTo (variadic overload) -----
+
+// Literal-only pattern is copied verbatim.
+TEST_CASE("core/vformat_to/no_placeholders") {
+  FixedString<32> output;
+
+  vformatTo(output, CStringView("Hello World"));
+
+  REQUIRE(output == "Hello World");
+}
+
+// Empty pattern produces an empty output.
+TEST_CASE("core/vformat_to/empty_pattern") {
+  FixedString<16> output;
+
+  vformatTo(output, CStringView(""));
+
+  REQUIRE(output.empty());
+}
+
+// Single auto placeholder substitutes an integer.
+TEST_CASE("core/vformat_to/auto_single_int") {
+  FixedString<32> output;
+
+  vformatTo(output, CStringView("value: {}"), 42);
+
+  REQUIRE(output == "value: 42");
+}
+
+// Negative integer includes the minus sign.
+TEST_CASE("core/vformat_to/auto_negative_int") {
+  FixedString<32> output;
+
+  vformatTo(output, CStringView("{}"), -7);
+
+  REQUIRE(output == "-7");
+}
+
+// Unsigned integer formats correctly.
+TEST_CASE("core/vformat_to/auto_unsigned_int") {
+  FixedString<16> output;
+
+  vformatTo(output, CStringView("{}"), 255U);
+
+  REQUIRE(output == "255");
+}
+
+// Bool true formats as "true" and false as "false".
+TEST_CASE("core/vformat_to/auto_bool") {
+  FixedString<16> outTrue;
+  FixedString<16> outFalse;
+
+  vformatTo(outTrue, CStringView("{}"), true);
+  vformatTo(outFalse, CStringView("{}"), false);
+
+  REQUIRE(outTrue == "true");
+  REQUIRE(outFalse == "false");
+}
+
+// Char argument inserts the character directly.
+TEST_CASE("core/vformat_to/auto_char") {
+  FixedString<8> output;
+
+  vformatTo(output, CStringView("{}"), 'X');
+
+  REQUIRE(output == "X");
+}
+
+// C string argument formats correctly.
+TEST_CASE("core/vformat_to/auto_c_string") {
+  FixedString<32> output;
+  const char *    msg = "hello";
+
+  vformatTo(output, CStringView("say: {}"), msg);
+
+  REQUIRE(output == "say: hello");
+}
+
+// FixedString argument formats correctly.
+TEST_CASE("core/vformat_to/auto_fixed_string") {
+  FixedString<32> output;
+  FixedString<16> name;
+  name.append("engine");
+
+  vformatTo(output, CStringView("toy {}"), name);
+
+  REQUIRE(output == "toy engine");
+}
+
+// CStringView argument formats correctly.
+TEST_CASE("core/vformat_to/auto_c_string_view") {
+  FixedString<32> output;
+  CStringView     sv("world");
+
+  vformatTo(output, CStringView("hello {}"), sv);
+
+  REQUIRE(output == "hello world");
+}
+
+// Multiple auto placeholders are substituted left to right.
+TEST_CASE("core/vformat_to/auto_multiple") {
+  FixedString<64> output;
+
+  vformatTo(output, CStringView("{} and {}"), 1, 2);
+
+  REQUIRE(output == "1 and 2");
+}
+
+// Multiple arguments of different types format correctly.
+TEST_CASE("core/vformat_to/auto_mixed_types") {
+  FixedString<64> output;
+
+  vformatTo(output, CStringView("{} {} {}"), 10, "mid", false);
+
+  REQUIRE(output == "10 mid false");
+}
+
+// Positional placeholders in reverse order swap arguments.
+TEST_CASE("core/vformat_to/positional_reorder") {
+  FixedString<32> output;
+
+  vformatTo(output, CStringView("{1} {0}"), 10, 20);
+
+  REQUIRE(output == "20 10");
+}
+
+// Escaped braces surrounding a placeholder emit literal braces around the value.
+TEST_CASE("core/vformat_to/escaped_around_placeholder") {
+  FixedString<16> output;
+
+  vformatTo(output, CStringView("{{{}}}"), 42);
+
+  REQUIRE(output == "{42}");
+}
+
+// Previous content of output is replaced.
+TEST_CASE("core/vformat_to/replaces_output") {
+  FixedString<64> output;
+  output.append("stale-content");
+
+  vformatTo(output, CStringView("{} + {} = {}"), 1, 2, 3);
+
+  REQUIRE(output == "1 + 2 = 3");
+}
+
+// Pattern built at runtime formats correctly.
+TEST_CASE("core/vformat_to/runtime_pattern") {
+  FixedString<32> pattern;
+  pattern.append("x=");
+  pattern.append("{}");
+
+  FixedString<32> output;
+
+  vformatTo(output, CStringView(pattern.c_str()), 99);
+
+  REQUIRE(output == "x=99");
+}
+
+// Literal text after the last placeholder is preserved.
+TEST_CASE("core/vformat_to/trailing_literal") {
+  FixedString<32> output;
+
+  vformatTo(output, CStringView("{} items remaining"), 5);
+
+  REQUIRE(output == "5 items remaining");
+}
+
 // ----- vformatTo (array overload) -----
 
 // Literal-only pattern is copied verbatim.

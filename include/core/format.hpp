@@ -100,6 +100,37 @@ constexpr void formatTo(BackendType & output, type_identity_t<FormatString<Args.
 /*!
   \ingroup String
 
+  \brief Formats arguments into \a output using a runtime pattern, type-erasing them automatically.
+
+  Iterates \a pattern, copies literal text to \a output verbatim, and substitutes each \c {} or \c {N} placeholder with
+  the corresponding argument. Each argument is type-erased via toy::makeVFormatArguments() and forwarded to the array
+  overload of toy::vformatTo(). The pattern is validated at runtime; an invalid pattern triggers a debug assertion.
+
+  \tparam BackendType Type of the output string. Must satisfy the \ref toy::OStringStreamBackend concept.
+  \tparam Args        Types of format arguments; deduced from \a args.
+
+  \param output  Destination string; its previous content is replaced.
+  \param pattern Runtime format pattern; may be a variable or computed string.
+  \param args    Values to substitute at each placeholder.
+
+  \pre \a pattern must be a valid format pattern consistent with \c sizeof...(Args) (same rules as
+       \ref toy::FormatString).
+  \pre Each argument in \a args must remain valid for the duration of the call.
+
+  \post \a output holds the formatted result, subject to \a BackendType capacity semantics.
+
+  \note \c {{ and \c }} in the pattern emit a literal \c { and \c } respectively.
+  \note Pattern validity is checked at runtime via \c assert_message with validateFormatPattern(); use toy::formatTo()
+        for compile-time checks.
+
+  \sa toy::vformatTo(BackendType &, CStringView, const array<FormatArgument, MaxArgs> &), toy::makeVFormatArguments()
+*/
+template <OStringStreamBackend BackendType, typename... Args>
+void vformatTo(BackendType & output, CStringView pattern, const Args &... args) noexcept;
+
+/*!
+  \ingroup String
+
   \brief Formats type-erased arguments into \a output using a runtime pattern.
 
   Iterates \a pattern, copies literal text to \a output verbatim, and substitutes each \c {} or \c {N} placeholder by
