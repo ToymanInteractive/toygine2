@@ -38,6 +38,10 @@ AlignConsecutiveTableGenCondOperatorColons:
   Enabled: true
   AcrossEmptyLines: true
   AcrossComments: true
+AlignConsecutiveTableGenDefinitionColons:
+  Enabled: true
+  AcrossEmptyLines: false
+  AcrossComments: true
 AlignEscapedNewlines: Right
 AlignOperands: Align
 AlignTrailingComments: false
