@@ -424,8 +424,7 @@ TEST_CASE("core/vformat_to/escaped_around_placeholder") {
 
 // Previous content of output is replaced.
 TEST_CASE("core/vformat_to/replaces_output") {
-  FixedString<64> output;
-  output.append("stale-content");
+  FixedString<64> output("stale-content");
 
   const int a    = 1;
   const int b    = 2;
