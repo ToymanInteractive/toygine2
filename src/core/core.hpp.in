@@ -72,8 +72,6 @@ using std::uint32_t;
 using std::uint64_t;
 using std::uint8_t;
 
-using std::byte;
-
 // (lvl 1)               Containers library https://en.cppreference.com/w/cpp/container.html
 
 // https://en.cppreference.com/w/cpp/container/array.html
@@ -98,6 +96,9 @@ using std::bit_cast;
 
 // https://en.cppreference.com/w/cpp/types/nullptr_t.html
 using std::nullptr_t;
+
+// https://en.cppreference.com/cpp/types/byte
+using std::byte;
 
 // https://en.cppreference.com/w/cpp/types/numeric_limits.html
 using std::numeric_limits;

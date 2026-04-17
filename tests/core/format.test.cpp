@@ -201,6 +201,47 @@ TEST_CASE("core/format_to/positional") {
   REQUIRE(output == "{12/2024}");
 }
 
+// ----- vformat (variadic overload) -----
+
+// Single auto placeholder substitutes an integer and returns by value.
+TEST_CASE("core/vformat/auto_single_int") {
+  const auto result = vformat<32>(CStringView("value: {}"), 42);
+
+  REQUIRE(result == "value: 42");
+}
+
+// Auto placeholder with a float produces a string starting with the integer part.
+TEST_CASE("core/vformat/auto_float") {
+  const auto result = vformat<32>(CStringView("pi={}"), 3.0f);
+
+  REQUIRE(result.size() >= std::char_traits<char>::length("pi=3"));
+  REQUIRE(result[0] == 'p');
+  REQUIRE(result[1] == 'i');
+  REQUIRE(result[2] == '=');
+  REQUIRE(result[3] == '3');
+}
+
+// Positional placeholders select arguments by index.
+TEST_CASE("core/vformat/positional") {
+  const auto result = vformat<32>(CStringView("{1} before {0}"), 10, 20);
+
+  REQUIRE(result == "20 before 10");
+}
+
+// Escaped '{{' and '}}' emit literal braces.
+TEST_CASE("core/vformat/escaped_braces") {
+  const auto result = vformat<32>(CStringView("{{{}}}"), 42);
+
+  REQUIRE(result == "{42}");
+}
+
+// std::nullptr_t is formatted as "nullptr".
+TEST_CASE("core/vformat/auto_nullptr") {
+  const auto result = vformat<16>(CStringView("{}"), nullptr);
+
+  REQUIRE(result == "nullptr");
+}
+
 // ----- vformat (array overload) -----
 
 // Pattern from a runtime variable — the key differentiator from toy::format().

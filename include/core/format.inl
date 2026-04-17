@@ -161,6 +161,11 @@ constexpr void formatTo(BackendType & output, type_identity_t<FormatString<Args.
   output = stream.str();
 }
 
+template <size_t BufferSize, typename... Args>
+FixedString<BufferSize> vformat(CStringView pattern, const Args &... args) noexcept {
+  return vformat<BufferSize>(pattern, makeVFormatArguments(args...));
+}
+
 template <size_t BufferSize, size_t MaximumArgs>
 FixedString<BufferSize> vformat(CStringView pattern, const array<FormatArgument, MaximumArgs> & args) noexcept {
   FixedString<BufferSize> result;

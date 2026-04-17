@@ -36,10 +36,10 @@ set_property(GLOBAL PROPERTY CTEST_TARGETS_ADDED 1)
 include(FetchContent)
 include(CTest)
 
-FetchContent_Declare(doctest GIT_REPOSITORY https://github.com/doctest/doctest GIT_TAG v2.5.1 GIT_SHALLOW TRUE)
+FetchContent_Declare(doctest GIT_REPOSITORY https://github.com/doctest/doctest GIT_TAG v2.5.2 GIT_SHALLOW TRUE)
 FetchContent_MakeAvailable(doctest)
 
-# doctest 2.5.1 splits implementation into .cpp files built as a separate target.
+# doctest 2.5.2 splits implementation into .cpp files built as a separate target.
 # Patch it here — after FetchContent_MakeAvailable — so the options reach the target.
 if (TARGET doctest_with_main)
   target_compile_options(doctest_with_main PRIVATE
