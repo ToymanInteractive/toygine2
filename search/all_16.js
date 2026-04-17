@@ -15,7 +15,7 @@ var searchData=
   ['version_12',['Version',['../d7/d33/structtoy_1_1application_1_1_version.html',1,'toy::application']]],
   ['version_2ehpp_13',['version.hpp',['../d7/dad/version_8hpp.html',1,'']]],
   ['version_2einl_14',['version.inl',['../d2/dbe/version_8inl.html',1,'']]],
-  ['vformatto_15',['vformatTo',['../d4/d6e/group___string.html#ga3768d6f5fef332b10afbedc8d403a207',1,'toy']]],
+  ['vformatto_15',['vformatTo',['../d4/d6e/group___string.html#ga024f540d2d32f3ac5fe1bb21b3f57a1a',1,'toy::vformatTo(BackendType &amp;output, CStringView pattern, const Args &amp;... args) noexcept'],['../d4/d6e/group___string.html#ga3768d6f5fef332b10afbedc8d403a207',1,'toy::vformatTo(BackendType &amp;output, CStringView pattern, const array&lt; FormatArgument, MaximumArgs &gt; &amp;args) noexcept']]],
   ['view_16',['view',['../d7/d15/classtoy_1_1_o_string_stream.html#a97643897fa4110ab84c86f57788fd8de',1,'toy::OStringStream']]],
   ['voice_17',['Voice',['../dd/d77/namespacetoy_1_1audio.html#afca9143e3b169f77784310a3b384261cad7a3fdf1351b72249a47454751549deb',1,'toy::audio']]],
   ['volume_5ftype_2ehpp_18',['volume_type.hpp',['../db/d37/volume__type_8hpp.html',1,'']]],

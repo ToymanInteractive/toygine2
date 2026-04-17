@@ -140,7 +140,7 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Type-erased write sink. </p>
-<p>Stores a <code>void*</code> context and a <code>noexcept</code> function-pointer callback so that the formatting engine can append bytes to any backing storage without knowing its concrete type. Used by toy::vformat() and <a class="el" href="../../d4/d6e/group___string.html#ga3768d6f5fef332b10afbedc8d403a207" title="Formats type-erased arguments into output using a runtime pattern.">toy::vformatTo()</a> as the output target; both <a class="el" href="#a390ea1be3bdb990778545d256f145f2d" title="Appends count bytes from data to the output.">write()</a> and <a class="el" href="#ad7ec8b506aca2a7f0d9ffc975bef10cc" title="Appends a single character to the output.">put()</a> delegate to the stored callback.</p>
+<p>Stores a <code>void*</code> context and a <code>noexcept</code> function-pointer callback so that the formatting engine can append bytes to any backing storage without knowing its concrete type. Used by toy::vformat() and <a class="el" href="../../d4/d6e/group___string.html#ga024f540d2d32f3ac5fe1bb21b3f57a1a" title="Formats arguments into output using a runtime pattern, type-erasing them automatically.">toy::vformatTo()</a> as the output target; both <a class="el" href="#a390ea1be3bdb990778545d256f145f2d" title="Appends count bytes from data to the output.">write()</a> and <a class="el" href="#ad7ec8b506aca2a7f0d9ffc975bef10cc" title="Appends a single character to the output.">put()</a> delegate to the stored callback.</p>
 <h1 class="doxsection"><a class="anchor" id="features"></a>
 Key Features</h1>
 <ul>
