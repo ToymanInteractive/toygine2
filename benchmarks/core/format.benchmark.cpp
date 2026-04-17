@@ -252,29 +252,29 @@ void formatCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("vformat single c-string", [] {
-    const char * msg  = "hello";
-    auto         args = makeVFormatArguments(msg);
+    const char * msg    = "hello";
+    auto         args   = makeVFormatArguments(msg);
     auto         result = vformat<64>(CStringView("say: {}"), args);
 
     doNotOptimize(result);
   });
 
   bench.run("vformat 3 args mixed", [] {
-    const int    a    = 42;
-    const char * b    = "world";
-    const bool   c    = true;
-    auto         args = makeVFormatArguments(a, b, c);
+    const int    a      = 42;
+    const char * b      = "world";
+    const bool   c      = true;
+    auto         args   = makeVFormatArguments(a, b, c);
     auto         result = vformat<64>(CStringView("{} {} {}"), args);
 
     doNotOptimize(result);
   });
 
   bench.run("vformat 5 args int", [] {
-    const int a    = 1;
-    const int b    = 2;
-    const int c    = 3;
-    const int d    = 4;
-    const int e    = 5;
+    const int a      = 1;
+    const int b      = 2;
+    const int c      = 3;
+    const int d      = 4;
+    const int e      = 5;
     auto      args   = makeVFormatArguments(a, b, c, d, e);
     auto      result = vformat<128>(CStringView("{} {} {} {} {}"), args);
 
@@ -282,8 +282,8 @@ void formatCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("vformat positional reorder", [] {
-    const int a    = 10;
-    const int b    = 20;
+    const int a      = 10;
+    const int b      = 20;
     auto      args   = makeVFormatArguments(a, b);
     auto      result = vformat<64>(CStringView("{1} before {0}"), args);
 
