@@ -187,6 +187,7 @@ var namespacetoy =
     [ "utf8toWChar", "d8/d90/group___text_functions.html#gaa0dda7b7f9781bc3cd35484ce3e5282e", null ],
     [ "utoa", "d4/da9/namespacetoy.html#a14ccea4a485c2aa69412836a22a6cdda", null ],
     [ "validateFormatPattern", "d4/d6e/group___string.html#ga5b1768ae7cdfb38447089aca42336c1e", null ],
+    [ "vformat", "d4/d6e/group___string.html#gac84e6047764bd1d720bbda3d0c6291b8", null ],
     [ "vformat", "d4/d6e/group___string.html#ga4bc5d0eb62eb93fa035d44d7786a9eb7", null ],
     [ "vformatTo", "d4/d6e/group___string.html#ga024f540d2d32f3ac5fe1bb21b3f57a1a", null ],
     [ "vformatTo", "d4/d6e/group___string.html#ga3768d6f5fef332b10afbedc8d403a207", null ],
