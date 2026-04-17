@@ -19,7 +19,7 @@
 //
 /*!
   \file   format.inl
-  \brief  Inline implementations for toy::format() and toy::formatTo().
+  \brief  Inline implementations for toy::format(), toy::formatTo(), toy::vformat(), and toy::vformatTo().
 
   \note Included by core.hpp only; do not include this file directly.
 */

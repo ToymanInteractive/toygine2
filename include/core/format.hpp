@@ -113,14 +113,14 @@ constexpr void formatTo(BackendType & output, type_identity_t<FormatString<Args.
 
   \return A \ref toy::FixedString<BufferSize> containing the formatted result.
 
-  \pre \a pattern must be a valid format pattern consistent with \a MaxArgs.
+  \pre \a pattern must be a valid format pattern consistent with \a MaximumArgs.
   \pre Each \ref toy::FormatArgument in \a args must remain valid for the duration of the call.
 
   \note When the formatted result exceeds \a BufferSize characters the output is silently truncated per
         \ref toy::FixedString capacity semantics.
   \note Pattern validity is checked at runtime; use toy::format() for compile-time checks.
 
-  \sa toy::vformatTo(), toy::vformat(CStringView, const Args &...)
+  \sa toy::vformatTo(), toy::makeVFormatArguments()
 */
 template <size_t BufferSize, size_t MaximumArgs>
 [[nodiscard]] FixedString<BufferSize> vformat(CStringView                                pattern,

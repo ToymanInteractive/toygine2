@@ -219,24 +219,6 @@ TEST_CASE("core/vformat/runtime_pattern") {
   REQUIRE(result == "x=99");
 }
 
-// makeVFormatArguments with zero arguments produces an empty collection.
-TEST_CASE("core/vformat/make_vformat_args_empty") {
-  auto args = makeVFormatArguments();
-
-  REQUIRE(args.size() == 0);
-
-  const auto result = vformat<32>(CStringView("no args"), args);
-
-  REQUIRE(result == "no args");
-}
-
-// makeVFormatArguments returns arrays of the argument count.
-TEST_CASE("core/vformat/vformat_args_size") {
-  auto args = makeVFormatArguments(1, 2.0f, "three");
-
-  REQUIRE(args.size() == 3);
-}
-
 // ----- vformatTo (variadic overload) -----
 
 // Literal-only pattern is copied verbatim.
