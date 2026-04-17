@@ -100,6 +100,35 @@ constexpr void formatTo(BackendType & output, type_identity_t<FormatString<Args.
 /*!
   \ingroup String
 
+  \brief Formats type-erased arguments into a new \ref toy::FixedString using a runtime pattern.
+
+  Equivalent to creating a \ref toy::FixedString<BufferSize>, calling toy::vformatTo() into it, and returning the
+  result.
+
+  \tparam BufferSize  Capacity of the returned \ref toy::FixedString in bytes.
+  \tparam MaximumArgs Number of arguments; deduced from \a args.
+
+  \param pattern Runtime format pattern; may be a variable or computed string.
+  \param args    Type-erased arguments produced by toy::makeVFormatArguments().
+
+  \return A \ref toy::FixedString<BufferSize> containing the formatted result.
+
+  \pre \a pattern must be a valid format pattern consistent with \a MaximumArgs.
+  \pre Each \ref toy::FormatArgument in \a args must remain valid for the duration of the call.
+
+  \note When the formatted result exceeds \a BufferSize characters the output is silently truncated per
+        \ref toy::FixedString capacity semantics.
+  \note Pattern validity is checked at runtime; use toy::format() for compile-time checks.
+
+  \sa toy::vformatTo(), toy::makeVFormatArguments()
+*/
+template <size_t BufferSize, size_t MaximumArgs>
+[[nodiscard]] FixedString<BufferSize> vformat(CStringView                                pattern,
+                                              const array<FormatArgument, MaximumArgs> & args) noexcept;
+
+/*!
+  \ingroup String
+
   \brief Formats arguments into \a output using a runtime pattern, type-erasing them automatically.
 
   Iterates \a pattern, copies literal text to \a output verbatim, and substitutes each \c {} or \c {N} placeholder with

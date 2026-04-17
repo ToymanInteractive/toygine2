@@ -19,7 +19,7 @@
 //
 /*!
   \file   format.inl
-  \brief  Inline implementations for toy::format() and toy::formatTo().
+  \brief  Inline implementations for toy::format(), toy::formatTo(), toy::vformat(), and toy::vformatTo().
 
   \note Included by core.hpp only; do not include this file directly.
 */
@@ -159,6 +159,15 @@ constexpr void formatTo(BackendType & output, type_identity_t<FormatString<Args.
   }
 
   output = stream.str();
+}
+
+template <size_t BufferSize, size_t MaximumArgs>
+FixedString<BufferSize> vformat(CStringView pattern, const array<FormatArgument, MaximumArgs> & args) noexcept {
+  FixedString<BufferSize> result;
+
+  vformatTo(result, pattern, args);
+
+  return result;
 }
 
 template <OStringStreamBackend BackendType, typename... Args>

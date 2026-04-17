@@ -19,7 +19,7 @@
 //
 /*!
   \file   format.benchmark.cpp
-  \brief  Nanobench benchmarks for toy::makeVFormatArguments() and toy::vformatTo().
+  \brief  Nanobench benchmarks for toy::makeVFormatArguments(), toy::vformatTo(), and toy::vformat().
 */
 
 #include "../benchmark_factory.hpp"
@@ -239,6 +239,55 @@ void formatCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
     vformatTo(output, CStringView("{1} before {0}"), 10, 20);
 
     doNotOptimize(output);
+  });
+
+  // ----- vformat (array overload) -----
+
+  bench.run("vformat single int", [] {
+    const int x      = 42;
+    auto      args   = makeVFormatArguments(x);
+    auto      result = vformat<64>(CStringView("value: {}"), args);
+
+    doNotOptimize(result);
+  });
+
+  bench.run("vformat single c-string", [] {
+    const char * msg    = "hello";
+    auto         args   = makeVFormatArguments(msg);
+    auto         result = vformat<64>(CStringView("say: {}"), args);
+
+    doNotOptimize(result);
+  });
+
+  bench.run("vformat 3 args mixed", [] {
+    const int    a      = 42;
+    const char * b      = "world";
+    const bool   c      = true;
+    auto         args   = makeVFormatArguments(a, b, c);
+    auto         result = vformat<64>(CStringView("{} {} {}"), args);
+
+    doNotOptimize(result);
+  });
+
+  bench.run("vformat 5 args int", [] {
+    const int a      = 1;
+    const int b      = 2;
+    const int c      = 3;
+    const int d      = 4;
+    const int e      = 5;
+    auto      args   = makeVFormatArguments(a, b, c, d, e);
+    auto      result = vformat<128>(CStringView("{} {} {} {} {}"), args);
+
+    doNotOptimize(result);
+  });
+
+  bench.run("vformat positional reorder", [] {
+    const int a      = 10;
+    const int b      = 20;
+    auto      args   = makeVFormatArguments(a, b);
+    auto      result = vformat<64>(CStringView("{1} before {0}"), args);
+
+    doNotOptimize(result);
   });
 }
 

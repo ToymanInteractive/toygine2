@@ -201,6 +201,24 @@ TEST_CASE("core/format_to/positional") {
   REQUIRE(output == "{12/2024}");
 }
 
+// ----- vformat (array overload) -----
+
+// Pattern from a runtime variable — the key differentiator from toy::format().
+TEST_CASE("core/vformat/runtime_pattern") {
+  // Build the pattern at runtime so it cannot be a compile-time FormatString.
+  FixedString<32> pattern;
+  pattern.append("x=");
+  pattern.append("{}");
+  const CStringView runtimePattern(pattern.c_str());
+
+  // Keep the original value alive for the duration of the FormatArgument array.
+  const int x      = 99;
+  auto      args   = makeVFormatArguments(x);
+  auto      result = vformat<32>(runtimePattern, args);
+
+  REQUIRE(result == "x=99");
+}
+
 // ----- vformatTo (variadic overload) -----
 
 // Literal-only pattern is copied verbatim.
