@@ -617,7 +617,6 @@ TEST_CASE("core/vformat_to/replaces_output") {
   REQUIRE(output == "1 + 2 = 3");
 }
 
-
 // Literal text after the last placeholder is preserved.
 TEST_CASE("core/vformat_to/trailing_literal") {
   FixedString<32> output;
