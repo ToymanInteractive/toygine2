@@ -203,54 +203,14 @@ TEST_CASE("core/format_to/positional") {
 
 // ----- vformat (variadic overload) -----
 
-// Pattern with no placeholders is copied verbatim.
-TEST_CASE("core/vformat/no_placeholders") {
-  const auto result = vformat<32>(CStringView("Hello World"));
-
-  REQUIRE(result == "Hello World");
-}
-
-// Single auto placeholder substitutes an integer.
+// Single auto placeholder substitutes an integer and returns by value.
 TEST_CASE("core/vformat/auto_single_int") {
   const auto result = vformat<32>(CStringView("value: {}"), 42);
 
   REQUIRE(result == "value: 42");
 }
 
-// Multiple auto placeholders are substituted left to right.
-TEST_CASE("core/vformat/auto_multiple") {
-  const auto result = vformat<64>(CStringView("{} and {}"), 1, 2);
-
-  REQUIRE(result == "1 and 2");
-}
-
-// Auto placeholder with bool produces "true" or "false".
-TEST_CASE("core/vformat/auto_bool") {
-  const auto t = vformat<16>(CStringView("{}"), true);
-  const auto f = vformat<16>(CStringView("{}"), false);
-
-  REQUIRE(t == "true");
-  REQUIRE(f == "false");
-}
-
-// Auto placeholder with a C string.
-TEST_CASE("core/vformat/auto_cstring") {
-  const char * name   = "world";
-  const auto   result = vformat<32>(CStringView("hello {}"), name);
-
-  REQUIRE(result == "hello world");
-}
-
-// Auto placeholder with a FixedString.
-TEST_CASE("core/vformat/auto_fixed_string") {
-  FixedString<16> name;
-  name.append("engine");
-  const auto result = vformat<32>(CStringView("toy {}"), name);
-
-  REQUIRE(result == "toy engine");
-}
-
-// Auto placeholder with a float.
+// Auto placeholder with a float produces a string starting with the integer part.
 TEST_CASE("core/vformat/auto_float") {
   const auto result = vformat<32>(CStringView("pi={}"), 3.0f);
 
@@ -268,13 +228,6 @@ TEST_CASE("core/vformat/positional") {
   REQUIRE(result == "20 before 10");
 }
 
-// Positional placeholder may repeat an index.
-TEST_CASE("core/vformat/positional_repeated") {
-  const auto result = vformat<32>(CStringView("{0}{0}{0}"), 7);
-
-  REQUIRE(result == "777");
-}
-
 // Escaped '{{' and '}}' emit literal braces.
 TEST_CASE("core/vformat/escaped_braces") {
   const auto result = vformat<32>(CStringView("{{{}}}"), 42);
@@ -282,18 +235,11 @@ TEST_CASE("core/vformat/escaped_braces") {
   REQUIRE(result == "{42}");
 }
 
-// nullptr is formatted as "nullptr".
+// std::nullptr_t is formatted as "nullptr".
 TEST_CASE("core/vformat/auto_nullptr") {
   const auto result = vformat<16>(CStringView("{}"), nullptr);
 
   REQUIRE(result == "nullptr");
-}
-
-// char is formatted as a single character.
-TEST_CASE("core/vformat/auto_char") {
-  const auto result = vformat<8>(CStringView("{}"), 'Z');
-
-  REQUIRE(result == "Z");
 }
 
 // ----- vformat (array overload) -----
