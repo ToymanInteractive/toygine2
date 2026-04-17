@@ -211,7 +211,7 @@ TEST_CASE("core/vformat/runtime_pattern") {
   pattern.append("{}");
   const CStringView runtimePattern(pattern.c_str());
 
-  // Keep the original value alive for the duration of the array of FormatArgument object.
+  // Keep the original value alive for the duration of the FormatArgument array.
   const int x      = 99;
   auto      args   = makeVFormatArguments(x);
   auto      result = vformat<32>(runtimePattern, args);
