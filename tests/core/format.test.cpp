@@ -254,10 +254,11 @@ TEST_CASE("core/vformat/auto_fixed_string") {
 TEST_CASE("core/vformat/auto_float") {
   const auto result = vformat<32>(CStringView("pi={}"), 3.0f);
 
-  REQUIRE(result.size() > 2);
+  REQUIRE(result.size() >= std::char_traits<char>::length("pi=3"));
   REQUIRE(result[0] == 'p');
   REQUIRE(result[1] == 'i');
   REQUIRE(result[2] == '=');
+  REQUIRE(result[3] == '3');
 }
 
 // Positional placeholders select arguments by index.
