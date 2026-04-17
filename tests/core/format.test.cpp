@@ -201,6 +201,42 @@ TEST_CASE("core/format_to/positional") {
   REQUIRE(output == "{12/2024}");
 }
 
+// ----- vformat (array overload) -----
+
+// Pattern from a runtime variable — the key differentiator from toy::format().
+TEST_CASE("core/vformat/runtime_pattern") {
+  // Build the pattern at runtime so it cannot be a compile-time FormatString.
+  FixedString<32> pattern;
+  pattern.append("x=");
+  pattern.append("{}");
+  const CStringView runtimePattern(pattern.c_str());
+
+  // Keep the original value alive for the duration of the array of FormatArgument object.
+  const int x      = 99;
+  auto      args   = makeVFormatArguments(x);
+  auto      result = vformat<32>(runtimePattern, args);
+
+  REQUIRE(result == "x=99");
+}
+
+// makeVFormatArguments with zero arguments produces an empty collection.
+TEST_CASE("core/vformat/make_vformat_args_empty") {
+  auto args = makeVFormatArguments();
+
+  REQUIRE(args.size() == 0);
+
+  const auto result = vformat<32>(CStringView("no args"), args);
+
+  REQUIRE(result == "no args");
+}
+
+// makeVFormatArguments returns arrays of the argument count.
+TEST_CASE("core/vformat/vformat_args_size") {
+  auto args = makeVFormatArguments(1, 2.0f, "three");
+
+  REQUIRE(args.size() == 3);
+}
+
 // ----- vformatTo (variadic overload) -----
 
 // Literal-only pattern is copied verbatim.
