@@ -76,8 +76,6 @@ using std::byte;
 
 using std::nullptr_t;
 
-using std::char_traits;
-
 // (lvl 1)               Containers library https://en.cppreference.com/w/cpp/container.html
 
 // https://en.cppreference.com/w/cpp/container/array.html
@@ -107,6 +105,11 @@ using std::numeric_limits;
 
 // https://en.cppreference.com/w/cpp/types/type_identity.html
 using std::type_identity_t;
+
+// (lvl 1).                 Strings library https://en.cppreference.com/w/cpp/string.html
+
+// https://en.cppreference.com/w/cpp/string/char_traits.html
+using std::char_traits;
 
 #undef validate
 #undef validate_message

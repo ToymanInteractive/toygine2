@@ -161,6 +161,11 @@ constexpr void formatTo(BackendType & output, type_identity_t<FormatString<Args.
   output = stream.str();
 }
 
+template <OStringStreamBackend BackendType, typename... Args>
+void vformatTo(BackendType & output, CStringView pattern, const Args &... args) noexcept {
+  vformatTo(output, pattern, makeVFormatArguments(args...));
+}
+
 template <OStringStreamBackend BackendType, size_t MaximumArgs>
 void vformatTo(BackendType & output, CStringView pattern, const array<FormatArgument, MaximumArgs> & args) noexcept {
   assert_message(validateFormatPattern(pattern, MaximumArgs) == FormatPatternValidationError::none,

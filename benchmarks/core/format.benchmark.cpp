@@ -198,6 +198,48 @@ void formatCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
 
     doNotOptimize(output);
   });
+
+  // ----- vformatTo (variadic overload) -----
+
+  bench.run("vformatTo variadic single int", [] {
+    FixedString<64> output;
+
+    vformatTo(output, CStringView("value: {}"), 42);
+
+    doNotOptimize(output);
+  });
+
+  bench.run("vformatTo variadic single c-string", [] {
+    FixedString<64> output;
+
+    vformatTo(output, CStringView("say: {}"), "hello");
+
+    doNotOptimize(output);
+  });
+
+  bench.run("vformatTo variadic 3 args mixed", [] {
+    FixedString<64> output;
+
+    vformatTo(output, CStringView("{} {} {}"), 42, "world", true);
+
+    doNotOptimize(output);
+  });
+
+  bench.run("vformatTo variadic 5 args int", [] {
+    FixedString<128> output;
+
+    vformatTo(output, CStringView("{} {} {} {} {}"), 1, 2, 3, 4, 5);
+
+    doNotOptimize(output);
+  });
+
+  bench.run("vformatTo variadic positional reorder", [] {
+    FixedString<64> output;
+
+    vformatTo(output, CStringView("{1} before {0}"), 10, 20);
+
+    doNotOptimize(output);
+  });
 }
 
 } // namespace toy

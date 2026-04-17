@@ -201,6 +201,187 @@ TEST_CASE("core/format_to/positional") {
   REQUIRE(output == "{12/2024}");
 }
 
+// ----- vformatTo (variadic overload) -----
+
+// Literal-only pattern is copied verbatim.
+TEST_CASE("core/vformat_to/no_placeholders_variadic") {
+  FixedString<32> output;
+
+  vformatTo(output, CStringView("Hello World"));
+
+  REQUIRE(output == "Hello World");
+}
+
+// Empty pattern produces an empty output.
+TEST_CASE("core/vformat_to/empty_pattern_variadic") {
+  FixedString<16> output;
+
+  vformatTo(output, CStringView(""));
+
+  REQUIRE(output.empty());
+}
+
+// Single auto placeholder substitutes an integer.
+TEST_CASE("core/vformat_to/auto_single_int_variadic") {
+  FixedString<32> output;
+
+  vformatTo(output, CStringView("value: {}"), 42);
+
+  REQUIRE(output == "value: 42");
+}
+
+// Negative integer includes the minus sign.
+TEST_CASE("core/vformat_to/auto_negative_int_variadic") {
+  FixedString<32> output;
+
+  vformatTo(output, CStringView("{}"), -7);
+
+  REQUIRE(output == "-7");
+}
+
+// Unsigned integer formats correctly.
+TEST_CASE("core/vformat_to/auto_unsigned_int_variadic") {
+  FixedString<16> output;
+
+  vformatTo(output, CStringView("{}"), 255U);
+
+  REQUIRE(output == "255");
+}
+
+// Bool true formats as "true" and false as "false".
+TEST_CASE("core/vformat_to/auto_bool_variadic") {
+  FixedString<16> outTrue;
+  FixedString<16> outFalse;
+
+  vformatTo(outTrue, CStringView("{}"), true);
+  vformatTo(outFalse, CStringView("{}"), false);
+
+  REQUIRE(outTrue == "true");
+  REQUIRE(outFalse == "false");
+}
+
+// Char argument inserts the character directly.
+TEST_CASE("core/vformat_to/auto_char_variadic") {
+  FixedString<8> output;
+
+  vformatTo(output, CStringView("{}"), 'X');
+
+  REQUIRE(output == "X");
+}
+
+// C string argument formats correctly.
+TEST_CASE("core/vformat_to/auto_c_string_variadic") {
+  FixedString<32> output;
+  const char *    msg = "hello";
+
+  vformatTo(output, CStringView("say: {}"), msg);
+
+  REQUIRE(output == "say: hello");
+}
+
+// FixedString argument formats correctly.
+TEST_CASE("core/vformat_to/auto_fixed_string_variadic") {
+  FixedString<32> output;
+  FixedString<16> name;
+  name.append("engine");
+
+  vformatTo(output, CStringView("toy {}"), name);
+
+  REQUIRE(output == "toy engine");
+}
+
+// CStringView argument formats correctly.
+TEST_CASE("core/vformat_to/auto_c_string_view_variadic") {
+  FixedString<32> output;
+  CStringView     sv("world");
+
+  vformatTo(output, CStringView("hello {}"), sv);
+
+  REQUIRE(output == "hello world");
+}
+
+// Multiple auto placeholders are substituted left to right.
+TEST_CASE("core/vformat_to/auto_multiple_variadic") {
+  FixedString<64> output;
+
+  vformatTo(output, CStringView("{} and {}"), 1, 2);
+
+  REQUIRE(output == "1 and 2");
+}
+
+// Multiple arguments of different types format correctly.
+TEST_CASE("core/vformat_to/auto_mixed_types_variadic") {
+  FixedString<64> output;
+
+  vformatTo(output, CStringView("{} {} {}"), 10, "mid", false);
+
+  REQUIRE(output == "10 mid false");
+}
+
+// Positional placeholders in reverse order swap arguments.
+TEST_CASE("core/vformat_to/positional_reorder_variadic") {
+  FixedString<32> output;
+
+  vformatTo(output, CStringView("{1} {0}"), 10, 20);
+
+  REQUIRE(output == "20 10");
+}
+
+// Escaped braces surrounding a placeholder emit literal braces around the value.
+TEST_CASE("core/vformat_to/escaped_around_placeholder_variadic") {
+  FixedString<16> output;
+
+  vformatTo(output, CStringView("{{{}}}"), 42);
+
+  REQUIRE(output == "{42}");
+}
+
+// Previous content of output is replaced.
+TEST_CASE("core/vformat_to/replaces_output_variadic") {
+  FixedString<64> output;
+  output.append("stale-content");
+
+  vformatTo(output, CStringView("{} + {} = {}"), 1, 2, 3);
+
+  REQUIRE(output == "1 + 2 = 3");
+}
+
+// Pattern built at runtime formats correctly via both overloads.
+TEST_CASE("core/vformat_to/runtime_pattern") {
+  FixedString<32> pattern;
+  pattern.append("x=");
+  pattern.append("{}");
+
+  const CStringView runtimePattern(pattern.c_str());
+
+  SUBCASE("variadic") {
+    FixedString<32> output;
+
+    vformatTo(output, runtimePattern, 99);
+
+    REQUIRE(output == "x=99");
+  }
+
+  SUBCASE("array") {
+    FixedString<32> output;
+    const int       x    = 99;
+    auto            args = makeVFormatArguments(x);
+
+    vformatTo(output, runtimePattern, args);
+
+    REQUIRE(output == "x=99");
+  }
+}
+
+// Literal text after the last placeholder is preserved.
+TEST_CASE("core/vformat_to/trailing_literal_variadic") {
+  FixedString<32> output;
+
+  vformatTo(output, CStringView("{} items remaining"), 5);
+
+  REQUIRE(output == "5 items remaining");
+}
+
 // ----- vformatTo (array overload) -----
 
 // Literal-only pattern is copied verbatim.
@@ -434,21 +615,6 @@ TEST_CASE("core/vformat_to/replaces_output") {
   vformatTo(output, CStringView("{} + {} = {}"), args);
 
   REQUIRE(output == "1 + 2 = 3");
-}
-
-// Pattern built at runtime formats correctly.
-TEST_CASE("core/vformat_to/runtime_pattern") {
-  FixedString<32> pattern;
-  pattern.append("x=");
-  pattern.append("{}");
-
-  FixedString<32> output;
-  const int       x    = 99;
-  auto            args = makeVFormatArguments(x);
-
-  vformatTo(output, CStringView(pattern.c_str()), args);
-
-  REQUIRE(output == "x=99");
 }
 
 // Literal text after the last placeholder is preserved.
