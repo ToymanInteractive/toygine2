@@ -99,6 +99,27 @@ constexpr void formatTo(BackendType & output, type_identity_t<FormatString<Args.
 
 /*!
   \ingroup String
+  \brief Convenience overload that type-erases \a args and formats them into a new \ref toy::FixedString.
+
+  Equivalent to calling toy::vformat<BufferSize>(pattern, toy::makeVFormatArguments(args...)).
+
+  \tparam BufferSize Capacity of the returned \ref toy::FixedString in bytes.
+  \tparam Args       Types of format arguments; deduced from \a args.
+
+  \param pattern Runtime format pattern.
+  \param args    Values to substitute at each placeholder.
+
+  \return A \ref toy::FixedString<BufferSize> containing the formatted result.
+
+  \pre \a pattern must be a valid format pattern consistent with \c sizeof...(Args).
+
+  \sa toy::vformat(CStringView, const array<FormatArgument, MaxArgs> &), toy::makeVFormatArguments()
+*/
+template <size_t BufferSize, typename... Args>
+[[nodiscard]] FixedString<BufferSize> vformat(CStringView pattern, const Args &... args) noexcept;
+
+/*!
+  \ingroup String
 
   \brief Formats type-erased arguments into a new \ref toy::FixedString using a runtime pattern.
 
