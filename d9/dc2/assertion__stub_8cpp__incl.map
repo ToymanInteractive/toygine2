@@ -90,7 +90,7 @@
 <area shape="poly" id="edge54_Node000003_Node000046" title=" " alt="" coords="2556,105,3022,110,3777,121,4523,139,4799,150,4962,164,5005,174,5004,180,4961,169,4799,156,4523,144,3777,126,3022,115,2556,110"/>
 <area shape="rect" id="Node000047" href="$da/dc9/fixed__vector_8inl.html" title="Inline implementations for toy::FixedVector." alt="" coords="5147,181,5299,207"/>
 <area shape="poly" id="edge55_Node000003_Node000047" title=" " alt="" coords="2556,105,3051,109,3861,120,4663,138,4960,150,5135,164,5179,175,5178,180,5134,169,4960,155,4663,143,3861,125,3051,115,2556,110"/>
-<area shape="rect" id="Node000048" href="$d0/d67/format_8inl.html" title="Inline implementations for toy::format() and toy::formatTo()." alt="" coords="5323,181,5442,207"/>
+<area shape="rect" id="Node000048" href="$d0/d67/format_8inl.html" title="Inline implementations for toy::format(), toy::formatTo(), toy::vformat(), and toy::vformatTo()." alt="" coords="5323,181,5442,207"/>
 <area shape="poly" id="edge56_Node000003_Node000048" title=" " alt="" coords="2556,105,3081,107,3947,115,4399,122,4806,133,5124,146,5237,155,5311,164,5345,174,5344,179,5310,169,5236,160,5124,152,4806,138,4399,128,3947,120,3081,112,2556,110"/>
 <area shape="rect" id="Node000049" href="$d0/d27/format__context_8inl.html" title="Inline implementations for toy::FormatContext." alt="" coords="5466,181,5641,207"/>
 <area shape="poly" id="edge57_Node000003_Node000049" title=" " alt="" coords="2556,105,3105,109,4016,119,4921,137,5258,150,5455,164,5506,175,5505,180,5454,169,5257,155,4921,143,4016,125,3105,114,2556,110"/>

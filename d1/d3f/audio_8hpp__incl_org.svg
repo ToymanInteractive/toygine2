@@ -833,7 +833,7 @@
 <!-- Node47 -->
 <g id="Node000047" class="node">
 <title>Node47</title>
-<g id="a_Node000047"><a xlink:href="../../d0/d67/format_8inl.html" target="_top" xlink:title="Inline implementations for toy::format() and toy::formatTo().">
+<g id="a_Node000047"><a xlink:href="../../d0/d67/format_8inl.html" target="_top" xlink:title="Inline implementations for toy::format(), toy::formatTo(), toy::vformat(), and toy::vformatTo().">
 <polygon fill="white" stroke="#666666" points="4077.5,-151 3988.5,-151 3988.5,-132 4077.5,-132 4077.5,-151"/>
 <text text-anchor="middle" x="4033" y="-139" font-family="Helvetica,sans-Serif" font-size="10.00">core/format.inl</text>
 </a>

@@ -165,6 +165,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga57e1d4d264063d67be1cfee4e45a66ad" id="r_ga57e1d4d264063d67be1cfee4e45a66ad"><td class="memTemplParams" colspan="2">template&lt;OStringStreamBackend BackendType, typename... Args&gt; </td></tr>
 <tr class="memitem:ga57e1d4d264063d67be1cfee4e45a66ad template"><td class="memItemLeft">constexpr void&#160;</td><td class="memItemRight"><a class="el" href="#ga57e1d4d264063d67be1cfee4e45a66ad">toy::formatTo</a> (BackendType &amp;output, type_identity_t&lt; <a class="el" href="../../dc/d62/classtoy_1_1_format_string.html">FormatString</a>&lt; Args... &gt; &gt; fmt, const Args &amp;... args) noexcept</td></tr>
 <tr class="memdesc:ga57e1d4d264063d67be1cfee4e45a66ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Formats arguments into <em class="arg">output</em> using a compile-time validated pattern.  <br /></td></tr>
+<tr class="memitem:ga4bc5d0eb62eb93fa035d44d7786a9eb7" id="r_ga4bc5d0eb62eb93fa035d44d7786a9eb7"><td class="memTemplParams" colspan="2">template&lt;size_t BufferSize, size_t MaximumArgs&gt; </td></tr>
+<tr class="memitem:ga4bc5d0eb62eb93fa035d44d7786a9eb7 template"><td class="memItemLeft"><a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html">FixedString</a>&lt; BufferSize &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ga4bc5d0eb62eb93fa035d44d7786a9eb7">toy::vformat</a> (<a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a> pattern, const array&lt; <a class="el" href="../../df/d0c/structtoy_1_1_format_argument.html">FormatArgument</a>, MaximumArgs &gt; &amp;args) noexcept</td></tr>
+<tr class="memdesc:ga4bc5d0eb62eb93fa035d44d7786a9eb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Formats type-erased arguments into a new <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="toy::FixedString">toy::FixedString</a> using a runtime pattern.  <br /></td></tr>
 <tr class="memitem:ga024f540d2d32f3ac5fe1bb21b3f57a1a" id="r_ga024f540d2d32f3ac5fe1bb21b3f57a1a"><td class="memTemplParams" colspan="2">template&lt;OStringStreamBackend BackendType, typename... Args&gt; </td></tr>
 <tr class="memitem:ga024f540d2d32f3ac5fe1bb21b3f57a1a template"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ga024f540d2d32f3ac5fe1bb21b3f57a1a">toy::vformatTo</a> (BackendType &amp;output, <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a> pattern, const Args &amp;... args) noexcept</td></tr>
 <tr class="memdesc:ga024f540d2d32f3ac5fe1bb21b3f57a1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Formats arguments into <em class="arg">output</em> using a runtime pattern, type-erasing them automatically.  <br /></td></tr>
@@ -386,7 +389,7 @@ template&lt;typename... Args&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A <code>std::array&lt;<a class="el" href="../../df/d0c/structtoy_1_1_format_argument.html" title="Single type-erased format argument carrying a value pointer and a formatter callback.">FormatArgument</a></code>, <code>sizeof</code>...(Args)&gt; with one entry per argument, ready to be passed to toy::vformat() or <a class="el" href="#ga024f540d2d32f3ac5fe1bb21b3f57a1a" title="Formats arguments into output using a runtime pattern, type-erasing them automatically.">toy::vformatTo()</a>.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A <code>std::array&lt;<a class="el" href="../../df/d0c/structtoy_1_1_format_argument.html" title="Single type-erased format argument carrying a value pointer and a formatter callback.">FormatArgument</a></code>, <code>sizeof</code>...(Args)&gt; with one entry per argument, ready to be passed to <a class="el" href="#ga4bc5d0eb62eb93fa035d44d7786a9eb7" title="Formats type-erased arguments into a new toy::FixedString using a runtime pattern.">toy::vformat()</a> or <a class="el" href="#ga024f540d2d32f3ac5fe1bb21b3f57a1a" title="Formats arguments into output using a runtime pattern, type-erasing them automatically.">toy::vformatTo()</a>.</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>Each type in <em class="arg">Args</em> must be formattable via <code>operator&lt;&lt;</code> on <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="toy::OStringStream">toy::OStringStream</a>, or must satisfy <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="toy::StringLike">toy::StringLike</a>, or must be a null-terminated <code>char</code> pointer. </dd>
 <dd>
 The returned object must not be used after any of the original <em class="arg">args</em> go out of scope.</dd></dl>
@@ -473,6 +476,62 @@ A null <code>char</code> pointer argument produces no output when the correspond
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Error code; <code><a class="el" href="#gga47774805e63ecbede7f9cbfa12168c41a334c4a4c42fdb79d7ebc3e73b517e6f8" title="Pattern is valid for the given argument count.">FormatPatternValidationError::none</a></code> when the pattern is consistent with <em class="arg">argCount</em>. </dd></dl>
+
+</div>
+</div>
+<a id="ga4bc5d0eb62eb93fa035d44d7786a9eb7" name="ga4bc5d0eb62eb93fa035d44d7786a9eb7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4bc5d0eb62eb93fa035d44d7786a9eb7">&#9670;&#160;</a></span>vformat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;size_t BufferSize, size_t MaximumArgs&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html">FixedString</a>&lt; BufferSize &gt; toy::vformat </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a></td>          <td class="paramname"><span class="paramname"><em>pattern</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const array&lt; <a class="el" href="../../df/d0c/structtoy_1_1_format_argument.html">FormatArgument</a>, MaximumArgs &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>args</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Formats type-erased arguments into a new <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="toy::FixedString">toy::FixedString</a> using a runtime pattern. </p>
+<p>Equivalent to creating a <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="toy::FixedString&lt;BufferSize&gt;">toy::FixedString&lt;BufferSize&gt;</a>, calling <a class="el" href="#ga024f540d2d32f3ac5fe1bb21b3f57a1a" title="Formats arguments into output using a runtime pattern, type-erasing them automatically.">toy::vformatTo()</a> into it, and returning the result.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">BufferSize</td><td>Capacity of the returned <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="toy::FixedString">toy::FixedString</a> in bytes. </td></tr>
+    <tr><td class="paramname">MaximumArgs</td><td>Number of arguments; deduced from <em class="arg">args</em>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pattern</td><td>Runtime format pattern; may be a variable or computed string. </td></tr>
+    <tr><td class="paramname">args</td><td>Type-erased arguments produced by <a class="el" href="#ga0b041b467d640188e4722fb47fbdb320" title="Constructs an array of toy::FormatArgument from a pack of arguments by type-erasing each one.">toy::makeVFormatArguments()</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="toy::FixedString&lt;BufferSize&gt;">toy::FixedString&lt;BufferSize&gt;</a> containing the formatted result.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd><em class="arg">pattern</em> must be a valid format pattern consistent with <em class="arg">MaximumArgs</em>. </dd>
+<dd>
+Each <a class="el" href="../../df/d0c/structtoy_1_1_format_argument.html" title="toy::FormatArgument">toy::FormatArgument</a> in <em class="arg">args</em> must remain valid for the duration of the call.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>When the formatted result exceeds <em class="arg">BufferSize</em> characters the output is silently truncated per <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="toy::FixedString">toy::FixedString</a> capacity semantics. </dd>
+<dd>
+Pattern validity is checked at runtime; use <a class="el" href="#ga79f053b92ccd3b7259a353d890a22cf5" title="Formats arguments into a new toy::FixedString using a compile-time validated pattern.">toy::format()</a> for compile-time checks.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#ga024f540d2d32f3ac5fe1bb21b3f57a1a" title="Formats arguments into output using a runtime pattern, type-erasing them automatically.">toy::vformatTo()</a>, <a class="el" href="#ga0b041b467d640188e4722fb47fbdb320" title="Constructs an array of toy::FormatArgument from a pack of arguments by type-erasing each one.">toy::makeVFormatArguments()</a> </dd></dl>
 
 </div>
 </div>
@@ -596,7 +655,7 @@ Each <a class="el" href="../../df/d0c/structtoy_1_1_format_argument.html" title=
 <dl class="section note"><dt>Note</dt><dd><code>{{</code> and <code>}}</code> in the pattern emit a literal <code>{</code> and <code>}</code> respectively. </dd>
 <dd>
 Pattern validity is checked at runtime via <code>assert_message</code> with <a class="el" href="#ga5b1768ae7cdfb38447089aca42336c1e" title="Validates auto-indexed {} and positional {N} placeholders for argCount arguments.">validateFormatPattern()</a>; use <a class="el" href="#ga57e1d4d264063d67be1cfee4e45a66ad" title="Formats arguments into output using a compile-time validated pattern.">toy::formatTo()</a> for compile-time checks.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd>toy::vformat(), toy::vformatTo(BackendType &amp;, CStringView, const Args &amp;...), <a class="el" href="#ga0b041b467d640188e4722fb47fbdb320" title="Constructs an array of toy::FormatArgument from a pack of arguments by type-erasing each one.">toy::makeVFormatArguments()</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#ga4bc5d0eb62eb93fa035d44d7786a9eb7" title="Formats type-erased arguments into a new toy::FixedString using a runtime pattern.">toy::vformat()</a>, toy::vformatTo(BackendType &amp;, CStringView, const Args &amp;...), <a class="el" href="#ga0b041b467d640188e4722fb47fbdb320" title="Constructs an array of toy::FormatArgument from a pack of arguments by type-erasing each one.">toy::makeVFormatArguments()</a> </dd></dl>
 
 </div>
 </div>

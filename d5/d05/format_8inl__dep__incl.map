@@ -1,5 +1,5 @@
 <map id="include/core/format.inl" name="include/core/format.inl">
-<area shape="rect" id="Node000001" title="Inline implementations for toy::format() and toy::formatTo()." alt="" coords="654,5,823,31"/>
+<area shape="rect" id="Node000001" title="Inline implementations for toy::format(), toy::formatTo(), toy::vformat(), and toy::vformatTo()." alt="" coords="654,5,823,31"/>
 <area shape="rect" id="Node000002" href="$da/d47/core_8hpp.html" title="Umbrella header for the engine core module." alt="" coords="674,79,803,104"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="741,44,741,79,736,79,736,44"/>
 <area shape="rect" id="Node000003" href="$d4/d01/application_8hpp.html" title="Umbrella header for the app module." alt="" coords="5,240,179,265"/>
