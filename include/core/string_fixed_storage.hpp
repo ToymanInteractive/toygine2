@@ -34,7 +34,7 @@ namespace toy {
 /*!
   \class StringFixedStorage
 
-  \ingroup String
+  \ingroup StringStorage
 
   \brief Fixed-size character storage with a tracked length and implicit null terminator at \c data()[size()].
 

@@ -35,7 +35,7 @@ namespace toy {
 /*!
   \enum FormatPatternValidationError
 
-  \ingroup String
+  \ingroup Format
 
   \brief Result of validating a format pattern against an expected argument count.
 */
@@ -60,7 +60,7 @@ enum class FormatPatternValidationError {
 };
 
 /*!
-  \ingroup String
+  \ingroup Format
 
   \brief Validates auto-indexed \c {} and positional \c {N} placeholders for \a argCount arguments.
 

@@ -35,7 +35,7 @@ namespace toy {
 /*!
   \class FormatContext
 
-  \ingroup String
+  \ingroup Format
 
   \brief Type-erased write sink.
 

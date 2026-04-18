@@ -51,6 +51,7 @@ namespace toy::math {
 
 /*!
   \brief Returns the absolute value of \a value.
+
   \ingroup MathFunctions
 
   Supports signed integers, floating-point, and fixed-point. Branch-free for signed integrals and fixed-point, for
@@ -69,6 +70,7 @@ template <typename T>
 
 /*!
   \brief Compares two values for approximate equality.
+
   \ingroup MathFunctions
 
   Combined absolute and relative epsilon test: small values by \a absEpsilon, large values by \a relEpsilon scaled by
@@ -91,6 +93,7 @@ template <typename T>
 
 /*!
   \brief Converts angle from degrees to radians.
+
   \ingroup MathFunctions
 
   \tparam T Scalar type; must satisfy \ref toy::math::floating_point or \ref toy::math::fixed_point.
@@ -108,6 +111,7 @@ template <typename T>
 
 /*!
   \brief Converts angle from radians to degrees.
+
   \ingroup MathFunctions
 
   \tparam T Scalar type; must satisfy \ref toy::math::floating_point or \ref toy::math::fixed_point.

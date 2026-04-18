@@ -185,18 +185,33 @@ using std::char_traits;
 //--------------------------------------------------------------------------------------------------------------------
 
 /*!
-  \defgroup String String Utilities
-  \brief Classes and concepts for string manipulation and formatting.
+  \defgroup String String & Text
 
-  This group contains all string-related types and utilities in the core module:
+  \brief String types, formatting, and encoding conversion utilities.
+*/
 
-  \section features Key Features
+/*!
+  \defgroup StringStorage Storage
 
-  - Zero or minimal dynamic allocation
-  - Constexpr support where possible
-  - Exception safety (noexcept operations)
-  - Type safety through C++20 concepts
-  - Cross-platform compatibility
+  \ingroup String
+
+  \brief Fixed-size string buffers, character storage, and non-owning string view.
+*/
+
+/*!
+  \defgroup StringStream Stream
+
+  \ingroup String
+
+  \brief Output stream for writing formatted values into string backends.
+*/
+
+/*!
+  \defgroup StringText Text
+
+  \ingroup String
+
+  \brief UTF-8 / wide-character conversion, code-point counting, and in-place string reversal.
 */
 
 //--------------------------------------------------------------------------------------------------------------------

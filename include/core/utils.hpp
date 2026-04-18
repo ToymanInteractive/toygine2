@@ -31,30 +31,12 @@
 #ifndef INCLUDE_CORE_UTILS_HPP_
 #define INCLUDE_CORE_UTILS_HPP_
 
-/*!
-  \defgroup TextFunctions Common text processing functions
-  \brief String encoding conversion, length and reversal.
-
-  - **utf8toWChar**: UTF-8 C string or \ref toy::StringLike to wide-character string (with optional character limit).
-  - **wcharToUtf8**: Wide-character C string to UTF-8.
-  - **utf8Len**: Unicode code point count in a UTF-8 C string.
-  - **reverseString**: In-place reversal of a C string.
-
-  Related: \ref toy::StringLike, \ref toy::FixedString; constant \c WCHAR_IN_UTF8_MAX_SIZE.
-
-  \section features Key Features
-
-  - **UTF-8 / wide conversion**: BMP-only; invalid UTF-8 skipped; destination null-terminated on success.
-  - **No allocation**: All functions write into caller-provided buffers.
-  - **Constexpr**: utf8toWChar overloads and reverseString where applicable.
-  - **Exception safety**: All operations are \c noexcept.
-*/
-
 namespace toy {
 
 /*!
   \brief Maximum UTF-8 byte length for one BMP character.
-  \ingroup TextFunctions
+
+  \ingroup StringText
 
   One wide character in the BMP (≤ 0xFFFF) encodes to at most 3 UTF-8 bytes.
 */
@@ -62,7 +44,8 @@ constexpr size_t WCHAR_IN_UTF8_MAX_SIZE = 3;
 
 /*!
   \brief Converts a UTF-8 C string to a wide-character string with a character count limit.
-  \ingroup TextFunctions
+
+  \ingroup StringText
 
   Writes the converted wide-character string into \a dest. Stops when \a count source bytes have been processed, \a dest
   is full, or the source ends. Only BMP (≤ 0xFFFF) is supported.
@@ -83,7 +66,8 @@ wchar_t * utf8toWChar(wchar_t * dest, size_t destSize, const char * src, size_t 
 
 /*!
   \brief Converts a UTF-8 C string to a wide-character string (full source length).
-  \ingroup TextFunctions
+
+  \ingroup StringText
 
   Same as utf8toWChar(dest, destSize, src, count) with \a count set to the length of \a src. Stops when the source ends
   or \a dest is full. BMP-only; invalid UTF-8 sequences are skipped.
@@ -104,7 +88,8 @@ constexpr wchar_t * utf8toWChar(wchar_t * dest, size_t destSize, const char * sr
 
 /*!
   \brief Converts a UTF-8 \ref toy::StringLike object to a wide-character string.
-  \ingroup TextFunctions
+
+  \ingroup StringText
 
   Converts the UTF-8 content of \a src (via c_str()) into \a dest. Stops when the source ends or \a dest is full.
   BMP-only; invalid UTF-8 sequences are skipped.
@@ -128,7 +113,8 @@ constexpr wchar_t * utf8toWChar(wchar_t * dest, size_t destSize, const T & src) 
 
 /*!
   \brief Converts a wide-character C string to UTF-8.
-  \ingroup TextFunctions
+
+  \ingroup StringText
 
   Writes the UTF-8 encoding of \a src into \a dest. Stops when the source ends or \a dest is full. Each wide character
   may produce 1–3 UTF-8 bytes.
@@ -155,7 +141,8 @@ char * wcharToUtf8(char * dest, size_t destSize, const wchar_t * src) noexcept;
 
 /*!
   \brief Returns the number of Unicode code points in a UTF-8 encoded C string.
-  \ingroup TextFunctions
+
+  \ingroup StringText
 
   Parses UTF-8 sequences in \a string and counts code points. Stops at the first null byte. Invalid sequences cause the
   function to return \c 0.
@@ -170,7 +157,8 @@ char * wcharToUtf8(char * dest, size_t destSize, const wchar_t * src) noexcept;
 
 /*!
   \brief Reverses a C string in-place.
-  \ingroup TextFunctions
+
+  \ingroup StringText
 
   Swaps characters from both ends toward the center. If \a count is \c 0, the length is obtained via strlen(\a str).
 

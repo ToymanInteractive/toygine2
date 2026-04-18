@@ -35,15 +35,17 @@
 #include "o_string_stream.hpp"
 
 /*!
-  \defgroup format Format
+  \defgroup Format Format
+
   \ingroup String
+
   \brief Functions for substituting arguments into \c {} and \c {N} placeholders in a format pattern.
 */
 
 namespace toy {
 
 /*!
-  \ingroup format
+  \ingroup Format
 
   \brief Formats arguments into a new \ref toy::FixedString using a compile-time validated pattern.
 
@@ -72,7 +74,7 @@ template <size_t BufferSize, typename... Args>
                                                        const Args &... args) noexcept;
 
 /*!
-  \ingroup format
+  \ingroup Format
 
   \brief Formats arguments into \a output using a compile-time validated pattern.
 
@@ -102,7 +104,7 @@ constexpr void formatTo(BackendType & output, type_identity_t<FormatString<Args.
                         const Args &... args) noexcept;
 
 /*!
-  \ingroup format
+  \ingroup Format
 
   \brief Formats arguments into a new \ref toy::FixedString using a runtime pattern.
 
@@ -124,7 +126,7 @@ template <size_t BufferSize, typename... Args>
 [[nodiscard]] FixedString<BufferSize> vformat(CStringView pattern, const Args &... args) noexcept;
 
 /*!
-  \ingroup format
+  \ingroup Format
 
   \brief Formats arguments into \a output using a runtime pattern, type-erasing them automatically.
 
