@@ -35,7 +35,7 @@ namespace toy::render {
 
   \pre The order and count of entries must match the \ref toy::render::PixelFormat enumerator values exactly.
 */
-static constexpr array<CStringView, std::to_underlying(PixelFormat::Unknown)> _formatNames{
+static constexpr array<CStringView, std::to_underlying(PixelFormat::Unknown)> c_formatNames{
   {
    CStringView("A8R8G8B8"),
    CStringView("X8R8G8B8"),
@@ -61,15 +61,15 @@ static constexpr array<CStringView, std::to_underlying(PixelFormat::Unknown)> _f
 };
 
 CStringView pixelFormatName(PixelFormat format) noexcept {
-  if (const auto index = std::to_underlying(format); index < _formatNames.size())
-    return _formatNames[index];
+  if (const auto index = std::to_underlying(format); index < c_formatNames.size())
+    return c_formatNames[index];
 
   return "Unknown";
 }
 
 PixelFormat pixelFormatFromName(CStringView name) noexcept {
-  for (size_t index = 0; index < _formatNames.size(); ++index) {
-    if (_formatNames[index] == name)
+  for (size_t index = 0; index < c_formatNames.size(); ++index) {
+    if (c_formatNames[index] == name)
       return static_cast<PixelFormat>(index);
   }
 

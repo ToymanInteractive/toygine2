@@ -81,7 +81,7 @@ constexpr array<uint32_t, 32> _exponentTable{
 };
 
 /*!
-  \struct _divmod10
+  \struct DivMod10
 
   \brief Result of an unsigned division by 10, carrying quotient and remainder.
 
@@ -106,7 +106,7 @@ constexpr array<uint32_t, 32> _exponentTable{
 
   \sa _divModU10()
 */
-struct _divmod10 {
+struct DivMod10 {
   /// Quotient of the division by 10.
   uint32_t quot;
 
@@ -124,8 +124,8 @@ struct _divmod10 {
 
   \return A struct containing the quotient and remainder of the division.
 */
-constexpr _divmod10 _divModU10(uint32_t value) noexcept {
-  _divmod10 res;
+constexpr DivMod10 _divModU10(uint32_t value) noexcept {
+  DivMod10 res;
 
   res.quot  = value >> 1;
   res.quot += res.quot >> 1;
@@ -374,7 +374,7 @@ void _floatPostProcess(char * dest, char * srcBuffer, size_t bufferSize, int32_t
     char * bufferEndPointer = srcBuffer + bufferSize - 1;
     *bufferEndPointer       = '\0';
 
-    _divmod10 res;
+    DivMod10 res;
     res.quot = upow10;
     do {
       res                 = _divModU10(res.quot);

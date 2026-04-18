@@ -42,8 +42,7 @@ namespace toy {
   \brief Single type-erased format argument carrying a value pointer and a formatter callback.
 
   Stores a pointer to the original argument value alongside a stateless formatter that knows the concrete type and can
-  write a formatted representation to any \ref toy::FormatContext. Created internally by toy::makeVFormatArguments();
-  users rarely construct \c FormatArgument directly.
+  write a formatted representation to any \ref toy::FormatContext. Users rarely construct \c FormatArgument directly.
 
   \section features Key Features
 
@@ -89,7 +88,7 @@ namespace toy {
   - **Lifetime**: \a value must remain valid for the duration of the format operation.
   - **Null safety**: Neither \a value nor \a formatFn may be null when the argument is dispatched.
 
-  \sa FormatContext
+  \sa toy::FormatContext
 */
 struct FormatArgument {
   /// Pointer to the original argument value.

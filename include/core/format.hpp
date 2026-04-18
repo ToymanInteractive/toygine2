@@ -60,7 +60,7 @@ namespace toy {
   \note When the formatted result exceeds \a BufferSize characters the output is silently truncated per
         \ref toy::FixedString capacity semantics.
 
-  \sa formatTo()
+  \sa toy::formatTo()
 */
 template <size_t BufferSize, typename... Args>
 [[nodiscard]] constexpr FixedString<BufferSize> format(type_identity_t<FormatString<Args...>> fmt,
@@ -90,7 +90,7 @@ template <size_t BufferSize, typename... Args>
   \note \c {{ and \c }} in the pattern emit a literal \c { and \c } respectively.
   \note Overflow semantics match those of \a BackendType.
 
-  \sa format()
+  \sa toy::format()
 */
 template <OStringStreamBackend BackendType, typename... Args>
 constexpr void formatTo(BackendType & output, type_identity_t<FormatString<Args...>> fmt,
@@ -101,7 +101,7 @@ constexpr void formatTo(BackendType & output, type_identity_t<FormatString<Args.
 
   \brief Formats arguments into a new \ref toy::FixedString using a runtime pattern.
 
-  Type-erases \a args into an array of \ref toy::FormatArgument and forwards them to vformatTo().
+  Type-erases \a args into an array of \ref toy::FormatArgument and forwards them to toy::vformatTo().
 
   \tparam BufferSize Capacity of the returned \ref toy::FixedString in bytes.
   \tparam Args       Types of format arguments; deduced from \a args.
@@ -113,7 +113,7 @@ constexpr void formatTo(BackendType & output, type_identity_t<FormatString<Args.
 
   \pre \a pattern must be a valid format pattern consistent with \c sizeof...(Args).
 
-  \sa vformatTo()
+  \sa toy::vformatTo()
 */
 template <size_t BufferSize, typename... Args>
 [[nodiscard]] FixedString<BufferSize> vformat(CStringView pattern, const Args &... args) noexcept;
@@ -141,10 +141,10 @@ template <size_t BufferSize, typename... Args>
   \post \a output holds the formatted result, subject to \a BackendType capacity semantics.
 
   \note \c {{ and \c }} in the pattern emit a literal \c { and \c } respectively.
-  \note Pattern validity is checked at runtime via \c assert_message with validateFormatPattern(); use formatTo() for
-        compile-time checks.
+  \note Pattern validity is checked at runtime via \c assert_message with toy::validateFormatPattern(); use
+        toy::formatTo() for compile-time checks.
 
-  \sa vformat()
+  \sa toy::vformat()
 */
 template <OStringStreamBackend BackendType, typename... Args>
 void vformatTo(BackendType & output, CStringView pattern, const Args &... args) noexcept;
