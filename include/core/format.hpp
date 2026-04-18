@@ -23,7 +23,7 @@
 
   Defines toy::format(), toy::formatTo(), toy::vformat(), and toy::vformatTo() for building formatted strings.
   toy::format() and toy::formatTo() use compile-time validated \ref toy::FormatString patterns; toy::vformat() and
-  toy::vformatTo() accept runtime patterns and type-erase arguments into \ref toy::FormatArgument arrays internally.
+  toy::vformatTo() accept runtime patterns and type-erase arguments into arrays internally.
 
   \note Included by core.hpp; do not include this file directly.
 */
@@ -31,14 +31,21 @@
 #ifndef INCLUDE_CORE_FORMAT_HPP_
 #define INCLUDE_CORE_FORMAT_HPP_
 
-#include "format_argument.hpp"
 #include "format_string.hpp"
 #include "o_string_stream.hpp"
+
+/*!
+  \defgroup Format Format
+
+  \ingroup String
+
+  \brief Functions for substituting arguments into \c {} and \c {N} placeholders in a format pattern.
+*/
 
 namespace toy {
 
 /*!
-  \ingroup String
+  \ingroup Format
 
   \brief Formats arguments into a new \ref toy::FixedString using a compile-time validated pattern.
 
@@ -67,7 +74,7 @@ template <size_t BufferSize, typename... Args>
                                                        const Args &... args) noexcept;
 
 /*!
-  \ingroup String
+  \ingroup Format
 
   \brief Formats arguments into \a output using a compile-time validated pattern.
 
@@ -97,11 +104,11 @@ constexpr void formatTo(BackendType & output, type_identity_t<FormatString<Args.
                         const Args &... args) noexcept;
 
 /*!
-  \ingroup String
+  \ingroup Format
 
   \brief Formats arguments into a new \ref toy::FixedString using a runtime pattern.
 
-  Delegates to toy::vformatTo(), which type-erases \a args into an array of \ref toy::FormatArgument internally.
+  Delegates to toy::vformatTo(), which type-erases \a args into an array internally.
 
   \tparam BufferSize Capacity of the returned \ref toy::FixedString in bytes.
   \tparam Args       Types of format arguments; deduced from \a args.
@@ -119,13 +126,13 @@ template <size_t BufferSize, typename... Args>
 [[nodiscard]] FixedString<BufferSize> vformat(CStringView pattern, const Args &... args) noexcept;
 
 /*!
-  \ingroup String
+  \ingroup Format
 
   \brief Formats arguments into \a output using a runtime pattern, type-erasing them automatically.
 
-  Type-erases each argument into a \ref toy::FormatArgument, then iterates \a pattern, copies literal text to \a output
-  verbatim, and substitutes each \c {} or \c {N} placeholder with the corresponding type-erased argument. The pattern is
-  validated at runtime; an invalid pattern triggers a debug assertion.
+  Type-erases each argument, then iterates \a pattern, copies literal text to \a output verbatim, and substitutes each
+  \c {} or \c {N} placeholder with the corresponding type-erased argument. The pattern is validated at runtime; an
+  invalid pattern triggers a debug assertion.
 
   \tparam BackendType Type of the output string. Must satisfy the \ref toy::OStringStreamBackend concept.
   \tparam Args        Types of format arguments; deduced from \a args.

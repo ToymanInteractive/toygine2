@@ -35,7 +35,7 @@ namespace toy {
 /*!
   \class FormatContext
 
-  \ingroup String
+  \ingroup Format
 
   \brief Type-erased write sink.
 
@@ -76,8 +76,6 @@ namespace toy {
   - **Exception safety**: write() and put() are \c noexcept; the stored callback must honour this contract.
   - **Lifetime**: The context pointer must remain valid for the lifetime of the object.
   - **Null safety**: Both the context pointer and the write callback must be non-null before write() or put() is called.
-
-  \sa FormatArgument
 */
 class FormatContext {
 public:

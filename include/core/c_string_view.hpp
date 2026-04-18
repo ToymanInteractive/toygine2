@@ -35,7 +35,9 @@ namespace toy {
 
 /*!
   \class CStringView
-  \ingroup String
+
+  \ingroup StringStorage
+
   \brief Non-owning string view class for C-style strings.
 
   CStringView is a lightweight, non-owning wrapper around C-style strings that provides a safe and efficient way to work

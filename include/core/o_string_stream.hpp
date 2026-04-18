@@ -36,7 +36,7 @@ namespace toy {
 /*!
   \concept OStringStreamBackend
 
-  \ingroup String
+  \ingroup StringStream
 
   \brief Concept satisfied when \a T can serve as the backing storage for \ref toy::OStringStream.
 
@@ -74,7 +74,7 @@ concept OStringStreamBackend
 /*!
   \class OStringStream
 
-  \ingroup String
+  \ingroup StringStream
 
   \brief Output stream that appends formatted values into a \ref toy::OStringStreamBackend backend.
 

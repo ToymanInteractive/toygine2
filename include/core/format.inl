@@ -32,6 +32,46 @@ namespace toy {
 namespace {
 
 /*!
+  \struct FormatArgument
+
+  \brief Single type-erased format argument carrying a value pointer and a formatter callback.
+
+  Pairs a pointer to the original argument value with a stateless callback that knows the concrete type and can write a
+  formatted representation to any \ref toy::FormatContext. Constructed inline by vformatTo() during argument
+  type-erasure; not intended for direct use.
+
+  \section features Key Features
+
+  - **Type erasure**: Holds any formattable value without templates at the call site.
+  - **No allocation**: Two-pointer aggregate stored inline in \c std::array.
+  - **noexcept formatter**: \a formatFn is required to be \c noexcept.
+  - **Lifetime coupling**: \a value must remain valid as long as the \c FormatArgument is used.
+
+  \section performance Performance Characteristics
+
+  - **Construction**: O(1) constant time.
+  - **formatFn call**: One indirect call; formatting cost depends on the argument type.
+  - **Memory usage**: Two pointers (typically 16 bytes on 64-bit platforms).
+
+  \section safety Safety Guarantees
+
+  - **Exception safety**: \a formatFn is required to be \c noexcept.
+  - **Lifetime**: \a value must remain valid for the duration of the format operation.
+  - **Null safety**: Neither \a value nor \a formatFn may be null when the argument is dispatched.
+
+  \note Internal helper for vformatTo(); not part of the public API.
+
+  \sa toy::FormatContext
+*/
+struct FormatArgument {
+  /// Pointer to the original argument value.
+  const void * value;
+
+  /// Callback that formats \a value and writes the result to \a output.
+  void (*formatFn)(const void * value, FormatContext & output) noexcept;
+};
+
+/*!
   \brief Writes the argument at position \a index in the pack to \a stream.
 
   Peels arguments one at a time via recursion, decrementing \a index at each step. When \a index reaches zero the

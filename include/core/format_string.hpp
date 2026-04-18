@@ -37,7 +37,7 @@ namespace toy {
 /*!
   \class FormatString
 
-  \ingroup String
+  \ingroup Format
 
   \brief Wrapper around a \ref toy::CStringView pattern with \c consteval validation of placeholders.
 

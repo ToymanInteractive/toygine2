@@ -46,7 +46,9 @@ struct FixedStringStorage {
 
 /*!
   \class FixedString
-  \ingroup String
+
+  \ingroup StringStorage
+
   \brief Template string class with fixed-size character buffer.
 
   FixedString is a lightweight, high-performance string class that uses a fixed-size character buffer allocated on the
