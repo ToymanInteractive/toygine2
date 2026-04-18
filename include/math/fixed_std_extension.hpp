@@ -62,35 +62,35 @@ public:
   /// true (this specialization is provided).
   static constexpr bool is_specialized = true;
   /// Same as \c numeric_limits<Base>::is_signed.
-  static constexpr bool is_signed = numeric_limits<Base>::is_signed;
+  static constexpr bool is_signed      = numeric_limits<Base>::is_signed;
   /// false (fixed-point is not an integer type).
-  static constexpr bool is_integer = false;
+  static constexpr bool is_integer     = false;
   /// true (no rounding error for representable values).
-  static constexpr bool is_exact = true;
+  static constexpr bool is_exact       = true;
 
   /// false (fixed-point has no infinity).
-  static constexpr bool has_infinity = false;
+  static constexpr bool has_infinity      = false;
   /// false (fixed-point has no NaN).
-  static constexpr bool has_quiet_NaN = false;
+  static constexpr bool has_quiet_NaN     = false;
   /// false (fixed-point has no NaN).
   static constexpr bool has_signaling_NaN = false;
   /// false (no denormalization).
-  static constexpr bool has_denorm = false;
+  static constexpr bool has_denorm        = false;
   /// false.
-  static constexpr bool has_denorm_loss = false;
+  static constexpr bool has_denorm_loss   = false;
 
   /// \c round_to_nearest when \a Rounding is \c true; \c round_toward_zero otherwise.
   static constexpr float_round_style round_style = Rounding ? round_to_nearest : round_toward_zero;
 
   /// false (not IEEE 754).
-  static constexpr bool is_iec559 = false;
+  static constexpr bool is_iec559  = false;
   /// true (finite range).
   static constexpr bool is_bounded = true;
   /// Same as \c numeric_limits<Base>::is_modulo.
-  static constexpr bool is_modulo = numeric_limits<Base>::is_modulo;
+  static constexpr bool is_modulo  = numeric_limits<Base>::is_modulo;
 
   /// Number of radix digits in \a Base (same as \c numeric_limits<Base>::digits).
-  static constexpr int digits = numeric_limits<Base>::digits;
+  static constexpr int digits   = numeric_limits<Base>::digits;
   /// Guaranteed significant decimal digits for the full fixed-point value.
   static constexpr int digits10 = _calcDigits10(numeric_limits<Base>::digits);
   /// Max decimal digits needed to represent any value (integer + fractional part).
@@ -98,18 +98,18 @@ public:
     = _calcMaxDigits10(numeric_limits<Base>::digits - Fraction) + _calcMaxDigits10(Fraction);
 
   /// 2 (binary radix).
-  static constexpr int radix = 2;
+  static constexpr int radix          = 2;
   /// Minimum exponent in radix (1 - Fraction).
-  static constexpr int min_exponent = 1 - static_cast<int>(Fraction);
+  static constexpr int min_exponent   = 1 - static_cast<int>(Fraction);
   /// Minimum decimal exponent; negative, reflecting the fractional resolution.
   static constexpr int min_exponent10 = -_calcDigits10(static_cast<int>(Fraction));
   /// Maximum exponent in radix (integer part bits).
-  static constexpr int max_exponent = numeric_limits<Base>::digits - static_cast<int>(Fraction);
+  static constexpr int max_exponent   = numeric_limits<Base>::digits - static_cast<int>(Fraction);
   /// Maximum decimal exponent (integer part).
   static constexpr int max_exponent10 = _calcDigits10(numeric_limits<Base>::digits - static_cast<int>(Fraction));
 
   /// true (arithmetic can trap).
-  static constexpr bool traps = true;
+  static constexpr bool traps           = true;
   /// false.
   static constexpr bool tinyness_before = false;
 
@@ -134,7 +134,7 @@ public:
     if constexpr (Rounding) {
       return toy::math::fixed<Base, Intermediate, Fraction, Rounding>(1) / 2; // 0.5
     } else {
-      return toy::math::fixed<Base, Intermediate, Fraction, Rounding>(1); // 1.0
+      return toy::math::fixed<Base, Intermediate, Fraction, Rounding>(1);     // 1.0
     }
   }
   /// Returns min() (no denormals).

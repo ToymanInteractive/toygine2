@@ -35,27 +35,29 @@ namespace toy {
 
   \note Values: 0x01 = 1-byte ASCII character, 0x02-0x04 = multi-byte UTF-8 sequence, 0x00 = invalid/incomplete.
 */
-static constexpr array<uint8_t, 256> _utf8CharSizeTable{{
-  0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
-  0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
-  0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
-  0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
-  0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
-  0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
-  0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
+static constexpr array<uint8_t, 256> _utf8CharSizeTable{
+  {
+   0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
+   0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
+   0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
+   0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
+   0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
+   0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
+   0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
 
-  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 
-  0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02,
-  0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02,
+   0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02,
+   0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02,
 
-  0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03,
+   0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03,
 
-  0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x05, 0x05, 0x05, 0x05, 0x06, 0x06, 0x07, 0x08,
-}};
+   0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x05, 0x05, 0x05, 0x05, 0x06, 0x06, 0x07, 0x08,
+   }
+};
 
 /*!
   \brief Precomputed exponent lookup table for efficient binary-to-decimal floating-point conversion.
@@ -69,15 +71,46 @@ static constexpr array<uint8_t, 256> _utf8CharSizeTable{{
   \note This table enables O(1) lookup instead of expensive runtime power-of-10 calculations, significantly improving
         the performance of floating-point number formatting.
 */
-constexpr array<uint32_t, 32> _exponentTable{{
-  0xF0BDC21A, 0x3DA137D5, 0x9DC5ADA8, 0x2863C1F5, 0x6765C793, 0x1A784379, 0x43C33C19, 0xAD78EBC5,
-  0x2C68AF0B, 0x71AFD498, 0x1D1A94A2, 0x4A817C80, 0xBEBC2000, 0x30D40000, 0x7D000000, 0x20000000,
-  0x51EB851E, 0xD1B71758, 0x35AFE535, 0x89705F41, 0x232F3302, 0x5A126E1A, 0xE69594BE, 0x3B07929F,
-  0x971DA050, 0x26AF8533, 0x63090312, 0xFD87B5F2, 0x40E75996, 0xA6274BBD, 0x2A890926, 0x6CE3EE76,
-}};
+constexpr array<uint32_t, 32> _exponentTable{
+  {
+   0xF0BDC21A, 0x3DA137D5, 0x9DC5ADA8, 0x2863C1F5, 0x6765C793, 0x1A784379, 0x43C33C19, 0xAD78EBC5,
+   0x2C68AF0B, 0x71AFD498, 0x1D1A94A2, 0x4A817C80, 0xBEBC2000, 0x30D40000, 0x7D000000, 0x20000000,
+   0x51EB851E, 0xD1B71758, 0x35AFE535, 0x89705F41, 0x232F3302, 0x5A126E1A, 0xE69594BE, 0x3B07929F,
+   0x971DA050, 0x26AF8533, 0x63090312, 0xFD87B5F2, 0x40E75996, 0xA6274BBD, 0x2A890926, 0x6CE3EE76,
+   }
+};
 
-struct _divmod10 {
+/*!
+  \struct DivMod10
+
+  \brief Result of an unsigned division by 10, carrying quotient and remainder.
+
+  Used by _divModU10() to return both values from a single branchless division step.
+
+  \section features Key Features
+
+  - **Aggregate layout**: Two-field POD suitable for constexpr return.
+  - **Compact remainder**: Remainder stored as \c uint8_t (always in \c [0, 9]).
+  - **No allocation**: Stack-only value type.
+  - **noexcept**: Trivially constructible and copyable.
+
+  \section performance Performance Characteristics
+
+  - **Construction**: O(1) constant time.
+  - **Memory usage**: 8 bytes (4-byte quotient + 1-byte remainder + padding).
+
+  \section safety Safety Guarantees
+
+  - **Value range**: \a rem is always in \c [0, 9] when produced by _divModU10().
+  - **Exception safety**: Trivial type; all operations are noexcept.
+
+  \sa _divModU10()
+*/
+struct DivMod10 {
+  /// Quotient of the division by 10.
   uint32_t quot;
+
+  /// Remainder of the division by 10 (always in \c [0, 9]).
   uint8_t rem;
 };
 
@@ -91,17 +124,17 @@ struct _divmod10 {
 
   \return A struct containing the quotient and remainder of the division.
 */
-constexpr _divmod10 _divModU10(uint32_t value) noexcept {
-  _divmod10 res;
+[[nodiscard]] constexpr DivMod10 _divModU10(uint32_t value) noexcept {
+  DivMod10 res;
 
-  res.quot = value >> 1;
+  res.quot  = value >> 1;
   res.quot += res.quot >> 1;
   res.quot += res.quot >> 4;
   res.quot += res.quot >> 8;
   res.quot += res.quot >> 16;
 
-  const auto qq = res.quot;
-  res.quot >>= 3;
+  const auto qq   = res.quot;
+  res.quot      >>= 3;
 
   res.rem = static_cast<uint8_t>(value - ((res.quot << 1) + (qq & 0xFFFFFFF8U)));
   if (res.rem > 9) {
@@ -131,7 +164,7 @@ constexpr _divmod10 _divModU10(uint32_t value) noexcept {
         not support subnormals.
 */
 constexpr int32_t _ftoa32Engine(char * buffer, float value, size_t precision) noexcept {
-  const auto uvalue = bit_cast<uint32_t>(value);
+  const auto uvalue   = bit_cast<uint32_t>(value);
   const auto exponent = static_cast<uint8_t>((uvalue >> 23) & 0xff);
   if (exponent == 0) { // don't care about a subnormals
     buffer[0] = '0';
@@ -164,31 +197,31 @@ constexpr int32_t _ftoa32Engine(char * buffer, float value, size_t precision) no
 
   *pointer++ = '0';
 
-  int32_t exp10 = (((exponent >> 3) * 77 + 63) >> 5) - 38;
+  int32_t  exp10 = (((exponent >> 3) * 77 + 63) >> 5) - 38;
   uint32_t t = static_cast<uint32_t>((static_cast<uint64_t>(fraction << 8) * _exponentTable[exponent / 8U]) >> 32) + 1;
   t >>= (7 - (exponent & 7));
 
   uint8_t digit = t >> 28;
   while (digit == 0) {
-    t &= 0x0fffffff;
-    t *= 10;
-    digit = t >> 28;
+    t     &= 0x0fffffff;
+    t     *= 10;
+    digit  = t >> 28;
     --exp10;
   }
 
   for (size_t iter = precision + 1; iter > 0; --iter) {
-    digit = t >> 28;
-    *pointer++ = digit + '0';
-    t &= 0x0fffffff;
-    t *= 10;
+    digit       = t >> 28;
+    *pointer++  = digit + '0';
+    t          &= 0x0fffffff;
+    t          *= 10;
   }
 
   // roundup
   if (buffer[precision + 2] >= '5')
     buffer[precision + 1]++;
 
-  pointer[-1] = '\0';
-  pointer -= 2;
+  pointer[-1]  = '\0';
+  pointer     -= 2;
 
   for (size_t index = precision + 1; index > 1; --index) {
     if (buffer[index] > '9') {
@@ -228,7 +261,7 @@ constexpr int32_t _ftoa32Engine(char * buffer, float value, size_t precision) no
         the string representation in the form "+d.dd...e±dd" for normalized numbers.
 */
 constexpr int32_t _ftoa64Engine(char * buffer, double value, size_t precision) noexcept {
-  const auto uvalue = bit_cast<uint64_t>(value);
+  const auto uvalue   = bit_cast<uint64_t>(value);
   const auto exponent = static_cast<uint32_t>(uvalue >> 52) & 0x07FF;
   if (exponent == 0) { // don't care about a subnormals
     buffer[0] = '0';
@@ -287,18 +320,18 @@ void _floatPostProcess(char * dest, char * srcBuffer, size_t bufferSize, int32_t
     --strBegin;
   }
 
-  const auto digits = char_traits<char>::length(strBegin);
-  size_t intDigits = 0;
-  size_t leadingZeros = 0;
+  const auto digits       = char_traits<char>::length(strBegin);
+  size_t     intDigits    = 0;
+  size_t     leadingZeros = 0;
   if (static_cast<size_t>(std::abs(exp10)) >= precision) {
     intDigits = 1;
   } else if (exp10 >= 0) {
     intDigits = static_cast<size_t>(exp10 + 1);
-    exp10 = 0;
+    exp10     = 0;
   } else {
-    intDigits = 0;
+    intDigits    = 0;
     leadingZeros = static_cast<size_t>(-exp10 - 1);
-    exp10 = 0;
+    exp10        = 0;
   }
 
   char * outputPointer = dest;
@@ -332,19 +365,19 @@ void _floatPostProcess(char * dest, char * srcBuffer, size_t bufferSize, int32_t
     uint32_t upow10;
     if (exp10 < 0) {
       *outputPointer++ = '-';
-      upow10 = static_cast<uint32_t>(-exp10);
+      upow10           = static_cast<uint32_t>(-exp10);
     } else {
       *outputPointer++ = '+';
-      upow10 = static_cast<uint32_t>(exp10);
+      upow10           = static_cast<uint32_t>(exp10);
     }
 
     char * bufferEndPointer = srcBuffer + bufferSize - 1;
-    *bufferEndPointer = '\0';
+    *bufferEndPointer       = '\0';
 
-    _divmod10 res;
+    DivMod10 res;
     res.quot = upow10;
     do {
-      res = _divModU10(res.quot);
+      res                 = _divModU10(res.quot);
       *--bufferEndPointer = res.rem + '0';
     } while (res.quot != 0);
 
@@ -353,6 +386,29 @@ void _floatPostProcess(char * dest, char * srcBuffer, size_t bufferSize, int32_t
   }
 
   *outputPointer = '\0';
+}
+
+/*!
+  \brief Returns the number of bytes required to encode \a symbol in UTF-8.
+
+  Covers the Basic Multilingual Plane only (code points up to \c U+FFFF). Four-byte sequences are not handled because
+  the engine's \c wchar_t path targets platforms where \c wchar_t is 16-bit.
+
+  \param symbol Wide character code point to measure.
+
+  \return \c 1 for ASCII (\c U+0000 – \c U+007F), \c 2 for \c U+0080 – \c U+07FF, \c 3 otherwise.
+
+  \pre \a symbol is a valid BMP code point (at most \c U+FFFF).
+
+  \note Internal helper for wcharToUtf8(); not part of the public API.
+*/
+[[nodiscard]] constexpr size_t _symbolSizeInUTF8Bytes(wchar_t symbol) noexcept {
+  if (symbol <= 0x7F)
+    return 1;
+  else if (symbol <= 0x7FF)
+    return 2;
+
+  return 3;
 }
 
 wchar_t * utf8toWChar(wchar_t * dest, size_t destSize, const char * src, size_t count) noexcept {
@@ -370,7 +426,7 @@ wchar_t * utf8toWChar(wchar_t * dest, size_t destSize, const char * src, size_t 
 
   size_t srcIterator = 0;
   while (srcIterator < count && destPointer < unicodeEndPos) {
-    const auto lead = static_cast<byte>(src[srcIterator++]);
+    const auto lead   = static_cast<byte>(src[srcIterator++]);
     const auto seqLen = _utf8CharSizeTable[std::to_integer<size_t>(lead)];
     if (seqLen == 0 || seqLen > 3 || srcIterator + (seqLen - 1) > count) {
       break;
@@ -379,8 +435,8 @@ wchar_t * utf8toWChar(wchar_t * dest, size_t destSize, const char * src, size_t 
       continue;
     }
 
-    const auto leadMask = seqLen == 2 ? byte{0x1F} : byte{0x0F};
-    wchar_t codePoint = std::to_integer<wchar_t>(lead & leadMask);
+    const auto leadMask  = seqLen == 2 ? byte{0x1F} : byte{0x0F};
+    wchar_t    codePoint = std::to_integer<wchar_t>(lead & leadMask);
 
     for (size_t i = 1; i < seqLen; ++i) {
       const auto cont = static_cast<std::byte>(src[srcIterator++]);
@@ -410,25 +466,27 @@ char * wcharToUtf8(char * dest, size_t destSize, const wchar_t * src) noexcept {
     return dest;
   }
 
-  char * destPointer = dest;
-  const char * const utf8EndPos = dest + (destSize - 1);
+  char *             destPointer = dest;
+  const char * const utf8EndPos  = dest + (destSize - 1);
 
-  while (*src != L'\0' && destPointer < utf8EndPos) {
-    if (const auto symbol = static_cast<uint32_t>(*src++); symbol <= 0x7F) {
-      *destPointer = static_cast<char>(symbol);
+  while (*src != L'\0') {
+    const auto symbol = static_cast<uint32_t>(*src);
+    if (static_cast<size_t>(utf8EndPos - destPointer) < _symbolSizeInUTF8Bytes(*src))
+      break;
+
+    ++src;
+    if (symbol <= 0x7F) {
+      *destPointer++ = static_cast<char>(symbol);
+
+    } else if (symbol <= 0x7FF) {
+      *destPointer++ = static_cast<char>(((symbol & 0x07C0) >> 6) | 0xC0);
+      *destPointer++ = static_cast<char>((symbol & 0x003F) | 0x80);
+
     } else {
-      if (symbol <= 0x7FF) {
-        *destPointer = static_cast<char>(((symbol & 0x07C0) >> 6) | 0xC0);
-      } else {
-        *destPointer = static_cast<char>(((symbol & 0xF000) >> 12) | 0xE0);
-        ++destPointer;
-        *destPointer = static_cast<char>(((symbol & 0x0FC0) >> 6) | 0x80);
-      }
-
-      ++destPointer;
-      *destPointer = static_cast<char>((symbol & 0x003F) | 0x80);
+      *destPointer++ = static_cast<char>(((symbol & 0xF000) >> 12) | 0xE0);
+      *destPointer++ = static_cast<char>(((symbol & 0x0FC0) >> 6) | 0x80);
+      *destPointer++ = static_cast<char>((symbol & 0x003F) | 0x80);
     }
-    ++destPointer;
   }
 
   *destPointer = '\0';
@@ -465,12 +523,12 @@ char * ftoa(char * dest, size_t destSize, float value, size_t precision) noexcep
     return dest;
 
   const size_t bufferSize = 128;
-  char buffer[bufferSize + 1];
+  char         buffer[bufferSize + 1];
 
   if (const auto exp10 = _ftoa32Engine(buffer, value, precision); exp10 == 0xFF) {
 #if defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)
     strcpy_s(dest, destSize, buffer);
-#else // defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)
+#else  // defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)
     strncpy(dest, buffer, destSize - 1);
     dest[destSize - 1] = '\0';
 #endif // defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)
@@ -491,12 +549,12 @@ char * ftoa(char * dest, size_t destSize, double value, size_t precision) noexce
     return dest;
 
   const size_t bufferSize = 128;
-  char buffer[bufferSize + 1];
+  char         buffer[bufferSize + 1];
 
   if (const auto exp10 = _ftoa64Engine(buffer, value, precision); exp10 == 0x7FF) {
 #if defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)
     strcpy_s(dest, destSize, buffer);
-#else // defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)
+#else  // defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)
     strncpy(dest, buffer, destSize - 1);
     dest[destSize - 1] = '\0';
 #endif // defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)
@@ -517,7 +575,7 @@ constexpr size_t _decimalDigitsPerGroup = 3;
 void formatNumberString(char * buffer, size_t bufferSize, const char * separator) noexcept {
   assert_message(buffer != nullptr && bufferSize > 0, "The destination buffer must not be null.");
   assert_message(separator != nullptr, "The grouping separator must not be null.");
-  if (separator == nullptr)
+  if (buffer == nullptr || bufferSize == 0 || separator == nullptr)
     return;
 
   const auto separatorLen = char_traits<char>::length(separator);
@@ -537,8 +595,8 @@ void formatNumberString(char * buffer, size_t bufferSize, const char * separator
   if (digitsCount <= _decimalDigitsPerGroup) // Nothing to format.
     return;
 
-  auto groupsCount = (digitsCount - 1U) / _decimalDigitsPerGroup;
-  const auto ansiStringLen = char_traits<char>::length(buffer);
+  auto       groupsCount        = (digitsCount - 1U) / _decimalDigitsPerGroup;
+  const auto ansiStringLen      = char_traits<char>::length(buffer);
   const auto requiredBufferSize = ansiStringLen + groupsCount * separatorLen;
   assert_message(requiredBufferSize < bufferSize, "Buffer size is too low.");
   if (requiredBufferSize >= bufferSize)

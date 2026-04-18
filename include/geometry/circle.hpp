@@ -94,7 +94,7 @@ public:
   /// Center of the circle.
   math::Vector2<T> center;
   /// Radius of the circle.
-  T radius;
+  T                radius;
 
 public:
   /// Default constructor.

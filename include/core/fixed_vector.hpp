@@ -38,27 +38,27 @@ public:
   using value_type = type;
 
   /// Type used for vector size and capacity.
-  using size_type = size_t;
+  using size_type       = size_t;
   /// Type used for pointer differences.
   using difference_type = std::ptrdiff_t;
 
   /// Reference to vector element.
-  using reference = value_type &;
+  using reference       = value_type &;
   /// Const reference to vector element.
   using const_reference = const value_type &;
 
   /// Pointer to vector element.
-  using pointer = type *;
+  using pointer       = type *;
   /// Const pointer to vector element.
   using const_pointer = const type *;
 
   /// Iterator type for vector elements.
-  using iterator = value_type *;
+  using iterator       = value_type *;
   /// Const iterator type for vector elements.
   using const_iterator = const value_type *;
 
   /// Reverse iterator type for vector elements.
-  using reverse_iterator = std::reverse_iterator<iterator>;
+  using reverse_iterator       = std::reverse_iterator<iterator>;
   /// Const reverse iterator type for vector elements.
   using const_reverse_iterator = std::reverse_iterator<const_iterator>;
 

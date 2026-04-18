@@ -44,13 +44,13 @@ enum class SocketFlags : uint8_t {
   None = 0x00,
 
   /// Socket operates in non-blocking mode.
-  NonBlocking = 0x01,
+  NonBlocking  = 0x01,
   /// Allow local address reuse (e.g. \c SO_REUSEADDR).
   ReuseAddress = 0x02,
   /// Enable broadcast send/receive.
-  Broadcast = 0x04,
+  Broadcast    = 0x04,
   /// Socket is in listen state (for accepting connections).
-  Listen = 0x08,
+  Listen       = 0x08,
 
   /// Socket is bound to a local address.
   Bind = 0x10,

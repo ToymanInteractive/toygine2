@@ -41,7 +41,7 @@ void stringFixedStorageCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept
 
   bench.run("StringFixedStorage<8> size", [] {
     toy::StringFixedStorage<8> s;
-    auto n = s.size();
+    auto                       n = s.size();
     doNotOptimize(n);
   });
 

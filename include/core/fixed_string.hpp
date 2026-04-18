@@ -122,27 +122,27 @@ public:
   using value_type = char;
 
   /// Type used for string size and capacity.
-  using size_type = size_t;
+  using size_type       = size_t;
   /// Type used for pointer differences.
   using difference_type = std::ptrdiff_t;
 
   /// Reference to string character.
-  using reference = value_type &;
+  using reference       = value_type &;
   /// Const reference to string character.
   using const_reference = const value_type &;
 
   /// Pointer to string character.
-  using pointer = value_type *;
+  using pointer       = value_type *;
   /// Const pointer to string character.
   using const_pointer = const value_type *;
 
   /// Iterator type for string characters.
-  using iterator = value_type *;
+  using iterator       = value_type *;
   /// Const iterator type for string characters.
   using const_iterator = const value_type *;
 
   /// Reverse iterator type for string characters.
-  using reverse_iterator = std::reverse_iterator<iterator>;
+  using reverse_iterator       = std::reverse_iterator<iterator>;
   /// Const reverse iterator type for string characters.
   using const_reverse_iterator = std::reverse_iterator<const_iterator>;
 
@@ -1178,7 +1178,7 @@ public:
     \note If \a string is empty, returns \a position if within bounds, otherwise returns the string size.
   */
   [[nodiscard]] constexpr size_t rfind(const FixedString<allocatedSize> & string,
-                                       size_t position = npos) const noexcept;
+                                       size_t                             position = npos) const noexcept;
 
   /*!
     \brief Finds the last occurrence of a \ref toy::StringLike object in the string.
@@ -1257,7 +1257,7 @@ public:
     \note If \a string is empty, this method returns \ref npos.
   */
   [[nodiscard]] constexpr size_t find_first_of(const FixedString<allocatedSize> & string,
-                                               size_t position = 0) const noexcept;
+                                               size_t                             position = 0) const noexcept;
 
   /*!
     \brief Finds the first occurrence of any character from a \ref toy::StringLike object.
@@ -1335,7 +1335,7 @@ public:
     \note If \a string is empty, returns \a position if within bounds, otherwise returns \ref npos.
   */
   [[nodiscard]] constexpr size_t find_first_not_of(const FixedString<allocatedSize> & string,
-                                                   size_t position = 0) const noexcept;
+                                                   size_t                             position = 0) const noexcept;
 
   /*!
     \brief Finds the first occurrence of any character not from a \ref toy::StringLike object.
@@ -1412,7 +1412,7 @@ public:
     \note If \a string is empty, this method returns \ref npos.
   */
   [[nodiscard]] constexpr size_t find_last_of(const FixedString<allocatedSize> & string,
-                                              size_t position = npos) const noexcept;
+                                              size_t                             position = npos) const noexcept;
 
   /*!
     \brief Finds the last occurrence of any character from a \ref toy::StringLike object.
@@ -1492,7 +1492,7 @@ public:
     \note If \a string is empty, returns \a position if within bounds, otherwise returns \ref npos.
   */
   [[nodiscard]] constexpr size_t find_last_not_of(const FixedString<allocatedSize> & string,
-                                                  size_t position = npos) const noexcept;
+                                                  size_t                             position = npos) const noexcept;
 
   /*!
     \brief Finds the last occurrence of any character not from a \ref toy::StringLike object.
@@ -2027,7 +2027,7 @@ template <size_t allocatedSize1, size_t allocatedSize2>
 */
 template <size_t allocatedSize, StringLike stringType>
 [[nodiscard]] constexpr FixedString<allocatedSize> operator+(const FixedString<allocatedSize> & lhs,
-                                                             const stringType & rhs) noexcept;
+                                                             const stringType &                 rhs) noexcept;
 
 /*!
   \brief Concatenation operator for \ref toy::StringLike object and FixedString.
@@ -2046,7 +2046,7 @@ template <size_t allocatedSize, StringLike stringType>
   \note Result size is sum of both input sizes, must not exceed allocated size.
 */
 template <size_t allocatedSize, StringLike stringType>
-[[nodiscard]] constexpr FixedString<allocatedSize> operator+(const stringType & lhs,
+[[nodiscard]] constexpr FixedString<allocatedSize> operator+(const stringType &                 lhs,
                                                              const FixedString<allocatedSize> & rhs) noexcept;
 
 /*!
@@ -2068,7 +2068,7 @@ template <size_t allocatedSize, StringLike stringType>
 */
 template <size_t allocatedSize>
 [[nodiscard]] constexpr FixedString<allocatedSize> operator+(const FixedString<allocatedSize> & lhs,
-                                                             const char * rhs) noexcept;
+                                                             const char *                       rhs) noexcept;
 
 /*!
   \brief Concatenation operator for C-string and FixedString.
@@ -2088,7 +2088,7 @@ template <size_t allocatedSize>
   \note Result size is sum of both input sizes, must not exceed allocated size.
 */
 template <size_t allocatedSize>
-[[nodiscard]] constexpr FixedString<allocatedSize> operator+(const char * lhs,
+[[nodiscard]] constexpr FixedString<allocatedSize> operator+(const char *                       lhs,
                                                              const FixedString<allocatedSize> & rhs) noexcept;
 
 /*!
@@ -2279,7 +2279,7 @@ template <size_t allocatedSize1, size_t allocatedSize2>
 */
 template <size_t allocatedSize, StringLike stringType>
 [[nodiscard]] constexpr strong_ordering operator<=>(const FixedString<allocatedSize> & lhs,
-                                                    const stringType & rhs) noexcept;
+                                                    const stringType &                 rhs) noexcept;
 
 /*!
   \brief Three-way comparison operator for \ref toy::StringLike object and FixedString.
@@ -2303,7 +2303,7 @@ template <size_t allocatedSize, StringLike stringType>
   \sa operator==(const stringType &, const FixedString<allocatedSize> &)
 */
 template <size_t allocatedSize, StringLike stringType>
-[[nodiscard]] constexpr strong_ordering operator<=>(const stringType & lhs,
+[[nodiscard]] constexpr strong_ordering operator<=>(const stringType &                 lhs,
                                                     const FixedString<allocatedSize> & rhs) noexcept;
 
 /*!

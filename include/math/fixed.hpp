@@ -445,7 +445,7 @@ template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding
 */
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, bool OtherRounding>
 [[nodiscard]] constexpr fixed<Base, Intermediate, Fraction, Rounding> operator+(
-  const fixed<Base, Intermediate, Fraction, Rounding> & a,
+  const fixed<Base, Intermediate, Fraction, Rounding> &      a,
   const fixed<Base, Intermediate, Fraction, OtherRounding> & b) noexcept;
 
 /*!
@@ -484,7 +484,7 @@ template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding
 */
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, bool OtherRounding>
 [[nodiscard]] constexpr fixed<Base, Intermediate, Fraction, Rounding> operator-(
-  const fixed<Base, Intermediate, Fraction, Rounding> & a,
+  const fixed<Base, Intermediate, Fraction, Rounding> &      a,
   const fixed<Base, Intermediate, Fraction, OtherRounding> & b) noexcept;
 
 /*!
@@ -523,7 +523,7 @@ template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding
 */
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, bool OtherRounding>
 [[nodiscard]] constexpr fixed<Base, Intermediate, Fraction, Rounding> operator*(
-  const fixed<Base, Intermediate, Fraction, Rounding> & a,
+  const fixed<Base, Intermediate, Fraction, Rounding> &      a,
   const fixed<Base, Intermediate, Fraction, OtherRounding> & b) noexcept;
 
 /*!
@@ -564,7 +564,7 @@ template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding
 */
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, bool OtherRounding>
 [[nodiscard]] constexpr fixed<Base, Intermediate, Fraction, Rounding> operator/(
-  const fixed<Base, Intermediate, Fraction, Rounding> & a,
+  const fixed<Base, Intermediate, Fraction, Rounding> &      a,
   const fixed<Base, Intermediate, Fraction, OtherRounding> & b) noexcept;
 
 /*!
@@ -615,7 +615,7 @@ template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding
   \return \c true if \a a and \a b represent the same value, \c false otherwise.
 */
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, bool OtherRounding>
-[[nodiscard]] constexpr bool operator==(const fixed<Base, Intermediate, Fraction, Rounding> & a,
+[[nodiscard]] constexpr bool operator==(const fixed<Base, Intermediate, Fraction, Rounding> &      a,
                                         const fixed<Base, Intermediate, Fraction, OtherRounding> & b) noexcept;
 
 /*!
@@ -678,7 +678,7 @@ template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding
 */
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, bool OtherRounding>
 [[nodiscard]] constexpr strong_ordering operator<=>(
-  const fixed<Base, Intermediate, Fraction, Rounding> & a,
+  const fixed<Base, Intermediate, Fraction, Rounding> &      a,
   const fixed<Base, Intermediate, Fraction, OtherRounding> & b) noexcept;
 
 /*!
@@ -701,7 +701,7 @@ template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding
 */
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, integral T>
 [[nodiscard]] constexpr strong_ordering operator<=>(const fixed<Base, Intermediate, Fraction, Rounding> & a,
-                                                    const T & b) noexcept;
+                                                    const T &                                             b) noexcept;
 
 /*!
   \brief Three-way comparison of an integral with a \ref toy::math::fixed value.
@@ -722,7 +722,7 @@ template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding
           \c strong_ordering::greater if \a a is greater than \a b.
 */
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, integral T>
-[[nodiscard]] constexpr strong_ordering operator<=>(const T & a,
+[[nodiscard]] constexpr strong_ordering operator<=>(const T &                                             a,
                                                     const fixed<Base, Intermediate, Fraction, Rounding> & b) noexcept;
 
 } // namespace toy::math

@@ -30,7 +30,7 @@ namespace toy {
 // itoa benchmarks
 void itoaCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   constexpr size_t bufSize = 32;
-  char buf[bufSize];
+  char             buf[bufSize];
 
   bench.run("itoa int8_t", [&] {
     char * r = toy::itoa(buf, bufSize, int8_t{42});

@@ -33,9 +33,9 @@ namespace endpoint_test {
 // Concrete Endpoint implementation for testing port() and setPort(); virtuals are stubs.
 class TestEndpoint : public Endpoint {
 public:
-  bool setHostname(const char *) noexcept override;
-  bool isLocalHost() const noexcept override;
-  void setLocalHost() noexcept override;
+  bool         setHostname(const char *) noexcept override;
+  bool         isLocalHost() const noexcept override;
+  void         setLocalHost() noexcept override;
   const char * hostnameAsText() const noexcept override;
 };
 
@@ -91,7 +91,7 @@ TEST_CASE("network/endpoint/set_port_overwrite") {
 // port() and setPort() work when called through base pointer.
 TEST_CASE("network/endpoint/port_via_base") {
   endpoint_test::TestEndpoint ep;
-  Endpoint * base = &ep;
+  Endpoint *                  base = &ep;
 
   base->setPort(9000);
 

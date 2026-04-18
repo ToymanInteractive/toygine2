@@ -88,7 +88,7 @@ constexpr fixed<Base, Intermediate, Fraction, Rounding> fixed<Base, Intermediate
   if constexpr (Rounding) {
     // To correctly round the last bit, add the LSB of the double-scale division.
     const auto halfScale = value / (T(1) << (NumFractionBits - Fraction - 1));
-    rawValue = static_cast<Base>((value / (T(1) << (NumFractionBits - Fraction))) + (halfScale % 2));
+    rawValue             = static_cast<Base>((value / (T(1) << (NumFractionBits - Fraction))) + (halfScale % 2));
   } else {
     rawValue = static_cast<Base>(value / (T(1) << (NumFractionBits - Fraction)));
   }
@@ -176,10 +176,10 @@ constexpr fixed<Base, Intermediate, Fraction, Rounding> & fixed<Base, Intermedia
     // To correctly round the last bit in the result, we need one more bit of information.
     // We do this by multiplying by two before dividing and adding the LSB to the real result.
     auto value = (static_cast<Intermediate>(_value) * otherRaw) / (_fractionMult() / 2);
-    _value = static_cast<Base>((value / 2) + (value % 2));
+    _value     = static_cast<Base>((value / 2) + (value % 2));
   } else {
     auto value = (static_cast<Intermediate>(_value) * otherRaw) / _fractionMult();
-    _value = static_cast<Base>(value);
+    _value     = static_cast<Base>(value);
   }
 
   return *this;
@@ -207,10 +207,10 @@ constexpr fixed<Base, Intermediate, Fraction, Rounding> & fixed<Base, Intermedia
     // To correctly round the last bit in the result, we need one more bit of information.
     // We do this by multiplying by two before dividing and adding the LSB to the real result.
     auto value = (static_cast<Intermediate>(_value) * _fractionMult() * 2) / divisor;
-    _value = static_cast<Base>((value / 2) + (value % 2));
+    _value     = static_cast<Base>((value / 2) + (value % 2));
   } else {
     auto value = (static_cast<Intermediate>(_value) * _fractionMult()) / divisor;
-    _value = static_cast<Base>(value);
+    _value     = static_cast<Base>(value);
   }
 
   return *this;
@@ -248,7 +248,7 @@ constexpr fixed<Base, Intermediate, Fraction, Rounding> operator-(
 
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, bool OtherRounding>
 constexpr fixed<Base, Intermediate, Fraction, Rounding> operator+(
-  const fixed<Base, Intermediate, Fraction, Rounding> & a,
+  const fixed<Base, Intermediate, Fraction, Rounding> &      a,
   const fixed<Base, Intermediate, Fraction, OtherRounding> & b) noexcept {
   return fixed<Base, Intermediate, Fraction, Rounding>(a) += b;
 }
@@ -269,7 +269,7 @@ constexpr fixed<Base, Intermediate, Fraction, Rounding> operator+(
 
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, bool OtherRounding>
 constexpr fixed<Base, Intermediate, Fraction, Rounding> operator-(
-  const fixed<Base, Intermediate, Fraction, Rounding> & a,
+  const fixed<Base, Intermediate, Fraction, Rounding> &      a,
   const fixed<Base, Intermediate, Fraction, OtherRounding> & b) noexcept {
   return fixed<Base, Intermediate, Fraction, Rounding>(a) -= b;
 }
@@ -290,7 +290,7 @@ constexpr fixed<Base, Intermediate, Fraction, Rounding> operator-(
 
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, bool OtherRounding>
 constexpr fixed<Base, Intermediate, Fraction, Rounding> operator*(
-  const fixed<Base, Intermediate, Fraction, Rounding> & a,
+  const fixed<Base, Intermediate, Fraction, Rounding> &      a,
   const fixed<Base, Intermediate, Fraction, OtherRounding> & b) noexcept {
   return fixed<Base, Intermediate, Fraction, Rounding>(a) *= b;
 }
@@ -311,7 +311,7 @@ constexpr fixed<Base, Intermediate, Fraction, Rounding> operator*(
 
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, bool OtherRounding>
 constexpr fixed<Base, Intermediate, Fraction, Rounding> operator/(
-  const fixed<Base, Intermediate, Fraction, Rounding> & a,
+  const fixed<Base, Intermediate, Fraction, Rounding> &      a,
   const fixed<Base, Intermediate, Fraction, OtherRounding> & b) noexcept {
   assert_message(b.rawValue() != 0, "operator/(fixed, fixed): divisor must not be zero");
 
@@ -337,7 +337,7 @@ constexpr fixed<Base, Intermediate, Fraction, Rounding> operator/(
 }
 
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, bool OtherRounding>
-constexpr bool operator==(const fixed<Base, Intermediate, Fraction, Rounding> & a,
+constexpr bool operator==(const fixed<Base, Intermediate, Fraction, Rounding> &      a,
                           const fixed<Base, Intermediate, Fraction, OtherRounding> & b) noexcept {
   return a.rawValue() == b.rawValue();
 }
@@ -353,7 +353,7 @@ constexpr bool operator==(const T & a, const fixed<Base, Intermediate, Fraction,
 }
 
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, bool OtherRounding>
-constexpr strong_ordering operator<=>(const fixed<Base, Intermediate, Fraction, Rounding> & a,
+constexpr strong_ordering operator<=>(const fixed<Base, Intermediate, Fraction, Rounding> &      a,
                                       const fixed<Base, Intermediate, Fraction, OtherRounding> & b) noexcept {
   return a.rawValue() <=> b.rawValue();
 }

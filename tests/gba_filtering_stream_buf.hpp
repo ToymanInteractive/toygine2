@@ -62,7 +62,7 @@ private:
 
   State _state{State::Normal};
 
-  char _lineBuffer[kLineBufferSize];
+  char        _lineBuffer[kLineBufferSize];
   std::size_t _lineBufferDataSize{0};
 
   [[nodiscard]] bool _shouldPass(int_type c) noexcept;

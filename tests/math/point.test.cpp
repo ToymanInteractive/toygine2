@@ -35,7 +35,7 @@ TEST_CASE("math/point/object_structure") {
   static_assert(sizeof(Point) == sizeof(int32_t) * 2, "Point must have size of two int32_t");
 
   constexpr Point point(111, 222);
-  const auto * arr = point.c_arr();
+  const auto *    arr = point.c_arr();
 
   REQUIRE(arr == &point.x);
   REQUIRE(arr + 1 == &point.y);
@@ -61,7 +61,9 @@ TEST_CASE("math/point/constructors") {
 
   // Constructor from pointer to two-element array.
   SUBCASE("constructor_from_pointer_to_array") {
-    constexpr array<int32_t, 2> arr{{42, -17}};
+    constexpr array<int32_t, 2> arr{
+      {42, -17}
+    };
     constexpr Point point(arr.data());
 
     REQUIRE(point.x == 42);
@@ -77,7 +79,9 @@ TEST_CASE("math/point/constructors") {
     REQUIRE(coordPoint.x == 123);
     REQUIRE(coordPoint.y == -456);
 
-    constexpr array<int32_t, 2> arr{{789, -321}};
+    constexpr array<int32_t, 2> arr{
+      {789, -321}
+    };
     Point arrayPoint(arr.data());
     REQUIRE(arrayPoint.x == 789);
     REQUIRE(arrayPoint.y == -321);
@@ -89,7 +93,7 @@ TEST_CASE("math/point/c_arr_methods") {
   // c_arr() returns pointer to x, y; layout is contiguous.
   SUBCASE("c_arr_layout") {
     constexpr Point point(10, 20);
-    const auto * arr = point.c_arr();
+    const auto *    arr = point.c_arr();
 
     REQUIRE(arr != nullptr);
     REQUIRE(arr == &point.x);
@@ -101,7 +105,7 @@ TEST_CASE("math/point/c_arr_methods") {
 
   // Non-const c_arr() allows modification of x, y.
   SUBCASE("c_arr_modification") {
-    Point point(1, 2);
+    Point  point(1, 2);
     auto * arr = point.c_arr();
 
     REQUIRE(arr != nullptr);
@@ -116,7 +120,7 @@ TEST_CASE("math/point/c_arr_methods") {
   // Const c_arr() returns read-only pointer.
   SUBCASE("const_c_arr") {
     constexpr Point point(123, -456);
-    const auto * arr = point.c_arr();
+    const auto *    arr = point.c_arr();
 
     REQUIRE(arr != nullptr);
     REQUIRE(arr[0] == 123);
@@ -128,7 +132,7 @@ TEST_CASE("math/point/c_arr_methods") {
 TEST_CASE("math/point/operators") {
   // operator+= adds vector.
   SUBCASE("operator_plus_assign") {
-    Point point1(10, 20);
+    Point           point1(10, 20);
     constexpr Point point2(5, -10);
 
     point1 += point2;
@@ -139,7 +143,7 @@ TEST_CASE("math/point/operators") {
 
   // operator-= subtracts vector.
   SUBCASE("operator_minus_assign") {
-    Point point1(15, 25);
+    Point           point1(15, 25);
     constexpr Point point2(5, 10);
 
     point1 -= point2;
@@ -150,7 +154,7 @@ TEST_CASE("math/point/operators") {
 
   // operator*= with integer scalar.
   SUBCASE("operator_times_assign_with_integer") {
-    Point point(10, 20);
+    Point             point(10, 20);
     constexpr int32_t scalar = 3;
 
     point *= scalar;
@@ -179,7 +183,7 @@ TEST_CASE("math/point/operators") {
 
   // operator*= with fixed_point scalar.
   SUBCASE("operator_times_assign_with_fixed") {
-    Point point(10, 20);
+    Point                point(10, 20);
     constexpr fixed_type scalar(2);
 
     point *= scalar;
@@ -190,7 +194,7 @@ TEST_CASE("math/point/operators") {
 
   // operator/= with integer scalar.
   SUBCASE("operator_div_assign_with_integer") {
-    Point point(30, 60);
+    Point             point(30, 60);
     constexpr int32_t scalar = 3;
 
     point /= scalar;
@@ -219,7 +223,7 @@ TEST_CASE("math/point/operators") {
 
   // operator/= with fixed_point scalar.
   SUBCASE("operator_div_assign_with_fixed") {
-    Point point(20, 40);
+    Point                point(20, 40);
     constexpr fixed_type scalar(2);
 
     point /= scalar;
@@ -230,7 +234,7 @@ TEST_CASE("math/point/operators") {
 
   // Chained compound assignments.
   SUBCASE("chained_operations") {
-    Point point(10, 20);
+    Point           point(10, 20);
     constexpr Point offset(5, 10);
 
     point += offset;
@@ -275,10 +279,10 @@ TEST_CASE("math/point/point_methods") {
 
   // isEqual() exact and with tolerance.
   SUBCASE("is_equal") {
-    constexpr Point point1(10, 20);
-    constexpr Point point2(10, 20);
-    constexpr Point point3(11, 20);
-    constexpr Point point4(12, 18);
+    constexpr Point   point1(10, 20);
+    constexpr Point   point2(10, 20);
+    constexpr Point   point3(11, 20);
+    constexpr Point   point4(12, 18);
     constexpr int32_t tolerance = 3;
 
     REQUIRE(point1.isEqual(point2));
@@ -301,7 +305,7 @@ TEST_CASE("math/point/point_methods") {
 
   // Runtime point methods.
   SUBCASE("runtime_tests") {
-    Point point(10, 20);
+    Point           point(10, 20);
     constexpr Point offset(5, -10);
 
     point += offset;
@@ -332,7 +336,7 @@ TEST_CASE("math/point/binary_operators") {
   // Unary minus negates x, y.
   SUBCASE("unary_minus") {
     constexpr Point point(10, -20);
-    constexpr auto result = -point;
+    constexpr auto  result = -point;
 
     REQUIRE(result.x == -10);
     REQUIRE(result.y == 20);
@@ -372,7 +376,7 @@ TEST_CASE("math/point/binary_operators") {
 
   // Point * integer scalar and integer * point.
   SUBCASE("multiplication_with_integer_scalar") {
-    constexpr Point point(10, 20);
+    constexpr Point   point(10, 20);
     constexpr int32_t scalar = 3;
 
     constexpr auto result = point * scalar;
@@ -486,7 +490,7 @@ TEST_CASE("math/point/binary_operators") {
 
   // Division by integer scalar.
   SUBCASE("division_with_integer_scalar") {
-    constexpr Point point(30, 60);
+    constexpr Point   point(30, 60);
     constexpr int32_t scalar = 3;
 
     constexpr auto result = point / scalar;
@@ -498,7 +502,7 @@ TEST_CASE("math/point/binary_operators") {
     static_assert(result.y == 20, "point / scalar must divide y");
 
     constexpr Point negPoint(-20, -40);
-    constexpr auto negDivResult = negPoint / -2;
+    constexpr auto  negDivResult = negPoint / -2;
 
     REQUIRE(negDivResult.x == 10);
     REQUIRE(negDivResult.y == 20);
@@ -571,8 +575,8 @@ TEST_CASE("math/point/binary_operators") {
 
   // Chained binary operations.
   SUBCASE("chained_binary_operations") {
-    constexpr Point point1(10, 20);
-    constexpr Point point2(5, 10);
+    constexpr Point   point1(10, 20);
+    constexpr Point   point2(5, 10);
     constexpr int32_t scalar = 2;
 
     constexpr auto result = (point1 + point2) * scalar - point1;
@@ -586,9 +590,9 @@ TEST_CASE("math/point/binary_operators") {
 
   // Complex chained with float and integer scalars.
   SUBCASE("complex_chained_operations") {
-    constexpr Point point1(100, 200);
-    constexpr Point point2(50, 75);
-    constexpr float scalar1 = 1.5f;
+    constexpr Point   point1(100, 200);
+    constexpr Point   point2(50, 75);
+    constexpr float   scalar1 = 1.5f;
     constexpr int32_t scalar2 = 2;
 
     constexpr auto result = (point1 * scalar1 + point2) / scalar2;
@@ -605,13 +609,13 @@ TEST_CASE("math/point/binary_operators") {
     constexpr Point point1(10, 20);
     constexpr Point point2(5, -10);
 
-    constexpr auto negated = -point1;
-    constexpr auto sum = negated + point2;
-    constexpr auto diff = sum - point2;
-    constexpr auto multInt = diff * 3;
+    constexpr auto negated  = -point1;
+    constexpr auto sum      = negated + point2;
+    constexpr auto diff     = sum - point2;
+    constexpr auto multInt  = diff * 3;
     constexpr auto multReal = multInt * 2.5f;
-    constexpr auto divInt = multReal / 3;
-    constexpr auto divReal = divInt / 2.5f;
+    constexpr auto divInt   = multReal / 3;
+    constexpr auto divReal  = divInt / 2.5f;
 
     REQUIRE(divReal.x == -10);
     REQUIRE(divReal.y == -20);

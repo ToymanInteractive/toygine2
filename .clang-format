@@ -1,4 +1,4 @@
-# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#allowallconstructorinitializersonnextline
+# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html
 ---
 Language: Cpp
 Standard: Latest
@@ -49,7 +49,8 @@ AlignTrailingComments:
   OverEmptyLines: 1
   AlignPPAndNotPP: true
 AllowAllArgumentsOnNextLine: true
-AllowAllParametersOfDeclarationOnNextLine: false
+AllowAllParametersOfDeclarationOnNextLine: true
+# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#allowbreakbeforenoexceptspecifier
 AllowShortBlocksOnASingleLine: false
 AllowShortCaseLabelsOnASingleLine: false
 AllowShortFunctionsOnASingleLine: Empty

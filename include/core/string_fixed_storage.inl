@@ -52,7 +52,7 @@ constexpr const char * StringFixedStorage<AllocatedSize>::data() const noexcept 
 template <size_t AllocatedSize>
 constexpr void StringFixedStorage<AllocatedSize>::setSize(size_t newSize) noexcept {
   assert_message(newSize <= capacity(), "newSize must be less or equal than capacity");
-  _size = newSize;
+  _size          = newSize;
   _buffer[_size] = '\0';
 }
 

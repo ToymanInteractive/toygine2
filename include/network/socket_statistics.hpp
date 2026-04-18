@@ -38,7 +38,7 @@ namespace toy::network {
 */
 struct SocketStatistics {
   /// Total bytes sent on the socket.
-  size_t bytesSent = 0;
+  size_t bytesSent     = 0;
   /// Total bytes received on the socket.
   size_t bytesReceived = 0;
 };

@@ -86,14 +86,14 @@ enum class PlaceholderMode {
                                                                           size_t & position, size_t argCount) noexcept {
   using enum FormatPatternValidationError;
 
-  size_t index = 0;
-  bool anyDigit = false;
+  size_t index    = 0;
+  bool   anyDigit = false;
   while (position < length) {
     const char d = string.at(position);
     if (d < '0' || d > '9')
       break;
 
-    anyDigit = true;
+    anyDigit         = true;
     const auto digit = static_cast<unsigned>(d - '0');
     if (index > (SIZE_MAX - digit) / 10U)
       return indexOutOfRange;
@@ -134,7 +134,7 @@ enum class PlaceholderMode {
 [[nodiscard]] constexpr FormatPatternValidationError parseOpeningBrace(const CStringView & string, size_t length,
                                                                        size_t & position, size_t & autoCount,
                                                                        PlaceholderMode & mode,
-                                                                       size_t argCount) noexcept {
+                                                                       size_t            argCount) noexcept {
   using enum FormatPatternValidationError;
 
   if (position + 1 >= length)
@@ -202,13 +202,13 @@ enum class PlaceholderMode {
   \note Internal implementation for \c validateFormatPattern; not part of the public API.
 */
 [[nodiscard]] constexpr FormatPatternValidationError validateFormatImpl(const CStringView & string,
-                                                                        size_t argCount) noexcept {
+                                                                        size_t              argCount) noexcept {
   using enum FormatPatternValidationError;
 
-  auto mode = PlaceholderMode::none;
-  size_t autoCount = 0;
-  size_t position = 0;
-  const auto length = string.size();
+  auto       mode      = PlaceholderMode::none;
+  size_t     autoCount = 0;
+  size_t     position  = 0;
+  const auto length    = string.size();
 
   while (position < length) {
     const char c = string.at(position);

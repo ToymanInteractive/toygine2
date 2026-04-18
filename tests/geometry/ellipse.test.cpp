@@ -140,7 +140,7 @@ TEST_CASE("geometry/ellipse/reset") {
 TEST_CASE("geometry/ellipse/is_reset") {
   // Floating-point component type.
   SUBCASE("float") {
-    Ellipse<float> eZero;
+    Ellipse<float>    eZero;
     constexpr Ellipse ePos(math::Vector2(0.0f, 0.0f), math::Vector2(1.0f, 2.0f));
 
     eZero.reset();
@@ -154,7 +154,7 @@ TEST_CASE("geometry/ellipse/is_reset") {
   // Fixed-point component type.
   SUBCASE("fixed") {
     Ellipse<fixed_type> eZero;
-    constexpr Ellipse ePos(math::Vector2(fixed_type(0), fixed_type(0)), math::Vector2(fixed_type(1), fixed_type(2)));
+    constexpr Ellipse   ePos(math::Vector2(fixed_type(0), fixed_type(0)), math::Vector2(fixed_type(1), fixed_type(2)));
 
     eZero.reset();
 
@@ -169,7 +169,7 @@ TEST_CASE("geometry/ellipse/is_reset") {
 TEST_CASE("geometry/ellipse/is_valid") {
   // Floating-point component type.
   SUBCASE("float") {
-    Ellipse<float> eZero;
+    Ellipse<float>    eZero;
     constexpr Ellipse ePos(math::Vector2(0.0f, 0.0f), math::Vector2(1.0f, 2.0f));
 
     eZero.reset();
@@ -183,7 +183,7 @@ TEST_CASE("geometry/ellipse/is_valid") {
   // Fixed-point component type.
   SUBCASE("fixed") {
     Ellipse<fixed_type> eZero;
-    constexpr Ellipse ePos(math::Vector2(fixed_type(0), fixed_type(0)), math::Vector2(fixed_type(1), fixed_type(2)));
+    constexpr Ellipse   ePos(math::Vector2(fixed_type(0), fixed_type(0)), math::Vector2(fixed_type(1), fixed_type(2)));
 
     eZero.reset();
 

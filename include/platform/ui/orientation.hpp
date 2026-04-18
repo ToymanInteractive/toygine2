@@ -41,18 +41,18 @@ namespace toy::platform::ui {
 */
 enum class Orientation : uint8_t {
   /// Landscape: width greater than height (normal).
-  Landscape = 1,
+  Landscape        = 1,
   /// Portrait: height greater than width (normal).
-  Portrait = 2,
+  Portrait         = 2,
   /// Landscape rotated 180 degrees.
   LandscapeFlipped = 4,
   /// Portrait rotated 180 degrees.
-  PortraitFlipped = 8,
+  PortraitFlipped  = 8,
 
   /// Either landscape variant.
   LandscapeAny = Landscape | LandscapeFlipped,
   /// Either portrait variant.
-  PortraitAny = Portrait | PortraitFlipped,
+  PortraitAny  = Portrait | PortraitFlipped,
 
   /// Any orientation.
   Any = LandscapeAny | PortraitAny,

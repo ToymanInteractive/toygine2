@@ -162,8 +162,8 @@ TEST_CASE("core/hashes/crc_functions") {
     constexpr CStringView part1("Toygine2 - Free ");
     constexpr CStringView part2("2D/3D game engine.");
 
-    const auto crc8_1 = crc8(part1.c_str(), part1.size());
-    const auto crc8_2 = crc8(part2.c_str(), part2.size(), crc8_1);
+    const auto crc8_1  = crc8(part1.c_str(), part1.size());
+    const auto crc8_2  = crc8(part2.c_str(), part2.size(), crc8_1);
     const auto crc16_1 = crc16(part1.c_str(), part1.size());
     const auto crc16_2 = crc16(part2.c_str(), part2.size(), crc16_1);
     const auto crc32_1 = crc32(part1.c_str(), part1.size());

@@ -136,7 +136,7 @@ TEST_CASE("geometry/circle/reset") {
 TEST_CASE("geometry/circle/is_reset") {
   // Floating-point component type.
   SUBCASE("float") {
-    Circle<float> cZero;
+    Circle<float>    cZero;
     constexpr Circle cPos(math::Vector2(0.0f, 0.0f), 1.0f);
 
     cZero.reset();
@@ -150,7 +150,7 @@ TEST_CASE("geometry/circle/is_reset") {
   // Fixed-point component type.
   SUBCASE("fixed") {
     Circle<fixed_type> cZero;
-    constexpr Circle cPos(math::Vector2(fixed_type(0), fixed_type(0)), fixed_type(1));
+    constexpr Circle   cPos(math::Vector2(fixed_type(0), fixed_type(0)), fixed_type(1));
 
     cZero.reset();
 
@@ -165,7 +165,7 @@ TEST_CASE("geometry/circle/is_reset") {
 TEST_CASE("geometry/circle/is_valid") {
   // Floating-point component type.
   SUBCASE("float") {
-    Circle<float> cZero;
+    Circle<float>    cZero;
     constexpr Circle cPos(math::Vector2(0.0f, 0.0f), 1.0f);
 
     cZero.reset();
@@ -179,7 +179,7 @@ TEST_CASE("geometry/circle/is_valid") {
   // Fixed-point component type.
   SUBCASE("fixed") {
     Circle<fixed_type> cZero;
-    constexpr Circle cPos(math::Vector2(fixed_type(0), fixed_type(0)), fixed_type(1));
+    constexpr Circle   cPos(math::Vector2(fixed_type(0), fixed_type(0)), fixed_type(1));
 
     cZero.reset();
 

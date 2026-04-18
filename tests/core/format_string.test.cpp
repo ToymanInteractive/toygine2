@@ -97,7 +97,7 @@ TEST_CASE("core/format_string/get_method") {
   // get() returns the stored string.
   SUBCASE("returns_stored_string") {
     constexpr FormatString<> format("Test");
-    constexpr const auto result = format.get();
+    constexpr const auto     result = format.get();
 
     REQUIRE(result == "Test");
 
@@ -107,8 +107,8 @@ TEST_CASE("core/format_string/get_method") {
   // Successive get() calls return equal values.
   SUBCASE("successive_calls_return_equal") {
     constexpr FormatString<> format("Reference");
-    constexpr const auto result1 = format.get();
-    constexpr const auto result2 = format.get();
+    constexpr const auto     result1 = format.get();
+    constexpr const auto     result2 = format.get();
 
     REQUIRE(result1 == "Reference");
     REQUIRE(result2 == "Reference");

@@ -46,38 +46,38 @@ void fixedMathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   bench.run("fixed == fixed", [] {
     fixed_type a(42);
     fixed_type b(42);
-    auto r = (a == b);
+    auto       r = (a == b);
     doNotOptimize(r);
   });
   bench.run("fixed == int", [] {
     fixed_type f(42);
-    int i = 42;
-    auto r = (f == i);
+    int        i = 42;
+    auto       r = (f == i);
     doNotOptimize(r);
   });
   bench.run("int == fixed", [] {
-    int i = 42;
+    int        i = 42;
     fixed_type f(42);
-    auto r = (i == f);
+    auto       r = (i == f);
     doNotOptimize(r);
   });
 
   bench.run("fixed <=> fixed", [] {
     fixed_type a(42);
     fixed_type b(42);
-    auto r = (a <=> b);
+    auto       r = (a <=> b);
     doNotOptimize(r);
   });
   bench.run("fixed <=> int", [] {
     fixed_type f(42);
-    int i = 42;
-    auto r = (f <=> i);
+    int        i = 42;
+    auto       r = (f <=> i);
     doNotOptimize(r);
   });
   bench.run("int <=> fixed", [] {
-    int i = 42;
+    int        i = 42;
     fixed_type f(42);
-    auto r = (i <=> f);
+    auto       r = (i <=> f);
     doNotOptimize(r);
   });
 }

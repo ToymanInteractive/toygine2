@@ -42,9 +42,9 @@ enum class ClearFlags : uint8_t {
   None = 0x00,
 
   /// Clear the color/diffuse target (back buffer or render target).
-  Target = 0x01,
+  Target  = 0x01,
   /// Clear the depth buffer.
-  Depth = 0x02,
+  Depth   = 0x02,
   /// Clear the stencil buffer.
   Stencil = 0x04,
 

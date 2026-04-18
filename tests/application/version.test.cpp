@@ -76,7 +76,7 @@ TEST_CASE("app/version/equality_operator") {
   SUBCASE("identical") {
     constexpr Version v1{1, 2, 3, 4};
     constexpr Version v2{1, 2, 3, 4};
-    constexpr bool result = v1 == v2;
+    constexpr bool    result = v1 == v2;
 
     static_assert(result, "identical versions must compare equal");
   }
@@ -85,7 +85,7 @@ TEST_CASE("app/version/equality_operator") {
   SUBCASE("different_major_versions") {
     constexpr Version v1{1, 2, 3, 4};
     constexpr Version v2{2, 2, 3, 4};
-    constexpr bool result = v1 == v2;
+    constexpr bool    result = v1 == v2;
 
     static_assert(!result, "different major must yield not equal");
   }
@@ -94,7 +94,7 @@ TEST_CASE("app/version/equality_operator") {
   SUBCASE("different_minor_versions") {
     constexpr Version v1{1, 2, 3, 4};
     constexpr Version v2{1, 3, 3, 4};
-    constexpr bool result = v1 == v2;
+    constexpr bool    result = v1 == v2;
 
     static_assert(!result, "different minor must yield not equal");
   }
@@ -103,7 +103,7 @@ TEST_CASE("app/version/equality_operator") {
   SUBCASE("different_maintenance_versions") {
     constexpr Version v1{1, 2, 3, 4};
     constexpr Version v2{1, 2, 4, 4};
-    constexpr bool result = v1 == v2;
+    constexpr bool    result = v1 == v2;
 
     static_assert(!result, "different maintenance must yield not equal");
   }
@@ -112,7 +112,7 @@ TEST_CASE("app/version/equality_operator") {
   SUBCASE("different_revision_versions") {
     constexpr Version v1{1, 2, 3, 4};
     constexpr Version v2{1, 2, 3, 5};
-    constexpr bool result = v1 == v2;
+    constexpr bool    result = v1 == v2;
 
     static_assert(!result, "different revision must yield not equal");
   }
@@ -121,7 +121,7 @@ TEST_CASE("app/version/equality_operator") {
   SUBCASE("zero_versions") {
     constexpr Version v1{0, 0, 0, 0};
     constexpr Version v2{0, 0, 0, 0};
-    constexpr bool result = v1 == v2;
+    constexpr bool    result = v1 == v2;
 
     static_assert(result, "both zero must compare equal");
   }
@@ -130,7 +130,7 @@ TEST_CASE("app/version/equality_operator") {
   SUBCASE("mixed_zero_and_non_zero") {
     constexpr Version v1{0, 0, 0, 0};
     constexpr Version v2{0, 0, 0, 1};
-    constexpr bool result = v1 == v2;
+    constexpr bool    result = v1 == v2;
 
     static_assert(!result, "zero vs non-zero must be not equal");
   }
@@ -142,7 +142,7 @@ TEST_CASE("app/version/three_way_comparison_operator") {
   SUBCASE("equal_versions") {
     constexpr Version v1{1, 2, 3, 4};
     constexpr Version v2{1, 2, 3, 4};
-    constexpr auto result = v1 <=> v2;
+    constexpr auto    result = v1 <=> v2;
 
     static_assert(result == strong_ordering::equal, "identical versions must order equal");
   }
@@ -151,13 +151,13 @@ TEST_CASE("app/version/three_way_comparison_operator") {
   SUBCASE("major_version_comparison") {
     constexpr Version v1{1, 2, 3, 4};
     constexpr Version v2{2, 1, 1, 1};
-    constexpr auto result = v1 <=> v2;
+    constexpr auto    result = v1 <=> v2;
 
     static_assert(result == strong_ordering::less, "lesser major must order less");
 
     constexpr Version v3{2, 1, 1, 1};
     constexpr Version v4{1, 2, 3, 4};
-    constexpr auto result2 = v3 <=> v4;
+    constexpr auto    result2 = v3 <=> v4;
 
     static_assert(result2 == strong_ordering::greater, "greater major must order greater");
   }
@@ -166,13 +166,13 @@ TEST_CASE("app/version/three_way_comparison_operator") {
   SUBCASE("minor_version_comparison") {
     constexpr Version v1{1, 2, 3, 4};
     constexpr Version v2{1, 3, 1, 1};
-    constexpr auto result = v1 <=> v2;
+    constexpr auto    result = v1 <=> v2;
 
     static_assert(result == strong_ordering::less, "lesser minor must order less");
 
     constexpr Version v3{1, 3, 1, 1};
     constexpr Version v4{1, 2, 3, 4};
-    constexpr auto result2 = v3 <=> v4;
+    constexpr auto    result2 = v3 <=> v4;
 
     static_assert(result2 == strong_ordering::greater, "greater minor must order greater");
   }
@@ -181,13 +181,13 @@ TEST_CASE("app/version/three_way_comparison_operator") {
   SUBCASE("maintenance_version_comparison") {
     constexpr Version v1{1, 2, 3, 4};
     constexpr Version v2{1, 2, 4, 1};
-    constexpr auto result = v1 <=> v2;
+    constexpr auto    result = v1 <=> v2;
 
     static_assert(result == strong_ordering::less, "lesser maintenance must order less");
 
     constexpr Version v3{1, 2, 4, 1};
     constexpr Version v4{1, 2, 3, 4};
-    constexpr auto result2 = v3 <=> v4;
+    constexpr auto    result2 = v3 <=> v4;
 
     static_assert(result2 == strong_ordering::greater, "greater maintenance must order greater");
   }
@@ -196,13 +196,13 @@ TEST_CASE("app/version/three_way_comparison_operator") {
   SUBCASE("revision_version_comparison") {
     constexpr Version v1{1, 2, 3, 4};
     constexpr Version v2{1, 2, 3, 5};
-    constexpr auto result = v1 <=> v2;
+    constexpr auto    result = v1 <=> v2;
 
     static_assert(result == strong_ordering::less, "lesser revision must order less");
 
     constexpr Version v3{1, 2, 3, 5};
     constexpr Version v4{1, 2, 3, 4};
-    constexpr auto result2 = v3 <=> v4;
+    constexpr auto    result2 = v3 <=> v4;
 
     static_assert(result2 == strong_ordering::greater, "greater revision must order greater");
   }
@@ -211,7 +211,7 @@ TEST_CASE("app/version/three_way_comparison_operator") {
   SUBCASE("zero_versions") {
     constexpr Version v1{0, 0, 0, 0};
     constexpr Version v2{0, 0, 0, 0};
-    constexpr auto result = v1 <=> v2;
+    constexpr auto    result = v1 <=> v2;
 
     static_assert(result == strong_ordering::equal, "both zero must order equal");
   }

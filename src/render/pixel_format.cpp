@@ -26,39 +26,50 @@
 
 namespace toy::render {
 
-static constexpr array<CStringView, std::to_underlying(PixelFormat::Unknown)> _formatNames{{
-  CStringView("A8R8G8B8"),
-  CStringView("X8R8G8B8"),
+/*!
+  \brief Lookup table mapping each \ref toy::render::PixelFormat enumerator to its human-readable name.
 
-  CStringView("A4R4G4B4"),
-  CStringView("R5G6B5"),
+  Indexed by the underlying value of \ref toy::render::PixelFormat. The entry count equals
+  \c std::to_underlying(PixelFormat::Unknown), so \c Unknown itself is not stored and is handled as a fallback by
+  pixelFormatName().
 
-  CStringView("A8"),
+  \pre The order and count of entries must match the \ref toy::render::PixelFormat enumerator values exactly.
+*/
+static constexpr array<CStringView, std::to_underlying(PixelFormat::Unknown)> c_formatNames{
+  {
+   CStringView("A8R8G8B8"),
+   CStringView("X8R8G8B8"),
 
-  CStringView("S3TC1"),
-  CStringView("S3TC5"),
-  CStringView("PVRTC2"),
-  CStringView("PVRTC4"),
+   CStringView("A4R4G4B4"),
+   CStringView("R5G6B5"),
 
-  CStringView("D16Lockable"),
-  CStringView("D32"),
-  CStringView("D15S1"),
-  CStringView("D24S8"),
-  CStringView("D24X8"),
-  CStringView("D24X4S4"),
-  CStringView("D16"),
-}};
+   CStringView("A8"),
+
+   CStringView("S3TC1"),
+   CStringView("S3TC5"),
+   CStringView("PVRTC2"),
+   CStringView("PVRTC4"),
+
+   CStringView("D16Lockable"),
+   CStringView("D32"),
+   CStringView("D15S1"),
+   CStringView("D24S8"),
+   CStringView("D24X8"),
+   CStringView("D24X4S4"),
+   CStringView("D16"),
+   }
+};
 
 CStringView pixelFormatName(PixelFormat format) noexcept {
-  if (const auto index = std::to_underlying(format); index < _formatNames.size())
-    return _formatNames[index];
+  if (const auto index = std::to_underlying(format); index < c_formatNames.size())
+    return c_formatNames[index];
 
   return "Unknown";
 }
 
 PixelFormat pixelFormatFromName(CStringView name) noexcept {
-  for (size_t index = 0; index < _formatNames.size(); ++index) {
-    if (_formatNames[index] == name)
+  for (size_t index = 0; index < c_formatNames.size(); ++index) {
+    if (c_formatNames[index] == name)
       return static_cast<PixelFormat>(index);
   }
 
