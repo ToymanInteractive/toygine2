@@ -122,6 +122,8 @@ Functions</h2></td></tr>
 <tr class="memitem:af5a101da1b38edd3c4d02acf12441202" id="r_af5a101da1b38edd3c4d02acf12441202"><td class="memTemplParams" colspan="2">template&lt;typename PatternType&gt; </td></tr>
 <tr class="memitem:af5a101da1b38edd3c4d02acf12441202 template"><td class="memItemLeft">constexpr size_t&#160;</td><td class="memItemRight"><a class="el" href="#af5a101da1b38edd3c4d02acf12441202">parseArgIndex</a> (const PatternType &amp;pattern, size_t start, size_t end, size_t &amp;autoIndex) noexcept</td></tr>
 <tr class="memdesc:af5a101da1b38edd3c4d02acf12441202"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resolves the argument index for a single <span class="tt">\{ ... \}</span> placeholder body.  <br /></td></tr>
+<tr class="memitem:a1b209cb21257eff54183197fedee33e6" id="r_a1b209cb21257eff54183197fedee33e6"><td class="memItemLeft">constexpr size_t&#160;</td><td class="memItemRight"><a class="el" href="#a1b209cb21257eff54183197fedee33e6">findClosingBrace</a> (const char *data, size_t start, size_t length) noexcept</td></tr>
+<tr class="memdesc:a1b209cb21257eff54183197fedee33e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scans forward from <em class="arg">start</em> to find the first <code>}</code> in <em class="arg">data</em>.  <br /></td></tr>
 </table>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a95f15086e82bf0c62e07dbf71dc2b4e9" name="a95f15086e82bf0c62e07dbf71dc2b4e9"></a>
@@ -183,7 +185,54 @@ template&lt;typename StringType, typename First, typename... Rest&gt; </div>
   </dd>
 </dl>
 <dl class="section pre"><dt>Precondition</dt><dd><em class="arg">index</em> is less than <code>1</code> + sizeof...(Rest); guaranteed by compile-time pattern validation.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Internal helper for <a class="el" href="../../d4/d6e/group___string.html#ga57e1d4d264063d67be1cfee4e45a66ad" title="Formats arguments into output using a compile-time validated pattern.">toy::formatTo()</a>; not part of the public API. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Internal helper for <a class="el" href="../../d4/d6e/group___string.html#ga57e1d4d264063d67be1cfee4e45a66ad" title="Formats arguments into output using a compile-time validated pattern.">formatTo()</a>; not part of the public API. </dd></dl>
+
+</div>
+</div>
+<a id="a1b209cb21257eff54183197fedee33e6" name="a1b209cb21257eff54183197fedee33e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b209cb21257eff54183197fedee33e6">&#9670;&#160;</a></span>findClosingBrace()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t toy::anonymous_namespace{format.inl}::findClosingBrace </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>data</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>start</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>length</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Scans forward from <em class="arg">start</em> to find the first <code>}</code> in <em class="arg">data</em>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>Pointer to the pattern's raw character buffer. </td></tr>
+    <tr><td class="paramname">start</td><td>Position to begin scanning from (one past the opening brace). </td></tr>
+    <tr><td class="paramname">length</td><td>Total length of the pattern buffer.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Index of the closing brace, or <em class="arg">length</em> if none is found.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd><em class="arg">start</em> &lt;= <em class="arg">length</em>; <em class="arg">data</em> contains at least <em class="arg">length</em> characters.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Internal helper for <a class="el" href="../../d4/d6e/group___string.html#ga024f540d2d32f3ac5fe1bb21b3f57a1a" title="Formats arguments into output using a runtime pattern, type-erasing them automatically.">vformatTo()</a>; not part of the public API. </dd></dl>
 
 </div>
 </div>
@@ -246,7 +295,7 @@ template&lt;typename PatternType&gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>Zero-based argument index to pass to the formatting dispatch.</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd><em class="arg">start</em> &lt;= <em class="arg">end</em>. Both indices refer to valid positions in <em class="arg">pattern</em> for the range <code></code>[start, end). When <em class="arg">start</em> &lt; <em class="arg">end</em>, code units in that range are decimal digits; this holds for patterns accepted by <a class="el" href="../../dc/d62/classtoy_1_1_format_string.html" title="toy::FormatString">toy::FormatString</a>.</dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>If <em class="arg">start</em> == <em class="arg">end</em>, <em class="arg">autoIndex</em> is incremented by <code>1</code>. Otherwise <em class="arg">autoIndex</em> is unchanged.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Internal helper for <a class="el" href="../../d4/d6e/group___string.html#ga57e1d4d264063d67be1cfee4e45a66ad" title="Formats arguments into output using a compile-time validated pattern.">toy::formatTo()</a>; not part of the public API. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Internal helper for <a class="el" href="../../d4/d6e/group___string.html#ga57e1d4d264063d67be1cfee4e45a66ad" title="Formats arguments into output using a compile-time validated pattern.">formatTo()</a> and <a class="el" href="../../d4/d6e/group___string.html#ga024f540d2d32f3ac5fe1bb21b3f57a1a" title="Formats arguments into output using a runtime pattern, type-erasing them automatically.">vformatTo()</a>; not part of the public API. </dd></dl>
 
 </div>
 </div>

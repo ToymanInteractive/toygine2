@@ -143,7 +143,8 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:_5Fdivmod10" id="r__5Fdivmod10"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="../../d9/d10/structtoy_1_1__divmod10.html">_divmod10</a></td></tr>
+<tr class="memitem:DivMod10" id="r_DivMod10"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="../../da/d8f/structtoy_1_1_div_mod10.html">DivMod10</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Result of an unsigned division by 10, carrying quotient and remainder.  <a href="../../da/d8f/structtoy_1_1_div_mod10.html#details">More...</a><br /></td></tr>
 <tr class="memitem:EnableBitwiseOperators" id="r_EnableBitwiseOperators"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../dc/d6d/classtoy_1_1_enable_bitwise_operators.html">EnableBitwiseOperators</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Primary template: disables generic bitwise operators for <em class="arg">T</em> unless specialized.  <a href="../../dc/d6d/classtoy_1_1_enable_bitwise_operators.html#details">More...</a><br /></td></tr>
 <tr class="memitem:CStringView" id="r_CStringView"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a></td></tr>
@@ -317,19 +318,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:ga57e1d4d264063d67be1cfee4e45a66ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Formats arguments into <em class="arg">output</em> using a compile-time validated pattern.  <br /></td></tr>
 <tr class="memitem:gac84e6047764bd1d720bbda3d0c6291b8" id="r_gac84e6047764bd1d720bbda3d0c6291b8"><td class="memTemplParams" colspan="2">template&lt;size_t BufferSize, typename... Args&gt; </td></tr>
 <tr class="memitem:gac84e6047764bd1d720bbda3d0c6291b8 template"><td class="memItemLeft"><a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html">FixedString</a>&lt; BufferSize &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d6e/group___string.html#gac84e6047764bd1d720bbda3d0c6291b8">vformat</a> (<a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a> pattern, const Args &amp;... args) noexcept</td></tr>
-<tr class="memdesc:gac84e6047764bd1d720bbda3d0c6291b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience overload that type-erases <em class="arg">args</em> and formats them into a new <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="toy::FixedString">toy::FixedString</a>.  <br /></td></tr>
-<tr class="memitem:ga4bc5d0eb62eb93fa035d44d7786a9eb7" id="r_ga4bc5d0eb62eb93fa035d44d7786a9eb7"><td class="memTemplParams" colspan="2">template&lt;size_t BufferSize, size_t MaximumArgs&gt; </td></tr>
-<tr class="memitem:ga4bc5d0eb62eb93fa035d44d7786a9eb7 template"><td class="memItemLeft"><a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html">FixedString</a>&lt; BufferSize &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d6e/group___string.html#ga4bc5d0eb62eb93fa035d44d7786a9eb7">vformat</a> (<a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a> pattern, const array&lt; <a class="el" href="../../df/d0c/structtoy_1_1_format_argument.html">FormatArgument</a>, MaximumArgs &gt; &amp;args) noexcept</td></tr>
-<tr class="memdesc:ga4bc5d0eb62eb93fa035d44d7786a9eb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Formats type-erased arguments into a new <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="toy::FixedString">toy::FixedString</a> using a runtime pattern.  <br /></td></tr>
+<tr class="memdesc:gac84e6047764bd1d720bbda3d0c6291b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Formats arguments into a new <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="toy::FixedString">toy::FixedString</a> using a runtime pattern.  <br /></td></tr>
 <tr class="memitem:ga024f540d2d32f3ac5fe1bb21b3f57a1a" id="r_ga024f540d2d32f3ac5fe1bb21b3f57a1a"><td class="memTemplParams" colspan="2">template&lt;OStringStreamBackend BackendType, typename... Args&gt; </td></tr>
 <tr class="memitem:ga024f540d2d32f3ac5fe1bb21b3f57a1a template"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d6e/group___string.html#ga024f540d2d32f3ac5fe1bb21b3f57a1a">vformatTo</a> (BackendType &amp;output, <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a> pattern, const Args &amp;... args) noexcept</td></tr>
 <tr class="memdesc:ga024f540d2d32f3ac5fe1bb21b3f57a1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Formats arguments into <em class="arg">output</em> using a runtime pattern, type-erasing them automatically.  <br /></td></tr>
-<tr class="memitem:ga3768d6f5fef332b10afbedc8d403a207" id="r_ga3768d6f5fef332b10afbedc8d403a207"><td class="memTemplParams" colspan="2">template&lt;OStringStreamBackend BackendType, size_t MaximumArgs&gt; </td></tr>
-<tr class="memitem:ga3768d6f5fef332b10afbedc8d403a207 template"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d6e/group___string.html#ga3768d6f5fef332b10afbedc8d403a207">vformatTo</a> (BackendType &amp;output, <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a> pattern, const array&lt; <a class="el" href="../../df/d0c/structtoy_1_1_format_argument.html">FormatArgument</a>, MaximumArgs &gt; &amp;args) noexcept</td></tr>
-<tr class="memdesc:ga3768d6f5fef332b10afbedc8d403a207"><td class="mdescLeft">&#160;</td><td class="mdescRight">Formats type-erased arguments into <em class="arg">output</em> using a runtime pattern.  <br /></td></tr>
-<tr class="memitem:ga0b041b467d640188e4722fb47fbdb320" id="r_ga0b041b467d640188e4722fb47fbdb320"><td class="memTemplParams" colspan="2">template&lt;typename... Args&gt; </td></tr>
-<tr class="memitem:ga0b041b467d640188e4722fb47fbdb320 template"><td class="memItemLeft">array&lt; <a class="el" href="../../df/d0c/structtoy_1_1_format_argument.html">FormatArgument</a>, sizeof...(Args)&gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d6e/group___string.html#ga0b041b467d640188e4722fb47fbdb320">makeVFormatArguments</a> (const Args &amp;... args) noexcept</td></tr>
-<tr class="memdesc:ga0b041b467d640188e4722fb47fbdb320"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an array of <a class="el" href="../../df/d0c/structtoy_1_1_format_argument.html" title="toy::FormatArgument">toy::FormatArgument</a> from a pack of arguments by type-erasing each one.  <br /></td></tr>
 <tr class="memitem:ga5b1768ae7cdfb38447089aca42336c1e" id="r_ga5b1768ae7cdfb38447089aca42336c1e"><td class="memItemLeft">constexpr <a class="el" href="../../d4/d6e/group___string.html#ga47774805e63ecbede7f9cbfa12168c41">FormatPatternValidationError</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d6e/group___string.html#ga5b1768ae7cdfb38447089aca42336c1e">validateFormatPattern</a> (const <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a> &amp;string, size_t argCount) noexcept</td></tr>
 <tr class="memdesc:ga5b1768ae7cdfb38447089aca42336c1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates auto-indexed <code>{}</code> and positional <code>{N}</code> placeholders for <em class="arg">argCount</em> arguments.  <br /></td></tr>
 <tr class="memitem:ga2bc2dc2817640958352b4e80ec99b2be" id="r_ga2bc2dc2817640958352b4e80ec99b2be"><td class="memItemLeft">constexpr wchar_t *&#160;</td><td class="memItemRight"><a class="el" href="../../d8/d90/group___text_functions.html#ga2bc2dc2817640958352b4e80ec99b2be">utf8toWChar</a> (wchar_t *dest, size_t destSize, const char *src) noexcept</td></tr>
@@ -353,14 +345,16 @@ Functions</h2></td></tr>
 <tr class="memdesc:aa63c971425cb6819414030806927a68a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes CRC-16-IBM / ARC (polynomial 0x8005, reflected).  <br /></td></tr>
 <tr class="memitem:a17983e173fb5e8cf5baaab61a78a402e" id="r_a17983e173fb5e8cf5baaab61a78a402e"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a17983e173fb5e8cf5baaab61a78a402e">crc32</a> (const void *src, size_t size, uint32_t crc=0x00000000) noexcept</td></tr>
 <tr class="memdesc:a17983e173fb5e8cf5baaab61a78a402e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes CRC-32 per IEEE 802.3 / Ethernet (polynomial 0x04C11DB7, reflected).  <br /></td></tr>
-<tr class="memitem:ad95906de2f58b602b9ee9f16708f15b4" id="r_ad95906de2f58b602b9ee9f16708f15b4"><td class="memItemLeft">constexpr <a class="el" href="../../d9/d10/structtoy_1_1__divmod10.html">_divmod10</a>&#160;</td><td class="memItemRight"><a class="el" href="#ad95906de2f58b602b9ee9f16708f15b4">_divModU10</a> (uint32_t value) noexcept</td></tr>
-<tr class="memdesc:ad95906de2f58b602b9ee9f16708f15b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Divides a given 32-bit unsigned integer by 10 and returns the quotient and remainder.  <br /></td></tr>
+<tr class="memitem:ad50baf11842c6432ebd7af9129b3e479" id="r_ad50baf11842c6432ebd7af9129b3e479"><td class="memItemLeft">constexpr <a class="el" href="../../da/d8f/structtoy_1_1_div_mod10.html">DivMod10</a>&#160;</td><td class="memItemRight"><a class="el" href="#ad50baf11842c6432ebd7af9129b3e479">_divModU10</a> (uint32_t value) noexcept</td></tr>
+<tr class="memdesc:ad50baf11842c6432ebd7af9129b3e479"><td class="mdescLeft">&#160;</td><td class="mdescRight">Divides a given 32-bit unsigned integer by 10 and returns the quotient and remainder.  <br /></td></tr>
 <tr class="memitem:a5c08dafb841b59caed6996f17b8baebc" id="r_a5c08dafb841b59caed6996f17b8baebc"><td class="memItemLeft">constexpr int32_t&#160;</td><td class="memItemRight"><a class="el" href="#a5c08dafb841b59caed6996f17b8baebc">_ftoa32Engine</a> (char *buffer, float value, size_t precision) noexcept</td></tr>
 <tr class="memdesc:a5c08dafb841b59caed6996f17b8baebc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a floating-point number to its string representation in a specified precision.  <br /></td></tr>
 <tr class="memitem:a23cb859f41bbfdd0562927582baec660" id="r_a23cb859f41bbfdd0562927582baec660"><td class="memItemLeft">constexpr int32_t&#160;</td><td class="memItemRight"><a class="el" href="#a23cb859f41bbfdd0562927582baec660">_ftoa64Engine</a> (char *buffer, double value, size_t precision) noexcept</td></tr>
 <tr class="memdesc:a23cb859f41bbfdd0562927582baec660"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a 64-bit floating-point number to its string representation with specified precision.  <br /></td></tr>
 <tr class="memitem:a1398396b240f9a663cdedc2a077edfb3" id="r_a1398396b240f9a663cdedc2a077edfb3"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1398396b240f9a663cdedc2a077edfb3">_floatPostProcess</a> (char *dest, char *srcBuffer, size_t bufferSize, int32_t exp10, size_t precision) noexcept</td></tr>
 <tr class="memdesc:a1398396b240f9a663cdedc2a077edfb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes a string representation of a floating-point number, adjusting the exponent, and stripping trailing zeros.  <br /></td></tr>
+<tr class="memitem:a75847afdde24a641b256fa6753ececf8" id="r_a75847afdde24a641b256fa6753ececf8"><td class="memItemLeft">constexpr size_t&#160;</td><td class="memItemRight"><a class="el" href="#a75847afdde24a641b256fa6753ececf8">_symbolSizeInUTF8Bytes</a> (wchar_t symbol) noexcept</td></tr>
+<tr class="memdesc:a75847afdde24a641b256fa6753ececf8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of bytes required to encode <em class="arg">symbol</em> in UTF-8.  <br /></td></tr>
 <tr class="memitem:gaf944593cdbcc7eef7bf2a0e9ed116c8c" id="r_gaf944593cdbcc7eef7bf2a0e9ed116c8c"><td class="memItemLeft">wchar_t *&#160;</td><td class="memItemRight"><a class="el" href="../../d8/d90/group___text_functions.html#gaf944593cdbcc7eef7bf2a0e9ed116c8c">utf8toWChar</a> (wchar_t *dest, size_t destSize, const char *src, size_t count) noexcept</td></tr>
 <tr class="memdesc:gaf944593cdbcc7eef7bf2a0e9ed116c8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a UTF-8 C string to a wide-character string with a character count limit.  <br /></td></tr>
 <tr class="memitem:ga008aa42596921d995b66340139fd3cfb" id="r_ga008aa42596921d995b66340139fd3cfb"><td class="memItemLeft">char *&#160;</td><td class="memItemRight"><a class="el" href="../../d8/d90/group___text_functions.html#ga008aa42596921d995b66340139fd3cfb">wcharToUtf8</a> (char *dest, size_t destSize, const wchar_t *src) noexcept</td></tr>
@@ -527,8 +521,8 @@ Usage Example</h1>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="ad95906de2f58b602b9ee9f16708f15b4" name="ad95906de2f58b602b9ee9f16708f15b4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad95906de2f58b602b9ee9f16708f15b4">&#9670;&#160;</a></span>_divModU10()</h2>
+<a id="ad50baf11842c6432ebd7af9129b3e479" name="ad50baf11842c6432ebd7af9129b3e479"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad50baf11842c6432ebd7af9129b3e479">&#9670;&#160;</a></span>_divModU10()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -537,7 +531,7 @@ Usage Example</h1>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d9/d10/structtoy_1_1__divmod10.html">_divmod10</a> toy::_divModU10 </td>
+          <td class="memname"><a class="el" href="../../da/d8f/structtoy_1_1_div_mod10.html">DivMod10</a> toy::_divModU10 </td>
           <td>(</td>
           <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>value</em></span></td><td>)</td>
           <td></td>
@@ -545,7 +539,7 @@ Usage Example</h1>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -713,6 +707,43 @@ Usage Example</h1>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The exponent of the converted number in the given precision. Returns 0x7FF for zero, subnormals (unsupported), NaN, and INF.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The function assumes that the buffer is large enough to hold the converted string. The buffer will contain the string representation in the form "+d.dd...e±dd" for normalized numbers. </dd></dl>
+
+</div>
+</div>
+<a id="a75847afdde24a641b256fa6753ececf8" name="a75847afdde24a641b256fa6753ececf8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a75847afdde24a641b256fa6753ececf8">&#9670;&#160;</a></span>_symbolSizeInUTF8Bytes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t toy::_symbolSizeInUTF8Bytes </td>
+          <td>(</td>
+          <td class="paramtype">wchar_t</td>          <td class="paramname"><span class="paramname"><em>symbol</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the number of bytes required to encode <em class="arg">symbol</em> in UTF-8. </p>
+<p>Covers the Basic Multilingual Plane only (code points up to <code>U+FFFF</code>). Four-byte sequences are not handled because the engine's <code>wchar_t</code> path targets platforms where <code>wchar_t</code> is 16-bit.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">symbol</td><td>Wide character code point to measure.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>1</code> for ASCII (<code>U+0000</code> – <code>U+007F</code>), <code>2</code> for <code>U+0080</code> – <code>U+07FF</code>, <code>3</code> otherwise.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd><em class="arg">symbol</em> is a valid BMP code point (at most <code>U+FFFF</code>).</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Internal helper for <a class="el" href="../../d8/d90/group___text_functions.html#ga008aa42596921d995b66340139fd3cfb" title="Converts a wide-character C string to UTF-8.">wcharToUtf8()</a>; not part of the public API. </dd></dl>
 
 </div>
 </div>
@@ -1112,7 +1143,8 @@ This function is constexpr-compatible and can be used in compile-time contexts.<
   </table>
   </dd>
 </dl>
-<dl class="section pre"><dt>Precondition</dt><dd><em class="arg">buffer</em> is not null; <em class="arg">bufferSize</em> <code>&gt;</code> <code>0</code>; <em class="arg">separator</em> is not null; length of <em class="arg">separator</em> is at most 8 (asserted in debug). </dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd><em class="arg">buffer</em> is not null; <em class="arg">bufferSize</em> <code>&gt;</code> <code>0</code>; <em class="arg">separator</em> is not null; length of <em class="arg">separator</em> is at most 8 (asserted in debug).</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If <em class="arg">buffer</em> is null, <em class="arg">bufferSize</em> is <code>0</code>, or <em class="arg">separator</em> is null, the function returns immediately without modifying the buffer. </dd></dl>
 
 </div>
 </div>
@@ -3061,27 +3093,29 @@ template&lt;std::unsigned_integral T&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">{{</div>
-<div class="line">  0x0000, 0xC0C1, 0xC181, 0x0140, 0xC301, 0x03C0, 0x0280, 0xC241, 0xC601, 0x06C0, 0x0780, 0xC741, 0x0500, 0xC5C1,</div>
-<div class="line">  0xC481, 0x0440, 0xCC01, 0x0CC0, 0x0D80, 0xCD41, 0x0F00, 0xCFC1, 0xCE81, 0x0E40, 0x0A00, 0xCAC1, 0xCB81, 0x0B40,</div>
-<div class="line">  0xC901, 0x09C0, 0x0880, 0xC841, 0xD801, 0x18C0, 0x1980, 0xD941, 0x1B00, 0xDBC1, 0xDA81, 0x1A40, 0x1E00, 0xDEC1,</div>
-<div class="line">  0xDF81, 0x1F40, 0xDD01, 0x1DC0, 0x1C80, 0xDC41, 0x1400, 0xD4C1, 0xD581, 0x1540, 0xD701, 0x17C0, 0x1680, 0xD641,</div>
-<div class="line">  0xD201, 0x12C0, 0x1380, 0xD341, 0x1100, 0xD1C1, 0xD081, 0x1040, 0xF001, 0x30C0, 0x3180, 0xF141, 0x3300, 0xF3C1,</div>
-<div class="line">  0xF281, 0x3240, 0x3600, 0xF6C1, 0xF781, 0x3740, 0xF501, 0x35C0, 0x3480, 0xF441, 0x3C00, 0xFCC1, 0xFD81, 0x3D40,</div>
-<div class="line">  0xFF01, 0x3FC0, 0x3E80, 0xFE41, 0xFA01, 0x3AC0, 0x3B80, 0xFB41, 0x3900, 0xF9C1, 0xF881, 0x3840, 0x2800, 0xE8C1,</div>
-<div class="line">  0xE981, 0x2940, 0xEB01, 0x2BC0, 0x2A80, 0xEA41, 0xEE01, 0x2EC0, 0x2F80, 0xEF41, 0x2D00, 0xEDC1, 0xEC81, 0x2C40,</div>
-<div class="line">  0xE401, 0x24C0, 0x2580, 0xE541, 0x2700, 0xE7C1, 0xE681, 0x2640, 0x2200, 0xE2C1, 0xE381, 0x2340, 0xE101, 0x21C0,</div>
-<div class="line">  0x2080, 0xE041, 0xA001, 0x60C0, 0x6180, 0xA141, 0x6300, 0xA3C1, 0xA281, 0x6240, 0x6600, 0xA6C1, 0xA781, 0x6740,</div>
-<div class="line">  0xA501, 0x65C0, 0x6480, 0xA441, 0x6C00, 0xACC1, 0xAD81, 0x6D40, 0xAF01, 0x6FC0, 0x6E80, 0xAE41, 0xAA01, 0x6AC0,</div>
-<div class="line">  0x6B80, 0xAB41, 0x6900, 0xA9C1, 0xA881, 0x6840, 0x7800, 0xB8C1, 0xB981, 0x7940, 0xBB01, 0x7BC0, 0x7A80, 0xBA41,</div>
-<div class="line">  0xBE01, 0x7EC0, 0x7F80, 0xBF41, 0x7D00, 0xBDC1, 0xBC81, 0x7C40, 0xB401, 0x74C0, 0x7580, 0xB541, 0x7700, 0xB7C1,</div>
-<div class="line">  0xB681, 0x7640, 0x7200, 0xB2C1, 0xB381, 0x7340, 0xB101, 0x71C0, 0x7080, 0xB041, 0x5000, 0x90C1, 0x9181, 0x5140,</div>
-<div class="line">  0x9301, 0x53C0, 0x5280, 0x9241, 0x9601, 0x56C0, 0x5780, 0x9741, 0x5500, 0x95C1, 0x9481, 0x5440, 0x9C01, 0x5CC0,</div>
-<div class="line">  0x5D80, 0x9D41, 0x5F00, 0x9FC1, 0x9E81, 0x5E40, 0x5A00, 0x9AC1, 0x9B81, 0x5B40, 0x9901, 0x59C0, 0x5880, 0x9841,</div>
-<div class="line">  0x8801, 0x48C0, 0x4980, 0x8941, 0x4B00, 0x8BC1, 0x8A81, 0x4A40, 0x4E00, 0x8EC1, 0x8F81, 0x4F40, 0x8D01, 0x4DC0,</div>
-<div class="line">  0x4C80, 0x8C41, 0x4400, 0x84C1, 0x8581, 0x4540, 0x8701, 0x47C0, 0x4680, 0x8641, 0x8201, 0x42C0, 0x4380, 0x8341,</div>
-<div class="line">  0x4100, 0x81C1, 0x8081, 0x4040,</div>
-<div class="line">}}</div>
+<b>Initial value:</b><div class="fragment"><div class="line">{</div>
+<div class="line">  {</div>
+<div class="line">   0x0000, 0xC0C1, 0xC181, 0x0140, 0xC301, 0x03C0, 0x0280, 0xC241, 0xC601, 0x06C0, 0x0780, 0xC741, 0x0500, 0xC5C1,</div>
+<div class="line">   0xC481, 0x0440, 0xCC01, 0x0CC0, 0x0D80, 0xCD41, 0x0F00, 0xCFC1, 0xCE81, 0x0E40, 0x0A00, 0xCAC1, 0xCB81, 0x0B40,</div>
+<div class="line">   0xC901, 0x09C0, 0x0880, 0xC841, 0xD801, 0x18C0, 0x1980, 0xD941, 0x1B00, 0xDBC1, 0xDA81, 0x1A40, 0x1E00, 0xDEC1,</div>
+<div class="line">   0xDF81, 0x1F40, 0xDD01, 0x1DC0, 0x1C80, 0xDC41, 0x1400, 0xD4C1, 0xD581, 0x1540, 0xD701, 0x17C0, 0x1680, 0xD641,</div>
+<div class="line">   0xD201, 0x12C0, 0x1380, 0xD341, 0x1100, 0xD1C1, 0xD081, 0x1040, 0xF001, 0x30C0, 0x3180, 0xF141, 0x3300, 0xF3C1,</div>
+<div class="line">   0xF281, 0x3240, 0x3600, 0xF6C1, 0xF781, 0x3740, 0xF501, 0x35C0, 0x3480, 0xF441, 0x3C00, 0xFCC1, 0xFD81, 0x3D40,</div>
+<div class="line">   0xFF01, 0x3FC0, 0x3E80, 0xFE41, 0xFA01, 0x3AC0, 0x3B80, 0xFB41, 0x3900, 0xF9C1, 0xF881, 0x3840, 0x2800, 0xE8C1,</div>
+<div class="line">   0xE981, 0x2940, 0xEB01, 0x2BC0, 0x2A80, 0xEA41, 0xEE01, 0x2EC0, 0x2F80, 0xEF41, 0x2D00, 0xEDC1, 0xEC81, 0x2C40,</div>
+<div class="line">   0xE401, 0x24C0, 0x2580, 0xE541, 0x2700, 0xE7C1, 0xE681, 0x2640, 0x2200, 0xE2C1, 0xE381, 0x2340, 0xE101, 0x21C0,</div>
+<div class="line">   0x2080, 0xE041, 0xA001, 0x60C0, 0x6180, 0xA141, 0x6300, 0xA3C1, 0xA281, 0x6240, 0x6600, 0xA6C1, 0xA781, 0x6740,</div>
+<div class="line">   0xA501, 0x65C0, 0x6480, 0xA441, 0x6C00, 0xACC1, 0xAD81, 0x6D40, 0xAF01, 0x6FC0, 0x6E80, 0xAE41, 0xAA01, 0x6AC0,</div>
+<div class="line">   0x6B80, 0xAB41, 0x6900, 0xA9C1, 0xA881, 0x6840, 0x7800, 0xB8C1, 0xB981, 0x7940, 0xBB01, 0x7BC0, 0x7A80, 0xBA41,</div>
+<div class="line">   0xBE01, 0x7EC0, 0x7F80, 0xBF41, 0x7D00, 0xBDC1, 0xBC81, 0x7C40, 0xB401, 0x74C0, 0x7580, 0xB541, 0x7700, 0xB7C1,</div>
+<div class="line">   0xB681, 0x7640, 0x7200, 0xB2C1, 0xB381, 0x7340, 0xB101, 0x71C0, 0x7080, 0xB041, 0x5000, 0x90C1, 0x9181, 0x5140,</div>
+<div class="line">   0x9301, 0x53C0, 0x5280, 0x9241, 0x9601, 0x56C0, 0x5780, 0x9741, 0x5500, 0x95C1, 0x9481, 0x5440, 0x9C01, 0x5CC0,</div>
+<div class="line">   0x5D80, 0x9D41, 0x5F00, 0x9FC1, 0x9E81, 0x5E40, 0x5A00, 0x9AC1, 0x9B81, 0x5B40, 0x9901, 0x59C0, 0x5880, 0x9841,</div>
+<div class="line">   0x8801, 0x48C0, 0x4980, 0x8941, 0x4B00, 0x8BC1, 0x8A81, 0x4A40, 0x4E00, 0x8EC1, 0x8F81, 0x4F40, 0x8D01, 0x4DC0,</div>
+<div class="line">   0x4C80, 0x8C41, 0x4400, 0x84C1, 0x8581, 0x4540, 0x8701, 0x47C0, 0x4680, 0x8641, 0x8201, 0x42C0, 0x4380, 0x8341,</div>
+<div class="line">   0x4100, 0x81C1, 0x8081, 0x4040,</div>
+<div class="line">   }</div>
+<div class="line">}</div>
 </div><!-- fragment -->
 <p>CRC-16 lookup table using IBM/ARC polynomial (0x8005). </p>
 <p>This lookup table contains precomputed CRC-16 values for all possible byte values (0-255). The table is generated using the IBM/ARC polynomial (x¹⁶ + x¹⁵ + x² + 1, 0x8005). Using this table allows for O(1) CRC calculation per byte instead of O(16) bit-by-bit calculation. </p>
@@ -3132,22 +3166,24 @@ template&lt;std::unsigned_integral T&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">{{</div>
-<div class="line">  0x00, 0x5E, 0xBC, 0xE2, 0x61, 0x3F, 0xDD, 0x83, 0xC2, 0x9C, 0x7E, 0x20, 0xA3, 0xFD, 0x1F, 0x41, 0x9D, 0xC3, 0x21,</div>
-<div class="line">  0x7F, 0xFC, 0xA2, 0x40, 0x1E, 0x5F, 0x01, 0xE3, 0xBD, 0x3E, 0x60, 0x82, 0xDC, 0x23, 0x7D, 0x9F, 0xC1, 0x42, 0x1C,</div>
-<div class="line">  0xFE, 0xA0, 0xE1, 0xBF, 0x5D, 0x03, 0x80, 0xDE, 0x3C, 0x62, 0xBE, 0xE0, 0x02, 0x5C, 0xDF, 0x81, 0x63, 0x3D, 0x7C,</div>
-<div class="line">  0x22, 0xC0, 0x9E, 0x1D, 0x43, 0xA1, 0xFF, 0x46, 0x18, 0xFA, 0xA4, 0x27, 0x79, 0x9B, 0xC5, 0x84, 0xDA, 0x38, 0x66,</div>
-<div class="line">  0xE5, 0xBB, 0x59, 0x07, 0xDB, 0x85, 0x67, 0x39, 0xBA, 0xE4, 0x06, 0x58, 0x19, 0x47, 0xA5, 0xFB, 0x78, 0x26, 0xC4,</div>
-<div class="line">  0x9A, 0x65, 0x3B, 0xD9, 0x87, 0x04, 0x5A, 0xB8, 0xE6, 0xA7, 0xF9, 0x1B, 0x45, 0xC6, 0x98, 0x7A, 0x24, 0xF8, 0xA6,</div>
-<div class="line">  0x44, 0x1A, 0x99, 0xC7, 0x25, 0x7B, 0x3A, 0x64, 0x86, 0xD8, 0x5B, 0x05, 0xE7, 0xB9, 0x8C, 0xD2, 0x30, 0x6E, 0xED,</div>
-<div class="line">  0xB3, 0x51, 0x0F, 0x4E, 0x10, 0xF2, 0xAC, 0x2F, 0x71, 0x93, 0xCD, 0x11, 0x4F, 0xAD, 0xF3, 0x70, 0x2E, 0xCC, 0x92,</div>
-<div class="line">  0xD3, 0x8D, 0x6F, 0x31, 0xB2, 0xEC, 0x0E, 0x50, 0xAF, 0xF1, 0x13, 0x4D, 0xCE, 0x90, 0x72, 0x2C, 0x6D, 0x33, 0xD1,</div>
-<div class="line">  0x8F, 0x0C, 0x52, 0xB0, 0xEE, 0x32, 0x6C, 0x8E, 0xD0, 0x53, 0x0D, 0xEF, 0xB1, 0xF0, 0xAE, 0x4C, 0x12, 0x91, 0xCF,</div>
-<div class="line">  0x2D, 0x73, 0xCA, 0x94, 0x76, 0x28, 0xAB, 0xF5, 0x17, 0x49, 0x08, 0x56, 0xB4, 0xEA, 0x69, 0x37, 0xD5, 0x8B, 0x57,</div>
-<div class="line">  0x09, 0xEB, 0xB5, 0x36, 0x68, 0x8A, 0xD4, 0x95, 0xCB, 0x29, 0x77, 0xF4, 0xAA, 0x48, 0x16, 0xE9, 0xB7, 0x55, 0x0B,</div>
-<div class="line">  0x88, 0xD6, 0x34, 0x6A, 0x2B, 0x75, 0x97, 0xC9, 0x4A, 0x14, 0xF6, 0xA8, 0x74, 0x2A, 0xC8, 0x96, 0x15, 0x4B, 0xA9,</div>
-<div class="line">  0xF7, 0xB6, 0xE8, 0x0A, 0x54, 0xD7, 0x89, 0x6B, 0x35,</div>
-<div class="line">}}</div>
+<b>Initial value:</b><div class="fragment"><div class="line">{</div>
+<div class="line">  {</div>
+<div class="line">   0x00, 0x5E, 0xBC, 0xE2, 0x61, 0x3F, 0xDD, 0x83, 0xC2, 0x9C, 0x7E, 0x20, 0xA3, 0xFD, 0x1F, 0x41, 0x9D, 0xC3, 0x21,</div>
+<div class="line">   0x7F, 0xFC, 0xA2, 0x40, 0x1E, 0x5F, 0x01, 0xE3, 0xBD, 0x3E, 0x60, 0x82, 0xDC, 0x23, 0x7D, 0x9F, 0xC1, 0x42, 0x1C,</div>
+<div class="line">   0xFE, 0xA0, 0xE1, 0xBF, 0x5D, 0x03, 0x80, 0xDE, 0x3C, 0x62, 0xBE, 0xE0, 0x02, 0x5C, 0xDF, 0x81, 0x63, 0x3D, 0x7C,</div>
+<div class="line">   0x22, 0xC0, 0x9E, 0x1D, 0x43, 0xA1, 0xFF, 0x46, 0x18, 0xFA, 0xA4, 0x27, 0x79, 0x9B, 0xC5, 0x84, 0xDA, 0x38, 0x66,</div>
+<div class="line">   0xE5, 0xBB, 0x59, 0x07, 0xDB, 0x85, 0x67, 0x39, 0xBA, 0xE4, 0x06, 0x58, 0x19, 0x47, 0xA5, 0xFB, 0x78, 0x26, 0xC4,</div>
+<div class="line">   0x9A, 0x65, 0x3B, 0xD9, 0x87, 0x04, 0x5A, 0xB8, 0xE6, 0xA7, 0xF9, 0x1B, 0x45, 0xC6, 0x98, 0x7A, 0x24, 0xF8, 0xA6,</div>
+<div class="line">   0x44, 0x1A, 0x99, 0xC7, 0x25, 0x7B, 0x3A, 0x64, 0x86, 0xD8, 0x5B, 0x05, 0xE7, 0xB9, 0x8C, 0xD2, 0x30, 0x6E, 0xED,</div>
+<div class="line">   0xB3, 0x51, 0x0F, 0x4E, 0x10, 0xF2, 0xAC, 0x2F, 0x71, 0x93, 0xCD, 0x11, 0x4F, 0xAD, 0xF3, 0x70, 0x2E, 0xCC, 0x92,</div>
+<div class="line">   0xD3, 0x8D, 0x6F, 0x31, 0xB2, 0xEC, 0x0E, 0x50, 0xAF, 0xF1, 0x13, 0x4D, 0xCE, 0x90, 0x72, 0x2C, 0x6D, 0x33, 0xD1,</div>
+<div class="line">   0x8F, 0x0C, 0x52, 0xB0, 0xEE, 0x32, 0x6C, 0x8E, 0xD0, 0x53, 0x0D, 0xEF, 0xB1, 0xF0, 0xAE, 0x4C, 0x12, 0x91, 0xCF,</div>
+<div class="line">   0x2D, 0x73, 0xCA, 0x94, 0x76, 0x28, 0xAB, 0xF5, 0x17, 0x49, 0x08, 0x56, 0xB4, 0xEA, 0x69, 0x37, 0xD5, 0x8B, 0x57,</div>
+<div class="line">   0x09, 0xEB, 0xB5, 0x36, 0x68, 0x8A, 0xD4, 0x95, 0xCB, 0x29, 0x77, 0xF4, 0xAA, 0x48, 0x16, 0xE9, 0xB7, 0x55, 0x0B,</div>
+<div class="line">   0x88, 0xD6, 0x34, 0x6A, 0x2B, 0x75, 0x97, 0xC9, 0x4A, 0x14, 0xF6, 0xA8, 0x74, 0x2A, 0xC8, 0x96, 0x15, 0x4B, 0xA9,</div>
+<div class="line">   0xF7, 0xB6, 0xE8, 0x0A, 0x54, 0xD7, 0x89, 0x6B, 0x35,</div>
+<div class="line">   }</div>
+<div class="line">}</div>
 </div><!-- fragment -->
 <p>CRC-8 lookup table using Dallas/Maxim polynomial (0x31). </p>
 <p>This lookup table contains precomputed CRC-8 values for all possible byte values (0-255). The table is generated using the Dallas/Maxim polynomial (x⁸ + x⁵ + x⁴ + 1, 0x31). Using this table allows for O(1) CRC calculation per byte instead of O(8) bit-by-bit calculation. </p>
@@ -3198,12 +3234,14 @@ template&lt;std::unsigned_integral T&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">{{</div>
-<div class="line">  0xF0BDC21A, 0x3DA137D5, 0x9DC5ADA8, 0x2863C1F5, 0x6765C793, 0x1A784379, 0x43C33C19, 0xAD78EBC5,</div>
-<div class="line">  0x2C68AF0B, 0x71AFD498, 0x1D1A94A2, 0x4A817C80, 0xBEBC2000, 0x30D40000, 0x7D000000, 0x20000000,</div>
-<div class="line">  0x51EB851E, 0xD1B71758, 0x35AFE535, 0x89705F41, 0x232F3302, 0x5A126E1A, 0xE69594BE, 0x3B07929F,</div>
-<div class="line">  0x971DA050, 0x26AF8533, 0x63090312, 0xFD87B5F2, 0x40E75996, 0xA6274BBD, 0x2A890926, 0x6CE3EE76,</div>
-<div class="line">}}</div>
+<b>Initial value:</b><div class="fragment"><div class="line">{</div>
+<div class="line">  {</div>
+<div class="line">   0xF0BDC21A, 0x3DA137D5, 0x9DC5ADA8, 0x2863C1F5, 0x6765C793, 0x1A784379, 0x43C33C19, 0xAD78EBC5,</div>
+<div class="line">   0x2C68AF0B, 0x71AFD498, 0x1D1A94A2, 0x4A817C80, 0xBEBC2000, 0x30D40000, 0x7D000000, 0x20000000,</div>
+<div class="line">   0x51EB851E, 0xD1B71758, 0x35AFE535, 0x89705F41, 0x232F3302, 0x5A126E1A, 0xE69594BE, 0x3B07929F,</div>
+<div class="line">   0x971DA050, 0x26AF8533, 0x63090312, 0xFD87B5F2, 0x40E75996, 0xA6274BBD, 0x2A890926, 0x6CE3EE76,</div>
+<div class="line">   }</div>
+<div class="line">}</div>
 </div><!-- fragment -->
 <p>Precomputed exponent lookup table for efficient binary-to-decimal floating-point conversion. </p>
 <p>This lookup table contains 32 precomputed values used to convert IEEE-754 binary floating-point exponents to decimal exponents during float-to-string conversion. The table maps groups of 8 binary exponent values to precomputed multipliers that approximate the conversion from binary to decimal representation.</p>
@@ -3232,27 +3270,29 @@ This table enables O(1) lookup instead of expensive runtime power-of-10 calculat
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">{{</div>
-<div class="line">  0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,</div>
-<div class="line">  0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,</div>
-<div class="line">  0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,</div>
-<div class="line">  0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,</div>
-<div class="line">  0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,</div>
-<div class="line">  0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,</div>
-<div class="line">  0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,</div>
+<b>Initial value:</b><div class="fragment"><div class="line">{</div>
+<div class="line">  {</div>
+<div class="line">   0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,</div>
+<div class="line">   0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,</div>
+<div class="line">   0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,</div>
+<div class="line">   0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,</div>
+<div class="line">   0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,</div>
+<div class="line">   0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,</div>
+<div class="line">   0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,</div>
 <div class="line"> </div>
-<div class="line">  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,</div>
-<div class="line">  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,</div>
-<div class="line">  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,</div>
-<div class="line">  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,</div>
+<div class="line">   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,</div>
+<div class="line">   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,</div>
+<div class="line">   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,</div>
+<div class="line">   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,</div>
 <div class="line"> </div>
-<div class="line">  0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02,</div>
-<div class="line">  0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02,</div>
+<div class="line">   0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02,</div>
+<div class="line">   0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02,</div>
 <div class="line"> </div>
-<div class="line">  0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03,</div>
+<div class="line">   0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03,</div>
 <div class="line"> </div>
-<div class="line">  0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x05, 0x05, 0x05, 0x05, 0x06, 0x06, 0x07, 0x08,</div>
-<div class="line">}}</div>
+<div class="line">   0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x05, 0x05, 0x05, 0x05, 0x06, 0x06, 0x07, 0x08,</div>
+<div class="line">   }</div>
+<div class="line">}</div>
 </div><!-- fragment -->
 <p>UTF-8 character size lookup table for efficient UTF-8 parsing. </p>
 <p>This lookup table contains precomputed UTF-8 character sizes for all possible byte values (0-255). The table maps each byte to the number of bytes required to represent a complete UTF-8 character sequence. Using this table allows for O(1) UTF-8 character size determination instead of O(n) bit-by-bit analysis.</p>

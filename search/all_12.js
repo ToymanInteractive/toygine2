@@ -21,7 +21,7 @@ var searchData=
   ['reference_20alignment_18',['Pointer and Reference Alignment',['../df/d81/md__a_g_e_n_t_s.html#pointer-and-reference-alignment',1,'']]],
   ['reference_20style_19',['Const Reference Style',['../df/d81/md__a_g_e_n_t_s.html#const-reference-style',1,'']]],
   ['regular_20class_20',['Regular Class',['../df/d81/md__a_g_e_n_t_s.html#regular-class',1,'']]],
-  ['rem_21',['rem',['../d9/d10/structtoy_1_1__divmod10.html#a0a36126e3c670083dc8d95776ae1e4f4',1,'toy::_divmod10']]],
+  ['rem_21',['rem',['../da/d8f/structtoy_1_1_div_mod10.html#a49fb8e6a78e80c23dfb831335db0bbdb',1,'toy::DivMod10']]],
   ['remove_22',['remove',['../d8/dc9/classtoy_1_1_callbacks_pool.html#a5282447d94b743b9e8025737e514685e',1,'toy::CallbacksPool']]],
   ['rend_23',['rend',['../d7/dec/classtoy_1_1_fixed_vector.html#aec0ebc0e70b57778fb5078c2408483fe',1,'toy::FixedVector::rend() noexcept'],['../d7/dec/classtoy_1_1_fixed_vector.html#a502337b071003804ede596849ea084f1',1,'toy::FixedVector::rend() const noexcept']]],
   ['render_2ehpp_24',['render.hpp',['../d6/d4b/render_8hpp.html',1,'']]],

@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=11" />
   <meta name="generator" content="Doxygen 1.16.1" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ToyGine2: Member List</title>
+  <title>ToyGine2: toy::DivMod10 Struct Reference</title>
   <link href="../../tabs.css" rel="stylesheet" type="text/css" />
   <script type="text/javascript" src="../../jquery.js"></script>
   <script type="text/javascript" src="../../dynsections.js"></script>
@@ -84,7 +84,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(function(){initNavTree('d9/d10/structtoy_1_1__divmod10.html','../../',''); });
+$(function(){initNavTree('da/d8f/structtoy_1_1_div_mod10.html','../../','d2/dc3/structtoy_1_1_div_mod10-members'); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -110,20 +110,94 @@ $(function(){initNavTree('d9/d10/structtoy_1_1__divmod10.html','../../',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">toy::_divmod10 Member List</div></div>
+  <div class="headertitle"><div class="title">toy::DivMod10 Struct Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="../../d9/d10/structtoy_1_1__divmod10.html">toy::_divmod10</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="../../d9/d10/structtoy_1_1__divmod10.html#ab2cd556a449dad6de65cdbfe88552248">quot</a></td><td class="entry"><a class="el" href="../../d9/d10/structtoy_1_1__divmod10.html">toy::_divmod10</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="../../d9/d10/structtoy_1_1__divmod10.html#a0a36126e3c670083dc8d95776ae1e4f4">rem</a></td><td class="entry"><a class="el" href="../../d9/d10/structtoy_1_1__divmod10.html">toy::_divmod10</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Result of an unsigned division by 10, carrying quotient and remainder.  
+ <a href="#details">More...</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a51dc4f0e75e6d83428cda05db54dea33" id="r_a51dc4f0e75e6d83428cda05db54dea33"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a51dc4f0e75e6d83428cda05db54dea33">quot</a></td></tr>
+<tr class="memdesc:a51dc4f0e75e6d83428cda05db54dea33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quotient of the division by 10.  <br /></td></tr>
+<tr class="memitem:a49fb8e6a78e80c23dfb831335db0bbdb" id="r_a49fb8e6a78e80c23dfb831335db0bbdb"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#a49fb8e6a78e80c23dfb831335db0bbdb">rem</a></td></tr>
+<tr class="memdesc:a49fb8e6a78e80c23dfb831335db0bbdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remainder of the division by 10 (always in <code></code>[0, 9]).  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Result of an unsigned division by 10, carrying quotient and remainder. </p>
+<p>Used by <a class="el" href="../../d4/da9/namespacetoy.html#ad50baf11842c6432ebd7af9129b3e479" title="Divides a given 32-bit unsigned integer by 10 and returns the quotient and remainder.">_divModU10()</a> to return both values from a single branchless division step.</p>
+<h1 class="doxsection"><a class="anchor" id="features"></a>
+Key Features</h1>
+<ul>
+<li><b>Aggregate layout</b>: Two-field POD suitable for constexpr return.</li>
+<li><b>Compact remainder</b>: Remainder stored as <code>uint8_t</code> (always in <code></code>[0, 9]).</li>
+<li><b>No allocation</b>: Stack-only value type.</li>
+<li><b>noexcept</b>: Trivially constructible and copyable.</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="performance"></a>
+Performance Characteristics</h1>
+<ul>
+<li><b>Construction</b>: O(1) constant time.</li>
+<li><b>Memory usage</b>: 8 bytes (4-byte quotient + 1-byte remainder + padding).</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="safety"></a>
+Safety Guarantees</h1>
+<ul>
+<li><b>Value range</b>: <em class="arg">rem</em> is always in <code></code>[0, 9] when produced by <a class="el" href="../../d4/da9/namespacetoy.html#ad50baf11842c6432ebd7af9129b3e479" title="Divides a given 32-bit unsigned integer by 10 and returns the quotient and remainder.">_divModU10()</a>.</li>
+<li><b>Exception safety</b>: Trivial type; all operations are noexcept.</li>
+</ul>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d4/da9/namespacetoy.html#ad50baf11842c6432ebd7af9129b3e479" title="Divides a given 32-bit unsigned integer by 10 and returns the quotient and remainder.">_divModU10()</a> </dd></dl>
+</div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a51dc4f0e75e6d83428cda05db54dea33" name="a51dc4f0e75e6d83428cda05db54dea33"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51dc4f0e75e6d83428cda05db54dea33">&#9670;&#160;</a></span>quot</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t toy::DivMod10::quot</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Quotient of the division by 10. </p>
+
+</div>
+</div>
+<a id="a49fb8e6a78e80c23dfb831335db0bbdb" name="a49fb8e6a78e80c23dfb831335db0bbdb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49fb8e6a78e80c23dfb831335db0bbdb">&#9670;&#160;</a></span>rem</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t toy::DivMod10::rem</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Remainder of the division by 10 (always in <code></code>[0, 9]). </p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>src/core/<a class="el" href="../../de/d06/utils_8cpp.html">utils.cpp</a></li>
+</ul>
+</div><!-- contents -->
 </div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
 </div><!-- container -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
+    <li class="navelem"><a href="../../d4/da9/namespacetoy.html">toy</a></li><li class="navelem"><a href="../../da/d8f/structtoy_1_1_div_mod10.html">DivMod10</a></li>
     <li class="footer">Generated on <span class="timestamp"></span> for ToyGine2 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

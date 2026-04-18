@@ -3,6 +3,7 @@ var namespacetoy =
     [ "application", "d0/d3e/namespacetoy_1_1application.html", "d0/d3e/namespacetoy_1_1application" ],
     [ "anonymous_namespace{format.inl}", "d8/de4/namespacetoy_1_1anonymous__namespace_02format_8inl_03.html", [
       [ "dispatchFormatArg", "d8/de4/namespacetoy_1_1anonymous__namespace_02format_8inl_03.html#a95f15086e82bf0c62e07dbf71dc2b4e9", null ],
+      [ "findClosingBrace", "d8/de4/namespacetoy_1_1anonymous__namespace_02format_8inl_03.html#a1b209cb21257eff54183197fedee33e6", null ],
       [ "parseArgIndex", "d8/de4/namespacetoy_1_1anonymous__namespace_02format_8inl_03.html#af5a101da1b38edd3c4d02acf12441202", null ]
     ] ],
     [ "anonymous_namespace{format_pattern.inl}", "d7/d66/namespacetoy_1_1anonymous__namespace_02format__pattern_8inl_03.html", [
@@ -59,7 +60,7 @@ var namespacetoy =
       ] ],
       [ "pixelFormatFromName", "df/d8d/namespacetoy_1_1render.html#ad177a2d4fd6b16cdcbe90782265fe556", null ],
       [ "pixelFormatName", "df/d8d/namespacetoy_1_1render.html#ae01c124c6fb7eab3d4dd8d7d321406b9", null ],
-      [ "_formatNames", "df/d8d/namespacetoy_1_1render.html#a81a08c0aeeaa5f25f70d62e328c41b3c", null ]
+      [ "c_formatNames", "df/d8d/namespacetoy_1_1render.html#a7abf647f54ad0e5961a64502e51c995b", null ]
     ] ],
     [ "audio", "dd/d77/namespacetoy_1_1audio.html", [
       [ "VolumeType", "dd/d77/namespacetoy_1_1audio.html#afca9143e3b169f77784310a3b384261c", [
@@ -86,7 +87,7 @@ var namespacetoy =
       ] ]
     ] ],
     [ "platform", "d4/ddd/namespacetoy_1_1platform.html", "d4/ddd/namespacetoy_1_1platform" ],
-    [ "_divmod10", "d9/d10/structtoy_1_1__divmod10.html", "d9/d10/structtoy_1_1__divmod10" ],
+    [ "DivMod10", "da/d8f/structtoy_1_1_div_mod10.html", "da/d8f/structtoy_1_1_div_mod10" ],
     [ "EnableBitwiseOperators", "dc/d6d/classtoy_1_1_enable_bitwise_operators.html", "dc/d6d/classtoy_1_1_enable_bitwise_operators" ],
     [ "CStringView", "d5/d03/classtoy_1_1_c_string_view.html", "d5/d03/classtoy_1_1_c_string_view" ],
     [ "CallbacksPool", "d8/dc9/classtoy_1_1_callbacks_pool.html", "d8/dc9/classtoy_1_1_callbacks_pool" ],
@@ -127,10 +128,11 @@ var namespacetoy =
       [ "N3DS", "d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aa91f63b3de0c255c06d76b4a195ed5b15", null ],
       [ "Switch", "d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aabbc155fb2b111bf61c4f5ff892915e6b", null ]
     ] ],
-    [ "_divModU10", "d4/da9/namespacetoy.html#ad95906de2f58b602b9ee9f16708f15b4", null ],
+    [ "_divModU10", "d4/da9/namespacetoy.html#ad50baf11842c6432ebd7af9129b3e479", null ],
     [ "_floatPostProcess", "d4/da9/namespacetoy.html#a1398396b240f9a663cdedc2a077edfb3", null ],
     [ "_ftoa32Engine", "d4/da9/namespacetoy.html#a5c08dafb841b59caed6996f17b8baebc", null ],
     [ "_ftoa64Engine", "d4/da9/namespacetoy.html#a23cb859f41bbfdd0562927582baec660", null ],
+    [ "_symbolSizeInUTF8Bytes", "d4/da9/namespacetoy.html#a75847afdde24a641b256fa6753ececf8", null ],
     [ "crc16", "d4/da9/namespacetoy.html#aa63c971425cb6819414030806927a68a", null ],
     [ "crc32", "d4/da9/namespacetoy.html#a17983e173fb5e8cf5baaab61a78a402e", null ],
     [ "crc8", "d4/da9/namespacetoy.html#a00ce0b516e9a47a62227a9309afdb583", null ],
@@ -145,7 +147,6 @@ var namespacetoy =
     [ "ftoa", "d4/da9/namespacetoy.html#abd6a34c77550e2f8649d30d8ef1c1904", null ],
     [ "highestBit", "d4/da9/namespacetoy.html#adb88a3717143c42b9d24c5a8bf553b2d", null ],
     [ "itoa", "d4/da9/namespacetoy.html#ad9154c389294cb443faa03c20893f91c", null ],
-    [ "makeVFormatArguments", "d4/d6e/group___string.html#ga0b041b467d640188e4722fb47fbdb320", null ],
     [ "operator&", "d4/da9/namespacetoy.html#a2969305409fc34874d0e0f512a028aa8", null ],
     [ "operator&=", "d4/da9/namespacetoy.html#ae92e06198838e677bdbadbdb6d089b8c", null ],
     [ "operator+", "d4/da9/namespacetoy.html#a356a3fceab84ce068ff702d19893708b", null ],
@@ -188,9 +189,7 @@ var namespacetoy =
     [ "utoa", "d4/da9/namespacetoy.html#a14ccea4a485c2aa69412836a22a6cdda", null ],
     [ "validateFormatPattern", "d4/d6e/group___string.html#ga5b1768ae7cdfb38447089aca42336c1e", null ],
     [ "vformat", "d4/d6e/group___string.html#gac84e6047764bd1d720bbda3d0c6291b8", null ],
-    [ "vformat", "d4/d6e/group___string.html#ga4bc5d0eb62eb93fa035d44d7786a9eb7", null ],
     [ "vformatTo", "d4/d6e/group___string.html#ga024f540d2d32f3ac5fe1bb21b3f57a1a", null ],
-    [ "vformatTo", "d4/d6e/group___string.html#ga3768d6f5fef332b10afbedc8d403a207", null ],
     [ "wcharToUtf8", "d8/d90/group___text_functions.html#ga008aa42596921d995b66340139fd3cfb", null ],
     [ "_crc16Table", "d4/da9/namespacetoy.html#a1c66eabbb0dea6bd870920a6585afbf4", null ],
     [ "_crc32Table", "d4/da9/namespacetoy.html#a2700f13c2a45a3d51f7f770b487fdea1", null ],

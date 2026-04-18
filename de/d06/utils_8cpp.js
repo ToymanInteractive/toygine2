@@ -1,10 +1,11 @@
 var utils_8cpp =
 [
-    [ "toy::_divmod10", "d9/d10/structtoy_1_1__divmod10.html", "d9/d10/structtoy_1_1__divmod10" ],
-    [ "toy::_divModU10", "d4/da9/namespacetoy.html#ad95906de2f58b602b9ee9f16708f15b4", null ],
+    [ "toy::DivMod10", "da/d8f/structtoy_1_1_div_mod10.html", "da/d8f/structtoy_1_1_div_mod10" ],
+    [ "toy::_divModU10", "d4/da9/namespacetoy.html#ad50baf11842c6432ebd7af9129b3e479", null ],
     [ "toy::_floatPostProcess", "d4/da9/namespacetoy.html#a1398396b240f9a663cdedc2a077edfb3", null ],
     [ "toy::_ftoa32Engine", "d4/da9/namespacetoy.html#a5c08dafb841b59caed6996f17b8baebc", null ],
     [ "toy::_ftoa64Engine", "d4/da9/namespacetoy.html#a23cb859f41bbfdd0562927582baec660", null ],
+    [ "toy::_symbolSizeInUTF8Bytes", "d4/da9/namespacetoy.html#a75847afdde24a641b256fa6753ececf8", null ],
     [ "toy::formatNumberString", "d4/da9/namespacetoy.html#aeeb4febc194b23813d77b08ac4fea2d1", null ],
     [ "toy::ftoa", "d4/da9/namespacetoy.html#a153b39b476aa91d0b98f6350eeae88a2", null ],
     [ "toy::ftoa", "d4/da9/namespacetoy.html#abd6a34c77550e2f8649d30d8ef1c1904", null ],
