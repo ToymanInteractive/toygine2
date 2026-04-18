@@ -26,6 +26,15 @@
 
 namespace toy::render {
 
+/*!
+  \brief Lookup table mapping each \ref toy::render::PixelFormat enumerator to its human-readable name.
+
+  Indexed by the underlying value of \ref toy::render::PixelFormat. The entry count equals
+  \c std::to_underlying(PixelFormat::Unknown), so \c Unknown itself is not stored and is handled as a fallback by
+  pixelFormatName().
+
+  \pre The order and count of entries must match the \ref toy::render::PixelFormat enumerator values exactly.
+*/
 static constexpr array<CStringView, std::to_underlying(PixelFormat::Unknown)> _formatNames{
   {
    CStringView("A8R8G8B8"),

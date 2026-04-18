@@ -80,9 +80,38 @@ constexpr array<uint32_t, 32> _exponentTable{
    }
 };
 
+/*!
+  \struct _divmod10
+
+  \brief Result of an unsigned division by 10, carrying quotient and remainder.
+
+  Used by _divModU10() to return both values from a single branchless division step.
+
+  \section features Key Features
+
+  - **Aggregate layout**: Two-field POD suitable for constexpr return.
+  - **Compact remainder**: Remainder stored as \c uint8_t (always in \c [0, 9]).
+  - **No allocation**: Stack-only value type.
+  - **noexcept**: Trivially constructible and copyable.
+
+  \section performance Performance Characteristics
+
+  - **Construction**: O(1) constant time.
+  - **Memory usage**: 8 bytes (4-byte quotient + 1-byte remainder + padding).
+
+  \section safety Safety Guarantees
+
+  - **Value range**: \a rem is always in \c [0, 9] when produced by _divModU10().
+  - **Exception safety**: Trivial type; all operations are noexcept.
+
+  \sa _divModU10()
+*/
 struct _divmod10 {
+  /// Quotient of the division by 10.
   uint32_t quot;
-  uint8_t  rem;
+
+  /// Remainder of the division by 10 (always in \c [0, 9]).
+  uint8_t rem;
 };
 
 /*!
