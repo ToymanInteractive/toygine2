@@ -159,6 +159,62 @@ TEST_CASE("core/utils/wchar_to_utf8_converts_wide_to_utf8_string") {
     REQUIRE(strcmp(testBuffer, "") == 0);
   }
 
+  // 2-byte Cyrillic code point is skipped when only 1 data byte remains.
+  SUBCASE("2-byte truncation") {
+    char testBuffer[4];
+    const wchar_t cyrillic[] = {0x0410, 0x0000}; // U+0410 'А' → 2-byte UTF-8
+
+    wcharToUtf8(testBuffer, 2, cyrillic);
+
+    REQUIRE(testBuffer[0] == '\0');
+  }
+
+  // 2-byte code point fits exactly when destSize accommodates it plus the null terminator.
+  SUBCASE("2-byte exact fit") {
+    char testBuffer[4];
+    const wchar_t cyrillic[] = {0x0410, 0x0000};
+
+    wcharToUtf8(testBuffer, 3, cyrillic);
+
+    REQUIRE(testBuffer[0] == static_cast<char>(0xD0));
+    REQUIRE(testBuffer[1] == static_cast<char>(0x90));
+    REQUIRE(testBuffer[2] == '\0');
+  }
+
+  // 3-byte CJK code point is skipped when fewer than 3 data bytes remain.
+  SUBCASE("3-byte truncation") {
+    char testBuffer[4];
+    const wchar_t korean[] = {0xC548, 0x0000}; // U+C548 '안' → 3-byte UTF-8
+
+    wcharToUtf8(testBuffer, 3, korean);
+
+    REQUIRE(testBuffer[0] == '\0');
+  }
+
+  // 3-byte code point fits exactly when destSize accommodates it plus the null terminator.
+  SUBCASE("3-byte exact fit") {
+    char testBuffer[4];
+    const wchar_t korean[] = {0xC548, 0x0000};
+
+    wcharToUtf8(testBuffer, 4, korean);
+
+    REQUIRE(testBuffer[0] == static_cast<char>(0xEC));
+    REQUIRE(testBuffer[1] == static_cast<char>(0x95));
+    REQUIRE(testBuffer[2] == static_cast<char>(0x88));
+    REQUIRE(testBuffer[3] == '\0');
+  }
+
+  // ASCII char is written but following 2-byte char is truncated when buffer space runs out.
+  SUBCASE("partial truncation after ASCII") {
+    char testBuffer[4];
+    const wchar_t mixed[] = {0x0041, 0x0410, 0x0000}; // 'A' (1 byte) + U+0410 (2 bytes)
+
+    wcharToUtf8(testBuffer, 3, mixed);
+
+    REQUIRE(testBuffer[0] == 'A');
+    REQUIRE(testBuffer[1] == '\0');
+  }
+
   // Null buffer returns nullptr (wcharToUtf8).
   SUBCASE("null buffer returns nullptr") {
     REQUIRE(wcharToUtf8(nullptr, 10, L"test") == nullptr);
