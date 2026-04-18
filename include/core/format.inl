@@ -101,6 +101,27 @@ template <typename PatternType>
   return argIndex;
 }
 
+/*!
+  \brief Scans forward from \a start to find the first \c } in \a data.
+
+  \param data   Pointer to the pattern's raw character buffer.
+  \param start  Position to begin scanning from (one past the opening brace).
+  \param length Total length of the pattern buffer.
+
+  \return Index of the closing brace, or \a length if none is found.
+
+  \pre \a start <= \a length; \a data contains at least \a length characters.
+
+  \note Internal helper for vformatTo(); not part of the public API.
+*/
+[[nodiscard]] constexpr size_t findClosingBrace(const char * data, size_t start, size_t length) noexcept {
+  auto end = start;
+  while (end < length && data[end] != '}')
+    ++end;
+
+  return end;
+}
+
 } // namespace
 
 template <size_t BufferSize, typename... Args>
@@ -133,13 +154,9 @@ constexpr void formatTo(BackendType & output, type_identity_t<FormatString<Args.
         continue;
       }
 
-      // Find the closing brace and extract the content between { and }.
-      const size_t start = position + 1;
-      auto         end   = start;
-      while (end < length && pattern.at(end) != '}')
-        ++end;
-
-      const auto argIndex = parseArgIndex(pattern, start, end, autoIndex);
+      const size_t start    = position + 1;
+      const auto   end      = findClosingBrace(pattern.c_str(), start, length);
+      const auto   argIndex = parseArgIndex(pattern, start, end, autoIndex);
 
       if constexpr (sizeof...(Args) > 0)
         dispatchFormatArg(argIndex, stream, args...);
@@ -218,9 +235,7 @@ void vformatTo(BackendType & output, CStringView pattern, const Args &... args) 
       out.write(data + litStart, position - litStart);
 
       const size_t start = position + 1;
-      auto         end   = start;
-      while (end < length && data[end] != '}')
-        ++end;
+      const auto   end   = findClosingBrace(data, start, length);
 
       if (const auto argIndex = parseArgIndex(pattern, start, end, autoIndex); argIndex < vArgs.size()) {
         const auto & argument = vArgs[argIndex];

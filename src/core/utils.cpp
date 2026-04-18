@@ -388,6 +388,29 @@ void _floatPostProcess(char * dest, char * srcBuffer, size_t bufferSize, int32_t
   *outputPointer = '\0';
 }
 
+/*!
+  \brief Returns the number of bytes required to encode \a symbol in UTF-8.
+
+  Covers the Basic Multilingual Plane only (code points up to \c U+FFFF). Four-byte sequences are not handled because
+  the engine's \c wchar_t path targets platforms where \c wchar_t is 16-bit.
+
+  \param symbol Wide character code point to measure.
+
+  \return \c 1 for ASCII (\c U+0000 – \c U+007F), \c 2 for \c U+0080 – \c U+07FF, \c 3 otherwise.
+
+  \pre \a symbol is a valid BMP code point (at most \c U+FFFF).
+
+  \note Internal helper for wcharToUtf8(); not part of the public API.
+*/
+[[nodiscard]] constexpr size_t _symbolSizeInUTF8Bytes(wchar_t symbol) noexcept {
+  if (symbol <= 0x7F)
+    return 1;
+  else if (symbol <= 0x7FF)
+    return 2;
+
+  return 3;
+}
+
 wchar_t * utf8toWChar(wchar_t * dest, size_t destSize, const char * src, size_t count) noexcept {
   if (dest == nullptr || destSize == 0)
     return nullptr;
@@ -447,9 +470,8 @@ char * wcharToUtf8(char * dest, size_t destSize, const wchar_t * src) noexcept {
   const char * const utf8EndPos  = dest + (destSize - 1);
 
   while (*src != L'\0') {
-    const auto   symbol        = static_cast<uint32_t>(*src);
-    const size_t requiredBytes = symbol <= 0x7F ? 1U : (symbol <= 0x7FF ? 2U : 3U);
-    if (static_cast<size_t>(utf8EndPos - destPointer) < requiredBytes)
+    const auto symbol = static_cast<uint32_t>(*src);
+    if (static_cast<size_t>(utf8EndPos - destPointer) < _symbolSizeInUTF8Bytes(*src))
       break;
 
     ++src;
