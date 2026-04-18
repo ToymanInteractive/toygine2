@@ -50,7 +50,8 @@ AlignTrailingComments:
   AlignPPAndNotPP: true
 AllowAllArgumentsOnNextLine: true
 AllowAllParametersOfDeclarationOnNextLine: true
-# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#allowbreakbeforenoexceptspecifier
+AllowBreakBeforeNoexceptSpecifier: OnlyWithParen
+# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#allowbreakbeforeqtproperty
 AllowShortBlocksOnASingleLine: false
 AllowShortCaseLabelsOnASingleLine: false
 AllowShortFunctionsOnASingleLine: Empty

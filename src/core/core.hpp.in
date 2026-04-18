@@ -209,7 +209,6 @@ using std::char_traits;
 #include "core/fixed_string.hpp"
 #include "core/fixed_vector.hpp"
 #include "core/format.hpp"
-#include "core/format_argument.hpp"
 #include "core/format_context.hpp"
 #include "core/format_pattern.hpp"
 #include "core/format_string.hpp"
