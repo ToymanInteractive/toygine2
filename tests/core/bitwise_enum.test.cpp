@@ -128,7 +128,7 @@ TEST_CASE("core/bitwise_enum/operator_not") {
 TEST_CASE("core/bitwise_enum/compound_assignment") {
   // operator|= assigns lhs | rhs to lhs and returns reference.
   SUBCASE("or_assign") {
-    TestFlags f = TestFlags::A;
+    TestFlags   f   = TestFlags::A;
     TestFlags & ref = (f |= TestFlags::B);
 
     REQUIRE(f == (TestFlags::A | TestFlags::B));
@@ -137,16 +137,16 @@ TEST_CASE("core/bitwise_enum/compound_assignment") {
 
   // operator&= assigns lhs & rhs to lhs.
   SUBCASE("and_assign") {
-    TestFlags f = TestFlags::A | TestFlags::B;
-    f &= TestFlags::A;
+    TestFlags f  = TestFlags::A | TestFlags::B;
+    f           &= TestFlags::A;
 
     REQUIRE(f == TestFlags::A);
   }
 
   // operator^= assigns lhs ^ rhs to lhs.
   SUBCASE("xor_assign") {
-    TestFlags f = TestFlags::A | TestFlags::B;
-    f ^= TestFlags::B;
+    TestFlags f  = TestFlags::A | TestFlags::B;
+    f           ^= TestFlags::B;
 
     REQUIRE(f == TestFlags::A);
   }

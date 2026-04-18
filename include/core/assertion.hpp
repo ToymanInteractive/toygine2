@@ -123,7 +123,7 @@ void setCallbacks(AssertionCallback assertionCallback, StackWalkCallback stackWa
 void assertion(const char * code, const char * message, const char * fileName, const char * functionName,
                size_t lineNumber);
 
-#else // _DEBUG
+#else  // _DEBUG
 
 /*!
   \brief No-op in release builds; provided so call sites compile without \c _DEBUG.

@@ -55,7 +55,7 @@ int main() {
   toy::assertion::setCallbacks(assertionCallback, stackWalkCallback);
 
   GbaFilteringStreamBuf gbaStreamBuf;
-  auto gbaStream = std::ostream(&gbaStreamBuf);
+  auto                  gbaStream = std::ostream(&gbaStreamBuf);
 
   doctest::Context context;
   context.setCout(&gbaStream);

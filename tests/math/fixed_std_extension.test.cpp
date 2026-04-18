@@ -28,7 +28,7 @@
 
 namespace toy::math {
 
-using fixed_type = fixed<int32_t, int32_t, 16>;
+using fixed_type             = fixed<int32_t, int32_t, 16>;
 using fixed_type_no_rounding = fixed<int32_t, int32_t, 16, false>;
 
 // numeric_limits specialization for fixed.
@@ -74,8 +74,8 @@ TEST_CASE("math/fixed/numeric_limits") {
 
   // min, max, lowest.
   SUBCASE("min_max_lowest") {
-    constexpr auto minVal = numeric_limits<fixed_type>::min();
-    constexpr auto maxVal = numeric_limits<fixed_type>::max();
+    constexpr auto minVal    = numeric_limits<fixed_type>::min();
+    constexpr auto maxVal    = numeric_limits<fixed_type>::max();
     constexpr auto lowestVal = numeric_limits<fixed_type>::lowest();
 
     REQUIRE(minVal.rawValue() == 1);
@@ -89,7 +89,7 @@ TEST_CASE("math/fixed/numeric_limits") {
 
   // Epsilon equals 1 LSB; round_error is 0.5 when Rounding is true, 1.0 when false.
   SUBCASE("epsilon_round_error") {
-    constexpr auto eps = numeric_limits<fixed_type>::epsilon();
+    constexpr auto eps      = numeric_limits<fixed_type>::epsilon();
     constexpr auto roundErr = numeric_limits<fixed_type>::round_error();
 
     REQUIRE(eps.rawValue() == 1);
@@ -162,10 +162,10 @@ TEST_CASE("math/fixed/numeric_limits") {
 TEST_CASE("math/fixed_std_extension/numbers_constants") {
   // All constants are constexpr and positive where expected.
   SUBCASE("constexpr_and_sign") {
-    constexpr auto e = std::numbers::e_v<fixed_type>;
-    constexpr auto pi = std::numbers::pi_v<fixed_type>;
-    constexpr auto sqrt2 = std::numbers::sqrt2_v<fixed_type>;
-    constexpr auto ln2 = std::numbers::ln2_v<fixed_type>;
+    constexpr auto e      = std::numbers::e_v<fixed_type>;
+    constexpr auto pi     = std::numbers::pi_v<fixed_type>;
+    constexpr auto sqrt2  = std::numbers::sqrt2_v<fixed_type>;
+    constexpr auto ln2    = std::numbers::ln2_v<fixed_type>;
     constexpr auto inv_pi = std::numbers::inv_pi_v<fixed_type>;
 
     REQUIRE(e.rawValue() > 0);
@@ -183,7 +183,7 @@ TEST_CASE("math/fixed_std_extension/numbers_constants") {
   SUBCASE("e_pi_near_std") {
     constexpr double kTolerance = 1.0 / 256.0;
 
-    const auto eDouble = static_cast<double>(std::numbers::e_v<fixed_type>);
+    const auto eDouble  = static_cast<double>(std::numbers::e_v<fixed_type>);
     const auto piDouble = static_cast<double>(std::numbers::pi_v<fixed_type>);
 
     REQUIRE(eDouble > 2.0);

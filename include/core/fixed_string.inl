@@ -278,7 +278,7 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::insert(
 
 template <size_t allocatedSize>
 template <StringLike stringType>
-constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::insert(size_t index,
+constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::insert(size_t             index,
                                                                           const stringType & string) noexcept {
   _insert_raw(index, string.c_str(), string.size());
 
@@ -403,7 +403,7 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::append(size_t
 
 template <size_t allocatedSize>
 constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::append(const char * string,
-                                                                          size_type count) noexcept {
+                                                                          size_type    count) noexcept {
   if (count == 0)
     return *this;
 
@@ -614,7 +614,7 @@ constexpr void FixedString<allocatedSize>::swap(FixedString<allocatedSize> & str
 
 template <size_t allocatedSize>
 constexpr size_t FixedString<allocatedSize>::find(const FixedString<allocatedSize> & string,
-                                                  size_t position) const noexcept {
+                                                  size_t                             position) const noexcept {
   return _find_raw(position, string._storage.buffer, string._storage.size);
 }
 
@@ -640,7 +640,7 @@ constexpr size_t FixedString<allocatedSize>::find(char character, size_t positio
 
 template <size_t allocatedSize>
 constexpr size_t FixedString<allocatedSize>::rfind(const FixedString<allocatedSize> & string,
-                                                   size_t position) const noexcept {
+                                                   size_t                             position) const noexcept {
   return _rfind_raw(position, string._storage.buffer, string._storage.size);
 }
 
@@ -666,7 +666,7 @@ constexpr size_t FixedString<allocatedSize>::rfind(char character, size_t positi
 
 template <size_t allocatedSize>
 constexpr size_t FixedString<allocatedSize>::find_first_of(const FixedString<allocatedSize> & string,
-                                                           size_t position) const noexcept {
+                                                           size_t                             position) const noexcept {
   return _find_first_of_raw(position, string._storage.buffer, string._storage.size);
 }
 
@@ -699,7 +699,7 @@ constexpr size_t FixedString<allocatedSize>::find_first_not_of(const FixedString
 template <size_t allocatedSize>
 template <StringLike stringType>
 constexpr size_t FixedString<allocatedSize>::find_first_not_of(const stringType & string,
-                                                               size_t position) const noexcept {
+                                                               size_t             position) const noexcept {
   return _find_first_not_of_raw(position, string.c_str(), string.size());
 }
 
@@ -719,7 +719,7 @@ constexpr size_t FixedString<allocatedSize>::find_first_not_of(char character, s
 
 template <size_t allocatedSize>
 constexpr size_t FixedString<allocatedSize>::find_last_of(const FixedString<allocatedSize> & string,
-                                                          size_t position) const noexcept {
+                                                          size_t                             position) const noexcept {
   return _find_last_of_raw(position, string._storage.buffer, string._storage.size);
 }
 
@@ -752,7 +752,7 @@ constexpr size_t FixedString<allocatedSize>::find_last_not_of(const FixedString<
 template <size_t allocatedSize>
 template <StringLike stringType>
 constexpr size_t FixedString<allocatedSize>::find_last_not_of(const stringType & string,
-                                                              size_t position) const noexcept {
+                                                              size_t             position) const noexcept {
   return _find_last_not_of_raw(position, string.c_str(), string.size());
 }
 
@@ -1184,7 +1184,7 @@ constexpr FixedString<allocatedSize1> operator+(const FixedString<allocatedSize1
 
 template <size_t allocatedSize, StringLike stringType>
 constexpr FixedString<allocatedSize> operator+(const FixedString<allocatedSize> & lhs,
-                                               const stringType & rhs) noexcept {
+                                               const stringType &                 rhs) noexcept {
   FixedString<allocatedSize> result(lhs);
 
   result += rhs;
@@ -1193,7 +1193,7 @@ constexpr FixedString<allocatedSize> operator+(const FixedString<allocatedSize> 
 }
 
 template <size_t allocatedSize, StringLike stringType>
-constexpr FixedString<allocatedSize> operator+(const stringType & lhs,
+constexpr FixedString<allocatedSize> operator+(const stringType &                 lhs,
                                                const FixedString<allocatedSize> & rhs) noexcept {
   FixedString<allocatedSize> result(lhs);
 
@@ -1364,7 +1364,7 @@ constexpr strong_ordering operator<=>(const FixedString<allocatedSize> & lhs, co
     return strong_ordering::greater;
 
   const auto rhsLen = char_traits<char>::length(rhs);
-  const int result  = char_traits<char>::compare(lhs.c_str(), rhs, std::min(lhs.size(), rhsLen));
+  const int  result = char_traits<char>::compare(lhs.c_str(), rhs, std::min(lhs.size(), rhsLen));
   if (result < 0)
     return strong_ordering::less;
   else if (result > 0)

@@ -233,7 +233,7 @@ constexpr bool CStringView::starts_with(char character) const noexcept {
 template <StringLike stringType>
 constexpr bool CStringView::ends_with(const stringType & string) const noexcept {
   const auto stringSize = string.size();
-  const auto thisSize = size();
+  const auto thisSize   = size();
   if (thisSize < stringSize)
     return false;
 

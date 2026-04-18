@@ -28,10 +28,10 @@
 
 namespace toy::math {
 
-using fixed_type = fixed<int32_t, int64_t, 8>;
+using fixed_type             = fixed<int32_t, int64_t, 8>;
 using fixed_type_no_rounding = fixed<int32_t, int64_t, 8, false>;
-using fixed_type_4 = fixed<int32_t, int64_t, 4>;
-using fixed_type_16 = fixed<int32_t, int64_t, 16>;
+using fixed_type_4           = fixed<int32_t, int64_t, 4>;
+using fixed_type_16          = fixed<int32_t, int64_t, 16>;
 
 // fixed_type type has fixed size and contiguous layout (single base integer).
 TEST_CASE("math/fixed/object_structure") {
@@ -71,12 +71,12 @@ TEST_CASE("math/fixed/constructors") {
   SUBCASE("from_float") {
     constexpr fixed_type f_half(0.5f);
     constexpr fixed_type f_neg_half(-0.5f);
-    constexpr fixed_type f_round_up(0.502f); // 0.502 * 256 = 128.512, rounds to 129
-    constexpr fixed_type f_round_down(0.498f); // 0.498 * 256 = 127.488, rounds to 127
-    constexpr fixed_type f_round_up_neg(-0.502f); // rounds to -129
-    constexpr fixed_type f_round_down_neg(-0.498f); // rounds to -127
+    constexpr fixed_type f_round_up(0.502f);               // 0.502 * 256 = 128.512, rounds to 129
+    constexpr fixed_type f_round_down(0.498f);             // 0.498 * 256 = 127.488, rounds to 127
+    constexpr fixed_type f_round_up_neg(-0.502f);          // rounds to -129
+    constexpr fixed_type f_round_down_neg(-0.498f);        // rounds to -127
 
-    constexpr fixed_type_no_rounding f_trunc(0.502f); // 0.502 * 256 = 128.512, truncates to 128
+    constexpr fixed_type_no_rounding f_trunc(0.502f);      // 0.502 * 256 = 128.512, truncates to 128
     constexpr fixed_type_no_rounding f_trunc_neg(-0.502f); // truncates to -128
 
     REQUIRE(f_half.rawValue() == 128);
@@ -122,8 +122,8 @@ TEST_CASE("math/fixed/constructors") {
   SUBCASE("from_fixed_fewer_fraction_bits") {
     constexpr fixed_type_4 src1(1);
     constexpr fixed_type_4 src2(-1);
-    constexpr fixed_type f1(src1);
-    constexpr fixed_type f2(src2);
+    constexpr fixed_type   f1(src1);
+    constexpr fixed_type   f2(src2);
 
     REQUIRE(f1.rawValue() == 1 * 256);
     REQUIRE(f2.rawValue() == -1 * 256);
@@ -140,8 +140,8 @@ TEST_CASE("math/fixed/constructors") {
   SUBCASE("from_fixed_more_fraction_bits") {
     constexpr fixed_type_16 src1(1);
     constexpr fixed_type_16 src2(-1);
-    constexpr fixed_type f1(src1);
-    constexpr fixed_type f2(src2);
+    constexpr fixed_type    f1(src1);
+    constexpr fixed_type    f2(src2);
 
     REQUIRE(f1.rawValue() == 1 * 256);
     REQUIRE(f2.rawValue() == -1 * 256);
@@ -157,7 +157,7 @@ TEST_CASE("math/fixed/constructors") {
   // Construct from fixed with more fraction bits that triggers rounding.
   SUBCASE("from_fixed_more_fraction_bits_rounding") {
     // fixed_type_16 raw = 384 → 384 / 2^(16-8) = 1.5, rounds to 2 with rounding enabled
-    constexpr auto src = fixed_type_16::fromRawValue(384);
+    constexpr auto       src = fixed_type_16::fromRawValue(384);
     constexpr fixed_type f(src);
 
     REQUIRE(f.rawValue() == 2);
@@ -211,10 +211,10 @@ TEST_CASE("math/fixed/raw_value") {
 
   // fromRawValue(x).rawValue() must equal x.
   SUBCASE("from_raw_value_roundtrip") {
-    constexpr auto raw = 512;
+    constexpr auto raw    = 512;
     constexpr auto rawNeg = -512;
-    constexpr auto f = fixed_type::fromRawValue(raw);
-    constexpr auto fNeg = fixed_type::fromRawValue(rawNeg);
+    constexpr auto f      = fixed_type::fromRawValue(raw);
+    constexpr auto fNeg   = fixed_type::fromRawValue(rawNeg);
 
     REQUIRE(f.rawValue() == raw);
     REQUIRE(fNeg.rawValue() == rawNeg);
@@ -228,10 +228,10 @@ TEST_CASE("math/fixed/raw_value") {
 TEST_CASE("math/fixed/from_fixed_point") {
   // Source has fewer fraction bits: scale up (no rounding).
   SUBCASE("from_fixed_point_scale_up") {
-    constexpr auto raw4 = 16; // 1.0 in 4-bit
+    constexpr auto raw4    = 16; // 1.0 in 4-bit
     constexpr auto raw4Neg = -16;
-    constexpr auto f = fixed_type::fromFixedPoint<4>(raw4);
-    constexpr auto fNeg = fixed_type::fromFixedPoint<4>(raw4Neg);
+    constexpr auto f       = fixed_type::fromFixedPoint<4>(raw4);
+    constexpr auto fNeg    = fixed_type::fromFixedPoint<4>(raw4Neg);
 
     REQUIRE(f.rawValue() == 1 * 256);
     REQUIRE(fNeg.rawValue() == -1 * 256);
@@ -244,10 +244,10 @@ TEST_CASE("math/fixed/from_fixed_point") {
 
   // Source has more fraction bits: scale down (rounding when EnableRounding).
   SUBCASE("from_fixed_point_scale_down") {
-    constexpr auto raw16 = 65536; // 1.0 in 16-bit
+    constexpr auto raw16    = 65536; // 1.0 in 16-bit
     constexpr auto raw16Neg = -65536;
-    constexpr auto f = fixed_type::fromFixedPoint<16>(raw16);
-    constexpr auto fNeg = fixed_type::fromFixedPoint<16>(raw16Neg);
+    constexpr auto f        = fixed_type::fromFixedPoint<16>(raw16);
+    constexpr auto fNeg     = fixed_type::fromFixedPoint<16>(raw16Neg);
 
     REQUIRE(f.rawValue() == 1 * 256);
     REQUIRE(fNeg.rawValue() == -1 * 256);
@@ -261,10 +261,10 @@ TEST_CASE("math/fixed/from_fixed_point") {
 
   // Same fraction bits: raw value used as-is.
   SUBCASE("from_fixed_point_same_bits") {
-    constexpr auto raw8 = 512;
+    constexpr auto raw8    = 512;
     constexpr auto raw8Neg = -512;
-    constexpr auto f = fixed_type::fromFixedPoint<8>(raw8);
-    constexpr auto fNeg = fixed_type::fromFixedPoint<8>(raw8Neg);
+    constexpr auto f       = fixed_type::fromFixedPoint<8>(raw8);
+    constexpr auto fNeg    = fixed_type::fromFixedPoint<8>(raw8Neg);
 
     REQUIRE(f.rawValue() == 512);
     REQUIRE(fNeg.rawValue() == -512);
@@ -277,7 +277,7 @@ TEST_CASE("math/fixed/from_fixed_point") {
   // Scale down with rounding: the discarded bit rounds the result up.
   SUBCASE("from_fixed_point_scale_down_rounding") {
     // raw = 0x180 in 16-bit = 384 → 384 / 256 = 1, rounding bit = (384 / 128) % 2 = 3 % 2 = 1 → result = 2
-    constexpr auto f = fixed_type::fromFixedPoint<16>(384);
+    constexpr auto f    = fixed_type::fromFixedPoint<16>(384);
     constexpr auto fNeg = fixed_type::fromFixedPoint<16>(-384);
 
     REQUIRE(f.rawValue() == 2);
@@ -289,7 +289,7 @@ TEST_CASE("math/fixed/from_fixed_point") {
 
   // Scale down without rounding: verify truncation when rounding is disabled.
   SUBCASE("from_fixed_point_scale_down_no_rounding") {
-    constexpr auto f = fixed_type_no_rounding::fromFixedPoint<16>(384);
+    constexpr auto f    = fixed_type_no_rounding::fromFixedPoint<16>(384);
     constexpr auto fNeg = fixed_type_no_rounding::fromFixedPoint<16>(-384);
 
     REQUIRE(f.rawValue() == 1);
@@ -317,7 +317,7 @@ TEST_CASE("math/fixed/operator_assign") {
 
   // Assign from fixed with different rounding policy (raw value copied).
   SUBCASE("assign_from_fixed_different_rounding") {
-    fixed_type a(0);
+    fixed_type             a(0);
     fixed_type_no_rounding src(7);
 
     const fixed_type & ref = (a = src);
@@ -345,13 +345,13 @@ TEST_CASE("math/fixed/operator_assign") {
 
   // operator= returns reference to *this; constexpr for fixed and integral.
   SUBCASE("assign_returns_reference_and_constexpr") {
-    fixed_type a(1);
-    fixed_type b(2);
+    fixed_type   a(1);
+    fixed_type   b(2);
     fixed_type & ref = (a = b);
     REQUIRE(&ref == &a);
     REQUIRE(a.rawValue() == b.rawValue());
 
-    fixed_type c(10);
+    fixed_type   c(10);
     fixed_type & ref2 = (c = 20);
     REQUIRE(&ref2 == &c);
     REQUIRE(c.rawValue() == 20 * 256);
@@ -470,7 +470,7 @@ TEST_CASE("math/fixed/fixed_point_concept") {
 
   // Concept constrains template: function accepts only fixed types.
   SUBCASE("concept_constrains_template") {
-    constexpr auto check = [](fixed_point auto) constexpr { return true; };
+    constexpr auto       check = [](fixed_point auto) constexpr { return true; };
     constexpr fixed_type f(1);
 
     REQUIRE(check(f));
@@ -759,7 +759,7 @@ TEST_CASE("math/fixed/operator_unary_minus") {
   // Negation of zero yields zero.
   SUBCASE("negate_zero") {
     constexpr fixed_type f(0);
-    constexpr auto neg = -f;
+    constexpr auto       neg = -f;
 
     REQUIRE(neg.rawValue() == 0);
 
@@ -769,7 +769,7 @@ TEST_CASE("math/fixed/operator_unary_minus") {
   // Negation of a positive value yields negative.
   SUBCASE("negate_positive") {
     constexpr fixed_type f(5);
-    constexpr auto neg = -f;
+    constexpr auto       neg = -f;
 
     REQUIRE(neg.rawValue() == -5 * 256);
     REQUIRE(static_cast<int>(neg) == -5);
@@ -781,7 +781,7 @@ TEST_CASE("math/fixed/operator_unary_minus") {
   // Negation of a negative value yields positive.
   SUBCASE("negate_negative") {
     constexpr fixed_type f(-3);
-    constexpr auto neg = -f;
+    constexpr auto       neg = -f;
 
     REQUIRE(neg.rawValue() == 3 * 256);
     REQUIRE(static_cast<int>(neg) == 3);
@@ -794,8 +794,8 @@ TEST_CASE("math/fixed/operator_unary_minus") {
   SUBCASE("operand_unchanged") {
     constexpr fixed_type f(7);
     constexpr fixed_type fNeg(-4);
-    constexpr auto neg = -f;
-    constexpr auto negNeg = -fNeg;
+    constexpr auto       neg    = -f;
+    constexpr auto       negNeg = -fNeg;
 
     REQUIRE(f.rawValue() == 7 * 256);
     REQUIRE(neg.rawValue() == -7 * 256);
@@ -812,8 +812,8 @@ TEST_CASE("math/fixed/operator_unary_minus") {
 TEST_CASE("math/fixed/operator_plus") {
   // Sum of two fixed values; supports mixed rounding.
   SUBCASE("plus_fixed_fixed") {
-    constexpr auto sum = fixed_type(2) + fixed_type(3);
-    constexpr auto sumNeg = fixed_type(-2) + fixed_type(-3);
+    constexpr auto sum      = fixed_type(2) + fixed_type(3);
+    constexpr auto sumNeg   = fixed_type(-2) + fixed_type(-3);
     constexpr auto sumMixed = fixed_type(-1) + fixed_type_no_rounding(2);
 
     REQUIRE(sum.rawValue() == 5 * 256);
@@ -827,8 +827,8 @@ TEST_CASE("math/fixed/operator_plus") {
 
   // Sum of fixed and integral (whole units).
   SUBCASE("plus_fixed_integral") {
-    constexpr auto sum = fixed_type(2) + 3;
-    constexpr auto sumNeg = fixed_type(-2) + -3;
+    constexpr auto sum      = fixed_type(2) + 3;
+    constexpr auto sumNeg   = fixed_type(-2) + -3;
     constexpr auto sumMixed = fixed_type(-1) + 2;
 
     REQUIRE(sum.rawValue() == 5 * 256);
@@ -842,8 +842,8 @@ TEST_CASE("math/fixed/operator_plus") {
 
   // Sum of integral and fixed.
   SUBCASE("plus_integral_fixed") {
-    constexpr auto sum = 2 + fixed_type(3);
-    constexpr auto sumNeg = -2 + fixed_type(-3);
+    constexpr auto sum      = 2 + fixed_type(3);
+    constexpr auto sumNeg   = -2 + fixed_type(-3);
     constexpr auto sumMixed = -1 + fixed_type(2);
 
     REQUIRE(sum.rawValue() == 5 * 256);
@@ -860,8 +860,8 @@ TEST_CASE("math/fixed/operator_plus") {
 TEST_CASE("math/fixed/operator_binary_minus") {
   // Difference of two fixed values.
   SUBCASE("minus_fixed_fixed") {
-    constexpr auto diff = fixed_type(5) - fixed_type(2);
-    constexpr auto diffNeg = fixed_type(-5) - fixed_type(-2);
+    constexpr auto diff      = fixed_type(5) - fixed_type(2);
+    constexpr auto diffNeg   = fixed_type(-5) - fixed_type(-2);
     constexpr auto diffMixed = fixed_type(2) - fixed_type(5);
 
     REQUIRE(diff.rawValue() == 3 * 256);
@@ -875,8 +875,8 @@ TEST_CASE("math/fixed/operator_binary_minus") {
 
   // fixed minus integral.
   SUBCASE("minus_fixed_integral") {
-    constexpr auto diff = fixed_type(5) - 2;
-    constexpr auto diffNeg = fixed_type(-5) - -2;
+    constexpr auto diff      = fixed_type(5) - 2;
+    constexpr auto diffNeg   = fixed_type(-5) - -2;
     constexpr auto diffMixed = fixed_type(2) - 5;
 
     REQUIRE(diff.rawValue() == 3 * 256);
@@ -890,8 +890,8 @@ TEST_CASE("math/fixed/operator_binary_minus") {
 
   // integral minus fixed.
   SUBCASE("minus_integral_fixed") {
-    constexpr auto diff = 5 - fixed_type(2);
-    constexpr auto diffNeg = -5 - fixed_type(-2);
+    constexpr auto diff      = 5 - fixed_type(2);
+    constexpr auto diffNeg   = -5 - fixed_type(-2);
     constexpr auto diffMixed = 2 - fixed_type(5);
 
     REQUIRE(diff.rawValue() == 3 * 256);
@@ -908,8 +908,8 @@ TEST_CASE("math/fixed/operator_binary_minus") {
 TEST_CASE("math/fixed/operator_mul") {
   // Product of two fixed values.
   SUBCASE("mul_fixed_fixed") {
-    constexpr auto mul = fixed_type(2) * fixed_type(3);
-    constexpr auto mulNeg = fixed_type(-2) * fixed_type(-3);
+    constexpr auto mul      = fixed_type(2) * fixed_type(3);
+    constexpr auto mulNeg   = fixed_type(-2) * fixed_type(-3);
     constexpr auto mulMixed = fixed_type(2) * fixed_type(-3);
 
     REQUIRE(mul.rawValue() == 6 * 256);
@@ -923,8 +923,8 @@ TEST_CASE("math/fixed/operator_mul") {
 
   // fixed times integral.
   SUBCASE("mul_fixed_integral") {
-    constexpr auto mul = fixed_type(2) * 3;
-    constexpr auto mulNeg = fixed_type(-2) * -3;
+    constexpr auto mul      = fixed_type(2) * 3;
+    constexpr auto mulNeg   = fixed_type(-2) * -3;
     constexpr auto mulMixed = fixed_type(2) * -3;
 
     REQUIRE(mul.rawValue() == 6 * 256);
@@ -938,8 +938,8 @@ TEST_CASE("math/fixed/operator_mul") {
 
   // integral times fixed.
   SUBCASE("mul_integral_fixed") {
-    constexpr auto mul = 2 * fixed_type(3);
-    constexpr auto mulNeg = -2 * fixed_type(-3);
+    constexpr auto mul      = 2 * fixed_type(3);
+    constexpr auto mulNeg   = -2 * fixed_type(-3);
     constexpr auto mulMixed = 2 * fixed_type(-3);
 
     REQUIRE(mul.rawValue() == 6 * 256);
@@ -956,8 +956,8 @@ TEST_CASE("math/fixed/operator_mul") {
 TEST_CASE("math/fixed/operator_div") {
   // Quotient of two fixed values; divisor must not be zero.
   SUBCASE("div_fixed_fixed") {
-    constexpr auto div = fixed_type(8) / fixed_type(2);
-    constexpr auto divNeg = fixed_type(-8) / fixed_type(-2);
+    constexpr auto div      = fixed_type(8) / fixed_type(2);
+    constexpr auto divNeg   = fixed_type(-8) / fixed_type(-2);
     constexpr auto divMixed = fixed_type(8) / fixed_type(-2);
 
     REQUIRE(div.rawValue() == 4 * 256);
@@ -971,8 +971,8 @@ TEST_CASE("math/fixed/operator_div") {
 
   // fixed divided by integral.
   SUBCASE("div_fixed_integral") {
-    constexpr auto div = fixed_type(8) / 2;
-    constexpr auto divNeg = fixed_type(-8) / -2;
+    constexpr auto div      = fixed_type(8) / 2;
+    constexpr auto divNeg   = fixed_type(-8) / -2;
     constexpr auto divMixed = fixed_type(8) / -2;
 
     REQUIRE(div.rawValue() == 4 * 256);
@@ -986,8 +986,8 @@ TEST_CASE("math/fixed/operator_div") {
 
   // integral divided by fixed.
   SUBCASE("div_integral_fixed") {
-    constexpr auto div = 8 / fixed_type(2);
-    constexpr auto divNeg = -8 / fixed_type(-2);
+    constexpr auto div      = 8 / fixed_type(2);
+    constexpr auto divNeg   = -8 / fixed_type(-2);
     constexpr auto divMixed = 8 / fixed_type(-2);
 
     REQUIRE(div.rawValue() == 4 * 256);
@@ -1016,7 +1016,7 @@ TEST_CASE("math/fixed/operator_equality") {
 
   // Equal values with different rounding policy compare equal (raw value same).
   SUBCASE("equal_different_rounding") {
-    constexpr fixed_type a(5);
+    constexpr fixed_type             a(5);
     constexpr fixed_type_no_rounding b(5);
 
     REQUIRE(a == b);
@@ -1212,7 +1212,7 @@ TEST_CASE("math/fixed/operator_ordering") {
 
   // operator<=> returns strong_ordering; mixed rounding types.
   SUBCASE("spaceship_mixed_rounding") {
-    constexpr fixed_type a(1);
+    constexpr fixed_type             a(1);
     constexpr fixed_type_no_rounding b(2);
 
     REQUIRE((a <=> b) == strong_ordering::less);

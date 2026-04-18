@@ -146,7 +146,7 @@ inline constexpr auto currentCpuArchitecture = CpuArchitecture::Unknown;
 
   \sa assert_message
 */
-#define assert(expression) ((void)0)
+#define assert(expression)                  ((void)0)
 
 /*!
   \def assert_message(expression, message)

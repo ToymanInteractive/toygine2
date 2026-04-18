@@ -132,7 +132,7 @@ constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(co
   _string.append("0x");
 
   const auto bufferDataLen = char_traits<char>::length(buffer);
-  const int leadingZeros   = static_cast<int>(sizeof(value)) * 2 - static_cast<int>(bufferDataLen);
+  const int  leadingZeros  = static_cast<int>(sizeof(value)) * 2 - static_cast<int>(bufferDataLen);
   if (leadingZeros > 0)
     _string.append(static_cast<size_t>(leadingZeros), '0');
 
@@ -276,7 +276,7 @@ constexpr OStringStream<BackendType> & OStringStream<BackendType>::put(char_type
 
 template <OStringStreamBackend BackendType>
 constexpr OStringStream<BackendType> & OStringStream<BackendType>::write(const char_type * string,
-                                                                         size_t count) noexcept {
+                                                                         size_t            count) noexcept {
   assert_message(string != nullptr, "Source string must not be null.");
   if (string != nullptr && count > 0)
     _string.append(string, count);

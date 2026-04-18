@@ -311,7 +311,7 @@ TEST_CASE("geometry/section/expand_section") {
 TEST_CASE("geometry/section/is_reset") {
   // Integer endpoint type.
   SUBCASE("int") {
-    Section<int> empty;
+    Section<int>      empty;
     constexpr Section valid(1, 2);
 
     empty.reset();
@@ -324,7 +324,7 @@ TEST_CASE("geometry/section/is_reset") {
 
   // Floating-point endpoint type.
   SUBCASE("float") {
-    Section<float> empty;
+    Section<float>    empty;
     constexpr Section valid(1.0f, 2.0f);
 
     empty.reset();
@@ -338,7 +338,7 @@ TEST_CASE("geometry/section/is_reset") {
   // Fixed-point endpoint type.
   SUBCASE("fixed") {
     Section<fixed_type> empty;
-    constexpr Section valid(fixed_type(1), fixed_type(2));
+    constexpr Section   valid(fixed_type(1), fixed_type(2));
 
     empty.reset();
 
@@ -353,7 +353,7 @@ TEST_CASE("geometry/section/is_reset") {
 TEST_CASE("geometry/section/is_valid") {
   // Integer endpoint type.
   SUBCASE("int") {
-    Section<int> empty;
+    Section<int>      empty;
     constexpr Section valid(1, 2);
 
     empty.reset();
@@ -366,7 +366,7 @@ TEST_CASE("geometry/section/is_valid") {
 
   // Floating-point endpoint type.
   SUBCASE("float") {
-    Section<float> empty;
+    Section<float>    empty;
     constexpr Section valid(1.0f, 2.0f);
 
     empty.reset();
@@ -380,7 +380,7 @@ TEST_CASE("geometry/section/is_valid") {
   // Fixed-point endpoint type.
   SUBCASE("fixed") {
     Section<fixed_type> empty;
-    constexpr Section valid(fixed_type(1), fixed_type(2));
+    constexpr Section   valid(fixed_type(1), fixed_type(2));
 
     empty.reset();
 

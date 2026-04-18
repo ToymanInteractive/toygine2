@@ -48,7 +48,7 @@ void formatCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
 
   bench.run("vformatTo single c-string", [] {
     FixedString<64> output;
-    const char * msg = "hello";
+    const char *    msg = "hello";
 
     vformatTo(output, CStringView("say: {}"), msg);
 

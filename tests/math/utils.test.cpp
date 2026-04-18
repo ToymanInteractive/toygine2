@@ -157,7 +157,7 @@ TEST_CASE("math/utils/is_equal") {
 
   // Within default relative epsilon for large values: treated as equal.
   SUBCASE("within_relative_epsilon") {
-    constexpr float big = 1e6f;
+    constexpr float big    = 1e6f;
     constexpr float relEps = 64.0f * numeric_limits<float>::epsilon();
 
     REQUIRE(isEqual(big, big * (1.0f + relEps * 0.5f)));
@@ -167,7 +167,7 @@ TEST_CASE("math/utils/is_equal") {
 
   // Double: relative epsilon for large values.
   SUBCASE("within_relative_epsilon_double") {
-    constexpr double big = 1e10;
+    constexpr double big    = 1e10;
     constexpr double relEps = 64.0 * numeric_limits<double>::epsilon();
 
     REQUIRE(isEqual(big, big * (1.0 + relEps * 0.5)));
@@ -214,7 +214,7 @@ TEST_CASE("math/utils/is_equal") {
 
   // Fixed-point: identical, absolute epsilon, clearly different, custom epsilons.
   SUBCASE("fixed_point") {
-    constexpr auto eps = numeric_limits<fixed_type>::epsilon();
+    constexpr auto eps     = numeric_limits<fixed_type>::epsilon();
     constexpr auto absEps8 = fixed_type(8) * eps;
 
     REQUIRE(isEqual(fixed_type(0), eps));

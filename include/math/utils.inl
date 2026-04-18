@@ -39,22 +39,22 @@ constexpr T abs(const T & value) noexcept {
   } else if constexpr (floating_point<T>) {
     if constexpr (std::same_as<T, float>) {
       // Branch-free: clear sign bit (float has fixed 32-bit representation on supported platforms).
-      auto bits = bit_cast<uint32_t>(value);
-      bits &= 0x7FFFFFFF;
+      auto bits  = bit_cast<uint32_t>(value);
+      bits      &= 0x7FFFFFFF;
       return bit_cast<float>(bits);
     } else if constexpr (std::same_as<T, double>) {
       // Branch-free: clear sign bit (double has fixed 64-bit representation on supported platforms).
-      auto bits = bit_cast<uint64_t>(value);
-      bits &= 0x7FFFFFFFFFFFFFFF;
+      auto bits  = bit_cast<uint64_t>(value);
+      bits      &= 0x7FFFFFFFFFFFFFFF;
       return bit_cast<double>(bits);
     } else {
       // long double layout is platform-dependent; bit_cast not portable.
       return value < T(0) ? -value : value;
     }
   } else if constexpr (fixed_point<T>) {
-    using Base = decltype(value.rawValue());
+    using Base           = decltype(value.rawValue());
     constexpr int digits = numeric_limits<Base>::digits;
-    auto raw = value.rawValue();
+    auto          raw    = value.rawValue();
     assert_message(raw != numeric_limits<Base>::min(), "abs() of the minimum fixed-point value is not representable");
     Base mask = raw >> digits;
     return T::fromRawValue(static_cast<Base>((raw + mask) ^ mask));

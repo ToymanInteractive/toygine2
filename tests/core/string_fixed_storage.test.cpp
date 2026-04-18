@@ -90,8 +90,8 @@ TEST_CASE("core/string_fixed_storage/set_size_empty") {
 
 // data() is stable and supports filling up to capacity characters.
 TEST_CASE("core/string_fixed_storage/fill_to_capacity") {
-  constexpr size_t capacity = 4;
-  StringFixedStorage<capacity + 1> s;
+  constexpr size_t                         capacity = 4;
+  StringFixedStorage<capacity + 1>         s;
   const StringFixedStorage<capacity + 1> & cs = s;
 
   for (size_t i = 0; i < capacity; ++i)

@@ -70,7 +70,7 @@ enum class FormatPatternValidationError {
   \return Error code; \c FormatPatternValidationError::none when the pattern is consistent with \a argCount.
 */
 [[nodiscard]] constexpr FormatPatternValidationError validateFormatPattern(const CStringView & string,
-                                                                           size_t argCount) noexcept;
+                                                                           size_t              argCount) noexcept;
 
 } // namespace toy
 

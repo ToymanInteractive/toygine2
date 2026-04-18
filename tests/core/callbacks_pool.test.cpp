@@ -53,7 +53,7 @@ static void resetCounters() {
   callback1Count = 0;
   callback2Count = 0;
   callback3Count = 0;
-  lastValue = 0;
+  lastValue      = 0;
 }
 
 // Check object structure.
@@ -78,7 +78,7 @@ TEST_CASE("core/callbacks_pool/constructors") {
   // Different template parameters yield zero subscribers.
   SUBCASE("different_template_parameters") {
     constexpr CallbacksPool<double, 2> smallPool;
-    constexpr CallbacksPool<int, 8> largePool;
+    constexpr CallbacksPool<int, 8>    largePool;
 
     REQUIRE(smallPool.subscribersAmount() == 0);
     REQUIRE(largePool.subscribersAmount() == 0);

@@ -26,7 +26,7 @@
 
 namespace ansi_filter {
 
-constexpr std::streambuf::int_type kEsc = 0x1b;
+constexpr std::streambuf::int_type kEsc         = 0x1b;
 constexpr std::streambuf::int_type kCsiFinalMin = 0x40;
 constexpr std::streambuf::int_type kCsiFinalMax = 0x7E;
 
@@ -37,9 +37,9 @@ static constexpr uint16_t mGbaLogLevelFatal = 0x100;
 /// mGBA log level: error (0x101).
 static constexpr uint16_t mGbaLogLevelError = 0x101;
 /// mGBA log level: warning (0x102).
-static constexpr uint16_t mGbaLogLevelWarn = 0x102;
+static constexpr uint16_t mGbaLogLevelWarn  = 0x102;
 /// mGBA log level: info (0x103).
-static constexpr uint16_t mGbaLogLevelInfo = 0x103;
+static constexpr uint16_t mGbaLogLevelInfo  = 0x103;
 /// mGBA log level: debug (0x104).
 static constexpr uint16_t mGbaLogLevelDebug = 0x104;
 
@@ -147,7 +147,7 @@ void GbaFilteringStreamBuf::_flushLine() noexcept {
   if (_mGbaDetected) {
     *reinterpret_cast<volatile uint16_t *>(0x04FFF700) = mGbaLogLevelInfo;
 
-    char * dst = reinterpret_cast<char *>(0x04FFF600); // MGBA Log String Register
+    char *       dst = reinterpret_cast<char *>(0x04FFF600); // MGBA Log String Register
     const char * src = _lineBuffer;
     while (*src) {
       *dst++ = *src++;

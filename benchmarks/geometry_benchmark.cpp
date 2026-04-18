@@ -45,12 +45,12 @@ ankerl::nanobench::Bench runGeometryBenchmarks() noexcept {
 
     bench.run("Circle<float> area", [] {
       Circle c(toy::math::Vector2(0.0f, 0.0f), 10.0f);
-      auto r = c.area();
+      auto   r = c.area();
       doNotOptimize(r);
     });
     bench.run("Circle<fixed_type> area", [] {
       Circle c(toy::math::Vector2(fixed_type(0), fixed_type(0)), fixed_type(10));
-      auto r = c.area();
+      auto   r = c.area();
       doNotOptimize(r);
     });
 
@@ -73,55 +73,55 @@ ankerl::nanobench::Bench runGeometryBenchmarks() noexcept {
     });
     bench.run("Circle<fixed_type> isReset", [] {
       Circle<fixed_type> c;
-      auto r = c.isReset();
+      auto               r = c.isReset();
       doNotOptimize(r);
     });
 
     bench.run("Circle<float> isValid", [] {
       Circle c(toy::math::Vector2(0.0f, 0.0f), 1.0f);
-      auto r = c.isValid();
+      auto   r = c.isValid();
       doNotOptimize(r);
     });
     bench.run("Circle<fixed_type> isValid", [] {
       Circle c(toy::math::Vector2(fixed_type(0), fixed_type(0)), fixed_type(1));
-      auto r = c.isValid();
+      auto   r = c.isValid();
       doNotOptimize(r);
     });
 
     bench.run("Circle<float> isContain", [] {
       Circle c(toy::math::Vector2(0.0f, 0.0f), 10.0f);
-      auto r = c.isContain(toy::math::Vector2(5.0f, 0.0f));
+      auto   r = c.isContain(toy::math::Vector2(5.0f, 0.0f));
       doNotOptimize(r);
     });
     bench.run("Circle<fixed_type> isContain", [] {
       Circle c(toy::math::Vector2(fixed_type(0), fixed_type(0)), fixed_type(10));
-      auto r = c.isContain(toy::math::Vector2(fixed_type(5), fixed_type(0)));
+      auto   r = c.isContain(toy::math::Vector2(fixed_type(5), fixed_type(0)));
       doNotOptimize(r);
     });
 
     bench.run("Circle<float> operator==", [] {
       Circle a(toy::math::Vector2(1.0f, 2.0f), 3.0f);
       Circle b(toy::math::Vector2(1.0f, 2.0f), 3.0f);
-      auto r = (a == b);
+      auto   r = (a == b);
       doNotOptimize(r);
     });
     bench.run("Circle<fixed_type> operator==", [] {
       Circle a(toy::math::Vector2(fixed_type(1), fixed_type(2)), fixed_type(3));
       Circle b(toy::math::Vector2(fixed_type(1), fixed_type(2)), fixed_type(3));
-      auto r = (a == b);
+      auto   r = (a == b);
       doNotOptimize(r);
     });
 
     bench.run("Circle<float> operator!=", [] {
       Circle a(toy::math::Vector2(1.0f, 2.0f), 3.0f);
       Circle b(toy::math::Vector2(1.0f, 2.0f), 4.0f);
-      auto r = (a != b);
+      auto   r = (a != b);
       doNotOptimize(r);
     });
     bench.run("Circle<fixed_type> operator!=", [] {
       Circle a(toy::math::Vector2(fixed_type(1), fixed_type(2)), fixed_type(3));
       Circle b(toy::math::Vector2(fixed_type(1), fixed_type(2)), fixed_type(4));
-      auto r = (a != b);
+      auto   r = (a != b);
       doNotOptimize(r);
     });
   }
@@ -148,12 +148,12 @@ ankerl::nanobench::Bench runGeometryBenchmarks() noexcept {
 
     bench.run("Ellipse<float> area", [] {
       Ellipse e(toy::math::Vector2(0.0f, 0.0f), toy::math::Vector2(10.0f, 5.0f));
-      auto r = e.area();
+      auto    r = e.area();
       doNotOptimize(r);
     });
     bench.run("Ellipse<fixed_type> area", [] {
       Ellipse e(toy::math::Vector2(fixed_type(0), fixed_type(0)), toy::math::Vector2(fixed_type(10), fixed_type(5)));
-      auto r = e.area();
+      auto    r = e.area();
       doNotOptimize(r);
     });
 
@@ -176,55 +176,55 @@ ankerl::nanobench::Bench runGeometryBenchmarks() noexcept {
     });
     bench.run("Ellipse<fixed_type> isReset", [] {
       Ellipse<fixed_type> e;
-      auto r = e.isReset();
+      auto                r = e.isReset();
       doNotOptimize(r);
     });
 
     bench.run("Ellipse<float> isValid", [] {
       Ellipse e(toy::math::Vector2(0.0f, 0.0f), toy::math::Vector2(1.0f, 1.0f));
-      auto r = e.isValid();
+      auto    r = e.isValid();
       doNotOptimize(r);
     });
     bench.run("Ellipse<fixed_type> isValid", [] {
       Ellipse e(toy::math::Vector2(fixed_type(0), fixed_type(0)), toy::math::Vector2(fixed_type(1), fixed_type(1)));
-      auto r = e.isValid();
+      auto    r = e.isValid();
       doNotOptimize(r);
     });
 
     bench.run("Ellipse<float> isContain", [] {
       Ellipse e(toy::math::Vector2(0.0f, 0.0f), toy::math::Vector2(10.0f, 5.0f));
-      auto r = e.isContain(toy::math::Vector2(5.0f, 2.0f));
+      auto    r = e.isContain(toy::math::Vector2(5.0f, 2.0f));
       doNotOptimize(r);
     });
     bench.run("Ellipse<fixed_type> isContain", [] {
       Ellipse e(toy::math::Vector2(fixed_type(0), fixed_type(0)), toy::math::Vector2(fixed_type(10), fixed_type(5)));
-      auto r = e.isContain(toy::math::Vector2(fixed_type(5), fixed_type(2)));
+      auto    r = e.isContain(toy::math::Vector2(fixed_type(5), fixed_type(2)));
       doNotOptimize(r);
     });
 
     bench.run("Ellipse<float> operator==", [] {
       Ellipse a(toy::math::Vector2(1.0f, 2.0f), toy::math::Vector2(3.0f, 4.0f));
       Ellipse b(toy::math::Vector2(1.0f, 2.0f), toy::math::Vector2(3.0f, 4.0f));
-      auto r = (a == b);
+      auto    r = (a == b);
       doNotOptimize(r);
     });
     bench.run("Ellipse<fixed_type> operator==", [] {
       Ellipse a(toy::math::Vector2(fixed_type(1), fixed_type(2)), toy::math::Vector2(fixed_type(3), fixed_type(4)));
       Ellipse b(toy::math::Vector2(fixed_type(1), fixed_type(2)), toy::math::Vector2(fixed_type(3), fixed_type(4)));
-      auto r = (a == b);
+      auto    r = (a == b);
       doNotOptimize(r);
     });
 
     bench.run("Ellipse<float> operator!=", [] {
       Ellipse a(toy::math::Vector2(1.0f, 2.0f), toy::math::Vector2(3.0f, 4.0f));
       Ellipse b(toy::math::Vector2(1.0f, 2.0f), toy::math::Vector2(3.0f, 5.0f));
-      auto r = (a != b);
+      auto    r = (a != b);
       doNotOptimize(r);
     });
     bench.run("Ellipse<fixed_type> operator!=", [] {
       Ellipse a(toy::math::Vector2(fixed_type(1), fixed_type(2)), toy::math::Vector2(fixed_type(3), fixed_type(4)));
       Ellipse b(toy::math::Vector2(fixed_type(1), fixed_type(2)), toy::math::Vector2(fixed_type(3), fixed_type(5)));
-      auto r = (a != b);
+      auto    r = (a != b);
       doNotOptimize(r);
     });
   }
@@ -246,33 +246,33 @@ ankerl::nanobench::Bench runGeometryBenchmarks() noexcept {
 
     bench.run("Section<int> midpoint", [] {
       Section s(10, 20);
-      auto r = s.midpoint();
+      auto    r = s.midpoint();
       doNotOptimize(r);
     });
     bench.run("Section<float> midpoint", [] {
       Section s(10.0f, 20.0f);
-      auto r = s.midpoint();
+      auto    r = s.midpoint();
       doNotOptimize(r);
     });
     bench.run("Section<fixed_type> midpoint", [] {
       Section s(fixed_type(10), fixed_type(20));
-      auto r = s.midpoint();
+      auto    r = s.midpoint();
       doNotOptimize(r);
     });
 
     bench.run("Section<int> length", [] {
       Section s(10, 20);
-      auto r = s.length();
+      auto    r = s.length();
       doNotOptimize(r);
     });
     bench.run("Section<float> length", [] {
       Section s(10.0f, 20.0f);
-      auto r = s.length();
+      auto    r = s.length();
       doNotOptimize(r);
     });
     bench.run("Section<fixed_type> length", [] {
       Section s(fixed_type(10), fixed_type(20));
-      auto r = s.length();
+      auto    r = s.length();
       doNotOptimize(r);
     });
 
@@ -329,87 +329,87 @@ ankerl::nanobench::Bench runGeometryBenchmarks() noexcept {
 
     bench.run("Section<int> isReset", [] {
       Section<int> s;
-      auto r = s.isReset();
+      auto         r = s.isReset();
       doNotOptimize(r);
     });
     bench.run("Section<float> isReset", [] {
       Section<float> s;
-      auto r = s.isReset();
+      auto           r = s.isReset();
       doNotOptimize(r);
     });
     bench.run("Section<fixed_type> isReset", [] {
       Section<fixed_type> s;
-      auto r = s.isReset();
+      auto                r = s.isReset();
       doNotOptimize(r);
     });
 
     bench.run("Section<int> isValid", [] {
       Section s(10, 20);
-      auto r = s.isValid();
+      auto    r = s.isValid();
       doNotOptimize(r);
     });
     bench.run("Section<float> isValid", [] {
       Section s(10.0f, 20.0f);
-      auto r = s.isValid();
+      auto    r = s.isValid();
       doNotOptimize(r);
     });
     bench.run("Section<fixed_type> isValid", [] {
       Section s(fixed_type(10), fixed_type(20));
-      auto r = s.isValid();
+      auto    r = s.isValid();
       doNotOptimize(r);
     });
 
     bench.run("Section<int> isContains", [] {
       Section s(10, 20);
-      auto r = s.isContains(15);
+      auto    r = s.isContains(15);
       doNotOptimize(r);
     });
     bench.run("Section<float> isContains", [] {
       Section s(10.0f, 20.0f);
-      auto r = s.isContains(15.0f);
+      auto    r = s.isContains(15.0f);
       doNotOptimize(r);
     });
     bench.run("Section<fixed_type> isContains", [] {
       Section s(fixed_type(10), fixed_type(20));
-      auto r = s.isContains(fixed_type(15));
+      auto    r = s.isContains(fixed_type(15));
       doNotOptimize(r);
     });
 
     bench.run("Section<int> operator==", [] {
       Section a(10, 20);
       Section b(10, 20);
-      auto r = (a == b);
+      auto    r = (a == b);
       doNotOptimize(r);
     });
     bench.run("Section<float> operator==", [] {
       Section a(10.0f, 20.0f);
       Section b(10.0f, 20.0f);
-      auto r = (a == b);
+      auto    r = (a == b);
       doNotOptimize(r);
     });
     bench.run("Section<fixed_type> operator==", [] {
       Section a(fixed_type(10), fixed_type(20));
       Section b(fixed_type(10), fixed_type(20));
-      auto r = (a == b);
+      auto    r = (a == b);
       doNotOptimize(r);
     });
 
     bench.run("Section<int> operator!=", [] {
       Section a(10, 20);
       Section b(15, 25);
-      auto r = (a != b);
+      auto    r = (a != b);
       doNotOptimize(r);
     });
     bench.run("Section<float> operator!=", [] {
       Section a(10.0f, 20.0f);
       Section b(15.0f, 25.0f);
-      auto r = (a != b);
+      auto    r = (a != b);
       doNotOptimize(r);
     });
     bench.run("Section<fixed_type> operator!=", [] {
       Section a(fixed_type(10), fixed_type(20));
       Section b(fixed_type(15), fixed_type(25));
-      auto r = (a != b);
+      auto    r = (a != b);
       doNotOptimize(r);
     });
   }

@@ -26,28 +26,30 @@
 
 namespace toy::render {
 
-static constexpr array<CStringView, std::to_underlying(PixelFormat::Unknown)> _formatNames{{
-  CStringView("A8R8G8B8"),
-  CStringView("X8R8G8B8"),
+static constexpr array<CStringView, std::to_underlying(PixelFormat::Unknown)> _formatNames{
+  {
+   CStringView("A8R8G8B8"),
+   CStringView("X8R8G8B8"),
 
-  CStringView("A4R4G4B4"),
-  CStringView("R5G6B5"),
+   CStringView("A4R4G4B4"),
+   CStringView("R5G6B5"),
 
-  CStringView("A8"),
+   CStringView("A8"),
 
-  CStringView("S3TC1"),
-  CStringView("S3TC5"),
-  CStringView("PVRTC2"),
-  CStringView("PVRTC4"),
+   CStringView("S3TC1"),
+   CStringView("S3TC5"),
+   CStringView("PVRTC2"),
+   CStringView("PVRTC4"),
 
-  CStringView("D16Lockable"),
-  CStringView("D32"),
-  CStringView("D15S1"),
-  CStringView("D24S8"),
-  CStringView("D24X8"),
-  CStringView("D24X4S4"),
-  CStringView("D16"),
-}};
+   CStringView("D16Lockable"),
+   CStringView("D32"),
+   CStringView("D15S1"),
+   CStringView("D24S8"),
+   CStringView("D24X8"),
+   CStringView("D24X4S4"),
+   CStringView("D16"),
+   }
+};
 
 CStringView pixelFormatName(PixelFormat format) noexcept {
   if (const auto index = std::to_underlying(format); index < _formatNames.size())

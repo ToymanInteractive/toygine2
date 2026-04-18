@@ -36,7 +36,7 @@ constexpr Section<T>::Section() noexcept
 #ifdef _DEBUG
   if constexpr (math::floating_point<T>) {
     start = numeric_limits<T>::signaling_NaN();
-    end = numeric_limits<T>::signaling_NaN();
+    end   = numeric_limits<T>::signaling_NaN();
   }
 #endif
 }
@@ -65,7 +65,7 @@ constexpr T Section<T>::length() const noexcept {
 template <SectionEndpoint T>
 constexpr void Section<T>::reset() noexcept {
   start = numeric_limits<T>::max();
-  end = numeric_limits<T>::lowest();
+  end   = numeric_limits<T>::lowest();
 }
 
 template <SectionEndpoint T>
