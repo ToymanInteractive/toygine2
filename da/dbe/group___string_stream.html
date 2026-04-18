@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=11" />
   <meta name="generator" content="Doxygen 1.16.1" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ToyGine2: include/core/format_argument.hpp File Reference</title>
+  <title>ToyGine2: Stream</title>
   <link href="../../tabs.css" rel="stylesheet" type="text/css" />
   <script type="text/javascript" src="../../jquery.js"></script>
   <script type="text/javascript" src="../../dynsections.js"></script>
@@ -84,7 +84,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(function(){initNavTree('d5/d0e/format__argument_8hpp.html','../../',''); });
+$(function(){initNavTree('da/dbe/group___string_stream.html','../../',''); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -110,42 +110,31 @@ $(function(){initNavTree('d5/d0e/format__argument_8hpp.html','../../',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">format_argument.hpp File Reference</div></div>
+  <div class="headertitle"><div class="title">Stream <div class="ingroups"><a class="el" href="../../d4/d6e/group___string.html">String &amp; Text</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Type-erased format argument for the runtime formatting path.  
+<p>Output stream for writing formatted values into string backends.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="../../d8/d0d/format__context_8hpp_source.html">format_context.hpp</a>&quot;</code><br />
-</div><div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Include dependency graph for format_argument.hpp:</div>
+<div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Collaboration diagram for Stream:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d6/d52/format__argument_8hpp__incl.svg" width="162" height="124"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../da/dbe/group___string_stream.svg" width="234" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
-</div><div class="textblock"><div id="dynsection-1" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>This graph shows which files directly or indirectly include this file:</div>
-<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-1-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d1/d6e/format__argument_8hpp__dep__incl.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
-</div>
-</div>
-<p><a href="../../d5/d0e/format__argument_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-concepts" class="groupheader"><a id="concepts" name="concepts"></a>
+Concepts</h2></td></tr>
+<tr class="memitem:toy_3A_3AOStringStreamBackend" id="r_toy_3A_3AOStringStreamBackend"><td class="memItemLeft">concept &#160;</td><td class="memItemRight"><a class="el" href="../../d0/d5a/concepttoy_1_1_o_string_stream_backend.html">toy::OStringStreamBackend</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concept satisfied when <em class="arg">T</em> can serve as the backing storage for <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="toy::OStringStream">toy::OStringStream</a>. <br /></td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:toy_3A_3AFormatArgument" id="r_toy_3A_3AFormatArgument"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="../../df/d0c/structtoy_1_1_format_argument.html">toy::FormatArgument</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Single type-erased format argument carrying a value pointer and a formatter callback.  <a href="../../df/d0c/structtoy_1_1_format_argument.html#details">More...</a><br /></td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:toy" id="r_toy"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="../../d4/da9/namespacetoy.html">toy</a></td></tr>
-<tr class="memdesc:d4/da9/namespacetoy"><td class="mdescLeft">&#160;</td><td class="mdescRight">Root namespace containing all engine modules. <br /></td></tr>
+<tr class="memitem:toy_3A_3AOStringStream_3C_20BackendType_20_3E" id="r_toy_3A_3AOStringStream_3C_20BackendType_20_3E"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html">toy::OStringStream&lt; BackendType &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output stream that appends formatted values into a <a class="el" href="../../d0/d5a/concepttoy_1_1_o_string_stream_backend.html" title="toy::OStringStreamBackend">toy::OStringStreamBackend</a> backend.  <a href="../../d7/d15/classtoy_1_1_o_string_stream.html#details">More...</a><br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Type-erased format argument for the runtime formatting path. </p>
-<p>Defines toy::FormatArgument: a two-pointer aggregate that pairs a value pointer with a stateless formatter callback.</p>
-<dl class="section note"><dt>Note</dt><dd>Included by <a class="el" href="../../da/d47/core_8hpp.html" title="Umbrella header for the engine core module.">core.hpp</a>; do not include this file directly. </dd></dl>
+<div class="textblock"><p>Output stream for writing formatted values into string backends. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
@@ -159,7 +148,6 @@ Namespaces</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="../../dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a href="../../dir_3d69f64eaf81436fe2b22361382717e5.html">core</a></li><li class="navelem"><a href="../../d5/d0e/format__argument_8hpp.html">format_argument.hpp</a></li>
     <li class="footer">Generated on <span class="timestamp"></span> for ToyGine2 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

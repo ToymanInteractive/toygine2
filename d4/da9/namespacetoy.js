@@ -1,11 +1,7 @@
 var namespacetoy =
 [
     [ "application", "d0/d3e/namespacetoy_1_1application.html", "d0/d3e/namespacetoy_1_1application" ],
-    [ "anonymous_namespace{format.inl}", "d8/de4/namespacetoy_1_1anonymous__namespace_02format_8inl_03.html", [
-      [ "dispatchFormatArg", "d8/de4/namespacetoy_1_1anonymous__namespace_02format_8inl_03.html#a95f15086e82bf0c62e07dbf71dc2b4e9", null ],
-      [ "findClosingBrace", "d8/de4/namespacetoy_1_1anonymous__namespace_02format_8inl_03.html#a1b209cb21257eff54183197fedee33e6", null ],
-      [ "parseArgIndex", "d8/de4/namespacetoy_1_1anonymous__namespace_02format_8inl_03.html#af5a101da1b38edd3c4d02acf12441202", null ]
-    ] ],
+    [ "anonymous_namespace{format.inl}", "d8/de4/namespacetoy_1_1anonymous__namespace_02format_8inl_03.html", "d8/de4/namespacetoy_1_1anonymous__namespace_02format_8inl_03" ],
     [ "anonymous_namespace{format_pattern.inl}", "d7/d66/namespacetoy_1_1anonymous__namespace_02format__pattern_8inl_03.html", [
       [ "PlaceholderMode", "d7/d66/namespacetoy_1_1anonymous__namespace_02format__pattern_8inl_03.html#ab8ad9fba3dcf7942f6c05538bc6c60c4", [
         [ "none", "d7/d66/namespacetoy_1_1anonymous__namespace_02format__pattern_8inl_03.html#ab8ad9fba3dcf7942f6c05538bc6c60c4a334c4a4c42fdb79d7ebc3e73b517e6f8", null ],
@@ -94,7 +90,6 @@ var namespacetoy =
     [ "FixedStringStorage", "d5/d3b/structtoy_1_1_fixed_string_storage.html", "d5/d3b/structtoy_1_1_fixed_string_storage" ],
     [ "FixedString", "d3/d7a/classtoy_1_1_fixed_string.html", "d3/d7a/classtoy_1_1_fixed_string" ],
     [ "FixedVector", "d7/dec/classtoy_1_1_fixed_vector.html", "d7/dec/classtoy_1_1_fixed_vector" ],
-    [ "FormatArgument", "df/d0c/structtoy_1_1_format_argument.html", "df/d0c/structtoy_1_1_format_argument" ],
     [ "FormatContext", "d8/dde/classtoy_1_1_format_context.html", "d8/dde/classtoy_1_1_format_context" ],
     [ "FormatString", "dc/d62/classtoy_1_1_format_string.html", "dc/d62/classtoy_1_1_format_string" ],
     [ "OStringStream", "d7/d15/classtoy_1_1_o_string_stream.html", "d7/d15/classtoy_1_1_o_string_stream" ],
@@ -109,13 +104,13 @@ var namespacetoy =
       [ "Arm64", "d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341ac42c3b5bc3b4234ee7823388012368d6", null ],
       [ "Unknown", "d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341a88183b946cc5f0e8c96b2e66e1c74a7e", null ]
     ] ],
-    [ "FormatPatternValidationError", "d4/d6e/group___string.html#ga47774805e63ecbede7f9cbfa12168c41", [
-      [ "none", "d4/d6e/group___string.html#gga47774805e63ecbede7f9cbfa12168c41a334c4a4c42fdb79d7ebc3e73b517e6f8", null ],
-      [ "unmatchedBrace", "d4/d6e/group___string.html#gga47774805e63ecbede7f9cbfa12168c41aeb42ad13d59146d74f9573ea3a2dbd79", null ],
-      [ "invalidContent", "d4/d6e/group___string.html#gga47774805e63ecbede7f9cbfa12168c41a04d8a8f389b0468423db7dbc6bae6b47", null ],
-      [ "mixedPlaceholders", "d4/d6e/group___string.html#gga47774805e63ecbede7f9cbfa12168c41ad7c32cf534a3d6a8398859a49a749133", null ],
-      [ "argCountMismatch", "d4/d6e/group___string.html#gga47774805e63ecbede7f9cbfa12168c41ac1de17fa49444b70937363bb45671095", null ],
-      [ "indexOutOfRange", "d4/d6e/group___string.html#gga47774805e63ecbede7f9cbfa12168c41a84198e7bcd7cdb94a436ef786a514a49", null ]
+    [ "FormatPatternValidationError", "de/d08/group___format.html#ga47774805e63ecbede7f9cbfa12168c41", [
+      [ "none", "de/d08/group___format.html#gga47774805e63ecbede7f9cbfa12168c41a334c4a4c42fdb79d7ebc3e73b517e6f8", null ],
+      [ "unmatchedBrace", "de/d08/group___format.html#gga47774805e63ecbede7f9cbfa12168c41aeb42ad13d59146d74f9573ea3a2dbd79", null ],
+      [ "invalidContent", "de/d08/group___format.html#gga47774805e63ecbede7f9cbfa12168c41a04d8a8f389b0468423db7dbc6bae6b47", null ],
+      [ "mixedPlaceholders", "de/d08/group___format.html#gga47774805e63ecbede7f9cbfa12168c41ad7c32cf534a3d6a8398859a49a749133", null ],
+      [ "argCountMismatch", "de/d08/group___format.html#gga47774805e63ecbede7f9cbfa12168c41ac1de17fa49444b70937363bb45671095", null ],
+      [ "indexOutOfRange", "de/d08/group___format.html#gga47774805e63ecbede7f9cbfa12168c41a84198e7bcd7cdb94a436ef786a514a49", null ]
     ] ],
     [ "Platform", "d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55a", [
       [ "Windows", "d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aaaea23489ce3aa9b6406ebb28e0cda430", null ],
@@ -140,9 +135,9 @@ var namespacetoy =
     [ "cstrcmp", "d4/da9/namespacetoy.html#a28fad381ee4d8415699e790432777471", null ],
     [ "cstrpbrk", "d4/da9/namespacetoy.html#adaa16f254dc6bc99679971d96bd87a66", null ],
     [ "cstrstr", "d4/da9/namespacetoy.html#a58d00a4a7bbd87ef48d346903b5a8c78", null ],
-    [ "format", "d4/d6e/group___string.html#ga79f053b92ccd3b7259a353d890a22cf5", null ],
+    [ "format", "de/d08/group___format.html#ga79f053b92ccd3b7259a353d890a22cf5", null ],
     [ "formatNumberString", "d4/da9/namespacetoy.html#aeeb4febc194b23813d77b08ac4fea2d1", null ],
-    [ "formatTo", "d4/d6e/group___string.html#ga57e1d4d264063d67be1cfee4e45a66ad", null ],
+    [ "formatTo", "de/d08/group___format.html#ga57e1d4d264063d67be1cfee4e45a66ad", null ],
     [ "ftoa", "d4/da9/namespacetoy.html#a153b39b476aa91d0b98f6350eeae88a2", null ],
     [ "ftoa", "d4/da9/namespacetoy.html#abd6a34c77550e2f8649d30d8ef1c1904", null ],
     [ "highestBit", "d4/da9/namespacetoy.html#adb88a3717143c42b9d24c5a8bf553b2d", null ],
@@ -181,21 +176,21 @@ var namespacetoy =
     [ "operator|", "d4/da9/namespacetoy.html#a3724753f210f39ad2e52f143afc828d1", null ],
     [ "operator|=", "d4/da9/namespacetoy.html#aeeed3f4f4b4225cdb2e0077e6f8187ea", null ],
     [ "operator~", "d4/da9/namespacetoy.html#a9e3f4e8e0e45319c488dd4c1a8006b10", null ],
-    [ "reverseString", "d8/d90/group___text_functions.html#ga2ad56b53b8cdbb022ce8ce3b2aa32503", null ],
-    [ "utf8Len", "d8/d90/group___text_functions.html#ga5ab02021f4ca34e0d5b6a1b0172ebe95", null ],
-    [ "utf8toWChar", "d8/d90/group___text_functions.html#ga2bc2dc2817640958352b4e80ec99b2be", null ],
-    [ "utf8toWChar", "d8/d90/group___text_functions.html#gaf944593cdbcc7eef7bf2a0e9ed116c8c", null ],
-    [ "utf8toWChar", "d8/d90/group___text_functions.html#gaa0dda7b7f9781bc3cd35484ce3e5282e", null ],
+    [ "reverseString", "d9/d39/group___string_text.html#ga2ad56b53b8cdbb022ce8ce3b2aa32503", null ],
+    [ "utf8Len", "d9/d39/group___string_text.html#ga5ab02021f4ca34e0d5b6a1b0172ebe95", null ],
+    [ "utf8toWChar", "d9/d39/group___string_text.html#ga2bc2dc2817640958352b4e80ec99b2be", null ],
+    [ "utf8toWChar", "d9/d39/group___string_text.html#gaf944593cdbcc7eef7bf2a0e9ed116c8c", null ],
+    [ "utf8toWChar", "d9/d39/group___string_text.html#gaa0dda7b7f9781bc3cd35484ce3e5282e", null ],
     [ "utoa", "d4/da9/namespacetoy.html#a14ccea4a485c2aa69412836a22a6cdda", null ],
-    [ "validateFormatPattern", "d4/d6e/group___string.html#ga5b1768ae7cdfb38447089aca42336c1e", null ],
-    [ "vformat", "d4/d6e/group___string.html#gac84e6047764bd1d720bbda3d0c6291b8", null ],
-    [ "vformatTo", "d4/d6e/group___string.html#ga024f540d2d32f3ac5fe1bb21b3f57a1a", null ],
-    [ "wcharToUtf8", "d8/d90/group___text_functions.html#ga008aa42596921d995b66340139fd3cfb", null ],
+    [ "validateFormatPattern", "de/d08/group___format.html#ga5b1768ae7cdfb38447089aca42336c1e", null ],
+    [ "vformat", "de/d08/group___format.html#gac84e6047764bd1d720bbda3d0c6291b8", null ],
+    [ "vformatTo", "de/d08/group___format.html#ga024f540d2d32f3ac5fe1bb21b3f57a1a", null ],
+    [ "wcharToUtf8", "d9/d39/group___string_text.html#ga008aa42596921d995b66340139fd3cfb", null ],
     [ "_crc16Table", "d4/da9/namespacetoy.html#a1c66eabbb0dea6bd870920a6585afbf4", null ],
     [ "_crc32Table", "d4/da9/namespacetoy.html#a2700f13c2a45a3d51f7f770b487fdea1", null ],
     [ "_crc8Table", "d4/da9/namespacetoy.html#a8c48bd85be2362df34afbf1e4cb72f9d", null ],
     [ "_decimalDigitsPerGroup", "d4/da9/namespacetoy.html#a5a201490c0074b46a75d3053aef1850a", null ],
     [ "_exponentTable", "d4/da9/namespacetoy.html#a347e818bfb701d85aaa994862433373d", null ],
     [ "_utf8CharSizeTable", "d4/da9/namespacetoy.html#abaf6e43802564c3840542ee978aeb917", null ],
-    [ "WCHAR_IN_UTF8_MAX_SIZE", "d8/d90/group___text_functions.html#ga2a4051deac87f3522fdd2a2c55d1a79c", null ]
+    [ "WCHAR_IN_UTF8_MAX_SIZE", "d9/d39/group___string_text.html#ga2a4051deac87f3522fdd2a2c55d1a79c", null ]
 ];

@@ -10,5 +10,5 @@ var format__pattern_8inl =
     [ "toy::anonymous_namespace{format_pattern.inl}::parsePositionalIndex", "d7/d66/namespacetoy_1_1anonymous__namespace_02format__pattern_8inl_03.html#ab0eb14490eec8d8639d98e9a344eb021", null ],
     [ "toy::anonymous_namespace{format_pattern.inl}::reconcilePlaceholderMode", "d7/d66/namespacetoy_1_1anonymous__namespace_02format__pattern_8inl_03.html#aa43d54757a290c5ec80b3a5770c95df3", null ],
     [ "toy::anonymous_namespace{format_pattern.inl}::validateFormatImpl", "d4/d6e/group___string.html#ga001484b1a940bb2691fdd2d66c1a14c9", null ],
-    [ "toy::validateFormatPattern", "d4/d6e/group___string.html#ga5b1768ae7cdfb38447089aca42336c1e", null ]
+    [ "toy::validateFormatPattern", "de/d08/group___format.html#ga5b1768ae7cdfb38447089aca42336c1e", null ]
 ];

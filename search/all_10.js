@@ -39,12 +39,11 @@ var searchData=
   ['precision_36',['precision',['../d7/d15/classtoy_1_1_o_string_stream.html#abfc06683ef353d726a10a24008c8ccba',1,'toy::OStringStream']]],
   ['principles_37',['Principles',['../df/d81/md__a_g_e_n_t_s.html#general-coding-principles',1,'General Coding Principles'],['../df/d81/md__a_g_e_n_t_s.html#general-test-principles',1,'General Test Principles']]],
   ['private_20members_38',['Private Members',['../df/d81/md__a_g_e_n_t_s.html#private-members',1,'']]],
-  ['processing_20functions_39',['Common text processing functions',['../d8/d90/group___text_functions.html',1,'']]],
-  ['project_20context_40',['Project Context',['../df/d81/md__a_g_e_n_t_s.html#project-context',1,'']]],
-  ['project_20structure_41',['Project Structure',['../df/d81/md__a_g_e_n_t_s.html#project-structure',1,'']]],
-  ['public_20header_20hpp_42',['Template: public header (&lt;span class=&quot;tt&quot;&gt;.hpp&lt;/span&gt;)',['../df/d81/md__a_g_e_n_t_s.html#template-public-header-hpp',1,'']]],
-  ['push_5fback_43',['push_back',['../d3/d7a/classtoy_1_1_fixed_string.html#a35cb76db06e5d0fc94a6fc01b7fa161d',1,'toy::FixedString::push_back()'],['../d7/dec/classtoy_1_1_fixed_vector.html#ad1b12283014e9694c538c41a6b4d854b',1,'toy::FixedVector::push_back()']]],
-  ['put_44',['put',['../d8/dde/classtoy_1_1_format_context.html#ad7ec8b506aca2a7f0d9ffc975bef10cc',1,'toy::FormatContext::put()'],['../d7/d15/classtoy_1_1_o_string_stream.html#a84e9f199109fe3472a46fd57b0667b57',1,'toy::OStringStream::put()']]],
-  ['pvrtc2_45',['PVRTC2',['../df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3faa54f5bdd6d55a32997d1352a5c8234a4',1,'toy::render']]],
-  ['pvrtc4_46',['PVRTC4',['../df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3fa759978c6ff5b5e0ce1720f8dd863e3bf',1,'toy::render']]]
+  ['project_20context_39',['Project Context',['../df/d81/md__a_g_e_n_t_s.html#project-context',1,'']]],
+  ['project_20structure_40',['Project Structure',['../df/d81/md__a_g_e_n_t_s.html#project-structure',1,'']]],
+  ['public_20header_20hpp_41',['Template: public header (&lt;span class=&quot;tt&quot;&gt;.hpp&lt;/span&gt;)',['../df/d81/md__a_g_e_n_t_s.html#template-public-header-hpp',1,'']]],
+  ['push_5fback_42',['push_back',['../d3/d7a/classtoy_1_1_fixed_string.html#a35cb76db06e5d0fc94a6fc01b7fa161d',1,'toy::FixedString::push_back()'],['../d7/dec/classtoy_1_1_fixed_vector.html#ad1b12283014e9694c538c41a6b4d854b',1,'toy::FixedVector::push_back()']]],
+  ['put_43',['put',['../d8/dde/classtoy_1_1_format_context.html#ad7ec8b506aca2a7f0d9ffc975bef10cc',1,'toy::FormatContext::put()'],['../d7/d15/classtoy_1_1_o_string_stream.html#a84e9f199109fe3472a46fd57b0667b57',1,'toy::OStringStream::put()']]],
+  ['pvrtc2_44',['PVRTC2',['../df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3faa54f5bdd6d55a32997d1352a5c8234a4',1,'toy::render']]],
+  ['pvrtc4_45',['PVRTC4',['../df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3fa759978c6ff5b5e0ce1720f8dd863e3bf',1,'toy::render']]]
 ];

@@ -1,0 +1,7 @@
+<map id="String &amp; Text" name="String &amp; Text">
+<area shape="rect" id="Node000002" href="$de/d08/group___format.html" title="Functions for substituting arguments into {} and {N} placeholders in a format pattern." alt="" coords="161,5,229,31"/>
+<area shape="rect" id="Node000001" title="String types, formatting, and encoding conversion utilities." alt="" coords="5,80,111,105"/>
+<area shape="rect" id="Node000003" href="$dc/d41/group___string_storage.html" title="Fixed&#45;size string buffers, character storage, and non&#45;owning string view." alt="" coords="159,55,231,80"/>
+<area shape="rect" id="Node000004" href="$da/dbe/group___string_stream.html" title="Output stream for writing formatted values into string backends." alt="" coords="160,104,229,129"/>
+<area shape="rect" id="Node000005" href="$d9/d39/group___string_text.html" title="UTF&#45;8 / wide&#45;character conversion, code&#45;point counting, and in&#45;place string reversal." alt="" coords="170,153,219,179"/>
+</map>

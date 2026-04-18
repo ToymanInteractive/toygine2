@@ -9,7 +9,7 @@ var searchData=
   ['all_6',['All',['../df/d8d/namespacetoy_1_1render.html#ae44fe0c1053121f38b8544a8684ee4e1ab1c94ca2fbc3e78fc30069c8d0f01680',1,'toy::render']]],
   ['android_7',['Android',['../d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aae84e30b9390cdb64db6db2c9ab87846d',1,'toy']]],
   ['any_8',['Any',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#aab7a6848d6656e7540fb1d6d72116e02aed36a1ef76a59ee3f15180e0441188ad',1,'toy::platform::ui']]],
-  ['argcountmismatch_9',['argCountMismatch',['../d4/d6e/group___string.html#gga47774805e63ecbede7f9cbfa12168c41ac1de17fa49444b70937363bb45671095',1,'toy']]],
+  ['argcountmismatch_9',['argCountMismatch',['../de/d08/group___format.html#gga47774805e63ecbede7f9cbfa12168c41ac1de17fa49444b70937363bb45671095',1,'toy']]],
   ['arm32_10',['Arm32',['../d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341a044fc9e908d0f160ae1a8ac300eb2b3d',1,'toy']]],
   ['arm64_11',['Arm64',['../d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341ac42c3b5bc3b4234ee7823388012368d6',1,'toy']]],
   ['autoindex_12',['autoIndex',['../d7/d66/namespacetoy_1_1anonymous__namespace_02format__pattern_8inl_03.html#ab8ad9fba3dcf7942f6c05538bc6c60c4af14ff6e92748524adb72f48fbb544aec',1,'toy::anonymous_namespace{format_pattern.inl}']]]

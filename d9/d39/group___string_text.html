@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=11" />
   <meta name="generator" content="Doxygen 1.16.1" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ToyGine2: Common text processing functions</title>
+  <title>ToyGine2: Text</title>
   <link href="../../tabs.css" rel="stylesheet" type="text/css" />
   <script type="text/javascript" src="../../jquery.js"></script>
   <script type="text/javascript" src="../../dynsections.js"></script>
@@ -84,7 +84,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(function(){initNavTree('d8/d90/group___text_functions.html','../../',''); });
+$(function(){initNavTree('d9/d39/group___string_text.html','../../',''); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -110,12 +110,18 @@ $(function(){initNavTree('d8/d90/group___text_functions.html','../../',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">Common text processing functions </div></div>
+  <div class="headertitle"><div class="title">Text <div class="ingroups"><a class="el" href="../../d4/d6e/group___string.html">String &amp; Text</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>String encoding conversion, length and reversal.  
+<p>UTF-8 / wide-character conversion, code-point counting, and in-place string reversal.  
 <a href="#details">More...</a></p>
+<div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Collaboration diagram for Text:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d9/d39/group___string_text.svg" width="214" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -139,22 +145,7 @@ Variables</h2></td></tr>
 <tr class="memdesc:ga2a4051deac87f3522fdd2a2c55d1a79c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum UTF-8 byte length for one BMP character.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>String encoding conversion, length and reversal. </p>
-<ul>
-<li><b>utf8toWChar</b>: UTF-8 C string or <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="toy::StringLike">toy::StringLike</a> to wide-character string (with optional character limit).</li>
-<li><b>wcharToUtf8</b>: Wide-character C string to UTF-8.</li>
-<li><b>utf8Len</b>: Unicode code point count in a UTF-8 C string.</li>
-<li><b>reverseString</b>: In-place reversal of a C string.</li>
-</ul>
-<p>Related: <a class="el" href="../../df/d77/concepttoy_1_1_string_like.html" title="toy::StringLike">toy::StringLike</a>, <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="toy::FixedString">toy::FixedString</a>; constant <code>WCHAR_IN_UTF8_MAX_SIZE</code>.</p>
-<h1 class="doxsection"><a class="anchor" id="features"></a>
-Key Features</h1>
-<ul>
-<li><b>UTF-8 / wide conversion</b>: BMP-only; invalid UTF-8 skipped; destination null-terminated on success.</li>
-<li><b>No allocation</b>: All functions write into caller-provided buffers.</li>
-<li><b>Constexpr</b>: utf8toWChar overloads and reverseString where applicable.</li>
-<li><b>Exception safety</b>: All operations are <code>noexcept</code>. </li>
-</ul>
+<div class="textblock"><p>UTF-8 / wide-character conversion, code-point counting, and in-place string reversal. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="ga2ad56b53b8cdbb022ce8ce3b2aa32503" name="ga2ad56b53b8cdbb022ce8ce3b2aa32503"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga2ad56b53b8cdbb022ce8ce3b2aa32503">&#9670;&#160;</a></span>reverseString()</h2>

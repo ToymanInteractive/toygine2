@@ -110,7 +110,7 @@ $(function(){initNavTree('d8/dde/classtoy_1_1_format_context.html','../../','d5/
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">toy::FormatContext Class Reference<div class="ingroups"><a class="el" href="../../d4/d6e/group___string.html">String Utilities</a></div></div></div>
+  <div class="headertitle"><div class="title">toy::FormatContext Class Reference<div class="ingroups"><a class="el" href="../../d4/d6e/group___string.html">String &amp; Text</a> &raquo; <a class="el" href="../../de/d08/group___format.html">Format</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
@@ -140,7 +140,7 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Type-erased write sink. </p>
-<p>Stores a <code>void*</code> context and a <code>noexcept</code> function-pointer callback so that the formatting engine can append bytes to any backing storage without knowing its concrete type. Used by <a class="el" href="../../d4/d6e/group___string.html#gac84e6047764bd1d720bbda3d0c6291b8" title="Formats arguments into a new toy::FixedString using a runtime pattern.">toy::vformat()</a> and <a class="el" href="../../d4/d6e/group___string.html#ga024f540d2d32f3ac5fe1bb21b3f57a1a" title="Formats arguments into output using a runtime pattern, type-erasing them automatically.">toy::vformatTo()</a> as the output target; both <a class="el" href="#a390ea1be3bdb990778545d256f145f2d" title="Appends count bytes from data to the output.">write()</a> and <a class="el" href="#ad7ec8b506aca2a7f0d9ffc975bef10cc" title="Appends a single character to the output.">put()</a> delegate to the stored callback.</p>
+<p>Stores a <code>void*</code> context and a <code>noexcept</code> function-pointer callback so that the formatting engine can append bytes to any backing storage without knowing its concrete type. Used by <a class="el" href="../../de/d08/group___format.html#gac84e6047764bd1d720bbda3d0c6291b8" title="Formats arguments into a new toy::FixedString using a runtime pattern.">toy::vformat()</a> and <a class="el" href="../../de/d08/group___format.html#ga024f540d2d32f3ac5fe1bb21b3f57a1a" title="Formats arguments into output using a runtime pattern, type-erasing them automatically.">toy::vformatTo()</a> as the output target; both <a class="el" href="#a390ea1be3bdb990778545d256f145f2d" title="Appends count bytes from data to the output.">write()</a> and <a class="el" href="#ad7ec8b506aca2a7f0d9ffc975bef10cc" title="Appends a single character to the output.">put()</a> delegate to the stored callback.</p>
 <h1 class="doxsection"><a class="anchor" id="features"></a>
 Key Features</h1>
 <ul>
@@ -162,8 +162,8 @@ Usage Example</h1>
 <div class="line">};</div>
 <div class="line">out.<a class="code hl_function" href="#a390ea1be3bdb990778545d256f145f2d">write</a>(<span class="stringliteral">&quot;hello&quot;</span>, 5);</div>
 <div class="line">out.<a class="code hl_function" href="#ad7ec8b506aca2a7f0d9ffc975bef10cc">put</a>(<span class="charliteral">&#39;!&#39;</span>);</div>
-<div class="ttc" id="aclasstoy_1_1_fixed_string_html"><div class="ttname"><a href="../../d3/d7a/classtoy_1_1_fixed_string.html">toy::FixedString</a></div><div class="ttdoc">Template string class with fixed-size character buffer.</div><div class="ttdef"><b>Definition</b> fixed_string.hpp:117</div></div>
-<div class="ttc" id="aclasstoy_1_1_format_context_html"><div class="ttname"><a href="../../d8/dde/classtoy_1_1_format_context.html">toy::FormatContext</a></div><div class="ttdoc">Type-erased write sink.</div><div class="ttdef"><b>Definition</b> format_context.hpp:82</div></div>
+<div class="ttc" id="aclasstoy_1_1_fixed_string_html"><div class="ttname"><a href="../../d3/d7a/classtoy_1_1_fixed_string.html">toy::FixedString</a></div><div class="ttdoc">Template string class with fixed-size character buffer.</div><div class="ttdef"><b>Definition</b> fixed_string.hpp:119</div></div>
+<div class="ttc" id="aclasstoy_1_1_format_context_html"><div class="ttname"><a href="../../d8/dde/classtoy_1_1_format_context.html">toy::FormatContext</a></div><div class="ttdoc">Type-erased write sink.</div><div class="ttdef"><b>Definition</b> format_context.hpp:80</div></div>
 <div class="ttc" id="aclasstoy_1_1_format_context_html_a390ea1be3bdb990778545d256f145f2d"><div class="ttname"><a href="#a390ea1be3bdb990778545d256f145f2d">toy::FormatContext::write</a></div><div class="ttdeci">void write(const char *data, size_t count) noexcept</div><div class="ttdoc">Appends count bytes from data to the output.</div><div class="ttdef"><b>Definition</b> format_context.inl:38</div></div>
 <div class="ttc" id="aclasstoy_1_1_format_context_html_ad7ec8b506aca2a7f0d9ffc975bef10cc"><div class="ttname"><a href="#ad7ec8b506aca2a7f0d9ffc975bef10cc">toy::FormatContext::put</a></div><div class="ttdeci">void put(char character) noexcept</div><div class="ttdoc">Appends a single character to the output.</div><div class="ttdef"><b>Definition</b> format_context.inl:46</div></div>
 <div class="ttc" id="acore_8hpp_html"><div class="ttname"><a href="../../da/d47/core_8hpp.html">core.hpp</a></div><div class="ttdoc">Umbrella header for the engine core module.</div></div>
@@ -178,9 +178,8 @@ Safety Guarantees</h1>
 <ul>
 <li><b>Exception safety</b>: <a class="el" href="#a390ea1be3bdb990778545d256f145f2d" title="Appends count bytes from data to the output.">write()</a> and <a class="el" href="#ad7ec8b506aca2a7f0d9ffc975bef10cc" title="Appends a single character to the output.">put()</a> are <code>noexcept</code>; the stored callback must honour this contract.</li>
 <li><b>Lifetime</b>: The context pointer must remain valid for the lifetime of the object.</li>
-<li><b>Null safety</b>: Both the context pointer and the write callback must be non-null before <a class="el" href="#a390ea1be3bdb990778545d256f145f2d" title="Appends count bytes from data to the output.">write()</a> or <a class="el" href="#ad7ec8b506aca2a7f0d9ffc975bef10cc" title="Appends a single character to the output.">put()</a> is called.</li>
+<li><b>Null safety</b>: Both the context pointer and the write callback must be non-null before <a class="el" href="#a390ea1be3bdb990778545d256f145f2d" title="Appends count bytes from data to the output.">write()</a> or <a class="el" href="#ad7ec8b506aca2a7f0d9ffc975bef10cc" title="Appends a single character to the output.">put()</a> is called. </li>
 </ul>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../df/d0c/structtoy_1_1_format_argument.html" title="Single type-erased format argument carrying a value pointer and a formatter callback.">FormatArgument</a> </dd></dl>
 </div><a name="doc-typedef-members" id="doc-typedef-members"></a><h2 id="header-doc-typedef-members" class="groupheader">Member Typedef Documentation</h2>
 <a id="aa3393abf300d9f40eeb142ab589da7a3" name="aa3393abf300d9f40eeb142ab589da7a3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa3393abf300d9f40eeb142ab589da7a3">&#9670;&#160;</a></span>WriteFunction</h2>

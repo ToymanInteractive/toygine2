@@ -7,6 +7,9 @@ var annotated_dup =
       [ "application", "d0/d3e/namespacetoy_1_1application.html", [
         [ "Version", "d7/d33/structtoy_1_1application_1_1_version.html", "d7/d33/structtoy_1_1application_1_1_version" ]
       ] ],
+      [ "anonymous_namespace{format.inl}", "d8/de4/namespacetoy_1_1anonymous__namespace_02format_8inl_03.html", [
+        [ "FormatArgument", "d5/dda/structtoy_1_1anonymous__namespace_02format_8inl_03_1_1_format_argument.html", "d5/dda/structtoy_1_1anonymous__namespace_02format_8inl_03_1_1_format_argument" ]
+      ] ],
       [ "geometry", "da/d08/namespacetoy_1_1geometry.html", [
         [ "Circle", "df/d25/classtoy_1_1geometry_1_1_circle.html", "df/d25/classtoy_1_1geometry_1_1_circle" ],
         [ "Ellipse", "d9/dd1/classtoy_1_1geometry_1_1_ellipse.html", "d9/dd1/classtoy_1_1geometry_1_1_ellipse" ],
@@ -30,7 +33,6 @@ var annotated_dup =
       [ "FixedStringStorage", "d5/d3b/structtoy_1_1_fixed_string_storage.html", "d5/d3b/structtoy_1_1_fixed_string_storage" ],
       [ "FixedString", "d3/d7a/classtoy_1_1_fixed_string.html", "d3/d7a/classtoy_1_1_fixed_string" ],
       [ "FixedVector", "d7/dec/classtoy_1_1_fixed_vector.html", "d7/dec/classtoy_1_1_fixed_vector" ],
-      [ "FormatArgument", "df/d0c/structtoy_1_1_format_argument.html", "df/d0c/structtoy_1_1_format_argument" ],
       [ "FormatContext", "d8/dde/classtoy_1_1_format_context.html", "d8/dde/classtoy_1_1_format_context" ],
       [ "FormatString", "dc/d62/classtoy_1_1_format_string.html", "dc/d62/classtoy_1_1_format_string" ],
       [ "OStringStream", "d7/d15/classtoy_1_1_o_string_stream.html", "d7/d15/classtoy_1_1_o_string_stream" ],

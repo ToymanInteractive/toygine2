@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=11" />
   <meta name="generator" content="Doxygen 1.16.1" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ToyGine2: Member List</title>
+  <title>ToyGine2: Storage</title>
   <link href="../../tabs.css" rel="stylesheet" type="text/css" />
   <script type="text/javascript" src="../../jquery.js"></script>
   <script type="text/javascript" src="../../dynsections.js"></script>
@@ -84,7 +84,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(function(){initNavTree('df/d0c/structtoy_1_1_format_argument.html','../../',''); });
+$(function(){initNavTree('dc/d41/group___string_storage.html','../../',''); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -110,16 +110,39 @@ $(function(){initNavTree('df/d0c/structtoy_1_1_format_argument.html','../../',''
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">toy::FormatArgument Member List</div></div>
+  <div class="headertitle"><div class="title">Storage <div class="ingroups"><a class="el" href="../../d4/d6e/group___string.html">String &amp; Text</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="../../df/d0c/structtoy_1_1_format_argument.html">toy::FormatArgument</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="../../df/d0c/structtoy_1_1_format_argument.html#a16d45a8e825d95c51ce89cb11d213f26">formatFn</a></td><td class="entry"><a class="el" href="../../df/d0c/structtoy_1_1_format_argument.html">toy::FormatArgument</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="../../df/d0c/structtoy_1_1_format_argument.html#a3ffa8d0f7b1b42a98bc7858a62f3573f">value</a></td><td class="entry"><a class="el" href="../../df/d0c/structtoy_1_1_format_argument.html">toy::FormatArgument</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Fixed-size string buffers, character storage, and non-owning string view.  
+<a href="#details">More...</a></p>
+<div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Collaboration diagram for Storage:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../dc/d41/group___string_storage.svg" width="236" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:toy_3A_3ACStringView" id="r_toy_3A_3ACStringView"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">toy::CStringView</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Non-owning string view class for C-style strings.  <a href="../../d5/d03/classtoy_1_1_c_string_view.html#details">More...</a><br /></td></tr>
+<tr class="memitem:toy_3A_3AFixedString_3C_20allocatedSize_20_3E" id="r_toy_3A_3AFixedString_3C_20allocatedSize_20_3E"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html">toy::FixedString&lt; allocatedSize &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Template string class with fixed-size character buffer.  <a href="../../d3/d7a/classtoy_1_1_fixed_string.html#details">More...</a><br /></td></tr>
+<tr class="memitem:toy_3A_3AStringFixedStorage_3C_20AllocatedSize_20_3E" id="r_toy_3A_3AStringFixedStorage_3C_20AllocatedSize_20_3E"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../d0/d21/classtoy_1_1_string_fixed_storage.html">toy::StringFixedStorage&lt; AllocatedSize &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fixed-size character storage with a tracked length and implicit null terminator at <code><a class="el" href="../../d0/d21/classtoy_1_1_string_fixed_storage.html#ae7e8490f333fb1065ec9bafb97609c56" title="Mutable pointer to the inline character buffer.">data()</a></code>[<a class="el" href="../../d0/d21/classtoy_1_1_string_fixed_storage.html#afffe5c7ce202a335498acba9427fa36f" title="Returns the current logical string length in bytes (not including the terminator).">size()</a>].  <a href="../../d0/d21/classtoy_1_1_string_fixed_storage.html#details">More...</a><br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Fixed-size string buffers, character storage, and non-owning string view. </p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
 </div><!-- container -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

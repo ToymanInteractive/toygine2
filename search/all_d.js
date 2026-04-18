@@ -30,7 +30,7 @@ var searchData=
   ['minimized_27',['Minimized',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#af1575b610ba458b6ebdcb8763c30a9eca074afcc50ae51f248cbae4950845549e',1,'toy::platform::ui']]],
   ['minmax_28',['MinMax',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#aa6c677b8c744b89734e11ea340507a72ab3599ae8afe8304462dbdbd42d791488',1,'toy::platform::ui']]],
   ['minor_29',['minor',['../d7/d33/structtoy_1_1application_1_1_version.html#a2dbf72695a2ef59f90d1728bf12029fd',1,'toy::application::Version']]],
-  ['mixedplaceholders_30',['mixedPlaceholders',['../d4/d6e/group___string.html#gga47774805e63ecbede7f9cbfa12168c41ad7c32cf534a3d6a8398859a49a749133',1,'toy']]],
+  ['mixedplaceholders_30',['mixedPlaceholders',['../de/d08/group___format.html#gga47774805e63ecbede7f9cbfa12168c41ad7c32cf534a3d6a8398859a49a749133',1,'toy']]],
   ['modern_20c_20practices_31',['Modern C++ Practices',['../df/d81/md__a_g_e_n_t_s.html#modern-c-practices',1,'']]],
   ['modifiers_32',['Access Modifiers',['../df/d81/md__a_g_e_n_t_s.html#access-modifiers',1,'']]],
   ['module_20structure_33',['Module Structure',['../df/d81/md__a_g_e_n_t_s.html#module-structure',1,'']]],

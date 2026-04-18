@@ -126,13 +126,13 @@ Enumerations</h2></td></tr>
 Functions</h2></td></tr>
 <tr class="memitem:aee7684eee724db0f6db5f3f399e17319" id="r_aee7684eee724db0f6db5f3f399e17319"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#aee7684eee724db0f6db5f3f399e17319">consumeEscapedBrace</a> (const <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a> &amp;string, size_t length, size_t &amp;position, char brace) noexcept</td></tr>
 <tr class="memdesc:aee7684eee724db0f6db5f3f399e17319"><td class="mdescLeft">&#160;</td><td class="mdescRight">Consumes a literal <code>{{</code> or <code>}}</code> pair at <em class="arg">position</em> when present.  <br /></td></tr>
-<tr class="memitem:ab0eb14490eec8d8639d98e9a344eb021" id="r_ab0eb14490eec8d8639d98e9a344eb021"><td class="memItemLeft">constexpr <a class="el" href="../../d4/d6e/group___string.html#ga47774805e63ecbede7f9cbfa12168c41">FormatPatternValidationError</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab0eb14490eec8d8639d98e9a344eb021">parsePositionalIndex</a> (const <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a> &amp;string, size_t length, size_t &amp;position, size_t argCount) noexcept</td></tr>
+<tr class="memitem:ab0eb14490eec8d8639d98e9a344eb021" id="r_ab0eb14490eec8d8639d98e9a344eb021"><td class="memItemLeft">constexpr <a class="el" href="../../de/d08/group___format.html#ga47774805e63ecbede7f9cbfa12168c41">FormatPatternValidationError</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab0eb14490eec8d8639d98e9a344eb021">parsePositionalIndex</a> (const <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a> &amp;string, size_t length, size_t &amp;position, size_t argCount) noexcept</td></tr>
 <tr class="memdesc:ab0eb14490eec8d8639d98e9a344eb021"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the decimal index and closing <code>}</code> for a positional placeholder.  <br /></td></tr>
-<tr class="memitem:a0f82587d8d5aaf1da9464ef76ca87f28" id="r_a0f82587d8d5aaf1da9464ef76ca87f28"><td class="memItemLeft">constexpr <a class="el" href="../../d4/d6e/group___string.html#ga47774805e63ecbede7f9cbfa12168c41">FormatPatternValidationError</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0f82587d8d5aaf1da9464ef76ca87f28">parseOpeningBrace</a> (const <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a> &amp;string, size_t length, size_t &amp;position, size_t &amp;autoCount, <a class="el" href="#ab8ad9fba3dcf7942f6c05538bc6c60c4">PlaceholderMode</a> &amp;mode, size_t argCount) noexcept</td></tr>
+<tr class="memitem:a0f82587d8d5aaf1da9464ef76ca87f28" id="r_a0f82587d8d5aaf1da9464ef76ca87f28"><td class="memItemLeft">constexpr <a class="el" href="../../de/d08/group___format.html#ga47774805e63ecbede7f9cbfa12168c41">FormatPatternValidationError</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0f82587d8d5aaf1da9464ef76ca87f28">parseOpeningBrace</a> (const <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a> &amp;string, size_t length, size_t &amp;position, size_t &amp;autoCount, <a class="el" href="#ab8ad9fba3dcf7942f6c05538bc6c60c4">PlaceholderMode</a> &amp;mode, size_t argCount) noexcept</td></tr>
 <tr class="memdesc:a0f82587d8d5aaf1da9464ef76ca87f28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses a non-escaped opening brace: auto <code>{}</code>, positional <code>{N}</code>, or a structural error.  <br /></td></tr>
-<tr class="memitem:aa43d54757a290c5ec80b3a5770c95df3" id="r_aa43d54757a290c5ec80b3a5770c95df3"><td class="memItemLeft">constexpr <a class="el" href="../../d4/d6e/group___string.html#ga47774805e63ecbede7f9cbfa12168c41">FormatPatternValidationError</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa43d54757a290c5ec80b3a5770c95df3">reconcilePlaceholderMode</a> (<a class="el" href="#ab8ad9fba3dcf7942f6c05538bc6c60c4">PlaceholderMode</a> mode, size_t autoCount, size_t argCount) noexcept</td></tr>
+<tr class="memitem:aa43d54757a290c5ec80b3a5770c95df3" id="r_aa43d54757a290c5ec80b3a5770c95df3"><td class="memItemLeft">constexpr <a class="el" href="../../de/d08/group___format.html#ga47774805e63ecbede7f9cbfa12168c41">FormatPatternValidationError</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa43d54757a290c5ec80b3a5770c95df3">reconcilePlaceholderMode</a> (<a class="el" href="#ab8ad9fba3dcf7942f6c05538bc6c60c4">PlaceholderMode</a> mode, size_t autoCount, size_t argCount) noexcept</td></tr>
 <tr class="memdesc:aa43d54757a290c5ec80b3a5770c95df3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Verifies placeholder counts against <em class="arg">argCount</em> after the whole pattern has been scanned.  <br /></td></tr>
-<tr class="memitem:ga001484b1a940bb2691fdd2d66c1a14c9" id="r_ga001484b1a940bb2691fdd2d66c1a14c9"><td class="memItemLeft">constexpr <a class="el" href="../../d4/d6e/group___string.html#ga47774805e63ecbede7f9cbfa12168c41">FormatPatternValidationError</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d6e/group___string.html#ga001484b1a940bb2691fdd2d66c1a14c9">validateFormatImpl</a> (const <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a> &amp;string, size_t argCount) noexcept</td></tr>
+<tr class="memitem:ga001484b1a940bb2691fdd2d66c1a14c9" id="r_ga001484b1a940bb2691fdd2d66c1a14c9"><td class="memItemLeft">constexpr <a class="el" href="../../de/d08/group___format.html#ga47774805e63ecbede7f9cbfa12168c41">FormatPatternValidationError</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d6e/group___string.html#ga001484b1a940bb2691fdd2d66c1a14c9">validateFormatImpl</a> (const <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a> &amp;string, size_t argCount) noexcept</td></tr>
 <tr class="memdesc:ga001484b1a940bb2691fdd2d66c1a14c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates auto-indexed <code>{}</code> and positional <code>{N}</code> placeholders for <em class="arg">argCount</em> arguments.  <br /></td></tr>
 </table>
 <a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Enumeration Type Documentation</h2>
@@ -231,7 +231,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d4/d6e/group___string.html#ga47774805e63ecbede7f9cbfa12168c41">FormatPatternValidationError</a> toy::anonymous_namespace{format_pattern.inl}::parseOpeningBrace </td>
+          <td class="memname"><a class="el" href="../../de/d08/group___format.html#ga47774805e63ecbede7f9cbfa12168c41">FormatPatternValidationError</a> toy::anonymous_namespace{format_pattern.inl}::parseOpeningBrace </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>string</em></span>, </td>
         </tr>
@@ -280,7 +280,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>First <code><a class="el" href="../../d4/d6e/group___string.html#ga47774805e63ecbede7f9cbfa12168c41" title="Result of validating a format pattern against an expected argument count.">FormatPatternValidationError</a></code> encountered, or <code><a class="el" href="../../d4/d6e/group___string.html#gga47774805e63ecbede7f9cbfa12168c41a334c4a4c42fdb79d7ebc3e73b517e6f8" title="Pattern is valid for the given argument count.">FormatPatternValidationError::none</a></code> when the placeholder is well-formed.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>First <code><a class="el" href="../../de/d08/group___format.html#ga47774805e63ecbede7f9cbfa12168c41" title="Result of validating a format pattern against an expected argument count.">FormatPatternValidationError</a></code> encountered, or <code><a class="el" href="../../de/d08/group___format.html#gga47774805e63ecbede7f9cbfa12168c41a334c4a4c42fdb79d7ebc3e73b517e6f8" title="Pattern is valid for the given argument count.">FormatPatternValidationError::none</a></code> when the placeholder is well-formed.</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd><em class="arg">string</em> at <em class="arg">position</em> is <code>{</code> and not the start of <code>{{</code>.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Internal helper for <code>validateFormatImpl</code>; not part of the public API. </dd></dl>
 
@@ -296,7 +296,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d4/d6e/group___string.html#ga47774805e63ecbede7f9cbfa12168c41">FormatPatternValidationError</a> toy::anonymous_namespace{format_pattern.inl}::parsePositionalIndex </td>
+          <td class="memname"><a class="el" href="../../de/d08/group___format.html#ga47774805e63ecbede7f9cbfa12168c41">FormatPatternValidationError</a> toy::anonymous_namespace{format_pattern.inl}::parsePositionalIndex </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>string</em></span>, </td>
         </tr>
@@ -333,7 +333,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><code><a class="el" href="../../d4/d6e/group___string.html#gga47774805e63ecbede7f9cbfa12168c41a334c4a4c42fdb79d7ebc3e73b517e6f8" title="Pattern is valid for the given argument count.">FormatPatternValidationError::none</a></code> on success; <code><a class="el" href="../../d4/d6e/group___string.html#gga47774805e63ecbede7f9cbfa12168c41a04d8a8f389b0468423db7dbc6bae6b47" title="Positional {N…} not closed by }, or disallowed characters after the index.">FormatPatternValidationError::invalidContent</a></code> when digits or closing <code>}</code> are missing; <code><a class="el" href="../../d4/d6e/group___string.html#gga47774805e63ecbede7f9cbfa12168c41a84198e7bcd7cdb94a436ef786a514a49" title="Positional index out of range or overflow while parsing digits.">FormatPatternValidationError::indexOutOfRange</a></code> when digit overflow occurs or the index is not less than <em class="arg">argCount</em>.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code><a class="el" href="../../de/d08/group___format.html#gga47774805e63ecbede7f9cbfa12168c41a334c4a4c42fdb79d7ebc3e73b517e6f8" title="Pattern is valid for the given argument count.">FormatPatternValidationError::none</a></code> on success; <code><a class="el" href="../../de/d08/group___format.html#gga47774805e63ecbede7f9cbfa12168c41a04d8a8f389b0468423db7dbc6bae6b47" title="Positional {N…} not closed by }, or disallowed characters after the index.">FormatPatternValidationError::invalidContent</a></code> when digits or closing <code>}</code> are missing; <code><a class="el" href="../../de/d08/group___format.html#gga47774805e63ecbede7f9cbfa12168c41a84198e7bcd7cdb94a436ef786a514a49" title="Positional index out of range or overflow while parsing digits.">FormatPatternValidationError::indexOutOfRange</a></code> when digit overflow occurs or the index is not less than <em class="arg">argCount</em>.</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd><em class="arg">position</em> refers to a decimal digit in <em class="arg">string</em>.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Internal helper for <code>parseOpeningBrace</code>; not part of the public API. </dd></dl>
 
@@ -349,7 +349,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d4/d6e/group___string.html#ga47774805e63ecbede7f9cbfa12168c41">FormatPatternValidationError</a> toy::anonymous_namespace{format_pattern.inl}::reconcilePlaceholderMode </td>
+          <td class="memname"><a class="el" href="../../de/d08/group___format.html#ga47774805e63ecbede7f9cbfa12168c41">FormatPatternValidationError</a> toy::anonymous_namespace{format_pattern.inl}::reconcilePlaceholderMode </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="#ab8ad9fba3dcf7942f6c05538bc6c60c4">PlaceholderMode</a></td>          <td class="paramname"><span class="paramname"><em>mode</em></span>, </td>
         </tr>
@@ -380,7 +380,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><code><a class="el" href="../../d4/d6e/group___string.html#gga47774805e63ecbede7f9cbfa12168c41a334c4a4c42fdb79d7ebc3e73b517e6f8" title="Pattern is valid for the given argument count.">FormatPatternValidationError::none</a></code> or <code><a class="el" href="../../d4/d6e/group___string.html#gga47774805e63ecbede7f9cbfa12168c41ac1de17fa49444b70937363bb45671095" title="Placeholder count vs expected argument count mismatch (including empty pattern with arguments).">FormatPatternValidationError::argCountMismatch</a></code>.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code><a class="el" href="../../de/d08/group___format.html#gga47774805e63ecbede7f9cbfa12168c41a334c4a4c42fdb79d7ebc3e73b517e6f8" title="Pattern is valid for the given argument count.">FormatPatternValidationError::none</a></code> or <code><a class="el" href="../../de/d08/group___format.html#gga47774805e63ecbede7f9cbfa12168c41ac1de17fa49444b70937363bb45671095" title="Placeholder count vs expected argument count mismatch (including empty pattern with arguments).">FormatPatternValidationError::argCountMismatch</a></code>.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Internal helper for <code>validateFormatImpl</code>; not part of the public API. </dd></dl>
 
 </div>

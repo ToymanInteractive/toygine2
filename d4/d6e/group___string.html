@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=11" />
   <meta name="generator" content="Doxygen 1.16.1" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ToyGine2: String Utilities</title>
+  <title>ToyGine2: String &amp; Text</title>
   <link href="../../tabs.css" rel="stylesheet" type="text/css" />
   <script type="text/javascript" src="../../jquery.js"></script>
   <script type="text/javascript" src="../../dynsections.js"></script>
@@ -110,240 +110,38 @@ $(function(){initNavTree('d4/d6e/group___string.html','../../',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">String Utilities </div></div>
+  <div class="headertitle"><div class="title">String &amp; Text </div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Classes and concepts for string manipulation and formatting.  
+<p>String types, formatting, and encoding conversion utilities.  
 <a href="#details">More...</a></p>
+<div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Collaboration diagram for String &amp; Text:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d4/d6e/group___string.svg" width="236" height="184"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-concepts" class="groupheader"><a id="concepts" name="concepts"></a>
-Concepts</h2></td></tr>
-<tr class="memitem:toy_3A_3AOStringStreamBackend" id="r_toy_3A_3AOStringStreamBackend"><td class="memItemLeft">concept &#160;</td><td class="memItemRight"><a class="el" href="../../d0/d5a/concepttoy_1_1_o_string_stream_backend.html">toy::OStringStreamBackend</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concept satisfied when <em class="arg">T</em> can serve as the backing storage for <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="toy::OStringStream">toy::OStringStream</a>. <br /></td></tr>
-<tr class="memitem:toy_3A_3AStringLike" id="r_toy_3A_3AStringLike"><td class="memItemLeft">concept &#160;</td><td class="memItemRight"><a class="el" href="../../df/d77/concepttoy_1_1_string_like.html">toy::StringLike</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concept satisfied when <em class="arg">T</em> exposes <code>size()</code> as <code>size_t</code> and <code>c_str()</code> as a pointer to null-terminated characters. <br /></td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:toy_3A_3ACStringView" id="r_toy_3A_3ACStringView"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">toy::CStringView</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Non-owning string view class for C-style strings.  <a href="../../d5/d03/classtoy_1_1_c_string_view.html#details">More...</a><br /></td></tr>
-<tr class="memitem:toy_3A_3AFixedString_3C_20allocatedSize_20_3E" id="r_toy_3A_3AFixedString_3C_20allocatedSize_20_3E"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html">toy::FixedString&lt; allocatedSize &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Template string class with fixed-size character buffer.  <a href="../../d3/d7a/classtoy_1_1_fixed_string.html#details">More...</a><br /></td></tr>
-<tr class="memitem:toy_3A_3AFormatArgument" id="r_toy_3A_3AFormatArgument"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="../../df/d0c/structtoy_1_1_format_argument.html">toy::FormatArgument</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Single type-erased format argument carrying a value pointer and a formatter callback.  <a href="../../df/d0c/structtoy_1_1_format_argument.html#details">More...</a><br /></td></tr>
-<tr class="memitem:toy_3A_3AFormatContext" id="r_toy_3A_3AFormatContext"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../d8/dde/classtoy_1_1_format_context.html">toy::FormatContext</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type-erased write sink.  <a href="../../d8/dde/classtoy_1_1_format_context.html#details">More...</a><br /></td></tr>
-<tr class="memitem:toy_3A_3AFormatString_3C_20Args_20_3E" id="r_toy_3A_3AFormatString_3C_20Args_20_3E"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../dc/d62/classtoy_1_1_format_string.html">toy::FormatString&lt; Args &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper around a <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="toy::CStringView">toy::CStringView</a> pattern with <code>consteval</code> validation of placeholders.  <a href="../../dc/d62/classtoy_1_1_format_string.html#details">More...</a><br /></td></tr>
-<tr class="memitem:toy_3A_3AOStringStream_3C_20BackendType_20_3E" id="r_toy_3A_3AOStringStream_3C_20BackendType_20_3E"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html">toy::OStringStream&lt; BackendType &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output stream that appends formatted values into a <a class="el" href="../../d0/d5a/concepttoy_1_1_o_string_stream_backend.html" title="toy::OStringStreamBackend">toy::OStringStreamBackend</a> backend.  <a href="../../d7/d15/classtoy_1_1_o_string_stream.html#details">More...</a><br /></td></tr>
-<tr class="memitem:toy_3A_3AStringFixedStorage_3C_20AllocatedSize_20_3E" id="r_toy_3A_3AStringFixedStorage_3C_20AllocatedSize_20_3E"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../d0/d21/classtoy_1_1_string_fixed_storage.html">toy::StringFixedStorage&lt; AllocatedSize &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fixed-size character storage with a tracked length and implicit null terminator at <code><a class="el" href="../../d0/d21/classtoy_1_1_string_fixed_storage.html#ae7e8490f333fb1065ec9bafb97609c56" title="Mutable pointer to the inline character buffer.">data()</a></code>[<a class="el" href="../../d0/d21/classtoy_1_1_string_fixed_storage.html#afffe5c7ce202a335498acba9427fa36f" title="Returns the current logical string length in bytes (not including the terminator).">size()</a>].  <a href="../../d0/d21/classtoy_1_1_string_fixed_storage.html#details">More...</a><br /></td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:ga47774805e63ecbede7f9cbfa12168c41" id="r_ga47774805e63ecbede7f9cbfa12168c41"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#ga47774805e63ecbede7f9cbfa12168c41">toy::FormatPatternValidationError</a> { <br />
-&#160;&#160;<a class="el" href="#gga47774805e63ecbede7f9cbfa12168c41a334c4a4c42fdb79d7ebc3e73b517e6f8">toy::FormatPatternValidationError::none</a>
-, <a class="el" href="#gga47774805e63ecbede7f9cbfa12168c41aeb42ad13d59146d74f9573ea3a2dbd79">toy::FormatPatternValidationError::unmatchedBrace</a>
-, <a class="el" href="#gga47774805e63ecbede7f9cbfa12168c41a04d8a8f389b0468423db7dbc6bae6b47">toy::FormatPatternValidationError::invalidContent</a>
-, <a class="el" href="#gga47774805e63ecbede7f9cbfa12168c41ad7c32cf534a3d6a8398859a49a749133">toy::FormatPatternValidationError::mixedPlaceholders</a>
-, <br />
-&#160;&#160;<a class="el" href="#gga47774805e63ecbede7f9cbfa12168c41ac1de17fa49444b70937363bb45671095">toy::FormatPatternValidationError::argCountMismatch</a>
-, <a class="el" href="#gga47774805e63ecbede7f9cbfa12168c41a84198e7bcd7cdb94a436ef786a514a49">toy::FormatPatternValidationError::indexOutOfRange</a>
-<br />
- }</td></tr>
-<tr class="memdesc:ga47774805e63ecbede7f9cbfa12168c41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Result of validating a format pattern against an expected argument count.  <a href="#ga47774805e63ecbede7f9cbfa12168c41">More...</a><br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 id="header-groups" class="groupheader"><a id="groups" name="groups"></a>
+Topics</h2></td></tr>
+<tr class="memitem:Format" id="r_Format"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="../../de/d08/group___format.html">Format</a></td></tr>
+<tr class="memdesc:de/d08/group___format"><td class="mdescLeft">&#160;</td><td class="mdescRight">Functions for substituting arguments into <code>{}</code> and <code>{N}</code> placeholders in a format pattern. <br /></td></tr>
+<tr class="memitem:StringStorage" id="r_StringStorage"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="../../dc/d41/group___string_storage.html">Storage</a></td></tr>
+<tr class="memdesc:dc/d41/group___string_storage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fixed-size string buffers, character storage, and non-owning string view. <br /></td></tr>
+<tr class="memitem:StringStream" id="r_StringStream"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="../../da/dbe/group___string_stream.html">Stream</a></td></tr>
+<tr class="memdesc:da/dbe/group___string_stream"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output stream for writing formatted values into string backends. <br /></td></tr>
+<tr class="memitem:StringText" id="r_StringText"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="../../d9/d39/group___string_text.html">Text</a></td></tr>
+<tr class="memdesc:d9/d39/group___string_text"><td class="mdescLeft">&#160;</td><td class="mdescRight">UTF-8 / wide-character conversion, code-point counting, and in-place string reversal. <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga001484b1a940bb2691fdd2d66c1a14c9" id="r_ga001484b1a940bb2691fdd2d66c1a14c9"><td class="memItemLeft">constexpr <a class="el" href="#ga47774805e63ecbede7f9cbfa12168c41">FormatPatternValidationError</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga001484b1a940bb2691fdd2d66c1a14c9">toy::anonymous_namespace{format_pattern.inl}::validateFormatImpl</a> (const <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a> &amp;string, size_t argCount) noexcept</td></tr>
+<tr class="memitem:ga001484b1a940bb2691fdd2d66c1a14c9" id="r_ga001484b1a940bb2691fdd2d66c1a14c9"><td class="memItemLeft">constexpr <a class="el" href="../../de/d08/group___format.html#ga47774805e63ecbede7f9cbfa12168c41">FormatPatternValidationError</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga001484b1a940bb2691fdd2d66c1a14c9">toy::anonymous_namespace{format_pattern.inl}::validateFormatImpl</a> (const <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a> &amp;string, size_t argCount) noexcept</td></tr>
 <tr class="memdesc:ga001484b1a940bb2691fdd2d66c1a14c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates auto-indexed <code>{}</code> and positional <code>{N}</code> placeholders for <em class="arg">argCount</em> arguments.  <br /></td></tr>
-<tr class="memitem:ga79f053b92ccd3b7259a353d890a22cf5" id="r_ga79f053b92ccd3b7259a353d890a22cf5"><td class="memTemplParams" colspan="2">template&lt;size_t BufferSize, typename... Args&gt; </td></tr>
-<tr class="memitem:ga79f053b92ccd3b7259a353d890a22cf5 template"><td class="memItemLeft">constexpr <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html">FixedString</a>&lt; BufferSize &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ga79f053b92ccd3b7259a353d890a22cf5">toy::format</a> (type_identity_t&lt; <a class="el" href="../../dc/d62/classtoy_1_1_format_string.html">FormatString</a>&lt; Args... &gt; &gt; fmt, const Args &amp;... args) noexcept</td></tr>
-<tr class="memdesc:ga79f053b92ccd3b7259a353d890a22cf5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Formats arguments into a new <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="toy::FixedString">toy::FixedString</a> using a compile-time validated pattern.  <br /></td></tr>
-<tr class="memitem:ga57e1d4d264063d67be1cfee4e45a66ad" id="r_ga57e1d4d264063d67be1cfee4e45a66ad"><td class="memTemplParams" colspan="2">template&lt;OStringStreamBackend BackendType, typename... Args&gt; </td></tr>
-<tr class="memitem:ga57e1d4d264063d67be1cfee4e45a66ad template"><td class="memItemLeft">constexpr void&#160;</td><td class="memItemRight"><a class="el" href="#ga57e1d4d264063d67be1cfee4e45a66ad">toy::formatTo</a> (BackendType &amp;output, type_identity_t&lt; <a class="el" href="../../dc/d62/classtoy_1_1_format_string.html">FormatString</a>&lt; Args... &gt; &gt; fmt, const Args &amp;... args) noexcept</td></tr>
-<tr class="memdesc:ga57e1d4d264063d67be1cfee4e45a66ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Formats arguments into <em class="arg">output</em> using a compile-time validated pattern.  <br /></td></tr>
-<tr class="memitem:gac84e6047764bd1d720bbda3d0c6291b8" id="r_gac84e6047764bd1d720bbda3d0c6291b8"><td class="memTemplParams" colspan="2">template&lt;size_t BufferSize, typename... Args&gt; </td></tr>
-<tr class="memitem:gac84e6047764bd1d720bbda3d0c6291b8 template"><td class="memItemLeft"><a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html">FixedString</a>&lt; BufferSize &gt;&#160;</td><td class="memItemRight"><a class="el" href="#gac84e6047764bd1d720bbda3d0c6291b8">toy::vformat</a> (<a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a> pattern, const Args &amp;... args) noexcept</td></tr>
-<tr class="memdesc:gac84e6047764bd1d720bbda3d0c6291b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Formats arguments into a new <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="toy::FixedString">toy::FixedString</a> using a runtime pattern.  <br /></td></tr>
-<tr class="memitem:ga024f540d2d32f3ac5fe1bb21b3f57a1a" id="r_ga024f540d2d32f3ac5fe1bb21b3f57a1a"><td class="memTemplParams" colspan="2">template&lt;OStringStreamBackend BackendType, typename... Args&gt; </td></tr>
-<tr class="memitem:ga024f540d2d32f3ac5fe1bb21b3f57a1a template"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ga024f540d2d32f3ac5fe1bb21b3f57a1a">toy::vformatTo</a> (BackendType &amp;output, <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a> pattern, const Args &amp;... args) noexcept</td></tr>
-<tr class="memdesc:ga024f540d2d32f3ac5fe1bb21b3f57a1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Formats arguments into <em class="arg">output</em> using a runtime pattern, type-erasing them automatically.  <br /></td></tr>
-<tr class="memitem:ga5b1768ae7cdfb38447089aca42336c1e" id="r_ga5b1768ae7cdfb38447089aca42336c1e"><td class="memItemLeft">constexpr <a class="el" href="#ga47774805e63ecbede7f9cbfa12168c41">FormatPatternValidationError</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga5b1768ae7cdfb38447089aca42336c1e">toy::validateFormatPattern</a> (const <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a> &amp;string, size_t argCount) noexcept</td></tr>
-<tr class="memdesc:ga5b1768ae7cdfb38447089aca42336c1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates auto-indexed <code>{}</code> and positional <code>{N}</code> placeholders for <em class="arg">argCount</em> arguments.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Classes and concepts for string manipulation and formatting. </p>
-<p>This group contains all string-related types and utilities in the core module:</p>
-<h1 class="doxsection"><a class="anchor" id="features"></a>
-Key Features</h1>
-<ul>
-<li>Zero or minimal dynamic allocation</li>
-<li>Constexpr support where possible</li>
-<li>Exception safety (noexcept operations)</li>
-<li>Type safety through C++20 concepts</li>
-<li>Cross-platform compatibility </li>
-</ul>
-</div><a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Enumeration Type Documentation</h2>
-<a id="ga47774805e63ecbede7f9cbfa12168c41" name="ga47774805e63ecbede7f9cbfa12168c41"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga47774805e63ecbede7f9cbfa12168c41">&#9670;&#160;</a></span>FormatPatternValidationError</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum class <a class="el" href="#ga47774805e63ecbede7f9cbfa12168c41">toy::FormatPatternValidationError</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Result of validating a format pattern against an expected argument count. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga47774805e63ecbede7f9cbfa12168c41a334c4a4c42fdb79d7ebc3e73b517e6f8" name="gga47774805e63ecbede7f9cbfa12168c41a334c4a4c42fdb79d7ebc3e73b517e6f8"></a>none&#160;</td><td class="fielddoc"><p>Pattern is valid for the given argument count. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="gga47774805e63ecbede7f9cbfa12168c41aeb42ad13d59146d74f9573ea3a2dbd79" name="gga47774805e63ecbede7f9cbfa12168c41aeb42ad13d59146d74f9573ea3a2dbd79"></a>unmatchedBrace&#160;</td><td class="fielddoc"><p>Stray or incomplete <code>{</code> / <code>}</code> (not <code>{{</code>, <code>}}</code>, <code>{}</code>, or <code>{N}</code>). </p>
-</td></tr>
-<tr><td class="fieldname"><a id="gga47774805e63ecbede7f9cbfa12168c41a04d8a8f389b0468423db7dbc6bae6b47" name="gga47774805e63ecbede7f9cbfa12168c41a04d8a8f389b0468423db7dbc6bae6b47"></a>invalidContent&#160;</td><td class="fielddoc"><p>Positional <code>{N…}</code> not closed by <code>}</code>, or disallowed characters after the index. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="gga47774805e63ecbede7f9cbfa12168c41ad7c32cf534a3d6a8398859a49a749133" name="gga47774805e63ecbede7f9cbfa12168c41ad7c32cf534a3d6a8398859a49a749133"></a>mixedPlaceholders&#160;</td><td class="fielddoc"><p>Mixed auto <code>{}</code> and positional <code>{N}</code> in one pattern. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="gga47774805e63ecbede7f9cbfa12168c41ac1de17fa49444b70937363bb45671095" name="gga47774805e63ecbede7f9cbfa12168c41ac1de17fa49444b70937363bb45671095"></a>argCountMismatch&#160;</td><td class="fielddoc"><p>Placeholder count vs expected argument count mismatch (including empty pattern with arguments). </p>
-</td></tr>
-<tr><td class="fieldname"><a id="gga47774805e63ecbede7f9cbfa12168c41a84198e7bcd7cdb94a436ef786a514a49" name="gga47774805e63ecbede7f9cbfa12168c41a84198e7bcd7cdb94a436ef786a514a49"></a>indexOutOfRange&#160;</td><td class="fielddoc"><p>Positional index out of range or overflow while parsing digits. </p>
-</td></tr>
-</table>
-
-</div>
-</div>
-<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="ga79f053b92ccd3b7259a353d890a22cf5" name="ga79f053b92ccd3b7259a353d890a22cf5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga79f053b92ccd3b7259a353d890a22cf5">&#9670;&#160;</a></span>format()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;size_t BufferSize, typename... Args&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html">FixedString</a>&lt; BufferSize &gt; toy::format </td>
-          <td>(</td>
-          <td class="paramtype">type_identity_t&lt; <a class="el" href="../../dc/d62/classtoy_1_1_format_string.html">FormatString</a>&lt; Args... &gt; &gt;</td>          <td class="paramname"><span class="paramname"><em>fmt</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const Args &amp;...</td>          <td class="paramname"><span class="paramname"><em>args</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Formats arguments into a new <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="toy::FixedString">toy::FixedString</a> using a compile-time validated pattern. </p>
-<p>Iterates <em class="arg">fmt</em>, copies literal text verbatim, and substitutes each <code>{}</code> or <code>{N}</code> placeholder with the corresponding argument formatted via <code>operator&lt;&lt;</code> on <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="toy::OStringStream">toy::OStringStream</a>.</p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">BufferSize</td><td>Capacity of the returned <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="toy::FixedString">toy::FixedString</a> in bytes. </td></tr>
-    <tr><td class="paramname">Args</td><td>Types of format arguments; deduced from <em class="arg">args</em>.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">fmt</td><td>Compile-time validated format pattern. </td></tr>
-    <tr><td class="paramname">args</td><td>Values to substitute at each placeholder.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="toy::FixedString">toy::FixedString</a> containing the formatted result.</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd>Each argument type supports <code>operator&lt;&lt;</code> on <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="toy::OStringStream">toy::OStringStream</a>. </dd>
-<dd>
-<em class="arg">fmt</em> is a valid <a class="el" href="../../dc/d62/classtoy_1_1_format_string.html" title="toy::FormatString">toy::FormatString</a>; validation occurs at compile time.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd><code>{{</code> and <code>}}</code> in the pattern emit a literal <code>{</code> and <code>}</code> respectively. </dd>
-<dd>
-When the formatted result exceeds <em class="arg">BufferSize</em> characters the output is silently truncated per <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="toy::FixedString">toy::FixedString</a> capacity semantics.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="#ga57e1d4d264063d67be1cfee4e45a66ad" title="Formats arguments into output using a compile-time validated pattern.">toy::formatTo()</a> </dd></dl>
-
-</div>
-</div>
-<a id="ga57e1d4d264063d67be1cfee4e45a66ad" name="ga57e1d4d264063d67be1cfee4e45a66ad"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga57e1d4d264063d67be1cfee4e45a66ad">&#9670;&#160;</a></span>formatTo()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;OStringStreamBackend BackendType, typename... Args&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void toy::formatTo </td>
-          <td>(</td>
-          <td class="paramtype">BackendType &amp;</td>          <td class="paramname"><span class="paramname"><em>output</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">type_identity_t&lt; <a class="el" href="../../dc/d62/classtoy_1_1_format_string.html">FormatString</a>&lt; Args... &gt; &gt;</td>          <td class="paramname"><span class="paramname"><em>fmt</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const Args &amp;...</td>          <td class="paramname"><span class="paramname"><em>args</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Formats arguments into <em class="arg">output</em> using a compile-time validated pattern. </p>
-<p>Replaces the content of <em class="arg">output</em> with the formatted result of <em class="arg">fmt</em> applied to <em class="arg">args</em>. Literal text is copied verbatim; <code>{}</code> and <code>{N}</code> placeholders are replaced by the corresponding argument formatted via <code>operator&lt;&lt;</code> on <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="toy::OStringStream">toy::OStringStream</a>.</p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">BackendType</td><td>Type of the output string. Must satisfy the <a class="el" href="../../d0/d5a/concepttoy_1_1_o_string_stream_backend.html" title="toy::OStringStreamBackend">toy::OStringStreamBackend</a> concept. </td></tr>
-    <tr><td class="paramname">Args</td><td>Types of format arguments; deduced from <em class="arg">args</em>.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">output</td><td>Destination string; its previous content is replaced. </td></tr>
-    <tr><td class="paramname">fmt</td><td>Compile-time validated format pattern. </td></tr>
-    <tr><td class="paramname">args</td><td>Values to substitute at each placeholder.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section pre"><dt>Precondition</dt><dd>Each argument type supports <code>operator&lt;&lt;</code> on <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="toy::OStringStream">toy::OStringStream</a>. </dd>
-<dd>
-<em class="arg">fmt</em> is a valid <a class="el" href="../../dc/d62/classtoy_1_1_format_string.html" title="toy::FormatString">toy::FormatString</a>; validation occurs at compile time.</dd></dl>
-<dl class="section post"><dt>Postcondition</dt><dd><em class="arg">output</em> holds the formatted result, subject to <em class="arg">BackendType</em> capacity/overflow semantics.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd><code>{{</code> and <code>}}</code> in the pattern emit a literal <code>{</code> and <code>}</code> respectively. </dd>
-<dd>
-Overflow semantics match those of <em class="arg">BackendType</em>.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="#ga79f053b92ccd3b7259a353d890a22cf5" title="Formats arguments into a new toy::FixedString using a compile-time validated pattern.">toy::format()</a> </dd></dl>
-
-</div>
-</div>
+<div class="textblock"><p>String types, formatting, and encoding conversion utilities. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="ga001484b1a940bb2691fdd2d66c1a14c9" name="ga001484b1a940bb2691fdd2d66c1a14c9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga001484b1a940bb2691fdd2d66c1a14c9">&#9670;&#160;</a></span>validateFormatImpl()</h2>
 
@@ -354,7 +152,7 @@ Overflow semantics match those of <em class="arg">BackendType</em>.</dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="#ga47774805e63ecbede7f9cbfa12168c41">FormatPatternValidationError</a> toy::anonymous_namespace{format_pattern.inl}::validateFormatImpl </td>
+          <td class="memname"><a class="el" href="../../de/d08/group___format.html#ga47774805e63ecbede7f9cbfa12168c41">FormatPatternValidationError</a> toy::anonymous_namespace{format_pattern.inl}::validateFormatImpl </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>string</em></span>, </td>
         </tr>
@@ -379,160 +177,8 @@ Overflow semantics match those of <em class="arg">BackendType</em>.</dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><code><a class="el" href="#gga47774805e63ecbede7f9cbfa12168c41a334c4a4c42fdb79d7ebc3e73b517e6f8" title="Pattern is valid for the given argument count.">FormatPatternValidationError::none</a></code> when the pattern is valid; otherwise the first validation error encountered.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code><a class="el" href="../../de/d08/group___format.html#gga47774805e63ecbede7f9cbfa12168c41a334c4a4c42fdb79d7ebc3e73b517e6f8" title="Pattern is valid for the given argument count.">FormatPatternValidationError::none</a></code> when the pattern is valid; otherwise the first validation error encountered.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Internal implementation for <code>validateFormatPattern</code>; not part of the public API. </dd></dl>
-
-</div>
-</div>
-<a id="ga5b1768ae7cdfb38447089aca42336c1e" name="ga5b1768ae7cdfb38447089aca42336c1e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga5b1768ae7cdfb38447089aca42336c1e">&#9670;&#160;</a></span>validateFormatPattern()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="#ga47774805e63ecbede7f9cbfa12168c41">FormatPatternValidationError</a> toy::validateFormatPattern </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>string</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>argCount</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Validates auto-indexed <code>{}</code> and positional <code>{N}</code> placeholders for <em class="arg">argCount</em> arguments. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">string</td><td>Pattern to scan. </td></tr>
-    <tr><td class="paramname">argCount</td><td>Number of format arguments.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Error code; <code><a class="el" href="#gga47774805e63ecbede7f9cbfa12168c41a334c4a4c42fdb79d7ebc3e73b517e6f8" title="Pattern is valid for the given argument count.">FormatPatternValidationError::none</a></code> when the pattern is consistent with <em class="arg">argCount</em>. </dd></dl>
-
-</div>
-</div>
-<a id="gac84e6047764bd1d720bbda3d0c6291b8" name="gac84e6047764bd1d720bbda3d0c6291b8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gac84e6047764bd1d720bbda3d0c6291b8">&#9670;&#160;</a></span>vformat()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;size_t BufferSize, typename... Args&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html">FixedString</a>&lt; BufferSize &gt; toy::vformat </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a></td>          <td class="paramname"><span class="paramname"><em>pattern</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const Args &amp;...</td>          <td class="paramname"><span class="paramname"><em>args</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Formats arguments into a new <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="toy::FixedString">toy::FixedString</a> using a runtime pattern. </p>
-<p>Delegates to <a class="el" href="#ga024f540d2d32f3ac5fe1bb21b3f57a1a" title="Formats arguments into output using a runtime pattern, type-erasing them automatically.">toy::vformatTo()</a>, which type-erases <em class="arg">args</em> into an array of <a class="el" href="../../df/d0c/structtoy_1_1_format_argument.html" title="toy::FormatArgument">toy::FormatArgument</a> internally.</p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">BufferSize</td><td>Capacity of the returned <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="toy::FixedString">toy::FixedString</a> in bytes. </td></tr>
-    <tr><td class="paramname">Args</td><td>Types of format arguments; deduced from <em class="arg">args</em>.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">pattern</td><td>Runtime format pattern. </td></tr>
-    <tr><td class="paramname">args</td><td>Values to substitute at each placeholder.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="toy::FixedString">toy::FixedString</a> containing the formatted result.</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd><em class="arg">pattern</em> must be a valid format pattern consistent with <code>sizeof</code>...(Args).</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="#ga024f540d2d32f3ac5fe1bb21b3f57a1a" title="Formats arguments into output using a runtime pattern, type-erasing them automatically.">toy::vformatTo()</a> </dd></dl>
-
-</div>
-</div>
-<a id="ga024f540d2d32f3ac5fe1bb21b3f57a1a" name="ga024f540d2d32f3ac5fe1bb21b3f57a1a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga024f540d2d32f3ac5fe1bb21b3f57a1a">&#9670;&#160;</a></span>vformatTo()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;OStringStreamBackend BackendType, typename... Args&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void toy::vformatTo </td>
-          <td>(</td>
-          <td class="paramtype">BackendType &amp;</td>          <td class="paramname"><span class="paramname"><em>output</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a></td>          <td class="paramname"><span class="paramname"><em>pattern</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const Args &amp;...</td>          <td class="paramname"><span class="paramname"><em>args</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Formats arguments into <em class="arg">output</em> using a runtime pattern, type-erasing them automatically. </p>
-<p>Type-erases each argument into a <a class="el" href="../../df/d0c/structtoy_1_1_format_argument.html" title="toy::FormatArgument">toy::FormatArgument</a>, then iterates <em class="arg">pattern</em>, copies literal text to <em class="arg">output</em> verbatim, and substitutes each <code>{}</code> or <code>{N}</code> placeholder with the corresponding type-erased argument. The pattern is validated at runtime; an invalid pattern triggers a debug assertion.</p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">BackendType</td><td>Type of the output string. Must satisfy the <a class="el" href="../../d0/d5a/concepttoy_1_1_o_string_stream_backend.html" title="toy::OStringStreamBackend">toy::OStringStreamBackend</a> concept. </td></tr>
-    <tr><td class="paramname">Args</td><td>Types of format arguments; deduced from <em class="arg">args</em>.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">output</td><td>Destination string; its previous content is replaced. </td></tr>
-    <tr><td class="paramname">pattern</td><td>Runtime format pattern; may be a variable or computed string. </td></tr>
-    <tr><td class="paramname">args</td><td>Values to substitute at each placeholder.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section pre"><dt>Precondition</dt><dd><em class="arg">pattern</em> must be a valid format pattern consistent with <code>sizeof</code>...(Args) (same rules as <a class="el" href="../../dc/d62/classtoy_1_1_format_string.html" title="toy::FormatString">toy::FormatString</a>). </dd>
-<dd>
-Each argument in <em class="arg">args</em> must remain valid for the duration of the call.</dd></dl>
-<dl class="section post"><dt>Postcondition</dt><dd><em class="arg">output</em> holds the formatted result, subject to <em class="arg">BackendType</em> capacity semantics.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd><code>{{</code> and <code>}}</code> in the pattern emit a literal <code>{</code> and <code>}</code> respectively. </dd>
-<dd>
-Pattern validity is checked at runtime via <code>assert_message</code> with <a class="el" href="#ga5b1768ae7cdfb38447089aca42336c1e" title="Validates auto-indexed {} and positional {N} placeholders for argCount arguments.">toy::validateFormatPattern()</a>; use <a class="el" href="#ga57e1d4d264063d67be1cfee4e45a66ad" title="Formats arguments into output using a compile-time validated pattern.">toy::formatTo()</a> for compile-time checks.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="#gac84e6047764bd1d720bbda3d0c6291b8" title="Formats arguments into a new toy::FixedString using a runtime pattern.">toy::vformat()</a> </dd></dl>
 
 </div>
 </div>
