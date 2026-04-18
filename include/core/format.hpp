@@ -101,7 +101,7 @@ constexpr void formatTo(BackendType & output, type_identity_t<FormatString<Args.
 
   \brief Formats arguments into a new \ref toy::FixedString using a runtime pattern.
 
-  Type-erases \a args into an array of \ref toy::FormatArgument and forwards them to toy::vformatTo().
+  Delegates to toy::vformatTo(), which type-erases \a args into an array of \ref toy::FormatArgument internally.
 
   \tparam BufferSize Capacity of the returned \ref toy::FixedString in bytes.
   \tparam Args       Types of format arguments; deduced from \a args.

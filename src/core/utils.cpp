@@ -446,22 +446,25 @@ char * wcharToUtf8(char * dest, size_t destSize, const wchar_t * src) noexcept {
   char *             destPointer = dest;
   const char * const utf8EndPos  = dest + (destSize - 1);
 
-  while (*src != L'\0' && destPointer < utf8EndPos) {
-    if (const auto symbol = static_cast<uint32_t>(*src++); symbol <= 0x7F) {
-      *destPointer = static_cast<char>(symbol);
-    } else {
-      if (symbol <= 0x7FF) {
-        *destPointer = static_cast<char>(((symbol & 0x07C0) >> 6) | 0xC0);
-      } else {
-        *destPointer = static_cast<char>(((symbol & 0xF000) >> 12) | 0xE0);
-        ++destPointer;
-        *destPointer = static_cast<char>(((symbol & 0x0FC0) >> 6) | 0x80);
-      }
+  while (*src != L'\0') {
+    const auto   symbol        = static_cast<uint32_t>(*src);
+    const size_t requiredBytes = symbol <= 0x7F ? 1U : (symbol <= 0x7FF ? 2U : 3U);
+    if (static_cast<size_t>(utf8EndPos - destPointer) < requiredBytes)
+      break;
 
-      ++destPointer;
-      *destPointer = static_cast<char>((symbol & 0x003F) | 0x80);
+    ++src;
+    if (symbol <= 0x7F) {
+      *destPointer++ = static_cast<char>(symbol);
+
+    } else if (symbol <= 0x7FF) {
+      *destPointer++ = static_cast<char>(((symbol & 0x07C0) >> 6) | 0xC0);
+      *destPointer++ = static_cast<char>((symbol & 0x003F) | 0x80);
+
+    } else {
+      *destPointer++ = static_cast<char>(((symbol & 0xF000) >> 12) | 0xE0);
+      *destPointer++ = static_cast<char>(((symbol & 0x0FC0) >> 6) | 0x80);
+      *destPointer++ = static_cast<char>((symbol & 0x003F) | 0x80);
     }
-    ++destPointer;
   }
 
   *destPointer = '\0';
@@ -550,7 +553,7 @@ constexpr size_t _decimalDigitsPerGroup = 3;
 void formatNumberString(char * buffer, size_t bufferSize, const char * separator) noexcept {
   assert_message(buffer != nullptr && bufferSize > 0, "The destination buffer must not be null.");
   assert_message(separator != nullptr, "The grouping separator must not be null.");
-  if (separator == nullptr)
+  if (buffer == nullptr || bufferSize == 0 || separator == nullptr)
     return;
 
   const auto separatorLen = char_traits<char>::length(separator);
