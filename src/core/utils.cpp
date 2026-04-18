@@ -124,7 +124,7 @@ struct DivMod10 {
 
   \return A struct containing the quotient and remainder of the division.
 */
-constexpr DivMod10 _divModU10(uint32_t value) noexcept {
+[[nodiscard]] constexpr DivMod10 _divModU10(uint32_t value) noexcept {
   DivMod10 res;
 
   res.quot  = value >> 1;

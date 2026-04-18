@@ -238,7 +238,7 @@ constexpr char * utoa(char * dest, size_t destSize, T value, unsigned base = 10)
   \return Pointer to \a dest.
 
   \pre \a dest is not null; \a destSize is sufficient for the output (including sign, digits, decimal point, and
-  terminator).
+       terminator).
 */
 char * ftoa(char * dest, size_t destSize, float value, size_t precision = 7) noexcept;
 
@@ -256,7 +256,7 @@ char * ftoa(char * dest, size_t destSize, float value, size_t precision = 7) noe
   \return Pointer to \a dest.
 
   \pre \a dest is not null; \a destSize is sufficient for the output (including sign, digits, decimal point, and
-  terminator).
+       terminator).
 */
 char * ftoa(char * dest, size_t destSize, double value, size_t precision = 15) noexcept;
 
@@ -272,6 +272,9 @@ char * ftoa(char * dest, size_t destSize, double value, size_t precision = 15) n
 
   \pre \a buffer is not null; \a bufferSize \c > \c 0; \a separator is not null; length of \a separator is at most 8
   (asserted in debug).
+
+  \note If \a buffer is null, \a bufferSize is \c 0, or \a separator is null, the function returns immediately without
+        modifying the buffer.
 */
 void formatNumberString(char * buffer, size_t bufferSize, const char * separator) noexcept;
 
