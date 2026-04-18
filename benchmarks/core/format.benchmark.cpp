@@ -19,7 +19,7 @@
 //
 /*!
   \file   format.benchmark.cpp
-  \brief  Nanobench benchmarks for toy::makeVFormatArguments(), toy::vformatTo(), and toy::vformat().
+  \brief  Nanobench benchmarks for toy::vformat() and toy::vformatTo().
 */
 
 #include "../benchmark_factory.hpp"
@@ -28,180 +28,17 @@
 namespace toy {
 
 void formatCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
-  bench.run("makeVFormatArguments single int", [] {
-    const int x    = 42;
-    auto      args = makeVFormatArguments(x);
-
-    doNotOptimize(args);
-  });
-
-  bench.run("makeVFormatArguments single c-string", [] {
-    const char * msg  = "hello";
-    auto         args = makeVFormatArguments(msg);
-
-    doNotOptimize(args);
-  });
-
-  bench.run("makeVFormatArguments single FixedString", [] {
-    FixedString<16> str("engine");
-    auto            args = makeVFormatArguments(str);
-
-    doNotOptimize(args);
-  });
-
-  bench.run("makeVFormatArguments 3 args mixed", [] {
-    const int    a    = 42;
-    const char * b    = "world";
-    const bool   c    = true;
-    auto         args = makeVFormatArguments(a, b, c);
-
-    doNotOptimize(args);
-  });
-
-  bench.run("makeVFormatArguments 5 args int", [] {
-    const int a    = 1;
-    const int b    = 2;
-    const int c    = 3;
-    const int d    = 4;
-    const int e    = 5;
-    auto      args = makeVFormatArguments(a, b, c, d, e);
-
-    doNotOptimize(args);
-  });
-
-  bench.run("makeVFormatArguments + formatFn int", [] {
-    const int x    = 99;
-    auto      args = makeVFormatArguments(x);
-
-    FixedString<32> buf;
-    FormatContext   ctx{static_cast<void *>(&buf), [](void * c, const char * data, size_t n) noexcept {
-                        static_cast<FixedString<32> *>(c)->append(data, n);
-                        }};
-
-    args[0].formatFn(args[0].value, ctx);
-
-    doNotOptimize(buf);
-  });
-
-  bench.run("makeVFormatArguments + formatFn c-string", [] {
-    const char * msg  = "benchmark";
-    auto         args = makeVFormatArguments(msg);
-
-    FixedString<32> buf;
-    FormatContext   ctx{static_cast<void *>(&buf), [](void * c, const char * data, size_t n) noexcept {
-                        static_cast<FixedString<32> *>(c)->append(data, n);
-                        }};
-
-    args[0].formatFn(args[0].value, ctx);
-
-    doNotOptimize(buf);
-  });
-
-  bench.run("makeVFormatArguments + formatFn FixedString", [] {
-    FixedString<32> str("benchmark");
-    auto            args = makeVFormatArguments(str);
-
-    FixedString<32> buf;
-    FormatContext   ctx{static_cast<void *>(&buf), [](void * c, const char * data, size_t n) noexcept {
-                        static_cast<FixedString<32> *>(c)->append(data, n);
-                        }};
-
-    args[0].formatFn(args[0].value, ctx);
-
-    doNotOptimize(buf);
-  });
-
-  // ----- vformatTo (array overload) -----
+  // ----- vformatTo -----
 
   bench.run("vformatTo no placeholders", [] {
     FixedString<64> output;
-    auto            args = makeVFormatArguments();
 
-    vformatTo(output, CStringView("Hello World"), args);
+    vformatTo(output, CStringView("Hello World"));
 
     doNotOptimize(output);
   });
 
   bench.run("vformatTo single int", [] {
-    FixedString<64> output;
-    const int       x    = 42;
-    auto            args = makeVFormatArguments(x);
-
-    vformatTo(output, CStringView("value: {}"), args);
-
-    doNotOptimize(output);
-  });
-
-  bench.run("vformatTo single c-string", [] {
-    FixedString<64> output;
-    const char *    msg  = "hello";
-    auto            args = makeVFormatArguments(msg);
-
-    vformatTo(output, CStringView("say: {}"), args);
-
-    doNotOptimize(output);
-  });
-
-  bench.run("vformatTo single FixedString", [] {
-    FixedString<64> output;
-    FixedString<16> str("engine");
-    auto            args = makeVFormatArguments(str);
-
-    vformatTo(output, CStringView("toy {}"), args);
-
-    doNotOptimize(output);
-  });
-
-  bench.run("vformatTo 3 args mixed", [] {
-    FixedString<64> output;
-    const int       a    = 42;
-    const char *    b    = "world";
-    const bool      c    = true;
-    auto            args = makeVFormatArguments(a, b, c);
-
-    vformatTo(output, CStringView("{} {} {}"), args);
-
-    doNotOptimize(output);
-  });
-
-  bench.run("vformatTo positional reorder", [] {
-    FixedString<64> output;
-    const int       a    = 10;
-    const int       b    = 20;
-    auto            args = makeVFormatArguments(a, b);
-
-    vformatTo(output, CStringView("{1} before {0}"), args);
-
-    doNotOptimize(output);
-  });
-
-  bench.run("vformatTo escaped braces", [] {
-    FixedString<64> output;
-    const int       x    = 42;
-    auto            args = makeVFormatArguments(x);
-
-    vformatTo(output, CStringView("{{{}}}"), args);
-
-    doNotOptimize(output);
-  });
-
-  bench.run("vformatTo 5 args int", [] {
-    FixedString<128> output;
-    const int        a    = 1;
-    const int        b    = 2;
-    const int        c    = 3;
-    const int        d    = 4;
-    const int        e    = 5;
-    auto             args = makeVFormatArguments(a, b, c, d, e);
-
-    vformatTo(output, CStringView("{} {} {} {} {}"), args);
-
-    doNotOptimize(output);
-  });
-
-  // ----- vformatTo (variadic overload) -----
-
-  bench.run("vformatTo variadic single int", [] {
     FixedString<64> output;
 
     vformatTo(output, CStringView("value: {}"), 42);
@@ -209,15 +46,34 @@ void formatCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
     doNotOptimize(output);
   });
 
-  bench.run("vformatTo variadic single c-string", [] {
+  bench.run("vformatTo single c-string", [] {
     FixedString<64> output;
+    const char * msg = "hello";
 
-    vformatTo(output, CStringView("say: {}"), "hello");
+    vformatTo(output, CStringView("say: {}"), msg);
 
     doNotOptimize(output);
   });
 
-  bench.run("vformatTo variadic 3 args mixed", [] {
+  bench.run("vformatTo single FixedString", [] {
+    FixedString<64> output;
+    FixedString<16> name("engine");
+
+    vformatTo(output, CStringView("toy {}"), name);
+
+    doNotOptimize(output);
+  });
+
+  bench.run("vformatTo single CStringView", [] {
+    FixedString<64> output;
+    CStringView     sv("engine");
+
+    vformatTo(output, CStringView("toy {}"), sv);
+
+    doNotOptimize(output);
+  });
+
+  bench.run("vformatTo 3 args mixed", [] {
     FixedString<64> output;
 
     vformatTo(output, CStringView("{} {} {}"), 42, "world", true);
@@ -225,7 +81,7 @@ void formatCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
     doNotOptimize(output);
   });
 
-  bench.run("vformatTo variadic 5 args int", [] {
+  bench.run("vformatTo 5 args int", [] {
     FixedString<128> output;
 
     vformatTo(output, CStringView("{} {} {} {} {}"), 1, 2, 3, 4, 5);
@@ -233,7 +89,7 @@ void formatCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
     doNotOptimize(output);
   });
 
-  bench.run("vformatTo variadic positional reorder", [] {
+  bench.run("vformatTo positional reorder", [] {
     FixedString<64> output;
 
     vformatTo(output, CStringView("{1} before {0}"), 10, 20);
@@ -241,83 +97,30 @@ void formatCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
     doNotOptimize(output);
   });
 
-  // ----- vformat (array overload) -----
+  bench.run("vformatTo escaped braces", [] {
+    FixedString<64> output;
+
+    vformatTo(output, CStringView("{{{}}}: {{done}}"), 42);
+
+    doNotOptimize(output);
+  });
+
+  // ----- vformat -----
 
   bench.run("vformat single int", [] {
-    const int x      = 42;
-    auto      args   = makeVFormatArguments(x);
-    auto      result = vformat<64>(CStringView("value: {}"), args);
-
-    doNotOptimize(result);
-  });
-
-  bench.run("vformat single c-string", [] {
-    const char * msg    = "hello";
-    auto         args   = makeVFormatArguments(msg);
-    auto         result = vformat<64>(CStringView("say: {}"), args);
-
-    doNotOptimize(result);
-  });
-
-  bench.run("vformat 3 args mixed", [] {
-    const int    a      = 42;
-    const char * b      = "world";
-    const bool   c      = true;
-    auto         args   = makeVFormatArguments(a, b, c);
-    auto         result = vformat<64>(CStringView("{} {} {}"), args);
-
-    doNotOptimize(result);
-  });
-
-  bench.run("vformat 5 args int", [] {
-    const int a      = 1;
-    const int b      = 2;
-    const int c      = 3;
-    const int d      = 4;
-    const int e      = 5;
-    auto      args   = makeVFormatArguments(a, b, c, d, e);
-    auto      result = vformat<128>(CStringView("{} {} {} {} {}"), args);
-
-    doNotOptimize(result);
-  });
-
-  bench.run("vformat positional reorder", [] {
-    const int a      = 10;
-    const int b      = 20;
-    auto      args   = makeVFormatArguments(a, b);
-    auto      result = vformat<64>(CStringView("{1} before {0}"), args);
-
-    doNotOptimize(result);
-  });
-
-  // ----- vformat (variadic overload) -----
-
-  bench.run("vformat variadic single int", [] {
     auto result = vformat<64>(CStringView("value: {}"), 42);
 
     doNotOptimize(result);
   });
 
-  bench.run("vformat variadic single c-string", [] {
-    auto result = vformat<64>(CStringView("say: {}"), "hello");
-
-    doNotOptimize(result);
-  });
-
-  bench.run("vformat variadic 3 args mixed", [] {
+  bench.run("vformat 3 args mixed", [] {
     auto result = vformat<64>(CStringView("{} {} {}"), 42, "world", true);
 
     doNotOptimize(result);
   });
 
-  bench.run("vformat variadic 5 args int", [] {
+  bench.run("vformat 5 args int", [] {
     auto result = vformat<128>(CStringView("{} {} {} {} {}"), 1, 2, 3, 4, 5);
-
-    doNotOptimize(result);
-  });
-
-  bench.run("vformat variadic positional reorder", [] {
-    auto result = vformat<64>(CStringView("{1} before {0}"), 10, 20);
 
     doNotOptimize(result);
   });

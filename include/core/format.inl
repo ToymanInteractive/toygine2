@@ -50,7 +50,7 @@ namespace {
 
   \pre \a index is less than \c 1 + sizeof...(Rest); guaranteed by compile-time pattern validation.
 
-  \note Internal helper for toy::formatTo(); not part of the public API.
+  \note Internal helper for formatTo(); not part of the public API.
 */
 template <typename StringType, typename First, typename... Rest>
 constexpr void dispatchFormatArg(size_t index, OStringStream<StringType> & stream, const First & first,
@@ -86,7 +86,7 @@ constexpr void dispatchFormatArg(size_t index, OStringStream<StringType> & strea
 
   \post If \a start == \a end, \a autoIndex is incremented by \c 1. Otherwise \a autoIndex is unchanged.
 
-  \note Internal helper for toy::formatTo(); not part of the public API.
+  \note Internal helper for formatTo() and vformatTo(); not part of the public API.
 */
 template <typename PatternType>
 [[nodiscard]] constexpr size_t parseArgIndex(const PatternType & pattern, size_t start, size_t end,
@@ -163,27 +163,35 @@ constexpr void formatTo(BackendType & output, type_identity_t<FormatString<Args.
 
 template <size_t BufferSize, typename... Args>
 FixedString<BufferSize> vformat(CStringView pattern, const Args &... args) noexcept {
-  return vformat<BufferSize>(pattern, makeVFormatArguments(args...));
-}
-
-template <size_t BufferSize, size_t MaximumArgs>
-FixedString<BufferSize> vformat(CStringView pattern, const array<FormatArgument, MaximumArgs> & args) noexcept {
   FixedString<BufferSize> result;
 
-  vformatTo(result, pattern, args);
+  vformatTo(result, pattern, args...);
 
   return result;
 }
 
 template <OStringStreamBackend BackendType, typename... Args>
 void vformatTo(BackendType & output, CStringView pattern, const Args &... args) noexcept {
-  vformatTo(output, pattern, makeVFormatArguments(args...));
-}
-
-template <OStringStreamBackend BackendType, size_t MaximumArgs>
-void vformatTo(BackendType & output, CStringView pattern, const array<FormatArgument, MaximumArgs> & args) noexcept {
-  assert_message(validateFormatPattern(pattern, MaximumArgs) == FormatPatternValidationError::none,
+  assert_message(validateFormatPattern(pattern, sizeof...(Args)) == FormatPatternValidationError::none,
                  "vformatTo: pattern is invalid or inconsistent with the argument count");
+
+  const array<FormatArgument, sizeof...(Args)> vArgs = {[]<typename T>(const T & value) noexcept {
+    return FormatArgument{static_cast<const void *>(&value), [](const void * v, FormatContext & out) noexcept {
+                            const T & arg = *static_cast<const T *>(v);
+                            if constexpr (StringLike<T>) {
+                              out.write(arg.c_str(), arg.size());
+                            } else if constexpr (std::is_pointer_v<T>
+                                                 && std::is_same_v<std::remove_cv_t<std::remove_pointer_t<T>>, char>) {
+                              if (arg != nullptr)
+                                out.write(arg, char_traits<char>::length(arg));
+                            } else {
+                              OStringStream<FixedString<128>> stream;
+                              stream << arg;
+                              const auto & str = stream.str();
+                              out.write(str.c_str(), str.size());
+                            }
+                          }};
+  }(args)...};
 
   FormatContext out{static_cast<void *>(&output), [](void * ctx, const char * data, size_t count) noexcept {
                       static_cast<BackendType *>(ctx)->append(data, count);
@@ -214,8 +222,8 @@ void vformatTo(BackendType & output, CStringView pattern, const array<FormatArgu
       while (end < length && data[end] != '}')
         ++end;
 
-      if (const auto argIndex = parseArgIndex(pattern, start, end, autoIndex); argIndex < MaximumArgs) {
-        const auto & argument = args[argIndex];
+      if (const auto argIndex = parseArgIndex(pattern, start, end, autoIndex); argIndex < vArgs.size()) {
+        const auto & argument = vArgs[argIndex];
         assert_message(argument.formatFn != nullptr, "vformatTo: format callback must not be null");
         argument.formatFn(argument.value, out);
       }
@@ -238,27 +246,6 @@ void vformatTo(BackendType & output, CStringView pattern, const array<FormatArgu
 
   if (position > litStart)
     out.write(data + litStart, position - litStart);
-}
-
-template <typename... Args>
-[[nodiscard]] array<FormatArgument, sizeof...(Args)> makeVFormatArguments(const Args &... args) noexcept {
-  return {[]<typename T>(const T & value) noexcept {
-    return FormatArgument{static_cast<const void *>(&value), [](const void * v, FormatContext & out) noexcept {
-                            const T & arg = *static_cast<const T *>(v);
-                            if constexpr (StringLike<T>) {
-                              out.write(arg.c_str(), arg.size());
-                            } else if constexpr (std::is_pointer_v<T>
-                                                 && std::is_same_v<std::remove_cv_t<std::remove_pointer_t<T>>, char>) {
-                              if (arg != nullptr)
-                                out.write(arg, char_traits<char>::length(arg));
-                            } else {
-                              OStringStream<FixedString<128>> stream;
-                              stream << arg;
-                              const auto & str = stream.str();
-                              out.write(str.c_str(), str.size());
-                            }
-                          }};
-  }(args)...};
 }
 
 } // namespace toy
