@@ -72,7 +72,7 @@ TEST_CASE("core/format_context/write") {
   SUBCASE("single_write") {
     ctx.write("hello", 5);
 
-    REQUIRE(buf.size() == 5);
+    REQUIRE(buf.size() == std::char_traits<char>::length("hello"));
     REQUIRE(buf == "hello");
   }
 
@@ -81,7 +81,7 @@ TEST_CASE("core/format_context/write") {
     ctx.write("foo", 3);
     ctx.write("bar", 3);
 
-    REQUIRE(buf.size() == 6);
+    REQUIRE(buf.size() == std::char_traits<char>::length("foobar"));
     REQUIRE(buf == "foobar");
   }
 
@@ -89,7 +89,7 @@ TEST_CASE("core/format_context/write") {
   SUBCASE("partial_data") {
     ctx.write("abcdef", 3);
 
-    REQUIRE(buf.size() == 3);
+    REQUIRE(buf.size() == std::char_traits<char>::length("abc"));
     REQUIRE(buf == "abc");
   }
 
@@ -124,7 +124,7 @@ TEST_CASE("core/format_context/put") {
     ctx.put('Y');
     ctx.put('Z');
 
-    REQUIRE(buf.size() == 3);
+    REQUIRE(buf.size() == std::char_traits<char>::length("XYZ"));
     REQUIRE(buf == "XYZ");
   }
 }
@@ -139,7 +139,7 @@ TEST_CASE("core/format_context/mixed_operations") {
   ctx.write("de", 2);
   ctx.put('f');
 
-  REQUIRE(buf.size() == 6);
+  REQUIRE(buf.size() == std::char_traits<char>::length("abcdef"));
   REQUIRE(buf == "abcdef");
 }
 
@@ -162,7 +162,7 @@ TEST_CASE("core/format_context/type_erasure") {
   ctx.put(' ');
   ctx.write("world", 5);
 
-  REQUIRE(raw.length == 11);
+  REQUIRE(raw.length == std::char_traits<char>::length("hello world"));
   REQUIRE(std::strcmp(raw.data, "hello world") == 0);
 }
 

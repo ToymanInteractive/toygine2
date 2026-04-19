@@ -21,7 +21,7 @@
   \file   log_record.hpp
   \brief  In-flight log record stored in the transport ring buffer.
 
-  Defines \ref toy::log::record and the \c LOG_MESSAGE_CAPACITY capacity constant that controls the per-record
+  Defines \ref toy::log::Record and the \c LOG_MESSAGE_CAPACITY capacity constant that controls the per-record
   formatted-message buffer size.
 
   \note Included by core.hpp; do not include this file directly.
@@ -64,7 +64,7 @@ inline constexpr size_t c_messageCapacity = LOG_MESSAGE_CAPACITY;
 
   \section performance Performance Characteristics
 
-  - **Size**: \c sizeof(Record) = 16 + \c LOG_MESSAGE_CAPACITY bytes.
+  - **Size**: \c sizeof(Record) = 24 + \c LOG_MESSAGE_CAPACITY bytes.
   - **Copy cost**: One struct assignment per push and per pop.
 
   \section safety Safety Guarantees
@@ -72,7 +72,7 @@ inline constexpr size_t c_messageCapacity = LOG_MESSAGE_CAPACITY;
   - **Lifetime**: \a meta must point to a \c static \c constexpr \ref toy::log::Metadata.
   - **Exception safety**: No exceptions; all fields are value types.
 
-  \sa log::Metadata, TimestampPolicy, ISink
+  \sa toy::log::Metadata, TimestampPolicy, ISink
 */
 struct Record {
   /// Pointer to the static call-site metadata (format pattern, file, line, level).
