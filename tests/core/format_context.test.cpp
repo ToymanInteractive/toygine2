@@ -58,8 +58,6 @@ TEST_CASE("core/format_context/object_structure") {
 TEST_CASE("core/format_context/construction") {
   constexpr FormatContext ctx{nullptr, trackingCallback};
 
-  REQUIRE(sizeof(ctx) > 0);
-
   static_assert(std::is_constructible_v<FormatContext, void *, FormatContext::WriteFunction>,
                 "FormatContext must be constructible from (void *, WriteFunction)");
 }
