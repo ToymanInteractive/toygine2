@@ -66,7 +66,7 @@ TEST_CASE("core/format_context/construction") {
 // write() delegates to the stored callback.
 TEST_CASE("core/format_context/write") {
   FixedString<128> buf;
-  FormatContext    ctx{static_cast<void *>(&buf), fixedStringCallback};
+  FormatContext    ctx{&buf, fixedStringCallback};
 
   // Single write appends the data verbatim.
   SUBCASE("single_write") {
@@ -96,7 +96,7 @@ TEST_CASE("core/format_context/write") {
   // write() with count == 0 does not invoke the callback.
   SUBCASE("zero_count_is_noop") {
     CallTracker   tracker;
-    FormatContext trackCtx{static_cast<void *>(&tracker), trackingCallback};
+    FormatContext trackCtx{&tracker, trackingCallback};
 
     trackCtx.write("data", 0);
 
@@ -151,7 +151,7 @@ TEST_CASE("core/format_context/type_erasure") {
   };
 
   RawBuffer     raw;
-  FormatContext ctx{static_cast<void *>(&raw), [](void * context, const char * data, size_t count) noexcept {
+  FormatContext ctx{&raw, [](void * context, const char * data, size_t count) noexcept {
                       auto * b = static_cast<RawBuffer *>(context);
                       std::memcpy(b->data + b->length, data, count);
                       b->length          += count;
