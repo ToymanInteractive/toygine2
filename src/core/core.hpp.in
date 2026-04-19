@@ -230,6 +230,7 @@ using std::char_traits;
 #include "core/hashes.hpp"
 #include "core/log_level.hpp"
 #include "core/log_metadata.hpp"
+#include "core/log_record.hpp"
 #include "core/o_string_stream.hpp"
 #include "core/platform.hpp"
 #include "core/string_fixed_storage.hpp"

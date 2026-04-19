@@ -58,7 +58,11 @@ private:
   static constexpr std::size_t kLineBufferSize = 1024;
 
   /// FSM states for parsing ESC and CSI sequences.
-  enum class State { Normal, Escape, Csi };
+  enum class State {
+    Normal,
+    Escape,
+    Csi
+  };
 
   State _state{State::Normal};
 
