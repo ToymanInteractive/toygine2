@@ -30,6 +30,13 @@
 #ifndef INCLUDE_CORE_LOG_RECORD_HPP_
 #define INCLUDE_CORE_LOG_RECORD_HPP_
 
+/*!
+  \def LOG_MESSAGE_CAPACITY
+
+  \brief Per-record formatted-message buffer size in bytes (default \c 256, including null terminator).
+
+  Define this macro before including the header (or via compiler flags) to override the default size.
+*/
 #ifndef LOG_MESSAGE_CAPACITY
 #define LOG_MESSAGE_CAPACITY 256
 #endif // LOG_MESSAGE_CAPACITY
