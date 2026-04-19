@@ -1,5 +1,17 @@
 var NAVTREEINDEX5 =
 {
+"df/d4a/c__string__view_8inl.html":[6,0,0,2,4],
+"df/d4a/c__string__view_8inl_source.html":[6,0,0,2,4],
+"df/d61/bitwise__enum_8hpp.html":[6,0,0,2,1],
+"df/d61/bitwise__enum_8hpp.html#aeef6a9a97e9b8d6f238e592b2e566abf":[6,0,0,2,1,1],
+"df/d61/bitwise__enum_8hpp_source.html":[6,0,0,2,1],
+"df/d77/concepttoy_1_1_string_like.html":[2,1,0,0],
+"df/d81/md__a_g_e_n_t_s.html":[1],
+"df/d81/md__a_g_e_n_t_s.html#access-modifiers":[1,6,7],
+"df/d81/md__a_g_e_n_t_s.html#assertions":[1,10,0],
+"df/d81/md__a_g_e_n_t_s.html#auto":[1,9,5],
+"df/d81/md__a_g_e_n_t_s.html#autotoc_md-default-and--delete":[1,9,4],
+"df/d81/md__a_g_e_n_t_s.html#binary-operators":[1,5,3],
 "df/d81/md__a_g_e_n_t_s.html#braces":[1,5,1],
 "df/d81/md__a_g_e_n_t_s.html#class--struct-documentation-order":[1,13,2],
 "df/d81/md__a_g_e_n_t_s.html#class-documentation-templates":[1,14],

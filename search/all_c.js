@@ -23,7 +23,9 @@ var searchData=
   ['log2e_5fv_20',['log2e_v',['../dd/d71/namespacetoy_1_1math_1_1constants.html#ae83c50755717cb12272f7c667085ad1c',1,'toy::math::constants']]],
   ['log2e_5fv_3c_20toy_3a_3amath_3a_3afixed_3c_20base_2c_20intermediate_2c_20fraction_2c_20rounding_20_3e_20_3e_21',['log2e_v&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;',['../da/d94/namespacestd_1_1numbers.html#a26fe7e89dc6344f8737e06e2285e2f93',1,'std::numbers']]],
   ['log_5flevel_2ehpp_22',['log_level.hpp',['../d0/d01/log__level_8hpp.html',1,'']]],
-  ['log_5fmetadata_2ehpp_23',['log_metadata.hpp',['../da/d67/log__metadata_8hpp.html',1,'']]],
-  ['loops_24',['Range-Based For Loops',['../df/d81/md__a_g_e_n_t_s.html#range-based-for-loops',1,'']]],
-  ['lowest_25',['lowest',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a9d605ddbec7e3ae998160a72290a276d',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]]
+  ['log_5fmessage_5fcapacity_23',['LOG_MESSAGE_CAPACITY',['../d1/d3a/log__record_8hpp.html#a79a1795bad8b0cc794cde609930fd1d7',1,'log_record.hpp']]],
+  ['log_5fmetadata_2ehpp_24',['log_metadata.hpp',['../da/d67/log__metadata_8hpp.html',1,'']]],
+  ['log_5frecord_2ehpp_25',['log_record.hpp',['../d1/d3a/log__record_8hpp.html',1,'']]],
+  ['loops_26',['Range-Based For Loops',['../df/d81/md__a_g_e_n_t_s.html#range-based-for-loops',1,'']]],
+  ['lowest_27',['lowest',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a9d605ddbec7e3ae998160a72290a276d',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]]
 ];

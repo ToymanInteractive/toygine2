@@ -1,0 +1,7 @@
+<map id="toy::log::Record" name="toy::log::Record">
+<area shape="rect" id="Node000001" title="Single log entry in the transport ring buffer." alt="" coords="101,116,223,141"/>
+<area shape="rect" id="Node000002" href="$d8/dfc/structtoy_1_1log_1_1_metadata.html" title="Immutable per&#45;call&#45;site descriptor stored as a static constexpr local." alt="" coords="5,13,145,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="96,47,154,114,150,118,92,50"/>
+<area shape="rect" id="Node000003" href="$d3/d7a/classtoy_1_1_fixed_string.html" title=" " alt="" coords="170,5,330,45"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="226,58,174,118,170,114,222,54"/>
+</map>

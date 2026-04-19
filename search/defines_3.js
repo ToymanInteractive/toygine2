@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['toy_5fconfig_5fdebug_5fmemory_0',['TOY_CONFIG_DEBUG_MEMORY',['../da/d47/core_8hpp.html#a94a808adc84ff2a5345e7ecb00661653',1,'core.hpp']]]
+  ['log_5fmessage_5fcapacity_0',['LOG_MESSAGE_CAPACITY',['../d1/d3a/log__record_8hpp.html#a79a1795bad8b0cc794cde609930fd1d7',1,'log_record.hpp']]]
 ];
