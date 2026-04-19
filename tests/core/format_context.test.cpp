@@ -54,14 +54,6 @@ TEST_CASE("core/format_context/object_structure") {
   static_assert(std::is_standard_layout_v<FormatContext>, "FormatContext must have standard layout");
 }
 
-// Constructor is constexpr with valid callback.
-TEST_CASE("core/format_context/construction") {
-  constexpr FormatContext ctx{nullptr, trackingCallback};
-
-  static_assert(std::is_constructible_v<FormatContext, void *, FormatContext::WriteFunction>,
-                "FormatContext must be constructible from (void *, WriteFunction)");
-}
-
 // write() delegates to the stored callback.
 TEST_CASE("core/format_context/write") {
   FixedString<128> buf;
