@@ -1,17 +1,18 @@
 var searchData=
 [
-  ['warning_0',['Warning',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#aa258d6860405ac17c387232bff26a6faa0eaadb4fcb48a0a0ed7bc9868be9fbaa',1,'toy::platform::ui']]],
-  ['wchar_5fin_5futf8_5fmax_5fsize_1',['WCHAR_IN_UTF8_MAX_SIZE',['../d9/d39/group___string_text.html#ga2a4051deac87f3522fdd2a2c55d1a79c',1,'toy']]],
-  ['wchartoutf8_2',['wcharToUtf8',['../d9/d39/group___string_text.html#ga008aa42596921d995b66340139fd3cfb',1,'toy']]],
-  ['window_5fshow_5fstate_2ehpp_3',['window_show_state.hpp',['../dd/dbb/window__show__state_8hpp.html',1,'']]],
-  ['window_5fstyle_2ehpp_4',['window_style.hpp',['../d2/d63/window__style_8hpp.html',1,'']]],
-  ['windows_5',['Windows',['../d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aaaea23489ce3aa9b6406ebb28e0cda430',1,'toy']]],
-  ['windowshowstate_6',['WindowShowState',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#af1575b610ba458b6ebdcb8763c30a9ec',1,'toy::platform::ui']]],
-  ['windowstyle_7',['WindowStyle',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#aa6c677b8c744b89734e11ea340507a72',1,'toy::platform::ui']]],
-  ['without_20compatibility_8',['Simplified Class (without compatibility)',['../df/d81/md__a_g_e_n_t_s.html#simplified-class-without-compatibility',1,'']]],
-  ['wouldblock_9',['WouldBlock',['../d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725eae799f8e2bec1c2593f034ec5060229e6',1,'toy::network']]],
-  ['write_10',['write',['../d8/dde/classtoy_1_1_format_context.html#a390ea1be3bdb990778545d256f145f2d',1,'toy::FormatContext::write()'],['../d7/d15/classtoy_1_1_o_string_stream.html#aa4117b9d14f9e6785fbf5cc8049e11ad',1,'toy::OStringStream::write()']]],
-  ['writeappend_11',['WriteAppend',['../da/d98/namespacetoy_1_1filesystem.html#acdb0fddd61b902c502183b9c4bde188fa98ea53108a053293ee1d388d6b88564c',1,'toy::filesystem']]],
-  ['writeempty_12',['WriteEmpty',['../da/d98/namespacetoy_1_1filesystem.html#acdb0fddd61b902c502183b9c4bde188fa73fd8e5dbdd94b8cbc784c0dc4adc2c1',1,'toy::filesystem']]],
-  ['writefunction_13',['WriteFunction',['../d8/dde/classtoy_1_1_format_context.html#aa3393abf300d9f40eeb142ab589da7a3',1,'toy::FormatContext']]]
+  ['warn_0',['Warn',['../da/d15/namespacetoy_1_1log.html#a955f65710c884cc3393a41d2a3ad5a64a56525ae64d370c0b448ac0d60710ef17',1,'toy::log']]],
+  ['warning_1',['Warning',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#aa258d6860405ac17c387232bff26a6faa0eaadb4fcb48a0a0ed7bc9868be9fbaa',1,'toy::platform::ui']]],
+  ['wchar_5fin_5futf8_5fmax_5fsize_2',['WCHAR_IN_UTF8_MAX_SIZE',['../d9/d39/group___string_text.html#ga2a4051deac87f3522fdd2a2c55d1a79c',1,'toy']]],
+  ['wchartoutf8_3',['wcharToUtf8',['../d9/d39/group___string_text.html#ga008aa42596921d995b66340139fd3cfb',1,'toy']]],
+  ['window_5fshow_5fstate_2ehpp_4',['window_show_state.hpp',['../dd/dbb/window__show__state_8hpp.html',1,'']]],
+  ['window_5fstyle_2ehpp_5',['window_style.hpp',['../d2/d63/window__style_8hpp.html',1,'']]],
+  ['windows_6',['Windows',['../d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aaaea23489ce3aa9b6406ebb28e0cda430',1,'toy']]],
+  ['windowshowstate_7',['WindowShowState',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#af1575b610ba458b6ebdcb8763c30a9ec',1,'toy::platform::ui']]],
+  ['windowstyle_8',['WindowStyle',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#aa6c677b8c744b89734e11ea340507a72',1,'toy::platform::ui']]],
+  ['without_20compatibility_9',['Simplified Class (without compatibility)',['../df/d81/md__a_g_e_n_t_s.html#simplified-class-without-compatibility',1,'']]],
+  ['wouldblock_10',['WouldBlock',['../d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725eae799f8e2bec1c2593f034ec5060229e6',1,'toy::network']]],
+  ['write_11',['write',['../d8/dde/classtoy_1_1_format_context.html#a390ea1be3bdb990778545d256f145f2d',1,'toy::FormatContext::write()'],['../d7/d15/classtoy_1_1_o_string_stream.html#aa4117b9d14f9e6785fbf5cc8049e11ad',1,'toy::OStringStream::write()']]],
+  ['writeappend_12',['WriteAppend',['../da/d98/namespacetoy_1_1filesystem.html#acdb0fddd61b902c502183b9c4bde188fa98ea53108a053293ee1d388d6b88564c',1,'toy::filesystem']]],
+  ['writeempty_13',['WriteEmpty',['../da/d98/namespacetoy_1_1filesystem.html#acdb0fddd61b902c502183b9c4bde188fa73fd8e5dbdd94b8cbc784c0dc4adc2c1',1,'toy::filesystem']]],
+  ['writefunction_14',['WriteFunction',['../d8/dde/classtoy_1_1_format_context.html#aa3393abf300d9f40eeb142ab589da7a3',1,'toy::FormatContext']]]
 ];

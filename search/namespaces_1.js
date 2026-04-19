@@ -9,10 +9,11 @@ var searchData=
   ['toy_3a_3afilesystem_6',['filesystem',['../da/d98/namespacetoy_1_1filesystem.html',1,'toy']]],
   ['toy_3a_3agame_7',['game',['../d8/d25/namespacetoy_1_1game.html',1,'toy']]],
   ['toy_3a_3ageometry_8',['geometry',['../da/d08/namespacetoy_1_1geometry.html',1,'toy']]],
-  ['toy_3a_3amath_9',['math',['../d2/d83/namespacetoy_1_1math.html',1,'toy']]],
-  ['toy_3a_3amath_3a_3aconstants_10',['constants',['../dd/d71/namespacetoy_1_1math_1_1constants.html',1,'toy::math']]],
-  ['toy_3a_3anetwork_11',['network',['../d6/d2c/namespacetoy_1_1network.html',1,'toy']]],
-  ['toy_3a_3aplatform_12',['platform',['../d4/ddd/namespacetoy_1_1platform.html',1,'toy']]],
-  ['toy_3a_3aplatform_3a_3aui_13',['ui',['../d1/d03/namespacetoy_1_1platform_1_1ui.html',1,'toy::platform']]],
-  ['toy_3a_3arender_14',['render',['../df/d8d/namespacetoy_1_1render.html',1,'toy']]]
+  ['toy_3a_3alog_9',['log',['../da/d15/namespacetoy_1_1log.html',1,'toy']]],
+  ['toy_3a_3amath_10',['math',['../d2/d83/namespacetoy_1_1math.html',1,'toy']]],
+  ['toy_3a_3amath_3a_3aconstants_11',['constants',['../dd/d71/namespacetoy_1_1math_1_1constants.html',1,'toy::math']]],
+  ['toy_3a_3anetwork_12',['network',['../d6/d2c/namespacetoy_1_1network.html',1,'toy']]],
+  ['toy_3a_3aplatform_13',['platform',['../d4/ddd/namespacetoy_1_1platform.html',1,'toy']]],
+  ['toy_3a_3aplatform_3a_3aui_14',['ui',['../d1/d03/namespacetoy_1_1platform_1_1ui.html',1,'toy::platform']]],
+  ['toy_3a_3arender_15',['render',['../df/d8d/namespacetoy_1_1render.html',1,'toy']]]
 ];

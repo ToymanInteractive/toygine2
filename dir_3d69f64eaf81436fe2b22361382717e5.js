@@ -22,6 +22,7 @@ var dir_3d69f64eaf81436fe2b22361382717e5 =
     [ "format_string.hpp", "d9/d6a/format__string_8hpp.html", null ],
     [ "format_string.inl", "d4/d97/format__string_8inl.html", null ],
     [ "hashes.hpp", "dd/d8e/hashes_8hpp.html", "dd/d8e/hashes_8hpp" ],
+    [ "log_level.hpp", "d0/d01/log__level_8hpp.html", "d0/d01/log__level_8hpp" ],
     [ "o_string_stream.hpp", "de/d2d/o__string__stream_8hpp.html", null ],
     [ "o_string_stream.inl", "d9/dcb/o__string__stream_8inl.html", null ],
     [ "platform.hpp", "d3/d60/platform_8hpp.html", "d3/d60/platform_8hpp" ],
