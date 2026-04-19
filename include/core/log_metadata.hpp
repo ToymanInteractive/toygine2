@@ -77,7 +77,7 @@ struct Metadata {
   const char * file;
 
   /// Source line number, typically \c __LINE__.
-  size_t line;
+  uint32_t line;
 
   /// Severity level of the message.
   Level level;
