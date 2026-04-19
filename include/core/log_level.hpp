@@ -22,7 +22,7 @@
   \brief  Severity levels for the logger.
 
   Defines \ref toy::log::Level used to filter log output at compile time via \c LOG_MIN_LEVEL and at runtime via
-  \ref toy::log::Backend.
+  \ref toy::LogBackend.
 
   \note Included by core.hpp; do not include this file directly.
 */
