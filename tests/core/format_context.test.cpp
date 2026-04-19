@@ -60,7 +60,8 @@ TEST_CASE("core/format_context/construction") {
 
   REQUIRE(sizeof(ctx) > 0);
 
-  static_assert(sizeof(ctx) > 0, "constexpr FormatContext must be constructible");
+  static_assert(std::is_constructible_v<FormatContext, void *, FormatContext::WriteFunction>,
+                "FormatContext must be constructible from (void *, WriteFunction)");
 }
 
 // write() delegates to the stored callback.
