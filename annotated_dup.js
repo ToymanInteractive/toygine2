@@ -26,6 +26,9 @@ var annotated_dup =
         [ "Endpoint", "d3/d53/classtoy_1_1network_1_1_endpoint.html", "d3/d53/classtoy_1_1network_1_1_endpoint" ],
         [ "SocketStatistics", "df/d86/structtoy_1_1network_1_1_socket_statistics.html", "df/d86/structtoy_1_1network_1_1_socket_statistics" ]
       ] ],
+      [ "log", "da/d15/namespacetoy_1_1log.html", [
+        [ "Metadata", "d8/dfc/structtoy_1_1log_1_1_metadata.html", "d8/dfc/structtoy_1_1log_1_1_metadata" ]
+      ] ],
       [ "DivMod10", "da/d8f/structtoy_1_1_div_mod10.html", "da/d8f/structtoy_1_1_div_mod10" ],
       [ "EnableBitwiseOperators", "dc/d6d/classtoy_1_1_enable_bitwise_operators.html", "dc/d6d/classtoy_1_1_enable_bitwise_operators" ],
       [ "CStringView", "d5/d03/classtoy_1_1_c_string_view.html", "d5/d03/classtoy_1_1_c_string_view" ],

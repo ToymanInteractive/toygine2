@@ -1,5 +1,17 @@
 var NAVTREEINDEX5 =
 {
+"df/d81/md__a_g_e_n_t_s.html#braces":[1,5,1],
+"df/d81/md__a_g_e_n_t_s.html#class--struct-documentation-order":[1,13,2],
+"df/d81/md__a_g_e_n_t_s.html#class-documentation-templates":[1,14],
+"df/d81/md__a_g_e_n_t_s.html#comments-and-documentation":[1,12],
+"df/d81/md__a_g_e_n_t_s.html#compile-time-constexpr-tests":[1,19,0],
+"df/d81/md__a_g_e_n_t_s.html#compile-time-vs-runtime-testing":[1,19],
+"df/d81/md__a_g_e_n_t_s.html#concept":[1,14,1],
+"df/d81/md__a_g_e_n_t_s.html#concept-documentation":[1,13,3],
+"df/d81/md__a_g_e_n_t_s.html#const-reference-style":[1,11,2],
+"df/d81/md__a_g_e_n_t_s.html#constexpr--runtime-parity":[1,23],
+"df/d81/md__a_g_e_n_t_s.html#constexpr-first-design":[1,8],
+"df/d81/md__a_g_e_n_t_s.html#default-member-initialization":[1,9,7],
 "df/d81/md__a_g_e_n_t_s.html#documentation-pre-commit-checklist":[1,14,5],
 "df/d81/md__a_g_e_n_t_s.html#documentation-style-rules":[1,13],
 "df/d81/md__a_g_e_n_t_s.html#documentation-tone":[1,12,0],
