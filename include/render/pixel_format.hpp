@@ -89,7 +89,7 @@ enum class PixelFormat : uint8_t {
   \return A non-null view of the format name (e.g. "A8R8G8B8", "D24S8"). For \ref toy::render::PixelFormat::Unknown
           returns "Unknown".
 */
-[[nodiscard]] CStringView pixelFormatName(PixelFormat format) noexcept;
+[[nodiscard, gnu::const]] CStringView pixelFormatName(PixelFormat format) noexcept;
 
 /*!
   \brief Parses a format name and returns the corresponding \ref toy::render::PixelFormat.
