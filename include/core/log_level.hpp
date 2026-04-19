@@ -40,7 +40,7 @@ namespace toy::log {
   Numeric ordering enables compile-time filtering: a message is compiled away when its level is less than
   \c LOG_MIN_LEVEL.
 
-  \sa LogMetadata, LOG_MIN_LEVEL
+  \sa toy::log::Metadata, LOG_MIN_LEVEL
 */
 enum class Level : uint8_t {
   /// Fine-grained diagnostic information.
