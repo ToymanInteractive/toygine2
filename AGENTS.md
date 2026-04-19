@@ -96,7 +96,6 @@ Key priorities:
 ### Braces
 
 - Use **attached brace style** (opening brace on the same line).
-- Place closing brace on its own line, aligned with the opening statement.
 
 ### Pointer and Reference Alignment
 
