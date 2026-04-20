@@ -1,0 +1,7 @@
+FROM devkitpro/devkitarm:20260221
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+LABEL org.opencontainers.image.vendor="Toyman Interactive"
+LABEL org.opencontainers.image.licenses="MIT"
+LABEL org.opencontainers.image.base.name="docker.io/devkitpro/devkitarm:20260221"
