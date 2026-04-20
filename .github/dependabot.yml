@@ -18,6 +18,24 @@ updates:
         patterns:
           - "actions/*"
 
-      docker-images:
+      docker-actions:
         patterns:
-          - "*"
+          - "Dockerfile.*"
+
+  # Maintain base images in Dockerfiles
+  - package-ecosystem: "docker"
+    directory: "/docker"
+    schedule:
+      interval: "weekly"
+
+    assignees:
+      - "dependabot"
+      - "dkrutskikh"
+
+    commit-message:
+      prefix: "chore(ci): "
+
+    groups:
+      devkitpro:
+        patterns:
+          - "devkitpro/*"
