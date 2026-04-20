@@ -29,6 +29,6 @@
 
 namespace toy::log {
 
-ISink::~ISink() = default;
+ISink::~ISink() noexcept = default;
 
 } // namespace toy::log

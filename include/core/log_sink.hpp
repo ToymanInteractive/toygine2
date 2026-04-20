@@ -75,8 +75,18 @@ namespace toy::log {
 */
 class ISink {
 public:
+  ISink() noexcept = default;
+
   /// Virtual destructor; defined out-of-line to anchor the vtable in a single translation unit.
-  virtual ~ISink();
+  virtual ~ISink() noexcept;
+
+  ISink(const ISink &) = delete;
+
+  ISink(ISink &&) = delete;
+
+  ISink & operator=(const ISink &) = delete;
+
+  ISink & operator=(ISink &&) = delete;
 
   /*!
     \brief Writes \a length bytes from \a message to the output destination.
