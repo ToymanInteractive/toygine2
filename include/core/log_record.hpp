@@ -53,7 +53,7 @@ inline constexpr size_t c_messageCapacity = LOG_MESSAGE_CAPACITY;
 
   Carries the pre-formatted message along with its metadata pointer and timestamp. The message is formatted at the call
   site before being pushed into the transport, so the backend thread (or manual flush) only needs to forward the string
-  to the active \ref toy::ISink.
+  to the active \ref toy::log::ISink.
 
   \section features Key Features
 
@@ -72,7 +72,7 @@ inline constexpr size_t c_messageCapacity = LOG_MESSAGE_CAPACITY;
   - **Lifetime**: \a meta must point to a \c static \c constexpr \ref toy::log::Metadata.
   - **Exception safety**: No exceptions; all fields are value types.
 
-  \sa toy::log::Metadata, TimestampPolicy, ISink
+  \sa \ref toy::log::Metadata, \ref toy::log::ISink, \ref toy::TimestampPolicy
 */
 struct Record {
   /// Pointer to the static call-site metadata (format pattern, file, line, level).

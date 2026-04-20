@@ -78,7 +78,7 @@ namespace toy {
   \note This type does not validate encoding or copy characters; higher-level types (e.g. \ref toy::FixedString) build
         on similar storage patterns.
 
-  \sa toy::FixedString
+  \sa \ref toy::FixedString
 */
 template <size_t AllocatedSize>
 class StringFixedStorage {

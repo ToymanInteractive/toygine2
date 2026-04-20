@@ -43,7 +43,7 @@ namespace toy::geometry {
   - \a T satisfies \ref toy::math::floating_point.
   - \a T satisfies \ref toy::math::fixed_point.
 
-  \sa toy::geometry::Circle
+  \sa \ref toy::geometry::Circle
 */
 template <typename T>
 concept CircleComponent = math::floating_point<T> || math::fixed_point<T>;
@@ -85,8 +85,8 @@ concept CircleComponent = math::floating_point<T> || math::fixed_point<T>;
   - **Preconditions**: Constructor (center, radius) requires \a radius > \c 0 (assert in debug).
   - **Exception safety**: All operations are noexcept.
 
-  \sa CircleComponent
-  \sa toy::math::Vector2
+  \sa \ref toy::geometry::CircleComponent
+  \sa \ref toy::math::Vector2
 */
 template <CircleComponent T>
 class Circle {

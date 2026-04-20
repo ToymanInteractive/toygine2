@@ -83,7 +83,7 @@ namespace toy {
   - **C++23**: \c consteval constructor and \c constexpr \c get() as implemented.
   - **CStringView**: Pattern must be reachable as a \c const \ref toy::CStringView at the call site.
 
-  \sa CStringView
+  \sa \ref toy::CStringView
 */
 template <class... Args>
 class FormatString {

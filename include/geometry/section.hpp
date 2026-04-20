@@ -45,7 +45,7 @@ namespace toy::geometry {
   - \a T satisfies \ref toy::math::floating_point.
   - \a T satisfies \ref toy::math::fixed_point.
 
-  \sa toy::geometry::Section
+  \sa \ref toy::geometry::Section
 */
 template <typename T>
 concept SectionEndpoint = math::signed_integral<T> || math::floating_point<T> || math::fixed_point<T>;

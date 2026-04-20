@@ -45,7 +45,7 @@ namespace toy::math {
   - \a T satisfies \ref toy::math::floating_point, or
   - \a T satisfies \ref toy::math::fixed_point.
 
-  \sa toy::math::Point, toy::math::Vector2
+  \sa \ref toy::math::Point, \ref toy::math::Vector2
 */
 template <typename T>
 concept PointScalar = signed_integral<T> || floating_point<T> || fixed_point<T>;
@@ -90,7 +90,7 @@ concept PointScalar = signed_integral<T> || floating_point<T> || fixed_point<T>;
 
   \note For approximate equality use isEqual() with a tolerance.
 
-  \sa toy::math::Vector2
+  \sa \ref toy::math::Vector2
 */
 class Point {
 public:

@@ -18,35 +18,17 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   ui.hpp
-  \brief  Umbrella header for platform UI types.
+  \file   log_sink.cpp
+  \brief  Out-of-line definitions for \ref toy::log::ISink.
 
-  Defines \ref toy::platform::ui::Orientation, \ref toy::platform::ui::WindowShowState,
-  \ref toy::platform::ui::WindowStyle, \ref toy::platform::ui::MessageBoxIcon,
-  \ref toy::platform::ui::MessageBoxButtons, \ref toy::platform::ui::MessageBoxReturn, and related UI.
-
-  Include this header only; do not include internal headers directly.
+  Anchors the \ref toy::log::ISink vtable in a single translation unit by providing the virtual destructor definition.
+  Keeps RTTI/typeinfo emission out of every header includer.
 */
 
-#ifndef INCLUDE_PLATFORM_UI_HPP_
-#define INCLUDE_PLATFORM_UI_HPP_
+#include "core.hpp"
 
-#include "../core.hpp"
+namespace toy::log {
 
-/*!
-  \namespace toy::platform::ui
+ISink::~ISink() noexcept = default;
 
-  \brief Platform UI: orientation, window show state, window style flags, message box (icon, buttons, return value).
-
-  \sa \ref toy::platform::ui::WindowShowState, \ref toy::platform::ui::WindowStyle,
-      \ref toy::platform::ui::MessageBoxButtons
-*/
-
-#include "ui/message_box_buttons.hpp"
-#include "ui/message_box_icon.hpp"
-#include "ui/message_box_return.hpp"
-#include "ui/orientation.hpp"
-#include "ui/window_show_state.hpp"
-#include "ui/window_style.hpp"
-
-#endif // INCLUDE_PLATFORM_UI_HPP_
+} // namespace toy::log

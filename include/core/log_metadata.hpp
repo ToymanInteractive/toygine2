@@ -67,7 +67,7 @@ namespace toy::log {
   - **Exception safety**: POD aggregate; no exceptions possible.
   - **Thread safety**: Read-only after construction; safe to access from any thread.
 
-  \sa toy::log::Level, toy::LogBackend
+  \sa \ref toy::log::Level, \ref toy::LogBackend
 */
 struct Metadata {
   /// \c {} / \c {N} format pattern passed to toy::vformatTo() on the backend.

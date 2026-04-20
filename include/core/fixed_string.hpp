@@ -113,7 +113,7 @@ struct FixedStringStorage {
 
   \note The internal buffer size is allocatedSize, but the maximum string length is allocatedSize - 1 (null terminator).
 
-  \sa std::string, toy::StringLike, toy::CStringView
+  \sa std::string, \ref toy::StringLike, \ref toy::CStringView
 */
 template <size_t allocatedSize>
 class FixedString {
@@ -889,7 +889,7 @@ public:
     \note This method is equivalent to the addition assignment operator.
 
     \sa operator+=(const stringType &)
-    \sa toy::StringLike
+    \sa \ref toy::StringLike
   */
   template <StringLike stringType>
   constexpr FixedString<allocatedSize> & append(const stringType & string) noexcept;

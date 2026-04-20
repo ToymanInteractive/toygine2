@@ -400,7 +400,7 @@ Always follow this order:
 - Use `\section requirements Requirements` with a bullet list of conditions that must hold. Prefer this over repeating the same information in `\tparam`.
 - Do **not** use `\tparam` for concept template parameters when the requirements are already fully described in `\section requirements`; the requirements section is the single source of truth and avoids duplication.
 - Use `\ref` with full namespace qualification when referencing types or concepts in the description (e.g. `\ref toy::math::fixed`).
-- `\sa` — link to related types or concepts that use or are used with this concept (do not use `\ref` inside `\sa`; Doxygen auto-links).
+- `\sa` — link to related types or concepts that use or are used with this concept; apply the same `\ref`/plain-text rules as elsewhere (see **See-Also Tags**).
 - Optional `\section usage Usage Example` with a short `\code` block for concepts that benefit from an example (e.g. `static_assert(ConceptName<T>);`).
 
 ### Parameter Documentation
@@ -442,6 +442,10 @@ Always follow this order:
 - Add a blank line immediately before the `\sa` tag in documentation blocks.
 - Link between: method and its operator equivalent, const/non-const overloads, method synonyms (`size()` / `length()`), related classes.
 - 2-3 references maximum per entity.
+- **Non-function symbols must use `\ref` with full namespace qualification** (e.g. `\sa \ref toy::CStringView`, `\sa \ref toy::math::Vector2`, `\sa \ref toy::log::ISink`). Do not rely on Doxygen auto-linking to resolve an unqualified name.
+- **Functions, methods, and operators remain plain text** and never use `\ref`. Qualify with the full namespace when the referenced symbol lives outside the current class or namespace (e.g. `\sa toy::format()`); unqualified method names (`\sa size()`, `\sa operator==()`) are allowed only when the target is a member of the surrounding class.
+- **Standard-library symbols** (`\sa std::string`, `\sa std::fwrite`) and external URLs (`\sa https://…`) stay as plain text without `\ref`.
+- **Macros** (`\sa LOG_MIN_LEVEL`, `\sa ENABLE_BITWISE_OPERATORS`, `\sa assert_message`) stay as plain text; `\ref` is reserved for types, enums, namespaces, and concepts.
 
 ### Cross-References
 
@@ -460,8 +464,8 @@ Always follow this order:
 **Exceptions**:
 
 - Do not use `\ref` for standard library types (`std::string`, `std::vector`, etc.).
-- Do not use `\ref` in `\sa` or `\see` sections (they auto-link).
-- Do not use `\ref` for functions or methods anywhere.
+- Do not use `\ref` for functions or methods anywhere (this includes references inside `\sa` — see **See-Also Tags**).
+- Do not use `\ref` for macros and preprocessor identifiers.
 - **Barrel include policy** (`.inl` and internal `.hpp` `\file` blocks): the line `\note Included by <barrel>.hpp only; do not include this file directly.` must use the real barrel filename as **plain text** (or `\c <barrel>.hpp` if monospace helps). **Do not** write `\ref core.hpp` (or similar) there—the filename is not a documented symbol; `\ref` is reserved for types, enums, namespaces, and concepts as above.
 
 ### Class Sections Detail
@@ -538,7 +542,7 @@ Always follow this order:
 
   \note Additional note, if necessary.
 
-  \sa RelatedClass
+  \sa \ref toy::namespace::RelatedClass
 */
 class ClassName {
   // ...
@@ -561,7 +565,7 @@ class ClassName {
   - [Condition 2.]
   - [Condition 3.]
 
-  \sa toy::namespace::RelatedType
+  \sa \ref toy::namespace::RelatedType
 */
 template <typename T>
 concept ConceptName = /* ... */;
@@ -616,7 +620,7 @@ concept ConceptName = /* ... */;
 
   \warning Important warning, if necessary.
 
-  \sa RelatedClass
+  \sa \ref toy::namespace::RelatedClass
 */
 template <typename Param1, size_t Param2>
 class ClassName {
@@ -663,7 +667,7 @@ class ClassName {
 
   \note Additional note, if necessary.
 
-  \sa RelatedType
+  \sa \ref toy::namespace::RelatedType
 */
 struct StructName {
   // ...
@@ -709,7 +713,7 @@ struct StructName {
 
   \note Additional note, if necessary.
 
-  \sa RelatedClass
+  \sa \ref toy::namespace::RelatedClass
 */
 class ClassName {
   // ...

@@ -71,7 +71,7 @@ namespace toy {
   \note \c std::string, \ref toy::CStringView, and \ref toy::FixedString are typical representatives; other types
         qualify if they match the expression requirements above.
 
-  \sa toy::CStringView, toy::FixedString
+  \sa \ref toy::CStringView, \ref toy::FixedString
 */
 template <typename T>
 concept StringLike = requires(const T & str) {

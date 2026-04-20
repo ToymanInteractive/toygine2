@@ -37,7 +37,7 @@
   \namespace toy::math
   \brief Mathematical types, constants, and utilities: fixed-point, vectors, point.
 
-  \sa toy::math::Point, toy::math::Vector2, toy::math::fixed
+  \sa \ref toy::math::Point, \ref toy::math::Vector2, \ref toy::math::fixed
 */
 namespace toy::math {
 

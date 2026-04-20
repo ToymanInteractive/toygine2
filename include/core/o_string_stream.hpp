@@ -57,7 +57,7 @@ namespace toy {
   - \c T::append(size_t, char) is a valid expression.
   - \a T is nothrow-swappable.
 
-  \sa toy::OStringStream
+  \sa \ref toy::OStringStream
 */
 template <typename T>
 concept OStringStreamBackend
@@ -123,7 +123,7 @@ concept OStringStreamBackend
   \note Only end-of-string appends are supported; there is no seek or insert-at-offset API.
   \note The effective write position matches the end of the underlying string after each successful append.
 
-  \sa OStringStreamBackend, StringLike
+  \sa \ref toy::OStringStreamBackend, \ref toy::StringLike
 */
 template <OStringStreamBackend BackendType>
 class OStringStream {
@@ -609,7 +609,7 @@ public:
     \note The view reflects the current state of the stream at the time of the call.
 
     \sa str() const
-    \sa toy::CStringView
+    \sa \ref toy::CStringView
   */
   [[nodiscard]] constexpr CStringView view() const noexcept;
 

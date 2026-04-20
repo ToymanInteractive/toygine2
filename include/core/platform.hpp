@@ -62,7 +62,7 @@ namespace toy {
 
   \note iOS (\c 0x3100) shares the Apple range with macOS (\c 0x3000).
 
-  \sa CpuArchitecture, getCurrentPlatform()
+  \sa \ref toy::CpuArchitecture, toy::getCurrentPlatform()
 */
 enum class Platform : uint16_t {
   /// Microsoft Windows Desktop operating system (Windows XP, Vista, 7, 8, 8.1, 10, 11, etc.)
@@ -124,7 +124,7 @@ enum class Platform : uint16_t {
 
   \note Architecture values can be combined with platform values for combined identification.
 
-  \sa Platform, getCurrentArchitecture()
+  \sa \ref toy::Platform, toy::getCurrentArchitecture()
 */
 enum class CpuArchitecture : uint16_t {
   /// Intel x86 32-bit instruction set architecture (IA-32)

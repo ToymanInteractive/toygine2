@@ -59,8 +59,8 @@ Used for regular classes without template parameters (e.g., `Vector2`, `Point`).
 
   \note Additional note about the class, if necessary.
 
-  \sa RelatedClass
-  \sa RelatedFunction
+  \sa \ref toy::namespace::RelatedClass
+  \sa toy::namespace::relatedFunction()
 */
 class ClassName {
   // ...
@@ -128,8 +128,8 @@ Used for template classes (e.g., `FixedString`, `FixedVector`).
 
   \warning Important warning, if necessary (e.g., lifetime or ownership semantics).
 
-  \sa RelatedClass
-  \sa RelatedConcept
+  \sa \ref toy::namespace::RelatedClass
+  \sa \ref toy::namespace::RelatedConcept
 */
 template <typename TemplateParam1, size_t TemplateParam2>
 class ClassName {
@@ -181,7 +181,7 @@ Used for structures (e.g., `Version`).
 
   \note Additional note, if necessary.
 
-  \sa RelatedStandard
+  \sa \ref toy::namespace::RelatedStandard
 */
 struct StructName {
   // ...
@@ -234,7 +234,7 @@ Used for simple classes that do not require a `compatibility` section (e.g., `Ve
 
   \note Additional note, if necessary.
 
-  \sa RelatedClass
+  \sa \ref toy::namespace::RelatedClass
 */
 class ClassName {
   // ...
@@ -295,6 +295,9 @@ class ClassName {
 
 - Related classes, functions, concepts.
 - 2-3 references maximum.
+- Non-function symbols (classes, types, enums, namespaces, concepts) must use `\ref` with full namespace qualification (e.g. `\sa \ref toy::CStringView`).
+- Functions, methods, and operators remain plain text and must be fully qualified when the target is outside the surrounding scope (e.g. `\sa toy::format()`).
+- Standard-library symbols, macros, and URLs stay as plain text without `\ref`.
 
 ---
 
