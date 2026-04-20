@@ -68,7 +68,7 @@ namespace toy::network {
   - **hostnameAsText()**: Returned pointer valid until the endpoint is modified or destroyed.
   - **setHostname(\a name)**: \a name must point to valid memory for the duration of the call.
 
-  \sa toy::network::SocketType
+  \sa \ref toy::network::SocketType
 */
 
 class Endpoint {

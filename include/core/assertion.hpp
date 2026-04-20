@@ -98,7 +98,7 @@ void deInitialize();
 
   \note Assertion callback returns \c true to ignore the failure, \c false otherwise. Callbacks must not throw.
 
-  \sa initialize(), AssertionCallback, StackWalkCallback
+  \sa initialize(), \ref toy::assertion::AssertionCallback, \ref toy::assertion::StackWalkCallback
 */
 void setCallbacks(AssertionCallback assertionCallback, StackWalkCallback stackWalkCallback);
 

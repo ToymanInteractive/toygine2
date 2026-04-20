@@ -37,7 +37,7 @@
   \namespace toy::platform::ui
   \brief Platform UI: orientation, window show state, window style flags, message box (icon, buttons, return value).
 
-  \sa toy::platform::ui::WindowShowState, toy::platform::ui::WindowStyle, toy::platform::ui::MessageBoxButtons
+  \sa \ref toy::platform::ui::WindowShowState, \ref toy::platform::ui::WindowStyle, \ref toy::platform::ui::MessageBoxButtons
 */
 
 #include "ui/message_box_buttons.hpp"

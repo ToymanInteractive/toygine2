@@ -71,7 +71,7 @@ namespace toy::log {
   - **Lifetime**: The sink must outlive any \ref toy::LogBackend that references it.
   - **Thread safety**: Not enforced; concrete sinks must document their own thread guarantees.
 
-  \sa toy::ConsoleSink, toy::MgbaSink, toy::LogBackend
+  \sa \ref toy::ConsoleSink, \ref toy::MgbaSink, \ref toy::LogBackend
 */
 class ISink {
 public:

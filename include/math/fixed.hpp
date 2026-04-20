@@ -47,7 +47,7 @@ namespace toy::math {
   - \c sizeof(Intermediate) >= sizeof(Base).
   - \a Intermediate has the same signedness as \a Base (\c is_signed_v).
 
-  \sa toy::math::fixed
+  \sa \ref toy::math::fixed
 */
 template <typename Base, typename Intermediate, unsigned Fraction>
 concept ValidFixedPointTypes
@@ -103,7 +103,7 @@ concept ValidFixedPointTypes
   - **C++ standard**: C++20 (concepts, \c constexpr, \c consteval).
   - **Embedded**: No heap allocation; suitable for constrained environments.
 
-  \sa toy::math::ValidFixedPointTypes
+  \sa \ref toy::math::ValidFixedPointTypes
 */
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding = true>
   requires ValidFixedPointTypes<Base, Intermediate, Fraction>
@@ -413,7 +413,7 @@ inline constexpr bool is_fixed_point_v = is_fixed_point<T>::value;
   Use to constrain template parameters to fixed-point types only (analogous to \ref toy::math::floating_point for
   built-in floating-point types). Equivalent to \c is_fixed_point_v<T>.
 
-  \sa toy::math::fixed
+  \sa \ref toy::math::fixed
 */
 template <typename T>
 concept fixed_point = is_fixed_point_v<T>;

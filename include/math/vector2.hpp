@@ -43,7 +43,7 @@ namespace toy::math {
   - \a T satisfies \ref toy::math::floating_point.
   - \a T satisfies \ref toy::math::fixed_point.
 
-  \sa toy::math::Vector2
+  \sa \ref toy::math::Vector2
 */
 template <typename T>
 concept Vector2Component = floating_point<T> || fixed_point<T>;
@@ -90,7 +90,7 @@ concept Vector2Component = floating_point<T> || fixed_point<T>;
 
   \note For pixel-aligned UI coordinates use \ref toy::math::Point.
 
-  \sa toy::math::Point
+  \sa \ref toy::math::Point
 */
 template <Vector2Component T>
 class Vector2 {

@@ -139,7 +139,7 @@ Class documentation follows this order:
   \note The maximum string length is allocatedSize - 1 (null terminator takes one byte).
 
   \sa std::string
-  \sa StringLike
+  \sa \ref toy::StringLike
 */
 ```
 
@@ -320,11 +320,19 @@ Link between:
 
 ### Cross-Reference Format
 
+Non-function symbols use `\ref` with full namespace qualification; functions/methods/operators stay as plain text:
+
 ```cpp
 \sa operator+=(const stringType &)
 \sa size()
-\sa Point
+\sa \ref toy::math::Point
 ```
+
+**Rules:**
+
+- Non-function symbols (classes, types, enums, namespaces, concepts): `\sa \ref toy::qualified::Name`.
+- Functions, methods, operators: plain text, fully qualified when the target lives outside the current class/namespace (e.g. `\sa toy::format()`); unqualified member references (`\sa size()`) are allowed only when the method belongs to the surrounding class.
+- Standard-library symbols (`\sa std::string`), macros (`\sa LOG_MIN_LEVEL`), and URLs (`\sa https://…`) stay as plain text without `\ref`.
 
 ---
 

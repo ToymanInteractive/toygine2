@@ -72,7 +72,7 @@ inline constexpr size_t c_messageCapacity = LOG_MESSAGE_CAPACITY;
   - **Lifetime**: \a meta must point to a \c static \c constexpr \ref toy::log::Metadata.
   - **Exception safety**: No exceptions; all fields are value types.
 
-  \sa toy::log::Metadata, toy::log::ISink, TimestampPolicy
+  \sa \ref toy::log::Metadata, \ref toy::log::ISink, \ref toy::TimestampPolicy
 */
 struct Record {
   /// Pointer to the static call-site metadata (format pattern, file, line, level).

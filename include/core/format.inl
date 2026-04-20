@@ -61,7 +61,7 @@ namespace {
 
   \note Internal helper for vformatTo(); not part of the public API.
 
-  \sa toy::FormatContext
+  \sa \ref toy::FormatContext
 */
 struct FormatArgument {
   /// Pointer to the original argument value.

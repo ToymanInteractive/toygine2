@@ -43,7 +43,7 @@ namespace toy::geometry {
   - \a T satisfies \ref toy::math::floating_point.
   - \a T satisfies \ref toy::math::fixed_point.
 
-  \sa toy::geometry::Ellipse
+  \sa \ref toy::geometry::Ellipse
 */
 template <typename T>
 concept EllipseComponent = math::floating_point<T> || math::fixed_point<T>;
@@ -90,8 +90,8 @@ concept EllipseComponent = math::floating_point<T> || math::fixed_point<T>;
     debug).
   - **Exception safety**: All operations are noexcept.
 
-  \sa EllipseComponent
-  \sa toy::math::Vector2
+  \sa \ref toy::geometry::EllipseComponent
+  \sa \ref toy::math::Vector2
 */
 template <EllipseComponent T>
 class Ellipse {

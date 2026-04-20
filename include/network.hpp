@@ -36,8 +36,8 @@
   \namespace toy::network
   \brief Network types: endpoint, socket error, flags, statistics, type, and related APIs.
 
-  \sa toy::network::Endpoint, toy::network::SocketError, toy::network::SocketFlags, toy::network::SocketStatistics,
-      toy::network::SocketType
+  \sa \ref toy::network::Endpoint, \ref toy::network::SocketError, \ref toy::network::SocketFlags,
+      \ref toy::network::SocketStatistics, \ref toy::network::SocketType
 */
 
 #include "network/endpoint.hpp"
