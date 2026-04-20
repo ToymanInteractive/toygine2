@@ -52,9 +52,9 @@ jobs:
         uses: docker/build-push-action@v7.1.0
         with:
           context: .
-          file: docker/${{ matrix.image }}.Dockerfile
+          file: ${{ matrix.dockerfile }}
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=registry,ref=ghcr.io/toymaninteractive/${{ matrix.image }}:buildcache
-          cache-to: type=registry,ref=ghcr.io/toymaninteractive/${{ matrix.image }}:buildcache,mode=max
+          cache-from: type=registry,ref=ghcr.io/toymaninteractive/${{ matrix.dockerfile }}:buildcache
+          cache-to: type=registry,ref=ghcr.io/toymaninteractive/${{ matrix.dockerfile }}:buildcache,mode=max
