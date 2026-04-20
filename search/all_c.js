@@ -26,6 +26,8 @@ var searchData=
   ['log_5fmessage_5fcapacity_23',['LOG_MESSAGE_CAPACITY',['../d1/d3a/log__record_8hpp.html#a79a1795bad8b0cc794cde609930fd1d7',1,'log_record.hpp']]],
   ['log_5fmetadata_2ehpp_24',['log_metadata.hpp',['../da/d67/log__metadata_8hpp.html',1,'']]],
   ['log_5frecord_2ehpp_25',['log_record.hpp',['../d1/d3a/log__record_8hpp.html',1,'']]],
-  ['loops_26',['Range-Based For Loops',['../df/d81/md__a_g_e_n_t_s.html#range-based-for-loops',1,'']]],
-  ['lowest_27',['lowest',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a9d605ddbec7e3ae998160a72290a276d',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]]
+  ['log_5fsink_2ecpp_26',['log_sink.cpp',['../d2/d51/log__sink_8cpp.html',1,'']]],
+  ['log_5fsink_2ehpp_27',['log_sink.hpp',['../d9/d26/log__sink_8hpp.html',1,'']]],
+  ['loops_28',['Range-Based For Loops',['../df/d81/md__a_g_e_n_t_s.html#range-based-for-loops',1,'']]],
+  ['lowest_29',['lowest',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a9d605ddbec7e3ae998160a72290a276d',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]]
 ];

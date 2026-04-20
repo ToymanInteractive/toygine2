@@ -2,6 +2,7 @@ var namespacetoy_1_1log =
 [
     [ "Metadata", "d8/dfc/structtoy_1_1log_1_1_metadata.html", "d8/dfc/structtoy_1_1log_1_1_metadata" ],
     [ "Record", "d9/d14/structtoy_1_1log_1_1_record.html", "d9/d14/structtoy_1_1log_1_1_record" ],
+    [ "ISink", "d4/dc4/classtoy_1_1log_1_1_i_sink.html", "d4/dc4/classtoy_1_1log_1_1_i_sink" ],
     [ "Level", "da/d15/namespacetoy_1_1log.html#a955f65710c884cc3393a41d2a3ad5a64", [
       [ "Trace", "da/d15/namespacetoy_1_1log.html#a955f65710c884cc3393a41d2a3ad5a64add4ec0ac4e58f7c32a01244ae91150b1", null ],
       [ "Debug", "da/d15/namespacetoy_1_1log.html#a955f65710c884cc3393a41d2a3ad5a64aa603905470e2a5b8c13e96b579ef0dba", null ],

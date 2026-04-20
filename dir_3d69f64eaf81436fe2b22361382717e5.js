@@ -25,6 +25,7 @@ var dir_3d69f64eaf81436fe2b22361382717e5 =
     [ "log_level.hpp", "d0/d01/log__level_8hpp.html", "d0/d01/log__level_8hpp" ],
     [ "log_metadata.hpp", "da/d67/log__metadata_8hpp.html", "da/d67/log__metadata_8hpp" ],
     [ "log_record.hpp", "d1/d3a/log__record_8hpp.html", "d1/d3a/log__record_8hpp" ],
+    [ "log_sink.hpp", "d9/d26/log__sink_8hpp.html", "d9/d26/log__sink_8hpp" ],
     [ "o_string_stream.hpp", "de/d2d/o__string__stream_8hpp.html", null ],
     [ "o_string_stream.inl", "d9/dcb/o__string__stream_8inl.html", null ],
     [ "platform.hpp", "d3/d60/platform_8hpp.html", "d3/d60/platform_8hpp" ],

@@ -134,7 +134,7 @@ Public Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Single log entry in the transport ring buffer. </p>
-<p>Carries the pre-formatted message along with its metadata pointer and timestamp. The message is formatted at the call site before being pushed into the transport, so the backend thread (or manual flush) only needs to forward the string to the active toy::ISink.</p>
+<p>Carries the pre-formatted message along with its metadata pointer and timestamp. The message is formatted at the call site before being pushed into the transport, so the backend thread (or manual flush) only needs to forward the string to the active <a class="el" href="../../d4/dc4/classtoy_1_1log_1_1_i_sink.html" title="toy::log::ISink">toy::log::ISink</a>.</p>
 <h1 class="doxsection"><a class="anchor" id="features"></a>
 Key Features</h1>
 <ul>
@@ -155,7 +155,7 @@ Safety Guarantees</h1>
 <li><b>Lifetime</b>: <em class="arg">meta</em> must point to a <code>static</code> <code>constexpr</code> <a class="el" href="../../d8/dfc/structtoy_1_1log_1_1_metadata.html" title="toy::log::Metadata">toy::log::Metadata</a>.</li>
 <li><b>Exception safety</b>: No exceptions; all fields are value types.</li>
 </ul>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d8/dfc/structtoy_1_1log_1_1_metadata.html" title="Immutable per-call-site descriptor stored as a static constexpr local.">toy::log::Metadata</a>, TimestampPolicy, ISink </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d8/dfc/structtoy_1_1log_1_1_metadata.html" title="toy::log::Metadata">toy::log::Metadata</a>, <a class="el" href="../../d4/dc4/classtoy_1_1log_1_1_i_sink.html" title="toy::log::ISink">toy::log::ISink</a>, toy::TimestampPolicy </dd></dl>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="a8a96b13bb52a2cfb09679d41e6f08503" name="a8a96b13bb52a2cfb09679d41e6f08503"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8a96b13bb52a2cfb09679d41e6f08503">&#9670;&#160;</a></span>message</h2>

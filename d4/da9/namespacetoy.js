@@ -17,6 +17,7 @@ var namespacetoy =
     [ "geometry", "da/d08/namespacetoy_1_1geometry.html", "da/d08/namespacetoy_1_1geometry" ],
     [ "math", "d2/d83/namespacetoy_1_1math.html", "d2/d83/namespacetoy_1_1math" ],
     [ "network", "d6/d2c/namespacetoy_1_1network.html", "d6/d2c/namespacetoy_1_1network" ],
+    [ "log", "da/d15/namespacetoy_1_1log.html", "da/d15/namespacetoy_1_1log" ],
     [ "assertion", "d2/da2/namespacetoy_1_1assertion.html", [
       [ "AssertionCallback", "d2/da2/namespacetoy_1_1assertion.html#a27a675a54a720bf1a098fd13be80553e", null ],
       [ "StackWalkCallback", "d2/da2/namespacetoy_1_1assertion.html#af491e4e307d14db3efeafb9a77ae76ef", null ],
@@ -27,7 +28,6 @@ var namespacetoy =
       [ "setCallbacks", "d2/da2/namespacetoy_1_1assertion.html#ab92066b98ab69bcf7db8e1089ea4f755", null ],
       [ "s_assertionCallback", "d2/da2/namespacetoy_1_1assertion.html#abf0c95a6d0312b84decc08fc040187c9", null ]
     ] ],
-    [ "log", "da/d15/namespacetoy_1_1log.html", "da/d15/namespacetoy_1_1log" ],
     [ "render", "df/d8d/namespacetoy_1_1render.html", [
       [ "ClearFlags", "df/d8d/namespacetoy_1_1render.html#ae44fe0c1053121f38b8544a8684ee4e1", [
         [ "None", "df/d8d/namespacetoy_1_1render.html#ae44fe0c1053121f38b8544a8684ee4e1a6adf97f83acf6453d4a6a4b1070f3754", null ],
@@ -84,7 +84,6 @@ var namespacetoy =
       ] ]
     ] ],
     [ "platform", "d4/ddd/namespacetoy_1_1platform.html", "d4/ddd/namespacetoy_1_1platform" ],
-    [ "DivMod10", "da/d8f/structtoy_1_1_div_mod10.html", "da/d8f/structtoy_1_1_div_mod10" ],
     [ "EnableBitwiseOperators", "dc/d6d/classtoy_1_1_enable_bitwise_operators.html", "dc/d6d/classtoy_1_1_enable_bitwise_operators" ],
     [ "CStringView", "d5/d03/classtoy_1_1_c_string_view.html", "d5/d03/classtoy_1_1_c_string_view" ],
     [ "CallbacksPool", "d8/dc9/classtoy_1_1_callbacks_pool.html", "d8/dc9/classtoy_1_1_callbacks_pool" ],
@@ -95,6 +94,7 @@ var namespacetoy =
     [ "FormatString", "dc/d62/classtoy_1_1_format_string.html", "dc/d62/classtoy_1_1_format_string" ],
     [ "OStringStream", "d7/d15/classtoy_1_1_o_string_stream.html", "d7/d15/classtoy_1_1_o_string_stream" ],
     [ "StringFixedStorage", "d0/d21/classtoy_1_1_string_fixed_storage.html", "d0/d21/classtoy_1_1_string_fixed_storage" ],
+    [ "DivMod10", "da/d8f/structtoy_1_1_div_mod10.html", "da/d8f/structtoy_1_1_div_mod10" ],
     [ "array", "d8/d52/classtoy_1_1array.html", "d8/d52/classtoy_1_1array" ],
     [ "OStringStreamBackend", "d0/d5a/concepttoy_1_1_o_string_stream_backend.html", null ],
     [ "StringLike", "df/d77/concepttoy_1_1_string_like.html", null ],

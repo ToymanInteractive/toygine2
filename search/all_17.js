@@ -11,7 +11,7 @@ var searchData=
   ['windowstyle_8',['WindowStyle',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#aa6c677b8c744b89734e11ea340507a72',1,'toy::platform::ui']]],
   ['without_20compatibility_9',['Simplified Class (without compatibility)',['../df/d81/md__a_g_e_n_t_s.html#simplified-class-without-compatibility',1,'']]],
   ['wouldblock_10',['WouldBlock',['../d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725eae799f8e2bec1c2593f034ec5060229e6',1,'toy::network']]],
-  ['write_11',['write',['../d8/dde/classtoy_1_1_format_context.html#a390ea1be3bdb990778545d256f145f2d',1,'toy::FormatContext::write()'],['../d7/d15/classtoy_1_1_o_string_stream.html#aa4117b9d14f9e6785fbf5cc8049e11ad',1,'toy::OStringStream::write()']]],
+  ['write_11',['write',['../d8/dde/classtoy_1_1_format_context.html#a390ea1be3bdb990778545d256f145f2d',1,'toy::FormatContext::write()'],['../d4/dc4/classtoy_1_1log_1_1_i_sink.html#a630f61169456b36f1ceccf826a42fe72',1,'toy::log::ISink::write()'],['../d7/d15/classtoy_1_1_o_string_stream.html#aa4117b9d14f9e6785fbf5cc8049e11ad',1,'toy::OStringStream::write()']]],
   ['writeappend_12',['WriteAppend',['../da/d98/namespacetoy_1_1filesystem.html#acdb0fddd61b902c502183b9c4bde188fa98ea53108a053293ee1d388d6b88564c',1,'toy::filesystem']]],
   ['writeempty_13',['WriteEmpty',['../da/d98/namespacetoy_1_1filesystem.html#acdb0fddd61b902c502183b9c4bde188fa73fd8e5dbdd94b8cbc784c0dc4adc2c1',1,'toy::filesystem']]],
   ['writefunction_14',['WriteFunction',['../d8/dde/classtoy_1_1_format_context.html#aa3393abf300d9f40eeb142ab589da7a3',1,'toy::FormatContext']]]

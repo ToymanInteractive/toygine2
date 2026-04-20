@@ -501,7 +501,7 @@ Concept Documentation</h2>
 <li>Use <span class="tt">\section requirements Requirements</span> with a bullet list of conditions that must hold. Prefer this over repeating the same information in <span class="tt">\tparam</span>.</li>
 <li>Do <b>not</b> use <span class="tt">\tparam</span> for concept template parameters when the requirements are already fully described in <span class="tt">\section requirements</span>; the requirements section is the single source of truth and avoids duplication.</li>
 <li>Use <span class="tt">\ref</span> with full namespace qualification when referencing types or concepts in the description (e.g. <span class="tt">\ref <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html" title="Fixed-point numeric type with configurable storage and fractional precision.">toy::math::fixed</a></span>).</li>
-<li><span class="tt">\sa</span> — link to related types or concepts that use or are used with this concept (do not use <span class="tt">\ref</span> inside <span class="tt">\sa</span>; Doxygen auto-links).</li>
+<li><span class="tt">\sa</span> — link to related types or concepts that use or are used with this concept; apply the same <span class="tt">\ref</span>/plain-text rules as elsewhere (see <b>See-Also Tags</b>).</li>
 <li>Optional <span class="tt">\section usage Usage Example</span> with a short <span class="tt">\code</span> block for concepts that benefit from an example (e.g. <span class="tt">static_assert(ConceptName&lt;T&gt;);</span>).</li>
 </ul>
 <p>### Parameter Documentation</p>
@@ -543,6 +543,10 @@ Concept Documentation</h2>
 <li>Add a blank line immediately before the <span class="tt">\sa</span> tag in documentation blocks.</li>
 <li>Link between: method and its operator equivalent, const/non-const overloads, method synonyms (<span class="tt">size()</span> / <span class="tt">length()</span>), related classes.</li>
 <li>2-3 references maximum per entity.</li>
+<li>**Non-function symbols must use <span class="tt">\ref</span> with full namespace qualification** (e.g. <span class="tt">\sa \ref <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="Non-owning string view class for C-style strings.">toy::CStringView</a></span>, <span class="tt">\sa \ref <a class="el" href="../../d6/dff/classtoy_1_1math_1_1_vector2.html" title="2D vector with floating-point or fixed-point components for positions, movement, and physics.">toy::math::Vector2</a></span>, <span class="tt">\sa \ref <a class="el" href="../../d4/dc4/classtoy_1_1log_1_1_i_sink.html" title="Abstract output destination for formatted log messages.">toy::log::ISink</a></span>). Do not rely on Doxygen auto-linking to resolve an unqualified name.</li>
+<li><b>Functions, methods, and operators remain plain text</b> and never use <span class="tt">\ref</span>. Qualify with the full namespace when the referenced symbol lives outside the current class or namespace (e.g. <span class="tt">\sa <a class="el" href="../../de/d08/group___format.html#ga79f053b92ccd3b7259a353d890a22cf5" title="Formats arguments into a new toy::FixedString using a compile-time validated pattern.">toy::format()</a></span>); unqualified method names (<span class="tt">\sa size()</span>, <span class="tt">\sa operator==()</span>) are allowed only when the target is a member of the surrounding class.</li>
+<li><b>Standard-library symbols</b> (<span class="tt">\sa std::string</span>, <span class="tt">\sa std::fwrite</span>) and external URLs (<span class="tt">\sa <a href="https://…">https://…</a></span>) stay as plain text without <span class="tt">\ref</span>.</li>
+<li><b>Macros</b> (<span class="tt">\sa LOG_MIN_LEVEL</span>, <span class="tt">\sa <a class="el" href="../../df/d61/bitwise__enum_8hpp.html#aeef6a9a97e9b8d6f238e592b2e566abf" title="Specializes toy::EnableBitwiseOperators so that enable is true for the scoped enum T.">ENABLE_BITWISE_OPERATORS</a></span>, <span class="tt">\sa <a class="el" href="../../d1/d5f/assertion__macro__gcc__clang_8hpp.html#a672330c2fecd516f254162cd9611d91a" title="Debug assertion macro with custom message for runtime expression checking.">assert_message</a></span>) stay as plain text; <span class="tt">\ref</span> is reserved for types, enums, namespaces, and concepts.</li>
 </ul>
 <p>### Cross-References</p>
 <ul>
@@ -565,8 +569,8 @@ Concept Documentation</h2>
 <p><b>Exceptions</b>:</p>
 <ul>
 <li>Do not use <span class="tt">\ref</span> for standard library types (<span class="tt">std::string</span>, <span class="tt">std::vector</span>, etc.).</li>
-<li>Do not use <span class="tt">\ref</span> in <span class="tt">\sa</span> or <span class="tt">\see</span> sections (they auto-link).</li>
-<li>Do not use <span class="tt">\ref</span> for functions or methods anywhere.</li>
+<li>Do not use <span class="tt">\ref</span> for functions or methods anywhere (this includes references inside <span class="tt">\sa</span> — see <b>See-Also Tags</b>).</li>
+<li>Do not use <span class="tt">\ref</span> for macros and preprocessor identifiers.</li>
 <li><b>Barrel include policy</b> (<span class="tt">.inl</span> and internal <span class="tt">.hpp</span> <span class="tt">\file</span> blocks): the line <span class="tt">\note Included by &lt;barrel&gt;.hpp only; do not include this file directly.</span> must use the real barrel filename as <b>plain text</b> (or <span class="tt">\c &lt;barrel&gt;.hpp</span> if monospace helps). <b>Do not</b> write <span class="tt">\ref <a class="el" href="../../da/d47/core_8hpp.html" title="Umbrella header for the engine core module.">core.hpp</a></span> (or similar) there—the filename is not a documented symbol; <span class="tt">\ref</span> is reserved for types, enums, namespaces, and concepts as above.</li>
 </ul>
 <p>### Class Sections Detail</p>

@@ -120,6 +120,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Immutable per-call-site descriptor stored as a static constexpr local.  <a href="../../d8/dfc/structtoy_1_1log_1_1_metadata.html#details">More...</a><br /></td></tr>
 <tr class="memitem:Record" id="r_Record"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="../../d9/d14/structtoy_1_1log_1_1_record.html">Record</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Single log entry in the transport ring buffer.  <a href="../../d9/d14/structtoy_1_1log_1_1_record.html#details">More...</a><br /></td></tr>
+<tr class="memitem:ISink" id="r_ISink"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../d4/dc4/classtoy_1_1log_1_1_i_sink.html">ISink</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstract output destination for formatted log messages.  <a href="../../d4/dc4/classtoy_1_1log_1_1_i_sink.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -163,7 +165,7 @@ Variables</h2></td></tr>
 
 <p>Severity level of a log message. </p>
 <p>Numeric ordering enables compile-time filtering: a message is compiled away when its level is less than <code>LOG_MIN_LEVEL</code>.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d8/dfc/structtoy_1_1log_1_1_metadata.html" title="Immutable per-call-site descriptor stored as a static constexpr local.">toy::log::Metadata</a>, LOG_MIN_LEVEL </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d8/dfc/structtoy_1_1log_1_1_metadata.html" title="toy::log::Metadata">toy::log::Metadata</a>, LOG_MIN_LEVEL </dd></dl>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a955f65710c884cc3393a41d2a3ad5a64add4ec0ac4e58f7c32a01244ae91150b1" name="a955f65710c884cc3393a41d2a3ad5a64add4ec0ac4e58f7c32a01244ae91150b1"></a>Trace&#160;</td><td class="fielddoc"><p>Fine-grained diagnostic information. </p>
 </td></tr>

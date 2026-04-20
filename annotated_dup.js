@@ -28,9 +28,9 @@ var annotated_dup =
       ] ],
       [ "log", "da/d15/namespacetoy_1_1log.html", [
         [ "Metadata", "d8/dfc/structtoy_1_1log_1_1_metadata.html", "d8/dfc/structtoy_1_1log_1_1_metadata" ],
-        [ "Record", "d9/d14/structtoy_1_1log_1_1_record.html", "d9/d14/structtoy_1_1log_1_1_record" ]
+        [ "Record", "d9/d14/structtoy_1_1log_1_1_record.html", "d9/d14/structtoy_1_1log_1_1_record" ],
+        [ "ISink", "d4/dc4/classtoy_1_1log_1_1_i_sink.html", "d4/dc4/classtoy_1_1log_1_1_i_sink" ]
       ] ],
-      [ "DivMod10", "da/d8f/structtoy_1_1_div_mod10.html", "da/d8f/structtoy_1_1_div_mod10" ],
       [ "EnableBitwiseOperators", "dc/d6d/classtoy_1_1_enable_bitwise_operators.html", "dc/d6d/classtoy_1_1_enable_bitwise_operators" ],
       [ "CStringView", "d5/d03/classtoy_1_1_c_string_view.html", "d5/d03/classtoy_1_1_c_string_view" ],
       [ "CallbacksPool", "d8/dc9/classtoy_1_1_callbacks_pool.html", "d8/dc9/classtoy_1_1_callbacks_pool" ],
@@ -41,6 +41,7 @@ var annotated_dup =
       [ "FormatString", "dc/d62/classtoy_1_1_format_string.html", "dc/d62/classtoy_1_1_format_string" ],
       [ "OStringStream", "d7/d15/classtoy_1_1_o_string_stream.html", "d7/d15/classtoy_1_1_o_string_stream" ],
       [ "StringFixedStorage", "d0/d21/classtoy_1_1_string_fixed_storage.html", "d0/d21/classtoy_1_1_string_fixed_storage" ],
+      [ "DivMod10", "da/d8f/structtoy_1_1_div_mod10.html", "da/d8f/structtoy_1_1_div_mod10" ],
       [ "array", "d8/d52/classtoy_1_1array.html", "d8/d52/classtoy_1_1array" ]
     ] ],
     [ "numeric_limits", "db/dc2/classnumeric__limits.html", null ]

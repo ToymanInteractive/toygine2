@@ -26,6 +26,7 @@ var hierarchy =
     [ "toy::geometry::Circle&lt; T &gt;", "df/d25/classtoy_1_1geometry_1_1_circle.html", null ],
     [ "toy::geometry::Ellipse&lt; T &gt;", "d9/dd1/classtoy_1_1geometry_1_1_ellipse.html", null ],
     [ "toy::geometry::Section&lt; T &gt;", "db/d6f/classtoy_1_1geometry_1_1_section.html", null ],
+    [ "toy::log::ISink", "d4/dc4/classtoy_1_1log_1_1_i_sink.html", null ],
     [ "toy::log::Metadata", "d8/dfc/structtoy_1_1log_1_1_metadata.html", null ],
     [ "toy::log::Record", "d9/d14/structtoy_1_1log_1_1_record.html", null ],
     [ "toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt;", "dd/d5c/classtoy_1_1math_1_1fixed.html", null ],

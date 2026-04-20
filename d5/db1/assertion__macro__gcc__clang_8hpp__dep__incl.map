@@ -1,41 +1,43 @@
 <map id="src/platforms/common/assertion_macro_gcc_clang.hpp" name="src/platforms/common/assertion_macro_gcc_clang.hpp">
-<area shape="rect" id="Node000001" title="Debug and Release assertion macro implementations for GCC/Clang platforms." alt="" coords="743,5,913,60"/>
-<area shape="rect" id="Node000002" href="$d5/d82/3ds_2platform__config_8hpp.html" title="Compile&#45;time platform and CPU bindings for Nintendo 3DS." alt="" coords="221,108,416,148"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="730,54,417,112,416,106,729,49"/>
-<area shape="rect" id="Node000003" href="$df/db1/gba_2platform__config_8hpp.html" title="Compile&#45;time platform and CPU bindings for Nintendo GBA." alt="" coords="441,108,637,148"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="734,67,598,111,596,105,733,62"/>
-<area shape="rect" id="Node000004" href="$dd/d9e/linux_2platform__config_8hpp.html" title="Compile&#45;time platform and CPU bindings for Linux." alt="" coords="661,108,817,148"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="795,72,759,110,755,106,791,68"/>
-<area shape="rect" id="Node000020" href="$d8/d80/macos_2platform__config_8hpp.html" title="Compile&#45;time platform and CPU bindings for macOS." alt="" coords="841,108,997,148"/>
-<area shape="poly" id="edge26_Node000001_Node000020" title=" " alt="" coords="865,68,902,106,898,110,861,72"/>
-<area shape="rect" id="Node000021" href="$dc/d74/nds_2platform__config_8hpp.html" title="Compile&#45;time platform and CPU bindings for Nintendo DS." alt="" coords="1021,108,1216,148"/>
-<area shape="poly" id="edge27_Node000001_Node000021" title=" " alt="" coords="924,62,1061,105,1059,111,922,67"/>
-<area shape="rect" id="Node000022" href="$db/d83/switch_2platform__config_8hpp.html" title="Compile&#45;time platform and CPU bindings for Nintendo Switch." alt="" coords="1241,108,1397,148"/>
-<area shape="poly" id="edge28_Node000001_Node000022" title=" " alt="" coords="926,49,1229,105,1241,108,1240,113,1227,111,925,54"/>
-<area shape="rect" id="Node000005" href="$da/d47/core_8hpp.html" title="Umbrella header for the engine core module." alt="" coords="674,196,803,221"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="741,162,741,196,736,196,736,162"/>
+<area shape="rect" id="Node000001" title="Debug and Release assertion macro implementations for GCC/Clang platforms." alt="" coords="801,5,970,60"/>
+<area shape="rect" id="Node000002" href="$d5/d82/3ds_2platform__config_8hpp.html" title="Compile&#45;time platform and CPU bindings for Nintendo 3DS." alt="" coords="279,108,473,148"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="788,54,474,112,473,106,787,49"/>
+<area shape="rect" id="Node000003" href="$df/db1/gba_2platform__config_8hpp.html" title="Compile&#45;time platform and CPU bindings for Nintendo GBA." alt="" coords="498,108,694,148"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="792,67,655,111,653,105,790,62"/>
+<area shape="rect" id="Node000004" href="$dd/d9e/linux_2platform__config_8hpp.html" title="Compile&#45;time platform and CPU bindings for Linux." alt="" coords="718,108,874,148"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="853,72,816,110,812,106,849,68"/>
+<area shape="rect" id="Node000021" href="$d8/d80/macos_2platform__config_8hpp.html" title="Compile&#45;time platform and CPU bindings for macOS." alt="" coords="898,108,1054,148"/>
+<area shape="poly" id="edge27_Node000001_Node000021" title=" " alt="" coords="922,68,960,106,956,110,919,72"/>
+<area shape="rect" id="Node000022" href="$dc/d74/nds_2platform__config_8hpp.html" title="Compile&#45;time platform and CPU bindings for Nintendo DS." alt="" coords="1079,108,1273,148"/>
+<area shape="poly" id="edge28_Node000001_Node000022" title=" " alt="" coords="981,62,1118,105,1117,111,979,67"/>
+<area shape="rect" id="Node000023" href="$db/d83/switch_2platform__config_8hpp.html" title="Compile&#45;time platform and CPU bindings for Nintendo Switch." alt="" coords="1298,108,1454,148"/>
+<area shape="poly" id="edge29_Node000001_Node000023" title=" " alt="" coords="984,49,1286,105,1298,108,1297,113,1285,111,983,54"/>
+<area shape="rect" id="Node000005" href="$da/d47/core_8hpp.html" title="Umbrella header for the engine core module." alt="" coords="731,196,861,221"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="799,162,799,196,793,196,793,162"/>
 <area shape="rect" id="Node000006" href="$d4/d01/application_8hpp.html" title="Umbrella header for the app module." alt="" coords="5,357,179,383"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="660,215,545,221,411,232,286,248,236,259,198,272,167,291,140,314,102,359,98,355,136,311,164,286,196,267,234,254,285,243,410,226,544,216,660,210"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="718,214,590,219,439,229,298,246,241,258,198,272,167,291,140,314,102,359,98,355,136,311,164,286,196,267,239,253,297,241,439,224,590,214,718,209"/>
 <area shape="rect" id="Node000007" href="$d8/d8c/toygine2_8hpp.html" title="Main umbrella header for the engine." alt="" coords="409,431,567,456"/>
-<area shape="poly" id="edge22_Node000005_Node000007" title=" " alt="" coords="661,216,568,223,466,234,373,250,336,260,309,272,284,289,267,307,255,329,244,358,240,371,243,381,268,398,309,412,409,431,408,436,308,417,266,403,239,384,235,371,239,356,250,326,262,304,280,285,307,267,335,255,372,245,465,228,568,218,660,211"/>
+<area shape="poly" id="edge22_Node000005_Node000007" title=" " alt="" coords="718,215,613,220,494,230,384,247,341,258,309,272,284,289,267,307,255,329,244,358,240,371,243,381,268,398,309,412,409,431,408,436,308,417,266,403,239,384,235,371,239,356,250,326,262,303,280,285,307,267,339,253,383,242,493,225,613,215,718,209"/>
 <area shape="rect" id="Node000008" href="$d1/d71/audio_8hpp.html" title="Umbrella header for the audio module." alt="" coords="254,357,391,383"/>
-<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="660,213,569,216,470,225,383,243,350,255,329,271,318,291,315,315,322,357,316,358,310,315,313,290,325,268,348,251,381,238,469,220,568,210,660,207"/>
+<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="718,217,485,237,381,253,347,262,329,271,318,291,315,315,322,357,316,357,310,315,313,290,325,267,345,257,380,247,484,232,717,212"/>
 <area shape="rect" id="Node000009" href="$d8/d39/game_8hpp.html" title="Umbrella header for the game module." alt="" coords="339,277,477,302"/>
-<area shape="poly" id="edge9_Node000005_Node000009" title=" " alt="" coords="678,227,457,279,456,274,677,222"/>
+<area shape="poly" id="edge9_Node000005_Node000009" title=" " alt="" coords="721,226,490,272,457,279,456,274,489,267,720,221"/>
 <area shape="rect" id="Node000010" href="$d4/d78/math_8hpp.html" title="Umbrella header for the math module." alt="" coords="502,277,637,302"/>
-<area shape="poly" id="edge10_Node000005_Node000010" title=" " alt="" coords="703,229,595,279,593,274,701,225"/>
+<area shape="poly" id="edge10_Node000005_Node000010" title=" " alt="" coords="751,228,603,279,601,274,749,223"/>
 <area shape="rect" id="Node000012" href="$d6/d67/network_8hpp.html" title="Umbrella header for the network module." alt="" coords="661,277,816,302"/>
-<area shape="poly" id="edge14_Node000005_Node000012" title=" " alt="" coords="741,235,741,276,736,276,736,235"/>
+<area shape="poly" id="edge14_Node000005_Node000012" title=" " alt="" coords="782,234,749,278,745,275,777,231"/>
 <area shape="rect" id="Node000014" href="$de/dd6/ui_8hpp.html" title="Umbrella header for platform UI types." alt="" coords="915,357,1088,383"/>
-<area shape="poly" id="edge17_Node000005_Node000014" title=" " alt="" coords="769,227,830,267,855,288,881,307,930,334,975,355,973,360,928,339,879,312,852,292,826,271,766,231"/>
+<area shape="poly" id="edge17_Node000005_Node000014" title=" " alt="" coords="813,232,843,270,882,307,927,335,970,355,968,360,924,340,878,311,839,273,809,235"/>
 <area shape="rect" id="Node000015" href="$d6/d4b/render_8hpp.html" title="Umbrella header for the render module." alt="" coords="891,277,1034,302"/>
-<area shape="poly" id="edge19_Node000005_Node000015" title=" " alt="" coords="785,223,931,274,929,279,783,228"/>
+<area shape="poly" id="edge19_Node000005_Node000015" title=" " alt="" coords="834,225,940,274,937,279,832,230"/>
 <area shape="rect" id="Node000017" href="$db/d2d/hashes_8cpp.html" title="Table&#45;driven implementations of toy::crc8(), toy::crc16(), and toy::crc32()." alt="" coords="1058,277,1209,302"/>
-<area shape="poly" id="edge23_Node000005_Node000017" title=" " alt="" coords="813,221,1046,267,1081,274,1080,279,1045,272,812,227"/>
-<area shape="rect" id="Node000018" href="$de/d06/utils_8cpp.html" title="Definitions for string, encoding, and number utilities declared in core/utils.hpp." alt="" coords="1233,277,1365,302"/>
-<area shape="poly" id="edge24_Node000005_Node000018" title=" " alt="" coords="817,214,1002,234,1222,267,1256,274,1255,279,1221,272,1002,239,817,220"/>
-<area shape="rect" id="Node000019" href="$d7/d90/assertion__stub_8cpp.html" title="Stub definitions for the assertion callback API declared in core/assertion.hpp." alt="" coords="1389,269,1569,309"/>
-<area shape="poly" id="edge25_Node000005_Node000019" title=" " alt="" coords="817,212,1067,232,1222,248,1378,267,1389,268,1388,274,1377,272,1222,253,1067,237,817,218"/>
+<area shape="poly" id="edge23_Node000005_Node000017" title=" " alt="" coords="859,222,1085,274,1084,279,858,227"/>
+<area shape="rect" id="Node000018" href="$d2/d51/log__sink_8cpp.html" title="Out&#45;of&#45;line definitions for toy::log::ISink." alt="" coords="1233,277,1391,302"/>
+<area shape="poly" id="edge24_Node000005_Node000018" title=" " alt="" coords="875,217,1035,238,1222,267,1260,274,1259,279,1221,272,1034,243,874,222"/>
+<area shape="rect" id="Node000019" href="$de/d06/utils_8cpp.html" title="Definitions for string, encoding, and number utilities declared in core/utils.hpp." alt="" coords="1415,277,1547,302"/>
+<area shape="poly" id="edge25_Node000005_Node000019" title=" " alt="" coords="875,211,1112,230,1258,246,1404,267,1440,274,1438,279,1404,272,1258,251,1112,235,874,217"/>
+<area shape="rect" id="Node000020" href="$d7/d90/assertion__stub_8cpp.html" title="Stub definitions for the assertion callback API declared in core/assertion.hpp." alt="" coords="1571,269,1751,309"/>
+<area shape="poly" id="edge26_Node000005_Node000020" title=" " alt="" coords="875,211,1176,229,1367,245,1560,267,1571,268,1570,273,1560,272,1367,250,1176,234,874,216"/>
 <area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="170,382,424,428,423,433,169,388"/>
 <area shape="poly" id="edge8_Node000008_Node000007" title=" " alt="" coords="363,386,462,428,460,433,361,390"/>
 <area shape="poly" id="edge13_Node000010_Node000007" title=" " alt="" coords="519,310,484,330,469,343,457,358,453,377,458,396,479,429,475,432,453,398,448,377,452,356,465,339,481,325,516,305"/>
