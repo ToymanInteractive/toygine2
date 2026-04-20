@@ -8,7 +8,8 @@ on:
       CODECOV_TOKEN:
         required: true
 
-permissions: {}
+permissions:
+  packages: read
 
 jobs:
   build:
