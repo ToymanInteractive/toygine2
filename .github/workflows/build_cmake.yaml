@@ -8,7 +8,8 @@ on:
       CODECOV_TOKEN:
         required: true
 
-permissions: {}
+permissions:
+  packages: read
 
 jobs:
   build:
@@ -64,7 +65,7 @@ jobs:
 
           - name: DevkitPro GBA
             os: ubuntu-24.04
-            container: devkitpro/devkitarm:20260221
+            container: ghcr.io/toymaninteractive/toygine2.gba.toolchain:latest
             run_test: "false"
             cmake_preset: nintendo-gba-ninja-release
 
