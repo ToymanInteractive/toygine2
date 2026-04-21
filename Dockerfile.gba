@@ -1,4 +1,26 @@
+# --- Stage 1: mGBA builder ---
+FROM devkitpro/devkitarm:20260221 AS mgba-builder
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    git ca-certificates cmake ninja-build zlib1g-dev \
+ && rm -rf /var/lib/apt/lists/*
+
+RUN git clone https://github.com/mgba-emu/mgba.git /tmp/mgba \
+ && git -C /tmp/mgba checkout f8082d31fb3ef6af15226e74229d6a5aaec526c6 \
+ && cmake -S /tmp/mgba -B /tmp/mgba/build \
+      -G Ninja \
+      -DCMAKE_BUILD_TYPE=Release \
+      -DBUILD_SDL=OFF \
+      -DBUILD_QT=OFF \
+      -DBUILD_LIBRETRO=OFF \
+      -DUSE_FFMPEG=OFF \
+      -DUSE_DISCORD_RPC=OFF \
+ && cmake --build /tmp/mgba/build --target mgba-headless
+
+# --- Stage 2: final image ---
 FROM devkitpro/devkitarm:20260221
+
+COPY --from=mgba-builder /tmp/mgba/build/mgba-headless /usr/local/bin/mgba-headless
 
 LABEL org.opencontainers.image.title="ToyGine2 GBA Toolchain"
 LABEL org.opencontainers.image.description="devkitARM toolchain for building ToyGine2 targeting GBA."
