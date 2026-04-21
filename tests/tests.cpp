@@ -44,6 +44,37 @@ static void stackWalkCallback([[maybe_unused]] const char * info) {}
 
 #include "gba_filtering_stream_buf.hpp"
 
+using vu16 = volatile unsigned short;
+
+inline vu16 & mgba_enable_reg() {
+  return *reinterpret_cast<vu16 *>(0x4FFF780);
+}
+
+inline vu16 & mgba_flags_reg() {
+  return *reinterpret_cast<vu16 *>(0x4FFF700);
+}
+
+#define MGBA_LOG_FATAL 0
+#define MGBA_LOG_ERROR 1
+#define MGBA_LOG_WARN  2
+#define MGBA_LOG_INFO  3
+#define MGBA_LOG_DEBUG 4
+#define MGBA_SEND      0x100
+
+bool mgba_probe() {
+  mgba_enable_reg() = 0xC0DE;
+  return mgba_enable_reg() == 0x1DEA;
+}
+
+// Завершить эмулятор (exitCode — для CI: 0 = success)
+static inline void mgba_exit(int exitCode) {
+  if (!mgba_probe())
+    return;
+  // FATAL level вызывает выход из эмулятора
+  // exitCode передаётся в старшем байте flags
+  mgba_flags_reg() = MGBA_LOG_FATAL | MGBA_SEND | ((exitCode & 0xFF) << 8);
+}
+
 int main() {
   irqInit();
   irqEnable(IRQ_VBLANK);
@@ -69,10 +100,11 @@ int main() {
   // important - query flags (and --exit) rely on the user doing this
   if (context.shouldExit()) {
     // propagate the result of the tests
-    return res;
+    mgba_exit(res);
   }
 
-  return res;
+  mgba_exit(res);
+  while (true) {} // hang on real device
 }
 
 #else
