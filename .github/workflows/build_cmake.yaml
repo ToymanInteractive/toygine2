@@ -69,7 +69,7 @@ jobs:
           - name: DevkitPro GBA
             os: ubuntu-24.04
             container: ghcr.io/toymaninteractive/toygine2.gba.toolchain:latest
-            run_test: "false"
+            run_test: "true"
             cmake_preset: nintendo-gba-ninja-release
 
           - name: DevkitPro NDS
@@ -182,7 +182,11 @@ jobs:
           cmake --preset ${{ matrix.cmake_preset }}
           cmake --build --preset ${{ matrix.cmake_preset }}
           if [ "${{ matrix.run_test }}" = "true" ]; then
-            ctest --preset ${{ matrix.cmake_preset }}
+            if [ "${{ matrix.container }}" = "ghcr.io/toymaninteractive/toygine2.gba.toolchain:latest" ]; then
+              mgba-headless out/build/${{ matrix.cmake_preset }}/tests/toygine-units.gba
+            else
+              ctest --preset ${{ matrix.cmake_preset }}
+            fi
           fi
           if [ "${{ matrix.run_benchmarks }}" = "true" ]; then
             cmake --build --preset ${{ matrix.cmake_preset }} --target benchmarks_run
