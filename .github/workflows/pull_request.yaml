@@ -11,7 +11,6 @@ concurrency:
 
 permissions:
   contents: read
-  packages: read
 
 jobs:
   dispatcher:
@@ -64,5 +63,8 @@ jobs:
     name: Build with CMake
     needs:
       - style
+    permissions:
+      contents: read
+      packages: read
     uses: ./.github/workflows/build_cmake.yaml
     secrets: inherit
