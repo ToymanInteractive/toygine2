@@ -1,12 +1,9 @@
 name: Build Docker images
 
 on:
-  push:
+  pull_request:
     branches:
       - main
-    paths:
-      - Dockerfile.gba
-  workflow_dispatch:
 
 permissions:
   contents: read
