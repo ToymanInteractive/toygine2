@@ -33,6 +33,7 @@
 #include <algorithm>
 #include <array>
 #include <bit>
+#include <chrono>
 #include <cmath>
 #include <compare>
 #include <concepts>
@@ -213,6 +214,25 @@ using std::char_traits;
 
   \brief UTF-8 / wide-character conversion, code-point counting, and in-place string reversal.
 */
+
+/*!
+  \defgroup Chrono Chrono
+
+  \brief Hardware clock access and time-measurement utilities.
+*/
+
+/*!
+  \namespace toy::chrono
+
+  \brief Time-measurement types: duration and time-point aliases over \c std::chrono.
+
+  Thin wrappers that keep engine code free of direct \c std::chrono qualification while preserving full interoperability
+  with the standard library. All members are transparent aliases; no additional runtime behavior is introduced.
+*/
+
+//--------------------------------------------------------------------------------------------------------------------
+
+#include "core/chrono_duration.hpp"
 
 //--------------------------------------------------------------------------------------------------------------------
 
