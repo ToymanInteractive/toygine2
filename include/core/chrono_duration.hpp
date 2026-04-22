@@ -51,11 +51,11 @@ using Duration = std::chrono::duration<RepresentationType, PeriodType>;
   \ingroup Chrono
 
   \tparam ClockType    The clock type that defines the epoch.
-  \tparam DurationType Duration type used to store the offset from the epoch (defaults to \c Clock::duration).
+  \tparam DurationType Duration type used to store the offset from the epoch (defaults to \c ClockType::duration).
 
   \sa \ref toy::chrono::Duration
 */
-template <typename ClockType, typename DurationType = typename Clock::duration>
+template <typename ClockType, typename DurationType = typename ClockType::duration>
 using TimePoint = std::chrono::time_point<ClockType, DurationType>;
 
 /// Brings \c std::chrono::duration_cast into \ref toy::chrono for unqualified use at call sites.
