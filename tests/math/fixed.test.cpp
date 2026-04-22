@@ -470,7 +470,9 @@ TEST_CASE("math/fixed/fixed_point_concept") {
 
   // Concept constrains template: function accepts only fixed types.
   SUBCASE("concept_constrains_template") {
-    constexpr auto       check = [](fixed_point auto) constexpr { return true; };
+    constexpr auto check = [](fixed_point auto) constexpr {
+      return true;
+    };
     constexpr fixed_type f(1);
 
     REQUIRE(check(f));
