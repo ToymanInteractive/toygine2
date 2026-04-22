@@ -128,10 +128,14 @@ TEST_CASE("core/callbacks_pool/add_method") {
     CallbacksPool<double, 4> doublePool;
     CallbacksPool<size_t, 4> sizePool;
 
-    void (*doubleCallback)(double) = [](double d) { (void)d; };
+    void (*doubleCallback)(double) = [](double d) {
+      (void)d;
+    };
     REQUIRE(doublePool.add(doubleCallback));
 
-    void (*sizeCallback)(size_t) = [](size_t s) { (void)s; };
+    void (*sizeCallback)(size_t) = [](size_t s) {
+      (void)s;
+    };
     REQUIRE(sizePool.add(sizeCallback));
   }
 }
