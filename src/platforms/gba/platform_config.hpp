@@ -37,6 +37,9 @@
 
 namespace toy {
 
+/// Denominator of the \ref toy::chrono::SteadyClock tick period (GBA system clock: 16.78 MHz).
+inline constexpr uint64_t c_steadyClockPeriodDen = 16'777'216;
+
 inline constexpr auto currentPlatform = Platform::GBA;
 
 inline constexpr auto currentCpuArchitecture = CpuArchitecture::Arm32;
