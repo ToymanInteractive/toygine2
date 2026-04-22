@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['writefunction_0',['WriteFunction',['../d8/dde/classtoy_1_1_format_context.html#aa3393abf300d9f40eeb142ab589da7a3',1,'toy::FormatContext']]]
+  ['value_5ftype_0',['value_type',['../d3/d7a/classtoy_1_1_fixed_string.html#ab6e6024e5b0be04a1757987e76e7bc64',1,'toy::FixedString::value_type'],['../d7/dec/classtoy_1_1_fixed_vector.html#a9ade8246e6a0327c4e6667d294a60957',1,'toy::FixedVector::value_type']]]
 ];

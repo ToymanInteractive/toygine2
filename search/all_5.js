@@ -33,5 +33,6 @@ var searchData=
   ['documentation_20tone_30',['Documentation Tone',['../df/d81/md__a_g_e_n_t_s.html#documentation-tone',1,'']]],
   ['doxygen_20block_20style_31',['Doxygen Block Style',['../df/d81/md__a_g_e_n_t_s.html#doxygen-block-style',1,'']]],
   ['dummy_32',['Dummy',['../d6/d2c/namespacetoy_1_1network.html#a465745810e1e093a3e2aaa44ba340b8eabcf036b6f33e182d4705f4f5b1af13ac',1,'toy::network']]],
-  ['duplication_33',['Redundancy and Duplication',['../df/d81/md__a_g_e_n_t_s.html#redundancy-and-duplication',1,'']]]
+  ['duplication_33',['Redundancy and Duplication',['../df/d81/md__a_g_e_n_t_s.html#redundancy-and-duplication',1,'']]],
+  ['duration_34',['Duration',['../df/d55/group___chrono.html#gace373a99bbd4ede0fd9bc7649dd8b89b',1,'toy::chrono']]]
 ];

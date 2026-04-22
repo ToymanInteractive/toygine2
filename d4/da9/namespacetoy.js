@@ -17,6 +17,10 @@ var namespacetoy =
     [ "geometry", "da/d08/namespacetoy_1_1geometry.html", "da/d08/namespacetoy_1_1geometry" ],
     [ "math", "d2/d83/namespacetoy_1_1math.html", "d2/d83/namespacetoy_1_1math" ],
     [ "network", "d6/d2c/namespacetoy_1_1network.html", "d6/d2c/namespacetoy_1_1network" ],
+    [ "chrono", "db/d3c/namespacetoy_1_1chrono.html", [
+      [ "Duration", "df/d55/group___chrono.html#gace373a99bbd4ede0fd9bc7649dd8b89b", null ],
+      [ "TimePoint", "df/d55/group___chrono.html#gab2f3f4a2e7cd019f26bcee7da8512dc9", null ]
+    ] ],
     [ "log", "da/d15/namespacetoy_1_1log.html", "da/d15/namespacetoy_1_1log" ],
     [ "assertion", "d2/da2/namespacetoy_1_1assertion.html", [
       [ "AssertionCallback", "d2/da2/namespacetoy_1_1assertion.html#a27a675a54a720bf1a098fd13be80553e", null ],
