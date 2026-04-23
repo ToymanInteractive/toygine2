@@ -41,6 +41,13 @@ inline constexpr auto currentPlatform = Platform::Switch;
 
 inline constexpr auto currentCpuArchitecture = CpuArchitecture::Arm64;
 
+namespace chrono {
+
+/// Denominator of the \ref toy::chrono::SteadyClock tick period (nanosecond resolution).
+inline constexpr uint64_t c_steadyClockPeriodDenominator = 1'000'000'000;
+
+} // namespace chrono
+
 } // namespace toy
 
 #endif // defined(__DEVKITPRO__)

@@ -51,6 +51,13 @@ inline constexpr auto currentCpuArchitecture = CpuArchitecture::x86;
 inline constexpr auto currentCpuArchitecture = CpuArchitecture::Unknown;
 #endif
 
+namespace chrono {
+
+/// Denominator of the \ref toy::chrono::SteadyClock tick period (nanosecond resolution).
+inline constexpr uint64_t c_steadyClockPeriodDenominator = 1'000'000'000;
+
+} // namespace chrono
+
 } // namespace toy
 
 #endif // defined(__APPLE__) && defined(TARGET_OS_OSX)

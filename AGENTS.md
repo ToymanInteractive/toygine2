@@ -31,6 +31,18 @@ Other top-level directories: `cmake/` (build scripts), `docs/` (documentation), 
 
 ---
 
+## C++ game engine style guide
+
+- **Data-oriented design:** Structure code around data flow and memory layout, not class hierarchies. Prefer Struct-of-Arrays, contiguous storage, and cache-friendly access for per-frame data.
+- **Zero-cost abstractions:** Abstractions must compile down to hand-written equivalents. Avoid `std::function`, virtual dispatch, and type erasure on hot paths unless measured and justified.
+- **Composition over inheritance:** Build behavior from small, focused components and free functions. Prefer static polymorphism (templates, concepts, CRTP) over runtime polymorphism; deep inheritance is discouraged.
+- **Systems over managers:** Prefer small, single-purpose systems that transform component data over monolithic managers that own both state and behavior.
+- **Simulation / presentation split:** Keep deterministic simulation state separate from presentation state (renderer, audio, UI). Game logic must not depend on frame rate, render order, or platform API availability.
+- **Explicit resource lifetime:** Asset, scene, and subsystem ownership must be explicit. Use RAII at module boundaries; prefer handles or indices over raw pointers for long-lived resources; avoid global singletons for engine services.
+- **SOLID where it helps:** Apply SOLID for editor, tooling, and high-level gameplay code. In performance-critical paths, defer to measurement and data-oriented reasoning.
+
+---
+
 ## Project Context
 
 This repository contains a C++ game engine targeting:
@@ -39,13 +51,6 @@ This repository contains a C++ game engine targeting:
 - Mobile platforms
 - Embedded and constrained systems
 - Retro consoles (fixed memory, no OS assumptions)
-
-Key priorities:
-
-- Deterministic behavior
-- Minimal allocations
-- Compile-time validation
-- Long-term maintainability
 
 ---
 
@@ -61,7 +66,6 @@ Key priorities:
 - Favor **value semantics** over shared mutable state.
 - Functions should ideally depend only on their inputs and produce observable results explicitly.
 
-- Optimize for **deterministic behavior** and reproducibility across platforms.
 - Prefer designs that are **constexpr-friendly** and verifiable at compile time.
 - Make invalid states **unrepresentable** where possible.
 
