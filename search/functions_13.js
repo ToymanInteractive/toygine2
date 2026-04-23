@@ -1,9 +1,8 @@
 var searchData=
 [
-  ['validateformatimpl_0',['validateFormatImpl',['../d4/d6e/group___string.html#ga001484b1a940bb2691fdd2d66c1a14c9',1,'toy::anonymous_namespace{format_pattern.inl}']]],
-  ['validateformatpattern_1',['validateFormatPattern',['../de/d08/group___format.html#ga5b1768ae7cdfb38447089aca42336c1e',1,'toy']]],
-  ['vector2_2',['Vector2',['../d6/dff/classtoy_1_1math_1_1_vector2.html#af9315abf5ba7c23361d2c60bb2f9d596',1,'toy::math::Vector2::Vector2() noexcept'],['../d6/dff/classtoy_1_1math_1_1_vector2.html#a5c87e272c06ae9a10a2911962e23405b',1,'toy::math::Vector2::Vector2(const T &amp;x, const T &amp;y) noexcept'],['../d6/dff/classtoy_1_1math_1_1_vector2.html#aa00e0757debd78e1fb047cbfa3515c9e',1,'toy::math::Vector2::Vector2(const T *values) noexcept'],['../d2/d83/namespacetoy_1_1math.html#aa98423d123dbd11c048cb1caa94e9f5a',1,'toy::math::Vector2()']]],
-  ['vformat_3',['vformat',['../de/d08/group___format.html#gac84e6047764bd1d720bbda3d0c6291b8',1,'toy']]],
-  ['vformatto_4',['vformatTo',['../de/d08/group___format.html#ga024f540d2d32f3ac5fe1bb21b3f57a1a',1,'toy']]],
-  ['view_5',['view',['../d7/d15/classtoy_1_1_o_string_stream.html#a97643897fa4110ab84c86f57788fd8de',1,'toy::OStringStream']]]
+  ['utf8_5fpop_5fback_0',['utf8_pop_back',['../d3/d7a/classtoy_1_1_fixed_string.html#aca80fc41b7a1fbf52786e1c66f837977',1,'toy::FixedString']]],
+  ['utf8_5fsize_1',['utf8_size',['../d5/d03/classtoy_1_1_c_string_view.html#af2fcc3a984aa7a26f458509827c72fea',1,'toy::CStringView::utf8_size()'],['../d3/d7a/classtoy_1_1_fixed_string.html#a72efed1a713479fd77505ede267a2d33',1,'toy::FixedString::utf8_size()']]],
+  ['utf8len_2',['utf8Len',['../d9/d39/group___string_text.html#ga5ab02021f4ca34e0d5b6a1b0172ebe95',1,'toy']]],
+  ['utf8towchar_3',['utf8toWChar',['../d9/d39/group___string_text.html#ga2bc2dc2817640958352b4e80ec99b2be',1,'toy::utf8toWChar(wchar_t *dest, size_t destSize, const char *src) noexcept'],['../d9/d39/group___string_text.html#gaa0dda7b7f9781bc3cd35484ce3e5282e',1,'toy::utf8toWChar(wchar_t *dest, size_t destSize, const T &amp;src) noexcept'],['../d9/d39/group___string_text.html#gaf944593cdbcc7eef7bf2a0e9ed116c8c',1,'toy::utf8toWChar(wchar_t *dest, size_t destSize, const char *src, size_t count) noexcept']]],
+  ['utoa_4',['utoa',['../d4/da9/namespacetoy.html#a14ccea4a485c2aa69412836a22a6cdda',1,'toy']]]
 ];

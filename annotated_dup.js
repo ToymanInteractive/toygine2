@@ -7,6 +7,9 @@ var annotated_dup =
       [ "application", "d0/d3e/namespacetoy_1_1application.html", [
         [ "Version", "d7/d33/structtoy_1_1application_1_1_version.html", "d7/d33/structtoy_1_1application_1_1_version" ]
       ] ],
+      [ "chrono", "db/d3c/namespacetoy_1_1chrono.html", [
+        [ "ClockSource", "d9/d63/classtoy_1_1chrono_1_1_clock_source.html", "d9/d63/classtoy_1_1chrono_1_1_clock_source" ]
+      ] ],
       [ "anonymous_namespace{format.inl}", "d8/de4/namespacetoy_1_1anonymous__namespace_02format_8inl_03.html", [
         [ "FormatArgument", "d5/dda/structtoy_1_1anonymous__namespace_02format_8inl_03_1_1_format_argument.html", "d5/dda/structtoy_1_1anonymous__namespace_02format_8inl_03_1_1_format_argument" ]
       ] ],
