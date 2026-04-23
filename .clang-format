@@ -61,7 +61,7 @@ AllowShortFunctionsOnASingleLine: Empty
 AllowShortIfStatementsOnASingleLine: Never
 AllowShortLambdasOnASingleLine: Empty
 AllowShortLoopsOnASingleLine: false
-AllowShortNamespacesOnASingleLine: true
+AllowShortNamespacesOnASingleLine: false
 # Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#alwaysbreakafterdefinitionreturntype
 AlwaysBreakAfterReturnType: None
 AlwaysBreakBeforeMultilineStrings: false
