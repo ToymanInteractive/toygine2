@@ -138,6 +138,18 @@ Project Structure</h1>
 <p><span class="tt">src/platforms/</span> holds platform-specific implementations and per-target <span class="tt">platform_config.hpp</span>; it is not a module.</p>
 <p>Other top-level directories: <span class="tt">cmake/</span> (build scripts), <span class="tt">docs/</span> (documentation), <span class="tt">extern/</span> (vendored deps), <span class="tt">tools/</span> (CI scripts), <span class="tt">.github/</span> (GitHub Actions), <span class="tt">.vscode/</span> (editor settings).</p>
 <hr  />
+<h1 class="doxsection"><a class="anchor" id="c-game-engine-style-guide"></a>
+C++ game engine style guide</h1>
+<ul>
+<li><b>Data-oriented design:</b> Structure code around data flow and memory layout, not class hierarchies. Prefer Struct-of-Arrays, contiguous storage, and cache-friendly access for per-frame data.</li>
+<li><b>Zero-cost abstractions:</b> Abstractions must compile down to hand-written equivalents. Avoid <span class="tt">std::function</span>, virtual dispatch, and type erasure on hot paths unless measured and justified.</li>
+<li><b>Composition over inheritance:</b> Build behavior from small, focused components and free functions. Prefer static polymorphism (templates, concepts, CRTP) over runtime polymorphism; deep inheritance is discouraged.</li>
+<li><b>Systems over managers:</b> Prefer small, single-purpose systems that transform component data over monolithic managers that own both state and behavior.</li>
+<li><b>Simulation / presentation split:</b> Keep deterministic simulation state separate from presentation state (renderer, audio, UI). Game logic must not depend on frame rate, render order, or platform API availability.</li>
+<li><b>Explicit resource lifetime:</b> Asset, scene, and subsystem ownership must be explicit. Use RAII at module boundaries; prefer handles or indices over raw pointers for long-lived resources; avoid global singletons for engine services.</li>
+<li><b>SOLID where it helps:</b> Apply SOLID for editor, tooling, and high-level gameplay code. In performance-critical paths, defer to measurement and data-oriented reasoning.</li>
+</ul>
+<hr  />
 <h1 class="doxsection"><a class="anchor" id="project-context"></a>
 Project Context</h1>
 <p>This repository contains a C++ game engine targeting:</p>
@@ -146,13 +158,6 @@ Project Context</h1>
 <li>Mobile platforms</li>
 <li>Embedded and constrained systems</li>
 <li>Retro consoles (fixed memory, no OS assumptions)</li>
-</ul>
-<p>Key priorities:</p>
-<ul>
-<li>Deterministic behavior</li>
-<li>Minimal allocations</li>
-<li>Compile-time validation</li>
-<li>Long-term maintainability</li>
 </ul>
 <hr  />
 <h1 class="doxsection"><a class="anchor" id="general-coding-principles"></a>
@@ -166,7 +171,6 @@ General Coding Principles</h1>
 <li>Minimize side effects and <b>isolate them at well-defined system boundaries</b>.</li>
 <li>Favor <b>value semantics</b> over shared mutable state.</li>
 <li>Functions should ideally depend only on their inputs and produce observable results explicitly.</li>
-<li>Optimize for <b>deterministic behavior</b> and reproducibility across platforms.</li>
 <li>Prefer designs that are <b>constexpr-friendly</b> and verifiable at compile time.</li>
 <li>Make invalid states <b>unrepresentable</b> where possible.</li>
 <li>Be explicit rather than implicit.</li>

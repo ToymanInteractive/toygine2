@@ -61,13 +61,14 @@ var searchData=
   ['struct_20documentation_20order_58',['Class / Struct Documentation Order',['../df/d81/md__a_g_e_n_t_s.html#class--struct-documentation-order',1,'']]],
   ['structure_59',['Structure',['../df/d81/md__a_g_e_n_t_s.html#module-structure',1,'Module Structure'],['../df/d81/md__a_g_e_n_t_s.html#project-structure',1,'Project Structure'],['../df/d81/md__a_g_e_n_t_s.html#test-length-and-structure',1,'Test Length and Structure']]],
   ['style_60',['Style',['../df/d81/md__a_g_e_n_t_s.html#const-reference-style',1,'Const Reference Style'],['../df/d81/md__a_g_e_n_t_s.html#doxygen-block-style',1,'Doxygen Block Style']]],
-  ['style_20rules_61',['Style Rules',['../df/d81/md__a_g_e_n_t_s.html#documentation-style-rules',1,'Documentation Style Rules'],['../df/d81/md__a_g_e_n_t_s.html#unit-test-style-rules',1,'Unit Test Style Rules']]],
-  ['subscribersamount_62',['subscribersAmount',['../d8/dc9/classtoy_1_1_callbacks_pool.html#a3923a8cb92518448108f801c00fddea5',1,'toy::CallbacksPool']]],
-  ['substr_63',['substr',['../d3/d7a/classtoy_1_1_fixed_string.html#ab32593e12733514f8ca98d7855afd512',1,'toy::FixedString']]],
-  ['supported_20c_20compilers_64',['Supported C++ compilers',['../index.html#supported-c-compilers',1,'']]],
-  ['supported_20systems_65',['Supported Systems',['../index.html#supported-systems',1,'']]],
-  ['swap_66',['swap',['../d5/d03/classtoy_1_1_c_string_view.html#a61dbfbf58ac6f2ab042774a2c3e81e6b',1,'toy::CStringView::swap()'],['../d3/d7a/classtoy_1_1_fixed_string.html#a0d6b3d27deeefe85c8422cff605adcbc',1,'toy::FixedString::swap()'],['../d7/d15/classtoy_1_1_o_string_stream.html#ad734960f049d48839db0aec210d4d0de',1,'toy::OStringStream::swap()']]],
-  ['switch_67',['Switch',['../d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aabbc155fb2b111bf61c4f5ff892915e6b',1,'toy']]],
-  ['systemerror_68',['SystemError',['../d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725eab932b91f686c2aa588adfd9a407155ca',1,'toy::network']]],
-  ['systems_69',['Supported Systems',['../index.html#supported-systems',1,'']]]
+  ['style_20guide_61',['C++ game engine style guide',['../df/d81/md__a_g_e_n_t_s.html#c-game-engine-style-guide',1,'']]],
+  ['style_20rules_62',['Style Rules',['../df/d81/md__a_g_e_n_t_s.html#documentation-style-rules',1,'Documentation Style Rules'],['../df/d81/md__a_g_e_n_t_s.html#unit-test-style-rules',1,'Unit Test Style Rules']]],
+  ['subscribersamount_63',['subscribersAmount',['../d8/dc9/classtoy_1_1_callbacks_pool.html#a3923a8cb92518448108f801c00fddea5',1,'toy::CallbacksPool']]],
+  ['substr_64',['substr',['../d3/d7a/classtoy_1_1_fixed_string.html#ab32593e12733514f8ca98d7855afd512',1,'toy::FixedString']]],
+  ['supported_20c_20compilers_65',['Supported C++ compilers',['../index.html#supported-c-compilers',1,'']]],
+  ['supported_20systems_66',['Supported Systems',['../index.html#supported-systems',1,'']]],
+  ['swap_67',['swap',['../d5/d03/classtoy_1_1_c_string_view.html#a61dbfbf58ac6f2ab042774a2c3e81e6b',1,'toy::CStringView::swap()'],['../d3/d7a/classtoy_1_1_fixed_string.html#a0d6b3d27deeefe85c8422cff605adcbc',1,'toy::FixedString::swap()'],['../d7/d15/classtoy_1_1_o_string_stream.html#ad734960f049d48839db0aec210d4d0de',1,'toy::OStringStream::swap()']]],
+  ['switch_68',['Switch',['../d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aabbc155fb2b111bf61c4f5ff892915e6b',1,'toy']]],
+  ['systemerror_69',['SystemError',['../d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725eab932b91f686c2aa588adfd9a407155ca',1,'toy::network']]],
+  ['systems_70',['Supported Systems',['../index.html#supported-systems',1,'']]]
 ];
