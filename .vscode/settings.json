@@ -2,6 +2,7 @@
     "clang-format.fallbackStyle": "Google",
     "cSpell.language": "en,ru",
     "cSpell.words": [
+        "chrono",
         "constexpr",
         "cpack",
         "cstrpbrk",
