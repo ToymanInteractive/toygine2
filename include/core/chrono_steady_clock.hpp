@@ -90,9 +90,13 @@ namespace toy::chrono {
 */
 class SteadyClock {
 public:
+  /// Arithmetic type used to count ticks; signed 64-bit to keep duration arithmetic free of overflow on long sessions.
   using rep        = int64_t;
+  /// Tick period as a \c std::ratio; resolved at compile time from \c toy::chrono::c_steadyClockPeriodDenominator.
   using period     = std::ratio<1, static_cast<std::intmax_t>(c_steadyClockPeriodDenominator)>;
+  /// Duration type produced by now(); a \ref toy::chrono::Duration parameterized on \c rep and \c period.
   using duration   = Duration<rep, period>;
+  /// Time-point type returned by now(); a \ref toy::chrono::TimePoint anchored to this clock.
   using time_point = TimePoint<SteadyClock>;
 
   /// Satisfies the \c TrivialClock named requirement; the underlying counter is never adjusted after construction.
