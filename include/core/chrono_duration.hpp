@@ -51,7 +51,7 @@ using Duration = std::chrono::duration<Rep, Period>;
   \ingroup Chrono
 
   \tparam Clock The clock type that defines the epoch.
-  \tparam Dur   Duration type used to store the offset from the epoch (defaults to \c ClockType::duration).
+  \tparam Dur   Duration type used to store the offset from the epoch (defaults to \c Clock::duration).
 
   \sa \ref toy::chrono::Duration
 */
