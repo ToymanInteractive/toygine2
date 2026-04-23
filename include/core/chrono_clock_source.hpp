@@ -162,6 +162,4 @@ private:
 
 } // namespace toy::chrono
 
-#include "chrono_clock_source.inl"
-
 #endif // INCLUDE_CORE_CHRONO_CLOCK_SOURCE_HPP_
