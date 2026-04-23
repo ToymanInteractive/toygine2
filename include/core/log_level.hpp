@@ -24,7 +24,7 @@
   Defines \ref toy::log::Level used to filter log output at compile time via \c LOG_MIN_LEVEL and at runtime via
   \ref toy::LogBackend.
 
-  \note Included by core.hpp; do not include this file directly.
+  \note Included by core.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_LOG_LEVEL_HPP_

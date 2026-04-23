@@ -24,7 +24,7 @@
   Declares \ref toy::FormatPatternValidationError and toy::validateFormatPattern() used by \ref toy::FormatString and
   runtime formatting APIs.
 
-  \note Included by core.hpp; do not include this file directly.
+  \note Included by core.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_FORMAT_PATTERN_HPP_

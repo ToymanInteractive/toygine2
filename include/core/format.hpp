@@ -25,7 +25,7 @@
   toy::format() and toy::formatTo() use compile-time validated \ref toy::FormatString patterns; toy::vformat() and
   toy::vformatTo() accept runtime patterns and type-erase arguments into arrays internally.
 
-  \note Included by core.hpp; do not include this file directly.
+  \note Included by core.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_FORMAT_HPP_

@@ -22,7 +22,7 @@
   \brief  Standard library extensions for \ref toy::math::fixed: \c numeric_limits and \c std::numbers mathematical
           constants.
 
-  \note Included by math.hpp; do not include this file directly.
+  \note Included by math.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_MATH_FIXED_STD_EXTENSION_HPP_

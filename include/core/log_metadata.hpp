@@ -24,7 +24,7 @@
   Defines \ref toy::log::Metadata: a POD aggregate created once per \c LOG_* macro invocation as a \c static
   \c constexpr local variable. Only its address is passed at runtime.
 
-  \note Included by core.hpp; do not include this file directly.
+  \note Included by core.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_LOG_METADATA_HPP_

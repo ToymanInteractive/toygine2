@@ -24,7 +24,7 @@
   Defines \ref toy::chrono::Duration and \ref toy::chrono::TimePoint as thin aliases over \c std::chrono, and brings
   \c std::chrono::duration_cast into \ref toy::chrono so call sites can use it unqualified.
 
-  \note Included by core.hpp; do not include this file directly.
+  \note Included by core.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_CHRONO_DURATION_HPP_
@@ -37,26 +37,26 @@ namespace toy::chrono {
 
   \ingroup Chrono
 
-  \tparam RepresentationType Arithmetic type representing the tick count.
-  \tparam PeriodType         \c std::ratio specifying the tick period relative to one second.
+  \tparam Rep    Arithmetic type representing the tick count.
+  \tparam Period \c std::ratio specifying the tick period relative to one second.
 
   \sa \ref toy::chrono::TimePoint, duration_cast()
 */
-template <typename RepresentationType, typename PeriodType>
-using Duration = std::chrono::duration<RepresentationType, PeriodType>;
+template <typename Rep, typename Period>
+using Duration = std::chrono::duration<Rep, Period>;
 
 /*!
   \brief Generic time-point alias over \c std::chrono::time_point.
 
   \ingroup Chrono
 
-  \tparam ClockType    The clock type that defines the epoch.
-  \tparam DurationType Duration type used to store the offset from the epoch (defaults to \c ClockType::duration).
+  \tparam Clock The clock type that defines the epoch.
+  \tparam Dur   Duration type used to store the offset from the epoch (defaults to \c ClockType::duration).
 
   \sa \ref toy::chrono::Duration
 */
-template <typename ClockType, typename DurationType = typename ClockType::duration>
-using TimePoint = std::chrono::time_point<ClockType, DurationType>;
+template <typename Clock, typename Dur = typename Clock::duration>
+using TimePoint = std::chrono::time_point<Clock, Dur>;
 
 /// Brings \c std::chrono::duration_cast into \ref toy::chrono for unqualified use at call sites.
 using std::chrono::duration_cast;

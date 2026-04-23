@@ -23,7 +23,7 @@
 
   Defines \ref toy::math::Vector2.
 
-  \note Included by math.hpp; do not include this file directly.
+  \note Included by math.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_MATH_VECTOR2_HPP_

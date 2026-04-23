@@ -25,7 +25,7 @@
   in \ref toy::chrono. Exactly one instance must be alive before any \ref toy::chrono::SteadyClock,
   \ref toy::chrono::Stopwatch, or \ref toy::chrono::CountdownTimer call, and it must outlive all of them.
 
-  \note Included by core.hpp; do not include this file directly.
+  \note Included by core.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_CHRONO_CLOCK_SOURCE_HPP_
