@@ -238,6 +238,7 @@ using std::char_traits;
 #include "core/callbacks_pool.hpp"
 #include "core/chrono_clock_source.hpp"
 #include "core/chrono_duration.hpp"
+#include "core/chrono_steady_clock.hpp"
 #include "core/constexpr_utils.hpp"
 #include "core/fixed_string.hpp"
 #include "core/fixed_vector.hpp"

@@ -24,7 +24,7 @@
   Defines \ref toy::log::Record and the \c LOG_MESSAGE_CAPACITY capacity constant that controls the per-record
   formatted-message buffer size.
 
-  \note Included by core.hpp; do not include this file directly.
+  \note Included by core.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_LOG_RECORD_HPP_

@@ -24,7 +24,7 @@
   Defines \ref toy::render::PixelFormat: colour, compressed, and depth/stencil formats used by the rendering API. Used
   when creating surfaces or specifying buffer layout.
 
-  \note Included by render.hpp; do not include this file directly.
+  \note Included by render.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_RENDER_PIXEL_FORMAT_HPP_

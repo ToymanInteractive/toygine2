@@ -24,7 +24,7 @@
   Defines \ref toy::log::ISink: the polymorphic output destination invoked by \ref toy::LogBackend on every flushed
   \ref toy::log::Record. Concrete sinks (console, mGBA, custom) implement this interface.
 
-  \note Included by core.hpp; do not include this file directly.
+  \note Included by core.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_LOG_SINK_HPP_

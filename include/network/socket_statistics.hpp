@@ -24,7 +24,7 @@
   Defines \ref toy::network::SocketStatistics with byte counters for sent and received data. Used to track traffic per
   socket or aggregate across connections.
 
-  \note Included by network.hpp; do not include this file directly.
+  \note Included by network.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_NETWORK_SOCKET_STATISTICS_HPP_

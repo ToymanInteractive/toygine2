@@ -25,7 +25,7 @@
   related free functions in namespace \ref toy. Non-inline definitions live in \c utils.cpp; callers supply buffers. No
   dynamic allocation in these APIs.
 
-  \note Included by core.hpp; do not include this file directly.
+  \note Included by core.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_UTILS_HPP_

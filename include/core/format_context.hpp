@@ -24,7 +24,7 @@
   Defines \ref toy::FormatContext, the concrete type used by toy::vformat() and toy::vformatTo() to write formatted
   output without exposing the backing storage type.
 
-  \note Included by core.hpp; do not include this file directly.
+  \note Included by core.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_FORMAT_CONTEXT_HPP_

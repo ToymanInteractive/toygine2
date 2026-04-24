@@ -23,7 +23,7 @@
 
   Defines \ref toy::OStringStream.
 
-  \note Included by core.hpp; do not include this file directly.
+  \note Included by core.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_O_STRING_STREAM_HPP_

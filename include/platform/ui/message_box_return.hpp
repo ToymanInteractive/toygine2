@@ -24,7 +24,7 @@
   Defines \ref toy::platform::ui::MessageBoxReturn: which button or action the user chose when dismissing a message box.
   Used by platform UI APIs that show dialogs.
 
-  \note Included by platform/ui.hpp; do not include this file directly.
+  \note Included by platform/ui.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_PLATFORM_UI_MESSAGE_BOX_RETURN_HPP_

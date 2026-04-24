@@ -23,7 +23,7 @@
 
   Defines \ref toy::geometry::Circle and \ref toy::geometry::CircleComponent.
 
-  \note Included by geometry.hpp; do not include this file directly.
+  \note Included by geometry.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_GEOMETRY_CIRCLE_HPP_

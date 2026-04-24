@@ -23,7 +23,7 @@
 
   Defines \ref toy::StringFixedStorage.
 
-  \note Included by core.hpp; do not include this file directly.
+  \note Included by core.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_STRING_FIXED_STORAGE_HPP_
