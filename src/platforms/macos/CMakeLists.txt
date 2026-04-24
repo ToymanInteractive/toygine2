@@ -18,7 +18,15 @@
 # DEALINGS IN THE SOFTWARE.
 #-------------------------------------------------------------------------------------------
 
-set(PLATFORM_SRC_CORE_LIST  src/platforms/stub/core/assertion_stub.cpp)
+if (CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64|AMD64")
+  set(PLATFORM_SRC_CHRONO_LIST src/platforms/common/core/chrono_clock_source_x64.cpp)
+elseif (CMAKE_SYSTEM_PROCESSOR MATCHES "aarch64|arm64")
+  set(PLATFORM_SRC_CHRONO_LIST src/platforms/common/core/chrono_clock_source_arm64.cpp)
+else ()
+  set(PLATFORM_SRC_CHRONO_LIST src/platforms/stub/core/chrono_clock_source_stub.cpp)
+endif ()
+
+set(PLATFORM_SRC_CORE_LIST  src/platforms/stub/core/assertion_stub.cpp ${PLATFORM_SRC_CHRONO_LIST})
 set(PLATFORM_HDR_CORE_LIST  )
 set(PLATFORM_LIB_CORE_LIST  )
 
