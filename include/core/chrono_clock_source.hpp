@@ -105,7 +105,7 @@ public:
 
     \sa ~ClockSource(), nowTicks(), frequency()
   */
-  ClockSource();
+  ClockSource() noexcept;
 
   /*!
     \brief Releases the hardware counter and deregisters this instance.
@@ -118,7 +118,7 @@ public:
 
     \sa ClockSource()
   */
-  ~ClockSource();
+  ~ClockSource() noexcept;
 
   /// Copy construction is deleted to preserve the singleton invariant.
   ClockSource(const ClockSource &)             = delete;

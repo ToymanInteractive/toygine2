@@ -18,46 +18,43 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   chrono_clock_source_arm64.cpp
-  \brief  Implementations for \ref toy::chrono::ClockSource and \ref toy::chrono::SteadyClock on AArch64.
+  \file   chrono_clock_source_windows.cpp
+  \brief  Implementations for \ref toy::chrono::ClockSource and \ref toy::chrono::SteadyClock on Windows.
 
-  Reads \c CNTVCT_EL0 (virtual counter) for tick values and \c CNTFRQ_EL0 for the hardware-reported frequency. No
-  runtime calibration is required: the frequency register is architecturally stable. A base tick captured at
-  construction is subtracted from every read to keep floating-point conversion in a range where nanosecond precision is
-  maintained throughout typical engine uptime.
+  Uses \c QueryPerformanceCounter for tick reads and \c QueryPerformanceFrequency for the hardware-reported frequency.
+  Covers all Windows architectures (x64, ARM64). On modern hardware QPC is backed by the invariant TSC (x64) or
+  \c CNTVCT_EL0 (ARM64) and is accessed through a kernel-mapped page without a syscall.
 */
+
+#define WIN32_LEAN_AND_MEAN
+#define NOMINMAX
+
+#include <windows.h>
 
 #include "core.hpp"
 
 namespace toy::chrono {
 
 static ClockSource * g_active{nullptr};
-static int64_t       g_cntBase{0};
+static int64_t       g_qpcBase{0};
 static double        g_nsPerTick{0.0};
 
-inline int64_t readCntvct() noexcept {
-  uint64_t val;
+inline int64_t readQpc() noexcept {
+  LARGE_INTEGER counter;
+  QueryPerformanceCounter(&counter);
 
-  __asm__ volatile("mrs %0, cntvct_el0" : "=r"(val));
-
-  return static_cast<int64_t>(val);
-}
-
-inline int64_t readCntfrq() noexcept {
-  uint64_t freq;
-
-  __asm__ volatile("mrs %0, cntfrq_el0" : "=r"(freq));
-
-  return static_cast<int64_t>(freq);
+  return counter.QuadPart;
 }
 
 ClockSource::ClockSource() noexcept {
   assert_message(g_active == nullptr, "A ClockSource is already active; only one instance per process is allowed");
 
-  _frequency = readCntfrq();
+  LARGE_INTEGER freq;
+  QueryPerformanceFrequency(&freq);
+  _frequency = freq.QuadPart;
 
   g_nsPerTick = 1e9 / static_cast<double>(_frequency);
-  g_cntBase   = readCntvct();
+  g_qpcBase   = readQpc();
   g_active    = this;
 }
 
@@ -66,11 +63,11 @@ ClockSource::~ClockSource() noexcept {
 }
 
 int64_t ClockSource::nowTicks() const noexcept {
-  return readCntvct() - g_cntBase;
+  return readQpc() - g_qpcBase;
 }
 
 SteadyClock::rep SteadyClock::nowTicks() noexcept {
-  return readCntvct() - g_cntBase;
+  return readQpc() - g_qpcBase;
 }
 
 SteadyClock::rep SteadyClock::frequency() noexcept {
@@ -78,7 +75,7 @@ SteadyClock::rep SteadyClock::frequency() noexcept {
 }
 
 SteadyClock::time_point SteadyClock::now() noexcept {
-  const auto ns = static_cast<rep>(static_cast<double>(readCntvct() - g_cntBase) * g_nsPerTick);
+  const auto ns = static_cast<rep>(static_cast<double>(readQpc() - g_qpcBase) * g_nsPerTick);
 
   return time_point{duration{ns}};
 }

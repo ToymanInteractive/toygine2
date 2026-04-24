@@ -78,7 +78,7 @@ int64_t calibrateTscHz() noexcept {
   std::this_thread::sleep_for(c_window);
   readTsc();
 
-  int64_t bestHz = 0;
+  int64_t bestHz{0};
   for (int i = 0; i < c_rounds; ++i) {
     const auto    wallStart = std::chrono::steady_clock::now();
     const int64_t tscStart  = readTsc();
@@ -92,12 +92,13 @@ int64_t calibrateTscHz() noexcept {
         bestHz = hz;
     }
   }
+
   return bestHz;
 }
 
-ClockSource::ClockSource() {
-  assert_message(hasInvariantTsc(), "invariant TSC required; this CPU is not supported by the x64 chrono backend");
-  assert_message(g_active == nullptr, "a ClockSource is already active; only one instance per process is allowed");
+ClockSource::ClockSource() noexcept {
+  assert_message(hasInvariantTsc(), "Invariant TSC required; this CPU is not supported by the x64 chrono backend");
+  assert_message(g_active == nullptr, "A ClockSource is already active; only one instance per process is allowed");
 
   _frequency = calibrateTscHz();
 
@@ -106,7 +107,7 @@ ClockSource::ClockSource() {
   g_active    = this;
 }
 
-ClockSource::~ClockSource() {
+ClockSource::~ClockSource() noexcept {
   g_active = nullptr;
 }
 

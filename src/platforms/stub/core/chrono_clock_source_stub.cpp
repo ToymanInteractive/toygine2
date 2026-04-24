@@ -18,59 +18,47 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   chrono_clock_source_arm64.cpp
-  \brief  Implementations for \ref toy::chrono::ClockSource and \ref toy::chrono::SteadyClock on AArch64.
+  \file   chrono_clock_source_stub.cpp
+  \brief  Implementations for \ref toy::chrono::ClockSource and \ref toy::chrono::SteadyClock, stub backend.
 
-  Reads \c CNTVCT_EL0 (virtual counter) for tick values and \c CNTFRQ_EL0 for the hardware-reported frequency. No
-  runtime calibration is required: the frequency register is architecturally stable. A base tick captured at
-  construction is subtracted from every read to keep floating-point conversion in a range where nanosecond precision is
-  maintained throughout typical engine uptime.
+  Delegates all tick reads to \c std::chrono::steady_clock and normalises the result to nanoseconds. Used on platforms
+  without a dedicated hardware counter backend (NDS, 3DS, Switch).
+
+  \warning Performance is determined by the \c std::chrono::steady_clock implementation of the host OS; no syscall-free
+           guarantee is provided.
 */
+
+#include <chrono>
 
 #include "core.hpp"
 
 namespace toy::chrono {
 
-static ClockSource * g_active{nullptr};
-static int64_t       g_cntBase{0};
-static double        g_nsPerTick{0.0};
+static ClockSource * g_active = nullptr;
 
-inline int64_t readCntvct() noexcept {
-  uint64_t val;
-
-  __asm__ volatile("mrs %0, cntvct_el0" : "=r"(val));
-
-  return static_cast<int64_t>(val);
-}
-
-inline int64_t readCntfrq() noexcept {
-  uint64_t freq;
-
-  __asm__ volatile("mrs %0, cntfrq_el0" : "=r"(freq));
-
-  return static_cast<int64_t>(freq);
+inline int64_t readNs() noexcept {
+  return std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::steady_clock::now().time_since_epoch())
+    .count();
 }
 
 ClockSource::ClockSource() noexcept {
   assert_message(g_active == nullptr, "A ClockSource is already active; only one instance per process is allowed");
 
-  _frequency = readCntfrq();
+  _frequency = 1'000'000'000;
 
-  g_nsPerTick = 1e9 / static_cast<double>(_frequency);
-  g_cntBase   = readCntvct();
-  g_active    = this;
+  g_active = this;
 }
 
-ClockSource::~ClockSource() noexcept {
+ClockSource::~ClockSource() {
   g_active = nullptr;
 }
 
 int64_t ClockSource::nowTicks() const noexcept {
-  return readCntvct() - g_cntBase;
+  return readNs();
 }
 
 SteadyClock::rep SteadyClock::nowTicks() noexcept {
-  return readCntvct() - g_cntBase;
+  return readNs();
 }
 
 SteadyClock::rep SteadyClock::frequency() noexcept {
@@ -78,9 +66,7 @@ SteadyClock::rep SteadyClock::frequency() noexcept {
 }
 
 SteadyClock::time_point SteadyClock::now() noexcept {
-  const auto ns = static_cast<rep>(static_cast<double>(readCntvct() - g_cntBase) * g_nsPerTick);
-
-  return time_point{duration{ns}};
+  return time_point{duration{readNs()}};
 }
 
 } // namespace toy::chrono
