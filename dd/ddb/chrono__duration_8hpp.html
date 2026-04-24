@@ -134,17 +134,17 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:gace373a99bbd4ede0fd9bc7649dd8b89b" id="r_gace373a99bbd4ede0fd9bc7649dd8b89b"><td class="memTemplParams" colspan="2">template&lt;typename RepresentationType, typename PeriodType&gt; </td></tr>
-<tr class="memitem:gace373a99bbd4ede0fd9bc7649dd8b89b template"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="../../df/d55/group___chrono.html#gace373a99bbd4ede0fd9bc7649dd8b89b">toy::chrono::Duration</a> = std::chrono::duration&lt;RepresentationType, PeriodType&gt;</td></tr>
-<tr class="memdesc:gace373a99bbd4ede0fd9bc7649dd8b89b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic duration alias over <code>std::chrono::duration</code>.  <br /></td></tr>
-<tr class="memitem:gab2f3f4a2e7cd019f26bcee7da8512dc9" id="r_gab2f3f4a2e7cd019f26bcee7da8512dc9"><td class="memTemplParams" colspan="2">template&lt;typename ClockType, typename DurationType = typename ClockType::duration&gt; </td></tr>
-<tr class="memitem:gab2f3f4a2e7cd019f26bcee7da8512dc9 template"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="../../df/d55/group___chrono.html#gab2f3f4a2e7cd019f26bcee7da8512dc9">toy::chrono::TimePoint</a> = std::chrono::time_point&lt;ClockType, DurationType&gt;</td></tr>
-<tr class="memdesc:gab2f3f4a2e7cd019f26bcee7da8512dc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic time-point alias over <code>std::chrono::time_point</code>.  <br /></td></tr>
+<tr class="memitem:gad8a95b67fd667a88791612ae92718191" id="r_gad8a95b67fd667a88791612ae92718191"><td class="memTemplParams" colspan="2">template&lt;typename Rep, typename Period&gt; </td></tr>
+<tr class="memitem:gad8a95b67fd667a88791612ae92718191 template"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="../../df/d55/group___chrono.html#gad8a95b67fd667a88791612ae92718191">toy::chrono::Duration</a> = std::chrono::duration&lt;Rep, Period&gt;</td></tr>
+<tr class="memdesc:gad8a95b67fd667a88791612ae92718191"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic duration alias over <code>std::chrono::duration</code>.  <br /></td></tr>
+<tr class="memitem:ga799792e1caf29eefec74051e954b99ff" id="r_ga799792e1caf29eefec74051e954b99ff"><td class="memTemplParams" colspan="2">template&lt;typename Clock, typename Dur = typename Clock::duration&gt; </td></tr>
+<tr class="memitem:ga799792e1caf29eefec74051e954b99ff template"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="../../df/d55/group___chrono.html#ga799792e1caf29eefec74051e954b99ff">toy::chrono::TimePoint</a> = std::chrono::time_point&lt;Clock, Dur&gt;</td></tr>
+<tr class="memdesc:ga799792e1caf29eefec74051e954b99ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic time-point alias over <code>std::chrono::time_point</code>.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Duration and time-point aliases over <code>std::chrono</code>. </p>
-<p>Defines <a class="el" href="../../df/d55/group___chrono.html#gace373a99bbd4ede0fd9bc7649dd8b89b" title="toy::chrono::Duration">toy::chrono::Duration</a> and <a class="el" href="../../df/d55/group___chrono.html#gab2f3f4a2e7cd019f26bcee7da8512dc9" title="toy::chrono::TimePoint">toy::chrono::TimePoint</a> as thin aliases over <code>std::chrono</code>, and brings <code>std::chrono::duration_cast</code> into <a class="el" href="../../db/d3c/namespacetoy_1_1chrono.html" title="toy::chrono">toy::chrono</a> so call sites can use it unqualified.</p>
-<dl class="section note"><dt>Note</dt><dd>Included by <a class="el" href="../../da/d47/core_8hpp.html" title="Umbrella header for the engine core module.">core.hpp</a>; do not include this file directly. </dd></dl>
+<p>Defines <a class="el" href="../../df/d55/group___chrono.html#gad8a95b67fd667a88791612ae92718191" title="toy::chrono::Duration">toy::chrono::Duration</a> and <a class="el" href="../../df/d55/group___chrono.html#ga799792e1caf29eefec74051e954b99ff" title="toy::chrono::TimePoint">toy::chrono::TimePoint</a> as thin aliases over <code>std::chrono</code>, and brings <code>std::chrono::duration_cast</code> into <a class="el" href="../../db/d3c/namespacetoy_1_1chrono.html" title="toy::chrono">toy::chrono</a> so call sites can use it unqualified.</p>
+<dl class="section note"><dt>Note</dt><dd>Included by <a class="el" href="../../da/d47/core_8hpp.html" title="Umbrella header for the engine core module.">core.hpp</a> only; do not include this file directly. </dd></dl>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">

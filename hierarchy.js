@@ -16,6 +16,7 @@ var hierarchy =
     [ "toy::CallbacksPool&lt; T, AllocatedSize &gt;", "d8/dc9/classtoy_1_1_callbacks_pool.html", null ],
     [ "toy::CallbacksPool&lt; T, AllocatedSize &gt;::StaticCallback", "d7/d9f/structtoy_1_1_callbacks_pool_1_1_static_callback.html", null ],
     [ "toy::chrono::ClockSource", "d9/d63/classtoy_1_1chrono_1_1_clock_source.html", null ],
+    [ "toy::chrono::SteadyClock", "d6/df8/classtoy_1_1chrono_1_1_steady_clock.html", null ],
     [ "toy::CStringView", "d5/d03/classtoy_1_1_c_string_view.html", null ],
     [ "toy::DivMod10", "da/d8f/structtoy_1_1_div_mod10.html", null ],
     [ "toy::EnableBitwiseOperators&lt; T &gt;", "dc/d6d/classtoy_1_1_enable_bitwise_operators.html", null ],

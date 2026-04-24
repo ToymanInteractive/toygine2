@@ -121,29 +121,31 @@ $(function(){initNavTree('df/d55/group___chrono.html','../../',''); });
 Classes</h2></td></tr>
 <tr class="memitem:toy_3A_3Achrono_3A_3AClockSource" id="r_toy_3A_3Achrono_3A_3AClockSource"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../d9/d63/classtoy_1_1chrono_1_1_clock_source.html">toy::chrono::ClockSource</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">RAII owner of the platform hardware time source.  <a href="../../d9/d63/classtoy_1_1chrono_1_1_clock_source.html#details">More...</a><br /></td></tr>
+<tr class="memitem:toy_3A_3Achrono_3A_3ASteadyClock" id="r_toy_3A_3Achrono_3A_3ASteadyClock"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../d6/df8/classtoy_1_1chrono_1_1_steady_clock.html">toy::chrono::SteadyClock</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stateless monotonic clock that satisfies the <code>TrivialClock</code> concept.  <a href="../../d6/df8/classtoy_1_1chrono_1_1_steady_clock.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:gace373a99bbd4ede0fd9bc7649dd8b89b" id="r_gace373a99bbd4ede0fd9bc7649dd8b89b"><td class="memTemplParams" colspan="2">template&lt;typename RepresentationType, typename PeriodType&gt; </td></tr>
-<tr class="memitem:gace373a99bbd4ede0fd9bc7649dd8b89b template"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#gace373a99bbd4ede0fd9bc7649dd8b89b">toy::chrono::Duration</a> = std::chrono::duration&lt;RepresentationType, PeriodType&gt;</td></tr>
-<tr class="memdesc:gace373a99bbd4ede0fd9bc7649dd8b89b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic duration alias over <code>std::chrono::duration</code>.  <br /></td></tr>
-<tr class="memitem:gab2f3f4a2e7cd019f26bcee7da8512dc9" id="r_gab2f3f4a2e7cd019f26bcee7da8512dc9"><td class="memTemplParams" colspan="2">template&lt;typename ClockType, typename DurationType = typename ClockType::duration&gt; </td></tr>
-<tr class="memitem:gab2f3f4a2e7cd019f26bcee7da8512dc9 template"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#gab2f3f4a2e7cd019f26bcee7da8512dc9">toy::chrono::TimePoint</a> = std::chrono::time_point&lt;ClockType, DurationType&gt;</td></tr>
-<tr class="memdesc:gab2f3f4a2e7cd019f26bcee7da8512dc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic time-point alias over <code>std::chrono::time_point</code>.  <br /></td></tr>
+<tr class="memitem:gad8a95b67fd667a88791612ae92718191" id="r_gad8a95b67fd667a88791612ae92718191"><td class="memTemplParams" colspan="2">template&lt;typename Rep, typename Period&gt; </td></tr>
+<tr class="memitem:gad8a95b67fd667a88791612ae92718191 template"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#gad8a95b67fd667a88791612ae92718191">toy::chrono::Duration</a> = std::chrono::duration&lt;Rep, Period&gt;</td></tr>
+<tr class="memdesc:gad8a95b67fd667a88791612ae92718191"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic duration alias over <code>std::chrono::duration</code>.  <br /></td></tr>
+<tr class="memitem:ga799792e1caf29eefec74051e954b99ff" id="r_ga799792e1caf29eefec74051e954b99ff"><td class="memTemplParams" colspan="2">template&lt;typename Clock, typename Dur = typename Clock::duration&gt; </td></tr>
+<tr class="memitem:ga799792e1caf29eefec74051e954b99ff template"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#ga799792e1caf29eefec74051e954b99ff">toy::chrono::TimePoint</a> = std::chrono::time_point&lt;Clock, Dur&gt;</td></tr>
+<tr class="memdesc:ga799792e1caf29eefec74051e954b99ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic time-point alias over <code>std::chrono::time_point</code>.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Hardware clock access and time-measurement utilities. </p>
 </div><a name="doc-typedef-members" id="doc-typedef-members"></a><h2 id="header-doc-typedef-members" class="groupheader">Typedef Documentation</h2>
-<a id="gace373a99bbd4ede0fd9bc7649dd8b89b" name="gace373a99bbd4ede0fd9bc7649dd8b89b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gace373a99bbd4ede0fd9bc7649dd8b89b">&#9670;&#160;</a></span>Duration</h2>
+<a id="gad8a95b67fd667a88791612ae92718191" name="gad8a95b67fd667a88791612ae92718191"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad8a95b67fd667a88791612ae92718191">&#9670;&#160;</a></span>Duration</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename RepresentationType, typename PeriodType&gt; </div>
+template&lt;typename Rep, typename Period&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="#gace373a99bbd4ede0fd9bc7649dd8b89b">toy::chrono::Duration</a> = std::chrono::duration&lt;RepresentationType, PeriodType&gt;</td>
+          <td class="memname">using <a class="el" href="#gad8a95b67fd667a88791612ae92718191">toy::chrono::Duration</a> = std::chrono::duration&lt;Rep, Period&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -151,25 +153,25 @@ template&lt;typename RepresentationType, typename PeriodType&gt; </div>
 <p>Generic duration alias over <code>std::chrono::duration</code>. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">RepresentationType</td><td>Arithmetic type representing the tick count. </td></tr>
-    <tr><td class="paramname">PeriodType</td><td><code>std::ratio</code> specifying the tick period relative to one second.</td></tr>
+    <tr><td class="paramname">Rep</td><td>Arithmetic type representing the tick count. </td></tr>
+    <tr><td class="paramname">Period</td><td><code>std::ratio</code> specifying the tick period relative to one second.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="#gab2f3f4a2e7cd019f26bcee7da8512dc9" title="toy::chrono::TimePoint">toy::chrono::TimePoint</a>, duration_cast() </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#ga799792e1caf29eefec74051e954b99ff" title="toy::chrono::TimePoint">toy::chrono::TimePoint</a>, duration_cast() </dd></dl>
 
 </div>
 </div>
-<a id="gab2f3f4a2e7cd019f26bcee7da8512dc9" name="gab2f3f4a2e7cd019f26bcee7da8512dc9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gab2f3f4a2e7cd019f26bcee7da8512dc9">&#9670;&#160;</a></span>TimePoint</h2>
+<a id="ga799792e1caf29eefec74051e954b99ff" name="ga799792e1caf29eefec74051e954b99ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga799792e1caf29eefec74051e954b99ff">&#9670;&#160;</a></span>TimePoint</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename ClockType, typename DurationType = typename ClockType::duration&gt; </div>
+template&lt;typename Clock, typename Dur = typename Clock::duration&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="#gab2f3f4a2e7cd019f26bcee7da8512dc9">toy::chrono::TimePoint</a> = std::chrono::time_point&lt;ClockType, DurationType&gt;</td>
+          <td class="memname">using <a class="el" href="#ga799792e1caf29eefec74051e954b99ff">toy::chrono::TimePoint</a> = std::chrono::time_point&lt;Clock, Dur&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -177,12 +179,12 @@ template&lt;typename ClockType, typename DurationType = typename ClockType::dura
 <p>Generic time-point alias over <code>std::chrono::time_point</code>. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">ClockType</td><td>The clock type that defines the epoch. </td></tr>
-    <tr><td class="paramname">DurationType</td><td><a class="el" href="#gace373a99bbd4ede0fd9bc7649dd8b89b" title="Generic duration alias over std::chrono::duration.">Duration</a> type used to store the offset from the epoch (defaults to <code>ClockType::duration</code>).</td></tr>
+    <tr><td class="paramname">Clock</td><td>The clock type that defines the epoch. </td></tr>
+    <tr><td class="paramname">Dur</td><td><a class="el" href="#gad8a95b67fd667a88791612ae92718191" title="Generic duration alias over std::chrono::duration.">Duration</a> type used to store the offset from the epoch (defaults to <code>Clock::duration</code>).</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="#gace373a99bbd4ede0fd9bc7649dd8b89b" title="toy::chrono::Duration">toy::chrono::Duration</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#gad8a95b67fd667a88791612ae92718191" title="toy::chrono::Duration">toy::chrono::Duration</a> </dd></dl>
 
 </div>
 </div>

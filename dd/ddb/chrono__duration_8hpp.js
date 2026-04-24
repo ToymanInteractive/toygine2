@@ -1,5 +1,5 @@
 var chrono__duration_8hpp =
 [
-    [ "toy::chrono::Duration", "df/d55/group___chrono.html#gace373a99bbd4ede0fd9bc7649dd8b89b", null ],
-    [ "toy::chrono::TimePoint", "df/d55/group___chrono.html#gab2f3f4a2e7cd019f26bcee7da8512dc9", null ]
+    [ "toy::chrono::Duration", "df/d55/group___chrono.html#gad8a95b67fd667a88791612ae92718191", null ],
+    [ "toy::chrono::TimePoint", "df/d55/group___chrono.html#ga799792e1caf29eefec74051e954b99ff", null ]
 ];

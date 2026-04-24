@@ -121,15 +121,17 @@ $(function(){initNavTree('db/d3c/namespacetoy_1_1chrono.html','../../',''); });
 Classes</h2></td></tr>
 <tr class="memitem:ClockSource" id="r_ClockSource"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../d9/d63/classtoy_1_1chrono_1_1_clock_source.html">ClockSource</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">RAII owner of the platform hardware time source.  <a href="../../d9/d63/classtoy_1_1chrono_1_1_clock_source.html#details">More...</a><br /></td></tr>
+<tr class="memitem:SteadyClock" id="r_SteadyClock"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../d6/df8/classtoy_1_1chrono_1_1_steady_clock.html">SteadyClock</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stateless monotonic clock that satisfies the <code>TrivialClock</code> concept.  <a href="../../d6/df8/classtoy_1_1chrono_1_1_steady_clock.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:gace373a99bbd4ede0fd9bc7649dd8b89b" id="r_gace373a99bbd4ede0fd9bc7649dd8b89b"><td class="memTemplParams" colspan="2">template&lt;typename RepresentationType, typename PeriodType&gt; </td></tr>
-<tr class="memitem:gace373a99bbd4ede0fd9bc7649dd8b89b template"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="../../df/d55/group___chrono.html#gace373a99bbd4ede0fd9bc7649dd8b89b">Duration</a> = std::chrono::duration&lt;RepresentationType, PeriodType&gt;</td></tr>
-<tr class="memdesc:gace373a99bbd4ede0fd9bc7649dd8b89b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic duration alias over <code>std::chrono::duration</code>.  <br /></td></tr>
-<tr class="memitem:gab2f3f4a2e7cd019f26bcee7da8512dc9" id="r_gab2f3f4a2e7cd019f26bcee7da8512dc9"><td class="memTemplParams" colspan="2">template&lt;typename ClockType, typename DurationType = typename ClockType::duration&gt; </td></tr>
-<tr class="memitem:gab2f3f4a2e7cd019f26bcee7da8512dc9 template"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="../../df/d55/group___chrono.html#gab2f3f4a2e7cd019f26bcee7da8512dc9">TimePoint</a> = std::chrono::time_point&lt;ClockType, DurationType&gt;</td></tr>
-<tr class="memdesc:gab2f3f4a2e7cd019f26bcee7da8512dc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic time-point alias over <code>std::chrono::time_point</code>.  <br /></td></tr>
+<tr class="memitem:gad8a95b67fd667a88791612ae92718191" id="r_gad8a95b67fd667a88791612ae92718191"><td class="memTemplParams" colspan="2">template&lt;typename Rep, typename Period&gt; </td></tr>
+<tr class="memitem:gad8a95b67fd667a88791612ae92718191 template"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="../../df/d55/group___chrono.html#gad8a95b67fd667a88791612ae92718191">Duration</a> = std::chrono::duration&lt;Rep, Period&gt;</td></tr>
+<tr class="memdesc:gad8a95b67fd667a88791612ae92718191"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic duration alias over <code>std::chrono::duration</code>.  <br /></td></tr>
+<tr class="memitem:ga799792e1caf29eefec74051e954b99ff" id="r_ga799792e1caf29eefec74051e954b99ff"><td class="memTemplParams" colspan="2">template&lt;typename Clock, typename Dur = typename Clock::duration&gt; </td></tr>
+<tr class="memitem:ga799792e1caf29eefec74051e954b99ff template"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="../../df/d55/group___chrono.html#ga799792e1caf29eefec74051e954b99ff">TimePoint</a> = std::chrono::time_point&lt;Clock, Dur&gt;</td></tr>
+<tr class="memdesc:ga799792e1caf29eefec74051e954b99ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic time-point alias over <code>std::chrono::time_point</code>.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Time-measurement types: duration and time-point aliases over <code>std::chrono</code>. </p>

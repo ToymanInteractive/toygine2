@@ -177,13 +177,13 @@ Performance Characteristics</h1>
 Safety Guarantees</h1>
 <ul>
 <li><b>Singleton invariant</b>: debug assertion prevents construction of a second active instance; undefined behaviour in release builds if violated.</li>
-<li><b>Lifetime contract</b>: must outlive every dependent toy::chrono::SteadyClock, toy::chrono::Stopwatch, and toy::chrono::CountdownTimer instance.</li>
+<li><b>Lifetime contract</b>: must outlive every dependent <a class="el" href="../../d6/df8/classtoy_1_1chrono_1_1_steady_clock.html" title="toy::chrono::SteadyClock">toy::chrono::SteadyClock</a>, toy::chrono::Stopwatch, and toy::chrono::CountdownTimer instance.</li>
 <li><b>Exception safety</b>: all operations are <code>noexcept</code>; no exceptions are thrown.</li>
 <li><b>Thread safety</b>: not thread-safe; construct and destroy on the owning thread only. Concurrent reads via <a class="el" href="#ae670e017fc42f0cc1f4ba2df351dee8a" title="Current hardware counter value.">nowTicks()</a> and <a class="el" href="#abb47cb3b7be3f45314b2392f4516a8f2" title="Tick frequency of the hardware counter in Hz.">frequency()</a> from worker threads are permitted once construction has completed and a happens-before edge is established.</li>
 </ul>
 <dl class="section note"><dt>Note</dt><dd>Move and copy operations are deleted; instances are pinned to their declaration scope.</dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>Must outlive all toy::chrono::Stopwatch and toy::chrono::CountdownTimer instances that depend on it.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd>toy::chrono::SteadyClock, toy::chrono::Stopwatch, toy::chrono::CountdownTimer </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d6/df8/classtoy_1_1chrono_1_1_steady_clock.html" title="toy::chrono::SteadyClock">toy::chrono::SteadyClock</a>, toy::chrono::Stopwatch, toy::chrono::CountdownTimer </dd></dl>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a3652b8ed4c9604d1e8758e6b0b56bcba" name="a3652b8ed4c9604d1e8758e6b0b56bcba"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3652b8ed4c9604d1e8758e6b0b56bcba">&#9670;&#160;</a></span>ClockSource() <span class="overload">[1/3]</span></h2>
@@ -224,7 +224,7 @@ Safety Guarantees</h1>
 </div><div class="memdoc">
 
 <p>Releases the hardware counter and deregisters this instance. </p>
-<dl class="section pre"><dt>Precondition</dt><dd>All toy::chrono::SteadyClock, toy::chrono::Stopwatch, and toy::chrono::CountdownTimer instances that depend on this source have already been destroyed.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>All <a class="el" href="../../d6/df8/classtoy_1_1chrono_1_1_steady_clock.html" title="toy::chrono::SteadyClock">toy::chrono::SteadyClock</a>, toy::chrono::Stopwatch, and toy::chrono::CountdownTimer instances that depend on this source have already been destroyed.</dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>No active source is registered; subsequent calls to <a class="el" href="#ae670e017fc42f0cc1f4ba2df351dee8a" title="Current hardware counter value.">nowTicks()</a> from any surviving dependent are undefined behaviour.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#a3652b8ed4c9604d1e8758e6b0b56bcba" title="Initialises the hardware counter and registers this instance as the active source.">ClockSource()</a> </dd></dl>
 
@@ -309,7 +309,7 @@ Safety Guarantees</h1>
 </div><div class="memdoc">
 
 <p>Tick frequency of the hardware counter in Hz. </p>
-<p>Cached during construction; constant for the lifetime of the object. Combine with <a class="el" href="#ae670e017fc42f0cc1f4ba2df351dee8a" title="Current hardware counter value.">nowTicks()</a> to convert raw tick deltas into seconds or any <a class="el" href="../../df/d55/group___chrono.html#gace373a99bbd4ede0fd9bc7649dd8b89b" title="toy::chrono::Duration">toy::chrono::Duration</a> period.</p>
+<p>Cached during construction; constant for the lifetime of the object. Combine with <a class="el" href="#ae670e017fc42f0cc1f4ba2df351dee8a" title="Current hardware counter value.">nowTicks()</a> to convert raw tick deltas into seconds or any <a class="el" href="../../df/d55/group___chrono.html#gad8a95b67fd667a88791612ae92718191" title="toy::chrono::Duration">toy::chrono::Duration</a> period.</p>
 <dl class="section return"><dt>Returns</dt><dd>Ticks per second; always strictly greater than <code>0</code> after construction completes.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Inline accessor; reduces to a single field load.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#ae670e017fc42f0cc1f4ba2df351dee8a" title="Current hardware counter value.">nowTicks()</a> </dd></dl>
