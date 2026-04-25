@@ -94,9 +94,13 @@ public:
   /// Shuts down the engine core module and clears the singleton instance.
   virtual ~CoreApplication() noexcept;
 
+  /// Copy construction is deleted to preserve the singleton invariant.
   CoreApplication(const CoreApplication &)             = delete;
-  CoreApplication(CoreApplication &&)                  = delete;
+  /// Copy assignment is deleted to preserve the singleton invariant.
   CoreApplication & operator=(const CoreApplication &) = delete;
+  /// Move construction is deleted; instances are pinned to their declaration scope.
+  CoreApplication(CoreApplication &&)                  = delete;
+  /// Move assignment is deleted; instances are pinned to their declaration scope.
   CoreApplication & operator=(CoreApplication &&)      = delete;
 
   /*!
@@ -146,7 +150,8 @@ public:
     \param argc Argument count; stored as a size_t if positive.
     \param argv Argument vector; stored as-is.
 
-    \post argumentsCount() == \a argc (when \a argc > 0) and arguments() == \a argv.
+    \post argumentsCount() == \a argc when \a argc > 0, otherwise argumentsCount() == \c 0; arguments() == \a argv in
+          both cases.
   */
   void setArguments(int argc, char ** argv) noexcept;
 

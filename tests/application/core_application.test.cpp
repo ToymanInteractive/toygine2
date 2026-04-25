@@ -34,6 +34,11 @@ public:
     : CoreApplication(nullptr, nullptr)
     , internalRunResult(runResult) {}
 
+  TestApp(const TestApp &)             = delete;
+  TestApp(TestApp &&)                  = delete;
+  TestApp & operator=(const TestApp &) = delete;
+  TestApp & operator=(TestApp &&)      = delete;
+
   bool runInternal() noexcept override;
 
   bool runInternalCalled{false};
@@ -145,10 +150,14 @@ TEST_CASE("app/core_application/arguments") {
     REQUIRE(app.argument(0) == nullptr);
   }
 
-  // setArguments with argc == 0 leaves argumentsCount unchanged.
-  SUBCASE("zero_argc_does_not_update_count") {
+  // setArguments with argc == 0 resets the stored count to zero while still storing the vector.
+  SUBCASE("zero_argc_resets_count") {
     char   arg0[] = "myapp";
-    char * argv[] = {arg0};
+    char   arg1[] = "--flag";
+    char * argv[] = {arg0, arg1};
+
+    app.setArguments(2, argv);
+    REQUIRE(app.argumentsCount() == 2);
 
     app.setArguments(0, argv);
 
