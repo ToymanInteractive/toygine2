@@ -13,7 +13,7 @@ var searchData=
   ['info_10',['Info',['../da/d15/namespacetoy_1_1log.html#a955f65710c884cc3393a41d2a3ad5a64a4059b0251f66a18cb56f544728796875',1,'toy::log']]],
   ['information_11',['Information',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#aa258d6860405ac17c387232bff26a6faaa82be0f551b8708bc08eb33cd9ded0cf',1,'toy::platform::ui']]],
   ['initialization_12',['Default Member Initialization',['../df/d81/md__a_g_e_n_t_s.html#default-member-initialization',1,'']]],
-  ['initialize_13',['initialize',['../d2/da2/namespacetoy_1_1assertion.html#a1586eee3b9f8e4fc0b659ff2d402e28a',1,'toy::assertion']]],
+  ['initialize_13',['initialize',['../d4/da9/namespacetoy.html#ab71c3e41b2f6b99b6c07edcb27511d31',1,'toy::initialize()'],['../d2/da2/namespacetoy_1_1assertion.html#a1586eee3b9f8e4fc0b659ff2d402e28a',1,'toy::assertion::initialize()']]],
   ['inl_14',['Template: inline implementation (&lt;span class=&quot;tt&quot;&gt;.inl&lt;/span&gt;)',['../df/d81/md__a_g_e_n_t_s.html#template-inline-implementation-inl',1,'']]],
   ['inl_20files_15',['&lt;span class=&quot;tt&quot;&gt;.inl&lt;/span&gt; Files',['../df/d81/md__a_g_e_n_t_s.html#inl-files',1,'']]],
   ['inline_20and_20template_20code_16',['Inline and Template Code',['../df/d81/md__a_g_e_n_t_s.html#inline-and-template-code',1,'']]],

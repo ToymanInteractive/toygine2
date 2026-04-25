@@ -208,10 +208,17 @@ Macros</h2></td></tr>
 <tr class="memitem:a12cf99d5743dc2301359b6c2724fe48a" id="r_a12cf99d5743dc2301359b6c2724fe48a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a12cf99d5743dc2301359b6c2724fe48a">validate_message</a>(expression,  message)</td></tr>
 <tr class="memdesc:a12cf99d5743dc2301359b6c2724fe48a"><td class="mdescLeft">&#160;</td><td class="mdescRight">When <code>_DEBUG</code> is defined: expands to <code><a class="el" href="../../d1/d5f/assertion__macro__gcc__clang_8hpp.html#a672330c2fecd516f254162cd9611d91a" title="Debug assertion macro with custom message for runtime expression checking.">assert_message(expression, message)</a></code>.  <br /></td></tr>
 <tr class="memitem:a94a808adc84ff2a5345e7ecb00661653" id="r_a94a808adc84ff2a5345e7ecb00661653"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a94a808adc84ff2a5345e7ecb00661653">TOY_CONFIG_DEBUG_MEMORY</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ab71c3e41b2f6b99b6c07edcb27511d31" id="r_ab71c3e41b2f6b99b6c07edcb27511d31"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="../../d4/da9/namespacetoy.html#ab71c3e41b2f6b99b6c07edcb27511d31">toy::initialize</a> (<a class="el" href="../../d2/da2/namespacetoy_1_1assertion.html#a27a675a54a720bf1a098fd13be80553e">assertion::AssertionCallback</a> assertionCallback, <a class="el" href="../../d2/da2/namespacetoy_1_1assertion.html#af491e4e307d14db3efeafb9a77ae76ef">assertion::StackWalkCallback</a> stackWalkCallback) noexcept</td></tr>
+<tr class="memdesc:ab71c3e41b2f6b99b6c07edcb27511d31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the engine core module.  <br /></td></tr>
+<tr class="memitem:a3eeeb1d3b702984ac28fc6e9189a8b8c" id="r_a3eeeb1d3b702984ac28fc6e9189a8b8c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="../../d4/da9/namespacetoy.html#a3eeeb1d3b702984ac28fc6e9189a8b8c">toy::deInitialize</a> () noexcept</td></tr>
+<tr class="memdesc:a3eeeb1d3b702984ac28fc6e9189a8b8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shuts down the engine core module.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Umbrella header for the engine core module. </p>
-<p>Defines the public core surface: platform, assertions, string utilities, output string stream, callbacks pool, fixed strings and vectors, hashing, formatting, and general utilities.</p>
+<p>Defines the public core surface: assertions, callbacks pool, chrono, fixed strings and vectors, formatting, general utilities, hashing, logging, output string stream, platform, and string utilities.</p>
 <dl class="section note"><dt>Note</dt><dd>Include this header only; do not include internal headers directly. </dd></dl>
 </div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
 <a id="a94a808adc84ff2a5345e7ecb00661653" name="a94a808adc84ff2a5345e7ecb00661653"></a>

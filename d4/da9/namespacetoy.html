@@ -131,9 +131,9 @@ Namespaces</h2></td></tr>
 <tr class="memdesc:d2/d83/namespacetoy_1_1math"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mathematical types, constants, and utilities: fixed-point, vectors, point. <br /></td></tr>
 <tr class="memitem:network" id="r_network"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="../../d6/d2c/namespacetoy_1_1network.html">network</a></td></tr>
 <tr class="memdesc:d6/d2c/namespacetoy_1_1network"><td class="mdescLeft">&#160;</td><td class="mdescRight">Network types: endpoint, socket error, flags, statistics, type, and related APIs. <br /></td></tr>
-<tr class="memitem:log" id="r_log"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="../../da/d15/namespacetoy_1_1log.html">log</a></td></tr>
 <tr class="memitem:assertion" id="r_assertion"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="../../d2/da2/namespacetoy_1_1assertion.html">assertion</a></td></tr>
 <tr class="memdesc:d2/da2/namespacetoy_1_1assertion"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configurable assertion failure handling and optional stack trace. <br /></td></tr>
+<tr class="memitem:log" id="r_log"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="../../da/d15/namespacetoy_1_1log.html">log</a></td></tr>
 <tr class="memitem:render" id="r_render"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="../../df/d8d/namespacetoy_1_1render.html">render</a></td></tr>
 <tr class="memdesc:df/d8d/namespacetoy_1_1render"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rendering types and utilities: clear flags, pixel formats, and related APIs. <br /></td></tr>
 <tr class="memitem:audio" id="r_audio"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="../../dd/d77/namespacetoy_1_1audio.html">audio</a></td></tr>
@@ -340,6 +340,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:a14ccea4a485c2aa69412836a22a6cdda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an unsigned integer to its C string representation in the given base.  <br /></td></tr>
 <tr class="memitem:adb88a3717143c42b9d24c5a8bf553b2d" id="r_adb88a3717143c42b9d24c5a8bf553b2d"><td class="memItemLeft">size_t&#160;</td><td class="memItemRight"><a class="el" href="#adb88a3717143c42b9d24c5a8bf553b2d">highestBit</a> (uint64_t value) noexcept</td></tr>
 <tr class="memdesc:adb88a3717143c42b9d24c5a8bf553b2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the 0-based index of the highest set bit in <em class="arg">value</em>.  <br /></td></tr>
+<tr class="memitem:ab71c3e41b2f6b99b6c07edcb27511d31" id="r_ab71c3e41b2f6b99b6c07edcb27511d31"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab71c3e41b2f6b99b6c07edcb27511d31">initialize</a> (<a class="el" href="../../d2/da2/namespacetoy_1_1assertion.html#a27a675a54a720bf1a098fd13be80553e">assertion::AssertionCallback</a> assertionCallback, <a class="el" href="../../d2/da2/namespacetoy_1_1assertion.html#af491e4e307d14db3efeafb9a77ae76ef">assertion::StackWalkCallback</a> stackWalkCallback) noexcept</td></tr>
+<tr class="memdesc:ab71c3e41b2f6b99b6c07edcb27511d31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the engine core module.  <br /></td></tr>
+<tr class="memitem:a3eeeb1d3b702984ac28fc6e9189a8b8c" id="r_a3eeeb1d3b702984ac28fc6e9189a8b8c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a3eeeb1d3b702984ac28fc6e9189a8b8c">deInitialize</a> () noexcept</td></tr>
+<tr class="memdesc:a3eeeb1d3b702984ac28fc6e9189a8b8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shuts down the engine core module.  <br /></td></tr>
 <tr class="memitem:a00ce0b516e9a47a62227a9309afdb583" id="r_a00ce0b516e9a47a62227a9309afdb583"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#a00ce0b516e9a47a62227a9309afdb583">crc8</a> (const void *src, size_t size, uint8_t crc=0x00) noexcept</td></tr>
 <tr class="memdesc:a00ce0b516e9a47a62227a9309afdb583"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Dallas/Maxim CRC-8 (polynomial 0x31, reflected 8-bit CRC).  <br /></td></tr>
 <tr class="memitem:aa63c971425cb6819414030806927a68a" id="r_aa63c971425cb6819414030806927a68a"><td class="memItemLeft">uint16_t&#160;</td><td class="memItemRight"><a class="el" href="#aa63c971425cb6819414030806927a68a">crc16</a> (const void *src, size_t size, uint16_t crc=0x0000) noexcept</td></tr>
@@ -1102,6 +1106,36 @@ This function is constexpr-compatible and can be used in compile-time contexts.<
 
 </div>
 </div>
+<a id="a3eeeb1d3b702984ac28fc6e9189a8b8c" name="a3eeeb1d3b702984ac28fc6e9189a8b8c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3eeeb1d3b702984ac28fc6e9189a8b8c">&#9670;&#160;</a></span>deInitialize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void toy::deInitialize </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Shuts down the engine core module. </p>
+<p>Tears down the assertion subsystem. Must be called once when the engine is no longer needed, after all other engine functions have returned. Calling <a class="el" href="#a3eeeb1d3b702984ac28fc6e9189a8b8c" title="Shuts down the engine core module.">deInitialize()</a> without a prior <a class="el" href="#ab71c3e41b2f6b99b6c07edcb27511d31" title="Initializes the engine core module.">initialize()</a> is undefined behavior.</p>
+<dl class="section post"><dt>Postcondition</dt><dd>The assertion subsystem is inactive.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#ab71c3e41b2f6b99b6c07edcb27511d31" title="Initializes the engine core module.">toy::initialize()</a> </dd></dl>
+
+</div>
+</div>
 <a id="aeeb4febc194b23813d77b08ac4fea2d1" name="aeeb4febc194b23813d77b08ac4fea2d1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aeeb4febc194b23813d77b08ac4fea2d1">&#9670;&#160;</a></span>formatNumberString()</h2>
 
@@ -1288,6 +1322,47 @@ This function is constexpr-compatible and can be used in compile-time contexts.<
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Index of the highest set bit in the range <code></code>[0, 63] (bit 0 is the least significant).</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd><em class="arg">value</em> is non-zero (asserted in debug). </dd></dl>
+
+</div>
+</div>
+<a id="ab71c3e41b2f6b99b6c07edcb27511d31" name="ab71c3e41b2f6b99b6c07edcb27511d31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab71c3e41b2f6b99b6c07edcb27511d31">&#9670;&#160;</a></span>initialize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void toy::initialize </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d2/da2/namespacetoy_1_1assertion.html#a27a675a54a720bf1a098fd13be80553e">assertion::AssertionCallback</a></td>          <td class="paramname"><span class="paramname"><em>assertionCallback</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d2/da2/namespacetoy_1_1assertion.html#af491e4e307d14db3efeafb9a77ae76ef">assertion::StackWalkCallback</a></td>          <td class="paramname"><span class="paramname"><em>stackWalkCallback</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Initializes the engine core module. </p>
+<p>Sets up the assertion subsystem and registers the provided callbacks. Must be called once before any other engine function. Calling <a class="el" href="#ab71c3e41b2f6b99b6c07edcb27511d31" title="Initializes the engine core module.">initialize()</a> more than once without an intervening <a class="el" href="#a3eeeb1d3b702984ac28fc6e9189a8b8c" title="Shuts down the engine core module.">deInitialize()</a> is undefined behavior.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">assertionCallback</td><td>Callback invoked on assertion failure. May be <code>nullptr</code> to disable the callback. </td></tr>
+    <tr><td class="paramname">stackWalkCallback</td><td>Callback invoked to emit each stack frame on failure. May be <code>nullptr</code> to suppress output.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section post"><dt>Postcondition</dt><dd>The assertion subsystem is active and <em class="arg">assertionCallback</em> / <em class="arg">stackWalkCallback</em> are registered.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a3eeeb1d3b702984ac28fc6e9189a8b8c" title="Shuts down the engine core module.">toy::deInitialize()</a>, <a class="el" href="../../d2/da2/namespacetoy_1_1assertion.html#a27a675a54a720bf1a098fd13be80553e" title="toy::assertion::AssertionCallback">toy::assertion::AssertionCallback</a>, <a class="el" href="../../d2/da2/namespacetoy_1_1assertion.html#af491e4e307d14db3efeafb9a77ae76ef" title="toy::assertion::StackWalkCallback">toy::assertion::StackWalkCallback</a> </dd></dl>
 
 </div>
 </div>

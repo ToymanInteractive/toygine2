@@ -18,7 +18,6 @@ var namespacetoy =
     [ "geometry", "da/d08/namespacetoy_1_1geometry.html", "da/d08/namespacetoy_1_1geometry" ],
     [ "math", "d2/d83/namespacetoy_1_1math.html", "d2/d83/namespacetoy_1_1math" ],
     [ "network", "d6/d2c/namespacetoy_1_1network.html", "d6/d2c/namespacetoy_1_1network" ],
-    [ "log", "da/d15/namespacetoy_1_1log.html", "da/d15/namespacetoy_1_1log" ],
     [ "assertion", "d2/da2/namespacetoy_1_1assertion.html", [
       [ "AssertionCallback", "d2/da2/namespacetoy_1_1assertion.html#a27a675a54a720bf1a098fd13be80553e", null ],
       [ "StackWalkCallback", "d2/da2/namespacetoy_1_1assertion.html#af491e4e307d14db3efeafb9a77ae76ef", null ],
@@ -29,6 +28,7 @@ var namespacetoy =
       [ "setCallbacks", "d2/da2/namespacetoy_1_1assertion.html#ab92066b98ab69bcf7db8e1089ea4f755", null ],
       [ "s_assertionCallback", "d2/da2/namespacetoy_1_1assertion.html#abf0c95a6d0312b84decc08fc040187c9", null ]
     ] ],
+    [ "log", "da/d15/namespacetoy_1_1log.html", "da/d15/namespacetoy_1_1log" ],
     [ "render", "df/d8d/namespacetoy_1_1render.html", [
       [ "ClearFlags", "df/d8d/namespacetoy_1_1render.html#ae44fe0c1053121f38b8544a8684ee4e1", [
         [ "None", "df/d8d/namespacetoy_1_1render.html#ae44fe0c1053121f38b8544a8684ee4e1a6adf97f83acf6453d4a6a4b1070f3754", null ],
@@ -137,12 +137,14 @@ var namespacetoy =
     [ "cstrcmp", "d4/da9/namespacetoy.html#a28fad381ee4d8415699e790432777471", null ],
     [ "cstrpbrk", "d4/da9/namespacetoy.html#adaa16f254dc6bc99679971d96bd87a66", null ],
     [ "cstrstr", "d4/da9/namespacetoy.html#a58d00a4a7bbd87ef48d346903b5a8c78", null ],
+    [ "deInitialize", "d4/da9/namespacetoy.html#a3eeeb1d3b702984ac28fc6e9189a8b8c", null ],
     [ "format", "de/d08/group___format.html#ga79f053b92ccd3b7259a353d890a22cf5", null ],
     [ "formatNumberString", "d4/da9/namespacetoy.html#aeeb4febc194b23813d77b08ac4fea2d1", null ],
     [ "formatTo", "de/d08/group___format.html#ga57e1d4d264063d67be1cfee4e45a66ad", null ],
     [ "ftoa", "d4/da9/namespacetoy.html#a153b39b476aa91d0b98f6350eeae88a2", null ],
     [ "ftoa", "d4/da9/namespacetoy.html#abd6a34c77550e2f8649d30d8ef1c1904", null ],
     [ "highestBit", "d4/da9/namespacetoy.html#adb88a3717143c42b9d24c5a8bf553b2d", null ],
+    [ "initialize", "d4/da9/namespacetoy.html#ab71c3e41b2f6b99b6c07edcb27511d31", null ],
     [ "itoa", "d4/da9/namespacetoy.html#ad9154c389294cb443faa03c20893f91c", null ],
     [ "operator&", "d4/da9/namespacetoy.html#a2969305409fc34874d0e0f512a028aa8", null ],
     [ "operator&=", "d4/da9/namespacetoy.html#ae92e06198838e677bdbadbdb6d089b8c", null ],
