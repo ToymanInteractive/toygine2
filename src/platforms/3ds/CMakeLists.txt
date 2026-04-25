@@ -18,7 +18,7 @@
 # DEALINGS IN THE SOFTWARE.
 #-------------------------------------------------------------------------------------------
 
-set(PLATFORM_SRC_CORE_LIST  src/platforms/stub/core/assertion_stub.cpp)
+set(PLATFORM_SRC_CORE_LIST  src/platforms/stub/application/core_application_stub.cpp src/platforms/stub/core/assertion_stub.cpp)
 set(PLATFORM_HDR_CORE_LIST  )
 set(PLATFORM_LIB_CORE_LIST  )
 

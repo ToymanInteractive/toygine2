@@ -18,31 +18,41 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   application.hpp
-  \brief  Umbrella header for the application module.
-
-  Defines \ref toy::application::CoreApplication and \ref toy::application::Version: the abstract application base class
-  and version type. Include this header to access all application-level types; do not include internal headers directly.
+  \file   core_application.cpp
+  \brief  Implementations for \ref toy::application::CoreApplication.
 */
 
-#ifndef INCLUDE_APPLICATION_HPP_
-#define INCLUDE_APPLICATION_HPP_
+#include "application.hpp"
 
-#include "core.hpp"
+namespace toy::application {
 
-/*!
-  \namespace toy::application
+static CoreApplication * s_instance{nullptr};
 
-  \brief Application lifecycle types: \ref toy::application::CoreApplication, \ref toy::application::Version, and
-         related utilities.
-*/
+CoreApplication::CoreApplication(assertion::AssertionCallback assertionCallback,
+                                 assertion::StackWalkCallback stackWalkCallback) noexcept {
+  assert_message(s_instance == nullptr, "Only one CoreApplication may exist at a time");
 
-#include "application/core_application.hpp"
-#include "application/version.hpp"
+  s_instance = this;
 
-//----------------------------------------------------------------------------------------------------------------------
+  initialize(assertionCallback, stackWalkCallback);
+}
 
-#include "application/core_application.inl"
-#include "application/version.inl"
+CoreApplication::~CoreApplication() noexcept {
+  assert_message(s_instance == this, "CoreApplication destruction does not match construction order");
 
-#endif // INCLUDE_APPLICATION_HPP_
+  deInitialize();
+
+  s_instance = nullptr;
+}
+
+bool CoreApplication::run(int argc, char ** argv) noexcept {
+  setArguments(argc, argv);
+
+  return runInternal();
+}
+
+CoreApplication * CoreApplication::instance() noexcept {
+  return s_instance;
+}
+
+} // namespace toy::application

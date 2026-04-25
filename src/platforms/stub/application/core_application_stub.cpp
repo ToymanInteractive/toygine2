@@ -18,31 +18,16 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   application.hpp
-  \brief  Umbrella header for the application module.
-
-  Defines \ref toy::application::CoreApplication and \ref toy::application::Version: the abstract application base class
-  and version type. Include this header to access all application-level types; do not include internal headers directly.
+  \file   core_application_stub.cpp
+  \brief  Stub implementation of \ref toy::application::CoreApplication::sleep() for platforms without OS sleep support.
 */
 
-#ifndef INCLUDE_APPLICATION_HPP_
-#define INCLUDE_APPLICATION_HPP_
+#include "application.hpp"
 
-#include "core.hpp"
+namespace toy::application {
 
-/*!
-  \namespace toy::application
+void CoreApplication::sleep([[maybe_unused]] size_t milliseconds) const noexcept {
+  // Stub implementation for platforms without OS sleep support
+}
 
-  \brief Application lifecycle types: \ref toy::application::CoreApplication, \ref toy::application::Version, and
-         related utilities.
-*/
-
-#include "application/core_application.hpp"
-#include "application/version.hpp"
-
-//----------------------------------------------------------------------------------------------------------------------
-
-#include "application/core_application.inl"
-#include "application/version.inl"
-
-#endif // INCLUDE_APPLICATION_HPP_
+} // namespace toy::application
