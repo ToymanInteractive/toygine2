@@ -63,10 +63,11 @@ AllowShortLambdasOnASingleLine: Empty
 AllowShortLoopsOnASingleLine: false
 AllowShortNamespacesOnASingleLine: false
 AlwaysBreakBeforeMultilineStrings: false
-# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#alwaysbreaktemplatedeclarations
-BreakAfterReturnType: None
-AlwaysBreakTemplateDeclarations: Yes
 BinPackArguments: true
+BinPackLongBracedList: true
+# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#binpackparameters
+BreakAfterReturnType: None
+BreakTemplateDeclarations: Yes
 BinPackParameters: true
 BitFieldColonSpacing: Both
 BreakBeforeBraces: Attach

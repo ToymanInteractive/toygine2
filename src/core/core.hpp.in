@@ -21,8 +21,8 @@
   \file   core.hpp
   \brief  Umbrella header for the engine core module.
 
-  Defines the public core surface: platform, assertions, string utilities, output string stream, callbacks pool, fixed
-  strings and vectors, hashing, formatting, and general utilities.
+  Defines the public core surface: assertions, callbacks pool, chrono, fixed strings and vectors, formatting, general
+  utilities, hashing, logging, output string stream, platform, and string utilities.
 
   \note Include this header only; do not include internal headers directly.
 */
@@ -273,5 +273,39 @@ using std::char_traits;
 #include "core/o_string_stream.inl"
 #include "core/string_fixed_storage.inl"
 #include "core/utils.inl"
+
+//----------------------------------------------------------------------------------------------------------------------
+
+namespace toy {
+
+/*!
+  \brief Initializes the engine core module.
+
+  Sets up the assertion subsystem and registers the provided callbacks. Must be called once before any other engine
+  function. Calling initialize() more than once without an intervening deInitialize() is undefined behavior.
+
+  \param assertionCallback Callback invoked on assertion failure. May be \c nullptr to use the default handler.
+  \param stackWalkCallback Callback invoked to emit each stack frame on failure. May be \c nullptr to suppress output.
+
+  \post The assertion subsystem is active and \a assertionCallback / \a stackWalkCallback are registered.
+
+  \sa toy::deInitialize(), \ref toy::assertion::AssertionCallback, \ref toy::assertion::StackWalkCallback
+*/
+void initialize(assertion::AssertionCallback assertionCallback,
+                assertion::StackWalkCallback stackWalkCallback) noexcept;
+
+/*!
+  \brief Shuts down the engine core module.
+
+  Tears down the assertion subsystem. Must be called once when the engine is no longer needed, after all other engine
+  functions have returned. Calling deInitialize() without a prior initialize() is undefined behavior.
+
+  \post The assertion subsystem is inactive.
+
+  \sa toy::initialize()
+*/
+void deInitialize() noexcept;
+
+} // namespace toy
 
 #endif // INCLUDE_CORE_HPP_
