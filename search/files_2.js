@@ -15,5 +15,9 @@ var searchData=
   ['constexpr_5futils_2ehpp_12',['constexpr_utils.hpp',['../d4/dc0/constexpr__utils_8hpp.html',1,'']]],
   ['constexpr_5futils_2einl_13',['constexpr_utils.inl',['../dc/d28/constexpr__utils_8inl.html',1,'']]],
   ['core_2ecpp_14',['core.cpp',['../da/de0/core_8cpp.html',1,'']]],
-  ['core_2ehpp_15',['core.hpp',['../da/d47/core_8hpp.html',1,'']]]
+  ['core_2ehpp_15',['core.hpp',['../da/d47/core_8hpp.html',1,'']]],
+  ['core_5fapplication_2ecpp_16',['core_application.cpp',['../d0/dbb/core__application_8cpp.html',1,'']]],
+  ['core_5fapplication_2ehpp_17',['core_application.hpp',['../db/dd6/core__application_8hpp.html',1,'']]],
+  ['core_5fapplication_2einl_18',['core_application.inl',['../dd/dec/core__application_8inl.html',1,'']]],
+  ['core_5fapplication_5fstub_2ecpp_19',['core_application_stub.cpp',['../db/da8/core__application__stub_8cpp.html',1,'']]]
 ];

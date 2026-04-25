@@ -1,5 +1,9 @@
 <map id="include/application.hpp" name="include/application.hpp">
-<area shape="rect" id="Node000001" title="Umbrella header for the app module." alt="" coords="5,5,179,31"/>
-<area shape="rect" id="Node000002" href="$d8/d8c/toygine2_8hpp.html" title="Main umbrella header for the engine." alt="" coords="13,79,171,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="95,44,95,79,89,79,89,44"/>
+<area shape="rect" id="Node000001" title="Umbrella header for the application module." alt="" coords="177,5,350,31"/>
+<area shape="rect" id="Node000002" href="$d8/d8c/toygine2_8hpp.html" title="Main umbrella header for the engine." alt="" coords="5,93,164,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="228,39,110,95,108,91,226,34"/>
+<area shape="rect" id="Node000003" href="$d0/dbb/core__application_8cpp.html" title="Implementations for toy::application::CoreApplication." alt="" coords="189,86,338,126"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="266,44,266,86,261,86,261,44"/>
+<area shape="rect" id="Node000004" href="$db/da8/core__application__stub_8cpp.html" title="Stub implementation of toy::application::CoreApplication::sleep() for platforms without OS sleep supp..." alt="" coords="363,79,572,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="304,34,406,76,404,81,302,39"/>
 </map>

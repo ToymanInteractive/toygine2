@@ -114,11 +114,13 @@ $(function(){initNavTree('d0/d3e/namespacetoy_1_1application.html','../../','');
 </div><!--header-->
 <div class="contents">
 
-<p>Application-level types and utilities (version, etc.).  
+<p>Application lifecycle types: <a class="el" href="../../d7/d1d/classtoy_1_1application_1_1_core_application.html" title="toy::application::CoreApplication">toy::application::CoreApplication</a>, <a class="el" href="../../d7/d33/structtoy_1_1application_1_1_version.html" title="toy::application::Version">toy::application::Version</a>, and related utilities.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:CoreApplication" id="r_CoreApplication"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../d7/d1d/classtoy_1_1application_1_1_core_application.html">CoreApplication</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstract base for platform application lifecycle management.  <a href="../../d7/d1d/classtoy_1_1application_1_1_core_application.html#details">More...</a><br /></td></tr>
 <tr class="memitem:Version" id="r_Version"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="../../d7/d33/structtoy_1_1application_1_1_version.html">Version</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Application version information structure.  <a href="../../d7/d33/structtoy_1_1application_1_1_version.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
@@ -128,9 +130,13 @@ Functions</h2></td></tr>
 <tr class="memdesc:a0c8cd07bec1d567db6d25667a624564c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equality of two <a class="el" href="../../d7/d33/structtoy_1_1application_1_1_version.html" title="toy::application::Version">toy::application::Version</a> values.  <br /></td></tr>
 <tr class="memitem:a9fb5718f0e7e2524906a23c67046d31a" id="r_a9fb5718f0e7e2524906a23c67046d31a"><td class="memItemLeft">constexpr strong_ordering&#160;</td><td class="memItemRight"><a class="el" href="#a9fb5718f0e7e2524906a23c67046d31a">operator&lt;=&gt;</a> (const <a class="el" href="../../d7/d33/structtoy_1_1application_1_1_version.html">Version</a> &amp;lhs, const <a class="el" href="../../d7/d33/structtoy_1_1application_1_1_version.html">Version</a> &amp;rhs) noexcept</td></tr>
 <tr class="memdesc:a9fb5718f0e7e2524906a23c67046d31a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Three-way comparison of two <a class="el" href="../../d7/d33/structtoy_1_1application_1_1_version.html" title="toy::application::Version">toy::application::Version</a> values (lexicographic order).  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:aa282e6de23479c33310525c29bdb01e9" id="r_aa282e6de23479c33310525c29bdb01e9"><td class="memItemLeft">static <a class="el" href="../../d7/d1d/classtoy_1_1application_1_1_core_application.html">CoreApplication</a> *&#160;</td><td class="memItemRight"><a class="el" href="#aa282e6de23479c33310525c29bdb01e9">s_instance</a> {nullptr}</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Application-level types and utilities (version, etc.). </p>
+<div class="textblock"><p>Application lifecycle types: <a class="el" href="../../d7/d1d/classtoy_1_1application_1_1_core_application.html" title="toy::application::CoreApplication">toy::application::CoreApplication</a>, <a class="el" href="../../d7/d33/structtoy_1_1application_1_1_version.html" title="toy::application::Version">toy::application::Version</a>, and related utilities. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a9fb5718f0e7e2524906a23c67046d31a" name="a9fb5718f0e7e2524906a23c67046d31a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9fb5718f0e7e2524906a23c67046d31a">&#9670;&#160;</a></span>operator&lt;=&gt;()</h2>
@@ -208,6 +214,29 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if all components are equal, <code>false</code> otherwise. </dd></dl>
+
+</div>
+</div>
+<a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
+<a id="aa282e6de23479c33310525c29bdb01e9" name="aa282e6de23479c33310525c29bdb01e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa282e6de23479c33310525c29bdb01e9">&#9670;&#160;</a></span>s_instance</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d7/d1d/classtoy_1_1application_1_1_core_application.html">CoreApplication</a>* toy::application::s_instance {nullptr}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>

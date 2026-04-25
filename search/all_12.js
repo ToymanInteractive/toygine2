@@ -43,7 +43,9 @@ var searchData=
   ['round_5fstyle_40',['round_style',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#ae61bb355a9776342cfed55427ee331d9',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]],
   ['rule_41',['Final Rule',['../df/d81/md__a_g_e_n_t_s.html#final-rule',1,'']]],
   ['rules_42',['Rules',['../df/d81/md__a_g_e_n_t_s.html#documentation-style-rules',1,'Documentation Style Rules'],['../df/d81/md__a_g_e_n_t_s.html#floating-point-rules',1,'Floating-Point Rules'],['../df/d81/md__a_g_e_n_t_s.html#memory-and-allocation-rules',1,'Memory and Allocation Rules'],['../df/d81/md__a_g_e_n_t_s.html#unit-test-style-rules',1,'Unit Test Style Rules']]],
-  ['runtime_20parity_43',['Constexpr + Runtime Parity',['../df/d81/md__a_g_e_n_t_s.html#constexpr--runtime-parity',1,'']]],
-  ['runtime_20testing_44',['Compile-Time vs Runtime Testing',['../df/d81/md__a_g_e_n_t_s.html#compile-time-vs-runtime-testing',1,'']]],
-  ['runtime_20tests_45',['Runtime Tests',['../df/d81/md__a_g_e_n_t_s.html#runtime-tests',1,'']]]
+  ['run_43',['run',['../d7/d1d/classtoy_1_1application_1_1_core_application.html#a0534d34a9d5209a9705f634fcd109739',1,'toy::application::CoreApplication']]],
+  ['runinternal_44',['runInternal',['../d7/d1d/classtoy_1_1application_1_1_core_application.html#aed1b6d6f45a9cea05036823ef6ef6590',1,'toy::application::CoreApplication']]],
+  ['runtime_20parity_45',['Constexpr + Runtime Parity',['../df/d81/md__a_g_e_n_t_s.html#constexpr--runtime-parity',1,'']]],
+  ['runtime_20testing_46',['Compile-Time vs Runtime Testing',['../df/d81/md__a_g_e_n_t_s.html#compile-time-vs-runtime-testing',1,'']]],
+  ['runtime_20tests_47',['Runtime Tests',['../df/d81/md__a_g_e_n_t_s.html#runtime-tests',1,'']]]
 ];

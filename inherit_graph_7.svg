@@ -11,10 +11,10 @@
 <!-- Node0 -->
 <g id="Node000000" class="node">
 <title>Node0</title>
-<g id="a_Node000000"><a xlink:href="db/d7c/classtoy_1_1array_1_1const__reverse__iterator.html" target="_top" xlink:title="STL iterator class.">
+<g id="a_Node000000"><a xlink:href="da/d9d/classtoy_1_1array_1_1const__iterator.html" target="_top" xlink:title="STL iterator class.">
 <polygon fill="white" stroke="#666666" points="124,-30 0,-30 0,0 124,0 124,-30"/>
 <text text-anchor="start" x="8" y="-18" font-family="Helvetica,sans-Serif" font-size="10.00">toy::array&lt; T &gt;::const</text>
-<text text-anchor="middle" x="62" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">_reverse_iterator</text>
+<text text-anchor="middle" x="62" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">_iterator</text>
 </a>
 </g>
 </g>
