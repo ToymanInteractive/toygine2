@@ -32,19 +32,19 @@ class TestApp : public CoreApplication {
 public:
   explicit TestApp(bool runResult = true) noexcept
     : CoreApplication(nullptr, nullptr)
-    , _runResult(runResult) {}
+    , internalRunResult(runResult) {}
 
   bool runInternal() noexcept override;
 
   bool runInternalCalled{false};
 
-  bool _runResult;
+  bool internalRunResult;
 };
 
 bool TestApp::runInternal() noexcept {
   runInternalCalled = true;
 
-  return _runResult;
+  return internalRunResult;
 }
 
 // CoreApplication compile-time type properties.
@@ -166,9 +166,10 @@ TEST_CASE("app/core_application/run") {
   SUBCASE("calls_run_internal") {
     TestApp app;
 
-    app.run(1, argv);
+    const bool result = app.run(1, argv);
 
     REQUIRE(app.runInternalCalled);
+    REQUIRE(result);
   }
 
   // run() returns true when runInternal() returns true.
@@ -189,10 +190,11 @@ TEST_CASE("app/core_application/run") {
   SUBCASE("stores_arguments_before_run_internal") {
     TestApp app;
 
-    app.run(1, argv);
+    const bool result = app.run(1, argv);
 
     REQUIRE(app.argumentsCount() == 1);
     REQUIRE(app.arguments() == argv);
+    REQUIRE(result);
   }
 }
 
@@ -200,15 +202,8 @@ TEST_CASE("app/core_application/run") {
 TEST_CASE("app/core_application/sleep") {
   TestApp app;
 
-  // sleep(0) completes without error.
-  SUBCASE("zero_milliseconds") {
-    app.sleep(0);
-  }
-
-  // sleep with a non-zero duration completes without error.
-  SUBCASE("nonzero_milliseconds") {
-    app.sleep(1);
-  }
+  app.sleep(0);
+  app.sleep(1);
 }
 
 } // namespace toy::application

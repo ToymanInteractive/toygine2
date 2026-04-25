@@ -55,8 +55,7 @@ inline size_t CoreApplication::argumentsCount() const noexcept {
 }
 
 inline void CoreApplication::setArguments(int argc, char ** argv) noexcept {
-  if (argc > 0)
-    _argumentsCount = static_cast<size_t>(argc);
+  _argumentsCount = argc > 0 ? static_cast<size_t>(argc) : 0;
 
   _argumentsVector = argv;
 }

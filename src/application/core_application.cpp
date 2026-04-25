@@ -30,12 +30,16 @@ static CoreApplication * s_instance{nullptr};
 
 CoreApplication::CoreApplication(assertion::AssertionCallback assertionCallback,
                                  assertion::StackWalkCallback stackWalkCallback) noexcept {
+  assert_message(s_instance == nullptr, "Only one CoreApplication may exist at a time");
+
   s_instance = this;
 
   initialize(assertionCallback, stackWalkCallback);
 }
 
 CoreApplication::~CoreApplication() noexcept {
+  assert_message(s_instance == this, "CoreApplication destruction does not match construction order");
+
   deInitialize();
 
   s_instance = nullptr;

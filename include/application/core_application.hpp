@@ -94,12 +94,17 @@ public:
   /// Shuts down the engine core module and clears the singleton instance.
   virtual ~CoreApplication() noexcept;
 
+  CoreApplication(const CoreApplication &)             = delete;
+  CoreApplication(CoreApplication &&)                  = delete;
+  CoreApplication & operator=(const CoreApplication &) = delete;
+  CoreApplication & operator=(CoreApplication &&)      = delete;
+
   /*!
     \brief Returns the application version.
 
     \return Const reference to the current \ref toy::application::Version.
   */
-  const Version & version() const noexcept;
+  [[nodiscard]] const Version & version() const noexcept;
 
   /*!
     \brief Sets the application version.
@@ -119,21 +124,21 @@ public:
 
     \pre \a index < argumentsCount().
   */
-  const char * argument(size_t index) const noexcept;
+  [[nodiscard]] const char * argument(size_t index) const noexcept;
 
   /*!
     \brief Returns the raw argument array.
 
     \return Pointer to the argv array passed to setArguments(), or \c nullptr if not set.
   */
-  char ** arguments() const noexcept;
+  [[nodiscard]] char ** arguments() const noexcept;
 
   /*!
     \brief Returns the number of command-line arguments.
 
     \return Number of arguments set via setArguments() or run().
   */
-  size_t argumentsCount() const noexcept;
+  [[nodiscard]] size_t argumentsCount() const noexcept;
 
   /*!
     \brief Stores command-line arguments for later access via argument() and arguments().
@@ -155,14 +160,14 @@ public:
 
     \post argumentsCount() and arguments() reflect \a argc and \a argv.
   */
-  bool run(int argc, char ** argv) noexcept;
+  [[nodiscard]] bool run(int argc, char ** argv) noexcept;
 
   /*!
     \brief Returns the OS process identifier for the current process.
 
     \return PID of the running process.
   */
-  uint32_t pid() const noexcept;
+  [[nodiscard]] uint32_t pid() const noexcept;
 
   /*!
     \brief Suspends the calling thread for at least \a milliseconds.
