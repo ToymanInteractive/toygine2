@@ -116,6 +116,12 @@ $(function(){initNavTree('d7/d33/structtoy_1_1application_1_1_version.html','../
 
 <p>Application version information structure.  
  <a href="#details">More...</a></p>
+<div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Collaboration diagram for toy::application::Version:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../dd/d0a/structtoy_1_1application_1_1_version__coll__graph.svg" width="190" height="132"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<center><span class="legend">[<a target="top" href="../../graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -125,54 +131,55 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a2dbf72695a2ef59f90d1728bf12029fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Minor version; backward-compatible additions.  <br /></td></tr>
 <tr class="memitem:aff8d29c2da041885b199f74ec68dc658" id="r_aff8d29c2da041885b199f74ec68dc658"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#aff8d29c2da041885b199f74ec68dc658">maintenance</a> {0}</td></tr>
 <tr class="memdesc:aff8d29c2da041885b199f74ec68dc658"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maintenance version; backward-compatible fixes.  <br /></td></tr>
-<tr class="memitem:adcca1886dcfda18458d39652bb602fb4" id="r_adcca1886dcfda18458d39652bb602fb4"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#adcca1886dcfda18458d39652bb602fb4">revision</a> {0}</td></tr>
-<tr class="memdesc:adcca1886dcfda18458d39652bb602fb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Revision (e.g. build or patch level).  <br /></td></tr>
+<tr class="memitem:a1c4247fbb7eac4c15835dcc164f9bf31" id="r_a1c4247fbb7eac4c15835dcc164f9bf31"><td class="memItemLeft"><a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a>&#160;</td><td class="memItemRight"><a class="el" href="#a1c4247fbb7eac4c15835dcc164f9bf31">revision</a> {}</td></tr>
+<tr class="memdesc:a1c4247fbb7eac4c15835dcc164f9bf31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Git revision string (e.g. commit hash). Must point to storage that outlives this <code><a class="el" href="../../d7/d33/structtoy_1_1application_1_1_version.html" title="Application version information structure.">Version</a></code> value.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Application version information structure. </p>
-<p><a class="el" href="../../d7/d33/structtoy_1_1application_1_1_version.html" title="Application version information structure.">Version</a> represents a semantic version number following the major.minor.maintenance.revision format. This structure is designed for compile-time version management and provides a simple way to track application versions throughout the development lifecycle.</p>
+<p><a class="el" href="../../d7/d33/structtoy_1_1application_1_1_version.html" title="Application version information structure.">Version</a> represents a semantic version number following the major.minor.maintenance.revision format. This structure is designed for compile-time version management and provides a simple way to track application versions throughout the development lifecycle. The <code>revision</code> field holds a non-owning string view (e.g. a git commit hash) whose lifetime must exceed that of the <code><a class="el" href="../../d7/d33/structtoy_1_1application_1_1_version.html" title="Application version information structure.">Version</a></code> value.</p>
 <h1 class="doxsection"><a class="anchor" id="features"></a>
 Key Features</h1>
 <ul>
 <li><b>Semantic versioning</b>: major.minor.maintenance.revision format.</li>
 <li><b>Constexpr</b>: Usable in constexpr contexts; comparison operators are constexpr.</li>
 <li><b>Exception safety</b>: All operations are <code>noexcept</code>.</li>
-<li><b>Type safety</b>: <code>uint32_t</code> components; no implicit conversions.</li>
+<li><b>Non-owning revision</b>: <code>revision</code> is a <a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html" title="toy::CStringView">toy::CStringView</a>; no allocation, zero copy cost.</li>
 </ul>
 <h1 class="doxsection"><a class="anchor" id="usage"></a>
 Usage Example</h1>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="../../d4/d01/application_8hpp.html">application.hpp</a>&quot;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keyword">constexpr</span> <a class="code hl_struct" href="../../d7/d33/structtoy_1_1application_1_1_version.html">toy::application::Version</a> version;</div>
-<div class="line"><span class="keyword">constexpr</span> <a class="code hl_struct" href="../../d7/d33/structtoy_1_1application_1_1_version.html">toy::application::Version</a> customVersion{1, 2, 3, 4};</div>
+<div class="line"><span class="keyword">constexpr</span> <a class="code hl_struct" href="../../d7/d33/structtoy_1_1application_1_1_version.html">toy::application::Version</a> customVersion{1, 2, 3, <span class="stringliteral">&quot;abc1234d&quot;</span>};</div>
 <div class="line"> </div>
-<div class="line"><span class="keywordflow">if</span> (customVersion &gt;= <a class="code hl_struct" href="../../d7/d33/structtoy_1_1application_1_1_version.html">toy::application::Version</a>{1, 0, 0, 0}) {</div>
+<div class="line"><span class="keywordflow">if</span> (customVersion &gt;= <a class="code hl_struct" href="../../d7/d33/structtoy_1_1application_1_1_version.html">toy::application::Version</a>{1, 0, 0, {}}) {</div>
 <div class="line">  <span class="comment">// API 1.x or later</span></div>
 <div class="line">}</div>
 <div class="ttc" id="aapplication_8hpp_html"><div class="ttname"><a href="../../d4/d01/application_8hpp.html">application.hpp</a></div><div class="ttdoc">Umbrella header for the application module.</div></div>
-<div class="ttc" id="astructtoy_1_1application_1_1_version_html"><div class="ttname"><a href="../../d7/d33/structtoy_1_1application_1_1_version.html">toy::application::Version</a></div><div class="ttdoc">Application version information structure.</div><div class="ttdef"><b>Definition</b> version.hpp:85</div></div>
+<div class="ttc" id="astructtoy_1_1application_1_1_version_html"><div class="ttname"><a href="../../d7/d33/structtoy_1_1application_1_1_version.html">toy::application::Version</a></div><div class="ttdoc">Application version information structure.</div><div class="ttdef"><b>Definition</b> version.hpp:90</div></div>
 </div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="performance"></a>
 Performance Characteristics</h1>
 <ul>
 <li><b>Construction</b>: O(1).</li>
 <li><b>Access</b>: O(1) for all members.</li>
-<li><b>Comparison</b>: O(1) for <code>operator==</code> and <code>operator&lt;=&gt;</code>.</li>
-<li><b>Memory</b>: 16 bytes (4 × <code>uint32_t</code>).</li>
+<li><b>Comparison</b>: O(n) for <code>operator==</code> and <code>operator&lt;=&gt;</code>, where <em class="arg">n</em> is the revision string length.</li>
+<li><b>Memory</b>: 3 × <code>uint32_t</code> + one pointer (typically 24 bytes on 64-bit targets due to alignment padding).</li>
 </ul>
 <h1 class="doxsection"><a class="anchor" id="safety"></a>
 Safety Guarantees</h1>
 <ul>
-<li><b>Type safety</b>: Strong typing; no overflow in normal version ranges.</li>
 <li><b>Exception safety</b>: All operations are <code>noexcept</code>; no dynamic allocation.</li>
 <li><b>Thread safety</b>: Trivially copyable; safe to copy across threads.</li>
+<li><b>Revision lifetime</b>: The string referenced by <code>revision</code> must outlive the <code><a class="el" href="../../d7/d33/structtoy_1_1application_1_1_version.html" title="Application version information structure.">Version</a></code> value.</li>
 </ul>
 <h1 class="doxsection"><a class="anchor" id="compatibility"></a>
 Compatibility</h1>
 <ul>
-<li><b>Semantic versioning</b>: Aligns with semver.org (major.minor.patch); <code>maintenance</code> and <code>revision</code> map to patch/build.</li>
-<li><b>ABI</b>: Plain layout; safe to pass across translation units and use in stable ABIs.</li>
+<li><b>Semantic versioning</b>: Aligns with semver.org (major.minor.patch); <code>maintenance</code> maps to patch and <code>revision</code> carries a build identifier such as a git commit hash.</li>
+<li><b>ABI</b>: Layout includes a pointer-sized field; size is platform-dependent.</li>
 </ul>
 <dl class="section note"><dt>Note</dt><dd>For runtime parsing from strings, use separate utility functions.</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>The string referenced by <code>revision</code> must outlive the <code><a class="el" href="../../d7/d33/structtoy_1_1application_1_1_version.html" title="Application version information structure.">Version</a></code> value. Storing a <code><a class="el" href="../../d7/d33/structtoy_1_1application_1_1_version.html" title="Application version information structure.">Version</a></code> that points to a temporary or stack-allocated buffer beyond that buffer's lifetime causes undefined behavior. Use a string literal or storage with static lifetime.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://semver.org/">https://semver.org/</a> </dd></dl>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="aff8d29c2da041885b199f74ec68dc658" name="aff8d29c2da041885b199f74ec68dc658"></a>
@@ -223,19 +230,19 @@ Compatibility</h1>
 
 </div>
 </div>
-<a id="adcca1886dcfda18458d39652bb602fb4" name="adcca1886dcfda18458d39652bb602fb4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adcca1886dcfda18458d39652bb602fb4">&#9670;&#160;</a></span>revision</h2>
+<a id="a1c4247fbb7eac4c15835dcc164f9bf31" name="a1c4247fbb7eac4c15835dcc164f9bf31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c4247fbb7eac4c15835dcc164f9bf31">&#9670;&#160;</a></span>revision</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint32_t toy::application::Version::revision {0}</td>
+          <td class="memname"><a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a> toy::application::Version::revision {}</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Revision (e.g. build or patch level). </p>
+<p>Git revision string (e.g. commit hash). Must point to storage that outlives this <code><a class="el" href="../../d7/d33/structtoy_1_1application_1_1_version.html" title="Application version information structure.">Version</a></code> value. </p>
 
 </div>
 </div>

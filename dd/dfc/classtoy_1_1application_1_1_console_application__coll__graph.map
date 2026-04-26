@@ -1,7 +1,9 @@
 <map id="toy::application::ConsoleApplication" name="toy::application::ConsoleApplication">
-<area shape="rect" id="Node000001" title="Abstract base for console&#45;mode application lifecycle." alt="" coords="31,176,213,216"/>
-<area shape="rect" id="Node000002" href="$d7/d1d/classtoy_1_1application_1_1_core_application.html" title="Abstract base for platform application lifecycle management." alt="" coords="5,101,239,127"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="125,140,125,176,119,176,119,140"/>
-<area shape="rect" id="Node000003" href="$d7/d33/structtoy_1_1application_1_1_version.html" title="Application version information structure." alt="" coords="33,5,211,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="125,45,125,101,119,101,119,45"/>
+<area shape="rect" id="Node000001" title="Abstract base for console&#45;mode application lifecycle." alt="" coords="31,272,213,312"/>
+<area shape="rect" id="Node000002" href="$d7/d1d/classtoy_1_1application_1_1_core_application.html" title="Abstract base for platform application lifecycle management." alt="" coords="5,197,239,223"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="125,236,125,272,119,272,119,236"/>
+<area shape="rect" id="Node000003" href="$d7/d33/structtoy_1_1application_1_1_version.html" title="Application version information structure." alt="" coords="33,101,211,127"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="125,141,125,197,119,197,119,141"/>
+<area shape="rect" id="Node000004" href="$d5/d03/classtoy_1_1_c_string_view.html" title="Non&#45;owning string view class for C&#45;style strings." alt="" coords="57,5,187,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="125,45,125,101,119,101,119,45"/>
 </map>

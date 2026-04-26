@@ -1,53 +1,54 @@
 <map id="include/core/format_string.hpp" name="include/core/format_string.hpp">
-<area shape="rect" id="Node000001" title="Compile&#45;time validated format&#45;string wrapper for auto {} and positional {N} placeholders." alt="" coords="1212,5,1361,45"/>
-<area shape="rect" id="Node000002" href="$da/d47/core_8hpp.html" title="Umbrella header for the engine core module." alt="" coords="1222,167,1351,192"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1265,58,1252,87,1250,103,1252,118,1263,144,1278,165,1274,168,1259,146,1246,119,1244,103,1247,86,1261,56"/>
-<area shape="rect" id="Node000022" href="$d4/d0a/format_8hpp.html" title="Format functions for substituting arguments into {} and {N} placeholders." alt="" coords="1262,93,1439,119"/>
-<area shape="poly" id="edge28_Node000001_Node000022" title=" " alt="" coords="1312,54,1343,91,1339,95,1308,58"/>
+<area shape="rect" id="Node000001" title="Compile&#45;time validated format&#45;string wrapper for auto {} and positional {N} placeholders." alt="" coords="1302,5,1452,45"/>
+<area shape="rect" id="Node000002" href="$da/d47/core_8hpp.html" title="Umbrella header for the engine core module." alt="" coords="1312,167,1442,192"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1356,58,1343,87,1341,103,1342,118,1354,144,1369,165,1365,168,1350,146,1337,119,1335,103,1338,86,1351,56"/>
+<area shape="rect" id="Node000022" href="$d4/d0a/format_8hpp.html" title="Format functions for substituting arguments into {} and {N} placeholders." alt="" coords="1352,93,1530,119"/>
+<area shape="poly" id="edge29_Node000001_Node000022" title=" " alt="" coords="1403,54,1434,91,1429,95,1399,58"/>
 <area shape="rect" id="Node000003" href="$d4/d01/application_8hpp.html" title="Umbrella header for the application module." alt="" coords="216,247,389,273"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1208,190,390,254,389,249,1208,184"/>
-<area shape="rect" id="Node000004" href="$d8/d8c/toygine2_8hpp.html" title="Main umbrella header for the engine." alt="" coords="842,431,1000,456"/>
-<area shape="poly" id="edge22_Node000002_Node000004" title=" " alt="" coords="1208,184,1090,188,954,198,828,215,778,227,741,242,700,271,670,305,663,323,661,342,665,361,676,381,701,398,742,412,842,431,841,436,741,417,699,403,672,384,660,363,655,342,658,322,666,302,696,267,738,238,776,222,827,210,953,192,1090,183,1208,179"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1299,189,389,255,389,250,1299,184"/>
+<area shape="rect" id="Node000004" href="$d8/d8c/toygine2_8hpp.html" title="Main umbrella header for the engine." alt="" coords="946,431,1104,456"/>
+<area shape="poly" id="edge23_Node000002_Node000004" title=" " alt="" coords="1299,186,1139,198,1045,208,949,223,858,241,778,265,715,295,693,311,677,330,669,343,666,356,669,368,676,381,693,394,719,406,789,422,869,432,946,437,946,443,869,438,788,428,717,411,691,399,672,384,664,370,661,356,664,342,672,326,689,307,712,290,776,260,856,236,948,217,1044,203,1139,193,1298,181"/>
 <area shape="rect" id="Node000008" href="$d1/d71/audio_8hpp.html" title="Umbrella header for the audio module." alt="" coords="687,343,824,368"/>
-<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="1208,187,1083,194,943,205,823,221,783,231,762,242,749,266,746,293,749,320,754,342,749,343,744,321,741,293,744,264,758,238,781,226,822,216,942,200,1083,188,1208,181"/>
-<area shape="rect" id="Node000009" href="$d8/d39/game_8hpp.html" title="Umbrella header for the game module." alt="" coords="772,247,910,273"/>
-<area shape="poly" id="edge9_Node000002_Node000009" title=" " alt="" coords="1208,195,1075,216,923,243,889,250,888,245,922,237,1074,210,1207,189"/>
-<area shape="rect" id="Node000010" href="$d4/d78/math_8hpp.html" title="Umbrella header for the math module." alt="" coords="935,247,1070,273"/>
-<area shape="poly" id="edge10_Node000002_Node000010" title=" " alt="" coords="1233,198,1044,250,1043,245,1231,193"/>
-<area shape="rect" id="Node000012" href="$d6/d67/network_8hpp.html" title="Umbrella header for the network module." alt="" coords="1094,247,1249,273"/>
-<area shape="poly" id="edge14_Node000002_Node000012" title=" " alt="" coords="1260,202,1190,249,1187,245,1257,198"/>
-<area shape="rect" id="Node000014" href="$de/dd6/ui_8hpp.html" title="Umbrella header for platform UI types." alt="" coords="1348,343,1521,368"/>
-<area shape="poly" id="edge17_Node000002_Node000014" title=" " alt="" coords="1290,206,1297,242,1304,261,1314,278,1333,299,1356,316,1403,340,1401,345,1353,321,1330,303,1310,282,1299,263,1292,244,1285,207"/>
-<area shape="rect" id="Node000015" href="$d6/d4b/render_8hpp.html" title="Umbrella header for the render module." alt="" coords="1324,247,1467,273"/>
-<area shape="poly" id="edge19_Node000002_Node000015" title=" " alt="" coords="1315,198,1381,245,1378,249,1312,202"/>
-<area shape="rect" id="Node000017" href="$da/de0/core_8cpp.html" title="Implementation of toy::initialize() and toy::deInitialize() lifecycle functions." alt="" coords="1491,247,1623,273"/>
-<area shape="poly" id="edge23_Node000002_Node000017" title=" " alt="" coords="1340,193,1518,245,1517,250,1338,198"/>
-<area shape="rect" id="Node000018" href="$db/d2d/hashes_8cpp.html" title="Table&#45;driven implementations of toy::crc8(), toy::crc16(), and toy::crc32()." alt="" coords="1647,247,1798,273"/>
-<area shape="poly" id="edge24_Node000002_Node000018" title=" " alt="" coords="1365,190,1635,237,1671,245,1670,250,1634,243,1364,196"/>
-<area shape="rect" id="Node000019" href="$d2/d51/log__sink_8cpp.html" title="Out&#45;of&#45;line definitions for toy::log::ISink." alt="" coords="1822,247,1980,273"/>
-<area shape="poly" id="edge25_Node000002_Node000019" title=" " alt="" coords="1365,185,1567,205,1809,237,1850,245,1849,250,1809,243,1566,211,1364,190"/>
-<area shape="rect" id="Node000020" href="$de/d06/utils_8cpp.html" title="Definitions for string, encoding, and number utilities declared in core/utils.hpp." alt="" coords="2004,247,2136,273"/>
-<area shape="poly" id="edge26_Node000002_Node000020" title=" " alt="" coords="1365,181,1643,198,1817,214,1992,237,2028,245,2027,250,1991,243,1817,219,1642,203,1365,186"/>
-<area shape="rect" id="Node000021" href="$d7/d90/assertion__stub_8cpp.html" title="Stub definitions for the assertion callback API declared in core/assertion.hpp." alt="" coords="2160,240,2340,280"/>
-<area shape="poly" id="edge27_Node000002_Node000021" title=" " alt="" coords="1365,180,1707,197,1927,214,2149,237,2160,239,2160,244,2149,243,1926,219,1706,203,1365,186"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="202,274,122,288,51,311,26,325,12,341,10,359,23,381,38,391,64,400,144,415,250,425,374,433,633,440,842,440,842,445,633,445,373,438,250,431,143,420,63,405,36,396,19,385,5,360,7,339,23,321,49,306,121,283,202,269"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="1299,186,1226,192,1141,202,1051,219,963,243,906,266,853,294,773,345,771,340,850,290,904,261,962,237,1050,213,1141,197,1226,186,1298,181"/>
+<area shape="rect" id="Node000009" href="$d8/d39/game_8hpp.html" title="Umbrella header for the game module." alt="" coords="849,343,988,368"/>
+<area shape="poly" id="edge9_Node000002_Node000009" title=" " alt="" coords="1299,190,1140,209,1066,224,1014,242,984,265,959,294,926,344,922,341,955,290,981,261,1012,238,1064,219,1139,204,1298,184"/>
+<area shape="rect" id="Node000010" href="$d4/d78/math_8hpp.html" title="Umbrella header for the math module." alt="" coords="1026,247,1160,273"/>
+<area shape="poly" id="edge11_Node000002_Node000010" title=" " alt="" coords="1324,198,1135,250,1134,245,1322,193"/>
+<area shape="rect" id="Node000012" href="$d6/d67/network_8hpp.html" title="Umbrella header for the network module." alt="" coords="1185,247,1340,273"/>
+<area shape="poly" id="edge15_Node000002_Node000012" title=" " alt="" coords="1351,202,1281,249,1278,245,1348,198"/>
+<area shape="rect" id="Node000014" href="$de/dd6/ui_8hpp.html" title="Umbrella header for platform UI types." alt="" coords="1510,343,1684,368"/>
+<area shape="poly" id="edge18_Node000002_Node000014" title=" " alt="" coords="1380,205,1386,243,1393,262,1404,278,1429,295,1468,312,1555,340,1553,345,1466,317,1426,300,1401,282,1389,264,1381,244,1375,206"/>
+<area shape="rect" id="Node000015" href="$d6/d4b/render_8hpp.html" title="Umbrella header for the render module." alt="" coords="1415,247,1558,273"/>
+<area shape="poly" id="edge20_Node000002_Node000015" title=" " alt="" coords="1406,198,1472,245,1469,249,1403,202"/>
+<area shape="rect" id="Node000017" href="$da/de0/core_8cpp.html" title="Implementation of toy::initialize() and toy::deInitialize() lifecycle functions." alt="" coords="1582,247,1714,273"/>
+<area shape="poly" id="edge24_Node000002_Node000017" title=" " alt="" coords="1430,193,1609,245,1608,250,1429,198"/>
+<area shape="rect" id="Node000018" href="$db/d2d/hashes_8cpp.html" title="Table&#45;driven implementations of toy::crc8(), toy::crc16(), and toy::crc32()." alt="" coords="1738,247,1888,273"/>
+<area shape="poly" id="edge25_Node000002_Node000018" title=" " alt="" coords="1456,190,1726,237,1762,245,1761,250,1725,243,1455,196"/>
+<area shape="rect" id="Node000019" href="$d2/d51/log__sink_8cpp.html" title="Out&#45;of&#45;line definitions for toy::log::ISink." alt="" coords="1912,247,2071,273"/>
+<area shape="poly" id="edge26_Node000002_Node000019" title=" " alt="" coords="1456,185,1658,205,1900,237,1940,245,1939,250,1899,243,1657,211,1455,190"/>
+<area shape="rect" id="Node000020" href="$de/d06/utils_8cpp.html" title="Definitions for string, encoding, and number utilities declared in core/utils.hpp." alt="" coords="2095,247,2227,273"/>
+<area shape="poly" id="edge27_Node000002_Node000020" title=" " alt="" coords="1456,181,1734,198,1908,214,2083,237,2119,245,2118,250,2082,243,1907,219,1733,203,1455,186"/>
+<area shape="rect" id="Node000021" href="$d7/d90/assertion__stub_8cpp.html" title="Stub definitions for the assertion callback API declared in core/assertion.hpp." alt="" coords="2251,240,2431,280"/>
+<area shape="poly" id="edge28_Node000002_Node000021" title=" " alt="" coords="1456,180,1797,197,2018,214,2240,237,2251,239,2250,244,2239,243,2017,219,1797,203,1456,186"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="202,274,122,289,51,311,26,325,12,341,10,359,23,381,35,386,61,392,147,402,408,419,708,431,946,438,945,443,708,436,408,425,146,408,60,397,33,391,19,385,5,361,7,339,23,321,49,306,121,283,202,269"/>
 <area shape="rect" id="Node000005" href="$db/db6/console__application_8cpp.html" title="Implementations for toy::application::ConsoleApplication." alt="" coords="33,335,204,375"/>
 <area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="269,281,157,338,154,333,266,277"/>
 <area shape="rect" id="Node000006" href="$d0/dbb/core__application_8cpp.html" title="Implementations for toy::application::CoreApplication." alt="" coords="228,335,377,375"/>
 <area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="305,286,305,335,300,335,300,286"/>
 <area shape="rect" id="Node000007" href="$db/da8/core__application__stub_8cpp.html" title="Stub implementation of toy::application::CoreApplication::sleep() for platforms without OS sleep supp..." alt="" coords="402,328,611,383"/>
 <area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="341,276,450,326,448,330,339,281"/>
-<area shape="poly" id="edge8_Node000008_Node000004" title=" " alt="" coords="791,372,900,428,897,433,789,377"/>
-<area shape="poly" id="edge13_Node000010_Node000004" title=" " alt="" coords="952,280,917,300,902,314,890,329,885,342,884,355,889,383,901,409,914,429,910,432,897,412,884,385,878,356,880,341,885,327,898,310,914,296,949,276"/>
-<area shape="rect" id="Node000011" href="$db/dbb/geometry_8hpp.html" title="Umbrella header for the geometry module." alt="" coords="900,343,1062,368"/>
-<area shape="poly" id="edge11_Node000010_Node000011" title=" " alt="" coords="999,286,986,343,981,342,994,285"/>
-<area shape="poly" id="edge12_Node000011_Node000004" title=" " alt="" coords="967,381,932,432,927,429,963,378"/>
-<area shape="poly" id="edge15_Node000012_Node000004" title=" " alt="" coords="1158,285,1116,341,1076,385,1023,414,969,433,968,428,1020,409,1073,381,1112,338,1154,282"/>
-<area shape="rect" id="Node000013" href="$d3/d80/endpoint_8cpp.html" title="Definitions for the toy::network::Endpoint destructor declared in network/endpoint...." alt="" coords="1137,343,1324,368"/>
-<area shape="poly" id="edge16_Node000012_Node000013" title=" " alt="" coords="1188,283,1225,341,1221,344,1184,286"/>
-<area shape="poly" id="edge18_Node000014_Node000004" title=" " alt="" coords="1383,374,1336,385,1157,416,1001,436,1000,431,1156,411,1335,380,1381,369"/>
-<area shape="poly" id="edge20_Node000015_Node000004" title=" " alt="" coords="1464,275,1503,295,1521,309,1535,327,1543,342,1547,356,1544,370,1535,385,1507,399,1458,410,1313,427,1146,437,1001,443,1001,437,1146,432,1313,422,1457,405,1506,394,1531,381,1539,368,1541,356,1538,344,1531,329,1517,313,1501,299,1462,280"/>
-<area shape="rect" id="Node000016" href="$db/d3d/pixel__format_8cpp.html" title="Definitions for pixelFormatName() and pixelFormatFromName() declared in render/pixel_format...." alt="" coords="1596,343,1796,368"/>
-<area shape="poly" id="edge21_Node000015_Node000016" title=" " alt="" coords="1446,274,1659,340,1658,345,1445,279"/>
-<area shape="poly" id="edge29_Node000022_Node000002" title=" " alt="" coords="1333,131,1299,168,1295,165,1329,127"/>
+<area shape="poly" id="edge8_Node000008_Node000004" title=" " alt="" coords="805,370,838,380,990,428,988,433,836,385,803,375"/>
+<area shape="poly" id="edge10_Node000009_Node000004" title=" " alt="" coords="945,375,1012,428,1009,432,942,379"/>
+<area shape="poly" id="edge14_Node000010_Node000004" title=" " alt="" coords="1078,285,1053,329,1036,385,1029,431,1024,430,1031,384,1048,327,1074,283"/>
+<area shape="rect" id="Node000011" href="$db/dbb/geometry_8hpp.html" title="Umbrella header for the geometry module." alt="" coords="1062,343,1225,368"/>
+<area shape="poly" id="edge12_Node000010_Node000011" title=" " alt="" coords="1108,283,1140,341,1135,344,1104,286"/>
+<area shape="poly" id="edge13_Node000011_Node000004" title=" " alt="" coords="1118,378,1043,433,1040,428,1115,374"/>
+<area shape="poly" id="edge16_Node000012_Node000004" title=" " alt="" coords="1267,287,1263,336,1254,362,1239,384,1210,408,1176,425,1140,436,1105,442,1104,437,1139,431,1174,420,1207,404,1235,381,1249,359,1257,334,1262,286"/>
+<area shape="rect" id="Node000013" href="$d3/d80/endpoint_8cpp.html" title="Definitions for the toy::network::Endpoint destructor declared in network/endpoint...." alt="" coords="1300,343,1486,368"/>
+<area shape="poly" id="edge17_Node000012_Node000013" title=" " alt="" coords="1291,278,1379,340,1375,345,1288,283"/>
+<area shape="poly" id="edge19_Node000014_Node000004" title=" " alt="" coords="1546,374,1499,385,1286,418,1105,438,1105,433,1285,413,1498,380,1545,369"/>
+<area shape="poly" id="edge21_Node000015_Node000004" title=" " alt="" coords="1546,274,1640,301,1678,314,1698,326,1707,341,1710,356,1707,370,1698,385,1667,400,1611,412,1449,429,1263,439,1105,444,1105,438,1263,434,1449,424,1610,407,1665,395,1694,381,1702,368,1705,356,1702,343,1694,330,1675,319,1638,306,1544,279"/>
+<area shape="rect" id="Node000016" href="$db/d3d/pixel__format_8cpp.html" title="Definitions for pixelFormatName() and pixelFormatFromName() declared in render/pixel_format...." alt="" coords="1758,343,1958,368"/>
+<area shape="poly" id="edge22_Node000015_Node000016" title=" " alt="" coords="1546,273,1813,340,1812,345,1545,279"/>
+<area shape="poly" id="edge30_Node000022_Node000002" title=" " alt="" coords="1423,131,1389,168,1386,165,1420,127"/>
 </map>
