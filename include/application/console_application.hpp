@@ -87,6 +87,15 @@ public:
 
   /// Destroys the console application and shuts down the engine core module.
   ~ConsoleApplication() noexcept override;
+
+  /// Copy construction is deleted to preserve the singleton invariant.
+  ConsoleApplication(const ConsoleApplication &)             = delete;
+  /// Copy assignment is deleted to preserve the singleton invariant.
+  ConsoleApplication & operator=(const ConsoleApplication &) = delete;
+  /// Move construction is deleted; instances are pinned to their declaration scope.
+  ConsoleApplication(ConsoleApplication &&)                  = delete;
+  /// Move assignment is deleted; instances are pinned to their declaration scope.
+  ConsoleApplication & operator=(ConsoleApplication &&)      = delete;
 };
 
 } // namespace toy::application
