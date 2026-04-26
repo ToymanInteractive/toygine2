@@ -21,8 +21,11 @@
   \file   application.hpp
   \brief  Umbrella header for the application module.
 
-  Defines \ref toy::application::CoreApplication and \ref toy::application::Version: the abstract application base class
-  and version type. Include this header to access all application-level types; do not include internal headers directly.
+  Defines \ref toy::application::ConsoleApplication, \ref toy::application::CoreApplication, and
+  \ref toy::application::Version: the console-mode intermediate base, the abstract application base class, and the
+  version type.
+
+  \note Include this header only; do not include internal headers directly.
 */
 
 #ifndef INCLUDE_APPLICATION_HPP_
@@ -33,10 +36,11 @@
 /*!
   \namespace toy::application
 
-  \brief Application lifecycle types: \ref toy::application::CoreApplication, \ref toy::application::Version, and
-         related utilities.
+  \brief Application lifecycle types: \ref toy::application::CoreApplication, \ref toy::application::ConsoleApplication,
+         \ref toy::application::Version, and related utilities.
 */
 
+#include "application/console_application.hpp"
 #include "application/core_application.hpp"
 #include "application/version.hpp"
 

@@ -66,10 +66,10 @@ AlwaysBreakBeforeMultilineStrings: false
 BinPackArguments: true
 BinPackLongBracedList: true
 BinPackParameters: BinPack
-# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#bitfieldcolonspacing
+BitFieldColonSpacing: Both
+# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#bracewrapping
 BreakAfterReturnType: None
 BreakTemplateDeclarations: Yes
-BitFieldColonSpacing: Both
 BreakBeforeBraces: Attach
 BreakBeforeBinaryOperators: All
 BreakBeforeConceptDeclarations: Always

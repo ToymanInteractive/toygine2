@@ -219,6 +219,13 @@ If something can be checked at compile time, it should be.
 - Use `= default` for default constructors and destructors when appropriate.
 - Use `= delete` to explicitly prevent unwanted operations (move, copy, etc.).
 
+### Rule of Zero and Rule of Five
+
+- **Rule of Zero**: if a class does not directly manage a resource, declare none of the five special member functions; let the compiler generate them correctly.
+- **Rule of Five**: if a class declares or deletes **any** of the five special member functions — destructor, copy constructor, copy assignment operator, move constructor, move assignment operator — explicitly declare **all five** with `= default`, `= delete`, or a user-provided body.
+- Never rely on implicit deletion. Compilers (notably MSVC with `/W4`) treat implicitly deleted or implicitly defined copy/move operations as warnings. Declare intent explicitly so the code communicates ownership semantics without requiring the reader to know the implicit rules.
+- Classes that manage exclusive resources (singletons, RAII handles, subsystem owners) must `= delete` all four copy/move operations and declare the destructor explicitly.
+
 ### `auto`
 
 - Use `auto` when the type is obvious from context or overly verbose.

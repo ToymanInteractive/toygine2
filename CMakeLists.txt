@@ -108,9 +108,9 @@ execute_process(
 
 #-------------------------------------------------------------------------------------------
 
-set(SRC_APPLICATION_LIST                         src/application/core_application.cpp)
-set(HDR_APPLICATION_LIST include/application.hpp include/application/core_application.hpp include/application/version.hpp)
-set(INL_APPLICATION_LIST                         include/application/core_application.inl include/application/version.inl)
+set(SRC_APPLICATION_LIST                         src/application/console_application.cpp     src/application/core_application.cpp)
+set(HDR_APPLICATION_LIST include/application.hpp include/application/console_application.hpp include/application/core_application.hpp include/application/version.hpp)
+set(INL_APPLICATION_LIST                                                                     include/application/core_application.inl include/application/version.inl)
 
 set(SRC_AUDIO_LIST )
 set(HDR_AUDIO_LIST include/audio.hpp include/audio/volume_type.hpp)

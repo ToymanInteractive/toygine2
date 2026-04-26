@@ -58,6 +58,13 @@ TEST_CASE("app/core_application/object_structure") {
                 "CoreApplication must not be trivial (has non-trivial default init)");
   static_assert(!std::is_trivially_copyable_v<CoreApplication>, "CoreApplication must not be trivially copyable");
   static_assert(!std::is_standard_layout_v<CoreApplication>, "CoreApplication must not have standard layout");
+
+  static_assert(std::is_abstract_v<CoreApplication>, "CoreApplication must be abstract; runInternal() is pure virtual");
+  static_assert(!std::is_copy_constructible_v<CoreApplication>,
+                "CoreApplication copy construction must be deleted (singleton invariant)");
+  static_assert(!std::is_move_constructible_v<CoreApplication>,
+                "CoreApplication move construction must be deleted (singleton invariant)");
+  static_assert(std::has_virtual_destructor_v<CoreApplication>, "CoreApplication must have a virtual destructor");
 }
 
 // Singleton: instance() tracks the active CoreApplication lifetime.
