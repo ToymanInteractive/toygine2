@@ -42,9 +42,9 @@ static bool consoleAssert(const char * message) {
     std::print(" press 'c' - to continue, 'd' - to break in debug mode\n");
     answer = static_cast<char>(getchar());
 
-    char temp = '\0';
+    int temp = '\0';
     while (temp != EOF && temp != '\n')
-      temp = static_cast<char>(getchar());
+      temp = getchar();
   }
 
   std::print("--------------------------------------------\n");
