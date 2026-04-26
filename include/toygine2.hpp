@@ -33,6 +33,8 @@
 #include "application.hpp"
 #include "audio.hpp"
 #include "core.hpp"
+#include "filesystem.hpp"
+#include "game.hpp"
 #include "geometry.hpp"
 #include "math.hpp"
 #include "network.hpp"

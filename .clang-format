@@ -67,7 +67,26 @@ BinPackArguments: true
 BinPackLongBracedList: true
 BinPackParameters: BinPack
 BitFieldColonSpacing: Both
-# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#bracewrapping
+BraceWrapping:
+  AfterCaseLabel: false
+  AfterClass: false
+  AfterControlStatement: Never
+  AfterEnum: false
+  AfterFunction: false
+  AfterNamespace: false
+  AfterObjCDeclaration: false
+  AfterStruct: false
+  AfterUnion: false
+  AfterExternBlock: false
+  BeforeCatch: false
+  BeforeElse: false
+  BeforeLambdaBody: false
+  BeforeWhile: false
+  IndentBraces: false
+  SplitEmptyFunction: false
+  SplitEmptyRecord: false
+  SplitEmptyNamespace: false
+# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#bracedinitializerindentwidth
 BreakAfterReturnType: None
 BreakTemplateDeclarations: Yes
 BreakBeforeBraces: Attach

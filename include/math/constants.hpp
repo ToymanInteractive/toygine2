@@ -50,8 +50,8 @@
 #ifndef INCLUDE_MATH_CONSTANTS_HPP_
 #define INCLUDE_MATH_CONSTANTS_HPP_
 
-#include "math/fixed.hpp"
-#include "math/fixed_std_extension.hpp"
+#include "fixed.hpp"
+#include "fixed_std_extension.hpp"
 
 namespace toy::math {
 
