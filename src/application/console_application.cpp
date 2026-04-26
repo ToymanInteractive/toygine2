@@ -22,24 +22,24 @@
   \brief  Implementations for \ref toy::application::ConsoleApplication.
 */
 
-#include <print>
+#include <iostream>
 
 #include "application.hpp"
 
 namespace toy::application {
 
 static bool consoleAssert(const char * message) {
-  std::print("--------------------------------------------\n");
-  std::print(" Assert Failed!\n");
-  std::print("--------------------------------------------\n");
+  std::cout << "--------------------------------------------\n";
+  std::cout << " Assert Failed!\n";
+  std::cout << "--------------------------------------------\n";
   if (message != nullptr) {
-    std::print("{}\n", message);
-    std::print("--------------------------------------------\n");
+    std::cout << message << "\n";
+    std::cout << "--------------------------------------------\n";
   }
 
   char answer = '\0';
   while (answer != 'c' && answer != 'd') {
-    std::print(" press 'c' - to continue, 'd' - to break in debug mode\n");
+    std::cout << " press 'c' - to continue, 'd' - to break in debug mode\n";
     answer = static_cast<char>(getchar());
 
     int temp = '\0';
@@ -47,18 +47,18 @@ static bool consoleAssert(const char * message) {
       temp = getchar();
   }
 
-  std::print("--------------------------------------------\n");
+  std::cout << "--------------------------------------------\n";
 
   return (answer == 'c');
 }
 
 static void consoleStackWalker(const char * message) {
-  std::print("--------------------------------------------\n");
-  std::print(" Call Stack:\n");
-  std::print("--------------------------------------------\n");
+  std::cout << "--------------------------------------------\n";
+  std::cout << " Call Stack:\n";
+  std::cout << "--------------------------------------------\n";
   if (message != nullptr) {
-    std::print("{}\n", message);
-    std::print("--------------------------------------------\n");
+    std::cout << message << "\n";
+    std::cout << "--------------------------------------------\n";
   }
 }
 
