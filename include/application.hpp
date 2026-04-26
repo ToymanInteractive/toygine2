@@ -51,6 +51,28 @@
 
 //----------------------------------------------------------------------------------------------------------------------
 
+/*!
+  \def IMPLEMENT_CONSOLE_APP(appClassName)
+
+  \brief Defines the platform entry point for a console application.
+
+  The macro expands to a \c main function that default-constructs \a appClassName, sets the application version from the
+  build-system macros \c APP_VERSION_MAJOR, \c APP_VERSION_MINOR, \c APP_VERSION_PATCH, and \c APP_VERSION_REVISION,
+  then delegates execution to toy::application::CoreApplication::run(). Place it once in the translation unit that
+  defines the concrete application class. On unsupported target platforms the macro expands to a \c static_assert
+  compile-time error.
+
+  \param appClassName Concrete class derived from \ref toy::application::ConsoleApplication. Must be
+                      default-constructible.
+
+  \pre \a appClassName is a complete type that publicly derives from \ref toy::application::ConsoleApplication.
+  \pre \a appClassName provides a public default constructor.
+  \pre The build system defines \c APP_VERSION_MAJOR, \c APP_VERSION_MINOR, \c APP_VERSION_PATCH, and
+       \c APP_VERSION_REVISION before this macro is expanded.
+  \pre This macro is expanded at most once per executable.
+
+  \sa \ref toy::application::ConsoleApplication, \ref toy::application::CoreApplication
+*/
 #if !defined(IMPLEMENT_CONSOLE_APP)
 
 #define IMPLEMENT_CONSOLE_APP(appClassName)                                                                            \
