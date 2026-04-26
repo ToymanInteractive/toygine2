@@ -30,8 +30,7 @@
 namespace toy::application {
 
 constexpr bool operator==(const Version & lhs, const Version & rhs) noexcept {
-  return lhs.major == rhs.major && lhs.minor == rhs.minor && lhs.maintenance == rhs.maintenance
-         && lhs.revision == rhs.revision;
+  return lhs.major == rhs.major && lhs.minor == rhs.minor && lhs.patch == rhs.patch && lhs.revision == rhs.revision;
 }
 
 constexpr strong_ordering operator<=>(const Version & lhs, const Version & rhs) noexcept {
@@ -41,7 +40,7 @@ constexpr strong_ordering operator<=>(const Version & lhs, const Version & rhs) 
   if (auto cmp = lhs.minor <=> rhs.minor; cmp != strong_ordering::equal)
     return cmp;
 
-  if (auto cmp = lhs.maintenance <=> rhs.maintenance; cmp != strong_ordering::equal)
+  if (auto cmp = lhs.patch <=> rhs.patch; cmp != strong_ordering::equal)
     return cmp;
 
   return lhs.revision <=> rhs.revision;
