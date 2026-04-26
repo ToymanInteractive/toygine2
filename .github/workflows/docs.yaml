@@ -33,7 +33,7 @@ jobs:
 
       - name: Generate Docs
         run: |
-          cmake -DTOYGINE_BUILD_DOCS=ON -DTOYGINE_BUILD_TESTS=OFF --preset linux-ninja-debug
+          cmake -DTOYGINE_BUILD_DOCS=ON -DTOYGINE_BUILD_SAMPLES=OFF -DTOYGINE_BUILD_TESTS=OFF --preset linux-ninja-debug
           cmake --build --preset linux-ninja-debug --target docs
 
       - name: Deploy to GitHub Pages

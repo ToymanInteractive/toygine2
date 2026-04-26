@@ -60,6 +60,14 @@ inline constexpr uint64_t c_steadyClockPeriodDenominator = 1'000'000'000;
 
 } // namespace toy
 
+#define IMPLEMENT_CONSOLE_APP(appClassName)                                                                            \
+                                                                                                                       \
+  int main(int argc, char * argv[]) {                                                                                  \
+    appClassName app;                                                                                                  \
+    app.setVersion({APP_VERSION_MAJOR, APP_VERSION_MINOR, APP_VERSION_MAINTENANCE, APP_VERSION_REVISION});             \
+    return app.run(argc, argv) ? EXIT_SUCCESS : EXIT_FAILURE;                                                          \
+  }
+
 #endif // defined(__APPLE__) && defined(TARGET_OS_OSX)
 
 #endif // SRC_PLATFORMS_MACOS_PLATFORM_CONFIG_HPP_

@@ -49,4 +49,32 @@
 #include "application/core_application.inl"
 #include "application/version.inl"
 
+//----------------------------------------------------------------------------------------------------------------------
+
+#ifndef APP_VERSION_MAJOR
+#define APP_VERSION_MAJOR 0
+#endif
+
+#ifndef APP_VERSION_MINOR
+#define APP_VERSION_MINOR 0
+#endif
+
+#ifndef APP_VERSION_MAINTENANCE
+#define APP_VERSION_MAINTENANCE 0
+#endif
+
+#ifndef APP_VERSION_REVISION
+#define APP_VERSION_REVISION ""
+#endif
+
+#if !defined(IMPLEMENT_CONSOLE_APP)
+
+#define IMPLEMENT_CONSOLE_APP(appClassName)                                                                            \
+                                                                                                                       \
+  void main() {                                                                                                        \
+    static_assert(false, "Build target os doesn't support console application");                                       \
+  }
+
+#endif // !defined(IMPLEMENT_CONSOLE_APP)
+
 #endif // INCLUDE_APPLICATION_HPP_

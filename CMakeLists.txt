@@ -58,6 +58,7 @@ if (TOP_PROJECT)
 
   option(TOYGINE_BUILD_BENCHMARKS "Set when you want to build engine benchmarks" ON)
   option(TOYGINE_BUILD_DOCS "Set when you want to build engine documentation" OFF)
+  option(TOYGINE_BUILD_SAMPLES "Set when you want to build engine samples" ON)
   option(TOYGINE_BUILD_TESTS "Set when you want to build engine unit tests" ON)
   cmake_dependent_option(TOYGINE_TESTS_ENABLE_COVERAGE "Enable code coverage instrumentation for tests" OFF "TOYGINE_BUILD_TESTS" OFF)
 endif ()
@@ -70,6 +71,7 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 include(ConfigureEngine)
 include(ConfigureCompiler)
+include(ConsoleApplication)
 
 if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
   include(${CMAKE_CURRENT_SOURCE_DIR}/src/platforms/windows/CMakeLists.txt)
@@ -190,6 +192,14 @@ endif ()
 
 if (TOYGINE_BUILD_DOCS)
   add_subdirectory(docs)
+endif ()
+
+#-------------------------------------------------------------------------------------------
+# Samples
+#-------------------------------------------------------------------------------------------
+
+if (TOYGINE_BUILD_SAMPLES)
+  add_subdirectory(samples)
 endif ()
 
 #-------------------------------------------------------------------------------------------

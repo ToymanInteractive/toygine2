@@ -244,7 +244,7 @@ jobs:
 
       - name: Configure
         run: |
-          cmake -DTOYGINE_BUILD_TESTS=ON -DTOYGINE_TESTS_ENABLE_COVERAGE=ON --preset linux-ninja-tests-coverage
+          cmake -DTOYGINE_BUILD_SAMPLES=OFF -DTOYGINE_BUILD_TESTS=ON -DTOYGINE_TESTS_ENABLE_COVERAGE=ON --preset linux-ninja-tests-coverage
 
       - name: Collect JUnit
         run: |
@@ -339,7 +339,7 @@ jobs:
 
       - name: Prepare compile_commands.json
         run: |
-          cmake -DTOYGINE_BUILD_TESTS=ON --preset linux-ninja-debug
+          cmake -DTOYGINE_BUILD_SAMPLES=ON -DTOYGINE_BUILD_TESTS=ON --preset linux-ninja-debug
 
       - uses: SonarSource/sonarqube-scan-action@v7.1.0
         with:
