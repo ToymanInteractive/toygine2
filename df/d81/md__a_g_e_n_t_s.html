@@ -338,6 +338,14 @@ Explicit Constructors</h2>
 <li>Use <span class="tt">= default</span> for default constructors and destructors when appropriate.</li>
 <li>Use <span class="tt">= delete</span> to explicitly prevent unwanted operations (move, copy, etc.).</li>
 </ul>
+<h2 class="doxsection"><a class="anchor" id="rule-of-zero-and-rule-of-five"></a>
+Rule of Zero and Rule of Five</h2>
+<ul>
+<li><b>Rule of Zero</b>: if a class does not directly manage a resource, declare none of the five special member functions; let the compiler generate them correctly.</li>
+<li><b>Rule of Five</b>: if a class declares or deletes <b>any</b> of the five special member functions — destructor, copy constructor, copy assignment operator, move constructor, move assignment operator — explicitly declare <b>all five</b> with <span class="tt">= default</span>, <span class="tt">= delete</span>, or a user-provided body.</li>
+<li>Never rely on implicit deletion. Compilers (notably MSVC with <span class="tt">/W4</span>) treat implicitly deleted or implicitly defined copy/move operations as warnings. Declare intent explicitly so the code communicates ownership semantics without requiring the reader to know the implicit rules.</li>
+<li>Classes that manage exclusive resources (singletons, RAII handles, subsystem owners) must <span class="tt">= delete</span> all four copy/move operations and declare the destructor explicitly.</li>
+</ul>
 <h2 class="doxsection"><a class="anchor" id="auto"></a>
 <span class="tt">auto</span></h2>
 <ul>

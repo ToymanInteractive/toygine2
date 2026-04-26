@@ -1,14 +1,19 @@
 <map id="include/application/version.hpp" name="include/application/version.hpp">
-<area shape="rect" id="Node000001" title="Application version type and comparison operators." alt="" coords="191,5,336,45"/>
-<area shape="rect" id="Node000002" href="$d4/d01/application_8hpp.html" title="Umbrella header for the application module." alt="" coords="177,181,350,207"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="247,59,234,94,231,113,234,133,244,158,257,180,253,183,239,161,229,134,226,113,229,93,242,57"/>
-<area shape="rect" id="Node000006" href="$db/dd6/core__application_8hpp.html" title="Abstract base class for platform application lifecycle." alt="" coords="243,93,404,133"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="287,55,312,92,308,95,282,58"/>
-<area shape="rect" id="Node000003" href="$d8/d8c/toygine2_8hpp.html" title="Main umbrella header for the engine." alt="" coords="5,269,164,295"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="228,215,110,271,108,267,226,210"/>
-<area shape="rect" id="Node000004" href="$d0/dbb/core__application_8cpp.html" title="Implementations for toy::application::CoreApplication." alt="" coords="189,262,338,302"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="266,220,266,262,261,262,261,220"/>
-<area shape="rect" id="Node000005" href="$db/da8/core__application__stub_8cpp.html" title="Stub implementation of toy::application::CoreApplication::sleep() for platforms without OS sleep supp..." alt="" coords="363,255,572,309"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="304,210,406,252,404,257,302,215"/>
-<area shape="poly" id="edge6_Node000006_Node000002" title=" " alt="" coords="303,146,274,183,270,179,298,143"/>
+<area shape="rect" id="Node000001" title="Application version type and comparison operators." alt="" coords="301,5,447,45"/>
+<area shape="rect" id="Node000002" href="$d4/d01/application_8hpp.html" title="Umbrella header for the application module." alt="" coords="279,269,453,295"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="357,58,343,94,339,144,344,194,354,238,364,268,359,270,349,239,339,195,333,144,338,93,352,57"/>
+<area shape="rect" id="Node000007" href="$db/dd6/core__application_8hpp.html" title="Abstract base class for platform application lifecycle." alt="" coords="353,93,515,133"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="397,55,423,92,419,95,393,58"/>
+<area shape="rect" id="Node000003" href="$d8/d8c/toygine2_8hpp.html" title="Main umbrella header for the engine." alt="" coords="5,357,164,383"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="316,301,123,360,122,355,314,296"/>
+<area shape="rect" id="Node000004" href="$db/db6/console__application_8cpp.html" title="Implementations for toy::application::ConsoleApplication." alt="" coords="189,350,359,390"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="345,306,296,352,292,348,342,302"/>
+<area shape="rect" id="Node000005" href="$d0/dbb/core__application_8cpp.html" title="Implementations for toy::application::CoreApplication." alt="" coords="383,350,533,390"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="390,302,440,348,436,352,387,306"/>
+<area shape="rect" id="Node000006" href="$db/da8/core__application__stub_8cpp.html" title="Stub implementation of toy::application::CoreApplication::sleep() for platforms without OS sleep supp..." alt="" coords="557,343,767,397"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="420,296,573,340,571,345,418,301"/>
+<area shape="poly" id="edge7_Node000007_Node000002" title=" " alt="" coords="414,146,394,182,378,230,370,270,365,269,373,229,389,180,410,143"/>
+<area shape="rect" id="Node000008" href="$d5/ddf/console__application_8hpp.html" title="Abstract base for console&#45;mode application lifecycle." alt="" coords="404,181,587,221"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="458,143,484,180,480,183,453,146"/>
+<area shape="poly" id="edge9_Node000008_Node000002" title=" " alt="" coords="454,231,386,271,384,267,451,226"/>
 </map>

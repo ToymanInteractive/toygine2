@@ -1,0 +1,5 @@
+<map id="toy::application::CoreApplication" name="toy::application::CoreApplication">
+<area shape="rect" id="Node000001" title="Abstract base for platform application lifecycle management." alt="" coords="5,5,239,31"/>
+<area shape="rect" id="Node000002" href="$d2/d73/classtoy_1_1application_1_1_console_application.html" title="Abstract base for console&#45;mode application lifecycle." alt="" coords="31,79,213,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="125,44,125,79,119,79,119,44"/>
+</map>

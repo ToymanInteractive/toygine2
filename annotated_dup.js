@@ -5,6 +5,7 @@ var annotated_dup =
     ] ],
     [ "toy", "d4/da9/namespacetoy.html", [
       [ "application", "d0/d3e/namespacetoy_1_1application.html", [
+        [ "ConsoleApplication", "d2/d73/classtoy_1_1application_1_1_console_application.html", "d2/d73/classtoy_1_1application_1_1_console_application" ],
         [ "CoreApplication", "d7/d1d/classtoy_1_1application_1_1_core_application.html", "d7/d1d/classtoy_1_1application_1_1_core_application" ],
         [ "Version", "d7/d33/structtoy_1_1application_1_1_version.html", "d7/d33/structtoy_1_1application_1_1_version" ]
       ] ],

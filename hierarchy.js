@@ -7,7 +7,9 @@ var hierarchy =
     [ "numeric_limits", "db/dc2/classnumeric__limits.html", null ],
     [ "std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;", "d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html", null ],
     [ "toy::anonymous_namespace{format.inl}::FormatArgument", "d5/dda/structtoy_1_1anonymous__namespace_02format_8inl_03_1_1_format_argument.html", null ],
-    [ "toy::application::CoreApplication", "d7/d1d/classtoy_1_1application_1_1_core_application.html", null ],
+    [ "toy::application::CoreApplication", "d7/d1d/classtoy_1_1application_1_1_core_application.html", [
+      [ "toy::application::ConsoleApplication", "d2/d73/classtoy_1_1application_1_1_console_application.html", null ]
+    ] ],
     [ "toy::application::Version", "d7/d33/structtoy_1_1application_1_1_version.html", null ],
     [ "toy::array&lt; T &gt;", "d8/d52/classtoy_1_1array.html", null ],
     [ "toy::array&lt; T &gt;::const_iterator", "da/d9d/classtoy_1_1array_1_1const__iterator.html", null ],

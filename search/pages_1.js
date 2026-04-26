@@ -10,13 +10,14 @@ var searchData=
   ['and_20documentation_7',['Comments and Documentation',['../df/d81/md__a_g_e_n_t_s.html#comments-and-documentation',1,'']]],
   ['and_20duplication_8',['Redundancy and Duplication',['../df/d81/md__a_g_e_n_t_s.html#redundancy-and-duplication',1,'']]],
   ['and_20reference_20alignment_9',['Pointer and Reference Alignment',['../df/d81/md__a_g_e_n_t_s.html#pointer-and-reference-alignment',1,'']]],
-  ['and_20spacing_10',['Indentation and Spacing',['../df/d81/md__a_g_e_n_t_s.html#indentation-and-spacing',1,'']]],
-  ['and_20standard_11',['Language and Standard',['../df/d81/md__a_g_e_n_t_s.html#language-and-standard',1,'']]],
-  ['and_20structure_12',['Test Length and Structure',['../df/d81/md__a_g_e_n_t_s.html#test-length-and-structure',1,'']]],
-  ['and_20template_20code_13',['Inline and Template Code',['../df/d81/md__a_g_e_n_t_s.html#inline-and-template-code',1,'']]],
-  ['assertions_14',['Assertions',['../df/d81/md__a_g_e_n_t_s.html#assertions',1,'Assertions'],['../df/d81/md__a_g_e_n_t_s.html#value-based-assertions',1,'Value-Based Assertions']]],
-  ['assertions_20including_20utf_208_15',['String length assertions (including UTF-8)',['../df/d81/md__a_g_e_n_t_s.html#string-length-assertions-including-utf-8',1,'']]],
-  ['assumptions_16',['Test Framework Assumptions',['../df/d81/md__a_g_e_n_t_s.html#test-framework-assumptions',1,'']]],
-  ['auto_17',['&lt;span class=&quot;tt&quot;&gt;auto&lt;/span&gt;',['../df/d81/md__a_g_e_n_t_s.html#auto',1,'']]],
-  ['automation_18',['Tools and Automation',['../df/d81/md__a_g_e_n_t_s.html#tools-and-automation',1,'']]]
+  ['and_20rule_20of_20five_10',['Rule of Zero and Rule of Five',['../df/d81/md__a_g_e_n_t_s.html#rule-of-zero-and-rule-of-five',1,'']]],
+  ['and_20spacing_11',['Indentation and Spacing',['../df/d81/md__a_g_e_n_t_s.html#indentation-and-spacing',1,'']]],
+  ['and_20standard_12',['Language and Standard',['../df/d81/md__a_g_e_n_t_s.html#language-and-standard',1,'']]],
+  ['and_20structure_13',['Test Length and Structure',['../df/d81/md__a_g_e_n_t_s.html#test-length-and-structure',1,'']]],
+  ['and_20template_20code_14',['Inline and Template Code',['../df/d81/md__a_g_e_n_t_s.html#inline-and-template-code',1,'']]],
+  ['assertions_15',['Assertions',['../df/d81/md__a_g_e_n_t_s.html#assertions',1,'Assertions'],['../df/d81/md__a_g_e_n_t_s.html#value-based-assertions',1,'Value-Based Assertions']]],
+  ['assertions_20including_20utf_208_16',['String length assertions (including UTF-8)',['../df/d81/md__a_g_e_n_t_s.html#string-length-assertions-including-utf-8',1,'']]],
+  ['assumptions_17',['Test Framework Assumptions',['../df/d81/md__a_g_e_n_t_s.html#test-framework-assumptions',1,'']]],
+  ['auto_18',['&lt;span class=&quot;tt&quot;&gt;auto&lt;/span&gt;',['../df/d81/md__a_g_e_n_t_s.html#auto',1,'']]],
+  ['automation_19',['Tools and Automation',['../df/d81/md__a_g_e_n_t_s.html#tools-and-automation',1,'']]]
 ];

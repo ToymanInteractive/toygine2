@@ -114,11 +114,13 @@ $(function(){initNavTree('d0/d3e/namespacetoy_1_1application.html','../../','');
 </div><!--header-->
 <div class="contents">
 
-<p>Application lifecycle types: <a class="el" href="../../d7/d1d/classtoy_1_1application_1_1_core_application.html" title="toy::application::CoreApplication">toy::application::CoreApplication</a>, <a class="el" href="../../d7/d33/structtoy_1_1application_1_1_version.html" title="toy::application::Version">toy::application::Version</a>, and related utilities.  
+<p>Application lifecycle types: <a class="el" href="../../d7/d1d/classtoy_1_1application_1_1_core_application.html" title="toy::application::CoreApplication">toy::application::CoreApplication</a>, <a class="el" href="../../d2/d73/classtoy_1_1application_1_1_console_application.html" title="toy::application::ConsoleApplication">toy::application::ConsoleApplication</a>, <a class="el" href="../../d7/d33/structtoy_1_1application_1_1_version.html" title="toy::application::Version">toy::application::Version</a>, and related utilities.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:ConsoleApplication" id="r_ConsoleApplication"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../d2/d73/classtoy_1_1application_1_1_console_application.html">ConsoleApplication</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstract base for console-mode application lifecycle.  <a href="../../d2/d73/classtoy_1_1application_1_1_console_application.html#details">More...</a><br /></td></tr>
 <tr class="memitem:CoreApplication" id="r_CoreApplication"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../d7/d1d/classtoy_1_1application_1_1_core_application.html">CoreApplication</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstract base for platform application lifecycle management.  <a href="../../d7/d1d/classtoy_1_1application_1_1_core_application.html#details">More...</a><br /></td></tr>
 <tr class="memitem:Version" id="r_Version"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="../../d7/d33/structtoy_1_1application_1_1_version.html">Version</a></td></tr>
@@ -130,14 +132,66 @@ Functions</h2></td></tr>
 <tr class="memdesc:a0c8cd07bec1d567db6d25667a624564c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equality of two <a class="el" href="../../d7/d33/structtoy_1_1application_1_1_version.html" title="toy::application::Version">toy::application::Version</a> values.  <br /></td></tr>
 <tr class="memitem:a9fb5718f0e7e2524906a23c67046d31a" id="r_a9fb5718f0e7e2524906a23c67046d31a"><td class="memItemLeft">constexpr strong_ordering&#160;</td><td class="memItemRight"><a class="el" href="#a9fb5718f0e7e2524906a23c67046d31a">operator&lt;=&gt;</a> (const <a class="el" href="../../d7/d33/structtoy_1_1application_1_1_version.html">Version</a> &amp;lhs, const <a class="el" href="../../d7/d33/structtoy_1_1application_1_1_version.html">Version</a> &amp;rhs) noexcept</td></tr>
 <tr class="memdesc:a9fb5718f0e7e2524906a23c67046d31a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Three-way comparison of two <a class="el" href="../../d7/d33/structtoy_1_1application_1_1_version.html" title="toy::application::Version">toy::application::Version</a> values (lexicographic order).  <br /></td></tr>
+<tr class="memitem:a60873b8f6654ffff1d413aa6eab942f5" id="r_a60873b8f6654ffff1d413aa6eab942f5"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="#a60873b8f6654ffff1d413aa6eab942f5">consoleAssert</a> (const char *message) noexcept</td></tr>
+<tr class="memitem:a93d91b5ee416b2fccaf26dd20f7088c0" id="r_a93d91b5ee416b2fccaf26dd20f7088c0"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a93d91b5ee416b2fccaf26dd20f7088c0">consoleStackWalker</a> (const char *message) noexcept</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:aa282e6de23479c33310525c29bdb01e9" id="r_aa282e6de23479c33310525c29bdb01e9"><td class="memItemLeft">static <a class="el" href="../../d7/d1d/classtoy_1_1application_1_1_core_application.html">CoreApplication</a> *&#160;</td><td class="memItemRight"><a class="el" href="#aa282e6de23479c33310525c29bdb01e9">s_instance</a> {nullptr}</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Application lifecycle types: <a class="el" href="../../d7/d1d/classtoy_1_1application_1_1_core_application.html" title="toy::application::CoreApplication">toy::application::CoreApplication</a>, <a class="el" href="../../d7/d33/structtoy_1_1application_1_1_version.html" title="toy::application::Version">toy::application::Version</a>, and related utilities. </p>
+<div class="textblock"><p>Application lifecycle types: <a class="el" href="../../d7/d1d/classtoy_1_1application_1_1_core_application.html" title="toy::application::CoreApplication">toy::application::CoreApplication</a>, <a class="el" href="../../d2/d73/classtoy_1_1application_1_1_console_application.html" title="toy::application::ConsoleApplication">toy::application::ConsoleApplication</a>, <a class="el" href="../../d7/d33/structtoy_1_1application_1_1_version.html" title="toy::application::Version">toy::application::Version</a>, and related utilities. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a60873b8f6654ffff1d413aa6eab942f5" name="a60873b8f6654ffff1d413aa6eab942f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60873b8f6654ffff1d413aa6eab942f5">&#9670;&#160;</a></span>consoleAssert()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool toy::application::consoleAssert </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>message</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a93d91b5ee416b2fccaf26dd20f7088c0" name="a93d91b5ee416b2fccaf26dd20f7088c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93d91b5ee416b2fccaf26dd20f7088c0">&#9670;&#160;</a></span>consoleStackWalker()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void toy::application::consoleStackWalker </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>message</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a9fb5718f0e7e2524906a23c67046d31a" name="a9fb5718f0e7e2524906a23c67046d31a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9fb5718f0e7e2524906a23c67046d31a">&#9670;&#160;</a></span>operator&lt;=&gt;()</h2>
 

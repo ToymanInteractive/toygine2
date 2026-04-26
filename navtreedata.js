@@ -61,6 +61,7 @@ var NAVTREE =
         [ "<span class=\"tt\">using</span> over <span class=\"tt\">typedef</span>", "df/d81/md__a_g_e_n_t_s.html#using-over-typedef", null ],
         [ "Explicit Constructors", "df/d81/md__a_g_e_n_t_s.html#explicit-constructors", null ],
         [ "<span class=\"tt\">= default</span> and <span class=\"tt\">= delete</span>", "df/d81/md__a_g_e_n_t_s.html#autotoc_md-default-and--delete", null ],
+        [ "Rule of Zero and Rule of Five", "df/d81/md__a_g_e_n_t_s.html#rule-of-zero-and-rule-of-five", null ],
         [ "<span class=\"tt\">auto</span>", "df/d81/md__a_g_e_n_t_s.html#auto", null ],
         [ "Range-Based For Loops", "df/d81/md__a_g_e_n_t_s.html#range-based-for-loops", null ],
         [ "Default Member Initialization", "df/d81/md__a_g_e_n_t_s.html#default-member-initialization", null ]
@@ -154,12 +155,12 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"d3/d7a/classtoy_1_1_fixed_string.html#a8448018a58c82d61cb461e98b6f80a40",
-"d4/dc4/classtoy_1_1log_1_1_i_sink.html",
-"d7/d1d/classtoy_1_1application_1_1_core_application.html#a72dfe54778dbc0a9ef3ff1c96b772d65",
-"d9/d14/structtoy_1_1log_1_1_record.html#a8a96b13bb52a2cfb09679d41e6f08503",
-"dd/d5c/classtoy_1_1math_1_1fixed.html#ad778f046de6593aa218f230a048b1d86",
-"dir_fc4c7f03e1a69a98c370fae55a743828.html"
+"d3/d7a/classtoy_1_1_fixed_string.html#a59abe3a985749d133aa72a8ab3c92575",
+"d4/da9/namespacetoy.html#acf7380257d9b8534ca8c156d8063e552",
+"d7/d1d/classtoy_1_1application_1_1_core_application.html#a16c14348457b85c7dd6902a1133ec2ee",
+"d8/de4/namespacetoy_1_1anonymous__namespace_02format_8inl_03.html#af5a101da1b38edd3c4d02acf12441202",
+"dd/d5c/classtoy_1_1math_1_1fixed.html#a9565f03b6e9d30e7a2c8b499fd33ebf0",
+"dir_68267d1309a1af8e8297ef4c3efbcdba.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';
