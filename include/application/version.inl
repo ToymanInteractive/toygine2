@@ -35,17 +35,14 @@ constexpr bool operator==(const Version & lhs, const Version & rhs) noexcept {
 }
 
 constexpr strong_ordering operator<=>(const Version & lhs, const Version & rhs) noexcept {
-  if (auto cmp = lhs.major <=> rhs.major; cmp != strong_ordering::equal) {
+  if (auto cmp = lhs.major <=> rhs.major; cmp != strong_ordering::equal)
     return cmp;
-  }
 
-  if (auto cmp = lhs.minor <=> rhs.minor; cmp != strong_ordering::equal) {
+  if (auto cmp = lhs.minor <=> rhs.minor; cmp != strong_ordering::equal)
     return cmp;
-  }
 
-  if (auto cmp = lhs.maintenance <=> rhs.maintenance; cmp != strong_ordering::equal) {
+  if (auto cmp = lhs.maintenance <=> rhs.maintenance; cmp != strong_ordering::equal)
     return cmp;
-  }
 
   return lhs.revision <=> rhs.revision;
 }

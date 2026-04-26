@@ -116,6 +116,10 @@ public:
     \param version New version to assign.
 
     \post version() returns \a version.
+
+    \warning \a version.revision must point to storage that outlives this \ref toy::application::CoreApplication
+             instance (e.g. a string literal or a statically allocated string). Passing a revision that points to a
+             temporary or stack-allocated buffer causes undefined behavior.
   */
   void setVersion(Version version) noexcept;
 

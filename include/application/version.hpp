@@ -37,14 +37,15 @@ namespace toy::application {
 
   Version represents a semantic version number following the major.minor.maintenance.revision format. This structure
   is designed for compile-time version management and provides a simple way to track application versions throughout the
-  development lifecycle.
+  development lifecycle. The \c revision field holds a non-owning string view (e.g. a git commit hash) whose lifetime
+  must exceed that of the \c Version value.
 
   \section features Key Features
 
   - **Semantic versioning**: major.minor.maintenance.revision format.
   - **Constexpr**: Usable in constexpr contexts; comparison operators are constexpr.
   - **Exception safety**: All operations are \c noexcept.
-  - **Type safety**: \c uint32_t components; no implicit conversions.
+  - **Non-owning revision**: \c revision is a \ref toy::CStringView; no allocation, zero copy cost.
 
   \section usage Usage Example
 
@@ -52,9 +53,9 @@ namespace toy::application {
   #include "application.hpp"
 
   constexpr toy::application::Version version;
-  constexpr toy::application::Version customVersion{1, 2, 3, 4};
+  constexpr toy::application::Version customVersion{1, 2, 3, "abc1234d"};
 
-  if (customVersion >= toy::application::Version{1, 0, 0, 0}) {
+  if (customVersion >= toy::application::Version{1, 0, 0, {}}) {
     // API 1.x or later
   }
   \endcode
@@ -63,22 +64,26 @@ namespace toy::application {
 
   - **Construction**: O(1).
   - **Access**: O(1) for all members.
-  - **Comparison**: O(1) for \c operator== and \c operator<=>.
-  - **Memory**: 16 bytes (4 × \c uint32_t).
+  - **Comparison**: O(n) for \c operator== and \c operator<=>, where \a n is the revision string length.
+  - **Memory**: 3 × \c uint32_t + one pointer (typically 24 bytes on 64-bit targets due to alignment padding).
 
   \section safety Safety Guarantees
 
-  - **Type safety**: Strong typing; no overflow in normal version ranges.
   - **Exception safety**: All operations are \c noexcept; no dynamic allocation.
   - **Thread safety**: Trivially copyable; safe to copy across threads.
+  - **Revision lifetime**: The string referenced by \c revision must outlive the \c Version value.
 
   \section compatibility Compatibility
 
-  - **Semantic versioning**: Aligns with semver.org (major.minor.patch); \c maintenance and \c revision map to
-    patch/build.
-  - **ABI**: Plain layout; safe to pass across translation units and use in stable ABIs.
+  - **Semantic versioning**: Aligns with semver.org (major.minor.patch); \c maintenance maps to patch and \c revision
+    carries a build identifier such as a git commit hash.
+  - **ABI**: Layout includes a pointer-sized field; size is platform-dependent.
 
   \note For runtime parsing from strings, use separate utility functions.
+
+  \warning The string referenced by \c revision must outlive the \c Version value. Storing a \c Version that points to a
+           temporary or stack-allocated buffer beyond that buffer's lifetime causes undefined behavior. Use a string
+           literal or storage with static lifetime.
 
   \sa https://semver.org/
 */
@@ -92,8 +97,8 @@ struct Version {
   /// Maintenance version; backward-compatible fixes.
   uint32_t maintenance{0};
 
-  /// Revision (e.g. build or patch level).
-  uint32_t revision{0};
+  /// Git revision string (e.g. commit hash). Must point to storage that outlives this \c Version value.
+  CStringView revision{};
 };
 
 /*!

@@ -28,310 +28,262 @@
 
 namespace toy::application {
 
-// Version has fixed size and contiguous layout (four uint32_t components).
-TEST_CASE("app/version/object_structure") {
-  static_assert(sizeof(Version) == sizeof(uint32_t) * 4, "Version size must be 4× component size");
-
-  static_assert(!std::is_trivial_v<Version>, "Version must not be trivial (has non-trivial default init)");
+// Version is trivially copyable and standard-layout; not trivially default-constructible due to member initializers.
+TEST_CASE("app/version/type_traits") {
+  static_assert(!std::is_trivial_v<Version>,
+                "Version must not be trivial (member initializers suppress trivial default construction)");
   static_assert(std::is_trivially_copyable_v<Version>, "Version must be trivially copyable");
   static_assert(std::is_standard_layout_v<Version>, "Version must have standard layout");
 }
 
-// Constructors and initialization set major, minor, maintenance, revision.
-TEST_CASE("app/version/constructors") {
-  // Default constructed version is zeroed.
+// Initialization sets each field; unspecified fields default to zero or empty.
+TEST_CASE("app/version/initialization") {
+  // Default-constructed version has all numeric fields zero and an empty revision.
   SUBCASE("default") {
-    constexpr Version version;
+    constexpr Version v;
 
-    static_assert(version.major == 0, "default version major must be zero");
-    static_assert(version.minor == 0, "default version minor must be zero");
-    static_assert(version.maintenance == 0, "default version maintenance must be zero");
-    static_assert(version.revision == 0, "default version revision must be zero");
+    REQUIRE(v.major == 0);
+    REQUIRE(v.minor == 0);
+    REQUIRE(v.maintenance == 0);
+    REQUIRE(v.revision.empty());
+
+    static_assert(v.major == 0, "default major must be zero");
+    static_assert(v.minor == 0, "default minor must be zero");
+    static_assert(v.maintenance == 0, "default maintenance must be zero");
+    static_assert(v.revision.empty(), "default revision must be empty");
   }
 
-  // Aggregate initialization sets all fields.
-  SUBCASE("aggregate_initialization") {
-    constexpr Version version{5, 10, 15, 20};
+  // Aggregate initialization sets all four fields exactly.
+  SUBCASE("aggregate") {
+    constexpr Version v{1, 2, 3, "346ca09"};
 
-    static_assert(version.major == 5, "aggregate-initialized major must match");
-    static_assert(version.minor == 10, "aggregate-initialized minor must match");
-    static_assert(version.maintenance == 15, "aggregate-initialized maintenance must match");
-    static_assert(version.revision == 20, "aggregate-initialized revision must match");
+    REQUIRE(v.major == 1);
+    REQUIRE(v.minor == 2);
+    REQUIRE(v.maintenance == 3);
+    REQUIRE(v.revision == "346ca09");
+
+    static_assert(v.major == 1, "major must match aggregate value");
+    static_assert(v.minor == 2, "minor must match aggregate value");
+    static_assert(v.maintenance == 3, "maintenance must match aggregate value");
+    static_assert(v.revision == "346ca09", "revision must match aggregate value");
   }
 
-  // Partial initialization leaves missing fields at zero.
-  SUBCASE("partial_initialization") {
-    constexpr Version version{1, 2};
+  // Unspecified tail fields default to zero or empty.
+  SUBCASE("partial") {
+    constexpr Version v{2, 5};
 
-    static_assert(version.major == 1, "partial-init major must match");
-    static_assert(version.minor == 2, "partial-init minor must match");
-    static_assert(version.maintenance == 0, "partial-init remainder must be zero");
-    static_assert(version.revision == 0, "partial-init remainder must be zero");
-  }
-}
+    REQUIRE(v.major == 2);
+    REQUIRE(v.minor == 5);
+    REQUIRE(v.maintenance == 0);
+    REQUIRE(v.revision.empty());
 
-// operator== compares all four version fields.
-TEST_CASE("app/version/equality_operator") {
-  // Identical versions compare equal.
-  SUBCASE("identical") {
-    constexpr Version v1{1, 2, 3, 4};
-    constexpr Version v2{1, 2, 3, 4};
-    constexpr bool    result = v1 == v2;
-
-    static_assert(result, "identical versions must compare equal");
-  }
-
-  // Major version differences compare not equal.
-  SUBCASE("different_major_versions") {
-    constexpr Version v1{1, 2, 3, 4};
-    constexpr Version v2{2, 2, 3, 4};
-    constexpr bool    result = v1 == v2;
-
-    static_assert(!result, "different major must yield not equal");
-  }
-
-  // Minor version differences compare not equal.
-  SUBCASE("different_minor_versions") {
-    constexpr Version v1{1, 2, 3, 4};
-    constexpr Version v2{1, 3, 3, 4};
-    constexpr bool    result = v1 == v2;
-
-    static_assert(!result, "different minor must yield not equal");
-  }
-
-  // Maintenance version differences compare not equal.
-  SUBCASE("different_maintenance_versions") {
-    constexpr Version v1{1, 2, 3, 4};
-    constexpr Version v2{1, 2, 4, 4};
-    constexpr bool    result = v1 == v2;
-
-    static_assert(!result, "different maintenance must yield not equal");
-  }
-
-  // Revision version differences compare not equal.
-  SUBCASE("different_revision_versions") {
-    constexpr Version v1{1, 2, 3, 4};
-    constexpr Version v2{1, 2, 3, 5};
-    constexpr bool    result = v1 == v2;
-
-    static_assert(!result, "different revision must yield not equal");
-  }
-
-  // Zero versions compare equal.
-  SUBCASE("zero_versions") {
-    constexpr Version v1{0, 0, 0, 0};
-    constexpr Version v2{0, 0, 0, 0};
-    constexpr bool    result = v1 == v2;
-
-    static_assert(result, "both zero must compare equal");
-  }
-
-  // Zero and non-zero versions compare not equal.
-  SUBCASE("mixed_zero_and_non_zero") {
-    constexpr Version v1{0, 0, 0, 0};
-    constexpr Version v2{0, 0, 0, 1};
-    constexpr bool    result = v1 == v2;
-
-    static_assert(!result, "zero vs non-zero must be not equal");
+    static_assert(v.major == 2, "major must match aggregate value");
+    static_assert(v.minor == 5, "minor must match aggregate value");
+    static_assert(v.maintenance == 0, "unspecified maintenance must be zero");
+    static_assert(v.revision.empty(), "unspecified revision must be empty");
   }
 }
 
-// operator<=> orders by major, then minor, then maintenance, then revision.
-TEST_CASE("app/version/three_way_comparison_operator") {
-  // Equal versions yield strong_ordering::equal.
-  SUBCASE("equal_versions") {
-    constexpr Version v1{1, 2, 3, 4};
-    constexpr Version v2{1, 2, 3, 4};
-    constexpr auto    result = v1 <=> v2;
+// operator== requires all four fields to match; any difference makes versions not equal.
+TEST_CASE("app/version/equality") {
+  // All fields identical.
+  SUBCASE("equal") {
+    constexpr Version v1{1, 2, 3, "346ca09"};
+    constexpr Version v2{1, 2, 3, "346ca09"};
 
-    static_assert(result == strong_ordering::equal, "identical versions must order equal");
+    REQUIRE(v1 == v2);
+
+    static_assert(v1 == v2, "versions with identical fields must compare equal");
   }
 
-  // Major version drives ordering first.
-  SUBCASE("major_version_comparison") {
-    constexpr Version v1{1, 2, 3, 4};
-    constexpr Version v2{2, 1, 1, 1};
-    constexpr auto    result = v1 <=> v2;
+  // Each field independently breaks equality.
+  SUBCASE("different_major") {
+    constexpr Version v1{1, 2, 3, "346ca09"};
+    constexpr Version v2{9, 2, 3, "346ca09"};
 
-    static_assert(result == strong_ordering::less, "lesser major must order less");
+    REQUIRE(v1 != v2);
 
-    constexpr Version v3{2, 1, 1, 1};
-    constexpr Version v4{1, 2, 3, 4};
-    constexpr auto    result2 = v3 <=> v4;
-
-    static_assert(result2 == strong_ordering::greater, "greater major must order greater");
+    static_assert(v1 != v2, "differing major must yield not equal");
   }
 
-  // Minor version drives ordering after major.
-  SUBCASE("minor_version_comparison") {
-    constexpr Version v1{1, 2, 3, 4};
-    constexpr Version v2{1, 3, 1, 1};
-    constexpr auto    result = v1 <=> v2;
+  SUBCASE("different_minor") {
+    constexpr Version v1{1, 2, 3, "abc"};
+    constexpr Version v2{1, 9, 3, "abc"};
 
-    static_assert(result == strong_ordering::less, "lesser minor must order less");
+    REQUIRE(v1 != v2);
 
-    constexpr Version v3{1, 3, 1, 1};
-    constexpr Version v4{1, 2, 3, 4};
-    constexpr auto    result2 = v3 <=> v4;
-
-    static_assert(result2 == strong_ordering::greater, "greater minor must order greater");
+    static_assert(v1 != v2, "differing minor must yield not equal");
   }
 
-  // Maintenance version drives ordering after minor.
-  SUBCASE("maintenance_version_comparison") {
-    constexpr Version v1{1, 2, 3, 4};
-    constexpr Version v2{1, 2, 4, 1};
-    constexpr auto    result = v1 <=> v2;
+  SUBCASE("different_maintenance") {
+    constexpr Version v1{1, 2, 3, "abc"};
+    constexpr Version v2{1, 2, 9, "abc"};
 
-    static_assert(result == strong_ordering::less, "lesser maintenance must order less");
+    REQUIRE(v1 != v2);
 
-    constexpr Version v3{1, 2, 4, 1};
-    constexpr Version v4{1, 2, 3, 4};
-    constexpr auto    result2 = v3 <=> v4;
-
-    static_assert(result2 == strong_ordering::greater, "greater maintenance must order greater");
+    static_assert(v1 != v2, "differing maintenance must yield not equal");
   }
 
-  // Revision version drives ordering last.
-  SUBCASE("revision_version_comparison") {
-    constexpr Version v1{1, 2, 3, 4};
-    constexpr Version v2{1, 2, 3, 5};
-    constexpr auto    result = v1 <=> v2;
+  SUBCASE("different_revision") {
+    constexpr Version v1{1, 2, 3, "abc"};
+    constexpr Version v2{1, 2, 3, "xyz"};
 
-    static_assert(result == strong_ordering::less, "lesser revision must order less");
-
-    constexpr Version v3{1, 2, 3, 5};
-    constexpr Version v4{1, 2, 3, 4};
-    constexpr auto    result2 = v3 <=> v4;
-
-    static_assert(result2 == strong_ordering::greater, "greater revision must order greater");
+    REQUIRE(v1 != v2);
+    static_assert(v1 != v2, "differing revision must yield not equal");
   }
 
-  // Zero versions compare as equal in ordering.
-  SUBCASE("zero_versions") {
-    constexpr Version v1{0, 0, 0, 0};
-    constexpr Version v2{0, 0, 0, 0};
-    constexpr auto    result = v1 <=> v2;
+  // Empty revision is distinct from any non-empty revision.
+  SUBCASE("empty_vs_nonempty_revision") {
+    constexpr Version v1{1, 2, 3, {}};
+    constexpr Version v2{1, 2, 3, "abc"};
 
-    static_assert(result == strong_ordering::equal, "both zero must order equal");
+    REQUIRE(v1 != v2);
+    static_assert(v1 != v2, "empty revision must differ from non-empty revision");
   }
 }
 
-// <, <=, >, >=, != consistent with operator<=> and operator==.
+// operator<=> applies field priority: major > minor > maintenance > revision (lexicographic).
+TEST_CASE("app/version/ordering") {
+  // Identical versions produce strong_ordering::equal.
+  SUBCASE("equal") {
+    constexpr Version v1{1, 2, 3, "abc"};
+    constexpr Version v2{1, 2, 3, "abc"};
+
+    REQUIRE((v1 <=> v2) == strong_ordering::equal);
+
+    static_assert((v1 <=> v2) == strong_ordering::equal, "identical versions must order equal");
+  }
+
+  // Major field has the highest priority; all other fields are ignored when major differs.
+  SUBCASE("major_dominates") {
+    constexpr Version lo{1, 9, 9, "zzz"};
+    constexpr Version hi{2, 0, 0, {}};
+
+    REQUIRE((lo <=> hi) == strong_ordering::less);
+    REQUIRE((hi <=> lo) == strong_ordering::greater);
+
+    static_assert((lo <=> hi) == strong_ordering::less, "lesser major must order less regardless of other fields");
+    static_assert((hi <=> lo) == strong_ordering::greater,
+                  "greater major must order greater regardless of other fields");
+  }
+
+  // Minor field decides when major is equal.
+  SUBCASE("minor_dominates") {
+    constexpr Version lo{1, 1, 9, "zzz"};
+    constexpr Version hi{1, 2, 0, {}};
+
+    REQUIRE((lo <=> hi) == strong_ordering::less);
+    REQUIRE((hi <=> lo) == strong_ordering::greater);
+
+    static_assert((lo <=> hi) == strong_ordering::less, "lesser minor must order less when major is equal");
+    static_assert((hi <=> lo) == strong_ordering::greater, "greater minor must order greater when major is equal");
+  }
+
+  // Maintenance field decides when major and minor are equal.
+  SUBCASE("maintenance_dominates") {
+    constexpr Version lo{1, 1, 1, "zzz"};
+    constexpr Version hi{1, 1, 2, {}};
+
+    REQUIRE((lo <=> hi) == strong_ordering::less);
+    REQUIRE((hi <=> lo) == strong_ordering::greater);
+
+    static_assert((lo <=> hi) == strong_ordering::less,
+                  "lesser maintenance must order less when major and minor are equal");
+    static_assert((hi <=> lo) == strong_ordering::greater,
+                  "greater maintenance must order greater when major and minor are equal");
+  }
+
+  // Revision is compared last using lexicographic order.
+  SUBCASE("revision_last") {
+    constexpr Version lo{1, 1, 1, "abc"};
+    constexpr Version hi{1, 1, 1, "xyz"};
+
+    REQUIRE((lo <=> hi) == strong_ordering::less);
+    REQUIRE((hi <=> lo) == strong_ordering::greater);
+
+    static_assert((lo <=> hi) == strong_ordering::less, "lexicographically lesser revision must order less");
+    static_assert((hi <=> lo) == strong_ordering::greater, "lexicographically greater revision must order greater");
+  }
+
+  // Empty revision orders before any non-empty revision.
+  SUBCASE("empty_revision_before_nonempty") {
+    constexpr Version lo{1, 1, 1, {}};
+    constexpr Version hi{1, 1, 1, "a"};
+
+    REQUIRE((lo <=> hi) == strong_ordering::less);
+
+    static_assert((lo <=> hi) == strong_ordering::less, "empty revision must order before any non-empty revision");
+  }
+}
+
+// <, <=, >, >=, != are consistent with operator<=> and operator==.
 TEST_CASE("app/version/comparison_operators") {
-  // Less-than operator orders by version fields.
-  SUBCASE("less_than_operator") {
-    constexpr Version v1{1, 2, 3, 4};
-    constexpr Version v2{1, 2, 3, 5};
+  // Less-than is strict and irreflexive.
+  SUBCASE("less_than") {
+    constexpr Version lo{1, 2, 3, "aaa"};
+    constexpr Version hi{1, 2, 3, "zzz"};
 
-    static_assert(v1 < v2, "lesser version must be less");
-    static_assert(!(v2 < v1), "greater must not be less");
-    static_assert(!(v1 < v1), "less-than must be irreflexive");
+    REQUIRE(lo < hi);
+    REQUIRE(!(hi < lo));
+    REQUIRE(!(lo < lo));
+
+    static_assert(lo < hi, "lesser version must be less");
+    static_assert(!(hi < lo), "greater must not be less");
+    static_assert(!(lo < lo), "less-than must be irreflexive");
   }
 
-  // Less-than-or-equal matches ordering semantics.
-  SUBCASE("less_than_or_equal_operator") {
-    constexpr Version v1{1, 2, 3, 4};
-    constexpr Version v2{1, 2, 3, 5};
-    constexpr Version v3{1, 2, 3, 4};
+  // Less-than-or-equal holds for strictly lesser and equal versions.
+  SUBCASE("less_than_or_equal") {
+    constexpr Version lo{1, 2, 3, "aaa"};
+    constexpr Version hi{1, 2, 3, "zzz"};
+    constexpr Version eq{1, 2, 3, "aaa"};
 
-    static_assert(v1 <= v2, "less or equal must hold for lesser");
-    static_assert(v1 <= v3, "equal must satisfy less-or-equal");
-    static_assert(!(v2 <= v1), "greater must not satisfy less-or-equal");
+    REQUIRE(lo <= hi);
+    REQUIRE(lo <= eq);
+    REQUIRE(!(hi <= lo));
+
+    static_assert(lo <= hi, "lesser version must satisfy less-or-equal");
+    static_assert(lo <= eq, "equal version must satisfy less-or-equal");
+    static_assert(!(hi <= lo), "greater must not satisfy less-or-equal");
   }
 
-  // Greater-than operator orders by version fields.
-  SUBCASE("greater_than_operator") {
-    constexpr Version v1{1, 2, 3, 5};
-    constexpr Version v2{1, 2, 3, 4};
+  // Greater-than is strict and irreflexive.
+  SUBCASE("greater_than") {
+    constexpr Version lo{1, 2, 3, "aaa"};
+    constexpr Version hi{1, 2, 3, "zzz"};
 
-    static_assert(v1 > v2, "greater version must be greater");
-    static_assert(!(v2 > v1), "lesser must not be greater");
-    static_assert(!(v1 > v1), "greater-than must be irreflexive");
+    REQUIRE(hi > lo);
+    REQUIRE(!(lo > hi));
+    REQUIRE(!(hi > hi));
+
+    static_assert(hi > lo, "greater version must be greater");
+    static_assert(!(lo > hi), "lesser must not be greater");
+    static_assert(!(hi > hi), "greater-than must be irreflexive");
   }
 
-  // Greater-than-or-equal matches ordering semantics.
-  SUBCASE("greater_than_or_equal_operator") {
-    constexpr Version v1{1, 2, 3, 5};
-    constexpr Version v2{1, 2, 3, 4};
-    constexpr Version v3{1, 2, 3, 5};
+  // Greater-than-or-equal holds for strictly greater and equal versions.
+  SUBCASE("greater_than_or_equal") {
+    constexpr Version lo{1, 2, 3, "aaa"};
+    constexpr Version hi{1, 2, 3, "zzz"};
+    constexpr Version eq{1, 2, 3, "zzz"};
 
-    static_assert(v1 >= v2, "greater or equal must hold for greater");
-    static_assert(v1 >= v3, "equal must satisfy greater-or-equal");
-    static_assert(!(v2 >= v1), "lesser must not satisfy greater-or-equal");
-  }
+    REQUIRE(hi >= lo);
+    REQUIRE(hi >= eq);
+    REQUIRE(!(lo >= hi));
 
-  // Not-equal operator matches equality semantics.
-  SUBCASE("not_equal_operator") {
-    constexpr Version v1{1, 2, 3, 4};
-    constexpr Version v2{1, 2, 3, 5};
-
-    static_assert(v1 != v2, "different versions must be not equal");
-  }
-}
-
-// Ordering precedence: major > minor > maintenance > revision.
-TEST_CASE("app/version/semantic_scenarios") {
-  // Major version has highest precedence.
-  SUBCASE("major_version_precedence") {
-    constexpr Version v1{1, 0, 0, 0};
-    constexpr Version v2{2, 0, 0, 0};
-
-    static_assert(v1 < v2, "major precedence: lesser major must be less");
-    static_assert(v2 > v1, "major precedence: greater major must be greater");
-    static_assert(v1 != v2, "major precedence: different major must be not equal");
-  }
-
-  // Minor version has precedence after major.
-  SUBCASE("minor_version_precedence") {
-    constexpr Version v1{1, 1, 0, 0};
-    constexpr Version v2{1, 2, 0, 0};
-
-    static_assert(v1 < v2, "minor precedence: lesser minor must be less");
-    static_assert(v2 > v1, "minor precedence: greater minor must be greater");
-    static_assert(v1 != v2, "minor precedence: different minor must be not equal");
-  }
-
-  // Maintenance version has precedence after minor.
-  SUBCASE("maintenance_version_precedence") {
-    constexpr Version v1{1, 1, 1, 0};
-    constexpr Version v2{1, 1, 2, 0};
-
-    static_assert(v1 < v2, "maintenance precedence: lesser must be less");
-    static_assert(v2 > v1, "maintenance precedence: greater must be greater");
-    static_assert(v1 != v2, "maintenance precedence: different must be not equal");
-  }
-
-  // Revision version has the lowest precedence.
-  SUBCASE("revision_version_precedence") {
-    constexpr Version v1{1, 1, 1, 1};
-    constexpr Version v2{1, 1, 1, 2};
-
-    static_assert(v1 < v2, "revision precedence: lesser revision must be less");
-    static_assert(v2 > v1, "revision precedence: greater revision must be greater");
-    static_assert(v1 != v2, "revision precedence: different revision must be not equal");
-  }
-
-  // Complex ordering chains across fields.
-  SUBCASE("complex_version_comparisons") {
-    constexpr Version v1{1, 2, 3, 4};
-    constexpr Version v2{1, 2, 4, 0};
-    constexpr Version v3{1, 3, 0, 0};
-    constexpr Version v4{2, 0, 0, 0};
-
-    static_assert(v1 < v2, "chain: maintenance difference must order less");
-    static_assert(v2 < v3, "chain: minor difference must order less");
-    static_assert(v3 < v4, "chain: major difference must order less");
+    static_assert(hi >= lo, "greater version must satisfy greater-or-equal");
+    static_assert(hi >= eq, "equal version must satisfy greater-or-equal");
+    static_assert(!(lo >= hi), "lesser must not satisfy greater-or-equal");
   }
 }
 
-// Runtime comparison chain and equality (non-constexpr path).
-TEST_CASE("app/version/runtime_tests") {
-  Version v1{1, 0, 0, 0};
-  Version v2{1, 1, 0, 0};
-  Version v3{1, 1, 1, 0};
-  Version v4{1, 1, 1, 1};
-  Version v5{2, 0, 0, 0};
+// Runtime ordering chain across all four fields (non-constexpr path).
+TEST_CASE("app/version/runtime_ordering_chain") {
+  const Version v1{1, 0, 0, {}};
+  const Version v2{1, 1, 0, {}};
+  const Version v3{1, 1, 1, {}};
+  const Version v4{1, 1, 1, "abc"};
+  const Version v5{2, 0, 0, {}};
 
   REQUIRE(v1 < v2);
   REQUIRE(v2 < v3);
@@ -343,25 +295,9 @@ TEST_CASE("app/version/runtime_tests") {
   REQUIRE(v3 > v2);
   REQUIRE(v2 > v1);
 
-  REQUIRE(v1 <= v2);
-  REQUIRE(v2 <= v3);
-  REQUIRE(v3 <= v4);
-  REQUIRE(v4 <= v5);
-
-  REQUIRE(v5 >= v4);
-  REQUIRE(v4 >= v3);
-  REQUIRE(v3 >= v2);
-  REQUIRE(v2 >= v1);
-
-  REQUIRE(v1 != v2);
-  REQUIRE(v2 != v3);
-  REQUIRE(v3 != v4);
-  REQUIRE(v4 != v5);
-
-  // Equal versions compare equal.
-  Version v6{1, 0, 0, 0};
-  REQUIRE(v1 == v6);
-  REQUIRE(v1 != v2);
+  REQUIRE(v1 == Version{1, 0, 0, {}});
+  REQUIRE(v4 == Version{1, 1, 1, "abc"});
+  REQUIRE(v1 != v5);
 }
 
 } // namespace toy::application

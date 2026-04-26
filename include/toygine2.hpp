@@ -21,8 +21,8 @@
   \file   toygine2.hpp
   \brief  Main umbrella header for the engine.
 
-  Defines the default engine surface: pulls in application.hpp, audio.hpp, core.hpp, geometry.hpp, math.hpp,
-  network.hpp, platform/ui.hpp, and render.hpp.
+  Defines the default engine surface: pulls in application.hpp, audio.hpp, core.hpp, filesystem.hpp, game.hpp,
+  geometry.hpp, math.hpp, network.hpp, platform/ui.hpp, and render.hpp.
 
   \note Prefer a specific module header when only one module is needed.
 */
@@ -33,6 +33,8 @@
 #include "application.hpp"
 #include "audio.hpp"
 #include "core.hpp"
+#include "filesystem.hpp"
+#include "game.hpp"
 #include "geometry.hpp"
 #include "math.hpp"
 #include "network.hpp"

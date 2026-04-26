@@ -100,7 +100,7 @@ TEST_CASE("app/core_application/version") {
 
   // setVersion stores the value and version() retrieves it.
   SUBCASE("set_and_get") {
-    constexpr Version v{1, 2, 3, 4};
+    constexpr Version v{1, 2, 3, "346ca09"};
 
     app.setVersion(v);
 
@@ -109,10 +109,10 @@ TEST_CASE("app/core_application/version") {
 
   // setVersion overwrites the previous version.
   SUBCASE("overwrite") {
-    app.setVersion({1, 0, 0, 0});
-    app.setVersion({2, 0, 0, 0});
+    app.setVersion({1, 0, 0, "346ca09"});
+    app.setVersion({2, 0, 0, "346ca09"});
 
-    REQUIRE(app.version() == Version{2, 0, 0, 0});
+    REQUIRE(app.version() == Version{2, 0, 0, "346ca09"});
   }
 }
 
