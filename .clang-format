@@ -67,7 +67,8 @@ BinPackArguments: true
 BinPackLongBracedList: true
 BinPackParameters: BinPack
 BitFieldColonSpacing: Both
-# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#bracedinitializerindentwidth
+BracedInitializerIndentWidth: 2
+# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#breakadjacentstringliterals
 BreakAfterReturnType: None
 BreakTemplateDeclarations: Yes
 BreakBeforeBraces: Attach
