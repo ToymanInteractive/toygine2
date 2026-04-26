@@ -81,6 +81,10 @@ namespace toy::application {
 
   \note For runtime parsing from strings, use separate utility functions.
 
+  \warning The string referenced by \c revision must outlive the \c Version value. Storing a \c Version that points to a
+           temporary or stack-allocated buffer beyond that buffer's lifetime causes undefined behavior. Use a string
+           literal or storage with static lifetime.
+
   \sa https://semver.org/
 */
 struct Version {
