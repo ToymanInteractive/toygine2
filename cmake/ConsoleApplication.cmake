@@ -20,12 +20,12 @@
 
 cmake_minimum_required(VERSION 3.31.0 FATAL_ERROR)
 
-function(console_application BINARY_NAME SRC_LIST ${HDR_LIST} ${INL_LIST} ${LIB_LIST})
+function(console_application BINARY_NAME SRC_LIST ${HDR_LIST} ${INL_LIST} ${RES_LIST} ${LIB_LIST})
 
 source_group("Source Files" FILES ${SRC_LIST} ${INL_LIST})
 source_group("Header Files" FILES ${HDR_LIST})
 
-add_executable(${BINARY_NAME} ${SRC_LIST} ${HDR_LIST} ${INL_LIST})
+add_executable(${BINARY_NAME} ${SRC_LIST} ${HDR_LIST} ${INL_LIST} ${RES_LIST})
 
 if (DEFINED APP_VERSION_MAJOR)
   target_compile_definitions(${BINARY_NAME} PRIVATE APP_VERSION_MAJOR=${APP_VERSION_MAJOR})
@@ -54,9 +54,11 @@ if (GIT_FOUND)
     )
 endif ()
 
-if(DEFINED GIT_COMMIT_HASH)
+if (DEFINED GIT_COMMIT_HASH)
   target_compile_definitions(${BINARY_NAME} PRIVATE APP_VERSION_REVISION="${GIT_COMMIT_HASH}")
-endif()
+else ()
+  target_compile_definitions(${BINARY_NAME} PRIVATE APP_VERSION_REVISION="")
+endif ()
 
 target_link_libraries(${BINARY_NAME} PRIVATE ${LIB_LIST})
 

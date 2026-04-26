@@ -75,11 +75,7 @@
 */
 #if !defined(IMPLEMENT_CONSOLE_APP)
 
-#define IMPLEMENT_CONSOLE_APP(appClassName)                                                                            \
-                                                                                                                       \
-  void main() {                                                                                                        \
-    static_assert(false, "Build target os doesn't support console application");                                       \
-  }
+#define IMPLEMENT_CONSOLE_APP(appClassName) static_assert(false, "Build target os doesn't support console application");
 
 #endif // !defined(IMPLEMENT_CONSOLE_APP)
 

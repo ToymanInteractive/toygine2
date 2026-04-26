@@ -18,12 +18,14 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   console.cpp
-  \brief  TODO.
+  \file   console_sample_app.cpp
+  \brief  Console application sample demonstrating \ref toy::application::ConsoleApplication subclassing and the
+          \c IMPLEMENT_CONSOLE_APP entry-point macro.
 */
+
 #include <iostream>
 
-#include "../../include/toygine2.hpp"
+#include "toygine2.hpp"
 
 class ConsoleSampleApp : public toy::application::ConsoleApplication {
 private:
