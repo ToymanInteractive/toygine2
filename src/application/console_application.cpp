@@ -22,13 +22,14 @@
   \brief  Implementations for \ref toy::application::ConsoleApplication.
 */
 
+#include <cstdio>
 #include <iostream>
 
 #include "application.hpp"
 
 namespace toy::application {
 
-static bool consoleAssert(const char * message) {
+static bool consoleAssert(const char * message) noexcept {
   std::cout << "--------------------------------------------\n";
   std::cout << " Assert Failed!\n";
   std::cout << "--------------------------------------------\n";
@@ -37,14 +38,21 @@ static bool consoleAssert(const char * message) {
     std::cout << "--------------------------------------------\n";
   }
 
-  char answer = '\0';
+  int answer = EOF;
   while (answer != 'c' && answer != 'd') {
     std::cout << " press 'c' - to continue, 'd' - to break in debug mode\n";
-    answer = static_cast<char>(getchar());
+    answer = getchar();
+    if (answer == EOF) {
+      // No interactive stdin: default to continue to avoid hanging the process.
+      answer = 'c';
 
-    int temp = '\0';
-    while (temp != EOF && temp != '\n')
+      break;
+    }
+
+    int temp = answer;
+    while (temp != EOF && temp != '\n') {
       temp = getchar();
+    }
   }
 
   std::cout << "--------------------------------------------\n";
@@ -52,7 +60,7 @@ static bool consoleAssert(const char * message) {
   return (answer == 'c');
 }
 
-static void consoleStackWalker(const char * message) {
+static void consoleStackWalker(const char * message) noexcept {
   std::cout << "--------------------------------------------\n";
   std::cout << " Call Stack:\n";
   std::cout << "--------------------------------------------\n";

@@ -33,11 +33,6 @@ public:
   TestConsoleApp() noexcept = default;
   ~TestConsoleApp() noexcept override;
 
-  TestConsoleApp(const TestConsoleApp &)             = delete;
-  TestConsoleApp(TestConsoleApp &&)                  = delete;
-  TestConsoleApp & operator=(const TestConsoleApp &) = delete;
-  TestConsoleApp & operator=(TestConsoleApp &&)      = delete;
-
   bool runInternal() noexcept override;
 };
 
@@ -53,6 +48,16 @@ TEST_CASE("app/console_application/object_structure") {
                 "ConsoleApplication must not be trivial (has non-trivial default init)");
   static_assert(!std::is_trivially_copyable_v<ConsoleApplication>, "ConsoleApplication must not be trivially copyable");
   static_assert(!std::is_standard_layout_v<ConsoleApplication>, "ConsoleApplication must not have standard layout");
+
+  static_assert(std::is_abstract_v<ConsoleApplication>,
+                "ConsoleApplication must be abstract; runInternal() is pure virtual");
+  static_assert(std::is_base_of_v<CoreApplication, ConsoleApplication>,
+                "ConsoleApplication must derive from CoreApplication");
+  static_assert(!std::is_copy_constructible_v<ConsoleApplication>,
+                "ConsoleApplication copy construction must be deleted (singleton invariant)");
+  static_assert(!std::is_move_constructible_v<ConsoleApplication>,
+                "ConsoleApplication move construction must be deleted (singleton invariant)");
+  static_assert(std::has_virtual_destructor_v<ConsoleApplication>, "ConsoleApplication must have a virtual destructor");
 }
 
 // Singleton: no-arg construction registers and clears the global instance.
