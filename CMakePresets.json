@@ -74,7 +74,7 @@
             },
             "cacheVariables": {
                 "TOYGINE_BUILD_BENCHMARKS": "ON",
-                "TOYGINE_BUILD_SAMPLES": "ON",
+                "TOYGINE_BUILD_SAMPLES": "OFF",
                 "TOYGINE_BUILD_TESTS": "ON"
             }
         },
@@ -90,7 +90,7 @@
             },
             "cacheVariables": {
                 "TOYGINE_BUILD_BENCHMARKS": "ON",
-                "TOYGINE_BUILD_SAMPLES": "ON",
+                "TOYGINE_BUILD_SAMPLES": "OFF",
                 "TOYGINE_BUILD_TESTS": "ON"
             }
         },
@@ -102,7 +102,7 @@
             "toolchainFile": "$env{DEVKITPRO}/cmake/GBA.cmake",
             "cacheVariables": {
                 "TOYGINE_BUILD_BENCHMARKS": "ON",
-                "TOYGINE_BUILD_SAMPLES": "ON",
+                "TOYGINE_BUILD_SAMPLES": "OFF",
                 "TOYGINE_BUILD_TESTS": "ON",
                 "TOYGINE_TARGET_PLATFORM": "Nintendo Game Boy Advance"
             }
@@ -115,7 +115,7 @@
             "toolchainFile": "$env{DEVKITPRO}/cmake/NDS.cmake",
             "cacheVariables": {
                 "TOYGINE_BUILD_BENCHMARKS": "ON",
-                "TOYGINE_BUILD_SAMPLES": "ON",
+                "TOYGINE_BUILD_SAMPLES": "OFF",
                 "TOYGINE_BUILD_TESTS": "ON",
                 "TOYGINE_TARGET_PLATFORM": "Nintendo DS"
             }
@@ -127,6 +127,9 @@
             "inherits": "base-release",
             "toolchainFile": "$env{DEVKITPRO}/cmake/3DS.cmake",
             "cacheVariables": {
+                "TOYGINE_BUILD_BENCHMARKS": "OFF",
+                "TOYGINE_BUILD_SAMPLES": "OFF",
+                "TOYGINE_BUILD_TESTS": "OFF",
                 "TOYGINE_TARGET_PLATFORM": "Nintendo 3DS"
             }
         },
@@ -138,7 +141,7 @@
             "toolchainFile": "$env{DEVKITPRO}/cmake/Switch.cmake",
             "cacheVariables": {
                 "TOYGINE_BUILD_BENCHMARKS": "ON",
-                "TOYGINE_BUILD_SAMPLES": "ON",
+                "TOYGINE_BUILD_SAMPLES": "OFF",
                 "TOYGINE_BUILD_TESTS": "ON",
                 "TOYGINE_TARGET_PLATFORM": "Nintendo Switch"
             }
