@@ -93,7 +93,7 @@ struct Version {
   /// Maintenance version; backward-compatible fixes.
   uint32_t maintenance{0};
 
-  /// Git revision string (e.g. commit hash).
+  /// Git revision string (e.g. commit hash). Must point to storage that outlives this \c Version value.
   CStringView revision{};
 };
 
