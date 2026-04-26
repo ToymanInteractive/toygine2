@@ -64,7 +64,9 @@ inline constexpr uint64_t c_steadyClockPeriodDenominator = 1'000'000'000;
                                                                                                                        \
   int main(int argc, char * argv[]) {                                                                                  \
     appClassName app;                                                                                                  \
+                                                                                                                       \
     app.setVersion({APP_VERSION_MAJOR, APP_VERSION_MINOR, APP_VERSION_MAINTENANCE, APP_VERSION_REVISION});             \
+                                                                                                                       \
     return app.run(argc, argv) ? EXIT_SUCCESS : EXIT_FAILURE;                                                          \
   }
 
