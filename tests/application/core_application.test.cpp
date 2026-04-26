@@ -34,6 +34,11 @@ public:
     : CoreApplication(nullptr, nullptr)
     , internalRunResult(runResult) {}
 
+  TestApp(const TestApp &)             = delete;
+  TestApp(TestApp &&)                  = delete;
+  TestApp & operator=(const TestApp &) = delete;
+  TestApp & operator=(TestApp &&)      = delete;
+
   bool runInternal() noexcept override;
 
   bool runInternalCalled{false};
