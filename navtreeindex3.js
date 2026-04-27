@@ -218,8 +218,9 @@ var NAVTREEINDEX3 =
 "d8/d52/classtoy_1_1array.html":[5,0,1,18],
 "d8/d52/classtoy_1_1array.html#a7b7fb76e56127f8b1ea203967a406d0a":[3,0,1,25,4],
 "d8/d52/classtoy_1_1array.html#a7b7fb76e56127f8b1ea203967a406d0a":[5,0,1,18,4],
-"d8/d80/macos_2platform__config_8hpp.html":[6,0,1,3,4,0],
-"d8/d80/macos_2platform__config_8hpp_source.html":[6,0,1,3,4,0],
+"d8/d80/macos_2platform__config_8hpp.html":[6,0,1,3,4,1],
+"d8/d80/macos_2platform__config_8hpp_source.html":[6,0,1,3,4,1],
+"d8/d89/core__application__macos_8cpp.html":[6,0,1,3,4,0,0],
 "d8/d8c/toygine2_8hpp.html":[6,0,0,19],
 "d8/d8c/toygine2_8hpp_source.html":[6,0,0,19],
 "d8/dbd/math_2utils_8hpp.html":[6,0,0,6,6],
@@ -248,6 +249,5 @@ var NAVTREEINDEX3 =
 "d8/dde/classtoy_1_1_format_context.html#aa3393abf300d9f40eeb142ab589da7a3":[2,2,0,1,0],
 "d8/dde/classtoy_1_1_format_context.html#ad07aad5a6a43d562677caabb55640261":[2,2,0,1,5],
 "d8/dde/classtoy_1_1_format_context.html#ad7ec8b506aca2a7f0d9ffc975bef10cc":[2,2,0,1,2],
-"d8/de4/namespacetoy_1_1anonymous__namespace_02format_8inl_03.html":[3,0,1,2],
-"d8/de4/namespacetoy_1_1anonymous__namespace_02format_8inl_03.html#a1b209cb21257eff54183197fedee33e6":[3,0,1,2,2]
+"d8/de4/namespacetoy_1_1anonymous__namespace_02format_8inl_03.html":[3,0,1,2]
 };

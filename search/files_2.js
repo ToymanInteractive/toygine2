@@ -21,5 +21,6 @@ var searchData=
   ['core_5fapplication_2ecpp_18',['core_application.cpp',['../d0/dbb/core__application_8cpp.html',1,'']]],
   ['core_5fapplication_2ehpp_19',['core_application.hpp',['../db/dd6/core__application_8hpp.html',1,'']]],
   ['core_5fapplication_2einl_20',['core_application.inl',['../dd/dec/core__application_8inl.html',1,'']]],
-  ['core_5fapplication_5fstub_2ecpp_21',['core_application_stub.cpp',['../db/da8/core__application__stub_8cpp.html',1,'']]]
+  ['core_5fapplication_5fmacos_2ecpp_21',['core_application_macos.cpp',['../d8/d89/core__application__macos_8cpp.html',1,'']]],
+  ['core_5fapplication_5fstub_2ecpp_22',['core_application_stub.cpp',['../db/da8/core__application__stub_8cpp.html',1,'']]]
 ];

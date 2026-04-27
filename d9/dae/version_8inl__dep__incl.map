@@ -1,13 +1,15 @@
 <map id="include/application/version.inl" name="include/application/version.inl">
-<area shape="rect" id="Node000001" title="Inline implementations for toy::application::Version comparison operators." alt="" coords="293,5,439,45"/>
-<area shape="rect" id="Node000002" href="$d4/d01/application_8hpp.html" title="Umbrella header for the application module." alt="" coords="279,93,453,119"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="369,59,369,93,363,93,363,59"/>
+<area shape="rect" id="Node000001" title="Inline implementations for toy::application::Version comparison operators." alt="" coords="385,5,531,45"/>
+<area shape="rect" id="Node000002" href="$d4/d01/application_8hpp.html" title="Umbrella header for the application module." alt="" coords="371,93,545,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="461,59,461,93,455,93,455,59"/>
 <area shape="rect" id="Node000003" href="$d8/d8c/toygine2_8hpp.html" title="Main umbrella header for the engine." alt="" coords="5,181,164,207"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="316,125,123,184,122,179,314,120"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="386,124,177,169,124,184,122,179,176,164,385,119"/>
 <area shape="rect" id="Node000004" href="$db/db6/console__application_8cpp.html" title="Implementations for toy::application::ConsoleApplication." alt="" coords="189,174,359,214"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="345,130,296,176,292,172,342,126"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="422,127,316,176,313,171,420,122"/>
 <area shape="rect" id="Node000005" href="$d0/dbb/core__application_8cpp.html" title="Implementations for toy::application::CoreApplication." alt="" coords="383,174,533,214"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="390,126,440,172,436,176,387,130"/>
-<area shape="rect" id="Node000006" href="$db/da8/core__application__stub_8cpp.html" title="Stub implementation of toy::application::CoreApplication::sleep() for platforms without OS sleep supp..." alt="" coords="557,167,767,221"/>
-<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="420,120,573,164,571,169,418,125"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="461,132,461,174,455,174,455,132"/>
+<area shape="rect" id="Node000006" href="$d8/d89/core__application__macos_8cpp.html" title="macOS implementations of toy::application::CoreApplication via POSIX APIs." alt="" coords="557,167,767,221"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="499,122,601,164,599,169,497,127"/>
+<area shape="rect" id="Node000007" href="$db/da8/core__application__stub_8cpp.html" title="Stub implementation of toy::application::CoreApplication::sleep() for platforms without OS sleep supp..." alt="" coords="791,167,1000,221"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="538,119,780,164,791,166,790,172,779,169,537,124"/>
 </map>
