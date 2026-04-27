@@ -10,7 +10,7 @@ var dir_d44c64559bbebec7f509842c48db8b23 =
     [ "network", "dir_dafb25a37831a87d2e2e8b780f24e872.html", "dir_dafb25a37831a87d2e2e8b780f24e872" ],
     [ "platform", "dir_ac186d3e8926949364e5821f25491cc3.html", "dir_ac186d3e8926949364e5821f25491cc3" ],
     [ "render", "dir_ada157988d47c0ed8971be2c0e2fe61c.html", "dir_ada157988d47c0ed8971be2c0e2fe61c" ],
-    [ "application.hpp", "d4/d01/application_8hpp.html", null ],
+    [ "application.hpp", "d4/d01/application_8hpp.html", "d4/d01/application_8hpp" ],
     [ "audio.hpp", "d1/d71/audio_8hpp.html", null ],
     [ "core.hpp", "da/d47/core_8hpp.html", "da/d47/core_8hpp" ],
     [ "filesystem.hpp", "d1/d85/filesystem_8hpp.html", null ],

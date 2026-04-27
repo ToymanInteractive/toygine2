@@ -141,12 +141,53 @@ $(function(){initNavTree('d4/d01/application_8hpp.html','../../',''); });
 Namespaces</h2></td></tr>
 <tr class="memitem:toy_3A_3Aapplication" id="r_toy_3A_3Aapplication"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="../../d0/d3e/namespacetoy_1_1application.html">toy::application</a></td></tr>
 <tr class="memdesc:d0/d3e/namespacetoy_1_1application"><td class="mdescLeft">&#160;</td><td class="mdescRight">Application lifecycle types: <a class="el" href="../../d7/d1d/classtoy_1_1application_1_1_core_application.html" title="toy::application::CoreApplication">toy::application::CoreApplication</a>, <a class="el" href="../../d2/d73/classtoy_1_1application_1_1_console_application.html" title="toy::application::ConsoleApplication">toy::application::ConsoleApplication</a>, <a class="el" href="../../d7/d33/structtoy_1_1application_1_1_version.html" title="toy::application::Version">toy::application::Version</a>, and related utilities. <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a1b2bd9ba8ddc8a14eb069ad482bce9e3" id="r_a1b2bd9ba8ddc8a14eb069ad482bce9e3"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a1b2bd9ba8ddc8a14eb069ad482bce9e3">IMPLEMENT_CONSOLE_APP</a>(appClassName)</td></tr>
+<tr class="memdesc:a1b2bd9ba8ddc8a14eb069ad482bce9e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the platform entry point for a console application.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Umbrella header for the application module. </p>
 <p>Defines <a class="el" href="../../d2/d73/classtoy_1_1application_1_1_console_application.html" title="toy::application::ConsoleApplication">toy::application::ConsoleApplication</a>, <a class="el" href="../../d7/d1d/classtoy_1_1application_1_1_core_application.html" title="toy::application::CoreApplication">toy::application::CoreApplication</a>, and toy::application::Version: the console-mode intermediate base, the abstract application base class, and the version type.</p>
 <dl class="section note"><dt>Note</dt><dd>Include this header only; do not include internal headers directly. </dd></dl>
-</div></div><!-- contents -->
+</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
+<a id="a1b2bd9ba8ddc8a14eb069ad482bce9e3" name="a1b2bd9ba8ddc8a14eb069ad482bce9e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b2bd9ba8ddc8a14eb069ad482bce9e3">&#9670;&#160;</a></span>IMPLEMENT_CONSOLE_APP</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IMPLEMENT_CONSOLE_APP</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>appClassName</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">static_assert</span>(<span class="keyword">false</span>, <span class="stringliteral">&quot;Build target OS does not support console application&quot;</span>);</div>
+</div><!-- fragment -->
+<p>Defines the platform entry point for a console application. </p>
+<p>The macro expands to a <code>main</code> function that default-constructs <em class="arg">appClassName</em>, sets the application version from the build-system macros <code>APP_VERSION_MAJOR</code>, <code>APP_VERSION_MINOR</code>, <code>APP_VERSION_PATCH</code>, and <code>APP_VERSION_REVISION</code>, then delegates execution to <a class="el" href="../../d7/d1d/classtoy_1_1application_1_1_core_application.html#a0534d34a9d5209a9705f634fcd109739" title="Stores arguments and delegates to the platform-specific runInternal().">toy::application::CoreApplication::run()</a>. Place it once in the translation unit that defines the concrete application class. On unsupported target platforms the macro expands to a <code>static_assert</code> compile-time error.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">appClassName</td><td>Concrete class derived from <a class="el" href="../../d2/d73/classtoy_1_1application_1_1_console_application.html" title="toy::application::ConsoleApplication">toy::application::ConsoleApplication</a>. Must be default-constructible.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondition</dt><dd><em class="arg">appClassName</em> is a complete type that publicly derives from <a class="el" href="../../d2/d73/classtoy_1_1application_1_1_console_application.html" title="toy::application::ConsoleApplication">toy::application::ConsoleApplication</a>. </dd>
+<dd>
+<em class="arg">appClassName</em> provides a public default constructor. </dd>
+<dd>
+The build system defines <code>APP_VERSION_MAJOR</code>, <code>APP_VERSION_MINOR</code>, <code>APP_VERSION_PATCH</code>, and <code>APP_VERSION_REVISION</code> before this macro is expanded. </dd>
+<dd>
+This macro is expanded at most once per executable.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d2/d73/classtoy_1_1application_1_1_console_application.html" title="toy::application::ConsoleApplication">toy::application::ConsoleApplication</a>, <a class="el" href="../../d7/d1d/classtoy_1_1application_1_1_core_application.html" title="toy::application::CoreApplication">toy::application::CoreApplication</a> </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>
