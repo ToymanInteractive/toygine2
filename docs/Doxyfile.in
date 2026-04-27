@@ -1133,6 +1133,7 @@ RECURSIVE              = YES
 EXCLUDE                = ./benchmarks/ \
                          ./docs/ \
                          ./out/ \
+                         ./samples/ \
                          ./tests/ \
                          ./CODE_OF_CONDUCT.md \
                          ./SECURITY.md

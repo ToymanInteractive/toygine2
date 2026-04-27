@@ -35,14 +35,14 @@ namespace toy::application {
   \struct Version
   \brief Application version information structure.
 
-  Version represents a semantic version number following the major.minor.maintenance.revision format. This structure
+  Version represents a semantic version number following the major.minor.patch.revision format. This structure
   is designed for compile-time version management and provides a simple way to track application versions throughout the
   development lifecycle. The \c revision field holds a non-owning string view (e.g. a git commit hash) whose lifetime
   must exceed that of the \c Version value.
 
   \section features Key Features
 
-  - **Semantic versioning**: major.minor.maintenance.revision format.
+  - **Semantic versioning**: major.minor.patch.revision format.
   - **Constexpr**: Usable in constexpr contexts; comparison operators are constexpr.
   - **Exception safety**: All operations are \c noexcept.
   - **Non-owning revision**: \c revision is a \ref toy::CStringView; no allocation, zero copy cost.
@@ -75,8 +75,8 @@ namespace toy::application {
 
   \section compatibility Compatibility
 
-  - **Semantic versioning**: Aligns with semver.org (major.minor.patch); \c maintenance maps to patch and \c revision
-    carries a build identifier such as a git commit hash.
+  - **Semantic versioning**: Aligns with semver.org (major.minor.patch); \c revision carries a build identifier such as
+    a git commit hash.
   - **ABI**: Layout includes a pointer-sized field; size is platform-dependent.
 
   \note For runtime parsing from strings, use separate utility functions.
@@ -94,8 +94,8 @@ struct Version {
   /// Minor version; backward-compatible additions.
   uint32_t minor{0};
 
-  /// Maintenance version; backward-compatible fixes.
-  uint32_t maintenance{0};
+  /// Patch version; backward-compatible fixes.
+  uint32_t patch{0};
 
   /// Git revision string (e.g. commit hash). Must point to storage that outlives this \c Version value.
   CStringView revision{};
@@ -114,7 +114,7 @@ struct Version {
 /*!
   \brief Three-way comparison of two \ref toy::application::Version values (lexicographic order).
 
-  Compares major, then minor, then maintenance, then revision.
+  Compares major, then minor, then patch, then revision.
 
   \param lhs Left-hand side version.
   \param rhs Right-hand side version.

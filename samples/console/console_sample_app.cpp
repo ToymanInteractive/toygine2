@@ -18,34 +18,24 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   version.inl
-  \brief  Inline implementations for \ref toy::application::Version comparison operators.
-
-  \note Included by application.hpp only; do not include this file directly.
+  \file   console_sample_app.cpp
+  \brief  Console application sample demonstrating \ref toy::application::ConsoleApplication subclassing and the
+          \c IMPLEMENT_CONSOLE_APP entry-point macro.
 */
 
-#ifndef INCLUDE_APPLICATION_VERSION_INL_
-#define INCLUDE_APPLICATION_VERSION_INL_
+#include <iostream>
 
-namespace toy::application {
+#include "toygine2.hpp"
 
-constexpr bool operator==(const Version & lhs, const Version & rhs) noexcept {
-  return lhs.major == rhs.major && lhs.minor == rhs.minor && lhs.patch == rhs.patch && lhs.revision == rhs.revision;
+class ConsoleSampleApp : public toy::application::ConsoleApplication {
+private:
+  bool runInternal() noexcept final;
+};
+
+bool ConsoleSampleApp::runInternal() noexcept {
+  std::cout << "Hello world from Console sample app" << std::endl;
+
+  return true;
 }
 
-constexpr strong_ordering operator<=>(const Version & lhs, const Version & rhs) noexcept {
-  if (auto cmp = lhs.major <=> rhs.major; cmp != strong_ordering::equal)
-    return cmp;
-
-  if (auto cmp = lhs.minor <=> rhs.minor; cmp != strong_ordering::equal)
-    return cmp;
-
-  if (auto cmp = lhs.patch <=> rhs.patch; cmp != strong_ordering::equal)
-    return cmp;
-
-  return lhs.revision <=> rhs.revision;
-}
-
-} // namespace toy::application
-
-#endif // INCLUDE_APPLICATION_VERSION_INL_
+IMPLEMENT_CONSOLE_APP(ConsoleSampleApp)

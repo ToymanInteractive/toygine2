@@ -44,12 +44,12 @@ TEST_CASE("app/version/initialization") {
 
     REQUIRE(v.major == 0);
     REQUIRE(v.minor == 0);
-    REQUIRE(v.maintenance == 0);
+    REQUIRE(v.patch == 0);
     REQUIRE(v.revision.empty());
 
     static_assert(v.major == 0, "default major must be zero");
     static_assert(v.minor == 0, "default minor must be zero");
-    static_assert(v.maintenance == 0, "default maintenance must be zero");
+    static_assert(v.patch == 0, "default patch must be zero");
     static_assert(v.revision.empty(), "default revision must be empty");
   }
 
@@ -59,12 +59,12 @@ TEST_CASE("app/version/initialization") {
 
     REQUIRE(v.major == 1);
     REQUIRE(v.minor == 2);
-    REQUIRE(v.maintenance == 3);
+    REQUIRE(v.patch == 3);
     REQUIRE(v.revision == "346ca09");
 
     static_assert(v.major == 1, "major must match aggregate value");
     static_assert(v.minor == 2, "minor must match aggregate value");
-    static_assert(v.maintenance == 3, "maintenance must match aggregate value");
+    static_assert(v.patch == 3, "patch must match aggregate value");
     static_assert(v.revision == "346ca09", "revision must match aggregate value");
   }
 
@@ -74,12 +74,12 @@ TEST_CASE("app/version/initialization") {
 
     REQUIRE(v.major == 2);
     REQUIRE(v.minor == 5);
-    REQUIRE(v.maintenance == 0);
+    REQUIRE(v.patch == 0);
     REQUIRE(v.revision.empty());
 
     static_assert(v.major == 2, "major must match aggregate value");
     static_assert(v.minor == 5, "minor must match aggregate value");
-    static_assert(v.maintenance == 0, "unspecified maintenance must be zero");
+    static_assert(v.patch == 0, "unspecified patch must be zero");
     static_assert(v.revision.empty(), "unspecified revision must be empty");
   }
 }
@@ -115,13 +115,13 @@ TEST_CASE("app/version/equality") {
     static_assert(v1 != v2, "differing minor must yield not equal");
   }
 
-  SUBCASE("different_maintenance") {
+  SUBCASE("different_patch") {
     constexpr Version v1{1, 2, 3, "abc"};
     constexpr Version v2{1, 2, 9, "abc"};
 
     REQUIRE(v1 != v2);
 
-    static_assert(v1 != v2, "differing maintenance must yield not equal");
+    static_assert(v1 != v2, "differing patch must yield not equal");
   }
 
   SUBCASE("different_revision") {
@@ -142,7 +142,7 @@ TEST_CASE("app/version/equality") {
   }
 }
 
-// operator<=> applies field priority: major > minor > maintenance > revision (lexicographic).
+// operator<=> applies field priority: major > minor > patch > revision (lexicographic).
 TEST_CASE("app/version/ordering") {
   // Identical versions produce strong_ordering::equal.
   SUBCASE("equal") {
@@ -179,18 +179,17 @@ TEST_CASE("app/version/ordering") {
     static_assert((hi <=> lo) == strong_ordering::greater, "greater minor must order greater when major is equal");
   }
 
-  // Maintenance field decides when major and minor are equal.
-  SUBCASE("maintenance_dominates") {
+  // patch field decides when major and minor are equal.
+  SUBCASE("patch_dominates") {
     constexpr Version lo{1, 1, 1, "zzz"};
     constexpr Version hi{1, 1, 2, {}};
 
     REQUIRE((lo <=> hi) == strong_ordering::less);
     REQUIRE((hi <=> lo) == strong_ordering::greater);
 
-    static_assert((lo <=> hi) == strong_ordering::less,
-                  "lesser maintenance must order less when major and minor are equal");
+    static_assert((lo <=> hi) == strong_ordering::less, "lesser patch must order less when major and minor are equal");
     static_assert((hi <=> lo) == strong_ordering::greater,
-                  "greater maintenance must order greater when major and minor are equal");
+                  "greater patch must order greater when major and minor are equal");
   }
 
   // Revision is compared last using lexicographic order.
