@@ -22,6 +22,9 @@
   \brief  macOS implementations of \ref toy::application::CoreApplication via POSIX APIs.
 */
 
+#include <cerrno>
+#include <ctime>
+
 #include <unistd.h>
 
 #include "application.hpp"
@@ -29,16 +32,18 @@
 namespace toy::application {
 
 uint32_t CoreApplication::pid() const noexcept {
-  static_assert(sizeof(std::uint32_t) >= sizeof(pid_t), "uint32_t is not large enough to hold pid_t");
+  static_assert(sizeof(std::uint32_t) >= sizeof(pid_t), "uint32_t must be large enough to hold pid_t");
 
   return getpid();
 }
 
 void CoreApplication::sleep(size_t milliseconds) const noexcept {
-  const timespec ts = {.tv_sec  = static_cast<time_t>(milliseconds / 1000),
-                       .tv_nsec = static_cast<long>((milliseconds % 1000) * 1000000)};
+  timespec ts = {.tv_sec  = static_cast<time_t>(milliseconds / 1000),
+                 .tv_nsec = static_cast<long>((milliseconds % 1000) * 1000000)};
 
-  nanosleep(&ts, nullptr);
+  while (nanosleep(&ts, &ts) == -1 && errno == EINTR) {
+    // Resume sleeping for the remaining duration after signal interruption.
+  }
 }
 
 } // namespace toy::application
